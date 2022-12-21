@@ -1,0 +1,417 @@
+{
+  "@@last_modified": "2019-03-24T22:25:14.954300",
+  "appName": "Al Quran Al Kareem - Al Heekmah Library",
+  "@appName": {
+    "description": "appName",
+    "type": "text",
+    "placeholders": {}
+  },
+  "search_hint": "Search the verses of the Quran",
+  "@search_hint": {
+    "description": "search_hint",
+    "type": "text",
+    "placeholders": {}
+  },
+  "menu": "Menu",
+  "@menu": {
+    "description": "menu",
+    "type": "text",
+    "placeholders": {}
+  },
+  "notes": "Notes",
+  "@notes": {
+    "description": "notes",
+    "type": "text",
+    "placeholders": {}
+  },
+  "note_title": "Title",
+  "@note_title": {
+    "description": "note_title",
+    "type": "text",
+    "placeholders": {}
+  },
+  "add_new_note": "Add a new note",
+  "@add_new_note": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "note_details": "Note Details",
+  "@note_details": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "bookmarks": "Bookmarks Saved",
+  "@bookmarks": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "bookmark_title": "Bookmark Name",
+  "@bookmark_title": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "add_new_bookmark": "Add a new Bookmark",
+  "@add_new_bookmark": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "save": "Save",
+  "@save": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "edit": "Edit",
+  "@edit": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "azkar": "Athkar",
+  "@azkar": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "qibla": "Qibla Direction",
+  "@qibla": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "salat": "Prayer Times",
+  "@salat": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "aya_count": "Number of verses",
+    "@aya_count": {
+      "description": "aya_count",
+      "type": "text",
+      "placeholders": {}
+    },
+    "quran_sorah": "All Sorah",
+        "@quran_sorah": {
+          "type": "text",
+          "placeholders": {}
+        },
+  "about_us": "About App",
+      "@about_us": {
+        "type": "text",
+        "placeholders": {}
+      },
+  "stop_title": "The noble Qur’an - Al-Heekmah Library",
+             "@stop_title": {
+               "type": "text",
+               "placeholders": {}
+             },
+  "about_app": "The application of the Qur’an Al Kareem is characterized by its approval of the edition of the King Fahd Complex for Printing the Noble Qur’an in Madinah because of its reliability and mastery.\nThe Quran Al Kareem application is sponsored by the \"Al-Heekmah Library\".\nIt is a well-designed application that allows you to read interactively with the text of the electronic Quran, listen to recitations, study the  Quran Al Kareem and memorize it with ease.",
+             "@about_app": {
+               "type": "text",
+               "placeholders": {}
+             },
+  "about_app2": "Among the most important features of the application :",
+               "@about_app2": {
+                 "type": "text",
+                 "placeholders": {}
+               },
+  "about_app3": "◉ This application enables you to read the Quran as if you were reading in the Mus'haf, and you can read in vertical and horizontal mode.\\n◉ You can also read in variable mode that enables you to zoom in and out as you like.\\n◉ The application has the feature of textual search in the verses of the Qur’an through real-time search and display of results with pages in addition to the possibility of going to the page as needed.\\n◉ Addition to bookmarks so that the reader can save the page and return to it whenever he wants.\\n◉ Addition to notes.\\n◉ Ability to listen to each verse in voice of different readers.\\n◉ The app allows interpretation for each verse, you can change between interpretations, and you can resize the interpretation line.\\n◉ Index of Surahs.\\n◉ Move between Surahs easily.\\n◉ The app lets you read the meaning of stop signs.\\n◉ The application enables you to read the Muslim fortress in full and divided by remembrance so that it is easy for the reader to navigate between sections, and you can add any mention to favorites.\\n◉ The application allows the reader to read to change color patterns, including the dark pattern, which changes the background color in black and white lines to give the reader complete comfort when reading in a low-light atmosphere.",
+                     "@about_app3": {
+                       "type": "text",
+                       "placeholders": {}
+                     },
+  "email": "Connect With US",
+                 "@email": {
+                   "type": "text",
+                   "placeholders": {}
+                 },
+  "select_player": "Reader selected",
+                   "@select_player": {
+                     "type": "text",
+                     "placeholders": {}
+                   },
+  "delete": "Delete",
+                          "@delete": {
+                            "type": "text",
+                            "placeholders": {}
+                          },
+
+   "page": "Page",
+                          "@page": {
+                            "type": "text",
+                            "placeholders": {}
+                          },
+
+   "search_word": "Ayah To search",
+                          "@search_word": {
+                            "type": "text",
+                            "placeholders": {}
+                          },
+
+   "search_description": "You can search for all verses of the Noble Qur’an, just type a word from the verse.",
+                          "@search_description": {
+                            "type": "text",
+                            "placeholders": {}
+                          },
+   "fontSize": "Change Font Size",
+                          "@fontSize": {
+                            "type": "text",
+                            "placeholders": {}
+                          },
+  "waqfName": "Stop Signs",
+                           "@waqfName": {
+                             "type": "text",
+                             "placeholders": {}
+                           },
+   "onboardTitle1": "Easy interface",
+                           "@onboardTitle1": {
+                             "type": "text",
+                             "placeholders": {}
+                           },
+   "onboardDesc1": "- Ease of searching for a verse.\n- Change the language.\n- Listen to the page.\n- Change the reader.",
+                           "@onboardDesc1": {
+                             "type": "text",
+                             "placeholders": {}
+                           },
+  "onboardTitle2": "Show The Tafseer",
+                           "@onboardTitle2": {
+                             "type": "text",
+                             "placeholders": {}
+                           },
+  "onboardDesc2": "The interpretation of each verse can be read by pulling the list up.",
+                           "@onboardDesc2": {
+                             "type": "text",
+                             "placeholders": {}
+                           },
+  "onboardTitle3": "Click Options",
+                             "@onboardTitle3": {
+                               "type": "text",
+                               "placeholders": {}
+                             },
+  "onboardDesc3": "1- When you double click the page is enlarged.\n2- Upon long click you will be presented with the option to save the page.\n3- When you press once, the menus appear.",
+                             "@onboardDesc3": {
+                               "type": "text",
+                               "placeholders": {}
+                             },
+  "green": "Green Mode",
+                          "@green": {
+                            "type": "text",
+                            "placeholders": {}
+                          },
+  "brown": "Brown Mode",
+  "@brown": {
+    "type": "text",
+    "placeholders": {}
+  },
+   "dark": "Dark Mode",
+                           "@dark": {
+                             "type": "text",
+                             "placeholders": {}
+                           },
+   "azkarfav": "Athkar Favorite",
+                           "@azkarfav": {
+                             "type": "text",
+                             "placeholders": {}
+                           },
+   "themeTitle": "Choose Appearance",
+                           "@themeTitle": {
+                             "type": "text",
+                             "placeholders": {}
+                           },
+  "sorah": "Sorah",
+  "@sorah": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "part": "Part",
+  "@part": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "langChange": "Change the language",
+  "@langChange": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "tafChange": "Choose an tafsir",
+  "@tafChange": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "tafIbnkatheerN": "Tafsir Ibn Kathir",
+  "@tafIbnkatheerN": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "tafBaghawyN": "Tafsir al-Baghawi",
+  "@tafBaghawyN": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "tafQurtubiN": "Tafsir al-Qurtubi",
+  "@tafQurtubiN": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "tafSaadiN": "Tafsir As-Sadi",
+  "@tafSaadiN": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "tafTabariN": "Tafsir al-Tabari",
+  "@tafTabariN": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "tafIbnkatheerD": "Tafsir al-Quran al-Azim",
+  "@tafIbnkatheerD": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "tafBaghawyD": "Maalim al-Tanzil",
+  "@tafBaghawyD": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "tafQurtubiD": "Al-Jami li Ahkam al-Quran",
+  "@tafQurtubiD": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "tafSaadiD": "Taiseer Kalam Almannan",
+  "@tafSaadiD": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "tafTabariD": "Jami al-Bayan an Tawil [ay] al Quran",
+  "@tafTabariD": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "appLang": "App Language",
+  "@appLang": {
+    "type": "text",
+    "placeholders": {}
+  },
+
+  "setting": "Setting",
+  "@setting": {
+    "type": "text",
+    "placeholders": {}
+  },
+
+  "reader1": "Abdul Basit",
+  "@reader1": {
+    "type": "text",
+    "placeholders": {}
+  },
+
+  "reader2": "Mohamed Siddiq El-Minshawi",
+  "@reader2": {
+    "type": "text",
+    "placeholders": {}
+  },
+
+  "reader3": "Mahmoud Khalil Al-Hussary",
+  "@reader3": {
+    "type": "text",
+    "placeholders": {}
+  },
+
+  "reader4": "Ahmed Ibn Ali Al-Ajamy",
+  "@reader4": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "alheekmahlib": "Alheekmah Library",
+  "@alheekmahlib": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "backTo": "Back To",
+  "@backTo": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "next": "Next",
+  "@next": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "start": "Start",
+  "@start": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "quranPages": "Al Quran (Pages)",
+  "@quranPages": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "quranText": "Al Quran (Ayah)",
+  "@quranText": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "tafseer": "Al Tafseer",
+  "@tafseer": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "allJuz": "Parts of the Qur'an",
+  "@allJuz": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "copyAzkarText": "The Azkar has been copied!",
+  "@copyAzkarText": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "addBookmark": "Bookmark added!",
+  "@addBookmark": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "deletedBookmark": "Bookmark deleted!",
+  "@deletedBookmark": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "fillAllFields": "Please fill in the fields!",
+  "@fillAllFields": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "version": "Version",
+  "@version": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "share": "Share The App",
+  "@share": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "facebook": "Follow us on Facebook",
+  "@facebook": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "addZekrBookmark": "The Zekr has been added to favourites",
+  "@addZekrBookmark": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "deletedZekrBookmark": "The Zekr has been removed to favourites!",
+  "@deletedZekrBookmark": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "pageNo": "Page No",
+  "@pageNo": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "lastRead": "Last Read",
+  "@lastRead": {
+    "type": "text",
+    "placeholders": {}
+  }
+}

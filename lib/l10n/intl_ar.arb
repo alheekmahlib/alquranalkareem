@@ -1,0 +1,417 @@
+{
+  "@@last_modified": "2019-01-12T14:47:24.564305",
+  "appName": "القرآن الكريم - مكتبة الحكمة",
+  "@appName": {
+    "description": "appName",
+    "type": "text",
+    "placeholders": {}
+  },
+  "search_hint": "البحث في آيات القرآن الكريم",
+  "@search_hint": {
+    "description": "search_hint",
+    "type": "text",
+    "placeholders": {}
+  },
+  "menu": "القائمة",
+  "@menu": {
+    "description": "menu",
+    "type": "text",
+    "placeholders": {}
+  },
+  "notes": "الملاحظات",
+  "@notes": {
+    "description": "notes",
+    "type": "text",
+    "placeholders": {}
+  },
+  "note_title": "العنوان",
+  "@note_title": {
+    "description": "note_title",
+    "type": "text",
+    "placeholders": {}
+  },
+  "add_new_note": "اضافة ملاحظة جديدة",
+  "@add_new_note": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "note_details": "تفاصيل الملاحظة",
+  "@note_details": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "bookmarks": "الفواصل المحفوظة",
+  "@bookmarks": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "bookmark_title": "إسم الفاصلة",
+  "@bookmark_title": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "add_new_bookmark": "إضافة فاصلة",
+  "@add_new_bookmark": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "save": "حفظ",
+  "@save": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "edit": "تعديل",
+  "@edit": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "azkar": "الأذكار",
+  "@azkar": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "qibla": "إتجاه القبلة",
+  "@qibla": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "salat": "أوقات الصلاة",
+  "@salat": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "aya_count": "عدد الآيات",
+  "@aya_count": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "quran_sorah": "كل السور",
+    "@quran_sorah": {
+      "type": "text",
+      "placeholders": {}
+    },
+   "about_us": "عن التطبيق",
+       "@about_us": {
+         "type": "text",
+         "placeholders": {}
+       },
+  "stop_title": "وقف القرآن الكريم - مكتبة الحكمة",
+         "@stop_title": {
+           "type": "text",
+           "placeholders": {}
+         },
+  "about_app": "يتميز تطبيق القرآن الكريم بإعتماده لطبعة مجمع الملك فهد لطباعة المصحف الشريف بالمدينة المنورة لما تتمتع به من موثوقية وإتقان.\nتطبيق القرآن الكريم برعاية من \"مكتبة الحكمة\".\nوهو تطبيق متكامل المزايا يتيح لك القراءة التفاعلية مع نص المصحف الإلكتروني، والاستماع للتلاوات ودراسة القرآن الكريم وحفظه بكل سهولة ويسر.",
+           "@about_app": {
+             "type": "text",
+             "placeholders": {}
+           },
+  "about_app2": "من اهم مميزات البرنامج :",
+                   "@about_app2": {
+                     "type": "text",
+                     "placeholders": {}
+                   },
+  "about_app3": "◉ يُمَكِنُكَ هذا التطبيق من قراءة القرآن كما لو كنت تقرأ في المصحف، ويمكنك القراءة بالوضع العامودي والأفقي.\\n◉ كما يُمْكِنُكَ القراءة بالوضع المتغير الذي يمكنك من تكبير وتصغير كما تريد.\\n◉ يحتوي التطبيق على خاصية البحث النصي في آيات القرآن من خلال البحث اللحظي وعرض النتائج مع الصفحات بالإضافة إلى إمكانية الذهاب للصفحة\\n◉ إضافة فواصل للقراءة بحيث يتمكن القارئ من حفظ الصفحة والعودة لها متى شاء.\\n◉ إضافة ملاحظات.\\n◉ الاستماع لكل آية بصوت عدد من القراء.\\n◉ يتيح التطبيق التفسير لكل آية، كما يُمْكِنُكَ التغيير بين التفاسير كما يُمْكِنُكَ تغيير حجم خط التفسير.\\n◉ فهرس للسور.\\n◉ التنقل بين السّور بسهولة.\\n◉ يتيح التطبيق قراءة علامات الوقف.\\n◉ يُمْكِنُكَ التطبيق من قراءة حصن المسلم كاملًا ومقسم بحسب الأذكار بحيث يسهل على القارئ التنقل بين الأقسام، كما يُمْكِنُكَ إضافة أي ذكر إلى المفضلة.\\n◉ يتيح التطبيق للقارئ القراءة تغيير أنماط الألوان ومنها النمط الداكن والذي يغير لون الخلفية باللون الأسود والخطوط البيضاء لتعطي القارئ الراحة التامة عند القراءة في أجواء منخفضة الإضاءة.",
+                     "@about_app3": {
+                       "type": "text",
+                       "placeholders": {}
+                     },
+  "email": "تواصل معنا",
+                     "@email": {
+                       "type": "text",
+                       "placeholders": {}
+                     },
+  "select_player": "إختر القارئ",
+                       "@select_player": {
+                         "type": "text",
+                         "placeholders": {}
+                       },
+
+ "delete": "حذف",
+                        "@delete": {
+                          "type": "text",
+                          "placeholders": {}
+                        },
+
+ "page": "صفحة",
+                        "@page": {
+                          "type": "text",
+                          "placeholders": {}
+                        },
+
+ "search_word": "الآية المراد البحث عنها",
+                        "@search_word": {
+                          "type": "text",
+                          "placeholders": {}
+                        },
+
+ "search_description": "يمكنك البحث عن جميع آيات القرآن الكريم، فقط قم بكتابة كلمة من الآية.",
+                        "@search_description": {
+                          "type": "text",
+                          "placeholders": {}
+                        },
+ "fontSize": "تغيير حجم الخط",
+                        "@fontSize": {
+                          "type": "text",
+                          "placeholders": {}
+                        },
+ "waqfName": "علامات الوقف",
+                         "@waqfName": {
+                           "type": "text",
+                           "placeholders": {}
+                         },
+ "onboardTitle1": "واجهة سهلة",
+                         "@onboardTitle1": {
+                           "type": "text",
+                           "placeholders": {}
+                         },
+ "onboardDesc1": "- سهولة البحث عن آية.\n- تغيير اللغة.\n- الإستماع للصفحة.\n- تغيير القارء.",
+                         "@onboardDesc1": {
+                           "type": "text",
+                           "placeholders": {}
+                         },
+ "onboardTitle2": "إظهار التفسير",
+                          "@onboardTitle2": {
+                            "type": "text",
+                            "placeholders": {}
+                          },
+ "onboardDesc2": "يمكن قراءة التفسير لكل آية عن طريق سحب القائمة إلى الأعلى.",
+                          "@onboardDesc2": {
+                            "type": "text",
+                            "placeholders": {}
+                          },
+ "onboardTitle3": "خيارات النقر",
+                            "@onboardTitle3": {
+                              "type": "text",
+                              "placeholders": {}
+                            },
+ "onboardDesc3": "1- عند النقر مرتين يتم تكبير الصفحة.\n2- عند النقر المطول يظهر لك خيار حفظ الصفحة.\n3- عند الضغط مرة واحدة تظهر لك القوائم.",
+                            "@onboardDesc3": {
+                              "type": "text",
+                              "placeholders": {}
+                            },
+"green": "المظهر الأخظر",
+                        "@green": {
+                          "type": "text",
+                          "placeholders": {}
+                        },
+  "brown": "المظهر البني",
+  "@brown": {
+    "type": "text",
+    "placeholders": {}
+  },
+ "dark": "المظهر الداكن",
+                         "@dark": {
+                           "type": "text",
+                           "placeholders": {}
+                         },
+ "azkarfav": "الأذكار المفضلة",
+                         "@azkarfav": {
+                           "type": "text",
+                           "placeholders": {}
+                         },
+ "themeTitle": "أختر المظهر",
+                         "@themeTitle": {
+                           "type": "text",
+                           "placeholders": {}
+                         },
+  "sorah": "سورة",
+  "@sorah": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "part": "جزء",
+  "@part": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "langChange": "تغيير اللغة",
+  "@langChange": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "tafChange": "إختر التفسير",
+  "@tafChange": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "tafIbnkatheerN": "تفسير ابن كثير",
+  "@tafIbnkatheerN": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "tafBaghawyN": "تفسير البغوي",
+  "@tafBaghawyN": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "tafQurtubiN": "تفسير القرطبي",
+  "@tafQurtubiN": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "tafSaadiN": "تفسير السعدي",
+  "@tafSaadiN": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "tafTabariN": "تفسير الطبري",
+  "@tafTabariN": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "tafIbnkatheerD": "تفسير القرآن العظيم",
+  "@tafIbnkatheerD": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "tafBaghawyD": "معالم التنزيل",
+  "@tafBaghawyD": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "tafQurtubiD": "الجامع لأحكام القرآن",
+  "@tafQurtubiD": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "tafSaadiD": "تيسير الكريم الرحمن في تفسير كلام المنان",
+  "@tafSaadiD": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "tafTabariD": "جامع البيان في تفسير القرآن",
+  "@tafTabariD": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "appLang": "لغة التطبيق",
+  "@appLang": {
+    "type": "text",
+    "placeholders": {}
+  },
+
+  "setting": "الإعدادات",
+  "@setting": {
+    "type": "text",
+    "placeholders": {}
+  },
+
+  "reader1": "عبد الباسط عبد الصمد",
+  "@reader1": {
+    "type": "text",
+    "placeholders": {}
+  },
+
+  "reader2": "محمد صديق المنشاوي",
+  "@reader2": {
+    "type": "text",
+    "placeholders": {}
+  },
+
+  "reader3": "محمود خليل الحصري",
+  "@reader3": {
+    "type": "text",
+    "placeholders": {}
+  },
+
+  "reader4": "أحمد بن علي العجمي",
+  "@reader4": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "alheekmahlib": "مكتبة الحكمة",
+  "@alheekmahlib": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "backTo": "رجوع للـ",
+  "@backTo": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "next": "التالي",
+  "@next": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "start": "أبدأ",
+  "@start": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "quranPages": "القرآن (صفحات)",
+  "@quranPages": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "quranText": "القرآن (آيات)",
+  "@quranText": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "tafseer": "التفسير",
+  "@tafseer": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "allJuz": "أجزاء المصحف",
+  "@allJuz": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "copyAzkarText": "تم نسخ الذكر",
+  "@copyAzkarText": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "addBookmark": "تم إضافة الفاصلة",
+  "@addBookmark": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "deletedBookmark": "تم حذف الفاصلة!",
+  "@deletedBookmark": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "fillAllFields": "يرجى ملء جميع الخانات!",
+  "@fillAllFields": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "version": "الإصدار",
+  "@version": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "share": "شارك التطبيق",
+  "@share": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "facebook": "تابعنا على فيسبوك",
+  "@facebook": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "addZekrBookmark": "تم إضافة الذكر إلى المفضلة",
+  "@addZekrBookmark": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "deletedZekrBookmark": "تم حذف الذكر إلى المفضلة!",
+  "@deletedZekrBookmark": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "pageNo": "رقم الصفحة",
+  "@pageNo": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "lastRead": "آخر قراءة",
+  "@lastRead": {
+    "type": "text",
+    "placeholders": {}
+  }
+}
