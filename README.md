@@ -27,9 +27,9 @@
 
 
 ## ملاحظة:
-### عند تحميل السورس كود يرجى تحميل ملف الداتابيز الخاص بالتفسير وإضافته إلى الـ assets مباشرةً من هنا.
+### عند تحميل السورس كود يرجى تحميل ملف الداتابيز الخاص بالتفاسير وإضافته إلى الـ assets مباشرةً من هنا.
 
-- [للتحميل من هنا](https://docs.flutter.dev/get-started/codelab](https://drive.google.com/file/d/1BzEU02NceYL-8iit1TrBerlkbjbQFsG7/view?usp=share_link)
+- [download](https://docs.flutter.dev/get-started/codelab](https://drive.google.com/file/d/1BzEU02NceYL-8iit1TrBerlkbjbQFsG7/view?usp=share_link)
 
 
 For help getting started with Flutter development, view the
