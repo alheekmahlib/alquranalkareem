@@ -1,11 +1,14 @@
-# القرآن الكريم - مكتبة الحكمة
+<p style="text-align: center;"> القرآن الكريم - مكتبة الحكمة </p>
+
 
 <p align="center">
   <img src="https://i.imgur.com/U3LC7O5.png" width="10%" height="10%" align=”middle”/>
 </p>
 
 
-<center><img src="https://i.imgur.com/YxgS8HG.jpg" width="75%" height="75%" align=”middle”></center>
+<p align="center">
+  <img src="https://i.imgur.com/YxgS8HG.jpg" width="75%" height="75%" align=”middle”>
+</p>
 
 
 ## من اهم مميزات البرنامج :
