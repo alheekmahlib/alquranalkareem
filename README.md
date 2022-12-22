@@ -33,7 +33,7 @@
 
 
 For help getting started with Flutter development, view the
-[online documentation]((https://drive.google.com/file/d/1BzEU02NceYL-8iit1TrBerlkbjbQFsG7/view?usp=share_link)), which offers tutorials,
+[online documentation](https://drive.google.com/file/d/1BzEU02NceYL-8iit1TrBerlkbjbQFsG7/view?usp=share_link), which offers tutorials,
 samples, guidance on mobile development, and a full API reference.
 # al-quran-alheekmahlib
 
