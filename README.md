@@ -2,7 +2,7 @@
 # القرآن الكريم - مكتبة الحكمة
 
 
-<img src="https://i.imgur.com/YxgS8HG.jpg" width="75%" height="75%" align=”middle”>
+<center><img src="https://i.imgur.com/YxgS8HG.jpg" width="75%" height="75%" align=”middle”> </center>
 
 
 ## من اهم مميزات البرنامج :
