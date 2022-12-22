@@ -1,4 +1,4 @@
-
+<title>القرآن الكريم - مكتبة الحكمة</title>
 # القرآن الكريم - مكتبة الحكمة
 
 
@@ -26,10 +26,12 @@
 </div>
 
 
-## ملاحظة:
+## ملاحظة :
 ### عند تحميل السورس كود يرجى تحميل ملف الداتابيز الخاص بالتفاسير وإضافته إلى الـ assets مباشرةً من هنا.
 
 - [download](https://drive.google.com/file/d/1BzEU02NceYL-8iit1TrBerlkbjbQFsG7/view?usp=share_link)
+
+### التطبيق قيد التطوير وسيتم إضافة المزيد من المزايا قريبًا،  
 
 
 For help getting started with Flutter development, view the
