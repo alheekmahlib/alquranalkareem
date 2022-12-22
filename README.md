@@ -2,7 +2,8 @@
 # القرآن الكريم - مكتبة الحكمة
 
 
-![Employee data](/repository/assets/employee.png?raw=true "Employee Data title")
+<img src="/repository/assets/employee.png" alt="Employee data" title="Employee Data title">
+
 ## من اهم مميزات البرنامج :
 ### ◉ يُمَكِنُكَ هذا التطبيق من قراءة القرآن كما لو كنت تقرأ في المصحف، ويمكنك القراءة بالوضع العامودي والأفقي.
 ### ◉ كما يُمْكِنُكَ القراءة بالوضع المتغير الذي يمكنك من تكبير وتصغير كما تريد.
