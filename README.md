@@ -1,6 +1,6 @@
 # القرآن الكريم - مكتبة الحكمة
 
-<img src="https://i.imgur.com/U3LC7O5.png" width="10%" height="10%" align=”middle”>
+<div style="text-align:center"><img src="https://i.imgur.com/U3LC7O5.png" width="10%" height="10%" align=”middle”/></div>
 
 
 <center><img src="https://i.imgur.com/YxgS8HG.jpg" width="75%" height="75%" align=”middle”></center>
