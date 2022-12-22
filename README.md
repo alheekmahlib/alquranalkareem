@@ -22,17 +22,15 @@
 ### ◉ يتيح التطبيق للقارئ القراءة تغيير أنماط الألوان ومنها النمط الداكن والذي يغير لون الخلفية باللون الأسود والخطوط البيضاء لتعطي القارئ الراحة التامة عند القراءة في أجواء منخفضة الإضاءة.
 
 <div style="text-align: center;">
-  <img src="https://i.imgur.com/5LmvlLd.jpg" width="25%" height="25%" align=”middle”> <img src="https://i.imgur.com/C7LV5Y5.jpg" width="25%" height="25%" align=”middle”> <img src="https://i.imgur.com/L5Fd7po.jpg" width="25%" height="25%" align=”middle”> <img src="https://i.imgur.com/qAHwJHa.jpg" width="25%" height="25%" align=”middle”>
+  <img src="https://i.imgur.com/5LmvlLd.jpg" width="25%" height="25%" align=”middle”>  <img src="https://i.imgur.com/C7LV5Y5.jpg" width="25%" height="25%" align=”middle”>  <img src="https://i.imgur.com/L5Fd7po.jpg" width="25%" height="25%" align=”middle”>  <img src="https://i.imgur.com/qAHwJHa.jpg" width="25%" height="25%" align=”middle”>
 </div>
 
-## Getting Started
 
-This project is a starting point for a Flutter application.
+## ملاحظة:
+### عند تحميل السورس كود يرجى تحميل ملف الداتابيز الخاص بالتفسير وإضافته إلى الـ assets مباشرةً من هنا.
 
-A few resources to get you started if this is your first Flutter project:
+- [للتحميل من هنا](https://docs.flutter.dev/get-started/codelab](https://drive.google.com/file/d/1BzEU02NceYL-8iit1TrBerlkbjbQFsG7/view?usp=share_link)
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
 
 For help getting started with Flutter development, view the
 [online documentation](https://docs.flutter.dev/), which offers tutorials,
