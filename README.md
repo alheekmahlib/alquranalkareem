@@ -1,4 +1,4 @@
-<p align="center"><title> **القرآن الكريم - مكتبة الحكمة** </title></p>
+<title align="center"> القرآن الكريم - مكتبة الحكمة </title>
 
 
 <p align="center">
