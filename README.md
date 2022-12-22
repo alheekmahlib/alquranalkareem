@@ -2,6 +2,7 @@
 # القرآن الكريم - مكتبة الحكمة
 
 
+<img src="[url](https://i.imgur.com/YxgS8HG.jpg)" width="50%" height="50%">
 ![Imgur Image](https://i.imgur.com/YxgS8HG.jpg)
 
 ## من اهم مميزات البرنامج :
