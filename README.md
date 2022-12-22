@@ -2,8 +2,8 @@
 # القرآن الكريم - مكتبة الحكمة
 
 
-<img src="https://i.imgur.com/YxgS8HG.jpg" width="50%" height="50%">
-![Imgur Image](https://i.imgur.com/YxgS8HG.jpg)
+<img src="https://i.imgur.com/YxgS8HG.jpg" width="75%" height="75%">
+
 
 ## من اهم مميزات البرنامج :
 ### ◉ يُمَكِنُكَ هذا التطبيق من قراءة القرآن كما لو كنت تقرأ في المصحف، ويمكنك القراءة بالوضع العامودي والأفقي.
