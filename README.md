@@ -1,12 +1,12 @@
 <p align="center">
-  <img src="https://i.imgur.com/U3LC7O5.png" width="50" height="50" align=”middle”/>
+  <img src="https://i.imgur.com/U3LC7O5.png" width="75" height="75" align=”middle”/>
 </p>
 
 <h1><p align="center"> القرآن الكريم - مكتبة الحكمة </p></h1>
 
 
 <p align="center">
-  <img src="https://i.imgur.com/YxgS8HG.jpg" width="75%" height="75%" align=”middle”>
+  <img src="https://i.imgur.com/YxgS8HG.jpg" width="100%" height="100%" align=”middle”>
 </p>
 
 
@@ -25,7 +25,7 @@
 ### ◉ يتيح التطبيق للقارئ القراءة تغيير أنماط الألوان ومنها النمط الداكن والذي يغير لون الخلفية باللون الأسود والخطوط البيضاء لتعطي القارئ الراحة التامة عند القراءة في أجواء منخفضة الإضاءة.
 
 <p align="center">
-  <img src="https://i.imgur.com/m3b7OQP.jpg" width="75%" height="75%" align=”middle”>
+  <img src="https://i.imgur.com/m3b7OQP.jpg" width="100%" height="100%" align=”middle”>
 </p>
 
 
