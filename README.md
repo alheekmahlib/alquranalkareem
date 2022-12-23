@@ -35,12 +35,22 @@
 
 - [download](https://drive.google.com/file/d/1BzEU02NceYL-8iit1TrBerlkbjbQFsG7/view?usp=share_link)
 
-### التطبيق قيد التطوير وسيتم إضافة المزيد من المزايا قريبًا،  
+### التطبيق قيد التطوير وسيتم إضافة المزيد من المزايا قريبًا، يمكن للجميع المساعدة في تطوير التطبيق.
+
+## تم أستخدام :
+- State management (Cubit, GetX).
+- Dio.
+- shared_preferences.
+- sqflite.
+- audioplayers.
+
+## روابط لتحميل التطبيق :
+[For iphone](https://apps.apple.com/us/app/القرآن-الكريم-مكتبة-الحكمة/id1500153222)
 
 
 For help getting started with Flutter development, view the
 [download](https://drive.google.com/file/d/1BzEU02NceYL-8iit1TrBerlkbjbQFsG7/view?usp=share_link), which offers tutorials,
 samples, guidance on mobile development, and a full API reference.
-# al-quran-alheekmahlib
+# alheekmahlib
 
 [alt text](https://github.com/)
