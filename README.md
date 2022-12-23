@@ -42,7 +42,34 @@
 - Dio.
 - shared_preferences.
 - sqflite.
+- sqflite_common_ffi.
 - audioplayers.
+- path_provider.
+- path.
+- quiver.
+- theme_provider.
+- equatable.
+- flutter_svg.
+- responsive_builder.
+- desktop_window.
+- another_xlider.
+- lottie.
+- hijri.
+- dropdown_button2.
+- arabic_numbers.
+- flutter_sliding_up_panel.
+- flutter_staggered_animations.
+- share_plus.
+- clipboard.
+- wakelock.
+- square_percent_indicater.
+- flutter_staggered_grid_view.
+- group_button.
+- scrollable_positioned_list.
+- url_launcher.
+- rate_my_app.
+- smooth_page_indicator.
+- streaming_shared_preferences.
 
 ## روابط لتحميل التطبيق :
 [For iphone](https://apps.apple.com/us/app/القرآن-الكريم-مكتبة-الحكمة/id1500153222)
