@@ -37,7 +37,7 @@
 
 ### التطبيق قيد التطوير وسيتم إضافة المزيد من المزايا قريبًا، يمكن للجميع المساعدة في تطوير التطبيق.
 
-## تم أستخدام :
+## المكتبات المستخدمة في التطبيق :
 - State management (Cubit, GetX).
 - Dio.
 - shared_preferences.
@@ -72,7 +72,7 @@
 - streaming_shared_preferences.
 
 ## روابط لتحميل التطبيق :
-[For iphone](https://apps.apple.com/us/app/القرآن-الكريم-مكتبة-الحكمة/id1500153222)
+[للايفون](https://apps.apple.com/us/app/القرآن-الكريم-مكتبة-الحكمة/id1500153222) - [download](https://drive.google.com/file/d/1BzEU02NceYL-8iit1TrBerlkbjbQFsG7/view?usp=share_link)
 
 
 For help getting started with Flutter development, view the
