@@ -25,7 +25,7 @@
 ### ◉ يتيح التطبيق للقارئ القراءة تغيير أنماط الألوان ومنها النمط الداكن والذي يغير لون الخلفية باللون الأسود والخطوط البيضاء لتعطي القارئ الراحة التامة عند القراءة في أجواء منخفضة الإضاءة.
 
 <p align="center">
-  <img src="https://i.imgur.com/m3b7OQP.jpg" width="25%" height="25%" align=”middle”>
+  <img src="https://i.imgur.com/m3b7OQP.jpg" width="75%" height="75%" align=”middle”>
 </p>
 
 
