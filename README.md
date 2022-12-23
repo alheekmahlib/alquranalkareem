@@ -30,11 +30,11 @@
 
 
 ## ملاحظة :
-### عند تحميل السورس كود يرجى تحميل ملف الداتابيز الخاص بالتفاسير وإضافته إلى الـ assets مباشرةً من هنا.
+#### عند تحميل السورس كود يرجى تحميل ملف الداتابيز الخاص بالتفاسير وإضافته إلى الـ assets مباشرةً من هنا.
 
 - [download](https://drive.google.com/file/d/1BzEU02NceYL-8iit1TrBerlkbjbQFsG7/view?usp=share_link)
 
-### التطبيق قيد التطوير وسيتم إضافة المزيد من المزايا قريبًا، يمكن للجميع المساعدة في تطوير التطبيق.
+#### التطبيق قيد التطوير وسيتم إضافة المزيد من المزايا قريبًا، يمكن للجميع المساعدة في تطوير التطبيق.
 
 ## المكتبات المستخدمة في التطبيق :
 - State management (Cubit, GetX).
@@ -74,9 +74,4 @@
 [للايفون](https://apps.apple.com/us/app/القرآن-الكريم-مكتبة-الحكمة/id1500153222) - [للاندرويد](https://play.google.com/store/apps/details?id=com.alheekmah.alquranalkareem.alquranalkareem) - [للهواوي](https://appgallery.cloud.huawei.com/marketshare/app/C102051725?locale=en_US&source=appshare&subsource=C102051725) - [للماك](https://apps.apple.com/app/%D8%A7%D9%84%D9%82%D8%B1%D8%A2%D9%86-%D8%A7%D9%84%D9%83%D8%B1%D9%8A%D9%85-%D9%85%D9%83%D8%AA%D8%A8%D8%A9-%D8%A7%D9%84%D8%AD%D9%83%D9%85%D8%A9/id1660688066)
 
 
-For help getting started with Flutter development, view the
-[download](https://drive.google.com/file/d/1BzEU02NceYL-8iit1TrBerlkbjbQFsG7/view?usp=share_link), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
 # alheekmahlib
-
-[alt text](https://github.com/)
