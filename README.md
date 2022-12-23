@@ -1,9 +1,8 @@
-<h1><p align="center"> القرآن الكريم - مكتبة الحكمة </p></h1>
-
-
 <p align="center">
   <img src="https://i.imgur.com/U3LC7O5.png" width="10%" height="10%" align=”middle”/>
 </p>
+
+<h1><p align="center"> القرآن الكريم - مكتبة الحكمة </p></h1>
 
 
 <p align="center">
