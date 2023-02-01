@@ -28,8 +28,11 @@ class _ShowTafseerState extends State<ShowTafseer> {
   double upperValue = 40;
   String? selectedValue;
   double? sliderValue;
+<<<<<<< HEAD
   static Ayat? aya;
   double? isSelected;
+=======
+>>>>>>> e96a46eb4c68152ef511d7b809d9f7b4a4171eee
 
   @override
   void initState() {
@@ -57,7 +60,11 @@ class _ShowTafseerState extends State<ShowTafseer> {
     return Directionality(
       textDirection: TextDirection.rtl,
       child: Container(
+<<<<<<< HEAD
         color: Theme.of(context).colorScheme.background,
+=======
+        color: Theme.of(context).backgroundColor,
+>>>>>>> e96a46eb4c68152ef511d7b809d9f7b4a4171eee
         child: FutureBuilder<List<Ayat>>(
           builder: (context, snapshot) {
             return Column(
@@ -103,7 +110,11 @@ class _ShowTafseerState extends State<ShowTafseer> {
                   child: Container(
                     height: MediaQuery.of(context).size.height / 1 / 2 * 1.3,
                     width: MediaQuery.of(context).size.width,
+<<<<<<< HEAD
                     color: Theme.of(context).colorScheme.background,
+=======
+                    color: Theme.of(context).backgroundColor,
+>>>>>>> e96a46eb4c68152ef511d7b809d9f7b4a4171eee
                     child: Padding(
                       padding: const EdgeInsets.symmetric(
                           vertical: 8, horizontal: 16.0),
@@ -274,9 +285,14 @@ class _ShowTafseerState extends State<ShowTafseer> {
                     ),
                     onTap: () {
                       setState(() {
+<<<<<<< HEAD
                         // cubit.translate = '${aya!.translate}';
                         // print(cubit.translate);
                         cubit.handleRadioValueChanged(index);
+=======
+                        cubit.handleRadioValueChanged(index);
+                        cubit.translate;
+>>>>>>> e96a46eb4c68152ef511d7b809d9f7b4a4171eee
                         cubit.saveTafseer(index);
                       });
                       Navigator.pop(context);
@@ -301,7 +317,11 @@ class _ShowTafseerState extends State<ShowTafseer> {
       },
       customButton: Icon(
         Icons.book,
+<<<<<<< HEAD
         color: Theme.of(context).colorScheme.surface,
+=======
+        color: Theme.of(context).bottomAppBarColor,
+>>>>>>> e96a46eb4c68152ef511d7b809d9f7b4a4171eee
       ),
       iconSize: 24,
       buttonHeight: 50,
@@ -309,7 +329,11 @@ class _ShowTafseerState extends State<ShowTafseer> {
       buttonElevation: 0,
       itemHeight: orientation == Orientation.portrait ? 230 : 125,
       dropdownDecoration: BoxDecoration(
+<<<<<<< HEAD
           color: Theme.of(context).colorScheme.surface.withOpacity(.9),
+=======
+          color: Theme.of(context).bottomAppBarColor.withOpacity(.9),
+>>>>>>> e96a46eb4c68152ef511d7b809d9f7b4a4171eee
           borderRadius: const BorderRadius.all(Radius.circular(8))),
       dropdownMaxHeight: orientation == Orientation.portrait ? 230 : 125,
       dropdownWidth: 230,
@@ -337,11 +361,19 @@ class _ShowTafseerState extends State<ShowTafseer> {
               activeTrackBarHeight: 5,
               inactiveTrackBar: BoxDecoration(
                 borderRadius: BorderRadius.circular(8),
+<<<<<<< HEAD
                 color: Theme.of(context).colorScheme.surface,
               ),
               activeTrackBar: BoxDecoration(
                   borderRadius: BorderRadius.circular(4),
                   color: Theme.of(context).colorScheme.background),
+=======
+                color: Theme.of(context).bottomAppBarColor,
+              ),
+              activeTrackBar: BoxDecoration(
+                  borderRadius: BorderRadius.circular(4),
+                  color: Theme.of(context).backgroundColor),
+>>>>>>> e96a46eb4c68152ef511d7b809d9f7b4a4171eee
             ),
             handlerAnimation: const FlutterSliderHandlerAnimation(
                 curve: Curves.elasticOut,
@@ -375,7 +407,11 @@ class _ShowTafseerState extends State<ShowTafseer> {
       },
       customButton: Icon(
         Icons.format_size,
+<<<<<<< HEAD
         color: Theme.of(context).colorScheme.surface,
+=======
+        color: Theme.of(context).bottomAppBarColor,
+>>>>>>> e96a46eb4c68152ef511d7b809d9f7b4a4171eee
       ),
       iconSize: 24,
       buttonHeight: 50,
@@ -383,7 +419,11 @@ class _ShowTafseerState extends State<ShowTafseer> {
       buttonElevation: 0,
       itemHeight: 35,
       dropdownDecoration: BoxDecoration(
+<<<<<<< HEAD
           color: Theme.of(context).colorScheme.surface.withOpacity(.9),
+=======
+          color: Theme.of(context).bottomAppBarColor.withOpacity(.9),
+>>>>>>> e96a46eb4c68152ef511d7b809d9f7b4a4171eee
           borderRadius: const BorderRadius.all(Radius.circular(8))),
       itemPadding: const EdgeInsets.only(left: 14, right: 14),
       dropdownMaxHeight: 230,
@@ -397,6 +437,10 @@ class _ShowTafseerState extends State<ShowTafseer> {
     );
   }
 
+<<<<<<< HEAD
+=======
+  double? isSelected;
+>>>>>>> e96a46eb4c68152ef511d7b809d9f7b4a4171eee
   Widget ayahList(pageNum) {
     QuranCubit cubit = QuranCubit.get(context);
     AudioCubit audioCubit = AudioCubit.get(context);
@@ -435,7 +479,11 @@ class _ShowTafseerState extends State<ShowTafseer> {
                               setState(() {
                                 cubit.translateAyah = "${aya.ayatext}";
                                 cubit.translate = "${aya.translate}";
+<<<<<<< HEAD
                                 audioCubit.ayahNum = '${aya.ayaNum}';
+=======
+                                audioCubit.ayahNum = '${aya.ayaNum!}';
+>>>>>>> e96a46eb4c68152ef511d7b809d9f7b4a4171eee
                                 audioCubit.sorahName = '${aya.suraNum}';
                                 print(aya.suraNum);
                                 isSelected = index.toDouble();
@@ -453,7 +501,11 @@ class _ShowTafseerState extends State<ShowTafseer> {
                                 ),
                                 Center(
                                   child: Text(
+<<<<<<< HEAD
                                     "${arabicNumber.convert(aya!.ayaNum)}",
+=======
+                                    "${arabicNumber.convert(aya.ayaNum)}",
+>>>>>>> e96a46eb4c68152ef511d7b809d9f7b4a4171eee
                                     // "1",
                                     textAlign: TextAlign.center,
                                     style: TextStyle(

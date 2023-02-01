@@ -66,7 +66,11 @@ class _QuranSearchState extends State<QuranSearch> {
               }
             },
             style: TextStyle(
+<<<<<<< HEAD
                 color: Theme.of(context).colorScheme.surface,
+=======
+                color: Theme.of(context).bottomAppBarColor,
+>>>>>>> e96a46eb4c68152ef511d7b809d9f7b4a4171eee
                 fontFamily: 'kufi',
                 fontSize: 15),
             decoration: InputDecoration(
@@ -74,17 +78,29 @@ class _QuranSearchState extends State<QuranSearch> {
                 onPressed: () => _controller.clear(),
                 icon: Icon(
                   Icons.clear,
+<<<<<<< HEAD
                   color: Theme.of(context).colorScheme.surface,
+=======
+                  color: Theme.of(context).bottomAppBarColor,
+>>>>>>> e96a46eb4c68152ef511d7b809d9f7b4a4171eee
                 ),
               ),
               focusedBorder: UnderlineInputBorder(
                 borderSide:
+<<<<<<< HEAD
                     BorderSide(color: Theme.of(context).colorScheme.surface),
+=======
+                    BorderSide(color: Theme.of(context).bottomAppBarColor),
+>>>>>>> e96a46eb4c68152ef511d7b809d9f7b4a4171eee
               ),
               hintText: AppLocalizations.of(context)!.search_word,
               label: Text(
                 AppLocalizations.of(context)!.search_word,
+<<<<<<< HEAD
                 style: TextStyle(color: Theme.of(context).colorScheme.surface),
+=======
+                style: TextStyle(color: Theme.of(context).bottomAppBarColor),
+>>>>>>> e96a46eb4c68152ef511d7b809d9f7b4a4171eee
               ),
               hintStyle: TextStyle(
                   // height: 1.5,
@@ -109,10 +125,17 @@ class _QuranSearchState extends State<QuranSearch> {
                             Container(
                               color: (index % 2 == 0
                                   ? Theme.of(context)
+<<<<<<< HEAD
                                       .colorScheme.surface
                                       .withOpacity(.05)
                                   : Theme.of(context)
                                       .colorScheme.surface
+=======
+                                      .bottomAppBarColor
+                                      .withOpacity(.05)
+                                  : Theme.of(context)
+                                      .bottomAppBarColor
+>>>>>>> e96a46eb4c68152ef511d7b809d9f7b4a4171eee
                                       .withOpacity(.1)),
                               child: ListTile(
                                 onTap: () {
@@ -187,7 +210,11 @@ class _QuranSearchState extends State<QuranSearch> {
                                                     ? Theme.of(context)
                                                         .canvasColor
                                                     : Theme.of(context)
+<<<<<<< HEAD
                                                         .colorScheme.background,
+=======
+                                                        .backgroundColor,
+>>>>>>> e96a46eb4c68152ef511d7b809d9f7b4a4171eee
                                                 fontSize: 12),
                                           ),
                                         ),
@@ -207,7 +234,11 @@ class _QuranSearchState extends State<QuranSearch> {
                                                       ? Theme.of(context)
                                                           .canvasColor
                                                       : Theme.of(context)
+<<<<<<< HEAD
                                                           .colorScheme.background,
+=======
+                                                          .backgroundColor,
+>>>>>>> e96a46eb4c68152ef511d7b809d9f7b4a4171eee
                                                   fontSize: 12),
                                             )),
                                       ),
@@ -233,7 +264,11 @@ class _QuranSearchState extends State<QuranSearch> {
                                                       ? Theme.of(context)
                                                           .canvasColor
                                                       : Theme.of(context)
+<<<<<<< HEAD
                                                           .colorScheme.background,
+=======
+                                                          .backgroundColor,
+>>>>>>> e96a46eb4c68152ef511d7b809d9f7b4a4171eee
                                                   fontSize: 12),
                                             )),
                                       ),

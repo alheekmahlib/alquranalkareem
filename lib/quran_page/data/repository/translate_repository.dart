@@ -22,6 +22,7 @@ class TranslateRepository {
     });
     return ayaList;
   }
+<<<<<<< HEAD
 
   Future<List<Ayat>> getAyahTranslate(int AID) async {
     Database? database = await _client?.database;
@@ -36,4 +37,6 @@ class TranslateRepository {
     });
     return ayaList;
   }
+=======
+>>>>>>> e96a46eb4c68152ef511d7b809d9f7b4a4171eee
 }

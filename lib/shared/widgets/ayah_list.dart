@@ -8,7 +8,11 @@ import '../../quran_page/cubit/audio/cubit.dart';
 import '../../quran_page/data/model/ayat.dart';
 
 class AyahList extends StatefulWidget {
+<<<<<<< HEAD
   int? pageNum;
+=======
+  int pageNum;
+>>>>>>> e96a46eb4c68152ef511d7b809d9f7b4a4171eee
   AyahList({Key? key, required this.pageNum}) : super(key: key);
 
   @override
@@ -32,7 +36,11 @@ class _AyahListState extends State<AyahList> {
     return FutureBuilder<List<Ayat>>(
         future: cubit
             .handleRadioValueChanged(cubit.radioValue)
+<<<<<<< HEAD
             .getPageTranslate(widget.pageNum!),
+=======
+            .getPageTranslate(widget.pageNum),
+>>>>>>> e96a46eb4c68152ef511d7b809d9f7b4a4171eee
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.done) {
             List<Ayat>? ayat = snapshot.data;
@@ -59,16 +67,27 @@ class _AyahListState extends State<AyahList> {
                       itemCount: ayat!.length,
                       shrinkWrap: true,
                       itemBuilder: (BuildContext context, position) {
+<<<<<<< HEAD
                         Ayat? aya = ayat![position];
+=======
+                        Ayat aya = ayat[position];
+>>>>>>> e96a46eb4c68152ef511d7b809d9f7b4a4171eee
                         return Opacity(
                           opacity: isSelected == position ? 1.0 : .5,
                           child: InkWell(
                             onTap: () {
                               setState(() {
+<<<<<<< HEAD
                                 cubit.translateAyah = "${aya.ayatext!}";
                                 cubit.translate = "${aya.translate!}";
                                 audioCubit.ayahNum = '${aya.ayaNum!}';
                                 audioCubit.sorahName = '${aya.suraNum!}';
+=======
+                                cubit.translateAyah = "${aya.ayatext}";
+                                cubit.translate = "${aya.translate}";
+                                audioCubit.ayahNum = '${aya.ayaNum}';
+                                audioCubit.sorahName = '${aya.suraNum}';
+>>>>>>> e96a46eb4c68152ef511d7b809d9f7b4a4171eee
                                 print(audioCubit.ayahNum);
                                 isSelected = position.toDouble();
                               });

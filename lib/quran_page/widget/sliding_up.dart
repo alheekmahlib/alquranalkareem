@@ -69,7 +69,11 @@ class _SlidingState extends State<Sliding> {
               children: <Widget>[
                 Container(
                   alignment: Alignment.center,
+<<<<<<< HEAD
                   color: Theme.of(context).colorScheme.background,
+=======
+                  color: Theme.of(context).backgroundColor,
+>>>>>>> e96a46eb4c68152ef511d7b809d9f7b4a4171eee
                   height: 65.0,
                   child: Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 8.0),
@@ -79,7 +83,11 @@ class _SlidingState extends State<Sliding> {
                         Icon(
                           Icons.drag_handle_outlined,
                           size: 20,
+<<<<<<< HEAD
                           color: Theme.of(context).colorScheme.surface,
+=======
+                          color: Theme.of(context).bottomAppBarColor,
+>>>>>>> e96a46eb4c68152ef511d7b809d9f7b4a4171eee
                         ),
                         Row(
                           crossAxisAlignment: CrossAxisAlignment.start,

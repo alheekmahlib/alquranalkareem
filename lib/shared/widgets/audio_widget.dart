@@ -20,26 +20,42 @@ class AudioWidget extends StatefulWidget {
 
   @override
   State<AudioWidget> createState() => _AudioWidgetState();
+<<<<<<< HEAD
 
   static _AudioWidgetState? of(BuildContext context) =>
       context.findAncestorStateOfType<_AudioWidgetState>();
+=======
+>>>>>>> e96a46eb4c68152ef511d7b809d9f7b4a4171eee
 }
 
 class _AudioWidgetState extends State<AudioWidget>{
   Duration? duration = const Duration();
   Duration? position = const Duration();
   AudioPlayer audioPlayer = AudioPlayer();
+<<<<<<< HEAD
   final ValueNotifier<double> _position = ValueNotifier(0);
   final ValueNotifier<double> _duration = ValueNotifier(0);
   AudioCache cashPlayer = AudioCache();
   bool isPlay = false;
   bool isPagePlay = false;
+=======
+
+  AudioCache cashPlayer = AudioCache();
+  bool isPlay = false;
+>>>>>>> e96a46eb4c68152ef511d7b809d9f7b4a4171eee
   StreamSubscription? durationSubscription;
   StreamSubscription? positionSubscription;
   bool downloading = false;
   String progressString = "0%";
   double progress = 0;
+<<<<<<< HEAD
   double? sliderValue;
+=======
+  String? currentPlay;
+  bool autoPlay = false;
+  double? sliderValue;
+  // String? readerValue;
+>>>>>>> e96a46eb4c68152ef511d7b809d9f7b4a4171eee
 
 
 
@@ -47,11 +63,20 @@ class _AudioWidgetState extends State<AudioWidget>{
   @override
   void initState() {
     isPlay = false;
+<<<<<<< HEAD
     isPagePlay = false;
     sliderValue = 0;
     final AudioContext audioContext = AudioContext(
       iOS: AudioContextIOS(
         // defaultToSpeaker: true,
+=======
+    // currentPlay = null;
+    sliderValue = 0;
+    // initAudioPlayer();
+    final AudioContext audioContext = AudioContext(
+      iOS: AudioContextIOS(
+        defaultToSpeaker: true,
+>>>>>>> e96a46eb4c68152ef511d7b809d9f7b4a4171eee
         category: AVAudioSessionCategory.ambient,
         options: [
           AVAudioSessionOptions.defaultToSpeaker,
@@ -67,6 +92,7 @@ class _AudioWidgetState extends State<AudioWidget>{
       ),
     );
     AudioPlayer.global.setGlobalAudioContext(audioContext);
+<<<<<<< HEAD
     audioPlayer.onDurationChanged.listen((duration) {
       setState(() {
         _duration.value = duration.inSeconds.toDouble();
@@ -80,6 +106,24 @@ class _AudioWidgetState extends State<AudioWidget>{
     super.initState();
   }
 
+=======
+    super.initState();
+  }
+
+
+
+  // Save & Load Reader Quran
+  // saveQuranReader(String readerValue) async {
+  //   SharedPreferences prefService = await SharedPreferences.getInstance();
+  //   await prefService.setString('audio_player_sound', readerValue);
+  // }
+  // loadQuranReader(BuildContext context) async {
+  //   SharedPreferences prefs = await SharedPreferences.getInstance();
+  //   AudioCubit.get(context).readerValue = prefs.getString('audio_player_sound') ?? "Abdul_Basit_Murattal_192kbps";
+  //   print('Quran Reader ${prefs.getString('audio_player_sound')}');
+  // }
+
+>>>>>>> e96a46eb4c68152ef511d7b809d9f7b4a4171eee
   Future playFile(String url, String fileName) async {
 
     var path;
@@ -108,6 +152,7 @@ class _AudioWidgetState extends State<AudioWidget>{
     }
   }
 
+<<<<<<< HEAD
   Future playPageFile(String url, String fileName) async {
 
     var path;
@@ -136,6 +181,8 @@ class _AudioWidgetState extends State<AudioWidget>{
     }
   }
 
+=======
+>>>>>>> e96a46eb4c68152ef511d7b809d9f7b4a4171eee
   Future downloadFile(String path, String url, String fileName) async {
     Dio dio = Dio();
     try {
@@ -172,13 +219,21 @@ class _AudioWidgetState extends State<AudioWidget>{
     Navigator.pop(context);
     setState(() {
       isPlay = false;
+<<<<<<< HEAD
       isPagePlay = false;
       // currentPlay = null;
+=======
+      currentPlay = null;
+>>>>>>> e96a46eb4c68152ef511d7b809d9f7b4a4171eee
     });
     if (AudioCubit.get(context).sorahName != null) {
       playAyah(context);
     } else {
+<<<<<<< HEAD
       playPage(context, QuranCubit.get(context).cuMPage);
+=======
+      playPage(context, DPages.currentPage2.toString());
+>>>>>>> e96a46eb4c68152ef511d7b809d9f7b4a4171eee
     }
   }
 
@@ -188,9 +243,12 @@ class _AudioWidgetState extends State<AudioWidget>{
     if (isPlay) {
       audioPlayer.pause();
     }
+<<<<<<< HEAD
     if (isPagePlay) {
       audioPlayer.pause();
     }
+=======
+>>>>>>> e96a46eb4c68152ef511d7b809d9f7b4a4171eee
     super.deactivate();
   }
 
@@ -208,16 +266,106 @@ class _AudioWidgetState extends State<AudioWidget>{
           isPlay = false;
         });
       }
+<<<<<<< HEAD
       if (isPagePlay) {
         audioPlayer.pause();
         setState(() {
           isPagePlay = false;
         });
       }
+=======
+>>>>>>> e96a46eb4c68152ef511d7b809d9f7b4a4171eee
     }
     //print('state = $state');
   }
 
+<<<<<<< HEAD
+=======
+  // void initAudioPlayer() {
+  //   positionSubscription = audioPlayer.onPositionChanged.listen(
+  //           (Duration p) => setState(() => position = p));
+  //   durationSubscription = audioPlayer.onDurationChanged.listen((Duration d) {
+  //     if (duration == null) {
+  //       //print("posiotn ${d.inMilliseconds}");
+  //       setState(() => duration = d);
+  //     }
+  //   });
+  //   // positionSubscription =
+  //   //     audioPlayer.onPositionChanged.listen((p) {
+  //   //       position = p;
+  //   //       print("position ${p.inMilliseconds}");
+  //   //     });
+  //   // durationSubscription = audioPlayer.onDurationChanged.listen((Duration d) {
+  //   //   if (duration == null) {
+  //   //     print("duration ${d.inMilliseconds}");
+  //   //     duration = d;
+  //   //   }
+  //   // });
+  //   // positionSubscription =
+  //   //     audioPlayer.onPlayerStateChanged
+  //   //         .listen((p) {
+  //   //       position = p as Duration;
+  //   //       durationSubscription = audioPlayer.onDurationChanged.listen((Duration d) {
+  //   //         if (duration == null) {
+  //   //           //print("posiotn ${d.inMilliseconds}");
+  //   //           duration = d;
+  //   //         }
+  //   //       });
+  //   //     }
+  //   //       //print("posiotn ${p.inMilliseconds}");
+  //   //     );
+  //
+  // }
+
+  playPage(BuildContext context, String page) async {
+    SharedPreferences prefService = await SharedPreferences.getInstance();
+    if (isPlay) {
+      audioPlayer.pause();
+      setState(() {
+        isPlay = false;
+      });
+    } else {
+      int? result;
+      if (currentPlay == page) {
+        await audioPlayer.resume();
+        if (result == 1) {
+          setState(() {
+            isPlay = true;
+          });
+        }
+      } else {
+        currentPlay = page;
+        String fileName = page;
+        if (page.length == 1) {
+          fileName = "00$fileName";
+        } else if (page.length == 2) {
+          fileName = "0$fileName";
+        }
+        fileName =
+        "${prefService.getString('audio_player_sound')}/PageMp3s/Page$fileName.mp3";
+        String url = "http://everyayah.com/data/$fileName";
+        await playFile(url, fileName);
+      }
+    }
+    setState(() {
+      currentPlay = page;
+    });
+    audioPlayer.onPlayerComplete.listen((event) {
+      audioPlayer.pause();
+      setState(() {
+        isPlay = false;
+        currentPlay = null;
+        position = null;
+        duration = null;
+        autoPlay = true;
+      });
+      if (AudioCubit.get(context).sorahName == null) {
+        QuranCubit.get(context).dPageController!.jumpToPage(MPages.currentPage2 ++);
+      }
+    });
+  }
+
+>>>>>>> e96a46eb4c68152ef511d7b809d9f7b4a4171eee
   playAyah(BuildContext context) async {
     AudioCubit audioCubit = AudioCubit.get(context);
     if (audioCubit.sorahName!.length == 1) {
@@ -254,6 +402,7 @@ class _AudioWidgetState extends State<AudioWidget>{
     }
   }
 
+<<<<<<< HEAD
   playPage(BuildContext context, int pageNum) async {
     AudioCubit audioCubit = AudioCubit.get(context);
     QuranCubit cubit = QuranCubit.get(context);
@@ -484,6 +633,190 @@ class _AudioWidgetState extends State<AudioWidget>{
           ),
         );
       }
+=======
+  int? pNum;
+  @override
+  Widget build(BuildContext context) {
+    QuranCubit cubit = QuranCubit.get(context);
+    return Align(
+      alignment: Alignment.bottomCenter,
+      child: Padding(
+        padding: const EdgeInsets.only(bottom: 120.0),
+        child: Container(
+          height: 100,
+          width: 250,
+          decoration: BoxDecoration(
+            color: Theme.of(context).bottomAppBarColor.withOpacity(.94),
+            borderRadius: const BorderRadius.all(Radius.circular(8)),
+          ),
+          child: Column(
+            children: [
+              Expanded(
+                  flex: 2,
+                  child: Stack(
+                    children: [
+                      Center(
+                        child: Container(
+                          height: 30,
+                          margin: const EdgeInsets.symmetric(horizontal: 4),
+                          width: MediaQuery.of(context).size.width,
+                          decoration: BoxDecoration(
+                              color: ThemeProvider.themeOf(context).id ==
+                                  'dark'
+                                  ? const Color(0xffcdba72).withOpacity(.4)
+                                  : Theme.of(context)
+                                  .dividerColor
+                                  .withOpacity(.4),
+                              borderRadius: const BorderRadius.only(
+                                topRight: Radius.circular(8),
+                                topLeft: Radius.circular(8),
+                              )),
+                        ),
+                      ),
+                      // ayahList(context, DPages.currentPage2),
+                      AyahList(
+                        pageNum: cubit.cuMPage,
+                      )
+                    ],
+                  )),
+              Expanded(
+                flex: 3,
+                child: Align(
+                    alignment: Alignment.centerRight,
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Stack(
+                            alignment: Alignment.center,
+                            children: [
+                              Visibility(
+                                visible: downloading,
+                                child: Align(
+                                  alignment: Alignment.center,
+                                  child: SquarePercentIndicator(
+                                    width: 30,
+                                    height: 30,
+                                    startAngle: StartAngle.topRight,
+                                    // reverse: true,
+                                    borderRadius: 8,
+                                    shadowWidth: 1.5,
+                                    progressWidth: 2,
+                                    shadowColor: Colors.grey,
+                                    progressColor: Theme.of(context).canvasColor,
+                                    progress: progress,
+                                    // child: IconButton(
+                                    //   icon: Icon(
+                                    //     audioCubit.isPlay ? Icons.pause : Icons.play_arrow,
+                                    //     size: 15,
+                                    //     // color: Theme.of(context).primaryColorDark,
+                                    //   ),
+                                    //   color: Theme.of(context).canvasColor,
+                                    //   onPressed: () {
+                                    //     // if(isPlay){
+                                    //     //   setState(() {
+                                    //     //     isPlay = false;
+                                    //     //   });
+                                    //     //   stopAyah();
+                                    //     // } else {
+                                    //     //   setState(() {
+                                    //     //     isPlay = true;
+                                    //     //   });
+                                    //     //   playAyah();
+                                    //     // }
+                                    //     print(audioCubit.progressString);
+                                    //     if (audioCubit.sorahName != null) {
+                                    //       audioCubit.playAyah();
+                                    //     }
+                                    //     else {
+                                    //       audioCubit.playPage(context, "${DPages.currentPage2}");
+                                    //     }
+                                    //   },
+                                    // ),
+                                    // Text(
+                                    //   cubit.progressString,
+                                    //   style: TextStyle(color: Theme.of(context).hoverColor),
+                                    // ),
+                                  ),
+                                ),
+                              ),
+                              Container(
+                                height: 30,
+                                width: 30,
+                                decoration: BoxDecoration(
+                                    color:
+                                    Theme.of(context).bottomAppBarColor,
+                                    borderRadius: const BorderRadius.all(
+                                        Radius.circular(8))),
+                                child: IconButton(
+                                  icon: Icon(
+                                    isPlay
+                                        ? Icons.pause
+                                        : Icons.play_arrow,
+                                    size: 15,
+                                  ),
+                                  color: Theme.of(context).canvasColor,
+                                  onPressed: () {
+                                    print(progressString);
+                                    playAyah(context);
+                                    // playPage(context,
+                                    //     "${DPages.currentPage2}");
+                                    // if (AudioCubit.get(context).sorahName != null) {
+                                    //   playAyah(context);
+                                    // }
+                                    // else {
+                                    //   playPage(context,
+                                    //       "${DPages.currentPage2}");
+                                    // }
+                                  },
+                                ),
+                              ),
+                            ],
+                          ),
+                          Visibility(
+                            visible: downloading,
+                              child: Text(
+                                progressString,
+                                style: TextStyle(
+                                  fontSize: 14,
+                                  fontFamily: 'kufi',
+                                    color: Theme.of(context).canvasColor),
+                              ),),
+                          // Directionality(
+                          //   textDirection: TextDirection.rtl,
+                          //   child: Container(
+                          //     height: 50,
+                          //     width: 180,
+                          //     child: SliderTheme(
+                          //       data: SliderThemeData(
+                          //           thumbShape: RoundSliderThumbShape(enabledThumbRadius: 8)),
+                          //       child: Slider(
+                          //         activeColor: Theme.of(context).canvasColor,
+                          //         inactiveColor: Theme.of(context).primaryColorDark,
+                          //         min: 0,
+                          //         max: duration!.inMilliseconds.toDouble(),
+                          //         value: position!.inMilliseconds.toDouble(),
+                          //         onChanged: (value) async {
+                          //           await audioPlayer.seek(Duration(milliseconds: value.toInt()));
+                          //           setState(() {
+                          //             sliderValue = value.toDouble();
+                          //           });
+                          //         },
+                          //       ),
+                          //     ),
+                          //   ),
+                          // ),
+                          readerDropDown(context),
+                        ],
+                      ),
+                    )),
+              ),
+            ],
+          ),
+        ),
+      ),
+>>>>>>> e96a46eb4c68152ef511d7b809d9f7b4a4171eee
     );
   }
 }

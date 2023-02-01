@@ -1,12 +1,18 @@
 import 'dart:async';
 import 'package:alquranalkareem/azkar/screens/azkar_item.dart';
+<<<<<<< HEAD
 import 'package:alquranalkareem/quran_page/cubit/audio/cubit.dart';
+=======
+>>>>>>> e96a46eb4c68152ef511d7b809d9f7b4a4171eee
 import 'package:alquranalkareem/quran_page/screens/quran_page.dart';
 import 'package:alquranalkareem/cubit/states.dart';
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+<<<<<<< HEAD
 import 'package:path/path.dart';
+=======
+>>>>>>> e96a46eb4c68152ef511d7b809d9f7b4a4171eee
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sqflite/sqflite.dart';
 import '../quran_page/data/model/aya.dart';
@@ -19,7 +25,10 @@ import '../quran_page/data/repository/translate4_repository.dart';
 import '../quran_page/data/repository/translate5_repository.dart';
 import '../quran_page/data/repository/translate_repository.dart';
 import '../quran_text/text_page_view.dart';
+<<<<<<< HEAD
 import '../shared/widgets/audio_widget.dart';
+=======
+>>>>>>> e96a46eb4c68152ef511d7b809d9f7b4a4171eee
 import '../shared/widgets/show_tafseer.dart';
 import 'package:flutter_sliding_up_panel/flutter_sliding_up_panel.dart';
 
@@ -200,7 +209,10 @@ class QuranCubit extends Cubit<QuranState> {
       radioValue = val;
       switch (radioValue) {
         case 0:
+<<<<<<< HEAD
           // translate = '${aya!.translate}';
+=======
+>>>>>>> e96a46eb4c68152ef511d7b809d9f7b4a4171eee
           return showTaf = translateRepository2;
           break;
         case 1:
@@ -260,6 +272,10 @@ class QuranCubit extends Cubit<QuranState> {
 
   }
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> e96a46eb4c68152ef511d7b809d9f7b4a4171eee
   pageChanged(BuildContext context, int index) {
     print("on Page Changed $index");
     DPages.currentPage2 = index + 1;

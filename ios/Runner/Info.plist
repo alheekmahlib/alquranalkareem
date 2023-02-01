@@ -65,6 +65,7 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
+<<<<<<< HEAD
 	<key>UIApplicationSceneManifest</key>
     <dict>
             <key>UISceneConfigurations</key>
@@ -76,5 +77,7 @@
     </array>
 
 
+=======
+>>>>>>> e96a46eb4c68152ef511d7b809d9f7b4a4171eee
 </dict>
 </plist>

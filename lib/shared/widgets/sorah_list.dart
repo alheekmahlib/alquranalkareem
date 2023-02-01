@@ -46,7 +46,11 @@ class _SorahListState extends State<SorahList>
   Widget build(BuildContext context) {
     super.build(context);
     return Container(
+<<<<<<< HEAD
       color: Theme.of(context).colorScheme.background,
+=======
+      color: Theme.of(context).backgroundColor,
+>>>>>>> e96a46eb4c68152ef511d7b809d9f7b4a4171eee
       child: Padding(
         padding: const EdgeInsets.only(bottom: 16.0),
         child: Column(
@@ -86,7 +90,11 @@ class _SorahListState extends State<SorahList>
                                           height: 65,
                                           color: (index % 2 == 0
                                               ? Theme.of(context)
+<<<<<<< HEAD
                                                   .colorScheme.background
+=======
+                                                  .backgroundColor
+>>>>>>> e96a46eb4c68152ef511d7b809d9f7b4a4171eee
                                               : Theme.of(context)
                                                   .dividerColor
                                                   .withOpacity(.3)),

@@ -3,7 +3,11 @@
 	archiveVersion = 1;
 	classes = {
 	};
+<<<<<<< HEAD
 	objectVersion = 54;
+=======
+	objectVersion = 51;
+>>>>>>> e96a46eb4c68152ef511d7b809d9f7b4a4171eee
 	objects = {
 
 /* Begin PBXAggregateTarget section */
@@ -255,7 +259,10 @@
 /* Begin PBXShellScriptBuildPhase section */
 		3399D490228B24CF009A79C7 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
+<<<<<<< HEAD
 			alwaysOutOfDate = 1;
+=======
+>>>>>>> e96a46eb4c68152ef511d7b809d9f7b4a4171eee
 			buildActionMask = 2147483647;
 			files = (
 			);
@@ -404,7 +411,11 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+<<<<<<< HEAD
 				MACOSX_DEPLOYMENT_TARGET = 11.0;
+=======
+				MACOSX_DEPLOYMENT_TARGET = 10.13;
+>>>>>>> e96a46eb4c68152ef511d7b809d9f7b4a4171eee
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = macosx;
 				SWIFT_COMPILATION_MODE = wholemodule;
@@ -432,7 +443,11 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
+<<<<<<< HEAD
 				MACOSX_DEPLOYMENT_TARGET = 10.14;
+=======
+				MACOSX_DEPLOYMENT_TARGET = 10.13;
+>>>>>>> e96a46eb4c68152ef511d7b809d9f7b4a4171eee
 				MARKETING_VERSION = 3.0.3;
 				PRODUCT_BUNDLE_IDENTIFIER = com.alheekmah.alquranalkareem.alquranalkareem2;
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -492,7 +507,11 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+<<<<<<< HEAD
 				MACOSX_DEPLOYMENT_TARGET = 11.0;
+=======
+				MACOSX_DEPLOYMENT_TARGET = 10.13;
+>>>>>>> e96a46eb4c68152ef511d7b809d9f7b4a4171eee
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = macosx;
@@ -539,7 +558,11 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+<<<<<<< HEAD
 				MACOSX_DEPLOYMENT_TARGET = 11.0;
+=======
+				MACOSX_DEPLOYMENT_TARGET = 10.13;
+>>>>>>> e96a46eb4c68152ef511d7b809d9f7b4a4171eee
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = macosx;
 				SWIFT_COMPILATION_MODE = wholemodule;
@@ -567,7 +590,11 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
+<<<<<<< HEAD
 				MACOSX_DEPLOYMENT_TARGET = 10.14;
+=======
+				MACOSX_DEPLOYMENT_TARGET = 10.13;
+>>>>>>> e96a46eb4c68152ef511d7b809d9f7b4a4171eee
 				MARKETING_VERSION = 3.0.3;
 				PRODUCT_BUNDLE_IDENTIFIER = com.alheekmah.alquranalkareem.alquranalkareem2;
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -596,7 +623,11 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
+<<<<<<< HEAD
 				MACOSX_DEPLOYMENT_TARGET = 10.14;
+=======
+				MACOSX_DEPLOYMENT_TARGET = 10.13;
+>>>>>>> e96a46eb4c68152ef511d7b809d9f7b4a4171eee
 				MARKETING_VERSION = 3.0.3;
 				PRODUCT_BUNDLE_IDENTIFIER = com.alheekmah.alquranalkareem.alquranalkareem2;
 				PROVISIONING_PROFILE_SPECIFIER = "";

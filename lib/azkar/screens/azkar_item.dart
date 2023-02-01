@@ -49,7 +49,11 @@ class _AzkarItemState extends State<AzkarItem> {
       child: Directionality(
         textDirection: TextDirection.rtl,
         child: Scaffold(
+<<<<<<< HEAD
           backgroundColor: Theme.of(context).colorScheme.background,
+=======
+          backgroundColor: Theme.of(context).backgroundColor,
+>>>>>>> e96a46eb4c68152ef511d7b809d9f7b4a4171eee
           body: Stack(
             children: [
               Align(
@@ -65,11 +69,19 @@ class _AzkarItemState extends State<AzkarItem> {
                         padding: const EdgeInsets.symmetric(horizontal: 8),
                         decoration: BoxDecoration(
                             color: Theme.of(context)
+<<<<<<< HEAD
                                 .colorScheme.surface
                                 .withOpacity(.2),
                             border: Border.symmetric(
                                 vertical: BorderSide(
                                     color: Theme.of(context).colorScheme.surface,
+=======
+                                .bottomAppBarColor
+                                .withOpacity(.2),
+                            border: Border.symmetric(
+                                vertical: BorderSide(
+                                    color: Theme.of(context).bottomAppBarColor,
+>>>>>>> e96a46eb4c68152ef511d7b809d9f7b4a4171eee
                                     width: 2))),
                         child: Text(
                           azkarByCategory.azkarList.first.category!,
@@ -104,7 +116,11 @@ class _AzkarItemState extends State<AzkarItem> {
                           height: 30,
                           width: 30,
                           decoration: BoxDecoration(
+<<<<<<< HEAD
                               color: Theme.of(context).colorScheme.background,
+=======
+                              color: Theme.of(context).backgroundColor,
+>>>>>>> e96a46eb4c68152ef511d7b809d9f7b4a4171eee
                               borderRadius: const BorderRadius.only(
                                 topRight: Radius.circular(8),
                                 topLeft: Radius.circular(8),
@@ -114,7 +130,11 @@ class _AzkarItemState extends State<AzkarItem> {
                                   color: Theme.of(context).dividerColor)),
                           child: Icon(
                             Icons.close_outlined,
+<<<<<<< HEAD
                             color: Theme.of(context).colorScheme.surface,
+=======
+                            color: Theme.of(context).bottomAppBarColor,
+>>>>>>> e96a46eb4c68152ef511d7b809d9f7b4a4171eee
                           ),
                         ),
                       ),
@@ -138,7 +158,11 @@ class _AzkarItemState extends State<AzkarItem> {
                             horizontal: 16, vertical: 5),
                         decoration: BoxDecoration(
                             color: Theme.of(context)
+<<<<<<< HEAD
                                 .colorScheme.surface
+=======
+                                .bottomAppBarColor
+>>>>>>> e96a46eb4c68152ef511d7b809d9f7b4a4171eee
                                 .withOpacity(.2),
                             borderRadius: const BorderRadius.all(
                               Radius.circular(8),
@@ -153,7 +177,11 @@ class _AzkarItemState extends State<AzkarItem> {
                                   border: Border.symmetric(
                                     vertical: BorderSide(
                                       color:
+<<<<<<< HEAD
                                           Theme.of(context).colorScheme.surface,
+=======
+                                          Theme.of(context).bottomAppBarColor,
+>>>>>>> e96a46eb4c68152ef511d7b809d9f7b4a4171eee
                                       width: 2,
                                     ),
                                   ),
@@ -197,12 +225,20 @@ class _AzkarItemState extends State<AzkarItem> {
                                           horizontal: 8),
                                       decoration: BoxDecoration(
                                           color: Theme.of(context)
+<<<<<<< HEAD
                                               .colorScheme.surface
+=======
+                                              .bottomAppBarColor
+>>>>>>> e96a46eb4c68152ef511d7b809d9f7b4a4171eee
                                               .withOpacity(.2),
                                           border: Border.symmetric(
                                               vertical: BorderSide(
                                                   color: Theme.of(context)
+<<<<<<< HEAD
                                                       .colorScheme.surface,
+=======
+                                                      .bottomAppBarColor,
+>>>>>>> e96a46eb4c68152ef511d7b809d9f7b4a4171eee
                                                   width: 2))),
                                       child: Text(
                                         azkar.reference!,
@@ -229,12 +265,20 @@ class _AzkarItemState extends State<AzkarItem> {
                                         horizontal: 8),
                                     decoration: BoxDecoration(
                                         color: Theme.of(context)
+<<<<<<< HEAD
                                             .colorScheme.surface
+=======
+                                            .bottomAppBarColor
+>>>>>>> e96a46eb4c68152ef511d7b809d9f7b4a4171eee
                                             .withOpacity(.2),
                                         border: Border.symmetric(
                                             vertical: BorderSide(
                                                 color: Theme.of(context)
+<<<<<<< HEAD
                                                     .colorScheme.surface,
+=======
+                                                    .bottomAppBarColor,
+>>>>>>> e96a46eb4c68152ef511d7b809d9f7b4a4171eee
                                                 width: 2))),
                                     child: Text(
                                       azkar.description!,
@@ -254,12 +298,20 @@ class _AzkarItemState extends State<AzkarItem> {
                               child: Container(
                                 decoration: BoxDecoration(
                                     color: Theme.of(context)
+<<<<<<< HEAD
                                         .colorScheme.surface
+=======
+                                        .bottomAppBarColor
+>>>>>>> e96a46eb4c68152ef511d7b809d9f7b4a4171eee
                                         .withOpacity(.2),
                                     border: Border.symmetric(
                                         vertical: BorderSide(
                                             color: Theme.of(context)
+<<<<<<< HEAD
                                                 .colorScheme.surface,
+=======
+                                                .bottomAppBarColor,
+>>>>>>> e96a46eb4c68152ef511d7b809d9f7b4a4171eee
                                             width: 2))),
                                 width: double.infinity,
                                 child: Row(
@@ -277,7 +329,11 @@ class _AzkarItemState extends State<AzkarItem> {
                                           icon: Icon(
                                             Icons.share,
                                             color: Theme.of(context)
+<<<<<<< HEAD
                                                 .colorScheme.surface,
+=======
+                                                .bottomAppBarColor,
+>>>>>>> e96a46eb4c68152ef511d7b809d9f7b4a4171eee
                                             size: 20,
                                           ),
                                         ),
@@ -296,7 +352,11 @@ class _AzkarItemState extends State<AzkarItem> {
                                           icon: Icon(
                                             Icons.copy,
                                             color: Theme.of(context)
+<<<<<<< HEAD
                                                 .colorScheme.surface,
+=======
+                                                .bottomAppBarColor,
+>>>>>>> e96a46eb4c68152ef511d7b809d9f7b4a4171eee
                                             size: 20,
                                           ),
                                         ),
@@ -319,7 +379,11 @@ class _AzkarItemState extends State<AzkarItem> {
                                           icon: Icon(
                                             Icons.bookmark_add,
                                             color: Theme.of(context)
+<<<<<<< HEAD
                                                 .colorScheme.surface,
+=======
+                                                .bottomAppBarColor,
+>>>>>>> e96a46eb4c68152ef511d7b809d9f7b4a4171eee
                                             size: 20,
                                           ),
                                         ),
@@ -334,7 +398,11 @@ class _AzkarItemState extends State<AzkarItem> {
                                           bottomRight: Radius.circular(8),
                                         ),
                                         color:
+<<<<<<< HEAD
                                             Theme.of(context).colorScheme.surface,
+=======
+                                            Theme.of(context).bottomAppBarColor,
+>>>>>>> e96a46eb4c68152ef511d7b809d9f7b4a4171eee
                                       ),
                                       child: Row(
                                         children: [
@@ -401,11 +469,19 @@ class _AzkarItemState extends State<AzkarItem> {
               activeTrackBarHeight: 5,
               inactiveTrackBar: BoxDecoration(
                 borderRadius: BorderRadius.circular(8),
+<<<<<<< HEAD
                 color: Theme.of(context).colorScheme.surface,
               ),
               activeTrackBar: BoxDecoration(
                   borderRadius: BorderRadius.circular(4),
                   color: Theme.of(context).colorScheme.background),
+=======
+                color: Theme.of(context).bottomAppBarColor,
+              ),
+              activeTrackBar: BoxDecoration(
+                  borderRadius: BorderRadius.circular(4),
+                  color: Theme.of(context).backgroundColor),
+>>>>>>> e96a46eb4c68152ef511d7b809d9f7b4a4171eee
             ),
             handlerAnimation: const FlutterSliderHandlerAnimation(
                 curve: Curves.elasticOut,
@@ -439,7 +515,11 @@ class _AzkarItemState extends State<AzkarItem> {
       },
       customButton: Icon(
         Icons.format_size,
+<<<<<<< HEAD
         color: Theme.of(context).colorScheme.surface,
+=======
+        color: Theme.of(context).bottomAppBarColor,
+>>>>>>> e96a46eb4c68152ef511d7b809d9f7b4a4171eee
       ),
       iconSize: 24,
       buttonHeight: 50,
@@ -447,7 +527,11 @@ class _AzkarItemState extends State<AzkarItem> {
       buttonElevation: 0,
       itemHeight: 35,
       dropdownDecoration: BoxDecoration(
+<<<<<<< HEAD
           color: Theme.of(context).colorScheme.surface.withOpacity(.9),
+=======
+          color: Theme.of(context).bottomAppBarColor.withOpacity(.9),
+>>>>>>> e96a46eb4c68152ef511d7b809d9f7b4a4171eee
           borderRadius: const BorderRadius.all(Radius.circular(8))),
       itemPadding: const EdgeInsets.only(left: 14, right: 14),
       dropdownMaxHeight: MediaQuery.of(context).size.height,

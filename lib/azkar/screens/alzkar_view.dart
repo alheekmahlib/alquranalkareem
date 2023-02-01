@@ -145,7 +145,11 @@ class _AzkarViewState extends State<AzkarView> {
       top: false,
       bottom: false,
       child: Scaffold(
+<<<<<<< HEAD
         backgroundColor: Theme.of(context).colorScheme.background,
+=======
+        backgroundColor: Theme.of(context).backgroundColor,
+>>>>>>> e96a46eb4c68152ef511d7b809d9f7b4a4171eee
         body: Directionality(
           textDirection: TextDirection.rtl,
           child: DefaultTabController(
@@ -161,7 +165,11 @@ class _AzkarViewState extends State<AzkarView> {
                     shape: const RoundedRectangleBorder(
                         borderRadius: BorderRadius.only(
                             topRight: Radius.circular(12), topLeft: Radius.circular(12))),
+<<<<<<< HEAD
                     backgroundColor: Theme.of(context).colorScheme.background,
+=======
+                    backgroundColor: Theme.of(context).backgroundColor,
+>>>>>>> e96a46eb4c68152ef511d7b809d9f7b4a4171eee
                     flexibleSpace: FlexibleSpaceBar(
                       centerTitle: false,
                       titlePadding: const EdgeInsets.only(right: 8.0, left: 80.0),
@@ -174,12 +182,20 @@ class _AzkarViewState extends State<AzkarView> {
                         const EdgeInsets.symmetric(horizontal: 4.0, vertical: 4.0),
                         decoration: BoxDecoration(
                             color: Theme.of(context)
+<<<<<<< HEAD
                                 .colorScheme.surface
+=======
+                                .bottomAppBarColor
+>>>>>>> e96a46eb4c68152ef511d7b809d9f7b4a4171eee
                                 .withOpacity(.2),
                             border: Border.symmetric(
                                 vertical: BorderSide(
                                     color: Theme.of(context)
+<<<<<<< HEAD
                                         .colorScheme.surface,
+=======
+                                        .bottomAppBarColor,
+>>>>>>> e96a46eb4c68152ef511d7b809d9f7b4a4171eee
                                     width: 2))),
                         child: Text(
                           element,
@@ -215,7 +231,11 @@ class _AzkarViewState extends State<AzkarView> {
                             child: Text(
                               AppLocalizations.of(context)!.azkar,
                               style: TextStyle(
+<<<<<<< HEAD
                                 color: Theme.of(context).colorScheme.surface,
+=======
+                                color: Theme.of(context).bottomAppBarColor,
+>>>>>>> e96a46eb4c68152ef511d7b809d9f7b4a4171eee
                                 fontFamily: 'kufi',
                               ),
                             ),
@@ -224,7 +244,11 @@ class _AzkarViewState extends State<AzkarView> {
                             child: Text(
                               AppLocalizations.of(context)!.azkarfav,
                               style: TextStyle(
+<<<<<<< HEAD
                                   color: Theme.of(context).colorScheme.surface,
+=======
+                                  color: Theme.of(context).bottomAppBarColor,
+>>>>>>> e96a46eb4c68152ef511d7b809d9f7b4a4171eee
                                   fontFamily: 'kufi',
                                   fontWeight: FontWeight.w800),
                             ),
@@ -293,10 +317,17 @@ class _AzkarViewState extends State<AzkarView> {
                 : const Radius.circular(5.0),
           ),
           color: (index % 2 == 0
+<<<<<<< HEAD
               ? Theme.of(context).colorScheme.surface
               .withOpacity(.2)
               : Theme.of(context)
               .colorScheme.background),
+=======
+              ? Theme.of(context).bottomAppBarColor
+              .withOpacity(.2)
+              : Theme.of(context)
+              .backgroundColor),
+>>>>>>> e96a46eb4c68152ef511d7b809d9f7b4a4171eee
           ),
       child: InkWell(
         onTap: () {

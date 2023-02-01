@@ -1,11 +1,15 @@
 import 'package:another_xlider/another_xlider.dart';
 import 'package:arabic_numbers/arabic_numbers.dart';
+<<<<<<< HEAD
 import 'package:bot_toast/bot_toast.dart';
 import 'package:clipboard/clipboard.dart';
+=======
+>>>>>>> e96a46eb4c68152ef511d7b809d9f7b4a4171eee
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+<<<<<<< HEAD
 import 'package:flutter/rendering.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter/widgets.dart';
@@ -13,10 +17,16 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:lottie/lottie.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
+=======
+import 'package:flutter/widgets.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/svg.dart';
+>>>>>>> e96a46eb4c68152ef511d7b809d9f7b4a4171eee
 import 'package:share_plus/share_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:theme_provider/theme_provider.dart';
 import '../cubit/cubit.dart';
+<<<<<<< HEAD
 import '../l10n/app_localizations.dart';
 import '../quran_page/data/model/ayat.dart';
 import '../shared/widgets/widgets.dart';
@@ -31,6 +41,18 @@ class TextPageView extends StatefulWidget {
   int? pageNum;
 
   TextPageView({this.nomPageF, this.nomPageL, this.pageNum, this.surah});
+=======
+import '../cubit/states.dart';
+import '../shared/widgets/widgets.dart';
+import 'model/QuranModel.dart';
+
+class TextPageView extends StatefulWidget {
+  SurahText surah;
+  int nomPageF, nomPageL;
+
+  TextPageView(
+      {required this.surah, required this.nomPageF, required this.nomPageL});
+>>>>>>> e96a46eb4c68152ef511d7b809d9f7b4a4171eee
   static int textCurrentPage = 0;
   static String lastTime = '';
   static String sorahTextName = '';
@@ -41,9 +63,18 @@ class TextPageView extends StatefulWidget {
 }
 
 class _TextPageViewState extends State<TextPageView>
+<<<<<<< HEAD
     with WidgetsBindingObserver, SingleTickerProviderStateMixin {
   String? juz;
   bool? sajda;
+=======
+    with WidgetsBindingObserver {
+  String? selectedValue;
+  double scrollSpeed = 0;
+  String? selectedSpeed;
+  Color? bColor;
+  final ScrollController controller = ScrollController();
+>>>>>>> e96a46eb4c68152ef511d7b809d9f7b4a4171eee
 
   // Save & Load Last Page For Quran Text
   saveTextLastPlace(int textCurrentPage, String lastTime, sorahTextName) async {
@@ -72,6 +103,7 @@ class _TextPageViewState extends State<TextPageView>
   @override
   void initState() {
     WidgetsBinding.instance.addObserver(this);
+<<<<<<< HEAD
     TextPageView.textCurrentPage = widget.nomPageF!;
     TextPageView.sorahTextName = widget.surah!.name!;
     loadTextCurrentPage();
@@ -167,13 +199,55 @@ class _TextPageViewState extends State<TextPageView>
       builder: (BuildContext context, state) {
         QuranTextCubit TextCubit = QuranTextCubit.get(context);
         ArabicNumbers arabicNumber = ArabicNumbers();
+=======
+    TextPageView.textCurrentPage = widget.nomPageF;
+    TextPageView.sorahTextName = widget.surah.name!;
+    loadTextCurrentPage();
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      // double minScrollExtent1 = controller.position.minScrollExtent;
+      // double maxScrollExtent1 = controller.position.maxScrollExtent;
+      // animateToMaxMin(maxScrollExtent1, minScrollExtent1, maxScrollExtent1,
+      //     scrollSpeed.toInt(), controller);
+    });
+
+    super.initState();
+  }
+
+  // animateToMaxMin(double max, double min, double direction, int seconds,
+  //     ScrollController scrollController) {
+  //   scrollController
+  //       .animateTo(direction,
+  //       duration: Duration(seconds: seconds), curve: Curves.linear)
+  //       .then((value) {
+  //     direction = direction == max ? min : max;
+  //     animateToMaxMin(max, min, direction, seconds, scrollController);
+  //   });
+  // }
+
+  @override
+  Widget build(BuildContext context) {
+    Orientation orientation = MediaQuery.of(context).orientation;
+    return BlocConsumer<QuranCubit, QuranState>(
+      listener: (BuildContext context, state) {
+        if (state is QuranPageState) {
+          print('page');
+        } else if (state is SoundPageState) {
+          print('sound');
+        }
+      },
+      builder: (BuildContext context, state) {
+        QuranCubit cubit = QuranCubit.get(context);
+>>>>>>> e96a46eb4c68152ef511d7b809d9f7b4a4171eee
         return SafeArea(
           top: false,
           bottom: false,
           right: false,
           left: false,
           child: Scaffold(
+<<<<<<< HEAD
               key: TPageScaffoldKey,
+=======
+>>>>>>> e96a46eb4c68152ef511d7b809d9f7b4a4171eee
               resizeToAvoidBottomInset: false,
               body: Directionality(
                 textDirection: TextDirection.rtl,
@@ -183,6 +257,21 @@ class _TextPageViewState extends State<TextPageView>
                       padding: const EdgeInsets.only(top: 64.0),
                       child: Stack(
                         children: [
+<<<<<<< HEAD
+=======
+                          Padding(
+                            padding:
+                                const EdgeInsets.symmetric(horizontal: 16.0),
+                            child: Align(
+                                alignment: Alignment.topRight,
+                                child: Row(
+                                  children: [
+                                    fontSizeDropDown(context),
+                                    // scrollDropDown(context)
+                                  ],
+                                )),
+                          ),
+>>>>>>> e96a46eb4c68152ef511d7b809d9f7b4a4171eee
                           GestureDetector(
                             onTap: () => Navigator.of(context).pop(),
                             child: Align(
@@ -191,9 +280,13 @@ class _TextPageViewState extends State<TextPageView>
                                 height: 30,
                                 width: 30,
                                 decoration: BoxDecoration(
+<<<<<<< HEAD
                                     color: Theme.of(context)
                                         .colorScheme
                                         .background,
+=======
+                                    color: Theme.of(context).backgroundColor,
+>>>>>>> e96a46eb4c68152ef511d7b809d9f7b4a4171eee
                                     borderRadius: const BorderRadius.only(
                                       topRight: Radius.circular(8),
                                       topLeft: Radius.circular(8),
@@ -203,7 +296,11 @@ class _TextPageViewState extends State<TextPageView>
                                         color: Theme.of(context).dividerColor)),
                                 child: Icon(
                                   Icons.close_outlined,
+<<<<<<< HEAD
                                   color: Theme.of(context).colorScheme.surface,
+=======
+                                  color: Theme.of(context).bottomAppBarColor,
+>>>>>>> e96a46eb4c68152ef511d7b809d9f7b4a4171eee
                                 ),
                               ),
                             ),
@@ -214,6 +311,7 @@ class _TextPageViewState extends State<TextPageView>
                             endIndent: 16,
                             indent: 16,
                           ),
+<<<<<<< HEAD
                           Padding(
                             padding:
                                 const EdgeInsets.symmetric(horizontal: 16.0),
@@ -227,6 +325,8 @@ class _TextPageViewState extends State<TextPageView>
                                   ],
                                 )),
                           ),
+=======
+>>>>>>> e96a46eb4c68152ef511d7b809d9f7b4a4171eee
                         ],
                       ),
                     ),
@@ -240,6 +340,7 @@ class _TextPageViewState extends State<TextPageView>
                                 bottom: 16.0,
                                 right: 40.0,
                                 left: 40.0),
+<<<<<<< HEAD
                         child: ScrollablePositionedList.builder(
                           scrollDirection: Axis.vertical,
                           shrinkWrap: true,
@@ -264,11 +365,35 @@ class _TextPageViewState extends State<TextPageView>
                                           fontSize: TextPageView.fontSizeArabic,
                                           fontWeight: FontWeight.normal,
                                           fontFamily: 'uthmanic2',
+=======
+                        child: ListView.builder(
+                          scrollDirection: Axis.vertical,
+                          shrinkWrap: true,
+                          addAutomaticKeepAlives: true,
+                          controller: controller,
+                          itemCount: (widget.nomPageL - widget.nomPageF) + 1,
+                          itemBuilder: (context, index) {
+                            List<InlineSpan> text = [];
+                            int ayahLenght = widget.surah.ayahs!.length;
+                            for (int b = 0; b < ayahLenght; b++) {
+                              if (widget.surah.ayahs![b].text!.length > 1) {
+                                if (widget.surah.ayahs![b].page ==
+                                    (index + widget.nomPageF)) {
+                                  ArabicNumbers arabicNumber = ArabicNumbers();
+                                  text.add(TextSpan(children: [
+                                    TextSpan(
+                                        text: widget.surah.ayahs![b].text,
+                                        style: TextStyle(
+                                          fontSize: TextPageView.fontSizeArabic,
+                                          fontWeight: FontWeight.normal,
+                                          fontFamily: 'naskh',
+>>>>>>> e96a46eb4c68152ef511d7b809d9f7b4a4171eee
                                           color: ThemeProvider.themeOf(context)
                                                       .id ==
                                                   'dark'
                                               ? Colors.white
                                               : Colors.black,
+<<<<<<< HEAD
                                           background: Paint()
                                             ..color = b == TextCubit.isSelected
                                                 ? backColor
@@ -605,11 +730,26 @@ class _TextPageViewState extends State<TextPageView>
                                                 '${widget.surah!.ayahs![b].numberInSurah}');
                                             print('${widget.nomPageF}');
                                             print('${widget.nomPageL}');
+=======
+                                        ),
+                                        recognizer: TapGestureRecognizer()
+                                          ..onTap = () {
+                                            Share.share(
+                                                '﴿${widget.surah.ayahs![b].text}﴾ '
+                                                '[${widget.surah.name}-'
+                                                '${arabicNumber.convert(widget.surah.ayahs![b].numberInSurah.toString())}]',
+                                                subject:
+                                                    '${widget.surah.name}');
+                                            cubit.textTranslate =
+                                                widget.surah.ayahs![b].text!;
+                                            print(cubit.textTranslate);
+>>>>>>> e96a46eb4c68152ef511d7b809d9f7b4a4171eee
                                           })
                                   ]));
                                   text.add(
                                     TextSpan(children: [
                                       TextSpan(
+<<<<<<< HEAD
                                         text:
                                             ' ${arabicNumber.convert(widget.surah!.ayahs![b].numberInSurah.toString())} ',
                                         style: TextStyle(
@@ -622,6 +762,27 @@ class _TextPageViewState extends State<TextPageView>
                                                 .colorScheme
                                                 .surface),
                                       )
+=======
+                                          text:
+                                              ' ${arabicNumber.convert(widget.surah.ayahs![b].numberInSurah.toString())} ',
+                                          style: TextStyle(
+                                              fontSize:
+                                                  TextPageView.fontSizeArabic +
+                                                      10,
+                                              fontWeight: FontWeight.bold,
+                                              fontFamily: 'uthmanic2',
+                                              color: Theme.of(context)
+                                                  .bottomAppBarColor),
+                                          recognizer: TapGestureRecognizer()
+                                            ..onTap = () {
+                                              Share.share(
+                                                  '﴿${widget.surah.ayahs![b].text}﴾ '
+                                                  '[${widget.surah.name}-'
+                                                  '${arabicNumber.convert(widget.surah.ayahs![b].numberInSurah.toString())}]',
+                                                  subject:
+                                                      '${widget.surah.name}');
+                                            })
+>>>>>>> e96a46eb4c68152ef511d7b809d9f7b4a4171eee
                                     ]),
                                   );
                                 }
@@ -629,6 +790,7 @@ class _TextPageViewState extends State<TextPageView>
                             }
                             return Stack(
                               children: [
+<<<<<<< HEAD
                                 GestureDetector(
                                   onTap: () {
                                     TextCubit.controller.forward();
@@ -654,6 +816,27 @@ class _TextPageViewState extends State<TextPageView>
                                                   'dark'
                                               ? Colors.white
                                               : Colors.black,
+=======
+                                Container(
+                                  margin: const EdgeInsets.symmetric(
+                                      horizontal: 16, vertical: 16),
+                                  width: MediaQuery.of(context).size.width,
+                                  decoration: BoxDecoration(
+                                      color: Theme.of(context).backgroundColor,
+                                      borderRadius: const BorderRadius.all(
+                                          Radius.circular(8))),
+                                  child: Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 32),
+                                    child: Column(
+                                      children: [
+                                        Align(
+                                          alignment: Alignment.topLeft,
+                                          child: sorahName(
+                                              widget.surah.name!,
+                                              context,
+                                              Theme.of(context).primaryColor),
+>>>>>>> e96a46eb4c68152ef511d7b809d9f7b4a4171eee
                                         ),
                                         Center(
                                           child: SizedBox(
@@ -667,6 +850,7 @@ class _TextPageViewState extends State<TextPageView>
                                                 'assets/svg/space_line.svg',
                                               )),
                                         ),
+<<<<<<< HEAD
                                         Container(
                                           padding: const EdgeInsets.symmetric(
                                               horizontal: 32),
@@ -697,6 +881,31 @@ class _TextPageViewState extends State<TextPageView>
                                                 return e;
                                               }).toList(),
                                             ),
+=======
+                                        SelectableText.rich(
+                                          showCursor: true,
+                                          cursorWidth: 3,
+                                          cursorColor:
+                                              Theme.of(context).dividerColor,
+                                          cursorRadius:
+                                              const Radius.circular(5),
+                                          scrollPhysics:
+                                              const ClampingScrollPhysics(),
+                                          toolbarOptions: const ToolbarOptions(
+                                              copy: true, selectAll: true),
+                                          textDirection: TextDirection.rtl,
+                                          textAlign: TextAlign.justify,
+                                          TextSpan(
+                                            style: TextStyle(
+                                                fontSize:
+                                                    TextPageView.fontSizeArabic,
+                                                backgroundColor: bColor ??
+                                                    Colors.transparent,
+                                                fontFamily: 'uthmanic2'),
+                                            children: text.map((e) {
+                                              return e;
+                                            }).toList(),
+>>>>>>> e96a46eb4c68152ef511d7b809d9f7b4a4171eee
                                           ),
                                         ),
                                         Center(
@@ -714,9 +923,13 @@ class _TextPageViewState extends State<TextPageView>
                                         Align(
                                           alignment: Alignment.bottomCenter,
                                           child: pageNumber(
+<<<<<<< HEAD
                                               arabicNumber
                                                   .convert(
                                                       widget.nomPageF! + index)
+=======
+                                              (widget.nomPageF + index)
+>>>>>>> e96a46eb4c68152ef511d7b809d9f7b4a4171eee
                                                   .toString(),
                                               context,
                                               Theme.of(context).primaryColor),
@@ -725,6 +938,7 @@ class _TextPageViewState extends State<TextPageView>
                                     ),
                                   ),
                                 ),
+<<<<<<< HEAD
                                 Padding(
                                   padding: const EdgeInsets.all(32.0),
                                   child: Align(
@@ -739,14 +953,19 @@ class _TextPageViewState extends State<TextPageView>
                                     ),
                                   ),
                                 ),
+=======
+>>>>>>> e96a46eb4c68152ef511d7b809d9f7b4a4171eee
                               ],
                             );
                           },
                         ),
                       ),
                     ),
+<<<<<<< HEAD
                     SlideTransition(
                         position: TextCubit.offset, child: AudioTextWidget()),
+=======
+>>>>>>> e96a46eb4c68152ef511d7b809d9f7b4a4171eee
                   ],
                 ),
               )),
@@ -770,11 +989,19 @@ class _TextPageViewState extends State<TextPageView>
               activeTrackBarHeight: 5,
               inactiveTrackBar: BoxDecoration(
                 borderRadius: BorderRadius.circular(8),
+<<<<<<< HEAD
                 color: Theme.of(context).colorScheme.surface,
               ),
               activeTrackBar: BoxDecoration(
                   borderRadius: BorderRadius.circular(4),
                   color: Theme.of(context).colorScheme.background),
+=======
+                color: Theme.of(context).bottomAppBarColor,
+              ),
+              activeTrackBar: BoxDecoration(
+                  borderRadius: BorderRadius.circular(4),
+                  color: Theme.of(context).backgroundColor),
+>>>>>>> e96a46eb4c68152ef511d7b809d9f7b4a4171eee
             ),
             handlerAnimation: const FlutterSliderHandlerAnimation(
                 curve: Curves.elasticOut,
@@ -809,7 +1036,11 @@ class _TextPageViewState extends State<TextPageView>
       },
       customButton: Icon(
         Icons.format_size,
+<<<<<<< HEAD
         color: Theme.of(context).colorScheme.surface,
+=======
+        color: Theme.of(context).bottomAppBarColor,
+>>>>>>> e96a46eb4c68152ef511d7b809d9f7b4a4171eee
       ),
       iconSize: 24,
       buttonHeight: 50,
@@ -817,7 +1048,11 @@ class _TextPageViewState extends State<TextPageView>
       buttonElevation: 0,
       itemHeight: 35,
       dropdownDecoration: BoxDecoration(
+<<<<<<< HEAD
           color: Theme.of(context).colorScheme.surface.withOpacity(.9),
+=======
+          color: Theme.of(context).bottomAppBarColor.withOpacity(.9),
+>>>>>>> e96a46eb4c68152ef511d7b809d9f7b4a4171eee
           borderRadius: const BorderRadius.all(Radius.circular(8))),
       itemPadding: const EdgeInsets.only(left: 14, right: 14),
       dropdownMaxHeight: MediaQuery.of(context).size.height,
@@ -832,7 +1067,10 @@ class _TextPageViewState extends State<TextPageView>
   }
 
   Widget scrollDropDown(BuildContext context) {
+<<<<<<< HEAD
     QuranTextCubit textCubit = QuranTextCubit.get(context);
+=======
+>>>>>>> e96a46eb4c68152ef511d7b809d9f7b4a4171eee
     return DropdownButton2(
       isExpanded: true,
       items: [
@@ -847,11 +1085,19 @@ class _TextPageViewState extends State<TextPageView>
               activeTrackBarHeight: 5,
               inactiveTrackBar: BoxDecoration(
                 borderRadius: BorderRadius.circular(8),
+<<<<<<< HEAD
                 color: Theme.of(context).colorScheme.surface,
               ),
               activeTrackBar: BoxDecoration(
                   borderRadius: BorderRadius.circular(4),
                   color: Theme.of(context).colorScheme.background),
+=======
+                color: Theme.of(context).bottomAppBarColor,
+              ),
+              activeTrackBar: BoxDecoration(
+                  borderRadius: BorderRadius.circular(4),
+                  color: Theme.of(context).backgroundColor),
+>>>>>>> e96a46eb4c68152ef511d7b809d9f7b4a4171eee
             ),
             handlerAnimation: const FlutterSliderHandlerAnimation(
                 curve: Curves.elasticOut,
@@ -861,9 +1107,15 @@ class _TextPageViewState extends State<TextPageView>
             onDragging: (handlerIndex, lowerValue, upperValue) {
               lowerValue = lowerValue;
               upperValue = upperValue;
+<<<<<<< HEAD
               textCubit.scrollSpeed = lowerValue;
               setState(() {
                 print(textCubit.scrollSpeed);
+=======
+              scrollSpeed = lowerValue;
+              setState(() {
+                print(scrollSpeed);
+>>>>>>> e96a46eb4c68152ef511d7b809d9f7b4a4171eee
               });
             },
             handler: FlutterSliderHandler(
@@ -878,15 +1130,26 @@ class _TextPageViewState extends State<TextPageView>
           ),
         )
       ],
+<<<<<<< HEAD
       value: textCubit.selectedSpeed,
       onChanged: (value) {
         setState(() {
           textCubit.selectedSpeed = value as String;
+=======
+      value: selectedSpeed,
+      onChanged: (value) {
+        setState(() {
+          selectedSpeed = value as String;
+>>>>>>> e96a46eb4c68152ef511d7b809d9f7b4a4171eee
         });
       },
       customButton: Icon(
         Icons.format_size,
+<<<<<<< HEAD
         color: Theme.of(context).colorScheme.surface,
+=======
+        color: Theme.of(context).bottomAppBarColor,
+>>>>>>> e96a46eb4c68152ef511d7b809d9f7b4a4171eee
       ),
       iconSize: 24,
       buttonHeight: 50,

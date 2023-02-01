@@ -2,9 +2,13 @@ import 'dart:io';
 
 import 'package:flutter/services.dart';
 import 'package:path/path.dart';
+<<<<<<< HEAD
 import 'package:path_provider/path_provider.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:sqflite_common_ffi/sqflite_ffi.dart';
+=======
+import 'package:sqflite/sqflite.dart';
+>>>>>>> e96a46eb4c68152ef511d7b809d9f7b4a4171eee
 
 
 /// test
@@ -23,6 +27,7 @@ class TafseerDataBaseClient {
     if (_database != null) return _database;
     // lazily instantiate the db the first time it is accessed
     await initDatabase();
+<<<<<<< HEAD
     _database = await _openDatabase(_databaseName);
     return _database;
   }
@@ -76,6 +81,17 @@ class TafseerDataBaseClient {
     // var path = join(databasesPath, this._databaseName);
     // print("open database");
     // return await openDatabase(path, readOnly: false);
+=======
+    _database = await _openDatabase();
+    return _database;
+  }
+
+  Future _openDatabase() async {
+    var databasesPath = await getDatabasesPath();
+    var path = join(databasesPath, this._databaseName);
+    print("open database");
+    return await openDatabase(path, readOnly: false);
+>>>>>>> e96a46eb4c68152ef511d7b809d9f7b4a4171eee
   }
 
   Future initDatabase() async {
@@ -88,6 +104,7 @@ class TafseerDataBaseClient {
       // Should happen only the first time you launch your application
       print("Creating new copy from asset");
 
+<<<<<<< HEAD
       // Open a database transaction
       Database database = await openDatabase(path, version: 1);
       await database.transaction((txn) async {
@@ -107,6 +124,20 @@ class TafseerDataBaseClient {
 
       // Close the database connection
       database.close();
+=======
+      // Make sure the parent directory exists
+      try {
+        await Directory(dirname(path)).create(recursive: true);
+      } catch (_) {}
+
+      // Copy from asset
+      ByteData data = await rootBundle.load(join("assets", this._databaseName));
+      List<int> bytes =
+          data.buffer.asUint8List(data.offsetInBytes, data.lengthInBytes);
+
+      // Write and flush the bytes written
+      await File(path).writeAsBytes(bytes, flush: true);
+>>>>>>> e96a46eb4c68152ef511d7b809d9f7b4a4171eee
     } else {
       print("Opening existing database");
     }

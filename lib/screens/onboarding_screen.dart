@@ -1,4 +1,8 @@
 import 'dart:io';
+<<<<<<< HEAD
+=======
+import 'package:alquranalkareem/l10n/app_localizations.dart';
+>>>>>>> e96a46eb4c68152ef511d7b809d9f7b4a4171eee
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';

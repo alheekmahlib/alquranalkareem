@@ -46,7 +46,11 @@ class _QuranJuzState extends State<QuranJuz>
                               width: MediaQuery.of(context).size.width,
                               decoration: BoxDecoration(
                                   border: Border.all(
+<<<<<<< HEAD
                                     color: Theme.of(context).colorScheme.surface,
+=======
+                                    color: Theme.of(context).bottomAppBarColor,
+>>>>>>> e96a46eb4c68152ef511d7b809d9f7b4a4171eee
                                     width: 1,
                                   ),
                                   borderRadius: const BorderRadius.only(

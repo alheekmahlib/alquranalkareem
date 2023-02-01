@@ -92,7 +92,11 @@ class _BookmarksListState extends State<BookmarksList> {
                                       width: MediaQuery.of(context).size.width,
                                       decoration: BoxDecoration(
                                           color: Theme.of(context)
+<<<<<<< HEAD
                                               .colorScheme.surface
+=======
+                                              .bottomAppBarColor
+>>>>>>> e96a46eb4c68152ef511d7b809d9f7b4a4171eee
                                               .withOpacity(.2),
                                           borderRadius: const BorderRadius.all(
                                               Radius.circular(8))),

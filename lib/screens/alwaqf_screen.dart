@@ -1,3 +1,7 @@
+<<<<<<< HEAD
+=======
+import 'package:alquranalkareem/cubit/cubit.dart';
+>>>>>>> e96a46eb4c68152ef511d7b809d9f7b4a4171eee
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:group_button/group_button.dart';
@@ -59,7 +63,11 @@ class _AlwaqfScreenState extends State<AlwaqfScreen> {
           body: Directionality(
         textDirection: TextDirection.rtl,
         child: Container(
+<<<<<<< HEAD
           color: Theme.of(context).colorScheme.background,
+=======
+          color: Theme.of(context).backgroundColor,
+>>>>>>> e96a46eb4c68152ef511d7b809d9f7b4a4171eee
           child: Padding(
             padding: EdgeInsets.only(
                 top: MediaQuery.of(context).size.height / 1 / 15),
@@ -77,7 +85,11 @@ class _AlwaqfScreenState extends State<AlwaqfScreen> {
                             height: 30,
                             width: 30,
                             decoration: BoxDecoration(
+<<<<<<< HEAD
                                 color: Theme.of(context).colorScheme.background,
+=======
+                                color: Theme.of(context).backgroundColor,
+>>>>>>> e96a46eb4c68152ef511d7b809d9f7b4a4171eee
                                 borderRadius: const BorderRadius.only(
                                   topRight: Radius.circular(8),
                                   topLeft: Radius.circular(8),
@@ -87,7 +99,11 @@ class _AlwaqfScreenState extends State<AlwaqfScreen> {
                                     color: Theme.of(context).dividerColor)),
                             child: Icon(
                               Icons.close_outlined,
+<<<<<<< HEAD
                               color: Theme.of(context).colorScheme.surface,
+=======
+                              color: Theme.of(context).bottomAppBarColor,
+>>>>>>> e96a46eb4c68152ef511d7b809d9f7b4a4171eee
                             ),
                           ),
                         ),
@@ -124,9 +140,15 @@ class _AlwaqfScreenState extends State<AlwaqfScreen> {
                                     width: 50,
                                     decoration: BoxDecoration(
                                       color: isSelected
+<<<<<<< HEAD
                                           ? Theme.of(context).colorScheme.surface
                                           : Theme.of(context)
                                               .colorScheme.surface
+=======
+                                          ? Theme.of(context).bottomAppBarColor
+                                          : Theme.of(context)
+                                              .bottomAppBarColor
+>>>>>>> e96a46eb4c68152ef511d7b809d9f7b4a4171eee
                                               .withOpacity(.6),
                                       borderRadius: BorderRadius.circular(4),
                                     ),
@@ -149,10 +171,17 @@ class _AlwaqfScreenState extends State<AlwaqfScreen> {
                                     color: Color(0xfffcbb76),
                                   ),
                                   selectedColor:
+<<<<<<< HEAD
                                       Theme.of(context).colorScheme.surface,
                                   unselectedShadow: const [],
                                   unselectedColor: Theme.of(context)
                                       .colorScheme.surface
+=======
+                                      Theme.of(context).bottomAppBarColor,
+                                  unselectedShadow: const [],
+                                  unselectedColor: Theme.of(context)
+                                      .bottomAppBarColor
+>>>>>>> e96a46eb4c68152ef511d7b809d9f7b4a4171eee
                                       .withOpacity(.5),
                                   unselectedTextStyle: TextStyle(
                                     fontSize: 18,
@@ -213,12 +242,20 @@ class _AlwaqfScreenState extends State<AlwaqfScreen> {
                                       width: MediaQuery.of(context).size.width,
                                       decoration: BoxDecoration(
                                           color:
+<<<<<<< HEAD
                                               Theme.of(context).colorScheme.background,
+=======
+                                              Theme.of(context).backgroundColor,
+>>>>>>> e96a46eb4c68152ef511d7b809d9f7b4a4171eee
                                           borderRadius: const BorderRadius.all(
                                               Radius.circular(8)),
                                           border: Border.all(
                                               color: Theme.of(context)
+<<<<<<< HEAD
                                                   .colorScheme.surface,
+=======
+                                                  .bottomAppBarColor,
+>>>>>>> e96a46eb4c68152ef511d7b809d9f7b4a4171eee
                                               width: 1)),
                                       child: Padding(
                                         padding: const EdgeInsets.symmetric(
@@ -236,7 +273,11 @@ class _AlwaqfScreenState extends State<AlwaqfScreen> {
                                                     height: 70,
                                                     width: 70,
                                                     color: Theme.of(context)
+<<<<<<< HEAD
                                                         .colorScheme.surface,
+=======
+                                                        .bottomAppBarColor,
+>>>>>>> e96a46eb4c68152ef511d7b809d9f7b4a4171eee
                                                   )),
                                             ),
                                             Center(

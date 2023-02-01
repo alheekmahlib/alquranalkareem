@@ -29,7 +29,11 @@ class _SorahJuzListState extends State<SorahJuzList>
     return Container(
       key: dSorahJuzListKey,
       decoration: BoxDecoration(
+<<<<<<< HEAD
           color: Theme.of(context).colorScheme.background,
+=======
+          color: Theme.of(context).backgroundColor,
+>>>>>>> e96a46eb4c68152ef511d7b809d9f7b4a4171eee
           borderRadius: const BorderRadius.only(
               topRight: Radius.circular(20), topLeft: Radius.circular(20))),
       child: DefaultTabController(
@@ -54,7 +58,11 @@ class _SorahJuzListState extends State<SorahJuzList>
                           : Theme.of(context).primaryColorDark),
                   onPressed: () => Navigator.of(context).pop(),
                 ),
+<<<<<<< HEAD
                 backgroundColor: Theme.of(context).colorScheme.background,
+=======
+                backgroundColor: Theme.of(context).backgroundColor,
+>>>>>>> e96a46eb4c68152ef511d7b809d9f7b4a4171eee
                 flexibleSpace: FlexibleSpaceBar(
                   title: SvgPicture.asset(
                     'assets/svg/Logo_line2.svg',
@@ -77,7 +85,11 @@ class _SorahJuzListState extends State<SorahJuzList>
                         child: Text(
                           AppLocalizations.of(context)!.quran_sorah,
                           style: TextStyle(
+<<<<<<< HEAD
                               color: Theme.of(context).colorScheme.surface,
+=======
+                              color: Theme.of(context).bottomAppBarColor,
+>>>>>>> e96a46eb4c68152ef511d7b809d9f7b4a4171eee
                               fontSize: 12,
                               fontFamily: 'kufi'),
                         ),
@@ -86,7 +98,11 @@ class _SorahJuzListState extends State<SorahJuzList>
                         child: Text(
                           AppLocalizations.of(context)!.allJuz,
                           style: TextStyle(
+<<<<<<< HEAD
                               color: Theme.of(context).colorScheme.surface,
+=======
+                              color: Theme.of(context).bottomAppBarColor,
+>>>>>>> e96a46eb4c68152ef511d7b809d9f7b4a4171eee
                               fontSize: 12,
                               fontFamily: 'kufi'),
                         ),

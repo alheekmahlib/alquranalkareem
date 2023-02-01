@@ -44,6 +44,10 @@ class Ayahs {
     page = json['page'];
     ruku = json['ruku'];
     audio = json['audio'];
+<<<<<<< HEAD
+=======
+
+>>>>>>> e96a46eb4c68152ef511d7b809d9f7b4a4171eee
     hizbQuarter = json['hizbQuarter'];
   }
 

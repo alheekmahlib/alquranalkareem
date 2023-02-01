@@ -10,6 +10,7 @@ class AyaRepository {
 
   Future<List<Aya>> search(String text) async {
     Database? database = await _client?.database;
+<<<<<<< HEAD
     List<Aya> ayaList = [];
     await database?.transaction((txn) async {
       List<Map>? results = (await txn?.query(Aya.tableName,
@@ -18,12 +19,21 @@ class AyaRepository {
       results?.forEach((result) {
         ayaList.add(Aya.fromMap(result));
       });
+=======
+    List<Map>? results = (await database?.query(Aya.tableName,
+            columns: Aya.columns, where: "SearchText LIKE '%$text%'"))
+        ?.cast<Map>();
+    List<Aya> ayaList = [];
+    results?.forEach((result) {
+      ayaList.add(Aya.fromMap(result));
+>>>>>>> e96a46eb4c68152ef511d7b809d9f7b4a4171eee
     });
     return ayaList;
   }
 
   Future<List<Aya>> getPage(int pageNum) async {
     Database? database = await _client?.database;
+<<<<<<< HEAD
     List<Aya> ayaList = [];
     await database!.transaction((txn) async {
       List<Map>? results = (await txn.query(Aya.tableName,
@@ -42,6 +52,11 @@ class AyaRepository {
       return await txn.query(Aya.tableName,
           columns: Aya.columns, where: "PageNum = $ayahNum");
     }))?.cast<Map>();
+=======
+    List<Map>? results = (await database?.query(Aya.tableName,
+            columns: Aya.columns, where: "PageNum = $pageNum"))
+        ?.cast<Map>();
+>>>>>>> e96a46eb4c68152ef511d7b809d9f7b4a4171eee
     List<Aya> ayaList = [];
     results?.forEach((result) {
       ayaList.add(Aya.fromMap(result));
@@ -51,6 +66,7 @@ class AyaRepository {
 
   Future<List<Aya>> all() async {
     Database? database = await _client?.database;
+<<<<<<< HEAD
     List<Aya> ayaList = [];
 
     await database!.transaction((txn) async {
@@ -62,6 +78,15 @@ class AyaRepository {
       });
     });
 
+=======
+    List<Map>? results =
+        (await database!.query(Aya.tableName, columns: Aya.columns))
+            .cast<Map>();
+    List<Aya> ayaList = [];
+    results.forEach((result) {
+      ayaList.add(Aya.fromMap(result));
+    });
+>>>>>>> e96a46eb4c68152ef511d7b809d9f7b4a4171eee
     return ayaList;
   }
 }
