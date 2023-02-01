@@ -3,11 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-<<<<<<< HEAD
 	objectVersion = 54;
-=======
-	objectVersion = 51;
->>>>>>> e96a46eb4c68152ef511d7b809d9f7b4a4171eee
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -205,10 +201,7 @@
 /* Begin PBXShellScriptBuildPhase section */
 		3B06AD1E1E4923F5004D2608 /* Thin Binary */ = {
 			isa = PBXShellScriptBuildPhase;
-<<<<<<< HEAD
 			alwaysOutOfDate = 1;
-=======
->>>>>>> e96a46eb4c68152ef511d7b809d9f7b4a4171eee
 			buildActionMask = 2147483647;
 			files = (
 			);
@@ -245,10 +238,7 @@
 		};
 		9740EEB61CF901F6004384FC /* Run Script */ = {
 			isa = PBXShellScriptBuildPhase;
-<<<<<<< HEAD
 			alwaysOutOfDate = 1;
-=======
->>>>>>> e96a46eb4c68152ef511d7b809d9f7b4a4171eee
 			buildActionMask = 2147483647;
 			files = (
 			);
@@ -383,11 +373,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-<<<<<<< HEAD
 				MACOSX_DEPLOYMENT_TARGET = 11.1;
-=======
-				MACOSX_DEPLOYMENT_TARGET = 10.13;
->>>>>>> e96a46eb4c68152ef511d7b809d9f7b4a4171eee
 				MARKETING_VERSION = 3.0.3;
 				PRODUCT_BUNDLE_IDENTIFIER = com.alheekmah.alquranalkareem.alquranalkareem;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -531,11 +517,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-<<<<<<< HEAD
 				MACOSX_DEPLOYMENT_TARGET = 11.1;
-=======
-				MACOSX_DEPLOYMENT_TARGET = 10.13;
->>>>>>> e96a46eb4c68152ef511d7b809d9f7b4a4171eee
 				MARKETING_VERSION = 3.0.3;
 				PRODUCT_BUNDLE_IDENTIFIER = com.alheekmah.alquranalkareem.alquranalkareem;
 				"PRODUCT_BUNDLE_IDENTIFIER[sdk=macosx*]" = com.alheekmah.alquranalkareem.alquranalkareem2;
@@ -569,11 +551,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-<<<<<<< HEAD
 				MACOSX_DEPLOYMENT_TARGET = 11.1;
-=======
-				MACOSX_DEPLOYMENT_TARGET = 10.13;
->>>>>>> e96a46eb4c68152ef511d7b809d9f7b4a4171eee
 				MARKETING_VERSION = 3.0.3;
 				PRODUCT_BUNDLE_IDENTIFIER = com.alheekmah.alquranalkareem.alquranalkareem;
 				PRODUCT_NAME = "$(TARGET_NAME)";

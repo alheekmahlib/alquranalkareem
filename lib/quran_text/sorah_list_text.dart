@@ -1,8 +1,5 @@
 import 'dart:convert';
-<<<<<<< HEAD
 import 'package:arabic_numbers/arabic_numbers.dart';
-=======
->>>>>>> e96a46eb4c68152ef511d7b809d9f7b4a4171eee
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:flutter_svg/svg.dart';
@@ -17,10 +14,7 @@ import 'repository/quranApi.dart';
 import 'package:lottie/lottie.dart';
 import 'package:flutter/services.dart' as rootBundle;
 
-<<<<<<< HEAD
 
-=======
->>>>>>> e96a46eb4c68152ef511d7b809d9f7b4a4171eee
 class SorahListText extends StatefulWidget {
   const SorahListText({super.key});
 
@@ -56,7 +50,6 @@ class _SorahListTextState extends State<SorahListText>
     });
   }
 
-<<<<<<< HEAD
 
 
   @override
@@ -155,177 +148,6 @@ class _SorahListTextState extends State<SorahListText>
                                                                 .number
                                                                 .toString()),
                                                             style: TextStyle(
-=======
-  @override
-  Widget build(BuildContext context) {
-    QuranServer quranServer = QuranServer();
-    return Container(
-      decoration: BoxDecoration(
-          color: Theme.of(context).backgroundColor,
-          borderRadius: const BorderRadius.only(
-              topRight: Radius.circular(20), topLeft: Radius.circular(20))),
-      child: Stack(
-        children: [
-          Container(
-            color: Theme.of(context).backgroundColor,
-            child: Padding(
-              padding: const EdgeInsets.only(bottom: 16.0),
-              child: Column(
-                children: <Widget>[
-                  Expanded(
-                    child: FutureBuilder(
-                        future: quranServer.QuranData(),
-                        builder: (context, snapshot) {
-                          if (snapshot.hasData) {
-                            List<SurahText> surah = snapshot.data!;
-                            return AnimationLimiter(
-                              child: Scrollbar(
-                                controller: controller,
-                                thumbVisibility: true,
-                                child: ListView.builder(
-                                    shrinkWrap: true,
-                                    physics:
-                                        const AlwaysScrollableScrollPhysics(),
-                                    itemCount: surah.length,
-                                    controller: controller,
-                                    itemBuilder: (_, index) {
-                                      Sorah sorahT = sorahList![index];
-                                      return AnimationConfiguration
-                                          .staggeredList(
-                                        position: index,
-                                        duration:
-                                            const Duration(milliseconds: 450),
-                                        child: SlideAnimation(
-                                          verticalOffset: 50.0,
-                                          child: FadeInAnimation(
-                                            child: GestureDetector(
-                                              onTap: () {
-                                                Navigator.of(context).push(
-                                                    animatRoute(TextPageView(
-                                                  surah: surah[index],
-                                                  nomPageF: surah[index]
-                                                      .ayahs!
-                                                      .first
-                                                      .page!,
-                                                  nomPageL: surah[index]
-                                                      .ayahs!
-                                                      .last
-                                                      .page!,
-                                                )));
-                                              },
-                                              child: Container(
-                                                  height: 60,
-                                                  color: (index % 2 == 0
-                                                      ? Theme.of(context)
-                                                          .backgroundColor
-                                                      : Theme.of(context)
-                                                          .dividerColor
-                                                          .withOpacity(.3)),
-                                                  child: Padding(
-                                                    padding: const EdgeInsets
-                                                            .symmetric(
-                                                        horizontal: 8),
-                                                    child: Row(
-                                                      mainAxisAlignment:
-                                                          MainAxisAlignment
-                                                              .spaceBetween,
-                                                      children: [
-                                                        Stack(
-                                                          alignment:
-                                                              Alignment.center,
-                                                          children: [
-                                                            SizedBox(
-                                                                height: 40,
-                                                                width: 40,
-                                                                child:
-                                                                    SvgPicture
-                                                                        .asset(
-                                                                  'assets/svg/sora_num.svg',
-                                                                )),
-                                                            Text(
-                                                              surah[index]
-                                                                  .number
-                                                                  .toString(),
-                                                              style: TextStyle(
-                                                                  color: ThemeProvider.themeOf(context)
-                                                                              .id ==
-                                                                          'dark'
-                                                                      ? Theme.of(
-                                                                              context)
-                                                                          .canvasColor
-                                                                      : Theme.of(
-                                                                              context)
-                                                                          .primaryColorLight,
-                                                                  fontFamily:
-                                                                      "kufi",
-                                                                  fontSize: 14,
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .bold),
-                                                            ),
-                                                          ],
-                                                        ),
-                                                        Column(
-                                                          crossAxisAlignment:
-                                                              CrossAxisAlignment
-                                                                  .start,
-                                                          children: [
-                                                            SvgPicture.asset(
-                                                              'assets/svg/surah_name/00${index + 1}.svg',
-                                                              color: ThemeProvider.themeOf(
-                                                                              context)
-                                                                          .id ==
-                                                                      'dark'
-                                                                  ? Theme.of(
-                                                                          context)
-                                                                      .canvasColor
-                                                                  : Theme.of(
-                                                                          context)
-                                                                      .primaryColorDark,
-                                                              width: 100,
-                                                            ),
-                                                            Padding(
-                                                              padding:
-                                                                  const EdgeInsets
-                                                                          .only(
-                                                                      right:
-                                                                          8.0),
-                                                              child: Text(
-                                                                sorahT.nameEn,
-                                                                style:
-                                                                    TextStyle(
-                                                                  fontFamily:
-                                                                      "kufi",
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .w600,
-                                                                  fontSize: 10,
-                                                                  color: ThemeProvider.themeOf(context)
-                                                                              .id ==
-                                                                          'dark'
-                                                                      ? Theme.of(
-                                                                              context)
-                                                                          .canvasColor
-                                                                      : Theme.of(
-                                                                              context)
-                                                                          .primaryColorLight,
-                                                                ),
-                                                              ),
-                                                            ),
-                                                          ],
-                                                        ),
-                                                        Column(
-                                                          mainAxisAlignment:
-                                                              MainAxisAlignment
-                                                                  .center,
-                                                          children: [
-                                                            Text(
-                                                              "| ${AppLocalizations.of(context)?.aya_count} |",
-                                                              style: TextStyle(
-                                                                fontFamily:
-                                                                    "uthman",
-                                                                fontSize: 12,
->>>>>>> e96a46eb4c68152ef511d7b809d9f7b4a4171eee
                                                                 color: ThemeProvider.themeOf(context)
                                                                             .id ==
                                                                         'dark'
@@ -334,22 +156,12 @@ class _SorahListTextState extends State<SorahListText>
                                                                         .canvasColor
                                                                     : Theme.of(
                                                                             context)
-<<<<<<< HEAD
                                                                         .primaryColorLight,
-=======
-                                                                        .primaryColorDark,
-                                                              ),
-                                                            ),
-                                                            Text(
-                                                              "| ${sorahT.ayaCount} |",
-                                                              style: TextStyle(
->>>>>>> e96a46eb4c68152ef511d7b809d9f7b4a4171eee
                                                                 fontFamily:
                                                                     "kufi",
                                                                 fontSize: 14,
                                                                 fontWeight:
                                                                     FontWeight
-<<<<<<< HEAD
                                                                         .bold),
                                                           ),
                                                         ],
@@ -389,9 +201,6 @@ class _SorahListTextState extends State<SorahListText>
                                                                     FontWeight
                                                                         .w600,
                                                                 fontSize: 10,
-=======
-                                                                        .bold,
->>>>>>> e96a46eb4c68152ef511d7b809d9f7b4a4171eee
                                                                 color: ThemeProvider.themeOf(context)
                                                                             .id ==
                                                                         'dark'
@@ -400,7 +209,6 @@ class _SorahListTextState extends State<SorahListText>
                                                                         .canvasColor
                                                                     : Theme.of(
                                                                             context)
-<<<<<<< HEAD
                                                                         .primaryColorLight,
                                                               ),
                                                             ),
@@ -473,36 +281,6 @@ class _SorahListTextState extends State<SorahListText>
             ),
           ),
         ),
-=======
-                                                                        .primaryColorDark,
-                                                              ),
-                                                            ),
-                                                          ],
-                                                        ),
-                                                      ],
-                                                    ),
-                                                  )),
-                                            ),
-                                          ),
-                                        ),
-                                      );
-                                    }),
-                              ),
-                            );
-                          } else {
-                            return Center(
-                              child: Lottie.asset('assets/lottie/loading.json',
-                                  width: 200, height: 200),
-                            );
-                          }
-                        }),
-                  )
-                ],
-              ),
-            ),
-          ),
-        ],
->>>>>>> e96a46eb4c68152ef511d7b809d9f7b4a4171eee
       ),
     );
   }

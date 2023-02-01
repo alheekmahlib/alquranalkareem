@@ -103,11 +103,7 @@ class _NotesListState extends State<NotesList> {
                         });
                       },
                       style: TextStyle(
-<<<<<<< HEAD
                           color: Theme.of(context).colorScheme.surface,
-=======
-                          color: Theme.of(context).bottomAppBarColor,
->>>>>>> e96a46eb4c68152ef511d7b809d9f7b4a4171eee
                           fontFamily: 'kufi',
                           fontSize: 12),
                       decoration: InputDecoration(
@@ -115,30 +111,18 @@ class _NotesListState extends State<NotesList> {
                           onPressed: () => titleController.clear(),
                           icon: Icon(
                             Icons.clear,
-<<<<<<< HEAD
                             color: Theme.of(context).colorScheme.surface,
-=======
-                            color: Theme.of(context).bottomAppBarColor,
->>>>>>> e96a46eb4c68152ef511d7b809d9f7b4a4171eee
                           ),
                         ),
                         focusedBorder: UnderlineInputBorder(
                           borderSide: BorderSide(
-<<<<<<< HEAD
                               color: Theme.of(context).colorScheme.surface),
-=======
-                              color: Theme.of(context).bottomAppBarColor),
->>>>>>> e96a46eb4c68152ef511d7b809d9f7b4a4171eee
                         ),
                         hintText: AppLocalizations.of(context)!.note_title,
                         label: Text(
                           AppLocalizations.of(context)!.note_title,
                           style: TextStyle(
-<<<<<<< HEAD
                               color: Theme.of(context).colorScheme.surface),
-=======
-                              color: Theme.of(context).bottomAppBarColor),
->>>>>>> e96a46eb4c68152ef511d7b809d9f7b4a4171eee
                         ),
                         hintStyle: TextStyle(
                             // height: 1.5,
@@ -174,11 +158,7 @@ class _NotesListState extends State<NotesList> {
                         });
                       },
                       style: TextStyle(
-<<<<<<< HEAD
                           color: Theme.of(context).colorScheme.surface,
-=======
-                          color: Theme.of(context).bottomAppBarColor,
->>>>>>> e96a46eb4c68152ef511d7b809d9f7b4a4171eee
                           fontFamily: 'kufi',
                           fontSize: 12),
                       decoration: InputDecoration(
@@ -186,30 +166,18 @@ class _NotesListState extends State<NotesList> {
                           onPressed: () => descriptionController.clear(),
                           icon: Icon(
                             Icons.clear,
-<<<<<<< HEAD
                             color: Theme.of(context).colorScheme.surface,
-=======
-                            color: Theme.of(context).bottomAppBarColor,
->>>>>>> e96a46eb4c68152ef511d7b809d9f7b4a4171eee
                           ),
                         ),
                         focusedBorder: UnderlineInputBorder(
                           borderSide: BorderSide(
-<<<<<<< HEAD
                               color: Theme.of(context).colorScheme.surface),
-=======
-                              color: Theme.of(context).bottomAppBarColor),
->>>>>>> e96a46eb4c68152ef511d7b809d9f7b4a4171eee
                         ),
                         hintText: AppLocalizations.of(context)!.note_details,
                         label: Text(
                           AppLocalizations.of(context)!.note_details,
                           style: TextStyle(
-<<<<<<< HEAD
                               color: Theme.of(context).colorScheme.surface),
-=======
-                              color: Theme.of(context).bottomAppBarColor),
->>>>>>> e96a46eb4c68152ef511d7b809d9f7b4a4171eee
                         ),
                         hintStyle: TextStyle(
                             color: Theme.of(context)
@@ -231,11 +199,7 @@ class _NotesListState extends State<NotesList> {
                       child: ElevatedButton(
                           style: ElevatedButton.styleFrom(
                               backgroundColor:
-<<<<<<< HEAD
                                   Theme.of(context).colorScheme.surface,
-=======
-                                  Theme.of(context).bottomAppBarColor,
->>>>>>> e96a46eb4c68152ef511d7b809d9f7b4a4171eee
                               side: BorderSide(
                                 width: 1.0,
                                 color: Theme.of(context).dividerColor,
@@ -296,11 +260,7 @@ class _NotesListState extends State<NotesList> {
                                     width: MediaQuery.of(context).size.width,
                                     decoration: BoxDecoration(
                                         color: Theme.of(context)
-<<<<<<< HEAD
                                             .colorScheme.surface
-=======
-                                            .bottomAppBarColor
->>>>>>> e96a46eb4c68152ef511d7b809d9f7b4a4171eee
                                             .withOpacity(.2),
                                         borderRadius: const BorderRadius.all(
                                             Radius.circular(8))),

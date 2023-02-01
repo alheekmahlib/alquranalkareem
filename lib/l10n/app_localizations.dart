@@ -572,15 +572,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Last Read'**
   String get lastRead;
-<<<<<<< HEAD
 
   /// No description provided for @lastRead.
   ///
   /// In en, this message translates to:
   /// **'Last Read'**
   String get copyAyah;
-=======
->>>>>>> e96a46eb4c68152ef511d7b809d9f7b4a4171eee
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

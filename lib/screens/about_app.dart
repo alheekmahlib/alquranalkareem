@@ -1,8 +1,4 @@
 import 'dart:io';
-<<<<<<< HEAD
-=======
-
->>>>>>> e96a46eb4c68152ef511d7b809d9f7b4a4171eee
 import 'package:alquranalkareem/cubit/cubit.dart';
 import 'package:alquranalkareem/shared/widgets/theme_change.dart';
 import 'package:alquranalkareem/shared/widgets/widgets.dart';
@@ -53,11 +49,7 @@ class AboutApp extends StatelessWidget {
       right: false,
       left: false,
       child: Scaffold(
-<<<<<<< HEAD
         backgroundColor: Theme.of(context).colorScheme.background,
-=======
-        backgroundColor: Theme.of(context).backgroundColor,
->>>>>>> e96a46eb4c68152ef511d7b809d9f7b4a4171eee
         body: Padding(
           padding: const EdgeInsets.only(top: 16.0),
           child: Align(
@@ -74,11 +66,7 @@ class AboutApp extends StatelessWidget {
                         height: 30,
                         width: 30,
                         decoration: BoxDecoration(
-<<<<<<< HEAD
                             color: Theme.of(context).colorScheme.background,
-=======
-                            color: Theme.of(context).backgroundColor,
->>>>>>> e96a46eb4c68152ef511d7b809d9f7b4a4171eee
                             borderRadius: const BorderRadius.only(
                               topRight: Radius.circular(8),
                               topLeft: Radius.circular(8),
@@ -88,11 +76,7 @@ class AboutApp extends StatelessWidget {
                                 color: Theme.of(context).dividerColor)),
                         child: Icon(
                           Icons.close_outlined,
-<<<<<<< HEAD
                           color: Theme.of(context).colorScheme.surface,
-=======
-                          color: Theme.of(context).bottomAppBarColor,
->>>>>>> e96a46eb4c68152ef511d7b809d9f7b4a4171eee
                         ),
                       ),
                     ),
@@ -120,11 +104,7 @@ class AboutApp extends StatelessWidget {
                         customContainer(
                             context,
                             Text(
-<<<<<<< HEAD
                               '${AppLocalizations.of(context)!.version}: 3.0.4',
-=======
-                              '${AppLocalizations.of(context)!.version}: 3.0.0',
->>>>>>> e96a46eb4c68152ef511d7b809d9f7b4a4171eee
                               style: TextStyle(
                                 color:
                                     ThemeProvider.themeOf(context).id == 'dark'
@@ -141,11 +121,7 @@ class AboutApp extends StatelessWidget {
                           textDirection: TextDirection.rtl,
                           child: Container(
                             color: Theme.of(context)
-<<<<<<< HEAD
                                 .colorScheme.surface
-=======
-                                .bottomAppBarColor
->>>>>>> e96a46eb4c68152ef511d7b809d9f7b4a4171eee
                                 .withOpacity(.2),
                             child: Column(
                               children: [
@@ -207,11 +183,7 @@ class AboutApp extends StatelessWidget {
                                                           ? Theme.of(context)
                                                               .secondaryHeaderColor
                                                           : Theme.of(context)
-<<<<<<< HEAD
                                                               .colorScheme.surface
-=======
-                                                              .bottomAppBarColor
->>>>>>> e96a46eb4c68152ef511d7b809d9f7b4a4171eee
                                                               .withOpacity(.5),
                                                       width: 2),
                                                   color:
@@ -224,11 +196,7 @@ class AboutApp extends StatelessWidget {
                                                     ? Icon(Icons.done,
                                                         size: 14,
                                                         color: Theme.of(context)
-<<<<<<< HEAD
                                                             .colorScheme.surface)
-=======
-                                                            .bottomAppBarColor)
->>>>>>> e96a46eb4c68152ef511d7b809d9f7b4a4171eee
                                                     : null,
                                               ),
                                               const SizedBox(
@@ -244,11 +212,7 @@ class AboutApp extends StatelessWidget {
                                                       ? Theme.of(context)
                                                           .secondaryHeaderColor
                                                       : Theme.of(context)
-<<<<<<< HEAD
                                                           .colorScheme.surface
-=======
-                                                          .bottomAppBarColor
->>>>>>> e96a46eb4c68152ef511d7b809d9f7b4a4171eee
                                                           .withOpacity(.5),
                                                   fontSize: 14,
                                                   fontFamily: 'kufi',
@@ -287,11 +251,7 @@ class AboutApp extends StatelessWidget {
                                                           ? Theme.of(context)
                                                               .secondaryHeaderColor
                                                           : Theme.of(context)
-<<<<<<< HEAD
                                                               .colorScheme.surface
-=======
-                                                              .bottomAppBarColor
->>>>>>> e96a46eb4c68152ef511d7b809d9f7b4a4171eee
                                                               .withOpacity(.5),
                                                       width: 2),
                                                   color:
@@ -304,11 +264,7 @@ class AboutApp extends StatelessWidget {
                                                     ? Icon(Icons.done,
                                                         size: 14,
                                                         color: Theme.of(context)
-<<<<<<< HEAD
                                                             .colorScheme.surface)
-=======
-                                                            .bottomAppBarColor)
->>>>>>> e96a46eb4c68152ef511d7b809d9f7b4a4171eee
                                                     : null,
                                               ),
                                               const SizedBox(
@@ -324,11 +280,7 @@ class AboutApp extends StatelessWidget {
                                                       ? Theme.of(context)
                                                           .secondaryHeaderColor
                                                       : Theme.of(context)
-<<<<<<< HEAD
                                                           .colorScheme.surface
-=======
-                                                          .bottomAppBarColor
->>>>>>> e96a46eb4c68152ef511d7b809d9f7b4a4171eee
                                                           .withOpacity(.5),
                                                   fontSize: 14,
                                                   fontFamily: 'kufi',
@@ -359,11 +311,7 @@ class AboutApp extends StatelessWidget {
                           textDirection: TextDirection.rtl,
                           child: Container(
                             color: Theme.of(context)
-<<<<<<< HEAD
                                 .colorScheme.surface
-=======
-                                .bottomAppBarColor
->>>>>>> e96a46eb4c68152ef511d7b809d9f7b4a4171eee
                                 .withOpacity(.2),
                             child: Column(
                               children: [
@@ -416,11 +364,7 @@ class AboutApp extends StatelessWidget {
                           textDirection: TextDirection.rtl,
                           child: Container(
                             color: Theme.of(context)
-<<<<<<< HEAD
                                 .colorScheme.surface
-=======
-                                .bottomAppBarColor
->>>>>>> e96a46eb4c68152ef511d7b809d9f7b4a4171eee
                                 .withOpacity(.2),
                             child: Padding(
                               padding: const EdgeInsets.all(8.0),

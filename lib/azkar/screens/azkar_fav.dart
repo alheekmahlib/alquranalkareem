@@ -82,11 +82,7 @@ class _AzkarFavState extends State<AzkarFav> {
                                     child: Container(
                                       decoration: BoxDecoration(
                                           color: Theme.of(context)
-<<<<<<< HEAD
                                               .colorScheme.surface
-=======
-                                              .bottomAppBarColor
->>>>>>> e96a46eb4c68152ef511d7b809d9f7b4a4171eee
                                               .withOpacity(.2),
                                           borderRadius: const BorderRadius.all(
                                             Radius.circular(8),
@@ -101,11 +97,7 @@ class _AzkarFavState extends State<AzkarFav> {
                                                 border: Border.symmetric(
                                                   vertical: BorderSide(
                                                     color: Theme.of(context)
-<<<<<<< HEAD
                                                         .colorScheme.surface,
-=======
-                                                        .bottomAppBarColor,
->>>>>>> e96a46eb4c68152ef511d7b809d9f7b4a4171eee
                                                     width: 2,
                                                   ),
                                                 ),
@@ -134,13 +126,8 @@ class _AzkarFavState extends State<AzkarFav> {
                                                   const Radius.circular(5),
                                                   scrollPhysics:
                                                   const ClampingScrollPhysics(),
-<<<<<<< HEAD
                                                   // toolbarOptions: const ToolbarOptions(
                                                   //     copy: true, selectAll: true),
-=======
-                                                  toolbarOptions: const ToolbarOptions(
-                                                      copy: true, selectAll: true),
->>>>>>> e96a46eb4c68152ef511d7b809d9f7b4a4171eee
                                                   textDirection: TextDirection.rtl,
                                                   textAlign: TextAlign.justify,
                                                 ),
@@ -158,20 +145,12 @@ class _AzkarFavState extends State<AzkarFav> {
                                                         horizontal: 8),
                                                     decoration: BoxDecoration(
                                                         color: Theme.of(context)
-<<<<<<< HEAD
                                                             .colorScheme.surface
-=======
-                                                            .bottomAppBarColor
->>>>>>> e96a46eb4c68152ef511d7b809d9f7b4a4171eee
                                                             .withOpacity(.2),
                                                         border: Border.symmetric(
                                                             vertical: BorderSide(
                                                                 color: Theme.of(context)
-<<<<<<< HEAD
                                                                     .colorScheme.surface,
-=======
-                                                                    .bottomAppBarColor,
->>>>>>> e96a46eb4c68152ef511d7b809d9f7b4a4171eee
                                                                 width: 2))),
                                                     child: Text(
                                                       azkar.reference!,
@@ -199,20 +178,12 @@ class _AzkarFavState extends State<AzkarFav> {
                                                       horizontal: 8),
                                                   decoration: BoxDecoration(
                                                       color: Theme.of(context)
-<<<<<<< HEAD
                                                           .colorScheme.surface
-=======
-                                                          .bottomAppBarColor
->>>>>>> e96a46eb4c68152ef511d7b809d9f7b4a4171eee
                                                           .withOpacity(.2),
                                                       border: Border.symmetric(
                                                           vertical: BorderSide(
                                                               color: Theme.of(context)
-<<<<<<< HEAD
                                                                   .colorScheme.surface,
-=======
-                                                                  .bottomAppBarColor,
->>>>>>> e96a46eb4c68152ef511d7b809d9f7b4a4171eee
                                                               width: 2))),
                                                   child: Text(
                                                     azkar.description!,
@@ -233,20 +204,12 @@ class _AzkarFavState extends State<AzkarFav> {
                                             child: Container(
                                               decoration: BoxDecoration(
                                                   color: Theme.of(context)
-<<<<<<< HEAD
                                                       .colorScheme.surface
-=======
-                                                      .bottomAppBarColor
->>>>>>> e96a46eb4c68152ef511d7b809d9f7b4a4171eee
                                                       .withOpacity(.2),
                                                   border: Border.symmetric(
                                                       vertical: BorderSide(
                                                           color: Theme.of(context)
-<<<<<<< HEAD
                                                               .colorScheme.surface,
-=======
-                                                              .bottomAppBarColor,
->>>>>>> e96a46eb4c68152ef511d7b809d9f7b4a4171eee
                                                           width: 2))),
                                               // width: double.infinity,
                                               child: Row(
@@ -262,11 +225,7 @@ class _AzkarFavState extends State<AzkarFav> {
                                                         bottomRight: Radius.circular(8),
                                                       ),
                                                       color: Theme.of(context)
-<<<<<<< HEAD
                                                           .colorScheme.surface,
-=======
-                                                          .bottomAppBarColor,
->>>>>>> e96a46eb4c68152ef511d7b809d9f7b4a4171eee
                                                     ),
                                                     child: Row(
                                                       // mainAxisAlignment: MainAxisAlignment.end,
@@ -342,19 +301,11 @@ class _AzkarFavState extends State<AzkarFav> {
               activeTrackBarHeight: 5,
               inactiveTrackBar: BoxDecoration(
                 borderRadius: BorderRadius.circular(8),
-<<<<<<< HEAD
                 color: Theme.of(context).colorScheme.surface,
               ),
               activeTrackBar: BoxDecoration(
                   borderRadius: BorderRadius.circular(4),
                   color: Theme.of(context).colorScheme.background),
-=======
-                color: Theme.of(context).bottomAppBarColor,
-              ),
-              activeTrackBar: BoxDecoration(
-                  borderRadius: BorderRadius.circular(4),
-                  color: Theme.of(context).backgroundColor),
->>>>>>> e96a46eb4c68152ef511d7b809d9f7b4a4171eee
             ),
             handlerAnimation: const FlutterSliderHandlerAnimation(
                 curve: Curves.elasticOut,
@@ -388,11 +339,7 @@ class _AzkarFavState extends State<AzkarFav> {
       },
       customButton: Icon(
         Icons.format_size,
-<<<<<<< HEAD
         color: Theme.of(context).colorScheme.surface,
-=======
-        color: Theme.of(context).bottomAppBarColor,
->>>>>>> e96a46eb4c68152ef511d7b809d9f7b4a4171eee
       ),
       iconSize: 24,
       buttonHeight: 50,
@@ -400,11 +347,7 @@ class _AzkarFavState extends State<AzkarFav> {
       buttonElevation: 0,
       itemHeight: 35,
       dropdownDecoration: BoxDecoration(
-<<<<<<< HEAD
           color: Theme.of(context).colorScheme.surface.withOpacity(.9),
-=======
-          color: Theme.of(context).bottomAppBarColor.withOpacity(.9),
->>>>>>> e96a46eb4c68152ef511d7b809d9f7b4a4171eee
           borderRadius: const BorderRadius.all(Radius.circular(8))),
       itemPadding: const EdgeInsets.only(left: 14, right: 14),
       dropdownMaxHeight: MediaQuery.of(context).size.height,

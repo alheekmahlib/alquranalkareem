@@ -413,13 +413,10 @@
   "@lastRead": {
     "type": "text",
     "placeholders": {}
-<<<<<<< HEAD
   },
   "copyAyah": "تم نسخ الآية",
   "@copyAyah": {
     "type": "text",
     "placeholders": {}
-=======
->>>>>>> e96a46eb4c68152ef511d7b809d9f7b4a4171eee
   }
 }

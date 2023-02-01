@@ -9,18 +9,10 @@ import 'package:flutter/services.dart';
 import 'package:sqflite_common_ffi/sqflite_ffi.dart';
 import 'package:wakelock/wakelock.dart';
 import 'myApp.dart';
-<<<<<<< HEAD
 import 'bookmarks_notes_db/databaseHelper.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-=======
-import 'notes/db/databaseHelper.dart';
-
-void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  await DatabaseHelper.initDb();
->>>>>>> e96a46eb4c68152ef511d7b809d9f7b4a4171eee
   if (Platform.isWindows || Platform.isLinux) {
     // Initialize FFI
     sqfliteFfiInit();
@@ -48,11 +40,8 @@ Future windowSize() async {
 }
 
 init() async {
-<<<<<<< HEAD
   DatabaseHelper databaseHelper = DatabaseHelper.instance;
   databaseHelper.database;
-=======
->>>>>>> e96a46eb4c68152ef511d7b809d9f7b4a4171eee
   DataBaseClient dataBaseClient = DataBaseClient.instance;
   dataBaseClient.initDatabase();
   TafseerDataBaseClient tafseerDataBaseClient = TafseerDataBaseClient.instance;

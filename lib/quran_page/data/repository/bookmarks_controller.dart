@@ -1,11 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import '../../../l10n/app_localizations.dart';
-<<<<<<< HEAD
 import '../../../bookmarks_notes_db/databaseHelper.dart';
-=======
-import '../../../notes/db/databaseHelper.dart';
->>>>>>> e96a46eb4c68152ef511d7b809d9f7b4a4171eee
 import '../../../shared/widgets/widgets.dart';
 import '../model/bookmark.dart';
 

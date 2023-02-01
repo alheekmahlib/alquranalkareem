@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
-<<<<<<< HEAD
 import '../audio_screen/audio_screen.dart';
-=======
->>>>>>> e96a46eb4c68152ef511d7b809d9f7b4a4171eee
 import '../cubit/cubit.dart';
 import '../cubit/states.dart';
 import '../screens/menu_screen.dart';
@@ -28,10 +25,7 @@ class _MainDScreenState extends State<MainDScreen> {
     Desktop(),
     SorahTextScreen(),
     const AzkarView(),
-<<<<<<< HEAD
     const AudioScreen(),
-=======
->>>>>>> e96a46eb4c68152ef511d7b809d9f7b4a4171eee
     const MenuScreen(),
   ];
 
@@ -61,12 +55,8 @@ class _MainDScreenState extends State<MainDScreen> {
                   openAnimationCurve: Curves.easeIn,
                   closeAnimationCurve: Curves.easeOut,
                   backgroundColor: Theme.of(context).primaryColorDark,
-<<<<<<< HEAD
                   fabBackgroundColor: Theme.of(context).colorScheme.surface,
                   fabIconColor: Theme.of(context).canvasColor,
-=======
-                  fabBackgroundColor: Theme.of(context).bottomAppBarColor,
->>>>>>> e96a46eb4c68152ef511d7b809d9f7b4a4171eee
                   foregroundWidget: pages[pageIndex],
                   columnWidget: Column(
                     children: [
@@ -83,22 +73,14 @@ class _MainDScreenState extends State<MainDScreen> {
                             width: 50,
                             padding: const EdgeInsets.all(3),
                             decoration: BoxDecoration(
-<<<<<<< HEAD
                                 color: Theme.of(context).colorScheme.surface,
-=======
-                                color: Theme.of(context).bottomAppBarColor,
->>>>>>> e96a46eb4c68152ef511d7b809d9f7b4a4171eee
                                 borderRadius:
                                     const BorderRadius.all(Radius.circular(8))),
                             child: SvgPicture.asset(
                               'assets/svg/quran_ic.svg',
                               color: pageIndex == 0
                                   ? null
-<<<<<<< HEAD
                                   : Theme.of(context).colorScheme.background,
-=======
-                                  : Theme.of(context).backgroundColor,
->>>>>>> e96a46eb4c68152ef511d7b809d9f7b4a4171eee
                             ),
                           ),
                           onTap: () {
@@ -117,22 +99,14 @@ class _MainDScreenState extends State<MainDScreen> {
                             width: 50,
                             padding: const EdgeInsets.all(4),
                             decoration: BoxDecoration(
-<<<<<<< HEAD
                                 color: Theme.of(context).colorScheme.surface,
-=======
-                                color: Theme.of(context).bottomAppBarColor,
->>>>>>> e96a46eb4c68152ef511d7b809d9f7b4a4171eee
                                 borderRadius:
                                     const BorderRadius.all(Radius.circular(8))),
                             child: SvgPicture.asset(
                               'assets/svg/quran_te_ic.svg',
                               color: pageIndex == 1
                                   ? null
-<<<<<<< HEAD
                                   : Theme.of(context).colorScheme.background,
-=======
-                                  : Theme.of(context).backgroundColor,
->>>>>>> e96a46eb4c68152ef511d7b809d9f7b4a4171eee
                             ),
                           ),
                           onTap: () {
@@ -151,22 +125,14 @@ class _MainDScreenState extends State<MainDScreen> {
                             width: 50,
                             padding: const EdgeInsets.all(7),
                             decoration: BoxDecoration(
-<<<<<<< HEAD
                                 color: Theme.of(context).colorScheme.surface,
-=======
-                                color: Theme.of(context).bottomAppBarColor,
->>>>>>> e96a46eb4c68152ef511d7b809d9f7b4a4171eee
                                 borderRadius:
                                     const BorderRadius.all(Radius.circular(8))),
                             child: SvgPicture.asset(
                               'assets/svg/azkar.svg',
                               color: pageIndex == 2
                                   ? null
-<<<<<<< HEAD
                                   : Theme.of(context).colorScheme.background,
-=======
-                                  : Theme.of(context).backgroundColor,
->>>>>>> e96a46eb4c68152ef511d7b809d9f7b4a4171eee
                             ),
                           ),
                           onTap: () {
@@ -185,7 +151,6 @@ class _MainDScreenState extends State<MainDScreen> {
                             width: 50,
                             padding: const EdgeInsets.all(4),
                             decoration: BoxDecoration(
-<<<<<<< HEAD
                                 color: Theme.of(context).colorScheme.surface,
                                 borderRadius:
                                 const BorderRadius.all(Radius.circular(8))),
@@ -194,16 +159,6 @@ class _MainDScreenState extends State<MainDScreen> {
                               color: pageIndex == 3
                                   ? null
                                   : Theme.of(context).colorScheme.background,
-=======
-                                color: Theme.of(context).bottomAppBarColor,
-                                borderRadius:
-                                    const BorderRadius.all(Radius.circular(8))),
-                            child: SvgPicture.asset(
-                              'assets/svg/menu_ic.svg',
-                              color: pageIndex == 3
-                                  ? null
-                                  : Theme.of(context).backgroundColor,
->>>>>>> e96a46eb4c68152ef511d7b809d9f7b4a4171eee
                             ),
                           ),
                           onTap: () {
@@ -214,7 +169,6 @@ class _MainDScreenState extends State<MainDScreen> {
                           },
                         ),
                       ),
-<<<<<<< HEAD
                       Padding(
                         padding: const EdgeInsets.symmetric(vertical: 8.0),
                         child: GestureDetector(
@@ -241,8 +195,6 @@ class _MainDScreenState extends State<MainDScreen> {
                           },
                         ),
                       ),
-=======
->>>>>>> e96a46eb4c68152ef511d7b809d9f7b4a4171eee
                     ],
                   ),
                   bottomWidget: Padding(

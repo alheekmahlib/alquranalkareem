@@ -18,10 +18,7 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.INTERNET"/>
-<<<<<<< HEAD
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
-=======
->>>>>>> e96a46eb4c68152ef511d7b809d9f7b4a4171eee
 
 
 

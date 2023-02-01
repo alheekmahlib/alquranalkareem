@@ -12,21 +12,15 @@ import 'package:theme_provider/theme_provider.dart';
 import '../../l10n/app_localizations.dart';
 import '../../notes/screens/notes_list.dart';
 import '../../quran_page/cubit/audio/cubit.dart';
-<<<<<<< HEAD
 import '../../quran_text/Widgets/bookmarks_text_list.dart';
 import '../../quran_text/cubit/quran_text_cubit.dart';
-=======
->>>>>>> e96a46eb4c68152ef511d7b809d9f7b4a4171eee
 import '../custom_paint/bg_icon.dart';
 
 var mScaffoldKey = GlobalKey<ScaffoldState>();
 var dScaffoldKey = GlobalKey<ScaffoldState>();
-<<<<<<< HEAD
 var TScaffoldKey = GlobalKey<ScaffoldState>();
 var TPageScaffoldKey = GlobalKey<ScaffoldState>();
 var SorahPlayScaffoldKey = GlobalKey<ScaffoldState>();
-=======
->>>>>>> e96a46eb4c68152ef511d7b809d9f7b4a4171eee
 String? selectedValue;
 
 Widget quranPageSearch(
@@ -46,19 +40,11 @@ Widget quranPageSearch(
                   Container(
                     height: 35,
                     width: 35,
-<<<<<<< HEAD
                     color: Theme.of(context).colorScheme.background,
                   ),
                   Icon(
                     cubit.searchFabIcon,
                     color: Theme.of(context).colorScheme.surface,
-=======
-                    color: Theme.of(context).backgroundColor,
-                  ),
-                  Icon(
-                    cubit.searchFabIcon,
-                    color: Theme.of(context).bottomAppBarColor,
->>>>>>> e96a46eb4c68152ef511d7b809d9f7b4a4171eee
                     size: 25,
                   ),
                 ],
@@ -72,19 +58,11 @@ Widget quranPageSearch(
                   Container(
                     height: 35,
                     width: 35,
-<<<<<<< HEAD
                     color: Theme.of(context).colorScheme.background,
                   ),
                   Icon(
                     cubit.searchFabIcon,
                     color: Theme.of(context).colorScheme.surface,
-=======
-                    color: Theme.of(context).backgroundColor,
-                  ),
-                  Icon(
-                    cubit.searchFabIcon,
-                    color: Theme.of(context).bottomAppBarColor,
->>>>>>> e96a46eb4c68152ef511d7b809d9f7b4a4171eee
                     size: 25,
                   ),
                 ],
@@ -115,11 +93,7 @@ Widget quranPageSearch(
                             borderRadius: const BorderRadius.only(
                                 topRight: Radius.circular(12.0),
                                 topLeft: Radius.circular(12.0)),
-<<<<<<< HEAD
                             color: Theme.of(context).colorScheme.background,
-=======
-                            color: Theme.of(context).backgroundColor,
->>>>>>> e96a46eb4c68152ef511d7b809d9f7b4a4171eee
                           ),
                           child: QuranSearch(),
                         ),
@@ -154,19 +128,11 @@ Widget quranPageSorahList(
                   Container(
                     height: 35,
                     width: 35,
-<<<<<<< HEAD
                     color: Theme.of(context).colorScheme.background,
                   ),
                   Icon(
                     cubit.sorahFabIcon,
                     color: Theme.of(context).colorScheme.surface,
-=======
-                    color: Theme.of(context).backgroundColor,
-                  ),
-                  Icon(
-                    cubit.sorahFabIcon,
-                    color: Theme.of(context).bottomAppBarColor,
->>>>>>> e96a46eb4c68152ef511d7b809d9f7b4a4171eee
                     size: 25,
                   ),
                 ],
@@ -180,19 +146,11 @@ Widget quranPageSorahList(
                   Container(
                     height: 35,
                     width: 35,
-<<<<<<< HEAD
                     color: Theme.of(context).colorScheme.background,
                   ),
                   Icon(
                     cubit.sorahFabIcon,
                     color: Theme.of(context).colorScheme.surface,
-=======
-                    color: Theme.of(context).backgroundColor,
-                  ),
-                  Icon(
-                    cubit.sorahFabIcon,
-                    color: Theme.of(context).bottomAppBarColor,
->>>>>>> e96a46eb4c68152ef511d7b809d9f7b4a4171eee
                     size: 25,
                   ),
                 ],
@@ -223,11 +181,7 @@ Widget quranPageSorahList(
                             borderRadius: const BorderRadius.only(
                                 topRight: Radius.circular(12.0),
                                 topLeft: Radius.circular(12.0)),
-<<<<<<< HEAD
                             color: Theme.of(context).colorScheme.background,
-=======
-                            color: Theme.of(context).backgroundColor,
->>>>>>> e96a46eb4c68152ef511d7b809d9f7b4a4171eee
                           ),
                           child: const SorahJuzList(),
                         ),
@@ -262,19 +216,11 @@ Widget notesList(
                   Container(
                     height: 35,
                     width: 35,
-<<<<<<< HEAD
                     color: Theme.of(context).colorScheme.background,
                   ),
                   Icon(
                     notesCubit.notesFabIcon,
                     color: Theme.of(context).colorScheme.surface,
-=======
-                    color: Theme.of(context).backgroundColor,
-                  ),
-                  Icon(
-                    notesCubit.notesFabIcon,
-                    color: Theme.of(context).bottomAppBarColor,
->>>>>>> e96a46eb4c68152ef511d7b809d9f7b4a4171eee
                     size: 25,
                   ),
                 ],
@@ -288,19 +234,11 @@ Widget notesList(
                   Container(
                     height: 35,
                     width: 35,
-<<<<<<< HEAD
                     color: Theme.of(context).colorScheme.background,
                   ),
                   Icon(
                     notesCubit.notesFabIcon,
                     color: Theme.of(context).colorScheme.surface,
-=======
-                    color: Theme.of(context).backgroundColor,
-                  ),
-                  Icon(
-                    notesCubit.notesFabIcon,
-                    color: Theme.of(context).bottomAppBarColor,
->>>>>>> e96a46eb4c68152ef511d7b809d9f7b4a4171eee
                     size: 25,
                   ),
                 ],
@@ -331,11 +269,7 @@ Widget notesList(
                             borderRadius: const BorderRadius.only(
                                 topRight: Radius.circular(12.0),
                                 topLeft: Radius.circular(12.0)),
-<<<<<<< HEAD
                             color: Theme.of(context).colorScheme.background,
-=======
-                            color: Theme.of(context).backgroundColor,
->>>>>>> e96a46eb4c68152ef511d7b809d9f7b4a4171eee
                           ),
                           child: const NotesList(),
                         ),
@@ -371,19 +305,11 @@ Widget bookmarksList(BuildContext context,
                   Container(
                     height: 35,
                     width: 35,
-<<<<<<< HEAD
                     color: Theme.of(context).colorScheme.background,
                   ),
                   Icon(
                     cubit.bookmarksFabIcon,
                     color: Theme.of(context).colorScheme.surface,
-=======
-                    color: Theme.of(context).backgroundColor,
-                  ),
-                  Icon(
-                    cubit.bookmarksFabIcon,
-                    color: Theme.of(context).bottomAppBarColor,
->>>>>>> e96a46eb4c68152ef511d7b809d9f7b4a4171eee
                     size: 25,
                   ),
                 ],
@@ -397,19 +323,11 @@ Widget bookmarksList(BuildContext context,
                   Container(
                     height: 35,
                     width: 35,
-<<<<<<< HEAD
                     color: Theme.of(context).colorScheme.background,
                   ),
                   Icon(
                     cubit.bookmarksFabIcon,
                     color: Theme.of(context).colorScheme.surface,
-=======
-                    color: Theme.of(context).backgroundColor,
-                  ),
-                  Icon(
-                    cubit.bookmarksFabIcon,
-                    color: Theme.of(context).bottomAppBarColor,
->>>>>>> e96a46eb4c68152ef511d7b809d9f7b4a4171eee
                     size: 25,
                   ),
                 ],
@@ -440,11 +358,7 @@ Widget bookmarksList(BuildContext context,
                             borderRadius: const BorderRadius.only(
                                 topRight: Radius.circular(12.0),
                                 topLeft: Radius.circular(12.0)),
-<<<<<<< HEAD
                             color: Theme.of(context).colorScheme.background,
-=======
-                            color: Theme.of(context).backgroundColor,
->>>>>>> e96a46eb4c68152ef511d7b809d9f7b4a4171eee
                           ),
                           child: const BookmarksList(),
                         ),
@@ -463,7 +377,6 @@ Widget bookmarksList(BuildContext context,
   );
 }
 
-<<<<<<< HEAD
 Widget bookmarksTextList(BuildContext context,
     GlobalKey<ScaffoldState> bookmarksTextListKey, double width) {
   Orientation orientation = MediaQuery.of(context).orientation;
@@ -554,8 +467,6 @@ Widget bookmarksTextList(BuildContext context,
   );
 }
 
-=======
->>>>>>> e96a46eb4c68152ef511d7b809d9f7b4a4171eee
 Widget hijriDate(BuildContext context) {
   Orientation orientation = MediaQuery.of(context).orientation;
   var _today = HijriCalendar.now();
@@ -565,22 +476,14 @@ Widget hijriDate(BuildContext context) {
       SvgPicture.asset(
         'assets/svg/hijri/${_today.hMonth}.svg',
         height: orientation == Orientation.portrait ? 50 : 100,
-<<<<<<< HEAD
         color: Theme.of(context).colorScheme.surface,
-=======
-        color: Theme.of(context).bottomAppBarColor,
->>>>>>> e96a46eb4c68152ef511d7b809d9f7b4a4171eee
       ),
       Text(
         '${_today.hDay} / ${_today.hYear}',
         style: TextStyle(
           fontSize: orientation == Orientation.portrait ? 14 : 20,
           fontFamily: 'kufi',
-<<<<<<< HEAD
           color: Theme.of(context).colorScheme.surface,
-=======
-          color: Theme.of(context).bottomAppBarColor,
->>>>>>> e96a46eb4c68152ef511d7b809d9f7b4a4171eee
         ),
         textAlign: TextAlign.center,
       ),
@@ -605,11 +508,7 @@ Widget hijriDateLand(BuildContext context) {
       ),
       SvgPicture.asset(
         'assets/svg/hijri/${_today.hMonth}.svg',
-<<<<<<< HEAD
         color: Theme.of(context).colorScheme.surface,
-=======
-        color: Theme.of(context).bottomAppBarColor,
->>>>>>> e96a46eb4c68152ef511d7b809d9f7b4a4171eee
       ),
       const VerticalDivider(
         width: 2,
@@ -622,11 +521,7 @@ Widget hijriDateLand(BuildContext context) {
         style: TextStyle(
           fontSize: 14,
           fontFamily: 'kufi',
-<<<<<<< HEAD
           color: Theme.of(context).colorScheme.surface,
-=======
-          color: Theme.of(context).bottomAppBarColor,
->>>>>>> e96a46eb4c68152ef511d7b809d9f7b4a4171eee
         ),
         textAlign: TextAlign.center,
       ),
@@ -671,7 +566,6 @@ Widget topBar(BuildContext context) {
   );
 }
 
-<<<<<<< HEAD
 Widget audioSorahtopBar(BuildContext context, String sorahNum) {
   Orientation orientation = MediaQuery.of(context).orientation;
   return SizedBox(
@@ -707,8 +601,6 @@ Widget audioSorahtopBar(BuildContext context, String sorahNum) {
   );
 }
 
-=======
->>>>>>> e96a46eb4c68152ef511d7b809d9f7b4a4171eee
 Widget delete(BuildContext context) {
   return Padding(
     padding: const EdgeInsets.symmetric(horizontal: 16.0),
@@ -764,11 +656,7 @@ Widget iconBg(BuildContext context) {
                 Container(
                   height: 35,
                   width: 35,
-<<<<<<< HEAD
                   color: Theme.of(context).colorScheme.background,
-=======
-                  color: Theme.of(context).backgroundColor,
->>>>>>> e96a46eb4c68152ef511d7b809d9f7b4a4171eee
                 ),
                 Icon(
                   cubit.bookmarksFabIcon,
@@ -786,11 +674,7 @@ Widget iconBg(BuildContext context) {
                 Container(
                   height: 35,
                   width: 35,
-<<<<<<< HEAD
                   color: Theme.of(context).colorScheme.background,
-=======
-                  color: Theme.of(context).backgroundColor,
->>>>>>> e96a46eb4c68152ef511d7b809d9f7b4a4171eee
                 ),
                 Icon(
                   cubit.bookmarksFabIcon,
@@ -807,11 +691,7 @@ void customSnackBar(BuildContext context, String text) {
   final snackBar = SnackBar(
     duration: const Duration(milliseconds: 3000),
     behavior: SnackBarBehavior.floating,
-<<<<<<< HEAD
     backgroundColor: Theme.of(context).colorScheme.surface,
-=======
-    backgroundColor: Theme.of(context).bottomAppBarColor,
->>>>>>> e96a46eb4c68152ef511d7b809d9f7b4a4171eee
     content: SizedBox(
       height: 45,
       child: Row(
@@ -856,7 +736,6 @@ Widget pageNumber(String num, context, Color color) {
     child: Stack(
       alignment: Alignment.center,
       children: [
-<<<<<<< HEAD
         Padding(
           padding: const EdgeInsets.only(bottom: 4.0),
           child: SvgPicture.asset(
@@ -864,24 +743,14 @@ Widget pageNumber(String num, context, Color color) {
             height: 50,
             width: 50,
           ),
-=======
-        SvgPicture.asset(
-          'assets/svg/page_no_bg.svg',
-          height: 50,
-          width: 50,
->>>>>>> e96a46eb4c68152ef511d7b809d9f7b4a4171eee
         ),
         Text(
           num,
           style: TextStyle(
-<<<<<<< HEAD
               fontSize: 16,
               fontFamily: 'kufi',
               fontWeight: FontWeight.bold,
               color: color),
-=======
-              fontSize: 12, fontWeight: FontWeight.bold, color: color),
->>>>>>> e96a46eb4c68152ef511d7b809d9f7b4a4171eee
         ),
       ],
     ),
@@ -891,16 +760,11 @@ Widget pageNumber(String num, context, Color color) {
 Widget sorahName(String num, context, Color color) {
   return SizedBox(
     height: 100,
-<<<<<<< HEAD
     // width: 110,
-=======
-    width: 110,
->>>>>>> e96a46eb4c68152ef511d7b809d9f7b4a4171eee
     child: Stack(
       alignment: Alignment.center,
       children: [
         SvgPicture.asset(
-<<<<<<< HEAD
           'assets/svg/surah_na.svg',
           // height: 100,
           width: 200,
@@ -910,26 +774,12 @@ Widget sorahName(String num, context, Color color) {
           // height: 90,
           width: 80,
           color: color,
-=======
-          'assets/svg/Sorah_na_bg.svg',
-          height: 100,
-          width: 100,
-        ),
-        Text(
-          num,
-          style: TextStyle(
-              fontSize: 12,
-              fontWeight: FontWeight.bold,
-              fontFamily: 'naskh',
-              color: color),
->>>>>>> e96a46eb4c68152ef511d7b809d9f7b4a4171eee
         ),
       ],
     ),
   );
 }
 
-<<<<<<< HEAD
 Widget juzNum(String num, context, Color color) {
   return Column(
     // alignment: Alignment.center,
@@ -949,8 +799,6 @@ Widget juzNum(String num, context, Color color) {
   );
 }
 
-=======
->>>>>>> e96a46eb4c68152ef511d7b809d9f7b4a4171eee
 Widget readerDropDown(BuildContext context) {
   Orientation orientation = MediaQuery.of(context).orientation;
   AudioCubit audioCubit = AudioCubit.get(context);
@@ -1040,7 +888,6 @@ Widget readerDropDown(BuildContext context) {
     buttonElevation: 0,
     itemHeight: orientation == Orientation.portrait ? 270 : 125,
     dropdownDecoration: BoxDecoration(
-<<<<<<< HEAD
         color: Theme.of(context).colorScheme.surface.withOpacity(.9),
         borderRadius: const BorderRadius.all(Radius.circular(8))),
     dropdownMaxHeight: MediaQuery.of(context).size.height,
@@ -1264,9 +1111,6 @@ Widget sorahPageReaderDropDown(BuildContext context) {
     itemHeight: orientation == Orientation.portrait ? 270 : 125,
     dropdownDecoration: BoxDecoration(
         color: Theme.of(context).colorScheme.surface.withOpacity(.9),
-=======
-        color: Theme.of(context).bottomAppBarColor.withOpacity(.9),
->>>>>>> e96a46eb4c68152ef511d7b809d9f7b4a4171eee
         borderRadius: const BorderRadius.all(Radius.circular(8))),
     dropdownMaxHeight: MediaQuery.of(context).size.height,
     dropdownWidth: 200,
@@ -1305,17 +1149,10 @@ Widget customContainer(BuildContext context, Widget myWidget) {
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
         decoration: BoxDecoration(
-<<<<<<< HEAD
             color: Theme.of(context).colorScheme.surface.withOpacity(.2),
             border: Border.symmetric(
                 vertical: BorderSide(
                     color: Theme.of(context).colorScheme.surface, width: 2))),
-=======
-            color: Theme.of(context).bottomAppBarColor.withOpacity(.2),
-            border: Border.symmetric(
-                vertical: BorderSide(
-                    color: Theme.of(context).bottomAppBarColor, width: 2))),
->>>>>>> e96a46eb4c68152ef511d7b809d9f7b4a4171eee
         child: myWidget,
       ));
 }
@@ -1328,17 +1165,10 @@ Widget bookmarkContainer(BuildContext context, Widget myWidget) {
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
         decoration: BoxDecoration(
-<<<<<<< HEAD
             color: Theme.of(context).colorScheme.surface.withOpacity(.8),
             border: Border.symmetric(
                 vertical: BorderSide(
                     color: Theme.of(context).colorScheme.surface, width: 2))),
-=======
-            color: Theme.of(context).bottomAppBarColor.withOpacity(.8),
-            border: Border.symmetric(
-                vertical: BorderSide(
-                    color: Theme.of(context).bottomAppBarColor, width: 2))),
->>>>>>> e96a46eb4c68152ef511d7b809d9f7b4a4171eee
         child: myWidget,
       ));
 }

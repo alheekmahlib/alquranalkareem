@@ -243,10 +243,7 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get lastRead => 'آخر قراءة';
-<<<<<<< HEAD
 
   @override
   String get copyAyah => 'تم نسخ الآية';
-=======
->>>>>>> e96a46eb4c68152ef511d7b809d9f7b4a4171eee
 }

@@ -1,9 +1,5 @@
 import 'package:get/get.dart';
-<<<<<<< HEAD
 import '../bookmarks_notes_db/databaseHelper.dart';
-=======
-import 'db/databaseHelper.dart';
->>>>>>> e96a46eb4c68152ef511d7b809d9f7b4a4171eee
 import 'model/Notes.dart';
 
 

@@ -243,10 +243,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get lastRead => 'Last Read';
-<<<<<<< HEAD
 
   @override
   String get copyAyah => 'The verse has been copied';
-=======
->>>>>>> e96a46eb4c68152ef511d7b809d9f7b4a4171eee
 }

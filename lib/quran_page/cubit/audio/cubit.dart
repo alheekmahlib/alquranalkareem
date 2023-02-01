@@ -1,8 +1,5 @@
-<<<<<<< HEAD
 import 'dart:ui';
 import 'package:flutter/material.dart';
-=======
->>>>>>> e96a46eb4c68152ef511d7b809d9f7b4a4171eee
 import 'package:alquranalkareem/quran_page/cubit/audio/states.dart';
 import 'package:bloc/bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -17,7 +14,6 @@ class AudioCubit extends Cubit<AudioState> {
   /// Ayah play
 
   String? readerValue;
-<<<<<<< HEAD
   String? sorahReaderValue;
   String? sorahPageReaderValue;
   String? sorahReaderNameValue;
@@ -26,10 +22,6 @@ class AudioCubit extends Cubit<AudioState> {
   late Animation<Offset> offset;
   late AnimationController controllerSorah;
   // bool autoPlay = false;
-=======
-  String? ayahNum;
-  String? sorahName;
->>>>>>> e96a46eb4c68152ef511d7b809d9f7b4a4171eee
 
 
   // Save & Load Reader Quran
@@ -46,7 +38,6 @@ class AudioCubit extends Cubit<AudioState> {
     print('Quran Reader ${prefs.getString('audio_player_sound')}');
     emit(AudioSharedPrefeState());
   }
-<<<<<<< HEAD
 
   // Save & Load Reader Quran
   saveSorahReader(String readerValue, sorahReaderName) async {
@@ -63,6 +54,4 @@ class AudioCubit extends Cubit<AudioState> {
     print('Quran Reader ${prefs.getString('sorah_audio_player_sound')}');
     emit(AudioSharedPrefeState());
   }
-=======
->>>>>>> e96a46eb4c68152ef511d7b809d9f7b4a4171eee
 }

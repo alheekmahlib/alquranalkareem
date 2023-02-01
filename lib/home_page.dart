@@ -1,10 +1,7 @@
 import 'dart:async';
 import 'package:alquranalkareem/cubit/cubit.dart';
 import 'package:alquranalkareem/quran_page/screens/quran_screen.dart';
-<<<<<<< HEAD
 import 'package:bot_toast/bot_toast.dart';
-=======
->>>>>>> e96a46eb4c68152ef511d7b809d9f7b4a4171eee
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
@@ -125,11 +122,8 @@ class _HomePageState extends State<HomePage> {
         ],
         locale: QuranCubit.get(context).initialLang,
         theme: ThemeProvider.themeOf(themeContext).data,
-<<<<<<< HEAD
         builder: BotToastInit(),
         navigatorObservers: [BotToastNavigatorObserver()],
-=======
->>>>>>> e96a46eb4c68152ef511d7b809d9f7b4a4171eee
         home: ScreenTypeLayout(
           mobile: QuranPageScreen(),
           desktop: const MainDScreen(),

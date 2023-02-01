@@ -33,11 +33,7 @@ class _SorahTextScreenState extends State<SorahTextScreen> {
           padding: const EdgeInsets.all(16.0),
           child: Container(
             decoration: BoxDecoration(
-<<<<<<< HEAD
                 color: Theme.of(context).colorScheme.background,
-=======
-                color: Theme.of(context).backgroundColor,
->>>>>>> e96a46eb4c68152ef511d7b809d9f7b4a4171eee
                 borderRadius: const BorderRadius.all(Radius.circular(8))),
             height: MediaQuery.of(context).size.height,
             width: MediaQuery.of(context).size.width,
@@ -56,11 +52,7 @@ class _SorahTextScreenState extends State<SorahTextScreen> {
                           child: SvgPicture.asset(
                             'assets/svg/hijri/${_today.hMonth}.svg',
                             width: MediaQuery.of(context).size.width,
-<<<<<<< HEAD
                             color: Theme.of(context).colorScheme.surface,
-=======
-                            color: Theme.of(context).bottomAppBarColor,
->>>>>>> e96a46eb4c68152ef511d7b809d9f7b4a4171eee
                           ),
                         ),
                         Align(
@@ -70,25 +62,17 @@ class _SorahTextScreenState extends State<SorahTextScreen> {
                               : SizedBox(
                                   height: 120, child: hijriDateLand(context)),
                         ),
-<<<<<<< HEAD
                         Align(
                           alignment: Alignment.bottomLeft,
                           child: bookmarksTextList(context, TScaffoldKey,
                               MediaQuery.of(context).size.width),
                         ),
-=======
->>>>>>> e96a46eb4c68152ef511d7b809d9f7b4a4171eee
                       ],
                     ),
                   ),
                 ),
-<<<<<<< HEAD
                 SizedBox(
                   height: 8,
-=======
-                Container(
-                  height: 16,
->>>>>>> e96a46eb4c68152ef511d7b809d9f7b4a4171eee
                 ),
                 const Divider(
                   height: 1,

@@ -31,11 +31,7 @@ class _MenuScreenState extends State<MenuScreen> {
       right: false,
       left: false,
       child: Scaffold(
-<<<<<<< HEAD
         backgroundColor: Theme.of(context).colorScheme.background,
-=======
-        backgroundColor: Theme.of(context).backgroundColor,
->>>>>>> e96a46eb4c68152ef511d7b809d9f7b4a4171eee
         body: Padding(
           padding: const EdgeInsets.only(right: 16.0, left: 16.0, top: 64.0),
           child: ListView(
@@ -87,11 +83,7 @@ class _MenuScreenState extends State<MenuScreen> {
                                       fontSize: 12,
                                       fontWeight: FontWeight.w500,
                                       color:
-<<<<<<< HEAD
                                           Theme.of(context).colorScheme.surface,
-=======
-                                          Theme.of(context).bottomAppBarColor,
->>>>>>> e96a46eb4c68152ef511d7b809d9f7b4a4171eee
                                     ),
                                   ),
                                   SizedBox(
@@ -105,11 +97,7 @@ class _MenuScreenState extends State<MenuScreen> {
                                   SvgPicture.asset(
                                     'assets/svg/surah_name/00${cubit.soMName}.svg',
                                     height: 36,
-<<<<<<< HEAD
                                     color: Theme.of(context).colorScheme.surface,
-=======
-                                    color: Theme.of(context).bottomAppBarColor,
->>>>>>> e96a46eb4c68152ef511d7b809d9f7b4a4171eee
                                   ),
                                   Divider(
                                     height: 1,
@@ -125,11 +113,7 @@ class _MenuScreenState extends State<MenuScreen> {
                                           fontFamily: 'kufi',
                                           fontSize: 12,
                                           color: Theme.of(context)
-<<<<<<< HEAD
                                               .colorScheme.surface,
-=======
-                                              .bottomAppBarColor,
->>>>>>> e96a46eb4c68152ef511d7b809d9f7b4a4171eee
                                         ),
                                       ),
                                       SizedBox(
@@ -138,11 +122,7 @@ class _MenuScreenState extends State<MenuScreen> {
                                       Icon(
                                         Icons.menu_book,
                                         color:
-<<<<<<< HEAD
                                             Theme.of(context).colorScheme.surface,
-=======
-                                            Theme.of(context).bottomAppBarColor,
->>>>>>> e96a46eb4c68152ef511d7b809d9f7b4a4171eee
                                         size: 14,
                                       ),
                                     ],
@@ -173,11 +153,7 @@ class _MenuScreenState extends State<MenuScreen> {
                                       fontSize: 18,
                                       fontWeight: FontWeight.w500,
                                       color:
-<<<<<<< HEAD
                                           Theme.of(context).colorScheme.surface,
-=======
-                                          Theme.of(context).bottomAppBarColor,
->>>>>>> e96a46eb4c68152ef511d7b809d9f7b4a4171eee
                                     ),
                                   ),
                                   SizedBox(
@@ -191,11 +167,7 @@ class _MenuScreenState extends State<MenuScreen> {
                                   SvgPicture.asset(
                                     'assets/svg/surah_name/00${cubit.soMName}.svg',
                                     height: 52,
-<<<<<<< HEAD
                                     color: Theme.of(context).colorScheme.surface,
-=======
-                                    color: Theme.of(context).bottomAppBarColor,
->>>>>>> e96a46eb4c68152ef511d7b809d9f7b4a4171eee
                                   ),
                                   Divider(
                                     height: 1,
@@ -211,11 +183,7 @@ class _MenuScreenState extends State<MenuScreen> {
                                           fontFamily: 'kufi',
                                           fontSize: 14,
                                           color: Theme.of(context)
-<<<<<<< HEAD
                                               .colorScheme.surface,
-=======
-                                              .bottomAppBarColor,
->>>>>>> e96a46eb4c68152ef511d7b809d9f7b4a4171eee
                                         ),
                                       ),
                                       SizedBox(
@@ -224,11 +192,7 @@ class _MenuScreenState extends State<MenuScreen> {
                                       Icon(
                                         Icons.menu_book,
                                         color:
-<<<<<<< HEAD
                                             Theme.of(context).colorScheme.surface,
-=======
-                                            Theme.of(context).bottomAppBarColor,
->>>>>>> e96a46eb4c68152ef511d7b809d9f7b4a4171eee
                                         size: 20,
                                       ),
                                     ],
@@ -253,11 +217,7 @@ class _MenuScreenState extends State<MenuScreen> {
                                 Container(
                                   decoration: BoxDecoration(
                                       color: Theme.of(context)
-<<<<<<< HEAD
                                           .colorScheme.surface
-=======
-                                          .bottomAppBarColor
->>>>>>> e96a46eb4c68152ef511d7b809d9f7b4a4171eee
                                           .withOpacity(.4),
                                       borderRadius: const BorderRadius.all(
                                           Radius.circular(8))),
@@ -293,11 +253,7 @@ class _MenuScreenState extends State<MenuScreen> {
                                 Container(
                                   decoration: BoxDecoration(
                                       color: Theme.of(context)
-<<<<<<< HEAD
                                           .colorScheme.surface
-=======
-                                          .bottomAppBarColor
->>>>>>> e96a46eb4c68152ef511d7b809d9f7b4a4171eee
                                           .withOpacity(.4),
                                       borderRadius: const BorderRadius.all(
                                           Radius.circular(8))),
@@ -334,11 +290,7 @@ class _MenuScreenState extends State<MenuScreen> {
                             Container(
                               decoration: BoxDecoration(
                                   color: Theme.of(context)
-<<<<<<< HEAD
                                       .colorScheme.surface
-=======
-                                      .bottomAppBarColor
->>>>>>> e96a46eb4c68152ef511d7b809d9f7b4a4171eee
                                       .withOpacity(.4),
                                   borderRadius: const BorderRadius.all(
                                       Radius.circular(8))),

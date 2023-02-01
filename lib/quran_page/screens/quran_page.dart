@@ -65,11 +65,7 @@ class _MPagesState extends State<MPages> {
                         child: Container(
                           width: cubit.width,
                           decoration: BoxDecoration(
-<<<<<<< HEAD
                               color: Theme.of(context).colorScheme.background,
-=======
-                              color: Theme.of(context).backgroundColor,
->>>>>>> e96a46eb4c68152ef511d7b809d9f7b4a4171eee
                               borderRadius: const BorderRadius.only(
                                   topRight: Radius.circular(12),
                                   bottomRight: Radius.circular(12))),
@@ -126,11 +122,7 @@ class _MPagesState extends State<MPages> {
                         child: Container(
                           width: cubit.width,
                           decoration: BoxDecoration(
-<<<<<<< HEAD
                               color: Theme.of(context).colorScheme.background,
-=======
-                              color: Theme.of(context).backgroundColor,
->>>>>>> e96a46eb4c68152ef511d7b809d9f7b4a4171eee
                               borderRadius: const BorderRadius.only(
                                   topLeft: Radius.circular(12),
                                   bottomLeft: Radius.circular(12))),
@@ -210,11 +202,7 @@ class _MPagesState extends State<MPages> {
                 child: (index % 2 == 0
                     ? Container(
                         decoration: BoxDecoration(
-<<<<<<< HEAD
                             color: Theme.of(context).colorScheme.background,
-=======
-                            color: Theme.of(context).backgroundColor,
->>>>>>> e96a46eb4c68152ef511d7b809d9f7b4a4171eee
                             borderRadius: const BorderRadius.only(
                                 topRight: Radius.circular(12),
                                 bottomRight: Radius.circular(12))),
@@ -264,11 +252,7 @@ class _MPagesState extends State<MPages> {
                       )
                     : Container(
                         decoration: BoxDecoration(
-<<<<<<< HEAD
                             color: Theme.of(context).colorScheme.background,
-=======
-                            color: Theme.of(context).backgroundColor,
->>>>>>> e96a46eb4c68152ef511d7b809d9f7b4a4171eee
                             borderRadius: const BorderRadius.only(
                                 topLeft: Radius.circular(12),
                                 bottomLeft: Radius.circular(12))),
@@ -492,11 +476,7 @@ class _DPagesState extends State<DPages> {
                           child: Container(
                             padding: const EdgeInsets.symmetric(vertical: 16.0),
                             decoration: BoxDecoration(
-<<<<<<< HEAD
                                 color: Theme.of(context).colorScheme.background,
-=======
-                                color: Theme.of(context).backgroundColor,
->>>>>>> e96a46eb4c68152ef511d7b809d9f7b4a4171eee
                                 borderRadius: const BorderRadius.only(
                                     topRight: Radius.circular(8),
                                     bottomRight: Radius.circular(8))),
@@ -554,11 +534,7 @@ class _DPagesState extends State<DPages> {
                           child: Container(
                             padding: const EdgeInsets.symmetric(vertical: 16.0),
                             decoration: BoxDecoration(
-<<<<<<< HEAD
                                 color: Theme.of(context).colorScheme.background,
-=======
-                                color: Theme.of(context).backgroundColor,
->>>>>>> e96a46eb4c68152ef511d7b809d9f7b4a4171eee
                                 borderRadius: const BorderRadius.only(
                                     topLeft: Radius.circular(8),
                                     bottomLeft: Radius.circular(8))),

@@ -15,11 +15,7 @@ class InfoApp extends StatelessWidget {
       right: false,
       left: false,
       child: Scaffold(
-<<<<<<< HEAD
         backgroundColor: Theme.of(context).colorScheme.background,
-=======
-        backgroundColor: Theme.of(context).backgroundColor,
->>>>>>> e96a46eb4c68152ef511d7b809d9f7b4a4171eee
         body: Padding(
           padding: const EdgeInsets.only(top: 80.0, bottom: 16.0),
           child: Align(
@@ -34,11 +30,7 @@ class InfoApp extends StatelessWidget {
                       height: 30,
                       width: 30,
                       decoration: BoxDecoration(
-<<<<<<< HEAD
                           color: Theme.of(context).colorScheme.background,
-=======
-                          color: Theme.of(context).backgroundColor,
->>>>>>> e96a46eb4c68152ef511d7b809d9f7b4a4171eee
                           borderRadius: const BorderRadius.only(
                             topRight: Radius.circular(8),
                             topLeft: Radius.circular(8),
@@ -48,11 +40,7 @@ class InfoApp extends StatelessWidget {
                               color: Theme.of(context).dividerColor)),
                       child: Icon(
                         Icons.close_outlined,
-<<<<<<< HEAD
                         color: Theme.of(context).colorScheme.surface,
-=======
-                        color: Theme.of(context).bottomAppBarColor,
->>>>>>> e96a46eb4c68152ef511d7b809d9f7b4a4171eee
                       ),
                     ),
                   ),
@@ -84,20 +72,12 @@ class InfoApp extends StatelessWidget {
                         padding: const EdgeInsets.symmetric(horizontal: 8),
                         decoration: BoxDecoration(
                             color: Theme.of(context)
-<<<<<<< HEAD
                                 .colorScheme.surface
-=======
-                                .bottomAppBarColor
->>>>>>> e96a46eb4c68152ef511d7b809d9f7b4a4171eee
                                 .withOpacity(.2),
                             border: Border.symmetric(
                                 vertical: BorderSide(
                                     color:
-<<<<<<< HEAD
                                         Theme.of(context).colorScheme.surface,
-=======
-                                        Theme.of(context).bottomAppBarColor,
->>>>>>> e96a46eb4c68152ef511d7b809d9f7b4a4171eee
                                     width: 2))),
                         child: Text(
                           AppLocalizations.of(context)!.about_us,
@@ -117,20 +97,12 @@ class InfoApp extends StatelessWidget {
                         padding: const EdgeInsets.symmetric(horizontal: 8),
                         decoration: BoxDecoration(
                             color: Theme.of(context)
-<<<<<<< HEAD
                                 .colorScheme.surface
-=======
-                                .bottomAppBarColor
->>>>>>> e96a46eb4c68152ef511d7b809d9f7b4a4171eee
                                 .withOpacity(.2),
                             border: Border.symmetric(
                                 vertical: BorderSide(
                                     color:
-<<<<<<< HEAD
                                         Theme.of(context).colorScheme.surface,
-=======
-                                        Theme.of(context).bottomAppBarColor,
->>>>>>> e96a46eb4c68152ef511d7b809d9f7b4a4171eee
                                     width: 2))),
                         child: Text(
                           AppLocalizations.of(context)!.about_app,
@@ -151,20 +123,12 @@ class InfoApp extends StatelessWidget {
                         padding: const EdgeInsets.symmetric(horizontal: 8),
                         decoration: BoxDecoration(
                             color: Theme.of(context)
-<<<<<<< HEAD
                                 .colorScheme.surface
-=======
-                                .bottomAppBarColor
->>>>>>> e96a46eb4c68152ef511d7b809d9f7b4a4171eee
                                 .withOpacity(.2),
                             border: Border.symmetric(
                                 vertical: BorderSide(
                                     color:
-<<<<<<< HEAD
                                         Theme.of(context).colorScheme.surface,
-=======
-                                        Theme.of(context).bottomAppBarColor,
->>>>>>> e96a46eb4c68152ef511d7b809d9f7b4a4171eee
                                     width: 2))),
                         child: Text(
                           AppLocalizations.of(context)!.about_app2,
@@ -184,20 +148,12 @@ class InfoApp extends StatelessWidget {
                         padding: const EdgeInsets.symmetric(horizontal: 8),
                         decoration: BoxDecoration(
                             color: Theme.of(context)
-<<<<<<< HEAD
                                 .colorScheme.surface
-=======
-                                .bottomAppBarColor
->>>>>>> e96a46eb4c68152ef511d7b809d9f7b4a4171eee
                                 .withOpacity(.2),
                             border: Border.symmetric(
                                 vertical: BorderSide(
                                     color:
-<<<<<<< HEAD
                                         Theme.of(context).colorScheme.surface,
-=======
-                                        Theme.of(context).bottomAppBarColor,
->>>>>>> e96a46eb4c68152ef511d7b809d9f7b4a4171eee
                                     width: 2))),
                         child: Text(
                           AppLocalizations.of(context)!.about_app3,
