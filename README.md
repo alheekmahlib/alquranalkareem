@@ -6,8 +6,7 @@
 
 
 <p align="center">
-  <blockquote class="imgur-embed-pub" lang="en" data-id="a/sTQAjj0" data-context="false" ><a href="//imgur.com/a/sTQAjj0"></a></blockquote><script async src="//s.imgur.com/min/embed.js" charset="utf-8"></script>
-  <img src="![image](https://user-images.githubusercontent.com/53709203/235372192-e3ec3ee6-f9f7-4a9f-b44f-c085e6ff279f.png)" width="100%" height="100%" align=”middle”>
+  <img src="https://i.imgur.com/wJdRuMF.jpg" width="100%" height="100%" align=”middle”>
 </p>
 
 
@@ -26,7 +25,7 @@
 #### ◉ يتيح التطبيق للقارئ القراءة تغيير أنماط الألوان ومنها النمط الداكن والذي يغير لون الخلفية باللون الأسود والخطوط البيضاء لتعطي القارئ الراحة التامة عند القراءة في أجواء منخفضة الإضاءة.
 
 <p align="center">
-  <img src="https://i.imgur.com/m3b7OQP.jpg" width="100%" height="100%" align=”middle”>
+  <img src="https://i.imgur.com/fyZTlcX.jpg" width="100%" height="100%" align=”middle”>
 </p>
 
 
