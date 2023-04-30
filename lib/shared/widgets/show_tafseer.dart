@@ -427,7 +427,7 @@ class _ShowTafseerState extends State<ShowTafseer> {
                                 : null,
                           ),
                           onTap: () {
-                            cubit.handleRadioValueChanged(index);
+                            cubit.handleRadioValueChanged(context, index);
                             cubit.saveTafseer(index);
                             Navigator.pop(context);
                           },
@@ -557,7 +557,7 @@ class _ShowTafseerState extends State<ShowTafseer> {
     AudioCubit audioCubit = AudioCubit.get(context);
     return FutureBuilder<List<Ayat>>(
         future: cubit
-            .handleRadioValueChanged(cubit.radioValue)
+            .handleRadioValueChanged(context, cubit.radioValue)
             .getPageTranslate(pageNum),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.done) {

@@ -11,15 +11,13 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:lottie/lottie.dart';
 import 'package:meta/meta.dart';
+import 'package:path/path.dart';
 // import 'package:scroll_to_index/scroll_to_index.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:theme_provider/theme_provider.dart';
-import '../../quran_page/data/repository/translate2_repository.dart';
-import '../../quran_page/data/repository/translate3_repository.dart';
-import '../../quran_page/data/repository/translate4_repository.dart';
-import '../../quran_page/data/repository/translate5_repository.dart';
+import '../../quran_page/data/model/translate.dart';
 import '../../quran_page/data/repository/translate_repository.dart';
 import '../bookmarksTextAyah_controller.dart';
 import '../bookmarksText_controller.dart';
@@ -131,32 +129,37 @@ class QuranTextCubit extends Cubit<QuranTextState> {
   }
 
 
-  handleRadioValueChanged(int val) {
-    TranslateRepository translateRepository = TranslateRepository();
-    TranslateRepository2 translateRepository2 = TranslateRepository2();
-    TranslateRepository3 translateRepository3 = TranslateRepository3();
-    TranslateRepository4 translateRepository4 = TranslateRepository4();
-    TranslateRepository5 translateRepository5 = TranslateRepository5();
+  String? tableName;
+
+  handleRadioValueChanged(BuildContext context, int val) {
+    TranslateRepository translateRepository = TranslateRepository(context);
 
     radioValue = val;
     switch (radioValue) {
       case 0:
-        return showTaf = translateRepository2;
+      // translate = '${aya!.translate}';
+        tableName = Translate.tableName2;
+        return showTaf = translateRepository;
         break;
       case 1:
+        tableName = Translate.tableName;
         return showTaf = translateRepository;
         break;
       case 2:
-        return showTaf = translateRepository3;
+        tableName = Translate.tableName3;
+        return showTaf = translateRepository;
         break;
       case 3:
-        return showTaf = translateRepository4;
+        tableName = Translate.tableName4;
+        return showTaf = translateRepository;
         break;
       case 4:
-        return showTaf = translateRepository5;
+        tableName = Translate.tableName5;
+        return showTaf = translateRepository;
         break;
       default:
-        return showTaf = translateRepository2;
+        tableName = Translate.tableName2;
+        return showTaf = translateRepository;
     }
   }
 
