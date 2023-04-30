@@ -2,6 +2,7 @@ import 'package:alquranalkareem/cubit/cubit.dart';
 import 'package:alquranalkareem/notes/model/Notes.dart';
 import 'package:alquranalkareem/quran_page/cubit/bookmarks/bookmarks_cubit.dart';
 import 'package:alquranalkareem/shared/widgets/widgets.dart';
+import 'package:arabic_numbers/arabic_numbers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:flutter_svg/svg.dart';
@@ -33,6 +34,7 @@ class _BookmarksListState extends State<BookmarksList> {
 
   @override
   Widget build(BuildContext context) {
+    ArabicNumbers arabicNumber = ArabicNumbers();
     BookmarksCubit bookmarksCubit = BookmarksCubit.get(context);
     return Column(
       children: [
@@ -74,7 +76,7 @@ class _BookmarksListState extends State<BookmarksList> {
                                   key: ValueKey<int>(bookmark.id!),
                                   onDismissed: (DismissDirection direction) {
                                     bookmarksCubit.bookmarksController
-                                        .deleteBookmarks(bookmark, context);
+                                        .deleteBookmarks(bookmark.pageNum!, context);
                                   },
                                   child: GestureDetector(
                                     onTap: () {
@@ -116,7 +118,7 @@ class _BookmarksListState extends State<BookmarksList> {
                                                       width: 40,
                                                     ),
                                                     Text(
-                                                      "${bookmark.pageNum}",
+                                                      "${arabicNumber.convert(bookmark.pageNum)}",
                                                       textAlign:
                                                           TextAlign.center,
                                                       style: TextStyle(

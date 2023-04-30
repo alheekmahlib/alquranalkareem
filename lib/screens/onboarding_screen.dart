@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import '../home_page.dart';
+import '../shared/widgets/widgets.dart';
 
 
 
@@ -17,13 +18,14 @@ class OnboardingScreen extends StatefulWidget {
 
 class _OnboardingScreenState extends State<OnboardingScreen> {
   final controller = PageController(viewportFraction: 1, keepPage: true);
+  int? pageNumber;
+
 
   List<String> images = <String>[
     'assets/onboarding/onboarding_p.png',
     'assets/onboarding/onboarding_p2.png',
     'assets/onboarding/onboarding_p3.png',
     'assets/onboarding/onboarding_p4.png',
-    'assets/onboarding/onboarding_p5.png',
   ];
 
   List<String> imagesL = <String>[
@@ -31,7 +33,6 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
     'assets/onboarding/onboarding_l2.png',
     'assets/onboarding/onboarding_l3.png',
     'assets/onboarding/onboarding_l4.png',
-    'assets/onboarding/onboarding_l5.png',
   ];
 
   List<String> imagesD = <String>[
@@ -39,13 +40,11 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
     'assets/onboarding/onboarding_d2.png',
     'assets/onboarding/onboarding_d3.png',
     'assets/onboarding/onboarding_d4.png',
-    'assets/onboarding/onboarding_d5.png',
   ];
 
 
   @override
   Widget build(BuildContext context) {
-    Orientation orientation = MediaQuery.of(context).orientation;
     return Directionality(
       textDirection: TextDirection.rtl,
       child: Scaffold(
@@ -63,6 +62,11 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                         child: PageView.builder(
                             controller: controller,
                             itemCount: imagesD.length,
+                            onPageChanged: (page) {
+                              setState(() {
+                                pageNumber = page;
+                              });
+                            },
                             itemBuilder: (context, index) {
                               return Center(
                                 child: Image.asset(
@@ -126,6 +130,66 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                           },
                         ),
                       ),
+                      pageNumber == 3
+                          ? Align(
+                        alignment: Alignment.bottomLeft,
+                        child: Padding(
+                          padding: const EdgeInsets.all(16.0),
+                          child: GestureDetector(
+                            child: Container(
+                              height: 50,
+                              width: 100,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.all(Radius.circular(8)),
+                                color: const Color(0xff91a57d),),
+                              child: Center(
+                                child: Text(
+                                    'أبدأ',
+                                    style: TextStyle(
+                                        fontFamily: 'kufi',
+                                        fontSize: 20,
+                                        color: Theme.of(context).canvasColor
+                                    )
+                                ),
+                              ),
+
+                            ),
+                            onTap: () {
+                              if (pageNumber == 3) {
+                                Get.off(() => HomePage());
+                              } else {
+                                controller.animateToPage(controller.page!.toInt() + 1,
+                                    duration: Duration(milliseconds: 400),
+                                    curve: Curves.easeIn);
+                              }
+                            },
+                          ),
+                        ),
+                      )
+                          : Align(
+                        alignment: Alignment.bottomLeft,
+                        child: Padding(
+                          padding: const EdgeInsets.all(16.0),
+                          child: GestureDetector(
+                            child: Container(
+                              height: 50,
+                              width: 60,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.all(Radius.circular(8)),
+                                color: const Color(0xff91a57d),),
+                              child: Icon(
+                                Icons.arrow_forward,
+                                color: const Color(0xfff3efdf),
+                              ),
+                            ),
+                            onTap: () {
+                              controller.animateToPage(controller.page!.toInt() + 1,
+                                  duration: Duration(milliseconds: 400),
+                                  curve: Curves.easeIn);
+                            },
+                          ),
+                        ),
+                      ),
                     ],
                   )
                 : Stack(
@@ -137,25 +201,34 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                         child: PageView.builder(
                             controller: controller,
                             itemCount: images.length,
+                            onPageChanged: (page) {
+                              setState(() {
+                                pageNumber = page;
+                              });
+                            },
                             itemBuilder: (context, index) {
-                              return ListView(
+                              return Stack(
                                 children: [
-                                  orientation == Orientation.portrait
-                                      ? Center(
-                                    child: Image.asset(
-                                      images[index],
-                                      width: orientation == Orientation.portrait
-                                          ? MediaQuery.of(context).size.width *
-                                              3 /
-                                              4
-                                          : MediaQuery.of(context).size.width,
-                                    ),
-                                  )
-                                      : Center(
-                                    child: Image.asset(
-                                      imagesL[index],
-                                      width: MediaQuery.of(context).size.width / 1/2,
-                                    ),
+                                  ListView(
+                                    children: [
+                                      orientation(context,
+                                          Center(
+                                        child: Image.asset(
+                                          images[index],
+                                          width: orientation(context,
+                                              MediaQuery.of(context).size.width *
+                                                  3 /
+                                                  4,
+                                              MediaQuery.of(context).size.width),
+                                        ),
+                                      ),
+                                          Center(
+                                        child: Image.asset(
+                                          imagesL[index],
+                                          width: MediaQuery.of(context).size.width / 1/2,
+                                        ),
+                                      )),
+                                    ],
                                   ),
                                 ],
                               );
@@ -214,31 +287,92 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                           },
                         ),
                       ),
+                      pageNumber == 3
+                          ? Align(
+                        alignment: Alignment.bottomLeft,
+                            child: Padding(
+                        padding: const EdgeInsets.all(16.0),
+                        child: GestureDetector(
+                          child: Container(
+                            height: 50,
+                              width: 100,
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.all(Radius.circular(8)),
+                                color: const Color(0xff91a57d),),
+                              child: Center(
+                                child: Text(
+                                  'أبدأ',
+                                  style: TextStyle(
+                                    fontFamily: 'kufi',
+                                    fontSize: 20,
+                                    color: Theme.of(context).canvasColor
+                                  )
+                                ),
+                              ),
+
+                          ),
+                          onTap: () {
+                            if (pageNumber == 3) {
+                              Get.off(() => HomePage());
+                            } else {
+                              controller.animateToPage(controller.page!.toInt() + 1,
+                                  duration: Duration(milliseconds: 400),
+                                  curve: Curves.easeIn);
+                            }
+                          },
+                        ),
+                      ),
+                          )
+                          : Align(
+                        alignment: Alignment.bottomLeft,
+                            child: Padding(
+                        padding: const EdgeInsets.all(16.0),
+                        child: GestureDetector(
+                          child: Container(
+                            height: 50,
+                            width: 60,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.all(Radius.circular(8)),
+                              color: const Color(0xff91a57d),),
+                              child: Icon(
+                                Icons.arrow_forward,
+                                color: const Color(0xfff3efdf),
+                              ),
+                          ),
+                          onTap: () {
+                            controller.animateToPage(controller.page!.toInt() + 1,
+                                duration: Duration(milliseconds: 400),
+                                curve: Curves.easeIn);
+                          },
+                        ),
+                      ),
+                          ),
                     ],
                   ),
           ),
-          floatingActionButton: Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: FloatingActionButton(
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.all(Radius.circular(8))),
-              backgroundColor: const Color(0xff91a57d),
-              child: Icon(
-                Icons.arrow_forward,
-                color: const Color(0xfff3efdf),
-              ),
-              onPressed: () {
-                if (controller.page == 4) {
-                  Get.off(() => HomePage());
-                } else {
-                  controller.animateToPage(controller.page!.toInt() + 1,
-                      duration: Duration(milliseconds: 400),
-                      curve: Curves.easeIn);
-                }
-              },
-            ),
-          ),
-          floatingActionButtonLocation: FloatingActionButtonLocation.endDocked),
+          // floatingActionButton: Padding(
+          //   padding: const EdgeInsets.all(16.0),
+          //   child: FloatingActionButton(
+          //     shape: RoundedRectangleBorder(
+          //         borderRadius: BorderRadius.all(Radius.circular(8))),
+          //     backgroundColor: const Color(0xff91a57d),
+          //     child: Icon(
+          //       Icons.arrow_forward,
+          //       color: const Color(0xfff3efdf),
+          //     ),
+          //     onPressed: () {
+          //       if (controller.page == 3) {
+          //         Get.off(() => HomePage());
+          //       } else {
+          //         controller.animateToPage(controller.page!.toInt() + 1,
+          //             duration: Duration(milliseconds: 400),
+          //             curve: Curves.easeIn);
+          //       }
+          //     },
+          //   ),
+          // ),
+          // floatingActionButtonLocation: FloatingActionButtonLocation.endDocked
+      ),
     );
   }
 }

@@ -41,7 +41,6 @@ class AboutApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Orientation orientation = MediaQuery.of(context).orientation;
     QuranCubit cubit = QuranCubit.get(context);
     return SafeArea(
       top: false,
@@ -88,9 +87,9 @@ class AboutApp extends StatelessWidget {
                     indent: 16,
                   ),
                   Padding(
-                    padding: orientation == Orientation.portrait
-                        ? EdgeInsets.only(top: 30, right: 16, left: 16)
-                        : EdgeInsets.only(top: 30, right: 64, left: 64),
+                    padding: orientation(context,
+                        EdgeInsets.only(top: 30, right: 16, left: 16),
+                        EdgeInsets.only(top: 30, right: 64, left: 64)),
                     child: ListView(
                       children: [
                         Center(
@@ -104,7 +103,7 @@ class AboutApp extends StatelessWidget {
                         customContainer(
                             context,
                             Text(
-                              '${AppLocalizations.of(context)!.version}: 3.0.4',
+                              '${AppLocalizations.of(context)!.version}: 3.0.10',
                               style: TextStyle(
                                 color:
                                     ThemeProvider.themeOf(context).id == 'dark'
@@ -297,6 +296,74 @@ class AboutApp extends StatelessWidget {
                                           cubit.saveLang("en");
                                         },
                                       ),
+                                      InkWell(
+                                        child: SizedBox(
+                                          height: 30,
+                                          width:
+                                          MediaQuery.of(context).size.width,
+                                          child: Row(
+                                            mainAxisSize: MainAxisSize.min,
+                                            children: [
+                                              Container(
+                                                height: 20,
+                                                width: 20,
+                                                decoration: BoxDecoration(
+                                                  borderRadius:
+                                                  const BorderRadius.all(
+                                                      Radius.circular(2.0)),
+                                                  border: Border.all(
+                                                      color: AppLocalizations.of(
+                                                          context)!
+                                                          .appLang ==
+                                                          "Idioma de la aplicación"
+                                                          ? Theme.of(context)
+                                                          .secondaryHeaderColor
+                                                          : Theme.of(context)
+                                                          .colorScheme.surface
+                                                          .withOpacity(.5),
+                                                      width: 2),
+                                                  color:
+                                                  const Color(0xff39412a),
+                                                ),
+                                                child: AppLocalizations.of(
+                                                    context)!
+                                                    .appLang ==
+                                                    "Idioma de la aplicación"
+                                                    ? Icon(Icons.done,
+                                                    size: 14,
+                                                    color: Theme.of(context)
+                                                        .colorScheme.surface)
+                                                    : null,
+                                              ),
+                                              const SizedBox(
+                                                width: 16.0,
+                                              ),
+                                              Text(
+                                                'Español',
+                                                style: TextStyle(
+                                                  color: AppLocalizations.of(
+                                                      context)!
+                                                      .appLang ==
+                                                      "Idioma de la aplicación"
+                                                      ? Theme.of(context)
+                                                      .secondaryHeaderColor
+                                                      : Theme.of(context)
+                                                      .colorScheme.surface
+                                                      .withOpacity(.5),
+                                                  fontSize: 14,
+                                                  fontFamily: 'kufi',
+                                                  fontStyle: FontStyle.italic,
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                        onTap: () {
+                                          HomePage.of(context)!.setLocale(
+                                              const Locale.fromSubtags(
+                                                  languageCode: "es"));
+                                        },
+                                      ),
                                     ],
                                   ),
                                 ),
@@ -360,150 +427,147 @@ class AboutApp extends StatelessWidget {
                         const SizedBox(
                           height: 16.0,
                         ),
-                        Directionality(
-                          textDirection: TextDirection.rtl,
-                          child: Container(
-                            color: Theme.of(context)
-                                .colorScheme.surface
-                                .withOpacity(.2),
-                            child: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Column(
-                                children: [
-                                  InkWell(
-                                    child: Row(
-                                      children: [
-                                        Icon(
-                                          Icons.share_outlined,
-                                          color: ThemeProvider.themeOf(context)
-                                                      .id ==
-                                                  'dark'
-                                              ? Colors.white
-                                              : Theme.of(context).primaryColor,
-                                          size: 22,
-                                        ),
-                                        Container(
-                                          width: 2,
-                                          height: 20,
-                                          margin: const EdgeInsets.symmetric(
-                                              horizontal: 8),
-                                          color: ThemeProvider.themeOf(context)
-                                                      .id ==
-                                                  'dark'
-                                              ? Colors.white
-                                              : Theme.of(context).primaryColor,
-                                        ),
-                                        Text(
-                                          AppLocalizations.of(context)!.share,
-                                          style: TextStyle(
-                                              color:
-                                                  ThemeProvider.themeOf(context)
-                                                              .id ==
-                                                          'dark'
-                                                      ? Colors.white
-                                                      : Theme.of(context)
-                                                          .primaryColor,
-                                              fontFamily: 'kufi',
-                                              fontStyle: FontStyle.italic,
-                                              fontSize: 14),
-                                        ),
-                                      ],
-                                    ),
-                                    onTap: () async {
-                                      share();
-                                    },
+                        Container(
+                          color: Theme.of(context)
+                              .colorScheme.surface
+                              .withOpacity(.2),
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Column(
+                              children: [
+                                InkWell(
+                                  child: Row(
+                                    children: [
+                                      Icon(
+                                        Icons.share_outlined,
+                                        color: ThemeProvider.themeOf(context)
+                                                    .id ==
+                                                'dark'
+                                            ? Colors.white
+                                            : Theme.of(context).primaryColor,
+                                        size: 22,
+                                      ),
+                                      Container(
+                                        width: 2,
+                                        height: 20,
+                                        margin: const EdgeInsets.symmetric(
+                                            horizontal: 8),
+                                        color: ThemeProvider.themeOf(context)
+                                                    .id ==
+                                                'dark'
+                                            ? Colors.white
+                                            : Theme.of(context).primaryColor,
+                                      ),
+                                      Text(
+                                        AppLocalizations.of(context)!.share,
+                                        style: TextStyle(
+                                            color:
+                                                ThemeProvider.themeOf(context)
+                                                            .id ==
+                                                        'dark'
+                                                    ? Colors.white
+                                                    : Theme.of(context)
+                                                        .primaryColor,
+                                            fontFamily: 'kufi',
+                                            fontStyle: FontStyle.italic,
+                                            fontSize: 14),
+                                      ),
+                                    ],
                                   ),
-                                  const Divider(),
-                                  InkWell(
-                                    child: Row(
-                                      children: [
-                                        Icon(
-                                          Icons.email_outlined,
-                                          color: ThemeProvider.themeOf(context)
-                                                      .id ==
-                                                  'dark'
-                                              ? Colors.white
-                                              : Theme.of(context).primaryColor,
-                                          size: 22,
-                                        ),
-                                        Container(
-                                          width: 2,
-                                          height: 20,
-                                          margin: const EdgeInsets.symmetric(
-                                              horizontal: 8),
-                                          color: ThemeProvider.themeOf(context)
-                                                      .id ==
-                                                  'dark'
-                                              ? Colors.white
-                                              : Theme.of(context).primaryColor,
-                                        ),
-                                        Text(
-                                          AppLocalizations.of(context)!.email,
-                                          style: TextStyle(
-                                              color:
-                                                  ThemeProvider.themeOf(context)
-                                                              .id ==
-                                                          'dark'
-                                                      ? Colors.white
-                                                      : Theme.of(context)
-                                                          .primaryColor,
-                                              fontFamily: 'kufi',
-                                              fontStyle: FontStyle.italic,
-                                              fontSize: 14),
-                                        ),
-                                      ],
-                                    ),
-                                    onTap: () {
-                                      _launchEmail();
-                                    },
+                                  onTap: () async {
+                                    share();
+                                  },
+                                ),
+                                const Divider(),
+                                InkWell(
+                                  child: Row(
+                                    children: [
+                                      Icon(
+                                        Icons.email_outlined,
+                                        color: ThemeProvider.themeOf(context)
+                                                    .id ==
+                                                'dark'
+                                            ? Colors.white
+                                            : Theme.of(context).primaryColor,
+                                        size: 22,
+                                      ),
+                                      Container(
+                                        width: 2,
+                                        height: 20,
+                                        margin: const EdgeInsets.symmetric(
+                                            horizontal: 8),
+                                        color: ThemeProvider.themeOf(context)
+                                                    .id ==
+                                                'dark'
+                                            ? Colors.white
+                                            : Theme.of(context).primaryColor,
+                                      ),
+                                      Text(
+                                        AppLocalizations.of(context)!.email,
+                                        style: TextStyle(
+                                            color:
+                                                ThemeProvider.themeOf(context)
+                                                            .id ==
+                                                        'dark'
+                                                    ? Colors.white
+                                                    : Theme.of(context)
+                                                        .primaryColor,
+                                            fontFamily: 'kufi',
+                                            fontStyle: FontStyle.italic,
+                                            fontSize: 14),
+                                      ),
+                                    ],
                                   ),
-                                  const Divider(),
-                                  InkWell(
-                                    child: Row(
-                                      children: [
-                                        Icon(
-                                          Icons.facebook_rounded,
-                                          color: ThemeProvider.themeOf(context)
-                                                      .id ==
-                                                  'dark'
-                                              ? Colors.white
-                                              : Theme.of(context).primaryColor,
-                                          size: 22,
-                                        ),
-                                        Container(
-                                          width: 2,
-                                          height: 20,
-                                          margin: const EdgeInsets.symmetric(
-                                              horizontal: 8),
-                                          color: ThemeProvider.themeOf(context)
-                                                      .id ==
-                                                  'dark'
-                                              ? Colors.white
-                                              : Theme.of(context).primaryColor,
-                                        ),
-                                        Text(
-                                          AppLocalizations.of(context)!
-                                              .facebook,
-                                          style: TextStyle(
-                                              color:
-                                                  ThemeProvider.themeOf(context)
-                                                              .id ==
-                                                          'dark'
-                                                      ? Colors.white
-                                                      : Theme.of(context)
-                                                          .primaryColor,
-                                              fontFamily: 'kufi',
-                                              fontStyle: FontStyle.italic,
-                                              fontSize: 14),
-                                        ),
-                                      ],
-                                    ),
-                                    onTap: () {
-                                      _launchUrl();
-                                    },
+                                  onTap: () {
+                                    _launchEmail();
+                                  },
+                                ),
+                                const Divider(),
+                                InkWell(
+                                  child: Row(
+                                    children: [
+                                      Icon(
+                                        Icons.facebook_rounded,
+                                        color: ThemeProvider.themeOf(context)
+                                                    .id ==
+                                                'dark'
+                                            ? Colors.white
+                                            : Theme.of(context).primaryColor,
+                                        size: 22,
+                                      ),
+                                      Container(
+                                        width: 2,
+                                        height: 20,
+                                        margin: const EdgeInsets.symmetric(
+                                            horizontal: 8),
+                                        color: ThemeProvider.themeOf(context)
+                                                    .id ==
+                                                'dark'
+                                            ? Colors.white
+                                            : Theme.of(context).primaryColor,
+                                      ),
+                                      Text(
+                                        AppLocalizations.of(context)!
+                                            .facebook,
+                                        style: TextStyle(
+                                            color:
+                                                ThemeProvider.themeOf(context)
+                                                            .id ==
+                                                        'dark'
+                                                    ? Colors.white
+                                                    : Theme.of(context)
+                                                        .primaryColor,
+                                            fontFamily: 'kufi',
+                                            fontStyle: FontStyle.italic,
+                                            fontSize: 14),
+                                      ),
+                                    ],
                                   ),
-                                ],
-                              ),
+                                  onTap: () {
+                                    _launchUrl();
+                                  },
+                                ),
+                              ],
                             ),
                           ),
                         ),

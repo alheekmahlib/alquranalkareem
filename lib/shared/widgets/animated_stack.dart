@@ -1,9 +1,12 @@
 library animated_stack;
 
+import 'package:alquranalkareem/shared/widgets/settings_popUp.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../cubit/cubit.dart';
 import '../../cubit/states.dart';
+import '../custom_rect_tween.dart';
+import '../hero_dialog_route.dart';
 
 
 
@@ -57,10 +60,9 @@ class _AnimatedStackState extends State<AnimatedStack> {
     final double _fabSize = 56;
 
     final double _xScale =
-        (widget.scaleWidth + _fabPosition * 2) * 100 / _width;
+        (widget.scaleWidth + _fabPosition * 5) * 100 / _width;
     final double _yScale =
         (widget.scaleHeight + _fabPosition * 2) * 100 / _height;
-
     return BlocConsumer<QuranCubit, QuranState>(
   listener: (context, state) {
     // TODO: implement listener
@@ -76,21 +78,79 @@ class _AnimatedStackState extends State<AnimatedStack> {
           floatingActionButton: Visibility(
             visible: QuranCubit.get(context).isShowControl,
             child: Padding(
-              padding: const EdgeInsets.only(top: 16.0),
-              child: FloatingActionButton(
-                elevation: 0,
-                shape: const RoundedRectangleBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(8))),
-                backgroundColor: widget.fabBackgroundColor,
-                onPressed: () => setState(() => QuranCubit.get(context).opened = !QuranCubit.get(context).opened),
-                child: RotateAnimation(
-                  opened: widget.animateButton ? QuranCubit.get(context).opened : false,
-                  duration: widget.buttonAnimationDuration,
-                  child: Icon(
-                    widget.buttonIcon,
-                    color: widget.fabIconColor,
+              padding: const EdgeInsets.only(top: 16.0, right: 32.0),
+              child: Column(
+                children: [
+                  GestureDetector(
+                    onTap: () => setState(() => QuranCubit.get(context).opened = !QuranCubit.get(context).opened),
+                    child: Container(
+                      height: 50,
+                      width: 50,
+                      decoration: BoxDecoration(
+                        color: Theme.of(context).colorScheme.surface,
+                        borderRadius: const BorderRadius.all(
+                            Radius.circular(8)
+                        ),
+                        boxShadow: const [
+                          BoxShadow(
+                            color: Colors.black26,
+                            blurRadius: 1.0,
+                            spreadRadius: 0.0,
+                            offset: Offset(0.0, 0.0), // shadow direction: bottom right
+                          )
+                        ],
+                      ),
+
+                      child: RotateAnimation(
+                        opened: widget.animateButton ? QuranCubit.get(context).opened : false,
+                        duration: widget.buttonAnimationDuration,
+                        child: Icon(
+                          widget.buttonIcon,
+                          color: widget.fabIconColor,
+                        ),
+                      ),
+                    ),
                   ),
-                ),
+                  SizedBox(
+                    height: 4,
+                  ),
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.of(context).push(HeroDialogRoute(builder: (context) {
+                        return const settingsPopupCard();
+                      }));
+                    },
+                    child: Hero(
+                      tag: heroAddTodo,
+                      createRectTween: (begin, end) {
+                        return CustomRectTween(begin: begin!, end: end!);
+                      },
+                      child: Container(
+                        height: 50,
+                        width: 50,
+                        decoration: BoxDecoration(
+                          color: Theme.of(context).colorScheme.background,
+                          borderRadius: const BorderRadius.all(
+                              Radius.circular(8)
+                          ),
+                          boxShadow: const [
+                            BoxShadow(
+                              color: Colors.black26,
+                              blurRadius: 1.0,
+                              spreadRadius: 0.0,
+                              offset: Offset(0.0, 0.0), // shadow direction: bottom right
+                            )
+                          ],
+                        ),
+                        child: Icon(
+                          Icons.settings,
+                          size: 28,
+                          color: Theme.of(context).colorScheme.surface,
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
               ),
             ),
           ),
@@ -104,10 +164,10 @@ class _AnimatedStackState extends State<AnimatedStack> {
                       bottom: _fabSize + _fabPosition * 4,
                       right: _fabPosition,
                       // width is used as max width to prevent overlap
-                      child: ConstrainedBox(
-                        constraints: BoxConstraints(maxWidth: widget.scaleWidth),
-                        child: widget.columnWidget,
-                      ),
+                      child: SizedBox(
+                          height: 600,
+                          width: 120,
+                          child: widget.columnWidget),
                     ),
                     Positioned(
                       right: widget.scaleWidth + _fabPosition * 2,
@@ -127,6 +187,8 @@ class _AnimatedStackState extends State<AnimatedStack> {
                 opened: QuranCubit.get(context).opened,
                 xScale: _xScale,
                 yScale: _yScale,
+                // xScale: orientation(context, 40.0, 20.0),
+                // yScale: orientation(context, 10.0, 25.0),
                 duration: widget.slideAnimationDuration,
                 child: widget.foregroundWidget,
               ),

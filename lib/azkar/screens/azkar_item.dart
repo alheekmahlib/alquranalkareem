@@ -1,6 +1,9 @@
 import 'package:alquranalkareem/azkar/models/azkar.dart';
 import 'package:alquranalkareem/l10n/app_localizations.dart';
 import 'package:another_xlider/another_xlider.dart';
+import 'package:another_xlider/models/handler.dart';
+import 'package:another_xlider/models/handler_animation.dart';
+import 'package:another_xlider/models/trackbar.dart';
 import 'package:clipboard/clipboard.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
@@ -40,7 +43,6 @@ class _AzkarItemState extends State<AzkarItem> {
 
   @override
   Widget build(BuildContext context) {
-    Orientation orientation = MediaQuery.of(context).orientation;
     return SafeArea(
       top: false,
       bottom: false,
@@ -127,9 +129,9 @@ class _AzkarItemState extends State<AzkarItem> {
                 ),
               ),
               Padding(
-                padding: orientation == Orientation.portrait
-                    ? EdgeInsets.only(top: 96)
-                    : EdgeInsets.only(top: 96, right: 64, left: 64),
+                padding: orientation(context,
+                    EdgeInsets.only(top: 96),
+                    EdgeInsets.only(top: 96, right: 64, left: 64)),
                 child: SingleChildScrollView(
                   child: Column(
                     children: azkarByCategory.azkarList.map((azkar) {
@@ -178,8 +180,6 @@ class _AzkarItemState extends State<AzkarItem> {
                                     cursorRadius: const Radius.circular(5),
                                     scrollPhysics:
                                         const ClampingScrollPhysics(),
-                                    toolbarOptions: const ToolbarOptions(
-                                        copy: true, selectAll: true),
                                     textDirection: TextDirection.rtl,
                                     textAlign: TextAlign.justify,
                                   ),

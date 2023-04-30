@@ -8,18 +8,22 @@ import 'package:sqflite_common_ffi/sqflite_ffi.dart';
 import '../azkar/models/azkar.dart';
 import '../notes/model/Notes.dart';
 import '../quran_text/model/bookmark_text.dart';
+import '../quran_text/model/bookmark_text_ayah.dart';
 
 class DatabaseHelper {
   static Database? _db;
-  static const int _version = 5;
+  static const int _version = 6;
   static const String tableNote = 'noteTable';
   static const String tableBookmarks = 'bookmarkTable';
   static const String tableBookmarksText = 'bookmarkTextTable';
   static const String tableAzkar = 'azkarTable';
+  static const String tablebookmarkTextAyah = 'bookmarkTextAyahTable';
   static const String columnId = 'id';
   static const String columnBId = 'id';
   static const String columnCId = 'id';
   static const String columnTId = 'id';
+  static const String columnAId = 'id';
+  static const String columnPageNum = 'pageNum';
 
   DatabaseHelper._privateConstructor();
   static final DatabaseHelper instance = DatabaseHelper._privateConstructor();
@@ -173,6 +177,17 @@ class DatabaseHelper {
       'lastRead TEXT)',
     );
     print('create bookmarkTextTable');
+    await db.execute(
+      'CREATE TABLE bookmarkTextAyahTable ('
+      'id INTEGER PRIMARY KEY, '
+      'sorahName TEXT, '
+      'sorahNum INTEGER, '
+      'ayahNum INTEGER, '
+      'nomPageF INTEGER, '
+      'nomPageL INTEGER, '
+      'lastRead TEXT)',
+    );
+    print('create bookmarkTextAyahTable');
   }
 
   Future onUpgrade(Database db, int oldVersion, int newVersion) async {
@@ -244,7 +259,8 @@ class DatabaseHelper {
             'nomPageF INTEGER, '
             'nomPageL INTEGER, '
             'lastRead TEXT)',
-      ); // add new column to existing table.
+      );
+      print('Upgrade bookmarkTextTable');
     }
     //   // await db.execute("ALTER TABLE bookmarkTextTable ADD COLUMN sorahNum TEXT");
     //   print('Database onUpgrade');
@@ -297,6 +313,12 @@ class DatabaseHelper {
     return await _db!.delete(tableBookmarks,
         where: '$columnBId = ?', whereArgs: [bookmarks!.id]);
   }
+
+  // static Future<int> deleteBookmark(int? pageNum) async {
+  //   print('Delete Bookmarks');
+  //   return await _db!.delete(tableBookmarks,
+  //       where: '$columnPageNum = ?', whereArgs: [pageNum]);
+  // }
 
   static Future<int> updateBookmarks(Bookmarks bookmarks) async {
     print('Update Bookmarks');
@@ -361,6 +383,33 @@ class DatabaseHelper {
   static Future<List<Map<String, dynamic>>> queryC() async {
     print('Update Azkar');
     return await _db!.query(tableAzkar);
+  }
+
+  /// bookmarks Text database
+  static Future<int?> addBookmarkAyahText(BookmarksTextAyah? bookmarksTextAyah) async {
+    print('Save Text Ayah Bookmarks');
+    try {
+      return await _db!.insert(tablebookmarkTextAyah, bookmarksTextAyah!.toJson());
+    } catch (e) {
+      return 90000;
+    }
+  }
+
+  static Future<int> deleteBookmarkAyahText(BookmarksTextAyah? bookmarksTextAyah) async {
+    print('Delete Text Ayah Bookmarks');
+    return await _db!.delete(tablebookmarkTextAyah,
+        where: '$columnAId = ?', whereArgs: [bookmarksTextAyah!.id]);
+  }
+
+  static Future<int> updateBookmarksAyahText(BookmarksTextAyah bookmarksTextAyah) async {
+    print('Update Text Ayah Bookmarks');
+    return await _db!.update(tablebookmarkTextAyah, bookmarksTextAyah.toJson(),
+        where: "$columnAId = ?", whereArgs: [bookmarksTextAyah.id]);
+  }
+
+  static Future<List<Map<String, dynamic>>> queryA() async {
+    print('get Text Ayah Bookmarks');
+    return await _db!.query(tablebookmarkTextAyah);
   }
 
   Future close() async {

@@ -88,15 +88,12 @@ class _NotesListState extends State<NotesList> {
                   mainAxisSize: MainAxisSize.min,
                   children: <Widget>[
                     TextFormField(
-                      // initialValue: editNote != null ? editNote.title : null,
                       textAlign: TextAlign.start,
                       controller: titleController,
                       autofocus: true,
                       cursorHeight: 18,
                       cursorWidth: 3,
                       cursorColor: Theme.of(context).dividerColor,
-                      toolbarOptions: const ToolbarOptions(
-                          selectAll: true, copy: true, paste: true, cut: true),
                       onChanged: (value) {
                         setState(() {
                           title = value.trim();
@@ -141,15 +138,12 @@ class _NotesListState extends State<NotesList> {
                       height: 20,
                     ),
                     TextFormField(
-                      // initialValue: editNote != null ? editNote.description : null,
                       textAlign: TextAlign.start,
                       controller: descriptionController,
                       autofocus: true,
                       cursorHeight: 18,
                       cursorWidth: 3,
                       cursorColor: Theme.of(context).dividerColor,
-                      toolbarOptions: const ToolbarOptions(
-                          selectAll: true, copy: true, paste: true, cut: true),
                       maxLines: null,
                       keyboardType: TextInputType.multiline,
                       onChanged: (value) {

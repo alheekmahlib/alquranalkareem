@@ -17,6 +17,7 @@ class SplashScreen extends StatefulWidget {
 class _SplashScreenState extends State<SplashScreen> {
   bool animate = false;
 
+
   @override
   void initState() {
     startTime();
@@ -47,7 +48,7 @@ class _SplashScreenState extends State<SplashScreen> {
     } else {
       Get.off(() => HomePage());
     }
-
+    // Get.off(() => OnboardingScreen());
     // Navigator.of(context).pushReplacementNamed(routeName);
   }
 
@@ -66,12 +67,11 @@ class _SplashScreenState extends State<SplashScreen> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    SizedBox(
-                        height: 120,
-                        width: 120,
-                        child: SvgPicture.asset(
-                          'assets/svg/splash_icon.svg',
-                        )),
+                    SvgPicture.asset(
+                      'assets/svg/splash_icon.svg',
+                      height: 120,
+                      width: 120,
+                    ),
                     SizedBox(
                       height: 16,
                     ),
@@ -108,23 +108,19 @@ class _SplashScreenState extends State<SplashScreen> {
                 alignment: Alignment.bottomCenter,
                 child: Padding(
                   padding: const EdgeInsets.symmetric(vertical: 16.0),
-                  child: Row(
+                  child: Column(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      SizedBox(
-                          width: 90,
-                          child: SvgPicture.asset(
-                            'assets/svg/alheekmah_logo.svg',
-                            color: const Color(0xff39412a),
-                          )),
-                      Padding(
-                        padding: const EdgeInsets.only(top: 32.0),
-                        child: RotatedBox(
-                          quarterTurns: 2,
-                          child: Lottie.asset(
-                              'assets/lottie/splash_lo.json',
-                              height: 130),
-                        ),
+                      SvgPicture.asset(
+                        'assets/svg/alheekmah_logo.svg',
+                    colorFilter: ColorFilter.mode(const Color(0xff39412a), BlendMode.srcIn),
+                        width: 90,
+                      ),
+                      RotatedBox(
+                        quarterTurns: 2,
+                        child: Lottie.asset(
+                            'assets/lottie/splash_loading.json',
+                            width: 140),
                       ),
                     ],
                   ),

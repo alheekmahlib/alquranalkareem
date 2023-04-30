@@ -7,6 +7,7 @@ import '../../cubit/cubit.dart';
 import '../../quran_page/cubit/audio/cubit.dart';
 import '../../quran_page/data/model/ayat.dart';
 
+
 class AyahList extends StatefulWidget {
   int? pageNum;
   AyahList({Key? key, required this.pageNum}) : super(key: key);
@@ -25,17 +26,28 @@ class _AyahListState extends State<AyahList> {
     super.initState();
   }
 
+  bool isFetched = false;
+  var fetched;
+
+  Future<List<Ayat>> pageTranslate() async {
+    if (QuranCubit.get(context).handleRadioValueChanged(QuranCubit.get(context).radioValue).getPageTranslate(widget.pageNum!) == null) {
+      return QuranCubit.get(context).handleRadioValueChanged(QuranCubit.get(context).radioValue).getPageTranslate(widget.pageNum!);
+    } else {
+      return QuranCubit.get(context).handleRadioValueChanged(QuranCubit.get(context).radioValue).getPageTranslate(widget.pageNum!);
+    }
+  }
   @override
   Widget build(BuildContext context) {
     QuranCubit cubit = QuranCubit.get(context);
     AudioCubit audioCubit = AudioCubit.get(context);
+
     return FutureBuilder<List<Ayat>>(
-        future: cubit
-            .handleRadioValueChanged(cubit.radioValue)
-            .getPageTranslate(widget.pageNum!),
+        future: cubit.handleRadioValueChanged(cubit.radioValue).getPageTranslate(widget.pageNum ?? 1),
         builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.done) {
+          // print(cubit.handleRadioValueChanged(cubit.radioValue).getPageTranslate(widget.pageNum!));
+          if (snapshot.connectionState == snapshot.connectionState) {
             List<Ayat>? ayat = snapshot.data;
+
             return Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: <Widget>[
@@ -56,7 +68,7 @@ class _AyahListState extends State<AyahList> {
                     child: ListView.builder(
                       padding: const EdgeInsets.symmetric(horizontal: 8),
                       scrollDirection: Axis.horizontal,
-                      itemCount: ayat!.length,
+                      itemCount: ayat?.length ?? 0,
                       shrinkWrap: true,
                       itemBuilder: (BuildContext context, position) {
                         Ayat? aya = ayat![position];
@@ -64,12 +76,12 @@ class _AyahListState extends State<AyahList> {
                           opacity: isSelected == position ? 1.0 : .5,
                           child: InkWell(
                             onTap: () {
+                              cubit.translateAyah = "${aya.ayatext ?? ''}";
+                              cubit.translate = "${aya.translate ?? ''}";
+                              audioCubit.ayahNum = '${aya.ayaNum ?? 0}';
+                              audioCubit.sorahName = '${aya.suraNum ?? 0}';
+                              print(audioCubit.ayahNum);
                               setState(() {
-                                cubit.translateAyah = "${aya.ayatext!}";
-                                cubit.translate = "${aya.translate!}";
-                                audioCubit.ayahNum = '${aya.ayaNum!}';
-                                audioCubit.sorahName = '${aya.suraNum!}';
-                                print(audioCubit.ayahNum);
                                 isSelected = position.toDouble();
                               });
                             },

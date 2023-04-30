@@ -1,5 +1,6 @@
 import 'package:alquranalkareem/l10n/app_localizations.dart';
 import 'package:alquranalkareem/shared/widgets/sorah_list.dart';
+import 'package:alquranalkareem/shared/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:theme_provider/theme_provider.dart';
@@ -25,7 +26,6 @@ class _SorahJuzListState extends State<SorahJuzList>
 
   @override
   Widget build(BuildContext context) {
-    Orientation orientation = MediaQuery.of(context).orientation;
     return Container(
       key: dSorahJuzListKey,
       decoration: BoxDecoration(
@@ -39,8 +39,7 @@ class _SorahJuzListState extends State<SorahJuzList>
           headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
             return <Widget>[
               SliverAppBar(
-                expandedHeight:
-                    orientation == Orientation.portrait ? 130.0 : 30.0,
+                expandedHeight: orientation(context, 130.0, 30.0),
                 floating: false,
                 pinned: true,
                 shape: const RoundedRectangleBorder(

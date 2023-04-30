@@ -7,7 +7,9 @@ import 'package:theme_provider/theme_provider.dart';
 import '../../cubit/cubit.dart';
 import '../../l10n/app_localizations.dart';
 import '../../quran_page/data/model/aya.dart';
+import '../../quran_page/data/model/sorah.dart';
 import '../../quran_page/data/repository/aya_repository.dart';
+import '../../quran_page/data/repository/sorah_repository.dart';
 
 class QuranSearch extends StatefulWidget {
   late Function onSubmitted;
@@ -28,13 +30,30 @@ class _QuranSearchState extends State<QuranSearch> {
     super.initState();
   }
 
+  String _convertArabicToEnglishNumbers(String input) {
+    final arabicNumbers = '٠١٢٣٤٥٦٧٨٩';
+    final englishNumbers = '0123456789';
+
+    return input.split('').map((char) {
+      int index = arabicNumbers.indexOf(char);
+      if (index != -1) {
+        return englishNumbers[index];
+      }
+      return char;
+    }).join('');
+  }
+
   search(String text) async {
-    ayaRepository.search(text).then((values) {
+    // Convert Arabic numerals to English numerals if any
+    String convertedText = _convertArabicToEnglishNumbers(text);
+
+    ayaRepository.search(convertedText).then((values) {
       setState(() {
         ayahList = values;
       });
     });
   }
+
 
   @override
   Widget build(BuildContext context) {
@@ -53,8 +72,6 @@ class _QuranSearchState extends State<QuranSearch> {
             cursorWidth: 3,
             cursorColor: Theme.of(context).dividerColor,
             textInputAction: TextInputAction.search,
-            toolbarOptions: const ToolbarOptions(
-                selectAll: true, copy: true, paste: true, cut: true),
             onSubmitted: (value) {
               if (value != null) {
                 search(value);
@@ -109,17 +126,19 @@ class _QuranSearchState extends State<QuranSearch> {
                             Container(
                               color: (index % 2 == 0
                                   ? Theme.of(context)
-                                      .colorScheme.surface
+                                      .colorScheme
+                                      .surface
                                       .withOpacity(.05)
                                   : Theme.of(context)
-                                      .colorScheme.surface
+                                      .colorScheme
+                                      .surface
                                       .withOpacity(.1)),
                               child: ListTile(
                                 onTap: () {
                                   QuranCubit.get(context)
                                       .dPageController
                                       ?.animateToPage(
-                                        int.parse(aya.pageNum) - 1,
+                                    aya.pageNum - 1,
                                         // 19,
                                         duration:
                                             const Duration(milliseconds: 500),
@@ -129,32 +148,20 @@ class _QuranSearchState extends State<QuranSearch> {
                                 },
                                 title: Padding(
                                   padding: const EdgeInsets.all(8.0),
-                                  child: RichText(
-                                      textAlign: TextAlign.justify,
-                                      text: TextSpan(
-                                          style: TextStyle(
-                                            fontFamily: "uthmanic",
-                                            fontWeight: FontWeight.normal,
-                                            fontSize: 22,
-                                            color:
-                                                ThemeProvider.themeOf(context)
-                                                            .id ==
-                                                        'dark'
-                                                    ? Theme.of(context)
-                                                        .canvasColor
-                                                    : Theme.of(context)
-                                                        .primaryColorDark,
-                                          ),
-                                          text: aya.text,
-                                          children: [
-                                            WidgetSpan(
-                                              child: ayaNum(
-                                                  context,
-                                                  Theme.of(context)
-                                                      .primaryColorDark,
-                                                  "${aya.ayaNum}"),
-                                            )
-                                          ])),
+                                  child: Text(
+                                    aya.text,
+                                    style: TextStyle(
+                                      fontFamily: "uthmanic2",
+                                      fontWeight: FontWeight.normal,
+                                      fontSize: 22,
+                                      color: ThemeProvider.themeOf(context)
+                                                  .id ==
+                                              'dark'
+                                          ? Theme.of(context).canvasColor
+                                          : Theme.of(context).primaryColorDark,
+                                    ),
+                                    textAlign: TextAlign.justify,
+                                  ),
                                 ),
                                 subtitle: Container(
                                   height: 20,
@@ -187,7 +194,8 @@ class _QuranSearchState extends State<QuranSearch> {
                                                     ? Theme.of(context)
                                                         .canvasColor
                                                     : Theme.of(context)
-                                                        .colorScheme.background,
+                                                        .colorScheme
+                                                        .background,
                                                 fontSize: 12),
                                           ),
                                         ),
@@ -207,7 +215,8 @@ class _QuranSearchState extends State<QuranSearch> {
                                                       ? Theme.of(context)
                                                           .canvasColor
                                                       : Theme.of(context)
-                                                          .colorScheme.background,
+                                                          .colorScheme
+                                                          .background,
                                                   fontSize: 12),
                                             )),
                                       ),
@@ -233,7 +242,8 @@ class _QuranSearchState extends State<QuranSearch> {
                                                       ? Theme.of(context)
                                                           .canvasColor
                                                       : Theme.of(context)
-                                                          .colorScheme.background,
+                                                          .colorScheme
+                                                          .background,
                                                   fontSize: 12),
                                             )),
                                       ),

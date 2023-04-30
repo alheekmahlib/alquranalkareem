@@ -111,12 +111,12 @@
                  "type": "text",
                  "placeholders": {}
                },
-  "about_app3": "◉ This application enables you to read the Quran as if you were reading in the Mus'haf, and you can read in vertical and horizontal mode.\\n◉ You can also read in variable mode that enables you to zoom in and out as you like.\\n◉ The application has the feature of textual search in the verses of the Qur’an through real-time search and display of results with pages in addition to the possibility of going to the page as needed.\\n◉ Addition to bookmarks so that the reader can save the page and return to it whenever he wants.\\n◉ Addition to notes.\\n◉ Ability to listen to each verse in voice of different readers.\\n◉ The app allows interpretation for each verse, you can change between interpretations, and you can resize the interpretation line.\\n◉ Index of Surahs.\\n◉ Move between Surahs easily.\\n◉ The app lets you read the meaning of stop signs.\\n◉ The application enables you to read the Muslim fortress in full and divided by remembrance so that it is easy for the reader to navigate between sections, and you can add any mention to favorites.\\n◉ The application allows the reader to read to change color patterns, including the dark pattern, which changes the background color in black and white lines to give the reader complete comfort when reading in a low-light atmosphere.",
+  "about_app3": "◉ This application enables you to read the Quran as if you were reading in the Mus'haf, and you can read in vertical and horizontal mode.\\n◉ You can also read in variable mode that enables you to zoom in and out as you like.\\n◉ The application has the feature of textual search in the verses of the Qur’an through real-time search and display of results with pages in addition to the possibility of going to the page as needed.\\n◉ Addition to bookmarks so that the reader can save the page and return to it whenever he wants.\\n◉ Addition to notes.\\n◉ Ability to listen to each verse in voice of different readers.\\n◉ The app allows interpretation for each verse, you can change between interpretations, and you can resize the interpretation line.\\n◉ Index of Surahs.\\n◉ Move between Surahs easily.\\n◉ The app lets you read the meaning of stop signs.\\n◉ The application enables you to read the Muslim fortress in full and divided by remembrance so that it is easy for the reader to navigate between sections, and you can add any mention to favorites.\\n◉ The application allows the reader to read to change color patterns, including the dark pattern, which changes the background color in black and white lines to give the reader complete comfort when reading in a low-light atmosphere. \\n◉ The app enables you to listen to the Surahs or download and listen to them at any time without the need for the internet.",
                      "@about_app3": {
                        "type": "text",
                        "placeholders": {}
                      },
-  "email": "Connect With US",
+  "email": "Contact us",
                  "@email": {
                    "type": "text",
                    "placeholders": {}
@@ -374,6 +374,11 @@
     "type": "text",
     "placeholders": {}
   },
+  "deletedReminder": "Reminder deleted!",
+  "@deletedReminder": {
+    "type": "text",
+    "placeholders": {}
+  },
   "fillAllFields": "Please fill in the fields!",
   "@fillAllFields": {
     "type": "text",
@@ -416,6 +421,116 @@
   },
   "copyAyah": "The verse has been copied",
   "@copyAyah": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "copyTafseer": "The Tafseer has been copied",
+  "@copyTafseer": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "online": "Online",
+  "@online": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "download": "Download",
+  "@download": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "noInternet": "The device is not connected to the Internet!",
+  "@noInternet": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "mobileDataAyat": "Note: You are using cellular data to download verses!",
+  "@mobileDataAyat": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "mobileDataSurahs": "Note: You are using cellular data to download the surahs!",
+  "@mobileDataSurahs": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "mobileDataListen": "Note: You are using cellular data to listen to surahs!",
+  "@mobileDataListen": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "choiceAyah": "Please choose the verse first!",
+  "@choiceAyah": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "stopSigns": "Stop Signs",
+  "@stopSigns": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "aboutApp": "About App",
+  "@aboutApp": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "readMore": "Read More",
+  "@readMore": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "readLess": "Read Less",
+  "@readLess": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "ok": "Ok",
+  "@ok": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "cancel": "Cancel",
+  "@cancel": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "searchToSurah": "Search To Surah",
+  "@searchToSurah": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "addReminder": "Add New Reminder",
+  "@addReminder": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "lastListen": "Last Listen",
+  "@lastListen": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "hizb": "Hizb",
+  "@hizb": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "shareText": "As text",
+  "@shareText": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "shareImage": "As an image",
+  "@shareImage": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "shareImageWTrans": "Como una imagen con contenido adicional",
+  "@shareImageWTrans": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "shareTrans": "Note: Sharing the interpretation in an image only supports the interpretation of Al-Saadi, because the interpretation is not lengthy.",
+  "@shareTrans": {
     "type": "text",
     "placeholders": {}
   }
