@@ -669,7 +669,7 @@ class _TextPageViewState extends State<TextPageView>
                                                                     child: FutureBuilder<
                                                                             List<
                                                                                 Ayat>>(
-                                                                        future: QuranCubit.get(context).handleRadioValueChanged(QuranCubit.get(context).radioValue).getAyahTranslate((widget
+                                                                        future: QuranCubit.get(context).handleRadioValueChanged(context, QuranCubit.get(context).radioValue).getAyahTranslate((widget
                                                                             .surah!
                                                                             .number)),
                                                                         builder:
@@ -1132,7 +1132,7 @@ class _TextPageViewState extends State<TextPageView>
                                                                                   width: 40,
                                                                                   decoration: BoxDecoration(color: Color(0xfff3efdf), borderRadius: BorderRadius.all(Radius.circular(50))),
                                                                                   child: FutureBuilder<List<Ayat>>(
-                                                                                      future: QuranCubit.get(context).handleRadioValueChanged(QuranCubit.get(context).radioValue).getAyahTranslate((widget.surah!.number)),
+                                                                                      future: QuranCubit.get(context).handleRadioValueChanged(context, QuranCubit.get(context).radioValue).getAyahTranslate((widget.surah!.number)),
                                                                                       builder: (context, snapshot) {
                                                                                         if (snapshot.connectionState == ConnectionState.done) {
                                                                                           List<Ayat>? ayat = snapshot.data;

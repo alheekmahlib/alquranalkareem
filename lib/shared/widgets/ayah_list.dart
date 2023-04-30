@@ -30,10 +30,10 @@ class _AyahListState extends State<AyahList> {
   var fetched;
 
   Future<List<Ayat>> pageTranslate() async {
-    if (QuranCubit.get(context).handleRadioValueChanged(QuranCubit.get(context).radioValue).getPageTranslate(widget.pageNum!) == null) {
-      return QuranCubit.get(context).handleRadioValueChanged(QuranCubit.get(context).radioValue).getPageTranslate(widget.pageNum!);
+    if (QuranCubit.get(context).handleRadioValueChanged(context, QuranCubit.get(context).radioValue).getPageTranslate(widget.pageNum!) == null) {
+      return QuranCubit.get(context).handleRadioValueChanged(context, QuranCubit.get(context).radioValue).getPageTranslate(widget.pageNum!);
     } else {
-      return QuranCubit.get(context).handleRadioValueChanged(QuranCubit.get(context).radioValue).getPageTranslate(widget.pageNum!);
+      return QuranCubit.get(context).handleRadioValueChanged(context, QuranCubit.get(context).radioValue).getPageTranslate(widget.pageNum!);
     }
   }
   @override
@@ -42,7 +42,7 @@ class _AyahListState extends State<AyahList> {
     AudioCubit audioCubit = AudioCubit.get(context);
 
     return FutureBuilder<List<Ayat>>(
-        future: cubit.handleRadioValueChanged(cubit.radioValue).getPageTranslate(widget.pageNum ?? 1),
+        future: cubit.handleRadioValueChanged(context, cubit.radioValue).getPageTranslate(widget.pageNum ?? 1),
         builder: (context, snapshot) {
           // print(cubit.handleRadioValueChanged(cubit.radioValue).getPageTranslate(widget.pageNum!));
           if (snapshot.connectionState == snapshot.connectionState) {

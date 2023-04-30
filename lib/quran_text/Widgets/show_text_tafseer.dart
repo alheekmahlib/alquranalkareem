@@ -317,7 +317,7 @@ class _ShowTextTafseerState extends State<ShowTextTafseer> {
                                 : null,
                           ),
                           onTap: () {
-                            cubit.handleRadioValueChanged(index);
+                            cubit.handleRadioValueChanged(context, index);
                             cubit.saveTafseer(index);
                             Navigator.pop(context);
                           },

@@ -16,7 +16,7 @@ import '../data/model/bookmark.dart';
 import '../data/model/quarter.dart';
 import '../data/model/sorah_bookmark.dart';
 import '../data/model/verse.dart';
-import '../data/repository/translate2_repository.dart';
+import '../data/repository/translate_repository.dart';
 
 class MPages extends StatefulWidget {
   int initialPageNum;
