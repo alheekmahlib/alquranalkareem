@@ -3,9 +3,10 @@ class Aya {
   late int id;
   late int sorahId;
   late int ayaNum;
-  late String pageNum;
+  dynamic pageNum;
   late String sorahName;
   late String text;
+  late String soraNameSearch;
   late int partNum;
 
   static final columns = [
@@ -14,6 +15,7 @@ class Aya {
     'AyaNum',
     'PageNum',
     'SoraName_ar',
+    'SoraNameSearch',
     'AyaDiac',
     'PartNum'
   ];
@@ -25,6 +27,7 @@ class Aya {
       "PageNum": pageNum,
       "SoraName_ar": sorahName,
       "AyaDiac": text,
+      "SoraNameSearch": soraNameSearch,
       "PartNum": partNum,
     };
 
@@ -42,6 +45,7 @@ class Aya {
     aya.ayaNum = map["AyaNum"];
     aya.sorahId = map["SoraNum"];
     aya.text = map["AyaDiac"];
+    aya.soraNameSearch = map["SoraNameSearch"];
     aya.partNum = map["PartNum"];
     aya.pageNum = map["PageNum"];
     return aya;

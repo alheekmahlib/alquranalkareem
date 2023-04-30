@@ -41,21 +41,19 @@ class BookmarksCubit extends Cubit<BookmarksState> {
       Get.put(BookmarksController());
 
   int? id;
-  addBookmark(pageNum, String sorahName, lastRead) async {
+  addBookmark(int pageNum, String sorahName, String lastRead) async {
     try {
       int? bookmark = await bookmarksController.addBookmarks(
-        Bookmarks(
-          id,
-          sorahName,
-          pageNum,
-          lastRead,
-        ),
+        pageNum,
+        sorahName,
+        lastRead,
       );
       print('$bookmark');
     } catch (e) {
       print('Error');
     }
   }
+
 
   /// Bookmarks
   SorahBookmarkRepository sorahBookmarkRepository = SorahBookmarkRepository();

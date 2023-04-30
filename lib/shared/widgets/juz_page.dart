@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:alquranalkareem/cubit/cubit.dart';
+import 'package:arabic_numbers/arabic_numbers.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -22,6 +23,7 @@ class _QuranJuzState extends State<QuranJuz>
 
   @override
   Widget build(BuildContext context) {
+    ArabicNumbers arabicNumber = ArabicNumbers();
     return Directionality(
       textDirection: TextDirection.rtl,
       child: Padding(
@@ -86,7 +88,7 @@ class _QuranJuzState extends State<QuranJuz>
                                     child: Column(
                                       children: [
                                         Text(
-                                          'من الآية ${showData[index]['start']['verse']}',
+                                          'من الآية ${arabicNumber.convert(showData[index]['start']['verse'])}',
                                           style: TextStyle(
                                             fontFamily: "kufi",
                                             fontWeight: FontWeight.normal,
@@ -126,7 +128,7 @@ class _QuranJuzState extends State<QuranJuz>
                                                   children: [
                                                     WidgetSpan(
                                                         child: ayaNum(
-                                                            "${showData[index]['start']['verse']}",
+                                                            "${arabicNumber.convert(showData[index]['start']['verse'])}",
                                                             context,
                                                             Theme.of(context)
                                                                 .primaryColorDark)),
@@ -136,7 +138,7 @@ class _QuranJuzState extends State<QuranJuz>
                                           height: 4,
                                         ),
                                         Text(
-                                          'إلى الآية ${showData[index]['end']['verse']}',
+                                          'إلى الآية ${arabicNumber.convert(showData[index]['end']['verse'])}',
                                           style: TextStyle(
                                             fontFamily: "kufi",
                                             fontWeight: FontWeight.normal,
@@ -176,7 +178,7 @@ class _QuranJuzState extends State<QuranJuz>
                                                   children: [
                                                     WidgetSpan(
                                                         child: ayaNum(
-                                                      "${showData[index]['end']['verse']}",
+                                                      "${arabicNumber.convert(showData[index]['end']['verse'])}",
                                                       context,
                                                       ThemeProvider.themeOf(
                                                                       context)

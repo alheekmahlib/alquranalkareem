@@ -8,6 +8,7 @@ import '../l10n/app_localizations.dart';
 import '../quran_page/data/model/sorah.dart';
 import '../quran_page/data/repository/sorah_repository.dart';
 import '../shared/widgets/widgets.dart';
+import 'cubit/quran_text_cubit.dart';
 import 'text_page_view.dart';
 import 'model/QuranModel.dart';
 import 'repository/quranApi.dart';
@@ -34,6 +35,7 @@ class _SorahListTextState extends State<SorahListText>
   void initState() {
     super.initState();
     getList();
+    QuranTextCubit.get(context).loadTranslateValue();
   }
 
   @override
@@ -86,6 +88,7 @@ class _SorahListTextState extends State<SorahListText>
                                       const AlwaysScrollableScrollPhysics(),
                                   itemCount: surah.length,
                                   controller: controller,
+                                  // padding: EdgeInsets.zero,
                                   itemBuilder: (_, index) {
                                     Sorah sorahT = sorahList![index];
                                     return AnimationConfiguration
@@ -162,7 +165,8 @@ class _SorahListTextState extends State<SorahListText>
                                                                 fontSize: 14,
                                                                 fontWeight:
                                                                     FontWeight
-                                                                        .bold),
+                                                                        .bold,
+                                                                height: 2),
                                                           ),
                                                         ],
                                                       ),
@@ -173,16 +177,16 @@ class _SorahListTextState extends State<SorahListText>
                                                         children: [
                                                           SvgPicture.asset(
                                                             'assets/svg/surah_name/00${index + 1}.svg',
-                                                            color: ThemeProvider.themeOf(
+                                                            colorFilter: ThemeProvider.themeOf(
                                                                             context)
                                                                         .id ==
                                                                     'dark'
-                                                                ? Theme.of(
+                                                                ? ColorFilter.mode(Theme.of(
                                                                         context)
-                                                                    .canvasColor
-                                                                : Theme.of(
+                                                                    .canvasColor, BlendMode.srcIn)
+                                                                : ColorFilter.mode(Theme.of(
                                                                         context)
-                                                                    .primaryColorDark,
+                                                                    .primaryColorDark, BlendMode.srcIn),
                                                             width: 100,
                                                           ),
                                                           Padding(

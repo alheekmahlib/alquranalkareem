@@ -1,33 +1,14 @@
 name: alquranalkareem
-description: A new Flutter project.
+description: Al-Quran Al-Kareem - Al-Heekmah Library.
 
-# The following line prevents the package from being accidentally published to
-# pub.dev using `flutter pub publish`. This is preferred for private packages.
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 
-# The following defines the version and build number for your application.
-# A version number is three numbers separated by dots, like 1.2.43
-# followed by an optional build number separated by a +.
-# Both the version and the builder number may be overridden in flutter
-# build by specifying --build-name and --build-number, respectively.
-# In Android, build-name is used as versionName while build-number used as versionCode.
-# Read more about Android versioning at https://developer.android.com/studio/publish/versioning
-# In iOS, build-name is used as CFBundleShortVersionString while build-number is used as CFBundleVersion.
-# Read more about iOS versioning at
-# https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
-# In Windows, build-name is used as the major, minor, and patch parts
-# of the product and file versions while build-number is used as the build suffix.
-version: 3.0.5+18
+version: 3.0.12+25
 
 environment:
-  sdk: '>=2.18.0 <3.0.0'
+  sdk: '>=2.19.5 <3.0.0'
 
-# Dependencies specify other packages that your package needs in order to work.
-# To automatically upgrade your package dependencies to the latest versions
-# consider running `flutter pub upgrade --major-versions`. Alternatively,
-# dependencies can be manually updated by changing the version numbers below to
-# the latest version available on pub.dev. To see which dependencies have newer
-# versions available, run `flutter pub outdated`.
+
 dependencies:
   flutter:
     sdk: flutter
@@ -35,61 +16,61 @@ dependencies:
     sdk: flutter
 
 
-  # The following adds the Cupertino Icons font to your application.
-  # Use with the CupertinoIcons class for iOS style icons.
+
   cupertino_icons: ^1.0.2
-  shared_preferences: ^2.0.15
+  shared_preferences: ^2.0.18
   path: ^1.8.2
-  path_provider: ^2.0.11
-  dio: ^4.0.6
-  quiver: ^3.1.0
-#  event_bus: ^2.0.0
-  bloc: ^8.1.0
-  flutter_bloc: ^8.1.1
+  path_provider: ^2.0.13
+  dio: ^5.0.1
+  quiver: ^3.2.1
+  #  event_bus: ^2.0.0
+  bloc: ^8.1.1
+  flutter_bloc: ^8.1.2
   theme_provider: ^0.5.0
-  sqflite: ^2.1.0
-  sqflite_common_ffi: ^2.2.0+1
+  sqflite: ^2.2.5
+  sqflite_common_ffi: ^2.2.1+1
   equatable: ^2.0.5
-  flutter_svg: ^1.1.6
-  responsive_builder: ^0.5.0+1
+  flutter_svg: ^2.0.5
+  responsive_builder: ^0.6.3
   desktop_window: ^0.4.0
-  another_xlider: ^1.1.2
-#  http: ^0.13.5
+  another_xlider: ^3.0.1
+  http: ^0.13.5
   lottie: ^2.2.0
   hijri: ^3.0.0
   dropdown_button2: ^1.8.9
   arabic_numbers: ^1.0.0
   flutter_sliding_up_panel: ^2.0.1
   flutter_staggered_animations: ^1.1.1
-  share_plus: ^6.3.0
+  share_plus: ^6.3.1
   clipboard: ^0.1.3
-#  app_rename: ^0.0.1
+  #  app_rename: ^0.0.1
   get: ^4.6.5
-  audioplayers: ^3.0.1
+  audioplayers: ^4.0.1
   wakelock: ^0.6.2
   square_percent_indicater: ^0.1.0
-  flutter_staggered_grid_view: ^0.6.2
   group_button: ^5.2.2
   scrollable_positioned_list: ^0.3.5
-  url_launcher: ^6.1.7
-  rate_my_app: ^1.1.3
-  smooth_page_indicator: ^1.0.0+2
-  streaming_shared_preferences: ^2.0.0
+  url_launcher: ^6.1.10
+  rate_my_app: ^1.1.4
+  smooth_page_indicator: ^1.0.1
   bot_toast: ^4.0.3
-
-
-
-#  ربما تحذف
-
-
-#  audioplayers_web: ^2.0.1
-#  assets_audio_player: ^3.0.5
-
-
-
-
-
-
+  home_widget: ^0.2.0+1
+  workmanager: ^0.5.1
+  connectivity_plus: ^3.0.3
+  animated_toggle_switch: ^0.6.2
+  read_more_less: ^0.0.4
+  flutter_local_notifications: ^9.1.0
+  flutter_native_timezone: ^2.0.0
+  day_night_time_picker: ^1.2.0+2
+  html: ^0.15.0
+  package_rename: ^1.1.0
+  anim_search_bar: ^2.0.3
+  collection: ^1.17.0
+  painter: ^2.0.0
+  image_gallery_saver: ^1.7.1
+  image: ^4.0.15
+  easy_image_viewer: ^1.2.0
+#  scroll_to_index: ^3.0.1
 
 
 
@@ -111,26 +92,27 @@ flutter_native_splash:
     image_dark: assets/app_icon.png
     icon_background_color_dark: "#2d2d2d"
 
-  # The "flutter_lints" package below contains a set of recommended lints to
-  # encourage good coding practices. The lint set provided by the package is
-  # activated in the `analysis_options.yaml` file located at the root of your
-  # package. See that file for information about deactivating specific lint
-  # rules and activating additional ones.
-  flutter_lints: ^2.0.1
+package_rename_config:
+  android:
+    package_name: com.alheekmah.alquranalkareem.alquranalkareem
 
-# For information on the generic Dart part of this file, see the
-# following page: https://dart.dev/tools/pub/pubspec
+  ios:
+    app_name: القرآن الكريم - مكتبة الحكمة
+    package_name: com.alheekmah.alquranalkareem.alquranalkareem
 
-# The following section is specific to Flutter packages.
+    macos:
+      app_name: القرآن الكريم مكتبة الحكمة
+      package_name: com.alheekmah.alquranalkareem.alquranalkareem2
+
+  flutter_lints: ^2.0.0
+
+
 flutter:
-  generate: true
 
-  # The following line ensures that the Material Icons font is
-  # included with your application, so that you can use the icons in
-  # the material Icons class.
+
+  generate: true
   uses-material-design: true
 
-  # To add assets to your application, add an assets section, like this:
   assets:
     - assets/pages/
     - assets/svg/
@@ -140,25 +122,17 @@ flutter:
     - assets/images/
     - assets/svg/hijri/
     - assets/svg/alwaqf/
+    - assets/svg/quarter/
     - assets/json/
     - assets/lottie/
-    - assets/QuranV2.sqlite
+    - assets/share_images/
+    - assets/share_images/surah_name/
+    - assets/QuranV3.sqlite
     - assets/QuranData.sqlite
+    - assets/ayahinfo_1260.db
     - assets/app_icon.png
 
 
-
-  # An image asset can refer to one or more resolution-specific "variants", see
-  # https://flutter.dev/assets-and-images/#resolution-aware
-
-  # For details regarding adding assets from package dependencies, see
-  # https://flutter.dev/assets-and-images/#from-packages
-
-  # To add custom fonts to your application, add a fonts section here,
-  # in this "flutter" section. Each entry in this list should have a
-  # "family" key with the font family name, and a "fonts" key with a
-  # list giving the asset and other descriptors for the font. For
-  # example:
   fonts:
     - family: uthmanic
       fonts:
@@ -180,7 +154,3 @@ flutter:
     - family: naskh
       fonts:
         - asset: assets/fonts/NotoNaskhArabic-VariableFont_wght.ttf
-
-  #
-  # For details regarding fonts from package dependencies,
-  # see https://flutter.dev/custom-fonts/#from-packages

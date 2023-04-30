@@ -68,10 +68,10 @@ class AppLocalizationsEn extends AppLocalizations {
   String get about_app2 => 'Among the most important features of the application :';
 
   @override
-  String get about_app3 => '◉ This application enables you to read the Quran as if you were reading in the Mushaf, and you can read in vertical and horizontal mode.\n◉ You can also read in variable mode that enables you to zoom in and out as you like.\n◉ The application has the feature of textual search in the verses of the Qur’an through real-time search and display of results with pages in addition to the possibility of going to the page as needed.\n◉ Addition to bookmarks so that the reader can save the page and return to it whenever he wants.\n◉ Addition to notes.\n◉ Ability to listen to each verse in voice of different readers.\n◉ The app allows interpretation for each verse, you can change between interpretations, and you can resize the interpretation line.\n◉ Index of Surahs.\n◉ Move between Surahs easily.\n◉ The app lets you read the meaning of stop signs.\n◉ The application enables you to read the Muslim fortress in full and divided by remembrance so that it is easy for the reader to navigate between sections, and you can add any mention to favorites.\n◉ The application allows the reader to read to change color patterns, including the dark pattern, which changes the background color in black and white lines to give the reader complete comfort when reading in a low-light atmosphere.';
+  String get about_app3 => '◉ This application enables you to read the Quran as if you were reading in the Mushaf, and you can read in vertical and horizontal mode.\n◉ You can also read in variable mode that enables you to zoom in and out as you like.\n◉ The application has the feature of textual search in the verses of the Qur’an through real-time search and display of results with pages in addition to the possibility of going to the page as needed.\n◉ Addition to bookmarks so that the reader can save the page and return to it whenever he wants.\n◉ Addition to notes.\n◉ Ability to listen to each verse in voice of different readers.\n◉ The app allows interpretation for each verse, you can change between interpretations, and you can resize the interpretation line.\n◉ Index of Surahs.\n◉ Move between Surahs easily.\n◉ The app lets you read the meaning of stop signs.\n◉ The application enables you to read the Muslim fortress in full and divided by remembrance so that it is easy for the reader to navigate between sections, and you can add any mention to favorites.\n◉ The application allows the reader to read to change color patterns, including the dark pattern, which changes the background color in black and white lines to give the reader complete comfort when reading in a low-light atmosphere.  \n◉ The app enables you to listen to the Surahs or download and listen to them at any time without the need for the internet.';
 
   @override
-  String get email => 'Connect With US';
+  String get email => 'Contact us';
 
   @override
   String get select_player => 'Reader selected';
@@ -83,7 +83,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get page => 'Page';
 
   @override
-  String get search_word => 'Ayah To search';
+  String get search_word => 'Search for the verse';
 
   @override
   String get search_description => 'You can search for all verses of the Noble Qur’an, just type a word from the verse.';
@@ -221,6 +221,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get deletedBookmark => 'Bookmark deleted!';
 
   @override
+  String get deletedReminder => '¡Recordatorio eliminado!';
+
+  @override
   String get fillAllFields => 'Please fill in the fields!';
 
   @override
@@ -246,4 +249,70 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get copyAyah => 'The verse has been copied';
+
+  @override
+  String get copyTafseer => 'The Tafseer has been copied';
+
+  @override
+  String get online => 'Online';
+
+  @override
+  String get download => 'Download';
+
+  @override
+  String get noInternet => 'The device is not connected to the Internet!';
+
+  @override
+  String get mobileDataAyat => 'Note: You are using cellular data to download verses!';
+
+  @override
+  String get mobileDataSurahs => 'Note: You are using cellular data to download the surahs!';
+
+  @override
+  String get mobileDataListen => 'Note: You are using cellular data to listen to surahs!';
+
+  @override
+  String get choiceAyah => 'Please choose the verse first!';
+
+  @override
+  String get stopSigns => 'Stop Signs';
+
+  @override
+  String get aboutApp => 'About App';
+
+  @override
+  String get readMore => 'Read More';
+
+  @override
+  String get readLess => 'Read Less';
+
+  @override
+  String get ok => 'Ok';
+
+  @override
+  String get cancel => 'Cancel';
+
+  @override
+  String get searchToSurah => 'Search To Surah';
+
+  @override
+  String get addReminder => 'Add New Reminder';
+
+  @override
+  String get lastListen => 'Last Listen';
+
+  @override
+  String get hizb => 'Hizb';
+
+  @override
+  String get shareText => 'As text';
+
+  @override
+  String get shareImage => 'As an image';
+
+  @override
+  String get shareImageWTrans => 'As an image with additional content';
+
+  @override
+  String get shareTrans => 'Note: Sharing the interpretation in an image only supports the interpretation of Al-Saadi, because the interpretation is not lengthy.';
 }
