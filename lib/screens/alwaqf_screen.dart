@@ -4,6 +4,9 @@ import 'package:flutter_svg/svg.dart';
 import 'package:group_button/group_button.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 import 'package:theme_provider/theme_provider.dart';
+import '../shared/widgets/widgets.dart';
+
+
 
 class AlwaqfScreen extends StatefulWidget {
   AlwaqfScreen({Key? key}) : super(key: key);
@@ -50,7 +53,6 @@ class _AlwaqfScreenState extends State<AlwaqfScreen> {
 
   @override
   Widget build(BuildContext context) {
-    Orientation orientation = MediaQuery.of(context).orientation;
     return SafeArea(
       top: false,
       bottom: false,
@@ -105,15 +107,15 @@ class _AlwaqfScreenState extends State<AlwaqfScreen> {
                 Align(
                   alignment: Alignment.bottomCenter,
                   child: Padding(
-                    padding: orientation == Orientation.portrait
-                        ? EdgeInsets.only(top: 32.0)
-                        : EdgeInsets.only(
-                            top: MediaQuery.of(context).size.height / 1 / 13),
+                    padding: orientation(context,
+                        EdgeInsets.only(top: 32.0),
+                        EdgeInsets.only(
+                            top: MediaQuery.of(context).size.height / 1 / 13)),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Expanded(
-                          flex: 3,
+                          flex: orientation(context, 1, 2),
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
@@ -135,20 +137,15 @@ class _AlwaqfScreenState extends State<AlwaqfScreen> {
                                       '${waqfMarks[index]}',
                                       height: 40,
                                       width: 40,
-                                      color: isSelected
-                                          ? Color(0xfffcbb76)
-                                          : Color(0xff39412a),
+                                      colorFilter: isSelected
+                                          ? ColorFilter.mode(Color(0xfffcbb76), BlendMode.srcIn)
+                                          : ColorFilter.mode(Color(0xff39412a), BlendMode.srcIn),
                                     ),
                                   );
                                 },
                                 buttons: waqfMarks,
                                 options: GroupButtonOptions(
                                   selectedShadow: const [],
-                                  selectedTextStyle: const TextStyle(
-                                    fontSize: 18,
-                                    fontFamily: 'kufi',
-                                    color: Color(0xfffcbb76),
-                                  ),
                                   selectedColor:
                                       Theme.of(context).bottomAppBarColor,
                                   unselectedShadow: const [],
@@ -236,8 +233,13 @@ class _AlwaqfScreenState extends State<AlwaqfScreen> {
                                                     '${waqfMarks[index]}',
                                                     height: 70,
                                                     width: 70,
+<<<<<<< Updated upstream
                                                     color: Theme.of(context)
                                                         .bottomAppBarColor,
+=======
+                                                    colorFilter: ColorFilter.mode(Theme.of(context)
+                                                        .colorScheme.surface, BlendMode.srcIn),
+>>>>>>> Stashed changes
                                                   )),
                                             ),
                                             Center(
@@ -262,10 +264,6 @@ class _AlwaqfScreenState extends State<AlwaqfScreen> {
                                                   const Radius.circular(5),
                                               scrollPhysics:
                                                   const ClampingScrollPhysics(),
-                                              toolbarOptions:
-                                                  const ToolbarOptions(
-                                                      copy: true,
-                                                      selectAll: true),
                                               textDirection: TextDirection.rtl,
                                               textAlign: TextAlign.justify,
                                               style: TextStyle(

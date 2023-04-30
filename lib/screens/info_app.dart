@@ -3,12 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:theme_provider/theme_provider.dart';
 
+import '../shared/widgets/widgets.dart';
+
 class InfoApp extends StatelessWidget {
   const InfoApp({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    Orientation orientation = MediaQuery.of(context).orientation;
     return SafeArea(
       top: false,
       bottom: false,
@@ -52,14 +53,14 @@ class InfoApp extends StatelessWidget {
                   indent: 16,
                 ),
                 Padding(
-                  padding: orientation == Orientation.portrait
-                      ? EdgeInsets.only(top: 30, right: 16, left: 16)
-                      : EdgeInsets.only(top: 30, right: 64, left: 64),
+                  padding: orientation(context,
+                      EdgeInsets.only(top: 30, right: 16, left: 16),
+                      EdgeInsets.only(top: 30, right: 64, left: 64)),
                   child: ListView(
                     children: [
                       Center(
                         child: SizedBox(
-                            height: 60,
+                            height: 80,
                             width: MediaQuery.of(context).size.width * 3 / 4,
                             child: SvgPicture.asset(
                               'assets/svg/Logo_line2.svg',
@@ -110,8 +111,8 @@ class InfoApp extends StatelessWidget {
                             color: ThemeProvider.themeOf(context).id == 'dark'
                                 ? Colors.white
                                 : Theme.of(context).primaryColor,
-                            height: 1.5,
-                            fontSize: 14,
+                            height: 1.7,
+                            fontSize: 15,
                             fontFamily: 'kufi',
                           ),
                         ),
@@ -161,8 +162,8 @@ class InfoApp extends StatelessWidget {
                             color: ThemeProvider.themeOf(context).id == 'dark'
                                 ? Colors.white
                                 : Theme.of(context).primaryColor,
-                            height: 1.5,
-                            fontSize: 14,
+                            height: 1.7,
+                            fontSize: 15,
                             fontFamily: 'kufi',
                           ),
                         ),

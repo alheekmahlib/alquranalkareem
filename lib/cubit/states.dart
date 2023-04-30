@@ -11,3 +11,10 @@ class GetDatabaseState extends QuranState{}
 class AddDatabaseState extends QuranState{}
 class ChangeBottomShowState extends QuranState{}
 class CloseBottomShowState extends QuranState{}
+class greetingState extends QuranState{}
+class LoadRemindersState extends QuranState{}
+class ShowTimePickerState extends QuranState{}
+class AddReminderState extends QuranState{}
+class DeleteReminderState extends QuranState{}
+class OnTimeChangedState extends QuranState{}
+class loadMCurrentPageState extends QuranState{}

@@ -1,4 +1,7 @@
 import 'package:another_xlider/another_xlider.dart';
+import 'package:another_xlider/models/handler.dart';
+import 'package:another_xlider/models/handler_animation.dart';
+import 'package:another_xlider/models/trackbar.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
@@ -54,6 +57,7 @@ class _AzkarFavState extends State<AzkarFav> {
                     child: ListView.builder(
                         shrinkWrap: true,
                         controller: controller,
+                        padding: EdgeInsets.zero,
                         itemCount: azkarController.azkarList.length,
                         itemBuilder: (BuildContext context, int index) {
                           var azkar = azkarController.azkarList[index];

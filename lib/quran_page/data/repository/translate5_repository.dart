@@ -10,6 +10,8 @@ class TranslateRepository5 {
   }
 
   Future<List<Ayat>> getPageTranslate(int pageNum) async {
+    print("inpage trans5");
+
     Database? database = await _client?.database;
     List<Map>? results =
         await database?.rawQuery((" SELECT * FROM ${Ayat.tableName} "

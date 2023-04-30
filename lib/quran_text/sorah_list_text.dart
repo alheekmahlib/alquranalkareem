@@ -7,6 +7,7 @@ import '../l10n/app_localizations.dart';
 import '../quran_page/data/model/sorah.dart';
 import '../quran_page/data/repository/sorah_repository.dart';
 import '../shared/widgets/widgets.dart';
+import 'cubit/quran_text_cubit.dart';
 import 'text_page_view.dart';
 import 'model/QuranModel.dart';
 import 'repository/quranApi.dart';
@@ -32,6 +33,7 @@ class _SorahListTextState extends State<SorahListText>
   void initState() {
     super.initState();
     getList();
+    QuranTextCubit.get(context).loadTranslateValue();
   }
 
   @override
@@ -51,6 +53,7 @@ class _SorahListTextState extends State<SorahListText>
   @override
   Widget build(BuildContext context) {
     QuranServer quranServer = QuranServer();
+<<<<<<< Updated upstream
     return Container(
       decoration: BoxDecoration(
           color: Theme.of(context).backgroundColor,
@@ -217,6 +220,102 @@ class _SorahListTextState extends State<SorahListText>
                                                                 fontFamily:
                                                                     "uthman",
                                                                 fontSize: 12,
+=======
+    ArabicNumbers arabicNumber = ArabicNumbers();
+    return Scaffold(
+      key: TScaffoldKey,
+      backgroundColor: Colors.transparent,
+      body: Container(
+        decoration: BoxDecoration(
+            color: Theme.of(context).colorScheme.background,
+            borderRadius: const BorderRadius.only(
+                topRight: Radius.circular(20), topLeft: Radius.circular(20))),
+        child: Container(
+          color: Theme.of(context).colorScheme.background,
+          child: Padding(
+            padding: const EdgeInsets.only(bottom: 16.0),
+            child: Column(
+              children: <Widget>[
+                Expanded(
+                  child: FutureBuilder(
+                      future: quranServer.QuranData(),
+                      builder: (context, snapshot) {
+                        if (snapshot.hasData) {
+                          List<SurahText> surah = snapshot.data!;
+                          return AnimationLimiter(
+                            child: Scrollbar(
+                              controller: controller,
+                              thumbVisibility: true,
+                              child: ListView.builder(
+                                  shrinkWrap: true,
+                                  physics:
+                                      const AlwaysScrollableScrollPhysics(),
+                                  itemCount: surah.length,
+                                  controller: controller,
+                                  // padding: EdgeInsets.zero,
+                                  itemBuilder: (_, index) {
+                                    Sorah sorahT = sorahList![index];
+                                    return AnimationConfiguration
+                                        .staggeredList(
+                                      position: index,
+                                      duration:
+                                          const Duration(milliseconds: 450),
+                                      child: SlideAnimation(
+                                        verticalOffset: 50.0,
+                                        child: FadeInAnimation(
+                                          child: GestureDetector(
+                                            onTap: () {
+                                              Navigator.of(context).push(
+                                                  animatRoute(TextPageView(
+                                                surah: surah[index],
+                                                nomPageF: surah[index]
+                                                    .ayahs!
+                                                    .first
+                                                    .page!,
+                                                nomPageL: surah[index]
+                                                    .ayahs!
+                                                    .last
+                                                    .page!,
+                                              )));
+                                              print("surah: ${surah[index]}");
+                                              print("nomPageF: ${surah[index].ayahs!.first.page!}");
+                                              print("nomPageL: ${surah[index].ayahs!.last.page!}");
+                                            },
+                                            child: Container(
+                                                height: 60,
+                                                color: (index % 2 == 0
+                                                    ? Theme.of(context)
+                                                        .colorScheme.background
+                                                    : Theme.of(context)
+                                                        .dividerColor
+                                                        .withOpacity(.3)),
+                                                child: Padding(
+                                                  padding: const EdgeInsets
+                                                          .symmetric(
+                                                      horizontal: 8),
+                                                  child: Row(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .spaceBetween,
+                                                    children: [
+                                                      Stack(
+                                                        alignment:
+                                                            Alignment.center,
+                                                        children: [
+                                                          SizedBox(
+                                                              height: 40,
+                                                              width: 40,
+                                                              child:
+                                                                  SvgPicture
+                                                                      .asset(
+                                                                'assets/svg/sora_num.svg',
+                                                              )),
+                                                          Text(
+                                                            arabicNumber.convert(surah[index]
+                                                                .number
+                                                                .toString()),
+                                                            style: TextStyle(
+>>>>>>> Stashed changes
                                                                 color: ThemeProvider.themeOf(context)
                                                                             .id ==
                                                                         'dark'
@@ -237,6 +336,48 @@ class _SorahListTextState extends State<SorahListText>
                                                                 fontWeight:
                                                                     FontWeight
                                                                         .bold,
+<<<<<<< Updated upstream
+=======
+                                                                height: 2),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                      Column(
+                                                        crossAxisAlignment:
+                                                            CrossAxisAlignment
+                                                                .start,
+                                                        children: [
+                                                          SvgPicture.asset(
+                                                            'assets/svg/surah_name/00${index + 1}.svg',
+                                                            colorFilter: ThemeProvider.themeOf(
+                                                                            context)
+                                                                        .id ==
+                                                                    'dark'
+                                                                ? ColorFilter.mode(Theme.of(
+                                                                        context)
+                                                                    .canvasColor, BlendMode.srcIn)
+                                                                : ColorFilter.mode(Theme.of(
+                                                                        context)
+                                                                    .primaryColorDark, BlendMode.srcIn),
+                                                            width: 100,
+                                                          ),
+                                                          Padding(
+                                                            padding:
+                                                                const EdgeInsets
+                                                                        .only(
+                                                                    right:
+                                                                        8.0),
+                                                            child: Text(
+                                                              sorahT.nameEn,
+                                                              style:
+                                                                  TextStyle(
+                                                                fontFamily:
+                                                                    "kufi",
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w600,
+                                                                fontSize: 10,
+>>>>>>> Stashed changes
                                                                 color: ThemeProvider.themeOf(context)
                                                                             .id ==
                                                                         'dark'

@@ -2,6 +2,7 @@ import 'package:alquranalkareem/quran_page/screens/quran_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import '../bookmarks_notes_db/notificationDatabase.dart';
 import '../cubit/cubit.dart';
 import '../cubit/states.dart';
 import '../quran_page/widget/sliding_up.dart';
@@ -52,6 +53,7 @@ class _DesktopState extends State<Desktop> with TickerProviderStateMixin {
       parent: QuranCubit.get(context).controller,
       curve: Curves.easeIn,
     ));
+    NotificationDatabaseHelper.loadNotifications();
   }
 
   @override

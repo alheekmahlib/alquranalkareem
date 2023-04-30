@@ -5,23 +5,58 @@ packages:
     dependency: transitive
     description:
       name: _fe_analyzer_shared
+<<<<<<< Updated upstream
       url: "https://pub.dartlang.org"
     source: hosted
     version: "50.0.0"
+=======
+      sha256: a36ec4843dc30ea6bf652bf25e3448db6c5e8bcf4aa55f063a5d1dad216d8214
+      url: "https://pub.dev"
+    source: hosted
+    version: "58.0.0"
+>>>>>>> Stashed changes
   analyzer:
     dependency: transitive
     description:
       name: analyzer
+<<<<<<< Updated upstream
       url: "https://pub.dartlang.org"
     source: hosted
     version: "5.2.0"
+=======
+      sha256: cc4242565347e98424ce9945c819c192ec0838cb9d1f6aa4a97cc96becbc5b27
+      url: "https://pub.dev"
+    source: hosted
+    version: "5.10.0"
+  anim_search_bar:
+    dependency: "direct main"
+    description:
+      name: anim_search_bar
+      sha256: f44954e19fbccdc6d87705c069bdd6395a994576098ce155faf91c4f0f399e46
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.0.3"
+  animated_toggle_switch:
+    dependency: "direct main"
+    description:
+      name: animated_toggle_switch
+      sha256: "3c6d98dcd53cb93253a9418b888b3fcd9452a55fe1a7a390bd48c0a410a41634"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.6.2"
+>>>>>>> Stashed changes
   another_xlider:
     dependency: "direct main"
     description:
       name: another_xlider
+<<<<<<< Updated upstream
       url: "https://pub.dartlang.org"
+=======
+      sha256: "95e8c9f812e76aa1b517f5c670088e1a86ba64e06bb84655c87e1df1877fa9bb"
+      url: "https://pub.dev"
+>>>>>>> Stashed changes
     source: hosted
-    version: "1.1.2"
+    version: "3.0.1"
   arabic_numbers:
     dependency: "direct main"
     description:
@@ -40,9 +75,16 @@ packages:
     dependency: transitive
     description:
       name: args
+<<<<<<< Updated upstream
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.3.1"
+=======
+      sha256: "4cab82a83ffef80b262ddedf47a0a8e56ee6fbf7fe21e6e768b02792034dd440"
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.4.0"
+>>>>>>> Stashed changes
   async:
     dependency: transitive
     description:
@@ -54,58 +96,112 @@ packages:
     dependency: "direct main"
     description:
       name: audioplayers
+<<<<<<< Updated upstream
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.1.1"
+=======
+      sha256: "6063c05f987596ba7a3dad9bb9a5d8adfa5e7c07b9bae5301b27c11d0b3a239f"
+      url: "https://pub.dev"
+    source: hosted
+    version: "4.0.1"
+>>>>>>> Stashed changes
   audioplayers_android:
     dependency: transitive
     description:
       name: audioplayers_android
+<<<<<<< Updated upstream
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.1.1"
+=======
+      sha256: fb6bca878ad175d8f6ddc0e0a2d4226d81fa7c10747c12db420e96c7a096b2cc
+      url: "https://pub.dev"
+    source: hosted
+    version: "3.0.1"
+>>>>>>> Stashed changes
   audioplayers_darwin:
     dependency: transitive
     description:
       name: audioplayers_darwin
+<<<<<<< Updated upstream
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.3"
+=======
+      sha256: c4a56c49347b2e85ac4e1efea218948ca0fba87f04d2a3d3de07ce2410037038
+      url: "https://pub.dev"
+    source: hosted
+    version: "4.0.1"
+>>>>>>> Stashed changes
   audioplayers_linux:
     dependency: transitive
     description:
       name: audioplayers_linux
+<<<<<<< Updated upstream
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.1"
+=======
+      sha256: "897e24f190232a3fbb88134b062aa83a9240f55789b5e8d17c114283284ef56b"
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.0.1"
+>>>>>>> Stashed changes
   audioplayers_platform_interface:
     dependency: transitive
     description:
       name: audioplayers_platform_interface
+<<<<<<< Updated upstream
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.0.0"
+=======
+      sha256: "3a90a46198d375fc7d47bc1d3070c8fd8863b6469b7d87ca80f953efb090f976"
+      url: "https://pub.dev"
+    source: hosted
+    version: "5.0.0"
+>>>>>>> Stashed changes
   audioplayers_web:
     dependency: transitive
     description:
       name: audioplayers_web
+<<<<<<< Updated upstream
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.0.1"
+=======
+      sha256: "4f5dcbfec0bf98ea09e243d5f5b64ea43a4e6710a2f292724bed16cdba3c691e"
+      url: "https://pub.dev"
+    source: hosted
+    version: "3.0.1"
+>>>>>>> Stashed changes
   audioplayers_windows:
     dependency: transitive
     description:
       name: audioplayers_windows
+<<<<<<< Updated upstream
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.1.0"
+=======
+      sha256: "010f575653c01ccbe9756050b18df83d89426740e04b684f6438aa26c775a965"
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.0.1"
+>>>>>>> Stashed changes
   bloc:
     dependency: "direct main"
     description:
       name: bloc
+<<<<<<< Updated upstream
       url: "https://pub.dartlang.org"
+=======
+      sha256: "658a5ae59edcf1e58aac98b000a71c762ad8f46f1394c34a52050cafb3e11a80"
+      url: "https://pub.dev"
+>>>>>>> Stashed changes
     source: hosted
-    version: "8.1.0"
+    version: "8.1.1"
   boolean_selector:
     dependency: transitive
     description:
@@ -131,16 +227,26 @@ packages:
     dependency: transitive
     description:
       name: build_daemon
+<<<<<<< Updated upstream
       url: "https://pub.dartlang.org"
+=======
+      sha256: "757153e5d9cd88253cb13f28c2fb55a537dc31fefd98137549895b5beb7c6169"
+      url: "https://pub.dev"
+>>>>>>> Stashed changes
     source: hosted
-    version: "3.1.0"
+    version: "3.1.1"
   build_resolvers:
     dependency: transitive
     description:
       name: build_resolvers
+<<<<<<< Updated upstream
       url: "https://pub.dartlang.org"
+=======
+      sha256: db49b8609ef8c81cca2b310618c3017c00f03a92af44c04d310b907b2d692d95
+      url: "https://pub.dev"
+>>>>>>> Stashed changes
     source: hosted
-    version: "2.1.0"
+    version: "2.2.0"
   build_runner:
     dependency: "direct dev"
     description:
@@ -166,9 +272,16 @@ packages:
     dependency: transitive
     description:
       name: built_value
+<<<<<<< Updated upstream
       url: "https://pub.dartlang.org"
     source: hosted
     version: "8.4.2"
+=======
+      sha256: "31b7c748fd4b9adf8d25d72a4c4a59ef119f12876cf414f94f8af5131d5fa2b0"
+      url: "https://pub.dev"
+    source: hosted
+    version: "8.4.4"
+>>>>>>> Stashed changes
   characters:
     dependency: transitive
     description:
@@ -205,12 +318,32 @@ packages:
     source: hosted
     version: "4.3.0"
   collection:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: collection
       url: "https://pub.dartlang.org"
     source: hosted
+<<<<<<< Updated upstream
     version: "1.16.0"
+=======
+    version: "1.17.0"
+  connectivity_plus:
+    dependency: "direct main"
+    description:
+      name: connectivity_plus
+      sha256: "8875e8ed511a49f030e313656154e4bbbcef18d68dfd32eb853fac10bce48e96"
+      url: "https://pub.dev"
+    source: hosted
+    version: "3.0.3"
+  connectivity_plus_platform_interface:
+    dependency: transitive
+    description:
+      name: connectivity_plus_platform_interface
+      sha256: cf1d1c28f4416f8c654d7dc3cd638ec586076255d407cef3ddbdaf178272a71a
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.2.4"
+>>>>>>> Stashed changes
   convert:
     dependency: transitive
     description:
@@ -222,9 +355,14 @@ packages:
     dependency: transitive
     description:
       name: cross_file
+<<<<<<< Updated upstream
       url: "https://pub.dartlang.org"
+=======
+      sha256: "0b0036e8cccbfbe0555fd83c1d31a6f30b77a96b598b35a5d36dd41f718695e9"
+      url: "https://pub.dev"
+>>>>>>> Stashed changes
     source: hosted
-    version: "0.3.3+2"
+    version: "0.3.3+4"
   crypto:
     dependency: transitive
     description:
@@ -250,9 +388,30 @@ packages:
     dependency: transitive
     description:
       name: dart_style
+<<<<<<< Updated upstream
       url: "https://pub.dartlang.org"
+=======
+      sha256: "6d691edde054969f0e0f26abb1b30834b5138b963793e56f69d3a9a4435e6352"
+      url: "https://pub.dev"
+>>>>>>> Stashed changes
     source: hosted
-    version: "2.2.4"
+    version: "2.3.0"
+  day_night_time_picker:
+    dependency: "direct main"
+    description:
+      name: day_night_time_picker
+      sha256: "24abed3bcac575fe67308eb1ef8161bbfb93fa4f9742da3e791ad143110d9b6a"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.2.0+2"
+  dbus:
+    dependency: transitive
+    description:
+      name: dbus
+      sha256: "6f07cba3f7b3448d42d015bfd3d53fe12e5b36da2423f23838efc1d5fb31a263"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.7.8"
   desktop_window:
     dependency: "direct main"
     description:
@@ -264,16 +423,34 @@ packages:
     dependency: "direct main"
     description:
       name: dio
+<<<<<<< Updated upstream
       url: "https://pub.dartlang.org"
+=======
+      sha256: f7c26ddb3a10ff033cf1bfbf2c668feb3472327f48385775f7cf25b104f8bfce
+      url: "https://pub.dev"
+>>>>>>> Stashed changes
     source: hosted
-    version: "4.0.6"
+    version: "5.1.0"
   dropdown_button2:
     dependency: "direct main"
     description:
       name: dropdown_button2
+<<<<<<< Updated upstream
       url: "https://pub.dartlang.org"
+=======
+      sha256: "604b87283e251e0e4a0cb1d0fdfa91fd527702b06e80999c4054cecc603e10e7"
+      url: "https://pub.dev"
+>>>>>>> Stashed changes
     source: hosted
-    version: "1.9.2"
+    version: "1.9.4"
+  easy_image_viewer:
+    dependency: "direct main"
+    description:
+      name: easy_image_viewer
+      sha256: "8eddbbfc20c9f4f276e112326b955e518c950b5c5a1348d4e42565030e83d01d"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.2.0"
   equatable:
     dependency: "direct main"
     description:
@@ -306,9 +483,14 @@ packages:
     dependency: transitive
     description:
       name: fixnum
+<<<<<<< Updated upstream
       url: "https://pub.dartlang.org"
+=======
+      sha256: "25517a4deb0c03aa0f32fd12db525856438902d9c16536311e76cdc57b31d7d1"
+      url: "https://pub.dev"
+>>>>>>> Stashed changes
     source: hosted
-    version: "1.0.1"
+    version: "1.1.0"
   flutter:
     dependency: "direct main"
     description: flutter
@@ -318,9 +500,38 @@ packages:
     dependency: "direct main"
     description:
       name: flutter_bloc
+<<<<<<< Updated upstream
       url: "https://pub.dartlang.org"
+=======
+      sha256: "434951eea948dbe87f737b674281465f610b8259c16c097b8163ce138749a775"
+      url: "https://pub.dev"
+>>>>>>> Stashed changes
     source: hosted
-    version: "8.1.1"
+    version: "8.1.2"
+  flutter_local_notifications:
+    dependency: "direct main"
+    description:
+      name: flutter_local_notifications
+      sha256: "57d0012730780fe137260dd180e072c18a73fbeeb924cdc029c18aaa0f338d64"
+      url: "https://pub.dev"
+    source: hosted
+    version: "9.9.1"
+  flutter_local_notifications_linux:
+    dependency: transitive
+    description:
+      name: flutter_local_notifications_linux
+      sha256: b472bfc173791b59ede323661eae20f7fff0b6908fea33dd720a6ef5d576bae8
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.5.1"
+  flutter_local_notifications_platform_interface:
+    dependency: transitive
+    description:
+      name: flutter_local_notifications_platform_interface
+      sha256: "21bceee103a66a53b30ea9daf677f990e5b9e89b62f222e60dd241cd08d63d3a"
+      url: "https://pub.dev"
+    source: hosted
+    version: "5.0.0"
   flutter_localizations:
     dependency: "direct main"
     description: flutter
@@ -330,9 +541,24 @@ packages:
     dependency: "direct dev"
     description:
       name: flutter_native_splash
+<<<<<<< Updated upstream
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.2.16"
+=======
+      sha256: af665ef80a213a9ed502845a3d7a61b9acca4100ee7e9f067a7440bc3acd6730
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.2.19"
+  flutter_native_timezone:
+    dependency: "direct main"
+    description:
+      name: flutter_native_timezone
+      sha256: ed7bfb982f036243de1c068e269182a877100c994f05143c8b26a325e28c1b02
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.0.0"
+>>>>>>> Stashed changes
   flutter_rating_bar:
     dependency: transitive
     description:
@@ -354,6 +580,7 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.1.1"
+<<<<<<< Updated upstream
   flutter_staggered_grid_view:
     dependency: "direct main"
     description:
@@ -361,13 +588,20 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.6.2"
+=======
+>>>>>>> Stashed changes
   flutter_svg:
     dependency: "direct main"
     description:
       name: flutter_svg
+<<<<<<< Updated upstream
       url: "https://pub.dartlang.org"
+=======
+      sha256: f991fdb1533c3caeee0cdc14b04f50f0c3916f0dbcbc05237ccbe4e3c6b93f3f
+      url: "https://pub.dev"
+>>>>>>> Stashed changes
     source: hosted
-    version: "1.1.6"
+    version: "2.0.5"
   flutter_test:
     dependency: "direct dev"
     description: flutter
@@ -420,15 +654,29 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "3.0.0"
-  html:
-    dependency: transitive
+  home_widget:
+    dependency: "direct main"
     description:
+<<<<<<< Updated upstream
       name: html
       url: "https://pub.dartlang.org"
+=======
+      name: home_widget
+      sha256: c7a57566606ce702454f074a0b933ee156f05ea6ef1f79f4cb680a171afe59dd
+      url: "https://pub.dev"
+>>>>>>> Stashed changes
     source: hosted
-    version: "0.15.1"
+    version: "0.2.0+1"
+  html:
+    dependency: "direct main"
+    description:
+      name: html
+      sha256: "79d498e6d6761925a34ee5ea8fa6dfef38607781d2fa91e37523474282af55cb"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.15.2"
   http:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: http
       url: "https://pub.dartlang.org"
@@ -449,12 +697,27 @@ packages:
     source: hosted
     version: "4.0.2"
   image:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: image
+<<<<<<< Updated upstream
       url: "https://pub.dartlang.org"
     source: hosted
     version: "3.2.2"
+=======
+      sha256: "483a389d6ccb292b570c31b3a193779b1b0178e7eb571986d9a49904b6861227"
+      url: "https://pub.dev"
+    source: hosted
+    version: "4.0.15"
+  image_gallery_saver:
+    dependency: "direct main"
+    description:
+      name: image_gallery_saver
+      sha256: be812580c7a320d3bf583af89cac6b376f170d48000aca75215a73285a3223a0
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.7.1"
+>>>>>>> Stashed changes
   intl:
     dependency: transitive
     description:
@@ -482,7 +745,19 @@ packages:
       name: json_annotation
       url: "https://pub.dartlang.org"
     source: hosted
+<<<<<<< Updated upstream
     version: "4.7.0"
+=======
+    version: "4.8.0"
+  logger:
+    dependency: transitive
+    description:
+      name: logger
+      sha256: db2ff852ed77090ba9f62d3611e4208a3d11dfa35991a81ae724c113fcb3e3f7
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.3.0"
+>>>>>>> Stashed changes
   logging:
     dependency: transitive
     description:
@@ -494,9 +769,16 @@ packages:
     dependency: "direct main"
     description:
       name: lottie
+<<<<<<< Updated upstream
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.4.3"
+=======
+      sha256: "14b489bf93af84727a07c87c73580a9413f9cbffa4ea2342f3f71447a674a3fb"
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.3.1"
+>>>>>>> Stashed changes
   matcher:
     dependency: transitive
     description:
@@ -532,6 +814,14 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.0"
+  nm:
+    dependency: transitive
+    description:
+      name: nm
+      sha256: "2c9aae4127bdc8993206464fcc063611e0e36e72018696cd9631023a31b24254"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.5.0"
   package_config:
     dependency: transitive
     description:
@@ -539,6 +829,22 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.1.0"
+  package_rename:
+    dependency: "direct main"
+    description:
+      name: package_rename
+      sha256: "4e7fec121c283bfe078b16dc50089ed46a6d8df3463edfc23996a092a867e0f9"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.1.0"
+  painter:
+    dependency: "direct main"
+    description:
+      name: painter
+      sha256: "8919468e313a5d8ded41ee1e6db8dec72dd85359174b7866feef8fbc82c603cc"
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.0.0"
   path:
     dependency: "direct main"
     description:
@@ -546,6 +852,7 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.8.2"
+<<<<<<< Updated upstream
   path_drawing:
     dependency: transitive
     description:
@@ -553,6 +860,8 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.1"
+=======
+>>>>>>> Stashed changes
   path_parsing:
     dependency: transitive
     description:
@@ -564,13 +873,21 @@ packages:
     dependency: "direct main"
     description:
       name: path_provider
+<<<<<<< Updated upstream
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.0.11"
+=======
+      sha256: c7edf82217d4b2952b2129a61d3ad60f1075b9299e629e149a8d2e39c2e6aad4
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.0.14"
+>>>>>>> Stashed changes
   path_provider_android:
     dependency: transitive
     description:
       name: path_provider_android
+<<<<<<< Updated upstream
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.0.22"
@@ -581,10 +898,25 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.0.11"
+=======
+      sha256: "019f18c9c10ae370b08dce1f3e3b73bc9f58e7f087bb5e921f06529438ac0ae7"
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.0.24"
+  path_provider_foundation:
+    dependency: transitive
+    description:
+      name: path_provider_foundation
+      sha256: "818b2dc38b0f178e0ea3f7cf3b28146faab11375985d815942a68eee11c2d0f7"
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.2.1"
+>>>>>>> Stashed changes
   path_provider_linux:
     dependency: transitive
     description:
       name: path_provider_linux
+<<<<<<< Updated upstream
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.1.7"
@@ -595,20 +927,36 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.0.6"
+=======
+      sha256: "2ae08f2216225427e64ad224a24354221c2c7907e448e6e0e8b57b1eb9f10ad1"
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.1.10"
+>>>>>>> Stashed changes
   path_provider_platform_interface:
     dependency: transitive
     description:
       name: path_provider_platform_interface
+<<<<<<< Updated upstream
       url: "https://pub.dartlang.org"
+=======
+      sha256: "57585299a729335f1298b43245842678cb9f43a6310351b18fb577d6e33165ec"
+      url: "https://pub.dev"
+>>>>>>> Stashed changes
     source: hosted
-    version: "2.0.5"
+    version: "2.0.6"
   path_provider_windows:
     dependency: transitive
     description:
       name: path_provider_windows
+<<<<<<< Updated upstream
       url: "https://pub.dartlang.org"
+=======
+      sha256: f53720498d5a543f9607db4b0e997c4b5438884de25b0f73098cc2671a51b130
+      url: "https://pub.dev"
+>>>>>>> Stashed changes
     source: hosted
-    version: "2.1.3"
+    version: "2.1.5"
   petitparser:
     dependency: transitive
     description:
@@ -627,16 +975,26 @@ packages:
     dependency: transitive
     description:
       name: plugin_platform_interface
+<<<<<<< Updated upstream
       url: "https://pub.dartlang.org"
+=======
+      sha256: "6a2128648c854906c53fa8e33986fc0247a1116122f9534dd20e3ab9e16a32bc"
+      url: "https://pub.dev"
+>>>>>>> Stashed changes
     source: hosted
-    version: "2.1.3"
+    version: "2.1.4"
   pointycastle:
     dependency: transitive
     description:
       name: pointycastle
+<<<<<<< Updated upstream
       url: "https://pub.dartlang.org"
+=======
+      sha256: c3120a968135aead39699267f4c74bc9a08e4e909e86bc1b0af5bfd78691123c
+      url: "https://pub.dev"
+>>>>>>> Stashed changes
     source: hosted
-    version: "3.6.2"
+    version: "3.7.2"
   pool:
     dependency: transitive
     description:
@@ -669,9 +1027,14 @@ packages:
     dependency: transitive
     description:
       name: pubspec_parse
+<<<<<<< Updated upstream
       url: "https://pub.dartlang.org"
+=======
+      sha256: ec85d7d55339d85f44ec2b682a82fea340071e8978257e5a43e69f79e98ef50c
+      url: "https://pub.dev"
+>>>>>>> Stashed changes
     source: hosted
-    version: "1.2.1"
+    version: "1.2.2"
   quiver:
     dependency: "direct main"
     description:
@@ -683,16 +1046,36 @@ packages:
     dependency: "direct main"
     description:
       name: rate_my_app
+<<<<<<< Updated upstream
       url: "https://pub.dartlang.org"
+=======
+      sha256: fe210e9e6068095945f89fc2310a71b1cc2caae7f64fa65b83fc796badcb05e3
+      url: "https://pub.dev"
+>>>>>>> Stashed changes
     source: hosted
-    version: "1.1.3"
+    version: "1.1.4"
+  read_more_less:
+    dependency: "direct main"
+    description:
+      name: read_more_less
+      sha256: "5ead785747622233fb705f1b96b6b7f7e293486f13e487b0bdee2868b4e4b419"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.0.4"
   responsive_builder:
     dependency: "direct main"
     description:
       name: responsive_builder
+<<<<<<< Updated upstream
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.4.3"
+=======
+      sha256: e23ef8ce1191f878dd50d28f1496d659fc923718dbfd407b121bb167f95ba090
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.6.4"
+>>>>>>> Stashed changes
   scrollable_positioned_list:
     dependency: "direct main"
     description:
@@ -704,9 +1087,14 @@ packages:
     dependency: "direct main"
     description:
       name: share_plus
+<<<<<<< Updated upstream
       url: "https://pub.dartlang.org"
+=======
+      sha256: "8c6892037b1824e2d7e8f59d54b3105932899008642e6372e5079c6939b4b625"
+      url: "https://pub.dev"
+>>>>>>> Stashed changes
     source: hosted
-    version: "6.3.0"
+    version: "6.3.1"
   share_plus_platform_interface:
     dependency: transitive
     description:
@@ -718,13 +1106,21 @@ packages:
     dependency: "direct main"
     description:
       name: shared_preferences
+<<<<<<< Updated upstream
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.0.15"
+=======
+      sha256: "78528fd87d0d08ffd3e69551173c026e8eacc7b7079c82eb6a77413957b7e394"
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.0.20"
+>>>>>>> Stashed changes
   shared_preferences_android:
     dependency: transitive
     description:
       name: shared_preferences_android
+<<<<<<< Updated upstream
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.0.14"
@@ -735,10 +1131,25 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.1.1"
+=======
+      sha256: ad423a80fe7b4e48b50d6111b3ea1027af0e959e49d485712e134863d9c1c521
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.0.17"
+  shared_preferences_foundation:
+    dependency: transitive
+    description:
+      name: shared_preferences_foundation
+      sha256: "1e755f8583229f185cfca61b1d80fb2344c9d660e1c69ede5450d8f478fa5310"
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.1.5"
+>>>>>>> Stashed changes
   shared_preferences_linux:
     dependency: transitive
     description:
       name: shared_preferences_linux
+<<<<<<< Updated upstream
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.1.2"
@@ -749,27 +1160,50 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.0.4"
+=======
+      sha256: "3a59ed10890a8409ad0faad7bb2957dab4b92b8fbe553257b05d30ed8af2c707"
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.1.5"
+>>>>>>> Stashed changes
   shared_preferences_platform_interface:
     dependency: transitive
     description:
       name: shared_preferences_platform_interface
+<<<<<<< Updated upstream
       url: "https://pub.dartlang.org"
+=======
+      sha256: fb5cf25c0235df2d0640ac1b1174f6466bd311f621574997ac59018a6664548d
+      url: "https://pub.dev"
+>>>>>>> Stashed changes
     source: hosted
-    version: "2.1.0"
+    version: "2.2.0"
   shared_preferences_web:
     dependency: transitive
     description:
       name: shared_preferences_web
+<<<<<<< Updated upstream
       url: "https://pub.dartlang.org"
+=======
+      sha256: "0dc2633f215a3d4aa3184c9b2c5766f4711e4e5a6b256e62aafee41f89f1bfb8"
+      url: "https://pub.dev"
+>>>>>>> Stashed changes
     source: hosted
-    version: "2.0.4"
+    version: "2.0.6"
   shared_preferences_windows:
     dependency: transitive
     description:
       name: shared_preferences_windows
+<<<<<<< Updated upstream
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.1.2"
+=======
+      sha256: "71bcd669bb9cdb6b39f22c4a7728b6d49e934f6cba73157ffa5a54f1eed67436"
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.1.5"
+>>>>>>> Stashed changes
   shelf:
     dependency: transitive
     description:
@@ -793,9 +1227,14 @@ packages:
     dependency: "direct main"
     description:
       name: smooth_page_indicator
+<<<<<<< Updated upstream
       url: "https://pub.dartlang.org"
+=======
+      sha256: "8c301bc686892306cd41672c1880167f140c16be305d5ede8201fefd9fcda829"
+      url: "https://pub.dev"
+>>>>>>> Stashed changes
     source: hosted
-    version: "1.0.0+2"
+    version: "1.0.1"
   source_span:
     dependency: transitive
     description:
@@ -807,30 +1246,56 @@ packages:
     dependency: "direct main"
     description:
       name: sqflite
+<<<<<<< Updated upstream
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.2.2"
+=======
+      sha256: "500d6fec583d2c021f2d25a056d96654f910662c64f836cd2063167b8f1fa758"
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.2.6"
+>>>>>>> Stashed changes
   sqflite_common:
     dependency: transitive
     description:
       name: sqflite_common
+<<<<<<< Updated upstream
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.4.0+2"
+=======
+      sha256: "963dad8c4aa2f814ce7d2d5b1da2f36f31bd1a439d8f27e3dc189bb9d26bc684"
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.4.3"
+>>>>>>> Stashed changes
   sqflite_common_ffi:
     dependency: "direct main"
     description:
       name: sqflite_common_ffi
+<<<<<<< Updated upstream
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.2.0+1"
+=======
+      sha256: "79c719db08d3b779919da8679c4f1c2f5d8792b5ceb35a0eb872525ce2724cf8"
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.2.2"
+>>>>>>> Stashed changes
   sqlite3:
     dependency: transitive
     description:
       name: sqlite3
+<<<<<<< Updated upstream
       url: "https://pub.dartlang.org"
+=======
+      sha256: "822d321a008e194d7929357e5b58d2e4a04ab670d137182f9759152aa33180ff"
+      url: "https://pub.dev"
+>>>>>>> Stashed changes
     source: hosted
-    version: "1.9.1"
+    version: "1.10.1"
   square_percent_indicater:
     dependency: "direct main"
     description:
@@ -859,6 +1324,7 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.1.0"
+<<<<<<< Updated upstream
   streaming_shared_preferences:
     dependency: "direct main"
     description:
@@ -866,6 +1332,8 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.0.0"
+=======
+>>>>>>> Stashed changes
   string_scanner:
     dependency: transitive
     description:
@@ -901,6 +1369,14 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.5.0"
+  timezone:
+    dependency: transitive
+    description:
+      name: timezone
+      sha256: "57b35f6e8ef731f18529695bffc62f92c6189fac2e52c12d478dec1931afb66e"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.8.0"
   timing:
     dependency: transitive
     description:
@@ -919,65 +1395,124 @@ packages:
     dependency: transitive
     description:
       name: universal_io
+<<<<<<< Updated upstream
       url: "https://pub.dartlang.org"
+=======
+      sha256: "06866290206d196064fd61df4c7aea1ffe9a4e7c4ccaa8fcded42dd41948005d"
+      url: "https://pub.dev"
+>>>>>>> Stashed changes
     source: hosted
-    version: "2.0.4"
+    version: "2.2.0"
   url_launcher:
     dependency: "direct main"
     description:
       name: url_launcher
+<<<<<<< Updated upstream
       url: "https://pub.dartlang.org"
     source: hosted
     version: "6.1.7"
+=======
+      sha256: "75f2846facd11168d007529d6cd8fcb2b750186bea046af9711f10b907e1587e"
+      url: "https://pub.dev"
+    source: hosted
+    version: "6.1.10"
+>>>>>>> Stashed changes
   url_launcher_android:
     dependency: transitive
     description:
       name: url_launcher_android
+<<<<<<< Updated upstream
       url: "https://pub.dartlang.org"
     source: hosted
     version: "6.0.22"
+=======
+      sha256: dd729390aa936bf1bdf5cd1bc7468ff340263f80a2c4f569416507667de8e3c8
+      url: "https://pub.dev"
+    source: hosted
+    version: "6.0.26"
+>>>>>>> Stashed changes
   url_launcher_ios:
     dependency: transitive
     description:
       name: url_launcher_ios
+<<<<<<< Updated upstream
       url: "https://pub.dartlang.org"
     source: hosted
     version: "6.0.17"
+=======
+      sha256: "3dedc66ca3c0bef9e6a93c0999aee102556a450afcc1b7bcfeace7a424927d92"
+      url: "https://pub.dev"
+    source: hosted
+    version: "6.1.3"
+>>>>>>> Stashed changes
   url_launcher_linux:
     dependency: transitive
     description:
       name: url_launcher_linux
+<<<<<<< Updated upstream
       url: "https://pub.dartlang.org"
     source: hosted
     version: "3.0.1"
+=======
+      sha256: "206fb8334a700ef7754d6a9ed119e7349bc830448098f21a69bf1b4ed038cabc"
+      url: "https://pub.dev"
+    source: hosted
+    version: "3.0.4"
+>>>>>>> Stashed changes
   url_launcher_macos:
     dependency: transitive
     description:
       name: url_launcher_macos
+<<<<<<< Updated upstream
       url: "https://pub.dartlang.org"
     source: hosted
     version: "3.0.1"
+=======
+      sha256: "0ef2b4f97942a16523e51256b799e9aa1843da6c60c55eefbfa9dbc2dcb8331a"
+      url: "https://pub.dev"
+    source: hosted
+    version: "3.0.4"
+>>>>>>> Stashed changes
   url_launcher_platform_interface:
     dependency: transitive
     description:
       name: url_launcher_platform_interface
+<<<<<<< Updated upstream
       url: "https://pub.dartlang.org"
+=======
+      sha256: "6c9ca697a5ae218ce56cece69d46128169a58aa8653c1b01d26fcd4aad8c4370"
+      url: "https://pub.dev"
+>>>>>>> Stashed changes
     source: hosted
-    version: "2.1.1"
+    version: "2.1.2"
   url_launcher_web:
     dependency: transitive
     description:
       name: url_launcher_web
+<<<<<<< Updated upstream
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.0.13"
+=======
+      sha256: "81fe91b6c4f84f222d186a9d23c73157dc4c8e1c71489c4d08be1ad3b228f1aa"
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.0.16"
+>>>>>>> Stashed changes
   url_launcher_windows:
     dependency: transitive
     description:
       name: url_launcher_windows
+<<<<<<< Updated upstream
       url: "https://pub.dartlang.org"
     source: hosted
     version: "3.0.1"
+=======
+      sha256: a83ba3607a507758669cfafb03f9de09bf6e6280c14d9b9cb18f013e406dcacd
+      url: "https://pub.dev"
+    source: hosted
+    version: "3.0.5"
+>>>>>>> Stashed changes
   uuid:
     dependency: transitive
     description:
@@ -985,6 +1520,30 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "3.0.7"
+  vector_graphics:
+    dependency: transitive
+    description:
+      name: vector_graphics
+      sha256: "4cf8e60dbe4d3a693d37dff11255a172594c0793da542183cbfe7fe978ae4aaa"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.1.4"
+  vector_graphics_codec:
+    dependency: transitive
+    description:
+      name: vector_graphics_codec
+      sha256: "278ad5f816f58b1967396d1f78ced470e3e58c9fe4b27010102c0a595c764468"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.1.4"
+  vector_graphics_compiler:
+    dependency: transitive
+    description:
+      name: vector_graphics_compiler
+      sha256: "0bf61ad56e6fd6688a2865d3ceaea396bc6a0a90ea0d7ad5049b1b76c09d6163"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.1.4"
   vector_math:
     dependency: transitive
     description:
@@ -1048,6 +1607,14 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "3.1.3"
+  workmanager:
+    dependency: "direct main"
+    description:
+      name: workmanager
+      sha256: e0be7e35d644643f164ee45d2ce14414f0e0fdde19456aa66065f35a0b1d2ea1
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.5.1"
   xdg_directories:
     dependency: transitive
     description:
@@ -1070,5 +1637,10 @@ packages:
     source: hosted
     version: "3.1.1"
 sdks:
+<<<<<<< Updated upstream
   dart: ">=2.18.0 <3.0.0"
   flutter: ">=3.3.0"
+=======
+  dart: ">=2.19.5 <3.0.0"
+  flutter: ">=3.7.0-0"
+>>>>>>> Stashed changes

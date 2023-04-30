@@ -247,6 +247,7 @@ class _AzkarViewState extends State<AzkarView> {
                           child: ListView.builder(
                             controller: controller,
                             itemCount: azkarDataList.length,
+                            padding: EdgeInsets.zero,
                             itemBuilder: (BuildContext context, int index) {
                               return AnimationConfiguration.staggeredList(
                                   position: index,

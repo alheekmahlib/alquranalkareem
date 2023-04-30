@@ -2,6 +2,8 @@ import 'package:alquranalkareem/cubit/cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_sliding_up_panel/sliding_up_panel_widget.dart';
 
+import '../../shared/widgets/widgets.dart';
+
 class Sliding extends StatefulWidget {
   final Widget? myWidget1;
   final Widget? myWidget2;
@@ -26,16 +28,20 @@ class Sliding extends StatefulWidget {
 class _SlidingState extends State<Sliding> {
   var mScaffoldKey = GlobalKey<ScaffoldState>();
 
+  // @override
+  // void dispose() {
+  //   QuranCubit.get(context).panelController.dispose();
+  //   super.dispose();
+  // }
   @override
   Widget build(BuildContext context) {
-    Orientation orientation = MediaQuery.of(context).orientation;
     QuranCubit cubit = QuranCubit.get(context);
     return Directionality(
       textDirection: TextDirection.rtl,
       child: SizedBox(
-        height: orientation == Orientation.portrait
-            ? MediaQuery.of(context).size.height * 3 / 4
-            : MediaQuery.of(context).size.height,
+        height: orientation(context,
+            MediaQuery.of(context).size.height * 3 / 4,
+            platformView(MediaQuery.of(context).size.height, MediaQuery.of(context).size.height * 3/4)),
         child: SlidingUpPanelWidget(
           controlHeight: widget.cHeight!,
           anchor: 7.0,

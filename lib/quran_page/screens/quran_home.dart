@@ -2,6 +2,7 @@ import 'package:alquranalkareem/quran_page/screens/quran_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import '../../bookmarks_notes_db/notificationDatabase.dart';
 import '../../cubit/cubit.dart';
 import '../../cubit/states.dart';
 import '../../shared/widgets/audio_widget.dart';
@@ -9,6 +10,7 @@ import '../../shared/widgets/show_tafseer.dart';
 import '../../shared/widgets/widgets.dart';
 import '../cubit/bookmarks/bookmarks_cubit.dart';
 import '../widget/sliding_up.dart';
+import '../../home_page.dart';
 
 class QuranPage extends StatefulWidget {
   late int sorahNum;
@@ -22,6 +24,11 @@ class _QuranPageState extends State<QuranPage>
     with SingleTickerProviderStateMixin {
   late String current;
 
+  bool hasUnopenedNotifications() {
+    return sentNotifications.any((notification) => !notification['opened']);
+  }
+
+
   @override
   void initState() {
     BookmarksCubit.get(context).getBookmarksList();
@@ -34,6 +41,7 @@ class _QuranPageState extends State<QuranPage>
       parent: QuranCubit.get(context).controller,
       curve: Curves.easeIn,
     ));
+    NotificationDatabaseHelper.loadNotifications();
     super.initState();
   }
 

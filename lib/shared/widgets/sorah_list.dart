@@ -1,4 +1,5 @@
 import 'package:alquranalkareem/cubit/cubit.dart';
+import 'package:arabic_numbers/arabic_numbers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
@@ -44,6 +45,7 @@ class _SorahListState extends State<SorahList>
 
   @override
   Widget build(BuildContext context) {
+    ArabicNumbers arabicNumber = ArabicNumbers();
     super.build(context);
     return Container(
       color: Theme.of(context).backgroundColor,
@@ -108,7 +110,7 @@ class _SorahListState extends State<SorahList>
                                                           'assets/svg/sora_num.svg',
                                                         )),
                                                     Text(
-                                                      "${sorah.id}",
+                                                      "${arabicNumber.convert(sorah.id)}",
                                                       style: TextStyle(
                                                           color: ThemeProvider.themeOf(
                                                                           context)
@@ -123,7 +125,9 @@ class _SorahListState extends State<SorahList>
                                                           fontFamily: "kufi",
                                                           fontSize: 14,
                                                           fontWeight:
-                                                              FontWeight.bold),
+                                                              FontWeight.bold,
+                                                        height: 2
+                                                      ),
                                                     ),
                                                   ],
                                                 ),
@@ -133,15 +137,15 @@ class _SorahListState extends State<SorahList>
                                                   children: [
                                                     SvgPicture.asset(
                                                       'assets/svg/surah_name/00${index + 1}.svg',
-                                                      color: ThemeProvider
+                                                      colorFilter: ThemeProvider
                                                                       .themeOf(
                                                                           context)
                                                                   .id ==
                                                               'dark'
-                                                          ? Theme.of(context)
-                                                              .canvasColor
-                                                          : Theme.of(context)
-                                                              .primaryColorDark,
+                                                          ? ColorFilter.mode(Theme.of(context)
+                                                              .canvasColor, BlendMode.srcIn)
+                                                          : ColorFilter.mode(Theme.of(context)
+                                                              .primaryColorDark, BlendMode.srcIn),
                                                       width: 100,
                                                     ),
                                                     Padding(
@@ -190,7 +194,7 @@ class _SorahListState extends State<SorahList>
                                                       ),
                                                     ),
                                                     Text(
-                                                      "| ${sorah.ayaCount} |",
+                                                      "| ${arabicNumber.convert(sorah.ayaCount)} |",
                                                       style: TextStyle(
                                                         fontFamily: "kufi",
                                                         fontSize: 14,

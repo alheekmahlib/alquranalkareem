@@ -7,6 +7,7 @@ import 'package:intl/intl.dart' as intl;
 
 import 'app_localizations_ar.dart';
 import 'app_localizations_en.dart';
+import 'app_localizations_es.dart';
 
 /// Callers can lookup localized strings with an instance of AppLocalizations
 /// returned by `AppLocalizations.of(context)`.
@@ -525,6 +526,12 @@ abstract class AppLocalizations {
   /// **'Booknark deleted'**
   String get deletedBookmark;
 
+  /// No description provided for @deletedReminder.
+  ///
+  /// In en, this message translates to:
+  /// **'Reminder deleted'**
+  String get deletedReminder;
+
   /// No description provided for @fillAllFields.
   ///
   /// In en, this message translates to:
@@ -572,6 +579,147 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Last Read'**
   String get lastRead;
+<<<<<<< Updated upstream
+=======
+
+  /// No description provided for @copyAyah.
+  ///
+  /// In en, this message translates to:
+  /// **'Copy Ayah'**
+  String get copyAyah;
+
+  /// No description provided for @copyTafseer.
+  ///
+  /// In en, this message translates to:
+  /// **'Copy Tafseer'**
+  String get copyTafseer;
+
+  /// No description provided for @online.
+  ///
+  /// In en, this message translates to:
+  /// **'Online'**
+  String get online;
+
+  /// No description provided for @Download.
+  ///
+  /// In en, this message translates to:
+  /// **'Download'**
+  String get download;
+
+  /// No description provided for @noInternet.
+  ///
+  /// In en, this message translates to:
+  /// **'The device is not connected to the Internet!'**
+  String get noInternet;
+
+  /// No description provided for @mobileDataAyat.
+  ///
+  /// In en, this message translates to:
+  /// **'Note: You are using cellular data to download verses!'**
+  String get mobileDataAyat;
+
+  /// No description provided for @mobileDataSurahs.
+  ///
+  /// In en, this message translates to:
+  /// **'Note: You are using cellular data to download the surahs!'**
+  String get mobileDataSurahs;
+
+  /// No description provided for @mobileDataAyat.
+  ///
+  /// In en, this message translates to:
+  /// **'Note: You are using cellular data to listen to surahs!'**
+  String get mobileDataListen;
+
+  /// No description provided for @choiceAyah.
+  ///
+  /// In en, this message translates to:
+  /// **'Please choose the verse first!'**
+  String get choiceAyah;
+
+  /// No description provided for @stopSigns.
+  ///
+  /// In en, this message translates to:
+  /// **'Stop Signs'**
+  String get stopSigns;
+
+  /// No description provided for @aboutApp.
+  ///
+  /// In en, this message translates to:
+  /// **'About App'**
+  String get aboutApp;
+
+  /// No description provided for @readMore.
+  ///
+  /// In en, this message translates to:
+  /// **'Read More'**
+  String get readMore;
+
+  /// No description provided for @readLess.
+  ///
+  /// In en, this message translates to:
+  /// **'Read Less'**
+  String get readLess;
+
+  /// No description provided for @ok.
+  ///
+  /// In en, this message translates to:
+  /// **'Ok'**
+  String get ok;
+
+  /// No description provided for @cancel.
+  ///
+  /// In en, this message translates to:
+  /// **'Cancel'**
+  String get cancel;
+
+  /// No description provided for @searchToSurah.
+  ///
+  /// In en, this message translates to:
+  /// **'Search To Surah'**
+  String get searchToSurah;
+
+  /// No description provided for @addReminder.
+  ///
+  /// In en, this message translates to:
+  /// **'Add New Reminder'**
+  String get addReminder;
+
+  /// No description provided for @lastListen.
+  ///
+  /// In en, this message translates to:
+  /// **'Last Listen'**
+  String get lastListen;
+
+  /// No description provided for @hizb.
+  ///
+  /// In en, this message translates to:
+  /// **'Hizb'**
+  String get hizb;
+
+  /// No description provided for @shareText.
+  ///
+  /// In en, this message translates to:
+  /// **'Share Text'**
+  String get shareText;
+
+  /// No description provided for @shareImage.
+  ///
+  /// In en, this message translates to:
+  /// **'Share Image'**
+  String get shareImage;
+
+  /// No description provided for @shareImageWTrans.
+  ///
+  /// In en, this message translates to:
+  /// **'Share Image With Translate'**
+  String get shareImageWTrans;
+
+  /// No description provided for @shareTrans.
+  ///
+  /// In en, this message translates to:
+  /// **'Share Translate'**
+  String get shareTrans;
+>>>>>>> Stashed changes
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {
@@ -583,7 +731,7 @@ class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> 
   }
 
   @override
-  bool isSupported(Locale locale) => <String>['en', 'ar'].contains(locale.languageCode);
+  bool isSupported(Locale locale) => <String>['en', 'ar', 'es'].contains(locale.languageCode);
 
   @override
   bool shouldReload(_AppLocalizationsDelegate old) => false;
@@ -596,6 +744,7 @@ AppLocalizations lookupAppLocalizations(Locale locale) {
   switch (locale.languageCode) {
     case 'en': return AppLocalizationsEn();
     case 'ar': return AppLocalizationsAr();
+    case 'es': return AppLocalizationsEs();
   }
 
   throw FlutterError(

@@ -5,6 +5,7 @@ class Ayahs {
   int? juz;
   int? manzil;
   int? page;
+  int? pageInSurah;
   int? ruku;
   int? hizbQuarter;
   bool? sajda;
@@ -19,6 +20,7 @@ class Ayahs {
     required int juz,
     required int manzil,
     required int page,
+    required int pageInSurah,
     required int ruku,
     required int hizbQuarter,
     required bool sajda,
@@ -29,6 +31,7 @@ class Ayahs {
     juz = juz;
     manzil = manzil;
     page = page;
+    pageInSurah = pageInSurah;
     ruku = ruku;
     hizbQuarter = hizbQuarter;
     sajda = sajda;
@@ -42,6 +45,7 @@ class Ayahs {
     juz = json['juz'];
     manzil = json['manzil'];
     page = json['page'];
+    pageInSurah = json['pageInSurah'];
     ruku = json['ruku'];
     audio = json['audio'];
 
@@ -56,6 +60,7 @@ class Ayahs {
     data['juz'] = juz;
     data['manzil'] = manzil;
     data['page'] = page;
+    data['pageInSurah'] = pageInSurah;
     data['ruku'] = ruku;
     data['audio'] = audio;
     data['hizbQuarter'] = hizbQuarter;
