@@ -555,88 +555,93 @@ class _ShowTafseerState extends State<ShowTafseer> {
   Widget ayahList(pageNum) {
     QuranCubit cubit = QuranCubit.get(context);
     AudioCubit audioCubit = AudioCubit.get(context);
-    return FutureBuilder<List<Ayat>>(
-        future: cubit
-            .handleRadioValueChanged(context, cubit.radioValue)
-            .getPageTranslate(pageNum),
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.done) {
-            List<Ayat>? ayat = snapshot.data;
-            return Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: <Widget>[
-                Container(
-                  height: 40,
-                  decoration: BoxDecoration(
-                      color: Theme.of(context).dividerColor.withOpacity(.2),
-                      borderRadius: const BorderRadius.only(
-                        topRight: Radius.circular(8),
-                        topLeft: Radius.circular(8),
-                      ),
-                      border: Border.all(
-                          color: Theme.of(context).dividerColor, width: 2)),
-                  child: Center(
-                    child: ListView.builder(
-                      padding: const EdgeInsets.symmetric(horizontal: 8),
-                      scrollDirection: Axis.horizontal,
-                      itemCount: ayat!.length,
-                      shrinkWrap: true,
-                      itemBuilder: (BuildContext context, index) {
-                        Ayat aya = ayat[index];
-                        return Opacity(
-                          opacity: isSelected == index ? 1.0 : .5,
-                          child: InkWell(
-                            onTap: () {
-                              setState(() {
-                                cubit.translateAyah = "${aya.ayatext}";
-                                cubit.translate = "${aya.translate}";
-                                audioCubit.ayahNum = '${aya.ayaNum}';
-                                audioCubit.sorahName = '${aya.suraNum}';
-                                print(aya.suraNum);
-                                isSelected = index.toDouble();
-                                ayahSelected = index;
-                                ayahNumber = aya.suraNum;
-                                surahNumber = aya.suraNum;
-                                surahName = aya.sura_name_ar;
-                              });
-                            },
-                            child: Stack(
-                              alignment: Alignment.center,
-                              children: <Widget>[
-                                Center(
-                                  child: SvgPicture.asset(
-                                    'assets/svg/ayah_no.svg',
-                                    width: 35,
-                                    height: 35,
-                                  ),
-                                ),
-                                Center(
-                                  child: Text(
-                                    "${arabicNumber.convert(aya!.ayaNum)}",
-                                    // "1",
-                                    textAlign: TextAlign.center,
-                                    style: TextStyle(
-                                        color: Theme.of(context).primaryColor,
-                                        fontFamily: 'kufi',
-                                        fontWeight: FontWeight.w700,
-                                        fontSize: 11),
-                                  ),
-                                ),
-                              ],
-                            ),
+    return ValueListenableBuilder<int>(
+        valueListenable: cubit.selectedTafseerIndex,
+        builder: (context, index, child) {
+        return FutureBuilder<List<Ayat>>(
+            future: cubit
+                .handleRadioValueChanged(context, cubit.radioValue)
+                .getPageTranslate(pageNum),
+            builder: (context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.done) {
+                List<Ayat>? ayat = snapshot.data;
+                return Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: <Widget>[
+                    Container(
+                      height: 40,
+                      decoration: BoxDecoration(
+                          color: Theme.of(context).dividerColor.withOpacity(.2),
+                          borderRadius: const BorderRadius.only(
+                            topRight: Radius.circular(8),
+                            topLeft: Radius.circular(8),
                           ),
-                        );
-                      },
+                          border: Border.all(
+                              color: Theme.of(context).dividerColor, width: 2)),
+                      child: Center(
+                        child: ListView.builder(
+                          padding: const EdgeInsets.symmetric(horizontal: 8),
+                          scrollDirection: Axis.horizontal,
+                          itemCount: ayat!.length,
+                          shrinkWrap: true,
+                          itemBuilder: (BuildContext context, index) {
+                            Ayat aya = ayat[index];
+                            return Opacity(
+                              opacity: isSelected == index ? 1.0 : .5,
+                              child: InkWell(
+                                onTap: () {
+                                  setState(() {
+                                    cubit.translateAyah = "${aya.ayatext}";
+                                    cubit.translate = "${aya.translate}";
+                                    audioCubit.ayahNum = '${aya.ayaNum}';
+                                    audioCubit.sorahName = '${aya.suraNum}';
+                                    print(aya.suraNum);
+                                    isSelected = index.toDouble();
+                                    ayahSelected = index;
+                                    ayahNumber = aya.suraNum;
+                                    surahNumber = aya.suraNum;
+                                    surahName = aya.sura_name_ar;
+                                  });
+                                },
+                                child: Stack(
+                                  alignment: Alignment.center,
+                                  children: <Widget>[
+                                    Center(
+                                      child: SvgPicture.asset(
+                                        'assets/svg/ayah_no.svg',
+                                        width: 35,
+                                        height: 35,
+                                      ),
+                                    ),
+                                    Center(
+                                      child: Text(
+                                        "${arabicNumber.convert(aya!.ayaNum)}",
+                                        // "1",
+                                        textAlign: TextAlign.center,
+                                        style: TextStyle(
+                                            color: Theme.of(context).primaryColor,
+                                            fontFamily: 'kufi',
+                                            fontWeight: FontWeight.w700,
+                                            fontSize: 11),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            );
+                          },
+                        ),
+                      ),
                     ),
-                  ),
-                ),
-              ],
-            );
-          } else {
-            return Center(
-                child: Lottie.asset('assets/lottie/search.json',
-                    width: 100, height: 40));
-          }
-        });
+                  ],
+                );
+              } else {
+                return Center(
+                    child: Lottie.asset('assets/lottie/search.json',
+                        width: 100, height: 40));
+              }
+            });
+      }
+    );
   }
 }

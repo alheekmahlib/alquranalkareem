@@ -235,38 +235,37 @@ class QuranCubit extends Cubit<QuranState> {
   }
 
   String? tableName;
+  ValueNotifier<int> selectedTafseerIndex = ValueNotifier<int>(0);
 
   handleRadioValueChanged(BuildContext context, int val) {
     TranslateRepository translateRepository = TranslateRepository(context);
 
-      radioValue = val;
-      switch (radioValue) {
-        case 0:
-          // translate = '${aya!.translate}';
-          tableName = Translate.tableName2;
-          return showTaf = translateRepository;
-          break;
-        case 1:
-          tableName = Translate.tableName;
-          return showTaf = translateRepository;
-          break;
-        case 2:
-          tableName = Translate.tableName3;
-          return showTaf = translateRepository;
-          break;
-        case 3:
-          tableName = Translate.tableName4;
-          return showTaf = translateRepository;
-          break;
-        case 4:
-          tableName = Translate.tableName5;
-          return showTaf = translateRepository;
-          break;
-        default:
-          tableName = Translate.tableName2;
-          return showTaf = translateRepository;
-      }
+    radioValue = val;
+    switch (radioValue) {
+      case 0:
+        tableName = Translate.tableName2;
+        break;
+      case 1:
+        tableName = Translate.tableName;
+        break;
+      case 2:
+        tableName = Translate.tableName3;
+        break;
+      case 3:
+        tableName = Translate.tableName4;
+        break;
+      case 4:
+        tableName = Translate.tableName5;
+        break;
+      default:
+        tableName = Translate.tableName2;
+    }
+    selectedTafseerIndex.value = val;
+    // Set the tableName property in the translateRepository
+    translateRepository.tableName = tableName;
+    return translateRepository;
   }
+
 
   updateGreeting() {
     final now = DateTime.now();

@@ -14,6 +14,8 @@ class TranslateRepository {
     _client = TafseerDataBaseClient.instance;
   }
   List<Ayat>? ayaListNotFut;
+  String? tableName;
+
 
   Future<List<Ayat>> getPageTranslate(int pageNum) async {
     print("in getPageTrans");
