@@ -13,7 +13,7 @@ class Translate {
   static final columns = ["index", "sura", 'aya', 'text', 'ayatext'];
 
   static fromMap(Map map) {
-    Translate translate = new Translate();
+    Translate translate = Translate();
     translate.aya = map["aya"];
     translate.sorah = map["sura"];
     translate.text = map["text"];

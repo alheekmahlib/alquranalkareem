@@ -24,4 +24,29 @@ class NoteController extends GetxController {
     await DatabaseHelper.updateNote(notes!);
     getNotes();
   }
+
+  Future<int?> addSelectedTextAsNote(String selectedText, String selectedTitle) async {
+    Notes note = Notes(
+      null, // You can assign a unique ID or let the database generate it for you.
+      selectedTitle,
+      selectedText,
+    );
+
+    print('Adding Note: $note'); // Debugging: Print the note object before saving it.
+
+    int? result = await addNote(note);
+    getNotes(); // Fetch the notes after adding a new note.
+
+    print('Save result: $result'); // Debugging: Print the result of the saving operation.
+
+    return result;
+  }
+
+
+  @override
+  void onInit() {
+    super.onInit();
+    getNotes();
+  }
+
 }

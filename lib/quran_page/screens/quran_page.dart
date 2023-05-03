@@ -29,17 +29,34 @@ class MPages extends StatefulWidget {
 }
 bool cahData=true;
 bool issChange=false;
-class _MPagesState extends State<MPages> {
+class _MPagesState extends State<MPages> with SingleTickerProviderStateMixin {
 
   List<List<Verse>> allVerses = [];
   ArabicNumbers arabicNumber = ArabicNumbers();
+  QuranCubit? _quranCubit;
 
   @override
   void initState() {
     BookmarksCubit.get(context).getBookmarksList();
     QuranCubit.get(context).getList();
     // fetchData();
+    QuranCubit.get(context).screenController = AnimationController(
+      duration: const Duration(milliseconds: 300),
+      vsync: this,
+    );
+    QuranCubit.get(context).screenAnimation = Tween<double>(begin: 1, end: 0.95).animate(QuranCubit.get(context).screenController!);
     super.initState();
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    _quranCubit = QuranCubit.get(context);
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
   }
 
   // Future<void> fetchData() async {
@@ -71,50 +88,115 @@ class _MPagesState extends State<MPages> {
     QuranCubit cubit = QuranCubit.get(context);
     Orientation orientation = MediaQuery.of(context).orientation;
     if (orientation == Orientation.portrait) {
-      return SafeArea(
-        // top: false,
-        // bottom: false,
-        child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 0.0),
-          // child: AnimatedContainer(
-            // height: MediaQuery.of(context).size.height / 1 / 2 * 1.5,
-            // height: cubit.selected
-            //     ? MediaQuery.of(context).size.height / 1 / 2 * 1.8
-            //     : MediaQuery.of(context).size.height / 1 / 2 * 1.5,
-            // duration: const Duration(milliseconds: 300),
-            child: PageView.builder(
-                controller: cubit.dPageController = PageController(
-                    initialPage: widget.initialPageNum - 1, keepPage: true),
-                itemCount: 604,
-                onPageChanged: (page) {
-                  cahData=false;
-                  issChange=true;
-                  SoraBookmark soraBookmark =
-                  bookmarksCubit.soraBookmarkList![page];
-                  setState(() {
-                    cubit.cuMPage = page;
-                    print("new page${cubit.cuMPage}");
-                    issChange=true;
+      return AnimatedBuilder(
+        animation: cubit.screenAnimation!,
+        builder: (context, child) {
+          return Transform.scale(
+            scale: cubit.screenAnimation!.value,
+            child: child,
+          );
+        },
+        child: SafeArea(
+          // top: false,
+          // bottom: false,
+          child: Padding(
+            padding: const EdgeInsets.symmetric(vertical: 0.0),
+            // child: AnimatedContainer(
+              // height: MediaQuery.of(context).size.height / 1 / 2 * 1.5,
+              // height: cubit.selected
+              //     ? MediaQuery.of(context).size.height / 1 / 2 * 1.8
+              //     : MediaQuery.of(context).size.height / 1 / 2 * 1.5,
+              // duration: const Duration(milliseconds: 300),
+              child: PageView.builder(
+                  controller: cubit.dPageController = PageController(
+                      initialPage: widget.initialPageNum - 1, keepPage: true),
+                  itemCount: 604,
+                  onPageChanged: (page) {
                     cahData=false;
-                    ayaListNotFut=null;
-                    // myval=0;
-                  });
-                  print("page changed $page");
-                  cubit.pageChanged(context, page);
-                  cubit.saveMLastPlace(
-                      page + 1, (soraBookmark.SoraNum! + 1).toString());
-                  print('last sorah ${soraBookmark.SoraNum}');
-                  cahData=true;
+                    issChange=true;
+                    SoraBookmark soraBookmark =
+                    bookmarksCubit.soraBookmarkList![page];
+                    setState(() {
+                      cubit.cuMPage = page;
+                      print("new page${cubit.cuMPage}");
+                      issChange=true;
+                      cahData=false;
+                      ayaListNotFut=null;
+                      // myval=0;
+                    });
+                    print("page changed $page");
+                    cubit.pageChanged(context, page);
+                    cubit.saveMLastPlace(
+                        page + 1, (soraBookmark.SoraNum! + 1).toString());
+                    print('last sorah ${soraBookmark.SoraNum}');
+                    cahData=true;
 
-                },
-                itemBuilder: (_, index) {
-                  return (index % 2 == 0
-                      ? rightPage(context,
-                    Stack(
-                      children: [
-                        _pages(context, index),
-                        Align(
-                            alignment: Alignment.topRight,
+                  },
+                  itemBuilder: (_, index) {
+                    return (index % 2 == 0
+                        ? rightPage(context,
+                      Stack(
+                        children: [
+                          _pages(context, index),
+                          Align(
+                              alignment: Alignment.topRight,
+                              child: FutureBuilder(
+                                  future: cubit.loadlastBookmark(),
+                                  builder: (BuildContext context,
+                                      AsyncSnapshot<int> snapshot) {
+                                    if (snapshot.hasData) {
+                                      return IconButton(
+                                        onPressed: () {
+                                          // Check if there's a bookmark for the current page
+                                          if (bookmarksCubit.bookmarksController.isPageBookmarked(cubit.cuMPage)) {
+                                            bookmarksCubit.bookmarksController
+                                                .deleteBookmarks(cubit.cuMPage, context)
+                                                .then((deleted) {
+                                              if (deleted) {
+                                                setState(() {
+                                                  // The color of the SVG picture will be updated since the state has changed.
+                                                });
+                                              }
+                                            });
+                                          } else {
+                                            // If there's no bookmark for the current page, add a new one
+                                            bookmarksCubit
+                                                .addBookmark(
+                                                cubit.cuMPage,
+                                                bookmarksCubit.soraBookmarkList![index].SoraName_ar!,
+                                                cubit.lastRead)
+                                                .then((value) =>
+                                                customSnackBar(
+                                                    context, AppLocalizations.of(context)!.addBookmark));
+                                            print('addBookmark');
+                                            setState(() {
+                                              cubit.savelastBookmark(index);
+                                            });
+                                          }
+
+                                        },
+                                        icon: SvgPicture.asset(
+                                          'assets/svg/bookmark_ic.svg',
+                                          width: 30,
+                                          height: 30,
+                                          colorFilter: bookmarksCubit.bookmarksController.isPageBookmarked(cubit.cuMPage)
+                                              ? null
+                                              : ColorFilter.mode(
+                                              Theme.of(context).primaryColorDark, BlendMode.srcIn),
+                                        ),
+                                      );
+                                    } else
+                                      return CircularProgressIndicator();
+                                  })),
+                        ],
+                      ),
+                    )
+                        : leftPage(context,
+                      Stack(
+                        children: [
+                          _pages(context, index),
+                          Align(
+                            alignment: Alignment.topLeft,
                             child: FutureBuilder(
                                 future: cubit.loadlastBookmark(),
                                 builder: (BuildContext context,
@@ -122,7 +204,6 @@ class _MPagesState extends State<MPages> {
                                   if (snapshot.hasData) {
                                     return IconButton(
                                       onPressed: () {
-                                        // Check if there's a bookmark for the current page
                                         if (bookmarksCubit.bookmarksController.isPageBookmarked(cubit.cuMPage)) {
                                           bookmarksCubit.bookmarksController
                                               .deleteBookmarks(cubit.cuMPage, context)
@@ -148,7 +229,6 @@ class _MPagesState extends State<MPages> {
                                             cubit.savelastBookmark(index);
                                           });
                                         }
-
                                       },
                                       icon: SvgPicture.asset(
                                         'assets/svg/bookmark_ic.svg',
@@ -162,16 +242,58 @@ class _MPagesState extends State<MPages> {
                                     );
                                   } else
                                     return CircularProgressIndicator();
-                                })),
-                      ],
-                    ),
-                  )
-                      : leftPage(context,
+                                }),
+                          ),
+                        ],
+                      ),
+                    ));
+                  }),
+            // ),
+          ),
+        ),
+      );
+    } else {
+      return AnimatedBuilder(
+        animation: cubit.screenAnimation!,
+        builder: (context, child) {
+          return Transform.scale(
+            scale: cubit.screenAnimation!.value,
+            child: child,
+          );
+        },
+        child: SizedBox(
+          height: MediaQuery.of(context).size.height,
+          child: PageView.builder(
+              controller: cubit.dPageController = PageController(
+                  initialPage: widget.initialPageNum - 1, keepPage: true),
+              itemCount: 604,
+              onPageChanged: (page) {
+                cahData=false;
+                issChange=true;
+                SoraBookmark soraBookmark =
+                bookmarksCubit.soraBookmarkList![page + 1];
+                setState(() {
+                  cubit.cuMPage = page;
+                  issChange=true;
+                  cahData=false;
+                  ayaListNotFut=null;
+                });
+                print("page changed $page");
+                cubit.pageChanged(context, page);
+                cubit.saveMLastPlace(
+                    page + 1, (soraBookmark.SoraNum! + 1).toString());
+                print('last sorah ${soraBookmark.SoraNum}');
+                cahData=true;
+              },
+              itemBuilder: (_, index) {
+                return SingleChildScrollView(
+                  child: (index % 2 == 0
+                      ? rightPage(context,
                     Stack(
                       children: [
-                        _pages(context, index),
+                        _pages2(context, index, orientation),
                         Align(
-                          alignment: Alignment.topLeft,
+                          alignment: Alignment.topRight,
                           child: FutureBuilder(
                               future: cubit.loadlastBookmark(),
                               builder: (BuildContext context,
@@ -179,6 +301,7 @@ class _MPagesState extends State<MPages> {
                                 if (snapshot.hasData) {
                                   return IconButton(
                                     onPressed: () {
+                                      // Check if there's a bookmark for the current page
                                       if (bookmarksCubit.bookmarksController.isPageBookmarked(cubit.cuMPage)) {
                                         bookmarksCubit.bookmarksController
                                             .deleteBookmarks(cubit.cuMPage, context)
@@ -204,6 +327,7 @@ class _MPagesState extends State<MPages> {
                                           cubit.savelastBookmark(index);
                                         });
                                       }
+
                                     },
                                     icon: SvgPicture.asset(
                                       'assets/svg/bookmark_ic.svg',
@@ -221,157 +345,68 @@ class _MPagesState extends State<MPages> {
                         ),
                       ],
                     ),
-                  ));
-                }),
-          // ),
+                  )
+                      : leftPage(context,
+                    Stack(
+                      children: [
+                        _pages2(context, index, orientation),
+                        Align(
+                          alignment: Alignment.topLeft,
+                          child: FutureBuilder(
+                              future: cubit.loadlastBookmark(),
+                              builder: (BuildContext context,
+                                  AsyncSnapshot<int> snapshot) {
+                                if (snapshot.hasData) {
+                                  return IconButton(
+                                    onPressed: () {
+                                      // Check if there's a bookmark for the current page
+                                      if (bookmarksCubit.bookmarksController.isPageBookmarked(cubit.cuMPage)) {
+                                        bookmarksCubit.bookmarksController
+                                            .deleteBookmarks(cubit.cuMPage, context)
+                                            .then((deleted) {
+                                          if (deleted) {
+                                            setState(() {
+                                              // The color of the SVG picture will be updated since the state has changed.
+                                            });
+                                          }
+                                        });
+                                      } else {
+                                        // If there's no bookmark for the current page, add a new one
+                                        bookmarksCubit
+                                            .addBookmark(
+                                            cubit.cuMPage,
+                                            bookmarksCubit.soraBookmarkList![index].SoraName_ar!,
+                                            cubit.lastRead)
+                                            .then((value) =>
+                                            customSnackBar(
+                                                context, AppLocalizations.of(context)!.addBookmark));
+                                        print('addBookmark');
+                                        setState(() {
+                                          cubit.savelastBookmark(index);
+                                        });
+                                      }
+
+                                    },
+                                    icon: SvgPicture.asset(
+                                      'assets/svg/bookmark_ic.svg',
+                                      width: 30,
+                                      height: 30,
+                                      colorFilter: bookmarksCubit.bookmarksController.isPageBookmarked(cubit.cuMPage)
+                                          ? null
+                                          : ColorFilter.mode(
+                                          Theme.of(context).primaryColorDark, BlendMode.srcIn),
+                                    ),
+                                  );
+                                } else
+                                  return CircularProgressIndicator();
+                              }),
+                        ),
+                      ],
+                    ),
+                  )),
+                );
+              }),
         ),
-      );
-    } else {
-      return SizedBox(
-        height: MediaQuery.of(context).size.height,
-        child: PageView.builder(
-            controller: cubit.dPageController = PageController(
-                initialPage: widget.initialPageNum - 1, keepPage: true),
-            itemCount: 604,
-            onPageChanged: (page) {
-              cahData=false;
-              issChange=true;
-              SoraBookmark soraBookmark =
-              bookmarksCubit.soraBookmarkList![page + 1];
-              setState(() {
-                cubit.cuMPage = page;
-                issChange=true;
-                cahData=false;
-                ayaListNotFut=null;
-              });
-              print("page changed $page");
-              cubit.pageChanged(context, page);
-              cubit.saveMLastPlace(
-                  page + 1, (soraBookmark.SoraNum! + 1).toString());
-              print('last sorah ${soraBookmark.SoraNum}');
-              cahData=true;
-            },
-            itemBuilder: (_, index) {
-              return SingleChildScrollView(
-                child: (index % 2 == 0
-                    ? rightPage(context,
-                  Stack(
-                    children: [
-                      _pages2(context, index, orientation),
-                      Align(
-                        alignment: Alignment.topRight,
-                        child: FutureBuilder(
-                            future: cubit.loadlastBookmark(),
-                            builder: (BuildContext context,
-                                AsyncSnapshot<int> snapshot) {
-                              if (snapshot.hasData) {
-                                return IconButton(
-                                  onPressed: () {
-                                    // Check if there's a bookmark for the current page
-                                    if (bookmarksCubit.bookmarksController.isPageBookmarked(cubit.cuMPage)) {
-                                      bookmarksCubit.bookmarksController
-                                          .deleteBookmarks(cubit.cuMPage, context)
-                                          .then((deleted) {
-                                        if (deleted) {
-                                          setState(() {
-                                            // The color of the SVG picture will be updated since the state has changed.
-                                          });
-                                        }
-                                      });
-                                    } else {
-                                      // If there's no bookmark for the current page, add a new one
-                                      bookmarksCubit
-                                          .addBookmark(
-                                          cubit.cuMPage,
-                                          bookmarksCubit.soraBookmarkList![index].SoraName_ar!,
-                                          cubit.lastRead)
-                                          .then((value) =>
-                                          customSnackBar(
-                                              context, AppLocalizations.of(context)!.addBookmark));
-                                      print('addBookmark');
-                                      setState(() {
-                                        cubit.savelastBookmark(index);
-                                      });
-                                    }
-
-                                  },
-                                  icon: SvgPicture.asset(
-                                    'assets/svg/bookmark_ic.svg',
-                                    width: 30,
-                                    height: 30,
-                                    colorFilter: bookmarksCubit.bookmarksController.isPageBookmarked(cubit.cuMPage)
-                                        ? null
-                                        : ColorFilter.mode(
-                                        Theme.of(context).primaryColorDark, BlendMode.srcIn),
-                                  ),
-                                );
-                              } else
-                                return CircularProgressIndicator();
-                            }),
-                      ),
-                    ],
-                  ),
-                )
-                    : leftPage(context,
-                  Stack(
-                    children: [
-                      _pages2(context, index, orientation),
-                      Align(
-                        alignment: Alignment.topLeft,
-                        child: FutureBuilder(
-                            future: cubit.loadlastBookmark(),
-                            builder: (BuildContext context,
-                                AsyncSnapshot<int> snapshot) {
-                              if (snapshot.hasData) {
-                                return IconButton(
-                                  onPressed: () {
-                                    // Check if there's a bookmark for the current page
-                                    if (bookmarksCubit.bookmarksController.isPageBookmarked(cubit.cuMPage)) {
-                                      bookmarksCubit.bookmarksController
-                                          .deleteBookmarks(cubit.cuMPage, context)
-                                          .then((deleted) {
-                                        if (deleted) {
-                                          setState(() {
-                                            // The color of the SVG picture will be updated since the state has changed.
-                                          });
-                                        }
-                                      });
-                                    } else {
-                                      // If there's no bookmark for the current page, add a new one
-                                      bookmarksCubit
-                                          .addBookmark(
-                                          cubit.cuMPage,
-                                          bookmarksCubit.soraBookmarkList![index].SoraName_ar!,
-                                          cubit.lastRead)
-                                          .then((value) =>
-                                          customSnackBar(
-                                              context, AppLocalizations.of(context)!.addBookmark));
-                                      print('addBookmark');
-                                      setState(() {
-                                        cubit.savelastBookmark(index);
-                                      });
-                                    }
-
-                                  },
-                                  icon: SvgPicture.asset(
-                                    'assets/svg/bookmark_ic.svg',
-                                    width: 30,
-                                    height: 30,
-                                    colorFilter: bookmarksCubit.bookmarksController.isPageBookmarked(cubit.cuMPage)
-                                        ? null
-                                        : ColorFilter.mode(
-                                        Theme.of(context).primaryColorDark, BlendMode.srcIn),
-                                  ),
-                                );
-                              } else
-                                return CircularProgressIndicator();
-                            }),
-                      ),
-                    ],
-                  ),
-                )),
-              );
-            }),
       );
     }
   }

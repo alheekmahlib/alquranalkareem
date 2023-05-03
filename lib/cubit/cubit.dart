@@ -44,7 +44,7 @@ import '../shared/widgets/widgets.dart';
 class QuranCubit extends Cubit<QuranState> {
   QuranCubit() : super(SoundPageState());
 
-  static QuranCubit get(context) => BlocProvider.of(context);
+  static QuranCubit get(context) => BlocProvider.of<QuranCubit>(context);
 
 
   SorahRepository sorahRepository = SorahRepository();
@@ -100,6 +100,8 @@ class QuranCubit extends Cubit<QuranState> {
   List<Reminder> reminders = [];
   bool selected = false;
   ArabicNumbers arabicNumber = ArabicNumbers();
+  AnimationController? screenController;
+  Animation<double>? screenAnimation;
 
 
 
@@ -329,59 +331,16 @@ class QuranCubit extends Cubit<QuranState> {
 
   void dispose() {
     dPageController?.dispose();
+    screenController!.dispose();
     emit(QuranPageState());
   }
 
-
-  bool isShowBottomSheet = false;
-  IconData searchFabIcon = Icons.search_outlined;
-  IconData sorahFabIcon = Icons.list_alt_outlined;
-  IconData bookmarksFabIcon = Icons.bookmarks_outlined;
-
-
-
-  void sorahCloseBottomSheetState({
-    required bool isShow,
-    required IconData icon,
-  }){
-    isShowBottomSheet = isShow;
-    sorahFabIcon = icon;
-    emit(CloseBottomShowState());
-  }
-  void searchCloseBottomSheetState({
-    required bool isShow,
-    required IconData icon,
-  }){
-    isShowBottomSheet = isShow;
-    searchFabIcon = icon;
-    emit(CloseBottomShowState());
-  }
-  void sorahChangeBottomSheetState({
-  required bool isShow,
-    required IconData icon,
-}){
-    isShowBottomSheet = isShow;
-    sorahFabIcon = icon;
-    emit(ChangeBottomShowState());
-  }
-  void searchChangeBottomSheetState({
-  required bool isShow,
-    required IconData icon,
-}){
-    isShowBottomSheet = isShow;
-    searchFabIcon = icon;
-    emit(ChangeBottomShowState());
-  }
-
-
   /// Time
-
   // var now = DateTime.now();
   String lastRead = "${DateTime.now().year}-${DateTime.now().month}-${DateTime.now().day}";
 
 
   /// Reminder
-
   void loadReminders() async {
     List<Reminder> loadedReminders = await ReminderStorage.loadReminders();
       reminders = loadedReminders;
@@ -911,7 +870,7 @@ class QuranCubit extends Cubit<QuranState> {
     Uint8List imageData = await createVerseWithTranslateImage(context, verseNumber, surahNumber, verseText, textTranslate);
     Uint8List imageData2 = await createVerseImage(verseNumber, surahNumber, verseText);
 
-    modalBottomSheet(
+    dropDownModalBottomSheet(
       context,
       MediaQuery.of(context).size.height / 1/2,
       MediaQuery.of(context).size.width,

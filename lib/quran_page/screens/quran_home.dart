@@ -42,13 +42,11 @@ class _QuranPageState extends State<QuranPage>
       curve: Curves.easeIn,
     ));
     NotificationDatabaseHelper.loadNotifications();
+
     super.initState();
   }
 
-  @override
-  void dispose() {
-    super.dispose();
-  }
+
 
   @override
   Widget build(BuildContext context) {

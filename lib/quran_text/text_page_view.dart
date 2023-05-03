@@ -43,7 +43,7 @@ var lastAyahInPage;
 
 class TextPageView extends StatefulWidget {
   SurahText? surah;
-  int? nomPageF, nomPageL, pageNum;
+  int? nomPageF, nomPageL, pageNum = 1;
 
   TextPageView({this.nomPageF, this.nomPageL, this.pageNum, this.surah});
   static int textCurrentPage = 0;
@@ -63,6 +63,7 @@ class _TextPageViewState extends State<TextPageView>
   ArabicNumbers arabicNumber = ArabicNumbers();
   String? translateText;
   StreamSubscription? _quranTextCubitSubscription;
+  QuranCubit? _quranCubit;
 
   void _toggleScroll() {
     if (QuranTextCubit.get(context).scrolling) {
@@ -109,6 +110,7 @@ class _TextPageViewState extends State<TextPageView>
   void didChangeDependencies() {
     super.didChangeDependencies();
     _quranTextCubit = QuranTextCubit.get(context);
+    _quranCubit = QuranCubit.get(context);
   }
 
   // Save & Load Last Page For Quran Text
@@ -183,6 +185,11 @@ class _TextPageViewState extends State<TextPageView>
             .fetchSura(context, translation, '${widget.surah!.number!}');
       });
     });
+    QuranCubit.get(context).screenController = AnimationController(
+      duration: const Duration(milliseconds: 300),
+      vsync: this,
+    );
+    QuranCubit.get(context).screenAnimation = Tween<double>(begin: 1, end: 0.95).animate(QuranCubit.get(context).screenController!);
     super.initState();
   }
 
@@ -195,43 +202,41 @@ class _TextPageViewState extends State<TextPageView>
   }
 
   jumbToPage() async {
-    if (widget.pageNum! == 0 ||
-        widget.pageNum! == 1 ||
-        widget.pageNum! == 585 ||
-        widget.pageNum! == 586 ||
-        widget.pageNum! == 587 ||
-        widget.pageNum! == 589 ||
-        widget.pageNum! == 590 ||
-        widget.pageNum! == 591 ||
-        widget.pageNum! == 592 ||
-        widget.pageNum! == 593 ||
-        widget.pageNum! == 594 ||
-        widget.pageNum! == 595 ||
-        widget.pageNum! == 596 ||
-        widget.pageNum! == 597 ||
-        widget.pageNum! == 598 ||
-        widget.pageNum! == 599 ||
-        widget.pageNum! == 600 ||
-        widget.pageNum! == 601 ||
-        widget.pageNum! == 602 ||
-        widget.pageNum! == 603 ||
-        widget.pageNum! == 604) {
+    int pageNum = widget.pageNum ?? 0; // Use the null coalescing operator to ensure pageNum is not null
+
+    if (pageNum == 0 ||
+        pageNum == 1 ||
+        pageNum == 585 ||
+        pageNum == 586 ||
+        pageNum == 587 ||
+        pageNum == 589 ||
+        pageNum == 590 ||
+        pageNum == 591 ||
+        pageNum == 592 ||
+        pageNum == 593 ||
+        pageNum == 594 ||
+        pageNum == 595 ||
+        pageNum == 596 ||
+        pageNum == 597 ||
+        pageNum == 598 ||
+        pageNum == 599 ||
+        pageNum == 600 ||
+        pageNum == 601 ||
+        pageNum == 602 ||
+        pageNum == 603 ||
+        pageNum == 604) {
     } else {
       await QuranTextCubit.get(context).itemScrollController.scrollTo(
           index: (QuranTextCubit.get(context).value == 1
-              ? widget.pageNum!
-              : widget.pageNum! - 1),
-          // widget.pageNum! - 1,
-          // 40,
-          // preferPosition: AutoScrollPosition.begin,
-          // duration: Duration(milliseconds: 500), // Adjust the animation duration to your preference
+              ? pageNum
+              : pageNum - 1),
           duration: const Duration(seconds: 1),
           curve: Curves.easeOut);
       setState(() {
         QuranTextCubit.get(context).isSelected =
-            QuranTextCubit.get(context).value == 1
-                ? widget.pageNum!
-                : widget.pageNum! - 1;
+        QuranTextCubit.get(context).value == 1
+            ? pageNum
+            : pageNum - 1;
       });
     }
   }
@@ -270,6 +275,7 @@ class _TextPageViewState extends State<TextPageView>
       listener: (BuildContext context, state) {},
       builder: (BuildContext context, state) {
         QuranTextCubit TextCubit = QuranTextCubit.get(context);
+        QuranCubit cubit = QuranCubit.get(context);
         final List<dynamic>? translateData =
             context.watch<TranslateDataCubit>().state.data;
         return SafeArea(
@@ -280,1145 +286,766 @@ class _TextPageViewState extends State<TextPageView>
           child: Scaffold(
               key: TPageScaffoldKey,
               resizeToAvoidBottomInset: false,
-              body: Directionality(
-                textDirection: TextDirection.rtl,
-                child: Stack(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 32.0, vertical: 16.0),
-                      child: Align(
-                        alignment: Alignment.topLeft,
-                        child: orientation(
-                          context,
-                          Container(),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              sorahName(
-                                widget.surah!.number.toString(),
-                                context,
-                                Theme.of(context).canvasColor,
-                              ),
-                              Padding(
-                                padding:
-                                    const EdgeInsets.symmetric(horizontal: 8.0),
-                                child: fontSizeDropDown(context),
-                              ),
-                              Spacer(),
-                              // scrollDropDown(context),
-                              // Padding(
-                              //   padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                              //   child: GestureDetector(
-                              //     child: Container(
-                              //       height: 25,
-                              //       width: 25,
-                              //       decoration: BoxDecoration(
-                              //           color: TextCubit.scrolling == true
-                              //               ? Theme.of(context).colorScheme.surface
-                              //               : Theme.of(context).colorScheme.background,
-                              //           borderRadius: BorderRadius.all(
-                              //             Radius.circular(8),
-                              //           ),
-                              //           border: Border.all(
-                              //               width: 1,
-                              //               color: Theme.of(context).colorScheme.surface
-                              //           )
-                              //       ),
-                              //       child: Icon(
-                              //         Icons.speed_outlined,
-                              //         color: TextCubit.scrolling == true
-                              //             ? Theme.of(context).canvasColor
-                              //             : Theme.of(context).colorScheme.surface,
-                              //         size: 20,
-                              //       ),
-                              //     ),
-                              //     onTap: _toggleScroll,
-                              //   ),
-                              // ),
-                              SizedBox(
-                                width: 70,
-                                child: AnimatedToggleSwitch<int>.rolling(
-                                  current: TextCubit.value,
-                                  values: const [0, 1],
-                                  onChanged: (i) {
-                                    setState(() {
-                                      TextCubit.value = i;
-                                      TextCubit.saveSwitchValue(
-                                          TextCubit.value);
-                                    });
-                                  },
-                                  iconBuilder: rollingIconBuilder,
-                                  borderWidth: 1,
-                                  indicatorColor:
-                                      Theme.of(context).colorScheme.surface,
-                                  innerColor: Theme.of(context).canvasColor,
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(8)),
-                                  height: 25,
-                                  dif: 2.0,
-                                  borderColor:
-                                      Theme.of(context).colorScheme.surface,
+              body: AnimatedBuilder(
+                animation: cubit.screenAnimation!,
+                builder: (context, child) {
+                  return Transform.scale(
+                    scale: cubit.screenAnimation!.value,
+                    child: child,
+                  );
+                },
+                child: Directionality(
+                  textDirection: TextDirection.rtl,
+                  child: Stack(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 32.0, vertical: 16.0),
+                        child: Align(
+                          alignment: Alignment.topLeft,
+                          child: orientation(
+                            context,
+                            Container(),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                sorahName(
+                                  widget.surah!.number.toString(),
+                                  context,
+                                  Theme.of(context).canvasColor,
                                 ),
-                              ),
-                            ],
+                                Padding(
+                                  padding:
+                                      const EdgeInsets.symmetric(horizontal: 8.0),
+                                  child: fontSizeDropDown(context),
+                                ),
+                                Spacer(),
+                                // scrollDropDown(context),
+                                // Padding(
+                                //   padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                                //   child: GestureDetector(
+                                //     child: Container(
+                                //       height: 25,
+                                //       width: 25,
+                                //       decoration: BoxDecoration(
+                                //           color: TextCubit.scrolling == true
+                                //               ? Theme.of(context).colorScheme.surface
+                                //               : Theme.of(context).colorScheme.background,
+                                //           borderRadius: BorderRadius.all(
+                                //             Radius.circular(8),
+                                //           ),
+                                //           border: Border.all(
+                                //               width: 1,
+                                //               color: Theme.of(context).colorScheme.surface
+                                //           )
+                                //       ),
+                                //       child: Icon(
+                                //         Icons.speed_outlined,
+                                //         color: TextCubit.scrolling == true
+                                //             ? Theme.of(context).canvasColor
+                                //             : Theme.of(context).colorScheme.surface,
+                                //         size: 20,
+                                //       ),
+                                //     ),
+                                //     onTap: _toggleScroll,
+                                //   ),
+                                // ),
+                                SizedBox(
+                                  width: 70,
+                                  child: AnimatedToggleSwitch<int>.rolling(
+                                    current: TextCubit.value,
+                                    values: const [0, 1],
+                                    onChanged: (i) {
+                                      setState(() {
+                                        TextCubit.value = i;
+                                        TextCubit.saveSwitchValue(
+                                            TextCubit.value);
+                                      });
+                                    },
+                                    iconBuilder: rollingIconBuilder,
+                                    borderWidth: 1,
+                                    indicatorColor:
+                                        Theme.of(context).colorScheme.surface,
+                                    innerColor: Theme.of(context).canvasColor,
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(8)),
+                                    height: 25,
+                                    dif: 2.0,
+                                    borderColor:
+                                        Theme.of(context).colorScheme.surface,
+                                  ),
+                                ),
+                              ],
+                            ),
                           ),
                         ),
                       ),
-                    ),
-                    Padding(
-                      padding: orientation(
-                        context,
-                        const EdgeInsets.only(top: 70.0),
-                        const EdgeInsets.only(top: 32.0),
-                      ),
-                      child: Stack(
-                        children: [
-                          GestureDetector(
-                            onTap: () => Navigator.of(context).pop(),
-                            child: Align(
-                              alignment: Alignment.topCenter,
-                              child: Container(
-                                height: 30,
-                                width: 30,
-                                decoration: BoxDecoration(
-                                    color: Theme.of(context)
-                                        .colorScheme
-                                        .background,
-                                    borderRadius: const BorderRadius.only(
-                                      topRight: Radius.circular(8),
-                                      topLeft: Radius.circular(8),
-                                    ),
-                                    border: Border.all(
-                                        width: 2,
-                                        color: Theme.of(context).dividerColor)),
-                                child: Icon(
-                                  Icons.close_outlined,
-                                  color: Theme.of(context).colorScheme.surface,
+                      Padding(
+                        padding: orientation(
+                          context,
+                          const EdgeInsets.only(top: 70.0),
+                          const EdgeInsets.only(top: 32.0),
+                        ),
+                        child: Stack(
+                          children: [
+                            GestureDetector(
+                              onTap: () => Navigator.of(context).pop(),
+                              child: Align(
+                                alignment: Alignment.topCenter,
+                                child: Container(
+                                  height: 30,
+                                  width: 30,
+                                  decoration: BoxDecoration(
+                                      color: Theme.of(context)
+                                          .colorScheme
+                                          .background,
+                                      borderRadius: const BorderRadius.only(
+                                        topRight: Radius.circular(8),
+                                        topLeft: Radius.circular(8),
+                                      ),
+                                      border: Border.all(
+                                          width: 2,
+                                          color: Theme.of(context).dividerColor)),
+                                  child: Icon(
+                                    Icons.close_outlined,
+                                    color: Theme.of(context).colorScheme.surface,
+                                  ),
                                 ),
                               ),
                             ),
-                          ),
-                          const Divider(
-                            height: 58,
-                            thickness: 2,
-                            endIndent: 16,
-                            indent: 16,
-                          ),
-                          Padding(
-                            padding: EdgeInsets.only(
-                                top: 32.0, right: 16.0, left: 16.0),
-                            child: orientation(
-                                context,
-                                Column(
-                                  children: [
-                                    Container(
-                                      width: MediaQuery.of(context).size.width,
-                                      decoration: BoxDecoration(
-                                        color: Theme.of(context)
-                                            .colorScheme
-                                            .background,
-                                      ),
-                                      padding: EdgeInsets.symmetric(
-                                          horizontal: 16.0),
-                                      child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          sorahName(
-                                            widget.surah!.number.toString(),
-                                            context,
-                                            ThemeProvider.themeOf(context).id ==
-                                                    'dark'
-                                                ? Colors.white
-                                                : Colors.black,
-                                          ),
-                                          fontSizeDropDown(context),
-                                          // scrollDropDown(context),
-                                          // GestureDetector(
-                                          //   child: Container(
-                                          //       height: 25,
-                                          //       width: 25,
-                                          //       decoration: BoxDecoration(
-                                          //         color: TextCubit.scrolling == true
-                                          //             ? Theme.of(context).colorScheme.surface
-                                          //             : Theme.of(context).colorScheme.background,
-                                          //           borderRadius: BorderRadius.all(
-                                          //             Radius.circular(8),
-                                          //           ),
-                                          //           border: Border.all(
-                                          //               width: 1,
-                                          //               color: Theme.of(context).colorScheme.surface
-                                          //           )
-                                          //       ),
-                                          //       child: Icon(
-                                          //           Icons.speed_outlined,
-                                          //           color: TextCubit.scrolling == true
-                                          //               ? Theme.of(context).canvasColor
-                                          //               : Theme.of(context).colorScheme.surface,
-                                          //           size: 20,
-                                          //         ),
-                                          //       ),
-                                          //   onTap: _toggleScroll,
-                                          // ),
-                                          SizedBox(
-                                            width: 70,
-                                            child: AnimatedToggleSwitch<
-                                                int>.rolling(
-                                              current: TextCubit.value,
-                                              values: const [0, 1],
-                                              onChanged: (i) {
-                                                setState(() {
-                                                  TextCubit.value = i;
-                                                  TextCubit.saveSwitchValue(
-                                                      TextCubit.value);
-                                                });
-                                              },
-                                              iconBuilder: rollingIconBuilder,
-                                              borderWidth: 1,
-                                              indicatorColor: Theme.of(context)
-                                                  .colorScheme
-                                                  .surface,
-                                              innerColor:
-                                                  Theme.of(context).canvasColor,
-                                              borderRadius: BorderRadius.all(
-                                                  Radius.circular(8)),
-                                              height: 25,
-                                              dif: 2.0,
-                                              borderColor: Theme.of(context)
-                                                  .colorScheme
-                                                  .surface,
+                            const Divider(
+                              height: 58,
+                              thickness: 2,
+                              endIndent: 16,
+                              indent: 16,
+                            ),
+                            Padding(
+                              padding: EdgeInsets.only(
+                                  top: 32.0, right: 16.0, left: 16.0),
+                              child: orientation(
+                                  context,
+                                  Column(
+                                    children: [
+                                      Container(
+                                        width: MediaQuery.of(context).size.width,
+                                        decoration: BoxDecoration(
+                                          color: Theme.of(context)
+                                              .colorScheme
+                                              .background,
+                                        ),
+                                        padding: EdgeInsets.symmetric(
+                                            horizontal: 16.0),
+                                        child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            sorahName(
+                                              widget.surah!.number.toString(),
+                                              context,
+                                              ThemeProvider.themeOf(context).id ==
+                                                      'dark'
+                                                  ? Colors.white
+                                                  : Colors.black,
                                             ),
-                                          ),
-                                        ],
+                                            fontSizeDropDown(context),
+                                            // scrollDropDown(context),
+                                            // GestureDetector(
+                                            //   child: Container(
+                                            //       height: 25,
+                                            //       width: 25,
+                                            //       decoration: BoxDecoration(
+                                            //         color: TextCubit.scrolling == true
+                                            //             ? Theme.of(context).colorScheme.surface
+                                            //             : Theme.of(context).colorScheme.background,
+                                            //           borderRadius: BorderRadius.all(
+                                            //             Radius.circular(8),
+                                            //           ),
+                                            //           border: Border.all(
+                                            //               width: 1,
+                                            //               color: Theme.of(context).colorScheme.surface
+                                            //           )
+                                            //       ),
+                                            //       child: Icon(
+                                            //           Icons.speed_outlined,
+                                            //           color: TextCubit.scrolling == true
+                                            //               ? Theme.of(context).canvasColor
+                                            //               : Theme.of(context).colorScheme.surface,
+                                            //           size: 20,
+                                            //         ),
+                                            //       ),
+                                            //   onTap: _toggleScroll,
+                                            // ),
+                                            SizedBox(
+                                              width: 70,
+                                              child: AnimatedToggleSwitch<
+                                                  int>.rolling(
+                                                current: TextCubit.value,
+                                                values: const [0, 1],
+                                                onChanged: (i) {
+                                                  setState(() {
+                                                    TextCubit.value = i;
+                                                    TextCubit.saveSwitchValue(
+                                                        TextCubit.value);
+                                                  });
+                                                },
+                                                iconBuilder: rollingIconBuilder,
+                                                borderWidth: 1,
+                                                indicatorColor: Theme.of(context)
+                                                    .colorScheme
+                                                    .surface,
+                                                innerColor:
+                                                    Theme.of(context).canvasColor,
+                                                borderRadius: BorderRadius.all(
+                                                    Radius.circular(8)),
+                                                height: 25,
+                                                dif: 2.0,
+                                                borderColor: Theme.of(context)
+                                                    .colorScheme
+                                                    .surface,
+                                              ),
+                                            ),
+                                          ],
+                                        ),
                                       ),
-                                    ),
-                                    const Divider(
-                                      height: 5,
-                                      thickness: 2,
-                                    ),
-                                  ],
-                                ),
-                                Container()),
-                          ),
-                        ],
+                                      const Divider(
+                                        height: 5,
+                                        thickness: 2,
+                                      ),
+                                    ],
+                                  ),
+                                  Container()),
+                            ),
+                          ],
+                        ),
                       ),
-                    ),
-                    SizedBox(
-                      height: MediaQuery.of(context).size.height,
-                      child: Padding(
-                        padding: orientation(
-                            context,
-                            EdgeInsets.only(top: 155.0, bottom: 16.0),
-                            EdgeInsets.only(
-                                top: 68.0,
-                                bottom: 16.0,
-                                right: 40.0,
-                                left: 40.0)),
-                        child: AnimatedBuilder(
-                            animation:
-                                QuranTextCubit.get(context).animationController,
-                            builder: (BuildContext context, Widget? child) {
-                              if (QuranTextCubit.get(context)
-                                  .scrollController!
-                                  .hasClients) {
-                                QuranTextCubit.get(context)
+                      SizedBox(
+                        height: MediaQuery.of(context).size.height,
+                        child: Padding(
+                          padding: orientation(
+                              context,
+                              EdgeInsets.only(top: 155.0, bottom: 16.0),
+                              EdgeInsets.only(
+                                  top: 68.0,
+                                  bottom: 16.0,
+                                  right: 40.0,
+                                  left: 40.0)),
+                          child: AnimatedBuilder(
+                              animation:
+                                  QuranTextCubit.get(context).animationController,
+                              builder: (BuildContext context, Widget? child) {
+                                if (QuranTextCubit.get(context)
                                     .scrollController!
-                                    .jumpTo(QuranTextCubit.get(context)
-                                            .animationController
-                                            .value *
-                                        (QuranTextCubit.get(context)
-                                            .scrollController!
-                                            .position
-                                            .maxScrollExtent));
-                              }
-                              return ScrollablePositionedList.builder(
-                                key: _scrollKey,
-                                scrollDirection: Axis.vertical,
-                                shrinkWrap: true,
-                                addAutomaticKeepAlives: true,
-                                // controller: TextCubit.scrollController,
-                                itemScrollController:
-                                    TextCubit.itemScrollController,
-                                itemPositionsListener:
-                                    TextCubit.itemPositionsListener,
-                                itemCount: TextCubit.value == 1
-                                    ? widget.surah!.ayahs!.length
-                                    : (widget.nomPageL! - widget.nomPageF!) + 1,
-                                itemBuilder: (context, index) {
-                                  List<InlineSpan> text = [];
-                                  int ayahLenght = widget.surah!.ayahs!.length;
-                                  if (TextCubit.value == 1) {
-                                    for (int index = 0;
-                                        index < ayahLenght;
-                                        index++) {
-                                      if (widget.surah!.ayahs![index].text!
-                                              .length >
-                                          1) {
-                                        TextCubit.sajda2 =
-                                            widget.surah!.ayahs![index].sajda;
+                                    .hasClients) {
+                                  QuranTextCubit.get(context)
+                                      .scrollController!
+                                      .jumpTo(QuranTextCubit.get(context)
+                                              .animationController
+                                              .value *
+                                          (QuranTextCubit.get(context)
+                                              .scrollController!
+                                              .position
+                                              .maxScrollExtent));
+                                }
+                                return ScrollablePositionedList.builder(
+                                  key: _scrollKey,
+                                  scrollDirection: Axis.vertical,
+                                  shrinkWrap: true,
+                                  addAutomaticKeepAlives: true,
+                                  // controller: TextCubit.scrollController,
+                                  itemScrollController:
+                                      TextCubit.itemScrollController,
+                                  itemPositionsListener:
+                                      TextCubit.itemPositionsListener,
+                                  itemCount: TextCubit.value == 1
+                                      ? widget.surah!.ayahs!.length
+                                      : (widget.nomPageL! - widget.nomPageF!) + 1,
+                                  itemBuilder: (context, index) {
+                                    List<InlineSpan> text = [];
+                                    int ayahLenght = widget.surah!.ayahs!.length;
+                                    if (TextCubit.value == 1) {
+                                      for (int index = 0;
+                                          index < ayahLenght;
+                                          index++) {
+                                        if (widget.surah!.ayahs![index].text!
+                                                .length >
+                                            1) {
+                                          TextCubit.sajda2 =
+                                              widget.surah!.ayahs![index].sajda;
+                                        }
                                       }
-                                    }
-                                  } else {
-                                    for (int b = 0; b < ayahLenght; b++) {
-                                      if (widget.surah!.ayahs![b].text!.length >
-                                          1) {
-                                        if (widget.surah!.ayahs![b].page ==
-                                            (index + widget.nomPageF!)) {
-                                          TextCubit.juz = widget
-                                              .surah!.ayahs![b].juz
-                                              .toString();
-                                          TextCubit.sajda =
-                                              widget.surah!.ayahs![b].sajda;
-                                          text.add(TextSpan(children: [
-                                            TextSpan(
-                                                text: widget
-                                                    .surah!.ayahs![b].text!,
-                                                style: TextStyle(
-                                                  fontSize: TextPageView
-                                                      .fontSizeArabic,
-                                                  fontWeight: FontWeight.normal,
-                                                  fontFamily: 'uthmanic2',
-                                                  color: ThemeProvider.themeOf(
-                                                                  context)
-                                                              .id ==
-                                                          'dark'
-                                                      ? Colors.white
-                                                      : Colors.black,
-                                                  background: Paint()
-                                                    ..color = b ==
-                                                            TextCubit.isSelected
-                                                        ? backColor
-                                                        : Colors.transparent
-                                                    ..color = b ==
-                                                            TextCubit.isSelected
-                                                        ? backColor
-                                                        : Colors.transparent
-                                                    ..strokeJoin =
-                                                        StrokeJoin.round
-                                                    ..strokeCap =
-                                                        StrokeCap.round
-                                                    ..style =
-                                                        PaintingStyle.fill,
-                                                ),
-                                                recognizer:
-                                                    TapGestureRecognizer()
-                                                      ..onTapDown =
-                                                          (TapDownDetails
-                                                              details) {
-                                                        lastAyah = widget.surah!
-                                                            .ayahs!.length;
-                                                        lastAyahInPage = widget
-                                                            .surah!
-                                                            .ayahs![b]
-                                                            .numberInSurah;
-                                                        var cancel = BotToast
-                                                            .showAttachedWidget(
-                                                          target: details
-                                                              .globalPosition,
-                                                          verticalOffset:
-                                                              TextCubit
-                                                                  .verticalOffset,
-                                                          horizontalOffset:
-                                                              TextCubit
-                                                                  .horizontalOffset,
-                                                          preferDirection:
-                                                              TextCubit
-                                                                  .preferDirection,
-                                                          animationDuration:
-                                                              Duration(
-                                                                  microseconds:
-                                                                      700),
-                                                          animationReverseDuration:
-                                                              Duration(
-                                                                  microseconds:
-                                                                      700),
-                                                          attachedBuilder:
-                                                              (cancel) => Card(
-                                                            color: Theme.of(
+                                    } else {
+                                      for (int b = 0; b < ayahLenght; b++) {
+                                        if (widget.surah!.ayahs![b].text!.length >
+                                            1) {
+                                          if (widget.surah!.ayahs![b].page ==
+                                              (index + widget.nomPageF!)) {
+                                            TextCubit.juz = widget
+                                                .surah!.ayahs![b].juz
+                                                .toString();
+                                            TextCubit.sajda =
+                                                widget.surah!.ayahs![b].sajda;
+                                            text.add(TextSpan(children: [
+                                              TextSpan(
+                                                  text: widget
+                                                      .surah!.ayahs![b].text!,
+                                                  style: TextStyle(
+                                                    fontSize: TextPageView
+                                                        .fontSizeArabic,
+                                                    fontWeight: FontWeight.normal,
+                                                    fontFamily: 'uthmanic2',
+                                                    color: ThemeProvider.themeOf(
                                                                     context)
-                                                                .colorScheme
-                                                                .surface,
-                                                            shape:
-                                                                RoundedRectangleBorder(
-                                                              borderRadius:
-                                                                  BorderRadius
-                                                                      .circular(
-                                                                          8),
-                                                            ),
-                                                            child: Padding(
-                                                              padding: const EdgeInsets
-                                                                      .symmetric(
-                                                                  horizontal:
-                                                                      10.0,
-                                                                  vertical:
-                                                                      6.0),
-                                                              child: Row(
-                                                                mainAxisSize:
-                                                                    MainAxisSize
-                                                                        .min,
-                                                                children: [
-                                                                  Container(
-                                                                    height: 40,
-                                                                    width: 40,
-                                                                    decoration: BoxDecoration(
-                                                                        color: Color(
-                                                                            0xfff3efdf),
-                                                                        borderRadius:
-                                                                            BorderRadius.all(Radius.circular(50))),
-                                                                    child: FutureBuilder<
-                                                                            List<
-                                                                                Ayat>>(
-                                                                        future: QuranCubit.get(context).handleRadioValueChanged(context, QuranCubit.get(context).radioValue).getAyahTranslate((widget
-                                                                            .surah!
-                                                                            .number)),
-                                                                        builder:
-                                                                            (context,
-                                                                                snapshot) {
-                                                                          if (snapshot.connectionState ==
-                                                                              ConnectionState.done) {
-                                                                            List<Ayat>?
-                                                                                ayat =
-                                                                                snapshot.data;
-                                                                            Ayat
-                                                                                aya =
-                                                                                ayat![b];
-                                                                            return IconButton(
-                                                                              icon: Icon(
-                                                                                Icons.text_snippet_outlined,
-                                                                                size: 24,
-                                                                                color: Color(0x99f5410a),
-                                                                              ),
-                                                                              onPressed: () {
-                                                                                TextCubit.translateAyah = "${aya.ayatext}";
-                                                                                TextCubit.translate = "${aya.translate}";
-                                                                                // showModalBottomSheet<void>(
-                                                                                //   context: context,
-                                                                                //   builder: (BuildContext context) {
-                                                                                //     return ShowTextTafseer();
-                                                                                //   },
-                                                                                // );
-                                                                                if (TextCubit.isShowBottomSheet) {
-                                                                                  Navigator.pop(context);
-                                                                                } else {
-                                                                                  TPageScaffoldKey.currentState?.showBottomSheet(
-                                                                                      shape: const RoundedRectangleBorder(borderRadius: BorderRadius.only(topLeft: Radius.circular(8), topRight: Radius.circular(8))),
-                                                                                      backgroundColor: Colors.transparent,
-                                                                                      (context) => Align(
-                                                                                            alignment: Alignment.bottomCenter,
-                                                                                            child: Padding(
-                                                                                              padding: orientation(context, const EdgeInsets.symmetric(horizontal: 16.0), const EdgeInsets.symmetric(horizontal: 64.0)),
-                                                                                              child: Container(
-                                                                                                height: orientation(context, MediaQuery.of(context).size.height * 1 / 2, platformView(MediaQuery.of(context).size.height, MediaQuery.of(context).size.height * 3/4)),
-                                                                                                width: MediaQuery.of(context).size.width,
-                                                                                                decoration: BoxDecoration(
-                                                                                                  borderRadius: const BorderRadius.only(topRight: Radius.circular(12.0), topLeft: Radius.circular(12.0)),
-                                                                                                  color: Theme.of(context).colorScheme.background,
-                                                                                                ),
-                                                                                                child: ShowTextTafseer(),
-                                                                                              ),
-                                                                                            ),
-                                                                                          ),
-                                                                                      elevation: 100);
-                                                                                }
-                                                                                // quranTextTafseer(context, TPageScaffoldKey,
-                                                                                //     MediaQuery.of(context).size.width);
-                                                                                cancel();
-                                                                              },
-                                                                            );
-                                                                          } else {
-                                                                            return Center(child: Lottie.asset('assets/lottie/search.json', width: 100, height: 40));
+                                                                .id ==
+                                                            'dark'
+                                                        ? Colors.white
+                                                        : Colors.black,
+                                                    background: Paint()
+                                                      ..color = b ==
+                                                              TextCubit.isSelected
+                                                          ? backColor
+                                                          : Colors.transparent
+                                                      ..color = b ==
+                                                              TextCubit.isSelected
+                                                          ? backColor
+                                                          : Colors.transparent
+                                                      ..strokeJoin =
+                                                          StrokeJoin.round
+                                                      ..strokeCap =
+                                                          StrokeCap.round
+                                                      ..style =
+                                                          PaintingStyle.fill,
+                                                  ),
+                                                  recognizer:
+                                                      TapGestureRecognizer()
+                                                        ..onTapDown =
+                                                            (TapDownDetails
+                                                                details) {
+                                                          lastAyah = widget.surah!
+                                                              .ayahs!.length;
+                                                          lastAyahInPage = widget
+                                                              .surah!
+                                                              .ayahs![b]
+                                                              .numberInSurah;
+                                                          var cancel = BotToast
+                                                              .showAttachedWidget(
+                                                            target: details
+                                                                .globalPosition,
+                                                            verticalOffset:
+                                                                TextCubit
+                                                                    .verticalOffset,
+                                                            horizontalOffset:
+                                                                TextCubit
+                                                                    .horizontalOffset,
+                                                            preferDirection:
+                                                                TextCubit
+                                                                    .preferDirection,
+                                                            animationDuration:
+                                                                Duration(
+                                                                    microseconds:
+                                                                        700),
+                                                            animationReverseDuration:
+                                                                Duration(
+                                                                    microseconds:
+                                                                        700),
+                                                            attachedBuilder:
+                                                                (cancel) => Card(
+                                                              color: Theme.of(
+                                                                      context)
+                                                                  .colorScheme
+                                                                  .surface,
+                                                              shape:
+                                                                  RoundedRectangleBorder(
+                                                                borderRadius:
+                                                                    BorderRadius
+                                                                        .circular(
+                                                                            8),
+                                                              ),
+                                                              child: Padding(
+                                                                padding: const EdgeInsets
+                                                                        .symmetric(
+                                                                    horizontal:
+                                                                        10.0,
+                                                                    vertical:
+                                                                        6.0),
+                                                                child: Row(
+                                                                  mainAxisSize:
+                                                                      MainAxisSize
+                                                                          .min,
+                                                                  children: [
+                                                                    Container(
+                                                                      height: 40,
+                                                                      width: 40,
+                                                                      decoration: BoxDecoration(
+                                                                          color: Color(
+                                                                              0xfff3efdf),
+                                                                          borderRadius:
+                                                                              BorderRadius.all(Radius.circular(50))),
+                                                                      child: FutureBuilder<
+                                                                              List<
+                                                                                  Ayat>>(
+                                                                          future: QuranCubit.get(context).handleRadioValueChanged(context, QuranCubit.get(context).radioValue).getAyahTranslate((widget
+                                                                              .surah!
+                                                                              .number)),
+                                                                          builder:
+                                                                              (context,
+                                                                                  snapshot) {
+                                                                            if (snapshot.connectionState ==
+                                                                                ConnectionState.done) {
+                                                                              List<Ayat>?
+                                                                                  ayat =
+                                                                                  snapshot.data;
+                                                                              Ayat
+                                                                                  aya =
+                                                                                  ayat![b];
+                                                                              return IconButton(
+                                                                                icon: Icon(
+                                                                                  Icons.text_snippet_outlined,
+                                                                                  size: 24,
+                                                                                  color: Color(0x99f5410a),
+                                                                                ),
+                                                                                onPressed: () {
+                                                                                  TextCubit.translateAyah = "${aya.ayatext}";
+                                                                                  TextCubit.translate = "${aya.translate}";
+                                                                                  // showModalBottomSheet<void>(
+                                                                                  //   context: context,
+                                                                                  //   builder: (BuildContext context) {
+                                                                                  //     return ShowTextTafseer();
+                                                                                  //   },
+                                                                                  // );
+                                                                                  allModalBottomSheet(context,
+                                                                                    MediaQuery.of(context).size.height / 1/2,
+                                                                                    MediaQuery.of(context).size.width,
+                                                                                    const ShowTextTafseer(),
+                                                                                  );
+                                                                                  // quranTextTafseer(context, TPageScaffoldKey,
+                                                                                  //     MediaQuery.of(context).size.width);
+                                                                                  cancel();
+                                                                                },
+                                                                              );
+                                                                            } else {
+                                                                              return Center(child: Lottie.asset('assets/lottie/search.json', width: 100, height: 40));
+                                                                            }
+                                                                          }),
+                                                                    ),
+                                                                    SizedBox(
+                                                                      width: 8.0,
+                                                                    ),
+                                                                    Container(
+                                                                      height: 40,
+                                                                      width: 40,
+                                                                      decoration: BoxDecoration(
+                                                                          color: Color(
+                                                                              0xfff3efdf),
+                                                                          borderRadius:
+                                                                              BorderRadius.all(Radius.circular(50))),
+                                                                      child:
+                                                                          IconButton(
+                                                                        icon:
+                                                                            Icon(
+                                                                          Icons
+                                                                              .bookmark_border,
+                                                                          size:
+                                                                              24,
+                                                                          color: Color(
+                                                                              0x99f5410a),
+                                                                        ),
+                                                                        onPressed:
+                                                                            () {
+                                                                          print(
+                                                                              'ayah no ${widget.surah!.ayahs![b].numberInSurah}');
+                                                                          TextCubit.addBookmarkText(
+                                                                                  widget.surah!.name!,
+                                                                                  widget.surah!.number!,
+                                                                                  index == 0 ? index + 1 : index + 2,
+                                                                                  // widget.surah!.ayahs![b].page,
+                                                                                  widget.nomPageF,
+                                                                                  widget.nomPageL,
+                                                                                  TextCubit.lastRead)
+                                                                              .then((value) => customSnackBar(context, AppLocalizations.of(context)!.addBookmark));
+                                                                          cancel();
+                                                                        },
+                                                                      ),
+                                                                    ),
+                                                                    SizedBox(
+                                                                      width: 8.0,
+                                                                    ),
+                                                                    Container(
+                                                                      height: 40,
+                                                                      width: 40,
+                                                                      decoration: BoxDecoration(
+                                                                          color: Color(
+                                                                              0xfff3efdf),
+                                                                          borderRadius:
+                                                                              BorderRadius.all(Radius.circular(50))),
+                                                                      child:
+                                                                          IconButton(
+                                                                        icon:
+                                                                            Icon(
+                                                                          Icons
+                                                                              .copy_outlined,
+                                                                          size:
+                                                                              24,
+                                                                          color: Color(
+                                                                              0x99f5410a),
+                                                                        ),
+                                                                        onPressed:
+                                                                            () {
+                                                                          FlutterClipboard
+                                                                              .copy(
+                                                                            '﴿${widget.surah!.ayahs![b].text}﴾ '
+                                                                            '[${widget.surah!.name}-'
+                                                                            '${arabicNumber.convert(widget.surah!.ayahs![b].numberInSurah.toString())}]',
+                                                                          ).then((value) => customSnackBar(
+                                                                              context,
+                                                                              AppLocalizations.of(context)!.copyAyah));
+                                                                          cancel();
+                                                                        },
+                                                                      ),
+                                                                    ),
+                                                                    SizedBox(
+                                                                      width: 8.0,
+                                                                    ),
+                                                                    Container(
+                                                                      height: 40,
+                                                                      width: 40,
+                                                                      decoration: BoxDecoration(
+                                                                          color: Color(
+                                                                              0xfff3efdf),
+                                                                          borderRadius:
+                                                                              BorderRadius.all(Radius.circular(50))),
+                                                                      child:
+                                                                          IconButton(
+                                                                        icon:
+                                                                            Icon(
+                                                                          Icons
+                                                                              .play_arrow_outlined,
+                                                                          size:
+                                                                              24,
+                                                                          color: Color(
+                                                                              0x99f5410a),
+                                                                        ),
+                                                                        onPressed:
+                                                                            () {
+                                                                          switch (TextCubit
+                                                                              .controller
+                                                                              .status) {
+                                                                            case AnimationStatus
+                                                                                .dismissed:
+                                                                              TextCubit.controller.forward();
+                                                                              break;
+                                                                            case AnimationStatus
+                                                                                .completed:
+                                                                              TextCubit.controller.reverse();
+                                                                              break;
+                                                                            default:
                                                                           }
-                                                                        }),
-                                                                  ),
-                                                                  SizedBox(
-                                                                    width: 8.0,
-                                                                  ),
-                                                                  Container(
-                                                                    height: 40,
-                                                                    width: 40,
-                                                                    decoration: BoxDecoration(
-                                                                        color: Color(
-                                                                            0xfff3efdf),
-                                                                        borderRadius:
-                                                                            BorderRadius.all(Radius.circular(50))),
-                                                                    child:
-                                                                        IconButton(
-                                                                      icon:
-                                                                          Icon(
-                                                                        Icons
-                                                                            .bookmark_border,
-                                                                        size:
-                                                                            24,
-                                                                        color: Color(
-                                                                            0x99f5410a),
+                                                                          cancel();
+                                                                        },
                                                                       ),
-                                                                      onPressed:
-                                                                          () {
-                                                                        print(
-                                                                            'ayah no ${widget.surah!.ayahs![b].numberInSurah}');
-                                                                        TextCubit.addBookmarkText(
-                                                                                widget.surah!.name!,
-                                                                                widget.surah!.number!,
-                                                                                index == 0 ? index + 1 : index + 2,
-                                                                                // widget.surah!.ayahs![b].page,
-                                                                                widget.nomPageF,
-                                                                                widget.nomPageL,
-                                                                                TextCubit.lastRead)
-                                                                            .then((value) => customSnackBar(context, AppLocalizations.of(context)!.addBookmark));
-                                                                        cancel();
-                                                                      },
                                                                     ),
-                                                                  ),
-                                                                  SizedBox(
-                                                                    width: 8.0,
-                                                                  ),
-                                                                  Container(
-                                                                    height: 40,
-                                                                    width: 40,
-                                                                    decoration: BoxDecoration(
-                                                                        color: Color(
-                                                                            0xfff3efdf),
-                                                                        borderRadius:
-                                                                            BorderRadius.all(Radius.circular(50))),
-                                                                    child:
-                                                                        IconButton(
-                                                                      icon:
-                                                                          Icon(
-                                                                        Icons
-                                                                            .copy_outlined,
-                                                                        size:
-                                                                            24,
-                                                                        color: Color(
-                                                                            0x99f5410a),
+                                                                    SizedBox(
+                                                                      width: 8.0,
+                                                                    ),
+                                                                    Container(
+                                                                      height: 40,
+                                                                      width: 40,
+                                                                      decoration: BoxDecoration(
+                                                                          color: Color(
+                                                                              0xfff3efdf),
+                                                                          borderRadius:
+                                                                              BorderRadius.all(Radius.circular(50))),
+                                                                      child:
+                                                                          IconButton(
+                                                                        icon:
+                                                                            Icon(
+                                                                          Icons
+                                                                              .share_outlined,
+                                                                          size:
+                                                                              23,
+                                                                          color: Color(
+                                                                              0x99f5410a),
+                                                                        ),
+                                                                        onPressed:
+                                                                            () {
+                                                                              final verseNumber = widget.surah!.ayahs![b].numberInSurah!;
+                                                                              final translation = translateData?[verseNumber - 1]['text'];
+                                                                              QuranCubit.get(context).showVerseOptionsBottomSheet(context, verseNumber, widget.surah!.number, "${widget.surah!.ayahs![b].text}", translation ?? '', widget.surah!.name);
+                                                                              print("Verse Number: $verseNumber");
+                                                                              print("Translation: translation");
+                                                                          cancel();
+                                                                        },
                                                                       ),
-                                                                      onPressed:
-                                                                          () {
-                                                                        FlutterClipboard
-                                                                            .copy(
-                                                                          '﴿${widget.surah!.ayahs![b].text}﴾ '
-                                                                          '[${widget.surah!.name}-'
-                                                                          '${arabicNumber.convert(widget.surah!.ayahs![b].numberInSurah.toString())}]',
-                                                                        ).then((value) => customSnackBar(
-                                                                            context,
-                                                                            AppLocalizations.of(context)!.copyAyah));
-                                                                        cancel();
-                                                                      },
                                                                     ),
-                                                                  ),
-                                                                  SizedBox(
-                                                                    width: 8.0,
-                                                                  ),
-                                                                  Container(
-                                                                    height: 40,
-                                                                    width: 40,
-                                                                    decoration: BoxDecoration(
-                                                                        color: Color(
-                                                                            0xfff3efdf),
-                                                                        borderRadius:
-                                                                            BorderRadius.all(Radius.circular(50))),
-                                                                    child:
-                                                                        IconButton(
-                                                                      icon:
-                                                                          Icon(
-                                                                        Icons
-                                                                            .play_arrow_outlined,
-                                                                        size:
-                                                                            24,
-                                                                        color: Color(
-                                                                            0x99f5410a),
-                                                                      ),
-                                                                      onPressed:
-                                                                          () {
-                                                                        switch (TextCubit
-                                                                            .controller
-                                                                            .status) {
-                                                                          case AnimationStatus
-                                                                              .dismissed:
-                                                                            TextCubit.controller.forward();
-                                                                            break;
-                                                                          case AnimationStatus
-                                                                              .completed:
-                                                                            TextCubit.controller.reverse();
-                                                                            break;
-                                                                          default:
-                                                                        }
-                                                                        cancel();
-                                                                      },
-                                                                    ),
-                                                                  ),
-                                                                  SizedBox(
-                                                                    width: 8.0,
-                                                                  ),
-                                                                  Container(
-                                                                    height: 40,
-                                                                    width: 40,
-                                                                    decoration: BoxDecoration(
-                                                                        color: Color(
-                                                                            0xfff3efdf),
-                                                                        borderRadius:
-                                                                            BorderRadius.all(Radius.circular(50))),
-                                                                    child:
-                                                                        IconButton(
-                                                                      icon:
-                                                                          Icon(
-                                                                        Icons
-                                                                            .share_outlined,
-                                                                        size:
-                                                                            23,
-                                                                        color: Color(
-                                                                            0x99f5410a),
-                                                                      ),
-                                                                      onPressed:
-                                                                          () {
-                                                                            final verseNumber = widget.surah!.ayahs![b].numberInSurah!;
-                                                                            final translation = translateData?[verseNumber - 1]['text'];
-                                                                            QuranCubit.get(context).showVerseOptionsBottomSheet(context, verseNumber, widget.surah!.number, "${widget.surah!.ayahs![b].text}", translation ?? '', widget.surah!.name);
-                                                                            print("Verse Number: $verseNumber");
-                                                                            print("Translation: translation");
-                                                                        cancel();
-                                                                      },
-                                                                    ),
-                                                                  ),
-                                                                ],
+                                                                  ],
+                                                                ),
                                                               ),
                                                             ),
-                                                          ),
-                                                        );
-                                                        print(
-                                                            '${widget.surah!.name!}');
-                                                        print(
-                                                            '${widget.surah!.number!}');
-                                                        print(
-                                                            '${widget.surah!.ayahs![b].numberInSurah}');
-                                                        print(
-                                                            '${widget.nomPageF}');
-                                                        print(
-                                                            '${widget.nomPageL}');
-                                                        setState(() {
-                                                          backColor = Colors
-                                                              .transparent;
-                                                          TextCubit.sorahName =
-                                                              widget.surah!
-                                                                  .number!
-                                                                  .toString();
-                                                          TextCubit.ayahNum =
-                                                              widget
-                                                                  .surah!
-                                                                  .ayahs![b]
-                                                                  .numberInSurah
-                                                                  .toString();
-                                                          TextCubit
-                                                              .isSelected = widget
-                                                                  .surah!
-                                                                  .ayahs![b]
-                                                                  .numberInSurah! -
-                                                              1;
-                                                        });
-                                                      })
-                                          ]));
-                                          text.add(
-                                            TextSpan(children: [
-                                              TextSpan(
-                                                text:
-                                                    ' ${arabicNumber.convert(widget.surah!.ayahs![b].numberInSurah.toString())} ',
-                                                style: TextStyle(
-                                                  fontSize: TextPageView
-                                                          .fontSizeArabic +
-                                                      5,
-                                                  fontWeight: FontWeight.w500,
-                                                  fontFamily: 'uthmanic2',
-                                                  color: ThemeProvider
-                                                                  .themeOf(
-                                                                      context)
-                                                              .id ==
-                                                          'dark'
-                                                      ? Theme.of(context)
-                                                          .colorScheme
-                                                          .surface
-                                                      : Theme.of(context)
-                                                          .primaryColorLight,
-                                                ),
-                                              )
-                                            ]),
-                                          );
+                                                          );
+                                                          print(
+                                                              '${widget.surah!.name!}');
+                                                          print(
+                                                              '${widget.surah!.number!}');
+                                                          print(
+                                                              '${widget.surah!.ayahs![b].numberInSurah}');
+                                                          print(
+                                                              '${widget.nomPageF}');
+                                                          print(
+                                                              '${widget.nomPageL}');
+                                                          setState(() {
+                                                            backColor = Colors
+                                                                .transparent;
+                                                            TextCubit.sorahName =
+                                                                widget.surah!
+                                                                    .number!
+                                                                    .toString();
+                                                            TextCubit.ayahNum =
+                                                                widget
+                                                                    .surah!
+                                                                    .ayahs![b]
+                                                                    .numberInSurah
+                                                                    .toString();
+                                                            TextCubit
+                                                                .isSelected = widget
+                                                                    .surah!
+                                                                    .ayahs![b]
+                                                                    .numberInSurah! -
+                                                                1;
+                                                          });
+                                                        })
+                                            ]));
+                                            text.add(
+                                              TextSpan(children: [
+                                                TextSpan(
+                                                  text:
+                                                      ' ${arabicNumber.convert(widget.surah!.ayahs![b].numberInSurah.toString())} ',
+                                                  style: TextStyle(
+                                                    fontSize: TextPageView
+                                                            .fontSizeArabic +
+                                                        5,
+                                                    fontWeight: FontWeight.w500,
+                                                    fontFamily: 'uthmanic2',
+                                                    color: ThemeProvider
+                                                                    .themeOf(
+                                                                        context)
+                                                                .id ==
+                                                            'dark'
+                                                        ? Theme.of(context)
+                                                            .colorScheme
+                                                            .surface
+                                                        : Theme.of(context)
+                                                            .primaryColorLight,
+                                                  ),
+                                                )
+                                              ]),
+                                            );
+                                          }
                                         }
                                       }
                                     }
-                                  }
-                                  return TextCubit.value == 1
-                                      ? Stack(
-                                          children: [
-                                            GestureDetector(
-                                              onTap: () {
-                                                TextCubit.controller.reverse();
-                                                setState(() {
-                                                  backColor =
-                                                      Colors.transparent;
-                                                });
-                                              },
-                                              // child: AutoScrollTag(
-                                              //   key: ValueKey(index),
-                                              //   controller: TextCubit.scrollController!,
-                                              //   index: index,
-                                              child: Container(
-                                                margin:
-                                                    const EdgeInsets.symmetric(
-                                                        horizontal: 16,
-                                                        vertical: 4),
-                                                width: MediaQuery.of(context)
-                                                    .size
-                                                    .width,
-                                                decoration: BoxDecoration(
-                                                    color: Theme.of(context)
-                                                        .colorScheme
-                                                        .background,
-                                                    borderRadius:
-                                                        const BorderRadius.all(
-                                                            Radius.circular(
-                                                                4))),
-                                                child: Column(
-                                                  children: [
-                                                    Center(
-                                                      child: SizedBox(
-                                                          height: 50,
-                                                          width: MediaQuery.of(
-                                                                      context)
-                                                                  .size
-                                                                  .width /
-                                                              1 /
-                                                              2,
-                                                          child:
-                                                              SvgPicture.asset(
-                                                            'assets/svg/space_line.svg',
-                                                          )),
-                                                    ),
-                                                    widget.surah!.number == 9
-                                                        ? Container()
-                                                        : widget
-                                                                    .surah!
-                                                                    .ayahs![
-                                                                        index]
-                                                                    .numberInSurah ==
-                                                                1
-                                                            ? SvgPicture.asset(
-                                                                'assets/svg/besmAllah.svg',
-                                                                width: 200,
-                                                                colorFilter: ColorFilter.mode(
-                                                                    Theme.of(
-                                                                            context)
-                                                                        .cardColor
-                                                                        .withOpacity(
-                                                                            .8),
-                                                                    BlendMode
-                                                                        .srcIn),
-                                                              )
-                                                            : Container(),
-                                                    Container(
-                                                      padding: const EdgeInsets
-                                                              .symmetric(
-                                                          horizontal: 32),
-                                                      child:
-                                                          SelectableText.rich(
-                                                        showCursor: true,
-                                                        cursorWidth: 3,
-                                                        cursorColor:
-                                                            Theme.of(context)
-                                                                .dividerColor,
-                                                        cursorRadius:
-                                                            const Radius
-                                                                .circular(5),
-                                                        scrollPhysics:
-                                                            const ClampingScrollPhysics(),
-                                                        textDirection:
-                                                            TextDirection.rtl,
-                                                        textAlign:
-                                                            TextAlign.justify,
-                                                        TextSpan(children: [
-                                                          TextSpan(
-                                                              text: widget
-                                                                  .surah!
-                                                                  .ayahs![index]
-                                                                  .text!,
-                                                              style: TextStyle(
-                                                                fontSize:
-                                                                    TextPageView
-                                                                        .fontSizeArabic,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .normal,
-                                                                fontFamily:
-                                                                    'uthmanic2',
-                                                                color: ThemeProvider.themeOf(context)
-                                                                            .id ==
-                                                                        'dark'
-                                                                    ? Colors
-                                                                        .white
-                                                                    : Colors
-                                                                        .black,
-                                                                background:
-                                                                    Paint()
-                                                                      ..color = index ==
-                                                                              TextCubit.isSelected
-                                                                          ? backColor
-                                                                          : Colors.transparent
-                                                                      ..strokeJoin =
-                                                                          StrokeJoin
-                                                                              .round
-                                                                      ..strokeCap =
-                                                                          StrokeCap
-                                                                              .round
-                                                                      ..style =
-                                                                          PaintingStyle
-                                                                              .fill,
-                                                              ),
-                                                              recognizer:
-                                                                  TapGestureRecognizer()
-                                                                    ..onTapDown =
-                                                                        (TapDownDetails
-                                                                            details) {
-                                                                      setState(
-                                                                          () {
-                                                                        backColor =
-                                                                            Colors.transparent;
-                                                                        TextCubit.sorahName = widget
-                                                                            .surah!
-                                                                            .number!
-                                                                            .toString();
-                                                                        TextCubit.ayahNum = widget
-                                                                            .surah!
-                                                                            .ayahs![index]
-                                                                            .numberInSurah
-                                                                            .toString();
-                                                                        TextCubit.isSelected =
-                                                                            index;
-                                                                      });
-                                                                      var cancel =
-                                                                          BotToast
-                                                                              .showAttachedWidget(
-                                                                        target:
-                                                                            details.globalPosition,
-                                                                        verticalOffset:
-                                                                            TextCubit.verticalOffset,
-                                                                        horizontalOffset:
-                                                                            TextCubit.horizontalOffset,
-                                                                        preferDirection:
-                                                                            TextCubit.preferDirection,
-                                                                        animationDuration:
-                                                                            Duration(microseconds: 700),
-                                                                        animationReverseDuration:
-                                                                            Duration(microseconds: 700),
-                                                                        attachedBuilder:
-                                                                            (cancel) =>
-                                                                                Card(
-                                                                          color: Theme.of(context)
-                                                                              .colorScheme
-                                                                              .surface,
-                                                                          shape:
-                                                                              RoundedRectangleBorder(
-                                                                            borderRadius:
-                                                                                BorderRadius.circular(8),
-                                                                          ),
-                                                                          child:
-                                                                              Padding(
-                                                                            padding:
-                                                                                const EdgeInsets.symmetric(horizontal: 10.0, vertical: 6.0),
-                                                                            child:
-                                                                                Row(
-                                                                              mainAxisSize: MainAxisSize.min,
-                                                                              children: [
-                                                                                Container(
-                                                                                  height: 40,
-                                                                                  width: 40,
-                                                                                  decoration: BoxDecoration(color: Color(0xfff3efdf), borderRadius: BorderRadius.all(Radius.circular(50))),
-                                                                                  child: FutureBuilder<List<Ayat>>(
-                                                                                      future: QuranCubit.get(context).handleRadioValueChanged(context, QuranCubit.get(context).radioValue).getAyahTranslate((widget.surah!.number)),
-                                                                                      builder: (context, snapshot) {
-                                                                                        if (snapshot.connectionState == ConnectionState.done) {
-                                                                                          List<Ayat>? ayat = snapshot.data;
-                                                                                          Ayat aya = ayat![index];
-                                                                                          return IconButton(
-                                                                                            icon: Icon(
-                                                                                              Icons.text_snippet_outlined,
-                                                                                              size: 24,
-                                                                                              color: Color(0x99f5410a),
-                                                                                            ),
-                                                                                            onPressed: () {
-                                                                                              TextCubit.translateAyah = "${aya.ayatext}";
-                                                                                              TextCubit.translate = "${aya.translate}";
-                                                                                              // showModalBottomSheet<void>(
-                                                                                              //   context: context,
-                                                                                              //   builder: (BuildContext context) {
-                                                                                              //     return ShowTextTafseer();
-                                                                                              //   },
-                                                                                              // );
-                                                                                              if (TextCubit.isShowBottomSheet) {
-                                                                                                Navigator.pop(context);
-                                                                                              } else {
-                                                                                                TPageScaffoldKey.currentState?.showBottomSheet(
-                                                                                                    shape: const RoundedRectangleBorder(borderRadius: BorderRadius.only(topLeft: Radius.circular(8), topRight: Radius.circular(8))),
-                                                                                                    backgroundColor: Colors.transparent,
-                                                                                                    (context) => Align(
-                                                                                                          alignment: Alignment.bottomCenter,
-                                                                                                          child: Padding(
-                                                                                                            padding: orientation(context, const EdgeInsets.symmetric(horizontal: 16.0), const EdgeInsets.symmetric(horizontal: 64.0)),
-                                                                                                            child: Container(
-                                                                                                              height: orientation(context, MediaQuery.of(context).size.height * 1 / 2, platformView(MediaQuery.of(context).size.height, MediaQuery.of(context).size.height * 3/4)),
-                                                                                                              width: MediaQuery.of(context).size.width,
-                                                                                                              decoration: BoxDecoration(
-                                                                                                                borderRadius: const BorderRadius.only(topRight: Radius.circular(12.0), topLeft: Radius.circular(12.0)),
-                                                                                                                color: Theme.of(context).colorScheme.background,
-                                                                                                              ),
-                                                                                                              child: const ShowTextTafseer(),
-                                                                                                            ),
-                                                                                                          ),
-                                                                                                        ),
-                                                                                                    elevation: 100);
-                                                                                              }
-                                                                                              // quranTextTafseer(context, TPageScaffoldKey,
-                                                                                              //     MediaQuery.of(context).size.width);
-                                                                                              cancel();
-                                                                                            },
-                                                                                          );
-                                                                                        } else {
-                                                                                          return Center(child: Lottie.asset('assets/lottie/search.json', width: 100, height: 40));
-                                                                                        }
-                                                                                      }),
-                                                                                ),
-                                                                                SizedBox(
-                                                                                  width: 8.0,
-                                                                                ),
-                                                                                Container(
-                                                                                  height: 40,
-                                                                                  width: 40,
-                                                                                  decoration: BoxDecoration(color: Color(0xfff3efdf), borderRadius: BorderRadius.all(Radius.circular(50))),
-                                                                                  child: IconButton(
-                                                                                    icon: Icon(
-                                                                                      Icons.bookmark_border,
-                                                                                      size: 24,
-                                                                                      color: Color(0x99f5410a),
-                                                                                    ),
-                                                                                    onPressed: () {
-                                                                                      TextCubit.addBookmarkText(
-                                                                                              widget.surah!.name!,
-                                                                                              widget.surah!.number!,
-                                                                                              widget.surah!.ayahs![index].numberInSurah,
-                                                                                              // widget.surah!.ayahs![b].page,
-                                                                                              widget.nomPageF,
-                                                                                              widget.nomPageL,
-                                                                                              TextCubit.lastRead)
-                                                                                          .then((value) => customSnackBar(context, AppLocalizations.of(context)!.addBookmark));
-                                                                                      cancel();
-                                                                                    },
-                                                                                  ),
-                                                                                ),
-                                                                                SizedBox(
-                                                                                  width: 8.0,
-                                                                                ),
-                                                                                Container(
-                                                                                  height: 40,
-                                                                                  width: 40,
-                                                                                  decoration: BoxDecoration(color: Color(0xfff3efdf), borderRadius: BorderRadius.all(Radius.circular(50))),
-                                                                                  child: IconButton(
-                                                                                    icon: Icon(
-                                                                                      Icons.copy_outlined,
-                                                                                      size: 24,
-                                                                                      color: Color(0x99f5410a),
-                                                                                    ),
-                                                                                    onPressed: () {
-                                                                                      FlutterClipboard.copy(
-                                                                                        '﴿${widget.surah!.ayahs![index].text}﴾ '
-                                                                                        '[${widget.surah!.name}-'
-                                                                                        '${arabicNumber.convert(widget.surah!.ayahs![index].numberInSurah.toString())}]',
-                                                                                      ).then((value) => customSnackBar(context, AppLocalizations.of(context)!.copyAyah));
-                                                                                      cancel();
-                                                                                    },
-                                                                                  ),
-                                                                                ),
-                                                                                SizedBox(
-                                                                                  width: 8.0,
-                                                                                ),
-                                                                                Container(
-                                                                                  height: 40,
-                                                                                  width: 40,
-                                                                                  decoration: BoxDecoration(color: Color(0xfff3efdf), borderRadius: BorderRadius.all(Radius.circular(50))),
-                                                                                  child: IconButton(
-                                                                                    icon: Icon(
-                                                                                      Icons.play_arrow_outlined,
-                                                                                      size: 24,
-                                                                                      color: Color(0x99f5410a),
-                                                                                    ),
-                                                                                    onPressed: () {
-                                                                                      switch (TextCubit.controller.status) {
-                                                                                        case AnimationStatus.dismissed:
-                                                                                          TextCubit.controller.forward();
-                                                                                          break;
-                                                                                        case AnimationStatus.completed:
-                                                                                          TextCubit.controller.reverse();
-                                                                                          break;
-                                                                                        default:
-                                                                                      }
-                                                                                      cancel();
-                                                                                    },
-                                                                                  ),
-                                                                                ),
-                                                                                SizedBox(
-                                                                                  width: 8.0,
-                                                                                ),
-                                                                                Container(
-                                                                                  height: 40,
-                                                                                  width: 40,
-                                                                                  decoration: BoxDecoration(color: Color(0xfff3efdf), borderRadius: BorderRadius.all(Radius.circular(50))),
-                                                                                  child: IconButton(
-                                                                                    icon: Icon(
-                                                                                      Icons.share_outlined,
-                                                                                      size: 23,
-                                                                                      color: Color(0x99f5410a),
-                                                                                    ),
-                                                                                    onPressed: () {
-                                                                                      setState(() {});
-                                                                                      final verseNumber = widget.surah!.ayahs![index].numberInSurah!;
-                                                                                      final translation = translateData?[verseNumber - 1]['text'];
-                                                                                      QuranCubit.get(context).showVerseOptionsBottomSheet(context, verseNumber, widget.surah!.number, "${widget.surah!.ayahs![index].text}", translation ?? '', widget.surah!.name);
-                                                                                      print("Verse Number: $verseNumber");
-                                                                                      print("Translation: translation");
-                                                                                      cancel();
-                                                                                    },
-                                                                                  ),
-                                                                                ),
-                                                                              ],
-                                                                            ),
-                                                                          ),
-                                                                        ),
-                                                                      );
-                                                                      print(
-                                                                          '${widget.surah!.name!}');
-                                                                      print(
-                                                                          '${widget.surah!.number!}');
-                                                                      print(
-                                                                          '${widget.surah!.ayahs![index].numberInSurah}');
-                                                                      print(
-                                                                          '${widget.nomPageF}');
-                                                                      print(
-                                                                          '${widget.nomPageL}');
-                                                                    }),
-                                                          TextSpan(
-                                                            text:
-                                                                ' ${arabicNumber.convert(widget.surah!.ayahs![index].numberInSurah.toString())}',
-                                                            style: TextStyle(
-                                                              fontSize: TextPageView
-                                                                      .fontSizeArabic +
-                                                                  5,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .w500,
-                                                              fontFamily:
-                                                                  'uthmanic2',
-                                                              color: ThemeProvider.themeOf(
+                                    return TextCubit.value == 1
+                                        ? Stack(
+                                            children: [
+                                              GestureDetector(
+                                                onTap: () {
+                                                  TextCubit.controller.reverse();
+                                                  setState(() {
+                                                    backColor =
+                                                        Colors.transparent;
+                                                  });
+                                                },
+                                                // child: AutoScrollTag(
+                                                //   key: ValueKey(index),
+                                                //   controller: TextCubit.scrollController!,
+                                                //   index: index,
+                                                child: Container(
+                                                  margin:
+                                                      const EdgeInsets.symmetric(
+                                                          horizontal: 16,
+                                                          vertical: 4),
+                                                  width: MediaQuery.of(context)
+                                                      .size
+                                                      .width,
+                                                  decoration: BoxDecoration(
+                                                      color: Theme.of(context)
+                                                          .colorScheme
+                                                          .background,
+                                                      borderRadius:
+                                                          const BorderRadius.all(
+                                                              Radius.circular(
+                                                                  4))),
+                                                  child: Column(
+                                                    children: [
+                                                      Center(
+                                                        child: SizedBox(
+                                                            height: 50,
+                                                            width: MediaQuery.of(
+                                                                        context)
+                                                                    .size
+                                                                    .width /
+                                                                1 /
+                                                                2,
+                                                            child:
+                                                                SvgPicture.asset(
+                                                              'assets/svg/space_line.svg',
+                                                            )),
+                                                      ),
+                                                      widget.surah!.number == 9
+                                                          ? Container()
+                                                          : widget
+                                                                      .surah!
+                                                                      .ayahs![
+                                                                          index]
+                                                                      .numberInSurah ==
+                                                                  1
+                                                              ? SvgPicture.asset(
+                                                                  'assets/svg/besmAllah.svg',
+                                                                  width: 200,
+                                                                  colorFilter: ColorFilter.mode(
+                                                                      Theme.of(
                                                                               context)
-                                                                          .id ==
-                                                                      'dark'
-                                                                  ? Theme.of(
-                                                                          context)
-                                                                      .colorScheme
-                                                                      .surface
-                                                                  : Theme.of(
-                                                                          context)
-                                                                      .primaryColorLight,
-                                                            ),
-                                                          )
-                                                        ]),
-                                                      ),
-                                                    ),
-                                                    Padding(
-                                                      padding: const EdgeInsets
-                                                              .symmetric(
-                                                          horizontal: 16),
-                                                      child: SizedBox(
-                                                        width: MediaQuery.of(
-                                                                context)
-                                                            .size
-                                                            .width,
-                                                        child: Stack(
-                                                          alignment:
-                                                              Alignment.center,
-                                                          children: [
-                                                            Align(
-                                                                alignment: Alignment
-                                                                    .centerRight,
-                                                                child:
-                                                                    translateDropDown(
-                                                                        context)),
-                                                            SizedBox(
-                                                                height: 40,
-                                                                width: MediaQuery.of(
-                                                                            context)
-                                                                        .size
-                                                                        .width /
-                                                                    1 /
-                                                                    2,
-                                                                child:
-                                                                    SvgPicture
-                                                                        .asset(
-                                                                  'assets/svg/space_line.svg',
-                                                                )),
-                                                            Align(
-                                                              alignment: Alignment
-                                                                  .bottomLeft,
-                                                              child: juzNumEn(
-                                                                'Part\n${widget.surah!.ayahs![index].juz}',
-                                                                context,
-                                                                ThemeProvider.themeOf(context)
-                                                                            .id ==
-                                                                        'dark'
-                                                                    ? Colors
-                                                                        .white
-                                                                    : Colors
-                                                                        .black,
-                                                              ),
-                                                            ),
-                                                          ],
-                                                        ),
-                                                      ),
-                                                    ),
-                                                    Padding(
-                                                      padding:
-                                                          const EdgeInsets.only(
-                                                              bottom: 16.0,
-                                                              right: 32.0,
-                                                              left: 32.0),
-                                                      child: BlocBuilder<
-                                                          TranslateDataCubit,
-                                                          TranslateDataState>(
-                                                        builder:
-                                                            (context, state) {
-                                                          if (state.isLoading) {
-                                                            // Display a loading indicator while the translation data is being fetched
-                                                            return Lottie.asset(
-                                                                'assets/lottie/search.json',
-                                                                width: 50);
-                                                          } else {
-                                                            final translateData =
-                                                                state.data;
-                                                            if (translateData !=
-                                                                    null &&
-                                                                translateData
-                                                                    .isNotEmpty) {
-                                                              // Use the translation variable in your widget tree
-                                                              return ReadMoreLess(
-                                                                text: translateData![
-                                                                            index]
-                                                                        [
-                                                                        'text'] ??
-                                                                    '',
-                                                                textStyle:
-                                                                    TextStyle(
+                                                                          .cardColor
+                                                                          .withOpacity(
+                                                                              .8),
+                                                                      BlendMode
+                                                                          .srcIn),
+                                                                )
+                                                              : Container(),
+                                                      Container(
+                                                        padding: const EdgeInsets
+                                                                .symmetric(
+                                                            horizontal: 32),
+                                                        child:
+                                                            SelectableText.rich(
+
+                                                          showCursor: true,
+                                                          cursorWidth: 3,
+                                                          cursorColor:
+                                                              Theme.of(context)
+                                                                  .dividerColor,
+                                                          cursorRadius:
+                                                              const Radius
+                                                                  .circular(5),
+                                                          scrollPhysics:
+                                                              const ClampingScrollPhysics(),
+                                                          textDirection:
+                                                              TextDirection.rtl,
+                                                          textAlign:
+                                                              TextAlign.justify,
+                                                          TextSpan(children: [
+                                                            TextSpan(
+                                                                text: widget
+                                                                    .surah!
+                                                                    .ayahs![index]
+                                                                    .text!,
+                                                                style: TextStyle(
                                                                   fontSize:
                                                                       TextPageView
-                                                                              .fontSizeArabic -
-                                                                          10,
+                                                                          .fontSizeArabic,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .normal,
                                                                   fontFamily:
-                                                                      'kufi',
+                                                                      'uthmanic2',
                                                                   color: ThemeProvider.themeOf(context)
                                                                               .id ==
                                                                           'dark'
@@ -1426,24 +1053,385 @@ class _TextPageViewState extends State<TextPageView>
                                                                           .white
                                                                       : Colors
                                                                           .black,
+                                                                  background:
+                                                                      Paint()
+                                                                        ..color = index ==
+                                                                                TextCubit.isSelected
+                                                                            ? backColor
+                                                                            : Colors.transparent
+                                                                        ..strokeJoin =
+                                                                            StrokeJoin
+                                                                                .round
+                                                                        ..strokeCap =
+                                                                            StrokeCap
+                                                                                .round
+                                                                        ..style =
+                                                                            PaintingStyle
+                                                                                .fill,
                                                                 ),
-                                                                textAlign:
-                                                                    TextAlign
-                                                                        .justify,
-                                                                readMoreText:
-                                                                    AppLocalizations.of(
-                                                                            context)!
-                                                                        .readMore,
-                                                                readLessText:
-                                                                    AppLocalizations.of(
-                                                                            context)!
-                                                                        .readLess,
-                                                                buttonTextStyle:
-                                                                    TextStyle(
-                                                                  fontSize: 12,
-                                                                  fontFamily:
-                                                                      'kufi',
-                                                                  color: ThemeProvider.themeOf(context)
+                                                                recognizer:
+                                                                    TapGestureRecognizer()
+                                                                      ..onTapDown =
+                                                                          (TapDownDetails
+                                                                              details) {
+                                                                        setState(
+                                                                            () {
+                                                                          backColor =
+                                                                              Colors.transparent;
+                                                                          TextCubit.sorahName = widget
+                                                                              .surah!
+                                                                              .number!
+                                                                              .toString();
+                                                                          TextCubit.ayahNum = widget
+                                                                              .surah!
+                                                                              .ayahs![index]
+                                                                              .numberInSurah
+                                                                              .toString();
+                                                                          TextCubit.isSelected =
+                                                                              index;
+                                                                        });
+                                                                        var cancel =
+                                                                            BotToast
+                                                                                .showAttachedWidget(
+                                                                          target:
+                                                                              details.globalPosition,
+                                                                          verticalOffset:
+                                                                              TextCubit.verticalOffset,
+                                                                          horizontalOffset:
+                                                                              TextCubit.horizontalOffset,
+                                                                          preferDirection:
+                                                                              TextCubit.preferDirection,
+                                                                          animationDuration:
+                                                                              Duration(microseconds: 700),
+                                                                          animationReverseDuration:
+                                                                              Duration(microseconds: 700),
+                                                                          attachedBuilder:
+                                                                              (cancel) =>
+                                                                                  Card(
+                                                                            color: Theme.of(context)
+                                                                                .colorScheme
+                                                                                .surface,
+                                                                            shape:
+                                                                                RoundedRectangleBorder(
+                                                                              borderRadius:
+                                                                                  BorderRadius.circular(8),
+                                                                            ),
+                                                                            child:
+                                                                                Padding(
+                                                                              padding:
+                                                                                  const EdgeInsets.symmetric(horizontal: 10.0, vertical: 6.0),
+                                                                              child:
+                                                                                  Row(
+                                                                                mainAxisSize: MainAxisSize.min,
+                                                                                children: [
+                                                                                  Container(
+                                                                                    height: 40,
+                                                                                    width: 40,
+                                                                                    decoration: BoxDecoration(color: Color(0xfff3efdf), borderRadius: BorderRadius.all(Radius.circular(50))),
+                                                                                    child: FutureBuilder<List<Ayat>>(
+                                                                                        future: QuranCubit.get(context).handleRadioValueChanged(context, QuranCubit.get(context).radioValue).getAyahTranslate((widget.surah!.number)),
+                                                                                        builder: (context, snapshot) {
+                                                                                          if (snapshot.connectionState == ConnectionState.done) {
+                                                                                            List<Ayat>? ayat = snapshot.data;
+                                                                                            Ayat aya = ayat![index];
+                                                                                            return IconButton(
+                                                                                              icon: Icon(
+                                                                                                Icons.text_snippet_outlined,
+                                                                                                size: 24,
+                                                                                                color: Color(0x99f5410a),
+                                                                                              ),
+                                                                                              onPressed: () {
+                                                                                                TextCubit.translateAyah = "${aya.ayatext}";
+                                                                                                TextCubit.translate = "${aya.translate}";
+                                                                                                // showModalBottomSheet<void>(
+                                                                                                //   context: context,
+                                                                                                //   builder: (BuildContext context) {
+                                                                                                //     return ShowTextTafseer();
+                                                                                                //   },
+                                                                                                // );
+                                                                                                allModalBottomSheet(context,
+                                                                                                  MediaQuery.of(context).size.height / 1/2,
+                                                                                                  MediaQuery.of(context).size.width,
+                                                                                                  const ShowTextTafseer(),
+                                                                                                );
+                                                                                                // quranTextTafseer(context, TPageScaffoldKey,
+                                                                                                //     MediaQuery.of(context).size.width);
+                                                                                                cancel();
+                                                                                              },
+                                                                                            );
+                                                                                          } else {
+                                                                                            return Center(child: Lottie.asset('assets/lottie/search.json', width: 100, height: 40));
+                                                                                          }
+                                                                                        }),
+                                                                                  ),
+                                                                                  SizedBox(
+                                                                                    width: 8.0,
+                                                                                  ),
+                                                                                  Container(
+                                                                                    height: 40,
+                                                                                    width: 40,
+                                                                                    decoration: BoxDecoration(color: Color(0xfff3efdf), borderRadius: BorderRadius.all(Radius.circular(50))),
+                                                                                    child: IconButton(
+                                                                                      icon: Icon(
+                                                                                        Icons.bookmark_border,
+                                                                                        size: 24,
+                                                                                        color: Color(0x99f5410a),
+                                                                                      ),
+                                                                                      onPressed: () {
+                                                                                        TextCubit.addBookmarkText(
+                                                                                                widget.surah!.name!,
+                                                                                                widget.surah!.number!,
+                                                                                                widget.surah!.ayahs![index].numberInSurah,
+                                                                                                // widget.surah!.ayahs![b].page,
+                                                                                                widget.nomPageF,
+                                                                                                widget.nomPageL,
+                                                                                                TextCubit.lastRead)
+                                                                                            .then((value) => customSnackBar(context, AppLocalizations.of(context)!.addBookmark));
+                                                                                        cancel();
+                                                                                      },
+                                                                                    ),
+                                                                                  ),
+                                                                                  SizedBox(
+                                                                                    width: 8.0,
+                                                                                  ),
+                                                                                  Container(
+                                                                                    height: 40,
+                                                                                    width: 40,
+                                                                                    decoration: BoxDecoration(color: Color(0xfff3efdf), borderRadius: BorderRadius.all(Radius.circular(50))),
+                                                                                    child: IconButton(
+                                                                                      icon: Icon(
+                                                                                        Icons.copy_outlined,
+                                                                                        size: 24,
+                                                                                        color: Color(0x99f5410a),
+                                                                                      ),
+                                                                                      onPressed: () {
+                                                                                        FlutterClipboard.copy(
+                                                                                          '﴿${widget.surah!.ayahs![index].text}﴾ '
+                                                                                          '[${widget.surah!.name}-'
+                                                                                          '${arabicNumber.convert(widget.surah!.ayahs![index].numberInSurah.toString())}]',
+                                                                                        ).then((value) => customSnackBar(context, AppLocalizations.of(context)!.copyAyah));
+                                                                                        cancel();
+                                                                                      },
+                                                                                    ),
+                                                                                  ),
+                                                                                  SizedBox(
+                                                                                    width: 8.0,
+                                                                                  ),
+                                                                                  Container(
+                                                                                    height: 40,
+                                                                                    width: 40,
+                                                                                    decoration: BoxDecoration(color: Color(0xfff3efdf), borderRadius: BorderRadius.all(Radius.circular(50))),
+                                                                                    child: IconButton(
+                                                                                      icon: Icon(
+                                                                                        Icons.play_arrow_outlined,
+                                                                                        size: 24,
+                                                                                        color: Color(0x99f5410a),
+                                                                                      ),
+                                                                                      onPressed: () {
+                                                                                        switch (TextCubit.controller.status) {
+                                                                                          case AnimationStatus.dismissed:
+                                                                                            TextCubit.controller.forward();
+                                                                                            break;
+                                                                                          case AnimationStatus.completed:
+                                                                                            TextCubit.controller.reverse();
+                                                                                            break;
+                                                                                          default:
+                                                                                        }
+                                                                                        cancel();
+                                                                                      },
+                                                                                    ),
+                                                                                  ),
+                                                                                  SizedBox(
+                                                                                    width: 8.0,
+                                                                                  ),
+                                                                                  Container(
+                                                                                    height: 40,
+                                                                                    width: 40,
+                                                                                    decoration: BoxDecoration(color: Color(0xfff3efdf), borderRadius: BorderRadius.all(Radius.circular(50))),
+                                                                                    child: IconButton(
+                                                                                      icon: Icon(
+                                                                                        Icons.share_outlined,
+                                                                                        size: 23,
+                                                                                        color: Color(0x99f5410a),
+                                                                                      ),
+                                                                                      onPressed: () {
+                                                                                        setState(() {});
+                                                                                        final verseNumber = widget.surah!.ayahs![index].numberInSurah!;
+                                                                                        final translation = translateData?[verseNumber - 1]['text'];
+                                                                                        QuranCubit.get(context).showVerseOptionsBottomSheet(context, verseNumber, widget.surah!.number, "${widget.surah!.ayahs![index].text}", translation ?? '', widget.surah!.name);
+                                                                                        print("Verse Number: $verseNumber");
+                                                                                        print("Translation: translation");
+                                                                                        cancel();
+                                                                                      },
+                                                                                    ),
+                                                                                  ),
+                                                                                ],
+                                                                              ),
+                                                                            ),
+                                                                          ),
+                                                                        );
+                                                                        print(
+                                                                            '${widget.surah!.name!}');
+                                                                        print(
+                                                                            '${widget.surah!.number!}');
+                                                                        print(
+                                                                            '${widget.surah!.ayahs![index].numberInSurah}');
+                                                                        print(
+                                                                            '${widget.nomPageF}');
+                                                                        print(
+                                                                            '${widget.nomPageL}');
+                                                                      }),
+                                                            TextSpan(
+                                                              text:
+                                                                  ' ${arabicNumber.convert(widget.surah!.ayahs![index].numberInSurah.toString())}',
+                                                              style: TextStyle(
+                                                                fontSize: TextPageView
+                                                                        .fontSizeArabic +
+                                                                    5,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w500,
+                                                                fontFamily:
+                                                                    'uthmanic2',
+                                                                color: ThemeProvider.themeOf(
+                                                                                context)
+                                                                            .id ==
+                                                                        'dark'
+                                                                    ? Theme.of(
+                                                                            context)
+                                                                        .colorScheme
+                                                                        .surface
+                                                                    : Theme.of(
+                                                                            context)
+                                                                        .primaryColorLight,
+                                                              ),
+                                                            )
+                                                          ]),
+                                                        ),
+                                                      ),
+                                                      Padding(
+                                                        padding: const EdgeInsets
+                                                                .symmetric(
+                                                            horizontal: 16),
+                                                        child: SizedBox(
+                                                          width: MediaQuery.of(
+                                                                  context)
+                                                              .size
+                                                              .width,
+                                                          child: Stack(
+                                                            alignment:
+                                                                Alignment.center,
+                                                            children: [
+                                                              Align(
+                                                                  alignment: Alignment
+                                                                      .centerRight,
+                                                                  child:
+                                                                      translateDropDown(
+                                                                          context)),
+                                                              SizedBox(
+                                                                  height: 40,
+                                                                  width: MediaQuery.of(
+                                                                              context)
+                                                                          .size
+                                                                          .width /
+                                                                      1 /
+                                                                      2,
+                                                                  child:
+                                                                      SvgPicture
+                                                                          .asset(
+                                                                    'assets/svg/space_line.svg',
+                                                                  )),
+                                                              Align(
+                                                                alignment: Alignment
+                                                                    .bottomLeft,
+                                                                child: juzNumEn(
+                                                                  'Part\n${widget.surah!.ayahs![index].juz}',
+                                                                  context,
+                                                                  ThemeProvider.themeOf(context)
+                                                                              .id ==
+                                                                          'dark'
+                                                                      ? Colors
+                                                                          .white
+                                                                      : Colors
+                                                                          .black,
+                                                                ),
+                                                              ),
+                                                            ],
+                                                          ),
+                                                        ),
+                                                      ),
+                                                      Padding(
+                                                        padding:
+                                                            const EdgeInsets.only(
+                                                                bottom: 16.0,
+                                                                right: 32.0,
+                                                                left: 32.0),
+                                                        child: BlocBuilder<
+                                                            TranslateDataCubit,
+                                                            TranslateDataState>(
+                                                          builder:
+                                                              (context, state) {
+                                                            if (state.isLoading) {
+                                                              // Display a loading indicator while the translation data is being fetched
+                                                              return Lottie.asset(
+                                                                  'assets/lottie/search.json',
+                                                                  width: 50);
+                                                            } else {
+                                                              final translateData =
+                                                                  state.data;
+                                                              if (translateData !=
+                                                                      null &&
+                                                                  translateData
+                                                                      .isNotEmpty) {
+                                                                // Use the translation variable in your widget tree
+                                                                return ReadMoreLess(
+                                                                  text: translateData![
+                                                                              index]
+                                                                          [
+                                                                          'text'] ??
+                                                                      '',
+                                                                  textStyle:
+                                                                      TextStyle(
+                                                                    fontSize:
+                                                                        TextPageView
+                                                                                .fontSizeArabic -
+                                                                            10,
+                                                                    fontFamily:
+                                                                        'kufi',
+                                                                    color: ThemeProvider.themeOf(context)
+                                                                                .id ==
+                                                                            'dark'
+                                                                        ? Colors
+                                                                            .white
+                                                                        : Colors
+                                                                            .black,
+                                                                  ),
+                                                                  textAlign:
+                                                                      TextAlign
+                                                                          .justify,
+                                                                  readMoreText:
+                                                                      AppLocalizations.of(
+                                                                              context)!
+                                                                          .readMore,
+                                                                  readLessText:
+                                                                      AppLocalizations.of(
+                                                                              context)!
+                                                                          .readLess,
+                                                                  buttonTextStyle:
+                                                                      TextStyle(
+                                                                    fontSize: 12,
+                                                                    fontFamily:
+                                                                        'kufi',
+                                                                    color: ThemeProvider.themeOf(context)
+                                                                                .id ==
+                                                                            'dark'
+                                                                        ? Colors
+                                                                            .white
+                                                                        : Theme.of(
+                                                                                context)
+                                                                            .primaryColorLight,
+                                                                  ),
+                                                                  iconColor: ThemeProvider.themeOf(context)
                                                                               .id ==
                                                                           'dark'
                                                                       ? Colors
@@ -1451,212 +1439,204 @@ class _TextPageViewState extends State<TextPageView>
                                                                       : Theme.of(
                                                                               context)
                                                                           .primaryColorLight,
-                                                                ),
-                                                                iconColor: ThemeProvider.themeOf(context)
-                                                                            .id ==
-                                                                        'dark'
-                                                                    ? Colors
-                                                                        .white
-                                                                    : Theme.of(
-                                                                            context)
-                                                                        .primaryColorLight,
-                                                              ); // Replace this with your actual widget
-                                                            } else {
-                                                              // Display a placeholder widget if there's no translation data
-                                                              return Text(
-                                                                  'No translation available');
+                                                                ); // Replace this with your actual widget
+                                                              } else {
+                                                                // Display a placeholder widget if there's no translation data
+                                                                return Text(
+                                                                    'No translation available');
+                                                              }
                                                             }
-                                                          }
-                                                        },
-                                                      ),
-                                                    ),
-                                                  ],
-                                                ),
-                                              ),
-                                              // ),
-                                            ),
-                                            Align(
-                                              alignment: Alignment.topRight,
-                                              child: Padding(
-                                                padding:
-                                                    const EdgeInsets.all(20.0),
-                                                child: juzNum(
-                                                  '${widget.surah!.ayahs![index].juz}',
-                                                  context,
-                                                  ThemeProvider.themeOf(context)
-                                                              .id ==
-                                                          'dark'
-                                                      ? Colors.white
-                                                      : Colors.black,
-                                                ),
-                                              ),
-                                            ),
-                                          ],
-                                        )
-                                      : Stack(
-                                          children: [
-                                            GestureDetector(
-                                              onTap: () {
-                                                TextCubit.controller.reverse();
-                                                setState(() {
-                                                  backColor =
-                                                      Colors.transparent;
-                                                });
-                                              },
-                                              // child: AutoScrollTag(
-                                              //   key: ValueKey(index),
-                                              //   controller: TextCubit.scrollController!,
-                                              //   index: index,
-                                              child: Container(
-                                                margin:
-                                                    const EdgeInsets.symmetric(
-                                                        horizontal: 16,
-                                                        vertical: 16),
-                                                width: MediaQuery.of(context)
-                                                    .size
-                                                    .width,
-                                                decoration: BoxDecoration(
-                                                    color: Theme.of(context)
-                                                        .colorScheme
-                                                        .background,
-                                                    borderRadius:
-                                                        const BorderRadius.all(
-                                                            Radius.circular(
-                                                                8))),
-                                                child: Column(
-                                                  children: [
-                                                    Center(
-                                                      child: SizedBox(
-                                                          height: 50,
-                                                          width: MediaQuery.of(
-                                                                      context)
-                                                                  .size
-                                                                  .width /
-                                                              1 /
-                                                              2,
-                                                          child:
-                                                              SvgPicture.asset(
-                                                            'assets/svg/space_line.svg',
-                                                          )),
-                                                    ),
-                                                    widget.surah!.number == 9
-                                                        ? Container()
-                                                        : widget
-                                                                    .surah!
-                                                                    .ayahs![
-                                                                        index]
-                                                                    .numberInSurah ==
-                                                                1
-                                                            ? SvgPicture.asset(
-                                                                'assets/svg/besmAllah.svg',
-                                                                width: 200,
-                                                                colorFilter: ColorFilter.mode(
-                                                                    Theme.of(
-                                                                            context)
-                                                                        .cardColor
-                                                                        .withOpacity(
-                                                                            .8),
-                                                                    BlendMode
-                                                                        .srcIn),
-                                                              )
-                                                            : Container(),
-                                                    Container(
-                                                      padding: const EdgeInsets
-                                                              .symmetric(
-                                                          horizontal: 32),
-                                                      child:
-                                                          SelectableText.rich(
-                                                        showCursor: true,
-                                                        cursorWidth: 3,
-                                                        cursorColor:
-                                                            Theme.of(context)
-                                                                .dividerColor,
-                                                        cursorRadius:
-                                                            const Radius
-                                                                .circular(5),
-                                                        scrollPhysics:
-                                                            const ClampingScrollPhysics(),
-                                                        textDirection:
-                                                            TextDirection.rtl,
-                                                        textAlign:
-                                                            TextAlign.justify,
-                                                        TextSpan(
-                                                          style: TextStyle(
-                                                              fontSize: TextPageView
-                                                                  .fontSizeArabic,
-                                                              backgroundColor: TextCubit
-                                                                      .bColor ??
-                                                                  Colors
-                                                                      .transparent,
-                                                              fontFamily:
-                                                                  'uthmanic2'),
-                                                          children:
-                                                              text.map((e) {
-                                                            return e;
-                                                          }).toList(),
+                                                          },
                                                         ),
                                                       ),
-                                                    ),
-                                                    Center(
-                                                      child: SizedBox(
-                                                          height: 50,
-                                                          width: MediaQuery.of(
-                                                                      context)
-                                                                  .size
-                                                                  .width /
-                                                              1 /
-                                                              2,
-                                                          child:
-                                                              SvgPicture.asset(
-                                                            'assets/svg/space_line.svg',
-                                                          )),
-                                                    ),
-                                                    Align(
-                                                      alignment: Alignment
-                                                          .bottomCenter,
-                                                      child: pageNumber(
-                                                          arabicNumber
-                                                              .convert(widget
-                                                                      .nomPageF! +
-                                                                  index)
-                                                              .toString(),
-                                                          context,
-                                                          Theme.of(context)
-                                                              .primaryColor),
-                                                    ),
-                                                  ],
+                                                    ],
+                                                  ),
+                                                ),
+                                                // ),
+                                              ),
+                                              Align(
+                                                alignment: Alignment.topRight,
+                                                child: Padding(
+                                                  padding:
+                                                      const EdgeInsets.all(20.0),
+                                                  child: juzNum(
+                                                    '${widget.surah!.ayahs![index].juz}',
+                                                    context,
+                                                    ThemeProvider.themeOf(context)
+                                                                .id ==
+                                                            'dark'
+                                                        ? Colors.white
+                                                        : Colors.black,
+                                                  ),
                                                 ),
                                               ),
-                                              // ),
-                                            ),
-                                            Align(
-                                              alignment: Alignment.topRight,
-                                              child: Padding(
-                                                padding:
-                                                    const EdgeInsets.symmetric(
-                                                        horizontal: 20.0,
-                                                        vertical: 25.0),
-                                                child: juzNum(
-                                                  '${TextCubit.juz}',
-                                                  context,
-                                                  ThemeProvider.themeOf(context)
-                                                              .id ==
-                                                          'dark'
-                                                      ? Colors.white
-                                                      : Colors.black,
+                                            ],
+                                          )
+                                        : Stack(
+                                            children: [
+                                              GestureDetector(
+                                                onTap: () {
+                                                  TextCubit.controller.reverse();
+                                                  setState(() {
+                                                    backColor =
+                                                        Colors.transparent;
+                                                  });
+                                                },
+                                                // child: AutoScrollTag(
+                                                //   key: ValueKey(index),
+                                                //   controller: TextCubit.scrollController!,
+                                                //   index: index,
+                                                child: Container(
+                                                  margin:
+                                                      const EdgeInsets.symmetric(
+                                                          horizontal: 16,
+                                                          vertical: 16),
+                                                  width: MediaQuery.of(context)
+                                                      .size
+                                                      .width,
+                                                  decoration: BoxDecoration(
+                                                      color: Theme.of(context)
+                                                          .colorScheme
+                                                          .background,
+                                                      borderRadius:
+                                                          const BorderRadius.all(
+                                                              Radius.circular(
+                                                                  8))),
+                                                  child: Column(
+                                                    children: [
+                                                      Center(
+                                                        child: SizedBox(
+                                                            height: 50,
+                                                            width: MediaQuery.of(
+                                                                        context)
+                                                                    .size
+                                                                    .width /
+                                                                1 /
+                                                                2,
+                                                            child:
+                                                                SvgPicture.asset(
+                                                              'assets/svg/space_line.svg',
+                                                            )),
+                                                      ),
+                                                      widget.surah!.number == 9
+                                                          ? Container()
+                                                          : widget
+                                                                      .surah!
+                                                                      .ayahs![
+                                                                          index]
+                                                                      .numberInSurah ==
+                                                                  1
+                                                              ? SvgPicture.asset(
+                                                                  'assets/svg/besmAllah.svg',
+                                                                  width: 200,
+                                                                  colorFilter: ColorFilter.mode(
+                                                                      Theme.of(
+                                                                              context)
+                                                                          .cardColor
+                                                                          .withOpacity(
+                                                                              .8),
+                                                                      BlendMode
+                                                                          .srcIn),
+                                                                )
+                                                              : Container(),
+                                                      Container(
+                                                        padding: const EdgeInsets
+                                                                .symmetric(
+                                                            horizontal: 32),
+                                                        child:
+                                                            SelectableText.rich(
+                                                          showCursor: true,
+                                                          cursorWidth: 3,
+                                                          cursorColor:
+                                                              Theme.of(context)
+                                                                  .dividerColor,
+                                                          cursorRadius:
+                                                              const Radius
+                                                                  .circular(5),
+                                                          scrollPhysics:
+                                                              const ClampingScrollPhysics(),
+                                                          textDirection:
+                                                              TextDirection.rtl,
+                                                          textAlign:
+                                                              TextAlign.justify,
+                                                          TextSpan(
+                                                            style: TextStyle(
+                                                                fontSize: TextPageView
+                                                                    .fontSizeArabic,
+                                                                backgroundColor: TextCubit
+                                                                        .bColor ??
+                                                                    Colors
+                                                                        .transparent,
+                                                                fontFamily:
+                                                                    'uthmanic2'),
+                                                            children:
+                                                                text.map((e) {
+                                                              return e;
+                                                            }).toList(),
+                                                          ),
+                                                        ),
+                                                      ),
+                                                      Center(
+                                                        child: SizedBox(
+                                                            height: 50,
+                                                            width: MediaQuery.of(
+                                                                        context)
+                                                                    .size
+                                                                    .width /
+                                                                1 /
+                                                                2,
+                                                            child:
+                                                                SvgPicture.asset(
+                                                              'assets/svg/space_line.svg',
+                                                            )),
+                                                      ),
+                                                      Align(
+                                                        alignment: Alignment
+                                                            .bottomCenter,
+                                                        child: pageNumber(
+                                                            arabicNumber
+                                                                .convert(widget
+                                                                        .nomPageF! +
+                                                                    index)
+                                                                .toString(),
+                                                            context,
+                                                            Theme.of(context)
+                                                                .primaryColor),
+                                                      ),
+                                                    ],
+                                                  ),
                                                 ),
+                                                // ),
                                               ),
-                                            )
-                                          ],
-                                        );
-                                },
-                              );
-                            }),
+                                              Align(
+                                                alignment: Alignment.topRight,
+                                                child: Padding(
+                                                  padding:
+                                                      const EdgeInsets.symmetric(
+                                                          horizontal: 20.0,
+                                                          vertical: 25.0),
+                                                  child: juzNum(
+                                                    '${TextCubit.juz}',
+                                                    context,
+                                                    ThemeProvider.themeOf(context)
+                                                                .id ==
+                                                            'dark'
+                                                        ? Colors.white
+                                                        : Colors.black,
+                                                  ),
+                                                ),
+                                              )
+                                            ],
+                                          );
+                                  },
+                                );
+                              }),
+                        ),
                       ),
-                    ),
-                    SlideTransition(
-                        position: TextCubit.offset, child: AudioTextWidget()),
-                  ],
+                      SlideTransition(
+                          position: TextCubit.offset, child: AudioTextWidget()),
+                    ],
+                  ),
                 ),
               )),
         );
