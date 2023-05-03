@@ -37,176 +37,41 @@ String? selectedValue;
 
 Widget quranPageSearch(
     BuildContext context, GlobalKey<ScaffoldState> searchKey, double width) {
-  QuranCubit cubit = QuranCubit.get(context);
   return GestureDetector(
-    child: SizedBox(
-      height: 50,
-      width: 50,
-      child: ThemeProvider.themeOf(context).id == 'green'
-          ? CustomPaint(
-              painter: BgIcon(),
-              child: Stack(
-                alignment: Alignment.center,
-                children: [
-                  Container(
-                    height: 35,
-                    width: 35,
-                    color: Theme.of(context).colorScheme.background,
-                  ),
-                  Icon(
-                    cubit.searchFabIcon,
-                    color: Theme.of(context).colorScheme.surface,
-                    size: 25,
-                  ),
-                ],
-              ),
-            )
-          : CustomPaint(
-              painter: BgIcon2(),
-              child: Stack(
-                alignment: Alignment.center,
-                children: [
-                  Container(
-                    height: 35,
-                    width: 35,
-                    color: Theme.of(context).colorScheme.background,
-                  ),
-                  Icon(
-                    cubit.searchFabIcon,
-                    color: Theme.of(context).colorScheme.surface,
-                    size: 25,
-                  ),
-                ],
-              ),
-            ),
-    ),
+    child: iconBg(
+      context,
+      Icons.search_outlined
+  ),
     onTap: () {
-      if (cubit.isShowBottomSheet) {
-        Navigator.pop(context);
-      } else {
-        searchKey.currentState
-            ?.showBottomSheet(
-
-                shape: const RoundedRectangleBorder(
-                    borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(8),
-                        topRight: Radius.circular(8))),
-                backgroundColor: Colors.transparent,
-                (context) => Align(
-                      alignment: Alignment.bottomCenter,
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                        child: Container(
-                          height: orientation(context,
-                              MediaQuery.of(context).size.height * 3 / 4,
-                              platformView(MediaQuery.of(context).size.height, MediaQuery.of(context).size.height * 3/4)),
-                          width: width,
-                          decoration: BoxDecoration(
-                            borderRadius: const BorderRadius.only(
-                                topRight: Radius.circular(12.0),
-                                topLeft: Radius.circular(12.0)),
-                            color: Theme.of(context).colorScheme.background,
-                          ),
-                          child: QuranSearch(),
-                        ),
-                      ),
-                    ),
-                elevation: 40)
-            .closed
-            .then((value) => {
-                  cubit.searchChangeBottomSheetState(
-                      isShow: false, icon: Icons.search_outlined),
-                });
-        cubit.searchCloseBottomSheetState(isShow: true, icon: Icons.close);
-      }
+      allModalBottomSheet(context,
+          MediaQuery.of(context).size.height / 1/2,
+          MediaQuery.of(context).size.width,
+        QuranSearch(),
+      );
     },
   );
 }
 
 Widget quranPageSorahList(
     BuildContext context, GlobalKey<ScaffoldState> sorahListKey, double width) {
-  QuranCubit cubit = QuranCubit.get(context);
   return GestureDetector(
-    child: SizedBox(
-      height: 50,
-      width: 50,
-      child: ThemeProvider.themeOf(context).id == 'green'
-          ? CustomPaint(
-              painter: BgIcon(),
-              child: Stack(
-                alignment: Alignment.center,
-                children: [
-                  Container(
-                    height: 35,
-                    width: 35,
-                    color: Theme.of(context).colorScheme.background,
-                  ),
-                  Icon(
-                    cubit.sorahFabIcon,
-                    color: Theme.of(context).colorScheme.surface,
-                    size: 25,
-                  ),
-                ],
-              ),
-            )
-          : CustomPaint(
-              painter: BgIcon2(),
-              child: Stack(
-                alignment: Alignment.center,
-                children: [
-                  Container(
-                    height: 35,
-                    width: 35,
-                    color: Theme.of(context).colorScheme.background,
-                  ),
-                  Icon(
-                    cubit.sorahFabIcon,
-                    color: Theme.of(context).colorScheme.surface,
-                    size: 25,
-                  ),
-                ],
-              ),
-            ),
-    ),
+      child: iconBg(
+          context,
+          Icons.list_alt_outlined
+      ),
     onTap: () {
-      if (cubit.isShowBottomSheet) {
-        Navigator.pop(context);
-      } else {
-        sorahListKey.currentState
-            ?.showBottomSheet(
-                shape: const RoundedRectangleBorder(
-                    borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(8),
-                        topRight: Radius.circular(8))),
-                backgroundColor: Colors.transparent,
-                (context) => Align(
-                      alignment: Alignment.bottomCenter,
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                        child: Container(
-                          height: orientation(context,
-                              MediaQuery.of(context).size.height * 3 / 4,
-                              platformView(MediaQuery.of(context).size.height, MediaQuery.of(context).size.height * 3/4)),
-                          width: width,
-                          decoration: BoxDecoration(
-                            borderRadius: const BorderRadius.only(
-                                topRight: Radius.circular(12.0),
-                                topLeft: Radius.circular(12.0)),
-                            color: Theme.of(context).colorScheme.background,
-                          ),
-                          child: const SorahJuzList(),
-                        ),
-                      ),
-                    ),
-                elevation: 40)
-            .closed
-            .then((value) => {
-                  cubit.sorahChangeBottomSheetState(
-                      isShow: false, icon: Icons.list_alt_outlined),
-                });
-        cubit.sorahCloseBottomSheetState(isShow: true, icon: Icons.close);
-      }
-    },
+      allModalBottomSheet(context,
+          MediaQuery
+              .of(context)
+              .size
+              .height / 1 / 2,
+          MediaQuery
+              .of(context)
+              .size
+              .width,
+          const SorahJuzList()
+      );
+    }
   );
 }
 
@@ -256,221 +121,45 @@ Widget notesList(
             ),
     ),
     onTap: () {
-      if (notesCubit.isShowBottomSheet) {
-        Navigator.pop(context);
-      } else {
-        notesListKey.currentState
-            ?.showBottomSheet(
-                shape: const RoundedRectangleBorder(
-                    borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(8),
-                        topRight: Radius.circular(8))),
-                backgroundColor: Colors.transparent,
-                (context) => Align(
-                      alignment: Alignment.bottomCenter,
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                        child: Container(
-                          height: orientation(context,
-                              MediaQuery.of(context).size.height * 3 / 4,
-                              platformView(MediaQuery.of(context).size.height, MediaQuery.of(context).size.height * 3/4)),
-                          width: width,
-                          decoration: BoxDecoration(
-                            borderRadius: const BorderRadius.only(
-                                topRight: Radius.circular(12.0),
-                                topLeft: Radius.circular(12.0)),
-                            color: Theme.of(context).colorScheme.background,
-                          ),
-                          child: const NotesList(),
-                        ),
-                      ),
-                    ),
-                elevation: 40)
-            .closed
-            .then((value) => {
-                  notesCubit.notesChangeBottomSheetState(
-                      isShow: false, icon: Icons.add_comment_outlined),
-                });
-        notesCubit.notesCloseBottomSheetState(isShow: true, icon: Icons.close);
-      }
+      allModalBottomSheet(context,
+          MediaQuery.of(context).size.height / 1/2,
+          MediaQuery.of(context).size.width,
+          const NotesList()
+          );
     },
   );
 }
 
 Widget bookmarksList(BuildContext context,
     GlobalKey<ScaffoldState> bookmarksListKey, double width) {
-  QuranCubit cubit = QuranCubit.get(context);
-  BookmarksCubit bookmarksCubit = BookmarksCubit.get(context);
   return GestureDetector(
-    child: SizedBox(
-      height: 50,
-      width: 50,
-      child: ThemeProvider.themeOf(context).id == 'green'
-          ? CustomPaint(
-              painter: BgIcon(),
-              child: Stack(
-                alignment: Alignment.center,
-                children: [
-                  Container(
-                    height: 35,
-                    width: 35,
-                    color: Theme.of(context).colorScheme.background,
-                  ),
-                  Icon(
-                    cubit.bookmarksFabIcon,
-                    color: Theme.of(context).colorScheme.surface,
-                    size: 25,
-                  ),
-                ],
-              ),
-            )
-          : CustomPaint(
-              painter: BgIcon2(),
-              child: Stack(
-                alignment: Alignment.center,
-                children: [
-                  Container(
-                    height: 35,
-                    width: 35,
-                    color: Theme.of(context).colorScheme.background,
-                  ),
-                  Icon(
-                    cubit.bookmarksFabIcon,
-                    color: Theme.of(context).colorScheme.surface,
-                    size: 25,
-                  ),
-                ],
-              ),
-            ),
+    child: iconBg(
+        context,
+        Icons.bookmarks_outlined
     ),
     onTap: () {
-      if (cubit.isShowBottomSheet) {
-        Navigator.pop(context);
-      } else {
-        bookmarksListKey.currentState
-            ?.showBottomSheet(
-                shape: const RoundedRectangleBorder(
-                    borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(8),
-                        topRight: Radius.circular(8))),
-                backgroundColor: Colors.transparent,
-                (context) => Align(
-                      alignment: Alignment.bottomCenter,
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                        child: Container(
-                          height: orientation(context,
-                              MediaQuery.of(context).size.height * 3 / 4,
-                              platformView(MediaQuery.of(context).size.height, MediaQuery.of(context).size.height * 3/4)),
-                          width: width,
-                          decoration: BoxDecoration(
-                            borderRadius: const BorderRadius.only(
-                                topRight: Radius.circular(12.0),
-                                topLeft: Radius.circular(12.0)),
-                            color: Theme.of(context).colorScheme.background,
-                          ),
-                          child: const BookmarksList(),
-                        ),
-                      ),
-                    ),
-                elevation: 40)
-            .closed
-            .then((value) => {
-                  bookmarksCubit.bookmarksChangeBottomSheetState(
-                      isShow: false, icon: Icons.bookmarks_outlined),
-                });
-        bookmarksCubit.bookmarksCloseBottomSheetState(
-            isShow: true, icon: Icons.close);
-      }
+      allModalBottomSheet(context,
+          MediaQuery.of(context).size.height / 1/2,
+          MediaQuery.of(context).size.width,
+        const BookmarksList(),
+      );
     },
   );
 }
 
 Widget bookmarksTextList(BuildContext context,
     GlobalKey<ScaffoldState> bookmarksTextListKey, double width) {
-  QuranCubit cubit = QuranCubit.get(context);
-  QuranTextCubit bookmarksCubit = QuranTextCubit.get(context);
   return GestureDetector(
-    child: SizedBox(
-      height: 50,
-      width: 50,
-      child: ThemeProvider.themeOf(context).id == 'green'
-          ? CustomPaint(
-              painter: BgIcon(),
-              child: Stack(
-                alignment: Alignment.center,
-                children: [
-                  Container(
-                    height: 35,
-                    width: 35,
-                    color: Theme.of(context).colorScheme.background,
-                  ),
-                  Icon(
-                    cubit.bookmarksFabIcon,
-                    color: Theme.of(context).colorScheme.surface,
-                    size: 25,
-                  ),
-                ],
-              ),
-            )
-          : CustomPaint(
-              painter: BgIcon2(),
-              child: Stack(
-                alignment: Alignment.center,
-                children: [
-                  Container(
-                    height: 35,
-                    width: 35,
-                    color: Theme.of(context).colorScheme.background,
-                  ),
-                  Icon(
-                    cubit.bookmarksFabIcon,
-                    color: Theme.of(context).colorScheme.surface,
-                    size: 25,
-                  ),
-                ],
-              ),
-            ),
+    child: iconBg(
+      context,
+        Icons.bookmarks_outlined
     ),
     onTap: () {
-      if (cubit.isShowBottomSheet) {
-        Navigator.pop(context);
-      } else {
-        bookmarksTextListKey.currentState
-            ?.showBottomSheet(
-                shape: const RoundedRectangleBorder(
-                    borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(8),
-                        topRight: Radius.circular(8))),
-                backgroundColor: Colors.transparent,
-                (context) => Align(
-                      alignment: Alignment.bottomCenter,
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                        child: Container(
-                          height: orientation(context,
-                              MediaQuery.of(context).size.height * 1 / 2  * 1.2,
-                              platformView(MediaQuery.of(context).size.height, MediaQuery.of(context).size.height * 3/4)),
-                          width: width,
-                          decoration: BoxDecoration(
-                            borderRadius: const BorderRadius.only(
-                                topRight: Radius.circular(12.0),
-                                topLeft: Radius.circular(12.0)),
-                            color: Theme.of(context).colorScheme.background,
-                          ),
-                          child: const BookmarksTextList(),
-                        ),
-                      ),
-                    ),
-                elevation: 100)
-            .closed
-            .then((value) => {
-                  bookmarksCubit.bookmarksChangeBottomSheetState(
-                      isShow: false, icon: Icons.bookmarks_outlined),
-                });
-        bookmarksCubit.bookmarksCloseBottomSheetState(
-            isShow: true, icon: Icons.close);
-      }
+      allModalBottomSheet(context,
+        MediaQuery.of(context).size.height / 1/2,
+        MediaQuery.of(context).size.width,
+        const BookmarksTextList(),
+      );
     },
   );
 }
@@ -522,44 +211,11 @@ Widget quranTextSearch(BuildContext context,
             ),
     ),
     onTap: () {
-      if (cubit.isShowBottomSheet) {
-        Navigator.pop(context);
-      } else {
-        searchTextListKey.currentState
-            ?.showBottomSheet(
-                shape: const RoundedRectangleBorder(
-                    borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(8),
-                        topRight: Radius.circular(8))),
-                backgroundColor: Colors.transparent,
-                (context) => Align(
-                      alignment: Alignment.bottomCenter,
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                        child: Container(
-                          height: orientation(context,
-                              MediaQuery.of(context).size.height * 1 / 2 * 1.2,
-                              platformView(MediaQuery.of(context).size.height, MediaQuery.of(context).size.height * 3/4)),
-                          width: width,
-                          decoration: BoxDecoration(
-                            borderRadius: const BorderRadius.only(
-                                topRight: Radius.circular(12.0),
-                                topLeft: Radius.circular(12.0)),
-                            color: Theme.of(context).colorScheme.background,
-                          ),
-                          child: QuranTextSearch(),
-                        ),
-                      ),
-                    ),
-                elevation: 100)
-            .closed
-            .then((value) => {
-                  bookmarksCubit.searchTextChangeBottomSheetState(
-                      isShow: false, icon: Icons.search_outlined),
-                });
-        bookmarksCubit.searchTextCloseBottomSheetState(
-            isShow: true, icon: Icons.close);
-      }
+      allModalBottomSheet(context,
+        MediaQuery.of(context).size.height / 1/2,
+        MediaQuery.of(context).size.width,
+        QuranTextSearch(),
+      );
     },
   );
 }
@@ -681,7 +337,7 @@ Widget hijriDateLand(BuildContext context) {
 
 Widget topBar(BuildContext context) {
   return SizedBox(
-    height: orientation(context, 130.0, 30.0),
+    height: orientation(context, 130.0, 40.0),
     child: Stack(
       alignment: Alignment.center,
       children: [
@@ -696,13 +352,7 @@ Widget topBar(BuildContext context) {
         ),
         Align(
           alignment: Alignment.topRight,
-          child: IconButton(
-            icon: Icon(Icons.close_outlined,
-                color: ThemeProvider.themeOf(context).id == 'dark'
-                    ? Theme.of(context).canvasColor
-                    : Theme.of(context).primaryColorDark),
-            onPressed: () => Navigator.of(context).pop(),
-          ),
+          child: customClose(context),
         ),
       ],
     ),
@@ -784,8 +434,7 @@ Widget delete(BuildContext context) {
   );
 }
 
-Widget iconBg(BuildContext context) {
-  QuranCubit cubit = QuranCubit.get(context);
+Widget iconBg(BuildContext context, var icon) {
   return SizedBox(
     height: 50,
     width: 50,
@@ -801,8 +450,8 @@ Widget iconBg(BuildContext context) {
                   color: Theme.of(context).colorScheme.background,
                 ),
                 Icon(
-                  cubit.bookmarksFabIcon,
-                  color: Theme.of(context).cardColor,
+                  icon,
+                  color: Theme.of(context).colorScheme.surface,
                   size: 25,
                 ),
               ],
@@ -819,8 +468,8 @@ Widget iconBg(BuildContext context) {
                   color: Theme.of(context).colorScheme.background,
                 ),
                 Icon(
-                  cubit.bookmarksFabIcon,
-                  color: Theme.of(context).cardColor,
+                  icon,
+                  color: Theme.of(context).colorScheme.surface,
                   size: 25,
                 ),
               ],
@@ -1143,7 +792,7 @@ readerDropDown(BuildContext context) {
     "husary",
     "ajamy",
   ];
-  modalBottomSheet(context,
+  dropDownModalBottomSheet(context,
       MediaQuery.of(context).size.height / 1/2,
       MediaQuery.of(context).size.width,
     Padding(
@@ -1309,7 +958,7 @@ sorahReaderDropDown(BuildContext context) {
     "husary",
     "ajamy",
   ];
-  modalBottomSheet(context,
+  dropDownModalBottomSheet(context,
     MediaQuery.of(context).size.height / 1/2,
     MediaQuery.of(context).size.width,
     Padding(
@@ -1900,7 +1549,8 @@ quarters(int index) {
   }
 }
 
-modalBottomSheet(BuildContext context, double height, width, Widget child) {
+dropDownModalBottomSheet(BuildContext context, double height, width, Widget child) {
+  QuranCubit cubit = QuranCubit.get(context);
   double hei = MediaQuery.of(context).size.height;
   double wid = MediaQuery.of(context).size.width;
   showModalBottomSheet(
@@ -1910,7 +1560,7 @@ modalBottomSheet(BuildContext context, double height, width, Widget child) {
             width, wid / 1/2),
             wid / 1/2),
         maxHeight: orientation(context, hei / 1/2,
-            platformView(height, hei / 1/2))
+            platformView(hei, hei / 1/2))
       ),
       elevation: 0.0,
       shape: RoundedRectangleBorder(
@@ -1924,5 +1574,64 @@ modalBottomSheet(BuildContext context, double height, width, Widget child) {
   builder: (BuildContext context) {
         return child;
   }
+  ).whenComplete(() {
+    if (cubit.screenController != null) {
+      cubit.screenController!.reverse();
+    }
+  });
+  if (cubit.screenController != null) {
+    cubit.screenController!.forward();
+  }
+
+}
+
+allModalBottomSheet(BuildContext context, double height, width, Widget child) {
+  QuranCubit cubit = QuranCubit.get(context);
+  double hei = MediaQuery.of(context).size.height;
+  double wid = MediaQuery.of(context).size.width;
+  showModalBottomSheet(
+      context: context,
+
+      constraints: BoxConstraints(
+        maxWidth:  platformView(orientation(context,
+            width, wid / 1/2),
+            wid / 1/2),
+        maxHeight: orientation(context, hei * 3/4,
+            platformView(hei, hei / 1/2))
+      ),
+      elevation: 0.0,
+      shape: RoundedRectangleBorder(
+      borderRadius: BorderRadius.only(
+        topLeft: Radius.circular(8.0),
+        topRight: Radius.circular(8.0),
+      ),
+  ),
+  backgroundColor: Theme.of(context).colorScheme.background,
+  isScrollControlled: true,
+  builder: (BuildContext context) {
+        return child;
+  }
+  ).whenComplete(() {
+    cubit.screenController!.reverse();
+  });
+  cubit.screenController!.forward();
+}
+
+Widget customClose(BuildContext context) {
+  return GestureDetector(
+    child: Stack(
+      alignment: Alignment.center,
+      children: [
+        Icon(Icons.close_outlined,
+            size: 40,
+            color: Theme.of(context).colorScheme.surface.withOpacity(.5)),
+        Icon(Icons.close_outlined,
+            size: 24,
+            color: ThemeProvider.themeOf(context).id == 'dark'
+                ? Theme.of(context).canvasColor
+                : Theme.of(context).primaryColorDark),
+      ],
+    ),
+    onTap: () => Navigator.of(context).pop(),
   );
 }

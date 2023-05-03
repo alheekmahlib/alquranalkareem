@@ -60,19 +60,44 @@ class _ShowTextTafseerState extends State<ShowTextTafseer> {
     return Directionality(
       textDirection: TextDirection.rtl,
       child: Container(
-        color: Theme.of(context).colorScheme.background,
+        decoration: BoxDecoration(
+          color: Theme.of(context).colorScheme.background,
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(20),
+            topRight: Radius.circular(20),
+          )
+        ),
         child: FutureBuilder<List<Ayat>>(
           builder: (context, snapshot) {
             return Column(
               mainAxisSize: MainAxisSize.min,
               children: <Widget>[
                 Padding(
-                  padding: const EdgeInsets.all(8.0),
+                  padding: const EdgeInsets.all(16.0),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Expanded(
-                        flex: 1,
+                      Container(
+                        height: 50,
+                        width: 50,
+                        decoration: BoxDecoration(
+                          color: Colors.transparent,
+                          border: Border.all(
+                            color: Theme.of(context).colorScheme.surface,
+                            width: 1
+                          ),
+                          borderRadius: BorderRadius.all(
+                            Radius.circular(15)
+                          ),
+                          boxShadow: [
+                            BoxShadow(
+                              color: const Color(0xff91a57d).withOpacity(.2),
+                              spreadRadius: 2,
+                              blurRadius: 2,
+                              offset: Offset(-1, -1), // changes position of shadow
+                            ),
+                          ],
+                        ),
                         child: IconButton(
                           icon: Icon(Icons.book,
                               size: 24,
@@ -80,20 +105,37 @@ class _ShowTextTafseerState extends State<ShowTextTafseer> {
                           onPressed: () => tafseerDropDown(context),
                         ),
                       ),
-                      Expanded(
-                        flex: 8,
-                        child: IconButton(
-                          icon: Icon(Icons.close_outlined,
-                              color: ThemeProvider.themeOf(context).id == 'dark'
-                                  ? Theme.of(context).canvasColor
-                                  : Theme.of(context).primaryColorDark),
-                          onPressed: () => Navigator.of(context).pop(),
-                        ),
-                      ),
-                      Expanded(
-                        flex: 1,
-                        child: fontSizeDropDown(context),
-                      ),
+                      customClose(context),
+                      Container(
+                          height: 50,
+                          width: 50,
+                          decoration: BoxDecoration(
+                            color: Colors.transparent,
+                            border: Border.all(
+                                color: Theme.of(context).colorScheme.surface,
+                                width: 1
+                            ),
+                            borderRadius: BorderRadius.all(
+                                Radius.circular(15)
+                            ),
+                            boxShadow: [
+                              BoxShadow(
+                                color: const Color(0xff91a57d).withOpacity(.2),
+                                spreadRadius: 2,
+                                blurRadius: 2,
+                                offset: Offset(-1, -1), // changes position of shadow
+                              ),
+                            ],
+                          ),
+                          child: Stack(
+                            alignment: Alignment.center,
+                            children: [
+                              Icon(Icons.format_size,
+                                  size: 24,
+                                  color: Theme.of(context).colorScheme.surface),
+                              fontSizeDropDown(context),
+                            ],
+                          )),
                     ],
                   ),
                 ),
@@ -227,7 +269,7 @@ class _ShowTextTafseerState extends State<ShowTextTafseer> {
       '${AppLocalizations.of(context)?.tafSaadiD}',
       '${AppLocalizations.of(context)?.tafTabariD}',
     ];
-    modalBottomSheet(context,
+    dropDownModalBottomSheet(context,
       MediaQuery.of(context).size.height / 1/2,
       MediaQuery.of(context).size.width,
       Padding(

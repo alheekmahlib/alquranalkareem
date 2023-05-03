@@ -10,11 +10,15 @@ import 'package:clipboard/clipboard.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:lottie/lottie.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:theme_provider/theme_provider.dart';
 import '../../cubit/translateRepositoryCubit2/translate_repository2_cubit.dart';
 import '../../l10n/app_localizations.dart';
+import '../../notes/note_controller.dart';
+import '../../notes/textSelectionControls.dart';
 import '../../quran_page/data/model/ayat.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 
@@ -39,6 +43,7 @@ class _ShowTafseerState extends State<ShowTafseer> {
   double? isSelected;
   int? ayahSelected, ayahNumber, surahNumber;
   String? surahName;
+  final NoteController _noteController = Get.put(NoteController());
 
   @override
   void initState() {
@@ -69,6 +74,8 @@ class _ShowTafseerState extends State<ShowTafseer> {
         child: FutureBuilder<List<Ayat>>(
           builder: (context, snapshot) {
             List<Ayat>? ayat = snapshot.data;
+            _allText = '﴿${cubit.translateAyah}﴾\n\n' + cubit.translate;
+            _allTitle = '﴿${cubit.translateAyah}﴾';
             return Column(
               mainAxisSize: MainAxisSize.min,
               children: <Widget>[
@@ -231,6 +238,7 @@ class _ShowTafseerState extends State<ShowTafseer> {
                           child: SingleChildScrollView(
                             controller: _scrollController,
                             child: SelectableText.rich(
+                              key: _selectableTextKey,
                               TextSpan(
                                 children: <InlineSpan>[
                                   TextSpan(
@@ -302,6 +310,39 @@ class _ShowTafseerState extends State<ShowTafseer> {
                               scrollPhysics: const ClampingScrollPhysics(),
                               textDirection: TextDirection.rtl,
                               textAlign: TextAlign.justify,
+                              contextMenuBuilder: (BuildContext context,
+                                  EditableTextState editableTextState) {
+                                final List<ContextMenuButtonItem> buttonItems =
+                                    editableTextState.contextMenuButtonItems;
+                                buttonItems.insert(
+                                  0,
+                                  ContextMenuButtonItem(
+                                    label: 'Add Note',
+                                    onPressed: () {
+                                      ContextMenuController.removeAny();
+                                      _addNote();
+                                    },
+                                  ),
+                                );
+
+                                return AdaptiveTextSelectionToolbar.buttonItems(
+                                  anchors: editableTextState.contextMenuAnchors,
+                                  buttonItems: buttonItems,
+                                );
+                              },
+                              onSelectionChanged: _handleSelectionChanged,
+                              // selectionControls: MyTextSelectionControls(
+                              //   textEditingController: textEditingController,
+                              //   addNote: () {
+                              //     _addNote();
+                              //   },
+                              // ),
+                              // onSelectionChanged: (TextSelection selection, SelectionChangedCause? cause) {
+                              //   if (selection.isValid) {
+                              //     String selectedText = selection.textInside(cubit.translate);
+                              //     _noteController.addSelectedTextAsNote(selectedText);
+                              //   }
+                              // },
                             ),
                           ),
                         ),
@@ -320,6 +361,66 @@ class _ShowTafseerState extends State<ShowTafseer> {
     );
   }
 
+  final GlobalKey<_ShowTafseerState> _selectableTextKey = GlobalKey<_ShowTafseerState>();
+
+  void _handleSelectionChanged(TextSelection selection, SelectionChangedCause? cause) {
+    if (cause == SelectionChangedCause.longPress) {
+      // final title = _allTitle;
+      final text = _allText;
+      final start = selection.start;
+      final end = selection.end;
+
+      setState(() {
+        // selectedTitle = title.substring(start, end);
+        _selectedText = text.substring(start, end);
+      });
+    }
+  }
+
+  String _allText = '';
+  String _allTitle = '';
+
+
+  String _getSelectedText(String text) {
+    TextSelection selection = textEditingController.selection;
+
+    // Check if the selection is valid
+    if (selection.start >= 0 && selection.end <= text.length) {
+      return selection.textInside(text);
+    }
+
+    // Return an empty string if the selection is invalid
+    return '';
+  }
+
+  void _updateSelectedText() {
+    TextSelection selection = textEditingController.selection;
+
+    // Check if the selection is valid
+    if (selection.start >= 0 && selection.end >= 0) {
+      selectedTextNotifier.value = selection.textInside(textEditingController.text);
+    } else {
+      selectedTextNotifier.value = '';
+    }
+  }
+
+  String? _selectedText;
+  String? selectedTitle;
+
+  void _addNote() {
+    if (_selectedText != null && _selectedText!.isNotEmpty) {
+      _noteController.addSelectedTextAsNote(_selectedText!, _allTitle);
+      // Clear the selected text after saving it as a note
+      setState(() {
+        _selectedText = null;
+      });
+    }
+  }
+
+  final TextEditingController textEditingController = TextEditingController();
+  final ValueNotifier<String> selectedTextNotifier = ValueNotifier<String>('');
+
+
   tafseerDropDown(BuildContext context) {
     QuranCubit cubit = QuranCubit.get(context);
     List<String> tafName = <String>[
@@ -337,7 +438,7 @@ class _ShowTafseerState extends State<ShowTafseer> {
       '${AppLocalizations.of(context)!.tafTabariD}',
     ];
 
-    modalBottomSheet(context,
+    dropDownModalBottomSheet(context,
       MediaQuery.of(context).size.height / 1/2,
       MediaQuery.of(context).size.width,
       Padding(

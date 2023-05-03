@@ -1,3 +1,4 @@
+import 'package:alquranalkareem/cubit/cubit.dart';
 import 'package:flutter/material.dart';
 
 import '../quran_page/cubit/audio/cubit.dart';
@@ -11,7 +12,7 @@ class AudioScreen extends StatefulWidget {
 }
 
 class _AudioScreenState extends State<AudioScreen>
-    with WidgetsBindingObserver, SingleTickerProviderStateMixin {
+    with TickerProviderStateMixin, WidgetsBindingObserver {
 
   @override
   void initState() {
@@ -25,10 +26,17 @@ class _AudioScreenState extends State<AudioScreen>
       parent: AudioCubit.get(context).controllerSorah,
       curve: Curves.easeIn,
     ));
+    QuranCubit.get(context).screenController = AnimationController(
+      duration: const Duration(milliseconds: 300),
+      vsync: this,
+    );
+    QuranCubit.get(context).screenAnimation = Tween<double>(begin: 1, end: 0.95).animate(QuranCubit.get(context).screenController!);
     super.initState();
   }
+
   @override
   Widget build(BuildContext context) {
+    QuranCubit cubit = QuranCubit.get(context);
     return SafeArea(
       top: false,
       bottom: false,
@@ -36,7 +44,15 @@ class _AudioScreenState extends State<AudioScreen>
       left: false,
         child: Scaffold(
           backgroundColor: Theme.of(context).colorScheme.background,
-          body: AudioSorahList(),
+          body: AnimatedBuilder(
+              animation: cubit.screenAnimation!,
+              builder: (context, child) {
+                return Transform.scale(
+                  scale: cubit.screenAnimation!.value,
+                  child: child,
+                );
+              },
+              child: AudioSorahList()),
         ));
   }
 }
