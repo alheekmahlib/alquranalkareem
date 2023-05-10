@@ -2,7 +2,6 @@ import 'dart:io';
 
 import 'package:alquranalkareem/cubit/cubit.dart';
 import 'package:alquranalkareem/notes/cubit/note_cubit.dart';
-import 'package:alquranalkareem/quran_page/cubit/bookmarks/bookmarks_cubit.dart';
 import 'package:alquranalkareem/quran_text/Widgets/quran_text_search.dart';
 import 'package:alquranalkareem/shared/widgets/bookmarks_list.dart';
 import 'package:alquranalkareem/shared/widgets/quran_search.dart';
@@ -13,8 +12,9 @@ import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:hijri/hijri_calendar.dart';
+import 'package:lottie/lottie.dart';
 import 'package:theme_provider/theme_provider.dart';
-import '../../bookmarks_notes_db/notificationDatabase.dart';
+import '../../database/notificationDatabase.dart';
 import '../../home_page.dart';
 import '../../l10n/app_localizations.dart';
 import '../../notes/screens/notes_list.dart';
@@ -243,7 +243,7 @@ Widget hijriDate(BuildContext context) {
         ),
         textAlign: TextAlign.center,
       ),
-      SizedBox(
+      const SizedBox(
         height: 8.0,
       ),
 
@@ -267,7 +267,7 @@ Widget hijriDate2(BuildContext context) {
             Theme.of(context).colorScheme.background,
             BlendMode.srcIn)
       ),
-      SizedBox(
+      const SizedBox(
         height: 4.0,
       ),
       Text(
@@ -279,7 +279,7 @@ Widget hijriDate2(BuildContext context) {
         ),
         textAlign: TextAlign.center,
       ),
-      SizedBox(
+      const SizedBox(
         height: 8.0,
       ),
 
@@ -530,11 +530,11 @@ customErrorSnackBar(BuildContext context, String text) {
         height: 60,
         decoration: BoxDecoration(
           color: Theme.of(context).colorScheme.surface,
-          borderRadius: BorderRadius.all(
+          borderRadius: const BorderRadius.all(
             Radius.circular(8),
           )
         ),
-        margin: EdgeInsets.symmetric(horizontal: 16.0),
+        margin: const EdgeInsets.symmetric(horizontal: 16.0),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
@@ -560,7 +560,7 @@ customErrorSnackBar(BuildContext context, String text) {
                         ),
                       ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       width: 8,
                     ),
                     Align(
@@ -605,11 +605,11 @@ customMobileNoteSnackBar(BuildContext context, String text) {
         height: 80,
         decoration: BoxDecoration(
           color: Theme.of(context).colorScheme.surface,
-          borderRadius: BorderRadius.all(
+          borderRadius: const BorderRadius.all(
             Radius.circular(8),
           )
         ),
-        margin: EdgeInsets.symmetric(horizontal: 16.0),
+        margin: const EdgeInsets.symmetric(horizontal: 16.0),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
@@ -635,7 +635,7 @@ customMobileNoteSnackBar(BuildContext context, String text) {
                         ),
                       ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       width: 8,
                     ),
                     Align(
@@ -806,7 +806,7 @@ readerDropDown(BuildContext context) {
               child: Container(
                 height: 30,
                 width: 30,
-                margin: EdgeInsets.all(16.0),
+                margin: const EdgeInsets.all(16.0),
                 decoration: BoxDecoration(
                     color: Theme.of(context)
                         .colorScheme
@@ -895,7 +895,7 @@ readerDropDown(BuildContext context) {
                                   BlendMode.lighten),
                             ),
                             shape: BoxShape.rectangle,
-                            borderRadius: BorderRadius.all(Radius.circular(4.0)),
+                            borderRadius: const BorderRadius.all(Radius.circular(4.0)),
                             border: Border.all(
                               color: Theme.of(context).dividerColor,
                               width: 2
@@ -904,13 +904,13 @@ readerDropDown(BuildContext context) {
                         ),
                       ),
                       decoration: BoxDecoration(
-                        borderRadius: BorderRadius.all(Radius.circular(8.0)),
+                        borderRadius: const BorderRadius.all(Radius.circular(8.0)),
                         border: Border.all(
                           color: Theme.of(context).dividerColor,
                           width: 1
                         )
                       ),
-                      margin: EdgeInsets.symmetric(horizontal: 16.0, vertical: 4.0),
+                      margin: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 4.0),
                     ),
                     // const Divider(
                     //   endIndent: 16,
@@ -972,7 +972,7 @@ sorahReaderDropDown(BuildContext context) {
               child: Container(
                 height: 30,
                 width: 30,
-                margin: EdgeInsets.all(16.0),
+                margin: const EdgeInsets.all(16.0),
                 decoration: BoxDecoration(
                     color: Theme.of(context)
                         .colorScheme
@@ -1062,7 +1062,7 @@ sorahReaderDropDown(BuildContext context) {
                                     BlendMode.lighten),
                               ),
                               shape: BoxShape.rectangle,
-                              borderRadius: BorderRadius.all(Radius.circular(4.0)),
+                              borderRadius: const BorderRadius.all(Radius.circular(4.0)),
                               border: Border.all(
                                   color: Theme.of(context).dividerColor,
                                   width: 2
@@ -1071,13 +1071,13 @@ sorahReaderDropDown(BuildContext context) {
                         ),
                       ),
                       decoration: BoxDecoration(
-                          borderRadius: BorderRadius.all(Radius.circular(8.0)),
+                          borderRadius: const BorderRadius.all(Radius.circular(8.0)),
                           border: Border.all(
                               color: Theme.of(context).dividerColor,
                               width: 1
                           )
                       ),
-                      margin: EdgeInsets.symmetric(horizontal: 16.0, vertical: 4.0),
+                      margin: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 4.0),
                     ),
                     // const Divider(
                     //   endIndent: 16,
@@ -1289,7 +1289,7 @@ platformView(var p1, p2) {
 }
 
 Widget sentNotification(BuildContext context, List<Map<String, dynamic>> notifications, Function updateStatus) {
-  WidgetsBinding.instance?.addPostFrameCallback((_) {
+  WidgetsBinding.instance.addPostFrameCallback((_) {
     updateStatus();
   });
   Future<List<Map<String, dynamic>>> loadNotifications() async {
@@ -1344,7 +1344,7 @@ Widget sentNotification(BuildContext context, List<Map<String, dynamic>> notific
             'assets/svg/space_line.svg',
             height: 30,
           ),
-          SizedBox(
+          const SizedBox(
             height: 16.0,
           ),
           Expanded(
@@ -1352,14 +1352,14 @@ Widget sentNotification(BuildContext context, List<Map<String, dynamic>> notific
               height: MediaQuery.of(context).size.height,
               decoration: BoxDecoration(
                 color: Theme.of(context).colorScheme.surface,
-                borderRadius: BorderRadius.all(Radius.circular(8)),
+                borderRadius: const BorderRadius.all(Radius.circular(8)),
               ),
-              padding: EdgeInsets.symmetric(horizontal: 8.0),
+              padding: const EdgeInsets.symmetric(horizontal: 8.0),
               child: FutureBuilder<List<Map<String, dynamic>>>(
                 future: loadNotifications(),
                 builder: (context, snapshot) {
                   if (snapshot.connectionState == ConnectionState.waiting) {
-                    return CircularProgressIndicator();
+                    return const CircularProgressIndicator();
                   } else if (snapshot.hasError) {
                     return Text('Error: ${snapshot.error}');
                   } else {
@@ -1372,9 +1372,9 @@ Widget sentNotification(BuildContext context, List<Map<String, dynamic>> notific
                           height: 70,
                           decoration: BoxDecoration(
                             color: Theme.of(context).colorScheme.background,
-                            borderRadius: BorderRadius.all(Radius.circular(8)),
+                            borderRadius: const BorderRadius.all(Radius.circular(8)),
                           ),
-                          margin: EdgeInsets.symmetric(vertical: 4.0),
+                          margin: const EdgeInsets.symmetric(vertical: 4.0),
                           child: ListTile(
                             title: Text(notification['title'],
                               style: TextStyle(
@@ -1429,6 +1429,8 @@ Widget rightPage(BuildContext context, Widget child) {
         padding: const EdgeInsets.only(
             right: 4.0, top: 16.0, bottom: 16.0),
         child: Container(
+          height: MediaQuery.of(context).size.height,
+          width: MediaQuery.of(context).size.width,
             decoration: BoxDecoration(
             color: ThemeProvider.themeOf(context).id == 'dark'
                 ? Theme.of(context).primaryColorDark.withOpacity(.5)
@@ -1437,13 +1439,15 @@ Widget rightPage(BuildContext context, Widget child) {
         borderRadius: const BorderRadius.only(
         topRight: Radius.circular(12),
         bottomRight: Radius.circular(12))),
-          child: child,
+          // child: child,
         ),
       ),
       Padding(
         padding: const EdgeInsets.only(
             right: 8.0, top: 16.0, bottom: 16.0),
         child: Container(
+          height: MediaQuery.of(context).size.height,
+          width: MediaQuery.of(context).size.width,
             decoration: BoxDecoration(
             color: ThemeProvider.themeOf(context).id == 'dark'
                 ? Theme.of(context).primaryColorDark.withOpacity(.7)
@@ -1451,7 +1455,7 @@ Widget rightPage(BuildContext context, Widget child) {
         borderRadius: const BorderRadius.only(
         topRight: Radius.circular(12),
         bottomRight: Radius.circular(12))),
-          child: child,
+          // child: child,
         ),
       ),
       Padding(
@@ -1477,6 +1481,8 @@ Widget leftPage(BuildContext context, Widget child) {
         padding: const EdgeInsets.only(
             left: 4.0, top: 16.0, bottom: 16.0),
         child: Container(
+          height: MediaQuery.of(context).size.height,
+          width: MediaQuery.of(context).size.width,
             decoration: BoxDecoration(
             color: ThemeProvider.themeOf(context).id == 'dark'
                 ? Theme.of(context).primaryColorDark.withOpacity(.5)
@@ -1485,13 +1491,15 @@ Widget leftPage(BuildContext context, Widget child) {
         borderRadius: const BorderRadius.only(
         topLeft: Radius.circular(12),
         bottomLeft: Radius.circular(12))),
-          child: child,
+          // child: child,
         ),
       ),
       Padding(
         padding: const EdgeInsets.only(
             left: 8.0, top: 16.0, bottom: 16.0),
         child: Container(
+          height: MediaQuery.of(context).size.height,
+          width: MediaQuery.of(context).size.width,
             decoration: BoxDecoration(
             color: ThemeProvider.themeOf(context).id == 'dark'
                 ? Theme.of(context).primaryColorDark.withOpacity(.7)
@@ -1499,7 +1507,7 @@ Widget leftPage(BuildContext context, Widget child) {
         borderRadius: const BorderRadius.only(
         topLeft: Radius.circular(12),
         bottomLeft: Radius.circular(12))),
-          child: child,
+          // child: child,
         ),
       ),
       Padding(
@@ -1563,7 +1571,7 @@ dropDownModalBottomSheet(BuildContext context, double height, width, Widget chil
             platformView(hei, hei / 1/2))
       ),
       elevation: 0.0,
-      shape: RoundedRectangleBorder(
+      shape: const RoundedRectangleBorder(
       borderRadius: BorderRadius.only(
         topLeft: Radius.circular(8.0),
         topRight: Radius.circular(8.0),
@@ -1600,7 +1608,7 @@ allModalBottomSheet(BuildContext context, double height, width, Widget child) {
             platformView(hei, hei / 1/2))
       ),
       elevation: 0.0,
-      shape: RoundedRectangleBorder(
+      shape: const RoundedRectangleBorder(
       borderRadius: BorderRadius.only(
         topLeft: Radius.circular(8.0),
         topRight: Radius.circular(8.0),
@@ -1633,5 +1641,12 @@ Widget customClose(BuildContext context) {
       ],
     ),
     onTap: () => Navigator.of(context).pop(),
+  );
+}
+
+Widget custumLoding() {
+  return Center(
+    child: Lottie.asset('assets/lottie/loading.json',
+        width: 200, height: 200),
   );
 }

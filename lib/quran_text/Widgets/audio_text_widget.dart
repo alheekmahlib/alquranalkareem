@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'dart:io';
 import 'package:alquranalkareem/quran_page/cubit/audio/cubit.dart';
-import 'package:alquranalkareem/cubit/cubit.dart';
 import 'package:alquranalkareem/shared/widgets/widgets.dart';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
@@ -10,10 +9,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:square_percent_indicater/square_percent_indicater.dart';
 import '../../l10n/app_localizations.dart';
-import '../../quran_page/screens/quran_page.dart';
 import '../cubit/quran_text_cubit.dart';
 import 'dart:developer' as developer;
 
@@ -54,7 +51,7 @@ class _AudioTextWidgetState extends State<AudioTextWidget>{
   void initState() {
     isPlay = false;
     sliderValue = 0;
-    final AudioContext audioContext = AudioContext(
+    final AudioContext audioContext = const AudioContext(
       iOS: AudioContextIOS(
         // defaultToSpeaker: true,
         category: AVAudioSessionCategory.ambient,
@@ -419,7 +416,7 @@ class _AudioTextWidgetState extends State<AudioTextWidget>{
                       alignment: Alignment.center,
                       width: 170,
                       child: SliderTheme(
-                        data: SliderThemeData(
+                        data: const SliderThemeData(
                             thumbShape: RoundSliderThumbShape(enabledThumbRadius: 8)),
                         child: Slider(
                           activeColor: Theme.of(context).colorScheme.background,

@@ -1,5 +1,5 @@
 import 'package:get/get.dart';
-import '../bookmarks_notes_db/databaseHelper.dart';
+import '../database/databaseHelper.dart';
 import 'model/Notes.dart';
 
 

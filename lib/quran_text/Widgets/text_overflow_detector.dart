@@ -61,8 +61,8 @@ class ReadMoreLess extends StatelessWidget {
             final span = TextSpan(
               text: text,
               style: textStyle ??
-                  Theme.of(context).textTheme.subtitle1?.copyWith(
-                      color: Theme.of(context).textTheme.bodyText2?.color),
+                  Theme.of(context).textTheme.titleMedium?.copyWith(
+                      color: Theme.of(context).textTheme.bodyMedium?.color),
             );
 
             final tp = TextPainter(
@@ -95,7 +95,7 @@ class ReadMoreLess extends StatelessWidget {
                 overflow: TextOverflow.fade,
                 textAlign: textAlign,
                 textDirection: TextDirection.ltr,
-                style: textStyle ?? Theme.of(context).textTheme.subtitle1);
+                style: textStyle ?? Theme.of(context).textTheme.titleMedium);
           },
         ),
       ],

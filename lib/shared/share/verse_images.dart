@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../../quran_text/text_page_view.dart';
 
 class VerseImage extends StatelessWidget {
   final String surahName;
@@ -23,31 +22,31 @@ class VerseImage extends StatelessWidget {
             Text(
               surahName,
               textAlign: TextAlign.right,
-              style: TextStyle(
+              style: const TextStyle(
                 fontSize: 20,
                 fontWeight: FontWeight.normal,
                 fontFamily: 'uthmanic2',
-                color: const Color(0xff161f07),
+                color: Color(0xff161f07),
               ),
             ),
             Text(
               verseText,
               textAlign: TextAlign.right,
-              style: TextStyle(
+              style: const TextStyle(
                 fontSize: 20,
                 fontWeight: FontWeight.normal,
                 fontFamily: 'uthmanic2',
-                color: const Color(0xff161f07),
+                color: Color(0xff161f07),
               ),
             ),
             Text(
               verseNumber.toString(),
               textAlign: TextAlign.right,
-              style: TextStyle(
+              style: const TextStyle(
                 fontSize: 20,
                 fontWeight: FontWeight.normal,
                 fontFamily: 'uthmanic2',
-                color: const Color(0xff161f07),
+                color: Color(0xff161f07),
               ),
             ),
           ],

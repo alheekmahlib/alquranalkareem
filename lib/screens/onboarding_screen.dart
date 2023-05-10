@@ -1,8 +1,6 @@
 import 'dart:io';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import '../home_page.dart';
 import '../shared/widgets/widgets.dart';
@@ -107,14 +105,14 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                               decoration: BoxDecoration(
                                   color:
                                       const Color(0xff91a57d).withOpacity(.2),
-                                  border: Border.symmetric(
+                                  border: const Border.symmetric(
                                       vertical: BorderSide(
-                                          color: const Color(0xff91a57d),
+                                          color: Color(0xff91a57d),
                                           width: 2))),
-                              child: Text(
+                              child: const Text(
                                 'تخطي',
                                 style: TextStyle(
-                                  color: const Color(0xff91a57d),
+                                  color: Color(0xff91a57d),
                                   fontSize: 18.0,
                                   fontFamily: 'kufi',
                                   fontWeight: FontWeight.w600,
@@ -126,7 +124,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                               backgroundColor: Colors.transparent,
                               elevation: 0),
                           onPressed: () {
-                            Get.off(() => HomePage());
+                            Get.off(() => const HomePage());
                           },
                         ),
                       ),
@@ -139,9 +137,9 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                             child: Container(
                               height: 50,
                               width: 100,
-                              decoration: BoxDecoration(
+                              decoration: const BoxDecoration(
                                 borderRadius: BorderRadius.all(Radius.circular(8)),
-                                color: const Color(0xff91a57d),),
+                                color: Color(0xff91a57d),),
                               child: Center(
                                 child: Text(
                                     'أبدأ',
@@ -156,10 +154,10 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                             ),
                             onTap: () {
                               if (pageNumber == 3) {
-                                Get.off(() => HomePage());
+                                Get.off(() => const HomePage());
                               } else {
                                 controller.animateToPage(controller.page!.toInt() + 1,
-                                    duration: Duration(milliseconds: 400),
+                                    duration: const Duration(milliseconds: 400),
                                     curve: Curves.easeIn);
                               }
                             },
@@ -174,17 +172,17 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                             child: Container(
                               height: 50,
                               width: 60,
-                              decoration: BoxDecoration(
+                              decoration: const BoxDecoration(
                                 borderRadius: BorderRadius.all(Radius.circular(8)),
-                                color: const Color(0xff91a57d),),
-                              child: Icon(
+                                color: Color(0xff91a57d),),
+                              child: const Icon(
                                 Icons.arrow_forward,
-                                color: const Color(0xfff3efdf),
+                                color: Color(0xfff3efdf),
                               ),
                             ),
                             onTap: () {
                               controller.animateToPage(controller.page!.toInt() + 1,
-                                  duration: Duration(milliseconds: 400),
+                                  duration: const Duration(milliseconds: 400),
                                   curve: Curves.easeIn);
                             },
                           ),
@@ -264,14 +262,14 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                               decoration: BoxDecoration(
                                   color:
                                       const Color(0xff91a57d).withOpacity(.2),
-                                  border: Border.symmetric(
+                                  border: const Border.symmetric(
                                       vertical: BorderSide(
-                                          color: const Color(0xff91a57d),
+                                          color: Color(0xff91a57d),
                                           width: 2))),
-                              child: Text(
+                              child: const Text(
                                 'تخطي',
                                 style: TextStyle(
-                                  color: const Color(0xff91a57d),
+                                  color: Color(0xff91a57d),
                                   fontSize: 18.0,
                                   fontFamily: 'kufi',
                                   fontWeight: FontWeight.w600,
@@ -283,7 +281,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                               backgroundColor: Colors.transparent,
                               elevation: 0),
                           onPressed: () {
-                            Get.off(() => HomePage());
+                            Get.off(() => const HomePage());
                           },
                         ),
                       ),
@@ -296,9 +294,9 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                           child: Container(
                             height: 50,
                               width: 100,
-                              decoration: BoxDecoration(
+                              decoration: const BoxDecoration(
                                   borderRadius: BorderRadius.all(Radius.circular(8)),
-                                color: const Color(0xff91a57d),),
+                                color: Color(0xff91a57d),),
                               child: Center(
                                 child: Text(
                                   'أبدأ',
@@ -313,10 +311,10 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                           ),
                           onTap: () {
                             if (pageNumber == 3) {
-                              Get.off(() => HomePage());
+                              Get.off(() => const HomePage());
                             } else {
                               controller.animateToPage(controller.page!.toInt() + 1,
-                                  duration: Duration(milliseconds: 400),
+                                  duration: const Duration(milliseconds: 400),
                                   curve: Curves.easeIn);
                             }
                           },
@@ -331,17 +329,17 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                           child: Container(
                             height: 50,
                             width: 60,
-                            decoration: BoxDecoration(
+                            decoration: const BoxDecoration(
                               borderRadius: BorderRadius.all(Radius.circular(8)),
-                              color: const Color(0xff91a57d),),
-                              child: Icon(
+                              color: Color(0xff91a57d),),
+                              child: const Icon(
                                 Icons.arrow_forward,
-                                color: const Color(0xfff3efdf),
+                                color: Color(0xfff3efdf),
                               ),
                           ),
                           onTap: () {
                             controller.animateToPage(controller.page!.toInt() + 1,
-                                duration: Duration(milliseconds: 400),
+                                duration: const Duration(milliseconds: 400),
                                 curve: Curves.easeIn);
                           },
                         ),

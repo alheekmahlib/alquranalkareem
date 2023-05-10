@@ -2,8 +2,6 @@ import 'dart:convert';
 
 import 'package:alquranalkareem/l10n/app_localizations.dart';
 import 'package:animated_toggle_switch/animated_toggle_switch.dart';
-import 'package:day_night_time_picker/day_night_time_picker.dart';
-import 'package:day_night_time_picker/lib/daynight_timepicker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
@@ -86,7 +84,7 @@ class _MenuScreenState extends State<MenuScreen> {
               Container(
                 height: orientation(context, 220.0, 350.0),
                 // width: 70,
-                decoration: BoxDecoration(
+                decoration: const BoxDecoration(
                   borderRadius: BorderRadius.all(Radius.circular(8)),
                 ),
                 child: Stack(
@@ -109,7 +107,7 @@ class _MenuScreenState extends State<MenuScreen> {
                   color: Theme.of(context)
                       .colorScheme.surface
                       .withOpacity(.2),
-                  borderRadius: BorderRadius.all(Radius.circular(8)),
+                  borderRadius: const BorderRadius.all(Radius.circular(8)),
                 ),
                 // padding: EdgeInsets.all(16.0),
                 child: Row(
@@ -119,7 +117,7 @@ class _MenuScreenState extends State<MenuScreen> {
                       height: 70,
                       decoration: BoxDecoration(
                         color: Theme.of(context).colorScheme.surface,
-                        borderRadius: BorderRadius.only(
+                        borderRadius: const BorderRadius.only(
                           topRight: Radius.circular(8),
                           bottomRight: Radius.circular(8),
                         ),
@@ -137,7 +135,7 @@ class _MenuScreenState extends State<MenuScreen> {
                             ),
                             textAlign: TextAlign.center,
                           ),
-                          Divider(
+                          const Divider(
                             endIndent: 8,
                             indent: 8,
                             height: 8,
@@ -155,10 +153,10 @@ class _MenuScreenState extends State<MenuScreen> {
                       width: 2,
                       decoration: BoxDecoration(
                         color: Theme.of(context).colorScheme.surface,
-                        borderRadius: BorderRadius.all(Radius.circular(8))
+                        borderRadius: const BorderRadius.all(Radius.circular(8))
                       ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       width: 16,
                     ),
                     SvgPicture.asset(
@@ -171,7 +169,7 @@ class _MenuScreenState extends State<MenuScreen> {
                           BlendMode.srcIn
                       ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       width: 16,
                     ),
                     Text(
@@ -197,7 +195,7 @@ class _MenuScreenState extends State<MenuScreen> {
                   color: Theme.of(context)
                       .colorScheme.surface
                       .withOpacity(.2),
-                  borderRadius: BorderRadius.all(Radius.circular(8)),
+                  borderRadius: const BorderRadius.all(Radius.circular(8)),
                 ),
                 padding: const EdgeInsets.all(8.0),
                 child: Column(
@@ -208,11 +206,11 @@ class _MenuScreenState extends State<MenuScreen> {
                         child: Row(
                           children: [
                             Container(
-                              padding: EdgeInsets.all(2),
+                              padding: const EdgeInsets.all(2),
                               decoration: BoxDecoration(
                                 color: Theme.of(context)
                                     .colorScheme.surface,
-                                borderRadius: BorderRadius.all(Radius.circular(2)),
+                                borderRadius: const BorderRadius.all(Radius.circular(2)),
                               ),
                               child: SvgPicture.asset(
                                 'assets/svg/alwaqf.svg',
@@ -259,11 +257,11 @@ class _MenuScreenState extends State<MenuScreen> {
                         child: Row(
                           children: [
                             Container(
-                              padding: EdgeInsets.all(2),
+                              padding: const EdgeInsets.all(2),
                               decoration: BoxDecoration(
                                 color: Theme.of(context)
                                     .colorScheme.surface,
-                                borderRadius: BorderRadius.all(Radius.circular(2)),
+                                borderRadius: const BorderRadius.all(Radius.circular(2)),
                               ),
                               child: SvgPicture.asset(
                                 'assets/svg/menu_ic.svg',
@@ -310,11 +308,11 @@ class _MenuScreenState extends State<MenuScreen> {
                         child: Row(
                           children: [
                             Container(
-                              padding: EdgeInsets.all(2),
+                              padding: const EdgeInsets.all(2),
                               decoration: BoxDecoration(
                                 color: Theme.of(context)
                                     .colorScheme.surface,
-                                borderRadius: BorderRadius.all(Radius.circular(2)),
+                                borderRadius: const BorderRadius.all(Radius.circular(2)),
                               ),
                               child: SvgPicture.asset(
                                 'assets/svg/info_ic.svg',
@@ -367,7 +365,7 @@ class _MenuScreenState extends State<MenuScreen> {
                   color: Theme.of(context)
                       .colorScheme.surface
                       .withOpacity(.2),
-                  borderRadius: BorderRadius.all(Radius.circular(8)),
+                  borderRadius: const BorderRadius.all(Radius.circular(8)),
                 ),
                 padding: const EdgeInsets.all(8.0),
                 child: Column(
@@ -392,7 +390,7 @@ class _MenuScreenState extends State<MenuScreen> {
                           await cubit.deleteReminder(context, index);
                         },
                         child: Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 8.0),
+                          padding: const EdgeInsets.symmetric(horizontal: 8.0),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
@@ -484,7 +482,7 @@ class _MenuScreenState extends State<MenuScreen> {
                                   borderWidth: 1,
                                   indicatorColor: Theme.of(context).colorScheme.surface,
                                   innerColor: Theme.of(context).canvasColor,
-                                  borderRadius: BorderRadius.all(Radius.circular(8)),
+                                  borderRadius: const BorderRadius.all(Radius.circular(8)),
                                   height: 25,
                                   dif: 2.0,
                                   borderColor: Theme.of(context).colorScheme.surface,
@@ -503,10 +501,10 @@ class _MenuScreenState extends State<MenuScreen> {
                 child: GestureDetector(
                   onTap: cubit.addReminder,
                   child: Container(
-                    margin: EdgeInsets.symmetric(vertical: 4),
-                    padding: EdgeInsets.symmetric(horizontal: 4, vertical: 4),
+                    margin: const EdgeInsets.symmetric(vertical: 4),
+                    padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 4),
                     decoration: BoxDecoration(
-                      borderRadius: BorderRadius.all(
+                      borderRadius: const BorderRadius.all(
                           Radius.circular(8)),
                       border: Border.all(
                         color: Theme.of(context).colorScheme.surface,
@@ -544,7 +542,7 @@ class ReminderStorage {
   static Future<List<Reminder>> loadReminders() async {
     SharedPreferences prefs = await _prefs;
     List<String> remindersJson = prefs.getStringList(_storageKey)?.cast<String>() ?? [];
-    List<Reminder> reminders = remindersJson.map((r) => Reminder.fromJson(jsonDecode(r)) as Reminder).toList();
+    List<Reminder> reminders = remindersJson.map((r) => Reminder.fromJson(jsonDecode(r))).toList();
     return reminders;
   }
 

@@ -1,7 +1,6 @@
 import 'dart:convert';
 import 'package:alquranalkareem/cubit/cubit.dart';
 import 'package:arabic_numbers/arabic_numbers.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:theme_provider/theme_provider.dart';

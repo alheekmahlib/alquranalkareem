@@ -82,7 +82,7 @@ class _ExpandableTextState extends State<ExpandableText> {
             icon: Text(
               widget.readLessText ?? 'Read less',
               style: widget.buttonTextStyle ??
-                  Theme.of(context).textTheme.subtitle1,
+                  Theme.of(context).textTheme.titleMedium,
             ),
             label: widget.iconExpanded ??
                 Icon(
@@ -96,7 +96,7 @@ class _ExpandableTextState extends State<ExpandableText> {
           icon: Text(
             widget.readMoreText ?? 'Read more',
             style: widget.buttonTextStyle ??
-                Theme.of(context).textTheme.subtitle1,
+                Theme.of(context).textTheme.titleMedium,
           ),
           label: widget.iconCollapsed ??
               Icon(

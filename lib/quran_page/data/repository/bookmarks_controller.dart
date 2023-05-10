@@ -1,10 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
+import '../../../database/databaseHelper.dart';
 import '../../../l10n/app_localizations.dart';
-import '../../../bookmarks_notes_db/databaseHelper.dart';
 import '../../../shared/widgets/widgets.dart';
 import '../model/bookmark.dart';
-import 'package:collection/collection.dart' as collection;
 
 
 class BookmarksController extends GetxController {

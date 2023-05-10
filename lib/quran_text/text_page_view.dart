@@ -1,7 +1,4 @@
 import 'dart:async';
-import 'dart:convert';
-import 'dart:io';
-import 'dart:math';
 import 'package:animated_toggle_switch/animated_toggle_switch.dart';
 import 'package:another_xlider/another_xlider.dart';
 import 'package:another_xlider/models/handler.dart';
@@ -11,19 +8,13 @@ import 'package:arabic_numbers/arabic_numbers.dart';
 import 'package:bot_toast/bot_toast.dart';
 import 'package:clipboard/clipboard.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
-import 'package:flutter/services.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:lottie/lottie.dart';
-import 'package:path_provider/path_provider.dart';
 // import 'package:scroll_to_index/scroll_to_index.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
-import 'package:share_plus/share_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:theme_provider/theme_provider.dart';
 import '../cubit/cubit.dart';
@@ -98,11 +89,10 @@ class _TextPageViewState extends State<TextPageView>
   }
 
   void _scroll() {
-    QuranTextCubit.get(context).scrollController!.jumpTo(
+    QuranTextCubit.get(context).scrollController.jumpTo(
         QuranTextCubit.get(context).animationController.value *
             (QuranTextCubit.get(context)
-                .scrollController!
-                .position
+                .scrollController.position
                 .maxScrollExtent));
   }
 
@@ -170,7 +160,7 @@ class _TextPageViewState extends State<TextPageView>
     });
     QuranTextCubit.get(context).scrollSpeedNotifier =
         ValueNotifier<double>(QuranTextCubit.get(context).scrollSpeed);
-    WidgetsBinding.instance!.addPostFrameCallback((_) {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
       _quranTextCubitSubscription = context
           .read<QuranTextCubit>()
           .stream
@@ -319,7 +309,7 @@ class _TextPageViewState extends State<TextPageView>
                                       const EdgeInsets.symmetric(horizontal: 8.0),
                                   child: fontSizeDropDown(context),
                                 ),
-                                Spacer(),
+                                const Spacer(),
                                 // scrollDropDown(context),
                                 // Padding(
                                 //   padding: const EdgeInsets.symmetric(horizontal: 8.0),
@@ -368,7 +358,7 @@ class _TextPageViewState extends State<TextPageView>
                                         Theme.of(context).colorScheme.surface,
                                     innerColor: Theme.of(context).canvasColor,
                                     borderRadius:
-                                        BorderRadius.all(Radius.circular(8)),
+                                        const BorderRadius.all(Radius.circular(8)),
                                     height: 25,
                                     dif: 2.0,
                                     borderColor:
@@ -420,7 +410,7 @@ class _TextPageViewState extends State<TextPageView>
                               indent: 16,
                             ),
                             Padding(
-                              padding: EdgeInsets.only(
+                              padding: const EdgeInsets.only(
                                   top: 32.0, right: 16.0, left: 16.0),
                               child: orientation(
                                   context,
@@ -433,7 +423,7 @@ class _TextPageViewState extends State<TextPageView>
                                               .colorScheme
                                               .background,
                                         ),
-                                        padding: EdgeInsets.symmetric(
+                                        padding: const EdgeInsets.symmetric(
                                             horizontal: 16.0),
                                         child: Row(
                                           mainAxisAlignment:
@@ -495,7 +485,7 @@ class _TextPageViewState extends State<TextPageView>
                                                     .surface,
                                                 innerColor:
                                                     Theme.of(context).canvasColor,
-                                                borderRadius: BorderRadius.all(
+                                                borderRadius: const BorderRadius.all(
                                                     Radius.circular(8)),
                                                 height: 25,
                                                 dif: 2.0,
@@ -523,8 +513,8 @@ class _TextPageViewState extends State<TextPageView>
                         child: Padding(
                           padding: orientation(
                               context,
-                              EdgeInsets.only(top: 155.0, bottom: 16.0),
-                              EdgeInsets.only(
+                              const EdgeInsets.only(top: 155.0, bottom: 16.0),
+                              const EdgeInsets.only(
                                   top: 68.0,
                                   bottom: 16.0,
                                   right: 40.0,
@@ -534,16 +524,13 @@ class _TextPageViewState extends State<TextPageView>
                                   QuranTextCubit.get(context).animationController,
                               builder: (BuildContext context, Widget? child) {
                                 if (QuranTextCubit.get(context)
-                                    .scrollController!
-                                    .hasClients) {
+                                    .scrollController.hasClients) {
                                   QuranTextCubit.get(context)
-                                      .scrollController!
-                                      .jumpTo(QuranTextCubit.get(context)
+                                      .scrollController.jumpTo(QuranTextCubit.get(context)
                                               .animationController
                                               .value *
                                           (QuranTextCubit.get(context)
-                                              .scrollController!
-                                              .position
+                                              .scrollController.position
                                               .maxScrollExtent));
                                 }
                                 return ScrollablePositionedList.builder(
@@ -640,11 +627,11 @@ class _TextPageViewState extends State<TextPageView>
                                                                 TextCubit
                                                                     .preferDirection,
                                                             animationDuration:
-                                                                Duration(
+                                                                const Duration(
                                                                     microseconds:
                                                                         700),
                                                             animationReverseDuration:
-                                                                Duration(
+                                                                const Duration(
                                                                     microseconds:
                                                                         700),
                                                             attachedBuilder:
@@ -675,7 +662,7 @@ class _TextPageViewState extends State<TextPageView>
                                                                     Container(
                                                                       height: 40,
                                                                       width: 40,
-                                                                      decoration: BoxDecoration(
+                                                                      decoration: const BoxDecoration(
                                                                           color: Color(
                                                                               0xfff3efdf),
                                                                           borderRadius:
@@ -698,7 +685,7 @@ class _TextPageViewState extends State<TextPageView>
                                                                                   aya =
                                                                                   ayat![b];
                                                                               return IconButton(
-                                                                                icon: Icon(
+                                                                                icon: const Icon(
                                                                                   Icons.text_snippet_outlined,
                                                                                   size: 24,
                                                                                   color: Color(0x99f5410a),
@@ -727,13 +714,13 @@ class _TextPageViewState extends State<TextPageView>
                                                                             }
                                                                           }),
                                                                     ),
-                                                                    SizedBox(
+                                                                    const SizedBox(
                                                                       width: 8.0,
                                                                     ),
                                                                     Container(
                                                                       height: 40,
                                                                       width: 40,
-                                                                      decoration: BoxDecoration(
+                                                                      decoration: const BoxDecoration(
                                                                           color: Color(
                                                                               0xfff3efdf),
                                                                           borderRadius:
@@ -741,7 +728,7 @@ class _TextPageViewState extends State<TextPageView>
                                                                       child:
                                                                           IconButton(
                                                                         icon:
-                                                                            Icon(
+                                                                            const Icon(
                                                                           Icons
                                                                               .bookmark_border,
                                                                           size:
@@ -766,13 +753,13 @@ class _TextPageViewState extends State<TextPageView>
                                                                         },
                                                                       ),
                                                                     ),
-                                                                    SizedBox(
+                                                                    const SizedBox(
                                                                       width: 8.0,
                                                                     ),
                                                                     Container(
                                                                       height: 40,
                                                                       width: 40,
-                                                                      decoration: BoxDecoration(
+                                                                      decoration: const BoxDecoration(
                                                                           color: Color(
                                                                               0xfff3efdf),
                                                                           borderRadius:
@@ -780,7 +767,7 @@ class _TextPageViewState extends State<TextPageView>
                                                                       child:
                                                                           IconButton(
                                                                         icon:
-                                                                            Icon(
+                                                                            const Icon(
                                                                           Icons
                                                                               .copy_outlined,
                                                                           size:
@@ -802,13 +789,13 @@ class _TextPageViewState extends State<TextPageView>
                                                                         },
                                                                       ),
                                                                     ),
-                                                                    SizedBox(
+                                                                    const SizedBox(
                                                                       width: 8.0,
                                                                     ),
                                                                     Container(
                                                                       height: 40,
                                                                       width: 40,
-                                                                      decoration: BoxDecoration(
+                                                                      decoration: const BoxDecoration(
                                                                           color: Color(
                                                                               0xfff3efdf),
                                                                           borderRadius:
@@ -816,7 +803,7 @@ class _TextPageViewState extends State<TextPageView>
                                                                       child:
                                                                           IconButton(
                                                                         icon:
-                                                                            Icon(
+                                                                            const Icon(
                                                                           Icons
                                                                               .play_arrow_outlined,
                                                                           size:
@@ -843,13 +830,13 @@ class _TextPageViewState extends State<TextPageView>
                                                                         },
                                                                       ),
                                                                     ),
-                                                                    SizedBox(
+                                                                    const SizedBox(
                                                                       width: 8.0,
                                                                     ),
                                                                     Container(
                                                                       height: 40,
                                                                       width: 40,
-                                                                      decoration: BoxDecoration(
+                                                                      decoration: const BoxDecoration(
                                                                           color: Color(
                                                                               0xfff3efdf),
                                                                           borderRadius:
@@ -857,7 +844,7 @@ class _TextPageViewState extends State<TextPageView>
                                                                       child:
                                                                           IconButton(
                                                                         icon:
-                                                                            Icon(
+                                                                            const Icon(
                                                                           Icons
                                                                               .share_outlined,
                                                                           size:
@@ -1102,9 +1089,9 @@ class _TextPageViewState extends State<TextPageView>
                                                                           preferDirection:
                                                                               TextCubit.preferDirection,
                                                                           animationDuration:
-                                                                              Duration(microseconds: 700),
+                                                                              const Duration(microseconds: 700),
                                                                           animationReverseDuration:
-                                                                              Duration(microseconds: 700),
+                                                                              const Duration(microseconds: 700),
                                                                           attachedBuilder:
                                                                               (cancel) =>
                                                                                   Card(
@@ -1127,7 +1114,7 @@ class _TextPageViewState extends State<TextPageView>
                                                                                   Container(
                                                                                     height: 40,
                                                                                     width: 40,
-                                                                                    decoration: BoxDecoration(color: Color(0xfff3efdf), borderRadius: BorderRadius.all(Radius.circular(50))),
+                                                                                    decoration: const BoxDecoration(color: Color(0xfff3efdf), borderRadius: BorderRadius.all(Radius.circular(50))),
                                                                                     child: FutureBuilder<List<Ayat>>(
                                                                                         future: QuranCubit.get(context).handleRadioValueChanged(context, QuranCubit.get(context).radioValue).getAyahTranslate((widget.surah!.number)),
                                                                                         builder: (context, snapshot) {
@@ -1135,7 +1122,7 @@ class _TextPageViewState extends State<TextPageView>
                                                                                             List<Ayat>? ayat = snapshot.data;
                                                                                             Ayat aya = ayat![index];
                                                                                             return IconButton(
-                                                                                              icon: Icon(
+                                                                                              icon: const Icon(
                                                                                                 Icons.text_snippet_outlined,
                                                                                                 size: 24,
                                                                                                 color: Color(0x99f5410a),
@@ -1164,15 +1151,15 @@ class _TextPageViewState extends State<TextPageView>
                                                                                           }
                                                                                         }),
                                                                                   ),
-                                                                                  SizedBox(
+                                                                                  const SizedBox(
                                                                                     width: 8.0,
                                                                                   ),
                                                                                   Container(
                                                                                     height: 40,
                                                                                     width: 40,
-                                                                                    decoration: BoxDecoration(color: Color(0xfff3efdf), borderRadius: BorderRadius.all(Radius.circular(50))),
+                                                                                    decoration: const BoxDecoration(color: Color(0xfff3efdf), borderRadius: BorderRadius.all(Radius.circular(50))),
                                                                                     child: IconButton(
-                                                                                      icon: Icon(
+                                                                                      icon: const Icon(
                                                                                         Icons.bookmark_border,
                                                                                         size: 24,
                                                                                         color: Color(0x99f5410a),
@@ -1191,15 +1178,15 @@ class _TextPageViewState extends State<TextPageView>
                                                                                       },
                                                                                     ),
                                                                                   ),
-                                                                                  SizedBox(
+                                                                                  const SizedBox(
                                                                                     width: 8.0,
                                                                                   ),
                                                                                   Container(
                                                                                     height: 40,
                                                                                     width: 40,
-                                                                                    decoration: BoxDecoration(color: Color(0xfff3efdf), borderRadius: BorderRadius.all(Radius.circular(50))),
+                                                                                    decoration: const BoxDecoration(color: Color(0xfff3efdf), borderRadius: BorderRadius.all(Radius.circular(50))),
                                                                                     child: IconButton(
-                                                                                      icon: Icon(
+                                                                                      icon: const Icon(
                                                                                         Icons.copy_outlined,
                                                                                         size: 24,
                                                                                         color: Color(0x99f5410a),
@@ -1214,15 +1201,15 @@ class _TextPageViewState extends State<TextPageView>
                                                                                       },
                                                                                     ),
                                                                                   ),
-                                                                                  SizedBox(
+                                                                                  const SizedBox(
                                                                                     width: 8.0,
                                                                                   ),
                                                                                   Container(
                                                                                     height: 40,
                                                                                     width: 40,
-                                                                                    decoration: BoxDecoration(color: Color(0xfff3efdf), borderRadius: BorderRadius.all(Radius.circular(50))),
+                                                                                    decoration: const BoxDecoration(color: Color(0xfff3efdf), borderRadius: BorderRadius.all(Radius.circular(50))),
                                                                                     child: IconButton(
-                                                                                      icon: Icon(
+                                                                                      icon: const Icon(
                                                                                         Icons.play_arrow_outlined,
                                                                                         size: 24,
                                                                                         color: Color(0x99f5410a),
@@ -1241,15 +1228,15 @@ class _TextPageViewState extends State<TextPageView>
                                                                                       },
                                                                                     ),
                                                                                   ),
-                                                                                  SizedBox(
+                                                                                  const SizedBox(
                                                                                     width: 8.0,
                                                                                   ),
                                                                                   Container(
                                                                                     height: 40,
                                                                                     width: 40,
-                                                                                    decoration: BoxDecoration(color: Color(0xfff3efdf), borderRadius: BorderRadius.all(Radius.circular(50))),
+                                                                                    decoration: const BoxDecoration(color: Color(0xfff3efdf), borderRadius: BorderRadius.all(Radius.circular(50))),
                                                                                     child: IconButton(
-                                                                                      icon: Icon(
+                                                                                      icon: const Icon(
                                                                                         Icons.share_outlined,
                                                                                         size: 23,
                                                                                         color: Color(0x99f5410a),
@@ -1385,7 +1372,7 @@ class _TextPageViewState extends State<TextPageView>
                                                                       .isNotEmpty) {
                                                                 // Use the translation variable in your widget tree
                                                                 return ReadMoreLess(
-                                                                  text: translateData![
+                                                                  text: translateData[
                                                                               index]
                                                                           [
                                                                           'text'] ??
@@ -1442,7 +1429,7 @@ class _TextPageViewState extends State<TextPageView>
                                                                 ); // Replace this with your actual widget
                                                               } else {
                                                                 // Display a placeholder widget if there's no translation data
-                                                                return Text(
+                                                                return const Text(
                                                                     'No translation available');
                                                               }
                                                             }
@@ -1571,6 +1558,7 @@ class _TextPageViewState extends State<TextPageView>
                                                                     'uthmanic2'),
                                                             children:
                                                                 text.map((e) {
+
                                                               return e;
                                                             }).toList(),
                                                           ),
@@ -1700,7 +1688,7 @@ class _TextPageViewState extends State<TextPageView>
           height: 25,
           width: 25,
           decoration: BoxDecoration(
-              borderRadius: BorderRadius.all(
+              borderRadius: const BorderRadius.all(
                 Radius.circular(8),
               ),
               border: Border.all(
@@ -1821,7 +1809,7 @@ class _TextPageViewState extends State<TextPageView>
           height: 25,
           width: 25,
           decoration: BoxDecoration(
-              borderRadius: BorderRadius.all(
+              borderRadius: const BorderRadius.all(
                 Radius.circular(8),
               ),
               border: Border.all(

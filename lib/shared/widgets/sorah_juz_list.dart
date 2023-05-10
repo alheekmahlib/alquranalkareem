@@ -2,8 +2,6 @@ import 'package:alquranalkareem/l10n/app_localizations.dart';
 import 'package:alquranalkareem/shared/widgets/sorah_list.dart';
 import 'package:alquranalkareem/shared/widgets/widgets.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
-import 'package:theme_provider/theme_provider.dart';
 import 'juz_page.dart';
 
 class SorahJuzList extends StatefulWidget {
@@ -63,7 +61,7 @@ class _SorahJuzListState extends State<SorahJuzList>
             Expanded(
               child: TabBarView(
               children: <Widget>[
-                SorahList(),
+                const SorahList(),
                 QuranJuz(),
               ],
             ),)

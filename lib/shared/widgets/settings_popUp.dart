@@ -1,5 +1,4 @@
 import 'dart:io';
-import 'dart:typed_data';
 
 import 'package:alquranalkareem/shared/widgets/theme_change.dart';
 import 'package:alquranalkareem/shared/widgets/widgets.dart';
@@ -9,7 +8,6 @@ import 'package:flutter_svg/svg.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:theme_provider/theme_provider.dart';
-import 'package:url_launcher/url_launcher.dart';
 import '../../home_page.dart';
 import '../../l10n/app_localizations.dart';
 import '../custom_rect_tween.dart';
@@ -406,8 +404,8 @@ class settingsPopupCard extends StatelessWidget {
                                 ],
                               ),
                             ),
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
+                            const Padding(
+                              padding: EdgeInsets.all(8.0),
                               child: ThemeChange(),
                             ),
                           ],

@@ -1,17 +1,13 @@
-import 'dart:typed_data';
 
 import 'package:alquranalkareem/home_page.dart';
-import 'package:alquranalkareem/myApp.dart';
 import 'package:alquranalkareem/shared/widgets/widgets.dart';
 import 'package:easy_image_viewer/easy_image_viewer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:html/parser.dart' as html_parser;
-import 'package:html/dom.dart' as dom;
 import 'package:lottie/lottie.dart';
 import 'package:theme_provider/theme_provider.dart';
 
-import '../bookmarks_notes_db/notificationDatabase.dart';
 
 
 class PostPage extends StatefulWidget {
@@ -182,7 +178,7 @@ class _PostPageState extends State<PostPage> {
                       'assets/svg/space_line.svg',
                       height: 30,
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 32.0,
                     ),
                     Expanded(

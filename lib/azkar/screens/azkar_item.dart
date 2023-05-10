@@ -7,10 +7,8 @@ import 'package:another_xlider/models/trackbar.dart';
 import 'package:clipboard/clipboard.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:theme_provider/theme_provider.dart';
 import '../../azkar/models/azkar_by_category.dart';
@@ -130,8 +128,8 @@ class _AzkarItemState extends State<AzkarItem> {
               ),
               Padding(
                 padding: orientation(context,
-                    EdgeInsets.only(top: 96),
-                    EdgeInsets.only(top: 96, right: 64, left: 64)),
+                    const EdgeInsets.only(top: 96),
+                    const EdgeInsets.only(top: 96, right: 64, left: 64)),
                 child: SingleChildScrollView(
                   child: Column(
                     children: azkarByCategory.azkarList.map((azkar) {

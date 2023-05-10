@@ -111,7 +111,7 @@ class _AnimatedStackState extends State<AnimatedStack> {
                       ),
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 4,
                   ),
                   GestureDetector(
@@ -243,7 +243,7 @@ class _SlideState extends State<SlideAnimation>
     );
 
     offset = Tween<Offset>(
-      begin: Offset(0.0, 0.0),
+      begin: const Offset(0.0, 0.0),
       end: Offset(-widget.xScale * 0.01, -widget.yScale * 0.01),
     ).animate(
       CurvedAnimation(
@@ -323,7 +323,7 @@ class _RotateState extends State<RotateAnimation>
       end: 0.12,
     ).animate(
       CurvedAnimation(
-        curve: Interval(
+        curve: const Interval(
           0,
           1,
           curve: Curves.easeIn,

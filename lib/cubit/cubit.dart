@@ -1,18 +1,14 @@
 import 'dart:async';
-import 'dart:convert';
-import 'dart:typed_data';
 import 'package:alquranalkareem/azkar/screens/azkar_item.dart';
 import 'package:alquranalkareem/quran_page/screens/quran_page.dart';
 import 'package:alquranalkareem/cubit/states.dart';
 import 'package:arabic_numbers/arabic_numbers.dart';
-import 'package:bloc/bloc.dart';
 import 'package:day_night_time_picker/lib/daynight_timepicker.dart';
 import 'package:day_night_time_picker/lib/state/time.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lottie/lottie.dart';
-import 'package:path/path.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sqflite/sqflite.dart';
@@ -31,10 +27,8 @@ import '../shared/reminder_model.dart';
 import '../shared/widgets/show_tafseer.dart';
 import 'package:flutter_sliding_up_panel/flutter_sliding_up_panel.dart';
 import 'dart:ui' as ui;
-import 'package:flutter/services.dart' show rootBundle;
 import 'package:image/image.dart' as img;
 import 'package:path_provider/path_provider.dart';
-import 'package:flutter/services.dart';
 import 'dart:io';
 import '../shared/widgets/widgets.dart';
 
@@ -42,12 +36,13 @@ import '../shared/widgets/widgets.dart';
 
 
 class QuranCubit extends Cubit<QuranState> {
-  QuranCubit() : super(SoundPageState());
+  QuranCubit() : super(SoundPageState()) ;
 
   static QuranCubit get(context) => BlocProvider.of<QuranCubit>(context);
+  static QuranCubit get2(context) => BlocProvider.of<QuranCubit>(context, listen: false);
 
 
-  SorahRepository sorahRepository = SorahRepository();
+  // SorahRepository sorahRepository = SorahRepository();
   AyaRepository ayaRepository = AyaRepository();
   List<Sorah>? sorahList;
   List<Aya>? ayaList;
@@ -102,7 +97,7 @@ class QuranCubit extends Cubit<QuranState> {
   ArabicNumbers arabicNumber = ArabicNumbers();
   AnimationController? screenController;
   Animation<double>? screenAnimation;
-
+  double? heightAnchor;
 
 
 
@@ -305,9 +300,6 @@ class QuranCubit extends Cubit<QuranState> {
 
 
   getList() async {
-    sorahRepository.all().then((values) {
-      sorahList = values;
-    });
     ayaRepository.all().then((values) {
       ayaList = values;
     });
@@ -332,6 +324,7 @@ class QuranCubit extends Cubit<QuranState> {
   void dispose() {
     dPageController?.dispose();
     screenController!.dispose();
+    panelController.dispose();
     emit(QuranPageState());
   }
 
@@ -453,20 +446,20 @@ class QuranCubit extends Cubit<QuranState> {
           children: [
             TextSpan(
               text: '$verseText',
-              style: TextStyle(
+              style: const TextStyle(
                 fontSize: 50,
                 fontWeight: FontWeight.normal,
                 fontFamily: 'uthmanic2',
-                color: const Color(0xff161f07),
+                color: Color(0xff161f07),
               ),
             ),
             TextSpan(
               text: ' ${arabicNumber.convert(verseNumber)}\n',
-              style: TextStyle(
+              style: const TextStyle(
                 fontSize: 50,
                 fontWeight: FontWeight.normal,
                 fontFamily: 'uthmanic2',
-                color: const Color(0xff161f07),
+                color: Color(0xff161f07),
               ),
             ),
           ],
@@ -887,7 +880,7 @@ class QuranCubit extends Cubit<QuranState> {
                     child: Container(
                       height: 30,
                       width: 30,
-                      margin: EdgeInsets.all(16.0),
+                      margin: const EdgeInsets.all(16.0),
                       decoration: BoxDecoration(
                           color: Theme.of(context)
                               .colorScheme
@@ -934,7 +927,7 @@ class QuranCubit extends Cubit<QuranState> {
                               ),),
                             Container(
                               height: 2,
-                              margin: EdgeInsets.symmetric(horizontal: 8),
+                              margin: const EdgeInsets.symmetric(horizontal: 8),
                               width: MediaQuery.of(context).size.width / 1/3,
                               color: Theme.of(context).dividerColor,
                             ),
@@ -946,11 +939,11 @@ class QuranCubit extends Cubit<QuranState> {
                       child: Container(
                         // height: 60,
                         width: MediaQuery.of(context).size.width,
-                        padding: EdgeInsets.all(16.0),
-                        margin: EdgeInsets.only(top: 4.0, bottom: 16.0, right: 16.0, left: 16.0),
+                        padding: const EdgeInsets.all(16.0),
+                        margin: const EdgeInsets.only(top: 4.0, bottom: 16.0, right: 16.0, left: 16.0),
                         decoration: BoxDecoration(
                             color: Theme.of(context).dividerColor.withOpacity(.3),
-                            borderRadius: BorderRadius.all(Radius.circular(4))
+                            borderRadius: const BorderRadius.all(Radius.circular(4))
                         ),
                         child: Row(
                           mainAxisSize: MainAxisSize.min,
@@ -984,7 +977,7 @@ class QuranCubit extends Cubit<QuranState> {
                     ),
                     Container(
                       height: 2,
-                      margin: EdgeInsets.symmetric(horizontal: 16.0, vertical: 16.0),
+                      margin: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 16.0),
                       width: MediaQuery.of(context).size.width * .3,
                       color: Theme.of(context).dividerColor,
                     ),
@@ -1010,11 +1003,11 @@ class QuranCubit extends Cubit<QuranState> {
                               GestureDetector(
                                 child: Container(
                                   // width: MediaQuery.of(context).size.width * .4,
-                                  padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
-                                  margin: EdgeInsets.only(top: 4.0, bottom: 16.0, right: 16.0, left: 16.0),
+                                  padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+                                  margin: const EdgeInsets.only(top: 4.0, bottom: 16.0, right: 16.0, left: 16.0),
                                   decoration: BoxDecoration(
                                       color: Theme.of(context).dividerColor.withOpacity(.3),
-                                      borderRadius: BorderRadius.all(Radius.circular(4))
+                                      borderRadius: const BorderRadius.all(Radius.circular(4))
                                   ),
                                   child: Image.memory(imageData2,
                                     // height: 150,
@@ -1053,11 +1046,11 @@ class QuranCubit extends Cubit<QuranState> {
                               GestureDetector(
                                 child: Container(
                                   // width: MediaQuery.of(context).size.width * .4,
-                                  padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
-                                  margin: EdgeInsets.only(top: 4.0, bottom: 16.0, right: 16.0, left: 16.0),
+                                  padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+                                  margin: const EdgeInsets.only(top: 4.0, bottom: 16.0, right: 16.0, left: 16.0),
                                   decoration: BoxDecoration(
                                       color: Theme.of(context).dividerColor.withOpacity(.3),
-                                      borderRadius: BorderRadius.all(Radius.circular(4))
+                                      borderRadius: const BorderRadius.all(Radius.circular(4))
                                   ),
                                   child: Image.memory(imageData,
                                     // height: 150,

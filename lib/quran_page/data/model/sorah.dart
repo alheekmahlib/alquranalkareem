@@ -24,9 +24,7 @@ class Sorah {
       "PageNum": pageNum,
     };
 
-    if (id != null) {
-      map["Id"] = id;
-    }
+    map["Id"] = id;
 
     return map;
   }

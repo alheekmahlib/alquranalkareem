@@ -24,9 +24,7 @@ class Quarter {
       "AyaId": ayaId,
     };
 
-    if (id != null) {
-      map["Id"] = id;
-    }
+    map["Id"] = id;
 
     return map;
   }

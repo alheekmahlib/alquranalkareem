@@ -65,7 +65,7 @@ class _MainDScreenState extends State<MainDScreen> {
                       ),
                     ),
                     Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 4.0, vertical: 16.0),
+                      padding: const EdgeInsets.symmetric(horizontal: 4.0, vertical: 16.0),
                       child: Align(
                         alignment: Alignment.topRight,
                         child: GestureDetector(
@@ -76,7 +76,7 @@ class _MainDScreenState extends State<MainDScreen> {
                                 width: 45,
                                 decoration: BoxDecoration(
                                   color: Theme.of(context).colorScheme.surface.withOpacity(.3),
-                                  borderRadius: BorderRadius.all(Radius.circular(8)),
+                                  borderRadius: const BorderRadius.all(Radius.circular(8)),
                                 ),
                                 child: Icon(
                                   Icons.notifications,
@@ -91,7 +91,7 @@ class _MainDScreenState extends State<MainDScreen> {
                                   child: Container(
                                     width: 10,
                                     height: 10,
-                                    decoration: BoxDecoration(
+                                    decoration: const BoxDecoration(
                                       color: Colors.red,
                                       shape: BoxShape.circle,
                                     ),

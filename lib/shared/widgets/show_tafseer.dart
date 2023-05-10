@@ -8,19 +8,15 @@ import 'package:another_xlider/models/trackbar.dart';
 import 'package:arabic_numbers/arabic_numbers.dart';
 import 'package:clipboard/clipboard.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:lottie/lottie.dart';
-import 'package:share_plus/share_plus.dart';
 import 'package:theme_provider/theme_provider.dart';
-import '../../cubit/translateRepositoryCubit2/translate_repository2_cubit.dart';
 import '../../l10n/app_localizations.dart';
 import '../../notes/note_controller.dart';
-import '../../notes/textSelectionControls.dart';
 import '../../quran_page/data/model/ayat.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
+
 
 class ShowTafseer extends StatefulWidget {
   const ShowTafseer({Key? key}) : super(key: key);
@@ -74,8 +70,8 @@ class _ShowTafseerState extends State<ShowTafseer> {
         child: FutureBuilder<List<Ayat>>(
           builder: (context, snapshot) {
             List<Ayat>? ayat = snapshot.data;
-            _allText = '﴿${cubit.translateAyah}﴾\n\n' + cubit.translate;
-            _allTitle = '﴿${cubit.translateAyah}﴾';
+            allText = '﴿${cubit.translateAyah}﴾\n\n' + cubit.translate;
+             allTitle = '﴿${cubit.translateAyah}﴾';
             return Column(
               mainAxisSize: MainAxisSize.min,
               children: <Widget>[
@@ -361,24 +357,15 @@ class _ShowTafseerState extends State<ShowTafseer> {
     );
   }
 
+  // String reverseArabicText(String text) {
+  //   final reversedText = text.split('').reversed.join('');
+  //   return reversedText;
+  // }
+
   final GlobalKey<_ShowTafseerState> _selectableTextKey = GlobalKey<_ShowTafseerState>();
 
-  void _handleSelectionChanged(TextSelection selection, SelectionChangedCause? cause) {
-    if (cause == SelectionChangedCause.longPress) {
-      // final title = _allTitle;
-      final text = _allText;
-      final start = selection.start;
-      final end = selection.end;
 
-      setState(() {
-        // selectedTitle = title.substring(start, end);
-        _selectedText = text.substring(start, end);
-      });
-    }
-  }
 
-  String _allText = '';
-  String _allTitle = '';
 
 
   String _getSelectedText(String text) {
@@ -404,15 +391,14 @@ class _ShowTafseerState extends State<ShowTafseer> {
     }
   }
 
-  String? _selectedText;
   String? selectedTitle;
 
   void _addNote() {
-    if (_selectedText != null && _selectedText!.isNotEmpty) {
-      _noteController.addSelectedTextAsNote(_selectedText!, _allTitle);
+    if (selectedTextED != null && selectedTextED!.isNotEmpty) {
+      _noteController.addSelectedTextAsNote(selectedTextED!,  allTitle);
       // Clear the selected text after saving it as a note
       setState(() {
-        _selectedText = null;
+        selectedTextED = null;
       });
     }
   }
@@ -452,7 +438,7 @@ class _ShowTafseerState extends State<ShowTafseer> {
                 child: Container(
                   height: 30,
                   width: 30,
-                  margin: EdgeInsets.all(16.0),
+                  margin: const EdgeInsets.all(16.0),
                   decoration: BoxDecoration(
                       color: Theme.of(context)
                           .colorScheme
@@ -537,7 +523,7 @@ class _ShowTafseerState extends State<ShowTafseer> {
                             width: 41.0,
                             decoration: BoxDecoration(
                                 shape: BoxShape.rectangle,
-                                borderRadius: BorderRadius.all(Radius.circular(4.0)),
+                                borderRadius: const BorderRadius.all(Radius.circular(4.0)),
                                 border: Border.all(
                                     color: Theme.of(context).dividerColor,
                                     width: 2
@@ -554,13 +540,13 @@ class _ShowTafseerState extends State<ShowTafseer> {
                           ),
                         ),
                         decoration: BoxDecoration(
-                            borderRadius: BorderRadius.all(Radius.circular(8.0)),
+                            borderRadius: const BorderRadius.all(Radius.circular(8.0)),
                             border: Border.all(
                                 color: Theme.of(context).dividerColor,
                                 width: 1
                             )
                         ),
-                        margin: EdgeInsets.symmetric(horizontal: 16.0, vertical: 4.0),
+                        margin: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 4.0),
                       ),
                       // const Divider(
                       //   endIndent: 16,
@@ -716,7 +702,7 @@ class _ShowTafseerState extends State<ShowTafseer> {
                                     ),
                                     Center(
                                       child: Text(
-                                        "${arabicNumber.convert(aya!.ayaNum)}",
+                                        "${arabicNumber.convert(aya.ayaNum)}",
                                         // "1",
                                         textAlign: TextAlign.center,
                                         style: TextStyle(
@@ -744,5 +730,24 @@ class _ShowTafseerState extends State<ShowTafseer> {
             });
       }
     );
+  }
+}
+
+
+String allText = '';
+String  allTitle = '';
+String? selectedTextED;
+
+void _handleSelectionChanged(TextSelection selection, SelectionChangedCause? cause) {
+  if (cause == SelectionChangedCause.longPress) {
+    final characters = allText.characters;
+    final start = characters.take(selection.start).length;
+    final end = characters.take(selection.end).length;
+    final selectedText = allText.substring(start-1, end);
+
+    // setState(() {
+    selectedTextED = selectedText;
+    // });
+    print(selectedText);
   }
 }

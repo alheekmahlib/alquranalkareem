@@ -5,7 +5,6 @@ import 'package:alquranalkareem/screens/onboarding_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:lottie/lottie.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -29,11 +28,11 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
   Future startTime() async {
-    await Future.delayed(Duration(seconds: 1));
+    await Future.delayed(const Duration(seconds: 1));
     setState(() {
       animate = true;
     });
-    await Future.delayed(Duration(seconds: 3));
+    await Future.delayed(const Duration(seconds: 3));
     // Get.off(() => OnboardingScreen());
     navigationPage();
   }
@@ -46,7 +45,7 @@ class _SplashScreenState extends State<SplashScreen> {
       Get.off(() => OnboardingScreen());
       prefs.setBool("is_first_time", false);
     } else {
-      Get.off(() => HomePage());
+      Get.off(() => const HomePage());
     }
     // Get.off(() => OnboardingScreen());
     // Navigator.of(context).pushReplacementNamed(routeName);
@@ -72,7 +71,7 @@ class _SplashScreenState extends State<SplashScreen> {
                       height: 120,
                       width: 120,
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 16,
                     ),
                     ClipPath(
@@ -85,18 +84,18 @@ class _SplashScreenState extends State<SplashScreen> {
                               horizontal: 8, vertical: 4),
                           decoration: BoxDecoration(
                               color: const Color(0xff91a57d).withOpacity(.2),
-                              border: Border.symmetric(
+                              border: const Border.symmetric(
                                   vertical: BorderSide(
-                                      color: const Color(0xff91a57d),
+                                      color: Color(0xff91a57d),
                                       width: 2))),
                           child: AnimatedOpacity(
-                            duration: Duration(seconds: 1),
+                            duration: const Duration(seconds: 1),
                             opacity: animate ? 1 : 0,
-                            child: Text(
+                            child: const Text(
                               'وَرَتِّلِ الْقُرْآنَ تَرْتِيلًا',
                               style: TextStyle(
                                   fontFamily: 'kufi',
-                                  color: const Color(0xff39412a),
+                                  color: Color(0xff39412a),
                                   fontSize: 18),
                             ),
                           ),
@@ -113,7 +112,7 @@ class _SplashScreenState extends State<SplashScreen> {
                     children: [
                       SvgPicture.asset(
                         'assets/svg/alheekmah_logo.svg',
-                    colorFilter: ColorFilter.mode(const Color(0xff39412a), BlendMode.srcIn),
+                    colorFilter: const ColorFilter.mode(Color(0xff39412a), BlendMode.srcIn),
                         width: 90,
                       ),
                       RotatedBox(

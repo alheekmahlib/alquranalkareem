@@ -5,17 +5,13 @@ import 'dart:math';
 import 'package:alquranalkareem/notes/cubit/note_cubit.dart';
 import 'package:alquranalkareem/quran_page/cubit/audio/cubit.dart';
 import 'package:alquranalkareem/quran_page/cubit/bookmarks/bookmarks_cubit.dart';
-import 'package:alquranalkareem/quran_page/data/data_client.dart';
 import 'package:alquranalkareem/quran_page/data/repository/quarter_repository.dart';
 import 'package:alquranalkareem/quran_text/cubit/quran_text_cubit.dart';
-import 'package:alquranalkareem/quran_text/text_page_view.dart';
+import 'package:alquranalkareem/quran_text/cubit/surah_text_cubit.dart';
 import 'package:alquranalkareem/screens/splash_screen.dart';
-import 'package:alquranalkareem/shared/postPage.dart';
 import 'package:arabic_numbers/arabic_numbers.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/scheduler.dart';
-import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:hijri/hijri_calendar.dart';
 import 'package:home_widget/home_widget.dart';
 import 'package:theme_provider/theme_provider.dart';
@@ -23,13 +19,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:workmanager/workmanager.dart';
-import 'cubit/ayaRepository/aya_repository_cubit.dart';
+import 'cubit/ayaRepository/aya_cubit.dart';
 import 'cubit/cubit.dart';
 import 'cubit/quarter/quarter_cubit.dart';
+import 'cubit/sorahRepository/sorah_repository_cubit.dart';
 import 'cubit/translateDataCubit/_cubit.dart';
-import 'cubit/translateDataCubit/translateDataHolder.dart';
-import 'cubit/translateRepositoryCubit2/translate_repository2_cubit.dart';
-import 'l10n/app_localizations.dart';
 
 
 /// Used for Background Updates using Workmanager Plugin
@@ -244,7 +238,7 @@ class _MyAppState extends State<MyApp> {
       );
       HomeWidget.setAppGroupId('group.com.alheekmah.alquranalkareem.widget');
       saveHijriDate();
-      Timer.periodic(Duration(minutes: 1), (timer) async {
+      Timer.periodic(const Duration(minutes: 1), (timer) async {
         await _saveRandomZikr();
         await _updateWidget();
       });
@@ -275,7 +269,7 @@ class _MyAppState extends State<MyApp> {
 
   void _startBackgroundUpdate() {
     Workmanager().registerPeriodicTask('1', 'widgetBackgroundUpdate',
-        frequency: Duration(minutes: 1));
+        frequency: const Duration(minutes: 1));
   }
 
   void _stopBackgroundUpdate() {
@@ -316,18 +310,18 @@ class _MyAppState extends State<MyApp> {
           id: 'green',
           description: "My Custom Theme",
           data: ThemeData(
-            colorScheme: ColorScheme(
+            colorScheme: const ColorScheme(
                 brightness: Brightness.light,
-                primary: const Color(0xff232c13),
-                onPrimary: const Color(0xff161f07),
-                secondary: const Color(0xff39412a),
-                onSecondary: const Color(0xff39412a),
-                error: const Color(0xff91a57d),
-                onError: const Color(0xff91a57d),
-                background: const Color(0xfff3efdf),
-                onBackground: const Color(0xfff3efdf),
-                surface: const Color(0xff91a57d),
-                onSurface: const Color(0xff91a57d),),
+                primary: Color(0xff232c13),
+                onPrimary: Color(0xff161f07),
+                secondary: Color(0xff39412a),
+                onSecondary: Color(0xff39412a),
+                error: Color(0xff91a57d),
+                onError: Color(0xff91a57d),
+                background: Color(0xfff3efdf),
+                onBackground: Color(0xfff3efdf),
+                surface: Color(0xff91a57d),
+                onSurface: Color(0xff91a57d),),
             primaryColor: const Color(0xff232c13),
             primaryColorLight: const Color(0xff39412a),
             primaryColorDark: const Color(0xff161f07),
@@ -355,18 +349,18 @@ class _MyAppState extends State<MyApp> {
           id: 'blue',
           description: "My Custom Theme",
           data: ThemeData(
-            colorScheme: ColorScheme(
+            colorScheme: const ColorScheme(
               brightness: Brightness.light,
-              primary: const Color(0xffbc6c25),
-              onPrimary: const Color(0xff814714),
-              secondary: const Color(0xfffcbb76),
-              onSecondary: const Color(0xfffcbb76),
-              error: const Color(0xff606c38),
-              onError: const Color(0xff606c38),
-              background: const Color(0xfffefae0),
-              onBackground: const Color(0xfffefae0),
-              surface: const Color(0xff606c38),
-              onSurface: const Color(0xff606c38),),
+              primary: Color(0xffbc6c25),
+              onPrimary: Color(0xff814714),
+              secondary: Color(0xfffcbb76),
+              onSecondary: Color(0xfffcbb76),
+              error: Color(0xff606c38),
+              onError: Color(0xff606c38),
+              background: Color(0xfffefae0),
+              onBackground: Color(0xfffefae0),
+              surface: Color(0xff606c38),
+              onSurface: Color(0xff606c38),),
             primaryColor: const Color(0xffbc6c25),
             primaryColorLight: const Color(0xfffcbb76),
             primaryColorDark: const Color(0xff814714),
@@ -394,18 +388,18 @@ class _MyAppState extends State<MyApp> {
           id: 'dark',
           description: "My Custom Theme",
           data: ThemeData(
-            colorScheme: ColorScheme(
+            colorScheme: const ColorScheme(
               brightness: Brightness.light,
-              primary: const Color(0xff3F3F3F),
-              onPrimary: const Color(0xff252526),
-              secondary: const Color(0xff4d4d4d),
-              onSecondary: const Color(0xff4d4d4d),
-              error: const Color(0xff91a57d),
-              onError: const Color(0xff91a57d),
-              background: const Color(0xff19191a),
-              onBackground: const Color(0xff3F3F3F),
-              surface: const Color(0xff91a57d),
-              onSurface: const Color(0xff91a57d),),
+              primary: Color(0xff3F3F3F),
+              onPrimary: Color(0xff252526),
+              secondary: Color(0xff4d4d4d),
+              onSecondary: Color(0xff4d4d4d),
+              error: Color(0xff91a57d),
+              onError: Color(0xff91a57d),
+              background: Color(0xff19191a),
+              onBackground: Color(0xff3F3F3F),
+              surface: Color(0xff91a57d),
+              onSurface: Color(0xff91a57d),),
             primaryColor: const Color(0xff3F3F3F),
             primaryColorLight: const Color(0xff4d4d4d),
             primaryColorDark: const Color(0xff010101),
@@ -455,10 +449,20 @@ class _MyAppState extends State<MyApp> {
             BlocProvider<QuarterCubit>(
               create: (BuildContext context) => QuarterCubit(QuarterRepository())..getAllQuarters(),
             ),
+            BlocProvider<SurahTextCubit>(
+              create: (BuildContext context) => SurahTextCubit()..loadQuranData(),
+            ),
+            BlocProvider<SorahRepositoryCubit>(
+              create: (BuildContext context) => SorahRepositoryCubit()..loadSorahs(),
+            ),
+            BlocProvider<AyaCubit>(
+              create: (BuildContext context) => AyaCubit()..getAllAyas(),
+            ),
           ],
           child: SplashScreen(),
           // child: const HomePage(),
         ),
+
       ),
     );
   }

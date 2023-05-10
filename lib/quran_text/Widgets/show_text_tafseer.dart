@@ -13,7 +13,6 @@ import '../../quran_page/data/model/ayat.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import '../../shared/widgets/widgets.dart';
 import '../cubit/quran_text_cubit.dart';
-import '../text_page_view.dart';
 
 
 class ShowTextTafseer extends StatefulWidget {
@@ -62,7 +61,7 @@ class _ShowTextTafseerState extends State<ShowTextTafseer> {
       child: Container(
         decoration: BoxDecoration(
           color: Theme.of(context).colorScheme.background,
-          borderRadius: BorderRadius.only(
+          borderRadius: const BorderRadius.only(
             topLeft: Radius.circular(20),
             topRight: Radius.circular(20),
           )
@@ -86,7 +85,7 @@ class _ShowTextTafseerState extends State<ShowTextTafseer> {
                             color: Theme.of(context).colorScheme.surface,
                             width: 1
                           ),
-                          borderRadius: BorderRadius.all(
+                          borderRadius: const BorderRadius.all(
                             Radius.circular(15)
                           ),
                           boxShadow: [
@@ -94,7 +93,7 @@ class _ShowTextTafseerState extends State<ShowTextTafseer> {
                               color: const Color(0xff91a57d).withOpacity(.2),
                               spreadRadius: 2,
                               blurRadius: 2,
-                              offset: Offset(-1, -1), // changes position of shadow
+                              offset: const Offset(-1, -1), // changes position of shadow
                             ),
                           ],
                         ),
@@ -115,7 +114,7 @@ class _ShowTextTafseerState extends State<ShowTextTafseer> {
                                 color: Theme.of(context).colorScheme.surface,
                                 width: 1
                             ),
-                            borderRadius: BorderRadius.all(
+                            borderRadius: const BorderRadius.all(
                                 Radius.circular(15)
                             ),
                             boxShadow: [
@@ -123,7 +122,7 @@ class _ShowTextTafseerState extends State<ShowTextTafseer> {
                                 color: const Color(0xff91a57d).withOpacity(.2),
                                 spreadRadius: 2,
                                 blurRadius: 2,
-                                offset: Offset(-1, -1), // changes position of shadow
+                                offset: const Offset(-1, -1), // changes position of shadow
                               ),
                             ],
                           ),
@@ -283,7 +282,7 @@ class _ShowTextTafseerState extends State<ShowTextTafseer> {
                 child: Container(
                   height: 30,
                   width: 30,
-                  margin: EdgeInsets.all(16.0),
+                  margin: const EdgeInsets.all(16.0),
                   decoration: BoxDecoration(
                       color: Theme.of(context)
                           .colorScheme
@@ -368,7 +367,7 @@ class _ShowTextTafseerState extends State<ShowTextTafseer> {
                               width: 41.0,
                               decoration: BoxDecoration(
                                   shape: BoxShape.rectangle,
-                                  borderRadius: BorderRadius.all(Radius.circular(4.0)),
+                                  borderRadius: const BorderRadius.all(Radius.circular(4.0)),
                                   border: Border.all(
                                       color: Theme.of(context).dividerColor,
                                       width: 2
@@ -385,13 +384,13 @@ class _ShowTextTafseerState extends State<ShowTextTafseer> {
                           ),
                         ),
                         decoration: BoxDecoration(
-                            borderRadius: BorderRadius.all(Radius.circular(8.0)),
+                            borderRadius: const BorderRadius.all(Radius.circular(8.0)),
                             border: Border.all(
                                 color: Theme.of(context).dividerColor,
                                 width: 1
                             )
                         ),
-                        margin: EdgeInsets.symmetric(horizontal: 16.0, vertical: 4.0),
+                        margin: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 4.0),
                       ),
                       // const Divider(
                       //   endIndent: 16,
