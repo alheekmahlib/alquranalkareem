@@ -1,9 +1,6 @@
-import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
-import '../../data/model/bookmark.dart';
 import '../../data/model/sorah_bookmark.dart';
 import '../../data/repository/bookmarks_controller.dart';
 import '../../data/repository/sorah_bookmark_repository.dart';

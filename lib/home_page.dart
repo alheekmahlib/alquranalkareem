@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:typed_data';
 import 'package:alquranalkareem/cubit/cubit.dart';
 import 'package:alquranalkareem/quran_page/screens/quran_screen.dart';
 import 'package:alquranalkareem/shared/local_notifications.dart';
@@ -10,25 +9,18 @@ import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:rate_my_app/rate_my_app.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 import 'package:theme_provider/theme_provider.dart';
 import 'dart:io';
-import 'bookmarks_notes_db/databaseHelper.dart';
-import 'bookmarks_notes_db/notificationDatabase.dart';
+import 'database/notificationDatabase.dart';
 import 'desktop/main_screen.dart';
 import 'l10n/app_localizations.dart';
 import 'dart:convert';
-import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:timezone/data/latest.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
 import 'package:alquranalkareem/shared/postPage.dart';
-
-import 'main.dart';
-import 'myApp.dart';
 
 final GlobalKey<NavigatorState> navigatorNotificationKey = GlobalKey<NavigatorState>();
 
@@ -88,14 +80,12 @@ class _HomePageState extends State<HomePage> {
 
   void selectNotification(String payload) async {
     print('Notification tapped, payload: $payload');
-    if (payload != null) {
-      Navigator.of(navigatorNotificationKey.currentContext!).push(
-        animatNameRoute(
-          pushName: '/post',
-          myWidget: PostPage(postId: int.parse(payload)),
-        ),
-      );
-    }
+    Navigator.of(navigatorNotificationKey.currentContext!).push(
+      animatNameRoute(
+        pushName: '/post',
+        myWidget: PostPage(postId: int.parse(payload)),
+      ),
+    );
   }
 
 
@@ -360,7 +350,7 @@ class _HomePageState extends State<HomePage> {
   void initState() {
     if (Platform.isIOS || Platform.isAndroid) {
       _initializeApp(context);
-      WidgetsBinding.instance!.addPostFrameCallback((_) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
         initializeLocalNotifications(context);
       });
     }
@@ -472,7 +462,9 @@ class _HomePageState extends State<HomePage> {
         ],
         locale: QuranCubit.get(context).initialLang,
         theme: ThemeProvider.themeOf(themeContext).data,
+
         builder: BotToastInit(),
+
         navigatorObservers: [BotToastNavigatorObserver()],
         routes: {
           // Other routes...

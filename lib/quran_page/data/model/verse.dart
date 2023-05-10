@@ -5,7 +5,7 @@ import 'package:alquranalkareem/shared/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:theme_provider/theme_provider.dart';
 
-import '../../../bookmarks_notes_db/verseDBHelper.dart';
+import '../../../database/verseDBHelper.dart';
 
 class Verse {
   final int ayahNumber;
@@ -396,27 +396,81 @@ class _QuranPageState extends State<QuranPage> {
     return data;
   }
 
+  double getImageWidthFactor(BuildContext context, bool isLandscape) {
+    double screenWidth = MediaQuery.of(context).size.width;
+
+    double baseFactor = 1.0;
+
+    if (isLandscape) {
+      baseFactor = 1.90;
+    } else {
+      // Your existing portrait calculations
+      if (screenWidth < 360) {
+        baseFactor = 1.1;
+      } else if (screenWidth < 1080) {
+        baseFactor = 1.59;
+      } else if (screenWidth < 1284) {
+        baseFactor = 1.36;
+      } else {
+        baseFactor = 1.36;
+      }
+    }
+
+    return baseFactor;
+  }
+
   void _onTap(TapDownDetails details, BoxConstraints constraints) {
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      QuranCubit cubit = QuranCubit.get(context);
       RenderBox box = context.findRenderObject() as RenderBox;
       Offset localPosition = box.globalToLocal(details.globalPosition);
+      bool isLandscape = MediaQuery.of(context).orientation == Orientation.landscape;
 
       double adjustedYOffset;
       double scaleFactor;
       double xTranslationFactor;
 
+
+      // Calculate the imageWidth scale factor based on the screen size
+      const double minScreenWidth = 320.0; // Minimum screen width for adjustments
+      const double maxScreenWidth = 768.0; // Maximum screen width for adjustments
+
+      const double minImageWidthFactor = 3.1; // Image width factor for the minimum screen width
+      const double maxImageWidthFactor = 1.16; // Image width factor for the maximum screen width
+
+      // double largeScreenWidthFactor = 1.625;
+      // double getImageWidthFactor(double screenWidth) {
+      //   if (screenWidth <= minScreenWidth) {
+      //     return minImageWidthFactor;
+      //   } else if (screenWidth >= maxScreenWidth) {
+      //     return maxImageWidthFactor;
+      //   } else {
+      //     return lerp(
+      //       screenWidth,
+      //       minScreenWidth,
+      //       maxScreenWidth,
+      //       minImageWidthFactor,
+      //       maxImageWidthFactor,
+      //     );
+      //   }
+      // }
+      // double screenWidth = ScreenUtil().screenWidth;
+      // double screenHeight = ScreenUtil().screenHeight;
+      double imageWidthFactor = getImageWidthFactor(context, isLandscape);
+
+
       RenderBox imageRenderBox = imageKey.currentContext?.findRenderObject() as RenderBox;
-      double imageWidth = imageRenderBox.size.width * 1.590;
+      double imageWidth = imageRenderBox.size.width * imageWidthFactor;
+
 
       if (MediaQuery.of(context).orientation == Orientation.portrait) {
         adjustedYOffset = calculateAdjustedYOffset(constraints.maxHeight);
         scaleFactor = 0.84;
         xTranslationFactor = 0.90;
       } else {
+        // adjustedYOffset = constraints.maxHeight * .9;
         adjustedYOffset = 60; // Adjust this value to move the pressure point down in landscape mode
-        scaleFactor = 0.99 * (imageWidth / 1260); // Adjust the scale factor based on the image width
-        xTranslationFactor = 1.0 * (imageWidth / 1260); // Adjust the x translation factor based on the image width
+        scaleFactor = 0.72 * (imageWidth / 1260); // Adjust the scale factor based on the image width
+        xTranslationFactor = 1.89 * (imageWidth / 1260); // Adjust the x translation factor based on the image width
       }
 
       // Adjust for translation and scale
@@ -640,9 +694,7 @@ class _QuranPageState extends State<QuranPage> {
       builder: (BuildContext context, BoxConstraints constraints) {
         return GestureDetector(
           onTapDown: (details) {
-            if (_onTap != null) {
-              _onTap!(details, constraints);
-            }
+            _onTap(details, constraints);
           },
           child: Container(
             alignment: Alignment.center,
@@ -671,9 +723,9 @@ class _QuranPageState extends State<QuranPage> {
                       ),
                       child: verses != null
                           ? AspectRatio(
-                        aspectRatio: orientation(context, 5.7 / 9, 5.6 / 9),
+                        aspectRatio: orientation(context, 5.7 / 9, 5.8 / 9),
                         child: Transform.scale(
-                          scale: orientation(context, 1.0, .97),
+                          scale: orientation(context, 1.0, 1.0),
                           child: CustomPaint(
                             foregroundPainter: VerseHighlightPainter(
                               verses: verses ?? [],
@@ -682,7 +734,7 @@ class _QuranPageState extends State<QuranPage> {
                           ),
                         ),
                       )
-                          : CircularProgressIndicator(),
+                          : const CircularProgressIndicator(),
                     );
                   },
                 ),

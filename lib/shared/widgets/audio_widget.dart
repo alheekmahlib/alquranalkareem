@@ -28,11 +28,14 @@ class AudioWidget extends StatefulWidget {
 }
 
 class _AudioWidgetState extends State<AudioWidget> {
-  Duration? duration = const Duration();
-  Duration? position = const Duration();
+  Duration? duration = Duration();
+  Duration? position = Duration();
   AudioPlayer audioPlayer = AudioPlayer();
+  AudioPlayer pageAudioPlayer = AudioPlayer();
   final ValueNotifier<double> _position = ValueNotifier(0);
   final ValueNotifier<double> _duration = ValueNotifier(0);
+  final ValueNotifier<double> _pagePosition = ValueNotifier(0);
+  final ValueNotifier<double> _pageDuration = ValueNotifier(0);
   AudioCache cashPlayer = AudioCache();
   bool isPlay = false;
   bool isPagePlay = false;
@@ -54,7 +57,7 @@ class _AudioWidgetState extends State<AudioWidget> {
     isPlay = false;
     isPagePlay = false;
     sliderValue = 0;
-    final AudioContext audioContext = AudioContext(
+    final AudioContext audioContext = const AudioContext(
       iOS: AudioContextIOS(
         // defaultToSpeaker: true,
         category: AVAudioSessionCategory.ambient,
@@ -71,7 +74,7 @@ class _AudioWidgetState extends State<AudioWidget> {
         audioFocus: AndroidAudioFocus.gain,
       ),
     );
-    AudioPlayer.global.setGlobalAudioContext(audioContext);
+    AudioPlayer.global.setAudioContext(audioContext);
     audioPlayer.onDurationChanged.listen((Duration duration) {
       setState(() {
         _duration.value = duration.inMilliseconds.toDouble();
@@ -80,6 +83,16 @@ class _AudioWidgetState extends State<AudioWidget> {
     audioPlayer.onPositionChanged.listen((Duration position) {
       setState(() {
         _position.value = position.inMilliseconds.toDouble();
+      });
+    });
+    pageAudioPlayer.onDurationChanged.listen((Duration duration) {
+      setState(() {
+        _pageDuration.value = duration.inMilliseconds.toDouble();
+      });
+    });
+    pageAudioPlayer.onPositionChanged.listen((Duration position) {
+      setState(() {
+        _pagePosition.value = position.inMilliseconds.toDouble();
       });
     });
     _connectivitySubscription =
@@ -154,7 +167,7 @@ class _AudioWidgetState extends State<AudioWidget> {
           await downloadPageFile(path, url, fileName);
         }
       }
-      await audioPlayer.play(DeviceFileSource(path));
+      await pageAudioPlayer.play(DeviceFileSource(path));
       if (result == 1) {
         setState(() {
           isPagePlay = true;
@@ -264,6 +277,7 @@ class _AudioWidgetState extends State<AudioWidget> {
   @override
   void dispose() {
     audioPlayer.dispose();
+    pageAudioPlayer.dispose();
     _connectivitySubscription.cancel();
     positionSubscription?.cancel();
     durationSubscription?.cancel();
@@ -279,7 +293,7 @@ class _AudioWidgetState extends State<AudioWidget> {
         });
       }
       if (isPagePlay) {
-        audioPlayer.pause();
+        pageAudioPlayer.pause();
         setState(() {
           isPagePlay = false;
         });
@@ -307,7 +321,7 @@ class _AudioWidgetState extends State<AudioWidget> {
     String fileName =
         "$reader/${audioCubit.sorahName!}${audioCubit.ayahNum!}.mp3";
     print(AudioCubit.get(context).readerValue);
-    String url = "https://www.everyayah.com/data/${fileName!}";
+    String url = "https://www.everyayah.com/data/${fileName}";
     audioPlayer.onPlayerComplete.listen((event) {
       setState(() {
         isPlay = false;
@@ -348,7 +362,7 @@ class _AudioWidgetState extends State<AudioWidget> {
         "$reader/PageMp3s/Page${sorahNumString!}.mp3";
     print(AudioCubit.get(context).readerValue);
     String url = "https://everyayah.com/data/$fileName";
-    audioPlayer.onPlayerComplete.listen((event) async {
+    pageAudioPlayer.onPlayerComplete.listen((event) async {
       setState(() {
         isPagePlay = false;
         // sorahNumInt++;
@@ -369,7 +383,7 @@ class _AudioWidgetState extends State<AudioWidget> {
     });
     print("url $url");
     if (isPagePlay) {
-      audioPlayer.pause();
+      pageAudioPlayer.pause();
       setState(() {
         isPagePlay = false;
       });
@@ -454,7 +468,7 @@ class _AudioWidgetState extends State<AudioWidget> {
                                   alignment: Alignment.center,
                                   width: 290,
                                   child: SliderTheme(
-                                    data: SliderThemeData(
+                                    data: const SliderThemeData(
                                         thumbShape: RoundSliderThumbShape(
                                             enabledThumbRadius: 8)),
                                     child: Slider(
@@ -463,11 +477,13 @@ class _AudioWidgetState extends State<AudioWidget> {
                                       inactiveColor:
                                           Theme.of(context).primaryColorDark,
                                       min: 0,
-                                      max: _duration.value,
-                                      value: _position.value,
+                                      max: isPlay ? _duration.value : _pageDuration.value,
+                                      value: isPlay ? _position.value : _pageDuration.value,
                                       onChanged: (value) async {
-                                          await audioPlayer
-                                              .seek(Duration(milliseconds: value.toInt()));
+                                        // FocusManager.instance.primaryFocus?.unfocus();
+                                        isPlay ? await audioPlayer
+                                              .seek(Duration(milliseconds: value.toInt()))
+                                        : await pageAudioPlayer.seek(Duration(milliseconds: value.toInt()));
                                       },
                                     ),
                                   ),

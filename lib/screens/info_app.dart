@@ -54,8 +54,8 @@ class InfoApp extends StatelessWidget {
                 ),
                 Padding(
                   padding: orientation(context,
-                      EdgeInsets.only(top: 30, right: 16, left: 16),
-                      EdgeInsets.only(top: 30, right: 64, left: 64)),
+                      const EdgeInsets.only(top: 30, right: 16, left: 16),
+                      const EdgeInsets.only(top: 30, right: 64, left: 64)),
                   child: ListView(
                     children: [
                       Center(

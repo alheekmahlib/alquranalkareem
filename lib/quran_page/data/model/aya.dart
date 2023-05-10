@@ -31,9 +31,7 @@ class Aya {
       "PartNum": partNum,
     };
 
-    if (id != null) {
-      map["ID"] = id;
-    }
+    map["ID"] = id;
 
     return map;
   }

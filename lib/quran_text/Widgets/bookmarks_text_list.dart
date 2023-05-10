@@ -1,16 +1,16 @@
 import 'package:alquranalkareem/notes/model/Notes.dart';
 import 'package:alquranalkareem/shared/widgets/widgets.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
 import 'package:theme_provider/theme_provider.dart';
 import '../cubit/quran_text_cubit.dart';
+import '../cubit/surah_text_cubit.dart';
 import '../model/QuranModel.dart';
-import '../repository/quranApi.dart';
 import '../text_page_view.dart';
-
 
 class BookmarksTextList extends StatefulWidget {
   const BookmarksTextList({Key? key}) : super(key: key);
@@ -32,13 +32,14 @@ class _BookmarksTextListState extends State<BookmarksTextList> {
   @override
   void initState() {
     QuranTextCubit.get(context).bookmarksTextController.getBookmarksText();
-    QuranTextCubit.get(context).bookmarksTextAyahController.getBookmarksTextAyah();
+    QuranTextCubit.get(context)
+        .bookmarksTextAyahController
+        .getBookmarksTextAyah();
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    QuranServer quranServer = QuranServer();
     QuranTextCubit bookmarksCubit = QuranTextCubit.get(context);
     return Column(
       children: [
@@ -50,175 +51,194 @@ class _BookmarksTextListState extends State<BookmarksTextList> {
               return Lottie.asset('assets/lottie/bookmarks.json',
                   width: 150, height: 150);
             } else {
-              return FutureBuilder(
-                  future: quranServer.QuranData(),
-                  builder: (context, snapshot) {
-                    if (snapshot.hasData) {
-                      List<SurahText> surah = snapshot.data!;
-                      return ListView.builder(
-                          shrinkWrap: true,
-                          itemCount: bookmarksCubit.bookmarksTextController.BookmarkList.length,
-                          itemBuilder: (BuildContext context, int index) {
-                            var bookmark = bookmarksCubit
-                                .bookmarksTextController
-                                .BookmarkList[index];
+              return BlocBuilder<SurahTextCubit, List<SurahText>?>(
+                builder: (context, state) {
+                  if (state == null) {
+                    return Center(
+                      child: Lottie.asset('assets/lottie/loading.json',
+                          width: 200, height: 200),
+                    );
+                  }
+                  return ListView.builder(
+                      shrinkWrap: true,
+                      itemCount: bookmarksCubit
+                          .bookmarksTextController.BookmarkList.length,
+                      itemBuilder: (BuildContext context, int index) {
+                        var bookmark = bookmarksCubit
+                            .bookmarksTextController.BookmarkList[index];
 
-                            return Column(
-                              children: [
-                                AnimationLimiter(
-                                  child: Align(
-                                    alignment: Alignment.topCenter,
-                                    child: AnimationConfiguration.staggeredList(
-                                      position: index,
-                                      duration: const Duration(milliseconds: 450),
-                                      child: SlideAnimation(
-                                        verticalOffset: 50.0,
-                                        child: FadeInAnimation(
-                                          child: Padding(
-                                            padding: const EdgeInsets.symmetric(
-                                                horizontal: 16.0, vertical: 8.0),
-                                            child: Dismissible(
-                                              background: Container(
-                                                decoration: const BoxDecoration(
-                                                    color: Colors.red,
-                                                    borderRadius: BorderRadius.all(
-                                                        Radius.circular(8))),
-                                                child: delete(context),
-                                              ),
-                                              key: ValueKey<int>(bookmark.id!),
-                                              onDismissed:
-                                                  (DismissDirection direction) {
-                                                bookmarksCubit
-                                                    .bookmarksTextController
-                                                    .deleteBookmarksText(
+                        return Column(
+                          children: [
+                            AnimationLimiter(
+                              child: Align(
+                                alignment: Alignment.topCenter,
+                                child: AnimationConfiguration.staggeredList(
+                                  position: index,
+                                  duration: const Duration(milliseconds: 450),
+                                  child: SlideAnimation(
+                                    verticalOffset: 50.0,
+                                    child: FadeInAnimation(
+                                      child: Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 16.0, vertical: 8.0),
+                                        child: Dismissible(
+                                          background: Container(
+                                            decoration: const BoxDecoration(
+                                                color: Colors.red,
+                                                borderRadius: BorderRadius.all(
+                                                    Radius.circular(8))),
+                                            child: delete(context),
+                                          ),
+                                          key: ValueKey<int>(bookmark.id!),
+                                          onDismissed:
+                                              (DismissDirection direction) {
+                                            bookmarksCubit
+                                                .bookmarksTextController
+                                                .deleteBookmarksText(
                                                     bookmark, context);
-                                              },
-                                              child: GestureDetector(
-                                                onTap: () {
-                                                  setState(() {
-                                                    QuranTextCubit.get(context).value = 0;
-                                                  });
-                                                  Navigator.of(context).pop();
-                                                  Navigator.of(context).push(
-                                                      animatRoute(TextPageView(
-                                                        // surah: surah[bookmark.sorahNum!],
-                                                        surah: surah[bookmark.sorahNum! - 1],
-                                                        nomPageF: surah[bookmark.sorahNum! - 1].ayahs!.first.page!,
-                                                        nomPageL: surah[bookmark.sorahNum! - 1].ayahs!.last.page!,
-                                                        pageNum: (bookmark.pageNum! - 1),
-                                                      )));
-                                                  print('${surah[bookmark.sorahNum! - 1]}');
-                                                  print('${surah[bookmark.sorahNum! - 1].ayahs!.first.page!}');
-                                                  print('${surah[bookmark.sorahNum! - 1].ayahs!.last.page!}');
-                                                  print('pageNum: ${bookmark.pageNum!}');
-                                                },
-                                                child: Container(
-                                                  width: MediaQuery.of(context)
-                                                      .size
-                                                      .width,
-                                                  decoration: BoxDecoration(
-                                                      color: Theme.of(context)
-                                                          .colorScheme.surface
-                                                          .withOpacity(.2),
-                                                      borderRadius:
+                                          },
+                                          child: GestureDetector(
+                                            onTap: () {
+                                              setState(() {
+                                                QuranTextCubit.get(context)
+                                                    .value = 0;
+                                              });
+                                              Navigator.of(context).pop();
+                                              Navigator.of(context).push(
+                                                  animatRoute(TextPageView(
+                                                // surah: surah[bookmark.sorahNum!],
+                                                surah: state[
+                                                    bookmark.sorahNum! - 1],
+                                                nomPageF: state[
+                                                        bookmark.sorahNum! - 1]
+                                                    .ayahs!
+                                                    .first
+                                                    .page!,
+                                                nomPageL: state[
+                                                        bookmark.sorahNum! - 1]
+                                                    .ayahs!
+                                                    .last
+                                                    .page!,
+                                                pageNum:
+                                                    (bookmark.pageNum! - 1),
+                                              )));
+                                              print(
+                                                  '${state[bookmark.sorahNum! - 1]}');
+                                              print(
+                                                  '${state[bookmark.sorahNum! - 1].ayahs!.first.page!}');
+                                              print(
+                                                  '${state[bookmark.sorahNum! - 1].ayahs!.last.page!}');
+                                              print(
+                                                  'pageNum: ${bookmark.pageNum!}');
+                                            },
+                                            child: Container(
+                                              width: MediaQuery.of(context)
+                                                  .size
+                                                  .width,
+                                              decoration: BoxDecoration(
+                                                  color: Theme.of(context)
+                                                      .colorScheme
+                                                      .surface
+                                                      .withOpacity(.2),
+                                                  borderRadius:
                                                       const BorderRadius.all(
                                                           Radius.circular(8))),
-                                                  child: Padding(
-                                                    padding:
-                                                    const EdgeInsets.symmetric(vertical: 16.0, horizontal: 8.0),
-                                                    child: Column(
-                                                      crossAxisAlignment:
+                                              child: Padding(
+                                                padding:
+                                                    const EdgeInsets.symmetric(
+                                                        vertical: 16.0,
+                                                        horizontal: 8.0),
+                                                child: Column(
+                                                  crossAxisAlignment:
                                                       CrossAxisAlignment.start,
-                                                      children: [
-                                                        Row(
-                                                          mainAxisAlignment:
+                                                  children: [
+                                                    Row(
+                                                      mainAxisAlignment:
                                                           MainAxisAlignment
                                                               .spaceBetween,
-                                                          children: [
-                                                            Stack(
-                                                              alignment:
+                                                      children: [
+                                                        Stack(
+                                                          alignment:
                                                               Alignment.center,
-                                                              children: <Widget>[
-                                                                SvgPicture.asset(
-                                                                  'assets/svg/ic_fram.svg',
-                                                                  height: 40,
-                                                                  width: 40,
-                                                                ),
-                                                                Text(
-                                                                  "${bookmark.pageNum}",
-                                                                  textAlign:
+                                                          children: <Widget>[
+                                                            SvgPicture.asset(
+                                                              'assets/svg/ic_fram.svg',
+                                                              height: 40,
+                                                              width: 40,
+                                                            ),
+                                                            Text(
+                                                              "${bookmark.pageNum}",
+                                                              textAlign:
                                                                   TextAlign
                                                                       .center,
-                                                                  style: TextStyle(
-                                                                      color: ThemeProvider.themeOf(context)
-                                                                          .id ==
+                                                              style: TextStyle(
+                                                                  color: ThemeProvider.themeOf(context)
+                                                                              .id ==
                                                                           'dark'
-                                                                          ? Theme.of(
-                                                                          context)
+                                                                      ? Theme.of(
+                                                                              context)
                                                                           .canvasColor
-                                                                          : Theme.of(
-                                                                          context)
+                                                                      : Theme.of(
+                                                                              context)
                                                                           .primaryColorDark,
-                                                                      fontFamily:
+                                                                  fontFamily:
                                                                       'kufi',
-                                                                      fontWeight:
+                                                                  fontWeight:
                                                                       FontWeight
                                                                           .w700,
-                                                                      fontSize: 12),
-                                                                ),
-                                                              ],
-                                                            ),
-                                                            Text(
-                                                              '${bookmark.sorahName}',
-                                                              style: TextStyle(
-                                                                  color: ThemeProvider.themeOf(
-                                                                      context)
-                                                                      .id ==
-                                                                      'dark'
-                                                                      ? Theme.of(
-                                                                      context)
-                                                                      .canvasColor
-                                                                      : Theme.of(
-                                                                      context)
-                                                                      .primaryColorDark,
-                                                                  fontSize: 16,
-                                                                  fontFamily:
-                                                                  'kufi',
-                                                                  fontWeight:
-                                                                  FontWeight
-                                                                      .w500),
-                                                            ),
-                                                            Text(
-                                                              "${bookmark.lastRead}",
-                                                              style: TextStyle(
-                                                                  color: ThemeProvider.themeOf(
-                                                                      context)
-                                                                      .id ==
-                                                                      'dark'
-                                                                      ? Theme.of(
-                                                                      context)
-                                                                      .canvasColor
-                                                                      : Theme.of(
-                                                                      context)
-                                                                      .primaryColorLight,
-                                                                  fontSize: 13,
-                                                                  fontFamily:
-                                                                  'kufi',
-                                                                  fontWeight:
-                                                                  FontWeight
-                                                                      .w400),
-                                                            ),
-                                                            const Icon(
-                                                              Icons.bookmark,
-                                                              color:
-                                                              Color(0x99f5410a),
-                                                              size: 35,
+                                                                  fontSize: 12),
                                                             ),
                                                           ],
                                                         ),
+                                                        Text(
+                                                          '${bookmark.sorahName}',
+                                                          style: TextStyle(
+                                                              color: ThemeProvider.themeOf(
+                                                                              context)
+                                                                          .id ==
+                                                                      'dark'
+                                                                  ? Theme.of(
+                                                                          context)
+                                                                      .canvasColor
+                                                                  : Theme.of(
+                                                                          context)
+                                                                      .primaryColorDark,
+                                                              fontSize: 16,
+                                                              fontFamily:
+                                                                  'kufi',
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w500),
+                                                        ),
+                                                        Text(
+                                                          "${bookmark.lastRead}",
+                                                          style: TextStyle(
+                                                              color: ThemeProvider.themeOf(
+                                                                              context)
+                                                                          .id ==
+                                                                      'dark'
+                                                                  ? Theme.of(
+                                                                          context)
+                                                                      .canvasColor
+                                                                  : Theme.of(
+                                                                          context)
+                                                                      .primaryColorLight,
+                                                              fontSize: 13,
+                                                              fontFamily:
+                                                                  'kufi',
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w400),
+                                                        ),
+                                                        const Icon(
+                                                          Icons.bookmark,
+                                                          color:
+                                                              Color(0x99f5410a),
+                                                          size: 35,
+                                                        ),
                                                       ],
                                                     ),
-                                                  ),
+                                                  ],
                                                 ),
                                               ),
                                             ),
@@ -228,17 +248,13 @@ class _BookmarksTextListState extends State<BookmarksTextList> {
                                     ),
                                   ),
                                 ),
-                              ],
-                            );
-                          }
-                      );
-                    } else {
-                      return Center(
-                        child: Lottie.asset('assets/lottie/bookmarks.json',
-                            width: 200, height: 200),
-                      );
-                    }
-                  });
+                              ),
+                            ),
+                          ],
+                        );
+                      });
+                },
+              );
             }
           }),
         ),
@@ -706,29 +722,5 @@ class _BookmarksTextListState extends State<BookmarksTextList> {
     //     ),
     //   ),
     // );
-  }
-}
-
-class _SliverAppBarDelegate extends SliverPersistentHeaderDelegate {
-  _SliverAppBarDelegate(this._tabBar);
-
-  final TabBar _tabBar;
-
-  @override
-  double get minExtent => _tabBar.preferredSize.height;
-  @override
-  double get maxExtent => _tabBar.preferredSize.height;
-
-  @override
-  Widget build(
-      BuildContext context, double shrinkOffset, bool overlapsContent) {
-    return Container(
-      child: _tabBar,
-    );
-  }
-
-  @override
-  bool shouldRebuild(_SliverAppBarDelegate oldDelegate) {
-    return false;
   }
 }

@@ -52,7 +52,7 @@ class _AudioScreenState extends State<AudioScreen>
                   child: child,
                 );
               },
-              child: AudioSorahList()),
+              child: const AudioSorahList()),
         ));
   }
 }

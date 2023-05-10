@@ -51,8 +51,8 @@ class _QuranPageScreenState extends State<QuranPageScreen> {
             // scaleHeight: 60,
             columnWidget: Padding(
               padding: orientation(context,
-                  EdgeInsets.all(0.0),
-                  EdgeInsets.only(top: 140.0)),
+                  const EdgeInsets.all(0.0),
+                  const EdgeInsets.only(top: 140.0)),
               child: Wrap(
                 children: [
                   Padding(
@@ -64,7 +64,7 @@ class _QuranPageScreenState extends State<QuranPageScreen> {
                     ),
                   ),
                   Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 4.0, vertical: 16.0),
+                    padding: const EdgeInsets.symmetric(horizontal: 4.0, vertical: 16.0),
                     child: Align(
                       alignment: Alignment.topRight,
                       child: GestureDetector(
@@ -75,7 +75,7 @@ class _QuranPageScreenState extends State<QuranPageScreen> {
                               width: 45,
                               decoration: BoxDecoration(
                                 color: Theme.of(context).colorScheme.surface.withOpacity(.3),
-                                borderRadius: BorderRadius.all(Radius.circular(8)),
+                                borderRadius: const BorderRadius.all(Radius.circular(8)),
                               ),
                               child: Icon(
                                 Icons.notifications,
@@ -90,7 +90,7 @@ class _QuranPageScreenState extends State<QuranPageScreen> {
                                 child: Container(
                                   width: 10,
                                   height: 10,
-                                  decoration: BoxDecoration(
+                                  decoration: const BoxDecoration(
                                     color: Colors.red,
                                     shape: BoxShape.circle,
                                   ),

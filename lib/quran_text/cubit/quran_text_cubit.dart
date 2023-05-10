@@ -1,33 +1,16 @@
-import 'dart:typed_data';
 
-import 'package:alquranalkareem/l10n/app_localizations.dart';
-import 'package:arabic_numbers/arabic_numbers.dart';
-import 'package:bloc/bloc.dart';
 import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
-import 'package:lottie/lottie.dart';
-import 'package:meta/meta.dart';
-import 'package:path/path.dart';
 // import 'package:scroll_to_index/scroll_to_index.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
-import 'package:share_plus/share_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:theme_provider/theme_provider.dart';
 import '../../quran_page/data/model/translate.dart';
 import '../../quran_page/data/repository/translate_repository.dart';
 import '../bookmarksTextAyah_controller.dart';
 import '../bookmarksText_controller.dart';
 import '../model/bookmark_text.dart';
-import 'dart:ui' as ui;
-import 'package:flutter/services.dart' show rootBundle;
-import 'package:image/image.dart' as img;
-import 'package:path_provider/path_provider.dart';
-import 'package:flutter/services.dart';
-import 'dart:io';
 
 import '../model/bookmark_text_ayah.dart';
 

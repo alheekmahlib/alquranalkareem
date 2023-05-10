@@ -53,8 +53,8 @@ class _SorahTextScreenState extends State<SorahTextScreen> {
                     flex: 3,
                     child: Padding(
                       padding: orientation == Orientation.portrait
-                          ? EdgeInsets.only(right: 16.0, left: 16.0, top: 40.0)
-                          : EdgeInsets.only(right: 16.0, left: 16.0),
+                          ? const EdgeInsets.only(right: 16.0, left: 16.0, top: 40.0)
+                          : const EdgeInsets.only(right: 16.0, left: 16.0),
                       child: Stack(
                         children: [
                           Opacity(
@@ -72,14 +72,14 @@ class _SorahTextScreenState extends State<SorahTextScreen> {
                                   height: 100,
                                   width: 110,
                                   decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.all(
+                                      borderRadius: const BorderRadius.all(
                                           Radius.circular(8)),
                                     border: Border.all(
                                       color: Theme.of(context).colorScheme.surface,
                                       width: 1
                                     )
                                   ),
-                                  padding: EdgeInsets.only(top: 4),
+                                  padding: const EdgeInsets.only(top: 4),
                                   child: Stack(
                                     alignment: Alignment.topCenter,
                                     children: [
@@ -88,7 +88,7 @@ class _SorahTextScreenState extends State<SorahTextScreen> {
                                         width: 105,
                                           decoration: BoxDecoration(
                                             color: Theme.of(context).colorScheme.surface,
-                                            borderRadius: BorderRadius.only(
+                                            borderRadius: const BorderRadius.only(
                                               topRight: Radius.circular(8),
                                               topLeft: Radius.circular(8),
                                             )
@@ -151,7 +151,7 @@ class _SorahTextScreenState extends State<SorahTextScreen> {
                       ),
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 8,
                   ),
                   const Divider(

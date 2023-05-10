@@ -2,8 +2,8 @@ import 'package:alquranalkareem/azkar/models/azkar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import '../../../l10n/app_localizations.dart';
-import '../bookmarks_notes_db/databaseHelper.dart';
 import '../../../shared/widgets/widgets.dart';
+import '../database/databaseHelper.dart';
 
 
 

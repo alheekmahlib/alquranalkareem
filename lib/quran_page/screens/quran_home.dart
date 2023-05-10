@@ -1,10 +1,9 @@
 import 'package:alquranalkareem/quran_page/screens/quran_page.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../bookmarks_notes_db/notificationDatabase.dart';
 import '../../cubit/cubit.dart';
 import '../../cubit/states.dart';
+import '../../database/notificationDatabase.dart';
 import '../../shared/widgets/audio_widget.dart';
 import '../../shared/widgets/show_tafseer.dart';
 import '../../shared/widgets/widgets.dart';

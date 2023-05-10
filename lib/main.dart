@@ -1,23 +1,18 @@
 import 'dart:async';
 import 'dart:io';
-import 'dart:math';
 import 'package:alquranalkareem/quran_page/data/data_client.dart';
 import 'package:alquranalkareem/quran_page/data/tafseer_data_client.dart';
 import 'package:alquranalkareem/shared/bloc_observer.dart';
 import 'package:alquranalkareem/shared/local_notifications.dart';
 import 'package:bloc/bloc.dart';
 import 'package:desktop_window/desktop_window.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_native_timezone/flutter_native_timezone.dart';
-import 'package:home_widget/home_widget.dart';
 import 'package:sqflite_common_ffi/sqflite_ffi.dart';
 import 'package:wakelock/wakelock.dart';
-import 'package:workmanager/workmanager.dart';
-import 'bookmarks_notes_db/notificationDatabase.dart';
+import 'database/databaseHelper.dart';
+import 'database/notificationDatabase.dart';
 import 'myApp.dart';
-import 'bookmarks_notes_db/databaseHelper.dart';
 import 'package:timezone/data/latest.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
 

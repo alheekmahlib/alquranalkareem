@@ -107,7 +107,7 @@ class _AlwaqfScreenState extends State<AlwaqfScreen> {
                   alignment: Alignment.bottomCenter,
                   child: Padding(
                     padding: orientation(context,
-                        EdgeInsets.only(top: 32.0),
+                        const EdgeInsets.only(top: 32.0),
                         EdgeInsets.only(
                             top: MediaQuery.of(context).size.height / 1 / 13)),
                     child: Column(
@@ -137,8 +137,8 @@ class _AlwaqfScreenState extends State<AlwaqfScreen> {
                                       height: 40,
                                       width: 40,
                                       colorFilter: isSelected
-                                          ? ColorFilter.mode(Color(0xfffcbb76), BlendMode.srcIn)
-                                          : ColorFilter.mode(Color(0xff39412a), BlendMode.srcIn),
+                                          ? const ColorFilter.mode(Color(0xfffcbb76), BlendMode.srcIn)
+                                          : const ColorFilter.mode(Color(0xff39412a), BlendMode.srcIn),
                                     ),
                                   );
                                 },
@@ -185,7 +185,7 @@ class _AlwaqfScreenState extends State<AlwaqfScreen> {
                             ],
                           ),
                         ),
-                        Divider(
+                        const Divider(
                           height: 0,
                           thickness: 2,
                           endIndent: 16,

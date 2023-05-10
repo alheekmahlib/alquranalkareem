@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
-import '../bookmarks_notes_db/databaseHelper.dart';
+import '../database/databaseHelper.dart';
 import '../l10n/app_localizations.dart';
 import '../shared/widgets/widgets.dart';
 import 'model/bookmark_text_ayah.dart';

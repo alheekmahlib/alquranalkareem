@@ -1,15 +1,15 @@
 import 'package:alquranalkareem/quran_text/cubit/quran_text_cubit.dart';
 import 'package:alquranalkareem/shared/widgets/widgets.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:lottie/lottie.dart';
 import 'package:theme_provider/theme_provider.dart';
+import '../../cubit/ayaRepository/aya_cubit.dart';
 import '../../l10n/app_localizations.dart';
 import '../../quran_page/data/model/aya.dart';
-import '../../quran_page/data/repository/aya_repository.dart';
+import '../cubit/surah_text_cubit.dart';
 import '../model/QuranModel.dart';
-import '../repository/quranApi.dart';
 import '../text_page_view.dart';
 
 class QuranTextSearch extends StatefulWidget {
@@ -22,8 +22,6 @@ class QuranTextSearch extends StatefulWidget {
 }
 
 class _QuranTextSearchState extends State<QuranTextSearch> {
-  AyaRepository ayaRepository = AyaRepository();
-  List<Aya>? ayahList;
   final _controller = TextEditingController();
 
   @override
@@ -31,17 +29,8 @@ class _QuranTextSearchState extends State<QuranTextSearch> {
     super.initState();
   }
 
-  search(String text) async {
-    ayaRepository.search(text).then((values) {
-      setState(() {
-        ayahList = values;
-      });
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
-    QuranServer quranServer = QuranServer();
     QuranTextCubit TextCubit = QuranTextCubit.get(context);
     return Column(
       children: <Widget>[
@@ -59,14 +48,10 @@ class _QuranTextSearchState extends State<QuranTextSearch> {
             cursorColor: Theme.of(context).dividerColor,
             textInputAction: TextInputAction.search,
             onSubmitted: (value) {
-              if (value != null) {
-                search(value);
-              }
+              context.read<AyaCubit>().search(value);
             },
             onChanged: (value) {
-              if (value != null) {
-                search(value);
-              }
+              context.read<AyaCubit>().search(value);
             },
             style: TextStyle(
                 color: Theme.of(context).colorScheme.surface,
@@ -101,186 +86,219 @@ class _QuranTextSearchState extends State<QuranTextSearch> {
           ),
         ),
         Expanded(
-          child: Container(
-              child: ayahList != null
-                  ? FutureBuilder(
-                      future: quranServer.QuranData(),
-                      builder: (context, snapshot) {
-                        if (snapshot.hasData) {
-                          List<SurahText> surah = snapshot.data!;
-                          return ListView.builder(
-                              itemCount: ayahList!.length,
-                              itemBuilder: (_, index) {
-                                Aya aya = ayahList![index];
-                                return Column(
-                                  children: <Widget>[
-                                    Container(
-                                      color: (index % 2 == 0
-                                          ? Theme.of(context)
-                                              .colorScheme
-                                              .surface
-                                              .withOpacity(.05)
-                                          : Theme.of(context)
-                                              .colorScheme
-                                              .surface
-                                              .withOpacity(.1)),
-                                      child: ListTile(
-                                        onTap: () {
-                                          Navigator.of(context).pop();
-                                          Navigator.of(context)
-                                              .push(animatRoute(TextPageView(
-                                            // surah: surah[bookmark.sorahNum!],
-                                            surah: surah[aya.sorahId - 1],
-                                            nomPageF: surah[aya.sorahId - 1]
-                                                .ayahs!
-                                                .first
-                                                .page!,
-                                            nomPageL: surah[aya.sorahId - 1].ayahs!.last.page!,
-                                            pageNum: TextCubit.value == 1 ? (surah[aya.sorahId - 1].ayahs![aya.ayaNum - 1].numberInSurah! - 1) : surah[aya.sorahId - 1].ayahs![aya.ayaNum - 1].pageInSurah,
-                                          )));
-                                          print('${surah[aya.sorahId]}');
-                                          print(
-                                              '${surah[aya.sorahId].ayahs!.first.page!}');
-                                          print(
-                                              '${surah[aya.sorahId].ayahs!.last.page!}');
-                                          print('pageNum: ${aya.pageNum}');
-                                        },
-                                        title: Padding(
-                                          padding: const EdgeInsets.all(8.0),
-                                          child: Text(
-                                            aya.text,
-                                            style: TextStyle(
-                                              fontFamily: "uthmanic2",
-                                              fontWeight: FontWeight.normal,
-                                              fontSize: 22,
-                                              color:
-                                                  ThemeProvider.themeOf(context)
+          child: BlocBuilder<AyaCubit, AyaState>(
+            builder: (context, state) {
+              if (state is AyaLoading) {
+                return Lottie.asset('assets/lottie/search.json',
+                    width: 200, height: 200);
+              } else if (state is AyaLoaded) {
+                final List<Aya> ayahList = state.ayahList;
+                return Container(
+                    child: ayahList != null
+                        ? BlocBuilder<SurahTextCubit, List<SurahText>?>(
+                            builder: (context, state) {
+                              if (state == null) {
+                                return Center(
+                                  child: Lottie.asset(
+                                      'assets/lottie/loading.json',
+                                      width: 200,
+                                      height: 200),
+                                );
+                              }
+                              return ListView.builder(
+                                  itemCount: ayahList.length,
+                                  itemBuilder: (_, index) {
+                                    Aya aya = ayahList[index];
+                                    return Column(
+                                      children: <Widget>[
+                                        Container(
+                                          color: (index % 2 == 0
+                                              ? Theme.of(context)
+                                                  .colorScheme
+                                                  .surface
+                                                  .withOpacity(.05)
+                                              : Theme.of(context)
+                                                  .colorScheme
+                                                  .surface
+                                                  .withOpacity(.1)),
+                                          child: ListTile(
+                                            onTap: () {
+                                              Navigator.of(context).pop();
+                                              Navigator.of(context).push(
+                                                  animatRoute(TextPageView(
+                                                // surah: surah[bookmark.sorahNum!],
+                                                surah: state[aya.sorahId - 1],
+                                                nomPageF: state[aya.sorahId - 1]
+                                                    .ayahs!
+                                                    .first
+                                                    .page!,
+                                                nomPageL: state[aya.sorahId - 1]
+                                                    .ayahs!
+                                                    .last
+                                                    .page!,
+                                                pageNum: TextCubit.value == 1
+                                                    ? (state[aya.sorahId - 1]
+                                                            .ayahs![
+                                                                aya.ayaNum - 1]
+                                                            .numberInSurah! -
+                                                        1)
+                                                    : state[aya.sorahId - 1]
+                                                        .ayahs![aya.ayaNum - 1]
+                                                        .pageInSurah,
+                                              )));
+                                              print('${state[aya.sorahId]}');
+                                              print(
+                                                  '${state[aya.sorahId].ayahs!.first.page!}');
+                                              print(
+                                                  '${state[aya.sorahId].ayahs!.last.page!}');
+                                              print('pageNum: ${aya.pageNum}');
+                                            },
+                                            title: Padding(
+                                              padding:
+                                                  const EdgeInsets.all(8.0),
+                                              child: Text(
+                                                aya.text,
+                                                style: TextStyle(
+                                                  fontFamily: "uthmanic2",
+                                                  fontWeight: FontWeight.normal,
+                                                  fontSize: 22,
+                                                  color: ThemeProvider.themeOf(
+                                                                  context)
                                                               .id ==
                                                           'dark'
                                                       ? Theme.of(context)
                                                           .canvasColor
                                                       : Theme.of(context)
                                                           .primaryColorDark,
-                                            ),
-                                            textAlign: TextAlign.justify,
-                                          ),
-                                        ),
-                                        subtitle: Container(
-                                          height: 20,
-                                          decoration: BoxDecoration(
-                                              color: Theme.of(context)
-                                                  .primaryColorLight,
-                                              borderRadius:
-                                                  const BorderRadius.all(
-                                                      Radius.circular(4))),
-                                          child: Row(
-                                            mainAxisSize: MainAxisSize.min,
-                                            children: [
-                                              Expanded(
-                                                child: Container(
-                                                  decoration: BoxDecoration(
-                                                      color: Theme.of(context)
-                                                          .primaryColor,
-                                                      borderRadius:
-                                                          const BorderRadius
-                                                              .only(
-                                                        topRight:
-                                                            Radius.circular(4),
-                                                        bottomRight:
-                                                            Radius.circular(4),
-                                                      )),
-                                                  child: Text(
-                                                    aya.sorahName,
-                                                    textAlign: TextAlign.center,
-                                                    style: TextStyle(
-                                                        color: ThemeProvider.themeOf(
-                                                                        context)
-                                                                    .id ==
-                                                                'dark'
-                                                            ? Theme.of(context)
-                                                                .canvasColor
-                                                            : Theme.of(context)
-                                                                .colorScheme
-                                                                .background,
-                                                        fontSize: 12),
-                                                  ),
                                                 ),
+                                                textAlign: TextAlign.justify,
                                               ),
-                                              Expanded(
-                                                child: Container(
-                                                    color: Theme.of(context)
-                                                        .primaryColorLight,
-                                                    child: Text(
-                                                      " ${AppLocalizations.of(context)!.part}: ${aya.partNum}",
-                                                      textAlign:
-                                                          TextAlign.center,
-                                                      style: TextStyle(
-                                                          color: ThemeProvider.themeOf(
-                                                                          context)
-                                                                      .id ==
-                                                                  'dark'
-                                                              ? Theme.of(
-                                                                      context)
-                                                                  .canvasColor
-                                                              : Theme.of(
-                                                                      context)
-                                                                  .colorScheme
-                                                                  .background,
-                                                          fontSize: 12),
-                                                    )),
-                                              ),
-                                              Expanded(
-                                                child: Container(
-                                                    decoration: BoxDecoration(
+                                            ),
+                                            subtitle: Container(
+                                              height: 20,
+                                              decoration: BoxDecoration(
+                                                  color: Theme.of(context)
+                                                      .primaryColorLight,
+                                                  borderRadius:
+                                                      const BorderRadius.all(
+                                                          Radius.circular(4))),
+                                              child: Row(
+                                                mainAxisSize: MainAxisSize.min,
+                                                children: [
+                                                  Expanded(
+                                                    child: Container(
+                                                      decoration: BoxDecoration(
+                                                          color:
+                                                              Theme.of(context)
+                                                                  .primaryColor,
+                                                          borderRadius:
+                                                              const BorderRadius
+                                                                  .only(
+                                                            topRight:
+                                                                Radius.circular(
+                                                                    4),
+                                                            bottomRight:
+                                                                Radius.circular(
+                                                                    4),
+                                                          )),
+                                                      child: Text(
+                                                        aya.sorahName,
+                                                        textAlign:
+                                                            TextAlign.center,
+                                                        style: TextStyle(
+                                                            color: ThemeProvider.themeOf(
+                                                                            context)
+                                                                        .id ==
+                                                                    'dark'
+                                                                ? Theme.of(
+                                                                        context)
+                                                                    .canvasColor
+                                                                : Theme.of(
+                                                                        context)
+                                                                    .colorScheme
+                                                                    .background,
+                                                            fontSize: 12),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                  Expanded(
+                                                    child: Container(
                                                         color: Theme.of(context)
-                                                            .primaryColor,
-                                                        borderRadius:
-                                                            const BorderRadius
-                                                                .only(
-                                                          topLeft:
-                                                              Radius.circular(
-                                                                  4),
-                                                          bottomLeft:
-                                                              Radius.circular(
-                                                                  4),
-                                                        )),
-                                                    child: Text(
-                                                      " ${AppLocalizations.of(context)!.page}: ${aya.pageNum}",
-                                                      textAlign:
-                                                          TextAlign.center,
-                                                      style: TextStyle(
-                                                          color: ThemeProvider.themeOf(
+                                                            .primaryColorLight,
+                                                        child: Text(
+                                                          " ${AppLocalizations.of(context)!.part}: ${aya.partNum}",
+                                                          textAlign:
+                                                              TextAlign.center,
+                                                          style: TextStyle(
+                                                              color: ThemeProvider.themeOf(
+                                                                              context)
+                                                                          .id ==
+                                                                      'dark'
+                                                                  ? Theme.of(
                                                                           context)
-                                                                      .id ==
-                                                                  'dark'
-                                                              ? Theme.of(
-                                                                      context)
-                                                                  .canvasColor
-                                                              : Theme.of(
-                                                                      context)
-                                                                  .colorScheme
-                                                                  .background,
-                                                          fontSize: 12),
-                                                    )),
+                                                                      .canvasColor
+                                                                  : Theme.of(
+                                                                          context)
+                                                                      .colorScheme
+                                                                      .background,
+                                                              fontSize: 12),
+                                                        )),
+                                                  ),
+                                                  Expanded(
+                                                    child: Container(
+                                                        decoration:
+                                                            BoxDecoration(
+                                                                color: Theme.of(
+                                                                        context)
+                                                                    .primaryColor,
+                                                                borderRadius:
+                                                                    const BorderRadius
+                                                                        .only(
+                                                                  topLeft: Radius
+                                                                      .circular(
+                                                                          4),
+                                                                  bottomLeft: Radius
+                                                                      .circular(
+                                                                          4),
+                                                                )),
+                                                        child: Text(
+                                                          " ${AppLocalizations.of(context)!.page}: ${aya.pageNum}",
+                                                          textAlign:
+                                                              TextAlign.center,
+                                                          style: TextStyle(
+                                                              color: ThemeProvider.themeOf(
+                                                                              context)
+                                                                          .id ==
+                                                                      'dark'
+                                                                  ? Theme.of(
+                                                                          context)
+                                                                      .canvasColor
+                                                                  : Theme.of(
+                                                                          context)
+                                                                      .colorScheme
+                                                                      .background,
+                                                              fontSize: 12),
+                                                        )),
+                                                  ),
+                                                ],
                                               ),
-                                            ],
+                                            ),
                                           ),
                                         ),
-                                      ),
-                                    ),
-                                    const Divider()
-                                  ],
-                                );
-                              });
-                        } else {
-                          return Center(
-                            child: Lottie.asset('assets/lottie/bookmarks.json',
-                                width: 200, height: 200),
-                          );
-                        }
-                      })
-                  : Lottie.asset('assets/lottie/search.json',
-                      width: 200, height: 200)),
+                                        const Divider()
+                                      ],
+                                    );
+                                  });
+                            },
+                          )
+                        : Lottie.asset('assets/lottie/search.json',
+                            width: 200, height: 200));
+              } else if (state is AyaError) {
+                return Text('Error: ${state.message}');
+              }
+              return Container(); // Fallback to an empty container.
+            },
+          ),
         ),
       ],
     );

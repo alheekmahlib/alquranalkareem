@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'dart:io';
 import 'dart:developer' as developer;
-import 'package:alquranalkareem/cubit/cubit.dart';
 import 'package:alquranalkareem/l10n/app_localizations.dart';
 import 'package:anim_search_bar/anim_search_bar.dart';
 import 'package:another_xlider/another_xlider.dart';
@@ -13,8 +12,8 @@ import 'package:audioplayers/audioplayers.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:lottie/lottie.dart';
@@ -25,6 +24,7 @@ import 'package:square_percent_indicater/square_percent_indicater.dart';
 import 'package:theme_provider/theme_provider.dart';
 import '../../quran_page/data/model/sorah.dart';
 import '../../quran_page/data/repository/sorah_repository.dart';
+import '../cubit/sorahRepository/sorah_repository_cubit.dart';
 import '../quran_page/cubit/audio/cubit.dart';
 import '../shared/widgets/widgets.dart';
 
@@ -40,8 +40,6 @@ class AudioSorahList extends StatefulWidget {
 class _AudioSorahListState extends State<AudioSorahList>
     with AutomaticKeepAliveClientMixin<AudioSorahList>, SingleTickerProviderStateMixin {
 
-  SorahRepository sorahRepository = SorahRepository();
-  List<Sorah>? sorahList;
   final ScrollController controller = ScrollController();
   ValueNotifier<double> _position = ValueNotifier(0);
   ValueNotifier<double> _duration = ValueNotifier(99999);
@@ -87,7 +85,7 @@ class _AudioSorahListState extends State<AudioSorahList>
     // currentPlay = null;
     sliderValue = 0;
     // initAudioPlayer();
-    final AudioContext audioContext = AudioContext(
+    final AudioContext audioContext = const AudioContext(
       iOS: AudioContextIOS(
         // defaultToSpeaker: true,
         category: AVAudioSessionCategory.ambient,
@@ -105,7 +103,6 @@ class _AudioSorahListState extends State<AudioSorahList>
       ),
     );
     AudioPlayer.global.setAudioContext(audioContext);
-    getList();
     audioPlayer.onDurationChanged.listen((duration) {
       if (!_isInitialLoadComplete) {
         audioPlayer.seek(Duration(seconds: lastPosition.toInt()));
@@ -492,14 +489,6 @@ class _AudioSorahListState extends State<AudioSorahList>
     //print('state = $state');
   }
 
-  getList() async {
-    sorahRepository.all().then((values) {
-      setState(() {
-        sorahList = values;
-      });
-    });
-  }
-
   // Platform messages are asynchronous, so we initialize in an async method.
   Future<void> initConnectivity() async {
     late ConnectivityResult result;
@@ -527,16 +516,23 @@ class _AudioSorahListState extends State<AudioSorahList>
     });
   }
 
-  void searchSurah(String searchInput) {
-    int index = sorahList!
-        .indexWhere((sorah) => sorah.searchText.contains(searchInput));
-    if (index != -1) {
-      controller.jumpTo(index * 65.0); // Assuming 65.0 is the height of each ListTile
-      setState(() {
-        selectedSurah = index;
-      });
+  void searchSurah(BuildContext context, String searchInput) {
+    // Get the current state of the SorahCubit
+    List<Sorah>? sorahList = context.read<SorahRepositoryCubit>().state;
+
+    // Check if the list is not null before using it
+    if (sorahList != null) {
+      int index = sorahList
+          .indexWhere((sorah) => sorah.searchText.contains(searchInput));
+      if (index != -1) {
+        controller.jumpTo(index * 65.0); // Assuming 65.0 is the height of each ListTile
+        setState(() {
+          selectedSurah = index;
+        });
+      }
     }
   }
+
 
 
 
@@ -544,7 +540,6 @@ class _AudioSorahListState extends State<AudioSorahList>
   Widget build(BuildContext context) {
     super.build(context);
     AudioCubit audioCubit = AudioCubit.get(context);
-    QuranCubit cubit = QuranCubit.get(context);
     return Directionality(
       textDirection: TextDirection.rtl,
       child: Scaffold(
@@ -753,7 +748,7 @@ class _AudioSorahListState extends State<AudioSorahList>
                                                           child: GestureDetector(
                                                             child: Container(
                                                                 height: 50,
-                                                                padding: EdgeInsets.symmetric(horizontal: 8.0),
+                                                                padding: const EdgeInsets.symmetric(horizontal: 8.0),
                                                                 width: 50,
                                                                 decoration: BoxDecoration(
                                                                     color: Theme.of(context).colorScheme.background,
@@ -1178,7 +1173,7 @@ class _AudioSorahListState extends State<AudioSorahList>
                                                     child: GestureDetector(
                                                       child: Container(
                                                           height: 50,
-                                                          padding: EdgeInsets.symmetric(horizontal: 8.0),
+                                                          padding: const EdgeInsets.symmetric(horizontal: 8.0),
                                                           width: 50,
                                                           decoration: BoxDecoration(
                                                               color: Theme.of(context).colorScheme.background,
@@ -1574,7 +1569,7 @@ class _AudioSorahListState extends State<AudioSorahList>
                                           alignment: Alignment.center,
                                           child: Container(
                                               height: 50,
-                                              padding: EdgeInsets.symmetric(horizontal: 8.0),
+                                              padding: const EdgeInsets.symmetric(horizontal: 8.0),
                                               width: 50,
                                               decoration: BoxDecoration(
                                                   color: Theme.of(context).colorScheme.background,
@@ -1659,7 +1654,7 @@ class _AudioSorahListState extends State<AudioSorahList>
                                             child: GestureDetector(
                                               child: Container(
                                                   height: 50,
-                                                  padding: EdgeInsets.symmetric(horizontal: 8.0),
+                                                  padding: const EdgeInsets.symmetric(horizontal: 8.0),
                                                   width: 50,
                                                   decoration: BoxDecoration(
                                                       color: Theme.of(context).colorScheme.background,
@@ -1943,7 +1938,7 @@ class _AudioSorahListState extends State<AudioSorahList>
                                         child: GestureDetector(
                                           child: Container(
                                               height: 50,
-                                              padding: EdgeInsets.symmetric(horizontal: 8.0),
+                                              padding: const EdgeInsets.symmetric(horizontal: 8.0),
                                               width: 50,
                                               decoration: BoxDecoration(
                                                   color: Theme.of(context).colorScheme.background,
@@ -2321,7 +2316,7 @@ class _AudioSorahListState extends State<AudioSorahList>
                                       child: GestureDetector(
                                         child: Container(
                                             height: 50,
-                                            padding: EdgeInsets.symmetric(horizontal: 8.0),
+                                            padding: const EdgeInsets.symmetric(horizontal: 8.0),
                                             width: 50,
                                             decoration: BoxDecoration(
                                                 color: Theme.of(context).colorScheme.background,
@@ -2595,23 +2590,32 @@ class _AudioSorahListState extends State<AudioSorahList>
 
   Widget surahList(BuildContext context) {
     AudioCubit audioCubit = AudioCubit.get(context);
+    return BlocBuilder<SorahRepositoryCubit, List<Sorah>?>(
+      builder: (context, state) {
+        if (state == null) {
+          return Center(
+            child: Lottie.asset(
+                'assets/lottie/loading.json',
+                width: 200,
+                height: 200),
+          );
+        }
     return Padding(
       padding: orientation(context,
-          EdgeInsets.only(right: 16.0, left: 16.0, top: 300.0, bottom: 16.0),
-          EdgeInsets.only(right: 16.0, left: 16.0, top: 16.0, bottom: 16.0)),
-      child: sorahList != null
-          ? AnimationLimiter(
+          const EdgeInsets.only(right: 16.0, left: 16.0, top: 300.0, bottom: 16.0),
+          const EdgeInsets.only(right: 16.0, left: 16.0, top: 16.0, bottom: 16.0)),
+      child: AnimationLimiter(
         child: Scrollbar(
           thumbVisibility: true,
           // interactive: true,
           controller: controller,
           child: ListView.builder(
               physics: const AlwaysScrollableScrollPhysics(),
-              itemCount: sorahList!.length,
+              itemCount: state.length,
               controller: controller,
               padding: EdgeInsets.zero,
               itemBuilder: (_, index) {
-                Sorah sorah = sorahList![index];
+                final sorah = state[index];
                 return AnimationConfiguration.staggeredList(
                   position: index,
                   duration: const Duration(milliseconds: 450),
@@ -2673,7 +2677,7 @@ class _AudioSorahListState extends State<AudioSorahList>
                                       ),
                                     ],
                                   ),
-                                  SizedBox(width: 100,),
+                                  const SizedBox(width: 100,),
                                   Column(
                                     crossAxisAlignment:
                                     CrossAxisAlignment.start,
@@ -2749,12 +2753,10 @@ class _AudioSorahListState extends State<AudioSorahList>
                 );
               }),
         ),
-      )
-          : Center(
-        child: Lottie.asset('assets/lottie/loading.json',
-            width: 150, height: 150),
       ),
     );
+  },
+);
   }
 
   Widget surahSearch(BuildContext context) {
@@ -2775,7 +2777,7 @@ class _AudioSorahListState extends State<AudioSorahList>
             fontFamily: 'kufi',
             fontSize: 15),
         onSubmitted: (String value) {
-          searchSurah(value);
+          searchSurah(context, value);
         },
         autoFocus: false,
         color: Theme.of(context).colorScheme.surface,
@@ -2800,11 +2802,11 @@ class _AudioSorahListState extends State<AudioSorahList>
           color: Theme.of(context)
               .colorScheme.surface
               .withOpacity(.2),
-          borderRadius: BorderRadius.all(Radius.circular(8)),
+          borderRadius: const BorderRadius.all(Radius.circular(8)),
         ),
         margin: orientation(context,
-            EdgeInsets.only(top: 75.0, right: 16.0),
-            EdgeInsets.only(top: 16.0, right: 16.0)),
+            const EdgeInsets.only(top: 75.0, right: 16.0),
+            const EdgeInsets.only(top: 16.0, right: 16.0)),
         child: Column(
           children: <Widget>[
             Container(
@@ -2812,7 +2814,7 @@ class _AudioSorahListState extends State<AudioSorahList>
               height: 30,
               decoration: BoxDecoration(
                 color: Theme.of(context).colorScheme.surface,
-                borderRadius: BorderRadius.all(Radius.circular(8),
+                borderRadius: const BorderRadius.all(Radius.circular(8),
                 ),
               ),
               alignment: Alignment.center,
@@ -2828,7 +2830,7 @@ class _AudioSorahListState extends State<AudioSorahList>
                     ),
                     textAlign: TextAlign.center,
                   ),
-                  Divider(
+                  const Divider(
                     endIndent: 8,
                     indent: 8,
                     height: 8,

@@ -1,5 +1,6 @@
 import 'package:alquranalkareem/cubit/cubit.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_sliding_up_panel/sliding_up_panel_widget.dart';
 
 import '../../shared/widgets/widgets.dart';
@@ -25,17 +26,31 @@ class Sliding extends StatefulWidget {
   State<Sliding> createState() => _SlidingState();
 }
 
-class _SlidingState extends State<Sliding> {
+class _SlidingState extends State<Sliding> with SingleTickerProviderStateMixin {
   var mScaffoldKey = GlobalKey<ScaffoldState>();
+  late SlidingUpPanelController _panelController;
+  // late AnimationController _animationController;
 
-  // @override
-  // void dispose() {
-  //   QuranCubit.get(context).panelController.dispose();
-  //   super.dispose();
-  // }
+  @override
+  void initState() {
+    super.initState();
+    _panelController = SlidingUpPanelController();
+    // _animationController = AnimationController(
+    //   vsync: this,
+    //   duration: const Duration(seconds: 5),
+    // );
+  }
+
+  @override
+  void dispose() {
+    _panelController.dispose();
+    // _animationController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
-    QuranCubit cubit = QuranCubit.get(context);
+    final cubit = context.read<QuranCubit>();
     return Directionality(
       textDirection: TextDirection.rtl,
       child: SizedBox(
@@ -45,15 +60,16 @@ class _SlidingState extends State<Sliding> {
         child: SlidingUpPanelWidget(
           controlHeight: widget.cHeight!,
           anchor: 7.0,
-          panelController: cubit.panelController,
+          panelController: _panelController,
+          // animationController: _animationController,
           onTap: () {
-            if (SlidingUpPanelStatus.anchored == cubit.panelController.status) {
-              cubit.panelController.collapse();
+            if (SlidingUpPanelStatus.anchored == _panelController.status) {
+              _panelController.collapse();
             } else {
-              cubit.panelController.anchor();
+              _panelController.anchor();
             }
           },
-          enableOnTap: true,
+          enableOnTap: false,
           child: Container(
             margin: const EdgeInsets.symmetric(horizontal: 15.0),
             decoration: const ShapeDecoration(
@@ -69,34 +85,44 @@ class _SlidingState extends State<Sliding> {
                   topRight: Radius.circular(8.0),
                 ),
               ),
+
             ),
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: <Widget>[
-                Container(
-                  alignment: Alignment.center,
-                  color: Theme.of(context).colorScheme.background,
-                  height: 65.0,
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: <Widget>[
-                        Icon(
-                          Icons.drag_handle_outlined,
-                          size: 20,
-                          color: Theme.of(context).colorScheme.surface,
-                        ),
-                        Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            widget.myWidget1!,
-                            widget.myWidget2!,
-                            widget.myWidget3!,
-                            widget.myWidget4!,
-                          ],
-                        ),
-                      ],
+                GestureDetector(
+                  onTap: () {
+                    if (SlidingUpPanelStatus.anchored == _panelController.status) {
+                      _panelController.collapse();
+                    } else {
+                      _panelController.anchor();
+                    }
+                  },
+                  child: Container(
+                    alignment: Alignment.center,
+                    color: Theme.of(context).colorScheme.background,
+                    height: 65.0,
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: <Widget>[
+                          Icon(
+                            Icons.drag_handle_outlined,
+                            size: 20,
+                            color: Theme.of(context).colorScheme.surface,
+                          ),
+                          Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              widget.myWidget1!,
+                              widget.myWidget2!,
+                              widget.myWidget3!,
+                              widget.myWidget4!,
+                            ],
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ),
