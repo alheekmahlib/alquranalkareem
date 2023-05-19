@@ -9,10 +9,6 @@ import '../model/bookmark.dart';
 class BookmarksController extends GetxController {
   final RxList<Bookmarks> bookmarksList = <Bookmarks>[].obs;
 
-  // Future<int?> addBookmarks(Bookmarks? bookmarks) {
-  //   return DatabaseHelper.addBookmark(bookmarks!);
-  // }
-
   Future<int?> addBookmarks(int pageNum, String sorahName, String lastRead) async {
     // Check if there's a bookmark for the current page
     Bookmarks? existingBookmark = bookmarksList.firstWhereOrNull(

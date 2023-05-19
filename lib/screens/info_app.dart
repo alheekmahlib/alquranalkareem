@@ -23,29 +23,7 @@ class InfoApp extends StatelessWidget {
             alignment: Alignment.topCenter,
             child: Stack(
               children: [
-                GestureDetector(
-                  onTap: () => Navigator.of(context).pop(),
-                  child: Align(
-                    alignment: Alignment.topCenter,
-                    child: Container(
-                      height: 30,
-                      width: 30,
-                      decoration: BoxDecoration(
-                          color: Theme.of(context).colorScheme.background,
-                          borderRadius: const BorderRadius.only(
-                            topRight: Radius.circular(8),
-                            topLeft: Radius.circular(8),
-                          ),
-                          border: Border.all(
-                              width: 2,
-                              color: Theme.of(context).dividerColor)),
-                      child: Icon(
-                        Icons.close_outlined,
-                        color: Theme.of(context).colorScheme.surface,
-                      ),
-                    ),
-                  ),
-                ),
+                customClose2(context),
                 const Divider(
                   height: 58,
                   thickness: 2,

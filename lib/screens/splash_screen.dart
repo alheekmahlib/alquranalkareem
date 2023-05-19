@@ -3,10 +3,22 @@ import 'package:alquranalkareem/cubit/cubit.dart';
 import 'package:alquranalkareem/home_page.dart';
 import 'package:alquranalkareem/screens/onboarding_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+import '../cubit/ayaRepository/aya_cubit.dart';
+import '../cubit/quarter/quarter_cubit.dart';
+import '../cubit/sorahRepository/sorah_repository_cubit.dart';
+import '../cubit/translateDataCubit/_cubit.dart';
+import '../notes/cubit/note_cubit.dart';
+import '../quran_page/cubit/audio/cubit.dart';
+import '../quran_page/cubit/bookmarks/bookmarks_cubit.dart';
+import '../quran_page/data/repository/quarter_repository.dart';
+import '../quran_text/cubit/quran_text_cubit.dart';
+import '../quran_text/cubit/surah_text_cubit.dart';
 
 class SplashScreen extends StatefulWidget {
   @override
@@ -34,7 +46,9 @@ class _SplashScreenState extends State<SplashScreen> {
     });
     await Future.delayed(const Duration(seconds: 3));
     // Get.off(() => OnboardingScreen());
-    navigationPage();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      navigationPage();
+    });
   }
 
   Widget? myWidget;
@@ -42,9 +56,21 @@ class _SplashScreenState extends State<SplashScreen> {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     print('is_first_time ${prefs.getBool("is_first_time")}');
     if (prefs.getBool("is_first_time") == null) {
+      // Navigator.pushReplacement<void, void>(
+      //   context,
+      //   MaterialPageRoute<void>(
+      //     builder: (BuildContext context) => OnboardingScreen(),
+      //   ),
+      // );
       Get.off(() => OnboardingScreen());
       prefs.setBool("is_first_time", false);
     } else {
+      // Navigator.pushReplacement<void, void>(
+      //   context,
+      //   MaterialPageRoute<void>(
+      //     builder: (BuildContext context) => const HomePage(),
+      //   ),
+      // );
       Get.off(() => const HomePage());
     }
     // Get.off(() => OnboardingScreen());

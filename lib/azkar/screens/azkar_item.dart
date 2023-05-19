@@ -96,29 +96,7 @@ class _AzkarItemState extends State<AzkarItem> {
                           alignment: Alignment.topRight,
                           child: fontSizeDropDown(context)),
                     ),
-                    GestureDetector(
-                      onTap: () => Navigator.of(context).pop(),
-                      child: Align(
-                        alignment: Alignment.topCenter,
-                        child: Container(
-                          height: 30,
-                          width: 30,
-                          decoration: BoxDecoration(
-                              color: Theme.of(context).colorScheme.background,
-                              borderRadius: const BorderRadius.only(
-                                topRight: Radius.circular(8),
-                                topLeft: Radius.circular(8),
-                              ),
-                              border: Border.all(
-                                  width: 2,
-                                  color: Theme.of(context).dividerColor)),
-                          child: Icon(
-                            Icons.close_outlined,
-                            color: Theme.of(context).colorScheme.surface,
-                          ),
-                        ),
-                      ),
-                    ),
+                    customClose2(context),
                     const Divider(
                       height: 58,
                       thickness: 2,
@@ -439,23 +417,31 @@ class _AzkarItemState extends State<AzkarItem> {
         Icons.format_size,
         color: Theme.of(context).colorScheme.surface,
       ),
-      iconSize: 24,
-      buttonHeight: 50,
-      buttonWidth: 50,
-      buttonElevation: 0,
-      itemHeight: 35,
-      dropdownDecoration: BoxDecoration(
-          color: Theme.of(context).colorScheme.surface.withOpacity(.9),
-          borderRadius: const BorderRadius.all(Radius.circular(8))),
-      itemPadding: const EdgeInsets.only(left: 14, right: 14),
-      dropdownMaxHeight: MediaQuery.of(context).size.height,
-      dropdownWidth: 230,
-      dropdownPadding: null,
-      dropdownElevation: 0,
-      scrollbarRadius: const Radius.circular(8),
-      scrollbarThickness: 6,
-      scrollbarAlwaysShow: true,
-      offset: const Offset(-0, 0),
+      iconStyleData: const IconStyleData(
+        iconSize: 24,
+      ),
+      buttonStyleData: const ButtonStyleData(
+        height: 50,
+        width: 50,
+        elevation: 0,
+      ),
+      dropdownStyleData: DropdownStyleData(
+          decoration: BoxDecoration(
+              color: Theme.of(context).colorScheme.surface.withOpacity(.9),
+              borderRadius: const BorderRadius.all(Radius.circular(8))),
+          padding: const EdgeInsets.only(left: 14, right: 14),
+          maxHeight: 230,
+          width: 230,
+          elevation: 0,
+          offset: const Offset(0, 0),
+          scrollbarTheme: ScrollbarThemeData(
+            radius: const Radius.circular(8),
+            thickness: MaterialStateProperty.all(6),
+          )
+      ),
+      menuItemStyleData: const MenuItemStyleData(
+        height: 45,
+      ),
     );
   }
 }

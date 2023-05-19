@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:alquranalkareem/notes/cubit/note_cubit.dart';
 import 'package:animated_toggle_switch/animated_toggle_switch.dart';
 import 'package:another_xlider/another_xlider.dart';
 import 'package:another_xlider/models/handler.dart';
@@ -11,26 +12,34 @@ import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_sliding_up_panel/sliding_up_panel_widget.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:lottie/lottie.dart';
 // import 'package:scroll_to_index/scroll_to_index.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:theme_provider/theme_provider.dart';
+import 'package:word_selectable_text/word_selectable_text.dart';
 import '../cubit/cubit.dart';
+import '../cubit/states.dart';
 import '../cubit/translateDataCubit/_cubit.dart';
 import '../cubit/translateDataCubit/translateDataState.dart';
 import '../l10n/app_localizations.dart';
 import '../quran_page/data/model/ayat.dart';
+import '../quran_page/widget/sliding_up.dart';
+import '../shared/widgets/show_tafseer.dart';
+import '../shared/widgets/svg_picture.dart';
 import '../shared/widgets/widgets.dart';
 import 'Widgets/audio_text_widget.dart';
 import 'Widgets/show_text_tafseer.dart';
 import 'Widgets/text_overflow_detector.dart';
+import 'Widgets/widgets.dart';
 import 'cubit/quran_text_cubit.dart';
 import 'model/QuranModel.dart';
 
 var lastAyah;
 var lastAyahInPage;
+int? textSurahNum;
 
 class TextPageView extends StatefulWidget {
   SurahText? surah;
@@ -55,6 +64,7 @@ class _TextPageViewState extends State<TextPageView>
   String? translateText;
   StreamSubscription? _quranTextCubitSubscription;
   QuranCubit? _quranCubit;
+
 
   void _toggleScroll() {
     if (QuranTextCubit.get(context).scrolling) {
@@ -180,6 +190,7 @@ class _TextPageViewState extends State<TextPageView>
       vsync: this,
     );
     QuranCubit.get(context).screenAnimation = Tween<double>(begin: 1, end: 0.95).animate(QuranCubit.get(context).screenController!);
+    QuranCubit.get(context).panelController = SlidingUpPanelController();
     super.initState();
   }
 
@@ -188,6 +199,7 @@ class _TextPageViewState extends State<TextPageView>
     _scrollTimer?.cancel();
     _quranTextCubit.animationController.dispose();
     _quranTextCubitSubscription!.cancel();
+    // QuranCubit.get(context).panelController.dispose();
     super.dispose();
   }
 
@@ -266,6 +278,7 @@ class _TextPageViewState extends State<TextPageView>
       builder: (BuildContext context, state) {
         QuranTextCubit TextCubit = QuranTextCubit.get(context);
         QuranCubit cubit = QuranCubit.get(context);
+        NotesCubit notesCubit = NotesCubit.get(context);
         final List<dynamic>? translateData =
             context.watch<TranslateDataCubit>().state.data;
         return SafeArea(
@@ -307,7 +320,7 @@ class _TextPageViewState extends State<TextPageView>
                                 Padding(
                                   padding:
                                       const EdgeInsets.symmetric(horizontal: 8.0),
-                                  child: fontSizeDropDown(context),
+                                  child: fontSizeDropDown(context, setState),
                                 ),
                                 const Spacer(),
                                 // scrollDropDown(context),
@@ -342,28 +355,7 @@ class _TextPageViewState extends State<TextPageView>
                                 // ),
                                 SizedBox(
                                   width: 70,
-                                  child: AnimatedToggleSwitch<int>.rolling(
-                                    current: TextCubit.value,
-                                    values: const [0, 1],
-                                    onChanged: (i) {
-                                      setState(() {
-                                        TextCubit.value = i;
-                                        TextCubit.saveSwitchValue(
-                                            TextCubit.value);
-                                      });
-                                    },
-                                    iconBuilder: rollingIconBuilder,
-                                    borderWidth: 1,
-                                    indicatorColor:
-                                        Theme.of(context).colorScheme.surface,
-                                    innerColor: Theme.of(context).canvasColor,
-                                    borderRadius:
-                                        const BorderRadius.all(Radius.circular(8)),
-                                    height: 25,
-                                    dif: 2.0,
-                                    borderColor:
-                                        Theme.of(context).colorScheme.surface,
-                                  ),
+                                  child: animatedToggleSwitch(context, setState),
                                 ),
                               ],
                             ),
@@ -378,31 +370,7 @@ class _TextPageViewState extends State<TextPageView>
                         ),
                         child: Stack(
                           children: [
-                            GestureDetector(
-                              onTap: () => Navigator.of(context).pop(),
-                              child: Align(
-                                alignment: Alignment.topCenter,
-                                child: Container(
-                                  height: 30,
-                                  width: 30,
-                                  decoration: BoxDecoration(
-                                      color: Theme.of(context)
-                                          .colorScheme
-                                          .background,
-                                      borderRadius: const BorderRadius.only(
-                                        topRight: Radius.circular(8),
-                                        topLeft: Radius.circular(8),
-                                      ),
-                                      border: Border.all(
-                                          width: 2,
-                                          color: Theme.of(context).dividerColor)),
-                                  child: Icon(
-                                    Icons.close_outlined,
-                                    color: Theme.of(context).colorScheme.surface,
-                                  ),
-                                ),
-                              ),
-                            ),
+                            customClose2(context),
                             const Divider(
                               height: 58,
                               thickness: 2,
@@ -437,7 +405,7 @@ class _TextPageViewState extends State<TextPageView>
                                                   ? Colors.white
                                                   : Colors.black,
                                             ),
-                                            fontSizeDropDown(context),
+                                            fontSizeDropDown(context, setState),
                                             // scrollDropDown(context),
                                             // GestureDetector(
                                             //   child: Container(
@@ -467,32 +435,7 @@ class _TextPageViewState extends State<TextPageView>
                                             // ),
                                             SizedBox(
                                               width: 70,
-                                              child: AnimatedToggleSwitch<
-                                                  int>.rolling(
-                                                current: TextCubit.value,
-                                                values: const [0, 1],
-                                                onChanged: (i) {
-                                                  setState(() {
-                                                    TextCubit.value = i;
-                                                    TextCubit.saveSwitchValue(
-                                                        TextCubit.value);
-                                                  });
-                                                },
-                                                iconBuilder: rollingIconBuilder,
-                                                borderWidth: 1,
-                                                indicatorColor: Theme.of(context)
-                                                    .colorScheme
-                                                    .surface,
-                                                innerColor:
-                                                    Theme.of(context).canvasColor,
-                                                borderRadius: const BorderRadius.all(
-                                                    Radius.circular(8)),
-                                                height: 25,
-                                                dif: 2.0,
-                                                borderColor: Theme.of(context)
-                                                    .colorScheme
-                                                    .surface,
-                                              ),
+                                              child: animatedToggleSwitch(context, setState),
                                             ),
                                           ],
                                         ),
@@ -548,6 +491,7 @@ class _TextPageViewState extends State<TextPageView>
                                       : (widget.nomPageL! - widget.nomPageF!) + 1,
                                   itemBuilder: (context, index) {
                                     List<InlineSpan> text = [];
+                                    List<String> text2 = [];
                                     int ayahLenght = widget.surah!.ayahs!.length;
                                     if (TextCubit.value == 1) {
                                       for (int index = 0;
@@ -566,11 +510,13 @@ class _TextPageViewState extends State<TextPageView>
                                             1) {
                                           if (widget.surah!.ayahs![b].page ==
                                               (index + widget.nomPageF!)) {
+
                                             TextCubit.juz = widget
                                                 .surah!.ayahs![b].juz
                                                 .toString();
                                             TextCubit.sajda =
                                                 widget.surah!.ayahs![b].sajda;
+                                            // text2 = widget.surah!.ayahs![b].text! as List<String>;
                                             text.add(TextSpan(children: [
                                               TextSpan(
                                                   text: widget
@@ -607,277 +553,18 @@ class _TextPageViewState extends State<TextPageView>
                                                         ..onTapDown =
                                                             (TapDownDetails
                                                                 details) {
+                                                              textText = text.map((e) => e).toString();
+                                                              textTitle = text.map((e) => e).toString();
                                                           lastAyah = widget.surah!
                                                               .ayahs!.length;
                                                           lastAyahInPage = widget
                                                               .surah!
                                                               .ayahs![b]
                                                               .numberInSurah;
-                                                          var cancel = BotToast
-                                                              .showAttachedWidget(
-                                                            target: details
-                                                                .globalPosition,
-                                                            verticalOffset:
-                                                                TextCubit
-                                                                    .verticalOffset,
-                                                            horizontalOffset:
-                                                                TextCubit
-                                                                    .horizontalOffset,
-                                                            preferDirection:
-                                                                TextCubit
-                                                                    .preferDirection,
-                                                            animationDuration:
-                                                                const Duration(
-                                                                    microseconds:
-                                                                        700),
-                                                            animationReverseDuration:
-                                                                const Duration(
-                                                                    microseconds:
-                                                                        700),
-                                                            attachedBuilder:
-                                                                (cancel) => Card(
-                                                              color: Theme.of(
-                                                                      context)
-                                                                  .colorScheme
-                                                                  .surface,
-                                                              shape:
-                                                                  RoundedRectangleBorder(
-                                                                borderRadius:
-                                                                    BorderRadius
-                                                                        .circular(
-                                                                            8),
-                                                              ),
-                                                              child: Padding(
-                                                                padding: const EdgeInsets
-                                                                        .symmetric(
-                                                                    horizontal:
-                                                                        10.0,
-                                                                    vertical:
-                                                                        6.0),
-                                                                child: Row(
-                                                                  mainAxisSize:
-                                                                      MainAxisSize
-                                                                          .min,
-                                                                  children: [
-                                                                    Container(
-                                                                      height: 40,
-                                                                      width: 40,
-                                                                      decoration: const BoxDecoration(
-                                                                          color: Color(
-                                                                              0xfff3efdf),
-                                                                          borderRadius:
-                                                                              BorderRadius.all(Radius.circular(50))),
-                                                                      child: FutureBuilder<
-                                                                              List<
-                                                                                  Ayat>>(
-                                                                          future: QuranCubit.get(context).handleRadioValueChanged(context, QuranCubit.get(context).radioValue).getAyahTranslate((widget
-                                                                              .surah!
-                                                                              .number)),
-                                                                          builder:
-                                                                              (context,
-                                                                                  snapshot) {
-                                                                            if (snapshot.connectionState ==
-                                                                                ConnectionState.done) {
-                                                                              List<Ayat>?
-                                                                                  ayat =
-                                                                                  snapshot.data;
-                                                                              Ayat
-                                                                                  aya =
-                                                                                  ayat![b];
-                                                                              return IconButton(
-                                                                                icon: const Icon(
-                                                                                  Icons.text_snippet_outlined,
-                                                                                  size: 24,
-                                                                                  color: Color(0x99f5410a),
-                                                                                ),
-                                                                                onPressed: () {
-                                                                                  TextCubit.translateAyah = "${aya.ayatext}";
-                                                                                  TextCubit.translate = "${aya.translate}";
-                                                                                  // showModalBottomSheet<void>(
-                                                                                  //   context: context,
-                                                                                  //   builder: (BuildContext context) {
-                                                                                  //     return ShowTextTafseer();
-                                                                                  //   },
-                                                                                  // );
-                                                                                  allModalBottomSheet(context,
-                                                                                    MediaQuery.of(context).size.height / 1/2,
-                                                                                    MediaQuery.of(context).size.width,
-                                                                                    const ShowTextTafseer(),
-                                                                                  );
-                                                                                  // quranTextTafseer(context, TPageScaffoldKey,
-                                                                                  //     MediaQuery.of(context).size.width);
-                                                                                  cancel();
-                                                                                },
-                                                                              );
-                                                                            } else {
-                                                                              return Center(child: Lottie.asset('assets/lottie/search.json', width: 100, height: 40));
-                                                                            }
-                                                                          }),
-                                                                    ),
-                                                                    const SizedBox(
-                                                                      width: 8.0,
-                                                                    ),
-                                                                    Container(
-                                                                      height: 40,
-                                                                      width: 40,
-                                                                      decoration: const BoxDecoration(
-                                                                          color: Color(
-                                                                              0xfff3efdf),
-                                                                          borderRadius:
-                                                                              BorderRadius.all(Radius.circular(50))),
-                                                                      child:
-                                                                          IconButton(
-                                                                        icon:
-                                                                            const Icon(
-                                                                          Icons
-                                                                              .bookmark_border,
-                                                                          size:
-                                                                              24,
-                                                                          color: Color(
-                                                                              0x99f5410a),
-                                                                        ),
-                                                                        onPressed:
-                                                                            () {
-                                                                          print(
-                                                                              'ayah no ${widget.surah!.ayahs![b].numberInSurah}');
-                                                                          TextCubit.addBookmarkText(
-                                                                                  widget.surah!.name!,
-                                                                                  widget.surah!.number!,
-                                                                                  index == 0 ? index + 1 : index + 2,
-                                                                                  // widget.surah!.ayahs![b].page,
-                                                                                  widget.nomPageF,
-                                                                                  widget.nomPageL,
-                                                                                  TextCubit.lastRead)
-                                                                              .then((value) => customSnackBar(context, AppLocalizations.of(context)!.addBookmark));
-                                                                          cancel();
-                                                                        },
-                                                                      ),
-                                                                    ),
-                                                                    const SizedBox(
-                                                                      width: 8.0,
-                                                                    ),
-                                                                    Container(
-                                                                      height: 40,
-                                                                      width: 40,
-                                                                      decoration: const BoxDecoration(
-                                                                          color: Color(
-                                                                              0xfff3efdf),
-                                                                          borderRadius:
-                                                                              BorderRadius.all(Radius.circular(50))),
-                                                                      child:
-                                                                          IconButton(
-                                                                        icon:
-                                                                            const Icon(
-                                                                          Icons
-                                                                              .copy_outlined,
-                                                                          size:
-                                                                              24,
-                                                                          color: Color(
-                                                                              0x99f5410a),
-                                                                        ),
-                                                                        onPressed:
-                                                                            () {
-                                                                          FlutterClipboard
-                                                                              .copy(
-                                                                            '﴿${widget.surah!.ayahs![b].text}﴾ '
-                                                                            '[${widget.surah!.name}-'
-                                                                            '${arabicNumber.convert(widget.surah!.ayahs![b].numberInSurah.toString())}]',
-                                                                          ).then((value) => customSnackBar(
-                                                                              context,
-                                                                              AppLocalizations.of(context)!.copyAyah));
-                                                                          cancel();
-                                                                        },
-                                                                      ),
-                                                                    ),
-                                                                    const SizedBox(
-                                                                      width: 8.0,
-                                                                    ),
-                                                                    Container(
-                                                                      height: 40,
-                                                                      width: 40,
-                                                                      decoration: const BoxDecoration(
-                                                                          color: Color(
-                                                                              0xfff3efdf),
-                                                                          borderRadius:
-                                                                              BorderRadius.all(Radius.circular(50))),
-                                                                      child:
-                                                                          IconButton(
-                                                                        icon:
-                                                                            const Icon(
-                                                                          Icons
-                                                                              .play_arrow_outlined,
-                                                                          size:
-                                                                              24,
-                                                                          color: Color(
-                                                                              0x99f5410a),
-                                                                        ),
-                                                                        onPressed:
-                                                                            () {
-                                                                          switch (TextCubit
-                                                                              .controller
-                                                                              .status) {
-                                                                            case AnimationStatus
-                                                                                .dismissed:
-                                                                              TextCubit.controller.forward();
-                                                                              break;
-                                                                            case AnimationStatus
-                                                                                .completed:
-                                                                              TextCubit.controller.reverse();
-                                                                              break;
-                                                                            default:
-                                                                          }
-                                                                          cancel();
-                                                                        },
-                                                                      ),
-                                                                    ),
-                                                                    const SizedBox(
-                                                                      width: 8.0,
-                                                                    ),
-                                                                    Container(
-                                                                      height: 40,
-                                                                      width: 40,
-                                                                      decoration: const BoxDecoration(
-                                                                          color: Color(
-                                                                              0xfff3efdf),
-                                                                          borderRadius:
-                                                                              BorderRadius.all(Radius.circular(50))),
-                                                                      child:
-                                                                          IconButton(
-                                                                        icon:
-                                                                            const Icon(
-                                                                          Icons
-                                                                              .share_outlined,
-                                                                          size:
-                                                                              23,
-                                                                          color: Color(
-                                                                              0x99f5410a),
-                                                                        ),
-                                                                        onPressed:
-                                                                            () {
-                                                                              final verseNumber = widget.surah!.ayahs![b].numberInSurah!;
-                                                                              final translation = translateData?[verseNumber - 1]['text'];
-                                                                              QuranCubit.get(context).showVerseOptionsBottomSheet(context, verseNumber, widget.surah!.number, "${widget.surah!.ayahs![b].text}", translation ?? '', widget.surah!.name);
-                                                                              print("Verse Number: $verseNumber");
-                                                                              print("Translation: translation");
-                                                                          cancel();
-                                                                        },
-                                                                      ),
-                                                                    ),
-                                                                  ],
-                                                                ),
-                                                              ),
-                                                            ),
-                                                          );
-                                                          print(
-                                                              '${widget.surah!.name!}');
-                                                          print(
-                                                              '${widget.surah!.number!}');
-                                                          print(
-                                                              '${widget.surah!.ayahs![b].numberInSurah}');
-                                                          print(
-                                                              '${widget.nomPageF}');
-                                                          print(
-                                                              '${widget.nomPageL}');
+                                                          textSurahNum = widget
+                                                              .surah!
+                                                              .number;
+                                                              menu(context, b, index, details, translateData, widget.surah);
                                                           setState(() {
                                                             backColor = Colors
                                                                 .transparent;
@@ -963,18 +650,7 @@ class _TextPageViewState extends State<TextPageView>
                                                   child: Column(
                                                     children: [
                                                       Center(
-                                                        child: SizedBox(
-                                                            height: 50,
-                                                            width: MediaQuery.of(
-                                                                        context)
-                                                                    .size
-                                                                    .width /
-                                                                1 /
-                                                                2,
-                                                            child:
-                                                                SvgPicture.asset(
-                                                              'assets/svg/space_line.svg',
-                                                            )),
+                                                        child: spaceLine(20, MediaQuery.of(context).size.width / 1 / 2,),
                                                       ),
                                                       widget.surah!.number == 9
                                                           ? Container()
@@ -984,19 +660,46 @@ class _TextPageViewState extends State<TextPageView>
                                                                           index]
                                                                       .numberInSurah ==
                                                                   1
-                                                              ? SvgPicture.asset(
-                                                                  'assets/svg/besmAllah.svg',
-                                                                  width: 200,
-                                                                  colorFilter: ColorFilter.mode(
-                                                                      Theme.of(
-                                                                              context)
-                                                                          .cardColor
-                                                                          .withOpacity(
-                                                                              .8),
-                                                                      BlendMode
-                                                                          .srcIn),
-                                                                )
+                                                              ? besmAllah(context)
                                                               : Container(),
+                                                      // WordSelectableText(
+                                                      //     selectable:  true,
+                                                      //     highlight:  true,
+                                                      //
+                                                      //     text: widget.surah!.ayahs![index].text!,
+                                                      //     onWordTapped: (word, index) {},
+                                                      //     style: TextStyle(
+                                                      //       fontSize:
+                                                      //       TextPageView
+                                                      //           .fontSizeArabic,
+                                                      //       fontWeight:
+                                                      //       FontWeight
+                                                      //           .normal,
+                                                      //       fontFamily:
+                                                      //       'uthmanic2',
+                                                      //       color: ThemeProvider.themeOf(context)
+                                                      //           .id ==
+                                                      //           'dark'
+                                                      //           ? Colors
+                                                      //           .white
+                                                      //           : Colors
+                                                      //           .black,
+                                                      //       background:
+                                                      //       Paint()
+                                                      //         ..color = index ==
+                                                      //             TextCubit.isSelected
+                                                      //             ? backColor
+                                                      //             : Colors.transparent
+                                                      //         ..strokeJoin =
+                                                      //             StrokeJoin
+                                                      //                 .round
+                                                      //         ..strokeCap =
+                                                      //             StrokeCap
+                                                      //                 .round
+                                                      //         ..style =
+                                                      //             PaintingStyle
+                                                      //                 .fill,
+                                                      //     ),),
                                                       Container(
                                                         padding: const EdgeInsets
                                                                 .symmetric(
@@ -1063,6 +766,13 @@ class _TextPageViewState extends State<TextPageView>
                                                                               details) {
                                                                         setState(
                                                                             () {
+                                                                              lastAyahInPage = widget
+                                                                                  .surah!
+                                                                                  .ayahs![index]
+                                                                                  .numberInSurah;
+                                                                              textSurahNum = widget
+                                                                                  .surah!
+                                                                                  .number;
                                                                           backColor =
                                                                               Colors.transparent;
                                                                           TextCubit.sorahName = widget
@@ -1077,196 +787,8 @@ class _TextPageViewState extends State<TextPageView>
                                                                           TextCubit.isSelected =
                                                                               index;
                                                                         });
-                                                                        var cancel =
-                                                                            BotToast
-                                                                                .showAttachedWidget(
-                                                                          target:
-                                                                              details.globalPosition,
-                                                                          verticalOffset:
-                                                                              TextCubit.verticalOffset,
-                                                                          horizontalOffset:
-                                                                              TextCubit.horizontalOffset,
-                                                                          preferDirection:
-                                                                              TextCubit.preferDirection,
-                                                                          animationDuration:
-                                                                              const Duration(microseconds: 700),
-                                                                          animationReverseDuration:
-                                                                              const Duration(microseconds: 700),
-                                                                          attachedBuilder:
-                                                                              (cancel) =>
-                                                                                  Card(
-                                                                            color: Theme.of(context)
-                                                                                .colorScheme
-                                                                                .surface,
-                                                                            shape:
-                                                                                RoundedRectangleBorder(
-                                                                              borderRadius:
-                                                                                  BorderRadius.circular(8),
-                                                                            ),
-                                                                            child:
-                                                                                Padding(
-                                                                              padding:
-                                                                                  const EdgeInsets.symmetric(horizontal: 10.0, vertical: 6.0),
-                                                                              child:
-                                                                                  Row(
-                                                                                mainAxisSize: MainAxisSize.min,
-                                                                                children: [
-                                                                                  Container(
-                                                                                    height: 40,
-                                                                                    width: 40,
-                                                                                    decoration: const BoxDecoration(color: Color(0xfff3efdf), borderRadius: BorderRadius.all(Radius.circular(50))),
-                                                                                    child: FutureBuilder<List<Ayat>>(
-                                                                                        future: QuranCubit.get(context).handleRadioValueChanged(context, QuranCubit.get(context).radioValue).getAyahTranslate((widget.surah!.number)),
-                                                                                        builder: (context, snapshot) {
-                                                                                          if (snapshot.connectionState == ConnectionState.done) {
-                                                                                            List<Ayat>? ayat = snapshot.data;
-                                                                                            Ayat aya = ayat![index];
-                                                                                            return IconButton(
-                                                                                              icon: const Icon(
-                                                                                                Icons.text_snippet_outlined,
-                                                                                                size: 24,
-                                                                                                color: Color(0x99f5410a),
-                                                                                              ),
-                                                                                              onPressed: () {
-                                                                                                TextCubit.translateAyah = "${aya.ayatext}";
-                                                                                                TextCubit.translate = "${aya.translate}";
-                                                                                                // showModalBottomSheet<void>(
-                                                                                                //   context: context,
-                                                                                                //   builder: (BuildContext context) {
-                                                                                                //     return ShowTextTafseer();
-                                                                                                //   },
-                                                                                                // );
-                                                                                                allModalBottomSheet(context,
-                                                                                                  MediaQuery.of(context).size.height / 1/2,
-                                                                                                  MediaQuery.of(context).size.width,
-                                                                                                  const ShowTextTafseer(),
-                                                                                                );
-                                                                                                // quranTextTafseer(context, TPageScaffoldKey,
-                                                                                                //     MediaQuery.of(context).size.width);
-                                                                                                cancel();
-                                                                                              },
-                                                                                            );
-                                                                                          } else {
-                                                                                            return Center(child: Lottie.asset('assets/lottie/search.json', width: 100, height: 40));
-                                                                                          }
-                                                                                        }),
-                                                                                  ),
-                                                                                  const SizedBox(
-                                                                                    width: 8.0,
-                                                                                  ),
-                                                                                  Container(
-                                                                                    height: 40,
-                                                                                    width: 40,
-                                                                                    decoration: const BoxDecoration(color: Color(0xfff3efdf), borderRadius: BorderRadius.all(Radius.circular(50))),
-                                                                                    child: IconButton(
-                                                                                      icon: const Icon(
-                                                                                        Icons.bookmark_border,
-                                                                                        size: 24,
-                                                                                        color: Color(0x99f5410a),
-                                                                                      ),
-                                                                                      onPressed: () {
-                                                                                        TextCubit.addBookmarkText(
-                                                                                                widget.surah!.name!,
-                                                                                                widget.surah!.number!,
-                                                                                                widget.surah!.ayahs![index].numberInSurah,
-                                                                                                // widget.surah!.ayahs![b].page,
-                                                                                                widget.nomPageF,
-                                                                                                widget.nomPageL,
-                                                                                                TextCubit.lastRead)
-                                                                                            .then((value) => customSnackBar(context, AppLocalizations.of(context)!.addBookmark));
-                                                                                        cancel();
-                                                                                      },
-                                                                                    ),
-                                                                                  ),
-                                                                                  const SizedBox(
-                                                                                    width: 8.0,
-                                                                                  ),
-                                                                                  Container(
-                                                                                    height: 40,
-                                                                                    width: 40,
-                                                                                    decoration: const BoxDecoration(color: Color(0xfff3efdf), borderRadius: BorderRadius.all(Radius.circular(50))),
-                                                                                    child: IconButton(
-                                                                                      icon: const Icon(
-                                                                                        Icons.copy_outlined,
-                                                                                        size: 24,
-                                                                                        color: Color(0x99f5410a),
-                                                                                      ),
-                                                                                      onPressed: () {
-                                                                                        FlutterClipboard.copy(
-                                                                                          '﴿${widget.surah!.ayahs![index].text}﴾ '
-                                                                                          '[${widget.surah!.name}-'
-                                                                                          '${arabicNumber.convert(widget.surah!.ayahs![index].numberInSurah.toString())}]',
-                                                                                        ).then((value) => customSnackBar(context, AppLocalizations.of(context)!.copyAyah));
-                                                                                        cancel();
-                                                                                      },
-                                                                                    ),
-                                                                                  ),
-                                                                                  const SizedBox(
-                                                                                    width: 8.0,
-                                                                                  ),
-                                                                                  Container(
-                                                                                    height: 40,
-                                                                                    width: 40,
-                                                                                    decoration: const BoxDecoration(color: Color(0xfff3efdf), borderRadius: BorderRadius.all(Radius.circular(50))),
-                                                                                    child: IconButton(
-                                                                                      icon: const Icon(
-                                                                                        Icons.play_arrow_outlined,
-                                                                                        size: 24,
-                                                                                        color: Color(0x99f5410a),
-                                                                                      ),
-                                                                                      onPressed: () {
-                                                                                        switch (TextCubit.controller.status) {
-                                                                                          case AnimationStatus.dismissed:
-                                                                                            TextCubit.controller.forward();
-                                                                                            break;
-                                                                                          case AnimationStatus.completed:
-                                                                                            TextCubit.controller.reverse();
-                                                                                            break;
-                                                                                          default:
-                                                                                        }
-                                                                                        cancel();
-                                                                                      },
-                                                                                    ),
-                                                                                  ),
-                                                                                  const SizedBox(
-                                                                                    width: 8.0,
-                                                                                  ),
-                                                                                  Container(
-                                                                                    height: 40,
-                                                                                    width: 40,
-                                                                                    decoration: const BoxDecoration(color: Color(0xfff3efdf), borderRadius: BorderRadius.all(Radius.circular(50))),
-                                                                                    child: IconButton(
-                                                                                      icon: const Icon(
-                                                                                        Icons.share_outlined,
-                                                                                        size: 23,
-                                                                                        color: Color(0x99f5410a),
-                                                                                      ),
-                                                                                      onPressed: () {
-                                                                                        setState(() {});
-                                                                                        final verseNumber = widget.surah!.ayahs![index].numberInSurah!;
-                                                                                        final translation = translateData?[verseNumber - 1]['text'];
-                                                                                        QuranCubit.get(context).showVerseOptionsBottomSheet(context, verseNumber, widget.surah!.number, "${widget.surah!.ayahs![index].text}", translation ?? '', widget.surah!.name);
-                                                                                        print("Verse Number: $verseNumber");
-                                                                                        print("Translation: translation");
-                                                                                        cancel();
-                                                                                      },
-                                                                                    ),
-                                                                                  ),
-                                                                                ],
-                                                                              ),
-                                                                            ),
-                                                                          ),
-                                                                        );
-                                                                        print(
-                                                                            '${widget.surah!.name!}');
-                                                                        print(
-                                                                            '${widget.surah!.number!}');
-                                                                        print(
-                                                                            '${widget.surah!.ayahs![index].numberInSurah}');
-                                                                        print(
-                                                                            '${widget.nomPageF}');
-                                                                        print(
-                                                                            '${widget.nomPageL}');
+                                                                        menu(context, index, index, details, translateData, widget.surah);
+
                                                                       }),
                                                             TextSpan(
                                                               text:
@@ -1294,6 +816,8 @@ class _TextPageViewState extends State<TextPageView>
                                                               ),
                                                             )
                                                           ]),
+                                                              contextMenuBuilder: buildMyContextMenuText(notesCubit),
+                                                              onSelectionChanged: handleSelectionChanged,
                                                         ),
                                                       ),
                                                       Padding(
@@ -1314,20 +838,8 @@ class _TextPageViewState extends State<TextPageView>
                                                                       .centerRight,
                                                                   child:
                                                                       translateDropDown(
-                                                                          context)),
-                                                              SizedBox(
-                                                                  height: 40,
-                                                                  width: MediaQuery.of(
-                                                                              context)
-                                                                          .size
-                                                                          .width /
-                                                                      1 /
-                                                                      2,
-                                                                  child:
-                                                                      SvgPicture
-                                                                          .asset(
-                                                                    'assets/svg/space_line.svg',
-                                                                  )),
+                                                                          context, setState)),
+                                                              spaceLine(20, MediaQuery.of(context).size.width / 1 / 2,),
                                                               Align(
                                                                 alignment: Alignment
                                                                     .bottomLeft,
@@ -1439,7 +951,6 @@ class _TextPageViewState extends State<TextPageView>
                                                     ],
                                                   ),
                                                 ),
-                                                // ),
                                               ),
                                               Align(
                                                 alignment: Alignment.topRight,
@@ -1454,6 +965,7 @@ class _TextPageViewState extends State<TextPageView>
                                                             'dark'
                                                         ? Colors.white
                                                         : Colors.black,
+                                                    25
                                                   ),
                                                 ),
                                               ),
@@ -1492,18 +1004,7 @@ class _TextPageViewState extends State<TextPageView>
                                                   child: Column(
                                                     children: [
                                                       Center(
-                                                        child: SizedBox(
-                                                            height: 50,
-                                                            width: MediaQuery.of(
-                                                                        context)
-                                                                    .size
-                                                                    .width /
-                                                                1 /
-                                                                2,
-                                                            child:
-                                                                SvgPicture.asset(
-                                                              'assets/svg/space_line.svg',
-                                                            )),
+                                                        child: spaceLine(20, MediaQuery.of(context).size.width / 1 / 2,),
                                                       ),
                                                       widget.surah!.number == 9
                                                           ? Container()
@@ -1513,18 +1014,7 @@ class _TextPageViewState extends State<TextPageView>
                                                                           index]
                                                                       .numberInSurah ==
                                                                   1
-                                                              ? SvgPicture.asset(
-                                                                  'assets/svg/besmAllah.svg',
-                                                                  width: 200,
-                                                                  colorFilter: ColorFilter.mode(
-                                                                      Theme.of(
-                                                                              context)
-                                                                          .cardColor
-                                                                          .withOpacity(
-                                                                              .8),
-                                                                      BlendMode
-                                                                          .srcIn),
-                                                                )
+                                                              ? besmAllah(context)
                                                               : Container(),
                                                       Container(
                                                         padding: const EdgeInsets
@@ -1558,25 +1048,15 @@ class _TextPageViewState extends State<TextPageView>
                                                                     'uthmanic2'),
                                                             children:
                                                                 text.map((e) {
-
                                                               return e;
                                                             }).toList(),
                                                           ),
+                                                              contextMenuBuilder: buildMyContextMenuText(notesCubit),
+                                                              onSelectionChanged: handleSelectionChangedText,
                                                         ),
                                                       ),
                                                       Center(
-                                                        child: SizedBox(
-                                                            height: 50,
-                                                            width: MediaQuery.of(
-                                                                        context)
-                                                                    .size
-                                                                    .width /
-                                                                1 /
-                                                                2,
-                                                            child:
-                                                                SvgPicture.asset(
-                                                              'assets/svg/space_line.svg',
-                                                            )),
+                                                        child: spaceLine(20, MediaQuery.of(context).size.width / 1 / 2,),
                                                       ),
                                                       Align(
                                                         alignment: Alignment
@@ -1611,6 +1091,7 @@ class _TextPageViewState extends State<TextPageView>
                                                             'dark'
                                                         ? Colors.white
                                                         : Colors.black,
+                                                    25
                                                   ),
                                                 ),
                                               )
@@ -1623,6 +1104,12 @@ class _TextPageViewState extends State<TextPageView>
                       ),
                       SlideTransition(
                           position: TextCubit.offset, child: AudioTextWidget()),
+                Align(
+                    alignment: Alignment.bottomCenter,
+                    child: TextSliding(
+                      myWidget1: const ShowTextTafseer(),
+                      cHeight: 110.0,
+                    )),
                     ],
                   ),
                 ),
@@ -1631,304 +1118,23 @@ class _TextPageViewState extends State<TextPageView>
       },
     );
   }
+}
 
-  Widget fontSizeDropDown(BuildContext context) {
-    return DropdownButton2(
-      isExpanded: true,
-      items: [
-        DropdownMenuItem<String>(
-          child: FlutterSlider(
-            values: [TextPageView.fontSizeArabic],
-            max: 60,
-            min: 18,
-            rtl: true,
-            trackBar: FlutterSliderTrackBar(
-              inactiveTrackBarHeight: 5,
-              activeTrackBarHeight: 5,
-              inactiveTrackBar: BoxDecoration(
-                borderRadius: BorderRadius.circular(8),
-                color: Theme.of(context).colorScheme.surface,
-              ),
-              activeTrackBar: BoxDecoration(
-                  borderRadius: BorderRadius.circular(4),
-                  color: Theme.of(context).colorScheme.background),
-            ),
-            handlerAnimation: const FlutterSliderHandlerAnimation(
-                curve: Curves.elasticOut,
-                reverseCurve: null,
-                duration: Duration(milliseconds: 700),
-                scale: 1.4),
-            onDragging: (handlerIndex, lowerValue, upperValue) {
-              lowerValue = lowerValue;
-              upperValue = upperValue;
-              TextPageView.fontSizeArabic = lowerValue;
-              QuranCubit.get(context)
-                  .saveQuranFontSize(TextPageView.fontSizeArabic);
-              setState(() {});
-            },
-            handler: FlutterSliderHandler(
-              decoration: const BoxDecoration(),
-              child: Material(
-                type: MaterialType.circle,
-                color: Colors.transparent,
-                elevation: 3,
-                child: SvgPicture.asset('assets/svg/slider_ic.svg'),
-              ),
-            ),
-          ),
-        )
-      ],
-      value: selectedValue,
-      onChanged: (value) {
-        setState(() {
-          selectedValue = value as String;
-        });
-      },
-      customButton: Container(
-          height: 25,
-          width: 25,
-          decoration: BoxDecoration(
-              borderRadius: const BorderRadius.all(
-                Radius.circular(8),
-              ),
-              border: Border.all(
-                  width: 1, color: Theme.of(context).colorScheme.surface)),
-          child: Icon(
-            Icons.format_size,
-            size: 20,
-            color: Theme.of(context).colorScheme.surface,
-          )),
-      iconSize: 20,
-      buttonHeight: 50,
-      buttonWidth: 50,
-      buttonElevation: 0,
-      itemHeight: 35,
-      dropdownDecoration: BoxDecoration(
-          color: Theme.of(context).colorScheme.surface.withOpacity(.9),
-          borderRadius: const BorderRadius.all(Radius.circular(8))),
-      itemPadding: const EdgeInsets.only(left: 14, right: 14),
-      dropdownMaxHeight: MediaQuery.of(context).size.height,
-      dropdownWidth: 230,
-      dropdownPadding: null,
-      dropdownElevation: 0,
-      scrollbarRadius: const Radius.circular(8),
-      scrollbarThickness: 6,
-      scrollbarAlwaysShow: true,
-      offset: const Offset(-0, 0),
-    );
-  }
+String textText = '';
+String textTitle = '';
+String? selectedTextT;
 
-  Widget rollingIconBuilder(int value, Size iconSize, bool foreground) {
-    IconData data = Icons.textsms_outlined;
-    if (value.isEven) data = Icons.text_snippet_outlined;
-    return Icon(
-      data,
-      size: 20,
-    );
-  }
+void handleSelectionChangedText(TextSelection selection, SelectionChangedCause? cause) {
+  if (cause == SelectionChangedCause.longPress) {
+    final characters = textText.characters;
+    final start = characters.take(selection.start).length;
+    final end = characters.take(selection.end).length;
+    final selectedText = textText.substring(start-1, end -1);
 
-  Widget scrollDropDown(BuildContext context) {
-    QuranTextCubit textCubit = QuranTextCubit.get(context);
-    return DropdownButton2(
-      isExpanded: true,
-      items: [
-        DropdownMenuItem<String>(
-          child: StatefulBuilder(builder: (BuildContext context, setState) {
-            return Slider(
-              value: textCubit.scrollSpeed,
-              min: .05,
-              max: .10,
-              onChanged: (double value) {
-                setState(() {
-                  textCubit.scrollSpeedNotifier!.value = value;
-                  print(textCubit.scrollSpeedNotifier!.value);
-                  textCubit.scrollSpeed = value;
-                  print(textCubit.scrollSpeed);
-                  if (textCubit.scrolling) {
-                    _toggleScroll(); // Stop the scrolling with the old speed
-                    _toggleScroll(); // Restart the scrolling with the new speed
-                  }
-                });
-              },
-            );
-          }),
-          // child: FlutterSlider(
-          //   values: [_scrollSpeed],
-          //   max: 2.0,
-          //   min: .05,
-          //   rtl: true,
-          //   trackBar: FlutterSliderTrackBar(
-          //     inactiveTrackBarHeight: 5,
-          //     activeTrackBarHeight: 5,
-          //     inactiveTrackBar: BoxDecoration(
-          //       borderRadius: BorderRadius.circular(8),
-          //       color: Theme.of(context).colorScheme.surface,
-          //     ),
-          //     activeTrackBar: BoxDecoration(
-          //         borderRadius: BorderRadius.circular(4),
-          //         color: Theme.of(context).colorScheme.background),
-          //   ),
-          //   handlerAnimation: const FlutterSliderHandlerAnimation(
-          //       curve: Curves.elasticOut,
-          //       reverseCurve: null,
-          //       duration: Duration(milliseconds: 700),
-          //       scale: 1.4),
-          //   onDragging: (handlerIndex, lowerValue, upperValue) {
-          //     setState(() {
-          //       _scrollSpeedNotifier!.value = lowerValue;
-          //       print(_scrollSpeedNotifier!.value);
-          //       // lowerValue = lowerValue;
-          //       // upperValue = upperValue;
-          //       _scrollSpeed = lowerValue;
-          //       print(_scrollSpeed);
-          //       if (_scrolling) {
-          //         _toggleScroll(); // Stop the scrolling with the old speed
-          //         _toggleScroll(); // Restart the scrolling with the new speed
-          //       }
-          //     });
-          //   },
-          //   handler: FlutterSliderHandler(
-          //     decoration: const BoxDecoration(),
-          //     child: Material(
-          //       type: MaterialType.circle,
-          //       color: Colors.transparent,
-          //       elevation: 3,
-          //       child: SvgPicture.asset('assets/svg/slider_ic.svg'),
-          //     ),
-          //   ),
-          // ),
-        )
-      ],
-      // value: textCubit.scrollSpeed,
-      onChanged: (value) {
-        setState(() {
-          textCubit.scrollSpeed = value as double;
-        });
-      },
-      customButton: Container(
-          height: 25,
-          width: 25,
-          decoration: BoxDecoration(
-              borderRadius: const BorderRadius.all(
-                Radius.circular(8),
-              ),
-              border: Border.all(
-                  width: 1, color: Theme.of(context).colorScheme.surface)),
-          child: Icon(
-            Icons.format_size,
-            size: 20,
-            color: Theme.of(context).colorScheme.surface,
-          )),
-      iconSize: 20,
-      buttonHeight: 50,
-      buttonWidth: 50,
-      buttonElevation: 0,
-      itemHeight: 35,
-      dropdownDecoration: BoxDecoration(
-          color: Theme.of(context).colorScheme.surface.withOpacity(.9),
-          borderRadius: const BorderRadius.all(Radius.circular(8))),
-      itemPadding: const EdgeInsets.only(left: 14, right: 14),
-      dropdownMaxHeight: MediaQuery.of(context).size.height,
-      dropdownWidth: 230,
-      dropdownPadding: null,
-      dropdownElevation: 0,
-      scrollbarRadius: const Radius.circular(8),
-      scrollbarThickness: 6,
-      scrollbarAlwaysShow: true,
-      offset: const Offset(-0, 0),
-    );
-  }
-
-  Widget translateDropDown(BuildContext context) {
-    QuranTextCubit quranTextCubit = QuranTextCubit.get(context);
-    List<String> transName = <String>[
-      'English',
-      'Spanish',
-    ];
-    return DropdownButton2(
-      isExpanded: true,
-      items: [
-        DropdownMenuItem<String>(
-          child: ListView.builder(
-            itemCount: transName.length,
-            itemBuilder: (BuildContext context, int index) {
-              return Column(
-                children: [
-                  ListTile(
-                    title: Text(
-                      transName[index],
-                      style: TextStyle(
-                          color: quranTextCubit.transValue == index
-                              ? const Color(0xfffcbb76)
-                              : Theme.of(context).canvasColor,
-                          fontSize: 16,
-                          fontFamily: 'kufi'),
-                    ),
-                    leading: Container(
-                      height: 20,
-                      width: 20,
-                      decoration: BoxDecoration(
-                        borderRadius:
-                            const BorderRadius.all(Radius.circular(2.0)),
-                        border: Border.all(
-                            color: quranTextCubit.transValue == index
-                                ? const Color(0xfffcbb76)
-                                : Theme.of(context).canvasColor,
-                            width: 2),
-                        color: const Color(0xff39412a),
-                      ),
-                      child: quranTextCubit.transValue == index
-                          ? const Icon(Icons.done,
-                              size: 14, color: Color(0xfffcbb76))
-                          : null,
-                    ),
-                    onTap: () {
-                      setState(() {
-                        // cubit.translate = '${aya!.translate}';
-                        // print(cubit.translate);
-                        quranTextCubit.saveTranslateValue(index);
-                        quranTextCubit.translateHandleRadioValueChanged(index);
-                      });
-                      Navigator.pop(context);
-                    },
-                  ),
-                  const Divider(
-                    endIndent: 16,
-                    indent: 16,
-                    height: 3,
-                  ),
-                ],
-              );
-            },
-          ),
-        )
-      ],
-      value: selectedValue,
-      onChanged: (value) {
-        setState(() {
-          selectedValue = value as String;
-        });
-      },
-      customButton: Icon(
-        Icons.translate_outlined,
-        color: Theme.of(context).colorScheme.surface,
-      ),
-      iconSize: 24,
-      buttonHeight: 50,
-      buttonWidth: 50,
-      buttonElevation: 0,
-      itemHeight: 110.0,
-      dropdownDecoration: BoxDecoration(
-          color: Theme.of(context).colorScheme.surface.withOpacity(.97),
-          borderRadius: const BorderRadius.all(Radius.circular(8))),
-      dropdownMaxHeight: orientation(context, 230.0, 125.0),
-      dropdownWidth: 200,
-      dropdownPadding: null,
-      dropdownElevation: 0,
-      scrollbarRadius: const Radius.circular(8),
-      scrollbarThickness: 6,
-      scrollbarAlwaysShow: true,
-      offset: const Offset(0, 0),
-    );
+    // setState(() {
+    selectedTextT = selectedText;
+    // });
+    print(selectedText);
   }
 }
+

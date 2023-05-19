@@ -10,6 +10,7 @@ import 'package:arabic_numbers/arabic_numbers.dart';
 import 'package:bot_toast/bot_toast.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_sliding_up_panel/sliding_up_panel_widget.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:hijri/hijri_calendar.dart';
 import 'package:lottie/lottie.dart';
@@ -722,7 +723,7 @@ Widget sorahName(String num, context, Color color) {
   );
 }
 
-Widget juzNum(String num, context, Color color) {
+Widget juzNum(String num, context, Color color, double svgWidth) {
   return Row(
     mainAxisSize: MainAxisSize.min,
     children: [
@@ -735,7 +736,7 @@ Widget juzNum(String num, context, Color color) {
       ),
       SvgPicture.asset(
         'assets/svg/juz/$num.svg',
-        width: 25,
+        width: svgWidth,
         colorFilter: ColorFilter.mode(color, BlendMode.srcIn)
         // width: 100,
       ),
@@ -1121,7 +1122,6 @@ Widget sorahPageReaderDropDown(BuildContext context) {
 
   return DropdownButton2(
     isExpanded: true,
-    dropdownOverButton: true,
     alignment: Alignment.center,
     items: [
       DropdownMenuItem<String>(
@@ -1187,22 +1187,31 @@ Widget sorahPageReaderDropDown(BuildContext context) {
       Icons.person_search_outlined,
       color: Theme.of(context).colorScheme.surface,
     ),
-    iconSize: 24,
-    buttonHeight: 50,
-    buttonWidth: 50,
-    buttonElevation: 0,
-    itemHeight: orientation(context, 270.0, 125.0),
-    dropdownDecoration: BoxDecoration(
-        color: Theme.of(context).colorScheme.surface.withOpacity(.9),
-        borderRadius: const BorderRadius.all(Radius.circular(8))),
-    dropdownMaxHeight: MediaQuery.of(context).size.height,
-    dropdownWidth: 200,
-    dropdownPadding: null,
-    dropdownElevation: 0,
-    scrollbarRadius: const Radius.circular(8),
-    scrollbarThickness: 6,
-    scrollbarAlwaysShow: true,
-    offset: const Offset(0, 0),
+    iconStyleData: const IconStyleData(
+      iconSize: 24,
+    ),
+    buttonStyleData: const ButtonStyleData(
+      height: 50,
+      width: 50,
+      elevation: 0,
+    ),
+    dropdownStyleData: DropdownStyleData(
+        decoration: BoxDecoration(
+            color: Theme.of(context).colorScheme.surface.withOpacity(.9),
+            borderRadius: const BorderRadius.all(Radius.circular(8))),
+        padding: const EdgeInsets.only(left: 14, right: 14),
+        maxHeight: 230,
+        width: 230,
+        elevation: 0,
+        offset: const Offset(0, 0),
+        scrollbarTheme: ScrollbarThemeData(
+          radius: const Radius.circular(8),
+          thickness: MaterialStateProperty.all(6),
+        )
+    ),
+    menuItemStyleData: const MenuItemStyleData(
+      height: 35,
+    ),
   );
 }
 
@@ -1526,13 +1535,6 @@ Widget leftPage(BuildContext context, Widget child) {
   );
 }
 
-arabicNumber(BuildContext context, var number) {
-  ArabicNumbers arabicNumber = ArabicNumbers();
-  AppLocalizations.of(context)!.appLang == "App Language"
-  ? number
-      : arabicNumber.convert(number);
-}
-
 quarters(int index) {
   if (index == 1){
     return SvgPicture.asset(
@@ -1640,7 +1642,63 @@ Widget customClose(BuildContext context) {
                 : Theme.of(context).primaryColorDark),
       ],
     ),
+    onTap: () {
+      Navigator.of(context).pop();
+    },
+  );
+}
+
+Widget customClose2(BuildContext context) {
+  return GestureDetector(
     onTap: () => Navigator.of(context).pop(),
+    child: Align(
+      alignment: Alignment.topCenter,
+      child: Container(
+        height: 30,
+        width: 30,
+        decoration: BoxDecoration(
+            color: Theme.of(context)
+                .colorScheme
+                .background,
+            borderRadius: const BorderRadius.only(
+              topRight: Radius.circular(8),
+              topLeft: Radius.circular(8),
+            ),
+            border: Border.all(
+                width: 2,
+                color: Theme.of(context).dividerColor)),
+        child: Icon(
+          Icons.close_outlined,
+          color: Theme.of(context).colorScheme.surface,
+        ),
+      ),
+    ),
+  );
+}
+
+Widget customTextClose(BuildContext context) {
+  QuranCubit cubit = QuranCubit.get(context);
+  return GestureDetector(
+    child: Stack(
+      alignment: Alignment.center,
+      children: [
+        Icon(Icons.close_outlined,
+            size: 40,
+            color: Theme.of(context).colorScheme.surface.withOpacity(.5)),
+        Icon(Icons.close_outlined,
+            size: 24,
+            color: ThemeProvider.themeOf(context).id == 'dark'
+                ? Theme.of(context).canvasColor
+                : Theme.of(context).primaryColorDark),
+      ],
+    ),
+    onTap: () {
+      if (SlidingUpPanelStatus.hidden == cubit.panelTextController.status) {
+        cubit.panelTextController.collapse();
+      } else {
+        cubit.panelTextController.hide();
+      }
+    },
   );
 }
 
@@ -1650,3 +1708,46 @@ Widget custumLoding() {
         width: 200, height: 200),
   );
 }
+
+Widget Function(BuildContext, EditableTextState) buildMyContextMenu(NotesCubit notesCubit) {
+  return (BuildContext context, EditableTextState editableTextState) {
+    final List<ContextMenuButtonItem> buttonItems = editableTextState.contextMenuButtonItems;
+    buttonItems.insert(
+      0,
+      ContextMenuButtonItem(
+        label: 'Add Note',
+        onPressed: () {
+          ContextMenuController.removeAny();
+          notesCubit.addTafseerToNote(context);
+        },
+      ),
+    );
+
+    return AdaptiveTextSelectionToolbar.buttonItems(
+      anchors: editableTextState.contextMenuAnchors,
+      buttonItems: buttonItems,
+    );
+  };
+}
+
+Widget Function(BuildContext, EditableTextState) buildMyContextMenuText(NotesCubit notesCubit) {
+  return (BuildContext context, EditableTextState editableTextState) {
+    final List<ContextMenuButtonItem> buttonItems = editableTextState.contextMenuButtonItems;
+    buttonItems.insert(
+      0,
+      ContextMenuButtonItem(
+        label: 'Add Note',
+        onPressed: () {
+          ContextMenuController.removeAny();
+          notesCubit.addTafseerTextToNote(context);
+        },
+      ),
+    );
+
+    return AdaptiveTextSelectionToolbar.buttonItems(
+      anchors: editableTextState.contextMenuAnchors,
+      buttonItems: buttonItems,
+    );
+  };
+}
+

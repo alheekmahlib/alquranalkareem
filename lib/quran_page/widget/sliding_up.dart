@@ -55,7 +55,7 @@ class _SlidingState extends State<Sliding> with SingleTickerProviderStateMixin {
       textDirection: TextDirection.rtl,
       child: SizedBox(
         height: orientation(context,
-            MediaQuery.of(context).size.height * 3 / 4,
+            MediaQuery.of(context).size.height * 3 / 4 * 1.15,
             platformView(MediaQuery.of(context).size.height, MediaQuery.of(context).size.height * 3/4)),
         child: SlidingUpPanelWidget(
           controlHeight: widget.cHeight!,
@@ -71,7 +71,7 @@ class _SlidingState extends State<Sliding> with SingleTickerProviderStateMixin {
           },
           enableOnTap: false,
           child: Container(
-            margin: const EdgeInsets.symmetric(horizontal: 15.0),
+            // margin: const EdgeInsets.symmetric(horizontal: 15.0),
             decoration: const ShapeDecoration(
               shadows: [
                 BoxShadow(
@@ -100,10 +100,16 @@ class _SlidingState extends State<Sliding> with SingleTickerProviderStateMixin {
                   },
                   child: Container(
                     alignment: Alignment.center,
-                    color: Theme.of(context).colorScheme.background,
+                    decoration: BoxDecoration(
+                        color: Theme.of(context).colorScheme.background,
+                        borderRadius: const BorderRadius.only(
+                          topLeft: Radius.circular(8),
+                          topRight: Radius.circular(8),
+                        )
+                    ),
                     height: 65.0,
                     child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                      padding: const EdgeInsets.symmetric(horizontal: 16.0),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: <Widget>[
@@ -136,6 +142,91 @@ class _SlidingState extends State<Sliding> with SingleTickerProviderStateMixin {
                 ),
               ],
             ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class TextSliding extends StatefulWidget {
+  final Widget? myWidget1;
+  final double? cHeight;
+  TextSliding(
+      {Key? key,
+      required this.myWidget1,
+      required this.cHeight})
+      : super(key: key);
+
+  @override
+  State<TextSliding> createState() => _TextSlidingState();
+}
+
+class _TextSlidingState extends State<TextSliding> with SingleTickerProviderStateMixin {
+  var mScaffoldKey = GlobalKey<ScaffoldState>();
+  late SlidingUpPanelController _panelController;
+  // late AnimationController _animationController;
+
+  @override
+  void initState() {
+    super.initState();
+    QuranCubit.get(context).panelTextController = SlidingUpPanelController();
+    // _animationController = AnimationController(
+    //   vsync: this,
+    //   duration: const Duration(seconds: 5),
+    // );
+  }
+
+  @override
+  void dispose() {
+    // QuranCubit.get(context).panelTextController.dispose();
+    // _animationController.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final cubit = context.read<QuranCubit>();
+    return Directionality(
+      textDirection: TextDirection.rtl,
+      child: SizedBox(
+        height: orientation(context,
+            MediaQuery.of(context).size.height * 3 / 4 * 1.15,
+            platformView(MediaQuery.of(context).size.height, MediaQuery.of(context).size.height * 3/4)),
+        child: SlidingUpPanelWidget(
+          controlHeight: widget.cHeight!,
+          // anchor: 0.0,
+          panelStatus: SlidingUpPanelStatus.hidden,
+          panelController: cubit.panelTextController,
+          // animationController: cubit.animationController,
+          onTap: () {
+            if (SlidingUpPanelStatus.hidden == cubit.panelTextController.status) {
+              cubit.panelTextController.expand();
+            } else {
+              cubit.panelTextController.hide();
+            }
+          },
+          enableOnTap: false,
+          child: Container(
+            // margin: const EdgeInsets.symmetric(horizontal: 15.0),
+            decoration: const ShapeDecoration(
+              shadows: [
+                BoxShadow(
+                    blurRadius: 5.0,
+                    spreadRadius: 2.0,
+                    color: Color(0x11000000))
+              ],
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(8.0),
+                  topRight: Radius.circular(8.0),
+                ),
+              ),
+
+            ),
+            child: SizedBox(
+                height: MediaQuery.of(context).size.height,
+                child: widget.myWidget1),
           ),
         ),
       ),

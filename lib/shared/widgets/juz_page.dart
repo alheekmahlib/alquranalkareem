@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:alquranalkareem/cubit/cubit.dart';
+import 'package:alquranalkareem/shared/widgets/widgets.dart';
 import 'package:arabic_numbers/arabic_numbers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -58,28 +59,15 @@ class _QuranJuzState extends State<QuranJuz>
                                   Padding(
                                     padding: const EdgeInsets.symmetric(
                                         vertical: 8, horizontal: 8),
-                                    child: Container(
-                                      width: MediaQuery.of(context).size.width /
-                                          1 /
-                                          4,
-                                      alignment: Alignment.center,
-                                      decoration: BoxDecoration(
-                                          color: Theme.of(context)
-                                              .primaryColorLight,
-                                          borderRadius: const BorderRadius.all(
-                                              Radius.circular(2))),
-                                      child: Padding(
-                                        padding: const EdgeInsets.all(4.0),
-                                        child: Text(
-                                          'الجُزْءُ ${showData[index]['index2']}',
-                                          style: TextStyle(
-                                            color:
-                                                Theme.of(context).canvasColor,
-                                            fontFamily: 'uthmanic',
-                                            fontSize: 16,
-                                          ),
-                                        ),
-                                      ),
+                                    child: juzNum(
+                                      '${showData[index]['index']}',
+                                      context,
+                                      ThemeProvider.themeOf(context)
+                                          .id ==
+                                          'dark'
+                                          ? Colors.white
+                                          : Colors.black,
+                                      30
                                     ),
                                   ),
                                   Padding(

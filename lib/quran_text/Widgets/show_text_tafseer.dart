@@ -1,4 +1,5 @@
 import 'package:alquranalkareem/cubit/cubit.dart';
+import 'package:alquranalkareem/notes/cubit/note_cubit.dart';
 import 'package:alquranalkareem/quran_page/cubit/audio/cubit.dart';
 import 'package:another_xlider/another_xlider.dart';
 import 'package:another_xlider/models/handler.dart';
@@ -6,13 +7,17 @@ import 'package:another_xlider/models/handler_animation.dart';
 import 'package:another_xlider/models/trackbar.dart';
 import 'package:arabic_numbers/arabic_numbers.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_sliding_up_panel/sliding_up_panel_widget.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:theme_provider/theme_provider.dart';
 import '../../l10n/app_localizations.dart';
 import '../../quran_page/data/model/ayat.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
+import '../../shared/widgets/show_tafseer.dart';
 import '../../shared/widgets/widgets.dart';
 import '../cubit/quran_text_cubit.dart';
+import '../text_page_view.dart';
 
 
 class ShowTextTafseer extends StatefulWidget {
@@ -26,6 +31,7 @@ class ShowTextTafseer extends StatefulWidget {
 
 class _ShowTextTafseerState extends State<ShowTextTafseer> {
   final ScrollController _scrollController = ScrollController();
+  final GlobalKey<_ShowTextTafseerState> _selectableTextKey = GlobalKey<_ShowTextTafseerState>();
   ArabicNumbers arabicNumber = ArabicNumbers();
   int pageNum = 0;
   int radioValue = 0;
@@ -56,19 +62,19 @@ class _ShowTextTafseerState extends State<ShowTextTafseer> {
 
   Widget _showTafseer() {
     QuranTextCubit quranTextCubit = QuranTextCubit.get(context);
+    QuranCubit cubit = QuranCubit.get(context);
+    NotesCubit notesCubit = NotesCubit.get(context);
     return Directionality(
       textDirection: TextDirection.rtl,
       child: Container(
         decoration: BoxDecoration(
           color: Theme.of(context).colorScheme.background,
           borderRadius: const BorderRadius.only(
-            topLeft: Radius.circular(20),
-            topRight: Radius.circular(20),
+            topLeft: Radius.circular(8),
+            topRight: Radius.circular(8),
           )
         ),
-        child: FutureBuilder<List<Ayat>>(
-          builder: (context, snapshot) {
-            return Column(
+        child: Column(
               mainAxisSize: MainAxisSize.min,
               children: <Widget>[
                 Padding(
@@ -76,35 +82,44 @@ class _ShowTextTafseerState extends State<ShowTextTafseer> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Container(
-                        height: 50,
-                        width: 50,
-                        decoration: BoxDecoration(
-                          color: Colors.transparent,
-                          border: Border.all(
-                            color: Theme.of(context).colorScheme.surface,
-                            width: 1
-                          ),
-                          borderRadius: const BorderRadius.all(
-                            Radius.circular(15)
-                          ),
-                          boxShadow: [
-                            BoxShadow(
-                              color: const Color(0xff91a57d).withOpacity(.2),
-                              spreadRadius: 2,
-                              blurRadius: 2,
-                              offset: const Offset(-1, -1), // changes position of shadow
+                      GestureDetector(
+                        child: Container(
+                          height: 50,
+                          width: 50,
+                          decoration: BoxDecoration(
+                            color: Colors.transparent,
+                            border: Border.all(
+                              color: Theme.of(context).colorScheme.surface,
+                              width: 1
                             ),
-                          ],
+                            borderRadius: const BorderRadius.all(
+                              Radius.circular(15)
+                            ),
+                            boxShadow: [
+                              BoxShadow(
+                                color: const Color(0xff91a57d).withOpacity(.2),
+                                spreadRadius: 2,
+                                blurRadius: 2,
+                                offset: const Offset(-1, -1), // changes position of shadow
+                              ),
+                            ],
+                          ),
+                          child: Icon(Icons.book,
+                                size: 24,
+                                color: Theme.of(context).colorScheme.surface),
+
                         ),
-                        child: IconButton(
-                          icon: Icon(Icons.book,
-                              size: 24,
-                              color: Theme.of(context).colorScheme.surface),
-                          onPressed: () => tafseerDropDown(context),
-                        ),
+                        onTap: () {
+                          if (SlidingUpPanelStatus.hidden == cubit.panelTextController.status) {
+                            cubit.panelTextController.expand();
+                          } else {
+                            cubit.panelTextController.hide();
+                          }
+                          tafseerDropDown(context);
+
+                        },
                       ),
-                      customClose(context),
+                      customTextClose(context),
                       Container(
                           height: 50,
                           width: 50,
@@ -162,78 +177,78 @@ class _ShowTextTafseerState extends State<ShowTextTafseer> {
                           controller: _scrollController,
                           child: SingleChildScrollView(
                             controller: _scrollController,
-                            child: SelectableText.rich(
-                              TextSpan(
-                                children: <InlineSpan>[
-                                  TextSpan(
-                                    text: '﴿${quranTextCubit.translateAyah}﴾\n\n',
-                                    // cubit.translateAyah,
-                                    style: TextStyle(
-                                        color:
-                                            ThemeProvider.themeOf(context).id ==
-                                                    'dark'
-                                                ? Colors.white
-                                                : Colors.black,
-                                        fontWeight: FontWeight.w100,
-                                        height: 1.5,
-                                        fontFamily: 'uthmanic2',
-                                        fontSize: ShowTextTafseer.fontSizeArabic),
-                                  ),
-                                  WidgetSpan(
-                                    child: Center(
-                                      child: SizedBox(
-                                        height: 50,
-                                        child: SizedBox(
-                                            width: MediaQuery.of(context)
-                                                    .size
-                                                    .width /
-                                                1 /
-                                                2,
-                                            child: SvgPicture.asset(
-                                              'assets/svg/space_line.svg',
-                                            )),
-                                      ),
-                                    ),
-                                  ),
-                                  TextSpan(
-                                    text: quranTextCubit.translate,
-                                    style: TextStyle(
-                                        color:
-                                            ThemeProvider.themeOf(context).id ==
-                                                    'dark'
-                                                ? Colors.white
-                                                : Colors.black,
-                                        height: 1.5,
-                                        fontSize: ShowTextTafseer.fontSizeArabic
-                                        // fontSizeArabic
+                            child: BlocBuilder<QuranTextCubit, QuranTextState>(
+                              builder: (context, state) {
+                                if (state is TextTextUpdated) {
+                                  allText = '﴿${state.translateAyah}﴾\n\n' + state.translate;
+                                  allTitle = '﴿${state.translateAyah}﴾';
+                                  return SelectableText.rich(
+                                    key: _selectableTextKey,
+                                    TextSpan(
+                                      children: <InlineSpan>[
+                                        TextSpan(
+                                          text: '﴿${state.translateAyah}﴾\n\n',
+                                          style: TextStyle(
+                                              color: ThemeProvider.themeOf(context).id == 'dark'
+                                                  ? Colors.white
+                                                  : Colors.black,
+                                              fontWeight: FontWeight.w100,
+                                              height: 1.5,
+                                              fontFamily: 'uthmanic2',
+                                              fontSize: ShowTafseer.fontSizeArabic),
                                         ),
-                                  ),
-                                  WidgetSpan(
-                                    child: Center(
-                                      child: SizedBox(
-                                        height: 50,
-                                        child: SizedBox(
-                                            width: MediaQuery.of(context)
-                                                    .size
-                                                    .width /
-                                                1 /
-                                                2,
-                                            child: SvgPicture.asset(
-                                              'assets/svg/space_line.svg',
-                                            )),
-                                      ),
+                                        WidgetSpan(
+                                          child: Center(
+                                            child: SizedBox(
+                                              height: 50,
+                                              child: SizedBox(
+                                                  width: MediaQuery.of(context).size.width / 1 / 2,
+                                                  child: SvgPicture.asset(
+                                                    'assets/svg/space_line.svg',
+                                                  )),
+                                            ),
+                                          ),
+                                        ),
+                                        TextSpan(
+                                          text: state.translate,
+                                          style: TextStyle(
+                                              color: ThemeProvider.themeOf(context).id == 'dark'
+                                                  ? Colors.white
+                                                  : Colors.black,
+                                              height: 1.5,
+                                              fontSize: ShowTafseer.fontSizeArabic
+                                            // fontSizeArabic
+                                          ),
+                                        ),
+                                        WidgetSpan(
+                                          child: Center(
+                                            child: SizedBox(
+                                              height: 50,
+                                              child: SizedBox(
+                                                  width: MediaQuery.of(context).size.width / 1 / 2,
+                                                  child: SvgPicture.asset(
+                                                    'assets/svg/space_line.svg',
+                                                  )),
+                                            ),
+                                          ),
+                                        )
+                                        // TextSpan(text: 'world', style: TextStyle(fontWeight: FontWeight.bold)),
+                                      ],
                                     ),
-                                  )
-                                  // TextSpan(text: 'world', style: TextStyle(fontWeight: FontWeight.bold)),
-                                ],
-                              ),
-                              showCursor: true,
-                              cursorWidth: 3,
-                              cursorColor: Theme.of(context).dividerColor,
-                              cursorRadius: const Radius.circular(5),
-                              scrollPhysics: const ClampingScrollPhysics(),
-                              textDirection: TextDirection.rtl,
-                              textAlign: TextAlign.justify,
+                                    showCursor: true,
+                                    cursorWidth: 3,
+                                    cursorColor: Theme.of(context).dividerColor,
+                                    cursorRadius: const Radius.circular(5),
+                                    scrollPhysics: const ClampingScrollPhysics(),
+                                    textDirection: TextDirection.rtl,
+                                    textAlign: TextAlign.justify,
+                                    contextMenuBuilder: buildMyContextMenu(notesCubit),
+                                    onSelectionChanged: handleSelectionChanged,
+                                  );
+                                } else {
+                                  return Container(); // Or some other fallback widget
+                                }
+                              },
                             ),
                           ),
                         ),
@@ -245,15 +260,20 @@ class _ShowTextTafseerState extends State<ShowTextTafseer> {
                   height: 0,
                 )
               ],
-            );
-          },
-        ),
+            ),
       ),
     );
   }
 
   tafseerDropDown(BuildContext context) {
     QuranCubit cubit = QuranCubit.get(context);
+    QuranTextCubit TextCubit = QuranTextCubit.get(context);
+    // AppLocalizations? localizations = AppLocalizations.of(context);
+    // if (localizations == null) {
+    //   print('AppLocalizations is null');
+    //   return;
+    // }
+
     List<String> tafName = <String>[
       '${AppLocalizations.of(context)?.tafIbnkatheerN}',
       '${AppLocalizations.of(context)?.tafBaghawyN}',
@@ -278,7 +298,14 @@ class _ShowTextTafseerState extends State<ShowTextTafseer> {
             Align(
               alignment: Alignment.topRight,
               child: GestureDetector(
-                onTap: () => Navigator.of(context).pop(),
+                onTap: () {
+                  Navigator.pop(context);
+                  if (SlidingUpPanelStatus.hidden == cubit.panelTextController.status) {
+                    cubit.panelTextController.expand();
+                  } else {
+                    cubit.panelTextController.hide();
+                  }
+                },
                 child: Container(
                   height: 30,
                   width: 30,
@@ -358,10 +385,21 @@ class _ShowTextTafseerState extends State<ShowTextTafseer> {
                                 : null,
                           ),
                           onTap: () {
+                            print("IconButton pressed, calling updateTextText");
                             cubit.handleRadioValueChanged(context, index);
                             cubit.saveTafseer(index);
+                            // Get new translation and update state
+                            TextCubit.getNewTranslationAndNotify(context, textSurahNum!, lastAyahInPage);
+                            print("lastAyahInPage $lastAyahInPage");
+                            if (SlidingUpPanelStatus.hidden == cubit.panelTextController.status) {
+                              cubit.panelTextController.expand();
+                            } else {
+                              cubit.panelTextController.hide();
+                            }
                             Navigator.pop(context);
+                            setState(() {});
                           },
+
                           leading: Container(
                               height: 85.0,
                               width: 41.0,
@@ -392,11 +430,6 @@ class _ShowTextTafseerState extends State<ShowTextTafseer> {
                         ),
                         margin: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 4.0),
                       ),
-                      // const Divider(
-                      //   endIndent: 16,
-                      //   indent: 16,
-                      //   height: 3,
-                      // ),
                     ],
                   );
                 },
@@ -414,7 +447,7 @@ class _ShowTextTafseerState extends State<ShowTextTafseer> {
       items: [
         DropdownMenuItem<String>(
           child: FlutterSlider(
-            values: [ShowTextTafseer.fontSizeArabic],
+            values: [ShowTafseer.fontSizeArabic],
             max: 40,
             min: 18,
             rtl: true,
@@ -437,8 +470,8 @@ class _ShowTextTafseerState extends State<ShowTextTafseer> {
             onDragging: (handlerIndex, lowerValue, upperValue) {
               lowerValue = lowerValue;
               upperValue = upperValue;
-              ShowTextTafseer.fontSizeArabic = lowerValue;
-              QuranCubit.get(context).saveFontSize(ShowTextTafseer.fontSizeArabic);
+              ShowTafseer.fontSizeArabic = lowerValue;
+              QuranCubit.get(context).saveFontSize(ShowTafseer.fontSizeArabic);
               setState(() {});
             },
             handler: FlutterSliderHandler(
@@ -463,23 +496,31 @@ class _ShowTextTafseerState extends State<ShowTextTafseer> {
         Icons.format_size,
         color: Theme.of(context).colorScheme.surface,
       ),
-      iconSize: 24,
-      buttonHeight: 50,
-      buttonWidth: 50,
-      buttonElevation: 0,
-      itemHeight: 35,
-      dropdownDecoration: BoxDecoration(
-          color: Theme.of(context).colorScheme.surface.withOpacity(.9),
-          borderRadius: const BorderRadius.all(Radius.circular(8))),
-      itemPadding: const EdgeInsets.only(left: 14, right: 14),
-      dropdownMaxHeight: 230,
-      dropdownWidth: 230,
-      dropdownPadding: null,
-      dropdownElevation: 0,
-      scrollbarRadius: const Radius.circular(8),
-      scrollbarThickness: 6,
-      scrollbarAlwaysShow: true,
-      offset: const Offset(0, 0),
+      iconStyleData: const IconStyleData(
+        iconSize: 24,
+      ),
+      buttonStyleData: const ButtonStyleData(
+        height: 50,
+        width: 50,
+        elevation: 0,
+      ),
+      dropdownStyleData: DropdownStyleData(
+          decoration: BoxDecoration(
+              color: Theme.of(context).colorScheme.surface.withOpacity(.9),
+              borderRadius: const BorderRadius.all(Radius.circular(8))),
+          padding: const EdgeInsets.only(left: 14, right: 14),
+          maxHeight: 230,
+          width: 230,
+          elevation: 0,
+          offset: const Offset(0, 0),
+          scrollbarTheme: ScrollbarThemeData(
+            radius: const Radius.circular(8),
+            thickness: MaterialStateProperty.all(6),
+          )
+      ),
+      menuItemStyleData: const MenuItemStyleData(
+        height: 45,
+      ),
     );
   }
 }

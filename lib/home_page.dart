@@ -55,8 +55,8 @@ class _HomePageState extends State<HomePage> {
   Future<void> initializeLocalNotifications(BuildContext context) async {
     print('Initializing local notifications...');
 
-    final IOSInitializationSettings initializationSettingsIOS =
-    IOSInitializationSettings(
+    final DarwinInitializationSettings initializationSettingsIOS =
+    DarwinInitializationSettings(
       requestSoundPermission: false,
       requestBadgePermission: false,
       requestAlertPermission: false,
@@ -72,10 +72,13 @@ class _HomePageState extends State<HomePage> {
       android: initializationSettingsAndroid,
     );
     await flutterLocalNotificationsPlugin.initialize(initializationSettings,
-        onSelectNotification: (String? payload) async {
-          selectNotification(payload!);
-        });
-    print('Local notifications initialized');
+      onDidReceiveNotificationResponse: (NotificationResponse? response) async {
+        if (response != null && response.payload != null) {
+          debugPrint('notification payload: ' + response.payload!);
+        }
+        // selectNotificationSubject.add(payload!);
+      },
+    );
   }
 
   void selectNotification(String payload) async {
@@ -282,7 +285,7 @@ class _HomePageState extends State<HomePage> {
       importance: Importance.max,
       icon: '@drawable/ic_launcher',
     );
-    var iOSPlatformChannelSpecifics = const IOSNotificationDetails();
+    var iOSPlatformChannelSpecifics = const DarwinNotificationDetails();
     var platformChannelSpecifics = NotificationDetails(
       android: androidPlatformChannelSpecifics,
       iOS: iOSPlatformChannelSpecifics,
@@ -307,10 +310,20 @@ class _HomePageState extends State<HomePage> {
     final response = await http.get(Uri.parse('https://github.com/alheekmahlib/thegarlanded/blob/master/noti.json?raw=true'));
 
     if (response.statusCode == 200) {
+      if (response.body.isEmpty) {
+        // Return an empty list if the response body is empty
+        return [];
+      }
+
       List<dynamic> jsonResponse = json.decode(response.body);
       List<Map<String, dynamic>> posts = jsonResponse.map((post) => {
         'id': post['id'],
         'title': post['title'],
+        'body': post['body'],
+        'isLottie': post['isLottie'],
+        'lottie': post['lottie'],
+        'isImage': post['isImage'],
+        'image': post['image'],
       }).toList();
 
       return posts;
@@ -320,6 +333,7 @@ class _HomePageState extends State<HomePage> {
       throw Exception('Failed to load posts');
     }
   }
+
 
 
   // Future<List<Map<String, dynamic>>> fetchLatestPosts() async {

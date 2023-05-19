@@ -1,5 +1,6 @@
 import 'package:alquranalkareem/cubit/cubit.dart';
 import 'package:alquranalkareem/quran_page/cubit/audio/cubit.dart';
+import 'package:alquranalkareem/shared/widgets/svg_picture.dart';
 import 'package:alquranalkareem/shared/widgets/widgets.dart';
 import 'package:another_xlider/another_xlider.dart';
 import 'package:another_xlider/models/handler.dart';
@@ -8,14 +9,18 @@ import 'package:another_xlider/models/trackbar.dart';
 import 'package:arabic_numbers/arabic_numbers.dart';
 import 'package:clipboard/clipboard.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_sliding_up_panel/sliding_up_panel_widget.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
 import 'package:theme_provider/theme_provider.dart';
+import '../../cubit/states.dart';
 import '../../l10n/app_localizations.dart';
-import '../../notes/note_controller.dart';
+import '../../notes/cubit/note_cubit.dart';
 import '../../quran_page/data/model/ayat.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
+
+import 'ayah_list.dart';
 
 
 class ShowTafseer extends StatefulWidget {
@@ -29,6 +34,7 @@ class ShowTafseer extends StatefulWidget {
 
 class _ShowTafseerState extends State<ShowTafseer> {
   final ScrollController _scrollController = ScrollController();
+  final GlobalKey<_ShowTafseerState> _selectableTextKey = GlobalKey<_ShowTafseerState>();
   ArabicNumbers arabicNumber = ArabicNumbers();
   int pageNum = 0;
   int radioValue = 0;
@@ -39,7 +45,7 @@ class _ShowTafseerState extends State<ShowTafseer> {
   double? isSelected;
   int? ayahSelected, ayahNumber, surahNumber;
   String? surahName;
-  final NoteController _noteController = Get.put(NoteController());
+  // final NoteController _noteController = Get.put(NoteController());
 
   @override
   void initState() {
@@ -63,6 +69,7 @@ class _ShowTafseerState extends State<ShowTafseer> {
 
   Widget _showTafseer(int pageNum) {
     QuranCubit cubit = QuranCubit.get(context);
+    NotesCubit notesCubit = NotesCubit.get(context);
     return Directionality(
       textDirection: TextDirection.rtl,
       child: Container(
@@ -70,8 +77,7 @@ class _ShowTafseerState extends State<ShowTafseer> {
         child: FutureBuilder<List<Ayat>>(
           builder: (context, snapshot) {
             List<Ayat>? ayat = snapshot.data;
-            allText = '﴿${cubit.translateAyah}﴾\n\n' + cubit.translate;
-             allTitle = '﴿${cubit.translateAyah}﴾';
+
             return Column(
               mainAxisSize: MainAxisSize.min,
               children: <Widget>[
@@ -82,7 +88,7 @@ class _ShowTafseerState extends State<ShowTafseer> {
                     Expanded(
                       flex: 2,
                       child: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                        padding: const EdgeInsets.only(left: 8.0, right: 16.0),
                         child: Row(
                           children: [
                             Expanded(
@@ -112,106 +118,110 @@ class _ShowTafseerState extends State<ShowTafseer> {
                   height: 0,
                   thickness: 3,
                 ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    GestureDetector(
-                      onTap: () {
-                        if (ayahNumber == null) {
-                          customErrorSnackBar(
-                              context,
-                              AppLocalizations.of(context)!
-                                  .choiceAyah);
-                        } else {
-                          FlutterClipboard.copy(
-                            '﴿${cubit.translateAyah}﴾\n\n'
-                                '${cubit.translate}',
-                          ).then((value) =>
-                              customSnackBar(
-                                  context,
-                                  AppLocalizations.of(
-                                      context)!
-                                      .copyTafseer));
-                        }
-                      },
-                      child: Align(
-                        alignment: Alignment.topCenter,
-                        child: Container(
-                          height: 30,
-                          width: 30,
-                          decoration: BoxDecoration(
-                              color: Theme.of(context)
-                                  .colorScheme
-                                  .background,
-                              borderRadius: const BorderRadius.only(
-                                bottomRight: Radius.circular(8),
-                                bottomLeft: Radius.circular(8),
-                              ),
-                              border: Border.all(
-                                  width: 2,
-                                  color: Theme.of(context).dividerColor)),
-                          child: Icon(
-                            Icons.copy_outlined,
-                            size: 18,
-                            color: Theme.of(context).colorScheme.surface,
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      GestureDetector(
+                        onTap: () {
+                          if (ayahNumber == null) {
+                            customErrorSnackBar(
+                                context,
+                                AppLocalizations.of(context)!
+                                    .choiceAyah);
+                          } else {
+                            FlutterClipboard.copy(
+                              '﴿${cubit.translateAyah}﴾\n\n'
+                                  '${cubit.translate}',
+                            ).then((value) =>
+                                customSnackBar(
+                                    context,
+                                    AppLocalizations.of(
+                                        context)!
+                                        .copyTafseer));
+                          }
+                        },
+                        child: Align(
+                          alignment: Alignment.topCenter,
+                          child: Container(
+                            height: 30,
+                            width: 30,
+                            decoration: BoxDecoration(
+                                color: Theme.of(context)
+                                    .colorScheme
+                                    .background,
+                                borderRadius: const BorderRadius.only(
+                                  bottomRight: Radius.circular(8),
+                                  bottomLeft: Radius.circular(8),
+                                ),
+                                border: Border.all(
+                                    width: 2,
+                                    color: Theme.of(context).dividerColor)),
+                            child: Icon(
+                              Icons.copy_outlined,
+                              size: 18,
+                              color: Theme.of(context).colorScheme.surface,
+                            ),
                           ),
                         ),
                       ),
-                    ),
-                    const SizedBox(
-                      width: 8,
-                    ),
-                    GestureDetector(
-                      onTap: () {
-                        // cubit.radioValue == 3;
-                        if (ayahNumber == null) {
-                          customErrorSnackBar(
-                              context,
-                              AppLocalizations.of(context)!
-                                  .choiceAyah);
-                        } else if (cubit.radioValue == 3) {
-                        cubit.showVerseOptionsBottomSheet(
-                            context,
-                            0,
-                            surahNumber!,
-                            cubit.translateAyah,
-                            cubit.translate ?? '',
-                            surahName!);
-                        } else {
+                      const SizedBox(
+                        width: 8,
+                      ),
+                      GestureDetector(
+                        onTap: () {
+                          // cubit.radioValue == 3;
+                          cubit.shareTafseerValue = 1;
+                          if (ayahNumber == null) {
+                            customErrorSnackBar(
+                                context,
+                                AppLocalizations.of(context)!
+                                    .choiceAyah);
+                          } else if (cubit.radioValue == 3) {
                           cubit.showVerseOptionsBottomSheet(
                               context,
                               0,
                               surahNumber!,
                               cubit.translateAyah,
-                              '',
+                              cubit.translate ?? '',
                               surahName!);
-                        }
-                      },
-                      child: Align(
-                        alignment: Alignment.topCenter,
-                        child: Container(
-                          height: 30,
-                          width: 30,
-                          decoration: BoxDecoration(
-                              color: Theme.of(context)
-                                  .colorScheme
-                                  .background,
-                              borderRadius: const BorderRadius.only(
-                                bottomRight: Radius.circular(8),
-                                bottomLeft: Radius.circular(8),
-                              ),
-                              border: Border.all(
-                                  width: 2,
-                                  color: Theme.of(context).dividerColor)),
-                          child: Icon(
-                            Icons.share_outlined,
-                            size: 18,
-                            color: Theme.of(context).colorScheme.surface,
+                          } else {
+                            cubit.showVerseOptionsBottomSheet(
+                                context,
+                                0,
+                                surahNumber!,
+                                cubit.translateAyah,
+                                '',
+                                surahName!);
+                          }
+                        },
+                        child: Align(
+                          alignment: Alignment.topCenter,
+                          child: Container(
+                            height: 30,
+                            width: 30,
+                            decoration: BoxDecoration(
+                                color: Theme.of(context)
+                                    .colorScheme
+                                    .background,
+                                borderRadius: const BorderRadius.only(
+                                  bottomRight: Radius.circular(8),
+                                  bottomLeft: Radius.circular(8),
+                                ),
+                                border: Border.all(
+                                    width: 2,
+                                    color: Theme.of(context).dividerColor)),
+                            child: Icon(
+                              Icons.share_outlined,
+                              size: 18,
+                              color: Theme.of(context).colorScheme.surface,
+                            ),
                           ),
                         ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
                 const SizedBox(
                   height: 2,
@@ -233,112 +243,69 @@ class _ShowTafseerState extends State<ShowTafseer> {
                           controller: _scrollController,
                           child: SingleChildScrollView(
                             controller: _scrollController,
-                            child: SelectableText.rich(
-                              key: _selectableTextKey,
-                              TextSpan(
-                                children: <InlineSpan>[
-                                  TextSpan(
-                                    text: '﴿${cubit.translateAyah}﴾\n\n',
-                                    // cubit.translateAyah,
-                                    style: TextStyle(
-                                        color:
-                                            ThemeProvider.themeOf(context).id ==
-                                                    'dark'
-                                                ? Colors.white
-                                                : Colors.black,
-                                        fontWeight: FontWeight.w100,
-                                        height: 1.5,
-                                        fontFamily: 'uthmanic2',
-                                        fontSize: ShowTafseer.fontSizeArabic),
-                                  ),
-                                  WidgetSpan(
-                                    child: Center(
-                                      child: SizedBox(
-                                        height: 50,
-                                        child: SizedBox(
-                                            width: MediaQuery.of(context)
-                                                    .size
-                                                    .width /
-                                                1 /
-                                                2,
-                                            child: SvgPicture.asset(
-                                              'assets/svg/space_line.svg',
-                                            )),
-                                      ),
-                                    ),
-                                  ),
-                                  TextSpan(
-                                    text: cubit.translate,
-                                    style: TextStyle(
-                                        color:
-                                            ThemeProvider.themeOf(context).id ==
-                                                    'dark'
-                                                ? Colors.white
-                                                : Colors.black,
-                                        height: 1.5,
-                                        fontSize: ShowTafseer.fontSizeArabic
-                                        // fontSizeArabic
+                            child: BlocBuilder<QuranCubit, QuranState>(
+                              builder: (context, state) {
+                                if (state is TextUpdated) {
+                                  allText = '﴿${state.translateAyah}﴾\n\n' + state.translate;
+                                  allTitle = '﴿${state.translateAyah}﴾';
+                                  return SelectableText.rich(
+                                    key: _selectableTextKey,
+                                    TextSpan(
+                                      children: <InlineSpan>[
+                                        TextSpan(
+                                          text: '﴿${state.translateAyah}﴾\n\n',
+                                          // cubit.translateAyah,
+                                          style: TextStyle(
+                                              color:
+                                              ThemeProvider.themeOf(context).id ==
+                                                  'dark'
+                                                  ? Colors.white
+                                                  : Colors.black,
+                                              fontWeight: FontWeight.w100,
+                                              height: 1.5,
+                                              fontFamily: 'uthmanic2',
+                                              fontSize: ShowTafseer.fontSizeArabic),
                                         ),
-                                  ),
-                                  WidgetSpan(
-                                    child: Center(
-                                      child: SizedBox(
-                                        height: 50,
-                                        child: SizedBox(
-                                            width: MediaQuery.of(context)
-                                                    .size
-                                                    .width /
-                                                1 /
-                                                2,
-                                            child: SvgPicture.asset(
-                                              'assets/svg/space_line.svg',
-                                            )),
-                                      ),
+                                        WidgetSpan(
+                                          child: Center(
+                                            child: spaceLine(25, MediaQuery.of(context).size.width / 1 / 2,),
+                                          ),
+                                        ),
+                                        TextSpan(
+                                          text: state.translate,
+                                          style: TextStyle(
+                                              color:
+                                              ThemeProvider.themeOf(context).id ==
+                                                  'dark'
+                                                  ? Colors.white
+                                                  : Colors.black,
+                                              height: 1.5,
+                                              fontSize: ShowTafseer.fontSizeArabic
+                                            // fontSizeArabic
+                                          ),
+                                        ),
+                                        WidgetSpan(
+                                          child: Center(
+                                            child: spaceLine(25, MediaQuery.of(context).size.width / 1 / 2,),
+                                          ),
+                                        )
+                                        // TextSpan(text: 'world', style: TextStyle(fontWeight: FontWeight.bold)),
+                                      ],
                                     ),
-                                  )
-                                  // TextSpan(text: 'world', style: TextStyle(fontWeight: FontWeight.bold)),
-                                ],
-                              ),
-                              showCursor: true,
-                              cursorWidth: 3,
-                              cursorColor: Theme.of(context).dividerColor,
-                              cursorRadius: const Radius.circular(5),
-                              scrollPhysics: const ClampingScrollPhysics(),
-                              textDirection: TextDirection.rtl,
-                              textAlign: TextAlign.justify,
-                              contextMenuBuilder: (BuildContext context,
-                                  EditableTextState editableTextState) {
-                                final List<ContextMenuButtonItem> buttonItems =
-                                    editableTextState.contextMenuButtonItems;
-                                buttonItems.insert(
-                                  0,
-                                  ContextMenuButtonItem(
-                                    label: 'Add Note',
-                                    onPressed: () {
-                                      ContextMenuController.removeAny();
-                                      _addNote();
-                                    },
-                                  ),
-                                );
-
-                                return AdaptiveTextSelectionToolbar.buttonItems(
-                                  anchors: editableTextState.contextMenuAnchors,
-                                  buttonItems: buttonItems,
-                                );
+                                    showCursor: true,
+                                    cursorWidth: 3,
+                                    cursorColor: Theme.of(context).dividerColor,
+                                    cursorRadius: const Radius.circular(5),
+                                    scrollPhysics: const ClampingScrollPhysics(),
+                                    textDirection: TextDirection.rtl,
+                                    textAlign: TextAlign.justify,
+                                    contextMenuBuilder: buildMyContextMenu(notesCubit),
+                                    onSelectionChanged: handleSelectionChanged,
+                                  );
+                                } else {
+                                  return Container(); // Or some other fallback widget
+                                }
                               },
-                              onSelectionChanged: _handleSelectionChanged,
-                              // selectionControls: MyTextSelectionControls(
-                              //   textEditingController: textEditingController,
-                              //   addNote: () {
-                              //     _addNote();
-                              //   },
-                              // ),
-                              // onSelectionChanged: (TextSelection selection, SelectionChangedCause? cause) {
-                              //   if (selection.isValid) {
-                              //     String selectedText = selection.textInside(cubit.translate);
-                              //     _noteController.addSelectedTextAsNote(selectedText);
-                              //   }
-                              // },
                             ),
                           ),
                         ),
@@ -362,53 +329,11 @@ class _ShowTafseerState extends State<ShowTafseer> {
   //   return reversedText;
   // }
 
-  final GlobalKey<_ShowTafseerState> _selectableTextKey = GlobalKey<_ShowTafseerState>();
-
-
-
-
-
-  String _getSelectedText(String text) {
-    TextSelection selection = textEditingController.selection;
-
-    // Check if the selection is valid
-    if (selection.start >= 0 && selection.end <= text.length) {
-      return selection.textInside(text);
-    }
-
-    // Return an empty string if the selection is invalid
-    return '';
-  }
-
-  void _updateSelectedText() {
-    TextSelection selection = textEditingController.selection;
-
-    // Check if the selection is valid
-    if (selection.start >= 0 && selection.end >= 0) {
-      selectedTextNotifier.value = selection.textInside(textEditingController.text);
-    } else {
-      selectedTextNotifier.value = '';
-    }
-  }
-
-  String? selectedTitle;
-
-  void _addNote() {
-    if (selectedTextED != null && selectedTextED!.isNotEmpty) {
-      _noteController.addSelectedTextAsNote(selectedTextED!,  allTitle);
-      // Clear the selected text after saving it as a note
-      setState(() {
-        selectedTextED = null;
-      });
-    }
-  }
-
-  final TextEditingController textEditingController = TextEditingController();
-  final ValueNotifier<String> selectedTextNotifier = ValueNotifier<String>('');
-
-
   tafseerDropDown(BuildContext context) {
     QuranCubit cubit = QuranCubit.get(context);
+    final QuranCubit quranCubit = context.read<QuranCubit>();
+// Fetch the Ayat instances when needed
+    quranCubit.getTranslatedPage(cubit.cuMPage ?? 1, context);
     List<String> tafName = <String>[
       '${AppLocalizations.of(context)!.tafIbnkatheerN}',
       '${AppLocalizations.of(context)!.tafBaghawyN}',
@@ -423,7 +348,6 @@ class _ShowTafseerState extends State<ShowTafseer> {
       '${AppLocalizations.of(context)!.tafSaadiD}',
       '${AppLocalizations.of(context)!.tafTabariD}',
     ];
-
     dropDownModalBottomSheet(context,
       MediaQuery.of(context).size.height / 1/2,
       MediaQuery.of(context).size.width,
@@ -459,104 +383,233 @@ class _ShowTafseerState extends State<ShowTafseer> {
             Align(
               alignment: Alignment.topCenter,
               child: Padding(
-                padding: const EdgeInsets.only(top: 24.0),
-                child: SvgPicture.asset(
-                  'assets/svg/tafseer.svg',
-                  height: 50,
-                )
+                  padding: const EdgeInsets.only(top: 24.0),
+                  child: SvgPicture.asset(
+                    'assets/svg/tafseer.svg',
+                    height: 50,
+                  )
               ),
             ),
             Padding(
               padding: const EdgeInsets.only(top: 90.0),
-              child: ListView.builder(
-                itemCount: tafName.length,
-                itemBuilder: (BuildContext context, int index) {
-                  return Column(
-                    children: [
-                      Container(
-                        child: ListTile(
-                          title: Text(
-                            tafName[index],
-                            style: TextStyle(
-                                color: cubit.radioValue == index
-                                    ? Theme.of(context).primaryColorLight
-                                    : const Color(0xffcdba72),
-                                fontSize: 14,
-                                fontFamily: 'kufi'
+              child: BlocBuilder<QuranCubit, QuranState>(
+                builder: (context, state) {
+                  if (state is AyaLoading) {
+                    return Center(
+                      child: Lottie.asset('assets/lottie/search.json',
+                          width: 100, height: 40),
+                    );
+                  } else if (state is AyaLoaded) {
+
+                    // Use the Ayat instance to build your UI
+                    return ListView.builder(
+                      itemCount: tafName.length,
+                      itemBuilder: (BuildContext context, int index) {
+                        Ayat? aya = quranCubit.getAyaByIndex(ayahNumber! - 1);
+                        // Ayat? aya = ayat![tafseerAyahNum];
+                        return Column(
+                          children: [
+                            Container(
+                              child: ListTile(
+                                title: Text(
+                                  tafName[index],
+                                  style: TextStyle(
+                                      color: cubit.radioValue == index
+                                          ? Theme.of(context).primaryColorLight
+                                          : const Color(0xffcdba72),
+                                      fontSize: 14,
+                                      fontFamily: 'kufi'
+                                  ),
+                                ),
+                                subtitle: Text(
+                                  tafD[index],
+                                  style: TextStyle(
+                                      color: cubit.radioValue == index
+                                          ? Theme.of(context).primaryColorLight
+                                          : const Color(0xffcdba72),
+                                      fontSize: 12,
+                                      fontFamily: 'kufi'
+                                  ),
+                                ),
+                                trailing: Container(
+                                  height: 20,
+                                  width: 20,
+                                  decoration: BoxDecoration(
+                                    borderRadius:
+                                    const BorderRadius.all(Radius.circular(2.0)),
+                                    border: Border.all(
+                                        color: cubit.radioValue == index
+                                            ? Theme.of(context).primaryColorLight
+                                            : const Color(0xffcdba72),
+                                        width: 2),
+                                    color: const Color(0xff39412a),
+                                  ),
+                                  child: cubit.radioValue == index
+                                      ? const Icon(Icons.done,
+                                      size: 14, color: Color(0xfffcbb76))
+                                      : null,
+                                ),
+                                onTap: () {
+                                  context.read<QuranCubit>().updateText("${aya!.ayatext}", "${aya.translate}");
+                                  // cubit.getNewTranslationAndNotify(context, ayahNumber! - 1);  // This is the new method you need to add
+                                  if (SlidingUpPanelStatus.hidden == cubit.panelTextController.status) {
+                                    cubit.panelTextController.expand();
+                                  } else {
+                                    cubit.panelTextController.hide();
+                                  }
+                                  setState(() {
+                                    cubit.translate = "${aya!.translate ?? ''}";
+                                  });
+                                  cubit.handleRadioValueChanged(context, index);
+                                  cubit.saveTafseer(index);
+                                  Navigator.pop(context);
+                                },
+                                leading: Container(
+                                    height: 85.0,
+                                    width: 41.0,
+                                    decoration: BoxDecoration(
+                                        shape: BoxShape.rectangle,
+                                        borderRadius: const BorderRadius.all(Radius.circular(4.0)),
+                                        border: Border.all(
+                                            color: Theme.of(context).dividerColor,
+                                            width: 2
+                                        )
+                                    ),
+                                    child: SvgPicture.asset(
+                                      'assets/svg/tafseer_book.svg',
+                                      colorFilter: cubit.radioValue == index
+                                          ? null
+                                          : ColorFilter.mode(
+                                          Theme.of(context).canvasColor.withOpacity(.4),
+                                          BlendMode.lighten),
+                                    )
+                                ),
+                              ),
+                              decoration: BoxDecoration(
+                                  borderRadius: const BorderRadius.all(Radius.circular(8.0)),
+                                  border: Border.all(
+                                      color: Theme.of(context).dividerColor,
+                                      width: 1
+                                  )
+                              ),
+                              margin: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 4.0),
                             ),
-                          ),
-                          subtitle: Text(
-                            tafD[index],
-                            style: TextStyle(
-                                color: cubit.radioValue == index
-                                    ? Theme.of(context).primaryColorLight
-                                    : const Color(0xffcdba72),
-                                fontSize: 12,
-                                fontFamily: 'kufi'
-                            ),
-                          ),
-                          trailing: Container(
-                            height: 20,
-                            width: 20,
-                            decoration: BoxDecoration(
-                              borderRadius:
-                              const BorderRadius.all(Radius.circular(2.0)),
-                              border: Border.all(
-                                  color: cubit.radioValue == index
-                                      ? Theme.of(context).primaryColorLight
-                                      : const Color(0xffcdba72),
-                                  width: 2),
-                              color: const Color(0xff39412a),
-                            ),
-                            child: cubit.radioValue == index
-                                ? const Icon(Icons.done,
-                                size: 14, color: Color(0xfffcbb76))
-                                : null,
-                          ),
-                          onTap: () {
-                            cubit.handleRadioValueChanged(context, index);
-                            cubit.saveTafseer(index);
-                            Navigator.pop(context);
-                          },
-                          leading: Container(
-                            height: 85.0,
-                            width: 41.0,
-                            decoration: BoxDecoration(
-                                shape: BoxShape.rectangle,
-                                borderRadius: const BorderRadius.all(Radius.circular(4.0)),
-                                border: Border.all(
-                                    color: Theme.of(context).dividerColor,
-                                    width: 2
-                                )
-                            ),
-                            child: SvgPicture.asset(
-                                'assets/svg/tafseer_book.svg',
-                            colorFilter: cubit.radioValue == index
-                                  ? null
-                                  : ColorFilter.mode(
-                                  Theme.of(context).canvasColor.withOpacity(.4),
-                                  BlendMode.lighten),
-                            )
-                          ),
-                        ),
-                        decoration: BoxDecoration(
-                            borderRadius: const BorderRadius.all(Radius.circular(8.0)),
-                            border: Border.all(
-                                color: Theme.of(context).dividerColor,
-                                width: 1
-                            )
-                        ),
-                        margin: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 4.0),
-                      ),
-                      // const Divider(
-                      //   endIndent: 16,
-                      //   indent: 16,
-                      //   height: 3,
-                      // ),
-                    ],
-                  );
+                          ],
+                        );
+                      },
+                    );
+                  } else if (state is AyaError) {
+                  return Text('Error: ${state.message}');
+                  }
+                  return Container(); // Fallback to an empty container.
                 },
               ),
+              // child: FutureBuilder<List<Ayat>>(
+              //     future: cubit.handleRadioValueChanged(context, cubit.radioValue).getPageTranslate(cubit.cuMPage ?? 1),
+              //     builder: (context, snapshot) {
+              //       if (snapshot.connectionState == snapshot.connectionState) {
+              //         List<Ayat>? ayat = snapshot.data;
+              //         return ListView.builder(
+              //           itemCount: tafName.length,
+              //           itemBuilder: (BuildContext context, int index) {
+              //             Ayat? aya = ayat![index];
+              //             return Column(
+              //               children: [
+              //                 Container(
+              //                   child: ListTile(
+              //                     title: Text(
+              //                       tafName[index],
+              //                       style: TextStyle(
+              //                           color: cubit.radioValue == index
+              //                               ? Theme.of(context).primaryColorLight
+              //                               : const Color(0xffcdba72),
+              //                           fontSize: 14,
+              //                           fontFamily: 'kufi'
+              //                       ),
+              //                     ),
+              //                     subtitle: Text(
+              //                       tafD[index],
+              //                       style: TextStyle(
+              //                           color: cubit.radioValue == index
+              //                               ? Theme.of(context).primaryColorLight
+              //                               : const Color(0xffcdba72),
+              //                           fontSize: 12,
+              //                           fontFamily: 'kufi'
+              //                       ),
+              //                     ),
+              //                     trailing: Container(
+              //                       height: 20,
+              //                       width: 20,
+              //                       decoration: BoxDecoration(
+              //                         borderRadius:
+              //                         const BorderRadius.all(Radius.circular(2.0)),
+              //                         border: Border.all(
+              //                             color: cubit.radioValue == index
+              //                                 ? Theme.of(context).primaryColorLight
+              //                                 : const Color(0xffcdba72),
+              //                             width: 2),
+              //                         color: const Color(0xff39412a),
+              //                       ),
+              //                       child: cubit.radioValue == index
+              //                           ? const Icon(Icons.done,
+              //                           size: 14, color: Color(0xfffcbb76))
+              //                           : null,
+              //                     ),
+              //                     onTap: () {
+              //                       setState(() {
+              //                         cubit.translate = "${aya.translate ?? ''}";
+              //                       });
+              //
+              //                       cubit.handleRadioValueChanged(context, index);
+              //                       cubit.saveTafseer(index);
+              //                       Navigator.pop(context);
+              //                     },
+              //                     leading: Container(
+              //                         height: 85.0,
+              //                         width: 41.0,
+              //                         decoration: BoxDecoration(
+              //                             shape: BoxShape.rectangle,
+              //                             borderRadius: const BorderRadius.all(Radius.circular(4.0)),
+              //                             border: Border.all(
+              //                                 color: Theme.of(context).dividerColor,
+              //                                 width: 2
+              //                             )
+              //                         ),
+              //                         child: SvgPicture.asset(
+              //                           'assets/svg/tafseer_book.svg',
+              //                           colorFilter: cubit.radioValue == index
+              //                               ? null
+              //                               : ColorFilter.mode(
+              //                               Theme.of(context).canvasColor.withOpacity(.4),
+              //                               BlendMode.lighten),
+              //                         )
+              //                     ),
+              //                   ),
+              //                   decoration: BoxDecoration(
+              //                       borderRadius: const BorderRadius.all(Radius.circular(8.0)),
+              //                       border: Border.all(
+              //                           color: Theme.of(context).dividerColor,
+              //                           width: 1
+              //                       )
+              //                   ),
+              //                   margin: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 4.0),
+              //                 ),
+              //                 // const Divider(
+              //                 //   endIndent: 16,
+              //                 //   indent: 16,
+              //                 //   height: 3,
+              //                 // ),
+              //               ],
+              //             );
+              //           },
+              //         );
+              //       } else {
+              //         return Center(
+              //           child: Lottie.asset('assets/lottie/search.json',
+              //               width: 100, height: 40),
+              //         );
+              //       }
+              //     }),
             ),
           ],
         ),
@@ -619,23 +672,31 @@ class _ShowTafseerState extends State<ShowTafseer> {
         Icons.format_size,
         color: Theme.of(context).colorScheme.surface,
       ),
-      iconSize: 24,
-      buttonHeight: 50,
-      buttonWidth: 50,
-      buttonElevation: 0,
-      itemHeight: 35,
-      dropdownDecoration: BoxDecoration(
+      iconStyleData: const IconStyleData(
+        iconSize: 24,
+      ),
+      buttonStyleData: const ButtonStyleData(
+        height: 50,
+        width: 50,
+        elevation: 0,
+      ),
+    dropdownStyleData: DropdownStyleData(
+      decoration: BoxDecoration(
           color: Theme.of(context).colorScheme.surface.withOpacity(.9),
           borderRadius: const BorderRadius.all(Radius.circular(8))),
-      itemPadding: const EdgeInsets.only(left: 14, right: 14),
-      dropdownMaxHeight: 230,
-      dropdownWidth: 230,
-      dropdownPadding: null,
-      dropdownElevation: 0,
-      scrollbarRadius: const Radius.circular(8),
-      scrollbarThickness: 6,
-      scrollbarAlwaysShow: true,
-      offset: const Offset(0, 0),
+      padding: const EdgeInsets.only(left: 14, right: 14),
+      maxHeight: 230,
+      width: 230,
+      elevation: 0,
+        offset: const Offset(0, 0),
+      scrollbarTheme: ScrollbarThemeData(
+        radius: const Radius.circular(8),
+        thickness: MaterialStateProperty.all(6),
+      )
+    ),
+    menuItemStyleData: const MenuItemStyleData(
+      height: 45,
+    ),
     );
   }
 
@@ -678,14 +739,14 @@ class _ShowTafseerState extends State<ShowTafseer> {
                               child: InkWell(
                                 onTap: () {
                                   setState(() {
-                                    cubit.translateAyah = "${aya.ayatext}";
-                                    cubit.translate = "${aya.translate}";
-                                    audioCubit.ayahNum = '${aya.ayaNum}';
-                                    audioCubit.sorahName = '${aya.suraNum}';
+                                    context.read<QuranCubit>().updateText("${aya.ayatext}", "${aya.translate}");
+                                    // cubit.getNewTranslationAndNotify(context, ayahNumber! - 1);
+                                    // cubit.translateAyah = "${aya.ayatext}";
+                                    // cubit.translate = "${aya.translate}";
                                     print(aya.suraNum);
                                     isSelected = index.toDouble();
                                     ayahSelected = index;
-                                    ayahNumber = aya.suraNum;
+                                    ayahNumber = aya.ayaNum;
                                     surahNumber = aya.suraNum;
                                     surahName = aya.sura_name_ar;
                                   });
@@ -738,12 +799,12 @@ String allText = '';
 String  allTitle = '';
 String? selectedTextED;
 
-void _handleSelectionChanged(TextSelection selection, SelectionChangedCause? cause) {
+void handleSelectionChanged(TextSelection selection, SelectionChangedCause? cause) {
   if (cause == SelectionChangedCause.longPress) {
     final characters = allText.characters;
     final start = characters.take(selection.start).length;
     final end = characters.take(selection.end).length;
-    final selectedText = allText.substring(start-1, end);
+    final selectedText = allText.substring(start-1, end -1);
 
     // setState(() {
     selectedTextED = selectedText;

@@ -19,8 +19,8 @@ class NotifyHelper {
     // _configureSelectNotificationSubject();
     await _configureLocalTimeZone();
     // await requestIOSPermissions(flutterLocalNotificationsPlugin);
-    final IOSInitializationSettings initializationSettingsIOS =
-    IOSInitializationSettings(
+    final DarwinInitializationSettings initializationSettingsIOS =
+    DarwinInitializationSettings(
       requestSoundPermission: false,
       requestBadgePermission: false,
       requestAlertPermission: false,
@@ -37,9 +37,9 @@ class NotifyHelper {
     );
     await flutterLocalNotificationsPlugin.initialize(
       initializationSettings,
-      onSelectNotification: (String? payload) async {
-        if (payload != null) {
-          debugPrint('notification payload: ' + payload);
+      onDidReceiveNotificationResponse: (NotificationResponse? response) async {
+        if (response != null && response.payload != null) {
+          debugPrint('notification payload: ' + response.payload!);
         }
         // selectNotificationSubject.add(payload!);
       },
@@ -51,7 +51,7 @@ class NotifyHelper {
     var androidPlatformChannelSpecifics = const AndroidNotificationDetails(
         'your channel id', 'your channel name',
         importance: Importance.max, priority: Priority.high);
-    var iOSPlatformChannelSpecifics = const IOSNotificationDetails();
+    var iOSPlatformChannelSpecifics = const DarwinNotificationDetails();
     var platformChannelSpecifics = NotificationDetails(
         android: androidPlatformChannelSpecifics,
         iOS: iOSPlatformChannelSpecifics);
