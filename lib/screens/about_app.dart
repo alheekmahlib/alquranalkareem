@@ -11,6 +11,7 @@ import 'package:theme_provider/theme_provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../home_page.dart';
 import '../l10n/app_localizations.dart';
+import '../shared/widgets/svg_picture.dart';
 
 class AboutApp extends StatelessWidget {
   const AboutApp({Key? key}) : super(key: key);
@@ -57,29 +58,7 @@ class AboutApp extends StatelessWidget {
               padding: const EdgeInsets.only(top: 64.0),
               child: Stack(
                 children: [
-                  GestureDetector(
-                    onTap: () => Navigator.of(context).pop(),
-                    child: Align(
-                      alignment: Alignment.topCenter,
-                      child: Container(
-                        height: 30,
-                        width: 30,
-                        decoration: BoxDecoration(
-                            color: Theme.of(context).colorScheme.background,
-                            borderRadius: const BorderRadius.only(
-                              topRight: Radius.circular(8),
-                              topLeft: Radius.circular(8),
-                            ),
-                            border: Border.all(
-                                width: 2,
-                                color: Theme.of(context).dividerColor)),
-                        child: Icon(
-                          Icons.close_outlined,
-                          color: Theme.of(context).colorScheme.surface,
-                        ),
-                      ),
-                    ),
-                  ),
+                  customClose2(context),
                   const Divider(
                     height: 58,
                     thickness: 2,
@@ -93,12 +72,7 @@ class AboutApp extends StatelessWidget {
                     child: ListView(
                       children: [
                         Center(
-                          child: SizedBox(
-                              height: 60,
-                              width: MediaQuery.of(context).size.width * 3 / 4,
-                              child: SvgPicture.asset(
-                                'assets/svg/space_line.svg',
-                              )),
+                          child: spaceLine(30, MediaQuery.of(context).size.width * 3 / 4,),
                         ),
                         customContainer(
                             context,
@@ -572,12 +546,7 @@ class AboutApp extends StatelessWidget {
                           ),
                         ),
                         Center(
-                          child: SizedBox(
-                              height: 60,
-                              width: MediaQuery.of(context).size.width * 3 / 4,
-                              child: SvgPicture.asset(
-                                'assets/svg/space_line.svg',
-                              )),
+                          child: spaceLine(30, MediaQuery.of(context).size.width * 3 / 4,),
                         ),
                       ],
                     ),

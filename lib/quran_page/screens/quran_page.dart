@@ -9,6 +9,7 @@ import '../../cubit/cubit.dart';
 import '../../l10n/app_localizations.dart';
 import '../../quran_text/cubit/surah_text_cubit.dart';
 import '../../quran_text/model/QuranModel.dart';
+import '../../shared/widgets/svg_picture.dart';
 import '../../shared/widgets/widgets.dart';
 import '../cubit/bookmarks/bookmarks_cubit.dart';
 import '../data/model/sorah_bookmark.dart';
@@ -16,7 +17,7 @@ import '../data/model/verse.dart';
 import '../data/repository/translate_repository.dart';
 
 class MPages extends StatefulWidget {
-  int initialPageNum;
+  final int initialPageNum;
   MPages({Key? key, required this.initialPageNum}) : super(key: key);
 
   static int currentPage2 = 1;
@@ -35,7 +36,7 @@ class _MPagesState extends State<MPages> with SingleTickerProviderStateMixin {
   @override
   void initState() {
     BookmarksCubit.get(context).getBookmarksList();
-    QuranCubit.get(context).getList();
+    // QuranCubit.get(context).getList();
     // fetchData();
     QuranCubit.get(context).screenController = AnimationController(
       duration: const Duration(milliseconds: 300),
@@ -172,15 +173,7 @@ class _MPagesState extends State<MPages> with SingleTickerProviderStateMixin {
                                           }
 
                                         },
-                                        icon: SvgPicture.asset(
-                                          'assets/svg/bookmark_ic.svg',
-                                          width: 30,
-                                          height: 30,
-                                          colorFilter: bookmarksCubit.bookmarksController.isPageBookmarked(cubit.cuMPage)
-                                              ? null
-                                              : ColorFilter.mode(
-                                              Theme.of(context).primaryColorDark, BlendMode.srcIn),
-                                        ),
+                                        icon: bookmarkIcon(context, 30.0, 30.0, bookmarksCubit),
                                       );
                                     } else
                                       return const CircularProgressIndicator();
@@ -227,15 +220,7 @@ class _MPagesState extends State<MPages> with SingleTickerProviderStateMixin {
                                           });
                                         }
                                       },
-                                      icon: SvgPicture.asset(
-                                        'assets/svg/bookmark_ic.svg',
-                                        width: 30,
-                                        height: 30,
-                                        colorFilter: bookmarksCubit.bookmarksController.isPageBookmarked(cubit.cuMPage)
-                                            ? null
-                                            : ColorFilter.mode(
-                                            Theme.of(context).primaryColorDark, BlendMode.srcIn),
-                                      ),
+                                      icon: bookmarkIcon(context, 30.0, 30.0, bookmarksCubit),
                                     );
                                   } else
                                     return const CircularProgressIndicator();
@@ -326,15 +311,7 @@ class _MPagesState extends State<MPages> with SingleTickerProviderStateMixin {
                                       }
 
                                     },
-                                    icon: SvgPicture.asset(
-                                      'assets/svg/bookmark_ic.svg',
-                                      width: 30,
-                                      height: 30,
-                                      colorFilter: bookmarksCubit.bookmarksController.isPageBookmarked(cubit.cuMPage)
-                                          ? null
-                                          : ColorFilter.mode(
-                                          Theme.of(context).primaryColorDark, BlendMode.srcIn),
-                                    ),
+                                    icon: bookmarkIcon(context, 30.0, 30.0, bookmarksCubit),
                                   );
                                 } else
                                   return const CircularProgressIndicator();
@@ -384,15 +361,7 @@ class _MPagesState extends State<MPages> with SingleTickerProviderStateMixin {
                                       }
 
                                     },
-                                    icon: SvgPicture.asset(
-                                      'assets/svg/bookmark_ic.svg',
-                                      width: 30,
-                                      height: 30,
-                                      colorFilter: bookmarksCubit.bookmarksController.isPageBookmarked(cubit.cuMPage)
-                                          ? null
-                                          : ColorFilter.mode(
-                                          Theme.of(context).primaryColorDark, BlendMode.srcIn),
-                                    ),
+                                    icon: bookmarkIcon(context, 30.0, 30.0, bookmarksCubit),
                                   );
                                 } else
                                   return const CircularProgressIndicator();
@@ -435,26 +404,26 @@ class _MPagesState extends State<MPages> with SingleTickerProviderStateMixin {
           padding: const EdgeInsets.symmetric(vertical: 16.0),
           child: Stack(
             children: <Widget>[
-              // Image.asset(
-              //   "assets/pages/00${index + 1}.png",
-              //   fit: BoxFit.contain,
-              //   color: ThemeProvider.themeOf(context).id == 'dark'
-              //       ? Colors.white
-              //       : null,
-              //   width: MediaQuery.of(context).size.width,
-              //   alignment: Alignment.center,
-              // ),
-              // Image.asset(
-              //   "assets/pages/000${index + 1}.png",
-              //   fit: BoxFit.contain,
-              //   width: MediaQuery.of(context).size.width,
-              //   alignment: Alignment.center,
-              // ),
-              QuranPage(
-                imageUrl: 'assets/pages/00${index + 1}.png',
-                imageUrl2: 'assets/pages/000${index + 1}.png',
-                currentPage: index + 1,
-              )
+              Image.asset(
+                "assets/pages/00${index + 1}.png",
+                fit: BoxFit.contain,
+                color: ThemeProvider.themeOf(context).id == 'dark'
+                    ? Colors.white
+                    : null,
+                width: MediaQuery.of(context).size.width,
+                alignment: Alignment.center,
+              ),
+              Image.asset(
+                "assets/pages/000${index + 1}.png",
+                fit: BoxFit.contain,
+                width: MediaQuery.of(context).size.width,
+                alignment: Alignment.center,
+              ),
+              // QuranPage(
+              //   imageUrl: 'assets/pages/00${index + 1}.png',
+              //   imageUrl2: 'assets/pages/000${index + 1}.png',
+              //   currentPage: index + 1,
+              // )
             ],
           ),
         ),
@@ -480,32 +449,32 @@ class _MPagesState extends State<MPages> with SingleTickerProviderStateMixin {
       },
       child: Stack(
         children: <Widget>[
-          // Image.asset(
-          //   "assets/pages/00${index + 1}.png",
-          //   fit: BoxFit.contain,
-          //   color: ThemeProvider.themeOf(context).id == 'dark'
-          //       ? Colors.white
-          //       : null,
-          //   height: orientation == Orientation.portrait
-          //       ? cubit.height! - 60
-          //       : null,
-          //   width: MediaQuery.of(context).size.width,
-          //   alignment: Alignment.center,
-          // ),
-          // Image.asset(
-          //   "assets/pages/000${index + 1}.png",
-          //   fit: BoxFit.contain,
-          //   height: orientation == Orientation.portrait
-          //       ? cubit.height! - 60
-          //       : null,
-          //   width: MediaQuery.of(context).size.width,
-          //   alignment: Alignment.center,
-          // ),
-          QuranPage(
-            imageUrl: 'assets/pages/00${index + 1}.png',
-            imageUrl2: 'assets/pages/000${index + 1}.png',
-            currentPage: index + 1,
-          )
+          Image.asset(
+            "assets/pages/00${index + 1}.png",
+            fit: BoxFit.contain,
+            color: ThemeProvider.themeOf(context).id == 'dark'
+                ? Colors.white
+                : null,
+            height: orientation == Orientation.portrait
+                ? cubit.height! - 60
+                : null,
+            width: MediaQuery.of(context).size.width,
+            alignment: Alignment.center,
+          ),
+          Image.asset(
+            "assets/pages/000${index + 1}.png",
+            fit: BoxFit.contain,
+            height: orientation == Orientation.portrait
+                ? cubit.height! - 60
+                : null,
+            width: MediaQuery.of(context).size.width,
+            alignment: Alignment.center,
+          ),
+          // QuranPage(
+          //   imageUrl: 'assets/pages/00${index + 1}.png',
+          //   imageUrl2: 'assets/pages/000${index + 1}.png',
+          //   currentPage: index + 1,
+          // )
         ],
       ),
     );
@@ -513,7 +482,7 @@ class _MPagesState extends State<MPages> with SingleTickerProviderStateMixin {
 }
 
 class DPages extends StatefulWidget {
-  int initialPageNum;
+  final int initialPageNum;
   DPages(this.initialPageNum, {Key? key}) : super(key: key);
 
   static int currentPage2 = 1;
@@ -631,15 +600,7 @@ class _DPagesState extends State<DPages> {
                                         }
 
                                       },
-                                      icon: SvgPicture.asset(
-                                        'assets/svg/bookmark_ic.svg',
-                                        width: 30,
-                                        height: 30,
-                                        colorFilter: bookmarksCubit.bookmarksController.isPageBookmarked(cubit.cuMPage)
-                                            ? null
-                                            : ColorFilter.mode(
-                                            Theme.of(context).primaryColorDark, BlendMode.srcIn),
-                                      ),
+                                      icon: bookmarkIcon(context, 30.0, 30.0, bookmarksCubit),
                                     );
                                   } else
                                     return const CircularProgressIndicator();
@@ -699,15 +660,7 @@ class _DPagesState extends State<DPages> {
                                         }
 
                                       },
-                                      icon: SvgPicture.asset(
-                                        'assets/svg/bookmark_ic.svg',
-                                        width: 30,
-                                        height: 30,
-                                        colorFilter: bookmarksCubit.bookmarksController.isPageBookmarked(cubit.cuMPage)
-                                            ? null
-                                            : ColorFilter.mode(
-                                            Theme.of(context).primaryColorDark, BlendMode.srcIn),
-                                      ),
+                                      icon: bookmarkIcon(context, 30.0, 30.0, bookmarksCubit),
                                     );
                                   } else
                                     return const CircularProgressIndicator();

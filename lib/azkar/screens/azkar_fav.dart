@@ -343,23 +343,31 @@ class _AzkarFavState extends State<AzkarFav> {
         Icons.format_size,
         color: Theme.of(context).colorScheme.surface,
       ),
-      iconSize: 24,
-      buttonHeight: 50,
-      buttonWidth: 50,
-      buttonElevation: 0,
-      itemHeight: 35,
-      dropdownDecoration: BoxDecoration(
-          color: Theme.of(context).colorScheme.surface.withOpacity(.9),
-          borderRadius: const BorderRadius.all(Radius.circular(8))),
-      itemPadding: const EdgeInsets.only(left: 14, right: 14),
-      dropdownMaxHeight: MediaQuery.of(context).size.height,
-      dropdownWidth: 230,
-      dropdownPadding: null,
-      dropdownElevation: 0,
-      scrollbarRadius: const Radius.circular(8),
-      scrollbarThickness: 6,
-      scrollbarAlwaysShow: true,
-      offset: const Offset(-0, 0),
+      iconStyleData: const IconStyleData(
+        iconSize: 24,
+      ),
+      buttonStyleData: const ButtonStyleData(
+        height: 50,
+        width: 50,
+        elevation: 0,
+      ),
+      dropdownStyleData: DropdownStyleData(
+          decoration: BoxDecoration(
+              color: Theme.of(context).colorScheme.surface.withOpacity(.9),
+              borderRadius: const BorderRadius.all(Radius.circular(8))),
+          padding: const EdgeInsets.only(left: 14, right: 14),
+          maxHeight: 230,
+          width: 230,
+          elevation: 0,
+          offset: const Offset(0, 0),
+          scrollbarTheme: ScrollbarThemeData(
+            radius: const Radius.circular(8),
+            thickness: MaterialStateProperty.all(6),
+          )
+      ),
+      menuItemStyleData: const MenuItemStyleData(
+        height: 45,
+      ),
     );
   }
 }

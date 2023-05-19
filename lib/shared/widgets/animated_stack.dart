@@ -1,6 +1,8 @@
 library animated_stack;
 
+import 'package:alquranalkareem/shared/widgets/settings_list.dart';
 import 'package:alquranalkareem/shared/widgets/settings_popUp.dart';
+import 'package:alquranalkareem/shared/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../cubit/cubit.dart';
@@ -117,7 +119,13 @@ class _AnimatedStackState extends State<AnimatedStack> {
                   GestureDetector(
                     onTap: () {
                       Navigator.of(context).push(HeroDialogRoute(builder: (context) {
-                        return const settingsPopupCard();
+                        return settingsPopupCard(
+                            child: const SettingsList(),
+                          height: orientation(context,
+                              MediaQuery.of(context).size.height * 1/2,
+                              MediaQuery.of(context).size.height * 1/2 * 1.6),
+                          alignment: Alignment.topCenter,
+                        );
                       }));
                     },
                     child: Hero(

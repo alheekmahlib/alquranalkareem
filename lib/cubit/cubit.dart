@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:alquranalkareem/azkar/screens/azkar_item.dart';
+import 'package:alquranalkareem/quran_page/data/model/ayat.dart';
 import 'package:alquranalkareem/quran_page/screens/quran_page.dart';
 import 'package:alquranalkareem/cubit/states.dart';
 import 'package:arabic_numbers/arabic_numbers.dart';
@@ -15,10 +16,7 @@ import 'package:sqflite/sqflite.dart';
 import 'package:theme_provider/theme_provider.dart';
 import '../l10n/app_localizations.dart';
 import '../quran_page/data/model/aya.dart';
-import '../quran_page/data/model/sorah.dart';
 import '../quran_page/data/model/translate.dart';
-import '../quran_page/data/repository/aya_repository.dart';
-import '../quran_page/data/repository/sorah_repository.dart';
 import '../quran_page/data/repository/translate_repository.dart';
 import '../quran_text/text_page_view.dart';
 import '../screens/menu_screen.dart';
@@ -39,13 +37,8 @@ class QuranCubit extends Cubit<QuranState> {
   QuranCubit() : super(SoundPageState()) ;
 
   static QuranCubit get(context) => BlocProvider.of<QuranCubit>(context);
-  static QuranCubit get2(context) => BlocProvider.of<QuranCubit>(context, listen: false);
 
 
-  // SorahRepository sorahRepository = SorahRepository();
-  AyaRepository ayaRepository = AyaRepository();
-  List<Sorah>? sorahList;
-  List<Aya>? ayaList;
   late PageController pageController;
   late int currentPage;
   int? current;
@@ -77,6 +70,7 @@ class QuranCubit extends Cubit<QuranState> {
   ///The controller of sliding up panel
   late ScrollController scrollController;
   SlidingUpPanelController panelController = SlidingUpPanelController();
+  SlidingUpPanelController panelTextController = SlidingUpPanelController();
   final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
   late AnimationController controller;
   late Animation<Offset> offset;
@@ -97,8 +91,49 @@ class QuranCubit extends Cubit<QuranState> {
   ArabicNumbers arabicNumber = ArabicNumbers();
   AnimationController? screenController;
   Animation<double>? screenAnimation;
-  double? heightAnchor;
+  String? translation;
+  int? shareTafseerValue;
+  int? transIndex;
 
+  void updateText(String ayatext, String translate) {
+    emit(TextUpdated(ayatext, translate));
+  }
+
+  Future<void> getTranslatedPage(int pageNum, BuildContext context) async {
+    emit(AyaLoading());
+    try {
+      final ayahList = await handleRadioValueChanged(context, radioValue).getPageTranslate(pageNum);
+      emit(AyaLoaded(ayahList));
+    } catch (e) {
+      emit(AyaError("Error fetching Translated Page: $e"));
+    }
+  }
+  Future<void> getTranslatedAyah(int pageNum, BuildContext context) async {
+    emit(AyaLoading());
+    try {
+      final ayahList = await handleRadioValueChanged(context, radioValue).getAyahTranslate(pageNum);
+      emit(AyaLoaded(ayahList));
+    } catch (e) {
+      emit(AyaError("Error fetching Translated Page: $e"));
+    }
+  }
+
+  Ayat? getAyaByIndex(int index) {
+    if (state is AyaLoaded) {
+      return (state as AyaLoaded).ayahList.elementAt(index);
+    }
+    return null;
+  }
+
+  void updateTranslation(String newTranslateAyah, String newTranslate) {
+    emit(TranslationUpdatedState(translateAyah: newTranslateAyah, translate: newTranslate));
+  }
+
+  void getNewTranslationAndNotify(BuildContext context, int selectedAyahNumber) async {
+    List<Ayat> ayat = await handleRadioValueChanged(context, radioValue).getAyahTranslate(selectedAyahNumber);  // Replace selectedAyahNumber with the number of the Ayah selected
+    Ayat aya = ayat[0];  // Assuming you want the first Ayah in the list
+    updateText("${aya.ayatext}", "${aya.translate}");  // This will emit a new TextTextUpdated state with the new translation
+  }
 
 
   /// Shared Preferences
@@ -291,20 +326,10 @@ class QuranCubit extends Cubit<QuranState> {
     title = null;
     isPageNeedChange = false;
     currentIndex = DPages.currentPage2 - 1;
-    getList();
     loadLang();
     emit(QuranPageState());
   }
 
-
-
-
-  getList() async {
-    ayaRepository.all().then((values) {
-      ayaList = values;
-    });
-
-  }
 
   pageChanged(BuildContext context, int index) {
     print("on Page Changed $index");
@@ -685,9 +710,19 @@ class QuranCubit extends Cubit<QuranState> {
     final image3Height = pngImage3.height.toDouble() / 5.0;
     final image3X = (canvasWidth - image3Width) / 2; // Center the image horizontally
 
+    List<String> transName = <String>[
+      'English',
+      'Spanish',
+    ];
+    String? tafseerName;
+    if (shareTafseerValue == 1) {
+      tafseerName = radioValue != 3 ? null : AppLocalizations.of(context)!.tafSaadiN;
+    } else if (shareTafseerValue == 2) {
+      tafseerName = transName[transIndex!];
+    }
     final tafseerNamePainter = TextPainter(
         text: TextSpan(
-          text: AppLocalizations.of(context)!.tafSaadiN,
+          text: tafseerName,
           style: TextStyle(
               fontSize: 35,
               fontWeight: FontWeight.normal,
@@ -724,7 +759,7 @@ class QuranCubit extends Cubit<QuranState> {
           ),
         ),
         textDirection: TextDirection.ltr,
-        textAlign: TextAlign.center
+        textAlign: TextAlign.justify
     );
     newTextPainter.layout(maxWidth: 800);
 
@@ -831,13 +866,13 @@ class QuranCubit extends Cubit<QuranState> {
     await imageFile.writeAsBytes(imageData);
 
     if (imageFile.existsSync()) {
-      await Share.shareFiles([imagePath], text: 'Sharing verse image');
+      await Share.shareXFiles([XFile((imagePath))], text: AppLocalizations.of(context)!.appName);
     } else {
       print('Failed to save and share image');
     }
   }
 
-  Future<void> shareVerse(int verseNumber,
+  Future<void> shareVerse(BuildContext context, int verseNumber,
       surahNumber, String verseText) async {
     final imageData2 = await createVerseImage(verseNumber,
         surahNumber, verseText);
@@ -850,7 +885,7 @@ class QuranCubit extends Cubit<QuranState> {
     await imageFile.writeAsBytes(imageData2);
 
     if (imageFile.existsSync()) {
-      await Share.shareFiles([imagePath], text: 'Sharing verse image');
+      await Share.shareXFiles([XFile((imagePath))], text: AppLocalizations.of(context)!.appName);
     } else {
       print('Failed to save and share image');
     }
@@ -863,7 +898,7 @@ class QuranCubit extends Cubit<QuranState> {
     Uint8List imageData = await createVerseWithTranslateImage(context, verseNumber, surahNumber, verseText, textTranslate);
     Uint8List imageData2 = await createVerseImage(verseNumber, surahNumber, verseText);
 
-    dropDownModalBottomSheet(
+    allModalBottomSheet(
       context,
       MediaQuery.of(context).size.height / 1/2,
       MediaQuery.of(context).size.width,
@@ -1016,7 +1051,7 @@ class QuranCubit extends Cubit<QuranState> {
                                 ),
                                 onTap: () {
                                   shareVerse(
-                                      verseNumber, surahNumber, verseText
+                                      context, verseNumber, surahNumber, verseText
                                   );
                                   Navigator.pop(context);
                                 },

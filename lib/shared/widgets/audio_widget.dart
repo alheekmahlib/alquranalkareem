@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:alquranalkareem/quran_page/cubit/audio/cubit.dart';
 import 'package:alquranalkareem/cubit/cubit.dart';
 import 'package:alquranalkareem/shared/widgets/ayah_list.dart';
+import 'package:alquranalkareem/shared/widgets/svg_picture.dart';
 import 'package:alquranalkareem/shared/widgets/widgets.dart';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
@@ -28,8 +29,6 @@ class AudioWidget extends StatefulWidget {
 }
 
 class _AudioWidgetState extends State<AudioWidget> {
-  Duration? duration = Duration();
-  Duration? position = Duration();
   AudioPlayer audioPlayer = AudioPlayer();
   AudioPlayer pageAudioPlayer = AudioPlayer();
   final ValueNotifier<double> _position = ValueNotifier(0);
@@ -39,8 +38,8 @@ class _AudioWidgetState extends State<AudioWidget> {
   AudioCache cashPlayer = AudioCache();
   bool isPlay = false;
   bool isPagePlay = false;
-  StreamSubscription? durationSubscription;
-  StreamSubscription? positionSubscription;
+  // StreamSubscription? durationSubscription;
+  // StreamSubscription? positionSubscription;
   bool downloading = false;
   String progressString = "0";
   double progress = 0;
@@ -101,6 +100,14 @@ class _AudioWidgetState extends State<AudioWidget> {
     super.initState();
   }
 
+  @override
+  void dispose() {
+    audioPlayer.dispose();
+    pageAudioPlayer.dispose();
+    _connectivitySubscription.cancel();
+    super.dispose();
+  }
+
   Future playFile(BuildContext context, String url, String fileName) async {
     var path;
     int result = 1;
@@ -154,7 +161,7 @@ class _AudioWidgetState extends State<AudioWidget> {
         }
         if (_connectionStatus == ConnectivityResult.none) {
           if (exists) {
-            await audioPlayer.play(DeviceFileSource(path));
+            await pageAudioPlayer.play(DeviceFileSource(path));
           } else {
             customErrorSnackBar(
                 context, AppLocalizations.of(context)!.noInternet);
@@ -269,19 +276,9 @@ class _AudioWidgetState extends State<AudioWidget> {
       audioPlayer.pause();
     }
     if (isPagePlay) {
-      audioPlayer.pause();
+      pageAudioPlayer.pause();
     }
     super.deactivate();
-  }
-
-  @override
-  void dispose() {
-    audioPlayer.dispose();
-    pageAudioPlayer.dispose();
-    _connectivitySubscription.cancel();
-    positionSubscription?.cancel();
-    durationSubscription?.cancel();
-    super.dispose();
   }
 
   void didChangeAppLifecycleState(AppLifecycleState state) {
@@ -451,8 +448,8 @@ class _AudioWidgetState extends State<AudioWidget> {
                               color: ThemeProvider.themeOf(context).id == 'dark'
                                   ? const Color(0xffcdba72).withOpacity(.4)
                                   : Theme.of(context)
-                                      .dividerColor
-                                      .withOpacity(.4),
+                                  .dividerColor
+                                  .withOpacity(.4),
                               borderRadius: const BorderRadius.only(
                                 topRight: Radius.circular(8),
                                 topLeft: Radius.circular(8),
@@ -461,38 +458,34 @@ class _AudioWidgetState extends State<AudioWidget> {
                       ),
                       // ayahList(context, DPages.currentPage2),
                       (isPlay || isPagePlay)
-                          ? StatefulBuilder(
-                          builder: (BuildContext context, StateSetter setState) {
-                              return Container(
-                                  height: 50,
-                                  alignment: Alignment.center,
-                                  width: 290,
-                                  child: SliderTheme(
-                                    data: const SliderThemeData(
-                                        thumbShape: RoundSliderThumbShape(
-                                            enabledThumbRadius: 8)),
-                                    child: Slider(
-                                      activeColor:
-                                          Theme.of(context).colorScheme.background,
-                                      inactiveColor:
-                                          Theme.of(context).primaryColorDark,
-                                      min: 0,
-                                      max: isPlay ? _duration.value : _pageDuration.value,
-                                      value: isPlay ? _position.value : _pageDuration.value,
-                                      onChanged: (value) async {
-                                        // FocusManager.instance.primaryFocus?.unfocus();
-                                        isPlay ? await audioPlayer
-                                              .seek(Duration(milliseconds: value.toInt()))
-                                        : await pageAudioPlayer.seek(Duration(milliseconds: value.toInt()));
-                                      },
-                                    ),
-                                  ),
-                                );
-                            }
-                          )
+                          ? Container(
+                        height: 50,
+                        alignment: Alignment.center,
+                        width: 290,
+                        child: SliderTheme(
+                          data: const SliderThemeData(
+                              thumbShape: RoundSliderThumbShape(
+                                  enabledThumbRadius: 8)),
+                          child: Slider(
+                            activeColor:
+                            Theme.of(context).colorScheme.background,
+                            inactiveColor:
+                            Theme.of(context).primaryColorDark,
+                            min: 0,
+                            max: isPlay ? _duration.value : _pageDuration.value,
+                            value: (isPlay ? _position.value : _pagePosition.value).clamp(0, isPlay ? _duration.value : _pageDuration.value),
+                            onChanged: (value) {
+                              // FocusManager.instance.primaryFocus?.unfocus();
+                              isPlay ? audioPlayer
+                                  .seek(Duration(milliseconds: value.toInt()))
+                                  : pageAudioPlayer.seek(Duration(milliseconds: value.toInt()));
+                            },
+                          ),
+                        ),
+                      )
                           : AyahList(
-                              pageNum: cubit.cuMPage,
-                            )
+                        pageNum: cubit.cuMPage,
+                      )
                     ],
                   )),
               Expanded(
@@ -504,12 +497,7 @@ class _AudioWidgetState extends State<AudioWidget> {
                       child: Stack(
                         alignment: Alignment.center,
                         children: [
-                          SvgPicture.asset(
-                            'assets/svg/space_line.svg',
-                            height: 50,
-                            width:
-                            MediaQuery.of(context).size.width / 1 / 2,
-                          ),
+                          spaceLine(50, MediaQuery.of(context).size.width / 1 / 2),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
@@ -606,23 +594,23 @@ class _AudioWidgetState extends State<AudioWidget> {
                                     color: Theme.of(context).canvasColor,
                                     onPressed: () {
                                       print(progressPageString);
-                                      if (_connectionStatus ==
-                                          ConnectivityResult.none) {
-                                        customErrorSnackBar(
-                                            context,
-                                            AppLocalizations.of(context)!
-                                                .noInternet);
+                                      // if (_connectionStatus ==
+                                      //     ConnectivityResult.none) {
+                                      //   customErrorSnackBar(
+                                      //       context,
+                                      //       AppLocalizations.of(context)!
+                                      //           .noInternet);
                                         // } else if (_connectionStatus == ConnectivityResult.mobile) {
                                         //   // playSorahOnline(context);
                                         //   customMobilSnackBar(context,
                                         //       AppLocalizations.of(context)!.noInternet);
-                                      } else if (_connectionStatus ==
-                                          ConnectivityResult.wifi ||
-                                          _connectionStatus ==
-                                              ConnectivityResult.mobile) {
+                                      // } else if (_connectionStatus ==
+                                      //     ConnectivityResult.wifi ||
+                                      //     _connectionStatus ==
+                                      //         ConnectivityResult.mobile) {
                                         playPage(context,
                                             QuranCubit.get(context).cuMPage);
-                                      }
+                                      // }
                                     },
                                   ),
                                 ),
@@ -637,8 +625,8 @@ class _AudioWidgetState extends State<AudioWidget> {
                                         Radius.circular(8))),
                                 child: IconButton(
                                   icon: Icon(Icons.person_search_outlined,
-                                  size: 20,
-                                  color: Theme.of(context).canvasColor),
+                                      size: 20,
+                                      color: Theme.of(context).canvasColor),
                                   onPressed: () => readerDropDown(context),
                                 ),
                               ),

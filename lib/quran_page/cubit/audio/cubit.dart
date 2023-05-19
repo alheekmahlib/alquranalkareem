@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:alquranalkareem/quran_page/cubit/audio/states.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 
 class AudioCubit extends Cubit<AudioState> {
-  AudioCubit() : super(AudioAyahState());
+  AudioCubit() : super(AudioAyahState()) {}
 
   static AudioCubit get(context) => BlocProvider.of(context);
 
@@ -20,6 +21,7 @@ class AudioCubit extends Cubit<AudioState> {
   late Animation<Offset> offset;
   late AnimationController controllerSorah;
   // bool autoPlay = false;
+
 
 
   // Save & Load Reader Quran

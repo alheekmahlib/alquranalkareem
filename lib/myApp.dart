@@ -308,7 +308,7 @@ class _MyAppState extends State<MyApp> {
       themes: <AppTheme>[
         AppTheme(
           id: 'green',
-          description: "My Custom Theme",
+          description: "My green Theme",
           data: ThemeData(
             colorScheme: const ColorScheme(
                 brightness: Brightness.light,
@@ -337,17 +337,20 @@ class _MyAppState extends State<MyApp> {
             focusColor: const Color(0xff91a57d),
             secondaryHeaderColor: const Color(0xff39412a),
             cardColor: const Color(0xff232c13),
+            dividerTheme: const DividerThemeData(
+              color: Color(0xffcdba72),
+            ),
             textSelectionTheme: TextSelectionThemeData(
                 selectionColor: const Color(0xff91a57d).withOpacity(0.3),
                 selectionHandleColor: const Color(0xff91a57d)),
             cupertinoOverrideTheme: const CupertinoThemeData(
               primaryColor: Color(0xff606c38),
             ),
-          ),
+          ).copyWith(useMaterial3: true),
         ),
         AppTheme(
           id: 'blue',
-          description: "My Custom Theme",
+          description: "My blue Theme",
           data: ThemeData(
             colorScheme: const ColorScheme(
               brightness: Brightness.light,
@@ -382,11 +385,11 @@ class _MyAppState extends State<MyApp> {
             cupertinoOverrideTheme: const CupertinoThemeData(
               primaryColor: Color(0xff606c38),
             ),
-          ),
+          ).copyWith(useMaterial3: true),
         ),
         AppTheme(
           id: 'dark',
-          description: "My Custom Theme",
+          description: "My dark Theme",
           data: ThemeData(
             colorScheme: const ColorScheme(
               brightness: Brightness.light,
@@ -421,7 +424,7 @@ class _MyAppState extends State<MyApp> {
             cupertinoOverrideTheme: const CupertinoThemeData(
               primaryColor: Color(0xff606c38),
             ),
-          ),
+          ).copyWith(useMaterial3: true),
         ),
       ],
       child: Directionality(

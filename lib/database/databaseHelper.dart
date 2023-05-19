@@ -19,6 +19,7 @@ class DatabaseHelper {
   static const String tableAzkar = 'azkarTable';
   static const String tablebookmarkTextAyah = 'bookmarkTextAyahTable';
   static const String columnId = 'id';
+  static const String columnDescription = 'description';
   static const String columnBId = 'id';
   static const String columnCId = 'id';
   static const String columnTId = 'id';
@@ -281,11 +282,17 @@ class DatabaseHelper {
     }
   }
 
-  static Future<int> deleteNote(Notes? note) async {
+  static Future<int> deleteNote(String description) async {
     print('Delete Note');
     return await _db!
-        .delete(tableNote, where: '$columnId = ?', whereArgs: [note!.id]);
+        .delete(tableNote, where: '$columnDescription = ?', whereArgs: [description]);
   }
+
+  // static Future<int> deleteNote(Notes? note) async {
+  //   print('Delete Note');
+  //   return await _db!
+  //       .delete(tableNote, where: '$columnId = ?', whereArgs: [note!.id]);
+  // }
 
   static Future<int> updateNote(Notes? note) async {
     print('Update Note');

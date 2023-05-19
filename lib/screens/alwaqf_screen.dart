@@ -3,6 +3,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:group_button/group_button.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 import 'package:theme_provider/theme_provider.dart';
+import '../shared/widgets/svg_picture.dart';
 import '../shared/widgets/widgets.dart';
 
 
@@ -71,29 +72,7 @@ class _AlwaqfScreenState extends State<AlwaqfScreen> {
                   alignment: Alignment.topCenter,
                   child: Column(
                     children: [
-                      GestureDetector(
-                        onTap: () => Navigator.of(context).pop(),
-                        child: Align(
-                          alignment: Alignment.topCenter,
-                          child: Container(
-                            height: 30,
-                            width: 30,
-                            decoration: BoxDecoration(
-                                color: Theme.of(context).colorScheme.background,
-                                borderRadius: const BorderRadius.only(
-                                  topRight: Radius.circular(8),
-                                  topLeft: Radius.circular(8),
-                                ),
-                                border: Border.all(
-                                    width: 2,
-                                    color: Theme.of(context).dividerColor)),
-                            child: Icon(
-                              Icons.close_outlined,
-                              color: Theme.of(context).colorScheme.surface,
-                            ),
-                          ),
-                        ),
-                      ),
+                      customClose2(context),
                       const Divider(
                         height: 0,
                         thickness: 2,
@@ -272,16 +251,7 @@ class _AlwaqfScreenState extends State<AlwaqfScreen> {
                                               ),
                                             ),
                                             Center(
-                                              child: SizedBox(
-                                                  height: 50,
-                                                  width: MediaQuery.of(context)
-                                                          .size
-                                                          .width /
-                                                      1 /
-                                                      2,
-                                                  child: SvgPicture.asset(
-                                                    'assets/svg/space_line.svg',
-                                                  )),
+                                              child: spaceLine(30, MediaQuery.of(context).size.width / 1 / 4,),
                                             ),
                                           ],
                                         ),

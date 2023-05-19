@@ -44,7 +44,6 @@ class _AyahListState extends State<AyahList> {
     return FutureBuilder<List<Ayat>>(
         future: cubit.handleRadioValueChanged(context, cubit.radioValue).getPageTranslate(widget.pageNum ?? 1),
         builder: (context, snapshot) {
-          // print(cubit.handleRadioValueChanged(cubit.radioValue).getPageTranslate(widget.pageNum!));
           if (snapshot.connectionState == snapshot.connectionState) {
             List<Ayat>? ayat = snapshot.data;
 
