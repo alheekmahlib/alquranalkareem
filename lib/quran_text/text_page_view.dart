@@ -1,31 +1,18 @@
 import 'dart:async';
 import 'package:alquranalkareem/notes/cubit/note_cubit.dart';
-import 'package:animated_toggle_switch/animated_toggle_switch.dart';
-import 'package:another_xlider/another_xlider.dart';
-import 'package:another_xlider/models/handler.dart';
-import 'package:another_xlider/models/handler_animation.dart';
-import 'package:another_xlider/models/trackbar.dart';
 import 'package:arabic_numbers/arabic_numbers.dart';
-import 'package:bot_toast/bot_toast.dart';
-import 'package:clipboard/clipboard.dart';
-import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_sliding_up_panel/sliding_up_panel_widget.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:lottie/lottie.dart';
-// import 'package:scroll_to_index/scroll_to_index.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:theme_provider/theme_provider.dart';
-import 'package:word_selectable_text/word_selectable_text.dart';
 import '../cubit/cubit.dart';
-import '../cubit/states.dart';
 import '../cubit/translateDataCubit/_cubit.dart';
 import '../cubit/translateDataCubit/translateDataState.dart';
 import '../l10n/app_localizations.dart';
-import '../quran_page/data/model/ayat.dart';
 import '../quran_page/widget/sliding_up.dart';
 import '../shared/widgets/show_tafseer.dart';
 import '../shared/widgets/svg_picture.dart';
@@ -65,7 +52,6 @@ class _TextPageViewState extends State<TextPageView>
   StreamSubscription? _quranTextCubitSubscription;
   QuranCubit? _quranCubit;
 
-
   void _toggleScroll() {
     if (QuranTextCubit.get(context).scrolling) {
       // Stop scrolling
@@ -102,7 +88,8 @@ class _TextPageViewState extends State<TextPageView>
     QuranTextCubit.get(context).scrollController.jumpTo(
         QuranTextCubit.get(context).animationController.value *
             (QuranTextCubit.get(context)
-                .scrollController.position
+                .scrollController
+                .position
                 .maxScrollExtent));
   }
 
@@ -113,36 +100,12 @@ class _TextPageViewState extends State<TextPageView>
     _quranCubit = QuranCubit.get(context);
   }
 
-  // Save & Load Last Page For Quran Text
-  saveTextLastPlace(int textCurrentPage, String lastTime, sorahTextName) async {
-    textCurrentPage = TextPageView.textCurrentPage;
-    lastTime = TextPageView.lastTime;
-    sorahTextName = TextPageView.sorahTextName;
-    SharedPreferences prefService = await SharedPreferences.getInstance();
-    await prefService.setInt("last_page", textCurrentPage);
-    await prefService.setString("last_time", lastTime);
-    await prefService.setString("last_sorah_name", sorahTextName);
-  }
-
-  loadTextCurrentPage() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    TextPageView.textCurrentPage = prefs.getInt('last_page') ?? 1;
-    TextPageView.lastTime = prefs.getString('last_time') ?? '';
-    TextPageView.sorahTextName = prefs.getString('last_sorah_name') ?? '';
-    print('get ${prefs.getInt('last_page')}');
-  }
-
-  textPageChanged(int textCurrentPage, String lastTime, sorahTextName) {
-    saveTextLastPlace(TextPageView.textCurrentPage, TextPageView.lastTime,
-        TextPageView.sorahTextName);
-  }
-
   @override
   void initState() {
     WidgetsBinding.instance.addObserver(this);
     TextPageView.textCurrentPage = widget.nomPageF!;
     TextPageView.sorahTextName = widget.surah!.name!;
-    loadTextCurrentPage();
+    QuranTextCubit.get(context).loadTextCurrentPage();
     QuranTextCubit.get(context).loadSwitchValue();
     QuranTextCubit.get(context).loadTranslateValue();
     QuranTextCubit.get(context).loadScrollSpeedValue();
@@ -171,15 +134,13 @@ class _TextPageViewState extends State<TextPageView>
     QuranTextCubit.get(context).scrollSpeedNotifier =
         ValueNotifier<double>(QuranTextCubit.get(context).scrollSpeed);
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      _quranTextCubitSubscription = context
-          .read<QuranTextCubit>()
-          .stream
-          .listen((QuranTextState state) {
+      _quranTextCubitSubscription =
+          context.read<QuranTextCubit>().stream.listen((QuranTextState state) {
         if (!mounted) return; // Check if the widget is still mounted
 
         final translation = QuranTextCubit.get(context)
             .translateHandleRadioValueChanged(
-            QuranTextCubit.get(context).transValue);
+                QuranTextCubit.get(context).transValue);
         context
             .read<TranslateDataCubit>()
             .fetchSura(context, translation, '${widget.surah!.number!}');
@@ -189,7 +150,8 @@ class _TextPageViewState extends State<TextPageView>
       duration: const Duration(milliseconds: 300),
       vsync: this,
     );
-    QuranCubit.get(context).screenAnimation = Tween<double>(begin: 1, end: 0.95).animate(QuranCubit.get(context).screenController!);
+    QuranCubit.get(context).screenAnimation = Tween<double>(begin: 1, end: 0.95)
+        .animate(QuranCubit.get(context).screenController!);
     QuranCubit.get(context).panelController = SlidingUpPanelController();
     super.initState();
   }
@@ -204,7 +166,8 @@ class _TextPageViewState extends State<TextPageView>
   }
 
   jumbToPage() async {
-    int pageNum = widget.pageNum ?? 0; // Use the null coalescing operator to ensure pageNum is not null
+    int pageNum = widget.pageNum ??
+        0; // Use the null coalescing operator to ensure pageNum is not null
 
     if (pageNum == 0 ||
         pageNum == 1 ||
@@ -229,49 +192,20 @@ class _TextPageViewState extends State<TextPageView>
         pageNum == 604) {
     } else {
       await QuranTextCubit.get(context).itemScrollController.scrollTo(
-          index: (QuranTextCubit.get(context).value == 1
-              ? pageNum
-              : pageNum - 1),
+          index:
+              (QuranTextCubit.get(context).value == 1 ? pageNum : pageNum - 1),
           duration: const Duration(seconds: 1),
           curve: Curves.easeOut);
       setState(() {
         QuranTextCubit.get(context).isSelected =
-        QuranTextCubit.get(context).value == 1
-            ? pageNum
-            : pageNum - 1;
+            QuranTextCubit.get(context).value == 1 ? pageNum : pageNum - 1;
       });
     }
   }
 
-  // Future<Uint8List> createVerseImage(String surahName, int verseNumber, String verseText) async {
-  //   final textPainter = TextPainter(
-  //     text: TextSpan(
-  //       text: 'Surah: $surahName\nVerse: $verseNumber\n$verseText',
-  //       style: TextStyle(
-  //         fontSize: 20,
-  //         fontWeight:
-  //         FontWeight.normal,
-  //         fontFamily:
-  //         'uthmanic2'),
-  //     ),
-  //     textDirection: TextDirection.rtl,
-  //   );
-  //   textPainter.layout(maxWidth: 300);
-  //
-  //   final pictureRecorder = ui.PictureRecorder();
-  //   final canvas = Canvas(pictureRecorder);
-  //   canvas.drawRect(Rect.fromLTWH(0, 0, textPainter.width, textPainter.height), Paint()..color = const Color(0xfff3efdf));
-  //   textPainter.paint(canvas, Offset.zero);
-  //
-  //   final picture = pictureRecorder.endRecording();
-  //   final img = await picture.toImage(textPainter.width.toInt(), textPainter.height.toInt());
-  //   final pngBytes = await img.toByteData(format: ui.ImageByteFormat.png);
-  //   return pngBytes!.buffer.asUint8List();
-  // }
-
   @override
   Widget build(BuildContext context) {
-    Color backColor = Theme.of(context).colorScheme.surface;
+    Color backColor = Theme.of(context).colorScheme.surface.withOpacity(0.4);
 
     return BlocConsumer<QuranTextCubit, QuranTextState>(
       listener: (BuildContext context, state) {},
@@ -318,8 +252,8 @@ class _TextPageViewState extends State<TextPageView>
                                   Theme.of(context).canvasColor,
                                 ),
                                 Padding(
-                                  padding:
-                                      const EdgeInsets.symmetric(horizontal: 8.0),
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 8.0),
                                   child: fontSizeDropDown(context, setState),
                                 ),
                                 const Spacer(),
@@ -355,7 +289,8 @@ class _TextPageViewState extends State<TextPageView>
                                 // ),
                                 SizedBox(
                                   width: 70,
-                                  child: animatedToggleSwitch(context, setState),
+                                  child:
+                                      animatedToggleSwitch(context, setState),
                                 ),
                               ],
                             ),
@@ -385,7 +320,8 @@ class _TextPageViewState extends State<TextPageView>
                                   Column(
                                     children: [
                                       Container(
-                                        width: MediaQuery.of(context).size.width,
+                                        width:
+                                            MediaQuery.of(context).size.width,
                                         decoration: BoxDecoration(
                                           color: Theme.of(context)
                                               .colorScheme
@@ -400,7 +336,8 @@ class _TextPageViewState extends State<TextPageView>
                                             sorahName(
                                               widget.surah!.number.toString(),
                                               context,
-                                              ThemeProvider.themeOf(context).id ==
+                                              ThemeProvider.themeOf(context)
+                                                          .id ==
                                                       'dark'
                                                   ? Colors.white
                                                   : Colors.black,
@@ -435,7 +372,8 @@ class _TextPageViewState extends State<TextPageView>
                                             // ),
                                             SizedBox(
                                               width: 70,
-                                              child: animatedToggleSwitch(context, setState),
+                                              child: animatedToggleSwitch(
+                                                  context, setState),
                                             ),
                                           ],
                                         ),
@@ -463,17 +401,20 @@ class _TextPageViewState extends State<TextPageView>
                                   right: 40.0,
                                   left: 40.0)),
                           child: AnimatedBuilder(
-                              animation:
-                                  QuranTextCubit.get(context).animationController,
+                              animation: QuranTextCubit.get(context)
+                                  .animationController,
                               builder: (BuildContext context, Widget? child) {
                                 if (QuranTextCubit.get(context)
-                                    .scrollController.hasClients) {
+                                    .scrollController
+                                    .hasClients) {
                                   QuranTextCubit.get(context)
-                                      .scrollController.jumpTo(QuranTextCubit.get(context)
+                                      .scrollController
+                                      .jumpTo(QuranTextCubit.get(context)
                                               .animationController
                                               .value *
                                           (QuranTextCubit.get(context)
-                                              .scrollController.position
+                                              .scrollController
+                                              .position
                                               .maxScrollExtent));
                                 }
                                 return ScrollablePositionedList.builder(
@@ -488,11 +429,12 @@ class _TextPageViewState extends State<TextPageView>
                                       TextCubit.itemPositionsListener,
                                   itemCount: TextCubit.value == 1
                                       ? widget.surah!.ayahs!.length
-                                      : (widget.nomPageL! - widget.nomPageF!) + 1,
+                                      : (widget.nomPageL! - widget.nomPageF!) +
+                                          1,
                                   itemBuilder: (context, index) {
                                     List<InlineSpan> text = [];
-                                    List<String> text2 = [];
-                                    int ayahLenght = widget.surah!.ayahs!.length;
+                                    int ayahLenght =
+                                        widget.surah!.ayahs!.length;
                                     if (TextCubit.value == 1) {
                                       for (int index = 0;
                                           index < ayahLenght;
@@ -506,11 +448,11 @@ class _TextPageViewState extends State<TextPageView>
                                       }
                                     } else {
                                       for (int b = 0; b < ayahLenght; b++) {
-                                        if (widget.surah!.ayahs![b].text!.length >
+                                        if (widget
+                                                .surah!.ayahs![b].text!.length >
                                             1) {
                                           if (widget.surah!.ayahs![b].page ==
                                               (index + widget.nomPageF!)) {
-
                                             TextCubit.juz = widget
                                                 .surah!.ayahs![b].juz
                                                 .toString();
@@ -524,23 +466,33 @@ class _TextPageViewState extends State<TextPageView>
                                                   style: TextStyle(
                                                     fontSize: TextPageView
                                                         .fontSizeArabic,
-                                                    fontWeight: FontWeight.normal,
+                                                    fontWeight:
+                                                        FontWeight.normal,
                                                     fontFamily: 'uthmanic2',
-                                                    color: ThemeProvider.themeOf(
-                                                                    context)
-                                                                .id ==
-                                                            'dark'
-                                                        ? Colors.white
-                                                        : Colors.black,
+                                                    color:
+                                                        ThemeProvider.themeOf(
+                                                                        context)
+                                                                    .id ==
+                                                                'dark'
+                                                            ? Colors.white
+                                                            : Colors.black,
                                                     background: Paint()
                                                       ..color = b ==
-                                                              TextCubit.isSelected
+                                                              TextCubit
+                                                                  .isSelected
                                                           ? backColor
                                                           : Colors.transparent
                                                       ..color = b ==
-                                                              TextCubit.isSelected
-                                                          ? backColor
+                                                              TextCubit
+                                                                  .isSelected
+                                                          ? TextCubit.selected
+                                                              ? backColor
+                                                              : Colors
+                                                                  .transparent
                                                           : Colors.transparent
+                                                      // ..color = TextCubit.selected
+                                                      //     ? backColor
+                                                      //     : Colors.transparent
                                                       ..strokeJoin =
                                                           StrokeJoin.round
                                                       ..strokeCap =
@@ -553,22 +505,40 @@ class _TextPageViewState extends State<TextPageView>
                                                         ..onTapDown =
                                                             (TapDownDetails
                                                                 details) {
-                                                              textText = text.map((e) => e).toString();
-                                                              textTitle = text.map((e) => e).toString();
-                                                          lastAyah = widget.surah!
-                                                              .ayahs!.length;
+                                                          textText = text
+                                                              .map((e) => e)
+                                                              .toString();
+                                                          textTitle = text
+                                                              .map((e) => e)
+                                                              .toString();
+                                                          lastAyah = widget
+                                                              .surah!
+                                                              .ayahs!
+                                                              .length;
                                                           lastAyahInPage = widget
                                                               .surah!
                                                               .ayahs![b]
                                                               .numberInSurah;
                                                           textSurahNum = widget
-                                                              .surah!
-                                                              .number;
-                                                              menu(context, b, index, details, translateData, widget.surah);
+                                                              .surah!.number;
+                                                          menu(
+                                                              context,
+                                                              b,
+                                                              index,
+                                                              details,
+                                                              translateData,
+                                                              widget.surah!,
+                                                            widget.nomPageF,
+                                                            widget.nomPageL
+                                                          );
                                                           setState(() {
+                                                            TextCubit.selected =
+                                                                !TextCubit
+                                                                    .selected;
                                                             backColor = Colors
                                                                 .transparent;
-                                                            TextCubit.sorahName =
+                                                            TextCubit
+                                                                    .sorahName =
                                                                 widget.surah!
                                                                     .number!
                                                                     .toString();
@@ -621,7 +591,8 @@ class _TextPageViewState extends State<TextPageView>
                                             children: [
                                               GestureDetector(
                                                 onTap: () {
-                                                  TextCubit.controller.reverse();
+                                                  TextCubit.controller
+                                                      .reverse();
                                                   setState(() {
                                                     backColor =
                                                         Colors.transparent;
@@ -632,10 +603,10 @@ class _TextPageViewState extends State<TextPageView>
                                                 //   controller: TextCubit.scrollController!,
                                                 //   index: index,
                                                 child: Container(
-                                                  margin:
-                                                      const EdgeInsets.symmetric(
-                                                          horizontal: 16,
-                                                          vertical: 4),
+                                                  margin: const EdgeInsets
+                                                          .symmetric(
+                                                      horizontal: 16,
+                                                      vertical: 4),
                                                   width: MediaQuery.of(context)
                                                       .size
                                                       .width,
@@ -644,13 +615,28 @@ class _TextPageViewState extends State<TextPageView>
                                                           .colorScheme
                                                           .background,
                                                       borderRadius:
-                                                          const BorderRadius.all(
+                                                          const BorderRadius
+                                                                  .all(
                                                               Radius.circular(
                                                                   4))),
                                                   child: Column(
                                                     children: [
-                                                      Center(
-                                                        child: spaceLine(20, MediaQuery.of(context).size.width / 1 / 2,),
+                                                      Padding(
+                                                        padding:
+                                                            const EdgeInsets
+                                                                    .symmetric(
+                                                                vertical: 16.0),
+                                                        child: Center(
+                                                          child: spaceLine(
+                                                            20,
+                                                            MediaQuery.of(
+                                                                        context)
+                                                                    .size
+                                                                    .width /
+                                                                1 /
+                                                                2,
+                                                          ),
+                                                        ),
                                                       ),
                                                       widget.surah!.number == 9
                                                           ? Container()
@@ -660,7 +646,8 @@ class _TextPageViewState extends State<TextPageView>
                                                                           index]
                                                                       .numberInSurah ==
                                                                   1
-                                                              ? besmAllah(context)
+                                                              ? besmAllah(
+                                                                  context)
                                                               : Container(),
                                                       // WordSelectableText(
                                                       //     selectable:  true,
@@ -701,12 +688,12 @@ class _TextPageViewState extends State<TextPageView>
                                                       //                 .fill,
                                                       //     ),),
                                                       Container(
-                                                        padding: const EdgeInsets
-                                                                .symmetric(
-                                                            horizontal: 32),
+                                                        padding:
+                                                            const EdgeInsets
+                                                                    .symmetric(
+                                                                horizontal: 32),
                                                         child:
                                                             SelectableText.rich(
-
                                                           showCursor: true,
                                                           cursorWidth: 3,
                                                           cursorColor:
@@ -725,9 +712,11 @@ class _TextPageViewState extends State<TextPageView>
                                                             TextSpan(
                                                                 text: widget
                                                                     .surah!
-                                                                    .ayahs![index]
+                                                                    .ayahs![
+                                                                        index]
                                                                     .text!,
-                                                                style: TextStyle(
+                                                                style:
+                                                                    TextStyle(
                                                                   fontSize:
                                                                       TextPageView
                                                                           .fontSizeArabic,
@@ -747,17 +736,16 @@ class _TextPageViewState extends State<TextPageView>
                                                                       Paint()
                                                                         ..color = index ==
                                                                                 TextCubit.isSelected
-                                                                            ? backColor
+                                                                            ? TextCubit.selected
+                                                                                ? backColor
+                                                                                : Colors.transparent
                                                                             : Colors.transparent
                                                                         ..strokeJoin =
-                                                                            StrokeJoin
-                                                                                .round
+                                                                            StrokeJoin.round
                                                                         ..strokeCap =
-                                                                            StrokeCap
-                                                                                .round
+                                                                            StrokeCap.round
                                                                         ..style =
-                                                                            PaintingStyle
-                                                                                .fill,
+                                                                            PaintingStyle.fill,
                                                                 ),
                                                                 recognizer:
                                                                     TapGestureRecognizer()
@@ -766,13 +754,15 @@ class _TextPageViewState extends State<TextPageView>
                                                                               details) {
                                                                         setState(
                                                                             () {
-                                                                              lastAyahInPage = widget
-                                                                                  .surah!
-                                                                                  .ayahs![index]
-                                                                                  .numberInSurah;
-                                                                              textSurahNum = widget
-                                                                                  .surah!
-                                                                                  .number;
+                                                                          TextCubit.selected =
+                                                                              !TextCubit.selected;
+                                                                          lastAyahInPage = widget
+                                                                              .surah!
+                                                                              .ayahs![index]
+                                                                              .numberInSurah;
+                                                                          textSurahNum = widget
+                                                                              .surah!
+                                                                              .number;
                                                                           backColor =
                                                                               Colors.transparent;
                                                                           TextCubit.sorahName = widget
@@ -787,23 +777,30 @@ class _TextPageViewState extends State<TextPageView>
                                                                           TextCubit.isSelected =
                                                                               index;
                                                                         });
-                                                                        menu(context, index, index, details, translateData, widget.surah);
-
+                                                                        menu(
+                                                                            context,
+                                                                            index,
+                                                                            index,
+                                                                            details,
+                                                                            translateData,
+                                                                            widget.surah,
+                                                                            widget.nomPageF,
+                                                                            widget.nomPageL);
                                                                       }),
                                                             TextSpan(
                                                               text:
                                                                   ' ${arabicNumber.convert(widget.surah!.ayahs![index].numberInSurah.toString())}',
                                                               style: TextStyle(
-                                                                fontSize: TextPageView
-                                                                        .fontSizeArabic +
-                                                                    5,
+                                                                fontSize:
+                                                                    TextPageView
+                                                                            .fontSizeArabic +
+                                                                        5,
                                                                 fontWeight:
                                                                     FontWeight
                                                                         .w500,
                                                                 fontFamily:
                                                                     'uthmanic2',
-                                                                color: ThemeProvider.themeOf(
-                                                                                context)
+                                                                color: ThemeProvider.themeOf(context)
                                                                             .id ==
                                                                         'dark'
                                                                     ? Theme.of(
@@ -816,30 +813,43 @@ class _TextPageViewState extends State<TextPageView>
                                                               ),
                                                             )
                                                           ]),
-                                                              contextMenuBuilder: buildMyContextMenuText(notesCubit),
-                                                              onSelectionChanged: handleSelectionChanged,
+                                                          contextMenuBuilder:
+                                                              buildMyContextMenuText(
+                                                                  notesCubit),
+                                                          onSelectionChanged:
+                                                              handleSelectionChanged,
                                                         ),
                                                       ),
                                                       Padding(
-                                                        padding: const EdgeInsets
-                                                                .symmetric(
-                                                            horizontal: 16),
+                                                        padding:
+                                                            const EdgeInsets
+                                                                    .symmetric(
+                                                                horizontal: 16),
                                                         child: SizedBox(
                                                           width: MediaQuery.of(
                                                                   context)
                                                               .size
                                                               .width,
                                                           child: Stack(
-                                                            alignment:
-                                                                Alignment.center,
+                                                            alignment: Alignment
+                                                                .center,
                                                             children: [
                                                               Align(
-                                                                  alignment: Alignment
-                                                                      .centerRight,
-                                                                  child:
-                                                                      translateDropDown(
-                                                                          context, setState)),
-                                                              spaceLine(20, MediaQuery.of(context).size.width / 1 / 2,),
+                                                                  alignment:
+                                                                      Alignment
+                                                                          .centerRight,
+                                                                  child: translateDropDown(
+                                                                      context,
+                                                                      setState)),
+                                                              spaceLine(
+                                                                20,
+                                                                MediaQuery.of(
+                                                                            context)
+                                                                        .size
+                                                                        .width /
+                                                                    1 /
+                                                                    2,
+                                                              ),
                                                               Align(
                                                                 alignment: Alignment
                                                                     .bottomLeft,
@@ -861,7 +871,8 @@ class _TextPageViewState extends State<TextPageView>
                                                       ),
                                                       Padding(
                                                         padding:
-                                                            const EdgeInsets.only(
+                                                            const EdgeInsets
+                                                                    .only(
                                                                 bottom: 16.0,
                                                                 right: 32.0,
                                                                 left: 32.0),
@@ -870,7 +881,8 @@ class _TextPageViewState extends State<TextPageView>
                                                             TranslateDataState>(
                                                           builder:
                                                               (context, state) {
-                                                            if (state.isLoading) {
+                                                            if (state
+                                                                .isLoading) {
                                                               // Display a loading indicator while the translation data is being fetched
                                                               return Lottie.asset(
                                                                   'assets/lottie/search.json',
@@ -892,13 +904,11 @@ class _TextPageViewState extends State<TextPageView>
                                                                   textStyle:
                                                                       TextStyle(
                                                                     fontSize:
-                                                                        TextPageView
-                                                                                .fontSizeArabic -
+                                                                        TextPageView.fontSizeArabic -
                                                                             10,
                                                                     fontFamily:
                                                                         'kufi',
-                                                                    color: ThemeProvider.themeOf(context)
-                                                                                .id ==
+                                                                    color: ThemeProvider.themeOf(context).id ==
                                                                             'dark'
                                                                         ? Colors
                                                                             .white
@@ -918,16 +928,15 @@ class _TextPageViewState extends State<TextPageView>
                                                                           .readLess,
                                                                   buttonTextStyle:
                                                                       TextStyle(
-                                                                    fontSize: 12,
+                                                                    fontSize:
+                                                                        12,
                                                                     fontFamily:
                                                                         'kufi',
-                                                                    color: ThemeProvider.themeOf(context)
-                                                                                .id ==
+                                                                    color: ThemeProvider.themeOf(context).id ==
                                                                             'dark'
                                                                         ? Colors
                                                                             .white
-                                                                        : Theme.of(
-                                                                                context)
+                                                                        : Theme.of(context)
                                                                             .primaryColorLight,
                                                                   ),
                                                                   iconColor: ThemeProvider.themeOf(context)
@@ -955,18 +964,18 @@ class _TextPageViewState extends State<TextPageView>
                                               Align(
                                                 alignment: Alignment.topRight,
                                                 child: Padding(
-                                                  padding:
-                                                      const EdgeInsets.all(20.0),
+                                                  padding: const EdgeInsets.all(
+                                                      20.0),
                                                   child: juzNum(
-                                                    '${widget.surah!.ayahs![index].juz}',
-                                                    context,
-                                                    ThemeProvider.themeOf(context)
-                                                                .id ==
-                                                            'dark'
-                                                        ? Colors.white
-                                                        : Colors.black,
-                                                    25
-                                                  ),
+                                                      '${widget.surah!.ayahs![index].juz}',
+                                                      context,
+                                                      ThemeProvider.themeOf(
+                                                                      context)
+                                                                  .id ==
+                                                              'dark'
+                                                          ? Colors.white
+                                                          : Colors.black,
+                                                      25),
                                                 ),
                                               ),
                                             ],
@@ -975,7 +984,8 @@ class _TextPageViewState extends State<TextPageView>
                                             children: [
                                               GestureDetector(
                                                 onTap: () {
-                                                  TextCubit.controller.reverse();
+                                                  TextCubit.controller
+                                                      .reverse();
                                                   setState(() {
                                                     backColor =
                                                         Colors.transparent;
@@ -986,10 +996,10 @@ class _TextPageViewState extends State<TextPageView>
                                                 //   controller: TextCubit.scrollController!,
                                                 //   index: index,
                                                 child: Container(
-                                                  margin:
-                                                      const EdgeInsets.symmetric(
-                                                          horizontal: 16,
-                                                          vertical: 16),
+                                                  margin: const EdgeInsets
+                                                          .symmetric(
+                                                      horizontal: 16,
+                                                      vertical: 4),
                                                   width: MediaQuery.of(context)
                                                       .size
                                                       .width,
@@ -998,13 +1008,28 @@ class _TextPageViewState extends State<TextPageView>
                                                           .colorScheme
                                                           .background,
                                                       borderRadius:
-                                                          const BorderRadius.all(
+                                                          const BorderRadius
+                                                                  .all(
                                                               Radius.circular(
                                                                   8))),
                                                   child: Column(
                                                     children: [
-                                                      Center(
-                                                        child: spaceLine(20, MediaQuery.of(context).size.width / 1 / 2,),
+                                                      Padding(
+                                                        padding:
+                                                            const EdgeInsets
+                                                                    .symmetric(
+                                                                vertical: 16.0),
+                                                        child: Center(
+                                                          child: spaceLine(
+                                                            20,
+                                                            MediaQuery.of(
+                                                                        context)
+                                                                    .size
+                                                                    .width /
+                                                                1 /
+                                                                2,
+                                                          ),
+                                                        ),
                                                       ),
                                                       widget.surah!.number == 9
                                                           ? Container()
@@ -1014,12 +1039,14 @@ class _TextPageViewState extends State<TextPageView>
                                                                           index]
                                                                       .numberInSurah ==
                                                                   1
-                                                              ? besmAllah(context)
+                                                              ? besmAllah(
+                                                                  context)
                                                               : Container(),
                                                       Container(
-                                                        padding: const EdgeInsets
-                                                                .symmetric(
-                                                            horizontal: 32),
+                                                        padding:
+                                                            const EdgeInsets
+                                                                    .symmetric(
+                                                                horizontal: 32),
                                                         child:
                                                             SelectableText.rich(
                                                           showCursor: true,
@@ -1038,12 +1065,14 @@ class _TextPageViewState extends State<TextPageView>
                                                               TextAlign.justify,
                                                           TextSpan(
                                                             style: TextStyle(
-                                                                fontSize: TextPageView
-                                                                    .fontSizeArabic,
-                                                                backgroundColor: TextCubit
-                                                                        .bColor ??
-                                                                    Colors
-                                                                        .transparent,
+                                                                fontSize:
+                                                                    TextPageView
+                                                                        .fontSizeArabic,
+                                                                backgroundColor:
+                                                                    TextCubit
+                                                                            .bColor ??
+                                                                        Colors
+                                                                            .transparent,
                                                                 fontFamily:
                                                                     'uthmanic2'),
                                                             children:
@@ -1051,12 +1080,22 @@ class _TextPageViewState extends State<TextPageView>
                                                               return e;
                                                             }).toList(),
                                                           ),
-                                                              contextMenuBuilder: buildMyContextMenuText(notesCubit),
-                                                              onSelectionChanged: handleSelectionChangedText,
+                                                          contextMenuBuilder:
+                                                              buildMyContextMenuText(
+                                                                  notesCubit),
+                                                          onSelectionChanged:
+                                                              handleSelectionChangedText,
                                                         ),
                                                       ),
                                                       Center(
-                                                        child: spaceLine(20, MediaQuery.of(context).size.width / 1 / 2,),
+                                                        child: spaceLine(
+                                                          20,
+                                                          MediaQuery.of(context)
+                                                                  .size
+                                                                  .width /
+                                                              1 /
+                                                              2,
+                                                        ),
                                                       ),
                                                       Align(
                                                         alignment: Alignment
@@ -1079,20 +1118,20 @@ class _TextPageViewState extends State<TextPageView>
                                               Align(
                                                 alignment: Alignment.topRight,
                                                 child: Padding(
-                                                  padding:
-                                                      const EdgeInsets.symmetric(
-                                                          horizontal: 20.0,
-                                                          vertical: 25.0),
+                                                  padding: const EdgeInsets
+                                                          .symmetric(
+                                                      horizontal: 20.0,
+                                                      vertical: 25.0),
                                                   child: juzNum(
-                                                    '${TextCubit.juz}',
-                                                    context,
-                                                    ThemeProvider.themeOf(context)
-                                                                .id ==
-                                                            'dark'
-                                                        ? Colors.white
-                                                        : Colors.black,
-                                                    25
-                                                  ),
+                                                      '${TextCubit.juz}',
+                                                      context,
+                                                      ThemeProvider.themeOf(
+                                                                      context)
+                                                                  .id ==
+                                                              'dark'
+                                                          ? Colors.white
+                                                          : Colors.black,
+                                                      25),
                                                 ),
                                               )
                                             ],
@@ -1104,12 +1143,12 @@ class _TextPageViewState extends State<TextPageView>
                       ),
                       SlideTransition(
                           position: TextCubit.offset, child: AudioTextWidget()),
-                Align(
-                    alignment: Alignment.bottomCenter,
-                    child: TextSliding(
-                      myWidget1: const ShowTextTafseer(),
-                      cHeight: 110.0,
-                    )),
+                      Align(
+                          alignment: Alignment.bottomCenter,
+                          child: TextSliding(
+                            myWidget1: const ShowTextTafseer(),
+                            cHeight: 110.0,
+                          )),
                     ],
                   ),
                 ),
@@ -1124,12 +1163,13 @@ String textText = '';
 String textTitle = '';
 String? selectedTextT;
 
-void handleSelectionChangedText(TextSelection selection, SelectionChangedCause? cause) {
+void handleSelectionChangedText(
+    TextSelection selection, SelectionChangedCause? cause) {
   if (cause == SelectionChangedCause.longPress) {
     final characters = textText.characters;
     final start = characters.take(selection.start).length;
     final end = characters.take(selection.end).length;
-    final selectedText = textText.substring(start-1, end -1);
+    final selectedText = textText.substring(start - 1, end - 1);
 
     // setState(() {
     selectedTextT = selectedText;
@@ -1137,4 +1177,3 @@ void handleSelectionChangedText(TextSelection selection, SelectionChangedCause? 
     print(selectedText);
   }
 }
-

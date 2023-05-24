@@ -35,6 +35,7 @@ class _SplashScreenState extends State<SplashScreen> {
     QuranCubit.get(context).loadLang();
     QuranCubit.get(context).loadMCurrentPage();
     QuranCubit.get(context).loadTafseer();
+    QuranCubit.get(context).loadFontSize();
     print('cubit.showTaf ${QuranCubit.get(context).showTaf}');
     super.initState();
   }

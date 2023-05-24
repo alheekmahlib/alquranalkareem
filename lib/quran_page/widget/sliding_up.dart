@@ -34,7 +34,7 @@ class _SlidingState extends State<Sliding> with SingleTickerProviderStateMixin {
   @override
   void initState() {
     super.initState();
-    _panelController = SlidingUpPanelController();
+    QuranCubit.get(context).panelController = SlidingUpPanelController();
     // _animationController = AnimationController(
     //   vsync: this,
     //   duration: const Duration(seconds: 5),
@@ -43,7 +43,7 @@ class _SlidingState extends State<Sliding> with SingleTickerProviderStateMixin {
 
   @override
   void dispose() {
-    _panelController.dispose();
+    // QuranCubit.get(context).panelController.dispose();
     // _animationController.dispose();
     super.dispose();
   }
@@ -60,13 +60,13 @@ class _SlidingState extends State<Sliding> with SingleTickerProviderStateMixin {
         child: SlidingUpPanelWidget(
           controlHeight: widget.cHeight!,
           anchor: 7.0,
-          panelController: _panelController,
+          panelController: cubit.panelController,
           // animationController: _animationController,
           onTap: () {
-            if (SlidingUpPanelStatus.anchored == _panelController.status) {
-              _panelController.collapse();
+            if (SlidingUpPanelStatus.anchored == cubit.panelController.status) {
+              cubit.panelController.collapse();
             } else {
-              _panelController.anchor();
+              cubit.panelController.anchor();
             }
           },
           enableOnTap: false,
@@ -92,10 +92,10 @@ class _SlidingState extends State<Sliding> with SingleTickerProviderStateMixin {
               children: <Widget>[
                 GestureDetector(
                   onTap: () {
-                    if (SlidingUpPanelStatus.anchored == _panelController.status) {
-                      _panelController.collapse();
+                    if (SlidingUpPanelStatus.anchored == cubit.panelController.status) {
+                      cubit.panelController.collapse();
                     } else {
-                      _panelController.anchor();
+                      cubit.panelController.anchor();
                     }
                   },
                   child: Container(
@@ -183,7 +183,14 @@ class _TextSlidingState extends State<TextSliding> with SingleTickerProviderStat
     // _animationController.dispose();
     super.dispose();
   }
-
+  cancel() {
+    final cubit = context.read<QuranCubit>();
+    if (SlidingUpPanelStatus.hidden == cubit.panelTextController.status) {
+      cubit.panelTextController.expand();
+    } else {
+      cubit.panelTextController.hide();
+    }
+  }
   @override
   Widget build(BuildContext context) {
     final cubit = context.read<QuranCubit>();

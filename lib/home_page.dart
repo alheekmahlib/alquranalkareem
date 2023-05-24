@@ -39,14 +39,11 @@ List<Map<String, dynamic>> sentNotifications = [];
 class _HomePageState extends State<HomePage> {
   late NotifyHelper notifyHelper;
   DateTime now = DateTime.now();
-
-
   void setLocale(Locale value) {
     setState(() {
       QuranCubit.get(context).initialLang = value;
     });
   }
-
   final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
   FlutterLocalNotificationsPlugin();
   Timer? _timer;
@@ -91,7 +88,6 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-
   Future onDidReceiveLocalNotification(
       int id, String? title, String? body, String? payload) async {
     Get.dialog( Text(body!));
@@ -118,7 +114,6 @@ class _HomePageState extends State<HomePage> {
           android: AndroidNotificationDetails(
               'notificationIdChannel', 'notificationChannel', icon: '@drawable/ic_launcher'),
         ),
-        androidAllowWhileIdle: true,
         uiLocalNotificationDateInterpretation:
         UILocalNotificationDateInterpretation.absoluteTime,
         matchDateTimeComponents: DateTimeComponents.dayOfWeekAndTime,
@@ -151,20 +146,8 @@ class _HomePageState extends State<HomePage> {
     });
   }
 
-  // Future<BlogPost> fetchPostById(int postId) async {
-  //   final response =
-  //   await http.get(Uri.parse('https://alheekmahlib2.000webhostapp.com/wp-json/wp/v2/posts/$postId'));
-  //
-  //   if (response.statusCode == 200) {
-  //     final Map<String, dynamic> jsonResponse = jsonDecode(response.body);
-  //     return BlogPost.fromJson(jsonResponse);
-  //   } else {
-  //     throw Exception('Failed to load post');
-  //   }
-  // }
-
   Future<BlogPost> fetchPostById(int postId) async {
-    final response = await http.get(Uri.parse('https://github.com/alheekmahlib/thegarlanded/blob/master/noti.json?raw=true'));
+    final response = await http.get(Uri.parse('https://github.com/alheekmahlib/thegarlanded/blob/master/noti2.json?raw=true'));
 
     if (response.statusCode == 200) {
       final List<dynamic> jsonResponse = jsonDecode(response.body);
@@ -181,7 +164,6 @@ class _HomePageState extends State<HomePage> {
       throw Exception('Failed to load post');
     }
   }
-
 
   void startPeriodicTask() async {
     print('Task triggered on app start');
@@ -222,56 +204,6 @@ class _HomePageState extends State<HomePage> {
     await prefs.setInt('lastSeenPostId', newLastSeenPostId);
   }
 
-  // void startPeriodicTask({int timesADay = 12}) {
-  // void startPeriodicTask({int minutesInterval = 1}) {
-  //   print('Starting periodic task...');
-  //   // int hoursBetweenChecks =  timesADay;
-  //
-  //   _timer = Timer.periodic(Duration(minutes: minutesInterval), (timer) async {
-  //     print('Periodic task triggered');
-  //     final latestPosts = await fetchLatestPosts();
-  //     print('Latest posts: ${latestPosts.toString()}');
-  //     SharedPreferences prefs = await SharedPreferences.getInstance();
-  //     // Remove the following line to avoid clearing SharedPreferences
-  //     // await prefs.clear();
-  //     int lastSeenPostId = prefs.getInt('lastSeenPostId') ?? 0;
-  //
-  //     int newLastSeenPostId = lastSeenPostId;
-  //
-  //     for (var post in latestPosts) {
-  //       print("idddddddd  ${post}");
-  //       print('Checking post with id: ${post['id']} and title: ${post['title']}');
-  //       print('Post ID: ${post['id']}, lastSeenPostId: $lastSeenPostId');
-  //       if (post['id'] > lastSeenPostId) {
-  //         int reminderId = post['id'];
-  //         int hour = 10;
-  //         int minutes = 0;
-  //         String reminderName = post['title'];
-  //
-  //         print('Scheduling notification for post id: $reminderId, title: $reminderName');
-  //         await scheduledNotification(reminderId, hour, minutes, reminderName); // pass context here
-  //         print('Notification scheduled for post id: $reminderId, title: $reminderName');
-  //
-  //         // Save the notification data to the SQLite database
-  //         await NotificationDatabaseHelper.instance.insertNotification({
-  //           'id': reminderId,
-  //           'title': reminderName,
-  //           // Add other relevant columns if needed
-  //         });
-  //
-  //         // Display the notification immediately
-  //         // displayNotification(postId: post['id'], title: post['title'], body: 'New post is available.');
-  //
-  //         if (post['id'] > newLastSeenPostId) {
-  //           newLastSeenPostId = post['id'];
-  //         }
-  //       }
-  //     }
-  //
-  //     await prefs.setInt('lastSeenPostId', newLastSeenPostId);
-  //   });
-  // }
-
   displayNotification({
     required String title,
     required String body,
@@ -307,7 +239,7 @@ class _HomePageState extends State<HomePage> {
   }
 
   Future<List<Map<String, dynamic>>> fetchLatestPosts() async {
-    final response = await http.get(Uri.parse('https://github.com/alheekmahlib/thegarlanded/blob/master/noti.json?raw=true'));
+    final response = await http.get(Uri.parse('https://github.com/alheekmahlib/thegarlanded/blob/master/noti2.json?raw=true'));
 
     if (response.statusCode == 200) {
       if (response.body.isEmpty) {
@@ -334,31 +266,10 @@ class _HomePageState extends State<HomePage> {
     }
   }
 
-
-
-  // Future<List<Map<String, dynamic>>> fetchLatestPosts() async {
-  //   final response = await http.get(Uri.parse('https://alheekmahlib2.000webhostapp.com/wp-json/wp/v2/posts'));
-  //
-  //   if (response.statusCode == 200) {
-  //     List<dynamic> jsonResponse = json.decode(response.body);
-  //     List<Map<String, dynamic>> posts = jsonResponse.map((post) => {
-  //       'id': post['id'],
-  //       'title': post['title']['rendered'],
-  //     }).toList();
-  //
-  //     return posts;
-  //   } else {
-  //     print('Status code: ${response.statusCode}');
-  //     print('Error message: ${response.body}');
-  //     throw Exception('Failed to load posts');
-  //   }
-  // }
-
   Future<void> _initializeApp(BuildContext context) async {
     await initializeLocalNotifications(context);
     startPeriodicTask();
   }
-
 
   @override
   void initState() {
@@ -497,6 +408,4 @@ class _HomePageState extends State<HomePage> {
       );
     }));
   }
-
-
 }

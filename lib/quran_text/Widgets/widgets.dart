@@ -22,11 +22,17 @@ import '../text_page_view.dart';
 
 ArabicNumbers arabicNumber = ArabicNumbers();
 
-menu(BuildContext context, int b, index, var details, translateData, widget) {
+menu(BuildContext context, int b, index, var details, translateData, widget, nomPageF, nomPageL) {
   QuranTextCubit TextCubit = QuranTextCubit.get(context);
   QuranCubit cubit = QuranCubit.get(context);
+  bool? selectedValue;
+  if (TextCubit.value == 1) {
+    selectedValue = true;
+  } else if (TextCubit.value == 0) {
+    selectedValue = false;
+  }
 
-  var cancel = BotToast.showAttachedWidget(
+  var cancel = TextCubit.selected == selectedValue! ? BotToast.showAttachedWidget(
     target: details.globalPosition,
     verticalOffset: TextCubit.verticalOffset,
     horizontalOffset: TextCubit.horizontalOffset,
@@ -48,7 +54,7 @@ menu(BuildContext context, int b, index, var details, translateData, widget) {
               width: 40,
               decoration: const BoxDecoration(
                   color: Color(0xfff3efdf),
-                  borderRadius: BorderRadius.all(Radius.circular(50))),
+                  borderRadius: BorderRadius.all(Radius.circular(8))),
               child: FutureBuilder<List<Ayat>>(
                   future: cubit.handleRadioValueChanged(context, cubit.radioValue).getAyahTranslate(widget.number),
                   builder: (context, snapshot) {
@@ -63,6 +69,8 @@ menu(BuildContext context, int b, index, var details, translateData, widget) {
                             color: Color(0x99f5410a),
                           ),
                           onPressed: () {
+                            TextCubit.selected =
+                            !TextCubit.selected;
                             context.read<QuranTextCubit>().updateTextText(
                                 "${aya.ayatext}", "${aya.translate}");
                             if (SlidingUpPanelStatus.hidden ==
@@ -96,7 +104,7 @@ menu(BuildContext context, int b, index, var details, translateData, widget) {
               width: 40,
               decoration: const BoxDecoration(
                   color: Color(0xfff3efdf),
-                  borderRadius: BorderRadius.all(Radius.circular(50))),
+                  borderRadius: BorderRadius.all(Radius.circular(8))),
               child: IconButton(
                 icon: const Icon(
                   Icons.bookmark_border,
@@ -104,17 +112,22 @@ menu(BuildContext context, int b, index, var details, translateData, widget) {
                   color: Color(0x99f5410a),
                 ),
                 onPressed: () {
-                  print('ayah no ${widget.surah!.ayahs![b].numberInSurah}');
+                  TextCubit.selected =
+                  !TextCubit.selected;
                   TextCubit.addBookmarkText(
-                      widget.surah!.name!,
-                      widget.surah!.number!,
+                      widget.name!,
+                      widget.number!,
                       index == 0 ? index + 1 : index + 2,
                       // widget.surah!.ayahs![b].page,
-                      widget.nomPageF,
-                      widget.nomPageL,
+                      nomPageF,
+                      nomPageL,
                       TextCubit.lastRead)
                       .then((value) => customSnackBar(
                       context, AppLocalizations.of(context)!.addBookmark));
+                  print(widget.name!);
+                  print(widget.number!);
+                  print(nomPageF);
+                  print(nomPageL);
                   cancel();
                 },
               ),
@@ -127,7 +140,7 @@ menu(BuildContext context, int b, index, var details, translateData, widget) {
               width: 40,
               decoration: const BoxDecoration(
                   color: Color(0xfff3efdf),
-                  borderRadius: BorderRadius.all(Radius.circular(50))),
+                  borderRadius: BorderRadius.all(Radius.circular(8))),
               child: IconButton(
                 icon: const Icon(
                   Icons.copy_outlined,
@@ -135,10 +148,12 @@ menu(BuildContext context, int b, index, var details, translateData, widget) {
                   color: Color(0x99f5410a),
                 ),
                 onPressed: () {
+                  TextCubit.selected =
+                  !TextCubit.selected;
                   FlutterClipboard.copy(
-                    '﴿${widget.surah!.ayahs![b].text}﴾ '
-                        '[${widget.surah!.name}-'
-                        '${arabicNumber.convert(widget.surah!.ayahs![b].numberInSurah.toString())}]',
+                    '﴿${widget.ayahs![b].text}﴾ '
+                        '[${widget.name}-'
+                        '${arabicNumber.convert(widget.ayahs![b].numberInSurah.toString())}]',
                   ).then((value) => customSnackBar(
                       context, AppLocalizations.of(context)!.copyAyah));
                   cancel();
@@ -153,7 +168,7 @@ menu(BuildContext context, int b, index, var details, translateData, widget) {
               width: 40,
               decoration: const BoxDecoration(
                   color: Color(0xfff3efdf),
-                  borderRadius: BorderRadius.all(Radius.circular(50))),
+                  borderRadius: BorderRadius.all(Radius.circular(8))),
               child: IconButton(
                 icon: const Icon(
                   Icons.play_arrow_outlined,
@@ -161,6 +176,8 @@ menu(BuildContext context, int b, index, var details, translateData, widget) {
                   color: Color(0x99f5410a),
                 ),
                 onPressed: () {
+                  TextCubit.selected =
+                  !TextCubit.selected;
                   switch (TextCubit.controller.status) {
                     case AnimationStatus.dismissed:
                       TextCubit.controller.forward();
@@ -182,7 +199,7 @@ menu(BuildContext context, int b, index, var details, translateData, widget) {
               width: 40,
               decoration: const BoxDecoration(
                   color: Color(0xfff3efdf),
-                  borderRadius: BorderRadius.all(Radius.circular(50))),
+                  borderRadius: BorderRadius.all(Radius.circular(8))),
               child: IconButton(
                 icon: const Icon(
                   Icons.share_outlined,
@@ -190,16 +207,18 @@ menu(BuildContext context, int b, index, var details, translateData, widget) {
                   color: Color(0x99f5410a),
                 ),
                 onPressed: () {
+                  TextCubit.selected =
+                  !TextCubit.selected;
                   cubit.transIndex = TextCubit.transValue;
-                  final verseNumber = widget.surah!.ayahs![b].numberInSurah!;
+                  final verseNumber = widget.ayahs![b].numberInSurah!;
                   final translation = translateData?[verseNumber - 1]['text'];
                   QuranCubit.get(context).showVerseOptionsBottomSheet(
                       context,
                       verseNumber,
-                      widget.surah!.number,
-                      "${widget.surah!.ayahs![b].text}",
+                      widget.number,
+                      "${widget.ayahs![b].text}",
                       translation ?? '',
-                      widget.surah!.name);
+                      widget.name);
                   print("Verse Number: $verseNumber");
                   print("Translation: translation");
                   cancel();
@@ -210,7 +229,7 @@ menu(BuildContext context, int b, index, var details, translateData, widget) {
         ),
       ),
     ),
-  );
+  ) : null;
 }
 
 Widget fontSizeDropDown(BuildContext context, var setState) {
@@ -291,7 +310,7 @@ Widget fontSizeDropDown(BuildContext context, var setState) {
         decoration: BoxDecoration(
             color: Theme.of(context).colorScheme.surface.withOpacity(.9),
             borderRadius: const BorderRadius.all(Radius.circular(8))),
-        padding: const EdgeInsets.only(left: 14, right: 14),
+        padding: const EdgeInsets.only(left: 1, right: 1),
         maxHeight: 230,
         width: 230,
         elevation: 0,

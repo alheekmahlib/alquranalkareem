@@ -50,3 +50,8 @@ class TextUpdated extends QuranState {
 
   TextUpdated(this.translateAyah, this.translate);
 }
+class FontSizeUpdated extends QuranState {
+  final double fontSize;
+
+  FontSizeUpdated(this.fontSize);
+}
