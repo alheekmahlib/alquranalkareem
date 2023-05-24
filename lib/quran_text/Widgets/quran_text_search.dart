@@ -8,6 +8,7 @@ import 'package:theme_provider/theme_provider.dart';
 import '../../cubit/ayaRepository/aya_cubit.dart';
 import '../../l10n/app_localizations.dart';
 import '../../quran_page/data/model/aya.dart';
+import '../../shared/widgets/lottie.dart';
 import '../cubit/surah_text_cubit.dart';
 import '../model/QuranModel.dart';
 import '../text_page_view.dart';
@@ -89,8 +90,7 @@ class _QuranTextSearchState extends State<QuranTextSearch> {
           child: BlocBuilder<AyaCubit, AyaState>(
             builder: (context, state) {
               if (state is AyaLoading) {
-                return Lottie.asset('assets/lottie/search.json',
-                    width: 200, height: 200);
+                return search(200, 200);
               } else if (state is AyaLoaded) {
                 final List<Aya> ayahList = state.ayahList;
                 return Container(
@@ -294,7 +294,7 @@ class _QuranTextSearchState extends State<QuranTextSearch> {
                         : Lottie.asset('assets/lottie/search.json',
                             width: 200, height: 200));
               } else if (state is AyaError) {
-                return Text('Error: ${state.message}');
+                return notFound();
               }
               return Container(); // Fallback to an empty container.
             },

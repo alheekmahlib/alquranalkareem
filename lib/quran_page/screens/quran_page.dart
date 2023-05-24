@@ -43,6 +43,7 @@ class _MPagesState extends State<MPages> with SingleTickerProviderStateMixin {
       vsync: this,
     );
     QuranCubit.get(context).screenAnimation = Tween<double>(begin: 1, end: 0.95).animate(QuranCubit.get(context).screenController!);
+    // QuranCubit.get(context).loadFontSize();
     super.initState();
   }
 

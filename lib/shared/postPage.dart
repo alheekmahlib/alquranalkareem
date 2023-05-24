@@ -49,9 +49,12 @@ class _PostPageState extends State<PostPage> {
     // Add the Lottie animation if present
     if (post.isLottie) {
       widgets.add(
-          Lottie.network(post.lottie,
-          width: MediaQuery.of(context).size.width * .8,
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 16.0),
+            child: Lottie.network(post.lottie,
+            width: MediaQuery.of(context).size.width * .7,
 
+            ),
           ));
     }
 
@@ -75,43 +78,6 @@ class _PostPageState extends State<PostPage> {
   }
 
 
-  // Widget _buildHtmlWidgets(dom.Node node) {
-  //   if (node is dom.Element) {
-  //     if (node.localName == 'img') {
-  //       final src = node.attributes['src'];
-  //       if (src != null) {
-  //         final imageProvider = Image.network(src).image;
-  //         return GestureDetector(
-  //           onTap: () {
-  //             // WidgetsBinding.instance!.addPostFrameCallback((_) {
-  //               showImageViewer(context, imageProvider);
-  //             // });
-  //           },
-  //           child: Image.network(src),
-  //         );
-  //       }
-  //     } else {
-  //       return Wrap(
-  //         crossAxisAlignment: WrapCrossAlignment.center,
-  //         children: node.nodes.map(_buildHtmlWidgets).toList(),
-  //       );
-  //     }
-  //   } else if (node is dom.Text) {
-  //     return Text(
-  //       node.text,
-  //       style: TextStyle(
-  //         color: ThemeProvider.themeOf(context).id == 'dark'
-  //             ? Colors.white
-  //             : Colors.black,
-  //         height: 1.4,
-  //         fontFamily: 'kufi',
-  //         fontSize: 18,
-  //       ),
-  //       textAlign: TextAlign.center,
-  //     );
-  //   }
-  //   return SizedBox();
-  // }
 
   @override
   Widget build(BuildContext context) {

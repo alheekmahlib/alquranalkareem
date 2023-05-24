@@ -10,7 +10,6 @@ import 'package:arabic_numbers/arabic_numbers.dart';
 import 'package:clipboard/clipboard.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_sliding_up_panel/sliding_up_panel_widget.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:lottie/lottie.dart';
 import 'package:theme_provider/theme_provider.dart';
@@ -19,9 +18,12 @@ import '../../l10n/app_localizations.dart';
 import '../../notes/cubit/note_cubit.dart';
 import '../../quran_page/data/model/ayat.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
-
 import 'ayah_list.dart';
 
+
+double? isSelected;
+int? ayahSelected, ayahNumber, surahNumber;
+String? surahName;
 
 class ShowTafseer extends StatefulWidget {
   const ShowTafseer({Key? key}) : super(key: key);
@@ -42,9 +44,7 @@ class _ShowTafseerState extends State<ShowTafseer> {
   double upperValue = 40;
   String? selectedValue;
   double? sliderValue;
-  double? isSelected;
-  int? ayahSelected, ayahNumber, surahNumber;
-  String? surahName;
+
   // final NoteController _noteController = Get.put(NoteController());
 
   @override
@@ -64,276 +64,254 @@ class _ShowTafseerState extends State<ShowTafseer> {
   @override
   Widget build(BuildContext context) {
     QuranCubit cubit = QuranCubit.get(context);
-    return _showTafseer(cubit.cuMPage);
-  }
-
-  Widget _showTafseer(int pageNum) {
-    QuranCubit cubit = QuranCubit.get(context);
     NotesCubit notesCubit = NotesCubit.get(context);
     return Directionality(
       textDirection: TextDirection.rtl,
       child: Container(
         color: Theme.of(context).colorScheme.background,
-        child: FutureBuilder<List<Ayat>>(
-          builder: (context, snapshot) {
-            List<Ayat>? ayat = snapshot.data;
-
-            return Column(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: <Widget>[
+            Row(
               mainAxisSize: MainAxisSize.min,
-              children: <Widget>[
-                Row(
-                  mainAxisSize: MainAxisSize.min,
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    Expanded(
-                      flex: 2,
-                      child: Padding(
-                        padding: const EdgeInsets.only(left: 8.0, right: 16.0),
-                        child: Row(
-                          children: [
-                            Expanded(
-                              flex: 1,
-                              child: IconButton(
-                                icon: Icon(Icons.book,
-                                    size: 24,
-                                    color: Theme.of(context).colorScheme.surface),
-                                onPressed: () => tafseerDropDown(context),
-                              ),
-                            ),
-                            const SizedBox(
-                              width: 16,
-                            ),
-                            Expanded(
-                              flex: 1,
-                              child: fontSizeDropDown(context),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                    Expanded(flex: 7, child: ayahList(pageNum)),
-                  ],
-                ),
-                const Divider(
-                  height: 0,
-                  thickness: 3,
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      GestureDetector(
-                        onTap: () {
-                          if (ayahNumber == null) {
-                            customErrorSnackBar(
-                                context,
-                                AppLocalizations.of(context)!
-                                    .choiceAyah);
-                          } else {
-                            FlutterClipboard.copy(
-                              '﴿${cubit.translateAyah}﴾\n\n'
-                                  '${cubit.translate}',
-                            ).then((value) =>
-                                customSnackBar(
-                                    context,
-                                    AppLocalizations.of(
-                                        context)!
-                                        .copyTafseer));
-                          }
-                        },
-                        child: Align(
-                          alignment: Alignment.topCenter,
-                          child: Container(
-                            height: 30,
-                            width: 30,
-                            decoration: BoxDecoration(
-                                color: Theme.of(context)
-                                    .colorScheme
-                                    .background,
-                                borderRadius: const BorderRadius.only(
-                                  bottomRight: Radius.circular(8),
-                                  bottomLeft: Radius.circular(8),
-                                ),
-                                border: Border.all(
-                                    width: 2,
-                                    color: Theme.of(context).dividerColor)),
-                            child: Icon(
-                              Icons.copy_outlined,
-                              size: 18,
-                              color: Theme.of(context).colorScheme.surface,
-                            ),
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                Expanded(
+                  flex: 2,
+                  child: Padding(
+                    padding: const EdgeInsets.only(left: 8.0, right: 16.0),
+                    child: Row(
+                      children: [
+                        Expanded(
+                          flex: 1,
+                          child: IconButton(
+                            icon: Icon(Icons.book,
+                                size: 24,
+                                color: Theme.of(context).colorScheme.surface),
+                            onPressed: () => tafseerDropDown(context),
                           ),
                         ),
-                      ),
-                      const SizedBox(
-                        width: 8,
-                      ),
-                      GestureDetector(
-                        onTap: () {
-                          // cubit.radioValue == 3;
-                          cubit.shareTafseerValue = 1;
-                          if (ayahNumber == null) {
-                            customErrorSnackBar(
-                                context,
-                                AppLocalizations.of(context)!
-                                    .choiceAyah);
-                          } else if (cubit.radioValue == 3) {
-                          cubit.showVerseOptionsBottomSheet(
-                              context,
-                              0,
-                              surahNumber!,
-                              cubit.translateAyah,
-                              cubit.translate ?? '',
-                              surahName!);
-                          } else {
-                            cubit.showVerseOptionsBottomSheet(
-                                context,
-                                0,
-                                surahNumber!,
-                                cubit.translateAyah,
-                                '',
-                                surahName!);
-                          }
-                        },
-                        child: Align(
-                          alignment: Alignment.topCenter,
-                          child: Container(
-                            height: 30,
-                            width: 30,
-                            decoration: BoxDecoration(
-                                color: Theme.of(context)
-                                    .colorScheme
-                                    .background,
-                                borderRadius: const BorderRadius.only(
-                                  bottomRight: Radius.circular(8),
-                                  bottomLeft: Radius.circular(8),
-                                ),
-                                border: Border.all(
-                                    width: 2,
-                                    color: Theme.of(context).dividerColor)),
-                            child: Icon(
-                              Icons.share_outlined,
-                              size: 18,
-                              color: Theme.of(context).colorScheme.surface,
-                            ),
-                          ),
+                        const SizedBox(
+                          width: 16,
                         ),
-                      ),
-                    ],
-                  ),
-                ),
-                const SizedBox(
-                  height: 2,
-                ),
-                Flexible(
-                  flex: 4,
-                  child: Container(
-                    height: MediaQuery.of(context).size.height / 1 / 2 * 1.3,
-                    width: MediaQuery.of(context).size.width,
-                    color: Theme.of(context).colorScheme.background,
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(
-                          vertical: 8, horizontal: 16.0),
-                      child: ConstrainedBox(
-                        constraints: BoxConstraints(
-                          maxHeight: MediaQuery.of(context).size.height,
+                        Expanded(
+                          flex: 1,
+                          child: fontSizeDropDown(context),
                         ),
-                        child: Scrollbar(
-                          controller: _scrollController,
-                          child: SingleChildScrollView(
-                            controller: _scrollController,
-                            child: BlocBuilder<QuranCubit, QuranState>(
-                              builder: (context, state) {
-                                if (state is TextUpdated) {
-                                  allText = '﴿${state.translateAyah}﴾\n\n' + state.translate;
-                                  allTitle = '﴿${state.translateAyah}﴾';
-                                  return SelectableText.rich(
-                                    key: _selectableTextKey,
-                                    TextSpan(
-                                      children: <InlineSpan>[
-                                        TextSpan(
-                                          text: '﴿${state.translateAyah}﴾\n\n',
-                                          // cubit.translateAyah,
-                                          style: TextStyle(
-                                              color:
-                                              ThemeProvider.themeOf(context).id ==
-                                                  'dark'
-                                                  ? Colors.white
-                                                  : Colors.black,
-                                              fontWeight: FontWeight.w100,
-                                              height: 1.5,
-                                              fontFamily: 'uthmanic2',
-                                              fontSize: ShowTafseer.fontSizeArabic),
-                                        ),
-                                        WidgetSpan(
-                                          child: Center(
-                                            child: spaceLine(25, MediaQuery.of(context).size.width / 1 / 2,),
-                                          ),
-                                        ),
-                                        TextSpan(
-                                          text: state.translate,
-                                          style: TextStyle(
-                                              color:
-                                              ThemeProvider.themeOf(context).id ==
-                                                  'dark'
-                                                  ? Colors.white
-                                                  : Colors.black,
-                                              height: 1.5,
-                                              fontSize: ShowTafseer.fontSizeArabic
-                                            // fontSizeArabic
-                                          ),
-                                        ),
-                                        WidgetSpan(
-                                          child: Center(
-                                            child: spaceLine(25, MediaQuery.of(context).size.width / 1 / 2,),
-                                          ),
-                                        )
-                                        // TextSpan(text: 'world', style: TextStyle(fontWeight: FontWeight.bold)),
-                                      ],
-                                    ),
-                                    showCursor: true,
-                                    cursorWidth: 3,
-                                    cursorColor: Theme.of(context).dividerColor,
-                                    cursorRadius: const Radius.circular(5),
-                                    scrollPhysics: const ClampingScrollPhysics(),
-                                    textDirection: TextDirection.rtl,
-                                    textAlign: TextAlign.justify,
-                                    contextMenuBuilder: buildMyContextMenu(notesCubit),
-                                    onSelectionChanged: handleSelectionChanged,
-                                  );
-                                } else {
-                                  return Container(); // Or some other fallback widget
-                                }
-                              },
-                            ),
-                          ),
-                        ),
-                      ),
+                      ],
                     ),
                   ),
                 ),
-                const Divider(
-                  height: 0,
-                )
+                const Expanded(flex: 7, child: AyahList2()),
               ],
-            );
-          },
+            ),
+            const Divider(
+              height: 0,
+              thickness: 3,
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  GestureDetector(
+                    onTap: () {
+                      if (ayahNumber == null) {
+                        customErrorSnackBar(
+                            context,
+                            AppLocalizations.of(context)!
+                                .choiceAyah);
+                      } else {
+                        FlutterClipboard.copy(
+                          '﴿${cubit.translateAyah}﴾\n\n'
+                              '${cubit.translate}',
+                        ).then((value) =>
+                            customSnackBar(
+                                context,
+                                AppLocalizations.of(
+                                    context)!
+                                    .copyTafseer));
+                      }
+                    },
+                    child: Align(
+                      alignment: Alignment.topCenter,
+                      child: Container(
+                        height: 30,
+                        width: 30,
+                        decoration: BoxDecoration(
+                            color: Theme.of(context)
+                                .colorScheme
+                                .background,
+                            borderRadius: const BorderRadius.only(
+                              bottomRight: Radius.circular(8),
+                              bottomLeft: Radius.circular(8),
+                            ),
+                            border: Border.all(
+                                width: 2,
+                                color: Theme.of(context).dividerColor)),
+                        child: Icon(
+                          Icons.copy_outlined,
+                          size: 18,
+                          color: Theme.of(context).colorScheme.surface,
+                        ),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(
+                    width: 8,
+                  ),
+                  GestureDetector(
+                    onTap: () {
+                      // cubit.radioValue == 3;
+                      cubit.shareTafseerValue = 1;
+                      if (ayahNumber == null) {
+                        customErrorSnackBar(
+                            context,
+                            AppLocalizations.of(context)!
+                                .choiceAyah);
+                      } else if (cubit.radioValue == 3) {
+                        cubit.showVerseOptionsBottomSheet(
+                            context,
+                            0,
+                            surahNumber!,
+                            cubit.translateAyah,
+                            cubit.translate ?? '',
+                            surahName!);
+                      } else {
+                        cubit.showVerseOptionsBottomSheet(
+                            context,
+                            0,
+                            surahNumber!,
+                            cubit.translateAyah,
+                            '',
+                            surahName!);
+                      }
+                    },
+                    child: Align(
+                      alignment: Alignment.topCenter,
+                      child: Container(
+                        height: 30,
+                        width: 30,
+                        decoration: BoxDecoration(
+                            color: Theme.of(context)
+                                .colorScheme
+                                .background,
+                            borderRadius: const BorderRadius.only(
+                              bottomRight: Radius.circular(8),
+                              bottomLeft: Radius.circular(8),
+                            ),
+                            border: Border.all(
+                                width: 2,
+                                color: Theme.of(context).dividerColor)),
+                        child: Icon(
+                          Icons.share_outlined,
+                          size: 18,
+                          color: Theme.of(context).colorScheme.surface,
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            const SizedBox(
+              height: 2,
+            ),
+            Flexible(
+              flex: 4,
+              child: Container(
+                height: MediaQuery.of(context).size.height / 1 / 2 * 1.3,
+                width: MediaQuery.of(context).size.width,
+                color: Theme.of(context).colorScheme.background,
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(
+                      vertical: 8, horizontal: 16.0),
+                  child: ConstrainedBox(
+                    constraints: BoxConstraints(
+                      maxHeight: MediaQuery.of(context).size.height,
+                    ),
+                    child: Scrollbar(
+                      controller: _scrollController,
+                      child: SingleChildScrollView(
+                        controller: _scrollController,
+                        child: BlocBuilder<QuranCubit, QuranState>(
+                          // buildWhen: (previous, current) {
+                          //   // only rebuild if the state is TextUpdated
+                          //   return current is TextUpdated;
+                          // },
+                          builder: (context, state) {
+                            if (state is TextUpdated) {
+                              allText = '﴿${state.translateAyah}﴾\n\n' + state.translate;
+                              allTitle = '﴿${state.translateAyah}﴾';
+                              return SelectableText.rich(
+                                key: _selectableTextKey,
+                                TextSpan(
+                                  children: <InlineSpan>[
+                                    TextSpan(
+                                      text: '﴿${state.translateAyah}﴾\n\n',
+                                      style: TextStyle(
+                                          color: ThemeProvider.themeOf(context).id == 'dark'
+                                              ? Colors.white
+                                              : Colors.black,
+                                          fontWeight: FontWeight.w100,
+                                          height: 1.5,
+                                          fontFamily: 'uthmanic2',
+                                          fontSize: ShowTafseer.fontSizeArabic),
+                                    ),
+                                    WidgetSpan(
+                                      child: Center(
+                                        child: spaceLine(25, MediaQuery.of(context).size.width / 1 / 2),
+                                      ),
+                                    ),
+                                    TextSpan(
+                                      text: state.translate,
+                                      style: TextStyle(
+                                          color: ThemeProvider.themeOf(context).id == 'dark'
+                                              ? Colors.white
+                                              : Colors.black,
+                                          height: 1.5,
+                                          fontSize: ShowTafseer.fontSizeArabic),
+                                    ),
+                                    WidgetSpan(
+                                      child: Center(
+                                        child: spaceLine(25, MediaQuery.of(context).size.width / 1 / 2),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                showCursor: true,
+                                cursorWidth: 3,
+                                cursorColor: Theme.of(context).dividerColor,
+                                cursorRadius: const Radius.circular(5),
+                                scrollPhysics: const ClampingScrollPhysics(),
+                                textDirection: TextDirection.rtl,
+                                textAlign: TextAlign.justify,
+                                contextMenuBuilder: buildMyContextMenu(notesCubit),
+                                onSelectionChanged: handleSelectionChanged,
+                              );
+                            } else {
+                              return Container(); // Or some other fallback widget
+                            }
+                          },
+                        ),
+
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+            const Divider(
+              height: 0,
+            )
+          ],
         ),
       ),
     );
   }
 
-  // String reverseArabicText(String text) {
-  //   final reversedText = text.split('').reversed.join('');
-  //   return reversedText;
-  // }
-
   tafseerDropDown(BuildContext context) {
     QuranCubit cubit = QuranCubit.get(context);
-    final QuranCubit quranCubit = context.read<QuranCubit>();
-// Fetch the Ayat instances when needed
-    quranCubit.getTranslatedPage(cubit.cuMPage ?? 1, context);
     List<String> tafName = <String>[
       '${AppLocalizations.of(context)!.tafIbnkatheerN}',
       '${AppLocalizations.of(context)!.tafBaghawyN}',
@@ -392,118 +370,210 @@ class _ShowTafseerState extends State<ShowTafseer> {
             ),
             Padding(
               padding: const EdgeInsets.only(top: 90.0),
-              child: BlocBuilder<QuranCubit, QuranState>(
-                builder: (context, state) {
-                  if (state is AyaLoading) {
-                    return Center(
-                      child: Lottie.asset('assets/lottie/search.json',
-                          width: 100, height: 40),
-                    );
-                  } else if (state is AyaLoaded) {
-
-                    // Use the Ayat instance to build your UI
-                    return ListView.builder(
-                      itemCount: tafName.length,
-                      itemBuilder: (BuildContext context, int index) {
-                        Ayat? aya = quranCubit.getAyaByIndex(ayahNumber! - 1);
-                        // Ayat? aya = ayat![tafseerAyahNum];
-                        return Column(
-                          children: [
-                            Container(
-                              child: ListTile(
-                                title: Text(
-                                  tafName[index],
-                                  style: TextStyle(
-                                      color: cubit.radioValue == index
-                                          ? Theme.of(context).primaryColorLight
-                                          : const Color(0xffcdba72),
-                                      fontSize: 14,
-                                      fontFamily: 'kufi'
-                                  ),
-                                ),
-                                subtitle: Text(
-                                  tafD[index],
-                                  style: TextStyle(
-                                      color: cubit.radioValue == index
-                                          ? Theme.of(context).primaryColorLight
-                                          : const Color(0xffcdba72),
-                                      fontSize: 12,
-                                      fontFamily: 'kufi'
-                                  ),
-                                ),
-                                trailing: Container(
-                                  height: 20,
-                                  width: 20,
-                                  decoration: BoxDecoration(
-                                    borderRadius:
-                                    const BorderRadius.all(Radius.circular(2.0)),
-                                    border: Border.all(
+              child: FutureBuilder<List<Ayat>>(
+                  future: cubit
+                      .handleRadioValueChanged(context, cubit.radioValue)
+                      .getPageTranslate(cubit.cuMPage),
+                  builder: (context, snapshot) {
+                    if (snapshot.connectionState == ConnectionState.done) {
+                      List<Ayat>? ayat = snapshot.data;
+                      return ListView.builder(
+                        itemCount: tafName.length,
+                        itemBuilder: (BuildContext context, int index) {
+                          return Column(
+                            children: [
+                              Container(
+                                child: ListTile(
+                                  title: Text(
+                                    tafName[index],
+                                    style: TextStyle(
                                         color: cubit.radioValue == index
                                             ? Theme.of(context).primaryColorLight
                                             : const Color(0xffcdba72),
-                                        width: 2),
-                                    color: const Color(0xff39412a),
-                                  ),
-                                  child: cubit.radioValue == index
-                                      ? const Icon(Icons.done,
-                                      size: 14, color: Color(0xfffcbb76))
-                                      : null,
-                                ),
-                                onTap: () {
-                                  context.read<QuranCubit>().updateText("${aya!.ayatext}", "${aya.translate}");
-                                  // cubit.getNewTranslationAndNotify(context, ayahNumber! - 1);  // This is the new method you need to add
-                                  if (SlidingUpPanelStatus.hidden == cubit.panelTextController.status) {
-                                    cubit.panelTextController.expand();
-                                  } else {
-                                    cubit.panelTextController.hide();
-                                  }
-                                  setState(() {
-                                    cubit.translate = "${aya!.translate ?? ''}";
-                                  });
-                                  cubit.handleRadioValueChanged(context, index);
-                                  cubit.saveTafseer(index);
-                                  Navigator.pop(context);
-                                },
-                                leading: Container(
-                                    height: 85.0,
-                                    width: 41.0,
-                                    decoration: BoxDecoration(
-                                        shape: BoxShape.rectangle,
-                                        borderRadius: const BorderRadius.all(Radius.circular(4.0)),
-                                        border: Border.all(
-                                            color: Theme.of(context).dividerColor,
-                                            width: 2
-                                        )
+                                        fontSize: 14,
+                                        fontFamily: 'kufi'
                                     ),
-                                    child: SvgPicture.asset(
-                                      'assets/svg/tafseer_book.svg',
-                                      colorFilter: cubit.radioValue == index
-                                          ? null
-                                          : ColorFilter.mode(
-                                          Theme.of(context).canvasColor.withOpacity(.4),
-                                          BlendMode.lighten),
+                                  ),
+                                  subtitle: Text(
+                                    tafD[index],
+                                    style: TextStyle(
+                                        color: cubit.radioValue == index
+                                            ? Theme.of(context).primaryColorLight
+                                            : const Color(0xffcdba72),
+                                        fontSize: 12,
+                                        fontFamily: 'kufi'
+                                    ),
+                                  ),
+                                  trailing: Container(
+                                    height: 20,
+                                    width: 20,
+                                    decoration: BoxDecoration(
+                                      borderRadius:
+                                      const BorderRadius.all(Radius.circular(2.0)),
+                                      border: Border.all(
+                                          color: cubit.radioValue == index
+                                              ? Theme.of(context).primaryColorLight
+                                              : const Color(0xffcdba72),
+                                          width: 2),
+                                      color: const Color(0xff39412a),
+                                    ),
+                                    child: cubit.radioValue == index
+                                        ? const Icon(Icons.done,
+                                        size: 14, color: Color(0xfffcbb76))
+                                        : null,
+                                  ),
+                                  onTap: () {
+                                    cubit.getNewTranslationAndNotify(context, surahNumber!, ayahNumber!);
+                                    cubit.handleRadioValueChanged(context, index);
+                                    cubit.saveTafseer(index);
+                                    Navigator.pop(context);
+                                  },
+                                  leading: Container(
+                                      height: 85.0,
+                                      width: 41.0,
+                                      decoration: BoxDecoration(
+                                          shape: BoxShape.rectangle,
+                                          borderRadius: const BorderRadius.all(Radius.circular(4.0)),
+                                          border: Border.all(
+                                              color: Theme.of(context).dividerColor,
+                                              width: 2
+                                          )
+                                      ),
+                                      child: SvgPicture.asset(
+                                        'assets/svg/tafseer_book.svg',
+                                        colorFilter: cubit.radioValue == index
+                                            ? null
+                                            : ColorFilter.mode(
+                                            Theme.of(context).canvasColor.withOpacity(.4),
+                                            BlendMode.lighten),
+                                      )
+                                  ),
+                                ),
+                                decoration: BoxDecoration(
+                                    borderRadius: const BorderRadius.all(Radius.circular(8.0)),
+                                    border: Border.all(
+                                        color: Theme.of(context).dividerColor,
+                                        width: 1
                                     )
                                 ),
+                                margin: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 4.0),
                               ),
-                              decoration: BoxDecoration(
-                                  borderRadius: const BorderRadius.all(Radius.circular(8.0)),
-                                  border: Border.all(
-                                      color: Theme.of(context).dividerColor,
-                                      width: 1
-                                  )
-                              ),
-                              margin: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 4.0),
-                            ),
-                          ],
-                        );
-                      },
-                    );
-                  } else if (state is AyaError) {
-                  return Text('Error: ${state.message}');
-                  }
-                  return Container(); // Fallback to an empty container.
-                },
-              ),
+                            ],
+                          );
+                        },
+                      );
+                    } else {
+                      return Center(
+                          child: Lottie.asset('assets/lottie/search.json',
+                              width: 100, height: 40));
+                    }
+                  }),
+              // child: BlocBuilder<QuranCubit, QuranState>(
+              //   builder: (context, state) {
+              //     if (state is AyaLoading) {
+              //       return Center(
+              //         child: Lottie.asset('assets/lottie/search.json',
+              //             width: 100, height: 40),
+              //       );
+              //     } else if (state is AyaLoaded) {
+              //
+              //       // Use the Ayat instance to build your UI
+              //       return ListView.builder(
+              //         itemCount: tafName.length,
+              //         itemBuilder: (BuildContext context, int index) {
+              //           return Column(
+              //             children: [
+              //               Container(
+              //                 child: ListTile(
+              //                   title: Text(
+              //                     tafName[index],
+              //                     style: TextStyle(
+              //                         color: cubit.radioValue == index
+              //                             ? Theme.of(context).primaryColorLight
+              //                             : const Color(0xffcdba72),
+              //                         fontSize: 14,
+              //                         fontFamily: 'kufi'
+              //                     ),
+              //                   ),
+              //                   subtitle: Text(
+              //                     tafD[index],
+              //                     style: TextStyle(
+              //                         color: cubit.radioValue == index
+              //                             ? Theme.of(context).primaryColorLight
+              //                             : const Color(0xffcdba72),
+              //                         fontSize: 12,
+              //                         fontFamily: 'kufi'
+              //                     ),
+              //                   ),
+              //                   trailing: Container(
+              //                     height: 20,
+              //                     width: 20,
+              //                     decoration: BoxDecoration(
+              //                       borderRadius:
+              //                       const BorderRadius.all(Radius.circular(2.0)),
+              //                       border: Border.all(
+              //                           color: cubit.radioValue == index
+              //                               ? Theme.of(context).primaryColorLight
+              //                               : const Color(0xffcdba72),
+              //                           width: 2),
+              //                       color: const Color(0xff39412a),
+              //                     ),
+              //                     child: cubit.radioValue == index
+              //                         ? const Icon(Icons.done,
+              //                         size: 14, color: Color(0xfffcbb76))
+              //                         : null,
+              //                   ),
+              //                   onTap: () {
+              //                     if (SlidingUpPanelStatus.hidden == cubit.panelTextController.status) {
+              //                       cubit.panelTextController.expand();
+              //                     } else {
+              //                       cubit.panelTextController.hide();
+              //                     }
+              //                     cubit.getNewTranslationAndNotify(context, surahNumber!, ayahNumber!);
+              //                     cubit.handleRadioValueChanged(context, index);
+              //                     cubit.saveTafseer(index);
+              //                     Navigator.pop(context);
+              //                   },
+              //                   leading: Container(
+              //                       height: 85.0,
+              //                       width: 41.0,
+              //                       decoration: BoxDecoration(
+              //                           shape: BoxShape.rectangle,
+              //                           borderRadius: const BorderRadius.all(Radius.circular(4.0)),
+              //                           border: Border.all(
+              //                               color: Theme.of(context).dividerColor,
+              //                               width: 2
+              //                           )
+              //                       ),
+              //                       child: SvgPicture.asset(
+              //                         'assets/svg/tafseer_book.svg',
+              //                         colorFilter: cubit.radioValue == index
+              //                             ? null
+              //                             : ColorFilter.mode(
+              //                             Theme.of(context).canvasColor.withOpacity(.4),
+              //                             BlendMode.lighten),
+              //                       )
+              //                   ),
+              //                 ),
+              //                 decoration: BoxDecoration(
+              //                     borderRadius: const BorderRadius.all(Radius.circular(8.0)),
+              //                     border: Border.all(
+              //                         color: Theme.of(context).dividerColor,
+              //                         width: 1
+              //                     )
+              //                 ),
+              //                 margin: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 4.0),
+              //               ),
+              //             ],
+              //           );
+              //         },
+              //       );
+              //     } else if (state is AyaError) {
+              //     return Text('Error: ${state.message}');
+              //     }
+              //     return Container(); // Fallback to an empty container.
+              //   },
+              // ),
               // child: FutureBuilder<List<Ayat>>(
               //     future: cubit.handleRadioValueChanged(context, cubit.radioValue).getPageTranslate(cubit.cuMPage ?? 1),
               //     builder: (context, snapshot) {
@@ -684,7 +754,7 @@ class _ShowTafseerState extends State<ShowTafseer> {
       decoration: BoxDecoration(
           color: Theme.of(context).colorScheme.surface.withOpacity(.9),
           borderRadius: const BorderRadius.all(Radius.circular(8))),
-      padding: const EdgeInsets.only(left: 14, right: 14),
+      padding: const EdgeInsets.only(left: 1, right: 1),
       maxHeight: 230,
       width: 230,
       elevation: 0,
@@ -697,99 +767,6 @@ class _ShowTafseerState extends State<ShowTafseer> {
     menuItemStyleData: const MenuItemStyleData(
       height: 45,
     ),
-    );
-  }
-
-  Widget ayahList(pageNum) {
-    QuranCubit cubit = QuranCubit.get(context);
-    AudioCubit audioCubit = AudioCubit.get(context);
-    return ValueListenableBuilder<int>(
-        valueListenable: cubit.selectedTafseerIndex,
-        builder: (context, index, child) {
-        return FutureBuilder<List<Ayat>>(
-            future: cubit
-                .handleRadioValueChanged(context, cubit.radioValue)
-                .getPageTranslate(pageNum),
-            builder: (context, snapshot) {
-              if (snapshot.connectionState == ConnectionState.done) {
-                List<Ayat>? ayat = snapshot.data;
-                return Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: <Widget>[
-                    Container(
-                      height: 40,
-                      decoration: BoxDecoration(
-                          color: Theme.of(context).dividerColor.withOpacity(.2),
-                          borderRadius: const BorderRadius.only(
-                            topRight: Radius.circular(8),
-                            topLeft: Radius.circular(8),
-                          ),
-                          border: Border.all(
-                              color: Theme.of(context).dividerColor, width: 2)),
-                      child: Center(
-                        child: ListView.builder(
-                          padding: const EdgeInsets.symmetric(horizontal: 8),
-                          scrollDirection: Axis.horizontal,
-                          itemCount: ayat!.length,
-                          shrinkWrap: true,
-                          itemBuilder: (BuildContext context, index) {
-                            Ayat aya = ayat[index];
-                            return Opacity(
-                              opacity: isSelected == index ? 1.0 : .5,
-                              child: InkWell(
-                                onTap: () {
-                                  setState(() {
-                                    context.read<QuranCubit>().updateText("${aya.ayatext}", "${aya.translate}");
-                                    // cubit.getNewTranslationAndNotify(context, ayahNumber! - 1);
-                                    // cubit.translateAyah = "${aya.ayatext}";
-                                    // cubit.translate = "${aya.translate}";
-                                    print(aya.suraNum);
-                                    isSelected = index.toDouble();
-                                    ayahSelected = index;
-                                    ayahNumber = aya.ayaNum;
-                                    surahNumber = aya.suraNum;
-                                    surahName = aya.sura_name_ar;
-                                  });
-                                },
-                                child: Stack(
-                                  alignment: Alignment.center,
-                                  children: <Widget>[
-                                    Center(
-                                      child: SvgPicture.asset(
-                                        'assets/svg/ayah_no.svg',
-                                        width: 35,
-                                        height: 35,
-                                      ),
-                                    ),
-                                    Center(
-                                      child: Text(
-                                        "${arabicNumber.convert(aya.ayaNum)}",
-                                        // "1",
-                                        textAlign: TextAlign.center,
-                                        style: TextStyle(
-                                            color: Theme.of(context).primaryColor,
-                                            fontFamily: 'kufi',
-                                            fontWeight: FontWeight.w700,
-                                            fontSize: 11),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            );
-                          },
-                        ),
-                      ),
-                    ),
-                  ],
-                );
-              } else {
-                return Center(
-                    child: Lottie.asset('assets/lottie/search.json',
-                        width: 100, height: 40));
-              }
-            });
-      }
     );
   }
 }

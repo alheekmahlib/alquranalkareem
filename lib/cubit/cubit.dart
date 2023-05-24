@@ -100,10 +100,10 @@ class QuranCubit extends Cubit<QuranState> {
   }
 
   Future<void> getTranslatedPage(int pageNum, BuildContext context) async {
-    emit(AyaLoading());
+    // emit(AyaLoading());
     try {
       final ayahList = await handleRadioValueChanged(context, radioValue).getPageTranslate(pageNum);
-      emit(AyaLoaded(ayahList));
+      // emit(AyaLoaded(ayahList));
     } catch (e) {
       emit(AyaError("Error fetching Translated Page: $e"));
     }
@@ -129,10 +129,14 @@ class QuranCubit extends Cubit<QuranState> {
     emit(TranslationUpdatedState(translateAyah: newTranslateAyah, translate: newTranslate));
   }
 
-  void getNewTranslationAndNotify(BuildContext context, int selectedAyahNumber) async {
-    List<Ayat> ayat = await handleRadioValueChanged(context, radioValue).getAyahTranslate(selectedAyahNumber);  // Replace selectedAyahNumber with the number of the Ayah selected
-    Ayat aya = ayat[0];  // Assuming you want the first Ayah in the list
-    updateText("${aya.ayatext}", "${aya.translate}");  // This will emit a new TextTextUpdated state with the new translation
+  void getNewTranslationAndNotify(BuildContext context, int selectedSurahNumber, int selectedAyahNumber) async {
+    List<Ayat> ayahs = await handleRadioValueChanged(context, radioValue).getAyahTranslate(selectedSurahNumber);
+
+    // Now you have a list of ayahs of the Surah. Find the Ayah with the same number as the previously selected Ayah.
+    Ayat selectedAyah = ayahs.firstWhere((ayah) => ayah.ayaNum == selectedAyahNumber);
+
+    // Update the text with the Ayah text and its translation
+    updateText("${selectedAyah.ayatext}", "${selectedAyah.translate}");
   }
 
 
@@ -188,13 +192,13 @@ class QuranCubit extends Cubit<QuranState> {
   saveFontSize(double fontSizeArabic) async {
     SharedPreferences prefs = await _prefs;
     await prefs.setDouble("font_size", fontSizeArabic);
-    emit(SharedPreferencesState());
+    // emit(SharedPreferencesState());
   }
   loadFontSize() async {
     SharedPreferences prefs = await _prefs;
     ShowTafseer.fontSizeArabic = prefs.getDouble('font_size') ?? 18;
     print('get font size ${prefs.getDouble('font_size')}');
-    emit(SharedPreferencesState());
+    // emit(SharedPreferencesState());
   }
 
   // Save & Load Quran Text Font Size
@@ -464,7 +468,7 @@ class QuranCubit extends Cubit<QuranState> {
       surahNumber, String verseText) async {
     // Set a fixed canvas width
     const canvasWidth = 960.0;
-    const fixedWidth = canvasWidth;
+    // const fixedWidth = canvasWidth;
 
     final textPainter = TextPainter(
         text: TextSpan(
@@ -633,7 +637,7 @@ class QuranCubit extends Cubit<QuranState> {
     // }
     // Set a fixed canvas width
     const canvasWidth = 960.0;
-    const fixedWidth = canvasWidth;
+    // const fixedWidth = canvasWidth;
 
     final textPainter = TextPainter(
         text: TextSpan(

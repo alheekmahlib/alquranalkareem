@@ -36,12 +36,6 @@ class _MenuScreenState extends State<MenuScreen> {
     super.initState();
   }
 
-  @override
-  void dispose() {
-    QuranCubit.get(context).time;
-    super.dispose();
-  }
-
 
   @override
   Widget build(BuildContext context) {

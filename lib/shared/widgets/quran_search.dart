@@ -10,6 +10,7 @@ import '../../l10n/app_localizations.dart';
 import '../../quran_page/data/model/aya.dart';
 import '../../quran_text/cubit/surah_text_cubit.dart';
 import '../../quran_text/model/QuranModel.dart';
+import 'lottie.dart';
 
 
 class QuranSearch extends StatefulWidget {
@@ -88,8 +89,7 @@ class _QuranSearchState extends State<QuranSearch> {
           child: BlocBuilder<AyaCubit, AyaState>(
             builder: (context, state) {
               if (state is AyaLoading) {
-                return Lottie.asset('assets/lottie/search.json',
-                    width: 200, height: 200);
+                return search(200, 200);
               } else if (state is AyaLoaded) {
                 final List<Aya> ayahList = state.ayahList;
                 return Container(
@@ -274,7 +274,7 @@ class _QuranSearchState extends State<QuranSearch> {
                         : Lottie.asset('assets/lottie/search.json',
                             width: 200, height: 200));
               } else if (state is AyaError) {
-                return Text('Error: ${state.message}');
+                return notFound();
               }
               return Container(); // Fallback to an empty container.
             },

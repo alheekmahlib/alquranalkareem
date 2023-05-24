@@ -355,7 +355,7 @@ class _AzkarFavState extends State<AzkarFav> {
           decoration: BoxDecoration(
               color: Theme.of(context).colorScheme.surface.withOpacity(.9),
               borderRadius: const BorderRadius.all(Radius.circular(8))),
-          padding: const EdgeInsets.only(left: 14, right: 14),
+          padding: const EdgeInsets.only(left: 1, right: 1),
           maxHeight: 230,
           width: 230,
           elevation: 0,

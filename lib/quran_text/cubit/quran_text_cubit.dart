@@ -84,6 +84,26 @@ class QuranTextCubit extends Cubit<QuranTextState> {
   }
 
   /// Shared Preferences
+
+  // Save & Load Last Page For Quran Text
+  saveTextLastPlace(int textCurrentPage, String lastTime, sorahTextName) async {
+    textCurrentPage = TextPageView.textCurrentPage;
+    lastTime = TextPageView.lastTime;
+    sorahTextName = TextPageView.sorahTextName;
+    SharedPreferences prefService = await SharedPreferences.getInstance();
+    await prefService.setInt("last_page", textCurrentPage);
+    await prefService.setString("last_time", lastTime);
+    await prefService.setString("last_sorah_name", sorahTextName);
+  }
+
+  loadTextCurrentPage() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    TextPageView.textCurrentPage = prefs.getInt('last_page') ?? 1;
+    TextPageView.lastTime = prefs.getString('last_time') ?? '';
+    TextPageView.sorahTextName = prefs.getString('last_sorah_name') ?? '';
+    print('get ${prefs.getInt('last_page')}');
+  }
+
   // Save & Load Last Switch Page For Quran Text
   saveSwitchValue(int switchValue) async {
     SharedPreferences prefs = await _prefs;
@@ -122,6 +142,12 @@ class QuranTextCubit extends Cubit<QuranTextState> {
     print('translateـvalue $transValue');
     emit(SharedPreferencesState());
   }
+
+  textPageChanged(int textCurrentPage, String lastTime, sorahTextName) {
+    saveTextLastPlace(TextPageView.textCurrentPage, TextPageView.lastTime,
+        TextPageView.sorahTextName);
+  }
+
 
   changeSelectedIndex(newValue) {
 

@@ -217,7 +217,6 @@ class _ShowTextTafseerState extends State<ShowTextTafseer> {
                                                   : Colors.black,
                                               height: 1.5,
                                               fontSize: ShowTafseer.fontSizeArabic
-                                            // fontSizeArabic
                                           ),
                                         ),
                                         WidgetSpan(

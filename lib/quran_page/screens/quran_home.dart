@@ -41,7 +41,6 @@ class _QuranPageState extends State<QuranPage>
       curve: Curves.easeIn,
     ));
     NotificationDatabaseHelper.loadNotifications();
-
     super.initState();
   }
 
