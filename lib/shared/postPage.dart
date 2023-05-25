@@ -1,5 +1,6 @@
 
 import 'package:alquranalkareem/home_page.dart';
+import 'package:alquranalkareem/shared/widgets/lottie.dart';
 import 'package:alquranalkareem/shared/widgets/widgets.dart';
 import 'package:easy_image_viewer/easy_image_viewer.dart';
 import 'package:flutter/material.dart';
@@ -97,8 +98,7 @@ class _PostPageState extends State<PostPage> {
             builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
                 return Center(
-                  child: Lottie.asset('assets/lottie/loading.json',
-                      width: 200, height: 200),
+                  child: loadingLottie(200.0, 200.0),
                 );
               } else if (snapshot.hasError) {
                 return SelectableText('Error: ${snapshot.error}');

@@ -73,9 +73,9 @@ const String heroAddTodo = 'add-todo-hero';
 /// Uses a [Hero] with tag [_heroAddTodo].
 /// {@endtemplate}
 class settingsPopupCard extends StatelessWidget {
-  Widget child;
-  double height;
-  Alignment alignment;
+  final Widget child;
+  final double height;
+  final Alignment alignment;
   settingsPopupCard({Key? key, required this.child, required this.height, required this.alignment}) : super(key: key);
 
 
@@ -84,8 +84,10 @@ class settingsPopupCard extends StatelessWidget {
     return Align(
       alignment: alignment,
       child: Padding(
-        padding: const EdgeInsets.only(top: 70.0, right: 16.0, left: 16.0),
-        child: SizedBox(
+        padding: orientation(context,
+            const EdgeInsets.only(top: 130.0, right: 16.0, left: 16.0),
+            const EdgeInsets.only(top: 70.0, right: 350.0, left: 16.0)),
+        child: Container(
           height: height,
           width: 450,
           child: Hero(
@@ -100,14 +102,15 @@ class settingsPopupCard extends StatelessWidget {
               RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(8)),
               child: Stack(
+                fit: StackFit.passthrough,
                 children: [
-                  Align(
-                    alignment: Alignment.topRight,
-                    child: customClose(context),
-                  ),
                   Padding(
                     padding: const EdgeInsets.all(16.0),
                     child: child,
+                  ),
+                  Align(
+                    alignment: Alignment.topLeft,
+                    child: customClose(context),
                   ),
                 ],
               ),

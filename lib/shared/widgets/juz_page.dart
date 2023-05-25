@@ -59,7 +59,7 @@ class _QuranJuzState extends State<QuranJuz>
                                   Padding(
                                     padding: const EdgeInsets.symmetric(
                                         vertical: 8, horizontal: 8),
-                                    child: juzNum(
+                                    child: juzNum2(
                                       '${showData[index]['index']}',
                                       context,
                                       ThemeProvider.themeOf(context)
@@ -109,6 +109,7 @@ class _QuranJuzState extends State<QuranJuz>
                                                             .canvasColor
                                                         : Theme.of(context)
                                                             .primaryColorDark,
+                                                    backgroundColor: Theme.of(context).colorScheme.surface.withOpacity(.2)
                                                   ),
                                                   text:
                                                       '﴿${showData[index]['start']['ayatext']}﴾',
@@ -159,6 +160,7 @@ class _QuranJuzState extends State<QuranJuz>
                                                             .canvasColor
                                                         : Theme.of(context)
                                                             .primaryColorDark,
+                                                      backgroundColor: Theme.of(context).colorScheme.surface.withOpacity(.2)
                                                   ),
                                                   text:
                                                       '﴿${showData[index]['end']['ayatext']}﴾',

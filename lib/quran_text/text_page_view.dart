@@ -18,6 +18,7 @@ import '../shared/widgets/lottie.dart';
 import '../shared/widgets/show_tafseer.dart';
 import '../shared/widgets/svg_picture.dart';
 import '../shared/widgets/widgets.dart';
+import '../shared/word_selectable_text.dart';
 import 'Widgets/audio_text_widget.dart';
 import 'Widgets/show_text_tafseer.dart';
 import 'Widgets/text_overflow_detector.dart';
@@ -1046,6 +1047,46 @@ class _TextPageViewState extends State<TextPageView>
                                                             const EdgeInsets
                                                                     .symmetric(
                                                                 horizontal: 32),
+                                                        // child: WordSelectableText(
+                                                        //     selectable:  true,
+                                                        //     highlight:  true,
+                                                        //
+                                                        //     text: text.map((e) {
+                                                        //       return e;
+                                                        //     }).toList(),
+                                                        //     onWordTapped: (word, index) {},
+                                                        //     style: TextStyle(
+                                                        //       fontSize:
+                                                        //       TextPageView
+                                                        //           .fontSizeArabic,
+                                                        //       fontWeight:
+                                                        //       FontWeight
+                                                        //           .normal,
+                                                        //       fontFamily:
+                                                        //       'uthmanic2',
+                                                        //       color: ThemeProvider.themeOf(context)
+                                                        //           .id ==
+                                                        //           'dark'
+                                                        //           ? Colors
+                                                        //           .white
+                                                        //           : Colors
+                                                        //           .black,
+                                                        //       background:
+                                                        //       Paint()
+                                                        //         ..color = index ==
+                                                        //             TextCubit.isSelected
+                                                        //             ? backColor
+                                                        //             : Colors.transparent
+                                                        //         ..strokeJoin =
+                                                        //             StrokeJoin
+                                                        //                 .round
+                                                        //         ..strokeCap =
+                                                        //             StrokeCap
+                                                        //                 .round
+                                                        //         ..style =
+                                                        //             PaintingStyle
+                                                        //                 .fill,
+                                                        //     ),),
                                                         child:
                                                             SelectableText.rich(
                                                           showCursor: true,

@@ -7,6 +7,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
 import 'package:theme_provider/theme_provider.dart';
+import '../../shared/widgets/lottie.dart';
 import '../cubit/quran_text_cubit.dart';
 import '../cubit/surah_text_cubit.dart';
 import '../model/QuranModel.dart';
@@ -48,15 +49,13 @@ class _BookmarksTextListState extends State<BookmarksTextList> {
         Expanded(
           child: Obx(() {
             if (bookmarksCubit.bookmarksTextController.BookmarkList.isEmpty) {
-              return Lottie.asset('assets/lottie/bookmarks.json',
-                  width: 150, height: 150);
+              return bookmarks(150.0, 150.0);
             } else {
               return BlocBuilder<SurahTextCubit, List<SurahText>?>(
                 builder: (context, state) {
                   if (state == null) {
                     return Center(
-                      child: Lottie.asset('assets/lottie/loading.json',
-                          width: 200, height: 200),
+                      child: loadingLottie(200.0, 200.0),
                     );
                   }
                   return ListView.builder(

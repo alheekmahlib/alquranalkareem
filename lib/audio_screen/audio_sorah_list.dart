@@ -27,7 +27,7 @@ import '../cubit/sorahRepository/sorah_repository_cubit.dart';
 import '../quran_page/cubit/audio/cubit.dart';
 import '../shared/widgets/svg_picture.dart';
 import '../shared/widgets/widgets.dart';
-
+import '../../shared/widgets/lottie.dart';
 
 
 class AudioSorahList extends StatefulWidget {
@@ -796,8 +796,7 @@ class _AudioSorahListState extends State<AudioSorahList>
                                                 alignment: Alignment.center,
                                                 children: [
                                                   if (loading)
-                                                    Lottie.asset('assets/lottie/play_button.json',
-                                                        width: 20, height: 20),
+                                                    playButtonLottie(20.0, 20.0),
                                                   if (!loading)
                                                     Icon(
                                                       isPlayOnline ? Icons.pause : Icons.online_prediction_outlined,
@@ -1544,8 +1543,7 @@ class _AudioSorahListState extends State<AudioSorahList>
                                               alignment: Alignment.center,
                                               children: [
                                                 if (loading)
-                                                  Lottie.asset('assets/lottie/play_button.json',
-                                                      width: 20, height: 20),
+                                                  playButtonLottie(20.0, 20.0),
                                                 if (!loading)
                                                   Icon(
                                                     isPlayOnline ? Icons.pause : Icons.online_prediction_outlined,
@@ -1807,10 +1805,7 @@ class _AudioSorahListState extends State<AudioSorahList>
       builder: (context, state) {
         if (state == null) {
           return Center(
-            child: Lottie.asset(
-                'assets/lottie/loading.json',
-                width: 200,
-                height: 200),
+            child: loadingLottie(200.0, 200.0),
           );
         }
     return Padding(

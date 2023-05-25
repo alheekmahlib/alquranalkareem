@@ -10,6 +10,7 @@ import '../../cubit/sorahRepository/sorah_repository_cubit.dart';
 import '../../l10n/app_localizations.dart';
 import '../../quran_page/data/model/sorah.dart';
 import '../../quran_page/data/repository/sorah_repository.dart';
+import 'lottie.dart';
 
 class SorahList extends StatefulWidget {
   const SorahList({super.key});
@@ -50,10 +51,7 @@ class _SorahListState extends State<SorahList>
                         builder: (context, state) {
                           if (state == null) {
                             return Center(
-                              child: Lottie.asset(
-                                  'assets/lottie/loading.json',
-                                  width: 200,
-                                  height: 200),
+                              child: loadingLottie(200.0, 200.0),
                             );
                           }
                           return ListView.builder(

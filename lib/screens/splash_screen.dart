@@ -19,6 +19,7 @@ import '../quran_page/cubit/bookmarks/bookmarks_cubit.dart';
 import '../quran_page/data/repository/quarter_repository.dart';
 import '../quran_text/cubit/quran_text_cubit.dart';
 import '../quran_text/cubit/surah_text_cubit.dart';
+import '../shared/widgets/lottie.dart';
 
 class SplashScreen extends StatefulWidget {
   @override
@@ -144,9 +145,7 @@ class _SplashScreenState extends State<SplashScreen> {
                       ),
                       RotatedBox(
                         quarterTurns: 2,
-                        child: Lottie.asset(
-                            'assets/lottie/splash_loading.json',
-                            width: 140),
+                        child: loading(140.0, 30.0),
                       ),
                     ],
                   ),

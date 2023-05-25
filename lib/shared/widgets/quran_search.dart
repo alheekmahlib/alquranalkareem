@@ -98,10 +98,7 @@ class _QuranSearchState extends State<QuranSearch> {
                             builder: (context, state) {
                               if (state == null) {
                                 return Center(
-                                  child: Lottie.asset(
-                                      'assets/lottie/loading.json',
-                                      width: 200,
-                                      height: 200),
+                                  child: loadingLottie(200.0, 200.0),
                                 );
                               }
                               return ListView.builder(

@@ -329,14 +329,6 @@ class SettingsList extends StatelessWidget {
         Center(
           child: spaceLine(30, MediaQuery.of(context).size.width * 3 / 4,),
         ),
-        // Flexible(
-        //   flex: 1,
-        //   child: ListView(
-        //     children: [
-        //
-        //     ],
-        //   ),
-        // ),
       ],
     );
   }

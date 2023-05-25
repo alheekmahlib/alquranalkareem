@@ -10,6 +10,8 @@ import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
 import 'package:theme_provider/theme_provider.dart';
 
+import 'lottie.dart';
+
 class BookmarksList extends StatefulWidget {
   const BookmarksList({Key? key}) : super(key: key);
 
@@ -43,8 +45,7 @@ class _BookmarksListState extends State<BookmarksList> {
         Expanded(
           child: Obx(() {
             if (bookmarksCubit.bookmarksController.bookmarksList.isEmpty) {
-              return Lottie.asset('assets/lottie/bookmarks.json',
-                  width: 150, height: 150);
+              return bookmarks(150.0, 150.0);
             } else {
               return AnimationLimiter(
                 child: Align(
