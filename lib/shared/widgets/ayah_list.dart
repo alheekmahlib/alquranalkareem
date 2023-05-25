@@ -8,7 +8,7 @@ import 'package:theme_provider/theme_provider.dart';
 import '../../cubit/cubit.dart';
 import '../../quran_page/cubit/audio/cubit.dart';
 import '../../quran_page/data/model/ayat.dart';
-
+import 'lottie.dart';
 
 class AyahList extends StatefulWidget {
   int? pageNum;
@@ -32,18 +32,29 @@ class _AyahListState extends State<AyahList> {
   var fetched;
 
   Future<List<Ayat>> pageTranslate() async {
-    if (QuranCubit.get(context).handleRadioValueChanged(context, QuranCubit.get(context).radioValue).getPageTranslate(widget.pageNum!) == null) {
-      return QuranCubit.get(context).handleRadioValueChanged(context, QuranCubit.get(context).radioValue).getPageTranslate(widget.pageNum!);
+    if (QuranCubit.get(context)
+            .handleRadioValueChanged(
+                context, QuranCubit.get(context).radioValue)
+            .getPageTranslate(widget.pageNum!) ==
+        null) {
+      return QuranCubit.get(context)
+          .handleRadioValueChanged(context, QuranCubit.get(context).radioValue)
+          .getPageTranslate(widget.pageNum!);
     } else {
-      return QuranCubit.get(context).handleRadioValueChanged(context, QuranCubit.get(context).radioValue).getPageTranslate(widget.pageNum!);
+      return QuranCubit.get(context)
+          .handleRadioValueChanged(context, QuranCubit.get(context).radioValue)
+          .getPageTranslate(widget.pageNum!);
     }
   }
+
   @override
   Widget build(BuildContext context) {
     QuranCubit cubit = QuranCubit.get(context);
     AudioCubit audioCubit = AudioCubit.get(context);
     return FutureBuilder<List<Ayat>>(
-        future: cubit.handleRadioValueChanged(context, cubit.radioValue).getPageTranslate(widget.pageNum ?? 1),
+        future: cubit
+            .handleRadioValueChanged(context, cubit.radioValue)
+            .getPageTranslate(widget.pageNum ?? 1),
         builder: (context, snapshot) {
           if (snapshot.connectionState == snapshot.connectionState) {
             List<Ayat>? ayat = snapshot.data;
@@ -119,8 +130,7 @@ class _AyahListState extends State<AyahList> {
             );
           } else {
             return Center(
-              child: Lottie.asset('assets/lottie/search.json',
-                  width: 100, height: 40),
+              child: search(100.0, 40.0),
             );
           }
         });
@@ -178,7 +188,8 @@ class _AyahList2State extends State<AyahList2> {
                                 // context.read<QuranCubit>().updateText("${aya.ayatext}", "${aya.translate}");
                                 // context.read<QuranCubit>().getNewTranslationAndNotify(context, aya.suraNum!, aya.ayaNum!);
                                 // print("${aya.ayatext} ${aya.translate}");
-                                cubit.getNewTranslationAndNotify(context, aya.suraNum!, aya.ayaNum!);
+                                cubit.getNewTranslationAndNotify(
+                                    context, aya.suraNum!, aya.ayaNum!);
                                 // cubit.translateAyah = "${aya.ayatext}";
                                 // cubit.translate = "${aya.translate}";
                                 print(aya.suraNum);
@@ -222,11 +233,8 @@ class _AyahList2State extends State<AyahList2> {
               ],
             );
           } else {
-            return Center(
-                child: Lottie.asset('assets/lottie/search.json',
-                    width: 100, height: 40));
+            return Center(child: search(100.0, 40.0));
           }
         });
   }
 }
-

@@ -89,7 +89,7 @@ class _QuranSearchState extends State<QuranSearch> {
           child: BlocBuilder<AyaCubit, AyaState>(
             builder: (context, state) {
               if (state is AyaLoading) {
-                return search(200, 200);
+                return search(200.0, 200.0);
               } else if (state is AyaLoaded) {
                 final List<Aya> ayahList = state.ayahList;
                 return Container(

@@ -19,7 +19,7 @@ import '../../notes/cubit/note_cubit.dart';
 import '../../quran_page/data/model/ayat.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'ayah_list.dart';
-
+import 'lottie.dart';
 
 double? isSelected;
 int? ayahSelected, ayahNumber, surahNumber;
@@ -36,7 +36,8 @@ class ShowTafseer extends StatefulWidget {
 
 class _ShowTafseerState extends State<ShowTafseer> {
   final ScrollController _scrollController = ScrollController();
-  final GlobalKey<_ShowTafseerState> _selectableTextKey = GlobalKey<_ShowTafseerState>();
+  final GlobalKey<_ShowTafseerState> _selectableTextKey =
+      GlobalKey<_ShowTafseerState>();
   ArabicNumbers arabicNumber = ArabicNumbers();
   int pageNum = 0;
   int radioValue = 0;
@@ -118,19 +119,13 @@ class _ShowTafseerState extends State<ShowTafseer> {
                     onTap: () {
                       if (ayahNumber == null) {
                         customErrorSnackBar(
-                            context,
-                            AppLocalizations.of(context)!
-                                .choiceAyah);
+                            context, AppLocalizations.of(context)!.choiceAyah);
                       } else {
                         FlutterClipboard.copy(
                           '﴿${cubit.translateAyah}﴾\n\n'
-                              '${cubit.translate}',
-                        ).then((value) =>
-                            customSnackBar(
-                                context,
-                                AppLocalizations.of(
-                                    context)!
-                                    .copyTafseer));
+                          '${cubit.translate}',
+                        ).then((value) => customSnackBar(context,
+                            AppLocalizations.of(context)!.copyTafseer));
                       }
                     },
                     child: Align(
@@ -139,9 +134,7 @@ class _ShowTafseerState extends State<ShowTafseer> {
                         height: 30,
                         width: 30,
                         decoration: BoxDecoration(
-                            color: Theme.of(context)
-                                .colorScheme
-                                .background,
+                            color: Theme.of(context).colorScheme.background,
                             borderRadius: const BorderRadius.only(
                               bottomRight: Radius.circular(8),
                               bottomLeft: Radius.circular(8),
@@ -166,9 +159,7 @@ class _ShowTafseerState extends State<ShowTafseer> {
                       cubit.shareTafseerValue = 1;
                       if (ayahNumber == null) {
                         customErrorSnackBar(
-                            context,
-                            AppLocalizations.of(context)!
-                                .choiceAyah);
+                            context, AppLocalizations.of(context)!.choiceAyah);
                       } else if (cubit.radioValue == 3) {
                         cubit.showVerseOptionsBottomSheet(
                             context,
@@ -178,13 +169,8 @@ class _ShowTafseerState extends State<ShowTafseer> {
                             cubit.translate ?? '',
                             surahName!);
                       } else {
-                        cubit.showVerseOptionsBottomSheet(
-                            context,
-                            0,
-                            surahNumber!,
-                            cubit.translateAyah,
-                            '',
-                            surahName!);
+                        cubit.showVerseOptionsBottomSheet(context, 0,
+                            surahNumber!, cubit.translateAyah, '', surahName!);
                       }
                     },
                     child: Align(
@@ -193,9 +179,7 @@ class _ShowTafseerState extends State<ShowTafseer> {
                         height: 30,
                         width: 30,
                         decoration: BoxDecoration(
-                            color: Theme.of(context)
-                                .colorScheme
-                                .background,
+                            color: Theme.of(context).colorScheme.background,
                             borderRadius: const BorderRadius.only(
                               bottomRight: Radius.circular(8),
                               bottomLeft: Radius.circular(8),
@@ -224,8 +208,8 @@ class _ShowTafseerState extends State<ShowTafseer> {
                 width: MediaQuery.of(context).size.width,
                 color: Theme.of(context).colorScheme.background,
                 child: Padding(
-                  padding: const EdgeInsets.symmetric(
-                      vertical: 8, horizontal: 16.0),
+                  padding:
+                      const EdgeInsets.symmetric(vertical: 8, horizontal: 16.0),
                   child: ConstrainedBox(
                     constraints: BoxConstraints(
                       maxHeight: MediaQuery.of(context).size.height,
@@ -241,7 +225,8 @@ class _ShowTafseerState extends State<ShowTafseer> {
                           // },
                           builder: (context, state) {
                             if (state is TextUpdated) {
-                              allText = '﴿${state.translateAyah}﴾\n\n' + state.translate;
+                              allText = '﴿${state.translateAyah}﴾\n\n' +
+                                  state.translate;
                               allTitle = '﴿${state.translateAyah}﴾';
                               return SelectableText.rich(
                                 key: _selectableTextKey,
@@ -250,7 +235,9 @@ class _ShowTafseerState extends State<ShowTafseer> {
                                     TextSpan(
                                       text: '﴿${state.translateAyah}﴾\n\n',
                                       style: TextStyle(
-                                          color: ThemeProvider.themeOf(context).id == 'dark'
+                                          color: ThemeProvider.themeOf(context)
+                                                      .id ==
+                                                  'dark'
                                               ? Colors.white
                                               : Colors.black,
                                           fontWeight: FontWeight.w100,
@@ -260,13 +247,19 @@ class _ShowTafseerState extends State<ShowTafseer> {
                                     ),
                                     WidgetSpan(
                                       child: Center(
-                                        child: spaceLine(25, MediaQuery.of(context).size.width / 1 / 2),
+                                        child: spaceLine(
+                                            25,
+                                            MediaQuery.of(context).size.width /
+                                                1 /
+                                                2),
                                       ),
                                     ),
                                     TextSpan(
                                       text: state.translate,
                                       style: TextStyle(
-                                          color: ThemeProvider.themeOf(context).id == 'dark'
+                                          color: ThemeProvider.themeOf(context)
+                                                      .id ==
+                                                  'dark'
                                               ? Colors.white
                                               : Colors.black,
                                           height: 1.5,
@@ -274,7 +267,11 @@ class _ShowTafseerState extends State<ShowTafseer> {
                                     ),
                                     WidgetSpan(
                                       child: Center(
-                                        child: spaceLine(25, MediaQuery.of(context).size.width / 1 / 2),
+                                        child: spaceLine(
+                                            25,
+                                            MediaQuery.of(context).size.width /
+                                                1 /
+                                                2),
                                       ),
                                     ),
                                   ],
@@ -286,7 +283,8 @@ class _ShowTafseerState extends State<ShowTafseer> {
                                 scrollPhysics: const ClampingScrollPhysics(),
                                 textDirection: TextDirection.rtl,
                                 textAlign: TextAlign.justify,
-                                contextMenuBuilder: buildMyContextMenu(notesCubit),
+                                contextMenuBuilder:
+                                    buildMyContextMenu(notesCubit),
                                 onSelectionChanged: handleSelectionChanged,
                               );
                             } else {
@@ -294,7 +292,6 @@ class _ShowTafseerState extends State<ShowTafseer> {
                             }
                           },
                         ),
-
                       ),
                     ),
                   ),
@@ -326,8 +323,9 @@ class _ShowTafseerState extends State<ShowTafseer> {
       '${AppLocalizations.of(context)!.tafSaadiD}',
       '${AppLocalizations.of(context)!.tafTabariD}',
     ];
-    dropDownModalBottomSheet(context,
-      MediaQuery.of(context).size.height / 1/2,
+    dropDownModalBottomSheet(
+      context,
+      MediaQuery.of(context).size.height / 1 / 2,
       MediaQuery.of(context).size.width,
       Padding(
         padding: const EdgeInsets.symmetric(vertical: 8.0),
@@ -342,15 +340,12 @@ class _ShowTafseerState extends State<ShowTafseer> {
                   width: 30,
                   margin: const EdgeInsets.all(16.0),
                   decoration: BoxDecoration(
-                      color: Theme.of(context)
-                          .colorScheme
-                          .background,
+                      color: Theme.of(context).colorScheme.background,
                       borderRadius: const BorderRadius.all(
                         Radius.circular(8),
                       ),
                       border: Border.all(
-                          width: 2,
-                          color: Theme.of(context).dividerColor)),
+                          width: 2, color: Theme.of(context).dividerColor)),
                   child: Icon(
                     Icons.close_outlined,
                     color: Theme.of(context).colorScheme.surface,
@@ -365,8 +360,7 @@ class _ShowTafseerState extends State<ShowTafseer> {
                   child: SvgPicture.asset(
                     'assets/svg/tafseer.svg',
                     height: 50,
-                  )
-              ),
+                  )),
             ),
             Padding(
               padding: const EdgeInsets.only(top: 90.0),
@@ -388,43 +382,46 @@ class _ShowTafseerState extends State<ShowTafseer> {
                                     tafName[index],
                                     style: TextStyle(
                                         color: cubit.radioValue == index
-                                            ? Theme.of(context).primaryColorLight
+                                            ? Theme.of(context)
+                                                .primaryColorLight
                                             : const Color(0xffcdba72),
                                         fontSize: 14,
-                                        fontFamily: 'kufi'
-                                    ),
+                                        fontFamily: 'kufi'),
                                   ),
                                   subtitle: Text(
                                     tafD[index],
                                     style: TextStyle(
                                         color: cubit.radioValue == index
-                                            ? Theme.of(context).primaryColorLight
+                                            ? Theme.of(context)
+                                                .primaryColorLight
                                             : const Color(0xffcdba72),
                                         fontSize: 12,
-                                        fontFamily: 'kufi'
-                                    ),
+                                        fontFamily: 'kufi'),
                                   ),
                                   trailing: Container(
                                     height: 20,
                                     width: 20,
                                     decoration: BoxDecoration(
-                                      borderRadius:
-                                      const BorderRadius.all(Radius.circular(2.0)),
+                                      borderRadius: const BorderRadius.all(
+                                          Radius.circular(2.0)),
                                       border: Border.all(
                                           color: cubit.radioValue == index
-                                              ? Theme.of(context).primaryColorLight
+                                              ? Theme.of(context)
+                                                  .primaryColorLight
                                               : const Color(0xffcdba72),
                                           width: 2),
                                       color: const Color(0xff39412a),
                                     ),
                                     child: cubit.radioValue == index
                                         ? const Icon(Icons.done,
-                                        size: 14, color: Color(0xfffcbb76))
+                                            size: 14, color: Color(0xfffcbb76))
                                         : null,
                                   ),
                                   onTap: () {
-                                    cubit.getNewTranslationAndNotify(context, surahNumber!, ayahNumber!);
-                                    cubit.handleRadioValueChanged(context, index);
+                                    cubit.getNewTranslationAndNotify(
+                                        context, surahNumber!, ayahNumber!);
+                                    cubit.handleRadioValueChanged(
+                                        context, index);
                                     cubit.saveTafseer(index);
                                     Navigator.pop(context);
                                   },
@@ -433,39 +430,38 @@ class _ShowTafseerState extends State<ShowTafseer> {
                                       width: 41.0,
                                       decoration: BoxDecoration(
                                           shape: BoxShape.rectangle,
-                                          borderRadius: const BorderRadius.all(Radius.circular(4.0)),
+                                          borderRadius: const BorderRadius.all(
+                                              Radius.circular(4.0)),
                                           border: Border.all(
-                                              color: Theme.of(context).dividerColor,
-                                              width: 2
-                                          )
-                                      ),
+                                              color: Theme.of(context)
+                                                  .dividerColor,
+                                              width: 2)),
                                       child: SvgPicture.asset(
                                         'assets/svg/tafseer_book.svg',
                                         colorFilter: cubit.radioValue == index
                                             ? null
                                             : ColorFilter.mode(
-                                            Theme.of(context).canvasColor.withOpacity(.4),
-                                            BlendMode.lighten),
-                                      )
-                                  ),
+                                                Theme.of(context)
+                                                    .canvasColor
+                                                    .withOpacity(.4),
+                                                BlendMode.lighten),
+                                      )),
                                 ),
                                 decoration: BoxDecoration(
-                                    borderRadius: const BorderRadius.all(Radius.circular(8.0)),
+                                    borderRadius: const BorderRadius.all(
+                                        Radius.circular(8.0)),
                                     border: Border.all(
                                         color: Theme.of(context).dividerColor,
-                                        width: 1
-                                    )
-                                ),
-                                margin: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 4.0),
+                                        width: 1)),
+                                margin: const EdgeInsets.symmetric(
+                                    horizontal: 16.0, vertical: 4.0),
                               ),
                             ],
                           );
                         },
                       );
                     } else {
-                      return Center(
-                          child: Lottie.asset('assets/lottie/search.json',
-                              width: 100, height: 40));
+                      return Center(child: search(100.0, 40.0));
                     }
                   }),
               // child: BlocBuilder<QuranCubit, QuranState>(
@@ -750,38 +746,37 @@ class _ShowTafseerState extends State<ShowTafseer> {
         width: 50,
         elevation: 0,
       ),
-    dropdownStyleData: DropdownStyleData(
-      decoration: BoxDecoration(
-          color: Theme.of(context).colorScheme.surface.withOpacity(.9),
-          borderRadius: const BorderRadius.all(Radius.circular(8))),
-      padding: const EdgeInsets.only(left: 1, right: 1),
-      maxHeight: 230,
-      width: 230,
-      elevation: 0,
-        offset: const Offset(0, 0),
-      scrollbarTheme: ScrollbarThemeData(
-        radius: const Radius.circular(8),
-        thickness: MaterialStateProperty.all(6),
-      )
-    ),
-    menuItemStyleData: const MenuItemStyleData(
-      height: 45,
-    ),
+      dropdownStyleData: DropdownStyleData(
+          decoration: BoxDecoration(
+              color: Theme.of(context).colorScheme.surface.withOpacity(.9),
+              borderRadius: const BorderRadius.all(Radius.circular(8))),
+          padding: const EdgeInsets.only(left: 1, right: 1),
+          maxHeight: 230,
+          width: 230,
+          elevation: 0,
+          offset: const Offset(0, 0),
+          scrollbarTheme: ScrollbarThemeData(
+            radius: const Radius.circular(8),
+            thickness: MaterialStateProperty.all(6),
+          )),
+      menuItemStyleData: const MenuItemStyleData(
+        height: 45,
+      ),
     );
   }
 }
 
-
 String allText = '';
-String  allTitle = '';
+String allTitle = '';
 String? selectedTextED;
 
-void handleSelectionChanged(TextSelection selection, SelectionChangedCause? cause) {
+void handleSelectionChanged(
+    TextSelection selection, SelectionChangedCause? cause) {
   if (cause == SelectionChangedCause.longPress) {
     final characters = allText.characters;
     final start = characters.take(selection.start).length;
     final end = characters.take(selection.end).length;
-    final selectedText = allText.substring(start-1, end -1);
+    final selectedText = allText.substring(start - 1, end - 1);
 
     // setState(() {
     selectedTextED = selectedText;

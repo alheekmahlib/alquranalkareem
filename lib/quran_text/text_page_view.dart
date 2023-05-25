@@ -14,6 +14,7 @@ import '../cubit/translateDataCubit/_cubit.dart';
 import '../cubit/translateDataCubit/translateDataState.dart';
 import '../l10n/app_localizations.dart';
 import '../quran_page/widget/sliding_up.dart';
+import '../shared/widgets/lottie.dart';
 import '../shared/widgets/show_tafseer.dart';
 import '../shared/widgets/svg_picture.dart';
 import '../shared/widgets/widgets.dart';
@@ -528,9 +529,8 @@ class _TextPageViewState extends State<TextPageView>
                                                               details,
                                                               translateData,
                                                               widget.surah!,
-                                                            widget.nomPageF,
-                                                            widget.nomPageL
-                                                          );
+                                                              widget.nomPageF,
+                                                              widget.nomPageL);
                                                           setState(() {
                                                             TextCubit.selected =
                                                                 !TextCubit
@@ -884,9 +884,8 @@ class _TextPageViewState extends State<TextPageView>
                                                             if (state
                                                                 .isLoading) {
                                                               // Display a loading indicator while the translation data is being fetched
-                                                              return Lottie.asset(
-                                                                  'assets/lottie/search.json',
-                                                                  width: 50);
+                                                              return search(
+                                                                  50.0, 50.0);
                                                             } else {
                                                               final translateData =
                                                                   state.data;
