@@ -7,6 +7,7 @@ import 'package:lottie/lottie.dart';
 import 'package:theme_provider/theme_provider.dart';
 import '../../l10n/app_localizations.dart';
 import '../../shared/hero_dialog_route.dart';
+import '../../shared/widgets/lottie.dart';
 import '../../shared/widgets/settings_popUp.dart';
 import '../cubit/note_cubit.dart';
 import '../cubit/note_state.dart';
@@ -313,8 +314,7 @@ class _NotesListState extends State<NotesList> {
                               ),
                             );
                           })
-                          : Lottie.asset('assets/lottie/notes.json',
-                          width: 150, height: 150);
+                          : noteLottie(150.0, 150.0);
                     },
                   ),
                 ),

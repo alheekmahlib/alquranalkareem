@@ -118,11 +118,13 @@ class _AnimatedStackState extends State<AnimatedStack> {
                   ),
                   GestureDetector(
                     onTap: () {
-                      Navigator.of(context).push(HeroDialogRoute(builder: (context) {
+                      Navigator.of(context).push(
+                          HeroDialogRoute(
+                              builder: (context) {
                         return settingsPopupCard(
                             child: const SettingsList(),
                           height: orientation(context,
-                              MediaQuery.of(context).size.height * 1/2,
+                              400.0,
                               MediaQuery.of(context).size.height * 1/2 * 1.6),
                           alignment: Alignment.topCenter,
                         );

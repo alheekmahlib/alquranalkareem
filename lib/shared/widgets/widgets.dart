@@ -26,6 +26,8 @@ import '../custom_paint/bg_icon.dart';
 import '../postPage.dart';
 import 'package:intl/intl.dart';
 
+import 'lottie.dart';
+
 
 
 
@@ -739,6 +741,34 @@ Widget juzNum(String num, context, Color color, double svgWidth) {
         width: svgWidth,
         colorFilter: ColorFilter.mode(color, BlendMode.srcIn)
         // width: 100,
+      ),
+    ],
+  );
+}
+
+Widget juzNum2(String num, context, Color color, double svgWidth) {
+  return Row(
+    mainAxisSize: MainAxisSize.min,
+    children: [
+      RotatedBox(
+        quarterTurns: 1,
+        child: SvgPicture.asset(
+          'assets/svg/juz.svg',
+          width: 25,
+        ),
+      ),
+      SvgPicture.asset(
+        'assets/svg/juz/$num.svg',
+        width: svgWidth,
+        colorFilter: ColorFilter.mode(color, BlendMode.srcIn)
+        // width: 100,
+      ),
+      RotatedBox(
+        quarterTurns: 3,
+        child: SvgPicture.asset(
+          'assets/svg/juz.svg',
+          width: 25,
+        ),
       ),
     ],
   );
@@ -1704,8 +1734,7 @@ Widget customTextClose(BuildContext context) {
 
 Widget custumLoding() {
   return Center(
-    child: Lottie.asset('assets/lottie/loading.json',
-        width: 200, height: 200),
+    child: loadingLottie(200.0, 200.0),
   );
 }
 

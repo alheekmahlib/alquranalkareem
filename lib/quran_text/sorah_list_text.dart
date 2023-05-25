@@ -5,6 +5,7 @@ import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:theme_provider/theme_provider.dart';
 import '../l10n/app_localizations.dart';
+import '../shared/widgets/lottie.dart';
 import '../shared/widgets/widgets.dart';
 import 'cubit/quran_text_cubit.dart';
 import 'cubit/surah_text_cubit.dart';
@@ -62,8 +63,7 @@ class _SorahListTextState extends State<SorahListText>
                     builder: (context, state) {
                       if (state == null) {
                         return Center(
-                          child: Lottie.asset('assets/lottie/loading.json',
-                              width: 200, height: 200),
+                          child: loadingLottie(200.0, 200.0),
                         );
                       }
                       return AnimationLimiter(

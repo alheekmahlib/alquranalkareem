@@ -22,6 +22,7 @@ import '../quran_text/text_page_view.dart';
 import '../screens/menu_screen.dart';
 import '../shared/local_notifications.dart';
 import '../shared/reminder_model.dart';
+import '../shared/widgets/lottie.dart';
 import '../shared/widgets/show_tafseer.dart';
 import 'package:flutter_sliding_up_panel/flutter_sliding_up_panel.dart';
 import 'dart:ui' as ui;
@@ -940,8 +941,7 @@ class QuranCubit extends Cubit<QuranState> {
               ),
               Align(
                 alignment: Alignment.topCenter,
-                child: Lottie.asset('assets/lottie/share.json',
-                    width: 120),
+                child: shareLottie(120.0, 120.0),
               ),
               Padding(
                 padding: const EdgeInsets.only(top: 70.0),

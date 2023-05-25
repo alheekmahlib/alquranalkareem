@@ -14,9 +14,11 @@ import '../cubit/translateDataCubit/_cubit.dart';
 import '../cubit/translateDataCubit/translateDataState.dart';
 import '../l10n/app_localizations.dart';
 import '../quran_page/widget/sliding_up.dart';
+import '../shared/widgets/lottie.dart';
 import '../shared/widgets/show_tafseer.dart';
 import '../shared/widgets/svg_picture.dart';
 import '../shared/widgets/widgets.dart';
+import '../shared/word_selectable_text.dart';
 import 'Widgets/audio_text_widget.dart';
 import 'Widgets/show_text_tafseer.dart';
 import 'Widgets/text_overflow_detector.dart';
@@ -528,9 +530,8 @@ class _TextPageViewState extends State<TextPageView>
                                                               details,
                                                               translateData,
                                                               widget.surah!,
-                                                            widget.nomPageF,
-                                                            widget.nomPageL
-                                                          );
+                                                              widget.nomPageF,
+                                                              widget.nomPageL);
                                                           setState(() {
                                                             TextCubit.selected =
                                                                 !TextCubit
@@ -884,9 +885,8 @@ class _TextPageViewState extends State<TextPageView>
                                                             if (state
                                                                 .isLoading) {
                                                               // Display a loading indicator while the translation data is being fetched
-                                                              return Lottie.asset(
-                                                                  'assets/lottie/search.json',
-                                                                  width: 50);
+                                                              return search(
+                                                                  50.0, 50.0);
                                                             } else {
                                                               final translateData =
                                                                   state.data;
@@ -1047,6 +1047,46 @@ class _TextPageViewState extends State<TextPageView>
                                                             const EdgeInsets
                                                                     .symmetric(
                                                                 horizontal: 32),
+                                                        // child: WordSelectableText(
+                                                        //     selectable:  true,
+                                                        //     highlight:  true,
+                                                        //
+                                                        //     text: text.map((e) {
+                                                        //       return e;
+                                                        //     }).toList(),
+                                                        //     onWordTapped: (word, index) {},
+                                                        //     style: TextStyle(
+                                                        //       fontSize:
+                                                        //       TextPageView
+                                                        //           .fontSizeArabic,
+                                                        //       fontWeight:
+                                                        //       FontWeight
+                                                        //           .normal,
+                                                        //       fontFamily:
+                                                        //       'uthmanic2',
+                                                        //       color: ThemeProvider.themeOf(context)
+                                                        //           .id ==
+                                                        //           'dark'
+                                                        //           ? Colors
+                                                        //           .white
+                                                        //           : Colors
+                                                        //           .black,
+                                                        //       background:
+                                                        //       Paint()
+                                                        //         ..color = index ==
+                                                        //             TextCubit.isSelected
+                                                        //             ? backColor
+                                                        //             : Colors.transparent
+                                                        //         ..strokeJoin =
+                                                        //             StrokeJoin
+                                                        //                 .round
+                                                        //         ..strokeCap =
+                                                        //             StrokeCap
+                                                        //                 .round
+                                                        //         ..style =
+                                                        //             PaintingStyle
+                                                        //                 .fill,
+                                                        //     ),),
                                                         child:
                                                             SelectableText.rich(
                                                           showCursor: true,

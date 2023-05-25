@@ -10,6 +10,7 @@ import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
 import 'package:theme_provider/theme_provider.dart';
 import '../../cubit/cubit.dart';
+import '../../shared/widgets/lottie.dart';
 import '../../shared/widgets/widgets.dart';
 import '../azkar_controller.dart';
 
@@ -46,8 +47,7 @@ class _AzkarFavState extends State<AzkarFav> {
           Expanded(
             child: Obx(() {
               if (azkarController.azkarList.isEmpty) {
-                return Lottie.asset('assets/lottie/bookmarks.json',
-                    width: 150, height: 150);
+                return bookmarks(150.0, 150.0);
               } else {
                 return AnimationLimiter(
                   child: Align(

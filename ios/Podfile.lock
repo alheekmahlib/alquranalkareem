@@ -21,7 +21,7 @@ PODS:
   - path_provider_foundation (0.0.1):
     - Flutter
     - FlutterMacOS
-  - rate_my_app (1.1.4):
+  - rate_my_app (2.0.0):
     - Flutter
   - ReachabilitySwift (5.0.0)
   - share_plus (0.0.1):
@@ -29,7 +29,7 @@ PODS:
   - shared_preferences_foundation (0.0.1):
     - Flutter
     - FlutterMacOS
-  - sqflite (0.0.2):
+  - sqflite (0.0.3):
     - Flutter
     - FMDB (>= 2.7.5)
   - url_launcher_ios (0.0.1):
@@ -48,10 +48,10 @@ DEPENDENCIES:
   - flutter_native_timezone (from `.symlinks/plugins/flutter_native_timezone/ios`)
   - home_widget (from `.symlinks/plugins/home_widget/ios`)
   - image_gallery_saver (from `.symlinks/plugins/image_gallery_saver/ios`)
-  - path_provider_foundation (from `.symlinks/plugins/path_provider_foundation/ios`)
+  - path_provider_foundation (from `.symlinks/plugins/path_provider_foundation/darwin`)
   - rate_my_app (from `.symlinks/plugins/rate_my_app/ios`)
   - share_plus (from `.symlinks/plugins/share_plus/ios`)
-  - shared_preferences_foundation (from `.symlinks/plugins/shared_preferences_foundation/ios`)
+  - shared_preferences_foundation (from `.symlinks/plugins/shared_preferences_foundation/darwin`)
   - sqflite (from `.symlinks/plugins/sqflite/ios`)
   - url_launcher_ios (from `.symlinks/plugins/url_launcher_ios/ios`)
   - wakelock (from `.symlinks/plugins/wakelock/ios`)
@@ -80,13 +80,13 @@ EXTERNAL SOURCES:
   image_gallery_saver:
     :path: ".symlinks/plugins/image_gallery_saver/ios"
   path_provider_foundation:
-    :path: ".symlinks/plugins/path_provider_foundation/ios"
+    :path: ".symlinks/plugins/path_provider_foundation/darwin"
   rate_my_app:
     :path: ".symlinks/plugins/rate_my_app/ios"
   share_plus:
     :path: ".symlinks/plugins/share_plus/ios"
   shared_preferences_foundation:
-    :path: ".symlinks/plugins/shared_preferences_foundation/ios"
+    :path: ".symlinks/plugins/shared_preferences_foundation/darwin"
   sqflite:
     :path: ".symlinks/plugins/sqflite/ios"
   url_launcher_ios:
@@ -98,7 +98,7 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   audioplayers_darwin: 877d9a4d06331c5c374595e46e16453ac7eafa40
-  connectivity_plus: 413a8857dd5d9f1c399a39130850d02fe0feaf7e
+  connectivity_plus: 07c49e96d7fc92bc9920617b83238c4d178b446a
   Flutter: f04841e97a9d0b0a8025694d0796dd46242b2854
   flutter_local_notifications: 0c0b1ae97e741e1521e4c1629a459d04b9aec743
   flutter_native_splash: 52501b97d1c0a5f898d687f1646226c1f93c56ef
@@ -107,11 +107,11 @@ SPEC CHECKSUMS:
   home_widget: 0434835a4c9a75704264feff6be17ea40e0f0d57
   image_gallery_saver: 259eab68fb271cfd57d599904f7acdc7832e7ef2
   path_provider_foundation: c68054786f1b4f3343858c1e1d0caaded73f0be9
-  rate_my_app: e249ec0751c276811746ff89558c23dc0da39f0c
+  rate_my_app: 80fba94c4885cd31738231b7b1f51c1ad726f5c7
   ReachabilitySwift: 985039c6f7b23a1da463388634119492ff86c825
   share_plus: 056a1e8ac890df3e33cb503afffaf1e9b4fbae68
-  shared_preferences_foundation: 986fc17f3d3251412d18b0265f9c64113a8c2472
-  sqflite: 6d358c025f5b867b29ed92fc697fd34924e11904
+  shared_preferences_foundation: e2dae3258e06f44cc55f49d42024fd8dd03c590c
+  sqflite: 31f7eba61e3074736dff8807a9b41581e4f7f15a
   url_launcher_ios: 08a3dfac5fb39e8759aeb0abbd5d9480f30fc8b4
   wakelock: d0fc7c864128eac40eba1617cb5264d9c940b46f
   workmanager: 0afdcf5628bbde6924c21af7836fed07b42e30e6

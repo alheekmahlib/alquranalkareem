@@ -16,13 +16,15 @@ import 'package:lottie/lottie.dart';
 import '../../cubit/cubit.dart';
 import '../../l10n/app_localizations.dart';
 import '../../quran_page/data/model/ayat.dart';
+import '../../shared/widgets/lottie.dart';
 import '../../shared/widgets/widgets.dart';
 import '../cubit/quran_text_cubit.dart';
 import '../text_page_view.dart';
 
 ArabicNumbers arabicNumber = ArabicNumbers();
 
-menu(BuildContext context, int b, index, var details, translateData, widget, nomPageF, nomPageL) {
+menu(BuildContext context, int b, index, var details, translateData, widget,
+    nomPageF, nomPageL) {
   QuranTextCubit TextCubit = QuranTextCubit.get(context);
   QuranCubit cubit = QuranCubit.get(context);
   bool? selectedValue;
@@ -32,204 +34,206 @@ menu(BuildContext context, int b, index, var details, translateData, widget, nom
     selectedValue = false;
   }
 
-  var cancel = TextCubit.selected == selectedValue! ? BotToast.showAttachedWidget(
-    target: details.globalPosition,
-    verticalOffset: TextCubit.verticalOffset,
-    horizontalOffset: TextCubit.horizontalOffset,
-    preferDirection: TextCubit.preferDirection,
-    animationDuration: const Duration(microseconds: 700),
-    animationReverseDuration: const Duration(microseconds: 700),
-    attachedBuilder: (cancel) => Card(
-      color: Theme.of(context).colorScheme.surface,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(8),
-      ),
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 6.0),
-        child: Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Container(
-              height: 40,
-              width: 40,
-              decoration: const BoxDecoration(
-                  color: Color(0xfff3efdf),
-                  borderRadius: BorderRadius.all(Radius.circular(8))),
-              child: FutureBuilder<List<Ayat>>(
-                  future: cubit.handleRadioValueChanged(context, cubit.radioValue).getAyahTranslate(widget.number),
-                  builder: (context, snapshot) {
-                    if (snapshot.connectionState == ConnectionState.done) {
-                      List<Ayat>? ayat = snapshot.data;
-                      if (ayat != null && ayat.length > b) {
-                        Ayat aya = ayat[b];
-                        return IconButton(
-                          icon: const Icon(
-                            Icons.text_snippet_outlined,
-                            size: 24,
-                            color: Color(0x99f5410a),
-                          ),
-                          onPressed: () {
-                            TextCubit.selected =
-                            !TextCubit.selected;
-                            context.read<QuranTextCubit>().updateTextText(
-                                "${aya.ayatext}", "${aya.translate}");
-                            if (SlidingUpPanelStatus.hidden ==
-                                cubit.panelTextController.status) {
-                              cubit.panelTextController.expand();
+  var cancel = TextCubit.selected == selectedValue!
+      ? BotToast.showAttachedWidget(
+          target: details.globalPosition,
+          verticalOffset: TextCubit.verticalOffset,
+          horizontalOffset: TextCubit.horizontalOffset,
+          preferDirection: TextCubit.preferDirection,
+          animationDuration: const Duration(microseconds: 700),
+          animationReverseDuration: const Duration(microseconds: 700),
+          attachedBuilder: (cancel) => Card(
+            color: Theme.of(context).colorScheme.surface,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(8),
+            ),
+            child: Padding(
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 10.0, vertical: 6.0),
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Container(
+                    height: 40,
+                    width: 40,
+                    decoration: const BoxDecoration(
+                        color: Color(0xfff3efdf),
+                        borderRadius: BorderRadius.all(Radius.circular(8))),
+                    child: FutureBuilder<List<Ayat>>(
+                        future: cubit
+                            .handleRadioValueChanged(context, cubit.radioValue)
+                            .getAyahTranslate(widget.number),
+                        builder: (context, snapshot) {
+                          if (snapshot.connectionState ==
+                              ConnectionState.done) {
+                            List<Ayat>? ayat = snapshot.data;
+                            if (ayat != null && ayat.length > b) {
+                              Ayat aya = ayat[b];
+                              return IconButton(
+                                icon: const Icon(
+                                  Icons.text_snippet_outlined,
+                                  size: 24,
+                                  color: Color(0x99f5410a),
+                                ),
+                                onPressed: () {
+                                  TextCubit.selected = !TextCubit.selected;
+                                  context.read<QuranTextCubit>().updateTextText(
+                                      "${aya.ayatext}", "${aya.translate}");
+                                  if (SlidingUpPanelStatus.hidden ==
+                                      cubit.panelTextController.status) {
+                                    cubit.panelTextController.expand();
+                                  } else {
+                                    cubit.panelTextController.hide();
+                                  }
+                                  cancel();
+                                },
+                              );
                             } else {
-                              cubit.panelTextController.hide();
+                              // handle the case where the index is out of range
+                              print('Ayat is $ayat');
+                              print('Index is $b');
+                              return Text(
+                                  'Ayat not found'); // Or another widget to indicate an error or empty state.
                             }
-                            cancel();
-                          },
-                        );
-                      } else {
-                        // handle the case where the index is out of range
-                        print('Ayat is $ayat');
-                        print('Index is $b');
-                        return Text('Ayat not found'); // Or another widget to indicate an error or empty state.
-                      }
-                    } else {
-                      return Center(
-                          child: Lottie.asset('assets/lottie/search.json', width: 100, height: 40)
-                      );
-                    }
-                  }
+                          } else {
+                            return Center(
+                              child: search(100.0, 40.0),
+                            );
+                          }
+                        }),
+                  ),
+                  const SizedBox(
+                    width: 8.0,
+                  ),
+                  Container(
+                    height: 40,
+                    width: 40,
+                    decoration: const BoxDecoration(
+                        color: Color(0xfff3efdf),
+                        borderRadius: BorderRadius.all(Radius.circular(8))),
+                    child: IconButton(
+                      icon: const Icon(
+                        Icons.bookmark_border,
+                        size: 24,
+                        color: Color(0x99f5410a),
+                      ),
+                      onPressed: () {
+                        TextCubit.selected = !TextCubit.selected;
+                        TextCubit.addBookmarkText(
+                                widget.name!,
+                                widget.number!,
+                                index == 0 ? index + 1 : index + 2,
+                                // widget.surah!.ayahs![b].page,
+                                nomPageF,
+                                nomPageL,
+                                TextCubit.lastRead)
+                            .then((value) => customSnackBar(context,
+                                AppLocalizations.of(context)!.addBookmark));
+                        print(widget.name!);
+                        print(widget.number!);
+                        print(nomPageF);
+                        print(nomPageL);
+                        cancel();
+                      },
+                    ),
+                  ),
+                  const SizedBox(
+                    width: 8.0,
+                  ),
+                  Container(
+                    height: 40,
+                    width: 40,
+                    decoration: const BoxDecoration(
+                        color: Color(0xfff3efdf),
+                        borderRadius: BorderRadius.all(Radius.circular(8))),
+                    child: IconButton(
+                      icon: const Icon(
+                        Icons.copy_outlined,
+                        size: 24,
+                        color: Color(0x99f5410a),
+                      ),
+                      onPressed: () {
+                        TextCubit.selected = !TextCubit.selected;
+                        FlutterClipboard.copy(
+                          '﴿${widget.ayahs![b].text}﴾ '
+                          '[${widget.name}-'
+                          '${arabicNumber.convert(widget.ayahs![b].numberInSurah.toString())}]',
+                        ).then((value) => customSnackBar(
+                            context, AppLocalizations.of(context)!.copyAyah));
+                        cancel();
+                      },
+                    ),
+                  ),
+                  const SizedBox(
+                    width: 8.0,
+                  ),
+                  Container(
+                    height: 40,
+                    width: 40,
+                    decoration: const BoxDecoration(
+                        color: Color(0xfff3efdf),
+                        borderRadius: BorderRadius.all(Radius.circular(8))),
+                    child: IconButton(
+                      icon: const Icon(
+                        Icons.play_arrow_outlined,
+                        size: 24,
+                        color: Color(0x99f5410a),
+                      ),
+                      onPressed: () {
+                        TextCubit.selected = !TextCubit.selected;
+                        switch (TextCubit.controller.status) {
+                          case AnimationStatus.dismissed:
+                            TextCubit.controller.forward();
+                            break;
+                          case AnimationStatus.completed:
+                            TextCubit.controller.reverse();
+                            break;
+                          default:
+                        }
+                        cancel();
+                      },
+                    ),
+                  ),
+                  const SizedBox(
+                    width: 8.0,
+                  ),
+                  Container(
+                    height: 40,
+                    width: 40,
+                    decoration: const BoxDecoration(
+                        color: Color(0xfff3efdf),
+                        borderRadius: BorderRadius.all(Radius.circular(8))),
+                    child: IconButton(
+                      icon: const Icon(
+                        Icons.share_outlined,
+                        size: 23,
+                        color: Color(0x99f5410a),
+                      ),
+                      onPressed: () {
+                        TextCubit.selected = !TextCubit.selected;
+                        cubit.transIndex = TextCubit.transValue;
+                        final verseNumber = widget.ayahs![b].numberInSurah!;
+                        final translation =
+                            translateData?[verseNumber - 1]['text'];
+                        QuranCubit.get(context).showVerseOptionsBottomSheet(
+                            context,
+                            verseNumber,
+                            widget.number,
+                            "${widget.ayahs![b].text}",
+                            translation ?? '',
+                            widget.name);
+                        print("Verse Number: $verseNumber");
+                        print("Translation: translation");
+                        cancel();
+                      },
+                    ),
+                  ),
+                ],
               ),
             ),
-            const SizedBox(
-              width: 8.0,
-            ),
-            Container(
-              height: 40,
-              width: 40,
-              decoration: const BoxDecoration(
-                  color: Color(0xfff3efdf),
-                  borderRadius: BorderRadius.all(Radius.circular(8))),
-              child: IconButton(
-                icon: const Icon(
-                  Icons.bookmark_border,
-                  size: 24,
-                  color: Color(0x99f5410a),
-                ),
-                onPressed: () {
-                  TextCubit.selected =
-                  !TextCubit.selected;
-                  TextCubit.addBookmarkText(
-                      widget.name!,
-                      widget.number!,
-                      index == 0 ? index + 1 : index + 2,
-                      // widget.surah!.ayahs![b].page,
-                      nomPageF,
-                      nomPageL,
-                      TextCubit.lastRead)
-                      .then((value) => customSnackBar(
-                      context, AppLocalizations.of(context)!.addBookmark));
-                  print(widget.name!);
-                  print(widget.number!);
-                  print(nomPageF);
-                  print(nomPageL);
-                  cancel();
-                },
-              ),
-            ),
-            const SizedBox(
-              width: 8.0,
-            ),
-            Container(
-              height: 40,
-              width: 40,
-              decoration: const BoxDecoration(
-                  color: Color(0xfff3efdf),
-                  borderRadius: BorderRadius.all(Radius.circular(8))),
-              child: IconButton(
-                icon: const Icon(
-                  Icons.copy_outlined,
-                  size: 24,
-                  color: Color(0x99f5410a),
-                ),
-                onPressed: () {
-                  TextCubit.selected =
-                  !TextCubit.selected;
-                  FlutterClipboard.copy(
-                    '﴿${widget.ayahs![b].text}﴾ '
-                        '[${widget.name}-'
-                        '${arabicNumber.convert(widget.ayahs![b].numberInSurah.toString())}]',
-                  ).then((value) => customSnackBar(
-                      context, AppLocalizations.of(context)!.copyAyah));
-                  cancel();
-                },
-              ),
-            ),
-            const SizedBox(
-              width: 8.0,
-            ),
-            Container(
-              height: 40,
-              width: 40,
-              decoration: const BoxDecoration(
-                  color: Color(0xfff3efdf),
-                  borderRadius: BorderRadius.all(Radius.circular(8))),
-              child: IconButton(
-                icon: const Icon(
-                  Icons.play_arrow_outlined,
-                  size: 24,
-                  color: Color(0x99f5410a),
-                ),
-                onPressed: () {
-                  TextCubit.selected =
-                  !TextCubit.selected;
-                  switch (TextCubit.controller.status) {
-                    case AnimationStatus.dismissed:
-                      TextCubit.controller.forward();
-                      break;
-                    case AnimationStatus.completed:
-                      TextCubit.controller.reverse();
-                      break;
-                    default:
-                  }
-                  cancel();
-                },
-              ),
-            ),
-            const SizedBox(
-              width: 8.0,
-            ),
-            Container(
-              height: 40,
-              width: 40,
-              decoration: const BoxDecoration(
-                  color: Color(0xfff3efdf),
-                  borderRadius: BorderRadius.all(Radius.circular(8))),
-              child: IconButton(
-                icon: const Icon(
-                  Icons.share_outlined,
-                  size: 23,
-                  color: Color(0x99f5410a),
-                ),
-                onPressed: () {
-                  TextCubit.selected =
-                  !TextCubit.selected;
-                  cubit.transIndex = TextCubit.transValue;
-                  final verseNumber = widget.ayahs![b].numberInSurah!;
-                  final translation = translateData?[verseNumber - 1]['text'];
-                  QuranCubit.get(context).showVerseOptionsBottomSheet(
-                      context,
-                      verseNumber,
-                      widget.number,
-                      "${widget.ayahs![b].text}",
-                      translation ?? '',
-                      widget.name);
-                  print("Verse Number: $verseNumber");
-                  print("Translation: translation");
-                  cancel();
-                },
-              ),
-            ),
-          ],
-        ),
-      ),
-    ),
-  ) : null;
+          ),
+        )
+      : null;
 }
 
 Widget fontSizeDropDown(BuildContext context, var setState) {
@@ -318,8 +322,7 @@ Widget fontSizeDropDown(BuildContext context, var setState) {
         scrollbarTheme: ScrollbarThemeData(
           radius: const Radius.circular(8),
           thickness: MaterialStateProperty.all(6),
-        )
-    ),
+        )),
     menuItemStyleData: const MenuItemStyleData(
       height: 45,
     ),
@@ -334,21 +337,17 @@ Widget animatedToggleSwitch(BuildContext context, var setState) {
     onChanged: (i) {
       setState(() {
         TextCubit.value = i;
-        TextCubit.saveSwitchValue(
-            TextCubit.value);
+        TextCubit.saveSwitchValue(TextCubit.value);
       });
     },
     iconBuilder: rollingIconBuilder,
     borderWidth: 1,
-    indicatorColor:
-    Theme.of(context).colorScheme.surface,
+    indicatorColor: Theme.of(context).colorScheme.surface,
     innerColor: Theme.of(context).canvasColor,
-    borderRadius:
-    const BorderRadius.all(Radius.circular(8)),
+    borderRadius: const BorderRadius.all(Radius.circular(8)),
     height: 25,
     dif: 2.0,
-    borderColor:
-    Theme.of(context).colorScheme.surface,
+    borderColor: Theme.of(context).colorScheme.surface,
   );
 }
 
@@ -511,7 +510,7 @@ Widget translateDropDown(BuildContext context, var setState) {
                     width: 20,
                     decoration: BoxDecoration(
                       borderRadius:
-                      const BorderRadius.all(Radius.circular(2.0)),
+                          const BorderRadius.all(Radius.circular(2.0)),
                       border: Border.all(
                           color: quranTextCubit.transValue == index
                               ? const Color(0xfffcbb76)
@@ -521,7 +520,7 @@ Widget translateDropDown(BuildContext context, var setState) {
                     ),
                     child: quranTextCubit.transValue == index
                         ? const Icon(Icons.done,
-                        size: 14, color: Color(0xfffcbb76))
+                            size: 14, color: Color(0xfffcbb76))
                         : null,
                   ),
                   onTap: () {
@@ -576,8 +575,7 @@ Widget translateDropDown(BuildContext context, var setState) {
         scrollbarTheme: ScrollbarThemeData(
           radius: const Radius.circular(8),
           thickness: MaterialStateProperty.all(6),
-        )
-    ),
+        )),
     menuItemStyleData: const MenuItemStyleData(
       height: 115,
     ),
