@@ -18,14 +18,11 @@ class AlwaqfScreen extends StatefulWidget {
 class _AlwaqfScreenState extends State<AlwaqfScreen> {
   final ScrollController controller = ScrollController();
   ItemScrollController _scrollController = ItemScrollController();
-
-  late GroupButtonController _checkboxesController;
-
-  late GroupButtonController _radioController;
+  late GroupButtonController checkboxesController;
 
   @override
   void initState() {
-    _checkboxesController = GroupButtonController(
+    checkboxesController = GroupButtonController(
       selectedIndexes: [2],
       disabledIndexes: [4],
       onDisablePressed: (index) => ScaffoldMessenger.of(context).showSnackBar(

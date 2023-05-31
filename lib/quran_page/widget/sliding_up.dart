@@ -28,24 +28,12 @@ class Sliding extends StatefulWidget {
 
 class _SlidingState extends State<Sliding> with SingleTickerProviderStateMixin {
   var mScaffoldKey = GlobalKey<ScaffoldState>();
-  late SlidingUpPanelController _panelController;
-  // late AnimationController _animationController;
+
 
   @override
   void initState() {
     super.initState();
     QuranCubit.get(context).panelController = SlidingUpPanelController();
-    // _animationController = AnimationController(
-    //   vsync: this,
-    //   duration: const Duration(seconds: 5),
-    // );
-  }
-
-  @override
-  void dispose() {
-    // QuranCubit.get(context).panelController.dispose();
-    // _animationController.dispose();
-    super.dispose();
   }
 
   @override
@@ -61,7 +49,6 @@ class _SlidingState extends State<Sliding> with SingleTickerProviderStateMixin {
           controlHeight: widget.cHeight!,
           anchor: 7.0,
           panelController: cubit.panelController,
-          // animationController: _animationController,
           onTap: () {
             if (SlidingUpPanelStatus.anchored == cubit.panelController.status) {
               cubit.panelController.collapse();
@@ -71,7 +58,6 @@ class _SlidingState extends State<Sliding> with SingleTickerProviderStateMixin {
           },
           enableOnTap: false,
           child: Container(
-            // margin: const EdgeInsets.symmetric(horizontal: 15.0),
             decoration: const ShapeDecoration(
               shadows: [
                 BoxShadow(
@@ -85,7 +71,6 @@ class _SlidingState extends State<Sliding> with SingleTickerProviderStateMixin {
                   topRight: Radius.circular(8.0),
                 ),
               ),
-
             ),
             child: Column(
               mainAxisSize: MainAxisSize.min,
@@ -164,25 +149,13 @@ class TextSliding extends StatefulWidget {
 
 class _TextSlidingState extends State<TextSliding> with SingleTickerProviderStateMixin {
   var mScaffoldKey = GlobalKey<ScaffoldState>();
-  late SlidingUpPanelController _panelController;
-  // late AnimationController _animationController;
 
   @override
   void initState() {
     super.initState();
     QuranCubit.get(context).panelTextController = SlidingUpPanelController();
-    // _animationController = AnimationController(
-    //   vsync: this,
-    //   duration: const Duration(seconds: 5),
-    // );
   }
 
-  @override
-  void dispose() {
-    // QuranCubit.get(context).panelTextController.dispose();
-    // _animationController.dispose();
-    super.dispose();
-  }
   cancel() {
     final cubit = context.read<QuranCubit>();
     if (SlidingUpPanelStatus.hidden == cubit.panelTextController.status) {
@@ -202,10 +175,8 @@ class _TextSlidingState extends State<TextSliding> with SingleTickerProviderStat
             platformView(MediaQuery.of(context).size.height, MediaQuery.of(context).size.height * 3/4)),
         child: SlidingUpPanelWidget(
           controlHeight: widget.cHeight!,
-          // anchor: 0.0,
           panelStatus: SlidingUpPanelStatus.hidden,
           panelController: cubit.panelTextController,
-          // animationController: cubit.animationController,
           onTap: () {
             if (SlidingUpPanelStatus.hidden == cubit.panelTextController.status) {
               cubit.panelTextController.expand();
@@ -215,7 +186,6 @@ class _TextSlidingState extends State<TextSliding> with SingleTickerProviderStat
           },
           enableOnTap: false,
           child: Container(
-            // margin: const EdgeInsets.symmetric(horizontal: 15.0),
             decoration: const ShapeDecoration(
               shadows: [
                 BoxShadow(
@@ -229,7 +199,6 @@ class _TextSlidingState extends State<TextSliding> with SingleTickerProviderStat
                   topRight: Radius.circular(8.0),
                 ),
               ),
-
             ),
             child: SizedBox(
                 height: MediaQuery.of(context).size.height,

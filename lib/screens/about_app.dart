@@ -55,7 +55,9 @@ class AboutApp extends StatelessWidget {
           child: Align(
             alignment: Alignment.topCenter,
             child: Padding(
-              padding: const EdgeInsets.only(top: 64.0),
+              padding: orientation(context,
+                  const EdgeInsets.only(top: 64.0),
+                  const EdgeInsets.only(top: 16.0)),
               child: Stack(
                 children: [
                   customClose2(context),
@@ -77,7 +79,7 @@ class AboutApp extends StatelessWidget {
                         customContainer(
                             context,
                             Text(
-                              '${AppLocalizations.of(context)!.version}: 3.0.10',
+                              '${AppLocalizations.of(context)!.version}: 3.1.0',
                               style: TextStyle(
                                 color:
                                     ThemeProvider.themeOf(context).id == 'dark'
@@ -388,10 +390,10 @@ class AboutApp extends StatelessWidget {
                                     ],
                                   ),
                                 ),
-                                Padding(
-                                  padding: const EdgeInsets.all(8.0),
+                                const Padding(
+                                  padding: EdgeInsets.all(8.0),
                                   child: Column(
-                                    children: const [ThemeChange()],
+                                    children: [ThemeChange()],
                                   ),
                                 ),
                               ],

@@ -27,6 +27,14 @@ class NotifyHelper {
       onDidReceiveLocalNotification: onDidReceiveLocalNotification,
     );
 
+    final DarwinInitializationSettings initializationSettingsMAC =
+    DarwinInitializationSettings(
+      requestSoundPermission: false,
+      requestBadgePermission: false,
+      requestAlertPermission: false,
+      onDidReceiveLocalNotification: onDidReceiveLocalNotification,
+    );
+
     const AndroidInitializationSettings initializationSettingsAndroid =
     AndroidInitializationSettings('@drawable/icon');
 
@@ -34,6 +42,7 @@ class NotifyHelper {
     InitializationSettings(
       iOS: initializationSettingsIOS,
       android: initializationSettingsAndroid,
+      macOS: initializationSettingsMAC,
     );
     await flutterLocalNotificationsPlugin.initialize(
       initializationSettings,
@@ -74,7 +83,7 @@ class NotifyHelper {
         android: AndroidNotificationDetails(
             'reminderIdChannel', 'reminderChannel'),
       ),
-      androidAllowWhileIdle: true,
+      // androidAllowWhileIdle: true,
       uiLocalNotificationDateInterpretation:
       UILocalNotificationDateInterpretation.absoluteTime,
       matchDateTimeComponents: DateTimeComponents.dayOfWeekAndTime,

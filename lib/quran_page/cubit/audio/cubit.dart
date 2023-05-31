@@ -20,7 +20,6 @@ class AudioCubit extends Cubit<AudioState> {
   String? sorahName;
   late Animation<Offset> offset;
   late AnimationController controllerSorah;
-  // bool autoPlay = false;
 
 
 

@@ -51,7 +51,6 @@ class NotificationDatabaseHelper {
     );
   }
 
-
   Future<List<Map<String, dynamic>>> queryAllRows() async {
     Database? db = await instance.database;
     return await db!.query(table);

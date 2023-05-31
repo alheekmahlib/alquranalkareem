@@ -20,30 +20,24 @@ class AddReminderState extends QuranState{}
 class DeleteReminderState extends QuranState{}
 class OnTimeChangedState extends QuranState{}
 class loadMCurrentPageState extends QuranState{}
-
 class AyaInitial extends QuranState {}
-
 class AyaLoading extends QuranState {}
-
 class AyaLoaded extends QuranState {
   final List<Ayat> ayahList;
 
   AyaLoaded(this.ayahList);
 }
-
 class AyaError extends QuranState {
   final String message;
 
   AyaError(this.message);
 }
-
 class TranslationUpdatedState extends QuranState {
   final String translateAyah;
   final String translate;
 
   TranslationUpdatedState({required this.translateAyah, required this.translate});
 }
-
 class TextUpdated extends QuranState {
   final String translateAyah;
   final String translate;

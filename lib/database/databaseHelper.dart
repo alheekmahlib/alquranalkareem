@@ -38,10 +38,6 @@ class DatabaseHelper {
   }
 
   Future<Database?> initDb() async {
-    // if (_db != null) {
-    //   debugPrint('not null db');
-    //   // return;
-    // } else {
     sqfliteFfiInit();
     var androidDatabasesPath = await getDatabasesPath();
     var androidPath = p.join(androidDatabasesPath, 'notesBookmarks.db');
@@ -65,80 +61,6 @@ class DatabaseHelper {
         readOnly: false,
         onUpgrade: onUpgrade,
         onCreate: onCreate);
-    // if(Platform.isAndroid){
-    //   var databasesPath = await getDatabasesPath();
-    //   var path = p.join(databasesPath, 'notesBookmarks.db');
-    //   return openDatabase(path,
-    //       version: _version,
-    //       readOnly: false,
-    //       // onUpgrade: onUpgrade,
-    //       onCreate: onCreate);
-    // } else {
-    //   Directory databasePath = await getApplicationDocumentsDirectory();
-    //   var path = p.join(databasePath.path, 'notesBookmarks.db');
-    //   return (Platform.isWindows || Platform.isLinux)
-    //       ? databaseFactoryFfi.openDatabase(path,
-    //       options: OpenDatabaseOptions(
-    //           version: _version,
-    //           readOnly: false,
-    //           // onUpgrade: onUpgrade,
-    //           onCreate: onCreate))
-    //       : openDatabase(path,
-    //       version: _version,
-    //       readOnly: false,
-    //       // onUpgrade: onUpgrade,
-    //       onCreate: onCreate);
-    // }
-    // var databasesPath = await getDatabasesPath();
-    // var path = p.join(databasesPath, 'notesBookmarks.db');
-    // Directory databasePath = await getApplicationDocumentsDirectory();
-    // var path = p.join(databasePath.path, 'notesBookmarks.db');
-    // return (Platform.isWindows || Platform.isLinux)
-    //     ? databaseFactoryFfi.openDatabase(path,
-    //         options: OpenDatabaseOptions(
-    //             version: _version,
-    //             readOnly: false,
-    //             // onUpgrade: onUpgrade,
-    //             onCreate: onCreate))
-    //     : openDatabase(path,
-    //         version: _version,
-    //         readOnly: false,
-    //         // onUpgrade: onUpgrade,
-    //         onCreate: onCreate);
-    /*try {
-        var databasesPath = await getDatabasesPath();
-        String _path = p.join(databasesPath, 'notesBookmarks.db');
-        _db = await openDatabase(_path, version: _version,
-            onCreate: (Database db, int version) async {
-              await db.execute(
-                  'CREATE TABLE noteTable ('
-                      'id INTEGER PRIMARY KEY, '
-                      'title TEXT, '
-                      'description TEXT)',
-              );
-              print('create noteTable');
-              await db.execute(
-                'CREATE TABLE bookmarkTable ('
-                  'id INTEGER PRIMARY KEY, '
-                  'sorahName TEXT, '
-                  'pageNum INTEGER, '
-                  'lastRead TEXT)',);
-              print('create bookmarkTable');
-              await db.execute(
-                'CREATE TABLE azkarTable ('
-                  'id INTEGER PRIMARY KEY, '
-                  'category TEXT, '
-                  'count TEXT, '
-                  'description TEXT, '
-                  'reference TEXT, '
-                  'zekr TEXT)',);
-              print('create azkarTable');
-            }
-        );
-      } catch (e) {
-        print(e);
-      }*/
-    // }
   }
 
   Future onCreate(Database db, int version) async {
@@ -178,77 +100,21 @@ class DatabaseHelper {
       'lastRead TEXT)',
     );
     print('create bookmarkTextTable');
-    await db.execute(
-      'CREATE TABLE bookmarkTextAyahTable ('
-      'id INTEGER PRIMARY KEY, '
-      'sorahName TEXT, '
-      'sorahNum INTEGER, '
-      'ayahNum INTEGER, '
-      'nomPageF INTEGER, '
-      'nomPageL INTEGER, '
-      'lastRead TEXT)',
-    );
-    print('create bookmarkTextAyahTable');
+    // await db.execute(
+    //   'CREATE TABLE bookmarkTextAyahTable ('
+    //   'id INTEGER PRIMARY KEY, '
+    //   'sorahName TEXT, '
+    //   'sorahNum INTEGER, '
+    //   'ayahNum INTEGER, '
+    //   'nomPageF INTEGER, '
+    //   'nomPageL INTEGER, '
+    //   'lastRead TEXT)',
+    // );
+    // print('create bookmarkTextAyahTable');
   }
 
   Future onUpgrade(Database db, int oldVersion, int newVersion) async {
     print('Database onUpgrade');
-    /*oldVersion < newVersion ? await db.execute(
-      'CREATE TABLE bookmarkTextTable ('
-          'id INTEGER PRIMARY KEY, '
-          'sorahName TEXT, '
-          'sorahNum INTEGER, '
-          'pageNum INTEGER, '
-          'nomPageF INTEGER, '
-          'nomPageL INTEGER, '
-          'lastRead TEXT)',
-    )
-        : print('Database up to date');*/
-    // for (var i = oldVersion - 1; i <= newVersion - 1; i++) {
-    //   await db.execute(
-    //     'CREATE TABLE bookmarkTextTable ('
-    //         'id INTEGER PRIMARY KEY, '
-    //         'sorahName TEXT, '
-    //         'sorahNum INTEGER, '
-    //         'pageNum INTEGER, '
-    //         'nomPageF INTEGER, '
-    //         'nomPageL INTEGER, '
-    //         'lastRead TEXT)',
-    //   );
-    //   // switch (version) {
-    //   //   case 1: {
-    //   //     //Version 1 - no changes (won't enter here)
-    //   //     break;
-    //   //   }
-    //   //   case 2: {
-    //   //     await db.execute(
-    //   //       'CREATE TABLE bookmarkTextTable ('
-    //   //           'id INTEGER PRIMARY KEY, '
-    //   //           'sorahName TEXT, '
-    //   //           'sorahNum INTEGER, '
-    //   //           'pageNum INTEGER, '
-    //   //           'nomPageF INTEGER, '
-    //   //           'nomPageL INTEGER, '
-    //   //           'lastRead TEXT)',
-    //   //     );
-    //   //     break;
-    //   //   }
-    //   // }
-    // }
-    // switch (newVersion) {
-    //   case 3:
-    //     await db.execute(
-    //       'CREATE TABLE bookmarkTextTable ('
-    //           'id INTEGER PRIMARY KEY, '
-    //           'sorahName TEXT, '
-    //           'sorahNum INTEGER, '
-    //           'pageNum INTEGER, '
-    //           'nomPageF INTEGER, '
-    //           'nomPageL INTEGER, '
-    //           'lastRead TEXT)',
-    //     );
-    //     break;
-    // }
     var results = await db.rawQuery("SELECT name FROM sqlite_master WHERE type='table' AND name='bookmarkTextTable'");
     if (results.isEmpty) {
       await db.execute(
@@ -263,14 +129,6 @@ class DatabaseHelper {
       );
       print('Upgrade bookmarkTextTable');
     }
-    //   // await db.execute("ALTER TABLE bookmarkTextTable ADD COLUMN sorahNum TEXT");
-    //   print('Database onUpgrade');
-    //   // await db.execute("CREATE TABLE NewTable...") // create new Table
-    // }
-    // if (oldVersion < newVersion) {
-    //   db.execute("ALTER TABLE bookmarkTextTable ADD COLUMN sorahNum TEXT;");
-    //   print('Database onUpgrade');
-    // }
   }
 
   static Future<int?> saveNote(Notes? note) async {
@@ -287,12 +145,6 @@ class DatabaseHelper {
     return await _db!
         .delete(tableNote, where: '$columnDescription = ?', whereArgs: [description]);
   }
-
-  // static Future<int> deleteNote(Notes? note) async {
-  //   print('Delete Note');
-  //   return await _db!
-  //       .delete(tableNote, where: '$columnId = ?', whereArgs: [note!.id]);
-  // }
 
   static Future<int> updateNote(Notes? note) async {
     print('Update Note');
@@ -320,12 +172,6 @@ class DatabaseHelper {
     return await _db!.delete(tableBookmarks,
         where: '$columnBId = ?', whereArgs: [bookmarks!.id]);
   }
-
-  // static Future<int> deleteBookmark(int? pageNum) async {
-  //   print('Delete Bookmarks');
-  //   return await _db!.delete(tableBookmarks,
-  //       where: '$columnPageNum = ?', whereArgs: [pageNum]);
-  // }
 
   static Future<int> updateBookmarks(Bookmarks bookmarks) async {
     print('Update Bookmarks');

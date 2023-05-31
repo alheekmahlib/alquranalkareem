@@ -1,3 +1,5 @@
+import 'package:alquranalkareem/notes/cubit/note_cubit.dart';
+import 'package:alquranalkareem/quran_text/Widgets/text_overflow_detector.dart';
 import 'package:animated_toggle_switch/animated_toggle_switch.dart';
 import 'package:another_xlider/another_xlider.dart';
 import 'package:another_xlider/models/handler.dart';
@@ -7,16 +9,21 @@ import 'package:arabic_numbers/arabic_numbers.dart';
 import 'package:bot_toast/bot_toast.dart';
 import 'package:clipboard/clipboard.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_sliding_up_panel/sliding_up_panel_widget.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:lottie/lottie.dart';
-
+import 'package:theme_provider/theme_provider.dart';
 import '../../cubit/cubit.dart';
+import '../../cubit/translateDataCubit/_cubit.dart';
+import '../../cubit/translateDataCubit/translateDataState.dart';
 import '../../l10n/app_localizations.dart';
 import '../../quran_page/data/model/ayat.dart';
+import '../../shared/share/ayah_to_images.dart';
 import '../../shared/widgets/lottie.dart';
+import '../../shared/widgets/show_tafseer.dart';
+import '../../shared/widgets/svg_picture.dart';
 import '../../shared/widgets/widgets.dart';
 import '../cubit/quran_text_cubit.dart';
 import '../text_page_view.dart';
@@ -92,7 +99,7 @@ menu(BuildContext context, int b, index, var details, translateData, widget,
                               // handle the case where the index is out of range
                               print('Ayat is $ayat');
                               print('Index is $b');
-                              return Text(
+                              return const Text(
                                   'Ayat not found'); // Or another widget to indicate an error or empty state.
                             }
                           } else {
@@ -215,7 +222,7 @@ menu(BuildContext context, int b, index, var details, translateData, widget,
                         final verseNumber = widget.ayahs![b].numberInSurah!;
                         final translation =
                             translateData?[verseNumber - 1]['text'];
-                        QuranCubit.get(context).showVerseOptionsBottomSheet(
+                        showVerseOptionsBottomSheet(
                             context,
                             verseNumber,
                             widget.number,
@@ -360,126 +367,6 @@ Widget rollingIconBuilder(int value, Size iconSize, bool foreground) {
   );
 }
 
-// Widget scrollDropDown(BuildContext context) {
-//   QuranTextCubit textCubit = QuranTextCubit.get(context);
-//   return DropdownButton2(
-//     isExpanded: true,
-//     items: [
-//       DropdownMenuItem<String>(
-//         child: StatefulBuilder(builder: (BuildContext context, setState) {
-//           return Slider(
-//             value: textCubit.scrollSpeed,
-//             min: .05,
-//             max: .10,
-//             onChanged: (double value) {
-//               setState(() {
-//                 textCubit.scrollSpeedNotifier!.value = value;
-//                 print(textCubit.scrollSpeedNotifier!.value);
-//                 textCubit.scrollSpeed = value;
-//                 print(textCubit.scrollSpeed);
-//                 if (textCubit.scrolling) {
-//                   _toggleScroll(); // Stop the scrolling with the old speed
-//                   _toggleScroll(); // Restart the scrolling with the new speed
-//                 }
-//               });
-//             },
-//           );
-//         }),
-//         // child: FlutterSlider(
-//         //   values: [_scrollSpeed],
-//         //   max: 2.0,
-//         //   min: .05,
-//         //   rtl: true,
-//         //   trackBar: FlutterSliderTrackBar(
-//         //     inactiveTrackBarHeight: 5,
-//         //     activeTrackBarHeight: 5,
-//         //     inactiveTrackBar: BoxDecoration(
-//         //       borderRadius: BorderRadius.circular(8),
-//         //       color: Theme.of(context).colorScheme.surface,
-//         //     ),
-//         //     activeTrackBar: BoxDecoration(
-//         //         borderRadius: BorderRadius.circular(4),
-//         //         color: Theme.of(context).colorScheme.background),
-//         //   ),
-//         //   handlerAnimation: const FlutterSliderHandlerAnimation(
-//         //       curve: Curves.elasticOut,
-//         //       reverseCurve: null,
-//         //       duration: Duration(milliseconds: 700),
-//         //       scale: 1.4),
-//         //   onDragging: (handlerIndex, lowerValue, upperValue) {
-//         //     setState(() {
-//         //       _scrollSpeedNotifier!.value = lowerValue;
-//         //       print(_scrollSpeedNotifier!.value);
-//         //       // lowerValue = lowerValue;
-//         //       // upperValue = upperValue;
-//         //       _scrollSpeed = lowerValue;
-//         //       print(_scrollSpeed);
-//         //       if (_scrolling) {
-//         //         _toggleScroll(); // Stop the scrolling with the old speed
-//         //         _toggleScroll(); // Restart the scrolling with the new speed
-//         //       }
-//         //     });
-//         //   },
-//         //   handler: FlutterSliderHandler(
-//         //     decoration: const BoxDecoration(),
-//         //     child: Material(
-//         //       type: MaterialType.circle,
-//         //       color: Colors.transparent,
-//         //       elevation: 3,
-//         //       child: SvgPicture.asset('assets/svg/slider_ic.svg'),
-//         //     ),
-//         //   ),
-//         // ),
-//       )
-//     ],
-//     // value: textCubit.scrollSpeed,
-//     onChanged: (value) {
-//       setState(() {
-//         textCubit.scrollSpeed = value as double;
-//       });
-//     },
-//     customButton: Container(
-//         height: 25,
-//         width: 25,
-//         decoration: BoxDecoration(
-//             borderRadius: const BorderRadius.all(
-//               Radius.circular(8),
-//             ),
-//             border: Border.all(
-//                 width: 1, color: Theme.of(context).colorScheme.surface)),
-//         child: Icon(
-//           Icons.format_size,
-//           size: 20,
-//           color: Theme.of(context).colorScheme.surface,
-//         )),
-//     iconStyleData: const IconStyleData(
-//       iconSize: 20,
-//     ),
-//     buttonStyleData: const ButtonStyleData(
-//       height: 50,
-//       width: 50,
-//       elevation: 0,
-//     ),
-//     dropdownStyleData: DropdownStyleData(
-//         decoration: BoxDecoration(
-//             color: Theme.of(context).colorScheme.surface.withOpacity(.9),
-//             borderRadius: const BorderRadius.all(Radius.circular(8))),
-//         padding: const EdgeInsets.only(left: 14, right: 14),
-//         maxHeight: 230,
-//         width: 230,
-//         elevation: 0,
-//         offset: const Offset(0, 0),
-//         scrollbarTheme: ScrollbarThemeData(
-//           radius: const Radius.circular(8),
-//           thickness: MaterialStateProperty.all(6),
-//         )
-//     ),
-//     menuItemStyleData: const MenuItemStyleData(
-//       height: 35,
-//     ),
-//   );
-// }
-
 Widget translateDropDown(BuildContext context, var setState) {
   QuranTextCubit quranTextCubit = QuranTextCubit.get(context);
   List<String> transName = <String>[
@@ -579,5 +466,623 @@ Widget translateDropDown(BuildContext context, var setState) {
     menuItemStyleData: const MenuItemStyleData(
       height: 115,
     ),
+  );
+}
+
+Widget greeting(BuildContext context) {
+  return Padding(
+    padding: const EdgeInsets.only(top: 8.0),
+    child: Text(
+      '| ${QuranCubit.get(context).greeting} |',
+      style: TextStyle(
+        fontSize: 16.0,
+        fontFamily: 'kufi',
+        color: Theme.of(context).colorScheme.surface,
+      ),
+      textAlign: TextAlign.center,
+    ),
+  );
+}
+
+Widget singleAyah(BuildContext context, var setState, widget, translateData, int index) {
+  QuranTextCubit TextCubit = QuranTextCubit.get(context);
+  NotesCubit notesCubit = NotesCubit.get(context);
+  Color backColor = Theme.of(context).colorScheme.surface.withOpacity(0.4);
+  return Stack(
+    children: [
+      GestureDetector(
+        onTap: () {
+          TextCubit.controller
+              .reverse();
+          setState(() {
+            backColor =
+                Colors.transparent;
+          });
+        },
+        // child: AutoScrollTag(
+        //   key: ValueKey(index),
+        //   controller: TextCubit.scrollController!,
+        //   index: index,
+        child: Container(
+          margin: const EdgeInsets
+              .symmetric(
+              horizontal: 16,
+              vertical: 4),
+          width: MediaQuery.of(context)
+              .size
+              .width,
+          decoration: BoxDecoration(
+              color: Theme.of(context)
+                  .colorScheme
+                  .background,
+              borderRadius:
+              const BorderRadius
+                  .all(
+                  Radius.circular(
+                      4))),
+          child: Column(
+            children: [
+              Padding(
+                padding:
+                const EdgeInsets
+                    .symmetric(
+                    vertical: 16.0),
+                child: Center(
+                  child: spaceLine(
+                    20,
+                    MediaQuery.of(
+                        context)
+                        .size
+                        .width /
+                        1 /
+                        2,
+                  ),
+                ),
+              ),
+              widget.surah!.number == 9
+                  ? Container()
+                  : widget
+                  .surah!
+                  .ayahs![
+              index]
+                  .numberInSurah ==
+                  1
+                  ? besmAllah(
+                  context)
+                  : Container(),
+              // WordSelectableText(
+              //     selectable:  true,
+              //     highlight:  true,
+              //
+              //     text: widget.surah!.ayahs![index].text!,
+              //     onWordTapped: (word, index) {},
+              //     style: TextStyle(
+              //       fontSize:
+              //       TextPageView
+              //           .fontSizeArabic,
+              //       fontWeight:
+              //       FontWeight
+              //           .normal,
+              //       fontFamily:
+              //       'uthmanic2',
+              //       color: ThemeProvider.themeOf(context)
+              //           .id ==
+              //           'dark'
+              //           ? Colors
+              //           .white
+              //           : Colors
+              //           .black,
+              //       background:
+              //       Paint()
+              //         ..color = index ==
+              //             TextCubit.isSelected
+              //             ? backColor
+              //             : Colors.transparent
+              //         ..strokeJoin =
+              //             StrokeJoin
+              //                 .round
+              //         ..strokeCap =
+              //             StrokeCap
+              //                 .round
+              //         ..style =
+              //             PaintingStyle
+              //                 .fill,
+              //     ),),
+              Container(
+                padding:
+                const EdgeInsets
+                    .symmetric(
+                    horizontal: 32),
+                child:
+                SelectableText.rich(
+                  showCursor: true,
+                  cursorWidth: 3,
+                  cursorColor:
+                  Theme.of(context)
+                      .dividerColor,
+                  cursorRadius:
+                  const Radius
+                      .circular(5),
+                  scrollPhysics:
+                  const ClampingScrollPhysics(),
+                  textDirection:
+                  TextDirection.rtl,
+                  textAlign:
+                  TextAlign.justify,
+                  TextSpan(children: [
+                    TextSpan(
+                        text: widget
+                            .surah!
+                            .ayahs![
+                        index]
+                            .text!,
+                        style:
+                        TextStyle(
+                          fontSize:
+                          TextPageView
+                              .fontSizeArabic,
+                          fontWeight:
+                          FontWeight
+                              .normal,
+                          fontFamily:
+                          'uthmanic2',
+                          color: ThemeProvider.themeOf(context)
+                              .id ==
+                              'dark'
+                              ? Colors
+                              .white
+                              : Colors
+                              .black,
+                          background:
+                          Paint()
+                            ..color = index ==
+                                TextCubit.isSelected
+                                ? TextCubit.selected
+                                ? backColor
+                                : Colors.transparent
+                                : Colors.transparent
+                            ..strokeJoin =
+                                StrokeJoin.round
+                            ..strokeCap =
+                                StrokeCap.round
+                            ..style =
+                                PaintingStyle.fill,
+                        ),
+                        recognizer:
+                        TapGestureRecognizer()
+                          ..onTapDown =
+                              (TapDownDetails
+                          details) {
+                            setState(
+                                    () {
+                                  TextCubit.selected =
+                                  !TextCubit.selected;
+                                  lastAyahInPage = widget
+                                      .surah!
+                                      .ayahs![index]
+                                      .numberInSurah;
+                                  textSurahNum = widget
+                                      .surah!
+                                      .number;
+                                  backColor =
+                                      Colors.transparent;
+                                  TextCubit.sorahName = widget
+                                      .surah!
+                                      .number!
+                                      .toString();
+                                  TextCubit.ayahNum = widget
+                                      .surah!
+                                      .ayahs![index]
+                                      .numberInSurah
+                                      .toString();
+                                  TextCubit.isSelected =
+                                      index;
+                                });
+                            menu(
+                                context,
+                                index,
+                                index,
+                                details,
+                                translateData,
+                                widget.surah,
+                                widget.nomPageF,
+                                widget.nomPageL);
+                          }),
+                    TextSpan(
+                      text:
+                      ' ${arabicNumber.convert(widget.surah!.ayahs![index].numberInSurah.toString())}',
+                      style: TextStyle(
+                        fontSize:
+                        TextPageView
+                            .fontSizeArabic +
+                            5,
+                        fontWeight:
+                        FontWeight
+                            .w500,
+                        fontFamily:
+                        'uthmanic2',
+                        color: ThemeProvider.themeOf(context)
+                            .id ==
+                            'dark'
+                            ? Theme.of(
+                            context)
+                            .colorScheme
+                            .surface
+                            : Theme.of(
+                            context)
+                            .primaryColorLight,
+                      ),
+                    )
+                  ]),
+                  contextMenuBuilder:
+                  buildMyContextMenuText(
+                      notesCubit),
+                  onSelectionChanged:
+                  handleSelectionChanged,
+                ),
+              ),
+              Padding(
+                padding:
+                const EdgeInsets
+                    .symmetric(
+                    horizontal: 16),
+                child: SizedBox(
+                  width: MediaQuery.of(
+                      context)
+                      .size
+                      .width,
+                  child: Stack(
+                    alignment: Alignment
+                        .center,
+                    children: [
+                      Align(
+                          alignment:
+                          Alignment
+                              .centerRight,
+                          child: translateDropDown(
+                              context,
+                              setState)),
+                      spaceLine(
+                        20,
+                        MediaQuery.of(
+                            context)
+                            .size
+                            .width /
+                            1 /
+                            2,
+                      ),
+                      Align(
+                        alignment: Alignment
+                            .bottomLeft,
+                        child: juzNumEn(
+                          'Part\n${widget.surah!.ayahs![index].juz}',
+                          context,
+                          ThemeProvider.themeOf(context)
+                              .id ==
+                              'dark'
+                              ? Colors
+                              .white
+                              : Colors
+                              .black,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              Padding(
+                padding:
+                const EdgeInsets
+                    .only(
+                    bottom: 16.0,
+                    right: 32.0,
+                    left: 32.0),
+                child: BlocBuilder<
+                    TranslateDataCubit,
+                    TranslateDataState>(
+                  builder:
+                      (context, state) {
+                    if (state
+                        .isLoading) {
+                      // Display a loading indicator while the translation data is being fetched
+                      return search(
+                          50.0, 50.0);
+                    } else {
+                      final translateData =
+                          state.data;
+                      if (translateData !=
+                          null &&
+                          translateData
+                              .isNotEmpty) {
+                        // Use the translation variable in your widget tree
+                        return ReadMoreLess(
+                          text: translateData[
+                          index]
+                          [
+                          'text'] ??
+                              '',
+                          textStyle:
+                          TextStyle(
+                            fontSize:
+                            TextPageView.fontSizeArabic -
+                                10,
+                            fontFamily:
+                            'kufi',
+                            color: ThemeProvider.themeOf(context).id ==
+                                'dark'
+                                ? Colors
+                                .white
+                                : Colors
+                                .black,
+                          ),
+                          textAlign:
+                          TextAlign
+                              .justify,
+                          readMoreText:
+                          AppLocalizations.of(
+                              context)!
+                              .readMore,
+                          readLessText:
+                          AppLocalizations.of(
+                              context)!
+                              .readLess,
+                          buttonTextStyle:
+                          TextStyle(
+                            fontSize:
+                            12,
+                            fontFamily:
+                            'kufi',
+                            color: ThemeProvider.themeOf(context).id ==
+                                'dark'
+                                ? Colors
+                                .white
+                                : Theme.of(context)
+                                .primaryColorLight,
+                          ),
+                          iconColor: ThemeProvider.themeOf(context)
+                              .id ==
+                              'dark'
+                              ? Colors
+                              .white
+                              : Theme.of(
+                              context)
+                              .primaryColorLight,
+                        ); // Replace this with your actual widget
+                      } else {
+                        // Display a placeholder widget if there's no translation data
+                        return const Text(
+                            'No translation available');
+                      }
+                    }
+                  },
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+      Align(
+        alignment: Alignment.topRight,
+        child: Padding(
+          padding: const EdgeInsets.all(
+              20.0),
+          child: juzNum(
+              '${widget.surah!.ayahs![index].juz}',
+              context,
+              ThemeProvider.themeOf(
+                  context)
+                  .id ==
+                  'dark'
+                  ? Colors.white
+                  : Colors.black,
+              25),
+        ),
+      ),
+    ],
+  );
+}
+
+Widget pageAyah(BuildContext context, var setState, widget, List<InlineSpan> text, int index) {
+  QuranTextCubit TextCubit = QuranTextCubit.get(context);
+  NotesCubit notesCubit = NotesCubit.get(context);
+  Color backColor = Theme.of(context).colorScheme.surface.withOpacity(0.4);
+  return Stack(
+    children: [
+      GestureDetector(
+        onTap: () {
+          TextCubit.controller
+              .reverse();
+          setState(() {
+            backColor =
+                Colors.transparent;
+          });
+        },
+        // child: AutoScrollTag(
+        //   key: ValueKey(index),
+        //   controller: TextCubit.scrollController!,
+        //   index: index,
+        child: Container(
+          margin: const EdgeInsets
+              .symmetric(
+              horizontal: 16,
+              vertical: 4),
+          width: MediaQuery.of(context)
+              .size
+              .width,
+          decoration: BoxDecoration(
+              color: Theme.of(context)
+                  .colorScheme
+                  .background,
+              borderRadius:
+              const BorderRadius
+                  .all(
+                  Radius.circular(
+                      8))),
+          child: Column(
+            children: [
+              Padding(
+                padding:
+                const EdgeInsets
+                    .symmetric(
+                    vertical: 16.0),
+                child: Center(
+                  child: spaceLine(
+                    20,
+                    MediaQuery.of(
+                        context)
+                        .size
+                        .width /
+                        1 /
+                        2,
+                  ),
+                ),
+              ),
+              widget.surah!.number == 9
+                  ? Container()
+                  : widget
+                  .surah!
+                  .ayahs![
+              index]
+                  .numberInSurah ==
+                  1
+                  ? besmAllah(
+                  context)
+                  : Container(),
+              Container(
+                padding:
+                const EdgeInsets
+                    .symmetric(
+                    horizontal: 32),
+                // child: WordSelectableText(
+                //     selectable:  true,
+                //     highlight:  true,
+                //
+                //     text: text.map((e) {
+                //       return e;
+                //     }).toList(),
+                //     onWordTapped: (word, index) {
+                //
+                //       print(word);
+                //     },
+                //     style: TextStyle(
+                //       fontSize:
+                //       TextPageView
+                //           .fontSizeArabic,
+                //       fontWeight:
+                //       FontWeight
+                //           .normal,
+                //       fontFamily:
+                //       'uthmanic2',
+                //       color: ThemeProvider.themeOf(context)
+                //           .id ==
+                //           'dark'
+                //           ? Colors
+                //           .white
+                //           : Colors
+                //           .black,
+                //       background:
+                //       Paint()
+                //         ..color = index ==
+                //             TextCubit.isSelected
+                //             ? backColor
+                //             : Colors.transparent
+                //         ..strokeJoin =
+                //             StrokeJoin
+                //                 .round
+                //         ..strokeCap =
+                //             StrokeCap
+                //                 .round
+                //         ..style =
+                //             PaintingStyle
+                //                 .fill,
+                //     ),),
+                child:
+                SelectableText.rich(
+                  showCursor: true,
+                  cursorWidth: 3,
+                  cursorColor:
+                  Theme.of(context)
+                      .dividerColor,
+                  cursorRadius:
+                  const Radius
+                      .circular(5),
+                  scrollPhysics:
+                  const ClampingScrollPhysics(),
+                  textDirection:
+                  TextDirection.rtl,
+                  textAlign:
+                  TextAlign.justify,
+                  TextSpan(
+                    style: TextStyle(
+                        fontSize:
+                        TextPageView
+                            .fontSizeArabic,
+                        backgroundColor:
+                        TextCubit
+                            .bColor ??
+                            Colors
+                                .transparent,
+                        fontFamily:
+                        'uthmanic2'),
+                    children:
+                    text.map((e) {
+                      return e;
+                    }).toList(),
+                  ),
+                  contextMenuBuilder:
+                  buildMyContextMenuText(
+                      notesCubit),
+                  onSelectionChanged:
+                  handleSelectionChangedText,
+                ),
+              ),
+              Center(
+                child: spaceLine(
+                  20,
+                  MediaQuery.of(context)
+                      .size
+                      .width /
+                      1 /
+                      2,
+                ),
+              ),
+              Align(
+                alignment: Alignment
+                    .bottomCenter,
+                child: pageNumber(
+                    arabicNumber
+                        .convert(widget
+                        .nomPageF! +
+                        index)
+                        .toString(),
+                    context,
+                    Theme.of(context)
+                        .primaryColor),
+              ),
+            ],
+          ),
+        ),
+        // ),
+      ),
+      Align(
+        alignment: Alignment.topRight,
+        child: Padding(
+          padding: const EdgeInsets
+              .symmetric(
+              horizontal: 20.0,
+              vertical: 25.0),
+          child: juzNum(
+              '${TextCubit.juz}',
+              context,
+              ThemeProvider.themeOf(
+                  context)
+                  .id ==
+                  'dark'
+                  ? Colors.white
+                  : Colors.black,
+              25),
+        ),
+      )
+    ],
   );
 }

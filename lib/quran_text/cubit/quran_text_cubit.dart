@@ -25,9 +25,6 @@ class QuranTextCubit extends Cubit<QuranTextState> {
 
   static QuranTextCubit get(context) => BlocProvider.of(context);
   final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
-  bool isShowBottomSheet = false;
-  IconData bookmarksFabIcon = Icons.bookmarks_outlined;
-  IconData searchFabIcon = Icons.search_outlined;
   late final BookmarksTextController bookmarksTextController =
   Get.put(BookmarksTextController());
   late final BookmarksTextAyahController bookmarksTextAyahController =
@@ -164,26 +161,20 @@ class QuranTextCubit extends Cubit<QuranTextState> {
     radioValue = val;
     switch (radioValue) {
       case 0:
-      // translate = '${aya!.translate}';
         tableName = Translate.tableName2;
         return showTaf = translateRepository;
-        break;
       case 1:
         tableName = Translate.tableName;
         return showTaf = translateRepository;
-        break;
       case 2:
         tableName = Translate.tableName3;
         return showTaf = translateRepository;
-        break;
       case 3:
         tableName = Translate.tableName4;
         return showTaf = translateRepository;
-        break;
       case 4:
         tableName = Translate.tableName5;
         return showTaf = translateRepository;
-        break;
       default:
         tableName = Translate.tableName2;
         return showTaf = translateRepository;
@@ -196,10 +187,8 @@ class QuranTextCubit extends Cubit<QuranTextState> {
     switch (transValue) {
       case 0:
         return trans = 'en';
-        break;
       case 1:
         return trans = 'es';
-        break;
       default:
         return trans = 'en';
     }
@@ -264,63 +253,85 @@ class QuranTextCubit extends Cubit<QuranTextState> {
   }
 
   /// Time
-
   // var now = DateTime.now();
   String lastRead = "${DateTime.now().year}-${DateTime.now().month}-${DateTime.now().day}";
 
-  void bookmarksChangeBottomSheetState({
-    required bool isShow,
-    required IconData icon,
-  }) {
-    isShowBottomSheet = isShow;
-    bookmarksFabIcon = icon;
-    emit(ChangeBottomShowState());
+  /// scroll
+  void toggleScroll(var widget) {
+    if (scrolling) {
+      // Stop scrolling
+      animationController.stop();
+    } else {
+      // Calculate the new duration
+      double newDuration = ((widget.surah!.ayahs!.length -
+          (animationController.value *
+              widget.surah!.ayahs!.length)
+              .round()) /
+          scrollSpeedNotifier!.value);
+
+      // Check if the calculated value is finite and not NaN
+      if (newDuration.isFinite && !newDuration.isNaN) {
+        // Start scrolling
+        animationController.duration =
+            Duration(seconds: newDuration.round());
+        animationController.forward();
+      }
+    }
+    // setState(() {
+      scrolling =
+      !scrolling;
+
+      if (scrolling) {
+        animationController.addListener(scroll);
+      } else {
+        animationController.removeListener(scroll);
+      }
+    // });
   }
 
-  void bookmarksCloseBottomSheetState({
-    required bool isShow,
-    required IconData icon,
-  }) {
-    isShowBottomSheet = isShow;
-    bookmarksFabIcon = icon;
-    emit(CloseBottomShowState());
+  void scroll() {
+    scrollController.jumpTo(
+        animationController.value *
+            (scrollController
+                .position
+                .maxScrollExtent));
   }
 
-  void searchTextChangeBottomSheetState({
-    required bool isShow,
-    required IconData icon,
-  }) {
-    isShowBottomSheet = isShow;
-    searchFabIcon = icon;
-    emit(ChangeBottomShowState());
+  jumbToPage(var widget) async {
+    int pageNum = widget.pageNum ??
+        0; // Use the null coalescing operator to ensure pageNum is not null
+
+    if (pageNum == 0 ||
+        pageNum == 1 ||
+        pageNum == 585 ||
+        pageNum == 586 ||
+        pageNum == 587 ||
+        pageNum == 589 ||
+        pageNum == 590 ||
+        pageNum == 591 ||
+        pageNum == 592 ||
+        pageNum == 593 ||
+        pageNum == 594 ||
+        pageNum == 595 ||
+        pageNum == 596 ||
+        pageNum == 597 ||
+        pageNum == 598 ||
+        pageNum == 599 ||
+        pageNum == 600 ||
+        pageNum == 601 ||
+        pageNum == 602 ||
+        pageNum == 603 ||
+        pageNum == 604) {
+    } else {
+      await itemScrollController.scrollTo(
+          index:
+          (value == 1 ? pageNum : pageNum - 1),
+          duration: const Duration(seconds: 1),
+          curve: Curves.easeOut);
+      // setState(() {
+        isSelected =
+        value == 1 ? pageNum : pageNum - 1;
+      // });
+    }
   }
-
-  void searchTextCloseBottomSheetState({
-    required bool isShow,
-    required IconData icon,
-  }) {
-    isShowBottomSheet = isShow;
-    searchFabIcon = icon;
-    emit(CloseBottomShowState());
-  }
-
-  void tafseerChangeBottomSheetState({
-    required bool isShow,
-    required IconData icon,
-  }) {
-    isShowBottomSheet = isShow;
-    bookmarksFabIcon = icon;
-    emit(ChangeBottomShowState());
-  }
-
-  void tafseerCloseBottomSheetState({
-    required bool isShow,
-    required IconData icon,
-  }) {
-    isShowBottomSheet = isShow;
-    bookmarksFabIcon = icon;
-    emit(CloseBottomShowState());
-  }
-
-
 }

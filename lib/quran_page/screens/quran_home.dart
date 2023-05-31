@@ -12,7 +12,7 @@ import '../widget/sliding_up.dart';
 import '../../home_page.dart';
 
 class QuranPage extends StatefulWidget {
-  late int sorahNum;
+  late final int sorahNum;
   QuranPage({Key? key}) : super(key: key);
 
   @override
@@ -26,7 +26,6 @@ class _QuranPageState extends State<QuranPage>
   bool hasUnopenedNotifications() {
     return sentNotifications.any((notification) => !notification['opened']);
   }
-
 
   @override
   void initState() {
@@ -44,8 +43,6 @@ class _QuranPageState extends State<QuranPage>
     super.initState();
   }
 
-
-
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<QuranCubit, QuranState>(
@@ -59,8 +56,7 @@ class _QuranPageState extends State<QuranPage>
       builder: (BuildContext context, state) {
         QuranCubit cubit = QuranCubit.get(context);
         return Scaffold(
-          key: mScaffoldKey,
-          resizeToAvoidBottomInset: false,
+          resizeToAvoidBottomInset: true,
           backgroundColor: Colors.transparent,
           body: OrientationBuilder(builder: (context, orientation) {
             return Container(
@@ -82,14 +78,14 @@ class _QuranPageState extends State<QuranPage>
                       child: Align(
                           alignment: Alignment.bottomCenter,
                           child: Sliding(
-                            myWidget1: quranPageSearch(context, mScaffoldKey,
-                                MediaQuery.of(context).size.width),
-                            myWidget2: quranPageSorahList(context, mScaffoldKey,
-                                MediaQuery.of(context).size.width),
-                            myWidget3: notesList(context, mScaffoldKey,
-                                MediaQuery.of(context).size.width),
-                            myWidget4: bookmarksList(context, mScaffoldKey,
-                                MediaQuery.of(context).size.width),
+                            myWidget1: quranPageSearch(
+                                context, MediaQuery.of(context).size.width),
+                            myWidget2: quranPageSorahList(
+                                context, MediaQuery.of(context).size.width),
+                            myWidget3: notesList(
+                                context, MediaQuery.of(context).size.width),
+                            myWidget4: bookmarksList(
+                                context, MediaQuery.of(context).size.width),
                             myWidget5: const ShowTafseer(),
                             cHeight: 110.0,
                           ))),

@@ -50,6 +50,7 @@ class _WordSelectableTextState extends State<WordSelectableText> {
         .split(RegExp(r'\s|(?<=#)'));
     return widget.selectable
         ? SelectableText.rich(
+      textAlign: TextAlign.justify,
       TextSpan(
         children: [
           for (int i = 0; i < wordList.length; i++)
@@ -85,7 +86,7 @@ class _WordSelectableTextState extends State<WordSelectableText> {
           // generateSpans()
         ],
       ),
-      style: widget.style ?? TextStyle(),
+      style: widget.style ?? const TextStyle(),
       textDirection: widget.textDirection,
     )
         : Text.rich(

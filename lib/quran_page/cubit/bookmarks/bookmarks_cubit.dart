@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
 import '../../data/model/sorah_bookmark.dart';
@@ -11,29 +10,7 @@ class BookmarksCubit extends Cubit<BookmarksState> {
 
   static BookmarksCubit get(context) => BlocProvider.of(context);
 
-  bool isShowBottomSheet = false;
-  IconData bookmarksFabIcon = Icons.bookmarks_outlined;
-
-  void bookmarksChangeBottomSheetState({
-    required bool isShow,
-    required IconData icon,
-  }) {
-    isShowBottomSheet = isShow;
-    bookmarksFabIcon = icon;
-    emit(ChangeBottomShowState());
-  }
-
-  void bookmarksCloseBottomSheetState({
-    required bool isShow,
-    required IconData icon,
-  }) {
-    isShowBottomSheet = isShow;
-    bookmarksFabIcon = icon;
-    emit(CloseBottomShowState());
-  }
-
   /// Bookmarks
-
   late final BookmarksController bookmarksController =
       Get.put(BookmarksController());
 
@@ -50,7 +27,6 @@ class BookmarksCubit extends Cubit<BookmarksState> {
       print('Error');
     }
   }
-
 
   /// Bookmarks
   SorahBookmarkRepository sorahBookmarkRepository = SorahBookmarkRepository();

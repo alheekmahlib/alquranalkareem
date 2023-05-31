@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:alquranalkareem/cubit/cubit.dart';
 import 'package:alquranalkareem/notes/cubit/note_cubit.dart';
 import 'package:alquranalkareem/quran_text/Widgets/quran_text_search.dart';
@@ -13,7 +12,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_sliding_up_panel/sliding_up_panel_widget.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:hijri/hijri_calendar.dart';
-import 'package:lottie/lottie.dart';
 import 'package:theme_provider/theme_provider.dart';
 import '../../database/notificationDatabase.dart';
 import '../../home_page.dart';
@@ -21,25 +19,19 @@ import '../../l10n/app_localizations.dart';
 import '../../notes/screens/notes_list.dart';
 import '../../quran_page/cubit/audio/cubit.dart';
 import '../../quran_text/Widgets/bookmarks_text_list.dart';
-import '../../quran_text/cubit/quran_text_cubit.dart';
 import '../custom_paint/bg_icon.dart';
 import '../postPage.dart';
 import 'package:intl/intl.dart';
 
-import 'lottie.dart';
 
 
 
-
-var mScaffoldKey = GlobalKey<ScaffoldState>();
-var dScaffoldKey = GlobalKey<ScaffoldState>();
-var TScaffoldKey = GlobalKey<ScaffoldState>();
 var TPageScaffoldKey = GlobalKey<ScaffoldState>();
 var SorahPlayScaffoldKey = GlobalKey<ScaffoldState>();
 String? selectedValue;
 
 Widget quranPageSearch(
-    BuildContext context, GlobalKey<ScaffoldState> searchKey, double width) {
+    BuildContext context, double width) {
   return GestureDetector(
     child: iconBg(
       context,
@@ -56,7 +48,7 @@ Widget quranPageSearch(
 }
 
 Widget quranPageSorahList(
-    BuildContext context, GlobalKey<ScaffoldState> sorahListKey, double width) {
+    BuildContext context, double width) {
   return GestureDetector(
       child: iconBg(
           context,
@@ -79,49 +71,12 @@ Widget quranPageSorahList(
 }
 
 Widget notesList(
-    BuildContext context, GlobalKey<ScaffoldState> notesListKey, double width) {
+    BuildContext context, double width) {
   NotesCubit notesCubit = NotesCubit.get(context);
   return GestureDetector(
-    child: SizedBox(
-      height: 50,
-      width: 50,
-      child: ThemeProvider.themeOf(context).id == 'green'
-          ? CustomPaint(
-              painter: BgIcon(),
-              child: Stack(
-                alignment: Alignment.center,
-                children: [
-                  Container(
-                    height: 35,
-                    width: 35,
-                    color: Theme.of(context).colorScheme.background,
-                  ),
-                  Icon(
-                    notesCubit.notesFabIcon,
-                    color: Theme.of(context).colorScheme.surface,
-                    size: 25,
-                  ),
-                ],
-              ),
-            )
-          : CustomPaint(
-              painter: BgIcon2(),
-              child: Stack(
-                alignment: Alignment.center,
-                children: [
-                  Container(
-                    height: 35,
-                    width: 35,
-                    color: Theme.of(context).colorScheme.background,
-                  ),
-                  Icon(
-                    notesCubit.notesFabIcon,
-                    color: Theme.of(context).colorScheme.surface,
-                    size: 25,
-                  ),
-                ],
-              ),
-            ),
+    child: iconBg(
+        context,
+        Icons.add_comment_outlined
     ),
     onTap: () {
       allModalBottomSheet(context,
@@ -133,8 +88,7 @@ Widget notesList(
   );
 }
 
-Widget bookmarksList(BuildContext context,
-    GlobalKey<ScaffoldState> bookmarksListKey, double width) {
+Widget bookmarksList(BuildContext context, double width) {
   return GestureDetector(
     child: iconBg(
         context,
@@ -169,49 +123,10 @@ Widget bookmarksTextList(BuildContext context,
 
 Widget quranTextSearch(BuildContext context,
     GlobalKey<ScaffoldState> searchTextListKey, double width) {
-  QuranCubit cubit = QuranCubit.get(context);
-  QuranTextCubit bookmarksCubit = QuranTextCubit.get(context);
   return GestureDetector(
-    child: SizedBox(
-      height: 50,
-      width: 50,
-      child: ThemeProvider.themeOf(context).id == 'green'
-          ? CustomPaint(
-              painter: BgIcon(),
-              child: Stack(
-                alignment: Alignment.center,
-                children: [
-                  Container(
-                    height: 35,
-                    width: 35,
-                    color: Theme.of(context).colorScheme.background,
-                  ),
-                  Icon(
-                    bookmarksCubit.searchFabIcon,
-                    color: Theme.of(context).colorScheme.surface,
-                    size: 25,
-                  ),
-                ],
-              ),
-            )
-          : CustomPaint(
-              painter: BgIcon2(),
-              child: Stack(
-                alignment: Alignment.center,
-                children: [
-                  Container(
-                    height: 35,
-                    width: 35,
-                    color: Theme.of(context).colorScheme.background,
-                  ),
-                  Icon(
-                    bookmarksCubit.searchFabIcon,
-                    color: Theme.of(context).colorScheme.surface,
-                    size: 25,
-                  ),
-                ],
-              ),
-            ),
+    child: iconBg(
+        context,
+        Icons.search_outlined
     ),
     onTap: () {
       allModalBottomSheet(context,
@@ -265,27 +180,23 @@ Widget hijriDate2(BuildContext context) {
     children: [
       SvgPicture.asset(
         'assets/svg/hijri/${_today.hMonth}.svg',
-        height: 50.0,
+        height: platformView(50.0, 70.0),
         colorFilter: ColorFilter.mode(
             Theme.of(context).colorScheme.background,
             BlendMode.srcIn)
       ),
       const SizedBox(
-        height: 4.0,
+        height: 8.0,
       ),
       Text(
       arabicNumber.convert('${_today.hDay} / ${_today.hMonth} / ${_today.hYear} هـ \n ${_today.dayWeName}'),
         style: TextStyle(
-          fontSize: 12.0,
+          fontSize: platformView(12.0, 22.0),
           fontFamily: 'kufi',
           color: Theme.of(context).colorScheme.surface,
         ),
         textAlign: TextAlign.center,
       ),
-      const SizedBox(
-        height: 8.0,
-      ),
-
     ],
   );
 }
@@ -340,7 +251,7 @@ Widget hijriDateLand(BuildContext context) {
 
 Widget topBar(BuildContext context) {
   return SizedBox(
-    height: orientation(context, 130.0, 40.0),
+    height: orientation(context, 130.0, platformView(40.0, 130.0)),
     child: Stack(
       alignment: Alignment.center,
       children: [
@@ -1468,8 +1379,6 @@ Widget rightPage(BuildContext context, Widget child) {
         padding: const EdgeInsets.only(
             right: 4.0, top: 16.0, bottom: 16.0),
         child: Container(
-          height: MediaQuery.of(context).size.height,
-          width: MediaQuery.of(context).size.width,
             decoration: BoxDecoration(
             color: ThemeProvider.themeOf(context).id == 'dark'
                 ? Theme.of(context).primaryColorDark.withOpacity(.5)
@@ -1478,15 +1387,13 @@ Widget rightPage(BuildContext context, Widget child) {
         borderRadius: const BorderRadius.only(
         topRight: Radius.circular(12),
         bottomRight: Radius.circular(12))),
-          // child: child,
+          child: child,
         ),
       ),
       Padding(
         padding: const EdgeInsets.only(
             right: 8.0, top: 16.0, bottom: 16.0),
         child: Container(
-          height: MediaQuery.of(context).size.height,
-          width: MediaQuery.of(context).size.width,
             decoration: BoxDecoration(
             color: ThemeProvider.themeOf(context).id == 'dark'
                 ? Theme.of(context).primaryColorDark.withOpacity(.7)
@@ -1494,7 +1401,7 @@ Widget rightPage(BuildContext context, Widget child) {
         borderRadius: const BorderRadius.only(
         topRight: Radius.circular(12),
         bottomRight: Radius.circular(12))),
-          // child: child,
+          child: child,
         ),
       ),
       Padding(
@@ -1520,8 +1427,6 @@ Widget leftPage(BuildContext context, Widget child) {
         padding: const EdgeInsets.only(
             left: 4.0, top: 16.0, bottom: 16.0),
         child: Container(
-          height: MediaQuery.of(context).size.height,
-          width: MediaQuery.of(context).size.width,
             decoration: BoxDecoration(
             color: ThemeProvider.themeOf(context).id == 'dark'
                 ? Theme.of(context).primaryColorDark.withOpacity(.5)
@@ -1530,15 +1435,13 @@ Widget leftPage(BuildContext context, Widget child) {
         borderRadius: const BorderRadius.only(
         topLeft: Radius.circular(12),
         bottomLeft: Radius.circular(12))),
-          // child: child,
+          child: child,
         ),
       ),
       Padding(
         padding: const EdgeInsets.only(
             left: 8.0, top: 16.0, bottom: 16.0),
         child: Container(
-          height: MediaQuery.of(context).size.height,
-          width: MediaQuery.of(context).size.width,
             decoration: BoxDecoration(
             color: ThemeProvider.themeOf(context).id == 'dark'
                 ? Theme.of(context).primaryColorDark.withOpacity(.7)
@@ -1546,7 +1449,7 @@ Widget leftPage(BuildContext context, Widget child) {
         borderRadius: const BorderRadius.only(
         topLeft: Radius.circular(12),
         bottomLeft: Radius.circular(12))),
-          // child: child,
+          child: child,
         ),
       ),
       Padding(
@@ -1637,7 +1540,8 @@ allModalBottomSheet(BuildContext context, double height, width, Widget child) {
             width, wid / 1/2),
             wid / 1/2),
         maxHeight: orientation(context, hei * 3/4,
-            platformView(hei, hei / 1/2))
+            platformView(hei, hei *
+                3/4))
       ),
       elevation: 0.0,
       shape: const RoundedRectangleBorder(
@@ -1729,12 +1633,6 @@ Widget customTextClose(BuildContext context) {
         cubit.panelTextController.hide();
       }
     },
-  );
-}
-
-Widget custumLoding() {
-  return Center(
-    child: loadingLottie(200.0, 200.0),
   );
 }
 

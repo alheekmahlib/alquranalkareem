@@ -123,7 +123,6 @@ class _QuranTextSearchState extends State<QuranTextSearch> {
                                               Navigator.of(context).pop();
                                               Navigator.of(context).push(
                                                   animatRoute(TextPageView(
-                                                // surah: surah[bookmark.sorahNum!],
                                                 surah: state[aya.sorahId - 1],
                                                 nomPageF: state[aya.sorahId - 1]
                                                     .ayahs!
@@ -141,7 +140,7 @@ class _QuranTextSearchState extends State<QuranTextSearch> {
                                                         1)
                                                     : state[aya.sorahId - 1]
                                                         .ayahs![aya.ayaNum - 1]
-                                                        .pageInSurah,
+                                                        .pageInSurah!,
                                               )));
                                               print('${state[aya.sorahId]}');
                                               print(
