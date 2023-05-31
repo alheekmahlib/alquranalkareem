@@ -15,7 +15,6 @@ class NotesCubit extends Cubit<NotesState>{
   static NotesCubit get(context) => BlocProvider.of(context);
   bool isShowBottomSheet = false;
   IconData notesFabIcon = Icons.add_comment_outlined;
-  // List<Map> notes = [];
   int? id;
   String? title;
   String? description;
@@ -83,10 +82,6 @@ class NotesCubit extends Cubit<NotesState>{
   }
 
   /// Add Tafseer To Note
-
-  String? selectedTitle;
-  String? selectedTitleText;
-
   void addTafseerToNote(BuildContext context) {
     if (selectedTextED != null && selectedTextED!.isNotEmpty) {
       context.read<NotesCubit>().addSelectedTextAsNote(selectedTextED!,  allTitle);
@@ -97,30 +92,9 @@ class NotesCubit extends Cubit<NotesState>{
 
   void addTafseerTextToNote(BuildContext context) {
     if (selectedTextT != null && selectedTextT!.isNotEmpty) {
-      context.read<NotesCubit>().addSelectedTextAsNote(selectedTextT!, textTitle!);
+      context.read<NotesCubit>().addSelectedTextAsNote(selectedTextT!, textTitle);
       // Clear the selected text after saving it as a note
         selectedTextT = null;
     }
-  }
-
-  final TextEditingController textEditingController = TextEditingController();
-  final ValueNotifier<String> selectedTextNotifier = ValueNotifier<String>('');
-
-
-  void notesChangeBottomSheetState({
-    required bool isShow,
-    required IconData icon,
-  }){
-    isShowBottomSheet = isShow;
-    notesFabIcon = icon;
-    // emit(ChangeBottomShowState());
-  }
-  void notesCloseBottomSheetState({
-    required bool isShow,
-    required IconData icon,
-  }){
-    isShowBottomSheet = isShow;
-    notesFabIcon = icon;
-    // emit(CloseBottomShowState());
   }
 }

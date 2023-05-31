@@ -1,11 +1,8 @@
 import 'dart:convert';
-
 import 'package:bloc/bloc.dart';
 import 'package:flutter/services.dart';
 import 'package:meta/meta.dart';
-
 import '../model/QuranModel.dart';
-
 part 'surah_text_state.dart';
 
 class SurahTextCubit extends Cubit<List<SurahText>?> {

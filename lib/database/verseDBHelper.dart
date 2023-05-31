@@ -4,12 +4,11 @@ import 'package:flutter/services.dart';
 import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:sqflite/sqflite.dart';
-
 import '../quran_page/data/model/verse.dart';
 
 class DBHelper {
   static final _databaseName = "ayahinfo_1260.db";
-  static final _databaseVersion = 1;
+  // static final _databaseVersion = 1;
 
   static final DBHelper _instance = DBHelper._internal();
 

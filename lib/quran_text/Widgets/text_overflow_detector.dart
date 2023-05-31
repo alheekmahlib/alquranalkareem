@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-// import 'package:read_more_less/src/expandable_text.dart';
 
 import 'expandable_text.dart';
 
@@ -78,24 +77,25 @@ class ReadMoreLess extends StatelessWidget {
 
             return isExceeded
                 ? ExpandableText(
-              text: text,
-              animationDuration: animationDuration,
-              maxHeight: maxHeight,
-              readLessText: readLessText,
-              readMoreText: readMoreText,
-              textAlign: textAlign,
-              textStyle: textStyle,
-              iconCollapsed: iconCollapsed,
-              iconExpanded: iconExpanded,
-              iconColor: iconColor,
-              buttonTextStyle: buttonTextStyle,
-            )
+                    text: text,
+                    animationDuration: animationDuration,
+                    maxHeight: maxHeight,
+                    readLessText: readLessText,
+                    readMoreText: readMoreText,
+                    textAlign: textAlign,
+                    textStyle: textStyle,
+                    iconCollapsed: iconCollapsed,
+                    iconExpanded: iconExpanded,
+                    iconColor: iconColor,
+                    buttonTextStyle: buttonTextStyle,
+                  )
                 : Text(text,
-                softWrap: true,
-                overflow: TextOverflow.fade,
-                textAlign: textAlign,
-                textDirection: TextDirection.ltr,
-                style: textStyle ?? Theme.of(context).textTheme.titleMedium);
+                    softWrap: true,
+                    overflow: TextOverflow.fade,
+                    textAlign: textAlign,
+                    textDirection: TextDirection.ltr,
+                    style:
+                        textStyle ?? Theme.of(context).textTheme.titleMedium);
           },
         ),
       ],

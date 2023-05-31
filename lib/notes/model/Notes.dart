@@ -19,6 +19,4 @@ class Notes {
       title = json['title'];
       description = json['description'];
   }
-
-
 }

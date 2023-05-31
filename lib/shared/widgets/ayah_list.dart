@@ -3,7 +3,6 @@ import 'package:arabic_numbers/arabic_numbers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:lottie/lottie.dart';
 import 'package:theme_provider/theme_provider.dart';
 import '../../cubit/cubit.dart';
 import '../../quran_page/cubit/audio/cubit.dart';
@@ -192,7 +191,7 @@ class _AyahList2State extends State<AyahList2> {
                                     context, aya.suraNum!, aya.ayaNum!);
                                 // cubit.translateAyah = "${aya.ayatext}";
                                 // cubit.translate = "${aya.translate}";
-                                print(aya.suraNum);
+                                print("suraNum ${aya.ayaNum}");
                                 isSelected = index.toDouble();
                                 ayahSelected = index;
                                 ayahNumber = aya.ayaNum;

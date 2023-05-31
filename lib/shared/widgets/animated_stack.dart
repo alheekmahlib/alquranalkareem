@@ -1,5 +1,3 @@
-library animated_stack;
-
 import 'package:alquranalkareem/shared/widgets/settings_list.dart';
 import 'package:alquranalkareem/shared/widgets/settings_popUp.dart';
 import 'package:alquranalkareem/shared/widgets/widgets.dart';
@@ -56,6 +54,8 @@ class _AnimatedStackState extends State<AnimatedStack> {
 
   @override
   Widget build(BuildContext context) {
+    double paddingHeight = MediaQuery.of(context).size.height;
+    double width = MediaQuery.of(context).size.width;
     final double _width = MediaQuery.of(context).size.width;
     final double _height = MediaQuery.of(context).size.height;
     final double _fabPosition = 16;
@@ -70,6 +70,7 @@ class _AnimatedStackState extends State<AnimatedStack> {
     // TODO: implement listener
   },
   builder: (context, state) {
+    QuranCubit cubit = QuranCubit.get(context);
     return Directionality(
       textDirection: TextDirection.rtl,
       child: SafeArea(
@@ -127,8 +128,14 @@ class _AnimatedStackState extends State<AnimatedStack> {
                               400.0,
                               MediaQuery.of(context).size.height * 1/2 * 1.6),
                           alignment: Alignment.topCenter,
+                          padding: orientation(context,
+                              EdgeInsets.only(top: paddingHeight * .08, right: 16.0, left: 16.0),
+                              EdgeInsets.only(top: 70.0, right: width * .5, left: 16.0)),
                         );
                       }));
+                      setState(() {
+                        cubit.isShowSettings = !cubit.isShowSettings;
+                      });
                     },
                     child: Hero(
                       tag: heroAddTodo,

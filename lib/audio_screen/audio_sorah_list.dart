@@ -16,7 +16,6 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:lottie/lottie.dart';
 import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -39,7 +38,6 @@ class AudioSorahList extends StatefulWidget {
 
 class _AudioSorahListState extends State<AudioSorahList>
     with AutomaticKeepAliveClientMixin<AudioSorahList>, SingleTickerProviderStateMixin {
-
   final ScrollController controller = ScrollController();
   ValueNotifier<double> _position = ValueNotifier(0);
   ValueNotifier<double> _duration = ValueNotifier(99999);
@@ -47,7 +45,6 @@ class _AudioSorahListState extends State<AudioSorahList>
   String _currentTime = '0:00';
   String _totalDuration = '0:00';
   AudioPlayer audioPlayer = AudioPlayer();
-
   AudioCache cashPlayer = AudioCache();
   bool isPlayOnline = false;
   bool isPlay = false;
@@ -445,19 +442,6 @@ class _AudioSorahListState extends State<AudioSorahList>
     print("Download completed");
   }
 
-  replay(BuildContext context) {
-    Navigator.pop(context);
-    setState(() {
-      isPlay = false;
-      currentPlay = null;
-    });
-    if (sorahNum != null) {
-      playSorah(context);
-    } else {
-      // playPage(context, DPages.currentPage2.toString());
-    }
-  }
-
   void deactivate() {
     positionSubscription?.cancel();
     durationSubscription?.cancel();
@@ -590,28 +574,31 @@ class _AudioSorahListState extends State<AudioSorahList>
                     Stack(
                     children: [
                       Align(
-                        alignment: Alignment.centerRight,
+                        alignment: Alignment.centerLeft,
                         child: SizedBox(
                           width: width / 1 / 2,
-                          child: Stack(
-                            alignment: Alignment.center,
-                            children: [
-                              Opacity(
-                                opacity: .1,
-                                child: quranIcon(context, height / 1/2, width),
-                              ),
-                              quranIcon(context, 100, width / 1 / 2),
-                              surahSearch(context),
-                            ],
+                          child: Padding(
+                            padding: const EdgeInsets.only(right: 96.0),
+                            child: Stack(
+                              alignment: Alignment.center,
+                              children: [
+                                Opacity(
+                                  opacity: .1,
+                                  child: quranIcon(context, height / 1/2, width),
+                                ),
+                                quranIcon(context, 100, width / 1 / 2),
+                                surahSearch(context),
+                              ],
+                            ),
                           ),
                         ),
                       ),
                       Align(
-                        alignment: Alignment.topRight,
+                        alignment: Alignment.bottomLeft,
                         child: lastListen(context),
                       ),
                       Align(
-                        alignment: Alignment.centerLeft,
+                        alignment: Alignment.centerRight,
                         child: SizedBox(
                           width: width / 1 / 2,
                           child: surahList(context),
@@ -644,7 +631,10 @@ class _AudioSorahListState extends State<AudioSorahList>
                 ),
                 Align(
                   alignment: Alignment.topRight,
-                  child: lastListen(context),
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 32.0, horizontal: 16.0),
+                    child: lastListen(context),
+                  ),
                 ),
                 Align(
                   alignment: Alignment.centerLeft,
@@ -988,7 +978,7 @@ class _AudioSorahListState extends State<AudioSorahList>
                                     alignment: Alignment.center,
                                     width: width,
                                     child: FlutterSlider(
-                                      values: [lastPosition == null ? _position.value : lastPosition],
+                                      values: [lastPosition == false ? _position.value : lastPosition],
                                       max: _duration.value,
                                       min: 0,
                                       rtl: true,
@@ -1031,7 +1021,8 @@ class _AudioSorahListState extends State<AudioSorahList>
                                 ),
                                 Expanded(
                                     flex: 2,
-                                    child: Center(child: Text(_totalDuration,
+                                    child: Center(
+                                        child: Text(_totalDuration,
                                       style: TextStyle(
                                         fontFamily: 'kufi',
                                         fontSize: 14,
@@ -2016,7 +2007,7 @@ class _AudioSorahListState extends State<AudioSorahList>
         ),
         margin: orientation(context,
             const EdgeInsets.only(top: 75.0, right: 16.0),
-            const EdgeInsets.only(top: 16.0, right: 16.0)),
+            const EdgeInsets.only(bottom: 16.0, left: 32.0)),
         child: Column(
           children: <Widget>[
             Container(
@@ -2082,6 +2073,7 @@ class _AudioSorahListState extends State<AudioSorahList>
         ),
       ),
       onTap: () {
+        controller.jumpTo((sorahNum - 1) * 65.0);
         switch (audioCubit
             .controllerSorah
             .status) {

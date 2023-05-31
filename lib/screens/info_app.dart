@@ -2,7 +2,6 @@ import 'package:alquranalkareem/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:theme_provider/theme_provider.dart';
-
 import '../shared/widgets/widgets.dart';
 
 class InfoApp extends StatelessWidget {
@@ -18,7 +17,9 @@ class InfoApp extends StatelessWidget {
       child: Scaffold(
         backgroundColor: Theme.of(context).colorScheme.background,
         body: Padding(
-          padding: const EdgeInsets.only(top: 80.0, bottom: 16.0),
+          padding: orientation(context,
+              const EdgeInsets.only(top: 80.0, bottom: 16.0),
+              const EdgeInsets.only(top: 20.0, bottom: 16.0)),
           child: Align(
             alignment: Alignment.topCenter,
             child: Stack(

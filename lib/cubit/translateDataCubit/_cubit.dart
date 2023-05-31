@@ -13,8 +13,4 @@ class TranslateDataCubit extends Cubit<TranslateDataState> {
     List<dynamic> sura = showData[surahNumber];
     emit(TranslateDataState(data: sura, isLoading: false)); // Set isLoading to false and update the data
   }
-
-  // Map<String, dynamic>? getVerseByNumber(int verseNumber) {
-  //   return state?.firstWhere((verse) => verse['verse'] == verseNumber);
-  // }
 }

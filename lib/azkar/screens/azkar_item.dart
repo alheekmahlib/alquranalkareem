@@ -56,11 +56,13 @@ class _AzkarItemState extends State<AzkarItem> {
                 alignment: Alignment.topLeft,
                 child: Padding(
                   padding:
-                      const EdgeInsets.only(right: 16.0, left: 16.0, top: 50.0),
+                      orientation(context,
+                          const EdgeInsets.only(right: 16.0, left: 16.0, top: 50.0),
+                          const EdgeInsets.only(right: 16.0, left: 16.0, top: 30.0)),
                   child: Align(
                     alignment: Alignment.topLeft,
                     child: SizedBox(
-                      width: 150,
+                      width: orientation(context, 150.0, 250.0),
                       child: Container(
                         padding: const EdgeInsets.symmetric(horizontal: 8),
                         decoration: BoxDecoration(
@@ -77,7 +79,7 @@ class _AzkarItemState extends State<AzkarItem> {
                             color: ThemeProvider.themeOf(context).id == 'dark'
                                 ? Colors.white
                                 : Theme.of(context).primaryColor,
-                            fontSize: 12,
+                            fontSize: orientation(context, 12.0, 16.0),
                             fontFamily: 'kufi',
                           ),
                         ),
@@ -87,7 +89,9 @@ class _AzkarItemState extends State<AzkarItem> {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.only(top: 64.0),
+                padding: orientation(context,
+                    const EdgeInsets.only(top: 64.0),
+                    const EdgeInsets.only(top: 35.0)),
                 child: Stack(
                   children: [
                     Padding(
@@ -107,7 +111,7 @@ class _AzkarItemState extends State<AzkarItem> {
               Padding(
                 padding: orientation(context,
                     const EdgeInsets.only(top: 96),
-                    const EdgeInsets.only(top: 96, right: 64, left: 64)),
+                    const EdgeInsets.only(top: 65, right: 64, left: 64)),
                 child: SingleChildScrollView(
                   child: Column(
                     children: azkarByCategory.azkarList.map((azkar) {

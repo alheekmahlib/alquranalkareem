@@ -5,11 +5,3 @@ class NotesState {
 
   NotesState({required this.notes});
 }
-
-// class NotesAddState extends NotesState{
-//
-// }
-// class ChangeBottomShowState extends NotesState{
-// }
-// class CloseBottomShowState extends NotesState{
-// }

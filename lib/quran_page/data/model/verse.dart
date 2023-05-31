@@ -144,7 +144,7 @@ class _QuranPageState extends State<QuranPage> {
   // }
 
   void _onTap2(TapDownDetails details) {
-    QuranCubit cubit = QuranCubit.get(context);
+    // QuranCubit cubit = QuranCubit.get(context);
     RenderBox box = context.findRenderObject() as RenderBox;
     Offset localPosition = box.globalToLocal(details.globalPosition);
 
@@ -310,7 +310,7 @@ class _QuranPageState extends State<QuranPage> {
 
   double _calculateSelectedScaleFactor(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
-    double screenHeight = MediaQuery.of(context).size.height;
+    // double screenHeight = MediaQuery.of(context).size.height;
     double scaleFactor;
 
     // Define breakpoints for different screen sizes
@@ -431,11 +431,11 @@ class _QuranPageState extends State<QuranPage> {
 
 
       // Calculate the imageWidth scale factor based on the screen size
-      const double minScreenWidth = 320.0; // Minimum screen width for adjustments
-      const double maxScreenWidth = 768.0; // Maximum screen width for adjustments
-
-      const double minImageWidthFactor = 3.1; // Image width factor for the minimum screen width
-      const double maxImageWidthFactor = 1.16; // Image width factor for the maximum screen width
+      // const double minScreenWidth = 320.0; // Minimum screen width for adjustments
+      // const double maxScreenWidth = 768.0; // Maximum screen width for adjustments
+      //
+      // const double minImageWidthFactor = 3.1; // Image width factor for the minimum screen width
+      // const double maxImageWidthFactor = 1.16; // Image width factor for the maximum screen width
 
       // double largeScreenWidthFactor = 1.625;
       // double getImageWidthFactor(double screenWidth) {
@@ -688,8 +688,8 @@ class _QuranPageState extends State<QuranPage> {
   @override
   Widget build(BuildContext context) {
     QuranCubit cubit = QuranCubit.get(context);
-    double width = MediaQuery.of(context).size.width;
-    double height = MediaQuery.of(context).size.height;
+    // double width = MediaQuery.of(context).size.width;
+    // double height = MediaQuery.of(context).size.height;
     return LayoutBuilder(
       builder: (BuildContext context, BoxConstraints constraints) {
         return GestureDetector(
@@ -703,15 +703,15 @@ class _QuranPageState extends State<QuranPage> {
               children: [
                 LayoutBuilder(
                   builder: (BuildContext context, BoxConstraints innerConstraints) {
-                    double aspectRatio;
-                    if (MediaQuery.of(context).orientation == Orientation.portrait) {
-                      aspectRatio = 5.7 / 9;
-                    } else {
-                      aspectRatio = 6.2 / 9;
-                    }
+                    // double aspectRatio;
+                    // if (MediaQuery.of(context).orientation == Orientation.portrait) {
+                    //   aspectRatio = 5.7 / 9;
+                    // } else {
+                    //   aspectRatio = 6.2 / 9;
+                    // }
 
-                    double containerWidth = constraints.maxWidth;
-                    double containerHeight = containerWidth / aspectRatio;
+                    // double containerWidth = constraints.maxWidth;
+                    // double containerHeight = containerWidth / aspectRatio;
 
                     return Container(
                       // width: containerWidth,

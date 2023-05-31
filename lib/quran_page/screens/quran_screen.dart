@@ -56,7 +56,7 @@ class _QuranPageScreenState extends State<QuranPageScreen> {
               child: Wrap(
                 children: [
                   Padding(
-                    padding: const EdgeInsets.only(top: 52.0, bottom: 140.0, right: 6.0),
+                    padding: const EdgeInsets.only(top: 52.0, bottom: 70.0, right: 6.0),
                     child: SvgPicture.asset(
                       'assets/svg/splash_icon.svg',
                       height: 100,

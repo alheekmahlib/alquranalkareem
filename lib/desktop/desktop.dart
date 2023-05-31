@@ -21,10 +21,6 @@ class Desktop extends StatefulWidget {
 class _DesktopState extends State<Desktop> with TickerProviderStateMixin {
   SharedPreferences? prefs;
   late String current;
-
-  var dSorahJuzListKey = GlobalKey<ScaffoldState>();
-  var dQuranSearchKey = GlobalKey<ScaffoldState>();
-  var dBScaffoldKey = GlobalKey<ScaffoldState>();
   late ScrollController slidingScrollController;
   SlidingUpPanelController slidingPanelController = SlidingUpPanelController();
 
@@ -71,7 +67,6 @@ class _DesktopState extends State<Desktop> with TickerProviderStateMixin {
         QuranCubit cubit = QuranCubit.get(context);
         return SafeArea(
           child: Scaffold(
-            key: dScaffoldKey,
             body: Stack(
               children: <Widget>[
                 Directionality(
@@ -88,22 +83,18 @@ class _DesktopState extends State<Desktop> with TickerProviderStateMixin {
                     child: Sliding(
                       myWidget1: quranPageSearch(
                         context,
-                        dScaffoldKey,
                         MediaQuery.of(context).size.width / 1 / 2,
                       ),
                       myWidget2: quranPageSorahList(
                         context,
-                        dScaffoldKey,
                         MediaQuery.of(context).size.width / 1 / 2,
                       ),
                       myWidget3: notesList(
                         context,
-                        dScaffoldKey,
                         MediaQuery.of(context).size.width / 1 / 2,
                       ),
                       myWidget4: bookmarksList(
                         context,
-                        dScaffoldKey,
                         MediaQuery.of(context).size.width / 1 / 2,
                       ),
                       myWidget5: const ShowTafseer(),
