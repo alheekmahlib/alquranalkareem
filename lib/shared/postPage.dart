@@ -1,15 +1,11 @@
-
 import 'package:alquranalkareem/home_page.dart';
 import 'package:alquranalkareem/shared/widgets/lottie.dart';
 import 'package:alquranalkareem/shared/widgets/widgets.dart';
 import 'package:easy_image_viewer/easy_image_viewer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:html/parser.dart' as html_parser;
 import 'package:lottie/lottie.dart';
 import 'package:theme_provider/theme_provider.dart';
-
-
 
 class PostPage extends StatefulWidget {
   final int postId;
@@ -33,30 +29,28 @@ class _PostPageState extends State<PostPage> {
     List<Widget> widgets = [];
 
     // Add the post body text
-    widgets.add(
-        Text(
-          post.body,
-          style: TextStyle(
-            color: ThemeProvider.themeOf(context).id == 'dark'
-                ? Colors.white
-                : Colors.black,
-            height: 1.4,
-            fontFamily: 'kufi',
-            fontSize: 20,
-          ),
-          textAlign: TextAlign.center,
-        ));
+    widgets.add(Text(
+      post.body,
+      style: TextStyle(
+        color: ThemeProvider.themeOf(context).id == 'dark'
+            ? Colors.white
+            : Colors.black,
+        height: 1.4,
+        fontFamily: 'kufi',
+        fontSize: 20,
+      ),
+      textAlign: TextAlign.center,
+    ));
 
     // Add the Lottie animation if present
     if (post.isLottie) {
-      widgets.add(
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: 16.0),
-            child: Lottie.network(post.lottie,
-            width: MediaQuery.of(context).size.width * .7,
-
-            ),
-          ));
+      widgets.add(Padding(
+        padding: const EdgeInsets.symmetric(vertical: 16.0),
+        child: Lottie.network(
+          post.lottie,
+          width: MediaQuery.of(context).size.width * .7,
+        ),
+      ));
     }
 
     // Add the image if present
@@ -66,7 +60,8 @@ class _PostPageState extends State<PostPage> {
         onTap: () {
           showImageViewer(context, imageProvider);
         },
-        child: Image.network(post.image,
+        child: Image.network(
+          post.image,
           width: MediaQuery.of(context).size.width * .8,
         ),
       ));
@@ -78,8 +73,6 @@ class _PostPageState extends State<PostPage> {
     );
   }
 
-
-
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -90,7 +83,8 @@ class _PostPageState extends State<PostPage> {
       child: Scaffold(
         backgroundColor: Theme.of(context).colorScheme.background,
         body: Padding(
-          padding: orientation(context,
+          padding: orientation(
+              context,
               const EdgeInsets.only(right: 16.0, left: 16.0, top: 70.0),
               const EdgeInsets.only(right: 16.0, left: 16.0, top: 16.0)),
           child: FutureBuilder<BlogPost>(
@@ -104,7 +98,7 @@ class _PostPageState extends State<PostPage> {
                 return SelectableText('Error: ${snapshot.error}');
               } else {
                 BlogPost post = snapshot.data!;
-                var document = html_parser.parse(post.body);
+                // var document = html_parser.parse(post.body);
                 return Flex(
                   direction: Axis.vertical,
                   children: [
@@ -121,7 +115,8 @@ class _PostPageState extends State<PostPage> {
                                 Radius.circular(8),
                               ),
                               border: Border.all(
-                                  width: 2, color: Theme.of(context).dividerColor)),
+                                  width: 2,
+                                  color: Theme.of(context).dividerColor)),
                           child: Icon(
                             Icons.close_outlined,
                             color: Theme.of(context).colorScheme.surface,
@@ -162,7 +157,6 @@ class _PostPageState extends State<PostPage> {
     );
   }
 }
-
 
 class BlogPost {
   final int id;
@@ -207,4 +201,3 @@ class BlogPost {
     };
   }
 }
-

@@ -1,23 +1,24 @@
-import 'dart:typed_data';
+import 'dart:io';
 import 'dart:ui' as ui;
+
 import 'package:alquranalkareem/cubit/cubit.dart';
-import 'package:image/image.dart' as img;
 import 'package:arabic_numbers/arabic_numbers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:image/image.dart' as img;
 import 'package:path_provider/path_provider.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:theme_provider/theme_provider.dart';
-import 'dart:io';
+
 import '../../l10n/app_localizations.dart';
 import '../widgets/lottie.dart';
 import '../widgets/widgets.dart';
 
-
 ArabicNumbers arabicNumber = ArabicNumbers();
+
 /// Share Ayah
-Future<Uint8List> createVerseImage(int verseNumber,
-    surahNumber, String verseText) async {
+Future<Uint8List> createVerseImage(
+    int verseNumber, surahNumber, String verseText) async {
   // Set a fixed canvas width
   const canvasWidth = 960.0;
   // const fixedWidth = canvasWidth;
@@ -46,21 +47,22 @@ Future<Uint8List> createVerseImage(int verseNumber,
         ],
       ),
       textDirection: TextDirection.rtl,
-      textAlign: TextAlign.justify
-  );
+      textAlign: TextAlign.justify);
   textPainter.layout(maxWidth: 800);
 
   final padding = 32.0;
   // final imagePadding = 20.0;
 
   // Load the PNG image
-  final pngBytes = await rootBundle.load('assets/share_images/Sorah_name_ba.png');
+  final pngBytes =
+      await rootBundle.load('assets/share_images/Sorah_name_ba.png');
   final codec = await ui.instantiateImageCodec(pngBytes.buffer.asUint8List());
   final frameInfo = await codec.getNextFrame();
   final pngImage = frameInfo.image;
 
   // Load the second PNG image
-  final pngBytes2 = await rootBundle.load('assets/share_images/surah_name/00$surahNumber.png');
+  final pngBytes2 = await rootBundle
+      .load('assets/share_images/surah_name/00$surahNumber.png');
   final codec2 = await ui.instantiateImageCodec(pngBytes2.buffer.asUint8List());
   final frameInfo2 = await codec2.getNextFrame();
   final pngImage2 = frameInfo2.image;
@@ -77,8 +79,12 @@ Future<Uint8List> createVerseImage(int verseNumber,
   final image2Y = imageHeight + padding - 90; // Adjust this value as needed
 
   // Set the text position
-  final textX = (canvasWidth - textPainter.width) / 2; // Center the text horizontally
-  final textY = image2Y + image2Height + padding + 20; // Position the text below the second image
+  final textX =
+      (canvasWidth - textPainter.width) / 2; // Center the text horizontally
+  final textY = image2Y +
+      image2Height +
+      padding +
+      20; // Position the text below the second image
 
   final pngBytes3 = await rootBundle.load('assets/share_images/Logo_line2.png');
   final codec3 = await ui.instantiateImageCodec(pngBytes3.buffer.asUint8List());
@@ -91,7 +97,8 @@ Future<Uint8List> createVerseImage(int verseNumber,
   // Calculate the new image sizes and positions
   final image3Width = pngImage3.width.toDouble() / 5.0;
   final image3Height = pngImage3.height.toDouble() / 5.0;
-  final image3X = (canvasWidth - image3Width) / 2; // Center the image horizontally
+  final image3X =
+      (canvasWidth - image3Width) / 2; // Center the image horizontally
 
 // Calculate the position of the new image to be below the new text
   final image3Y = textPainter.height + padding + 70;
@@ -100,7 +107,11 @@ Future<Uint8List> createVerseImage(int verseNumber,
   final minHeight = imageHeight + image2Height + image3Height + 4 * padding;
 
   // Set the canvas width and height
-  canvasHeight = textPainter.height + imageHeight + image2Height + image3Height + 5 * padding;
+  canvasHeight = textPainter.height +
+      imageHeight +
+      image2Height +
+      image3Height +
+      5 * padding;
 
   // Check if the total height is less than the minimum height
   if (canvasHeight < minHeight) {
@@ -111,7 +122,10 @@ Future<Uint8List> createVerseImage(int verseNumber,
   canvasHeight += image3Height + textPainter.height + 3 + padding;
 
   final pictureRecorder = ui.PictureRecorder();
-  final canvas = Canvas(pictureRecorder, Rect.fromLTWH(0, 0, canvasWidth, canvasHeight)); // Add Rect to fix the canvas size
+  final canvas = Canvas(
+      pictureRecorder,
+      Rect.fromLTWH(
+          0, 0, canvasWidth, canvasHeight)); // Add Rect to fix the canvas size
 
   final borderRadius = 25.0;
   final borderPaint = Paint()
@@ -121,7 +135,8 @@ Future<Uint8List> createVerseImage(int verseNumber,
 
   final backgroundPaint = Paint()..color = const Color(0xfff3efdf);
 
-  final rRect = RRect.fromLTRBR(0, 0, canvasWidth, canvasHeight, Radius.circular(borderRadius));
+  final rRect = RRect.fromLTRBR(
+      0, 0, canvasWidth, canvasHeight, Radius.circular(borderRadius));
 
   canvas.drawRRect(rRect, backgroundPaint);
   canvas.drawRRect(rRect, borderPaint);
@@ -136,33 +151,40 @@ Future<Uint8List> createVerseImage(int verseNumber,
 
   canvas.drawImageRect(
     pngImage2,
-    Rect.fromLTWH(0, 0, pngImage2.width.toDouble(), pngImage2.height.toDouble()),
+    Rect.fromLTWH(
+        0, 0, pngImage2.width.toDouble(), pngImage2.height.toDouble()),
     Rect.fromLTWH(image2X, image2Y, image2Width, image2Height),
     Paint(),
   );
 
   canvas.drawImageRect(
     pngImage3,
-    Rect.fromLTWH(0, 0, pngImage3.width.toDouble(), pngImage3.height.toDouble()),
+    Rect.fromLTWH(
+        0, 0, pngImage3.width.toDouble(), pngImage3.height.toDouble()),
     Rect.fromLTWH(image3X, image3Y, image3Width, image3Height),
     Paint(),
   );
 
-
   final picture = pictureRecorder.endRecording();
-  final imgWidth = canvasWidth.toInt(); // Use canvasWidth instead of (textPainter.width + 2 * padding)
-  final imgHeight = (textPainter.height + imageHeight + image3Height + 4 * padding - 90).toInt();
+  final imgWidth = canvasWidth
+      .toInt(); // Use canvasWidth instead of (textPainter.width + 2 * padding)
+  final imgHeight =
+      (textPainter.height + imageHeight + image3Height + 4 * padding - 90)
+          .toInt();
   final imgScaleFactor = 1; // Increase this value for a higher resolution image
-  final imgScaled = await picture.toImage(imgWidth * imgScaleFactor, imgHeight * imgScaleFactor);
+  final imgScaled = await picture.toImage(
+      imgWidth * imgScaleFactor, imgHeight * imgScaleFactor);
 
   // Convert the image to PNG bytes
-  final pngResultBytes = await imgScaled.toByteData(format: ui.ImageByteFormat.png);
+  final pngResultBytes =
+      await imgScaled.toByteData(format: ui.ImageByteFormat.png);
 
   // Decode the PNG bytes to an image object
   final decodedImage = img.decodePng(pngResultBytes!.buffer.asUint8List());
 
   // Scale down the image to the desired resolution
-  final resizedImage = img.copyResize(decodedImage!, width: imgWidth, height: imgHeight);
+  final resizedImage =
+      img.copyResize(decodedImage!, width: imgWidth, height: imgHeight);
 
   // Convert the resized image back to PNG bytes
   final resizedPngBytes = img.encodePng(resizedImage);
@@ -170,10 +192,9 @@ Future<Uint8List> createVerseImage(int verseNumber,
   return resizedPngBytes;
 }
 
-Future<Uint8List> createVerseWithTranslateImage(BuildContext context, int verseNumber,
-    surahNumber, String verseText, textTranslate,
-    {double dividerWidth = 2.0,
-      double textNextToDividerWidth = 100.0}) async {
+Future<Uint8List> createVerseWithTranslateImage(BuildContext context,
+    int verseNumber, surahNumber, String verseText, textTranslate,
+    {double dividerWidth = 2.0, double textNextToDividerWidth = 100.0}) async {
   QuranCubit cubit = QuranCubit.get(context);
   // if (textTranslate.split(' ').length > 300) {
   //   customSnackBar(context, "The translation cannot be shared because it is too long.");
@@ -219,21 +240,22 @@ Future<Uint8List> createVerseWithTranslateImage(BuildContext context, int verseN
         ],
       ),
       textDirection: TextDirection.rtl,
-      textAlign: TextAlign.justify
-  );
+      textAlign: TextAlign.justify);
   textPainter.layout(maxWidth: 800);
 
   final padding = 32.0;
   // final imagePadding = 20.0;
 
   // Load the PNG image
-  final pngBytes = await rootBundle.load('assets/share_images/Sorah_name_ba.png');
+  final pngBytes =
+      await rootBundle.load('assets/share_images/Sorah_name_ba.png');
   final codec = await ui.instantiateImageCodec(pngBytes.buffer.asUint8List());
   final frameInfo = await codec.getNextFrame();
   final pngImage = frameInfo.image;
 
   // Load the second PNG image
-  final pngBytes2 = await rootBundle.load('assets/share_images/surah_name/00$surahNumber.png');
+  final pngBytes2 = await rootBundle
+      .load('assets/share_images/surah_name/00$surahNumber.png');
   final codec2 = await ui.instantiateImageCodec(pngBytes2.buffer.asUint8List());
   final frameInfo2 = await codec2.getNextFrame();
   final pngImage2 = frameInfo2.image;
@@ -250,8 +272,12 @@ Future<Uint8List> createVerseWithTranslateImage(BuildContext context, int verseN
   final image2Y = imageHeight + padding - 90; // Adjust this value as needed
 
   // Set the text position
-  final textX = (canvasWidth - textPainter.width) / 2; // Center the text horizontally
-  final textY = image2Y + image2Height + padding + 20; // Position the text below the second image
+  final textX =
+      (canvasWidth - textPainter.width) / 2; // Center the text horizontally
+  final textY = image2Y +
+      image2Height +
+      padding +
+      20; // Position the text below the second image
 
   final pngBytes3 = await rootBundle.load('assets/share_images/Logo_line2.png');
   final codec3 = await ui.instantiateImageCodec(pngBytes3.buffer.asUint8List());
@@ -264,7 +290,8 @@ Future<Uint8List> createVerseWithTranslateImage(BuildContext context, int verseN
   // Calculate the new image sizes and positions
   final image3Width = pngImage3.width.toDouble() / 5.0;
   final image3Height = pngImage3.height.toDouble() / 5.0;
-  final image3X = (canvasWidth - image3Width) / 2; // Center the image horizontally
+  final image3X =
+      (canvasWidth - image3Width) / 2; // Center the image horizontally
 
   List<String> transName = <String>[
     'English',
@@ -272,7 +299,8 @@ Future<Uint8List> createVerseWithTranslateImage(BuildContext context, int verseN
   ];
   String? tafseerName;
   if (cubit.shareTafseerValue == 1) {
-    tafseerName = cubit.radioValue != 3 ? null : AppLocalizations.of(context)!.tafSaadiN;
+    tafseerName =
+        cubit.radioValue != 3 ? null : AppLocalizations.of(context)!.tafSaadiN;
   } else if (cubit.shareTafseerValue == 2) {
     tafseerName = transName[cubit.transIndex!];
   }
@@ -286,12 +314,10 @@ Future<Uint8List> createVerseWithTranslateImage(BuildContext context, int verseN
             color: ThemeProvider.themeOf(context).id == 'dark'
                 ? Colors.white
                 : const Color(0xff161f07),
-            backgroundColor: Theme.of(context).dividerColor
-        ),
+            backgroundColor: Theme.of(context).dividerColor),
       ),
       textDirection: TextDirection.rtl,
-      textAlign: TextAlign.center
-  );
+      textAlign: TextAlign.center);
   tafseerNamePainter.layout(maxWidth: 800);
 
   final tafseerNameX = padding + 628;
@@ -311,12 +337,10 @@ Future<Uint8List> createVerseWithTranslateImage(BuildContext context, int verseN
             color: ThemeProvider.themeOf(context).id == 'dark'
                 ? Colors.white
                 : const Color(0xff161f07),
-            backgroundColor: const Color(0xff91a57d).withOpacity(.3)
-        ),
+            backgroundColor: const Color(0xff91a57d).withOpacity(.3)),
       ),
       textDirection: TextDirection.ltr,
-      textAlign: TextAlign.justify
-  );
+      textAlign: TextAlign.justify);
   newTextPainter.layout(maxWidth: 800);
 
   final newTextX = padding + 50;
@@ -329,7 +353,12 @@ Future<Uint8List> createVerseWithTranslateImage(BuildContext context, int verseN
   final minHeight = imageHeight + image2Height + image3Height + 4 * padding;
 
   // Set the canvas width and height
-  canvasHeight = textPainter.height + newTextPainter.height + imageHeight + image2Height + image3Height + 5 * padding;
+  canvasHeight = textPainter.height +
+      newTextPainter.height +
+      imageHeight +
+      image2Height +
+      image3Height +
+      5 * padding;
 
   // Check if the total height is less than the minimum height
   if (canvasHeight < minHeight) {
@@ -340,7 +369,10 @@ Future<Uint8List> createVerseWithTranslateImage(BuildContext context, int verseN
   canvasHeight += image3Height + newTextPainter.height + 3 + padding;
 
   final pictureRecorder = ui.PictureRecorder();
-  final canvas = Canvas(pictureRecorder, Rect.fromLTWH(0, 0, canvasWidth, canvasHeight)); // Add Rect to fix the canvas size
+  final canvas = Canvas(
+      pictureRecorder,
+      Rect.fromLTWH(
+          0, 0, canvasWidth, canvasHeight)); // Add Rect to fix the canvas size
 
   final borderRadius = 25.0;
   final borderPaint = Paint()
@@ -350,7 +382,8 @@ Future<Uint8List> createVerseWithTranslateImage(BuildContext context, int verseN
 
   final backgroundPaint = Paint()..color = const Color(0xfff3efdf);
 
-  final rRect = RRect.fromLTRBR(0, 0, canvasWidth, canvasHeight, Radius.circular(borderRadius));
+  final rRect = RRect.fromLTRBR(
+      0, 0, canvasWidth, canvasHeight, Radius.circular(borderRadius));
 
   canvas.drawRRect(rRect, backgroundPaint);
   canvas.drawRRect(rRect, borderPaint);
@@ -365,14 +398,16 @@ Future<Uint8List> createVerseWithTranslateImage(BuildContext context, int verseN
 
   canvas.drawImageRect(
     pngImage2,
-    Rect.fromLTWH(0, 0, pngImage2.width.toDouble(), pngImage2.height.toDouble()),
+    Rect.fromLTWH(
+        0, 0, pngImage2.width.toDouble(), pngImage2.height.toDouble()),
     Rect.fromLTWH(image2X, image2Y, image2Width, image2Height),
     Paint(),
   );
 
   canvas.drawImageRect(
     pngImage3,
-    Rect.fromLTWH(0, 0, pngImage3.width.toDouble(), pngImage3.height.toDouble()),
+    Rect.fromLTWH(
+        0, 0, pngImage3.width.toDouble(), pngImage3.height.toDouble()),
     Rect.fromLTWH(image3X, image3Y, image3Width, image3Height),
     Paint(),
   );
@@ -381,19 +416,28 @@ Future<Uint8List> createVerseWithTranslateImage(BuildContext context, int verseN
   tafseerNamePainter.paint(canvas, Offset(tafseerNameX, tafseerNameY));
 
   final picture = pictureRecorder.endRecording();
-  final imgWidth = canvasWidth.toInt(); // Use canvasWidth instead of (textPainter.width + 2 * padding)
-  final imgHeight = (textPainter.height + newTextPainter.height + imageHeight + image3Height + 4 * padding).toInt();
+  final imgWidth = canvasWidth
+      .toInt(); // Use canvasWidth instead of (textPainter.width + 2 * padding)
+  final imgHeight = (textPainter.height +
+          newTextPainter.height +
+          imageHeight +
+          image3Height +
+          4 * padding)
+      .toInt();
   final imgScaleFactor = 1; // Increase this value for a higher resolution image
-  final imgScaled = await picture.toImage(imgWidth * imgScaleFactor, imgHeight * imgScaleFactor);
+  final imgScaled = await picture.toImage(
+      imgWidth * imgScaleFactor, imgHeight * imgScaleFactor);
 
   // Convert the image to PNG bytes
-  final pngResultBytes = await imgScaled.toByteData(format: ui.ImageByteFormat.png);
+  final pngResultBytes =
+      await imgScaled.toByteData(format: ui.ImageByteFormat.png);
 
   // Decode the PNG bytes to an image object
   final decodedImage = img.decodePng(pngResultBytes!.buffer.asUint8List());
 
   // Scale down the image to the desired resolution
-  final resizedImage = img.copyResize(decodedImage!, width: imgWidth, height: imgHeight);
+  final resizedImage =
+      img.copyResize(decodedImage!, width: imgWidth, height: imgHeight);
 
   // Convert the resized image back to PNG bytes
   final resizedPngBytes = img.encodePng(resizedImage);
@@ -404,15 +448,15 @@ Future<Uint8List> createVerseWithTranslateImage(BuildContext context, int verseN
 shareText(String verseText, surahName, int verseNumber) {
   Share.share(
       '﴿$verseText﴾ '
-          '[$surahName-'
-          '$verseNumber]',
+      '[$surahName-'
+      '$verseNumber]',
       subject: '$surahName');
 }
 
 Future<void> shareVerseWithTranslate(BuildContext context, int verseNumber,
     surahNumber, String verseText, textTranslate) async {
-  final imageData = await createVerseWithTranslateImage(context, verseNumber,
-      surahNumber, verseText, textTranslate);
+  final imageData = await createVerseWithTranslateImage(
+      context, verseNumber, surahNumber, verseText, textTranslate);
 
   // Save the image to a temporary directory
   final directory = await getTemporaryDirectory();
@@ -422,16 +466,17 @@ Future<void> shareVerseWithTranslate(BuildContext context, int verseNumber,
   await imageFile.writeAsBytes(imageData);
 
   if (imageFile.existsSync()) {
-    await Share.shareXFiles([XFile((imagePath))], text: AppLocalizations.of(context)!.appName);
+    await Share.shareXFiles([XFile((imagePath))],
+        text: AppLocalizations.of(context)!.appName);
   } else {
     print('Failed to save and share image');
   }
 }
 
-Future<void> shareVerse(BuildContext context, int verseNumber,
-    surahNumber, String verseText) async {
-  final imageData2 = await createVerseImage(verseNumber,
-      surahNumber, verseText);
+Future<void> shareVerse(BuildContext context, int verseNumber, surahNumber,
+    String verseText) async {
+  final imageData2 =
+      await createVerseImage(verseNumber, surahNumber, verseText);
 
   // Save the image to a temporary directory
   final directory = await getTemporaryDirectory();
@@ -441,22 +486,24 @@ Future<void> shareVerse(BuildContext context, int verseNumber,
   await imageFile.writeAsBytes(imageData2);
 
   if (imageFile.existsSync()) {
-    await Share.shareXFiles([XFile((imagePath))], text: AppLocalizations.of(context)!.appName);
+    await Share.shareXFiles([XFile((imagePath))],
+        text: AppLocalizations.of(context)!.appName);
   } else {
     print('Failed to save and share image');
   }
 }
 
-void showVerseOptionsBottomSheet(BuildContext context,
-    int verseNumber, surahNumber, String verseText,
-    textTranslate, surahName) async {
+void showVerseOptionsBottomSheet(BuildContext context, int verseNumber,
+    surahNumber, String verseText, textTranslate, surahName) async {
   // Call createVerseWithTranslateImage and get the image data
-  Uint8List imageData = await createVerseWithTranslateImage(context, verseNumber, surahNumber, verseText, textTranslate);
-  Uint8List imageData2 = await createVerseImage(verseNumber, surahNumber, verseText);
+  Uint8List imageData = await createVerseWithTranslateImage(
+      context, verseNumber, surahNumber, verseText, textTranslate);
+  Uint8List imageData2 =
+      await createVerseImage(verseNumber, surahNumber, verseText);
 
   allModalBottomSheet(
     context,
-    MediaQuery.of(context).size.height / 1/2,
+    MediaQuery.of(context).size.height / 1 / 2,
     MediaQuery.of(context).size.width,
     Container(
       alignment: Alignment.center,
@@ -473,15 +520,12 @@ void showVerseOptionsBottomSheet(BuildContext context,
                   width: 30,
                   margin: const EdgeInsets.all(16.0),
                   decoration: BoxDecoration(
-                      color: Theme.of(context)
-                          .colorScheme
-                          .background,
+                      color: Theme.of(context).colorScheme.background,
                       borderRadius: const BorderRadius.all(
                         Radius.circular(8),
                       ),
                       border: Border.all(
-                          width: 2,
-                          color: Theme.of(context).dividerColor)),
+                          width: 2, color: Theme.of(context).dividerColor)),
                   child: Icon(
                     Icons.close_outlined,
                     color: Theme.of(context).colorScheme.surface,
@@ -501,24 +545,27 @@ void showVerseOptionsBottomSheet(BuildContext context,
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 16.0),
                   child: SizedBox(
-                    width: orientation(context, MediaQuery.of(context).size.width * .6, MediaQuery.of(context).size.width / 1/3),
+                    width: orientation(
+                        context,
+                        MediaQuery.of(context).size.width * .6,
+                        MediaQuery.of(context).size.width / 1 / 3),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       mainAxisSize: MainAxisSize.min,
                       children: [
-                        Text(AppLocalizations.of(context)!.shareText,
+                        Text(
+                          AppLocalizations.of(context)!.shareText,
                           style: TextStyle(
-                              color: ThemeProvider.themeOf(context).id ==
-                                  'dark'
+                              color: ThemeProvider.themeOf(context).id == 'dark'
                                   ? Theme.of(context).colorScheme.surface
                                   : Theme.of(context).primaryColorDark,
                               fontSize: 16,
-                              fontFamily: 'kufi'
-                          ),),
+                              fontFamily: 'kufi'),
+                        ),
                         Container(
                           height: 2,
                           margin: const EdgeInsets.symmetric(horizontal: 8),
-                          width: MediaQuery.of(context).size.width / 1/3,
+                          width: MediaQuery.of(context).size.width / 1 / 3,
                           color: Theme.of(context).dividerColor,
                         ),
                       ],
@@ -530,30 +577,35 @@ void showVerseOptionsBottomSheet(BuildContext context,
                     // height: 60,
                     width: MediaQuery.of(context).size.width,
                     padding: const EdgeInsets.all(16.0),
-                    margin: const EdgeInsets.only(top: 4.0, bottom: 16.0, right: 16.0, left: 16.0),
+                    margin: const EdgeInsets.only(
+                        top: 4.0, bottom: 16.0, right: 16.0, left: 16.0),
                     decoration: BoxDecoration(
                         color: Theme.of(context).dividerColor.withOpacity(.3),
-                        borderRadius: const BorderRadius.all(Radius.circular(4))
-                    ),
+                        borderRadius:
+                            const BorderRadius.all(Radius.circular(4))),
                     child: Row(
                       mainAxisSize: MainAxisSize.min,
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Icon(Icons.text_fields,
+                        Icon(
+                          Icons.text_fields,
                           color: Theme.of(context).colorScheme.surface,
                           size: 24,
                         ),
                         SizedBox(
-                          width: orientation(context, MediaQuery.of(context).size.width * .7, MediaQuery.of(context).size.width / 1/3),
-                          child: Text("﴿ $verseText ﴾",
+                          width: orientation(
+                              context,
+                              MediaQuery.of(context).size.width * .7,
+                              MediaQuery.of(context).size.width / 1 / 3),
+                          child: Text(
+                            "﴿ $verseText ﴾",
                             style: TextStyle(
-                                color: ThemeProvider.themeOf(context).id ==
-                                    'dark'
-                                    ? Theme.of(context).colorScheme.surface
-                                    : Theme.of(context).primaryColorDark,
+                                color:
+                                    ThemeProvider.themeOf(context).id == 'dark'
+                                        ? Theme.of(context).colorScheme.surface
+                                        : Theme.of(context).primaryColorDark,
                                 fontSize: 16,
-                                fontFamily: 'uthmanic2'
-                            ),
+                                fontFamily: 'uthmanic2'),
                             textDirection: TextDirection.rtl,
                           ),
                         ),
@@ -567,7 +619,8 @@ void showVerseOptionsBottomSheet(BuildContext context,
                 ),
                 Container(
                   height: 2,
-                  margin: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 16.0),
+                  margin: const EdgeInsets.symmetric(
+                      horizontal: 16.0, vertical: 16.0),
                   width: MediaQuery.of(context).size.width * .3,
                   color: Theme.of(context).dividerColor,
                 ),
@@ -575,39 +628,48 @@ void showVerseOptionsBottomSheet(BuildContext context,
                   // crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     SizedBox(
-                      width: MediaQuery.of(context).size.width / 1/2,
+                      width: MediaQuery.of(context).size.width / 1 / 2,
                       child: Column(
                         children: [
                           Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                            child: Text(AppLocalizations.of(context)!.shareImage,
+                            padding:
+                                const EdgeInsets.symmetric(horizontal: 16.0),
+                            child: Text(
+                              AppLocalizations.of(context)!.shareImage,
                               style: TextStyle(
                                   color: ThemeProvider.themeOf(context).id ==
-                                      'dark'
+                                          'dark'
                                       ? Theme.of(context).colorScheme.surface
                                       : Theme.of(context).primaryColorDark,
                                   fontSize: 16,
-                                  fontFamily: 'kufi'
-                              ),),
+                                  fontFamily: 'kufi'),
+                            ),
                           ),
                           GestureDetector(
                             child: Container(
                               // width: MediaQuery.of(context).size.width * .4,
-                              padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
-                              margin: const EdgeInsets.only(top: 4.0, bottom: 16.0, right: 16.0, left: 16.0),
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 16.0, vertical: 8.0),
+                              margin: const EdgeInsets.only(
+                                  top: 4.0,
+                                  bottom: 16.0,
+                                  right: 16.0,
+                                  left: 16.0),
                               decoration: BoxDecoration(
-                                  color: Theme.of(context).dividerColor.withOpacity(.3),
-                                  borderRadius: const BorderRadius.all(Radius.circular(4))
-                              ),
-                              child: Image.memory(imageData2,
+                                  color: Theme.of(context)
+                                      .dividerColor
+                                      .withOpacity(.3),
+                                  borderRadius: const BorderRadius.all(
+                                      Radius.circular(4))),
+                              child: Image.memory(
+                                imageData2,
                                 // height: 150,
                                 // width: 150,
                               ),
                             ),
                             onTap: () {
                               shareVerse(
-                                  context, verseNumber, surahNumber, verseText
-                              );
+                                  context, verseNumber, surahNumber, verseText);
                               Navigator.pop(context);
                             },
                           ),
@@ -615,58 +677,68 @@ void showVerseOptionsBottomSheet(BuildContext context,
                       ),
                     ),
                     SizedBox(
-                      width: MediaQuery.of(context).size.width / 1/2,
+                      width: MediaQuery.of(context).size.width / 1 / 2,
                       child: Column(
                         children: [
                           Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                            padding:
+                                const EdgeInsets.symmetric(horizontal: 16.0),
                             child: SizedBox(
-                              width: MediaQuery.of(context).size.width / 1/3,
-                              child: Text(AppLocalizations.of(context)!.shareImageWTrans,
+                              width: MediaQuery.of(context).size.width / 1 / 3,
+                              child: Text(
+                                AppLocalizations.of(context)!.shareImageWTrans,
                                 style: TextStyle(
                                     color: ThemeProvider.themeOf(context).id ==
-                                        'dark'
+                                            'dark'
                                         ? Theme.of(context).colorScheme.surface
                                         : Theme.of(context).primaryColorDark,
                                     fontSize: 16,
-                                    fontFamily: 'kufi'
-                                ),),
+                                    fontFamily: 'kufi'),
+                              ),
                             ),
                           ),
                           GestureDetector(
                             child: Container(
                               // width: MediaQuery.of(context).size.width * .4,
-                              padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
-                              margin: const EdgeInsets.only(top: 4.0, bottom: 16.0, right: 16.0, left: 16.0),
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 16.0, vertical: 8.0),
+                              margin: const EdgeInsets.only(
+                                  top: 4.0,
+                                  bottom: 16.0,
+                                  right: 16.0,
+                                  left: 16.0),
                               decoration: BoxDecoration(
-                                  color: Theme.of(context).dividerColor.withOpacity(.3),
-                                  borderRadius: const BorderRadius.all(Radius.circular(4))
-                              ),
-                              child: Image.memory(imageData,
+                                  color: Theme.of(context)
+                                      .dividerColor
+                                      .withOpacity(.3),
+                                  borderRadius: const BorderRadius.all(
+                                      Radius.circular(4))),
+                              child: Image.memory(
+                                imageData,
                                 // height: 150,
                                 // width: 150,
                               ),
                             ),
                             onTap: () {
-                              shareVerseWithTranslate(
-                                  context, verseNumber, surahNumber, verseText, textTranslate
-                              );
+                              shareVerseWithTranslate(context, verseNumber,
+                                  surahNumber, verseText, textTranslate);
                               Navigator.pop(context);
                             },
                           ),
                           Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                            padding:
+                                const EdgeInsets.symmetric(horizontal: 16.0),
                             child: SizedBox(
-                              width: MediaQuery.of(context).size.width / 1/3,
-                              child: Text(AppLocalizations.of(context)!.shareTrans,
+                              width: MediaQuery.of(context).size.width / 1 / 3,
+                              child: Text(
+                                AppLocalizations.of(context)!.shareTrans,
                                 style: TextStyle(
                                     color: ThemeProvider.themeOf(context).id ==
-                                        'dark'
+                                            'dark'
                                         ? Theme.of(context).colorScheme.surface
                                         : Theme.of(context).primaryColorDark,
                                     fontSize: 12,
-                                    fontFamily: 'kufi'
-                                ),
+                                    fontFamily: 'kufi'),
                                 textAlign: TextAlign.justify,
                               ),
                             ),

@@ -1,10 +1,11 @@
 import 'dart:async';
 import 'dart:io';
-import 'package:path/path.dart' as p;
+
 import 'package:alquranalkareem/quran_page/data/model/bookmark.dart';
+import 'package:path/path.dart' as p;
 import 'package:path_provider/path_provider.dart';
-import 'package:sqflite/sqflite.dart';
 import 'package:sqflite_common_ffi/sqflite_ffi.dart';
+
 import '../azkar/models/azkar.dart';
 import '../notes/model/Notes.dart';
 import '../quran_text/model/bookmark_text.dart';
@@ -44,23 +45,23 @@ class DatabaseHelper {
     Directory databasePath = await getApplicationDocumentsDirectory();
     var path = p.join(databasePath.path, 'notesBookmarks.db');
     return (Platform.isAndroid)
-      ? openDatabase(androidPath,
-        version: _version,
-        readOnly: false,
-        onUpgrade: onUpgrade,
-        onCreate: onCreate)
-        : (Platform.isWindows || Platform.isLinux)
-        ? databaseFactoryFfi.openDatabase(path,
-        options: OpenDatabaseOptions(
+        ? openDatabase(androidPath,
             version: _version,
             readOnly: false,
             onUpgrade: onUpgrade,
-            onCreate: onCreate))
-        : openDatabase(path,
-        version: _version,
-        readOnly: false,
-        onUpgrade: onUpgrade,
-        onCreate: onCreate);
+            onCreate: onCreate)
+        : (Platform.isWindows || Platform.isLinux)
+            ? databaseFactoryFfi.openDatabase(path,
+                options: OpenDatabaseOptions(
+                    version: _version,
+                    readOnly: false,
+                    onUpgrade: onUpgrade,
+                    onCreate: onCreate))
+            : openDatabase(path,
+                version: _version,
+                readOnly: false,
+                onUpgrade: onUpgrade,
+                onCreate: onCreate);
   }
 
   Future onCreate(Database db, int version) async {
@@ -115,17 +116,18 @@ class DatabaseHelper {
 
   Future onUpgrade(Database db, int oldVersion, int newVersion) async {
     print('Database onUpgrade');
-    var results = await db.rawQuery("SELECT name FROM sqlite_master WHERE type='table' AND name='bookmarkTextTable'");
+    var results = await db.rawQuery(
+        "SELECT name FROM sqlite_master WHERE type='table' AND name='bookmarkTextTable'");
     if (results.isEmpty) {
       await db.execute(
         'CREATE TABLE bookmarkTextTable ('
-            'id INTEGER PRIMARY KEY, '
-            'sorahName TEXT, '
-            'sorahNum INTEGER, '
-            'pageNum INTEGER, '
-            'nomPageF INTEGER, '
-            'nomPageL INTEGER, '
-            'lastRead TEXT)',
+        'id INTEGER PRIMARY KEY, '
+        'sorahName TEXT, '
+        'sorahNum INTEGER, '
+        'pageNum INTEGER, '
+        'nomPageF INTEGER, '
+        'nomPageL INTEGER, '
+        'lastRead TEXT)',
       );
       print('Upgrade bookmarkTextTable');
     }
@@ -142,8 +144,8 @@ class DatabaseHelper {
 
   static Future<int> deleteNote(String description) async {
     print('Delete Note');
-    return await _db!
-        .delete(tableNote, where: '$columnDescription = ?', whereArgs: [description]);
+    return await _db!.delete(tableNote,
+        where: '$columnDescription = ?', whereArgs: [description]);
   }
 
   static Future<int> updateNote(Notes? note) async {
@@ -239,22 +241,26 @@ class DatabaseHelper {
   }
 
   /// bookmarks Text database
-  static Future<int?> addBookmarkAyahText(BookmarksTextAyah? bookmarksTextAyah) async {
+  static Future<int?> addBookmarkAyahText(
+      BookmarksTextAyah? bookmarksTextAyah) async {
     print('Save Text Ayah Bookmarks');
     try {
-      return await _db!.insert(tablebookmarkTextAyah, bookmarksTextAyah!.toJson());
+      return await _db!
+          .insert(tablebookmarkTextAyah, bookmarksTextAyah!.toJson());
     } catch (e) {
       return 90000;
     }
   }
 
-  static Future<int> deleteBookmarkAyahText(BookmarksTextAyah? bookmarksTextAyah) async {
+  static Future<int> deleteBookmarkAyahText(
+      BookmarksTextAyah? bookmarksTextAyah) async {
     print('Delete Text Ayah Bookmarks');
     return await _db!.delete(tablebookmarkTextAyah,
         where: '$columnAId = ?', whereArgs: [bookmarksTextAyah!.id]);
   }
 
-  static Future<int> updateBookmarksAyahText(BookmarksTextAyah bookmarksTextAyah) async {
+  static Future<int> updateBookmarksAyahText(
+      BookmarksTextAyah bookmarksTextAyah) async {
     print('Update Text Ayah Bookmarks');
     return await _db!.update(tablebookmarkTextAyah, bookmarksTextAyah.toJson(),
         where: "$columnAId = ?", whereArgs: [bookmarksTextAyah.id]);

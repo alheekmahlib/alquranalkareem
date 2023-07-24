@@ -1,4 +1,5 @@
 import 'dart:async';
+
 import 'package:arabic_numbers/arabic_numbers.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -6,6 +7,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_sliding_up_panel/sliding_up_panel_widget.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 import 'package:theme_provider/theme_provider.dart';
+
 import '../cubit/cubit.dart';
 import '../cubit/translateDataCubit/_cubit.dart';
 import '../quran_page/widget/sliding_up.dart';
@@ -20,11 +22,18 @@ var lastAyah;
 var lastAyahInPage;
 int? textSurahNum;
 
+// ignore: must_be_immutable
 class TextPageView extends StatefulWidget {
   final SurahText? surah;
   int? nomPageF, nomPageL, pageNum = 1;
 
-  TextPageView({this.nomPageF, this.nomPageL, this.pageNum, this.surah});
+  TextPageView({
+    Key? key,
+    this.nomPageF,
+    this.nomPageL,
+    this.pageNum,
+    this.surah,
+  });
   static int textCurrentPage = 0;
   static String lastTime = '';
   static String sorahTextName = '';
@@ -155,7 +164,7 @@ class _TextPageViewState extends State<TextPageView>
                           alignment: Alignment.topLeft,
                           child: orientation(
                             context,
-                            Container(),
+                            const SizedBox.shrink(),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
@@ -297,7 +306,7 @@ class _TextPageViewState extends State<TextPageView>
                                       ),
                                     ],
                                   ),
-                                  Container()),
+                                  const SizedBox.shrink()),
                             ),
                           ],
                         ),

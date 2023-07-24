@@ -1,4 +1,5 @@
 import 'dart:io';
+
 import 'package:alquranalkareem/cubit/cubit.dart';
 import 'package:alquranalkareem/notes/cubit/note_cubit.dart';
 import 'package:alquranalkareem/quran_text/Widgets/quran_text_search.dart';
@@ -12,7 +13,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_sliding_up_panel/sliding_up_panel_widget.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:hijri/hijri_calendar.dart';
+import 'package:intl/intl.dart';
 import 'package:theme_provider/theme_provider.dart';
+
 import '../../database/notificationDatabase.dart';
 import '../../home_page.dart';
 import '../../l10n/app_localizations.dart';
@@ -21,83 +24,53 @@ import '../../quran_page/cubit/audio/cubit.dart';
 import '../../quran_text/Widgets/bookmarks_text_list.dart';
 import '../custom_paint/bg_icon.dart';
 import '../postPage.dart';
-import 'package:intl/intl.dart';
-
-
-
 
 var TPageScaffoldKey = GlobalKey<ScaffoldState>();
 var SorahPlayScaffoldKey = GlobalKey<ScaffoldState>();
 String? selectedValue;
 
-Widget quranPageSearch(
-    BuildContext context, double width) {
+Widget quranPageSearch(BuildContext context, double width) {
   return GestureDetector(
-    child: iconBg(
-      context,
-      Icons.search_outlined
-  ),
+    child: iconBg(context, Icons.search_outlined),
     onTap: () {
-      allModalBottomSheet(context,
-          MediaQuery.of(context).size.height / 1/2,
-          MediaQuery.of(context).size.width,
-        QuranSearch(),
+      allModalBottomSheet(
+        context,
+        MediaQuery.of(context).size.height / 1 / 2,
+        MediaQuery.of(context).size.width,
+        const QuranSearch(),
       );
     },
   );
 }
 
-Widget quranPageSorahList(
-    BuildContext context, double width) {
+Widget quranPageSorahList(BuildContext context, double width) {
   return GestureDetector(
-      child: iconBg(
-          context,
-          Icons.list_alt_outlined
-      ),
-    onTap: () {
-      allModalBottomSheet(context,
-          MediaQuery
-              .of(context)
-              .size
-              .height / 1 / 2,
-          MediaQuery
-              .of(context)
-              .size
-              .width,
-          const SorahJuzList()
-      );
-    }
-  );
+      child: iconBg(context, Icons.list_alt_outlined),
+      onTap: () {
+        allModalBottomSheet(context, MediaQuery.of(context).size.height / 1 / 2,
+            MediaQuery.of(context).size.width, const SorahJuzList());
+      });
 }
 
-Widget notesList(
-    BuildContext context, double width) {
+Widget notesList(BuildContext context, double width) {
   NotesCubit notesCubit = NotesCubit.get(context);
   return GestureDetector(
-    child: iconBg(
-        context,
-        Icons.add_comment_outlined
-    ),
+    child: iconBg(context, Icons.add_comment_outlined),
     onTap: () {
-      allModalBottomSheet(context,
-          MediaQuery.of(context).size.height / 1/2,
-          MediaQuery.of(context).size.width,
-          const NotesList()
-          );
+      allModalBottomSheet(context, MediaQuery.of(context).size.height / 1 / 2,
+          MediaQuery.of(context).size.width, const NotesList());
     },
   );
 }
 
 Widget bookmarksList(BuildContext context, double width) {
   return GestureDetector(
-    child: iconBg(
-        context,
-        Icons.bookmarks_outlined
-    ),
+    child: iconBg(context, Icons.bookmarks_outlined),
     onTap: () {
-      allModalBottomSheet(context,
-          MediaQuery.of(context).size.height / 1/2,
-          MediaQuery.of(context).size.width,
+      allModalBottomSheet(
+        context,
+        MediaQuery.of(context).size.height / 1 / 2,
+        MediaQuery.of(context).size.width,
         const BookmarksList(),
       );
     },
@@ -107,13 +80,11 @@ Widget bookmarksList(BuildContext context, double width) {
 Widget bookmarksTextList(BuildContext context,
     GlobalKey<ScaffoldState> bookmarksTextListKey, double width) {
   return GestureDetector(
-    child: iconBg(
-      context,
-        Icons.bookmarks_outlined
-    ),
+    child: iconBg(context, Icons.bookmarks_outlined),
     onTap: () {
-      allModalBottomSheet(context,
-        MediaQuery.of(context).size.height / 1/2,
+      allModalBottomSheet(
+        context,
+        MediaQuery.of(context).size.height / 1 / 2,
         MediaQuery.of(context).size.width,
         const BookmarksTextList(),
       );
@@ -124,13 +95,11 @@ Widget bookmarksTextList(BuildContext context,
 Widget quranTextSearch(BuildContext context,
     GlobalKey<ScaffoldState> searchTextListKey, double width) {
   return GestureDetector(
-    child: iconBg(
-        context,
-        Icons.search_outlined
-    ),
+    child: iconBg(context, Icons.search_outlined),
     onTap: () {
-      allModalBottomSheet(context,
-        MediaQuery.of(context).size.height / 1/2,
+      allModalBottomSheet(
+        context,
+        MediaQuery.of(context).size.height / 1 / 2,
         MediaQuery.of(context).size.width,
         QuranTextSearch(),
       );
@@ -142,18 +111,18 @@ Widget hijriDate(BuildContext context) {
   ArabicNumbers arabicNumber = ArabicNumbers();
   var _today = HijriCalendar.now();
   AppLocalizations.of(context)!.appLang == "لغة التطبيق"
-  ? HijriCalendar.setLocal('ar')
-  : HijriCalendar.setLocal('en');
+      ? HijriCalendar.setLocal('ar')
+      : HijriCalendar.setLocal('en');
   return Column(
     mainAxisAlignment: MainAxisAlignment.center,
     children: [
-      SvgPicture.asset(
-        'assets/svg/hijri/${_today.hMonth}.svg',
-        height: orientation(context, 70.0, 100.0),
-        colorFilter: ColorFilter.mode(Theme.of(context).colorScheme.surface, BlendMode.srcIn)
-      ),
+      SvgPicture.asset('assets/svg/hijri/${_today.hMonth}.svg',
+          height: orientation(context, 70.0, 100.0),
+          colorFilter: ColorFilter.mode(
+              Theme.of(context).colorScheme.surface, BlendMode.srcIn)),
       Text(
-      arabicNumber.convert('${_today.hDay} / ${_today.hMonth} / ${_today.hYear} هـ \n ${_today.dayWeName}'),
+        arabicNumber.convert(
+            '${_today.hDay} / ${_today.hMonth} / ${_today.hYear} هـ \n ${_today.dayWeName}'),
         style: TextStyle(
           fontSize: orientation(context, 16.0, 20.0),
           fontFamily: 'kufi',
@@ -164,7 +133,6 @@ Widget hijriDate(BuildContext context) {
       const SizedBox(
         height: 8.0,
       ),
-
     ],
   );
 }
@@ -173,23 +141,21 @@ Widget hijriDate2(BuildContext context) {
   ArabicNumbers arabicNumber = ArabicNumbers();
   var _today = HijriCalendar.now();
   AppLocalizations.of(context)!.appLang == "لغة التطبيق"
-  ? HijriCalendar.setLocal('ar')
-  : HijriCalendar.setLocal('en');
+      ? HijriCalendar.setLocal('ar')
+      : HijriCalendar.setLocal('en');
   return Column(
     mainAxisAlignment: MainAxisAlignment.center,
     children: [
-      SvgPicture.asset(
-        'assets/svg/hijri/${_today.hMonth}.svg',
-        height: platformView(50.0, 70.0),
-        colorFilter: ColorFilter.mode(
-            Theme.of(context).colorScheme.background,
-            BlendMode.srcIn)
-      ),
+      SvgPicture.asset('assets/svg/hijri/${_today.hMonth}.svg',
+          height: platformView(50.0, 70.0),
+          colorFilter: ColorFilter.mode(
+              Theme.of(context).colorScheme.background, BlendMode.srcIn)),
       const SizedBox(
         height: 8.0,
       ),
       Text(
-      arabicNumber.convert('${_today.hDay} / ${_today.hMonth} / ${_today.hYear} هـ \n ${_today.dayWeName}'),
+        arabicNumber.convert(
+            '${_today.hDay} / ${_today.hMonth} / ${_today.hYear} هـ \n ${_today.dayWeName}'),
         style: TextStyle(
           fontSize: platformView(12.0, 22.0),
           fontFamily: 'kufi',
@@ -220,10 +186,9 @@ Widget hijriDateLand(BuildContext context) {
         endIndent: 40,
         indent: 40,
       ),
-      SvgPicture.asset(
-        'assets/svg/hijri/${_today.hMonth}.svg',
-          colorFilter: ColorFilter.mode(Theme.of(context).colorScheme.surface, BlendMode.srcIn)
-      ),
+      SvgPicture.asset('assets/svg/hijri/${_today.hMonth}.svg',
+          colorFilter: ColorFilter.mode(
+              Theme.of(context).colorScheme.surface, BlendMode.srcIn)),
       const VerticalDivider(
         width: 2,
         thickness: 1,
@@ -231,7 +196,8 @@ Widget hijriDateLand(BuildContext context) {
         indent: 40,
       ),
       Text(
-        arabicNumber.convert('${_today.hDay} / ${_today.hMonth} / ${_today.hYear} هـ \n ${_today.dayWeName}'),
+        arabicNumber.convert(
+            '${_today.hDay} / ${_today.hMonth} / ${_today.hYear} هـ \n ${_today.dayWeName}'),
         style: TextStyle(
           fontSize: 14,
           fontFamily: 'kufi',
@@ -281,15 +247,18 @@ Widget audioSorahtopBar(BuildContext context, String sorahNum) {
       children: [
         Opacity(
           opacity: .1,
-          child: SvgPicture.asset('assets/svg/surah_name/00$sorahNum.svg',
-            colorFilter: ColorFilter.mode(Theme.of(context).colorScheme.surface, BlendMode.srcIn),
+          child: SvgPicture.asset(
+            'assets/svg/surah_name/00$sorahNum.svg',
+            colorFilter: ColorFilter.mode(
+                Theme.of(context).colorScheme.surface, BlendMode.srcIn),
             width: MediaQuery.of(context).size.width,
           ),
         ),
         SvgPicture.asset(
           'assets/svg/surah_name/00$sorahNum.svg',
           height: 100,
-          colorFilter: ColorFilter.mode(Theme.of(context).colorScheme.surface, BlendMode.srcIn),
+          colorFilter: ColorFilter.mode(
+              Theme.of(context).colorScheme.surface, BlendMode.srcIn),
           width: MediaQuery.of(context).size.width / 1 / 2,
         ),
         Align(
@@ -443,11 +412,10 @@ customErrorSnackBar(BuildContext context, String text) {
       return Container(
         height: 60,
         decoration: BoxDecoration(
-          color: Theme.of(context).colorScheme.surface,
-          borderRadius: const BorderRadius.all(
-            Radius.circular(8),
-          )
-        ),
+            color: Theme.of(context).colorScheme.surface,
+            borderRadius: const BorderRadius.all(
+              Radius.circular(8),
+            )),
         margin: const EdgeInsets.symmetric(horizontal: 16.0),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -508,7 +476,6 @@ customErrorSnackBar(BuildContext context, String text) {
     },
     duration: const Duration(milliseconds: 3000),
   );
-
 }
 
 customMobileNoteSnackBar(BuildContext context, String text) {
@@ -518,11 +485,10 @@ customMobileNoteSnackBar(BuildContext context, String text) {
       return Container(
         height: 80,
         decoration: BoxDecoration(
-          color: Theme.of(context).colorScheme.surface,
-          borderRadius: const BorderRadius.all(
-            Radius.circular(8),
-          )
-        ),
+            color: Theme.of(context).colorScheme.surface,
+            borderRadius: const BorderRadius.all(
+              Radius.circular(8),
+            )),
         margin: const EdgeInsets.symmetric(horizontal: 16.0),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -555,7 +521,7 @@ customMobileNoteSnackBar(BuildContext context, String text) {
                     Align(
                       alignment: Alignment.centerLeft,
                       child: SizedBox(
-                        width: MediaQuery.of(context).size.width / 1/2,
+                        width: MediaQuery.of(context).size.width / 1 / 2,
                         child: Text(
                           text,
                           style: const TextStyle(
@@ -586,7 +552,6 @@ customMobileNoteSnackBar(BuildContext context, String text) {
     },
     duration: const Duration(milliseconds: 3000),
   );
-
 }
 
 Widget pageNumber(String num, context, Color color) {
@@ -647,12 +612,10 @@ Widget juzNum(String num, context, Color color, double svgWidth) {
           width: 25,
         ),
       ),
-      SvgPicture.asset(
-        'assets/svg/juz/$num.svg',
-        width: svgWidth,
-        colorFilter: ColorFilter.mode(color, BlendMode.srcIn)
-        // width: 100,
-      ),
+      SvgPicture.asset('assets/svg/juz/$num.svg',
+          width: svgWidth, colorFilter: ColorFilter.mode(color, BlendMode.srcIn)
+          // width: 100,
+          ),
     ],
   );
 }
@@ -668,12 +631,10 @@ Widget juzNum2(String num, context, Color color, double svgWidth) {
           width: 25,
         ),
       ),
-      SvgPicture.asset(
-        'assets/svg/juz/$num.svg',
-        width: svgWidth,
-        colorFilter: ColorFilter.mode(color, BlendMode.srcIn)
-        // width: 100,
-      ),
+      SvgPicture.asset('assets/svg/juz/$num.svg',
+          width: svgWidth, colorFilter: ColorFilter.mode(color, BlendMode.srcIn)
+          // width: 100,
+          ),
       RotatedBox(
         quarterTurns: 3,
         child: SvgPicture.asset(
@@ -694,8 +655,7 @@ Widget juzNumEn(String num, context, Color color) {
         style: TextStyle(
           fontSize: 12,
           fontFamily: 'kufi',
-          color: ThemeProvider.themeOf(context).id ==
-              'dark'
+          color: ThemeProvider.themeOf(context).id == 'dark'
               ? Colors.white
               : Colors.black,
         ),
@@ -734,9 +694,10 @@ readerDropDown(BuildContext context) {
     "husary",
     "ajamy",
   ];
-  dropDownModalBottomSheet(context,
-      MediaQuery.of(context).size.height / 1/2,
-      MediaQuery.of(context).size.width,
+  dropDownModalBottomSheet(
+    context,
+    MediaQuery.of(context).size.height / 1 / 2,
+    MediaQuery.of(context).size.width,
     Padding(
       padding: const EdgeInsets.symmetric(vertical: 8.0),
       child: Stack(
@@ -750,15 +711,12 @@ readerDropDown(BuildContext context) {
                 width: 30,
                 margin: const EdgeInsets.all(16.0),
                 decoration: BoxDecoration(
-                    color: Theme.of(context)
-                        .colorScheme
-                        .background,
+                    color: Theme.of(context).colorScheme.background,
                     borderRadius: const BorderRadius.all(
                       Radius.circular(8),
                     ),
                     border: Border.all(
-                        width: 2,
-                        color: Theme.of(context).dividerColor)),
+                        width: 2, color: Theme.of(context).dividerColor)),
                 child: Icon(
                   Icons.close_outlined,
                   color: Theme.of(context).colorScheme.surface,
@@ -775,8 +733,7 @@ readerDropDown(BuildContext context) {
                 style: TextStyle(
                     color: Theme.of(context).dividerColor,
                     fontSize: 22,
-                    fontFamily: "kufi"
-                ),
+                    fontFamily: "kufi"),
               ),
             ),
           ),
@@ -792,19 +749,18 @@ readerDropDown(BuildContext context) {
                         title: Text(
                           readerName[index],
                           style: TextStyle(
-                            color: audioCubit.readerValue == readerD[index]
-                                ? Theme.of(context).primaryColorLight
-                                : const Color(0xffcdba72),
-                            fontSize: 14,
-                            fontFamily: "kufi"
-                          ),
+                              color: audioCubit.readerValue == readerD[index]
+                                  ? Theme.of(context).primaryColorLight
+                                  : const Color(0xffcdba72),
+                              fontSize: 14,
+                              fontFamily: "kufi"),
                         ),
                         trailing: Container(
                           height: 20,
                           width: 20,
                           decoration: BoxDecoration(
                             borderRadius:
-                            const BorderRadius.all(Radius.circular(2.0)),
+                                const BorderRadius.all(Radius.circular(2.0)),
                             border: Border.all(
                                 color: audioCubit.readerValue == readerD[index]
                                     ? Theme.of(context).primaryColorLight
@@ -814,7 +770,7 @@ readerDropDown(BuildContext context) {
                           ),
                           child: audioCubit.readerValue == readerD[index]
                               ? const Icon(Icons.done,
-                              size: 14, color: Color(0xffcdba72))
+                                  size: 14, color: Color(0xffcdba72))
                               : null,
                         ),
                         onTap: () {
@@ -826,33 +782,34 @@ readerDropDown(BuildContext context) {
                           height: 80.0,
                           width: 80.0,
                           decoration: BoxDecoration(
-                            image: DecorationImage(
-                              image: AssetImage(
-                                  'assets/images/${readerI[index]}.jpg'),
-                              fit: BoxFit.fitWidth,
-                              colorFilter: audioCubit.readerValue == readerD[index]
-                                  ? null
-                                  : ColorFilter.mode(
-                                  Theme.of(context).canvasColor.withOpacity(.4),
-                                  BlendMode.lighten),
-                            ),
-                            shape: BoxShape.rectangle,
-                            borderRadius: const BorderRadius.all(Radius.circular(4.0)),
-                            border: Border.all(
-                              color: Theme.of(context).dividerColor,
-                              width: 2
-                            )
-                          ),
+                              image: DecorationImage(
+                                image: AssetImage(
+                                    'assets/images/${readerI[index]}.jpg'),
+                                fit: BoxFit.fitWidth,
+                                colorFilter:
+                                    audioCubit.readerValue == readerD[index]
+                                        ? null
+                                        : ColorFilter.mode(
+                                            Theme.of(context)
+                                                .canvasColor
+                                                .withOpacity(.4),
+                                            BlendMode.lighten),
+                              ),
+                              shape: BoxShape.rectangle,
+                              borderRadius:
+                                  const BorderRadius.all(Radius.circular(4.0)),
+                              border: Border.all(
+                                  color: Theme.of(context).dividerColor,
+                                  width: 2)),
                         ),
                       ),
                       decoration: BoxDecoration(
-                        borderRadius: const BorderRadius.all(Radius.circular(8.0)),
-                        border: Border.all(
-                          color: Theme.of(context).dividerColor,
-                          width: 1
-                        )
-                      ),
-                      margin: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 4.0),
+                          borderRadius:
+                              const BorderRadius.all(Radius.circular(8.0)),
+                          border: Border.all(
+                              color: Theme.of(context).dividerColor, width: 1)),
+                      margin: const EdgeInsets.symmetric(
+                          horizontal: 16.0, vertical: 4.0),
                     ),
                     // const Divider(
                     //   endIndent: 16,
@@ -864,7 +821,6 @@ readerDropDown(BuildContext context) {
               },
             ),
           ),
-
         ],
       ),
     ),
@@ -900,8 +856,9 @@ sorahReaderDropDown(BuildContext context) {
     "husary",
     "ajamy",
   ];
-  dropDownModalBottomSheet(context,
-    MediaQuery.of(context).size.height / 1/2,
+  dropDownModalBottomSheet(
+    context,
+    MediaQuery.of(context).size.height / 1 / 2,
     MediaQuery.of(context).size.width,
     Padding(
       padding: const EdgeInsets.symmetric(vertical: 8.0),
@@ -916,15 +873,12 @@ sorahReaderDropDown(BuildContext context) {
                 width: 30,
                 margin: const EdgeInsets.all(16.0),
                 decoration: BoxDecoration(
-                    color: Theme.of(context)
-                        .colorScheme
-                        .background,
+                    color: Theme.of(context).colorScheme.background,
                     borderRadius: const BorderRadius.all(
                       Radius.circular(8),
                     ),
                     border: Border.all(
-                        width: 2,
-                        color: Theme.of(context).dividerColor)),
+                        width: 2, color: Theme.of(context).dividerColor)),
                 child: Icon(
                   Icons.close_outlined,
                   color: Theme.of(context).colorScheme.surface,
@@ -941,8 +895,7 @@ sorahReaderDropDown(BuildContext context) {
                 style: TextStyle(
                     color: Theme.of(context).dividerColor,
                     fontSize: 22,
-                    fontFamily: "kufi"
-                ),
+                    fontFamily: "kufi"),
               ),
             ),
           ),
@@ -958,35 +911,38 @@ sorahReaderDropDown(BuildContext context) {
                         title: Text(
                           readerName[index],
                           style: TextStyle(
-                              color: audioCubit.sorahReaderNameValue == readerN[index]
+                              color: audioCubit.sorahReaderNameValue ==
+                                      readerN[index]
                                   ? Theme.of(context).primaryColorLight
                                   : const Color(0xffcdba72),
                               fontSize: 14,
-                              fontFamily: 'kufi'
-                          ),
+                              fontFamily: 'kufi'),
                         ),
                         trailing: Container(
                           height: 20,
                           width: 20,
                           decoration: BoxDecoration(
                             borderRadius:
-                            const BorderRadius.all(Radius.circular(2.0)),
+                                const BorderRadius.all(Radius.circular(2.0)),
                             border: Border.all(
-                                color: audioCubit.sorahReaderNameValue == readerN[index]
+                                color: audioCubit.sorahReaderNameValue ==
+                                        readerN[index]
                                     ? Theme.of(context).primaryColorLight
                                     : const Color(0xffcdba72),
                                 width: 2),
                             color: const Color(0xff39412a),
                           ),
-                          child: audioCubit.sorahReaderNameValue == readerN[index]
-                              ? const Icon(Icons.done,
-                              size: 14, color: Color(0xfffcbb76))
-                              : null,
+                          child:
+                              audioCubit.sorahReaderNameValue == readerN[index]
+                                  ? const Icon(Icons.done,
+                                      size: 14, color: Color(0xfffcbb76))
+                                  : null,
                         ),
                         onTap: () {
                           audioCubit.sorahReaderValue = readerD[index];
                           audioCubit.sorahReaderNameValue = readerN[index];
-                          audioCubit.saveSorahReader(readerD[index], readerN[index]);
+                          audioCubit.saveSorahReader(
+                              readerD[index], readerN[index]);
                           Navigator.pop(context);
                         },
                         leading: Container(
@@ -997,29 +953,30 @@ sorahReaderDropDown(BuildContext context) {
                                 image: AssetImage(
                                     'assets/images/${readerI[index]}.jpg'),
                                 fit: BoxFit.fitWidth,
-                                colorFilter: audioCubit.sorahReaderNameValue == readerN[index]
+                                colorFilter: audioCubit.sorahReaderNameValue ==
+                                        readerN[index]
                                     ? null
                                     : ColorFilter.mode(
-                                    Theme.of(context).canvasColor.withOpacity(.4),
-                                    BlendMode.lighten),
+                                        Theme.of(context)
+                                            .canvasColor
+                                            .withOpacity(.4),
+                                        BlendMode.lighten),
                               ),
                               shape: BoxShape.rectangle,
-                              borderRadius: const BorderRadius.all(Radius.circular(4.0)),
+                              borderRadius:
+                                  const BorderRadius.all(Radius.circular(4.0)),
                               border: Border.all(
                                   color: Theme.of(context).dividerColor,
-                                  width: 2
-                              )
-                          ),
+                                  width: 2)),
                         ),
                       ),
                       decoration: BoxDecoration(
-                          borderRadius: const BorderRadius.all(Radius.circular(8.0)),
+                          borderRadius:
+                              const BorderRadius.all(Radius.circular(8.0)),
                           border: Border.all(
-                              color: Theme.of(context).dividerColor,
-                              width: 1
-                          )
-                      ),
-                      margin: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 4.0),
+                              color: Theme.of(context).dividerColor, width: 1)),
+                      margin: const EdgeInsets.symmetric(
+                          horizontal: 16.0, vertical: 4.0),
                     ),
                     // const Divider(
                     //   endIndent: 16,
@@ -1031,7 +988,6 @@ sorahReaderDropDown(BuildContext context) {
               },
             ),
           ),
-
         ],
       ),
     ),
@@ -1090,7 +1046,8 @@ Widget sorahPageReaderDropDown(BuildContext context) {
                         borderRadius:
                             const BorderRadius.all(Radius.circular(2.0)),
                         border: Border.all(
-                            color: audioCubit.sorahReaderNameValue == readerN[index]
+                            color: audioCubit.sorahReaderNameValue ==
+                                    readerN[index]
                                 ? const Color(0xfffcbb76)
                                 : Theme.of(context).canvasColor,
                             width: 2),
@@ -1104,7 +1061,8 @@ Widget sorahPageReaderDropDown(BuildContext context) {
                     onTap: () {
                       audioCubit.sorahReaderValue = readerD[index];
                       audioCubit.sorahReaderNameValue = readerN[index];
-                      audioCubit.saveSorahReader(readerD[index], readerN[index]);
+                      audioCubit.saveSorahReader(
+                          readerD[index], readerN[index]);
                       Navigator.pop(context);
                     },
                   ),
@@ -1148,8 +1106,7 @@ Widget sorahPageReaderDropDown(BuildContext context) {
         scrollbarTheme: ScrollbarThemeData(
           radius: const Radius.circular(8),
           thickness: MaterialStateProperty.all(6),
-        )
-    ),
+        )),
     menuItemStyleData: const MenuItemStyleData(
       height: 35,
     ),
@@ -1227,18 +1184,15 @@ Widget bookmarkContainer(BuildContext context, Widget myWidget) {
 
 orientation(BuildContext context, var n1, n2) {
   Orientation orientation = MediaQuery.of(context).orientation;
-  return orientation == Orientation.portrait
-      ? n1
-      : n2;
+  return orientation == Orientation.portrait ? n1 : n2;
 }
 
 platformView(var p1, p2) {
-  return (Platform.isIOS || Platform.isAndroid || Platform.isFuchsia)
-      ? p1
-      : p2;
+  return (Platform.isIOS || Platform.isAndroid || Platform.isFuchsia) ? p1 : p2;
 }
 
-Widget sentNotification(BuildContext context, List<Map<String, dynamic>> notifications, Function updateStatus) {
+Widget sentNotification(BuildContext context,
+    List<Map<String, dynamic>> notifications, Function updateStatus) {
   WidgetsBinding.instance.addPostFrameCallback((_) {
     updateStatus();
   });
@@ -1256,10 +1210,12 @@ Widget sentNotification(BuildContext context, List<Map<String, dynamic>> notific
       };
     }).toList();
   }
+
   return Scaffold(
     backgroundColor: Theme.of(context).primaryColorLight,
     body: Padding(
-      padding: const EdgeInsets.only(top: 70.0, bottom: 16.0, right: 16.0, left: 16.0),
+      padding: const EdgeInsets.only(
+          top: 70.0, bottom: 16.0, right: 16.0, left: 16.0),
       child: Column(
         children: [
           GestureDetector(
@@ -1283,7 +1239,8 @@ Widget sentNotification(BuildContext context, List<Map<String, dynamic>> notific
               ),
             ),
           ),
-          Text('الإشعارات',
+          Text(
+            'الإشعارات',
             style: TextStyle(
               fontSize: 24,
               fontFamily: 'kufi',
@@ -1322,26 +1279,32 @@ Widget sentNotification(BuildContext context, List<Map<String, dynamic>> notific
                           height: 70,
                           decoration: BoxDecoration(
                             color: Theme.of(context).colorScheme.background,
-                            borderRadius: const BorderRadius.all(Radius.circular(8)),
+                            borderRadius:
+                                const BorderRadius.all(Radius.circular(8)),
                           ),
                           margin: const EdgeInsets.symmetric(vertical: 4.0),
                           child: ListTile(
-                            title: Text(notification['title'],
+                            title: Text(
+                              notification['title'],
                               style: TextStyle(
                                 fontSize: 16,
                                 fontFamily: 'kufi',
-                                color: ThemeProvider.themeOf(context).id == 'dark'
-                                    ? Colors.white
-                                    : Colors.black,
+                                color:
+                                    ThemeProvider.themeOf(context).id == 'dark'
+                                        ? Colors.white
+                                        : Colors.black,
                               ),
                             ),
-                            subtitle: Text(DateFormat('HH:mm').format(notification['timestamp']),
+                            subtitle: Text(
+                              DateFormat('HH:mm')
+                                  .format(notification['timestamp']),
                               style: TextStyle(
                                 fontSize: 12,
                                 fontFamily: 'kufi',
-                                color: ThemeProvider.themeOf(context).id == 'dark'
-                                    ? Colors.white
-                                    : Colors.black,
+                                color:
+                                    ThemeProvider.themeOf(context).id == 'dark'
+                                        ? Colors.white
+                                        : Colors.black,
                               ),
                             ),
                             trailing: Icon(
@@ -1350,10 +1313,13 @@ Widget sentNotification(BuildContext context, List<Map<String, dynamic>> notific
                               color: Theme.of(context).dividerColor,
                             ),
                             onTap: () {
-                              Navigator.of(navigatorNotificationKey.currentContext!).push(
+                              Navigator.of(
+                                      navigatorNotificationKey.currentContext!)
+                                  .push(
                                 animatNameRoute(
                                   pushName: '/post',
-                                  myWidget: PostPage(postId: notification['id']),
+                                  myWidget:
+                                      PostPage(postId: notification['id']),
                                 ),
                               );
                             },
@@ -1376,43 +1342,39 @@ Widget rightPage(BuildContext context, Widget child) {
   return Stack(
     children: [
       Padding(
-        padding: const EdgeInsets.only(
-            right: 4.0, top: 16.0, bottom: 16.0),
+        padding: const EdgeInsets.only(right: 4.0, top: 16.0, bottom: 16.0),
         child: Container(
-            decoration: BoxDecoration(
-            color: ThemeProvider.themeOf(context).id == 'dark'
-                ? Theme.of(context).primaryColorDark.withOpacity(.5)
-                : Theme.of(context).dividerColor.withOpacity(.5),
-
-        borderRadius: const BorderRadius.only(
-        topRight: Radius.circular(12),
-        bottomRight: Radius.circular(12))),
+          decoration: BoxDecoration(
+              color: ThemeProvider.themeOf(context).id == 'dark'
+                  ? Theme.of(context).primaryColorDark.withOpacity(.5)
+                  : Theme.of(context).dividerColor.withOpacity(.5),
+              borderRadius: const BorderRadius.only(
+                  topRight: Radius.circular(12),
+                  bottomRight: Radius.circular(12))),
           child: child,
         ),
       ),
       Padding(
-        padding: const EdgeInsets.only(
-            right: 8.0, top: 16.0, bottom: 16.0),
+        padding: const EdgeInsets.only(right: 8.0, top: 16.0, bottom: 16.0),
         child: Container(
-            decoration: BoxDecoration(
-            color: ThemeProvider.themeOf(context).id == 'dark'
-                ? Theme.of(context).primaryColorDark.withOpacity(.7)
-                : Theme.of(context).dividerColor.withOpacity(.7),
-        borderRadius: const BorderRadius.only(
-        topRight: Radius.circular(12),
-        bottomRight: Radius.circular(12))),
+          decoration: BoxDecoration(
+              color: ThemeProvider.themeOf(context).id == 'dark'
+                  ? Theme.of(context).primaryColorDark.withOpacity(.7)
+                  : Theme.of(context).dividerColor.withOpacity(.7),
+              borderRadius: const BorderRadius.only(
+                  topRight: Radius.circular(12),
+                  bottomRight: Radius.circular(12))),
           child: child,
         ),
       ),
       Padding(
-        padding: const EdgeInsets.only(
-            right: 12.0, top: 16.0, bottom: 16.0),
+        padding: const EdgeInsets.only(right: 12.0, top: 16.0, bottom: 16.0),
         child: Container(
-            decoration: BoxDecoration(
-            color: Theme.of(context).colorScheme.background,
-        borderRadius: const BorderRadius.only(
-        topRight: Radius.circular(12),
-        bottomRight: Radius.circular(12))),
+          decoration: BoxDecoration(
+              color: Theme.of(context).colorScheme.background,
+              borderRadius: const BorderRadius.only(
+                  topRight: Radius.circular(12),
+                  bottomRight: Radius.circular(12))),
           child: child,
         ),
       ),
@@ -1424,43 +1386,39 @@ Widget leftPage(BuildContext context, Widget child) {
   return Stack(
     children: [
       Padding(
-        padding: const EdgeInsets.only(
-            left: 4.0, top: 16.0, bottom: 16.0),
+        padding: const EdgeInsets.only(left: 4.0, top: 16.0, bottom: 16.0),
         child: Container(
-            decoration: BoxDecoration(
-            color: ThemeProvider.themeOf(context).id == 'dark'
-                ? Theme.of(context).primaryColorDark.withOpacity(.5)
-                : Theme.of(context).dividerColor.withOpacity(.5),
-
-        borderRadius: const BorderRadius.only(
-        topLeft: Radius.circular(12),
-        bottomLeft: Radius.circular(12))),
+          decoration: BoxDecoration(
+              color: ThemeProvider.themeOf(context).id == 'dark'
+                  ? Theme.of(context).primaryColorDark.withOpacity(.5)
+                  : Theme.of(context).dividerColor.withOpacity(.5),
+              borderRadius: const BorderRadius.only(
+                  topLeft: Radius.circular(12),
+                  bottomLeft: Radius.circular(12))),
           child: child,
         ),
       ),
       Padding(
-        padding: const EdgeInsets.only(
-            left: 8.0, top: 16.0, bottom: 16.0),
+        padding: const EdgeInsets.only(left: 8.0, top: 16.0, bottom: 16.0),
         child: Container(
-            decoration: BoxDecoration(
-            color: ThemeProvider.themeOf(context).id == 'dark'
-                ? Theme.of(context).primaryColorDark.withOpacity(.7)
-                : Theme.of(context).dividerColor.withOpacity(.7),
-        borderRadius: const BorderRadius.only(
-        topLeft: Radius.circular(12),
-        bottomLeft: Radius.circular(12))),
+          decoration: BoxDecoration(
+              color: ThemeProvider.themeOf(context).id == 'dark'
+                  ? Theme.of(context).primaryColorDark.withOpacity(.7)
+                  : Theme.of(context).dividerColor.withOpacity(.7),
+              borderRadius: const BorderRadius.only(
+                  topLeft: Radius.circular(12),
+                  bottomLeft: Radius.circular(12))),
           child: child,
         ),
       ),
       Padding(
-        padding: const EdgeInsets.only(
-            left: 12.0, top: 16.0, bottom: 16.0),
+        padding: const EdgeInsets.only(left: 12.0, top: 16.0, bottom: 16.0),
         child: Container(
-            decoration: BoxDecoration(
-            color: Theme.of(context).colorScheme.background,
-        borderRadius: const BorderRadius.only(
-        topLeft: Radius.circular(12),
-        bottomLeft: Radius.circular(12))),
+          decoration: BoxDecoration(
+              color: Theme.of(context).colorScheme.background,
+              borderRadius: const BorderRadius.only(
+                  topLeft: Radius.circular(12),
+                  bottomLeft: Radius.circular(12))),
           child: child,
         ),
       ),
@@ -1469,22 +1427,22 @@ Widget leftPage(BuildContext context, Widget child) {
 }
 
 quarters(int index) {
-  if (index == 1){
+  if (index == 1) {
     return SvgPicture.asset(
       'assets/svg/quarter/quarter_1.svg',
       height: 20,
     );
-  } else if (index == 2){
+  } else if (index == 2) {
     return SvgPicture.asset(
       'assets/svg/quarter/quarter_2.svg',
       height: 20,
     );
-  } else if (index == 3){
+  } else if (index == 3) {
     return SvgPicture.asset(
       'assets/svg/quarter/quarter_3.svg',
       height: 20,
     );
-  } else if (index == 4){
+  } else if (index == 4) {
     return SvgPicture.asset(
       'assets/svg/quarter/quarter_4.svg',
       height: 20,
@@ -1492,32 +1450,30 @@ quarters(int index) {
   }
 }
 
-dropDownModalBottomSheet(BuildContext context, double height, width, Widget child) {
+dropDownModalBottomSheet(
+    BuildContext context, double height, width, Widget child) {
   QuranCubit cubit = QuranCubit.get(context);
   double hei = MediaQuery.of(context).size.height;
   double wid = MediaQuery.of(context).size.width;
   showModalBottomSheet(
       context: context,
       constraints: BoxConstraints(
-        maxWidth:  platformView(orientation(context,
-            width, wid / 1/2),
-            wid / 1/2),
-        maxHeight: orientation(context, hei / 1/2,
-            platformView(hei, hei / 1/2))
-      ),
+          maxWidth: platformView(
+              orientation(context, width, wid / 1 / 2), wid / 1 / 2),
+          maxHeight: orientation(
+              context, hei / 1 / 2, platformView(hei, hei / 1 / 2))),
       elevation: 0.0,
       shape: const RoundedRectangleBorder(
-      borderRadius: BorderRadius.only(
-        topLeft: Radius.circular(8.0),
-        topRight: Radius.circular(8.0),
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(8.0),
+          topRight: Radius.circular(8.0),
+        ),
       ),
-  ),
-  backgroundColor: Theme.of(context).colorScheme.background,
-  isScrollControlled: true,
-  builder: (BuildContext context) {
+      backgroundColor: Theme.of(context).colorScheme.background,
+      isScrollControlled: true,
+      builder: (BuildContext context) {
         return child;
-  }
-  ).whenComplete(() {
+      }).whenComplete(() {
     if (cubit.screenController != null) {
       cubit.screenController!.reverse();
     }
@@ -1525,7 +1481,6 @@ dropDownModalBottomSheet(BuildContext context, double height, width, Widget chil
   if (cubit.screenController != null) {
     cubit.screenController!.forward();
   }
-
 }
 
 allModalBottomSheet(BuildContext context, double height, width, Widget child) {
@@ -1534,28 +1489,23 @@ allModalBottomSheet(BuildContext context, double height, width, Widget child) {
   double wid = MediaQuery.of(context).size.width;
   showModalBottomSheet(
       context: context,
-
       constraints: BoxConstraints(
-        maxWidth:  platformView(orientation(context,
-            width, wid / 1/2),
-            wid / 1/2),
-        maxHeight: orientation(context, hei * 3/4,
-            platformView(hei, hei *
-                3/4))
-      ),
+          maxWidth: platformView(
+              orientation(context, width, wid / 1 / 2), wid / 1 / 2),
+          maxHeight: orientation(
+              context, hei * 3 / 4, platformView(hei, hei * 3 / 4))),
       elevation: 0.0,
       shape: const RoundedRectangleBorder(
-      borderRadius: BorderRadius.only(
-        topLeft: Radius.circular(8.0),
-        topRight: Radius.circular(8.0),
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(8.0),
+          topRight: Radius.circular(8.0),
+        ),
       ),
-  ),
-  backgroundColor: Theme.of(context).colorScheme.background,
-  isScrollControlled: true,
-  builder: (BuildContext context) {
+      backgroundColor: Theme.of(context).colorScheme.background,
+      isScrollControlled: true,
+      builder: (BuildContext context) {
         return child;
-  }
-  ).whenComplete(() {
+      }).whenComplete(() {
     cubit.screenController!.reverse();
   });
   cubit.screenController!.forward();
@@ -1591,16 +1541,13 @@ Widget customClose2(BuildContext context) {
         height: 30,
         width: 30,
         decoration: BoxDecoration(
-            color: Theme.of(context)
-                .colorScheme
-                .background,
+            color: Theme.of(context).colorScheme.background,
             borderRadius: const BorderRadius.only(
               topRight: Radius.circular(8),
               topLeft: Radius.circular(8),
             ),
-            border: Border.all(
-                width: 2,
-                color: Theme.of(context).dividerColor)),
+            border:
+                Border.all(width: 2, color: Theme.of(context).dividerColor)),
         child: Icon(
           Icons.close_outlined,
           color: Theme.of(context).colorScheme.surface,
@@ -1636,9 +1583,11 @@ Widget customTextClose(BuildContext context) {
   );
 }
 
-Widget Function(BuildContext, EditableTextState) buildMyContextMenu(NotesCubit notesCubit) {
+Widget Function(BuildContext, EditableTextState) buildMyContextMenu(
+    NotesCubit notesCubit) {
   return (BuildContext context, EditableTextState editableTextState) {
-    final List<ContextMenuButtonItem> buttonItems = editableTextState.contextMenuButtonItems;
+    final List<ContextMenuButtonItem> buttonItems =
+        editableTextState.contextMenuButtonItems;
     buttonItems.insert(
       0,
       ContextMenuButtonItem(
@@ -1657,9 +1606,11 @@ Widget Function(BuildContext, EditableTextState) buildMyContextMenu(NotesCubit n
   };
 }
 
-Widget Function(BuildContext, EditableTextState) buildMyContextMenuText(NotesCubit notesCubit) {
+Widget Function(BuildContext, EditableTextState) buildMyContextMenuText(
+    NotesCubit notesCubit) {
   return (BuildContext context, EditableTextState editableTextState) {
-    final List<ContextMenuButtonItem> buttonItems = editableTextState.contextMenuButtonItems;
+    final List<ContextMenuButtonItem> buttonItems =
+        editableTextState.contextMenuButtonItems;
     buttonItems.insert(
       0,
       ContextMenuButtonItem(
@@ -1677,4 +1628,3 @@ Widget Function(BuildContext, EditableTextState) buildMyContextMenuText(NotesCub
     );
   };
 }
-

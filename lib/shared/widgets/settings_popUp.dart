@@ -1,15 +1,13 @@
-
 import 'package:alquranalkareem/cubit/cubit.dart';
 import 'package:alquranalkareem/shared/widgets/settings_list.dart';
 import 'package:alquranalkareem/shared/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:theme_provider/theme_provider.dart';
+
 import '../../notes/cubit/note_cubit.dart';
 import '../custom_rect_tween.dart';
 import '../hero_dialog_route.dart';
-
-
 
 /// {@template add_todo_button}
 /// Button to add a new [Todo].
@@ -19,7 +17,7 @@ import '../hero_dialog_route.dart';
 /// Uses a [Hero] with tag [_heroAddTodo].
 /// {@endtemplate}
 class settingsButton extends StatelessWidget {
-  Widget child;
+  final Widget child;
   settingsButton({Key? key, required this.child}) : super(key: key);
 
   @override
@@ -33,12 +31,15 @@ class settingsButton extends StatelessWidget {
           Navigator.of(context).push(HeroDialogRoute(builder: (context) {
             return settingsPopupCard(
               child: const SettingsList(),
-              height: orientation(context,
-                  MediaQuery.of(context).size.height * 1/2,
-                  MediaQuery.of(context).size.height * 1/2 * 1.6),
+              height: orientation(
+                  context,
+                  MediaQuery.of(context).size.height * 1 / 2,
+                  MediaQuery.of(context).size.height * 1 / 2 * 1.6),
               alignment: Alignment.topCenter,
-              padding: orientation(context,
-                  EdgeInsets.only(top: paddingHeight * .08, right: 16.0, left: 16.0),
+              padding: orientation(
+                  context,
+                  EdgeInsets.only(
+                      top: paddingHeight * .08, right: 16.0, left: 16.0),
                   EdgeInsets.only(top: 70.0, right: width * .5, left: 16.0)),
             );
           }));
@@ -77,14 +78,19 @@ class settingsPopupCard extends StatelessWidget {
   final double height;
   final Alignment alignment;
   final EdgeInsetsGeometry padding;
-  settingsPopupCard({Key? key, required this.child, required this.height, required this.alignment, required this.padding}) : super(key: key);
-
+  settingsPopupCard(
+      {Key? key,
+      required this.child,
+      required this.height,
+      required this.alignment,
+      required this.padding})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     QuranCubit cubit = QuranCubit.get(context);
-    double paddingHeight = MediaQuery.of(context).size.height;
-    double width = MediaQuery.of(context).size.width;
+    // double paddingHeight = MediaQuery.of(context).size.height;
+    // double width = MediaQuery.of(context).size.width;
     return SafeArea(
       child: Align(
         alignment: alignment,
@@ -101,8 +107,7 @@ class settingsPopupCard extends StatelessWidget {
               child: Material(
                 color: Theme.of(context).colorScheme.background,
                 elevation: 1,
-                shape:
-                RoundedRectangleBorder(
+                shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(8)),
                 child: Stack(
                   fit: StackFit.passthrough,
@@ -119,19 +124,26 @@ class settingsPopupCard extends StatelessWidget {
                           children: [
                             Icon(Icons.close_outlined,
                                 size: 40,
-                                color: Theme.of(context).colorScheme.surface.withOpacity(.5)),
+                                color: Theme.of(context)
+                                    .colorScheme
+                                    .surface
+                                    .withOpacity(.5)),
                             Icon(Icons.close_outlined,
                                 size: 24,
-                                color: ThemeProvider.themeOf(context).id == 'dark'
-                                    ? Theme.of(context).canvasColor
-                                    : Theme.of(context).primaryColorDark),
+                                color:
+                                    ThemeProvider.themeOf(context).id == 'dark'
+                                        ? Theme.of(context).canvasColor
+                                        : Theme.of(context).primaryColorDark),
                           ],
                         ),
                         onTap: () {
                           Navigator.of(context).pop();
                           // setState(() {
-                            cubit.isShowSettings = !cubit.isShowSettings;
-                          context.read<NotesCubit>().descriptionController.clear();
+                          cubit.isShowSettings = !cubit.isShowSettings;
+                          context
+                              .read<NotesCubit>()
+                              .descriptionController
+                              .clear();
                           context.read<NotesCubit>().titleController.clear();
                           // });
                         },
