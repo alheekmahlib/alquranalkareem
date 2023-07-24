@@ -4,14 +4,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:theme_provider/theme_provider.dart';
+
 import '../../cubit/cubit.dart';
 import '../../quran_page/cubit/audio/cubit.dart';
 import '../../quran_page/data/model/ayat.dart';
 import 'lottie.dart';
 
 class AyahList extends StatefulWidget {
-  int? pageNum;
-  AyahList({Key? key, required this.pageNum}) : super(key: key);
+  final int? pageNum;
+  const AyahList({Key? key, required this.pageNum}) : super(key: key);
 
   @override
   State<AyahList> createState() => _AyahListState();

@@ -53,13 +53,11 @@ class QuranPage extends StatefulWidget {
   final String imageUrl2;
   final int currentPage;
 
-
   QuranPage({
     required this.imageUrl,
     required this.imageUrl2,
     required this.currentPage,
   });
-
 
   @override
   _QuranPageState createState() => _QuranPageState();
@@ -70,14 +68,11 @@ class _QuranPageState extends State<QuranPage> {
   List<Verse>? verses;
   final GlobalKey imageKey = GlobalKey();
 
-
   @override
   void initState() {
     super.initState();
     _fetchVerses();
   }
-
-
 
   // void _onTap(TapDownDetails details) {
   //   QuranCubit cubit = QuranCubit.get(context);
@@ -152,7 +147,8 @@ class _QuranPageState extends State<QuranPage> {
     if (MediaQuery.of(context).orientation == Orientation.portrait) {
       adjustedYOffset = 60;
     } else {
-      adjustedYOffset = 0; // Adjust this value to move the pressure point down in landscape mode
+      adjustedYOffset =
+          0; // Adjust this value to move the pressure point down in landscape mode
     }
 
     // Adjust for translation and scale
@@ -201,8 +197,6 @@ class _QuranPageState extends State<QuranPage> {
   //     });
   //   }
   // }
-
-
 
   // void _onTap(TapDownDetails details, BoxConstraints constraints) {
   //   WidgetsBinding.instance.addPostFrameCallback((_) {
@@ -352,7 +346,6 @@ class _QuranPageState extends State<QuranPage> {
   //   return -1;
   // }
 
-
   // double calculateAdjustedYOffset() {
   //   double screenHeight = MediaQuery.of(context).size.height;
   //   double screenWidth = MediaQuery.of(context).size.width;
@@ -392,7 +385,8 @@ class _QuranPageState extends State<QuranPage> {
   // }
   Future<List<Map<String, dynamic>>> _getVersesFromDatabase() async {
     // Replace this line with your database query
-    List<Map<String, dynamic>> data = await DBHelper().getVersesForCurrentPage(widget.currentPage);
+    List<Map<String, dynamic>> data =
+        await DBHelper().getVersesForCurrentPage(widget.currentPage);
     return data;
   }
 
@@ -423,12 +417,12 @@ class _QuranPageState extends State<QuranPage> {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       RenderBox box = context.findRenderObject() as RenderBox;
       Offset localPosition = box.globalToLocal(details.globalPosition);
-      bool isLandscape = MediaQuery.of(context).orientation == Orientation.landscape;
+      bool isLandscape =
+          MediaQuery.of(context).orientation == Orientation.landscape;
 
       double adjustedYOffset;
       double scaleFactor;
       double xTranslationFactor;
-
 
       // Calculate the imageWidth scale factor based on the screen size
       // const double minScreenWidth = 320.0; // Minimum screen width for adjustments
@@ -457,10 +451,9 @@ class _QuranPageState extends State<QuranPage> {
       // double screenHeight = ScreenUtil().screenHeight;
       double imageWidthFactor = getImageWidthFactor(context, isLandscape);
 
-
-      RenderBox imageRenderBox = imageKey.currentContext?.findRenderObject() as RenderBox;
+      RenderBox imageRenderBox =
+          imageKey.currentContext?.findRenderObject() as RenderBox;
       double imageWidth = imageRenderBox.size.width * imageWidthFactor;
-
 
       if (MediaQuery.of(context).orientation == Orientation.portrait) {
         adjustedYOffset = calculateAdjustedYOffset(constraints.maxHeight);
@@ -468,9 +461,14 @@ class _QuranPageState extends State<QuranPage> {
         xTranslationFactor = 0.90;
       } else {
         // adjustedYOffset = constraints.maxHeight * .9;
-        adjustedYOffset = 60; // Adjust this value to move the pressure point down in landscape mode
-        scaleFactor = 0.72 * (imageWidth / 1260); // Adjust the scale factor based on the image width
-        xTranslationFactor = 1.89 * (imageWidth / 1260); // Adjust the x translation factor based on the image width
+        adjustedYOffset =
+            60; // Adjust this value to move the pressure point down in landscape mode
+        scaleFactor = 0.72 *
+            (imageWidth /
+                1260); // Adjust the scale factor based on the image width
+        xTranslationFactor = 1.89 *
+            (imageWidth /
+                1260); // Adjust the x translation factor based on the image width
       }
 
       // Adjust for translation and scale
@@ -489,7 +487,8 @@ class _QuranPageState extends State<QuranPage> {
             }
           }
           // Select the tapped verse
-          _selectedVerses[tappedVerseIndex] = !_selectedVerses[tappedVerseIndex];
+          _selectedVerses[tappedVerseIndex] =
+              !_selectedVerses[tappedVerseIndex];
         });
       }
     });
@@ -595,9 +594,9 @@ class _QuranPageState extends State<QuranPage> {
     return -1;
   }
 
-
   double calculateVerticalMargin(BoxConstraints constraints) {
-    double screenSizeAverage = (constraints.maxWidth + constraints.maxHeight) / 2;
+    double screenSizeAverage =
+        (constraints.maxWidth + constraints.maxHeight) / 2;
     return screenSizeAverage * 0.035; // Adjust the multiplier as needed
   }
 
@@ -623,7 +622,8 @@ class _QuranPageState extends State<QuranPage> {
     double largeScreenOffset = screenHeight * 0.128;
 
     // Use linear interpolation to calculate the adjusted Y offset
-    return lerp(screenHeight, smallScreenHeight, largeScreenHeight, smallScreenOffset, largeScreenOffset);
+    return lerp(screenHeight, smallScreenHeight, largeScreenHeight,
+        smallScreenOffset, largeScreenOffset);
   }
 
   Future<void> _fetchVerses() async {
@@ -633,7 +633,6 @@ class _QuranPageState extends State<QuranPage> {
       _selectedVerses = List.generate(verses!.length, (index) => false);
     });
   }
-
 
   // void _onTap(TapDownDetails details, BoxConstraints constraints) {
   //   WidgetsBinding.instance.addPostFrameCallback((_) {
@@ -702,7 +701,8 @@ class _QuranPageState extends State<QuranPage> {
               alignment: Alignment.center,
               children: [
                 LayoutBuilder(
-                  builder: (BuildContext context, BoxConstraints innerConstraints) {
+                  builder:
+                      (BuildContext context, BoxConstraints innerConstraints) {
                     // double aspectRatio;
                     // if (MediaQuery.of(context).orientation == Orientation.portrait) {
                     //   aspectRatio = 5.7 / 9;
@@ -718,22 +718,24 @@ class _QuranPageState extends State<QuranPage> {
                       // height: containerHeight,
                       margin: EdgeInsets.symmetric(
                         // vertical: calculateVerticalMargin(innerConstraints),
-                        vertical: min(calculateVerticalMargin(innerConstraints), 6),
+                        vertical:
+                            min(calculateVerticalMargin(innerConstraints), 6),
                         horizontal: orientation(context, 16.0, 24.0),
                       ),
                       child: verses != null
                           ? AspectRatio(
-                        aspectRatio: orientation(context, 5.7 / 9, 5.8 / 9),
-                        child: Transform.scale(
-                          scale: orientation(context, 1.0, 1.0),
-                          child: CustomPaint(
-                            foregroundPainter: VerseHighlightPainter(
-                              verses: verses ?? [],
-                              selectedVerses: _selectedVerses,
-                            ),
-                          ),
-                        ),
-                      )
+                              aspectRatio:
+                                  orientation(context, 5.7 / 9, 5.8 / 9),
+                              child: Transform.scale(
+                                scale: orientation(context, 1.0, 1.0),
+                                child: CustomPaint(
+                                  foregroundPainter: VerseHighlightPainter(
+                                    verses: verses ?? [],
+                                    selectedVerses: _selectedVerses,
+                                  ),
+                                ),
+                              ),
+                            )
                           : const CircularProgressIndicator(),
                     );
                   },
@@ -765,7 +767,6 @@ class _QuranPageState extends State<QuranPage> {
   }
 }
 
-
 class VerseHighlightPainter extends CustomPainter {
   final List<Verse> verses;
   final List<bool> selectedVerses;
@@ -782,7 +783,11 @@ class VerseHighlightPainter extends CustomPainter {
       if (!selectedVerses[index]) continue;
 
       // Get all parts of the verse
-      List<Verse> verseParts = verses.where((v) => v.ayahNumber == verses[index].ayahNumber && v.suraNumber == verses[index].suraNumber).toList();
+      List<Verse> verseParts = verses
+          .where((v) =>
+              v.ayahNumber == verses[index].ayahNumber &&
+              v.suraNumber == verses[index].suraNumber)
+          .toList();
 
       for (Verse verse in verseParts) {
         Rect rect = Rect.fromLTRB(
@@ -792,7 +797,8 @@ class VerseHighlightPainter extends CustomPainter {
           (verse.maxY + padding) * scaleFactor,
         );
 
-        RRect roundedRect = RRect.fromRectAndRadius(rect, Radius.circular(borderRadius));
+        RRect roundedRect =
+            RRect.fromRectAndRadius(rect, Radius.circular(borderRadius));
 
         Paint paint = Paint()..color = const Color(0xff91a57d).withOpacity(0.4);
         canvas.drawRRect(roundedRect, paint);
@@ -800,8 +806,6 @@ class VerseHighlightPainter extends CustomPainter {
     }
   }
 
-
   @override
   bool shouldRepaint(covariant CustomPainter oldDelegate) => true;
 }
-

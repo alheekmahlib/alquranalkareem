@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:lottie/lottie.dart';
 import 'package:theme_provider/theme_provider.dart';
+
 import '../../cubit/ayaRepository/aya_cubit.dart';
 import '../../cubit/cubit.dart';
 import '../../l10n/app_localizations.dart';
@@ -12,11 +13,10 @@ import '../../quran_text/cubit/surah_text_cubit.dart';
 import '../../quran_text/model/QuranModel.dart';
 import 'lottie.dart';
 
-
 class QuranSearch extends StatefulWidget {
-  late Function onSubmitted;
+  // late Function onSubmitted;
 
-  QuranSearch({super.key});
+  const QuranSearch({super.key});
 
   @override
   _QuranSearchState createState() => _QuranSearchState();
@@ -93,7 +93,7 @@ class _QuranSearchState extends State<QuranSearch> {
               } else if (state is AyaLoaded) {
                 final List<Aya> ayahList = state.ayahList;
                 return Container(
-                    child: ayahList != null
+                    child: ayahList.isEmpty
                         ? BlocBuilder<SurahTextCubit, List<SurahText>?>(
                             builder: (context, state) {
                               if (state == null) {
@@ -273,7 +273,7 @@ class _QuranSearchState extends State<QuranSearch> {
               } else if (state is AyaError) {
                 return notFound();
               }
-              return Container(); // Fallback to an empty container.
+              return const SizedBox.shrink(); // Fallback to an empty container.
             },
           ),
         ),

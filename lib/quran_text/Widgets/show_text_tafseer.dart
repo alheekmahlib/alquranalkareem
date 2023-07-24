@@ -6,13 +6,14 @@ import 'package:another_xlider/models/handler.dart';
 import 'package:another_xlider/models/handler_animation.dart';
 import 'package:another_xlider/models/trackbar.dart';
 import 'package:arabic_numbers/arabic_numbers.dart';
+import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_sliding_up_panel/sliding_up_panel_widget.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:theme_provider/theme_provider.dart';
+
 import '../../l10n/app_localizations.dart';
-import 'package:dropdown_button2/dropdown_button2.dart';
 import '../../shared/widgets/show_tafseer.dart';
 import '../../shared/widgets/widgets.dart';
 import '../cubit/quran_text_cubit.dart';
@@ -247,7 +248,8 @@ class _ShowTextTafseerState extends State<ShowTextTafseer> {
                                 onSelectionChanged: handleSelectionChanged,
                               );
                             } else {
-                              return Container(); // Or some other fallback widget
+                              return const SizedBox
+                                  .shrink(); // Or some other fallback widget
                             }
                           },
                         ),

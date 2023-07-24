@@ -8,14 +8,15 @@ import 'package:another_xlider/models/handler_animation.dart';
 import 'package:another_xlider/models/trackbar.dart';
 import 'package:arabic_numbers/arabic_numbers.dart';
 import 'package:clipboard/clipboard.dart';
+import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:theme_provider/theme_provider.dart';
+
 import '../../cubit/states.dart';
 import '../../l10n/app_localizations.dart';
 import '../../notes/cubit/note_cubit.dart';
-import 'package:dropdown_button2/dropdown_button2.dart';
 import '../share/ayah_to_images.dart';
 import 'ayah_list.dart';
 
@@ -166,8 +167,8 @@ class _ShowTafseerState extends State<ShowTafseer> {
                             cubit.translate ?? '',
                             surahName!);
                       } else {
-                        showVerseOptionsBottomSheet(context, 0,
-                            surahNumber!, cubit.translateAyah, '', surahName!);
+                        showVerseOptionsBottomSheet(context, 0, surahNumber!,
+                            cubit.translateAyah, '', surahName!);
                       }
                     },
                     child: Align(
@@ -222,7 +223,7 @@ class _ShowTafseerState extends State<ShowTafseer> {
                                   state.translate;
                               allTitle = '﴿${state.translateAyah}﴾';
                               cubit.translateAyah = state.translateAyah;
-                            cubit.translate = state.translate;
+                              cubit.translate = state.translate;
                               return SelectableText.rich(
                                 key: _selectableTextKey,
                                 TextSpan(
@@ -283,7 +284,8 @@ class _ShowTafseerState extends State<ShowTafseer> {
                                 onSelectionChanged: handleSelectionChanged,
                               );
                             } else {
-                              return Container(); // Or some other fallback widget
+                              return const SizedBox
+                                  .shrink(); // Or some other fallback widget
                             }
                           },
                         ),
@@ -370,8 +372,7 @@ class _ShowTafseerState extends State<ShowTafseer> {
                             tafName[index],
                             style: TextStyle(
                                 color: cubit.radioValue == index
-                                    ? Theme.of(context)
-                                    .primaryColorLight
+                                    ? Theme.of(context).primaryColorLight
                                     : const Color(0xffcdba72),
                                 fontSize: 14,
                                 fontFamily: 'kufi'),
@@ -380,8 +381,7 @@ class _ShowTafseerState extends State<ShowTafseer> {
                             tafD[index],
                             style: TextStyle(
                                 color: cubit.radioValue == index
-                                    ? Theme.of(context)
-                                    .primaryColorLight
+                                    ? Theme.of(context).primaryColorLight
                                     : const Color(0xffcdba72),
                                 fontSize: 12,
                                 fontFamily: 'kufi'),
@@ -390,26 +390,24 @@ class _ShowTafseerState extends State<ShowTafseer> {
                             height: 20,
                             width: 20,
                             decoration: BoxDecoration(
-                              borderRadius: const BorderRadius.all(
-                                  Radius.circular(2.0)),
+                              borderRadius:
+                                  const BorderRadius.all(Radius.circular(2.0)),
                               border: Border.all(
                                   color: cubit.radioValue == index
-                                      ? Theme.of(context)
-                                      .primaryColorLight
+                                      ? Theme.of(context).primaryColorLight
                                       : const Color(0xffcdba72),
                                   width: 2),
                               color: const Color(0xff39412a),
                             ),
                             child: cubit.radioValue == index
                                 ? const Icon(Icons.done,
-                                size: 14, color: Color(0xfffcbb76))
+                                    size: 14, color: Color(0xfffcbb76))
                                 : null,
                           ),
                           onTap: () {
                             cubit.getNewTranslationAndNotify(
                                 context, surahNumber!, ayahNumber!);
-                            cubit.handleRadioValueChanged(
-                                context, index);
+                            cubit.handleRadioValueChanged(context, index);
                             cubit.saveTafseer(index);
                             Navigator.pop(context);
                           },
@@ -421,23 +419,22 @@ class _ShowTafseerState extends State<ShowTafseer> {
                                   borderRadius: const BorderRadius.all(
                                       Radius.circular(4.0)),
                                   border: Border.all(
-                                      color: Theme.of(context)
-                                          .dividerColor,
+                                      color: Theme.of(context).dividerColor,
                                       width: 2)),
                               child: SvgPicture.asset(
                                 'assets/svg/tafseer_book.svg',
                                 colorFilter: cubit.radioValue == index
                                     ? null
                                     : ColorFilter.mode(
-                                    Theme.of(context)
-                                        .canvasColor
-                                        .withOpacity(.4),
-                                    BlendMode.lighten),
+                                        Theme.of(context)
+                                            .canvasColor
+                                            .withOpacity(.4),
+                                        BlendMode.lighten),
                               )),
                         ),
                         decoration: BoxDecoration(
-                            borderRadius: const BorderRadius.all(
-                                Radius.circular(8.0)),
+                            borderRadius:
+                                const BorderRadius.all(Radius.circular(8.0)),
                             border: Border.all(
                                 color: Theme.of(context).dividerColor,
                                 width: 1)),

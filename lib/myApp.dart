@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:io';
 import 'dart:math';
+
 import 'package:alquranalkareem/notes/cubit/note_cubit.dart';
 import 'package:alquranalkareem/quran_page/cubit/audio/cubit.dart';
 import 'package:alquranalkareem/quran_page/cubit/bookmarks/bookmarks_cubit.dart';
@@ -11,20 +12,20 @@ import 'package:alquranalkareem/screens/splash_screen.dart';
 import 'package:alquranalkareem/shared/lists.dart';
 import 'package:arabic_numbers/arabic_numbers.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hijri/hijri_calendar.dart';
 import 'package:home_widget/home_widget.dart';
 import 'package:theme_provider/theme_provider.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:workmanager/workmanager.dart';
+
 import 'cubit/ayaRepository/aya_cubit.dart';
 import 'cubit/cubit.dart';
 import 'cubit/quarter/quarter_cubit.dart';
 import 'cubit/sorahRepository/sorah_repository_cubit.dart';
 import 'cubit/translateDataCubit/_cubit.dart';
-
 
 /// Used for Background Updates using Workmanager Plugin
 void callbackDispatcher() {
@@ -39,7 +40,6 @@ void callbackDispatcher() {
     } while (usedIndices.contains(randomIndex));
     usedIndices.add(randomIndex);
     final randomZikr = zikr[randomIndex];
-
 
     return Future.wait<bool?>([
       HomeWidget.saveWidgetData(
@@ -72,12 +72,9 @@ void backgroundCallback(Uri? data) async {
     final randomZikr = zikr[randomIndex];
 
     await HomeWidget.saveWidgetData<String>('zikr', randomZikr);
-    await HomeWidget.updateWidget(
-        name: 'ZikerWidget', iOSName: 'ZikerWidget');
+    await HomeWidget.updateWidget(name: 'ZikerWidget', iOSName: 'ZikerWidget');
   }
 }
-
-
 
 class MyApp extends StatefulWidget {
   const MyApp({
@@ -123,14 +120,15 @@ class _MyAppState extends State<MyApp> {
     String day = "${arabicNumber.convert(_today.hDay)}";
     String year = "${arabicNumber.convert(_today.hYear)}";
     await HomeWidget.saveWidgetData<String>('hijriDay', "$day");
-    await HomeWidget.saveWidgetData<String>('hijriMonth', _today.hMonth.toString());
+    await HomeWidget.saveWidgetData<String>(
+        'hijriMonth', _today.hMonth.toString());
     await HomeWidget.saveWidgetData<String>('hijriYear', "$year");
   }
 
   @override
   void initState() {
     super.initState();
-    if(Platform.isIOS || Platform.isAndroid) {
+    if (Platform.isIOS || Platform.isAndroid) {
       // Initialize Workmanager
       final workManager = Workmanager();
       workManager.initialize(
@@ -212,17 +210,18 @@ class _MyAppState extends State<MyApp> {
           description: "My green Theme",
           data: ThemeData(
             colorScheme: const ColorScheme(
-                brightness: Brightness.light,
-                primary: Color(0xff232c13),
-                onPrimary: Color(0xff161f07),
-                secondary: Color(0xff39412a),
-                onSecondary: Color(0xff39412a),
-                error: Color(0xff91a57d),
-                onError: Color(0xff91a57d),
-                background: Color(0xfff3efdf),
-                onBackground: Color(0xfff3efdf),
-                surface: Color(0xff91a57d),
-                onSurface: Color(0xff91a57d),),
+              brightness: Brightness.light,
+              primary: Color(0xff232c13),
+              onPrimary: Color(0xff161f07),
+              secondary: Color(0xff39412a),
+              onSecondary: Color(0xff39412a),
+              error: Color(0xff91a57d),
+              onError: Color(0xff91a57d),
+              background: Color(0xfff3efdf),
+              onBackground: Color(0xfff3efdf),
+              surface: Color(0xff91a57d),
+              onSurface: Color(0xff91a57d),
+            ),
             primaryColor: const Color(0xff232c13),
             primaryColorLight: const Color(0xff39412a),
             primaryColorDark: const Color(0xff161f07),
@@ -264,7 +263,8 @@ class _MyAppState extends State<MyApp> {
               background: Color(0xfffefae0),
               onBackground: Color(0xfffefae0),
               surface: Color(0xff606c38),
-              onSurface: Color(0xff606c38),),
+              onSurface: Color(0xff606c38),
+            ),
             primaryColor: const Color(0xffbc6c25),
             primaryColorLight: const Color(0xfffcbb76),
             primaryColorDark: const Color(0xff814714),
@@ -303,7 +303,8 @@ class _MyAppState extends State<MyApp> {
               background: Color(0xff19191a),
               onBackground: Color(0xff3F3F3F),
               surface: Color(0xff91a57d),
-              onSurface: Color(0xff91a57d),),
+              onSurface: Color(0xff91a57d),
+            ),
             primaryColor: const Color(0xff3F3F3F),
             primaryColorLight: const Color(0xff4d4d4d),
             primaryColorDark: const Color(0xff010101),
@@ -351,13 +352,16 @@ class _MyAppState extends State<MyApp> {
               create: (BuildContext context) => TranslateDataCubit(),
             ),
             BlocProvider<QuarterCubit>(
-              create: (BuildContext context) => QuarterCubit(QuarterRepository())..getAllQuarters(),
+              create: (BuildContext context) =>
+                  QuarterCubit(QuarterRepository())..getAllQuarters(),
             ),
             BlocProvider<SurahTextCubit>(
-              create: (BuildContext context) => SurahTextCubit()..loadQuranData(),
+              create: (BuildContext context) =>
+                  SurahTextCubit()..loadQuranData(),
             ),
             BlocProvider<SorahRepositoryCubit>(
-              create: (BuildContext context) => SorahRepositoryCubit()..loadSorahs(),
+              create: (BuildContext context) =>
+                  SorahRepositoryCubit()..loadSorahs(),
             ),
             BlocProvider<AyaCubit>(
               create: (BuildContext context) => AyaCubit()..getAllAyas(),
@@ -366,7 +370,6 @@ class _MyAppState extends State<MyApp> {
           child: SplashScreen(),
           // child: const HomePage(),
         ),
-
       ),
     );
   }

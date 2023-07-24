@@ -1,15 +1,18 @@
 import 'dart:async';
+
 import 'package:alquranalkareem/azkar/screens/azkar_item.dart';
+import 'package:alquranalkareem/cubit/states.dart';
 import 'package:alquranalkareem/quran_page/data/model/ayat.dart';
 import 'package:alquranalkareem/quran_page/screens/quran_page.dart';
-import 'package:alquranalkareem/cubit/states.dart';
 import 'package:arabic_numbers/arabic_numbers.dart';
 import 'package:day_night_time_picker/lib/daynight_timepicker.dart';
 import 'package:day_night_time_picker/lib/state/time.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_sliding_up_panel/flutter_sliding_up_panel.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sqflite/sqflite.dart';
+
 import '../l10n/app_localizations.dart';
 import '../quran_page/data/model/translate.dart';
 import '../quran_page/data/repository/translate_repository.dart';
@@ -18,7 +21,6 @@ import '../screens/menu_screen.dart';
 import '../shared/local_notifications.dart';
 import '../shared/reminder_model.dart';
 import '../shared/widgets/show_tafseer.dart';
-import 'package:flutter_sliding_up_panel/flutter_sliding_up_panel.dart';
 import '../shared/widgets/widgets.dart';
 
 class QuranCubit extends Cubit<QuranState> {
@@ -88,6 +90,7 @@ class QuranCubit extends Cubit<QuranState> {
   Future<void> getTranslatedPage(int pageNum, BuildContext context) async {
     // emit(AyaLoading());
     try {
+      // ignore: unused_local_variable
       final ayahList = await handleRadioValueChanged(context, radioValue)
           .getPageTranslate(pageNum);
       // emit(AyaLoaded(ayahList));

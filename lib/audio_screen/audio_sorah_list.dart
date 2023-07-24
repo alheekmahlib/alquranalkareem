@@ -1,6 +1,7 @@
 import 'dart:async';
-import 'dart:io';
 import 'dart:developer' as developer;
+import 'dart:io';
+
 import 'package:alquranalkareem/l10n/app_localizations.dart';
 import 'package:anim_search_bar/anim_search_bar.dart';
 import 'package:another_xlider/another_xlider.dart';
@@ -21,13 +22,13 @@ import 'package:path_provider/path_provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:square_percent_indicater/square_percent_indicater.dart';
 import 'package:theme_provider/theme_provider.dart';
+
 import '../../quran_page/data/model/sorah.dart';
+import '../../shared/widgets/lottie.dart';
 import '../cubit/sorahRepository/sorah_repository_cubit.dart';
 import '../quran_page/cubit/audio/cubit.dart';
 import '../shared/widgets/svg_picture.dart';
 import '../shared/widgets/widgets.dart';
-import '../../shared/widgets/lottie.dart';
-
 
 class AudioSorahList extends StatefulWidget {
   const AudioSorahList({super.key});
@@ -37,7 +38,9 @@ class AudioSorahList extends StatefulWidget {
 }
 
 class _AudioSorahListState extends State<AudioSorahList>
-    with AutomaticKeepAliveClientMixin<AudioSorahList>, SingleTickerProviderStateMixin {
+    with
+        AutomaticKeepAliveClientMixin<AudioSorahList>,
+        SingleTickerProviderStateMixin {
   final ScrollController controller = ScrollController();
   ValueNotifier<double> _position = ValueNotifier(0);
   ValueNotifier<double> _duration = ValueNotifier(99999);
@@ -74,7 +77,6 @@ class _AudioSorahListState extends State<AudioSorahList>
   int selectedSurah = -1;
   double lastPosition = 0.0;
   bool _isInitialLoadComplete = false;
-
 
   @override
   void initState() {
@@ -129,7 +131,8 @@ class _AudioSorahListState extends State<AudioSorahList>
   }
 
   // Save & Last Surah Listen
-  Future<void> saveLastSurahListen(int surahNum, selectedSurah, double position) async {
+  Future<void> saveLastSurahListen(
+      int surahNum, selectedSurah, double position) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     await prefs.setInt('lastSurah', surahNum);
     await prefs.setInt('selectedSurah', selectedSurah);
@@ -187,8 +190,10 @@ class _AudioSorahListState extends State<AudioSorahList>
       sorahNumString = sorahNum.toString();
     }
 
-    String paddedString = sorahNumString!; // copy the padded string to a new variable
-    intValue = int.parse(paddedString); // temporarily convert the padded string to an integer
+    String paddedString =
+        sorahNumString!; // copy the padded string to a new variable
+    intValue = int.parse(
+        paddedString); // temporarily convert the padded string to an integer
 
     // convert intValue back to a padded string
     paddedString = intValue.toString().padLeft(3, '0');
@@ -218,7 +223,6 @@ class _AudioSorahListState extends State<AudioSorahList>
           isPlayOnline = true;
         });
       } else {
-
         await audioPlayer.play(audioUrl);
         sorahNum++;
         intValue++;
@@ -235,14 +239,14 @@ class _AudioSorahListState extends State<AudioSorahList>
     } else {
       try {
         if (_connectionStatus == ConnectivityResult.none) {
-          customMobileNoteSnackBar(context,
-              AppLocalizations.of(context)!.noInternet);
+          customMobileNoteSnackBar(
+              context, AppLocalizations.of(context)!.noInternet);
         } else if (_connectionStatus == ConnectivityResult.mobile) {
           setState(() {
             loading = true;
           });
-          customMobileNoteSnackBar(context,
-              AppLocalizations.of(context)!.mobileDataListen);
+          customMobileNoteSnackBar(
+              context, AppLocalizations.of(context)!.mobileDataListen);
           await audioPlayer.play(audioUrl);
           setState(() {
             loading = false;
@@ -331,14 +335,14 @@ class _AudioSorahListState extends State<AudioSorahList>
             print(e);
           }
           if (_connectionStatus == ConnectivityResult.none) {
-            customErrorSnackBar(context,
-                AppLocalizations.of(context)!.noInternet);
+            customErrorSnackBar(
+                context, AppLocalizations.of(context)!.noInternet);
           } else if (_connectionStatus == ConnectivityResult.mobile) {
-            customMobileNoteSnackBar(context,
-                AppLocalizations.of(context)!.mobileDataSurahs);
+            customMobileNoteSnackBar(
+                context, AppLocalizations.of(context)!.mobileDataSurahs);
             await downloadFile(path, url, fileName);
-          } else if (_connectionStatus == ConnectivityResult.wifi
-              || _connectionStatus == ConnectivityResult.mobile) {
+          } else if (_connectionStatus == ConnectivityResult.wifi ||
+              _connectionStatus == ConnectivityResult.mobile) {
             await downloadFile(path, url, fileName);
           }
         }
@@ -353,12 +357,9 @@ class _AudioSorahListState extends State<AudioSorahList>
         print(e);
       }
     }
-
-
   }
 
   skip_previous(BuildContext context) async {
-
     if (isPlayOnline == true) {
       await audioPlayer.stop();
       sorahNum--;
@@ -418,8 +419,7 @@ class _AudioSorahListState extends State<AudioSorahList>
           progress = (rec / total).toDouble();
         });
         print(progressString);
-      },
-          cancelToken: cancelToken);
+      }, cancelToken: cancelToken);
     } catch (e) {
       if (e is DioError && e.type == DioErrorType.cancel) {
         print('Download canceled');
@@ -509,14 +509,14 @@ class _AudioSorahListState extends State<AudioSorahList>
       int index = sorahList
           .indexWhere((sorah) => sorah.searchText.contains(searchInput));
       if (index != -1) {
-        controller.jumpTo(index * 65.0); // Assuming 65.0 is the height of each ListTile
+        controller.jumpTo(
+            index * 65.0); // Assuming 65.0 is the height of each ListTile
         setState(() {
           selectedSurah = index;
         });
       }
     }
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -529,88 +529,91 @@ class _AudioSorahListState extends State<AudioSorahList>
         key: SorahPlayScaffoldKey,
         backgroundColor: Theme.of(context).colorScheme.background,
         body: platformView(
-                orientation(context,
-                    Stack(
-              children: [
-                Align(
-                  alignment: Alignment.topCenter,
-                  child: Stack(
-                    alignment: Alignment.center,
-                    children: [
-                      Opacity(
-                        opacity: .1,
-                        child: quranIcon(context, height / 1/2, width),
+            orientation(
+                context,
+                Stack(
+                  children: [
+                    Align(
+                      alignment: Alignment.topCenter,
+                      child: Stack(
+                        alignment: Alignment.center,
+                        children: [
+                          Opacity(
+                            opacity: .1,
+                            child: quranIcon(context, height / 1 / 2, width),
+                          ),
+                          quranIcon(context, 100, width / 1 / 2),
+                        ],
                       ),
-                      quranIcon(context, 100, width / 1 / 2),
-                    ],
-                  ),
-                ),
-                Align(
-                  alignment: Alignment.topRight,
-                  child: orientation(context,
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        lastListen(context),
-                        surahSearch(context),
-                      ],
                     ),
-                    Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        lastListen(context),
-                        surahSearch(context),
-                      ],
+                    Align(
+                      alignment: Alignment.topRight,
+                      child: orientation(
+                        context,
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            lastListen(context),
+                            surahSearch(context),
+                          ],
+                        ),
+                        Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            lastListen(context),
+                            surahSearch(context),
+                          ],
+                        ),
+                      ),
                     ),
-                  ),
+                    surahList(context),
+                    Align(
+                      alignment: Alignment.bottomCenter,
+                      child: playWidget(context),
+                    ),
+                  ],
                 ),
-                surahList(context),
-                Align(
-                  alignment: Alignment.bottomCenter,
-                  child: playWidget(context),
-                ),
-              ],
-            ),
-                    Stack(
-                    children: [
-                      Align(
-                        alignment: Alignment.centerLeft,
-                        child: SizedBox(
-                          width: width / 1 / 2,
-                          child: Padding(
-                            padding: const EdgeInsets.only(right: 96.0),
-                            child: Stack(
-                              alignment: Alignment.center,
-                              children: [
-                                Opacity(
-                                  opacity: .1,
-                                  child: quranIcon(context, height / 1/2, width),
-                                ),
-                                quranIcon(context, 100, width / 1 / 2),
-                                surahSearch(context),
-                              ],
-                            ),
+                Stack(
+                  children: [
+                    Align(
+                      alignment: Alignment.centerLeft,
+                      child: SizedBox(
+                        width: width / 1 / 2,
+                        child: Padding(
+                          padding: const EdgeInsets.only(right: 96.0),
+                          child: Stack(
+                            alignment: Alignment.center,
+                            children: [
+                              Opacity(
+                                opacity: .1,
+                                child:
+                                    quranIcon(context, height / 1 / 2, width),
+                              ),
+                              quranIcon(context, 100, width / 1 / 2),
+                              surahSearch(context),
+                            ],
                           ),
                         ),
                       ),
-                      Align(
-                        alignment: Alignment.bottomLeft,
-                        child: lastListen(context),
+                    ),
+                    Align(
+                      alignment: Alignment.bottomLeft,
+                      child: lastListen(context),
+                    ),
+                    Align(
+                      alignment: Alignment.centerRight,
+                      child: SizedBox(
+                        width: width / 1 / 2,
+                        child: surahList(context),
                       ),
-                      Align(
-                        alignment: Alignment.centerRight,
-                        child: SizedBox(
-                          width: width / 1 / 2,
-                          child: surahList(context),
-                        ),
-                      ),
-                      Align(
-                        alignment: Alignment.bottomCenter,
-                        child: playWidgetLand(context),
-                      ),
-                    ],
-                  )),
-                Stack(
+                    ),
+                    Align(
+                      alignment: Alignment.bottomCenter,
+                      child: playWidgetLand(context),
+                    ),
+                  ],
+                )),
+            Stack(
               children: [
                 Align(
                   alignment: Alignment.centerRight,
@@ -621,7 +624,7 @@ class _AudioSorahListState extends State<AudioSorahList>
                       children: [
                         Opacity(
                           opacity: .1,
-                          child: quranIcon(context, height / 1/2, width),
+                          child: quranIcon(context, height / 1 / 2, width),
                         ),
                         quranIcon(context, 100, width / 1 / 2),
                         surahSearch(context),
@@ -632,7 +635,8 @@ class _AudioSorahListState extends State<AudioSorahList>
                 Align(
                   alignment: Alignment.topRight,
                   child: Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 32.0, horizontal: 16.0),
+                    padding: const EdgeInsets.symmetric(
+                        vertical: 32.0, horizontal: 16.0),
                     child: lastListen(context),
                   ),
                 ),
@@ -657,753 +661,859 @@ class _AudioSorahListState extends State<AudioSorahList>
     AudioCubit audioCubit = AudioCubit.get(context);
     double width = MediaQuery.of(context).size.width;
     return SlideTransition(
-        position: audioCubit.offset, child: Padding(
-      padding: orientation(context,
-          const EdgeInsets.symmetric(horizontal: 0.0),
-          const EdgeInsets.symmetric(horizontal: 64.0)),
-      child: Container(
-        height: 260.0,
-        width: width,
-        decoration: BoxDecoration(
-          borderRadius: const BorderRadius.only(
-              topRight: Radius.circular(12.0),
-              topLeft: Radius.circular(12.0)),
-          border: Border.all(
-              width: 2,
-              color: Theme.of(context).colorScheme.surface
-          ),
-          color: Theme.of(context).colorScheme.background,
-        ),
+        position: audioCubit.offset,
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16.0),
-          child: orientation(context,
-              StatefulBuilder(
+          padding: orientation(
+              context,
+              const EdgeInsets.symmetric(horizontal: 0.0),
+              const EdgeInsets.symmetric(horizontal: 64.0)),
+          child: Container(
+            height: 260.0,
+            width: width,
+            decoration: BoxDecoration(
+              borderRadius: const BorderRadius.only(
+                  topRight: Radius.circular(12.0),
+                  topLeft: Radius.circular(12.0)),
+              border: Border.all(
+                  width: 2, color: Theme.of(context).colorScheme.surface),
+              color: Theme.of(context).colorScheme.background,
+            ),
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16.0),
+              child: orientation(context, StatefulBuilder(
                   builder: (BuildContext context, StateSetter setState) {
-                    return Stack(
-                      children: [
-                        SizedBox(
-                          height: orientation(context, 130.0, 30.0),
-                          child: Stack(
-                            alignment: Alignment.center,
-                            children: [
-                              Opacity(
-                                opacity: .1,
-                                child: SvgPicture.asset('assets/svg/surah_name/00$sorahNum.svg',
-                                  colorFilter: ColorFilter.mode(Theme.of(context).colorScheme.surface, BlendMode.srcIn),
-                                  width: width,
-                                ),
-                              ),
-                              SvgPicture.asset(
-                                'assets/svg/surah_name/00$sorahNum.svg',
-                                height: 100,
-                                colorFilter: ColorFilter.mode(Theme.of(context).colorScheme.surface, BlendMode.srcIn),
-                                width: width / 1 / 2,
-                              ),
-                              Align(
-                                alignment: Alignment.topRight,
-                                child: IconButton(
-                                  icon: Icon(Icons.close_outlined,
-                                      color: ThemeProvider.themeOf(context).id == 'dark'
-                                          ? Theme.of(context).canvasColor
-                                          : Theme.of(context).primaryColorDark),
-                                  onPressed: () => AudioCubit.get(context).controllerSorah.reverse(),
-                                ),
-                              ),
-                            ],
+                return Stack(
+                  children: [
+                    SizedBox(
+                      height: orientation(context, 130.0, 30.0),
+                      child: Stack(
+                        alignment: Alignment.center,
+                        children: [
+                          Opacity(
+                            opacity: .1,
+                            child: SvgPicture.asset(
+                              'assets/svg/surah_name/00$sorahNum.svg',
+                              colorFilter: ColorFilter.mode(
+                                  Theme.of(context).colorScheme.surface,
+                                  BlendMode.srcIn),
+                              width: width,
+                            ),
                           ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(top: 32.0),
-                          child: Align(
-                            alignment: Alignment.center,
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              children: [
-                                GestureDetector(
-                                  child: Container(
-                                    height: 30,
-                                    width: 30,
-                                    decoration: BoxDecoration(
-                                        color: Theme.of(context).colorScheme.background,
-                                        borderRadius: const BorderRadius.only(
-                                          topRight: Radius.circular(8),
-                                          topLeft: Radius.circular(8),
-                                        ),
-                                        border: Border.all(
-                                            width: 2,
-                                            color: Theme.of(context).dividerColor)),
-                                    child: Icon(
-                                      Icons.skip_next,
-                                      color: Theme.of(context).colorScheme.surface,
+                          SvgPicture.asset(
+                            'assets/svg/surah_name/00$sorahNum.svg',
+                            height: 100,
+                            colorFilter: ColorFilter.mode(
+                                Theme.of(context).colorScheme.surface,
+                                BlendMode.srcIn),
+                            width: width / 1 / 2,
+                          ),
+                          Align(
+                            alignment: Alignment.topRight,
+                            child: IconButton(
+                              icon: Icon(Icons.close_outlined,
+                                  color: ThemeProvider.themeOf(context).id ==
+                                          'dark'
+                                      ? Theme.of(context).canvasColor
+                                      : Theme.of(context).primaryColorDark),
+                              onPressed: () => AudioCubit.get(context)
+                                  .controllerSorah
+                                  .reverse(),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(top: 32.0),
+                      child: Align(
+                        alignment: Alignment.center,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            GestureDetector(
+                              child: Container(
+                                height: 30,
+                                width: 30,
+                                decoration: BoxDecoration(
+                                    color: Theme.of(context)
+                                        .colorScheme
+                                        .background,
+                                    borderRadius: const BorderRadius.only(
+                                      topRight: Radius.circular(8),
+                                      topLeft: Radius.circular(8),
                                     ),
-                                  ),
-                                  onTap: () {
-                                    skip_previous(context);
-                                    setState(() {
-                                      sorahNum--;
-                                      intValue--;
-                                      selectedSurah--;
-                                    });
-                                  },
+                                    border: Border.all(
+                                        width: 2,
+                                        color: Theme.of(context).dividerColor)),
+                                child: Icon(
+                                  Icons.skip_next,
+                                  color: Theme.of(context).colorScheme.surface,
                                 ),
-                                GestureDetector(
-                                  child: SizedBox(
-                                    height: 120,
-                                    child: Stack(
+                              ),
+                              onTap: () {
+                                skip_previous(context);
+                                setState(() {
+                                  sorahNum--;
+                                  intValue--;
+                                  selectedSurah--;
+                                });
+                              },
+                            ),
+                            GestureDetector(
+                              child: SizedBox(
+                                height: 120,
+                                child: Stack(
+                                  alignment: Alignment.center,
+                                  children: [
+                                    Align(
+                                      alignment: Alignment.topCenter,
+                                      child: IconButton(
+                                          onPressed: () {
+                                            setState(() {
+                                              repeatSurahOnline =
+                                                  !repeatSurahOnline;
+                                            });
+                                          },
+                                          icon: Icon(
+                                            Icons.repeat_one,
+                                            color: repeatSurahOnline == true
+                                                ? Theme.of(context)
+                                                    .colorScheme
+                                                    .surface
+                                                : Theme.of(context)
+                                                    .colorScheme
+                                                    .surface
+                                                    .withOpacity(.4),
+                                          )),
+                                    ),
+                                    Align(
                                       alignment: Alignment.center,
-                                      children: [
-                                        Align(
-                                          alignment: Alignment.topCenter,
-                                          child: IconButton(
-                                              onPressed: () {
-                                                setState((){
-                                                  repeatSurahOnline = !repeatSurahOnline;
-                                                });
-                                              },
-                                              icon: Icon(
-                                                Icons.repeat_one,
-                                                color: repeatSurahOnline == true
-                                                    ? Theme.of(context).colorScheme.surface
-                                                    : Theme.of(context).colorScheme.surface.withOpacity(.4),
-                                              )),
-                                        ),
-                                        Align(
-                                          alignment: Alignment.center,
+                                      child: Container(
+                                          height: 50,
+                                          padding: const EdgeInsets.symmetric(
+                                              horizontal: 8.0),
+                                          width: 50,
+                                          decoration: BoxDecoration(
+                                              color: Theme.of(context)
+                                                  .colorScheme
+                                                  .background,
+                                              borderRadius:
+                                                  const BorderRadius.only(
+                                                topRight: Radius.circular(8),
+                                                topLeft: Radius.circular(8),
+                                              ),
+                                              border: Border.all(
+                                                  width: 2,
+                                                  color: Theme.of(context)
+                                                      .dividerColor)),
+                                          child: Stack(
+                                            alignment: Alignment.center,
+                                            children: [
+                                              if (loading)
+                                                playButtonLottie(20.0, 20.0),
+                                              if (!loading)
+                                                Icon(
+                                                  isPlayOnline
+                                                      ? Icons.pause
+                                                      : Icons
+                                                          .online_prediction_outlined,
+                                                  size: 24,
+                                                  color: Theme.of(context)
+                                                      .colorScheme
+                                                      .surface,
+                                                ),
+                                            ],
+                                          )),
+                                    ),
+                                    Align(
+                                      alignment: Alignment.bottomCenter,
+                                      child: Text(
+                                        AppLocalizations.of(context)!.online,
+                                        style: TextStyle(
+                                            fontSize: 16,
+                                            fontFamily: 'kufi',
+                                            height: -1.5,
+                                            color:
+                                                Theme.of(context).dividerColor),
+                                      ),
+                                    )
+                                  ],
+                                ),
+                              ),
+                              onTap: () {
+                                playSorahOnline(context);
+                              },
+                            ),
+                            Align(
+                              alignment: Alignment.center,
+                              child: SizedBox(
+                                height: 120,
+                                child: Stack(
+                                  alignment: Alignment.center,
+                                  children: [
+                                    Align(
+                                      alignment: Alignment.topCenter,
+                                      child: IconButton(
+                                          onPressed: () {
+                                            setState(() {
+                                              repeatSurah = !repeatSurah;
+                                            });
+                                          },
+                                          icon: Icon(
+                                            Icons.repeat_one,
+                                            color: repeatSurah == true
+                                                ? Theme.of(context)
+                                                    .colorScheme
+                                                    .surface
+                                                : Theme.of(context)
+                                                    .colorScheme
+                                                    .surface
+                                                    .withOpacity(.4),
+                                          )),
+                                    ),
+                                    Align(
+                                      alignment: Alignment.center,
+                                      child: SquarePercentIndicator(
+                                        width: 50,
+                                        height: 50,
+                                        borderRadius: 8,
+                                        shadowWidth: 1.5,
+                                        progressWidth: 4,
+                                        shadowColor: Colors.grey,
+                                        progressColor:
+                                            ThemeProvider.themeOf(context).id ==
+                                                    'dark'
+                                                ? Colors.white
+                                                : Theme.of(context)
+                                                    .primaryColorLight,
+                                        progress: progress,
+                                        child: GestureDetector(
                                           child: Container(
                                               height: 50,
-                                              padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                                              padding:
+                                                  const EdgeInsets.symmetric(
+                                                      horizontal: 8.0),
                                               width: 50,
                                               decoration: BoxDecoration(
-                                                  color: Theme.of(context).colorScheme.background,
-                                                  borderRadius: const BorderRadius.only(
-                                                    topRight: Radius.circular(8),
+                                                  color: Theme.of(context)
+                                                      .colorScheme
+                                                      .background,
+                                                  borderRadius:
+                                                      const BorderRadius.only(
+                                                    topRight:
+                                                        Radius.circular(8),
                                                     topLeft: Radius.circular(8),
                                                   ),
                                                   border: Border.all(
                                                       width: 2,
-                                                      color: Theme.of(context).dividerColor)),
-                                              child: Stack(
-                                                alignment: Alignment.center,
-                                                children: [
-                                                  if (loading)
-                                                    playButtonLottie(20.0, 20.0),
-                                                  if (!loading)
-                                                    Icon(
-                                                      isPlayOnline ? Icons.pause : Icons.online_prediction_outlined,
-                                                      size: 24,
-                                                      color: Theme.of(context).colorScheme.surface,
-                                                    ),
-                                                ],
-                                              )
-                                          ),
-                                        ),
-                                        Align(
-                                          alignment: Alignment.bottomCenter,
-                                          child: Text(AppLocalizations.of(context)!.online,
-                                            style: TextStyle(
-                                                fontSize: 16,
-                                                fontFamily: 'kufi',
-                                                height: -1.5,
-                                                color: Theme.of(context).dividerColor
-                                            ),
-                                          ),
-                                        )
-                                      ],
-                                    ),
-                                  ),
-                                  onTap: () {
-                                    playSorahOnline(context);
-                                  },
-                                ),
-                                Align(
-                                  alignment: Alignment.center,
-                                  child: SizedBox(
-                                    height: 120,
-                                    child: Stack(
-                                      alignment: Alignment.center,
-                                      children: [
-                                        Align(
-                                          alignment: Alignment.topCenter,
-                                          child: IconButton(
-                                              onPressed: () {
-                                                setState((){
-                                                  repeatSurah = !repeatSurah;
-                                                });
-                                              },
-                                              icon: Icon(
-                                                Icons.repeat_one,
-                                                color: repeatSurah == true
-                                                    ? Theme.of(context).colorScheme.surface
-                                                    : Theme.of(context).colorScheme.surface.withOpacity(.4),
-                                              )),
-                                        ),
-                                        Align(
-                                          alignment: Alignment.center,
-                                          child: SquarePercentIndicator(
-                                            width: 50,
-                                            height: 50,
-                                            borderRadius: 8,
-                                            shadowWidth: 1.5,
-                                            progressWidth: 4,
-                                            shadowColor: Colors.grey,
-                                            progressColor: ThemeProvider.themeOf(context)
-                                                .id ==
-                                                'dark'
-                                                ? Colors.white
-                                                : Theme.of(context).primaryColorLight,
-                                            progress: progress,
-                                            child: GestureDetector(
-                                              child: Container(
-                                                  height: 50,
-                                                  padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                                                  width: 50,
-                                                  decoration: BoxDecoration(
-                                                      color: Theme.of(context).colorScheme.background,
-                                                      borderRadius: const BorderRadius.only(
-                                                        topRight: Radius.circular(8),
-                                                        topLeft: Radius.circular(8),
+                                                      color: Theme.of(context)
+                                                          .dividerColor)),
+                                              child: downloading
+                                                  ? Container(
+                                                      alignment:
+                                                          Alignment.center,
+                                                      child: Text(
+                                                        progressString,
+                                                        style: TextStyle(
+                                                            fontSize: 14,
+                                                            fontFamily: 'kufi',
+                                                            color: Theme.of(
+                                                                    context)
+                                                                .colorScheme
+                                                                .surface),
                                                       ),
-                                                      border: Border.all(
-                                                          width: 2,
-                                                          color: Theme.of(context).dividerColor)),
-                                                  child: downloading
-                                                      ? Container(
-                                                    alignment: Alignment.center,
-                                                    child: Text(
-                                                      progressString,
-                                                      style: TextStyle(
-                                                          fontSize: 14,
-                                                          fontFamily: 'kufi',
-                                                          color: Theme.of(context).colorScheme.surface),
-                                                    ),
-                                                  )
-                                                      : Icon(
-                                                    isPlay
-                                                        ? Icons.pause
-                                                        : Icons.download_outlined,
-                                                    size: 24,
-                                                    color: Theme.of(context).colorScheme.surface,
-                                                  )
-                                              ),
-                                              onTap: () {
-                                                playSorah(context);
-                                              },
-                                            ),
-                                          ),
+                                                    )
+                                                  : Icon(
+                                                      isPlay
+                                                          ? Icons.pause
+                                                          : Icons
+                                                              .download_outlined,
+                                                      size: 24,
+                                                      color: Theme.of(context)
+                                                          .colorScheme
+                                                          .surface,
+                                                    )),
+                                          onTap: () {
+                                            playSorah(context);
+                                          },
                                         ),
-                                        Align(
-                                          alignment: Alignment.bottomCenter,
-                                          child: Text(AppLocalizations.of(context)!.download,
-                                            style: TextStyle(
-                                                fontSize: 16,
-                                                fontFamily: 'kufi',
-                                                height: -1.5,
-                                                color: Theme.of(context).dividerColor
-                                            ),
-                                          ),
-                                        )
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                                GestureDetector(
-                                  child: Container(
-                                    height: 30,
-                                    width: 30,
-                                    decoration: BoxDecoration(
-                                        color: Theme.of(context).colorScheme.background,
-                                        borderRadius: const BorderRadius.only(
-                                          topRight: Radius.circular(8),
-                                          topLeft: Radius.circular(8),
-                                        ),
-                                        border: Border.all(
-                                            width: 2,
-                                            color: Theme.of(context).dividerColor)),
-                                    child: Icon(
-                                      Icons.skip_previous,
-                                      color: Theme.of(context).colorScheme.surface,
-                                    ),
-                                  ),
-                                  onTap: () {
-                                    skip_next(context);
-                                    setState(() {
-                                      sorahNum++;
-                                      intValue++;
-                                      selectedSurah++;
-                                    });
-                                  },
-                                ),
-                                Container(
-                                  height: 35,
-                                  width: 35,
-                                  decoration: BoxDecoration(
-                                      color:
-                                      Theme.of(context).colorScheme.surface,
-                                      borderRadius: const BorderRadius.all(
-                                          Radius.circular(8))),
-                                  child: IconButton(
-                                    icon: Icon(Icons.person_search_outlined,
-                                        size: 20,
-                                        color: Theme.of(context).canvasColor),
-                                    onPressed: () => sorahReaderDropDown(context),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                        Align(
-                          alignment: Alignment.bottomCenter,
-                          child: SizedBox(
-                            height: 70,
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Expanded(
-                                    flex: 2,
-                                    child: Center(
-                                        child: Text(_currentTime,
-                                          style: TextStyle(
-                                            fontFamily: 'kufi',
-                                            fontSize: 14,
-                                            color: ThemeProvider.themeOf(context).id == 'dark'
-                                                ? Theme.of(context).canvasColor
-                                                : Theme.of(context).primaryColor,
-                                          ),
-                                        ))),
-                                Expanded(
-                                  flex: 6,
-                                  child: Container(
-                                    height: 50,
-                                    alignment: Alignment.center,
-                                    width: width,
-                                    child: FlutterSlider(
-                                      values: [lastPosition == false ? _position.value : lastPosition],
-                                      max: _duration.value,
-                                      min: 0,
-                                      rtl: true,
-                                      trackBar: FlutterSliderTrackBar(
-                                        inactiveTrackBarHeight: 5,
-                                        activeTrackBarHeight: 5,
-                                        inactiveTrackBar: BoxDecoration(
-                                          borderRadius: BorderRadius.circular(8),
-                                          color: Theme.of(context).colorScheme.surface.withOpacity(.5),
-                                        ),
-                                        activeTrackBar: BoxDecoration(
-                                            borderRadius: BorderRadius.circular(4),
-                                            color: Theme.of(context).colorScheme.surface),
                                       ),
-                                      handlerAnimation: const FlutterSliderHandlerAnimation(
+                                    ),
+                                    Align(
+                                      alignment: Alignment.bottomCenter,
+                                      child: Text(
+                                        AppLocalizations.of(context)!.download,
+                                        style: TextStyle(
+                                            fontSize: 16,
+                                            fontFamily: 'kufi',
+                                            height: -1.5,
+                                            color:
+                                                Theme.of(context).dividerColor),
+                                      ),
+                                    )
+                                  ],
+                                ),
+                              ),
+                            ),
+                            GestureDetector(
+                              child: Container(
+                                height: 30,
+                                width: 30,
+                                decoration: BoxDecoration(
+                                    color: Theme.of(context)
+                                        .colorScheme
+                                        .background,
+                                    borderRadius: const BorderRadius.only(
+                                      topRight: Radius.circular(8),
+                                      topLeft: Radius.circular(8),
+                                    ),
+                                    border: Border.all(
+                                        width: 2,
+                                        color: Theme.of(context).dividerColor)),
+                                child: Icon(
+                                  Icons.skip_previous,
+                                  color: Theme.of(context).colorScheme.surface,
+                                ),
+                              ),
+                              onTap: () {
+                                skip_next(context);
+                                setState(() {
+                                  sorahNum++;
+                                  intValue++;
+                                  selectedSurah++;
+                                });
+                              },
+                            ),
+                            Container(
+                              height: 35,
+                              width: 35,
+                              decoration: BoxDecoration(
+                                  color: Theme.of(context).colorScheme.surface,
+                                  borderRadius: const BorderRadius.all(
+                                      Radius.circular(8))),
+                              child: IconButton(
+                                icon: Icon(Icons.person_search_outlined,
+                                    size: 20,
+                                    color: Theme.of(context).canvasColor),
+                                onPressed: () => sorahReaderDropDown(context),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                    Align(
+                      alignment: Alignment.bottomCenter,
+                      child: SizedBox(
+                        height: 70,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Expanded(
+                                flex: 2,
+                                child: Center(
+                                    child: Text(
+                                  _currentTime,
+                                  style: TextStyle(
+                                    fontFamily: 'kufi',
+                                    fontSize: 14,
+                                    color: ThemeProvider.themeOf(context).id ==
+                                            'dark'
+                                        ? Theme.of(context).canvasColor
+                                        : Theme.of(context).primaryColor,
+                                  ),
+                                ))),
+                            Expanded(
+                              flex: 6,
+                              child: Container(
+                                height: 50,
+                                alignment: Alignment.center,
+                                width: width,
+                                child: FlutterSlider(
+                                  values: [
+                                    lastPosition == false
+                                        ? _position.value
+                                        : lastPosition
+                                  ],
+                                  max: _duration.value,
+                                  min: 0,
+                                  rtl: true,
+                                  trackBar: FlutterSliderTrackBar(
+                                    inactiveTrackBarHeight: 5,
+                                    activeTrackBarHeight: 5,
+                                    inactiveTrackBar: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(8),
+                                      color: Theme.of(context)
+                                          .colorScheme
+                                          .surface
+                                          .withOpacity(.5),
+                                    ),
+                                    activeTrackBar: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(4),
+                                        color: Theme.of(context)
+                                            .colorScheme
+                                            .surface),
+                                  ),
+                                  handlerAnimation:
+                                      const FlutterSliderHandlerAnimation(
                                           curve: Curves.elasticOut,
                                           reverseCurve: null,
                                           duration: Duration(milliseconds: 700),
                                           scale: 1.4),
-                                      onDragging: (handlerIndex, lowerValue, upperValue) {
-                                        lowerValue = lowerValue;
-                                        upperValue = upperValue;
-                                        setState(() {
-                                          _position.value = lowerValue;
-                                          lastPosition = lowerValue;
-                                          audioPlayer.seek(Duration(seconds: _position.value.toInt()));
-                                        });
-                                      },
-                                      handler: FlutterSliderHandler(
-                                        decoration: const BoxDecoration(),
-                                        child: Material(
-                                          type: MaterialType.circle,
-                                          color: Colors.transparent,
-                                          elevation: 3,
-                                          child: SvgPicture.asset('assets/svg/slider_ic.svg'),
-                                        ),
-                                      ),
+                                  onDragging:
+                                      (handlerIndex, lowerValue, upperValue) {
+                                    lowerValue = lowerValue;
+                                    upperValue = upperValue;
+                                    setState(() {
+                                      _position.value = lowerValue;
+                                      lastPosition = lowerValue;
+                                      audioPlayer.seek(Duration(
+                                          seconds: _position.value.toInt()));
+                                    });
+                                  },
+                                  handler: FlutterSliderHandler(
+                                    decoration: const BoxDecoration(),
+                                    child: Material(
+                                      type: MaterialType.circle,
+                                      color: Colors.transparent,
+                                      elevation: 3,
+                                      child: SvgPicture.asset(
+                                          'assets/svg/slider_ic.svg'),
                                     ),
                                   ),
                                 ),
-                                Expanded(
-                                    flex: 2,
-                                    child: Center(
-                                        child: Text(_totalDuration,
-                                      style: TextStyle(
-                                        fontFamily: 'kufi',
-                                        fontSize: 14,
-                                        color: ThemeProvider.themeOf(context).id == 'dark'
-                                            ? Theme.of(context).canvasColor
-                                            : Theme.of(context).primaryColor,
-                                      ),))),
-                              ],
+                              ),
                             ),
-                          ),
+                            Expanded(
+                                flex: 2,
+                                child: Center(
+                                    child: Text(
+                                  _totalDuration,
+                                  style: TextStyle(
+                                    fontFamily: 'kufi',
+                                    fontSize: 14,
+                                    color: ThemeProvider.themeOf(context).id ==
+                                            'dark'
+                                        ? Theme.of(context).canvasColor
+                                        : Theme.of(context).primaryColor,
+                                  ),
+                                ))),
+                          ],
                         ),
-                      ],
-                    );
-                  }
-              ),
-              StatefulBuilder(
+                      ),
+                    ),
+                  ],
+                );
+              }), StatefulBuilder(
                   builder: (BuildContext context, StateSetter setState) {
-                    return Stack(
-                      children: [
-                        Opacity(
-                          opacity: .1,
-                          child: SvgPicture.asset('assets/svg/surah_name/00$sorahNum.svg',
-                            colorFilter: ColorFilter.mode(Theme.of(context).colorScheme.surface, BlendMode.srcIn),
-                            width: width,
-                          ),
+                return Stack(
+                  children: [
+                    Opacity(
+                      opacity: .1,
+                      child: SvgPicture.asset(
+                        'assets/svg/surah_name/00$sorahNum.svg',
+                        colorFilter: ColorFilter.mode(
+                            Theme.of(context).colorScheme.surface,
+                            BlendMode.srcIn),
+                        width: width,
+                      ),
+                    ),
+                    Align(
+                      alignment: Alignment.topRight,
+                      child: IconButton(
+                        icon: Icon(Icons.close_outlined,
+                            color: ThemeProvider.themeOf(context).id == 'dark'
+                                ? Theme.of(context).canvasColor
+                                : Theme.of(context).primaryColorDark),
+                        onPressed: () =>
+                            AudioCubit.get(context).controllerSorah.reverse(),
+                      ),
+                    ),
+                    Align(
+                      alignment: Alignment.centerRight,
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 23.0),
+                        child: SvgPicture.asset(
+                          'assets/svg/surah_name/00$sorahNum.svg',
+                          height: 70,
+                          colorFilter: ColorFilter.mode(
+                              Theme.of(context).colorScheme.surface,
+                              BlendMode.srcIn),
+                          width: width / 1 / 2,
                         ),
-                        Align(
-                          alignment: Alignment.topRight,
-                          child: IconButton(
-                            icon: Icon(Icons.close_outlined,
-                                color: ThemeProvider.themeOf(context).id == 'dark'
-                                    ? Theme.of(context).canvasColor
-                                    : Theme.of(context).primaryColorDark),
-                            onPressed: () => AudioCubit.get(context).controllerSorah.reverse(),
-                          ),
-                        ),
-                        Align(
-                          alignment: Alignment.centerRight,
-                          child: Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 23.0),
-                            child: SvgPicture.asset(
-                              'assets/svg/surah_name/00$sorahNum.svg',
-                              height: 70,
-                              colorFilter: ColorFilter.mode(Theme.of(context).colorScheme.surface, BlendMode.srcIn),
-                              width: width / 1 / 2,
+                      ),
+                    ),
+                    Align(
+                      alignment: Alignment.topLeft,
+                      child: SizedBox(
+                        height: 120,
+                        width: width / 1 / 2,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            Visibility(
+                              visible: downloading,
+                              child: Text(
+                                progressString,
+                                style: TextStyle(
+                                    fontSize: 14,
+                                    fontFamily: 'kufi',
+                                    color:
+                                        Theme.of(context).colorScheme.surface),
+                              ),
                             ),
-                          ),
-                        ),
-                        Align(
-                          alignment: Alignment.topLeft,
-                          child: SizedBox(
-                            height: 120,
-                            width: width / 1 / 2,
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              children: [
-                                Visibility(
-                                  visible: downloading,
-                                  child: Text(
-                                    progressString,
-                                    style: TextStyle(
-                                        fontSize: 14,
-                                        fontFamily: 'kufi',
-                                        color: Theme.of(context).colorScheme.surface),
-                                  ),),
-                                GestureDetector(
-                                  child: Container(
-                                    height: 30,
-                                    width: 30,
-                                    decoration: BoxDecoration(
-                                        color: Theme.of(context).colorScheme.background,
-                                        borderRadius: const BorderRadius.only(
-                                          topRight: Radius.circular(8),
-                                          topLeft: Radius.circular(8),
-                                        ),
-                                        border: Border.all(
-                                            width: 2,
-                                            color: Theme.of(context).dividerColor)),
-                                    child: Icon(
-                                      Icons.skip_next,
-                                      color: Theme.of(context).colorScheme.surface,
+                            GestureDetector(
+                              child: Container(
+                                height: 30,
+                                width: 30,
+                                decoration: BoxDecoration(
+                                    color: Theme.of(context)
+                                        .colorScheme
+                                        .background,
+                                    borderRadius: const BorderRadius.only(
+                                      topRight: Radius.circular(8),
+                                      topLeft: Radius.circular(8),
                                     ),
-                                  ),
-                                  onTap: () {
-                                    skip_previous(context);
-                                    setState(() {
-                                      sorahNum--;
-                                      intValue--;
-                                      selectedSurah--;
-                                    });
-                                  },
+                                    border: Border.all(
+                                        width: 2,
+                                        color: Theme.of(context).dividerColor)),
+                                child: Icon(
+                                  Icons.skip_next,
+                                  color: Theme.of(context).colorScheme.surface,
                                 ),
-                                SizedBox(
-                                  height: 120,
-                                  child: Stack(
-                                    alignment: Alignment.center,
-                                    children: [
-                                      Align(
-                                        alignment: Alignment.topCenter,
-                                        child: IconButton(
-                                            onPressed: () {
-                                              setState((){
-                                                repeatSurahOnline = !repeatSurahOnline;
-                                              });
-                                            },
-                                            icon: Icon(
-                                              Icons.repeat_one,
-                                              color: repeatSurahOnline == true
-                                                  ? Theme.of(context).colorScheme.surface
-                                                  : Theme.of(context).colorScheme.surface.withOpacity(.4),
-                                            )),
-                                      ),
-                                      Align(
-                                        alignment: Alignment.center,
-                                        child: GestureDetector(
-                                          child: Container(
-                                              height: 50,
-                                              padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                                              width: 50,
-                                              decoration: BoxDecoration(
-                                                  color: Theme.of(context).colorScheme.background,
-                                                  borderRadius: const BorderRadius.only(
-                                                    topRight: Radius.circular(8),
-                                                    topLeft: Radius.circular(8),
-                                                  ),
-                                                  border: Border.all(
-                                                      width: 2,
-                                                      color: Theme.of(context).dividerColor)),
-                                              child: Icon(
-                                                isPlayOnline
-                                                    ? Icons.pause
-                                                    : Icons.online_prediction_outlined,
-                                                size: 24,
-                                                color: Theme.of(context).colorScheme.surface,
-                                              )
-                                          ),
-                                          onTap: () {
-                                            playSorahOnline(context);
-                                          },
-                                        ),
-                                      ),
-                                      Align(
-                                        alignment: Alignment.bottomCenter,
-                                        child: Text(AppLocalizations.of(context)!.online,
-                                          style: TextStyle(
-                                              fontSize: 16,
-                                              fontFamily: 'kufi',
-                                              height: -1.5,
-                                              color: Theme.of(context).dividerColor
-                                          ),
-                                        ),
-                                      )
-                                    ],
-                                  ),
-                                ),
-                                Align(
-                                  alignment: Alignment.center,
-                                  child: SizedBox(
-                                    height: 120,
-                                    child: Stack(
-                                      alignment: Alignment.center,
-                                      children: [
-                                        Align(
-                                          alignment: Alignment.topCenter,
-                                          child: IconButton(
-                                              onPressed: () {
-                                                setState((){
-                                                  repeatSurah = !repeatSurah;
-                                                });
-                                              },
-                                              icon: Icon(
-                                                Icons.repeat_one,
-                                                color: repeatSurah == true
-                                                    ? Theme.of(context).colorScheme.surface
-                                                    : Theme.of(context).colorScheme.surface.withOpacity(.4),
-                                              )),
-                                        ),
-                                        Align(
-                                          alignment: Alignment.center,
-                                          child: SquarePercentIndicator(
-                                            width: 50,
-                                            height: 50,
-                                            borderRadius: 8,
-                                            shadowWidth: 1.5,
-                                            progressWidth: 4,
-                                            shadowColor: Colors.grey,
-                                            progressColor: ThemeProvider.themeOf(context)
-                                                .id ==
-                                                'dark'
-                                                ? Colors.white
-                                                : Theme.of(context).primaryColorLight,
-                                            progress: progress,
-                                            child: GestureDetector(
-                                              child: downloading
-                                                  ? Container(
-                                                alignment: Alignment.center,
-                                                child: Text(
-                                                  progressString,
-                                                  style: TextStyle(
-                                                      fontSize: 14,
-                                                      fontFamily: 'kufi',
-                                                      color: Theme.of(context).colorScheme.surface),
-                                                ),
-                                              )
-                                                  : Icon(
-                                                isPlay
-                                                    ? Icons.pause
-                                                    : Icons.download_outlined,
-                                                size: 24,
-                                                color: Theme.of(context).colorScheme.surface,
-                                              ),
-                                              onTap: () {
-                                                playSorah(context);
-                                              },
-                                            ),
-                                          ),
-                                        ),
-                                        Align(
-                                          alignment: Alignment.bottomCenter,
-                                          child: Text(AppLocalizations.of(context)!.download,
-                                            style: TextStyle(
-                                                fontSize: 16,
-                                                fontFamily: 'kufi',
-                                                height: -1.5,
-                                                color: Theme.of(context).dividerColor
-                                            ),
-                                          ),
-                                        )
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                                GestureDetector(
-                                  child: Container(
-                                    height: 30,
-                                    width: 30,
-                                    decoration: BoxDecoration(
-                                        color: Theme.of(context).colorScheme.background,
-                                        borderRadius: const BorderRadius.only(
-                                          topRight: Radius.circular(8),
-                                          topLeft: Radius.circular(8),
-                                        ),
-                                        border: Border.all(
-                                            width: 2,
-                                            color: Theme.of(context).dividerColor)),
-                                    child: Icon(
-                                      Icons.skip_previous,
-                                      color: Theme.of(context).colorScheme.surface,
-                                    ),
-                                  ),
-                                  onTap: () {
-                                    skip_next(context);
-                                    setState(() {
-                                      sorahNum++;
-                                      intValue++;
-                                      selectedSurah++;
-                                    });
-                                  },
-                                ),
-                                Container(
-                                  height: 35,
-                                  width: 35,
-                                  decoration: BoxDecoration(
-                                      color:
-                                      Theme.of(context).colorScheme.surface,
-                                      borderRadius: const BorderRadius.all(
-                                          Radius.circular(8))),
-                                  child: IconButton(
-                                    icon: Icon(Icons.person_search_outlined,
-                                        size: 20,
-                                        color: Theme.of(context).canvasColor),
-                                    onPressed: () => sorahReaderDropDown(context),
-                                  ),
-                                ),
-                              ],
+                              ),
+                              onTap: () {
+                                skip_previous(context);
+                                setState(() {
+                                  sorahNum--;
+                                  intValue--;
+                                  selectedSurah--;
+                                });
+                              },
                             ),
-                          ),
-                        ),
-                        Align(
-                          alignment: Alignment.bottomLeft,
-                          child: Padding(
-                            padding: const EdgeInsets.only(bottom: 16.0),
-                            child: SizedBox(
-                              height: 20,
-                              width: width / 1 / 2,
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
+                            SizedBox(
+                              height: 120,
+                              child: Stack(
+                                alignment: Alignment.center,
                                 children: [
-                                  Expanded(
-                                      flex: 2,
-                                      child: Center(
-                                          child: Text(_currentTime,
-                                            style: TextStyle(
-                                              color: ThemeProvider.themeOf(
-                                                  context)
-                                                  .id ==
-                                                  'dark'
-                                                  ? Theme.of(
-                                                  context)
-                                                  .canvasColor
-                                                  : Theme.of(
-                                                  context)
-                                                  .primaryColorLight,
-                                            ),
-                                          ))),
-                                  Expanded(
-                                    flex: 6,
-                                    child: Container(
-                                      height: 50,
-                                      alignment: Alignment.center,
-                                      width: width,
-                                      child: FlutterSlider(
-                                        values: [lastPosition == null ? _position.value : lastPosition],
-                                        max: _duration.value,
-                                        min: 0,
-                                        rtl: true,
-                                        trackBar: FlutterSliderTrackBar(
-                                          inactiveTrackBarHeight: 5,
-                                          activeTrackBarHeight: 5,
-                                          inactiveTrackBar: BoxDecoration(
-                                            borderRadius: BorderRadius.circular(8),
-                                            color: Theme.of(context).colorScheme.surface.withOpacity(.5),
-                                          ),
-                                          activeTrackBar: BoxDecoration(
-                                              borderRadius: BorderRadius.circular(4),
-                                              color: Theme.of(context).colorScheme.surface),
-                                        ),
-                                        handlerAnimation: const FlutterSliderHandlerAnimation(
-                                            curve: Curves.elasticOut,
-                                            reverseCurve: null,
-                                            duration: Duration(milliseconds: 700),
-                                            scale: 1.4),
-                                        onDragging: (handlerIndex, lowerValue, upperValue) {
-                                          lowerValue = lowerValue;
-                                          upperValue = upperValue;
+                                  Align(
+                                    alignment: Alignment.topCenter,
+                                    child: IconButton(
+                                        onPressed: () {
                                           setState(() {
-                                            _position.value = lowerValue;
-                                            lastPosition = lowerValue;
-                                            audioPlayer.seek(Duration(seconds: _position.value.toInt()));
+                                            repeatSurahOnline =
+                                                !repeatSurahOnline;
                                           });
                                         },
-                                        handler: FlutterSliderHandler(
-                                          decoration: const BoxDecoration(),
-                                          child: Material(
-                                            type: MaterialType.circle,
-                                            color: Colors.transparent,
-                                            elevation: 3,
-                                            child: SvgPicture.asset('assets/svg/slider_ic.svg'),
-                                          ),
-                                        ),
-                                      ),
+                                        icon: Icon(
+                                          Icons.repeat_one,
+                                          color: repeatSurahOnline == true
+                                              ? Theme.of(context)
+                                                  .colorScheme
+                                                  .surface
+                                              : Theme.of(context)
+                                                  .colorScheme
+                                                  .surface
+                                                  .withOpacity(.4),
+                                        )),
+                                  ),
+                                  Align(
+                                    alignment: Alignment.center,
+                                    child: GestureDetector(
+                                      child: Container(
+                                          height: 50,
+                                          padding: const EdgeInsets.symmetric(
+                                              horizontal: 8.0),
+                                          width: 50,
+                                          decoration: BoxDecoration(
+                                              color: Theme.of(context)
+                                                  .colorScheme
+                                                  .background,
+                                              borderRadius:
+                                                  const BorderRadius.only(
+                                                topRight: Radius.circular(8),
+                                                topLeft: Radius.circular(8),
+                                              ),
+                                              border: Border.all(
+                                                  width: 2,
+                                                  color: Theme.of(context)
+                                                      .dividerColor)),
+                                          child: Icon(
+                                            isPlayOnline
+                                                ? Icons.pause
+                                                : Icons
+                                                    .online_prediction_outlined,
+                                            size: 24,
+                                            color: Theme.of(context)
+                                                .colorScheme
+                                                .surface,
+                                          )),
+                                      onTap: () {
+                                        playSorahOnline(context);
+                                      },
                                     ),
                                   ),
-                                  Expanded(
-                                      flex: 2,
-                                      child: Center(
-                                          child: Text(_totalDuration,
-                                            style: TextStyle(
-                                              color: ThemeProvider.themeOf(
-                                                  context)
-                                                  .id ==
-                                                  'dark'
-                                                  ? Theme.of(
-                                                  context)
-                                                  .canvasColor
-                                                  : Theme.of(
-                                                  context)
-                                                  .primaryColorLight,
-                                            ),))),
+                                  Align(
+                                    alignment: Alignment.bottomCenter,
+                                    child: Text(
+                                      AppLocalizations.of(context)!.online,
+                                      style: TextStyle(
+                                          fontSize: 16,
+                                          fontFamily: 'kufi',
+                                          height: -1.5,
+                                          color:
+                                              Theme.of(context).dividerColor),
+                                    ),
+                                  )
                                 ],
                               ),
                             ),
+                            Align(
+                              alignment: Alignment.center,
+                              child: SizedBox(
+                                height: 120,
+                                child: Stack(
+                                  alignment: Alignment.center,
+                                  children: [
+                                    Align(
+                                      alignment: Alignment.topCenter,
+                                      child: IconButton(
+                                          onPressed: () {
+                                            setState(() {
+                                              repeatSurah = !repeatSurah;
+                                            });
+                                          },
+                                          icon: Icon(
+                                            Icons.repeat_one,
+                                            color: repeatSurah == true
+                                                ? Theme.of(context)
+                                                    .colorScheme
+                                                    .surface
+                                                : Theme.of(context)
+                                                    .colorScheme
+                                                    .surface
+                                                    .withOpacity(.4),
+                                          )),
+                                    ),
+                                    Align(
+                                      alignment: Alignment.center,
+                                      child: SquarePercentIndicator(
+                                        width: 50,
+                                        height: 50,
+                                        borderRadius: 8,
+                                        shadowWidth: 1.5,
+                                        progressWidth: 4,
+                                        shadowColor: Colors.grey,
+                                        progressColor:
+                                            ThemeProvider.themeOf(context).id ==
+                                                    'dark'
+                                                ? Colors.white
+                                                : Theme.of(context)
+                                                    .primaryColorLight,
+                                        progress: progress,
+                                        child: GestureDetector(
+                                          child: downloading
+                                              ? Container(
+                                                  alignment: Alignment.center,
+                                                  child: Text(
+                                                    progressString,
+                                                    style: TextStyle(
+                                                        fontSize: 14,
+                                                        fontFamily: 'kufi',
+                                                        color: Theme.of(context)
+                                                            .colorScheme
+                                                            .surface),
+                                                  ),
+                                                )
+                                              : Icon(
+                                                  isPlay
+                                                      ? Icons.pause
+                                                      : Icons.download_outlined,
+                                                  size: 24,
+                                                  color: Theme.of(context)
+                                                      .colorScheme
+                                                      .surface,
+                                                ),
+                                          onTap: () {
+                                            playSorah(context);
+                                          },
+                                        ),
+                                      ),
+                                    ),
+                                    Align(
+                                      alignment: Alignment.bottomCenter,
+                                      child: Text(
+                                        AppLocalizations.of(context)!.download,
+                                        style: TextStyle(
+                                            fontSize: 16,
+                                            fontFamily: 'kufi',
+                                            height: -1.5,
+                                            color:
+                                                Theme.of(context).dividerColor),
+                                      ),
+                                    )
+                                  ],
+                                ),
+                              ),
+                            ),
+                            GestureDetector(
+                              child: Container(
+                                height: 30,
+                                width: 30,
+                                decoration: BoxDecoration(
+                                    color: Theme.of(context)
+                                        .colorScheme
+                                        .background,
+                                    borderRadius: const BorderRadius.only(
+                                      topRight: Radius.circular(8),
+                                      topLeft: Radius.circular(8),
+                                    ),
+                                    border: Border.all(
+                                        width: 2,
+                                        color: Theme.of(context).dividerColor)),
+                                child: Icon(
+                                  Icons.skip_previous,
+                                  color: Theme.of(context).colorScheme.surface,
+                                ),
+                              ),
+                              onTap: () {
+                                skip_next(context);
+                                setState(() {
+                                  sorahNum++;
+                                  intValue++;
+                                  selectedSurah++;
+                                });
+                              },
+                            ),
+                            Container(
+                              height: 35,
+                              width: 35,
+                              decoration: BoxDecoration(
+                                  color: Theme.of(context).colorScheme.surface,
+                                  borderRadius: const BorderRadius.all(
+                                      Radius.circular(8))),
+                              child: IconButton(
+                                icon: Icon(Icons.person_search_outlined,
+                                    size: 20,
+                                    color: Theme.of(context).canvasColor),
+                                onPressed: () => sorahReaderDropDown(context),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                    Align(
+                      alignment: Alignment.bottomLeft,
+                      child: Padding(
+                        padding: const EdgeInsets.only(bottom: 16.0),
+                        child: SizedBox(
+                          height: 20,
+                          width: width / 1 / 2,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Expanded(
+                                  flex: 2,
+                                  child: Center(
+                                      child: Text(
+                                    _currentTime,
+                                    style: TextStyle(
+                                      color: ThemeProvider.themeOf(context)
+                                                  .id ==
+                                              'dark'
+                                          ? Theme.of(context).canvasColor
+                                          : Theme.of(context).primaryColorLight,
+                                    ),
+                                  ))),
+                              Expanded(
+                                flex: 6,
+                                child: Container(
+                                  height: 50,
+                                  alignment: Alignment.center,
+                                  width: width,
+                                  child: FlutterSlider(
+                                    values: [
+                                      // ignore: unnecessary_null_comparison
+                                      lastPosition == null
+                                          ? _position.value
+                                          : lastPosition
+                                    ],
+                                    max: _duration.value,
+                                    min: 0,
+                                    rtl: true,
+                                    trackBar: FlutterSliderTrackBar(
+                                      inactiveTrackBarHeight: 5,
+                                      activeTrackBarHeight: 5,
+                                      inactiveTrackBar: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(8),
+                                        color: Theme.of(context)
+                                            .colorScheme
+                                            .surface
+                                            .withOpacity(.5),
+                                      ),
+                                      activeTrackBar: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(4),
+                                          color: Theme.of(context)
+                                              .colorScheme
+                                              .surface),
+                                    ),
+                                    handlerAnimation:
+                                        const FlutterSliderHandlerAnimation(
+                                            curve: Curves.elasticOut,
+                                            reverseCurve: null,
+                                            duration:
+                                                Duration(milliseconds: 700),
+                                            scale: 1.4),
+                                    onDragging:
+                                        (handlerIndex, lowerValue, upperValue) {
+                                      lowerValue = lowerValue;
+                                      upperValue = upperValue;
+                                      setState(() {
+                                        _position.value = lowerValue;
+                                        lastPosition = lowerValue;
+                                        audioPlayer.seek(Duration(
+                                            seconds: _position.value.toInt()));
+                                      });
+                                    },
+                                    handler: FlutterSliderHandler(
+                                      decoration: const BoxDecoration(),
+                                      child: Material(
+                                        type: MaterialType.circle,
+                                        color: Colors.transparent,
+                                        elevation: 3,
+                                        child: SvgPicture.asset(
+                                            'assets/svg/slider_ic.svg'),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              Expanded(
+                                  flex: 2,
+                                  child: Center(
+                                      child: Text(
+                                    _totalDuration,
+                                    style: TextStyle(
+                                      color: ThemeProvider.themeOf(context)
+                                                  .id ==
+                                              'dark'
+                                          ? Theme.of(context).canvasColor
+                                          : Theme.of(context).primaryColorLight,
+                                    ),
+                                  ))),
+                            ],
                           ),
                         ),
-                      ],
-                    );
-                  }
-              )),
-        ),
-      ),
-    ));
+                      ),
+                    ),
+                  ],
+                );
+              })),
+            ),
+          ),
+        ));
   }
 
   Widget playWidgetLand(BuildContext context) {
@@ -1428,364 +1538,401 @@ class _AudioSorahListState extends State<AudioSorahList>
             ),
             child: StatefulBuilder(
                 builder: (BuildContext context, StateSetter setState) {
-                  return Stack(
-                    children: [
-                      Opacity(
-                        opacity: .1,
-                        child: SvgPicture.asset('assets/svg/surah_name/00$sorahNum.svg',
-                          colorFilter: ColorFilter.mode(Theme.of(context).colorScheme.surface, BlendMode.srcIn),
-                          width: width,
-                        ),
+              return Stack(
+                children: [
+                  Opacity(
+                    opacity: .1,
+                    child: SvgPicture.asset(
+                      'assets/svg/surah_name/00$sorahNum.svg',
+                      colorFilter: ColorFilter.mode(
+                          Theme.of(context).colorScheme.surface,
+                          BlendMode.srcIn),
+                      width: width,
+                    ),
+                  ),
+                  Align(
+                    alignment: Alignment.topRight,
+                    child: IconButton(
+                      icon: Icon(Icons.close_outlined,
+                          color: ThemeProvider.themeOf(context).id == 'dark'
+                              ? Theme.of(context).canvasColor
+                              : Theme.of(context).primaryColorDark),
+                      onPressed: () =>
+                          AudioCubit.get(context).controllerSorah.reverse(),
+                    ),
+                  ),
+                  Align(
+                    alignment: Alignment.centerRight,
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 23.0),
+                      child: SvgPicture.asset(
+                        'assets/svg/surah_name/00$sorahNum.svg',
+                        height: 70,
+                        colorFilter: ColorFilter.mode(
+                            Theme.of(context).colorScheme.surface,
+                            BlendMode.srcIn),
+                        width: width / 1 / 2,
                       ),
-                      Align(
-                        alignment: Alignment.topRight,
-                        child: IconButton(
-                          icon: Icon(Icons.close_outlined,
-                              color: ThemeProvider.themeOf(context).id == 'dark'
-                                  ? Theme.of(context).canvasColor
-                                  : Theme.of(context).primaryColorDark),
-                          onPressed: () => AudioCubit.get(context).controllerSorah.reverse(),
-                        ),
-                      ),
-                      Align(
-                        alignment: Alignment.centerRight,
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 23.0),
-                          child: SvgPicture.asset(
-                            'assets/svg/surah_name/00$sorahNum.svg',
-                            height: 70,
-                            colorFilter: ColorFilter.mode(Theme.of(context).colorScheme.surface, BlendMode.srcIn),
-                            width: width / 1 / 2,
+                    ),
+                  ),
+                  Align(
+                    alignment: Alignment.topLeft,
+                    child: SizedBox(
+                      height: 120,
+                      width: width / 1 / 2,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          GestureDetector(
+                            child: Container(
+                              height: 30,
+                              width: 30,
+                              decoration: BoxDecoration(
+                                  color:
+                                      Theme.of(context).colorScheme.background,
+                                  borderRadius: const BorderRadius.only(
+                                    topRight: Radius.circular(8),
+                                    topLeft: Radius.circular(8),
+                                  ),
+                                  border: Border.all(
+                                      width: 2,
+                                      color: Theme.of(context).dividerColor)),
+                              child: Icon(
+                                Icons.skip_next,
+                                color: Theme.of(context).colorScheme.surface,
+                              ),
+                            ),
+                            onTap: () {
+                              skip_previous(context);
+                              setState(() {
+                                sorahNum--;
+                                intValue--;
+                                selectedSurah--;
+                              });
+                            },
                           ),
-                        ),
-                      ),
-                      Align(
-                        alignment: Alignment.topLeft,
-                        child: SizedBox(
-                          height: 120,
-                          width: width / 1 / 2,
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: [
-                              GestureDetector(
-                                child: Container(
-                                  height: 30,
-                                  width: 30,
-                                  decoration: BoxDecoration(
-                                      color: Theme.of(context).colorScheme.background,
-                                      borderRadius: const BorderRadius.only(
-                                        topRight: Radius.circular(8),
-                                        topLeft: Radius.circular(8),
-                                      ),
-                                      border: Border.all(
-                                          width: 2,
-                                          color: Theme.of(context).dividerColor)),
-                                  child: Icon(
-                                    Icons.skip_next,
-                                    color: Theme.of(context).colorScheme.surface,
-                                  ),
-                                ),
-                                onTap: () {
-                                  skip_previous(context);
-                                  setState(() {
-                                    sorahNum--;
-                                    intValue--;
-                                    selectedSurah--;
-                                  });
-                                },
-                              ),
-                              SizedBox(
-                                height: 120,
-                                child: Stack(
-                                  alignment: Alignment.center,
-                                  children: [
-                                    Align(
-                                      alignment: Alignment.topCenter,
-                                      child: IconButton(
-                                          onPressed: () {
-                                            setState((){
-                                              repeatSurahOnline = !repeatSurahOnline;
-                                            });
-                                          },
-                                          icon: Icon(
-                                            Icons.repeat_one,
-                                            color: repeatSurahOnline == true
-                                                ? Theme.of(context).colorScheme.surface
-                                                : Theme.of(context).colorScheme.surface.withOpacity(.4),
-                                          )),
-                                    ),
-                                    Align(
-                                      alignment: Alignment.center,
-                                      child: GestureDetector(
-                                        child: Container(
-                                            height: 50,
-                                            padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                                            width: 50,
-                                            decoration: BoxDecoration(
-                                                color: Theme.of(context).colorScheme.background,
-                                                borderRadius: const BorderRadius.only(
-                                                  topRight: Radius.circular(8),
-                                                  topLeft: Radius.circular(8),
-                                                ),
-                                                border: Border.all(
-                                                    width: 2,
-                                                    color: Theme.of(context).dividerColor)),
-                                            child: Stack(
-                                              alignment: Alignment.center,
-                                              children: [
-                                                if (loading)
-                                                  playButtonLottie(20.0, 20.0),
-                                                if (!loading)
-                                                  Icon(
-                                                    isPlayOnline ? Icons.pause : Icons.online_prediction_outlined,
-                                                    size: 24,
-                                                    color: Theme.of(context).colorScheme.surface,
-                                                  ),
-                                              ],
-                                            )
-                                        ),
-                                        onTap: () {
-                                          playSorahOnline(context);
-                                        },
-                                      ),
-                                    ),
-                                    Align(
-                                      alignment: Alignment.bottomCenter,
-                                      child: Text(AppLocalizations.of(context)!.online,
-                                        style: TextStyle(
-                                            fontSize: 16,
-                                            fontFamily: 'kufi',
-                                            height: -1.5,
-                                            color: Theme.of(context).dividerColor
-                                        ),
-                                      ),
-                                    )
-                                  ],
-                                ),
-                              ),
-                              Align(
-                                alignment: Alignment.center,
-                                child: SizedBox(
-                                  height: 120,
-                                  child: Stack(
-                                    alignment: Alignment.center,
-                                    children: [
-                                      Align(
-                                        alignment: Alignment.topCenter,
-                                        child: IconButton(
-                                            onPressed: () {
-                                              setState((){
-                                                repeatSurah = !repeatSurah;
-                                              });
-                                            },
-                                            icon: Icon(
-                                              Icons.repeat_one,
-                                              color: repeatSurah == true
-                                                  ? Theme.of(context).colorScheme.surface
-                                                  : Theme.of(context).colorScheme.surface.withOpacity(.4),
-                                            )),
-                                      ),
-                                      Align(
-                                        alignment: Alignment.center,
-                                        child: GestureDetector(
-                                          child: SquarePercentIndicator(
-                                            width: 50,
-                                            height: 50,
-                                            borderRadius: 8,
-                                            shadowWidth: 1.5,
-                                            progressWidth: 4,
-                                            shadowColor: Colors.grey,
-                                            progressColor: ThemeProvider.themeOf(context)
-                                                .id ==
-                                                'dark'
-                                                ? Colors.white
-                                                : Theme.of(context).primaryColorLight,
-                                            progress: progress,
-                                            child: downloading
-                                                ? Container(
-                                              alignment: Alignment.center,
-                                              child: Text(
-                                                progressString,
-                                                style: TextStyle(
-                                                    fontSize: 14,
-                                                    fontFamily: 'kufi',
-                                                    color: Theme.of(context).colorScheme.surface),
-                                              ),
-                                            )
-                                                : Icon(
-                                              isPlay
-                                                  ? Icons.pause
-                                                  : Icons.download_outlined,
-                                              size: 24,
-                                              color: Theme.of(context).colorScheme.surface,
-                                            ),
-                                          ),
-                                          onTap: () {
-                                            playSorah(context);
-                                          },
-                                        ),
-                                      ),
-                                      Align(
-                                        alignment: Alignment.bottomCenter,
-                                        child: Text(AppLocalizations.of(context)!.download,
-                                          style: TextStyle(
-                                              fontSize: 16,
-                                              fontFamily: 'kufi',
-                                              height: -1.5,
-                                              color: Theme.of(context).dividerColor
-                                          ),
-                                        ),
-                                      )
-                                    ],
-                                  ),
-                                ),
-                              ),
-                              GestureDetector(
-                                child: Container(
-                                  height: 30,
-                                  width: 30,
-                                  decoration: BoxDecoration(
-                                      color: Theme.of(context).colorScheme.background,
-                                      borderRadius: const BorderRadius.only(
-                                        topRight: Radius.circular(8),
-                                        topLeft: Radius.circular(8),
-                                      ),
-                                      border: Border.all(
-                                          width: 2,
-                                          color: Theme.of(context).dividerColor)),
-                                  child: Icon(
-                                    Icons.skip_previous,
-                                    color: Theme.of(context).colorScheme.surface,
-                                  ),
-                                ),
-                                onTap: () {
-                                  skip_next(context);
-                                  setState(() {
-                                    sorahNum++;
-                                    intValue++;
-                                    selectedSurah++;
-                                  });
-                                },
-                              ),
-                              Container(
-                                height: 35,
-                                width: 35,
-                                decoration: BoxDecoration(
-                                    color:
-                                    Theme.of(context).colorScheme.surface,
-                                    borderRadius: const BorderRadius.all(
-                                        Radius.circular(8))),
-                                child: IconButton(
-                                  icon: Icon(Icons.person_search_outlined,
-                                      size: 20,
-                                      color: Theme.of(context).canvasColor),
-                                  onPressed: () => sorahReaderDropDown(context),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                      Align(
-                        alignment: Alignment.bottomLeft,
-                        child: Padding(
-                          padding: const EdgeInsets.only(bottom: 16.0),
-                          child: SizedBox(
-                            height: 20,
-                            width: width / 1 / 2,
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
+                          SizedBox(
+                            height: 120,
+                            child: Stack(
+                              alignment: Alignment.center,
                               children: [
-                                Expanded(
-                                    flex: 2,
-                                    child: Center(
-                                        child: Text(_currentTime,
-                                          style: TextStyle(
-                                            color: ThemeProvider.themeOf(
-                                                context)
-                                                .id ==
-                                                'dark'
-                                                ? Theme.of(
-                                                context)
-                                                .canvasColor
-                                                : Theme.of(
-                                                context)
-                                                .primaryColorLight,
-                                          ),
-                                        ))),
-                                Expanded(
-                                  flex: 6,
-                                  child: Container(
-                                    height: 50,
+                                Align(
+                                  alignment: Alignment.topCenter,
+                                  child: IconButton(
+                                      onPressed: () {
+                                        setState(() {
+                                          repeatSurahOnline =
+                                              !repeatSurahOnline;
+                                        });
+                                      },
+                                      icon: Icon(
+                                        Icons.repeat_one,
+                                        color: repeatSurahOnline == true
+                                            ? Theme.of(context)
+                                                .colorScheme
+                                                .surface
+                                            : Theme.of(context)
+                                                .colorScheme
+                                                .surface
+                                                .withOpacity(.4),
+                                      )),
+                                ),
+                                Align(
+                                  alignment: Alignment.center,
+                                  child: GestureDetector(
+                                    child: Container(
+                                        height: 50,
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 8.0),
+                                        width: 50,
+                                        decoration: BoxDecoration(
+                                            color: Theme.of(context)
+                                                .colorScheme
+                                                .background,
+                                            borderRadius:
+                                                const BorderRadius.only(
+                                              topRight: Radius.circular(8),
+                                              topLeft: Radius.circular(8),
+                                            ),
+                                            border: Border.all(
+                                                width: 2,
+                                                color: Theme.of(context)
+                                                    .dividerColor)),
+                                        child: Stack(
+                                          alignment: Alignment.center,
+                                          children: [
+                                            if (loading)
+                                              playButtonLottie(20.0, 20.0),
+                                            if (!loading)
+                                              Icon(
+                                                isPlayOnline
+                                                    ? Icons.pause
+                                                    : Icons
+                                                        .online_prediction_outlined,
+                                                size: 24,
+                                                color: Theme.of(context)
+                                                    .colorScheme
+                                                    .surface,
+                                              ),
+                                          ],
+                                        )),
+                                    onTap: () {
+                                      playSorahOnline(context);
+                                    },
+                                  ),
+                                ),
+                                Align(
+                                  alignment: Alignment.bottomCenter,
+                                  child: Text(
+                                    AppLocalizations.of(context)!.online,
+                                    style: TextStyle(
+                                        fontSize: 16,
+                                        fontFamily: 'kufi',
+                                        height: -1.5,
+                                        color: Theme.of(context).dividerColor),
+                                  ),
+                                )
+                              ],
+                            ),
+                          ),
+                          Align(
+                            alignment: Alignment.center,
+                            child: SizedBox(
+                              height: 120,
+                              child: Stack(
+                                alignment: Alignment.center,
+                                children: [
+                                  Align(
+                                    alignment: Alignment.topCenter,
+                                    child: IconButton(
+                                        onPressed: () {
+                                          setState(() {
+                                            repeatSurah = !repeatSurah;
+                                          });
+                                        },
+                                        icon: Icon(
+                                          Icons.repeat_one,
+                                          color: repeatSurah == true
+                                              ? Theme.of(context)
+                                                  .colorScheme
+                                                  .surface
+                                              : Theme.of(context)
+                                                  .colorScheme
+                                                  .surface
+                                                  .withOpacity(.4),
+                                        )),
+                                  ),
+                                  Align(
                                     alignment: Alignment.center,
-                                    width: width,
-                                    child: FlutterSlider(
-                                      values: [lastPosition == null ? _position.value : lastPosition],
-                                      max: _duration.value,
-                                      min: 0,
-                                      rtl: true,
-                                      trackBar: FlutterSliderTrackBar(
-                                        inactiveTrackBarHeight: 5,
-                                        activeTrackBarHeight: 5,
-                                        inactiveTrackBar: BoxDecoration(
-                                          borderRadius: BorderRadius.circular(8),
-                                          color: Theme.of(context).colorScheme.surface.withOpacity(.5),
-                                        ),
-                                        activeTrackBar: BoxDecoration(
-                                            borderRadius: BorderRadius.circular(4),
-                                            color: Theme.of(context).colorScheme.surface),
+                                    child: GestureDetector(
+                                      child: SquarePercentIndicator(
+                                        width: 50,
+                                        height: 50,
+                                        borderRadius: 8,
+                                        shadowWidth: 1.5,
+                                        progressWidth: 4,
+                                        shadowColor: Colors.grey,
+                                        progressColor:
+                                            ThemeProvider.themeOf(context).id ==
+                                                    'dark'
+                                                ? Colors.white
+                                                : Theme.of(context)
+                                                    .primaryColorLight,
+                                        progress: progress,
+                                        child: downloading
+                                            ? Container(
+                                                alignment: Alignment.center,
+                                                child: Text(
+                                                  progressString,
+                                                  style: TextStyle(
+                                                      fontSize: 14,
+                                                      fontFamily: 'kufi',
+                                                      color: Theme.of(context)
+                                                          .colorScheme
+                                                          .surface),
+                                                ),
+                                              )
+                                            : Icon(
+                                                isPlay
+                                                    ? Icons.pause
+                                                    : Icons.download_outlined,
+                                                size: 24,
+                                                color: Theme.of(context)
+                                                    .colorScheme
+                                                    .surface,
+                                              ),
                                       ),
-                                      handlerAnimation: const FlutterSliderHandlerAnimation(
+                                      onTap: () {
+                                        playSorah(context);
+                                      },
+                                    ),
+                                  ),
+                                  Align(
+                                    alignment: Alignment.bottomCenter,
+                                    child: Text(
+                                      AppLocalizations.of(context)!.download,
+                                      style: TextStyle(
+                                          fontSize: 16,
+                                          fontFamily: 'kufi',
+                                          height: -1.5,
+                                          color:
+                                              Theme.of(context).dividerColor),
+                                    ),
+                                  )
+                                ],
+                              ),
+                            ),
+                          ),
+                          GestureDetector(
+                            child: Container(
+                              height: 30,
+                              width: 30,
+                              decoration: BoxDecoration(
+                                  color:
+                                      Theme.of(context).colorScheme.background,
+                                  borderRadius: const BorderRadius.only(
+                                    topRight: Radius.circular(8),
+                                    topLeft: Radius.circular(8),
+                                  ),
+                                  border: Border.all(
+                                      width: 2,
+                                      color: Theme.of(context).dividerColor)),
+                              child: Icon(
+                                Icons.skip_previous,
+                                color: Theme.of(context).colorScheme.surface,
+                              ),
+                            ),
+                            onTap: () {
+                              skip_next(context);
+                              setState(() {
+                                sorahNum++;
+                                intValue++;
+                                selectedSurah++;
+                              });
+                            },
+                          ),
+                          Container(
+                            height: 35,
+                            width: 35,
+                            decoration: BoxDecoration(
+                                color: Theme.of(context).colorScheme.surface,
+                                borderRadius:
+                                    const BorderRadius.all(Radius.circular(8))),
+                            child: IconButton(
+                              icon: Icon(Icons.person_search_outlined,
+                                  size: 20,
+                                  color: Theme.of(context).canvasColor),
+                              onPressed: () => sorahReaderDropDown(context),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                  Align(
+                    alignment: Alignment.bottomLeft,
+                    child: Padding(
+                      padding: const EdgeInsets.only(bottom: 16.0),
+                      child: SizedBox(
+                        height: 20,
+                        width: width / 1 / 2,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Expanded(
+                                flex: 2,
+                                child: Center(
+                                    child: Text(
+                                  _currentTime,
+                                  style: TextStyle(
+                                    color: ThemeProvider.themeOf(context).id ==
+                                            'dark'
+                                        ? Theme.of(context).canvasColor
+                                        : Theme.of(context).primaryColorLight,
+                                  ),
+                                ))),
+                            Expanded(
+                              flex: 6,
+                              child: Container(
+                                height: 50,
+                                alignment: Alignment.center,
+                                width: width,
+                                child: FlutterSlider(
+                                  values: [
+                                    // ignore: unnecessary_null_comparison
+                                    lastPosition == null
+                                        ? _position.value
+                                        : lastPosition
+                                  ],
+                                  max: _duration.value,
+                                  min: 0,
+                                  rtl: true,
+                                  trackBar: FlutterSliderTrackBar(
+                                    inactiveTrackBarHeight: 5,
+                                    activeTrackBarHeight: 5,
+                                    inactiveTrackBar: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(8),
+                                      color: Theme.of(context)
+                                          .colorScheme
+                                          .surface
+                                          .withOpacity(.5),
+                                    ),
+                                    activeTrackBar: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(4),
+                                        color: Theme.of(context)
+                                            .colorScheme
+                                            .surface),
+                                  ),
+                                  handlerAnimation:
+                                      const FlutterSliderHandlerAnimation(
                                           curve: Curves.elasticOut,
                                           reverseCurve: null,
                                           duration: Duration(milliseconds: 700),
                                           scale: 1.4),
-                                      onDragging: (handlerIndex, lowerValue, upperValue) {
-                                        lowerValue = lowerValue;
-                                        upperValue = upperValue;
-                                        setState(() {
-                                          _position.value = lowerValue;
-                                          lastPosition = lowerValue;
-                                          audioPlayer.seek(Duration(seconds: _position.value.toInt()));
-                                        });
-                                      },
-                                      handler: FlutterSliderHandler(
-                                        decoration: const BoxDecoration(),
-                                        child: Material(
-                                          type: MaterialType.circle,
-                                          color: Colors.transparent,
-                                          elevation: 3,
-                                          child: SvgPicture.asset('assets/svg/slider_ic.svg'),
-                                        ),
-                                      ),
+                                  onDragging:
+                                      (handlerIndex, lowerValue, upperValue) {
+                                    lowerValue = lowerValue;
+                                    upperValue = upperValue;
+                                    setState(() {
+                                      _position.value = lowerValue;
+                                      lastPosition = lowerValue;
+                                      audioPlayer.seek(Duration(
+                                          seconds: _position.value.toInt()));
+                                    });
+                                  },
+                                  handler: FlutterSliderHandler(
+                                    decoration: const BoxDecoration(),
+                                    child: Material(
+                                      type: MaterialType.circle,
+                                      color: Colors.transparent,
+                                      elevation: 3,
+                                      child: SvgPicture.asset(
+                                          'assets/svg/slider_ic.svg'),
                                     ),
                                   ),
                                 ),
-                                Expanded(
-                                    flex: 2,
-                                    child: Center(
-                                        child: Text(_totalDuration,
-                                          style: TextStyle(
-                                            color: ThemeProvider.themeOf(
-                                                context)
-                                                .id ==
-                                                'dark'
-                                                ? Theme.of(
-                                                context)
-                                                .canvasColor
-                                                : Theme.of(
-                                                context)
-                                                .primaryColorLight,
-                                          ),))),
-                              ],
+                              ),
                             ),
-                          ),
+                            Expanded(
+                                flex: 2,
+                                child: Center(
+                                    child: Text(
+                                  _totalDuration,
+                                  style: TextStyle(
+                                    color: ThemeProvider.themeOf(context).id ==
+                                            'dark'
+                                        ? Theme.of(context).canvasColor
+                                        : Theme.of(context).primaryColorLight,
+                                  ),
+                                ))),
+                          ],
                         ),
                       ),
-                    ],
-                  );
-                }
-            ),
+                    ),
+                  ),
+                ],
+              );
+            }),
           ),
         ));
   }
@@ -1799,163 +1946,162 @@ class _AudioSorahListState extends State<AudioSorahList>
             child: loadingLottie(200.0, 200.0),
           );
         }
-    return Padding(
-      padding: orientation(context,
-          const EdgeInsets.only(right: 16.0, left: 16.0, top: 300.0, bottom: 16.0),
-          const EdgeInsets.only(right: 16.0, left: 16.0, top: 16.0, bottom: 16.0)),
-      child: AnimationLimiter(
-        child: Scrollbar(
-          thumbVisibility: true,
-          // interactive: true,
-          controller: controller,
-          child: ListView.builder(
-              physics: const AlwaysScrollableScrollPhysics(),
-              itemCount: state.length,
+        return Padding(
+          padding: orientation(
+              context,
+              const EdgeInsets.only(
+                  right: 16.0, left: 16.0, top: 300.0, bottom: 16.0),
+              const EdgeInsets.only(
+                  right: 16.0, left: 16.0, top: 16.0, bottom: 16.0)),
+          child: AnimationLimiter(
+            child: Scrollbar(
+              thumbVisibility: true,
+              // interactive: true,
               controller: controller,
-              padding: EdgeInsets.zero,
-              itemBuilder: (_, index) {
-                final sorah = state[index];
-                return AnimationConfiguration.staggeredList(
-                  position: index,
-                  duration: const Duration(milliseconds: 450),
-                  child: SlideAnimation(
-                    verticalOffset: 50.0,
-                    child: FadeInAnimation(
-                      child: GestureDetector(
-                        child: Container(
-                            height: 65,
-                            decoration: BoxDecoration(
-                                color: (index % 2 == 0
-                                    ? selectedSurah == index ? Theme.of(context).cardColor.withOpacity(.2)
-                                    : Theme.of(context)
-                                    .colorScheme.background
-                                    : selectedSurah == index ? Theme.of(context).cardColor.withOpacity(.2)
-                                    : Theme.of(context)
-                                    .dividerColor
-                                    .withOpacity(.3)),
-                              border: Border.all(
-                                width: 2,
-                                color: selectedSurah == index
-                                    ? Theme.of(context).colorScheme.surface
-                                    : Colors.transparent
-
-                              )
-                            ),
-                            child: Padding(
-                              padding: const EdgeInsets.symmetric(
-                                  horizontal: 8),
-                              child: Row(
-                                children: [
-                                  Stack(
-                                    alignment: Alignment.center,
-                                    children: [
-                                      SizedBox(
-                                          height: 40,
-                                          width: 40,
-                                          child: SvgPicture.asset(
-                                            'assets/svg/sora_num.svg',
-                                          )),
-                                      Text(
-                                        "${arabicNumber.convert(sorah.id)}",
-                                        style: TextStyle(
-                                            color: ThemeProvider.themeOf(
-                                                context)
-                                                .id ==
-                                                'dark'
-                                                ? Theme.of(
-                                                context)
-                                                .canvasColor
-                                                : Theme.of(
-                                                context)
-                                                .primaryColorLight,
-                                            fontFamily: "kufi",
-                                            fontSize: 14,
-                                            fontWeight:
-                                            FontWeight.bold,
-                                            height: 2),
-                                      ),
-                                    ],
-                                  ),
-                                  const SizedBox(width: 100,),
-                                  Column(
-                                    crossAxisAlignment:
-                                    CrossAxisAlignment.start,
-                                    children: [
-                                      SvgPicture.asset(
-                                        'assets/svg/surah_name/00${index + 1}.svg',
-                                        colorFilter: ColorFilter.mode(ThemeProvider
-                                            .themeOf(
-                                            context)
-                                            .id ==
-                                            'dark'
+              child: ListView.builder(
+                  physics: const AlwaysScrollableScrollPhysics(),
+                  itemCount: state.length,
+                  controller: controller,
+                  padding: EdgeInsets.zero,
+                  itemBuilder: (_, index) {
+                    final sorah = state[index];
+                    return AnimationConfiguration.staggeredList(
+                      position: index,
+                      duration: const Duration(milliseconds: 450),
+                      child: SlideAnimation(
+                        verticalOffset: 50.0,
+                        child: FadeInAnimation(
+                          child: GestureDetector(
+                            child: Container(
+                                height: 65,
+                                decoration: BoxDecoration(
+                                    color: (index % 2 == 0
+                                        ? selectedSurah == index
                                             ? Theme.of(context)
-                                            .canvasColor
+                                                .cardColor
+                                                .withOpacity(.2)
                                             : Theme.of(context)
-                                            .primaryColorDark, BlendMode.srcIn),
+                                                .colorScheme
+                                                .background
+                                        : selectedSurah == index
+                                            ? Theme.of(context)
+                                                .cardColor
+                                                .withOpacity(.2)
+                                            : Theme.of(context)
+                                                .dividerColor
+                                                .withOpacity(.3)),
+                                    border: Border.all(
+                                        width: 2,
+                                        color: selectedSurah == index
+                                            ? Theme.of(context)
+                                                .colorScheme
+                                                .surface
+                                            : Colors.transparent)),
+                                child: Padding(
+                                  padding:
+                                      const EdgeInsets.symmetric(horizontal: 8),
+                                  child: Row(
+                                    children: [
+                                      Stack(
+                                        alignment: Alignment.center,
+                                        children: [
+                                          SizedBox(
+                                              height: 40,
+                                              width: 40,
+                                              child: SvgPicture.asset(
+                                                'assets/svg/sora_num.svg',
+                                              )),
+                                          Text(
+                                            "${arabicNumber.convert(sorah.id)}",
+                                            style: TextStyle(
+                                                color: ThemeProvider.themeOf(
+                                                                context)
+                                                            .id ==
+                                                        'dark'
+                                                    ? Theme.of(context)
+                                                        .canvasColor
+                                                    : Theme.of(context)
+                                                        .primaryColorLight,
+                                                fontFamily: "kufi",
+                                                fontSize: 14,
+                                                fontWeight: FontWeight.bold,
+                                                height: 2),
+                                          ),
+                                        ],
+                                      ),
+                                      const SizedBox(
                                         width: 100,
                                       ),
-                                      Padding(
-                                        padding:
-                                        const EdgeInsets.only(
-                                            right: 8.0),
-                                        child: Text(
-                                          sorah.nameEn,
-                                          style: TextStyle(
-                                            fontFamily: "naskh",
-                                            fontWeight:
-                                            FontWeight.w600,
-                                            fontSize: 10,
-                                            color: ThemeProvider.themeOf(
-                                                context)
-                                                .id ==
-                                                'dark'
-                                                ? Theme.of(
-                                                context)
-                                                .canvasColor
-                                                : Theme.of(
-                                                context)
-                                                .primaryColorLight,
+                                      Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          SvgPicture.asset(
+                                            'assets/svg/surah_name/00${index + 1}.svg',
+                                            colorFilter: ColorFilter.mode(
+                                                ThemeProvider.themeOf(context)
+                                                            .id ==
+                                                        'dark'
+                                                    ? Theme.of(context)
+                                                        .canvasColor
+                                                    : Theme.of(context)
+                                                        .primaryColorDark,
+                                                BlendMode.srcIn),
+                                            width: 100,
                                           ),
-                                        ),
+                                          Padding(
+                                            padding: const EdgeInsets.only(
+                                                right: 8.0),
+                                            child: Text(
+                                              sorah.nameEn,
+                                              style: TextStyle(
+                                                fontFamily: "naskh",
+                                                fontWeight: FontWeight.w600,
+                                                fontSize: 10,
+                                                color: ThemeProvider.themeOf(
+                                                                context)
+                                                            .id ==
+                                                        'dark'
+                                                    ? Theme.of(context)
+                                                        .canvasColor
+                                                    : Theme.of(context)
+                                                        .primaryColorLight,
+                                              ),
+                                            ),
+                                          ),
+                                        ],
                                       ),
                                     ],
                                   ),
-                                ],
-                              ),
-                            )),
-                        onTap: () {
-                          setState(() {
-                            selectedSurah = index;
-                            sorahNum = index + 1;
-                          });
-                          switch (audioCubit
-                              .controllerSorah
-                              .status) {
-                          // case AnimationStatus
-                          //     .completed:
-                          //   audioCubit
-                          //       .controllerSorah
-                          //       .reverse();
-                          //   break;
-                            case AnimationStatus
-                                .dismissed:
-                              audioCubit
-                                  .controllerSorah
-                                  .forward();
-                              break;
-                            default:
-                          }
-                        },
+                                )),
+                            onTap: () {
+                              setState(() {
+                                selectedSurah = index;
+                                sorahNum = index + 1;
+                              });
+                              switch (audioCubit.controllerSorah.status) {
+                                // case AnimationStatus
+                                //     .completed:
+                                //   audioCubit
+                                //       .controllerSorah
+                                //       .reverse();
+                                //   break;
+                                case AnimationStatus.dismissed:
+                                  audioCubit.controllerSorah.forward();
+                                  break;
+                                default:
+                              }
+                            },
+                          ),
+                        ),
                       ),
-                    ),
-                  ),
-                );
-              }),
-        ),
-      ),
+                    );
+                  }),
+            ),
+          ),
+        );
+      },
     );
-  },
-);
   }
 
   Widget surahSearch(BuildContext context) {
@@ -1963,9 +2109,7 @@ class _AudioSorahListState extends State<AudioSorahList>
     return Padding(
       padding: const EdgeInsets.all(16.0),
       child: AnimSearchBar(
-        width: orientation(context,
-            width * .75,
-            300.0),
+        width: orientation(context, width * .75, 300.0),
         textController: textController,
         rtl: true,
         textFieldColor: Theme.of(context).colorScheme.surface,
@@ -1995,17 +2139,14 @@ class _AudioSorahListState extends State<AudioSorahList>
     double width = MediaQuery.of(context).size.width;
     return GestureDetector(
       child: Container(
-        width: orientation(context,
-            width * .75,
-            300.0),
+        width: orientation(context, width * .75, 300.0),
         height: 80,
         decoration: BoxDecoration(
-          color: Theme.of(context)
-              .colorScheme.surface
-              .withOpacity(.2),
+          color: Theme.of(context).colorScheme.surface.withOpacity(.2),
           borderRadius: const BorderRadius.all(Radius.circular(8)),
         ),
-        margin: orientation(context,
+        margin: orientation(
+            context,
             const EdgeInsets.only(top: 75.0, right: 16.0),
             const EdgeInsets.only(bottom: 16.0, left: 32.0)),
         child: Column(
@@ -2015,7 +2156,8 @@ class _AudioSorahListState extends State<AudioSorahList>
               height: 30,
               decoration: BoxDecoration(
                 color: Theme.of(context).colorScheme.surface,
-                borderRadius: const BorderRadius.all(Radius.circular(8),
+                borderRadius: const BorderRadius.all(
+                  Radius.circular(8),
                 ),
               ),
               alignment: Alignment.center,
@@ -2054,8 +2196,7 @@ class _AudioSorahListState extends State<AudioSorahList>
                       ThemeProvider.themeOf(context).id == 'dark'
                           ? Theme.of(context).canvasColor
                           : Theme.of(context).primaryColorLight,
-                      BlendMode.srcIn
-                  ),
+                      BlendMode.srcIn),
                 ),
                 Text(
                   '| ${formatDuration(Duration(seconds: lastPosition.toInt()))} |',
@@ -2074,20 +2215,12 @@ class _AudioSorahListState extends State<AudioSorahList>
       ),
       onTap: () {
         controller.jumpTo((sorahNum - 1) * 65.0);
-        switch (audioCubit
-            .controllerSorah
-            .status) {
-          case AnimationStatus
-              .completed:
-            audioCubit
-                .controllerSorah
-                .reverse();
+        switch (audioCubit.controllerSorah.status) {
+          case AnimationStatus.completed:
+            audioCubit.controllerSorah.reverse();
             break;
-          case AnimationStatus
-              .dismissed:
-            audioCubit
-                .controllerSorah
-                .forward();
+          case AnimationStatus.dismissed:
+            audioCubit.controllerSorah.forward();
             break;
           default:
         }
