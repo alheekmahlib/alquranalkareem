@@ -366,6 +366,8 @@ class _TextPageViewState extends State<TextPageView>
                                             1) {
                                           TextCubit.sajda2 =
                                               widget.surah!.ayahs![index].sajda;
+                                          lastAyah = widget
+                                              .surah!.ayahs!.last.numberInSurah;
                                         }
                                       }
                                     } else {
@@ -433,10 +435,6 @@ class _TextPageViewState extends State<TextPageView>
                                                           textTitle = text
                                                               .map((e) => e)
                                                               .toString();
-                                                          lastAyah = widget
-                                                              .surah!
-                                                              .ayahs!
-                                                              .length;
                                                           lastAyahInPage = widget
                                                               .surah!
                                                               .ayahs![b]
@@ -453,6 +451,10 @@ class _TextPageViewState extends State<TextPageView>
                                                               widget.nomPageF,
                                                               widget.nomPageL);
                                                           setState(() {
+                                                            lastAyah = widget
+                                                                .surah!
+                                                                .ayahs!
+                                                                .last;
                                                             TextCubit.selected =
                                                                 !TextCubit
                                                                     .selected;

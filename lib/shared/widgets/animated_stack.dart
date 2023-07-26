@@ -3,12 +3,11 @@ import 'package:alquranalkareem/shared/widgets/settings_popUp.dart';
 import 'package:alquranalkareem/shared/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
 import '../../cubit/cubit.dart';
 import '../../cubit/states.dart';
 import '../custom_rect_tween.dart';
 import '../hero_dialog_route.dart';
-
-
 
 class AnimatedStack extends StatefulWidget {
   final double scaleWidth;
@@ -66,156 +65,168 @@ class _AnimatedStackState extends State<AnimatedStack> {
     final double _yScale =
         (widget.scaleHeight + _fabPosition * 2) * 100 / _height;
     return BlocConsumer<QuranCubit, QuranState>(
-  listener: (context, state) {
-    // TODO: implement listener
-  },
-  builder: (context, state) {
-    QuranCubit cubit = QuranCubit.get(context);
-    return Directionality(
-      textDirection: TextDirection.rtl,
-      child: SafeArea(
-        top: false,
-        bottom: false,
-        child: Scaffold(
-          floatingActionButtonLocation: FloatingActionButtonLocation.endTop,
-          floatingActionButton: Visibility(
-            visible: QuranCubit.get(context).isShowControl,
-            child: Padding(
-              padding: const EdgeInsets.only(top: 16.0, right: 32.0),
-              child: Column(
-                children: [
-                  GestureDetector(
-                    onTap: () => setState(() => QuranCubit.get(context).opened = !QuranCubit.get(context).opened),
-                    child: Container(
-                      height: 50,
-                      width: 50,
-                      decoration: BoxDecoration(
-                        color: Theme.of(context).colorScheme.surface,
-                        borderRadius: const BorderRadius.all(
-                            Radius.circular(8)
-                        ),
-                        boxShadow: const [
-                          BoxShadow(
-                            color: Colors.black26,
-                            blurRadius: 1.0,
-                            spreadRadius: 0.0,
-                            offset: Offset(0.0, 0.0), // shadow direction: bottom right
-                          )
-                        ],
-                      ),
-
-                      child: RotateAnimation(
-                        opened: widget.animateButton ? QuranCubit.get(context).opened : false,
-                        duration: widget.buttonAnimationDuration,
-                        child: Icon(
-                          widget.buttonIcon,
-                          color: widget.fabIconColor,
-                        ),
-                      ),
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 4,
-                  ),
-                  GestureDetector(
-                    onTap: () {
-                      Navigator.of(context).push(
-                          HeroDialogRoute(
-                              builder: (context) {
-                        return settingsPopupCard(
-                            child: const SettingsList(),
-                          height: orientation(context,
-                              400.0,
-                              MediaQuery.of(context).size.height * 1/2 * 1.6),
-                          alignment: Alignment.topCenter,
-                          padding: orientation(context,
-                              EdgeInsets.only(top: paddingHeight * .08, right: 16.0, left: 16.0),
-                              EdgeInsets.only(top: 70.0, right: width * .5, left: 16.0)),
-                        );
-                      }));
-                      setState(() {
-                        cubit.isShowSettings = !cubit.isShowSettings;
-                      });
-                    },
-                    child: Hero(
-                      tag: heroAddTodo,
-                      createRectTween: (begin, end) {
-                        return CustomRectTween(begin: begin!, end: end!);
-                      },
-                      child: Container(
-                        height: 50,
-                        width: 50,
-                        decoration: BoxDecoration(
-                          color: Theme.of(context).colorScheme.background,
-                          borderRadius: const BorderRadius.all(
-                              Radius.circular(8)
+      listener: (context, state) {
+        // TODO: implement listener
+      },
+      builder: (context, state) {
+        QuranCubit cubit = QuranCubit.get(context);
+        return Directionality(
+          textDirection: TextDirection.rtl,
+          child: SafeArea(
+            top: false,
+            bottom: false,
+            child: Scaffold(
+              floatingActionButtonLocation: FloatingActionButtonLocation.endTop,
+              floatingActionButton: Visibility(
+                visible: QuranCubit.get(context).isShowControl,
+                child: Padding(
+                  padding: const EdgeInsets.only(top: 16.0, right: 32.0),
+                  child: Column(
+                    children: [
+                      GestureDetector(
+                        onTap: () => setState(() => QuranCubit.get(context)
+                            .opened = !QuranCubit.get(context).opened),
+                        child: Container(
+                          height: 50,
+                          width: 50,
+                          decoration: BoxDecoration(
+                            color: Theme.of(context).colorScheme.surface,
+                            borderRadius:
+                                const BorderRadius.all(Radius.circular(8)),
+                            boxShadow: const [
+                              BoxShadow(
+                                color: Colors.black26,
+                                blurRadius: 1.0,
+                                spreadRadius: 0.0,
+                                offset: Offset(
+                                    0.0, 0.0), // shadow direction: bottom right
+                              )
+                            ],
                           ),
-                          boxShadow: const [
-                            BoxShadow(
-                              color: Colors.black26,
-                              blurRadius: 1.0,
-                              spreadRadius: 0.0,
-                              offset: Offset(0.0, 0.0), // shadow direction: bottom right
-                            )
-                          ],
-                        ),
-                        child: Icon(
-                          Icons.settings,
-                          size: 28,
-                          color: Theme.of(context).colorScheme.surface,
+                          child: RotateAnimation(
+                            opened: widget.animateButton
+                                ? QuranCubit.get(context).opened
+                                : false,
+                            duration: widget.buttonAnimationDuration,
+                            child: Icon(
+                              widget.buttonIcon,
+                              color: widget.fabIconColor,
+                            ),
+                          ),
                         ),
                       ),
+                      const SizedBox(
+                        height: 4,
+                      ),
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.of(context)
+                              .push(HeroDialogRoute(builder: (context) {
+                            return settingsPopupCard(
+                              child: const SettingsList(),
+                              height: orientation(
+                                  context,
+                                  400.0,
+                                  MediaQuery.of(context).size.height *
+                                      1 /
+                                      2 *
+                                      1.6),
+                              alignment: Alignment.topCenter,
+                              padding: orientation(
+                                  context,
+                                  EdgeInsets.only(
+                                      top: paddingHeight * .08,
+                                      right: 16.0,
+                                      left: 16.0),
+                                  EdgeInsets.only(
+                                      top: 70.0,
+                                      right: width * .5,
+                                      left: 16.0)),
+                            );
+                          }));
+                          setState(() {
+                            cubit.isShowSettings = true;
+                          });
+                        },
+                        child: Hero(
+                          tag: heroAddTodo,
+                          createRectTween: (begin, end) {
+                            return CustomRectTween(begin: begin!, end: end!);
+                          },
+                          child: Container(
+                            height: 50,
+                            width: 50,
+                            decoration: BoxDecoration(
+                              color: Theme.of(context).colorScheme.background,
+                              borderRadius:
+                                  const BorderRadius.all(Radius.circular(8)),
+                              boxShadow: const [
+                                BoxShadow(
+                                  color: Colors.black26,
+                                  blurRadius: 1.0,
+                                  spreadRadius: 0.0,
+                                  offset: Offset(0.0,
+                                      0.0), // shadow direction: bottom right
+                                )
+                              ],
+                            ),
+                            child: Icon(
+                              Icons.settings,
+                              size: 28,
+                              color: Theme.of(context).colorScheme.surface,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              body: Stack(
+                children: <Widget>[
+                  Container(
+                    color: widget.backgroundColor,
+                    child: Stack(
+                      children: <Widget>[
+                        Positioned(
+                          bottom: _fabSize + _fabPosition * 4,
+                          right: _fabPosition,
+                          // width is used as max width to prevent overlap
+                          child: SizedBox(
+                              height: 600,
+                              width: 120,
+                              child: widget.columnWidget),
+                        ),
+                        Positioned(
+                          right: widget.scaleWidth + _fabPosition * 2,
+                          bottom: _fabPosition * 1.5,
+                          // height is used as max height to prevent overlap
+                          child: ConstrainedBox(
+                            constraints: BoxConstraints(
+                              maxHeight: widget.scaleHeight - _fabPosition,
+                            ),
+                            child: widget.bottomWidget,
+                          ),
+                        ),
+                      ],
                     ),
+                  ),
+                  SlideAnimation(
+                    opened: QuranCubit.get(context).opened,
+                    xScale: _xScale,
+                    yScale: _yScale,
+                    // xScale: orientation(context, 40.0, 20.0),
+                    // yScale: orientation(context, 10.0, 25.0),
+                    duration: widget.slideAnimationDuration,
+                    child: widget.foregroundWidget,
                   ),
                 ],
               ),
             ),
           ),
-          body: Stack(
-            children: <Widget>[
-              Container(
-                color: widget.backgroundColor,
-                child: Stack(
-                  children: <Widget>[
-                    Positioned(
-                      bottom: _fabSize + _fabPosition * 4,
-                      right: _fabPosition,
-                      // width is used as max width to prevent overlap
-                      child: SizedBox(
-                          height: 600,
-                          width: 120,
-                          child: widget.columnWidget),
-                    ),
-                    Positioned(
-                      right: widget.scaleWidth + _fabPosition * 2,
-                      bottom: _fabPosition * 1.5,
-                      // height is used as max height to prevent overlap
-                      child: ConstrainedBox(
-                        constraints: BoxConstraints(
-                          maxHeight: widget.scaleHeight - _fabPosition,
-                        ),
-                        child: widget.bottomWidget,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              SlideAnimation(
-                opened: QuranCubit.get(context).opened,
-                xScale: _xScale,
-                yScale: _yScale,
-                // xScale: orientation(context, 40.0, 20.0),
-                // yScale: orientation(context, 10.0, 25.0),
-                duration: widget.slideAnimationDuration,
-                child: widget.foregroundWidget,
-              ),
-            ],
-          ),
-        ),
-      ),
+        );
+      },
     );
-  },
-);
   }
 }
 

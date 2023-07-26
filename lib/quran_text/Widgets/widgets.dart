@@ -762,49 +762,6 @@ Widget pageAyah(BuildContext context, var setState, widget,
                       : const SizedBox.shrink(),
               Container(
                 padding: const EdgeInsets.symmetric(horizontal: 32),
-                // child: WordSelectableText(
-                //     selectable:  true,
-                //     highlight:  true,
-                //
-                //     text: text.map((e) {
-                //       return e;
-                //     }).toList(),
-                //     onWordTapped: (word, index) {
-                //
-                //       print(word);
-                //     },
-                //     style: TextStyle(
-                //       fontSize:
-                //       TextPageView
-                //           .fontSizeArabic,
-                //       fontWeight:
-                //       FontWeight
-                //           .normal,
-                //       fontFamily:
-                //       'uthmanic2',
-                //       color: ThemeProvider.themeOf(context)
-                //           .id ==
-                //           'dark'
-                //           ? Colors
-                //           .white
-                //           : Colors
-                //           .black,
-                //       background:
-                //       Paint()
-                //         ..color = index ==
-                //             TextCubit.isSelected
-                //             ? backColor
-                //             : Colors.transparent
-                //         ..strokeJoin =
-                //             StrokeJoin
-                //                 .round
-                //         ..strokeCap =
-                //             StrokeCap
-                //                 .round
-                //         ..style =
-                //             PaintingStyle
-                //                 .fill,
-                //     ),),
                 child: SelectableText.rich(
                   showCursor: true,
                   cursorWidth: 3,

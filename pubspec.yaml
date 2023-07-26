@@ -68,6 +68,11 @@ dependencies:
   image_gallery_saver: ^1.7.1
   image: ^4.0.17
   easy_image_viewer: ^1.2.0
+  just_audio: ^0.9.34
+  rxdart: ^0.27.7
+  audio_session: ^0.1.16
+  flutter_screenutil: ^5.8.4
+  pixel_perfect: ^1.1.3
 #  scroll_to_index: ^3.0.1
 
 

@@ -1,6 +1,7 @@
 import 'package:arabic_numbers/arabic_numbers.dart';
 import 'package:flutter/material.dart';
 import 'package:theme_provider/theme_provider.dart';
+
 import '../../cubit/cubit.dart';
 import '../../l10n/app_localizations.dart';
 import '../../shared/widgets/svg_picture.dart';
@@ -405,26 +406,26 @@ class _MPagesState extends State<MPages> with SingleTickerProviderStateMixin {
           padding: const EdgeInsets.symmetric(vertical: 16.0),
           child: Stack(
             children: <Widget>[
-              Image.asset(
-                "assets/pages/00${index + 1}.png",
-                fit: BoxFit.contain,
-                color: ThemeProvider.themeOf(context).id == 'dark'
-                    ? Colors.white
-                    : null,
-                width: MediaQuery.of(context).size.width,
-                alignment: Alignment.center,
-              ),
-              Image.asset(
-                "assets/pages/000${index + 1}.png",
-                fit: BoxFit.contain,
-                width: MediaQuery.of(context).size.width,
-                alignment: Alignment.center,
-              ),
-              // QuranPage(
-              //   imageUrl: 'assets/pages/00${index + 1}.png',
-              //   imageUrl2: 'assets/pages/000${index + 1}.png',
-              //   currentPage: index + 1,
-              // )
+              // Image.asset(
+              //   "assets/pages/00${index + 1}.png",
+              //   fit: BoxFit.contain,
+              //   color: ThemeProvider.themeOf(context).id == 'dark'
+              //       ? Colors.white
+              //       : null,
+              //   width: MediaQuery.of(context).size.width,
+              //   alignment: Alignment.center,
+              // ),
+              // Image.asset(
+              //   "assets/pages/000${index + 1}.png",
+              //   fit: BoxFit.contain,
+              //   width: MediaQuery.of(context).size.width,
+              //   alignment: Alignment.center,
+              // ),
+              QuranPage(
+                imageUrl: 'assets/pages/00${index + 1}.png',
+                imageUrl2: 'assets/pages/000${index + 1}.png',
+                currentPage: index + 1,
+              )
             ],
           ),
         ),
@@ -450,30 +451,30 @@ class _MPagesState extends State<MPages> with SingleTickerProviderStateMixin {
       },
       child: Stack(
         children: <Widget>[
-          Image.asset(
-            "assets/pages/00${index + 1}.png",
-            fit: BoxFit.contain,
-            color: ThemeProvider.themeOf(context).id == 'dark'
-                ? Colors.white
-                : null,
-            height:
-                orientation == Orientation.portrait ? cubit.height! - 60 : null,
-            width: MediaQuery.of(context).size.width,
-            alignment: Alignment.center,
-          ),
-          Image.asset(
-            "assets/pages/000${index + 1}.png",
-            fit: BoxFit.contain,
-            height:
-                orientation == Orientation.portrait ? cubit.height! - 60 : null,
-            width: MediaQuery.of(context).size.width,
-            alignment: Alignment.center,
-          ),
-          // QuranPage(
-          //   imageUrl: 'assets/pages/00${index + 1}.png',
-          //   imageUrl2: 'assets/pages/000${index + 1}.png',
-          //   currentPage: index + 1,
-          // )
+          // Image.asset(
+          //   "assets/pages/00${index + 1}.png",
+          //   fit: BoxFit.contain,
+          //   color: ThemeProvider.themeOf(context).id == 'dark'
+          //       ? Colors.white
+          //       : null,
+          //   height:
+          //       orientation == Orientation.portrait ? cubit.height! - 60 : null,
+          //   width: MediaQuery.of(context).size.width,
+          //   alignment: Alignment.center,
+          // ),
+          // Image.asset(
+          //   "assets/pages/000${index + 1}.png",
+          //   fit: BoxFit.contain,
+          //   height:
+          //       orientation == Orientation.portrait ? cubit.height! - 60 : null,
+          //   width: MediaQuery.of(context).size.width,
+          //   alignment: Alignment.center,
+          // ),
+          QuranPage(
+            imageUrl: 'assets/pages/00${index + 1}.png',
+            imageUrl2: 'assets/pages/000${index + 1}.png',
+            currentPage: index + 1,
+          )
         ],
       ),
     );
