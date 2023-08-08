@@ -41,6 +41,8 @@ class _MPagesState extends State<MPages> with SingleTickerProviderStateMixin {
     bookmarksController.getBookmarksList();
     final ayatCubit = context.read<AyatCubit>();
     ayatCubit.fetchAyat(cubit.cuMPage);
+
+    /// TODO: FIX THE ANIMATION
     cubit.screenController = AnimationController(
       duration: const Duration(milliseconds: 300),
       vsync: this,

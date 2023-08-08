@@ -6,6 +6,7 @@ import '../../quran_page/data/model/ayat.dart';
 
 part 'ayat_state.dart';
 
+/// TODO: THE PAGE IT'S NOT CHANGE
 class AyatCubit extends Cubit<List<Ayat>?> {
   final QuranCubit cubit;
   final BuildContext context;

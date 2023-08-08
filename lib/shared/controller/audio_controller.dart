@@ -159,15 +159,16 @@ class AudioController extends GetxController {
     print('playNextAyah ' * 6);
     AudioCubit audioCubit = AudioCubit.get(context);
     final ayatCubit = context.read<AyatCubit>();
-    final ayat = ayatCubit.state;
+    // final ayat = ayatCubit.state;
     QuranTextCubit textCubit = QuranTextCubit.get(context);
     QuranCubit cubit = QuranCubit.get(context);
 
-    print('ayat!.last.ayaNum ${ayat!.last.ayaNum}');
+    print('ayat!.last.ayaNum ${ayatCubit.state!.last.ayaNum}');
     // Increment Ayah number
     int currentAyah;
     int currentSorah;
     currentAyah = int.parse(audioCubit.ayahNum!) + 1;
+    audioCubit.ayahNum = '$currentAyah';
     currentSorah = int.parse(audioCubit.sorahName!);
     audioCubit.sorahName = formatNumber(currentSorah);
     audioCubit.ayahNum = formatNumber(currentAyah);
@@ -185,7 +186,7 @@ class AudioController extends GetxController {
     if (cubit.cuMPage == 604) {
       await audioPlayer.stop();
       isPlay.value = false;
-    } else if (audioCubit.ayahNumber == currentAyah - 1) {
+    } else if (ayatCubit.state!.last.ayaNum == currentAyah - 1) {
       print('audioCubit.ayahNumber ${audioCubit.ayahNumber}');
       cubit.dPageController!.jumpToPage(cubit.cuMPage++);
       isPlay.value = true;
