@@ -14,6 +14,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_sliding_up_panel/sliding_up_panel_widget.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:get/get.dart';
 import 'package:theme_provider/theme_provider.dart';
 
 import '../../cubit/cubit.dart';
@@ -21,6 +22,7 @@ import '../../cubit/translateDataCubit/_cubit.dart';
 import '../../cubit/translateDataCubit/translateDataState.dart';
 import '../../l10n/app_localizations.dart';
 import '../../quran_page/data/model/ayat.dart';
+import '../../shared/controller/ayat_controller.dart';
 import '../../shared/share/ayah_to_images.dart';
 import '../../shared/widgets/lottie.dart';
 import '../../shared/widgets/show_tafseer.dart';
@@ -30,6 +32,7 @@ import '../cubit/quran_text_cubit.dart';
 import '../text_page_view.dart';
 
 ArabicNumbers arabicNumber = ArabicNumbers();
+late final AyatController ayatController = Get.put(AyatController());
 
 menu(BuildContext context, int b, index, var details, translateData, widget,
     nomPageF, nomPageL) {
@@ -68,8 +71,8 @@ menu(BuildContext context, int b, index, var details, translateData, widget,
                         color: Color(0xfff3efdf),
                         borderRadius: BorderRadius.all(Radius.circular(8))),
                     child: FutureBuilder<List<Ayat>>(
-                        future: cubit
-                            .handleRadioValueChanged(context, cubit.radioValue)
+                        future: ayatController
+                            .handleRadioValueChanged(ayatController.radioValue)
                             .getAyahTranslate(widget.number),
                         builder: (context, snapshot) {
                           if (snapshot.connectionState ==

@@ -12,11 +12,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get.dart';
 import 'package:theme_provider/theme_provider.dart';
 
 import '../../cubit/states.dart';
 import '../../l10n/app_localizations.dart';
 import '../../notes/cubit/note_cubit.dart';
+import '../controller/ayat_controller.dart';
 import '../share/ayah_to_images.dart';
 import 'ayah_list.dart';
 
@@ -38,6 +40,7 @@ class _ShowTafseerState extends State<ShowTafseer> {
   final GlobalKey<_ShowTafseerState> _selectableTextKey =
       GlobalKey<_ShowTafseerState>();
   ArabicNumbers arabicNumber = ArabicNumbers();
+  late final AyatController ayatController = Get.put(AyatController());
   int pageNum = 0;
   int radioValue = 0;
   double lowerValue = 18;
@@ -102,7 +105,7 @@ class _ShowTafseerState extends State<ShowTafseer> {
                     ),
                   ),
                 ),
-                const Expanded(flex: 7, child: AyahList2()),
+                Expanded(flex: 7, child: AyahList2()),
               ],
             ),
             const Divider(
@@ -158,7 +161,7 @@ class _ShowTafseerState extends State<ShowTafseer> {
                       if (ayahNumber == null) {
                         customErrorSnackBar(
                             context, AppLocalizations.of(context)!.choiceAyah);
-                      } else if (cubit.radioValue == 3) {
+                      } else if (ayatController.radioValue == 3) {
                         showVerseOptionsBottomSheet(
                             context,
                             0,
@@ -371,7 +374,7 @@ class _ShowTafseerState extends State<ShowTafseer> {
                           title: Text(
                             tafName[index],
                             style: TextStyle(
-                                color: cubit.radioValue == index
+                                color: ayatController.radioValue == index
                                     ? Theme.of(context).primaryColorLight
                                     : const Color(0xffcdba72),
                                 fontSize: 14,
@@ -380,7 +383,7 @@ class _ShowTafseerState extends State<ShowTafseer> {
                           subtitle: Text(
                             tafD[index],
                             style: TextStyle(
-                                color: cubit.radioValue == index
+                                color: ayatController.radioValue == index
                                     ? Theme.of(context).primaryColorLight
                                     : const Color(0xffcdba72),
                                 fontSize: 12,
@@ -393,13 +396,13 @@ class _ShowTafseerState extends State<ShowTafseer> {
                               borderRadius:
                                   const BorderRadius.all(Radius.circular(2.0)),
                               border: Border.all(
-                                  color: cubit.radioValue == index
+                                  color: ayatController.radioValue == index
                                       ? Theme.of(context).primaryColorLight
                                       : const Color(0xffcdba72),
                                   width: 2),
                               color: const Color(0xff39412a),
                             ),
-                            child: cubit.radioValue == index
+                            child: ayatController.radioValue == index
                                 ? const Icon(Icons.done,
                                     size: 14, color: Color(0xfffcbb76))
                                 : null,
@@ -407,7 +410,7 @@ class _ShowTafseerState extends State<ShowTafseer> {
                           onTap: () {
                             cubit.getNewTranslationAndNotify(
                                 context, surahNumber!, ayahNumber!);
-                            cubit.handleRadioValueChanged(context, index);
+                            ayatController.handleRadioValueChanged(index);
                             cubit.saveTafseer(index);
                             Navigator.pop(context);
                           },
@@ -423,7 +426,7 @@ class _ShowTafseerState extends State<ShowTafseer> {
                                       width: 2)),
                               child: SvgPicture.asset(
                                 'assets/svg/tafseer_book.svg',
-                                colorFilter: cubit.radioValue == index
+                                colorFilter: ayatController.radioValue == index
                                     ? null
                                     : ColorFilter.mode(
                                         Theme.of(context)

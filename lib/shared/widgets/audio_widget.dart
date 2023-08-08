@@ -88,9 +88,7 @@ class _AudioWidgetState extends State<AudioWidget>
                                 playerState?.processingState;
                             final playing = playerState?.playing;
                             if (processingState == ProcessingState.idle) {
-                              return AyahList(
-                                pageNum: cubit.cuMPage,
-                              );
+                              return AyahList();
                             } else if (playing == true) {
                               return Container(
                                 height: 50,
@@ -141,9 +139,7 @@ class _AudioWidgetState extends State<AudioWidget>
                               //     ),
                               //   );
                             } else if (playing != true) {
-                              return AyahList(
-                                pageNum: cubit.cuMPage,
-                              );
+                              return AyahList();
                             } else {
                               return const SizedBox.shrink();
                             }

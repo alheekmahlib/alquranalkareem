@@ -1,21 +1,24 @@
 import 'dart:async';
 import 'dart:io';
+
 import 'package:alquranalkareem/quran_page/data/data_client.dart';
 import 'package:alquranalkareem/quran_page/data/tafseer_data_client.dart';
 import 'package:alquranalkareem/shared/bloc_observer.dart';
+import 'package:alquranalkareem/shared/controller/ayat_controller.dart';
 import 'package:alquranalkareem/shared/local_notifications.dart';
 import 'package:bloc/bloc.dart';
 import 'package:desktop_window/desktop_window.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_native_timezone/flutter_native_timezone.dart';
+import 'package:get/get.dart';
 import 'package:sqflite_common_ffi/sqflite_ffi.dart';
+import 'package:timezone/data/latest.dart' as tz;
+import 'package:timezone/timezone.dart' as tz;
 import 'package:wakelock/wakelock.dart';
+
 import 'database/databaseHelper.dart';
 import 'database/notificationDatabase.dart';
 import 'myApp.dart';
-import 'package:timezone/data/latest.dart' as tz;
-import 'package:timezone/timezone.dart' as tz;
-
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -46,16 +49,16 @@ void main() async {
   runApp(MyApp(theme: ThemeData.light()));
 }
 
-
-
 Future windowSize() async {
   await DesktopWindow.setMinWindowSize(const Size(900, 840));
 }
 
 init() async {
+  Get.put(AyatController());
   DatabaseHelper databaseHelper = DatabaseHelper.instance;
   databaseHelper.database;
-  NotificationDatabaseHelper notificationdatabaseHelper = NotificationDatabaseHelper.instance;
+  NotificationDatabaseHelper notificationdatabaseHelper =
+      NotificationDatabaseHelper.instance;
   notificationdatabaseHelper.database;
   DataBaseClient dataBaseClient = DataBaseClient.instance;
   dataBaseClient.initDatabase();

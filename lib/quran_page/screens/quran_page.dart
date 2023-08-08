@@ -1,10 +1,8 @@
 import 'package:arabic_numbers/arabic_numbers.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
 import 'package:theme_provider/theme_provider.dart';
 
-import '../../cubit/ayat/ayat_cubit.dart';
 import '../../cubit/cubit.dart';
 import '../../l10n/app_localizations.dart';
 import '../../shared/widgets/svg_picture.dart';
@@ -39,8 +37,6 @@ class _MPagesState extends State<MPages> with SingleTickerProviderStateMixin {
   void initState() {
     QuranCubit cubit = QuranCubit.get(context);
     bookmarksController.getBookmarksList();
-    final ayatCubit = context.read<AyatCubit>();
-    ayatCubit.fetchAyat(cubit.cuMPage);
 
     /// TODO: FIX THE ANIMATION
     cubit.screenController = AnimationController(
@@ -67,8 +63,6 @@ class _MPagesState extends State<MPages> with SingleTickerProviderStateMixin {
   Widget build(BuildContext context) {
     QuranCubit cubit = QuranCubit.get(context);
     AudioCubit audioCubit = AudioCubit.get(context);
-    final ayatCubit = context.read<AyatCubit>();
-    final ayat = ayatCubit.state;
     Orientation orientation = MediaQuery.of(context).orientation;
     if (orientation == Orientation.portrait) {
       return AnimatedBuilder(

@@ -1,7 +1,7 @@
-import 'package:flutter/widgets.dart';
-import 'package:alquranalkareem/cubit/cubit.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:alquranalkareem/shared/controller/ayat_controller.dart';
+import 'package:get/get.dart';
 import 'package:sqflite/sqflite.dart';
+
 import '../model/ayat.dart';
 import '../tafseer_data_client.dart';
 
@@ -9,13 +9,12 @@ List<Ayat>? ayaListNotFut;
 
 class TranslateRepository {
   TafseerDataBaseClient? _client;
-  BuildContext context;
-  TranslateRepository(this.context) {
+  TranslateRepository() {
     _client = TafseerDataBaseClient.instance;
   }
   List<Ayat>? ayaListNotFut;
   String? tableName;
-
+  late final AyatController ayatController = Get.put(AyatController());
 
   Future<List<Ayat>> getPageTranslate(int pageNum) async {
     if (ayaListNotFut == null) {
@@ -23,8 +22,8 @@ class TranslateRepository {
       Database? database = await _client?.database;
       List<Map>? results =
           await database?.rawQuery((" SELECT * FROM ${Ayat.tableName} "
-              "LEFT JOIN ${BlocProvider.of<QuranCubit>(context).tableName} "
-              "ON (${BlocProvider.of<QuranCubit>(context).tableName}.aya = ${Ayat.tableName}.Verse) AND (${BlocProvider.of<QuranCubit>(context).tableName}.sura = ${Ayat.tableName}.SuraNum) "
+              "LEFT JOIN ${ayatController.tableName} "
+              "ON (${ayatController.tableName}.aya = ${Ayat.tableName}.Verse) AND (${ayatController.tableName}.sura = ${Ayat.tableName}.SuraNum) "
               "WHERE PageNum = $pageNum"));
       List<Ayat> ayaList = [];
       results?.forEach((result) {
@@ -40,10 +39,11 @@ class TranslateRepository {
 
   Future<List<Ayat>> getAyahTranslate(int surahNumber) async {
     Database? database = await _client?.database;
-    List<Map>? results = await database?.rawQuery(("SELECT * FROM ${Ayat.tableName} "
-        "LEFT JOIN ${BlocProvider.of<QuranCubit>(context).tableName} "
-        "ON (${BlocProvider.of<QuranCubit>(context).tableName}.aya = ${Ayat.tableName}.Verse) AND (${BlocProvider.of<QuranCubit>(context).tableName}.sura = ${Ayat.tableName}.SuraNum) "
-        "WHERE SuraNum = $surahNumber"));
+    List<Map>? results =
+        await database?.rawQuery(("SELECT * FROM ${Ayat.tableName} "
+            "LEFT JOIN ${ayatController.tableName} "
+            "ON (${ayatController.tableName}.aya = ${Ayat.tableName}.Verse) AND (${ayatController.tableName}.sura = ${Ayat.tableName}.SuraNum) "
+            "WHERE SuraNum = $surahNumber"));
     List<Ayat> ayaList = [];
     results?.forEach((result) {
       ayaList.add(Ayat.fromMap(result));
