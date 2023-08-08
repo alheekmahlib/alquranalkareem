@@ -685,7 +685,7 @@ readerDropDown(BuildContext context) {
     "Abdul_Basit_Murattal_192kbps",
     "Minshawy_Murattal_128kbps",
     "Husary_128kbps",
-    "Ahmed_ibn_Ali_al-Ajamy_128kbps_ketaballah.net",
+    "Ahmed_ibn_Ali_al-Ajamy_64kbps_QuranExplorer.Com",
   ];
 
   List<String> readerI = <String>[

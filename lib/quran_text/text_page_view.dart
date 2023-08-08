@@ -5,12 +5,14 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_sliding_up_panel/sliding_up_panel_widget.dart';
+import 'package:get/get.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 import 'package:theme_provider/theme_provider.dart';
 
 import '../cubit/cubit.dart';
 import '../cubit/translateDataCubit/_cubit.dart';
 import '../quran_page/widget/sliding_up.dart';
+import '../shared/controller/audio_controller.dart';
 import '../shared/widgets/widgets.dart';
 import 'Widgets/audio_text_widget.dart';
 import 'Widgets/show_text_tafseer.dart';
@@ -18,8 +20,10 @@ import 'Widgets/widgets.dart';
 import 'cubit/quran_text_cubit.dart';
 import 'model/QuranModel.dart';
 
-var lastAyah;
-var lastAyahInPage;
+int? lastAyah;
+int? lastAyahInPage;
+int? lastAyahInPageA;
+int pageN = 1;
 int? textSurahNum;
 
 // ignore: must_be_immutable
@@ -52,6 +56,7 @@ class _TextPageViewState extends State<TextPageView>
   String? translateText;
   StreamSubscription? _quranTextCubitSubscription;
   QuranCubit? _quranCubit;
+  final AudioController aCtrl = Get.put(AudioController());
 
   @override
   void didChangeDependencies() {
@@ -67,6 +72,7 @@ class _TextPageViewState extends State<TextPageView>
     WidgetsBinding.instance.addObserver(this);
     TextPageView.textCurrentPage = widget.nomPageF!;
     TextPageView.sorahTextName = widget.surah!.name!;
+
     textCubit.loadTextCurrentPage();
     textCubit.loadSwitchValue();
     textCubit.loadTranslateValue();
@@ -366,6 +372,8 @@ class _TextPageViewState extends State<TextPageView>
                                             1) {
                                           TextCubit.sajda2 =
                                               widget.surah!.ayahs![index].sajda;
+                                          lastAyah = widget
+                                              .surah!.ayahs!.last.numberInSurah;
                                         }
                                       }
                                     } else {
@@ -427,20 +435,25 @@ class _TextPageViewState extends State<TextPageView>
                                                         ..onTapDown =
                                                             (TapDownDetails
                                                                 details) {
+                                                          cubit.audioChoise ==
+                                                              2;
                                                           textText = text
                                                               .map((e) => e)
                                                               .toString();
                                                           textTitle = text
                                                               .map((e) => e)
                                                               .toString();
-                                                          lastAyah = widget
-                                                              .surah!
-                                                              .ayahs!
-                                                              .length;
-                                                          lastAyahInPage = widget
-                                                              .surah!
-                                                              .ayahs![b]
-                                                              .numberInSurah;
+                                                          aCtrl.lastAyahInPage
+                                                                  .value =
+                                                              widget
+                                                                  .surah!
+                                                                  .ayahs![b]
+                                                                  .numberInSurah!;
+                                                          pageN = widget
+                                                                  .surah!
+                                                                  .ayahs![b]
+                                                                  .pageInSurah! -
+                                                              1;
                                                           textSurahNum = widget
                                                               .surah!.number;
                                                           menu(

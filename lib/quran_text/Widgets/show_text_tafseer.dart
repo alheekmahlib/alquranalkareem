@@ -383,7 +383,7 @@ class _ShowTextTafseerState extends State<ShowTextTafseer> {
                             cubit.saveTafseer(index);
                             // Get new translation and update state
                             TextCubit.getNewTranslationAndNotify(
-                                context, textSurahNum!, lastAyahInPage);
+                                context, textSurahNum!, lastAyahInPage!);
                             print("lastAyahInPage $lastAyahInPage");
                             if (SlidingUpPanelStatus.hidden ==
                                 cubit.panelTextController.status) {

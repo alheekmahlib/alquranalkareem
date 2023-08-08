@@ -15,6 +15,7 @@ class AudioCubit extends Cubit<AudioState> {
   String? sorahPageReaderValue;
   String? sorahReaderNameValue;
   String? ayahNum;
+  int? ayahNumber;
   String? sorahName;
   late Animation<Offset> offset;
   late AnimationController controllerSorah;

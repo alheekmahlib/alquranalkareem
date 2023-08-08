@@ -1,13 +1,18 @@
 import 'package:arabic_numbers/arabic_numbers.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get/get.dart';
 import 'package:theme_provider/theme_provider.dart';
+
+import '../../cubit/ayat/ayat_cubit.dart';
 import '../../cubit/cubit.dart';
 import '../../l10n/app_localizations.dart';
 import '../../shared/widgets/svg_picture.dart';
 import '../../shared/widgets/widgets.dart';
-import '../cubit/bookmarks/bookmarks_cubit.dart';
+import '../cubit/audio/cubit.dart';
 import '../data/model/sorah_bookmark.dart';
 import '../data/model/verse.dart';
+import '../data/repository/bookmarks_controller.dart';
 import '../data/repository/translate_repository.dart';
 
 class MPages extends StatefulWidget {
@@ -27,16 +32,21 @@ class _MPagesState extends State<MPages> with SingleTickerProviderStateMixin {
   List<List<Verse>> allVerses = [];
   ArabicNumbers arabicNumber = ArabicNumbers();
   QuranCubit? quranCubit;
+  late final BookmarksController bookmarksController =
+      Get.put(BookmarksController());
 
   @override
   void initState() {
-    BookmarksCubit.get(context).getBookmarksList();
-    QuranCubit.get(context).screenController = AnimationController(
+    QuranCubit cubit = QuranCubit.get(context);
+    bookmarksController.getBookmarksList();
+    final ayatCubit = context.read<AyatCubit>();
+    ayatCubit.fetchAyat(cubit.cuMPage);
+    cubit.screenController = AnimationController(
       duration: const Duration(milliseconds: 300),
       vsync: this,
     );
-    QuranCubit.get(context).screenAnimation = Tween<double>(begin: 1, end: 0.95)
-        .animate(QuranCubit.get(context).screenController!);
+    cubit.screenAnimation =
+        Tween<double>(begin: 1, end: 0.95).animate(cubit.screenController!);
     super.initState();
   }
 
@@ -53,8 +63,10 @@ class _MPagesState extends State<MPages> with SingleTickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    BookmarksCubit bookmarksCubit = BookmarksCubit.get(context);
     QuranCubit cubit = QuranCubit.get(context);
+    AudioCubit audioCubit = AudioCubit.get(context);
+    final ayatCubit = context.read<AyatCubit>();
+    final ayat = ayatCubit.state;
     Orientation orientation = MediaQuery.of(context).orientation;
     if (orientation == Orientation.portrait) {
       return AnimatedBuilder(
@@ -76,7 +88,7 @@ class _MPagesState extends State<MPages> with SingleTickerProviderStateMixin {
                   cahData = false;
                   issChange = true;
                   SoraBookmark soraBookmark =
-                      bookmarksCubit.soraBookmarkList![page];
+                      bookmarksController.soraBookmarkList![page];
                   setState(() {
                     cubit.cuMPage = page;
                     print("new page${cubit.cuMPage}");
@@ -90,6 +102,7 @@ class _MPagesState extends State<MPages> with SingleTickerProviderStateMixin {
                       page + 1, (soraBookmark.SoraNum! + 1).toString());
                   print('last sorah ${soraBookmark.SoraNum}');
                   cahData = true;
+                  // audioCubit.ayahNumber = ayat!.last.ayaNum;
                 },
                 itemBuilder: (_, index) {
                   return (index % 2 == 0
@@ -100,57 +113,36 @@ class _MPagesState extends State<MPages> with SingleTickerProviderStateMixin {
                               _pages(context, index),
                               Align(
                                   alignment: Alignment.topRight,
-                                  child: FutureBuilder(
-                                      future: cubit.loadlastBookmark(),
-                                      builder: (BuildContext context,
-                                          AsyncSnapshot<int> snapshot) {
-                                        if (snapshot.hasData) {
-                                          return IconButton(
-                                            onPressed: () {
-                                              // Check if there's a bookmark for the current page
-                                              if (bookmarksCubit
-                                                  .bookmarksController
-                                                  .isPageBookmarked(
-                                                      cubit.cuMPage)) {
-                                                bookmarksCubit
-                                                    .bookmarksController
-                                                    .deleteBookmarks(
-                                                        cubit.cuMPage, context)
-                                                    .then((deleted) {
-                                                  if (deleted) {
-                                                    setState(() {
-                                                      // The color of the SVG picture will be updated since the state has changed.
-                                                    });
-                                                  }
-                                                });
-                                              } else {
-                                                // If there's no bookmark for the current page, add a new one
-                                                bookmarksCubit
-                                                    .addBookmark(
-                                                        cubit.cuMPage,
-                                                        bookmarksCubit
-                                                            .soraBookmarkList![
-                                                                index]
-                                                            .SoraName_ar!,
-                                                        cubit.lastRead)
-                                                    .then((value) =>
-                                                        customSnackBar(
-                                                            context,
-                                                            AppLocalizations.of(
-                                                                    context)!
-                                                                .addBookmark));
-                                                print('addBookmark');
-                                                setState(() {
-                                                  cubit.savelastBookmark(index);
-                                                });
-                                              }
-                                            },
-                                            icon: bookmarkIcon(context, 30.0,
-                                                30.0, bookmarksCubit),
-                                          );
-                                        } else
-                                          return const CircularProgressIndicator();
-                                      })),
+                                  child: GetBuilder<BookmarksController>(
+                                      builder: (bookmarksController) {
+                                    return IconButton(
+                                      onPressed: () {
+                                        // Check if there's a bookmark for the current page
+                                        if (bookmarksController
+                                            .isPageBookmarked(cubit.cuMPage)) {
+                                          bookmarksController.deleteBookmarks(
+                                              cubit.cuMPage, context);
+                                        } else {
+                                          // If there's no bookmark for the current page, add a new one
+                                          bookmarksController
+                                              .addBookmark(
+                                                  cubit.cuMPage,
+                                                  bookmarksController
+                                                      .soraBookmarkList![index]
+                                                      .SoraName_ar!,
+                                                  cubit.lastRead)
+                                              .then((value) => customSnackBar(
+                                                  context,
+                                                  AppLocalizations.of(context)!
+                                                      .addBookmark));
+                                          print('addBookmark');
+                                          bookmarksController
+                                              .savelastBookmark(index);
+                                        }
+                                      },
+                                      icon: bookmarkIcon(context, 30.0, 30.0),
+                                    );
+                                  })),
                             ],
                           ),
                         )
@@ -161,55 +153,36 @@ class _MPagesState extends State<MPages> with SingleTickerProviderStateMixin {
                               _pages(context, index),
                               Align(
                                 alignment: Alignment.topLeft,
-                                child: FutureBuilder(
-                                    future: cubit.loadlastBookmark(),
-                                    builder: (BuildContext context,
-                                        AsyncSnapshot<int> snapshot) {
-                                      if (snapshot.hasData) {
-                                        return IconButton(
-                                          onPressed: () {
-                                            if (bookmarksCubit
-                                                .bookmarksController
-                                                .isPageBookmarked(
-                                                    cubit.cuMPage)) {
-                                              bookmarksCubit.bookmarksController
-                                                  .deleteBookmarks(
-                                                      cubit.cuMPage, context)
-                                                  .then((deleted) {
-                                                if (deleted) {
-                                                  setState(() {
-                                                    // The color of the SVG picture will be updated since the state has changed.
-                                                  });
-                                                }
-                                              });
-                                            } else {
-                                              // If there's no bookmark for the current page, add a new one
-                                              bookmarksCubit
-                                                  .addBookmark(
-                                                      cubit.cuMPage,
-                                                      bookmarksCubit
-                                                          .soraBookmarkList![
-                                                              index]
-                                                          .SoraName_ar!,
-                                                      cubit.lastRead)
-                                                  .then((value) =>
-                                                      customSnackBar(
-                                                          context,
-                                                          AppLocalizations.of(
-                                                                  context)!
-                                                              .addBookmark));
-                                              print('addBookmark');
-                                              setState(() {
-                                                cubit.savelastBookmark(index);
-                                              });
-                                            }
-                                          },
-                                          icon: bookmarkIcon(context, 30.0,
-                                              30.0, bookmarksCubit),
-                                        );
-                                      } else
-                                        return const CircularProgressIndicator();
-                                    }),
+                                child: GetBuilder<BookmarksController>(
+                                    builder: (bookmarksController) {
+                                  return IconButton(
+                                    onPressed: () {
+                                      // Check if there's a bookmark for the current page
+                                      if (bookmarksController
+                                          .isPageBookmarked(cubit.cuMPage)) {
+                                        bookmarksController.deleteBookmarks(
+                                            cubit.cuMPage, context);
+                                      } else {
+                                        // If there's no bookmark for the current page, add a new one
+                                        bookmarksController
+                                            .addBookmark(
+                                                cubit.cuMPage,
+                                                bookmarksController
+                                                    .soraBookmarkList![index]
+                                                    .SoraName_ar!,
+                                                cubit.lastRead)
+                                            .then((value) => customSnackBar(
+                                                context,
+                                                AppLocalizations.of(context)!
+                                                    .addBookmark));
+                                        print('addBookmark');
+                                        bookmarksController
+                                            .savelastBookmark(index);
+                                      }
+                                    },
+                                    icon: bookmarkIcon(context, 30.0, 30.0),
+                                  );
+                                }),
                               ),
                             ],
                           ),
@@ -238,7 +211,7 @@ class _MPagesState extends State<MPages> with SingleTickerProviderStateMixin {
                 cahData = false;
                 issChange = true;
                 SoraBookmark soraBookmark =
-                    bookmarksCubit.soraBookmarkList![page + 1];
+                    bookmarksController.soraBookmarkList![page + 1];
                 setState(() {
                   cubit.cuMPage = page;
                   issChange = true;
@@ -262,56 +235,36 @@ class _MPagesState extends State<MPages> with SingleTickerProviderStateMixin {
                               _pages2(context, index, orientation),
                               Align(
                                 alignment: Alignment.topRight,
-                                child: FutureBuilder(
-                                    future: cubit.loadlastBookmark(),
-                                    builder: (BuildContext context,
-                                        AsyncSnapshot<int> snapshot) {
-                                      if (snapshot.hasData) {
-                                        return IconButton(
-                                          onPressed: () {
-                                            // Check if there's a bookmark for the current page
-                                            if (bookmarksCubit
-                                                .bookmarksController
-                                                .isPageBookmarked(
-                                                    cubit.cuMPage)) {
-                                              bookmarksCubit.bookmarksController
-                                                  .deleteBookmarks(
-                                                      cubit.cuMPage, context)
-                                                  .then((deleted) {
-                                                if (deleted) {
-                                                  setState(() {
-                                                    // The color of the SVG picture will be updated since the state has changed.
-                                                  });
-                                                }
-                                              });
-                                            } else {
-                                              // If there's no bookmark for the current page, add a new one
-                                              bookmarksCubit
-                                                  .addBookmark(
-                                                      cubit.cuMPage,
-                                                      bookmarksCubit
-                                                          .soraBookmarkList![
-                                                              index]
-                                                          .SoraName_ar!,
-                                                      cubit.lastRead)
-                                                  .then((value) =>
-                                                      customSnackBar(
-                                                          context,
-                                                          AppLocalizations.of(
-                                                                  context)!
-                                                              .addBookmark));
-                                              print('addBookmark');
-                                              setState(() {
-                                                cubit.savelastBookmark(index);
-                                              });
-                                            }
-                                          },
-                                          icon: bookmarkIcon(context, 30.0,
-                                              30.0, bookmarksCubit),
-                                        );
-                                      } else
-                                        return const CircularProgressIndicator();
-                                    }),
+                                child: GetBuilder<BookmarksController>(
+                                    builder: (bookmarksController) {
+                                  return IconButton(
+                                    onPressed: () {
+                                      // Check if there's a bookmark for the current page
+                                      if (bookmarksController
+                                          .isPageBookmarked(cubit.cuMPage)) {
+                                        bookmarksController.deleteBookmarks(
+                                            cubit.cuMPage, context);
+                                      } else {
+                                        // If there's no bookmark for the current page, add a new one
+                                        bookmarksController
+                                            .addBookmark(
+                                                cubit.cuMPage,
+                                                bookmarksController
+                                                    .soraBookmarkList![index]
+                                                    .SoraName_ar!,
+                                                cubit.lastRead)
+                                            .then((value) => customSnackBar(
+                                                context,
+                                                AppLocalizations.of(context)!
+                                                    .addBookmark));
+                                        print('addBookmark');
+                                        bookmarksController
+                                            .savelastBookmark(index);
+                                      }
+                                    },
+                                    icon: bookmarkIcon(context, 30.0, 30.0),
+                                  );
+                                }),
                               ),
                             ],
                           ),
@@ -323,56 +276,36 @@ class _MPagesState extends State<MPages> with SingleTickerProviderStateMixin {
                               _pages2(context, index, orientation),
                               Align(
                                 alignment: Alignment.topLeft,
-                                child: FutureBuilder(
-                                    future: cubit.loadlastBookmark(),
-                                    builder: (BuildContext context,
-                                        AsyncSnapshot<int> snapshot) {
-                                      if (snapshot.hasData) {
-                                        return IconButton(
-                                          onPressed: () {
-                                            // Check if there's a bookmark for the current page
-                                            if (bookmarksCubit
-                                                .bookmarksController
-                                                .isPageBookmarked(
-                                                    cubit.cuMPage)) {
-                                              bookmarksCubit.bookmarksController
-                                                  .deleteBookmarks(
-                                                      cubit.cuMPage, context)
-                                                  .then((deleted) {
-                                                if (deleted) {
-                                                  setState(() {
-                                                    // The color of the SVG picture will be updated since the state has changed.
-                                                  });
-                                                }
-                                              });
-                                            } else {
-                                              // If there's no bookmark for the current page, add a new one
-                                              bookmarksCubit
-                                                  .addBookmark(
-                                                      cubit.cuMPage,
-                                                      bookmarksCubit
-                                                          .soraBookmarkList![
-                                                              index]
-                                                          .SoraName_ar!,
-                                                      cubit.lastRead)
-                                                  .then((value) =>
-                                                      customSnackBar(
-                                                          context,
-                                                          AppLocalizations.of(
-                                                                  context)!
-                                                              .addBookmark));
-                                              print('addBookmark');
-                                              setState(() {
-                                                cubit.savelastBookmark(index);
-                                              });
-                                            }
-                                          },
-                                          icon: bookmarkIcon(context, 30.0,
-                                              30.0, bookmarksCubit),
-                                        );
-                                      } else
-                                        return const CircularProgressIndicator();
-                                    }),
+                                child: GetBuilder<BookmarksController>(
+                                    builder: (bookmarksController) {
+                                  return IconButton(
+                                    onPressed: () {
+                                      // Check if there's a bookmark for the current page
+                                      if (bookmarksController
+                                          .isPageBookmarked(cubit.cuMPage)) {
+                                        bookmarksController.deleteBookmarks(
+                                            cubit.cuMPage, context);
+                                      } else {
+                                        // If there's no bookmark for the current page, add a new one
+                                        bookmarksController
+                                            .addBookmark(
+                                                cubit.cuMPage,
+                                                bookmarksController
+                                                    .soraBookmarkList![index]
+                                                    .SoraName_ar!,
+                                                cubit.lastRead)
+                                            .then((value) => customSnackBar(
+                                                context,
+                                                AppLocalizations.of(context)!
+                                                    .addBookmark));
+                                        print('addBookmark');
+                                        bookmarksController
+                                            .savelastBookmark(index);
+                                      }
+                                    },
+                                    icon: bookmarkIcon(context, 30.0, 30.0),
+                                  );
+                                }),
                               ),
                             ],
                           ),
@@ -496,12 +429,14 @@ class _DPagesState extends State<DPages> with SingleTickerProviderStateMixin {
   bool noViewport = false;
   var viewport = 1 / 2;
   ArabicNumbers arabicNumber = ArabicNumbers();
+  late final BookmarksController bookmarksController =
+      Get.put(BookmarksController());
 
   @override
   void initState() {
     QuranCubit cubit = QuranCubit.get(context);
-    BookmarksCubit.get(context).getBookmarksList();
-    cubit.loadlastBookmark();
+    bookmarksController.getBookmarksList();
+    bookmarksController.loadlastBookmark();
     noViewport = true;
     DPages.currentIndex2 = widget.initialPageNum - 1;
     cubit.cuMPage = widget.initialPageNum;
@@ -517,7 +452,6 @@ class _DPagesState extends State<DPages> with SingleTickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     QuranCubit cubit = QuranCubit.get(context);
-    BookmarksCubit bookmarksCubit = BookmarksCubit.get(context);
     Orientation orientation = MediaQuery.of(context).orientation;
 
     return AnimatedBuilder(
@@ -547,7 +481,7 @@ class _DPagesState extends State<DPages> with SingleTickerProviderStateMixin {
                 ayaListNotFut = null;
               });
               SoraBookmark soraBookmark =
-                  bookmarksCubit.soraBookmarkList![page + 1];
+                  bookmarksController.soraBookmarkList![page + 1];
               print("page changed $page");
               cubit.pageChanged(context, page);
               cubit.saveMLastPlace(
@@ -585,19 +519,18 @@ class _DPagesState extends State<DPages> with SingleTickerProviderStateMixin {
                                     Align(
                                       alignment: Alignment.topRight,
                                       child: FutureBuilder(
-                                          future: cubit.loadlastBookmark(),
+                                          future: bookmarksController
+                                              .loadlastBookmark(),
                                           builder: (BuildContext context,
                                               AsyncSnapshot<int> snapshot) {
                                             if (snapshot.hasData) {
                                               return IconButton(
                                                 onPressed: () {
                                                   // Check if there's a bookmark for the current page
-                                                  if (bookmarksCubit
-                                                      .bookmarksController
+                                                  if (bookmarksController
                                                       .isPageBookmarked(
                                                           cubit.cuMPage)) {
-                                                    bookmarksCubit
-                                                        .bookmarksController
+                                                    bookmarksController
                                                         .deleteBookmarks(
                                                             cubit.cuMPage,
                                                             context)
@@ -610,10 +543,10 @@ class _DPagesState extends State<DPages> with SingleTickerProviderStateMixin {
                                                     });
                                                   } else {
                                                     // If there's no bookmark for the current page, add a new one
-                                                    bookmarksCubit
+                                                    bookmarksController
                                                         .addBookmark(
                                                             cubit.cuMPage,
-                                                            bookmarksCubit
+                                                            bookmarksController
                                                                 .soraBookmarkList![
                                                                     index]
                                                                 .SoraName_ar!,
@@ -625,13 +558,14 @@ class _DPagesState extends State<DPages> with SingleTickerProviderStateMixin {
                                                                 .addBookmark));
                                                     print('addBookmark');
                                                     setState(() {
-                                                      cubit.savelastBookmark(
-                                                          index);
+                                                      bookmarksController
+                                                          .savelastBookmark(
+                                                              index);
                                                     });
                                                   }
                                                 },
-                                                icon: bookmarkIcon(context,
-                                                    30.0, 30.0, bookmarksCubit),
+                                                icon: bookmarkIcon(
+                                                    context, 30.0, 30.0),
                                               );
                                             } else
                                               return const CircularProgressIndicator();
@@ -662,19 +596,18 @@ class _DPagesState extends State<DPages> with SingleTickerProviderStateMixin {
                                     Align(
                                       alignment: Alignment.topLeft,
                                       child: FutureBuilder(
-                                          future: cubit.loadlastBookmark(),
+                                          future: bookmarksController
+                                              .loadlastBookmark(),
                                           builder: (BuildContext context,
                                               AsyncSnapshot<int> snapshot) {
                                             if (snapshot.hasData) {
                                               return IconButton(
                                                 onPressed: () {
                                                   // Check if there's a bookmark for the current page
-                                                  if (bookmarksCubit
-                                                      .bookmarksController
+                                                  if (bookmarksController
                                                       .isPageBookmarked(
                                                           cubit.cuMPage)) {
-                                                    bookmarksCubit
-                                                        .bookmarksController
+                                                    bookmarksController
                                                         .deleteBookmarks(
                                                             cubit.cuMPage,
                                                             context)
@@ -687,10 +620,10 @@ class _DPagesState extends State<DPages> with SingleTickerProviderStateMixin {
                                                     });
                                                   } else {
                                                     // If there's no bookmark for the current page, add a new one
-                                                    bookmarksCubit
+                                                    bookmarksController
                                                         .addBookmark(
                                                             cubit.cuMPage,
-                                                            bookmarksCubit
+                                                            bookmarksController
                                                                 .soraBookmarkList![
                                                                     index]
                                                                 .SoraName_ar!,
@@ -702,13 +635,14 @@ class _DPagesState extends State<DPages> with SingleTickerProviderStateMixin {
                                                                 .addBookmark));
                                                     print('addBookmark');
                                                     setState(() {
-                                                      cubit.savelastBookmark(
-                                                          index);
+                                                      bookmarksController
+                                                          .savelastBookmark(
+                                                              index);
                                                     });
                                                   }
                                                 },
-                                                icon: bookmarkIcon(context,
-                                                    30.0, 30.0, bookmarksCubit),
+                                                icon: bookmarkIcon(
+                                                    context, 30.0, 30.0),
                                               );
                                             } else
                                               return const CircularProgressIndicator();

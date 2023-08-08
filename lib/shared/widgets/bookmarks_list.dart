@@ -1,6 +1,5 @@
 import 'package:alquranalkareem/cubit/cubit.dart';
 import 'package:alquranalkareem/notes/model/Notes.dart';
-import 'package:alquranalkareem/quran_page/cubit/bookmarks/bookmarks_cubit.dart';
 import 'package:alquranalkareem/shared/widgets/widgets.dart';
 import 'package:arabic_numbers/arabic_numbers.dart';
 import 'package:flutter/material.dart';
@@ -8,8 +7,9 @@ import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:theme_provider/theme_provider.dart';
-import 'lottie.dart';
 
+import '../../quran_page/data/repository/bookmarks_controller.dart';
+import 'lottie.dart';
 
 class BookmarksList extends StatefulWidget {
   const BookmarksList({Key? key}) : super(key: key);
@@ -26,24 +26,25 @@ class _BookmarksListState extends State<BookmarksList> {
   late final Notes notes;
   final sorahNameController = TextEditingController();
   final descriptionController = TextEditingController();
+  late final BookmarksController bookmarksController =
+      Get.put(BookmarksController());
 
   @override
   void initState() {
-    BookmarksCubit.get(context).bookmarksController.getBookmarks();
+    bookmarksController.getBookmarks();
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     ArabicNumbers arabicNumber = ArabicNumbers();
-    BookmarksCubit bookmarksCubit = BookmarksCubit.get(context);
     return Column(
       children: [
         topBar(context),
         const Divider(),
         Expanded(
           child: Obx(() {
-            if (bookmarksCubit.bookmarksController.bookmarksList.isEmpty) {
+            if (bookmarksController.bookmarksList.isEmpty) {
               return bookmarks(150.0, 150.0);
             } else {
               return AnimationLimiter(
@@ -51,11 +52,9 @@ class _BookmarksListState extends State<BookmarksList> {
                   alignment: Alignment.topCenter,
                   child: ListView.builder(
                       shrinkWrap: true,
-                      itemCount: bookmarksCubit
-                          .bookmarksController.bookmarksList.length,
+                      itemCount: bookmarksController.bookmarksList.length,
                       itemBuilder: (BuildContext context, int index) {
-                        var bookmark = bookmarksCubit
-                            .bookmarksController.bookmarksList[index];
+                        var bookmark = bookmarksController.bookmarksList[index];
                         return AnimationConfiguration.staggeredList(
                           position: index,
                           duration: const Duration(milliseconds: 450),
@@ -75,8 +74,8 @@ class _BookmarksListState extends State<BookmarksList> {
                                   ),
                                   key: ValueKey<int>(bookmark.id!),
                                   onDismissed: (DismissDirection direction) {
-                                    bookmarksCubit.bookmarksController
-                                        .deleteBookmarks(bookmark.pageNum!, context);
+                                    bookmarksController.deleteBookmarks(
+                                        bookmark.pageNum!, context);
                                   },
                                   child: GestureDetector(
                                     onTap: () {
@@ -94,7 +93,8 @@ class _BookmarksListState extends State<BookmarksList> {
                                       width: MediaQuery.of(context).size.width,
                                       decoration: BoxDecoration(
                                           color: Theme.of(context)
-                                              .colorScheme.surface
+                                              .colorScheme
+                                              .surface
                                               .withOpacity(.2),
                                           borderRadius: const BorderRadius.all(
                                               Radius.circular(8))),

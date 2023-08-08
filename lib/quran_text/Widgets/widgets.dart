@@ -7,10 +7,10 @@ import 'package:another_xlider/models/handler_animation.dart';
 import 'package:another_xlider/models/trackbar.dart';
 import 'package:arabic_numbers/arabic_numbers.dart';
 import 'package:bot_toast/bot_toast.dart';
-import 'package:clipboard/clipboard.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_sliding_up_panel/sliding_up_panel_widget.dart';
 import 'package:flutter_svg/svg.dart';
@@ -160,14 +160,13 @@ menu(BuildContext context, int b, index, var details, translateData, widget,
                         size: 24,
                         color: Color(0x99f5410a),
                       ),
-                      onPressed: () {
+                      onPressed: () async {
                         TextCubit.selected = !TextCubit.selected;
-                        FlutterClipboard.copy(
-                          '﴿${widget.ayahs![b].text}﴾ '
-                          '[${widget.name}-'
-                          '${arabicNumber.convert(widget.ayahs![b].numberInSurah.toString())}]',
-                        ).then((value) => customSnackBar(
-                            context, AppLocalizations.of(context)!.copyAyah));
+                        await Clipboard.setData(ClipboardData(
+                                text:
+                                    '﴿${widget.ayahs![b].text}﴾ [${widget.name}-${arabicNumber.convert(widget.ayahs![b].numberInSurah.toString())}]'))
+                            .then((value) => customSnackBar(context,
+                                AppLocalizations.of(context)!.copyAyah));
                         cancel();
                       },
                     ),
@@ -762,49 +761,6 @@ Widget pageAyah(BuildContext context, var setState, widget,
                       : const SizedBox.shrink(),
               Container(
                 padding: const EdgeInsets.symmetric(horizontal: 32),
-                // child: WordSelectableText(
-                //     selectable:  true,
-                //     highlight:  true,
-                //
-                //     text: text.map((e) {
-                //       return e;
-                //     }).toList(),
-                //     onWordTapped: (word, index) {
-                //
-                //       print(word);
-                //     },
-                //     style: TextStyle(
-                //       fontSize:
-                //       TextPageView
-                //           .fontSizeArabic,
-                //       fontWeight:
-                //       FontWeight
-                //           .normal,
-                //       fontFamily:
-                //       'uthmanic2',
-                //       color: ThemeProvider.themeOf(context)
-                //           .id ==
-                //           'dark'
-                //           ? Colors
-                //           .white
-                //           : Colors
-                //           .black,
-                //       background:
-                //       Paint()
-                //         ..color = index ==
-                //             TextCubit.isSelected
-                //             ? backColor
-                //             : Colors.transparent
-                //         ..strokeJoin =
-                //             StrokeJoin
-                //                 .round
-                //         ..strokeCap =
-                //             StrokeCap
-                //                 .round
-                //         ..style =
-                //             PaintingStyle
-                //                 .fill,
-                //     ),),
                 child: SelectableText.rich(
                   showCursor: true,
                   cursorWidth: 3,

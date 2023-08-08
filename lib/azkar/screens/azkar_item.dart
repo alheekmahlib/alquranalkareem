@@ -4,13 +4,14 @@ import 'package:another_xlider/another_xlider.dart';
 import 'package:another_xlider/models/handler.dart';
 import 'package:another_xlider/models/handler_animation.dart';
 import 'package:another_xlider/models/trackbar.dart';
-import 'package:clipboard/clipboard.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:theme_provider/theme_provider.dart';
+
 import '../../azkar/models/azkar_by_category.dart';
 import '../../cubit/cubit.dart';
 import '../../shared/widgets/widgets.dart';
@@ -55,10 +56,11 @@ class _AzkarItemState extends State<AzkarItem> {
               Align(
                 alignment: Alignment.topLeft,
                 child: Padding(
-                  padding:
-                      orientation(context,
-                          const EdgeInsets.only(right: 16.0, left: 16.0, top: 50.0),
-                          const EdgeInsets.only(right: 16.0, left: 16.0, top: 30.0)),
+                  padding: orientation(
+                      context,
+                      const EdgeInsets.only(right: 16.0, left: 16.0, top: 50.0),
+                      const EdgeInsets.only(
+                          right: 16.0, left: 16.0, top: 30.0)),
                   child: Align(
                     alignment: Alignment.topLeft,
                     child: SizedBox(
@@ -67,11 +69,13 @@ class _AzkarItemState extends State<AzkarItem> {
                         padding: const EdgeInsets.symmetric(horizontal: 8),
                         decoration: BoxDecoration(
                             color: Theme.of(context)
-                                .colorScheme.surface
+                                .colorScheme
+                                .surface
                                 .withOpacity(.2),
                             border: Border.symmetric(
                                 vertical: BorderSide(
-                                    color: Theme.of(context).colorScheme.surface,
+                                    color:
+                                        Theme.of(context).colorScheme.surface,
                                     width: 2))),
                         child: Text(
                           azkarByCategory.azkarList.first.category!,
@@ -89,8 +93,7 @@ class _AzkarItemState extends State<AzkarItem> {
                 ),
               ),
               Padding(
-                padding: orientation(context,
-                    const EdgeInsets.only(top: 64.0),
+                padding: orientation(context, const EdgeInsets.only(top: 64.0),
                     const EdgeInsets.only(top: 35.0)),
                 child: Stack(
                   children: [
@@ -109,8 +112,7 @@ class _AzkarItemState extends State<AzkarItem> {
                 ),
               ),
               Padding(
-                padding: orientation(context,
-                    const EdgeInsets.only(top: 96),
+                padding: orientation(context, const EdgeInsets.only(top: 96),
                     const EdgeInsets.only(top: 65, right: 64, left: 64)),
                 child: SingleChildScrollView(
                   child: Column(
@@ -120,7 +122,8 @@ class _AzkarItemState extends State<AzkarItem> {
                             horizontal: 16, vertical: 5),
                         decoration: BoxDecoration(
                             color: Theme.of(context)
-                                .colorScheme.surface
+                                .colorScheme
+                                .surface
                                 .withOpacity(.2),
                             borderRadius: const BorderRadius.all(
                               Radius.circular(8),
@@ -177,12 +180,14 @@ class _AzkarItemState extends State<AzkarItem> {
                                           horizontal: 8),
                                       decoration: BoxDecoration(
                                           color: Theme.of(context)
-                                              .colorScheme.surface
+                                              .colorScheme
+                                              .surface
                                               .withOpacity(.2),
                                           border: Border.symmetric(
                                               vertical: BorderSide(
                                                   color: Theme.of(context)
-                                                      .colorScheme.surface,
+                                                      .colorScheme
+                                                      .surface,
                                                   width: 2))),
                                       child: Text(
                                         azkar.reference!,
@@ -209,12 +214,14 @@ class _AzkarItemState extends State<AzkarItem> {
                                         horizontal: 8),
                                     decoration: BoxDecoration(
                                         color: Theme.of(context)
-                                            .colorScheme.surface
+                                            .colorScheme
+                                            .surface
                                             .withOpacity(.2),
                                         border: Border.symmetric(
                                             vertical: BorderSide(
                                                 color: Theme.of(context)
-                                                    .colorScheme.surface,
+                                                    .colorScheme
+                                                    .surface,
                                                 width: 2))),
                                     child: Text(
                                       azkar.description!,
@@ -234,12 +241,14 @@ class _AzkarItemState extends State<AzkarItem> {
                               child: Container(
                                 decoration: BoxDecoration(
                                     color: Theme.of(context)
-                                        .colorScheme.surface
+                                        .colorScheme
+                                        .surface
                                         .withOpacity(.2),
                                     border: Border.symmetric(
                                         vertical: BorderSide(
                                             color: Theme.of(context)
-                                                .colorScheme.surface,
+                                                .colorScheme
+                                                .surface,
                                             width: 2))),
                                 width: double.infinity,
                                 child: Row(
@@ -257,16 +266,16 @@ class _AzkarItemState extends State<AzkarItem> {
                                           icon: Icon(
                                             Icons.share,
                                             color: Theme.of(context)
-                                                .colorScheme.surface,
+                                                .colorScheme
+                                                .surface,
                                             size: 20,
                                           ),
                                         ),
                                         IconButton(
-                                          onPressed: () {
-                                            FlutterClipboard.copy(
-                                                    '${azkar.category}\n\n'
-                                                    '${azkar.zekr}\n\n'
-                                                    '| ${azkar.description}. | (التكرار: ${azkar.count})')
+                                          onPressed: () async {
+                                            await Clipboard.setData(ClipboardData(
+                                                    text:
+                                                        '${azkar.category}\n\n${azkar.zekr}\n\n| ${azkar.description}. | (التكرار: ${azkar.count})'))
                                                 .then((value) => customSnackBar(
                                                     context,
                                                     AppLocalizations.of(
@@ -276,7 +285,8 @@ class _AzkarItemState extends State<AzkarItem> {
                                           icon: Icon(
                                             Icons.copy,
                                             color: Theme.of(context)
-                                                .colorScheme.surface,
+                                                .colorScheme
+                                                .surface,
                                             size: 20,
                                           ),
                                         ),
@@ -299,7 +309,8 @@ class _AzkarItemState extends State<AzkarItem> {
                                           icon: Icon(
                                             Icons.bookmark_add,
                                             color: Theme.of(context)
-                                                .colorScheme.surface,
+                                                .colorScheme
+                                                .surface,
                                             size: 20,
                                           ),
                                         ),
@@ -313,8 +324,9 @@ class _AzkarItemState extends State<AzkarItem> {
                                           topRight: Radius.circular(8),
                                           bottomRight: Radius.circular(8),
                                         ),
-                                        color:
-                                            Theme.of(context).colorScheme.surface,
+                                        color: Theme.of(context)
+                                            .colorScheme
+                                            .surface,
                                       ),
                                       child: Row(
                                         children: [
@@ -441,8 +453,7 @@ class _AzkarItemState extends State<AzkarItem> {
           scrollbarTheme: ScrollbarThemeData(
             radius: const Radius.circular(8),
             thickness: MaterialStateProperty.all(6),
-          )
-      ),
+          )),
       menuItemStyleData: const MenuItemStyleData(
         height: 45,
       ),

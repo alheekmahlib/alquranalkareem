@@ -66,12 +66,33 @@ class QuranPage extends StatefulWidget {
 class _QuranPageState extends State<QuranPage> {
   late List<bool> _selectedVerses;
   List<Verse>? verses;
-  final GlobalKey imageKey = GlobalKey();
+  final GlobalKey _imageKey = GlobalKey();
+  final GlobalKey _gestureDetectorKey = GlobalKey();
 
   @override
   void initState() {
     super.initState();
     _fetchVerses();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      // قم بتخزين الموقع الحالي للصورة بعد التحديث
+      _updateImagePosition();
+    });
+  }
+
+  void _updateImagePosition() {
+    final RenderBox imageBox =
+        _imageKey.currentContext?.findRenderObject() as RenderBox;
+    final RenderBox gestureDetectorBox =
+        _gestureDetectorKey.currentContext?.findRenderObject() as RenderBox;
+
+    final imageOffset = imageBox.localToGlobal(Offset.zero);
+    final gestureDetectorOffset = gestureDetectorBox.localToGlobal(Offset.zero);
+
+    final touchPosition = gestureDetectorOffset - imageOffset;
+
+    // استخدم touchPosition كموقع لمعرفة نقطة النقر على الصورة
+
+    print('تم النقر على الصورة في الموقع: $touchPosition');
   }
 
   // void _onTap(TapDownDetails details) {
@@ -413,85 +434,109 @@ class _QuranPageState extends State<QuranPage> {
     return baseFactor;
   }
 
-  void _onTap(TapDownDetails details, BoxConstraints constraints) {
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      RenderBox box = context.findRenderObject() as RenderBox;
-      Offset localPosition = box.globalToLocal(details.globalPosition);
-      bool isLandscape =
-          MediaQuery.of(context).orientation == Orientation.landscape;
+  // void _onTap(TapDownDetails details, BoxConstraints constraints) {
+  //   final RenderBox imageBox = context.findRenderObject() as RenderBox;
+  //   final Offset localTouchPosition = details.localPosition;
+  //   final Offset imagePosition = imageBox.localToGlobal(Offset.zero);
+  //   final double x = localTouchPosition.dx + imagePosition.dx;
+  //   final double y = localTouchPosition.dy + imagePosition.dy;
+  //   double adjustedYOffset =
+  //       calculateAdjustedYOffset(MediaQuery.sizeOf(context).height);
+  //   bool isLandscape =
+  //       MediaQuery.of(context).orientation == Orientation.landscape;
+  //   print(
+  //       'x $x | y $y | AdjustedYOffset ${calculateAdjustedYOffset(MediaQuery.sizeOf(context).height)}');
+  //   WidgetsBinding.instance.addPostFrameCallback((_) {
+  //     RenderBox box = context.findRenderObject() as RenderBox;
+  //     Offset localPosition = box.globalToLocal(details.globalPosition);
+  //     bool isLandscape =
+  //         MediaQuery.of(context).orientation == Orientation.landscape;
+  //
+  //     double adjustedYOffset;
+  //     double scaleFactor;
+  //     double xTranslationFactor;
+  //
+  //     // Calculate the imageWidth scale factor based on the screen size
+  //     // const double minScreenWidth = 320.0; // Minimum screen width for adjustments
+  //     // const double maxScreenWidth = 768.0; // Maximum screen width for adjustments
+  //     //
+  //     // const double minImageWidthFactor = 3.1; // Image width factor for the minimum screen width
+  //     // const double maxImageWidthFactor = 1.16; // Image width factor for the maximum screen width
+  //
+  //     // double largeScreenWidthFactor = 1.625;
+  //     // double getImageWidthFactor(double screenWidth) {
+  //     //   if (screenWidth <= minScreenWidth) {
+  //     //     return minImageWidthFactor;
+  //     //   } else if (screenWidth >= maxScreenWidth) {
+  //     //     return maxImageWidthFactor;
+  //     //   } else {
+  //     //     return lerp(
+  //     //       screenWidth,
+  //     //       minScreenWidth,
+  //     //       maxScreenWidth,
+  //     //       minImageWidthFactor,
+  //     //       maxImageWidthFactor,
+  //     //     );
+  //     //   }
+  //     // }
+  //     // double screenWidth = ScreenUtil().screenWidth;
+  //     // double screenHeight = ScreenUtil().screenHeight;
+  //     // double imageWidthFactor = getImageWidthFactor(context, isLandscape);
+  //
+  //     // RenderBox imageRenderBox =
+  //     //     _imageKey.currentContext?.findRenderObject() as RenderBox;
+  //     // double imageWidth = imageRenderBox.size.width * imageWidthFactor;
+  //
+  //     // if (!isLandscape) {
+  //     //   // adjustedYOffset = calculateAdjustedYOffset(constraints.maxHeight);
+  //     //   // scaleFactor = 0.84.sp;
+  //     //   // xTranslationFactor = 0.90.sp;
+  //     // } else {
+  //     //   // adjustedYOffset = constraints.maxHeight * .9;
+  //     //   adjustedYOffset =
+  //     //       20; // Adjust this value to move the pressure point down in landscape mode
+  //     //   // scaleFactor = (0.45 * (imageWidth / 1260))
+  //     //   // scaleFactor = MediaQuery.sizeOf(context).width /
+  //     //   //     imageWidth; // Adjust the scale factor based on the image width
+  //     //   scaleFactor = orientation(context, 2.20, .26);
+  //     //   print('${MediaQuery.sizeOf(context).width}');
+  //     //   xTranslationFactor =
+  //     //       .56; // Adjust the x translation factor based on the image width
+  //     // }
+  //
+  //     print('width ${MediaQuery.sizeOf(context).width}');
+  //     print('height ${MediaQuery.sizeOf(context).height}');
+  //     // Adjust for translation and scale
+  //     double adjustedX = localPosition.dx / xTranslationFactor;
+  //     double adjustedY = (localPosition.dy - adjustedYOffset) / scaleFactor;
+  //     Offset adjustedPosition = Offset(adjustedX, adjustedY);
+  //
+  //     int tappedVerseIndex = _findTappedVerse(adjustedPosition);
+  //     if (tappedVerseIndex != -1) {
+  //       print('Verse tapped: ${tappedVerseIndex + 1}');
+  //       setState(() {
+  //         // Deselect all other verses
+  //         for (int i = 0; i < _selectedVerses.length; i++) {
+  //           if (i != tappedVerseIndex) {
+  //             _selectedVerses[i] = false;
+  //           }
+  //         }
+  //         // Select the tapped verse
+  //         _selectedVerses[tappedVerseIndex] =
+  //             !_selectedVerses[tappedVerseIndex];
+  //       });
+  //     }
+  //   });
+  // }
 
-      double adjustedYOffset;
-      double scaleFactor;
-      double xTranslationFactor;
-
-      // Calculate the imageWidth scale factor based on the screen size
-      // const double minScreenWidth = 320.0; // Minimum screen width for adjustments
-      // const double maxScreenWidth = 768.0; // Maximum screen width for adjustments
-      //
-      // const double minImageWidthFactor = 3.1; // Image width factor for the minimum screen width
-      // const double maxImageWidthFactor = 1.16; // Image width factor for the maximum screen width
-
-      // double largeScreenWidthFactor = 1.625;
-      // double getImageWidthFactor(double screenWidth) {
-      //   if (screenWidth <= minScreenWidth) {
-      //     return minImageWidthFactor;
-      //   } else if (screenWidth >= maxScreenWidth) {
-      //     return maxImageWidthFactor;
-      //   } else {
-      //     return lerp(
-      //       screenWidth,
-      //       minScreenWidth,
-      //       maxScreenWidth,
-      //       minImageWidthFactor,
-      //       maxImageWidthFactor,
-      //     );
-      //   }
-      // }
-      // double screenWidth = ScreenUtil().screenWidth;
-      // double screenHeight = ScreenUtil().screenHeight;
-      double imageWidthFactor = getImageWidthFactor(context, isLandscape);
-
-      RenderBox imageRenderBox =
-          imageKey.currentContext?.findRenderObject() as RenderBox;
-      double imageWidth = imageRenderBox.size.width * imageWidthFactor;
-
-      if (MediaQuery.of(context).orientation == Orientation.portrait) {
-        adjustedYOffset = calculateAdjustedYOffset(constraints.maxHeight);
-        scaleFactor = 0.84;
-        xTranslationFactor = 0.90;
-      } else {
-        // adjustedYOffset = constraints.maxHeight * .9;
-        adjustedYOffset =
-            60; // Adjust this value to move the pressure point down in landscape mode
-        scaleFactor = 0.72 *
-            (imageWidth /
-                1260); // Adjust the scale factor based on the image width
-        xTranslationFactor = 1.89 *
-            (imageWidth /
-                1260); // Adjust the x translation factor based on the image width
-      }
-
-      // Adjust for translation and scale
-      double adjustedX = localPosition.dx / xTranslationFactor;
-      double adjustedY = (localPosition.dy - adjustedYOffset) / scaleFactor;
-      Offset adjustedPosition = Offset(adjustedX, adjustedY);
-
-      int tappedVerseIndex = _findTappedVerse(adjustedPosition);
-      if (tappedVerseIndex != -1) {
-        print('Verse tapped: ${tappedVerseIndex + 1}');
-        setState(() {
-          // Deselect all other verses
-          for (int i = 0; i < _selectedVerses.length; i++) {
-            if (i != tappedVerseIndex) {
-              _selectedVerses[i] = false;
-            }
-          }
-          // Select the tapped verse
-          _selectedVerses[tappedVerseIndex] =
-              !_selectedVerses[tappedVerseIndex];
-        });
-      }
-    });
+  void onTap2(details) {
+    final RenderBox imageBox = context.findRenderObject() as RenderBox;
+    final Offset localTouchPosition = details.localPosition;
+    final Offset imagePosition = imageBox.localToGlobal(Offset.zero);
+    final double x = localTouchPosition.dx + imagePosition.dx;
+    final double y = localTouchPosition.dy + imagePosition.dy;
+    print(
+        'x $x | y $y | AdjustedYOffset ${calculateAdjustedYOffset(MediaQuery.sizeOf(context).height)}');
   }
 
   int _findTappedVersePercentage(double xPercentage, double yPercentage) {
@@ -626,12 +671,27 @@ class _QuranPageState extends State<QuranPage> {
         smallScreenOffset, largeScreenOffset);
   }
 
+  double calculateAdjustedYOffsetForLand(double screenHeight) {
+    // Define the screen heights for small and large screens
+    double smallScreenHeight = 600; // Adjust this value as needed
+    double largeScreenHeight = 900; // Adjust this value as needed
+
+    // Define the adjusted Y offsets for small and large screens
+    double smallScreenOffset = screenHeight * 0.062;
+    double largeScreenOffset = screenHeight * 0.128;
+
+    // Use linear interpolation to calculate the adjusted Y offset
+    return lerp(screenHeight, smallScreenHeight, largeScreenHeight,
+        smallScreenOffset, largeScreenOffset);
+  }
+
   Future<void> _fetchVerses() async {
     final data = await DBHelper().getVersesForCurrentPage(widget.currentPage);
     setState(() {
       verses = data.map((v) => Verse.fromJson(v)).toList();
       _selectedVerses = List.generate(verses!.length, (index) => false);
     });
+    print('verses!.length ${verses!.length}');
   }
 
   // void _onTap(TapDownDetails details, BoxConstraints constraints) {
@@ -686,62 +746,85 @@ class _QuranPageState extends State<QuranPage> {
 
   @override
   Widget build(BuildContext context) {
+    if (_selectedVerses.isEmpty) {
+      _selectedVerses.addAll(List.generate(20, (index) => false));
+    }
     QuranCubit cubit = QuranCubit.get(context);
-    // double width = MediaQuery.of(context).size.width;
-    // double height = MediaQuery.of(context).size.height;
-    return LayoutBuilder(
-      builder: (BuildContext context, BoxConstraints constraints) {
-        return GestureDetector(
-          onTapDown: (details) {
-            _onTap(details, constraints);
-          },
-          child: Container(
-            alignment: Alignment.center,
+    return SingleChildScrollView(
+      child: SizedBox(
+        height: 600,
+        child: FractionallySizedBox(
+          widthFactor: orientation(context, 1.0, 1.0),
+          heightFactor: orientation(context, 1.0, 2.2),
+          child: GestureDetector(
+            onTapDown: (TapDownDetails details) {
+              final Offset localTouchPosition = details.localPosition;
+              final double x = localTouchPosition.dx;
+              final double y = localTouchPosition.dy;
+              final double minX = 46;
+              final double maxX = 1227;
+              final double minY = 59;
+              final double maxY = 157;
+              Offset adjustedPosition = Offset(x, y);
+              int tappedVerseIndex;
+              if (MediaQuery.of(context).orientation == Orientation.portrait) {
+                tappedVerseIndex = _findTappedVerse(adjustedPosition);
+              } else {
+                tappedVerseIndex = _findTappedVerse(adjustedPosition);
+              }
+              print('TappedVerse ${tappedVerseIndex + 1}');
+
+              if (tappedVerseIndex != -1) {
+                for (int s = 0; s < _selectedVerses.length; s++) {
+                  tappedVerseIndex == s
+                      ? _selectedVerses[s] = !_selectedVerses[s]
+                      : _selectedVerses[s] = false;
+                }
+                setState(() {});
+                // _selectedVerses[tappedVerseIndex]
+                // _selectedVerses.;
+                // _selectedVerses[tappedVerseIndex] =
+                //     !_selectedVerses[tappedVerseIndex];
+              }
+              if (x >= minX && x <= maxX && y >= minY && y <= maxY) {
+                print('x' * 70);
+              }
+              print('x $x');
+              print('y $y');
+            },
             child: Stack(
               alignment: Alignment.center,
               children: [
-                LayoutBuilder(
-                  builder:
-                      (BuildContext context, BoxConstraints innerConstraints) {
-                    // double aspectRatio;
-                    // if (MediaQuery.of(context).orientation == Orientation.portrait) {
-                    //   aspectRatio = 5.7 / 9;
-                    // } else {
-                    //   aspectRatio = 6.2 / 9;
-                    // }
-
-                    // double containerWidth = constraints.maxWidth;
-                    // double containerHeight = containerWidth / aspectRatio;
-
-                    return Container(
-                      // width: containerWidth,
-                      // height: containerHeight,
-                      margin: EdgeInsets.symmetric(
-                        // vertical: calculateVerticalMargin(innerConstraints),
-                        vertical:
-                            min(calculateVerticalMargin(innerConstraints), 6),
-                        horizontal: orientation(context, 16.0, 24.0),
-                      ),
-                      child: verses != null
-                          ? AspectRatio(
-                              aspectRatio:
-                                  orientation(context, 5.7 / 9, 5.8 / 9),
-                              child: Transform.scale(
-                                scale: orientation(context, 1.0, 1.0),
-                                child: CustomPaint(
-                                  foregroundPainter: VerseHighlightPainter(
-                                    verses: verses ?? [],
-                                    selectedVerses: _selectedVerses,
-                                  ),
+                LayoutBuilder(builder:
+                    (BuildContext context, BoxConstraints innerConstraints) {
+                  return Container(
+                    // width: containerWidth,
+                    // height: containerHeight,
+                    margin: EdgeInsets.symmetric(
+                      // vertical: calculateVerticalMargin(innerConstraints),
+                      vertical:
+                          min(calculateVerticalMargin(innerConstraints), 6),
+                      horizontal: orientation(context, 16.0, 24.0),
+                    ),
+                    child: verses != null
+                        ? AspectRatio(
+                            aspectRatio: orientation(context, 5.7 / 9, 5.8 / 9),
+                            // aspectRatio: orientation(context, 2.20, 1.22),
+                            child: Transform.scale(
+                              scale: orientation(context, 1.0, 1.0),
+                              child: CustomPaint(
+                                foregroundPainter: VerseHighlightPainter(
+                                  verses: verses ?? [],
+                                  selectedVerses: _selectedVerses,
                                 ),
                               ),
-                            )
-                          : const CircularProgressIndicator(),
-                    );
-                  },
-                ),
+                            ),
+                          )
+                        : const CircularProgressIndicator(),
+                  );
+                }),
                 KeyedSubtree(
-                  key: imageKey,
+                  key: _imageKey,
                   child: Image.asset(
                     widget.imageUrl,
                     fit: BoxFit.contain,
@@ -752,18 +835,122 @@ class _QuranPageState extends State<QuranPage> {
                     alignment: Alignment.center,
                   ),
                 ),
-                Image.asset(
-                  widget.imageUrl2,
-                  fit: BoxFit.contain,
-                  width: cubit.width,
-                  alignment: Alignment.center,
-                ),
               ],
             ),
           ),
-        );
-      },
+        ),
+      ),
     );
+    // double width = MediaQuery.of(context).size.width;
+    // double height = MediaQuery.of(context).size.height;
+    // return FractionallySizedBox(
+    //   heightFactor: 932.0,
+    //   widthFactor: 430.0,
+    //   child: GestureDetector(
+    //     key: _gestureDetectorKey,
+    //     onTapDown: (details) {
+    //       final RenderBox imageBox = context.findRenderObject() as RenderBox;
+    //       final Offset localTouchPosition = details.localPosition;
+    //       final double x = localTouchPosition.dx / imageBox.size.width;
+    //       final double y = localTouchPosition.dy / imageBox.size.height;
+    //       final double screenWidth = MediaQuery.of(context).size.width;
+    //       final double screenHeight = MediaQuery.of(context).size.height;
+    //       final double imageWidth = 430.0;
+    //       final double imageHeight = 932.0;
+    //       final double screenAspectRatio = screenWidth / screenHeight;
+    //       final double imageAspectRatio = imageWidth / imageHeight;
+    //       double minX, maxX, minY, maxY;
+    //       if (screenAspectRatio > imageAspectRatio) {
+    //         final double scaledWidth = screenHeight * imageAspectRatio;
+    //         final double horizontalPadding = (screenWidth - scaledWidth) / 2;
+    //         minX = horizontalPadding + (screenWidth - scaledWidth) / 2;
+    //         maxX = horizontalPadding + (screenWidth + scaledWidth) / 2;
+    //         minY = 0;
+    //         maxY = screenHeight;
+    //       } else {
+    //         final double scaledHeight = screenWidth / imageAspectRatio;
+    //         final double verticalPadding = (screenHeight - scaledHeight) / 2;
+    //         minX = 0;
+    //         maxX = screenWidth;
+    //         minY = verticalPadding + (screenHeight - scaledHeight) / 2;
+    //         maxY = verticalPadding + (screenHeight + scaledHeight) / 2;
+    //       }
+    //       print('x $x | y $y');
+    //       print('minX $minX | maxX $maxX');
+    //       print('minY $minY | maxY $maxY');
+    //
+    //       // _updateImagePosition();
+    //       // _onTap(details, constraints);
+    //       // onTap2(details);
+    //     },
+    //     child: Container(
+    //       alignment: Alignment.center,
+    //       child: Stack(
+    //         alignment: Alignment.center,
+    //         children: [
+    //           LayoutBuilder(
+    //             builder:
+    //                 (BuildContext context, BoxConstraints innerConstraints) {
+    //               // double aspectRatio;
+    //               // if (MediaQuery.of(context).orientation == Orientation.portrait) {
+    //               //   aspectRatio = 5.7 / 9;
+    //               // } else {
+    //               //   aspectRatio = 6.2 / 9;
+    //               // }
+    //
+    //               // double containerWidth = constraints.maxWidth;
+    //               // double containerHeight = containerWidth / aspectRatio;
+    //
+    //               return Container(
+    //                 // width: containerWidth,
+    //                 // height: containerHeight,
+    //                 margin: EdgeInsets.symmetric(
+    //                   // vertical: calculateVerticalMargin(innerConstraints),
+    //                   vertical:
+    //                       min(calculateVerticalMargin(innerConstraints), 6),
+    //                   horizontal: orientation(context, 16.0, 24.0),
+    //                 ),
+    //                 child: verses != null
+    //                     ? AspectRatio(
+    //                         aspectRatio: orientation(context, 5.7 / 9, 5.8 / 9),
+    //                         // aspectRatio: orientation(context, 2.20, 1.22),
+    //                         child: Transform.scale(
+    //                           scale: orientation(context, 1.0, 1.0),
+    //                           child: CustomPaint(
+    //                             foregroundPainter: VerseHighlightPainter(
+    //                               verses: verses ?? [],
+    //                               selectedVerses: _selectedVerses,
+    //                             ),
+    //                           ),
+    //                         ),
+    //                       )
+    //                     : const CircularProgressIndicator(),
+    //               );
+    //             },
+    //           ),
+    //           KeyedSubtree(
+    //             key: _imageKey,
+    //             child: Image.asset(
+    //               widget.imageUrl,
+    //               fit: BoxFit.contain,
+    //               color: ThemeProvider.themeOf(context).id == 'dark'
+    //                   ? Colors.white
+    //                   : null,
+    //               width: cubit.width,
+    //               alignment: Alignment.center,
+    //             ),
+    //           ),
+    //           Image.asset(
+    //             widget.imageUrl2,
+    //             fit: BoxFit.contain,
+    //             width: cubit.width,
+    //             alignment: Alignment.center,
+    //           ),
+    //         ],
+    //       ),
+    //     ),
+    //   ),
+    // );
   }
 }
 
