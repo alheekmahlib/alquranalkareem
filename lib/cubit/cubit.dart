@@ -53,6 +53,7 @@ class QuranCubit extends Cubit<QuranState> {
   late Database database;
   PageController? dPageController;
   String? lastSorah;
+  BuildContext? context;
 
   ///The controller of sliding up panel
   late ScrollController scrollController;
@@ -67,7 +68,7 @@ class QuranCubit extends Cubit<QuranState> {
   Locale? initialLang;
   bool opened = false;
   late int cuMPage;
-  late int lastBook;
+
   String greeting = '';
   TimeOfDay? changedTimeOfDay;
   bool isReminderEnabled = false;
@@ -82,6 +83,7 @@ class QuranCubit extends Cubit<QuranState> {
   int? shareTafseerValue;
   int? transIndex;
   bool isShowSettings = false;
+  int? audioChoise;
 
   void updateText(String ayatext, String translate) {
     emit(TextUpdated(ayatext, translate));
@@ -168,22 +170,6 @@ class QuranCubit extends Cubit<QuranState> {
     print('get tafseer value ${prefs.getInt('tafseer_val')}');
     print('get radioValue $radioValue');
     emit(SharedPreferencesState());
-  }
-
-  // Save & Load Last Bookmark
-  savelastBookmark(int Value) async {
-    SharedPreferences prefs = await _prefs;
-    await prefs.setInt("last_bookmark", Value);
-    emit(SharedPreferencesState());
-  }
-
-  Future<int> loadlastBookmark() async {
-    SharedPreferences prefs = await _prefs;
-    lastBook = prefs.getInt('last_bookmark') ?? 0;
-    print('get last_bookmark ${prefs.getInt('last_bookmark')}');
-    print('get radioValue $lastBook');
-    // emit(SharedPreferencesState());
-    return lastBook;
   }
 
   // Save & Load Tafseer Font Size
@@ -345,6 +331,7 @@ class QuranCubit extends Cubit<QuranState> {
     isShowControl = false;
     isShowBookmark = false;
     controller.forward();
+
     emit(SoundPageState());
   }
 

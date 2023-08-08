@@ -1,4 +1,5 @@
 import 'dart:async';
+
 import 'package:alquranalkareem/cubit/cubit.dart';
 import 'package:alquranalkareem/home_page.dart';
 import 'package:alquranalkareem/screens/onboarding_screen.dart';
@@ -6,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
 import '../shared/widgets/lottie.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -15,7 +17,6 @@ class SplashScreen extends StatefulWidget {
 
 class _SplashScreenState extends State<SplashScreen> {
   bool animate = false;
-
 
   @override
   void initState() {
@@ -70,6 +71,7 @@ class _SplashScreenState extends State<SplashScreen> {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
+      // debugShowMaterialGrid: true,
       home: Scaffold(
         backgroundColor: const Color(0xfff3efdf),
         body: Directionality(
@@ -101,8 +103,7 @@ class _SplashScreenState extends State<SplashScreen> {
                               color: const Color(0xff91a57d).withOpacity(.2),
                               border: const Border.symmetric(
                                   vertical: BorderSide(
-                                      color: Color(0xff91a57d),
-                                      width: 2))),
+                                      color: Color(0xff91a57d), width: 2))),
                           child: AnimatedOpacity(
                             duration: const Duration(seconds: 1),
                             opacity: animate ? 1 : 0,
@@ -127,7 +128,8 @@ class _SplashScreenState extends State<SplashScreen> {
                     children: [
                       SvgPicture.asset(
                         'assets/svg/alheekmah_logo.svg',
-                    colorFilter: const ColorFilter.mode(Color(0xff39412a), BlendMode.srcIn),
+                        colorFilter: const ColorFilter.mode(
+                            Color(0xff39412a), BlendMode.srcIn),
                         width: 90,
                       ),
                       RotatedBox(

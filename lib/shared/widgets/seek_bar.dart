@@ -140,6 +140,14 @@ class PositionData {
   PositionData(this.position, this.bufferedPosition, this.duration);
 }
 
+class pagePositionData {
+  final Duration position;
+  final Duration bufferedPosition;
+  final Duration duration;
+
+  pagePositionData(this.position, this.bufferedPosition, this.duration);
+}
+
 void showSliderDialog({
   required BuildContext context,
   required String title,

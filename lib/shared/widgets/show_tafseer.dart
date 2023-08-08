@@ -7,9 +7,9 @@ import 'package:another_xlider/models/handler.dart';
 import 'package:another_xlider/models/handler_animation.dart';
 import 'package:another_xlider/models/trackbar.dart';
 import 'package:arabic_numbers/arabic_numbers.dart';
-import 'package:clipboard/clipboard.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:theme_provider/theme_provider.dart';
@@ -115,16 +115,16 @@ class _ShowTafseerState extends State<ShowTafseer> {
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
                   GestureDetector(
-                    onTap: () {
+                    onTap: () async {
                       if (ayahNumber == null) {
                         customErrorSnackBar(
                             context, AppLocalizations.of(context)!.choiceAyah);
                       } else {
-                        FlutterClipboard.copy(
-                          '﴿${cubit.translateAyah}﴾\n\n'
-                          '${cubit.translate}',
-                        ).then((value) => customSnackBar(context,
-                            AppLocalizations.of(context)!.copyTafseer));
+                        await Clipboard.setData(ClipboardData(
+                                text:
+                                    '﴿${cubit.translateAyah}﴾\n\n${cubit.translate}'))
+                            .then((value) => customSnackBar(context,
+                                AppLocalizations.of(context)!.copyTafseer));
                       }
                     },
                     child: Align(

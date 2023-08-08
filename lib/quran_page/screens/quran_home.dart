@@ -1,15 +1,15 @@
 import 'package:alquranalkareem/quran_page/screens/quran_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
 import '../../cubit/cubit.dart';
 import '../../cubit/states.dart';
 import '../../database/notificationDatabase.dart';
+import '../../home_page.dart';
 import '../../shared/widgets/audio_widget.dart';
 import '../../shared/widgets/show_tafseer.dart';
 import '../../shared/widgets/widgets.dart';
-import '../cubit/bookmarks/bookmarks_cubit.dart';
 import '../widget/sliding_up.dart';
-import '../../home_page.dart';
 
 class QuranPage extends StatefulWidget {
   late final int sorahNum;
@@ -29,7 +29,6 @@ class _QuranPageState extends State<QuranPage>
 
   @override
   void initState() {
-    BookmarksCubit.get(context).getBookmarksList();
     QuranCubit.get(context).controller = AnimationController(
         vsync: this, duration: const Duration(milliseconds: 300));
     QuranCubit.get(context).offset = Tween<Offset>(

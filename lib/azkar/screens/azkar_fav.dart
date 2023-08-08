@@ -4,16 +4,18 @@ import 'package:another_xlider/models/handler_animation.dart';
 import 'package:another_xlider/models/trackbar.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:share_plus/share_plus.dart';
 import 'package:theme_provider/theme_provider.dart';
+
 import '../../cubit/cubit.dart';
+import '../../l10n/app_localizations.dart';
 import '../../shared/widgets/lottie.dart';
 import '../../shared/widgets/widgets.dart';
 import '../azkar_controller.dart';
-
-
 
 class AzkarFav extends StatefulWidget {
   const AzkarFav({Key? key}) : super(key: key);
@@ -78,18 +80,21 @@ class _AzkarFavState extends State<AzkarFav> {
                                     ),
                                     key: ValueKey<int>(azkar.id!),
                                     onDismissed: (DismissDirection direction) {
-                                      azkarController.deleteAzkar(azkar, context);
+                                      azkarController.deleteAzkar(
+                                          azkar, context);
                                     },
                                     child: Container(
                                       decoration: BoxDecoration(
                                           color: Theme.of(context)
-                                              .colorScheme.surface
+                                              .colorScheme
+                                              .surface
                                               .withOpacity(.2),
                                           borderRadius: const BorderRadius.all(
                                             Radius.circular(8),
                                           )),
                                       child: Column(
-                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
                                         children: [
                                           Padding(
                                             padding: const EdgeInsets.all(8),
@@ -98,135 +103,208 @@ class _AzkarFavState extends State<AzkarFav> {
                                                 border: Border.symmetric(
                                                   vertical: BorderSide(
                                                     color: Theme.of(context)
-                                                        .colorScheme.surface,
+                                                        .colorScheme
+                                                        .surface,
                                                     width: 2,
                                                   ),
                                                 ),
                                               ),
                                               width: double.infinity,
                                               child: Padding(
-                                                padding: const EdgeInsets.all(8),
+                                                padding:
+                                                    const EdgeInsets.all(8),
                                                 child: SelectableText(
                                                   azkar.zekr!,
                                                   style: TextStyle(
                                                       color:
-                                                      ThemeProvider.themeOf(context)
-                                                          .id ==
-                                                          'dark'
-                                                          ? Colors.white
-                                                          : Colors.black,
+                                                          ThemeProvider.themeOf(
+                                                                          context)
+                                                                      .id ==
+                                                                  'dark'
+                                                              ? Colors.white
+                                                              : Colors.black,
                                                       height: 1.4,
                                                       fontFamily: 'naskh',
-                                                      fontSize:
-                                                      AzkarFav.fontSizeAzkar),
+                                                      fontSize: AzkarFav
+                                                          .fontSizeAzkar),
                                                   showCursor: true,
                                                   cursorWidth: 3,
-                                                  cursorColor:
-                                                  Theme.of(context).dividerColor,
+                                                  cursorColor: Theme.of(context)
+                                                      .dividerColor,
                                                   cursorRadius:
-                                                  const Radius.circular(5),
+                                                      const Radius.circular(5),
                                                   scrollPhysics:
-                                                  const ClampingScrollPhysics(),
+                                                      const ClampingScrollPhysics(),
                                                   // toolbarOptions: const ToolbarOptions(
                                                   //     copy: true, selectAll: true),
-                                                  textDirection: TextDirection.rtl,
+                                                  textDirection:
+                                                      TextDirection.rtl,
                                                   textAlign: TextAlign.justify,
                                                 ),
                                               ),
                                             ),
                                           ),
                                           Padding(
-                                            padding: const EdgeInsets.only(bottom: 8.0),
+                                            padding: const EdgeInsets.only(
+                                                bottom: 8.0),
                                             child: Align(
                                                 alignment: Alignment.centerLeft,
                                                 child: Container(
-                                                    padding: const EdgeInsets.symmetric(
+                                                    padding: const EdgeInsets
+                                                            .symmetric(
                                                         horizontal: 8),
-                                                    margin: const EdgeInsets.symmetric(
-                                                        horizontal: 8),
+                                                    margin:
+                                                        const EdgeInsets
+                                                                .symmetric(
+                                                            horizontal: 8),
                                                     decoration: BoxDecoration(
                                                         color: Theme.of(context)
-                                                            .colorScheme.surface
+                                                            .colorScheme
+                                                            .surface
                                                             .withOpacity(.2),
                                                         border: Border.symmetric(
                                                             vertical: BorderSide(
-                                                                color: Theme.of(context)
-                                                                    .colorScheme.surface,
+                                                                color: Theme.of(
+                                                                        context)
+                                                                    .colorScheme
+                                                                    .surface,
                                                                 width: 2))),
                                                     child: Text(
                                                       azkar.reference!,
                                                       style: TextStyle(
                                                           color: ThemeProvider.themeOf(
-                                                              context)
-                                                              .id ==
-                                                              'dark'
+                                                                          context)
+                                                                      .id ==
+                                                                  'dark'
                                                               ? Colors.white
-                                                              : Theme.of(context)
-                                                              .primaryColorDark,
+                                                              : Theme.of(
+                                                                      context)
+                                                                  .primaryColorDark,
                                                           fontSize: 12,
                                                           fontFamily: 'kufi',
-                                                          fontStyle: FontStyle.italic),
+                                                          fontStyle:
+                                                              FontStyle.italic),
                                                     ))),
                                           ),
                                           Align(
                                               alignment: Alignment.center,
                                               child: Container(
-                                                  width:
-                                                  MediaQuery.of(context).size.width,
-                                                  padding: const EdgeInsets.symmetric(
-                                                      horizontal: 8),
-                                                  margin: const EdgeInsets.symmetric(
-                                                      horizontal: 8),
+                                                  width: MediaQuery.of(context)
+                                                      .size
+                                                      .width,
+                                                  padding: const EdgeInsets
+                                                      .symmetric(horizontal: 8),
+                                                  margin:
+                                                      const EdgeInsets.symmetric(
+                                                          horizontal: 8),
                                                   decoration: BoxDecoration(
                                                       color: Theme.of(context)
-                                                          .colorScheme.surface
+                                                          .colorScheme
+                                                          .surface
                                                           .withOpacity(.2),
                                                       border: Border.symmetric(
                                                           vertical: BorderSide(
-                                                              color: Theme.of(context)
-                                                                  .colorScheme.surface,
+                                                              color: Theme.of(
+                                                                      context)
+                                                                  .colorScheme
+                                                                  .surface,
                                                               width: 2))),
                                                   child: Text(
                                                     azkar.description!,
                                                     style: TextStyle(
                                                         color: ThemeProvider.themeOf(
-                                                            context)
-                                                            .id ==
-                                                            'dark'
+                                                                        context)
+                                                                    .id ==
+                                                                'dark'
                                                             ? Colors.white
                                                             : Theme.of(context)
-                                                            .primaryColorDark,
+                                                                .primaryColorDark,
                                                         fontSize: 16,
                                                         fontFamily: 'kufi',
-                                                        fontStyle: FontStyle.italic),
+                                                        fontStyle:
+                                                            FontStyle.italic),
                                                   ))),
                                           Padding(
                                             padding: const EdgeInsets.all(8),
                                             child: Container(
                                               decoration: BoxDecoration(
                                                   color: Theme.of(context)
-                                                      .colorScheme.surface
+                                                      .colorScheme
+                                                      .surface
                                                       .withOpacity(.2),
                                                   border: Border.symmetric(
                                                       vertical: BorderSide(
-                                                          color: Theme.of(context)
-                                                              .colorScheme.surface,
+                                                          color:
+                                                              Theme.of(context)
+                                                                  .colorScheme
+                                                                  .surface,
                                                           width: 2))),
                                               // width: double.infinity,
                                               child: Row(
-                                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceBetween,
                                                 children: [
+                                                  Row(
+                                                    children: [
+                                                      IconButton(
+                                                        onPressed: () {
+                                                          Share.share(
+                                                              '${azkar.category}\n\n'
+                                                              '${azkar.zekr}\n\n'
+                                                              '| ${azkar.description}. | (التكرار: ${azkar.count})');
+                                                        },
+                                                        icon: Icon(
+                                                          Icons.share,
+                                                          color:
+                                                              Theme.of(context)
+                                                                  .colorScheme
+                                                                  .surface,
+                                                          size: 20,
+                                                        ),
+                                                      ),
+                                                      IconButton(
+                                                        onPressed: () async {
+                                                          await Clipboard.setData(
+                                                                  ClipboardData(
+                                                                      text:
+                                                                          '${azkar.category}\n\n${azkar.zekr}\n\n| ${azkar.description}. | (التكرار: ${azkar.count})'))
+                                                              .then((value) =>
+                                                                  customSnackBar(
+                                                                      context,
+                                                                      AppLocalizations.of(
+                                                                              context)!
+                                                                          .copyAzkarText));
+                                                        },
+                                                        icon: Icon(
+                                                          Icons.copy,
+                                                          color:
+                                                              Theme.of(context)
+                                                                  .colorScheme
+                                                                  .surface,
+                                                          size: 20,
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
                                                   fontSizeDropDown(context),
                                                   Container(
-                                                    padding: const EdgeInsets.symmetric(
-                                                        horizontal: 8, vertical: 4),
+                                                    padding: const EdgeInsets
+                                                            .symmetric(
+                                                        horizontal: 8,
+                                                        vertical: 4),
                                                     decoration: BoxDecoration(
-                                                      borderRadius: const BorderRadius.only(
-                                                        topRight: Radius.circular(8),
-                                                        bottomRight: Radius.circular(8),
+                                                      borderRadius:
+                                                          const BorderRadius
+                                                              .only(
+                                                        topRight:
+                                                            Radius.circular(8),
+                                                        bottomRight:
+                                                            Radius.circular(8),
                                                       ),
                                                       color: Theme.of(context)
-                                                          .colorScheme.surface,
+                                                          .colorScheme
+                                                          .surface,
                                                     ),
                                                     child: Row(
                                                       // mainAxisAlignment: MainAxisAlignment.end,
@@ -234,28 +312,29 @@ class _AzkarFavState extends State<AzkarFav> {
                                                         Text(
                                                           azkar.count!,
                                                           style: TextStyle(
-                                                              color: ThemeProvider
-                                                                  .themeOf(
-                                                                  context)
-                                                                  .id ==
-                                                                  'dark'
+                                                              color: ThemeProvider.themeOf(
+                                                                              context)
+                                                                          .id ==
+                                                                      'dark'
                                                                   ? Colors.white
-                                                                  : Colors.black,
+                                                                  : Colors
+                                                                      .black,
                                                               fontSize: 14,
-                                                              fontFamily: 'kufi',
+                                                              fontFamily:
+                                                                  'kufi',
                                                               fontStyle:
-                                                              FontStyle.italic),
+                                                                  FontStyle
+                                                                      .italic),
                                                         ),
                                                         const SizedBox(
                                                           width: 5,
                                                         ),
                                                         Icon(
                                                           Icons.repeat,
-                                                          color: ThemeProvider
-                                                              .themeOf(
-                                                              context)
-                                                              .id ==
-                                                              'dark'
+                                                          color: ThemeProvider.themeOf(
+                                                                          context)
+                                                                      .id ==
+                                                                  'dark'
                                                               ? Colors.white
                                                               : Colors.black,
                                                           size: 20,
@@ -362,8 +441,7 @@ class _AzkarFavState extends State<AzkarFav> {
           scrollbarTheme: ScrollbarThemeData(
             radius: const Radius.circular(8),
             thickness: MaterialStateProperty.all(6),
-          )
-      ),
+          )),
       menuItemStyleData: const MenuItemStyleData(
         height: 45,
       ),

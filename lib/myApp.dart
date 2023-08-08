@@ -2,9 +2,9 @@ import 'dart:async';
 import 'dart:io';
 import 'dart:math';
 
+import 'package:alquranalkareem/cubit/ayat/ayat_cubit.dart';
 import 'package:alquranalkareem/notes/cubit/note_cubit.dart';
 import 'package:alquranalkareem/quran_page/cubit/audio/cubit.dart';
-import 'package:alquranalkareem/quran_page/cubit/bookmarks/bookmarks_cubit.dart';
 import 'package:alquranalkareem/quran_page/data/repository/quarter_repository.dart';
 import 'package:alquranalkareem/quran_text/cubit/quran_text_cubit.dart';
 import 'package:alquranalkareem/quran_text/cubit/surah_text_cubit.dart';
@@ -348,9 +348,6 @@ class _MyAppState extends State<MyApp> {
                   BlocProvider<NotesCubit>(
                     create: (BuildContext context) => NotesCubit(),
                   ),
-                  BlocProvider<BookmarksCubit>(
-                    create: (BuildContext context) => BookmarksCubit(),
-                  ),
                   BlocProvider<QuranTextCubit>(
                     create: (BuildContext context) => QuranTextCubit(),
                   ),
@@ -371,6 +368,10 @@ class _MyAppState extends State<MyApp> {
                   ),
                   BlocProvider<AyaCubit>(
                     create: (BuildContext context) => AyaCubit()..getAllAyas(),
+                  ),
+                  BlocProvider<AyatCubit>(
+                    create: (BuildContext context) =>
+                        AyatCubit(context.read<QuranCubit>(), context),
                   ),
                 ],
                 child: SplashScreen(),

@@ -6,7 +6,7 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 version: 3.0.13+26
 
 environment:
-  sdk: '>=2.19.5 <3.0.0'
+  sdk: '>=3.0.6 <4.0.0'
 
 
 dependencies:

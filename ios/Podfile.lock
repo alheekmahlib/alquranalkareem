@@ -118,11 +118,11 @@ SPEC CHECKSUMS:
   home_widget: 0434835a4c9a75704264feff6be17ea40e0f0d57
   image_gallery_saver: 259eab68fb271cfd57d599904f7acdc7832e7ef2
   just_audio: baa7252489dbcf47a4c7cc9ca663e9661c99aafa
-  path_provider_foundation: c68054786f1b4f3343858c1e1d0caaded73f0be9
+  path_provider_foundation: 29f094ae23ebbca9d3d0cec13889cd9060c0e943
   rate_my_app: 80fba94c4885cd31738231b7b1f51c1ad726f5c7
   ReachabilitySwift: 985039c6f7b23a1da463388634119492ff86c825
   share_plus: 056a1e8ac890df3e33cb503afffaf1e9b4fbae68
-  shared_preferences_foundation: e2dae3258e06f44cc55f49d42024fd8dd03c590c
+  shared_preferences_foundation: 5b919d13b803cadd15ed2dc053125c68730e5126
   sqflite: 31f7eba61e3074736dff8807a9b41581e4f7f15a
   url_launcher_ios: 08a3dfac5fb39e8759aeb0abbd5d9480f30fc8b4
   wakelock: d0fc7c864128eac40eba1617cb5264d9c940b46f

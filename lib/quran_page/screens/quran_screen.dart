@@ -1,11 +1,12 @@
 import 'package:alquranalkareem/quran_page/screens/quran_home.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+
 import '../../audio_screen/audio_screen.dart';
+import '../../azkar/screens/alzkar_view.dart';
 import '../../cubit/cubit.dart';
 import '../../home_page.dart';
 import '../../quran_text/sorah_text_screen.dart';
-import '../../azkar/screens/alzkar_view.dart';
 import '../../screens/menu_screen.dart';
 import '../../shared/widgets/animated_stack.dart';
 import '../../shared/widgets/widgets.dart';
@@ -50,13 +51,13 @@ class _QuranPageScreenState extends State<QuranPageScreen> {
             scaleWidth: 60,
             // scaleHeight: 60,
             columnWidget: Padding(
-              padding: orientation(context,
-                  const EdgeInsets.all(0.0),
+              padding: orientation(context, const EdgeInsets.all(0.0),
                   const EdgeInsets.only(top: 140.0)),
               child: Wrap(
                 children: [
                   Padding(
-                    padding: const EdgeInsets.only(top: 52.0, bottom: 70.0, right: 6.0),
+                    padding: const EdgeInsets.only(
+                        top: 52.0, bottom: 70.0, right: 6.0),
                     child: SvgPicture.asset(
                       'assets/svg/splash_icon.svg',
                       height: 100,
@@ -64,7 +65,8 @@ class _QuranPageScreenState extends State<QuranPageScreen> {
                     ),
                   ),
                   Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 4.0, vertical: 16.0),
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 4.0, vertical: 16.0),
                     child: Align(
                       alignment: Alignment.topRight,
                       child: GestureDetector(
@@ -74,8 +76,12 @@ class _QuranPageScreenState extends State<QuranPageScreen> {
                               height: 45,
                               width: 45,
                               decoration: BoxDecoration(
-                                color: Theme.of(context).colorScheme.surface.withOpacity(.3),
-                                borderRadius: const BorderRadius.all(Radius.circular(8)),
+                                color: Theme.of(context)
+                                    .colorScheme
+                                    .surface
+                                    .withOpacity(.3),
+                                borderRadius:
+                                    const BorderRadius.all(Radius.circular(8)),
                               ),
                               child: Icon(
                                 Icons.notifications,
@@ -83,7 +89,8 @@ class _QuranPageScreenState extends State<QuranPageScreen> {
                               ),
                             ),
                             // Add the red dot indicator
-                            if (sentNotifications.any((notification) => !notification['opened']))
+                            if (sentNotifications
+                                .any((notification) => !notification['opened']))
                               Positioned(
                                 top: 8,
                                 right: 8,
@@ -100,14 +107,19 @@ class _QuranPageScreenState extends State<QuranPageScreen> {
                         ),
                         onTap: () {
                           Navigator.of(context).push(
-                            animatRoute(sentNotification(context, sentNotifications, HomePage.of(context)!.updateNotificationStatus)),
+                            animatRoute(sentNotification(
+                                context,
+                                sentNotifications,
+                                HomePage.of(context)!
+                                    .updateNotificationStatus)),
                           );
                         },
                       ),
                     ),
                   ),
                   Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 4.0),
+                    padding: const EdgeInsets.symmetric(
+                        vertical: 8.0, horizontal: 4.0),
                     child: GestureDetector(
                       child: Container(
                         height: orientation(context, 50.0, 40.0),
@@ -121,7 +133,9 @@ class _QuranPageScreenState extends State<QuranPageScreen> {
                           'assets/svg/quran_ic.svg',
                           colorFilter: pageIndex == 0
                               ? null
-                              : ColorFilter.mode(Theme.of(context).colorScheme.background, BlendMode.srcIn),
+                              : ColorFilter.mode(
+                                  Theme.of(context).colorScheme.background,
+                                  BlendMode.srcIn),
                         ),
                       ),
                       onTap: () {
@@ -133,7 +147,8 @@ class _QuranPageScreenState extends State<QuranPageScreen> {
                     ),
                   ),
                   Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 4.0),
+                    padding: const EdgeInsets.symmetric(
+                        vertical: 8.0, horizontal: 4.0),
                     child: GestureDetector(
                       child: Container(
                         height: orientation(context, 50.0, 40.0),
@@ -147,7 +162,9 @@ class _QuranPageScreenState extends State<QuranPageScreen> {
                           'assets/svg/quran_te_ic.svg',
                           colorFilter: pageIndex == 1
                               ? null
-                              : ColorFilter.mode(Theme.of(context).colorScheme.background, BlendMode.srcIn),
+                              : ColorFilter.mode(
+                                  Theme.of(context).colorScheme.background,
+                                  BlendMode.srcIn),
                         ),
                       ),
                       onTap: () {
@@ -159,7 +176,8 @@ class _QuranPageScreenState extends State<QuranPageScreen> {
                     ),
                   ),
                   Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 4.0),
+                    padding: const EdgeInsets.symmetric(
+                        vertical: 8.0, horizontal: 4.0),
                     child: GestureDetector(
                       child: Container(
                         height: orientation(context, 50.0, 40.0),
@@ -173,7 +191,9 @@ class _QuranPageScreenState extends State<QuranPageScreen> {
                           'assets/svg/azkar.svg',
                           colorFilter: pageIndex == 2
                               ? null
-                              : ColorFilter.mode(Theme.of(context).colorScheme.background, BlendMode.srcIn),
+                              : ColorFilter.mode(
+                                  Theme.of(context).colorScheme.background,
+                                  BlendMode.srcIn),
                         ),
                       ),
                       onTap: () {
@@ -185,7 +205,8 @@ class _QuranPageScreenState extends State<QuranPageScreen> {
                     ),
                   ),
                   Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 4.0),
+                    padding: const EdgeInsets.symmetric(
+                        vertical: 8.0, horizontal: 4.0),
                     child: GestureDetector(
                       child: Container(
                         height: orientation(context, 50.0, 40.0),
@@ -199,7 +220,9 @@ class _QuranPageScreenState extends State<QuranPageScreen> {
                           'assets/svg/quran_au_ic.svg',
                           colorFilter: pageIndex == 3
                               ? null
-                              : ColorFilter.mode(Theme.of(context).colorScheme.background, BlendMode.srcIn),
+                              : ColorFilter.mode(
+                                  Theme.of(context).colorScheme.background,
+                                  BlendMode.srcIn),
                         ),
                       ),
                       onTap: () {
@@ -211,7 +234,8 @@ class _QuranPageScreenState extends State<QuranPageScreen> {
                     ),
                   ),
                   Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 4.0),
+                    padding: const EdgeInsets.symmetric(
+                        vertical: 8.0, horizontal: 4.0),
                     child: GestureDetector(
                       child: Container(
                         height: orientation(context, 50.0, 40.0),
@@ -225,7 +249,9 @@ class _QuranPageScreenState extends State<QuranPageScreen> {
                           'assets/svg/menu_ic.svg',
                           colorFilter: pageIndex == 4
                               ? null
-                              : ColorFilter.mode(Theme.of(context).colorScheme.background, BlendMode.srcIn),
+                              : ColorFilter.mode(
+                                  Theme.of(context).colorScheme.background,
+                                  BlendMode.srcIn),
                         ),
                       ),
                       onTap: () {
@@ -246,7 +272,8 @@ class _QuranPageScreenState extends State<QuranPageScreen> {
                 children: [
                   SvgPicture.asset(
                     'assets/svg/alheekmah_logo.svg',
-                    colorFilter: ColorFilter.mode(Theme.of(context).canvasColor, BlendMode.srcIn),
+                    colorFilter: ColorFilter.mode(
+                        Theme.of(context).canvasColor, BlendMode.srcIn),
                     width: 100,
                   ),
                   Container(
