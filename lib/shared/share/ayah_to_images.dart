@@ -5,16 +5,19 @@ import 'package:alquranalkareem/cubit/cubit.dart';
 import 'package:arabic_numbers/arabic_numbers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:get/get.dart';
 import 'package:image/image.dart' as img;
 import 'package:path_provider/path_provider.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:theme_provider/theme_provider.dart';
 
 import '../../l10n/app_localizations.dart';
+import '../controller/ayat_controller.dart';
 import '../widgets/lottie.dart';
 import '../widgets/widgets.dart';
 
 ArabicNumbers arabicNumber = ArabicNumbers();
+late final AyatController ayatController = Get.put(AyatController());
 
 /// Share Ayah
 Future<Uint8List> createVerseImage(
@@ -299,8 +302,9 @@ Future<Uint8List> createVerseWithTranslateImage(BuildContext context,
   ];
   String? tafseerName;
   if (cubit.shareTafseerValue == 1) {
-    tafseerName =
-        cubit.radioValue != 3 ? null : AppLocalizations.of(context)!.tafSaadiN;
+    tafseerName = ayatController.radioValue != 3
+        ? null
+        : AppLocalizations.of(context)!.tafSaadiN;
   } else if (cubit.shareTafseerValue == 2) {
     tafseerName = transName[cubit.transIndex!];
   }

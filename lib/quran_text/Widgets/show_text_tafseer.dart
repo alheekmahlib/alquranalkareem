@@ -11,9 +11,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_sliding_up_panel/sliding_up_panel_widget.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get.dart';
 import 'package:theme_provider/theme_provider.dart';
 
 import '../../l10n/app_localizations.dart';
+import '../../shared/controller/ayat_controller.dart';
 import '../../shared/widgets/show_tafseer.dart';
 import '../../shared/widgets/widgets.dart';
 import '../cubit/quran_text_cubit.dart';
@@ -39,6 +41,7 @@ class _ShowTextTafseerState extends State<ShowTextTafseer> {
   double upperValue = 40;
   String? selectedValue;
   double? sliderValue;
+  late final AyatController ayatController = Get.put(AyatController());
 
   @override
   void initState() {
@@ -344,7 +347,7 @@ class _ShowTextTafseerState extends State<ShowTextTafseer> {
                           title: Text(
                             tafName[index],
                             style: TextStyle(
-                                color: cubit.radioValue == index
+                                color: ayatController.radioValue == index
                                     ? Theme.of(context).primaryColorLight
                                     : const Color(0xffcdba72),
                                 fontSize: 14,
@@ -353,7 +356,7 @@ class _ShowTextTafseerState extends State<ShowTextTafseer> {
                           subtitle: Text(
                             tafD[index],
                             style: TextStyle(
-                                color: cubit.radioValue == index
+                                color: ayatController.radioValue == index
                                     ? Theme.of(context).primaryColorLight
                                     : const Color(0xffcdba72),
                                 fontSize: 12,
@@ -366,20 +369,20 @@ class _ShowTextTafseerState extends State<ShowTextTafseer> {
                               borderRadius:
                                   const BorderRadius.all(Radius.circular(2.0)),
                               border: Border.all(
-                                  color: cubit.radioValue == index
+                                  color: ayatController.radioValue == index
                                       ? Theme.of(context).primaryColorLight
                                       : const Color(0xffcdba72),
                                   width: 2),
                               color: const Color(0xff39412a),
                             ),
-                            child: cubit.radioValue == index
+                            child: ayatController.radioValue == index
                                 ? const Icon(Icons.done,
                                     size: 14, color: Color(0xfffcbb76))
                                 : null,
                           ),
                           onTap: () {
                             print("IconButton pressed, calling updateTextText");
-                            cubit.handleRadioValueChanged(context, index);
+                            ayatController.handleRadioValueChanged(index);
                             cubit.saveTafseer(index);
                             // Get new translation and update state
                             TextCubit.getNewTranslationAndNotify(
@@ -406,7 +409,7 @@ class _ShowTextTafseerState extends State<ShowTextTafseer> {
                                       width: 2)),
                               child: SvgPicture.asset(
                                 'assets/svg/tafseer_book.svg',
-                                colorFilter: cubit.radioValue == index
+                                colorFilter: ayatController.radioValue == index
                                     ? null
                                     : ColorFilter.mode(
                                         Theme.of(context)

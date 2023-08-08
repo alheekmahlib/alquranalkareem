@@ -1,5 +1,4 @@
-
-import 'package:alquranalkareem/cubit/cubit.dart';
+import 'package:alquranalkareem/shared/controller/ayat_controller.dart';
 import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -7,16 +6,13 @@ import 'package:get/get.dart';
 // import 'package:scroll_to_index/scroll_to_index.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
 import '../../quran_page/data/model/ayat.dart';
-import '../../quran_page/data/model/translate.dart';
-import '../../quran_page/data/repository/translate_repository.dart';
 import '../bookmarksTextAyah_controller.dart';
 import '../bookmarksText_controller.dart';
 import '../model/bookmark_text.dart';
-
 import '../model/bookmark_text_ayah.dart';
 import '../text_page_view.dart';
-
 
 part 'quran_text_state.dart';
 
@@ -26,9 +22,9 @@ class QuranTextCubit extends Cubit<QuranTextState> {
   static QuranTextCubit get(context) => BlocProvider.of(context);
   final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
   late final BookmarksTextController bookmarksTextController =
-  Get.put(BookmarksTextController());
+      Get.put(BookmarksTextController());
   late final BookmarksTextAyahController bookmarksTextAyahController =
-  Get.put(BookmarksTextAyahController());
+      Get.put(BookmarksTextAyahController());
   late Animation<Offset> offset;
   late AnimationController controller;
   int? id;
@@ -44,7 +40,7 @@ class QuranTextCubit extends Cubit<QuranTextState> {
   // AutoScrollController? scrollController;
   final ItemScrollController itemScrollController = ItemScrollController();
   final ItemPositionsListener itemPositionsListener =
-  ItemPositionsListener.create();
+      ItemPositionsListener.create();
   double verticalOffset = 0;
   double horizontalOffset = 0;
   PreferDirection preferDirection = PreferDirection.topCenter;
@@ -61,20 +57,22 @@ class QuranTextCubit extends Cubit<QuranTextState> {
   bool scrolling = false;
   late AnimationController animationController;
   ValueNotifier<double>? scrollSpeedNotifier;
-
-
-
+  late final AyatController ayatController = Get.put(AyatController());
 
   void updateTextText(String ayatext, String translate) {
     // print("updateTextText called with: $ayatext, $translate");
     emit(TextTextUpdated(ayatext, translate));
   }
 
-  void getNewTranslationAndNotify(BuildContext context, int selectedSurahNumber, int selectedAyahNumber) async {
-    List<Ayat> ayahs = await handleRadioValueChanged(context, QuranCubit.get(context).radioValue).getAyahTranslate(selectedSurahNumber);
+  void getNewTranslationAndNotify(BuildContext context, int selectedSurahNumber,
+      int selectedAyahNumber) async {
+    List<Ayat> ayahs = await ayatController
+        .handleRadioValueChanged(ayatController.radioValue)
+        .getAyahTranslate(selectedSurahNumber);
 
     // Now you have a list of ayahs of the Surah. Find the Ayah with the same number as the previously selected Ayah.
-    Ayat selectedAyah = ayahs.firstWhere((ayah) => ayah.ayaNum == selectedAyahNumber);
+    Ayat selectedAyah =
+        ayahs.firstWhere((ayah) => ayah.ayaNum == selectedAyahNumber);
 
     // Update the text with the Ayah text and its translation
     updateTextText("${selectedAyah.ayatext}", "${selectedAyah.translate}");
@@ -107,6 +105,7 @@ class QuranTextCubit extends Cubit<QuranTextState> {
     await prefs.setInt("switchـvalue", switchValue);
     emit(SharedPreferencesState());
   }
+
   loadSwitchValue() async {
     SharedPreferences prefs = await _prefs;
     value = prefs.getInt('switchـvalue') ?? 0;
@@ -120,6 +119,7 @@ class QuranTextCubit extends Cubit<QuranTextState> {
     await prefs.setDouble("scroll_speed", scroll);
     emit(SharedPreferencesState());
   }
+
   loadScrollSpeedValue() async {
     SharedPreferences prefs = await _prefs;
     scrollSpeed = prefs.getDouble('scroll_speed') ?? .05;
@@ -133,6 +133,7 @@ class QuranTextCubit extends Cubit<QuranTextState> {
     await prefs.setInt("translateـvalue", translateValue);
     emit(SharedPreferencesState());
   }
+
   loadTranslateValue() async {
     SharedPreferences prefs = await _prefs;
     transValue = prefs.getInt('translateـvalue') ?? 0;
@@ -145,44 +146,40 @@ class QuranTextCubit extends Cubit<QuranTextState> {
         TextPageView.sorahTextName);
   }
 
-
   changeSelectedIndex(newValue) {
-
     isSelected = newValue;
     emit(ChangeSelectedIndexState());
   }
 
-
-  String? tableName;
-
-  handleRadioValueChanged(BuildContext context, int val) {
-    TranslateRepository translateRepository = TranslateRepository(context);
-
-    radioValue = val;
-    switch (radioValue) {
-      case 0:
-        tableName = Translate.tableName2;
-        return showTaf = translateRepository;
-      case 1:
-        tableName = Translate.tableName;
-        return showTaf = translateRepository;
-      case 2:
-        tableName = Translate.tableName3;
-        return showTaf = translateRepository;
-      case 3:
-        tableName = Translate.tableName4;
-        return showTaf = translateRepository;
-      case 4:
-        tableName = Translate.tableName5;
-        return showTaf = translateRepository;
-      default:
-        tableName = Translate.tableName2;
-        return showTaf = translateRepository;
-    }
-  }
+  // String? tableName;
+  //
+  // handleRadioValueChanged(BuildContext context, int val) {
+  //   TranslateRepository translateRepository = TranslateRepository(context);
+  //
+  //   radioValue = val;
+  //   switch (radioValue) {
+  //     case 0:
+  //       tableName = Translate.tableName2;
+  //       return showTaf = translateRepository;
+  //     case 1:
+  //       tableName = Translate.tableName;
+  //       return showTaf = translateRepository;
+  //     case 2:
+  //       tableName = Translate.tableName3;
+  //       return showTaf = translateRepository;
+  //     case 3:
+  //       tableName = Translate.tableName4;
+  //       return showTaf = translateRepository;
+  //     case 4:
+  //       tableName = Translate.tableName5;
+  //       return showTaf = translateRepository;
+  //     default:
+  //       tableName = Translate.tableName2;
+  //       return showTaf = translateRepository;
+  //   }
+  // }
 
   translateHandleRadioValueChanged(int translateVal) {
-
     transValue = translateVal;
     switch (transValue) {
       case 0:
@@ -194,8 +191,14 @@ class QuranTextCubit extends Cubit<QuranTextState> {
     }
   }
 
-
-  addBookmarkText(String sorahName, int sorahNum, pageNum, nomPageF, nomPageL, lastRead,) async {
+  addBookmarkText(
+    String sorahName,
+    int sorahNum,
+    pageNum,
+    nomPageF,
+    nomPageL,
+    lastRead,
+  ) async {
     try {
       int? bookmark = await bookmarksTextController.addBookmarksText(
         BookmarksText(
@@ -214,7 +217,14 @@ class QuranTextCubit extends Cubit<QuranTextState> {
     }
   }
 
-  addBookmarkAyahText(String sorahName, int sorahNum, ayahNum, nomPageF, nomPageL, lastRead,) async {
+  addBookmarkAyahText(
+    String sorahName,
+    int sorahNum,
+    ayahNum,
+    nomPageF,
+    nomPageL,
+    lastRead,
+  ) async {
     try {
       int? bookmark = await bookmarksTextAyahController.addBookmarksTextAyah(
         BookmarksTextAyah(
@@ -233,7 +243,14 @@ class QuranTextCubit extends Cubit<QuranTextState> {
     }
   }
 
-  addBookmarkText2(String sorahName, int sorahNum, pageNum, nomPageF, nomPageL, lastRead,) async {
+  addBookmarkText2(
+    String sorahName,
+    int sorahNum,
+    pageNum,
+    nomPageF,
+    nomPageL,
+    lastRead,
+  ) async {
     try {
       int? bookmark = await bookmarksTextController.addBookmarksText(
         BookmarksText(
@@ -254,7 +271,8 @@ class QuranTextCubit extends Cubit<QuranTextState> {
 
   /// Time
   // var now = DateTime.now();
-  String lastRead = "${DateTime.now().year}-${DateTime.now().month}-${DateTime.now().day}";
+  String lastRead =
+      "${DateTime.now().year}-${DateTime.now().month}-${DateTime.now().day}";
 
   /// scroll
   void toggleScroll(var widget) {
@@ -264,37 +282,31 @@ class QuranTextCubit extends Cubit<QuranTextState> {
     } else {
       // Calculate the new duration
       double newDuration = ((widget.surah!.ayahs!.length -
-          (animationController.value *
-              widget.surah!.ayahs!.length)
-              .round()) /
+              (animationController.value * widget.surah!.ayahs!.length)
+                  .round()) /
           scrollSpeedNotifier!.value);
 
       // Check if the calculated value is finite and not NaN
       if (newDuration.isFinite && !newDuration.isNaN) {
         // Start scrolling
-        animationController.duration =
-            Duration(seconds: newDuration.round());
+        animationController.duration = Duration(seconds: newDuration.round());
         animationController.forward();
       }
     }
     // setState(() {
-      scrolling =
-      !scrolling;
+    scrolling = !scrolling;
 
-      if (scrolling) {
-        animationController.addListener(scroll);
-      } else {
-        animationController.removeListener(scroll);
-      }
+    if (scrolling) {
+      animationController.addListener(scroll);
+    } else {
+      animationController.removeListener(scroll);
+    }
     // });
   }
 
   void scroll() {
-    scrollController.jumpTo(
-        animationController.value *
-            (scrollController
-                .position
-                .maxScrollExtent));
+    scrollController.jumpTo(animationController.value *
+        (scrollController.position.maxScrollExtent));
   }
 
   jumbToPage(var widget) async {
@@ -324,13 +336,11 @@ class QuranTextCubit extends Cubit<QuranTextState> {
         pageNum == 604) {
     } else {
       await itemScrollController.scrollTo(
-          index:
-          (value == 1 ? pageNum : pageNum - 1),
+          index: (value == 1 ? pageNum : pageNum - 1),
           duration: const Duration(seconds: 1),
           curve: Curves.easeOut);
       // setState(() {
-        isSelected =
-        value == 1 ? pageNum : pageNum - 1;
+      isSelected = value == 1 ? pageNum : pageNum - 1;
       // });
     }
   }

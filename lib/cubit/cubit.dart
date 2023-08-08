@@ -4,18 +4,18 @@ import 'package:alquranalkareem/azkar/screens/azkar_item.dart';
 import 'package:alquranalkareem/cubit/states.dart';
 import 'package:alquranalkareem/quran_page/data/model/ayat.dart';
 import 'package:alquranalkareem/quran_page/screens/quran_page.dart';
+import 'package:alquranalkareem/shared/controller/ayat_controller.dart';
 import 'package:arabic_numbers/arabic_numbers.dart';
 import 'package:day_night_time_picker/lib/daynight_timepicker.dart';
 import 'package:day_night_time_picker/lib/state/time.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_sliding_up_panel/flutter_sliding_up_panel.dart';
+import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sqflite/sqflite.dart';
 
 import '../l10n/app_localizations.dart';
-import '../quran_page/data/model/translate.dart';
-import '../quran_page/data/repository/translate_repository.dart';
 import '../quran_text/text_page_view.dart';
 import '../screens/menu_screen.dart';
 import '../shared/local_notifications.dart';
@@ -42,7 +42,7 @@ class QuranCubit extends Cubit<QuranState> {
   double width2 = 4000;
   String? title;
   bool? isPageNeedChange;
-  late int radioValue;
+
   int? tafseerValue;
   int tafIbnkatheer = 1;
   int tafBaghawy = 2;
@@ -84,6 +84,7 @@ class QuranCubit extends Cubit<QuranState> {
   int? transIndex;
   bool isShowSettings = false;
   int? audioChoise;
+  late final AyatController ayatController = Get.put(AyatController());
 
   void updateText(String ayatext, String translate) {
     emit(TextUpdated(ayatext, translate));
@@ -93,7 +94,8 @@ class QuranCubit extends Cubit<QuranState> {
     // emit(AyaLoading());
     try {
       // ignore: unused_local_variable
-      final ayahList = await handleRadioValueChanged(context, radioValue)
+      final ayahList = await ayatController
+          .handleRadioValueChanged(ayatController.radioValue)
           .getPageTranslate(pageNum);
       // emit(AyaLoaded(ayahList));
     } catch (e) {
@@ -104,7 +106,8 @@ class QuranCubit extends Cubit<QuranState> {
   Future<void> getTranslatedAyah(int pageNum, BuildContext context) async {
     emit(AyaLoading());
     try {
-      final ayahList = await handleRadioValueChanged(context, radioValue)
+      final ayahList = await ayatController
+          .handleRadioValueChanged(ayatController.radioValue)
           .getAyahTranslate(pageNum);
       emit(AyaLoaded(ayahList));
     } catch (e) {
@@ -126,7 +129,8 @@ class QuranCubit extends Cubit<QuranState> {
 
   void getNewTranslationAndNotify(BuildContext context, int selectedSurahNumber,
       int selectedAyahNumber) async {
-    List<Ayat> ayahs = await handleRadioValueChanged(context, radioValue)
+    List<Ayat> ayahs = await ayatController
+        .handleRadioValueChanged(ayatController.radioValue)
         .getAyahTranslate(selectedSurahNumber);
 
     // Now you have a list of ayahs of the Surah. Find the Ayah with the same number as the previously selected Ayah.
@@ -166,9 +170,9 @@ class QuranCubit extends Cubit<QuranState> {
 
   loadTafseer() async {
     SharedPreferences prefs = await _prefs;
-    radioValue = prefs.getInt('tafseer_val') ?? 0;
+    ayatController.radioValue = prefs.getInt('tafseer_val') ?? 0;
     print('get tafseer value ${prefs.getInt('tafseer_val')}');
-    print('get radioValue $radioValue');
+    print('get radioValue ${ayatController.radioValue}');
     emit(SharedPreferencesState());
   }
 
@@ -255,38 +259,6 @@ class QuranCubit extends Cubit<QuranState> {
   showControl() {
     isShowControl = !isShowControl;
     emit(QuranPageState());
-  }
-
-  String? tableName;
-  ValueNotifier<int> selectedTafseerIndex = ValueNotifier<int>(0);
-
-  handleRadioValueChanged(BuildContext context, int val) {
-    TranslateRepository translateRepository = TranslateRepository(context);
-
-    radioValue = val;
-    switch (radioValue) {
-      case 0:
-        tableName = Translate.tableName2;
-        break;
-      case 1:
-        tableName = Translate.tableName;
-        break;
-      case 2:
-        tableName = Translate.tableName3;
-        break;
-      case 3:
-        tableName = Translate.tableName4;
-        break;
-      case 4:
-        tableName = Translate.tableName5;
-        break;
-      default:
-        tableName = Translate.tableName2;
-    }
-    selectedTafseerIndex.value = val;
-    // Set the tableName property in the translateRepository
-    translateRepository.tableName = tableName;
-    return translateRepository;
   }
 
   updateGreeting() {

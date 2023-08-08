@@ -7,14 +7,12 @@ import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:rxdart/rxdart.dart' as R;
 
-import '../../cubit/ayat/ayat_cubit.dart';
 import '../../l10n/app_localizations.dart';
 import '../../quran_page/cubit/audio/cubit.dart';
 import '../../quran_text/cubit/quran_text_cubit.dart';
@@ -22,6 +20,7 @@ import '../../quran_text/text_page_view.dart';
 import '../functions.dart';
 import '../widgets/seek_bar.dart';
 import '../widgets/widgets.dart';
+import 'ayat_controller.dart';
 
 class AudioController extends GetxController {
   AudioPlayer audioPlayer = AudioPlayer();
@@ -48,6 +47,8 @@ class AudioController extends GetxController {
   Duration? pageLastPosition;
   RxInt pageNumber = 0.obs;
   RxInt lastAyahInPage = 0.obs;
+  final controller = Get.find<AyatController>();
+  late final AyatController ayatController = Get.put(AyatController());
 
   Future<void> initConnectivity() async {
     try {
@@ -158,16 +159,15 @@ class AudioController extends GetxController {
   void playNextAyah(BuildContext context) async {
     print('playNextAyah ' * 6);
     AudioCubit audioCubit = AudioCubit.get(context);
-    final ayatCubit = context.read<AyatCubit>();
-    final ayat = ayatCubit.state;
     QuranTextCubit textCubit = QuranTextCubit.get(context);
     QuranCubit cubit = QuranCubit.get(context);
 
-    print('ayat!.last.ayaNum ${ayat!.last.ayaNum}');
+    print('ayat!.last.ayaNum ${ayatController.ayatList.last.ayaNum}');
     // Increment Ayah number
     int currentAyah;
     int currentSorah;
     currentAyah = int.parse(audioCubit.ayahNum!) + 1;
+    audioCubit.ayahNum = '$currentAyah';
     currentSorah = int.parse(audioCubit.sorahName!);
     audioCubit.sorahName = formatNumber(currentSorah);
     audioCubit.ayahNum = formatNumber(currentAyah);
@@ -185,9 +185,10 @@ class AudioController extends GetxController {
     if (cubit.cuMPage == 604) {
       await audioPlayer.stop();
       isPlay.value = false;
-    } else if (audioCubit.ayahNumber == currentAyah - 1) {
+    } else if (ayatController.ayatList.last.ayaNum == currentAyah - 1) {
       print('audioCubit.ayahNumber ${audioCubit.ayahNumber}');
-      cubit.dPageController!.jumpToPage(cubit.cuMPage++);
+      cubit.dPageController!.animateTo((cubit.cuMPage++).toDouble(),
+          duration: const Duration(milliseconds: 600), curve: Curves.easeInOut);
       isPlay.value = true;
       // Call playAyah again to play the next ayah
       await playFile(context, url, fileName);
