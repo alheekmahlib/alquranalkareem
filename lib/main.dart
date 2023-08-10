@@ -55,6 +55,7 @@ Future windowSize() async {
 
 init() async {
   Get.put(AyatController());
+  // Get.put(GeneralController());
   DatabaseHelper databaseHelper = DatabaseHelper.instance;
   databaseHelper.database;
   NotificationDatabaseHelper notificationdatabaseHelper =

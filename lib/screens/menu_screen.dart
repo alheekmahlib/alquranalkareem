@@ -1,20 +1,23 @@
 import 'dart:convert';
+
 import 'package:alquranalkareem/l10n/app_localizations.dart';
 import 'package:animated_toggle_switch/animated_toggle_switch.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:theme_provider/theme_provider.dart';
+
 import '../cubit/cubit.dart';
 import '../cubit/states.dart';
+import '../shared/controller/general_controller.dart';
 import '../shared/local_notifications.dart';
 import '../shared/reminder_model.dart';
-import 'about_app.dart';
 import '../shared/widgets/widgets.dart';
-import 'info_app.dart';
+import 'about_app.dart';
 import 'alwaqf_screen.dart';
-
+import 'info_app.dart';
 
 List<GlobalKey> textFieldKeys = [];
 
@@ -26,8 +29,7 @@ class MenuScreen extends StatefulWidget {
 }
 
 class _MenuScreenState extends State<MenuScreen> {
-
-
+  late final GeneralController generalController = Get.put(GeneralController());
   @override
   void initState() {
     QuranCubit.get(context).updateGreeting();
@@ -35,124 +37,128 @@ class _MenuScreenState extends State<MenuScreen> {
     super.initState();
   }
 
-
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<QuranCubit, QuranState>(
-  listener: (context, state) {
-    LoadRemindersState();
-    ShowTimePickerState();
-    AddReminderState();
-    DeleteReminderState();
-    OnTimeChangedState();
-  },
-  builder: (context, state) {
-    return SafeArea(
-      top: false,
-      bottom: false,
-      right: false,
-      left: false,
-      child: Scaffold(
-        backgroundColor: Theme.of(context).colorScheme.background,
-        body: orientation(context,
-            Padding(
-          padding: const EdgeInsets.only(right: 16.0, left: 16.0, top: 40.0),
-          child: ListView(
-            children: [
-              Align(
-                alignment: Alignment.topRight,
-                child: greeting(),
-              ),
-              const Divider(
-                thickness: 1,
-              ),
-              hijiriWidget(),
-              const Divider(
-                thickness: 1,
-                height: 30,
-              ),
-              lastReadWidget(),
-              const Divider(
-                thickness: 1,
-                height: 30,
-              ),
-              listWidget(),
-              const Divider(
-                thickness: 1,
-                height: 30,
-              ),
-              reminderWidget()
-            ],
-          ),
-        ),
-          ListView(
-            children: [
-              Padding(
-                padding: orientation(context,
-                    const EdgeInsets.only(right: 16.0, left: 16.0, top: 40.0),
-                    const EdgeInsets.only(right: 16.0, left: 16.0, top: 16.0)),
-                child: Align(
-                  alignment: Alignment.topRight,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+      listener: (context, state) {
+        LoadRemindersState();
+        ShowTimePickerState();
+        AddReminderState();
+        DeleteReminderState();
+        OnTimeChangedState();
+      },
+      builder: (context, state) {
+        return SafeArea(
+          top: false,
+          bottom: false,
+          right: false,
+          left: false,
+          child: Scaffold(
+            backgroundColor: Theme.of(context).colorScheme.background,
+            body: orientation(
+                context,
+                Padding(
+                  padding:
+                      const EdgeInsets.only(right: 16.0, left: 16.0, top: 40.0),
+                  child: ListView(
                     children: [
-                      greeting(),
+                      Align(
+                        alignment: Alignment.topRight,
+                        child: greeting(),
+                      ),
+                      const Divider(
+                        thickness: 1,
+                      ),
+                      hijiriWidget(),
                       const Divider(
                         thickness: 1,
                         height: 30,
                       ),
+                      lastReadWidget(),
+                      const Divider(
+                        thickness: 1,
+                        height: 30,
+                      ),
+                      listWidget(),
+                      const Divider(
+                        thickness: 1,
+                        height: 30,
+                      ),
+                      reminderWidget()
                     ],
                   ),
                 ),
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 32.0),
-                child: Stack(
-                  alignment: Alignment.topCenter,
+                ListView(
                   children: [
-                    Align(
-                      alignment: Alignment.topRight,
-                      child: SizedBox(
-                        width: MediaQuery.of(context).size.width * .4,
+                    Padding(
+                      padding: orientation(
+                          context,
+                          const EdgeInsets.only(
+                              right: 16.0, left: 16.0, top: 40.0),
+                          const EdgeInsets.only(
+                              right: 16.0, left: 16.0, top: 16.0)),
+                      child: Align(
+                        alignment: Alignment.topRight,
                         child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            listWidget(),
+                            greeting(),
                             const Divider(
                               thickness: 1,
                               height: 30,
                             ),
-                            reminderWidget()
                           ],
                         ),
                       ),
                     ),
-                    Align(
-                      alignment: Alignment.topLeft,
-                      child: SizedBox(
-                        width: MediaQuery.of(context).size.width * .4,
-                        child: Column(
-                          children: [
-                            hijiriWidget(),
-                            const Divider(
-                              thickness: 1,
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 32.0),
+                      child: Stack(
+                        alignment: Alignment.topCenter,
+                        children: [
+                          Align(
+                            alignment: Alignment.topRight,
+                            child: SizedBox(
+                              width: MediaQuery.of(context).size.width * .4,
+                              child: Column(
+                                children: [
+                                  listWidget(),
+                                  const Divider(
+                                    thickness: 1,
+                                    height: 30,
+                                  ),
+                                  reminderWidget()
+                                ],
+                              ),
                             ),
-                            lastReadWidget(),
-                            const Divider(
-                              thickness: 1,
+                          ),
+                          Align(
+                            alignment: Alignment.topLeft,
+                            child: SizedBox(
+                              width: MediaQuery.of(context).size.width * .4,
+                              child: Column(
+                                children: [
+                                  hijiriWidget(),
+                                  const Divider(
+                                    thickness: 1,
+                                  ),
+                                  lastReadWidget(),
+                                  const Divider(
+                                    thickness: 1,
+                                  ),
+                                ],
+                              ),
                             ),
-                          ],
-                        ),
+                          )
+                        ],
                       ),
                     )
                   ],
-                ),
-              )
-            ],
-          )),
-      ),
+                )),
+          ),
+        );
+      },
     );
-  },
-);
   }
 
   Widget greeting() {
@@ -189,21 +195,19 @@ class _MenuScreenState extends State<MenuScreen> {
   Widget lastReadWidget() {
     QuranCubit cubit = QuranCubit.get(context);
     return Container(
-      width: orientation(context,
-          MediaQuery.of(context).size.width,
+      width: orientation(context, MediaQuery.of(context).size.width,
           MediaQuery.of(context).size.width * .4),
       decoration: BoxDecoration(
-        color: Theme.of(context)
-            .colorScheme.surface
-            .withOpacity(.2),
+        color: Theme.of(context).colorScheme.surface.withOpacity(.2),
         borderRadius: const BorderRadius.all(Radius.circular(8)),
       ),
       // padding: EdgeInsets.all(16.0),
       child: Row(
         children: <Widget>[
           Container(
-            width: orientation(context,
-                MediaQuery.of(context).size.width / 1/4,
+            width: orientation(
+                context,
+                MediaQuery.of(context).size.width / 1 / 4,
                 MediaQuery.of(context).size.width * .12),
             height: 70,
             decoration: BoxDecoration(
@@ -244,27 +248,25 @@ class _MenuScreenState extends State<MenuScreen> {
             width: 2,
             decoration: BoxDecoration(
                 color: Theme.of(context).colorScheme.surface,
-                borderRadius: const BorderRadius.all(Radius.circular(8))
-            ),
+                borderRadius: const BorderRadius.all(Radius.circular(8))),
           ),
           const SizedBox(
             width: 16,
           ),
           SvgPicture.asset(
-            'assets/svg/surah_name/00${cubit.soMName}.svg',
+            'assets/svg/surah_name/00${generalController.soMName.value}.svg',
             height: 40,
             colorFilter: ColorFilter.mode(
                 ThemeProvider.themeOf(context).id == 'dark'
                     ? Theme.of(context).canvasColor
                     : Theme.of(context).primaryColorLight,
-                BlendMode.srcIn
-            ),
+                BlendMode.srcIn),
           ),
           const SizedBox(
             width: 16,
           ),
           Text(
-            '|${AppLocalizations.of(context)!.pageNo} ${cubit.cuMPage}|',
+            '|${AppLocalizations.of(context)!.pageNo} ${generalController.cuMPage}|',
             style: TextStyle(
               fontFamily: 'kufi',
               fontSize: 12,
@@ -282,9 +284,7 @@ class _MenuScreenState extends State<MenuScreen> {
     return Container(
       // width: MediaQuery.of(context).size.width,
       decoration: BoxDecoration(
-        color: Theme.of(context)
-            .colorScheme.surface
-            .withOpacity(.2),
+        color: Theme.of(context).colorScheme.surface.withOpacity(.2),
         borderRadius: const BorderRadius.all(Radius.circular(8)),
       ),
       padding: const EdgeInsets.all(8.0),
@@ -298,8 +298,7 @@ class _MenuScreenState extends State<MenuScreen> {
                   Container(
                     padding: const EdgeInsets.all(2),
                     decoration: BoxDecoration(
-                      color: Theme.of(context)
-                          .colorScheme.surface,
+                      color: Theme.of(context).colorScheme.surface,
                       borderRadius: const BorderRadius.all(Radius.circular(2)),
                     ),
                     child: SvgPicture.asset(
@@ -310,24 +309,17 @@ class _MenuScreenState extends State<MenuScreen> {
                   Container(
                     width: 2,
                     height: 20,
-                    margin: const EdgeInsets.symmetric(
-                        horizontal: 8),
-                    color: ThemeProvider.themeOf(context)
-                        .id ==
-                        'dark'
+                    margin: const EdgeInsets.symmetric(horizontal: 8),
+                    color: ThemeProvider.themeOf(context).id == 'dark'
                         ? Colors.white
                         : Theme.of(context).primaryColor,
                   ),
                   Text(
                     AppLocalizations.of(context)!.stopSigns,
                     style: TextStyle(
-                        color:
-                        ThemeProvider.themeOf(context)
-                            .id ==
-                            'dark'
+                        color: ThemeProvider.themeOf(context).id == 'dark'
                             ? Colors.white
-                            : Theme.of(context)
-                            .primaryColor,
+                            : Theme.of(context).primaryColor,
                         fontFamily: 'kufi',
                         fontStyle: FontStyle.italic,
                         fontSize: 14),
@@ -336,8 +328,7 @@ class _MenuScreenState extends State<MenuScreen> {
               ),
             ),
             onTap: () async {
-              Navigator.of(context)
-                  .push(animatRoute(AlwaqfScreen()));
+              Navigator.of(context).push(animatRoute(AlwaqfScreen()));
             },
           ),
           const Divider(),
@@ -349,8 +340,7 @@ class _MenuScreenState extends State<MenuScreen> {
                   Container(
                     padding: const EdgeInsets.all(2),
                     decoration: BoxDecoration(
-                      color: Theme.of(context)
-                          .colorScheme.surface,
+                      color: Theme.of(context).colorScheme.surface,
                       borderRadius: const BorderRadius.all(Radius.circular(2)),
                     ),
                     child: SvgPicture.asset(
@@ -361,24 +351,17 @@ class _MenuScreenState extends State<MenuScreen> {
                   Container(
                     width: 2,
                     height: 20,
-                    margin: const EdgeInsets.symmetric(
-                        horizontal: 8),
-                    color: ThemeProvider.themeOf(context)
-                        .id ==
-                        'dark'
+                    margin: const EdgeInsets.symmetric(horizontal: 8),
+                    color: ThemeProvider.themeOf(context).id == 'dark'
                         ? Colors.white
                         : Theme.of(context).primaryColor,
                   ),
                   Text(
                     AppLocalizations.of(context)!.setting,
                     style: TextStyle(
-                        color:
-                        ThemeProvider.themeOf(context)
-                            .id ==
-                            'dark'
+                        color: ThemeProvider.themeOf(context).id == 'dark'
                             ? Colors.white
-                            : Theme.of(context)
-                            .primaryColor,
+                            : Theme.of(context).primaryColor,
                         fontFamily: 'kufi',
                         fontStyle: FontStyle.italic,
                         fontSize: 14),
@@ -387,8 +370,7 @@ class _MenuScreenState extends State<MenuScreen> {
               ),
             ),
             onTap: () async {
-              Navigator.of(context)
-                  .push(animatRoute(const AboutApp()));
+              Navigator.of(context).push(animatRoute(const AboutApp()));
             },
           ),
           const Divider(),
@@ -400,8 +382,7 @@ class _MenuScreenState extends State<MenuScreen> {
                   Container(
                     padding: const EdgeInsets.all(2),
                     decoration: BoxDecoration(
-                      color: Theme.of(context)
-                          .colorScheme.surface,
+                      color: Theme.of(context).colorScheme.surface,
                       borderRadius: const BorderRadius.all(Radius.circular(2)),
                     ),
                     child: SvgPicture.asset(
@@ -412,24 +393,17 @@ class _MenuScreenState extends State<MenuScreen> {
                   Container(
                     width: 2,
                     height: 20,
-                    margin: const EdgeInsets.symmetric(
-                        horizontal: 8),
-                    color: ThemeProvider.themeOf(context)
-                        .id ==
-                        'dark'
+                    margin: const EdgeInsets.symmetric(horizontal: 8),
+                    color: ThemeProvider.themeOf(context).id == 'dark'
                         ? Colors.white
                         : Theme.of(context).primaryColor,
                   ),
                   Text(
                     AppLocalizations.of(context)!.aboutApp,
                     style: TextStyle(
-                        color:
-                        ThemeProvider.themeOf(context)
-                            .id ==
-                            'dark'
+                        color: ThemeProvider.themeOf(context).id == 'dark'
                             ? Colors.white
-                            : Theme.of(context)
-                            .primaryColor,
+                            : Theme.of(context).primaryColor,
                         fontFamily: 'kufi',
                         fontStyle: FontStyle.italic,
                         fontSize: 14),
@@ -438,8 +412,7 @@ class _MenuScreenState extends State<MenuScreen> {
               ),
             ),
             onTap: () async {
-              Navigator.of(context)
-                  .push(animatRoute(const InfoApp()));
+              Navigator.of(context).push(animatRoute(const InfoApp()));
             },
           ),
         ],
@@ -454,18 +427,17 @@ class _MenuScreenState extends State<MenuScreen> {
         Container(
           width: MediaQuery.of(context).size.width,
           decoration: BoxDecoration(
-            color: Theme.of(context)
-                .colorScheme.surface
-                .withOpacity(.2),
+            color: Theme.of(context).colorScheme.surface.withOpacity(.2),
             borderRadius: const BorderRadius.all(Radius.circular(8)),
           ),
           padding: const EdgeInsets.all(8.0),
           child: Column(
             children: List<Widget>.generate(
               cubit.reminders.length,
-                  (int index) {
+              (int index) {
                 final reminder = cubit.reminders[index];
-                TextEditingController controller = TextEditingController(text: reminder.name);
+                TextEditingController controller =
+                    TextEditingController(text: reminder.name);
                 // Create a new GlobalKey for the TextField and add it to the list
                 GlobalKey textFieldKey = GlobalKey();
                 textFieldKeys.add(textFieldKey);
@@ -473,8 +445,7 @@ class _MenuScreenState extends State<MenuScreen> {
                   background: Container(
                     decoration: const BoxDecoration(
                         color: Colors.red,
-                        borderRadius: BorderRadius.all(
-                            Radius.circular(8))),
+                        borderRadius: BorderRadius.all(Radius.circular(8))),
                     child: delete(context),
                   ),
                   key: UniqueKey(),
@@ -501,47 +472,48 @@ class _MenuScreenState extends State<MenuScreen> {
                               textDirection: TextDirection.rtl,
                               style: TextStyle(
                                   color: ThemeProvider.themeOf(context).id ==
-                                      'dark'
+                                          'dark'
                                       ? Colors.white
                                       : Theme.of(context).primaryColor,
                                   fontFamily: 'kufi',
                                   fontSize: 14),
                               decoration: InputDecoration(
-
                                 hintText: 'اكتب اسم التذكير',
                                 hintStyle: TextStyle(
                                   fontSize: 12,
                                   fontFamily: 'kufi',
                                   color: ThemeProvider.themeOf(context).id ==
-                                      'dark'
+                                          'dark'
                                       ? Colors.white.withOpacity(.5)
-                                      : Theme.of(context).primaryColor.withOpacity(.5),
+                                      : Theme.of(context)
+                                          .primaryColor
+                                          .withOpacity(.5),
                                 ),
                                 icon: IconButton(
                                   onPressed: () {
                                     setState(() {
                                       reminder.name = controller.text;
                                     });
-                                    ReminderStorage.saveReminders(cubit.reminders);
+                                    ReminderStorage.saveReminders(
+                                        cubit.reminders);
                                   },
                                   icon: Icon(
                                     Icons.done,
                                     size: 14,
-                                    color: Theme.of(context).colorScheme.surface,
+                                    color:
+                                        Theme.of(context).colorScheme.surface,
                                   ),
                                 ),
                               ),
                             ),
                           ),
                         ),
-
                         Text(
                           '${reminder.time.hour}:${reminder.time.minute}',
                           style: TextStyle(
                             fontSize: 14,
                             fontFamily: 'kufi',
-                            color: ThemeProvider.themeOf(context).id ==
-                                'dark'
+                            color: ThemeProvider.themeOf(context).id == 'dark'
                                 ? Colors.white
                                 : Theme.of(context).primaryColor,
                           ),
@@ -559,7 +531,8 @@ class _MenuScreenState extends State<MenuScreen> {
                               ReminderStorage.saveReminders(cubit.reminders);
                               if (reminder.isEnabled) {
                                 // Show the TimePicker to set the reminder time
-                                bool isConfirmed = await cubit.showTimePicker(context, reminder);
+                                bool isConfirmed = await cubit.showTimePicker(
+                                    context, reminder);
                                 if (!isConfirmed) {
                                   setState(() {
                                     reminder.isEnabled = false;
@@ -567,14 +540,17 @@ class _MenuScreenState extends State<MenuScreen> {
                                 }
                               } else {
                                 // Cancel the scheduled notification
-                                NotifyHelper().cancelScheduledNotification(reminder.id);
+                                NotifyHelper()
+                                    .cancelScheduledNotification(reminder.id);
                               }
                             },
                             iconBuilder: rollingIconBuilder,
                             borderWidth: 1,
-                            indicatorColor: Theme.of(context).colorScheme.surface,
+                            indicatorColor:
+                                Theme.of(context).colorScheme.surface,
                             innerColor: Theme.of(context).canvasColor,
-                            borderRadius: const BorderRadius.all(Radius.circular(8)),
+                            borderRadius:
+                                const BorderRadius.all(Radius.circular(8)),
                             height: 25,
                             dif: 2.0,
                             borderColor: Theme.of(context).colorScheme.surface,
@@ -596,19 +572,17 @@ class _MenuScreenState extends State<MenuScreen> {
                 margin: const EdgeInsets.symmetric(vertical: 4),
                 padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 4),
                 decoration: BoxDecoration(
-                    borderRadius: const BorderRadius.all(
-                        Radius.circular(8)),
+                    borderRadius: const BorderRadius.all(Radius.circular(8)),
                     border: Border.all(
                         color: Theme.of(context).colorScheme.surface,
-                        width: 1
-                    )
-                ),
-                child: Text(AppLocalizations.of(context)!.addReminder,
+                        width: 1)),
+                child: Text(
+                  AppLocalizations.of(context)!.addReminder,
                   style: TextStyle(
                       color: Theme.of(context).colorScheme.surface,
                       fontSize: 14,
-                      fontFamily: 'kufi'
-                  ),)),
+                      fontFamily: 'kufi'),
+                )),
           ),
         ),
       ],
@@ -617,19 +591,23 @@ class _MenuScreenState extends State<MenuScreen> {
 }
 
 class ReminderStorage {
-  static final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
+  static final Future<SharedPreferences> _prefs =
+      SharedPreferences.getInstance();
   static const String _storageKey = 'reminders';
 
   static Future<void> saveReminders(List<Reminder> reminders) async {
     SharedPreferences prefs = await _prefs;
-    List<String> remindersJson = reminders.map((r) => jsonEncode(r.toJson())).toList();
+    List<String> remindersJson =
+        reminders.map((r) => jsonEncode(r.toJson())).toList();
     await prefs.setStringList(_storageKey, remindersJson);
   }
 
   static Future<List<Reminder>> loadReminders() async {
     SharedPreferences prefs = await _prefs;
-    List<String> remindersJson = prefs.getStringList(_storageKey)?.cast<String>() ?? [];
-    List<Reminder> reminders = remindersJson.map((r) => Reminder.fromJson(jsonDecode(r))).toList();
+    List<String> remindersJson =
+        prefs.getStringList(_storageKey)?.cast<String>() ?? [];
+    List<Reminder> reminders =
+        remindersJson.map((r) => Reminder.fromJson(jsonDecode(r))).toList();
     return reminders;
   }
 
@@ -638,8 +616,8 @@ class ReminderStorage {
     reminders.removeWhere((r) => r.id == id);
     await saveReminders(reminders);
   }
-
 }
+
 Widget rollingIconBuilder(int value, Size iconSize, bool foreground) {
   IconData data = Icons.done;
   if (value.isEven) data = Icons.close;

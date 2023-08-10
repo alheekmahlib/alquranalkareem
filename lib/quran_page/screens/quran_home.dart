@@ -1,11 +1,13 @@
 import 'package:alquranalkareem/quran_page/screens/quran_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get/get.dart';
 
 import '../../cubit/cubit.dart';
 import '../../cubit/states.dart';
 import '../../database/notificationDatabase.dart';
 import '../../home_page.dart';
+import '../../shared/controller/general_controller.dart';
 import '../../shared/widgets/audio_widget.dart';
 import '../../shared/widgets/show_tafseer.dart';
 import '../../shared/widgets/widgets.dart';
@@ -22,6 +24,7 @@ class QuranPage extends StatefulWidget {
 class _QuranPageState extends State<QuranPage>
     with SingleTickerProviderStateMixin {
   late String current;
+  late final GeneralController generalController = Get.put(GeneralController());
 
   bool hasUnopenedNotifications() {
     return sentNotifications.any((notification) => !notification['opened']);
@@ -67,9 +70,7 @@ class _QuranPageState extends State<QuranPage>
                   Directionality(
                       textDirection: TextDirection.rtl,
                       child: Center(
-                        child: MPages(
-                          initialPageNum: cubit.cuMPage,
-                        ),
+                        child: MPages(),
                       )),
                   SlideTransition(position: cubit.offset, child: AudioWidget()),
                   Visibility(

@@ -12,6 +12,7 @@ import 'package:theme_provider/theme_provider.dart';
 
 import '../../l10n/app_localizations.dart';
 import '../controller/audio_controller.dart';
+import '../controller/general_controller.dart';
 
 class AudioWidget extends StatefulWidget {
   AudioWidget({Key? key}) : super(key: key);
@@ -26,6 +27,8 @@ class AudioWidget extends StatefulWidget {
 class _AudioWidgetState extends State<AudioWidget>
     with WidgetsBindingObserver, SingleTickerProviderStateMixin {
   final AudioController aCtrl = getx.Get.put(AudioController());
+  late final GeneralController generalController =
+      getx.Get.put(GeneralController());
 
   @override
   void initState() {
@@ -170,7 +173,7 @@ class _AudioWidgetState extends State<AudioWidget>
                       //             ),
                       //           )
                       //         : AyahList(
-                      //             pageNum: cubit.cuMPage,
+                      //             pageNum: generalController.cuMPage,
                       //           ))
                     ],
                   )),
@@ -303,8 +306,10 @@ class _AudioWidgetState extends State<AudioWidget>
                                                       print(aCtrl
                                                           .progressPageString
                                                           .value);
-                                                      aCtrl.playPage(context,
-                                                          cubit.cuMPage);
+                                                      aCtrl.playPage(
+                                                          context,
+                                                          generalController
+                                                              .cuMPage);
                                                     }
                                                   : null,
                                             ),

@@ -2,10 +2,6 @@ import 'package:alquranalkareem/cubit/cubit.dart';
 import 'package:alquranalkareem/quran_page/cubit/audio/cubit.dart';
 import 'package:alquranalkareem/shared/widgets/svg_picture.dart';
 import 'package:alquranalkareem/shared/widgets/widgets.dart';
-import 'package:another_xlider/another_xlider.dart';
-import 'package:another_xlider/models/handler.dart';
-import 'package:another_xlider/models/handler_animation.dart';
-import 'package:another_xlider/models/trackbar.dart';
 import 'package:arabic_numbers/arabic_numbers.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
@@ -459,46 +455,46 @@ class _ShowTafseerState extends State<ShowTafseer> {
     return DropdownButton2(
       isExpanded: true,
       items: [
-        DropdownMenuItem<String>(
-          child: FlutterSlider(
-            values: [ShowTafseer.fontSizeArabic],
-            max: 40,
-            min: 18,
-            rtl: true,
-            trackBar: FlutterSliderTrackBar(
-              inactiveTrackBarHeight: 5,
-              activeTrackBarHeight: 5,
-              inactiveTrackBar: BoxDecoration(
-                borderRadius: BorderRadius.circular(8),
-                color: Theme.of(context).colorScheme.surface,
-              ),
-              activeTrackBar: BoxDecoration(
-                  borderRadius: BorderRadius.circular(4),
-                  color: Theme.of(context).colorScheme.background),
-            ),
-            handlerAnimation: const FlutterSliderHandlerAnimation(
-                curve: Curves.elasticOut,
-                reverseCurve: null,
-                duration: Duration(milliseconds: 700),
-                scale: 1.4),
-            onDragging: (handlerIndex, lowerValue, upperValue) {
-              lowerValue = lowerValue;
-              upperValue = upperValue;
-              ShowTafseer.fontSizeArabic = lowerValue;
-              QuranCubit.get(context).saveFontSize(ShowTafseer.fontSizeArabic);
-              setState(() {});
-            },
-            handler: FlutterSliderHandler(
-              decoration: const BoxDecoration(),
-              child: Material(
-                type: MaterialType.circle,
-                color: Colors.transparent,
-                elevation: 3,
-                child: SvgPicture.asset('assets/svg/slider_ic.svg'),
-              ),
-            ),
-          ),
-        )
+        // DropdownMenuItem<String?>(
+        //   child: FlutterSlider(
+        //     values: [ShowTafseer.fontSizeArabic],
+        //     max: 40,
+        //     min: 18,
+        //     rtl: true,
+        //     trackBar: FlutterSliderTrackBar(
+        //       inactiveTrackBarHeight: 5,
+        //       activeTrackBarHeight: 5,
+        //       inactiveTrackBar: BoxDecoration(
+        //         borderRadius: BorderRadius.circular(8),
+        //         color: Theme.of(context).colorScheme.surface,
+        //       ),
+        //       activeTrackBar: BoxDecoration(
+        //           borderRadius: BorderRadius.circular(4),
+        //           color: Theme.of(context).colorScheme.background),
+        //     ),
+        //     handlerAnimation: const FlutterSliderHandlerAnimation(
+        //         curve: Curves.elasticOut,
+        //         reverseCurve: null,
+        //         duration: Duration(milliseconds: 700),
+        //         scale: 1.4),
+        //     onDragging: (handlerIndex, lowerValue, upperValue) {
+        //       lowerValue = lowerValue;
+        //       upperValue = upperValue;
+        //       ShowTafseer.fontSizeArabic = lowerValue;
+        //       QuranCubit.get(context).saveFontSize(ShowTafseer.fontSizeArabic);
+        //       setState(() {});
+        //     },
+        //     handler: FlutterSliderHandler(
+        //       decoration: const BoxDecoration(),
+        //       child: Material(
+        //         type: MaterialType.circle,
+        //         color: Colors.transparent,
+        //         elevation: 3,
+        //         child: SvgPicture.asset('assets/svg/slider_ic.svg'),
+        //       ),
+        //     ),
+        //   ),
+        // )
       ],
       value: selectedValue,
       onChanged: (value) {

@@ -1,14 +1,17 @@
 import 'package:alquranalkareem/quran_page/screens/quran_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_sliding_up_panel/flutter_sliding_up_panel.dart';
+import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
 import '../cubit/cubit.dart';
 import '../cubit/states.dart';
 import '../database/notificationDatabase.dart';
 import '../quran_page/widget/sliding_up.dart';
+import '../shared/controller/general_controller.dart';
 import '../shared/widgets/audio_widget.dart';
 import '../shared/widgets/show_tafseer.dart';
-import 'package:flutter_sliding_up_panel/flutter_sliding_up_panel.dart';
 import '../shared/widgets/widgets.dart';
 
 class Desktop extends StatefulWidget {
@@ -23,6 +26,7 @@ class _DesktopState extends State<Desktop> with TickerProviderStateMixin {
   late String current;
   late ScrollController slidingScrollController;
   SlidingUpPanelController slidingPanelController = SlidingUpPanelController();
+  late final GeneralController generalController = Get.put(GeneralController());
 
   @override
   void initState() {
@@ -72,7 +76,7 @@ class _DesktopState extends State<Desktop> with TickerProviderStateMixin {
                 Directionality(
                   textDirection: TextDirection.rtl,
                   child: DPages(
-                    cubit.cuMPage,
+                    generalController.cuMPage,
                   ),
                 ),
                 SlideTransition(position: cubit.offset, child: AudioWidget()),

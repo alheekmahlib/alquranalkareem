@@ -3,6 +3,7 @@ import 'dart:developer' as developer;
 import 'dart:io';
 
 import 'package:alquranalkareem/cubit/cubit.dart';
+import 'package:alquranalkareem/shared/controller/general_controller.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
@@ -49,6 +50,7 @@ class AudioController extends GetxController {
   RxInt lastAyahInPage = 0.obs;
   final controller = Get.find<AyatController>();
   late final AyatController ayatController = Get.put(AyatController());
+  late final GeneralController generalController = Get.put(GeneralController());
 
   Future<void> initConnectivity() async {
     try {
@@ -162,39 +164,41 @@ class AudioController extends GetxController {
     QuranTextCubit textCubit = QuranTextCubit.get(context);
     QuranCubit cubit = QuranCubit.get(context);
 
-    print('ayat!.last.ayaNum ${ayatController.ayatList.last.ayaNum}');
+    lastAyahInPage.value = ayatController.ayatList.last.ayaNum!;
+    print('ayat!.last.ayaNum ${lastAyahInPage.value}');
     // Increment Ayah number
     int currentAyah;
     int currentSorah;
-    currentAyah = int.parse(audioCubit.ayahNum!) + 1;
-    audioCubit.ayahNum = '$currentAyah';
+    currentAyah = int.parse(ayatController.currentAyahNumber.value) + 1;
+    ayatController.currentAyahNumber.value = '$currentAyah';
     currentSorah = int.parse(audioCubit.sorahName!);
     audioCubit.sorahName = formatNumber(currentSorah);
-    audioCubit.ayahNum = formatNumber(currentAyah);
+    ayatController.currentAyahNumber.value = formatNumber(currentAyah);
     textCubit.changeSelectedIndex(currentAyah + 1);
 
     String reader = audioCubit.readerValue!;
     String fileName =
-        "$reader/${audioCubit.sorahName!}${audioCubit.ayahNum!}.mp3";
+        "$reader/${audioCubit.sorahName!}${ayatController.currentAyahNumber.value}.mp3";
     String url = "https://www.everyayah.com/data/$fileName";
     print('nextURL $url');
 
     print('currentAyah ${currentAyah}');
     print('lastAyah $lastAyah');
 
-    if (cubit.cuMPage == 604) {
+    if (generalController.cuMPage == 604) {
       await audioPlayer.stop();
       isPlay.value = false;
-    } else if (ayatController.ayatList.last.ayaNum == currentAyah - 1) {
-      print('audioCubit.ayahNumber ${audioCubit.ayahNumber}');
-      cubit.dPageController!.animateTo((cubit.cuMPage++).toDouble(),
-          duration: const Duration(milliseconds: 600), curve: Curves.easeInOut);
+    } else if (lastAyahInPage.value == currentAyah - 1) {
+      print('generalController.cuMPage ${generalController.cuMPage++}');
+      cubit.dPageController!.jumpToPage(
+        (generalController.cuMPage - 1),
+        // duration: const Duration(milliseconds: 600), curve: Curves.easeInOut
+      );
       isPlay.value = true;
       // Call playAyah again to play the next ayah
       await playFile(context, url, fileName);
     }
     await playFile(context, url, fileName);
-    print('audioCubit.ayahNumber ${audioCubit.ayahNumber}');
     isProcessingNextAyah.value = false;
   }
 
@@ -205,14 +209,14 @@ class AudioController extends GetxController {
     int? currentAyah;
     int? currentSorah;
 
-    currentAyah = int.parse(audioCubit.ayahNum!);
+    currentAyah = int.parse(ayatController.currentAyahNumber.value);
     currentSorah = int.parse(audioCubit.sorahName!);
     audioCubit.sorahName = formatNumber(currentSorah);
-    audioCubit.ayahNum = formatNumber(currentAyah);
+    ayatController.currentAyahNumber.value = formatNumber(currentAyah);
 
     String reader = audioCubit.readerValue!;
     String fileName =
-        "$reader/${audioCubit.sorahName!}${audioCubit.ayahNum!}.mp3";
+        "$reader/${audioCubit.sorahName!}${ayatController.currentAyahNumber.value}.mp3";
     String url = "https://www.everyayah.com/data/$fileName";
 
     if (isPlay.value) {
@@ -411,9 +415,9 @@ class AudioController extends GetxController {
         if (playerState.processingState == ProcessingState.completed &&
             !isProcessingNextAyah.value) {
           isProcessingNextAyah.value = true;
-          print('cubit.cuMPage ${cubit.cuMPage}');
+          print('generalController.cuMPage ${generalController.cuMPage}');
           isPagePlay.value = false;
-          if (cubit.cuMPage == 604) {
+          if (generalController.cuMPage == 604) {
             await audioPlayer.stop();
             isPagePlay.value = false;
           } else {
@@ -445,8 +449,8 @@ class AudioController extends GetxController {
     print('playNextPage ' * 6);
     AudioCubit audioCubit = AudioCubit.get(context);
     QuranCubit cubit = QuranCubit.get(context);
-    int pageNum = cubit.cuMPage + 1;
-    cubit.dPageController!.jumpToPage(cubit.cuMPage++);
+    int pageNum = generalController.cuMPage + 1;
+    cubit.dPageController!.jumpToPage(generalController.cuMPage++);
     String? stringPageNum;
     if (pageNum < 10) {
       stringPageNum = "00" + pageNum.toString();
@@ -509,7 +513,7 @@ class AudioController extends GetxController {
   playPage(BuildContext context, int pageNum) async {
     AudioCubit audioCubit = AudioCubit.get(context);
     QuranCubit cubit = QuranCubit.get(context);
-    pageNum = cubit.cuMPage;
+    pageNum = generalController.cuMPage;
     String? stringPageNum;
     if (pageNum < 10) {
       stringPageNum = "00" + pageNum.toString();
