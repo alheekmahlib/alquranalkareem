@@ -1,12 +1,8 @@
 import 'package:alquranalkareem/cubit/cubit.dart';
 import 'package:alquranalkareem/notes/cubit/note_cubit.dart';
 import 'package:alquranalkareem/quran_page/cubit/audio/cubit.dart';
-import 'package:another_xlider/another_xlider.dart';
-import 'package:another_xlider/models/handler.dart';
-import 'package:another_xlider/models/handler_animation.dart';
-import 'package:another_xlider/models/trackbar.dart';
+import 'package:alquranalkareem/shared/controller/general_controller.dart';
 import 'package:arabic_numbers/arabic_numbers.dart';
-import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_sliding_up_panel/sliding_up_panel_widget.dart';
@@ -24,8 +20,6 @@ import '../text_page_view.dart';
 class ShowTextTafseer extends StatefulWidget {
   const ShowTextTafseer({Key? key}) : super(key: key);
 
-  static double fontSizeArabic = 18;
-
   @override
   State<ShowTextTafseer> createState() => _ShowTextTafseerState();
 }
@@ -34,6 +28,8 @@ class _ShowTextTafseerState extends State<ShowTextTafseer> {
   final ScrollController _scrollController = ScrollController();
   final GlobalKey<_ShowTextTafseerState> _selectableTextKey =
       GlobalKey<_ShowTextTafseerState>();
+  late final AyatController ayatController = Get.put(AyatController());
+  late final GeneralController generalController = Get.put(GeneralController());
   ArabicNumbers arabicNumber = ArabicNumbers();
   int pageNum = 0;
   int radioValue = 0;
@@ -41,12 +37,9 @@ class _ShowTextTafseerState extends State<ShowTextTafseer> {
   double upperValue = 40;
   String? selectedValue;
   double? sliderValue;
-  late final AyatController ayatController = Get.put(AyatController());
 
   @override
   void initState() {
-    QuranCubit.get(context).loadFontSize();
-
     sliderValue = 0;
     AudioCubit.get(context).loadQuranReader();
     super.initState();
@@ -105,10 +98,10 @@ class _ShowTextTafseerState extends State<ShowTextTafseer> {
                     ),
                     onTap: () {
                       if (SlidingUpPanelStatus.hidden ==
-                          cubit.panelTextController.status) {
-                        cubit.panelTextController.expand();
+                          generalController.panelTextController.status) {
+                        generalController.panelTextController.expand();
                       } else {
-                        cubit.panelTextController.hide();
+                        generalController.panelTextController.hide();
                       }
                       tafseerDropDown(context);
                     },
@@ -176,80 +169,86 @@ class _ShowTextTafseerState extends State<ShowTextTafseer> {
                               allText = '﴿${state.translateAyah}﴾\n\n' +
                                   state.translate;
                               allTitle = '﴿${state.translateAyah}﴾';
-                              return SelectableText.rich(
-                                key: _selectableTextKey,
-                                TextSpan(
-                                  children: <InlineSpan>[
-                                    TextSpan(
-                                      text: '﴿${state.translateAyah}﴾\n\n',
-                                      style: TextStyle(
-                                          color: ThemeProvider.themeOf(context)
-                                                      .id ==
-                                                  'dark'
-                                              ? Colors.white
-                                              : Colors.black,
-                                          fontWeight: FontWeight.w100,
-                                          height: 1.5,
-                                          fontFamily: 'uthmanic2',
-                                          fontSize: ShowTafseer.fontSizeArabic),
-                                    ),
-                                    WidgetSpan(
-                                      child: Center(
-                                        child: SizedBox(
-                                          height: 50,
+                              return Obx(() {
+                                return SelectableText.rich(
+                                  key: _selectableTextKey,
+                                  TextSpan(
+                                    children: <InlineSpan>[
+                                      TextSpan(
+                                        text: '﴿${state.translateAyah}﴾\n\n',
+                                        style: TextStyle(
+                                            color:
+                                                ThemeProvider.themeOf(context)
+                                                            .id ==
+                                                        'dark'
+                                                    ? Colors.white
+                                                    : Colors.black,
+                                            fontWeight: FontWeight.w100,
+                                            height: 1.5,
+                                            fontFamily: 'uthmanic2',
+                                            fontSize: generalController
+                                                .fontSizeArabic.value),
+                                      ),
+                                      WidgetSpan(
+                                        child: Center(
                                           child: SizedBox(
-                                              width: MediaQuery.of(context)
-                                                      .size
-                                                      .width /
-                                                  1 /
-                                                  2,
-                                              child: SvgPicture.asset(
-                                                'assets/svg/space_line.svg',
-                                              )),
+                                            height: 50,
+                                            child: SizedBox(
+                                                width: MediaQuery.of(context)
+                                                        .size
+                                                        .width /
+                                                    1 /
+                                                    2,
+                                                child: SvgPicture.asset(
+                                                  'assets/svg/space_line.svg',
+                                                )),
+                                          ),
                                         ),
                                       ),
-                                    ),
-                                    TextSpan(
-                                      text: state.translate,
-                                      style: TextStyle(
-                                          color: ThemeProvider.themeOf(context)
-                                                      .id ==
-                                                  'dark'
-                                              ? Colors.white
-                                              : Colors.black,
-                                          height: 1.5,
-                                          fontSize: ShowTafseer.fontSizeArabic),
-                                    ),
-                                    WidgetSpan(
-                                      child: Center(
-                                        child: SizedBox(
-                                          height: 50,
-                                          child: SizedBox(
-                                              width: MediaQuery.of(context)
-                                                      .size
-                                                      .width /
-                                                  1 /
-                                                  2,
-                                              child: SvgPicture.asset(
-                                                'assets/svg/space_line.svg',
-                                              )),
-                                        ),
+                                      TextSpan(
+                                        text: state.translate,
+                                        style: TextStyle(
+                                            color:
+                                                ThemeProvider.themeOf(context)
+                                                            .id ==
+                                                        'dark'
+                                                    ? Colors.white
+                                                    : Colors.black,
+                                            height: 1.5,
+                                            fontSize: generalController
+                                                .fontSizeArabic.value),
                                       ),
-                                    )
-                                    // TextSpan(text: 'world', style: TextStyle(fontWeight: FontWeight.bold)),
-                                  ],
-                                ),
-                                showCursor: true,
-                                cursorWidth: 3,
-                                cursorColor: Theme.of(context).dividerColor,
-                                cursorRadius: const Radius.circular(5),
-                                scrollPhysics: const ClampingScrollPhysics(),
-                                textDirection: TextDirection.rtl,
-                                textAlign: TextAlign.justify,
-                                contextMenuBuilder:
-                                    buildMyContextMenu(notesCubit),
-                                onSelectionChanged: handleSelectionChanged,
-                              );
+                                      WidgetSpan(
+                                        child: Center(
+                                          child: SizedBox(
+                                            height: 50,
+                                            child: SizedBox(
+                                                width: MediaQuery.of(context)
+                                                        .size
+                                                        .width /
+                                                    1 /
+                                                    2,
+                                                child: SvgPicture.asset(
+                                                  'assets/svg/space_line.svg',
+                                                )),
+                                          ),
+                                        ),
+                                      )
+                                      // TextSpan(text: 'world', style: TextStyle(fontWeight: FontWeight.bold)),
+                                    ],
+                                  ),
+                                  showCursor: true,
+                                  cursorWidth: 3,
+                                  cursorColor: Theme.of(context).dividerColor,
+                                  cursorRadius: const Radius.circular(5),
+                                  scrollPhysics: const ClampingScrollPhysics(),
+                                  textDirection: TextDirection.rtl,
+                                  textAlign: TextAlign.justify,
+                                  contextMenuBuilder:
+                                      buildMyContextMenu(notesCubit),
+                                  onSelectionChanged: handleSelectionChanged,
+                                );
+                              });
                             } else {
                               return const SizedBox
                                   .shrink(); // Or some other fallback widget
@@ -302,10 +301,10 @@ class _ShowTextTafseerState extends State<ShowTextTafseer> {
                 onTap: () {
                   Navigator.pop(context);
                   if (SlidingUpPanelStatus.hidden ==
-                      cubit.panelTextController.status) {
-                    cubit.panelTextController.expand();
+                      generalController.panelTextController.status) {
+                    generalController.panelTextController.expand();
                   } else {
-                    cubit.panelTextController.hide();
+                    generalController.panelTextController.hide();
                   }
                 },
                 child: Container(
@@ -383,16 +382,16 @@ class _ShowTextTafseerState extends State<ShowTextTafseer> {
                           onTap: () {
                             print("IconButton pressed, calling updateTextText");
                             ayatController.handleRadioValueChanged(index);
-                            cubit.saveTafseer(index);
+                            ayatController.saveTafseer(index);
                             // Get new translation and update state
                             TextCubit.getNewTranslationAndNotify(
                                 context, textSurahNum!, lastAyahInPage!);
                             print("lastAyahInPage $lastAyahInPage");
                             if (SlidingUpPanelStatus.hidden ==
-                                cubit.panelTextController.status) {
-                              cubit.panelTextController.expand();
+                                generalController.panelTextController.status) {
+                              generalController.panelTextController.expand();
                             } else {
-                              cubit.panelTextController.hide();
+                              generalController.panelTextController.hide();
                             }
                             Navigator.pop(context);
                             setState(() {});
@@ -434,88 +433,6 @@ class _ShowTextTafseerState extends State<ShowTextTafseer> {
             ),
           ],
         ),
-      ),
-    );
-  }
-
-  Widget fontSizeDropDown(BuildContext context) {
-    return DropdownButton2(
-      isExpanded: true,
-      items: [
-        DropdownMenuItem<String>(
-          child: FlutterSlider(
-            values: [ShowTafseer.fontSizeArabic],
-            max: 40,
-            min: 18,
-            rtl: true,
-            trackBar: FlutterSliderTrackBar(
-              inactiveTrackBarHeight: 5,
-              activeTrackBarHeight: 5,
-              inactiveTrackBar: BoxDecoration(
-                borderRadius: BorderRadius.circular(8),
-                color: Theme.of(context).colorScheme.surface,
-              ),
-              activeTrackBar: BoxDecoration(
-                  borderRadius: BorderRadius.circular(4),
-                  color: Theme.of(context).colorScheme.background),
-            ),
-            handlerAnimation: const FlutterSliderHandlerAnimation(
-                curve: Curves.elasticOut,
-                reverseCurve: null,
-                duration: Duration(milliseconds: 700),
-                scale: 1.4),
-            onDragging: (handlerIndex, lowerValue, upperValue) {
-              lowerValue = lowerValue;
-              upperValue = upperValue;
-              ShowTafseer.fontSizeArabic = lowerValue;
-              QuranCubit.get(context).saveFontSize(ShowTafseer.fontSizeArabic);
-              setState(() {});
-            },
-            handler: FlutterSliderHandler(
-              decoration: const BoxDecoration(),
-              child: Material(
-                type: MaterialType.circle,
-                color: Colors.transparent,
-                elevation: 3,
-                child: SvgPicture.asset('assets/svg/slider_ic.svg'),
-              ),
-            ),
-          ),
-        )
-      ],
-      value: selectedValue,
-      onChanged: (value) {
-        setState(() {
-          selectedValue = value as String;
-        });
-      },
-      customButton: Icon(
-        Icons.format_size,
-        color: Theme.of(context).colorScheme.surface,
-      ),
-      iconStyleData: const IconStyleData(
-        iconSize: 24,
-      ),
-      buttonStyleData: const ButtonStyleData(
-        height: 50,
-        width: 50,
-        elevation: 0,
-      ),
-      dropdownStyleData: DropdownStyleData(
-          decoration: BoxDecoration(
-              color: Theme.of(context).colorScheme.surface.withOpacity(.9),
-              borderRadius: const BorderRadius.all(Radius.circular(8))),
-          padding: const EdgeInsets.only(left: 14, right: 14),
-          maxHeight: 230,
-          width: 230,
-          elevation: 0,
-          offset: const Offset(0, 0),
-          scrollbarTheme: ScrollbarThemeData(
-            radius: const Radius.circular(8),
-            thickness: MaterialStateProperty.all(6),
-          )),
-      menuItemStyleData: const MenuItemStyleData(
-        height: 45,
       ),
     );
   }

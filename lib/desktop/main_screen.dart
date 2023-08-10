@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
+
 import '../audio_screen/audio_screen.dart';
+import '../azkar/screens/alzkar_view.dart';
 import '../cubit/cubit.dart';
 import '../cubit/states.dart';
 import '../home_page.dart';
+import '../quran_text/sorah_text_screen.dart';
 import '../screens/menu_screen.dart';
 import '../shared/widgets/animated_stack.dart';
-import '../quran_text/sorah_text_screen.dart';
-import '../azkar/screens/alzkar_view.dart';
 import '../shared/widgets/widgets.dart';
 import 'desktop.dart';
 
@@ -57,7 +58,8 @@ class _MainDScreenState extends State<MainDScreen> {
                 columnWidget: Wrap(
                   children: [
                     Padding(
-                      padding: const EdgeInsets.only(top: 32.0, bottom: 120.0, right: 6.0),
+                      padding: const EdgeInsets.only(
+                          top: 32.0, bottom: 120.0, right: 6.0),
                       child: SvgPicture.asset(
                         'assets/svg/splash_icon.svg',
                         height: 100,
@@ -65,7 +67,8 @@ class _MainDScreenState extends State<MainDScreen> {
                       ),
                     ),
                     Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 4.0, vertical: 16.0),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 4.0, vertical: 16.0),
                       child: Align(
                         alignment: Alignment.topRight,
                         child: GestureDetector(
@@ -75,8 +78,12 @@ class _MainDScreenState extends State<MainDScreen> {
                                 height: 45,
                                 width: 45,
                                 decoration: BoxDecoration(
-                                  color: Theme.of(context).colorScheme.surface.withOpacity(.3),
-                                  borderRadius: const BorderRadius.all(Radius.circular(8)),
+                                  color: Theme.of(context)
+                                      .colorScheme
+                                      .surface
+                                      .withOpacity(.3),
+                                  borderRadius: const BorderRadius.all(
+                                      Radius.circular(8)),
                                 ),
                                 child: Icon(
                                   Icons.notifications,
@@ -84,7 +91,8 @@ class _MainDScreenState extends State<MainDScreen> {
                                 ),
                               ),
                               // Add the red dot indicator
-                              if (sentNotifications.any((notification) => !notification['opened']))
+                              if (sentNotifications.any(
+                                  (notification) => !notification['opened']))
                                 Positioned(
                                   top: 8,
                                   right: 8,
@@ -101,14 +109,19 @@ class _MainDScreenState extends State<MainDScreen> {
                           ),
                           onTap: () {
                             Navigator.of(context).push(
-                              animatRoute(sentNotification(context, sentNotifications, HomePage.of(context)!.updateNotificationStatus)),
+                              animatRoute(sentNotification(
+                                  context,
+                                  sentNotifications,
+                                  HomePage.of(context)!
+                                      .updateNotificationStatus)),
                             );
                           },
                         ),
                       ),
                     ),
                     Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 4.0),
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 8.0, horizontal: 4.0),
                       child: GestureDetector(
                         child: Container(
                           height: 50.0,
@@ -117,25 +130,28 @@ class _MainDScreenState extends State<MainDScreen> {
                           decoration: BoxDecoration(
                               color: Theme.of(context).colorScheme.surface,
                               borderRadius:
-                              const BorderRadius.all(Radius.circular(8))),
+                                  const BorderRadius.all(Radius.circular(8))),
                           child: SvgPicture.asset(
                             'assets/svg/quran_ic.svg',
                             colorFilter: pageIndex == 0
                                 ? null
-                                : ColorFilter.mode(Theme.of(context).colorScheme.background,
-                                BlendMode.srcIn),
+                                : ColorFilter.mode(
+                                    Theme.of(context).colorScheme.background,
+                                    BlendMode.srcIn),
                           ),
                         ),
                         onTap: () {
                           setState(() {
                             pageIndex = 0;
-                            cubit.opened = !cubit.opened;
+                            generalController.opened.value =
+                                !generalController.opened.value;
                           });
                         },
                       ),
                     ),
                     Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 4.0),
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 8.0, horizontal: 4.0),
                       child: GestureDetector(
                         child: Container(
                           height: 50.0,
@@ -144,25 +160,28 @@ class _MainDScreenState extends State<MainDScreen> {
                           decoration: BoxDecoration(
                               color: Theme.of(context).colorScheme.surface,
                               borderRadius:
-                              const BorderRadius.all(Radius.circular(8))),
+                                  const BorderRadius.all(Radius.circular(8))),
                           child: SvgPicture.asset(
                             'assets/svg/quran_te_ic.svg',
                             colorFilter: pageIndex == 1
                                 ? null
-                                : ColorFilter.mode(Theme.of(context).colorScheme.background,
-                                BlendMode.srcIn),
+                                : ColorFilter.mode(
+                                    Theme.of(context).colorScheme.background,
+                                    BlendMode.srcIn),
                           ),
                         ),
                         onTap: () {
                           setState(() {
                             pageIndex = 1;
-                            cubit.opened = !cubit.opened;
+                            generalController.opened.value =
+                                !generalController.opened.value;
                           });
                         },
                       ),
                     ),
                     Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 4.0),
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 8.0, horizontal: 4.0),
                       child: GestureDetector(
                         child: Container(
                           height: 50.0,
@@ -171,25 +190,28 @@ class _MainDScreenState extends State<MainDScreen> {
                           decoration: BoxDecoration(
                               color: Theme.of(context).colorScheme.surface,
                               borderRadius:
-                              const BorderRadius.all(Radius.circular(8))),
+                                  const BorderRadius.all(Radius.circular(8))),
                           child: SvgPicture.asset(
                             'assets/svg/azkar.svg',
                             colorFilter: pageIndex == 2
                                 ? null
-                                : ColorFilter.mode(Theme.of(context).colorScheme.background,
-                                BlendMode.srcIn),
+                                : ColorFilter.mode(
+                                    Theme.of(context).colorScheme.background,
+                                    BlendMode.srcIn),
                           ),
                         ),
                         onTap: () {
                           setState(() {
                             pageIndex = 2;
-                            cubit.opened = !cubit.opened;
+                            generalController.opened.value =
+                                !generalController.opened.value;
                           });
                         },
                       ),
                     ),
                     Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 4.0),
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 8.0, horizontal: 4.0),
                       child: GestureDetector(
                         child: Container(
                           height: 50.0,
@@ -198,25 +220,28 @@ class _MainDScreenState extends State<MainDScreen> {
                           decoration: BoxDecoration(
                               color: Theme.of(context).colorScheme.surface,
                               borderRadius:
-                              const BorderRadius.all(Radius.circular(8))),
+                                  const BorderRadius.all(Radius.circular(8))),
                           child: SvgPicture.asset(
                             'assets/svg/quran_au_ic.svg',
                             colorFilter: pageIndex == 3
                                 ? null
-                                : ColorFilter.mode(Theme.of(context).colorScheme.background,
-                                BlendMode.srcIn),
+                                : ColorFilter.mode(
+                                    Theme.of(context).colorScheme.background,
+                                    BlendMode.srcIn),
                           ),
                         ),
                         onTap: () {
                           setState(() {
                             pageIndex = 3;
-                            cubit.opened = !cubit.opened;
+                            generalController.opened.value =
+                                !generalController.opened.value;
                           });
                         },
                       ),
                     ),
                     Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 4.0),
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 8.0, horizontal: 4.0),
                       child: GestureDetector(
                         child: Container(
                           height: 50.0,
@@ -225,19 +250,21 @@ class _MainDScreenState extends State<MainDScreen> {
                           decoration: BoxDecoration(
                               color: Theme.of(context).colorScheme.surface,
                               borderRadius:
-                              const BorderRadius.all(Radius.circular(8))),
+                                  const BorderRadius.all(Radius.circular(8))),
                           child: SvgPicture.asset(
                             'assets/svg/menu_ic.svg',
                             colorFilter: pageIndex == 4
                                 ? null
-                                : ColorFilter.mode(Theme.of(context).colorScheme.background,
-                                BlendMode.srcIn),
+                                : ColorFilter.mode(
+                                    Theme.of(context).colorScheme.background,
+                                    BlendMode.srcIn),
                           ),
                         ),
                         onTap: () {
                           setState(() {
                             pageIndex = 4;
-                            cubit.opened = !cubit.opened;
+                            generalController.opened.value =
+                                !generalController.opened.value;
                           });
                         },
                       ),
@@ -251,13 +278,14 @@ class _MainDScreenState extends State<MainDScreen> {
                     children: [
                       SvgPicture.asset(
                         'assets/svg/alheekmah_logo.svg',
-                        colorFilter: ColorFilter.mode(Theme.of(context).canvasColor, BlendMode.srcIn),
+                        colorFilter: ColorFilter.mode(
+                            Theme.of(context).canvasColor, BlendMode.srcIn),
                         width: 100,
                       ),
                       Container(
                         height: 2,
-                        margin: const EdgeInsets.only(
-                            right: 16, left: 16, top: 20),
+                        margin:
+                            const EdgeInsets.only(right: 16, left: 16, top: 20),
                         width: MediaQuery.of(context).size.width,
                         color: Theme.of(context).canvasColor,
                       )

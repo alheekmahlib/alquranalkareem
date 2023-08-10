@@ -1,10 +1,6 @@
 import 'package:alquranalkareem/notes/cubit/note_cubit.dart';
 import 'package:alquranalkareem/quran_text/Widgets/text_overflow_detector.dart';
 import 'package:animated_toggle_switch/animated_toggle_switch.dart';
-import 'package:another_xlider/another_xlider.dart';
-import 'package:another_xlider/models/handler.dart';
-import 'package:another_xlider/models/handler_animation.dart';
-import 'package:another_xlider/models/trackbar.dart';
 import 'package:arabic_numbers/arabic_numbers.dart';
 import 'package:bot_toast/bot_toast.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
@@ -13,7 +9,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_sliding_up_panel/sliding_up_panel_widget.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:theme_provider/theme_provider.dart';
 
@@ -23,6 +18,7 @@ import '../../cubit/translateDataCubit/translateDataState.dart';
 import '../../l10n/app_localizations.dart';
 import '../../quran_page/data/model/ayat.dart';
 import '../../shared/controller/ayat_controller.dart';
+import '../../shared/controller/general_controller.dart';
 import '../../shared/share/ayah_to_images.dart';
 import '../../shared/widgets/lottie.dart';
 import '../../shared/widgets/show_tafseer.dart';
@@ -33,6 +29,7 @@ import '../text_page_view.dart';
 
 ArabicNumbers arabicNumber = ArabicNumbers();
 late final AyatController ayatController = Get.put(AyatController());
+late final GeneralController generalController = Get.put(GeneralController());
 
 menu(BuildContext context, int b, index, var details, translateData, widget,
     nomPageF, nomPageL) {
@@ -91,10 +88,13 @@ menu(BuildContext context, int b, index, var details, translateData, widget,
                                   context.read<QuranTextCubit>().updateTextText(
                                       "${aya.ayatext}", "${aya.translate}");
                                   if (SlidingUpPanelStatus.hidden ==
-                                      cubit.panelTextController.status) {
-                                    cubit.panelTextController.expand();
+                                      generalController
+                                          .panelTextController.status) {
+                                    generalController.panelTextController
+                                        .expand();
                                   } else {
-                                    cubit.panelTextController.hide();
+                                    generalController.panelTextController
+                                        .hide();
                                   }
                                   cancel();
                                 },
@@ -246,99 +246,6 @@ menu(BuildContext context, int b, index, var details, translateData, widget,
       : null;
 }
 
-Widget fontSizeDropDown(BuildContext context, var setState) {
-  return DropdownButton2(
-    isExpanded: true,
-    items: [
-      DropdownMenuItem<String>(
-        child: FlutterSlider(
-          values: [TextPageView.fontSizeArabic],
-          max: 60,
-          min: 18,
-          rtl: true,
-          trackBar: FlutterSliderTrackBar(
-            inactiveTrackBarHeight: 5,
-            activeTrackBarHeight: 5,
-            inactiveTrackBar: BoxDecoration(
-              borderRadius: BorderRadius.circular(8),
-              color: Theme.of(context).colorScheme.surface,
-            ),
-            activeTrackBar: BoxDecoration(
-                borderRadius: BorderRadius.circular(4),
-                color: Theme.of(context).colorScheme.background),
-          ),
-          handlerAnimation: const FlutterSliderHandlerAnimation(
-              curve: Curves.elasticOut,
-              reverseCurve: null,
-              duration: Duration(milliseconds: 700),
-              scale: 1.4),
-          onDragging: (handlerIndex, lowerValue, upperValue) {
-            lowerValue = lowerValue;
-            upperValue = upperValue;
-            TextPageView.fontSizeArabic = lowerValue;
-            QuranCubit.get(context)
-                .saveQuranFontSize(TextPageView.fontSizeArabic);
-            setState(() {});
-          },
-          handler: FlutterSliderHandler(
-            decoration: const BoxDecoration(),
-            child: Material(
-              type: MaterialType.circle,
-              color: Colors.transparent,
-              elevation: 3,
-              child: SvgPicture.asset('assets/svg/slider_ic.svg'),
-            ),
-          ),
-        ),
-      )
-    ],
-    value: selectedValue,
-    onChanged: (value) {
-      setState(() {
-        selectedValue = value as String;
-      });
-    },
-    customButton: Container(
-        height: 25,
-        width: 25,
-        decoration: BoxDecoration(
-            borderRadius: const BorderRadius.all(
-              Radius.circular(8),
-            ),
-            border: Border.all(
-                width: 1, color: Theme.of(context).colorScheme.surface)),
-        child: Icon(
-          Icons.format_size,
-          size: 20,
-          color: Theme.of(context).colorScheme.surface,
-        )),
-    iconStyleData: const IconStyleData(
-      iconSize: 20,
-    ),
-    buttonStyleData: const ButtonStyleData(
-      height: 50,
-      width: 50,
-      elevation: 0,
-    ),
-    dropdownStyleData: DropdownStyleData(
-        decoration: BoxDecoration(
-            color: Theme.of(context).colorScheme.surface.withOpacity(.9),
-            borderRadius: const BorderRadius.all(Radius.circular(8))),
-        padding: const EdgeInsets.only(left: 1, right: 1),
-        maxHeight: 230,
-        width: 230,
-        elevation: 0,
-        offset: const Offset(0, 0),
-        scrollbarTheme: ScrollbarThemeData(
-          radius: const Radius.circular(8),
-          thickness: MaterialStateProperty.all(6),
-        )),
-    menuItemStyleData: const MenuItemStyleData(
-      height: 45,
-    ),
-  );
-}
-
 Widget animatedToggleSwitch(BuildContext context, var setState) {
   QuranTextCubit TextCubit = QuranTextCubit.get(context);
   return AnimatedToggleSwitch<int>.rolling(
@@ -476,7 +383,7 @@ Widget greeting(BuildContext context) {
   return Padding(
     padding: const EdgeInsets.only(top: 8.0),
     child: Text(
-      '| ${QuranCubit.get(context).greeting} |',
+      '| ${generalController.greeting.value} |',
       style: TextStyle(
         fontSize: 16.0,
         fontFamily: 'kufi',
@@ -536,7 +443,7 @@ Widget singleAyah(
               //     style: TextStyle(
               //       fontSize:
               //       TextPageView
-              //           .fontSizeArabic,
+              //           .fontSizeArabic.value,
               //       fontWeight:
               //       FontWeight
               //           .normal,
@@ -579,7 +486,7 @@ Widget singleAyah(
                     TextSpan(
                         text: widget.surah!.ayahs![index].text!,
                         style: TextStyle(
-                          fontSize: TextPageView.fontSizeArabic,
+                          fontSize: generalController.fontSizeArabic.value,
                           fontWeight: FontWeight.normal,
                           fontFamily: 'uthmanic2',
                           color: ThemeProvider.themeOf(context).id == 'dark'
@@ -617,7 +524,7 @@ Widget singleAyah(
                       text:
                           ' ${arabicNumber.convert(widget.surah!.ayahs![index].numberInSurah.toString())}',
                       style: TextStyle(
-                        fontSize: TextPageView.fontSizeArabic + 5,
+                        fontSize: generalController.fontSizeArabic.value + 5,
                         fontWeight: FontWeight.w500,
                         fontFamily: 'uthmanic2',
                         color: ThemeProvider.themeOf(context).id == 'dark'
@@ -673,7 +580,8 @@ Widget singleAyah(
                         return ReadMoreLess(
                           text: translateData[index]['text'] ?? '',
                           textStyle: TextStyle(
-                            fontSize: TextPageView.fontSizeArabic - 10,
+                            fontSize:
+                                generalController.fontSizeArabic.value - 10,
                             fontFamily: 'kufi',
                             color: ThemeProvider.themeOf(context).id == 'dark'
                                 ? Colors.white
@@ -774,7 +682,7 @@ Widget pageAyah(BuildContext context, var setState, widget,
                   textAlign: TextAlign.justify,
                   TextSpan(
                     style: TextStyle(
-                        fontSize: TextPageView.fontSizeArabic,
+                        fontSize: generalController.fontSizeArabic.value,
                         backgroundColor: TextCubit.bColor ?? Colors.transparent,
                         fontFamily: 'uthmanic2'),
                     children: text.map((e) {

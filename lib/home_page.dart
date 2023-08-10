@@ -2,7 +2,6 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:alquranalkareem/cubit/cubit.dart';
 import 'package:alquranalkareem/quran_page/screens/quran_screen.dart';
 import 'package:alquranalkareem/shared/local_notifications.dart';
 import 'package:alquranalkareem/shared/postPage.dart';
@@ -44,7 +43,7 @@ class _HomePageState extends State<HomePage> {
   DateTime now = DateTime.now();
   void setLocale(Locale value) {
     setState(() {
-      QuranCubit.get(context).initialLang = value;
+      generalController.initialLang = value;
     });
   }
 
@@ -334,7 +333,7 @@ class _HomePageState extends State<HomePage> {
         }
       });
     }
-    QuranCubit.get(context).loadLang();
+
     notifyHelper = NotifyHelper();
     notifyHelper.requestIOSPermissions();
     notifyHelper.requestMACPermissions();
@@ -397,7 +396,7 @@ class _HomePageState extends State<HomePage> {
           Locale('en', ''),
           Locale('es', ''),
         ],
-        locale: QuranCubit.get(context).initialLang,
+        locale: generalController.initialLang,
         theme: ThemeProvider.themeOf(themeContext).data,
         builder: BotToastInit(),
         navigatorObservers: [BotToastNavigatorObserver()],

@@ -73,6 +73,7 @@ dependencies:
   audio_session: ^0.1.16
   flutter_screenutil: ^5.8.4
   pixel_perfect: ^1.1.3
+  cool_dropdown: ^2.1.0
 #  scroll_to_index: ^3.0.1
 
 

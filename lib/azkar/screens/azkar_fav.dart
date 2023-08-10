@@ -1,17 +1,11 @@
-import 'package:another_xlider/another_xlider.dart';
-import 'package:another_xlider/models/handler.dart';
-import 'package:another_xlider/models/handler_animation.dart';
-import 'package:another_xlider/models/trackbar.dart';
-import 'package:dropdown_button2/dropdown_button2.dart';
+import 'package:alquranalkareem/shared/controller/general_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:theme_provider/theme_provider.dart';
 
-import '../../cubit/cubit.dart';
 import '../../l10n/app_localizations.dart';
 import '../../shared/widgets/lottie.dart';
 import '../../shared/widgets/widgets.dart';
@@ -28,6 +22,7 @@ class AzkarFav extends StatefulWidget {
 
 class _AzkarFavState extends State<AzkarFav> {
   late final AzkarController azkarController = Get.put(AzkarController());
+  late final GeneralController generalController = Get.put(GeneralController());
   var controller = ScrollController();
   double lowerValue = 18;
   double upperValue = 40;
@@ -113,34 +108,41 @@ class _AzkarFavState extends State<AzkarFav> {
                                               child: Padding(
                                                 padding:
                                                     const EdgeInsets.all(8),
-                                                child: SelectableText(
-                                                  azkar.zekr!,
-                                                  style: TextStyle(
-                                                      color:
-                                                          ThemeProvider.themeOf(
-                                                                          context)
-                                                                      .id ==
-                                                                  'dark'
-                                                              ? Colors.white
-                                                              : Colors.black,
-                                                      height: 1.4,
-                                                      fontFamily: 'naskh',
-                                                      fontSize: AzkarFav
-                                                          .fontSizeAzkar),
-                                                  showCursor: true,
-                                                  cursorWidth: 3,
-                                                  cursorColor: Theme.of(context)
-                                                      .dividerColor,
-                                                  cursorRadius:
-                                                      const Radius.circular(5),
-                                                  scrollPhysics:
-                                                      const ClampingScrollPhysics(),
-                                                  // toolbarOptions: const ToolbarOptions(
-                                                  //     copy: true, selectAll: true),
-                                                  textDirection:
-                                                      TextDirection.rtl,
-                                                  textAlign: TextAlign.justify,
-                                                ),
+                                                child: Obx(() {
+                                                  final controller = Get.find<
+                                                      GeneralController>();
+                                                  return SelectableText(
+                                                    azkar.zekr!,
+                                                    style: TextStyle(
+                                                        color: ThemeProvider.themeOf(
+                                                                        context)
+                                                                    .id ==
+                                                                'dark'
+                                                            ? Colors.white
+                                                            : Colors.black,
+                                                        height: 1.4,
+                                                        fontFamily: 'naskh',
+                                                        fontSize: controller
+                                                            .fontSizeArabic
+                                                            .value),
+                                                    showCursor: true,
+                                                    cursorWidth: 3,
+                                                    cursorColor:
+                                                        Theme.of(context)
+                                                            .dividerColor,
+                                                    cursorRadius:
+                                                        const Radius.circular(
+                                                            5),
+                                                    scrollPhysics:
+                                                        const ClampingScrollPhysics(),
+                                                    // toolbarOptions: const ToolbarOptions(
+                                                    //     copy: true, selectAll: true),
+                                                    textDirection:
+                                                        TextDirection.rtl,
+                                                    textAlign:
+                                                        TextAlign.justify,
+                                                  );
+                                                }),
                                               ),
                                             ),
                                           ),
@@ -361,89 +363,6 @@ class _AzkarFavState extends State<AzkarFav> {
             }),
           )
         ],
-      ),
-    );
-  }
-
-  Widget fontSizeDropDown(BuildContext context) {
-    QuranCubit cubit = QuranCubit.get(context);
-    return DropdownButton2(
-      isExpanded: true,
-      items: [
-        DropdownMenuItem<String>(
-          child: FlutterSlider(
-            values: [AzkarFav.fontSizeAzkar],
-            max: 40,
-            min: 18,
-            rtl: true,
-            trackBar: FlutterSliderTrackBar(
-              inactiveTrackBarHeight: 5,
-              activeTrackBarHeight: 5,
-              inactiveTrackBar: BoxDecoration(
-                borderRadius: BorderRadius.circular(8),
-                color: Theme.of(context).colorScheme.surface,
-              ),
-              activeTrackBar: BoxDecoration(
-                  borderRadius: BorderRadius.circular(4),
-                  color: Theme.of(context).colorScheme.background),
-            ),
-            handlerAnimation: const FlutterSliderHandlerAnimation(
-                curve: Curves.elasticOut,
-                reverseCurve: null,
-                duration: Duration(milliseconds: 700),
-                scale: 1.4),
-            onDragging: (handlerIndex, lowerValue, upperValue) {
-              lowerValue = lowerValue;
-              upperValue = upperValue;
-              AzkarFav.fontSizeAzkar = lowerValue;
-              cubit.saveAzkarFontSize(AzkarFav.fontSizeAzkar);
-              setState(() {});
-            },
-            handler: FlutterSliderHandler(
-              decoration: const BoxDecoration(),
-              child: Material(
-                type: MaterialType.circle,
-                color: Colors.transparent,
-                elevation: 3,
-                child: SvgPicture.asset('assets/svg/slider_ic.svg'),
-              ),
-            ),
-          ),
-        )
-      ],
-      value: selectedValue,
-      onChanged: (value) {
-        setState(() {
-          selectedValue = value as String;
-        });
-      },
-      customButton: Icon(
-        Icons.format_size,
-        color: Theme.of(context).colorScheme.surface,
-      ),
-      iconStyleData: const IconStyleData(
-        iconSize: 24,
-      ),
-      buttonStyleData: const ButtonStyleData(
-        height: 50,
-        width: 50,
-        elevation: 0,
-      ),
-      dropdownStyleData: DropdownStyleData(
-          decoration: BoxDecoration(
-              color: Theme.of(context).colorScheme.surface.withOpacity(.9),
-              borderRadius: const BorderRadius.all(Radius.circular(8))),
-          padding: const EdgeInsets.only(left: 1, right: 1),
-          maxHeight: 230,
-          width: 230,
-          elevation: 0,
-          offset: const Offset(0, 0),
-          scrollbarTheme: ScrollbarThemeData(
-            radius: const Radius.circular(8),
-            thickness: MaterialStateProperty.all(6),
-          )),
-      menuItemStyleData: const MenuItemStyleData(
-        height: 45,
       ),
     );
   }

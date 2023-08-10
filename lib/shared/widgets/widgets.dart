@@ -3,15 +3,21 @@ import 'dart:io';
 import 'package:alquranalkareem/cubit/cubit.dart';
 import 'package:alquranalkareem/notes/cubit/note_cubit.dart';
 import 'package:alquranalkareem/quran_text/Widgets/quran_text_search.dart';
+import 'package:alquranalkareem/shared/controller/general_controller.dart';
 import 'package:alquranalkareem/shared/widgets/bookmarks_list.dart';
 import 'package:alquranalkareem/shared/widgets/quran_search.dart';
 import 'package:alquranalkareem/shared/widgets/sorah_juz_list.dart';
+import 'package:another_xlider/another_xlider.dart';
+import 'package:another_xlider/models/handler.dart';
+import 'package:another_xlider/models/handler_animation.dart';
+import 'package:another_xlider/models/trackbar.dart';
 import 'package:arabic_numbers/arabic_numbers.dart';
 import 'package:bot_toast/bot_toast.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_sliding_up_panel/sliding_up_panel_widget.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:get/get.dart';
 import 'package:hijri/hijri_calendar.dart';
 import 'package:intl/intl.dart';
 import 'package:theme_provider/theme_provider.dart';
@@ -28,6 +34,7 @@ import '../postPage.dart';
 var TPageScaffoldKey = GlobalKey<ScaffoldState>();
 var SorahPlayScaffoldKey = GlobalKey<ScaffoldState>();
 String? selectedValue;
+late final GeneralController generalController = Get.put(GeneralController());
 
 Widget quranPageSearch(BuildContext context, double width) {
   return GestureDetector(
@@ -1474,12 +1481,12 @@ dropDownModalBottomSheet(
       builder: (BuildContext context) {
         return child;
       }).whenComplete(() {
-    if (cubit.screenController != null) {
-      cubit.screenController!.reverse();
+    if (generalController.screenController != null) {
+      generalController.screenController!.reverse();
     }
   });
-  if (cubit.screenController != null) {
-    cubit.screenController!.forward();
+  if (generalController.screenController != null) {
+    generalController.screenController!.forward();
   }
 }
 
@@ -1506,9 +1513,9 @@ allModalBottomSheet(BuildContext context, double height, width, Widget child) {
       builder: (BuildContext context) {
         return child;
       }).whenComplete(() {
-    cubit.screenController!.reverse();
+    generalController.screenController!.reverse();
   });
-  cubit.screenController!.forward();
+  generalController.screenController!.forward();
 }
 
 Widget customClose(BuildContext context) {
@@ -1558,7 +1565,6 @@ Widget customClose2(BuildContext context) {
 }
 
 Widget customTextClose(BuildContext context) {
-  QuranCubit cubit = QuranCubit.get(context);
   return GestureDetector(
     child: Stack(
       alignment: Alignment.center,
@@ -1574,10 +1580,11 @@ Widget customTextClose(BuildContext context) {
       ],
     ),
     onTap: () {
-      if (SlidingUpPanelStatus.hidden == cubit.panelTextController.status) {
-        cubit.panelTextController.collapse();
+      if (SlidingUpPanelStatus.hidden ==
+          generalController.panelTextController.status) {
+        generalController.panelTextController.collapse();
       } else {
-        cubit.panelTextController.hide();
+        generalController.panelTextController.hide();
       }
     },
   );
@@ -1627,4 +1634,63 @@ Widget Function(BuildContext, EditableTextState) buildMyContextMenuText(
       buttonItems: buttonItems,
     );
   };
+}
+
+Widget fontSizeDropDown(BuildContext context) {
+  return PopupMenuButton(
+    icon: Icon(
+      Icons.format_size,
+      color: Theme.of(context).colorScheme.surface,
+    ),
+    color: Theme.of(context).colorScheme.surface.withOpacity(.8),
+    itemBuilder: (context) => [
+      PopupMenuItem(
+        child: Obx(
+          () => SizedBox(
+            height: 30,
+            width: MediaQuery.sizeOf(context).width,
+            child: FlutterSlider(
+              values: [generalController.fontSizeArabic.value],
+              max: 40,
+              min: 18,
+              rtl: true,
+              trackBar: FlutterSliderTrackBar(
+                inactiveTrackBarHeight: 5,
+                activeTrackBarHeight: 5,
+                inactiveTrackBar: BoxDecoration(
+                  borderRadius: BorderRadius.circular(8),
+                  color: Theme.of(context).colorScheme.surface,
+                ),
+                activeTrackBar: BoxDecoration(
+                    borderRadius: BorderRadius.circular(4),
+                    color: Theme.of(context).colorScheme.background),
+              ),
+              handlerAnimation: const FlutterSliderHandlerAnimation(
+                  curve: Curves.elasticOut,
+                  reverseCurve: null,
+                  duration: Duration(milliseconds: 700),
+                  scale: 1.4),
+              onDragging: (handlerIndex, lowerValue, upperValue) {
+                lowerValue = lowerValue;
+                upperValue = upperValue;
+                generalController.fontSizeArabic.value = lowerValue;
+                generalController
+                    .saveFontSize(generalController.fontSizeArabic.value);
+              },
+              handler: FlutterSliderHandler(
+                decoration: const BoxDecoration(),
+                child: Material(
+                  type: MaterialType.circle,
+                  color: Colors.transparent,
+                  elevation: 3,
+                  child: SvgPicture.asset('assets/svg/slider_ic.svg'),
+                ),
+              ),
+            ),
+          ),
+        ),
+        height: 30,
+      ),
+    ],
+  );
 }

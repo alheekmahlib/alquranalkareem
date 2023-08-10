@@ -1,8 +1,10 @@
+import 'package:alquranalkareem/shared/controller/general_controller.dart';
 import 'package:alquranalkareem/shared/widgets/settings_list.dart';
 import 'package:alquranalkareem/shared/widgets/settings_popUp.dart';
 import 'package:alquranalkareem/shared/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get/get.dart';
 
 import '../../cubit/cubit.dart';
 import '../../cubit/states.dart';
@@ -49,6 +51,7 @@ class AnimatedStack extends StatefulWidget {
 }
 
 class _AnimatedStackState extends State<AnimatedStack> {
+  late final GeneralController generalController = Get.put(GeneralController());
   // bool opened = false;
 
   @override
@@ -77,87 +80,21 @@ class _AnimatedStackState extends State<AnimatedStack> {
             bottom: false,
             child: Scaffold(
               floatingActionButtonLocation: FloatingActionButtonLocation.endTop,
-              floatingActionButton: Visibility(
-                visible: QuranCubit.get(context).isShowControl,
-                child: Padding(
-                  padding: const EdgeInsets.only(top: 16.0, right: 32.0),
-                  child: Column(
-                    children: [
-                      GestureDetector(
-                        onTap: () => setState(() => QuranCubit.get(context)
-                            .opened = !QuranCubit.get(context).opened),
-                        child: Container(
-                          height: 50,
-                          width: 50,
-                          decoration: BoxDecoration(
-                            color: Theme.of(context).colorScheme.surface,
-                            borderRadius:
-                                const BorderRadius.all(Radius.circular(8)),
-                            boxShadow: const [
-                              BoxShadow(
-                                color: Colors.black26,
-                                blurRadius: 1.0,
-                                spreadRadius: 0.0,
-                                offset: Offset(
-                                    0.0, 0.0), // shadow direction: bottom right
-                              )
-                            ],
-                          ),
-                          child: RotateAnimation(
-                            opened: widget.animateButton
-                                ? QuranCubit.get(context).opened
-                                : false,
-                            duration: widget.buttonAnimationDuration,
-                            child: Icon(
-                              widget.buttonIcon,
-                              color: widget.fabIconColor,
-                            ),
-                          ),
-                        ),
-                      ),
-                      const SizedBox(
-                        height: 4,
-                      ),
-                      GestureDetector(
-                        onTap: () {
-                          Navigator.of(context)
-                              .push(HeroDialogRoute(builder: (context) {
-                            return settingsPopupCard(
-                              child: const SettingsList(),
-                              height: orientation(
-                                  context,
-                                  400.0,
-                                  MediaQuery.of(context).size.height *
-                                      1 /
-                                      2 *
-                                      1.6),
-                              alignment: Alignment.topCenter,
-                              padding: orientation(
-                                  context,
-                                  EdgeInsets.only(
-                                      top: paddingHeight * .08,
-                                      right: 16.0,
-                                      left: 16.0),
-                                  EdgeInsets.only(
-                                      top: 70.0,
-                                      right: width * .5,
-                                      left: 16.0)),
-                            );
-                          }));
-                          setState(() {
-                            cubit.isShowSettings = true;
-                          });
-                        },
-                        child: Hero(
-                          tag: heroAddTodo,
-                          createRectTween: (begin, end) {
-                            return CustomRectTween(begin: begin!, end: end!);
-                          },
+              floatingActionButton: Obx(() {
+                return Visibility(
+                  visible: generalController.isShowControl.value,
+                  child: Padding(
+                    padding: const EdgeInsets.only(top: 16.0, right: 32.0),
+                    child: Column(
+                      children: [
+                        GestureDetector(
+                          onTap: () => setState(() => generalController
+                              .opened.value = !generalController.opened.value),
                           child: Container(
                             height: 50,
                             width: 50,
                             decoration: BoxDecoration(
-                              color: Theme.of(context).colorScheme.background,
+                              color: Theme.of(context).colorScheme.surface,
                               borderRadius:
                                   const BorderRadius.all(Radius.circular(8)),
                               boxShadow: const [
@@ -170,18 +107,86 @@ class _AnimatedStackState extends State<AnimatedStack> {
                                 )
                               ],
                             ),
-                            child: Icon(
-                              Icons.settings,
-                              size: 28,
-                              color: Theme.of(context).colorScheme.surface,
+                            child: RotateAnimation(
+                              opened: widget.animateButton
+                                  ? generalController.opened.value
+                                  : false,
+                              duration: widget.buttonAnimationDuration,
+                              child: Icon(
+                                widget.buttonIcon,
+                                color: widget.fabIconColor,
+                              ),
                             ),
                           ),
                         ),
-                      ),
-                    ],
+                        const SizedBox(
+                          height: 4,
+                        ),
+                        GestureDetector(
+                          onTap: () {
+                            Navigator.of(context)
+                                .push(HeroDialogRoute(builder: (context) {
+                              return settingsPopupCard(
+                                child: const SettingsList(),
+                                height: orientation(
+                                    context,
+                                    400.0,
+                                    MediaQuery.of(context).size.height *
+                                        1 /
+                                        2 *
+                                        1.6),
+                                alignment: Alignment.topCenter,
+                                padding: orientation(
+                                    context,
+                                    EdgeInsets.only(
+                                        top: paddingHeight * .08,
+                                        right: 16.0,
+                                        left: 16.0),
+                                    EdgeInsets.only(
+                                        top: 70.0,
+                                        right: width * .5,
+                                        left: 16.0)),
+                              );
+                            }));
+                            setState(() {
+                              cubit.isShowSettings = true;
+                            });
+                          },
+                          child: Hero(
+                            tag: heroAddTodo,
+                            createRectTween: (begin, end) {
+                              return CustomRectTween(begin: begin!, end: end!);
+                            },
+                            child: Container(
+                              height: 50,
+                              width: 50,
+                              decoration: BoxDecoration(
+                                color: Theme.of(context).colorScheme.background,
+                                borderRadius:
+                                    const BorderRadius.all(Radius.circular(8)),
+                                boxShadow: const [
+                                  BoxShadow(
+                                    color: Colors.black26,
+                                    blurRadius: 1.0,
+                                    spreadRadius: 0.0,
+                                    offset: Offset(0.0,
+                                        0.0), // shadow direction: bottom right
+                                  )
+                                ],
+                              ),
+                              child: Icon(
+                                Icons.settings,
+                                size: 28,
+                                color: Theme.of(context).colorScheme.surface,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
-                ),
-              ),
+                );
+              }),
               body: Stack(
                 children: <Widget>[
                   Container(
@@ -212,7 +217,7 @@ class _AnimatedStackState extends State<AnimatedStack> {
                     ),
                   ),
                   SlideAnimation(
-                    opened: QuranCubit.get(context).opened,
+                    opened: generalController.opened.value,
                     xScale: _xScale,
                     yScale: _yScale,
                     // xScale: orientation(context, 40.0, 20.0),

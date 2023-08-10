@@ -1,7 +1,9 @@
 import 'package:alquranalkareem/cubit/cubit.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import '../quran_page/cubit/audio/cubit.dart';
+import '../shared/controller/general_controller.dart';
 import 'audio_sorah_list.dart';
 
 class AudioScreen extends StatefulWidget {
@@ -13,6 +15,7 @@ class AudioScreen extends StatefulWidget {
 
 class _AudioScreenState extends State<AudioScreen>
     with TickerProviderStateMixin, WidgetsBindingObserver {
+  late final GeneralController generalController = Get.put(GeneralController());
 
   @override
   void initState() {
@@ -26,11 +29,12 @@ class _AudioScreenState extends State<AudioScreen>
       parent: AudioCubit.get(context).controllerSorah,
       curve: Curves.easeIn,
     ));
-    QuranCubit.get(context).screenController = AnimationController(
+    generalController.screenController = AnimationController(
       duration: const Duration(milliseconds: 300),
       vsync: this,
     );
-    QuranCubit.get(context).screenAnimation = Tween<double>(begin: 1, end: 0.95).animate(QuranCubit.get(context).screenController!);
+    generalController.screenAnimation = Tween<double>(begin: 1, end: 0.95)
+        .animate(generalController.screenController!);
     super.initState();
   }
 
@@ -38,17 +42,17 @@ class _AudioScreenState extends State<AudioScreen>
   Widget build(BuildContext context) {
     QuranCubit cubit = QuranCubit.get(context);
     return SafeArea(
-      top: false,
-      bottom: false,
-      right: false,
-      left: false,
+        top: false,
+        bottom: false,
+        right: false,
+        left: false,
         child: Scaffold(
           backgroundColor: Theme.of(context).colorScheme.background,
           body: AnimatedBuilder(
-              animation: cubit.screenAnimation!,
+              animation: generalController.screenAnimation!,
               builder: (context, child) {
                 return Transform.scale(
-                  scale: cubit.screenAnimation!.value,
+                  scale: generalController.screenAnimation!.value,
                   child: child,
                 );
               },

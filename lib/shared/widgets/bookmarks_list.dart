@@ -1,4 +1,3 @@
-import 'package:alquranalkareem/cubit/cubit.dart';
 import 'package:alquranalkareem/notes/model/Notes.dart';
 import 'package:alquranalkareem/shared/widgets/widgets.dart';
 import 'package:arabic_numbers/arabic_numbers.dart';
@@ -79,14 +78,13 @@ class _BookmarksListState extends State<BookmarksList> {
                                   },
                                   child: GestureDetector(
                                     onTap: () {
-                                      QuranCubit.get(context)
-                                          .dPageController
+                                      generalController.dPageController
                                           ?.animateToPage(
-                                            bookmark.pageNum! - 1,
-                                            duration: const Duration(
-                                                milliseconds: 500),
-                                            curve: Curves.easeIn,
-                                          );
+                                        bookmark.pageNum! - 1,
+                                        duration:
+                                            const Duration(milliseconds: 500),
+                                        curve: Curves.easeIn,
+                                      );
                                       Navigator.pop(context);
                                     },
                                     child: Container(

@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:alquranalkareem/l10n/app_localizations.dart';
+import 'package:alquranalkareem/shared/controller/reminder_controller.dart';
 import 'package:animated_toggle_switch/animated_toggle_switch.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -30,10 +31,11 @@ class MenuScreen extends StatefulWidget {
 
 class _MenuScreenState extends State<MenuScreen> {
   late final GeneralController generalController = Get.put(GeneralController());
+  late final ReminderController reminderController =
+      Get.put(ReminderController());
   @override
   void initState() {
-    QuranCubit.get(context).updateGreeting();
-    QuranCubit.get(context).loadReminders();
+    reminderController.loadReminders();
     super.initState();
   }
 
@@ -163,7 +165,7 @@ class _MenuScreenState extends State<MenuScreen> {
 
   Widget greeting() {
     return Text(
-      '| ${QuranCubit.get(context).greeting} |',
+      '| ${generalController.greeting.value} |',
       style: TextStyle(
         fontSize: 16.0,
         fontFamily: 'kufi',
@@ -370,7 +372,7 @@ class _MenuScreenState extends State<MenuScreen> {
               ),
             ),
             onTap: () async {
-              Navigator.of(context).push(animatRoute(const AboutApp()));
+              Navigator.of(context).push(animatRoute(AboutApp()));
             },
           ),
           const Divider(),
@@ -421,172 +423,179 @@ class _MenuScreenState extends State<MenuScreen> {
   }
 
   Widget reminderWidget() {
-    QuranCubit cubit = QuranCubit.get(context);
-    return Column(
-      children: [
-        Container(
-          width: MediaQuery.of(context).size.width,
-          decoration: BoxDecoration(
-            color: Theme.of(context).colorScheme.surface.withOpacity(.2),
-            borderRadius: const BorderRadius.all(Radius.circular(8)),
-          ),
-          padding: const EdgeInsets.all(8.0),
-          child: Column(
-            children: List<Widget>.generate(
-              cubit.reminders.length,
-              (int index) {
-                final reminder = cubit.reminders[index];
-                TextEditingController controller =
-                    TextEditingController(text: reminder.name);
-                // Create a new GlobalKey for the TextField and add it to the list
-                GlobalKey textFieldKey = GlobalKey();
-                textFieldKeys.add(textFieldKey);
-                return Dismissible(
-                  background: Container(
-                    decoration: const BoxDecoration(
-                        color: Colors.red,
-                        borderRadius: BorderRadius.all(Radius.circular(8))),
-                    child: delete(context),
-                  ),
-                  key: UniqueKey(),
-                  onDismissed: (DismissDirection direction) async {
-                    await cubit.deleteReminder(context, index);
-                  },
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Container(
-                          width: 200,
-                          child: Directionality(
-                            textDirection: TextDirection.ltr,
-                            child: TextField(
-                              key: textFieldKeys[index],
-                              controller: controller,
-                              // focusNode: _textFocusNode,
-                              autofocus: false,
-                              cursorHeight: 18,
-                              cursorWidth: 3,
-                              cursorColor: Theme.of(context).dividerColor,
-                              textDirection: TextDirection.rtl,
-                              style: TextStyle(
-                                  color: ThemeProvider.themeOf(context).id ==
-                                          'dark'
-                                      ? Colors.white
-                                      : Theme.of(context).primaryColor,
-                                  fontFamily: 'kufi',
-                                  fontSize: 14),
-                              decoration: InputDecoration(
-                                hintText: 'اكتب اسم التذكير',
-                                hintStyle: TextStyle(
-                                  fontSize: 12,
-                                  fontFamily: 'kufi',
-                                  color: ThemeProvider.themeOf(context).id ==
-                                          'dark'
-                                      ? Colors.white.withOpacity(.5)
-                                      : Theme.of(context)
-                                          .primaryColor
-                                          .withOpacity(.5),
-                                ),
-                                icon: IconButton(
-                                  onPressed: () {
-                                    setState(() {
-                                      reminder.name = controller.text;
-                                    });
-                                    ReminderStorage.saveReminders(
-                                        cubit.reminders);
-                                  },
-                                  icon: Icon(
-                                    Icons.done,
-                                    size: 14,
-                                    color:
-                                        Theme.of(context).colorScheme.surface,
+    return Obx(() => Column(
+          children: [
+            Container(
+              width: MediaQuery.of(context).size.width,
+              decoration: BoxDecoration(
+                color: Theme.of(context).colorScheme.surface.withOpacity(.2),
+                borderRadius: const BorderRadius.all(Radius.circular(8)),
+              ),
+              padding: const EdgeInsets.all(8.0),
+              child: Column(
+                children: List<Widget>.generate(
+                  reminderController.reminders.length,
+                  (int index) {
+                    final reminder = reminderController.reminders[index];
+                    TextEditingController controller =
+                        TextEditingController(text: reminder.name);
+                    // Create a new GlobalKey for the TextField and add it to the list
+                    GlobalKey textFieldKey = GlobalKey();
+                    textFieldKeys.add(textFieldKey);
+                    return Dismissible(
+                      background: Container(
+                        decoration: const BoxDecoration(
+                            color: Colors.red,
+                            borderRadius: BorderRadius.all(Radius.circular(8))),
+                        child: delete(context),
+                      ),
+                      key: UniqueKey(),
+                      onDismissed: (DismissDirection direction) async {
+                        await reminderController.deleteReminder(context, index);
+                      },
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Container(
+                              width: 200,
+                              child: Directionality(
+                                textDirection: TextDirection.ltr,
+                                child: TextField(
+                                  key: textFieldKeys[index],
+                                  controller: controller,
+                                  // focusNode: _textFocusNode,
+                                  autofocus: false,
+                                  cursorHeight: 18,
+                                  cursorWidth: 3,
+                                  cursorColor: Theme.of(context).dividerColor,
+                                  textDirection: TextDirection.rtl,
+                                  style: TextStyle(
+                                      color:
+                                          ThemeProvider.themeOf(context).id ==
+                                                  'dark'
+                                              ? Colors.white
+                                              : Theme.of(context).primaryColor,
+                                      fontFamily: 'kufi',
+                                      fontSize: 14),
+                                  decoration: InputDecoration(
+                                    hintText: 'اكتب اسم التذكير',
+                                    hintStyle: TextStyle(
+                                      fontSize: 12,
+                                      fontFamily: 'kufi',
+                                      color:
+                                          ThemeProvider.themeOf(context).id ==
+                                                  'dark'
+                                              ? Colors.white.withOpacity(.5)
+                                              : Theme.of(context)
+                                                  .primaryColor
+                                                  .withOpacity(.5),
+                                    ),
+                                    icon: IconButton(
+                                      onPressed: () {
+                                        setState(() {
+                                          reminder.name = controller.text;
+                                        });
+                                        ReminderStorage.saveReminders(
+                                            reminderController.reminders);
+                                      },
+                                      icon: Icon(
+                                        Icons.done,
+                                        size: 14,
+                                        color: Theme.of(context)
+                                            .colorScheme
+                                            .surface,
+                                      ),
+                                    ),
                                   ),
                                 ),
                               ),
                             ),
-                          ),
-                        ),
-                        Text(
-                          '${reminder.time.hour}:${reminder.time.minute}',
-                          style: TextStyle(
-                            fontSize: 14,
-                            fontFamily: 'kufi',
-                            color: ThemeProvider.themeOf(context).id == 'dark'
-                                ? Colors.white
-                                : Theme.of(context).primaryColor,
-                          ),
-                        ),
-                        SizedBox(
-                          width: 70,
-                          child: AnimatedToggleSwitch<int>.rolling(
-                            current: reminder.isEnabled ? 1 : 0,
-                            values: const [0, 1],
-                            onChanged: (i) async {
-                              bool value = i == 1;
-                              setState(() {
-                                reminder.isEnabled = value;
-                              });
-                              ReminderStorage.saveReminders(cubit.reminders);
-                              if (reminder.isEnabled) {
-                                // Show the TimePicker to set the reminder time
-                                bool isConfirmed = await cubit.showTimePicker(
-                                    context, reminder);
-                                if (!isConfirmed) {
+                            Text(
+                              '${reminder.time.hour}:${reminder.time.minute}',
+                              style: TextStyle(
+                                fontSize: 14,
+                                fontFamily: 'kufi',
+                                color:
+                                    ThemeProvider.themeOf(context).id == 'dark'
+                                        ? Colors.white
+                                        : Theme.of(context).primaryColor,
+                              ),
+                            ),
+                            SizedBox(
+                              width: 70,
+                              child: AnimatedToggleSwitch<int>.rolling(
+                                current: reminder.isEnabled ? 1 : 0,
+                                values: const [0, 1],
+                                onChanged: (i) async {
+                                  bool value = i == 1;
                                   setState(() {
-                                    reminder.isEnabled = false;
+                                    reminder.isEnabled = value;
                                   });
-                                }
-                              } else {
-                                // Cancel the scheduled notification
-                                NotifyHelper()
-                                    .cancelScheduledNotification(reminder.id);
-                              }
-                            },
-                            iconBuilder: rollingIconBuilder,
-                            borderWidth: 1,
-                            indicatorColor:
-                                Theme.of(context).colorScheme.surface,
-                            innerColor: Theme.of(context).canvasColor,
-                            borderRadius:
-                                const BorderRadius.all(Radius.circular(8)),
-                            height: 25,
-                            dif: 2.0,
-                            borderColor: Theme.of(context).colorScheme.surface,
-                          ),
+                                  ReminderStorage.saveReminders(
+                                      reminderController.reminders);
+                                  if (reminder.isEnabled) {
+                                    // Show the TimePicker to set the reminder time
+                                    bool isConfirmed = await reminderController
+                                        .showTimePicker(context, reminder);
+                                    if (!isConfirmed) {
+                                      setState(() {
+                                        reminder.isEnabled = false;
+                                      });
+                                    }
+                                  } else {
+                                    // Cancel the scheduled notification
+                                    NotifyHelper().cancelScheduledNotification(
+                                        reminder.id);
+                                  }
+                                },
+                                iconBuilder: rollingIconBuilder,
+                                borderWidth: 1,
+                                indicatorColor:
+                                    Theme.of(context).colorScheme.surface,
+                                innerColor: Theme.of(context).canvasColor,
+                                borderRadius:
+                                    const BorderRadius.all(Radius.circular(8)),
+                                height: 25,
+                                dif: 2.0,
+                                borderColor:
+                                    Theme.of(context).colorScheme.surface,
+                              ),
+                            ),
+                          ],
                         ),
-                      ],
-                    ),
-                  ),
-                );
-              },
+                      ),
+                    );
+                  },
+                ),
+              ),
             ),
-          ),
-        ),
-        Align(
-          alignment: Alignment.center,
-          child: GestureDetector(
-            onTap: cubit.addReminder,
-            child: Container(
-                margin: const EdgeInsets.symmetric(vertical: 4),
-                padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 4),
-                decoration: BoxDecoration(
-                    borderRadius: const BorderRadius.all(Radius.circular(8)),
-                    border: Border.all(
-                        color: Theme.of(context).colorScheme.surface,
-                        width: 1)),
-                child: Text(
-                  AppLocalizations.of(context)!.addReminder,
-                  style: TextStyle(
-                      color: Theme.of(context).colorScheme.surface,
-                      fontSize: 14,
-                      fontFamily: 'kufi'),
-                )),
-          ),
-        ),
-      ],
-    );
+            Align(
+              alignment: Alignment.center,
+              child: GestureDetector(
+                onTap: reminderController.addReminder,
+                child: Container(
+                    margin: const EdgeInsets.symmetric(vertical: 4),
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 4, vertical: 4),
+                    decoration: BoxDecoration(
+                        borderRadius:
+                            const BorderRadius.all(Radius.circular(8)),
+                        border: Border.all(
+                            color: Theme.of(context).colorScheme.surface,
+                            width: 1)),
+                    child: Text(
+                      AppLocalizations.of(context)!.addReminder,
+                      style: TextStyle(
+                          color: Theme.of(context).colorScheme.surface,
+                          fontSize: 14,
+                          fontFamily: 'kufi'),
+                    )),
+              ),
+            ),
+          ],
+        ));
   }
 }
 

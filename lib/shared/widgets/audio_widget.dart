@@ -32,14 +32,13 @@ class _AudioWidgetState extends State<AudioWidget>
 
   @override
   void initState() {
-    QuranCubit cubit = QuranCubit.get(context);
     ambiguate(WidgetsBinding.instance)!.addObserver(this);
-    cubit.screenController = AnimationController(
+    generalController.screenController = AnimationController(
       duration: const Duration(milliseconds: 300),
       vsync: this,
     );
-    cubit.screenAnimation =
-        Tween<double>(begin: 1, end: 0.95).animate(cubit.screenController!);
+    generalController.screenAnimation = Tween<double>(begin: 1, end: 0.95)
+        .animate(generalController.screenController!);
     super.initState();
   }
 

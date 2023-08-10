@@ -1,11 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../quran_page/data/model/ayat.dart';
 import '../../quran_page/data/model/translate.dart';
 import '../../quran_page/data/repository/translate_repository.dart';
 
 class AyatController extends GetxController {
+  final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
   var ayatList = <Ayat>[].obs; // Observable list
   String? tableName;
   late int radioValue;
@@ -48,5 +50,18 @@ class AyatController extends GetxController {
     // Set the tableName property in the translateRepository
     translateRepository.tableName = tableName;
     return translateRepository;
+  }
+
+  // Save & Load Font Size
+  saveTafseer(int radioValue) async {
+    SharedPreferences prefs = await _prefs;
+    await prefs.setInt("tafseer_val", radioValue);
+  }
+
+  loadTafseer() async {
+    SharedPreferences prefs = await _prefs;
+    radioValue = prefs.getInt('tafseer_val') ?? 0;
+    print('get tafseer value ${prefs.getInt('tafseer_val')}');
+    print('get radioValue ${radioValue}');
   }
 }

@@ -38,16 +38,15 @@ class _MPagesState extends State<MPages> with SingleTickerProviderStateMixin {
 
   @override
   void initState() {
-    QuranCubit cubit = QuranCubit.get(context);
     bookmarksController.getBookmarksList();
 
     /// TODO: FIX THE ANIMATION
-    cubit.screenController = AnimationController(
+    generalController.screenController = AnimationController(
       duration: const Duration(milliseconds: 300),
       vsync: this,
     );
-    cubit.screenAnimation =
-        Tween<double>(begin: 1, end: 0.95).animate(cubit.screenController!);
+    generalController.screenAnimation = Tween<double>(begin: 1, end: 0.95)
+        .animate(generalController.screenController!);
     super.initState();
   }
 
@@ -70,10 +69,10 @@ class _MPagesState extends State<MPages> with SingleTickerProviderStateMixin {
     Orientation orientation = MediaQuery.of(context).orientation;
     if (orientation == Orientation.portrait) {
       return AnimatedBuilder(
-        animation: cubit.screenAnimation!,
+        animation: generalController.screenAnimation!,
         builder: (context, child) {
           return Transform.scale(
-            scale: cubit.screenAnimation!.value,
+            scale: generalController.screenAnimation!.value,
             child: child,
           );
         },
@@ -82,9 +81,10 @@ class _MPagesState extends State<MPages> with SingleTickerProviderStateMixin {
             padding: const EdgeInsets.symmetric(vertical: 0.0),
             child: GetBuilder<GeneralController>(
               builder: (generalController) => PageView.builder(
-                  controller: cubit.dPageController = PageController(
-                      initialPage: generalController.cuMPage - 1,
-                      keepPage: true),
+                  controller: generalController.dPageController =
+                      PageController(
+                          initialPage: generalController.cuMPage - 1,
+                          keepPage: true),
                   itemCount: 604,
                   onPageChanged: (page) {
                     cahData = false;
@@ -101,7 +101,7 @@ class _MPagesState extends State<MPages> with SingleTickerProviderStateMixin {
                     // setState(() {
                     // });
                     print("page changed $page");
-                    cubit.pageChanged(context, page);
+                    generalController.pageChanged(context, page);
                     generalController.saveMLastPlace(
                         page + 1, (soraBookmark.SoraNum! + 1).toString());
                     print('last sorah ${soraBookmark.SoraNum}');
@@ -205,10 +205,10 @@ class _MPagesState extends State<MPages> with SingleTickerProviderStateMixin {
       );
     } else {
       return AnimatedBuilder(
-        animation: cubit.screenAnimation!,
+        animation: generalController.screenAnimation!,
         builder: (context, child) {
           return Transform.scale(
-            scale: cubit.screenAnimation!.value,
+            scale: generalController.screenAnimation!.value,
             child: child,
           );
         },
@@ -216,7 +216,7 @@ class _MPagesState extends State<MPages> with SingleTickerProviderStateMixin {
           height: MediaQuery.of(context).size.height,
           child: GetBuilder<GeneralController>(
             builder: (generalController) => PageView.builder(
-                controller: cubit.dPageController = PageController(
+                controller: generalController.dPageController = PageController(
                     initialPage: generalController.cuMPage - 1, keepPage: true),
                 itemCount: 604,
                 onPageChanged: (page) {
@@ -231,7 +231,7 @@ class _MPagesState extends State<MPages> with SingleTickerProviderStateMixin {
                     ayaListNotFut = null;
                   });
                   print("page changed $page");
-                  cubit.pageChanged(context, page);
+                  generalController.pageChanged(context, page);
                   generalController.saveMLastPlace(
                       page + 1, (soraBookmark.SoraNum! + 1).toString());
                   print('last sorah ${soraBookmark.SoraNum}');
@@ -339,16 +339,16 @@ class _MPagesState extends State<MPages> with SingleTickerProviderStateMixin {
     QuranCubit cubit = QuranCubit.get(context);
     return InkWell(
       onTap: () {
-        switch (cubit.controller.status) {
+        switch (generalController.controller.status) {
           case AnimationStatus.completed:
-            cubit.controller.reverse();
+            generalController.controller.reverse();
             break;
           case AnimationStatus.dismissed:
-            cubit.controller.forward();
+            generalController.controller.forward();
             break;
           default:
         }
-        cubit.showControl();
+        generalController.showControl();
       },
       child: Center(
         child: Padding(
@@ -387,16 +387,16 @@ class _MPagesState extends State<MPages> with SingleTickerProviderStateMixin {
     Orientation orientation = MediaQuery.of(context).orientation;
     return InkWell(
       onTap: () {
-        switch (cubit.controller.status) {
+        switch (generalController.controller.status) {
           case AnimationStatus.completed:
-            cubit.controller.reverse();
+            generalController.controller.reverse();
             break;
           case AnimationStatus.dismissed:
-            cubit.controller.forward();
+            generalController.controller.forward();
             break;
           default:
         }
-        cubit.showControl();
+        generalController.showControl();
       },
       child: Stack(
         children: <Widget>[
@@ -406,16 +406,18 @@ class _MPagesState extends State<MPages> with SingleTickerProviderStateMixin {
             color: ThemeProvider.themeOf(context).id == 'dark'
                 ? Colors.white
                 : null,
-            height:
-                orientation == Orientation.portrait ? cubit.height! - 60 : null,
+            height: orientation == Orientation.portrait
+                ? generalController.height! - 60
+                : null,
             width: MediaQuery.of(context).size.width,
             alignment: Alignment.center,
           ),
           Image.asset(
             "assets/pages/000${index + 1}.png",
             fit: BoxFit.contain,
-            height:
-                orientation == Orientation.portrait ? cubit.height! - 60 : null,
+            height: orientation == Orientation.portrait
+                ? generalController.height! - 60
+                : null,
             width: MediaQuery.of(context).size.width,
             alignment: Alignment.center,
           ),
@@ -458,12 +460,12 @@ class _DPagesState extends State<DPages> with SingleTickerProviderStateMixin {
     noViewport = true;
     DPages.currentIndex2 = widget.initialPageNum - 1;
     generalController.cuMPage = widget.initialPageNum;
-    cubit.screenController = AnimationController(
+    generalController.screenController = AnimationController(
       duration: const Duration(milliseconds: 300),
       vsync: this,
     );
-    cubit.screenAnimation =
-        Tween<double>(begin: 1, end: 0.95).animate(cubit.screenController!);
+    generalController.screenAnimation = Tween<double>(begin: 1, end: 0.95)
+        .animate(generalController.screenController!);
     super.initState();
   }
 
@@ -473,19 +475,19 @@ class _DPagesState extends State<DPages> with SingleTickerProviderStateMixin {
     Orientation orientation = MediaQuery.of(context).orientation;
 
     return AnimatedBuilder(
-      animation: cubit.screenAnimation!,
+      animation: generalController.screenAnimation!,
       builder: (context, child) {
         return Transform.scale(
-          scale: cubit.screenAnimation!.value,
+          scale: generalController.screenAnimation!.value,
           child: child,
         );
       },
       child: SizedBox(
-        height: cubit.height,
+        height: generalController.height,
         width: MediaQuery.of(context).size.width,
         child: GetBuilder<GeneralController>(
           builder: (generalController) => PageView.builder(
-              controller: cubit.dPageController = PageController(
+              controller: generalController.dPageController = PageController(
                   viewportFraction: viewport,
                   // initialPage: widget.initialPageNum - 1,
                   keepPage: true),
@@ -502,7 +504,7 @@ class _DPagesState extends State<DPages> with SingleTickerProviderStateMixin {
                 SoraBookmark soraBookmark =
                     bookmarksController.soraBookmarkList![page + 1];
                 print("page changed ${generalController.cuMPage}");
-                cubit.pageChanged(context, page);
+                generalController.pageChanged(context, page);
                 generalController.saveMLastPlace(
                     page + 1, (soraBookmark.SoraNum! + 1).toString());
                 cahData = true;
@@ -510,9 +512,11 @@ class _DPagesState extends State<DPages> with SingleTickerProviderStateMixin {
               itemBuilder: (_, index) {
                 return LayoutBuilder(builder: (context, constrains) {
                   if (constrains.maxWidth > 650) {
-                    cubit.pageController = PageController(viewportFraction: 1);
+                    generalController.dPageController =
+                        PageController(viewportFraction: 1);
                   } else if (constrains.maxHeight > 600) {
-                    cubit.pageController = PageController(viewportFraction: 1);
+                    generalController.dPageController =
+                        PageController(viewportFraction: 1);
                   }
                   return Center(
                     child: SingleChildScrollView(
@@ -695,13 +699,13 @@ class _DPagesState extends State<DPages> with SingleTickerProviderStateMixin {
         });
       },
       onTap: () {
-        cubit.showControl();
-        switch (cubit.controller.status) {
+        generalController.showControl();
+        switch (generalController.controller.status) {
           case AnimationStatus.completed:
-            cubit.controller.reverse();
+            generalController.controller.reverse();
             break;
           case AnimationStatus.dismissed:
-            cubit.controller.forward();
+            generalController.controller.forward();
             break;
           default:
         }

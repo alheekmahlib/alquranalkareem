@@ -141,7 +141,8 @@ class _QuranPageScreenState extends State<QuranPageScreen> {
                       onTap: () {
                         setState(() {
                           pageIndex = 0;
-                          cubit.opened = !cubit.opened;
+                          generalController.opened.value =
+                              !generalController.opened.value;
                         });
                       },
                     ),
@@ -170,7 +171,8 @@ class _QuranPageScreenState extends State<QuranPageScreen> {
                       onTap: () {
                         setState(() {
                           pageIndex = 1;
-                          cubit.opened = !cubit.opened;
+                          generalController.opened.value =
+                              !generalController.opened.value;
                         });
                       },
                     ),
@@ -199,7 +201,8 @@ class _QuranPageScreenState extends State<QuranPageScreen> {
                       onTap: () {
                         setState(() {
                           pageIndex = 2;
-                          cubit.opened = !cubit.opened;
+                          generalController.opened.value =
+                              !generalController.opened.value;
                         });
                       },
                     ),
@@ -228,7 +231,8 @@ class _QuranPageScreenState extends State<QuranPageScreen> {
                       onTap: () {
                         setState(() {
                           pageIndex = 3;
-                          cubit.opened = !cubit.opened;
+                          generalController.opened.value =
+                              !generalController.opened.value;
                         });
                       },
                     ),
@@ -257,7 +261,8 @@ class _QuranPageScreenState extends State<QuranPageScreen> {
                       onTap: () {
                         setState(() {
                           pageIndex = 4;
-                          cubit.opened = !cubit.opened;
+                          generalController.opened.value =
+                              !generalController.opened.value;
                         });
                       },
                     ),

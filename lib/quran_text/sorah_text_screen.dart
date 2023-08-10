@@ -1,8 +1,10 @@
 import 'package:alquranalkareem/quran_text/sorah_list_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:get/get.dart';
 import 'package:hijri/hijri_calendar.dart';
-import '../cubit/cubit.dart';
+
+import '../shared/controller/general_controller.dart';
 import '../shared/widgets/widgets.dart';
 import 'Widgets/widgets.dart';
 
@@ -15,22 +17,20 @@ class SorahTextScreen extends StatefulWidget {
 
 class _SorahTextScreenState extends State<SorahTextScreen> {
   var sorahListKey = GlobalKey<ScaffoldState>();
+  late final GeneralController generalController = Get.put(GeneralController());
 
   @override
   void initState() {
-    QuranCubit.get(context).loadQuranFontSize();
-    QuranCubit.get(context).updateGreeting();
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    QuranCubit cubit = QuranCubit.get(context);
     return AnimatedBuilder(
-      animation: cubit.screenAnimation!,
+      animation: generalController.screenAnimation!,
       builder: (context, child) {
         return Transform.scale(
-          scale: cubit.screenAnimation!.value,
+          scale: generalController.screenAnimation!.value,
           child: child,
         );
       },

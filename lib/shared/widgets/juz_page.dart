@@ -193,7 +193,7 @@ class _QuranJuzState extends State<QuranJuz>
                         ],
                       ),
                       onTap: () {
-                        QuranCubit.get(context).dPageController?.animateToPage(
+                        generalController.dPageController?.animateToPage(
                               showData[index]['start']['pageNum'] - 1,
                               duration: const Duration(milliseconds: 300),
                               curve: Curves.easeInOut,

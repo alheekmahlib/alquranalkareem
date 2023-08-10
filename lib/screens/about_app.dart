@@ -1,20 +1,25 @@
 import 'dart:io';
+
 import 'package:alquranalkareem/cubit/cubit.dart';
+import 'package:alquranalkareem/shared/controller/general_controller.dart';
 import 'package:alquranalkareem/shared/widgets/theme_change.dart';
 import 'package:alquranalkareem/shared/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:get/get.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:theme_provider/theme_provider.dart';
 import 'package:url_launcher/url_launcher.dart';
+
 import '../home_page.dart';
 import '../l10n/app_localizations.dart';
 import '../shared/widgets/svg_picture.dart';
 
 class AboutApp extends StatelessWidget {
-  const AboutApp({Key? key}) : super(key: key);
+  AboutApp({Key? key}) : super(key: key);
+  late final GeneralController generalController = Get.put(GeneralController());
 
   _launchEmail() async {
     // ios specification
@@ -55,8 +60,7 @@ class AboutApp extends StatelessWidget {
           child: Align(
             alignment: Alignment.topCenter,
             child: Padding(
-              padding: orientation(context,
-                  const EdgeInsets.only(top: 64.0),
+              padding: orientation(context, const EdgeInsets.only(top: 64.0),
                   const EdgeInsets.only(top: 16.0)),
               child: Stack(
                 children: [
@@ -68,13 +72,17 @@ class AboutApp extends StatelessWidget {
                     indent: 16,
                   ),
                   Padding(
-                    padding: orientation(context,
+                    padding: orientation(
+                        context,
                         const EdgeInsets.only(top: 30, right: 16, left: 16),
                         const EdgeInsets.only(top: 30, right: 64, left: 64)),
                     child: ListView(
                       children: [
                         Center(
-                          child: spaceLine(30, MediaQuery.of(context).size.width * 3 / 4,),
+                          child: spaceLine(
+                            30,
+                            MediaQuery.of(context).size.width * 3 / 4,
+                          ),
                         ),
                         customContainer(
                             context,
@@ -96,7 +104,8 @@ class AboutApp extends StatelessWidget {
                           textDirection: TextDirection.rtl,
                           child: Container(
                             color: Theme.of(context)
-                                .colorScheme.surface
+                                .colorScheme
+                                .surface
                                 .withOpacity(.2),
                             child: Column(
                               children: [
@@ -158,7 +167,8 @@ class AboutApp extends StatelessWidget {
                                                           ? Theme.of(context)
                                                               .secondaryHeaderColor
                                                           : Theme.of(context)
-                                                              .colorScheme.surface
+                                                              .colorScheme
+                                                              .surface
                                                               .withOpacity(.5),
                                                       width: 2),
                                                   color:
@@ -171,7 +181,8 @@ class AboutApp extends StatelessWidget {
                                                     ? Icon(Icons.done,
                                                         size: 14,
                                                         color: Theme.of(context)
-                                                            .colorScheme.surface)
+                                                            .colorScheme
+                                                            .surface)
                                                     : null,
                                               ),
                                               const SizedBox(
@@ -187,7 +198,8 @@ class AboutApp extends StatelessWidget {
                                                       ? Theme.of(context)
                                                           .secondaryHeaderColor
                                                       : Theme.of(context)
-                                                          .colorScheme.surface
+                                                          .colorScheme
+                                                          .surface
                                                           .withOpacity(.5),
                                                   fontSize: 14,
                                                   fontFamily: 'kufi',
@@ -201,7 +213,7 @@ class AboutApp extends StatelessWidget {
                                           HomePage.of(context)!.setLocale(
                                               const Locale.fromSubtags(
                                                   languageCode: "ar"));
-                                          cubit.saveLang("ar");
+                                          generalController.saveLang("ar");
                                         },
                                       ),
                                       InkWell(
@@ -226,7 +238,8 @@ class AboutApp extends StatelessWidget {
                                                           ? Theme.of(context)
                                                               .secondaryHeaderColor
                                                           : Theme.of(context)
-                                                              .colorScheme.surface
+                                                              .colorScheme
+                                                              .surface
                                                               .withOpacity(.5),
                                                       width: 2),
                                                   color:
@@ -239,7 +252,8 @@ class AboutApp extends StatelessWidget {
                                                     ? Icon(Icons.done,
                                                         size: 14,
                                                         color: Theme.of(context)
-                                                            .colorScheme.surface)
+                                                            .colorScheme
+                                                            .surface)
                                                     : null,
                                               ),
                                               const SizedBox(
@@ -255,7 +269,8 @@ class AboutApp extends StatelessWidget {
                                                       ? Theme.of(context)
                                                           .secondaryHeaderColor
                                                       : Theme.of(context)
-                                                          .colorScheme.surface
+                                                          .colorScheme
+                                                          .surface
                                                           .withOpacity(.5),
                                                   fontSize: 14,
                                                   fontFamily: 'kufi',
@@ -269,14 +284,14 @@ class AboutApp extends StatelessWidget {
                                           HomePage.of(context)!.setLocale(
                                               const Locale.fromSubtags(
                                                   languageCode: "en"));
-                                          cubit.saveLang("en");
+                                          generalController.saveLang("en");
                                         },
                                       ),
                                       InkWell(
                                         child: SizedBox(
                                           height: 30,
                                           width:
-                                          MediaQuery.of(context).size.width,
+                                              MediaQuery.of(context).size.width,
                                           child: Row(
                                             mainAxisSize: MainAxisSize.min,
                                             children: [
@@ -285,30 +300,32 @@ class AboutApp extends StatelessWidget {
                                                 width: 20,
                                                 decoration: BoxDecoration(
                                                   borderRadius:
-                                                  const BorderRadius.all(
-                                                      Radius.circular(2.0)),
+                                                      const BorderRadius.all(
+                                                          Radius.circular(2.0)),
                                                   border: Border.all(
                                                       color: AppLocalizations.of(
-                                                          context)!
-                                                          .appLang ==
-                                                          "Idioma de la aplicación"
+                                                                      context)!
+                                                                  .appLang ==
+                                                              "Idioma de la aplicación"
                                                           ? Theme.of(context)
-                                                          .secondaryHeaderColor
+                                                              .secondaryHeaderColor
                                                           : Theme.of(context)
-                                                          .colorScheme.surface
-                                                          .withOpacity(.5),
+                                                              .colorScheme
+                                                              .surface
+                                                              .withOpacity(.5),
                                                       width: 2),
                                                   color:
-                                                  const Color(0xff39412a),
+                                                      const Color(0xff39412a),
                                                 ),
                                                 child: AppLocalizations.of(
-                                                    context)!
-                                                    .appLang ==
-                                                    "Idioma de la aplicación"
+                                                                context)!
+                                                            .appLang ==
+                                                        "Idioma de la aplicación"
                                                     ? Icon(Icons.done,
-                                                    size: 14,
-                                                    color: Theme.of(context)
-                                                        .colorScheme.surface)
+                                                        size: 14,
+                                                        color: Theme.of(context)
+                                                            .colorScheme
+                                                            .surface)
                                                     : null,
                                               ),
                                               const SizedBox(
@@ -318,14 +335,15 @@ class AboutApp extends StatelessWidget {
                                                 'Español',
                                                 style: TextStyle(
                                                   color: AppLocalizations.of(
-                                                      context)!
-                                                      .appLang ==
-                                                      "Idioma de la aplicación"
+                                                                  context)!
+                                                              .appLang ==
+                                                          "Idioma de la aplicación"
                                                       ? Theme.of(context)
-                                                      .secondaryHeaderColor
+                                                          .secondaryHeaderColor
                                                       : Theme.of(context)
-                                                      .colorScheme.surface
-                                                      .withOpacity(.5),
+                                                          .colorScheme
+                                                          .surface
+                                                          .withOpacity(.5),
                                                   fontSize: 14,
                                                   fontFamily: 'kufi',
                                                   fontStyle: FontStyle.italic,
@@ -338,6 +356,7 @@ class AboutApp extends StatelessWidget {
                                           HomePage.of(context)!.setLocale(
                                               const Locale.fromSubtags(
                                                   languageCode: "es"));
+                                          generalController.saveLang("en");
                                         },
                                       ),
                                     ],
@@ -354,7 +373,8 @@ class AboutApp extends StatelessWidget {
                           textDirection: TextDirection.rtl,
                           child: Container(
                             color: Theme.of(context)
-                                .colorScheme.surface
+                                .colorScheme
+                                .surface
                                 .withOpacity(.2),
                             child: Column(
                               children: [
@@ -405,7 +425,8 @@ class AboutApp extends StatelessWidget {
                         ),
                         Container(
                           color: Theme.of(context)
-                              .colorScheme.surface
+                              .colorScheme
+                              .surface
                               .withOpacity(.2),
                           child: Padding(
                             padding: const EdgeInsets.all(8.0),
@@ -523,8 +544,7 @@ class AboutApp extends StatelessWidget {
                                             : Theme.of(context).primaryColor,
                                       ),
                                       Text(
-                                        AppLocalizations.of(context)!
-                                            .facebook,
+                                        AppLocalizations.of(context)!.facebook,
                                         style: TextStyle(
                                             color:
                                                 ThemeProvider.themeOf(context)
@@ -548,7 +568,10 @@ class AboutApp extends StatelessWidget {
                           ),
                         ),
                         Center(
-                          child: spaceLine(30, MediaQuery.of(context).size.width * 3 / 4,),
+                          child: spaceLine(
+                            30,
+                            MediaQuery.of(context).size.width * 3 / 4,
+                          ),
                         ),
                       ],
                     ),
@@ -564,19 +587,16 @@ class AboutApp extends StatelessWidget {
 
   Future<void> share() async {
     final ByteData bytes =
-    await rootBundle.load('assets/images/AlQuranAlKareem.jpg');
+        await rootBundle.load('assets/images/AlQuranAlKareem.jpg');
     final Uint8List list = bytes.buffer.asUint8List();
 
     final tempDir = await getTemporaryDirectory();
-    final file =
-    await File('${tempDir.path}/AlQuranAlKareem.jpg').create();
+    final file = await File('${tempDir.path}/AlQuranAlKareem.jpg').create();
     file.writeAsBytesSync(list);
     await Share.shareXFiles(
-      [
-        XFile((file.path))
-      ],
+      [XFile((file.path))],
       text:
-      'الدَّالَّ على الخيرِ كفاعِلِهِ\n\nعن أبي هريرة رضي الله عنه أن رسول الله صلى الله عليه وسلم قال: من دعا إلى هدى كان له من الأجر مثل أجور من تبعه لا ينقص ذلك من أجورهم شيئا، ومن دعا إلى ضلالة كان عليه من الإثم مثل آثام من تبعه لا ينقص ذلك من آثامهم شيئا.\n\nالقرآن الكريم - مكتبة الحكمة\nروابط التحميل:\nللايفون: https://apps.apple.com/us/app/القرآن-الكريم-مكتبة-الحكمة/id1500153222\nللاندرويد:\nPlay Store: https://play.google.com/store/apps/details?id=com.alheekmah.alquranalkareem.alquranalkareem\nApp Gallery: https://appgallery.cloud.huawei.com/marketshare/app/C102051725?locale=en_US&source=appshare&subsource=C102051725',
+          'الدَّالَّ على الخيرِ كفاعِلِهِ\n\nعن أبي هريرة رضي الله عنه أن رسول الله صلى الله عليه وسلم قال: من دعا إلى هدى كان له من الأجر مثل أجور من تبعه لا ينقص ذلك من أجورهم شيئا، ومن دعا إلى ضلالة كان عليه من الإثم مثل آثام من تبعه لا ينقص ذلك من آثامهم شيئا.\n\nالقرآن الكريم - مكتبة الحكمة\nروابط التحميل:\nللايفون: https://apps.apple.com/us/app/القرآن-الكريم-مكتبة-الحكمة/id1500153222\nللاندرويد:\nPlay Store: https://play.google.com/store/apps/details?id=com.alheekmah.alquranalkareem.alquranalkareem\nApp Gallery: https://appgallery.cloud.huawei.com/marketshare/app/C102051725?locale=en_US&source=appshare&subsource=C102051725',
     );
   }
 }
