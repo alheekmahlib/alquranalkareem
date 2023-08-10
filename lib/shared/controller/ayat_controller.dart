@@ -9,6 +9,7 @@ class AyatController extends GetxController {
   var ayatList = <Ayat>[].obs; // Observable list
   String? tableName;
   late int radioValue;
+  RxString currentAyahNumber = '1'.obs;
   var isSelected = 0.0.obs;
   ValueNotifier<int> selectedTafseerIndex = ValueNotifier<int>(0);
 

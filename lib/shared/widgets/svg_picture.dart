@@ -4,6 +4,9 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 
 import '../../quran_page/data/repository/bookmarks_controller.dart';
+import '../controller/general_controller.dart';
+
+late final GeneralController generalController = Get.put(GeneralController());
 
 besmAllah(BuildContext context) {
   return SvgPicture.asset(
@@ -42,10 +45,11 @@ bookmarkIcon(BuildContext context, double height, width) {
       'assets/svg/bookmark_ic.svg',
       width: width,
       height: height,
-      colorFilter: bookmarksController.isPageBookmarked(cubit.cuMPage)
-          ? null
-          : ColorFilter.mode(
-              Theme.of(context).primaryColorDark, BlendMode.srcIn),
+      colorFilter:
+          bookmarksController.isPageBookmarked(generalController.cuMPage)
+              ? null
+              : ColorFilter.mode(
+                  Theme.of(context).primaryColorDark, BlendMode.srcIn),
     );
   });
 }

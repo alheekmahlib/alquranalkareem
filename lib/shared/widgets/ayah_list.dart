@@ -10,6 +10,7 @@ import '../../cubit/cubit.dart';
 import '../../quran_page/cubit/audio/cubit.dart';
 import '../../quran_page/data/model/ayat.dart';
 import '../controller/ayat_controller.dart';
+import '../controller/general_controller.dart';
 import 'lottie.dart';
 
 class AyahList extends StatelessWidget {
@@ -17,13 +18,14 @@ class AyahList extends StatelessWidget {
 
   ArabicNumbers arabicNumber = ArabicNumbers();
   late final AyatController ayatController = Get.put(AyatController());
+  late final GeneralController generalController = Get.put(GeneralController());
 
   @override
   Widget build(BuildContext context) {
     QuranCubit cubit = QuranCubit.get(context);
     AudioCubit audioCubit = AudioCubit.get(context);
     final controller = Get.find<AyatController>();
-    controller.fetchAyat(cubit.cuMPage);
+    controller.fetchAyat(generalController.cuMPage);
     return Container(
       height: 40,
       decoration: BoxDecoration(
@@ -61,6 +63,8 @@ class AyahList extends StatelessWidget {
                       cubit.translateAyah = "${aya.ayatext ?? ''}";
                       cubit.translate = "${aya.translate ?? ''}";
                       audioCubit.ayahNum = '${aya.ayaNum ?? 0}';
+                      ayatController.currentAyahNumber.value =
+                          '${aya.ayaNum ?? 0}';
                       audioCubit.sorahName = '${aya.suraNum ?? 0}';
                       print(audioCubit.ayahNum);
                     },
@@ -100,15 +104,16 @@ class AyahList2 extends StatelessWidget {
 
   ArabicNumbers arabicNumber = ArabicNumbers();
   late final AyatController ayatController = Get.put(AyatController());
+  late final GeneralController generalController = Get.put(GeneralController());
 
   @override
   Widget build(BuildContext context) {
     QuranCubit cubit = QuranCubit.get(context);
     final QuranCubit quranCubit = context.read<QuranCubit>();
 // Fetch the Ayat instances when needed
-    quranCubit.getTranslatedPage(cubit.cuMPage ?? 1, context);
+    quranCubit.getTranslatedPage((generalController.cuMPage) ?? 1, context);
     final controller = Get.find<AyatController>();
-    controller.fetchAyat(cubit.cuMPage);
+    controller.fetchAyat(generalController.cuMPage);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: <Widget>[

@@ -64,7 +64,7 @@ class QuranCubit extends Cubit<QuranState> {
   late Animation<Offset> offset;
   SharedPreferences? prefs;
   String? sorahName;
-  String? soMName;
+
   Locale? initialLang;
   bool opened = false;
   late int cuMPage;
@@ -139,26 +139,6 @@ class QuranCubit extends Cubit<QuranState> {
 
     // Update the text with the Ayah text and its translation
     updateText("${selectedAyah.ayatext}", "${selectedAyah.translate}");
-  }
-
-  /// Shared Preferences
-  // Save & Load Last Page For Quran Page
-  saveMLastPlace(int currentPage, String lastSorah) async {
-    SharedPreferences prefs = await _prefs;
-    await prefs.setInt("mstart_page", currentPage);
-    await prefs.setString("mLast_sorah", lastSorah);
-    emit(SharedPreferencesState());
-  }
-
-  loadMCurrentPage() async {
-    SharedPreferences prefs = await _prefs;
-    cuMPage = (prefs.getInt('mstart_page') == null
-        ? 1
-        : prefs.getInt('mstart_page'))!;
-    soMName = prefs.getString('mLast_sorah') ?? '1';
-    print('cuMPage $cuMPage');
-    print('last_sorah ${prefs.getString('mLast_sorah')}');
-    emit(loadMCurrentPageState());
   }
 
   // Save & Load Font Size
@@ -269,7 +249,6 @@ class QuranCubit extends Cubit<QuranState> {
   }
 
   void initState() {
-    loadMCurrentPage();
     // MPages.currentPage2 = cuMPage;
     scrollController = ScrollController();
     scrollController.addListener(() {
