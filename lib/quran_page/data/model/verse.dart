@@ -1,8 +1,9 @@
 import 'dart:math';
 
-import 'package:alquranalkareem/cubit/cubit.dart';
+import 'package:alquranalkareem/shared/controller/general_controller.dart';
 import 'package:alquranalkareem/shared/widgets/widgets.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:theme_provider/theme_provider.dart';
 
 import '../../../database/verseDBHelper.dart';
@@ -68,6 +69,7 @@ class _QuranPageState extends State<QuranPage> {
   List<Verse>? verses;
   final GlobalKey _imageKey = GlobalKey();
   final GlobalKey _gestureDetectorKey = GlobalKey();
+  late final GeneralController generalController = Get.put(GeneralController());
 
   @override
   void initState() {
@@ -749,7 +751,6 @@ class _QuranPageState extends State<QuranPage> {
     if (_selectedVerses.isEmpty) {
       _selectedVerses.addAll(List.generate(20, (index) => false));
     }
-    QuranCubit cubit = QuranCubit.get(context);
     return SingleChildScrollView(
       child: SizedBox(
         height: 600,
@@ -831,7 +832,7 @@ class _QuranPageState extends State<QuranPage> {
                     color: ThemeProvider.themeOf(context).id == 'dark'
                         ? Colors.white
                         : null,
-                    width: cubit.width,
+                    width: generalController.width,
                     alignment: Alignment.center,
                   ),
                 ),

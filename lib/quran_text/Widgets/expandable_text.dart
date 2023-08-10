@@ -1,7 +1,7 @@
+import 'package:alquranalkareem/shared/controller/general_controller.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:theme_provider/theme_provider.dart';
-
-import '../text_page_view.dart';
 
 class ExpandableText extends StatefulWidget {
   const ExpandableText({
@@ -36,6 +36,7 @@ class ExpandableText extends StatefulWidget {
 }
 
 class _ExpandableTextState extends State<ExpandableText> {
+  late final GeneralController generalController = Get.put(GeneralController());
   bool isExpanded = false;
 
   @override
@@ -48,63 +49,66 @@ class _ExpandableTextState extends State<ExpandableText> {
             constraints: isExpanded
                 ? const BoxConstraints()
                 : BoxConstraints(maxHeight: widget.maxHeight),
-            child: isExpanded ? SelectableText(
-              widget.text,
-              textAlign: widget.textAlign,
-              style: TextStyle(
-                fontSize: TextPageView.fontSizeArabic - 10,
-                fontFamily: 'kufi',
-                color: ThemeProvider.themeOf(context).id == 'dark'
-                    ? Colors.white
-                    : Colors.black,
-                // overflow: TextOverflow.fade,
-              ),
-              textDirection: TextDirection.ltr,
-            ) : Text(widget.text,
-                softWrap: true,
-                overflow: TextOverflow.fade,
-                textAlign: widget.textAlign,
-                style: TextStyle(
-                  fontSize: TextPageView.fontSizeArabic - 10,
-                  fontFamily: 'kufi',
-                  color: ThemeProvider.themeOf(context).id == 'dark'
-                      ? Colors.white
-                      : Colors.black,
-                ),
-              textDirection: TextDirection.ltr,
-            ),
+            child: isExpanded
+                ? SelectableText(
+                    widget.text,
+                    textAlign: widget.textAlign,
+                    style: TextStyle(
+                      fontSize: generalController.fontSizeArabic.value - 10,
+                      fontFamily: 'kufi',
+                      color: ThemeProvider.themeOf(context).id == 'dark'
+                          ? Colors.white
+                          : Colors.black,
+                      // overflow: TextOverflow.fade,
+                    ),
+                    textDirection: TextDirection.ltr,
+                  )
+                : Text(
+                    widget.text,
+                    softWrap: true,
+                    overflow: TextOverflow.fade,
+                    textAlign: widget.textAlign,
+                    style: TextStyle(
+                      fontSize: generalController.fontSizeArabic.value - 10,
+                      fontFamily: 'kufi',
+                      color: ThemeProvider.themeOf(context).id == 'dark'
+                          ? Colors.white
+                          : Colors.black,
+                    ),
+                    textDirection: TextDirection.ltr,
+                  ),
           ),
         ),
         isExpanded
             ? ConstrainedBox(
-          constraints: const BoxConstraints(),
-          child: TextButton.icon(
-            icon: Text(
-              widget.readLessText ?? 'Read less',
-              style: widget.buttonTextStyle ??
-                  Theme.of(context).textTheme.titleMedium,
-            ),
-            label: widget.iconExpanded ??
-                Icon(
-                  Icons.arrow_drop_up,
-                  color: widget.iconColor,
+                constraints: const BoxConstraints(),
+                child: TextButton.icon(
+                  icon: Text(
+                    widget.readLessText ?? 'Read less',
+                    style: widget.buttonTextStyle ??
+                        Theme.of(context).textTheme.titleMedium,
+                  ),
+                  label: widget.iconExpanded ??
+                      Icon(
+                        Icons.arrow_drop_up,
+                        color: widget.iconColor,
+                      ),
+                  onPressed: () => setState(() => isExpanded = false),
                 ),
-            onPressed: () => setState(() => isExpanded = false),
-          ),
-        )
+              )
             : TextButton.icon(
-          icon: Text(
-            widget.readMoreText ?? 'Read more',
-            style: widget.buttonTextStyle ??
-                Theme.of(context).textTheme.titleMedium,
-          ),
-          label: widget.iconCollapsed ??
-              Icon(
-                Icons.arrow_drop_down,
-                color: widget.iconColor,
-              ),
-          onPressed: () => setState(() => isExpanded = true),
-        )
+                icon: Text(
+                  widget.readMoreText ?? 'Read more',
+                  style: widget.buttonTextStyle ??
+                      Theme.of(context).textTheme.titleMedium,
+                ),
+                label: widget.iconCollapsed ??
+                    Icon(
+                      Icons.arrow_drop_down,
+                      color: widget.iconColor,
+                    ),
+                onPressed: () => setState(() => isExpanded = true),
+              )
       ],
     );
   }

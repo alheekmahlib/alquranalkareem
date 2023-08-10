@@ -6,7 +6,6 @@ import 'package:lottie/lottie.dart';
 import 'package:theme_provider/theme_provider.dart';
 
 import '../../cubit/ayaRepository/aya_cubit.dart';
-import '../../cubit/cubit.dart';
 import '../../l10n/app_localizations.dart';
 import '../../quran_page/data/model/aya.dart';
 import '../../quran_text/cubit/surah_text_cubit.dart';
@@ -119,15 +118,14 @@ class _QuranSearchState extends State<QuranSearch> {
                                                   .withOpacity(.1)),
                                           child: ListTile(
                                             onTap: () {
-                                              QuranCubit.get(context)
-                                                  .dPageController
+                                              generalController.dPageController
                                                   ?.animateToPage(
-                                                    aya.pageNum - 1,
-                                                    // 19,
-                                                    duration: const Duration(
-                                                        milliseconds: 500),
-                                                    curve: Curves.easeIn,
-                                                  );
+                                                aya.pageNum - 1,
+                                                // 19,
+                                                duration: const Duration(
+                                                    milliseconds: 500),
+                                                curve: Curves.easeIn,
+                                              );
                                               Navigator.pop(context);
                                             },
                                             title: Padding(

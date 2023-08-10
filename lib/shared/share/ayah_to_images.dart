@@ -301,11 +301,11 @@ Future<Uint8List> createVerseWithTranslateImage(BuildContext context,
     'Spanish',
   ];
   String? tafseerName;
-  if (cubit.shareTafseerValue == 1) {
+  if (generalController.shareTafseerValue == 1) {
     tafseerName = ayatController.radioValue != 3
         ? null
         : AppLocalizations.of(context)!.tafSaadiN;
-  } else if (cubit.shareTafseerValue == 2) {
+  } else if (generalController.shareTafseerValue == 2) {
     tafseerName = transName[cubit.transIndex!];
   }
   final tafseerNamePainter = TextPainter(

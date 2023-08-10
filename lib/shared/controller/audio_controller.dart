@@ -190,7 +190,7 @@ class AudioController extends GetxController {
       isPlay.value = false;
     } else if (lastAyahInPage.value == currentAyah - 1) {
       print('generalController.cuMPage ${generalController.cuMPage++}');
-      cubit.dPageController!.jumpToPage(
+      generalController.dPageController!.jumpToPage(
         (generalController.cuMPage - 1),
         // duration: const Duration(milliseconds: 600), curve: Curves.easeInOut
       );
@@ -204,8 +204,6 @@ class AudioController extends GetxController {
 
   playAyah(BuildContext context) async {
     AudioCubit audioCubit = AudioCubit.get(context);
-    QuranTextCubit textCubit = QuranTextCubit.get(context);
-    QuranCubit cubit = QuranCubit.get(context);
     int? currentAyah;
     int? currentSorah;
 
@@ -448,9 +446,8 @@ class AudioController extends GetxController {
   void playNextPage(BuildContext context) async {
     print('playNextPage ' * 6);
     AudioCubit audioCubit = AudioCubit.get(context);
-    QuranCubit cubit = QuranCubit.get(context);
     int pageNum = generalController.cuMPage + 1;
-    cubit.dPageController!.jumpToPage(generalController.cuMPage++);
+    generalController.dPageController!.jumpToPage(generalController.cuMPage++);
     String? stringPageNum;
     if (pageNum < 10) {
       stringPageNum = "00" + pageNum.toString();

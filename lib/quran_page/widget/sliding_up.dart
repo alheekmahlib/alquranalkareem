@@ -2,7 +2,9 @@ import 'package:alquranalkareem/cubit/cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_sliding_up_panel/sliding_up_panel_widget.dart';
+import 'package:get/get.dart';
 
+import '../../shared/controller/general_controller.dart';
 import '../../shared/widgets/widgets.dart';
 
 class Sliding extends StatefulWidget {
@@ -28,32 +30,34 @@ class Sliding extends StatefulWidget {
 
 class _SlidingState extends State<Sliding> with SingleTickerProviderStateMixin {
   var mScaffoldKey = GlobalKey<ScaffoldState>();
-
+  late final GeneralController generalController = Get.put(GeneralController());
 
   @override
   void initState() {
     super.initState();
-    QuranCubit.get(context).panelController = SlidingUpPanelController();
+    generalController.panelController = SlidingUpPanelController();
   }
 
   @override
   Widget build(BuildContext context) {
-    final cubit = context.read<QuranCubit>();
     return Directionality(
       textDirection: TextDirection.rtl,
       child: SizedBox(
-        height: orientation(context,
+        height: orientation(
+            context,
             MediaQuery.of(context).size.height * 3 / 4 * 1.15,
-            platformView(MediaQuery.of(context).size.height, MediaQuery.of(context).size.height * 3/4)),
+            platformView(MediaQuery.of(context).size.height,
+                MediaQuery.of(context).size.height * 3 / 4)),
         child: SlidingUpPanelWidget(
           controlHeight: widget.cHeight!,
           anchor: 7.0,
-          panelController: cubit.panelController,
+          panelController: generalController.panelController,
           onTap: () {
-            if (SlidingUpPanelStatus.anchored == cubit.panelController.status) {
-              cubit.panelController.collapse();
+            if (SlidingUpPanelStatus.anchored ==
+                generalController.panelController.status) {
+              generalController.panelController.collapse();
             } else {
-              cubit.panelController.anchor();
+              generalController.panelController.anchor();
             }
           },
           enableOnTap: false,
@@ -77,10 +81,11 @@ class _SlidingState extends State<Sliding> with SingleTickerProviderStateMixin {
               children: <Widget>[
                 GestureDetector(
                   onTap: () {
-                    if (SlidingUpPanelStatus.anchored == cubit.panelController.status) {
-                      cubit.panelController.collapse();
+                    if (SlidingUpPanelStatus.anchored ==
+                        generalController.panelController.status) {
+                      generalController.panelController.collapse();
                     } else {
-                      cubit.panelController.anchor();
+                      generalController.panelController.anchor();
                     }
                   },
                   child: Container(
@@ -90,8 +95,7 @@ class _SlidingState extends State<Sliding> with SingleTickerProviderStateMixin {
                         borderRadius: const BorderRadius.only(
                           topLeft: Radius.circular(8),
                           topRight: Radius.circular(8),
-                        )
-                    ),
+                        )),
                     height: 65.0,
                     child: Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 16.0),
@@ -137,51 +141,54 @@ class _SlidingState extends State<Sliding> with SingleTickerProviderStateMixin {
 class TextSliding extends StatefulWidget {
   final Widget? myWidget1;
   final double? cHeight;
-  TextSliding(
-      {Key? key,
-      required this.myWidget1,
-      required this.cHeight})
+  TextSliding({Key? key, required this.myWidget1, required this.cHeight})
       : super(key: key);
 
   @override
   State<TextSliding> createState() => _TextSlidingState();
 }
 
-class _TextSlidingState extends State<TextSliding> with SingleTickerProviderStateMixin {
+class _TextSlidingState extends State<TextSliding>
+    with SingleTickerProviderStateMixin {
   var mScaffoldKey = GlobalKey<ScaffoldState>();
+  late final GeneralController generalController = Get.put(GeneralController());
 
   @override
   void initState() {
     super.initState();
-    QuranCubit.get(context).panelTextController = SlidingUpPanelController();
+    generalController.panelTextController = SlidingUpPanelController();
   }
 
   cancel() {
     final cubit = context.read<QuranCubit>();
-    if (SlidingUpPanelStatus.hidden == cubit.panelTextController.status) {
-      cubit.panelTextController.expand();
+    if (SlidingUpPanelStatus.hidden ==
+        generalController.panelTextController.status) {
+      generalController.panelTextController.expand();
     } else {
-      cubit.panelTextController.hide();
+      generalController.panelTextController.hide();
     }
   }
+
   @override
   Widget build(BuildContext context) {
-    final cubit = context.read<QuranCubit>();
     return Directionality(
       textDirection: TextDirection.rtl,
       child: SizedBox(
-        height: orientation(context,
+        height: orientation(
+            context,
             MediaQuery.of(context).size.height * 3 / 4 * 1.15,
-            platformView(MediaQuery.of(context).size.height, MediaQuery.of(context).size.height * 3/4)),
+            platformView(MediaQuery.of(context).size.height,
+                MediaQuery.of(context).size.height * 3 / 4)),
         child: SlidingUpPanelWidget(
           controlHeight: widget.cHeight!,
           panelStatus: SlidingUpPanelStatus.hidden,
-          panelController: cubit.panelTextController,
+          panelController: generalController.panelTextController,
           onTap: () {
-            if (SlidingUpPanelStatus.hidden == cubit.panelTextController.status) {
-              cubit.panelTextController.expand();
+            if (SlidingUpPanelStatus.hidden ==
+                generalController.panelTextController.status) {
+              generalController.panelTextController.expand();
             } else {
-              cubit.panelTextController.hide();
+              generalController.panelTextController.hide();
             }
           },
           enableOnTap: false,

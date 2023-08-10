@@ -32,13 +32,13 @@ class _QuranPageState extends State<QuranPage>
 
   @override
   void initState() {
-    QuranCubit.get(context).controller = AnimationController(
+    generalController.controller = AnimationController(
         vsync: this, duration: const Duration(milliseconds: 300));
-    QuranCubit.get(context).offset = Tween<Offset>(
+    generalController.offset = Tween<Offset>(
       begin: Offset.zero,
       end: const Offset(-1.0, 0.0),
     ).animate(CurvedAnimation(
-      parent: QuranCubit.get(context).controller,
+      parent: generalController.controller,
       curve: Curves.easeIn,
     ));
     NotificationDatabaseHelper.loadNotifications();
@@ -72,9 +72,10 @@ class _QuranPageState extends State<QuranPage>
                       child: Center(
                         child: MPages(),
                       )),
-                  SlideTransition(position: cubit.offset, child: AudioWidget()),
+                  SlideTransition(
+                      position: generalController.offset, child: AudioWidget()),
                   Visibility(
-                      visible: cubit.isShowControl,
+                      visible: generalController.isShowControl.value,
                       child: Align(
                           alignment: Alignment.bottomCenter,
                           child: Sliding(

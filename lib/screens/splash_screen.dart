@@ -1,8 +1,8 @@
 import 'dart:async';
 
-import 'package:alquranalkareem/cubit/cubit.dart';
 import 'package:alquranalkareem/home_page.dart';
 import 'package:alquranalkareem/screens/onboarding_screen.dart';
+import 'package:alquranalkareem/shared/controller/ayat_controller.dart';
 import 'package:alquranalkareem/shared/controller/general_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -18,16 +18,17 @@ class SplashScreen extends StatefulWidget {
 
 class _SplashScreenState extends State<SplashScreen> {
   late final GeneralController generalController = Get.put(GeneralController());
+  late final AyatController ayatController = Get.put(AyatController());
   bool animate = false;
 
   @override
   void initState() {
     startTime();
-    QuranCubit.get(context).loadLang();
     generalController.loadMCurrentPage();
-    QuranCubit.get(context).loadTafseer();
-    QuranCubit.get(context).loadFontSize();
-    print('cubit.showTaf ${QuranCubit.get(context).showTaf}');
+    generalController.loadFontSize();
+    generalController.loadLang();
+    ayatController.loadTafseer();
+    generalController.updateGreeting();
     super.initState();
   }
 

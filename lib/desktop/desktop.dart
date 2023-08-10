@@ -44,13 +44,13 @@ class _DesktopState extends State<Desktop> with TickerProviderStateMixin {
       } else {}
     });
 
-    QuranCubit.get(context).controller = AnimationController(
+    generalController.controller = AnimationController(
         vsync: this, duration: const Duration(milliseconds: 300));
-    QuranCubit.get(context).offset = Tween<Offset>(
+    generalController.offset = Tween<Offset>(
       begin: Offset.zero,
       end: const Offset(-1.0, 0.0),
     ).animate(CurvedAnimation(
-      parent: QuranCubit.get(context).controller,
+      parent: generalController.controller,
       curve: Curves.easeIn,
     ));
     NotificationDatabaseHelper.loadNotifications();
@@ -79,11 +79,12 @@ class _DesktopState extends State<Desktop> with TickerProviderStateMixin {
                     generalController.cuMPage,
                   ),
                 ),
-                SlideTransition(position: cubit.offset, child: AudioWidget()),
+                SlideTransition(
+                    position: generalController.offset, child: AudioWidget()),
                 Align(
                   alignment: Alignment.bottomRight,
                   child: Visibility(
-                    visible: QuranCubit.get(context).isShowControl,
+                    visible: generalController.isShowControl.value,
                     child: Sliding(
                       myWidget1: quranPageSearch(
                         context,
