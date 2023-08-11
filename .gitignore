@@ -10,6 +10,10 @@
 .svn/
 migrate_working_dir/
 
+# Databases
+*.sqlite
+*.db
+
 # IntelliJ related
 *.iml
 *.ipr
