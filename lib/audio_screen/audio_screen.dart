@@ -1,8 +1,8 @@
+import 'package:alquranalkareem/audio_screen/controller/surah_audio_controller.dart';
 import 'package:alquranalkareem/cubit/cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../quran_page/cubit/audio/cubit.dart';
 import '../shared/controller/general_controller.dart';
 import 'audio_sorah_list.dart';
 
@@ -16,17 +16,18 @@ class AudioScreen extends StatefulWidget {
 class _AudioScreenState extends State<AudioScreen>
     with TickerProviderStateMixin, WidgetsBindingObserver {
   late final GeneralController generalController = Get.put(GeneralController());
+  late final SurahAudioController surahAudioController =
+      Get.put(SurahAudioController());
 
   @override
   void initState() {
-    AudioCubit.get(context).loadSorahReader();
-    AudioCubit.get(context).controllerSorah = AnimationController(
+    surahAudioController.controllerSorah = AnimationController(
         vsync: this, duration: const Duration(milliseconds: 200));
-    AudioCubit.get(context).offset = Tween<Offset>(
+    surahAudioController.offset = Tween<Offset>(
       begin: const Offset(0.0, 1.0),
       end: Offset.zero,
     ).animate(CurvedAnimation(
-      parent: AudioCubit.get(context).controllerSorah,
+      parent: surahAudioController.controllerSorah,
       curve: Curves.easeIn,
     ));
     generalController.screenController = AnimationController(

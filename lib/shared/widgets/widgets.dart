@@ -1,8 +1,10 @@
 import 'dart:io';
 
+import 'package:alquranalkareem/audio_screen/controller/surah_audio_controller.dart';
 import 'package:alquranalkareem/cubit/cubit.dart';
 import 'package:alquranalkareem/notes/cubit/note_cubit.dart';
 import 'package:alquranalkareem/quran_text/Widgets/quran_text_search.dart';
+import 'package:alquranalkareem/shared/controller/audio_controller.dart';
 import 'package:alquranalkareem/shared/controller/general_controller.dart';
 import 'package:alquranalkareem/shared/widgets/bookmarks_list.dart';
 import 'package:alquranalkareem/shared/widgets/quran_search.dart';
@@ -35,6 +37,9 @@ var TPageScaffoldKey = GlobalKey<ScaffoldState>();
 var SorahPlayScaffoldKey = GlobalKey<ScaffoldState>();
 String? selectedValue;
 late final GeneralController generalController = Get.put(GeneralController());
+late final AudioController audioController = Get.put(AudioController());
+late final SurahAudioController surahAudioController =
+    Get.put(SurahAudioController());
 
 Widget quranPageSearch(BuildContext context, double width) {
   return GestureDetector(
@@ -275,7 +280,7 @@ Widget audioSorahtopBar(BuildContext context, String sorahNum) {
                 color: ThemeProvider.themeOf(context).id == 'dark'
                     ? Theme.of(context).canvasColor
                     : Theme.of(context).primaryColorDark),
-            onPressed: () => AudioCubit.get(context).controllerSorah.reverse(),
+            onPressed: () => surahAudioController.controllerSorah.reverse(),
           ),
         ),
       ],
@@ -756,9 +761,10 @@ readerDropDown(BuildContext context) {
                         title: Text(
                           readerName[index],
                           style: TextStyle(
-                              color: audioCubit.readerValue == readerD[index]
-                                  ? Theme.of(context).primaryColorLight
-                                  : const Color(0xffcdba72),
+                              color:
+                                  audioController.readerValue == readerD[index]
+                                      ? Theme.of(context).primaryColorLight
+                                      : const Color(0xffcdba72),
                               fontSize: 14,
                               fontFamily: "kufi"),
                         ),
@@ -769,20 +775,21 @@ readerDropDown(BuildContext context) {
                             borderRadius:
                                 const BorderRadius.all(Radius.circular(2.0)),
                             border: Border.all(
-                                color: audioCubit.readerValue == readerD[index]
+                                color: audioController.readerValue ==
+                                        readerD[index]
                                     ? Theme.of(context).primaryColorLight
                                     : const Color(0xffcdba72),
                                 width: 2),
                             color: const Color(0xff39412a),
                           ),
-                          child: audioCubit.readerValue == readerD[index]
+                          child: audioController.readerValue == readerD[index]
                               ? const Icon(Icons.done,
                                   size: 14, color: Color(0xffcdba72))
                               : null,
                         ),
                         onTap: () {
-                          audioCubit.readerValue = readerD[index];
-                          audioCubit.saveQuranReader(readerD[index]);
+                          audioController.readerValue = readerD[index];
+                          audioController.saveQuranReader(readerD[index]);
                           Navigator.pop(context);
                         },
                         leading: Container(
@@ -793,14 +800,14 @@ readerDropDown(BuildContext context) {
                                 image: AssetImage(
                                     'assets/images/${readerI[index]}.jpg'),
                                 fit: BoxFit.fitWidth,
-                                colorFilter:
-                                    audioCubit.readerValue == readerD[index]
-                                        ? null
-                                        : ColorFilter.mode(
-                                            Theme.of(context)
-                                                .canvasColor
-                                                .withOpacity(.4),
-                                            BlendMode.lighten),
+                                colorFilter: audioController.readerValue ==
+                                        readerD[index]
+                                    ? null
+                                    : ColorFilter.mode(
+                                        Theme.of(context)
+                                            .canvasColor
+                                            .withOpacity(.4),
+                                        BlendMode.lighten),
                               ),
                               shape: BoxShape.rectangle,
                               borderRadius:
@@ -835,7 +842,6 @@ readerDropDown(BuildContext context) {
 }
 
 sorahReaderDropDown(BuildContext context) {
-  AudioCubit audioCubit = AudioCubit.get(context);
   List<String> readerName = <String>[
     AppLocalizations.of(context)!.reader1,
     AppLocalizations.of(context)!.reader2,
@@ -918,10 +924,11 @@ sorahReaderDropDown(BuildContext context) {
                         title: Text(
                           readerName[index],
                           style: TextStyle(
-                              color: audioCubit.sorahReaderNameValue ==
-                                      readerN[index]
-                                  ? Theme.of(context).primaryColorLight
-                                  : const Color(0xffcdba72),
+                              color:
+                                  surahAudioController.sorahReaderNameValue ==
+                                          readerN[index]
+                                      ? Theme.of(context).primaryColorLight
+                                      : const Color(0xffcdba72),
                               fontSize: 14,
                               fontFamily: 'kufi'),
                         ),
@@ -932,23 +939,26 @@ sorahReaderDropDown(BuildContext context) {
                             borderRadius:
                                 const BorderRadius.all(Radius.circular(2.0)),
                             border: Border.all(
-                                color: audioCubit.sorahReaderNameValue ==
-                                        readerN[index]
-                                    ? Theme.of(context).primaryColorLight
-                                    : const Color(0xffcdba72),
+                                color:
+                                    surahAudioController.sorahReaderNameValue ==
+                                            readerN[index]
+                                        ? Theme.of(context).primaryColorLight
+                                        : const Color(0xffcdba72),
                                 width: 2),
                             color: const Color(0xff39412a),
                           ),
-                          child:
-                              audioCubit.sorahReaderNameValue == readerN[index]
-                                  ? const Icon(Icons.done,
-                                      size: 14, color: Color(0xfffcbb76))
-                                  : null,
+                          child: surahAudioController.sorahReaderNameValue ==
+                                  readerN[index]
+                              ? const Icon(Icons.done,
+                                  size: 14, color: Color(0xfffcbb76))
+                              : null,
                         ),
                         onTap: () {
-                          audioCubit.sorahReaderValue = readerD[index];
-                          audioCubit.sorahReaderNameValue = readerN[index];
-                          audioCubit.saveSorahReader(
+                          surahAudioController.sorahReaderValue =
+                              readerD[index];
+                          surahAudioController.sorahReaderNameValue =
+                              readerN[index];
+                          surahAudioController.saveSorahReader(
                               readerD[index], readerN[index]);
                           Navigator.pop(context);
                         },
@@ -960,14 +970,15 @@ sorahReaderDropDown(BuildContext context) {
                                 image: AssetImage(
                                     'assets/images/${readerI[index]}.jpg'),
                                 fit: BoxFit.fitWidth,
-                                colorFilter: audioCubit.sorahReaderNameValue ==
-                                        readerN[index]
-                                    ? null
-                                    : ColorFilter.mode(
-                                        Theme.of(context)
-                                            .canvasColor
-                                            .withOpacity(.4),
-                                        BlendMode.lighten),
+                                colorFilter:
+                                    surahAudioController.sorahReaderNameValue ==
+                                            readerN[index]
+                                        ? null
+                                        : ColorFilter.mode(
+                                            Theme.of(context)
+                                                .canvasColor
+                                                .withOpacity(.4),
+                                            BlendMode.lighten),
                               ),
                               shape: BoxShape.rectangle,
                               borderRadius:
@@ -1002,7 +1013,6 @@ sorahReaderDropDown(BuildContext context) {
 }
 
 Widget sorahPageReaderDropDown(BuildContext context) {
-  AudioCubit audioCubit = AudioCubit.get(context);
   List<String> readerName = <String>[
     AppLocalizations.of(context)!.reader1,
     AppLocalizations.of(context)!.reader2,
@@ -1040,7 +1050,8 @@ Widget sorahPageReaderDropDown(BuildContext context) {
                     title: Text(
                       readerName[index],
                       style: TextStyle(
-                        color: audioCubit.sorahReaderNameValue == readerN[index]
+                        color: surahAudioController.sorahReaderNameValue ==
+                                readerN[index]
                             ? const Color(0xfffcbb76)
                             : Theme.of(context).canvasColor,
                         fontSize: 14,
@@ -1053,22 +1064,24 @@ Widget sorahPageReaderDropDown(BuildContext context) {
                         borderRadius:
                             const BorderRadius.all(Radius.circular(2.0)),
                         border: Border.all(
-                            color: audioCubit.sorahReaderNameValue ==
+                            color: surahAudioController.sorahReaderNameValue ==
                                     readerN[index]
                                 ? const Color(0xfffcbb76)
                                 : Theme.of(context).canvasColor,
                             width: 2),
                         color: const Color(0xff39412a),
                       ),
-                      child: audioCubit.sorahReaderNameValue == readerN[index]
+                      child: surahAudioController.sorahReaderNameValue ==
+                              readerN[index]
                           ? const Icon(Icons.done,
                               size: 14, color: Color(0xfffcbb76))
                           : null,
                     ),
                     onTap: () {
-                      audioCubit.sorahReaderValue = readerD[index];
-                      audioCubit.sorahReaderNameValue = readerN[index];
-                      audioCubit.saveSorahReader(
+                      surahAudioController.sorahReaderValue = readerD[index];
+                      surahAudioController.sorahReaderNameValue =
+                          readerN[index];
+                      surahAudioController.saveSorahReader(
                           readerD[index], readerN[index]);
                       Navigator.pop(context);
                     },

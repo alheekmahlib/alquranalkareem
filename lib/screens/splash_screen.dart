@@ -1,7 +1,9 @@
 import 'dart:async';
 
+import 'package:alquranalkareem/audio_screen/controller/surah_audio_controller.dart';
 import 'package:alquranalkareem/home_page.dart';
 import 'package:alquranalkareem/screens/onboarding_screen.dart';
+import 'package:alquranalkareem/shared/controller/audio_controller.dart';
 import 'package:alquranalkareem/shared/controller/ayat_controller.dart';
 import 'package:alquranalkareem/shared/controller/general_controller.dart';
 import 'package:flutter/material.dart';
@@ -19,6 +21,9 @@ class SplashScreen extends StatefulWidget {
 class _SplashScreenState extends State<SplashScreen> {
   late final GeneralController generalController = Get.put(GeneralController());
   late final AyatController ayatController = Get.put(AyatController());
+  late final AudioController audioController = Get.put(AudioController());
+  late final SurahAudioController surahAudioController =
+      Get.put(SurahAudioController());
   bool animate = false;
 
   @override
@@ -29,6 +34,8 @@ class _SplashScreenState extends State<SplashScreen> {
     generalController.loadLang();
     ayatController.loadTafseer();
     generalController.updateGreeting();
+    audioController.loadQuranReader();
+    surahAudioController.loadSorahReader();
     super.initState();
   }
 

@@ -1,5 +1,3 @@
-import 'package:alquranalkareem/cubit/cubit.dart';
-import 'package:alquranalkareem/quran_page/cubit/audio/cubit.dart';
 import 'package:alquranalkareem/shared/widgets/ayah_list.dart';
 import 'package:alquranalkareem/shared/widgets/seek_bar.dart';
 import 'package:alquranalkareem/shared/widgets/svg_picture.dart';
@@ -44,8 +42,6 @@ class _AudioWidgetState extends State<AudioWidget>
 
   @override
   Widget build(BuildContext context) {
-    QuranCubit cubit = QuranCubit.get(context);
-    AudioCubit audioCubit = AudioCubit.get(context);
     return Align(
       alignment: Alignment.bottomCenter,
       child: Padding(
@@ -112,68 +108,16 @@ class _AudioWidgetState extends State<AudioWidget>
                                         onChangeEnd: aCtrl.audioPlayer.seek,
                                       );
                                     }
-                                    return SizedBox();
+                                    return const SizedBox.shrink();
                                   },
                                 ),
                               );
-                              // } else if (aCtrl.isPagePlay.value == true) {
-                              //   print(
-                              //       'aCtrl.isPagePlay.value ${aCtrl.isPagePlay.value}');
-                              //   return Container(
-                              //     height: 50,
-                              //     alignment: Alignment.center,
-                              //     width: 290,
-                              //     child: StreamBuilder<pagePositionData>(
-                              //       stream: aCtrl.pagePositionDataStream,
-                              //       builder: (context, snapshot) {
-                              //         final positionData = snapshot.data;
-                              //         return SeekBar(
-                              //           duration: positionData?.duration ??
-                              //               Duration.zero,
-                              //           position: positionData?.position ??
-                              //               Duration.zero,
-                              //           bufferedPosition:
-                              //               positionData?.bufferedPosition ??
-                              //                   Duration.zero,
-                              //           onChangeEnd: aCtrl.pageAudioPlayer.seek,
-                              //         );
-                              //       },
-                              //     ),
-                              //   );
                             } else if (playing != true) {
                               return AyahList();
                             } else {
                               return const SizedBox.shrink();
                             }
                           }),
-                      // getx.Obx(
-                      //     () => (aCtrl.isPlay.value || aCtrl.isPagePlay.value)
-                      //         ? Container(
-                      //             height: 50,
-                      //             alignment: Alignment.center,
-                      //             width: 290,
-                      //             child: StreamBuilder<PositionData>(
-                      //               stream: aCtrl.positionDataStream,
-                      //               builder: (context, snapshot) {
-                      //                 final positionData = snapshot.data;
-                      //                 return SeekBar(
-                      //                   duration: positionData?.duration ??
-                      //                       Duration.zero,
-                      //                   position: positionData?.position ??
-                      //                       Duration.zero,
-                      //                   bufferedPosition:
-                      //                       positionData?.bufferedPosition ??
-                      //                           Duration.zero,
-                      //                   onChangeEnd: aCtrl.isPlay.value
-                      //                       ? aCtrl.audioPlayer.seek
-                      //                       : aCtrl.pageAudioPlayer.seek,
-                      //                 );
-                      //               },
-                      //             ),
-                      //           )
-                      //         : AyahList(
-                      //             pageNum: generalController.cuMPage,
-                      //           ))
                     ],
                   )),
               Expanded(
@@ -239,7 +183,8 @@ class _AudioWidgetState extends State<AudioWidget>
                                                   ? () {
                                                       print(aCtrl.progressString
                                                           .value);
-                                                      if (audioCubit.ayahNum ==
+                                                      if (audioController
+                                                              .pageAyahNumber ==
                                                           null) {
                                                         customErrorSnackBar(
                                                             context,
