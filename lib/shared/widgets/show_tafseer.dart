@@ -6,12 +6,10 @@ import 'package:alquranalkareem/shared/widgets/widgets.dart';
 import 'package:arabic_numbers/arabic_numbers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:theme_provider/theme_provider.dart';
 
-import '../../cubit/states.dart';
 import '../../l10n/app_localizations.dart';
 import '../../notes/cubit/note_cubit.dart';
 import '../controller/ayat_controller.dart';
@@ -118,7 +116,7 @@ class _ShowTafseerState extends State<ShowTafseer> {
                       } else {
                         await Clipboard.setData(ClipboardData(
                                 text:
-                                    '﴿${cubit.translateAyah}﴾\n\n${cubit.translate}'))
+                                    '﴿${ayatController.currentText.value!.translateAyah}﴾\n\n${ayatController.currentText.value!.translate}'))
                             .then((value) => customSnackBar(context,
                                 AppLocalizations.of(context)!.copyTafseer));
                       }
@@ -159,12 +157,17 @@ class _ShowTafseerState extends State<ShowTafseer> {
                             context,
                             0,
                             surahNumber!,
-                            cubit.translateAyah,
-                            cubit.translate ?? '',
+                            ayatController.currentText.value!.translateAyah,
+                            ayatController.currentText.value!.translate ?? '',
                             surahName!);
                       } else {
-                        showVerseOptionsBottomSheet(context, 0, surahNumber!,
-                            cubit.translateAyah, '', surahName!);
+                        showVerseOptionsBottomSheet(
+                            context,
+                            0,
+                            surahNumber!,
+                            ayatController.currentText.value!.translateAyah,
+                            '',
+                            surahName!);
                       }
                     },
                     child: Align(
@@ -211,91 +214,143 @@ class _ShowTafseerState extends State<ShowTafseer> {
                     child: Scrollbar(
                       controller: _scrollController,
                       child: SingleChildScrollView(
-                        controller: _scrollController,
-                        child: BlocBuilder<QuranCubit, QuranState>(
-                          builder: (context, state) {
-                            if (state is TextUpdated) {
-                              allText = '﴿${state.translateAyah}﴾\n\n' +
-                                  state.translate;
-                              allTitle = '﴿${state.translateAyah}﴾';
-                              cubit.translateAyah = state.translateAyah;
-                              cubit.translate = state.translate;
-                              return Obx(
-                                () => SelectableText.rich(
-                                  key: _selectableTextKey,
-                                  TextSpan(
-                                    children: <InlineSpan>[
-                                      TextSpan(
-                                        text: '﴿${state.translateAyah}﴾\n\n',
-                                        style: TextStyle(
-                                            color:
-                                                ThemeProvider.themeOf(context)
-                                                            .id ==
-                                                        'dark'
-                                                    ? Colors.white
-                                                    : Colors.black,
-                                            fontWeight: FontWeight.w100,
-                                            height: 1.5,
-                                            fontFamily: 'uthmanic2',
-                                            fontSize: generalController
-                                                .fontSizeArabic.value),
+                          controller: _scrollController,
+                          child: Obx(() {
+                            if (ayatController.currentPageLoading.value) {
+                              return CircularProgressIndicator();
+                            } else if (ayatController.currentText.value !=
+                                null) {
+                              return SelectableText.rich(
+                                key: _selectableTextKey,
+                                TextSpan(
+                                  children: <InlineSpan>[
+                                    TextSpan(
+                                      text:
+                                          '﴿${ayatController.currentText.value!.translateAyah}﴾\n\n',
+                                      style: TextStyle(
+                                          color: ThemeProvider.themeOf(context)
+                                                      .id ==
+                                                  'dark'
+                                              ? Colors.white
+                                              : Colors.black,
+                                          fontWeight: FontWeight.w100,
+                                          height: 1.5,
+                                          fontFamily: 'uthmanic2',
+                                          fontSize: generalController
+                                              .fontSizeArabic.value),
+                                    ),
+                                    WidgetSpan(
+                                      child: Center(
+                                        child: spaceLine(
+                                            25,
+                                            MediaQuery.of(context).size.width /
+                                                1 /
+                                                2),
                                       ),
-                                      WidgetSpan(
-                                        child: Center(
-                                          child: spaceLine(
-                                              25,
-                                              MediaQuery.of(context)
-                                                      .size
-                                                      .width /
-                                                  1 /
-                                                  2),
-                                        ),
+                                    ),
+                                    TextSpan(
+                                      text: ayatController
+                                          .currentText.value!.translate,
+                                      style: TextStyle(
+                                          color: ThemeProvider.themeOf(context)
+                                                      .id ==
+                                                  'dark'
+                                              ? Colors.white
+                                              : Colors.black,
+                                          height: 1.5,
+                                          fontSize: generalController
+                                              .fontSizeArabic.value),
+                                    ),
+                                    WidgetSpan(
+                                      child: Center(
+                                        child: spaceLine(
+                                            25,
+                                            MediaQuery.of(context).size.width /
+                                                1 /
+                                                2),
                                       ),
-                                      TextSpan(
-                                        text: state.translate,
-                                        style: TextStyle(
-                                            color:
-                                                ThemeProvider.themeOf(context)
-                                                            .id ==
-                                                        'dark'
-                                                    ? Colors.white
-                                                    : Colors.black,
-                                            height: 1.5,
-                                            fontSize: generalController
-                                                .fontSizeArabic.value),
-                                      ),
-                                      WidgetSpan(
-                                        child: Center(
-                                          child: spaceLine(
-                                              25,
-                                              MediaQuery.of(context)
-                                                      .size
-                                                      .width /
-                                                  1 /
-                                                  2),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                  showCursor: true,
-                                  cursorWidth: 3,
-                                  cursorColor: Theme.of(context).dividerColor,
-                                  cursorRadius: const Radius.circular(5),
-                                  scrollPhysics: const ClampingScrollPhysics(),
-                                  textDirection: TextDirection.rtl,
-                                  textAlign: TextAlign.justify,
-                                  contextMenuBuilder:
-                                      buildMyContextMenu(notesCubit),
-                                  onSelectionChanged: handleSelectionChanged,
+                                    ),
+                                  ],
                                 ),
+                                showCursor: true,
+                                cursorWidth: 3,
+                                cursorColor: Theme.of(context).dividerColor,
+                                cursorRadius: const Radius.circular(5),
+                                scrollPhysics: const ClampingScrollPhysics(),
+                                textDirection: TextDirection.rtl,
+                                textAlign: TextAlign.justify,
+                                contextMenuBuilder:
+                                    buildMyContextMenu(notesCubit),
+                                onSelectionChanged: handleSelectionChanged,
                               );
                             } else {
-                              return const SizedBox
-                                  .shrink(); // Or some other fallback widget
+                              return Text(
+                                  'Error: ${ayatController.currentPageError.value}');
                             }
-                          },
-                        ),
-                      ),
+                          })
+                          // child: Obx(
+                          //   () => SelectableText.rich(
+                          //     key: _selectableTextKey,
+                          //     TextSpan(
+                          //       children: <InlineSpan>[
+                          //         TextSpan(
+                          //           text: '﴿${ayatController.translateAyah}﴾\n\n',
+                          //           style: TextStyle(
+                          //               color:
+                          //                   ThemeProvider.themeOf(context).id ==
+                          //                           'dark'
+                          //                       ? Colors.white
+                          //                       : Colors.black,
+                          //               fontWeight: FontWeight.w100,
+                          //               height: 1.5,
+                          //               fontFamily: 'uthmanic2',
+                          //               fontSize: generalController
+                          //                   .fontSizeArabic.value),
+                          //         ),
+                          //         WidgetSpan(
+                          //           child: Center(
+                          //             child: spaceLine(
+                          //                 25,
+                          //                 MediaQuery.of(context).size.width /
+                          //                     1 /
+                          //                     2),
+                          //           ),
+                          //         ),
+                          //         TextSpan(
+                          //           text: ayatController.translate,
+                          //           style: TextStyle(
+                          //               color:
+                          //                   ThemeProvider.themeOf(context).id ==
+                          //                           'dark'
+                          //                       ? Colors.white
+                          //                       : Colors.black,
+                          //               height: 1.5,
+                          //               fontSize: generalController
+                          //                   .fontSizeArabic.value),
+                          //         ),
+                          //         WidgetSpan(
+                          //           child: Center(
+                          //             child: spaceLine(
+                          //                 25,
+                          //                 MediaQuery.of(context).size.width /
+                          //                     1 /
+                          //                     2),
+                          //           ),
+                          //         ),
+                          //       ],
+                          //     ),
+                          //     showCursor: true,
+                          //     cursorWidth: 3,
+                          //     cursorColor: Theme.of(context).dividerColor,
+                          //     cursorRadius: const Radius.circular(5),
+                          //     scrollPhysics: const ClampingScrollPhysics(),
+                          //     textDirection: TextDirection.rtl,
+                          //     textAlign: TextAlign.justify,
+                          //     contextMenuBuilder: buildMyContextMenu(notesCubit),
+                          //     onSelectionChanged: handleSelectionChanged,
+                          //   ),
+                          // ),
+                          ),
                     ),
                   ),
                 ),
@@ -411,7 +466,7 @@ class _ShowTafseerState extends State<ShowTafseer> {
                                 : null,
                           ),
                           onTap: () {
-                            cubit.getNewTranslationAndNotify(
+                            ayatController.getNewTranslationAndNotify(
                                 context, surahNumber!, ayahNumber!);
                             ayatController.handleRadioValueChanged(index);
                             ayatController.saveTafseer(index);

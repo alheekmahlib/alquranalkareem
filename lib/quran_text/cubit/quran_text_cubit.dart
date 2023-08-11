@@ -7,7 +7,6 @@ import 'package:get/get.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../../quran_page/data/model/ayat.dart';
 import '../bookmarksTextAyah_controller.dart';
 import '../bookmarksText_controller.dart';
 import '../model/bookmark_text.dart';
@@ -28,8 +27,7 @@ class QuranTextCubit extends Cubit<QuranTextState> {
   late Animation<Offset> offset;
   late AnimationController controller;
   int? id;
-  String? ayahNum;
-  String? sorahName;
+
   String translateAyah = '';
   String translate = '';
   late int radioValue;
@@ -58,25 +56,6 @@ class QuranTextCubit extends Cubit<QuranTextState> {
   late AnimationController animationController;
   ValueNotifier<double>? scrollSpeedNotifier;
   late final AyatController ayatController = Get.put(AyatController());
-
-  void updateTextText(String ayatext, String translate) {
-    // print("updateTextText called with: $ayatext, $translate");
-    emit(TextTextUpdated(ayatext, translate));
-  }
-
-  void getNewTranslationAndNotify(BuildContext context, int selectedSurahNumber,
-      int selectedAyahNumber) async {
-    List<Ayat> ayahs = await ayatController
-        .handleRadioValueChanged(ayatController.radioValue)
-        .getAyahTranslate(selectedSurahNumber);
-
-    // Now you have a list of ayahs of the Surah. Find the Ayah with the same number as the previously selected Ayah.
-    Ayat selectedAyah =
-        ayahs.firstWhere((ayah) => ayah.ayaNum == selectedAyahNumber);
-
-    // Update the text with the Ayah text and its translation
-    updateTextText("${selectedAyah.ayatext}", "${selectedAyah.translate}");
-  }
 
   /// Shared Preferences
 

@@ -289,14 +289,14 @@ class AudioController extends GetxController {
     int? currentAyah;
     int? currentSorah;
 
-    currentAyah = int.parse(textCubit.ayahNum!);
-    currentSorah = int.parse(textCubit.sorahName!);
-    textCubit.sorahName = formatNumber(currentSorah);
-    textCubit.ayahNum = formatNumber(currentAyah);
+    currentAyah = int.parse(ayatController.ayahTextNumber!);
+    currentSorah = int.parse(ayatController.sorahTextNumber!);
+    ayatController.sorahTextNumber = formatNumber(currentSorah);
+    ayatController.ayahTextNumber = formatNumber(currentAyah);
 
     String reader = audioCubit.readerValue!;
     String fileName =
-        "$reader/${textCubit.sorahName!}${textCubit.ayahNum!}.mp3";
+        "$reader/${ayatController.sorahTextNumber!}${ayatController.ayahTextNumber!}.mp3";
     String url = "https://www.everyayah.com/data/$fileName";
 
     if (isPlay.value) {
@@ -319,14 +319,14 @@ class AudioController extends GetxController {
     int currentAyah;
     int currentSorah;
 
-    currentAyah = int.parse(textCubit.ayahNum!) + 1;
-    currentSorah = int.parse(textCubit.sorahName!);
-    textCubit.sorahName = formatNumber(currentSorah);
-    textCubit.ayahNum = formatNumber(currentAyah);
+    currentAyah = int.parse(ayatController.ayahTextNumber!) + 1;
+    currentSorah = int.parse(ayatController.sorahTextNumber!);
+    ayatController.sorahTextNumber = formatNumber(currentSorah);
+    ayatController.ayahTextNumber = formatNumber(currentAyah);
 
     String reader = audioCubit.readerValue!;
     String fileName =
-        "$reader/${textCubit.sorahName!}${textCubit.ayahNum!}.mp3";
+        "$reader/${ayatController.sorahTextNumber!}${ayatController.ayahTextNumber!}.mp3";
     String url = "https://www.everyayah.com/data/$fileName";
     print('nextURL $url');
 

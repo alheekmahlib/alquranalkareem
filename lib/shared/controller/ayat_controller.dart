@@ -8,11 +8,19 @@ import '../../quran_page/data/repository/translate_repository.dart';
 
 class AyatController extends GetxController {
   final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
-  var ayatList = <Ayat>[].obs; // Observable list
+  var ayatList = <Ayat>[].obs;
   String? tableName;
   late int radioValue;
+  String? ayahTextNumber;
+  String? sorahTextNumber;
+  String tafseerAyah = '';
+  String tafseerText = '';
+  int? translateIndex;
   RxString currentAyahNumber = '1'.obs;
   var isSelected = 0.0.obs;
+  var currentText = Rx<TextUpdated?>(null);
+  var currentPageLoading = RxBool(false);
+  var currentPageError = RxString('');
   ValueNotifier<int> selectedTafseerIndex = ValueNotifier<int>(0);
 
   void fetchAyat(int pageNum) async {
@@ -52,8 +60,7 @@ class AyatController extends GetxController {
     return translateRepository;
   }
 
-  // Save & Load Font Size
-  saveTafseer(int radioValue) async {
+  void saveTafseer(int radioValue) async {
     SharedPreferences prefs = await _prefs;
     await prefs.setInt("tafseer_val", radioValue);
   }
@@ -64,4 +71,53 @@ class AyatController extends GetxController {
     print('get tafseer value ${prefs.getInt('tafseer_val')}');
     print('get radioValue ${radioValue}');
   }
+
+  void updateText(String ayatext, String translate) {
+    currentText.value = TextUpdated(ayatext, translate);
+  }
+
+  Future<void> getTranslatedPage(int pageNum, BuildContext context) async {
+    currentPageLoading.value = true;
+    try {
+      final ayahList =
+          await handleRadioValueChanged(radioValue).getPageTranslate(pageNum);
+      currentPageLoading.value = false;
+      // Update other observables if needed
+    } catch (e) {
+      currentPageLoading.value = false;
+      currentPageError.value = "Error fetching Translated Page: $e";
+    }
+  }
+
+  Future<void> getTranslatedAyah(BuildContext context, int selectedSurahNumber,
+      int selectedAyahNumber) async {
+    currentPageLoading.value = true;
+    try {
+      List<Ayat> ayahs = await handleRadioValueChanged(radioValue)
+          .getAyahTranslate(selectedSurahNumber);
+      currentPageLoading.value = false;
+      // Update other observables if needed
+    } catch (e) {
+      currentPageLoading.value = false;
+      currentPageError.value = "Error fetching Translated Page: $e";
+    }
+  }
+
+  void getNewTranslationAndNotify(BuildContext context, int selectedSurahNumber,
+      int selectedAyahNumber) async {
+    List<Ayat> ayahs = await handleRadioValueChanged(radioValue)
+        .getAyahTranslate(selectedSurahNumber);
+
+    Ayat selectedAyah =
+        ayahs.firstWhere((ayah) => ayah.ayaNum == selectedAyahNumber);
+
+    updateText("${selectedAyah.ayatext}", "${selectedAyah.translate}");
+  }
+}
+
+class TextUpdated {
+  final String translateAyah;
+  final String translate;
+
+  TextUpdated(this.translateAyah, this.translate);
 }

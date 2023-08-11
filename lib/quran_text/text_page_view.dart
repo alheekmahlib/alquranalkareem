@@ -467,12 +467,13 @@ class _TextPageViewState extends State<TextPageView>
                                                                     .selected;
                                                             backColor = Colors
                                                                 .transparent;
-                                                            textCubit
-                                                                    .sorahName =
+                                                            ayatController
+                                                                    .sorahTextNumber =
                                                                 widget.surah!
                                                                     .number!
                                                                     .toString();
-                                                            textCubit.ayahNum =
+                                                            ayatController
+                                                                    .ayahTextNumber =
                                                                 widget
                                                                     .surah!
                                                                     .ayahs![b]

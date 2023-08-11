@@ -85,7 +85,7 @@ menu(BuildContext context, int b, index, var details, translateData, widget,
                                 ),
                                 onPressed: () {
                                   TextCubit.selected = !TextCubit.selected;
-                                  context.read<QuranTextCubit>().updateTextText(
+                                  ayatController.updateText(
                                       "${aya.ayatext}", "${aya.translate}");
                                   if (SlidingUpPanelStatus.hidden ==
                                       generalController
@@ -221,7 +221,7 @@ menu(BuildContext context, int b, index, var details, translateData, widget,
                       ),
                       onPressed: () {
                         TextCubit.selected = !TextCubit.selected;
-                        cubit.transIndex = TextCubit.transValue;
+                        ayatController.translateIndex = TextCubit.transValue;
                         final verseNumber = widget.ayahs![b].numberInSurah!;
                         final translation =
                             translateData?[verseNumber - 1]['text'];
@@ -510,9 +510,9 @@ Widget singleAyah(
                                   widget.surah!.ayahs![index].numberInSurah;
                               textSurahNum = widget.surah!.number;
                               backColor = Colors.transparent;
-                              TextCubit.sorahName =
+                              ayatController.sorahTextNumber =
                                   widget.surah!.number!.toString();
-                              TextCubit.ayahNum = widget
+                              ayatController.ayahTextNumber = widget
                                   .surah!.ayahs![index].numberInSurah
                                   .toString();
                               TextCubit.isSelected = index;
