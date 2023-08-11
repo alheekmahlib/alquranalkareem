@@ -406,21 +406,13 @@ class _TextPageViewState extends State<TextPageView>
                                                             : Colors.black,
                                                     background: Paint()
                                                       ..color = b ==
-                                                              textCubit
-                                                                  .isSelected
-                                                          ? backColor
-                                                          : Colors.transparent
-                                                      ..color = b ==
-                                                              textCubit
-                                                                  .isSelected
+                                                              audioController
+                                                                  .ayahSelected
                                                           ? textCubit.selected
                                                               ? backColor
                                                               : Colors
                                                                   .transparent
                                                           : Colors.transparent
-                                                      // ..color = TextCubit.selected
-                                                      //     ? backColor
-                                                      //     : Colors.transparent
                                                       ..strokeJoin =
                                                           StrokeJoin.round
                                                       ..strokeCap =
@@ -479,8 +471,8 @@ class _TextPageViewState extends State<TextPageView>
                                                                     .ayahs![b]
                                                                     .numberInSurah
                                                                     .toString();
-                                                            textCubit
-                                                                .isSelected = widget
+                                                            audioController
+                                                                .ayahSelected = widget
                                                                     .surah!
                                                                     .ayahs![b]
                                                                     .numberInSurah! -

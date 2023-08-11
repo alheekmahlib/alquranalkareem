@@ -1,5 +1,4 @@
 import 'package:alquranalkareem/cubit/cubit.dart';
-import 'package:alquranalkareem/quran_page/cubit/audio/cubit.dart';
 import 'package:alquranalkareem/shared/controller/general_controller.dart';
 import 'package:alquranalkareem/shared/widgets/svg_picture.dart';
 import 'package:alquranalkareem/shared/widgets/widgets.dart';
@@ -46,7 +45,6 @@ class _ShowTafseerState extends State<ShowTafseer> {
   @override
   void initState() {
     sliderValue = 0;
-    AudioCubit.get(context).loadQuranReader();
     super.initState();
   }
 

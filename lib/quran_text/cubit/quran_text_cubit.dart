@@ -1,4 +1,5 @@
 import 'package:alquranalkareem/shared/controller/ayat_controller.dart';
+import 'package:alquranalkareem/shared/widgets/widgets.dart';
 import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -42,7 +43,7 @@ class QuranTextCubit extends Cubit<QuranTextState> {
   double verticalOffset = 0;
   double horizontalOffset = 0;
   PreferDirection preferDirection = PreferDirection.topCenter;
-  int isSelected = -1;
+
   bool selected = false;
   String? juz;
   String? juz2;
@@ -125,10 +126,10 @@ class QuranTextCubit extends Cubit<QuranTextState> {
         TextPageView.sorahTextName);
   }
 
-  changeSelectedIndex(newValue) {
-    isSelected = newValue;
-    emit(ChangeSelectedIndexState());
-  }
+  // changeSelectedIndex(newValue) {
+  //   isSelected = newValue;
+  //   emit(ChangeSelectedIndexState());
+  // }
 
   // String? tableName;
   //
@@ -319,7 +320,7 @@ class QuranTextCubit extends Cubit<QuranTextState> {
           duration: const Duration(seconds: 1),
           curve: Curves.easeOut);
       // setState(() {
-      isSelected = value == 1 ? pageNum : pageNum - 1;
+      audioController.ayahSelected = value == 1 ? pageNum : pageNum - 1;
       // });
     }
   }

@@ -2,7 +2,6 @@ import 'dart:async';
 import 'dart:developer' as developer;
 import 'dart:io';
 
-import 'package:alquranalkareem/cubit/cubit.dart';
 import 'package:alquranalkareem/shared/controller/general_controller.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:dio/dio.dart';
@@ -13,9 +12,9 @@ import 'package:just_audio/just_audio.dart';
 import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:rxdart/rxdart.dart' as R;
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../l10n/app_localizations.dart';
-import '../../quran_page/cubit/audio/cubit.dart';
 import '../../quran_text/cubit/quran_text_cubit.dart';
 import '../../quran_text/text_page_view.dart';
 import '../functions.dart';
@@ -35,9 +34,13 @@ class AudioController extends GetxController {
   RxBool downloadingPage = false.obs;
   RxString progressPageString = "0".obs;
   RxDouble progressPage = 0.0.obs;
+  int ayahSelected = -1;
   String? currentPlay;
   RxBool autoPlay = false.obs;
   double? sliderValue;
+  String? readerValue;
+  String? pageAyahNumber;
+  String? pageSurahNumber;
   ConnectivityResult _connectionStatus = ConnectivityResult.none;
   late StreamSubscription<ConnectivityResult> _connectivitySubscription;
   late ConnectivityResult result;
@@ -86,14 +89,6 @@ class AudioController extends GetxController {
           audioPlayer.durationStream,
           (position, bufferedPosition, duration) => PositionData(
               position, bufferedPosition, duration ?? Duration.zero));
-
-  // Stream<PositionData> get pagePositionDataStream =>
-  //     R.Rx.combineLatest3<Duration, Duration, Duration?, PositionData>(
-  //         audioPlayer.positionStream,
-  //         audioPlayer.bufferedPositionStream,
-  //         audioPlayer.durationStream,
-  //         (position, bufferedPosition, duration) => PositionData(
-  //             position, bufferedPosition, duration ?? Duration.zero));
 
   Stream<PositionData> get textPositionDataStream =>
       R.Rx.combineLatest3<Duration, Duration, Duration?, PositionData>(
@@ -160,9 +155,6 @@ class AudioController extends GetxController {
 
   void playNextAyah(BuildContext context) async {
     print('playNextAyah ' * 6);
-    AudioCubit audioCubit = AudioCubit.get(context);
-    QuranTextCubit textCubit = QuranTextCubit.get(context);
-    QuranCubit cubit = QuranCubit.get(context);
 
     lastAyahInPage.value = ayatController.ayatList.last.ayaNum!;
     print('ayat!.last.ayaNum ${lastAyahInPage.value}');
@@ -171,14 +163,13 @@ class AudioController extends GetxController {
     int currentSorah;
     currentAyah = int.parse(ayatController.currentAyahNumber.value) + 1;
     ayatController.currentAyahNumber.value = '$currentAyah';
-    currentSorah = int.parse(audioCubit.sorahName!);
-    audioCubit.sorahName = formatNumber(currentSorah);
+    currentSorah = int.parse(pageSurahNumber!);
+    pageSurahNumber = formatNumber(currentSorah);
     ayatController.currentAyahNumber.value = formatNumber(currentAyah);
-    textCubit.changeSelectedIndex(currentAyah + 1);
 
-    String reader = audioCubit.readerValue!;
+    String reader = readerValue!;
     String fileName =
-        "$reader/${audioCubit.sorahName!}${ayatController.currentAyahNumber.value}.mp3";
+        "$reader/${pageSurahNumber!}${ayatController.currentAyahNumber.value}.mp3";
     String url = "https://www.everyayah.com/data/$fileName";
     print('nextURL $url');
 
@@ -203,18 +194,17 @@ class AudioController extends GetxController {
   }
 
   playAyah(BuildContext context) async {
-    AudioCubit audioCubit = AudioCubit.get(context);
     int? currentAyah;
     int? currentSorah;
 
     currentAyah = int.parse(ayatController.currentAyahNumber.value);
-    currentSorah = int.parse(audioCubit.sorahName!);
-    audioCubit.sorahName = formatNumber(currentSorah);
+    currentSorah = int.parse(pageSurahNumber!);
+    pageSurahNumber = formatNumber(currentSorah);
     ayatController.currentAyahNumber.value = formatNumber(currentAyah);
 
-    String reader = audioCubit.readerValue!;
+    String reader = readerValue!;
     String fileName =
-        "$reader/${audioCubit.sorahName!}${ayatController.currentAyahNumber.value}.mp3";
+        "$reader/${pageSurahNumber!}${ayatController.currentAyahNumber.value}.mp3";
     String url = "https://www.everyayah.com/data/$fileName";
 
     if (isPlay.value) {
@@ -283,9 +273,6 @@ class AudioController extends GetxController {
   }
 
   textPlayAyah(BuildContext context) async {
-    AudioCubit audioCubit = AudioCubit.get(context);
-    QuranTextCubit textCubit = QuranTextCubit.get(context);
-    QuranCubit cubit = QuranCubit.get(context);
     int? currentAyah;
     int? currentSorah;
 
@@ -294,7 +281,7 @@ class AudioController extends GetxController {
     ayatController.sorahTextNumber = formatNumber(currentSorah);
     ayatController.ayahTextNumber = formatNumber(currentAyah);
 
-    String reader = audioCubit.readerValue!;
+    String reader = readerValue!;
     String fileName =
         "$reader/${ayatController.sorahTextNumber!}${ayatController.ayahTextNumber!}.mp3";
     String url = "https://www.everyayah.com/data/$fileName";
@@ -311,9 +298,7 @@ class AudioController extends GetxController {
 
   void textPlayNextAyah(BuildContext context) async {
     print('playNextAyah ' * 6);
-    AudioCubit audioCubit = AudioCubit.get(context);
     QuranTextCubit textCubit = QuranTextCubit.get(context);
-    QuranCubit cubit = QuranCubit.get(context);
 
     // Increment Ayah number
     int currentAyah;
@@ -324,7 +309,7 @@ class AudioController extends GetxController {
     ayatController.sorahTextNumber = formatNumber(currentSorah);
     ayatController.ayahTextNumber = formatNumber(currentAyah);
 
-    String reader = audioCubit.readerValue!;
+    String reader = readerValue!;
     String fileName =
         "$reader/${ayatController.sorahTextNumber!}${ayatController.ayahTextNumber!}.mp3";
     String url = "https://www.everyayah.com/data/$fileName";
@@ -335,14 +320,18 @@ class AudioController extends GetxController {
 
     print('lastAyahInPageA $lastAyahInPageA');
     if (currentAyah == lastAyahInPage.value) {
-      textCubit.changeSelectedIndex(currentAyah - 1);
+      audioController.ayahSelected = currentAyah;
+      print('ayahSelected: ${audioController.ayahSelected}');
+      // textCubit.changeSelectedIndex(currentAyah - 1);
       textCubit.itemScrollController.scrollTo(
           index: pageNumber.value + 1,
           duration: const Duration(seconds: 1),
           curve: Curves.easeOut);
       await textPlayFile(context, url, fileName);
     } else {
-      textCubit.changeSelectedIndex(currentAyah - 1);
+      audioController.ayahSelected = currentAyah;
+      print('ayahSelected: ${audioController.ayahSelected}');
+      // textCubit.changeSelectedIndex(currentAyah - 1);
       await textPlayFile(context, url, fileName);
     }
 
@@ -378,7 +367,6 @@ class AudioController extends GetxController {
   }
 
   Future playPageFile(BuildContext context, String url, String fileName) async {
-    QuranCubit cubit = QuranCubit.get(context);
     var path;
     try {
       var dir = await getApplicationDocumentsDirectory();
@@ -445,7 +433,6 @@ class AudioController extends GetxController {
 
   void playNextPage(BuildContext context) async {
     print('playNextPage ' * 6);
-    AudioCubit audioCubit = AudioCubit.get(context);
     int pageNum = generalController.cuMPage + 1;
     generalController.dPageController!.jumpToPage(generalController.cuMPage++);
     String? stringPageNum;
@@ -461,9 +448,9 @@ class AudioController extends GetxController {
 
     // String sorahNumWithLeadingZeroes = stringPageNum!;
 
-    String reader = audioCubit.readerValue!;
+    String reader = readerValue!;
     String fileName = "$reader/PageMp3s/Page${stringPageNum!}.mp3";
-    print(AudioCubit.get(context).readerValue);
+    print(readerValue);
     String url = "https://everyayah.com/data/$fileName";
     print("url $url");
 
@@ -478,38 +465,7 @@ class AudioController extends GetxController {
     isProcessingNextAyah.value = false;
   }
 
-  // Future downloadPageFile(String path, String url, String fileName) async {
-  //   Dio dio = Dio();
-  //   try {
-  //     try {
-  //       await Directory(dirname(path)).create(recursive: true);
-  //     } catch (e) {
-  //       print(e);
-  //     }
-  //     downloadingPage.value = true;
-  //     progressPageString.value = "0";
-  //     progressPage.value = 0;
-  //     await dio.download(
-  //       url,
-  //       path,
-  //       onReceiveProgress: (rec, total) {
-  //         // print("Rec: $rec , Total: $total");
-  //         progressPageString.value = ((rec / total) * 100).toStringAsFixed(0);
-  //         progressPage.value = (rec / total).toDouble();
-  //         print(progressPageString.value);
-  //       },
-  //     );
-  //   } catch (e) {
-  //     print(e);
-  //   }
-  //   downloadingPage.value = false;
-  //   progressPageString.value = "100";
-  //   print("Download completed");
-  // }
-
   playPage(BuildContext context, int pageNum) async {
-    AudioCubit audioCubit = AudioCubit.get(context);
-    QuranCubit cubit = QuranCubit.get(context);
     pageNum = generalController.cuMPage;
     String? stringPageNum;
     if (pageNum < 10) {
@@ -524,9 +480,9 @@ class AudioController extends GetxController {
 
     // String sorahNumWithLeadingZeroes = stringPageNum!;
 
-    String reader = audioCubit.readerValue!;
+    String reader = readerValue!;
     String fileName = "$reader/PageMp3s/Page${stringPageNum!}.mp3";
-    print(AudioCubit.get(context).readerValue);
+    print(readerValue);
     String url = "https://everyayah.com/data/$fileName";
     print("url $url");
 
@@ -556,5 +512,18 @@ class AudioController extends GetxController {
       isPlay.value = false;
       isPagePlay.value = false;
     }
+  }
+
+  // Save & Load Reader Quran
+  saveQuranReader(String readerValue) async {
+    SharedPreferences prefService = await SharedPreferences.getInstance();
+    await prefService.setString('audio_player_sound', readerValue);
+  }
+
+  loadQuranReader() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    readerValue =
+        prefs.getString('audio_player_sound') ?? "Abdul_Basit_Murattal_192kbps";
+    print('Quran Reader ${prefs.getString('audio_player_sound')}');
   }
 }

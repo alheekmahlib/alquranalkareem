@@ -493,7 +493,7 @@ Widget singleAyah(
                               ? Colors.white
                               : Colors.black,
                           background: Paint()
-                            ..color = index == TextCubit.isSelected
+                            ..color = index == audioController.ayahSelected
                                 ? TextCubit.selected
                                     ? backColor
                                     : Colors.transparent
@@ -515,7 +515,7 @@ Widget singleAyah(
                               ayatController.ayahTextNumber = widget
                                   .surah!.ayahs![index].numberInSurah
                                   .toString();
-                              TextCubit.isSelected = index;
+                              audioController.ayahSelected = index;
                             });
                             menu(context, index, index, details, translateData,
                                 widget.surah, widget.nomPageF, widget.nomPageL);
@@ -683,7 +683,6 @@ Widget pageAyah(BuildContext context, var setState, widget,
                   TextSpan(
                     style: TextStyle(
                         fontSize: generalController.fontSizeArabic.value,
-                        backgroundColor: TextCubit.bColor ?? Colors.transparent,
                         fontFamily: 'uthmanic2'),
                     children: text.map((e) {
                       return e;

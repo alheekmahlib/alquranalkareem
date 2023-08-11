@@ -1,4 +1,5 @@
 import 'package:alquranalkareem/shared/widgets/show_tafseer.dart';
+import 'package:alquranalkareem/shared/widgets/widgets.dart';
 import 'package:arabic_numbers/arabic_numbers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -62,11 +63,11 @@ class AyahList extends StatelessWidget {
                       ayatController.isSelected.value = index.toDouble();
                       ayatController.tafseerAyah = "${aya.ayatext ?? ''}";
                       ayatController.tafseerText = "${aya.translate ?? ''}";
-                      audioCubit.ayahNum = '${aya.ayaNum ?? 0}';
+                      audioController.pageAyahNumber = '${aya.ayaNum ?? 0}';
                       ayatController.currentAyahNumber.value =
                           '${aya.ayaNum ?? 0}';
-                      audioCubit.sorahName = '${aya.suraNum ?? 0}';
-                      print(audioCubit.ayahNum);
+                      audioController.pageSurahNumber = '${aya.suraNum ?? 0}';
+                      print(audioController.pageAyahNumber);
                     },
                     child: Stack(
                       alignment: Alignment.center,
