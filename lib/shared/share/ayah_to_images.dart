@@ -306,7 +306,7 @@ Future<Uint8List> createVerseWithTranslateImage(BuildContext context,
         ? null
         : AppLocalizations.of(context)!.tafSaadiN;
   } else if (generalController.shareTafseerValue == 2) {
-    tafseerName = transName[cubit.transIndex!];
+    tafseerName = transName[ayatController.translateIndex!];
   }
   final tafseerNamePainter = TextPainter(
       text: TextSpan(

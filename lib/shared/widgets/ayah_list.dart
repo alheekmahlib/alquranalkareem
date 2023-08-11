@@ -60,8 +60,8 @@ class AyahList extends StatelessWidget {
                   child: InkWell(
                     onTap: () {
                       ayatController.isSelected.value = index.toDouble();
-                      cubit.translateAyah = "${aya.ayatext ?? ''}";
-                      cubit.translate = "${aya.translate ?? ''}";
+                      ayatController.tafseerAyah = "${aya.ayatext ?? ''}";
+                      ayatController.tafseerText = "${aya.translate ?? ''}";
                       audioCubit.ayahNum = '${aya.ayaNum ?? 0}';
                       ayatController.currentAyahNumber.value =
                           '${aya.ayaNum ?? 0}';
@@ -111,7 +111,7 @@ class AyahList2 extends StatelessWidget {
     QuranCubit cubit = QuranCubit.get(context);
     final QuranCubit quranCubit = context.read<QuranCubit>();
 // Fetch the Ayat instances when needed
-    quranCubit.getTranslatedPage((generalController.cuMPage) ?? 1, context);
+//     quranCubit.getTranslatedPage((generalController.cuMPage) ?? 1, context);
     final controller = Get.find<AyatController>();
     controller.fetchAyat(generalController.cuMPage);
     return Column(
@@ -148,7 +148,7 @@ class AyahList2 extends StatelessWidget {
                               : .5,
                       child: InkWell(
                         onTap: () {
-                          cubit.getNewTranslationAndNotify(
+                          ayatController.getNewTranslationAndNotify(
                               context, aya.suraNum!, aya.ayaNum!);
                           print("suraNum ${aya.ayaNum}");
                           ayatController.isSelected.value = index.toDouble();
