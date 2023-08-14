@@ -11,6 +11,8 @@
 migrate_working_dir/
 
 # Databases
+assets/QuranData.sqlite
+QuranV3.sqlite
 *.sqlite
 *.db
 
