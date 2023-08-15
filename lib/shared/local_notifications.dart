@@ -5,22 +5,21 @@ import 'package:get/get.dart';
 import 'package:timezone/data/latest.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
 
-
 class NotifyHelper {
   FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
-  FlutterLocalNotificationsPlugin();
+      FlutterLocalNotificationsPlugin();
 
   String selectedNotificationPayload = '';
 
   // final BehaviorSubject<String> selectNotificationSubject =
   // BehaviorSubject<String>();
-  initializeNotification() async {
+  Future<void> initializeNotification() async {
     tz.initializeTimeZones();
     // _configureSelectNotificationSubject();
     await _configureLocalTimeZone();
     // await requestIOSPermissions(flutterLocalNotificationsPlugin);
     final DarwinInitializationSettings initializationSettingsIOS =
-    DarwinInitializationSettings(
+        DarwinInitializationSettings(
       requestSoundPermission: false,
       requestBadgePermission: false,
       requestAlertPermission: false,
@@ -28,7 +27,7 @@ class NotifyHelper {
     );
 
     final DarwinInitializationSettings initializationSettingsMAC =
-    DarwinInitializationSettings(
+        DarwinInitializationSettings(
       requestSoundPermission: false,
       requestBadgePermission: false,
       requestAlertPermission: false,
@@ -36,10 +35,10 @@ class NotifyHelper {
     );
 
     const AndroidInitializationSettings initializationSettingsAndroid =
-    AndroidInitializationSettings('@drawable/icon');
+        AndroidInitializationSettings('@drawable/icon');
 
     final InitializationSettings initializationSettings =
-    InitializationSettings(
+        InitializationSettings(
       iOS: initializationSettingsIOS,
       android: initializationSettingsAndroid,
       macOS: initializationSettingsMAC,
@@ -73,29 +72,29 @@ class NotifyHelper {
     );
   }
 
-  scheduledNotification(BuildContext context, int reminderId, int hour, int minutes, String reminderName) async {
+  scheduledNotification(BuildContext context, int reminderId, int hour,
+      int minutes, String reminderName) async {
     await flutterLocalNotificationsPlugin.zonedSchedule(
       reminderId,
       'القرآن الكريم - مكتبة الحكمة',
       reminderName, // Use the reminder name here
       _nextInstanceOfTenAM(hour, minutes),
       const NotificationDetails(
-        android: AndroidNotificationDetails(
-            'reminderIdChannel', 'reminderChannel'),
+        android:
+            AndroidNotificationDetails('reminderIdChannel', 'reminderChannel'),
       ),
       // androidAllowWhileIdle: true,
       uiLocalNotificationDateInterpretation:
-      UILocalNotificationDateInterpretation.absoluteTime,
+          UILocalNotificationDateInterpretation.absoluteTime,
       matchDateTimeComponents: DateTimeComponents.dayOfWeekAndTime,
       payload: 'task.title',
     );
   }
 
-
   tz.TZDateTime _nextInstanceOfTenAM(int hour, int minutes) {
     final tz.TZDateTime now = tz.TZDateTime.now(tz.local);
     tz.TZDateTime scheduledDate =
-    tz.TZDateTime(tz.local, now.year, now.month, now.day, hour, minutes);
+        tz.TZDateTime(tz.local, now.year, now.month, now.day, hour, minutes);
     if (scheduledDate.isBefore(now)) {
       scheduledDate = scheduledDate.add(const Duration(days: 1));
     }
@@ -109,23 +108,23 @@ class NotifyHelper {
   void requestIOSPermissions() {
     flutterLocalNotificationsPlugin
         .resolvePlatformSpecificImplementation<
-        IOSFlutterLocalNotificationsPlugin>()
+            IOSFlutterLocalNotificationsPlugin>()
         ?.requestPermissions(
-      alert: true,
-      badge: true,
-      sound: true,
-    );
+          alert: true,
+          badge: true,
+          sound: true,
+        );
   }
 
   void requestMACPermissions() {
     flutterLocalNotificationsPlugin
         .resolvePlatformSpecificImplementation<
-        MacOSFlutterLocalNotificationsPlugin>()
+            MacOSFlutterLocalNotificationsPlugin>()
         ?.requestPermissions(
-      alert: true,
-      badge: true,
-      sound: true,
-    );
+          alert: true,
+          badge: true,
+          sound: true,
+        );
   }
 
   Future<void> _configureLocalTimeZone() async {
@@ -172,7 +171,7 @@ class NotifyHelper {
       ),
     );
  */
-    Get.dialog( Text(body!));
+    Get.dialog(Text(body!));
   }
 
   // void _configureSelectNotificationSubject() {

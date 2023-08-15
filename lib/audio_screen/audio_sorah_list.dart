@@ -17,7 +17,6 @@ import 'package:theme_provider/theme_provider.dart';
 import '../../quran_page/data/model/sorah.dart';
 import '../../shared/widgets/lottie.dart';
 import '../cubit/sorahRepository/sorah_repository_cubit.dart';
-import '../quran_page/cubit/audio/cubit.dart';
 import '../shared/widgets/svg_picture.dart';
 import '../shared/widgets/widgets.dart';
 
@@ -1133,7 +1132,6 @@ class _AudioSorahListState extends State<AudioSorahList>
   }
 
   Widget playWidgetLand(BuildContext context) {
-    AudioCubit audioCubit = AudioCubit.get(context);
     double width = MediaQuery.of(context).size.width;
     return SlideTransition(
         position: surahAudioController.offset,
@@ -1598,7 +1596,6 @@ class _AudioSorahListState extends State<AudioSorahList>
   }
 
   Widget surahList(BuildContext context) {
-    AudioCubit audioCubit = AudioCubit.get(context);
     return BlocBuilder<SorahRepositoryCubit, List<Sorah>?>(
       builder: (context, state) {
         if (state == null) {
@@ -1802,7 +1799,6 @@ class _AudioSorahListState extends State<AudioSorahList>
   }
 
   Widget lastListen(BuildContext context) {
-    AudioCubit audioCubit = AudioCubit.get(context);
     double width = MediaQuery.of(context).size.width;
     return GestureDetector(
       child: Container(

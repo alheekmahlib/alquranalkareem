@@ -1,10 +1,10 @@
-import 'package:alquranalkareem/quran_page/screens/quran_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_sliding_up_panel/flutter_sliding_up_panel.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '/quran_page/screens/quran_page.dart';
 import '../cubit/cubit.dart';
 import '../cubit/states.dart';
 import '../database/notificationDatabase.dart';
@@ -68,7 +68,6 @@ class _DesktopState extends State<Desktop> with TickerProviderStateMixin {
         }
       },
       builder: (BuildContext context, state) {
-        QuranCubit cubit = QuranCubit.get(context);
         return SafeArea(
           child: Scaffold(
             body: Stack(

@@ -5,13 +5,13 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../database/databaseHelper.dart';
 import '../../../l10n/app_localizations.dart';
+import '../../../services_locator.dart';
 import '../../../shared/widgets/widgets.dart';
 import '../model/bookmark.dart';
 import '../model/sorah_bookmark.dart';
 
 class BookmarksController extends GetxController {
   final RxList<Bookmarks> bookmarksList = <Bookmarks>[].obs;
-  final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
   late int lastBook;
 
   Future<int?> addBookmarks(
@@ -115,21 +115,20 @@ class BookmarksController extends GetxController {
   SorahBookmarkRepository sorahBookmarkRepository = SorahBookmarkRepository();
   List<SoraBookmark>? soraBookmarkList;
 
-  getBookmarksList() async {
+  Future<void> getBookmarksList() async {
     await sorahBookmarkRepository.all().then((values) {
       soraBookmarkList = values;
     });
   }
 
   // Save & Load Last Bookmark
-  savelastBookmark(int Value) async {
-    SharedPreferences prefs = await _prefs;
-    await prefs.setInt("last_bookmark", Value);
+  Future<void> savelastBookmark(int Value) async {
+    await sl<SharedPreferences>().setInt("last_bookmark", Value);
     update();
   }
 
   Future<int> loadlastBookmark() async {
-    SharedPreferences prefs = await _prefs;
+    final SharedPreferences prefs = sl<SharedPreferences>();
     lastBook = prefs.getInt('last_bookmark') ?? 0;
     print('get last_bookmark ${prefs.getInt('last_bookmark')}');
     print('get radioValue $lastBook');

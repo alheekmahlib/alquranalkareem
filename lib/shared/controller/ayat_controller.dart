@@ -5,9 +5,9 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../../quran_page/data/model/ayat.dart';
 import '../../quran_page/data/model/translate.dart';
 import '../../quran_page/data/repository/translate_repository.dart';
+import '../../services_locator.dart';
 
 class AyatController extends GetxController {
-  final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
   var ayatList = <Ayat>[].obs;
   String? tableName;
   late int radioValue;
@@ -26,13 +26,13 @@ class AyatController extends GetxController {
   void fetchAyat(int pageNum) async {
     List<Ayat>? ayat =
         await handleRadioValueChanged(radioValue).getPageTranslate(pageNum);
-    if (ayat != null) {
+    if (ayat.isNotEmpty) {
       ayatList.value = ayat; // Update the observable list
     }
   }
 
-  handleRadioValueChanged(int val) {
-    TranslateRepository translateRepository = TranslateRepository();
+  TranslateRepository handleRadioValueChanged(int val) {
+    final TranslateRepository translateRepository = TranslateRepository();
 
     radioValue = val;
     switch (radioValue) {
@@ -61,12 +61,12 @@ class AyatController extends GetxController {
   }
 
   void saveTafseer(int radioValue) async {
-    SharedPreferences prefs = await _prefs;
+    final SharedPreferences prefs = sl<SharedPreferences>();
     await prefs.setInt("tafseer_val", radioValue);
   }
 
-  loadTafseer() async {
-    SharedPreferences prefs = await _prefs;
+  Future<void> loadTafseer() async {
+    final SharedPreferences prefs = sl<SharedPreferences>();
     radioValue = prefs.getInt('tafseer_val') ?? 0;
     print('get tafseer value ${prefs.getInt('tafseer_val')}');
     print('get radioValue ${radioValue}');
@@ -79,8 +79,7 @@ class AyatController extends GetxController {
   Future<void> getTranslatedPage(int pageNum, BuildContext context) async {
     currentPageLoading.value = true;
     try {
-      final ayahList =
-          await handleRadioValueChanged(radioValue).getPageTranslate(pageNum);
+      await handleRadioValueChanged(radioValue).getPageTranslate(pageNum);
       currentPageLoading.value = false;
       // Update other observables if needed
     } catch (e) {
@@ -93,7 +92,7 @@ class AyatController extends GetxController {
       int selectedAyahNumber) async {
     currentPageLoading.value = true;
     try {
-      List<Ayat> ayahs = await handleRadioValueChanged(radioValue)
+      await handleRadioValueChanged(radioValue)
           .getAyahTranslate(selectedSurahNumber);
       currentPageLoading.value = false;
       // Update other observables if needed

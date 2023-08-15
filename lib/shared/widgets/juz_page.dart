@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'package:alquranalkareem/cubit/cubit.dart';
 import 'package:alquranalkareem/shared/widgets/widgets.dart';
 import 'package:arabic_numbers/arabic_numbers.dart';
 import 'package:flutter/material.dart';
@@ -48,7 +47,8 @@ class _QuranJuzState extends State<QuranJuz>
                               width: MediaQuery.of(context).size.width,
                               decoration: BoxDecoration(
                                   border: Border.all(
-                                    color: Theme.of(context).colorScheme.surface,
+                                    color:
+                                        Theme.of(context).colorScheme.surface,
                                     width: 1,
                                   ),
                                   borderRadius: const BorderRadius.only(
@@ -60,15 +60,13 @@ class _QuranJuzState extends State<QuranJuz>
                                     padding: const EdgeInsets.symmetric(
                                         vertical: 8, horizontal: 8),
                                     child: juzNum2(
-                                      '${showData[index]['index']}',
-                                      context,
-                                      ThemeProvider.themeOf(context)
-                                          .id ==
-                                          'dark'
-                                          ? Colors.white
-                                          : Colors.black,
-                                      30
-                                    ),
+                                        '${showData[index]['index']}',
+                                        context,
+                                        ThemeProvider.themeOf(context).id ==
+                                                'dark'
+                                            ? Colors.white
+                                            : Colors.black,
+                                        30),
                                   ),
                                   Padding(
                                     padding: const EdgeInsets.all(8),
@@ -96,21 +94,24 @@ class _QuranJuzState extends State<QuranJuz>
                                               textAlign: TextAlign.justify,
                                               text: TextSpan(
                                                   style: TextStyle(
-                                                    fontFamily: "uthmanic",
-                                                    fontWeight:
-                                                        FontWeight.normal,
-                                                    fontSize: 18,
-                                                    color: ThemeProvider
-                                                                    .themeOf(
-                                                                        context)
-                                                                .id ==
-                                                            'dark'
-                                                        ? Theme.of(context)
-                                                            .canvasColor
-                                                        : Theme.of(context)
-                                                            .primaryColorDark,
-                                                    backgroundColor: Theme.of(context).colorScheme.surface.withOpacity(.2)
-                                                  ),
+                                                      fontFamily: "uthmanic",
+                                                      fontWeight:
+                                                          FontWeight.normal,
+                                                      fontSize: 18,
+                                                      color: ThemeProvider
+                                                                      .themeOf(
+                                                                          context)
+                                                                  .id ==
+                                                              'dark'
+                                                          ? Theme.of(context)
+                                                              .canvasColor
+                                                          : Theme.of(context)
+                                                              .primaryColorDark,
+                                                      backgroundColor:
+                                                          Theme.of(context)
+                                                              .colorScheme
+                                                              .surface
+                                                              .withOpacity(.2)),
                                                   text:
                                                       '﴿${showData[index]['start']['ayatext']}﴾',
                                                   children: [
@@ -147,21 +148,24 @@ class _QuranJuzState extends State<QuranJuz>
                                               textAlign: TextAlign.justify,
                                               text: TextSpan(
                                                   style: TextStyle(
-                                                    fontFamily: "uthmanic",
-                                                    fontWeight:
-                                                        FontWeight.normal,
-                                                    fontSize: 18,
-                                                    color: ThemeProvider
-                                                                    .themeOf(
-                                                                        context)
-                                                                .id ==
-                                                            'dark'
-                                                        ? Theme.of(context)
-                                                            .canvasColor
-                                                        : Theme.of(context)
-                                                            .primaryColorDark,
-                                                      backgroundColor: Theme.of(context).colorScheme.surface.withOpacity(.2)
-                                                  ),
+                                                      fontFamily: "uthmanic",
+                                                      fontWeight:
+                                                          FontWeight.normal,
+                                                      fontSize: 18,
+                                                      color: ThemeProvider
+                                                                      .themeOf(
+                                                                          context)
+                                                                  .id ==
+                                                              'dark'
+                                                          ? Theme.of(context)
+                                                              .canvasColor
+                                                          : Theme.of(context)
+                                                              .primaryColorDark,
+                                                      backgroundColor:
+                                                          Theme.of(context)
+                                                              .colorScheme
+                                                              .surface
+                                                              .withOpacity(.2)),
                                                   text:
                                                       '﴿${showData[index]['end']['ayatext']}﴾',
                                                   children: [
@@ -194,10 +198,10 @@ class _QuranJuzState extends State<QuranJuz>
                       ),
                       onTap: () {
                         generalController.dPageController?.animateToPage(
-                              showData[index]['start']['pageNum'] - 1,
-                              duration: const Duration(milliseconds: 300),
-                              curve: Curves.easeInOut,
-                            );
+                          showData[index]['start']['pageNum'] - 1,
+                          duration: const Duration(milliseconds: 300),
+                          curve: Curves.easeInOut,
+                        );
                         Navigator.pop(context);
                       },
                     );

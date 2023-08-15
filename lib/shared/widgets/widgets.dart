@@ -1,14 +1,5 @@
-import 'dart:io';
+import 'dart:io' show Platform;
 
-import 'package:alquranalkareem/audio_screen/controller/surah_audio_controller.dart';
-import 'package:alquranalkareem/cubit/cubit.dart';
-import 'package:alquranalkareem/notes/cubit/note_cubit.dart';
-import 'package:alquranalkareem/quran_text/Widgets/quran_text_search.dart';
-import 'package:alquranalkareem/shared/controller/audio_controller.dart';
-import 'package:alquranalkareem/shared/controller/general_controller.dart';
-import 'package:alquranalkareem/shared/widgets/bookmarks_list.dart';
-import 'package:alquranalkareem/shared/widgets/quran_search.dart';
-import 'package:alquranalkareem/shared/widgets/sorah_juz_list.dart';
 import 'package:another_xlider/another_xlider.dart';
 import 'package:another_xlider/models/handler.dart';
 import 'package:another_xlider/models/handler_animation.dart';
@@ -24,21 +15,28 @@ import 'package:hijri/hijri_calendar.dart';
 import 'package:intl/intl.dart';
 import 'package:theme_provider/theme_provider.dart';
 
+import '/audio_screen/controller/surah_audio_controller.dart';
+import '/notes/cubit/note_cubit.dart';
+import '/quran_text/Widgets/quran_text_search.dart';
+import '/shared/controller/audio_controller.dart';
+import '/shared/controller/general_controller.dart';
+import '/shared/widgets/bookmarks_list.dart';
+import '/shared/widgets/quran_search.dart';
+import '/shared/widgets/sorah_juz_list.dart';
 import '../../database/notificationDatabase.dart';
-import '../../home_page.dart';
 import '../../l10n/app_localizations.dart';
 import '../../notes/screens/notes_list.dart';
-import '../../quran_page/cubit/audio/cubit.dart';
 import '../../quran_text/Widgets/bookmarks_text_list.dart';
+import '../../services_locator.dart';
 import '../custom_paint/bg_icon.dart';
 import '../postPage.dart';
 
 var TPageScaffoldKey = GlobalKey<ScaffoldState>();
 var SorahPlayScaffoldKey = GlobalKey<ScaffoldState>();
 String? selectedValue;
-late final GeneralController generalController = Get.put(GeneralController());
-late final AudioController audioController = Get.put(AudioController());
-late final SurahAudioController surahAudioController =
+final GeneralController generalController = sl<GeneralController>();
+final AudioController audioController = Get.put(AudioController());
+final SurahAudioController surahAudioController =
     Get.put(SurahAudioController());
 
 Widget quranPageSearch(BuildContext context, double width) {
@@ -65,7 +63,6 @@ Widget quranPageSorahList(BuildContext context, double width) {
 }
 
 Widget notesList(BuildContext context, double width) {
-  NotesCubit notesCubit = NotesCubit.get(context);
   return GestureDetector(
     child: iconBg(context, Icons.add_comment_outlined),
     onTap: () {
@@ -417,8 +414,8 @@ customSnackBar(BuildContext context, String text) {
   ScaffoldMessenger.of(context).showSnackBar(snackBar);
 }
 
-customErrorSnackBar(BuildContext context, String text) {
-  var cancel = BotToast.showCustomNotification(
+void customErrorSnackBar(BuildContext context, String text) {
+  BotToast.showCustomNotification(
     enableSlideOff: false,
     toastBuilder: (cancelFunc) {
       return Container(
@@ -490,8 +487,8 @@ customErrorSnackBar(BuildContext context, String text) {
   );
 }
 
-customMobileNoteSnackBar(BuildContext context, String text) {
-  var cancel = BotToast.showCustomNotification(
+void customMobileNoteSnackBar(BuildContext context, String text) {
+  BotToast.showCustomNotification(
     enableSlideOff: false,
     toastBuilder: (cancelFunc) {
       return Container(
@@ -685,7 +682,6 @@ Widget juzNumEn(String num, context, Color color) {
 }
 
 readerDropDown(BuildContext context) {
-  AudioCubit audioCubit = AudioCubit.get(context);
   List<String> readerName = <String>[
     AppLocalizations.of(context)!.reader1,
     AppLocalizations.of(context)!.reader2,
@@ -1333,13 +1329,13 @@ Widget sentNotification(BuildContext context,
                               color: Theme.of(context).dividerColor,
                             ),
                             onTap: () {
-                              Navigator.of(
-                                      navigatorNotificationKey.currentContext!)
+                              Navigator.of(sl<GeneralController>()
+                                      .navigatorNotificationKey
+                                      .currentContext!)
                                   .push(
                                 animatNameRoute(
                                   pushName: '/post',
-                                  myWidget:
-                                      PostPage(postId: notification['id']),
+                                  myWidget: PostPage(notification['id']),
                                 ),
                               );
                             },
@@ -1470,12 +1466,11 @@ quarters(int index) {
   }
 }
 
-dropDownModalBottomSheet(
+Future<dynamic> dropDownModalBottomSheet(
     BuildContext context, double height, width, Widget child) {
-  QuranCubit cubit = QuranCubit.get(context);
   double hei = MediaQuery.of(context).size.height;
   double wid = MediaQuery.of(context).size.width;
-  showModalBottomSheet(
+  return showModalBottomSheet(
       context: context,
       constraints: BoxConstraints(
           maxWidth: platformView(
@@ -1497,14 +1492,14 @@ dropDownModalBottomSheet(
     if (generalController.screenController != null) {
       generalController.screenController!.reverse();
     }
+  }).then((_) {
+    if (generalController.screenController != null) {
+      generalController.screenController!.forward();
+    }
   });
-  if (generalController.screenController != null) {
-    generalController.screenController!.forward();
-  }
 }
 
 allModalBottomSheet(BuildContext context, double height, width, Widget child) {
-  QuranCubit cubit = QuranCubit.get(context);
   double hei = MediaQuery.of(context).size.height;
   double wid = MediaQuery.of(context).size.width;
   showModalBottomSheet(

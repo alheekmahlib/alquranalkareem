@@ -98,7 +98,7 @@ class _QuranPageState extends State<QuranPage> {
   }
 
   // void _onTap(TapDownDetails details) {
-  //   QuranCubit cubit = QuranCubit.get(context);
+  //
   //   RenderBox box = context.findRenderObject() as RenderBox;
   //   Offset localPosition = box.globalToLocal(details.globalPosition);
   //
@@ -130,7 +130,7 @@ class _QuranPageState extends State<QuranPage> {
   // }
   //
   // void _onTap2(TapDownDetails details) {
-  //   QuranCubit cubit = QuranCubit.get(context);
+  //
   //   RenderBox box = context.findRenderObject() as RenderBox;
   //   Offset localPosition = box.globalToLocal(details.globalPosition);
   //
@@ -162,7 +162,7 @@ class _QuranPageState extends State<QuranPage> {
   // }
 
   void _onTap2(TapDownDetails details) {
-    // QuranCubit cubit = QuranCubit.get(context);
+    //
     RenderBox box = context.findRenderObject() as RenderBox;
     Offset localPosition = box.globalToLocal(details.globalPosition);
 
@@ -196,7 +196,7 @@ class _QuranPageState extends State<QuranPage> {
   }
 
   // void _onTap(TapDownDetails details) {
-  //   QuranCubit cubit = QuranCubit.get(context);
+  //
   //   RenderBox box = context.findRenderObject() as RenderBox;
   //   Offset localPosition = box.globalToLocal(details.globalPosition);
   //
@@ -223,7 +223,7 @@ class _QuranPageState extends State<QuranPage> {
 
   // void _onTap(TapDownDetails details, BoxConstraints constraints) {
   //   WidgetsBinding.instance.addPostFrameCallback((_) {
-  //     QuranCubit cubit = QuranCubit.get(context);
+  //
   //     RenderBox box = context.findRenderObject() as RenderBox;
   //     Offset localPosition = box.globalToLocal(details.globalPosition);
   //
@@ -269,7 +269,7 @@ class _QuranPageState extends State<QuranPage> {
 
   // void _onTap(TapDownDetails details, BoxConstraints constraints) {
   //   WidgetsBinding.instance.addPostFrameCallback((_) {
-  //     QuranCubit cubit = QuranCubit.get(context);
+  //
   //     RenderBox box = context.findRenderObject() as RenderBox;
   //     Offset localPosition = box.globalToLocal(details.globalPosition);
   //
@@ -556,7 +556,7 @@ class _QuranPageState extends State<QuranPage> {
   // void _onTap(TapDownDetails details, BoxConstraints constraints) {
   //   WidgetsBinding.instance.addPostFrameCallback((_) {
   //     // The rest of the _onTap function remains unchanged
-  //     QuranCubit cubit = QuranCubit.get(context);
+  //
   //     RenderBox box = context.findRenderObject() as RenderBox;
   //     Offset localPosition = box.globalToLocal(details.globalPosition);
   //
@@ -698,7 +698,7 @@ class _QuranPageState extends State<QuranPage> {
 
   // void _onTap(TapDownDetails details, BoxConstraints constraints) {
   //   WidgetsBinding.instance.addPostFrameCallback((_) {
-  //     QuranCubit cubit = QuranCubit.get(context);
+  //
   //     RenderBox box = context.findRenderObject() as RenderBox;
   //     Offset localPosition = box.globalToLocal(details.globalPosition);
   //

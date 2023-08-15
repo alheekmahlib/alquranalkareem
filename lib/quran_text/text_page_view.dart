@@ -14,7 +14,6 @@ import 'package:get/get.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 import 'package:theme_provider/theme_provider.dart';
 
-import '../cubit/cubit.dart';
 import '../cubit/translateDataCubit/_cubit.dart';
 import '../quran_page/widget/sliding_up.dart';
 import '../shared/controller/audio_controller.dart';
@@ -60,7 +59,6 @@ class _TextPageViewState extends State<TextPageView>
   ArabicNumbers arabicNumber = ArabicNumbers();
   String? translateText;
   StreamSubscription? _quranTextCubitSubscription;
-  QuranCubit? _quranCubit;
   final AudioController aCtrl = Get.put(AudioController());
   late final GeneralController generalController = Get.put(GeneralController());
 
@@ -68,13 +66,12 @@ class _TextPageViewState extends State<TextPageView>
   void didChangeDependencies() {
     super.didChangeDependencies();
     _quranTextCubit = QuranTextCubit.get(context);
-    _quranCubit = QuranCubit.get(context);
   }
 
   @override
   void initState() {
     QuranTextCubit textCubit = QuranTextCubit.get(context);
-    QuranCubit cubit = QuranCubit.get(context);
+
     WidgetsBinding.instance.addObserver(this);
     TextPageView.textCurrentPage = widget.nomPageF!;
     TextPageView.sorahTextName = widget.surah!.name!;
@@ -146,7 +143,7 @@ class _TextPageViewState extends State<TextPageView>
       listener: (BuildContext context, state) {},
       builder: (BuildContext context, state) {
         QuranTextCubit textCubit = QuranTextCubit.get(context);
-        QuranCubit cubit = QuranCubit.get(context);
+
         final List<dynamic>? translateData =
             context.watch<TranslateDataCubit>().state.data;
         return SafeArea(

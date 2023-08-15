@@ -1,31 +1,20 @@
-import 'package:alquranalkareem/home_page.dart';
-import 'package:alquranalkareem/shared/widgets/lottie.dart';
-import 'package:alquranalkareem/shared/widgets/widgets.dart';
+import '../services_locator.dart';
+import '/shared/widgets/lottie.dart';
+import '/shared/widgets/widgets.dart';
 import 'package:easy_image_viewer/easy_image_viewer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:lottie/lottie.dart';
 import 'package:theme_provider/theme_provider.dart';
 
-class PostPage extends StatefulWidget {
+import 'controller/notifications_controller.dart';
+
+class PostPage extends StatelessWidget {
+  const PostPage(this.postId, {super.key});
+
   final int postId;
 
-  const PostPage({Key? key, required this.postId}) : super(key: key);
-
-  @override
-  _PostPageState createState() => _PostPageState();
-}
-
-class _PostPageState extends State<PostPage> {
-  Future<BlogPost>? _postFuture;
-
-  @override
-  void initState() {
-    super.initState();
-    _postFuture = HomePage.of(context)!.fetchPostById(widget.postId);
-  }
-
-  Widget _buildPostBody(BlogPost post) {
+  Widget _buildPostBody(BlogPost post, BuildContext context) {
     List<Widget> widgets = [];
 
     // Add the post body text
@@ -88,7 +77,7 @@ class _PostPageState extends State<PostPage> {
               const EdgeInsets.only(right: 16.0, left: 16.0, top: 70.0),
               const EdgeInsets.only(right: 16.0, left: 16.0, top: 16.0)),
           child: FutureBuilder<BlogPost>(
-            future: _postFuture,
+            future: sl<NotificationsController>().fetchPostById(postId),
             builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
                 return Center(
@@ -144,7 +133,7 @@ class _PostPageState extends State<PostPage> {
                     ),
                     Expanded(
                       child: SingleChildScrollView(
-                        child: _buildPostBody(post),
+                        child: _buildPostBody(post, context),
                       ),
                     ),
                   ],

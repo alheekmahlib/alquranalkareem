@@ -16,6 +16,9 @@ QuranV3.sqlite
 *.sqlite
 *.db
 
+# assets
+/assets/
+
 # IntelliJ related
 *.iml
 *.ipr

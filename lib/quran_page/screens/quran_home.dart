@@ -1,13 +1,14 @@
-import 'package:alquranalkareem/quran_page/screens/quran_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
 
+import '/quran_page/screens/quran_page.dart';
 import '../../cubit/cubit.dart';
 import '../../cubit/states.dart';
 import '../../database/notificationDatabase.dart';
-import '../../home_page.dart';
+import '../../services_locator.dart';
 import '../../shared/controller/general_controller.dart';
+import '../../shared/controller/notifications_controller.dart';
 import '../../shared/widgets/audio_widget.dart';
 import '../../shared/widgets/show_tafseer.dart';
 import '../../shared/widgets/widgets.dart';
@@ -27,7 +28,9 @@ class _QuranPageState extends State<QuranPage>
   late final GeneralController generalController = Get.put(GeneralController());
 
   bool hasUnopenedNotifications() {
-    return sentNotifications.any((notification) => !notification['opened']);
+    return sl<NotificationsController>()
+        .sentNotifications
+        .any((notification) => !notification['opened']);
   }
 
   @override
@@ -56,7 +59,6 @@ class _QuranPageState extends State<QuranPage>
         }
       },
       builder: (BuildContext context, state) {
-        QuranCubit cubit = QuranCubit.get(context);
         return Scaffold(
           resizeToAvoidBottomInset: true,
           backgroundColor: Colors.transparent,

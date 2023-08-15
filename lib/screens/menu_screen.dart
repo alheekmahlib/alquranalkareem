@@ -1,7 +1,5 @@
-import 'dart:convert';
+import 'dart:convert' show jsonDecode, jsonEncode;
 
-import 'package:alquranalkareem/l10n/app_localizations.dart';
-import 'package:alquranalkareem/shared/controller/reminder_controller.dart';
 import 'package:animated_toggle_switch/animated_toggle_switch.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -10,8 +8,11 @@ import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:theme_provider/theme_provider.dart';
 
+import '/l10n/app_localizations.dart';
+import '/shared/controller/reminder_controller.dart';
 import '../cubit/cubit.dart';
 import '../cubit/states.dart';
+import '../services_locator.dart';
 import '../shared/controller/general_controller.dart';
 import '../shared/local_notifications.dart';
 import '../shared/reminder_model.dart';
@@ -195,7 +196,6 @@ class _MenuScreenState extends State<MenuScreen> {
   }
 
   Widget lastReadWidget() {
-    QuranCubit cubit = QuranCubit.get(context);
     return Container(
       width: orientation(context, MediaQuery.of(context).size.width,
           MediaQuery.of(context).size.width * .4),
@@ -600,19 +600,18 @@ class _MenuScreenState extends State<MenuScreen> {
 }
 
 class ReminderStorage {
-  static final Future<SharedPreferences> _prefs =
-      SharedPreferences.getInstance();
   static const String _storageKey = 'reminders';
 
   static Future<void> saveReminders(List<Reminder> reminders) async {
-    SharedPreferences prefs = await _prefs;
+    final SharedPreferences prefs = sl<SharedPreferences>();
     List<String> remindersJson =
         reminders.map((r) => jsonEncode(r.toJson())).toList();
     await prefs.setStringList(_storageKey, remindersJson);
   }
 
   static Future<List<Reminder>> loadReminders() async {
-    SharedPreferences prefs = await _prefs;
+    final SharedPreferences prefs = sl<SharedPreferences>();
+    ;
     List<String> remindersJson =
         prefs.getStringList(_storageKey)?.cast<String>() ?? [];
     List<Reminder> reminders =

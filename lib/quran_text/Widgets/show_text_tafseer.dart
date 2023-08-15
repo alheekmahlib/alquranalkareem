@@ -1,4 +1,3 @@
-import 'package:alquranalkareem/cubit/cubit.dart';
 import 'package:alquranalkareem/notes/cubit/note_cubit.dart';
 import 'package:alquranalkareem/shared/controller/general_controller.dart';
 import 'package:arabic_numbers/arabic_numbers.dart';
@@ -12,7 +11,6 @@ import '../../l10n/app_localizations.dart';
 import '../../shared/controller/ayat_controller.dart';
 import '../../shared/widgets/show_tafseer.dart';
 import '../../shared/widgets/widgets.dart';
-import '../cubit/quran_text_cubit.dart';
 import '../text_page_view.dart';
 
 class ShowTextTafseer extends StatefulWidget {
@@ -49,7 +47,6 @@ class _ShowTextTafseerState extends State<ShowTextTafseer> {
 
   @override
   Widget build(BuildContext context) {
-    QuranCubit cubit = QuranCubit.get(context);
     NotesCubit notesCubit = NotesCubit.get(context);
     return Directionality(
       textDirection: TextDirection.rtl,
@@ -162,7 +159,7 @@ class _ShowTextTafseerState extends State<ShowTextTafseer> {
                         controller: _scrollController,
                         child: Obx(() {
                           if (ayatController.currentPageLoading.value) {
-                            return CircularProgressIndicator();
+                            return const CircularProgressIndicator();
                           } else if (ayatController.currentText.value != null) {
                             allText =
                                 '﴿${ayatController.currentText.value!.translateAyah}﴾\n\n' +
@@ -358,10 +355,7 @@ class _ShowTextTafseerState extends State<ShowTextTafseer> {
       ),
     );
   }
-
-  tafseerDropDown(BuildContext context) {
-    QuranCubit cubit = QuranCubit.get(context);
-    QuranTextCubit TextCubit = QuranTextCubit.get(context);
+tafseerDropDown(BuildContext context) {
     List<String> tafName = <String>[
       '${AppLocalizations.of(context)?.tafIbnkatheerN}',
       '${AppLocalizations.of(context)?.tafBaghawyN}',
