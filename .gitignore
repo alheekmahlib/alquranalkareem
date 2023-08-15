@@ -10,6 +10,9 @@
 .svn/
 migrate_working_dir/
 
+# git attributes
+.gitattributes
+
 # Databases
 assets/QuranData.sqlite
 QuranV3.sqlite
