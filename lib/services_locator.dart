@@ -42,6 +42,7 @@ class ServicesLocator {
             permanent: true));
 
     // SharedPrefrences
+
     // sl.registerLazySingletonAsync<SharedPreferences>(
     //     () async => await SharedPreferences.getInstance());
 
