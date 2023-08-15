@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:io';
 import 'dart:math';
 
 import 'package:arabic_numbers/arabic_numbers.dart';
@@ -14,7 +13,6 @@ import 'package:theme_provider/theme_provider.dart';
 import 'package:workmanager/workmanager.dart';
 
 import '../notes/cubit/note_cubit.dart';
-import '../quran_page/cubit/audio/cubit.dart';
 import '../quran_page/data/repository/quarter_repository.dart';
 import '../quran_text/cubit/quran_text_cubit.dart';
 import '../quran_text/cubit/surah_text_cubit.dart';
@@ -23,7 +21,6 @@ import '../shared/lists.dart';
 import 'cubit/ayaRepository/aya_cubit.dart';
 import 'cubit/cubit.dart';
 import 'cubit/quarter/quarter_cubit.dart';
-import 'cubit/sorahRepository/sorah_repository_cubit.dart';
 import 'cubit/translateDataCubit/_cubit.dart';
 import 'shared/utils/helpers/app_themes.dart';
 
@@ -128,22 +125,22 @@ class _MyAppState extends State<MyApp> {
   @override
   void initState() {
     super.initState();
-    if (Platform.isIOS || Platform.isAndroid) {
-      // Initialize Workmanager
-      final workManager = Workmanager();
-      workManager.initialize(
-        callbackDispatcher, // Your callbackDispatcher function
-        isInDebugMode: false, // Set to false in production builds
-      );
-      HomeWidget.setAppGroupId('group.com.alheekmah.alquranalkareem.widget');
-      saveHijriDate();
-      Timer.periodic(const Duration(minutes: 1), (timer) async {
-        await _saveRandomZikr();
-        await _updateWidget();
-      });
-      HomeWidget.registerBackgroundCallback(backgroundCallback);
-      // _startBackgroundUpdate();
-    }
+    // if (Platform.isIOS || Platform.isAndroid) {
+    //   // Initialize Workmanager
+    //   final workManager = Workmanager();
+    //   workManager.initialize(
+    //     callbackDispatcher, // Your callbackDispatcher function
+    //     isInDebugMode: false, // Set to false in production builds
+    //   );
+    //   HomeWidget.setAppGroupId('group.com.alheekmah.alquranalkareem.widget');
+    //   saveHijriDate();
+    //   Timer.periodic(const Duration(minutes: 1), (timer) async {
+    //     await _saveRandomZikr();
+    //     await _updateWidget();
+    //   });
+    //   HomeWidget.registerBackgroundCallback(backgroundCallback);
+    //   // _startBackgroundUpdate();
+    // }
   }
 
   @override
@@ -209,9 +206,6 @@ class _MyAppState extends State<MyApp> {
                   BlocProvider<QuranCubit>(
                     create: (BuildContext context) => QuranCubit(),
                   ),
-                  BlocProvider<AudioCubit>(
-                    create: (BuildContext context) => AudioCubit(),
-                  ),
                   BlocProvider<NotesCubit>(
                     create: (BuildContext context) => NotesCubit(),
                   ),
@@ -229,16 +223,13 @@ class _MyAppState extends State<MyApp> {
                     create: (BuildContext context) =>
                         SurahTextCubit()..loadQuranData(),
                   ),
-                  BlocProvider<SorahRepositoryCubit>(
-                    create: (BuildContext context) =>
-                        SorahRepositoryCubit()..loadSorahs(),
-                  ),
                   BlocProvider<AyaCubit>(
                     create: (BuildContext context) => AyaCubit()..getAllAyas(),
                   ),
                 ],
-                child: WillPopScope(
-                    onWillPop: () async => false, child: SplashScreen()),
+                child: SplashScreen(),
+                // child: WillPopScope(
+                //     onWillPop: () async => false, child: SplashScreen()),
                 // child: const HomePage(),
               ),
             ),

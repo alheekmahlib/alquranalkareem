@@ -56,6 +56,7 @@ class _AnimatedStackState extends State<AnimatedStack> {
 
   @override
   Widget build(BuildContext context) {
+    QuranCubit cubit = QuranCubit.get(context);
     double paddingHeight = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
     final double _width = MediaQuery.of(context).size.width;

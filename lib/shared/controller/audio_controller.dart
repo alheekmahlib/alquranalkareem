@@ -443,6 +443,8 @@ class AudioController extends GetxController {
     } else if (pageNum < 1000) {
       stringPageNum = pageNum.toString();
     }
+    late int sorahNumInt;
+    sorahNumInt = pageNum;
 
     // String sorahNumWithLeadingZeroes = stringPageNum!;
 
@@ -473,6 +475,8 @@ class AudioController extends GetxController {
     } else if (pageNum < 1000) {
       stringPageNum = pageNum.toString();
     }
+    late int sorahNumInt;
+    sorahNumInt = pageNum;
 
     // String sorahNumWithLeadingZeroes = stringPageNum!;
 
