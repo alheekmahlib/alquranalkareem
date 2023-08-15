@@ -1,4 +1,3 @@
-import 'package:alquranalkareem/cubit/cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
@@ -39,7 +38,6 @@ quranIcon(BuildContext context, double height, width) {
 }
 
 bookmarkIcon(BuildContext context, double height, width) {
-  QuranCubit cubit = QuranCubit.get(context);
   return GetBuilder<BookmarksController>(builder: (bookmarksController) {
     return SvgPicture.asset(
       'assets/svg/bookmark_ic.svg',

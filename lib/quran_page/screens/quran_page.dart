@@ -1,15 +1,14 @@
-import 'package:alquranalkareem/shared/controller/ayat_controller.dart';
 import 'package:arabic_numbers/arabic_numbers.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:theme_provider/theme_provider.dart';
 
+import '/shared/controller/ayat_controller.dart';
 import '../../cubit/cubit.dart';
 import '../../l10n/app_localizations.dart';
 import '../../shared/controller/general_controller.dart';
 import '../../shared/widgets/svg_picture.dart';
 import '../../shared/widgets/widgets.dart';
-import '../cubit/audio/cubit.dart';
 import '../data/model/sorah_bookmark.dart';
 import '../data/model/verse.dart';
 import '../data/repository/bookmarks_controller.dart';
@@ -29,7 +28,7 @@ class MPages extends StatefulWidget {
 
 class _MPagesState extends State<MPages> with SingleTickerProviderStateMixin {
   List<List<Verse>> allVerses = [];
-  ArabicNumbers arabicNumber = ArabicNumbers();
+  final ArabicNumbers arabicNumber = ArabicNumbers();
   QuranCubit? quranCubit;
   late final BookmarksController bookmarksController =
       Get.put(BookmarksController());
@@ -65,8 +64,7 @@ class _MPagesState extends State<MPages> with SingleTickerProviderStateMixin {
   Widget build(BuildContext context) {
     Get.put(GeneralController());
     QuranCubit cubit = QuranCubit.get(context);
-    AudioCubit audioCubit = AudioCubit.get(context);
-    Orientation orientation = MediaQuery.of(context).orientation;
+    final Orientation orientation = MediaQuery.of(context).orientation;
     if (orientation == Orientation.portrait) {
       return AnimatedBuilder(
         animation: generalController.screenAnimation!,
@@ -336,7 +334,6 @@ class _MPagesState extends State<MPages> with SingleTickerProviderStateMixin {
 
   int? id;
   Widget _pages(BuildContext context, int index) {
-    QuranCubit cubit = QuranCubit.get(context);
     return InkWell(
       onTap: () {
         switch (generalController.controller.status) {
@@ -383,7 +380,6 @@ class _MPagesState extends State<MPages> with SingleTickerProviderStateMixin {
   }
 
   Widget _pages2(BuildContext context, int index, Orientation orientation) {
-    QuranCubit cubit = QuranCubit.get(context);
     Orientation orientation = MediaQuery.of(context).orientation;
     return InkWell(
       onTap: () {
@@ -454,7 +450,6 @@ class _DPagesState extends State<DPages> with SingleTickerProviderStateMixin {
 
   @override
   void initState() {
-    QuranCubit cubit = QuranCubit.get(context);
     bookmarksController.getBookmarksList();
     bookmarksController.loadlastBookmark();
     noViewport = true;
@@ -691,7 +686,6 @@ class _DPagesState extends State<DPages> with SingleTickerProviderStateMixin {
   }
 
   Widget _dPages(BuildContext context, int index, Orientation orientation) {
-    QuranCubit cubit = QuranCubit.get(context);
     return InkWell(
       onDoubleTap: () {
         setState(() {

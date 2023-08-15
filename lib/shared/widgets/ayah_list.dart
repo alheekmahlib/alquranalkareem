@@ -2,13 +2,10 @@ import 'package:alquranalkareem/shared/widgets/show_tafseer.dart';
 import 'package:alquranalkareem/shared/widgets/widgets.dart';
 import 'package:arabic_numbers/arabic_numbers.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:theme_provider/theme_provider.dart';
 
-import '../../cubit/cubit.dart';
-import '../../quran_page/cubit/audio/cubit.dart';
 import '../../quran_page/data/model/ayat.dart';
 import '../controller/ayat_controller.dart';
 import '../controller/general_controller.dart';
@@ -17,14 +14,12 @@ import 'lottie.dart';
 class AyahList extends StatelessWidget {
   AyahList({Key? key}) : super(key: key);
 
-  ArabicNumbers arabicNumber = ArabicNumbers();
+  final ArabicNumbers arabicNumber = ArabicNumbers();
   late final AyatController ayatController = Get.put(AyatController());
   late final GeneralController generalController = Get.put(GeneralController());
 
   @override
   Widget build(BuildContext context) {
-    QuranCubit cubit = QuranCubit.get(context);
-    AudioCubit audioCubit = AudioCubit.get(context);
     final controller = Get.find<AyatController>();
     controller.fetchAyat(generalController.cuMPage);
     return Container(
@@ -49,7 +44,7 @@ class AyahList extends StatelessWidget {
           return ListView.builder(
             padding: const EdgeInsets.symmetric(horizontal: 8),
             scrollDirection: Axis.horizontal,
-            itemCount: ayat.length ?? 0,
+            itemCount: ayat.length,
             shrinkWrap: true,
             itemBuilder: (BuildContext context, index) {
               Ayat? aya = ayat[index];
@@ -103,14 +98,12 @@ class AyahList extends StatelessWidget {
 class AyahList2 extends StatelessWidget {
   AyahList2({Key? key}) : super(key: key);
 
-  ArabicNumbers arabicNumber = ArabicNumbers();
+  final ArabicNumbers arabicNumber = ArabicNumbers();
   late final AyatController ayatController = Get.put(AyatController());
   late final GeneralController generalController = Get.put(GeneralController());
 
   @override
   Widget build(BuildContext context) {
-    QuranCubit cubit = QuranCubit.get(context);
-    final QuranCubit quranCubit = context.read<QuranCubit>();
 // Fetch the Ayat instances when needed
 //     quranCubit.getTranslatedPage((generalController.cuMPage) ?? 1, context);
     final controller = Get.find<AyatController>();
@@ -137,7 +130,7 @@ class AyahList2 extends StatelessWidget {
               return ListView.builder(
                 padding: const EdgeInsets.symmetric(horizontal: 8),
                 scrollDirection: Axis.horizontal,
-                itemCount: ayat!.length,
+                itemCount: ayat.length,
                 shrinkWrap: true,
                 itemBuilder: (BuildContext context, index) {
                   Ayat aya = ayat[index];

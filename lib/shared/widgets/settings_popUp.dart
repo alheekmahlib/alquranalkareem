@@ -1,4 +1,3 @@
-import 'package:alquranalkareem/cubit/cubit.dart';
 import 'package:alquranalkareem/shared/widgets/settings_list.dart';
 import 'package:alquranalkareem/shared/widgets/widgets.dart';
 import 'package:flutter/material.dart';
@@ -88,7 +87,6 @@ class settingsPopupCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    QuranCubit cubit = QuranCubit.get(context);
     // double paddingHeight = MediaQuery.of(context).size.height;
     // double width = MediaQuery.of(context).size.width;
     return SafeArea(

@@ -1,11 +1,11 @@
-import 'package:alquranalkareem/shared/controller/general_controller.dart';
-import 'package:alquranalkareem/shared/widgets/settings_list.dart';
-import 'package:alquranalkareem/shared/widgets/settings_popUp.dart';
-import 'package:alquranalkareem/shared/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
 
+import '/shared/controller/general_controller.dart';
+import '/shared/widgets/settings_list.dart';
+import '/shared/widgets/settings_popUp.dart';
+import '/shared/widgets/widgets.dart';
 import '../../cubit/cubit.dart';
 import '../../cubit/states.dart';
 import '../custom_rect_tween.dart';
@@ -72,7 +72,6 @@ class _AnimatedStackState extends State<AnimatedStack> {
         // TODO: implement listener
       },
       builder: (context, state) {
-        QuranCubit cubit = QuranCubit.get(context);
         return Directionality(
           textDirection: TextDirection.rtl,
           child: SafeArea(

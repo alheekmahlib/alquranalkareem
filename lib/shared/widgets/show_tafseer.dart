@@ -1,4 +1,3 @@
-import 'package:alquranalkareem/cubit/cubit.dart';
 import 'package:alquranalkareem/shared/controller/general_controller.dart';
 import 'package:alquranalkareem/shared/widgets/svg_picture.dart';
 import 'package:alquranalkareem/shared/widgets/widgets.dart';
@@ -55,7 +54,6 @@ class _ShowTafseerState extends State<ShowTafseer> {
 
   @override
   Widget build(BuildContext context) {
-    QuranCubit cubit = QuranCubit.get(context);
     NotesCubit notesCubit = NotesCubit.get(context);
     return Directionality(
       textDirection: TextDirection.rtl,
@@ -156,7 +154,7 @@ class _ShowTafseerState extends State<ShowTafseer> {
                             0,
                             surahNumber!,
                             ayatController.currentText.value!.translateAyah,
-                            ayatController.currentText.value!.translate ?? '',
+                            ayatController.currentText.value!.translate,
                             surahName!);
                       } else {
                         showVerseOptionsBottomSheet(
@@ -215,7 +213,7 @@ class _ShowTafseerState extends State<ShowTafseer> {
                           controller: _scrollController,
                           child: Obx(() {
                             if (ayatController.currentPageLoading.value) {
-                              return CircularProgressIndicator();
+                              return const CircularProgressIndicator();
                             } else if (ayatController.currentText.value !=
                                 null) {
                               return SelectableText.rich(
@@ -364,7 +362,6 @@ class _ShowTafseerState extends State<ShowTafseer> {
   }
 
   tafseerDropDown(BuildContext context) {
-    QuranCubit cubit = QuranCubit.get(context);
     List<String> tafName = <String>[
       '${AppLocalizations.of(context)!.tafIbnkatheerN}',
       '${AppLocalizations.of(context)!.tafBaghawyN}',

@@ -1,5 +1,3 @@
-import 'package:alquranalkareem/shared/controller/ayat_controller.dart';
-import 'package:alquranalkareem/shared/widgets/widgets.dart';
 import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -8,6 +6,9 @@ import 'package:get/get.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '/shared/controller/ayat_controller.dart';
+import '/shared/widgets/widgets.dart';
+import '../../services_locator.dart';
 import '../bookmarksTextAyah_controller.dart';
 import '../bookmarksText_controller.dart';
 import '../model/bookmark_text.dart';
@@ -20,7 +21,6 @@ class QuranTextCubit extends Cubit<QuranTextState> {
   QuranTextCubit() : super(QuranTextInitial());
 
   static QuranTextCubit get(context) => BlocProvider.of(context);
-  final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
   late final BookmarksTextController bookmarksTextController =
       Get.put(BookmarksTextController());
   late final BookmarksTextAyahController bookmarksTextAyahController =
@@ -61,7 +61,8 @@ class QuranTextCubit extends Cubit<QuranTextState> {
   /// Shared Preferences
 
   // Save & Load Last Page For Quran Text
-  saveTextLastPlace(int textCurrentPage, String lastTime, sorahTextName) async {
+  Future<void> saveTextLastPlace(
+      int textCurrentPage, String lastTime, sorahTextName) async {
     textCurrentPage = TextPageView.textCurrentPage;
     lastTime = TextPageView.lastTime;
     sorahTextName = TextPageView.sorahTextName;
@@ -71,7 +72,7 @@ class QuranTextCubit extends Cubit<QuranTextState> {
     await prefService.setString("last_sorah_name", sorahTextName);
   }
 
-  loadTextCurrentPage() async {
+  Future<void> loadTextCurrentPage() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     TextPageView.textCurrentPage = prefs.getInt('last_page') ?? 1;
     TextPageView.lastTime = prefs.getString('last_time') ?? '';
@@ -80,43 +81,37 @@ class QuranTextCubit extends Cubit<QuranTextState> {
   }
 
   // Save & Load Last Switch Page For Quran Text
-  saveSwitchValue(int switchValue) async {
-    SharedPreferences prefs = await _prefs;
-    await prefs.setInt("switchـvalue", switchValue);
+  Future<void> saveSwitchValue(int switchValue) async {
+    await sl<SharedPreferences>().setInt("switchـvalue", switchValue);
     emit(SharedPreferencesState());
   }
 
-  loadSwitchValue() async {
-    SharedPreferences prefs = await _prefs;
-    value = prefs.getInt('switchـvalue') ?? 0;
+  Future<void> loadSwitchValue() async {
+    value = sl<SharedPreferences>().getInt('switchـvalue') ?? 0;
     print('switchـvalue $value');
     emit(SharedPreferencesState());
   }
 
   // Save & Load Scroll Speed For Quran Text
-  saveScrollSpeedValue(double scroll) async {
-    SharedPreferences prefs = await _prefs;
-    await prefs.setDouble("scroll_speed", scroll);
+  Future<void> saveScrollSpeedValue(double scroll) async {
+    await sl<SharedPreferences>().setDouble("scroll_speed", scroll);
     emit(SharedPreferencesState());
   }
 
-  loadScrollSpeedValue() async {
-    SharedPreferences prefs = await _prefs;
-    scrollSpeed = prefs.getDouble('scroll_speed') ?? .05;
+  Future<void> loadScrollSpeedValue() async {
+    scrollSpeed = sl<SharedPreferences>().getDouble('scroll_speed') ?? .05;
     print('scroll_speed $scrollSpeed');
     emit(SharedPreferencesState());
   }
 
   // Save & Load Translate For Quran Text
-  saveTranslateValue(int translateValue) async {
-    SharedPreferences prefs = await _prefs;
-    await prefs.setInt("translateـvalue", translateValue);
+  Future<void> saveTranslateValue(int translateValue) async {
+    await sl<SharedPreferences>().setInt("translateـvalue", translateValue);
     emit(SharedPreferencesState());
   }
 
-  loadTranslateValue() async {
-    SharedPreferences prefs = await _prefs;
-    transValue = prefs.getInt('translateـvalue') ?? 0;
+  Future<void> loadTranslateValue() async {
+    transValue = sl<SharedPreferences>().getInt('translateـvalue') ?? 0;
     print('translateـvalue $transValue');
     emit(SharedPreferencesState());
   }

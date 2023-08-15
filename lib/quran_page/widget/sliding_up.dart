@@ -1,6 +1,4 @@
-import 'package:alquranalkareem/cubit/cubit.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_sliding_up_panel/sliding_up_panel_widget.dart';
 import 'package:get/get.dart';
 
@@ -160,7 +158,6 @@ class _TextSlidingState extends State<TextSliding>
   }
 
   cancel() {
-    final cubit = context.read<QuranCubit>();
     if (SlidingUpPanelStatus.hidden ==
         generalController.panelTextController.status) {
       generalController.panelTextController.expand();

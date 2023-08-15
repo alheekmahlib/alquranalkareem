@@ -1,8 +1,7 @@
-import 'package:alquranalkareem/audio_screen/controller/surah_audio_controller.dart';
-import 'package:alquranalkareem/cubit/cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '/audio_screen/controller/surah_audio_controller.dart';
 import '../shared/controller/general_controller.dart';
 import 'audio_sorah_list.dart';
 
@@ -41,7 +40,6 @@ class _AudioScreenState extends State<AudioScreen>
 
   @override
   Widget build(BuildContext context) {
-    QuranCubit cubit = QuranCubit.get(context);
     return SafeArea(
         top: false,
         bottom: false,

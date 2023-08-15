@@ -1,14 +1,13 @@
-import 'package:alquranalkareem/shared/widgets/ayah_list.dart';
-import 'package:alquranalkareem/shared/widgets/seek_bar.dart';
-import 'package:alquranalkareem/shared/widgets/svg_picture.dart';
-import 'package:alquranalkareem/shared/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart' as getx;
 import 'package:just_audio/just_audio.dart';
 import 'package:square_percent_indicater/square_percent_indicater.dart';
 import 'package:theme_provider/theme_provider.dart';
 
-import '../../l10n/app_localizations.dart';
+import '../../shared/widgets/ayah_list.dart';
+import '../../shared/widgets/seek_bar.dart';
+import '../../shared/widgets/svg_picture.dart';
+import '../../shared/widgets/widgets.dart';
 import '../controller/audio_controller.dart';
 import '../controller/general_controller.dart';
 
@@ -84,10 +83,10 @@ class _AudioWidgetState extends State<AudioWidget>
                             final playerState = snapshot.data;
                             final processingState =
                                 playerState?.processingState;
-                            final playing = playerState?.playing;
+                            final bool playing = playerState?.playing ?? false;
                             if (processingState == ProcessingState.idle) {
                               return AyahList();
-                            } else if (playing == true) {
+                            } else if (playing) {
                               return Container(
                                 height: 50,
                                 alignment: Alignment.center,
@@ -108,11 +107,35 @@ class _AudioWidgetState extends State<AudioWidget>
                                         onChangeEnd: aCtrl.audioPlayer.seek,
                                       );
                                     }
-                                    return const SizedBox.shrink();
+                                    return const SizedBox();
                                   },
                                 ),
                               );
-                            } else if (playing != true) {
+                              // } else if (aCtrl.isPagePlay.value == true) {
+                              //   print(
+                              //       'aCtrl.isPagePlay.value ${aCtrl.isPagePlay.value}');
+                              //   return Container(
+                              //     height: 50,
+                              //     alignment: Alignment.center,
+                              //     width: 290,
+                              //     child: StreamBuilder<pagePositionData>(
+                              //       stream: aCtrl.pagePositionDataStream,
+                              //       builder: (context, snapshot) {
+                              //         final positionData = snapshot.data;
+                              //         return SeekBar(
+                              //           duration: positionData?.duration ??
+                              //               Duration.zero,
+                              //           position: positionData?.position ??
+                              //               Duration.zero,
+                              //           bufferedPosition:
+                              //               positionData?.bufferedPosition ??
+                              //                   Duration.zero,
+                              //           onChangeEnd: aCtrl.pageAudioPlayer.seek,
+                              //         );
+                              //       },
+                              //     ),
+                              //   );
+                            } else if (!playing) {
                               return AyahList();
                             } else {
                               return const SizedBox.shrink();
@@ -179,23 +202,8 @@ class _AudioWidgetState extends State<AudioWidget>
                                               ),
                                               color:
                                                   Theme.of(context).canvasColor,
-                                              onPressed: !aCtrl.isPagePlay.value
-                                                  ? () {
-                                                      print(aCtrl.progressString
-                                                          .value);
-                                                      if (audioController
-                                                              .pageAyahNumber ==
-                                                          null) {
-                                                        customErrorSnackBar(
-                                                            context,
-                                                            AppLocalizations.of(
-                                                                    context)!
-                                                                .choiceAyah);
-                                                      } else {
-                                                        aCtrl.playAyah(context);
-                                                      }
-                                                    }
-                                                  : null,
+                                              onPressed:
+                                                  aCtrl.playAyah(context),
                                             ),
                                           ),
                                   ),

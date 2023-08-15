@@ -1,7 +1,6 @@
 import 'dart:io';
 import 'dart:ui' as ui;
 
-import 'package:alquranalkareem/cubit/cubit.dart';
 import 'package:arabic_numbers/arabic_numbers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -198,7 +197,6 @@ Future<Uint8List> createVerseImage(
 Future<Uint8List> createVerseWithTranslateImage(BuildContext context,
     int verseNumber, surahNumber, String verseText, textTranslate,
     {double dividerWidth = 2.0, double textNextToDividerWidth = 100.0}) async {
-  QuranCubit cubit = QuranCubit.get(context);
   // if (textTranslate.split(' ').length > 300) {
   //   customSnackBar(context, "The translation cannot be shared because it is too long.");
   //   // Fluttertoast.showToast(

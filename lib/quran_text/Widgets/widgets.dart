@@ -12,7 +12,6 @@ import 'package:flutter_sliding_up_panel/sliding_up_panel_widget.dart';
 import 'package:get/get.dart';
 import 'package:theme_provider/theme_provider.dart';
 
-import '../../cubit/cubit.dart';
 import '../../cubit/translateDataCubit/_cubit.dart';
 import '../../cubit/translateDataCubit/translateDataState.dart';
 import '../../l10n/app_localizations.dart';
@@ -34,7 +33,7 @@ late final GeneralController generalController = Get.put(GeneralController());
 menu(BuildContext context, int b, index, var details, translateData, widget,
     nomPageF, nomPageL) {
   QuranTextCubit TextCubit = QuranTextCubit.get(context);
-  QuranCubit cubit = QuranCubit.get(context);
+
   bool? selectedValue;
   if (TextCubit.value == 1) {
     selectedValue = true;
@@ -42,7 +41,7 @@ menu(BuildContext context, int b, index, var details, translateData, widget,
     selectedValue = false;
   }
 
-  var cancel = TextCubit.selected == selectedValue!
+  TextCubit.selected == selectedValue!
       ? BotToast.showAttachedWidget(
           target: details.globalPosition,
           verticalOffset: TextCubit.verticalOffset,
@@ -634,15 +633,11 @@ Widget pageAyah(BuildContext context, var setState, widget,
     List<InlineSpan> text, int index) {
   QuranTextCubit TextCubit = QuranTextCubit.get(context);
   NotesCubit notesCubit = NotesCubit.get(context);
-  Color backColor = Theme.of(context).colorScheme.surface.withOpacity(0.4);
   return Stack(
     children: [
       GestureDetector(
         onTap: () {
           TextCubit.controller.reverse();
-          setState(() {
-            backColor = Colors.transparent;
-          });
         },
         // child: AutoScrollTag(
         //   key: ValueKey(index),

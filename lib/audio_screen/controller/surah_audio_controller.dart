@@ -355,7 +355,7 @@ class SurahAudioController extends GetxController {
         print(progressString.value);
       }, cancelToken: cancelToken);
     } catch (e) {
-      if (e is DioError && e.type == DioErrorType.cancel) {
+      if (e is DioException && e.type == DioExceptionType.cancel) {
         print('Download canceled');
         // Delete the partially downloaded file
         try {

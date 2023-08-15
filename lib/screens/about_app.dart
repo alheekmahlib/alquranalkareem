@@ -1,9 +1,9 @@
-import 'dart:io';
+import 'dart:io' show File;
 
-import 'package:alquranalkareem/cubit/cubit.dart';
-import 'package:alquranalkareem/shared/controller/general_controller.dart';
-import 'package:alquranalkareem/shared/widgets/theme_change.dart';
-import 'package:alquranalkareem/shared/widgets/widgets.dart';
+import '/shared/controller/general_controller.dart';
+import '/shared/controller/settings_controller.dart';
+import '/shared/widgets/theme_change.dart';
+import '/shared/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
@@ -13,15 +13,15 @@ import 'package:share_plus/share_plus.dart';
 import 'package:theme_provider/theme_provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-import '../home_page.dart';
 import '../l10n/app_localizations.dart';
+import '../services_locator.dart';
 import '../shared/widgets/svg_picture.dart';
 
 class AboutApp extends StatelessWidget {
   AboutApp({Key? key}) : super(key: key);
   late final GeneralController generalController = Get.put(GeneralController());
 
-  _launchEmail() async {
+  Future<void> _launchEmail() async {
     // ios specification
     const String subject = "القرآن الكريم - مكتبة الحكمة";
     const String stringText =
@@ -35,7 +35,7 @@ class AboutApp extends StatelessWidget {
     }
   }
 
-  _launchUrl() async {
+  Future<void> _launchUrl() async {
     // ios specification
     String uri = 'https://www.facebook.com/alheekmahlib';
     if (await canLaunchUrl(Uri.parse(uri))) {
@@ -47,7 +47,6 @@ class AboutApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    QuranCubit cubit = QuranCubit.get(context);
     return SafeArea(
       top: false,
       bottom: false,
@@ -209,11 +208,9 @@ class AboutApp extends StatelessWidget {
                                             ],
                                           ),
                                         ),
-                                        onTap: () {
-                                          HomePage.of(context)!.setLocale(
-                                              const Locale.fromSubtags(
-                                                  languageCode: "ar"));
-                                          generalController.saveLang("ar");
+                                        onTap: () async {
+                                          await sl<SettingsController>()
+                                              .saveLang("ar");
                                         },
                                       ),
                                       InkWell(
@@ -280,11 +277,9 @@ class AboutApp extends StatelessWidget {
                                             ],
                                           ),
                                         ),
-                                        onTap: () {
-                                          HomePage.of(context)!.setLocale(
-                                              const Locale.fromSubtags(
-                                                  languageCode: "en"));
-                                          generalController.saveLang("en");
+                                        onTap: () async {
+                                          await sl<SettingsController>()
+                                              .saveLang("ar");
                                         },
                                       ),
                                       InkWell(
@@ -352,11 +347,9 @@ class AboutApp extends StatelessWidget {
                                             ],
                                           ),
                                         ),
-                                        onTap: () {
-                                          HomePage.of(context)!.setLocale(
-                                              const Locale.fromSubtags(
-                                                  languageCode: "es"));
-                                          generalController.saveLang("en");
+                                        onTap: () async {
+                                          await sl<SettingsController>()
+                                              .saveLang("ar");
                                         },
                                       ),
                                     ],

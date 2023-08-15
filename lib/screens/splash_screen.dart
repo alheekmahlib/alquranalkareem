@@ -1,11 +1,11 @@
-import 'dart:async';
-
-import 'package:alquranalkareem/audio_screen/controller/surah_audio_controller.dart';
-import 'package:alquranalkareem/home_page.dart';
-import 'package:alquranalkareem/screens/onboarding_screen.dart';
-import 'package:alquranalkareem/shared/controller/audio_controller.dart';
-import 'package:alquranalkareem/shared/controller/ayat_controller.dart';
-import 'package:alquranalkareem/shared/controller/general_controller.dart';
+import '../services_locator.dart';
+import '../shared/controller/settings_controller.dart';
+import '/audio_screen/controller/surah_audio_controller.dart';
+import '/home_page.dart';
+import '/screens/onboarding_screen.dart';
+import '/shared/controller/audio_controller.dart';
+import '/shared/controller/ayat_controller.dart';
+import '/shared/controller/general_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
@@ -31,7 +31,7 @@ class _SplashScreenState extends State<SplashScreen> {
     startTime();
     generalController.loadMCurrentPage();
     generalController.loadFontSize();
-    generalController.loadLang();
+    sl<SettingsController>().loadLang();
     ayatController.loadTafseer();
     generalController.updateGreeting();
     audioController.loadQuranReader();

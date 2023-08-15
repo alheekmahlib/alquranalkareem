@@ -6,9 +6,10 @@ import '../audio_screen/audio_screen.dart';
 import '../azkar/screens/alzkar_view.dart';
 import '../cubit/cubit.dart';
 import '../cubit/states.dart';
-import '../home_page.dart';
 import '../quran_text/sorah_text_screen.dart';
 import '../screens/menu_screen.dart';
+import '../services_locator.dart';
+import '../shared/controller/notifications_controller.dart';
 import '../shared/widgets/animated_stack.dart';
 import '../shared/widgets/widgets.dart';
 import 'desktop.dart';
@@ -43,7 +44,6 @@ class _MainDScreenState extends State<MainDScreen> {
         }
       },
       builder: (BuildContext context, state) {
-        QuranCubit cubit = QuranCubit.get(context);
         return Scaffold(
           body: Stack(
             children: [
@@ -91,8 +91,10 @@ class _MainDScreenState extends State<MainDScreen> {
                                 ),
                               ),
                               // Add the red dot indicator
-                              if (sentNotifications.any(
-                                  (notification) => !notification['opened']))
+                              if (sl<NotificationsController>()
+                                  .sentNotifications
+                                  .any((notification) =>
+                                      !notification['opened']))
                                 Positioned(
                                   top: 8,
                                   right: 8,
@@ -111,9 +113,10 @@ class _MainDScreenState extends State<MainDScreen> {
                             Navigator.of(context).push(
                               animatRoute(sentNotification(
                                   context,
-                                  sentNotifications,
-                                  HomePage.of(context)!
-                                      .updateNotificationStatus)),
+                                  sl<NotificationsController>()
+                                      .sentNotifications,
+                                  () => sl<NotificationsController>()
+                                      .updateNotificationStatus())),
                             );
                           },
                         ),

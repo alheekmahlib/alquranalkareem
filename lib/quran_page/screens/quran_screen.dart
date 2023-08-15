@@ -4,10 +4,10 @@ import 'package:flutter_svg/svg.dart';
 
 import '../../audio_screen/audio_screen.dart';
 import '../../azkar/screens/alzkar_view.dart';
-import '../../cubit/cubit.dart';
-import '../../home_page.dart';
 import '../../quran_text/sorah_text_screen.dart';
 import '../../screens/menu_screen.dart';
+import '../../services_locator.dart';
+import '../../shared/controller/notifications_controller.dart';
 import '../../shared/widgets/animated_stack.dart';
 import '../../shared/widgets/widgets.dart';
 
@@ -36,7 +36,6 @@ class _QuranPageScreenState extends State<QuranPageScreen> {
 
   @override
   Widget build(BuildContext context) {
-    QuranCubit cubit = QuranCubit.get(context);
     return Scaffold(
       body: Stack(
         children: [
@@ -89,7 +88,8 @@ class _QuranPageScreenState extends State<QuranPageScreen> {
                               ),
                             ),
                             // Add the red dot indicator
-                            if (sentNotifications
+                            if (sl<NotificationsController>()
+                                .sentNotifications
                                 .any((notification) => !notification['opened']))
                               Positioned(
                                 top: 8,
@@ -109,8 +109,8 @@ class _QuranPageScreenState extends State<QuranPageScreen> {
                           Navigator.of(context).push(
                             animatRoute(sentNotification(
                                 context,
-                                sentNotifications,
-                                HomePage.of(context)!
+                                sl<NotificationsController>().sentNotifications,
+                                () => sl<NotificationsController>()
                                     .updateNotificationStatus)),
                           );
                         },

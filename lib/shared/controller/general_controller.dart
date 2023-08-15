@@ -3,8 +3,11 @@ import 'package:flutter_sliding_up_panel/sliding_up_panel_widget.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../services_locator.dart';
+
 class GeneralController extends GetxController {
-  final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
+  final GlobalKey<NavigatorState> navigatorNotificationKey =
+      GlobalKey<NavigatorState>();
 
   /// Slide and Scroll Controller
   late ScrollController scrollController;
@@ -24,7 +27,7 @@ class GeneralController extends GetxController {
   RxString soMName = ''.obs;
   RxDouble fontSizeArabic = 18.0.obs;
   List<InlineSpan> text = [];
-  Locale? initialLang;
+
   RxBool isShowControl = true.obs;
   RxBool opened = false.obs;
   double? height;
@@ -41,14 +44,14 @@ class GeneralController extends GetxController {
 
   /// Shared Preferences
   // Save & Load Last Page For Quran Page
-  saveMLastPlace(int currentPage, String lastSorah) async {
-    SharedPreferences prefs = await _prefs;
+  Future<void> saveMLastPlace(int currentPage, String lastSorah) async {
+    final SharedPreferences prefs = sl<SharedPreferences>();
     await prefs.setInt("mstart_page", currentPage);
     await prefs.setString("mLast_sorah", lastSorah);
   }
 
-  loadMCurrentPage() async {
-    SharedPreferences prefs = await _prefs;
+  Future<void> loadMCurrentPage() async {
+    final SharedPreferences prefs = sl<SharedPreferences>();
     cuMPage = (prefs.getInt('mstart_page') == null
         ? 1
         : prefs.getInt('mstart_page'))!;
@@ -58,36 +61,22 @@ class GeneralController extends GetxController {
   }
 
   // Save & Load Tafseer Font Size
-  saveFontSize(double fontSizeArabic) async {
-    SharedPreferences prefs = await _prefs;
+  Future<void> saveFontSize(double fontSizeArabic) async {
+    final SharedPreferences prefs = sl<SharedPreferences>();
     await prefs.setDouble("font_size", fontSizeArabic);
   }
 
-  loadFontSize() async {
-    SharedPreferences prefs = await _prefs;
+  Future<void> loadFontSize() async {
+    final SharedPreferences prefs = sl<SharedPreferences>();
     fontSizeArabic.value = prefs.getDouble('font_size') ?? 18;
     print('get font size ${prefs.getDouble('font_size')}');
-  }
-
-  // Save & Load Last Page For Quran Page
-  saveLang(String lan) async {
-    SharedPreferences prefs = await _prefs;
-    await prefs.setString("lang", lan);
-  }
-
-  loadLang() async {
-    SharedPreferences prefs = await _prefs;
-    initialLang = prefs.getString("lang") == null
-        ? const Locale('ar', 'AE')
-        : Locale(prefs.getString("lang")!);
-    print('get lang $initialLang');
   }
 
   showControl() {
     isShowControl.value = !isShowControl.value;
   }
 
-  pageChanged(BuildContext context, int index) {
+  void pageChanged(BuildContext context, int index) {
     print("on Page Changed $index");
     // DPages.currentPage2 = index + 1;
     // MPages.currentPage2 = index + 1;
