@@ -137,7 +137,8 @@ class settingsPopupCard extends StatelessWidget {
                         onTap: () {
                           Navigator.of(context).pop();
                           // setState(() {
-                          cubit.isShowSettings = !cubit.isShowSettings;
+                          // TODO:
+                          // cubit.isShowSettings = !cubit.isShowSettings;
                           context
                               .read<NotesCubit>()
                               .descriptionController

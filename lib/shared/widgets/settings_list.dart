@@ -15,7 +15,9 @@ class SettingsList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Visibility(
-      visible: cubit.isShowSettings,
+      visible: true,
+      // TODO:
+      // cubit.isShowSettings,
       child: ListView(
         padding: EdgeInsets.zero,
         // direction: Axis.vertical,

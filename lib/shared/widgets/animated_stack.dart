@@ -148,7 +148,8 @@ class _AnimatedStackState extends State<AnimatedStack> {
                               );
                             }));
                             setState(() {
-                              cubit.isShowSettings = true;
+                              // TODO:
+                              // cubit.isShowSettings = true;
                             });
                           },
                           child: Hero(
