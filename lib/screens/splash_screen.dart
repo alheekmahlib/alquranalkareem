@@ -1,16 +1,15 @@
-import '../services_locator.dart';
-import '../shared/controller/settings_controller.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
+import 'package:get/get.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
 import '/audio_screen/controller/surah_audio_controller.dart';
 import '/home_page.dart';
 import '/screens/onboarding_screen.dart';
 import '/shared/controller/audio_controller.dart';
 import '/shared/controller/ayat_controller.dart';
 import '/shared/controller/general_controller.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
-import 'package:get/get.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-
+import '../shared/controller/settings_controller.dart';
 import '../shared/widgets/lottie.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -22,6 +21,8 @@ class _SplashScreenState extends State<SplashScreen> {
   late final GeneralController generalController = Get.put(GeneralController());
   late final AyatController ayatController = Get.put(AyatController());
   late final AudioController audioController = Get.put(AudioController());
+  late final SettingsController settingsController =
+      Get.put(SettingsController());
   late final SurahAudioController surahAudioController =
       Get.put(SurahAudioController());
   bool animate = false;
@@ -29,9 +30,15 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     startTime();
+    // sl<GeneralController>().loadMCurrentPage();
+    // sl<GeneralController>().loadFontSize();
+    // sl<GeneralController>().updateGreeting();
+    // sl<AyatController>().loadTafseer();
+    // sl<AudioController>().loadQuranReader();
+    // sl<SurahAudioController>().loadSorahReader();
     generalController.loadMCurrentPage();
     generalController.loadFontSize();
-    sl<SettingsController>().loadLang();
+    settingsController.loadLang();
     ayatController.loadTafseer();
     generalController.updateGreeting();
     audioController.loadQuranReader();
@@ -56,21 +63,9 @@ class _SplashScreenState extends State<SplashScreen> {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     print('is_first_time ${prefs.getBool("is_first_time")}');
     if (prefs.getBool("is_first_time") == null) {
-      // Navigator.pushReplacement<void, void>(
-      //   context,
-      //   MaterialPageRoute<void>(
-      //     builder: (BuildContext context) => OnboardingScreen(),
-      //   ),
-      // );
       Get.off(() => OnboardingScreen());
       prefs.setBool("is_first_time", false);
     } else {
-      // Navigator.pushReplacement<void, void>(
-      //   context,
-      //   MaterialPageRoute<void>(
-      //     builder: (BuildContext context) => const HomePage(),
-      //   ),
-      // );
       Get.off(() => const HomePage());
     }
     // Get.off(() => OnboardingScreen());

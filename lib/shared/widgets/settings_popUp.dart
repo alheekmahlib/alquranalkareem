@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:theme_provider/theme_provider.dart';
 
+import '../../cubit/cubit.dart';
 import '../../notes/cubit/note_cubit.dart';
 import '../custom_rect_tween.dart';
 import '../hero_dialog_route.dart';
@@ -87,6 +88,7 @@ class settingsPopupCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    QuranCubit cubit = QuranCubit.get(context);
     // double paddingHeight = MediaQuery.of(context).size.height;
     // double width = MediaQuery.of(context).size.width;
     return SafeArea(

@@ -3,11 +3,10 @@ import 'package:flutter_sliding_up_panel/sliding_up_panel_widget.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../../services_locator.dart';
-
 class GeneralController extends GetxController {
   final GlobalKey<NavigatorState> navigatorNotificationKey =
       GlobalKey<NavigatorState>();
+  final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
 
   /// Slide and Scroll Controller
   late ScrollController scrollController;
@@ -45,13 +44,13 @@ class GeneralController extends GetxController {
   /// Shared Preferences
   // Save & Load Last Page For Quran Page
   Future<void> saveMLastPlace(int currentPage, String lastSorah) async {
-    final SharedPreferences prefs = sl<SharedPreferences>();
+    SharedPreferences prefs = await _prefs;
     await prefs.setInt("mstart_page", currentPage);
     await prefs.setString("mLast_sorah", lastSorah);
   }
 
   Future<void> loadMCurrentPage() async {
-    final SharedPreferences prefs = sl<SharedPreferences>();
+    SharedPreferences prefs = await _prefs;
     cuMPage = (prefs.getInt('mstart_page') == null
         ? 1
         : prefs.getInt('mstart_page'))!;
@@ -62,12 +61,12 @@ class GeneralController extends GetxController {
 
   // Save & Load Tafseer Font Size
   Future<void> saveFontSize(double fontSizeArabic) async {
-    final SharedPreferences prefs = sl<SharedPreferences>();
+    SharedPreferences prefs = await _prefs;
     await prefs.setDouble("font_size", fontSizeArabic);
   }
 
   Future<void> loadFontSize() async {
-    final SharedPreferences prefs = sl<SharedPreferences>();
+    SharedPreferences prefs = await _prefs;
     fontSizeArabic.value = prefs.getDouble('font_size') ?? 18;
     print('get font size ${prefs.getDouble('font_size')}');
   }

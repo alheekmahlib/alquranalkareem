@@ -5,6 +5,7 @@ import 'package:theme_provider/theme_provider.dart';
 import '/shared/widgets/svg_picture.dart';
 import '/shared/widgets/theme_change.dart';
 import '/shared/widgets/widgets.dart';
+import '../../cubit/cubit.dart';
 import '../../l10n/app_localizations.dart';
 import '../../services_locator.dart';
 import '../controller/settings_controller.dart';
@@ -14,6 +15,7 @@ class SettingsList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    QuranCubit cubit = QuranCubit.get(context);
     return Visibility(
       visible: true,
       // TODO:
