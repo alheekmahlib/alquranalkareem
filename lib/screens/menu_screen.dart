@@ -12,7 +12,6 @@ import '/l10n/app_localizations.dart';
 import '/shared/controller/reminder_controller.dart';
 import '../cubit/cubit.dart';
 import '../cubit/states.dart';
-import '../services_locator.dart';
 import '../shared/controller/general_controller.dart';
 import '../shared/local_notifications.dart';
 import '../shared/reminder_model.dart';
@@ -603,14 +602,14 @@ class ReminderStorage {
   static const String _storageKey = 'reminders';
 
   static Future<void> saveReminders(List<Reminder> reminders) async {
-    final SharedPreferences prefs = sl<SharedPreferences>();
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
     List<String> remindersJson =
         reminders.map((r) => jsonEncode(r.toJson())).toList();
     await prefs.setStringList(_storageKey, remindersJson);
   }
 
   static Future<List<Reminder>> loadReminders() async {
-    final SharedPreferences prefs = sl<SharedPreferences>();
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
     ;
     List<String> remindersJson =
         prefs.getStringList(_storageKey)?.cast<String>() ?? [];

@@ -76,22 +76,24 @@ class _QuranPageState extends State<QuranPage>
                       )),
                   SlideTransition(
                       position: generalController.offset, child: AudioWidget()),
-                  Visibility(
-                      visible: generalController.isShowControl.value,
-                      child: Align(
-                          alignment: Alignment.bottomCenter,
-                          child: Sliding(
-                            myWidget1: quranPageSearch(
-                                context, MediaQuery.of(context).size.width),
-                            myWidget2: quranPageSorahList(
-                                context, MediaQuery.of(context).size.width),
-                            myWidget3: notesList(
-                                context, MediaQuery.of(context).size.width),
-                            myWidget4: bookmarksList(
-                                context, MediaQuery.of(context).size.width),
-                            myWidget5: const ShowTafseer(),
-                            cHeight: 110.0,
-                          ))),
+                  Obx(
+                    () => Visibility(
+                        visible: generalController.isShowControl.value,
+                        child: Align(
+                            alignment: Alignment.bottomCenter,
+                            child: Sliding(
+                              myWidget1: quranPageSearch(
+                                  context, MediaQuery.of(context).size.width),
+                              myWidget2: quranPageSorahList(
+                                  context, MediaQuery.of(context).size.width),
+                              myWidget3: notesList(
+                                  context, MediaQuery.of(context).size.width),
+                              myWidget4: bookmarksList(
+                                  context, MediaQuery.of(context).size.width),
+                              myWidget5: const ShowTafseer(),
+                              cHeight: 110.0,
+                            ))),
+                  ),
                 ],
               ),
             );

@@ -127,7 +127,7 @@ class _AnimatedStackState extends State<AnimatedStack> {
                             Navigator.of(context)
                                 .push(HeroDialogRoute(builder: (context) {
                               return settingsPopupCard(
-                                child: const SettingsList(),
+                                child: SettingsList(),
                                 height: orientation(
                                     context,
                                     400.0,

@@ -22,7 +22,7 @@ class GeneralController extends GetxController {
   /// Page Controller
   PageController? dPageController;
 
-  late int cuMPage;
+  int cuMPage = 1;
   RxString soMName = ''.obs;
   RxDouble fontSizeArabic = 18.0.obs;
   List<InlineSpan> text = [];
@@ -55,7 +55,7 @@ class GeneralController extends GetxController {
         ? 1
         : prefs.getInt('mstart_page'))!;
     soMName.value = prefs.getString('mLast_sorah') ?? '1';
-    print('cuMPage ${cuMPage}');
+    print('cuMPage.value.value ${cuMPage}');
     print('last_sorah ${prefs.getString('mLast_sorah')}');
   }
 

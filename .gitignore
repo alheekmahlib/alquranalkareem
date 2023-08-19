@@ -15,12 +15,12 @@ migrate_working_dir/
 
 # Databases
 assets/QuranData.sqlite
-QuranV3.sqlite
-*.sqlite
-*.db
+#QuranV3.sqlite
+#*.sqlite
+#*.db
 
 # assets
-/assets/
+#/assets/
 
 # IntelliJ related
 *.iml

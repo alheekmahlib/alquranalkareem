@@ -6,8 +6,10 @@ import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:theme_provider/theme_provider.dart';
+t 'package:get/get.dart';
+import 'package:theme_provider/theme_provider.dart';
+
 import '../../shared/widgets/lottie.dart';
-import '../cubit/quran_text_cubit.dart';
 import '../cubit/surah_text_cubit.dart';
 import '../model/QuranModel.dart';
 import '../text_page_view.dart';
@@ -20,6 +22,8 @@ class BookmarksTextList extends StatefulWidget {
 }
 
 class _BookmarksTextListState extends State<BookmarksTextList> {
+  late final QuranTextController quranTextController =
+      Get.put(QuranTextController());
   int? id;
   String? sorahName;
   int? pageName;
@@ -31,23 +35,21 @@ class _BookmarksTextListState extends State<BookmarksTextList> {
 
   @override
   void initState() {
-    QuranTextCubit.get(context).bookmarksTextController.getBookmarksText();
-    QuranTextCubit.get(context)
-        .bookmarksTextAyahController
-        .getBookmarksTextAyah();
+    quranTextController.bookmarksTextController.getBookmarksText();
+    quranTextController.bookmarksTextAyahController.getBookmarksTextAyah();
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    QuranTextCubit bookmarksCubit = QuranTextCubit.get(context);
     return Column(
       children: [
         topBar(context),
         const Divider(),
         Expanded(
           child: Obx(() {
-            if (bookmarksCubit.bookmarksTextController.BookmarkList.isEmpty) {
+            if (quranTextController
+                .bookmarksTextController.BookmarkList.isEmpty) {
               return bookmarks(150.0, 150.0);
             } else {
               return BlocBuilder<SurahTextCubit, List<SurahText>?>(
@@ -59,10 +61,10 @@ class _BookmarksTextListState extends State<BookmarksTextList> {
                   }
                   return ListView.builder(
                       shrinkWrap: true,
-                      itemCount: bookmarksCubit
+                      itemCount: quranTextController
                           .bookmarksTextController.BookmarkList.length,
                       itemBuilder: (BuildContext context, int index) {
-                        var bookmark = bookmarksCubit
+                        var bookmark = quranTextController
                             .bookmarksTextController.BookmarkList[index];
 
                         return Column(
@@ -90,7 +92,7 @@ class _BookmarksTextListState extends State<BookmarksTextList> {
                                           key: ValueKey<int>(bookmark.id!),
                                           onDismissed:
                                               (DismissDirection direction) {
-                                            bookmarksCubit
+                                            quranTextController
                                                 .bookmarksTextController
                                                 .deleteBookmarksText(
                                                     bookmark, context);
@@ -98,8 +100,8 @@ class _BookmarksTextListState extends State<BookmarksTextList> {
                                           child: GestureDetector(
                                             onTap: () {
                                               setState(() {
-                                                QuranTextCubit.get(context)
-                                                    .value = 0;
+                                                quranTextController
+                                                    .value.value = 0;
                                               });
                                               Navigator.of(context).pop();
                                               Navigator.of(context).push(

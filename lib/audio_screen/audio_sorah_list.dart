@@ -3,23 +3,16 @@ import 'package:alquranalkareem/audio_screen/widget/download_play_button.dart';
 import 'package:alquranalkareem/audio_screen/widget/online_play_button.dart';
 import 'package:alquranalkareem/audio_screen/widget/skip_next.dart';
 import 'package:alquranalkareem/audio_screen/widget/skip_previous.dart';
+import 'package:alquranalkareem/audio_screen/widget/surah_seek_bar.dart';
 import 'package:alquranalkareem/l10n/app_localizations.dart';
 import 'package:anim_search_bar/anim_search_bar.dart';
-import 'package:another_xlider/another_xlider.dart';
-import 'package:another_xlider/models/handler.dart';
-import 'package:another_xlider/models/handler_animation.dart';
-import 'package:another_xlider/models/trackbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
-import 'package:just_audio/just_audio.dart';
-import 'package:square_percent_indicater/square_percent_indicater.dart';
 import 'package:theme_provider/theme_provider.dart';
 
-import '../../shared/widgets/lottie.dart';
 import '../shared/controller/surah_repository_controller.dart';
-import '../shared/widgets/seek_bar.dart';
 import '../shared/widgets/svg_picture.dart';
 import '../shared/widgets/widgets.dart';
 
@@ -212,21 +205,16 @@ class _AudioSorahListState extends State<AudioSorahList>
                           children: [
                             Opacity(
                               opacity: .1,
-                              child: SvgPicture.asset(
-                                'assets/svg/surah_name/00${surahAudioController.sorahNum}.svg',
-                                colorFilter: ColorFilter.mode(
-                                    Theme.of(context).colorScheme.surface,
-                                    BlendMode.srcIn),
-                                width: width,
+                              child: surahName(
+                                context,
+                                130,
+                                width,
                               ),
                             ),
-                            SvgPicture.asset(
-                              'assets/svg/surah_name/00${surahAudioController.sorahNum}.svg',
-                              height: 100,
-                              colorFilter: ColorFilter.mode(
-                                  Theme.of(context).colorScheme.surface,
-                                  BlendMode.srcIn),
-                              width: width / 1 / 2,
+                            surahName(
+                              context,
+                              100,
+                              width / 1 / 2,
                             ),
                             Align(
                               alignment: Alignment.topRight,
@@ -255,127 +243,6 @@ class _AudioSorahListState extends State<AudioSorahList>
                             SkipToPrevious(),
                             OnlinePlayButton(),
                             DownloadPlayButton(),
-                            // Align(
-                            //   alignment: Alignment.center,
-                            //   child: SizedBox(
-                            //     height: 120,
-                            //     child: Stack(
-                            //       alignment: Alignment.center,
-                            //       children: [
-                            //         Align(
-                            //           alignment: Alignment.topCenter,
-                            //           child: IconButton(
-                            //               onPressed: () {
-                            //                 setState(() {
-                            //                   surahAudioController.repeatSurah =
-                            //                       !surahAudioController
-                            //                           .repeatSurah;
-                            //                 });
-                            //               },
-                            //               icon: Icon(
-                            //                 Icons.repeat_one,
-                            //                 color: surahAudioController
-                            //                             .repeatSurah ==
-                            //                         true
-                            //                     ? Theme.of(context)
-                            //                         .colorScheme
-                            //                         .surface
-                            //                     : Theme.of(context)
-                            //                         .colorScheme
-                            //                         .surface
-                            //                         .withOpacity(.4),
-                            //               )),
-                            //         ),
-                            //         Align(
-                            //           alignment: Alignment.center,
-                            //           child: SquarePercentIndicator(
-                            //             width: 50,
-                            //             height: 50,
-                            //             borderRadius: 8,
-                            //             shadowWidth: 1.5,
-                            //             progressWidth: 4,
-                            //             shadowColor: Colors.grey,
-                            //             progressColor:
-                            //                 ThemeProvider.themeOf(context).id ==
-                            //                         'dark'
-                            //                     ? Colors.white
-                            //                     : Theme.of(context)
-                            //                         .primaryColorLight,
-                            //             progress:
-                            //                 surahAudioController.progress.value,
-                            //             child: GestureDetector(
-                            //               child: Container(
-                            //                   height: 50,
-                            //                   padding:
-                            //                       const EdgeInsets.symmetric(
-                            //                           horizontal: 8.0),
-                            //                   width: 50,
-                            //                   decoration: BoxDecoration(
-                            //                       color: Theme.of(context)
-                            //                           .colorScheme
-                            //                           .background,
-                            //                       borderRadius:
-                            //                           const BorderRadius.only(
-                            //                         topRight:
-                            //                             Radius.circular(8),
-                            //                         topLeft: Radius.circular(8),
-                            //                       ),
-                            //                       border: Border.all(
-                            //                           width: 2,
-                            //                           color: Theme.of(context)
-                            //                               .dividerColor)),
-                            //                   child: surahAudioController
-                            //                           .downloading.value
-                            //                       ? Container(
-                            //                           alignment:
-                            //                               Alignment.center,
-                            //                           child: Text(
-                            //                             surahAudioController
-                            //                                 .progressString
-                            //                                 .value,
-                            //                             style: TextStyle(
-                            //                                 fontSize: 14,
-                            //                                 fontFamily: 'kufi',
-                            //                                 color: Theme.of(
-                            //                                         context)
-                            //                                     .colorScheme
-                            //                                     .surface),
-                            //                           ),
-                            //                         )
-                            //                       : Icon(
-                            //                           surahAudioController
-                            //                                   .isPlay.value
-                            //                               ? Icons.pause
-                            //                               : Icons
-                            //                                   .download_outlined,
-                            //                           size: 24,
-                            //                           color: Theme.of(context)
-                            //                               .colorScheme
-                            //                               .surface,
-                            //                         )),
-                            //               onTap: () {
-                            //                 surahAudioController
-                            //                     .playSorah(context);
-                            //               },
-                            //             ),
-                            //           ),
-                            //         ),
-                            //         Align(
-                            //           alignment: Alignment.bottomCenter,
-                            //           child: Text(
-                            //             AppLocalizations.of(context)!.download,
-                            //             style: TextStyle(
-                            //                 fontSize: 16,
-                            //                 fontFamily: 'kufi',
-                            //                 height: -1.5,
-                            //                 color:
-                            //                     Theme.of(context).dividerColor),
-                            //           ),
-                            //         )
-                            //       ],
-                            //     ),
-                            //   ),
-                            // ),
                             SkipToNext(),
                             Container(
                               height: 35,
@@ -399,75 +266,7 @@ class _AudioSorahListState extends State<AudioSorahList>
                       alignment: Alignment.bottomCenter,
                       child: SizedBox(
                         height: 70,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Expanded(
-                                flex: 2,
-                                child: Center(
-                                    child: Text(
-                                  surahAudioController.currentTime,
-                                  style: TextStyle(
-                                    fontFamily: 'kufi',
-                                    fontSize: 14,
-                                    color: ThemeProvider.themeOf(context).id ==
-                                            'dark'
-                                        ? Theme.of(context).canvasColor
-                                        : Theme.of(context).primaryColor,
-                                  ),
-                                ))),
-                            Expanded(
-                              flex: 6,
-                              child: StreamBuilder<PositionData>(
-                                stream: surahAudioController.isDownloading ==
-                                        true
-                                    ? surahAudioController
-                                        .DownloadPositionDataStream
-                                    : surahAudioController.positionDataStream,
-                                builder: (context, snapshot) {
-                                  if (snapshot.hasData) {
-                                    final positionData = snapshot.data;
-                                    surahAudioController.lastPosition =
-                                        positionData!.position.inSeconds
-                                            .toDouble();
-                                    return SeekBar(
-                                        duration: positionData?.duration ??
-                                            Duration.zero,
-                                        position: positionData?.position ??
-                                            Duration.zero,
-                                        bufferedPosition:
-                                            positionData?.bufferedPosition ??
-                                                Duration.zero,
-                                        onChangeEnd: (newPosition) {
-                                          surahAudioController.isDownloading ==
-                                                  true
-                                              ? surahAudioController
-                                                  .downAudioPlayer
-                                                  .seek(newPosition)
-                                              : surahAudioController.audioPlayer
-                                                  .seek(newPosition);
-                                        });
-                                  }
-                                  return const SizedBox.shrink();
-                                },
-                              ),
-                            ),
-                            Expanded(
-                                flex: 2,
-                                child: Center(
-                                    child: Text(
-                                  surahAudioController.totalDuration,
-                                  style: TextStyle(
-                                    fontFamily: 'kufi',
-                                    fontSize: 14,
-                                    color: ThemeProvider.themeOf(context).id ==
-                                            'dark'
-                                        ? Theme.of(context).canvasColor
-                                        : Theme.of(context).primaryColor,
-                                  ),
-                                ))),
-                          ],
-                        ),
+                        child: SurahSeekBar(),
                       ),
                     ),
                   ],
@@ -476,14 +275,14 @@ class _AudioSorahListState extends State<AudioSorahList>
                   builder: (BuildContext context, StateSetter setState) {
                 return Stack(
                   children: [
-                    Opacity(
-                      opacity: .1,
-                      child: SvgPicture.asset(
-                        'assets/svg/surah_name/00${surahAudioController.sorahNum}.svg',
-                        colorFilter: ColorFilter.mode(
-                            Theme.of(context).colorScheme.surface,
-                            BlendMode.srcIn),
-                        width: width,
+                    Obx(
+                      () => Opacity(
+                        opacity: .1,
+                        child: surahName(
+                          context,
+                          130,
+                          width,
+                        ),
                       ),
                     ),
                     Align(
@@ -501,14 +300,11 @@ class _AudioSorahListState extends State<AudioSorahList>
                       alignment: Alignment.centerRight,
                       child: Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 23.0),
-                        child: SvgPicture.asset(
-                          'assets/svg/surah_name/00${surahAudioController.sorahNum}.svg',
-                          height: 70,
-                          colorFilter: ColorFilter.mode(
-                              Theme.of(context).colorScheme.surface,
-                              BlendMode.srcIn),
-                          width: width / 1 / 2,
-                        ),
+                        child: Obx(() => surahName(
+                              context,
+                              70,
+                              width / 1 / 2,
+                            )),
                       ),
                     ),
                     Align(
@@ -519,289 +315,10 @@ class _AudioSorahListState extends State<AudioSorahList>
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
-                            Visibility(
-                              visible: surahAudioController.downloading.value,
-                              child: Text(
-                                surahAudioController.progressString.value,
-                                style: TextStyle(
-                                    fontSize: 14,
-                                    fontFamily: 'kufi',
-                                    color:
-                                        Theme.of(context).colorScheme.surface),
-                              ),
-                            ),
-                            GestureDetector(
-                              child: Container(
-                                height: 30,
-                                width: 30,
-                                decoration: BoxDecoration(
-                                    color: Theme.of(context)
-                                        .colorScheme
-                                        .background,
-                                    borderRadius: const BorderRadius.only(
-                                      topRight: Radius.circular(8),
-                                      topLeft: Radius.circular(8),
-                                    ),
-                                    border: Border.all(
-                                        width: 2,
-                                        color: Theme.of(context).dividerColor)),
-                                child: Icon(
-                                  Icons.skip_next,
-                                  color: Theme.of(context).colorScheme.surface,
-                                ),
-                              ),
-                              onTap: () {
-                                surahAudioController.skip_previous(context);
-                                setState(() {
-                                  surahAudioController.sorahNum--;
-                                  surahAudioController.intValue--;
-                                  surahAudioController.selectedSurah--;
-                                });
-                              },
-                            ),
-                            SizedBox(
-                              height: 120,
-                              child: Stack(
-                                alignment: Alignment.center,
-                                children: [
-                                  Align(
-                                    alignment: Alignment.topCenter,
-                                    child: IconButton(
-                                        onPressed: () {
-                                          setState(() {
-                                            surahAudioController
-                                                    .repeatSurahOnline =
-                                                !surahAudioController
-                                                    .repeatSurahOnline;
-                                          });
-                                        },
-                                        icon: Icon(
-                                          Icons.repeat_one,
-                                          color: surahAudioController
-                                                      .repeatSurahOnline ==
-                                                  true
-                                              ? Theme.of(context)
-                                                  .colorScheme
-                                                  .surface
-                                              : Theme.of(context)
-                                                  .colorScheme
-                                                  .surface
-                                                  .withOpacity(.4),
-                                        )),
-                                  ),
-                                  Align(
-                                    alignment: Alignment.center,
-                                    child: GestureDetector(
-                                      child: Container(
-                                        height: 50,
-                                        padding: const EdgeInsets.symmetric(
-                                            horizontal: 8.0),
-                                        width: 50,
-                                        decoration: BoxDecoration(
-                                            color: Theme.of(context)
-                                                .colorScheme
-                                                .background,
-                                            borderRadius:
-                                                const BorderRadius.only(
-                                              topRight: Radius.circular(8),
-                                              topLeft: Radius.circular(8),
-                                            ),
-                                            border: Border.all(
-                                                width: 2,
-                                                color: Theme.of(context)
-                                                    .dividerColor)),
-                                        child: StreamBuilder<PlayerState>(
-                                            stream: surahAudioController
-                                                .audioPlayer.playerStateStream,
-                                            builder: (context, snapshot) {
-                                              final playerState = snapshot.data;
-                                              final processingState =
-                                                  playerState?.processingState;
-                                              final playing =
-                                                  playerState?.playing;
-                                              if (processingState ==
-                                                  ProcessingState.idle) {
-                                                return Icon(
-                                                  Icons
-                                                      .online_prediction_outlined,
-                                                  size: 24,
-                                                  color: Theme.of(context)
-                                                      .colorScheme
-                                                      .surface,
-                                                );
-                                              } else if (processingState ==
-                                                  ProcessingState.loading) {
-                                                return playButtonLottie(
-                                                    20.0, 20.0);
-                                              } else if (playing == true) {
-                                                return Icon(
-                                                  Icons.pause,
-                                                  size: 24,
-                                                  color: Theme.of(context)
-                                                      .colorScheme
-                                                      .surface,
-                                                );
-                                              } else if (playing != true) {
-                                                return Icon(
-                                                  Icons
-                                                      .online_prediction_outlined,
-                                                  size: 24,
-                                                  color: Theme.of(context)
-                                                      .colorScheme
-                                                      .surface,
-                                                );
-                                              } else {
-                                                return const SizedBox.shrink();
-                                              }
-                                            }),
-                                      ),
-                                      onTap: () {
-                                        surahAudioController
-                                            .playSorahOnline(context);
-                                      },
-                                    ),
-                                  ),
-                                  Align(
-                                    alignment: Alignment.bottomCenter,
-                                    child: Text(
-                                      AppLocalizations.of(context)!.online,
-                                      style: TextStyle(
-                                          fontSize: 16,
-                                          fontFamily: 'kufi',
-                                          height: -1.5,
-                                          color:
-                                              Theme.of(context).dividerColor),
-                                    ),
-                                  )
-                                ],
-                              ),
-                            ),
-                            Align(
-                              alignment: Alignment.center,
-                              child: SizedBox(
-                                height: 120,
-                                child: Stack(
-                                  alignment: Alignment.center,
-                                  children: [
-                                    Align(
-                                      alignment: Alignment.topCenter,
-                                      child: IconButton(
-                                          onPressed: () {
-                                            setState(() {
-                                              surahAudioController.repeatSurah =
-                                                  !surahAudioController
-                                                      .repeatSurah;
-                                            });
-                                          },
-                                          icon: Icon(
-                                            Icons.repeat_one,
-                                            color: surahAudioController
-                                                        .repeatSurah ==
-                                                    true
-                                                ? Theme.of(context)
-                                                    .colorScheme
-                                                    .surface
-                                                : Theme.of(context)
-                                                    .colorScheme
-                                                    .surface
-                                                    .withOpacity(.4),
-                                          )),
-                                    ),
-                                    Align(
-                                      alignment: Alignment.center,
-                                      child: SquarePercentIndicator(
-                                        width: 50,
-                                        height: 50,
-                                        borderRadius: 8,
-                                        shadowWidth: 1.5,
-                                        progressWidth: 4,
-                                        shadowColor: Colors.grey,
-                                        progressColor:
-                                            ThemeProvider.themeOf(context).id ==
-                                                    'dark'
-                                                ? Colors.white
-                                                : Theme.of(context)
-                                                    .primaryColorLight,
-                                        progress:
-                                            surahAudioController.progress.value,
-                                        child: GestureDetector(
-                                          child: surahAudioController
-                                                  .downloading.value
-                                              ? Container(
-                                                  alignment: Alignment.center,
-                                                  child: Text(
-                                                    surahAudioController
-                                                        .progressString.value,
-                                                    style: TextStyle(
-                                                        fontSize: 14,
-                                                        fontFamily: 'kufi',
-                                                        color: Theme.of(context)
-                                                            .colorScheme
-                                                            .surface),
-                                                  ),
-                                                )
-                                              : Icon(
-                                                  surahAudioController
-                                                          .isPlay.value
-                                                      ? Icons.pause
-                                                      : Icons.download_outlined,
-                                                  size: 24,
-                                                  color: Theme.of(context)
-                                                      .colorScheme
-                                                      .surface,
-                                                ),
-                                          onTap: () {
-                                            surahAudioController
-                                                .playSorah(context);
-                                          },
-                                        ),
-                                      ),
-                                    ),
-                                    Align(
-                                      alignment: Alignment.bottomCenter,
-                                      child: Text(
-                                        AppLocalizations.of(context)!.download,
-                                        style: TextStyle(
-                                            fontSize: 16,
-                                            fontFamily: 'kufi',
-                                            height: -1.5,
-                                            color:
-                                                Theme.of(context).dividerColor),
-                                      ),
-                                    )
-                                  ],
-                                ),
-                              ),
-                            ),
-                            GestureDetector(
-                              child: Container(
-                                height: 30,
-                                width: 30,
-                                decoration: BoxDecoration(
-                                    color: Theme.of(context)
-                                        .colorScheme
-                                        .background,
-                                    borderRadius: const BorderRadius.only(
-                                      topRight: Radius.circular(8),
-                                      topLeft: Radius.circular(8),
-                                    ),
-                                    border: Border.all(
-                                        width: 2,
-                                        color: Theme.of(context).dividerColor)),
-                                child: Icon(
-                                  Icons.skip_previous,
-                                  color: Theme.of(context).colorScheme.surface,
-                                ),
-                              ),
-                              onTap: () {
-                                surahAudioController.skip_next(context);
-                                setState(() {
-                                  surahAudioController.sorahNum++;
-                                  surahAudioController.intValue++;
-                                  surahAudioController.selectedSurah++;
-                                });
-                              },
-                            ),
+                            SkipToPrevious(),
+                            OnlinePlayButton(),
+                            DownloadPlayButton(),
+                            SkipToNext(),
                             Container(
                               height: 35,
                               width: 35,
@@ -827,106 +344,7 @@ class _AudioSorahListState extends State<AudioSorahList>
                         child: SizedBox(
                           height: 20,
                           width: width / 1 / 2,
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Expanded(
-                                  flex: 2,
-                                  child: Center(
-                                      child: Text(
-                                    surahAudioController.currentTime,
-                                    style: TextStyle(
-                                      color: ThemeProvider.themeOf(context)
-                                                  .id ==
-                                              'dark'
-                                          ? Theme.of(context).canvasColor
-                                          : Theme.of(context).primaryColorLight,
-                                    ),
-                                  ))),
-                              Expanded(
-                                flex: 6,
-                                child: Container(
-                                  height: 50,
-                                  alignment: Alignment.center,
-                                  width: width,
-                                  child: FlutterSlider(
-                                    values: [
-                                      // ignore: unnecessary_null_comparison
-                                      surahAudioController.lastPosition == null
-                                          ? surahAudioController.position.value
-                                          : surahAudioController.lastPosition
-                                    ],
-                                    max: surahAudioController.duration.value,
-                                    min: 0,
-                                    rtl: true,
-                                    trackBar: FlutterSliderTrackBar(
-                                      inactiveTrackBarHeight: 5,
-                                      activeTrackBarHeight: 5,
-                                      inactiveTrackBar: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(8),
-                                        color: Theme.of(context)
-                                            .colorScheme
-                                            .surface
-                                            .withOpacity(.5),
-                                      ),
-                                      activeTrackBar: BoxDecoration(
-                                          borderRadius:
-                                              BorderRadius.circular(4),
-                                          color: Theme.of(context)
-                                              .colorScheme
-                                              .surface),
-                                    ),
-                                    handlerAnimation:
-                                        const FlutterSliderHandlerAnimation(
-                                            curve: Curves.elasticOut,
-                                            reverseCurve: null,
-                                            duration:
-                                                Duration(milliseconds: 700),
-                                            scale: 1.4),
-                                    onDragging:
-                                        (handlerIndex, lowerValue, upperValue) {
-                                      lowerValue = lowerValue;
-                                      upperValue = upperValue;
-                                      setState(() {
-                                        surahAudioController.position.value =
-                                            lowerValue;
-                                        surahAudioController.lastPosition =
-                                            lowerValue;
-                                        surahAudioController.audioPlayer.seek(
-                                            Duration(
-                                                seconds: surahAudioController
-                                                    .position.value
-                                                    .toInt()));
-                                      });
-                                    },
-                                    handler: FlutterSliderHandler(
-                                      decoration: const BoxDecoration(),
-                                      child: Material(
-                                        type: MaterialType.circle,
-                                        color: Colors.transparent,
-                                        elevation: 3,
-                                        child: SvgPicture.asset(
-                                            'assets/svg/slider_ic.svg'),
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ),
-                              Expanded(
-                                  flex: 2,
-                                  child: Center(
-                                      child: Text(
-                                    surahAudioController.totalDuration,
-                                    style: TextStyle(
-                                      color: ThemeProvider.themeOf(context)
-                                                  .id ==
-                                              'dark'
-                                          ? Theme.of(context).canvasColor
-                                          : Theme.of(context).primaryColorLight,
-                                    ),
-                                  ))),
-                            ],
-                          ),
+                          child: SurahSeekBar(),
                         ),
                       ),
                     ),
@@ -963,12 +381,10 @@ class _AudioSorahListState extends State<AudioSorahList>
                 children: [
                   Opacity(
                     opacity: .1,
-                    child: SvgPicture.asset(
-                      'assets/svg/surah_name/00${surahAudioController.sorahNum}.svg',
-                      colorFilter: ColorFilter.mode(
-                          Theme.of(context).colorScheme.surface,
-                          BlendMode.srcIn),
-                      width: width,
+                    child: surahName(
+                      context,
+                      130,
+                      width,
                     ),
                   ),
                   Align(
@@ -986,13 +402,10 @@ class _AudioSorahListState extends State<AudioSorahList>
                     alignment: Alignment.centerRight,
                     child: Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 23.0),
-                      child: SvgPicture.asset(
-                        'assets/svg/surah_name/00${surahAudioController.sorahNum}.svg',
-                        height: 70,
-                        colorFilter: ColorFilter.mode(
-                            Theme.of(context).colorScheme.surface,
-                            BlendMode.srcIn),
-                        width: width / 1 / 2,
+                      child: surahName(
+                        context,
+                        70,
+                        width,
                       ),
                     ),
                   ),
@@ -1004,273 +417,10 @@ class _AudioSorahListState extends State<AudioSorahList>
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
-                          GestureDetector(
-                            child: Container(
-                              height: 30,
-                              width: 30,
-                              decoration: BoxDecoration(
-                                  color:
-                                      Theme.of(context).colorScheme.background,
-                                  borderRadius: const BorderRadius.only(
-                                    topRight: Radius.circular(8),
-                                    topLeft: Radius.circular(8),
-                                  ),
-                                  border: Border.all(
-                                      width: 2,
-                                      color: Theme.of(context).dividerColor)),
-                              child: Icon(
-                                Icons.skip_next,
-                                color: Theme.of(context).colorScheme.surface,
-                              ),
-                            ),
-                            onTap: () {
-                              surahAudioController.skip_previous(context);
-                              setState(() {
-                                surahAudioController.sorahNum--;
-                                surahAudioController.intValue--;
-                                surahAudioController.selectedSurah--;
-                              });
-                            },
-                          ),
-                          SizedBox(
-                            height: 120,
-                            child: Stack(
-                              alignment: Alignment.center,
-                              children: [
-                                Align(
-                                  alignment: Alignment.topCenter,
-                                  child: IconButton(
-                                      onPressed: () {
-                                        setState(() {
-                                          surahAudioController
-                                                  .repeatSurahOnline =
-                                              !surahAudioController
-                                                  .repeatSurahOnline;
-                                        });
-                                      },
-                                      icon: Icon(
-                                        Icons.repeat_one,
-                                        color: surahAudioController
-                                                    .repeatSurahOnline ==
-                                                true
-                                            ? Theme.of(context)
-                                                .colorScheme
-                                                .surface
-                                            : Theme.of(context)
-                                                .colorScheme
-                                                .surface
-                                                .withOpacity(.4),
-                                      )),
-                                ),
-                                Align(
-                                  alignment: Alignment.center,
-                                  child: GestureDetector(
-                                    child: Container(
-                                      height: 50,
-                                      padding: const EdgeInsets.symmetric(
-                                          horizontal: 8.0),
-                                      width: 50,
-                                      decoration: BoxDecoration(
-                                          color: Theme.of(context)
-                                              .colorScheme
-                                              .background,
-                                          borderRadius: const BorderRadius.only(
-                                            topRight: Radius.circular(8),
-                                            topLeft: Radius.circular(8),
-                                          ),
-                                          border: Border.all(
-                                              width: 2,
-                                              color: Theme.of(context)
-                                                  .dividerColor)),
-                                      child: StreamBuilder<PlayerState>(
-                                          stream: surahAudioController
-                                              .audioPlayer.playerStateStream,
-                                          builder: (context, snapshot) {
-                                            final playerState = snapshot.data;
-                                            final processingState =
-                                                playerState?.processingState;
-                                            final playing =
-                                                playerState?.playing;
-                                            if (processingState ==
-                                                ProcessingState.idle) {
-                                              return Icon(
-                                                Icons
-                                                    .online_prediction_outlined,
-                                                size: 24,
-                                                color: Theme.of(context)
-                                                    .colorScheme
-                                                    .surface,
-                                              );
-                                            } else if (processingState ==
-                                                ProcessingState.loading) {
-                                              return playButtonLottie(
-                                                  20.0, 20.0);
-                                            } else if (playing == true) {
-                                              return Icon(
-                                                Icons.pause,
-                                                size: 24,
-                                                color: Theme.of(context)
-                                                    .colorScheme
-                                                    .surface,
-                                              );
-                                            } else if (playing != true) {
-                                              return Icon(
-                                                Icons
-                                                    .online_prediction_outlined,
-                                                size: 24,
-                                                color: Theme.of(context)
-                                                    .colorScheme
-                                                    .surface,
-                                              );
-                                            } else {
-                                              return const SizedBox.shrink();
-                                            }
-                                          }),
-                                    ),
-                                    onTap: () {
-                                      surahAudioController
-                                          .playSorahOnline(context);
-                                    },
-                                  ),
-                                ),
-                                Align(
-                                  alignment: Alignment.bottomCenter,
-                                  child: Text(
-                                    AppLocalizations.of(context)!.online,
-                                    style: TextStyle(
-                                        fontSize: 16,
-                                        fontFamily: 'kufi',
-                                        height: -1.5,
-                                        color: Theme.of(context).dividerColor),
-                                  ),
-                                )
-                              ],
-                            ),
-                          ),
-                          Align(
-                            alignment: Alignment.center,
-                            child: SizedBox(
-                              height: 120,
-                              child: Stack(
-                                alignment: Alignment.center,
-                                children: [
-                                  Align(
-                                    alignment: Alignment.topCenter,
-                                    child: IconButton(
-                                        onPressed: () {
-                                          setState(() {
-                                            surahAudioController.repeatSurah =
-                                                !surahAudioController
-                                                    .repeatSurah;
-                                          });
-                                        },
-                                        icon: Icon(
-                                          Icons.repeat_one,
-                                          color: surahAudioController
-                                                      .repeatSurah ==
-                                                  true
-                                              ? Theme.of(context)
-                                                  .colorScheme
-                                                  .surface
-                                              : Theme.of(context)
-                                                  .colorScheme
-                                                  .surface
-                                                  .withOpacity(.4),
-                                        )),
-                                  ),
-                                  Align(
-                                    alignment: Alignment.center,
-                                    child: GestureDetector(
-                                      child: SquarePercentIndicator(
-                                        width: 50,
-                                        height: 50,
-                                        borderRadius: 8,
-                                        shadowWidth: 1.5,
-                                        progressWidth: 4,
-                                        shadowColor: Colors.grey,
-                                        progressColor:
-                                            ThemeProvider.themeOf(context).id ==
-                                                    'dark'
-                                                ? Colors.white
-                                                : Theme.of(context)
-                                                    .primaryColorLight,
-                                        progress:
-                                            surahAudioController.progress.value,
-                                        child: surahAudioController
-                                                .downloading.value
-                                            ? Container(
-                                                alignment: Alignment.center,
-                                                child: Text(
-                                                  surahAudioController
-                                                      .progressString.value,
-                                                  style: TextStyle(
-                                                      fontSize: 14,
-                                                      fontFamily: 'kufi',
-                                                      color: Theme.of(context)
-                                                          .colorScheme
-                                                          .surface),
-                                                ),
-                                              )
-                                            : Icon(
-                                                surahAudioController
-                                                        .isPlay.value
-                                                    ? Icons.pause
-                                                    : Icons.download_outlined,
-                                                size: 24,
-                                                color: Theme.of(context)
-                                                    .colorScheme
-                                                    .surface,
-                                              ),
-                                      ),
-                                      onTap: () {
-                                        surahAudioController.playSorah(context);
-                                      },
-                                    ),
-                                  ),
-                                  Align(
-                                    alignment: Alignment.bottomCenter,
-                                    child: Text(
-                                      AppLocalizations.of(context)!.download,
-                                      style: TextStyle(
-                                          fontSize: 16,
-                                          fontFamily: 'kufi',
-                                          height: -1.5,
-                                          color:
-                                              Theme.of(context).dividerColor),
-                                    ),
-                                  )
-                                ],
-                              ),
-                            ),
-                          ),
-                          GestureDetector(
-                            child: Container(
-                              height: 30,
-                              width: 30,
-                              decoration: BoxDecoration(
-                                  color:
-                                      Theme.of(context).colorScheme.background,
-                                  borderRadius: const BorderRadius.only(
-                                    topRight: Radius.circular(8),
-                                    topLeft: Radius.circular(8),
-                                  ),
-                                  border: Border.all(
-                                      width: 2,
-                                      color: Theme.of(context).dividerColor)),
-                              child: Icon(
-                                Icons.skip_previous,
-                                color: Theme.of(context).colorScheme.surface,
-                              ),
-                            ),
-                            onTap: () {
-                              surahAudioController.skip_next(context);
-                              setState(() {
-                                surahAudioController.sorahNum++;
-                                surahAudioController.intValue++;
-                                surahAudioController.selectedSurah++;
-                              });
-                            },
-                          ),
+                          SkipToPrevious(),
+                          OnlinePlayButton(),
+                          DownloadPlayButton(),
+                          SkipToNext(),
                           Container(
                             height: 35,
                             width: 35,
@@ -1296,102 +446,7 @@ class _AudioSorahListState extends State<AudioSorahList>
                       child: SizedBox(
                         height: 20,
                         width: width / 1 / 2,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Expanded(
-                                flex: 2,
-                                child: Center(
-                                    child: Text(
-                                  surahAudioController.currentTime,
-                                  style: TextStyle(
-                                    color: ThemeProvider.themeOf(context).id ==
-                                            'dark'
-                                        ? Theme.of(context).canvasColor
-                                        : Theme.of(context).primaryColorLight,
-                                  ),
-                                ))),
-                            Expanded(
-                              flex: 6,
-                              child: Container(
-                                height: 50,
-                                alignment: Alignment.center,
-                                width: width,
-                                child: FlutterSlider(
-                                  values: [
-                                    // ignore: unnecessary_null_comparison
-                                    surahAudioController.lastPosition == null
-                                        ? surahAudioController.position.value
-                                        : surahAudioController.lastPosition
-                                  ],
-                                  max: surahAudioController.duration.value,
-                                  min: 0,
-                                  rtl: true,
-                                  trackBar: FlutterSliderTrackBar(
-                                    inactiveTrackBarHeight: 5,
-                                    activeTrackBarHeight: 5,
-                                    inactiveTrackBar: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(8),
-                                      color: Theme.of(context)
-                                          .colorScheme
-                                          .surface
-                                          .withOpacity(.5),
-                                    ),
-                                    activeTrackBar: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(4),
-                                        color: Theme.of(context)
-                                            .colorScheme
-                                            .surface),
-                                  ),
-                                  handlerAnimation:
-                                      const FlutterSliderHandlerAnimation(
-                                          curve: Curves.elasticOut,
-                                          reverseCurve: null,
-                                          duration: Duration(milliseconds: 700),
-                                          scale: 1.4),
-                                  onDragging:
-                                      (handlerIndex, lowerValue, upperValue) {
-                                    lowerValue = lowerValue;
-                                    upperValue = upperValue;
-                                    setState(() {
-                                      surahAudioController.position.value =
-                                          lowerValue;
-                                      surahAudioController.lastPosition =
-                                          lowerValue;
-                                      surahAudioController.audioPlayer.seek(
-                                          Duration(
-                                              seconds: surahAudioController
-                                                  .position.value
-                                                  .toInt()));
-                                    });
-                                  },
-                                  handler: FlutterSliderHandler(
-                                    decoration: const BoxDecoration(),
-                                    child: Material(
-                                      type: MaterialType.circle,
-                                      color: Colors.transparent,
-                                      elevation: 3,
-                                      child: SvgPicture.asset(
-                                          'assets/svg/slider_ic.svg'),
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ),
-                            Expanded(
-                                flex: 2,
-                                child: Center(
-                                    child: Text(
-                                  surahAudioController.totalDuration,
-                                  style: TextStyle(
-                                    color: ThemeProvider.themeOf(context).id ==
-                                            'dark'
-                                        ? Theme.of(context).canvasColor
-                                        : Theme.of(context).primaryColorLight,
-                                  ),
-                                ))),
-                          ],
-                        ),
+                        child: SurahSeekBar(),
                       ),
                     ),
                   ),
@@ -1539,9 +594,11 @@ class _AudioSorahListState extends State<AudioSorahList>
                                 )),
                             onTap: () {
                               print('Surah tapped with index: $index');
+                              surahAudioController.isDownloading.value = false;
                               surahAudioController.selectedSurah.value = index;
                               surahAudioController.sorahNum.value = index + 1;
-                              surahAudioController.changeSurahNumber();
+                              surahAudioController.playNextSurah();
+                              surahAudioController.changeAudioSource();
                               print(
                                   'Updated sorahNum.value to: ${surahAudioController.sorahNum.value}');
                               switch (

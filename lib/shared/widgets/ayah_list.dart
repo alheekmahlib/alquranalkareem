@@ -48,6 +48,7 @@ class AyahList extends StatelessWidget {
             shrinkWrap: true,
             itemBuilder: (BuildContext context, index) {
               Ayat? aya = ayat[index];
+
               return Obx(
                 () => Opacity(
                   opacity: ayatController.isSelected.value == index.toDouble()
@@ -104,8 +105,6 @@ class AyahList2 extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-// Fetch the Ayat instances when needed
-//     quranCubit.getTranslatedPage((generalController.cuMPage) ?? 1, context);
     final controller = Get.find<AyatController>();
     controller.fetchAyat(generalController.cuMPage);
     return Column(

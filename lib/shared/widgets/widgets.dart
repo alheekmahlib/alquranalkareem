@@ -6,7 +6,6 @@ import 'package:another_xlider/models/handler_animation.dart';
 import 'package:another_xlider/models/trackbar.dart';
 import 'package:arabic_numbers/arabic_numbers.dart';
 import 'package:bot_toast/bot_toast.dart';
-import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_sliding_up_panel/sliding_up_panel_widget.dart';
 import 'package:flutter_svg/svg.dart';
@@ -916,72 +915,76 @@ sorahReaderDropDown(BuildContext context) {
                 return Column(
                   children: [
                     Container(
-                      child: ListTile(
-                        title: Text(
-                          readerName[index],
-                          style: TextStyle(
-                              color:
-                                  surahAudioController.sorahReaderNameValue ==
-                                          readerN[index]
-                                      ? Theme.of(context).primaryColorLight
-                                      : const Color(0xffcdba72),
-                              fontSize: 14,
-                              fontFamily: 'kufi'),
-                        ),
-                        trailing: Container(
-                          height: 20,
-                          width: 20,
-                          decoration: BoxDecoration(
-                            borderRadius:
-                                const BorderRadius.all(Radius.circular(2.0)),
-                            border: Border.all(
+                      child: Obx(
+                        () => ListTile(
+                          title: Text(
+                            readerName[index],
+                            style: TextStyle(
                                 color:
                                     surahAudioController.sorahReaderNameValue ==
                                             readerN[index]
                                         ? Theme.of(context).primaryColorLight
                                         : const Color(0xffcdba72),
-                                width: 2),
-                            color: const Color(0xff39412a),
+                                fontSize: 14,
+                                fontFamily: 'kufi'),
                           ),
-                          child: surahAudioController.sorahReaderNameValue ==
-                                  readerN[index]
-                              ? const Icon(Icons.done,
-                                  size: 14, color: Color(0xfffcbb76))
-                              : null,
-                        ),
-                        onTap: () {
-                          surahAudioController.sorahReaderValue =
-                              readerD[index];
-                          surahAudioController.sorahReaderNameValue =
-                              readerN[index];
-                          surahAudioController.saveSorahReader(
-                              readerD[index], readerN[index]);
-                          Navigator.pop(context);
-                        },
-                        leading: Container(
-                          height: 80.0,
-                          width: 80.0,
-                          decoration: BoxDecoration(
-                              image: DecorationImage(
-                                image: AssetImage(
-                                    'assets/images/${readerI[index]}.jpg'),
-                                fit: BoxFit.fitWidth,
-                                colorFilter:
-                                    surahAudioController.sorahReaderNameValue ==
-                                            readerN[index]
-                                        ? null
-                                        : ColorFilter.mode(
-                                            Theme.of(context)
-                                                .canvasColor
-                                                .withOpacity(.4),
-                                            BlendMode.lighten),
-                              ),
-                              shape: BoxShape.rectangle,
+                          trailing: Container(
+                            height: 20,
+                            width: 20,
+                            decoration: BoxDecoration(
                               borderRadius:
-                                  const BorderRadius.all(Radius.circular(4.0)),
+                                  const BorderRadius.all(Radius.circular(2.0)),
                               border: Border.all(
-                                  color: Theme.of(context).dividerColor,
-                                  width: 2)),
+                                  color: surahAudioController
+                                              .sorahReaderNameValue ==
+                                          readerN[index]
+                                      ? Theme.of(context).primaryColorLight
+                                      : const Color(0xffcdba72),
+                                  width: 2),
+                              color: const Color(0xff39412a),
+                            ),
+                            child: surahAudioController.sorahReaderNameValue ==
+                                    readerN[index]
+                                ? const Icon(Icons.done,
+                                    size: 14, color: Color(0xfffcbb76))
+                                : null,
+                          ),
+                          onTap: () {
+                            surahAudioController.sorahReaderValue.value =
+                                readerD[index];
+                            surahAudioController.sorahReaderNameValue.value =
+                                readerN[index];
+
+                            surahAudioController.saveSorahReader(
+                                readerD[index], readerN[index]);
+                            surahAudioController.changeAudioSource();
+                            Navigator.pop(context);
+                          },
+                          leading: Container(
+                            height: 80.0,
+                            width: 80.0,
+                            decoration: BoxDecoration(
+                                image: DecorationImage(
+                                  image: AssetImage(
+                                      'assets/images/${readerI[index]}.jpg'),
+                                  fit: BoxFit.fitWidth,
+                                  colorFilter: surahAudioController
+                                              .sorahReaderNameValue ==
+                                          readerN[index]
+                                      ? null
+                                      : ColorFilter.mode(
+                                          Theme.of(context)
+                                              .canvasColor
+                                              .withOpacity(.4),
+                                          BlendMode.lighten),
+                                ),
+                                shape: BoxShape.rectangle,
+                                borderRadius: const BorderRadius.all(
+                                    Radius.circular(4.0)),
+                                border: Border.all(
+                                    color: Theme.of(context).dividerColor,
+                                    width: 2)),
+                          ),
                         ),
                       ),
                       decoration: BoxDecoration(
@@ -992,11 +995,6 @@ sorahReaderDropDown(BuildContext context) {
                       margin: const EdgeInsets.symmetric(
                           horizontal: 16.0, vertical: 4.0),
                     ),
-                    // const Divider(
-                    //   endIndent: 16,
-                    //   indent: 16,
-                    //   height: 3,
-                    // ),
                   ],
                 );
               },
@@ -1008,126 +1006,126 @@ sorahReaderDropDown(BuildContext context) {
   );
 }
 
-Widget sorahPageReaderDropDown(BuildContext context) {
-  List<String> readerName = <String>[
-    AppLocalizations.of(context)!.reader1,
-    AppLocalizations.of(context)!.reader2,
-    AppLocalizations.of(context)!.reader3,
-    AppLocalizations.of(context)!.reader4,
-  ];
-
-  List<String> readerD = <String>[
-    "https://server7.mp3quran.net/",
-    "https://server10.mp3quran.net/",
-    "https://server13.mp3quran.net/",
-    "https://server10.mp3quran.net/",
-  ];
-
-  List<String> readerN = <String>[
-    "basit/",
-    "minsh/",
-    "husr/",
-    "ajm/",
-  ];
-
-  return DropdownButton2(
-    isExpanded: true,
-    alignment: Alignment.center,
-    items: [
-      DropdownMenuItem<String>(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 8.0),
-          child: ListView.builder(
-            itemCount: readerName.length,
-            itemBuilder: (BuildContext context, int index) {
-              return Column(
-                children: [
-                  ListTile(
-                    title: Text(
-                      readerName[index],
-                      style: TextStyle(
-                        color: surahAudioController.sorahReaderNameValue ==
-                                readerN[index]
-                            ? const Color(0xfffcbb76)
-                            : Theme.of(context).canvasColor,
-                        fontSize: 14,
-                      ),
-                    ),
-                    leading: Container(
-                      height: 20,
-                      width: 20,
-                      decoration: BoxDecoration(
-                        borderRadius:
-                            const BorderRadius.all(Radius.circular(2.0)),
-                        border: Border.all(
-                            color: surahAudioController.sorahReaderNameValue ==
-                                    readerN[index]
-                                ? const Color(0xfffcbb76)
-                                : Theme.of(context).canvasColor,
-                            width: 2),
-                        color: const Color(0xff39412a),
-                      ),
-                      child: surahAudioController.sorahReaderNameValue ==
-                              readerN[index]
-                          ? const Icon(Icons.done,
-                              size: 14, color: Color(0xfffcbb76))
-                          : null,
-                    ),
-                    onTap: () {
-                      surahAudioController.sorahReaderValue = readerD[index];
-                      surahAudioController.sorahReaderNameValue =
-                          readerN[index];
-                      surahAudioController.saveSorahReader(
-                          readerD[index], readerN[index]);
-                      Navigator.pop(context);
-                    },
-                  ),
-                  const Divider(
-                    endIndent: 16,
-                    indent: 16,
-                    height: 3,
-                  ),
-                ],
-              );
-            },
-          ),
-        ),
-      ),
-    ],
-    value: selectedValue,
-    onChanged: (value) {
-      selectedValue = value as String;
-    },
-    customButton: Icon(
-      Icons.person_search_outlined,
-      color: Theme.of(context).colorScheme.surface,
-    ),
-    iconStyleData: const IconStyleData(
-      iconSize: 24,
-    ),
-    buttonStyleData: const ButtonStyleData(
-      height: 50,
-      width: 50,
-      elevation: 0,
-    ),
-    dropdownStyleData: DropdownStyleData(
-        decoration: BoxDecoration(
-            color: Theme.of(context).colorScheme.surface.withOpacity(.9),
-            borderRadius: const BorderRadius.all(Radius.circular(8))),
-        padding: const EdgeInsets.only(left: 14, right: 14),
-        maxHeight: 230,
-        width: 230,
-        elevation: 0,
-        offset: const Offset(0, 0),
-        scrollbarTheme: ScrollbarThemeData(
-          radius: const Radius.circular(8),
-          thickness: MaterialStateProperty.all(6),
-        )),
-    menuItemStyleData: const MenuItemStyleData(
-      height: 35,
-    ),
-  );
-}
+// Widget sorahPageReaderDropDown(BuildContext context) {
+//   List<String> readerName = <String>[
+//     AppLocalizations.of(context)!.reader1,
+//     AppLocalizations.of(context)!.reader2,
+//     AppLocalizations.of(context)!.reader3,
+//     AppLocalizations.of(context)!.reader4,
+//   ];
+//
+//   List<String> readerD = <String>[
+//     "https://server7.mp3quran.net/",
+//     "https://server10.mp3quran.net/",
+//     "https://server13.mp3quran.net/",
+//     "https://server10.mp3quran.net/",
+//   ];
+//
+//   List<String> readerN = <String>[
+//     "basit/",
+//     "minsh/",
+//     "husr/",
+//     "ajm/",
+//   ];
+//
+//   return DropdownButton2(
+//     isExpanded: true,
+//     alignment: Alignment.center,
+//     items: [
+//       DropdownMenuItem<String>(
+//         child: Padding(
+//           padding: const EdgeInsets.symmetric(vertical: 8.0),
+//           child: ListView.builder(
+//             itemCount: readerName.length,
+//             itemBuilder: (BuildContext context, int index) {
+//               return Column(
+//                 children: [
+//                   ListTile(
+//                     title: Text(
+//                       readerName[index],
+//                       style: TextStyle(
+//                         color: surahAudioController.sorahReaderNameValue ==
+//                                 readerN[index]
+//                             ? const Color(0xfffcbb76)
+//                             : Theme.of(context).canvasColor,
+//                         fontSize: 14,
+//                       ),
+//                     ),
+//                     leading: Container(
+//                       height: 20,
+//                       width: 20,
+//                       decoration: BoxDecoration(
+//                         borderRadius:
+//                             const BorderRadius.all(Radius.circular(2.0)),
+//                         border: Border.all(
+//                             color: surahAudioController.sorahReaderNameValue ==
+//                                     readerN[index]
+//                                 ? const Color(0xfffcbb76)
+//                                 : Theme.of(context).canvasColor,
+//                             width: 2),
+//                         color: const Color(0xff39412a),
+//                       ),
+//                       child: surahAudioController.sorahReaderNameValue ==
+//                               readerN[index]
+//                           ? const Icon(Icons.done,
+//                               size: 14, color: Color(0xfffcbb76))
+//                           : null,
+//                     ),
+//                     onTap: () {
+//                       surahAudioController.sorahReaderValue = readerD[index];
+//                       surahAudioController.sorahReaderNameValue =
+//                           readerN[index];
+//                       surahAudioController.saveSorahReader(
+//                           readerD[index], readerN[index]);
+//                       Navigator.pop(context);
+//                     },
+//                   ),
+//                   const Divider(
+//                     endIndent: 16,
+//                     indent: 16,
+//                     height: 3,
+//                   ),
+//                 ],
+//               );
+//             },
+//           ),
+//         ),
+//       ),
+//     ],
+//     value: selectedValue,
+//     onChanged: (value) {
+//       selectedValue = value as String;
+//     },
+//     customButton: Icon(
+//       Icons.person_search_outlined,
+//       color: Theme.of(context).colorScheme.surface,
+//     ),
+//     iconStyleData: const IconStyleData(
+//       iconSize: 24,
+//     ),
+//     buttonStyleData: const ButtonStyleData(
+//       height: 50,
+//       width: 50,
+//       elevation: 0,
+//     ),
+//     dropdownStyleData: DropdownStyleData(
+//         decoration: BoxDecoration(
+//             color: Theme.of(context).colorScheme.surface.withOpacity(.9),
+//             borderRadius: const BorderRadius.all(Radius.circular(8))),
+//         padding: const EdgeInsets.only(left: 14, right: 14),
+//         maxHeight: 230,
+//         width: 230,
+//         elevation: 0,
+//         offset: const Offset(0, 0),
+//         scrollbarTheme: ScrollbarThemeData(
+//           radius: const Radius.circular(8),
+//           thickness: MaterialStateProperty.all(6),
+//         )),
+//     menuItemStyleData: const MenuItemStyleData(
+//       height: 35,
+//     ),
+//   );
+// }
 
 Route animatRoute(Widget myWidget) {
   return PageRouteBuilder(
@@ -1488,15 +1486,16 @@ Future<dynamic> dropDownModalBottomSheet(
       isScrollControlled: true,
       builder: (BuildContext context) {
         return child;
-      }).whenComplete(() {
-    if (generalController.screenController != null) {
-      generalController.screenController!.reverse();
-    }
-  }).then((_) {
-    if (generalController.screenController != null) {
-      generalController.screenController!.forward();
-    }
-  });
+      });
+  // .whenComplete(() {
+  //   if (generalController.screenController != null) {
+  //     generalController.screenController!.reverse();
+  //   }
+  // }).then((_) {
+  //   if (generalController.screenController != null) {
+  //     generalController.screenController!.forward();
+  //   }
+  // });
 }
 
 allModalBottomSheet(BuildContext context, double height, width, Widget child) {
@@ -1520,10 +1519,11 @@ allModalBottomSheet(BuildContext context, double height, width, Widget child) {
       isScrollControlled: true,
       builder: (BuildContext context) {
         return child;
-      }).whenComplete(() {
-    generalController.screenController!.reverse();
-  });
-  generalController.screenController!.forward();
+      });
+  //     .whenComplete(() {
+  //   generalController.screenController!.reverse();
+  // });
+  // generalController.screenController!.forward();
 }
 
 Widget customClose(BuildContext context) {

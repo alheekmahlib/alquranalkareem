@@ -54,6 +54,7 @@ class OnlinePlayButton extends StatelessWidget {
           Align(
             alignment: Alignment.center,
             child: Stack(
+              alignment: Alignment.center,
               children: [
                 Container(
                   height: 50,
@@ -83,7 +84,12 @@ class OnlinePlayButton extends StatelessWidget {
                         icon: const Icon(Icons.online_prediction_outlined),
                         iconSize: 24.0,
                         color: Theme.of(context).colorScheme.surface,
-                        onPressed: surahAudioController.audioPlayer.play,
+                        onPressed: () async {
+                          surahAudioController.isDownloading.value = false;
+                          print(
+                              'surahAudioController.isDownloading.value: ${surahAudioController.isDownloading.value}');
+                          await surahAudioController.audioPlayer.play();
+                        },
                       );
                     } else if (processingState != ProcessingState.completed) {
                       return IconButton(

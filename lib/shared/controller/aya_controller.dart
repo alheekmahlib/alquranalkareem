@@ -1,23 +1,20 @@
-import 'package:bloc/bloc.dart';
-import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import '../../quran_page/data/model/aya.dart';
 import '../../quran_page/data/repository/aya_repository.dart';
 
-part 'aya_state.dart';
-
-class AyaCubit extends Cubit<AyaState> {
+class AyaController extends GetxController {
   final AyaRepository _ayaRepository = AyaRepository();
+  final Rx<AyaState> ayaState = AyaLoading().obs;
 
-  AyaCubit() : super(AyaLoading());
-
-  void getAllAyas() {
-    emit(AyaLoading());
-    _ayaRepository.all().then((ayahList) {
-      emit(AyaLoaded(ayahList));
-    }).catchError((e) {
-      emit(AyaError("Error fetching Ayas: $e"));
-    });
+  void getAllAyas() async {
+    ayaState.value = AyaLoading();
+    try {
+      final ayahList = await _ayaRepository.all();
+      ayaState.value = AyaLoaded(ayahList);
+    } catch (e) {
+      ayaState.value = AyaError("Error fetching Ayas: $e");
+    }
   }
 
   String _convertArabicToEnglishNumbers(String input) {
@@ -37,17 +34,33 @@ class AyaCubit extends Cubit<AyaState> {
     // Convert Arabic numerals to English numerals if any
     String convertedText = _convertArabicToEnglishNumbers(text);
 
-    emit(AyaLoading());
-
     try {
+      ayaState.value = AyaLoading();
+
       final List<Aya>? values = await _ayaRepository.search(convertedText);
       if (values != null && values.isNotEmpty) {
-        emit(AyaLoaded(values));
+        ayaState.value = AyaLoaded(values);
       } else {
-        emit(AyaError("No results found for $convertedText"));
+        ayaState.value = AyaError("No results found for $convertedText");
       }
     } catch (e) {
-      emit(AyaError(e.toString()));
+      ayaState.value = AyaError(e.toString());
     }
   }
+}
+
+class AyaState {}
+
+class AyaLoading extends AyaState {}
+
+class AyaLoaded extends AyaState {
+  final List<Aya> ayahList;
+
+  AyaLoaded(this.ayahList);
+}
+
+class AyaError extends AyaState {
+  final String message;
+
+  AyaError(this.message);
 }

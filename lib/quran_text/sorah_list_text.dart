@@ -4,14 +4,16 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:theme_provider/theme_provider.dart';
+
 import '../l10n/app_localizations.dart';
 import '../shared/widgets/lottie.dart';
 import '../shared/widgets/widgets.dart';
 import 'cubit/quran_text_cubit.dart';
 import 'cubit/surah_text_cubit.dart';
-import 'text_page_view.dart';
 import 'model/QuranModel.dart';
-
+import 'model/QuranModel.dart';
+import 'text_page_view.dart';
+import 'text_page_viewtext_cubit.dart';
 
 class SorahListText extends StatefulWidget {
   const SorahListText({super.key});
@@ -23,12 +25,14 @@ class SorahListText extends StatefulWidget {
 class _SorahListTextState extends State<SorahListText>
     with SingleTickerProviderStateMixin {
   final ScrollController controller = ScrollController();
+  late final TranslateDataController translateController =
+      Get.put(TranslateDataController());
   Widget? textPage;
 
   @override
   void initState() {
     super.initState();
-    QuranTextCubit.get(context).loadTranslateValue();
+    translateController.loadTranslateValue();
   }
 
   @override
@@ -42,11 +46,8 @@ class _SorahListTextState extends State<SorahListText>
     ArabicNumbers arabicNumber = ArabicNumbers();
     return Container(
       decoration: BoxDecoration(
-        color: Theme.of(context).colorScheme.background,
-        borderRadius: const BorderRadius.all(
-          Radius.circular(8)
-        )
-      ),
+          color: Theme.of(context).colorScheme.background,
+          borderRadius: const BorderRadius.all(Radius.circular(8))),
       child: Padding(
         padding: const EdgeInsets.symmetric(vertical: 16.0),
         child: Column(
@@ -65,135 +66,120 @@ class _SorahListTextState extends State<SorahListText>
                       thumbVisibility: true,
                       child: ListView.builder(
                           shrinkWrap: true,
-                          physics:
-                          const AlwaysScrollableScrollPhysics(),
+                          physics: const AlwaysScrollableScrollPhysics(),
                           itemCount: state.length,
                           controller: controller,
                           padding: EdgeInsets.zero,
                           itemBuilder: (_, index) {
-                            return AnimationConfiguration
-                                .staggeredList(
+                            return AnimationConfiguration.staggeredList(
                               position: index,
-                              duration:
-                              const Duration(milliseconds: 450),
+                              duration: const Duration(milliseconds: 450),
                               child: SlideAnimation(
                                 verticalOffset: 50.0,
                                 child: FadeInAnimation(
                                   child: GestureDetector(
                                     onTap: () {
-                                      Navigator.of(context).push(
-                                          animatRoute(TextPageView(
-                                            surah: state[index],
-                                            nomPageF: state[index]
-                                                .ayahs!
-                                                .first
-                                                .page!,
-                                            nomPageL: state[index]
-                                                .ayahs!
-                                                .last
-                                                .page!,
-                                          )));
+                                      Navigator.of(context)
+                                          .push(animatRoute(TextPageView(
+                                        surah: state[index],
+                                        nomPageF:
+                                            state[index].ayahs!.first.page!,
+                                        nomPageL:
+                                            state[index].ayahs!.last.page!,
+                                      )));
                                       print("surah: ${state[index]}");
-                                      print("nomPageF: ${state[index].ayahs!.first.page!}");
-                                      print("nomPageL: ${state[index].ayahs!.last.page!}");
+                                      print(
+                                          "nomPageF: ${state[index].ayahs!.first.page!}");
+                                      print(
+                                          "nomPageL: ${state[index].ayahs!.last.page!}");
                                     },
                                     child: Container(
                                         height: 60,
                                         color: (index % 2 == 0
                                             ? Theme.of(context)
-                                            .colorScheme.background
+                                                .colorScheme
+                                                .background
                                             : Theme.of(context)
-                                            .dividerColor
-                                            .withOpacity(.3)),
+                                                .dividerColor
+                                                .withOpacity(.3)),
                                         child: Padding(
-                                          padding: const EdgeInsets
-                                              .symmetric(
+                                          padding: const EdgeInsets.symmetric(
                                               horizontal: 8),
                                           child: Row(
                                             mainAxisAlignment:
-                                            MainAxisAlignment
-                                                .spaceBetween,
+                                                MainAxisAlignment.spaceBetween,
                                             children: [
                                               Stack(
-                                                alignment:
-                                                Alignment.center,
+                                                alignment: Alignment.center,
                                                 children: [
                                                   SizedBox(
                                                       height: 40,
                                                       width: 40,
-                                                      child:
-                                                      SvgPicture
-                                                          .asset(
+                                                      child: SvgPicture.asset(
                                                         'assets/svg/sora_num.svg',
                                                       )),
                                                   Text(
-                                                    arabicNumber.convert(state[index]
-                                                        .number
-                                                        .toString()),
+                                                    arabicNumber.convert(
+                                                        state[index]
+                                                            .number
+                                                            .toString()),
                                                     style: TextStyle(
-                                                        color: ThemeProvider.themeOf(context)
-                                                            .id ==
-                                                            'dark'
-                                                            ? Theme.of(
-                                                            context)
-                                                            .canvasColor
-                                                            : Theme.of(
-                                                            context)
-                                                            .primaryColorLight,
-                                                        fontFamily:
-                                                        "kufi",
+                                                        color: ThemeProvider.themeOf(
+                                                                        context)
+                                                                    .id ==
+                                                                'dark'
+                                                            ? Theme.of(context)
+                                                                .canvasColor
+                                                            : Theme.of(context)
+                                                                .primaryColorLight,
+                                                        fontFamily: "kufi",
                                                         fontSize: 14,
                                                         fontWeight:
-                                                        FontWeight
-                                                            .bold,
+                                                            FontWeight.bold,
                                                         height: 2),
                                                   ),
                                                 ],
                                               ),
                                               Column(
                                                 crossAxisAlignment:
-                                                CrossAxisAlignment
-                                                    .start,
+                                                    CrossAxisAlignment.start,
                                                 children: [
                                                   SvgPicture.asset(
                                                     'assets/svg/surah_name/00${index + 1}.svg',
-                                                    colorFilter: ThemeProvider.themeOf(
-                                                        context)
-                                                        .id ==
-                                                        'dark'
-                                                        ? ColorFilter.mode(Theme.of(
-                                                        context)
-                                                        .canvasColor, BlendMode.srcIn)
-                                                        : ColorFilter.mode(Theme.of(
-                                                        context)
-                                                        .primaryColorDark, BlendMode.srcIn),
+                                                    colorFilter: ThemeProvider
+                                                                    .themeOf(
+                                                                        context)
+                                                                .id ==
+                                                            'dark'
+                                                        ? ColorFilter.mode(
+                                                            Theme.of(context)
+                                                                .canvasColor,
+                                                            BlendMode.srcIn)
+                                                        : ColorFilter.mode(
+                                                            Theme.of(context)
+                                                                .primaryColorDark,
+                                                            BlendMode.srcIn),
                                                     width: 100,
                                                   ),
                                                   Padding(
                                                     padding:
-                                                    const EdgeInsets
-                                                        .only(
-                                                        right:
-                                                        8.0),
+                                                        const EdgeInsets.only(
+                                                            right: 8.0),
                                                     child: Text(
                                                       state[index].englishName!,
-                                                      style:
-                                                      TextStyle(
-                                                        fontFamily:
-                                                        "kufi",
+                                                      style: TextStyle(
+                                                        fontFamily: "kufi",
                                                         fontWeight:
-                                                        FontWeight
-                                                            .w600,
+                                                            FontWeight.w600,
                                                         fontSize: 10,
-                                                        color: ThemeProvider.themeOf(context)
-                                                            .id ==
-                                                            'dark'
-                                                            ? Theme.of(
-                                                            context)
-                                                            .canvasColor
-                                                            : Theme.of(
-                                                            context)
-                                                            .primaryColorLight,
+                                                        color: ThemeProvider.themeOf(
+                                                                        context)
+                                                                    .id ==
+                                                                'dark'
+                                                            ? Theme.of(context)
+                                                                .canvasColor
+                                                            : Theme.of(context)
+                                                                .primaryColorLight,
                                                       ),
                                                     ),
                                                   ),
@@ -201,44 +187,40 @@ class _SorahListTextState extends State<SorahListText>
                                               ),
                                               Column(
                                                 mainAxisAlignment:
-                                                MainAxisAlignment
-                                                    .center,
+                                                    MainAxisAlignment.center,
                                                 children: [
                                                   Text(
                                                     "| ${AppLocalizations.of(context)?.aya_count} |",
                                                     style: TextStyle(
-                                                      fontFamily:
-                                                      "uthman",
+                                                      fontFamily: "uthman",
                                                       fontSize: 12,
-                                                      color: ThemeProvider.themeOf(context)
-                                                          .id ==
-                                                          'dark'
-                                                          ? Theme.of(
-                                                          context)
-                                                          .canvasColor
-                                                          : Theme.of(
-                                                          context)
-                                                          .primaryColorDark,
+                                                      color: ThemeProvider
+                                                                      .themeOf(
+                                                                          context)
+                                                                  .id ==
+                                                              'dark'
+                                                          ? Theme.of(context)
+                                                              .canvasColor
+                                                          : Theme.of(context)
+                                                              .primaryColorDark,
                                                     ),
                                                   ),
                                                   Text(
                                                     "| ${arabicNumber.convert(state[index].ayahs!.last.numberInSurah)} |",
                                                     style: TextStyle(
-                                                      fontFamily:
-                                                      "kufi",
+                                                      fontFamily: "kufi",
                                                       fontSize: 14,
                                                       fontWeight:
-                                                      FontWeight
-                                                          .bold,
-                                                      color: ThemeProvider.themeOf(context)
-                                                          .id ==
-                                                          'dark'
-                                                          ? Theme.of(
-                                                          context)
-                                                          .canvasColor
-                                                          : Theme.of(
-                                                          context)
-                                                          .primaryColorDark,
+                                                          FontWeight.bold,
+                                                      color: ThemeProvider
+                                                                      .themeOf(
+                                                                          context)
+                                                                  .id ==
+                                                              'dark'
+                                                          ? Theme.of(context)
+                                                              .canvasColor
+                                                          : Theme.of(context)
+                                                              .primaryColorDark,
                                                     ),
                                                   ),
                                                 ],

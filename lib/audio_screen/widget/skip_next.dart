@@ -34,22 +34,19 @@ class SkipToNext extends StatelessWidget {
             ),
             onPressed: () {
               if (surahAudioController.isDownloading.value) {
-                if (surahAudioController.downAudioPlayer.hasNext) {
-                  surahAudioController.downAudioPlayer.seekToNext();
+                if (surahAudioController.sorahNum == 114) {
+                  surahAudioController.sorahNum.value = 1;
+                } else {
+                  surahAudioController.sorahNum.value += 1;
                 }
               } else {
-                if (surahAudioController.audioPlayer.hasNext) {
-                  surahAudioController.audioPlayer.seekToNext();
+                if (surahAudioController.sorahNum == 114) {
+                  surahAudioController.sorahNum.value = 1;
+                } else {
+                  surahAudioController.sorahNum.value += 1;
                 }
               }
-              print(
-                  'audioPlayer SequenceState: ${surahAudioController.audioPlayer.sequenceState}');
-              print(
-                  'downAudioPlayer SequenceState: ${surahAudioController.downAudioPlayer.sequenceState}');
-
-              print('nextIndex: ${surahAudioController.audioPlayer.nextIndex}');
-              print(
-                  'nextIndex: ${surahAudioController.downAudioPlayer.nextIndex}');
+              surahAudioController.playNextSurah();
             },
           ),
         ),

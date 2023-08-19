@@ -14,14 +14,12 @@ import 'package:workmanager/workmanager.dart';
 
 import '../notes/cubit/note_cubit.dart';
 import '../quran_page/data/repository/quarter_repository.dart';
-import '../quran_text/cubit/quran_text_cubit.dart';
 import '../quran_text/cubit/surah_text_cubit.dart';
 import '../screens/splash_screen.dart';
 import '../shared/lists.dart';
 import 'cubit/ayaRepository/aya_cubit.dart';
 import 'cubit/cubit.dart';
 import 'cubit/quarter/quarter_cubit.dart';
-import 'cubit/translateDataCubit/_cubit.dart';
 import 'shared/utils/helpers/app_themes.dart';
 
 /// Used for Background Updates using Workmanager Plugin
@@ -208,12 +206,6 @@ class _MyAppState extends State<MyApp> {
                   ),
                   BlocProvider<NotesCubit>(
                     create: (BuildContext context) => NotesCubit(),
-                  ),
-                  BlocProvider<QuranTextCubit>(
-                    create: (BuildContext context) => QuranTextCubit(),
-                  ),
-                  BlocProvider<TranslateDataCubit>(
-                    create: (BuildContext context) => TranslateDataCubit(),
                   ),
                   BlocProvider<QuarterCubit>(
                     create: (BuildContext context) =>

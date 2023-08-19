@@ -385,14 +385,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "5.3.2"
-  dropdown_button2:
-    dependency: "direct main"
-    description:
-      name: dropdown_button2
-      sha256: "9c4f30b2d1506fe171e807f15d69e4f70ab48359de350663dbde69015d7c1454"
-      url: "https://pub.dev"
-    source: hosted
-    version: "2.3.7"
   easy_image_viewer:
     dependency: "direct main"
     description:

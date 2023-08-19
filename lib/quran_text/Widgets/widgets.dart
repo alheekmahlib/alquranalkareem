@@ -3,50 +3,50 @@ import 'package:alquranalkareem/quran_text/Widgets/text_overflow_detector.dart';
 import 'package:animated_toggle_switch/animated_toggle_switch.dart';
 import 'package:arabic_numbers/arabic_numbers.dart';
 import 'package:bot_toast/bot_toast.dart';
-import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_sliding_up_panel/sliding_up_panel_widget.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:theme_provider/theme_provider.dart';
 
-import '../../cubit/translateDataCubit/_cubit.dart';
-import '../../cubit/translateDataCubit/translateDataState.dart';
 import '../../l10n/app_localizations.dart';
 import '../../quran_page/data/model/ayat.dart';
 import '../../shared/controller/ayat_controller.dart';
 import '../../shared/controller/general_controller.dart';
+import '../../shared/controller/quranText_controller.dart';
+import '../../shared/controller/translate_controller.dart';
 import '../../shared/share/ayah_to_images.dart';
 import '../../shared/widgets/lottie.dart';
 import '../../shared/widgets/show_tafseer.dart';
 import '../../shared/widgets/svg_picture.dart';
 import '../../shared/widgets/widgets.dart';
-import '../cubit/quran_text_cubit.dart';
 import '../text_page_view.dart';
 
 ArabicNumbers arabicNumber = ArabicNumbers();
 late final AyatController ayatController = Get.put(AyatController());
 late final GeneralController generalController = Get.put(GeneralController());
+late final TranslateDataController translateController =
+    Get.put(TranslateDataController());
+late final QuranTextController quranTextController =
+    Get.put(QuranTextController());
 
 menu(BuildContext context, int b, index, var details, translateData, widget,
     nomPageF, nomPageL) {
-  QuranTextCubit TextCubit = QuranTextCubit.get(context);
-
   bool? selectedValue;
-  if (TextCubit.value == 1) {
+  if (quranTextController.value == 1) {
     selectedValue = true;
-  } else if (TextCubit.value == 0) {
+  } else if (quranTextController.value == 0) {
     selectedValue = false;
   }
 
-  TextCubit.selected == selectedValue!
+  quranTextController.selected == selectedValue!
       ? BotToast.showAttachedWidget(
           target: details.globalPosition,
-          verticalOffset: TextCubit.verticalOffset,
-          horizontalOffset: TextCubit.horizontalOffset,
-          preferDirection: TextCubit.preferDirection,
+          verticalOffset: quranTextController.verticalOffset,
+          horizontalOffset: quranTextController.horizontalOffset,
+          preferDirection: quranTextController.preferDirection,
           animationDuration: const Duration(microseconds: 700),
           animationReverseDuration: const Duration(microseconds: 700),
           attachedBuilder: (cancel) => Card(
@@ -83,7 +83,8 @@ menu(BuildContext context, int b, index, var details, translateData, widget,
                                   color: Color(0x99f5410a),
                                 ),
                                 onPressed: () {
-                                  TextCubit.selected = !TextCubit.selected;
+                                  quranTextController.selected =
+                                      !quranTextController.selected;
                                   ayatController.updateText(
                                       "${aya.ayatext}", "${aya.translate}");
                                   if (SlidingUpPanelStatus.hidden ==
@@ -128,15 +129,17 @@ menu(BuildContext context, int b, index, var details, translateData, widget,
                         color: Color(0x99f5410a),
                       ),
                       onPressed: () {
-                        TextCubit.selected = !TextCubit.selected;
-                        TextCubit.addBookmarkText(
+                        quranTextController.selected =
+                            !quranTextController.selected;
+                        quranTextController
+                            .addBookmarkText(
                                 widget.name!,
                                 widget.number!,
                                 index == 0 ? index + 1 : index + 2,
                                 // widget.surah!.ayahs![b].page,
                                 nomPageF,
                                 nomPageL,
-                                TextCubit.lastRead)
+                                quranTextController.lastRead)
                             .then((value) => customSnackBar(context,
                                 AppLocalizations.of(context)!.addBookmark));
                         print(widget.name!);
@@ -163,7 +166,8 @@ menu(BuildContext context, int b, index, var details, translateData, widget,
                         color: Color(0x99f5410a),
                       ),
                       onPressed: () async {
-                        TextCubit.selected = !TextCubit.selected;
+                        quranTextController.selected =
+                            !quranTextController.selected;
                         await Clipboard.setData(ClipboardData(
                                 text:
                                     '﴿${widget.ayahs![b].text}﴾ [${widget.name}-${arabicNumber.convert(widget.ayahs![b].numberInSurah.toString())}]'))
@@ -189,13 +193,14 @@ menu(BuildContext context, int b, index, var details, translateData, widget,
                         color: Color(0x99f5410a),
                       ),
                       onPressed: () {
-                        TextCubit.selected = !TextCubit.selected;
-                        switch (TextCubit.controller.status) {
+                        quranTextController.selected =
+                            !quranTextController.selected;
+                        switch (quranTextController.controller.status) {
                           case AnimationStatus.dismissed:
-                            TextCubit.controller.forward();
+                            quranTextController.controller.forward();
                             break;
                           case AnimationStatus.completed:
-                            TextCubit.controller.reverse();
+                            quranTextController.controller.reverse();
                             break;
                           default:
                         }
@@ -219,9 +224,11 @@ menu(BuildContext context, int b, index, var details, translateData, widget,
                         color: Color(0x99f5410a),
                       ),
                       onPressed: () {
-                        TextCubit.selected = !TextCubit.selected;
-                        ayatController.translateIndex = TextCubit.transValue;
-                        final verseNumber = widget.ayahs![b].numberInSurah!;
+                        quranTextController.selected =
+                            !quranTextController.selected;
+                        ayatController.translateIndex =
+                            translateController.transValue.value;
+                        final verseNumber = widget.ayahs![b].number!;
                         final translation =
                             translateData?[verseNumber - 1]['text'];
                         showVerseOptionsBottomSheet(
@@ -245,25 +252,26 @@ menu(BuildContext context, int b, index, var details, translateData, widget,
       : null;
 }
 
-Widget animatedToggleSwitch(BuildContext context, var setState) {
-  QuranTextCubit TextCubit = QuranTextCubit.get(context);
-  return AnimatedToggleSwitch<int>.rolling(
-    current: TextCubit.value,
-    values: const [0, 1],
-    onChanged: (i) {
-      setState(() {
-        TextCubit.value = i;
-        TextCubit.saveSwitchValue(TextCubit.value);
-      });
+Widget animatedToggleSwitch(BuildContext context) {
+  return GetX<QuranTextController>(
+    builder: (controller) {
+      return AnimatedToggleSwitch<int>.rolling(
+        current: controller.value.value,
+        values: const [0, 1],
+        onChanged: (i) {
+          controller.value.value = i;
+          controller.saveSwitchValue(i);
+        },
+        iconBuilder: rollingIconBuilder,
+        borderWidth: 1,
+        indicatorColor: Theme.of(context).colorScheme.surface,
+        innerColor: Theme.of(context).canvasColor,
+        borderRadius: const BorderRadius.all(Radius.circular(8)),
+        height: 25,
+        dif: 2.0,
+        borderColor: Theme.of(context).colorScheme.surface,
+      );
     },
-    iconBuilder: rollingIconBuilder,
-    borderWidth: 1,
-    indicatorColor: Theme.of(context).colorScheme.surface,
-    innerColor: Theme.of(context).canvasColor,
-    borderRadius: const BorderRadius.all(Radius.circular(8)),
-    height: 25,
-    dif: 2.0,
-    borderColor: Theme.of(context).colorScheme.surface,
   );
 }
 
@@ -276,104 +284,139 @@ Widget rollingIconBuilder(int value, Size iconSize, bool foreground) {
   );
 }
 
-Widget translateDropDown(BuildContext context, var setState) {
-  QuranTextCubit quranTextCubit = QuranTextCubit.get(context);
-  List<String> transName = <String>[
-    'English',
-    'Spanish',
-  ];
-  return DropdownButton2(
-    isExpanded: true,
-    items: [
-      DropdownMenuItem<String>(
-        child: ListView.builder(
-          itemCount: transName.length,
-          itemBuilder: (BuildContext context, int index) {
-            return Column(
-              children: [
-                ListTile(
-                  title: Text(
-                    transName[index],
-                    style: TextStyle(
-                        color: quranTextCubit.transValue == index
-                            ? const Color(0xfffcbb76)
-                            : Theme.of(context).canvasColor,
-                        fontSize: 16,
-                        fontFamily: 'kufi'),
-                  ),
-                  leading: Container(
-                    height: 20,
-                    width: 20,
-                    decoration: BoxDecoration(
-                      borderRadius:
-                          const BorderRadius.all(Radius.circular(2.0)),
-                      border: Border.all(
-                          color: quranTextCubit.transValue == index
-                              ? const Color(0xfffcbb76)
-                              : Theme.of(context).canvasColor,
-                          width: 2),
-                      color: const Color(0xff39412a),
+translateDropDown(BuildContext context) {
+  List<String> transName = <String>['English', 'Spanish', 'bengali', 'Urdu'];
+  dropDownModalBottomSheet(
+    context,
+    MediaQuery.of(context).size.height / 1 / 2,
+    MediaQuery.of(context).size.width,
+    Padding(
+      padding: const EdgeInsets.symmetric(vertical: 8.0),
+      child: Stack(
+        children: [
+          Align(
+            alignment: Alignment.topRight,
+            child: GestureDetector(
+              onTap: () => Navigator.of(context).pop(),
+              child: Container(
+                height: 30,
+                width: 30,
+                margin: const EdgeInsets.all(16.0),
+                decoration: BoxDecoration(
+                    color: Theme.of(context).colorScheme.background,
+                    borderRadius: const BorderRadius.all(
+                      Radius.circular(8),
                     ),
-                    child: quranTextCubit.transValue == index
-                        ? const Icon(Icons.done,
-                            size: 14, color: Color(0xfffcbb76))
-                        : null,
-                  ),
-                  onTap: () {
-                    setState(() {
-                      // cubit.translate = '${aya!.translate}';
-                      // print(cubit.translate);
-
-                      quranTextCubit.saveTranslateValue(index);
-                      quranTextCubit.translateHandleRadioValueChanged(index);
-                    });
-                    Navigator.pop(context);
-                  },
+                    border: Border.all(
+                        width: 2, color: Theme.of(context).dividerColor)),
+                child: Icon(
+                  Icons.close_outlined,
+                  color: Theme.of(context).colorScheme.surface,
                 ),
-                const Divider(
-                  endIndent: 16,
-                  indent: 16,
-                  height: 3,
-                ),
-              ],
-            );
-          },
-        ),
-      )
-    ],
-    value: selectedValue,
-    onChanged: (value) {
-      setState(() {
-        selectedValue = value as String;
-      });
-    },
-    customButton: Icon(
-      Icons.translate_outlined,
-      color: Theme.of(context).colorScheme.surface,
-    ),
-    iconStyleData: const IconStyleData(
-      iconSize: 24,
-    ),
-    buttonStyleData: const ButtonStyleData(
-      height: 50,
-      width: 50,
-      elevation: 0,
-    ),
-    dropdownStyleData: DropdownStyleData(
-        decoration: BoxDecoration(
-            color: Theme.of(context).colorScheme.surface.withOpacity(.9),
-            borderRadius: const BorderRadius.all(Radius.circular(8))),
-        padding: const EdgeInsets.only(left: 14, right: 14),
-        maxHeight: 230,
-        width: 230,
-        elevation: 0,
-        offset: const Offset(0, 0),
-        scrollbarTheme: ScrollbarThemeData(
-          radius: const Radius.circular(8),
-          thickness: MaterialStateProperty.all(6),
-        )),
-    menuItemStyleData: const MenuItemStyleData(
-      height: 115,
+              ),
+            ),
+          ),
+          Align(
+            alignment: Alignment.topCenter,
+            child: Padding(
+              padding: const EdgeInsets.only(top: 24.0),
+              child: Text(
+                AppLocalizations.of(context)!.select_player,
+                style: TextStyle(
+                    color: Theme.of(context).dividerColor,
+                    fontSize: 22,
+                    fontFamily: "kufi"),
+              ),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(top: 70.0),
+            child: ListView.builder(
+              itemCount: transName.length,
+              itemBuilder: (BuildContext context, int index) {
+                return Column(
+                  children: [
+                    Container(
+                      child: ListTile(
+                        title: Text(
+                          transName[index],
+                          style: TextStyle(
+                              color:
+                                  translateController.transValue.value == index
+                                      ? Theme.of(context).primaryColorLight
+                                      : const Color(0xffcdba72),
+                              fontSize: 14,
+                              fontFamily: "kufi"),
+                        ),
+                        trailing: Container(
+                          height: 20,
+                          width: 20,
+                          decoration: BoxDecoration(
+                            borderRadius:
+                                const BorderRadius.all(Radius.circular(2.0)),
+                            border: Border.all(
+                                color: translateController.transValue.value ==
+                                        index
+                                    ? Theme.of(context).primaryColorLight
+                                    : const Color(0xffcdba72),
+                                width: 2),
+                            color: const Color(0xff39412a),
+                          ),
+                          child: translateController.transValue.value == index
+                              ? const Icon(Icons.done,
+                                  size: 14, color: Color(0xffcdba72))
+                              : null,
+                        ),
+                        onTap: () {
+                          translateController.transValue.value == index;
+                          translateController.saveTranslateValue(index);
+                          translateController
+                              .translateHandleRadioValueChanged(index);
+                          translateController.fetchSura(context);
+                          Navigator.pop(context);
+                        },
+                        leading: Container(
+                            height: 85.0,
+                            width: 41.0,
+                            decoration: BoxDecoration(
+                                shape: BoxShape.rectangle,
+                                borderRadius: const BorderRadius.all(
+                                    Radius.circular(4.0)),
+                                border: Border.all(
+                                    color: Theme.of(context).dividerColor,
+                                    width: 2)),
+                            child: SvgPicture.asset(
+                              'assets/svg/tafseer_book.svg',
+                              colorFilter:
+                                  translateController.transValue.value == index
+                                      ? null
+                                      : ColorFilter.mode(
+                                          Theme.of(context)
+                                              .canvasColor
+                                              .withOpacity(.4),
+                                          BlendMode.lighten),
+                            )),
+                      ),
+                      decoration: BoxDecoration(
+                          borderRadius:
+                              const BorderRadius.all(Radius.circular(8.0)),
+                          border: Border.all(
+                              color: Theme.of(context).dividerColor, width: 1)),
+                      margin: const EdgeInsets.symmetric(
+                          horizontal: 16.0, vertical: 4.0),
+                    ),
+                    // const Divider(
+                    //   endIndent: 16,
+                    //   indent: 16,
+                    //   height: 3,
+                    // ),
+                  ],
+                );
+              },
+            ),
+          ),
+        ],
+      ),
     ),
   );
 }
@@ -393,23 +436,21 @@ Widget greeting(BuildContext context) {
   );
 }
 
-Widget singleAyah(
-    BuildContext context, var setState, widget, translateData, int index) {
-  QuranTextCubit TextCubit = QuranTextCubit.get(context);
+Widget singleAyah(BuildContext context, var setState, widget, int index) {
   NotesCubit notesCubit = NotesCubit.get(context);
   Color backColor = Theme.of(context).colorScheme.surface.withOpacity(0.4);
   return Stack(
     children: [
       GestureDetector(
         onTap: () {
-          TextCubit.controller.reverse();
+          quranTextController.controller.reverse();
           setState(() {
             backColor = Colors.transparent;
           });
         },
         // child: AutoScrollTag(
         //   key: ValueKey(index),
-        //   controller: TextCubit.scrollController!,
+        //   controller: quranTextController.scrollController!,
         //   index: index,
         child: Container(
           margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
@@ -433,44 +474,6 @@ Widget singleAyah(
                   : widget.surah!.ayahs![index].numberInSurah == 1
                       ? besmAllah(context)
                       : const SizedBox.shrink(),
-              // WordSelectableText(
-              //     selectable:  true,
-              //     highlight:  true,
-              //
-              //     text: widget.surah!.ayahs![index].text!,
-              //     onWordTapped: (word, index) {},
-              //     style: TextStyle(
-              //       fontSize:
-              //       TextPageView
-              //           .fontSizeArabic.value,
-              //       fontWeight:
-              //       FontWeight
-              //           .normal,
-              //       fontFamily:
-              //       'uthmanic2',
-              //       color: ThemeProvider.themeOf(context)
-              //           .id ==
-              //           'dark'
-              //           ? Colors
-              //           .white
-              //           : Colors
-              //           .black,
-              //       background:
-              //       Paint()
-              //         ..color = index ==
-              //             TextCubit.isSelected
-              //             ? backColor
-              //             : Colors.transparent
-              //         ..strokeJoin =
-              //             StrokeJoin
-              //                 .round
-              //         ..strokeCap =
-              //             StrokeCap
-              //                 .round
-              //         ..style =
-              //             PaintingStyle
-              //                 .fill,
-              //     ),),
               Container(
                 padding: const EdgeInsets.symmetric(horizontal: 32),
                 child: SelectableText.rich(
@@ -493,7 +496,7 @@ Widget singleAyah(
                               : Colors.black,
                           background: Paint()
                             ..color = index == audioController.ayahSelected
-                                ? TextCubit.selected
+                                ? quranTextController.selected
                                     ? backColor
                                     : Colors.transparent
                                 : Colors.transparent
@@ -504,7 +507,8 @@ Widget singleAyah(
                         recognizer: TapGestureRecognizer()
                           ..onTapDown = (TapDownDetails details) {
                             setState(() {
-                              TextCubit.selected = !TextCubit.selected;
+                              quranTextController.selected =
+                                  !quranTextController.selected;
                               lastAyahInPage =
                                   widget.surah!.ayahs![index].numberInSurah;
                               textSurahNum = widget.surah!.number;
@@ -516,8 +520,15 @@ Widget singleAyah(
                                   .toString();
                               audioController.ayahSelected = index;
                             });
-                            menu(context, index, index, details, translateData,
-                                widget.surah, widget.nomPageF, widget.nomPageL);
+                            menu(
+                                context,
+                                index,
+                                index,
+                                details,
+                                translateController.data,
+                                widget.surah,
+                                widget.nomPageF,
+                                widget.nomPageL);
                           }),
                     TextSpan(
                       text:
@@ -545,7 +556,14 @@ Widget singleAyah(
                     children: [
                       Align(
                           alignment: Alignment.centerRight,
-                          child: translateDropDown(context, setState)),
+                          child: IconButton(
+                            icon: Icon(
+                              Icons.translate_rounded,
+                              color: Theme.of(context).colorScheme.surface,
+                              size: 24,
+                            ),
+                            onPressed: () => translateDropDown(context),
+                          )),
                       spaceLine(
                         20,
                         MediaQuery.of(context).size.width / 1 / 2,
@@ -567,44 +585,41 @@ Widget singleAyah(
               Padding(
                 padding: const EdgeInsets.only(
                     bottom: 16.0, right: 32.0, left: 32.0),
-                child: BlocBuilder<TranslateDataCubit, TranslateDataState>(
-                  builder: (context, state) {
-                    if (state.isLoading) {
-                      // Display a loading indicator while the translation data is being fetched
+                child: Obx(
+                  () {
+                    if (translateController.isLoading.value) {
                       return search(50.0, 50.0);
-                    } else {
-                      final translateData = state.data;
-                      if (translateData != null && translateData.isNotEmpty) {
-                        // Use the translation variable in your widget tree
-                        return ReadMoreLess(
-                          text: translateData[index]['text'] ?? '',
-                          textStyle: TextStyle(
-                            fontSize:
-                                generalController.fontSizeArabic.value - 10,
-                            fontFamily: 'kufi',
-                            color: ThemeProvider.themeOf(context).id == 'dark'
-                                ? Colors.white
-                                : Colors.black,
-                          ),
-                          textAlign: TextAlign.justify,
-                          readMoreText: AppLocalizations.of(context)!.readMore,
-                          readLessText: AppLocalizations.of(context)!.readLess,
-                          buttonTextStyle: TextStyle(
-                            fontSize: 12,
-                            fontFamily: 'kufi',
-                            color: ThemeProvider.themeOf(context).id == 'dark'
-                                ? Colors.white
-                                : Theme.of(context).primaryColorLight,
-                          ),
-                          iconColor: ThemeProvider.themeOf(context).id == 'dark'
-                              ? Colors.white
-                              : Theme.of(context).primaryColorLight,
-                        ); // Replace this with your actual widget
-                      } else {
-                        // Display a placeholder widget if there's no translation data
-                        return const Text('No translation available');
-                      }
                     }
+                    return ReadMoreLess(
+                      text: (widget.surah!.ayahs!.length > index &&
+                              translateController.data.length >
+                                  widget.surah!.ayahs![index].number - 1)
+                          ? translateController.data[
+                                      widget.surah!.ayahs![index].number - 1]
+                                  ['text'] ??
+                              ''
+                          : '',
+                      textStyle: TextStyle(
+                        fontSize: generalController.fontSizeArabic.value - 10,
+                        fontFamily: 'kufi',
+                        color: ThemeProvider.themeOf(context).id == 'dark'
+                            ? Colors.white
+                            : Colors.black,
+                      ),
+                      textAlign: TextAlign.center,
+                      readMoreText: AppLocalizations.of(context)!.readMore,
+                      readLessText: AppLocalizations.of(context)!.readLess,
+                      buttonTextStyle: TextStyle(
+                        fontSize: 12,
+                        fontFamily: 'kufi',
+                        color: ThemeProvider.themeOf(context).id == 'dark'
+                            ? Colors.white
+                            : Theme.of(context).primaryColorLight,
+                      ),
+                      iconColor: ThemeProvider.themeOf(context).id == 'dark'
+                          ? Colors.white
+                          : Theme.of(context).primaryColorLight,
+                    );
                   },
                 ),
               ),
@@ -631,17 +646,16 @@ Widget singleAyah(
 
 Widget pageAyah(BuildContext context, var setState, widget,
     List<InlineSpan> text, int index) {
-  QuranTextCubit TextCubit = QuranTextCubit.get(context);
   NotesCubit notesCubit = NotesCubit.get(context);
   return Stack(
     children: [
       GestureDetector(
         onTap: () {
-          TextCubit.controller.reverse();
+          quranTextController.controller.reverse();
         },
         // child: AutoScrollTag(
         //   key: ValueKey(index),
-        //   controller: TextCubit.scrollController!,
+        //   controller: quranTextController.scrollController!,
         //   index: index,
         child: Container(
           margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
@@ -710,7 +724,7 @@ Widget pageAyah(BuildContext context, var setState, widget,
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 25.0),
           child: juzNum(
-              '${TextCubit.juz}',
+              '${quranTextController.juz}',
               context,
               ThemeProvider.themeOf(context).id == 'dark'
                   ? Colors.white

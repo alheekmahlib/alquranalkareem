@@ -13,6 +13,7 @@ import '../../notes/cubit/note_cubit.dart';
 import '../controller/ayat_controller.dart';
 import '../share/ayah_to_images.dart';
 import 'ayah_list.dart';
+import 'lottie.dart';
 
 double? isSelected;
 int? ayahSelected, ayahNumber, surahNumber;
@@ -213,7 +214,7 @@ class _ShowTafseerState extends State<ShowTafseer> {
                           controller: _scrollController,
                           child: Obx(() {
                             if (ayatController.currentPageLoading.value) {
-                              return const CircularProgressIndicator();
+                              return loadingLottie(150.0, 150.0);
                             } else if (ayatController.currentText.value !=
                                 null) {
                               return SelectableText.rich(
@@ -280,73 +281,9 @@ class _ShowTafseerState extends State<ShowTafseer> {
                                 onSelectionChanged: handleSelectionChanged,
                               );
                             } else {
-                              return Text(
-                                  'Error: ${ayatController.currentPageError.value}');
+                              return hand(150.0, 150.0);
                             }
-                          })
-                          // child: Obx(
-                          //   () => SelectableText.rich(
-                          //     key: _selectableTextKey,
-                          //     TextSpan(
-                          //       children: <InlineSpan>[
-                          //         TextSpan(
-                          //           text: '﴿${ayatController.translateAyah}﴾\n\n',
-                          //           style: TextStyle(
-                          //               color:
-                          //                   ThemeProvider.themeOf(context).id ==
-                          //                           'dark'
-                          //                       ? Colors.white
-                          //                       : Colors.black,
-                          //               fontWeight: FontWeight.w100,
-                          //               height: 1.5,
-                          //               fontFamily: 'uthmanic2',
-                          //               fontSize: generalController
-                          //                   .fontSizeArabic.value),
-                          //         ),
-                          //         WidgetSpan(
-                          //           child: Center(
-                          //             child: spaceLine(
-                          //                 25,
-                          //                 MediaQuery.of(context).size.width /
-                          //                     1 /
-                          //                     2),
-                          //           ),
-                          //         ),
-                          //         TextSpan(
-                          //           text: ayatController.translate,
-                          //           style: TextStyle(
-                          //               color:
-                          //                   ThemeProvider.themeOf(context).id ==
-                          //                           'dark'
-                          //                       ? Colors.white
-                          //                       : Colors.black,
-                          //               height: 1.5,
-                          //               fontSize: generalController
-                          //                   .fontSizeArabic.value),
-                          //         ),
-                          //         WidgetSpan(
-                          //           child: Center(
-                          //             child: spaceLine(
-                          //                 25,
-                          //                 MediaQuery.of(context).size.width /
-                          //                     1 /
-                          //                     2),
-                          //           ),
-                          //         ),
-                          //       ],
-                          //     ),
-                          //     showCursor: true,
-                          //     cursorWidth: 3,
-                          //     cursorColor: Theme.of(context).dividerColor,
-                          //     cursorRadius: const Radius.circular(5),
-                          //     scrollPhysics: const ClampingScrollPhysics(),
-                          //     textDirection: TextDirection.rtl,
-                          //     textAlign: TextAlign.justify,
-                          //     contextMenuBuilder: buildMyContextMenu(notesCubit),
-                          //     onSelectionChanged: handleSelectionChanged,
-                          //   ),
-                          // ),
-                          ),
+                          })),
                     ),
                   ),
                 ),

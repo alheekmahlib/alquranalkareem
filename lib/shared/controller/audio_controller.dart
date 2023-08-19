@@ -3,6 +3,7 @@ import 'dart:developer' as developer;
 import 'dart:io';
 
 import 'package:alquranalkareem/shared/controller/general_controller.dart';
+import 'package:alquranalkareem/shared/controller/quranText_controller.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
@@ -15,7 +16,6 @@ import 'package:rxdart/rxdart.dart' as R;
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../l10n/app_localizations.dart';
-import '../../quran_text/cubit/quran_text_cubit.dart';
 import '../../quran_text/text_page_view.dart';
 import '../functions.dart';
 import '../widgets/seek_bar.dart';
@@ -54,6 +54,8 @@ class AudioController extends GetxController {
   final controller = Get.find<AyatController>();
   late final AyatController ayatController = Get.put(AyatController());
   late final GeneralController generalController = Get.put(GeneralController());
+  late final QuranTextController quranTextController =
+      Get.put(QuranTextController());
 
   Future<void> initConnectivity() async {
     try {
@@ -298,7 +300,6 @@ class AudioController extends GetxController {
 
   void textPlayNextAyah(BuildContext context) async {
     print('playNextAyah ' * 6);
-    QuranTextCubit textCubit = QuranTextCubit.get(context);
 
     // Increment Ayah number
     int currentAyah;
@@ -323,7 +324,7 @@ class AudioController extends GetxController {
       audioController.ayahSelected = currentAyah;
       print('ayahSelected: ${audioController.ayahSelected}');
       // textCubit.changeSelectedIndex(currentAyah - 1);
-      textCubit.itemScrollController.scrollTo(
+      quranTextController.itemScrollController.scrollTo(
           index: pageNumber.value + 1,
           duration: const Duration(seconds: 1),
           curve: Curves.easeOut);

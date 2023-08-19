@@ -5,7 +5,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../database/databaseHelper.dart';
 import '../../../l10n/app_localizations.dart';
-import '../../../services_locator.dart';
 import '../../../shared/widgets/widgets.dart';
 import '../model/bookmark.dart';
 import '../model/sorah_bookmark.dart';
@@ -46,9 +45,13 @@ class BookmarksController extends GetxController {
   }
 
   Future<void> getBookmarks() async {
-    final List<Map<String, dynamic>> bookmarks = await DatabaseHelper.queryB();
-    bookmarksList
-        .assignAll(bookmarks.map((data) => Bookmarks.fromJson(data)).toList());
+    final List<Map<String, dynamic>>? bookmarks = await DatabaseHelper.queryB();
+    if (bookmarks != null) {
+      bookmarksList.assignAll(
+          bookmarks.map((data) => Bookmarks.fromJson(data)).toList());
+    } else {
+      // Handle the case when bookmarks is null
+    }
   }
 
   Future<bool> deleteBookmarkByPageNum(
@@ -87,9 +90,9 @@ class BookmarksController extends GetxController {
     return false;
   }
 
-  BookmarksController() {
-    getBookmarks();
-  }
+  // BookmarksController() {
+  //   getBookmarks();
+  // }
 
   void updateBookmarks(Bookmarks? bookmarks) async {
     await DatabaseHelper.updateBookmarks(bookmarks!);
@@ -123,12 +126,13 @@ class BookmarksController extends GetxController {
 
   // Save & Load Last Bookmark
   Future<void> savelastBookmark(int Value) async {
-    await sl<SharedPreferences>().setInt("last_bookmark", Value);
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setInt("last_bookmark", Value);
     update();
   }
 
   Future<int> loadlastBookmark() async {
-    final SharedPreferences prefs = sl<SharedPreferences>();
+    SharedPreferences prefs = await SharedPreferences.getInstance();
     lastBook = prefs.getInt('last_bookmark') ?? 0;
     print('get last_bookmark ${prefs.getInt('last_bookmark')}');
     print('get radioValue $lastBook');
