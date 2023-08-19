@@ -56,31 +56,34 @@ class DownloadPlayButton extends StatelessWidget {
           Align(
             alignment: Alignment.center,
             child: Stack(
+              alignment: Alignment.center,
               children: [
-                SquarePercentIndicator(
-                  width: 50,
-                  height: 50,
-                  borderRadius: 8,
-                  shadowWidth: 1.5,
-                  progressWidth: 4,
-                  shadowColor: Colors.grey,
-                  progressColor: ThemeProvider.themeOf(context).id == 'dark'
-                      ? Colors.white
-                      : Theme.of(context).primaryColorLight,
-                  progress: surahAudioController.progress.value,
-                  child: Container(
-                    height: 50,
+                Obx(
+                  () => SquarePercentIndicator(
                     width: 50,
-                    alignment: Alignment.center,
-                    padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                    decoration: BoxDecoration(
-                        color: Theme.of(context).colorScheme.background,
-                        borderRadius: const BorderRadius.only(
-                          topRight: Radius.circular(8),
-                          topLeft: Radius.circular(8),
-                        ),
-                        border: Border.all(
-                            width: 2, color: Theme.of(context).dividerColor)),
+                    height: 50,
+                    borderRadius: 8,
+                    shadowWidth: 1.5,
+                    progressWidth: 4,
+                    shadowColor: Colors.grey,
+                    progressColor: ThemeProvider.themeOf(context).id == 'dark'
+                        ? Colors.white
+                        : Theme.of(context).primaryColorLight,
+                    progress: surahAudioController.progress.value,
+                    child: Container(
+                      height: 50,
+                      width: 50,
+                      alignment: Alignment.center,
+                      padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                      decoration: BoxDecoration(
+                          color: Theme.of(context).colorScheme.background,
+                          borderRadius: const BorderRadius.only(
+                            topRight: Radius.circular(8),
+                            topLeft: Radius.circular(8),
+                          ),
+                          border: Border.all(
+                              width: 2, color: Theme.of(context).dividerColor)),
+                    ),
                   ),
                 ),
                 StreamBuilder<PlayerState>(
@@ -99,8 +102,10 @@ class DownloadPlayButton extends StatelessWidget {
                         iconSize: 24.0,
                         color: Theme.of(context).colorScheme.surface,
                         onPressed: () async {
+                          // surahAudioController.isDownloading.value == true;
+                          print(
+                              'isDownloading.value: ${surahAudioController.isDownloading.value}');
                           await surahAudioController.downloadSurah();
-                          surahAudioController.isDownloading == true;
                           // surahAudioController.downAudioPlayer.play();
                         },
                       );

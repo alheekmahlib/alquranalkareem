@@ -3,8 +3,6 @@ import 'dart:ui' show Locale;
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../../services_locator.dart';
-
 class SettingsController extends GetxController {
   Locale? initialLang;
   final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
@@ -25,7 +23,7 @@ class SettingsController extends GetxController {
     SharedPreferences prefs = await _prefs;
     initialLang = prefs.getString("lang") == null
         ? const Locale('ar', 'AE')
-        : Locale(sl<SharedPreferences>().getString("lang")!);
+        : Locale(prefs.getString("lang")!);
     print('get lang $initialLang');
   }
 }

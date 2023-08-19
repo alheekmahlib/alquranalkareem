@@ -1,3 +1,4 @@
+import 'package:alquranalkareem/shared/controller/quranText_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
@@ -9,7 +10,10 @@ import '/screens/onboarding_screen.dart';
 import '/shared/controller/audio_controller.dart';
 import '/shared/controller/ayat_controller.dart';
 import '/shared/controller/general_controller.dart';
+import '../quran_page/data/repository/bookmarks_controller.dart';
+import '../shared/controller/aya_controller.dart';
 import '../shared/controller/settings_controller.dart';
+import '../shared/controller/translate_controller.dart';
 import '../shared/widgets/lottie.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -21,10 +25,17 @@ class _SplashScreenState extends State<SplashScreen> {
   late final GeneralController generalController = Get.put(GeneralController());
   late final AyatController ayatController = Get.put(AyatController());
   late final AudioController audioController = Get.put(AudioController());
+  late final TranslateDataController translateController =
+      Get.put(TranslateDataController());
   late final SettingsController settingsController =
       Get.put(SettingsController());
   late final SurahAudioController surahAudioController =
       Get.put(SurahAudioController());
+  late final QuranTextController quranTextController =
+      Get.put(QuranTextController());
+  late final AyaController ayaController = Get.put(AyaController());
+  late final BookmarksController bookmarksController =
+      Get.put(BookmarksController());
   bool animate = false;
 
   @override
@@ -36,13 +47,21 @@ class _SplashScreenState extends State<SplashScreen> {
     // sl<AyatController>().loadTafseer();
     // sl<AudioController>().loadQuranReader();
     // sl<SurahAudioController>().loadSorahReader();
+    // sl<TranslateDataController>().loadTranslateValue();
+    // sl<QuranTextController>().loadSwitchValue();
+    // sl<QuranTextController>().loadScrollSpeedValue();
     generalController.loadMCurrentPage();
     generalController.loadFontSize();
-    settingsController.loadLang();
-    ayatController.loadTafseer();
     generalController.updateGreeting();
+    ayatController.loadTafseer();
     audioController.loadQuranReader();
     surahAudioController.loadSorahReader();
+    surahAudioController.loadLastSurahListen();
+    translateController.loadTranslateValue();
+    quranTextController.loadSwitchValue();
+    translateController.fetchSura(context);
+    settingsController.loadLang();
+    bookmarksController.getBookmarksList();
     super.initState();
   }
 

@@ -1,21 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:get/get.dart';
 import 'package:theme_provider/theme_provider.dart';
 
 import '/shared/widgets/svg_picture.dart';
 import '/shared/widgets/theme_change.dart';
 import '/shared/widgets/widgets.dart';
-import '../../cubit/cubit.dart';
 import '../../l10n/app_localizations.dart';
-import '../../services_locator.dart';
 import '../controller/settings_controller.dart';
 
 class SettingsList extends StatelessWidget {
-  const SettingsList({Key? key}) : super(key: key);
+  SettingsList({Key? key}) : super(key: key);
+  late final SettingsController settingsController =
+      Get.put(SettingsController());
 
   @override
   Widget build(BuildContext context) {
-    QuranCubit cubit = QuranCubit.get(context);
     return Visibility(
       visible: true,
       // TODO:
@@ -124,9 +124,10 @@ class SettingsList extends StatelessWidget {
                               ],
                             ),
                           ),
-                          onTap: () {
-                            sl<SettingsController>().setLocale(
+                          onTap: () async {
+                            settingsController.setLocale(
                                 const Locale.fromSubtags(languageCode: "ar"));
+                            await settingsController.saveLang("ar");
                           },
                         ),
                         InkWell(
@@ -187,9 +188,10 @@ class SettingsList extends StatelessWidget {
                               ],
                             ),
                           ),
-                          onTap: () {
-                            sl<SettingsController>().setLocale(
+                          onTap: () async {
+                            settingsController.setLocale(
                                 const Locale.fromSubtags(languageCode: "en"));
+                            await settingsController.saveLang("en");
                           },
                         ),
                         InkWell(
@@ -250,9 +252,10 @@ class SettingsList extends StatelessWidget {
                               ],
                             ),
                           ),
-                          onTap: () {
-                            sl<SettingsController>().setLocale(
+                          onTap: () async {
+                            settingsController.setLocale(
                                 const Locale.fromSubtags(languageCode: "es"));
+                            await settingsController.saveLang("es");
                           },
                         ),
                       ],

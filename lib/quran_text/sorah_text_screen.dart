@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:hijri/hijri_calendar.dart';
 
 import '../shared/controller/general_controller.dart';
+import '../shared/controller/translate_controller.dart';
 import '../shared/widgets/widgets.dart';
 import 'Widgets/widgets.dart';
 
@@ -18,6 +19,8 @@ class SorahTextScreen extends StatefulWidget {
 class _SorahTextScreenState extends State<SorahTextScreen> {
   var sorahListKey = GlobalKey<ScaffoldState>();
   late final GeneralController generalController = Get.put(GeneralController());
+  late final TranslateDataController translateController =
+      Get.put(TranslateDataController());
 
   @override
   void initState() {

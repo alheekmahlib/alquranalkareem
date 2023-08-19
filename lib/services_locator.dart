@@ -1,17 +1,22 @@
 import 'dart:io' show Platform;
 import 'dart:ui' show Size;
 
+import 'package:alquranalkareem/shared/controller/audio_controller.dart';
+import 'package:alquranalkareem/shared/controller/quranText_controller.dart';
+import 'package:alquranalkareem/shared/controller/translate_controller.dart';
 import 'package:bloc/bloc.dart';
 import 'package:desktop_window/desktop_window.dart';
 import 'package:flutter_native_timezone/flutter_native_timezone.dart';
 import 'package:get/get.dart';
 import 'package:get_it/get_it.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sqflite_common_ffi/sqflite_ffi.dart';
 import 'package:timezone/data/latest.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
 import 'package:wakelock/wakelock.dart';
 
 import '/shared/controller/notifications_controller.dart';
+import 'audio_screen/controller/surah_audio_controller.dart';
 import 'database/databaseHelper.dart';
 import 'database/notificationDatabase.dart';
 import 'quran_page/data/data_client.dart';
@@ -23,28 +28,33 @@ import 'shared/local_notifications.dart';
 import 'shared/utils/helpers/ui_helper.dart';
 
 final sl = GetIt.instance;
-// GetIt getIt = GetIt.instance;
-// void setupLocator() {
-//   getIt.registerSingleton<SettingsController>(SettingsController());
-//   // Register other controllers or services if any
-// }
 
 class ServicesLocator {
   static Future<void> init() async {
     // Controllers
     sl.registerLazySingleton<AyatController>(
         () => Get.put<AyatController>(AyatController(), permanent: true));
-
     sl.registerLazySingleton<GeneralController>(
         () => Get.put<GeneralController>(GeneralController(), permanent: true));
-    sl.registerSingleton<NotificationsController>(
+    sl.registerLazySingleton<NotificationsController>(() =>
         Get.put<NotificationsController>(NotificationsController(),
             permanent: true));
+    sl.registerLazySingleton<AudioController>(
+        () => Get.put<AudioController>(AudioController(), permanent: true));
+    sl.registerLazySingleton<SurahAudioController>(() =>
+        Get.put<SurahAudioController>(SurahAudioController(), permanent: true));
+    sl.registerLazySingleton<TranslateDataController>(() =>
+        Get.put<TranslateDataController>(TranslateDataController(),
+            permanent: true));
+    sl.registerLazySingleton<QuranTextController>(() =>
+        Get.put<QuranTextController>(QuranTextController(), permanent: true));
 
     // SharedPrefrences
 
-    // sl.registerLazySingletonAsync<SharedPreferences>(
-    //     () async => await SharedPreferences.getInstance());
+    sl.registerLazySingletonAsync<SharedPreferences>(() async {
+      final prefs = await SharedPreferences.getInstance();
+      return prefs;
+    });
 
     // Databases
 

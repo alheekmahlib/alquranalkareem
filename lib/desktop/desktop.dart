@@ -82,27 +82,29 @@ class _DesktopState extends State<Desktop> with TickerProviderStateMixin {
                     position: generalController.offset, child: AudioWidget()),
                 Align(
                   alignment: Alignment.bottomRight,
-                  child: Visibility(
-                    visible: generalController.isShowControl.value,
-                    child: Sliding(
-                      myWidget1: quranPageSearch(
-                        context,
-                        MediaQuery.of(context).size.width / 1 / 2,
+                  child: Obx(
+                    () => Visibility(
+                      visible: generalController.isShowControl.value,
+                      child: Sliding(
+                        myWidget1: quranPageSearch(
+                          context,
+                          MediaQuery.of(context).size.width / 1 / 2,
+                        ),
+                        myWidget2: quranPageSorahList(
+                          context,
+                          MediaQuery.of(context).size.width / 1 / 2,
+                        ),
+                        myWidget3: notesList(
+                          context,
+                          MediaQuery.of(context).size.width / 1 / 2,
+                        ),
+                        myWidget4: bookmarksList(
+                          context,
+                          MediaQuery.of(context).size.width / 1 / 2,
+                        ),
+                        myWidget5: const ShowTafseer(),
+                        cHeight: 90.0,
                       ),
-                      myWidget2: quranPageSorahList(
-                        context,
-                        MediaQuery.of(context).size.width / 1 / 2,
-                      ),
-                      myWidget3: notesList(
-                        context,
-                        MediaQuery.of(context).size.width / 1 / 2,
-                      ),
-                      myWidget4: bookmarksList(
-                        context,
-                        MediaQuery.of(context).size.width / 1 / 2,
-                      ),
-                      myWidget5: const ShowTafseer(),
-                      cHeight: 90.0,
                     ),
                   ),
                 ),
