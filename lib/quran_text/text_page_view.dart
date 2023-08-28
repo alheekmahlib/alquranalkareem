@@ -251,65 +251,6 @@ class TextPageView extends StatelessWidget {
           )),
     );
   }
-
-  // Widget fontSizeDropDown(BuildContext context) {
-  //   return PopupMenuButton(
-  //     icon: Icon(
-  //       Icons.format_size,
-  //       color: Theme.of(context).colorScheme.surface,
-  //     ),
-  //     color: Theme.of(context).colorScheme.surface.withOpacity(.8),
-  //     itemBuilder: (context) => [
-  //       PopupMenuItem(
-  //         child: Obx(
-  //           () => SizedBox(
-  //             height: 30,
-  //             width: MediaQuery.sizeOf(context).width,
-  //             child: FlutterSlider(
-  //               values: [generalController.fontSizeArabic.value],
-  //               max: 40,
-  //               min: 18,
-  //               rtl: true,
-  //               trackBar: FlutterSliderTrackBar(
-  //                 inactiveTrackBarHeight: 5,
-  //                 activeTrackBarHeight: 5,
-  //                 inactiveTrackBar: BoxDecoration(
-  //                   borderRadius: BorderRadius.circular(8),
-  //                   color: Theme.of(context).colorScheme.surface,
-  //                 ),
-  //                 activeTrackBar: BoxDecoration(
-  //                     borderRadius: BorderRadius.circular(4),
-  //                     color: Theme.of(context).colorScheme.background),
-  //               ),
-  //               handlerAnimation: const FlutterSliderHandlerAnimation(
-  //                   curve: Curves.elasticOut,
-  //                   reverseCurve: null,
-  //                   duration: Duration(milliseconds: 700),
-  //                   scale: 1.4),
-  //               onDragging: (handlerIndex, lowerValue, upperValue) {
-  //                 lowerValue = lowerValue;
-  //                 upperValue = upperValue;
-  //                 generalController.fontSizeArabic.value = lowerValue;
-  //                 generalController
-  //                     .saveFontSize(generalController.fontSizeArabic.value);
-  //               },
-  //               handler: FlutterSliderHandler(
-  //                 decoration: const BoxDecoration(),
-  //                 child: Material(
-  //                   type: MaterialType.circle,
-  //                   color: Colors.transparent,
-  //                   elevation: 3,
-  //                   child: SvgPicture.asset('assets/svg/slider_ic.svg'),
-  //                 ),
-  //               ),
-  //             ),
-  //           ),
-  //         ),
-  //         height: 30,
-  //       ),
-  //     ],
-  //   );
-  // }
 }
 
 String textText = '';
