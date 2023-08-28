@@ -223,6 +223,7 @@ class TextPageView extends StatelessWidget {
                                     (quranTextController.scrollController
                                         .position.maxScrollExtent));
                           }
+
                           return ScrollableList(
                             surah: surah,
                             nomPageF: nomPageF!,
