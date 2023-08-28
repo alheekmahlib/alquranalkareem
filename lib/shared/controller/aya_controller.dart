@@ -5,16 +5,26 @@ import '../../quran_page/data/repository/aya_repository.dart';
 
 class AyaController extends GetxController {
   final AyaRepository _ayaRepository = AyaRepository();
-  final Rx<AyaState> ayaState = AyaLoading().obs;
 
-  void getAllAyas() async {
-    ayaState.value = AyaLoading();
-    try {
-      final ayahList = await _ayaRepository.all();
-      ayaState.value = AyaLoaded(ayahList);
-    } catch (e) {
-      ayaState.value = AyaError("Error fetching Ayas: $e");
-    }
+  var isLoading = false.obs;
+  var ayahList = <Aya>[].obs;
+  var errorMessage = ''.obs;
+
+  @override
+  void onInit() {
+    super.onInit();
+    getAllAyas();
+  }
+
+  void getAllAyas() {
+    _setLoading(true);
+    _ayaRepository.all().then((loadedAyahList) {
+      ayahList.assignAll(loadedAyahList);
+      _setLoading(false);
+    }).catchError((e) {
+      errorMessage.value = "Error fetching Ayas: $e";
+      _setLoading(false);
+    });
   }
 
   String _convertArabicToEnglishNumbers(String input) {
@@ -31,36 +41,25 @@ class AyaController extends GetxController {
   }
 
   void search(String text) async {
-    // Convert Arabic numerals to English numerals if any
     String convertedText = _convertArabicToEnglishNumbers(text);
+    _setLoading(true);
 
     try {
-      ayaState.value = AyaLoading();
-
       final List<Aya>? values = await _ayaRepository.search(convertedText);
       if (values != null && values.isNotEmpty) {
-        ayaState.value = AyaLoaded(values);
+        ayahList.assignAll(values);
+        _setLoading(false);
       } else {
-        ayaState.value = AyaError("No results found for $convertedText");
+        errorMessage.value = "No results found for $convertedText";
+        _setLoading(false);
       }
     } catch (e) {
-      ayaState.value = AyaError(e.toString());
+      errorMessage.value = e.toString();
+      _setLoading(false);
     }
   }
-}
 
-class AyaState {}
-
-class AyaLoading extends AyaState {}
-
-class AyaLoaded extends AyaState {
-  final List<Aya> ayahList;
-
-  AyaLoaded(this.ayahList);
-}
-
-class AyaError extends AyaState {
-  final String message;
-
-  AyaError(this.message);
+  void _setLoading(bool value) {
+    isLoading.value = value;
+  }
 }

@@ -1,48 +1,24 @@
 import 'package:arabic_numbers/arabic_numbers.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:get/get.dart';
 import 'package:theme_provider/theme_provider.dart';
 
 import '../l10n/app_localizations.dart';
+import '../shared/widgets/controllers_put.dart';
 import '../shared/widgets/lottie.dart';
 import '../shared/widgets/widgets.dart';
-import 'cubit/quran_text_cubit.dart';
-import 'cubit/surah_text_cubit.dart';
-import 'model/QuranModel.dart';
-import 'model/QuranModel.dart';
 import 'text_page_view.dart';
-import 'text_page_viewtext_cubit.dart';
 
-class SorahListText extends StatefulWidget {
-  const SorahListText({super.key});
+class SorahListText extends StatelessWidget {
+  SorahListText({super.key});
 
-  @override
-  _SorahListTextState createState() => _SorahListTextState();
-}
-
-class _SorahListTextState extends State<SorahListText>
-    with SingleTickerProviderStateMixin {
   final ScrollController controller = ScrollController();
-  late final TranslateDataController translateController =
-      Get.put(TranslateDataController());
-  Widget? textPage;
-
-  @override
-  void initState() {
-    super.initState();
-    translateController.loadTranslateValue();
-  }
-
-  @override
-  void dispose() {
-    controller.dispose();
-    super.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {
+    translateController.loadTranslateValue();
     ArabicNumbers arabicNumber = ArabicNumbers();
     return Container(
       decoration: BoxDecoration(
@@ -53,9 +29,9 @@ class _SorahListTextState extends State<SorahListText>
         child: Column(
           children: <Widget>[
             Expanded(
-              child: BlocBuilder<SurahTextCubit, List<SurahText>?>(
-                builder: (context, state) {
-                  if (state == null) {
+              child: Obx(
+                () {
+                  if (surahTextController.surahs.isEmpty) {
                     return Center(
                       child: loadingLottie(200.0, 200.0),
                     );
@@ -67,7 +43,7 @@ class _SorahListTextState extends State<SorahListText>
                       child: ListView.builder(
                           shrinkWrap: true,
                           physics: const AlwaysScrollableScrollPhysics(),
-                          itemCount: state.length,
+                          itemCount: surahTextController.surahs.length,
                           controller: controller,
                           padding: EdgeInsets.zero,
                           itemBuilder: (_, index) {
@@ -81,17 +57,19 @@ class _SorahListTextState extends State<SorahListText>
                                     onTap: () {
                                       Navigator.of(context)
                                           .push(animatRoute(TextPageView(
-                                        surah: state[index],
-                                        nomPageF:
-                                            state[index].ayahs!.first.page!,
-                                        nomPageL:
-                                            state[index].ayahs!.last.page!,
+                                        surah:
+                                            surahTextController.surahs[index],
+                                        nomPageF: surahTextController
+                                            .surahs[index].ayahs!.first.page!,
+                                        nomPageL: surahTextController
+                                            .surahs[index].ayahs!.last.page!,
                                       )));
-                                      print("surah: ${state[index]}");
                                       print(
-                                          "nomPageF: ${state[index].ayahs!.first.page!}");
+                                          "surah: ${surahTextController.surahs[index]}");
                                       print(
-                                          "nomPageL: ${state[index].ayahs!.last.page!}");
+                                          "nomPageF: ${surahTextController.surahs[index].ayahs!.first.page!}");
+                                      print(
+                                          "nomPageL: ${surahTextController.surahs[index].ayahs!.last.page!}");
                                     },
                                     child: Container(
                                         height: 60,
@@ -120,7 +98,8 @@ class _SorahListTextState extends State<SorahListText>
                                                       )),
                                                   Text(
                                                     arabicNumber.convert(
-                                                        state[index]
+                                                        surahTextController
+                                                            .surahs[index]
                                                             .number
                                                             .toString()),
                                                     style: TextStyle(
@@ -166,7 +145,9 @@ class _SorahListTextState extends State<SorahListText>
                                                         const EdgeInsets.only(
                                                             right: 8.0),
                                                     child: Text(
-                                                      state[index].englishName!,
+                                                      surahTextController
+                                                          .surahs[index]
+                                                          .englishName!,
                                                       style: TextStyle(
                                                         fontFamily: "kufi",
                                                         fontWeight:
@@ -206,7 +187,7 @@ class _SorahListTextState extends State<SorahListText>
                                                     ),
                                                   ),
                                                   Text(
-                                                    "| ${arabicNumber.convert(state[index].ayahs!.last.numberInSurah)} |",
+                                                    "| ${arabicNumber.convert(surahTextController.surahs[index].ayahs!.last.numberInSurah)} |",
                                                     style: TextStyle(
                                                       fontFamily: "kufi",
                                                       fontSize: 14,

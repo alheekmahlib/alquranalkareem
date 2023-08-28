@@ -3,24 +3,19 @@ import 'dart:io' show File;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:get/get.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:theme_provider/theme_provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-import '/shared/controller/general_controller.dart';
-import '/shared/controller/settings_controller.dart';
 import '/shared/widgets/theme_change.dart';
 import '/shared/widgets/widgets.dart';
 import '../l10n/app_localizations.dart';
+import '../shared/widgets/controllers_put.dart';
 import '../shared/widgets/svg_picture.dart';
 
 class AboutApp extends StatelessWidget {
   AboutApp({Key? key}) : super(key: key);
-  late final GeneralController generalController = Get.put(GeneralController());
-  late final SettingsController settingsController =
-      Get.put(SettingsController());
 
   Future<void> _launchEmail() async {
     // ios specification

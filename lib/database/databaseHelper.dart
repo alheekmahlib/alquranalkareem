@@ -156,6 +156,12 @@ class DatabaseHelper {
 
   static Future<List<Map<String, dynamic>>> queryN() async {
     print('Update Note');
+
+    if (_db == null) {
+      // Initialize _db or throw an error.
+      throw Exception('Database not initialized');
+    }
+
     return await _db!.query(tableNote);
   }
 

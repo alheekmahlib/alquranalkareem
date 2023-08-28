@@ -2,19 +2,15 @@ import 'dart:convert' show jsonDecode, jsonEncode;
 
 import 'package:animated_toggle_switch/animated_toggle_switch.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:theme_provider/theme_provider.dart';
 
 import '/l10n/app_localizations.dart';
-import '/shared/controller/reminder_controller.dart';
-import '../cubit/cubit.dart';
-import '../cubit/states.dart';
-import '../shared/controller/general_controller.dart';
 import '../shared/local_notifications.dart';
 import '../shared/reminder_model.dart';
+import '../shared/widgets/controllers_put.dart';
 import '../shared/widgets/widgets.dart';
 import 'about_app.dart';
 import 'alwaqf_screen.dart';
@@ -30,136 +26,116 @@ class MenuScreen extends StatefulWidget {
 }
 
 class _MenuScreenState extends State<MenuScreen> {
-  late final GeneralController generalController = Get.put(GeneralController());
-  late final ReminderController reminderController =
-      Get.put(ReminderController());
-  @override
-  void initState() {
-    reminderController.loadReminders();
-    super.initState();
-  }
-
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<QuranCubit, QuranState>(
-      listener: (context, state) {
-        LoadRemindersState();
-        ShowTimePickerState();
-        AddReminderState();
-        DeleteReminderState();
-        OnTimeChangedState();
-      },
-      builder: (context, state) {
-        return SafeArea(
-          top: false,
-          bottom: false,
-          right: false,
-          left: false,
-          child: Scaffold(
-            backgroundColor: Theme.of(context).colorScheme.background,
-            body: orientation(
-                context,
+    reminderController.loadReminders();
+    return SafeArea(
+      top: false,
+      bottom: false,
+      right: false,
+      left: false,
+      child: Scaffold(
+        backgroundColor: Theme.of(context).colorScheme.background,
+        body: orientation(
+            context,
+            Padding(
+              padding:
+                  const EdgeInsets.only(right: 16.0, left: 16.0, top: 40.0),
+              child: ListView(
+                children: [
+                  Align(
+                    alignment: Alignment.topRight,
+                    child: greeting(),
+                  ),
+                  const Divider(
+                    thickness: 1,
+                  ),
+                  hijiriWidget(),
+                  const Divider(
+                    thickness: 1,
+                    height: 30,
+                  ),
+                  lastReadWidget(),
+                  const Divider(
+                    thickness: 1,
+                    height: 30,
+                  ),
+                  listWidget(),
+                  const Divider(
+                    thickness: 1,
+                    height: 30,
+                  ),
+                  reminderWidget()
+                ],
+              ),
+            ),
+            ListView(
+              children: [
                 Padding(
-                  padding:
+                  padding: orientation(
+                      context,
                       const EdgeInsets.only(right: 16.0, left: 16.0, top: 40.0),
-                  child: ListView(
+                      const EdgeInsets.only(
+                          right: 16.0, left: 16.0, top: 16.0)),
+                  child: Align(
+                    alignment: Alignment.topRight,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        greeting(),
+                        const Divider(
+                          thickness: 1,
+                          height: 30,
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 32.0),
+                  child: Stack(
+                    alignment: Alignment.topCenter,
                     children: [
                       Align(
                         alignment: Alignment.topRight,
-                        child: greeting(),
-                      ),
-                      const Divider(
-                        thickness: 1,
-                      ),
-                      hijiriWidget(),
-                      const Divider(
-                        thickness: 1,
-                        height: 30,
-                      ),
-                      lastReadWidget(),
-                      const Divider(
-                        thickness: 1,
-                        height: 30,
-                      ),
-                      listWidget(),
-                      const Divider(
-                        thickness: 1,
-                        height: 30,
-                      ),
-                      reminderWidget()
-                    ],
-                  ),
-                ),
-                ListView(
-                  children: [
-                    Padding(
-                      padding: orientation(
-                          context,
-                          const EdgeInsets.only(
-                              right: 16.0, left: 16.0, top: 40.0),
-                          const EdgeInsets.only(
-                              right: 16.0, left: 16.0, top: 16.0)),
-                      child: Align(
-                        alignment: Alignment.topRight,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            greeting(),
-                            const Divider(
-                              thickness: 1,
-                              height: 30,
-                            ),
-                          ],
+                        child: SizedBox(
+                          width: MediaQuery.of(context).size.width * .4,
+                          child: Column(
+                            children: [
+                              listWidget(),
+                              const Divider(
+                                thickness: 1,
+                                height: 30,
+                              ),
+                              reminderWidget()
+                            ],
+                          ),
                         ),
                       ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 32.0),
-                      child: Stack(
-                        alignment: Alignment.topCenter,
-                        children: [
-                          Align(
-                            alignment: Alignment.topRight,
-                            child: SizedBox(
-                              width: MediaQuery.of(context).size.width * .4,
-                              child: Column(
-                                children: [
-                                  listWidget(),
-                                  const Divider(
-                                    thickness: 1,
-                                    height: 30,
-                                  ),
-                                  reminderWidget()
-                                ],
+                      Align(
+                        alignment: Alignment.topLeft,
+                        child: SizedBox(
+                          width: MediaQuery.of(context).size.width * .4,
+                          child: Column(
+                            children: [
+                              hijiriWidget(),
+                              const Divider(
+                                thickness: 1,
                               ),
-                            ),
+                              lastReadWidget(),
+                              const Divider(
+                                thickness: 1,
+                              ),
+                            ],
                           ),
-                          Align(
-                            alignment: Alignment.topLeft,
-                            child: SizedBox(
-                              width: MediaQuery.of(context).size.width * .4,
-                              child: Column(
-                                children: [
-                                  hijiriWidget(),
-                                  const Divider(
-                                    thickness: 1,
-                                  ),
-                                  lastReadWidget(),
-                                  const Divider(
-                                    thickness: 1,
-                                  ),
-                                ],
-                              ),
-                            ),
-                          )
-                        ],
-                      ),
-                    )
-                  ],
-                )),
-          ),
-        );
-      },
+                        ),
+                      )
+                    ],
+                  ),
+                )
+              ],
+            )),
+      ),
     );
   }
 

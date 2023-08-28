@@ -12,16 +12,14 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:hijri/hijri_calendar.dart';
 import 'package:intl/intl.dart';
+import 'package:spring/spring.dart';
 import 'package:theme_provider/theme_provider.dart';
 
-import '/audio_screen/controller/surah_audio_controller.dart';
-import '/notes/cubit/note_cubit.dart';
 import '/quran_text/Widgets/quran_text_search.dart';
-import '/shared/controller/audio_controller.dart';
 import '/shared/controller/general_controller.dart';
 import '/shared/widgets/bookmarks_list.dart';
 import '/shared/widgets/quran_search.dart';
-import '/shared/widgets/sorah_juz_list.dart';
+import '/shared/widgets/surah_juz_list.dart';
 import '../../database/notificationDatabase.dart';
 import '../../l10n/app_localizations.dart';
 import '../../notes/screens/notes_list.dart';
@@ -29,14 +27,11 @@ import '../../quran_text/Widgets/bookmarks_text_list.dart';
 import '../../services_locator.dart';
 import '../custom_paint/bg_icon.dart';
 import '../postPage.dart';
+import 'controllers_put.dart';
 
 var TPageScaffoldKey = GlobalKey<ScaffoldState>();
 var SorahPlayScaffoldKey = GlobalKey<ScaffoldState>();
 String? selectedValue;
-final GeneralController generalController = sl<GeneralController>();
-final AudioController audioController = Get.put(AudioController());
-final SurahAudioController surahAudioController =
-    Get.put(SurahAudioController());
 
 Widget quranPageSearch(BuildContext context, double width) {
   return GestureDetector(
@@ -46,7 +41,7 @@ Widget quranPageSearch(BuildContext context, double width) {
         context,
         MediaQuery.of(context).size.height / 1 / 2,
         MediaQuery.of(context).size.width,
-        const QuranSearch(),
+        QuranSearch(),
       );
     },
   );
@@ -57,7 +52,7 @@ Widget quranPageSorahList(BuildContext context, double width) {
       child: iconBg(context, Icons.list_alt_outlined),
       onTap: () {
         allModalBottomSheet(context, MediaQuery.of(context).size.height / 1 / 2,
-            MediaQuery.of(context).size.width, const SorahJuzList());
+            MediaQuery.of(context).size.width, SurahJuzList());
       });
 }
 
@@ -66,7 +61,7 @@ Widget notesList(BuildContext context, double width) {
     child: iconBg(context, Icons.add_comment_outlined),
     onTap: () {
       allModalBottomSheet(context, MediaQuery.of(context).size.height / 1 / 2,
-          MediaQuery.of(context).size.width, const NotesList());
+          MediaQuery.of(context).size.width, NotesList());
     },
   );
 }
@@ -85,8 +80,7 @@ Widget bookmarksList(BuildContext context, double width) {
   );
 }
 
-Widget bookmarksTextList(BuildContext context,
-    GlobalKey<ScaffoldState> bookmarksTextListKey, double width) {
+Widget bookmarksTextList(BuildContext context, double width) {
   return GestureDetector(
     child: iconBg(context, Icons.bookmarks_outlined),
     onTap: () {
@@ -100,8 +94,7 @@ Widget bookmarksTextList(BuildContext context,
   );
 }
 
-Widget quranTextSearch(BuildContext context,
-    GlobalKey<ScaffoldState> searchTextListKey, double width) {
+Widget quranTextSearch(BuildContext context, double width) {
   return GestureDetector(
     child: iconBg(context, Icons.search_outlined),
     onTap: () {
@@ -241,43 +234,6 @@ Widget topBar(BuildContext context) {
         Align(
           alignment: Alignment.topRight,
           child: customClose(context),
-        ),
-      ],
-    ),
-  );
-}
-
-Widget audioSorahtopBar(BuildContext context, String sorahNum) {
-  return SizedBox(
-    height: orientation(context, 130.0, 30.0),
-    child: Stack(
-      alignment: Alignment.center,
-      children: [
-        Opacity(
-          opacity: .1,
-          child: SvgPicture.asset(
-            'assets/svg/surah_name/00$sorahNum.svg',
-            colorFilter: ColorFilter.mode(
-                Theme.of(context).colorScheme.surface, BlendMode.srcIn),
-            width: MediaQuery.of(context).size.width,
-          ),
-        ),
-        SvgPicture.asset(
-          'assets/svg/surah_name/00$sorahNum.svg',
-          height: 100,
-          colorFilter: ColorFilter.mode(
-              Theme.of(context).colorScheme.surface, BlendMode.srcIn),
-          width: MediaQuery.of(context).size.width / 1 / 2,
-        ),
-        Align(
-          alignment: Alignment.topRight,
-          child: IconButton(
-            icon: Icon(Icons.close_outlined,
-                color: ThemeProvider.themeOf(context).id == 'dark'
-                    ? Theme.of(context).canvasColor
-                    : Theme.of(context).primaryColorDark),
-            onPressed: () => surahAudioController.controllerSorah.reverse(),
-          ),
         ),
       ],
     ),
@@ -1464,11 +1420,11 @@ quarters(int index) {
   }
 }
 
-Future<dynamic> dropDownModalBottomSheet(
+dropDownModalBottomSheet(
     BuildContext context, double height, width, Widget child) {
   double hei = MediaQuery.of(context).size.height;
   double wid = MediaQuery.of(context).size.width;
-  return showModalBottomSheet(
+  showModalBottomSheet(
       context: context,
       constraints: BoxConstraints(
           maxWidth: platformView(
@@ -1486,16 +1442,10 @@ Future<dynamic> dropDownModalBottomSheet(
       isScrollControlled: true,
       builder: (BuildContext context) {
         return child;
-      });
-  // .whenComplete(() {
-  //   if (generalController.screenController != null) {
-  //     generalController.screenController!.reverse();
-  //   }
-  // }).then((_) {
-  //   if (generalController.screenController != null) {
-  //     generalController.screenController!.forward();
-  //   }
-  // });
+      }).whenComplete(() {
+    screenSpringController.play(motion: Motion.reverse);
+  });
+  screenSpringController.play(motion: Motion.play);
 }
 
 allModalBottomSheet(BuildContext context, double height, width, Widget child) {
@@ -1519,11 +1469,10 @@ allModalBottomSheet(BuildContext context, double height, width, Widget child) {
       isScrollControlled: true,
       builder: (BuildContext context) {
         return child;
-      });
-  //     .whenComplete(() {
-  //   generalController.screenController!.reverse();
-  // });
-  // generalController.screenController!.forward();
+      }).whenComplete(() {
+    screenSpringController.play(motion: Motion.reverse);
+  });
+  screenSpringController.play(motion: Motion.play);
 }
 
 Widget customClose(BuildContext context) {
@@ -1598,8 +1547,7 @@ Widget customTextClose(BuildContext context) {
   );
 }
 
-Widget Function(BuildContext, EditableTextState) buildMyContextMenu(
-    NotesCubit notesCubit) {
+Widget Function(BuildContext, EditableTextState) buildMyContextMenu() {
   return (BuildContext context, EditableTextState editableTextState) {
     final List<ContextMenuButtonItem> buttonItems =
         editableTextState.contextMenuButtonItems;
@@ -1609,7 +1557,7 @@ Widget Function(BuildContext, EditableTextState) buildMyContextMenu(
         label: 'Add Note',
         onPressed: () {
           ContextMenuController.removeAny();
-          notesCubit.addTafseerToNote(context);
+          notesController.addTafseerToNote();
         },
       ),
     );
@@ -1621,8 +1569,7 @@ Widget Function(BuildContext, EditableTextState) buildMyContextMenu(
   };
 }
 
-Widget Function(BuildContext, EditableTextState) buildMyContextMenuText(
-    NotesCubit notesCubit) {
+Widget Function(BuildContext, EditableTextState) buildMyContextMenuText() {
   return (BuildContext context, EditableTextState editableTextState) {
     final List<ContextMenuButtonItem> buttonItems =
         editableTextState.contextMenuButtonItems;
@@ -1632,7 +1579,7 @@ Widget Function(BuildContext, EditableTextState) buildMyContextMenuText(
         label: 'Add Note',
         onPressed: () {
           ContextMenuController.removeAny();
-          notesCubit.addTafseerTextToNote(context);
+          notesController.addTafseerTextToNote();
         },
       ),
     );

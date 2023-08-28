@@ -1,18 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:get/get.dart';
 import 'package:theme_provider/theme_provider.dart';
 
 import '/shared/widgets/svg_picture.dart';
 import '/shared/widgets/theme_change.dart';
 import '/shared/widgets/widgets.dart';
 import '../../l10n/app_localizations.dart';
-import '../controller/settings_controller.dart';
+import 'controllers_put.dart';
 
 class SettingsList extends StatelessWidget {
   SettingsList({Key? key}) : super(key: key);
-  late final SettingsController settingsController =
-      Get.put(SettingsController());
 
   @override
   Widget build(BuildContext context) {

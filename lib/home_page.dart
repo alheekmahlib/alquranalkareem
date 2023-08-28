@@ -55,7 +55,7 @@ class _HomePageState extends State<HomePage> {
                   },
                 },
                 home: ScreenTypeLayout.builder(
-                  mobile: (BuildContext context) => QuranPageScreen(),
+                  mobile: (BuildContext context) => const QuranPageScreen(),
                   desktop: (BuildContext context) => const MainDScreen(),
                   breakpoints: const ScreenBreakpoints(
                       desktop: 650, tablet: 450, watch: 300),

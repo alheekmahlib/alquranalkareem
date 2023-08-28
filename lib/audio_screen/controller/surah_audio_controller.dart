@@ -48,8 +48,6 @@ class SurahAudioController extends GetxController {
 
   bool _isDisposed = false;
 
-  late Animation<Offset> offset;
-  late AnimationController controllerSorah;
   List<AudioSource>? surahsPlayList;
   List<Map<int, AudioSource>> downloadSurahsPlayList = [];
 

@@ -1,7 +1,5 @@
-import 'package:alquranalkareem/shared/controller/general_controller.dart';
 import 'package:alquranalkareem/shared/widgets/svg_picture.dart';
 import 'package:alquranalkareem/shared/widgets/widgets.dart';
-import 'package:arabic_numbers/arabic_numbers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -9,53 +7,22 @@ import 'package:get/get.dart';
 import 'package:theme_provider/theme_provider.dart';
 
 import '../../l10n/app_localizations.dart';
-import '../../notes/cubit/note_cubit.dart';
-import '../controller/ayat_controller.dart';
 import '../share/ayah_to_images.dart';
 import 'ayah_list.dart';
+import 'controllers_put.dart';
 import 'lottie.dart';
 
 double? isSelected;
 int? ayahSelected, ayahNumber, surahNumber;
 String? surahName;
 
-class ShowTafseer extends StatefulWidget {
-  const ShowTafseer({Key? key}) : super(key: key);
+class ShowTafseer extends StatelessWidget {
+  ShowTafseer({Key? key}) : super(key: key);
 
-  @override
-  State<ShowTafseer> createState() => _ShowTafseerState();
-}
-
-class _ShowTafseerState extends State<ShowTafseer> {
   final ScrollController _scrollController = ScrollController();
-  final GlobalKey<_ShowTafseerState> _selectableTextKey =
-      GlobalKey<_ShowTafseerState>();
-  ArabicNumbers arabicNumber = ArabicNumbers();
-  late final AyatController ayatController = Get.put(AyatController());
-  late final GeneralController generalController = Get.put(GeneralController());
-  int pageNum = 0;
-  int radioValue = 0;
-  double lower = 18;
-  double upper = 40;
-  double selectedValue = 18.0;
-  double? sliderValue;
-
-  // final NoteController _noteController = Get.put(NoteController());
-
-  @override
-  void initState() {
-    sliderValue = 0;
-    super.initState();
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {
-    NotesCubit notesCubit = NotesCubit.get(context);
     return Directionality(
       textDirection: TextDirection.rtl,
       child: Container(
@@ -213,12 +180,18 @@ class _ShowTafseerState extends State<ShowTafseer> {
                       child: SingleChildScrollView(
                           controller: _scrollController,
                           child: Obx(() {
+                            if (ayatController.currentText.value != null) {
+                              allText = ayatController
+                                      .currentText.value!.translateAyah +
+                                  ayatController.currentText.value!.translate;
+                              allTitle = ayatController
+                                  .currentText.value!.translateAyah;
+                            }
                             if (ayatController.currentPageLoading.value) {
                               return loadingLottie(150.0, 150.0);
                             } else if (ayatController.currentText.value !=
                                 null) {
                               return SelectableText.rich(
-                                key: _selectableTextKey,
                                 TextSpan(
                                   children: <InlineSpan>[
                                     TextSpan(
@@ -276,8 +249,7 @@ class _ShowTafseerState extends State<ShowTafseer> {
                                 scrollPhysics: const ClampingScrollPhysics(),
                                 textDirection: TextDirection.rtl,
                                 textAlign: TextAlign.justify,
-                                contextMenuBuilder:
-                                    buildMyContextMenu(notesCubit),
+                                contextMenuBuilder: buildMyContextMenu(),
                                 onSelectionChanged: handleSelectionChanged,
                               );
                             } else {
@@ -450,13 +422,30 @@ String allText = '';
 String allTitle = '';
 String? selectedTextED;
 
+// void handleSelectionChanged(
+//     TextSelection selection, SelectionChangedCause? cause) {
+//   if (cause == SelectionChangedCause.longPress) {
+//     final characters = allText.characters;
+//     final start = characters.take(selection.start).length;
+//     final end = characters.take(selection.end).length;
+//
+//     final adjustedStart = start > 0 ? start - 1 : start;
+//     final adjustedEnd = end > 0 ? end - 1 : end;
+//
+//     final selectedText = allText.substring(adjustedStart, adjustedEnd);
+//
+//     selectedTextED = selectedText;
+//     print("selectedText: $selectedText");
+//   }
+// }
+
 void handleSelectionChanged(
     TextSelection selection, SelectionChangedCause? cause) {
   if (cause == SelectionChangedCause.longPress) {
     final characters = allText.characters;
     final start = characters.take(selection.start).length;
     final end = characters.take(selection.end).length;
-    final selectedText = allText.substring(start - 1, end - 1);
+    final selectedText = allText.substring(start - 5, end - 5);
 
     // setState(() {
     selectedTextED = selectedText;

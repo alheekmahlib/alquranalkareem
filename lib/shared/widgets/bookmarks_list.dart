@@ -1,4 +1,3 @@
-import 'package:alquranalkareem/notes/model/Notes.dart';
 import 'package:alquranalkareem/shared/widgets/widgets.dart';
 import 'package:arabic_numbers/arabic_numbers.dart';
 import 'package:flutter/material.dart';
@@ -7,35 +6,15 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:theme_provider/theme_provider.dart';
 
-import '../../quran_page/data/repository/bookmarks_controller.dart';
+import 'controllers_put.dart';
 import 'lottie.dart';
 
-class BookmarksList extends StatefulWidget {
+class BookmarksList extends StatelessWidget {
   const BookmarksList({Key? key}) : super(key: key);
 
   @override
-  State<BookmarksList> createState() => _BookmarksListState();
-}
-
-class _BookmarksListState extends State<BookmarksList> {
-  int? id;
-  String? sorahName;
-  int? pageName;
-  String? lastRead;
-  late final Notes notes;
-  final sorahNameController = TextEditingController();
-  final descriptionController = TextEditingController();
-  late final BookmarksController bookmarksController =
-      Get.put(BookmarksController());
-
-  @override
-  void initState() {
-    bookmarksController.getBookmarks();
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
+    bookmarksController.getBookmarks();
     ArabicNumbers arabicNumber = ArabicNumbers();
     return Column(
       children: [

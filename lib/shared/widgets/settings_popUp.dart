@@ -1,11 +1,10 @@
 import 'package:alquranalkareem/shared/widgets/settings_list.dart';
 import 'package:alquranalkareem/shared/widgets/widgets.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get/get.dart';
 import 'package:theme_provider/theme_provider.dart';
 
-import '../../cubit/cubit.dart';
-import '../../notes/cubit/note_cubit.dart';
+import '../controller/notes_controller.dart';
 import '../custom_rect_tween.dart';
 import '../hero_dialog_route.dart';
 
@@ -85,12 +84,10 @@ class settingsPopupCard extends StatelessWidget {
       required this.alignment,
       required this.padding})
       : super(key: key);
+  late final NotesController notesController = Get.put(NotesController());
 
   @override
   Widget build(BuildContext context) {
-    QuranCubit cubit = QuranCubit.get(context);
-    // double paddingHeight = MediaQuery.of(context).size.height;
-    // double width = MediaQuery.of(context).size.width;
     return SafeArea(
       child: Align(
         alignment: alignment,
@@ -141,11 +138,8 @@ class settingsPopupCard extends StatelessWidget {
                           // setState(() {
                           // TODO:
                           // cubit.isShowSettings = !cubit.isShowSettings;
-                          context
-                              .read<NotesCubit>()
-                              .descriptionController
-                              .clear();
-                          context.read<NotesCubit>().titleController.clear();
+                          notesController.descriptionController.clear();
+                          notesController.titleController.clear();
                           // });
                         },
                       ),

@@ -1,42 +1,30 @@
-import 'package:alquranalkareem/audio_screen/controller/surah_audio_controller.dart';
-import 'package:alquranalkareem/audio_screen/widget/download_play_button.dart';
-import 'package:alquranalkareem/audio_screen/widget/online_play_button.dart';
-import 'package:alquranalkareem/audio_screen/widget/skip_next.dart';
-import 'package:alquranalkareem/audio_screen/widget/skip_previous.dart';
-import 'package:alquranalkareem/audio_screen/widget/surah_seek_bar.dart';
-import 'package:alquranalkareem/l10n/app_localizations.dart';
 import 'package:anim_search_bar/anim_search_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:mini_music_visualizer/mini_music_visualizer.dart';
+import 'package:spring/spring.dart';
 import 'package:theme_provider/theme_provider.dart';
 
-import '../shared/controller/surah_repository_controller.dart';
+import '../audio_screen/widget/download_play_button.dart';
+import '../audio_screen/widget/online_play_button.dart';
+import '../audio_screen/widget/skip_next.dart';
+import '../audio_screen/widget/skip_previous.dart';
+import '../audio_screen/widget/surah_seek_bar.dart';
+import '../l10n/app_localizations.dart';
+import '../shared/widgets/controllers_put.dart';
 import '../shared/widgets/svg_picture.dart';
 import '../shared/widgets/widgets.dart';
 
-class AudioSorahList extends StatefulWidget {
+class AudioSorahList extends StatelessWidget {
   const AudioSorahList({super.key});
 
   @override
-  _AudioSorahListState createState() => _AudioSorahListState();
-}
-
-class _AudioSorahListState extends State<AudioSorahList>
-    with
-        AutomaticKeepAliveClientMixin<AudioSorahList>,
-        SingleTickerProviderStateMixin {
-  late final SurahAudioController surahAudioController =
-      Get.put(SurahAudioController());
-  final SorahRepositoryController sorahRepositoryController =
-      Get.put(SorahRepositoryController());
-
-  @override
   Widget build(BuildContext context) {
-    super.build(context);
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
+    springController = SpringController(initialAnim: Motion.reverse);
     return Directionality(
       textDirection: TextDirection.rtl,
       child: Scaffold(
@@ -173,8 +161,14 @@ class _AudioSorahListState extends State<AudioSorahList>
 
   Widget playWidget(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
-    return SlideTransition(
-        position: surahAudioController.offset,
+    return Spring.slide(
+        springController: springController,
+        slideType: SlideType.slide_in_bottom,
+        delay: const Duration(milliseconds: 0),
+        animDuration: const Duration(milliseconds: 500),
+        curve: Curves.easeInOut,
+        extend: 500,
+        withFade: false,
         child: Padding(
           padding: orientation(
               context,
@@ -224,9 +218,8 @@ class _AudioSorahListState extends State<AudioSorahList>
                                             'dark'
                                         ? Theme.of(context).canvasColor
                                         : Theme.of(context).primaryColorDark),
-                                onPressed: () => surahAudioController
-                                    .controllerSorah
-                                    .reverse(),
+                                onPressed: () => springController.play(
+                                    motion: Motion.reverse),
                               ),
                             ),
                           ],
@@ -293,7 +286,7 @@ class _AudioSorahListState extends State<AudioSorahList>
                                 ? Theme.of(context).canvasColor
                                 : Theme.of(context).primaryColorDark),
                         onPressed: () =>
-                            surahAudioController..controllerSorah.reverse(),
+                            springController.play(motion: Motion.reverse),
                       ),
                     ),
                     Align(
@@ -358,8 +351,14 @@ class _AudioSorahListState extends State<AudioSorahList>
 
   Widget playWidgetLand(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
-    return SlideTransition(
-        position: surahAudioController.offset,
+    return Spring.slide(
+        springController: springController,
+        slideType: SlideType.slide_in_bottom,
+        delay: const Duration(milliseconds: 0),
+        animDuration: const Duration(milliseconds: 500),
+        curve: Curves.easeInOut,
+        extend: 500,
+        withFade: false,
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 64.0),
           child: Container(
@@ -395,7 +394,7 @@ class _AudioSorahListState extends State<AudioSorahList>
                               ? Theme.of(context).canvasColor
                               : Theme.of(context).primaryColorDark),
                       onPressed: () =>
-                          surahAudioController.controllerSorah.reverse(),
+                          springController.play(motion: Motion.reverse),
                     ),
                   ),
                   Align(
@@ -520,80 +519,97 @@ class _AudioSorahListState extends State<AudioSorahList>
                                       const EdgeInsets.symmetric(horizontal: 8),
                                   child: Row(
                                     children: [
-                                      Stack(
-                                        alignment: Alignment.center,
-                                        children: [
-                                          SizedBox(
-                                              height: 40,
-                                              width: 40,
-                                              child: SvgPicture.asset(
-                                                'assets/svg/sora_num.svg',
-                                              )),
-                                          Text(
-                                            "${surahAudioController.arabicNumber.convert(sorah.id)}",
-                                            style: TextStyle(
-                                                color: ThemeProvider.themeOf(
-                                                                context)
-                                                            .id ==
-                                                        'dark'
-                                                    ? Theme.of(context)
-                                                        .canvasColor
-                                                    : Theme.of(context)
-                                                        .primaryColorLight,
-                                                fontFamily: "kufi",
-                                                fontSize: 14,
-                                                fontWeight: FontWeight.bold,
-                                                height: 2),
+                                      Expanded(
+                                        flex: 2,
+                                        child: Align(
+                                          alignment: Alignment.centerRight,
+                                          child: Stack(
+                                            alignment: Alignment.center,
+                                            children: [
+                                              SizedBox(
+                                                  height: 40,
+                                                  width: 40,
+                                                  child: SvgPicture.asset(
+                                                    'assets/svg/sora_num.svg',
+                                                  )),
+                                              Text(
+                                                "${surahAudioController.arabicNumber.convert(sorah.id)}",
+                                                style: TextStyle(
+                                                    color: ThemeProvider
+                                                                    .themeOf(
+                                                                        context)
+                                                                .id ==
+                                                            'dark'
+                                                        ? Theme.of(context)
+                                                            .canvasColor
+                                                        : Theme.of(context)
+                                                            .primaryColorLight,
+                                                    fontFamily: "kufi",
+                                                    fontSize: 14,
+                                                    fontWeight: FontWeight.bold,
+                                                    height: 2),
+                                              ),
+                                            ],
                                           ),
-                                        ],
+                                        ),
                                       ),
-                                      const SizedBox(
-                                        width: 100,
-                                      ),
-                                      Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          SvgPicture.asset(
-                                            'assets/svg/surah_name/00${index + 1}.svg',
-                                            colorFilter: ColorFilter.mode(
-                                                ThemeProvider.themeOf(context)
-                                                            .id ==
-                                                        'dark'
-                                                    ? Theme.of(context)
-                                                        .canvasColor
-                                                    : Theme.of(context)
-                                                        .primaryColorDark,
-                                                BlendMode.srcIn),
-                                            width: 100,
-                                          ),
-                                          Padding(
-                                            padding: const EdgeInsets.only(
-                                                right: 8.0),
-                                            child: Text(
-                                              sorah.nameEn,
-                                              style: TextStyle(
-                                                fontFamily: "naskh",
-                                                fontWeight: FontWeight.w600,
-                                                fontSize: 10,
-                                                color: ThemeProvider.themeOf(
-                                                                context)
-                                                            .id ==
-                                                        'dark'
-                                                    ? Theme.of(context)
-                                                        .canvasColor
-                                                    : Theme.of(context)
-                                                        .primaryColorLight,
+                                      Expanded(
+                                        flex: 6,
+                                        child: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            SvgPicture.asset(
+                                              'assets/svg/surah_name/00${index + 1}.svg',
+                                              colorFilter: ColorFilter.mode(
+                                                  ThemeProvider.themeOf(context)
+                                                              .id ==
+                                                          'dark'
+                                                      ? Theme.of(context)
+                                                          .canvasColor
+                                                      : Theme.of(context)
+                                                          .primaryColorDark,
+                                                  BlendMode.srcIn),
+                                              width: 100,
+                                            ),
+                                            Padding(
+                                              padding: const EdgeInsets.only(
+                                                  right: 8.0),
+                                              child: Text(
+                                                sorah.nameEn,
+                                                style: TextStyle(
+                                                  fontFamily: "naskh",
+                                                  fontWeight: FontWeight.w600,
+                                                  fontSize: 10,
+                                                  color: ThemeProvider.themeOf(
+                                                                  context)
+                                                              .id ==
+                                                          'dark'
+                                                      ? Theme.of(context)
+                                                          .canvasColor
+                                                      : Theme.of(context)
+                                                          .primaryColorLight,
+                                                ),
                                               ),
                                             ),
-                                          ),
-                                        ],
+                                          ],
+                                        ),
                                       ),
+                                      if (index + 1 ==
+                                          surahAudioController.sorahNum.value)
+                                        MiniMusicVisualizer(
+                                          color: Theme.of(context)
+                                              .colorScheme
+                                              .surface,
+                                          width: 4,
+                                          height: 15,
+                                        ),
                                     ],
                                   ),
                                 )),
                             onTap: () {
                               print('Surah tapped with index: $index');
+                              springController.play(motion: Motion.play);
                               surahAudioController.isDownloading.value = false;
                               surahAudioController.selectedSurah.value = index;
                               surahAudioController.sorahNum.value = index + 1;
@@ -601,14 +617,6 @@ class _AudioSorahListState extends State<AudioSorahList>
                               surahAudioController.changeAudioSource();
                               print(
                                   'Updated sorahNum.value to: ${surahAudioController.sorahNum.value}');
-                              switch (
-                                  surahAudioController.controllerSorah.status) {
-                                case AnimationStatus.dismissed:
-                                  surahAudioController.controllerSorah
-                                      .forward();
-                                  break;
-                                default:
-                              }
                             },
                           ),
                         ),
@@ -644,9 +652,7 @@ class _AudioSorahListState extends State<AudioSorahList>
         autoFocus: false,
         color: Theme.of(context).colorScheme.surface,
         onSuffixTap: () {
-          setState(() {
-            surahAudioController.textController.clear();
-          });
+          surahAudioController.textController.clear();
         },
       ),
     );
@@ -735,15 +741,7 @@ class _AudioSorahListState extends State<AudioSorahList>
       onTap: () {
         surahAudioController.controller
             .jumpTo((surahAudioController.sorahNum.value - 1) * 65.0);
-        switch (surahAudioController.controllerSorah.status) {
-          case AnimationStatus.completed:
-            surahAudioController.controllerSorah.reverse();
-            break;
-          case AnimationStatus.dismissed:
-            surahAudioController.controllerSorah.forward();
-            break;
-          default:
-        }
+        springController.play(motion: Motion.play);
       },
     );
   }

@@ -3,36 +3,18 @@ import 'package:flutter_svg/svg.dart';
 import 'package:group_button/group_button.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 import 'package:theme_provider/theme_provider.dart';
+
 import '../shared/widgets/svg_picture.dart';
 import '../shared/widgets/widgets.dart';
 
-
-
-class AlwaqfScreen extends StatefulWidget {
+class AlwaqfScreen extends StatelessWidget {
   AlwaqfScreen({Key? key}) : super(key: key);
 
-  @override
-  State<AlwaqfScreen> createState() => _AlwaqfScreenState();
-}
-
-class _AlwaqfScreenState extends State<AlwaqfScreen> {
   final ScrollController controller = ScrollController();
-  ItemScrollController _scrollController = ItemScrollController();
-  late GroupButtonController checkboxesController;
+  final ItemScrollController _scrollController = ItemScrollController();
+  late final GroupButtonController checkboxesController;
 
-  @override
-  void initState() {
-    checkboxesController = GroupButtonController(
-      selectedIndexes: [2],
-      disabledIndexes: [4],
-      onDisablePressed: (index) => ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('${waqfMarks[index]} is disabled')),
-      ),
-    );
-    super.initState();
-  }
-
-  List<String> waqfMarks = <String>[
+  final List<String> waqfMarks = <String>[
     'assets/svg/alwaqf/01.svg',
     'assets/svg/alwaqf/02.svg',
     'assets/svg/alwaqf/03.svg',
@@ -40,7 +22,7 @@ class _AlwaqfScreenState extends State<AlwaqfScreen> {
     'assets/svg/alwaqf/05.svg',
   ];
 
-  List<String> waqfExplain = <String>[
+  final List<String> waqfExplain = <String>[
     'عَلَامَة الوَقْفِ اللَّازم نَحوُ : {إِنَّمَا يَسْتَجِيبُ الَّذِينَ يَسْمَعُونَ ۘ وَالْمَوْتَىٰ يَبْعَثُهُمُ اللَّهُ}.',
     'عَلَامَة الوَقْفِ الجَائِزِ مَعَ كَوْنِ الوَقْفِ أَوْلَى نَحِوُ : {قُل رَّبِّي أَعْلَمُ بِعِدَّتِهِم مَّا يَعْلَمُهُمْ إِلَّا قَلِيلٌ ۗ فَلَا تُمَارِ فِيهِمْ}.',
     'عَلَامَة الوَقْفِ الجَائِزِ جَوَازًا مُسْتَوِيَ الطَّرَفَيْن نَحوُ : {نَّحْنُ نَقُصُّ عَلَيْكَ نَبَأَهُم بِالْحَقِّ ۚ إِنَّهُمْ فِتْيَةٌ آمَنُوا بِرَبِّهِمْ}.',
@@ -82,7 +64,8 @@ class _AlwaqfScreenState extends State<AlwaqfScreen> {
                 Align(
                   alignment: Alignment.bottomCenter,
                   child: Padding(
-                    padding: orientation(context,
+                    padding: orientation(
+                        context,
                         const EdgeInsets.only(top: 32.0),
                         EdgeInsets.only(
                             top: MediaQuery.of(context).size.height / 1 / 13)),
@@ -102,9 +85,12 @@ class _AlwaqfScreenState extends State<AlwaqfScreen> {
                                     width: 50,
                                     decoration: BoxDecoration(
                                       color: isSelected
-                                          ? Theme.of(context).colorScheme.surface
+                                          ? Theme.of(context)
+                                              .colorScheme
+                                              .surface
                                           : Theme.of(context)
-                                              .colorScheme.surface
+                                              .colorScheme
+                                              .surface
                                               .withOpacity(.6),
                                       borderRadius: BorderRadius.circular(4),
                                     ),
@@ -113,8 +99,12 @@ class _AlwaqfScreenState extends State<AlwaqfScreen> {
                                       height: 40,
                                       width: 40,
                                       colorFilter: isSelected
-                                          ? const ColorFilter.mode(Color(0xfffcbb76), BlendMode.srcIn)
-                                          : const ColorFilter.mode(Color(0xff39412a), BlendMode.srcIn),
+                                          ? const ColorFilter.mode(
+                                              Color(0xfffcbb76),
+                                              BlendMode.srcIn)
+                                          : const ColorFilter.mode(
+                                              Color(0xff39412a),
+                                              BlendMode.srcIn),
                                     ),
                                   );
                                 },
@@ -125,7 +115,8 @@ class _AlwaqfScreenState extends State<AlwaqfScreen> {
                                       Theme.of(context).colorScheme.surface,
                                   unselectedShadow: const [],
                                   unselectedColor: Theme.of(context)
-                                      .colorScheme.surface
+                                      .colorScheme
+                                      .surface
                                       .withOpacity(.5),
                                   unselectedTextStyle: TextStyle(
                                     fontSize: 18,
@@ -185,13 +176,15 @@ class _AlwaqfScreenState extends State<AlwaqfScreen> {
                                           horizontal: 16, vertical: 16),
                                       width: MediaQuery.of(context).size.width,
                                       decoration: BoxDecoration(
-                                          color:
-                                              Theme.of(context).colorScheme.background,
+                                          color: Theme.of(context)
+                                              .colorScheme
+                                              .background,
                                           borderRadius: const BorderRadius.all(
                                               Radius.circular(8)),
                                           border: Border.all(
                                               color: Theme.of(context)
-                                                  .colorScheme.surface,
+                                                  .colorScheme
+                                                  .surface,
                                               width: 1)),
                                       child: Padding(
                                         padding: const EdgeInsets.symmetric(
@@ -208,8 +201,12 @@ class _AlwaqfScreenState extends State<AlwaqfScreen> {
                                                     '${waqfMarks[index]}',
                                                     height: 70,
                                                     width: 70,
-                                                    colorFilter: ColorFilter.mode(Theme.of(context)
-                                                        .colorScheme.surface, BlendMode.srcIn),
+                                                    colorFilter:
+                                                        ColorFilter.mode(
+                                                            Theme.of(context)
+                                                                .colorScheme
+                                                                .surface,
+                                                            BlendMode.srcIn),
                                                   )),
                                             ),
                                             Center(
@@ -248,7 +245,14 @@ class _AlwaqfScreenState extends State<AlwaqfScreen> {
                                               ),
                                             ),
                                             Center(
-                                              child: spaceLine(30, MediaQuery.of(context).size.width / 1 / 4,),
+                                              child: spaceLine(
+                                                30,
+                                                MediaQuery.of(context)
+                                                        .size
+                                                        .width /
+                                                    1 /
+                                                    4,
+                                              ),
                                             ),
                                           ],
                                         ),

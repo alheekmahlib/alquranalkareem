@@ -1,37 +1,18 @@
 import 'package:alquranalkareem/shared/widgets/widgets.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:theme_provider/theme_provider.dart';
 
-import '../../cubit/ayaRepository/aya_cubit.dart';
 import '../../l10n/app_localizations.dart';
 import '../../quran_page/data/model/aya.dart';
-import '../../shared/controller/quranText_controller.dart';
+import '../../shared/widgets/controllers_put.dart';
 import '../../shared/widgets/lottie.dart';
-import '../cubit/surah_text_cubit.dart';
-import '../model/QuranModel.dart';
 import '../text_page_view.dart';
 
-class QuranTextSearch extends StatefulWidget {
-  // late Function onSubmitted;
-
+class QuranTextSearch extends StatelessWidget {
   QuranTextSearch({super.key});
-
-  @override
-  _QuranTextSearchState createState() => _QuranTextSearchState();
-}
-
-class _QuranTextSearchState extends State<QuranTextSearch> {
   final _controller = TextEditingController();
-  late final QuranTextController quranTextController =
-      Get.put(QuranTextController());
-
-  @override
-  void initState() {
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -51,10 +32,10 @@ class _QuranTextSearchState extends State<QuranTextSearch> {
             cursorColor: Theme.of(context).dividerColor,
             textInputAction: TextInputAction.search,
             onSubmitted: (value) {
-              context.read<AyaCubit>().search(value);
+              ayaController.search(value);
             },
             onChanged: (value) {
-              context.read<AyaCubit>().search(value);
+              ayaController.search(value);
             },
             style: TextStyle(
                 color: Theme.of(context).colorScheme.surface,
@@ -89,24 +70,17 @@ class _QuranTextSearchState extends State<QuranTextSearch> {
           ),
         ),
         Expanded(
-          child: BlocBuilder<AyaCubit, AyaState>(
-            builder: (context, state) {
-              if (state is AyaLoading) {
+          child: Obx(
+            () {
+              if (ayaController.isLoading.value) {
                 return search(200.0, 200.0);
-              } else if (state is AyaLoaded) {
-                final List<Aya> ayahList = state.ayahList;
+              } else if (ayaController.ayahList.isNotEmpty) {
                 return Container(
-                    child: BlocBuilder<SurahTextCubit, List<SurahText>?>(
-                  builder: (context, state) {
-                    if (state == null) {
-                      return Center(
-                        child: loadingLottie(200.0, 200.0),
-                      );
-                    }
-                    return ListView.builder(
-                        itemCount: ayahList.length,
+                    child: ListView.builder(
+                        itemCount: ayaController.ayahList.length,
                         itemBuilder: (_, index) {
-                          Aya aya = ayahList[index];
+                          final List<Aya> ayahList = ayaController.ayahList;
+                          final aya = ayahList[index];
                           return Column(
                             children: <Widget>[
                               Container(
@@ -124,29 +98,35 @@ class _QuranTextSearchState extends State<QuranTextSearch> {
                                     Navigator.of(context).pop();
                                     Navigator.of(context)
                                         .push(animatRoute(TextPageView(
-                                      surah: state[aya.sorahId - 1],
-                                      nomPageF: state[aya.sorahId - 1]
+                                      surah: surahTextController
+                                          .surahs[aya.sorahId - 1],
+                                      nomPageF: surahTextController
+                                          .surahs[aya.sorahId - 1]
                                           .ayahs!
                                           .first
                                           .page!,
-                                      nomPageL: state[aya.sorahId - 1]
+                                      nomPageL: surahTextController
+                                          .surahs[aya.sorahId - 1]
                                           .ayahs!
                                           .last
                                           .page!,
                                       pageNum: quranTextController.value == 1
-                                          ? (state[aya.sorahId - 1]
+                                          ? (surahTextController
+                                                  .surahs[aya.sorahId - 1]
                                                   .ayahs![aya.ayaNum - 1]
                                                   .numberInSurah! -
                                               1)
-                                          : state[aya.sorahId - 1]
+                                          : surahTextController
+                                              .surahs[aya.sorahId - 1]
                                               .ayahs![aya.ayaNum - 1]
                                               .pageInSurah!,
                                     )));
-                                    print('${state[aya.sorahId]}');
                                     print(
-                                        '${state[aya.sorahId].ayahs!.first.page!}');
+                                        '${surahTextController.surahs[aya.sorahId]}');
                                     print(
-                                        '${state[aya.sorahId].ayahs!.last.page!}');
+                                        '${surahTextController.surahs[aya.sorahId].ayahs!.first.page!}');
+                                    print(
+                                        '${surahTextController.surahs[aya.sorahId].ayahs!.last.page!}');
                                     print('pageNum: ${aya.pageNum}');
                                   },
                                   title: Padding(
@@ -262,15 +242,195 @@ class _QuranTextSearchState extends State<QuranTextSearch> {
                               const Divider()
                             ],
                           );
-                        });
-                  },
-                ));
-              } else if (state is AyaError) {
+                        }));
+              } else if (ayaController.errorMessage.value.isNotEmpty) {
                 return notFound();
               }
-              return const SizedBox.shrink(); // Fallback to an empty container.
+              return const SizedBox.shrink();
             },
           ),
+          // child: BlocBuilder<AyaCubit, AyaState>(
+          //   builder: (context, surahTextController.surahs) {
+          //     if (state is AyaLoading) {
+          //       return search(200.0, 200.0);
+          //     } else if (state is AyaLoaded) {
+          //       final List<Aya> ayahList = state.ayahList;
+          //       return Container(
+          //           child: BlocBuilder<SurahTextCubit, List<SurahText>?>(
+          //         builder: (context, state) {
+          //           if (state == null) {
+          //             return Center(
+          //               child: loadingLottie(200.0, 200.0),
+          //             );
+          //           }
+          //           return ListView.builder(
+          //               itemCount: ayahList.length,
+          //               itemBuilder: (_, index) {
+          //                 Aya aya = ayahList[index];
+          //                 return Column(
+          //                   children: <Widget>[
+          //                     Container(
+          //                       color: (index % 2 == 0
+          //                           ? Theme.of(context)
+          //                               .colorScheme
+          //                               .surface
+          //                               .withOpacity(.05)
+          //                           : Theme.of(context)
+          //                               .colorScheme
+          //                               .surface
+          //                               .withOpacity(.1)),
+          //                       child: ListTile(
+          //                         onTap: () {
+          //                           Navigator.of(context).pop();
+          //                           Navigator.of(context)
+          //                               .push(animatRoute(TextPageView(
+          //                             surah: state[aya.sorahId - 1],
+          //                             nomPageF: state[aya.sorahId - 1]
+          //                                 .ayahs!
+          //                                 .first
+          //                                 .page!,
+          //                             nomPageL: state[aya.sorahId - 1]
+          //                                 .ayahs!
+          //                                 .last
+          //                                 .page!,
+          //                             pageNum: quranTextController.value == 1
+          //                                 ? (state[aya.sorahId - 1]
+          //                                         .ayahs![aya.ayaNum - 1]
+          //                                         .numberInSurah! -
+          //                                     1)
+          //                                 : state[aya.sorahId - 1]
+          //                                     .ayahs![aya.ayaNum - 1]
+          //                                     .pageInSurah!,
+          //                           )));
+          //                           print('${state[aya.sorahId]}');
+          //                           print(
+          //                               '${state[aya.sorahId].ayahs!.first.page!}');
+          //                           print(
+          //                               '${state[aya.sorahId].ayahs!.last.page!}');
+          //                           print('pageNum: ${aya.pageNum}');
+          //                         },
+          //                         title: Padding(
+          //                           padding: const EdgeInsets.all(8.0),
+          //                           child: Text(
+          //                             aya.text,
+          //                             style: TextStyle(
+          //                               fontFamily: "uthmanic2",
+          //                               fontWeight: FontWeight.normal,
+          //                               fontSize: 22,
+          //                               color:
+          //                                   ThemeProvider.themeOf(context).id ==
+          //                                           'dark'
+          //                                       ? Theme.of(context).canvasColor
+          //                                       : Theme.of(context)
+          //                                           .primaryColorDark,
+          //                             ),
+          //                             textAlign: TextAlign.justify,
+          //                           ),
+          //                         ),
+          //                         subtitle: Container(
+          //                           height: 20,
+          //                           decoration: BoxDecoration(
+          //                               color:
+          //                                   Theme.of(context).primaryColorLight,
+          //                               borderRadius: const BorderRadius.all(
+          //                                   Radius.circular(4))),
+          //                           child: Row(
+          //                             mainAxisSize: MainAxisSize.min,
+          //                             children: [
+          //                               Expanded(
+          //                                 child: Container(
+          //                                   decoration: BoxDecoration(
+          //                                       color: Theme.of(context)
+          //                                           .primaryColor,
+          //                                       borderRadius:
+          //                                           const BorderRadius.only(
+          //                                         topRight: Radius.circular(4),
+          //                                         bottomRight:
+          //                                             Radius.circular(4),
+          //                                       )),
+          //                                   child: Text(
+          //                                     aya.sorahName,
+          //                                     textAlign: TextAlign.center,
+          //                                     style: TextStyle(
+          //                                         color: ThemeProvider.themeOf(
+          //                                                         context)
+          //                                                     .id ==
+          //                                                 'dark'
+          //                                             ? Theme.of(context)
+          //                                                 .canvasColor
+          //                                             : Theme.of(context)
+          //                                                 .colorScheme
+          //                                                 .background,
+          //                                         fontSize: 12),
+          //                                   ),
+          //                                 ),
+          //                               ),
+          //                               Expanded(
+          //                                 child: Container(
+          //                                     color: Theme.of(context)
+          //                                         .primaryColorLight,
+          //                                     child: Text(
+          //                                       " ${AppLocalizations.of(context)!.part}: ${aya.partNum}",
+          //                                       textAlign: TextAlign.center,
+          //                                       style: TextStyle(
+          //                                           color:
+          //                                               ThemeProvider.themeOf(
+          //                                                               context)
+          //                                                           .id ==
+          //                                                       'dark'
+          //                                                   ? Theme.of(context)
+          //                                                       .canvasColor
+          //                                                   : Theme.of(context)
+          //                                                       .colorScheme
+          //                                                       .background,
+          //                                           fontSize: 12),
+          //                                     )),
+          //                               ),
+          //                               Expanded(
+          //                                 child: Container(
+          //                                     decoration: BoxDecoration(
+          //                                         color: Theme.of(context)
+          //                                             .primaryColor,
+          //                                         borderRadius:
+          //                                             const BorderRadius.only(
+          //                                           topLeft: Radius.circular(4),
+          //                                           bottomLeft:
+          //                                               Radius.circular(4),
+          //                                         )),
+          //                                     child: Text(
+          //                                       " ${AppLocalizations.of(context)!.page}: ${aya.pageNum}",
+          //                                       textAlign: TextAlign.center,
+          //                                       style: TextStyle(
+          //                                           color:
+          //                                               ThemeProvider.themeOf(
+          //                                                               context)
+          //                                                           .id ==
+          //                                                       'dark'
+          //                                                   ? Theme.of(context)
+          //                                                       .canvasColor
+          //                                                   : Theme.of(context)
+          //                                                       .colorScheme
+          //                                                       .background,
+          //                                           fontSize: 12),
+          //                                     )),
+          //                               ),
+          //                             ],
+          //                           ),
+          //                         ),
+          //                       ),
+          //                     ),
+          //                     const Divider()
+          //                   ],
+          //                 );
+          //               });
+          //         },
+          //       ));
+          //     } else if (state is AyaError) {
+          //       return notFound();
+          //     }
+          //     return const SizedBox.shrink(); // Fallback to an empty container.
+          //   },
+          // ),
         ),
       ],
     );

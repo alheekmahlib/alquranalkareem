@@ -1,36 +1,22 @@
-import 'package:alquranalkareem/notes/cubit/note_cubit.dart';
-import 'package:alquranalkareem/quran_text/Widgets/text_overflow_detector.dart';
 import 'package:animated_toggle_switch/animated_toggle_switch.dart';
 import 'package:arabic_numbers/arabic_numbers.dart';
 import 'package:bot_toast/bot_toast.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_sliding_up_panel/sliding_up_panel_widget.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
-import 'package:theme_provider/theme_provider.dart';
+import 'package:spring/spring.dart';
 
 import '../../l10n/app_localizations.dart';
 import '../../quran_page/data/model/ayat.dart';
-import '../../shared/controller/ayat_controller.dart';
-import '../../shared/controller/general_controller.dart';
 import '../../shared/controller/quranText_controller.dart';
-import '../../shared/controller/translate_controller.dart';
 import '../../shared/share/ayah_to_images.dart';
+import '../../shared/widgets/controllers_put.dart';
 import '../../shared/widgets/lottie.dart';
-import '../../shared/widgets/show_tafseer.dart';
-import '../../shared/widgets/svg_picture.dart';
 import '../../shared/widgets/widgets.dart';
-import '../text_page_view.dart';
 
 ArabicNumbers arabicNumber = ArabicNumbers();
-late final AyatController ayatController = Get.put(AyatController());
-late final GeneralController generalController = Get.put(GeneralController());
-late final TranslateDataController translateController =
-    Get.put(TranslateDataController());
-late final QuranTextController quranTextController =
-    Get.put(QuranTextController());
 
 menu(BuildContext context, int b, index, var details, translateData, widget,
     nomPageF, nomPageL) {
@@ -41,7 +27,7 @@ menu(BuildContext context, int b, index, var details, translateData, widget,
     selectedValue = false;
   }
 
-  quranTextController.selected == selectedValue!
+  quranTextController.selected.value == selectedValue!
       ? BotToast.showAttachedWidget(
           target: details.globalPosition,
           verticalOffset: quranTextController.verticalOffset,
@@ -83,8 +69,8 @@ menu(BuildContext context, int b, index, var details, translateData, widget,
                                   color: Color(0x99f5410a),
                                 ),
                                 onPressed: () {
-                                  quranTextController.selected =
-                                      !quranTextController.selected;
+                                  quranTextController.selected.value =
+                                      !quranTextController.selected.value;
                                   ayatController.updateText(
                                       "${aya.ayatext}", "${aya.translate}");
                                   if (SlidingUpPanelStatus.hidden ==
@@ -129,8 +115,8 @@ menu(BuildContext context, int b, index, var details, translateData, widget,
                         color: Color(0x99f5410a),
                       ),
                       onPressed: () {
-                        quranTextController.selected =
-                            !quranTextController.selected;
+                        quranTextController.selected.value =
+                            !quranTextController.selected.value;
                         quranTextController
                             .addBookmarkText(
                                 widget.name!,
@@ -166,8 +152,8 @@ menu(BuildContext context, int b, index, var details, translateData, widget,
                         color: Color(0x99f5410a),
                       ),
                       onPressed: () async {
-                        quranTextController.selected =
-                            !quranTextController.selected;
+                        quranTextController.selected.value =
+                            !quranTextController.selected.value;
                         await Clipboard.setData(ClipboardData(
                                 text:
                                     '﴿${widget.ayahs![b].text}﴾ [${widget.name}-${arabicNumber.convert(widget.ayahs![b].numberInSurah.toString())}]'))
@@ -193,8 +179,9 @@ menu(BuildContext context, int b, index, var details, translateData, widget,
                         color: Color(0x99f5410a),
                       ),
                       onPressed: () {
-                        quranTextController.selected =
-                            !quranTextController.selected;
+                        quranTextController.selected.value =
+                            !quranTextController.selected.value;
+                        springController.play(motion: Motion.play);
                         switch (quranTextController.controller.status) {
                           case AnimationStatus.dismissed:
                             quranTextController.controller.forward();
@@ -224,8 +211,8 @@ menu(BuildContext context, int b, index, var details, translateData, widget,
                         color: Color(0x99f5410a),
                       ),
                       onPressed: () {
-                        quranTextController.selected =
-                            !quranTextController.selected;
+                        quranTextController.selected.value =
+                            !quranTextController.selected.value;
                         ayatController.translateIndex =
                             translateController.transValue.value;
                         final verseNumber = widget.ayahs![b].number!;
@@ -433,305 +420,5 @@ Widget greeting(BuildContext context) {
       ),
       textAlign: TextAlign.center,
     ),
-  );
-}
-
-Widget singleAyah(BuildContext context, var setState, widget, int index) {
-  NotesCubit notesCubit = NotesCubit.get(context);
-  Color backColor = Theme.of(context).colorScheme.surface.withOpacity(0.4);
-  return Stack(
-    children: [
-      GestureDetector(
-        onTap: () {
-          quranTextController.controller.reverse();
-          setState(() {
-            backColor = Colors.transparent;
-          });
-        },
-        // child: AutoScrollTag(
-        //   key: ValueKey(index),
-        //   controller: quranTextController.scrollController!,
-        //   index: index,
-        child: Container(
-          margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
-          width: MediaQuery.of(context).size.width,
-          decoration: BoxDecoration(
-              color: Theme.of(context).colorScheme.background,
-              borderRadius: const BorderRadius.all(Radius.circular(4))),
-          child: Column(
-            children: [
-              Padding(
-                padding: const EdgeInsets.symmetric(vertical: 16.0),
-                child: Center(
-                  child: spaceLine(
-                    20,
-                    MediaQuery.of(context).size.width / 1 / 2,
-                  ),
-                ),
-              ),
-              widget.surah!.number == 9
-                  ? const SizedBox.shrink()
-                  : widget.surah!.ayahs![index].numberInSurah == 1
-                      ? besmAllah(context)
-                      : const SizedBox.shrink(),
-              Container(
-                padding: const EdgeInsets.symmetric(horizontal: 32),
-                child: SelectableText.rich(
-                  showCursor: true,
-                  cursorWidth: 3,
-                  cursorColor: Theme.of(context).dividerColor,
-                  cursorRadius: const Radius.circular(5),
-                  scrollPhysics: const ClampingScrollPhysics(),
-                  textDirection: TextDirection.rtl,
-                  textAlign: TextAlign.justify,
-                  TextSpan(children: [
-                    TextSpan(
-                        text: widget.surah!.ayahs![index].text!,
-                        style: TextStyle(
-                          fontSize: generalController.fontSizeArabic.value,
-                          fontWeight: FontWeight.normal,
-                          fontFamily: 'uthmanic2',
-                          color: ThemeProvider.themeOf(context).id == 'dark'
-                              ? Colors.white
-                              : Colors.black,
-                          background: Paint()
-                            ..color = index == audioController.ayahSelected
-                                ? quranTextController.selected
-                                    ? backColor
-                                    : Colors.transparent
-                                : Colors.transparent
-                            ..strokeJoin = StrokeJoin.round
-                            ..strokeCap = StrokeCap.round
-                            ..style = PaintingStyle.fill,
-                        ),
-                        recognizer: TapGestureRecognizer()
-                          ..onTapDown = (TapDownDetails details) {
-                            setState(() {
-                              quranTextController.selected =
-                                  !quranTextController.selected;
-                              lastAyahInPage =
-                                  widget.surah!.ayahs![index].numberInSurah;
-                              textSurahNum = widget.surah!.number;
-                              backColor = Colors.transparent;
-                              ayatController.sorahTextNumber =
-                                  widget.surah!.number!.toString();
-                              ayatController.ayahTextNumber = widget
-                                  .surah!.ayahs![index].numberInSurah
-                                  .toString();
-                              audioController.ayahSelected = index;
-                            });
-                            menu(
-                                context,
-                                index,
-                                index,
-                                details,
-                                translateController.data,
-                                widget.surah,
-                                widget.nomPageF,
-                                widget.nomPageL);
-                          }),
-                    TextSpan(
-                      text:
-                          ' ${arabicNumber.convert(widget.surah!.ayahs![index].numberInSurah.toString())}',
-                      style: TextStyle(
-                        fontSize: generalController.fontSizeArabic.value + 5,
-                        fontWeight: FontWeight.w500,
-                        fontFamily: 'uthmanic2',
-                        color: ThemeProvider.themeOf(context).id == 'dark'
-                            ? Theme.of(context).colorScheme.surface
-                            : Theme.of(context).primaryColorLight,
-                      ),
-                    )
-                  ]),
-                  contextMenuBuilder: buildMyContextMenuText(notesCubit),
-                  onSelectionChanged: handleSelectionChanged,
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16),
-                child: SizedBox(
-                  width: MediaQuery.of(context).size.width,
-                  child: Stack(
-                    alignment: Alignment.center,
-                    children: [
-                      Align(
-                          alignment: Alignment.centerRight,
-                          child: IconButton(
-                            icon: Icon(
-                              Icons.translate_rounded,
-                              color: Theme.of(context).colorScheme.surface,
-                              size: 24,
-                            ),
-                            onPressed: () => translateDropDown(context),
-                          )),
-                      spaceLine(
-                        20,
-                        MediaQuery.of(context).size.width / 1 / 2,
-                      ),
-                      Align(
-                        alignment: Alignment.bottomLeft,
-                        child: juzNumEn(
-                          'Part\n${widget.surah!.ayahs![index].juz}',
-                          context,
-                          ThemeProvider.themeOf(context).id == 'dark'
-                              ? Colors.white
-                              : Colors.black,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(
-                    bottom: 16.0, right: 32.0, left: 32.0),
-                child: Obx(
-                  () {
-                    if (translateController.isLoading.value) {
-                      return search(50.0, 50.0);
-                    }
-                    return ReadMoreLess(
-                      text: (widget.surah!.ayahs!.length > index &&
-                              translateController.data.length >
-                                  widget.surah!.ayahs![index].number - 1)
-                          ? translateController.data[
-                                      widget.surah!.ayahs![index].number - 1]
-                                  ['text'] ??
-                              ''
-                          : '',
-                      textStyle: TextStyle(
-                        fontSize: generalController.fontSizeArabic.value - 10,
-                        fontFamily: 'kufi',
-                        color: ThemeProvider.themeOf(context).id == 'dark'
-                            ? Colors.white
-                            : Colors.black,
-                      ),
-                      textAlign: TextAlign.center,
-                      readMoreText: AppLocalizations.of(context)!.readMore,
-                      readLessText: AppLocalizations.of(context)!.readLess,
-                      buttonTextStyle: TextStyle(
-                        fontSize: 12,
-                        fontFamily: 'kufi',
-                        color: ThemeProvider.themeOf(context).id == 'dark'
-                            ? Colors.white
-                            : Theme.of(context).primaryColorLight,
-                      ),
-                      iconColor: ThemeProvider.themeOf(context).id == 'dark'
-                          ? Colors.white
-                          : Theme.of(context).primaryColorLight,
-                    );
-                  },
-                ),
-              ),
-            ],
-          ),
-        ),
-      ),
-      Align(
-        alignment: Alignment.topRight,
-        child: Padding(
-          padding: const EdgeInsets.all(20.0),
-          child: juzNum(
-              '${widget.surah!.ayahs![index].juz}',
-              context,
-              ThemeProvider.themeOf(context).id == 'dark'
-                  ? Colors.white
-                  : Colors.black,
-              25),
-        ),
-      ),
-    ],
-  );
-}
-
-Widget pageAyah(BuildContext context, var setState, widget,
-    List<InlineSpan> text, int index) {
-  NotesCubit notesCubit = NotesCubit.get(context);
-  return Stack(
-    children: [
-      GestureDetector(
-        onTap: () {
-          quranTextController.controller.reverse();
-        },
-        // child: AutoScrollTag(
-        //   key: ValueKey(index),
-        //   controller: quranTextController.scrollController!,
-        //   index: index,
-        child: Container(
-          margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
-          width: MediaQuery.of(context).size.width,
-          decoration: BoxDecoration(
-              color: Theme.of(context).colorScheme.background,
-              borderRadius: const BorderRadius.all(Radius.circular(8))),
-          child: Column(
-            children: [
-              Padding(
-                padding: const EdgeInsets.symmetric(vertical: 16.0),
-                child: Center(
-                  child: spaceLine(
-                    20,
-                    MediaQuery.of(context).size.width / 1 / 2,
-                  ),
-                ),
-              ),
-              widget.surah!.number == 9
-                  ? const SizedBox.shrink()
-                  : widget.surah!.ayahs![index].numberInSurah == 1
-                      ? besmAllah(context)
-                      : const SizedBox.shrink(),
-              Container(
-                padding: const EdgeInsets.symmetric(horizontal: 32),
-                child: SelectableText.rich(
-                  showCursor: true,
-                  cursorWidth: 3,
-                  cursorColor: Theme.of(context).dividerColor,
-                  cursorRadius: const Radius.circular(5),
-                  scrollPhysics: const ClampingScrollPhysics(),
-                  textDirection: TextDirection.rtl,
-                  textAlign: TextAlign.justify,
-                  TextSpan(
-                    style: TextStyle(
-                        fontSize: generalController.fontSizeArabic.value,
-                        fontFamily: 'uthmanic2'),
-                    children: text.map((e) {
-                      return e;
-                    }).toList(),
-                  ),
-                  contextMenuBuilder: buildMyContextMenuText(notesCubit),
-                  onSelectionChanged: handleSelectionChangedText,
-                ),
-              ),
-              Center(
-                child: spaceLine(
-                  20,
-                  MediaQuery.of(context).size.width / 1 / 2,
-                ),
-              ),
-              Align(
-                alignment: Alignment.bottomCenter,
-                child: pageNumber(
-                    arabicNumber.convert(widget.nomPageF! + index).toString(),
-                    context,
-                    Theme.of(context).primaryColor),
-              ),
-            ],
-          ),
-        ),
-        // ),
-      ),
-      Align(
-        alignment: Alignment.topRight,
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 25.0),
-          child: juzNum(
-              '${quranTextController.juz}',
-              context,
-              ThemeProvider.themeOf(context).id == 'dark'
-                  ? Colors.white
-                  : Colors.black,
-              25),
-        ),
-      )
-    ],
   );
 }

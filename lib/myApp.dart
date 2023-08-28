@@ -1,25 +1,18 @@
 import 'dart:async';
 import 'dart:math';
 
+import 'package:alquranalkareem/screens/splash_screen.dart';
 import 'package:arabic_numbers/arabic_numbers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hijri/hijri_calendar.dart';
 import 'package:home_widget/home_widget.dart';
 import 'package:theme_provider/theme_provider.dart';
 import 'package:workmanager/workmanager.dart';
 
-import '../notes/cubit/note_cubit.dart';
-import '../quran_page/data/repository/quarter_repository.dart';
-import '../quran_text/cubit/surah_text_cubit.dart';
-import '../screens/splash_screen.dart';
 import '../shared/lists.dart';
-import 'cubit/ayaRepository/aya_cubit.dart';
-import 'cubit/cubit.dart';
-import 'cubit/quarter/quarter_cubit.dart';
 import 'shared/utils/helpers/app_themes.dart';
 
 /// Used for Background Updates using Workmanager Plugin
@@ -199,31 +192,10 @@ class _MyAppState extends State<MyApp> {
             themes: AppThemes.list,
             child: Directionality(
               textDirection: TextDirection.rtl,
-              child: MultiBlocProvider(
-                providers: [
-                  BlocProvider<QuranCubit>(
-                    create: (BuildContext context) => QuranCubit(),
-                  ),
-                  BlocProvider<NotesCubit>(
-                    create: (BuildContext context) => NotesCubit(),
-                  ),
-                  BlocProvider<QuarterCubit>(
-                    create: (BuildContext context) =>
-                        QuarterCubit(QuarterRepository())..getAllQuarters(),
-                  ),
-                  BlocProvider<SurahTextCubit>(
-                    create: (BuildContext context) =>
-                        SurahTextCubit()..loadQuranData(),
-                  ),
-                  BlocProvider<AyaCubit>(
-                    create: (BuildContext context) => AyaCubit()..getAllAyas(),
-                  ),
-                ],
-                child: SplashScreen(),
-                // child: WillPopScope(
-                //     onWillPop: () async => false, child: SplashScreen()),
-                // child: const HomePage(),
-              ),
+              child: SplashScreen(),
+              // child: WillPopScope(
+              //     onWillPop: () async => false, child: SplashScreen()),
+              // child: const HomePage(),
             ),
           );
         });

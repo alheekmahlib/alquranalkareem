@@ -3,19 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:square_percent_indicater/square_percent_indicater.dart';
 
-import '../../shared/controller/audio_controller.dart';
+import '../../shared/widgets/controllers_put.dart';
 import '../../shared/widgets/seek_bar.dart';
 
-class AudioTextWidget extends StatefulWidget {
+class AudioTextWidget extends StatelessWidget {
   AudioTextWidget({Key? key}) : super(key: key);
-
-  @override
-  State<AudioTextWidget> createState() => _AudioTextWidgetState();
-}
-
-class _AudioTextWidgetState extends State<AudioTextWidget>
-    with WidgetsBindingObserver {
-  final AudioController aCtrl = Get.put(AudioController());
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +17,7 @@ class _AudioTextWidgetState extends State<AudioTextWidget>
         padding: const EdgeInsets.only(bottom: 80.0),
         child: Container(
           height: 60,
-          width: 280,
+          width: 310,
           decoration: BoxDecoration(
             color: Theme.of(context).colorScheme.surface.withOpacity(.94),
             borderRadius: const BorderRadius.all(Radius.circular(8)),
@@ -44,47 +36,101 @@ class _AudioTextWidgetState extends State<AudioTextWidget>
                           width: 35,
                           height: 35,
                           startAngle: StartAngle.topRight,
+                          // reverse: true,
                           borderRadius: 8,
                           shadowWidth: 1.5,
                           progressWidth: 2,
                           shadowColor: Colors.grey,
-                          progressColor: aCtrl.downloading.value
+                          progressColor: audioController.downloading.value
                               ? Theme.of(context).canvasColor
                               : Colors.transparent,
-                          progress: aCtrl.progress.value,
-                          child: aCtrl.downloading.value
-                              ? Container(
-                                  alignment: Alignment.center,
-                                  child: Text(
-                                    aCtrl.progressString.value,
-                                    style: TextStyle(
-                                        fontSize: 14,
-                                        fontFamily: 'kufi',
-                                        color: Theme.of(context).canvasColor),
-                                  ),
-                                )
-                              : IconButton(
-                                  icon: Icon(
-                                    aCtrl.isPlay.value
-                                        ? Icons.pause
-                                        : Icons.play_arrow,
-                                    size: 20,
-                                  ),
-                                  color: Theme.of(context).canvasColor,
-                                  onPressed: () {
-                                    print(aCtrl.progressString.value);
+                          progress: audioController.progress.value,
+                          child: Container(
+                            height: 35,
+                            width: 35,
+                            decoration: BoxDecoration(
+                                color: Theme.of(context).colorScheme.surface,
+                                borderRadius:
+                                    const BorderRadius.all(Radius.circular(8))),
+                            child: audioController.downloading.value
+                                ? Container(
+                                    alignment: Alignment.center,
+                                    child: Text(
+                                      audioController.progressString.value,
+                                      style: TextStyle(
+                                          fontSize: 14,
+                                          fontFamily: 'kufi',
+                                          color: Theme.of(context).canvasColor),
+                                    ),
+                                  )
+                                : Obx(
+                                    () => IconButton(
+                                      icon: Icon(
+                                        audioController.isPlay.value
+                                            ? Icons.pause
+                                            : Icons.play_arrow,
+                                        size: 20,
+                                      ),
+                                      color: Theme.of(context).canvasColor,
+                                      onPressed:
+                                          !audioController.isPagePlay.value
+                                              ? () {
+                                                  print(audioController
+                                                      .progressString.value);
 
-                                    aCtrl.textPlayAyah(context);
-                                  },
-                                ),
+                                                  audioController
+                                                      .textPlayAyah(context);
+                                                }
+                                              : null,
+                                    ),
+                                  ),
+                          ),
                         ),
+                        // child: SquarePercentIndicator(
+                        //   width: 35,
+                        //   height: 35,
+                        //   startAngle: StartAngle.topRight,
+                        //   borderRadius: 8,
+                        //   shadowWidth: 1.5,
+                        //   progressWidth: 2,
+                        //   shadowColor: Colors.grey,
+                        //   progressColor: audioController.downloading.value
+                        //       ? Theme.of(context).canvasColor
+                        //       : Colors.transparent,
+                        //   progress: audioController.progress.value,
+                        //   child: audioController.downloading.value
+                        //       ? Container(
+                        //           alignment: Alignment.center,
+                        //           child: Text(
+                        //             audioController.progressString.value,
+                        //             style: TextStyle(
+                        //                 fontSize: 14,
+                        //                 fontFamily: 'kufi',
+                        //                 color: Theme.of(context).canvasColor),
+                        //           ),
+                        //         )
+                        //       : IconButton(
+                        //           icon: Icon(
+                        //             audioController.isPlay.value
+                        //                 ? Icons.pause
+                        //                 : Icons.play_arrow,
+                        //             size: 20,
+                        //           ),
+                        //           color: Theme.of(context).canvasColor,
+                        //           onPressed: () {
+                        //             print(audioController.progressString.value);
+                        //
+                        //             audioController.textPlayAyah(context);
+                        //           },
+                        //         ),
+                        // ),
                       ),
                       Container(
                         height: 50,
                         alignment: Alignment.center,
-                        width: 170,
+                        width: 200,
                         child: StreamBuilder<PositionData>(
-                          stream: aCtrl.textPositionDataStream,
+                          stream: audioController.textPositionDataStream,
                           builder: (context, snapshot) {
                             final positionData = snapshot.data;
                             return SeekBar(
@@ -93,25 +139,10 @@ class _AudioTextWidgetState extends State<AudioTextWidget>
                               bufferedPosition:
                                   positionData?.bufferedPosition ??
                                       Duration.zero,
-                              onChangeEnd: aCtrl.textAudioPlayer.seek,
+                              onChangeEnd: audioController.textAudioPlayer.seek,
                             );
                           },
                         ),
-                        // child: SliderTheme(
-                        //   data: const SliderThemeData(
-                        //       thumbShape:
-                        //           RoundSliderThumbShape(enabledThumbRadius: 8)),
-                        //   child: Slider(
-                        //     activeColor: Theme.of(context).colorScheme.background,
-                        //     inactiveColor: Theme.of(context).primaryColorDark,
-                        //     min: 0,
-                        //     max: _duration.value,
-                        //     value: _position.value.clamp(0, _duration.value),
-                        //     onChanged: (value) {
-                        //       audioPlayer.seek(Duration(seconds: value.toInt()));
-                        //     },
-                        //   ),
-                        // ),
                       ),
                       Container(
                         height: 35,

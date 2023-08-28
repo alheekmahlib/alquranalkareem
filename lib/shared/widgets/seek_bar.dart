@@ -1,21 +1,22 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 
-import '../../audio_screen/controller/surah_audio_controller.dart';
+import 'controllers_put.dart';
 
-class SeekBar extends StatefulWidget {
+class SeekBar extends StatelessWidget {
   final Duration duration;
   final Duration position;
   final Duration bufferedPosition;
   final ValueChanged<Duration>? onChanged;
   final ValueChanged<Duration>? onChangeEnd;
-  late final Color? activeTrackColor;
-  late final Color? inactiveTrackColor;
-  late final Color? valueIndicatorColor;
-  late final Color? textColor;
-  late final bool? timeShow;
+  final Color? activeTrackColor;
+  final Color? inactiveTrackColor;
+  final Color? valueIndicatorColor;
+  final Color? textColor;
+  final bool? timeShow;
+  double? dragValue;
+  final ValueChanged<double>? onDragValueChanged;
 
   SeekBar({
     Key? key,
@@ -29,42 +30,30 @@ class SeekBar extends StatefulWidget {
     this.valueIndicatorColor,
     this.textColor,
     this.timeShow,
+    this.dragValue,
+    this.onDragValueChanged,
   }) : super(key: key);
 
-  @override
-  SeekBarState createState() => SeekBarState();
-}
-
-class SeekBarState extends State<SeekBar> {
-  double? _dragValue;
   late SliderThemeData _sliderThemeData;
-  late final SurahAudioController surahAudioController =
-      Get.put(SurahAudioController());
-
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-
-    _sliderThemeData = SliderTheme.of(context).copyWith(
-      trackHeight: 2.0,
-    );
-  }
 
   @override
   Widget build(BuildContext context) {
     surahAudioController.lastPosition = remaining.inSeconds.toDouble();
+    final SliderThemeData _sliderThemeData = SliderTheme.of(context).copyWith(
+      trackHeight: 2.0,
+    );
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       mainAxisSize: MainAxisSize.min,
       children: [
-        widget.timeShow == true
+        timeShow == true
             ? Text(
                 RegExp(r'((^0*[1-9]\d*:)?\d{2}:\d{2})\.\d+$')
                         .firstMatch("$remaining")
                         ?.group(1) ??
                     '$remaining',
                 style: TextStyle(
-                    color: widget.textColor ?? Theme.of(context).canvasColor))
+                    color: textColor ?? Theme.of(context).canvasColor))
             : const SizedBox.shrink(),
         Stack(
           children: [
@@ -72,32 +61,29 @@ class SeekBarState extends State<SeekBar> {
               data: _sliderThemeData.copyWith(
                 thumbShape: HiddenThumbComponentShape(),
                 activeTrackColor:
-                    widget.activeTrackColor ?? Theme.of(context).canvasColor,
+                    activeTrackColor ?? Theme.of(context).canvasColor,
                 inactiveTrackColor:
-                    widget.inactiveTrackColor ?? Theme.of(context).dividerColor,
+                    inactiveTrackColor ?? Theme.of(context).dividerColor,
                 valueIndicatorColor:
-                    widget.inactiveTrackColor ?? Theme.of(context).canvasColor,
+                    inactiveTrackColor ?? Theme.of(context).canvasColor,
               ),
               child: ExcludeSemantics(
                 child: Slider(
                   min: 0.0,
-                  max: widget.duration.inMilliseconds.toDouble(),
-                  value: min(widget.bufferedPosition.inMilliseconds.toDouble(),
-                      widget.duration.inMilliseconds.toDouble()),
+                  max: duration.inMilliseconds.toDouble(),
+                  value: min(bufferedPosition.inMilliseconds.toDouble(),
+                      duration.inMilliseconds.toDouble()),
                   onChanged: (value) {
-                    setState(() {
-                      _dragValue = value;
-                    });
-                    if (widget.onChanged != null) {
-                      widget.onChanged!(Duration(milliseconds: value.round()));
+                    onDragValueChanged?.call(value);
+                    if (onChanged != null) {
+                      onChanged!(Duration(milliseconds: value.round()));
                     }
                   },
                   onChangeEnd: (value) {
-                    if (widget.onChangeEnd != null) {
-                      widget
-                          .onChangeEnd!(Duration(milliseconds: value.round()));
+                    if (onChangeEnd != null) {
+                      onChangeEnd!(Duration(milliseconds: value.round()));
                     }
-                    _dragValue = null;
+                    dragValue = null;
                   },
                 ),
               ),
@@ -108,43 +94,40 @@ class SeekBarState extends State<SeekBar> {
               ),
               child: Slider(
                 min: 0.0,
-                max: widget.duration.inMilliseconds.toDouble(),
-                value: min(
-                    _dragValue ?? widget.position.inMilliseconds.toDouble(),
-                    widget.duration.inMilliseconds.toDouble()),
+                max: duration.inMilliseconds.toDouble(),
+                value: min(dragValue ?? position.inMilliseconds.toDouble(),
+                    duration.inMilliseconds.toDouble()),
                 onChanged: (value) {
-                  setState(() {
-                    _dragValue = value;
-                  });
-                  if (widget.onChanged != null) {
-                    widget.onChanged!(Duration(milliseconds: value.round()));
+                  onDragValueChanged?.call(value);
+                  if (onChanged != null) {
+                    onChanged!(Duration(milliseconds: value.round()));
                   }
                 },
                 onChangeEnd: (value) {
-                  if (widget.onChangeEnd != null) {
-                    widget.onChangeEnd!(Duration(milliseconds: value.round()));
+                  if (onChangeEnd != null) {
+                    onChangeEnd!(Duration(milliseconds: value.round()));
                   }
-                  _dragValue = null;
+                  dragValue = null;
                 },
               ),
             ),
           ],
         ),
-        widget.timeShow == true
+        timeShow == true
             ? Text(
                 RegExp(r'((^0*[1-9]\d*:)?\d{2}:\d{2})\.\d+$')
                         .firstMatch("$total")
                         ?.group(1) ??
                     '$total',
                 style: TextStyle(
-                    color: widget.textColor ?? Theme.of(context).canvasColor))
+                    color: textColor ?? Theme.of(context).canvasColor))
             : const SizedBox.shrink(),
       ],
     );
   }
 
-  Duration get remaining => widget.position;
-  Duration get total => widget.duration;
+  Duration get remaining => position;
+  Duration get total => duration;
 }
 
 class HiddenThumbComponentShape extends SliderComponentShape {

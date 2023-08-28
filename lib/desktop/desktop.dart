@@ -1,16 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_sliding_up_panel/flutter_sliding_up_panel.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:spring/spring.dart';
 
 import '/quran_page/screens/quran_page.dart';
-import '../cubit/cubit.dart';
-import '../cubit/states.dart';
 import '../database/notificationDatabase.dart';
 import '../quran_page/widget/sliding_up.dart';
 import '../shared/controller/general_controller.dart';
 import '../shared/widgets/audio_widget.dart';
+import '../shared/widgets/controllers_put.dart';
 import '../shared/widgets/show_tafseer.dart';
 import '../shared/widgets/widgets.dart';
 
@@ -44,75 +43,61 @@ class _DesktopState extends State<Desktop> with TickerProviderStateMixin {
       } else {}
     });
 
-    generalController.controller = AnimationController(
-        vsync: this, duration: const Duration(milliseconds: 300));
-    generalController.offset = Tween<Offset>(
-      begin: Offset.zero,
-      end: const Offset(-1.0, 0.0),
-    ).animate(CurvedAnimation(
-      parent: generalController.controller,
-      curve: Curves.easeIn,
-    ));
     NotificationDatabaseHelper.loadNotifications();
   }
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<QuranCubit, QuranState>(
-      listener: (BuildContext context, state) {
-        if (state is QuranPageState) {
-          print('page');
-          // print("Current Page ${QuranCubit.get(context).currentPage}");
-        } else if (state is SoundPageState) {
-          print('sound');
-        }
-      },
-      builder: (BuildContext context, state) {
-        return SafeArea(
-          child: Scaffold(
-            body: Stack(
-              children: <Widget>[
-                Directionality(
-                  textDirection: TextDirection.rtl,
-                  child: DPages(
-                    generalController.cuMPage,
-                  ),
-                ),
-                SlideTransition(
-                    position: generalController.offset, child: AudioWidget()),
-                Align(
-                  alignment: Alignment.bottomRight,
-                  child: Obx(
-                    () => Visibility(
-                      visible: generalController.isShowControl.value,
-                      child: Sliding(
-                        myWidget1: quranPageSearch(
-                          context,
-                          MediaQuery.of(context).size.width / 1 / 2,
-                        ),
-                        myWidget2: quranPageSorahList(
-                          context,
-                          MediaQuery.of(context).size.width / 1 / 2,
-                        ),
-                        myWidget3: notesList(
-                          context,
-                          MediaQuery.of(context).size.width / 1 / 2,
-                        ),
-                        myWidget4: bookmarksList(
-                          context,
-                          MediaQuery.of(context).size.width / 1 / 2,
-                        ),
-                        myWidget5: const ShowTafseer(),
-                        cHeight: 90.0,
-                      ),
-                    ),
-                  ),
-                ),
-              ],
+    return SafeArea(
+      child: Scaffold(
+        body: Stack(
+          children: <Widget>[
+            Directionality(
+              textDirection: TextDirection.rtl,
+              child: DPages(
+                generalController.cuMPage,
+              ),
             ),
-          ),
-        );
-      },
+            Spring.slide(
+                springController: springController,
+                slideType: SlideType.slide_in_left,
+                delay: const Duration(milliseconds: 0),
+                animDuration: const Duration(milliseconds: 500),
+                curve: Curves.easeInOut,
+                extend: -500,
+                withFade: false,
+                child: AudioWidget()),
+            Align(
+              alignment: Alignment.bottomRight,
+              child: Obx(
+                () => Visibility(
+                  visible: generalController.isShowControl.value,
+                  child: Sliding(
+                    myWidget1: quranPageSearch(
+                      context,
+                      MediaQuery.of(context).size.width / 1 / 2,
+                    ),
+                    myWidget2: quranPageSorahList(
+                      context,
+                      MediaQuery.of(context).size.width / 1 / 2,
+                    ),
+                    myWidget3: notesList(
+                      context,
+                      MediaQuery.of(context).size.width / 1 / 2,
+                    ),
+                    myWidget4: bookmarksList(
+                      context,
+                      MediaQuery.of(context).size.width / 1 / 2,
+                    ),
+                    myWidget5: ShowTafseer(),
+                    cHeight: 90.0,
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
     );
   }
 }
