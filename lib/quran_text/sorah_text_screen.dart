@@ -1,120 +1,92 @@
 import 'package:alquranalkareem/quran_text/sorah_list_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:get/get.dart';
 import 'package:hijri/hijri_calendar.dart';
 
-import '../shared/controller/general_controller.dart';
-import '../shared/controller/translate_controller.dart';
 import '../shared/widgets/widgets.dart';
 import 'Widgets/widgets.dart';
 
-class SorahTextScreen extends StatefulWidget {
+class SorahTextScreen extends StatelessWidget {
   SorahTextScreen({Key? key}) : super(key: key);
 
   @override
-  State<SorahTextScreen> createState() => _SorahTextScreenState();
-}
-
-class _SorahTextScreenState extends State<SorahTextScreen> {
-  var sorahListKey = GlobalKey<ScaffoldState>();
-  late final GeneralController generalController = Get.put(GeneralController());
-  late final TranslateDataController translateController =
-      Get.put(TranslateDataController());
-
-  @override
-  void initState() {
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
-    return AnimatedBuilder(
-      animation: generalController.screenAnimation!,
-      builder: (context, child) {
-        return Transform.scale(
-          scale: generalController.screenAnimation!.value,
-          child: child,
-        );
-      },
-      child: Directionality(
-        textDirection: TextDirection.rtl,
-        child: Scaffold(
-          key: sorahListKey,
-          body: Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: Container(
-              decoration: BoxDecoration(
-                  color: Theme.of(context).colorScheme.background,
-                  borderRadius: const BorderRadius.all(Radius.circular(8))),
-              child: platformView(
-                orientation(
-                  context,
-                  Column(
-                    children: [
-                      Expanded(
-                        flex: 3,
-                        child: Padding(
-                          padding: orientation == Orientation.portrait
-                              ? const EdgeInsets.only(
-                                  right: 16.0, left: 16.0, top: 40.0)
-                              : const EdgeInsets.only(right: 16.0, left: 16.0),
-                          child: topBar(),
-                        ),
-                      ),
-                      const SizedBox(
-                        height: 8,
-                      ),
-                      const Divider(
-                        height: 1,
-                        thickness: 2,
-                        endIndent: 16,
-                        indent: 16,
-                      ),
-                      Expanded(
-                        flex: 7,
-                        child: SizedBox(
-                            // height: MediaQuery.of(context).size.height * 3 / 4,
-                            width: MediaQuery.of(context).size.width,
-                            child: const SorahListText()),
-                      ),
-                    ],
-                  ),
-                  Row(
-                    children: [
-                      Expanded(
-                        flex: 5,
-                        child: SizedBox(
-                            // height: MediaQuery.of(context).size.height * 3 / 4,
-                            width: MediaQuery.of(context).size.width,
-                            child: const SorahListText()),
-                      ),
-                      Expanded(
-                        flex: 5,
-                        child: Padding(
-                          padding: orientation == Orientation.portrait
-                              ? const EdgeInsets.only(
-                                  right: 16.0, left: 16.0, top: 40.0)
-                              : const EdgeInsets.only(right: 16.0, left: 16.0),
-                          child: topBar(),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                Row(
-                  mainAxisSize: MainAxisSize.min,
+    return Directionality(
+      textDirection: TextDirection.rtl,
+      child: Scaffold(
+        body: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Container(
+            decoration: BoxDecoration(
+                color: Theme.of(context).colorScheme.background,
+                borderRadius: const BorderRadius.all(Radius.circular(8))),
+            child: platformView(
+              orientation(
+                context,
+                Column(
                   children: [
-                    const Expanded(
-                      flex: 5,
-                      child: SorahListText(),
+                    Expanded(
+                      flex: 3,
+                      child: Padding(
+                        padding: orientation == Orientation.portrait
+                            ? const EdgeInsets.only(
+                                right: 16.0, left: 16.0, top: 40.0)
+                            : const EdgeInsets.only(right: 16.0, left: 16.0),
+                        child: topBar(context),
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 8,
+                    ),
+                    const Divider(
+                      height: 1,
+                      thickness: 2,
+                      endIndent: 16,
+                      indent: 16,
                     ),
                     Expanded(
-                      flex: 5,
-                      child: SizedBox(child: topBar()),
+                      flex: 7,
+                      child: SizedBox(
+                          // height: MediaQuery.of(context).size.height * 3 / 4,
+                          width: MediaQuery.of(context).size.width,
+                          child: SorahListText()),
                     ),
                   ],
                 ),
+                Row(
+                  children: [
+                    Expanded(
+                      flex: 5,
+                      child: SizedBox(
+                          // height: MediaQuery.of(context).size.height * 3 / 4,
+                          width: MediaQuery.of(context).size.width,
+                          child: SorahListText()),
+                    ),
+                    Expanded(
+                      flex: 5,
+                      child: Padding(
+                        padding: orientation == Orientation.portrait
+                            ? const EdgeInsets.only(
+                                right: 16.0, left: 16.0, top: 40.0)
+                            : const EdgeInsets.only(right: 16.0, left: 16.0),
+                        child: topBar(context),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Expanded(
+                    flex: 5,
+                    child: SorahListText(),
+                  ),
+                  Expanded(
+                    flex: 5,
+                    child: SizedBox(child: topBar(context)),
+                  ),
+                ],
               ),
             ),
           ),
@@ -123,7 +95,7 @@ class _SorahTextScreenState extends State<SorahTextScreen> {
     );
   }
 
-  Widget topBar() {
+  Widget topBar(BuildContext context) {
     var _today = HijriCalendar.now();
     return Stack(
       alignment: Alignment.center,
@@ -182,7 +154,6 @@ class _SorahTextScreenState extends State<SorahTextScreen> {
             children: [
               bookmarksTextList(
                   context,
-                  sorahListKey,
                   orientation(
                       context,
                       MediaQuery.of(context).size.width * .9,
@@ -190,7 +161,6 @@ class _SorahTextScreenState extends State<SorahTextScreen> {
                           MediaQuery.of(context).size.width * .5))),
               quranTextSearch(
                   context,
-                  sorahListKey,
                   orientation(
                       context,
                       MediaQuery.of(context).size.width * .9,

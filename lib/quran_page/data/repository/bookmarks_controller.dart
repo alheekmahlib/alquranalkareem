@@ -5,6 +5,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../database/databaseHelper.dart';
 import '../../../l10n/app_localizations.dart';
+import '../../../services_locator.dart';
 import '../../../shared/widgets/widgets.dart';
 import '../model/bookmark.dart';
 import '../model/sorah_bookmark.dart';
@@ -127,14 +128,15 @@ class BookmarksController extends GetxController {
   // Save & Load Last Bookmark
   Future<void> savelastBookmark(int Value) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    await prefs.setInt("last_bookmark", Value);
+    await sl<SharedPreferences>().setInt("last_bookmark", Value);
     update();
   }
 
   Future<int> loadlastBookmark() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    lastBook = prefs.getInt('last_bookmark') ?? 0;
-    print('get last_bookmark ${prefs.getInt('last_bookmark')}');
+    lastBook = sl<SharedPreferences>().getInt('last_bookmark') ?? 0;
+    print(
+        'get last_bookmark ${sl<SharedPreferences>().getInt('last_bookmark')}');
     print('get radioValue $lastBook');
     // emit(SharedPreferencesState());
     return lastBook;

@@ -12,6 +12,7 @@ import '/shared/controller/ayat_controller.dart';
 import '/shared/controller/general_controller.dart';
 import '../quran_page/data/repository/bookmarks_controller.dart';
 import '../shared/controller/aya_controller.dart';
+import '../shared/controller/notes_controller.dart';
 import '../shared/controller/settings_controller.dart';
 import '../shared/controller/translate_controller.dart';
 import '../shared/widgets/lottie.dart';
@@ -21,7 +22,8 @@ class SplashScreen extends StatefulWidget {
   _SplashScreenState createState() => _SplashScreenState();
 }
 
-class _SplashScreenState extends State<SplashScreen> {
+class _SplashScreenState extends State<SplashScreen>
+    with TickerProviderStateMixin {
   late final GeneralController generalController = Get.put(GeneralController());
   late final AyatController ayatController = Get.put(AyatController());
   late final AudioController audioController = Get.put(AudioController());
@@ -36,6 +38,7 @@ class _SplashScreenState extends State<SplashScreen> {
   late final AyaController ayaController = Get.put(AyaController());
   late final BookmarksController bookmarksController =
       Get.put(BookmarksController());
+  late final NotesController notesController = Get.put(NotesController());
   bool animate = false;
 
   @override
@@ -62,6 +65,19 @@ class _SplashScreenState extends State<SplashScreen> {
     translateController.fetchSura(context);
     settingsController.loadLang();
     bookmarksController.getBookmarksList();
+    quranTextController.animationController = AnimationController(
+      vsync: this,
+    );
+
+    quranTextController.controller = AnimationController(
+        vsync: this, duration: const Duration(milliseconds: 300));
+    quranTextController.offset = Tween<Offset>(
+      end: Offset.zero,
+      begin: const Offset(-1.0, 0.0),
+    ).animate(CurvedAnimation(
+      parent: quranTextController.controller,
+      curve: Curves.easeIn,
+    ));
     super.initState();
   }
 

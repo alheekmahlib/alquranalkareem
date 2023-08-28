@@ -18,6 +18,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../../l10n/app_localizations.dart';
 import '../../quran_text/text_page_view.dart';
 import '../functions.dart';
+import '../widgets/controllers_put.dart';
 import '../widgets/seek_bar.dart';
 import '../widgets/widgets.dart';
 import 'ayat_controller.dart';
@@ -34,7 +35,7 @@ class AudioController extends GetxController {
   RxBool downloadingPage = false.obs;
   RxString progressPageString = "0".obs;
   RxDouble progressPage = 0.0.obs;
-  int ayahSelected = -1;
+  RxInt ayahSelected = 0.obs;
   String? currentPlay;
   RxBool autoPlay = false.obs;
   double? sliderValue;
@@ -244,7 +245,7 @@ class AudioController extends GetxController {
         }
       }
       await textAudioPlayer.setAudioSource(AudioSource.asset(path));
-      await textAudioPlayer.playerStateStream.listen((playerState) {
+      textAudioPlayer.playerStateStream.listen((playerState) {
         if (playerState.processingState == ProcessingState.completed &&
             !isProcessingNextAyah.value) {
           isProcessingNextAyah.value = true;
@@ -300,11 +301,13 @@ class AudioController extends GetxController {
 
   void textPlayNextAyah(BuildContext context) async {
     print('playNextAyah ' * 6);
-
+    ayahSelected.value;
+    ayahSelected.value = ayahSelected.value + 1;
+    update();
+    print('ayahSelected.value ${ayahSelected.value}');
     // Increment Ayah number
     int currentAyah;
     int currentSorah;
-
     currentAyah = int.parse(ayatController.ayahTextNumber!) + 1;
     currentSorah = int.parse(ayatController.sorahTextNumber!);
     ayatController.sorahTextNumber = formatNumber(currentSorah);
@@ -321,8 +324,8 @@ class AudioController extends GetxController {
 
     print('lastAyahInPageA $lastAyahInPageA');
     if (currentAyah == lastAyahInPage.value) {
-      audioController.ayahSelected = currentAyah;
-      print('ayahSelected: ${audioController.ayahSelected}');
+      audioController.ayahSelected.value = currentAyah;
+      print('ayahSelected.value: ${audioController.ayahSelected.value}');
       // textCubit.changeSelectedIndex(currentAyah - 1);
       quranTextController.itemScrollController.scrollTo(
           index: pageNumber.value + 1,
@@ -330,8 +333,8 @@ class AudioController extends GetxController {
           curve: Curves.easeOut);
       await textPlayFile(context, url, fileName);
     } else {
-      audioController.ayahSelected = currentAyah;
-      print('ayahSelected: ${audioController.ayahSelected}');
+      audioController.ayahSelected.value = currentAyah;
+      print('ayahSelected.value: ${audioController.ayahSelected.value}');
       // textCubit.changeSelectedIndex(currentAyah - 1);
       await textPlayFile(context, url, fileName);
     }

@@ -4,20 +4,12 @@ import 'package:get/get.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../../quran_text/bookmarksTextAyah_controller.dart';
-import '../../quran_text/bookmarksText_controller.dart';
 import '../../quran_text/model/bookmark_text.dart';
-import '../../quran_text/model/bookmark_text_ayah.dart';
 import '../../quran_text/text_page_view.dart';
 import '../../services_locator.dart';
-import '../widgets/widgets.dart';
-import 'ayat_controller.dart';
+import '../widgets/controllers_put.dart';
 
 class QuranTextController extends GetxController {
-  late final BookmarksTextController bookmarksTextController =
-      Get.put(BookmarksTextController());
-  late final BookmarksTextAyahController bookmarksTextAyahController =
-      Get.put(BookmarksTextAyahController());
   late Animation<Offset> offset;
   late AnimationController controller;
   int? id;
@@ -37,7 +29,7 @@ class QuranTextController extends GetxController {
   double horizontalOffset = 0;
   PreferDirection preferDirection = PreferDirection.topCenter;
 
-  bool selected = false;
+  RxBool selected = false.obs;
   String? juz;
   String? juz2;
   bool? sajda;
@@ -48,7 +40,6 @@ class QuranTextController extends GetxController {
   bool scrolling = false;
   late AnimationController animationController;
   ValueNotifier<double>? scrollSpeedNotifier;
-  late final AyatController ayatController = Get.put(AyatController());
 
   /// Shared Preferences
   // Save & Load Last Page For Quran Text
@@ -113,32 +104,6 @@ class QuranTextController extends GetxController {
           sorahName,
           sorahNum,
           pageNum,
-          nomPageF,
-          nomPageL,
-          lastRead,
-        ),
-      );
-      print('bookmark number: ${bookmark!}');
-    } catch (e) {
-      print('Error');
-    }
-  }
-
-  addBookmarkAyahText(
-    String sorahName,
-    int sorahNum,
-    ayahNum,
-    nomPageF,
-    nomPageL,
-    lastRead,
-  ) async {
-    try {
-      int? bookmark = await bookmarksTextAyahController.addBookmarksTextAyah(
-        BookmarksTextAyah(
-          id,
-          sorahName,
-          sorahNum,
-          ayahNum,
           nomPageF,
           nomPageL,
           lastRead,
@@ -216,8 +181,8 @@ class QuranTextController extends GetxController {
         (scrollController.position.maxScrollExtent));
   }
 
-  jumbToPage(var widget) async {
-    int pageNum = widget.pageNum ??
+  jumbToPage(var pageNumber) async {
+    int pageNum = pageNumber ??
         0; // Use the null coalescing operator to ensure pageNum is not null
 
     if (pageNum == 0 ||
@@ -243,10 +208,11 @@ class QuranTextController extends GetxController {
         pageNum == 604) {
     } else {
       await itemScrollController.scrollTo(
-          index: (value.value == 1 ? pageNum : pageNum - 1),
+          index: (value.value == 1 ? pageNum + 1 : pageNum - 1),
           duration: const Duration(seconds: 1),
           curve: Curves.easeOut);
-      audioController.ayahSelected = value.value == 1 ? pageNum : pageNum - 1;
+      audioController.ayahSelected.value =
+          value.value == 1 ? pageNum : pageNum - 1;
     }
   }
 }

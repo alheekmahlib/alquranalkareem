@@ -1,16 +1,8 @@
-import 'package:alquranalkareem/audio_screen/controller/surah_audio_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 
-import '../../quran_page/data/repository/bookmarks_controller.dart';
-import '../controller/general_controller.dart';
-
-late final GeneralController generalController = Get.put(GeneralController());
-late final BookmarksController bookmarksController =
-    Get.put(BookmarksController());
-late final SurahAudioController surahAudioController =
-    Get.put(SurahAudioController());
+import 'controllers_put.dart';
 
 besmAllah(BuildContext context) {
   return SvgPicture.asset(

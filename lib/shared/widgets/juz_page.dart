@@ -1,24 +1,15 @@
 import 'dart:convert';
+
 import 'package:alquranalkareem/shared/widgets/widgets.dart';
 import 'package:arabic_numbers/arabic_numbers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:theme_provider/theme_provider.dart';
 
-class QuranJuz extends StatefulWidget {
-  @override
-  _QuranJuzState createState() => _QuranJuzState();
-}
+import 'controllers_put.dart';
 
-class _QuranJuzState extends State<QuranJuz>
-    with SingleTickerProviderStateMixin {
-  var controller = ScrollController();
-
-  @override
-  void dispose() {
-    controller.dispose();
-    super.dispose();
-  }
+class QuranJuz extends StatelessWidget {
+  final controller = ScrollController();
 
   @override
   Widget build(BuildContext context) {
