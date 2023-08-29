@@ -97,8 +97,8 @@ class SingleAyah extends StatelessWidget {
                               ..onTapDown = (TapDownDetails details) {
                                 quranTextController.selected.value =
                                     !quranTextController.selected.value;
-                                lastAyahInPage =
-                                    surah!.ayahs![index].numberInSurah;
+                                // lastAyahInPage =
+                                //     surah!.ayahs![index].numberInSurah;
                                 textSurahNum = surah!.number;
                                 backColor = Colors.transparent;
                                 ayatController.sorahTextNumber =

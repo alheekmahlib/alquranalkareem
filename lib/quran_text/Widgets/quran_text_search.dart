@@ -98,8 +98,8 @@ class QuranTextSearch extends StatelessWidget {
                                     Navigator.of(context).pop();
                                     Navigator.of(context)
                                         .push(animatRoute(TextPageView(
-                                      surah: surahTextController
-                                          .surahs[aya.sorahId - 1],
+                                      // surah: surahTextController
+                                      //     .surahs[aya.sorahId - 1],
                                       nomPageF: surahTextController
                                           .surahs[aya.sorahId - 1]
                                           .ayahs!

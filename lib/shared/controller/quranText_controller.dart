@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../quran_text/model/Ahya.dart';
 import '../../quran_text/model/bookmark_text.dart';
 import '../../quran_text/text_page_view.dart';
 import '../../services_locator.dart';
@@ -40,6 +41,57 @@ class QuranTextController extends GetxController {
   bool scrolling = false;
   late AnimationController animationController;
   ValueNotifier<double>? scrollSpeedNotifier;
+  List<List<List<Ayahs>>> surahPagesList = [];
+  int currentSurahIndex = 0;
+  List<List<Ayahs>> surahsAyahs = [];
+  List<Ayahs> get currentSurahAyahs => surahsAyahs[currentSurahIndex];
+
+  List<Ayahs> currentPageAyahText(int pageNumber) {
+    return surahPagesList[currentSurahIndex][pageNumber];
+  }
+
+  @override
+  void onInit() {
+    super.onInit();
+    setSurahsPages();
+  }
+
+  void setSurahsPages() {
+    for (final surah in surahTextController.surahs) {
+      List<Ayahs> allAyahs = [];
+
+      for (final ayah in surah.ayahs!) {
+        allAyahs.add(ayah);
+      }
+      for (int i = 1; i <= 604; i++) {
+        surahsAyahs.add(allAyahs.where((ayah) => ayah.page == i).toList());
+      }
+      // List<> surahAyah
+      List<Ayahs> tempAyahs = [];
+      List<List<Ayahs>> tempSurah = [];
+      List<List<List<Ayahs>>> temp114 = [];
+
+      for (int i = 1; i <= 114; i++) {
+        surahPagesList.add(surahsAyahs
+            .where((ayah) => getSurahNumberByAyah(ayah.first.number!) == i)
+            .toList());
+        int tempNumber = surahsAyahs[i].first.pageInSurah!;
+        for (int l = 0; l <= tempNumber; l++) {
+          tempAyahs.add(surahsAyahs[i][l]);
+        }
+        // surahPagesList.add(surahPages[i].where((e) => e. == i).toList());
+        tempSurah.add(tempAyahs);
+        surahPagesList.add(tempSurah);
+      }
+    }
+    print('it wooooooooooooooooooooooooooooooorks');
+  }
+
+  int getSurahNumberByAyah(int ayahNumber) {
+    return surahTextController.surahs
+        .firstWhere((surah) => surah.ayahs!.first.number == ayahNumber)
+        .number!;
+  }
 
   /// Shared Preferences
   // Save & Load Last Page For Quran Text

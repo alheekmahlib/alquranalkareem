@@ -11,19 +11,46 @@ import '../text_page_view.dart';
 
 class PageAyah extends StatelessWidget {
   final surah;
-  final List<InlineSpan> text;
+  // final List<InlineSpan> text;
   final int index;
   final int nomPageF;
   PageAyah(
       {super.key,
       required this.surah,
-      required this.text,
+      // required this.text,
       required this.index,
       required this.nomPageF});
   Color? backColor;
 
   @override
   Widget build(BuildContext context) {
+    final List<InlineSpan> pageAyahsUI = quranTextController
+        .currentPageAyahText(nomPageF)
+        .map(
+          (e) => TextSpan(
+            text: e.text,
+            style: TextStyle(
+              fontSize: generalController.fontSizeArabic.value,
+              fontFamily: 'uthmanic2',
+              background: Paint()
+                ..color = audioController.determineColor(index)
+                ..strokeJoin = StrokeJoin.round
+                ..strokeCap = StrokeCap.round
+                ..style = PaintingStyle.fill,
+              // background: Paint()
+              //   ..color =
+              //       index == audioController.ayahSelected.value
+              //           ? quranTextController.selected.value
+              //               ? backColor!
+              //               : Colors.transparent
+              //           : Colors.transparent
+              //   ..strokeJoin = StrokeJoin.round
+              //   ..strokeCap = StrokeCap.round
+              //   ..style = PaintingStyle.fill
+            ),
+          ),
+        )
+        .toList();
     backColor = Theme.of(context).colorScheme.surface.withOpacity(0.4);
     return Stack(
       children: [
@@ -72,6 +99,11 @@ class PageAyah extends StatelessWidget {
                         style: TextStyle(
                           fontSize: generalController.fontSizeArabic.value,
                           fontFamily: 'uthmanic2',
+                          background: Paint()
+                            ..color = audioController.determineColor(index)
+                            ..strokeJoin = StrokeJoin.round
+                            ..strokeCap = StrokeCap.round
+                            ..style = PaintingStyle.fill,
                           // background: Paint()
                           //   ..color =
                           //       index == audioController.ayahSelected.value
@@ -83,9 +115,7 @@ class PageAyah extends StatelessWidget {
                           //   ..strokeCap = StrokeCap.round
                           //   ..style = PaintingStyle.fill
                         ),
-                        children: text.map((e) {
-                          return e;
-                        }).toList(),
+                        children: pageAyahsUI,
                       ),
                       contextMenuBuilder: buildMyContextMenuText(),
                       onSelectionChanged: handleSelectionChangedText,

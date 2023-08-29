@@ -10,17 +10,14 @@ import 'Widgets/audio_text_widget.dart';
 import 'Widgets/scrollable_list.dart';
 import 'Widgets/show_text_tafseer.dart';
 import 'Widgets/widgets.dart';
-import 'model/QuranModel.dart';
 
-int? lastAyah;
-int? lastAyahInPage;
 int? lastAyahInPageA;
 int pageN = 1;
 int? textSurahNum;
 
 // ignore: must_be_immutable
 class TextPageView extends StatelessWidget {
-  final SurahText? surah;
+  // final SurahText? surah;
   int? nomPageF, nomPageL, pageNum = 1;
 
   TextPageView({
@@ -28,7 +25,7 @@ class TextPageView extends StatelessWidget {
     this.nomPageF,
     this.nomPageL,
     this.pageNum,
-    this.surah,
+    // this.surah,
   });
   static int textCurrentPage = 0;
   static String lastTime = '';
@@ -68,7 +65,7 @@ class TextPageView extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           sorahName(
-                            surah!.number.toString(),
+                            quranTextController.currentSurahIndex.toString(),
                             context,
                             Theme.of(context).canvasColor,
                           ),
@@ -153,7 +150,8 @@ class TextPageView extends StatelessWidget {
                                         MainAxisAlignment.spaceBetween,
                                     children: [
                                       sorahName(
-                                        surah!.number.toString(),
+                                        quranTextController.currentSurahIndex
+                                            .toString(),
                                         context,
                                         ThemeProvider.themeOf(context).id ==
                                                 'dark'
@@ -223,9 +221,8 @@ class TextPageView extends StatelessWidget {
                                     (quranTextController.scrollController
                                         .position.maxScrollExtent));
                           }
-
                           return ScrollableList(
-                            surah: surah,
+                            // surah: surah,
                             nomPageF: nomPageF!,
                             nomPageL: nomPageL!,
                           );

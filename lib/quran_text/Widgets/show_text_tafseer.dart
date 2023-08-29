@@ -8,7 +8,6 @@ import '../../l10n/app_localizations.dart';
 import '../../shared/widgets/controllers_put.dart';
 import '../../shared/widgets/show_tafseer.dart';
 import '../../shared/widgets/widgets.dart';
-import '../text_page_view.dart';
 
 class ShowTextTafseer extends StatelessWidget {
   ShowTextTafseer({Key? key}) : super(key: key);
@@ -446,7 +445,7 @@ class ShowTextTafseer extends StatelessWidget {
                                 context,
                                 int.parse(ayatController.sorahTextNumber!),
                                 int.parse(ayatController.ayahTextNumber!));
-                            print("lastAyahInPage $lastAyahInPage");
+                            // print("lastAyahInPage $lastAyahInPage");
                             if (SlidingUpPanelStatus.hidden ==
                                 generalController.panelTextController.status) {
                               generalController.panelTextController.expand();
