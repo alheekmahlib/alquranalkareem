@@ -1,15 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:theme_provider/theme_provider.dart';
+
 import '../../l10n/app_localizations.dart';
 
-class ThemeChange extends StatefulWidget {
+class ThemeChange extends StatelessWidget {
   const ThemeChange({Key? key}) : super(key: key);
 
-  @override
-  State<ThemeChange> createState() => _ThemeChangeState();
-}
-
-class _ThemeChangeState extends State<ThemeChange> {
   @override
   Widget build(BuildContext context) {
     return Column(

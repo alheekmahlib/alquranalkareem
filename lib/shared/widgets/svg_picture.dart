@@ -2,10 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 
-import '../../quran_page/data/repository/bookmarks_controller.dart';
-import '../controller/general_controller.dart';
-
-late final GeneralController generalController = Get.put(GeneralController());
+import 'controllers_put.dart';
 
 besmAllah(BuildContext context) {
   return SvgPicture.asset(
@@ -38,7 +35,7 @@ quranIcon(BuildContext context, double height, width) {
 }
 
 bookmarkIcon(BuildContext context, double height, width) {
-  return GetBuilder<BookmarksController>(builder: (bookmarksController) {
+  return Obx(() {
     return SvgPicture.asset(
       'assets/svg/bookmark_ic.svg',
       width: width,
@@ -50,4 +47,14 @@ bookmarkIcon(BuildContext context, double height, width) {
                   Theme.of(context).primaryColorDark, BlendMode.srcIn),
     );
   });
+}
+
+surahName(BuildContext context, double height, double width) {
+  return SvgPicture.asset(
+    'assets/svg/surah_name/00${surahAudioController.sorahNum}.svg',
+    colorFilter: ColorFilter.mode(
+        Theme.of(context).colorScheme.surface, BlendMode.srcIn),
+    width: width,
+    height: height,
+  );
 }

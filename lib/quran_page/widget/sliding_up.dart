@@ -5,7 +5,7 @@ import 'package:get/get.dart';
 import '../../shared/controller/general_controller.dart';
 import '../../shared/widgets/widgets.dart';
 
-class Sliding extends StatefulWidget {
+class Sliding extends StatelessWidget {
   final Widget? myWidget1;
   final Widget? myWidget2;
   final Widget? myWidget3;
@@ -22,19 +22,8 @@ class Sliding extends StatefulWidget {
       required this.cHeight})
       : super(key: key);
 
-  @override
-  State<Sliding> createState() => _SlidingState();
-}
-
-class _SlidingState extends State<Sliding> with SingleTickerProviderStateMixin {
   var mScaffoldKey = GlobalKey<ScaffoldState>();
   late final GeneralController generalController = Get.put(GeneralController());
-
-  @override
-  void initState() {
-    super.initState();
-    generalController.panelController = SlidingUpPanelController();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -47,7 +36,7 @@ class _SlidingState extends State<Sliding> with SingleTickerProviderStateMixin {
             platformView(MediaQuery.of(context).size.height,
                 MediaQuery.of(context).size.height * 3 / 4)),
         child: SlidingUpPanelWidget(
-          controlHeight: widget.cHeight!,
+          controlHeight: cHeight!,
           anchor: 7.0,
           panelController: generalController.panelController,
           onTap: () {
@@ -108,10 +97,10 @@ class _SlidingState extends State<Sliding> with SingleTickerProviderStateMixin {
                           Row(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              widget.myWidget1!,
-                              widget.myWidget2!,
-                              widget.myWidget3!,
-                              widget.myWidget4!,
+                              myWidget1!,
+                              myWidget2!,
+                              myWidget3!,
+                              myWidget4!,
                             ],
                           ),
                         ],
@@ -125,7 +114,7 @@ class _SlidingState extends State<Sliding> with SingleTickerProviderStateMixin {
                 Flexible(
                   child: SizedBox(
                       height: MediaQuery.of(context).size.height,
-                      child: widget.myWidget5),
+                      child: myWidget5),
                 ),
               ],
             ),

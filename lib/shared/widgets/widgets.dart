@@ -6,23 +6,20 @@ import 'package:another_xlider/models/handler_animation.dart';
 import 'package:another_xlider/models/trackbar.dart';
 import 'package:arabic_numbers/arabic_numbers.dart';
 import 'package:bot_toast/bot_toast.dart';
-import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_sliding_up_panel/sliding_up_panel_widget.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:hijri/hijri_calendar.dart';
 import 'package:intl/intl.dart';
+import 'package:spring/spring.dart';
 import 'package:theme_provider/theme_provider.dart';
 
-import '/audio_screen/controller/surah_audio_controller.dart';
-import '/notes/cubit/note_cubit.dart';
 import '/quran_text/Widgets/quran_text_search.dart';
-import '/shared/controller/audio_controller.dart';
 import '/shared/controller/general_controller.dart';
 import '/shared/widgets/bookmarks_list.dart';
 import '/shared/widgets/quran_search.dart';
-import '/shared/widgets/sorah_juz_list.dart';
+import '/shared/widgets/surah_juz_list.dart';
 import '../../database/notificationDatabase.dart';
 import '../../l10n/app_localizations.dart';
 import '../../notes/screens/notes_list.dart';
@@ -30,14 +27,11 @@ import '../../quran_text/Widgets/bookmarks_text_list.dart';
 import '../../services_locator.dart';
 import '../custom_paint/bg_icon.dart';
 import '../postPage.dart';
+import 'controllers_put.dart';
 
 var TPageScaffoldKey = GlobalKey<ScaffoldState>();
 var SorahPlayScaffoldKey = GlobalKey<ScaffoldState>();
 String? selectedValue;
-final GeneralController generalController = sl<GeneralController>();
-final AudioController audioController = Get.put(AudioController());
-final SurahAudioController surahAudioController =
-    Get.put(SurahAudioController());
 
 Widget quranPageSearch(BuildContext context, double width) {
   return GestureDetector(
@@ -47,7 +41,7 @@ Widget quranPageSearch(BuildContext context, double width) {
         context,
         MediaQuery.of(context).size.height / 1 / 2,
         MediaQuery.of(context).size.width,
-        const QuranSearch(),
+        QuranSearch(),
       );
     },
   );
@@ -58,7 +52,7 @@ Widget quranPageSorahList(BuildContext context, double width) {
       child: iconBg(context, Icons.list_alt_outlined),
       onTap: () {
         allModalBottomSheet(context, MediaQuery.of(context).size.height / 1 / 2,
-            MediaQuery.of(context).size.width, const SorahJuzList());
+            MediaQuery.of(context).size.width, SurahJuzList());
       });
 }
 
@@ -67,7 +61,7 @@ Widget notesList(BuildContext context, double width) {
     child: iconBg(context, Icons.add_comment_outlined),
     onTap: () {
       allModalBottomSheet(context, MediaQuery.of(context).size.height / 1 / 2,
-          MediaQuery.of(context).size.width, const NotesList());
+          MediaQuery.of(context).size.width, NotesList());
     },
   );
 }
@@ -86,8 +80,7 @@ Widget bookmarksList(BuildContext context, double width) {
   );
 }
 
-Widget bookmarksTextList(BuildContext context,
-    GlobalKey<ScaffoldState> bookmarksTextListKey, double width) {
+Widget bookmarksTextList(BuildContext context, double width) {
   return GestureDetector(
     child: iconBg(context, Icons.bookmarks_outlined),
     onTap: () {
@@ -101,8 +94,7 @@ Widget bookmarksTextList(BuildContext context,
   );
 }
 
-Widget quranTextSearch(BuildContext context,
-    GlobalKey<ScaffoldState> searchTextListKey, double width) {
+Widget quranTextSearch(BuildContext context, double width) {
   return GestureDetector(
     child: iconBg(context, Icons.search_outlined),
     onTap: () {
@@ -242,43 +234,6 @@ Widget topBar(BuildContext context) {
         Align(
           alignment: Alignment.topRight,
           child: customClose(context),
-        ),
-      ],
-    ),
-  );
-}
-
-Widget audioSorahtopBar(BuildContext context, String sorahNum) {
-  return SizedBox(
-    height: orientation(context, 130.0, 30.0),
-    child: Stack(
-      alignment: Alignment.center,
-      children: [
-        Opacity(
-          opacity: .1,
-          child: SvgPicture.asset(
-            'assets/svg/surah_name/00$sorahNum.svg',
-            colorFilter: ColorFilter.mode(
-                Theme.of(context).colorScheme.surface, BlendMode.srcIn),
-            width: MediaQuery.of(context).size.width,
-          ),
-        ),
-        SvgPicture.asset(
-          'assets/svg/surah_name/00$sorahNum.svg',
-          height: 100,
-          colorFilter: ColorFilter.mode(
-              Theme.of(context).colorScheme.surface, BlendMode.srcIn),
-          width: MediaQuery.of(context).size.width / 1 / 2,
-        ),
-        Align(
-          alignment: Alignment.topRight,
-          child: IconButton(
-            icon: Icon(Icons.close_outlined,
-                color: ThemeProvider.themeOf(context).id == 'dark'
-                    ? Theme.of(context).canvasColor
-                    : Theme.of(context).primaryColorDark),
-            onPressed: () => surahAudioController.controllerSorah.reverse(),
-          ),
         ),
       ],
     ),
@@ -916,72 +871,76 @@ sorahReaderDropDown(BuildContext context) {
                 return Column(
                   children: [
                     Container(
-                      child: ListTile(
-                        title: Text(
-                          readerName[index],
-                          style: TextStyle(
-                              color:
-                                  surahAudioController.sorahReaderNameValue ==
-                                          readerN[index]
-                                      ? Theme.of(context).primaryColorLight
-                                      : const Color(0xffcdba72),
-                              fontSize: 14,
-                              fontFamily: 'kufi'),
-                        ),
-                        trailing: Container(
-                          height: 20,
-                          width: 20,
-                          decoration: BoxDecoration(
-                            borderRadius:
-                                const BorderRadius.all(Radius.circular(2.0)),
-                            border: Border.all(
+                      child: Obx(
+                        () => ListTile(
+                          title: Text(
+                            readerName[index],
+                            style: TextStyle(
                                 color:
                                     surahAudioController.sorahReaderNameValue ==
                                             readerN[index]
                                         ? Theme.of(context).primaryColorLight
                                         : const Color(0xffcdba72),
-                                width: 2),
-                            color: const Color(0xff39412a),
+                                fontSize: 14,
+                                fontFamily: 'kufi'),
                           ),
-                          child: surahAudioController.sorahReaderNameValue ==
-                                  readerN[index]
-                              ? const Icon(Icons.done,
-                                  size: 14, color: Color(0xfffcbb76))
-                              : null,
-                        ),
-                        onTap: () {
-                          surahAudioController.sorahReaderValue =
-                              readerD[index];
-                          surahAudioController.sorahReaderNameValue =
-                              readerN[index];
-                          surahAudioController.saveSorahReader(
-                              readerD[index], readerN[index]);
-                          Navigator.pop(context);
-                        },
-                        leading: Container(
-                          height: 80.0,
-                          width: 80.0,
-                          decoration: BoxDecoration(
-                              image: DecorationImage(
-                                image: AssetImage(
-                                    'assets/images/${readerI[index]}.jpg'),
-                                fit: BoxFit.fitWidth,
-                                colorFilter:
-                                    surahAudioController.sorahReaderNameValue ==
-                                            readerN[index]
-                                        ? null
-                                        : ColorFilter.mode(
-                                            Theme.of(context)
-                                                .canvasColor
-                                                .withOpacity(.4),
-                                            BlendMode.lighten),
-                              ),
-                              shape: BoxShape.rectangle,
+                          trailing: Container(
+                            height: 20,
+                            width: 20,
+                            decoration: BoxDecoration(
                               borderRadius:
-                                  const BorderRadius.all(Radius.circular(4.0)),
+                                  const BorderRadius.all(Radius.circular(2.0)),
                               border: Border.all(
-                                  color: Theme.of(context).dividerColor,
-                                  width: 2)),
+                                  color: surahAudioController
+                                              .sorahReaderNameValue ==
+                                          readerN[index]
+                                      ? Theme.of(context).primaryColorLight
+                                      : const Color(0xffcdba72),
+                                  width: 2),
+                              color: const Color(0xff39412a),
+                            ),
+                            child: surahAudioController.sorahReaderNameValue ==
+                                    readerN[index]
+                                ? const Icon(Icons.done,
+                                    size: 14, color: Color(0xfffcbb76))
+                                : null,
+                          ),
+                          onTap: () {
+                            surahAudioController.sorahReaderValue.value =
+                                readerD[index];
+                            surahAudioController.sorahReaderNameValue.value =
+                                readerN[index];
+
+                            surahAudioController.saveSorahReader(
+                                readerD[index], readerN[index]);
+                            surahAudioController.changeAudioSource();
+                            Navigator.pop(context);
+                          },
+                          leading: Container(
+                            height: 80.0,
+                            width: 80.0,
+                            decoration: BoxDecoration(
+                                image: DecorationImage(
+                                  image: AssetImage(
+                                      'assets/images/${readerI[index]}.jpg'),
+                                  fit: BoxFit.fitWidth,
+                                  colorFilter: surahAudioController
+                                              .sorahReaderNameValue ==
+                                          readerN[index]
+                                      ? null
+                                      : ColorFilter.mode(
+                                          Theme.of(context)
+                                              .canvasColor
+                                              .withOpacity(.4),
+                                          BlendMode.lighten),
+                                ),
+                                shape: BoxShape.rectangle,
+                                borderRadius: const BorderRadius.all(
+                                    Radius.circular(4.0)),
+                                border: Border.all(
+                                    color: Theme.of(context).dividerColor,
+                                    width: 2)),
+                          ),
                         ),
                       ),
                       decoration: BoxDecoration(
@@ -992,11 +951,6 @@ sorahReaderDropDown(BuildContext context) {
                       margin: const EdgeInsets.symmetric(
                           horizontal: 16.0, vertical: 4.0),
                     ),
-                    // const Divider(
-                    //   endIndent: 16,
-                    //   indent: 16,
-                    //   height: 3,
-                    // ),
                   ],
                 );
               },
@@ -1008,126 +962,126 @@ sorahReaderDropDown(BuildContext context) {
   );
 }
 
-Widget sorahPageReaderDropDown(BuildContext context) {
-  List<String> readerName = <String>[
-    AppLocalizations.of(context)!.reader1,
-    AppLocalizations.of(context)!.reader2,
-    AppLocalizations.of(context)!.reader3,
-    AppLocalizations.of(context)!.reader4,
-  ];
-
-  List<String> readerD = <String>[
-    "https://server7.mp3quran.net/",
-    "https://server10.mp3quran.net/",
-    "https://server13.mp3quran.net/",
-    "https://server10.mp3quran.net/",
-  ];
-
-  List<String> readerN = <String>[
-    "basit/",
-    "minsh/",
-    "husr/",
-    "ajm/",
-  ];
-
-  return DropdownButton2(
-    isExpanded: true,
-    alignment: Alignment.center,
-    items: [
-      DropdownMenuItem<String>(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 8.0),
-          child: ListView.builder(
-            itemCount: readerName.length,
-            itemBuilder: (BuildContext context, int index) {
-              return Column(
-                children: [
-                  ListTile(
-                    title: Text(
-                      readerName[index],
-                      style: TextStyle(
-                        color: surahAudioController.sorahReaderNameValue ==
-                                readerN[index]
-                            ? const Color(0xfffcbb76)
-                            : Theme.of(context).canvasColor,
-                        fontSize: 14,
-                      ),
-                    ),
-                    leading: Container(
-                      height: 20,
-                      width: 20,
-                      decoration: BoxDecoration(
-                        borderRadius:
-                            const BorderRadius.all(Radius.circular(2.0)),
-                        border: Border.all(
-                            color: surahAudioController.sorahReaderNameValue ==
-                                    readerN[index]
-                                ? const Color(0xfffcbb76)
-                                : Theme.of(context).canvasColor,
-                            width: 2),
-                        color: const Color(0xff39412a),
-                      ),
-                      child: surahAudioController.sorahReaderNameValue ==
-                              readerN[index]
-                          ? const Icon(Icons.done,
-                              size: 14, color: Color(0xfffcbb76))
-                          : null,
-                    ),
-                    onTap: () {
-                      surahAudioController.sorahReaderValue = readerD[index];
-                      surahAudioController.sorahReaderNameValue =
-                          readerN[index];
-                      surahAudioController.saveSorahReader(
-                          readerD[index], readerN[index]);
-                      Navigator.pop(context);
-                    },
-                  ),
-                  const Divider(
-                    endIndent: 16,
-                    indent: 16,
-                    height: 3,
-                  ),
-                ],
-              );
-            },
-          ),
-        ),
-      ),
-    ],
-    value: selectedValue,
-    onChanged: (value) {
-      selectedValue = value as String;
-    },
-    customButton: Icon(
-      Icons.person_search_outlined,
-      color: Theme.of(context).colorScheme.surface,
-    ),
-    iconStyleData: const IconStyleData(
-      iconSize: 24,
-    ),
-    buttonStyleData: const ButtonStyleData(
-      height: 50,
-      width: 50,
-      elevation: 0,
-    ),
-    dropdownStyleData: DropdownStyleData(
-        decoration: BoxDecoration(
-            color: Theme.of(context).colorScheme.surface.withOpacity(.9),
-            borderRadius: const BorderRadius.all(Radius.circular(8))),
-        padding: const EdgeInsets.only(left: 14, right: 14),
-        maxHeight: 230,
-        width: 230,
-        elevation: 0,
-        offset: const Offset(0, 0),
-        scrollbarTheme: ScrollbarThemeData(
-          radius: const Radius.circular(8),
-          thickness: MaterialStateProperty.all(6),
-        )),
-    menuItemStyleData: const MenuItemStyleData(
-      height: 35,
-    ),
-  );
-}
+// Widget sorahPageReaderDropDown(BuildContext context) {
+//   List<String> readerName = <String>[
+//     AppLocalizations.of(context)!.reader1,
+//     AppLocalizations.of(context)!.reader2,
+//     AppLocalizations.of(context)!.reader3,
+//     AppLocalizations.of(context)!.reader4,
+//   ];
+//
+//   List<String> readerD = <String>[
+//     "https://server7.mp3quran.net/",
+//     "https://server10.mp3quran.net/",
+//     "https://server13.mp3quran.net/",
+//     "https://server10.mp3quran.net/",
+//   ];
+//
+//   List<String> readerN = <String>[
+//     "basit/",
+//     "minsh/",
+//     "husr/",
+//     "ajm/",
+//   ];
+//
+//   return DropdownButton2(
+//     isExpanded: true,
+//     alignment: Alignment.center,
+//     items: [
+//       DropdownMenuItem<String>(
+//         child: Padding(
+//           padding: const EdgeInsets.symmetric(vertical: 8.0),
+//           child: ListView.builder(
+//             itemCount: readerName.length,
+//             itemBuilder: (BuildContext context, int index) {
+//               return Column(
+//                 children: [
+//                   ListTile(
+//                     title: Text(
+//                       readerName[index],
+//                       style: TextStyle(
+//                         color: surahAudioController.sorahReaderNameValue ==
+//                                 readerN[index]
+//                             ? const Color(0xfffcbb76)
+//                             : Theme.of(context).canvasColor,
+//                         fontSize: 14,
+//                       ),
+//                     ),
+//                     leading: Container(
+//                       height: 20,
+//                       width: 20,
+//                       decoration: BoxDecoration(
+//                         borderRadius:
+//                             const BorderRadius.all(Radius.circular(2.0)),
+//                         border: Border.all(
+//                             color: surahAudioController.sorahReaderNameValue ==
+//                                     readerN[index]
+//                                 ? const Color(0xfffcbb76)
+//                                 : Theme.of(context).canvasColor,
+//                             width: 2),
+//                         color: const Color(0xff39412a),
+//                       ),
+//                       child: surahAudioController.sorahReaderNameValue ==
+//                               readerN[index]
+//                           ? const Icon(Icons.done,
+//                               size: 14, color: Color(0xfffcbb76))
+//                           : null,
+//                     ),
+//                     onTap: () {
+//                       surahAudioController.sorahReaderValue = readerD[index];
+//                       surahAudioController.sorahReaderNameValue =
+//                           readerN[index];
+//                       surahAudioController.saveSorahReader(
+//                           readerD[index], readerN[index]);
+//                       Navigator.pop(context);
+//                     },
+//                   ),
+//                   const Divider(
+//                     endIndent: 16,
+//                     indent: 16,
+//                     height: 3,
+//                   ),
+//                 ],
+//               );
+//             },
+//           ),
+//         ),
+//       ),
+//     ],
+//     value: selectedValue,
+//     onChanged: (value) {
+//       selectedValue = value as String;
+//     },
+//     customButton: Icon(
+//       Icons.person_search_outlined,
+//       color: Theme.of(context).colorScheme.surface,
+//     ),
+//     iconStyleData: const IconStyleData(
+//       iconSize: 24,
+//     ),
+//     buttonStyleData: const ButtonStyleData(
+//       height: 50,
+//       width: 50,
+//       elevation: 0,
+//     ),
+//     dropdownStyleData: DropdownStyleData(
+//         decoration: BoxDecoration(
+//             color: Theme.of(context).colorScheme.surface.withOpacity(.9),
+//             borderRadius: const BorderRadius.all(Radius.circular(8))),
+//         padding: const EdgeInsets.only(left: 14, right: 14),
+//         maxHeight: 230,
+//         width: 230,
+//         elevation: 0,
+//         offset: const Offset(0, 0),
+//         scrollbarTheme: ScrollbarThemeData(
+//           radius: const Radius.circular(8),
+//           thickness: MaterialStateProperty.all(6),
+//         )),
+//     menuItemStyleData: const MenuItemStyleData(
+//       height: 35,
+//     ),
+//   );
+// }
 
 Route animatRoute(Widget myWidget) {
   return PageRouteBuilder(
@@ -1466,11 +1420,11 @@ quarters(int index) {
   }
 }
 
-Future<dynamic> dropDownModalBottomSheet(
+dropDownModalBottomSheet(
     BuildContext context, double height, width, Widget child) {
   double hei = MediaQuery.of(context).size.height;
   double wid = MediaQuery.of(context).size.width;
-  return showModalBottomSheet(
+  showModalBottomSheet(
       context: context,
       constraints: BoxConstraints(
           maxWidth: platformView(
@@ -1489,14 +1443,9 @@ Future<dynamic> dropDownModalBottomSheet(
       builder: (BuildContext context) {
         return child;
       }).whenComplete(() {
-    if (generalController.screenController != null) {
-      generalController.screenController!.reverse();
-    }
-  }).then((_) {
-    if (generalController.screenController != null) {
-      generalController.screenController!.forward();
-    }
+    screenSpringController.play(motion: Motion.reverse);
   });
+  screenSpringController.play(motion: Motion.play);
 }
 
 allModalBottomSheet(BuildContext context, double height, width, Widget child) {
@@ -1521,9 +1470,9 @@ allModalBottomSheet(BuildContext context, double height, width, Widget child) {
       builder: (BuildContext context) {
         return child;
       }).whenComplete(() {
-    generalController.screenController!.reverse();
+    screenSpringController.play(motion: Motion.reverse);
   });
-  generalController.screenController!.forward();
+  screenSpringController.play(motion: Motion.play);
 }
 
 Widget customClose(BuildContext context) {
@@ -1598,8 +1547,7 @@ Widget customTextClose(BuildContext context) {
   );
 }
 
-Widget Function(BuildContext, EditableTextState) buildMyContextMenu(
-    NotesCubit notesCubit) {
+Widget Function(BuildContext, EditableTextState) buildMyContextMenu() {
   return (BuildContext context, EditableTextState editableTextState) {
     final List<ContextMenuButtonItem> buttonItems =
         editableTextState.contextMenuButtonItems;
@@ -1609,7 +1557,7 @@ Widget Function(BuildContext, EditableTextState) buildMyContextMenu(
         label: 'Add Note',
         onPressed: () {
           ContextMenuController.removeAny();
-          notesCubit.addTafseerToNote(context);
+          notesController.addTafseerToNote();
         },
       ),
     );
@@ -1621,8 +1569,7 @@ Widget Function(BuildContext, EditableTextState) buildMyContextMenu(
   };
 }
 
-Widget Function(BuildContext, EditableTextState) buildMyContextMenuText(
-    NotesCubit notesCubit) {
+Widget Function(BuildContext, EditableTextState) buildMyContextMenuText() {
   return (BuildContext context, EditableTextState editableTextState) {
     final List<ContextMenuButtonItem> buttonItems =
         editableTextState.contextMenuButtonItems;
@@ -1632,7 +1579,7 @@ Widget Function(BuildContext, EditableTextState) buildMyContextMenuText(
         label: 'Add Note',
         onPressed: () {
           ContextMenuController.removeAny();
-          notesCubit.addTafseerTextToNote(context);
+          notesController.addTafseerTextToNote();
         },
       ),
     );

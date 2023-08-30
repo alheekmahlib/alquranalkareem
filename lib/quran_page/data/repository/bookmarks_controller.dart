@@ -46,9 +46,13 @@ class BookmarksController extends GetxController {
   }
 
   Future<void> getBookmarks() async {
-    final List<Map<String, dynamic>> bookmarks = await DatabaseHelper.queryB();
-    bookmarksList
-        .assignAll(bookmarks.map((data) => Bookmarks.fromJson(data)).toList());
+    final List<Map<String, dynamic>>? bookmarks = await DatabaseHelper.queryB();
+    if (bookmarks != null) {
+      bookmarksList.assignAll(
+          bookmarks.map((data) => Bookmarks.fromJson(data)).toList());
+    } else {
+      // Handle the case when bookmarks is null
+    }
   }
 
   Future<bool> deleteBookmarkByPageNum(
@@ -87,9 +91,9 @@ class BookmarksController extends GetxController {
     return false;
   }
 
-  BookmarksController() {
-    getBookmarks();
-  }
+  // BookmarksController() {
+  //   getBookmarks();
+  // }
 
   void updateBookmarks(Bookmarks? bookmarks) async {
     await DatabaseHelper.updateBookmarks(bookmarks!);
@@ -123,14 +127,16 @@ class BookmarksController extends GetxController {
 
   // Save & Load Last Bookmark
   Future<void> savelastBookmark(int Value) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
     await sl<SharedPreferences>().setInt("last_bookmark", Value);
     update();
   }
 
   Future<int> loadlastBookmark() async {
-    final SharedPreferences prefs = sl<SharedPreferences>();
-    lastBook = prefs.getInt('last_bookmark') ?? 0;
-    print('get last_bookmark ${prefs.getInt('last_bookmark')}');
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    lastBook = sl<SharedPreferences>().getInt('last_bookmark') ?? 0;
+    print(
+        'get last_bookmark ${sl<SharedPreferences>().getInt('last_bookmark')}');
     print('get radioValue $lastBook');
     // emit(SharedPreferencesState());
     return lastBook;

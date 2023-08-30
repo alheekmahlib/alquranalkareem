@@ -1,43 +1,18 @@
+import 'package:alquranalkareem/shared/widgets/ayah_list.dart';
+import 'package:alquranalkareem/shared/widgets/seek_bar.dart';
+import 'package:alquranalkareem/shared/widgets/svg_picture.dart';
+import 'package:alquranalkareem/shared/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart' as getx;
 import 'package:just_audio/just_audio.dart';
 import 'package:square_percent_indicater/square_percent_indicater.dart';
 import 'package:theme_provider/theme_provider.dart';
 
-import '../../shared/widgets/ayah_list.dart';
-import '../../shared/widgets/seek_bar.dart';
-import '../../shared/widgets/svg_picture.dart';
-import '../../shared/widgets/widgets.dart';
-import '../controller/audio_controller.dart';
-import '../controller/general_controller.dart';
+import '../../l10n/app_localizations.dart';
+import 'controllers_put.dart';
 
-class AudioWidget extends StatefulWidget {
+class AudioWidget extends StatelessWidget {
   AudioWidget({Key? key}) : super(key: key);
-
-  @override
-  State<AudioWidget> createState() => _AudioWidgetState();
-
-  static _AudioWidgetState? of(BuildContext context) =>
-      context.findAncestorStateOfType<_AudioWidgetState>();
-}
-
-class _AudioWidgetState extends State<AudioWidget>
-    with WidgetsBindingObserver, SingleTickerProviderStateMixin {
-  final AudioController aCtrl = getx.Get.put(AudioController());
-  late final GeneralController generalController =
-      getx.Get.put(GeneralController());
-
-  @override
-  void initState() {
-    ambiguate(WidgetsBinding.instance)!.addObserver(this);
-    generalController.screenController = AnimationController(
-      duration: const Duration(milliseconds: 300),
-      vsync: this,
-    );
-    generalController.screenAnimation = Tween<double>(begin: 1, end: 0.95)
-        .animate(generalController.screenController!);
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -78,21 +53,21 @@ class _AudioWidgetState extends State<AudioWidget>
                         ),
                       ),
                       StreamBuilder<PlayerState>(
-                          stream: aCtrl.audioPlayer.playerStateStream,
+                          stream: audioController.audioPlayer.playerStateStream,
                           builder: (context, snapshot) {
                             final playerState = snapshot.data;
                             final processingState =
                                 playerState?.processingState;
-                            final bool playing = playerState?.playing ?? false;
+                            final playing = playerState?.playing;
                             if (processingState == ProcessingState.idle) {
                               return AyahList();
-                            } else if (playing) {
+                            } else if (playing == true) {
                               return Container(
                                 height: 50,
                                 alignment: Alignment.center,
                                 width: 290,
                                 child: StreamBuilder<PositionData>(
-                                  stream: aCtrl.positionDataStream,
+                                  stream: audioController.positionDataStream,
                                   builder: (context, snapshot) {
                                     if (snapshot.hasData) {
                                       final positionData = snapshot.data;
@@ -104,38 +79,15 @@ class _AudioWidgetState extends State<AudioWidget>
                                         bufferedPosition:
                                             positionData?.bufferedPosition ??
                                                 Duration.zero,
-                                        onChangeEnd: aCtrl.audioPlayer.seek,
+                                        onChangeEnd:
+                                            audioController.audioPlayer.seek,
                                       );
                                     }
-                                    return const SizedBox();
+                                    return const SizedBox.shrink();
                                   },
                                 ),
                               );
-                              // } else if (aCtrl.isPagePlay.value == true) {
-                              //   print(
-                              //       'aCtrl.isPagePlay.value ${aCtrl.isPagePlay.value}');
-                              //   return Container(
-                              //     height: 50,
-                              //     alignment: Alignment.center,
-                              //     width: 290,
-                              //     child: StreamBuilder<pagePositionData>(
-                              //       stream: aCtrl.pagePositionDataStream,
-                              //       builder: (context, snapshot) {
-                              //         final positionData = snapshot.data;
-                              //         return SeekBar(
-                              //           duration: positionData?.duration ??
-                              //               Duration.zero,
-                              //           position: positionData?.position ??
-                              //               Duration.zero,
-                              //           bufferedPosition:
-                              //               positionData?.bufferedPosition ??
-                              //                   Duration.zero,
-                              //           onChangeEnd: aCtrl.pageAudioPlayer.seek,
-                              //         );
-                              //       },
-                              //     ),
-                              //   );
-                            } else if (!playing) {
+                            } else if (playing != true) {
                               return AyahList();
                             } else {
                               return const SizedBox.shrink();
@@ -167,10 +119,11 @@ class _AudioWidgetState extends State<AudioWidget>
                                   shadowWidth: 1.5,
                                   progressWidth: 2,
                                   shadowColor: Colors.grey,
-                                  progressColor: aCtrl.downloading.value
-                                      ? Theme.of(context).canvasColor
-                                      : Colors.transparent,
-                                  progress: aCtrl.progress.value,
+                                  progressColor:
+                                      audioController.downloading.value
+                                          ? Theme.of(context).canvasColor
+                                          : Colors.transparent,
+                                  progress: audioController.progress.value,
                                   child: Container(
                                     height: 35,
                                     width: 35,
@@ -180,11 +133,12 @@ class _AudioWidgetState extends State<AudioWidget>
                                             .surface,
                                         borderRadius: const BorderRadius.all(
                                             Radius.circular(8))),
-                                    child: aCtrl.downloading.value
+                                    child: audioController.downloading.value
                                         ? Container(
                                             alignment: Alignment.center,
                                             child: Text(
-                                              aCtrl.progressString.value,
+                                              audioController
+                                                  .progressString.value,
                                               style: TextStyle(
                                                   fontSize: 14,
                                                   fontFamily: 'kufi',
@@ -195,15 +149,33 @@ class _AudioWidgetState extends State<AudioWidget>
                                         : getx.Obx(
                                             () => IconButton(
                                               icon: Icon(
-                                                aCtrl.isPlay.value
+                                                audioController.isPlay.value
                                                     ? Icons.pause
                                                     : Icons.play_arrow,
                                                 size: 20,
                                               ),
                                               color:
                                                   Theme.of(context).canvasColor,
-                                              onPressed:
-                                                  aCtrl.playAyah(context),
+                                              onPressed: !audioController
+                                                      .isPagePlay.value
+                                                  ? () {
+                                                      print(audioController
+                                                          .progressString
+                                                          .value);
+                                                      if (audioController
+                                                              .pageAyahNumber ==
+                                                          null) {
+                                                        customErrorSnackBar(
+                                                            context,
+                                                            AppLocalizations.of(
+                                                                    context)!
+                                                                .choiceAyah);
+                                                      } else {
+                                                        audioController
+                                                            .playAyah(context);
+                                                      }
+                                                    }
+                                                  : null,
                                             ),
                                           ),
                                   ),
@@ -217,10 +189,11 @@ class _AudioWidgetState extends State<AudioWidget>
                                   shadowWidth: 1.5,
                                   progressWidth: 2,
                                   shadowColor: Colors.grey,
-                                  progressColor: aCtrl.downloadingPage.value
-                                      ? Theme.of(context).canvasColor
-                                      : Colors.transparent,
-                                  progress: aCtrl.progressPage.value,
+                                  progressColor:
+                                      audioController.downloadingPage.value
+                                          ? Theme.of(context).canvasColor
+                                          : Colors.transparent,
+                                  progress: audioController.progressPage.value,
                                   child: Container(
                                     height: 35,
                                     width: 35,
@@ -230,11 +203,12 @@ class _AudioWidgetState extends State<AudioWidget>
                                             .surface,
                                         borderRadius: const BorderRadius.all(
                                             Radius.circular(8))),
-                                    child: aCtrl.downloadingPage.value
+                                    child: audioController.downloadingPage.value
                                         ? Container(
                                             alignment: Alignment.center,
                                             child: Text(
-                                              aCtrl.progressPageString.value,
+                                              audioController
+                                                  .progressPageString.value,
                                               style: TextStyle(
                                                   fontSize: 14,
                                                   fontFamily: 'kufi',
@@ -245,7 +219,7 @@ class _AudioWidgetState extends State<AudioWidget>
                                         : getx.Obx(
                                             () => IconButton(
                                               icon: Icon(
-                                                aCtrl.isPagePlay.value
+                                                audioController.isPagePlay.value
                                                     ? Icons.pause
                                                     : Icons
                                                         .text_snippet_outlined,
@@ -253,17 +227,18 @@ class _AudioWidgetState extends State<AudioWidget>
                                               ),
                                               color:
                                                   Theme.of(context).canvasColor,
-                                              onPressed: !aCtrl.isPlay.value
-                                                  ? () {
-                                                      print(aCtrl
-                                                          .progressPageString
-                                                          .value);
-                                                      aCtrl.playPage(
-                                                          context,
-                                                          generalController
-                                                              .cuMPage);
-                                                    }
-                                                  : null,
+                                              onPressed:
+                                                  !audioController.isPlay.value
+                                                      ? () {
+                                                          print(audioController
+                                                              .progressPageString
+                                                              .value);
+                                                          audioController.playPage(
+                                                              context,
+                                                              generalController
+                                                                  .cuMPage);
+                                                        }
+                                                      : null,
                                             ),
                                           ),
                                   ),

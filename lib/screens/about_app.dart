@@ -1,25 +1,21 @@
 import 'dart:io' show File;
 
-import '/shared/controller/general_controller.dart';
-import '/shared/controller/settings_controller.dart';
-import '/shared/widgets/theme_change.dart';
-import '/shared/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:get/get.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:theme_provider/theme_provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import '/shared/widgets/theme_change.dart';
+import '/shared/widgets/widgets.dart';
 import '../l10n/app_localizations.dart';
-import '../services_locator.dart';
+import '../shared/widgets/controllers_put.dart';
 import '../shared/widgets/svg_picture.dart';
 
 class AboutApp extends StatelessWidget {
   AboutApp({Key? key}) : super(key: key);
-  late final GeneralController generalController = Get.put(GeneralController());
 
   Future<void> _launchEmail() async {
     // ios specification
@@ -209,7 +205,10 @@ class AboutApp extends StatelessWidget {
                                           ),
                                         ),
                                         onTap: () async {
-                                          await sl<SettingsController>()
+                                          settingsController.setLocale(
+                                              const Locale.fromSubtags(
+                                                  languageCode: "ar"));
+                                          await settingsController
                                               .saveLang("ar");
                                         },
                                       ),
@@ -278,8 +277,11 @@ class AboutApp extends StatelessWidget {
                                           ),
                                         ),
                                         onTap: () async {
-                                          await sl<SettingsController>()
-                                              .saveLang("ar");
+                                          settingsController.setLocale(
+                                              const Locale.fromSubtags(
+                                                  languageCode: "en"));
+                                          await settingsController
+                                              .saveLang("en");
                                         },
                                       ),
                                       InkWell(
@@ -348,8 +350,11 @@ class AboutApp extends StatelessWidget {
                                           ),
                                         ),
                                         onTap: () async {
-                                          await sl<SettingsController>()
-                                              .saveLang("ar");
+                                          settingsController.setLocale(
+                                              const Locale.fromSubtags(
+                                                  languageCode: "es"));
+                                          await settingsController
+                                              .saveLang("es");
                                         },
                                       ),
                                     ],

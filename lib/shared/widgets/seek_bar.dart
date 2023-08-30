@@ -2,113 +2,132 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 
-class SeekBar extends StatefulWidget {
+import 'controllers_put.dart';
+
+class SeekBar extends StatelessWidget {
   final Duration duration;
   final Duration position;
   final Duration bufferedPosition;
   final ValueChanged<Duration>? onChanged;
   final ValueChanged<Duration>? onChangeEnd;
+  final Color? activeTrackColor;
+  final Color? inactiveTrackColor;
+  final Color? valueIndicatorColor;
+  final Color? textColor;
+  final bool? timeShow;
+  double? dragValue;
+  final ValueChanged<double>? onDragValueChanged;
 
-  const SeekBar({
+  SeekBar({
     Key? key,
     required this.duration,
     required this.position,
     required this.bufferedPosition,
     this.onChanged,
     this.onChangeEnd,
+    this.activeTrackColor,
+    this.inactiveTrackColor,
+    this.valueIndicatorColor,
+    this.textColor,
+    this.timeShow,
+    this.dragValue,
+    this.onDragValueChanged,
   }) : super(key: key);
 
-  @override
-  SeekBarState createState() => SeekBarState();
-}
-
-class SeekBarState extends State<SeekBar> {
-  double? _dragValue;
   late SliderThemeData _sliderThemeData;
 
   @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-
-    _sliderThemeData = SliderTheme.of(context).copyWith(
+  Widget build(BuildContext context) {
+    surahAudioController.lastPosition = remaining.inSeconds.toDouble();
+    final SliderThemeData _sliderThemeData = SliderTheme.of(context).copyWith(
       trackHeight: 2.0,
     );
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Stack(
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      mainAxisSize: MainAxisSize.min,
       children: [
-        SliderTheme(
-          data: _sliderThemeData.copyWith(
-            thumbShape: HiddenThumbComponentShape(),
-            activeTrackColor: Theme.of(context).canvasColor,
-            inactiveTrackColor: Theme.of(context).dividerColor,
-            valueIndicatorColor: Theme.of(context).canvasColor,
-          ),
-          child: ExcludeSemantics(
-            child: Slider(
-              min: 0.0,
-              max: widget.duration.inMilliseconds.toDouble(),
-              value: min(widget.bufferedPosition.inMilliseconds.toDouble(),
-                  widget.duration.inMilliseconds.toDouble()),
-              onChanged: (value) {
-                setState(() {
-                  _dragValue = value;
-                });
-                if (widget.onChanged != null) {
-                  widget.onChanged!(Duration(milliseconds: value.round()));
-                }
-              },
-              onChangeEnd: (value) {
-                if (widget.onChangeEnd != null) {
-                  widget.onChangeEnd!(Duration(milliseconds: value.round()));
-                }
-                _dragValue = null;
-              },
+        timeShow == true
+            ? Text(
+                RegExp(r'((^0*[1-9]\d*:)?\d{2}:\d{2})\.\d+$')
+                        .firstMatch("$remaining")
+                        ?.group(1) ??
+                    '$remaining',
+                style: TextStyle(
+                    color: textColor ?? Theme.of(context).canvasColor))
+            : const SizedBox.shrink(),
+        Stack(
+          children: [
+            SliderTheme(
+              data: _sliderThemeData.copyWith(
+                thumbShape: HiddenThumbComponentShape(),
+                activeTrackColor:
+                    activeTrackColor ?? Theme.of(context).canvasColor,
+                inactiveTrackColor:
+                    inactiveTrackColor ?? Theme.of(context).dividerColor,
+                valueIndicatorColor:
+                    inactiveTrackColor ?? Theme.of(context).canvasColor,
+              ),
+              child: ExcludeSemantics(
+                child: Slider(
+                  min: 0.0,
+                  max: duration.inMilliseconds.toDouble(),
+                  value: min(bufferedPosition.inMilliseconds.toDouble(),
+                      duration.inMilliseconds.toDouble()),
+                  onChanged: (value) {
+                    onDragValueChanged?.call(value);
+                    if (onChanged != null) {
+                      onChanged!(Duration(milliseconds: value.round()));
+                    }
+                  },
+                  onChangeEnd: (value) {
+                    if (onChangeEnd != null) {
+                      onChangeEnd!(Duration(milliseconds: value.round()));
+                    }
+                    dragValue = null;
+                  },
+                ),
+              ),
             ),
-          ),
+            SliderTheme(
+              data: _sliderThemeData.copyWith(
+                inactiveTrackColor: Colors.transparent,
+              ),
+              child: Slider(
+                min: 0.0,
+                max: duration.inMilliseconds.toDouble(),
+                value: min(dragValue ?? position.inMilliseconds.toDouble(),
+                    duration.inMilliseconds.toDouble()),
+                onChanged: (value) {
+                  onDragValueChanged?.call(value);
+                  if (onChanged != null) {
+                    onChanged!(Duration(milliseconds: value.round()));
+                  }
+                },
+                onChangeEnd: (value) {
+                  if (onChangeEnd != null) {
+                    onChangeEnd!(Duration(milliseconds: value.round()));
+                  }
+                  dragValue = null;
+                },
+              ),
+            ),
+          ],
         ),
-        SliderTheme(
-          data: _sliderThemeData.copyWith(
-            inactiveTrackColor: Colors.transparent,
-          ),
-          child: Slider(
-            min: 0.0,
-            max: widget.duration.inMilliseconds.toDouble(),
-            value: min(_dragValue ?? widget.position.inMilliseconds.toDouble(),
-                widget.duration.inMilliseconds.toDouble()),
-            onChanged: (value) {
-              setState(() {
-                _dragValue = value;
-              });
-              if (widget.onChanged != null) {
-                widget.onChanged!(Duration(milliseconds: value.round()));
-              }
-            },
-            onChangeEnd: (value) {
-              if (widget.onChangeEnd != null) {
-                widget.onChangeEnd!(Duration(milliseconds: value.round()));
-              }
-              _dragValue = null;
-            },
-          ),
-        ),
-        Positioned(
-          right: 16.0,
-          bottom: 0.0,
-          child: Text(
-              RegExp(r'((^0*[1-9]\d*:)?\d{2}:\d{2})\.\d+$')
-                      .firstMatch("$_remaining")
-                      ?.group(1) ??
-                  '$_remaining',
-              style: TextStyle(color: Theme.of(context).canvasColor)),
-        ),
+        timeShow == true
+            ? Text(
+                RegExp(r'((^0*[1-9]\d*:)?\d{2}:\d{2})\.\d+$')
+                        .firstMatch("$total")
+                        ?.group(1) ??
+                    '$total',
+                style: TextStyle(
+                    color: textColor ?? Theme.of(context).canvasColor))
+            : const SizedBox.shrink(),
       ],
     );
   }
 
-  Duration get _remaining => widget.duration - widget.position;
+  Duration get remaining => position;
+  Duration get total => duration;
 }
 
 class HiddenThumbComponentShape extends SliderComponentShape {

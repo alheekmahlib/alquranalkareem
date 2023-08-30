@@ -5,7 +5,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../../quran_page/data/model/ayat.dart';
 import '../../quran_page/data/model/translate.dart';
 import '../../quran_page/data/repository/translate_repository.dart';
-import '../../services_locator.dart';
+import 'general_controller.dart';
 
 class AyatController extends GetxController {
   var ayatList = <Ayat>[].obs;
@@ -22,6 +22,8 @@ class AyatController extends GetxController {
   var currentPageLoading = RxBool(false);
   var currentPageError = RxString('');
   ValueNotifier<int> selectedTafseerIndex = ValueNotifier<int>(0);
+  final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
+  late final GeneralController generalController = Get.put(GeneralController());
 
   void fetchAyat(int pageNum) async {
     List<Ayat>? ayat =
@@ -61,12 +63,12 @@ class AyatController extends GetxController {
   }
 
   void saveTafseer(int radioValue) async {
-    final SharedPreferences prefs = sl<SharedPreferences>();
+    SharedPreferences prefs = await _prefs;
     await prefs.setInt("tafseer_val", radioValue);
   }
 
   Future<void> loadTafseer() async {
-    final SharedPreferences prefs = sl<SharedPreferences>();
+    SharedPreferences prefs = await _prefs;
     radioValue = prefs.getInt('tafseer_val') ?? 0;
     print('get tafseer value ${prefs.getInt('tafseer_val')}');
     print('get radioValue ${radioValue}');

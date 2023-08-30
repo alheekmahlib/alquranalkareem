@@ -1,16 +1,20 @@
-import '../services_locator.dart';
-import '../shared/controller/settings_controller.dart';
+import 'package:alquranalkareem/shared/controller/quranText_controller.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
+import 'package:get/get.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
 import '/audio_screen/controller/surah_audio_controller.dart';
 import '/home_page.dart';
 import '/screens/onboarding_screen.dart';
 import '/shared/controller/audio_controller.dart';
 import '/shared/controller/ayat_controller.dart';
 import '/shared/controller/general_controller.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
-import 'package:get/get.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-
+import '../quran_page/data/repository/bookmarks_controller.dart';
+import '../shared/controller/aya_controller.dart';
+import '../shared/controller/notes_controller.dart';
+import '../shared/controller/settings_controller.dart';
+import '../shared/controller/translate_controller.dart';
 import '../shared/widgets/lottie.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -18,24 +22,62 @@ class SplashScreen extends StatefulWidget {
   _SplashScreenState createState() => _SplashScreenState();
 }
 
-class _SplashScreenState extends State<SplashScreen> {
+class _SplashScreenState extends State<SplashScreen>
+    with TickerProviderStateMixin {
   late final GeneralController generalController = Get.put(GeneralController());
   late final AyatController ayatController = Get.put(AyatController());
   late final AudioController audioController = Get.put(AudioController());
+  late final TranslateDataController translateController =
+      Get.put(TranslateDataController());
+  late final SettingsController settingsController =
+      Get.put(SettingsController());
   late final SurahAudioController surahAudioController =
       Get.put(SurahAudioController());
+  late final QuranTextController quranTextController =
+      Get.put(QuranTextController());
+  late final AyaController ayaController = Get.put(AyaController());
+  late final BookmarksController bookmarksController =
+      Get.put(BookmarksController());
+  late final NotesController notesController = Get.put(NotesController());
   bool animate = false;
 
   @override
   void initState() {
     startTime();
+    // sl<GeneralController>().loadMCurrentPage();
+    // sl<GeneralController>().loadFontSize();
+    // sl<GeneralController>().updateGreeting();
+    // sl<AyatController>().loadTafseer();
+    // sl<AudioController>().loadQuranReader();
+    // sl<SurahAudioController>().loadSorahReader();
+    // sl<TranslateDataController>().loadTranslateValue();
+    // sl<QuranTextController>().loadSwitchValue();
+    // sl<QuranTextController>().loadScrollSpeedValue();
     generalController.loadMCurrentPage();
     generalController.loadFontSize();
-    sl<SettingsController>().loadLang();
-    ayatController.loadTafseer();
     generalController.updateGreeting();
+    ayatController.loadTafseer();
     audioController.loadQuranReader();
     surahAudioController.loadSorahReader();
+    surahAudioController.loadLastSurahListen();
+    translateController.loadTranslateValue();
+    quranTextController.loadSwitchValue();
+    translateController.fetchSura(context);
+    settingsController.loadLang();
+    bookmarksController.getBookmarksList();
+    quranTextController.animationController = AnimationController(
+      vsync: this,
+    );
+
+    quranTextController.controller = AnimationController(
+        vsync: this, duration: const Duration(milliseconds: 300));
+    quranTextController.offset = Tween<Offset>(
+      end: Offset.zero,
+      begin: const Offset(-1.0, 0.0),
+    ).animate(CurvedAnimation(
+      parent: quranTextController.controller,
+      curve: Curves.easeIn,
+    ));
     super.initState();
   }
 
@@ -56,21 +98,9 @@ class _SplashScreenState extends State<SplashScreen> {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     print('is_first_time ${prefs.getBool("is_first_time")}');
     if (prefs.getBool("is_first_time") == null) {
-      // Navigator.pushReplacement<void, void>(
-      //   context,
-      //   MaterialPageRoute<void>(
-      //     builder: (BuildContext context) => OnboardingScreen(),
-      //   ),
-      // );
       Get.off(() => OnboardingScreen());
       prefs.setBool("is_first_time", false);
     } else {
-      // Navigator.pushReplacement<void, void>(
-      //   context,
-      //   MaterialPageRoute<void>(
-      //     builder: (BuildContext context) => const HomePage(),
-      //   ),
-      // );
       Get.off(() => const HomePage());
     }
     // Get.off(() => OnboardingScreen());

@@ -1,6 +1,3 @@
-import 'package:alquranalkareem/notes/cubit/note_cubit.dart';
-import 'package:alquranalkareem/shared/controller/general_controller.dart';
-import 'package:arabic_numbers/arabic_numbers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_sliding_up_panel/sliding_up_panel_widget.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -8,46 +5,17 @@ import 'package:get/get.dart';
 import 'package:theme_provider/theme_provider.dart';
 
 import '../../l10n/app_localizations.dart';
-import '../../shared/controller/ayat_controller.dart';
+import '../../shared/widgets/controllers_put.dart';
 import '../../shared/widgets/show_tafseer.dart';
 import '../../shared/widgets/widgets.dart';
-import '../text_page_view.dart';
 
-class ShowTextTafseer extends StatefulWidget {
-  const ShowTextTafseer({Key? key}) : super(key: key);
+class ShowTextTafseer extends StatelessWidget {
+  ShowTextTafseer({Key? key}) : super(key: key);
 
-  @override
-  State<ShowTextTafseer> createState() => _ShowTextTafseerState();
-}
-
-class _ShowTextTafseerState extends State<ShowTextTafseer> {
   final ScrollController _scrollController = ScrollController();
-  final GlobalKey<_ShowTextTafseerState> _selectableTextKey =
-      GlobalKey<_ShowTextTafseerState>();
-  late final AyatController ayatController = Get.put(AyatController());
-  late final GeneralController generalController = Get.put(GeneralController());
-  ArabicNumbers arabicNumber = ArabicNumbers();
-  int pageNum = 0;
-  int radioValue = 0;
-  double lowerValue = 18;
-  double upperValue = 40;
-  String? selectedValue;
-  double? sliderValue;
-
-  @override
-  void initState() {
-    sliderValue = 0;
-    super.initState();
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {
-    NotesCubit notesCubit = NotesCubit.get(context);
     return Directionality(
       textDirection: TextDirection.rtl,
       child: Container(
@@ -158,6 +126,13 @@ class _ShowTextTafseerState extends State<ShowTextTafseer> {
                       child: SingleChildScrollView(
                         controller: _scrollController,
                         child: Obx(() {
+                          if (ayatController.currentText.value != null) {
+                            allText = ayatController
+                                    .currentText.value!.translateAyah +
+                                ayatController.currentText.value!.translate;
+                            allTitle =
+                                ayatController.currentText.value!.translateAyah;
+                          }
                           if (ayatController.currentPageLoading.value) {
                             return const CircularProgressIndicator();
                           } else if (ayatController.currentText.value != null) {
@@ -167,7 +142,6 @@ class _ShowTextTafseerState extends State<ShowTextTafseer> {
                             allTitle =
                                 '﴿${ayatController.currentText.value!.translateAyah}﴾';
                             return SelectableText.rich(
-                              key: _selectableTextKey,
                               TextSpan(
                                 children: <InlineSpan>[
                                   TextSpan(
@@ -240,8 +214,7 @@ class _ShowTextTafseerState extends State<ShowTextTafseer> {
                               scrollPhysics: const ClampingScrollPhysics(),
                               textDirection: TextDirection.rtl,
                               textAlign: TextAlign.justify,
-                              contextMenuBuilder:
-                                  buildMyContextMenu(notesCubit),
+                              contextMenuBuilder: buildMyContextMenu(),
                               onSelectionChanged: handleSelectionChanged,
                             );
                           } else {
@@ -355,7 +328,8 @@ class _ShowTextTafseerState extends State<ShowTextTafseer> {
       ),
     );
   }
-tafseerDropDown(BuildContext context) {
+
+  tafseerDropDown(BuildContext context) {
     List<String> tafName = <String>[
       '${AppLocalizations.of(context)?.tafIbnkatheerN}',
       '${AppLocalizations.of(context)?.tafBaghawyN}',
@@ -471,7 +445,7 @@ tafseerDropDown(BuildContext context) {
                                 context,
                                 int.parse(ayatController.sorahTextNumber!),
                                 int.parse(ayatController.ayahTextNumber!));
-                            print("lastAyahInPage $lastAyahInPage");
+                            // print("lastAyahInPage $lastAyahInPage");
                             if (SlidingUpPanelStatus.hidden ==
                                 generalController.panelTextController.status) {
                               generalController.panelTextController.expand();
@@ -479,7 +453,6 @@ tafseerDropDown(BuildContext context) {
                               generalController.panelTextController.hide();
                             }
                             Navigator.pop(context);
-                            setState(() {});
                           },
                           leading: Container(
                               height: 85.0,

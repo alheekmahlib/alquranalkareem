@@ -1,5 +1,4 @@
 import 'package:alquranalkareem/shared/widgets/show_tafseer.dart';
-import 'package:alquranalkareem/shared/widgets/widgets.dart';
 import 'package:arabic_numbers/arabic_numbers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -9,14 +8,13 @@ import 'package:theme_provider/theme_provider.dart';
 import '../../quran_page/data/model/ayat.dart';
 import '../controller/ayat_controller.dart';
 import '../controller/general_controller.dart';
+import 'controllers_put.dart';
 import 'lottie.dart';
 
 class AyahList extends StatelessWidget {
   AyahList({Key? key}) : super(key: key);
 
   final ArabicNumbers arabicNumber = ArabicNumbers();
-  late final AyatController ayatController = Get.put(AyatController());
-  late final GeneralController generalController = Get.put(GeneralController());
 
   @override
   Widget build(BuildContext context) {
@@ -48,6 +46,7 @@ class AyahList extends StatelessWidget {
             shrinkWrap: true,
             itemBuilder: (BuildContext context, index) {
               Ayat? aya = ayat[index];
+
               return Obx(
                 () => Opacity(
                   opacity: ayatController.isSelected.value == index.toDouble()
@@ -104,8 +103,6 @@ class AyahList2 extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-// Fetch the Ayat instances when needed
-//     quranCubit.getTranslatedPage((generalController.cuMPage) ?? 1, context);
     final controller = Get.find<AyatController>();
     controller.fetchAyat(generalController.cuMPage);
     return Column(

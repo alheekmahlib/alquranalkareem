@@ -6,11 +6,10 @@ import '/shared/widgets/svg_picture.dart';
 import '/shared/widgets/theme_change.dart';
 import '/shared/widgets/widgets.dart';
 import '../../l10n/app_localizations.dart';
-import '../../services_locator.dart';
-import '../controller/settings_controller.dart';
+import 'controllers_put.dart';
 
 class SettingsList extends StatelessWidget {
-  const SettingsList({Key? key}) : super(key: key);
+  SettingsList({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -122,9 +121,10 @@ class SettingsList extends StatelessWidget {
                               ],
                             ),
                           ),
-                          onTap: () {
-                            sl<SettingsController>().setLocale(
+                          onTap: () async {
+                            settingsController.setLocale(
                                 const Locale.fromSubtags(languageCode: "ar"));
+                            await settingsController.saveLang("ar");
                           },
                         ),
                         InkWell(
@@ -185,9 +185,10 @@ class SettingsList extends StatelessWidget {
                               ],
                             ),
                           ),
-                          onTap: () {
-                            sl<SettingsController>().setLocale(
+                          onTap: () async {
+                            settingsController.setLocale(
                                 const Locale.fromSubtags(languageCode: "en"));
+                            await settingsController.saveLang("en");
                           },
                         ),
                         InkWell(
@@ -248,9 +249,10 @@ class SettingsList extends StatelessWidget {
                               ],
                             ),
                           ),
-                          onTap: () {
-                            sl<SettingsController>().setLocale(
+                          onTap: () async {
+                            settingsController.setLocale(
                                 const Locale.fromSubtags(languageCode: "es"));
+                            await settingsController.saveLang("es");
                           },
                         ),
                       ],
