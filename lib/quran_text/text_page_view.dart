@@ -1,5 +1,6 @@
 import 'package:arabic_numbers/arabic_numbers.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:spring/spring.dart';
 import 'package:theme_provider/theme_provider.dart';
 
@@ -10,6 +11,7 @@ import 'Widgets/audio_text_widget.dart';
 import 'Widgets/scrollable_list.dart';
 import 'Widgets/show_text_tafseer.dart';
 import 'Widgets/widgets.dart';
+import 'model/QuranModel.dart';
 
 int? lastAyahInPageA;
 int pageN = 1;
@@ -17,15 +19,16 @@ int? textSurahNum;
 
 // ignore: must_be_immutable
 class TextPageView extends StatelessWidget {
-  // final SurahText? surah;
+  final SurahText? surah;
   int? nomPageF, nomPageL, pageNum = 1;
 
   TextPageView({
-    Key? key,
+    super.key,
+    // Key? key,
     this.nomPageF,
     this.nomPageL,
     this.pageNum,
-    // this.surah,
+    this.surah,
   });
   static int textCurrentPage = 0;
   static String lastTime = '';
@@ -33,10 +36,27 @@ class TextPageView extends StatelessWidget {
 
   ArabicNumbers arabicNumber = ArabicNumbers();
   String? translateText;
+  Color? backColor;
+
+  int? get isHeighlited {
+    if (audioController.ayahSelected.value == -1) return null;
+    if (surah!.ayahs == null ||
+        audioController.ayahSelected.value! >= surah!.ayahs!.length ||
+        audioController.ayahSelected.value! < 0) {
+      return null;
+    }
+
+    final i = surah!.ayahs!
+        .firstWhereOrNull(
+            (a) => a == surah!.ayahs![audioController.ayahSelected.value])
+        ?.numberInSurah;
+    return i;
+  }
 
   @override
   Widget build(BuildContext context) {
     quranTextController.loadSwitchValue();
+    backColor = const Color(0xff91a57d).withOpacity(0.4);
     springController = SpringController(initialAnim: Motion.play);
 
     WidgetsBinding.instance
@@ -222,7 +242,7 @@ class TextPageView extends StatelessWidget {
                                         .position.maxScrollExtent));
                           }
                           return ScrollableList(
-                            // surah: surah,
+                            surah: surah!,
                             nomPageF: nomPageF!,
                             nomPageL: nomPageL!,
                           );
@@ -237,7 +257,7 @@ class TextPageView extends StatelessWidget {
                     curve: Curves.easeInOut,
                     extend: -500,
                     withFade: false,
-                    child: AudioTextWidget()),
+                    child: const AudioTextWidget()),
                 Align(
                     alignment: Alignment.bottomCenter,
                     child: TextSliding(

@@ -1,8 +1,10 @@
 import 'dart:io' show File;
 
+import 'package:expansion_tile_card/expansion_tile_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:get/get.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:theme_provider/theme_provider.dart';
@@ -15,7 +17,7 @@ import '../shared/widgets/controllers_put.dart';
 import '../shared/widgets/svg_picture.dart';
 
 class AboutApp extends StatelessWidget {
-  AboutApp({Key? key}) : super(key: key);
+  const AboutApp({Key? key}) : super(key: key);
 
   Future<void> _launchEmail() async {
     // ios specification
@@ -138,226 +140,143 @@ class AboutApp extends StatelessWidget {
                                 ),
                                 Padding(
                                   padding: const EdgeInsets.all(8.0),
-                                  child: Column(
-                                    children: [
-                                      InkWell(
-                                        child: SizedBox(
-                                          height: 30,
-                                          width:
-                                              MediaQuery.of(context).size.width,
-                                          child: Row(
-                                            children: [
-                                              Container(
-                                                height: 20,
-                                                width: 20,
-                                                decoration: BoxDecoration(
-                                                  borderRadius:
-                                                      const BorderRadius.all(
-                                                          Radius.circular(2.0)),
-                                                  border: Border.all(
-                                                      color: AppLocalizations.of(
-                                                                      context)!
-                                                                  .appLang ==
-                                                              "لغة التطبيق"
-                                                          ? Theme.of(context)
-                                                              .secondaryHeaderColor
-                                                          : Theme.of(context)
-                                                              .colorScheme
-                                                              .surface
-                                                              .withOpacity(.5),
-                                                      width: 2),
-                                                  color:
-                                                      const Color(0xff39412a),
-                                                ),
-                                                child: AppLocalizations.of(
-                                                                context)!
-                                                            .appLang ==
-                                                        "لغة التطبيق"
-                                                    ? Icon(Icons.done,
-                                                        size: 14,
-                                                        color: Theme.of(context)
-                                                            .colorScheme
-                                                            .surface)
-                                                    : null,
-                                              ),
-                                              const SizedBox(
-                                                width: 16.0,
-                                              ),
-                                              Text(
-                                                'العربية',
-                                                style: TextStyle(
-                                                  color: AppLocalizations.of(
-                                                                  context)!
-                                                              .appLang ==
-                                                          "لغة التطبيق"
-                                                      ? Theme.of(context)
-                                                          .secondaryHeaderColor
-                                                      : Theme.of(context)
-                                                          .colorScheme
-                                                          .surface
-                                                          .withOpacity(.5),
-                                                  fontSize: 14,
-                                                  fontFamily: 'kufi',
-                                                  fontStyle: FontStyle.italic,
-                                                ),
-                                              ),
-                                            ],
-                                          ),
+                                  child: Obx(
+                                    () => ExpansionTileCard(
+                                      elevation: 0.0,
+                                      initialElevation: 0.0,
+                                      title: Text(
+                                        settingsController.languageName.value,
+                                        style: TextStyle(
+                                          fontFamily: settingsController
+                                              .languageFont.value,
+                                          fontSize: 16,
+                                          color: ThemeProvider.themeOf(context)
+                                                      .id ==
+                                                  'dark'
+                                              ? Colors.white
+                                              : Theme.of(context).primaryColor,
                                         ),
-                                        onTap: () async {
-                                          settingsController.setLocale(
-                                              const Locale.fromSubtags(
-                                                  languageCode: "ar"));
-                                          await settingsController
-                                              .saveLang("ar");
-                                        },
                                       ),
-                                      InkWell(
-                                        child: SizedBox(
-                                          height: 30,
-                                          width:
-                                              MediaQuery.of(context).size.width,
-                                          child: Row(
-                                            children: [
-                                              Container(
-                                                height: 20,
-                                                width: 20,
-                                                decoration: BoxDecoration(
-                                                  borderRadius:
-                                                      const BorderRadius.all(
-                                                          Radius.circular(2.0)),
-                                                  border: Border.all(
-                                                      color: AppLocalizations.of(
-                                                                      context)!
-                                                                  .appLang ==
-                                                              "App Language"
-                                                          ? Theme.of(context)
-                                                              .secondaryHeaderColor
-                                                          : Theme.of(context)
-                                                              .colorScheme
-                                                              .surface
-                                                              .withOpacity(.5),
-                                                      width: 2),
-                                                  color:
-                                                      const Color(0xff39412a),
-                                                ),
-                                                child: AppLocalizations.of(
-                                                                context)!
-                                                            .appLang ==
-                                                        "App Language"
-                                                    ? Icon(Icons.done,
-                                                        size: 14,
-                                                        color: Theme.of(context)
-                                                            .colorScheme
-                                                            .surface)
-                                                    : null,
-                                              ),
-                                              const SizedBox(
-                                                width: 16.0,
-                                              ),
-                                              Text(
-                                                'English',
-                                                style: TextStyle(
-                                                  color: AppLocalizations.of(
-                                                                  context)!
-                                                              .appLang ==
-                                                          "App Language"
-                                                      ? Theme.of(context)
-                                                          .secondaryHeaderColor
-                                                      : Theme.of(context)
-                                                          .colorScheme
-                                                          .surface
-                                                          .withOpacity(.5),
-                                                  fontSize: 14,
-                                                  fontFamily: 'kufi',
-                                                  fontStyle: FontStyle.italic,
-                                                ),
-                                              ),
-                                            ],
-                                          ),
+                                      baseColor: Theme.of(context)
+                                          .colorScheme
+                                          .background
+                                          .withOpacity(.2),
+                                      expandedColor: Theme.of(context)
+                                          .colorScheme
+                                          .background
+                                          .withOpacity(.2),
+                                      children: <Widget>[
+                                        const Divider(
+                                          thickness: 1.0,
+                                          height: 1.0,
                                         ),
-                                        onTap: () async {
-                                          settingsController.setLocale(
-                                              const Locale.fromSubtags(
-                                                  languageCode: "en"));
-                                          await settingsController
-                                              .saveLang("en");
-                                        },
-                                      ),
-                                      InkWell(
-                                        child: SizedBox(
-                                          height: 30,
-                                          width:
-                                              MediaQuery.of(context).size.width,
-                                          child: Row(
-                                            mainAxisSize: MainAxisSize.min,
-                                            children: [
-                                              Container(
-                                                height: 20,
-                                                width: 20,
-                                                decoration: BoxDecoration(
-                                                  borderRadius:
-                                                      const BorderRadius.all(
-                                                          Radius.circular(2.0)),
-                                                  border: Border.all(
-                                                      color: AppLocalizations.of(
-                                                                      context)!
-                                                                  .appLang ==
-                                                              "Idioma de la aplicación"
-                                                          ? Theme.of(context)
-                                                              .secondaryHeaderColor
-                                                          : Theme.of(context)
-                                                              .colorScheme
-                                                              .surface
-                                                              .withOpacity(.5),
-                                                      width: 2),
-                                                  color:
-                                                      const Color(0xff39412a),
+                                        ButtonBar(
+                                            alignment:
+                                                MainAxisAlignment.spaceAround,
+                                            buttonHeight: 42.0,
+                                            buttonMinWidth: 90.0,
+                                            children: List.generate(
+                                                settingsController.languageList
+                                                    .length, (index) {
+                                              final lang = settingsController
+                                                  .languageList[index];
+                                              return InkWell(
+                                                child: SizedBox(
+                                                  height: 30,
+                                                  width: MediaQuery.of(context)
+                                                      .size
+                                                      .width,
+                                                  child: Row(
+                                                    children: [
+                                                      Container(
+                                                        height: 20,
+                                                        width: 20,
+                                                        decoration:
+                                                            BoxDecoration(
+                                                          borderRadius:
+                                                              const BorderRadius
+                                                                  .all(Radius
+                                                                      .circular(
+                                                                          2.0)),
+                                                          border: Border.all(
+                                                              color: AppLocalizations.of(
+                                                                              context)!
+                                                                          .appLang ==
+                                                                      lang[
+                                                                          'appLang']
+                                                                  ? Theme.of(
+                                                                          context)
+                                                                      .secondaryHeaderColor
+                                                                  : Theme.of(
+                                                                          context)
+                                                                      .colorScheme
+                                                                      .surface
+                                                                      .withOpacity(
+                                                                          .5),
+                                                              width: 2),
+                                                          color: const Color(
+                                                              0xff39412a),
+                                                        ),
+                                                        child: AppLocalizations.of(
+                                                                        context)!
+                                                                    .appLang ==
+                                                                lang['appLang']
+                                                            ? Icon(Icons.done,
+                                                                size: 14,
+                                                                color: Theme.of(
+                                                                        context)
+                                                                    .colorScheme
+                                                                    .surface)
+                                                            : null,
+                                                      ),
+                                                      const SizedBox(
+                                                        width: 16.0,
+                                                      ),
+                                                      Text(
+                                                        lang['name'],
+                                                        style: TextStyle(
+                                                          color: AppLocalizations.of(
+                                                                          context)!
+                                                                      .appLang ==
+                                                                  lang[
+                                                                      'appLang']
+                                                              ? Theme.of(
+                                                                      context)
+                                                                  .secondaryHeaderColor
+                                                              : Theme.of(
+                                                                      context)
+                                                                  .colorScheme
+                                                                  .surface
+                                                                  .withOpacity(
+                                                                      .8),
+                                                          fontSize: 16,
+                                                          fontFamily: 'noto',
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
                                                 ),
-                                                child: AppLocalizations.of(
-                                                                context)!
-                                                            .appLang ==
-                                                        "Idioma de la aplicación"
-                                                    ? Icon(Icons.done,
-                                                        size: 14,
-                                                        color: Theme.of(context)
-                                                            .colorScheme
-                                                            .surface)
-                                                    : null,
-                                              ),
-                                              const SizedBox(
-                                                width: 16.0,
-                                              ),
-                                              Text(
-                                                'Español',
-                                                style: TextStyle(
-                                                  color: AppLocalizations.of(
-                                                                  context)!
-                                                              .appLang ==
-                                                          "Idioma de la aplicación"
-                                                      ? Theme.of(context)
-                                                          .secondaryHeaderColor
-                                                      : Theme.of(context)
-                                                          .colorScheme
-                                                          .surface
-                                                          .withOpacity(.5),
-                                                  fontSize: 14,
-                                                  fontFamily: 'kufi',
-                                                  fontStyle: FontStyle.italic,
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                        onTap: () async {
-                                          settingsController.setLocale(
-                                              const Locale.fromSubtags(
-                                                  languageCode: "es"));
-                                          await settingsController
-                                              .saveLang("es");
-                                        },
-                                      ),
-                                    ],
+                                                onTap: () async {
+                                                  settingsController.setLocale(
+                                                      Locale.fromSubtags(
+                                                          languageCode:
+                                                              lang['lang']));
+                                                  await settingsController
+                                                      .saveLang(
+                                                          lang['lang'],
+                                                          lang['name'],
+                                                          lang['font']);
+                                                  settingsController
+                                                      .languageName
+                                                      .value = lang['name'];
+                                                  settingsController
+                                                      .languageFont
+                                                      .value = lang['font'];
+                                                },
+                                              );
+                                            })),
+                                      ],
+                                    ),
                                   ),
                                 ),
                               ],

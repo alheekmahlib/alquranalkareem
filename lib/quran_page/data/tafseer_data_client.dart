@@ -6,7 +6,7 @@ import 'package:path_provider/path_provider.dart';
 import 'package:sqflite_common_ffi/sqflite_ffi.dart';
 
 class TafseerDataBaseClient {
-  var _databaseName = "QuranData.sqlite";
+  final _databaseName = "QuranData.sqlite";
 
   // make this a singleton class
   TafseerDataBaseClient._privateConstructor();
@@ -38,7 +38,7 @@ class TafseerDataBaseClient {
   Future initDatabase() async {
     // Get the application documents directory
     Directory databasesPath = await getApplicationDocumentsDirectory();
-    var path = join(databasesPath.path, this._databaseName);
+    var path = join(databasesPath.path, _databaseName);
     // Check if the database exists
     var exists = await databaseExists(path);
 
@@ -56,7 +56,7 @@ class TafseerDataBaseClient {
 
         // Copy from asset
         ByteData data =
-            await rootBundle.load(join("assets", this._databaseName));
+            await rootBundle.load(join("assets", _databaseName));
         List<int> bytes =
             data.buffer.asUint8List(data.offsetInBytes, data.lengthInBytes);
 

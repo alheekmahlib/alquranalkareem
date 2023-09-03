@@ -1,14 +1,12 @@
-import 'package:alquranalkareem/audio_screen/controller/surah_audio_controller.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:just_audio/just_audio.dart';
 
 import '../../l10n/app_localizations.dart';
+import '../../shared/widgets/controllers_put.dart';
 import '../../shared/widgets/lottie.dart';
 
 class OnlinePlayButton extends StatelessWidget {
-  late final SurahAudioController surahAudioController =
-      Get.put(SurahAudioController());
+  const OnlinePlayButton({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -62,10 +60,9 @@ class OnlinePlayButton extends StatelessWidget {
                   alignment: Alignment.center,
                   padding: const EdgeInsets.symmetric(horizontal: 8.0),
                   decoration: BoxDecoration(
-                      color: Theme.of(context).colorScheme.background,
-                      borderRadius: const BorderRadius.only(
-                        topRight: Radius.circular(8),
-                        topLeft: Radius.circular(8),
+                      color: Theme.of(context).colorScheme.surface,
+                      borderRadius: const BorderRadius.all(
+                        Radius.circular(8),
                       ),
                       border: Border.all(
                           width: 2, color: Theme.of(context).dividerColor)),
@@ -83,7 +80,7 @@ class OnlinePlayButton extends StatelessWidget {
                       return IconButton(
                         icon: const Icon(Icons.online_prediction_outlined),
                         iconSize: 24.0,
-                        color: Theme.of(context).colorScheme.surface,
+                        color: Theme.of(context).canvasColor,
                         onPressed: () async {
                           surahAudioController.isDownloading.value = false;
                           print(
@@ -95,13 +92,14 @@ class OnlinePlayButton extends StatelessWidget {
                       return IconButton(
                         icon: const Icon(Icons.pause),
                         iconSize: 24.0,
-                        color: Theme.of(context).colorScheme.surface,
+                        color: Theme.of(context).canvasColor,
                         onPressed: surahAudioController.audioPlayer.pause,
                       );
                     } else {
                       return IconButton(
                         icon: const Icon(Icons.replay),
                         iconSize: 24.0,
+                        color: Theme.of(context).canvasColor,
                         onPressed: () => surahAudioController.audioPlayer.seek(
                             Duration.zero,
                             index: surahAudioController

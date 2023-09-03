@@ -6,7 +6,6 @@ import 'package:flutter/services.dart';
 import 'package:flutter_sliding_up_panel/sliding_up_panel_widget.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
-import 'package:spring/spring.dart';
 
 import '../../l10n/app_localizations.dart';
 import '../../quran_page/data/model/ayat.dart';
@@ -181,16 +180,17 @@ menu(BuildContext context, int b, index, var details, translateData, widget,
                       onPressed: () {
                         quranTextController.selected.value =
                             !quranTextController.selected.value;
-                        springController.play(motion: Motion.play);
-                        switch (quranTextController.controller.status) {
-                          case AnimationStatus.dismissed:
-                            quranTextController.controller.forward();
-                            break;
-                          case AnimationStatus.completed:
-                            quranTextController.controller.reverse();
-                            break;
-                          default:
-                        }
+                        generalController.sliderIsShow();
+                        // springController.play(motion: Motion.play);
+                        // switch (quranTextController.controller.status) {
+                        //   case AnimationStatus.dismissed:
+                        //     quranTextController.controller.forward();
+                        //     break;
+                        //   case AnimationStatus.completed:
+                        //     quranTextController.controller.reverse();
+                        //     break;
+                        //   default:
+                        // }
                         cancel();
                       },
                     ),
@@ -272,7 +272,13 @@ Widget rollingIconBuilder(int value, Size iconSize, bool foreground) {
 }
 
 translateDropDown(BuildContext context) {
-  List<String> transName = <String>['English', 'Spanish', 'bengali', 'Urdu'];
+  List<String> transName = <String>[
+    'English',
+    'Spanish',
+    'bengali',
+    'Urdu',
+    'Somali'
+  ];
   dropDownModalBottomSheet(
     context,
     MediaQuery.of(context).size.height / 1 / 2,

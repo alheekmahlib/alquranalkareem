@@ -1,21 +1,20 @@
-import 'package:alquranalkareem/audio_screen/controller/surah_audio_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:square_percent_indicater/square_percent_indicater.dart';
 import 'package:theme_provider/theme_provider.dart';
 
-import '../../l10n/app_localizations.dart';
+import '../../shared/widgets/controllers_put.dart';
 import '../../shared/widgets/lottie.dart';
 
 class DownloadPlayButton extends StatelessWidget {
-  late final SurahAudioController surahAudioController =
-      Get.put(SurahAudioController());
+  const DownloadPlayButton({super.key});
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
       height: 120,
+      width: 40,
       child: Stack(
         alignment: Alignment.center,
         children: [
@@ -60,8 +59,8 @@ class DownloadPlayButton extends StatelessWidget {
               children: [
                 Obx(
                   () => SquarePercentIndicator(
-                    width: 50,
-                    height: 50,
+                    width: 40,
+                    height: 40,
                     borderRadius: 8,
                     shadowWidth: 1.5,
                     progressWidth: 4,
@@ -71,18 +70,18 @@ class DownloadPlayButton extends StatelessWidget {
                         : Theme.of(context).primaryColorLight,
                     progress: surahAudioController.progress.value,
                     child: Container(
-                      height: 50,
-                      width: 50,
+                      height: 40,
+                      width: 40,
                       alignment: Alignment.center,
                       padding: const EdgeInsets.symmetric(horizontal: 8.0),
                       decoration: BoxDecoration(
-                          color: Theme.of(context).colorScheme.background,
-                          borderRadius: const BorderRadius.only(
-                            topRight: Radius.circular(8),
-                            topLeft: Radius.circular(8),
-                          ),
-                          border: Border.all(
-                              width: 2, color: Theme.of(context).dividerColor)),
+                        color: Theme.of(context).colorScheme.background,
+                        borderRadius: const BorderRadius.all(
+                          Radius.circular(8),
+                        ),
+                        // border: Border.all(
+                        //     width: 2, color: Theme.of(context).dividerColor)
+                      ),
                     ),
                   ),
                 ),
@@ -131,17 +130,17 @@ class DownloadPlayButton extends StatelessWidget {
               ],
             ),
           ),
-          Align(
-            alignment: Alignment.bottomCenter,
-            child: Text(
-              AppLocalizations.of(context)!.download,
-              style: TextStyle(
-                  fontSize: 16,
-                  fontFamily: 'kufi',
-                  height: -1.5,
-                  color: Theme.of(context).dividerColor),
-            ),
-          )
+          // Align(
+          //   alignment: Alignment.bottomCenter,
+          //   child: Text(
+          //     AppLocalizations.of(context)!.download,
+          //     style: TextStyle(
+          //         fontSize: 16,
+          //         fontFamily: 'kufi',
+          //         height: -1.5,
+          //         color: Theme.of(context).dividerColor),
+          //   ),
+          // )
         ],
       ),
     );

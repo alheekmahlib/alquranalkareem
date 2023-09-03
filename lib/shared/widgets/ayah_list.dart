@@ -55,8 +55,8 @@ class AyahList extends StatelessWidget {
                   child: InkWell(
                     onTap: () {
                       ayatController.isSelected.value = index.toDouble();
-                      ayatController.tafseerAyah = "${aya.ayatext ?? ''}";
-                      ayatController.tafseerText = "${aya.translate ?? ''}";
+                      ayatController.tafseerAyah = aya.ayatext ?? '';
+                      ayatController.tafseerText = aya.translate ?? '';
                       audioController.pageAyahNumber = '${aya.ayaNum ?? 0}';
                       ayatController.currentAyahNumber.value =
                           '${aya.ayaNum ?? 0}';
@@ -72,7 +72,7 @@ class AyahList extends StatelessWidget {
                           height: 30,
                         ),
                         Text(
-                          "${arabicNumber.convert(aya.ayaNum)}",
+                          arabicNumber.convert(aya.ayaNum),
                           // "1",
                           textAlign: TextAlign.center,
                           style: TextStyle(
@@ -160,7 +160,7 @@ class AyahList2 extends StatelessWidget {
                             ),
                             Center(
                               child: Text(
-                                "${arabicNumber.convert(aya.ayaNum)}",
+                                arabicNumber.convert(aya.ayaNum),
                                 // "1",
                                 textAlign: TextAlign.center,
                                 style: TextStyle(

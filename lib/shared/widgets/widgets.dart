@@ -615,7 +615,7 @@ Widget juzNumEn(String num, context, Color color) {
     mainAxisSize: MainAxisSize.min,
     children: [
       Text(
-        '$num',
+        num,
         style: TextStyle(
           fontSize: 12,
           fontFamily: 'kufi',
@@ -1152,12 +1152,12 @@ Widget bookmarkContainer(BuildContext context, Widget myWidget) {
       ));
 }
 
-orientation(BuildContext context, var n1, n2) {
-  Orientation orientation = MediaQuery.of(context).orientation;
+orientation(BuildContext context, var n1, var n2) {
+  Orientation orientation = MediaQuery.orientationOf(context);
   return orientation == Orientation.portrait ? n1 : n2;
 }
 
-platformView(var p1, p2) {
+platformView(var p1, var p2) {
   return (Platform.isIOS || Platform.isAndroid || Platform.isFuchsia) ? p1 : p2;
 }
 
@@ -1475,7 +1475,7 @@ allModalBottomSheet(BuildContext context, double height, width, Widget child) {
   screenSpringController.play(motion: Motion.play);
 }
 
-Widget customClose(BuildContext context) {
+Widget customClose(BuildContext context, {var close}) {
   return GestureDetector(
     child: Stack(
       alignment: Alignment.center,
@@ -1490,9 +1490,10 @@ Widget customClose(BuildContext context) {
                 : Theme.of(context).primaryColorDark),
       ],
     ),
-    onTap: () {
-      Navigator.of(context).pop();
-    },
+    onTap: close ??
+        () {
+          Navigator.of(context).pop();
+        },
   );
 }
 

@@ -23,9 +23,9 @@ class QuranPageScreen extends StatefulWidget {
 class _QuranPageScreenState extends State<QuranPageScreen> {
   final pages = [
     QuranPage(),
-    SorahTextScreen(),
+    const SorahTextScreen(),
     const AzkarView(),
-    AudioScreen(),
+    const AudioScreen(),
     const MenuScreen(),
   ];
 

@@ -38,7 +38,7 @@ class QuranPage extends StatelessWidget {
               borderRadius: const BorderRadius.all(Radius.circular(8))),
           child: Stack(
             children: <Widget>[
-              Directionality(
+              const Directionality(
                   textDirection: TextDirection.rtl,
                   child: Center(
                     child: MPages(),
@@ -51,7 +51,7 @@ class QuranPage extends StatelessWidget {
                   curve: Curves.easeInOut,
                   extend: -500,
                   withFade: false,
-                  child: AudioWidget()),
+                  child: const AudioWidget()),
               Obx(
                 () => Visibility(
                     visible: generalController.isShowControl.value,

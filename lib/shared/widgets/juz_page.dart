@@ -11,6 +11,8 @@ import 'controllers_put.dart';
 class QuranJuz extends StatelessWidget {
   final controller = ScrollController();
 
+  QuranJuz({super.key});
+
   @override
   Widget build(BuildContext context) {
     ArabicNumbers arabicNumber = ArabicNumbers();
@@ -108,7 +110,7 @@ class QuranJuz extends StatelessWidget {
                                                   children: [
                                                     WidgetSpan(
                                                         child: ayaNum(
-                                                            "${arabicNumber.convert(showData[index]['start']['verse'])}",
+                                                            arabicNumber.convert(showData[index]['start']['verse']),
                                                             context,
                                                             Theme.of(context)
                                                                 .primaryColorDark)),
@@ -162,7 +164,7 @@ class QuranJuz extends StatelessWidget {
                                                   children: [
                                                     WidgetSpan(
                                                         child: ayaNum(
-                                                      "${arabicNumber.convert(showData[index]['end']['verse'])}",
+                                                      arabicNumber.convert(showData[index]['end']['verse']),
                                                       context,
                                                       ThemeProvider.themeOf(
                                                                       context)

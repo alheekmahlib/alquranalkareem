@@ -347,7 +347,7 @@ class _MenuScreenState extends State<MenuScreen> {
               ),
             ),
             onTap: () async {
-              Navigator.of(context).push(animatRoute(AboutApp()));
+              Navigator.of(context).push(animatRoute(const AboutApp()));
             },
           ),
           const Divider(),
@@ -433,7 +433,7 @@ class _MenuScreenState extends State<MenuScreen> {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Container(
+                            SizedBox(
                               width: 200,
                               child: Directionality(
                                 textDirection: TextDirection.ltr,
@@ -586,7 +586,6 @@ class ReminderStorage {
 
   static Future<List<Reminder>> loadReminders() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
-    ;
     List<String> remindersJson =
         prefs.getStringList(_storageKey)?.cast<String>() ?? [];
     List<Reminder> reminders =

@@ -95,7 +95,7 @@ class AlwaqfScreen extends StatelessWidget {
                                       borderRadius: BorderRadius.circular(4),
                                     ),
                                     child: SvgPicture.asset(
-                                      '${waqfMarks[index]}',
+                                      waqfMarks[index],
                                       height: 40,
                                       width: 40,
                                       colorFilter: isSelected
@@ -198,7 +198,7 @@ class AlwaqfScreen extends StatelessWidget {
                                                   alignment:
                                                       Alignment.topCenter,
                                                   child: SvgPicture.asset(
-                                                    '${waqfMarks[index]}',
+                                                    waqfMarks[index],
                                                     height: 70,
                                                     width: 70,
                                                     colorFilter:

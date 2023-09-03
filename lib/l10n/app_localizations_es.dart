@@ -1,6 +1,6 @@
 import 'app_localizations.dart';
 
-/// The translations for Spanish (`es`).
+/// The translations for Spanish Castilian (`es`).
 class AppLocalizationsEs extends AppLocalizations {
   AppLocalizationsEs([String locale = 'es']) : super(locale);
 
@@ -11,7 +11,7 @@ class AppLocalizationsEs extends AppLocalizations {
   String get search_hint => 'Buscar los versos del Corán';
 
   @override
-  String get menu => 'Menú';
+  String get menu => 'Menu';
 
   @override
   String get notes => 'Notas';
@@ -68,7 +68,7 @@ class AppLocalizationsEs extends AppLocalizations {
   String get about_app2 => 'Entre las características más importantes de la aplicación:';
 
   @override
-  String get about_app3 => '◉ This application enables you to read the Quran as if you were reading in the Mushaf, and you can read in vertical and horizontal mode.\n◉ You can also read in variable mode that enables you to zoom in and out as you like.\n◉ The application has the feature of textual search in the verses of the Qur’an through real-time search and display of results with pages in addition to the possibility of going to the page as needed.\n◉ Addition to bookmarks so that the reader can save the page and return to it whenever he wants.\n◉ Addition to notes.\n◉ Ability to listen to each verse in voice of different readers.\n◉ The app allows interpretation for each verse, you can change between interpretations, and you can resize the interpretation line.\n◉ Index of Surahs.\n◉ Move between Surahs easily.\n◉ The app lets you read the meaning of stop signs.\n◉ The application enables you to read the Muslim fortress in full and divided by remembrance so that it is easy for the reader to navigate between sections, and you can add any mention to favorites.\n◉ The application allows the reader to read to change color patterns, including the dark pattern, which changes the background color in black and white lines to give the reader complete comfort when reading in a low-light atmosphere.  \n◉ The app enables you to listen to the Surahs or download and listen to them at any time without the need for the internet.';
+  String get about_app3 => '◉ Esta aplicación le permite leer el Corán como si estuviera leyendo en el Mus\'haf, y puede leer en modo vertical y horizontal.\\n◉ También puede leer en modo variable que le permite acercar y alejar el zoom a medida que como.\\n◉ La aplicación tiene la función de búsqueda textual en los versos del Corán a través de búsqueda en tiempo real y visualización de resultados con páginas además de la posibilidad de ir a la página según sea necesario.\\n◉ Adición a marcadores para que el lector pueda guardar la página y volver a ella cuando quiera.\\n◉ Adición a notas.\\n◉ Posibilidad de escuchar cada verso en voz de diferentes lectores.\\n◉ La aplicación permite la interpretación de cada verso, puede cambiar entre interpretaciones y puede cambiar el tamaño de la línea de interpretación.\\n◉ Índice de Surahs.\\n◉ Muévase entre Surahs fácilmente.\\n◉ La aplicación le permite leer el significado de las señales de alto.\\n◉ La aplicación le permite para leer la fortaleza musulmana en su totalidad y dividida por el recuerdo para que sea fácil para el lector navegar entre se y puede agregar cualquier mención a favoritos.\\n◉ La aplicación le permite al lector leer para cambiar los patrones de color, incluido el patrón oscuro, que cambia el color de fondo en líneas en blanco y negro para brindar al lector total comodidad al leer en un ambiente de poca luz. \\n◉ La aplicación le permite escuchar las suras o descargarlas y escucharlas en cualquier momento sin necesidad de Internet.';
 
   @override
   String get email => 'Contacta con nosotras';
@@ -83,7 +83,7 @@ class AppLocalizationsEs extends AppLocalizations {
   String get page => 'Página';
 
   @override
-  String get search_word => 'Buscar el verso';
+  String get search_word => 'Busca el verso';
 
   @override
   String get search_description => 'Puede buscar todos los versos del Noble Corán, simplemente escriba una palabra del verso.';
@@ -221,7 +221,7 @@ class AppLocalizationsEs extends AppLocalizations {
   String get deletedBookmark => '¡Marcador eliminado!';
 
   @override
-  String get deletedReminder => '¡Marcador eliminado!';
+  String get deletedReminder => '¡Recordatorio eliminado!';
 
   @override
   String get fillAllFields => '¡Por favor complete los campos!';
@@ -248,7 +248,7 @@ class AppLocalizationsEs extends AppLocalizations {
   String get lastRead => 'Última lectura';
 
   @override
-  String get copyAyah => 'El verso ha sido copiado';
+  String get copyAyah => 'El verso ha sido copiado.';
 
   @override
   String get copyTafseer => 'La Tafseer ha sido copiada';
@@ -287,7 +287,7 @@ class AppLocalizationsEs extends AppLocalizations {
   String get readLess => 'Leer menos';
 
   @override
-  String get ok => 'Ok';
+  String get ok => 'Cancelar';
 
   @override
   String get cancel => 'Cancelar';
@@ -311,7 +311,7 @@ class AppLocalizationsEs extends AppLocalizations {
   String get shareImage => 'Como una imagen';
 
   @override
-  String get shareImageWTrans => 'Como una imagen con contenido adicional';
+  String get shareImageWTrans => 'Como una imagen';
 
   @override
   String get shareTrans => 'Nota: Compartir la interpretación en una imagen solo respalda la interpretación de Al-Saadi, porque la interpretación no es larga.';

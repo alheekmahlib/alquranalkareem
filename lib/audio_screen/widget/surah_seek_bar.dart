@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../shared/widgets/controllers_put.dart';
 import '../../shared/widgets/seek_bar.dart';
-import '../controller/surah_audio_controller.dart';
 
 class SurahSeekBar extends StatelessWidget {
-  late final SurahAudioController surahAudioController =
-      Get.put(SurahAudioController());
+  const SurahSeekBar({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -23,11 +22,11 @@ class SurahSeekBar extends StatelessWidget {
             surahAudioController.currentTime.value =
                 positionData!.position.inSeconds.toDouble();
             surahAudioController.totalDuration =
-                positionData!.duration.inSeconds.toDouble();
+                positionData.duration.inSeconds.toDouble();
             return SeekBar(
-              duration: positionData?.duration ?? Duration.zero,
-              position: positionData?.position ?? Duration.zero,
-              bufferedPosition: positionData?.bufferedPosition ?? Duration.zero,
+              duration: positionData.duration ?? Duration.zero,
+              position: positionData.position ?? Duration.zero,
+              bufferedPosition: positionData.bufferedPosition ?? Duration.zero,
               onChangeEnd: (newPosition) {
                 surahAudioController.isDownloading.value == true
                     ? surahAudioController.downAudioPlayer.seek(newPosition)

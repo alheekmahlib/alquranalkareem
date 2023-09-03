@@ -24,7 +24,7 @@ class AudioSorahList extends StatelessWidget {
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
-    springController = SpringController(initialAnim: Motion.reverse);
+    springController = SpringController(initialAnim: Motion.play);
     return Directionality(
       textDirection: TextDirection.rtl,
       child: Scaffold(
@@ -175,7 +175,7 @@ class AudioSorahList extends StatelessWidget {
               const EdgeInsets.symmetric(horizontal: 0.0),
               const EdgeInsets.symmetric(horizontal: 64.0)),
           child: Container(
-            height: 260.0,
+            height: 240.0,
             width: width,
             decoration: BoxDecoration(
               borderRadius: const BorderRadius.only(
@@ -187,163 +187,100 @@ class AudioSorahList extends StatelessWidget {
             ),
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16.0),
-              child: orientation(context, StatefulBuilder(
-                  builder: (BuildContext context, StateSetter setState) {
-                return Stack(
-                  children: [
-                    SizedBox(
-                      height: orientation(context, 130.0, 30.0),
-                      child: Obx(
-                        () => Stack(
-                          alignment: Alignment.center,
-                          children: [
-                            Opacity(
-                              opacity: .1,
-                              child: surahName(
-                                context,
-                                130,
-                                width,
-                              ),
-                            ),
-                            surahName(
-                              context,
-                              100,
-                              width / 1 / 2,
-                            ),
-                            Align(
-                              alignment: Alignment.topRight,
-                              child: IconButton(
-                                icon: Icon(Icons.close_outlined,
-                                    color: ThemeProvider.themeOf(context).id ==
-                                            'dark'
-                                        ? Theme.of(context).canvasColor
-                                        : Theme.of(context).primaryColorDark),
-                                onPressed: () => springController.play(
-                                    motion: Motion.reverse),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(top: 32.0),
-                      child: Align(
-                        alignment: Alignment.center,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            SkipToPrevious(),
-                            OnlinePlayButton(),
-                            DownloadPlayButton(),
-                            SkipToNext(),
-                            Container(
-                              height: 35,
-                              width: 35,
-                              decoration: BoxDecoration(
-                                  color: Theme.of(context).colorScheme.surface,
-                                  borderRadius: const BorderRadius.all(
-                                      Radius.circular(8))),
-                              child: IconButton(
-                                icon: Icon(Icons.person_search_outlined,
-                                    size: 20,
-                                    color: Theme.of(context).canvasColor),
-                                onPressed: () => sorahReaderDropDown(context),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                    Align(
-                      alignment: Alignment.bottomCenter,
-                      child: SizedBox(
-                        height: 70,
-                        child: SurahSeekBar(),
-                      ),
-                    ),
-                  ],
-                );
-              }), StatefulBuilder(
-                  builder: (BuildContext context, StateSetter setState) {
-                return Stack(
-                  children: [
-                    Obx(
-                      () => Opacity(
-                        opacity: .1,
-                        child: surahName(
+              child: Stack(
+                alignment: Alignment.center,
+                children: [
+                  Align(
+                    alignment: Alignment.topCenter,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        customClose(
                           context,
-                          130,
-                          width,
+                          close: () =>
+                              springController.play(motion: Motion.reverse),
                         ),
-                      ),
-                    ),
-                    Align(
-                      alignment: Alignment.topRight,
-                      child: IconButton(
-                        icon: Icon(Icons.close_outlined,
-                            color: ThemeProvider.themeOf(context).id == 'dark'
-                                ? Theme.of(context).canvasColor
-                                : Theme.of(context).primaryColorDark),
-                        onPressed: () =>
-                            springController.play(motion: Motion.reverse),
-                      ),
-                    ),
-                    Align(
-                      alignment: Alignment.centerRight,
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 23.0),
-                        child: Obx(() => surahName(
-                              context,
-                              70,
-                              width / 1 / 2,
-                            )),
-                      ),
-                    ),
-                    Align(
-                      alignment: Alignment.topLeft,
-                      child: SizedBox(
-                        height: 120,
-                        width: width / 1 / 2,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            SkipToPrevious(),
-                            OnlinePlayButton(),
-                            DownloadPlayButton(),
-                            SkipToNext(),
-                            Container(
-                              height: 35,
-                              width: 35,
-                              decoration: BoxDecoration(
-                                  color: Theme.of(context).colorScheme.surface,
-                                  borderRadius: const BorderRadius.all(
-                                      Radius.circular(8))),
-                              child: IconButton(
-                                icon: Icon(Icons.person_search_outlined,
-                                    size: 20,
-                                    color: Theme.of(context).canvasColor),
-                                onPressed: () => sorahReaderDropDown(context),
+                        Obx(
+                          () => Stack(
+                            alignment: Alignment.center,
+                            children: [
+                              Opacity(
+                                opacity: .1,
+                                child: surahName(
+                                  context,
+                                  90,
+                                  150,
+                                ),
                               ),
+                              surahName(
+                                context,
+                                70,
+                                150,
+                              ),
+                            ],
+                          ),
+                        ),
+                        Container(
+                          height: 35,
+                          width: 35,
+                          decoration: BoxDecoration(
+                              borderRadius:
+                                  const BorderRadius.all(Radius.circular(8)),
+                              border: Border.all(
+                                  color: Theme.of(context).colorScheme.surface,
+                                  width: 1)),
+                          child: IconButton(
+                            icon: Icon(Icons.person_search_outlined,
+                                size: 20,
+                                color: Theme.of(context).colorScheme.surface),
+                            onPressed: () => sorahReaderDropDown(context),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  const Align(
+                    alignment: Alignment.bottomCenter,
+                    child: SizedBox(
+                      height: 70,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          Expanded(flex: 8, child: SurahSeekBar()),
+                        ],
+                      ),
+                    ),
+                  ),
+                  const Padding(
+                    padding: EdgeInsets.only(top: 32.0),
+                    child: Align(
+                      alignment: Alignment.center,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          // Expanded(flex: 1, child: DownloadPlayButton()),
+                          Expanded(
+                            flex: 7,
+                            child: Row(
+                              children: [
+                                Expanded(flex: 1, child: SkipToPrevious()),
+                                OnlinePlayButton(),
+                                Expanded(flex: 1, child: SkipToNext()),
+                              ],
                             ),
-                          ],
-                        ),
+                          ),
+                        ],
                       ),
                     ),
-                    Align(
-                      alignment: Alignment.bottomLeft,
-                      child: Padding(
-                        padding: const EdgeInsets.only(bottom: 16.0),
-                        child: SizedBox(
-                          height: 20,
-                          width: width / 1 / 2,
-                          child: SurahSeekBar(),
-                        ),
-                      ),
-                    ),
-                  ],
-                );
-              })),
+                  ),
+                  const Align(
+                    alignment: Alignment.centerRight,
+                    child: Padding(
+                        padding: EdgeInsets.only(top: 32.0),
+                        child: DownloadPlayButton()),
+                  ),
+                ],
+              ),
             ),
           ),
         ));
@@ -374,84 +311,86 @@ class AudioSorahList extends StatelessWidget {
               ),
               color: Theme.of(context).colorScheme.background,
             ),
-            child: StatefulBuilder(
-                builder: (BuildContext context, StateSetter setState) {
-              return Stack(
-                children: [
-                  Opacity(
-                    opacity: .1,
-                    child: surahName(
-                      context,
-                      130,
-                      width,
-                    ),
-                  ),
-                  Align(
-                    alignment: Alignment.topRight,
-                    child: IconButton(
-                      icon: Icon(Icons.close_outlined,
-                          color: ThemeProvider.themeOf(context).id == 'dark'
-                              ? Theme.of(context).canvasColor
-                              : Theme.of(context).primaryColorDark),
-                      onPressed: () =>
-                          springController.play(motion: Motion.reverse),
-                    ),
-                  ),
-                  Align(
-                    alignment: Alignment.centerRight,
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 23.0),
-                      child: surahName(
-                        context,
-                        70,
-                        width,
-                      ),
-                    ),
-                  ),
-                  Align(
-                    alignment: Alignment.topLeft,
-                    child: SizedBox(
-                      height: 120,
-                      width: width / 1 / 2,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          SkipToPrevious(),
-                          OnlinePlayButton(),
-                          DownloadPlayButton(),
-                          SkipToNext(),
-                          Container(
-                            height: 35,
-                            width: 35,
-                            decoration: BoxDecoration(
-                                color: Theme.of(context).colorScheme.surface,
-                                borderRadius:
-                                    const BorderRadius.all(Radius.circular(8))),
-                            child: IconButton(
-                              icon: Icon(Icons.person_search_outlined,
-                                  size: 20,
-                                  color: Theme.of(context).canvasColor),
-                              onPressed: () => sorahReaderDropDown(context),
-                            ),
+            child: Stack(
+              children: [
+                Align(
+                  alignment: Alignment.centerRight,
+                  child: Obx(
+                    () => Stack(
+                      alignment: Alignment.center,
+                      children: [
+                        Opacity(
+                          opacity: .1,
+                          child: surahName(
+                            context,
+                            130,
+                            width,
                           ),
-                        ],
-                      ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 23.0),
+                          child: surahName(
+                            context,
+                            70,
+                            width,
+                          ),
+                        ),
+                      ],
                     ),
                   ),
-                  Align(
-                    alignment: Alignment.bottomLeft,
-                    child: Padding(
-                      padding: const EdgeInsets.only(bottom: 16.0),
-                      child: SizedBox(
-                        height: 20,
-                        width: width / 1 / 2,
-                        child: SurahSeekBar(),
-                      ),
+                ),
+                Align(
+                  alignment: Alignment.topRight,
+                  child: customClose(
+                    context,
+                    close: () => springController.play(motion: Motion.reverse),
+                  ),
+                ),
+                Align(
+                  alignment: Alignment.topLeft,
+                  child: SizedBox(
+                    height: 120,
+                    width: width / 1 / 2,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        const SkipToPrevious(),
+                        const OnlinePlayButton(),
+                        const SkipToNext(),
+                        Container(
+                          height: 35,
+                          width: 35,
+                          decoration: BoxDecoration(
+                              color: Theme.of(context).colorScheme.surface,
+                              borderRadius:
+                                  const BorderRadius.all(Radius.circular(8))),
+                          child: IconButton(
+                            icon: Icon(Icons.person_search_outlined,
+                                size: 20, color: Theme.of(context).canvasColor),
+                            onPressed: () => sorahReaderDropDown(context),
+                          ),
+                        ),
+                        const Align(
+                          alignment: Alignment.centerRight,
+                          child: DownloadPlayButton(),
+                        ),
+                      ],
                     ),
                   ),
-                ],
-              );
-            }),
+                ),
+                Align(
+                  alignment: Alignment.bottomLeft,
+                  child: Padding(
+                    padding: const EdgeInsets.only(bottom: 16.0),
+                    child: SizedBox(
+                      height: 20,
+                      width: width / 1 / 2,
+                      child: const SurahSeekBar(),
+                    ),
+                  ),
+                ),
+              ],
+            ),
           ),
         ));
   }
@@ -489,7 +428,8 @@ class AudioSorahList extends StatelessWidget {
                                 height: 65,
                                 decoration: BoxDecoration(
                                     color: (index % 2 == 0
-                                        ? surahAudioController.selectedSurah ==
+                                        ? surahAudioController
+                                                    .selectedSurah.value ==
                                                 index
                                             ? Theme.of(context)
                                                 .cardColor
@@ -497,7 +437,8 @@ class AudioSorahList extends StatelessWidget {
                                             : Theme.of(context)
                                                 .colorScheme
                                                 .background
-                                        : surahAudioController.selectedSurah ==
+                                        : surahAudioController
+                                                    .selectedSurah.value ==
                                                 index
                                             ? Theme.of(context)
                                                 .cardColor
@@ -533,7 +474,9 @@ class AudioSorahList extends StatelessWidget {
                                                     'assets/svg/sora_num.svg',
                                                   )),
                                               Text(
-                                                "${surahAudioController.arabicNumber.convert(sorah.id)}",
+                                                surahAudioController
+                                                    .arabicNumber
+                                                    .convert(sorah.id),
                                                 style: TextStyle(
                                                     color: ThemeProvider
                                                                     .themeOf(

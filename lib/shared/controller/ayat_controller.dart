@@ -71,7 +71,7 @@ class AyatController extends GetxController {
     SharedPreferences prefs = await _prefs;
     radioValue = prefs.getInt('tafseer_val') ?? 0;
     print('get tafseer value ${prefs.getInt('tafseer_val')}');
-    print('get radioValue ${radioValue}');
+    print('get radioValue $radioValue');
   }
 
   void updateText(String ayatext, String translate) {

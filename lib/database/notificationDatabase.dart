@@ -5,13 +5,13 @@ import 'package:path/path.dart';
 
 
 class NotificationDatabaseHelper {
-  static final _databaseName = "MyDatabase.db";
-  static final _databaseVersion = 1;
-  static final table = 'notifications';
+  static const _databaseName = "MyDatabase.db";
+  static const _databaseVersion = 1;
+  static const table = 'notifications';
 
-  static final columnId = '_id';
-  static final columnTitle = 'title';
-  static final columnImage = 'image';
+  static const columnId = '_id';
+  static const columnTitle = 'title';
+  static const columnImage = 'image';
   static const columnContent = 'content';
 
   NotificationDatabaseHelper._privateConstructor();

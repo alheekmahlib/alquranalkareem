@@ -128,7 +128,7 @@ class Sliding extends StatelessWidget {
 class TextSliding extends StatefulWidget {
   final Widget? myWidget1;
   final double? cHeight;
-  TextSliding({Key? key, required this.myWidget1, required this.cHeight})
+  const TextSliding({Key? key, required this.myWidget1, required this.cHeight})
       : super(key: key);
 
   @override

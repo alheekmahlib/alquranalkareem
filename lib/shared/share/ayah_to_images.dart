@@ -27,7 +27,7 @@ Future<Uint8List> createVerseImage(
       text: TextSpan(
         children: [
           TextSpan(
-            text: '$verseText',
+            text: verseText,
             style: const TextStyle(
               fontSize: 50,
               fontWeight: FontWeight.normal,
@@ -50,7 +50,7 @@ Future<Uint8List> createVerseImage(
       textAlign: TextAlign.justify);
   textPainter.layout(maxWidth: 800);
 
-  final padding = 32.0;
+  const padding = 32.0;
   // final imagePadding = 20.0;
 
   // Load the PNG image
@@ -71,7 +71,7 @@ Future<Uint8List> createVerseImage(
   final imageWidth = pngImage.width.toDouble() / 1.0;
   final imageHeight = pngImage.height.toDouble() / 1.0;
   final imageX = (canvasWidth - imageWidth) / 2; // Center the first image
-  final imageY = padding;
+  const imageY = padding;
 
   final image2Width = pngImage2.width.toDouble() / 4.0;
   final image2Height = pngImage2.height.toDouble() / 4.0;
@@ -127,7 +127,7 @@ Future<Uint8List> createVerseImage(
       Rect.fromLTWH(
           0, 0, canvasWidth, canvasHeight)); // Add Rect to fix the canvas size
 
-  final borderRadius = 25.0;
+  const borderRadius = 25.0;
   final borderPaint = Paint()
     ..color = const Color(0xff91a57d)
     ..style = PaintingStyle.stroke
@@ -136,7 +136,7 @@ Future<Uint8List> createVerseImage(
   final backgroundPaint = Paint()..color = const Color(0xfff3efdf);
 
   final rRect = RRect.fromLTRBR(
-      0, 0, canvasWidth, canvasHeight, Radius.circular(borderRadius));
+      0, 0, canvasWidth, canvasHeight, const Radius.circular(borderRadius));
 
   canvas.drawRRect(rRect, backgroundPaint);
   canvas.drawRRect(rRect, borderPaint);
@@ -171,7 +171,7 @@ Future<Uint8List> createVerseImage(
   final imgHeight =
       (textPainter.height + imageHeight + image3Height + 4 * padding - 90)
           .toInt();
-  final imgScaleFactor = 1; // Increase this value for a higher resolution image
+  const imgScaleFactor = 1; // Increase this value for a higher resolution image
   final imgScaled = await picture.toImage(
       imgWidth * imgScaleFactor, imgHeight * imgScaleFactor);
 
@@ -215,7 +215,7 @@ Future<Uint8List> createVerseWithTranslateImage(BuildContext context,
       text: TextSpan(
         children: [
           TextSpan(
-            text: '$verseText',
+            text: verseText,
             style: TextStyle(
               fontSize: 50,
               fontWeight: FontWeight.normal,
@@ -242,7 +242,7 @@ Future<Uint8List> createVerseWithTranslateImage(BuildContext context,
       textAlign: TextAlign.justify);
   textPainter.layout(maxWidth: 800);
 
-  final padding = 32.0;
+  const padding = 32.0;
   // final imagePadding = 20.0;
 
   // Load the PNG image
@@ -263,7 +263,7 @@ Future<Uint8List> createVerseWithTranslateImage(BuildContext context,
   final imageWidth = pngImage.width.toDouble() / 1.0;
   final imageHeight = pngImage.height.toDouble() / 1.0;
   final imageX = (canvasWidth - imageWidth) / 2; // Center the first image
-  final imageY = padding;
+  const imageY = padding;
 
   final image2Width = pngImage2.width.toDouble() / 4.0;
   final image2Height = pngImage2.height.toDouble() / 4.0;
@@ -320,7 +320,7 @@ Future<Uint8List> createVerseWithTranslateImage(BuildContext context,
       textAlign: TextAlign.center);
   tafseerNamePainter.layout(maxWidth: 800);
 
-  final tafseerNameX = padding + 628;
+  const tafseerNameX = padding + 628;
   final tafseerNameY = textY + textPainter.height + padding - 50;
 
   // Calculate the position of the new image to be below the new text
@@ -343,7 +343,7 @@ Future<Uint8List> createVerseWithTranslateImage(BuildContext context,
       textAlign: TextAlign.justify);
   newTextPainter.layout(maxWidth: 800);
 
-  final newTextX = padding + 50;
+  const newTextX = padding + 50;
   final newTextY = textY + textPainter.height + padding + 20;
 
   // Calculate the position of the new image to be below the new text
@@ -374,7 +374,7 @@ Future<Uint8List> createVerseWithTranslateImage(BuildContext context,
       Rect.fromLTWH(
           0, 0, canvasWidth, canvasHeight)); // Add Rect to fix the canvas size
 
-  final borderRadius = 25.0;
+  const borderRadius = 25.0;
   final borderPaint = Paint()
     ..color = const Color(0xff91a57d)
     ..style = PaintingStyle.stroke
@@ -383,7 +383,7 @@ Future<Uint8List> createVerseWithTranslateImage(BuildContext context,
   final backgroundPaint = Paint()..color = const Color(0xfff3efdf);
 
   final rRect = RRect.fromLTRBR(
-      0, 0, canvasWidth, canvasHeight, Radius.circular(borderRadius));
+      0, 0, canvasWidth, canvasHeight, const Radius.circular(borderRadius));
 
   canvas.drawRRect(rRect, backgroundPaint);
   canvas.drawRRect(rRect, borderPaint);
@@ -424,7 +424,7 @@ Future<Uint8List> createVerseWithTranslateImage(BuildContext context,
           image3Height +
           4 * padding)
       .toInt();
-  final imgScaleFactor = 1; // Increase this value for a higher resolution image
+  const imgScaleFactor = 1; // Increase this value for a higher resolution image
   final imgScaled = await picture.toImage(
       imgWidth * imgScaleFactor, imgHeight * imgScaleFactor);
 

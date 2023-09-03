@@ -64,8 +64,8 @@ class BookmarksTextList extends StatelessWidget {
                                           Navigator.of(context).pop();
                                           Navigator.of(context)
                                               .push(animatRoute(TextPageView(
-                                            // surah: surahTextController
-                                            //     .surahs[bookmark.sorahNum! - 1],
+                                            surah: surahTextController
+                                                .surahs[bookmark.sorahNum! - 1],
                                             nomPageF: surahTextController
                                                 .surahs[bookmark.sorahNum! - 1]
                                                 .ayahs!

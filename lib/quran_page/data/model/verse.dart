@@ -54,7 +54,7 @@ class QuranPage extends StatefulWidget {
   final String imageUrl2;
   final int currentPage;
 
-  QuranPage({
+  const QuranPage({super.key, 
     required this.imageUrl,
     required this.imageUrl2,
     required this.currentPage,
@@ -762,10 +762,10 @@ class _QuranPageState extends State<QuranPage> {
               final Offset localTouchPosition = details.localPosition;
               final double x = localTouchPosition.dx;
               final double y = localTouchPosition.dy;
-              final double minX = 46;
-              final double maxX = 1227;
-              final double minY = 59;
-              final double maxY = 157;
+              const double minX = 46;
+              const double maxX = 1227;
+              const double minY = 59;
+              const double maxY = 157;
               Offset adjustedPosition = Offset(x, y);
               int tappedVerseIndex;
               if (MediaQuery.of(context).orientation == Orientation.portrait) {

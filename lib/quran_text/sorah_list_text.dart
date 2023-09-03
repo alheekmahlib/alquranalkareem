@@ -56,9 +56,11 @@ class SorahListText extends StatelessWidget {
                                   child: GestureDetector(
                                     onTap: () {
                                       quranTextController.currentSurahIndex =
-                                          index;
+                                          index + 1;
                                       Navigator.of(context)
                                           .push(animatRoute(TextPageView(
+                                        surah:
+                                            surahTextController.surahs[index],
                                         nomPageF: surahTextController
                                             .surahs[index].ayahs!.first.page!,
                                         nomPageL: surahTextController

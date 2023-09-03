@@ -32,7 +32,7 @@ class SingleAyah extends StatelessWidget {
       children: [
         GestureDetector(
           onTap: () {
-            quranTextController.controller.reverse();
+            generalController.showSlider();
             backColor = Colors.transparent;
           },
           // child: AutoScrollTag(
@@ -190,7 +190,7 @@ class SingleAyah extends StatelessWidget {
                             : '',
                         textStyle: TextStyle(
                           fontSize: generalController.fontSizeArabic.value - 10,
-                          fontFamily: 'kufi',
+                          fontFamily: settingsController.languageFont.value,
                           color: ThemeProvider.themeOf(context).id == 'dark'
                               ? Colors.white
                               : Colors.black,

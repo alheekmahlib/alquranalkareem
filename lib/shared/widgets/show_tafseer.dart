@@ -272,18 +272,18 @@ class ShowTafseer extends StatelessWidget {
 
   tafseerDropDown(BuildContext context) {
     List<String> tafName = <String>[
-      '${AppLocalizations.of(context)!.tafIbnkatheerN}',
-      '${AppLocalizations.of(context)!.tafBaghawyN}',
-      '${AppLocalizations.of(context)!.tafQurtubiN}',
-      '${AppLocalizations.of(context)!.tafSaadiN}',
-      '${AppLocalizations.of(context)!.tafTabariN}',
+      (AppLocalizations.of(context)!.tafIbnkatheerN),
+      (AppLocalizations.of(context)!.tafBaghawyN),
+      (AppLocalizations.of(context)!.tafQurtubiN),
+      (AppLocalizations.of(context)!.tafSaadiN),
+      (AppLocalizations.of(context)!.tafTabariN),
     ];
     List<String> tafD = <String>[
-      '${AppLocalizations.of(context)!.tafIbnkatheerD}',
-      '${AppLocalizations.of(context)!.tafBaghawyD}',
-      '${AppLocalizations.of(context)!.tafQurtubiD}',
-      '${AppLocalizations.of(context)!.tafSaadiD}',
-      '${AppLocalizations.of(context)!.tafTabariD}',
+      (AppLocalizations.of(context)!.tafIbnkatheerD),
+      (AppLocalizations.of(context)!.tafBaghawyD),
+      (AppLocalizations.of(context)!.tafQurtubiD),
+      (AppLocalizations.of(context)!.tafSaadiD),
+      (AppLocalizations.of(context)!.tafTabariD),
     ];
     dropDownModalBottomSheet(
       context,

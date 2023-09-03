@@ -15,7 +15,7 @@ bool cahData = true;
 bool issChange = false;
 
 class MPages extends StatelessWidget {
-  MPages({Key? key}) : super(key: key);
+  const MPages({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

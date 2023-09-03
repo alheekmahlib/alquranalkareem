@@ -7,7 +7,7 @@ import '../shared/widgets/widgets.dart';
 import 'Widgets/widgets.dart';
 
 class SorahTextScreen extends StatelessWidget {
-  SorahTextScreen({Key? key}) : super(key: key);
+  const SorahTextScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

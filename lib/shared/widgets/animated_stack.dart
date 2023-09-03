@@ -51,8 +51,8 @@ class AnimatedStack extends StatelessWidget {
     double width = MediaQuery.of(context).size.width;
     final double _width = MediaQuery.of(context).size.width;
     final double _height = MediaQuery.of(context).size.height;
-    final double _fabPosition = 16;
-    final double _fabSize = 56;
+    const double _fabPosition = 16;
+    const double _fabSize = 56;
 
     final double _xScale = (scaleWidth + _fabPosition * 5) * 100 / _width;
     final double _yScale = (scaleHeight + _fabPosition * 2) * 100 / _height;
@@ -110,7 +110,7 @@ class AnimatedStack extends StatelessWidget {
                         Navigator.of(context)
                             .push(HeroDialogRoute(builder: (context) {
                           return settingsPopupCard(
-                            child: SettingsList(),
+                            child: const SettingsList(),
                             height: orientation(
                                 context,
                                 400.0,

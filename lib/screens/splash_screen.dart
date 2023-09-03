@@ -18,6 +18,8 @@ import '../shared/controller/translate_controller.dart';
 import '../shared/widgets/lottie.dart';
 
 class SplashScreen extends StatefulWidget {
+  const SplashScreen({super.key});
+
   @override
   _SplashScreenState createState() => _SplashScreenState();
 }
@@ -98,7 +100,7 @@ class _SplashScreenState extends State<SplashScreen>
     SharedPreferences prefs = await SharedPreferences.getInstance();
     print('is_first_time ${prefs.getBool("is_first_time")}');
     if (prefs.getBool("is_first_time") == null) {
-      Get.off(() => OnboardingScreen());
+      Get.off(() => const OnboardingScreen());
       prefs.setBool("is_first_time", false);
     } else {
       Get.off(() => const HomePage());

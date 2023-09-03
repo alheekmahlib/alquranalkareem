@@ -46,7 +46,7 @@ class SurahAudioController extends GetxController {
   RxString sorahReaderValue = "https://server7.mp3quran.net/".obs;
   RxString sorahReaderNameValue = "basit/".obs;
 
-  bool _isDisposed = false;
+  final bool _isDisposed = false;
 
   List<AudioSource>? surahsPlayList;
   List<Map<int, AudioSource>> downloadSurahsPlayList = [];
@@ -131,7 +131,7 @@ class SurahAudioController extends GetxController {
       print("File doesn't exist. Downloading...");
       print("sorahReaderNameValue: ${sorahReaderNameValue.value}");
       String fileUrl =
-          "${sorahReaderValue.value}${sorahReaderNameValue.value}${beautifiedSurahNumber}.mp3";
+          "${sorahReaderValue.value}${sorahReaderNameValue.value}$beautifiedSurahNumber.mp3";
       print("Downloading from URL: $fileUrl");
       // await downloadFile(filePath, fileUrl, beautifiedSurahNumber);
       if (await downloadFile(filePath, fileUrl)) {
@@ -335,14 +335,12 @@ class SurahAudioController extends GetxController {
     List<Sorah>? sorahList = sorahRepositoryController.sorahs;
 
     // Check if the list is not null before using it
-    if (sorahList != null) {
-      int index = sorahList
-          .indexWhere((sorah) => sorah.searchText.contains(searchInput));
-      if (index != -1) {
-        controller.jumpTo(
-            index * 65.0); // Assuming 65.0 is the height of each ListTile
-        selectedSurah.value = index;
-      }
+    int index = sorahList
+        .indexWhere((sorah) => sorah.searchText.contains(searchInput));
+    if (index != -1) {
+      controller.jumpTo(
+          index * 65.0); // Assuming 65.0 is the height of each ListTile
+      selectedSurah.value = index;
     }
-  }
+    }
 }

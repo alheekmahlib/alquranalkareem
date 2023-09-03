@@ -38,9 +38,12 @@ class _HomePageState extends State<HomePage> {
                   GlobalCupertinoLocalizations.delegate,
                 ],
                 supportedLocales: const [
-                  Locale('ar', 'AE'),
-                  Locale('en', ''),
-                  Locale('es', ''),
+                  Locale('be'),
+                  Locale('en'),
+                  Locale('es'),
+                  Locale('so'),
+                  Locale('ur'),
+                  Locale('ar')
                 ],
                 locale: settingsController.initialLang,
                 theme: ThemeProvider.themeOf(themeContext).data,

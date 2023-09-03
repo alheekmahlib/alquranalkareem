@@ -12,7 +12,7 @@ import '../../l10n/app_localizations.dart';
 import 'controllers_put.dart';
 
 class AudioWidget extends StatelessWidget {
-  AudioWidget({Key? key}) : super(key: key);
+  const AudioWidget({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

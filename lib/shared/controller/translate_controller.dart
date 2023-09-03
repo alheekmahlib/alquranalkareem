@@ -13,7 +13,7 @@ class TranslateDataController extends GetxController {
   Future<void> fetchSura(BuildContext context) async {
     isLoading.value = true; // Set isLoading to true
     String loadedData = await DefaultAssetBundle.of(context)
-        .loadString("assets/json/${trans.value}.json");
+        .loadString("assets/json/translate/${trans.value}.json");
     Map<String, dynamic> showData = json.decode(loadedData);
     // List<dynamic> sura = showData[surahNumber];
     data.value = showData['translations'];
@@ -31,6 +31,8 @@ class TranslateDataController extends GetxController {
         return trans.value = 'be';
       case 3:
         return trans.value = 'urdu';
+      case 4:
+        return trans.value = 'so';
       default:
         return trans.value = 'en';
     }

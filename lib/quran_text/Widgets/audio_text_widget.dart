@@ -7,7 +7,7 @@ import '../../shared/widgets/controllers_put.dart';
 import '../../shared/widgets/seek_bar.dart';
 
 class AudioTextWidget extends StatelessWidget {
-  AudioTextWidget({Key? key}) : super(key: key);
+  const AudioTextWidget({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

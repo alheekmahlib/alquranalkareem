@@ -17,7 +17,7 @@ import '../hero_dialog_route.dart';
 /// {@endtemplate}
 class settingsButton extends StatelessWidget {
   final Widget child;
-  settingsButton({Key? key, required this.child}) : super(key: key);
+  const settingsButton({Key? key, required this.child}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +29,7 @@ class settingsButton extends StatelessWidget {
         onTap: () {
           Navigator.of(context).push(HeroDialogRoute(builder: (context) {
             return settingsPopupCard(
-              child: SettingsList(),
+              child: const SettingsList(),
               height: orientation(
                   context,
                   MediaQuery.of(context).size.height * 1 / 2,
@@ -93,7 +93,7 @@ class settingsPopupCard extends StatelessWidget {
         alignment: alignment,
         child: Padding(
           padding: padding,
-          child: Container(
+          child: SizedBox(
             height: height,
             width: 450,
             child: Hero(

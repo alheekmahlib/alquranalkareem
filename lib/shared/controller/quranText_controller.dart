@@ -42,7 +42,7 @@ class QuranTextController extends GetxController {
   late AnimationController animationController;
   ValueNotifier<double>? scrollSpeedNotifier;
   List<List<List<Ayahs>>> surahPagesList = [];
-  int currentSurahIndex = 0;
+  int currentSurahIndex = 1;
   List<List<Ayahs>> surahsAyahs = [];
   List<Ayahs> get currentSurahAyahs => surahsAyahs[currentSurahIndex];
 

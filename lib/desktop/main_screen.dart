@@ -24,10 +24,10 @@ class _MainDScreenState extends State<MainDScreen> {
   int pageIndex = 0;
 
   final pages = [
-    Desktop(),
-    SorahTextScreen(),
+    const Desktop(),
+    const SorahTextScreen(),
     const AzkarView(),
-    AudioScreen(),
+    const AudioScreen(),
     const MenuScreen(),
   ];
 

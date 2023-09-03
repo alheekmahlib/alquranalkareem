@@ -69,7 +69,7 @@ class SurahList extends StatelessWidget {
                                                   'assets/svg/sora_num.svg',
                                                 )),
                                             Text(
-                                              "${arabicNumber.convert(surah.id)}",
+                                              arabicNumber.convert(surah.id),
                                               style: TextStyle(
                                                   color: ThemeProvider.themeOf(
                                                                   context)

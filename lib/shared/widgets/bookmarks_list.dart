@@ -95,7 +95,7 @@ class BookmarksList extends StatelessWidget {
                                                       width: 40,
                                                     ),
                                                     Text(
-                                                      "${arabicNumber.convert(bookmark.pageNum)}",
+                                                      arabicNumber.convert(bookmark.pageNum),
                                                       textAlign:
                                                           TextAlign.center,
                                                       style: TextStyle(

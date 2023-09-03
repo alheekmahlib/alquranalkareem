@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:spring/spring.dart';
 import 'package:theme_provider/theme_provider.dart';
 
 import '../../shared/share/ayah_to_images.dart';
@@ -11,52 +10,52 @@ import '../text_page_view.dart';
 
 class PageAyah extends StatelessWidget {
   final surah;
-  // final List<InlineSpan> text;
+  final List<InlineSpan> text;
   final int index;
   final int nomPageF;
   PageAyah(
       {super.key,
       required this.surah,
-      // required this.text,
+      required this.text,
       required this.index,
       required this.nomPageF});
   Color? backColor;
 
   @override
   Widget build(BuildContext context) {
-    final List<InlineSpan> pageAyahsUI = quranTextController
-        .currentPageAyahText(nomPageF)
-        .map(
-          (e) => TextSpan(
-            text: e.text,
-            style: TextStyle(
-              fontSize: generalController.fontSizeArabic.value,
-              fontFamily: 'uthmanic2',
-              background: Paint()
-                ..color = audioController.determineColor(index)
-                ..strokeJoin = StrokeJoin.round
-                ..strokeCap = StrokeCap.round
-                ..style = PaintingStyle.fill,
-              // background: Paint()
-              //   ..color =
-              //       index == audioController.ayahSelected.value
-              //           ? quranTextController.selected.value
-              //               ? backColor!
-              //               : Colors.transparent
-              //           : Colors.transparent
-              //   ..strokeJoin = StrokeJoin.round
-              //   ..strokeCap = StrokeCap.round
-              //   ..style = PaintingStyle.fill
-            ),
-          ),
-        )
-        .toList();
+    // final List<InlineSpan> pageAyahsUI = quranTextController
+    //     .currentPageAyahText(nomPageF)
+    //     .map(
+    //       (e) => TextSpan(
+    //         text: e.text,
+    //         style: TextStyle(
+    //           fontSize: generalController.fontSizeArabic.value,
+    //           fontFamily: 'uthmanic2',
+    //           background: Paint()
+    //             ..color = audioController.determineColor(index)
+    //             ..strokeJoin = StrokeJoin.round
+    //             ..strokeCap = StrokeCap.round
+    //             ..style = PaintingStyle.fill,
+    //           // background: Paint()
+    //           //   ..color =
+    //           //       index == audioController.ayahSelected.value
+    //           //           ? quranTextController.selected.value
+    //           //               ? backColor!
+    //           //               : Colors.transparent
+    //           //           : Colors.transparent
+    //           //   ..strokeJoin = StrokeJoin.round
+    //           //   ..strokeCap = StrokeCap.round
+    //           //   ..style = PaintingStyle.fill
+    //         ),
+    //       ),
+    //     )
+    //     .toList();
     backColor = Theme.of(context).colorScheme.surface.withOpacity(0.4);
     return Stack(
       children: [
         GestureDetector(
           onTap: () {
-            springController.play(motion: Motion.reverse);
+            generalController.showSlider();
           },
           // child: AutoScrollTag(
           //   key: ValueKey(index),
@@ -99,11 +98,11 @@ class PageAyah extends StatelessWidget {
                         style: TextStyle(
                           fontSize: generalController.fontSizeArabic.value,
                           fontFamily: 'uthmanic2',
-                          background: Paint()
-                            ..color = audioController.determineColor(index)
-                            ..strokeJoin = StrokeJoin.round
-                            ..strokeCap = StrokeCap.round
-                            ..style = PaintingStyle.fill,
+                          // background: Paint()
+                          //   ..color = audioController.determineColor(index)
+                          //   ..strokeJoin = StrokeJoin.round
+                          //   ..strokeCap = StrokeCap.round
+                          //   ..style = PaintingStyle.fill,
                           // background: Paint()
                           //   ..color =
                           //       index == audioController.ayahSelected.value
@@ -115,7 +114,8 @@ class PageAyah extends StatelessWidget {
                           //   ..strokeCap = StrokeCap.round
                           //   ..style = PaintingStyle.fill
                         ),
-                        children: pageAyahsUI,
+                        // children: pageAyahsUI,
+                        children: text.map((e) => e).toList(),
                       ),
                       contextMenuBuilder: buildMyContextMenuText(),
                       onSelectionChanged: handleSelectionChangedText,
@@ -131,7 +131,7 @@ class PageAyah extends StatelessWidget {
                 Align(
                   alignment: Alignment.bottomCenter,
                   child: pageNumber(
-                      arabicNumber.convert(nomPageF! + index).toString(),
+                      arabicNumber.convert(nomPageF+ index).toString(),
                       context,
                       Theme.of(context).primaryColor),
                 ),

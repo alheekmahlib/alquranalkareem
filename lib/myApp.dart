@@ -105,12 +105,12 @@ class _MyAppState extends State<MyApp> {
     ArabicNumbers arabicNumber = ArabicNumbers();
     // HijriCalendar.setLocal('en');
     var _today = HijriCalendar.now();
-    String day = "${arabicNumber.convert(_today.hDay)}";
-    String year = "${arabicNumber.convert(_today.hYear)}";
-    await HomeWidget.saveWidgetData<String>('hijriDay', "$day");
+    String day = arabicNumber.convert(_today.hDay);
+    String year = arabicNumber.convert(_today.hYear);
+    await HomeWidget.saveWidgetData<String>('hijriDay', day);
     await HomeWidget.saveWidgetData<String>(
         'hijriMonth', _today.hMonth.toString());
-    await HomeWidget.saveWidgetData<String>('hijriYear', "$year");
+    await HomeWidget.saveWidgetData<String>('hijriYear', year);
   }
 
   @override
@@ -190,7 +190,7 @@ class _MyAppState extends State<MyApp> {
               }
             },
             themes: AppThemes.list,
-            child: Directionality(
+            child: const Directionality(
               textDirection: TextDirection.rtl,
               child: SplashScreen(),
               // child: WillPopScope(

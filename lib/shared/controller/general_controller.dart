@@ -59,11 +59,9 @@ class GeneralController extends GetxController {
 
   Future<void> loadMCurrentPage() async {
     SharedPreferences prefs = await _prefs;
-    cuMPage = (prefs.getInt('mstart_page') == null
-        ? 1
-        : prefs.getInt('mstart_page'))!;
+    cuMPage = (prefs.getInt('mstart_page') ?? 1);
     soMName.value = prefs.getString('mLast_sorah') ?? '1';
-    print('cuMPage.value.value ${cuMPage}');
+    print('cuMPage.value.value $cuMPage');
     print('last_sorah ${prefs.getString('mLast_sorah')}');
   }
 
@@ -125,11 +123,25 @@ class GeneralController extends GetxController {
       }
     }
   }
-  // void toggleAnimation() {
-  //   if (springController.status == AnimStatus.dismissed) {
-  //     springController.play(motion: Motion.play);
-  //   } else {
-  //     springController.play(motion: Motion.reverse);
-  //   }
-  // }
+
+  Motion? currentState;
+
+  void sliderIsShow() {
+    if (currentState == Motion.play) {
+      null;
+    } else {
+      springController.play(motion: Motion.play);
+      currentState = Motion.play;
+    }
+  }
+
+  void showSlider() {
+    if (currentState == Motion.play) {
+      springController.play(motion: Motion.reverse);
+      currentState = Motion.reverse;
+    } else {
+      springController.play(motion: Motion.play);
+      currentState = Motion.play;
+    }
+  }
 }

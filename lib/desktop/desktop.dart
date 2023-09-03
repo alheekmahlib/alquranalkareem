@@ -14,7 +14,7 @@ import '../shared/widgets/show_tafseer.dart';
 import '../shared/widgets/widgets.dart';
 
 class Desktop extends StatefulWidget {
-  Desktop({Key? key}) : super(key: key);
+  const Desktop({Key? key}) : super(key: key);
 
   @override
   State<Desktop> createState() => _DesktopState();
@@ -66,7 +66,7 @@ class _DesktopState extends State<Desktop> with TickerProviderStateMixin {
                 curve: Curves.easeInOut,
                 extend: -500,
                 withFade: false,
-                child: AudioWidget()),
+                child: const AudioWidget()),
             Align(
               alignment: Alignment.bottomRight,
               child: Obx(

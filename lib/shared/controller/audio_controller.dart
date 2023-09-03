@@ -44,7 +44,7 @@ class AudioController extends GetxController {
   late StreamSubscription<ConnectivityResult> _connectivitySubscription;
   late ConnectivityResult result;
   final _connectivity = Connectivity();
-  bool _isDisposed = false; // to keep track of the controller lifecycle
+  final bool _isDisposed = false; // to keep track of the controller lifecycle
   RxBool isProcessingNextAyah = false.obs;
   Duration? lastPosition;
   Duration? pageLastPosition;
@@ -107,7 +107,7 @@ class AudioController extends GetxController {
               position, bufferedPosition, duration ?? Duration.zero));
 
   Future playFile(BuildContext context, String url, String fileName) async {
-    var path;
+    String path;
     try {
       var dir = await getApplicationDocumentsDirectory();
       path = join(dir.path, fileName);
@@ -132,7 +132,7 @@ class AudioController extends GetxController {
       }
       lastAyahInPage.value = ayatController.ayatList.last.ayaNum!;
       await audioPlayer.setAudioSource(AudioSource.asset(path));
-      await audioPlayer.playerStateStream.listen((playerState) async {
+      audioPlayer.playerStateStream.listen((playerState) async {
         if (playerState.processingState == ProcessingState.completed &&
             !isProcessingNextAyah.value) {
           isProcessingNextAyah.value = true;
@@ -198,7 +198,7 @@ class AudioController extends GetxController {
     String url = "https://www.everyayah.com/data/$fileName";
     print('nextURL $url');
 
-    print('currentAyah ${currentAyah}');
+    print('currentAyah $currentAyah');
     // print('lastAyah $lastAyah');
 
     await playFile(context, url, fileName);
@@ -230,7 +230,7 @@ class AudioController extends GetxController {
   }
 
   Future textPlayFile(BuildContext context, String url, String fileName) async {
-    var path;
+    String path;
     try {
       var dir = await getApplicationDocumentsDirectory();
       path = join(dir.path, fileName);
@@ -327,7 +327,7 @@ class AudioController extends GetxController {
     String url = "https://www.everyayah.com/data/$fileName";
     print('nextURL $url');
 
-    print('currentAyah ${currentAyah}');
+    print('currentAyah $currentAyah');
     // print('lastAyah $lastAyah');
 
     print('lastAyahInPageA $lastAyahInPageA');
@@ -379,7 +379,7 @@ class AudioController extends GetxController {
   }
 
   Future playPageFile(BuildContext context, String url, String fileName) async {
-    var path;
+    String path;
     try {
       var dir = await getApplicationDocumentsDirectory();
       path = join(dir.path, fileName);
@@ -424,7 +424,7 @@ class AudioController extends GetxController {
           print('ProcessingState.completed');
         }
       });
-      Duration position = await audioPlayer.position;
+      Duration position = audioPlayer.position;
       pageLastPosition = position;
       if (pageLastPosition != null) {
         await audioPlayer
