@@ -1,8 +1,8 @@
 import 'dart:io';
+
+import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:sqflite/sqflite.dart';
-import 'package:path/path.dart';
-
 
 class NotificationDatabaseHelper {
   static const _databaseName = "MyDatabase.db";
@@ -15,7 +15,8 @@ class NotificationDatabaseHelper {
   static const columnContent = 'content';
 
   NotificationDatabaseHelper._privateConstructor();
-  static final NotificationDatabaseHelper instance = NotificationDatabaseHelper._privateConstructor();
+  static final NotificationDatabaseHelper instance =
+      NotificationDatabaseHelper._privateConstructor();
 
   static Database? _database;
 
@@ -28,8 +29,23 @@ class NotificationDatabaseHelper {
   _initDatabase() async {
     Directory documentsDirectory = await getApplicationDocumentsDirectory();
     String path = join(documentsDirectory.path, _databaseName);
-    return await openDatabase(path,
-        version: _databaseVersion, onCreate: _onCreate);
+
+    return await openDatabase(
+      path,
+      version: _databaseVersion,
+      onCreate: (db, version) async {
+        await db.execute('''
+        CREATE TABLE $table (
+          id INTEGER PRIMARY KEY,
+          title TEXT NOT NULL,
+          timestamp TEXT
+        )
+      ''');
+      },
+      onOpen: (db) async {
+        print('DB opened: $db');
+      },
+    );
   }
 
   Future _onCreate(Database db, int version) async {
@@ -60,5 +76,4 @@ class NotificationDatabaseHelper {
     final rows = await NotificationDatabaseHelper.instance.queryAllRows();
     return rows;
   }
-
 }

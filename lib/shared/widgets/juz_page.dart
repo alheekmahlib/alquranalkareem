@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:theme_provider/theme_provider.dart';
 
-import 'controllers_put.dart';
+import '../services/controllers_put.dart';
 
 class QuranJuz extends StatelessWidget {
   final controller = ScrollController();
@@ -37,7 +37,7 @@ class QuranJuz extends StatelessWidget {
                           Padding(
                             padding: const EdgeInsets.symmetric(horizontal: 16),
                             child: Container(
-                              width: MediaQuery.of(context).size.width,
+                              width: MediaQuery.sizeOf(context).width,
                               decoration: BoxDecoration(
                                   border: Border.all(
                                     color:
@@ -110,7 +110,10 @@ class QuranJuz extends StatelessWidget {
                                                   children: [
                                                     WidgetSpan(
                                                         child: ayaNum(
-                                                            arabicNumber.convert(showData[index]['start']['verse']),
+                                                            arabicNumber.convert(
+                                                                showData[index][
+                                                                        'start']
+                                                                    ['verse']),
                                                             context,
                                                             Theme.of(context)
                                                                 .primaryColorDark)),
@@ -164,7 +167,9 @@ class QuranJuz extends StatelessWidget {
                                                   children: [
                                                     WidgetSpan(
                                                         child: ayaNum(
-                                                      arabicNumber.convert(showData[index]['end']['verse']),
+                                                      arabicNumber.convert(
+                                                          showData[index]['end']
+                                                              ['verse']),
                                                       context,
                                                       ThemeProvider.themeOf(
                                                                       context)

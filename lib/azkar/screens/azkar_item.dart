@@ -7,9 +7,8 @@ import 'package:share_plus/share_plus.dart';
 import 'package:theme_provider/theme_provider.dart';
 
 import '../../azkar/models/azkar_by_category.dart';
-import '../../shared/controller/general_controller.dart';
+import '../../shared/services/controllers_put.dart';
 import '../../shared/widgets/widgets.dart';
-import '../azkar_controller.dart';
 
 class AzkarItem extends StatefulWidget {
   const AzkarItem({Key? key, required this.azkar}) : super(key: key);
@@ -21,11 +20,6 @@ class AzkarItem extends StatefulWidget {
 
 class _AzkarItemState extends State<AzkarItem> {
   AzkarByCategory azkarByCategory = AzkarByCategory();
-  late final AzkarController _azkarController = Get.put(AzkarController());
-  late final GeneralController generalController = Get.put(GeneralController());
-  double lowerValue = 18;
-  double upperValue = 40;
-  String? selectedValue;
 
   @override
   void initState() {
@@ -54,31 +48,18 @@ class _AzkarItemState extends State<AzkarItem> {
                       const EdgeInsets.only(right: 16.0, left: 16.0, top: 50.0),
                       const EdgeInsets.only(
                           right: 16.0, left: 16.0, top: 30.0)),
-                  child: Align(
-                    alignment: Alignment.topLeft,
-                    child: SizedBox(
-                      width: orientation(context, 150.0, 250.0),
-                      child: Container(
-                        padding: const EdgeInsets.symmetric(horizontal: 8),
-                        decoration: BoxDecoration(
-                            color: Theme.of(context)
-                                .colorScheme
-                                .surface
-                                .withOpacity(.2),
-                            border: Border.symmetric(
-                                vertical: BorderSide(
-                                    color:
-                                        Theme.of(context).colorScheme.surface,
-                                    width: 2))),
-                        child: Text(
-                          azkarByCategory.azkarList.first.category!,
-                          style: TextStyle(
-                            color: ThemeProvider.themeOf(context).id == 'dark'
-                                ? Colors.white
-                                : Theme.of(context).primaryColor,
-                            fontSize: orientation(context, 12.0, 16.0),
-                            fontFamily: 'kufi',
-                          ),
+                  child: SizedBox(
+                    width: orientation(context, 150.0, 250.0),
+                    child: customContainer(
+                      context,
+                      Text(
+                        azkarByCategory.azkarList.first.category!,
+                        style: TextStyle(
+                          color: ThemeProvider.themeOf(context).id == 'dark'
+                              ? Colors.white
+                              : Theme.of(context).primaryColor,
+                          fontSize: orientation(context, 12.0, 16.0),
+                          fontFamily: 'kufi',
                         ),
                       ),
                     ),
@@ -86,16 +67,21 @@ class _AzkarItemState extends State<AzkarItem> {
                 ),
               ),
               Padding(
+                padding: orientation(
+                    context,
+                    const EdgeInsets.symmetric(
+                        horizontal: 16.0, vertical: 50.0),
+                    const EdgeInsets.symmetric(
+                        horizontal: 50.0, vertical: 20.0)),
+                child: Align(
+                    alignment: Alignment.topRight,
+                    child: fontSizeDropDown(context)),
+              ),
+              Padding(
                 padding: orientation(context, const EdgeInsets.only(top: 64.0),
                     const EdgeInsets.only(top: 35.0)),
                 child: Stack(
                   children: [
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                      child: Align(
-                          alignment: Alignment.topRight,
-                          child: fontSizeDropDown(context)),
-                    ),
                     customClose2(context),
                     const Divider(
                       height: 58,
@@ -139,8 +125,7 @@ class _AzkarItemState extends State<AzkarItem> {
                                 width: double.infinity,
                                 child: Padding(
                                   padding: const EdgeInsets.all(8),
-                                  child: GetBuilder<GeneralController>(
-                                      builder: (generalController) {
+                                  child: Obx(() {
                                     return SelectableText(
                                       azkar.zekr!,
                                       style: TextStyle(
@@ -205,7 +190,7 @@ class _AzkarItemState extends State<AzkarItem> {
                             Align(
                                 alignment: Alignment.center,
                                 child: Container(
-                                    width: MediaQuery.of(context).size.width,
+                                    width: MediaQuery.sizeOf(context).width,
                                     padding: const EdgeInsets.symmetric(
                                         horizontal: 8),
                                     margin: const EdgeInsets.symmetric(
@@ -290,7 +275,7 @@ class _AzkarItemState extends State<AzkarItem> {
                                         ),
                                         IconButton(
                                           onPressed: () async {
-                                            await _azkarController
+                                            await azkarController
                                                 .addAzkar(Azkar(
                                                     azkar.id,
                                                     azkar.category,

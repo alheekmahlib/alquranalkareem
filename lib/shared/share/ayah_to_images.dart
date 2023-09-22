@@ -10,8 +10,8 @@ import 'package:share_plus/share_plus.dart';
 import 'package:theme_provider/theme_provider.dart';
 
 import '../../l10n/app_localizations.dart';
-import '../widgets/controllers_put.dart';
-import '../widgets/lottie.dart';
+import '../services/controllers_put.dart';
+import '../utils/constants/lottie.dart';
 import '../widgets/widgets.dart';
 
 ArabicNumbers arabicNumber = ArabicNumbers();
@@ -216,24 +216,20 @@ Future<Uint8List> createVerseWithTranslateImage(BuildContext context,
         children: [
           TextSpan(
             text: verseText,
-            style: TextStyle(
+            style: const TextStyle(
               fontSize: 50,
               fontWeight: FontWeight.normal,
               fontFamily: 'uthmanic2',
-              color: ThemeProvider.themeOf(context).id == 'dark'
-                  ? Colors.white
-                  : const Color(0xff161f07),
+              color: Color(0xff161f07),
             ),
           ),
           TextSpan(
             text: ' ${arabicNumber.convert(verseNumber)}\n',
-            style: TextStyle(
+            style: const TextStyle(
               fontSize: 50,
               fontWeight: FontWeight.normal,
               fontFamily: 'uthmanic2',
-              color: ThemeProvider.themeOf(context).id == 'dark'
-                  ? Colors.white
-                  : const Color(0xff161f07),
+              color: Color(0xff161f07),
             ),
           ),
         ],
@@ -291,30 +287,32 @@ Future<Uint8List> createVerseWithTranslateImage(BuildContext context,
   final image3Height = pngImage3.height.toDouble() / 5.0;
   final image3X =
       (canvasWidth - image3Width) / 2; // Center the image horizontally
-
-  List<String> transName = <String>[
+  List<String> translateName = <String>[
     'English',
-    'Spanish',
+    'Español',
+    'বাংলা',
+    'اردو',
+    'Soomaali'
   ];
   String? tafseerName;
-  if (generalController.shareTafseerValue == 1) {
+  if (generalController.shareTafseerValue.value == 1) {
     tafseerName = ayatController.radioValue != 3
         ? null
         : AppLocalizations.of(context)!.tafSaadiN;
-  } else if (generalController.shareTafseerValue == 2) {
-    tafseerName = transName[ayatController.translateIndex!];
+  } else if (generalController.shareTafseerValue.value == 2) {
+    tafseerName = translateName[translateController.transValue.value];
   }
+  print('tafseerName: ${translateName[translateController.transValue.value]}');
   final tafseerNamePainter = TextPainter(
       text: TextSpan(
         text: tafseerName,
-        style: TextStyle(
-            fontSize: 35,
-            fontWeight: FontWeight.normal,
-            fontFamily: 'kufi',
-            color: ThemeProvider.themeOf(context).id == 'dark'
-                ? Colors.white
-                : const Color(0xff161f07),
-            backgroundColor: Theme.of(context).dividerColor),
+        style: const TextStyle(
+          fontSize: 35,
+          fontWeight: FontWeight.normal,
+          fontFamily: 'kufi',
+          color: Color(0xff161f07),
+          backgroundColor: Color(0xffcdba72),
+        ),
       ),
       textDirection: TextDirection.rtl,
       textAlign: TextAlign.center);
@@ -327,20 +325,46 @@ Future<Uint8List> createVerseWithTranslateImage(BuildContext context,
   // final image3Y = tafseerNameY + tafseerNamePainter.height + padding - 20;
 
   // Create the new text painter
+  TextDirection detectTextDirection(String text) {
+    if (text.isEmpty) {
+      return TextDirection.ltr;
+    }
+
+    int arabicOrUrduCharCount = 0;
+    int otherCharCount = 0;
+
+    // Iterating over the first few characters to check their unicode range
+    for (int i = 0; i < text.length && i < 20; i++) {
+      int charCode = text.codeUnitAt(i);
+
+      if ((charCode >= 0x600 && charCode <= 0x6FF) ||
+          (charCode >= 0x750 && charCode <= 0x77F) ||
+          (charCode >= 0xFB50 && charCode <= 0xFDFF) ||
+          (charCode >= 0xFE70 && charCode <= 0xFEFF)) {
+        arabicOrUrduCharCount++;
+      } else if (charCode > 0x40 && charCode < 0x1F9FF) {
+        otherCharCount++;
+      }
+    }
+
+    return arabicOrUrduCharCount > otherCharCount
+        ? TextDirection.rtl
+        : TextDirection.ltr;
+  }
+
   final newTextPainter = TextPainter(
-      text: TextSpan(
-        text: '$textTranslate\n',
-        style: TextStyle(
-            fontSize: 35,
-            fontWeight: FontWeight.normal,
-            fontFamily: 'kufi',
-            color: ThemeProvider.themeOf(context).id == 'dark'
-                ? Colors.white
-                : const Color(0xff161f07),
-            backgroundColor: const Color(0xff91a57d).withOpacity(.3)),
-      ),
-      textDirection: TextDirection.ltr,
-      textAlign: TextAlign.justify);
+    text: TextSpan(
+      text: '$textTranslate\n',
+      style: TextStyle(
+          fontSize: 35,
+          fontWeight: FontWeight.normal,
+          fontFamily: 'kufi',
+          color: const Color(0xff161f07),
+          backgroundColor: const Color(0xff91a57d).withOpacity(.3)),
+    ),
+    textDirection: detectTextDirection(textTranslate),
+    textAlign: TextAlign.justify,
+  );
   newTextPainter.layout(maxWidth: 800);
 
   const newTextX = padding + 50;
@@ -503,8 +527,8 @@ void showVerseOptionsBottomSheet(BuildContext context, int verseNumber,
 
   allModalBottomSheet(
     context,
-    MediaQuery.of(context).size.height / 1 / 2,
-    MediaQuery.of(context).size.width,
+    MediaQuery.sizeOf(context).height / 1 / 2,
+    MediaQuery.sizeOf(context).width,
     Container(
       alignment: Alignment.center,
       child: Stack(
@@ -520,15 +544,17 @@ void showVerseOptionsBottomSheet(BuildContext context, int verseNumber,
                   width: 30,
                   margin: const EdgeInsets.all(16.0),
                   decoration: BoxDecoration(
-                      color: Theme.of(context).colorScheme.background,
+                      color: const Color(0xfff3efdf),
                       borderRadius: const BorderRadius.all(
                         Radius.circular(8),
                       ),
                       border: Border.all(
-                          width: 2, color: Theme.of(context).dividerColor)),
-                  child: Icon(
+                        width: 2,
+                        color: const Color(0xffcdba72),
+                      )),
+                  child: const Icon(
                     Icons.close_outlined,
-                    color: Theme.of(context).colorScheme.surface,
+                    color: Color(0xff91a57d),
                   ),
                 ),
               ),
@@ -547,8 +573,8 @@ void showVerseOptionsBottomSheet(BuildContext context, int verseNumber,
                   child: SizedBox(
                     width: orientation(
                         context,
-                        MediaQuery.of(context).size.width * .6,
-                        MediaQuery.of(context).size.width / 1 / 3),
+                        MediaQuery.sizeOf(context).width * .6,
+                        MediaQuery.sizeOf(context).width / 1 / 3),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       mainAxisSize: MainAxisSize.min,
@@ -565,8 +591,8 @@ void showVerseOptionsBottomSheet(BuildContext context, int verseNumber,
                         Container(
                           height: 2,
                           margin: const EdgeInsets.symmetric(horizontal: 8),
-                          width: MediaQuery.of(context).size.width / 1 / 3,
-                          color: Theme.of(context).dividerColor,
+                          width: MediaQuery.sizeOf(context).width / 1 / 3,
+                          color: const Color(0xffcdba72),
                         ),
                       ],
                     ),
@@ -575,34 +601,34 @@ void showVerseOptionsBottomSheet(BuildContext context, int verseNumber,
                 GestureDetector(
                   child: Container(
                     // height: 60,
-                    width: MediaQuery.of(context).size.width,
+                    width: MediaQuery.sizeOf(context).width,
                     padding: const EdgeInsets.all(16.0),
                     margin: const EdgeInsets.only(
                         top: 4.0, bottom: 16.0, right: 16.0, left: 16.0),
                     decoration: BoxDecoration(
-                        color: Theme.of(context).dividerColor.withOpacity(.3),
+                        color: const Color(0xffcdba72).withOpacity(.3),
                         borderRadius:
                             const BorderRadius.all(Radius.circular(4))),
                     child: Row(
                       mainAxisSize: MainAxisSize.min,
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Icon(
+                        const Icon(
                           Icons.text_fields,
-                          color: Theme.of(context).colorScheme.surface,
+                          color: Color(0xff91a57d),
                           size: 24,
                         ),
                         SizedBox(
                           width: orientation(
                               context,
-                              MediaQuery.of(context).size.width * .7,
-                              MediaQuery.of(context).size.width / 1 / 3),
+                              MediaQuery.sizeOf(context).width * .7,
+                              MediaQuery.sizeOf(context).width / 1 / 3),
                           child: Text(
                             "﴿ $verseText ﴾",
                             style: TextStyle(
                                 color:
                                     ThemeProvider.themeOf(context).id == 'dark'
-                                        ? Theme.of(context).colorScheme.surface
+                                        ? Theme.of(context).canvasColor
                                         : Theme.of(context).primaryColorDark,
                                 fontSize: 16,
                                 fontFamily: 'uthmanic2'),
@@ -621,14 +647,14 @@ void showVerseOptionsBottomSheet(BuildContext context, int verseNumber,
                   height: 2,
                   margin: const EdgeInsets.symmetric(
                       horizontal: 16.0, vertical: 16.0),
-                  width: MediaQuery.of(context).size.width * .3,
-                  color: Theme.of(context).dividerColor,
+                  width: MediaQuery.sizeOf(context).width * .3,
+                  color: const Color(0xffcdba72),
                 ),
                 Wrap(
                   // crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     SizedBox(
-                      width: MediaQuery.of(context).size.width / 1 / 2,
+                      width: MediaQuery.sizeOf(context).width / 1 / 2,
                       child: Column(
                         children: [
                           Padding(
@@ -647,7 +673,7 @@ void showVerseOptionsBottomSheet(BuildContext context, int verseNumber,
                           ),
                           GestureDetector(
                             child: Container(
-                              // width: MediaQuery.of(context).size.width * .4,
+                              // width: MediaQuery.sizeOf(context).width * .4,
                               padding: const EdgeInsets.symmetric(
                                   horizontal: 16.0, vertical: 8.0),
                               margin: const EdgeInsets.only(
@@ -656,9 +682,8 @@ void showVerseOptionsBottomSheet(BuildContext context, int verseNumber,
                                   right: 16.0,
                                   left: 16.0),
                               decoration: BoxDecoration(
-                                  color: Theme.of(context)
-                                      .dividerColor
-                                      .withOpacity(.3),
+                                  color:
+                                      const Color(0xffcdba72).withOpacity(.3),
                                   borderRadius: const BorderRadius.all(
                                       Radius.circular(4))),
                               child: Image.memory(
@@ -677,14 +702,14 @@ void showVerseOptionsBottomSheet(BuildContext context, int verseNumber,
                       ),
                     ),
                     SizedBox(
-                      width: MediaQuery.of(context).size.width / 1 / 2,
+                      width: MediaQuery.sizeOf(context).width / 1 / 2,
                       child: Column(
                         children: [
                           Padding(
                             padding:
                                 const EdgeInsets.symmetric(horizontal: 16.0),
                             child: SizedBox(
-                              width: MediaQuery.of(context).size.width / 1 / 3,
+                              width: MediaQuery.sizeOf(context).width / 1 / 3,
                               child: Text(
                                 AppLocalizations.of(context)!.shareImageWTrans,
                                 style: TextStyle(
@@ -699,7 +724,7 @@ void showVerseOptionsBottomSheet(BuildContext context, int verseNumber,
                           ),
                           GestureDetector(
                             child: Container(
-                              // width: MediaQuery.of(context).size.width * .4,
+                              // width: MediaQuery.sizeOf(context).width * .4,
                               padding: const EdgeInsets.symmetric(
                                   horizontal: 16.0, vertical: 8.0),
                               margin: const EdgeInsets.only(
@@ -708,9 +733,8 @@ void showVerseOptionsBottomSheet(BuildContext context, int verseNumber,
                                   right: 16.0,
                                   left: 16.0),
                               decoration: BoxDecoration(
-                                  color: Theme.of(context)
-                                      .dividerColor
-                                      .withOpacity(.3),
+                                  color:
+                                      const Color(0xffcdba72).withOpacity(.3),
                                   borderRadius: const BorderRadius.all(
                                       Radius.circular(4))),
                               child: Image.memory(
@@ -729,7 +753,7 @@ void showVerseOptionsBottomSheet(BuildContext context, int verseNumber,
                             padding:
                                 const EdgeInsets.symmetric(horizontal: 16.0),
                             child: SizedBox(
-                              width: MediaQuery.of(context).size.width / 1 / 3,
+                              width: MediaQuery.sizeOf(context).width / 1 / 3,
                               child: Text(
                                 AppLocalizations.of(context)!.shareTrans,
                                 style: TextStyle(

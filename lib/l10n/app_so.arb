@@ -525,5 +525,10 @@
   "@shareTrans": {
     "type": "text",
     "placeholders": {}
+  },
+  "translation": "Turjumaada",
+  "@translation": {
+    "type": "text",
+    "placeholders": {}
   }
 }

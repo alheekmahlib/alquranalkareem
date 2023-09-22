@@ -1,5 +1,4 @@
 import 'package:alquranalkareem/notes/model/Notes.dart';
-import 'package:alquranalkareem/shared/controller/notes_controller.dart';
 import 'package:alquranalkareem/shared/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
@@ -8,36 +7,29 @@ import 'package:theme_provider/theme_provider.dart';
 
 import '../../l10n/app_localizations.dart';
 import '../../shared/hero_dialog_route.dart';
-import '../../shared/widgets/lottie.dart';
+import '../../shared/services/controllers_put.dart';
+import '../../shared/utils/constants/lottie.dart';
 import '../../shared/widgets/settings_popUp.dart';
 
 class NotesList extends StatelessWidget {
   NotesList({Key? key}) : super(key: key);
 
   final ScrollController _controller = ScrollController();
-  late final NotesController notesController = Get.put(NotesController());
 
   @override
   Widget build(BuildContext context) {
     notesController.getNotes();
-    double paddingHeight = MediaQuery.of(context).size.height;
-    return Stack(
+    double paddingHeight = MediaQuery.sizeOf(context).height;
+    return Column(
       children: [
-        Align(
-            alignment: Alignment.topCenter,
-            child: Column(
-              children: [
-                topBar(context),
-                const Divider(),
-              ],
-            )),
-        Padding(
-          padding: EdgeInsets.only(
-              top: orientation(context, 150.0, platformView(32.0, 150.0)),
-              right: 16.0,
-              left: 16.0),
+        Column(
+          children: [
+            topBar(context),
+            const Divider(),
+          ],
+        ),
+        Expanded(
           child: ListView(
-            controller: _controller,
             children: [
               ExpansionTile(
                 iconColor: Theme.of(context).secondaryHeaderColor,
@@ -68,6 +60,9 @@ class NotesList extends StatelessWidget {
                           cursorColor: Theme.of(context).dividerColor,
                           onChanged: (value) {
                             notesController.title = value.trim();
+                          },
+                          onTapOutside: (event) {
+                            FocusManager.instance.primaryFocus?.unfocus();
                           },
                           style: TextStyle(
                               color: Theme.of(context).colorScheme.surface,
@@ -119,6 +114,9 @@ class NotesList extends StatelessWidget {
                           keyboardType: TextInputType.multiline,
                           onChanged: (value) {
                             notesController.description = value.trim();
+                          },
+                          onTapOutside: (event) {
+                            FocusManager.instance.primaryFocus?.unfocus();
                           },
                           style: TextStyle(
                               color: Theme.of(context).colorScheme.surface,
@@ -356,7 +354,7 @@ class NotesList extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
       child: Container(
-        width: MediaQuery.of(context).size.width,
+        width: MediaQuery.sizeOf(context).width,
         decoration: BoxDecoration(
             color: Theme.of(context).colorScheme.surface.withOpacity(.2),
             borderRadius: const BorderRadius.all(Radius.circular(8))),
@@ -375,6 +373,9 @@ class NotesList extends StatelessWidget {
                 cursorColor: Theme.of(context).dividerColor,
                 onChanged: (value) {
                   notesController.title = value.trim();
+                },
+                onTapOutside: (event) {
+                  FocusManager.instance.primaryFocus?.unfocus();
                 },
                 style: TextStyle(
                     color: ThemeProvider.themeOf(context).id == 'dark'
@@ -429,6 +430,9 @@ class NotesList extends StatelessWidget {
                 onChanged: (value) {
                   notesController.description = value.trim();
                 },
+                onTapOutside: (event) {
+                  FocusManager.instance.primaryFocus?.unfocus();
+                },
                 style: TextStyle(
                     color: ThemeProvider.themeOf(context).id == 'dark'
                         ? Colors.white
@@ -437,7 +441,8 @@ class NotesList extends StatelessWidget {
                     fontSize: 18),
                 decoration: InputDecoration(
                   icon: IconButton(
-                    onPressed: () => notesController.titleController.clear(),
+                    onPressed: () =>
+                        notesController.descriptionController.clear(),
                     icon: Icon(
                       Icons.clear,
                       color: Theme.of(context).colorScheme.surface,
@@ -447,9 +452,9 @@ class NotesList extends StatelessWidget {
                     borderSide: BorderSide(
                         color: Theme.of(context).colorScheme.surface),
                   ),
-                  hintText: AppLocalizations.of(context)!.note_title,
+                  hintText: AppLocalizations.of(context)!.note_details,
                   label: Text(
-                    AppLocalizations.of(context)!.note_title,
+                    AppLocalizations.of(context)!.note_details,
                     style:
                         TextStyle(color: Theme.of(context).colorScheme.surface),
                   ),
@@ -476,6 +481,8 @@ class NotesList extends StatelessWidget {
                   note.description =
                       notesController.descriptionController.text.trim();
                   notesController.updateNotes(note);
+                  notesController.titleController.clear();
+                  notesController.descriptionController.clear();
                   Navigator.of(context).pop();
                 },
                 child: Text(

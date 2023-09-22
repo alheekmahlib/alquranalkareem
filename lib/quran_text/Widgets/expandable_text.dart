@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
 import 'package:theme_provider/theme_provider.dart';
 
-import '../../shared/widgets/controllers_put.dart';
+import '../../shared/services/controllers_put.dart';
 
 class ExpandableText extends StatelessWidget {
   const ExpandableText({

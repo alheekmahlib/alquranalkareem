@@ -3,27 +3,24 @@ import 'dart:convert' show jsonDecode;
 import 'dart:io' show Platform;
 
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
+import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:timezone/timezone.dart' as tz;
 
 import '../../database/notificationDatabase.dart';
-import '../../services_locator.dart';
-import '../local_notifications.dart';
-import '../postPage.dart';
+import '../../screens/postPage.dart';
+import '../services/controllers_put.dart';
+import '../services/local_notifications.dart';
 import '../widgets/widgets.dart';
-import 'general_controller.dart';
 
 class NotificationsController extends GetxController {
   late NotifyHelper notifyHelper;
   DateTime now = DateTime.now();
 
   RxList<Map<String, dynamic>> sentNotifications = <Map<String, dynamic>>[].obs;
-
-  final generalController = sl<GeneralController>();
 
   final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
       FlutterLocalNotificationsPlugin();

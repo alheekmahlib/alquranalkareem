@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '/shared/widgets/settings_list.dart';
-import '/shared/widgets/settings_popUp.dart';
-import '/shared/widgets/widgets.dart';
 import '../custom_rect_tween.dart';
 import '../hero_dialog_route.dart';
-import 'controllers_put.dart';
+import '../services/controllers_put.dart';
+import 'settings_list.dart';
+import 'settings_popUp.dart';
+import 'widgets.dart';
 
 class AnimatedStack extends StatelessWidget {
   final double scaleWidth;
@@ -47,10 +47,10 @@ class AnimatedStack extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    double paddingHeight = MediaQuery.of(context).size.height;
-    double width = MediaQuery.of(context).size.width;
-    final double _width = MediaQuery.of(context).size.width;
-    final double _height = MediaQuery.of(context).size.height;
+    double paddingHeight = MediaQuery.sizeOf(context).height;
+    double width = MediaQuery.sizeOf(context).width;
+    final double _width = MediaQuery.sizeOf(context).width;
+    final double _height = MediaQuery.sizeOf(context).height;
     const double _fabPosition = 16;
     const double _fabSize = 56;
 
@@ -105,6 +105,19 @@ class AnimatedStack extends StatelessWidget {
                     const SizedBox(
                       height: 4,
                     ),
+                    // AnimatedPositioned(
+                    //     width:
+                    //         settingsController.settingsSelected.value == false
+                    //             ? 100
+                    //             : MediaQuery.sizeOf(context).width,
+                    //     height:
+                    //         settingsController.settingsSelected.value == false
+                    //             ? 100.0
+                    //             : 700.0,
+                    //     // top: 50.0,
+                    //     duration: const Duration(seconds: 1),
+                    //     curve: Curves.fastOutSlowIn,
+                    //     child: SettingsList()),
                     GestureDetector(
                       onTap: () {
                         Navigator.of(context)
@@ -114,7 +127,7 @@ class AnimatedStack extends StatelessWidget {
                             height: orientation(
                                 context,
                                 400.0,
-                                MediaQuery.of(context).size.height *
+                                MediaQuery.sizeOf(context).height *
                                     1 /
                                     2 *
                                     1.6),

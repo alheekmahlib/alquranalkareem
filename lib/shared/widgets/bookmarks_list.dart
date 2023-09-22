@@ -6,8 +6,8 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:theme_provider/theme_provider.dart';
 
-import 'controllers_put.dart';
-import 'lottie.dart';
+import '../services/controllers_put.dart';
+import '../utils/constants/lottie.dart';
 
 class BookmarksList extends StatelessWidget {
   const BookmarksList({Key? key}) : super(key: key);
@@ -67,7 +67,7 @@ class BookmarksList extends StatelessWidget {
                                       Navigator.pop(context);
                                     },
                                     child: Container(
-                                      width: MediaQuery.of(context).size.width,
+                                      width: MediaQuery.sizeOf(context).width,
                                       decoration: BoxDecoration(
                                           color: Theme.of(context)
                                               .colorScheme
@@ -95,7 +95,8 @@ class BookmarksList extends StatelessWidget {
                                                       width: 40,
                                                     ),
                                                     Text(
-                                                      arabicNumber.convert(bookmark.pageNum),
+                                                      arabicNumber.convert(
+                                                          bookmark.pageNum),
                                                       textAlign:
                                                           TextAlign.center,
                                                       style: TextStyle(

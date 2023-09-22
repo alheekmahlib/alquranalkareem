@@ -1,12 +1,11 @@
 import 'dart:math';
 
-import 'package:alquranalkareem/shared/controller/general_controller.dart';
 import 'package:alquranalkareem/shared/widgets/widgets.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:theme_provider/theme_provider.dart';
 
 import '../../../database/verseDBHelper.dart';
+import '../../../shared/services/controllers_put.dart';
 
 class Verse {
   final int ayahNumber;
@@ -54,7 +53,8 @@ class QuranPage extends StatefulWidget {
   final String imageUrl2;
   final int currentPage;
 
-  const QuranPage({super.key, 
+  const QuranPage({
+    super.key,
     required this.imageUrl,
     required this.imageUrl2,
     required this.currentPage,
@@ -69,7 +69,6 @@ class _QuranPageState extends State<QuranPage> {
   List<Verse>? verses;
   final GlobalKey _imageKey = GlobalKey();
   final GlobalKey _gestureDetectorKey = GlobalKey();
-  late final GeneralController generalController = Get.put(GeneralController());
 
   @override
   void initState() {
@@ -236,7 +235,7 @@ class _QuranPageState extends State<QuranPage> {
   //       scaleFactor = 0.84;
   //       xTranslationFactor = 0.90;
   //     } else {
-  //       double screenWidth = MediaQuery.of(context).size.width;
+  //       double screenWidth = MediaQuery.sizeOf(context).width;
   //       adjustedYOffset = 60; // Adjust this value to move the pressure point down in landscape mode
   //       scaleFactor = 0.84 * (screenWidth / 1260); // Adjust the scale factor based on the screen width
   //       xTranslationFactor = 0.90 * (screenWidth / 1260); // Adjust the x translation factor based on the screen width
@@ -326,8 +325,8 @@ class _QuranPageState extends State<QuranPage> {
   }
 
   double _calculateSelectedScaleFactor(BuildContext context) {
-    double screenWidth = MediaQuery.of(context).size.width;
-    // double screenHeight = MediaQuery.of(context).size.height;
+    double screenWidth = MediaQuery.sizeOf(context).width;
+    // double screenHeight = MediaQuery.sizeOf(context).height;
     double scaleFactor;
 
     // Define breakpoints for different screen sizes
@@ -349,7 +348,7 @@ class _QuranPageState extends State<QuranPage> {
   }
 
   // int _findTappedVerse(Offset localPosition) {
-  //   double scaleFactor = MediaQuery.of(context).size.width / 1260;
+  //   double scaleFactor = MediaQuery.sizeOf(context).width / 1260;
   //   double padding;
   //
   //   if (MediaQuery.of(context).orientation == Orientation.portrait) {
@@ -370,8 +369,8 @@ class _QuranPageState extends State<QuranPage> {
   // }
 
   // double calculateAdjustedYOffset() {
-  //   double screenHeight = MediaQuery.of(context).size.height;
-  //   double screenWidth = MediaQuery.of(context).size.width;
+  //   double screenHeight = MediaQuery.sizeOf(context).height;
+  //   double screenWidth = MediaQuery.sizeOf(context).width;
   //
   //   if (MediaQuery.of(context).orientation == Orientation.portrait) {
   //     // Define the screen heights for small and large screens
@@ -414,7 +413,7 @@ class _QuranPageState extends State<QuranPage> {
   }
 
   double getImageWidthFactor(BuildContext context, bool isLandscape) {
-    double screenWidth = MediaQuery.of(context).size.width;
+    double screenWidth = MediaQuery.sizeOf(context).width;
 
     double baseFactor = 1.0;
 
@@ -569,7 +568,7 @@ class _QuranPageState extends State<QuranPage> {
   //       scaleFactor = 0.84;
   //       xTranslationFactor = 0.90;
   //     } else {
-  //       double screenWidth = MediaQuery.of(context).size.width;
+  //       double screenWidth = MediaQuery.sizeOf(context).width;
   //       adjustedYOffset = 60; // Adjust this value to move the pressure point down in landscape mode
   //       scaleFactor = 0.84 * (screenWidth / 1260); // Adjust the scale factor based on the screen width
   //       xTranslationFactor = 0.90 * (screenWidth / 1260); // Adjust the x translation factor based on the screen width
@@ -627,7 +626,7 @@ class _QuranPageState extends State<QuranPage> {
   }
 
   int _findTappedVerse(Offset localPosition) {
-    double scaleFactor = MediaQuery.of(context).size.width / 1162;
+    double scaleFactor = MediaQuery.sizeOf(context).width / 1162;
     double padding = 3.0; // Add a padding value to increase the tap area
 
     for (int i = 0; i < verses!.length; i++) {
@@ -713,8 +712,8 @@ class _QuranPageState extends State<QuranPage> {
   //       scaleFactor = 0.84;
   //       xTranslationFactor = 0.90;
   //     } else {
-  //       double screenWidth = MediaQuery.of(context).size.width;
-  //       double screenHeight = MediaQuery.of(context).size.height;
+  //       double screenWidth = MediaQuery.sizeOf(context).width;
+  //       double screenHeight = MediaQuery.sizeOf(context).height;
   //       adjustedYOffset = 90; // Adjust this value to move the pressure point down in landscape mode
   //       adjustedXOffset = calculateAdjustedXOffset(screenWidth, screenHeight);
   //       scaleFactor = 0.94 * (screenWidth / 1260); // Adjust the scale factor based on the screen width
@@ -842,8 +841,8 @@ class _QuranPageState extends State<QuranPage> {
         ),
       ),
     );
-    // double width = MediaQuery.of(context).size.width;
-    // double height = MediaQuery.of(context).size.height;
+    // double width = MediaQuery.sizeOf(context).width;
+    // double height = MediaQuery.sizeOf(context).height;
     // return FractionallySizedBox(
     //   heightFactor: 932.0,
     //   widthFactor: 430.0,
@@ -854,8 +853,8 @@ class _QuranPageState extends State<QuranPage> {
     //       final Offset localTouchPosition = details.localPosition;
     //       final double x = localTouchPosition.dx / imageBox.size.width;
     //       final double y = localTouchPosition.dy / imageBox.size.height;
-    //       final double screenWidth = MediaQuery.of(context).size.width;
-    //       final double screenHeight = MediaQuery.of(context).size.height;
+    //       final double screenWidth = MediaQuery.sizeOf(context).width;
+    //       final double screenHeight = MediaQuery.sizeOf(context).height;
     //       final double imageWidth = 430.0;
     //       final double imageHeight = 932.0;
     //       final double screenAspectRatio = screenWidth / screenHeight;

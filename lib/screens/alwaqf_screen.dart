@@ -4,7 +4,8 @@ import 'package:group_button/group_button.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 import 'package:theme_provider/theme_provider.dart';
 
-import '../shared/widgets/svg_picture.dart';
+import '../shared/utils/constants/lists.dart';
+import '../shared/utils/constants/svg_picture.dart';
 import '../shared/widgets/widgets.dart';
 
 class AlwaqfScreen extends StatelessWidget {
@@ -13,22 +14,6 @@ class AlwaqfScreen extends StatelessWidget {
   final ScrollController controller = ScrollController();
   final ItemScrollController _scrollController = ItemScrollController();
   late final GroupButtonController checkboxesController;
-
-  final List<String> waqfMarks = <String>[
-    'assets/svg/alwaqf/01.svg',
-    'assets/svg/alwaqf/02.svg',
-    'assets/svg/alwaqf/03.svg',
-    'assets/svg/alwaqf/04.svg',
-    'assets/svg/alwaqf/05.svg',
-  ];
-
-  final List<String> waqfExplain = <String>[
-    'عَلَامَة الوَقْفِ اللَّازم نَحوُ : {إِنَّمَا يَسْتَجِيبُ الَّذِينَ يَسْمَعُونَ ۘ وَالْمَوْتَىٰ يَبْعَثُهُمُ اللَّهُ}.',
-    'عَلَامَة الوَقْفِ الجَائِزِ مَعَ كَوْنِ الوَقْفِ أَوْلَى نَحِوُ : {قُل رَّبِّي أَعْلَمُ بِعِدَّتِهِم مَّا يَعْلَمُهُمْ إِلَّا قَلِيلٌ ۗ فَلَا تُمَارِ فِيهِمْ}.',
-    'عَلَامَة الوَقْفِ الجَائِزِ جَوَازًا مُسْتَوِيَ الطَّرَفَيْن نَحوُ : {نَّحْنُ نَقُصُّ عَلَيْكَ نَبَأَهُم بِالْحَقِّ ۚ إِنَّهُمْ فِتْيَةٌ آمَنُوا بِرَبِّهِمْ}.',
-    'عَلَامَة الوَقْفِ الجَائِزِ مَعَ كَوْنِ الوَصْل أَوْلَى نَحِوُ : {وَإِن يَمْسَسْكَ اللَّهُ بِضُرٍّ فَلَا كَاشِفَ لَهُ إِلَّا هُوَ ۖ وَإِن يَمْسَسْكَ بِخَيْرٍ فَهُوَ عَلَىٰ كُلِّ شَيْءٍ قَدِيرٌ}.',
-    'عَلَامَةُ تَعَانُق الوَقْفِ بِحَيْثُ إِِذَا وَقِفَ عَلى أَحَدِ المَوْضِعَيْن لَا يَصِحُّ الوَقفُ عَلى الآخَرِ نَحِوُ : {ذَٰلِكَ الْكِتَابُ لَا رَيْبَ ۛ فِيهِ ۛ هُدًى لِّلْمُتَّقِينَ}.',
-  ];
 
   @override
   Widget build(BuildContext context) {
@@ -44,7 +29,7 @@ class AlwaqfScreen extends StatelessWidget {
           color: Theme.of(context).colorScheme.background,
           child: Padding(
             padding: EdgeInsets.only(
-                top: MediaQuery.of(context).size.height / 1 / 15),
+                top: MediaQuery.sizeOf(context).height / 1 / 15),
             child: Stack(
               children: [
                 Align(
@@ -68,7 +53,7 @@ class AlwaqfScreen extends StatelessWidget {
                         context,
                         const EdgeInsets.only(top: 32.0),
                         EdgeInsets.only(
-                            top: MediaQuery.of(context).size.height / 1 / 13)),
+                            top: MediaQuery.sizeOf(context).height / 1 / 13)),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
@@ -161,7 +146,7 @@ class AlwaqfScreen extends StatelessWidget {
                         Expanded(
                           flex: 7,
                           child: SizedBox(
-                            height: MediaQuery.of(context).size.height,
+                            height: MediaQuery.sizeOf(context).height,
                             child: ScrollablePositionedList.builder(
                               scrollDirection: Axis.vertical,
                               shrinkWrap: true,
@@ -174,7 +159,7 @@ class AlwaqfScreen extends StatelessWidget {
                                     Container(
                                       margin: const EdgeInsets.symmetric(
                                           horizontal: 16, vertical: 16),
-                                      width: MediaQuery.of(context).size.width,
+                                      width: MediaQuery.sizeOf(context).width,
                                       decoration: BoxDecoration(
                                           color: Theme.of(context)
                                               .colorScheme

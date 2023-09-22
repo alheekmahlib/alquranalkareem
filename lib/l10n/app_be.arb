@@ -351,7 +351,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "copyAzkarText": "আজকার নকল করা হয়েছে!",
+  "copyAzkarText": "আজকার অনুলিপি করা হয়েছে",
   "@copyAzkarText": {
     "type": "text",
     "placeholders": {}
@@ -411,12 +411,12 @@
     "type": "text",
     "placeholders": {}
   },
-  "copyAyah": "আয়াতটি নকল করা হয়েছে",
+  "copyAyah": "আয়াতটি অনুলিপি করা হয়েছে",
   "@copyAyah": {
     "type": "text",
     "placeholders": {}
   },
-  "copyTafseer": "তাফসীরটি নকল করা হয়েছে",
+  "copyTafseer": "তাফসীরটি অনুলিপি করা হয়েছে",
   "@copyTafseer": {
     "type": "text",
     "placeholders": {}
@@ -523,6 +523,11 @@
   },
   "shareTrans": "দ্রষ্টব্য: একটি ছবিতে ব্যাখ্যা শেয়ার করা শুধুমাত্র আল-সাদীর ব্যাখ্যাকে সমর্থন করে, কারণ ব্যাখ্যাটি দীর্ঘ নয়।.",
   "@shareTrans": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "translation": "অনুবাদ",
+  "@translation": {
     "type": "text",
     "placeholders": {}
   }

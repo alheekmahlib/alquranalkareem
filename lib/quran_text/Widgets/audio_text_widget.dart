@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:square_percent_indicater/square_percent_indicater.dart';
 
-import '../../shared/widgets/controllers_put.dart';
+import '../../shared/services/controllers_put.dart';
 import '../../shared/widgets/seek_bar.dart';
 
 class AudioTextWidget extends StatelessWidget {

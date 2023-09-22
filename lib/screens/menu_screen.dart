@@ -8,9 +8,9 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:theme_provider/theme_provider.dart';
 
 import '/l10n/app_localizations.dart';
-import '../shared/local_notifications.dart';
 import '../shared/reminder_model.dart';
-import '../shared/widgets/controllers_put.dart';
+import '../shared/services/controllers_put.dart';
+import '../shared/services/local_notifications.dart';
 import '../shared/widgets/widgets.dart';
 import 'about_app.dart';
 import 'alwaqf_screen.dart';
@@ -99,7 +99,7 @@ class _MenuScreenState extends State<MenuScreen> {
                       Align(
                         alignment: Alignment.topRight,
                         child: SizedBox(
-                          width: MediaQuery.of(context).size.width * .4,
+                          width: MediaQuery.sizeOf(context).width * .4,
                           child: Column(
                             children: [
                               listWidget(),
@@ -115,7 +115,7 @@ class _MenuScreenState extends State<MenuScreen> {
                       Align(
                         alignment: Alignment.topLeft,
                         child: SizedBox(
-                          width: MediaQuery.of(context).size.width * .4,
+                          width: MediaQuery.sizeOf(context).width * .4,
                           child: Column(
                             children: [
                               hijiriWidget(),
@@ -172,8 +172,8 @@ class _MenuScreenState extends State<MenuScreen> {
 
   Widget lastReadWidget() {
     return Container(
-      width: orientation(context, MediaQuery.of(context).size.width,
-          MediaQuery.of(context).size.width * .4),
+      width: orientation(context, MediaQuery.sizeOf(context).width,
+          MediaQuery.sizeOf(context).width * .4),
       decoration: BoxDecoration(
         color: Theme.of(context).colorScheme.surface.withOpacity(.2),
         borderRadius: const BorderRadius.all(Radius.circular(8)),
@@ -184,8 +184,8 @@ class _MenuScreenState extends State<MenuScreen> {
           Container(
             width: orientation(
                 context,
-                MediaQuery.of(context).size.width / 1 / 4,
-                MediaQuery.of(context).size.width * .12),
+                MediaQuery.sizeOf(context).width / 1 / 4,
+                MediaQuery.sizeOf(context).width * .12),
             height: 70,
             decoration: BoxDecoration(
               color: Theme.of(context).colorScheme.surface,
@@ -243,7 +243,7 @@ class _MenuScreenState extends State<MenuScreen> {
             width: 16,
           ),
           Text(
-            '|${AppLocalizations.of(context)!.pageNo} ${generalController.cuMPage}|',
+            '|${AppLocalizations.of(context)!.pageNo} ${generalController.cuMPage.value}|',
             style: TextStyle(
               fontFamily: 'kufi',
               fontSize: 12,
@@ -259,7 +259,7 @@ class _MenuScreenState extends State<MenuScreen> {
 
   Widget listWidget() {
     return Container(
-      // width: MediaQuery.of(context).size.width,
+      // width: MediaQuery.sizeOf(context).width,
       decoration: BoxDecoration(
         color: Theme.of(context).colorScheme.surface.withOpacity(.2),
         borderRadius: const BorderRadius.all(Radius.circular(8)),
@@ -269,7 +269,7 @@ class _MenuScreenState extends State<MenuScreen> {
         children: [
           InkWell(
             child: SizedBox(
-              // width: MediaQuery.of(context).size.width,
+              // width: MediaQuery.sizeOf(context).width,
               child: Row(
                 children: [
                   Container(
@@ -311,7 +311,7 @@ class _MenuScreenState extends State<MenuScreen> {
           const Divider(),
           InkWell(
             child: SizedBox(
-              // width: MediaQuery.of(context).size.width,
+              // width: MediaQuery.sizeOf(context).width,
               child: Row(
                 children: [
                   Container(
@@ -353,7 +353,7 @@ class _MenuScreenState extends State<MenuScreen> {
           const Divider(),
           InkWell(
             child: SizedBox(
-              // width: MediaQuery.of(context).size.width,
+              // width: MediaQuery.sizeOf(context).width,
               child: Row(
                 children: [
                   Container(
@@ -401,7 +401,7 @@ class _MenuScreenState extends State<MenuScreen> {
     return Obx(() => Column(
           children: [
             Container(
-              width: MediaQuery.of(context).size.width,
+              width: MediaQuery.sizeOf(context).width,
               decoration: BoxDecoration(
                 color: Theme.of(context).colorScheme.surface.withOpacity(.2),
                 borderRadius: const BorderRadius.all(Radius.circular(8)),
@@ -527,15 +527,18 @@ class _MenuScreenState extends State<MenuScreen> {
                                 },
                                 iconBuilder: rollingIconBuilder,
                                 borderWidth: 1,
-                                indicatorColor:
-                                    Theme.of(context).colorScheme.surface,
-                                innerColor: Theme.of(context).canvasColor,
-                                borderRadius:
-                                    const BorderRadius.all(Radius.circular(8)),
+                                style: ToggleStyle(
+                                  indicatorColor:
+                                      Theme.of(context).colorScheme.surface,
+                                  backgroundColor:
+                                      Theme.of(context).canvasColor,
+                                  borderRadius: const BorderRadius.all(
+                                      Radius.circular(8)),
+                                  // dif: 2.0,
+                                  borderColor:
+                                      Theme.of(context).colorScheme.surface,
+                                ),
                                 height: 25,
-                                dif: 2.0,
-                                borderColor:
-                                    Theme.of(context).colorScheme.surface,
                               ),
                             ),
                           ],
@@ -600,7 +603,7 @@ class ReminderStorage {
   }
 }
 
-Widget rollingIconBuilder(int value, Size iconSize, bool foreground) {
+Widget rollingIconBuilder(int value, bool foreground) {
   IconData data = Icons.done;
   if (value.isEven) data = Icons.close;
   return Icon(

@@ -13,7 +13,7 @@ class ThemeChange extends StatelessWidget {
         InkWell(
           child: SizedBox(
             height: 30,
-            width: MediaQuery.of(context).size.width,
+            width: MediaQuery.sizeOf(context).width,
             child: Row(
               children: [
                 Container(
@@ -54,7 +54,7 @@ class ThemeChange extends StatelessWidget {
         InkWell(
           child: SizedBox(
             height: 30,
-            width: MediaQuery.of(context).size.width,
+            width: MediaQuery.sizeOf(context).width,
             child: Row(
               children: [
                 Container(
@@ -95,7 +95,7 @@ class ThemeChange extends StatelessWidget {
         InkWell(
           child: SizedBox(
             height: 30,
-            width: MediaQuery.of(context).size.width,
+            width: MediaQuery.sizeOf(context).width,
             child: Row(
               children: [
                 Container(

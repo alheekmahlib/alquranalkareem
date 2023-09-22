@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_sliding_up_panel/sliding_up_panel_widget.dart';
-import 'package:get/get.dart';
 
-import '../../shared/controller/general_controller.dart';
+import '../../shared/services/controllers_put.dart';
 import '../../shared/widgets/widgets.dart';
 
 class Sliding extends StatelessWidget {
@@ -22,30 +21,34 @@ class Sliding extends StatelessWidget {
       required this.cHeight})
       : super(key: key);
 
-  var mScaffoldKey = GlobalKey<ScaffoldState>();
-  late final GeneralController generalController = Get.put(GeneralController());
-
   @override
   Widget build(BuildContext context) {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (!generalController.isPanelControllerDisposed) {
+        // Your initialization logic if needed
+      }
+    });
     return Directionality(
       textDirection: TextDirection.rtl,
       child: SizedBox(
         height: orientation(
             context,
-            MediaQuery.of(context).size.height * 3 / 4 * 1.15,
-            platformView(MediaQuery.of(context).size.height,
-                MediaQuery.of(context).size.height * 3 / 4)),
+            MediaQuery.sizeOf(context).height * 3 / 4 * 1.15,
+            platformView(MediaQuery.sizeOf(context).height,
+                MediaQuery.sizeOf(context).height * 3 / 4)),
         child: SlidingUpPanelWidget(
           controlHeight: cHeight!,
           anchor: 7.0,
           panelController: generalController.panelController,
           onTap: () {
+            // if (!generalController.isPanelControllerDisposed) {
             if (SlidingUpPanelStatus.anchored ==
                 generalController.panelController.status) {
               generalController.panelController.collapse();
             } else {
               generalController.panelController.anchor();
             }
+            // }
           },
           enableOnTap: false,
           child: Container(
@@ -68,11 +71,13 @@ class Sliding extends StatelessWidget {
               children: <Widget>[
                 GestureDetector(
                   onTap: () {
-                    if (SlidingUpPanelStatus.anchored ==
-                        generalController.panelController.status) {
-                      generalController.panelController.collapse();
-                    } else {
-                      generalController.panelController.anchor();
+                    if (!generalController.isPanelControllerDisposed) {
+                      if (SlidingUpPanelStatus.anchored ==
+                          generalController.panelController.status) {
+                        generalController.panelController.collapse();
+                      } else {
+                        generalController.panelController.anchor();
+                      }
                     }
                   },
                   child: Container(
@@ -113,7 +118,7 @@ class Sliding extends StatelessWidget {
                 ),
                 Flexible(
                   child: SizedBox(
-                      height: MediaQuery.of(context).size.height,
+                      height: MediaQuery.sizeOf(context).height,
                       child: myWidget5),
                 ),
               ],
@@ -138,7 +143,6 @@ class TextSliding extends StatefulWidget {
 class _TextSlidingState extends State<TextSliding>
     with SingleTickerProviderStateMixin {
   var mScaffoldKey = GlobalKey<ScaffoldState>();
-  late final GeneralController generalController = Get.put(GeneralController());
 
   @override
   void initState() {
@@ -162,9 +166,9 @@ class _TextSlidingState extends State<TextSliding>
       child: SizedBox(
         height: orientation(
             context,
-            MediaQuery.of(context).size.height * 3 / 4 * 1.15,
-            platformView(MediaQuery.of(context).size.height,
-                MediaQuery.of(context).size.height * 3 / 4)),
+            MediaQuery.sizeOf(context).height * 3 / 4 * 1.15,
+            platformView(MediaQuery.sizeOf(context).height,
+                MediaQuery.sizeOf(context).height * 3 / 4)),
         child: SlidingUpPanelWidget(
           controlHeight: widget.cHeight!,
           panelStatus: SlidingUpPanelStatus.hidden,
@@ -194,7 +198,7 @@ class _TextSlidingState extends State<TextSliding>
               ),
             ),
             child: SizedBox(
-                height: MediaQuery.of(context).size.height,
+                height: MediaQuery.sizeOf(context).height,
                 child: widget.myWidget1),
           ),
         ),

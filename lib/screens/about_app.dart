@@ -1,5 +1,6 @@
 import 'dart:io' show File;
 
+import 'package:alquranalkareem/shared/utils/constants/shared_preferences_constants.dart';
 import 'package:expansion_tile_card/expansion_tile_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -13,8 +14,8 @@ import 'package:url_launcher/url_launcher.dart';
 import '/shared/widgets/theme_change.dart';
 import '/shared/widgets/widgets.dart';
 import '../l10n/app_localizations.dart';
-import '../shared/widgets/controllers_put.dart';
-import '../shared/widgets/svg_picture.dart';
+import '../shared/services/controllers_put.dart';
+import '../shared/utils/constants/svg_picture.dart';
 
 class AboutApp extends StatelessWidget {
   const AboutApp({Key? key}) : super(key: key);
@@ -78,7 +79,7 @@ class AboutApp extends StatelessWidget {
                         Center(
                           child: spaceLine(
                             30,
-                            MediaQuery.of(context).size.width * 3 / 4,
+                            MediaQuery.sizeOf(context).width * 3 / 4,
                           ),
                         ),
                         customContainer(
@@ -261,11 +262,14 @@ class AboutApp extends StatelessWidget {
                                                       Locale.fromSubtags(
                                                           languageCode:
                                                               lang['lang']));
-                                                  await settingsController
-                                                      .saveLang(
-                                                          lang['lang'],
-                                                          lang['name'],
-                                                          lang['font']);
+                                                  await pref.saveString(
+                                                      LANG, lang['lang']);
+                                                  await pref.saveString(
+                                                      LANG_NAME, lang['name']);
+                                                  await pref.saveString(
+                                                      LANGUAGE_FONT,
+                                                      lang['font']);
+
                                                   settingsController
                                                       .languageName
                                                       .value = lang['name'];
@@ -487,7 +491,7 @@ class AboutApp extends StatelessWidget {
                         Center(
                           child: spaceLine(
                             30,
-                            MediaQuery.of(context).size.width * 3 / 4,
+                            MediaQuery.sizeOf(context).width * 3 / 4,
                           ),
                         ),
                       ],

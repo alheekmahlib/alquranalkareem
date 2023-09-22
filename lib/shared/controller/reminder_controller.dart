@@ -5,8 +5,8 @@ import 'package:get/get.dart';
 
 import '../../l10n/app_localizations.dart';
 import '../../screens/menu_screen.dart';
-import '../local_notifications.dart';
 import '../reminder_model.dart';
+import '../services/local_notifications.dart';
 import '../widgets/widgets.dart';
 
 class ReminderController extends GetxController {

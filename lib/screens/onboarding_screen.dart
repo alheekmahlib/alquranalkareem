@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 import '../home_page.dart';
-import '../shared/widgets/controllers_put.dart';
+import '../shared/services/controllers_put.dart';
 import '../shared/widgets/widgets.dart';
 
 class OnboardingScreen extends StatefulWidget {
@@ -235,7 +235,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                             child: Image.asset(
                               imagesD[index],
                               // scale: 6,
-                              width: MediaQuery.of(context).size.width,
+                              width: MediaQuery.sizeOf(context).width,
                             ),
                           );
                         }),

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:just_audio/just_audio.dart';
 
-import '../../shared/widgets/controllers_put.dart';
+import '../../shared/services/controllers_put.dart';
 
 class SkipToPrevious extends StatelessWidget {
   const SkipToPrevious({super.key});

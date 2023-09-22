@@ -2,14 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_sliding_up_panel/flutter_sliding_up_panel.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:spring/spring.dart';
 
 import '/quran_page/screens/quran_page.dart';
 import '../database/notificationDatabase.dart';
 import '../quran_page/widget/sliding_up.dart';
-import '../shared/controller/general_controller.dart';
+import '../shared/services/controllers_put.dart';
 import '../shared/widgets/audio_widget.dart';
-import '../shared/widgets/controllers_put.dart';
 import '../shared/widgets/show_tafseer.dart';
 import '../shared/widgets/widgets.dart';
 
@@ -25,7 +23,6 @@ class _DesktopState extends State<Desktop> with TickerProviderStateMixin {
   late String current;
   late ScrollController slidingScrollController;
   SlidingUpPanelController slidingPanelController = SlidingUpPanelController();
-  late final GeneralController generalController = Get.put(GeneralController());
 
   @override
   void initState() {
@@ -55,44 +52,40 @@ class _DesktopState extends State<Desktop> with TickerProviderStateMixin {
             Directionality(
               textDirection: TextDirection.rtl,
               child: DPages(
-                generalController.cuMPage,
+                generalController.cuMPage.value,
               ),
             ),
-            Spring.slide(
-                springController: springController,
-                slideType: SlideType.slide_in_left,
-                delay: const Duration(milliseconds: 0),
-                animDuration: const Duration(milliseconds: 500),
+            Obx(
+              () => AnimatedPositioned(
+                duration: const Duration(milliseconds: 300),
                 curve: Curves.easeInOut,
-                extend: -500,
-                withFade: false,
-                child: const AudioWidget()),
+                bottom: generalController.audioWidgetPosition.value,
+                left: 0,
+                right: 0,
+                child: AudioWidget(),
+              ),
+            ),
             Align(
               alignment: Alignment.bottomRight,
-              child: Obx(
-                () => Visibility(
-                  visible: generalController.isShowControl.value,
-                  child: Sliding(
-                    myWidget1: quranPageSearch(
-                      context,
-                      MediaQuery.of(context).size.width / 1 / 2,
-                    ),
-                    myWidget2: quranPageSorahList(
-                      context,
-                      MediaQuery.of(context).size.width / 1 / 2,
-                    ),
-                    myWidget3: notesList(
-                      context,
-                      MediaQuery.of(context).size.width / 1 / 2,
-                    ),
-                    myWidget4: bookmarksList(
-                      context,
-                      MediaQuery.of(context).size.width / 1 / 2,
-                    ),
-                    myWidget5: ShowTafseer(),
-                    cHeight: 90.0,
-                  ),
+              child: Sliding(
+                myWidget1: quranPageSearch(
+                  context,
+                  MediaQuery.sizeOf(context).width / 1 / 2,
                 ),
+                myWidget2: quranPageSorahList(
+                  context,
+                  MediaQuery.sizeOf(context).width / 1 / 2,
+                ),
+                myWidget3: notesList(
+                  context,
+                  MediaQuery.sizeOf(context).width / 1 / 2,
+                ),
+                myWidget4: bookmarksList(
+                  context,
+                  MediaQuery.sizeOf(context).width / 1 / 2,
+                ),
+                myWidget5: ShowTafseer(),
+                cHeight: 90.0,
               ),
             ),
           ],

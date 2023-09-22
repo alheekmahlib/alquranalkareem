@@ -4,8 +4,8 @@ import 'package:just_audio/just_audio.dart';
 import 'package:square_percent_indicater/square_percent_indicater.dart';
 import 'package:theme_provider/theme_provider.dart';
 
-import '../../shared/widgets/controllers_put.dart';
-import '../../shared/widgets/lottie.dart';
+import '../../shared/services/controllers_put.dart';
+import '../../shared/utils/constants/lottie.dart';
 
 class DownloadPlayButton extends StatelessWidget {
   const DownloadPlayButton({super.key});
@@ -32,13 +32,10 @@ class DownloadPlayButton extends StatelessWidget {
                           .withOpacity(.4)),
                   Icon(Icons.repeat,
                       color: Theme.of(context).colorScheme.surface),
-                  Icon(Icons.repeat_one,
-                      color: Theme.of(context).colorScheme.surface),
                 ];
                 const cycleModes = [
                   LoopMode.off,
                   LoopMode.all,
-                  LoopMode.one,
                 ];
                 final index = cycleModes.indexOf(loopMode);
                 return IconButton(
@@ -101,9 +98,10 @@ class DownloadPlayButton extends StatelessWidget {
                         iconSize: 24.0,
                         color: Theme.of(context).colorScheme.surface,
                         onPressed: () async {
-                          // surahAudioController.isDownloading.value == true;
+                          surahAudioController.isDownloading.value = true;
                           print(
                               'isDownloading.value: ${surahAudioController.isDownloading.value}');
+                          await surahAudioController.audioPlayer.pause();
                           await surahAudioController.downloadSurah();
                           // surahAudioController.downAudioPlayer.play();
                         },
@@ -113,16 +111,22 @@ class DownloadPlayButton extends StatelessWidget {
                         icon: const Icon(Icons.pause),
                         iconSize: 24.0,
                         color: Theme.of(context).colorScheme.surface,
-                        onPressed: surahAudioController.downAudioPlayer.pause,
+                        onPressed: () {
+                          surahAudioController.downAudioPlayer.pause();
+                          surahAudioController.isDownloading.value = false;
+                        },
                       );
                     } else {
                       return IconButton(
                         icon: const Icon(Icons.replay),
                         iconSize: 24.0,
-                        onPressed: () => surahAudioController.downAudioPlayer
-                            .seek(Duration.zero,
-                                index: surahAudioController
-                                    .downAudioPlayer.effectiveIndices!.first),
+                        onPressed: () {
+                          surahAudioController.isDownloading.value = true;
+                          surahAudioController.downAudioPlayer.seek(
+                              Duration.zero,
+                              index: surahAudioController
+                                  .downAudioPlayer.effectiveIndices!.first);
+                        },
                       );
                     }
                   },
@@ -130,17 +134,6 @@ class DownloadPlayButton extends StatelessWidget {
               ],
             ),
           ),
-          // Align(
-          //   alignment: Alignment.bottomCenter,
-          //   child: Text(
-          //     AppLocalizations.of(context)!.download,
-          //     style: TextStyle(
-          //         fontSize: 16,
-          //         fontFamily: 'kufi',
-          //         height: -1.5,
-          //         color: Theme.of(context).dividerColor),
-          //   ),
-          // )
         ],
       ),
     );

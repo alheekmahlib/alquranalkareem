@@ -1,11 +1,13 @@
+import 'package:alquranalkareem/shared/controller/quranText_controller.dart';
 import 'package:arabic_numbers/arabic_numbers.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:spring/spring.dart';
 import 'package:theme_provider/theme_provider.dart';
 
 import '../quran_page/widget/sliding_up.dart';
-import '../shared/widgets/controllers_put.dart';
+import '../services_locator.dart';
+import '../shared/controller/translate_controller.dart';
+import '../shared/services/controllers_put.dart';
 import '../shared/widgets/widgets.dart';
 import 'Widgets/audio_text_widget.dart';
 import 'Widgets/scrollable_list.dart';
@@ -38,26 +40,13 @@ class TextPageView extends StatelessWidget {
   String? translateText;
   Color? backColor;
 
-  int? get isHeighlited {
-    if (audioController.ayahSelected.value == -1) return null;
-    if (surah!.ayahs == null ||
-        audioController.ayahSelected.value! >= surah!.ayahs!.length ||
-        audioController.ayahSelected.value! < 0) {
-      return null;
-    }
-
-    final i = surah!.ayahs!
-        .firstWhereOrNull(
-            (a) => a == surah!.ayahs![audioController.ayahSelected.value])
-        ?.numberInSurah;
-    return i;
-  }
-
   @override
   Widget build(BuildContext context) {
-    quranTextController.loadSwitchValue();
+    sl<QuranTextController>().loadSwitchValue();
+    sl<TranslateDataController>().fetchSura(context);
+    sl<TranslateDataController>().loadTranslateValue();
+
     backColor = const Color(0xff91a57d).withOpacity(0.4);
-    springController = SpringController(initialAnim: Motion.play);
 
     WidgetsBinding.instance
         .addPostFrameCallback((_) => quranTextController.jumbToPage(pageNum));
@@ -67,7 +56,6 @@ class TextPageView extends StatelessWidget {
       right: false,
       left: false,
       child: Scaffold(
-          key: TPageScaffoldKey,
           resizeToAvoidBottomInset: false,
           body: Directionality(
             textDirection: TextDirection.rtl,
@@ -157,7 +145,7 @@ class TextPageView extends StatelessWidget {
                             Column(
                               children: [
                                 Container(
-                                  width: MediaQuery.of(context).size.width,
+                                  width: MediaQuery.sizeOf(context).width,
                                   decoration: BoxDecoration(
                                     color: Theme.of(context)
                                         .colorScheme
@@ -225,39 +213,27 @@ class TextPageView extends StatelessWidget {
                   ),
                 ),
                 SizedBox(
-                  height: MediaQuery.of(context).size.height,
+                  height: MediaQuery.sizeOf(context).height,
                   child: Padding(
                     padding: orientation(
                         context,
                         const EdgeInsets.only(top: 155.0, bottom: 16.0),
                         const EdgeInsets.only(
                             top: 68.0, bottom: 16.0, right: 40.0, left: 40.0)),
-                    child: AnimatedBuilder(
-                        animation: quranTextController.animationController,
-                        builder: (BuildContext context, Widget? child) {
-                          if (quranTextController.scrollController.hasClients) {
-                            quranTextController.scrollController.jumpTo(
-                                quranTextController.animationController.value *
-                                    (quranTextController.scrollController
-                                        .position.maxScrollExtent));
-                          }
-                          return ScrollableList(
-                            surah: surah!,
-                            nomPageF: nomPageF!,
-                            nomPageL: nomPageL!,
-                          );
-                        }),
+                    child: ScrollableList(
+                      surah: surah!,
+                      nomPageF: nomPageF!,
+                      nomPageL: nomPageL!,
+                    ),
                   ),
                 ),
-                Spring.slide(
-                    springController: springController,
-                    slideType: SlideType.slide_in_left,
-                    delay: const Duration(milliseconds: 0),
-                    animDuration: const Duration(milliseconds: 500),
+                Obx(() => AnimatedPositioned(
+                    duration: const Duration(milliseconds: 300),
                     curve: Curves.easeInOut,
-                    extend: -500,
-                    withFade: false,
-                    child: const AudioTextWidget()),
+                    bottom: 0,
+                    left: generalController.textWidgetPosition.value,
+                    right: 0,
+                    child: const AudioTextWidget())),
                 Align(
                     alignment: Alignment.bottomCenter,
                     child: TextSliding(

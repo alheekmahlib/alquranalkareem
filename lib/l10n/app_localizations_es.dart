@@ -62,13 +62,16 @@ class AppLocalizationsEs extends AppLocalizations {
   String get stop_title => 'El noble Corán - Biblioteca Al-Heekmah';
 
   @override
-  String get about_app => 'La aplicación del Corán Al Kareem se caracteriza por su aprobación de la edición del Complejo Rey Fahd para la Impresión del Noble Corán en Medina por su confiabilidad y maestría.\nLa aplicación Quran Al Kareem está patrocinada por la "Biblioteca Al-Heekmah".\nEs una aplicación bien diseñada que le permite leer de forma interactiva con el texto del Corán electrónico, escuchar recitaciones, estudiar el Corán Al Kareem y memorizarlo con facilidad.';
+  String get about_app =>
+      'La aplicación del Corán Al Kareem se caracteriza por su aprobación de la edición del Complejo Rey Fahd para la Impresión del Noble Corán en Medina por su confiabilidad y maestría.\nLa aplicación Quran Al Kareem está patrocinada por la \"Biblioteca Al-Heekmah\".\nEs una aplicación bien diseñada que le permite leer de forma interactiva con el texto del Corán electrónico, escuchar recitaciones, estudiar el Corán Al Kareem y memorizarlo con facilidad.';
 
   @override
-  String get about_app2 => 'Entre las características más importantes de la aplicación:';
+  String get about_app2 =>
+      'Entre las características más importantes de la aplicación:';
 
   @override
-  String get about_app3 => '◉ Esta aplicación le permite leer el Corán como si estuviera leyendo en el Mus\'haf, y puede leer en modo vertical y horizontal.\\n◉ También puede leer en modo variable que le permite acercar y alejar el zoom a medida que como.\\n◉ La aplicación tiene la función de búsqueda textual en los versos del Corán a través de búsqueda en tiempo real y visualización de resultados con páginas además de la posibilidad de ir a la página según sea necesario.\\n◉ Adición a marcadores para que el lector pueda guardar la página y volver a ella cuando quiera.\\n◉ Adición a notas.\\n◉ Posibilidad de escuchar cada verso en voz de diferentes lectores.\\n◉ La aplicación permite la interpretación de cada verso, puede cambiar entre interpretaciones y puede cambiar el tamaño de la línea de interpretación.\\n◉ Índice de Surahs.\\n◉ Muévase entre Surahs fácilmente.\\n◉ La aplicación le permite leer el significado de las señales de alto.\\n◉ La aplicación le permite para leer la fortaleza musulmana en su totalidad y dividida por el recuerdo para que sea fácil para el lector navegar entre se y puede agregar cualquier mención a favoritos.\\n◉ La aplicación le permite al lector leer para cambiar los patrones de color, incluido el patrón oscuro, que cambia el color de fondo en líneas en blanco y negro para brindar al lector total comodidad al leer en un ambiente de poca luz. \\n◉ La aplicación le permite escuchar las suras o descargarlas y escucharlas en cualquier momento sin necesidad de Internet.';
+  String get about_app3 =>
+      '◉ Esta aplicación le permite leer el Corán como si estuviera leyendo en el Mus\'haf, y puede leer en modo vertical y horizontal.\\n◉ También puede leer en modo variable que le permite acercar y alejar el zoom a medida que como.\\n◉ La aplicación tiene la función de búsqueda textual en los versos del Corán a través de búsqueda en tiempo real y visualización de resultados con páginas además de la posibilidad de ir a la página según sea necesario.\\n◉ Adición a marcadores para que el lector pueda guardar la página y volver a ella cuando quiera.\\n◉ Adición a notas.\\n◉ Posibilidad de escuchar cada verso en voz de diferentes lectores.\\n◉ La aplicación permite la interpretación de cada verso, puede cambiar entre interpretaciones y puede cambiar el tamaño de la línea de interpretación.\\n◉ Índice de Surahs.\\n◉ Muévase entre Surahs fácilmente.\\n◉ La aplicación le permite leer el significado de las señales de alto.\\n◉ La aplicación le permite para leer la fortaleza musulmana en su totalidad y dividida por el recuerdo para que sea fácil para el lector navegar entre se y puede agregar cualquier mención a favoritos.\\n◉ La aplicación le permite al lector leer para cambiar los patrones de color, incluido el patrón oscuro, que cambia el color de fondo en líneas en blanco y negro para brindar al lector total comodidad al leer en un ambiente de poca luz. \\n◉ La aplicación le permite escuchar las suras o descargarlas y escucharlas en cualquier momento sin necesidad de Internet.';
 
   @override
   String get email => 'Contacta con nosotras';
@@ -86,7 +89,8 @@ class AppLocalizationsEs extends AppLocalizations {
   String get search_word => 'Busca el verso';
 
   @override
-  String get search_description => 'Puede buscar todos los versos del Noble Corán, simplemente escriba una palabra del verso.';
+  String get search_description =>
+      'Puede buscar todos los versos del Noble Corán, simplemente escriba una palabra del verso.';
 
   @override
   String get fontSize => 'Cambia tamaño de fuente';
@@ -98,19 +102,22 @@ class AppLocalizationsEs extends AppLocalizations {
   String get onboardTitle1 => 'Interfaz fácil';
 
   @override
-  String get onboardDesc1 => '- Ease of searching for a verse.\n- Change the language.\n- Listen to the page.\n- Change the reader.';
+  String get onboardDesc1 =>
+      '- Ease of searching for a verse.\n- Change the language.\n- Listen to the page.\n- Change the reader.';
 
   @override
   String get onboardTitle2 => 'Show The Tafseer';
 
   @override
-  String get onboardDesc2 => 'The interpretation of each verse can be read by pulling the list up.';
+  String get onboardDesc2 =>
+      'The interpretation of each verse can be read by pulling the list up.';
 
   @override
   String get onboardTitle3 => 'Click Options';
 
   @override
-  String get onboardDesc3 => '1- When you double click the page is enlarged.\n2- Upon long click you will be presented with the option to save the page.\n3- When you press once, the menus appear.';
+  String get onboardDesc3 =>
+      '1- When you double click the page is enlarged.\n2- Upon long click you will be presented with the option to save the page.\n3- When you press once, the menus appear.';
 
   @override
   String get green => 'Modo verde';
@@ -263,13 +270,16 @@ class AppLocalizationsEs extends AppLocalizations {
   String get noInternet => '¡El dispositivo no está conectado a Internet!';
 
   @override
-  String get mobileDataAyat => 'Nota: ¡Está utilizando datos móviles para descargar versos!';
+  String get mobileDataAyat =>
+      'Nota: ¡Está utilizando datos móviles para descargar versos!';
 
   @override
-  String get mobileDataSurahs => 'Nota: ¡Está utilizando datos móviles para descargar las suras!';
+  String get mobileDataSurahs =>
+      'Nota: ¡Está utilizando datos móviles para descargar las suras!';
 
   @override
-  String get mobileDataListen => 'Nota: ¡Está utilizando datos móviles para escuchar suras!';
+  String get mobileDataListen =>
+      'Nota: ¡Está utilizando datos móviles para escuchar suras!';
 
   @override
   String get choiceAyah => '¡Elige el verso primero!';
@@ -314,5 +324,9 @@ class AppLocalizationsEs extends AppLocalizations {
   String get shareImageWTrans => 'Como una imagen';
 
   @override
-  String get shareTrans => 'Nota: Compartir la interpretación en una imagen solo respalda la interpretación de Al-Saadi, porque la interpretación no es larga.';
+  String get shareTrans =>
+      'Nota: Compartir la interpretación en una imagen solo respalda la interpretación de Al-Saadi, porque la interpretación no es larga.';
+
+  @override
+  String get translation => 'Traducción';
 }

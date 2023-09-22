@@ -17,9 +17,11 @@ class DataBaseClient {
 
   Future<Database?> get database async {
     if (_database != null) return _database;
+    print('db == null => ${_database == null}');
     // lazily instantiate the db the first time it is accessed
     await initDatabase();
     _database = await _openDatabase(_databaseName);
+    print('db == null => ${_database == null}');
     return _database;
   }
 
@@ -44,26 +46,18 @@ class DataBaseClient {
       // Should happen only the first time you launch your application
       print("Creating new copy from asset");
 
-      // Open a database transaction
-      Database database = await openDatabase(path, version: 5);
-      await database.transaction((txn) async {
-        // Make sure the parent directory exists
-        try {
-          await Directory(dirname(path)).create(recursive: true);
-        } catch (_) {}
+      // Make sure the parent directory exists
+      try {
+        await Directory(dirname(path)).create(recursive: true);
+      } catch (_) {}
 
-        // Copy from asset
-        ByteData data =
-            await rootBundle.load(join("assets", _databaseName));
-        List<int> bytes =
-            data.buffer.asUint8List(data.offsetInBytes, data.lengthInBytes);
+      // Copy from asset
+      ByteData data = await rootBundle.load(join("assets", _databaseName));
+      List<int> bytes =
+          data.buffer.asUint8List(data.offsetInBytes, data.lengthInBytes);
 
-        // Write and flush the bytes written
-        await File(path).writeAsBytes(bytes, flush: true);
-      });
-
-      // Close the database connection
-      database.close();
+      // Write and flush the bytes written
+      await File(path).writeAsBytes(bytes, flush: true);
     } else {
       print("Opening existing database");
     }

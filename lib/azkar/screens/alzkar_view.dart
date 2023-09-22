@@ -6,7 +6,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:theme_provider/theme_provider.dart';
 
 import '../../l10n/app_localizations.dart';
-import '../../shared/lists.dart';
+import '../../shared/utils/constants/lists.dart';
 import '../../shared/widgets/widgets.dart';
 import '../models/all_azkar.dart';
 import 'azkar_fav.dart';
@@ -66,7 +66,7 @@ class _AzkarViewState extends State<AzkarView> {
                             Align(
                               alignment: Alignment.centerRight,
                               child: SizedBox(
-                                width: MediaQuery.of(context).size.width /
+                                width: MediaQuery.sizeOf(context).width /
                                     1 /
                                     2 *
                                     .90,
@@ -85,7 +85,7 @@ class _AzkarViewState extends State<AzkarView> {
                         Align(
                           alignment: Alignment.centerRight,
                           child: SizedBox(
-                            width: MediaQuery.of(context).size.width / 1 / 2,
+                            width: MediaQuery.sizeOf(context).width / 1 / 2,
                             child: tabBar(context),
                           ),
                         ),
@@ -174,9 +174,9 @@ class _AzkarViewState extends State<AzkarView> {
           height: 170.0,
           width: orientation(
               context,
-              MediaQuery.of(context).size.width,
-              platformView(MediaQuery.of(context).size.width / 1 / 2 * .65,
-                  MediaQuery.of(context).size.width / 1 / 2 * .8)),
+              MediaQuery.sizeOf(context).width,
+              platformView(MediaQuery.sizeOf(context).width / 1 / 2 * .65,
+                  MediaQuery.sizeOf(context).width / 1 / 2 * .8)),
           alignment: Alignment.center,
           padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 8.0),
           margin: orientation(

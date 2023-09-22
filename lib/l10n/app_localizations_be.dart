@@ -63,7 +63,7 @@ class AppLocalizationsBe extends AppLocalizations {
 
   @override
   String get about_app =>
-      'The application of the Qur’an Al Kareem is characterized by its approval of the edition of the King Fahd Complex for Printing the Noble Qur’an in Madinah because of its reliability and mastery.\nThe Quran Al Kareem application is sponsored by the "Al-Heekmah Library".\nIt is a well-designed application that allows you to read interactively with the text of the electronic Quran, listen to recitations, study the  Quran Al Kareem and memorize it with ease.';
+      'The application of the Qur’an Al Kareem is characterized by its approval of the edition of the King Fahd Complex for Printing the Noble Qur’an in Madinah because of its reliability and mastery.\nThe Quran Al Kareem application is sponsored by the \"Al-Heekmah Library\".\nIt is a well-designed application that allows you to read interactively with the text of the electronic Quran, listen to recitations, study the  Quran Al Kareem and memorize it with ease.';
 
   @override
   String get about_app2 =>
@@ -219,7 +219,7 @@ class AppLocalizationsBe extends AppLocalizations {
   String get allJuz => 'কুরআনের কিছু অংশ';
 
   @override
-  String get copyAzkarText => 'আজকার নকল করা হয়েছে!';
+  String get copyAzkarText => 'আজকার অনুলিপি করা হয়েছে';
 
   @override
   String get addBookmark => 'বুকমার্ক যোগ!';
@@ -255,10 +255,10 @@ class AppLocalizationsBe extends AppLocalizations {
   String get lastRead => 'শেষ পড়া';
 
   @override
-  String get copyAyah => 'আয়াতটি নকল করা হয়েছে';
+  String get copyAyah => 'আয়াতটি অনুলিপি করা হয়েছে';
 
   @override
-  String get copyTafseer => 'তাফসীরটি নকল করা হয়েছে';
+  String get copyTafseer => 'তাফসীরটি অনুলিপি করা হয়েছে';
 
   @override
   String get online => 'অনলাইন';
@@ -326,4 +326,7 @@ class AppLocalizationsBe extends AppLocalizations {
   @override
   String get shareTrans =>
       'দ্রষ্টব্য: একটি ছবিতে ব্যাখ্যা শেয়ার করা শুধুমাত্র আল-সাদীর ব্যাখ্যাকে সমর্থন করে, কারণ ব্যাখ্যাটি দীর্ঘ নয়।.';
+
+  @override
+  String get translation => 'অনুবাদ';
 }

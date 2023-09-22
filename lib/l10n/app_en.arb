@@ -525,5 +525,10 @@
   "@shareTrans": {
     "type": "text",
     "placeholders": {}
+  },
+  "translation": "Translation",
+  "@translation": {
+    "type": "text",
+    "placeholders": {}
   }
 }

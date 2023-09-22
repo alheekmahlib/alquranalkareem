@@ -6,10 +6,8 @@ import 'package:get/get.dart';
 import 'package:theme_provider/theme_provider.dart';
 
 import '../../quran_page/data/model/ayat.dart';
-import '../controller/ayat_controller.dart';
-import '../controller/general_controller.dart';
-import 'controllers_put.dart';
-import 'lottie.dart';
+import '../services/controllers_put.dart';
+import '../utils/constants/lottie.dart';
 
 class AyahList extends StatelessWidget {
   AyahList({Key? key}) : super(key: key);
@@ -18,8 +16,8 @@ class AyahList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final controller = Get.find<AyatController>();
-    controller.fetchAyat(generalController.cuMPage);
+    // final controller = Get.find<AyatController>();
+    ayatController.fetchAyat(generalController.cuMPage.value);
     return Container(
       height: 40,
       decoration: BoxDecoration(
@@ -35,7 +33,7 @@ class AyahList extends StatelessWidget {
               width: 2)),
       child: Center(
         child: Obx(() {
-          final ayat = controller.ayatList;
+          final ayat = ayatController.ayatList;
           if (ayat.isEmpty) {
             return Center(child: search(100.0, 40.0));
           }
@@ -57,9 +55,9 @@ class AyahList extends StatelessWidget {
                       ayatController.isSelected.value = index.toDouble();
                       ayatController.tafseerAyah = aya.ayatext ?? '';
                       ayatController.tafseerText = aya.translate ?? '';
-                      audioController.pageAyahNumber = '${aya.ayaNum ?? 0}';
+                      audioController.pageAyahNumber = '${aya.ayaNum ?? 1}';
                       ayatController.currentAyahNumber.value =
-                          '${aya.ayaNum ?? 0}';
+                          '${aya.ayaNum ?? 1}';
                       audioController.pageSurahNumber = '${aya.suraNum ?? 0}';
                       print(audioController.pageAyahNumber);
                     },
@@ -98,13 +96,11 @@ class AyahList2 extends StatelessWidget {
   AyahList2({Key? key}) : super(key: key);
 
   final ArabicNumbers arabicNumber = ArabicNumbers();
-  late final AyatController ayatController = Get.put(AyatController());
-  late final GeneralController generalController = Get.put(GeneralController());
 
   @override
   Widget build(BuildContext context) {
-    final controller = Get.find<AyatController>();
-    controller.fetchAyat(generalController.cuMPage);
+    // final controller = Get.find<AyatController>();
+    // controller.fetchAyat(generalController.cuMPage.value);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: <Widget>[
@@ -120,7 +116,7 @@ class AyahList2 extends StatelessWidget {
                   Border.all(color: Theme.of(context).dividerColor, width: 2)),
           child: Center(
             child: Obx(() {
-              final ayat = controller.ayatList;
+              final ayat = ayatController.ayatList;
               if (ayat.isEmpty) {
                 return Center(child: search(100.0, 40.0));
               }
@@ -143,9 +139,9 @@ class AyahList2 extends StatelessWidget {
                               context, aya.suraNum!, aya.ayaNum!);
                           print("suraNum ${aya.ayaNum}");
                           ayatController.isSelected.value = index.toDouble();
-                          ayahSelected = index;
-                          ayahNumber = aya.ayaNum;
-                          surahNumber = aya.suraNum;
+                          ayatController.ayahSelected.value = index;
+                          ayatController.ayahNumber.value = aya.ayaNum!;
+                          ayatController.surahNumber.value = aya.suraNum!;
                           surahName = aya.sura_name_ar;
                         },
                         child: Stack(
