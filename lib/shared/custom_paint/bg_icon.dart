@@ -13,9 +13,9 @@ class BgIcon extends CustomPainter {
     path_0.lineTo(size.width*0.03320313,size.height*0.9726563);
     path_0.close();
 
-    Paint paint_0_fill = Paint()..style=PaintingStyle.fill;
-    paint_0_fill.color = const Color(0xff39412a).withOpacity(1.0);
-    canvas.drawPath(path_0,paint_0_fill);
+    Paint paint0Fill = Paint()..style=PaintingStyle.fill;
+    paint0Fill.color = const Color(0xff39412a).withOpacity(1.0);
+    canvas.drawPath(path_0,paint0Fill);
 
     Path path_1 = Path();
     path_1.moveTo(size.width*0.02656250,size.height*0.02656250);
@@ -48,9 +48,9 @@ class BgIcon extends CustomPainter {
     path_1.cubicTo(size.width*0.9250000,size.height*0.9466797,size.width*0.9429687,size.height*0.9529297,size.width*0.9599609,size.height*0.9611328);
     path_1.close();
 
-    Paint paint_1_fill = Paint()..style=PaintingStyle.fill;
-    paint_1_fill.color = const Color(0xfff2e5d5).withOpacity(1.0);
-    canvas.drawPath(path_1,paint_1_fill);
+    Paint paint1Fill = Paint()..style=PaintingStyle.fill;
+    paint1Fill.color = const Color(0xfff2e5d5).withOpacity(1.0);
+    canvas.drawPath(path_1,paint1Fill);
 
   }
 
@@ -72,9 +72,9 @@ class BgIcon2 extends CustomPainter {
     path_0.lineTo(size.width*0.03320313,size.height*0.9726563);
     path_0.close();
 
-    Paint paint_0_fill = Paint()..style=PaintingStyle.fill;
-    paint_0_fill.color = const Color(0xff606c38).withOpacity(1.0);
-    canvas.drawPath(path_0,paint_0_fill);
+    Paint paint0Fill = Paint()..style=PaintingStyle.fill;
+    paint0Fill.color = const Color(0xff606c38).withOpacity(1.0);
+    canvas.drawPath(path_0,paint0Fill);
 
     Path path_1 = Path();
     path_1.moveTo(size.width*0.02656250,size.height*0.02656250);
@@ -107,9 +107,9 @@ class BgIcon2 extends CustomPainter {
     path_1.cubicTo(size.width*0.9250000,size.height*0.9466797,size.width*0.9429687,size.height*0.9529297,size.width*0.9599609,size.height*0.9611328);
     path_1.close();
 
-    Paint paint_1_fill = Paint()..style=PaintingStyle.fill;
-    paint_1_fill.color = const Color(0xfff2e5d5).withOpacity(1.0);
-    canvas.drawPath(path_1,paint_1_fill);
+    Paint paint1Fill = Paint()..style=PaintingStyle.fill;
+    paint1Fill.color = const Color(0xfff2e5d5).withOpacity(1.0);
+    canvas.drawPath(path_1,paint1Fill);
 
   }
 

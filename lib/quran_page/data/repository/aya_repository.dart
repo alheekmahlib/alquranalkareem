@@ -22,9 +22,9 @@ class AyaRepository {
           where: "SearchText LIKE ? OR PageNum = ? OR SoraNameSearch = ?",
           whereArgs: ['%$text%', text, text],
         );
-        results.forEach((result) {
+        for (var result in results) {
           ayaList.add(Aya.fromMap(result));
-        });
+        }
       });
       return ayaList;
     } catch (e) {
@@ -44,9 +44,9 @@ class AyaRepository {
         columns: Aya.columns,
         where: "PageNum = $pageNum",
       );
-      results.forEach((result) {
+      for (var result in results) {
         ayaList.add(Aya.fromMap(result));
-      });
+      }
     });
     return ayaList;
   }
@@ -76,9 +76,9 @@ class AyaRepository {
         Aya.tableName,
         columns: Aya.columns,
       );
-      results.forEach((result) {
+      for (var result in results) {
         ayaList.add(Aya.fromMap(result));
-      });
+      }
     });
 
     return ayaList;

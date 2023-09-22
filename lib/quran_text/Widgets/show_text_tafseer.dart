@@ -5,10 +5,10 @@ import 'package:get/get.dart';
 import 'package:theme_provider/theme_provider.dart';
 
 import '../../l10n/app_localizations.dart';
-import '../../shared/widgets/controllers_put.dart';
+import '../../shared/services/controllers_put.dart';
+import '../../shared/utils/constants/shared_preferences_constants.dart';
 import '../../shared/widgets/show_tafseer.dart';
 import '../../shared/widgets/widgets.dart';
-import '../text_page_view.dart';
 
 class ShowTextTafseer extends StatelessWidget {
   ShowTextTafseer({Key? key}) : super(key: key);
@@ -112,15 +112,15 @@ class ShowTextTafseer extends StatelessWidget {
             Flexible(
               flex: 4,
               child: Container(
-                height: MediaQuery.of(context).size.height / 1 / 2 * 1.5,
-                width: MediaQuery.of(context).size.width,
+                height: MediaQuery.sizeOf(context).height / 1 / 2 * 1.5,
+                width: MediaQuery.sizeOf(context).width,
                 color: Theme.of(context).colorScheme.background,
                 child: Padding(
                   padding:
                       const EdgeInsets.symmetric(vertical: 8, horizontal: 16.0),
                   child: ConstrainedBox(
                     constraints: BoxConstraints(
-                      maxHeight: MediaQuery.of(context).size.height,
+                      maxHeight: MediaQuery.sizeOf(context).height,
                     ),
                     child: Scrollbar(
                       controller: _scrollController,
@@ -347,8 +347,8 @@ class ShowTextTafseer extends StatelessWidget {
     ];
     dropDownModalBottomSheet(
       context,
-      MediaQuery.of(context).size.height / 1 / 2,
-      MediaQuery.of(context).size.width,
+      MediaQuery.sizeOf(context).height / 1 / 2,
+      MediaQuery.sizeOf(context).width,
       Padding(
         padding: const EdgeInsets.symmetric(vertical: 8.0),
         child: Stack(
@@ -437,16 +437,16 @@ class ShowTextTafseer extends StatelessWidget {
                                     size: 14, color: Color(0xfffcbb76))
                                 : null,
                           ),
-                          onTap: () {
+                          onTap: () async {
                             print("IconButton pressed, calling updateTextText");
                             ayatController.handleRadioValueChanged(index);
-                            ayatController.saveTafseer(index);
+                            await pref.saveInteger(TAFSEER_VAL, index);
                             // Get new translation and update state
                             ayatController.getNewTranslationAndNotify(
                                 context,
-                                int.parse(ayatController.sorahTextNumber!),
-                                int.parse(ayatController.ayahTextNumber!));
-                            print("lastAyahInPage $lastAyahInPage");
+                                int.parse(ayatController.sorahTextNumber.value),
+                                int.parse(ayatController.ayahTextNumber.value));
+                            // print("lastAyahInPage $lastAyahInPage");
                             if (SlidingUpPanelStatus.hidden ==
                                 generalController.panelTextController.status) {
                               generalController.panelTextController.expand();
@@ -465,15 +465,12 @@ class ShowTextTafseer extends StatelessWidget {
                                   border: Border.all(
                                       color: Theme.of(context).dividerColor,
                                       width: 2)),
-                              child: SvgPicture.asset(
-                                'assets/svg/tafseer_book.svg',
-                                colorFilter: ayatController.radioValue == index
-                                    ? null
-                                    : ColorFilter.mode(
-                                        Theme.of(context)
-                                            .canvasColor
-                                            .withOpacity(.4),
-                                        BlendMode.lighten),
+                              child: Opacity(
+                                child: SvgPicture.asset(
+                                  'assets/svg/tafseer_book.svg',
+                                ),
+                                opacity:
+                                    ayatController.radioValue == index ? 1 : .4,
                               )),
                         ),
                         decoration: BoxDecoration(

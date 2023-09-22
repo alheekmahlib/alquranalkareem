@@ -4,11 +4,12 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get/get.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 import 'package:theme_provider/theme_provider.dart';
+import 'package:wakelock/wakelock.dart';
 
 import '../quran_page/screens/quran_screen.dart';
-import '../shared/postPage.dart';
 import 'desktop/main_screen.dart';
 import 'l10n/app_localizations.dart';
+import 'screens/postPage.dart';
 import 'services_locator.dart';
 import 'shared/controller/general_controller.dart';
 import 'shared/controller/settings_controller.dart';
@@ -24,6 +25,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
+    Wakelock.enable();
     return ThemeConsumer(child: Builder(builder: (themeContext) {
       UiHelper.showRateDialog(context);
       return GetBuilder<SettingsController>(
@@ -38,9 +40,12 @@ class _HomePageState extends State<HomePage> {
                   GlobalCupertinoLocalizations.delegate,
                 ],
                 supportedLocales: const [
-                  Locale('ar', 'AE'),
-                  Locale('en', ''),
-                  Locale('es', ''),
+                  Locale('be'),
+                  Locale('en'),
+                  Locale('es'),
+                  Locale('so'),
+                  Locale('ur'),
+                  Locale('ar')
                 ],
                 locale: settingsController.initialLang,
                 theme: ThemeProvider.themeOf(themeContext).data,

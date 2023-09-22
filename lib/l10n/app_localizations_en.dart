@@ -62,13 +62,16 @@ class AppLocalizationsEn extends AppLocalizations {
   String get stop_title => 'The noble Qur’an - Al-Heekmah Library';
 
   @override
-  String get about_app => 'The application of the Qur’an Al Kareem is characterized by its approval of the edition of the King Fahd Complex for Printing the Noble Qur’an in Madinah because of its reliability and mastery.\nThe Quran Al Kareem application is sponsored by the \"Al-Heekmah Library\".\nIt is a well-designed application that allows you to read interactively with the text of the electronic Quran, listen to recitations, study the  Quran Al Kareem and memorize it with ease.';
+  String get about_app =>
+      'The application of the Qur’an Al Kareem is characterized by its approval of the edition of the King Fahd Complex for Printing the Noble Qur’an in Madinah because of its reliability and mastery.\nThe Quran Al Kareem application is sponsored by the \"Al-Heekmah Library\".\nIt is a well-designed application that allows you to read interactively with the text of the electronic Quran, listen to recitations, study the  Quran Al Kareem and memorize it with ease.';
 
   @override
-  String get about_app2 => 'Among the most important features of the application :';
+  String get about_app2 =>
+      'Among the most important features of the application :';
 
   @override
-  String get about_app3 => '◉ This application enables you to read the Quran as if you were reading in the Mushaf, and you can read in vertical and horizontal mode.\n◉ You can also read in variable mode that enables you to zoom in and out as you like.\n◉ The application has the feature of textual search in the verses of the Qur’an through real-time search and display of results with pages in addition to the possibility of going to the page as needed.\n◉ Addition to bookmarks so that the reader can save the page and return to it whenever he wants.\n◉ Addition to notes.\n◉ Ability to listen to each verse in voice of different readers.\n◉ The app allows interpretation for each verse, you can change between interpretations, and you can resize the interpretation line.\n◉ Index of Surahs.\n◉ Move between Surahs easily.\n◉ The app lets you read the meaning of stop signs.\n◉ The application enables you to read the Muslim fortress in full and divided by remembrance so that it is easy for the reader to navigate between sections, and you can add any mention to favorites.\n◉ The application allows the reader to read to change color patterns, including the dark pattern, which changes the background color in black and white lines to give the reader complete comfort when reading in a low-light atmosphere.  \n◉ The app enables you to listen to the Surahs or download and listen to them at any time without the need for the internet.';
+  String get about_app3 =>
+      '◉ This application enables you to read the Quran as if you were reading in the Mus\'haf, and you can read in vertical and horizontal mode.\\n◉ You can also read in variable mode that enables you to zoom in and out as you like.\\n◉ The application has the feature of textual search in the verses of the Qur’an through real-time search and display of results with pages in addition to the possibility of going to the page as needed.\\n◉ Addition to bookmarks so that the reader can save the page and return to it whenever he wants.\\n◉ Addition to notes.\\n◉ Ability to listen to each verse in voice of different readers.\\n◉ The app allows interpretation for each verse, you can change between interpretations, and you can resize the interpretation line.\\n◉ Index of Surahs.\\n◉ Move between Surahs easily.\\n◉ The app lets you read the meaning of stop signs.\\n◉ The application enables you to read the Muslim fortress in full and divided by remembrance so that it is easy for the reader to navigate between sections, and you can add any mention to favorites.\\n◉ The application allows the reader to read to change color patterns, including the dark pattern, which changes the background color in black and white lines to give the reader complete comfort when reading in a low-light atmosphere. \\n◉ The app enables you to listen to the Surahs or download and listen to them at any time without the need for the internet.';
 
   @override
   String get email => 'Contact us';
@@ -83,10 +86,11 @@ class AppLocalizationsEn extends AppLocalizations {
   String get page => 'Page';
 
   @override
-  String get search_word => 'Search for the verse';
+  String get search_word => 'Ayah To search';
 
   @override
-  String get search_description => 'You can search for all verses of the Noble Qur’an, just type a word from the verse.';
+  String get search_description =>
+      'You can search for all verses of the Noble Qur’an, just type a word from the verse.';
 
   @override
   String get fontSize => 'Change Font Size';
@@ -98,19 +102,22 @@ class AppLocalizationsEn extends AppLocalizations {
   String get onboardTitle1 => 'Easy interface';
 
   @override
-  String get onboardDesc1 => '- Ease of searching for a verse.\n- Change the language.\n- Listen to the page.\n- Change the reader.';
+  String get onboardDesc1 =>
+      '- Ease of searching for a verse.\n- Change the language.\n- Listen to the page.\n- Change the reader.';
 
   @override
   String get onboardTitle2 => 'Show The Tafseer';
 
   @override
-  String get onboardDesc2 => 'The interpretation of each verse can be read by pulling the list up.';
+  String get onboardDesc2 =>
+      'The interpretation of each verse can be read by pulling the list up.';
 
   @override
   String get onboardTitle3 => 'Click Options';
 
   @override
-  String get onboardDesc3 => '1- When you double click the page is enlarged.\n2- Upon long click you will be presented with the option to save the page.\n3- When you press once, the menus appear.';
+  String get onboardDesc3 =>
+      '1- When you double click the page is enlarged.\n2- Upon long click you will be presented with the option to save the page.\n3- When you press once, the menus appear.';
 
   @override
   String get green => 'Green Mode';
@@ -128,7 +135,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get themeTitle => 'Choose Appearance';
 
   @override
-  String get sorah => 'Sorah';
+  String get sorah => 'Surah';
 
   @override
   String get part => 'Part';
@@ -209,7 +216,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get tafseer => 'Al Tafseer';
 
   @override
-  String get allJuz => 'Parts of the Quran';
+  String get allJuz => 'Parts of the Qur\'an';
 
   @override
   String get copyAzkarText => 'The Azkar has been copied!';
@@ -221,7 +228,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get deletedBookmark => 'Bookmark deleted!';
 
   @override
-  String get deletedReminder => '¡Recordatorio eliminado!';
+  String get deletedReminder => 'Reminder deleted!';
 
   @override
   String get fillAllFields => 'Please fill in the fields!';
@@ -230,7 +237,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get version => 'Version';
 
   @override
-  String get share => 'Share the app';
+  String get share => 'Share The App';
 
   @override
   String get facebook => 'Follow us on Facebook';
@@ -263,13 +270,16 @@ class AppLocalizationsEn extends AppLocalizations {
   String get noInternet => 'The device is not connected to the Internet!';
 
   @override
-  String get mobileDataAyat => 'Note: You are using cellular data to download verses!';
+  String get mobileDataAyat =>
+      'Note: You are using cellular data to download verses!';
 
   @override
-  String get mobileDataSurahs => 'Note: You are using cellular data to download the surahs!';
+  String get mobileDataSurahs =>
+      'Note: You are using cellular data to download the surahs!';
 
   @override
-  String get mobileDataListen => 'Note: You are using cellular data to listen to surahs!';
+  String get mobileDataListen =>
+      'Note: You are using cellular data to listen to surahs!';
 
   @override
   String get choiceAyah => 'Please choose the verse first!';
@@ -314,5 +324,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get shareImageWTrans => 'As an image with additional content';
 
   @override
-  String get shareTrans => 'Note: Sharing the interpretation in an image only supports the interpretation of Al-Saadi, because the interpretation is not lengthy.';
+  String get shareTrans =>
+      'Note: Sharing the interpretation in an image only supports the interpretation of Al-Saadi, because the interpretation is not lengthy.';
+
+  @override
+  String get translation => 'Translation';
 }

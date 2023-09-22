@@ -6,7 +6,7 @@ import '../../quran_page/data/repository/sorah_repository.dart';
 class SorahRepositoryController extends GetxController {
   final surahs = RxList<Sorah>([]);
 
-  SorahRepository _sorahRepository = SorahRepository();
+  final SorahRepository _sorahRepository = SorahRepository();
 
   List<Sorah> get sorahs => surahs.value;
 

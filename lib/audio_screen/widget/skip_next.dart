@@ -1,56 +1,42 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:just_audio/just_audio.dart';
 
-import '../controller/surah_audio_controller.dart';
+import '../../shared/services/controllers_put.dart';
 
 class SkipToNext extends StatelessWidget {
-  late final SurahAudioController surahAudioController =
-      Get.put(SurahAudioController());
+  const SkipToNext({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      alignment: Alignment.center,
-      children: [
-        Container(
-          height: 30,
-          width: 30,
-          decoration: BoxDecoration(
-              color: Theme.of(context).colorScheme.background,
-              borderRadius: const BorderRadius.only(
-                topRight: Radius.circular(8),
-                topLeft: Radius.circular(8),
-              ),
-              border:
-                  Border.all(width: 2, color: Theme.of(context).dividerColor)),
+    return StreamBuilder<SequenceState?>(
+      stream: surahAudioController.audioPlayer.sequenceStateStream,
+      builder: (context, snapshot) => IconButton(
+        icon: Icon(
+          Icons.skip_previous,
+          color: Theme.of(context).colorScheme.surface,
+          size: 30,
         ),
-        StreamBuilder<SequenceState?>(
-          stream: surahAudioController.audioPlayer.sequenceStateStream,
-          builder: (context, snapshot) => IconButton(
-            icon: Icon(
-              Icons.skip_previous,
-              color: Theme.of(context).colorScheme.surface,
-            ),
-            onPressed: () {
-              if (surahAudioController.isDownloading.value) {
-                if (surahAudioController.sorahNum == 114) {
-                  surahAudioController.sorahNum.value = 1;
-                } else {
-                  surahAudioController.sorahNum.value += 1;
-                }
-              } else {
-                if (surahAudioController.sorahNum == 114) {
-                  surahAudioController.sorahNum.value = 1;
-                } else {
-                  surahAudioController.sorahNum.value += 1;
-                }
-              }
-              surahAudioController.playNextSurah();
-            },
-          ),
-        ),
-      ],
+        onPressed: () {
+          if (surahAudioController.isDownloading.value) {
+            if (surahAudioController.sorahNum.value == 114) {
+              surahAudioController.sorahNum.value = 1;
+              surahAudioController.selectedSurah.value = 1;
+            } else {
+              surahAudioController.sorahNum.value += 1;
+              surahAudioController.selectedSurah.value += 1;
+            }
+          } else {
+            if (surahAudioController.sorahNum.value == 114) {
+              surahAudioController.sorahNum.value = 1;
+              surahAudioController.selectedSurah.value = 1;
+            } else {
+              surahAudioController.sorahNum.value += 1;
+              surahAudioController.selectedSurah.value += 1;
+            }
+          }
+          surahAudioController.playNextSurah();
+        },
+      ),
     );
   }
 }

@@ -2,7 +2,9 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+
+import '../services/controllers_put.dart';
+import '../utils/constants/shared_preferences_constants.dart';
 
 class TranslateDataController extends GetxController {
   var data = [].obs;
@@ -13,38 +15,47 @@ class TranslateDataController extends GetxController {
   Future<void> fetchSura(BuildContext context) async {
     isLoading.value = true; // Set isLoading to true
     String loadedData = await DefaultAssetBundle.of(context)
-        .loadString("assets/json/${trans.value}.json");
+        .loadString("assets/json/translate/${trans.value}.json");
     Map<String, dynamic> showData = json.decode(loadedData);
     // List<dynamic> sura = showData[surahNumber];
     data.value = showData['translations'];
     isLoading.value = false; // Set isLoading to false and update the data
+    print('trans.value ${trans.value}');
   }
 
-  translateHandleRadioValueChanged(int translateVal) {
+  translateHandleRadioValueChanged(int translateVal) async {
     transValue.value = translateVal;
     switch (transValue.value) {
       case 0:
-        return trans.value = 'en';
+        trans.value = 'en';
+        await pref.saveString(TRANS, 'en');
       case 1:
-        return trans.value = 'es';
+        trans.value = 'es';
+        await pref.saveString(TRANS, 'es');
       case 2:
-        return trans.value = 'be';
+        trans.value = 'be';
+        await pref.saveString(TRANS, 'be');
       case 3:
-        return trans.value = 'urdu';
+        trans.value = 'urdu';
+        await pref.saveString(TRANS, 'urdu');
+      case 4:
+        trans.value = 'so';
+        await pref.saveString(TRANS, 'so');
       default:
-        return trans.value = 'en';
+        trans.value = 'en';
     }
   }
 
-  // Save & Load Translate For Quran Text
-  Future<void> saveTranslateValue(int translateValue) async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    await prefs.setInt("translateـvalue", translateValue);
-  }
-
   Future<void> loadTranslateValue() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    transValue.value = prefs.getInt('translateـvalue') ?? 0;
+    transValue.value = await pref.getInteger(TRANSLATE_VALUE, defaultValue: 0);
+    // String? tValue = await pref.getString(TRANS);
+    // if (tValue == null) {
+    //   trans.value = tValue;
+    // } else {
+    //   trans.value = 'en'; // Setting to a valid default value
+    // }
+    trans.value = await pref.getString(TRANS, defaultValue: 'en');
+    print('trans.value ${trans.value}');
     print('translateـvalue $transValue');
   }
 }

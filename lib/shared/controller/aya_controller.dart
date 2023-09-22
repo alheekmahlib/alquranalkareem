@@ -28,8 +28,8 @@ class AyaController extends GetxController {
   }
 
   String _convertArabicToEnglishNumbers(String input) {
-    final arabicNumbers = '٠١٢٣٤٥٦٧٨٩';
-    final englishNumbers = '0123456789';
+    const arabicNumbers = '٠١٢٣٤٥٦٧٨٩';
+    const englishNumbers = '0123456789';
 
     return input.split('').map((char) {
       int index = arabicNumbers.indexOf(char);

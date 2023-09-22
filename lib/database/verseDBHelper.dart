@@ -7,7 +7,7 @@ import 'package:sqflite/sqflite.dart';
 import '../quran_page/data/model/verse.dart';
 
 class DBHelper {
-  static final _databaseName = "ayahinfo_1260.db";
+  static const _databaseName = "ayahinfo_1260.db";
   // static final _databaseVersion = 1;
 
   static final DBHelper _instance = DBHelper._internal();
@@ -66,7 +66,7 @@ class DBHelper {
 
   Future<List<Map<String, dynamic>>> getVersesForCurrentPage(int currentPage) async {
     // You need to open the database first, if it's not already open
-    Database db = await this.database;
+    Database db = await database;
 
     // Assuming you have a table named 'verses' with a 'page_number' column
     List<Map<String, dynamic>> result =

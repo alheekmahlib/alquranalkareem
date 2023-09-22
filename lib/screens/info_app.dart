@@ -2,6 +2,7 @@ import 'package:alquranalkareem/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:theme_provider/theme_provider.dart';
+
 import '../shared/widgets/widgets.dart';
 
 class InfoApp extends StatelessWidget {
@@ -17,7 +18,8 @@ class InfoApp extends StatelessWidget {
       child: Scaffold(
         backgroundColor: Theme.of(context).colorScheme.background,
         body: Padding(
-          padding: orientation(context,
+          padding: orientation(
+              context,
               const EdgeInsets.only(top: 80.0, bottom: 16.0),
               const EdgeInsets.only(top: 20.0, bottom: 16.0)),
           child: Align(
@@ -32,7 +34,8 @@ class InfoApp extends StatelessWidget {
                   indent: 16,
                 ),
                 Padding(
-                  padding: orientation(context,
+                  padding: orientation(
+                      context,
                       const EdgeInsets.only(top: 30, right: 16, left: 16),
                       const EdgeInsets.only(top: 30, right: 64, left: 64)),
                   child: ListView(
@@ -40,7 +43,7 @@ class InfoApp extends StatelessWidget {
                       Center(
                         child: SizedBox(
                             height: 80,
-                            width: MediaQuery.of(context).size.width * 3 / 4,
+                            width: MediaQuery.sizeOf(context).width * 3 / 4,
                             child: SvgPicture.asset(
                               'assets/svg/Logo_line2.svg',
                             )),
@@ -52,7 +55,8 @@ class InfoApp extends StatelessWidget {
                         padding: const EdgeInsets.symmetric(horizontal: 8),
                         decoration: BoxDecoration(
                             color: Theme.of(context)
-                                .colorScheme.surface
+                                .colorScheme
+                                .surface
                                 .withOpacity(.2),
                             border: Border.symmetric(
                                 vertical: BorderSide(
@@ -77,7 +81,8 @@ class InfoApp extends StatelessWidget {
                         padding: const EdgeInsets.symmetric(horizontal: 8),
                         decoration: BoxDecoration(
                             color: Theme.of(context)
-                                .colorScheme.surface
+                                .colorScheme
+                                .surface
                                 .withOpacity(.2),
                             border: Border.symmetric(
                                 vertical: BorderSide(
@@ -103,7 +108,8 @@ class InfoApp extends StatelessWidget {
                         padding: const EdgeInsets.symmetric(horizontal: 8),
                         decoration: BoxDecoration(
                             color: Theme.of(context)
-                                .colorScheme.surface
+                                .colorScheme
+                                .surface
                                 .withOpacity(.2),
                             border: Border.symmetric(
                                 vertical: BorderSide(
@@ -128,7 +134,8 @@ class InfoApp extends StatelessWidget {
                         padding: const EdgeInsets.symmetric(horizontal: 8),
                         decoration: BoxDecoration(
                             color: Theme.of(context)
-                                .colorScheme.surface
+                                .colorScheme
+                                .surface
                                 .withOpacity(.2),
                             border: Border.symmetric(
                                 vertical: BorderSide(

@@ -5,8 +5,8 @@ import 'package:theme_provider/theme_provider.dart';
 
 import '../../l10n/app_localizations.dart';
 import '../../quran_page/data/model/aya.dart';
-import 'controllers_put.dart';
-import 'lottie.dart';
+import '../services/controllers_put.dart';
+import '../utils/constants/lottie.dart';
 
 class QuranSearch extends StatelessWidget {
   QuranSearch({super.key});
@@ -35,6 +35,9 @@ class QuranSearch extends StatelessWidget {
             },
             onChanged: (value) {
               ayaController.search(value);
+            },
+            onTapOutside: (event) {
+              FocusManager.instance.primaryFocus?.unfocus();
             },
             style: TextStyle(
                 color: Theme.of(context).colorScheme.surface,

@@ -1,7 +1,6 @@
-import 'package:alquranalkareem/shared/controller/ayat_controller.dart';
-import 'package:get/get.dart';
 import 'package:sqflite/sqflite.dart';
 
+import '../../../shared/services/controllers_put.dart';
 import '../model/ayat.dart';
 import '../tafseer_data_client.dart';
 
@@ -14,7 +13,6 @@ class TranslateRepository {
   }
   List<Ayat>? ayaListNotFut;
   String? tableName;
-  late final AyatController ayatController = Get.put(AyatController());
 
   Future<List<Ayat>> getPageTranslate(int pageNum) async {
     if (ayaListNotFut == null) {

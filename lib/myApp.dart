@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:io';
 import 'dart:math';
 
 import 'package:alquranalkareem/screens/splash_screen.dart';
@@ -6,13 +7,12 @@ import 'package:arabic_numbers/arabic_numbers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hijri/hijri_calendar.dart';
 import 'package:home_widget/home_widget.dart';
 import 'package:theme_provider/theme_provider.dart';
 import 'package:workmanager/workmanager.dart';
 
-import '../shared/lists.dart';
+import 'shared/utils/constants/lists.dart';
 import 'shared/utils/helpers/app_themes.dart';
 
 /// Used for Background Updates using Workmanager Plugin
@@ -105,33 +105,33 @@ class _MyAppState extends State<MyApp> {
     ArabicNumbers arabicNumber = ArabicNumbers();
     // HijriCalendar.setLocal('en');
     var _today = HijriCalendar.now();
-    String day = "${arabicNumber.convert(_today.hDay)}";
-    String year = "${arabicNumber.convert(_today.hYear)}";
-    await HomeWidget.saveWidgetData<String>('hijriDay', "$day");
+    String day = arabicNumber.convert(_today.hDay);
+    String year = arabicNumber.convert(_today.hYear);
+    await HomeWidget.saveWidgetData<String>('hijriDay', day);
     await HomeWidget.saveWidgetData<String>(
         'hijriMonth', _today.hMonth.toString());
-    await HomeWidget.saveWidgetData<String>('hijriYear', "$year");
+    await HomeWidget.saveWidgetData<String>('hijriYear', year);
   }
 
   @override
   void initState() {
     super.initState();
-    // if (Platform.isIOS || Platform.isAndroid) {
-    //   // Initialize Workmanager
-    //   final workManager = Workmanager();
-    //   workManager.initialize(
-    //     callbackDispatcher, // Your callbackDispatcher function
-    //     isInDebugMode: false, // Set to false in production builds
-    //   );
-    //   HomeWidget.setAppGroupId('group.com.alheekmah.alquranalkareem.widget');
-    //   saveHijriDate();
-    //   Timer.periodic(const Duration(minutes: 1), (timer) async {
-    //     await _saveRandomZikr();
-    //     await _updateWidget();
-    //   });
-    //   HomeWidget.registerBackgroundCallback(backgroundCallback);
-    //   // _startBackgroundUpdate();
-    // }
+    if (Platform.isIOS || Platform.isAndroid) {
+      // Initialize Workmanager
+      final workManager = Workmanager();
+      workManager.initialize(
+        callbackDispatcher, // Your callbackDispatcher function
+        isInDebugMode: false, // Set to false in production builds
+      );
+      HomeWidget.setAppGroupId('group.com.alheekmah.alquranalkareem.widget');
+      saveHijriDate();
+      Timer.periodic(const Duration(minutes: 1), (timer) async {
+        await _saveRandomZikr();
+        await _updateWidget();
+      });
+      HomeWidget.registerBackgroundCallback(backgroundCallback);
+      // _startBackgroundUpdate();
+    }
   }
 
   @override
@@ -166,38 +166,33 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: []);
 
-    return ScreenUtilInit(
-        minTextAdapt: true,
-        splitScreenMode: true,
-        builder: (context, child) {
-          return ThemeProvider(
-            defaultThemeId: 'green',
-            saveThemesOnChange: true,
-            loadThemeOnInit: false,
-            onInitCallback: (controller, previouslySavedThemeFuture) async {
-              String? savedTheme = await previouslySavedThemeFuture;
-              if (savedTheme != null) {
-                controller.setTheme(savedTheme);
-              } else {
-                Brightness platformBrightness = SchedulerBinding
-                    .instance.platformDispatcher.platformBrightness;
-                if (platformBrightness == Brightness.dark) {
-                  controller.setTheme('dark');
-                } else {
-                  controller.setTheme('green');
-                }
-                controller.forgetSavedTheme();
-              }
-            },
-            themes: AppThemes.list,
-            child: Directionality(
-              textDirection: TextDirection.rtl,
-              child: SplashScreen(),
-              // child: WillPopScope(
-              //     onWillPop: () async => false, child: SplashScreen()),
-              // child: const HomePage(),
-            ),
-          );
-        });
+    return ThemeProvider(
+      defaultThemeId: 'green',
+      saveThemesOnChange: true,
+      loadThemeOnInit: false,
+      onInitCallback: (controller, previouslySavedThemeFuture) async {
+        String? savedTheme = await previouslySavedThemeFuture;
+        if (savedTheme != null) {
+          controller.setTheme(savedTheme);
+        } else {
+          Brightness platformBrightness =
+              SchedulerBinding.instance.platformDispatcher.platformBrightness;
+          if (platformBrightness == Brightness.dark) {
+            controller.setTheme('dark');
+          } else {
+            controller.setTheme('green');
+          }
+          controller.forgetSavedTheme();
+        }
+      },
+      themes: AppThemes.list,
+      child: const Directionality(
+        textDirection: TextDirection.rtl,
+        child: SplashScreen(),
+        // child: WillPopScope(
+        //     onWillPop: () async => false, child: SplashScreen()),
+        // child: const HomePage(),
+      ),
+    );
   }
 }

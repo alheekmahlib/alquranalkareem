@@ -1,10 +1,13 @@
+import 'package:alquranalkareem/shared/controller/quranText_controller.dart';
 import 'package:arabic_numbers/arabic_numbers.dart';
 import 'package:flutter/material.dart';
-import 'package:spring/spring.dart';
+import 'package:get/get.dart';
 import 'package:theme_provider/theme_provider.dart';
 
 import '../quran_page/widget/sliding_up.dart';
-import '../shared/widgets/controllers_put.dart';
+import '../services_locator.dart';
+import '../shared/controller/translate_controller.dart';
+import '../shared/services/controllers_put.dart';
 import '../shared/widgets/widgets.dart';
 import 'Widgets/audio_text_widget.dart';
 import 'Widgets/scrollable_list.dart';
@@ -12,8 +15,6 @@ import 'Widgets/show_text_tafseer.dart';
 import 'Widgets/widgets.dart';
 import 'model/QuranModel.dart';
 
-int? lastAyah;
-int? lastAyahInPage;
 int? lastAyahInPageA;
 int pageN = 1;
 int? textSurahNum;
@@ -24,7 +25,8 @@ class TextPageView extends StatelessWidget {
   int? nomPageF, nomPageL, pageNum = 1;
 
   TextPageView({
-    Key? key,
+    super.key,
+    // Key? key,
     this.nomPageF,
     this.nomPageL,
     this.pageNum,
@@ -36,11 +38,15 @@ class TextPageView extends StatelessWidget {
 
   ArabicNumbers arabicNumber = ArabicNumbers();
   String? translateText;
+  Color? backColor;
 
   @override
   Widget build(BuildContext context) {
-    quranTextController.loadSwitchValue();
-    springController = SpringController(initialAnim: Motion.play);
+    sl<QuranTextController>().loadSwitchValue();
+    sl<TranslateDataController>().fetchSura(context);
+    sl<TranslateDataController>().loadTranslateValue();
+
+    backColor = const Color(0xff91a57d).withOpacity(0.4);
 
     WidgetsBinding.instance
         .addPostFrameCallback((_) => quranTextController.jumbToPage(pageNum));
@@ -50,7 +56,6 @@ class TextPageView extends StatelessWidget {
       right: false,
       left: false,
       child: Scaffold(
-          key: TPageScaffoldKey,
           resizeToAvoidBottomInset: false,
           body: Directionality(
             textDirection: TextDirection.rtl,
@@ -68,7 +73,7 @@ class TextPageView extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           sorahName(
-                            surah!.number.toString(),
+                            quranTextController.currentSurahIndex.toString(),
                             context,
                             Theme.of(context).canvasColor,
                           ),
@@ -140,7 +145,7 @@ class TextPageView extends StatelessWidget {
                             Column(
                               children: [
                                 Container(
-                                  width: MediaQuery.of(context).size.width,
+                                  width: MediaQuery.sizeOf(context).width,
                                   decoration: BoxDecoration(
                                     color: Theme.of(context)
                                         .colorScheme
@@ -153,7 +158,8 @@ class TextPageView extends StatelessWidget {
                                         MainAxisAlignment.spaceBetween,
                                     children: [
                                       sorahName(
-                                        surah!.number.toString(),
+                                        quranTextController.currentSurahIndex
+                                            .toString(),
                                         context,
                                         ThemeProvider.themeOf(context).id ==
                                                 'dark'
@@ -207,40 +213,27 @@ class TextPageView extends StatelessWidget {
                   ),
                 ),
                 SizedBox(
-                  height: MediaQuery.of(context).size.height,
+                  height: MediaQuery.sizeOf(context).height,
                   child: Padding(
                     padding: orientation(
                         context,
                         const EdgeInsets.only(top: 155.0, bottom: 16.0),
                         const EdgeInsets.only(
                             top: 68.0, bottom: 16.0, right: 40.0, left: 40.0)),
-                    child: AnimatedBuilder(
-                        animation: quranTextController.animationController,
-                        builder: (BuildContext context, Widget? child) {
-                          if (quranTextController.scrollController.hasClients) {
-                            quranTextController.scrollController.jumpTo(
-                                quranTextController.animationController.value *
-                                    (quranTextController.scrollController
-                                        .position.maxScrollExtent));
-                          }
-
-                          return ScrollableList(
-                            surah: surah,
-                            nomPageF: nomPageF!,
-                            nomPageL: nomPageL!,
-                          );
-                        }),
+                    child: ScrollableList(
+                      surah: surah!,
+                      nomPageF: nomPageF!,
+                      nomPageL: nomPageL!,
+                    ),
                   ),
                 ),
-                Spring.slide(
-                    springController: springController,
-                    slideType: SlideType.slide_in_left,
-                    delay: const Duration(milliseconds: 0),
-                    animDuration: const Duration(milliseconds: 500),
+                Obx(() => AnimatedPositioned(
+                    duration: const Duration(milliseconds: 300),
                     curve: Curves.easeInOut,
-                    extend: -500,
-                    withFade: false,
-                    child: AudioTextWidget()),
+                    bottom: 0,
+                    left: generalController.textWidgetPosition.value,
+                    right: 0,
+                    child: const AudioTextWidget())),
                 Align(
                     alignment: Alignment.bottomCenter,
                     child: TextSliding(
