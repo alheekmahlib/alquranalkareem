@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:developer' as developer;
 import 'dart:io';
 
+import 'package:alquranalkareem/quran_text/model/QuranModel.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
@@ -13,6 +14,7 @@ import 'package:path_provider/path_provider.dart';
 import 'package:rxdart/rxdart.dart' as R;
 
 import '../../l10n/app_localizations.dart';
+import '../../quran_text/model/Ahya.dart';
 import '../../quran_text/text_page_view.dart';
 import '../functions.dart';
 import '../services/controllers_put.dart';
@@ -56,6 +58,7 @@ class AudioController extends GetxController {
   int? currentSorahInPage;
   int? currentAyah;
   int? currentSorah;
+  bool goingToNewSurah = false;
   // final controller = Get.find<AyatController>();
 
   // Color determineColor(int b) {
@@ -112,6 +115,32 @@ class AudioController extends GetxController {
           (position, bufferedPosition, duration) => PositionData(
               position, bufferedPosition, duration ?? Duration.zero));
 
+  String get currentAyahFileName {
+    final surahNumber = surahTextController.surahs
+        .firstWhere((s) =>
+            s.ayahs!.firstWhere(
+                (a) => a.number == ayatController.currentAyah!.ayaId) !=
+            null)
+        .number;
+    return "$readerValue/${formatNumber(surahNumber!)}${formatNumber(ayatController.currentAyah!.ayaId!)}.mp3";
+  }
+
+  SurahText get getSurahByAID {
+    print(surahTextController.surahs.length);
+    return surahTextController.surahs.firstWhere((s) =>
+        s.ayahs!.firstWhereOrNull(
+            (a) => a.number == ayatController.currentAyah!.ayaId) !=
+        null);
+  }
+
+  Ayahs get currentAyahs => getSurahByAID.ayahs!
+      .firstWhere((a) => a.number == ayatController.currentAyah!.ayaId);
+
+  bool get isLastAyahInPage =>
+      surahTextController
+          .allPages[generalController.cuMPage.value - 1].length ==
+      int.parse(ayatController.currentAyahNumber.value);
+
   Future playFile(BuildContext context, String url, String fileName) async {
     String path;
     try {
@@ -140,31 +169,32 @@ class AudioController extends GetxController {
       // lastAyahInSurah.value = ayaController.ayahList.last.ayaNum;
       await audioPlayer.setAudioSource(AudioSource.file(path));
       audioPlayer.playerStateStream.listen((playerState) async {
-        if (playerState.processingState == ProcessingState.completed) {
-          // if (playerState.processingState == ProcessingState.completed &&
-          //     !isProcessingNextAyah.value) {
-          // isProcessingNextAyah.value = true;
-          isPlay.value = false;
-          await audioPlayer.pause();
-          isPlay.value = false;
+        // if (playerState.processingState == ProcessingState.completed) {
+        if (playerState.processingState == ProcessingState.completed &&
+            !isProcessingNextAyah.value) {
+          isProcessingNextAyah.value = true;
+          // isPlay.value = false;
+          // await audioPlayer.pause();
+          // isPlay.value = false;
           print(
               'generalController.cuMPage.value ${generalController.cuMPage.value}');
-          // if (generalController.cuMPage.value == 604) {
-          //   print('doneeeeeeeeeeee');
-          //   await audioPlayer.pause();
-          //   isPlay.value = false;
-          // } else if (lastAyahInPage.value ==
-          //     int.parse(ayatController.currentAyahNumber.value)) {
-          //   print('moveToPage');
-          //   moveToNextPage();
-          //   isPlay.value = true;
-          //   await playNextAyah(context);
-          // } else if (lastAyahInSurah.value ==
-          //     int.parse(ayatController.currentAyahNumber.value)) {
-          //   moveToNextSurah();
-          // } else {
-          //   playNextAyah(context);
-          // }
+          if (generalController.cuMPage.value == 604) {
+            print('doneeeeeeeeeeee');
+            await audioPlayer.pause();
+            isPlay.value = false;
+          } else if (isLastAyahInPage) {
+            print('moveToPage');
+            moveToNextPage();
+            isPlay.value = true;
+            // await playNextAyah(context);
+          } else if (getSurahByAID.ayahs!.length ==
+              int.parse(ayatController.currentAyahNumber.value)) {
+            moveToNextPage();
+            goingToNewSurah = true;
+          }
+          print(
+              'ayatController.currentAyahNumber.value${ayatController.currentAyahNumber.value}');
+          playNextAyah(context);
 
           print('ProcessingState.completed');
         }
@@ -195,23 +225,30 @@ class AudioController extends GetxController {
     );
   }
 
-  void moveToNextSurah() {
-    currentAyahInPage.value = 1;
-    generalController.dPageController!.jumpToPage(
-      generalController.cuMPage.value,
-      // duration: const Duration(milliseconds: 600), curve: Curves.easeInOut
-    );
-  }
+  // void moveToNextSurah() {
+  //   generalController.dPageController!.jumpToPage(
+  //     generalController.cuMPage.value,
+  //     // duration: const Duration(milliseconds: 600), curve: Curves.easeInOut
+  //   );
+  // }
 
   Future<void> playNextAyah(BuildContext context) async {
     print('playNextAyah ' * 6);
 
     // currentAyahInPage.value = int.parse(ayatController.currentAyahNumber.value);
-    currentAyahInPage.value += 1;
+    if (goingToNewSurah) {
+      currentSorahInPage = int.parse(pageSurahNumber!) + 1;
+      currentAyahInPage.value = 1;
+      goingToNewSurah = false;
+    } else {
+      currentAyahInPage.value += 1;
+      currentSorahInPage = int.parse(pageSurahNumber!);
+    }
+
     ayatController.currentAyahNumber.value = '${currentAyahInPage.value}';
-    currentAyahInPage.value == ayatController.ayatList.last.ayaNum
-        ? currentSorahInPage = int.parse(pageSurahNumber!) + 1
-        : currentSorahInPage = int.parse(pageSurahNumber!);
+    // currentAyahInPage.value == ayatController.ayatList.last.ayaNum
+    //     ? currentSorahInPage = int.parse(pageSurahNumber!) + 1
+    //     : currentSorahInPage = int.parse(pageSurahNumber!);
     pageSurahNumber = formatNumber(currentSorahInPage!);
     ayatController.currentAyahNumber.value =
         formatNumber(currentAyahInPage.value);
