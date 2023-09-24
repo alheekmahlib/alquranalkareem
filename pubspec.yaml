@@ -3,10 +3,10 @@ description: Al-Quran Al-Kareem - Al-Heekmah Library.
 
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 
-version: 3.0.13+26
+version: 3.1.3+30
 
 environment:
-  sdk: '>=3.0.6 <4.0.0'
+  sdk: '>=3.1.1 <4.0.0'
 
 
 dependencies:
@@ -17,63 +17,62 @@ dependencies:
 
 
 
-  cupertino_icons: ^1.0.2
-  shared_preferences: ^2.1.1
+  cupertino_icons: ^1.0.6
+  shared_preferences: ^2.2.1
   path: ^1.8.3
-  path_provider: ^2.0.15
-  dio: ^5.1.2
+  path_provider: ^2.1.1
+  dio: ^5.3.2
   quiver: ^3.2.1
-  #  event_bus: ^2.0.0
   theme_provider: ^0.6.0
-  sqflite: ^2.2.8+4
-  sqflite_common_ffi: ^2.2.5
+  sqflite: ^2.3.0
+  sqflite_common_ffi: ^2.3.0+2
   equatable: ^2.0.5
-  flutter_svg: ^2.0.6
+  flutter_svg: ^2.0.7
   responsive_builder: ^0.7.0
   desktop_window: ^0.4.0
   another_xlider: ^3.0.1
-  http: ^0.13.6
-  lottie: ^2.3.2
+#  http: ^0.13.6
+  lottie: ^2.6.0
   hijri: ^3.0.0
   arabic_numbers: ^1.0.0
-  flutter_sliding_up_panel: ^2.0.1
+  flutter_sliding_up_panel: ^2.1.1
   flutter_staggered_animations: ^1.1.1
   share_plus: ^6.3.4
   clipboard: ^0.1.3
   #  app_rename: ^0.0.1
-  get: ^4.6.5
-  audioplayers: ^4.0.1
-  wakelock: ^0.6.1+1
+  get: ^4.6.6
+  wakelock: ^0.6.2
   square_percent_indicater: ^0.1.0
-  group_button: ^5.3.0
+  group_button: ^5.3.3
   scrollable_positioned_list: ^0.3.8
-  url_launcher: ^6.1.11
+  url_launcher: ^6.1.14
   rate_my_app: ^2.0.0
   smooth_page_indicator: ^1.1.0
-  bot_toast: ^4.0.4
-  home_widget: ^0.2.1
+  bot_toast: ^4.1.3
+  home_widget: ^0.3.0
   workmanager: ^0.5.1
-  connectivity_plus: ^4.0.1
-  animated_toggle_switch: ^0.6.2
-  flutter_local_notifications: ^14.1.0
+  connectivity_plus: ^4.0.2
+  animated_toggle_switch: ^0.8.0
+  flutter_local_notifications: ^15.1.1
   flutter_native_timezone: ^2.0.0
-  day_night_time_picker: ^1.2.0+2
-  html: ^0.15.3
-  package_rename: ^1.3.0
+  day_night_time_picker: ^1.3.0+1
+  html: ^0.15.4
+  package_rename: ^1.5.0
   anim_search_bar: ^2.0.3
   painter: ^2.0.0
-  image_gallery_saver: ^1.7.1
+  image_gallery_saver: ^2.0.3
   image: ^4.0.17
-  easy_image_viewer: ^1.2.0
-  just_audio: ^0.9.34
+  easy_image_viewer: ^1.2.1
+  just_audio: ^0.9.35
   rxdart: ^0.27.7
   audio_session: ^0.1.16
-  flutter_screenutil: ^5.8.4
+  flutter_screenutil: ^5.9.0
   pixel_perfect: ^1.1.3
   cool_dropdown: ^2.1.0
-  get_it: ^7.6.0
+  get_it: ^7.6.4
   mini_music_visualizer: ^1.0.2
-  spring: ^2.0.2
+  expansion_tile_card: ^3.0.0
+  just_audio_background: ^0.0.1-beta.10
 #  scroll_to_index: ^3.0.1
 
 
@@ -128,6 +127,7 @@ flutter:
     - assets/svg/alwaqf/
     - assets/svg/quarter/
     - assets/json/
+    - assets/json/translate/
     - assets/lottie/
     - assets/share_images/
     - assets/share_images/surah_name/
@@ -158,3 +158,11 @@ flutter:
     - family: naskh
       fonts:
         - asset: assets/fonts/NotoNaskhArabic-VariableFont_wght.ttf
+
+    - family: urdu
+      fonts:
+        - asset: assets/fonts/NotoNastaliqUrdu.ttf
+
+    - family: bn
+      fonts:
+        - asset: assets/fonts/NotoSerifBengali.ttf

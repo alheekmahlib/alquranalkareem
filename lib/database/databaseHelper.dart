@@ -31,10 +31,13 @@ class DatabaseHelper {
   static final DatabaseHelper instance = DatabaseHelper._privateConstructor();
 
   Future<Database?> get database async {
+    print('db == null => ${_db == null}');
     if (_db != null) return _db;
+
     // lazily instantiate the db the first time it is accessed
     // await initDatabase();
     _db = await initDb();
+    print('db == null => ${_db == null}');
     return _db;
   }
 
@@ -44,24 +47,18 @@ class DatabaseHelper {
     var androidPath = p.join(androidDatabasesPath, 'notesBookmarks.db');
     Directory databasePath = await getApplicationDocumentsDirectory();
     var path = p.join(databasePath.path, 'notesBookmarks.db');
-    return (Platform.isAndroid)
-        ? openDatabase(androidPath,
-            version: _version,
-            readOnly: false,
-            onUpgrade: onUpgrade,
-            onCreate: onCreate)
-        : (Platform.isWindows || Platform.isLinux)
-            ? databaseFactoryFfi.openDatabase(path,
-                options: OpenDatabaseOptions(
-                    version: _version,
-                    readOnly: false,
-                    onUpgrade: onUpgrade,
-                    onCreate: onCreate))
-            : openDatabase(path,
+    return (Platform.isWindows || Platform.isLinux)
+        ? databaseFactoryFfi.openDatabase(path,
+            options: OpenDatabaseOptions(
                 version: _version,
                 readOnly: false,
                 onUpgrade: onUpgrade,
-                onCreate: onCreate);
+                onCreate: onCreate))
+        : openDatabase(path,
+            version: _version,
+            readOnly: false,
+            onUpgrade: onUpgrade,
+            onCreate: onCreate);
   }
 
   Future onCreate(Database db, int version) async {

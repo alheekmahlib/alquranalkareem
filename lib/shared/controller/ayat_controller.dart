@@ -1,29 +1,31 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../quran_page/data/model/ayat.dart';
 import '../../quran_page/data/model/translate.dart';
 import '../../quran_page/data/repository/translate_repository.dart';
-import 'general_controller.dart';
+import '../services/controllers_put.dart';
+import '../utils/constants/shared_preferences_constants.dart';
 
 class AyatController extends GetxController {
   var ayatList = <Ayat>[].obs;
   String? tableName;
   late int radioValue;
-  String? ayahTextNumber;
-  String? sorahTextNumber;
+  RxString ayahTextNumber = '1'.obs;
+  RxString sorahTextNumber = '1'.obs;
+  RxInt ayahSelected = (-1).obs;
+  RxInt ayahNumber = (-1).obs;
+  RxInt surahNumber = 1.obs;
   String tafseerAyah = '';
   String tafseerText = '';
   int? translateIndex;
   RxString currentAyahNumber = '1'.obs;
-  var isSelected = 0.0.obs;
+  Ayat? currentAyah;
+  var isSelected = (-1.0).obs;
   var currentText = Rx<TextUpdated?>(null);
   var currentPageLoading = RxBool(false);
   var currentPageError = RxString('');
   ValueNotifier<int> selectedTafseerIndex = ValueNotifier<int>(0);
-  final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
-  late final GeneralController generalController = Get.put(GeneralController());
 
   void fetchAyat(int pageNum) async {
     List<Ayat>? ayat =
@@ -62,16 +64,8 @@ class AyatController extends GetxController {
     return translateRepository;
   }
 
-  void saveTafseer(int radioValue) async {
-    SharedPreferences prefs = await _prefs;
-    await prefs.setInt("tafseer_val", radioValue);
-  }
-
   Future<void> loadTafseer() async {
-    SharedPreferences prefs = await _prefs;
-    radioValue = prefs.getInt('tafseer_val') ?? 0;
-    print('get tafseer value ${prefs.getInt('tafseer_val')}');
-    print('get radioValue ${radioValue}');
+    radioValue = await pref.getInteger(TAFSEER_VAL, defaultValue: 0);
   }
 
   void updateText(String ayatext, String translate) {

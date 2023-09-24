@@ -6,8 +6,8 @@ import 'package:get/get.dart';
 import 'package:theme_provider/theme_provider.dart';
 
 import '../l10n/app_localizations.dart';
-import '../shared/widgets/controllers_put.dart';
-import '../shared/widgets/lottie.dart';
+import '../shared/services/controllers_put.dart';
+import '../shared/utils/constants/lottie.dart';
 import '../shared/widgets/widgets.dart';
 import 'text_page_view.dart';
 
@@ -56,9 +56,11 @@ class SorahListText extends StatelessWidget {
                                   child: GestureDetector(
                                     onTap: () {
                                       quranTextController.currentSurahIndex =
-                                          index;
+                                          index + 1;
                                       Navigator.of(context)
                                           .push(animatRoute(TextPageView(
+                                        surah:
+                                            surahTextController.surahs[index],
                                         nomPageF: surahTextController
                                             .surahs[index].ayahs!.first.page!,
                                         nomPageL: surahTextController

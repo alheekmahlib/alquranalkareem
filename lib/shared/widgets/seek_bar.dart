@@ -2,8 +2,6 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 
-import 'controllers_put.dart';
-
 class SeekBar extends StatelessWidget {
   final Duration duration;
   final Duration position;
@@ -38,7 +36,7 @@ class SeekBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    surahAudioController.lastPosition = remaining.inSeconds.toDouble();
+    // surahAudioController.lastPosition.value = remaining.inSeconds.toDouble();
     final SliderThemeData _sliderThemeData = SliderTheme.of(context).copyWith(
       trackHeight: 2.0,
     );

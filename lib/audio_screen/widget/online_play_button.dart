@@ -1,14 +1,11 @@
-import 'package:alquranalkareem/audio_screen/controller/surah_audio_controller.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:just_audio/just_audio.dart';
 
-import '../../l10n/app_localizations.dart';
-import '../../shared/widgets/lottie.dart';
+import '../../shared/services/controllers_put.dart';
+import '../../shared/utils/constants/lottie.dart';
 
 class OnlinePlayButton extends StatelessWidget {
-  late final SurahAudioController surahAudioController =
-      Get.put(SurahAudioController());
+  const OnlinePlayButton({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -31,13 +28,10 @@ class OnlinePlayButton extends StatelessWidget {
                           .withOpacity(.4)),
                   Icon(Icons.repeat,
                       color: Theme.of(context).colorScheme.surface),
-                  Icon(Icons.repeat_one,
-                      color: Theme.of(context).colorScheme.surface),
                 ];
                 const cycleModes = [
                   LoopMode.off,
                   LoopMode.all,
-                  LoopMode.one,
                 ];
                 final index = cycleModes.indexOf(loopMode);
                 return IconButton(
@@ -62,10 +56,9 @@ class OnlinePlayButton extends StatelessWidget {
                   alignment: Alignment.center,
                   padding: const EdgeInsets.symmetric(horizontal: 8.0),
                   decoration: BoxDecoration(
-                      color: Theme.of(context).colorScheme.background,
-                      borderRadius: const BorderRadius.only(
-                        topRight: Radius.circular(8),
-                        topLeft: Radius.circular(8),
+                      color: Theme.of(context).colorScheme.surface,
+                      borderRadius: const BorderRadius.all(
+                        Radius.circular(8),
                       ),
                       border: Border.all(
                           width: 2, color: Theme.of(context).dividerColor)),
@@ -81,13 +74,15 @@ class OnlinePlayButton extends StatelessWidget {
                       return playButtonLottie(20.0, 20.0);
                     } else if (playing != true) {
                       return IconButton(
-                        icon: const Icon(Icons.online_prediction_outlined),
+                        icon: const Icon(Icons.play_arrow_outlined),
                         iconSize: 24.0,
-                        color: Theme.of(context).colorScheme.surface,
+                        color: Theme.of(context).canvasColor,
                         onPressed: () async {
                           surahAudioController.isDownloading.value = false;
+                          surahAudioController.isPlaying.value = true;
                           print(
-                              'surahAudioController.isDownloading.value: ${surahAudioController.isDownloading.value}');
+                              'isDownloading: ${surahAudioController.isDownloading.value}');
+                          await surahAudioController.downAudioPlayer.pause();
                           await surahAudioController.audioPlayer.play();
                         },
                       );
@@ -95,13 +90,17 @@ class OnlinePlayButton extends StatelessWidget {
                       return IconButton(
                         icon: const Icon(Icons.pause),
                         iconSize: 24.0,
-                        color: Theme.of(context).colorScheme.surface,
-                        onPressed: surahAudioController.audioPlayer.pause,
+                        color: Theme.of(context).canvasColor,
+                        onPressed: () {
+                          surahAudioController.isPlaying.value = false;
+                          surahAudioController.audioPlayer.pause();
+                        },
                       );
                     } else {
                       return IconButton(
                         icon: const Icon(Icons.replay),
                         iconSize: 24.0,
+                        color: Theme.of(context).canvasColor,
                         onPressed: () => surahAudioController.audioPlayer.seek(
                             Duration.zero,
                             index: surahAudioController
@@ -113,17 +112,6 @@ class OnlinePlayButton extends StatelessWidget {
               ],
             ),
           ),
-          Align(
-            alignment: Alignment.bottomCenter,
-            child: Text(
-              AppLocalizations.of(context)!.online,
-              style: TextStyle(
-                  fontSize: 16,
-                  fontFamily: 'kufi',
-                  height: -1.5,
-                  color: Theme.of(context).dividerColor),
-            ),
-          )
         ],
       ),
     );

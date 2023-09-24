@@ -1,4 +1,4 @@
-import 'package:alquranalkareem/shared/widgets/svg_picture.dart';
+import 'package:alquranalkareem/shared/utils/constants/svg_picture.dart';
 import 'package:alquranalkareem/shared/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -7,13 +7,14 @@ import 'package:get/get.dart';
 import 'package:theme_provider/theme_provider.dart';
 
 import '../../l10n/app_localizations.dart';
+import '../services/controllers_put.dart';
 import '../share/ayah_to_images.dart';
+import '../utils/constants/lottie.dart';
+import '../utils/constants/shared_preferences_constants.dart';
 import 'ayah_list.dart';
-import 'controllers_put.dart';
-import 'lottie.dart';
 
 double? isSelected;
-int? ayahSelected, ayahNumber, surahNumber;
+
 String? surahName;
 
 class ShowTafseer extends StatelessWidget {
@@ -74,7 +75,7 @@ class ShowTafseer extends StatelessWidget {
                 children: [
                   GestureDetector(
                     onTap: () async {
-                      if (ayahNumber == null) {
+                      if (ayatController.ayahNumber.value == -1) {
                         customErrorSnackBar(
                             context, AppLocalizations.of(context)!.choiceAyah);
                       } else {
@@ -112,15 +113,15 @@ class ShowTafseer extends StatelessWidget {
                   ),
                   GestureDetector(
                     onTap: () {
-                      generalController.shareTafseerValue = 1;
-                      if (ayahNumber == null) {
+                      generalController.shareTafseerValue.value = 1;
+                      if (ayatController.ayahNumber.value == -1) {
                         customErrorSnackBar(
                             context, AppLocalizations.of(context)!.choiceAyah);
                       } else if (ayatController.radioValue == 3) {
                         showVerseOptionsBottomSheet(
                             context,
                             0,
-                            surahNumber!,
+                            ayatController.surahNumber.value,
                             ayatController.currentText.value!.translateAyah,
                             ayatController.currentText.value!.translate,
                             surahName!);
@@ -128,7 +129,7 @@ class ShowTafseer extends StatelessWidget {
                         showVerseOptionsBottomSheet(
                             context,
                             0,
-                            surahNumber!,
+                            ayatController.surahNumber.value,
                             ayatController.currentText.value!.translateAyah,
                             '',
                             surahName!);
@@ -165,15 +166,15 @@ class ShowTafseer extends StatelessWidget {
             Flexible(
               flex: 4,
               child: Container(
-                height: MediaQuery.of(context).size.height / 1 / 2 * 1.3,
-                width: MediaQuery.of(context).size.width,
+                height: MediaQuery.sizeOf(context).height / 1 / 2 * 1.3,
+                width: MediaQuery.sizeOf(context).width,
                 color: Theme.of(context).colorScheme.background,
                 child: Padding(
                   padding:
                       const EdgeInsets.symmetric(vertical: 8, horizontal: 16.0),
                   child: ConstrainedBox(
                     constraints: BoxConstraints(
-                      maxHeight: MediaQuery.of(context).size.height,
+                      maxHeight: MediaQuery.sizeOf(context).height,
                     ),
                     child: Scrollbar(
                       controller: _scrollController,
@@ -213,7 +214,7 @@ class ShowTafseer extends StatelessWidget {
                                       child: Center(
                                         child: spaceLine(
                                             25,
-                                            MediaQuery.of(context).size.width /
+                                            MediaQuery.sizeOf(context).width /
                                                 1 /
                                                 2),
                                       ),
@@ -235,7 +236,7 @@ class ShowTafseer extends StatelessWidget {
                                       child: Center(
                                         child: spaceLine(
                                             25,
-                                            MediaQuery.of(context).size.width /
+                                            MediaQuery.sizeOf(context).width /
                                                 1 /
                                                 2),
                                       ),
@@ -253,7 +254,7 @@ class ShowTafseer extends StatelessWidget {
                                 onSelectionChanged: handleSelectionChanged,
                               );
                             } else {
-                              return hand(150.0, 150.0);
+                              return hand(300.0, 300.0);
                             }
                           })),
                     ),
@@ -272,23 +273,23 @@ class ShowTafseer extends StatelessWidget {
 
   tafseerDropDown(BuildContext context) {
     List<String> tafName = <String>[
-      '${AppLocalizations.of(context)!.tafIbnkatheerN}',
-      '${AppLocalizations.of(context)!.tafBaghawyN}',
-      '${AppLocalizations.of(context)!.tafQurtubiN}',
-      '${AppLocalizations.of(context)!.tafSaadiN}',
-      '${AppLocalizations.of(context)!.tafTabariN}',
+      (AppLocalizations.of(context)!.tafIbnkatheerN),
+      (AppLocalizations.of(context)!.tafBaghawyN),
+      (AppLocalizations.of(context)!.tafQurtubiN),
+      (AppLocalizations.of(context)!.tafSaadiN),
+      (AppLocalizations.of(context)!.tafTabariN),
     ];
     List<String> tafD = <String>[
-      '${AppLocalizations.of(context)!.tafIbnkatheerD}',
-      '${AppLocalizations.of(context)!.tafBaghawyD}',
-      '${AppLocalizations.of(context)!.tafQurtubiD}',
-      '${AppLocalizations.of(context)!.tafSaadiD}',
-      '${AppLocalizations.of(context)!.tafTabariD}',
+      (AppLocalizations.of(context)!.tafIbnkatheerD),
+      (AppLocalizations.of(context)!.tafBaghawyD),
+      (AppLocalizations.of(context)!.tafQurtubiD),
+      (AppLocalizations.of(context)!.tafSaadiD),
+      (AppLocalizations.of(context)!.tafTabariD),
     ];
     dropDownModalBottomSheet(
       context,
-      MediaQuery.of(context).size.height / 1 / 2,
-      MediaQuery.of(context).size.width,
+      MediaQuery.sizeOf(context).height / 1 / 2,
+      MediaQuery.sizeOf(context).width,
       Padding(
         padding: const EdgeInsets.symmetric(vertical: 8.0),
         child: Stack(
@@ -369,11 +370,13 @@ class ShowTafseer extends StatelessWidget {
                                     size: 14, color: Color(0xfffcbb76))
                                 : null,
                           ),
-                          onTap: () {
+                          onTap: () async {
                             ayatController.getNewTranslationAndNotify(
-                                context, surahNumber!, ayahNumber!);
+                                context,
+                                ayatController.surahNumber.value,
+                                ayatController.ayahNumber.value);
                             ayatController.handleRadioValueChanged(index);
-                            ayatController.saveTafseer(index);
+                            await pref.saveInteger(TAFSEER_VAL, index);
                             Navigator.pop(context);
                           },
                           leading: Container(
@@ -386,15 +389,12 @@ class ShowTafseer extends StatelessWidget {
                                   border: Border.all(
                                       color: Theme.of(context).dividerColor,
                                       width: 2)),
-                              child: SvgPicture.asset(
-                                'assets/svg/tafseer_book.svg',
-                                colorFilter: ayatController.radioValue == index
-                                    ? null
-                                    : ColorFilter.mode(
-                                        Theme.of(context)
-                                            .canvasColor
-                                            .withOpacity(.4),
-                                        BlendMode.lighten),
+                              child: Opacity(
+                                opacity:
+                                    ayatController.radioValue == index ? 1 : .4,
+                                child: SvgPicture.asset(
+                                  'assets/svg/tafseer_book.svg',
+                                ),
                               )),
                         ),
                         decoration: BoxDecoration(

@@ -1,3 +1,4 @@
+import 'package:alquranalkareem/shared/utils/constants/shared_preferences_constants.dart';
 import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
@@ -6,13 +7,10 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../quran_text/model/Ahya.dart';
 import '../../quran_text/model/bookmark_text.dart';
-import '../../quran_text/text_page_view.dart';
 import '../../services_locator.dart';
-import '../widgets/controllers_put.dart';
+import '../services/controllers_put.dart';
 
 class QuranTextController extends GetxController {
-  late Animation<Offset> offset;
-  late AnimationController controller;
   int? id;
 
   String translateAyah = '';
@@ -36,13 +34,13 @@ class QuranTextController extends GetxController {
   bool? sajda;
   bool? sajda2;
   RxInt value = 0.obs;
-
+  Color? backColor;
   double scrollSpeed = 0.05;
   bool scrolling = false;
   late AnimationController animationController;
   ValueNotifier<double>? scrollSpeedNotifier;
   List<List<List<Ayahs>>> surahPagesList = [];
-  int currentSurahIndex = 0;
+  int currentSurahIndex = 1;
   List<List<Ayahs>> surahsAyahs = [];
   List<Ayahs> get currentSurahAyahs => surahsAyahs[currentSurahIndex];
 
@@ -69,7 +67,6 @@ class QuranTextController extends GetxController {
       // List<> surahAyah
       List<Ayahs> tempAyahs = [];
       List<List<Ayahs>> tempSurah = [];
-      List<List<List<Ayahs>>> temp114 = [];
 
       for (int i = 1; i <= 114; i++) {
         surahPagesList.add(surahsAyahs
@@ -95,39 +92,32 @@ class QuranTextController extends GetxController {
 
   /// Shared Preferences
   // Save & Load Last Page For Quran Text
-  Future<void> saveTextLastPlace(
-      int textCurrentPage, String lastTime, sorahTextName) async {
-    textCurrentPage = TextPageView.textCurrentPage;
-    lastTime = TextPageView.lastTime;
-    sorahTextName = TextPageView.sorahTextName;
-    SharedPreferences prefService = await SharedPreferences.getInstance();
-    await prefService.setInt("last_page", textCurrentPage);
-    await prefService.setString("last_time", lastTime);
-    await prefService.setString("last_sorah_name", sorahTextName);
-  }
-
-  Future<void> loadTextCurrentPage() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    TextPageView.textCurrentPage = prefs.getInt('last_page') ?? 1;
-    TextPageView.lastTime = prefs.getString('last_time') ?? '';
-    TextPageView.sorahTextName = prefs.getString('last_sorah_name') ?? '';
-    print('get ${prefs.getInt('last_page')}');
-  }
-
-  textPageChanged(int textCurrentPage, String lastTime, sorahTextName) {
-    saveTextLastPlace(TextPageView.textCurrentPage, TextPageView.lastTime,
-        TextPageView.sorahTextName);
-  }
-
-// Save & Load Last Switch Page For Quran Text
-  Future<void> saveSwitchValue(int switchValue) async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    await prefs.setInt("switchـvalue", switchValue);
-  }
+  // Future<void> saveTextLastPlace(
+  //     int textCurrentPage, String lastTime, sorahTextName) async {
+  //   textCurrentPage = TextPageView.textCurrentPage;
+  //   lastTime = TextPageView.lastTime;
+  //   sorahTextName = TextPageView.sorahTextName;
+  //   SharedPreferences prefService = await SharedPreferences.getInstance();
+  //   await prefService.setInt("last_page", textCurrentPage);
+  //   await prefService.setString("last_time", lastTime);
+  //   await prefService.setString("last_sorah_name", sorahTextName);
+  // }
+  //
+  // Future<void> loadTextCurrentPage() async {
+  //   SharedPreferences prefs = await SharedPreferences.getInstance();
+  //   TextPageView.textCurrentPage = prefs.getInt('last_page') ?? 1;
+  //   TextPageView.lastTime = prefs.getString('last_time') ?? '';
+  //   TextPageView.sorahTextName = prefs.getString('last_sorah_name') ?? '';
+  //   print('get ${prefs.getInt('last_page')}');
+  // }
+  //
+  // textPageChanged(int textCurrentPage, String lastTime, sorahTextName) {
+  //   saveTextLastPlace(TextPageView.textCurrentPage, TextPageView.lastTime,
+  //       TextPageView.sorahTextName);
+  // }
 
   Future<void> loadSwitchValue() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    value.value = prefs.getInt('switchـvalue') ?? 0;
+    value.value = await pref.getInteger(SWITCH_VALUE, defaultValue: 0);
     print('switchـvalue ${value.value}');
   }
 
@@ -195,8 +185,8 @@ class QuranTextController extends GetxController {
 
   /// Time
   // var now = DateTime.now();
-  String lastRead =
-      "${DateTime.now().year}-${DateTime.now().month}-${DateTime.now().day}";
+  // String lastRead =
+  //     "${DateTime.now().year}-${DateTime.now().month}-${DateTime.now().day}";
 
   /// scroll
   void toggleScroll(var widget) {

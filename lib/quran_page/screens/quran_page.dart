@@ -1,18 +1,12 @@
-import 'package:arabic_numbers/arabic_numbers.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:theme_provider/theme_provider.dart';
 
 import '../../l10n/app_localizations.dart';
 import '../../shared/controller/general_controller.dart';
-import '../../shared/widgets/controllers_put.dart';
-import '../../shared/widgets/svg_picture.dart';
+import '../../shared/services/controllers_put.dart';
+import '../../shared/utils/constants/svg_picture.dart';
 import '../../shared/widgets/widgets.dart';
-import '../data/model/sorah_bookmark.dart';
-import '../data/repository/translate_repository.dart';
-
-bool cahData = true;
-bool issChange = false;
 
 class MPages extends StatelessWidget {
   MPages({Key? key}) : super(key: key);
@@ -21,6 +15,7 @@ class MPages extends StatelessWidget {
   Widget build(BuildContext context) {
     bookmarksController.getBookmarks();
     final Orientation orientation = MediaQuery.of(context).orientation;
+
     if (orientation == Orientation.portrait) {
       return SafeArea(
         child: Padding(
@@ -28,32 +23,11 @@ class MPages extends StatelessWidget {
           child: GetBuilder<GeneralController>(
             builder: (generalController) => PageView.builder(
                 controller: generalController.dPageController = PageController(
-                    initialPage: generalController.cuMPage - 1, keepPage: true),
+                    initialPage: generalController.cuMPage.value - 1,
+                    keepPage: true),
                 itemCount: 604,
                 onPageChanged: (page) {
-                  cahData = false;
-                  issChange = true;
-                  bookmarksController.getBookmarks();
-                  generalController.toggleAnimation();
-                  SoraBookmark soraBookmark =
-                      bookmarksController.soraBookmarkList![page];
-                  generalController.cuMPage = page + 1;
-                  print("new page${generalController.cuMPage}");
-                  ayatController.currentAyahNumber.value =
-                      '${ayatController.ayatList.first.ayaNum!}';
-                  ayatController.fetchAyat(generalController.cuMPage);
-                  ayaListNotFut = null;
-                  cahData = false;
-                  issChange = true;
-                  // setState(() {
-                  // });
-                  print("page changed $page");
-                  generalController.pageChanged(context, page);
-                  generalController.saveMLastPlace(
-                      page + 1, (soraBookmark.SoraNum! + 1).toString());
-                  print('last sorah ${soraBookmark.SoraNum}');
-                  cahData = true;
-                  // audioCubit.ayahNumber = ayat!.last.ayaNum;
+                  generalController.pageChanged(page);
                 },
                 itemBuilder: (_, index) {
                   return (index % 2 == 0
@@ -79,12 +53,15 @@ class MPages extends StatelessWidget {
                                               bookmarksController
                                                   .soraBookmarkList![index + 1]
                                                   .SoraName_ar!,
-                                              generalController.lastRead)
+                                              generalController
+                                                  .timeNow.lastRead)
                                           .then((value) => customSnackBar(
                                               context,
                                               AppLocalizations.of(context)!
                                                   .addBookmark));
                                       print('addBookmark');
+                                      print(
+                                          '${generalController.timeNow.lastRead}');
                                       // bookmarksController
                                       //     .savelastBookmark(index + 1);
                                     }
@@ -117,12 +94,15 @@ class MPages extends StatelessWidget {
                                               bookmarksController
                                                   .soraBookmarkList![index + 1]
                                                   .SoraName_ar!,
-                                              generalController.lastRead)
+                                              generalController
+                                                  .timeNow.lastRead)
                                           .then((value) => customSnackBar(
                                               context,
                                               AppLocalizations.of(context)!
                                                   .addBookmark));
                                       print('addBookmark');
+                                      print(
+                                          '${generalController.timeNow.lastRead}');
                                       // bookmarksController
                                       //     .savelastBookmark(index + 1);
                                     }
@@ -140,30 +120,15 @@ class MPages extends StatelessWidget {
       );
     } else {
       return SizedBox(
-        height: MediaQuery.of(context).size.height,
+        height: MediaQuery.sizeOf(context).height,
         child: GetBuilder<GeneralController>(
           builder: (generalController) => PageView.builder(
               controller: generalController.dPageController = PageController(
-                  initialPage: generalController.cuMPage - 1, keepPage: true),
+                  initialPage: generalController.cuMPage.value - 1,
+                  keepPage: true),
               itemCount: 604,
               onPageChanged: (page) {
-                cahData = false;
-                issChange = true;
-                bookmarksController.getBookmarks();
-                generalController.toggleAnimation();
-                SoraBookmark soraBookmark =
-                    bookmarksController.soraBookmarkList![page + 1];
-                ayatController.fetchAyat(generalController.cuMPage);
-                generalController.cuMPage = page;
-                issChange = true;
-                cahData = false;
-                ayaListNotFut = null;
-                print("page changed $page");
-                generalController.pageChanged(context, page);
-                generalController.saveMLastPlace(
-                    page + 1, (soraBookmark.SoraNum! + 1).toString());
-                print('last sorah ${soraBookmark.SoraNum}');
-                cahData = true;
+                generalController.pageChanged(page);
               },
               itemBuilder: (_, index) {
                 return SingleChildScrollView(
@@ -190,7 +155,8 @@ class MPages extends StatelessWidget {
                                               bookmarksController
                                                   .soraBookmarkList![index + 1]
                                                   .SoraName_ar!,
-                                              generalController.lastRead)
+                                              generalController
+                                                  .timeNow.lastRead)
                                           .then((value) => customSnackBar(
                                               context,
                                               AppLocalizations.of(context)!
@@ -228,7 +194,8 @@ class MPages extends StatelessWidget {
                                               bookmarksController
                                                   .soraBookmarkList![index + 1]
                                                   .SoraName_ar!,
-                                              generalController.lastRead)
+                                              generalController
+                                                  .timeNow.lastRead)
                                           .then((value) => customSnackBar(
                                               context,
                                               AppLocalizations.of(context)!
@@ -254,17 +221,6 @@ class MPages extends StatelessWidget {
   Widget _pages(BuildContext context, int index) {
     return InkWell(
       onTap: () {
-        generalController.toggleAnimation();
-        // switch (generalController.controller.status) {
-        //   case AnimationStatus.completed:
-        //     generalController.controller.reverse();
-        //     break;
-        //   case AnimationStatus.dismissed:
-        //     generalController.controller.forward();
-        //     break;
-        //   default:
-        // }
-
         generalController.showControl();
       },
       child: Center(
@@ -278,13 +234,13 @@ class MPages extends StatelessWidget {
                 color: ThemeProvider.themeOf(context).id == 'dark'
                     ? Colors.white
                     : null,
-                width: MediaQuery.of(context).size.width,
+                width: MediaQuery.sizeOf(context).width,
                 alignment: Alignment.center,
               ),
               Image.asset(
                 "assets/pages/000${index + 1}.png",
                 fit: BoxFit.contain,
-                width: MediaQuery.of(context).size.width,
+                width: MediaQuery.sizeOf(context).width,
                 alignment: Alignment.center,
               ),
               // QuranPage(
@@ -303,7 +259,6 @@ class MPages extends StatelessWidget {
     Orientation orientation = MediaQuery.of(context).orientation;
     return InkWell(
       onTap: () {
-        generalController.toggleAnimation();
         generalController.showControl();
       },
       child: Stack(
@@ -317,7 +272,7 @@ class MPages extends StatelessWidget {
             height: orientation == Orientation.portrait
                 ? generalController.height! - 60
                 : null,
-            width: MediaQuery.of(context).size.width,
+            width: MediaQuery.sizeOf(context).width,
             alignment: Alignment.center,
           ),
           Image.asset(
@@ -326,7 +281,7 @@ class MPages extends StatelessWidget {
             height: orientation == Orientation.portrait
                 ? generalController.height! - 60
                 : null,
-            width: MediaQuery.of(context).size.width,
+            width: MediaQuery.sizeOf(context).width,
             alignment: Alignment.center,
           ),
           // QuranPage(
@@ -344,8 +299,8 @@ class DPages extends StatelessWidget {
   final int initialPageNum;
   DPages(this.initialPageNum, {Key? key}) : super(key: key);
 
-  var viewport = 1 / 2;
-  ArabicNumbers arabicNumber = ArabicNumbers();
+  // var viewport = 1 / 2;
+  // ArabicNumbers arabicNumber = ArabicNumbers();
 
   @override
   Widget build(BuildContext context) {
@@ -353,32 +308,16 @@ class DPages extends StatelessWidget {
 
     return SizedBox(
       height: generalController.height,
-      width: MediaQuery.of(context).size.width,
+      width: MediaQuery.sizeOf(context).width,
       child: GetBuilder<GeneralController>(
         builder: (generalController) => PageView.builder(
             controller: generalController.dPageController = PageController(
-                viewportFraction: viewport,
+                viewportFraction: generalController.viewport,
                 // initialPage: widget.initialPageNum - 1,
                 keepPage: true),
             itemCount: 604,
             onPageChanged: (page) {
-              cahData = false;
-              issChange = true;
-              bookmarksController.getBookmarks();
-              generalController.cuMPage = page + 1;
-              ayaListNotFut = null;
-              // setState(() {
-              //   issChange = true;
-              //   cahData = false;
-              // });
-              SoraBookmark soraBookmark =
-                  bookmarksController.soraBookmarkList![page + 1];
-              ayatController.fetchAyat(generalController.cuMPage);
-              print("page changed ${generalController.cuMPage}");
-              generalController.pageChanged(context, page);
-              generalController.saveMLastPlace(
-                  page + 1, (soraBookmark.SoraNum! + 1).toString());
-              cahData = true;
+              generalController.pageChanged(page);
             },
             itemBuilder: (_, index) {
               return LayoutBuilder(builder: (context, constrains) {
@@ -428,7 +367,8 @@ class DPages extends StatelessWidget {
                                                         .soraBookmarkList![
                                                             index + 1]
                                                         .SoraName_ar!,
-                                                    generalController.lastRead)
+                                                    generalController
+                                                        .timeNow.lastRead)
                                                 .then((value) => customSnackBar(
                                                     context,
                                                     AppLocalizations.of(
@@ -482,7 +422,8 @@ class DPages extends StatelessWidget {
                                                         .soraBookmarkList![
                                                             index + 1]
                                                         .SoraName_ar!,
-                                                    generalController.lastRead)
+                                                    generalController
+                                                        .timeNow.lastRead)
                                                 .then((value) => customSnackBar(
                                                     context,
                                                     AppLocalizations.of(
@@ -511,11 +452,11 @@ class DPages extends StatelessWidget {
   Widget _dPages(BuildContext context, int index, Orientation orientation) {
     return InkWell(
       onDoubleTap: () {
-        viewport = viewport == 1 / 2 ? 1 : 1 / 2;
+        generalController.viewport =
+            generalController.viewport == 1 / 2 ? 1 : 1 / 2;
       },
       onTap: () {
         generalController.showControl();
-        generalController.toggleAnimation();
       },
       child: Center(
         child: Stack(

@@ -14,9 +14,9 @@ class SorahBookmarkRepository {
             .query(SoraBookmark.tableName, columns: SoraBookmark.columns))
         .cast<Map>();
     List<SoraBookmark> soraBookmarkList = [];
-    results.forEach((result) {
+    for (var result in results) {
       soraBookmarkList.add(SoraBookmark.fromMap(result));
-    });
+    }
     return soraBookmarkList;
   }
 }

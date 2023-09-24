@@ -1,6 +1,6 @@
+import 'package:alquranalkareem/shared/utils/constants/svg_picture.dart';
 import 'package:alquranalkareem/shared/widgets/ayah_list.dart';
 import 'package:alquranalkareem/shared/widgets/seek_bar.dart';
-import 'package:alquranalkareem/shared/widgets/svg_picture.dart';
 import 'package:alquranalkareem/shared/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart' as getx;
@@ -9,7 +9,7 @@ import 'package:square_percent_indicater/square_percent_indicater.dart';
 import 'package:theme_provider/theme_provider.dart';
 
 import '../../l10n/app_localizations.dart';
-import 'controllers_put.dart';
+import '../services/controllers_put.dart';
 
 class AudioWidget extends StatelessWidget {
   AudioWidget({Key? key}) : super(key: key);
@@ -39,7 +39,7 @@ class AudioWidget extends StatelessWidget {
                         child: Container(
                           height: 30,
                           margin: const EdgeInsets.symmetric(horizontal: 4),
-                          width: MediaQuery.of(context).size.width,
+                          width: MediaQuery.sizeOf(context).width,
                           decoration: BoxDecoration(
                               color: ThemeProvider.themeOf(context).id == 'dark'
                                   ? const Color(0xffcdba72).withOpacity(.4)
@@ -105,7 +105,7 @@ class AudioWidget extends StatelessWidget {
                         alignment: Alignment.center,
                         children: [
                           spaceLine(
-                              50, MediaQuery.of(context).size.width / 1 / 2),
+                              50, MediaQuery.sizeOf(context).width / 1 / 2),
                           getx.Obx(
                             () => Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -156,26 +156,22 @@ class AudioWidget extends StatelessWidget {
                                               ),
                                               color:
                                                   Theme.of(context).canvasColor,
-                                              onPressed: !audioController
-                                                      .isPagePlay.value
-                                                  ? () {
-                                                      print(audioController
-                                                          .progressString
-                                                          .value);
-                                                      if (audioController
-                                                              .pageAyahNumber ==
-                                                          null) {
-                                                        customErrorSnackBar(
-                                                            context,
-                                                            AppLocalizations.of(
-                                                                    context)!
-                                                                .choiceAyah);
-                                                      } else {
-                                                        audioController
-                                                            .playAyah(context);
-                                                      }
-                                                    }
-                                                  : null,
+                                              onPressed: () {
+                                                print(audioController
+                                                    .progressString.value);
+                                                if (audioController
+                                                        .pageAyahNumber ==
+                                                    null) {
+                                                  customErrorSnackBar(
+                                                      context,
+                                                      AppLocalizations.of(
+                                                              context)!
+                                                          .choiceAyah);
+                                                } else {
+                                                  audioController
+                                                      .playAyah(context);
+                                                }
+                                              },
                                             ),
                                           ),
                                   ),
@@ -236,7 +232,8 @@ class AudioWidget extends StatelessWidget {
                                                           audioController.playPage(
                                                               context,
                                                               generalController
-                                                                  .cuMPage);
+                                                                  .cuMPage
+                                                                  .value);
                                                         }
                                                       : null,
                                             ),

@@ -7,7 +7,7 @@ import '../shared/widgets/widgets.dart';
 import 'Widgets/widgets.dart';
 
 class SorahTextScreen extends StatelessWidget {
-  SorahTextScreen({Key? key}) : super(key: key);
+  const SorahTextScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -47,8 +47,8 @@ class SorahTextScreen extends StatelessWidget {
                     Expanded(
                       flex: 7,
                       child: SizedBox(
-                          // height: MediaQuery.of(context).size.height * 3 / 4,
-                          width: MediaQuery.of(context).size.width,
+                          // height: MediaQuery.sizeOf(context).height * 3 / 4,
+                          width: MediaQuery.sizeOf(context).width,
                           child: SorahListText()),
                     ),
                   ],
@@ -58,8 +58,8 @@ class SorahTextScreen extends StatelessWidget {
                     Expanded(
                       flex: 5,
                       child: SizedBox(
-                          // height: MediaQuery.of(context).size.height * 3 / 4,
-                          width: MediaQuery.of(context).size.width,
+                          // height: MediaQuery.sizeOf(context).height * 3 / 4,
+                          width: MediaQuery.sizeOf(context).width,
                           child: SorahListText()),
                     ),
                     Expanded(
@@ -104,7 +104,7 @@ class SorahTextScreen extends StatelessWidget {
           opacity: .1,
           child: SvgPicture.asset(
             'assets/svg/hijri/${_today.hMonth}.svg',
-            width: MediaQuery.of(context).size.width,
+            width: MediaQuery.sizeOf(context).width,
             colorFilter: ColorFilter.mode(
                 Theme.of(context).colorScheme.surface, BlendMode.srcIn),
           ),
@@ -156,23 +156,23 @@ class SorahTextScreen extends StatelessWidget {
                   context,
                   orientation(
                       context,
-                      MediaQuery.of(context).size.width * .9,
-                      platformView(MediaQuery.of(context).size.width * .5,
-                          MediaQuery.of(context).size.width * .5))),
+                      MediaQuery.sizeOf(context).width * .9,
+                      platformView(MediaQuery.sizeOf(context).width * .5,
+                          MediaQuery.sizeOf(context).width * .5))),
               quranTextSearch(
                   context,
                   orientation(
                       context,
-                      MediaQuery.of(context).size.width * .9,
-                      platformView(MediaQuery.of(context).size.width * .5,
-                          MediaQuery.of(context).size.width * .5))),
+                      MediaQuery.sizeOf(context).width * .9,
+                      platformView(MediaQuery.sizeOf(context).width * .5,
+                          MediaQuery.sizeOf(context).width * .5))),
               notesList(
                   context,
                   orientation(
                       context,
-                      MediaQuery.of(context).size.width * .9,
-                      platformView(MediaQuery.of(context).size.width * .5,
-                          MediaQuery.of(context).size.width * .5))),
+                      MediaQuery.sizeOf(context).width * .9,
+                      platformView(MediaQuery.sizeOf(context).width * .5,
+                          MediaQuery.sizeOf(context).width * .5))),
             ],
           ),
         ),

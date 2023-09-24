@@ -12,6 +12,7 @@ import 'package:alquranalkareem/shared/controller/settings_controller.dart';
 import 'package:alquranalkareem/shared/controller/surahTextController.dart';
 import 'package:alquranalkareem/shared/controller/surah_repository_controller.dart';
 import 'package:alquranalkareem/shared/controller/translate_controller.dart';
+import 'package:alquranalkareem/shared/services/shared_pref_services.dart';
 import 'package:desktop_window/desktop_window.dart';
 import 'package:flutter_native_timezone/flutter_native_timezone.dart';
 import 'package:get/get.dart';
@@ -20,45 +21,57 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sqflite_common_ffi/sqflite_ffi.dart';
 import 'package:timezone/data/latest.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
-import 'package:wakelock/wakelock.dart';
 
 import '/shared/controller/notifications_controller.dart';
 import 'audio_screen/controller/surah_audio_controller.dart';
+import 'azkar/azkar_controller.dart';
+import 'database/databaseHelper.dart';
+import 'database/notificationDatabase.dart';
+import 'quran_page/data/data_client.dart';
+import 'quran_page/data/tafseer_data_client.dart';
 import 'shared/controller/ayat_controller.dart';
 import 'shared/controller/general_controller.dart';
-import 'shared/local_notifications.dart';
+import 'shared/services/local_notifications.dart';
 import 'shared/utils/helpers/ui_helper.dart';
 
 final sl = GetIt.instance;
 
 class ServicesLocator {
+  void initSingleton() {
+    sl<SharedPrefServices>();
+  }
+
   static Future<void> init() async {
-    // SharedPrefrences
-    sl.registerSingletonAsync<SharedPreferences>(() async {
+    sl.registerSingletonAsync<SharedPrefServices>(() async {
       final prefs = await SharedPreferences.getInstance();
-      return prefs;
+      return SharedPrefServices(prefs);
     });
+    // SharedPrefrences
+    // sl.registerSingletonAsync<SharedPreferences>(() async {
+    //   final prefs = await SharedPreferences.getInstance();
+    //   return prefs;
+    // });
 
     // Databases
-    // sl.registerSingletonAsync<DatabaseHelper>(() async {
-    //   return (await DatabaseHelper.instance
-    //     ..database);
-    //   // return
-    // });
-    //
-    // sl.registerSingletonAsync<NotificationDatabaseHelper>(() async {
-    //   return (await NotificationDatabaseHelper.instance
-    //     ..database);
-    // });
-    //
-    // sl.registerSingletonAsync<DataBaseClient>(() async {
-    //   return (await DataBaseClient.instance
-    //     ..initDatabase());
-    // });
-    // sl.registerSingletonAsync<TafseerDataBaseClient>(() async {
-    //   return (await TafseerDataBaseClient.instance
-    //     ..initDatabase());
-    // });
+    sl.registerSingletonAsync<DatabaseHelper>(() async {
+      return (await DatabaseHelper.instance
+        ..database);
+      // return
+    });
+
+    sl.registerSingletonAsync<NotificationDatabaseHelper>(() async {
+      return (await NotificationDatabaseHelper.instance
+        ..database);
+    });
+
+    sl.registerSingletonAsync<DataBaseClient>(() async {
+      return (await DataBaseClient.instance
+        ..initDatabase());
+    });
+    sl.registerSingletonAsync<TafseerDataBaseClient>(() async {
+      return (await TafseerDataBaseClient.instance
+        ..initDatabase());
+    });
 
     // Controllers
     sl.registerLazySingleton<AyatController>(
@@ -110,6 +123,9 @@ class ServicesLocator {
     sl.registerLazySingleton<ReminderController>(() =>
         Get.put<ReminderController>(ReminderController(), permanent: true));
 
+    sl.registerLazySingleton<AzkarController>(
+        () => Get.put<AzkarController>(AzkarController(), permanent: true));
+
     // Notifications
 
     NotifyHelper().initializeNotification();
@@ -123,7 +139,12 @@ class ServicesLocator {
     tz.initializeTimeZones();
     tz.setLocalLocation(tz.getLocation(timeZoneName));
 
-    Wakelock.enable();
+    // try {
+    //   await Wakelock.enable();
+    // } catch (e) {
+    //   print("Failed to enable wakelock: $e");
+    // }
+
     if (Platform.isWindows || Platform.isLinux) {
       // Initialize FFI
       sqfliteFfiInit();
