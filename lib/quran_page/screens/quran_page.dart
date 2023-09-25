@@ -23,7 +23,7 @@ class MPages extends StatelessWidget {
           child: GetBuilder<GeneralController>(
             builder: (generalController) => PageView.builder(
                 controller: generalController.dPageController = PageController(
-                    initialPage: generalController.cuMPage.value - 1,
+                    initialPage: surahTextController.currentPageIndex,
                     keepPage: true),
                 itemCount: 604,
                 onPageChanged: (page) {
@@ -124,7 +124,7 @@ class MPages extends StatelessWidget {
         child: GetBuilder<GeneralController>(
           builder: (generalController) => PageView.builder(
               controller: generalController.dPageController = PageController(
-                  initialPage: generalController.cuMPage.value - 1,
+                  initialPage: surahTextController.currentPageIndex,
                   keepPage: true),
               itemCount: 604,
               onPageChanged: (page) {

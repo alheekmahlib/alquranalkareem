@@ -20,14 +20,14 @@ class NotesController extends GetxController {
   final descriptionController = TextEditingController();
 
   Future<void> addNote(Notes note) async {
-    final noteId = await DatabaseHelper.saveNote(note);
+    await DatabaseHelper.saveNote(note);
     getNotes();
   }
 
   Future<void> getNotes() async {
     final List<Map<String, dynamic>> noteMaps = await DatabaseHelper.queryN();
     notes.assignAll(noteMaps.map((data) => Notes.fromJson(data)).toList());
-    print('Note List: ${notes.value}');
+    print('Note List: ${notes}');
   }
 
   Future<void> deleteNotes(String description) async {

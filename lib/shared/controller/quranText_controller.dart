@@ -1,3 +1,4 @@
+import 'package:alquranalkareem/quran_text/model/QuranModel.dart';
 import 'package:alquranalkareem/shared/utils/constants/shared_preferences_constants.dart';
 import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/cupertino.dart';

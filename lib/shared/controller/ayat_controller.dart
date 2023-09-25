@@ -20,6 +20,7 @@ class AyatController extends GetxController {
   String tafseerText = '';
   int? translateIndex;
   RxString currentAyahNumber = '1'.obs;
+  Ayat? currentAyah;
   var isSelected = (-1.0).obs;
   var currentText = Rx<TextUpdated?>(null);
   var currentPageLoading = RxBool(false);

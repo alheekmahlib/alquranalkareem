@@ -56,9 +56,12 @@ class AyahList extends StatelessWidget {
                       ayatController.tafseerAyah = aya.ayatext ?? '';
                       ayatController.tafseerText = aya.translate ?? '';
                       audioController.pageAyahNumber = '${aya.ayaNum ?? 1}';
+                      ayatController.currentAyah = aya;
                       ayatController.currentAyahNumber.value =
                           '${aya.ayaNum ?? 1}';
-                      audioController.pageSurahNumber = '${aya.suraNum ?? 0}';
+
+                      surahTextController.currentSurahIndex =
+                          int.parse('${(aya.suraNum ??= 1) - 1}');
                       print(audioController.pageAyahNumber);
                     },
                     child: Stack(

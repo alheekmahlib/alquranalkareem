@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:alquranalkareem/quran_page/data/model/bookmark.dart';
 import 'package:path/path.dart' as p;
 import 'package:path_provider/path_provider.dart';
+import 'package:sqflite/sqflite.dart' as sqflite;
 import 'package:sqflite_common_ffi/sqflite_ffi.dart';
 
 import '../azkar/models/azkar.dart';
@@ -37,14 +38,16 @@ class DatabaseHelper {
     // lazily instantiate the db the first time it is accessed
     // await initDatabase();
     _db = await initDb();
-    print('db == null => ${_db == null}');
+    if (_db == null) {
+      print('#DB #ERORR db is null');
+    }
     return _db;
   }
 
   Future<Database?> initDb() async {
     sqfliteFfiInit();
-    var androidDatabasesPath = await getDatabasesPath();
-    var androidPath = p.join(androidDatabasesPath, 'notesBookmarks.db');
+    // var androidDatabasesPath = await getDatabasesPath();
+    // var androidPath = p.join(androidDatabasesPath, 'notesBookmarks.db');
     Directory databasePath = await getApplicationDocumentsDirectory();
     var path = p.join(databasePath.path, 'notesBookmarks.db');
     return (Platform.isWindows || Platform.isLinux)
@@ -54,7 +57,7 @@ class DatabaseHelper {
                 readOnly: false,
                 onUpgrade: onUpgrade,
                 onCreate: onCreate))
-        : openDatabase(path,
+        : sqflite.openDatabase(path,
             version: _version,
             readOnly: false,
             onUpgrade: onUpgrade,
