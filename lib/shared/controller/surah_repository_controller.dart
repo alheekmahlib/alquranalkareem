@@ -8,7 +8,7 @@ class SorahRepositoryController extends GetxController {
 
   final SorahRepository _sorahRepository = SorahRepository();
 
-  List<Sorah> get sorahs => surahs.value;
+  List<Sorah> get sorahs => surahs;
 
   @override
   void onInit() {

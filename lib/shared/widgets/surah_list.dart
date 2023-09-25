@@ -47,7 +47,7 @@ class SurahList extends StatelessWidget {
                                 child: GestureDetector(
                                   onTap: () {
                                     generalController.dPageController
-                                        ?.animateToPage(
+                                        .animateToPage(
                                       surah.pageNum - 1,
                                       duration:
                                           const Duration(milliseconds: 500),

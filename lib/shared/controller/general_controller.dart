@@ -19,7 +19,7 @@ class GeneralController extends GetxController {
   bool isPanelControllerDisposed = false;
 
   /// Page Controller
-  PageController? dPageController;
+  PageController dPageController = PageController();
 
   RxInt cuMPage = 1.obs;
   RxString soMName = '1'.obs;
@@ -50,8 +50,8 @@ class GeneralController extends GetxController {
           defaultValue: 1); // Set a default value
       soMName.value = await pref.getString(MLAST_URAH,
           defaultValue: '1'); // Set a default value
-      double? fontSizeFromPref = await pref.getDouble(FONT_SIZE);
-      if (fontSizeFromPref != null && fontSizeFromPref > 0) {
+      double fontSizeFromPref = await pref.getDouble(FONT_SIZE);
+      if (fontSizeFromPref != 0.0 && fontSizeFromPref > 0) {
         fontSizeArabic.value = fontSizeFromPref;
       } else {
         fontSizeArabic.value = 24.0; // Setting to a valid default value
@@ -91,6 +91,8 @@ class GeneralController extends GetxController {
     await pref.saveString(MLAST_URAH, (soraBookmark.SoraNum! + 1).toString());
     ayatController.currentAyahNumber.value =
         '${ayatController.ayatList.first.ayaNum!}';
+
+    surahTextController.setCurrentSurahIndexByPageNumber(index + 1);
   }
 
   /// Greeting
