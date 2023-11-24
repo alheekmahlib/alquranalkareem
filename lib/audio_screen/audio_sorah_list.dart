@@ -190,7 +190,6 @@ class AudioSorahList extends StatelessWidget {
     );
   }
 
-  @override
-  // TODO: implement wantKeepAlive
+  // @override
   bool get wantKeepAlive => true;
 }

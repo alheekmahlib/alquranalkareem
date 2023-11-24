@@ -9,6 +9,20 @@ import '../../quran_text/model/QuranModel.dart';
 class SurahTextController extends GetxController {
   var surahs = <SurahText>[].obs;
   List<List<Ayahs>> allPages = [];
+  int currentSurahIndex = 0;
+  int currentPageIndex = 0;
+
+  SurahText get currentSurah => surahs[currentSurahIndex];
+
+  void setCurrentSurahIndexByPageNumber(int pageNumber) {
+    print('before changing currentSurah number => ${currentSurahIndex + 1}');
+    currentSurahIndex = surahs
+            .firstWhere((s) => s.ayahs!.any((a) => a.page! == pageNumber))
+            .number! -
+        1;
+    print('After changing currentSurah number => ${currentSurahIndex + 1}');
+    currentPageIndex = pageNumber - 1;
+  }
 
   @override
   void onInit() {
