@@ -1,27 +1,26 @@
 import 'dart:async';
 import 'dart:io';
 
-import 'package:alquranalkareem/quran_page/data/model/bookmark.dart';
+import 'package:alquranalkareem/presentation/screens/quran_page/data/model/bookmark.dart';
 import 'package:path/path.dart' as p;
 import 'package:path_provider/path_provider.dart';
 import 'package:sqflite/sqflite.dart' as sqflite;
 import 'package:sqflite_common_ffi/sqflite_ffi.dart';
 
-import '../azkar/models/azkar.dart';
-import '../notes/model/Notes.dart';
-import '../quran_text/model/bookmark_text.dart';
-import '../quran_text/model/bookmark_text_ayah.dart';
+import '../presentation/screens/athkar/models/azkar.dart';
+import '../presentation/screens/notes/model/Notes.dart';
+import '../presentation/screens/quran_text/data/models/bookmark_text.dart';
+import '../presentation/screens/quran_text/data/models/bookmark_text_ayah.dart';
 
 class DatabaseHelper {
   static Database? _db;
-  static const int _version = 6;
+  static const int _version = 7;
   static const String tableNote = 'noteTable';
   static const String tableBookmarks = 'bookmarkTable';
   static const String tableBookmarksText = 'bookmarkTextTable';
   static const String tableAzkar = 'azkarTable';
   static const String tablebookmarkTextAyah = 'bookmarkTextAyahTable';
   static const String columnId = 'id';
-  static const String columnDescription = 'description';
   static const String columnBId = 'id';
   static const String columnCId = 'id';
   static const String columnTId = 'id';
@@ -32,15 +31,12 @@ class DatabaseHelper {
   static final DatabaseHelper instance = DatabaseHelper._privateConstructor();
 
   Future<Database?> get database async {
-    print('db == null => ${_db == null}');
     if (_db != null) return _db;
 
     // lazily instantiate the db the first time it is accessed
-    // await initDatabase();
+    // await initDb();
     _db = await initDb();
-    if (_db == null) {
-      print('#DB #ERORR db is null');
-    }
+    if (_db == null) {}
     return _db;
   }
 
@@ -96,6 +92,7 @@ class DatabaseHelper {
       'sorahName TEXT, '
       'sorahNum INTEGER, '
       'pageNum INTEGER, '
+      'ayahNum INTEGER, '
       'nomPageF INTEGER, '
       'nomPageL INTEGER, '
       'lastRead TEXT)',
@@ -116,21 +113,22 @@ class DatabaseHelper {
 
   Future onUpgrade(Database db, int oldVersion, int newVersion) async {
     print('Database onUpgrade');
-    var results = await db.rawQuery(
-        "SELECT name FROM sqlite_master WHERE type='table' AND name='bookmarkTextTable'");
-    if (results.isEmpty) {
-      await db.execute(
-        'CREATE TABLE bookmarkTextTable ('
-        'id INTEGER PRIMARY KEY, '
-        'sorahName TEXT, '
-        'sorahNum INTEGER, '
-        'pageNum INTEGER, '
-        'nomPageF INTEGER, '
-        'nomPageL INTEGER, '
-        'lastRead TEXT)',
-      );
-      print('Upgrade bookmarkTextTable');
-    }
+    db.execute("ALTER TABLE bookmarkTextTable ADD COLUMN ayahNum INTEGER;");
+    // var results = await db.rawQuery(
+    //     "SELECT name FROM sqlite_master WHERE type='table' AND name='bookmarkTextTable'");
+    // if (results.isEmpty) {
+    //   await db.execute(
+    //     'CREATE TABLE bookmarkTextTable ('
+    //     'id INTEGER PRIMARY KEY, '
+    //     'sorahName TEXT, '
+    //     'sorahNum INTEGER, '
+    //     'pageNum INTEGER, '
+    //     'nomPageF INTEGER, '
+    //     'nomPageL INTEGER, '
+    //     'lastRead TEXT)',
+    //   );
+    print('Upgrade bookmarkTextTable');
+    // }
   }
 
   static Future<int?> saveNote(Notes? note) async {
@@ -142,10 +140,10 @@ class DatabaseHelper {
     }
   }
 
-  static Future<int> deleteNote(String description) async {
+  static Future<int> deleteNote(int id) async {
     print('Delete Note');
-    return await _db!.delete(tableNote,
-        where: '$columnDescription = ?', whereArgs: [description]);
+    return await _db!
+        .delete(tableNote, where: '$columnId = ?', whereArgs: [id]);
   }
 
   static Future<int> updateNote(Notes? note) async {

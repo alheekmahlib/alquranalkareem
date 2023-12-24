@@ -3,10 +3,10 @@ description: Al-Quran Al-Kareem - Al-Heekmah Library.
 
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 
-version: 3.1.3+30
+version: 3.2.4+44
 
 environment:
-  sdk: '>=3.1.1 <4.0.0'
+  sdk: '>=3.1.5 <4.0.0'
 
 
 dependencies:
@@ -21,61 +21,67 @@ dependencies:
   shared_preferences: ^2.2.2
   path: ^1.8.3
   path_provider: ^2.1.1
-  dio: ^5.3.3
+  dio: ^5.4.0
   quiver: ^3.2.1
   theme_provider: ^0.6.0
   sqflite: ^2.3.0
-  sqflite_common_ffi: ^2.3.0+3
+  sqflite_common_ffi: ^2.3.1
   equatable: ^2.0.5
   flutter_svg: ^2.0.9
   responsive_builder: ^0.7.0
   desktop_window: ^0.4.0
-  another_xlider: ^3.0.1
+  another_xlider: ^3.0.2
   lottie: ^2.7.0
   hijri: ^3.0.0
   arabic_numbers: ^1.0.0
   flutter_sliding_up_panel: ^2.1.1
   flutter_staggered_animations: ^1.1.1
-  share_plus: ^6.3.4
-  clipboard: ^0.1.3
+  share_plus: ^7.2.1
   get: ^4.6.6
-  wakelock: ^0.6.2
   square_percent_indicater: ^0.1.0
   group_button: ^5.3.3
   scrollable_positioned_list: ^0.3.8
-  url_launcher: ^6.2.1
+  url_launcher: ^6.2.2
   rate_my_app: ^2.0.0
   smooth_page_indicator: ^1.1.0
   bot_toast: ^4.1.3
-  home_widget: ^0.3.0
+  home_widget: ^0.4.1
 #  workmanager: ^0.5.2
-  connectivity_plus: ^5.0.1
+  connectivity_plus: ^5.0.2
   animated_toggle_switch: ^0.8.0
-  flutter_local_notifications: ^16.1.0
+
+  flutter_local_notifications: ^16.2.0
   flutter_native_timezone: ^2.0.0
+
   day_night_time_picker: ^1.3.0+1
   html: ^0.15.4
-  package_rename: ^1.5.1
+  package_rename: ^1.5.2
   anim_search_bar: ^2.0.3
-  easy_image_viewer: ^1.2.1
-  just_audio: ^0.9.35
+  easy_image_viewer: ^1.3.2
+
+  just_audio: ^0.9.36
   rxdart: ^0.27.7
-  audio_session: ^0.1.17
-  flutter_screenutil: ^5.9.0
+
+#  audio_session: ^0.1.18
+#  flutter_screenutil: ^5.9.0
   get_it: ^7.6.4
   mini_music_visualizer: ^1.0.2
   expansion_tile_card: ^3.0.0
-  just_audio_background: ^0.0.1-beta.10
+
+#  just_audio_background: ^0.0.1-beta.11
   gap: ^3.0.1
   screenshot: ^2.1.0
+  wakelock_plus: ^1.1.4
+  collection: ^1.18.0
+#  audio_service: ^0.18.12
 #  scroll_to_index: ^3.0.1
 
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  build_runner: ^2.4.6
-  flutter_native_splash: ^2.3.5
+  build_runner: ^2.4.7
+  flutter_native_splash: ^2.3.8
 
 flutter_native_splash:
   color: "#f3efdf"
@@ -101,7 +107,7 @@ package_rename_config:
       app_name: القرآن الكريم مكتبة الحكمة
       package_name: com.alheekmah.alquranalkareem.alquranalkareem2
 
-  flutter_lints: ^2.0.0
+  flutter_lints: ^3.0.1
 
 
 flutter:
@@ -126,13 +132,14 @@ flutter:
     - assets/share_images/
     - assets/share_images/surah_name/
     - assets/QuranV3.sqlite
-    - assets/baghawy.db
-    - assets/ibnkatheer.sqlite
-    - assets/qurtubi.db
-    - assets/tabari.db
-    - assets/saadi.db
+    - assets/baghawyV2.db
+    - assets/ibnkatheerV2.sqlite
+    - assets/qurtubiV2.db
+    - assets/tabariV2.db
+    - assets/saadiV2.db
     - assets/ayahinfo_1260.db
     - assets/app_icon.png
+    - shorebird.yaml
 
 
   fonts:
