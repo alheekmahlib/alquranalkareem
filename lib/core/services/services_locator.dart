@@ -2,10 +2,9 @@ import 'dart:io';
 import 'dart:ui' show Size;
 
 import 'package:desktop_window/desktop_window.dart';
-import 'package:flutter_native_timezone/flutter_native_timezone.dart';
+import 'package:flutter_timezone/flutter_timezone.dart';
 import 'package:get/get.dart';
 import 'package:get_it/get_it.dart';
-import 'package:just_audio_background/just_audio_background.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sqflite_common_ffi/sqflite_ffi.dart';
 import 'package:timezone/data/latest.dart' as tz;
@@ -97,12 +96,12 @@ class ServicesLocator {
 
   Future<void> init() async {
     await Future.wait([
-      JustAudioBackground.init(
-        androidNotificationChannelId:
-            'com.alheekmah.alquranalkareem.channel.audio',
-        androidNotificationChannelName: 'Audio playback',
-        androidNotificationOngoing: true,
-      ),
+      // JustAudioBackground.init(
+      //   androidNotificationChannelId:
+      //       'com.alheekmah.alquranalkareem.channel.audio',
+      //   androidNotificationChannelName: 'Audio playback',
+      //   androidNotificationOngoing: true,
+      // ),
       _initPrefs(),
       _initDatabaseHelper(),
       _initDatabaseNotification(),
@@ -181,7 +180,7 @@ class ServicesLocator {
       UiHelper.rateMyApp.init();
     }
 
-    final String timeZoneName = await FlutterNativeTimezone.getLocalTimezone();
+    final String timeZoneName = await FlutterTimezone.getLocalTimezone();
     tz.initializeTimeZones();
     tz.setLocalLocation(tz.getLocation(timeZoneName));
     if (Platform.isWindows || Platform.isLinux) {

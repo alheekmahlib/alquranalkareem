@@ -14,6 +14,7 @@ class DownloadPlayButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final surahAudioCtrl = sl<SurahAudioController>();
     return SizedBox(
       height: 120,
       width: 40,
@@ -23,7 +24,7 @@ class DownloadPlayButton extends StatelessWidget {
           Align(
             alignment: Alignment.topCenter,
             child: StreamBuilder<LoopMode>(
-              stream: sl<SurahAudioController>().downAudioPlayer.loopModeStream,
+              stream: surahAudioCtrl.audioPlayer.loopModeStream,
               builder: (context, snapshot) {
                 final loopMode = snapshot.data ?? LoopMode.off;
                 List<Widget> icons = [
@@ -47,8 +48,8 @@ class DownloadPlayButton extends StatelessWidget {
                       label: AppLocalizations.of(context)!.repeatSurah,
                       child: icons[index]),
                   onPressed: () {
-                    sl<SurahAudioController>().downAudioPlayer.setLoopMode(
-                        cycleModes[(cycleModes.indexOf(loopMode) + 1) %
+                    surahAudioCtrl.audioPlayer.setLoopMode(cycleModes[
+                        (cycleModes.indexOf(loopMode) + 1) %
                             cycleModes.length]);
                   },
                 );
@@ -71,7 +72,7 @@ class DownloadPlayButton extends StatelessWidget {
                     progressColor: ThemeProvider.themeOf(context).id == 'dark'
                         ? Colors.white
                         : Theme.of(context).primaryColorLight,
-                    progress: sl<SurahAudioController>().progress.value,
+                    progress: surahAudioCtrl.progress.value,
                     child: Container(
                       height: 40,
                       width: 40,
@@ -89,9 +90,7 @@ class DownloadPlayButton extends StatelessWidget {
                   ),
                 ),
                 StreamBuilder<PlayerState>(
-                  stream: sl<SurahAudioController>()
-                      .downAudioPlayer
-                      .playerStateStream,
+                  stream: surahAudioCtrl.audioPlayer.playerStateStream,
                   builder: (context, snapshot) {
                     final playerState = snapshot.data;
                     final processingState = playerState?.processingState;
@@ -99,7 +98,7 @@ class DownloadPlayButton extends StatelessWidget {
                     if (processingState == ProcessingState.loading ||
                         processingState == ProcessingState.buffering) {
                       return playButtonLottie(20.0, 20.0);
-                    } else if (playing != true) {
+                    } else if (!surahAudioCtrl.isDownloading.value) {
                       return IconButton(
                         icon: Semantics(
                             button: true,
@@ -109,12 +108,13 @@ class DownloadPlayButton extends StatelessWidget {
                         iconSize: 24.0,
                         color: Theme.of(context).colorScheme.surface,
                         onPressed: () async {
-                          sl<SurahAudioController>().isDownloading.value = true;
-                          var surahAudioController = sl<SurahAudioController>();
-                          if (surahAudioController.onDownloading.value) {
-                            surahAudioController.cancelDownload();
+                          surahAudioCtrl.isDownloading.value = true;
+                          surahAudioCtrl.isPlaying.value = false;
+
+                          if (surahAudioCtrl.onDownloading.value) {
+                            surahAudioCtrl.cancelDownload();
                           } else {
-                            await surahAudioController.startDownload();
+                            await surahAudioCtrl.startDownload();
                           }
                         },
                       );
@@ -128,9 +128,8 @@ class DownloadPlayButton extends StatelessWidget {
                         iconSize: 24.0,
                         color: Theme.of(context).colorScheme.surface,
                         onPressed: () {
-                          sl<SurahAudioController>().downAudioPlayer.pause();
-                          sl<SurahAudioController>().isDownloading.value =
-                              false;
+                          surahAudioCtrl.audioPlayer.pause();
+                          surahAudioCtrl.isDownloading.value = false;
                         },
                       );
                     } else {
@@ -142,13 +141,10 @@ class DownloadPlayButton extends StatelessWidget {
                             child: const Icon(Icons.replay)),
                         iconSize: 24.0,
                         onPressed: () {
-                          sl<SurahAudioController>().isDownloading.value = true;
-                          sl<SurahAudioController>().downAudioPlayer.seek(
-                              Duration.zero,
-                              index: sl<SurahAudioController>()
-                                  .downAudioPlayer
-                                  .effectiveIndices!
-                                  .first);
+                          surahAudioCtrl.isDownloading.value = true;
+                          surahAudioCtrl.audioPlayer.seek(Duration.zero,
+                              index: surahAudioCtrl
+                                  .audioPlayer.effectiveIndices!.first);
                         },
                       );
                     }

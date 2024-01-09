@@ -70,6 +70,7 @@ class _SplashScreenState extends State<SplashScreen>
   Widget build(BuildContext context) {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
+
       // debugShowMaterialGrid: true,
       home: Scaffold(
         backgroundColor: const Color(0xfff3efdf),

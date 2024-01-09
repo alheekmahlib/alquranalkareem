@@ -7,6 +7,7 @@ class AppThemes {
       id: 'green',
       description: "My green Theme",
       data: ThemeData(
+        useMaterial3: false,
         colorScheme: const ColorScheme(
           brightness: Brightness.light,
           primary: Color(0xff232c13),
@@ -44,12 +45,13 @@ class AppThemes {
         cupertinoOverrideTheme: const CupertinoThemeData(
           primaryColor: Color(0xff606c38),
         ),
-      ).copyWith(useMaterial3: true));
+      ));
 
   static final AppTheme blue = AppTheme(
     id: 'blue',
     description: "My blue Theme",
     data: ThemeData(
+      useMaterial3: false,
       colorScheme: const ColorScheme(
         brightness: Brightness.light,
         primary: Color(0xffbc6c25),
@@ -84,13 +86,14 @@ class AppThemes {
       cupertinoOverrideTheme: const CupertinoThemeData(
         primaryColor: Color(0xff606c38),
       ),
-    ).copyWith(useMaterial3: true),
+    ),
   );
 
   static final AppTheme dark = AppTheme(
     id: 'dark',
     description: "My dark Theme",
     data: ThemeData(
+      useMaterial3: false,
       colorScheme: const ColorScheme(
         brightness: Brightness.light,
         primary: Color(0xff3F3F3F),
@@ -125,7 +128,7 @@ class AppThemes {
       cupertinoOverrideTheme: const CupertinoThemeData(
         primaryColor: Color(0xff606c38),
       ),
-    ).copyWith(useMaterial3: true),
+    ),
   );
 
   static List<AppTheme> get list =>

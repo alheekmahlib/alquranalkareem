@@ -10,8 +10,9 @@ class SkipToNext extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final surahAudioCtrl = sl<SurahAudioController>();
     return StreamBuilder<SequenceState?>(
-      stream: sl<SurahAudioController>().audioPlayer.sequenceStateStream,
+      stream: surahAudioCtrl.audioPlayer.sequenceStateStream,
       builder: (context, snapshot) => IconButton(
         icon: Semantics(
           button: true,
@@ -24,24 +25,24 @@ class SkipToNext extends StatelessWidget {
           ),
         ),
         onPressed: () {
-          if (sl<SurahAudioController>().isDownloading.value) {
-            if (sl<SurahAudioController>().surahNum.value == 114) {
-              sl<SurahAudioController>().surahNum.value = 1;
-              sl<SurahAudioController>().selectedSurah.value = 1;
+          if (surahAudioCtrl.isDownloading.value) {
+            if (surahAudioCtrl.surahNum.value == 114) {
+              surahAudioCtrl.surahNum.value = 1;
+              surahAudioCtrl.selectedSurah.value = 1;
             } else {
-              sl<SurahAudioController>().surahNum.value += 1;
-              sl<SurahAudioController>().selectedSurah.value += 1;
+              surahAudioCtrl.surahNum.value += 1;
+              surahAudioCtrl.selectedSurah.value += 1;
             }
           } else {
-            if (sl<SurahAudioController>().surahNum.value == 114) {
-              sl<SurahAudioController>().surahNum.value = 1;
-              sl<SurahAudioController>().selectedSurah.value = 1;
+            if (surahAudioCtrl.surahNum.value == 114) {
+              surahAudioCtrl.surahNum.value = 1;
+              surahAudioCtrl.selectedSurah.value = 1;
             } else {
-              sl<SurahAudioController>().surahNum.value += 1;
-              sl<SurahAudioController>().selectedSurah.value += 1;
+              surahAudioCtrl.surahNum.value += 1;
+              surahAudioCtrl.selectedSurah.value += 1;
             }
           }
-          sl<SurahAudioController>().playNextSurah();
+          surahAudioCtrl.playNextSurah();
         },
       ),
     );

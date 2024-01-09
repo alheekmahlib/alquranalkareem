@@ -102,6 +102,8 @@
     <string>App requires access to the photo library to save images</string>
     <key>NSPhotoLibraryUsageDescription</key>
     <string>App requires access to the photo library to save images</string>
+    <key>NSMicrophoneUsageDescription</key>
+    <string>We need access to the microphone for recording audio.</string>
 
 </dict>
 </plist>

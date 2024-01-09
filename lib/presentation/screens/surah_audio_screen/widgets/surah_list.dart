@@ -16,6 +16,8 @@ class SurahList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final surahAudioCtrl = sl<SurahAudioController>();
+    sl<SurahRepositoryController>().loadSorahs();
     return Padding(
       padding: orientation(
           context,
@@ -27,12 +29,12 @@ class SurahList extends StatelessWidget {
         child: Scrollbar(
           thumbVisibility: true,
           // interactive: true,
-          controller: sl<SurahAudioController>().controller,
+          controller: surahAudioCtrl.controller,
           child: Obx(
             () => ListView.builder(
                 physics: const AlwaysScrollableScrollPhysics(),
                 itemCount: sl<SurahRepositoryController>().sorahs.length,
-                controller: sl<SurahAudioController>().controller,
+                controller: surahAudioCtrl.controller,
                 padding: EdgeInsets.zero,
                 itemBuilder: (_, index) {
                   final sorah = sl<SurahRepositoryController>().sorahs[index];
@@ -48,9 +50,7 @@ class SurahList extends StatelessWidget {
                                 height: 65,
                                 decoration: BoxDecoration(
                                     color: (index % 2 == 0
-                                        ? sl<SurahAudioController>()
-                                                    .selectedSurah
-                                                    .value ==
+                                        ? surahAudioCtrl.selectedSurah.value ==
                                                 index
                                             ? Theme.of(context)
                                                 .cardColor
@@ -58,9 +58,7 @@ class SurahList extends StatelessWidget {
                                             : Theme.of(context)
                                                 .colorScheme
                                                 .background
-                                        : sl<SurahAudioController>()
-                                                    .selectedSurah
-                                                    .value ==
+                                        : surahAudioCtrl.selectedSurah.value ==
                                                 index
                                             ? Theme.of(context)
                                                 .cardColor
@@ -70,8 +68,7 @@ class SurahList extends StatelessWidget {
                                                 .withOpacity(.3)),
                                     border: Border.all(
                                         width: 2,
-                                        color: sl<SurahAudioController>()
-                                                    .selectedSurah ==
+                                        color: surahAudioCtrl.selectedSurah ==
                                                 index
                                             ? Theme.of(context)
                                                 .colorScheme
@@ -96,8 +93,7 @@ class SurahList extends StatelessWidget {
                                                     'assets/svg/sora_num.svg',
                                                   )),
                                               Text(
-                                                sl<SurahAudioController>()
-                                                    .arabicNumber
+                                                surahAudioCtrl.arabicNumber
                                                     .convert(sorah.id),
                                                 style: TextStyle(
                                                     color: ThemeProvider
@@ -161,9 +157,7 @@ class SurahList extends StatelessWidget {
                                         ),
                                       ),
                                       if (index + 1 ==
-                                          sl<SurahAudioController>()
-                                              .surahNum
-                                              .value)
+                                          surahAudioCtrl.surahNum.value)
                                         MiniMusicVisualizer(
                                           color: Theme.of(context)
                                               .colorScheme
@@ -179,16 +173,13 @@ class SurahList extends StatelessWidget {
                               // sl<GeneralController>().closeSlider();
                               sl<GeneralController>().widgetPosition.value =
                                   0.0;
-                              sl<SurahAudioController>().isDownloading.value =
-                                  false;
-                              sl<SurahAudioController>().selectedSurah.value =
-                                  index;
-                              sl<SurahAudioController>().surahNum.value =
-                                  index + 1;
-                              sl<SurahAudioController>().playNextSurah();
-                              sl<SurahAudioController>().changeAudioSource();
+                              surahAudioCtrl.isDownloading.value = false;
+                              surahAudioCtrl.selectedSurah.value = index;
+                              surahAudioCtrl.surahNum.value = index + 1;
+                              surahAudioCtrl.playNextSurah();
+                              surahAudioCtrl.changeAudioSource();
                               print(
-                                  'Updated sorahNum.value to: ${sl<SurahAudioController>().surahNum.value}');
+                                  'Updated sorahNum.value to: ${surahAudioCtrl.surahNum.value}');
                             },
                           ),
                         ),

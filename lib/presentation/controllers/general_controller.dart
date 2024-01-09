@@ -4,6 +4,7 @@ import 'package:alquranalkareem/presentation/screens/quran_page/widgets/quran_se
 import 'package:alquranalkareem/presentation/screens/quran_page/widgets/show_tafseer.dart';
 import 'package:alquranalkareem/presentation/screens/quran_page/widgets/surah_juz_list.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:flutter_sliding_up_panel/sliding_up_panel_widget.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -77,6 +78,17 @@ class GeneralController extends GetxController {
   double get positionBottom => _fabSize + _fabPosition * 4;
 
   double get positionRight => _fabPosition;
+
+  final cacheManager = CacheManager(Config(
+      'https://raw.githubusercontent.com/alheekmahlib/alquranalkareem/main/assets/app_icon.png'));
+
+  Future<Uri> getCachedArtUri(String imageUrl) async {
+    final file = await cacheManager.getSingleFile(imageUrl);
+    return file != null
+        ? file.uri
+        : Uri.parse(
+            imageUrl); // Use cached URI if available, otherwise use the original URL
+  }
 
   void setScreenSize(Size newSize, BuildContext context) {
     if (_screenSize?.value == null || _screenSize?.value != newSize) {
