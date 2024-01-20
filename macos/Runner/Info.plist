@@ -37,5 +37,7 @@
     <string>public.app-category.developer-tools</string>
     <key>NSMicrophoneUsageDescription</key>
     <string>We need access to the microphone for recording audio.</string>
+    <key>CFBundleDisplayName</key>
+    <string>القرآن الكريم مكتبة الحكمة</string>
 </dict>
 </plist>

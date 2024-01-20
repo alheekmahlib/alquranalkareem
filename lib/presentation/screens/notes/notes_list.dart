@@ -3,14 +3,16 @@ import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:get/get.dart';
 import 'package:theme_provider/theme_provider.dart';
 
-import '/core/widgets/widgets.dart';
-import '/presentation/screens/notes/model/Notes.dart';
 import '../../../core/services/l10n/app_localizations.dart';
 import '../../../core/services/services_locator.dart';
 import '../../../core/utils/constants/lottie.dart';
+import '../../../core/widgets/delete_widget.dart';
 import '../../../core/widgets/hero_dialog_route.dart';
 import '../../../core/widgets/settings_popUp.dart';
+import '../../../core/widgets/top_bar.dart';
 import '../../controllers/notes_controller.dart';
+import '/core/utils/constants/extensions.dart';
+import '/presentation/screens/notes/model/Notes.dart';
 
 class NotesList extends StatelessWidget {
   NotesList({Key? key}) : super(key: key);
@@ -23,7 +25,7 @@ class NotesList extends StatelessWidget {
     double paddingHeight = MediaQuery.sizeOf(context).height;
     return ListView(
       children: [
-        platformView(topBar(context), const SizedBox.shrink()),
+        context.definePlatform(const TopBarWidget(), const SizedBox.shrink()),
         ExpansionTile(
           iconColor: Theme.of(context).secondaryHeaderColor,
           trailing: Icon(
@@ -198,7 +200,7 @@ class NotesList extends StatelessWidget {
                                   padding: const EdgeInsets.symmetric(
                                       horizontal: 16.0, vertical: 8.0),
                                   child: Dismissible(
-                                    background: delete(context),
+                                    background: DeleteWidget(),
                                     key: UniqueKey(),
                                     onDismissed:
                                         (DismissDirection direction) async {
@@ -224,8 +226,7 @@ class NotesList extends StatelessWidget {
                                             HeroDialogRoute(builder: (context) {
                                           return settingsPopupCard(
                                             child: noteUpdate(context, note),
-                                            height: orientation(
-                                                context,
+                                            height: context.customOrientation(
                                                 MediaQuery.of(context)
                                                         .size
                                                         .height *
@@ -238,8 +239,7 @@ class NotesList extends StatelessWidget {
                                                     2 *
                                                     1.6),
                                             alignment: Alignment.topCenter,
-                                            padding: orientation(
-                                                context,
+                                            padding: context.customOrientation(
                                                 EdgeInsets.only(
                                                     top: paddingHeight * .08,
                                                     right: 16.0,

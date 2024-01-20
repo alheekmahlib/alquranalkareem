@@ -4,11 +4,11 @@ import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:theme_provider/theme_provider.dart';
 
-import '/presentation/screens/quran_text/widgets/widgets.dart';
 import '../../../presentation/controllers/playList_controller.dart';
 import '../../services/l10n/app_localizations.dart';
 import '../../services/services_locator.dart';
-import '../widgets.dart';
+import '../delete_widget.dart';
+import '/presentation/screens/quran_text/widgets/widgets.dart';
 import 'ayahs_playList_widget.dart';
 
 class PlayListBuild extends StatelessWidget {
@@ -64,7 +64,7 @@ class PlayListBuild extends StatelessWidget {
                           // padding: const EdgeInsets.all(8.0),
                           margin: const EdgeInsets.all(8.0),
                           child: Dismissible(
-                            background: delete(context),
+                            background: const DeleteWidget(),
                             key: UniqueKey(),
                             onDismissed: (DismissDirection direction) async {
                               await playList.deletePlayList(context, index);

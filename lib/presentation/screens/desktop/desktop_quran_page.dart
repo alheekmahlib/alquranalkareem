@@ -1,3 +1,4 @@
+import '/presentation/screens/quran_page/widgets/right_page.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:theme_provider/theme_provider.dart';
@@ -8,6 +9,7 @@ import '../../../core/utils/constants/svg_picture.dart';
 import '../../../core/widgets/widgets.dart';
 import '../../controllers/bookmarks_controller.dart';
 import '../../controllers/general_controller.dart';
+import '../quran_page/widgets/left_page.dart';
 
 class DPages extends StatelessWidget {
   DPages({Key? key}) : super(key: key);
@@ -35,128 +37,119 @@ class DPages extends StatelessWidget {
                       ? Semantics(
                           image: true,
                           label: 'Quran Page',
-                          child: rightPage(
-                              context,
-                              Container(
-                                margin: const EdgeInsets.only(
-                                    right: 6.0, top: 16.0, bottom: 16.0),
-                                decoration: BoxDecoration(
-                                    color: Theme.of(context)
-                                        .colorScheme
-                                        .background,
-                                    borderRadius: const BorderRadius.only(
-                                        topRight: Radius.circular(8),
-                                        bottomRight: Radius.circular(8))),
-                                child: Stack(
-                                  children: [
-                                    Padding(
-                                      padding: const EdgeInsets.symmetric(
-                                          vertical: 16.0),
-                                      child:
-                                          _dPages(context, index, orientation),
-                                    ),
-                                    Align(
-                                      alignment: Alignment.topRight,
-                                      child: GestureDetector(
-                                        onTap: () {
-                                          // Check if there's a bookmark for the current page
-                                          if (sl<BookmarksController>()
-                                              .isPageBookmarked(index + 1)) {
-                                            sl<BookmarksController>()
-                                                .deleteBookmarks(
-                                                    index + 1, context);
-                                          } else {
-                                            // If there's no bookmark for the current page, add a new one
-                                            sl<BookmarksController>()
-                                                .addBookmark(
-                                                    index + 1,
-                                                    sl<BookmarksController>()
-                                                        .soraBookmarkList![
-                                                            index + 1]
-                                                        .SoraName_ar!,
-                                                    sl<GeneralController>()
-                                                        .timeNow
-                                                        .lastRead)
-                                                .then((value) => customSnackBar(
-                                                    context,
-                                                    AppLocalizations.of(
-                                                            context)!
-                                                        .addBookmark));
-
-                                            // sl<BookmarksController>()
-                                            //     .savelastBookmark(index + 1);
-                                          }
-                                          print('index: ${index + 1}');
-                                        },
-                                        child: bookmarkIcon(context, 30.0, 30.0,
-                                            pageNum: index + 1),
-                                      ),
-                                    ),
-                                  ],
+                          child: RightPage(
+                              child: Container(
+                            margin: const EdgeInsets.only(
+                                right: 6.0, top: 16.0, bottom: 16.0),
+                            decoration: BoxDecoration(
+                                color: Theme.of(context).colorScheme.background,
+                                borderRadius: const BorderRadius.only(
+                                    topRight: Radius.circular(8),
+                                    bottomRight: Radius.circular(8))),
+                            child: Stack(
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                      vertical: 16.0),
+                                  child: _dPages(context, index, orientation),
                                 ),
-                              )),
+                                Align(
+                                  alignment: Alignment.topRight,
+                                  child: GestureDetector(
+                                    onTap: () {
+                                      // Check if there's a bookmark for the current page
+                                      if (sl<BookmarksController>()
+                                          .isPageBookmarked(index + 1)) {
+                                        sl<BookmarksController>()
+                                            .deleteBookmarks(
+                                                index + 1, context);
+                                      } else {
+                                        // If there's no bookmark for the current page, add a new one
+                                        sl<BookmarksController>()
+                                            .addBookmark(
+                                                index + 1,
+                                                sl<BookmarksController>()
+                                                    .soraBookmarkList![
+                                                        index + 1]
+                                                    .SoraName_ar!,
+                                                sl<GeneralController>()
+                                                    .timeNow
+                                                    .lastRead)
+                                            .then((value) => customSnackBar(
+                                                context,
+                                                AppLocalizations.of(context)!
+                                                    .addBookmark));
+
+                                        // sl<BookmarksController>()
+                                        //     .savelastBookmark(index + 1);
+                                      }
+                                      print('index: ${index + 1}');
+                                    },
+                                    child: bookmarkIcon(context, 30.0, 30.0,
+                                        pageNum: index + 1),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          )),
                         )
                       : Semantics(
                           image: true,
                           label: 'Quran Page',
-                          child: leftPage(
-                              context,
-                              Container(
-                                margin: const EdgeInsets.only(
-                                    left: 6.0, top: 16.0, bottom: 16.0),
-                                decoration: BoxDecoration(
-                                    color: Theme.of(context)
-                                        .colorScheme
-                                        .background,
-                                    borderRadius: const BorderRadius.only(
-                                        topLeft: Radius.circular(8),
-                                        bottomLeft: Radius.circular(8))),
-                                child: Stack(
-                                  children: [
-                                    Padding(
-                                        padding: const EdgeInsets.symmetric(
-                                            vertical: 16.0),
-                                        child: _dPages(
-                                            context, index, orientation)),
-                                    Align(
-                                      alignment: Alignment.topLeft,
-                                      child: GestureDetector(
-                                        onTap: () {
-                                          // Check if there's a bookmark for the current page
-                                          if (sl<BookmarksController>()
-                                              .isPageBookmarked(index + 1)) {
-                                            sl<BookmarksController>()
-                                                .deleteBookmarks(
-                                                    index + 1, context);
-                                          } else {
-                                            // If there's no bookmark for the current page, add a new one
-                                            sl<BookmarksController>()
-                                                .addBookmark(
-                                                    index + 1,
-                                                    sl<BookmarksController>()
-                                                        .soraBookmarkList![
-                                                            index + 1]
-                                                        .SoraName_ar!,
-                                                    sl<GeneralController>()
-                                                        .timeNow
-                                                        .lastRead)
-                                                .then((value) => customSnackBar(
-                                                    context,
-                                                    AppLocalizations.of(
-                                                            context)!
-                                                        .addBookmark));
-                                            // sl<BookmarksController>()
-                                            //     .savelastBookmark(index + 1);
-                                          }
-                                          print('index: ${index + 1}');
-                                        },
-                                        child: bookmarkIcon(context, 30.0, 30.0,
-                                            pageNum: index + 1),
-                                      ),
-                                    ),
-                                  ],
+                          child: LeftPage(
+                              child: Container(
+                            margin: const EdgeInsets.only(
+                                left: 6.0, top: 16.0, bottom: 16.0),
+                            decoration: BoxDecoration(
+                                color: Theme.of(context).colorScheme.background,
+                                borderRadius: const BorderRadius.only(
+                                    topLeft: Radius.circular(8),
+                                    bottomLeft: Radius.circular(8))),
+                            child: Stack(
+                              children: [
+                                Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        vertical: 16.0),
+                                    child:
+                                        _dPages(context, index, orientation)),
+                                Align(
+                                  alignment: Alignment.topLeft,
+                                  child: GestureDetector(
+                                    onTap: () {
+                                      // Check if there's a bookmark for the current page
+                                      if (sl<BookmarksController>()
+                                          .isPageBookmarked(index + 1)) {
+                                        sl<BookmarksController>()
+                                            .deleteBookmarks(
+                                                index + 1, context);
+                                      } else {
+                                        // If there's no bookmark for the current page, add a new one
+                                        sl<BookmarksController>()
+                                            .addBookmark(
+                                                index + 1,
+                                                sl<BookmarksController>()
+                                                    .soraBookmarkList![
+                                                        index + 1]
+                                                    .SoraName_ar!,
+                                                sl<GeneralController>()
+                                                    .timeNow
+                                                    .lastRead)
+                                            .then((value) => customSnackBar(
+                                                context,
+                                                AppLocalizations.of(context)!
+                                                    .addBookmark));
+                                        // sl<BookmarksController>()
+                                        //     .savelastBookmark(index + 1);
+                                      }
+                                      print('index: ${index + 1}');
+                                    },
+                                    child: bookmarkIcon(context, 30.0, 30.0,
+                                        pageNum: index + 1),
+                                  ),
                                 ),
-                              )),
+                              ],
+                            ),
+                          )),
                         )),
                 ),
               );

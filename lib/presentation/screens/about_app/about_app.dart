@@ -1,6 +1,5 @@
 import 'dart:io' show File;
 
-import 'package:alquranalkareem/core/utils/constants/shared_preferences_constants.dart';
 import 'package:expansion_tile_card/expansion_tile_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -18,6 +17,8 @@ import '../../../core/utils/constants/svg_picture.dart';
 import '../../../core/widgets/theme_change.dart';
 import '../../../core/widgets/widgets.dart';
 import '../../controllers/settings_controller.dart';
+import '/core/utils/constants/extensions.dart';
+import '/core/utils/constants/shared_preferences_constants.dart';
 
 class AboutApp extends StatelessWidget {
   const AboutApp({Key? key}) : super(key: key);
@@ -60,7 +61,8 @@ class AboutApp extends StatelessWidget {
           child: Align(
             alignment: Alignment.topCenter,
             child: Padding(
-              padding: orientation(context, const EdgeInsets.only(top: 64.0),
+              padding: context.customOrientation(
+                  const EdgeInsets.only(top: 64.0),
                   const EdgeInsets.only(top: 16.0)),
               child: Stack(
                 children: [
@@ -72,8 +74,7 @@ class AboutApp extends StatelessWidget {
                     indent: 16,
                   ),
                   Padding(
-                    padding: orientation(
-                        context,
+                    padding: context.customOrientation(
                         const EdgeInsets.only(top: 30, right: 16, left: 16),
                         const EdgeInsets.only(top: 30, right: 64, left: 64)),
                     child: ListView(

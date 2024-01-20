@@ -1,4 +1,3 @@
-import 'package:alquranalkareem/presentation/screens/quran_page/widgets/highlighting_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:lottie/lottie.dart';
@@ -30,7 +29,6 @@ Future<void> initializeApp() async {
   // TafseerDataBaseClient tafseerDataBaseClient = TafseerDataBaseClient.instance;
   // tafseerDataBaseClient.initDatabase();
   // FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
-  await DBHelper.instance;
   Future.delayed(const Duration(seconds: 0));
   FlutterNativeSplash.remove();
   await ServicesLocator().init();

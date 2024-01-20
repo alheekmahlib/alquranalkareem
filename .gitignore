@@ -15,6 +15,7 @@ migrate_working_dir/
 
 # Databases
 assets/QuranData.sqlite
+
 #QuranV3.sqlite
 #*.sqlite
 #*.db
@@ -56,3 +57,5 @@ app.*.map.json
 /android/app/release
 /assets/QuranData.sqlite
 *.db
+/assets/fonts/
+assets/pages/

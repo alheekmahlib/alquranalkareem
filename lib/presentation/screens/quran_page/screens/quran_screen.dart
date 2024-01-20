@@ -2,17 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 
-import '/presentation/controllers/general_controller.dart';
 import '../../../../core/services/services_locator.dart';
 import '../../../../core/widgets/animated_stack.dart';
 import '../../../../core/widgets/widgets.dart';
+import '../../../controllers/general_controller.dart';
 import '../../../controllers/notifications_controller.dart';
 import '../../athkar/screens/alzkar_view.dart';
 import '../../menu/menu_screen.dart';
 import '../../notification/notification_screen.dart';
 import '../../quran_text/screens/surah_text_screen.dart';
 import '../../surah_audio_screen/audio_screen.dart';
-import 'quran_home.dart';
+import '/core/utils/constants/extensions.dart';
+import '/presentation/screens/quran_page/screens/quran_home.dart';
 
 class QuranPageScreen extends StatefulWidget {
   const QuranPageScreen({Key? key}) : super(key: key);
@@ -55,7 +56,7 @@ class _QuranPageScreenState extends State<QuranPageScreen> {
               scaleWidth: 60,
               // scaleHeight: 60,
               columnWidget: Padding(
-                padding: orientation(context, const EdgeInsets.all(0.0),
+                padding: context.customOrientation(const EdgeInsets.all(0.0),
                     const EdgeInsets.only(top: 140.0)),
                 child: Wrap(
                   children: [
@@ -140,8 +141,8 @@ class _QuranPageScreenState extends State<QuranPageScreen> {
                         label: 'Quran Screen',
                         child: GestureDetector(
                           child: Container(
-                            height: orientation(context, 50.0, 40.0),
-                            width: orientation(context, 50.0, 40.0),
+                            height: context.customOrientation(50.0, 40.0),
+                            width: context.customOrientation(50.0, 40.0),
                             padding: const EdgeInsets.all(3),
                             decoration: BoxDecoration(
                                 color: Theme.of(context).colorScheme.surface,
@@ -179,8 +180,8 @@ class _QuranPageScreenState extends State<QuranPageScreen> {
                         label: 'Quran Text Screen',
                         child: GestureDetector(
                           child: Container(
-                            height: orientation(context, 50.0, 40.0),
-                            width: orientation(context, 50.0, 40.0),
+                            height: context.customOrientation(50.0, 40.0),
+                            width: context.customOrientation(50.0, 40.0),
                             padding: const EdgeInsets.all(4),
                             decoration: BoxDecoration(
                                 color: Theme.of(context).colorScheme.surface,
@@ -218,8 +219,8 @@ class _QuranPageScreenState extends State<QuranPageScreen> {
                         label: 'Athkar Screen',
                         child: GestureDetector(
                           child: Container(
-                            height: orientation(context, 50.0, 40.0),
-                            width: orientation(context, 50.0, 40.0),
+                            height: context.customOrientation(50.0, 40.0),
+                            width: context.customOrientation(50.0, 40.0),
                             padding: const EdgeInsets.all(7),
                             decoration: BoxDecoration(
                                 color: Theme.of(context).colorScheme.surface,
@@ -257,8 +258,8 @@ class _QuranPageScreenState extends State<QuranPageScreen> {
                         label: 'Audio Screen',
                         child: GestureDetector(
                           child: Container(
-                            height: orientation(context, 50.0, 40.0),
-                            width: orientation(context, 50.0, 40.0),
+                            height: context.customOrientation(50.0, 40.0),
+                            width: context.customOrientation(50.0, 40.0),
                             padding: const EdgeInsets.all(4),
                             decoration: BoxDecoration(
                                 color: Theme.of(context).colorScheme.surface,
@@ -296,8 +297,8 @@ class _QuranPageScreenState extends State<QuranPageScreen> {
                         label: 'Menu Screen',
                         child: GestureDetector(
                           child: Container(
-                            height: orientation(context, 50.0, 40.0),
-                            width: orientation(context, 50.0, 40.0),
+                            height: context.customOrientation(50.0, 40.0),
+                            width: context.customOrientation(50.0, 40.0),
                             padding: const EdgeInsets.all(4),
                             decoration: BoxDecoration(
                                 color: Theme.of(context).colorScheme.surface,

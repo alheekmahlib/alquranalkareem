@@ -1,4 +1,3 @@
-import 'package:alquranalkareem/core/widgets/widgets.dart';
 import 'package:arabic_numbers/arabic_numbers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
@@ -8,6 +7,7 @@ import 'package:theme_provider/theme_provider.dart';
 
 import '../../../../core/services/services_locator.dart';
 import '../../../../core/utils/constants/lottie.dart';
+import '../../../../core/widgets/delete_widget.dart';
 import '../../../controllers/bookmarks_controller.dart';
 import '../../../controllers/general_controller.dart';
 
@@ -19,9 +19,9 @@ class BookmarksList extends StatelessWidget {
     sl<BookmarksController>().getBookmarks();
     ArabicNumbers arabicNumber = ArabicNumbers();
     return SizedBox(
-      height: MediaQuery.sizeOf(context).height,
+      // height: MediaQuery.sizeOf(context).height,
       width: MediaQuery.sizeOf(context).width,
-      child: Column(
+      child: ListView(
         children: [
           Obx(() {
             if (sl<BookmarksController>().bookmarksList.isEmpty) {
@@ -32,6 +32,7 @@ class BookmarksList extends StatelessWidget {
                   alignment: Alignment.topCenter,
                   child: ListView.builder(
                       shrinkWrap: true,
+                      primary: false,
                       itemCount: sl<BookmarksController>().bookmarksList.length,
                       itemBuilder: (BuildContext context, int index) {
                         var bookmark =
@@ -46,7 +47,7 @@ class BookmarksList extends StatelessWidget {
                                 padding: const EdgeInsets.symmetric(
                                     horizontal: 16.0, vertical: 8.0),
                                 child: Dismissible(
-                                  background: delete(context),
+                                  background: const DeleteWidget(),
                                   key: ValueKey<int>(bookmark.id!),
                                   onDismissed: (DismissDirection direction) {
                                     sl<BookmarksController>().deleteBookmarks(

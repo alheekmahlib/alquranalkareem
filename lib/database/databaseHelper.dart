@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'dart:io';
 
-import 'package:alquranalkareem/presentation/screens/quran_page/data/model/bookmark.dart';
+import '/presentation/screens/quran_page/data/model/bookmark.dart';
 import 'package:path/path.dart' as p;
 import 'package:path_provider/path_provider.dart';
 import 'package:sqflite/sqflite.dart' as sqflite;

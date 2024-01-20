@@ -1,5 +1,3 @@
-import 'package:alquranalkareem/core/widgets/widgets.dart';
-import 'package:alquranalkareem/presentation/controllers/surah_audio_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
@@ -8,6 +6,8 @@ import 'package:theme_provider/theme_provider.dart';
 import '../../../../core/services/l10n/app_localizations.dart';
 import '../../../../core/services/services_locator.dart';
 import '../../../controllers/general_controller.dart';
+import '../../../controllers/surah_audio_controller.dart';
+import '/core/utils/constants/extensions.dart';
 
 class LastListen extends StatelessWidget {
   const LastListen({super.key});
@@ -21,13 +21,13 @@ class LastListen extends StatelessWidget {
       label: AppLocalizations.of(context)!.lastListen,
       child: GestureDetector(
         child: Container(
-          width: orientation(context, width, 300.0),
+          width: context.customOrientation(width, 300.0),
           height: 80,
           decoration: BoxDecoration(
             color: Theme.of(context).colorScheme.surface.withOpacity(.2),
             borderRadius: const BorderRadius.all(Radius.circular(8)),
           ),
-          margin: orientation(context, const EdgeInsets.all(16.0),
+          margin: context.customOrientation(const EdgeInsets.all(16.0),
               const EdgeInsets.only(bottom: 16.0, left: 32.0)),
           child: Column(
             children: <Widget>[

@@ -1,4 +1,3 @@
-import 'package:alquranalkareem/core/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
@@ -7,11 +6,13 @@ import 'package:theme_provider/theme_provider.dart';
 import '../../../../core/services/l10n/app_localizations.dart';
 import '../../../../core/services/services_locator.dart';
 import '../../../../core/utils/constants/lottie.dart';
+import '../../../../core/widgets/top_bar.dart';
 import '../../../controllers/aya_controller.dart';
 import '../../../controllers/quranText_controller.dart';
 import '../../../controllers/surahTextController.dart';
 import '../../quran_page/data/model/aya.dart';
 import '../screens/text_page_view.dart';
+import '/core/widgets/widgets.dart';
 
 class QuranTextSearch extends StatelessWidget {
   QuranTextSearch({super.key});
@@ -21,7 +22,7 @@ class QuranTextSearch extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: <Widget>[
-        topBar(context),
+        const TopBarWidget(),
         Container(
           height: 60,
           padding:

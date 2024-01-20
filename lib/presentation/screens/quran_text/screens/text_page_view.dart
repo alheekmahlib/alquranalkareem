@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:theme_provider/theme_provider.dart';
 
-import '/presentation/controllers/quranText_controller.dart';
 import '../../../../core/services/services_locator.dart';
 import '../../../../core/widgets/widgets.dart';
 import '../../../controllers/general_controller.dart';
@@ -14,6 +13,8 @@ import '../widgets/audio_text_widget.dart';
 import '../widgets/scrollable_list.dart';
 import '../widgets/show_text_tafseer.dart';
 import '../widgets/widgets.dart';
+import '/core/utils/constants/extensions.dart';
+import '/presentation/controllers/quranText_controller.dart';
 
 int? lastAyahInPageA;
 int pageN = 1;
@@ -98,8 +99,7 @@ class TextPageView extends StatelessWidget {
                   SizedBox(
                     height: MediaQuery.sizeOf(context).height,
                     child: Padding(
-                      padding: orientation(
-                          context,
+                      padding: context.customOrientation(
                           const EdgeInsets.only(bottom: 16.0),
                           const EdgeInsets.only(
                               bottom: 16.0, right: 40.0, left: 40.0)),

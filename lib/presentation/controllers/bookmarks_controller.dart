@@ -1,4 +1,4 @@
-import 'package:alquranalkareem/presentation/screens/quran_page/data/repository/sorah_bookmark_repository.dart';
+import '/presentation/screens/quran_page/data/repository/sorah_bookmark_repository.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 

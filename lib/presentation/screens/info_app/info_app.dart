@@ -1,4 +1,5 @@
-import 'package:alquranalkareem/core/services/l10n/app_localizations.dart';
+import '/core/services/l10n/app_localizations.dart';
+import '/core/utils/constants/extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:theme_provider/theme_provider.dart';
@@ -18,8 +19,7 @@ class InfoApp extends StatelessWidget {
       child: Scaffold(
         backgroundColor: Theme.of(context).colorScheme.background,
         body: Padding(
-          padding: orientation(
-              context,
+          padding: context.customOrientation(
               const EdgeInsets.only(top: 80.0, bottom: 16.0),
               const EdgeInsets.only(top: 20.0, bottom: 16.0)),
           child: Align(
@@ -34,8 +34,7 @@ class InfoApp extends StatelessWidget {
                   indent: 16,
                 ),
                 Padding(
-                  padding: orientation(
-                      context,
+                  padding: context.customOrientation(
                       const EdgeInsets.only(top: 30, right: 16, left: 16),
                       const EdgeInsets.only(top: 30, right: 64, left: 64)),
                   child: ListView(

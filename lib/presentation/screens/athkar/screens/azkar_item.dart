@@ -12,6 +12,7 @@ import '../../../controllers/general_controller.dart';
 import '../../../controllers/quranText_controller.dart';
 import '../models/azkar.dart';
 import '../models/azkar_by_category.dart';
+import '/core/utils/constants/extensions.dart';
 
 class AzkarItem extends StatefulWidget {
   const AzkarItem({Key? key, required this.azkar}) : super(key: key);
@@ -51,7 +52,7 @@ class _AzkarItemState extends State<AzkarItem> {
                   color: ThemeProvider.themeOf(context).id == 'dark'
                       ? Colors.white
                       : Theme.of(context).primaryColor,
-                  fontSize: orientation(context, 12.0, 16.0),
+                  fontSize: context.customOrientation(12.0, 16.0),
                   fontFamily: 'kufi',
                 ),
               ),
@@ -75,7 +76,7 @@ class _AzkarItemState extends State<AzkarItem> {
           body: Stack(
             children: [
               Padding(
-                padding: orientation(context, const EdgeInsets.all(0),
+                padding: context.customOrientation(const EdgeInsets.all(0),
                     const EdgeInsets.symmetric(horizontal: 64.0)),
                 child: SingleChildScrollView(
                   child: Column(

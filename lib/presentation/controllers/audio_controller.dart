@@ -2,7 +2,7 @@ import 'dart:async';
 import 'dart:developer' as developer;
 import 'dart:io';
 
-import 'package:alquranalkareem/presentation/screens/quran_text/data/models/QuranModel.dart';
+import '/presentation/screens/quran_text/data/models/QuranModel.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';

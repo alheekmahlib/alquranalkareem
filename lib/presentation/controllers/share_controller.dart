@@ -1,8 +1,8 @@
 import 'dart:io';
 import 'dart:typed_data';
 
-import 'package:alquranalkareem/core/widgets/widgets.dart';
-import 'package:alquranalkareem/presentation/controllers/translate_controller.dart';
+import '/core/widgets/widgets.dart';
+import '/presentation/controllers/translate_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:path_provider/path_provider.dart';

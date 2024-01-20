@@ -1,5 +1,3 @@
-import 'package:alquranalkareem/core/widgets/settings_list.dart';
-import 'package:alquranalkareem/core/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:theme_provider/theme_provider.dart';
@@ -7,6 +5,8 @@ import 'package:theme_provider/theme_provider.dart';
 import '../../presentation/controllers/general_controller.dart';
 import '../../presentation/controllers/notes_controller.dart';
 import '../services/services_locator.dart';
+import '/core/utils/constants/extensions.dart';
+import '/core/widgets/settings_list.dart';
 import 'custom_rect_tween.dart';
 import 'hero_dialog_route.dart';
 
@@ -34,13 +34,11 @@ class settingsButton extends StatelessWidget {
             Navigator.of(context).push(HeroDialogRoute(builder: (context) {
               return settingsPopupCard(
                 child: const SettingsList(),
-                height: orientation(
-                    context,
+                height: context.customOrientation(
                     MediaQuery.sizeOf(context).height * 1 / 2,
                     MediaQuery.sizeOf(context).height * 1 / 2 * 1.6),
                 alignment: Alignment.topCenter,
-                padding: orientation(
-                    context,
+                padding: context.customOrientation(
                     EdgeInsets.only(
                         top: paddingHeight * .08, right: 16.0, left: 16.0),
                     EdgeInsets.only(top: 70.0, right: width * .5, left: 16.0)),

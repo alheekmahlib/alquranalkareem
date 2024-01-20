@@ -4,6 +4,7 @@ import 'package:hijri/hijri_calendar.dart';
 
 import '../../../../core/widgets/widgets.dart';
 import '../widgets/widgets.dart';
+import '/core/utils/constants/extensions.dart';
 import '/presentation/screens/quran_text/screens/surah_list_text.dart';
 
 class SurahTextScreen extends StatelessWidget {
@@ -24,9 +25,8 @@ class SurahTextScreen extends StatelessWidget {
               borderRadius: const BorderRadius.all(Radius.circular(8)),
               border: Border.all(
                   width: 2, color: Theme.of(context).colorScheme.surface)),
-          child: platformView(
-            orientation(
-              context,
+          child: context.definePlatform(
+            context.customOrientation(
               Column(
                 children: [
                   Expanded(
@@ -66,10 +66,10 @@ class SurahTextScreen extends StatelessWidget {
                   Expanded(
                     flex: 5,
                     child: Padding(
-                      padding: orientation == Orientation.portrait
-                          ? const EdgeInsets.only(
-                              right: 16.0, left: 16.0, top: 40.0)
-                          : const EdgeInsets.only(right: 16.0, left: 16.0),
+                      padding: context.customOrientation(
+                          const EdgeInsets.only(
+                              right: 16.0, left: 16.0, top: 40.0),
+                          const EdgeInsets.only(right: 16.0, left: 16.0)),
                       child: topBar(context),
                     ),
                   ),
@@ -111,10 +111,10 @@ class SurahTextScreen extends StatelessWidget {
         ),
         Align(
           alignment:
-              orientation(context, Alignment.topCenter, Alignment.center),
+              context.customOrientation(Alignment.topCenter, Alignment.center),
           child: Container(
-            // height: platformView(100.0, 150.0),
-            width: platformView(110.0, 160.0),
+            // height: context.definePlatform(100.0, 150.0),
+            width: context.definePlatform(110.0, 160.0),
             decoration: BoxDecoration(
                 borderRadius: const BorderRadius.all(Radius.circular(8)),
                 border: Border.all(
@@ -125,8 +125,8 @@ class SurahTextScreen extends StatelessWidget {
               alignment: Alignment.topCenter,
               children: [
                 Container(
-                  height: platformView(50.0, 75.0),
-                  width: platformView(105.0, 155.0),
+                  height: context.definePlatform(50.0, 75.0),
+                  width: context.definePlatform(105.0, 155.0),
                   decoration: BoxDecoration(
                       color: Theme.of(context).colorScheme.surface,
                       borderRadius: const BorderRadius.only(
@@ -139,8 +139,7 @@ class SurahTextScreen extends StatelessWidget {
             ),
           ),
         ),
-        orientation(
-          context,
+        context.customOrientation(
           Align(
             alignment: Alignment.bottomLeft,
             child: greeting(context),
@@ -156,24 +155,24 @@ class SurahTextScreen extends StatelessWidget {
             children: [
               bookmarksTextList(
                   context,
-                  orientation(
-                      context,
+                  context.customOrientation(
                       MediaQuery.sizeOf(context).width * .9,
-                      platformView(MediaQuery.sizeOf(context).width * .5,
+                      context.definePlatform(
+                          MediaQuery.sizeOf(context).width * .5,
                           MediaQuery.sizeOf(context).width * .5))),
               quranTextSearch(
                   context,
-                  orientation(
-                      context,
+                  context.customOrientation(
                       MediaQuery.sizeOf(context).width * .9,
-                      platformView(MediaQuery.sizeOf(context).width * .5,
+                      context.definePlatform(
+                          MediaQuery.sizeOf(context).width * .5,
                           MediaQuery.sizeOf(context).width * .5))),
               notesListText(
                   context,
-                  orientation(
-                      context,
+                  context.customOrientation(
                       MediaQuery.sizeOf(context).width * .9,
-                      platformView(MediaQuery.sizeOf(context).width * .5,
+                      context.definePlatform(
+                          MediaQuery.sizeOf(context).width * .5,
                           MediaQuery.sizeOf(context).width * .5))),
             ],
           ),

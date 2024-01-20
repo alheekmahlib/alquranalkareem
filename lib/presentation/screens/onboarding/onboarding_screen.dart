@@ -3,9 +3,9 @@ import 'package:get/get.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 import '../../../core/services/services_locator.dart';
-import '../../../core/widgets/widgets.dart';
 import '../../controllers/general_controller.dart';
 import '../home/home_screen.dart';
+import '/core/utils/constants/extensions.dart';
 
 class OnboardingScreen extends StatefulWidget {
   const OnboardingScreen({Key? key}) : super(key: key);
@@ -47,7 +47,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
           body: Padding(
             padding: const EdgeInsets.only(
                 right: 16.0, left: 16.0, top: 56.0, bottom: 32.0),
-            child: platformView(
+            child: context.definePlatform(
               Stack(
                 children: [
                   Padding(
@@ -67,13 +67,11 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                             children: [
                               ListView(
                                 children: [
-                                  orientation(
-                                      context,
+                                  context.customOrientation(
                                       Center(
                                         child: Image.asset(
                                           images[index],
-                                          width: orientation(
-                                              context,
+                                          width: context.customOrientation(
                                               MediaQuery.of(context)
                                                       .size
                                                       .width *

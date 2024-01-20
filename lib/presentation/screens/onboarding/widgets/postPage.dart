@@ -6,8 +6,8 @@ import 'package:theme_provider/theme_provider.dart';
 
 import '../../../../core/services/services_locator.dart';
 import '../../../../core/utils/constants/lottie.dart';
-import '../../../../core/widgets/widgets.dart';
 import '../../../controllers/notifications_controller.dart';
+import '/core/utils/constants/extensions.dart';
 
 class PostPage extends StatelessWidget {
   const PostPage(this.postId, {super.key});
@@ -72,8 +72,7 @@ class PostPage extends StatelessWidget {
       child: Scaffold(
         backgroundColor: Theme.of(context).colorScheme.background,
         body: Padding(
-          padding: orientation(
-              context,
+          padding: context.customOrientation(
               const EdgeInsets.only(right: 16.0, left: 16.0, top: 70.0),
               const EdgeInsets.only(right: 16.0, left: 16.0, top: 16.0)),
           child: FutureBuilder<BlogPost>(

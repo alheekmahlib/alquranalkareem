@@ -4,13 +4,15 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:theme_provider/theme_provider.dart';
 
-import '/core/widgets/widgets.dart';
 import '../../../../core/services/services_locator.dart';
 import '../../../../core/utils/constants/lottie.dart';
+import '../../../../core/widgets/delete_widget.dart';
+import '../../../../core/widgets/top_bar.dart';
 import '../../../controllers/bookmarksText_controller.dart';
 import '../../../controllers/quranText_controller.dart';
 import '../../../controllers/surahTextController.dart';
 import '../screens/text_page_view.dart';
+import '/core/widgets/widgets.dart';
 
 class BookmarksTextList extends StatelessWidget {
   const BookmarksTextList({Key? key}) : super(key: key);
@@ -20,7 +22,7 @@ class BookmarksTextList extends StatelessWidget {
     sl<BookmarksTextController>().getBookmarksText();
     return Column(
       children: [
-        topBar(context),
+        const TopBarWidget(),
         const Divider(),
         Expanded(
           child: Obx(() {
@@ -47,7 +49,7 @@ class BookmarksTextList extends StatelessWidget {
                                 padding: const EdgeInsets.symmetric(
                                     horizontal: 16.0, vertical: 8.0),
                                 child: Dismissible(
-                                  background: delete(context),
+                                  background: const DeleteWidget(),
                                   key: ValueKey<int>(bookmark.id!),
                                   onDismissed: (DismissDirection direction) {
                                     sl<BookmarksTextController>()

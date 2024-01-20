@@ -1,4 +1,4 @@
-import 'package:alquranalkareem/core/services/l10n/app_localizations.dart';
+import '/core/services/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_timezone/flutter_timezone.dart';

@@ -7,6 +7,7 @@ import 'package:theme_provider/theme_provider.dart';
 import '../../../core/utils/constants/lists.dart';
 import '../../../core/utils/constants/svg_picture.dart';
 import '../../../core/widgets/widgets.dart';
+import '/core/utils/constants/extensions.dart';
 
 class AlwaqfScreen extends StatelessWidget {
   AlwaqfScreen({Key? key}) : super(key: key);
@@ -49,8 +50,7 @@ class AlwaqfScreen extends StatelessWidget {
                 Align(
                   alignment: Alignment.bottomCenter,
                   child: Padding(
-                    padding: orientation(
-                        context,
+                    padding: context.customOrientation(
                         const EdgeInsets.only(top: 32.0),
                         EdgeInsets.only(
                             top: MediaQuery.sizeOf(context).height / 1 / 13)),
@@ -58,7 +58,7 @@ class AlwaqfScreen extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Expanded(
-                          flex: orientation(context, 1, 2),
+                          flex: context.customOrientation(1, 2),
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [

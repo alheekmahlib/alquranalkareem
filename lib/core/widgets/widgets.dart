@@ -1,6 +1,5 @@
 import 'dart:io' show Platform;
 
-import 'package:alquranalkareem/presentation/screens/quran_page/widgets/quran_search.dart';
 import 'package:another_xlider/another_xlider.dart';
 import 'package:another_xlider/models/handler.dart';
 import 'package:another_xlider/models/handler_animation.dart';
@@ -23,6 +22,8 @@ import '../services/l10n/app_localizations.dart';
 import '../services/services_locator.dart';
 import '../utils/constants/shared_pref_services.dart';
 import '../utils/constants/shared_preferences_constants.dart';
+import '/core/utils/constants/extensions.dart';
+import '/presentation/screens/quran_page/widgets/quran_search.dart';
 import 'custom_paint/bg_icon.dart';
 
 double lowerValue = 24;
@@ -42,7 +43,7 @@ Widget quranPageSearch(BuildContext context, double width) {
             context,
             MediaQuery.sizeOf(context).height * .75,
             MediaQuery.sizeOf(context).width,
-            QuranSearch(),
+            const QuranSearch(),
           );
         } else {
           sl<GeneralController>().slideOpen();
@@ -180,14 +181,14 @@ Widget hijriDate(BuildContext context) {
     mainAxisAlignment: MainAxisAlignment.center,
     children: [
       SvgPicture.asset('assets/svg/hijri/${_today.hMonth}.svg',
-          height: orientation(context, 70.0, 100.0),
+          height: context.customOrientation(70.0, 100.0),
           colorFilter: ColorFilter.mode(
               Theme.of(context).colorScheme.surface, BlendMode.srcIn)),
       Text(
         arabicNumber.convert(
             '${_today.hDay} / ${_today.hMonth} / ${_today.hYear} هـ \n ${_today.dayWeName}'),
         style: TextStyle(
-          fontSize: orientation(context, 16.0, 20.0),
+          fontSize: context.customOrientation(16.0, 20.0),
           fontFamily: 'kufi',
           color: Theme.of(context).colorScheme.surface,
         ),
@@ -210,7 +211,7 @@ Widget hijriDate2(BuildContext context) {
     mainAxisAlignment: MainAxisAlignment.center,
     children: [
       SvgPicture.asset('assets/svg/hijri/${_today.hMonth}.svg',
-          height: platformView(50.0, 70.0),
+          height: context.definePlatform(50.0, 70.0),
           colorFilter: ColorFilter.mode(
               Theme.of(context).colorScheme.background, BlendMode.srcIn)),
       const SizedBox(
@@ -219,7 +220,7 @@ Widget hijriDate2(BuildContext context) {
       Text(
         '${_today.hDay} / ${_today.hMonth} / ${_today.hYear} هـ \n ${_today.dayWeName}',
         style: TextStyle(
-          fontSize: platformView(12.0, 22.0),
+          fontSize: context.definePlatform(12.0, 22.0),
           fontFamily: 'kufi',
           color: ThemeProvider.themeOf(context).id == 'dark'
               ? Theme.of(context).canvasColor
@@ -228,75 +229,6 @@ Widget hijriDate2(BuildContext context) {
         textAlign: TextAlign.center,
       ),
     ],
-  );
-}
-
-Widget topBar(BuildContext context) {
-  return SizedBox(
-    height: orientation(context, 130.0, platformView(40.0, 130.0)),
-    child: Stack(
-      alignment: Alignment.center,
-      children: [
-        Opacity(
-          opacity: .1,
-          child: SvgPicture.asset('assets/svg/splash_icon.svg'),
-        ),
-        SvgPicture.asset(
-          'assets/svg/Logo_line2.svg',
-          height: 80,
-          width: MediaQuery.sizeOf(context).width / 1 / 2,
-        ),
-        Align(
-          alignment: Alignment.topRight,
-          child: customClose(context),
-        ),
-      ],
-    ),
-  );
-}
-
-Widget delete(BuildContext context) {
-  return Container(
-    // height: 55,
-    width: MediaQuery.sizeOf(context).width,
-    decoration: const BoxDecoration(
-        color: Colors.red, borderRadius: BorderRadius.all(Radius.circular(8))),
-    padding: const EdgeInsets.symmetric(horizontal: 16.0),
-    child: Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            const Icon(
-              Icons.close_outlined,
-              color: Colors.white,
-              size: 18,
-            ),
-            Text(
-              AppLocalizations.of(context)!.delete,
-              style: const TextStyle(
-                  color: Colors.white, fontSize: 14, fontFamily: 'kufi'),
-            )
-          ],
-        ),
-        Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            const Icon(
-              Icons.close_outlined,
-              color: Colors.white,
-              size: 18,
-            ),
-            Text(
-              AppLocalizations.of(context)!.delete,
-              style: const TextStyle(
-                  color: Colors.white, fontSize: 14, fontFamily: 'kufi'),
-            )
-          ],
-        ),
-      ],
-    ),
   );
 }
 
@@ -845,103 +777,6 @@ Widget bookmarkContainer(BuildContext context, Widget myWidget) {
       ));
 }
 
-orientation(BuildContext context, var n1, var n2) {
-  Orientation orientation = MediaQuery.orientationOf(context);
-  return orientation == Orientation.portrait ? n1 : n2;
-}
-
-platformView(var p1, var p2) {
-  return (Platform.isIOS || Platform.isAndroid || Platform.isFuchsia) ? p1 : p2;
-}
-
-Widget rightPage(BuildContext context, Widget child) {
-  return Stack(
-    children: [
-      Padding(
-        padding: const EdgeInsets.only(right: 4.0, top: 16.0, bottom: 16.0),
-        child: Container(
-          decoration: BoxDecoration(
-              color: ThemeProvider.themeOf(context).id == 'dark'
-                  ? Theme.of(context).primaryColorDark.withOpacity(.5)
-                  : Theme.of(context).dividerColor.withOpacity(.5),
-              borderRadius: const BorderRadius.only(
-                  topRight: Radius.circular(12),
-                  bottomRight: Radius.circular(12))),
-          // child: child,
-        ),
-      ),
-      Padding(
-        padding: const EdgeInsets.only(right: 8.0, top: 16.0, bottom: 16.0),
-        child: Container(
-          decoration: BoxDecoration(
-              color: ThemeProvider.themeOf(context).id == 'dark'
-                  ? Theme.of(context).primaryColorDark.withOpacity(.7)
-                  : Theme.of(context).dividerColor.withOpacity(.7),
-              borderRadius: const BorderRadius.only(
-                  topRight: Radius.circular(12),
-                  bottomRight: Radius.circular(12))),
-          // child: child,
-        ),
-      ),
-      Padding(
-        padding: const EdgeInsets.only(right: 12.0, top: 16.0, bottom: 16.0),
-        child: Container(
-          decoration: BoxDecoration(
-              color: Theme.of(context).colorScheme.background,
-              borderRadius: const BorderRadius.only(
-                  topRight: Radius.circular(12),
-                  bottomRight: Radius.circular(12))),
-          child: child,
-        ),
-      ),
-    ],
-  );
-}
-
-Widget leftPage(BuildContext context, Widget child) {
-  return Stack(
-    children: [
-      Padding(
-        padding: const EdgeInsets.only(left: 4.0, top: 16.0, bottom: 16.0),
-        child: Container(
-          decoration: BoxDecoration(
-              color: ThemeProvider.themeOf(context).id == 'dark'
-                  ? Theme.of(context).primaryColorDark.withOpacity(.5)
-                  : Theme.of(context).dividerColor.withOpacity(.5),
-              borderRadius: const BorderRadius.only(
-                  topLeft: Radius.circular(12),
-                  bottomLeft: Radius.circular(12))),
-          // child: child,
-        ),
-      ),
-      Padding(
-        padding: const EdgeInsets.only(left: 8.0, top: 16.0, bottom: 16.0),
-        child: Container(
-          decoration: BoxDecoration(
-              color: ThemeProvider.themeOf(context).id == 'dark'
-                  ? Theme.of(context).primaryColorDark.withOpacity(.7)
-                  : Theme.of(context).dividerColor.withOpacity(.7),
-              borderRadius: const BorderRadius.only(
-                  topLeft: Radius.circular(12),
-                  bottomLeft: Radius.circular(12))),
-          // child: child,
-        ),
-      ),
-      Padding(
-        padding: const EdgeInsets.only(left: 12.0, top: 16.0, bottom: 16.0),
-        child: Container(
-          decoration: BoxDecoration(
-              color: Theme.of(context).colorScheme.background,
-              borderRadius: const BorderRadius.only(
-                  topLeft: Radius.circular(12),
-                  bottomLeft: Radius.circular(12))),
-          child: child,
-        ),
-      ),
-    ],
-  );
-}
-
 quarters(int index) {
   if (index == 1) {
     return SvgPicture.asset(
@@ -973,10 +808,10 @@ dropDownModalBottomSheet(
   showModalBottomSheet(
       context: context,
       constraints: BoxConstraints(
-          maxWidth: platformView(
-              orientation(context, width, wid / 1 / 2), wid / 1 / 2),
-          maxHeight: orientation(
-              context, hei / 1 / 2, platformView(hei, hei / 1 / 2))),
+          maxWidth: context.definePlatform(
+              context.customOrientation(width, wid / 1 / 2), wid / 1 / 2),
+          maxHeight: context.customOrientation(
+              hei / 1 / 2, context.definePlatform(hei, hei / 1 / 2))),
       elevation: 0.0,
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.only(
@@ -998,10 +833,10 @@ allModalBottomSheet(
   showModalBottomSheet(
       context: context,
       constraints: BoxConstraints(
-          maxWidth: platformView(
-              orientation(context, width, wid / 1 / 2), wid / 1 / 2),
-          maxHeight: orientation(
-              context, hei * 3 / 4, platformView(hei, hei * 3 / 4))),
+          maxWidth: context.definePlatform(
+              context.customOrientation(width, wid / 1 / 2), wid / 1 / 2),
+          maxHeight: context.customOrientation(
+              hei * 3 / 4, context.definePlatform(hei, hei * 3 / 4))),
       elevation: 0.0,
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.only(
@@ -1026,10 +861,10 @@ fullModalBottomSheet(BuildContext context, double height, width, Widget child) {
   showModalBottomSheet(
       context: context,
       constraints: BoxConstraints(
-          maxWidth: platformView(
-              orientation(context, width, wid / 1 / 2), wid / 1 / 2),
-          maxHeight: orientation(
-              context, hei * 1 / 2 * 1.8, platformView(hei, hei * 3 / 4))),
+          maxWidth: context.definePlatform(
+              context.customOrientation(width, wid / 1 / 2), wid / 1 / 2),
+          maxHeight: context.customOrientation(
+              hei * 1 / 2 * 1.8, context.definePlatform(hei, hei * 3 / 4))),
       elevation: 0.0,
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.only(

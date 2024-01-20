@@ -1,4 +1,3 @@
-import 'package:alquranalkareem/core/utils/constants/shared_preferences_constants.dart';
 import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -15,6 +14,7 @@ import '../screens/quran_text/data/models/QuranModel.dart';
 import '../screens/quran_text/data/models/bookmark_text.dart';
 import '../screens/quran_text/screens/text_page_view.dart';
 import '../screens/quran_text/widgets/widgets.dart';
+import '/core/utils/constants/shared_preferences_constants.dart';
 import 'audio_controller.dart';
 import 'ayat_controller.dart';
 import 'bookmarksText_controller.dart';

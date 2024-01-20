@@ -1,4 +1,4 @@
-import 'package:alquranalkareem/presentation/controllers/quranText_controller.dart';
+import '/presentation/controllers/quranText_controller.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 

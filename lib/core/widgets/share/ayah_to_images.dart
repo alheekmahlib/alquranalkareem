@@ -1,3 +1,4 @@
+import '/core/utils/constants/extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:theme_provider/theme_provider.dart';
@@ -91,8 +92,7 @@ void showVerseOptionsBottomSheet(
                             size: 24,
                           ),
                           SizedBox(
-                            width: orientation(
-                                context,
+                            width: context.customOrientation(
                                 MediaQuery.sizeOf(context).width * .7,
                                 MediaQuery.sizeOf(context).width / 1 / 3),
                             child: Text(

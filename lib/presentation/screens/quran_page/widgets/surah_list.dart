@@ -1,3 +1,4 @@
+import 'package:alquranalkareem/core/utils/constants/extensions.dart';
 import 'package:arabic_numbers/arabic_numbers.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -8,7 +9,6 @@ import 'package:theme_provider/theme_provider.dart';
 
 import '../../../../core/services/l10n/app_localizations.dart';
 import '../../../../core/services/services_locator.dart';
-import '../../../../core/widgets/widgets.dart';
 import '../../../controllers/general_controller.dart';
 import '../../../controllers/surah_repository_controller.dart';
 
@@ -21,7 +21,7 @@ class SurahList extends StatelessWidget {
     ArabicNumbers arabicNumber = ArabicNumbers();
     double height = MediaQuery.sizeOf(context).height;
     return Container(
-      height: orientation(context, height * .65, height),
+      height: context.customOrientation(height * .65, height),
       color: Theme.of(context).colorScheme.background,
       child: Padding(
         padding: const EdgeInsets.only(bottom: 16.0),

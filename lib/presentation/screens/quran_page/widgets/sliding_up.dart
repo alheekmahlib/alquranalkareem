@@ -1,12 +1,12 @@
-import 'package:alquranalkareem/presentation/screens/quran_page/widgets/audio_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_sliding_up_panel/sliding_up_panel_widget.dart';
 import 'package:gap/gap.dart';
 
-import '/core/services/l10n/app_localizations.dart';
 import '../../../../core/services/services_locator.dart';
-import '../../../../core/widgets/widgets.dart';
 import '../../../controllers/general_controller.dart';
+import '/core/services/l10n/app_localizations.dart';
+import '/core/utils/constants/extensions.dart';
+import '/presentation/screens/quran_page/widgets/audio_widget.dart';
 
 class Sliding extends StatelessWidget {
   final Widget? myWidget1;
@@ -35,13 +35,12 @@ class Sliding extends StatelessWidget {
     return Directionality(
       textDirection: TextDirection.rtl,
       child: SizedBox(
-        height: orientation(
-            context,
-            MediaQuery.sizeOf(context).height * .94,
+        height: context.customOrientation(
+            MediaQuery.sizeOf(context).height * .84,
             // 610.0,
-            platformView(MediaQuery.sizeOf(context).height,
+            context.definePlatform(MediaQuery.sizeOf(context).height,
                 MediaQuery.sizeOf(context).height * .9)),
-        width: platformView(MediaQuery.sizeOf(context).width,
+        width: context.definePlatform(MediaQuery.sizeOf(context).width,
             MediaQuery.sizeOf(context).width * .6),
         child: SlidingUpPanelWidget(
           controlHeight: cHeight!,
@@ -88,9 +87,9 @@ class Sliding extends StatelessWidget {
                       // height: 65.0,
                       child: Column(
                         children: [
-                          platformView(
-                              orientation(context, AudioWidget(),
-                                  const SizedBox.shrink()),
+                          context.definePlatform(
+                              context.customOrientation(
+                                  AudioWidget(), const SizedBox.shrink()),
                               AudioWidget()),
                           Padding(
                             padding:
@@ -149,10 +148,9 @@ class TextSliding extends StatelessWidget {
     return Directionality(
       textDirection: TextDirection.rtl,
       child: SizedBox(
-        height: orientation(
-            context,
+        height: context.customOrientation(
             MediaQuery.sizeOf(context).height * 3 / 4 * 1.15,
-            platformView(MediaQuery.sizeOf(context).height,
+            context.definePlatform(MediaQuery.sizeOf(context).height,
                 MediaQuery.sizeOf(context).height * 3 / 4)),
         child: SlidingUpPanelWidget(
           controlHeight: cHeight!,

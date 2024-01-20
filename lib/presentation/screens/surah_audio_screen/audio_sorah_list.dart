@@ -3,9 +3,9 @@ import 'package:get/get.dart';
 
 import '../../../core/services/services_locator.dart';
 import '../../../core/utils/constants/svg_picture.dart';
-import '../../../core/widgets/widgets.dart';
 import '../../controllers/general_controller.dart';
 import '../../controllers/surah_audio_controller.dart';
+import '/core/utils/constants/extensions.dart';
 import 'widgets/last_listen.dart';
 import 'widgets/play_banner.dart';
 import 'widgets/play_widget.dart';
@@ -31,9 +31,8 @@ class AudioSorahList extends StatelessWidget {
               width: 2,
               color: Theme.of(context).colorScheme.surface,
             )),
-        child: platformView(
-            orientation(
-                context,
+        child: context.definePlatform(
+            context.customOrientation(
                 Stack(
                   children: [
                     Align(

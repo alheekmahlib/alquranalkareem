@@ -1,3 +1,4 @@
+import 'package:alquranalkareem/core/utils/constants/extensions.dart';
 import 'package:alquranalkareem/presentation/screens/notes/notes_list.dart';
 import 'package:alquranalkareem/presentation/screens/quran_page/widgets/bookmarks_list.dart';
 import 'package:alquranalkareem/presentation/screens/quran_page/widgets/quran_search.dart';
@@ -14,11 +15,10 @@ import '../../core/utils/constants/shared_pref_services.dart';
 import '../../core/utils/constants/shared_preferences_constants.dart';
 import '../../core/widgets/time_now.dart';
 import '../screens/quran_page/data/model/sorah_bookmark.dart';
-import '/core/widgets/widgets.dart';
-import '/presentation/controllers/playList_controller.dart';
 import 'audio_controller.dart';
 import 'ayat_controller.dart';
 import 'bookmarks_controller.dart';
+import 'playList_controller.dart';
 
 class GeneralController extends GetxController {
   final GlobalKey<NavigatorState> navigatorNotificationKey =
@@ -94,7 +94,8 @@ class GeneralController extends GetxController {
     if (_screenSize?.value == null || _screenSize?.value != newSize) {
       _screenSize = newSize.obs;
 
-      xScale = orientation(context, (60 + _fabPosition * 5) * 120 / scr_width,
+      xScale = context.customOrientation(
+          (60 + _fabPosition * 5) * 120 / scr_width,
           (60 + _fabPosition * 5) * 100 / scr_width);
       yScale = (60 + _fabPosition * 2) * 100 / scr_height;
       update();

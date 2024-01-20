@@ -5,10 +5,11 @@ import 'package:theme_provider/theme_provider.dart';
 import '../../../../core/services/l10n/app_localizations.dart';
 import '../../../../core/services/services_locator.dart';
 import '../../../../core/utils/constants/lottie.dart';
-import '../../../../core/widgets/widgets.dart';
+import '../../../../core/widgets/top_bar.dart';
 import '../../../controllers/aya_controller.dart';
 import '../../../controllers/general_controller.dart';
 import '../data/model/aya.dart';
+import '/core/utils/constants/extensions.dart';
 
 class QuranSearch extends StatelessWidget {
   const QuranSearch({super.key});
@@ -22,7 +23,7 @@ class QuranSearch extends StatelessWidget {
       width: MediaQuery.sizeOf(context).width,
       child: Column(
         children: <Widget>[
-          platformView(topBar(context), const SizedBox.shrink()),
+          context.definePlatform(const TopBarWidget(), const SizedBox.shrink()),
           Container(
             height: 60,
             padding:

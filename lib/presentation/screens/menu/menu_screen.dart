@@ -10,12 +10,14 @@ import 'package:theme_provider/theme_provider.dart';
 import '../../../core/services/l10n/app_localizations.dart';
 import '../../../core/services/local_notifications.dart';
 import '../../../core/services/services_locator.dart';
+import '../../../core/widgets/delete_widget.dart';
 import '../../../core/widgets/widgets.dart';
 import '../../controllers/general_controller.dart';
 import '../../controllers/reminder_controller.dart';
 import '../about_app/about_app.dart';
 import '../alwaqf_screen/alwaqf_screen.dart';
 import '../info_app/info_app.dart';
+import '/core/utils/constants/extensions.dart';
 import 'data/models/reminder_model.dart';
 
 List<GlobalKey> textFieldKeys = [];
@@ -41,8 +43,7 @@ class _MenuScreenState extends State<MenuScreen> {
         appBar: AppBar(
           backgroundColor: Theme.of(context).colorScheme.background,
         ),
-        body: orientation(
-            context,
+        body: context.customOrientation(
             Padding(
               padding: const EdgeInsets.only(right: 16.0, left: 16.0),
               child: ListView(
@@ -76,8 +77,7 @@ class _MenuScreenState extends State<MenuScreen> {
             ListView(
               children: [
                 Padding(
-                  padding: orientation(
-                      context,
+                  padding: context.customOrientation(
                       const EdgeInsets.only(right: 16.0, left: 16.0, top: 40.0),
                       const EdgeInsets.only(
                           right: 16.0, left: 16.0, top: 16.0)),
@@ -157,7 +157,7 @@ class _MenuScreenState extends State<MenuScreen> {
 
   Widget hijiriWidget() {
     return Container(
-      height: orientation(context, 220.0, 220.0),
+      height: context.customOrientation(220.0, 220.0),
       // width: 70,
       decoration: const BoxDecoration(
         borderRadius: BorderRadius.all(Radius.circular(8)),
@@ -180,7 +180,7 @@ class _MenuScreenState extends State<MenuScreen> {
       enabled: true,
       label: AppLocalizations.of(context)!.lastRead,
       child: Container(
-        width: orientation(context, MediaQuery.sizeOf(context).width,
+        width: context.customOrientation(MediaQuery.sizeOf(context).width,
             MediaQuery.sizeOf(context).width * .4),
         decoration: BoxDecoration(
           color: Theme.of(context).colorScheme.surface.withOpacity(.2),
@@ -190,8 +190,7 @@ class _MenuScreenState extends State<MenuScreen> {
         child: Row(
           children: <Widget>[
             Container(
-              width: orientation(
-                  context,
+              width: context.customOrientation(
                   MediaQuery.sizeOf(context).width / 1 / 4,
                   MediaQuery.sizeOf(context).width * .12),
               height: 70,
@@ -445,7 +444,7 @@ class _MenuScreenState extends State<MenuScreen> {
                     GlobalKey textFieldKey = GlobalKey();
                     textFieldKeys.add(textFieldKey);
                     return Dismissible(
-                      background: delete(context),
+                      background: DeleteWidget(),
                       key: UniqueKey(),
                       onDismissed: (DismissDirection direction) async {
                         await sl<ReminderController>()

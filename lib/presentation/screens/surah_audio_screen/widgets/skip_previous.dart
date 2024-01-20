@@ -1,4 +1,4 @@
-import 'package:alquranalkareem/core/services/l10n/app_localizations.dart';
+import '/core/services/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:just_audio/just_audio.dart';
 

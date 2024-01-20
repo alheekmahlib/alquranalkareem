@@ -9,6 +9,7 @@ import '../../../../core/services/l10n/app_localizations.dart';
 import '../../../../core/utils/constants/lists.dart';
 import '../../../../core/widgets/widgets.dart';
 import '../models/all_azkar.dart';
+import '/core/utils/constants/extensions.dart';
 import 'azkar_fav.dart';
 import 'azkar_item.dart';
 
@@ -52,9 +53,8 @@ class _AzkarViewState extends State<AzkarView> {
                 )),
             child: DefaultTabController(
               length: 2,
-              child: platformView(
-                  orientation(
-                      context,
+              child: context.definePlatform(
+                  context.customOrientation(
                       Column(
                         children: [
                           zekrWidget(context),
@@ -182,21 +182,20 @@ class _AzkarViewState extends State<AzkarView> {
           opacity: .05,
           child: SvgPicture.asset(
             'assets/svg/athkar.svg',
-            height: orientation(context, 220.0, 250.0),
-            width: orientation(context, 220.0, 250.0),
+            height: context.customOrientation(220.0, 250.0),
+            width: context.customOrientation(220.0, 250.0),
           ),
         ),
         Container(
           height: 190.0,
-          width: orientation(
-              context,
+          width: context.customOrientation(
               MediaQuery.sizeOf(context).width,
-              platformView(MediaQuery.sizeOf(context).width / 1 / 2 * .65,
+              context.definePlatform(
+                  MediaQuery.sizeOf(context).width / 1 / 2 * .65,
                   MediaQuery.sizeOf(context).width / 1 / 2 * .8)),
           alignment: Alignment.center,
           padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 8.0),
-          margin: orientation(
-              context,
+          margin: context.customOrientation(
               const EdgeInsets.symmetric(horizontal: 16.0),
               const EdgeInsets.only(left: 32.0, right: 32.0)),
           decoration: BoxDecoration(
@@ -210,7 +209,8 @@ class _AzkarViewState extends State<AzkarView> {
                 color: ThemeProvider.themeOf(context).id == 'dark'
                     ? Colors.white
                     : Theme.of(context).primaryColorDark,
-                fontSize: platformView(orientation(context, 22.0, 18.0), 18.0),
+                fontSize: context.definePlatform(
+                    context.customOrientation(22.0, 18.0), 18.0),
                 height: 1.7,
                 fontFamily: 'naskh',
                 fontWeight: FontWeight.w100),

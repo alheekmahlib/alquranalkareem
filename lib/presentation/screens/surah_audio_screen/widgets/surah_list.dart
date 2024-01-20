@@ -6,10 +6,10 @@ import 'package:mini_music_visualizer/mini_music_visualizer.dart';
 import 'package:theme_provider/theme_provider.dart';
 
 import '../../../../core/services/services_locator.dart';
-import '../../../../core/widgets/widgets.dart';
 import '../../../controllers/general_controller.dart';
 import '../../../controllers/surah_audio_controller.dart';
 import '../../../controllers/surah_repository_controller.dart';
+import '/core/utils/constants/extensions.dart';
 
 class SurahList extends StatelessWidget {
   const SurahList({super.key});
@@ -19,8 +19,7 @@ class SurahList extends StatelessWidget {
     final surahAudioCtrl = sl<SurahAudioController>();
     sl<SurahRepositoryController>().loadSorahs();
     return Padding(
-      padding: orientation(
-          context,
+      padding: context.customOrientation(
           const EdgeInsets.only(
               right: 16.0, left: 16.0, top: 260.0, bottom: 16.0),
           const EdgeInsets.only(

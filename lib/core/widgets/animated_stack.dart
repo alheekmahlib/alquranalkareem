@@ -1,4 +1,5 @@
-import 'package:alquranalkareem/core/services/l10n/app_localizations.dart';
+import '/core/services/l10n/app_localizations.dart';
+import '/core/utils/constants/extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -8,7 +9,6 @@ import 'custom_rect_tween.dart';
 import 'hero_dialog_route.dart';
 import 'settings_list.dart';
 import 'settings_popUp.dart';
-import 'widgets.dart';
 
 class AnimatedStack extends StatelessWidget {
   final double scaleWidth;
@@ -136,16 +136,14 @@ class AnimatedStack extends StatelessWidget {
                                 .push(HeroDialogRoute(builder: (context) {
                               return settingsPopupCard(
                                 child: const SettingsList(),
-                                height: orientation(
-                                    context,
+                                height: context.customOrientation(
                                     400.0,
                                     MediaQuery.sizeOf(context).height *
                                         1 /
                                         2 *
                                         1.6),
                                 alignment: Alignment.topCenter,
-                                padding: orientation(
-                                    context,
+                                padding: context.customOrientation(
                                     const EdgeInsets.only(
                                         right: 16.0, left: 16.0),
                                     EdgeInsets.only(
