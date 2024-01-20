@@ -57,5 +57,4 @@ app.*.map.json
 /android/app/release
 /assets/QuranData.sqlite
 *.db
-/assets/fonts/
-assets/pages/
+/assets/pages/
