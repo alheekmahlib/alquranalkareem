@@ -3,11 +3,11 @@ import 'dart:convert';
 import 'package:arabic_numbers/arabic_numbers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:theme_provider/theme_provider.dart';
+import 'package:get/get.dart';
 
-import '/core/widgets/widgets.dart';
 import '../../../../core/services/services_locator.dart';
 import '../../../controllers/general_controller.dart';
+import '/core/widgets/widgets.dart';
 
 class QuranJuz extends StatelessWidget {
   final controller = ScrollController();
@@ -41,8 +41,7 @@ class QuranJuz extends StatelessWidget {
                               width: MediaQuery.sizeOf(context).width,
                               decoration: BoxDecoration(
                                   border: Border.all(
-                                    color:
-                                        Theme.of(context).colorScheme.surface,
+                                    color: Get.theme.colorScheme.surface,
                                     width: 1,
                                   ),
                                   borderRadius: const BorderRadius.only(
@@ -56,8 +55,7 @@ class QuranJuz extends StatelessWidget {
                                     child: juzNum2(
                                         '${showData[index]['index']}',
                                         context,
-                                        ThemeProvider.themeOf(context).id ==
-                                                'dark'
+                                        Get.isDarkMode
                                             ? Colors.white
                                             : Colors.black,
                                         30),
@@ -72,14 +70,9 @@ class QuranJuz extends StatelessWidget {
                                             fontFamily: "kufi",
                                             fontWeight: FontWeight.normal,
                                             fontSize: 10,
-                                            color:
-                                                ThemeProvider.themeOf(context)
-                                                            .id ==
-                                                        'dark'
-                                                    ? Theme.of(context)
-                                                        .canvasColor
-                                                    : Theme.of(context)
-                                                        .primaryColorDark,
+                                            color: Get.isDarkMode
+                                                ? Get.theme.canvasColor
+                                                : Get.theme.primaryColorDark,
                                           ),
                                         ),
                                         Padding(
@@ -92,20 +85,14 @@ class QuranJuz extends StatelessWidget {
                                                       fontWeight:
                                                           FontWeight.normal,
                                                       fontSize: 18,
-                                                      color: ThemeProvider
-                                                                      .themeOf(
-                                                                          context)
-                                                                  .id ==
-                                                              'dark'
-                                                          ? Theme.of(context)
-                                                              .canvasColor
-                                                          : Theme.of(context)
+                                                      color: Get.isDarkMode
+                                                          ? Get
+                                                              .theme.canvasColor
+                                                          : Get.theme
                                                               .primaryColorDark,
-                                                      backgroundColor:
-                                                          Theme.of(context)
-                                                              .colorScheme
-                                                              .surface
-                                                              .withOpacity(.2)),
+                                                      backgroundColor: Get.theme
+                                                          .colorScheme.surface
+                                                          .withOpacity(.2)),
                                                   text:
                                                       '﴿${showData[index]['start']['ayatext']}﴾',
                                                   children: [
@@ -116,7 +103,7 @@ class QuranJuz extends StatelessWidget {
                                                                         'start']
                                                                     ['verse']),
                                                             context,
-                                                            Theme.of(context)
+                                                            Get.theme
                                                                 .primaryColorDark)),
                                                   ])),
                                         ),
@@ -129,14 +116,9 @@ class QuranJuz extends StatelessWidget {
                                             fontFamily: "kufi",
                                             fontWeight: FontWeight.normal,
                                             fontSize: 10,
-                                            color:
-                                                ThemeProvider.themeOf(context)
-                                                            .id ==
-                                                        'dark'
-                                                    ? Theme.of(context)
-                                                        .canvasColor
-                                                    : Theme.of(context)
-                                                        .primaryColorDark,
+                                            color: Get.isDarkMode
+                                                ? Get.theme.canvasColor
+                                                : Get.theme.primaryColorDark,
                                           ),
                                         ),
                                         Padding(
@@ -149,20 +131,14 @@ class QuranJuz extends StatelessWidget {
                                                       fontWeight:
                                                           FontWeight.normal,
                                                       fontSize: 18,
-                                                      color: ThemeProvider
-                                                                      .themeOf(
-                                                                          context)
-                                                                  .id ==
-                                                              'dark'
-                                                          ? Theme.of(context)
-                                                              .canvasColor
-                                                          : Theme.of(context)
+                                                      color: Get.isDarkMode
+                                                          ? Get
+                                                              .theme.canvasColor
+                                                          : Get.theme
                                                               .primaryColorDark,
-                                                      backgroundColor:
-                                                          Theme.of(context)
-                                                              .colorScheme
-                                                              .surface
-                                                              .withOpacity(.2)),
+                                                      backgroundColor: Get.theme
+                                                          .colorScheme.surface
+                                                          .withOpacity(.2)),
                                                   text:
                                                       '﴿${showData[index]['end']['ayatext']}﴾',
                                                   children: [
@@ -172,7 +148,7 @@ class QuranJuz extends StatelessWidget {
                                                           showData[index]['end']
                                                               ['verse']),
                                                       context,
-                                                      Theme.of(context)
+                                                      Get.theme
                                                           .primaryColorDark,
                                                     )),
                                                   ])),

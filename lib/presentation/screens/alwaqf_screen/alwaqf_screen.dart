@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:get/get.dart';
 import 'package:group_button/group_button.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
-import 'package:theme_provider/theme_provider.dart';
 
 import '../../../core/utils/constants/lists.dart';
 import '../../../core/utils/constants/svg_picture.dart';
@@ -27,7 +27,7 @@ class AlwaqfScreen extends StatelessWidget {
           body: Directionality(
         textDirection: TextDirection.rtl,
         child: Container(
-          color: Theme.of(context).colorScheme.background,
+          color: Get.theme.colorScheme.background,
           child: Padding(
             padding: EdgeInsets.only(
                 top: MediaQuery.sizeOf(context).height / 1 / 15),
@@ -70,12 +70,8 @@ class AlwaqfScreen extends StatelessWidget {
                                     width: 50,
                                     decoration: BoxDecoration(
                                       color: isSelected
-                                          ? Theme.of(context)
-                                              .colorScheme
-                                              .surface
-                                          : Theme.of(context)
-                                              .colorScheme
-                                              .surface
+                                          ? Get.theme.colorScheme.surface
+                                          : Get.theme.colorScheme.surface
                                               .withOpacity(.6),
                                       borderRadius: BorderRadius.circular(4),
                                     ),
@@ -96,18 +92,14 @@ class AlwaqfScreen extends StatelessWidget {
                                 buttons: waqfMarks,
                                 options: GroupButtonOptions(
                                   selectedShadow: const [],
-                                  selectedColor:
-                                      Theme.of(context).colorScheme.surface,
+                                  selectedColor: Get.theme.colorScheme.surface,
                                   unselectedShadow: const [],
-                                  unselectedColor: Theme.of(context)
-                                      .colorScheme
-                                      .surface
+                                  unselectedColor: Get.theme.colorScheme.surface
                                       .withOpacity(.5),
                                   unselectedTextStyle: TextStyle(
                                     fontSize: 18,
                                     fontFamily: 'kufi',
-                                    color: ThemeProvider.themeOf(context).id ==
-                                            'dark'
+                                    color: Get.isDarkMode
                                         ? Colors.white
                                         : Colors.black,
                                   ),
@@ -161,15 +153,13 @@ class AlwaqfScreen extends StatelessWidget {
                                           horizontal: 16, vertical: 16),
                                       width: MediaQuery.sizeOf(context).width,
                                       decoration: BoxDecoration(
-                                          color: Theme.of(context)
-                                              .colorScheme
-                                              .background,
+                                          color:
+                                              Get.theme.colorScheme.background,
                                           borderRadius: const BorderRadius.all(
                                               Radius.circular(8)),
                                           border: Border.all(
-                                              color: Theme.of(context)
-                                                  .colorScheme
-                                                  .surface,
+                                              color:
+                                                  Get.theme.colorScheme.surface,
                                               width: 1)),
                                       child: Padding(
                                         padding: const EdgeInsets.symmetric(
@@ -188,7 +178,8 @@ class AlwaqfScreen extends StatelessWidget {
                                                     width: 70,
                                                     colorFilter:
                                                         ColorFilter.mode(
-                                                            Theme.of(context)
+                                                            Get
+                                                                .theme
                                                                 .colorScheme
                                                                 .surface,
                                                             BlendMode.srcIn),
@@ -210,8 +201,8 @@ class AlwaqfScreen extends StatelessWidget {
                                               waqfExplain[index],
                                               showCursor: true,
                                               cursorWidth: 3,
-                                              cursorColor: Theme.of(context)
-                                                  .dividerColor,
+                                              cursorColor:
+                                                  Get.theme.dividerColor,
                                               cursorRadius:
                                                   const Radius.circular(5),
                                               scrollPhysics:
@@ -221,10 +212,7 @@ class AlwaqfScreen extends StatelessWidget {
                                               style: TextStyle(
                                                 fontSize: 20,
                                                 fontFamily: 'naskh',
-                                                color: ThemeProvider.themeOf(
-                                                                context)
-                                                            .id ==
-                                                        'dark'
+                                                color: Get.isDarkMode
                                                     ? Colors.white
                                                     : Colors.black,
                                               ),

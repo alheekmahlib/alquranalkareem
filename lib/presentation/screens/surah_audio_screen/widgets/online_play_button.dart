@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:just_audio/just_audio.dart';
 
-import '../../../../core/services/l10n/app_localizations.dart';
 import '../../../../core/services/services_locator.dart';
 import '../../../../core/utils/constants/lottie.dart';
 import '../../../controllers/surah_audio_controller.dart';
@@ -25,12 +25,8 @@ class OnlinePlayButton extends StatelessWidget {
                 final loopMode = snapshot.data ?? LoopMode.off;
                 List<Widget> icons = [
                   Icon(Icons.repeat,
-                      color: Theme.of(context)
-                          .colorScheme
-                          .surface
-                          .withOpacity(.4)),
-                  Icon(Icons.repeat,
-                      color: Theme.of(context).colorScheme.surface),
+                      color: Get.theme.colorScheme.surface.withOpacity(.4)),
+                  Icon(Icons.repeat, color: Get.theme.colorScheme.surface),
                 ];
                 const cycleModes = [
                   LoopMode.off,
@@ -41,7 +37,7 @@ class OnlinePlayButton extends StatelessWidget {
                   icon: Semantics(
                       button: true,
                       enabled: true,
-                      label: AppLocalizations.of(context)!.repeatSurah,
+                      label: 'repeatSurah'.tr,
                       child: icons[index]),
                   onPressed: () {
                     surahAudioCtrl.audioPlayer.setLoopMode(cycleModes[
@@ -63,12 +59,12 @@ class OnlinePlayButton extends StatelessWidget {
                   alignment: Alignment.center,
                   padding: const EdgeInsets.symmetric(horizontal: 8.0),
                   decoration: BoxDecoration(
-                      color: Theme.of(context).colorScheme.surface,
+                      color: Get.theme.colorScheme.surface,
                       borderRadius: const BorderRadius.all(
                         Radius.circular(8),
                       ),
-                      border: Border.all(
-                          width: 2, color: Theme.of(context).dividerColor)),
+                      border:
+                          Border.all(width: 2, color: Get.theme.dividerColor)),
                 ),
                 StreamBuilder<PlayerState>(
                   stream: surahAudioCtrl.audioPlayer.playerStateStream,
@@ -84,10 +80,10 @@ class OnlinePlayButton extends StatelessWidget {
                         icon: Semantics(
                             button: true,
                             enabled: true,
-                            label: AppLocalizations.of(context)!.online,
+                            label: 'online'.tr,
                             child: const Icon(Icons.play_arrow_outlined)),
                         iconSize: 30.0,
-                        color: Theme.of(context).canvasColor,
+                        color: Get.theme.canvasColor,
                         onPressed: () async {
                           surahAudioCtrl.cancelDownload();
                           surahAudioCtrl.isDownloading.value = false;
@@ -103,10 +99,10 @@ class OnlinePlayButton extends StatelessWidget {
                         icon: Semantics(
                             button: true,
                             enabled: true,
-                            label: AppLocalizations.of(context)!.pauseSurah,
+                            label: 'pauseSurah'.tr,
                             child: const Icon(Icons.pause)),
                         iconSize: 24.0,
-                        color: Theme.of(context).canvasColor,
+                        color: Get.theme.canvasColor,
                         onPressed: () {
                           surahAudioCtrl.isPlaying.value = false;
                           surahAudioCtrl.audioPlayer.pause();
@@ -117,10 +113,10 @@ class OnlinePlayButton extends StatelessWidget {
                         icon: Semantics(
                             button: true,
                             enabled: true,
-                            label: AppLocalizations.of(context)!.replaySurah,
+                            label: 'replaySurah'.tr,
                             child: const Icon(Icons.replay)),
                         iconSize: 24.0,
-                        color: Theme.of(context).canvasColor,
+                        color: Get.theme.canvasColor,
                         onPressed: () => surahAudioCtrl.audioPlayer.seek(
                             Duration.zero,
                             index: surahAudioCtrl

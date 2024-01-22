@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:theme_provider/theme_provider.dart';
 
-import '../../../../core/services/l10n/app_localizations.dart';
 import '../../../../core/services/services_locator.dart';
 import '../../../../core/utils/constants/lottie.dart';
 import '../../../../core/widgets/top_bar.dart';
@@ -34,7 +32,7 @@ class QuranSearch extends StatelessWidget {
               autofocus: true,
               cursorHeight: 18,
               cursorWidth: 3,
-              cursorColor: Theme.of(context).dividerColor,
+              cursorColor: Get.theme.dividerColor,
               textInputAction: TextInputAction.search,
               onSubmitted: (value) {
                 ayahCtrl.search(value);
@@ -47,7 +45,7 @@ class QuranSearch extends StatelessWidget {
               },
               onTap: sl<GeneralController>().panelController.anchor,
               style: TextStyle(
-                  color: Theme.of(context).colorScheme.surface,
+                  color: Get.theme.colorScheme.surface,
                   fontFamily: 'kufi',
                   fontSize: 15),
               decoration: InputDecoration(
@@ -55,25 +53,23 @@ class QuranSearch extends StatelessWidget {
                   onPressed: () => general.searchTextEditing.clear(),
                   icon: Icon(
                     Icons.clear,
-                    color: Theme.of(context).colorScheme.surface,
+                    color: Get.theme.colorScheme.surface,
                   ),
                 ),
                 focusedBorder: UnderlineInputBorder(
-                  borderSide:
-                      BorderSide(color: Theme.of(context).colorScheme.surface),
+                  borderSide: BorderSide(color: Get.theme.colorScheme.surface),
                 ),
-                hintText: AppLocalizations.of(context)!.search_word,
+                hintText: 'search_word'.tr,
                 label: Text(
-                  AppLocalizations.of(context)!.search_word,
-                  style:
-                      TextStyle(color: Theme.of(context).colorScheme.surface),
+                  'search_word'.tr,
+                  style: TextStyle(color: Get.theme.colorScheme.surface),
                 ),
                 hintStyle: TextStyle(
                     // height: 1.5,
-                    color: Theme.of(context).primaryColorLight.withOpacity(0.5),
+                    color: Get.theme.primaryColorLight.withOpacity(0.5),
                     fontFamily: 'kufi',
                     fontWeight: FontWeight.normal,
-                    decorationColor: Theme.of(context).primaryColor,
+                    decorationColor: Get.theme.primaryColor,
                     fontSize: 14),
                 contentPadding: const EdgeInsets.only(right: 16, left: 16),
               ),
@@ -98,13 +94,9 @@ class QuranSearch extends StatelessWidget {
                           children: <Widget>[
                             Container(
                               color: (index % 2 == 0
-                                  ? Theme.of(context)
-                                      .colorScheme
-                                      .surface
+                                  ? Get.theme.colorScheme.surface
                                       .withOpacity(.05)
-                                  : Theme.of(context)
-                                      .colorScheme
-                                      .surface
+                                  : Get.theme.colorScheme.surface
                                       .withOpacity(.1)),
                               child: ListTile(
                                 onTap: () {
@@ -127,11 +119,9 @@ class QuranSearch extends StatelessWidget {
                                       fontFamily: "uthmanic2",
                                       fontWeight: FontWeight.normal,
                                       fontSize: 22,
-                                      color: ThemeProvider.themeOf(context)
-                                                  .id ==
-                                              'dark'
-                                          ? Theme.of(context).canvasColor
-                                          : Theme.of(context).primaryColorDark,
+                                      color: Get.isDarkMode
+                                          ? Get.theme.canvasColor
+                                          : Get.theme.primaryColorDark,
                                     ),
                                     textAlign: TextAlign.justify,
                                   ),
@@ -139,8 +129,7 @@ class QuranSearch extends StatelessWidget {
                                 subtitle: Container(
                                   height: 20,
                                   decoration: BoxDecoration(
-                                      color:
-                                          Theme.of(context).primaryColorLight,
+                                      color: Get.theme.primaryColorLight,
                                       borderRadius: const BorderRadius.all(
                                           Radius.circular(4))),
                                   child: Row(
@@ -149,8 +138,7 @@ class QuranSearch extends StatelessWidget {
                                       Expanded(
                                         child: Container(
                                           decoration: BoxDecoration(
-                                              color: Theme.of(context)
-                                                  .primaryColor,
+                                              color: Get.theme.primaryColor,
                                               borderRadius:
                                                   const BorderRadius.only(
                                                 topRight: Radius.circular(4),
@@ -160,14 +148,9 @@ class QuranSearch extends StatelessWidget {
                                             aya.sorahName,
                                             textAlign: TextAlign.center,
                                             style: TextStyle(
-                                                color: ThemeProvider.themeOf(
-                                                                context)
-                                                            .id ==
-                                                        'dark'
-                                                    ? Theme.of(context)
-                                                        .canvasColor
-                                                    : Theme.of(context)
-                                                        .colorScheme
+                                                color: Get.isDarkMode
+                                                    ? Get.theme.canvasColor
+                                                    : Get.theme.colorScheme
                                                         .background,
                                                 fontSize: 12),
                                           ),
@@ -175,20 +158,14 @@ class QuranSearch extends StatelessWidget {
                                       ),
                                       Expanded(
                                         child: Container(
-                                            color: Theme.of(context)
-                                                .primaryColorLight,
+                                            color: Get.theme.primaryColorLight,
                                             child: Text(
-                                              " ${AppLocalizations.of(context)!.part}: ${aya.partNum}",
+                                              " ${'part'.tr}: ${aya.partNum}",
                                               textAlign: TextAlign.center,
                                               style: TextStyle(
-                                                  color: ThemeProvider.themeOf(
-                                                                  context)
-                                                              .id ==
-                                                          'dark'
-                                                      ? Theme.of(context)
-                                                          .canvasColor
-                                                      : Theme.of(context)
-                                                          .colorScheme
+                                                  color: Get.isDarkMode
+                                                      ? Get.theme.canvasColor
+                                                      : Get.theme.colorScheme
                                                           .background,
                                                   fontSize: 12),
                                             )),
@@ -196,8 +173,7 @@ class QuranSearch extends StatelessWidget {
                                       Expanded(
                                         child: Container(
                                             decoration: BoxDecoration(
-                                                color: Theme.of(context)
-                                                    .primaryColor,
+                                                color: Get.theme.primaryColor,
                                                 borderRadius:
                                                     const BorderRadius.only(
                                                   topLeft: Radius.circular(4),
@@ -205,17 +181,12 @@ class QuranSearch extends StatelessWidget {
                                                       Radius.circular(4),
                                                 )),
                                             child: Text(
-                                              " ${AppLocalizations.of(context)!.page}: ${aya.pageNum}",
+                                              " ${'page'.tr}: ${aya.pageNum}",
                                               textAlign: TextAlign.center,
                                               style: TextStyle(
-                                                  color: ThemeProvider.themeOf(
-                                                                  context)
-                                                              .id ==
-                                                          'dark'
-                                                      ? Theme.of(context)
-                                                          .canvasColor
-                                                      : Theme.of(context)
-                                                          .colorScheme
+                                                  color: Get.isDarkMode
+                                                      ? Get.theme.canvasColor
+                                                      : Get.theme.colorScheme
                                                           .background,
                                                   fontSize: 12),
                                             )),

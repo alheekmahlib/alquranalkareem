@@ -3,9 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
-import 'package:theme_provider/theme_provider.dart';
 
-import '../../../../core/services/l10n/app_localizations.dart';
 import '../../../../core/services/services_locator.dart';
 import '../../../../core/utils/constants/lottie.dart';
 import '../../../../core/utils/constants/shared_pref_services.dart';
@@ -30,7 +28,7 @@ class ShowTafseer extends StatelessWidget {
     return Directionality(
       textDirection: TextDirection.rtl,
       child: Container(
-        color: Theme.of(context).colorScheme.background,
+        color: Get.theme.colorScheme.background,
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
@@ -48,14 +46,13 @@ class ShowTafseer extends StatelessWidget {
                       // width: 250,
                       alignment: Alignment.center,
                       decoration: BoxDecoration(
-                          color: Theme.of(context).dividerColor.withOpacity(.2),
+                          color: Get.theme.dividerColor.withOpacity(.2),
                           borderRadius:
                               const BorderRadius.all(Radius.circular(8))),
                       child: Container(
                         height: 40,
                         decoration: BoxDecoration(
-                            color:
-                                Theme.of(context).dividerColor.withOpacity(.4),
+                            color: Get.theme.dividerColor.withOpacity(.4),
                             borderRadius:
                                 const BorderRadius.all(Radius.circular(8))),
                         child: Padding(
@@ -69,13 +66,10 @@ class ShowTafseer extends StatelessWidget {
                                   child: Semantics(
                                     button: true,
                                     enabled: true,
-                                    label:
-                                        AppLocalizations.of(context)!.tafseer,
+                                    label: 'tafseer'.tr,
                                     child: Icon(Icons.book,
                                         size: 24,
-                                        color: Theme.of(context)
-                                            .colorScheme
-                                            .surface),
+                                        color: Get.theme.colorScheme.surface),
                                   ),
                                   onTap: () => tafseerDropDown(context),
                                 ),
@@ -88,29 +82,24 @@ class ShowTafseer extends StatelessWidget {
                                   child: Semantics(
                                     button: true,
                                     enabled: true,
-                                    label: AppLocalizations.of(context)!.copy,
+                                    label: 'copy'.tr,
                                     child: Icon(
                                       Icons.copy_outlined,
                                       size: 24,
-                                      color:
-                                          Theme.of(context).colorScheme.surface,
+                                      color: Get.theme.colorScheme.surface,
                                     ),
                                   ),
                                   onTap: () async {
                                     if (sl<AyatController>().ayahNumber.value ==
                                         -1) {
                                       customErrorSnackBar(
-                                          context,
-                                          AppLocalizations.of(context)!
-                                              .choiceAyah);
+                                          context, 'choiceAyah'.tr);
                                     } else {
                                       await Clipboard.setData(ClipboardData(
                                               text:
                                                   '﴿${sl<AyatController>().currentText.value!.translateAyah}﴾\n\n${sl<AyatController>().currentText.value!.translate}'))
                                           .then((value) => customSnackBar(
-                                              context,
-                                              AppLocalizations.of(context)!
-                                                  .copyTafseer));
+                                              context, 'copyTafseer'.tr));
                                     }
                                   },
                                 ),
@@ -119,12 +108,11 @@ class ShowTafseer extends StatelessWidget {
                                   child: Semantics(
                                     button: true,
                                     enabled: true,
-                                    label: AppLocalizations.of(context)!.copy,
+                                    label: 'copy'.tr,
                                     child: Icon(
                                       Icons.share_outlined,
                                       size: 24,
-                                      color:
-                                          Theme.of(context).colorScheme.surface,
+                                      color: Get.theme.colorScheme.surface,
                                     ),
                                   ),
                                   onTap: () {
@@ -134,9 +122,7 @@ class ShowTafseer extends StatelessWidget {
                                     if (sl<AyatController>().ayahNumber.value ==
                                         -1) {
                                       customErrorSnackBar(
-                                          context,
-                                          AppLocalizations.of(context)!
-                                              .choiceAyah);
+                                          context, 'choiceAyah'.tr);
                                     } else {
                                       sl<ShareController>().changeTafseer(
                                           context,
@@ -184,9 +170,7 @@ class ShowTafseer extends StatelessWidget {
                           height: 50,
                           alignment: Alignment.center,
                           decoration: BoxDecoration(
-                              color: Theme.of(context)
-                                  .dividerColor
-                                  .withOpacity(.2),
+                              color: Get.theme.dividerColor.withOpacity(.2),
                               borderRadius:
                                   const BorderRadius.all(Radius.circular(8))),
                           child: AyahTafseerList(
@@ -201,7 +185,7 @@ class ShowTafseer extends StatelessWidget {
               child: Container(
                 height: MediaQuery.sizeOf(context).height / 1 / 2 * 1.3,
                 width: MediaQuery.sizeOf(context).width,
-                color: Theme.of(context).colorScheme.background,
+                color: Get.theme.colorScheme.background,
                 child: Padding(
                   padding:
                       const EdgeInsets.symmetric(vertical: 8, horizontal: 16.0),
@@ -237,9 +221,7 @@ class ShowTafseer extends StatelessWidget {
                                       text:
                                           '﴿${sl<AyatController>().currentText.value!.translateAyah}﴾\n\n',
                                       style: TextStyle(
-                                          color: ThemeProvider.themeOf(context)
-                                                      .id ==
-                                                  'dark'
+                                          color: Get.isDarkMode
                                               ? Colors.white
                                               : Colors.black,
                                           fontWeight: FontWeight.w100,
@@ -264,9 +246,7 @@ class ShowTafseer extends StatelessWidget {
                                           .value!
                                           .translate,
                                       style: TextStyle(
-                                          color: ThemeProvider.themeOf(context)
-                                                      .id ==
-                                                  'dark'
+                                          color: Get.isDarkMode
                                               ? Colors.white
                                               : Colors.black,
                                           height: 1.5,
@@ -287,7 +267,7 @@ class ShowTafseer extends StatelessWidget {
                                 ),
                                 showCursor: true,
                                 cursorWidth: 3,
-                                cursorColor: Theme.of(context).dividerColor,
+                                cursorColor: Get.theme.dividerColor,
                                 cursorRadius: const Radius.circular(5),
                                 scrollPhysics: const ClampingScrollPhysics(),
                                 textDirection: TextDirection.rtl,
@@ -316,28 +296,28 @@ class ShowTafseer extends StatelessWidget {
   tafseerDropDown(BuildContext context) {
     List tafseerInfo = [
       {
-        'name': '${AppLocalizations.of(context)!.tafIbnkatheerN}',
-        'bookName': '${AppLocalizations.of(context)!.tafIbnkatheerD}',
+        'name': '${'tafIbnkatheerN'.tr}',
+        'bookName': '${'tafIbnkatheerD'.tr}',
         'dbName': 'ibnkatheer',
       },
       {
-        'name': '${AppLocalizations.of(context)!.tafBaghawyN}',
-        'bookName': '${AppLocalizations.of(context)!.tafBaghawyD}',
+        'name': '${'tafBaghawyN'.tr}',
+        'bookName': '${'tafBaghawyD'.tr}',
         'dbName': 'baghawy',
       },
       {
-        'name': '${AppLocalizations.of(context)!.tafQurtubiN}',
-        'bookName': '${AppLocalizations.of(context)!.tafQurtubiD}',
+        'name': '${'tafQurtubiN'.tr}',
+        'bookName': '${'tafQurtubiD'.tr}',
         'dbName': 'qurtubi',
       },
       {
-        'name': '${AppLocalizations.of(context)!.tafSaadiN}',
-        'bookName': '${AppLocalizations.of(context)!.tafSaadiD}',
+        'name': '${'tafSaadiN'.tr}',
+        'bookName': '${'tafSaadiD'.tr}',
         'dbName': 'saadi',
       },
       {
-        'name': '${AppLocalizations.of(context)!.tafTabariN}',
-        'bookName': '${AppLocalizations.of(context)!.tafTabariD}',
+        'name': '${'tafTabariN'.tr}',
+        'bookName': '${'tafTabariD'.tr}',
         'dbName': 'tabari',
       },
     ];
@@ -358,15 +338,15 @@ class ShowTafseer extends StatelessWidget {
                   width: 30,
                   margin: const EdgeInsets.all(16.0),
                   decoration: BoxDecoration(
-                      color: Theme.of(context).colorScheme.background,
+                      color: Get.theme.colorScheme.background,
                       borderRadius: const BorderRadius.all(
                         Radius.circular(8),
                       ),
-                      border: Border.all(
-                          width: 2, color: Theme.of(context).dividerColor)),
+                      border:
+                          Border.all(width: 2, color: Get.theme.dividerColor)),
                   child: Icon(
                     Icons.close_outlined,
-                    color: Theme.of(context).colorScheme.surface,
+                    color: Get.theme.colorScheme.surface,
                   ),
                 ),
               ),
@@ -394,7 +374,7 @@ class ShowTafseer extends StatelessWidget {
                             style: TextStyle(
                                 color: sl<AyatController>().radioValue.value ==
                                         index
-                                    ? Theme.of(context).primaryColorLight
+                                    ? Get.theme.primaryColorLight
                                     : const Color(0xffcdba72),
                                 fontSize: 14,
                                 fontFamily: 'kufi'),
@@ -404,7 +384,7 @@ class ShowTafseer extends StatelessWidget {
                             style: TextStyle(
                                 color: sl<AyatController>().radioValue.value ==
                                         index
-                                    ? Theme.of(context).primaryColorLight
+                                    ? Get.theme.primaryColorLight
                                     : const Color(0xffcdba72),
                                 fontSize: 12,
                                 fontFamily: 'kufi'),
@@ -419,7 +399,7 @@ class ShowTafseer extends StatelessWidget {
                                   color:
                                       sl<AyatController>().radioValue.value ==
                                               index
-                                          ? Theme.of(context).primaryColorLight
+                                          ? Get.theme.primaryColorLight
                                           : const Color(0xffcdba72),
                                   width: 2),
                               color: const Color(0xff39412a),
@@ -451,8 +431,7 @@ class ShowTafseer extends StatelessWidget {
                                   borderRadius: const BorderRadius.all(
                                       Radius.circular(4.0)),
                                   border: Border.all(
-                                      color: Theme.of(context).dividerColor,
-                                      width: 2)),
+                                      color: Get.theme.dividerColor, width: 2)),
                               child: Opacity(
                                 opacity:
                                     sl<AyatController>().radioValue.value ==
@@ -468,8 +447,7 @@ class ShowTafseer extends StatelessWidget {
                             borderRadius:
                                 const BorderRadius.all(Radius.circular(8.0)),
                             border: Border.all(
-                                color: Theme.of(context).dividerColor,
-                                width: 1)),
+                                color: Get.theme.dividerColor, width: 1)),
                         margin: const EdgeInsets.symmetric(
                             horizontal: 16.0, vertical: 4.0),
                       ),

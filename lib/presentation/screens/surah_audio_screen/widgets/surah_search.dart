@@ -1,9 +1,8 @@
 import 'package:alquranalkareem/core/utils/constants/extensions.dart';
 import 'package:anim_search_bar/anim_search_bar.dart';
 import 'package:flutter/material.dart';
-import 'package:theme_provider/theme_provider.dart';
+import 'package:get/get.dart';
 
-import '../../../../core/services/l10n/app_localizations.dart';
 import '../../../../core/services/services_locator.dart';
 import '../../../controllers/surah_audio_controller.dart';
 
@@ -18,30 +17,28 @@ class SurahSearch extends StatelessWidget {
       child: Semantics(
         button: true,
         enabled: true,
-        label: AppLocalizations.of(context)!.searchToSurah,
+        label: 'searchToSurah'.tr,
         child: SizedBox(
           height: 40,
           child: AnimSearchBar(
             width: context.customOrientation(width * .75, 300.0),
             textController: sl<SurahAudioController>().textController,
             rtl: true,
-            textFieldColor: ThemeProvider.themeOf(context).id == 'blue'
-                ? Theme.of(context).primaryColor
-                : Theme.of(context).colorScheme.surface,
-            helpText: AppLocalizations.of(context)!.searchToSurah,
-            textFieldIconColor: Theme.of(context).canvasColor,
-            searchIconColor: Theme.of(context).canvasColor,
+            textFieldColor: Get.isDarkMode
+                ? Get.theme.primaryColor
+                : Get.theme.colorScheme.surface,
+            helpText: 'searchToSurah'.tr,
+            textFieldIconColor: Get.theme.canvasColor,
+            searchIconColor: Get.theme.canvasColor,
             style: TextStyle(
-                color: Theme.of(context).canvasColor,
-                fontFamily: 'kufi',
-                fontSize: 15),
+                color: Get.theme.canvasColor, fontFamily: 'kufi', fontSize: 15),
             onSubmitted: (String value) {
               sl<SurahAudioController>().searchSurah(context, value);
             },
             autoFocus: false,
-            color: ThemeProvider.themeOf(context).id == 'blue'
-                ? Theme.of(context).primaryColor
-                : Theme.of(context).colorScheme.surface,
+            color: Get.isDarkMode
+                ? Get.theme.primaryColor
+                : Get.theme.colorScheme.surface,
             onSuffixTap: () {
               sl<SurahAudioController>().textController.clear();
             },

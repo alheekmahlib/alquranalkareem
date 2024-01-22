@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_sliding_up_panel/sliding_up_panel_widget.dart';
 import 'package:gap/gap.dart';
+import 'package:get/get.dart';
 
 import '../../../../core/services/services_locator.dart';
 import '../../../controllers/general_controller.dart';
-import '/core/services/l10n/app_localizations.dart';
 import '/core/utils/constants/extensions.dart';
 import '/presentation/screens/quran_page/widgets/audio_widget.dart';
 
@@ -68,7 +68,7 @@ class Sliding extends StatelessWidget {
                 Semantics(
                   button: true,
                   enabled: true,
-                  label: AppLocalizations.of(context)!.onboardTitle2,
+                  label: 'onboardTitle2'.tr,
                   child: GestureDetector(
                     onTap: () {
                       sl<GeneralController>().slideWidgetSwitch(0);
@@ -79,7 +79,7 @@ class Sliding extends StatelessWidget {
                     child: Container(
                       alignment: Alignment.center,
                       decoration: BoxDecoration(
-                          color: Theme.of(context).colorScheme.background,
+                          color: Get.theme.colorScheme.background,
                           borderRadius: const BorderRadius.only(
                             topLeft: Radius.circular(8),
                             topRight: Radius.circular(8),
@@ -100,7 +100,7 @@ class Sliding extends StatelessWidget {
                                 Icon(
                                   Icons.drag_handle_outlined,
                                   size: 20,
-                                  color: Theme.of(context).colorScheme.surface,
+                                  color: Get.theme.colorScheme.surface,
                                 ),
                                 Row(
                                   crossAxisAlignment: CrossAxisAlignment.start,

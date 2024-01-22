@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:theme_provider/theme_provider.dart';
 
 import '../../presentation/controllers/general_controller.dart';
 import '../../presentation/controllers/notes_controller.dart';
@@ -48,7 +47,7 @@ class settingsButton extends StatelessWidget {
           child: Container(
             height: 100,
             width: 100,
-            color: Theme.of(context).colorScheme.surface,
+            color: Get.theme.colorScheme.surface,
             child: Hero(
               tag: heroAddTodo,
               createRectTween: (begin, end) {
@@ -104,7 +103,7 @@ class settingsPopupCard extends StatelessWidget {
                 return CustomRectTween(begin: begin!, end: end!);
               },
               child: Material(
-                color: Theme.of(context).colorScheme.background,
+                color: Get.theme.colorScheme.background,
                 elevation: 1,
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(8)),
@@ -123,16 +122,13 @@ class settingsPopupCard extends StatelessWidget {
                           children: [
                             Icon(Icons.close_outlined,
                                 size: 40,
-                                color: Theme.of(context)
-                                    .colorScheme
-                                    .surface
+                                color: Get.theme.colorScheme.surface
                                     .withOpacity(.5)),
                             Icon(Icons.close_outlined,
                                 size: 24,
-                                color:
-                                    ThemeProvider.themeOf(context).id == 'dark'
-                                        ? Theme.of(context).canvasColor
-                                        : Theme.of(context).primaryColorDark),
+                                color: Get.isDarkMode
+                                    ? Get.theme.canvasColor
+                                    : Get.theme.primaryColorDark),
                           ],
                         ),
                         onTap: () {

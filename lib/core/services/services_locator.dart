@@ -11,6 +11,7 @@ import 'package:timezone/data/latest.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
 
 import '../../presentation/controllers/quran_controller.dart';
+import '../../presentation/controllers/theme_controller.dart';
 import '../utils/constants/shared_pref_services.dart';
 import '../utils/helpers/ui_helper.dart';
 import '/database/databaseHelper.dart';
@@ -116,6 +117,9 @@ class ServicesLocator {
     ]);
 
     // Controllers
+    sl.registerLazySingleton<ThemeController>(
+        () => Get.put<ThemeController>(ThemeController(), permanent: true));
+
     sl.registerLazySingleton<AyatController>(
         () => Get.put<AyatController>(AyatController(), permanent: true));
 

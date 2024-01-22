@@ -3,7 +3,6 @@ import 'package:day_night_time_picker/lib/state/time.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../core/services/l10n/app_localizations.dart';
 import '../../core/services/local_notifications.dart';
 import '../../core/widgets/widgets.dart';
 import '../screens/menu/data/models/reminder_model.dart';
@@ -36,20 +35,20 @@ class ReminderController extends GetxController {
           changedTimeOfDay = time;
           print(changedTimeOfDay);
         },
-        accentColor: Theme.of(context).colorScheme.surface,
-        okText: AppLocalizations.of(context)!.ok,
+        accentColor: Get.theme.colorScheme.surface,
+        okText: 'ok'.tr,
         okStyle: TextStyle(
           fontFamily: 'kufi',
           fontSize: 14,
-          color: Theme.of(context).colorScheme.surface,
+          color: Get.theme.colorScheme.surface,
         ),
-        cancelText: AppLocalizations.of(context)!.cancel,
+        cancelText: 'cancel'.tr,
         cancelStyle: TextStyle(
             fontFamily: 'kufi',
             fontSize: 14,
-            color: Theme.of(context).colorScheme.surface),
+            color: Get.theme.colorScheme.surface),
         themeData: ThemeData(
-          cardColor: Theme.of(context).colorScheme.background,
+          cardColor: Get.theme.colorScheme.background,
         ),
       ),
     );
@@ -87,8 +86,8 @@ class ReminderController extends GetxController {
     await NotifyHelper().cancelScheduledNotification(reminders[index].id);
 
     // Delete the reminder
-    await ReminderStorage.deleteReminder(index).then((value) =>
-        customSnackBar(context, AppLocalizations.of(context)!.deletedReminder));
+    await ReminderStorage.deleteReminder(index)
+        .then((value) => customSnackBar(context, 'deletedReminder'.tr));
 
     // Update the reminders list
     reminders.removeAt(index);

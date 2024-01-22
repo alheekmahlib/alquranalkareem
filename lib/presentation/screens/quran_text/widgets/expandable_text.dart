@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
-import 'package:theme_provider/theme_provider.dart';
+import 'package:get/get.dart';
 
 import '../../../../core/services/services_locator.dart';
 import '../../../controllers/general_controller.dart';
@@ -52,9 +51,7 @@ class ExpandableText extends StatelessWidget {
                         fontSize:
                             sl<GeneralController>().fontSizeArabic.value - 8,
                         fontFamily: 'kufi',
-                        color: ThemeProvider.themeOf(context).id == 'dark'
-                            ? Colors.white
-                            : Colors.black,
+                        color: Get.isDarkMode ? Colors.white : Colors.black,
                         // overflow: TextOverflow.fade,
                       ),
                       textDirection: TextDirection.ltr,
@@ -68,9 +65,7 @@ class ExpandableText extends StatelessWidget {
                         fontSize:
                             sl<GeneralController>().fontSizeArabic.value - 8,
                         fontFamily: 'kufi',
-                        color: ThemeProvider.themeOf(context).id == 'dark'
-                            ? Colors.white
-                            : Colors.black,
+                        color: Get.isDarkMode ? Colors.white : Colors.black,
                       ),
                       textDirection: TextDirection.ltr,
                     ),
@@ -82,8 +77,7 @@ class ExpandableText extends StatelessWidget {
                   child: TextButton.icon(
                     icon: Text(
                       readLessText ?? 'Read less',
-                      style: buttonTextStyle ??
-                          Theme.of(context).textTheme.titleMedium,
+                      style: buttonTextStyle ?? Get.theme.textTheme.titleMedium,
                     ),
                     label: iconExpanded ??
                         Icon(
@@ -97,8 +91,7 @@ class ExpandableText extends StatelessWidget {
               : TextButton.icon(
                   icon: Text(
                     readMoreText ?? 'Read more',
-                    style: buttonTextStyle ??
-                        Theme.of(context).textTheme.titleMedium,
+                    style: buttonTextStyle ?? Get.theme.textTheme.titleMedium,
                   ),
                   label: iconCollapsed ??
                       Icon(

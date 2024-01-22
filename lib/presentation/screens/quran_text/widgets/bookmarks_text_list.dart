@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
-import 'package:theme_provider/theme_provider.dart';
 
 import '../../../../core/services/services_locator.dart';
 import '../../../../core/utils/constants/lottie.dart';
@@ -87,9 +86,7 @@ class BookmarksTextList extends StatelessWidget {
                                     child: Container(
                                       width: MediaQuery.sizeOf(context).width,
                                       decoration: BoxDecoration(
-                                          color: Theme.of(context)
-                                              .colorScheme
-                                              .surface
+                                          color: Get.theme.colorScheme.surface
                                               .withOpacity(.2),
                                           borderRadius: const BorderRadius.all(
                                               Radius.circular(8))),
@@ -118,10 +115,7 @@ class BookmarksTextList extends StatelessWidget {
                                                       textAlign:
                                                           TextAlign.center,
                                                       style: TextStyle(
-                                                          color: ThemeProvider.themeOf(
-                                                                          context)
-                                                                      .id ==
-                                                                  'dark'
+                                                          color: Get.isDarkMode
                                                               ? Theme.of(
                                                                       context)
                                                                   .canvasColor
@@ -138,14 +132,10 @@ class BookmarksTextList extends StatelessWidget {
                                                 Text(
                                                   '${bookmark.sorahName}',
                                                   style: TextStyle(
-                                                      color: ThemeProvider
-                                                                      .themeOf(
-                                                                          context)
-                                                                  .id ==
-                                                              'dark'
-                                                          ? Theme.of(context)
-                                                              .canvasColor
-                                                          : Theme.of(context)
+                                                      color: Get.isDarkMode
+                                                          ? Get
+                                                              .theme.canvasColor
+                                                          : Get.theme
                                                               .primaryColorDark,
                                                       fontSize: 16,
                                                       fontFamily: 'kufi',
@@ -155,14 +145,10 @@ class BookmarksTextList extends StatelessWidget {
                                                 Text(
                                                   "${bookmark.lastRead}",
                                                   style: TextStyle(
-                                                      color: ThemeProvider
-                                                                      .themeOf(
-                                                                          context)
-                                                                  .id ==
-                                                              'dark'
-                                                          ? Theme.of(context)
-                                                              .canvasColor
-                                                          : Theme.of(context)
+                                                      color: Get.isDarkMode
+                                                          ? Get
+                                                              .theme.canvasColor
+                                                          : Get.theme
                                                               .primaryColorLight,
                                                       fontSize: 13,
                                                       fontFamily: 'kufi',

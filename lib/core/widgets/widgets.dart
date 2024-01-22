@@ -11,14 +11,12 @@ import 'package:flutter_sliding_up_panel/sliding_up_panel_widget.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:hijri/hijri_calendar.dart';
-import 'package:theme_provider/theme_provider.dart';
 
 import '../../presentation/controllers/general_controller.dart';
 import '../../presentation/controllers/notes_controller.dart';
 import '../../presentation/screens/notes/notes_list.dart';
 import '../../presentation/screens/quran_text/widgets/bookmarks_text_list.dart';
 import '../../presentation/screens/quran_text/widgets/quran_text_search.dart';
-import '../services/l10n/app_localizations.dart';
 import '../services/services_locator.dart';
 import '../utils/constants/shared_pref_services.dart';
 import '../utils/constants/shared_preferences_constants.dart';
@@ -34,7 +32,7 @@ Widget quranPageSearch(BuildContext context, double width) {
   return Semantics(
     button: true,
     enabled: true,
-    label: AppLocalizations.of(context)!.search,
+    label: 'search'.tr,
     child: GestureDetector(
       child: iconBg(context, Icons.search_outlined),
       onTap: () {
@@ -58,7 +56,7 @@ Widget quranPageSorahList(BuildContext context, double width) {
   return Semantics(
     button: true,
     enabled: true,
-    label: AppLocalizations.of(context)!.surahsList,
+    label: 'surahsList'.tr,
     child: GestureDetector(
         child: iconBg(context, Icons.list_alt_outlined),
         onTap: () {
@@ -77,7 +75,7 @@ Widget notesList(BuildContext context, double width) {
   return Semantics(
     button: true,
     enabled: true,
-    label: AppLocalizations.of(context)!.notes,
+    label: 'notes'.tr,
     child: GestureDetector(
       child: iconBg(context, Icons.add_comment_outlined),
       onTap: () {
@@ -101,7 +99,7 @@ Widget notesListText(BuildContext context, double width) {
   return Semantics(
     button: true,
     enabled: true,
-    label: AppLocalizations.of(context)!.notes,
+    label: 'notes'.tr,
     child: GestureDetector(
       child: iconBg(context, Icons.add_comment_outlined),
       onTap: () {
@@ -116,7 +114,7 @@ Widget bookmarksList(BuildContext context, double width) {
   return Semantics(
     button: true,
     enabled: true,
-    label: AppLocalizations.of(context)!.bookmarksList,
+    label: 'bookmarksList'.tr,
     child: GestureDetector(
       child: iconBg(context, Icons.bookmarks_outlined),
       onTap: () {
@@ -137,7 +135,7 @@ Widget bookmarksTextList(BuildContext context, double width) {
   return Semantics(
     button: true,
     enabled: true,
-    label: AppLocalizations.of(context)!.bookmarksList,
+    label: 'bookmarksList'.tr,
     child: GestureDetector(
       child: iconBg(context, Icons.bookmarks_outlined),
       onTap: () {
@@ -156,7 +154,7 @@ Widget quranTextSearch(BuildContext context, double width) {
   return Semantics(
     button: true,
     enabled: true,
-    label: AppLocalizations.of(context)!.search,
+    label: 'search'.tr,
     child: GestureDetector(
       child: iconBg(context, Icons.search_outlined),
       onTap: () {
@@ -174,7 +172,7 @@ Widget quranTextSearch(BuildContext context, double width) {
 Widget hijriDate(BuildContext context) {
   ArabicNumbers arabicNumber = ArabicNumbers();
   var _today = HijriCalendar.now();
-  AppLocalizations.of(context)!.appLang == "لغة التطبيق"
+  'appLang'.tr == "لغة التطبيق"
       ? HijriCalendar.setLocal('ar')
       : HijriCalendar.setLocal('en');
   return Column(
@@ -182,15 +180,15 @@ Widget hijriDate(BuildContext context) {
     children: [
       SvgPicture.asset('assets/svg/hijri/${_today.hMonth}.svg',
           height: context.customOrientation(70.0, 100.0),
-          colorFilter: ColorFilter.mode(
-              Theme.of(context).colorScheme.surface, BlendMode.srcIn)),
+          colorFilter:
+              ColorFilter.mode(Get.theme.colorScheme.surface, BlendMode.srcIn)),
       Text(
         arabicNumber.convert(
             '${_today.hDay} / ${_today.hMonth} / ${_today.hYear} هـ \n ${_today.dayWeName}'),
         style: TextStyle(
           fontSize: context.customOrientation(16.0, 20.0),
           fontFamily: 'kufi',
-          color: Theme.of(context).colorScheme.surface,
+          color: Get.theme.colorScheme.surface,
         ),
         textAlign: TextAlign.center,
       ),
@@ -203,7 +201,7 @@ Widget hijriDate(BuildContext context) {
 
 Widget hijriDate2(BuildContext context) {
   var _today = HijriCalendar.now();
-  AppLocalizations.of(context)!.appLang == "لغة التطبيق"
+  'appLang'.tr == "لغة التطبيق"
       ? HijriCalendar.setLocal('ar')
       : HijriCalendar.setLocal('en');
   return Column(
@@ -213,7 +211,7 @@ Widget hijriDate2(BuildContext context) {
       SvgPicture.asset('assets/svg/hijri/${_today.hMonth}.svg',
           height: context.definePlatform(50.0, 70.0),
           colorFilter: ColorFilter.mode(
-              Theme.of(context).colorScheme.background, BlendMode.srcIn)),
+              Get.theme.colorScheme.background, BlendMode.srcIn)),
       const SizedBox(
         height: 8.0,
       ),
@@ -222,9 +220,9 @@ Widget hijriDate2(BuildContext context) {
         style: TextStyle(
           fontSize: context.definePlatform(12.0, 22.0),
           fontFamily: 'kufi',
-          color: ThemeProvider.themeOf(context).id == 'dark'
-              ? Theme.of(context).canvasColor
-              : Theme.of(context).primaryColorDark,
+          color: Get.isDarkMode
+              ? Get.theme.canvasColor
+              : Get.theme.primaryColorDark,
         ),
         textAlign: TextAlign.center,
       ),
@@ -236,7 +234,7 @@ Widget iconBg(BuildContext context, var icon) {
   return SizedBox(
     height: 50,
     width: 50,
-    child: ThemeProvider.themeOf(context).id == 'green'
+    child: Get.isDarkMode
         ? CustomPaint(
             painter: BgIcon(),
             child: Stack(
@@ -245,11 +243,11 @@ Widget iconBg(BuildContext context, var icon) {
                 Container(
                   height: 35,
                   width: 35,
-                  color: Theme.of(context).colorScheme.background,
+                  color: Get.theme.colorScheme.background,
                 ),
                 Icon(
                   icon,
-                  color: Theme.of(context).colorScheme.surface,
+                  color: Get.theme.colorScheme.surface,
                   size: 25,
                 ),
               ],
@@ -263,11 +261,11 @@ Widget iconBg(BuildContext context, var icon) {
                 Container(
                   height: 35,
                   width: 35,
-                  color: Theme.of(context).colorScheme.background,
+                  color: Get.theme.colorScheme.background,
                 ),
                 Icon(
                   icon,
-                  color: Theme.of(context).colorScheme.surface,
+                  color: Get.theme.colorScheme.surface,
                   size: 25,
                 ),
               ],
@@ -280,7 +278,7 @@ customSnackBar(BuildContext context, String text) {
   final snackBar = SnackBar(
     duration: const Duration(milliseconds: 3000),
     behavior: SnackBarBehavior.floating,
-    backgroundColor: Theme.of(context).colorScheme.surface,
+    backgroundColor: Get.theme.colorScheme.surface,
     content: SizedBox(
       height: 45,
       child: Row(
@@ -327,7 +325,7 @@ void customErrorSnackBar(BuildContext context, String text) {
       return Container(
         height: 60,
         decoration: BoxDecoration(
-            color: Theme.of(context).colorScheme.surface,
+            color: Get.theme.colorScheme.surface,
             borderRadius: const BorderRadius.all(
               Radius.circular(8),
             )),
@@ -400,7 +398,7 @@ void customMobileNoteSnackBar(BuildContext context, String text) {
       return Container(
         height: 80,
         decoration: BoxDecoration(
-            color: Theme.of(context).colorScheme.surface,
+            color: Get.theme.colorScheme.surface,
             borderRadius: const BorderRadius.all(
               Radius.circular(8),
             )),
@@ -570,9 +568,7 @@ Widget juzNumEn(String num, context, Color color) {
         style: TextStyle(
           fontSize: 12,
           fontFamily: 'kufi',
-          color: ThemeProvider.themeOf(context).id == 'dark'
-              ? Colors.white
-              : Colors.black,
+          color: Get.isDarkMode ? Colors.white : Colors.black,
         ),
         textAlign: TextAlign.center,
       ),
@@ -628,7 +624,7 @@ Widget juzNumEn(String num, context, Color color) {
 //                         color: sl<SurahAudioController>().sorahReaderNameValue ==
 //                                 readerN[index]
 //                             ? const Color(0xfffcbb76)
-//                             : Theme.of(context).canvasColor,
+//                             : Get.theme.canvasColor,
 //                         fontSize: 14,
 //                       ),
 //                     ),
@@ -642,7 +638,7 @@ Widget juzNumEn(String num, context, Color color) {
 //                             color: sl<SurahAudioController>().sorahReaderNameValue ==
 //                                     readerN[index]
 //                                 ? const Color(0xfffcbb76)
-//                                 : Theme.of(context).canvasColor,
+//                                 : Get.theme.canvasColor,
 //                             width: 2),
 //                         color: const Color(0xff39412a),
 //                       ),
@@ -679,7 +675,7 @@ Widget juzNumEn(String num, context, Color color) {
 //     },
 //     customButton: Icon(
 //       Icons.person_search_outlined,
-//       color: Theme.of(context).colorScheme.surface,
+//       color: Get.theme.colorScheme.surface,
 //     ),
 //     iconStyleData: const IconStyleData(
 //       iconSize: 24,
@@ -691,7 +687,7 @@ Widget juzNumEn(String num, context, Color color) {
 //     ),
 //     dropdownStyleData: DropdownStyleData(
 //         decoration: BoxDecoration(
-//             color: Theme.of(context).colorScheme.surface.withOpacity(.9),
+//             color: Get.theme.colorScheme.surface.withOpacity(.9),
 //             borderRadius: const BorderRadius.all(Radius.circular(8))),
 //         padding: const EdgeInsets.only(left: 14, right: 14),
 //         maxHeight: 230,
@@ -753,10 +749,10 @@ Widget customContainer(BuildContext context, Widget myWidget) {
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
         decoration: BoxDecoration(
-            color: Theme.of(context).colorScheme.surface.withOpacity(.2),
+            color: Get.theme.colorScheme.surface.withOpacity(.2),
             border: Border.symmetric(
                 vertical: BorderSide(
-                    color: Theme.of(context).colorScheme.surface, width: 2))),
+                    color: Get.theme.colorScheme.surface, width: 2))),
         child: myWidget,
       ));
 }
@@ -769,10 +765,10 @@ Widget bookmarkContainer(BuildContext context, Widget myWidget) {
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
         decoration: BoxDecoration(
-            color: Theme.of(context).colorScheme.surface.withOpacity(.8),
+            color: Get.theme.colorScheme.surface.withOpacity(.8),
             border: Border.symmetric(
                 vertical: BorderSide(
-                    color: Theme.of(context).colorScheme.surface, width: 2))),
+                    color: Get.theme.colorScheme.surface, width: 2))),
         child: myWidget,
       ));
 }
@@ -819,7 +815,7 @@ dropDownModalBottomSheet(
           topRight: Radius.circular(8.0),
         ),
       ),
-      backgroundColor: Theme.of(context).colorScheme.background,
+      backgroundColor: Get.theme.colorScheme.background,
       isScrollControlled: true,
       builder: (BuildContext context) {
         return child;
@@ -844,7 +840,7 @@ allModalBottomSheet(
           topRight: Radius.circular(8.0),
         ),
       ),
-      backgroundColor: Theme.of(context).colorScheme.background,
+      backgroundColor: Get.theme.colorScheme.background,
       isScrollControlled: true,
       builder: (BuildContext context) {
         return child;
@@ -872,7 +868,7 @@ fullModalBottomSheet(BuildContext context, double height, width, Widget child) {
           topRight: Radius.circular(8.0),
         ),
       ),
-      backgroundColor: Theme.of(context).colorScheme.background,
+      backgroundColor: Get.theme.colorScheme.background,
       isScrollControlled: true,
       builder: (BuildContext context) {
         return child;
@@ -892,13 +888,12 @@ Widget customClose(BuildContext context, {var close}) {
         alignment: Alignment.center,
         children: [
           Icon(Icons.close_outlined,
-              size: 40,
-              color: Theme.of(context).colorScheme.surface.withOpacity(.5)),
+              size: 40, color: Get.theme.colorScheme.surface.withOpacity(.5)),
           Icon(Icons.close_outlined,
               size: 24,
-              color: ThemeProvider.themeOf(context).id == 'dark'
-                  ? Theme.of(context).canvasColor
-                  : Theme.of(context).primaryColorDark),
+              color: Get.isDarkMode
+                  ? Get.theme.canvasColor
+                  : Get.theme.primaryColorDark),
         ],
       ),
       onTap: close ??
@@ -921,16 +916,15 @@ Widget customClose2(BuildContext context) {
           height: 30,
           width: 30,
           decoration: BoxDecoration(
-              color: Theme.of(context).colorScheme.background,
+              color: Get.theme.colorScheme.background,
               borderRadius: const BorderRadius.only(
                 topRight: Radius.circular(8),
                 topLeft: Radius.circular(8),
               ),
-              border:
-                  Border.all(width: 2, color: Theme.of(context).dividerColor)),
+              border: Border.all(width: 2, color: Get.theme.dividerColor)),
           child: Icon(
             Icons.close_outlined,
-            color: Theme.of(context).colorScheme.surface,
+            color: Get.theme.colorScheme.surface,
           ),
         ),
       ),
@@ -947,13 +941,12 @@ Widget customTextClose(BuildContext context) {
         alignment: Alignment.center,
         children: [
           Icon(Icons.close_outlined,
-              size: 40,
-              color: Theme.of(context).colorScheme.surface.withOpacity(.5)),
+              size: 40, color: Get.theme.colorScheme.surface.withOpacity(.5)),
           Icon(Icons.close_outlined,
               size: 24,
-              color: ThemeProvider.themeOf(context).id == 'dark'
-                  ? Theme.of(context).canvasColor
-                  : Theme.of(context).primaryColorDark),
+              color: Get.isDarkMode
+                  ? Get.theme.canvasColor
+                  : Get.theme.primaryColorDark),
         ],
       ),
       onTap: () {
@@ -1021,10 +1014,10 @@ Widget fontSizeDropDown(BuildContext context) {
       label: 'Change Font Size',
       child: Icon(
         Icons.format_size,
-        color: Theme.of(context).colorScheme.surface,
+        color: Get.theme.colorScheme.surface,
       ),
     ),
-    color: Theme.of(context).colorScheme.surface.withOpacity(.8),
+    color: Get.theme.colorScheme.surface.withOpacity(.8),
     itemBuilder: (context) => [
       PopupMenuItem(
         child: Obx(
@@ -1041,11 +1034,11 @@ Widget fontSizeDropDown(BuildContext context) {
                 activeTrackBarHeight: 5,
                 inactiveTrackBar: BoxDecoration(
                   borderRadius: BorderRadius.circular(8),
-                  color: Theme.of(context).colorScheme.surface,
+                  color: Get.theme.colorScheme.surface,
                 ),
                 activeTrackBar: BoxDecoration(
                     borderRadius: BorderRadius.circular(4),
-                    color: Theme.of(context).colorScheme.background),
+                    color: Get.theme.colorScheme.background),
               ),
               handlerAnimation: const FlutterSliderHandlerAnimation(
                   curve: Curves.elasticOut,
@@ -1094,20 +1087,20 @@ Widget audioContainer(BuildContext context, Widget myWidget,
             const EdgeInsets.symmetric(horizontal: 16.0, vertical: 32.0),
         padding: padding ?? const EdgeInsets.symmetric(vertical: 2.0),
         decoration: BoxDecoration(
-          color: color ?? Theme.of(context).dividerColor,
+          color: color ?? Get.theme.dividerColor,
           borderRadius: const BorderRadius.all(Radius.circular(8)),
           // boxShadow: [
           //   BoxShadow(
           //     offset: const Offset(0, -2),
           //     blurRadius: 10,
-          //     color: Theme.of(context).colorScheme.surface,
+          //     color: Get.theme.colorScheme.surface,
           //   ),
           // ],
         ),
         child: Container(
           margin: margin2 ?? const EdgeInsets.symmetric(horizontal: 8.0),
           decoration: BoxDecoration(
-            color: color ?? Theme.of(context).colorScheme.background,
+            color: color ?? Get.theme.colorScheme.background,
             borderRadius: const BorderRadius.all(Radius.circular(8)),
           ),
           child: myWidget,

@@ -2,9 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_sliding_up_panel/sliding_up_panel_widget.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
-import 'package:theme_provider/theme_provider.dart';
 
-import '../../../../core/services/l10n/app_localizations.dart';
 import '../../../../core/services/services_locator.dart';
 import '../../../../core/utils/constants/shared_pref_services.dart';
 import '../../../../core/utils/constants/shared_preferences_constants.dart';
@@ -36,7 +34,7 @@ class ShowTextTafseer extends StatelessWidget {
         textDirection: TextDirection.rtl,
         child: Container(
           decoration: BoxDecoration(
-              color: Theme.of(context).colorScheme.background,
+              color: Get.theme.colorScheme.background,
               borderRadius: const BorderRadius.only(
                 topLeft: Radius.circular(8),
                 topRight: Radius.circular(8),
@@ -56,8 +54,7 @@ class ShowTextTafseer extends StatelessWidget {
                         decoration: BoxDecoration(
                           color: Colors.transparent,
                           border: Border.all(
-                              color: Theme.of(context).colorScheme.surface,
-                              width: 1),
+                              color: Get.theme.colorScheme.surface, width: 1),
                           borderRadius:
                               const BorderRadius.all(Radius.circular(15)),
                           boxShadow: [
@@ -71,8 +68,7 @@ class ShowTextTafseer extends StatelessWidget {
                           ],
                         ),
                         child: Icon(Icons.book,
-                            size: 24,
-                            color: Theme.of(context).colorScheme.surface),
+                            size: 24, color: Get.theme.colorScheme.surface),
                       ),
                       onTap: () {
                         if (SlidingUpPanelStatus.hidden ==
@@ -93,8 +89,7 @@ class ShowTextTafseer extends StatelessWidget {
                         decoration: BoxDecoration(
                           color: Colors.transparent,
                           border: Border.all(
-                              color: Theme.of(context).colorScheme.surface,
-                              width: 1),
+                              color: Get.theme.colorScheme.surface, width: 1),
                           borderRadius:
                               const BorderRadius.all(Radius.circular(15)),
                           boxShadow: [
@@ -111,8 +106,7 @@ class ShowTextTafseer extends StatelessWidget {
                           alignment: Alignment.center,
                           children: [
                             Icon(Icons.format_size,
-                                size: 24,
-                                color: Theme.of(context).colorScheme.surface),
+                                size: 24, color: Get.theme.colorScheme.surface),
                             fontSizeDropDown(context),
                           ],
                         )),
@@ -131,7 +125,7 @@ class ShowTextTafseer extends StatelessWidget {
                 child: Container(
                   height: MediaQuery.sizeOf(context).height / 1 / 2 * 1.5,
                   width: MediaQuery.sizeOf(context).width,
-                  color: Theme.of(context).colorScheme.background,
+                  color: Get.theme.colorScheme.background,
                   child: Padding(
                     padding: const EdgeInsets.symmetric(
                         vertical: 8, horizontal: 16.0),
@@ -183,9 +177,7 @@ class ShowTextTafseer extends StatelessWidget {
                                       text:
                                           '﴿${sl<AyatController>().currentText.value!.translateAyah}﴾\n\n',
                                       style: TextStyle(
-                                          color: ThemeProvider.themeOf(context)
-                                                      .id ==
-                                                  'dark'
+                                          color: Get.isDarkMode
                                               ? Colors.white
                                               : Colors.black,
                                           fontWeight: FontWeight.w100,
@@ -217,9 +209,7 @@ class ShowTextTafseer extends StatelessWidget {
                                           .value!
                                           .translate,
                                       style: TextStyle(
-                                          color: ThemeProvider.themeOf(context)
-                                                      .id ==
-                                                  'dark'
+                                          color: Get.isDarkMode
                                               ? Colors.white
                                               : Colors.black,
                                           height: 1.5,
@@ -248,7 +238,7 @@ class ShowTextTafseer extends StatelessWidget {
                                 ),
                                 showCursor: true,
                                 cursorWidth: 3,
-                                cursorColor: Theme.of(context).dividerColor,
+                                cursorColor: Get.theme.dividerColor,
                                 cursorRadius: const Radius.circular(5),
                                 scrollPhysics: const ClampingScrollPhysics(),
                                 textDirection: TextDirection.rtl,
@@ -279,18 +269,18 @@ class ShowTextTafseer extends StatelessWidget {
 
   tafseerDropDown(BuildContext context) {
     List<String> tafName = <String>[
-      '${AppLocalizations.of(context)?.tafIbnkatheerN}',
-      '${AppLocalizations.of(context)?.tafBaghawyN}',
-      '${AppLocalizations.of(context)?.tafQurtubiN}',
-      '${AppLocalizations.of(context)?.tafSaadiN}',
-      '${AppLocalizations.of(context)?.tafTabariN}',
+      '${'tafIbnkatheerN'.tr}',
+      '${'tafBaghawyN'.tr}',
+      '${'tafQurtubiN'.tr}',
+      '${'tafSaadiN'.tr}',
+      '${'tafTabariN'.tr}',
     ];
     List<String> tafD = <String>[
-      '${AppLocalizations.of(context)?.tafIbnkatheerD}',
-      '${AppLocalizations.of(context)?.tafBaghawyD}',
-      '${AppLocalizations.of(context)?.tafQurtubiD}',
-      '${AppLocalizations.of(context)?.tafSaadiD}',
-      '${AppLocalizations.of(context)?.tafTabariD}',
+      '${'tafIbnkatheerD'.tr}',
+      '${'tafBaghawyD'.tr}',
+      '${'tafQurtubiD'.tr}',
+      '${'tafSaadiD'.tr}',
+      '${'tafTabariD'.tr}',
     ];
     dropDownModalBottomSheet(
       context,
@@ -317,15 +307,15 @@ class ShowTextTafseer extends StatelessWidget {
                   width: 30,
                   margin: const EdgeInsets.all(16.0),
                   decoration: BoxDecoration(
-                      color: Theme.of(context).colorScheme.background,
+                      color: Get.theme.colorScheme.background,
                       borderRadius: const BorderRadius.all(
                         Radius.circular(8),
                       ),
-                      border: Border.all(
-                          width: 2, color: Theme.of(context).dividerColor)),
+                      border:
+                          Border.all(width: 2, color: Get.theme.dividerColor)),
                   child: Icon(
                     Icons.close_outlined,
-                    color: Theme.of(context).colorScheme.surface,
+                    color: Get.theme.colorScheme.surface,
                   ),
                 ),
               ),
@@ -353,7 +343,7 @@ class ShowTextTafseer extends StatelessWidget {
                             style: TextStyle(
                                 color: sl<AyatController>().radioValue.value ==
                                         index
-                                    ? Theme.of(context).primaryColorLight
+                                    ? Get.theme.primaryColorLight
                                     : const Color(0xffcdba72),
                                 fontSize: 14,
                                 fontFamily: 'kufi'),
@@ -363,7 +353,7 @@ class ShowTextTafseer extends StatelessWidget {
                             style: TextStyle(
                                 color: sl<AyatController>().radioValue.value ==
                                         index
-                                    ? Theme.of(context).primaryColorLight
+                                    ? Get.theme.primaryColorLight
                                     : const Color(0xffcdba72),
                                 fontSize: 12,
                                 fontFamily: 'kufi'),
@@ -378,7 +368,7 @@ class ShowTextTafseer extends StatelessWidget {
                                   color:
                                       sl<AyatController>().radioValue.value ==
                                               index
-                                          ? Theme.of(context).primaryColorLight
+                                          ? Get.theme.primaryColorLight
                                           : const Color(0xffcdba72),
                                   width: 2),
                               color: const Color(0xff39412a),
@@ -423,8 +413,7 @@ class ShowTextTafseer extends StatelessWidget {
                                   borderRadius: const BorderRadius.all(
                                       Radius.circular(4.0)),
                                   border: Border.all(
-                                      color: Theme.of(context).dividerColor,
-                                      width: 2)),
+                                      color: Get.theme.dividerColor, width: 2)),
                               child: Opacity(
                                 child: SvgPicture.asset(
                                   'assets/svg/tafseer_book.svg',
@@ -440,8 +429,7 @@ class ShowTextTafseer extends StatelessWidget {
                             borderRadius:
                                 const BorderRadius.all(Radius.circular(8.0)),
                             border: Border.all(
-                                color: Theme.of(context).dividerColor,
-                                width: 1)),
+                                color: Get.theme.dividerColor, width: 1)),
                         margin: const EdgeInsets.symmetric(
                             horizontal: 16.0, vertical: 4.0),
                       ),

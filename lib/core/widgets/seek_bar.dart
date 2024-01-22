@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class SeekBar extends StatelessWidget {
   final Duration duration;
@@ -60,8 +61,7 @@ class SeekBar extends StatelessWidget {
                                     ?.group(1) ??
                                 '$remaining',
                             style: TextStyle(
-                                color: textColor ??
-                                    Theme.of(context).canvasColor)),
+                                color: textColor ?? Get.theme.canvasColor)),
                       )
                     : const SizedBox.shrink(),
                 timeShow == true
@@ -73,8 +73,7 @@ class SeekBar extends StatelessWidget {
                                     ?.group(1) ??
                                 '$total',
                             style: TextStyle(
-                                color: textColor ??
-                                    Theme.of(context).canvasColor)),
+                                color: textColor ?? Get.theme.canvasColor)),
                       )
                     : const SizedBox.shrink(),
               ],
@@ -85,12 +84,11 @@ class SeekBar extends StatelessWidget {
               SliderTheme(
                 data: sliderThemeData.copyWith(
                   thumbShape: HiddenThumbComponentShape(),
-                  activeTrackColor:
-                      activeTrackColor ?? Theme.of(context).canvasColor,
+                  activeTrackColor: activeTrackColor ?? Get.theme.canvasColor,
                   inactiveTrackColor:
-                      inactiveTrackColor ?? Theme.of(context).dividerColor,
+                      inactiveTrackColor ?? Get.theme.dividerColor,
                   valueIndicatorColor:
-                      inactiveTrackColor ?? Theme.of(context).canvasColor,
+                      inactiveTrackColor ?? Get.theme.canvasColor,
                 ),
                 child: ExcludeSemantics(
                   child: Slider(

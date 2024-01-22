@@ -1,7 +1,6 @@
 import 'package:arabic_numbers/arabic_numbers.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:theme_provider/theme_provider.dart';
 
 import '../../../../core/services/services_locator.dart';
 import '../../../../core/widgets/widgets.dart';
@@ -55,15 +54,13 @@ class TextPageView extends StatelessWidget {
         textDirection: TextDirection.rtl,
         child: Scaffold(
             resizeToAvoidBottomInset: false,
-            backgroundColor: Theme.of(context).colorScheme.background,
+            backgroundColor: Get.theme.colorScheme.background,
             appBar: AppBar(
-              backgroundColor: Theme.of(context).colorScheme.background,
+              backgroundColor: Get.theme.colorScheme.background,
               title: sorahName(
                 sl<QuranTextController>().currentSurahIndex.toString(),
                 context,
-                ThemeProvider.themeOf(context).id == 'dark'
-                    ? Colors.white
-                    : Colors.black,
+                Get.isDarkMode ? Colors.white : Colors.black,
               ),
               centerTitle: true,
               leading: IconButton(
@@ -75,7 +72,7 @@ class TextPageView extends StatelessWidget {
                   icon: Icon(
                     Icons.arrow_back,
                     size: 28,
-                    color: Theme.of(context).colorScheme.surface,
+                    color: Get.theme.colorScheme.surface,
                   )),
               actions: [
                 Padding(

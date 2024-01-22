@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
-import 'package:theme_provider/theme_provider.dart';
 
-import '../../../../core/services/l10n/app_localizations.dart';
 import '../../../../core/services/services_locator.dart';
 import '../../../controllers/general_controller.dart';
 import '../../../controllers/surah_audio_controller.dart';
@@ -18,13 +16,13 @@ class LastListen extends StatelessWidget {
     return Semantics(
       button: true,
       enabled: true,
-      label: AppLocalizations.of(context)!.lastListen,
+      label: 'lastListen'.tr,
       child: GestureDetector(
         child: Container(
           width: context.customOrientation(width, 300.0),
           height: 80,
           decoration: BoxDecoration(
-            color: Theme.of(context).colorScheme.surface.withOpacity(.2),
+            color: Get.theme.colorScheme.surface.withOpacity(.2),
             borderRadius: const BorderRadius.all(Radius.circular(8)),
           ),
           margin: context.customOrientation(const EdgeInsets.all(16.0),
@@ -35,7 +33,7 @@ class LastListen extends StatelessWidget {
                 width: width,
                 height: 30,
                 decoration: BoxDecoration(
-                  color: Theme.of(context).colorScheme.surface,
+                  color: Get.theme.colorScheme.surface,
                   borderRadius: const BorderRadius.all(
                     Radius.circular(8),
                   ),
@@ -45,11 +43,11 @@ class LastListen extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      AppLocalizations.of(context)!.lastListen,
+                      'lastListen'.tr,
                       style: TextStyle(
                         fontFamily: 'kufi',
                         fontSize: 14,
-                        color: Theme.of(context).canvasColor,
+                        color: Get.theme.canvasColor,
                       ),
                       textAlign: TextAlign.center,
                     ),
@@ -60,7 +58,7 @@ class LastListen extends StatelessWidget {
                     ),
                     Icon(
                       Icons.record_voice_over_outlined,
-                      color: Theme.of(context).canvasColor,
+                      color: Get.theme.canvasColor,
                       size: 22,
                     ),
                   ],
@@ -74,9 +72,9 @@ class LastListen extends StatelessWidget {
                       'assets/svg/surah_name/00${sl<SurahAudioController>().surahNum}.svg',
                       width: 100,
                       colorFilter: ColorFilter.mode(
-                          ThemeProvider.themeOf(context).id == 'dark'
-                              ? Theme.of(context).canvasColor
-                              : Theme.of(context).primaryColorDark,
+                          Get.isDarkMode
+                              ? Get.theme.canvasColor
+                              : Get.theme.primaryColorDark,
                           BlendMode.srcIn),
                     ),
                   ),
@@ -87,9 +85,9 @@ class LastListen extends StatelessWidget {
                         style: TextStyle(
                           fontFamily: 'kufi',
                           fontSize: 14,
-                          color: ThemeProvider.themeOf(context).id == 'dark'
-                              ? Theme.of(context).canvasColor
-                              : Theme.of(context).primaryColor,
+                          color: Get.isDarkMode
+                              ? Get.theme.canvasColor
+                              : Get.theme.primaryColor,
                         ),
                       ),
                     ),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:get/get.dart';
 import 'package:hijri/hijri_calendar.dart';
 
 import '../../../../core/widgets/widgets.dart';
@@ -15,16 +16,16 @@ class SurahTextScreen extends StatelessWidget {
     return Directionality(
       textDirection: TextDirection.rtl,
       child: Scaffold(
-        backgroundColor: Theme.of(context).colorScheme.background,
+        backgroundColor: Get.theme.colorScheme.background,
         appBar: AppBar(
-          backgroundColor: Theme.of(context).colorScheme.background,
+          backgroundColor: Get.theme.colorScheme.background,
         ),
         body: Container(
           decoration: BoxDecoration(
-              color: Theme.of(context).colorScheme.background,
+              color: Get.theme.colorScheme.background,
               borderRadius: const BorderRadius.all(Radius.circular(8)),
-              border: Border.all(
-                  width: 2, color: Theme.of(context).colorScheme.surface)),
+              border:
+                  Border.all(width: 2, color: Get.theme.colorScheme.surface)),
           child: context.definePlatform(
             context.customOrientation(
               Column(
@@ -106,7 +107,7 @@ class SurahTextScreen extends StatelessWidget {
             'assets/svg/hijri/${_today.hMonth}.svg',
             width: MediaQuery.sizeOf(context).width,
             colorFilter: ColorFilter.mode(
-                Theme.of(context).colorScheme.surface, BlendMode.srcIn),
+                Get.theme.colorScheme.surface, BlendMode.srcIn),
           ),
         ),
         Align(
@@ -117,8 +118,8 @@ class SurahTextScreen extends StatelessWidget {
             width: context.definePlatform(110.0, 160.0),
             decoration: BoxDecoration(
                 borderRadius: const BorderRadius.all(Radius.circular(8)),
-                border: Border.all(
-                    color: Theme.of(context).colorScheme.surface, width: 1)),
+                border:
+                    Border.all(color: Get.theme.colorScheme.surface, width: 1)),
             padding: const EdgeInsets.only(top: 4),
             margin: const EdgeInsets.only(top: 16.0),
             child: Stack(
@@ -128,7 +129,7 @@ class SurahTextScreen extends StatelessWidget {
                   height: context.definePlatform(50.0, 75.0),
                   width: context.definePlatform(105.0, 155.0),
                   decoration: BoxDecoration(
-                      color: Theme.of(context).colorScheme.surface,
+                      color: Get.theme.colorScheme.surface,
                       borderRadius: const BorderRadius.only(
                         topRight: Radius.circular(8),
                         topLeft: Radius.circular(8),

@@ -42,17 +42,17 @@ class _QuranPageScreenState extends State<QuranPageScreen> {
     return GetBuilder<GeneralController>(builder: (_) {
       return Scaffold(
         resizeToAvoidBottomInset: true,
-        backgroundColor: Theme.of(context).colorScheme.background,
+        backgroundColor: Get.theme.colorScheme.background,
         body: Stack(
           children: [
             AnimatedStack(
               buttonIcon: Icons.list,
               openAnimationCurve: Curves.easeIn,
               closeAnimationCurve: Curves.easeOut,
-              backgroundColor: Theme.of(context).colorScheme.background,
-              fabBackgroundColor: Theme.of(context).colorScheme.surface,
+              backgroundColor: Get.theme.colorScheme.background,
+              fabBackgroundColor: Get.theme.colorScheme.surface,
               foregroundWidget: pages[sl<GeneralController>().pageIndex.value],
-              fabIconColor: Theme.of(context).canvasColor,
+              fabIconColor: Get.theme.canvasColor,
               scaleWidth: 60,
               // scaleHeight: 60,
               columnWidget: Padding(
@@ -86,16 +86,14 @@ class _QuranPageScreenState extends State<QuranPageScreen> {
                                   height: 45,
                                   width: 45,
                                   decoration: BoxDecoration(
-                                    color: Theme.of(context)
-                                        .colorScheme
-                                        .surface
+                                    color: Get.theme.colorScheme.surface
                                         .withOpacity(.3),
                                     borderRadius: const BorderRadius.all(
                                         Radius.circular(8)),
                                   ),
                                   child: Icon(
                                     Icons.notifications,
-                                    color: Theme.of(context).canvasColor,
+                                    color: Get.theme.canvasColor,
                                   ),
                                 ),
                               ),
@@ -145,7 +143,7 @@ class _QuranPageScreenState extends State<QuranPageScreen> {
                             width: context.customOrientation(50.0, 40.0),
                             padding: const EdgeInsets.all(3),
                             decoration: BoxDecoration(
-                                color: Theme.of(context).colorScheme.surface,
+                                color: Get.theme.colorScheme.surface,
                                 borderRadius:
                                     const BorderRadius.all(Radius.circular(8))),
                             child: SvgPicture.asset(
@@ -154,9 +152,7 @@ class _QuranPageScreenState extends State<QuranPageScreen> {
                                   sl<GeneralController>().pageIndex.value == 0
                                       ? null
                                       : ColorFilter.mode(
-                                          Theme.of(context)
-                                              .colorScheme
-                                              .background,
+                                          Get.theme.colorScheme.background,
                                           BlendMode.srcIn),
                             ),
                           ),
@@ -184,7 +180,7 @@ class _QuranPageScreenState extends State<QuranPageScreen> {
                             width: context.customOrientation(50.0, 40.0),
                             padding: const EdgeInsets.all(4),
                             decoration: BoxDecoration(
-                                color: Theme.of(context).colorScheme.surface,
+                                color: Get.theme.colorScheme.surface,
                                 borderRadius:
                                     const BorderRadius.all(Radius.circular(8))),
                             child: SvgPicture.asset(
@@ -193,9 +189,7 @@ class _QuranPageScreenState extends State<QuranPageScreen> {
                                   sl<GeneralController>().pageIndex.value == 1
                                       ? null
                                       : ColorFilter.mode(
-                                          Theme.of(context)
-                                              .colorScheme
-                                              .background,
+                                          Get.theme.colorScheme.background,
                                           BlendMode.srcIn),
                             ),
                           ),
@@ -223,7 +217,7 @@ class _QuranPageScreenState extends State<QuranPageScreen> {
                             width: context.customOrientation(50.0, 40.0),
                             padding: const EdgeInsets.all(7),
                             decoration: BoxDecoration(
-                                color: Theme.of(context).colorScheme.surface,
+                                color: Get.theme.colorScheme.surface,
                                 borderRadius:
                                     const BorderRadius.all(Radius.circular(8))),
                             child: SvgPicture.asset(
@@ -232,9 +226,7 @@ class _QuranPageScreenState extends State<QuranPageScreen> {
                                   sl<GeneralController>().pageIndex.value == 2
                                       ? null
                                       : ColorFilter.mode(
-                                          Theme.of(context)
-                                              .colorScheme
-                                              .background,
+                                          Get.theme.colorScheme.background,
                                           BlendMode.srcIn),
                             ),
                           ),
@@ -262,7 +254,7 @@ class _QuranPageScreenState extends State<QuranPageScreen> {
                             width: context.customOrientation(50.0, 40.0),
                             padding: const EdgeInsets.all(4),
                             decoration: BoxDecoration(
-                                color: Theme.of(context).colorScheme.surface,
+                                color: Get.theme.colorScheme.surface,
                                 borderRadius:
                                     const BorderRadius.all(Radius.circular(8))),
                             child: SvgPicture.asset(
@@ -271,9 +263,7 @@ class _QuranPageScreenState extends State<QuranPageScreen> {
                                   sl<GeneralController>().pageIndex.value == 3
                                       ? null
                                       : ColorFilter.mode(
-                                          Theme.of(context)
-                                              .colorScheme
-                                              .background,
+                                          Get.theme.colorScheme.background,
                                           BlendMode.srcIn),
                             ),
                           ),
@@ -301,7 +291,7 @@ class _QuranPageScreenState extends State<QuranPageScreen> {
                             width: context.customOrientation(50.0, 40.0),
                             padding: const EdgeInsets.all(4),
                             decoration: BoxDecoration(
-                                color: Theme.of(context).colorScheme.surface,
+                                color: Get.theme.colorScheme.surface,
                                 borderRadius:
                                     const BorderRadius.all(Radius.circular(8))),
                             child: SvgPicture.asset(
@@ -310,9 +300,7 @@ class _QuranPageScreenState extends State<QuranPageScreen> {
                                   sl<GeneralController>().pageIndex.value == 4
                                       ? null
                                       : ColorFilter.mode(
-                                          Theme.of(context)
-                                              .colorScheme
-                                              .background,
+                                          Get.theme.colorScheme.background,
                                           BlendMode.srcIn),
                             ),
                           ),
@@ -337,8 +325,7 @@ class _QuranPageScreenState extends State<QuranPageScreen> {
                     SvgPicture.asset(
                       'assets/svg/alheekmah_logo.svg',
                       colorFilter: ColorFilter.mode(
-                          Theme.of(context).colorScheme.surface,
-                          BlendMode.srcIn),
+                          Get.theme.colorScheme.surface, BlendMode.srcIn),
                       width: 100,
                     ),
                     Container(
@@ -346,7 +333,7 @@ class _QuranPageScreenState extends State<QuranPageScreen> {
                       margin:
                           const EdgeInsets.only(right: 16, left: 16, top: 20),
                       width: MediaQuery.sizeOf(context).width,
-                      color: Theme.of(context).colorScheme.surface,
+                      color: Get.theme.colorScheme.surface,
                     )
                   ],
                 ),

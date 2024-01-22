@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:get/get.dart';
 
 import '../../../core/services/services_locator.dart';
 import '../../../core/widgets/animated_stack.dart';
@@ -40,9 +41,9 @@ class _MainDScreenState extends State<MainDScreen> {
             buttonIcon: Icons.list,
             openAnimationCurve: Curves.easeIn,
             closeAnimationCurve: Curves.easeOut,
-            backgroundColor: Theme.of(context).colorScheme.background,
-            fabBackgroundColor: Theme.of(context).colorScheme.surface,
-            fabIconColor: Theme.of(context).canvasColor,
+            backgroundColor: Get.theme.colorScheme.background,
+            fabBackgroundColor: Get.theme.colorScheme.surface,
+            fabIconColor: Get.theme.canvasColor,
             foregroundWidget: pages[pageIndex],
             columnWidget: Wrap(
               children: [
@@ -67,16 +68,14 @@ class _MainDScreenState extends State<MainDScreen> {
                             height: 45,
                             width: 45,
                             decoration: BoxDecoration(
-                              color: Theme.of(context)
-                                  .colorScheme
-                                  .surface
-                                  .withOpacity(.3),
+                              color:
+                                  Get.theme.colorScheme.surface.withOpacity(.3),
                               borderRadius:
                                   const BorderRadius.all(Radius.circular(8)),
                             ),
                             child: Icon(
                               Icons.notifications,
-                              color: Theme.of(context).canvasColor,
+                              color: Get.theme.canvasColor,
                             ),
                           ),
                           // Add the red dot indicator
@@ -118,15 +117,14 @@ class _MainDScreenState extends State<MainDScreen> {
                       width: 50.0,
                       padding: const EdgeInsets.all(3),
                       decoration: BoxDecoration(
-                          color: Theme.of(context).colorScheme.surface,
+                          color: Get.theme.colorScheme.surface,
                           borderRadius:
                               const BorderRadius.all(Radius.circular(8))),
                       child: SvgPicture.asset(
                         'assets/svg/quran_ic.svg',
                         colorFilter: pageIndex == 0
                             ? null
-                            : ColorFilter.mode(
-                                Theme.of(context).colorScheme.background,
+                            : ColorFilter.mode(Get.theme.colorScheme.background,
                                 BlendMode.srcIn),
                       ),
                     ),
@@ -148,15 +146,14 @@ class _MainDScreenState extends State<MainDScreen> {
                       width: 50.0,
                       padding: const EdgeInsets.all(4),
                       decoration: BoxDecoration(
-                          color: Theme.of(context).colorScheme.surface,
+                          color: Get.theme.colorScheme.surface,
                           borderRadius:
                               const BorderRadius.all(Radius.circular(8))),
                       child: SvgPicture.asset(
                         'assets/svg/quran_te_ic.svg',
                         colorFilter: pageIndex == 1
                             ? null
-                            : ColorFilter.mode(
-                                Theme.of(context).colorScheme.background,
+                            : ColorFilter.mode(Get.theme.colorScheme.background,
                                 BlendMode.srcIn),
                       ),
                     ),
@@ -178,15 +175,14 @@ class _MainDScreenState extends State<MainDScreen> {
                       width: 50.0,
                       padding: const EdgeInsets.all(7),
                       decoration: BoxDecoration(
-                          color: Theme.of(context).colorScheme.surface,
+                          color: Get.theme.colorScheme.surface,
                           borderRadius:
                               const BorderRadius.all(Radius.circular(8))),
                       child: SvgPicture.asset(
                         'assets/svg/azkar.svg',
                         colorFilter: pageIndex == 2
                             ? null
-                            : ColorFilter.mode(
-                                Theme.of(context).colorScheme.background,
+                            : ColorFilter.mode(Get.theme.colorScheme.background,
                                 BlendMode.srcIn),
                       ),
                     ),
@@ -208,15 +204,14 @@ class _MainDScreenState extends State<MainDScreen> {
                       width: 50.0,
                       padding: const EdgeInsets.all(4),
                       decoration: BoxDecoration(
-                          color: Theme.of(context).colorScheme.surface,
+                          color: Get.theme.colorScheme.surface,
                           borderRadius:
                               const BorderRadius.all(Radius.circular(8))),
                       child: SvgPicture.asset(
                         'assets/svg/quran_au_ic.svg',
                         colorFilter: pageIndex == 3
                             ? null
-                            : ColorFilter.mode(
-                                Theme.of(context).colorScheme.background,
+                            : ColorFilter.mode(Get.theme.colorScheme.background,
                                 BlendMode.srcIn),
                       ),
                     ),
@@ -238,15 +233,14 @@ class _MainDScreenState extends State<MainDScreen> {
                       width: 50.0,
                       padding: const EdgeInsets.all(4),
                       decoration: BoxDecoration(
-                          color: Theme.of(context).colorScheme.surface,
+                          color: Get.theme.colorScheme.surface,
                           borderRadius:
                               const BorderRadius.all(Radius.circular(8))),
                       child: SvgPicture.asset(
                         'assets/svg/menu_ic.svg',
                         colorFilter: pageIndex == 4
                             ? null
-                            : ColorFilter.mode(
-                                Theme.of(context).colorScheme.background,
+                            : ColorFilter.mode(Get.theme.colorScheme.background,
                                 BlendMode.srcIn),
                       ),
                     ),
@@ -269,14 +263,14 @@ class _MainDScreenState extends State<MainDScreen> {
                   SvgPicture.asset(
                     'assets/svg/alheekmah_logo.svg',
                     colorFilter: ColorFilter.mode(
-                        Theme.of(context).canvasColor, BlendMode.srcIn),
+                        Get.theme.canvasColor, BlendMode.srcIn),
                     width: 100,
                   ),
                   Container(
                     height: 2,
                     margin: const EdgeInsets.only(right: 16, left: 16, top: 20),
                     width: MediaQuery.sizeOf(context).width,
-                    color: Theme.of(context).canvasColor,
+                    color: Get.theme.canvasColor,
                   )
                 ],
               ),

@@ -1,12 +1,11 @@
-import '/presentation/screens/quran_page/data/repository/sorah_bookmark_repository.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 
-import '../../core/services/l10n/app_localizations.dart';
 import '../../core/widgets/widgets.dart';
 import '../../database/databaseHelper.dart';
 import '../screens/quran_page/data/model/bookmark.dart';
 import '../screens/quran_page/data/model/sorah_bookmark.dart';
+import '/presentation/screens/quran_page/data/repository/sorah_bookmark_repository.dart';
 
 class BookmarksController extends GetxController {
   final RxList<Bookmarks> bookmarksList = <Bookmarks>[].obs;
@@ -62,7 +61,7 @@ class BookmarksController extends GetxController {
     if (bookmarkToDelete != null) {
       int result = await DatabaseHelper.deleteBookmark(bookmarkToDelete);
       if (result > 0) {
-        customSnackBar(context, AppLocalizations.of(context)!.deletedBookmark);
+        customSnackBar(context, 'deletedBookmark'.tr);
         await getBookmarks();
         return true;
       }
@@ -80,7 +79,7 @@ class BookmarksController extends GetxController {
     if (bookmarkToDelete != null) {
       int result = await DatabaseHelper.deleteBookmark(bookmarkToDelete);
       if (result > 0) {
-        customSnackBar(context, AppLocalizations.of(context)!.deletedBookmark);
+        customSnackBar(context, 'deletedBookmark'.tr);
         await getBookmarks();
         update();
         return true;

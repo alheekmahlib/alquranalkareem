@@ -28,7 +28,7 @@ class PlayWidgetLand extends StatelessWidget {
             borderRadius: const BorderRadius.only(
                 topRight: Radius.circular(12.0),
                 topLeft: Radius.circular(12.0)),
-            color: Theme.of(context).colorScheme.background,
+            color: Get.theme.colorScheme.background,
             boxShadow: [
               BoxShadow(
                 offset: const Offset(0, -2),

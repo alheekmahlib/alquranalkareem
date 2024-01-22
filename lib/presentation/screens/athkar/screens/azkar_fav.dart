@@ -3,9 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:get/get.dart';
 import 'package:share_plus/share_plus.dart';
-import 'package:theme_provider/theme_provider.dart';
 
-import '../../../../core/services/l10n/app_localizations.dart';
 import '../../../../core/services/services_locator.dart';
 import '../../../../core/utils/constants/lottie.dart';
 import '../../../../core/widgets/widgets.dart';
@@ -66,9 +64,7 @@ class _AzkarFavState extends State<AzkarFav> {
                                       horizontal: 16.0, vertical: 8.0),
                                   child: Container(
                                     decoration: BoxDecoration(
-                                        color: Theme.of(context)
-                                            .colorScheme
-                                            .surface
+                                        color: Get.theme.colorScheme.surface
                                             .withOpacity(.2),
                                         borderRadius: const BorderRadius.all(
                                           Radius.circular(8),
@@ -83,8 +79,7 @@ class _AzkarFavState extends State<AzkarFav> {
                                             decoration: BoxDecoration(
                                               border: Border.symmetric(
                                                 vertical: BorderSide(
-                                                  color: Theme.of(context)
-                                                      .colorScheme
+                                                  color: Get.theme.colorScheme
                                                       .surface,
                                                   width: 2,
                                                 ),
@@ -99,13 +94,9 @@ class _AzkarFavState extends State<AzkarFav> {
                                                 return Text(
                                                   azkar.zekr!,
                                                   style: TextStyle(
-                                                      color:
-                                                          ThemeProvider.themeOf(
-                                                                          context)
-                                                                      .id ==
-                                                                  'dark'
-                                                              ? Colors.white
-                                                              : Colors.black,
+                                                      color: Get.isDarkMode
+                                                          ? Colors.white
+                                                          : Colors.black,
                                                       height: 1.4,
                                                       fontFamily: 'naskh',
                                                       fontSize: controller
@@ -125,14 +116,15 @@ class _AzkarFavState extends State<AzkarFav> {
                                           child: Align(
                                               alignment: Alignment.centerLeft,
                                               child: Container(
-                                                  padding: const EdgeInsets
-                                                      .symmetric(horizontal: 8),
-                                                  margin: const EdgeInsets
-                                                      .symmetric(horizontal: 8),
+                                                  padding:
+                                                      const EdgeInsets.symmetric(
+                                                          horizontal: 8),
+                                                  margin:
+                                                      const EdgeInsets.symmetric(
+                                                          horizontal: 8),
                                                   decoration: BoxDecoration(
-                                                      color: Theme.of(context)
-                                                          .colorScheme
-                                                          .surface
+                                                      color: Get.theme
+                                                          .colorScheme.surface
                                                           .withOpacity(.2),
                                                       border: Border.symmetric(
                                                           vertical: BorderSide(
@@ -144,12 +136,9 @@ class _AzkarFavState extends State<AzkarFav> {
                                                   child: Text(
                                                     azkar.reference!,
                                                     style: TextStyle(
-                                                        color: ThemeProvider.themeOf(
-                                                                        context)
-                                                                    .id ==
-                                                                'dark'
+                                                        color: Get.isDarkMode
                                                             ? Colors.white
-                                                            : Theme.of(context)
+                                                            : Get.theme
                                                                 .primaryColorDark,
                                                         fontSize: 12,
                                                         fontFamily: 'kufi',
@@ -170,8 +159,7 @@ class _AzkarFavState extends State<AzkarFav> {
                                                     const EdgeInsets.symmetric(
                                                         horizontal: 8),
                                                 decoration: BoxDecoration(
-                                                    color: Theme.of(context)
-                                                        .colorScheme
+                                                    color: Get.theme.colorScheme
                                                         .surface
                                                         .withOpacity(.2),
                                                     border: Border.symmetric(
@@ -184,13 +172,9 @@ class _AzkarFavState extends State<AzkarFav> {
                                                 child: Text(
                                                   azkar.description!,
                                                   style: TextStyle(
-                                                      color: ThemeProvider
-                                                                      .themeOf(
-                                                                          context)
-                                                                  .id ==
-                                                              'dark'
+                                                      color: Get.isDarkMode
                                                           ? Colors.white
-                                                          : Theme.of(context)
+                                                          : Get.theme
                                                               .primaryColorDark,
                                                       fontSize: 16,
                                                       fontFamily: 'kufi',
@@ -201,13 +185,13 @@ class _AzkarFavState extends State<AzkarFav> {
                                           padding: const EdgeInsets.all(8),
                                           child: Container(
                                             decoration: BoxDecoration(
-                                                color: Theme.of(context)
-                                                    .colorScheme
-                                                    .surface
+                                                color: Get
+                                                    .theme.colorScheme.surface
                                                     .withOpacity(.2),
                                                 border: Border.symmetric(
                                                     vertical: BorderSide(
-                                                        color: Theme.of(context)
+                                                        color: Get
+                                                            .theme
                                                             .colorScheme
                                                             .surface,
                                                         width: 2))),
@@ -230,9 +214,8 @@ class _AzkarFavState extends State<AzkarFav> {
                                                     label: 'Share thikr',
                                                     child: Icon(
                                                       Icons.share,
-                                                      color: Theme.of(context)
-                                                          .colorScheme
-                                                          .surface,
+                                                      color: Get.theme
+                                                          .colorScheme.surface,
                                                       size: 20,
                                                     ),
                                                   ),
@@ -243,11 +226,11 @@ class _AzkarFavState extends State<AzkarFav> {
                                                             ClipboardData(
                                                                 text:
                                                                     '${azkar.category}\n\n${azkar.zekr}\n\n| ${azkar.description}. | (التكرار: ${azkar.count})'))
-                                                        .then((value) => customSnackBar(
-                                                            context,
-                                                            AppLocalizations.of(
-                                                                    context)!
-                                                                .copyAzkarText));
+                                                        .then((value) =>
+                                                            customSnackBar(
+                                                                context,
+                                                                'copyAzkarText'
+                                                                    .tr));
                                                   },
                                                   icon: Semantics(
                                                     button: true,
@@ -255,9 +238,8 @@ class _AzkarFavState extends State<AzkarFav> {
                                                     label: 'Copy thikr',
                                                     child: Icon(
                                                       Icons.copy,
-                                                      color: Theme.of(context)
-                                                          .colorScheme
-                                                          .surface,
+                                                      color: Get.theme
+                                                          .colorScheme.surface,
                                                       size: 20,
                                                     ),
                                                   ),
@@ -275,7 +257,8 @@ class _AzkarFavState extends State<AzkarFav> {
                                                       child: Icon(
                                                         Icons
                                                             .delete_forever_outlined,
-                                                        color: Theme.of(context)
+                                                        color: Get
+                                                            .theme
                                                             .colorScheme
                                                             .surface,
                                                         size: 24,
@@ -294,8 +277,7 @@ class _AzkarFavState extends State<AzkarFav> {
                                                       bottomRight:
                                                           Radius.circular(8),
                                                     ),
-                                                    color: Theme.of(context)
-                                                        .colorScheme
+                                                    color: Get.theme.colorScheme
                                                         .surface,
                                                   ),
                                                   child: Row(
@@ -304,10 +286,8 @@ class _AzkarFavState extends State<AzkarFav> {
                                                       Text(
                                                         azkar.count!,
                                                         style: TextStyle(
-                                                            color: ThemeProvider.themeOf(
-                                                                            context)
-                                                                        .id ==
-                                                                    'dark'
+                                                            color: Get
+                                                                    .isDarkMode
                                                                 ? Colors.white
                                                                 : Colors.black,
                                                             fontSize: 14,
@@ -320,10 +300,7 @@ class _AzkarFavState extends State<AzkarFav> {
                                                       ),
                                                       Icon(
                                                         Icons.repeat,
-                                                        color: ThemeProvider.themeOf(
-                                                                        context)
-                                                                    .id ==
-                                                                'dark'
+                                                        color: Get.isDarkMode
                                                             ? Colors.white
                                                             : Colors.black,
                                                         size: 20,

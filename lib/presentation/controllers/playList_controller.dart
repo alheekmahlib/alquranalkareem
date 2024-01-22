@@ -11,13 +11,12 @@ import 'package:path_provider/path_provider.dart';
 import 'package:rxdart/rxdart.dart' as R;
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '/presentation/controllers/audio_controller.dart';
 import '../../core/data/models/playList_model.dart';
-import '../../core/services/l10n/app_localizations.dart';
 import '../../core/services/services_locator.dart';
 import '../../core/utils/helpers/functions.dart';
 import '../../core/widgets/seek_bar.dart';
 import '../../core/widgets/widgets.dart';
+import 'audio_controller.dart';
 import 'ayat_controller.dart';
 import 'surahTextController.dart';
 
@@ -267,9 +266,8 @@ class PlayListController extends GetxController {
 
   deletePlayList(BuildContext context, int index) async {
     // Delete the reminder
-    await PlayListStorage.deletePlayList(index).then((value) =>
-        customErrorSnackBar(
-            context, AppLocalizations.of(context)!.deletedPlayList));
+    await PlayListStorage.deletePlayList(index)
+        .then((value) => customErrorSnackBar(context, 'deletedPlayList'.tr));
 
     // Update the playList list
     playLists.removeAt(index);

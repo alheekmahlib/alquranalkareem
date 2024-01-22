@@ -2,9 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:share_plus/share_plus.dart';
-import 'package:theme_provider/theme_provider.dart';
 
-import '../../../../core/services/l10n/app_localizations.dart';
 import '../../../../core/services/services_locator.dart';
 import '../../../../core/widgets/widgets.dart';
 import '../../../controllers/azkar_controller.dart';
@@ -41,17 +39,15 @@ class _AzkarItemState extends State<AzkarItem> {
       child: Directionality(
         textDirection: TextDirection.rtl,
         child: Scaffold(
-          backgroundColor: Theme.of(context).colorScheme.background,
+          backgroundColor: Get.theme.colorScheme.background,
           appBar: AppBar(
-            backgroundColor: Theme.of(context).colorScheme.background,
+            backgroundColor: Get.theme.colorScheme.background,
             title: customContainer(
               context,
               Text(
                 azkarByCategory.azkarList.first.category!,
                 style: TextStyle(
-                  color: ThemeProvider.themeOf(context).id == 'dark'
-                      ? Colors.white
-                      : Theme.of(context).primaryColor,
+                  color: Get.isDarkMode ? Colors.white : Get.theme.primaryColor,
                   fontSize: context.customOrientation(12.0, 16.0),
                   fontFamily: 'kufi',
                 ),
@@ -67,7 +63,7 @@ class _AzkarItemState extends State<AzkarItem> {
                 icon: Icon(
                   Icons.arrow_back,
                   size: 28,
-                  color: Theme.of(context).colorScheme.surface,
+                  color: Get.theme.colorScheme.surface,
                 )),
             actions: [
               fontSizeDropDown(context),
@@ -85,10 +81,8 @@ class _AzkarItemState extends State<AzkarItem> {
                         margin: const EdgeInsets.symmetric(
                             horizontal: 16, vertical: 5),
                         decoration: BoxDecoration(
-                            color: Theme.of(context)
-                                .colorScheme
-                                .surface
-                                .withOpacity(.2),
+                            color:
+                                Get.theme.colorScheme.surface.withOpacity(.2),
                             borderRadius: const BorderRadius.all(
                               Radius.circular(8),
                             )),
@@ -101,8 +95,7 @@ class _AzkarItemState extends State<AzkarItem> {
                                 decoration: BoxDecoration(
                                   border: Border.symmetric(
                                     vertical: BorderSide(
-                                      color:
-                                          Theme.of(context).colorScheme.surface,
+                                      color: Get.theme.colorScheme.surface,
                                       width: 2,
                                     ),
                                   ),
@@ -114,9 +107,7 @@ class _AzkarItemState extends State<AzkarItem> {
                                     return SelectableText(
                                       azkar.zekr!,
                                       style: TextStyle(
-                                          color: ThemeProvider.themeOf(context)
-                                                      .id ==
-                                                  'dark'
+                                          color: Get.isDarkMode
                                               ? Colors.white
                                               : Colors.black,
                                           height: 1.4,
@@ -126,8 +117,7 @@ class _AzkarItemState extends State<AzkarItem> {
                                               .value),
                                       showCursor: true,
                                       cursorWidth: 3,
-                                      cursorColor:
-                                          Theme.of(context).dividerColor,
+                                      cursorColor: Get.theme.dividerColor,
                                       cursorRadius: const Radius.circular(5),
                                       scrollPhysics:
                                           const ClampingScrollPhysics(),
@@ -148,26 +138,19 @@ class _AzkarItemState extends State<AzkarItem> {
                                       margin: const EdgeInsets.symmetric(
                                           horizontal: 8),
                                       decoration: BoxDecoration(
-                                          color: Theme.of(context)
-                                              .colorScheme
-                                              .surface
+                                          color: Get.theme.colorScheme.surface
                                               .withOpacity(.2),
                                           border: Border.symmetric(
                                               vertical: BorderSide(
-                                                  color: Theme.of(context)
-                                                      .colorScheme
+                                                  color: Get.theme.colorScheme
                                                       .surface,
                                                   width: 2))),
                                       child: Text(
                                         azkar.reference!,
                                         style: TextStyle(
-                                            color:
-                                                ThemeProvider.themeOf(context)
-                                                            .id ==
-                                                        'dark'
-                                                    ? Colors.white
-                                                    : Theme.of(context)
-                                                        .primaryColorDark,
+                                            color: Get.isDarkMode
+                                                ? Colors.white
+                                                : Get.theme.primaryColorDark,
                                             fontSize: 12,
                                             fontFamily: 'kufi',
                                             fontStyle: FontStyle.italic),
@@ -182,25 +165,19 @@ class _AzkarItemState extends State<AzkarItem> {
                                     margin: const EdgeInsets.symmetric(
                                         horizontal: 8),
                                     decoration: BoxDecoration(
-                                        color: Theme.of(context)
-                                            .colorScheme
-                                            .surface
+                                        color: Get.theme.colorScheme.surface
                                             .withOpacity(.2),
                                         border: Border.symmetric(
                                             vertical: BorderSide(
-                                                color: Theme.of(context)
-                                                    .colorScheme
-                                                    .surface,
+                                                color: Get
+                                                    .theme.colorScheme.surface,
                                                 width: 2))),
                                     child: Text(
                                       azkar.description!,
                                       style: TextStyle(
-                                          color: ThemeProvider.themeOf(context)
-                                                      .id ==
-                                                  'dark'
+                                          color: Get.isDarkMode
                                               ? Colors.white
-                                              : Theme.of(context)
-                                                  .primaryColorDark,
+                                              : Get.theme.primaryColorDark,
                                           fontSize: 16,
                                           fontFamily: 'kufi',
                                           fontStyle: FontStyle.italic),
@@ -209,15 +186,12 @@ class _AzkarItemState extends State<AzkarItem> {
                               padding: const EdgeInsets.all(8),
                               child: Container(
                                 decoration: BoxDecoration(
-                                    color: Theme.of(context)
-                                        .colorScheme
-                                        .surface
+                                    color: Get.theme.colorScheme.surface
                                         .withOpacity(.2),
                                     border: Border.symmetric(
                                         vertical: BorderSide(
-                                            color: Theme.of(context)
-                                                .colorScheme
-                                                .surface,
+                                            color:
+                                                Get.theme.colorScheme.surface,
                                             width: 2))),
                                 width: double.infinity,
                                 child: Row(
@@ -235,13 +209,11 @@ class _AzkarItemState extends State<AzkarItem> {
                                           icon: Semantics(
                                             button: true,
                                             enabled: true,
-                                            label: AppLocalizations.of(context)!
-                                                .share,
+                                            label: 'share'.tr,
                                             child: Icon(
                                               Icons.share,
-                                              color: Theme.of(context)
-                                                  .colorScheme
-                                                  .surface,
+                                              color:
+                                                  Get.theme.colorScheme.surface,
                                               size: 20,
                                             ),
                                           ),
@@ -253,20 +225,16 @@ class _AzkarItemState extends State<AzkarItem> {
                                                         '${azkar.category}\n\n${azkar.zekr}\n\n| ${azkar.description}. | (التكرار: ${azkar.count})'))
                                                 .then((value) => customSnackBar(
                                                     context,
-                                                    AppLocalizations.of(
-                                                            context)!
-                                                        .copyAzkarText));
+                                                    'copyAzkarText'.tr));
                                           },
                                           icon: Semantics(
                                             button: true,
                                             enabled: true,
-                                            label: AppLocalizations.of(context)!
-                                                .copy,
+                                            label: 'copy'.tr,
                                             child: Icon(
                                               Icons.copy,
-                                              color: Theme.of(context)
-                                                  .colorScheme
-                                                  .surface,
+                                              color:
+                                                  Get.theme.colorScheme.surface,
                                               size: 20,
                                             ),
                                           ),
@@ -283,20 +251,16 @@ class _AzkarItemState extends State<AzkarItem> {
                                                     azkar.zekr))
                                                 .then((value) => customSnackBar(
                                                     context,
-                                                    AppLocalizations.of(
-                                                            context)!
-                                                        .addZekrBookmark));
+                                                    'addZekrBookmark'.tr));
                                           },
                                           icon: Semantics(
                                             button: true,
                                             enabled: true,
-                                            label: AppLocalizations.of(context)!
-                                                .addToBookmark,
+                                            label: 'addToBookmark'.tr,
                                             child: Icon(
                                               Icons.bookmark_add,
-                                              color: Theme.of(context)
-                                                  .colorScheme
-                                                  .surface,
+                                              color:
+                                                  Get.theme.colorScheme.surface,
                                               size: 20,
                                             ),
                                           ),
@@ -311,19 +275,14 @@ class _AzkarItemState extends State<AzkarItem> {
                                           topRight: Radius.circular(8),
                                           bottomRight: Radius.circular(8),
                                         ),
-                                        color: Theme.of(context)
-                                            .colorScheme
-                                            .surface,
+                                        color: Get.theme.colorScheme.surface,
                                       ),
                                       child: Row(
                                         children: [
                                           Text(
                                             azkar.count!,
                                             style: TextStyle(
-                                                color: ThemeProvider.themeOf(
-                                                                context)
-                                                            .id ==
-                                                        'dark'
+                                                color: Get.isDarkMode
                                                     ? Colors.white
                                                     : Colors.black,
                                                 fontSize: 14,
@@ -335,12 +294,9 @@ class _AzkarItemState extends State<AzkarItem> {
                                           ),
                                           Icon(
                                             Icons.repeat,
-                                            color:
-                                                ThemeProvider.themeOf(context)
-                                                            .id ==
-                                                        'dark'
-                                                    ? Colors.white
-                                                    : Colors.black,
+                                            color: Get.isDarkMode
+                                                ? Colors.white
+                                                : Colors.black,
                                             size: 20,
                                           ),
                                         ],

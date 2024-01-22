@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:lottie/lottie.dart';
 
+import '/core/services/languages/dependency_inj.dart' as dep;
 // import 'quran_page/data/data_client.dart';
 // import 'quran_page/data/tafseer_data_client.dart';
 import 'core/services/services_locator.dart';
@@ -14,11 +15,14 @@ import 'myApp.dart';
 //   runApp(MyApp(theme: ThemeData.light()));
 // }
 
-void main() {
+Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  Map<String, Map<String, String>> languages = await dep.init();
   runApp(LoadingScreen());
   initializeApp().then((_) {
-    runApp(MyApp(theme: ThemeData.light()));
+    runApp(MyApp(
+      languages: languages,
+    ));
   });
 }
 

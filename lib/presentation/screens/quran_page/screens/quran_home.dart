@@ -27,11 +27,11 @@ class QuranPage extends StatelessWidget {
     sl<TranslateDataController>().fetchTranslate(context);
     return Scaffold(
       resizeToAvoidBottomInset: true,
-      backgroundColor: Theme.of(context).primaryColorDark,
+      backgroundColor: Get.theme.primaryColorDark,
       body: SafeArea(
         child: Container(
           decoration: BoxDecoration(
-            color: Theme.of(context).primaryColorDark,
+            color: Get.theme.primaryColorDark,
           ),
           child: Stack(
             children: <Widget>[
@@ -67,7 +67,7 @@ class QuranPage extends StatelessWidget {
                       myWidget4: bookmarksList(
                           context, MediaQuery.sizeOf(context).width),
                       myWidget5: Container(
-                        color: Theme.of(context).colorScheme.background,
+                        color: Get.theme.colorScheme.background,
                         child: sl<GeneralController>().slideWidget.value,
                       ),
                       cHeight: context.customOrientation(230.0, 90.0),

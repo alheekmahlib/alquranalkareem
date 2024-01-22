@@ -1,71 +1,70 @@
 {
-  "@@last_modified": "2019-03-24T22:25:14.954300",
-  "appName": "Al Quraanka Al Kareem - Maktabadda Al Heekmah",
+  "appName": "পবিত্র কোরআন - উইজডম লাইব্রেরি",
   "@appName": {
     "description": "appName",
     "type": "text",
     "placeholders": {}
   },
-  "search_hint": "Raadi aayadaha Quraanka",
+  "search_hint": "পবিত্র কুরআনের আয়াত অনুসন্ধান করুন",
   "@search_hint": {
     "description": "search_hint",
     "type": "text",
     "placeholders": {}
   },
-  "menu": "Menu",
+  "menu": "ক্রমতালিকা",
   "@menu": {
     "description": "menu",
     "type": "text",
     "placeholders": {}
   },
-  "notes": "Qoraallo",
+  "notes": "মন্তব্য",
   "@notes": {
     "description": "notes",
     "type": "text",
     "placeholders": {}
   },
-  "note_title": "Cinwaanka Qoraalka",
+  "note_title": "নোট উপাধি",
   "@note_title": {
     "description": "note_title",
     "type": "text",
     "placeholders": {}
   },
-  "add_new_note": "Dar Qoraal Cusub",
+  "add_new_note": "একটি নতুন নোট যোগ করুন",
   "@add_new_note": {
     "type": "text",
     "placeholders": {}
   },
-  "note_details": "Faahfaahinta Qoraalka",
+  "note_details": "নোট বিবরণ",
   "@note_details": {
     "type": "text",
     "placeholders": {}
   },
-  "bookmarks": "Calamaanka La Keydiyay",
+  "bookmarks": "বুকমার্ক সংরক্ষিত",
   "@bookmarks": {
     "type": "text",
     "placeholders": {}
   },
-  "bookmark_title": "Magaca Calaamadda",
+  "bookmark_title": "বুকমার্ক নাম",
   "@bookmark_title": {
     "type": "text",
     "placeholders": {}
   },
-  "add_new_bookmark": "Dar Calaamad Cusub",
+  "add_new_bookmark": "একটি নতুন বুকমার্ক যোগ করুন",
   "@add_new_bookmark": {
     "type": "text",
     "placeholders": {}
   },
-  "save": "Keydi",
+  "save": "সংরক্ষণ",
   "@save": {
     "type": "text",
     "placeholders": {}
   },
-  "edit": "Tafatir",
+  "edit": "সংশোধন",
   "@edit": {
     "type": "text",
     "placeholders": {}
   },
-  "azkar": "Athkar",
+  "azkar": "দোয়া",
   "@azkar": {
     "type": "text",
     "placeholders": {}
@@ -80,23 +79,23 @@
     "type": "text",
     "placeholders": {}
   },
-  "aya_count": "Tirada Aayadaha",
+  "aya_count": "আয়াত সংখ্যা",
   "@aya_count": {
     "description": "aya_count",
     "type": "text",
     "placeholders": {}
   },
-  "quran_sorah": "Dhammaan Suuradaha",
+  "quran_sorah": "সব সূরা",
   "@quran_sorah": {
     "type": "text",
     "placeholders": {}
   },
-  "about_us": "Ku saabsan Appka",
+  "about_us": "অ্যাপ সম্পর্কে",
   "@about_us": {
     "type": "text",
     "placeholders": {}
   },
-  "stop_title": "Quraanka Wanaagsan - Maktabadda Al Heekmah",
+  "stop_title": "পবিত্র কুরআনের এনডোমেন্ট - উইজডম লাইব্রেরি",
   "@stop_title": {
     "type": "text",
     "placeholders": {}
@@ -116,42 +115,42 @@
     "type": "text",
     "placeholders": {}
   },
-  "email": "Nala Xiriir",
+  "email": "যোগাযোগ করুন",
   "@email": {
     "type": "text",
     "placeholders": {}
   },
-  "select_player": "Akhristaha la Doortay",
+  "select_player": "পাঠক নির্বাচিত",
   "@select_player": {
     "type": "text",
     "placeholders": {}
   },
-  "delete": "Tirtir",
+  "delete": "মুছে ফেলা",
   "@delete": {
     "type": "text",
     "placeholders": {}
   },
-  "page": "Bog",
+  "page": "পৃষ্ঠা",
   "@page": {
     "type": "text",
     "placeholders": {}
   },
-  "search_word": "Aayad Raadinayo",
+  "search_word": "আয়াত অনুসন্ধান করতে",
   "@search_word": {
     "type": "text",
     "placeholders": {}
   },
-  "search_description": "Waad raadi kartaa dhammaan aayadaha Quraanka, keliya qor eray ka mid ah aayadda",
+  "search_description": "আপনি নোবেল কোরানের সমস্ত আয়াত অনুসন্ধান করতে পারেন, শুধু আয়াত থেকে একটি শব্দ টাইপ করুন।.",
   "@search_description": {
     "type": "text",
     "placeholders": {}
   },
-  "fontSize": "Beddel Daqiiqadda Farshaxanka",
+  "fontSize": "ফন্টের মাপ পরিবর্তন করুন",
   "@fontSize": {
     "type": "text",
     "placeholders": {}
   },
-  "waqfName": "Astamahyada Joojinta",
+  "waqfName": "থামো চিহ্ন",
   "@waqfName": {
     "type": "text",
     "placeholders": {}
@@ -186,142 +185,142 @@
     "type": "text",
     "placeholders": {}
   },
-  "green": "Habka Cagaaran",
+  "green": "সবুজ মোড",
   "@green": {
     "type": "text",
     "placeholders": {}
   },
-  "brown": "Habka Buraan",
+  "brown": "বাদামী মোড",
   "@brown": {
     "type": "text",
     "placeholders": {}
   },
-  "dark": "Habka Mugdiga",
+  "dark": "অন্ধকার মোড",
   "@dark": {
     "type": "text",
     "placeholders": {}
   },
-  "azkarfav": "Athkar Jecel",
+  "azkarfav": "প্রিয় দোয়া",
   "@azkarfav": {
     "type": "text",
     "placeholders": {}
   },
-  "themeTitle": "Dooro Muuqaalka",
+  "themeTitle": "রুপ নির্বাচন করুন",
   "@themeTitle": {
     "type": "text",
     "placeholders": {}
   },
-  "sorah": "Suurah",
+  "sorah": "সূরা",
   "@sorah": {
     "type": "text",
     "placeholders": {}
   },
-  "part": "Qayb",
+  "part": "অংশ",
   "@part": {
     "type": "text",
     "placeholders": {}
   },
-  "langChange": "Beddel Luqadda",
+  "langChange": "ভাষা পরিবর্তন করুন",
   "@langChange": {
     "type": "text",
     "placeholders": {}
   },
-  "tafChange": "Dooro Tafsiir",
+  "tafChange": "একটি তাফসির চয়ন করুন",
   "@tafChange": {
     "type": "text",
     "placeholders": {}
   },
-  "tafIbnkatheerN": "Tafsiirka Ibn Kathir",
+  "tafIbnkatheerN": "তাফসির ইবনে কাসীর",
   "@tafIbnkatheerN": {
     "type": "text",
     "placeholders": {}
   },
-  "tafBaghawyN": "Tafsiirka al-Baghawi",
+  "tafBaghawyN": "তাফসীর আল-বাগাভী",
   "@tafBaghawyN": {
     "type": "text",
     "placeholders": {}
   },
-  "tafQurtubiN": "Tafsiirka al-Qurtubi",
+  "tafQurtubiN": "তাফসির আল-কুরতুবী",
   "@tafQurtubiN": {
     "type": "text",
     "placeholders": {}
   },
-  "tafSaadiN": "Tafsiirka As-Sa'di",
+  "tafSaadiN": "তাফসির আস-সাদী",
   "@tafSaadiN": {
     "type": "text",
     "placeholders": {}
   },
-  "tafTabariN": "Tafsiirka al-Tabari",
+  "tafTabariN": "তাফসির আল-তাবারী",
   "@tafTabariN": {
     "type": "text",
     "placeholders": {}
   },
-  "tafIbnkatheerD": "Tafsiirka Quraanka Weyn",
+  "tafIbnkatheerD": "তাফসীর আল-কুরআন আল-আযীম",
   "@tafIbnkatheerD": {
     "type": "text",
     "placeholders": {}
   },
-  "tafBaghawyD": "Maalim al-Tanzil",
+  "tafBaghawyD": "মালিম আল-তানযিল",
   "@tafBaghawyD": {
     "type": "text",
     "placeholders": {}
   },
-  "tafQurtubiD": "Al-Jaami' li Axkaam al-Quraan",
+  "tafQurtubiD": "আল-জামি লি আহকাম আল-কুরআন",
   "@tafQurtubiD": {
     "type": "text",
     "placeholders": {}
   },
-  "tafSaadiD": "Tayseer Kalaam Almannan",
+  "tafSaadiD": "তাইসির কালাম আলমান্নান",
   "@tafSaadiD": {
     "type": "text",
     "placeholders": {}
   },
-  "tafTabariD": "Jami al-Bayan an Tawilay al-Quraan",
+  "tafTabariD": "জামি আল-বায়ান আন তাবিল [আয়] আল কুরআন",
   "@tafTabariD": {
     "type": "text",
     "placeholders": {}
   },
-  "appLang": "Luqadda Appka",
+  "appLang": "অ্যাপের ভাষা",
   "@appLang": {
     "type": "text",
     "placeholders": {}
   },
-  "setting": "Dejinta",
+  "setting": "বিন্যাস",
   "@setting": {
     "type": "text",
     "placeholders": {}
   },
-  "reader1": "Cabdul Baasit",
+  "reader1": "আব্দুল বাসিত",
   "@reader1": {
     "type": "text",
     "placeholders": {}
   },
-  "reader2": "Maxamed Siddiiq El-Minshawi",
+  "reader2": "মোহাম্মদ সিদ্দিক এল-মিনশাওয়ি",
   "@reader2": {
     "type": "text",
     "placeholders": {}
   },
-  "reader3": "Maxmuud Khaliil Al-Hussary",
+  "reader3": "মাহমুদ খলিল আল হুসারি",
   "@reader3": {
     "type": "text",
     "placeholders": {}
   },
-  "reader4": "Axmed Ibn Cali Al-Ajamy",
+  "reader4": "আহমদ ইবনে আলী আল-আজামী",
   "@reader4": {
     "type": "text",
     "placeholders": {}
   },
-  "reader5": "Maher Al Muaiqly",
+  "reader5": "মাহের আল মুয়াইকলি",
   "@reader5": {
     "type": "text",
     "placeholders": {}
   },
-  "reader6": "Saad Al Ghamdi",
+  "reader6": "সাদ আল গামদি",
   "@reader6": {
     "type": "text",
     "placeholders": {}
   },
-  "alheekmahlib": "Maktabadda Al Heekmah",
+  "alheekmahlib": "আলহেকমাহ লাইব্রেরী",
   "@alheekmahlib": {
     "type": "text",
     "placeholders": {}
@@ -331,292 +330,292 @@
     "type": "text",
     "placeholders": {}
   },
-  "next": "Xiga",
+  "next": "পরবর্তী",
   "@next": {
     "type": "text",
     "placeholders": {}
   },
-  "start": "Bilaabo",
+  "start": "শুরু করুন",
   "@start": {
     "type": "text",
     "placeholders": {}
   },
-  "quranPages": "Al Quraan (Bogag)",
+  "quranPages": "আল কুরআন (পৃষ্ঠা)",
   "@quranPages": {
     "type": "text",
     "placeholders": {}
   },
-  "quranText": "Al Quraan (Aayadaha)",
+  "quranText": "আল কুরআন (আয়াহ)",
   "@quranText": {
     "type": "text",
     "placeholders": {}
   },
-  "tafseer": "Al Tafsiir",
+  "tafseer": "আল তাফসীর",
   "@tafseer": {
     "type": "text",
     "placeholders": {}
   },
-  "allJuz": "Qaybaha Quraanka",
+  "allJuz": "কুরআনের কিছু অংশ",
   "@allJuz": {
     "type": "text",
     "placeholders": {}
   },
-  "copyAzkarText": "Azkarka waa la keydiyay!",
+  "copyAzkarText": "আজকার অনুলিপি করা হয়েছে",
   "@copyAzkarText": {
     "type": "text",
     "placeholders": {}
   },
-  "addBookmark": "Calaamad waa la daray!",
+  "addBookmark": "বুকমার্ক যোগ!",
   "@addBookmark": {
     "type": "text",
     "placeholders": {}
   },
-  "deletedBookmark": "Calaamad waa la tirtiray!",
+  "deletedBookmark": "বুকমার্ক মুছে ফেলা হয়েছে!",
   "@deletedBookmark": {
     "type": "text",
     "placeholders": {}
   },
-  "deletedReminder": "Xusuusinta waa la tirtiray!",
+  "deletedReminder": "অনুস্মারক মুছে ফেলা হয়েছে!",
   "@deletedReminder": {
     "type": "text",
     "placeholders": {}
   },
-  "fillAllFields": "Fadlan buuxi goobaha!",
+  "fillAllFields": "ক্ষেত্র পূরণ করুন!",
   "@fillAllFields": {
     "type": "text",
     "placeholders": {}
   },
-  "version": "Nooca",
+  "version": "সংস্করণ",
   "@version": {
     "type": "text",
     "placeholders": {}
   },
-  "share": "La Wadaag Appka",
+  "share": "অ্যাপটি শেয়ার করুন",
   "@share": {
     "type": "text",
     "placeholders": {}
   },
-  "facebook": "Nala raac Facebook",
+  "facebook": "ফেসবুকে আমাদের অনুসরণ করুন",
   "@facebook": {
     "type": "text",
     "placeholders": {}
   },
-  "addZekrBookmark": "Dhikirka waa la daray kuwa jeclaysan",
+  "addZekrBookmark": "Zekr প্রিয়তে যোগ করা হয়েছে",
   "@addZekrBookmark": {
     "type": "text",
     "placeholders": {}
   },
-  "deletedZekrBookmark": "Dhikirka waa la tirtiray kuwa jeclaysan",
+  "deletedZekrBookmark": "Zekr ফেভারিট থেকে সরানো হয়েছে!",
   "@deletedZekrBookmark": {
     "type": "text",
     "placeholders": {}
   },
-  "pageNo": "Tirada Bogga",
+  "pageNo": "পৃষ্ঠা সংখ্যা",
   "@pageNo": {
     "type": "text",
     "placeholders": {}
   },
-  "lastRead": "Akhris Ugu Danbeeyay",
+  "lastRead": "শেষ পড়া",
   "@lastRead": {
     "type": "text",
     "placeholders": {}
   },
-  "copyAyah": "Aayadda waa la keydiyay",
+  "copyAyah": "আয়াতটি অনুলিপি করা হয়েছে",
   "@copyAyah": {
     "type": "text",
     "placeholders": {}
   },
-  "copyTafseer": "Tafsiirka waa la keydiyay",
+  "copyTafseer": "তাফসীরটি অনুলিপি করা হয়েছে",
   "@copyTafseer": {
     "type": "text",
     "placeholders": {}
   },
-  "online": "Online",
+  "online": "অনলাইন",
   "@online": {
     "type": "text",
     "placeholders": {}
   },
-  "download": "Deeqsi",
+  "download": "ডাউনলোড",
   "@download": {
     "type": "text",
     "placeholders": {}
   },
-  "noInternet": "Qalabku ma xidhna Internetka!",
+  "noInternet": "ডিভাইসটি ইন্টারনেটের সাথে সংযুক্ত নয়!",
   "@noInternet": {
     "type": "text",
     "placeholders": {}
   },
-  "mobileDataAyat": "Ogeysiis: Waad adeegsanaysaa Xogta Shabakadda inaad aayadaha deeqsiso!",
+  "mobileDataAyat": "দ্রষ্টব্য: আপনি আয়াত ডাউনলোড করতে সেলুলার ডেটা ব্যবহার করছেন!",
   "@mobileDataAyat": {
     "type": "text",
     "placeholders": {}
   },
-  "mobileDataSurahs": "Ogeysiis: Waad adeegsanaysaa Xogta Shabakadda inaad Suuradaha deeqsiso!",
+  "mobileDataSurahs": "দ্রষ্টব্য: আপনি সূরা ডাউনলোড করতে সেলুলার ডেটা ব্যবহার করছেন!",
   "@mobileDataSurahs": {
     "type": "text",
     "placeholders": {}
   },
-  "mobileDataListen": "Ogeysiis: Waad adeegsanaysaa Xogta Shabakadda inaad Suuradaha dhegaysato!",
+  "mobileDataListen": "দ্রষ্টব্য: আপনি সূরা শোনার জন্য সেলুলার ডেটা ব্যবহার করছেন!",
   "@mobileDataListen": {
     "type": "text",
     "placeholders": {}
   },
-  "choiceAyah": "Fadlan dooro aayadda hore!",
+  "choiceAyah": "অনুগ্রহ করে প্রথমে আয়াতটি বেছে নিন!",
   "@choiceAyah": {
     "type": "text",
     "placeholders": {}
   },
-  "stopSigns": "Astamaha Joojinta",
+  "stopSigns": "থামো চিহ্ন",
   "@stopSigns": {
     "type": "text",
     "placeholders": {}
   },
-  "aboutApp": "Ku saabsan Appka",
+  "aboutApp": "অ্যাপ সম্পর্কে",
   "@aboutApp": {
     "type": "text",
     "placeholders": {}
   },
-  "readMore": "Akhri inta badan",
+  "readMore": "আরও পড়ুন",
   "@readMore": {
     "type": "text",
     "placeholders": {}
   },
-  "readLess": "Akhri inta yar",
+  "readLess": "কম পড়ুন",
   "@readLess": {
     "type": "text",
     "placeholders": {}
   },
-  "ok": "Haa",
+  "ok": "ঠিক আছে",
   "@ok": {
     "type": "text",
     "placeholders": {}
   },
-  "cancel": "Ka noqo",
+  "cancel": "বাতিল করুন",
   "@cancel": {
     "type": "text",
     "placeholders": {}
   },
-  "searchToSurah": "Raadi Suurah",
+  "searchToSurah": "সূরা অনুসন্ধান করুন",
   "@searchToSurah": {
     "type": "text",
     "placeholders": {}
   },
-  "addReminder": "Dar xusuus cusub",
+  "addReminder": "নতুন অনুস্মারক যোগ করুন",
   "@addReminder": {
     "type": "text",
     "placeholders": {}
   },
-  "lastListen": "Dhegaysiga ugu danbeeyay",
+  "lastListen": "শেষ শুনুন",
   "@lastListen": {
     "type": "text",
     "placeholders": {}
   },
-  "hizb": "Hizb",
+  "hizb": "হিযব",
   "@hizb": {
     "type": "text",
     "placeholders": {}
   },
-  "shareText": "Sida qoraal",
+  "shareText": "পাঠ্য হিসাবে",
   "@shareText": {
     "type": "text",
     "placeholders": {}
   },
-  "shareImage": "Sida sawir",
+  "shareImage": "একটি ছবি হিসাবে",
   "@shareImage": {
     "type": "text",
     "placeholders": {}
   },
-  "shareImageWTrans": "Sida sawir iyo qoraal dheeraad ah",
+  "shareImageWTrans": "অতিরিক্ত সামগ্রী সহ একটি চিত্র হিসাবে",
   "@shareImageWTrans": {
     "type": "text",
     "placeholders": {}
   },
-  "shareTrans": "Ogeysiis: La wadaagista tafsiirka sawir wuxuu kaliya taageeraa tafsiirka Al-Saadi, sababtoo ah tafsiirku ma ahan mid dheer.",
+  "shareTrans": "দ্রষ্টব্য: একটি ছবিতে ব্যাখ্যা শেয়ার করা শুধুমাত্র আল-সাদীর ব্যাখ্যাকে সমর্থন করে, কারণ ব্যাখ্যাটি দীর্ঘ নয়।.",
   "@shareTrans": {
     "type": "text",
     "placeholders": {}
   },
-  "translation": "Turjumaada",
+  "translation": "অনুবাদ",
   "@translation": {
     "type": "text",
     "placeholders": {}
   },
-  "search": "Search",
+  "search": "অনুসন্ধান করুন",
   "@search": {
     "type": "text",
     "placeholders": {}
   },
-  "surahsList": "Surahs List",
+  "surahsList": "সূরার তালিকা",
   "@surahsList": {
     "type": "text",
     "placeholders": {}
   },
-  "bookmarksList": "Bookmarks List",
+  "bookmarksList": "বুকমার্ক তালিকা",
   "@bookmarksList": {
     "type": "text",
     "placeholders": {}
   },
-  "copy": "Copy",
+  "copy": "কপি",
   "@copy": {
     "type": "text",
     "placeholders": {}
   },
-  "shareTafseer": "Share",
+  "shareTafseer": "শেয়ার করুন",
   "@shareTafseer": {
     "type": "text",
     "placeholders": {}
   },
-  "addToBookmark": "Add To Bookmark",
+  "addToBookmark": "বুকমার্ক যোগ করুন",
   "@addToBookmark": {
     "type": "text",
     "placeholders": {}
   },
-  "repeatSurah": "Repeat Surah",
+  "repeatSurah": "সূরা পুনরাবৃত্তি করুন",
   "@repeatSurah": {
     "type": "text",
     "placeholders": {}
   },
-  "pauseSurah": "Pause Surah",
+  "pauseSurah": "বিরতি সূরা",
   "@pauseSurah": {
     "type": "text",
     "placeholders": {}
   },
-  "replaySurah": "Replay Surah",
+  "replaySurah": "সূরা রিপ্লে করুন",
   "@replaySurah": {
     "type": "text",
     "placeholders": {}
   },
-  "skipToPrevious": "Skip To Previous",
+  "skipToPrevious": "এড়িয়ে যান পূর্ববর্তীতে",
   "@skipToPrevious": {
     "type": "text",
     "placeholders": {}
   },
-  "deletedPlayList": "La lista de reproducción ha sido eliminada",
+  "deletedPlayList": "প্লেলিস্টটি মুছে ফেলা হয়েছে",
   "@deletedPlayList": {
     "type": "text",
     "placeholders": {}
   },
-  "createPlayList": "Create the playlist",
+  "createPlayList": "প্লেলিস্ট তৈরি করুন",
   "@createPlayList": {
     "type": "text",
     "placeholders": {}
   },
-  "playList": "Playlists",
+  "playList": "প্লেলিস্টগুলি",
   "@playList": {
     "type": "text",
     "placeholders": {}
   },
-  "playListName": "Type the name of the playlist",
+  "playListName": "প্লেলিস্টের নাম টাইপ করুন",
   "@playListName": {
     "type": "text",
     "placeholders": {}
   },
-  "from": "سے",
+  "from": "থেকে",
   "@from": {
     "type": "text",
     "placeholders": {}
   },
-  "to": "کو",
+  "to": "প্রতি",
   "@to": {
     "type": "text",
     "placeholders": {}

@@ -1,20 +1,19 @@
 import 'dart:io';
 import 'dart:typed_data';
 
-import '/core/widgets/widgets.dart';
-import '/presentation/controllers/translate_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:screenshot/screenshot.dart';
 import 'package:share_plus/share_plus.dart';
 
-import '../../core/services/l10n/app_localizations.dart';
 import '../../core/services/services_locator.dart';
 import '../../core/utils/constants/lists.dart';
 import '../screens/quran_text/widgets/widgets.dart';
+import '/core/widgets/widgets.dart';
 import 'ayat_controller.dart';
 import 'general_controller.dart';
+import 'translate_controller.dart';
 
 class ShareController extends GetxController {
   final ScreenshotController ayahScreenController = ScreenshotController();
@@ -56,8 +55,7 @@ class ShareController extends GetxController {
         sl<AyatController>()
             .fetchTafseerPage(sl<GeneralController>().currentPage.value);
         sl<AyatController>().getNewTranslationAndNotify(surahNum, ayahNum);
-        customErrorSnackBar(context,
-            'تم تغيير التفسير إلى: ${AppLocalizations.of(context)!.tafSaadiN}');
+        customErrorSnackBar(context, 'تم تغيير التفسير إلى: ${'tafSaadiN'.tr}');
       }
       // tafseerOrTranslateName!.value = sl<AyatController>().radioValue.value != 3
       //     ? ''
@@ -108,8 +106,7 @@ class ShareController extends GetxController {
       final imagePath =
           await File('${directory.path}/verse_tafseer_image.png').create();
       await imagePath.writeAsBytes(tafseerToImageBytes!);
-      await Share.shareXFiles([XFile((imagePath.path))],
-          text: AppLocalizations.of(context)!.appName);
+      await Share.shareXFiles([XFile((imagePath.path))], text: 'appName'.tr);
     }
   }
 
@@ -119,8 +116,7 @@ class ShareController extends GetxController {
       final imagePath =
           await File('${directory.path}/verse_image.png').create();
       await imagePath.writeAsBytes(ayahToImageBytes!);
-      await Share.shareXFiles([XFile((imagePath.path))],
-          text: AppLocalizations.of(context)!.appName);
+      await Share.shareXFiles([XFile((imagePath.path))], text: 'appName'.tr);
     }
   }
 

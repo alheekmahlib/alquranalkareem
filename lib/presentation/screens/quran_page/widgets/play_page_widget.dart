@@ -26,9 +26,9 @@ class PlayPage extends StatelessWidget {
               borderRadius: 8,
               shadowWidth: 1.5,
               progressWidth: 2,
-              shadowColor: Theme.of(context).dividerColor.withOpacity(.5),
+              shadowColor: Get.theme.dividerColor.withOpacity(.5),
               progressColor: sl<AudioController>().downloadingPage.value
-                  ? Theme.of(context).colorScheme.surface
+                  ? Get.theme.colorScheme.surface
                   : Colors.transparent,
               progress: sl<AudioController>().progressPage.value,
             ),
@@ -40,7 +40,7 @@ class PlayPage extends StatelessWidget {
                       style: TextStyle(
                           fontSize: 14,
                           fontFamily: 'kufi',
-                          color: Theme.of(context).colorScheme.surface),
+                          color: Get.theme.colorScheme.surface),
                     ),
                   )
                 : Obx(
@@ -56,7 +56,7 @@ class PlayPage extends StatelessWidget {
                           size: 25,
                         ),
                       ),
-                      color: Theme.of(context).colorScheme.surface,
+                      color: Get.theme.colorScheme.surface,
                       onPressed: () {
                         print(sl<AudioController>().progressPageString.value);
 

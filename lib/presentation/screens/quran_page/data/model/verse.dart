@@ -2,7 +2,7 @@ import 'dart:math';
 
 import 'package:alquranalkareem/core/utils/constants/extensions.dart';
 import 'package:flutter/material.dart';
-import 'package:theme_provider/theme_provider.dart';
+import 'package:get/get.dart';
 
 import '../../../../../database/verseDBHelper.dart';
 
@@ -728,9 +728,7 @@ class _QuranPageState extends State<QuranPage> {
                   child: Image.asset(
                     widget.imageUrl,
                     fit: BoxFit.contain,
-                    color: ThemeProvider.themeOf(context).id == 'dark'
-                        ? Colors.white
-                        : null,
+                    color: Get.isDarkMode ? Colors.white : null,
                     width: 800,
                     alignment: Alignment.center,
                   ),

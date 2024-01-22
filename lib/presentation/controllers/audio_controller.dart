@@ -2,7 +2,6 @@ import 'dart:async';
 import 'dart:developer' as developer;
 import 'dart:io';
 
-import '/presentation/screens/quran_text/data/models/QuranModel.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
@@ -14,7 +13,6 @@ import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:rxdart/rxdart.dart' as R;
 
-import '../../core/services/l10n/app_localizations.dart';
 import '../../core/services/services_locator.dart';
 import '../../core/utils/constants/shared_pref_services.dart';
 import '../../core/utils/constants/shared_preferences_constants.dart';
@@ -22,6 +20,7 @@ import '../../core/utils/helpers/functions.dart';
 import '../../core/widgets/seek_bar.dart';
 import '../../core/widgets/widgets.dart';
 import '../screens/quran_text/data/models/Ahya.dart';
+import '../screens/quran_text/data/models/QuranModel.dart';
 import '../screens/quran_text/screens/text_page_view.dart';
 import 'ayat_controller.dart';
 import 'general_controller.dart';
@@ -198,12 +197,10 @@ class AudioController extends GetxController {
           print(e);
         }
         if (_connectionStatus == ConnectivityResult.none) {
-          customErrorSnackBar(
-              context, AppLocalizations.of(context)!.noInternet);
+          customErrorSnackBar(context, 'noInternet'.tr);
         } else if (_connectionStatus == ConnectivityResult.mobile) {
           await downloadFile(path, url, fileName);
-          customMobileNoteSnackBar(
-              context, AppLocalizations.of(context)!.mobileDataAyat);
+          customMobileNoteSnackBar(context, 'mobileDataAyat'.tr);
         } else if (_connectionStatus == ConnectivityResult.wifi) {
           await downloadFile(path, url, fileName);
         }
@@ -352,12 +349,10 @@ class AudioController extends GetxController {
           print(e);
         }
         if (_connectionStatus == ConnectivityResult.none) {
-          customErrorSnackBar(
-              context, AppLocalizations.of(context)!.noInternet);
+          customErrorSnackBar(context, 'noInternet'.tr);
         } else if (_connectionStatus == ConnectivityResult.mobile) {
           await downloadFile(path, url, fileName);
-          customMobileNoteSnackBar(
-              context, AppLocalizations.of(context)!.mobileDataAyat);
+          customMobileNoteSnackBar(context, 'mobileDataAyat'.tr);
         } else if (_connectionStatus == ConnectivityResult.wifi) {
           await downloadFile(path, url, fileName);
         }
@@ -590,13 +585,11 @@ class AudioController extends GetxController {
               ),
             ));
           } else {
-            customErrorSnackBar(
-                context, AppLocalizations.of(context)!.noInternet);
+            customErrorSnackBar(context, 'noInternet'.tr);
           }
         } else if (_connectionStatus == ConnectivityResult.mobile) {
           await downloadFile(path, url, fileName);
-          customMobileNoteSnackBar(
-              context, AppLocalizations.of(context)!.mobileDataAyat);
+          customMobileNoteSnackBar(context, 'mobileDataAyat'.tr);
         } else if (_connectionStatus == ConnectivityResult.wifi) {
           await downloadFile(path, url, fileName);
         }

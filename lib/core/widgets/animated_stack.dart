@@ -1,10 +1,9 @@
-import '/core/services/l10n/app_localizations.dart';
-import '/core/utils/constants/extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../presentation/controllers/general_controller.dart';
 import '../services/services_locator.dart';
+import '/core/utils/constants/extensions.dart';
 import 'custom_rect_tween.dart';
 import 'hero_dialog_route.dart';
 import 'settings_list.dart';
@@ -70,7 +69,7 @@ class AnimatedStack extends StatelessWidget {
                       Semantics(
                         button: true,
                         enabled: true,
-                        label: AppLocalizations.of(context)!.menu,
+                        label: 'menu'.tr,
                         child: GestureDetector(
                           onTap: () {
                             sl<GeneralController>().opened.value =
@@ -83,7 +82,7 @@ class AnimatedStack extends StatelessWidget {
                             height: 50,
                             width: 50,
                             decoration: BoxDecoration(
-                              color: Theme.of(context).colorScheme.surface,
+                              color: Get.theme.colorScheme.surface,
                               borderRadius:
                                   const BorderRadius.all(Radius.circular(8)),
                               boxShadow: const [
@@ -128,7 +127,7 @@ class AnimatedStack extends StatelessWidget {
                       Semantics(
                         button: true,
                         enabled: true,
-                        label: AppLocalizations.of(context)!.setting,
+                        label: 'setting'.tr,
                         child: GestureDetector(
                           onTap: () {
                             sl<GeneralController>().showSettings.value = true;
@@ -162,7 +161,7 @@ class AnimatedStack extends StatelessWidget {
                               height: 50,
                               width: 50,
                               decoration: BoxDecoration(
-                                color: Theme.of(context).colorScheme.background,
+                                color: Get.theme.colorScheme.background,
                                 borderRadius:
                                     const BorderRadius.all(Radius.circular(8)),
                                 boxShadow: const [
@@ -178,7 +177,7 @@ class AnimatedStack extends StatelessWidget {
                               child: Icon(
                                 Icons.settings,
                                 size: 28,
-                                color: Theme.of(context).colorScheme.surface,
+                                color: Get.theme.colorScheme.surface,
                               ),
                             ),
                           ),

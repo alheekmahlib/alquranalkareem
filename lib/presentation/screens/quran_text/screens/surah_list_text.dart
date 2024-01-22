@@ -3,9 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
-import 'package:theme_provider/theme_provider.dart';
 
-import '../../../../core/services/l10n/app_localizations.dart';
 import '../../../../core/services/services_locator.dart';
 import '../../../../core/utils/constants/lottie.dart';
 import '../../../../core/widgets/widgets.dart';
@@ -25,7 +23,7 @@ class SorahListText extends StatelessWidget {
     ArabicNumbers arabicNumber = ArabicNumbers();
     return Container(
       decoration: BoxDecoration(
-          color: Theme.of(context).colorScheme.background,
+          color: Get.theme.colorScheme.background,
           borderRadius: const BorderRadius.all(Radius.circular(8))),
       child: Padding(
         padding: const EdgeInsets.symmetric(vertical: 16.0),
@@ -85,11 +83,8 @@ class SorahListText extends StatelessWidget {
                                     child: Container(
                                         height: 60,
                                         color: (index % 2 == 0
-                                            ? Theme.of(context)
-                                                .colorScheme
-                                                .background
-                                            : Theme.of(context)
-                                                .dividerColor
+                                            ? Get.theme.colorScheme.background
+                                            : Get.theme.dividerColor
                                                 .withOpacity(.3)),
                                         child: Padding(
                                           padding: const EdgeInsets.symmetric(
@@ -114,13 +109,10 @@ class SorahListText extends StatelessWidget {
                                                             .number
                                                             .toString()),
                                                     style: TextStyle(
-                                                        color: ThemeProvider.themeOf(
-                                                                        context)
-                                                                    .id ==
-                                                                'dark'
-                                                            ? Theme.of(context)
+                                                        color: Get.isDarkMode
+                                                            ? Get.theme
                                                                 .canvasColor
-                                                            : Theme.of(context)
+                                                            : Get.theme
                                                                 .primaryColorDark,
                                                         fontFamily: "kufi",
                                                         fontSize: 14,
@@ -136,17 +128,13 @@ class SorahListText extends StatelessWidget {
                                                 children: [
                                                   SvgPicture.asset(
                                                     'assets/svg/surah_name/00${index + 1}.svg',
-                                                    colorFilter: ThemeProvider
-                                                                    .themeOf(
-                                                                        context)
-                                                                .id ==
-                                                            'dark'
+                                                    colorFilter: Get.isDarkMode
                                                         ? ColorFilter.mode(
-                                                            Theme.of(context)
+                                                            Get.theme
                                                                 .canvasColor,
                                                             BlendMode.srcIn)
                                                         : ColorFilter.mode(
-                                                            Theme.of(context)
+                                                            Get.theme
                                                                 .primaryColorDark,
                                                             BlendMode.srcIn),
                                                     width: 100,
@@ -164,13 +152,10 @@ class SorahListText extends StatelessWidget {
                                                         fontWeight:
                                                             FontWeight.w600,
                                                         fontSize: 10,
-                                                        color: ThemeProvider.themeOf(
-                                                                        context)
-                                                                    .id ==
-                                                                'dark'
-                                                            ? Theme.of(context)
+                                                        color: Get.isDarkMode
+                                                            ? Get.theme
                                                                 .canvasColor
-                                                            : Theme.of(context)
+                                                            : Get.theme
                                                                 .primaryColorLight,
                                                       ),
                                                     ),
@@ -182,18 +167,14 @@ class SorahListText extends StatelessWidget {
                                                     MainAxisAlignment.center,
                                                 children: [
                                                   Text(
-                                                    "| ${AppLocalizations.of(context)?.aya_count} |",
+                                                    "| ${'aya_count'.tr} |",
                                                     style: TextStyle(
                                                       fontFamily: "uthman",
                                                       fontSize: 12,
-                                                      color: ThemeProvider
-                                                                      .themeOf(
-                                                                          context)
-                                                                  .id ==
-                                                              'dark'
-                                                          ? Theme.of(context)
-                                                              .canvasColor
-                                                          : Theme.of(context)
+                                                      color: Get.isDarkMode
+                                                          ? Get
+                                                              .theme.canvasColor
+                                                          : Get.theme
                                                               .primaryColorDark,
                                                     ),
                                                   ),
@@ -204,14 +185,10 @@ class SorahListText extends StatelessWidget {
                                                       fontSize: 14,
                                                       fontWeight:
                                                           FontWeight.bold,
-                                                      color: ThemeProvider
-                                                                      .themeOf(
-                                                                          context)
-                                                                  .id ==
-                                                              'dark'
-                                                          ? Theme.of(context)
-                                                              .canvasColor
-                                                          : Theme.of(context)
+                                                      color: Get.isDarkMode
+                                                          ? Get
+                                                              .theme.canvasColor
+                                                          : Get.theme
                                                               .primaryColorDark,
                                                     ),
                                                   ),

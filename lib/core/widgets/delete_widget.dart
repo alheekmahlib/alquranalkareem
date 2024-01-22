@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-
-import '../services/l10n/app_localizations.dart';
+import 'package:get/get.dart';
 
 class DeleteWidget extends StatelessWidget {
   const DeleteWidget({super.key});
@@ -26,7 +25,7 @@ class DeleteWidget extends StatelessWidget {
                 size: 18,
               ),
               Text(
-                AppLocalizations.of(context)!.delete,
+                'delete'.tr,
                 style: const TextStyle(
                     color: Colors.white, fontSize: 14, fontFamily: 'kufi'),
               )
@@ -41,7 +40,7 @@ class DeleteWidget extends StatelessWidget {
                 size: 18,
               ),
               Text(
-                AppLocalizations.of(context)!.delete,
+                'delete'.tr,
                 style: const TextStyle(
                     color: Colors.white, fontSize: 14, fontFamily: 'kufi'),
               )

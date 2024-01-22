@@ -60,7 +60,6 @@ dependencies:
   sqflite: ^2.3.0
   sqflite_common_ffi: ^2.3.1
   square_percent_indicater: ^0.1.0
-  theme_provider: ^0.6.0
   url_launcher: ^6.2.2
   wakelock_plus: ^1.1.4
   webview_flutter: ^4.4.4
@@ -119,6 +118,7 @@ flutter:
     - assets/json/
     - assets/json/translate/
     - assets/lottie/
+    - assets/locales/
     - assets/share_images/
     - assets/share_images/surah_name/
     - assets/QuranV3.sqlite

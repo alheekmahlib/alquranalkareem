@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import '../../../../core/services/services_locator.dart';
 import '../../../../core/utils/constants/shared_pref_services.dart';
@@ -19,7 +20,7 @@ class SurahSeekBar extends StatelessWidget {
           width: 250,
           margin: const EdgeInsets.symmetric(horizontal: 4),
           decoration: BoxDecoration(
-              color: Theme.of(context).dividerColor.withOpacity(.4),
+              color: Get.theme.dividerColor.withOpacity(.4),
               borderRadius: const BorderRadius.all(Radius.circular(8))),
         ),
         StreamBuilder<PositionData>(
@@ -47,8 +48,8 @@ class SurahSeekBar extends StatelessWidget {
                   await sl<SharedPrefServices>()
                       .saveInteger(LAST_POSITION, newPosition.inSeconds);
                 },
-                activeTrackColor: Theme.of(context).colorScheme.surface,
-                textColor: Theme.of(context).colorScheme.surface,
+                activeTrackColor: Get.theme.colorScheme.surface,
+                textColor: Get.theme.colorScheme.surface,
                 timeShow: true,
               );
             }
@@ -73,7 +74,7 @@ class DownloadSurahSeekBar extends StatelessWidget {
           width: 250,
           margin: const EdgeInsets.symmetric(horizontal: 4),
           decoration: BoxDecoration(
-              color: Theme.of(context).dividerColor.withOpacity(.4),
+              color: Get.theme.dividerColor.withOpacity(.4),
               borderRadius: const BorderRadius.all(Radius.circular(8))),
         ),
         StreamBuilder<PositionData>(
@@ -101,8 +102,8 @@ class DownloadSurahSeekBar extends StatelessWidget {
                   await sl<SharedPrefServices>()
                       .saveInteger(LAST_POSITION, newPosition.inSeconds);
                 },
-                activeTrackColor: Theme.of(context).colorScheme.surface,
-                textColor: Theme.of(context).colorScheme.surface,
+                activeTrackColor: Get.theme.colorScheme.surface,
+                textColor: Get.theme.colorScheme.surface,
                 timeShow: true,
               );
             }

@@ -3,9 +3,8 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:theme_provider/theme_provider.dart';
+import 'package:get/get.dart';
 
-import '../../../../core/services/l10n/app_localizations.dart';
 import '../../../../core/utils/constants/lists.dart';
 import '../../../../core/widgets/widgets.dart';
 import '../models/all_azkar.dart';
@@ -37,19 +36,19 @@ class _AzkarViewState extends State<AzkarView> {
       top: false,
       bottom: false,
       child: Scaffold(
-        backgroundColor: Theme.of(context).colorScheme.background,
+        backgroundColor: Get.theme.colorScheme.background,
         appBar: AppBar(
-          backgroundColor: Theme.of(context).colorScheme.background,
+          backgroundColor: Get.theme.colorScheme.background,
         ),
         body: Directionality(
           textDirection: TextDirection.rtl,
           child: Container(
             decoration: BoxDecoration(
-                color: Theme.of(context).colorScheme.background,
+                color: Get.theme.colorScheme.background,
                 borderRadius: const BorderRadius.all(Radius.circular(8)),
                 border: Border.all(
                   width: 2,
-                  color: Theme.of(context).colorScheme.surface,
+                  color: Get.theme.colorScheme.surface,
                 )),
             child: DefaultTabController(
               length: 2,
@@ -108,18 +107,18 @@ class _AzkarViewState extends State<AzkarView> {
       children: [
         TabBar(
           unselectedLabelColor: Colors.grey,
-          indicatorColor: Theme.of(context).primaryColorLight,
+          indicatorColor: Get.theme.primaryColorLight,
           tabs: [
             Semantics(
               button: true,
               enabled: true,
               excludeSemantics: true,
-              label: AppLocalizations.of(context)!.azkar,
+              label: 'azkar'.tr,
               child: Tab(
                 child: Text(
-                  AppLocalizations.of(context)!.azkar,
+                  'azkar'.tr,
                   style: TextStyle(
-                    color: Theme.of(context).colorScheme.surface,
+                    color: Get.theme.colorScheme.surface,
                     fontFamily: 'kufi',
                   ),
                 ),
@@ -129,12 +128,12 @@ class _AzkarViewState extends State<AzkarView> {
               button: true,
               enabled: true,
               excludeSemantics: true,
-              label: AppLocalizations.of(context)!.azkarfav,
+              label: 'azkarfav'.tr,
               child: Tab(
                 child: Text(
-                  AppLocalizations.of(context)!.azkarfav,
+                  'azkarfav'.tr,
                   style: TextStyle(
-                      color: Theme.of(context).colorScheme.surface,
+                      color: Get.theme.colorScheme.surface,
                       fontFamily: 'kufi',
                       fontWeight: FontWeight.w800),
                 ),
@@ -199,16 +198,15 @@ class _AzkarViewState extends State<AzkarView> {
               const EdgeInsets.symmetric(horizontal: 16.0),
               const EdgeInsets.only(left: 32.0, right: 32.0)),
           decoration: BoxDecoration(
-              color: Theme.of(context).colorScheme.surface.withOpacity(.5),
+              color: Get.theme.colorScheme.surface.withOpacity(.5),
               border: Border.symmetric(
                   vertical: BorderSide(
-                      color: Theme.of(context).colorScheme.surface, width: 2))),
+                      color: Get.theme.colorScheme.surface, width: 2))),
           child: Text(
             element,
             style: TextStyle(
-                color: ThemeProvider.themeOf(context).id == 'dark'
-                    ? Colors.white
-                    : Theme.of(context).primaryColorDark,
+                color:
+                    Get.isDarkMode ? Colors.white : Get.theme.primaryColorDark,
                 fontSize: context.definePlatform(
                     context.customOrientation(22.0, 18.0), 18.0),
                 height: 1.7,
@@ -241,8 +239,8 @@ class _AzkarViewState extends State<AzkarView> {
               : const Radius.circular(5.0),
         ),
         color: (index % 2 == 0
-            ? Theme.of(context).colorScheme.surface.withOpacity(.2)
-            : Theme.of(context).colorScheme.background),
+            ? Get.theme.colorScheme.surface.withOpacity(.2)
+            : Get.theme.colorScheme.background),
       ),
       child: InkWell(
         onTap: () {
@@ -263,9 +261,9 @@ class _AzkarViewState extends State<AzkarView> {
                 child: Text(
                   azkarDataList[index].toString(),
                   style: TextStyle(
-                    color: ThemeProvider.themeOf(context).id == 'dark'
-                        ? Theme.of(context).canvasColor
-                        : Theme.of(context).primaryColorDark,
+                    color: Get.isDarkMode
+                        ? Get.theme.canvasColor
+                        : Get.theme.primaryColorDark,
                     fontSize: 20,
                     fontFamily: 'kufi',
                   ),

@@ -73,7 +73,7 @@ class _DesktopState extends State<Desktop> with TickerProviderStateMixin {
                     MediaQuery.sizeOf(context).width / 1 / 2,
                   ),
                   myWidget5: Container(
-                    color: Theme.of(context).colorScheme.background,
+                    color: Get.theme.colorScheme.background,
                     child: sl<GeneralController>().slideWidget.value,
                   ),
                   cHeight: 220.0,

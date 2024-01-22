@@ -8,8 +8,6 @@ import 'package:flutter_svg/svg.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 
-import '/presentation/screens/quran_text/data/models/QuranModel.dart';
-import '../../../../core/services/l10n/app_localizations.dart';
 import '../../../../core/services/services_locator.dart';
 import '../../../../core/utils/constants/lists.dart';
 import '../../../../core/utils/constants/shared_pref_services.dart';
@@ -22,6 +20,7 @@ import '../../../controllers/bookmarksText_controller.dart';
 import '../../../controllers/general_controller.dart';
 import '../../../controllers/quranText_controller.dart';
 import '../../../controllers/translate_controller.dart';
+import '/presentation/screens/quran_text/data/models/QuranModel.dart';
 
 ArabicNumbers arabicNumber = ArabicNumbers();
 
@@ -46,7 +45,7 @@ menu(BuildContext context, int b, int index, translateData, SurahText widget,
           animationDuration: const Duration(microseconds: 700),
           animationReverseDuration: const Duration(microseconds: 700),
           attachedBuilder: (cancel) => Card(
-            color: Theme.of(context).colorScheme.surface,
+            color: Get.theme.colorScheme.surface,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(8),
             ),
@@ -139,8 +138,8 @@ menu(BuildContext context, int b, int index, translateData, SurahText widget,
                                   nomPageF,
                                   nomPageL,
                                   sl<GeneralController>().timeNow.lastRead)
-                              .then((value) => customSnackBar(context,
-                                  AppLocalizations.of(context)!.addBookmark));
+                              .then((value) =>
+                                  customSnackBar(context, 'addBookmark'.tr));
                         }
                         // sl<QuranTextController>()
                         //     .addBookmarkText(
@@ -188,8 +187,8 @@ menu(BuildContext context, int b, int index, translateData, SurahText widget,
                         await Clipboard.setData(ClipboardData(
                                 text:
                                     '﴿${widget.ayahs![b].text}﴾ [${widget.name}-${arabicNumber.convert(widget.ayahs![b].numberInSurah.toString())}]'))
-                            .then((value) => customSnackBar(context,
-                                AppLocalizations.of(context)!.copyAyah));
+                            .then((value) =>
+                                customSnackBar(context, 'copyAyah'.tr));
                         cancel();
                       },
                     ),
@@ -422,8 +421,8 @@ singleAyahMenu(BuildContext context, int b, index, translateData, widget,
                           nomPageF,
                           nomPageL,
                           sl<GeneralController>().timeNow.lastRead)
-                      .then((value) => customSnackBar(
-                          context, AppLocalizations.of(context)!.addBookmark));
+                      .then(
+                          (value) => customSnackBar(context, 'addBookmark'.tr));
                 }
                 print(widget.name!);
                 print(widget.number!);
@@ -459,8 +458,7 @@ singleAyahMenu(BuildContext context, int b, index, translateData, widget,
               await Clipboard.setData(ClipboardData(
                       text:
                           '﴿${widget.ayahs![b].text}﴾ [${widget.name}-${arabicNumber.convert(widget.ayahs![b].numberInSurah.toString())}]'))
-                  .then((value) => customSnackBar(
-                      context, AppLocalizations.of(context)!.copyAyah));
+                  .then((value) => customSnackBar(context, 'copyAyah'.tr));
             },
           ),
         ),
@@ -560,11 +558,11 @@ Widget animatedToggleSwitch(BuildContext context) {
         iconBuilder: rollingIconBuilder,
         borderWidth: 1,
         style: ToggleStyle(
-          indicatorColor: Theme.of(context).colorScheme.surface,
-          backgroundColor: Theme.of(context).canvasColor,
+          indicatorColor: Get.theme.colorScheme.surface,
+          backgroundColor: Get.theme.canvasColor,
           borderRadius: const BorderRadius.all(Radius.circular(8)),
           // dif: 2.0,
-          borderColor: Theme.of(context).colorScheme.surface,
+          borderColor: Get.theme.colorScheme.surface,
         ),
         height: 25,
       );
@@ -606,19 +604,19 @@ translateDropDown(BuildContext context) {
                 width: 30,
                 margin: const EdgeInsets.all(16.0),
                 decoration: BoxDecoration(
-                    color: Theme.of(context).colorScheme.background,
+                    color: Get.theme.colorScheme.background,
                     borderRadius: const BorderRadius.all(
                       Radius.circular(8),
                     ),
-                    border: Border.all(
-                        width: 2, color: Theme.of(context).dividerColor)),
+                    border:
+                        Border.all(width: 2, color: Get.theme.dividerColor)),
                 child: Semantics(
                   button: true,
                   enabled: true,
                   label: 'Close',
                   child: Icon(
                     Icons.close_outlined,
-                    color: Theme.of(context).colorScheme.surface,
+                    color: Get.theme.colorScheme.surface,
                   ),
                 ),
               ),
@@ -633,9 +631,9 @@ translateDropDown(BuildContext context) {
                 enabled: true,
                 label: 'Translate',
                 child: Text(
-                  AppLocalizations.of(context)!.translation,
+                  'translation'.tr,
                   style: TextStyle(
-                      color: Theme.of(context).dividerColor,
+                      color: Get.theme.dividerColor,
                       fontSize: 22,
                       fontFamily: "kufi"),
                 ),
@@ -664,7 +662,7 @@ translateDropDown(BuildContext context) {
                                               .transValue
                                               .value ==
                                           index
-                                      ? Theme.of(context).primaryColorLight
+                                      ? Get.theme.primaryColorLight
                                       : const Color(0xffcdba72),
                                   fontSize: 14,
                                   fontFamily: "kufi"),
@@ -680,7 +678,7 @@ translateDropDown(BuildContext context) {
                                                 .transValue
                                                 .value ==
                                             index
-                                        ? Theme.of(context).primaryColorLight
+                                        ? Get.theme.primaryColorLight
                                         : const Color(0xffcdba72),
                                     width: 2),
                                 color: const Color(0xff39412a),
@@ -712,7 +710,7 @@ translateDropDown(BuildContext context) {
                                     borderRadius: const BorderRadius.all(
                                         Radius.circular(4.0)),
                                     border: Border.all(
-                                        color: Theme.of(context).dividerColor,
+                                        color: Get.theme.dividerColor,
                                         width: 2)),
                                 child: Opacity(
                                   opacity: sl<TranslateDataController>()
@@ -732,7 +730,7 @@ translateDropDown(BuildContext context) {
                           borderRadius:
                               const BorderRadius.all(Radius.circular(8.0)),
                           border: Border.all(
-                              color: Theme.of(context).dividerColor, width: 1)),
+                              color: Get.theme.dividerColor, width: 1)),
                       margin: const EdgeInsets.symmetric(
                           horizontal: 16.0, vertical: 4.0),
                     ),
@@ -760,7 +758,7 @@ Widget greeting(BuildContext context) {
       style: TextStyle(
         fontSize: 16.0,
         fontFamily: 'kufi',
-        color: Theme.of(context).colorScheme.surface,
+        color: Get.theme.colorScheme.surface,
       ),
       textAlign: TextAlign.center,
     ),
@@ -772,12 +770,12 @@ Widget buttonContainer(BuildContext context, Widget myWidget) {
       height: 50,
       alignment: Alignment.center,
       decoration: BoxDecoration(
-          color: Theme.of(context).dividerColor.withOpacity(.2),
+          color: Get.theme.dividerColor.withOpacity(.2),
           borderRadius: const BorderRadius.all(Radius.circular(8))),
       child: Container(
         height: 40,
         decoration: BoxDecoration(
-            color: Theme.of(context).dividerColor.withOpacity(.4),
+            color: Get.theme.dividerColor.withOpacity(.4),
             borderRadius: const BorderRadius.all(Radius.circular(8))),
         child: myWidget,
       ));

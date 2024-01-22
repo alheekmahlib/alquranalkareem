@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:theme_provider/theme_provider.dart';
 
-import '../../../../core/services/l10n/app_localizations.dart';
 import '../../../../core/services/services_locator.dart';
 import '../../../../core/utils/constants/shared_pref_services.dart';
 import '../../../../core/utils/constants/shared_preferences_constants.dart';
@@ -16,35 +14,27 @@ class ChangeReader extends StatelessWidget {
   Widget build(BuildContext context) {
     List ayahReaderInfo = [
       {
-        'name': AppLocalizations.of(context)!.reader1,
+        'name': 'reader1'.tr,
         'readerD': 'Abdul_Basit_Murattal_192kbps',
         'readerI': 'basit'
       },
       {
-        'name': AppLocalizations.of(context)!.reader2,
+        'name': 'reader2'.tr,
         'readerD': 'Minshawy_Murattal_128kbps',
         'readerI': 'minshawy'
       },
-      {
-        'name': AppLocalizations.of(context)!.reader3,
-        'readerD': 'Husary_128kbps',
-        'readerI': 'husary'
-      },
+      {'name': 'reader3'.tr, 'readerD': 'Husary_128kbps', 'readerI': 'husary'},
       // {
-      //   'name': AppLocalizations.of(context)!.reader4,
+      //   'name': 'reader4'.tr,
       //   'readerD': 'Ahmed_ibn_Ali_al-Ajamy_64kbps_QuranExplorer.Com',
       //   'readerI': 'ajamy'
       // },
       {
-        'name': AppLocalizations.of(context)!.reader5,
+        'name': 'reader5'.tr,
         'readerD': 'MaherAlMuaiqly128kbps',
         'readerI': 'muaiqly'
       },
-      {
-        'name': AppLocalizations.of(context)!.reader6,
-        'readerD': 'Ghamadi_40kbps',
-        'readerI': 'Ghamadi'
-      }
+      {'name': 'reader6'.tr, 'readerD': 'Ghamadi_40kbps', 'readerI': 'Ghamadi'}
     ];
     return GestureDetector(
       child: Container(
@@ -55,8 +45,7 @@ class ChangeReader extends StatelessWidget {
         decoration: BoxDecoration(
             borderRadius: const BorderRadius.all(Radius.circular(8)),
             border: Border.all(
-                width: 1,
-                color: Theme.of(context).dividerColor.withOpacity(.5))),
+                width: 1, color: Get.theme.dividerColor.withOpacity(.5))),
         child: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
@@ -69,9 +58,9 @@ class ChangeReader extends StatelessWidget {
                     ayahReaderInfo[sl<AudioController>().readerIndex.value]
                         ['name'],
                     style: TextStyle(
-                        color: ThemeProvider.themeOf(context).id == 'dark'
-                            ? Theme.of(context).colorScheme.surface
-                            : Theme.of(context).primaryColor,
+                        color: Get.isDarkMode
+                            ? Get.theme.colorScheme.surface
+                            : Get.theme.primaryColor,
                         fontSize: 14,
                         fontFamily: "kufi"),
                   ),
@@ -88,9 +77,9 @@ class ChangeReader extends StatelessWidget {
                 label: 'Change Reader',
                 child: Icon(Icons.person_search_outlined,
                     size: 20,
-                    color: ThemeProvider.themeOf(context).id == 'dark'
-                        ? Theme.of(context).colorScheme.surface
-                        : Theme.of(context).primaryColor),
+                    color: Get.isDarkMode
+                        ? Get.theme.colorScheme.surface
+                        : Get.theme.primaryColor),
               ),
             ),
           ],
@@ -113,15 +102,15 @@ class ChangeReader extends StatelessWidget {
                     width: 30,
                     margin: const EdgeInsets.all(16.0),
                     decoration: BoxDecoration(
-                        color: Theme.of(context).colorScheme.background,
+                        color: Get.theme.colorScheme.background,
                         borderRadius: const BorderRadius.all(
                           Radius.circular(8),
                         ),
                         border: Border.all(
-                            width: 2, color: Theme.of(context).dividerColor)),
+                            width: 2, color: Get.theme.dividerColor)),
                     child: Icon(
                       Icons.close_outlined,
-                      color: Theme.of(context).colorScheme.surface,
+                      color: Get.theme.colorScheme.surface,
                     ),
                   ),
                 ),
@@ -131,9 +120,9 @@ class ChangeReader extends StatelessWidget {
                 child: Padding(
                   padding: const EdgeInsets.only(top: 24.0),
                   child: Text(
-                    AppLocalizations.of(context)!.select_player,
+                    'select_player'.tr,
                     style: TextStyle(
-                        color: Theme.of(context).dividerColor,
+                        color: Get.theme.dividerColor,
                         fontSize: 22,
                         fontFamily: "kufi"),
                   ),
@@ -153,7 +142,7 @@ class ChangeReader extends StatelessWidget {
                               style: TextStyle(
                                   color: sl<AudioController>().readerValue ==
                                           ayahReaderInfo[index]['readerD']
-                                      ? Theme.of(context).primaryColorLight
+                                      ? Get.theme.primaryColorLight
                                       : const Color(0xffcdba72),
                                   fontSize: 14,
                                   fontFamily: "kufi"),
@@ -167,7 +156,7 @@ class ChangeReader extends StatelessWidget {
                                 border: Border.all(
                                     color: sl<AudioController>().readerValue ==
                                             ayahReaderInfo[index]['readerD']
-                                        ? Theme.of(context).primaryColorLight
+                                        ? Get.theme.primaryColorLight
                                         : const Color(0xffcdba72),
                                     width: 2),
                                 color: const Color(0xff39412a),
@@ -211,16 +200,14 @@ class ChangeReader extends StatelessWidget {
                                   borderRadius: const BorderRadius.all(
                                       Radius.circular(4.0)),
                                   border: Border.all(
-                                      color: Theme.of(context).dividerColor,
-                                      width: 2)),
+                                      color: Get.theme.dividerColor, width: 2)),
                             ),
                           ),
                           decoration: BoxDecoration(
                               borderRadius:
                                   const BorderRadius.all(Radius.circular(8.0)),
                               border: Border.all(
-                                  color: Theme.of(context).dividerColor,
-                                  width: 1)),
+                                  color: Get.theme.dividerColor, width: 1)),
                           margin: const EdgeInsets.symmetric(
                               horizontal: 16.0, vertical: 4.0),
                         ),

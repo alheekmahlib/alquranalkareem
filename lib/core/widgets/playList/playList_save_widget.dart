@@ -1,6 +1,5 @@
-import '/core/services/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
-import 'package:theme_provider/theme_provider.dart';
+import 'package:get/get.dart';
 
 import '../../../presentation/controllers/playList_controller.dart';
 import '../../services/services_locator.dart';
@@ -15,9 +14,9 @@ class PlayListSaveWidget extends StatelessWidget {
       height: 50,
       padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
       decoration: BoxDecoration(
-          color: Theme.of(context).dividerColor.withOpacity(.4),
+          color: Get.theme.dividerColor.withOpacity(.4),
           borderRadius: const BorderRadius.all(Radius.circular(8)),
-          border: Border.all(width: 1, color: Theme.of(context).dividerColor)),
+          border: Border.all(width: 1, color: Get.theme.dividerColor)),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
@@ -32,31 +31,30 @@ class PlayListSaveWidget extends StatelessWidget {
                 autofocus: false,
                 cursorHeight: 18,
                 cursorWidth: 3,
-                cursorColor: Theme.of(context).dividerColor,
+                cursorColor: Get.theme.dividerColor,
                 textDirection: TextDirection.rtl,
                 style: TextStyle(
-                    color: ThemeProvider.themeOf(context).id == 'dark'
-                        ? Colors.white
-                        : Theme.of(context).primaryColor,
+                    color:
+                        Get.isDarkMode ? Colors.white : Get.theme.primaryColor,
                     fontFamily: 'kufi',
                     fontSize: 14),
                 decoration: InputDecoration(
                   contentPadding: const EdgeInsets.symmetric(horizontal: 8.0),
-                  labelText: AppLocalizations.of(context)!.playListName,
+                  labelText: 'playListName'.tr,
                   labelStyle: TextStyle(
                     fontSize: 12,
                     fontFamily: 'kufi',
-                    color: ThemeProvider.themeOf(context).id == 'dark'
+                    color: Get.isDarkMode
                         ? Colors.white.withOpacity(.7)
-                        : Theme.of(context).primaryColorLight.withOpacity(.7),
+                        : Get.theme.primaryColorLight.withOpacity(.7),
                   ),
-                  hintText: AppLocalizations.of(context)!.playListName,
+                  hintText: 'playListName'.tr,
                   hintStyle: TextStyle(
                     fontSize: 12,
                     fontFamily: 'kufi',
-                    color: ThemeProvider.themeOf(context).id == 'dark'
+                    color: Get.isDarkMode
                         ? Colors.white.withOpacity(.5)
-                        : Theme.of(context).primaryColor.withOpacity(.5),
+                        : Get.theme.primaryColor.withOpacity(.5),
                   ),
                 ),
               ),
@@ -74,18 +72,18 @@ class PlayListSaveWidget extends StatelessWidget {
                 alignment: Alignment.center,
                 decoration: BoxDecoration(
                   borderRadius: const BorderRadius.all(Radius.circular(8)),
-                  color: Theme.of(context).colorScheme.surface,
+                  color: Get.theme.colorScheme.surface,
                   border: Border.all(
                     width: 1.0,
-                    color: Theme.of(context).dividerColor,
+                    color: Get.theme.dividerColor,
                   ),
                 ),
                 child: FittedBox(
                   fit: BoxFit.scaleDown,
                   child: Text(
-                    AppLocalizations.of(context)!.save,
+                    'save'.tr,
                     style: TextStyle(
-                      color: Theme.of(context).canvasColor,
+                      color: Get.theme.canvasColor,
                       fontSize: 14,
                       fontFamily: 'kufi',
                     ),

@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:square_percent_indicater/square_percent_indicater.dart';
 
-import '../../../../core/services/l10n/app_localizations.dart';
 import '../../../../core/services/services_locator.dart';
 import '../../../../core/widgets/widgets.dart';
 import '../../../controllers/audio_controller.dart';
@@ -27,9 +26,9 @@ class PlayAyah extends StatelessWidget {
               borderRadius: 8,
               shadowWidth: 1.5,
               progressWidth: 2,
-              shadowColor: Theme.of(context).dividerColor.withOpacity(.5),
+              shadowColor: Get.theme.dividerColor.withOpacity(.5),
               progressColor: sl<AudioController>().downloading.value
-                  ? Theme.of(context).dividerColor
+                  ? Get.theme.dividerColor
                   : Colors.transparent,
               progress: sl<AudioController>().progress.value,
             ),
@@ -43,7 +42,7 @@ class PlayAyah extends StatelessWidget {
                       style: TextStyle(
                           fontSize: 14,
                           fontFamily: 'kufi',
-                          color: Theme.of(context).colorScheme.surface),
+                          color: Get.theme.colorScheme.surface),
                     ),
                   )
                 : IconButton(
@@ -58,13 +57,12 @@ class PlayAyah extends StatelessWidget {
                         size: 25,
                       ),
                     ),
-                    color: Theme.of(context).colorScheme.surface,
+                    color: Get.theme.colorScheme.surface,
                     onPressed: () {
                       sl<AudioController>().isPagePlay.value = false;
                       print(sl<AudioController>().progressString.value);
                       if (sl<AudioController>().pageAyahNumber == null) {
-                        customErrorSnackBar(
-                            context, AppLocalizations.of(context)!.choiceAyah);
+                        customErrorSnackBar(context, 'choiceAyah'.tr);
                       } else {
                         sl<AudioController>().playAyah(context);
                       }

@@ -20,7 +20,7 @@ class AyahTafseerList extends StatelessWidget {
     return Container(
       height: 40,
       decoration: BoxDecoration(
-          color: Theme.of(context).dividerColor.withOpacity(.4),
+          color: Get.theme.dividerColor.withOpacity(.4),
           borderRadius: const BorderRadius.all(Radius.circular(8))),
       child: Center(
         child: Obx(
@@ -67,7 +67,7 @@ class AyahTafseerList extends StatelessWidget {
                                       arabicNumber.convert(aya.ayaNum),
                                       textAlign: TextAlign.center,
                                       style: TextStyle(
-                                          color: Theme.of(context).primaryColor,
+                                          color: Get.theme.primaryColor,
                                           fontFamily: 'kufi',
                                           fontWeight: FontWeight.w700,
                                           fontSize: 11),

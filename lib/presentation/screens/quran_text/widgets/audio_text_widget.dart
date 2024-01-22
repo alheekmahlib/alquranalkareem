@@ -72,7 +72,7 @@ class AudioTextWidget extends StatelessWidget {
                               shadowColor: Colors.grey.shade300,
                               progressColor:
                                   sl<AudioController>().downloading.value
-                                      ? Theme.of(context).dividerColor
+                                      ? Get.theme.dividerColor
                                       : Colors.transparent,
                               progress: sl<AudioController>().progress.value,
                             ),
@@ -88,9 +88,7 @@ class AudioTextWidget extends StatelessWidget {
                                       style: TextStyle(
                                           fontSize: 14,
                                           fontFamily: 'kufi',
-                                          color: Theme.of(context)
-                                              .colorScheme
-                                              .surface),
+                                          color: Get.theme.colorScheme.surface),
                                     ),
                                   )
                                 : IconButton(
@@ -100,8 +98,7 @@ class AudioTextWidget extends StatelessWidget {
                                           : Icons.play_arrow,
                                       size: 22,
                                     ),
-                                    color:
-                                        Theme.of(context).colorScheme.surface,
+                                    color: Get.theme.colorScheme.surface,
                                     onPressed: () {
                                       sl<AudioController>().selected.value =
                                           true;
@@ -132,9 +129,7 @@ class AudioTextWidget extends StatelessWidget {
                           height: 30,
                           width: 250,
                           decoration: BoxDecoration(
-                              color: Theme.of(context)
-                                  .dividerColor
-                                  .withOpacity(.4),
+                              color: Get.theme.dividerColor.withOpacity(.4),
                               borderRadius:
                                   const BorderRadius.all(Radius.circular(8))),
                         ),
@@ -148,7 +143,7 @@ class AudioTextWidget extends StatelessWidget {
                               final positionData = snapshot.data;
                               return SeekBar(
                                 timeShow: true,
-                                textColor: Theme.of(context).dividerColor,
+                                textColor: Get.theme.dividerColor,
                                 duration:
                                     positionData?.duration ?? Duration.zero,
                                 position:
@@ -156,8 +151,7 @@ class AudioTextWidget extends StatelessWidget {
                                 bufferedPosition:
                                     positionData?.bufferedPosition ??
                                         Duration.zero,
-                                activeTrackColor:
-                                    Theme.of(context).colorScheme.surface,
+                                activeTrackColor: Get.theme.colorScheme.surface,
                                 onChangeEnd:
                                     sl<AudioController>().textAudioPlayer.seek,
                               );

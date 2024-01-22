@@ -1,15 +1,10 @@
-import 'package:expansion_tile_card/expansion_tile_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
-import 'package:theme_provider/theme_provider.dart';
 
-import '../../presentation/controllers/settings_controller.dart';
-import '../services/l10n/app_localizations.dart';
-import '../services/services_locator.dart';
-import '../utils/constants/shared_pref_services.dart';
-import '../utils/constants/shared_preferences_constants.dart';
 import '../utils/constants/svg_picture.dart';
+import '/core/utils/constants/extensions.dart';
+import 'language_list.dart';
 import 'theme_change.dart';
 import 'widgets.dart';
 
@@ -18,6 +13,7 @@ class SettingsList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.sizeOf(context);
     return ListView(
       padding: EdgeInsets.zero,
       // direction: Axis.vertical,
@@ -31,7 +27,7 @@ class SettingsList extends StatelessWidget {
         Directionality(
           textDirection: TextDirection.rtl,
           child: Container(
-            color: Theme.of(context).colorScheme.surface.withOpacity(.2),
+            color: Get.theme.colorScheme.surface.withOpacity(.2),
             child: Column(
               children: [
                 customContainer(
@@ -45,11 +41,11 @@ class SettingsList extends StatelessWidget {
                           height: 15,
                         ),
                         Text(
-                          AppLocalizations.of(context)!.langChange,
+                          'langChange'.tr,
                           style: TextStyle(
-                              color: ThemeProvider.themeOf(context).id == 'dark'
+                              color: Get.isDarkMode
                                   ? Colors.white
-                                  : Theme.of(context).primaryColor,
+                                  : Get.theme.primaryColor,
                               fontFamily: 'kufi',
                               fontStyle: FontStyle.italic,
                               fontSize: 16),
@@ -64,123 +60,30 @@ class SettingsList extends StatelessWidget {
                 ),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: Obx(
-                    () => ExpansionTileCard(
-                      elevation: 0.0,
-                      initialElevation: 0.0,
-                      title: SizedBox(
-                        width: 100.0,
-                        child: Text(
-                          sl<SettingsController>().languageName.value,
+                  child: Container(
+                    width: context.customOrientation(size.width, 381.0),
+                    margin: const EdgeInsets.symmetric(horizontal: 16.0),
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 8.0, vertical: 8.0),
+                    decoration: BoxDecoration(
+                        color: Theme.of(context)
+                            .colorScheme
+                            .onSurface
+                            .withOpacity(.7),
+                        borderRadius: const BorderRadius.all(
+                          Radius.circular(8.0),
+                        )),
+                    child: Column(
+                      children: [
+                        Text(
+                          'appLang'.tr,
                           style: TextStyle(
-                            fontFamily:
-                                sl<SettingsController>().languageFont.value,
-                            fontSize: 16,
-                            color: ThemeProvider.themeOf(context).id == 'dark'
-                                ? Colors.white
-                                : Theme.of(context).primaryColor,
+                            fontFamily: 'kufi',
+                            fontSize: 18,
+                            color: Theme.of(context).colorScheme.secondary,
                           ),
                         ),
-                      ),
-                      baseColor: Theme.of(context)
-                          .colorScheme
-                          .background
-                          .withOpacity(.2),
-                      expandedColor: Theme.of(context)
-                          .colorScheme
-                          .background
-                          .withOpacity(.2),
-                      children: <Widget>[
-                        const Divider(
-                          thickness: 1.0,
-                          height: 1.0,
-                        ),
-                        ButtonBar(
-                            alignment: MainAxisAlignment.spaceAround,
-                            buttonHeight: 42.0,
-                            buttonMinWidth: 90.0,
-                            children: List.generate(
-                                sl<SettingsController>().languageList.length,
-                                (index) {
-                              final lang =
-                                  sl<SettingsController>().languageList[index];
-                              return InkWell(
-                                child: Container(
-                                  constraints: BoxConstraints(
-                                      maxWidth:
-                                          MediaQuery.of(context).size.width *
-                                              0.8),
-                                  child: Row(
-                                    children: [
-                                      Container(
-                                        height: 20,
-                                        width: 20,
-                                        decoration: BoxDecoration(
-                                          borderRadius: const BorderRadius.all(
-                                              Radius.circular(2.0)),
-                                          border: Border.all(
-                                              color:
-                                                  AppLocalizations.of(context)!
-                                                              .appLang ==
-                                                          lang['appLang']
-                                                      ? Theme.of(context)
-                                                          .secondaryHeaderColor
-                                                      : Theme.of(context)
-                                                          .colorScheme
-                                                          .surface
-                                                          .withOpacity(.5),
-                                              width: 2),
-                                          color: const Color(0xff39412a),
-                                        ),
-                                        child: AppLocalizations.of(context)!
-                                                    .appLang ==
-                                                lang['appLang']
-                                            ? Icon(Icons.done,
-                                                size: 14,
-                                                color: Theme.of(context)
-                                                    .colorScheme
-                                                    .surface)
-                                            : null,
-                                      ),
-                                      const SizedBox(
-                                        width: 16.0,
-                                      ),
-                                      Text(
-                                        lang['name'],
-                                        style: TextStyle(
-                                          color: AppLocalizations.of(context)!
-                                                      .appLang ==
-                                                  lang['appLang']
-                                              ? Theme.of(context)
-                                                  .secondaryHeaderColor
-                                              : Theme.of(context)
-                                                  .colorScheme
-                                                  .surface
-                                                  .withOpacity(.8),
-                                          fontSize: 16,
-                                          fontFamily: 'noto',
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                                onTap: () async {
-                                  sl<SettingsController>().setLocale(
-                                      Locale.fromSubtags(
-                                          languageCode: lang['lang']));
-                                  await sl<SharedPrefServices>()
-                                      .saveString(LANG, lang['lang']);
-                                  await sl<SharedPrefServices>()
-                                      .saveString(LANG_NAME, lang['name']);
-                                  await sl<SharedPrefServices>()
-                                      .saveString(LANGUAGE_FONT, lang['font']);
-                                  sl<SettingsController>().languageName.value =
-                                      lang['name'];
-                                  sl<SettingsController>().languageFont.value =
-                                      lang['font'];
-                                },
-                              );
-                            })),
+                        const LanguageList(),
                       ],
                     ),
                   ),
@@ -195,7 +98,7 @@ class SettingsList extends StatelessWidget {
         Directionality(
           textDirection: TextDirection.rtl,
           child: Container(
-            color: Theme.of(context).colorScheme.surface.withOpacity(.2),
+            color: Get.theme.colorScheme.surface.withOpacity(.2),
             child: Column(
               children: [
                 customContainer(
@@ -210,11 +113,11 @@ class SettingsList extends StatelessWidget {
                           height: 15,
                         ),
                         Text(
-                          AppLocalizations.of(context)!.themeTitle,
+                          'themeTitle'.tr,
                           style: TextStyle(
-                              color: ThemeProvider.themeOf(context).id == 'dark'
+                              color: Get.isDarkMode
                                   ? Colors.white
-                                  : Theme.of(context).primaryColor,
+                                  : Get.theme.primaryColor,
                               fontFamily: 'kufi',
                               fontStyle: FontStyle.italic,
                               fontSize: 16),

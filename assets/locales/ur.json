@@ -1,71 +1,70 @@
 {
-  "@@last_modified": "2019-03-24T22:25:14.954300",
-  "appName": "Al Quran Al Kareem - Al Heekmah Library",
+  "appName": "القرآن الکریم - الحکمہ لائبریری",
   "@appName": {
     "description": "appName",
     "type": "text",
     "placeholders": {}
   },
-  "search_hint": "Search the verses of the Quran",
+  "search_hint": "قرآن کی آیات تلاش کریں",
   "@search_hint": {
     "description": "search_hint",
     "type": "text",
     "placeholders": {}
   },
-  "menu": "Menu",
+  "menu": "مینو",
   "@menu": {
     "description": "menu",
     "type": "text",
     "placeholders": {}
   },
-  "notes": "Notes",
+  "notes": "نوٹ",
   "@notes": {
     "description": "notes",
     "type": "text",
     "placeholders": {}
   },
-  "note_title": "Title",
+  "note_title": "نوٹ کا عنوان",
   "@note_title": {
     "description": "note_title",
     "type": "text",
     "placeholders": {}
   },
-  "add_new_note": "Add a new note",
+  "add_new_note": "ایک نیا نوٹ شامل کریں",
   "@add_new_note": {
     "type": "text",
     "placeholders": {}
   },
-  "note_details": "Note Details",
+  "note_details": "نوٹ کی تفصیلات",
   "@note_details": {
     "type": "text",
     "placeholders": {}
   },
-  "bookmarks": "Bookmarks Saved",
+  "bookmarks": "بک مارکس محفوظ",
   "@bookmarks": {
     "type": "text",
     "placeholders": {}
   },
-  "bookmark_title": "Bookmark Name",
+  "bookmark_title": "بک مارک کا نام",
   "@bookmark_title": {
     "type": "text",
     "placeholders": {}
   },
-  "add_new_bookmark": "Add a new Bookmark",
+  "add_new_bookmark": "ایک نیا بک مارک شامل کریں",
   "@add_new_bookmark": {
     "type": "text",
     "placeholders": {}
   },
-  "save": "Save",
+  "save": "محفوظ کریں",
   "@save": {
     "type": "text",
     "placeholders": {}
   },
-  "edit": "Edit",
+  "edit": "ترمیم",
   "@edit": {
     "type": "text",
     "placeholders": {}
   },
-  "azkar": "Athkar",
+  "azkar": "اذکار",
   "@azkar": {
     "type": "text",
     "placeholders": {}
@@ -80,23 +79,23 @@
     "type": "text",
     "placeholders": {}
   },
-  "aya_count": "Number of verses",
+  "aya_count": "آیات کی تعداد",
   "@aya_count": {
     "description": "aya_count",
     "type": "text",
     "placeholders": {}
   },
-  "quran_sorah": "All Sorah",
+  "quran_sorah": "تمام سورہ",
   "@quran_sorah": {
     "type": "text",
     "placeholders": {}
   },
-  "about_us": "About App",
+  "about_us": "ایپ کے بارے میں",
   "@about_us": {
     "type": "text",
     "placeholders": {}
   },
-  "stop_title": "The noble Qur’an - Al-Heekmah Library",
+  "stop_title": "نوبل قرآن - الحکمہ لائبریری",
   "@stop_title": {
     "type": "text",
     "placeholders": {}
@@ -116,42 +115,42 @@
     "type": "text",
     "placeholders": {}
   },
-  "email": "Contact us",
+  "email": "ہم سے رابطہ کریں",
   "@email": {
     "type": "text",
     "placeholders": {}
   },
-  "select_player": "Reader selected",
+  "select_player": "قاری کا انتخاب کیا گیا",
   "@select_player": {
     "type": "text",
     "placeholders": {}
   },
-  "delete": "Delete",
+  "delete": "حذف کریں",
   "@delete": {
     "type": "text",
     "placeholders": {}
   },
-  "page": "Page",
+  "page": "صفحہ",
   "@page": {
     "type": "text",
     "placeholders": {}
   },
-  "search_word": "Ayah To search",
+  "search_word": "آیت تلاش کرنا",
   "@search_word": {
     "type": "text",
     "placeholders": {}
   },
-  "search_description": "You can search for all verses of the Noble Qur’an, just type a word from the verse.",
+  "search_description": "آپ نوبل قرآن کی تمام آیات کو تلاش کر سکتے ہیں، صرف آیت سے ایک لفظ ٹائپ کریں",
   "@search_description": {
     "type": "text",
     "placeholders": {}
   },
-  "fontSize": "Change Font Size",
+  "fontSize": "فونٹ کا سائز تبدیل کریں",
   "@fontSize": {
     "type": "text",
     "placeholders": {}
   },
-  "waqfName": "Stop Signs",
+  "waqfName": "رکاوٹ کی علامتیں",
   "@waqfName": {
     "type": "text",
     "placeholders": {}
@@ -186,142 +185,142 @@
     "type": "text",
     "placeholders": {}
   },
-  "green": "Green Mode",
+  "green": "ہرا موڈ",
   "@green": {
     "type": "text",
     "placeholders": {}
   },
-  "brown": "Brown Mode",
+  "brown": "بہورا موڈ",
   "@brown": {
     "type": "text",
     "placeholders": {}
   },
-  "dark": "Dark Mode",
+  "dark": "ڈارک موڈ",
   "@dark": {
     "type": "text",
     "placeholders": {}
   },
-  "azkarfav": "Athkar Favorite",
+  "azkarfav": "پسندیدہ اذکار",
   "@azkarfav": {
     "type": "text",
     "placeholders": {}
   },
-  "themeTitle": "Choose Appearance",
+  "themeTitle": "ظاہری شکل کا انتخاب کریں",
   "@themeTitle": {
     "type": "text",
     "placeholders": {}
   },
-  "sorah": "Surah",
+  "sorah": "سورہ",
   "@sorah": {
     "type": "text",
     "placeholders": {}
   },
-  "part": "Part",
+  "part": "حصہ",
   "@part": {
     "type": "text",
     "placeholders": {}
   },
-  "langChange": "Change the language",
+  "langChange": "زبان تبدیل کریں",
   "@langChange": {
     "type": "text",
     "placeholders": {}
   },
-  "tafChange": "Choose an tafsir",
+  "tafChange": "تفسیر کا انتخاب کریں",
   "@tafChange": {
     "type": "text",
     "placeholders": {}
   },
-  "tafIbnkatheerN": "Tafsir Ibn Kathir",
+  "tafIbnkatheerN": "تفسیر ابن کثیر",
   "@tafIbnkatheerN": {
     "type": "text",
     "placeholders": {}
   },
-  "tafBaghawyN": "Tafsir al-Baghawi",
+  "tafBaghawyN": "تفسیر البغوی",
   "@tafBaghawyN": {
     "type": "text",
     "placeholders": {}
   },
-  "tafQurtubiN": "Tafsir al-Qurtubi",
+  "tafQurtubiN": "تفسیر القرطبی",
   "@tafQurtubiN": {
     "type": "text",
     "placeholders": {}
   },
-  "tafSaadiN": "Tafsir As-Sadi",
+  "tafSaadiN": "تفسیر السعدی",
   "@tafSaadiN": {
     "type": "text",
     "placeholders": {}
   },
-  "tafTabariN": "Tafsir al-Tabari",
+  "tafTabariN": "تفسیر الطبری",
   "@tafTabariN": {
     "type": "text",
     "placeholders": {}
   },
-  "tafIbnkatheerD": "Tafsir al-Quran al-Azim",
+  "tafIbnkatheerD": "تفسیر القرآن العظیم",
   "@tafIbnkatheerD": {
     "type": "text",
     "placeholders": {}
   },
-  "tafBaghawyD": "Maalim al-Tanzil",
+  "tafBaghawyD": "معالیم التنزیل",
   "@tafBaghawyD": {
     "type": "text",
     "placeholders": {}
   },
-  "tafQurtubiD": "Al-Jami li Ahkam al-Quran",
+  "tafQurtubiD": "الجامع لاحکام القرآن",
   "@tafQurtubiD": {
     "type": "text",
     "placeholders": {}
   },
-  "tafSaadiD": "Taiseer Kalam Almannan",
+  "tafSaadiD": "تیسیر کلام المنان",
   "@tafSaadiD": {
     "type": "text",
     "placeholders": {}
   },
-  "tafTabariD": "Jami al-Bayan an Tawil [ay] al Quran",
+  "tafTabariD": "جامع البیان عن تاویل آی القرآن",
   "@tafTabariD": {
     "type": "text",
     "placeholders": {}
   },
-  "appLang": "App Language",
+  "appLang": "ایپ کی زبان",
   "@appLang": {
     "type": "text",
     "placeholders": {}
   },
-  "setting": "Setting",
+  "setting": "ترتیبات",
   "@setting": {
     "type": "text",
     "placeholders": {}
   },
-  "reader1": "Abdul Basit",
+  "reader1": "عبد الباسط",
   "@reader1": {
     "type": "text",
     "placeholders": {}
   },
-  "reader2": "Mohamed Siddiq El-Minshawi",
+  "reader2": "محمد صدیق المنشوی",
   "@reader2": {
     "type": "text",
     "placeholders": {}
   },
-  "reader3": "Mahmoud Khalil Al-Hussary",
+  "reader3": "محمود خلیل الحصری",
   "@reader3": {
     "type": "text",
     "placeholders": {}
   },
-  "reader4": "Ahmed Ibn Ali Al-Ajamy",
+  "reader4": "احمد ابن علی العجمی",
   "@reader4": {
     "type": "text",
     "placeholders": {}
   },
-  "reader5": "Maher Al Muaiqly",
+  "reader5": "ماهر المعيقلي",
   "@reader5": {
     "type": "text",
     "placeholders": {}
   },
-  "reader6": "Saad Al Ghamdi",
+  "reader6": "سعد الغامدي",
   "@reader6": {
     "type": "text",
     "placeholders": {}
   },
-  "alheekmahlib": "Alheekmah Library",
+  "alheekmahlib": "الحکمہ لائبریری",
   "@alheekmahlib": {
     "type": "text",
     "placeholders": {}
@@ -331,292 +330,292 @@
     "type": "text",
     "placeholders": {}
   },
-  "next": "Next",
+  "next": "اگلے",
   "@next": {
     "type": "text",
     "placeholders": {}
   },
-  "start": "Start",
+  "start": "شروع کریں",
   "@start": {
     "type": "text",
     "placeholders": {}
   },
-  "quranPages": "Al Quran (Pages)",
+  "quranPages": "القرآن (صفحات)",
   "@quranPages": {
     "type": "text",
     "placeholders": {}
   },
-  "quranText": "Al Quran (Ayah)",
+  "quranText": "القرآن (آیت)",
   "@quranText": {
     "type": "text",
     "placeholders": {}
   },
-  "tafseer": "Al Tafseer",
+  "tafseer": "التفسیر",
   "@tafseer": {
     "type": "text",
     "placeholders": {}
   },
-  "allJuz": "Parts of the Qur'an",
+  "allJuz": "قرآن کے حصے",
   "@allJuz": {
     "type": "text",
     "placeholders": {}
   },
-  "copyAzkarText": "The Azkar has been copied!",
+  "copyAzkarText": "اذکار کو کاپی کر لیا گیا ہے!",
   "@copyAzkarText": {
     "type": "text",
     "placeholders": {}
   },
-  "addBookmark": "Bookmark added!",
+  "addBookmark": "بک مارک شامل کر لیا گیا!",
   "@addBookmark": {
     "type": "text",
     "placeholders": {}
   },
-  "deletedBookmark": "Bookmark deleted!",
+  "deletedBookmark": "بک مارک حذف کر دیا گیا!",
   "@deletedBookmark": {
     "type": "text",
     "placeholders": {}
   },
-  "deletedReminder": "Reminder deleted!",
+  "deletedReminder": "یاد دہانی حذف کر دی گئی!",
   "@deletedReminder": {
     "type": "text",
     "placeholders": {}
   },
-  "fillAllFields": "Please fill in the fields!",
+  "fillAllFields": "مہربانی کرکے فیلڈز بھریں!",
   "@fillAllFields": {
     "type": "text",
     "placeholders": {}
   },
-  "version": "Version",
+  "version": "ورژن",
   "@version": {
     "type": "text",
     "placeholders": {}
   },
-  "share": "Share The App",
+  "share": "ایپ کو شیئر کریں",
   "@share": {
     "type": "text",
     "placeholders": {}
   },
-  "facebook": "Follow us on Facebook",
+  "facebook": "ہمیں فیس بک پر فالو کریں",
   "@facebook": {
     "type": "text",
     "placeholders": {}
   },
-  "addZekrBookmark": "The Zekr has been added to favourites",
+  "addZekrBookmark": "ذکر کو پسندیدہ میں شامل کر دیا گیا ہے",
   "@addZekrBookmark": {
     "type": "text",
     "placeholders": {}
   },
-  "deletedZekrBookmark": "The Zekr has been removed to favourites!",
+  "deletedZekrBookmark": "ذکر کو پسندیدہ سے ہٹا دیا گیا ہے",
   "@deletedZekrBookmark": {
     "type": "text",
     "placeholders": {}
   },
-  "pageNo": "Page No",
+  "pageNo": "صفحہ نمبر",
   "@pageNo": {
     "type": "text",
     "placeholders": {}
   },
-  "lastRead": "Last Read",
+  "lastRead": "آخری پڑھائی",
   "@lastRead": {
     "type": "text",
     "placeholders": {}
   },
-  "copyAyah": "The verse has been copied",
+  "copyAyah": "آیت کو کاپی کر لیا گیا ہے",
   "@copyAyah": {
     "type": "text",
     "placeholders": {}
   },
-  "copyTafseer": "The Tafseer has been copied",
+  "copyTafseer": "تفسیر کو کاپی کر لیا گیا ہے",
   "@copyTafseer": {
     "type": "text",
     "placeholders": {}
   },
-  "online": "Online",
+  "online": "آن لائن",
   "@online": {
     "type": "text",
     "placeholders": {}
   },
-  "download": "Download",
+  "download": "ڈاؤن لوڈ",
   "@download": {
     "type": "text",
     "placeholders": {}
   },
-  "noInternet": "The device is not connected to the Internet!",
+  "noInternet": "ڈیوائس انٹرنیٹ سے منسلک نہیں ہے!",
   "@noInternet": {
     "type": "text",
     "placeholders": {}
   },
-  "mobileDataAyat": "Note: You are using cellular data to download verses!",
+  "mobileDataAyat": "نوٹ: آپ ورسز ڈاؤن لوڈ کرنے کے لیے سیلولر ڈیٹا استعمال کر رہے ہیں!",
   "@mobileDataAyat": {
     "type": "text",
     "placeholders": {}
   },
-  "mobileDataSurahs": "Note: You are using cellular data to download the surahs!",
+  "mobileDataSurahs": "نوٹ: آپ سورہ ڈاؤن لوڈ کرنے کے لیے سیلولر ڈیٹا استعمال کر رہے ہیں!",
   "@mobileDataSurahs": {
     "type": "text",
     "placeholders": {}
   },
-  "mobileDataListen": "Note: You are using cellular data to listen to surahs!",
+  "mobileDataListen": "نوٹ: آپ سورہ سننے کے لیے سیلولر ڈیٹا استعمال کر رہے ہیں!",
   "@mobileDataListen": {
     "type": "text",
     "placeholders": {}
   },
-  "choiceAyah": "Please choose the verse first!",
+  "choiceAyah": "مہربانی کرکے پہلے آیت کا انتخاب کریں!",
   "@choiceAyah": {
     "type": "text",
     "placeholders": {}
   },
-  "stopSigns": "Stop Signs",
+  "stopSigns": "رکاوٹ کی علامتیں",
   "@stopSigns": {
     "type": "text",
     "placeholders": {}
   },
-  "aboutApp": "About App",
+  "aboutApp": "ایپ کے بارے میں",
   "@aboutApp": {
     "type": "text",
     "placeholders": {}
   },
-  "readMore": "Read More",
+  "readMore": "مزید پڑھیں",
   "@readMore": {
     "type": "text",
     "placeholders": {}
   },
-  "readLess": "Read Less",
+  "readLess": "کم پڑھیں",
   "@readLess": {
     "type": "text",
     "placeholders": {}
   },
-  "ok": "Ok",
+  "ok": "ٹھیک ہے",
   "@ok": {
     "type": "text",
     "placeholders": {}
   },
-  "cancel": "Cancel",
+  "cancel": "منسوخ کریں",
   "@cancel": {
     "type": "text",
     "placeholders": {}
   },
-  "searchToSurah": "Search To Surah",
+  "searchToSurah": "سورہ تلاش کریں",
   "@searchToSurah": {
     "type": "text",
     "placeholders": {}
   },
-  "addReminder": "Add New Reminder",
+  "addReminder": "نیا یاد دہانی شامل کریں",
   "@addReminder": {
     "type": "text",
     "placeholders": {}
   },
-  "lastListen": "Last Listen",
+  "lastListen": "آخری سنائی",
   "@lastListen": {
     "type": "text",
     "placeholders": {}
   },
-  "hizb": "Hizb",
+  "hizb": "حزب",
   "@hizb": {
     "type": "text",
     "placeholders": {}
   },
-  "shareText": "As text",
+  "shareText": "مواد کے طور پر",
   "@shareText": {
     "type": "text",
     "placeholders": {}
   },
-  "shareImage": "As an image",
+  "shareImage": "تصویر کے طور پر",
   "@shareImage": {
     "type": "text",
     "placeholders": {}
   },
-  "shareImageWTrans": "As an image with additional content",
+  "shareImageWTrans": "اضافی مواد کے ساتھ تصویر کے طور پر",
   "@shareImageWTrans": {
     "type": "text",
     "placeholders": {}
   },
-  "shareTrans": "Note: Sharing the interpretation in an image only supports the interpretation of Al-Saadi, because the interpretation is not lengthy.",
+  "shareTrans": "نوٹ: تصویر میں تفسیر کا اشتراک صرف السعدی کی تفسیر کا سمارٹھن کرتا ہے، کیونکہ تفسیر لمبی نہیں ہے۔",
   "@shareTrans": {
     "type": "text",
     "placeholders": {}
   },
-  "translation": "Translation",
+  "translation": "ترجمہ",
   "@translation": {
     "type": "text",
     "placeholders": {}
   },
-  "search": "Search",
+  "search": "تلاش کریں۔",
   "@search": {
     "type": "text",
     "placeholders": {}
   },
-  "surahsList": "Surahs List",
+  "surahsList": "سورتوں کی فہرست",
   "@surahsList": {
     "type": "text",
     "placeholders": {}
   },
-  "bookmarksList": "Bookmarks List",
+  "bookmarksList": "بک مارکس کی فہرست",
   "@bookmarksList": {
     "type": "text",
     "placeholders": {}
   },
-  "copy": "Copy",
+  "copy": "کاپی",
   "@copy": {
     "type": "text",
     "placeholders": {}
   },
-  "shareTafseer": "Share",
+  "shareTafseer": "بانٹیں",
   "@shareTafseer": {
     "type": "text",
     "placeholders": {}
   },
-  "addToBookmark": "Add To Bookmark",
+  "addToBookmark": "بک مارک میں شامل کریں۔",
   "@addToBookmark": {
     "type": "text",
     "placeholders": {}
   },
-  "repeatSurah": "Repeat Surah",
+  "repeatSurah": "سورہ کو دہرائیں۔",
   "@repeatSurah": {
     "type": "text",
     "placeholders": {}
   },
-  "pauseSurah": "Pause Surah",
+  "pauseSurah": "سورہ توقف کریں۔",
   "@pauseSurah": {
     "type": "text",
     "placeholders": {}
   },
-  "replaySurah": "Replay Surah",
+  "replaySurah": "سورہ کو دوبارہ چلائیں۔",
   "@replaySurah": {
     "type": "text",
     "placeholders": {}
   },
-  "skipToPrevious": "Skip To Previous",
+  "skipToPrevious": "پچھلے پر جائیں",
   "@skipToPrevious": {
     "type": "text",
     "placeholders": {}
   },
-  "deletedPlayList": "The playlist has been deleted",
+  "deletedPlayList": "پلے لسٹ کو حذف کر دیا گیا ہے",
   "@deletedPlayList": {
     "type": "text",
     "placeholders": {}
   },
-  "createPlayList": "Create the playlist",
+  "createPlayList": "پلے لسٹ بنائیں",
   "@createPlayList": {
     "type": "text",
     "placeholders": {}
   },
-  "playList": "Playlists",
+  "playList": "پلے لسٹس",
   "@playList": {
     "type": "text",
     "placeholders": {}
   },
-  "playListName": "Type the name of the playlist",
+  "playListName": "پلے لسٹ کا نام لکھیں",
   "@playListName": {
     "type": "text",
     "placeholders": {}
   },
-  "from": "From",
+  "from": "سے",
   "@from": {
     "type": "text",
     "placeholders": {}
   },
-  "to": "To",
+  "to": "کو",
   "@to": {
     "type": "text",
     "placeholders": {}

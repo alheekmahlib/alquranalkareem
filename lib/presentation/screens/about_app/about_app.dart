@@ -7,10 +7,8 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:share_plus/share_plus.dart';
-import 'package:theme_provider/theme_provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-import '../../../core/services/l10n/app_localizations.dart';
 import '../../../core/services/services_locator.dart';
 import '../../../core/utils/constants/shared_pref_services.dart';
 import '../../../core/utils/constants/svg_picture.dart';
@@ -55,7 +53,7 @@ class AboutApp extends StatelessWidget {
       right: false,
       left: false,
       child: Scaffold(
-        backgroundColor: Theme.of(context).colorScheme.background,
+        backgroundColor: Get.theme.colorScheme.background,
         body: Padding(
           padding: const EdgeInsets.only(top: 16.0),
           child: Align(
@@ -92,12 +90,11 @@ class AboutApp extends StatelessWidget {
                               enabled: true,
                               label: 'Version:',
                               child: Text(
-                                '${AppLocalizations.of(context)!.version}: 3.1.0',
+                                '${'version'.tr}: 3.1.0',
                                 style: TextStyle(
-                                  color: ThemeProvider.themeOf(context).id ==
-                                          'dark'
+                                  color: Get.isDarkMode
                                       ? Colors.white
-                                      : Theme.of(context).primaryColor,
+                                      : Get.theme.primaryColor,
                                   fontSize: 16,
                                   fontFamily: 'kufi',
                                 ),
@@ -113,10 +110,8 @@ class AboutApp extends StatelessWidget {
                             enabled: true,
                             label: 'Change Language',
                             child: Container(
-                              color: Theme.of(context)
-                                  .colorScheme
-                                  .surface
-                                  .withOpacity(.2),
+                              color:
+                                  Get.theme.colorScheme.surface.withOpacity(.2),
                               child: Column(
                                 children: [
                                   customContainer(
@@ -130,16 +125,11 @@ class AboutApp extends StatelessWidget {
                                           height: 15,
                                         ),
                                         Text(
-                                          AppLocalizations.of(context)!
-                                              .langChange,
+                                          'langChange'.tr,
                                           style: TextStyle(
-                                              color:
-                                                  ThemeProvider.themeOf(context)
-                                                              .id ==
-                                                          'dark'
-                                                      ? Colors.white
-                                                      : Theme.of(context)
-                                                          .primaryColor,
+                                              color: Get.isDarkMode
+                                                  ? Colors.white
+                                                  : Get.theme.primaryColor,
                                               fontFamily: 'kufi',
                                               fontStyle: FontStyle.italic,
                                               fontSize: 16),
@@ -166,22 +156,16 @@ class AboutApp extends StatelessWidget {
                                                 .languageFont
                                                 .value,
                                             fontSize: 16,
-                                            color:
-                                                ThemeProvider.themeOf(context)
-                                                            .id ==
-                                                        'dark'
-                                                    ? Colors.white
-                                                    : Theme.of(context)
-                                                        .primaryColor,
+                                            color: Get.isDarkMode
+                                                ? Colors.white
+                                                : Get.theme.primaryColor,
                                           ),
                                         ),
-                                        baseColor: Theme.of(context)
-                                            .colorScheme
-                                            .background
+                                        baseColor: Get
+                                            .theme.colorScheme.background
                                             .withOpacity(.2),
-                                        expandedColor: Theme.of(context)
-                                            .colorScheme
-                                            .background
+                                        expandedColor: Get
+                                            .theme.colorScheme.background
                                             .withOpacity(.2),
                                         children: <Widget>[
                                           const Divider(
@@ -220,8 +204,8 @@ class AboutApp extends StatelessWidget {
                                                                     Radius.circular(
                                                                         2.0)),
                                                             border: Border.all(
-                                                                color: AppLocalizations.of(context)!
-                                                                            .appLang ==
+                                                                color: 'appLang'
+                                                                            .tr ==
                                                                         lang[
                                                                             'appLang']
                                                                     ? Theme.of(
@@ -237,9 +221,7 @@ class AboutApp extends StatelessWidget {
                                                             color: const Color(
                                                                 0xff39412a),
                                                           ),
-                                                          child: AppLocalizations.of(
-                                                                          context)!
-                                                                      .appLang ==
+                                                          child: 'appLang'.tr ==
                                                                   lang[
                                                                       'appLang']
                                                               ? Icon(Icons.done,
@@ -256,9 +238,8 @@ class AboutApp extends StatelessWidget {
                                                         Text(
                                                           lang['name'],
                                                           style: TextStyle(
-                                                            color: AppLocalizations.of(
-                                                                            context)!
-                                                                        .appLang ==
+                                                            color: 'appLang'
+                                                                        .tr ==
                                                                     lang[
                                                                         'appLang']
                                                                 ? Theme.of(
@@ -326,10 +307,8 @@ class AboutApp extends StatelessWidget {
                             enabled: true,
                             label: 'Change Theme',
                             child: Container(
-                              color: Theme.of(context)
-                                  .colorScheme
-                                  .surface
-                                  .withOpacity(.2),
+                              color:
+                                  Get.theme.colorScheme.surface.withOpacity(.2),
                               child: Column(
                                 children: [
                                   customContainer(
@@ -343,16 +322,11 @@ class AboutApp extends StatelessWidget {
                                           height: 15,
                                         ),
                                         Text(
-                                          AppLocalizations.of(context)!
-                                              .themeTitle,
+                                          'themeTitle'.tr,
                                           style: TextStyle(
-                                              color:
-                                                  ThemeProvider.themeOf(context)
-                                                              .id ==
-                                                          'dark'
-                                                      ? Colors.white
-                                                      : Theme.of(context)
-                                                          .primaryColor,
+                                              color: Get.isDarkMode
+                                                  ? Colors.white
+                                                  : Get.theme.primaryColor,
                                               fontFamily: 'kufi',
                                               fontStyle: FontStyle.italic,
                                               fontSize: 16),
@@ -379,10 +353,7 @@ class AboutApp extends StatelessWidget {
                           height: 16.0,
                         ),
                         Container(
-                          color: Theme.of(context)
-                              .colorScheme
-                              .surface
-                              .withOpacity(.2),
+                          color: Get.theme.colorScheme.surface.withOpacity(.2),
                           child: Padding(
                             padding: const EdgeInsets.all(8.0),
                             child: Column(
@@ -397,11 +368,9 @@ class AboutApp extends StatelessWidget {
                                       children: [
                                         Icon(
                                           Icons.share_outlined,
-                                          color: ThemeProvider.themeOf(context)
-                                                      .id ==
-                                                  'dark'
+                                          color: Get.isDarkMode
                                               ? Colors.white
-                                              : Theme.of(context).primaryColor,
+                                              : Get.theme.primaryColor,
                                           size: 22,
                                         ),
                                         Container(
@@ -409,22 +378,16 @@ class AboutApp extends StatelessWidget {
                                           height: 20,
                                           margin: const EdgeInsets.symmetric(
                                               horizontal: 8),
-                                          color: ThemeProvider.themeOf(context)
-                                                      .id ==
-                                                  'dark'
+                                          color: Get.isDarkMode
                                               ? Colors.white
-                                              : Theme.of(context).primaryColor,
+                                              : Get.theme.primaryColor,
                                         ),
                                         Text(
-                                          AppLocalizations.of(context)!.share,
+                                          'share'.tr,
                                           style: TextStyle(
-                                              color:
-                                                  ThemeProvider.themeOf(context)
-                                                              .id ==
-                                                          'dark'
-                                                      ? Colors.white
-                                                      : Theme.of(context)
-                                                          .primaryColor,
+                                              color: Get.isDarkMode
+                                                  ? Colors.white
+                                                  : Get.theme.primaryColor,
                                               fontFamily: 'kufi',
                                               fontStyle: FontStyle.italic,
                                               fontSize: 14),
@@ -447,11 +410,9 @@ class AboutApp extends StatelessWidget {
                                       children: [
                                         Icon(
                                           Icons.email_outlined,
-                                          color: ThemeProvider.themeOf(context)
-                                                      .id ==
-                                                  'dark'
+                                          color: Get.isDarkMode
                                               ? Colors.white
-                                              : Theme.of(context).primaryColor,
+                                              : Get.theme.primaryColor,
                                           size: 22,
                                         ),
                                         Container(
@@ -459,22 +420,16 @@ class AboutApp extends StatelessWidget {
                                           height: 20,
                                           margin: const EdgeInsets.symmetric(
                                               horizontal: 8),
-                                          color: ThemeProvider.themeOf(context)
-                                                      .id ==
-                                                  'dark'
+                                          color: Get.isDarkMode
                                               ? Colors.white
-                                              : Theme.of(context).primaryColor,
+                                              : Get.theme.primaryColor,
                                         ),
                                         Text(
-                                          AppLocalizations.of(context)!.email,
+                                          'email'.tr,
                                           style: TextStyle(
-                                              color:
-                                                  ThemeProvider.themeOf(context)
-                                                              .id ==
-                                                          'dark'
-                                                      ? Colors.white
-                                                      : Theme.of(context)
-                                                          .primaryColor,
+                                              color: Get.isDarkMode
+                                                  ? Colors.white
+                                                  : Get.theme.primaryColor,
                                               fontFamily: 'kufi',
                                               fontStyle: FontStyle.italic,
                                               fontSize: 14),
@@ -497,11 +452,9 @@ class AboutApp extends StatelessWidget {
                                       children: [
                                         Icon(
                                           Icons.facebook_rounded,
-                                          color: ThemeProvider.themeOf(context)
-                                                      .id ==
-                                                  'dark'
+                                          color: Get.isDarkMode
                                               ? Colors.white
-                                              : Theme.of(context).primaryColor,
+                                              : Get.theme.primaryColor,
                                           size: 22,
                                         ),
                                         Container(
@@ -509,23 +462,16 @@ class AboutApp extends StatelessWidget {
                                           height: 20,
                                           margin: const EdgeInsets.symmetric(
                                               horizontal: 8),
-                                          color: ThemeProvider.themeOf(context)
-                                                      .id ==
-                                                  'dark'
+                                          color: Get.isDarkMode
                                               ? Colors.white
-                                              : Theme.of(context).primaryColor,
+                                              : Get.theme.primaryColor,
                                         ),
                                         Text(
-                                          AppLocalizations.of(context)!
-                                              .facebook,
+                                          'facebook'.tr,
                                           style: TextStyle(
-                                              color:
-                                                  ThemeProvider.themeOf(context)
-                                                              .id ==
-                                                          'dark'
-                                                      ? Colors.white
-                                                      : Theme.of(context)
-                                                          .primaryColor,
+                                              color: Get.isDarkMode
+                                                  ? Colors.white
+                                                  : Get.theme.primaryColor,
                                               fontFamily: 'kufi',
                                               fontStyle: FontStyle.italic,
                                               fontSize: 14),

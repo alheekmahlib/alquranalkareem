@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 
-import '../../core/services/l10n/app_localizations.dart';
 import '../../core/widgets/widgets.dart';
 import '../../database/databaseHelper.dart';
 import '../screens/athkar/models/azkar.dart';
@@ -19,8 +18,8 @@ class AzkarController extends GetxController {
   }
 
   void deleteAzkar(Azkar? azkar, BuildContext context) async {
-    await DatabaseHelper.deleteAzkar(azkar!).then((value) => customSnackBar(
-        context, AppLocalizations.of(context)!.deletedZekrBookmark));
+    await DatabaseHelper.deleteAzkar(azkar!)
+        .then((value) => customSnackBar(context, 'deletedZekrBookmark'.tr));
     getAzkar();
   }
 

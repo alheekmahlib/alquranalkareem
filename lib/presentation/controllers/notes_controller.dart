@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../core/services/l10n/app_localizations.dart';
 import '../../core/widgets/widgets.dart';
 import '../../database/databaseHelper.dart';
 import '../screens/notes/model/Notes.dart';
@@ -56,7 +55,7 @@ class NotesController extends GetxController {
         descriptionController.text.isNotEmpty) {
       addNoteMethod(context);
     } else {
-      customSnackBar(context, AppLocalizations.of(context)!.fillAllFields);
+      customSnackBar(context, 'fillAllFields'.tr);
     }
   }
 
@@ -71,7 +70,7 @@ class NotesController extends GetxController {
         ),
       );
     } else {
-      customSnackBar(context, AppLocalizations.of(context)!.fillAllFields);
+      customSnackBar(context, 'fillAllFields'.tr);
     }
   }
 

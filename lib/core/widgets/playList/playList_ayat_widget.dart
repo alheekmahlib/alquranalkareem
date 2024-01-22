@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:theme_provider/theme_provider.dart';
+import 'package:get/get.dart';
 
-import '/presentation/screens/quran_text/widgets/widgets.dart';
 import '../../../presentation/controllers/ayat_controller.dart';
 import '../../../presentation/controllers/playList_controller.dart';
 import '../../services/services_locator.dart';
+import '/presentation/screens/quran_text/widgets/widgets.dart';
 
 class PlayListAyatWidget extends StatelessWidget {
   final bool? startNum;
@@ -36,9 +36,9 @@ class PlayListAyatWidget extends StatelessWidget {
                       Text(
                         'آية | ${arabicNumber.convert(ayah.ayaNum)}',
                         style: TextStyle(
-                          color: ThemeProvider.themeOf(context).id == 'dark'
+                          color: Get.isDarkMode
                               ? Colors.white
-                              : Theme.of(context).primaryColorLight,
+                              : Get.theme.primaryColorLight,
                           fontSize: 18,
                           fontFamily: 'naskh',
                         ),
@@ -46,12 +46,9 @@ class PlayListAyatWidget extends StatelessWidget {
                       Text(
                         ayah.text.toString(),
                         style: TextStyle(
-                          color: ThemeProvider.themeOf(context).id == 'dark'
+                          color: Get.isDarkMode
                               ? Colors.white.withOpacity(.6)
-                              : Theme.of(context)
-                                  .colorScheme
-                                  .secondary
-                                  .withOpacity(.6),
+                              : Get.theme.colorScheme.secondary.withOpacity(.6),
                           fontSize: 18,
                           fontFamily: 'uthmanic2',
                         ),

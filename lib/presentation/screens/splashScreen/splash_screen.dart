@@ -68,83 +68,78 @@ class _SplashScreenState extends State<SplashScreen>
 
   @override
   Widget build(BuildContext context) {
-    return GetMaterialApp(
-      debugShowCheckedModeBanner: false,
-
-      // debugShowMaterialGrid: true,
-      home: Scaffold(
-        backgroundColor: const Color(0xfff3efdf),
-        body: Directionality(
-          textDirection: TextDirection.rtl,
-          child: Stack(
-            children: [
-              Align(
-                alignment: Alignment.center,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
+    return Scaffold(
+      backgroundColor: const Color(0xfff3efdf),
+      body: Directionality(
+        textDirection: TextDirection.rtl,
+        child: Stack(
+          children: [
+            Align(
+              alignment: Alignment.center,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  SvgPicture.asset(
+                    'assets/svg/splash_icon.svg',
+                    height: 120,
+                    width: 120,
+                  ),
+                  const SizedBox(
+                    height: 16,
+                  ),
+                  ClipPath(
+                      clipper: const ShapeBorderClipper(
+                          shape: RoundedRectangleBorder(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(4)))),
+                      child: Container(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 8, vertical: 4),
+                        decoration: BoxDecoration(
+                            color: const Color(0xff91a57d).withOpacity(.2),
+                            border: const Border.symmetric(
+                                vertical: BorderSide(
+                                    color: Color(0xff91a57d), width: 2))),
+                        child: AnimatedOpacity(
+                          duration: const Duration(seconds: 1),
+                          opacity: animate ? 1 : 0,
+                          child: const Text(
+                            'وَرَتِّلِ الْقُرْآنَ تَرْتِيلًا',
+                            style: TextStyle(
+                                fontFamily: 'kufi',
+                                color: Color(0xff39412a),
+                                fontSize: 18),
+                          ),
+                        ),
+                      )),
+                ],
+              ),
+            ),
+            Align(
+              alignment: Alignment.bottomCenter,
+              child: Padding(
+                padding: const EdgeInsets.symmetric(vertical: 16.0),
+                child: Stack(
+                  alignment: Alignment.center,
                   children: [
                     SvgPicture.asset(
-                      'assets/svg/splash_icon.svg',
-                      height: 120,
-                      width: 120,
+                      'assets/svg/alheekmah_logo.svg',
+                      colorFilter: const ColorFilter.mode(
+                          Color(0xff39412a), BlendMode.srcIn),
+                      width: 90,
                     ),
-                    const SizedBox(
-                      height: 16,
+                    Transform.translate(
+                      offset: const Offset(0, 30),
+                      child: RotatedBox(
+                        quarterTurns: 2,
+                        child: loading(width: 250.0),
+                      ),
                     ),
-                    ClipPath(
-                        clipper: const ShapeBorderClipper(
-                            shape: RoundedRectangleBorder(
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(4)))),
-                        child: Container(
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 8, vertical: 4),
-                          decoration: BoxDecoration(
-                              color: const Color(0xff91a57d).withOpacity(.2),
-                              border: const Border.symmetric(
-                                  vertical: BorderSide(
-                                      color: Color(0xff91a57d), width: 2))),
-                          child: AnimatedOpacity(
-                            duration: const Duration(seconds: 1),
-                            opacity: animate ? 1 : 0,
-                            child: const Text(
-                              'وَرَتِّلِ الْقُرْآنَ تَرْتِيلًا',
-                              style: TextStyle(
-                                  fontFamily: 'kufi',
-                                  color: Color(0xff39412a),
-                                  fontSize: 18),
-                            ),
-                          ),
-                        )),
                   ],
                 ),
               ),
-              Align(
-                alignment: Alignment.bottomCenter,
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 16.0),
-                  child: Stack(
-                    alignment: Alignment.center,
-                    children: [
-                      SvgPicture.asset(
-                        'assets/svg/alheekmah_logo.svg',
-                        colorFilter: const ColorFilter.mode(
-                            Color(0xff39412a), BlendMode.srcIn),
-                        width: 90,
-                      ),
-                      Transform.translate(
-                        offset: const Offset(0, 30),
-                        child: RotatedBox(
-                          quarterTurns: 2,
-                          child: loading(width: 250.0),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              )
-            ],
-          ),
+            )
+          ],
         ),
       ),
     );

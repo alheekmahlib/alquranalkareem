@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import 'audio_sorah_list.dart';
 
@@ -13,9 +14,9 @@ class AudioScreen extends StatelessWidget {
         right: false,
         left: false,
         child: Scaffold(
-          backgroundColor: Theme.of(context).colorScheme.background,
+          backgroundColor: Get.theme.colorScheme.background,
           appBar: AppBar(
-            backgroundColor: Theme.of(context).colorScheme.background,
+            backgroundColor: Get.theme.colorScheme.background,
           ),
           body: const AudioSorahList(),
         ));

@@ -25,12 +25,12 @@ class PlayWidget extends StatelessWidget {
       decoration: BoxDecoration(
           borderRadius: const BorderRadius.only(
               topRight: Radius.circular(12.0), topLeft: Radius.circular(12.0)),
-          color: Theme.of(context).colorScheme.background,
+          color: Get.theme.colorScheme.background,
           boxShadow: [
             BoxShadow(
               offset: const Offset(0, -2),
               blurRadius: 10,
-              color: Theme.of(context).colorScheme.surface,
+              color: Get.theme.colorScheme.surface,
             ),
           ]),
       child: Padding(

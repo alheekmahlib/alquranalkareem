@@ -25,11 +25,11 @@ class AudioSorahList extends StatelessWidget {
       child: Container(
         //
         decoration: BoxDecoration(
-            color: Theme.of(context).colorScheme.background,
+            color: Get.theme.colorScheme.background,
             borderRadius: const BorderRadius.all(Radius.circular(8)),
             border: Border.all(
               width: 2,
-              color: Theme.of(context).colorScheme.surface,
+              color: Get.theme.colorScheme.surface,
             )),
         child: context.definePlatform(
             context.customOrientation(

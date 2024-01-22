@@ -1,15 +1,13 @@
-import '/presentation/screens/quran_page/widgets/right_page.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:theme_provider/theme_provider.dart';
 
-import '../../../core/services/l10n/app_localizations.dart';
 import '../../../core/services/services_locator.dart';
 import '../../../core/utils/constants/svg_picture.dart';
 import '../../../core/widgets/widgets.dart';
 import '../../controllers/bookmarks_controller.dart';
 import '../../controllers/general_controller.dart';
 import '../quran_page/widgets/left_page.dart';
+import '/presentation/screens/quran_page/widgets/right_page.dart';
 
 class DPages extends StatelessWidget {
   DPages({Key? key}) : super(key: key);
@@ -42,7 +40,7 @@ class DPages extends StatelessWidget {
                             margin: const EdgeInsets.only(
                                 right: 6.0, top: 16.0, bottom: 16.0),
                             decoration: BoxDecoration(
-                                color: Theme.of(context).colorScheme.background,
+                                color: Get.theme.colorScheme.background,
                                 borderRadius: const BorderRadius.only(
                                     topRight: Radius.circular(8),
                                     bottomRight: Radius.circular(8))),
@@ -76,9 +74,7 @@ class DPages extends StatelessWidget {
                                                     .timeNow
                                                     .lastRead)
                                             .then((value) => customSnackBar(
-                                                context,
-                                                AppLocalizations.of(context)!
-                                                    .addBookmark));
+                                                context, 'addBookmark'.tr));
 
                                         // sl<BookmarksController>()
                                         //     .savelastBookmark(index + 1);
@@ -101,7 +97,7 @@ class DPages extends StatelessWidget {
                             margin: const EdgeInsets.only(
                                 left: 6.0, top: 16.0, bottom: 16.0),
                             decoration: BoxDecoration(
-                                color: Theme.of(context).colorScheme.background,
+                                color: Get.theme.colorScheme.background,
                                 borderRadius: const BorderRadius.only(
                                     topLeft: Radius.circular(8),
                                     bottomLeft: Radius.circular(8))),
@@ -135,9 +131,7 @@ class DPages extends StatelessWidget {
                                                     .timeNow
                                                     .lastRead)
                                             .then((value) => customSnackBar(
-                                                context,
-                                                AppLocalizations.of(context)!
-                                                    .addBookmark));
+                                                context, 'addBookmark'.tr));
                                         // sl<BookmarksController>()
                                         //     .savelastBookmark(index + 1);
                                       }
@@ -178,9 +172,7 @@ class DPages extends StatelessWidget {
             Image.asset(
               "assets/pages/00${index + 1}.png",
               fit: BoxFit.contain,
-              color: ThemeProvider.themeOf(context).id == 'dark'
-                  ? Colors.white
-                  : null,
+              color: Get.isDarkMode ? Colors.white : null,
               alignment: Alignment.center,
             ),
             Image.asset(

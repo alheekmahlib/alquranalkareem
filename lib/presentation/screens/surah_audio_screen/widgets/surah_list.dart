@@ -3,7 +3,6 @@ import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:mini_music_visualizer/mini_music_visualizer.dart';
-import 'package:theme_provider/theme_provider.dart';
 
 import '../../../../core/services/services_locator.dart';
 import '../../../controllers/general_controller.dart';
@@ -51,27 +50,20 @@ class SurahList extends StatelessWidget {
                                     color: (index % 2 == 0
                                         ? surahAudioCtrl.selectedSurah.value ==
                                                 index
-                                            ? Theme.of(context)
-                                                .cardColor
+                                            ? Get.theme.cardColor
                                                 .withOpacity(.2)
-                                            : Theme.of(context)
-                                                .colorScheme
-                                                .background
+                                            : Get.theme.colorScheme.background
                                         : surahAudioCtrl.selectedSurah.value ==
                                                 index
-                                            ? Theme.of(context)
-                                                .cardColor
+                                            ? Get.theme.cardColor
                                                 .withOpacity(.2)
-                                            : Theme.of(context)
-                                                .dividerColor
+                                            : Get.theme.dividerColor
                                                 .withOpacity(.3)),
                                     border: Border.all(
                                         width: 2,
                                         color: surahAudioCtrl.selectedSurah ==
                                                 index
-                                            ? Theme.of(context)
-                                                .colorScheme
-                                                .surface
+                                            ? Get.theme.colorScheme.surface
                                             : Colors.transparent)),
                                 child: Padding(
                                   padding:
@@ -95,14 +87,9 @@ class SurahList extends StatelessWidget {
                                                 surahAudioCtrl.arabicNumber
                                                     .convert(sorah.id),
                                                 style: TextStyle(
-                                                    color: ThemeProvider
-                                                                    .themeOf(
-                                                                        context)
-                                                                .id ==
-                                                            'dark'
-                                                        ? Theme.of(context)
-                                                            .canvasColor
-                                                        : Theme.of(context)
+                                                    color: Get.isDarkMode
+                                                        ? Get.theme.canvasColor
+                                                        : Get.theme
                                                             .primaryColorDark,
                                                     fontFamily: "kufi",
                                                     fontSize: 14,
@@ -122,12 +109,9 @@ class SurahList extends StatelessWidget {
                                             SvgPicture.asset(
                                               'assets/svg/surah_name/00${index + 1}.svg',
                                               colorFilter: ColorFilter.mode(
-                                                  ThemeProvider.themeOf(context)
-                                                              .id ==
-                                                          'dark'
-                                                      ? Theme.of(context)
-                                                          .canvasColor
-                                                      : Theme.of(context)
+                                                  Get.isDarkMode
+                                                      ? Get.theme.canvasColor
+                                                      : Get.theme
                                                           .primaryColorDark,
                                                   BlendMode.srcIn),
                                               width: 100,
@@ -141,14 +125,9 @@ class SurahList extends StatelessWidget {
                                                   fontFamily: "naskh",
                                                   fontWeight: FontWeight.w600,
                                                   fontSize: 10,
-                                                  color: ThemeProvider.themeOf(
-                                                                  context)
-                                                              .id ==
-                                                          'dark'
-                                                      ? Theme.of(context)
-                                                          .canvasColor
-                                                      : Theme.of(context)
-                                                          .primaryColor,
+                                                  color: Get.isDarkMode
+                                                      ? Get.theme.canvasColor
+                                                      : Get.theme.primaryColor,
                                                 ),
                                               ),
                                             ),
@@ -158,9 +137,7 @@ class SurahList extends StatelessWidget {
                                       if (index + 1 ==
                                           surahAudioCtrl.surahNum.value)
                                         MiniMusicVisualizer(
-                                          color: Theme.of(context)
-                                              .colorScheme
-                                              .surface,
+                                          color: Get.theme.colorScheme.surface,
                                           width: 4,
                                           height: 15,
                                         ),

@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
-import '/core/widgets/widgets.dart';
 import '../../../presentation/controllers/playList_controller.dart';
 import '../../services/services_locator.dart';
 import '../../utils/constants/svg_picture.dart';
 import '../seek_bar.dart';
+import '/core/widgets/widgets.dart';
 import 'playList_play_button.dart';
 
 class PlayListPlayWidget extends StatelessWidget {
@@ -43,7 +44,7 @@ class PlayListPlayWidget extends StatelessWidget {
                       width: 250,
                       margin: const EdgeInsets.symmetric(horizontal: 4),
                       decoration: BoxDecoration(
-                          color: Theme.of(context).dividerColor.withOpacity(.4),
+                          color: Get.theme.dividerColor.withOpacity(.4),
                           borderRadius:
                               const BorderRadius.all(Radius.circular(8))),
                       child: StreamBuilder<PositionData>(
@@ -58,9 +59,8 @@ class PlayListPlayWidget extends StatelessWidget {
                               bufferedPosition:
                                   positionData?.bufferedPosition ??
                                       Duration.zero,
-                              activeTrackColor:
-                                  Theme.of(context).colorScheme.surface,
-                              textColor: Theme.of(context).primaryColorLight,
+                              activeTrackColor: Get.theme.colorScheme.surface,
+                              textColor: Get.theme.primaryColorLight,
                               onChangeEnd: playList.playlistAudioPlayer.seek,
                             );
                           }

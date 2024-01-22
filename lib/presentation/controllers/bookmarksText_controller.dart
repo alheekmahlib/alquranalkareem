@@ -1,12 +1,11 @@
-import '/presentation/controllers/quranText_controller.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 
-import '../../core/services/l10n/app_localizations.dart';
 import '../../core/services/services_locator.dart';
 import '../../core/widgets/widgets.dart';
 import '../../database/databaseHelper.dart';
 import '../screens/quran_text/data/models/bookmark_text.dart';
+import '/presentation/controllers/quranText_controller.dart';
 
 class BookmarksTextController extends GetxController {
   final RxList<BookmarksText> BookmarkList = <BookmarksText>[].obs;
@@ -33,7 +32,7 @@ class BookmarksTextController extends GetxController {
       int result = await DatabaseHelper.deleteBookmarkText(bookmarkToDelete);
       sl<QuranTextController>().update();
       if (result > 0) {
-        customSnackBar(context, AppLocalizations.of(context)!.deletedBookmark);
+        customSnackBar(context, 'deletedBookmark'.tr);
         await getBookmarksText();
         update();
         return true;

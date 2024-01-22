@@ -1,10 +1,9 @@
-import '/core/services/l10n/app_localizations.dart';
-import '/core/utils/constants/extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:theme_provider/theme_provider.dart';
+import 'package:get/get.dart';
 
 import '../../../core/widgets/widgets.dart';
+import '/core/utils/constants/extensions.dart';
 
 class InfoApp extends StatelessWidget {
   const InfoApp({Key? key}) : super(key: key);
@@ -17,7 +16,7 @@ class InfoApp extends StatelessWidget {
       right: false,
       left: false,
       child: Scaffold(
-        backgroundColor: Theme.of(context).colorScheme.background,
+        backgroundColor: Get.theme.colorScheme.background,
         body: Padding(
           padding: context.customOrientation(
               const EdgeInsets.only(top: 80.0, bottom: 16.0),
@@ -53,21 +52,18 @@ class InfoApp extends StatelessWidget {
                       Container(
                         padding: const EdgeInsets.symmetric(horizontal: 8),
                         decoration: BoxDecoration(
-                            color: Theme.of(context)
-                                .colorScheme
-                                .surface
-                                .withOpacity(.2),
+                            color:
+                                Get.theme.colorScheme.surface.withOpacity(.2),
                             border: Border.symmetric(
                                 vertical: BorderSide(
-                                    color:
-                                        Theme.of(context).colorScheme.surface,
+                                    color: Get.theme.colorScheme.surface,
                                     width: 2))),
                         child: Text(
-                          AppLocalizations.of(context)!.about_us,
+                          'about_us'.tr,
                           style: TextStyle(
-                            color: ThemeProvider.themeOf(context).id == 'dark'
+                            color: Get.isDarkMode
                                 ? Colors.white
-                                : Theme.of(context).primaryColor,
+                                : Get.theme.primaryColor,
                             fontSize: 18,
                             fontFamily: 'kufi',
                           ),
@@ -79,21 +75,18 @@ class InfoApp extends StatelessWidget {
                       Container(
                         padding: const EdgeInsets.symmetric(horizontal: 8),
                         decoration: BoxDecoration(
-                            color: Theme.of(context)
-                                .colorScheme
-                                .surface
-                                .withOpacity(.2),
+                            color:
+                                Get.theme.colorScheme.surface.withOpacity(.2),
                             border: Border.symmetric(
                                 vertical: BorderSide(
-                                    color:
-                                        Theme.of(context).colorScheme.surface,
+                                    color: Get.theme.colorScheme.surface,
                                     width: 2))),
                         child: Text(
-                          AppLocalizations.of(context)!.about_app,
+                          'about_app'.tr,
                           style: TextStyle(
-                            color: ThemeProvider.themeOf(context).id == 'dark'
+                            color: Get.isDarkMode
                                 ? Colors.white
-                                : Theme.of(context).primaryColor,
+                                : Get.theme.primaryColor,
                             height: 1.7,
                             fontSize: 15,
                             fontFamily: 'kufi',
@@ -106,21 +99,18 @@ class InfoApp extends StatelessWidget {
                       Container(
                         padding: const EdgeInsets.symmetric(horizontal: 8),
                         decoration: BoxDecoration(
-                            color: Theme.of(context)
-                                .colorScheme
-                                .surface
-                                .withOpacity(.2),
+                            color:
+                                Get.theme.colorScheme.surface.withOpacity(.2),
                             border: Border.symmetric(
                                 vertical: BorderSide(
-                                    color:
-                                        Theme.of(context).colorScheme.surface,
+                                    color: Get.theme.colorScheme.surface,
                                     width: 2))),
                         child: Text(
-                          AppLocalizations.of(context)!.about_app2,
+                          'about_app2'.tr,
                           style: TextStyle(
-                            color: ThemeProvider.themeOf(context).id == 'dark'
+                            color: Get.isDarkMode
                                 ? Colors.white
-                                : Theme.of(context).primaryColor,
+                                : Get.theme.primaryColor,
                             fontSize: 18,
                             fontFamily: 'kufi',
                           ),
@@ -132,21 +122,18 @@ class InfoApp extends StatelessWidget {
                       Container(
                         padding: const EdgeInsets.symmetric(horizontal: 8),
                         decoration: BoxDecoration(
-                            color: Theme.of(context)
-                                .colorScheme
-                                .surface
-                                .withOpacity(.2),
+                            color:
+                                Get.theme.colorScheme.surface.withOpacity(.2),
                             border: Border.symmetric(
                                 vertical: BorderSide(
-                                    color:
-                                        Theme.of(context).colorScheme.surface,
+                                    color: Get.theme.colorScheme.surface,
                                     width: 2))),
                         child: Text(
-                          AppLocalizations.of(context)!.about_app3,
+                          'about_app3'.tr,
                           style: TextStyle(
-                            color: ThemeProvider.themeOf(context).id == 'dark'
+                            color: Get.isDarkMode
                                 ? Colors.white
-                                : Theme.of(context).primaryColor,
+                                : Get.theme.primaryColor,
                             height: 1.7,
                             fontSize: 15,
                             fontFamily: 'kufi',

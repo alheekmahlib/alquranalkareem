@@ -167,8 +167,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                                       style: TextStyle(
                                           fontFamily: 'kufi',
                                           fontSize: 20,
-                                          color:
-                                              Theme.of(context).canvasColor)),
+                                          color: Get.theme.canvasColor)),
                                 ),
                               ),
                               onTap: () {
@@ -309,8 +308,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                                       style: TextStyle(
                                           fontFamily: 'kufi',
                                           fontSize: 20,
-                                          color:
-                                              Theme.of(context).canvasColor)),
+                                          color: Get.theme.canvasColor)),
                                 ),
                               ),
                               onTap: () {

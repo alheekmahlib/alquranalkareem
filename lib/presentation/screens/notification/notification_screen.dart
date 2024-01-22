@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:get/get.dart';
 import 'package:intl/intl.dart';
-import 'package:theme_provider/theme_provider.dart';
 
 import '../../../core/services/services_locator.dart';
 import '../../../core/utils/constants/lottie.dart';
@@ -37,7 +37,7 @@ class NotificationScreen extends StatelessWidget {
     }
 
     return Scaffold(
-      backgroundColor: Theme.of(context).primaryColorLight,
+      backgroundColor: Get.theme.primaryColorLight,
       body: Padding(
         padding: const EdgeInsets.only(
             top: 70.0, bottom: 16.0, right: 16.0, left: 16.0),
@@ -51,15 +51,15 @@ class NotificationScreen extends StatelessWidget {
                   height: 30,
                   width: 30,
                   decoration: BoxDecoration(
-                      color: Theme.of(context).colorScheme.background,
+                      color: Get.theme.colorScheme.background,
                       borderRadius: const BorderRadius.all(
                         Radius.circular(8),
                       ),
-                      border: Border.all(
-                          width: 2, color: Theme.of(context).dividerColor)),
+                      border:
+                          Border.all(width: 2, color: Get.theme.dividerColor)),
                   child: Icon(
                     Icons.close_outlined,
-                    color: Theme.of(context).colorScheme.surface,
+                    color: Get.theme.colorScheme.surface,
                   ),
                 ),
               ),
@@ -69,7 +69,7 @@ class NotificationScreen extends StatelessWidget {
               style: TextStyle(
                 fontSize: 24,
                 fontFamily: 'kufi',
-                color: Theme.of(context).canvasColor,
+                color: Get.theme.canvasColor,
               ),
             ),
             SvgPicture.asset(
@@ -83,7 +83,7 @@ class NotificationScreen extends StatelessWidget {
               child: Container(
                 height: MediaQuery.sizeOf(context).height,
                 decoration: BoxDecoration(
-                  color: Theme.of(context).colorScheme.surface,
+                  color: Get.theme.colorScheme.surface,
                   borderRadius: const BorderRadius.all(Radius.circular(8)),
                 ),
                 padding: const EdgeInsets.symmetric(horizontal: 8.0),
@@ -105,7 +105,7 @@ class NotificationScreen extends StatelessWidget {
                           return Container(
                             height: 70,
                             decoration: BoxDecoration(
-                              color: Theme.of(context).colorScheme.background,
+                              color: Get.theme.colorScheme.background,
                               borderRadius:
                                   const BorderRadius.all(Radius.circular(8)),
                             ),
@@ -116,8 +116,7 @@ class NotificationScreen extends StatelessWidget {
                                 style: TextStyle(
                                   fontSize: 16,
                                   fontFamily: 'kufi',
-                                  color: ThemeProvider.themeOf(context).id ==
-                                          'dark'
+                                  color: Get.isDarkMode
                                       ? Colors.white
                                       : Colors.black,
                                 ),
@@ -128,8 +127,7 @@ class NotificationScreen extends StatelessWidget {
                                 style: TextStyle(
                                   fontSize: 12,
                                   fontFamily: 'kufi',
-                                  color: ThemeProvider.themeOf(context).id ==
-                                          'dark'
+                                  color: Get.isDarkMode
                                       ? Colors.white
                                       : Colors.black,
                                 ),
@@ -137,7 +135,7 @@ class NotificationScreen extends StatelessWidget {
                               trailing: Icon(
                                 Icons.notifications_active,
                                 size: 28,
-                                color: Theme.of(context).dividerColor,
+                                color: Get.theme.dividerColor,
                               ),
                               onTap: () {
                                 Navigator.of(sl<GeneralController>()

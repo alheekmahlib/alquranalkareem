@@ -2,10 +2,8 @@ import 'package:expansion_tile_card/expansion_tile_card.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
-import 'package:theme_provider/theme_provider.dart';
 
 import '../../../presentation/controllers/playList_controller.dart';
-import '../../services/l10n/app_localizations.dart';
 import '../../services/services_locator.dart';
 import '../delete_widget.dart';
 import '/presentation/screens/quran_text/widgets/widgets.dart';
@@ -24,18 +22,16 @@ class PlayListBuild extends StatelessWidget {
       title: SizedBox(
         width: 100.0,
         child: Text(
-          AppLocalizations.of(context)!.playList,
+          'playList'.tr,
           style: TextStyle(
-            color: ThemeProvider.themeOf(context).id == 'dark'
-                ? Colors.white
-                : Theme.of(context).primaryColorLight,
+            color: Get.isDarkMode ? Colors.white : Get.theme.primaryColorLight,
             fontSize: 16,
             fontFamily: 'kufi',
           ),
         ),
       ),
-      baseColor: Theme.of(context).colorScheme.background.withOpacity(.2),
-      expandedColor: Theme.of(context).colorScheme.background.withOpacity(.2),
+      baseColor: Get.theme.colorScheme.background.withOpacity(.2),
+      expandedColor: Get.theme.colorScheme.background.withOpacity(.2),
       children: [
         SizedBox(
           height: MediaQuery.sizeOf(context).height * .3,
@@ -54,10 +50,8 @@ class PlayListBuild extends StatelessWidget {
                           height: 55,
                           width: MediaQuery.sizeOf(context).width,
                           decoration: BoxDecoration(
-                            color: Theme.of(context)
-                                .colorScheme
-                                .surface
-                                .withOpacity(.2),
+                            color:
+                                Get.theme.colorScheme.surface.withOpacity(.2),
                             borderRadius:
                                 const BorderRadius.all(Radius.circular(8)),
                           ),
@@ -82,12 +76,9 @@ class PlayListBuild extends StatelessWidget {
                                         Icon(
                                           Icons.playlist_add_check,
                                           size: 28,
-                                          color: ThemeProvider.themeOf(context)
-                                                      .id ==
-                                                  'dark'
+                                          color: Get.isDarkMode
                                               ? Colors.white
-                                              : Theme.of(context)
-                                                  .primaryColorLight,
+                                              : Get.theme.primaryColorLight,
                                         ),
                                         const Gap(8),
                                         Container(
@@ -95,8 +86,7 @@ class PlayListBuild extends StatelessWidget {
                                           padding: const EdgeInsets.symmetric(
                                               horizontal: 16.0, vertical: 4.0),
                                           decoration: BoxDecoration(
-                                              color: Theme.of(context)
-                                                  .dividerColor
+                                              color: Get.theme.dividerColor
                                                   .withOpacity(.6),
                                               borderRadius:
                                                   const BorderRadius.all(
@@ -106,13 +96,9 @@ class PlayListBuild extends StatelessWidget {
                                             style: TextStyle(
                                               fontFamily: 'kufi',
                                               fontSize: 16,
-                                              color:
-                                                  ThemeProvider.themeOf(context)
-                                                              .id ==
-                                                          'dark'
-                                                      ? Colors.white
-                                                      : Theme.of(context)
-                                                          .primaryColor,
+                                              color: Get.isDarkMode
+                                                  ? Colors.white
+                                                  : Get.theme.primaryColor,
                                             ),
                                             maxLines: 2,
                                           ),
@@ -126,14 +112,10 @@ class PlayListBuild extends StatelessWidget {
                                           style: TextStyle(
                                             fontFamily: 'kufi',
                                             fontSize: 18,
-                                            color:
-                                                ThemeProvider.themeOf(context)
-                                                            .id ==
-                                                        'dark'
-                                                    ? Colors.white
-                                                    : Theme.of(context)
-                                                        .primaryColorLight
-                                                        .withOpacity(.6),
+                                            color: Get.isDarkMode
+                                                ? Colors.white
+                                                : Get.theme.primaryColorLight
+                                                    .withOpacity(.6),
                                           ),
                                         ),
                                         Text(
@@ -141,13 +123,9 @@ class PlayListBuild extends StatelessWidget {
                                           style: TextStyle(
                                             fontFamily: 'kufi',
                                             fontSize: 18,
-                                            color:
-                                                ThemeProvider.themeOf(context)
-                                                            .id ==
-                                                        'dark'
-                                                    ? Colors.white
-                                                    : Theme.of(context)
-                                                        .primaryColor,
+                                            color: Get.isDarkMode
+                                                ? Colors.white
+                                                : Get.theme.primaryColor,
                                           ),
                                         ),
                                       ],

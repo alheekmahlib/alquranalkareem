@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../../../core/services/l10n/app_localizations.dart';
 import '../../../../core/services/services_locator.dart';
 import '../../../../core/utils/constants/shared_pref_services.dart';
 import '../../../../core/utils/constants/shared_preferences_constants.dart';
@@ -20,14 +19,14 @@ class ChangeSurahReader extends StatelessWidget {
       decoration: BoxDecoration(
           borderRadius: const BorderRadius.all(Radius.circular(8)),
           border: Border.all(
-              color: Theme.of(context).dividerColor.withOpacity(.5), width: 1)),
+              color: Get.theme.dividerColor.withOpacity(.5), width: 1)),
       child: IconButton(
         icon: Semantics(
           button: true,
           enabled: true,
           label: 'Change Reader',
           child: Icon(Icons.person_search_outlined,
-              size: 20, color: Theme.of(context).colorScheme.surface),
+              size: 20, color: Get.theme.colorScheme.surface),
         ),
         onPressed: () => sorahReaderDropDown(context),
       ),
@@ -37,37 +36,37 @@ class ChangeSurahReader extends StatelessWidget {
   sorahReaderDropDown(BuildContext context) {
     List surahReaderInfo = [
       {
-        'name': AppLocalizations.of(context)!.reader1,
+        'name': 'reader1'.tr,
         'readerD': 'https://server7.mp3quran.net/',
         'readerN': 'basit/',
         'readerI': 'basit'
       },
       {
-        'name': AppLocalizations.of(context)!.reader2,
+        'name': 'reader2'.tr,
         'readerD': 'https://server10.mp3quran.net/',
         'readerN': 'minsh/',
         'readerI': 'minshawy'
       },
       {
-        'name': AppLocalizations.of(context)!.reader3,
+        'name': 'reader3'.tr,
         'readerD': 'https://server13.mp3quran.net/',
         'readerN': 'husr/',
         'readerI': 'husary'
       },
       {
-        'name': AppLocalizations.of(context)!.reader4,
+        'name': 'reader4'.tr,
         'readerD': 'https://server10.mp3quran.net/',
         'readerN': 'ajm/',
         'readerI': 'ajamy'
       },
       {
-        'name': AppLocalizations.of(context)!.reader5,
+        'name': 'reader5'.tr,
         'readerD': 'https://server12.mp3quran.net/',
         'readerN': 'maher/',
         'readerI': 'muaiqly'
       },
       {
-        'name': AppLocalizations.of(context)!.reader6,
+        'name': 'reader6'.tr,
         'readerD': 'https://server7.mp3quran.net/',
         'readerN': 's_gmd/',
         'readerI': 'Ghamadi'
@@ -91,15 +90,15 @@ class ChangeSurahReader extends StatelessWidget {
                   width: 30,
                   margin: const EdgeInsets.all(16.0),
                   decoration: BoxDecoration(
-                      color: Theme.of(context).colorScheme.background,
+                      color: Get.theme.colorScheme.background,
                       borderRadius: const BorderRadius.all(
                         Radius.circular(8),
                       ),
-                      border: Border.all(
-                          width: 2, color: Theme.of(context).dividerColor)),
+                      border:
+                          Border.all(width: 2, color: Get.theme.dividerColor)),
                   child: Icon(
                     Icons.close_outlined,
-                    color: Theme.of(context).colorScheme.surface,
+                    color: Get.theme.colorScheme.surface,
                   ),
                 ),
               ),
@@ -109,9 +108,9 @@ class ChangeSurahReader extends StatelessWidget {
               child: Padding(
                 padding: const EdgeInsets.only(top: 24.0),
                 child: Text(
-                  AppLocalizations.of(context)!.select_player,
+                  'select_player'.tr,
                   style: TextStyle(
-                      color: Theme.of(context).dividerColor,
+                      color: Get.theme.dividerColor,
                       fontSize: 22,
                       fontFamily: "kufi"),
                 ),
@@ -133,7 +132,7 @@ class ChangeSurahReader extends StatelessWidget {
                                   color: sl<SurahAudioController>()
                                               .sorahReaderNameValue ==
                                           surahReaderInfo[index]['readerN']
-                                      ? Theme.of(context).primaryColorLight
+                                      ? Get.theme.primaryColorLight
                                       : const Color(0xffcdba72),
                                   fontSize: 14,
                                   fontFamily: 'kufi'),
@@ -148,7 +147,7 @@ class ChangeSurahReader extends StatelessWidget {
                                     color: sl<SurahAudioController>()
                                                 .sorahReaderNameValue ==
                                             surahReaderInfo[index]['readerN']
-                                        ? Theme.of(context).primaryColorLight
+                                        ? Get.theme.primaryColorLight
                                         : const Color(0xffcdba72),
                                     width: 2),
                                 color: const Color(0xff39412a),
@@ -195,8 +194,7 @@ class ChangeSurahReader extends StatelessWidget {
                                   borderRadius: const BorderRadius.all(
                                       Radius.circular(4.0)),
                                   border: Border.all(
-                                      color: Theme.of(context).dividerColor,
-                                      width: 2)),
+                                      color: Get.theme.dividerColor, width: 2)),
                             ),
                           ),
                         ),
@@ -204,8 +202,7 @@ class ChangeSurahReader extends StatelessWidget {
                             borderRadius:
                                 const BorderRadius.all(Radius.circular(8.0)),
                             border: Border.all(
-                                color: Theme.of(context).dividerColor,
-                                width: 1)),
+                                color: Get.theme.dividerColor, width: 1)),
                         margin: const EdgeInsets.symmetric(
                             horizontal: 16.0, vertical: 4.0),
                       ),

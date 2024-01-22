@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
-import 'package:theme_provider/theme_provider.dart';
+import 'package:get/get.dart';
 
+import '../../../presentation/controllers/ayat_controller.dart';
+import '../../services/services_locator.dart';
 import '/core/widgets/widgets.dart';
 import '/presentation/controllers/playList_controller.dart';
 import '/presentation/screens/quran_page/widgets/change_reader.dart';
-import '../../../presentation/controllers/ayat_controller.dart';
-import '../../services/l10n/app_localizations.dart';
-import '../../services/services_locator.dart';
 import 'ayahs_choice_widget.dart';
 import 'playList_build.dart';
 import 'playList_play_widget.dart';
@@ -26,7 +25,7 @@ class AyahsPlayListWidget extends StatelessWidget {
     return SingleChildScrollView(
       child: Container(
         decoration: BoxDecoration(
-            color: Theme.of(context).colorScheme.background,
+            color: Get.theme.colorScheme.background,
             borderRadius: const BorderRadius.only(
               topLeft: Radius.circular(8),
               topRight: Radius.circular(8),
@@ -40,18 +39,17 @@ class AyahsPlayListWidget extends StatelessWidget {
               decoration: BoxDecoration(
                 borderRadius: const BorderRadius.all(Radius.circular(8)),
                 border: Border.all(
-                    width: 1,
-                    color: Theme.of(context).dividerColor.withOpacity(.5)),
+                    width: 1, color: Get.theme.dividerColor.withOpacity(.5)),
               ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    AppLocalizations.of(context)!.createPlayList,
+                    'createPlayList'.tr,
                     style: TextStyle(
-                      color: ThemeProvider.themeOf(context).id == 'dark'
+                      color: Get.isDarkMode
                           ? Colors.white
-                          : Theme.of(context).primaryColorLight,
+                          : Get.theme.primaryColorLight,
                       fontSize: 16,
                       fontFamily: 'kufi',
                     ),
@@ -59,7 +57,7 @@ class AyahsPlayListWidget extends StatelessWidget {
                   const Gap(16),
                   Container(
                       decoration: BoxDecoration(
-                          color: Theme.of(context).dividerColor.withOpacity(.4),
+                          color: Get.theme.dividerColor.withOpacity(.4),
                           borderRadius:
                               const BorderRadius.all(Radius.circular(8))),
                       child: const ChangeReader()),
@@ -74,11 +72,10 @@ class AyahsPlayListWidget extends StatelessWidget {
             Container(
                 // padding: const EdgeInsets.all(8.0),
                 decoration: BoxDecoration(
-                  color: Theme.of(context).dividerColor.withOpacity(.1),
+                  color: Get.theme.dividerColor.withOpacity(.1),
                   borderRadius: const BorderRadius.all(Radius.circular(8)),
                   border: Border.all(
-                      width: 1,
-                      color: Theme.of(context).dividerColor.withOpacity(.5)),
+                      width: 1, color: Get.theme.dividerColor.withOpacity(.5)),
                 ),
                 child: const PlayListBuild()),
             const PlayListPlayWidget(),

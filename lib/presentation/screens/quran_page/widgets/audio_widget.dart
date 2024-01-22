@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:just_audio/just_audio.dart';
 
 import '../../../../core/services/services_locator.dart';
@@ -63,9 +64,7 @@ class AudioWidget extends StatelessWidget {
                               // width: 250,
                               margin: const EdgeInsets.symmetric(horizontal: 4),
                               decoration: BoxDecoration(
-                                  color: Theme.of(context)
-                                      .dividerColor
-                                      .withOpacity(.4),
+                                  color: Get.theme.dividerColor.withOpacity(.4),
                                   borderRadius: const BorderRadius.all(
                                       Radius.circular(8))),
                             ),
@@ -107,11 +106,8 @@ class AudioWidget extends StatelessWidget {
                                                       ?.bufferedPosition ??
                                                   Duration.zero,
                                               activeTrackColor:
-                                                  Theme.of(context)
-                                                      .colorScheme
-                                                      .surface,
-                                              textColor: Theme.of(context)
-                                                  .dividerColor,
+                                                  Get.theme.colorScheme.surface,
+                                              textColor: Get.theme.dividerColor,
                                               onChangeEnd: sl<AudioController>()
                                                   .audioPlayer
                                                   .seek,
@@ -147,7 +143,7 @@ class AudioWidget extends StatelessWidget {
                                   size: 25,
                                 ),
                               ),
-                              color: Theme.of(context).colorScheme.surface,
+                              color: Get.theme.colorScheme.surface,
                               onPressed: () {
                                 fullModalBottomSheet(
                                     context,

@@ -1,12 +1,11 @@
 {
-  "@@last_modified": "2019-03-24T22:25:14.954300",
-  "appName": "Al Quran Al Kareem - Biblioteca Al Heekmah",
+  "appName": "Al Quraanka Al Kareem - Maktabadda Al Heekmah",
   "@appName": {
     "description": "appName",
     "type": "text",
     "placeholders": {}
   },
-  "search_hint": "Buscar los versos del Corán",
+  "search_hint": "Raadi aayadaha Quraanka",
   "@search_hint": {
     "description": "search_hint",
     "type": "text",
@@ -14,53 +13,53 @@
   },
   "menu": "Menu",
   "@menu": {
-    "description": "Menú",
+    "description": "menu",
     "type": "text",
     "placeholders": {}
   },
-  "notes": "Notas",
+  "notes": "Qoraallo",
   "@notes": {
-    "description": "Notas",
+    "description": "notes",
     "type": "text",
     "placeholders": {}
   },
-  "note_title": "Título",
+  "note_title": "Cinwaanka Qoraalka",
   "@note_title": {
     "description": "note_title",
     "type": "text",
     "placeholders": {}
   },
-  "add_new_note": "Agregar una nueva nota",
+  "add_new_note": "Dar Qoraal Cusub",
   "@add_new_note": {
     "type": "text",
     "placeholders": {}
   },
-  "note_details": "Detalles de la nota",
+  "note_details": "Faahfaahinta Qoraalka",
   "@note_details": {
     "type": "text",
     "placeholders": {}
   },
-  "bookmarks": "Marcadores guardados",
+  "bookmarks": "Calamaanka La Keydiyay",
   "@bookmarks": {
     "type": "text",
     "placeholders": {}
   },
-  "bookmark_title": "Nombre del marcador",
+  "bookmark_title": "Magaca Calaamadda",
   "@bookmark_title": {
     "type": "text",
     "placeholders": {}
   },
-  "add_new_bookmark": "Agregar un nuevo marcador",
+  "add_new_bookmark": "Dar Calaamad Cusub",
   "@add_new_bookmark": {
     "type": "text",
     "placeholders": {}
   },
-  "save": "Ahorrar",
+  "save": "Keydi",
   "@save": {
     "type": "text",
     "placeholders": {}
   },
-  "edit": "Editar",
+  "edit": "Tafatir",
   "@edit": {
     "type": "text",
     "placeholders": {}
@@ -80,86 +79,83 @@
     "type": "text",
     "placeholders": {}
   },
-  "aya_count": "Número de versos",
+  "aya_count": "Tirada Aayadaha",
   "@aya_count": {
     "description": "aya_count",
     "type": "text",
     "placeholders": {}
   },
-  "quran_sorah": "Todo Sorah",
+  "quran_sorah": "Dhammaan Suuradaha",
   "@quran_sorah": {
     "type": "text",
     "placeholders": {}
   },
-  "about_us": "Acerca de la aplicación",
+  "about_us": "Ku saabsan Appka",
   "@about_us": {
     "type": "text",
     "placeholders": {}
   },
-  "stop_title": "El noble Corán - Biblioteca Al-Heekmah",
+  "stop_title": "Quraanka Wanaagsan - Maktabadda Al Heekmah",
   "@stop_title": {
     "type": "text",
     "placeholders": {}
   },
-  "about_app": "La aplicación del Corán Al Kareem se caracteriza por su aprobación de la edición del Complejo Rey Fahd para la Impresión del Noble Corán en Medina por su confiabilidad y maestría.\nLa aplicación Quran Al Kareem está patrocinada por la \"Biblioteca Al-Heekmah\".\nEs una aplicación bien diseñada que le permite leer de forma interactiva con el texto del Corán electrónico, escuchar recitaciones, estudiar el Corán Al Kareem y memorizarlo con facilidad.",
+  "about_app": "The application of the Qur’an Al Kareem is characterized by its approval of the edition of the King Fahd Complex for Printing the Noble Qur’an in Madinah because of its reliability and mastery.\nThe Quran Al Kareem application is sponsored by the \"Al-Heekmah Library\".\nIt is a well-designed application that allows you to read interactively with the text of the electronic Quran, listen to recitations, study the  Quran Al Kareem and memorize it with ease.",
   "@about_app": {
     "type": "text",
     "placeholders": {}
   },
-  "about_app2": "Entre las características más importantes de la aplicación:",
+  "about_app2": "Among the most important features of the application :",
   "@about_app2": {
     "type": "text",
     "placeholders": {}
   },
-  "about_app3": "◉ Esta aplicación le permite leer el Corán como si estuviera leyendo en el Mus'haf, y puede leer en modo vertical y horizontal.\\n◉ También puede leer en modo variable que le permite acercar y alejar el zoom a medida que como.\\n◉ La aplicación tiene la función de búsqueda textual en los versos del Corán a través de búsqueda en tiempo real y visualización de resultados con páginas además de la posibilidad de ir a la página según sea necesario.\\n◉ Adición a marcadores para que el lector pueda guardar la página y volver a ella cuando quiera.\\n◉ Adición a notas.\\n◉ Posibilidad de escuchar cada verso en voz de diferentes lectores.\\n◉ La aplicación permite la interpretación de cada verso, puede cambiar entre interpretaciones y puede cambiar el tamaño de la línea de interpretación.\\n◉ Índice de Surahs.\\n◉ Muévase entre Surahs fácilmente.\\n◉ La aplicación le permite leer el significado de las señales de alto.\\n◉ La aplicación le permite para leer la fortaleza musulmana en su totalidad y dividida por el recuerdo para que sea fácil para el lector navegar entre se y puede agregar cualquier mención a favoritos.\\n◉ La aplicación le permite al lector leer para cambiar los patrones de color, incluido el patrón oscuro, que cambia el color de fondo en líneas en blanco y negro para brindar al lector total comodidad al leer en un ambiente de poca luz. \\n◉ La aplicación le permite escuchar las suras o descargarlas y escucharlas en cualquier momento sin necesidad de Internet.",
+  "about_app3": "◉ This application enables you to read the Quran as if you were reading in the Mus'haf, and you can read in vertical and horizontal mode.\\n◉ You can also read in variable mode that enables you to zoom in and out as you like.\\n◉ The application has the feature of textual search in the verses of the Qur’an through real-time search and display of results with pages in addition to the possibility of going to the page as needed.\\n◉ Addition to bookmarks so that the reader can save the page and return to it whenever he wants.\\n◉ Addition to notes.\\n◉ Ability to listen to each verse in voice of different readers.\\n◉ The app allows interpretation for each verse, you can change between interpretations, and you can resize the interpretation line.\\n◉ Index of Surahs.\\n◉ Move between Surahs easily.\\n◉ The app lets you read the meaning of stop signs.\\n◉ The application enables you to read the Muslim fortress in full and divided by remembrance so that it is easy for the reader to navigate between sections, and you can add any mention to favorites.\\n◉ The application allows the reader to read to change color patterns, including the dark pattern, which changes the background color in black and white lines to give the reader complete comfort when reading in a low-light atmosphere. \\n◉ The app enables you to listen to the Surahs or download and listen to them at any time without the need for the internet.",
   "@about_app3": {
     "type": "text",
     "placeholders": {}
   },
-  "email": "Contacta con nosotras",
+  "email": "Nala Xiriir",
   "@email": {
     "type": "text",
     "placeholders": {}
   },
-  "select_player": "Lector seleccionada",
+  "select_player": "Akhristaha la Doortay",
   "@select_player": {
     "type": "text",
     "placeholders": {}
   },
-  "delete": "Borrar",
+  "delete": "Tirtir",
   "@delete": {
     "type": "text",
     "placeholders": {}
   },
-
-  "page": "Página",
+  "page": "Bog",
   "@page": {
     "type": "text",
     "placeholders": {}
   },
-
-  "search_word": "Busca el verso",
+  "search_word": "Aayad Raadinayo",
   "@search_word": {
     "type": "text",
     "placeholders": {}
   },
-
-  "search_description": "Puede buscar todos los versos del Noble Corán, simplemente escriba una palabra del verso.",
+  "search_description": "Waad raadi kartaa dhammaan aayadaha Quraanka, keliya qor eray ka mid ah aayadda",
   "@search_description": {
     "type": "text",
     "placeholders": {}
   },
-  "fontSize": "Cambia tamaño de fuente",
+  "fontSize": "Beddel Daqiiqadda Farshaxanka",
   "@fontSize": {
     "type": "text",
     "placeholders": {}
   },
-  "waqfName": "Señales de alto",
+  "waqfName": "Astamahyada Joojinta",
   "@waqfName": {
     "type": "text",
     "placeholders": {}
   },
-  "onboardTitle1": "Interfaz fácil",
+  "onboardTitle1": "Easy interface",
   "@onboardTitle1": {
     "type": "text",
     "placeholders": {}
@@ -189,77 +185,77 @@
     "type": "text",
     "placeholders": {}
   },
-  "green": "Modo verde",
+  "green": "Habka Cagaaran",
   "@green": {
     "type": "text",
     "placeholders": {}
   },
-  "brown": "Modo Marrón",
+  "brown": "Habka Buraan",
   "@brown": {
     "type": "text",
     "placeholders": {}
   },
-  "dark": "Modo oscuro",
+  "dark": "Habka Mugdiga",
   "@dark": {
     "type": "text",
     "placeholders": {}
   },
-  "azkarfav": "Athkar favorita",
+  "azkarfav": "Athkar Jecel",
   "@azkarfav": {
     "type": "text",
     "placeholders": {}
   },
-  "themeTitle": "Elija Apariencia",
+  "themeTitle": "Dooro Muuqaalka",
   "@themeTitle": {
     "type": "text",
     "placeholders": {}
   },
-  "sorah": "Sorah",
+  "sorah": "Suurah",
   "@sorah": {
     "type": "text",
     "placeholders": {}
   },
-  "part": "Parte",
+  "part": "Qayb",
   "@part": {
     "type": "text",
     "placeholders": {}
   },
-  "langChange": "Cambia el idioma",
+  "langChange": "Beddel Luqadda",
   "@langChange": {
     "type": "text",
     "placeholders": {}
   },
-  "tafChange": "Elige un tafsir",
+  "tafChange": "Dooro Tafsiir",
   "@tafChange": {
     "type": "text",
     "placeholders": {}
   },
-  "tafIbnkatheerN": "Tafsir Ibn Kathir",
+  "tafIbnkatheerN": "Tafsiirka Ibn Kathir",
   "@tafIbnkatheerN": {
     "type": "text",
     "placeholders": {}
   },
-  "tafBaghawyN": "Tafsir al-Baghawi",
+  "tafBaghawyN": "Tafsiirka al-Baghawi",
   "@tafBaghawyN": {
     "type": "text",
     "placeholders": {}
   },
-  "tafQurtubiN": "Tafsir al-Qurtubi",
+  "tafQurtubiN": "Tafsiirka al-Qurtubi",
   "@tafQurtubiN": {
     "type": "text",
     "placeholders": {}
   },
-  "tafSaadiN": "Tafsir As-Sadi",
+  "tafSaadiN": "Tafsiirka As-Sa'di",
   "@tafSaadiN": {
     "type": "text",
     "placeholders": {}
   },
-  "tafTabariN": "Tafsir al-Tabari",
+  "tafTabariN": "Tafsiirka al-Tabari",
   "@tafTabariN": {
     "type": "text",
     "placeholders": {}
   },
-  "tafIbnkatheerD": "Tafsir al-Corán al-Azim",
+  "tafIbnkatheerD": "Tafsiirka Quraanka Weyn",
   "@tafIbnkatheerD": {
     "type": "text",
     "placeholders": {}
@@ -269,52 +265,47 @@
     "type": "text",
     "placeholders": {}
   },
-  "tafQurtubiD": "Al-Jami li Ahkam al-Corán",
+  "tafQurtubiD": "Al-Jaami' li Axkaam al-Quraan",
   "@tafQurtubiD": {
     "type": "text",
     "placeholders": {}
   },
-  "tafSaadiD": "Taiseer Kalam Almannan",
+  "tafSaadiD": "Tayseer Kalaam Almannan",
   "@tafSaadiD": {
     "type": "text",
     "placeholders": {}
   },
-  "tafTabariD": "Jami al-Bayan an Tawil [ay] al Corán",
+  "tafTabariD": "Jami al-Bayan an Tawilay al-Quraan",
   "@tafTabariD": {
     "type": "text",
     "placeholders": {}
   },
-  "appLang": "Idioma de la aplicación",
+  "appLang": "Luqadda Appka",
   "@appLang": {
     "type": "text",
     "placeholders": {}
   },
-
-  "setting": "Configuración",
+  "setting": "Dejinta",
   "@setting": {
     "type": "text",
     "placeholders": {}
   },
-
-  "reader1": "Abdul Basit",
+  "reader1": "Cabdul Baasit",
   "@reader1": {
     "type": "text",
     "placeholders": {}
   },
-
-  "reader2": "Mohamed Siddiq El-Minshawi",
+  "reader2": "Maxamed Siddiiq El-Minshawi",
   "@reader2": {
     "type": "text",
     "placeholders": {}
   },
-
-  "reader3": "Mahmoud Khalil Al-Hussary",
+  "reader3": "Maxmuud Khaliil Al-Hussary",
   "@reader3": {
     "type": "text",
     "placeholders": {}
   },
-
-  "reader4": "Ahmed Ibn Ali Al-Ajamy",
+  "reader4": "Axmed Ibn Cali Al-Ajamy",
   "@reader4": {
     "type": "text",
     "placeholders": {}
@@ -329,192 +320,192 @@
     "type": "text",
     "placeholders": {}
   },
-  "alheekmahlib": "Biblioteca Alheekmah",
+  "alheekmahlib": "Maktabadda Al Heekmah",
   "@alheekmahlib": {
     "type": "text",
     "placeholders": {}
   },
-  "backTo": "De regreso",
+  "backTo": "Back To",
   "@backTo": {
     "type": "text",
     "placeholders": {}
   },
-  "next": "Próxima",
+  "next": "Xiga",
   "@next": {
     "type": "text",
     "placeholders": {}
   },
-  "start": "Comenzar",
+  "start": "Bilaabo",
   "@start": {
     "type": "text",
     "placeholders": {}
   },
-  "quranPages": "Al Corán (Páginas)",
+  "quranPages": "Al Quraan (Bogag)",
   "@quranPages": {
     "type": "text",
     "placeholders": {}
   },
-  "quranText": "Al Corán (Ayah)",
+  "quranText": "Al Quraan (Aayadaha)",
   "@quranText": {
     "type": "text",
     "placeholders": {}
   },
-  "tafseer": "Al Tafseer",
+  "tafseer": "Al Tafsiir",
   "@tafseer": {
     "type": "text",
     "placeholders": {}
   },
-  "allJuz": "Partes del Corán",
+  "allJuz": "Qaybaha Quraanka",
   "@allJuz": {
     "type": "text",
     "placeholders": {}
   },
-  "copyAzkarText": "¡Se ha copiado el Azkar!",
+  "copyAzkarText": "Azkarka waa la keydiyay!",
   "@copyAzkarText": {
     "type": "text",
     "placeholders": {}
   },
-  "addBookmark": "¡Marcador añadido!",
+  "addBookmark": "Calaamad waa la daray!",
   "@addBookmark": {
     "type": "text",
     "placeholders": {}
   },
-  "deletedBookmark": "¡Marcador eliminado!",
+  "deletedBookmark": "Calaamad waa la tirtiray!",
   "@deletedBookmark": {
     "type": "text",
     "placeholders": {}
   },
-  "deletedReminder": "¡Recordatorio eliminado!",
+  "deletedReminder": "Xusuusinta waa la tirtiray!",
   "@deletedReminder": {
     "type": "text",
     "placeholders": {}
   },
-  "fillAllFields": "¡Por favor complete los campos!",
+  "fillAllFields": "Fadlan buuxi goobaha!",
   "@fillAllFields": {
     "type": "text",
     "placeholders": {}
   },
-  "version": "Versión",
+  "version": "Nooca",
   "@version": {
     "type": "text",
     "placeholders": {}
   },
-  "share": "Comparte la aplicación",
+  "share": "La Wadaag Appka",
   "@share": {
     "type": "text",
     "placeholders": {}
   },
-  "facebook": "Síguenos en Facebook",
+  "facebook": "Nala raac Facebook",
   "@facebook": {
     "type": "text",
     "placeholders": {}
   },
-  "addZekrBookmark": "El Zekr ha sido agregado a favoritos",
+  "addZekrBookmark": "Dhikirka waa la daray kuwa jeclaysan",
   "@addZekrBookmark": {
     "type": "text",
     "placeholders": {}
   },
-  "deletedZekrBookmark": "¡El Zekr ha sido eliminado de favoritos!",
+  "deletedZekrBookmark": "Dhikirka waa la tirtiray kuwa jeclaysan",
   "@deletedZekrBookmark": {
     "type": "text",
     "placeholders": {}
   },
-  "pageNo": "Nú de página",
+  "pageNo": "Tirada Bogga",
   "@pageNo": {
     "type": "text",
     "placeholders": {}
   },
-  "lastRead": "Última lectura",
+  "lastRead": "Akhris Ugu Danbeeyay",
   "@lastRead": {
     "type": "text",
     "placeholders": {}
   },
-  "copyAyah": "El verso ha sido copiado.",
+  "copyAyah": "Aayadda waa la keydiyay",
   "@copyAyah": {
     "type": "text",
     "placeholders": {}
   },
-  "copyTafseer": "La Tafseer ha sido copiada",
+  "copyTafseer": "Tafsiirka waa la keydiyay",
   "@copyTafseer": {
     "type": "text",
     "placeholders": {}
   },
-  "online": "En línea",
+  "online": "Online",
   "@online": {
     "type": "text",
     "placeholders": {}
   },
-  "download": "Descargar",
+  "download": "Deeqsi",
   "@download": {
     "type": "text",
     "placeholders": {}
   },
-  "noInternet": "¡El dispositivo no está conectado a Internet!",
+  "noInternet": "Qalabku ma xidhna Internetka!",
   "@noInternet": {
     "type": "text",
     "placeholders": {}
   },
-  "mobileDataAyat": "Nota: ¡Está utilizando datos móviles para descargar versos!",
+  "mobileDataAyat": "Ogeysiis: Waad adeegsanaysaa Xogta Shabakadda inaad aayadaha deeqsiso!",
   "@mobileDataAyat": {
     "type": "text",
     "placeholders": {}
   },
-  "mobileDataSurahs": "Nota: ¡Está utilizando datos móviles para descargar las suras!",
+  "mobileDataSurahs": "Ogeysiis: Waad adeegsanaysaa Xogta Shabakadda inaad Suuradaha deeqsiso!",
   "@mobileDataSurahs": {
     "type": "text",
     "placeholders": {}
   },
-  "mobileDataListen": "Nota: ¡Está utilizando datos móviles para escuchar suras!",
+  "mobileDataListen": "Ogeysiis: Waad adeegsanaysaa Xogta Shabakadda inaad Suuradaha dhegaysato!",
   "@mobileDataListen": {
     "type": "text",
     "placeholders": {}
   },
-  "choiceAyah": "¡Elige el verso primero!",
+  "choiceAyah": "Fadlan dooro aayadda hore!",
   "@choiceAyah": {
     "type": "text",
     "placeholders": {}
   },
-  "stopSigns": "Señales de alto",
+  "stopSigns": "Astamaha Joojinta",
   "@stopSigns": {
     "type": "text",
     "placeholders": {}
   },
-  "aboutApp": "Acerca de la aplicación",
+  "aboutApp": "Ku saabsan Appka",
   "@aboutApp": {
     "type": "text",
     "placeholders": {}
   },
-  "readMore": "Leer más",
+  "readMore": "Akhri inta badan",
   "@readMore": {
     "type": "text",
     "placeholders": {}
   },
-  "readLess": "Leer menos",
+  "readLess": "Akhri inta yar",
   "@readLess": {
     "type": "text",
     "placeholders": {}
   },
-  "ok": "Cancelar",
+  "ok": "Haa",
   "@ok": {
     "type": "text",
     "placeholders": {}
   },
-  "cancel": "Cancelar",
+  "cancel": "Ka noqo",
   "@cancel": {
     "type": "text",
     "placeholders": {}
   },
-  "searchToSurah": "Buscar a Sura",
+  "searchToSurah": "Raadi Suurah",
   "@searchToSurah": {
     "type": "text",
     "placeholders": {}
   },
-  "addReminder": "Agregar nuevo recordatorio",
+  "addReminder": "Dar xusuus cusub",
   "@addReminder": {
     "type": "text",
     "placeholders": {}
   },
-  "lastListen": "Última Escucha",
+  "lastListen": "Dhegaysiga ugu danbeeyay",
   "@lastListen": {
     "type": "text",
     "placeholders": {}
@@ -524,77 +515,77 @@
     "type": "text",
     "placeholders": {}
   },
-  "shareText": "Como texto",
+  "shareText": "Sida qoraal",
   "@shareText": {
     "type": "text",
     "placeholders": {}
   },
-  "shareImage": "Como una imagen",
+  "shareImage": "Sida sawir",
   "@shareImage": {
     "type": "text",
     "placeholders": {}
   },
-  "shareImageWTrans": "Como una imagen",
+  "shareImageWTrans": "Sida sawir iyo qoraal dheeraad ah",
   "@shareImageWTrans": {
     "type": "text",
     "placeholders": {}
   },
-  "shareTrans": "Nota: Compartir la interpretación en una imagen solo respalda la interpretación de Al-Saadi, porque la interpretación no es larga.",
+  "shareTrans": "Ogeysiis: La wadaagista tafsiirka sawir wuxuu kaliya taageeraa tafsiirka Al-Saadi, sababtoo ah tafsiirku ma ahan mid dheer.",
   "@shareTrans": {
     "type": "text",
     "placeholders": {}
   },
-  "translation": "Traducción",
+  "translation": "Turjumaada",
   "@translation": {
     "type": "text",
     "placeholders": {}
   },
-  "search": "Buscar",
+  "search": "Search",
   "@search": {
     "type": "text",
     "placeholders": {}
   },
-  "surahsList": "Lista de suras",
+  "surahsList": "Surahs List",
   "@surahsList": {
     "type": "text",
     "placeholders": {}
   },
-  "bookmarksList": "Lista de marcadores",
+  "bookmarksList": "Bookmarks List",
   "@bookmarksList": {
     "type": "text",
     "placeholders": {}
   },
-  "copy": "Copiar",
+  "copy": "Copy",
   "@copy": {
     "type": "text",
     "placeholders": {}
   },
-  "shareTafseer": "Compartir",
+  "shareTafseer": "Share",
   "@shareTafseer": {
     "type": "text",
     "placeholders": {}
   },
-  "addToBookmark": "Agregar al marcador",
+  "addToBookmark": "Add To Bookmark",
   "@addToBookmark": {
     "type": "text",
     "placeholders": {}
   },
-  "repeatSurah": "repetir sura",
+  "repeatSurah": "Repeat Surah",
   "@repeatSurah": {
     "type": "text",
     "placeholders": {}
   },
-  "pauseSurah": "Pausa Sura",
+  "pauseSurah": "Pause Surah",
   "@pauseSurah": {
     "type": "text",
     "placeholders": {}
   },
-  "replaySurah": "Reproducir sura",
+  "replaySurah": "Replay Surah",
   "@replaySurah": {
     "type": "text",
     "placeholders": {}
   },
-  "skipToPrevious": "Saltar a la anterior",
+  "skipToPrevious": "Skip To Previous",
   "@skipToPrevious": {
     "type": "text",
     "placeholders": {}
@@ -604,27 +595,27 @@
     "type": "text",
     "placeholders": {}
   },
-  "createPlayList": "Crear la lista de reproducción",
+  "createPlayList": "Create the playlist",
   "@createPlayList": {
     "type": "text",
     "placeholders": {}
   },
-  "playList": "Listas de reproducción",
+  "playList": "Playlists",
   "@playList": {
     "type": "text",
     "placeholders": {}
   },
-  "playListName": "Escribe el nombre de la lista de reproducción",
+  "playListName": "Type the name of the playlist",
   "@playListName": {
     "type": "text",
     "placeholders": {}
   },
-  "from": "De",
+  "from": "سے",
   "@from": {
     "type": "text",
     "placeholders": {}
   },
-  "to": "A",
+  "to": "کو",
   "@to": {
     "type": "text",
     "placeholders": {}

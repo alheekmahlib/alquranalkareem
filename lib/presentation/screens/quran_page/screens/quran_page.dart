@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../../../core/services/l10n/app_localizations.dart';
 import '../../../../core/services/services_locator.dart';
 import '../../../../core/utils/constants/svg_picture.dart';
 import '../../../../core/widgets/widgets.dart';
@@ -63,9 +62,7 @@ class MPages extends StatelessWidget {
                                                       .timeNow
                                                       .lastRead)
                                               .then((value) => customSnackBar(
-                                                  context,
-                                                  AppLocalizations.of(context)!
-                                                      .addBookmark));
+                                                  context, 'addBookmark'.tr));
                                           print('addBookmark');
                                           print(
                                               '${sl<GeneralController>().timeNow.lastRead}');
@@ -110,9 +107,7 @@ class MPages extends StatelessWidget {
                                                       .timeNow
                                                       .lastRead)
                                               .then((value) => customSnackBar(
-                                                  context,
-                                                  AppLocalizations.of(context)!
-                                                      .addBookmark));
+                                                  context, 'addBookmark'.tr));
                                           print('addBookmark');
                                           print(
                                               '${sl<GeneralController>().timeNow.lastRead}');
@@ -172,10 +167,7 @@ class MPages extends StatelessWidget {
                                                         .timeNow
                                                         .lastRead)
                                                 .then((value) => customSnackBar(
-                                                    context,
-                                                    AppLocalizations.of(
-                                                            context)!
-                                                        .addBookmark));
+                                                    context, 'addBookmark'.tr));
                                             print('addBookmark');
                                             // sl<BookmarksController>()
                                             //     .savelastBookmark(index + 1);
@@ -218,10 +210,7 @@ class MPages extends StatelessWidget {
                                                         .timeNow
                                                         .lastRead)
                                                 .then((value) => customSnackBar(
-                                                    context,
-                                                    AppLocalizations.of(
-                                                            context)!
-                                                        .addBookmark));
+                                                    context, 'addBookmark'.tr));
                                             print('addBookmark');
                                             // sl<BookmarksController>()
                                             //     .savelastBookmark(index + 1);
@@ -257,6 +246,7 @@ class MPages extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.symmetric(vertical: 58.0, horizontal: 22.0),
         child: SizedBox(
+          height: 500,
           width: 305,
           child: Obx(() {
             if (quranCtrl.surahs.isEmpty) {
@@ -271,7 +261,7 @@ class MPages extends StatelessWidget {
                   fontSize: 17,
                   fontFamily: 'hafs${index + 1}',
                   height: 1.7,
-                  color: Theme.of(context).primaryColorDark,
+                  color: Colors.black,
                 ),
               );
             }).toList();

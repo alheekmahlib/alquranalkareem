@@ -1,13 +1,10 @@
 import 'package:alquranalkareem/core/utils/constants/extensions.dart';
 import 'package:arabic_numbers/arabic_numbers.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
-import 'package:theme_provider/theme_provider.dart';
+import 'package:get/get.dart';
 
-import '../../../../core/services/l10n/app_localizations.dart';
 import '../../../../core/services/services_locator.dart';
 import '../../../controllers/general_controller.dart';
 import '../../../controllers/surah_repository_controller.dart';
@@ -22,7 +19,7 @@ class SurahList extends StatelessWidget {
     double height = MediaQuery.sizeOf(context).height;
     return Container(
       height: context.customOrientation(height * .65, height),
-      color: Theme.of(context).colorScheme.background,
+      color: Get.theme.colorScheme.background,
       child: Padding(
         padding: const EdgeInsets.only(bottom: 16.0),
         child: Column(
@@ -64,11 +61,8 @@ class SurahList extends StatelessWidget {
                                   child: Container(
                                       height: 65,
                                       color: (index % 2 == 0
-                                          ? Theme.of(context)
-                                              .colorScheme
-                                              .background
-                                          : Theme.of(context)
-                                              .dividerColor
+                                          ? Get.theme.colorScheme.background
+                                          : Get.theme.dividerColor
                                               .withOpacity(.3)),
                                       child: Padding(
                                         padding: const EdgeInsets.symmetric(
@@ -90,14 +84,10 @@ class SurahList extends StatelessWidget {
                                                   arabicNumber
                                                       .convert(surah.id),
                                                   style: TextStyle(
-                                                      color: ThemeProvider
-                                                                      .themeOf(
-                                                                          context)
-                                                                  .id ==
-                                                              'dark'
-                                                          ? Theme.of(context)
-                                                              .canvasColor
-                                                          : Theme.of(context)
+                                                      color: Get.isDarkMode
+                                                          ? Get
+                                                              .theme.canvasColor
+                                                          : Get.theme
                                                               .primaryColorDark,
                                                       fontFamily: "kufi",
                                                       fontSize: 14,
@@ -113,17 +103,12 @@ class SurahList extends StatelessWidget {
                                               children: [
                                                 SvgPicture.asset(
                                                   'assets/svg/surah_name/00${index + 1}.svg',
-                                                  colorFilter: ThemeProvider
-                                                                  .themeOf(
-                                                                      context)
-                                                              .id ==
-                                                          'dark'
+                                                  colorFilter: Get.isDarkMode
                                                       ? ColorFilter.mode(
-                                                          Theme.of(context)
-                                                              .canvasColor,
+                                                          Get.theme.canvasColor,
                                                           BlendMode.srcIn)
                                                       : ColorFilter.mode(
-                                                          Theme.of(context)
+                                                          Get.theme
                                                               .primaryColorDark,
                                                           BlendMode.srcIn),
                                                   width: 100,
@@ -139,14 +124,10 @@ class SurahList extends StatelessWidget {
                                                       fontWeight:
                                                           FontWeight.w600,
                                                       fontSize: 10,
-                                                      color: ThemeProvider
-                                                                      .themeOf(
-                                                                          context)
-                                                                  .id ==
-                                                              'dark'
-                                                          ? Theme.of(context)
-                                                              .canvasColor
-                                                          : Theme.of(context)
+                                                      color: Get.isDarkMode
+                                                          ? Get
+                                                              .theme.canvasColor
+                                                          : Get.theme
                                                               .primaryColorLight,
                                                     ),
                                                   ),
@@ -158,18 +139,13 @@ class SurahList extends StatelessWidget {
                                                   MainAxisAlignment.center,
                                               children: [
                                                 Text(
-                                                  "| ${AppLocalizations.of(context)?.aya_count} |",
+                                                  "| ${'aya_count'.tr} |",
                                                   style: TextStyle(
                                                     fontFamily: "uthman",
                                                     fontSize: 12,
-                                                    color: ThemeProvider
-                                                                    .themeOf(
-                                                                        context)
-                                                                .id ==
-                                                            'dark'
-                                                        ? Theme.of(context)
-                                                            .canvasColor
-                                                        : Theme.of(context)
+                                                    color: Get.isDarkMode
+                                                        ? Get.theme.canvasColor
+                                                        : Get.theme
                                                             .primaryColorDark,
                                                   ),
                                                 ),
@@ -179,14 +155,9 @@ class SurahList extends StatelessWidget {
                                                     fontFamily: "kufi",
                                                     fontSize: 14,
                                                     fontWeight: FontWeight.bold,
-                                                    color: ThemeProvider
-                                                                    .themeOf(
-                                                                        context)
-                                                                .id ==
-                                                            'dark'
-                                                        ? Theme.of(context)
-                                                            .canvasColor
-                                                        : Theme.of(context)
+                                                    color: Get.isDarkMode
+                                                        ? Get.theme.canvasColor
+                                                        : Get.theme
                                                             .primaryColorDark,
                                                   ),
                                                 ),

@@ -1,16 +1,14 @@
-import '/core/utils/constants/extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:theme_provider/theme_provider.dart';
 
 import '../../../presentation/controllers/share_controller.dart';
 import '../../../presentation/controllers/translate_controller.dart';
-import '../../services/l10n/app_localizations.dart';
 import '../../services/services_locator.dart';
 import '../../utils/constants/lottie.dart';
 import '../../utils/constants/shared_pref_services.dart';
 import '../../utils/constants/shared_preferences_constants.dart';
 import '../widgets.dart';
+import '/core/utils/constants/extensions.dart';
 import 'share_ayahToImage.dart';
 import 'share_tafseerToImage.dart';
 
@@ -62,11 +60,11 @@ void showVerseOptionsBottomSheet(
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 16.0),
                     child: Text(
-                      AppLocalizations.of(context)!.shareText,
+                      'shareText'.tr,
                       style: TextStyle(
-                          color: ThemeProvider.themeOf(context).id == 'dark'
-                              ? Theme.of(context).colorScheme.surface
-                              : Theme.of(context).primaryColorDark,
+                          color: Get.isDarkMode
+                              ? Get.theme.colorScheme.surface
+                              : Get.theme.primaryColorDark,
                           fontSize: 16,
                           fontFamily: 'kufi'),
                     ),
@@ -98,10 +96,9 @@ void showVerseOptionsBottomSheet(
                             child: Text(
                               "﴿ $verseText ﴾",
                               style: TextStyle(
-                                  color: ThemeProvider.themeOf(context).id ==
-                                          'dark'
-                                      ? Theme.of(context).canvasColor
-                                      : Theme.of(context).primaryColorDark,
+                                  color: Get.isDarkMode
+                                      ? Get.theme.canvasColor
+                                      : Get.theme.primaryColorDark,
                                   fontSize: 16,
                                   fontFamily: 'uthmanic2'),
                               textDirection: TextDirection.rtl,
@@ -133,17 +130,11 @@ void showVerseOptionsBottomSheet(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Text(
-                                  AppLocalizations.of(context)!.shareImage,
+                                  'shareImage'.tr,
                                   style: TextStyle(
-                                      color:
-                                          ThemeProvider.themeOf(context)
-                                                      .id ==
-                                                  'dark'
-                                              ? Theme.of(context)
-                                                  .colorScheme
-                                                  .surface
-                                              : Theme.of(context)
-                                                  .primaryColorDark,
+                                      color: Get.isDarkMode
+                                          ? Get.theme.colorScheme.surface
+                                          : Get.theme.primaryColorDark,
                                       fontSize: 16,
                                       fontFamily: 'kufi'),
                                 ),
@@ -197,18 +188,11 @@ void showVerseOptionsBottomSheet(
                                 Expanded(
                                   flex: 6,
                                   child: Text(
-                                    AppLocalizations.of(context)!
-                                        .shareImageWTrans,
+                                    'shareImageWTrans'.tr,
                                     style: TextStyle(
-                                        color:
-                                            ThemeProvider.themeOf(context)
-                                                        .id ==
-                                                    'dark'
-                                                ? Theme.of(context)
-                                                    .colorScheme
-                                                    .surface
-                                                : Theme.of(context)
-                                                    .primaryColorDark,
+                                        color: Get.isDarkMode
+                                            ? Get.theme.colorScheme.surface
+                                            : Get.theme.primaryColorDark,
                                         fontSize: 16,
                                         fontFamily: 'kufi'),
                                   ),
@@ -219,15 +203,12 @@ void showVerseOptionsBottomSheet(
                                     children: [
                                       PopupMenuButton(
                                         position: PopupMenuPosition.under,
-                                        color: Theme.of(context)
-                                            .colorScheme
-                                            .background,
+                                        color: Get.theme.colorScheme.background,
                                         child: Container(
                                           // width: 140,
                                           padding: const EdgeInsets.all(8.0),
                                           decoration: BoxDecoration(
-                                            color: Theme.of(context)
-                                                .dividerColor
+                                            color: Get.theme.dividerColor
                                                 .withOpacity(.4),
                                             borderRadius:
                                                 const BorderRadius.all(
@@ -244,14 +225,10 @@ void showVerseOptionsBottomSheet(
                                                   style: TextStyle(
                                                     fontFamily: 'kufi',
                                                     fontSize: 16,
-                                                    color:
-                                                        ThemeProvider.themeOf(
-                                                                        context)
-                                                                    .id ==
-                                                                'dark'
-                                                            ? Colors.white
-                                                            : Theme.of(context)
-                                                                .primaryColor,
+                                                    color: Get.isDarkMode
+                                                        ? Colors.white
+                                                        : Get
+                                                            .theme.primaryColor,
                                                   ),
                                                 ),
                                               ),
@@ -259,9 +236,8 @@ void showVerseOptionsBottomSheet(
                                                 Icons
                                                     .keyboard_arrow_down_rounded,
                                                 size: 20,
-                                                color: Theme.of(context)
-                                                    .colorScheme
-                                                    .surface,
+                                                color: Get
+                                                    .theme.colorScheme.surface,
                                               ),
                                             ],
                                           ),
@@ -296,7 +272,7 @@ void showVerseOptionsBottomSheet(
                                                                     .shareTransValue
                                                                     .value ==
                                                                 selectedIndex
-                                                            ? Theme.of(context)
+                                                            ? Get.theme
                                                                 .primaryColorLight
                                                             : const Color(
                                                                 0xffcdba72),
@@ -389,12 +365,11 @@ void showVerseOptionsBottomSheet(
                             padding:
                                 const EdgeInsets.symmetric(horizontal: 32.0),
                             child: Text(
-                              AppLocalizations.of(context)!.shareTrans,
+                              'shareTrans'.tr,
                               style: TextStyle(
-                                  color: ThemeProvider.themeOf(context).id ==
-                                          'dark'
-                                      ? Theme.of(context).colorScheme.surface
-                                      : Theme.of(context).primaryColorDark,
+                                  color: Get.isDarkMode
+                                      ? Get.theme.colorScheme.surface
+                                      : Get.theme.primaryColorDark,
                                   fontSize: 14,
                                   fontFamily: 'kufi'),
                               textAlign: TextAlign.justify,

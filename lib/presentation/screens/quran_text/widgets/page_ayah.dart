@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:theme_provider/theme_provider.dart';
 
 import '../../../../core/services/services_locator.dart';
 import '../../../../core/utils/constants/svg_picture.dart';
@@ -26,7 +25,7 @@ class PageAyah extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     sl<QuranTextController>().backColor =
-        Theme.of(context).colorScheme.surface.withOpacity(0.4);
+        Get.theme.colorScheme.surface.withOpacity(0.4);
     return Stack(
       children: [
         GestureDetector(
@@ -41,7 +40,7 @@ class PageAyah extends StatelessWidget {
             margin: const EdgeInsets.symmetric(vertical: 4),
             width: MediaQuery.sizeOf(context).width,
             decoration: BoxDecoration(
-                color: Theme.of(context).colorScheme.background,
+                color: Get.theme.colorScheme.background,
                 borderRadius: const BorderRadius.all(Radius.circular(8))),
             child: Column(
               children: [
@@ -63,7 +62,7 @@ class PageAyah extends StatelessWidget {
                     return SelectableText.rich(
                       showCursor: true,
                       cursorWidth: 3,
-                      cursorColor: Theme.of(context).dividerColor,
+                      cursorColor: Get.theme.dividerColor,
                       cursorRadius: const Radius.circular(5),
                       scrollPhysics: const ClampingScrollPhysics(),
                       textDirection: TextDirection.rtl,
@@ -108,7 +107,7 @@ class PageAyah extends StatelessWidget {
                   child: pageNumber(
                       arabicNumber.convert(nomPageF + index).toString(),
                       context,
-                      Theme.of(context).primaryColor),
+                      Get.theme.primaryColor),
                 ),
               ],
             ),
@@ -120,13 +119,8 @@ class PageAyah extends StatelessWidget {
           child: Padding(
             padding:
                 const EdgeInsets.symmetric(horizontal: 20.0, vertical: 25.0),
-            child: juzNum(
-                '${sl<QuranTextController>().juz}',
-                context,
-                ThemeProvider.themeOf(context).id == 'dark'
-                    ? Colors.white
-                    : Colors.black,
-                25),
+            child: juzNum('${sl<QuranTextController>().juz}', context,
+                Get.isDarkMode ? Colors.white : Colors.black, 25),
           ),
         )
       ],

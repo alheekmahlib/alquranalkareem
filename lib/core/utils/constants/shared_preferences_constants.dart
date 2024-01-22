@@ -21,3 +21,4 @@ const String LANGUAGE_FONT = "languageFont";
 const String READER_INDEX = "readerIndex";
 const String CURRENT_TRANSLATE = "currentTranslate";
 const String IS_TAFSEER = "is_tafseer";
+const String SET_THEME = "SET_THEME";

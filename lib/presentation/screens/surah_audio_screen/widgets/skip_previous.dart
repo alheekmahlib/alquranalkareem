@@ -1,5 +1,5 @@
-import '/core/services/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:just_audio/just_audio.dart';
 
 import '../../../../core/services/services_locator.dart';
@@ -16,10 +16,10 @@ class SkipToPrevious extends StatelessWidget {
         icon: Semantics(
           button: true,
           enabled: true,
-          label: AppLocalizations.of(context)!.skipToPrevious,
+          label: 'skipToPrevious'.tr,
           child: Icon(
             Icons.skip_next,
-            color: Theme.of(context).colorScheme.surface,
+            color: Get.theme.colorScheme.surface,
             size: 30,
           ),
         ),

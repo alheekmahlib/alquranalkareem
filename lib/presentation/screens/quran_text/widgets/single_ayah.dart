@@ -1,10 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:theme_provider/theme_provider.dart';
 
-import '/presentation/screens/quran_text/widgets/text_overflow_detector.dart';
-import '/presentation/screens/quran_text/widgets/widgets.dart';
-import '../../../../core/services/l10n/app_localizations.dart';
 import '../../../../core/services/services_locator.dart';
 import '../../../../core/utils/constants/lottie.dart';
 import '../../../../core/utils/constants/svg_picture.dart';
@@ -14,6 +10,8 @@ import '../../../controllers/general_controller.dart';
 import '../../../controllers/quranText_controller.dart';
 import '../../../controllers/settings_controller.dart';
 import '../../../controllers/translate_controller.dart';
+import '/presentation/screens/quran_text/widgets/text_overflow_detector.dart';
+import '/presentation/screens/quran_text/widgets/widgets.dart';
 
 class SingleAyah extends StatelessWidget {
   final surah;
@@ -30,7 +28,7 @@ class SingleAyah extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     sl<QuranTextController>().backColor =
-        Theme.of(context).colorScheme.surface.withOpacity(0.4);
+        Get.theme.colorScheme.surface.withOpacity(0.4);
     return Stack(
       children: [
         GestureDetector(
@@ -46,7 +44,7 @@ class SingleAyah extends StatelessWidget {
             margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
             width: MediaQuery.sizeOf(context).width,
             decoration: BoxDecoration(
-                color: Theme.of(context).colorScheme.background,
+                color: Get.theme.colorScheme.background,
                 borderRadius: const BorderRadius.all(Radius.circular(4))),
             child: Column(
               children: [
@@ -59,7 +57,7 @@ class SingleAyah extends StatelessWidget {
                     () => SelectableText.rich(
                       showCursor: true,
                       cursorWidth: 3,
-                      cursorColor: Theme.of(context).dividerColor,
+                      cursorColor: Get.theme.dividerColor,
                       cursorRadius: const Radius.circular(5),
                       scrollPhysics: const ClampingScrollPhysics(),
                       textDirection: TextDirection.rtl,
@@ -72,9 +70,7 @@ class SingleAyah extends StatelessWidget {
                                 sl<GeneralController>().fontSizeArabic.value,
                             fontWeight: FontWeight.normal,
                             fontFamily: 'uthmanic2',
-                            color: ThemeProvider.themeOf(context).id == 'dark'
-                                ? Colors.white
-                                : Colors.black,
+                            color: Get.isDarkMode ? Colors.white : Colors.black,
                             // background: Paint()
                             //   ..color =
                             //       index == sl<AudioController>().ayahSelected.value
@@ -135,7 +131,7 @@ class SingleAyah extends StatelessWidget {
                         label: 'Change The Translate',
                         child: Icon(
                           Icons.translate_rounded,
-                          color: Theme.of(context).colorScheme.surface,
+                          color: Get.theme.colorScheme.surface,
                           size: 24,
                         ),
                       ),
@@ -150,9 +146,7 @@ class SingleAyah extends StatelessWidget {
                     juzNumEn(
                       'Part\n${surah!.ayahs![index].juz}',
                       context,
-                      ThemeProvider.themeOf(context).id == 'dark'
-                          ? Colors.white
-                          : Colors.black,
+                      Get.isDarkMode ? Colors.white : Colors.black,
                     ),
                   ],
                 ),
@@ -178,23 +172,21 @@ class SingleAyah extends StatelessWidget {
                               sl<GeneralController>().fontSizeArabic.value - 10,
                           fontFamily:
                               sl<SettingsController>().languageFont.value,
-                          color: ThemeProvider.themeOf(context).id == 'dark'
-                              ? Colors.white
-                              : Colors.black,
+                          color: Get.isDarkMode ? Colors.white : Colors.black,
                         ),
                         textAlign: TextAlign.center,
-                        readMoreText: AppLocalizations.of(context)!.readMore,
-                        readLessText: AppLocalizations.of(context)!.readLess,
+                        readMoreText: 'readMore'.tr,
+                        readLessText: 'readLess'.tr,
                         buttonTextStyle: TextStyle(
                           fontSize: 12,
                           fontFamily: 'kufi',
-                          color: ThemeProvider.themeOf(context).id == 'dark'
+                          color: Get.isDarkMode
                               ? Colors.white
-                              : Theme.of(context).primaryColorLight,
+                              : Get.theme.primaryColorLight,
                         ),
-                        iconColor: ThemeProvider.themeOf(context).id == 'dark'
+                        iconColor: Get.isDarkMode
                             ? Colors.white
-                            : Theme.of(context).primaryColorLight,
+                            : Get.theme.primaryColorLight,
                       );
                     },
                   ),
@@ -210,19 +202,14 @@ class SingleAyah extends StatelessWidget {
                 const EdgeInsets.symmetric(horizontal: 20.0, vertical: 8.0),
             child: Container(
               decoration: BoxDecoration(
-                color: Theme.of(context).colorScheme.background,
+                color: Get.theme.colorScheme.background,
                 borderRadius: BorderRadius.circular(8),
               ),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  juzNum(
-                      '${surah!.ayahs![index].juz}',
-                      context,
-                      ThemeProvider.themeOf(context).id == 'dark'
-                          ? Colors.white
-                          : Colors.black,
-                      25),
+                  juzNum('${surah!.ayahs![index].juz}', context,
+                      Get.isDarkMode ? Colors.white : Colors.black, 25),
                   singleAyahMenu(
                       context,
                       index,

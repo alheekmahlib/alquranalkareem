@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:theme_provider/theme_provider.dart';
 
 import '../../core/services/services_locator.dart';
 import '../../core/utils/constants/shared_pref_services.dart';
@@ -82,9 +81,7 @@ class QuranTextController extends GetxController {
                     ..strokeJoin = StrokeJoin.round
                     ..strokeCap = StrokeCap.round
                     ..style = PaintingStyle.fill,
-                  color: ThemeProvider.themeOf(context).id == 'dark'
-                      ? Colors.white
-                      : Colors.black,
+                  color: Get.isDarkMode ? Colors.white : Colors.black,
                 ),
                 recognizer: TapGestureRecognizer()
                   ..onTapDown = (TapDownDetails details) {

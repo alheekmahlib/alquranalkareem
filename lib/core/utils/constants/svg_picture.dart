@@ -11,8 +11,8 @@ besmAllah(BuildContext context) {
   return SvgPicture.asset(
     'assets/svg/besmAllah.svg',
     width: 250,
-    colorFilter: ColorFilter.mode(
-        Theme.of(context).cardColor.withOpacity(.8), BlendMode.srcIn),
+    colorFilter:
+        ColorFilter.mode(Get.theme.cardColor.withOpacity(.8), BlendMode.srcIn),
   );
 }
 
@@ -20,8 +20,8 @@ besmAllah2(BuildContext context) {
   return SvgPicture.asset(
     'assets/svg/besmAllah2.svg',
     width: 250,
-    colorFilter: ColorFilter.mode(
-        Theme.of(context).cardColor.withOpacity(.8), BlendMode.srcIn),
+    colorFilter:
+        ColorFilter.mode(Get.theme.cardColor.withOpacity(.8), BlendMode.srcIn),
   );
 }
 
@@ -39,8 +39,8 @@ spaceLine(double height, width) {
 quranIcon(BuildContext context, double height, width) {
   return SvgPicture.asset(
     'assets/svg/quran_au_ic.svg',
-    colorFilter: ColorFilter.mode(
-        Theme.of(context).colorScheme.surface, BlendMode.srcIn),
+    colorFilter:
+        ColorFilter.mode(Get.theme.colorScheme.surface, BlendMode.srcIn),
     width: width,
     height: height,
   );
@@ -60,8 +60,7 @@ bookmarkIcon(BuildContext context, double height, double width,
         colorFilter: sl<BookmarksController>().isPageBookmarked(
                 pageNum ?? sl<GeneralController>().currentPage.value)
             ? null
-            : ColorFilter.mode(
-                Theme.of(context).colorScheme.surface, BlendMode.srcIn),
+            : ColorFilter.mode(Get.theme.colorScheme.surface, BlendMode.srcIn),
       ),
     );
   });
@@ -70,8 +69,8 @@ bookmarkIcon(BuildContext context, double height, double width,
 surahName(BuildContext context, double height, double width) {
   return SvgPicture.asset(
     'assets/svg/surah_name/00${sl<SurahAudioController>().surahNum}.svg',
-    colorFilter: ColorFilter.mode(
-        Theme.of(context).colorScheme.surface, BlendMode.srcIn),
+    colorFilter:
+        ColorFilter.mode(Get.theme.colorScheme.surface, BlendMode.srcIn),
     width: width,
     height: height,
   );

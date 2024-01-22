@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:mini_music_visualizer/mini_music_visualizer.dart';
-import 'package:theme_provider/theme_provider.dart';
 
 import '../../../../core/services/services_locator.dart';
 import '../../../controllers/general_controller.dart';
@@ -23,7 +22,7 @@ class PlayBanner extends StatelessWidget {
           width: 150,
           height: 50,
           decoration: BoxDecoration(
-            color: Theme.of(context).colorScheme.surface.withOpacity(.2),
+            color: Get.theme.colorScheme.surface.withOpacity(.2),
             borderRadius: const BorderRadius.all(Radius.circular(8)),
           ),
           margin: context.customOrientation(
@@ -37,14 +36,14 @@ class PlayBanner extends StatelessWidget {
                   'assets/svg/surah_name/00${sl<SurahAudioController>().surahNum}.svg',
                   width: 100,
                   colorFilter: ColorFilter.mode(
-                      ThemeProvider.themeOf(context).id == 'dark'
-                          ? Theme.of(context).canvasColor
-                          : Theme.of(context).primaryColorDark,
+                      Get.isDarkMode
+                          ? Get.theme.canvasColor
+                          : Get.theme.primaryColorDark,
                       BlendMode.srcIn),
                 ),
               ),
               MiniMusicVisualizer(
-                color: Theme.of(context).colorScheme.surface,
+                color: Get.theme.colorScheme.surface,
                 width: 4,
                 height: 15,
               ),
@@ -52,7 +51,7 @@ class PlayBanner extends StatelessWidget {
                 height: 80,
                 width: 10,
                 decoration: BoxDecoration(
-                  color: Theme.of(context).colorScheme.surface,
+                  color: Get.theme.colorScheme.surface,
                   borderRadius: const BorderRadius.all(
                     Radius.circular(8),
                   ),

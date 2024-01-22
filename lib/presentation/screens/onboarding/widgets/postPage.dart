@@ -1,8 +1,8 @@
 import 'package:easy_image_viewer/easy_image_viewer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
-import 'package:theme_provider/theme_provider.dart';
 
 import '../../../../core/services/services_locator.dart';
 import '../../../../core/utils/constants/lottie.dart';
@@ -21,9 +21,7 @@ class PostPage extends StatelessWidget {
     widgets.add(Text(
       post.body,
       style: TextStyle(
-        color: ThemeProvider.themeOf(context).id == 'dark'
-            ? Colors.white
-            : Colors.black,
+        color: Get.isDarkMode ? Colors.white : Colors.black,
         height: 1.4,
         fontFamily: 'kufi',
         fontSize: 20,
@@ -70,7 +68,7 @@ class PostPage extends StatelessWidget {
       right: false,
       left: false,
       child: Scaffold(
-        backgroundColor: Theme.of(context).colorScheme.background,
+        backgroundColor: Get.theme.colorScheme.background,
         body: Padding(
           padding: context.customOrientation(
               const EdgeInsets.only(right: 16.0, left: 16.0, top: 70.0),
@@ -98,16 +96,15 @@ class PostPage extends StatelessWidget {
                           height: 30,
                           width: 30,
                           decoration: BoxDecoration(
-                              color: Theme.of(context).colorScheme.background,
+                              color: Get.theme.colorScheme.background,
                               borderRadius: const BorderRadius.all(
                                 Radius.circular(8),
                               ),
                               border: Border.all(
-                                  width: 2,
-                                  color: Theme.of(context).dividerColor)),
+                                  width: 2, color: Get.theme.dividerColor)),
                           child: Icon(
                             Icons.close_outlined,
-                            color: Theme.of(context).colorScheme.surface,
+                            color: Get.theme.colorScheme.surface,
                           ),
                         ),
                       ),
@@ -115,9 +112,7 @@ class PostPage extends StatelessWidget {
                     Text(
                       post.title,
                       style: TextStyle(
-                        color: ThemeProvider.themeOf(context).id == 'dark'
-                            ? Colors.white
-                            : Colors.black,
+                        color: Get.isDarkMode ? Colors.white : Colors.black,
                         height: 1.4,
                         fontFamily: 'kufi',
                         fontSize: 24,

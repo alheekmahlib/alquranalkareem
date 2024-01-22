@@ -5,9 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:theme_provider/theme_provider.dart';
 
-import '../../../core/services/l10n/app_localizations.dart';
 import '../../../core/services/local_notifications.dart';
 import '../../../core/services/services_locator.dart';
 import '../../../core/widgets/delete_widget.dart';
@@ -39,9 +37,9 @@ class _MenuScreenState extends State<MenuScreen> {
       right: false,
       left: false,
       child: Scaffold(
-        backgroundColor: Theme.of(context).colorScheme.background,
+        backgroundColor: Get.theme.colorScheme.background,
         appBar: AppBar(
-          backgroundColor: Theme.of(context).colorScheme.background,
+          backgroundColor: Get.theme.colorScheme.background,
         ),
         body: context.customOrientation(
             Padding(
@@ -149,7 +147,7 @@ class _MenuScreenState extends State<MenuScreen> {
       style: TextStyle(
         fontSize: 16.0,
         fontFamily: 'kufi',
-        color: Theme.of(context).colorScheme.surface,
+        color: Get.theme.colorScheme.surface,
       ),
       textAlign: TextAlign.center,
     );
@@ -178,12 +176,12 @@ class _MenuScreenState extends State<MenuScreen> {
     return Semantics(
       button: true,
       enabled: true,
-      label: AppLocalizations.of(context)!.lastRead,
+      label: 'lastRead'.tr,
       child: Container(
         width: context.customOrientation(MediaQuery.sizeOf(context).width,
             MediaQuery.sizeOf(context).width * .4),
         decoration: BoxDecoration(
-          color: Theme.of(context).colorScheme.surface.withOpacity(.2),
+          color: Get.theme.colorScheme.surface.withOpacity(.2),
           borderRadius: const BorderRadius.all(Radius.circular(8)),
         ),
         // padding: EdgeInsets.all(16.0),
@@ -195,7 +193,7 @@ class _MenuScreenState extends State<MenuScreen> {
                   MediaQuery.sizeOf(context).width * .12),
               height: 70,
               decoration: BoxDecoration(
-                color: Theme.of(context).colorScheme.surface,
+                color: Get.theme.colorScheme.surface,
                 borderRadius: const BorderRadius.only(
                   topRight: Radius.circular(8),
                   bottomRight: Radius.circular(8),
@@ -206,11 +204,11 @@ class _MenuScreenState extends State<MenuScreen> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    AppLocalizations.of(context)!.lastRead,
+                    'lastRead'.tr,
                     style: TextStyle(
                       fontFamily: 'kufi',
                       fontSize: 14,
-                      color: Theme.of(context).canvasColor,
+                      color: Get.theme.canvasColor,
                     ),
                     textAlign: TextAlign.center,
                   ),
@@ -221,7 +219,7 @@ class _MenuScreenState extends State<MenuScreen> {
                   ),
                   Icon(
                     Icons.menu_book,
-                    color: Theme.of(context).canvasColor,
+                    color: Get.theme.canvasColor,
                     size: 22,
                   ),
                 ],
@@ -231,7 +229,7 @@ class _MenuScreenState extends State<MenuScreen> {
               height: 50,
               width: 2,
               decoration: BoxDecoration(
-                  color: Theme.of(context).colorScheme.surface,
+                  color: Get.theme.colorScheme.surface,
                   borderRadius: const BorderRadius.all(Radius.circular(8))),
             ),
             const SizedBox(
@@ -241,22 +239,22 @@ class _MenuScreenState extends State<MenuScreen> {
               'assets/svg/surah_name/00${sl<GeneralController>().soMName.value}.svg',
               height: 40,
               colorFilter: ColorFilter.mode(
-                  ThemeProvider.themeOf(context).id == 'dark'
-                      ? Theme.of(context).canvasColor
-                      : Theme.of(context).primaryColorLight,
+                  Get.isDarkMode
+                      ? Get.theme.canvasColor
+                      : Get.theme.primaryColorLight,
                   BlendMode.srcIn),
             ),
             const SizedBox(
               width: 16,
             ),
             Text(
-              '|${AppLocalizations.of(context)!.pageNo} ${sl<GeneralController>().currentPage.value}|',
+              '|${'pageNo'.tr} ${sl<GeneralController>().currentPage.value}|',
               style: TextStyle(
                 fontFamily: 'kufi',
                 fontSize: 12,
-                color: ThemeProvider.themeOf(context).id == 'dark'
-                    ? Theme.of(context).canvasColor
-                    : Theme.of(context).primaryColor,
+                color: Get.isDarkMode
+                    ? Get.theme.canvasColor
+                    : Get.theme.primaryColor,
               ),
             ),
           ],
@@ -269,7 +267,7 @@ class _MenuScreenState extends State<MenuScreen> {
     return Container(
       // width: MediaQuery.sizeOf(context).width,
       decoration: BoxDecoration(
-        color: Theme.of(context).colorScheme.surface.withOpacity(.2),
+        color: Get.theme.colorScheme.surface.withOpacity(.2),
         borderRadius: const BorderRadius.all(Radius.circular(8)),
       ),
       padding: const EdgeInsets.all(8.0),
@@ -278,7 +276,7 @@ class _MenuScreenState extends State<MenuScreen> {
           Semantics(
             button: true,
             enabled: true,
-            label: AppLocalizations.of(context)!.waqfName,
+            label: 'waqfName'.tr,
             child: InkWell(
               child: SizedBox(
                 // width: MediaQuery.sizeOf(context).width,
@@ -287,7 +285,7 @@ class _MenuScreenState extends State<MenuScreen> {
                     Container(
                       padding: const EdgeInsets.all(2),
                       decoration: BoxDecoration(
-                        color: Theme.of(context).colorScheme.surface,
+                        color: Get.theme.colorScheme.surface,
                         borderRadius:
                             const BorderRadius.all(Radius.circular(2)),
                       ),
@@ -300,16 +298,16 @@ class _MenuScreenState extends State<MenuScreen> {
                       width: 2,
                       height: 20,
                       margin: const EdgeInsets.symmetric(horizontal: 8),
-                      color: ThemeProvider.themeOf(context).id == 'dark'
+                      color: Get.isDarkMode
                           ? Colors.white
-                          : Theme.of(context).primaryColor,
+                          : Get.theme.primaryColor,
                     ),
                     Text(
-                      AppLocalizations.of(context)!.stopSigns,
+                      'stopSigns'.tr,
                       style: TextStyle(
-                          color: ThemeProvider.themeOf(context).id == 'dark'
+                          color: Get.isDarkMode
                               ? Colors.white
-                              : Theme.of(context).primaryColor,
+                              : Get.theme.primaryColor,
                           fontFamily: 'kufi',
                           fontStyle: FontStyle.italic,
                           fontSize: 14),
@@ -326,7 +324,7 @@ class _MenuScreenState extends State<MenuScreen> {
           Semantics(
             button: true,
             enabled: true,
-            label: AppLocalizations.of(context)!.setting,
+            label: 'setting'.tr,
             child: InkWell(
               child: SizedBox(
                 // width: MediaQuery.sizeOf(context).width,
@@ -335,7 +333,7 @@ class _MenuScreenState extends State<MenuScreen> {
                     Container(
                       padding: const EdgeInsets.all(2),
                       decoration: BoxDecoration(
-                        color: Theme.of(context).colorScheme.surface,
+                        color: Get.theme.colorScheme.surface,
                         borderRadius:
                             const BorderRadius.all(Radius.circular(2)),
                       ),
@@ -348,16 +346,16 @@ class _MenuScreenState extends State<MenuScreen> {
                       width: 2,
                       height: 20,
                       margin: const EdgeInsets.symmetric(horizontal: 8),
-                      color: ThemeProvider.themeOf(context).id == 'dark'
+                      color: Get.isDarkMode
                           ? Colors.white
-                          : Theme.of(context).primaryColor,
+                          : Get.theme.primaryColor,
                     ),
                     Text(
-                      AppLocalizations.of(context)!.setting,
+                      'setting'.tr,
                       style: TextStyle(
-                          color: ThemeProvider.themeOf(context).id == 'dark'
+                          color: Get.isDarkMode
                               ? Colors.white
-                              : Theme.of(context).primaryColor,
+                              : Get.theme.primaryColor,
                           fontFamily: 'kufi',
                           fontStyle: FontStyle.italic,
                           fontSize: 14),
@@ -374,7 +372,7 @@ class _MenuScreenState extends State<MenuScreen> {
           Semantics(
             button: true,
             enabled: true,
-            label: AppLocalizations.of(context)!.aboutApp,
+            label: 'aboutApp'.tr,
             child: InkWell(
               child: SizedBox(
                 // width: MediaQuery.sizeOf(context).width,
@@ -383,7 +381,7 @@ class _MenuScreenState extends State<MenuScreen> {
                     Container(
                       padding: const EdgeInsets.all(2),
                       decoration: BoxDecoration(
-                        color: Theme.of(context).colorScheme.surface,
+                        color: Get.theme.colorScheme.surface,
                         borderRadius:
                             const BorderRadius.all(Radius.circular(2)),
                       ),
@@ -396,16 +394,16 @@ class _MenuScreenState extends State<MenuScreen> {
                       width: 2,
                       height: 20,
                       margin: const EdgeInsets.symmetric(horizontal: 8),
-                      color: ThemeProvider.themeOf(context).id == 'dark'
+                      color: Get.isDarkMode
                           ? Colors.white
-                          : Theme.of(context).primaryColor,
+                          : Get.theme.primaryColor,
                     ),
                     Text(
-                      AppLocalizations.of(context)!.aboutApp,
+                      'aboutApp'.tr,
                       style: TextStyle(
-                          color: ThemeProvider.themeOf(context).id == 'dark'
+                          color: Get.isDarkMode
                               ? Colors.white
-                              : Theme.of(context).primaryColor,
+                              : Get.theme.primaryColor,
                           fontFamily: 'kufi',
                           fontStyle: FontStyle.italic,
                           fontSize: 14),
@@ -429,7 +427,7 @@ class _MenuScreenState extends State<MenuScreen> {
             Container(
               width: MediaQuery.sizeOf(context).width,
               decoration: BoxDecoration(
-                color: Theme.of(context).colorScheme.surface.withOpacity(.2),
+                color: Get.theme.colorScheme.surface.withOpacity(.2),
                 borderRadius: const BorderRadius.all(Radius.circular(8)),
               ),
               padding: const EdgeInsets.all(8.0),
@@ -466,14 +464,12 @@ class _MenuScreenState extends State<MenuScreen> {
                                   autofocus: false,
                                   cursorHeight: 18,
                                   cursorWidth: 3,
-                                  cursorColor: Theme.of(context).dividerColor,
+                                  cursorColor: Get.theme.dividerColor,
                                   textDirection: TextDirection.rtl,
                                   style: TextStyle(
-                                      color:
-                                          ThemeProvider.themeOf(context).id ==
-                                                  'dark'
-                                              ? Colors.white
-                                              : Theme.of(context).primaryColor,
+                                      color: Get.isDarkMode
+                                          ? Colors.white
+                                          : Get.theme.primaryColor,
                                       fontFamily: 'kufi',
                                       fontSize: 14),
                                   decoration: InputDecoration(
@@ -481,13 +477,10 @@ class _MenuScreenState extends State<MenuScreen> {
                                     hintStyle: TextStyle(
                                       fontSize: 12,
                                       fontFamily: 'kufi',
-                                      color:
-                                          ThemeProvider.themeOf(context).id ==
-                                                  'dark'
-                                              ? Colors.white.withOpacity(.5)
-                                              : Theme.of(context)
-                                                  .primaryColor
-                                                  .withOpacity(.5),
+                                      color: Get.isDarkMode
+                                          ? Colors.white.withOpacity(.5)
+                                          : Get.theme.primaryColor
+                                              .withOpacity(.5),
                                     ),
                                     icon: IconButton(
                                       onPressed: () {
@@ -500,9 +493,7 @@ class _MenuScreenState extends State<MenuScreen> {
                                       icon: Icon(
                                         Icons.done,
                                         size: 14,
-                                        color: Theme.of(context)
-                                            .colorScheme
-                                            .surface,
+                                        color: Get.theme.colorScheme.surface,
                                       ),
                                     ),
                                   ),
@@ -514,10 +505,9 @@ class _MenuScreenState extends State<MenuScreen> {
                               style: TextStyle(
                                 fontSize: 14,
                                 fontFamily: 'kufi',
-                                color:
-                                    ThemeProvider.themeOf(context).id == 'dark'
-                                        ? Colors.white
-                                        : Theme.of(context).primaryColor,
+                                color: Get.isDarkMode
+                                    ? Colors.white
+                                    : Get.theme.primaryColor,
                               ),
                             ),
                             SizedBox(
@@ -551,15 +541,12 @@ class _MenuScreenState extends State<MenuScreen> {
                                 iconBuilder: rollingIconBuilder,
                                 borderWidth: 1,
                                 style: ToggleStyle(
-                                  indicatorColor:
-                                      Theme.of(context).colorScheme.surface,
-                                  backgroundColor:
-                                      Theme.of(context).canvasColor,
+                                  indicatorColor: Get.theme.colorScheme.surface,
+                                  backgroundColor: Get.theme.canvasColor,
                                   borderRadius: const BorderRadius.all(
                                       Radius.circular(8)),
                                   // dif: 2.0,
-                                  borderColor:
-                                      Theme.of(context).colorScheme.surface,
+                                  borderColor: Get.theme.colorScheme.surface,
                                 ),
                                 height: 25,
                               ),
@@ -577,7 +564,7 @@ class _MenuScreenState extends State<MenuScreen> {
               child: Semantics(
                 button: true,
                 enabled: true,
-                label: AppLocalizations.of(context)!.addReminder,
+                label: 'addReminder'.tr,
                 child: GestureDetector(
                   onTap: sl<ReminderController>().addReminder,
                   child: Container(
@@ -588,12 +575,11 @@ class _MenuScreenState extends State<MenuScreen> {
                           borderRadius:
                               const BorderRadius.all(Radius.circular(8)),
                           border: Border.all(
-                              color: Theme.of(context).colorScheme.surface,
-                              width: 1)),
+                              color: Get.theme.colorScheme.surface, width: 1)),
                       child: Text(
-                        AppLocalizations.of(context)!.addReminder,
+                        'addReminder'.tr,
                         style: TextStyle(
-                            color: Theme.of(context).colorScheme.surface,
+                            color: Get.theme.colorScheme.surface,
                             fontSize: 14,
                             fontFamily: 'kufi'),
                       )),
