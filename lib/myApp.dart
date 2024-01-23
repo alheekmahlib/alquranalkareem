@@ -35,38 +35,37 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     initialization();
     sl<ThemeController>().checkTheme();
-    return GetBuilder<LocalizationController>(builder: (localizationCtrl) {
-      return GetMaterialApp(
-        navigatorKey: sl<GeneralController>().navigatorNotificationKey,
-        debugShowCheckedModeBanner: false,
-        title: 'Al Quran Al Kareem',
-        localizationsDelegates: const [
-          GlobalMaterialLocalizations.delegate,
-          GlobalWidgetsLocalizations.delegate,
-          GlobalCupertinoLocalizations.delegate,
-        ],
-        locale: localizationCtrl.locale,
-        translations: Messages(languages: languages),
-        fallbackLocale: Locale(AppConstants.languages[0].languageCode,
-            AppConstants.languages[0].countryCode),
-        theme: sl<ThemeController>().currentThemeData,
-        builder: BotToastInit(),
-        navigatorObservers: [BotToastNavigatorObserver()],
-        routes: {
-          // Other routes...
-          '/post': (context) {
-            int postId = ModalRoute.of(context)!.settings.arguments as int;
-            return PostPage(postId);
-          },
+    final localizationCtrl = Get.find<LocalizationController>();
+    return GetMaterialApp(
+      navigatorKey: sl<GeneralController>().navigatorNotificationKey,
+      debugShowCheckedModeBanner: false,
+      title: 'Al Quran Al Kareem',
+      localizationsDelegates: const [
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+      ],
+      locale: localizationCtrl.locale,
+      translations: Messages(languages: languages),
+      fallbackLocale: Locale(AppConstants.languages[0].languageCode,
+          AppConstants.languages[0].countryCode),
+      theme: sl<ThemeController>().currentThemeData,
+      builder: BotToastInit(),
+      navigatorObservers: [BotToastNavigatorObserver()],
+      routes: {
+        // Other routes...
+        '/post': (context) {
+          int postId = ModalRoute.of(context)!.settings.arguments as int;
+          return PostPage(postId);
         },
-        home: const Directionality(
-          textDirection: TextDirection.rtl,
-          child: SplashScreen(),
-          // child: WillPopScope(
-          //     onWillPop: () async => false, child: SplashScreen()),
-          // child: const HomePage(),
-        ),
-      );
-    });
+      },
+      home: const Directionality(
+        textDirection: TextDirection.rtl,
+        child: SplashScreen(),
+        // child: WillPopScope(
+        //     onWillPop: () async => false, child: SplashScreen()),
+        // child: const HomePage(),
+      ),
+    );
   }
 }

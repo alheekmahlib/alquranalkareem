@@ -884,17 +884,10 @@ Widget customClose(BuildContext context, {var close}) {
     button: true,
     label: 'Close',
     child: GestureDetector(
-      child: Stack(
-        alignment: Alignment.center,
-        children: [
-          Icon(Icons.close_outlined,
-              size: 40, color: Get.theme.colorScheme.surface.withOpacity(.5)),
-          Icon(Icons.close_outlined,
-              size: 24,
-              color: Get.isDarkMode
-                  ? Get.theme.canvasColor
-                  : Get.theme.primaryColorDark),
-        ],
+      child: SvgPicture.asset(
+        'asset/svg/close.svg',
+        height: 70,
+        width: 70,
       ),
       onTap: close ??
           () {

@@ -627,5 +627,15 @@
   "@to": {
     "type": "text",
     "placeholders": {}
+  },
+  "quran": "El Sagrado Corán",
+  "@quran": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "quranAudio": "Escuchar el Corán",
+  "@quranAudio": {
+    "type": "text",
+    "placeholders": {}
   }
 }

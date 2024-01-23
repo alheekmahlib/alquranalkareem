@@ -1,6 +1,8 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
+import 'package:get/get.dart';
 
 extension ContextExtensions on BuildContext {
   dynamic customOrientation(var n1, var n2) {
@@ -10,4 +12,40 @@ extension ContextExtensions on BuildContext {
 
   dynamic definePlatform(var p1, var p2) =>
       (Platform.isIOS || Platform.isAndroid || Platform.isFuchsia) ? p1 : p2;
+
+  Widget vDivider({double? height, Color? color}) {
+    return Container(
+      height: height ?? 20,
+      width: 2,
+      margin: const EdgeInsets.symmetric(horizontal: 8.0),
+      color: color ?? Get.theme.colorScheme.surface,
+    );
+  }
+
+  Widget hDivider({double? width, Color? color}) {
+    return Container(
+      height: 2,
+      width: width ?? MediaQuery.sizeOf(this).width,
+      margin: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 4.0),
+      color: color ?? Get.theme.colorScheme.surface,
+    );
+  }
+
+  Widget customClose({var close}) {
+    return Semantics(
+      button: true,
+      label: 'Close',
+      child: GestureDetector(
+        child: SvgPicture.asset(
+          'assets/svg/close.svg',
+          height: 30,
+          width: 30,
+        ),
+        onTap: close ??
+            () {
+              Get.back();
+            },
+      ),
+    );
+  }
 }

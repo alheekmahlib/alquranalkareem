@@ -619,5 +619,15 @@
   "@to": {
     "type": "text",
     "placeholders": {}
+  },
+  "quran": "Quraanka Kariimka ah",
+  "@quran": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "quranAudio": "Dhageysiga Qur'aanka",
+  "@quranAudio": {
+    "type": "text",
+    "placeholders": {}
   }
 }

@@ -618,5 +618,15 @@
   "@to": {
     "type": "text",
     "placeholders": {}
+  },
+  "quran": "القرآن الكريم",
+  "@quran": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "quranAudio": "الإستماع للقرآن",
+  "@quranAudio": {
+    "type": "text",
+    "placeholders": {}
   }
 }

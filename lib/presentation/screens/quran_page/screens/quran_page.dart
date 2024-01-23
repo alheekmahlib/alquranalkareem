@@ -232,8 +232,6 @@ class MPages extends StatelessWidget {
 
   Widget _pages(BuildContext context, int index) {
     final quranCtrl = sl<QuranController>();
-
-    // Get.put(BottomSheetController());
     return InkWell(
       onTap: () {
         if (sl<GeneralController>().opened.value == true) {
@@ -244,35 +242,32 @@ class MPages extends StatelessWidget {
         }
       },
       child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 58.0, horizontal: 22.0),
+        padding: const EdgeInsets.symmetric(vertical: 30.0, horizontal: 29.0),
         child: SizedBox(
-          height: 500,
-          width: 305,
-          child: Obx(() {
-            if (quranCtrl.surahs.isEmpty) {
-              return const Center(child: CircularProgressIndicator());
-            }
-            List<Ayah> ayahs = quranCtrl.getAyahsForCurrentPage();
-            List<InlineSpan> textSpans = ayahs.map((ayah) {
-              // TODO: fix this issue please
-              return TextSpan(
-                text: '${ayah.code_v2} ',
+          height: 1280,
+          width: 800,
+          child: Center(
+            child: Obx(() {
+              if (quranCtrl.surahs.isEmpty) {
+                return const Center(child: CircularProgressIndicator());
+              }
+              List<Ayah> ayahs = quranCtrl.getAyahsForCurrentPage();
+              String text = ayahs.map((ayah) => ayah.code_v2).join();
+
+              return Text(
+                text,
                 style: TextStyle(
-                  fontSize: 17,
+                  fontSize: 22,
                   fontFamily: 'hafs${index + 1}',
                   height: 1.7,
+                  letterSpacing: 1,
                   color: Colors.black,
                 ),
+                textAlign: TextAlign.justify,
+                textDirection: TextDirection.ltr,
               );
-            }).toList();
-
-            return Text.rich(
-              TextSpan(children: textSpans),
-              textAlign: index == 0 || index == 1
-                  ? TextAlign.center
-                  : TextAlign.justify,
-            );
-          }),
+            }),
+          ),
         ),
       ),
     );

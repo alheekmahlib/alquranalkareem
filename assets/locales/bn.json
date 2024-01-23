@@ -619,5 +619,15 @@
   "@to": {
     "type": "text",
     "placeholders": {}
+  },
+  "quran": "পবিত্র কোরআন",
+  "@quran": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "quranAudio": "কুরআন শোনা",
+  "@quranAudio": {
+    "type": "text",
+    "placeholders": {}
   }
 }

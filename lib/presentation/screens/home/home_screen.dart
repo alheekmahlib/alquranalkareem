@@ -1,40 +1,39 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
+import 'package:gap/gap.dart';
 import 'package:get/get.dart';
-import 'package:responsive_builder/responsive_builder.dart';
-import 'package:wakelock_plus/wakelock_plus.dart';
 
-import '../../../core/services/services_locator.dart';
-import '../../../core/utils/helpers/ui_helper.dart';
-import '../../controllers/general_controller.dart';
+import '../../../core/widgets/tap_bar.dart';
 import '../../controllers/theme_controller.dart';
-import '../desktop/main_screen.dart';
-import '../quran_page/screens/quran_screen.dart';
+import 'widgets/hijri_date.dart';
+import 'widgets/last_read.dart';
+import 'widgets/screens_list.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    WakelockPlus.enable();
-    if (Platform.isIOS || Platform.isAndroid || Platform.isFuchsia) {
-      UiHelper.showRateDialog(context);
-    }
+    // TODO here theme GetBuilder for mobile
     return GetBuilder<ThemeController>(builder: (_) {
-      return ScreenTypeLayout.builder(
-        mobile: (BuildContext context) {
-          sl<GeneralController>()
-              .setScreenSize(MediaQuery.sizeOf(context), context);
-          return const QuranPageScreen();
-        },
-        desktop: (BuildContext context) {
-          sl<GeneralController>()
-              .setScreenSize(MediaQuery.sizeOf(context), context);
-          return const MainDScreen();
-        },
-        breakpoints:
-            const ScreenBreakpoints(desktop: 650, tablet: 450, watch: 300),
+      return Scaffold(
+        backgroundColor: Get.theme.colorScheme.primary,
+        body: SafeArea(
+          child: Container(
+            color: Get.theme.colorScheme.background,
+            child: ListView(
+              padding: EdgeInsets.zero,
+              children: [
+                const TapBarWidget(
+                  isChild: false,
+                ),
+                const HijriDate(),
+                const ScreensList(),
+                const Gap(8),
+                const LastRead()
+              ],
+            ),
+          ),
+        ),
       );
     });
   }

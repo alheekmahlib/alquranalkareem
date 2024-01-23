@@ -58,11 +58,6 @@ class _MenuScreenState extends State<MenuScreen> {
                     thickness: 1,
                     height: 30,
                   ),
-                  lastReadWidget(),
-                  const Divider(
-                    thickness: 1,
-                    height: 30,
-                  ),
                   listWidget(),
                   const Divider(
                     thickness: 1,
@@ -124,7 +119,6 @@ class _MenuScreenState extends State<MenuScreen> {
                               const Divider(
                                 thickness: 1,
                               ),
-                              lastReadWidget(),
                               const Divider(
                                 thickness: 1,
                               ),
@@ -168,97 +162,6 @@ class _MenuScreenState extends State<MenuScreen> {
           ),
           hijriDate(context),
         ],
-      ),
-    );
-  }
-
-  Widget lastReadWidget() {
-    return Semantics(
-      button: true,
-      enabled: true,
-      label: 'lastRead'.tr,
-      child: Container(
-        width: context.customOrientation(MediaQuery.sizeOf(context).width,
-            MediaQuery.sizeOf(context).width * .4),
-        decoration: BoxDecoration(
-          color: Get.theme.colorScheme.surface.withOpacity(.2),
-          borderRadius: const BorderRadius.all(Radius.circular(8)),
-        ),
-        // padding: EdgeInsets.all(16.0),
-        child: Row(
-          children: <Widget>[
-            Container(
-              width: context.customOrientation(
-                  MediaQuery.sizeOf(context).width / 1 / 4,
-                  MediaQuery.sizeOf(context).width * .12),
-              height: 70,
-              decoration: BoxDecoration(
-                color: Get.theme.colorScheme.surface,
-                borderRadius: const BorderRadius.only(
-                  topRight: Radius.circular(8),
-                  bottomRight: Radius.circular(8),
-                ),
-              ),
-              alignment: Alignment.center,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    'lastRead'.tr,
-                    style: TextStyle(
-                      fontFamily: 'kufi',
-                      fontSize: 14,
-                      color: Get.theme.canvasColor,
-                    ),
-                    textAlign: TextAlign.center,
-                  ),
-                  const Divider(
-                    endIndent: 8,
-                    indent: 8,
-                    height: 8,
-                  ),
-                  Icon(
-                    Icons.menu_book,
-                    color: Get.theme.canvasColor,
-                    size: 22,
-                  ),
-                ],
-              ),
-            ),
-            Container(
-              height: 50,
-              width: 2,
-              decoration: BoxDecoration(
-                  color: Get.theme.colorScheme.surface,
-                  borderRadius: const BorderRadius.all(Radius.circular(8))),
-            ),
-            const SizedBox(
-              width: 16,
-            ),
-            SvgPicture.asset(
-              'assets/svg/surah_name/00${sl<GeneralController>().soMName.value}.svg',
-              height: 40,
-              colorFilter: ColorFilter.mode(
-                  Get.isDarkMode
-                      ? Get.theme.canvasColor
-                      : Get.theme.primaryColorLight,
-                  BlendMode.srcIn),
-            ),
-            const SizedBox(
-              width: 16,
-            ),
-            Text(
-              '|${'pageNo'.tr} ${sl<GeneralController>().currentPage.value}|',
-              style: TextStyle(
-                fontFamily: 'kufi',
-                fontSize: 12,
-                color: Get.isDarkMode
-                    ? Get.theme.canvasColor
-                    : Get.theme.primaryColor,
-              ),
-            ),
-          ],
-        ),
       ),
     );
   }

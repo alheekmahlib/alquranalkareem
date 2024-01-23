@@ -619,5 +619,15 @@
   "@to": {
     "type": "text",
     "placeholders": {}
+  },
+  "quran": "The Holy Quran",
+  "@quran": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "quranAudio": "Listening to Quran",
+  "@quranAudio": {
+    "type": "text",
+    "placeholders": {}
   }
 }

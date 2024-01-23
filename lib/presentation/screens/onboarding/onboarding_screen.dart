@@ -4,7 +4,7 @@ import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 import '../../../core/services/services_locator.dart';
 import '../../controllers/general_controller.dart';
-import '../home/home_screen.dart';
+import '../screen_type.dart';
 import '/core/utils/constants/extensions.dart';
 
 class OnboardingScreen extends StatefulWidget {
@@ -144,7 +144,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                       style: ElevatedButton.styleFrom(
                           backgroundColor: Colors.transparent, elevation: 0),
                       onPressed: () {
-                        Get.off(() => const HomeScreen());
+                        Get.off(() => const ScreenTypeL());
                       },
                     ),
                   ),
@@ -174,7 +174,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                                 if (sl<GeneralController>()
                                         .onboardingPageNumber ==
                                     3) {
-                                  Get.off(() => const HomeScreen());
+                                  Get.off(() => const ScreenTypeL());
                                 } else {
                                   controller.animateToPage(
                                       controller.page!.toInt() + 1,
@@ -285,7 +285,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                       style: ElevatedButton.styleFrom(
                           backgroundColor: Colors.transparent, elevation: 0),
                       onPressed: () {
-                        Get.off(() => const HomeScreen());
+                        Get.off(() => const ScreenTypeL());
                       },
                     ),
                   ),
@@ -315,7 +315,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                                 if (sl<GeneralController>()
                                         .onboardingPageNumber ==
                                     3) {
-                                  Get.off(() => const HomeScreen());
+                                  Get.off(() => const ScreenTypeL());
                                 } else {
                                   controller.animateToPage(
                                       controller.page!.toInt() + 1,

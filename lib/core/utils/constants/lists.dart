@@ -1,3 +1,11 @@
+import 'package:get/get.dart';
+
+import '../../../presentation/controllers/theme_controller.dart';
+import '../../../presentation/screens/alwaqf_screen/alwaqf_screen.dart';
+import '../../../presentation/screens/athkar/screens/alzkar_view.dart';
+import '../../../presentation/screens/quran_page/screens/quran_home.dart';
+import '../../../presentation/screens/surah_audio_screen/audio_screen.dart';
+
 List<String> zikr = <String>[
   'اللّهُـمَّ بِكَ أَصْـبَحْنا وَبِكَ أَمْسَـينا ، وَبِكَ نَحْـيا وَبِكَ نَمُـوتُ وَإِلَـيْكَ النُّـشُور.',
   'أَصْبَـحْـنا وَأَصْبَـحْ المُـلكُ للهِ رَبِّ العـالَمـين ، اللّهُـمَّ إِنِّـي أسْـأَلُـكَ خَـيْرَ هـذا الـيَوْم ، فَـتْحَهُ ، وَنَصْـرَهُ ، وَنـورَهُ وَبَـرَكَتَـهُ ، وَهُـداهُ ، وَأَعـوذُ بِـكَ مِـنْ شَـرِّ ما فـيهِ وَشَـرِّ ما بَعْـدَه.',
@@ -269,4 +277,46 @@ final List<String> surahNameList = <String>[
   "سُورَةُ الإِخۡلَاصِ",
   "سُورَةُ الفَلَقِ",
   "سُورَةُ النَّاسِ",
+];
+
+final List screensList = [
+  {
+    'name': '${'quran'.tr}',
+    'svgUrl': 'assets/svg/splash_icon_w.svg',
+    'route': QuranPage(),
+    'width': 240.0
+  },
+  {
+    'name': '',
+    'svgUrl': 'assets/svg/alwaqf.svg',
+    'route': AlwaqfScreen(),
+    'width': 70.0
+  },
+  {
+    'name': '',
+    'svgUrl': 'assets/svg/azkar.svg',
+    'route': const AzkarView(),
+    'width': 70.0
+  },
+  {
+    'name': '${'quranAudio'.tr}',
+    'svgUrl': 'assets/svg/quran_au_ic.svg',
+    'route': const AudioScreen(),
+    'width': 240.0
+  },
+];
+
+final List themeList = [
+  {
+    'name': AppTheme.blue,
+    'svgUrl': 'assets/svg/theme0.svg',
+  },
+  {
+    'name': AppTheme.brown,
+    'svgUrl': 'assets/svg/theme1.svg',
+  },
+  {
+    'name': AppTheme.dark,
+    'svgUrl': 'assets/svg/theme2.svg',
+  }
 ];

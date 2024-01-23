@@ -67,6 +67,7 @@ class ThemeController extends GetxController {
     } else {
       Get.changeTheme(darkTheme);
     }
+    update();
   }
 
   AppTheme get currentTheme => _currentTheme.value;

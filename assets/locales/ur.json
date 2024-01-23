@@ -619,5 +619,15 @@
   "@to": {
     "type": "text",
     "placeholders": {}
+  },
+  "quran": "مقدس قرآن",
+  "@quran": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "quranAudio": "قرآن کی سماعت",
+  "@quranAudio": {
+    "type": "text",
+    "placeholders": {}
   }
 }

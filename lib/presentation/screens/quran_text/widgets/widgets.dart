@@ -758,7 +758,7 @@ Widget greeting(BuildContext context) {
       style: TextStyle(
         fontSize: 16.0,
         fontFamily: 'kufi',
-        color: Get.theme.colorScheme.surface,
+        color: Get.theme.colorScheme.primary,
       ),
       textAlign: TextAlign.center,
     ),
