@@ -18,7 +18,7 @@ import 'myApp.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   Map<String, Map<String, String>> languages = await dep.init();
-  runApp(LoadingScreen());
+  // runApp(LoadingScreen());
   initializeApp().then((_) {
     runApp(MyApp(
       languages: languages,

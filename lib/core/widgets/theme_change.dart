@@ -55,7 +55,7 @@ class ThemeChange extends StatelessWidget {
                             onTap: () {
                               // TODO here theme changes
                               themeCtrl.setTheme(themeList[index]['name']);
-                              themeCtrl.update();
+                              // themeCtrl.update();
                             },
                             child: Column(
                               children: [

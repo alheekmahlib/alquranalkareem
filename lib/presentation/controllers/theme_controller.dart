@@ -59,15 +59,18 @@ class ThemeController extends GetxController {
 
   void setTheme(AppTheme theme) {
     _currentTheme.value = theme;
+    Get
+      ..changeTheme(currentThemeData)
+      ..forceAppUpdate();
     sl<SharedPreferences>().setString(SET_THEME, theme.toString());
-    if (theme == AppTheme.blue) {
-      Get.changeTheme(blueTheme);
-    } else if (theme == AppTheme.brown) {
-      Get.changeTheme(brownTheme);
-    } else {
-      Get.changeTheme(darkTheme);
-    }
-    update();
+    // if (theme == AppTheme.blue) {
+    //   Get.changeTheme(blueTheme);
+    // } else if (theme == AppTheme.brown) {
+    //   Get.changeTheme(brownTheme);
+    // } else {
+    //   Get.changeTheme(darkTheme);
+    // }
+    // update();
   }
 
   AppTheme get currentTheme => _currentTheme.value;
