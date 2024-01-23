@@ -127,7 +127,8 @@ flutter:
     - assets/qurtubiV2.db
     - assets/tabariV2.db
     - assets/saadiV2.db
-    - assets/ayahinfo_1260.db
+    # I don't know hwo can you run the app while this 👇🏻 line here.
+    # 👉🏻 - assets/ayahinfo_1260.db 👈🏻
     - assets/app_icon.png
 
   fonts:

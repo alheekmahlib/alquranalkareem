@@ -124,8 +124,8 @@ class ServicesLocator {
     sl.registerLazySingleton<AyatController>(
         () => Get.put<AyatController>(AyatController(), permanent: true));
 
-    sl.registerLazySingleton<GeneralController>(
-        () => Get.put<GeneralController>(GeneralController(), permanent: true));
+    sl.registerSingleton<GeneralController>(
+        Get.put<GeneralController>(GeneralController(), permanent: true));
 
     sl.registerLazySingleton<NotificationsController>(() =>
         Get.put<NotificationsController>(NotificationsController(),
