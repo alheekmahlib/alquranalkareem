@@ -42,9 +42,9 @@ class AudioSorahList extends StatelessWidget {
                         children: [
                           Opacity(
                             opacity: .1,
-                            child: quranIcon(context, height * .4, width),
+                            child: quranIcon(height: height * .4, width: width),
                           ),
-                          quranIcon(context, 100, width / 1 / 2),
+                          quranIcon(height: 100, width: width / 1 / 2),
                         ],
                       ),
                     ),
@@ -101,10 +101,10 @@ class AudioSorahList extends StatelessWidget {
                             children: [
                               Opacity(
                                 opacity: .1,
-                                child:
-                                    quranIcon(context, height / 1 / 2, width),
+                                child: quranIcon(
+                                    height: height / 1 / 2, width: width),
                               ),
-                              quranIcon(context, 100, width / 1 / 2),
+                              quranIcon(height: 100, width: width / 1 / 2),
                               Padding(
                                 padding: const EdgeInsets.only(top: 160.0),
                                 child: Stack(
@@ -165,9 +165,10 @@ class AudioSorahList extends StatelessWidget {
                       children: [
                         Opacity(
                           opacity: .1,
-                          child: quranIcon(context, height / 1 / 2, width),
+                          child:
+                              quranIcon(height: height / 1 / 2, width: width),
                         ),
-                        quranIcon(context, 100, width / 1 / 2),
+                        quranIcon(height: 100, width: width / 1 / 2),
                         const SurahSearch(),
                       ],
                     ),

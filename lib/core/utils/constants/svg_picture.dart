@@ -36,7 +36,7 @@ Widget spaceLine(double height, width) {
   );
 }
 
-Widget quranIcon(BuildContext context, double height, width) {
+Widget quranIcon({double? height, double? width}) {
   return SvgPicture.asset(
     'assets/svg/quran_au_ic.svg',
     colorFilter:
@@ -149,5 +149,13 @@ Widget font_size({double? height, double? width}) {
       width: width,
       height: height ?? 60,
     ),
+  );
+}
+
+Widget splash_icon({double? height, double? width}) {
+  return SvgPicture.asset(
+    'assets/svg/splash_icon.svg',
+    width: width,
+    height: height ?? 60,
   );
 }
