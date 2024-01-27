@@ -1,4 +1,5 @@
 import 'package:alquranalkareem/core/utils/constants/extensions.dart';
+import 'package:alquranalkareem/presentation/screens/home/home_screen.dart';
 import 'package:alquranalkareem/presentation/screens/notes/notes_list.dart';
 import 'package:alquranalkareem/presentation/screens/quran_page/widgets/bookmarks_list.dart';
 import 'package:alquranalkareem/presentation/screens/quran_page/widgets/quran_search.dart';
@@ -14,7 +15,10 @@ import '../../core/services/services_locator.dart';
 import '../../core/utils/constants/shared_pref_services.dart';
 import '../../core/utils/constants/shared_preferences_constants.dart';
 import '../../core/widgets/time_now.dart';
+import '../screens/athkar/screens/alzkar_view.dart';
 import '../screens/quran_page/data/model/sorah_bookmark.dart';
+import '../screens/quran_page/screens/quran_home.dart';
+import '../screens/surah_audio_screen/audio_screen.dart';
 import 'audio_controller.dart';
 import 'ayat_controller.dart';
 import 'bookmarks_controller.dart';
@@ -70,6 +74,8 @@ class GeneralController extends GetxController {
   var verses;
   var slideWidget = Rx<Widget>(ShowTafseer());
   final searchTextEditing = TextEditingController();
+  RxBool showSelectScreenPage = false.obs;
+  RxInt screenSelectedValue = 0.obs;
 
   double get scr_height => _screenSize!.value.height;
 
@@ -78,6 +84,10 @@ class GeneralController extends GetxController {
   double get positionBottom => _fabSize + _fabPosition * 4;
 
   double get positionRight => _fabPosition;
+
+  void selectScreenToggleView() {
+    showSelectScreenPage.value = !showSelectScreenPage.value;
+  }
 
   final cacheManager = CacheManager(Config(
       'https://raw.githubusercontent.com/alheekmahlib/alquranalkareem/main/assets/app_icon.png'));
@@ -318,5 +328,20 @@ class GeneralController extends GetxController {
     }
 
     return inputStr;
+  }
+
+  Widget screenSelect() {
+    switch (screenSelectedValue.value) {
+      case 0:
+        return const HomeScreen();
+      case 1:
+        return QuranPage();
+      case 2:
+        return const AudioScreen();
+      case 3:
+        return const AzkarView();
+      default:
+        return const HomeScreen();
+    }
   }
 }

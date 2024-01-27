@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 import '../../../../core/services/services_locator.dart';
@@ -43,14 +44,12 @@ class MPages extends StatelessWidget {
                                     alignment: Alignment.topRight,
                                     child: IconButton(
                                       onPressed: () {
-                                        // Check if there's a bookmark for the current page
                                         if (sl<BookmarksController>()
                                             .isPageBookmarked(index + 1)) {
                                           sl<BookmarksController>()
                                               .deleteBookmarks(
                                                   index + 1, context);
                                         } else {
-                                          // If there's no bookmark for the current page, add a new one
                                           sl<BookmarksController>()
                                               .addBookmark(
                                                   index + 1,
@@ -88,14 +87,12 @@ class MPages extends StatelessWidget {
                                     alignment: Alignment.topLeft,
                                     child: IconButton(
                                       onPressed: () {
-                                        // Check if there's a bookmark for the current page
                                         if (sl<BookmarksController>()
                                             .isPageBookmarked(index + 1)) {
                                           sl<BookmarksController>()
                                               .deleteBookmarks(
                                                   index + 1, context);
                                         } else {
-                                          // If there's no bookmark for the current page, add a new one
                                           sl<BookmarksController>()
                                               .addBookmark(
                                                   index + 1,
@@ -244,8 +241,8 @@ class MPages extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.symmetric(vertical: 30.0, horizontal: 29.0),
         child: SizedBox(
-          height: 1280,
-          width: 800,
+          height: 1200.h, // MediaQuery.sizeOf(context).height / 1.2, // 1280,
+          width: 800.w, //MediaQuery.sizeOf(context).width / 0.5, // 800,
           child: Center(
             child: Obx(() {
               if (quranCtrl.surahs.isEmpty) {
@@ -257,14 +254,14 @@ class MPages extends StatelessWidget {
               return Text(
                 text,
                 style: TextStyle(
-                  fontSize: 22,
+                  fontSize: 21.sp,
                   fontFamily: 'hafs${index + 1}',
-                  height: 1.7,
+                  height: 1.7.h,
                   letterSpacing: 1,
                   color: Colors.black,
                 ),
                 textAlign: TextAlign.justify,
-                textDirection: TextDirection.ltr,
+                textDirection: TextDirection.rtl,
               );
             }),
           ),

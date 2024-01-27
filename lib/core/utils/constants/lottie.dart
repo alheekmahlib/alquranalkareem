@@ -6,8 +6,11 @@ Widget notFound() {
 }
 
 Widget search(double? width, double? height) {
-  return Lottie.asset('assets/lottie/search.json',
-      width: width, height: height);
+  return Lottie.asset(
+    'assets/lottie/search.json',
+    width: width,
+    height: height,
+  );
 }
 
 Widget bookmarks(double? width, double? height) {
@@ -48,4 +51,9 @@ Widget hand(double? width, double? height) {
 Widget notificationLottie(double? width, double? height) {
   return Lottie.asset('assets/lottie/notification.json',
       width: width, height: height);
+}
+
+Widget azkar({double? width, double? height}) {
+  return Lottie.asset('assets/lottie/azkar.json',
+      width: width, height: height, repeat: false);
 }

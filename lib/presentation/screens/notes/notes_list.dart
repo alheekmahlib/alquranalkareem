@@ -7,7 +7,6 @@ import '../../../core/utils/constants/lottie.dart';
 import '../../../core/widgets/delete_widget.dart';
 import '../../../core/widgets/hero_dialog_route.dart';
 import '../../../core/widgets/settings_popUp.dart';
-import '../../../core/widgets/top_bar.dart';
 import '../../controllers/notes_controller.dart';
 import '/core/utils/constants/extensions.dart';
 import '/presentation/screens/notes/model/Notes.dart';
@@ -23,7 +22,6 @@ class NotesList extends StatelessWidget {
     double paddingHeight = MediaQuery.sizeOf(context).height;
     return ListView(
       children: [
-        context.definePlatform(const TopBarWidget(), const SizedBox.shrink()),
         ExpansionTile(
           iconColor: Get.theme.secondaryHeaderColor,
           trailing: Icon(

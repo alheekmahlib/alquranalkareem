@@ -60,10 +60,8 @@ class LanguageList extends StatelessWidget {
                     );
                   }),
                 ),
-                baseColor:
-                    Theme.of(context).colorScheme.primary.withOpacity(.2),
-                expandedColor:
-                    Theme.of(context).colorScheme.primary.withOpacity(.2),
+                baseColor: Get.theme.colorScheme.primary.withOpacity(.2),
+                expandedColor: Get.theme.colorScheme.primary.withOpacity(.2),
                 children: <Widget>[
                   const Divider(
                     thickness: 1.0,
@@ -97,9 +95,10 @@ class LanguageList extends StatelessWidget {
                                             ? Theme.of(context).dividerColor
                                             : Theme.of(context)
                                                 .colorScheme
-                                                .background,
+                                                .background
+                                                .withOpacity(.5),
                                         width: 3),
-                                    color: const Color(0xff3C2A21),
+                                    color: Get.theme.colorScheme.primary,
                                   ),
                                   child: 'appLang'.tr == lang['appLang']
                                       ? Icon(Icons.done,
@@ -116,6 +115,9 @@ class LanguageList extends StatelessWidget {
                                             .primaryColorLight
                                             .withOpacity(.5),
                                     fontSize: 18,
+                                    fontWeight: 'appLang'.tr == lang['appLang']
+                                        ? FontWeight.bold
+                                        : FontWeight.normal,
                                     fontFamily: 'noto',
                                   ),
                                 ),

@@ -629,5 +629,20 @@
   "@quranAudio": {
     "type": "text",
     "placeholders": {}
+  },
+  "startScreen": "স্টার্ট স্ক্রিন",
+  "@startScreen": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "selectScreen": "স্টার্ট স্ক্রিন নির্বাচন করুন",
+  "@selectScreen": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "dailyZeker": "দিনের দোয়া",
+  "@dailyZeker": {
+    "type": "text",
+    "placeholders": {}
   }
 }

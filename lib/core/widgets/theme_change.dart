@@ -53,9 +53,7 @@ class ThemeChange extends StatelessWidget {
                           duration: const Duration(milliseconds: 300),
                           child: GestureDetector(
                             onTap: () {
-                              // TODO here theme changes
                               themeCtrl.setTheme(themeList[index]['name']);
-                              // themeCtrl.update();
                             },
                             child: Column(
                               children: [

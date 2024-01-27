@@ -170,8 +170,8 @@ class ServicesLocator {
     sl.registerLazySingleton<ReminderController>(() =>
         Get.put<ReminderController>(ReminderController(), permanent: true));
 
-    sl.registerLazySingleton<AzkarController>(
-        () => Get.put<AzkarController>(AzkarController(), permanent: true));
+    sl.registerSingleton<AzkarController>(
+        Get.put<AzkarController>(AzkarController(), permanent: true));
 
     sl.registerLazySingleton<ShareController>(
         () => Get.put<ShareController>(ShareController(), permanent: true));

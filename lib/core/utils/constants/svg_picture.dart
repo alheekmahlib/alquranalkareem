@@ -106,3 +106,48 @@ Widget options({double? height, double? width, Color? color}) {
         color ?? Get.theme.colorScheme.background, BlendMode.srcIn),
   );
 }
+
+Widget home({double? height, double? width, Color? color}) {
+  return SvgPicture.asset(
+    'assets/svg/home.svg',
+    width: width,
+    height: height ?? 60,
+    colorFilter: ColorFilter.mode(
+        color ?? Get.theme.colorScheme.background, BlendMode.srcIn),
+  );
+}
+
+Widget quran_ic_s({double? height, double? width}) {
+  return SvgPicture.asset(
+    'assets/svg/quran_ic_s.svg',
+    width: width,
+    height: height ?? 60,
+  );
+}
+
+Widget slider_ic2({double? height, double? width}) {
+  return SvgPicture.asset(
+    'assets/svg/slider_ic2.svg',
+    width: width,
+    height: height ?? 60,
+  );
+}
+
+Widget azkar_b({double? height, double? width}) {
+  return SvgPicture.asset(
+    'assets/svg/azkar_b.svg',
+    width: width,
+    height: height ?? 60,
+  );
+}
+
+Widget font_size({double? height, double? width}) {
+  return Transform.translate(
+    offset: const Offset(0, -5),
+    child: SvgPicture.asset(
+      'assets/svg/font_size.svg',
+      width: width,
+      height: height ?? 60,
+    ),
+  );
+}

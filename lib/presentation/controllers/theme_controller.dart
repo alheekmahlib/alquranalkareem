@@ -12,25 +12,27 @@ class ThemeController extends GetxController {
   AppTheme? initialTheme;
   ThemeData? initialThemeData;
   Rx<AppTheme> _currentTheme = AppTheme.blue.obs;
+  // Rx<ThemeData> currentThemeData = blueTheme.obs;
 
   @override
   void onInit() async {
-    initialTheme = await loadThemePreference();
+    var theme = await loadThemePreference();
+    setTheme(theme, updateApp: false);
     super.onInit();
   }
 
-  ThemeData get currentThemeData {
-    switch (_currentTheme.value) {
-      case AppTheme.blue:
-        return blueTheme;
-      case AppTheme.brown:
-        return brownTheme;
-      case AppTheme.dark:
-        return darkTheme;
-      default:
-        return blueTheme;
-    }
-  }
+  // ThemeData get currentThemeData {
+  //   switch (_currentTheme.value) {
+  //     case AppTheme.blue:
+  //       return blueTheme;
+  //     case AppTheme.brown:
+  //       return brownTheme;
+  //     case AppTheme.dark:
+  //       return darkTheme;
+  //     default:
+  //       return blueTheme;
+  //   }
+  // }
 
   void checkTheme() {
     switch (initialTheme) {
@@ -57,20 +59,43 @@ class ThemeController extends GetxController {
     );
   }
 
-  void setTheme(AppTheme theme) {
+  void setTheme(AppTheme theme, {bool updateApp = true}) {
     _currentTheme.value = theme;
-    Get
-      ..changeTheme(currentThemeData)
-      ..forceAppUpdate();
+    ThemeData newThemeData;
+    switch (theme) {
+      case AppTheme.blue:
+        newThemeData = blueTheme;
+        break;
+      case AppTheme.brown:
+        newThemeData = brownTheme;
+        break;
+      case AppTheme.dark:
+        newThemeData = darkTheme;
+        break;
+      default:
+        newThemeData = blueTheme;
+    }
+
+    Get.changeTheme(newThemeData);
+    if (updateApp) {
+      Get.forceAppUpdate();
+    }
+
+    // Save theme preference
     sl<SharedPreferences>().setString(SET_THEME, theme.toString());
-    // if (theme == AppTheme.blue) {
-    //   Get.changeTheme(blueTheme);
-    // } else if (theme == AppTheme.brown) {
-    //   Get.changeTheme(brownTheme);
-    // } else {
-    //   Get.changeTheme(darkTheme);
-    // }
-    // update();
+  }
+
+  ThemeData get currentThemeData {
+    switch (_currentTheme.value) {
+      case AppTheme.blue:
+        return blueTheme;
+      case AppTheme.brown:
+        return brownTheme;
+      case AppTheme.dark:
+        return darkTheme;
+      default:
+        return blueTheme;
+    }
   }
 
   AppTheme get currentTheme => _currentTheme.value;

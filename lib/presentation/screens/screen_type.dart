@@ -7,14 +7,13 @@ import 'package:wakelock_plus/wakelock_plus.dart';
 import '../../core/services/services_locator.dart';
 import '../../core/utils/helpers/ui_helper.dart';
 import '../controllers/general_controller.dart';
-import 'desktop/main_screen.dart';
-import 'home/home_screen.dart';
 
 class ScreenTypeL extends StatelessWidget {
   const ScreenTypeL({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final generalCtrl = sl<GeneralController>();
     WakelockPlus.enable();
     if (Platform.isIOS || Platform.isAndroid || Platform.isFuchsia) {
       UiHelper.showRateDialog(context);
@@ -23,12 +22,12 @@ class ScreenTypeL extends StatelessWidget {
       mobile: (BuildContext context) {
         sl<GeneralController>()
             .setScreenSize(MediaQuery.sizeOf(context), context);
-        return const HomeScreen();
+        return generalCtrl.screenSelect();
       },
       desktop: (BuildContext context) {
         sl<GeneralController>()
             .setScreenSize(MediaQuery.sizeOf(context), context);
-        return const MainDScreen();
+        return generalCtrl.screenSelect();
       },
       breakpoints:
           const ScreenBreakpoints(desktop: 650, tablet: 450, watch: 300),

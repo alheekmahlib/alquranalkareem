@@ -1,15 +1,19 @@
+import 'package:alquranalkareem/presentation/controllers/general_controller.dart';
+import 'package:alquranalkareem/presentation/screens/home/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../services/services_locator.dart';
 import '../utils/constants/svg_picture.dart';
 import '/core/widgets/settings_list.dart';
 
-class TapBarWidget extends StatelessWidget {
+class TabBarWidget extends StatelessWidget {
   final bool isChild;
-  const TapBarWidget({super.key, required this.isChild});
+  const TabBarWidget({super.key, required this.isChild});
 
   @override
   Widget build(BuildContext context) {
+    final generalCtrl = sl<GeneralController>();
     return Column(
       children: [
         Container(
@@ -21,9 +25,32 @@ class TapBarWidget extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.end,
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
+            isChild
+                ? GestureDetector(
+                    onTap: () => Get.to(() => const HomeScreen(),
+                        transition: Transition.upToDown),
+                    child: Stack(
+                      alignment: Alignment.center,
+                      children: [
+                        button_curve(height: 45.0, width: 45.0),
+                        Container(
+                            padding: const EdgeInsets.all(2),
+                            decoration: BoxDecoration(
+                                borderRadius:
+                                    const BorderRadius.all(Radius.circular(4)),
+                                border: Border.all(
+                                    width: 1,
+                                    color: Get.theme.colorScheme.surface)),
+                            child: home(height: 30.0, width: 30.0)),
+                      ],
+                    ),
+                  )
+                : const SizedBox.shrink(),
             GestureDetector(
-              onTap: () => Get.bottomSheet(const SettingsList(),
-                  isScrollControlled: true),
+              onTap: () {
+                Get.bottomSheet(const SettingsList(), isScrollControlled: true);
+                generalCtrl.showSelectScreenPage.value = false;
+              },
               child: Stack(
                 alignment: Alignment.center,
                 children: [
@@ -39,26 +66,6 @@ class TapBarWidget extends StatelessWidget {
                 ],
               ),
             ),
-            isChild
-                ? GestureDetector(
-                    onTap: () => Get.bottomSheet(Container()),
-                    child: Stack(
-                      alignment: Alignment.center,
-                      children: [
-                        button_curve(height: 45.0, width: 45.0),
-                        Container(
-                            padding: const EdgeInsets.all(2),
-                            decoration: BoxDecoration(
-                                borderRadius:
-                                    const BorderRadius.all(Radius.circular(4)),
-                                border: Border.all(
-                                    width: 1,
-                                    color: Get.theme.colorScheme.surface)),
-                            child: options(height: 30.0, width: 30.0)),
-                      ],
-                    ),
-                  )
-                : const SizedBox.shrink(),
           ],
         )
       ],

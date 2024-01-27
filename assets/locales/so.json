@@ -629,5 +629,20 @@
   "@quranAudio": {
     "type": "text",
     "placeholders": {}
+  },
+  "startScreen": "Shaashadda Bilowga",
+  "@startScreen": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "selectScreen": "Dooro Shaashadda Bilowga",
+  "@selectScreen": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "dailyZeker": "Duceysiga Maanta",
+  "@dailyZeker": {
+    "type": "text",
+    "placeholders": {}
   }
 }

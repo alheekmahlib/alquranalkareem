@@ -1,16 +1,16 @@
 import 'dart:async';
 import 'dart:io';
 
-import '/presentation/screens/quran_page/data/model/bookmark.dart';
 import 'package:path/path.dart' as p;
 import 'package:path_provider/path_provider.dart';
 import 'package:sqflite/sqflite.dart' as sqflite;
 import 'package:sqflite_common_ffi/sqflite_ffi.dart';
 
-import '../presentation/screens/athkar/models/azkar.dart';
+import '../presentation/screens/athkar/models/zeker_model.dart';
 import '../presentation/screens/notes/model/Notes.dart';
 import '../presentation/screens/quran_text/data/models/bookmark_text.dart';
 import '../presentation/screens/quran_text/data/models/bookmark_text_ayah.dart';
+import '/presentation/screens/quran_page/data/model/bookmark.dart';
 
 class DatabaseHelper {
   static Database? _db;
@@ -218,7 +218,7 @@ class DatabaseHelper {
   }
 
   /// azkar database
-  static Future<int?> addAzkar(Azkar? azkar) async {
+  static Future<int?> addAzkar(Zekr? azkar) async {
     print('Save Azkar');
     try {
       return await _db!.insert(tableAzkar, azkar!.toJson());
@@ -227,13 +227,13 @@ class DatabaseHelper {
     }
   }
 
-  static Future<int> deleteAzkar(Azkar? azkar) async {
+  static Future<int> deleteAzkar(Zekr? azkar) async {
     print('Delete Azkar');
     return await _db!
         .delete(tableAzkar, where: '$columnCId = ?', whereArgs: [azkar!.id]);
   }
 
-  static Future<int> updateAzkar(Azkar azkar) async {
+  static Future<int> updateAzkar(Zekr azkar) async {
     print('Update Azkar');
     return await _db!.update(tableAzkar, azkar.toJson(),
         where: "$columnCId = ?", whereArgs: [azkar.id]);

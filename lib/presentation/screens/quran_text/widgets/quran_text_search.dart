@@ -4,7 +4,6 @@ import 'package:get/get.dart';
 
 import '../../../../core/services/services_locator.dart';
 import '../../../../core/utils/constants/lottie.dart';
-import '../../../../core/widgets/top_bar.dart';
 import '../../../controllers/aya_controller.dart';
 import '../../../controllers/quranText_controller.dart';
 import '../../../controllers/surahTextController.dart';
@@ -20,7 +19,6 @@ class QuranTextSearch extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: <Widget>[
-        const TopBarWidget(),
         Container(
           height: 60,
           padding:

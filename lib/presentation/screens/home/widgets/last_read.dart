@@ -36,10 +36,7 @@ class LastRead extends StatelessWidget {
                       'assets/svg/surah_name/00${generalCtrl.soMName.value}.svg',
                       height: 60,
                       colorFilter: ColorFilter.mode(
-                          Get.isDarkMode
-                              ? Get.theme.canvasColor
-                              : Get.theme.primaryColorLight,
-                          BlendMode.srcIn),
+                          Get.theme.cardColor, BlendMode.srcIn),
                     ),
                   ),
                   context.vDivider(height: 50),

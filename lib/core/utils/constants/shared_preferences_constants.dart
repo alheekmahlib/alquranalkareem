@@ -22,3 +22,6 @@ const String READER_INDEX = "readerIndex";
 const String CURRENT_TRANSLATE = "currentTranslate";
 const String IS_TAFSEER = "is_tafseer";
 const String SET_THEME = "SET_THEME";
+const String SCREEN_SELECTED_VALUE = "SCREEN_SELECTED_VALUE";
+final String SETTED_DATE_FOR_ZEKER = 'SETTED_DATE_FOR_ZEKER';
+final String ZEKER_OF_THE_DAY_AND_ID = 'ZEKER_OF_THE_DAY_AND_ID';

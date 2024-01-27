@@ -628,5 +628,20 @@
   "@quranAudio": {
     "type": "text",
     "placeholders": {}
+  },
+  "startScreen": "شاشة البداية",
+  "@startScreen": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "selectScreen": "أختر شاشة البداية",
+  "@selectScreen": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "dailyZeker": "دعاء اليوم",
+  "@dailyZeker": {
+    "type": "text",
+    "placeholders": {}
   }
 }

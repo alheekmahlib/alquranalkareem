@@ -637,5 +637,20 @@
   "@quranAudio": {
     "type": "text",
     "placeholders": {}
+  },
+  "startScreen": "Pantalla de Inicio",
+  "@startScreen": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "selectScreen": "Elige Pantalla de Inicio",
+  "@selectScreen": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "dailyZeker": "Oración del Día",
+  "@dailyZeker": {
+    "type": "text",
+    "placeholders": {}
   }
 }

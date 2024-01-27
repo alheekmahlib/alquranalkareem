@@ -20,6 +20,7 @@ import '../../presentation/screens/quran_text/widgets/quran_text_search.dart';
 import '../services/services_locator.dart';
 import '../utils/constants/shared_pref_services.dart';
 import '../utils/constants/shared_preferences_constants.dart';
+import '../utils/constants/svg_picture.dart';
 import '/core/utils/constants/extensions.dart';
 import '/presentation/screens/quran_page/widgets/quran_search.dart';
 import 'custom_paint/bg_icon.dart';
@@ -1005,12 +1006,9 @@ Widget fontSizeDropDown(BuildContext context) {
       button: true,
       enabled: true,
       label: 'Change Font Size',
-      child: Icon(
-        Icons.format_size,
-        color: Get.theme.colorScheme.surface,
-      ),
+      child: font_size(height: 35),
     ),
-    color: Get.theme.colorScheme.surface.withOpacity(.8),
+    color: Get.theme.colorScheme.primary.withOpacity(.8),
     itemBuilder: (context) => [
       PopupMenuItem(
         child: Obx(
