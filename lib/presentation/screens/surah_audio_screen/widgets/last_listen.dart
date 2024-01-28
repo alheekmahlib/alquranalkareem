@@ -5,93 +5,80 @@ import 'package:get/get.dart';
 import '../../../../core/services/services_locator.dart';
 import '../../../controllers/general_controller.dart';
 import '../../../controllers/surah_audio_controller.dart';
-import '/core/utils/constants/extensions.dart';
 
 class LastListen extends StatelessWidget {
   const LastListen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    double width = MediaQuery.sizeOf(context).width;
     return Semantics(
       button: true,
       enabled: true,
       label: 'lastListen'.tr,
       child: GestureDetector(
         child: Container(
-          width: context.customOrientation(width, 300.0),
+          width: 280.0,
           height: 80,
           decoration: BoxDecoration(
-            color: Get.theme.colorScheme.surface.withOpacity(.2),
-            borderRadius: const BorderRadius.all(Radius.circular(8)),
-          ),
-          margin: context.customOrientation(const EdgeInsets.all(16.0),
-              const EdgeInsets.only(bottom: 16.0, left: 32.0)),
-          child: Column(
+              borderRadius: const BorderRadius.all(Radius.circular(8)),
+              border: Border.all(
+                  color: Get.theme.colorScheme.primary.withOpacity(.2),
+                  width: 1)),
+          margin: const EdgeInsets.all(16.0),
+          child: Row(
             children: <Widget>[
-              Container(
-                width: width,
-                height: 30,
-                decoration: BoxDecoration(
-                  color: Get.theme.colorScheme.surface,
-                  borderRadius: const BorderRadius.all(
-                    Radius.circular(8),
+              Expanded(
+                flex: 3,
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text(
+                    'lastListen'.tr,
+                    style: TextStyle(
+                      fontFamily: 'kufi',
+                      fontSize: 18,
+                      color: Get.theme.colorScheme.primary,
+                    ),
+                    textAlign: TextAlign.center,
                   ),
-                ),
-                alignment: Alignment.center,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      'lastListen'.tr,
-                      style: TextStyle(
-                        fontFamily: 'kufi',
-                        fontSize: 14,
-                        color: Get.theme.canvasColor,
-                      ),
-                      textAlign: TextAlign.center,
-                    ),
-                    const Divider(
-                      endIndent: 8,
-                      indent: 8,
-                      height: 8,
-                    ),
-                    Icon(
-                      Icons.record_voice_over_outlined,
-                      color: Get.theme.canvasColor,
-                      size: 22,
-                    ),
-                  ],
                 ),
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  Obx(
-                    () => SvgPicture.asset(
-                      'assets/svg/surah_name/00${sl<SurahAudioController>().surahNum}.svg',
-                      width: 100,
-                      colorFilter: ColorFilter.mode(
-                          Get.isDarkMode
-                              ? Get.theme.canvasColor
-                              : Get.theme.primaryColorDark,
-                          BlendMode.srcIn),
-                    ),
-                  ),
-                  if (context.mounted)
-                    GetX<SurahAudioController>(
-                      builder: (surahAudioController) => Text(
-                        '${sl<SurahAudioController>().formatDuration(Duration(seconds: sl<SurahAudioController>().lastPosition.value))}',
-                        style: TextStyle(
-                          fontFamily: 'kufi',
-                          fontSize: 14,
-                          color: Get.isDarkMode
-                              ? Get.theme.canvasColor
-                              : Get.theme.primaryColor,
+              Expanded(
+                flex: 7,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    Container(
+                      width: MediaQuery.sizeOf(context).width,
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 6.0, vertical: 4.0),
+                      decoration: BoxDecoration(
+                          color: Get.theme.colorScheme.primary,
+                          borderRadius:
+                              const BorderRadius.all(Radius.circular(8))),
+                      child: Obx(
+                        () => SvgPicture.asset(
+                          'assets/svg/surah_name/00${sl<SurahAudioController>().surahNum}.svg',
+                          width: 110,
+                          colorFilter: ColorFilter.mode(
+                              Get.theme.colorScheme.secondary, BlendMode.srcIn),
                         ),
                       ),
                     ),
-                ],
+                    if (context.mounted)
+                      GetX<SurahAudioController>(
+                        builder: (surahAudioController) => Text(
+                          '${sl<SurahAudioController>().formatDuration(Duration(seconds: sl<SurahAudioController>().lastPosition.value))}',
+                          style: TextStyle(
+                            fontFamily: 'kufi',
+                            fontSize: 16,
+                            color: Get.isDarkMode
+                                ? Get.theme.canvasColor
+                                : Get.theme.primaryColor,
+                          ),
+                        ),
+                      ),
+                  ],
+                ),
               ),
             ],
           ),

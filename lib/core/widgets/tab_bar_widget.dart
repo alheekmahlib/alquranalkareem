@@ -34,14 +34,15 @@ class TabBarWidget extends StatelessWidget {
                       children: [
                         button_curve(height: 45.0, width: 45.0),
                         Container(
-                            padding: const EdgeInsets.all(2),
+                            padding: const EdgeInsets.all(4),
+                            margin: const EdgeInsets.only(bottom: 5),
                             decoration: BoxDecoration(
                                 borderRadius:
                                     const BorderRadius.all(Radius.circular(4)),
                                 border: Border.all(
                                     width: 1,
                                     color: Get.theme.colorScheme.surface)),
-                            child: home(height: 30.0, width: 30.0)),
+                            child: home(height: 25.0, width: 25.0)),
                       ],
                     ),
                   )
@@ -56,13 +57,14 @@ class TabBarWidget extends StatelessWidget {
                 children: [
                   button_curve(height: 45.0, width: 45.0),
                   Container(
-                      padding: const EdgeInsets.all(2),
+                      padding: const EdgeInsets.all(4),
+                      margin: const EdgeInsets.only(bottom: 5),
                       decoration: BoxDecoration(
                           borderRadius:
                               const BorderRadius.all(Radius.circular(4)),
                           border: Border.all(
                               width: 1, color: Get.theme.colorScheme.surface)),
-                      child: options(height: 30.0, width: 30.0)),
+                      child: options(height: 25.0, width: 25.0)),
                 ],
               ),
             ),

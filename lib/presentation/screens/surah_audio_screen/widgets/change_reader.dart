@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../../core/services/services_locator.dart';
+import '../../../../core/utils/constants/lists.dart';
 import '../../../../core/utils/constants/shared_pref_services.dart';
 import '../../../../core/utils/constants/shared_preferences_constants.dart';
 import '../../../../core/widgets/widgets.dart';
@@ -12,67 +14,37 @@ class ChangeSurahReader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: 35,
-      width: 35,
-      margin: const EdgeInsets.all(28.0),
-      decoration: BoxDecoration(
-          borderRadius: const BorderRadius.all(Radius.circular(8)),
-          border: Border.all(
-              color: Get.theme.dividerColor.withOpacity(.5), width: 1)),
-      child: IconButton(
-        icon: Semantics(
-          button: true,
-          enabled: true,
-          label: 'Change Reader',
-          child: Icon(Icons.person_search_outlined,
-              size: 20, color: Get.theme.colorScheme.surface),
-        ),
-        onPressed: () => sorahReaderDropDown(context),
+    final surahAudioCtrl = sl<SurahAudioController>();
+    return GestureDetector(
+      onTap: () => surahReaderDropDown(context),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Text(
+            surahReaderInfo[surahAudioCtrl.surahReaderIndex.value]['name'],
+            style: TextStyle(
+                color: surahAudioCtrl.sorahReaderNameValue ==
+                        surahReaderInfo[surahAudioCtrl.surahReaderIndex.value]
+                            ['readerN']
+                    ? Get.theme.primaryColorLight
+                    : const Color(0xffcdba72),
+                fontSize: 14,
+                fontFamily: 'kufi'),
+          ),
+          Semantics(
+            button: true,
+            enabled: true,
+            label: 'Change Reader',
+            child: Icon(Icons.keyboard_arrow_down_outlined,
+                size: 20, color: Get.theme.colorScheme.primary),
+          ),
+        ],
       ),
     );
   }
 
-  sorahReaderDropDown(BuildContext context) {
-    List surahReaderInfo = [
-      {
-        'name': 'reader1'.tr,
-        'readerD': 'https://server7.mp3quran.net/',
-        'readerN': 'basit/',
-        'readerI': 'basit'
-      },
-      {
-        'name': 'reader2'.tr,
-        'readerD': 'https://server10.mp3quran.net/',
-        'readerN': 'minsh/',
-        'readerI': 'minshawy'
-      },
-      {
-        'name': 'reader3'.tr,
-        'readerD': 'https://server13.mp3quran.net/',
-        'readerN': 'husr/',
-        'readerI': 'husary'
-      },
-      {
-        'name': 'reader4'.tr,
-        'readerD': 'https://server10.mp3quran.net/',
-        'readerN': 'ajm/',
-        'readerI': 'ajamy'
-      },
-      {
-        'name': 'reader5'.tr,
-        'readerD': 'https://server12.mp3quran.net/',
-        'readerN': 'maher/',
-        'readerI': 'muaiqly'
-      },
-      {
-        'name': 'reader6'.tr,
-        'readerD': 'https://server7.mp3quran.net/',
-        'readerN': 's_gmd/',
-        'readerI': 'Ghamadi'
-      }
-    ];
-
+  surahReaderDropDown(BuildContext context) {
+    final surahAudioCtrl = sl<SurahAudioController>();
     dropDownModalBottomSheet(
       context,
       MediaQuery.sizeOf(context).height / 1 / 2,
@@ -94,11 +66,11 @@ class ChangeSurahReader extends StatelessWidget {
                       borderRadius: const BorderRadius.all(
                         Radius.circular(8),
                       ),
-                      border:
-                          Border.all(width: 2, color: Get.theme.dividerColor)),
+                      border: Border.all(
+                          width: 2, color: Get.theme.colorScheme.primary)),
                   child: Icon(
                     Icons.close_outlined,
-                    color: Get.theme.colorScheme.surface,
+                    color: Get.theme.colorScheme.primary,
                   ),
                 ),
               ),
@@ -110,7 +82,7 @@ class ChangeSurahReader extends StatelessWidget {
                 child: Text(
                   'select_player'.tr,
                   style: TextStyle(
-                      color: Get.theme.dividerColor,
+                      color: Get.theme.colorScheme.primary,
                       fontSize: 22,
                       fontFamily: "kufi"),
                 ),
@@ -129,8 +101,7 @@ class ChangeSurahReader extends StatelessWidget {
                             title: Text(
                               surahReaderInfo[index]['name'],
                               style: TextStyle(
-                                  color: sl<SurahAudioController>()
-                                              .sorahReaderNameValue ==
+                                  color: surahAudioCtrl.sorahReaderNameValue ==
                                           surahReaderInfo[index]['readerN']
                                       ? Get.theme.primaryColorLight
                                       : const Color(0xffcdba72),
@@ -144,7 +115,7 @@ class ChangeSurahReader extends StatelessWidget {
                                 borderRadius: const BorderRadius.all(
                                     Radius.circular(2.0)),
                                 border: Border.all(
-                                    color: sl<SurahAudioController>()
+                                    color: surahAudioCtrl
                                                 .sorahReaderNameValue ==
                                             surahReaderInfo[index]['readerN']
                                         ? Get.theme.primaryColorLight
@@ -152,20 +123,17 @@ class ChangeSurahReader extends StatelessWidget {
                                     width: 2),
                                 color: const Color(0xff39412a),
                               ),
-                              child: sl<SurahAudioController>()
-                                          .sorahReaderNameValue ==
+                              child: surahAudioCtrl.sorahReaderNameValue ==
                                       surahReaderInfo[index]['readerN']
                                   ? const Icon(Icons.done,
                                       size: 14, color: Color(0xfffcbb76))
                                   : null,
                             ),
                             onTap: () async {
-                              sl<SurahAudioController>()
-                                  .sorahReaderValue
-                                  .value = surahReaderInfo[index]['readerD'];
-                              sl<SurahAudioController>()
-                                  .sorahReaderNameValue
-                                  .value = surahReaderInfo[index]['readerN'];
+                              surahAudioCtrl.sorahReaderValue.value =
+                                  surahReaderInfo[index]['readerD'];
+                              surahAudioCtrl.sorahReaderNameValue.value =
+                                  surahReaderInfo[index]['readerN'];
 
                               await sl<SharedPrefServices>().saveString(
                                   SURAH_AUDIO_PLAYER_SOUND,
@@ -173,7 +141,11 @@ class ChangeSurahReader extends StatelessWidget {
                               await sl<SharedPrefServices>().saveString(
                                   SURAH_AUDIO_PLAYER_NAME,
                                   surahReaderInfo[index]['readerN']);
-                              sl<SurahAudioController>().changeAudioSource();
+                              await sl<SharedPreferences>()
+                                  .setInt(SURAH_READER_INDEX, index);
+                              surahAudioCtrl.surahReaderIndex.value =
+                                  surahReaderInfo[index]['name'];
+                              surahAudioCtrl.changeAudioSource();
                               Navigator.pop(context);
                             },
                             leading: Container(
@@ -184,7 +156,7 @@ class ChangeSurahReader extends StatelessWidget {
                                     image: AssetImage(
                                         'assets/images/${surahReaderInfo[index]['readerI']}.jpg'),
                                     fit: BoxFit.fitWidth,
-                                    opacity: sl<SurahAudioController>()
+                                    opacity: surahAudioCtrl
                                                 .sorahReaderNameValue ==
                                             surahReaderInfo[index]['readerN']
                                         ? 1
@@ -194,7 +166,8 @@ class ChangeSurahReader extends StatelessWidget {
                                   borderRadius: const BorderRadius.all(
                                       Radius.circular(4.0)),
                                   border: Border.all(
-                                      color: Get.theme.dividerColor, width: 2)),
+                                      color: Get.theme.colorScheme.primary,
+                                      width: 2)),
                             ),
                           ),
                         ),
@@ -202,7 +175,8 @@ class ChangeSurahReader extends StatelessWidget {
                             borderRadius:
                                 const BorderRadius.all(Radius.circular(8.0)),
                             border: Border.all(
-                                color: Get.theme.dividerColor, width: 1)),
+                                color: Get.theme.colorScheme.primary,
+                                width: 1)),
                         margin: const EdgeInsets.symmetric(
                             horizontal: 16.0, vertical: 4.0),
                       ),

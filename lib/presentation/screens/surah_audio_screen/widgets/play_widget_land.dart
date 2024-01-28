@@ -58,7 +58,6 @@ class PlayWidgetLand extends StatelessWidget {
                     Opacity(
                       opacity: .1,
                       child: surahName(
-                        context,
                         130,
                         width,
                       ),
@@ -66,7 +65,6 @@ class PlayWidgetLand extends StatelessWidget {
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 23.0),
                       child: surahName(
-                        context,
                         70,
                         width,
                       ),
@@ -91,7 +89,9 @@ class PlayWidgetLand extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     SkipToPrevious(),
-                    OnlinePlayButton(),
+                    OnlinePlayButton(
+                      isRepeat: true,
+                    ),
                     SkipToNext(),
                     DownloadPlayButton(),
                     ChangeSurahReader(),

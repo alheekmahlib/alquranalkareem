@@ -53,14 +53,14 @@ class PlayListPlayWidget extends StatelessWidget {
                           if (snapshot.hasData) {
                             final positionData = snapshot.data;
                             return SeekBar(
-                              timeShow: true,
+                              // timeShow: true,
                               duration: positionData?.duration ?? Duration.zero,
                               position: positionData?.position ?? Duration.zero,
                               bufferedPosition:
                                   positionData?.bufferedPosition ??
                                       Duration.zero,
                               activeTrackColor: Get.theme.colorScheme.surface,
-                              textColor: Get.theme.primaryColorLight,
+                              // textColor: Get.theme.primaryColorLight,
                               onChangeEnd: playList.playlistAudioPlayer.seek,
                             );
                           }

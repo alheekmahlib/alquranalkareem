@@ -5,7 +5,7 @@ import '../../../presentation/controllers/theme_controller.dart';
 import '../../../presentation/screens/alwaqf_screen/alwaqf_screen.dart';
 import '../../../presentation/screens/athkar/screens/alzkar_view.dart';
 import '../../../presentation/screens/quran_page/screens/quran_home.dart';
-import '../../../presentation/screens/surah_audio_screen/audio_screen.dart';
+import '../../../presentation/screens/surah_audio_screen/audio_surah.dart';
 
 List<String> zikr = <String>[
   'اللّهُـمَّ بِكَ أَصْـبَحْنا وَبِكَ أَمْسَـينا ، وَبِكَ نَحْـيا وَبِكَ نَمُـوتُ وَإِلَـيْكَ النُّـشُور.',
@@ -325,5 +325,44 @@ final List themeList = [
   {
     'name': AppTheme.dark,
     'svgUrl': 'assets/svg/theme2.svg',
+  }
+];
+
+List surahReaderInfo = [
+  {
+    'name': 'reader1'.tr,
+    'readerD': 'https://server7.mp3quran.net/',
+    'readerN': 'basit/',
+    'readerI': 'basit'
+  },
+  {
+    'name': 'reader2'.tr,
+    'readerD': 'https://server10.mp3quran.net/',
+    'readerN': 'minsh/',
+    'readerI': 'minshawy'
+  },
+  {
+    'name': 'reader3'.tr,
+    'readerD': 'https://server13.mp3quran.net/',
+    'readerN': 'husr/',
+    'readerI': 'husary'
+  },
+  {
+    'name': 'reader4'.tr,
+    'readerD': 'https://server10.mp3quran.net/',
+    'readerN': 'ajm/',
+    'readerI': 'ajamy'
+  },
+  {
+    'name': 'reader5'.tr,
+    'readerD': 'https://server12.mp3quran.net/',
+    'readerN': 'maher/',
+    'readerI': 'muaiqly'
+  },
+  {
+    'name': 'reader6'.tr,
+    'readerD': 'https://server7.mp3quran.net/',
+    'readerN': 's_gmd/',
+    'readerI': 'Ghamadi'
   }
 ];

@@ -142,8 +142,8 @@ class AudioTextWidget extends StatelessWidget {
                             builder: (context, snapshot) {
                               final positionData = snapshot.data;
                               return SeekBar(
-                                timeShow: true,
-                                textColor: Get.theme.dividerColor,
+                                // timeShow: true,
+                                // textColor: Get.theme.dividerColor,
                                 duration:
                                     positionData?.duration ?? Duration.zero,
                                 position:

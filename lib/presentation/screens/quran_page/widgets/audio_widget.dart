@@ -94,8 +94,8 @@ class AudioWidget extends StatelessWidget {
                                           if (snapshot.hasData) {
                                             final positionData = snapshot.data;
                                             return SeekBar(
-                                              timeShow: true,
-                                              padding: 26.0,
+                                              // timeShow: true,
+                                              // padding: 26.0,
                                               duration:
                                                   positionData?.duration ??
                                                       Duration.zero,
@@ -107,7 +107,7 @@ class AudioWidget extends StatelessWidget {
                                                   Duration.zero,
                                               activeTrackColor:
                                                   Get.theme.colorScheme.surface,
-                                              textColor: Get.theme.dividerColor,
+                                              // textColor: Get.theme.dividerColor,
                                               onChangeEnd: sl<AudioController>()
                                                   .audioPlayer
                                                   .seek,

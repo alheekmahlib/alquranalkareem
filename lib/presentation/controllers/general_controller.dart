@@ -18,7 +18,7 @@ import '../../core/widgets/time_now.dart';
 import '../screens/athkar/screens/alzkar_view.dart';
 import '../screens/quran_page/data/model/sorah_bookmark.dart';
 import '../screens/quran_page/screens/quran_home.dart';
-import '../screens/surah_audio_screen/audio_screen.dart';
+import '../screens/surah_audio_screen/audio_surah.dart';
 import 'audio_controller.dart';
 import 'ayat_controller.dart';
 import 'bookmarks_controller.dart';

@@ -7,19 +7,19 @@ import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_sliding_box/flutter_sliding_box.dart';
 import 'package:get/get.dart';
 import 'package:just_audio/just_audio.dart';
-import 'package:just_audio_background/just_audio_background.dart';
 import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:rxdart/rxdart.dart' as R;
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../core/services/services_locator.dart';
 import '../../core/utils/constants/shared_pref_services.dart';
 import '../../core/utils/constants/shared_preferences_constants.dart';
 import '../../core/widgets/seek_bar.dart';
 import '../screens/quran_page/data/model/surah.dart';
-import 'general_controller.dart';
 import 'surah_repository_controller.dart';
 
 class SurahAudioController extends GetxController {
@@ -44,7 +44,6 @@ class SurahAudioController extends GetxController {
   late var cancelToken = CancelToken();
   TextEditingController textController = TextEditingController();
   RxInt selectedSurah = 0.obs;
-  // RxDouble lastPosition = 0.0.obs;
   RxString sorahReaderValue = "https://server7.mp3quran.net/".obs;
   RxString sorahReaderNameValue = "basit/".obs;
   final bool _isDisposed = false;
@@ -54,6 +53,9 @@ class SurahAudioController extends GetxController {
   RxInt lastPosition = 0.obs;
   Rx<PositionData>? positionData;
   var activeButton = RxString('');
+  final BoxController boxController = BoxController();
+  final TextEditingController textEditingController = TextEditingController();
+  RxInt surahReaderIndex = 1.obs;
 
   late final surahsList = ConcatenatingAudioSource(
     // Start loading next item just before reaching it
@@ -64,7 +66,7 @@ class SurahAudioController extends GetxController {
     children: surahsPlayList!,
   );
 
-  String get beautifiedSurahNumber {
+  String? get beautifiedSurahNumber {
     // String sorahNumString;
     switch (surahNum.value) {
       case < 10:
@@ -133,7 +135,7 @@ class SurahAudioController extends GetxController {
 
       await audioPlayer.setAudioSource(AudioSource.file(
         filePath,
-        tag: await mediaItem,
+        // tag: await mediaItem,
       ));
       audioPlayer.play();
     } else {
@@ -151,7 +153,7 @@ class SurahAudioController extends GetxController {
         await audioPlayer
             .setAudioSource(AudioSource.file(
               filePath,
-              tag: await mediaItem,
+              // tag: await mediaItem,
             ))
             .then((_) => audioPlayer.play());
       }
@@ -227,7 +229,7 @@ class SurahAudioController extends GetxController {
         downloadSurahsPlayList.add({
           i: AudioSource.file(
             filePath,
-            tag: await mediaItem,
+            // tag: await mediaItem,
           )
         });
       } else {
@@ -240,7 +242,7 @@ class SurahAudioController extends GetxController {
     downloadSurahsPlayList.add({
       surahNum.value: AudioSource.file(
         filePath,
-        tag: await mediaItem,
+        // tag: await mediaItem,
       )
     });
   }
@@ -248,8 +250,8 @@ class SurahAudioController extends GetxController {
   changeAudioSource() async {
     await audioPlayer.setAudioSource(AudioSource.uri(
       Uri.parse(
-          '${sorahReaderValue.value}${sorahReaderNameValue.value}$beautifiedSurahNumber.mp3'),
-      tag: await mediaItem,
+          '${sorahReaderValue.value}${sorahReaderNameValue.value}${beautifiedSurahNumber ?? 001}.mp3'),
+      // tag: await mediaItem,
     ));
     print(
         'URL: ${sorahReaderValue.value}${sorahReaderNameValue.value}$beautifiedSurahNumber.mp3');
@@ -259,21 +261,21 @@ class SurahAudioController extends GetxController {
     await audioPlayer.setAudioSource(AudioSource.uri(
       Uri.parse(
           '${sorahReaderValue.value}${sorahReaderNameValue.value}$beautifiedSurahNumber.mp3'),
-      tag: await mediaItem,
+      // tag: await mediaItem,
     ));
     await audioPlayer.seek(Duration(seconds: lastPosition.value));
     print(
         'URL: ${sorahReaderValue.value}${sorahReaderNameValue.value}$beautifiedSurahNumber.mp3');
   }
 
-  Future<MediaItem> get mediaItem async => MediaItem(
-        id: '${surahNum.value - 1}',
-        title:
-            '${sl<SurahRepositoryController>().surahs[(surahNum.value - 1) ?? 1].name ?? ''}',
-        artist: '${sorahReaderNameValue.value ?? ''}',
-        artUri: await sl<GeneralController>().getCachedArtUri(
-            'https://raw.githubusercontent.com/alheekmahlib/alquranalkareem/main/assets/app_icon.png'),
-      );
+  // Future<MediaItem> get mediaItem async => MediaItem(
+  //       id: '${surahNum.value - 1}',
+  //       title:
+  //           '${sl<SurahRepositoryController>().surahs[(surahNum.value - 1) ?? 1].name ?? ''}',
+  //       artist: '${sorahReaderNameValue.value ?? ''}',
+  //       artUri: await sl<GeneralController>().getCachedArtUri(
+  //           'https://raw.githubusercontent.com/alheekmahlib/alquranalkareem/main/assets/app_icon.png'),
+  //     );
 
   @override
   Future<void> onInit() async {
@@ -317,6 +319,8 @@ class SurahAudioController extends GetxController {
         defaultValue: "https://server7.mp3quran.net/");
     sorahReaderNameValue.value = await sl<SharedPrefServices>()
         .getString(SURAH_AUDIO_PLAYER_NAME, defaultValue: "basit/");
+    surahReaderIndex.value =
+        sl<SharedPreferences>().getInt(SURAH_READER_INDEX) ?? 0;
   }
 
   Future loadLastSurahListen() async {
@@ -370,6 +374,7 @@ class SurahAudioController extends GetxController {
     controller.dispose();
     _connectivitySubscription.cancel();
     audioPlayer.pause();
+    boxController.dispose();
     super.onClose();
   }
 

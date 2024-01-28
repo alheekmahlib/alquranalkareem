@@ -27,8 +27,8 @@ class DownloadPlayButton extends StatelessWidget {
                 final loopMode = snapshot.data ?? LoopMode.off;
                 List<Widget> icons = [
                   Icon(Icons.repeat,
-                      color: Get.theme.colorScheme.surface.withOpacity(.4)),
-                  Icon(Icons.repeat, color: Get.theme.colorScheme.surface),
+                      color: Get.theme.colorScheme.primary.withOpacity(.4)),
+                  Icon(Icons.repeat, color: Get.theme.colorScheme.primary),
                 ];
                 const cycleModes = [
                   LoopMode.off,
@@ -62,7 +62,7 @@ class DownloadPlayButton extends StatelessWidget {
                     borderRadius: 8,
                     shadowWidth: 1.5,
                     progressWidth: 4,
-                    shadowColor: Get.theme.dividerColor.withOpacity(.5),
+                    shadowColor: Get.theme.colorScheme.primary.withOpacity(.5),
                     progressColor: Get.isDarkMode
                         ? Colors.white
                         : Get.theme.primaryColorLight,
@@ -100,7 +100,7 @@ class DownloadPlayButton extends StatelessWidget {
                             label: 'download'.tr,
                             child: const Icon(Icons.download_outlined)),
                         iconSize: 24.0,
-                        color: Get.theme.colorScheme.surface,
+                        color: Get.theme.colorScheme.primary,
                         onPressed: () async {
                           surahAudioCtrl.isDownloading.value = true;
                           surahAudioCtrl.isPlaying.value = false;
@@ -120,7 +120,7 @@ class DownloadPlayButton extends StatelessWidget {
                             label: 'pauseSurah'.tr,
                             child: const Icon(Icons.pause)),
                         iconSize: 24.0,
-                        color: Get.theme.colorScheme.surface,
+                        color: Get.theme.colorScheme.primary,
                         onPressed: () {
                           surahAudioCtrl.audioPlayer.pause();
                           surahAudioCtrl.isDownloading.value = false;

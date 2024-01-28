@@ -57,3 +57,8 @@ Widget azkar({double? width, double? height}) {
   return Lottie.asset('assets/lottie/azkar.json',
       width: width, height: height, repeat: false);
 }
+
+Widget quran_au_ic({double? width, double? height}) {
+  return Lottie.asset('assets/lottie/quran_au_ic.json',
+      width: width, height: height, repeat: false);
+}

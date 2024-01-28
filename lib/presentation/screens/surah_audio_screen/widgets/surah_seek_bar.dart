@@ -15,14 +15,6 @@ class SurahSeekBar extends StatelessWidget {
     return Stack(
       alignment: Alignment.center,
       children: [
-        Container(
-          height: 30,
-          width: 250,
-          margin: const EdgeInsets.symmetric(horizontal: 4),
-          decoration: BoxDecoration(
-              color: Get.theme.dividerColor.withOpacity(.4),
-              borderRadius: const BorderRadius.all(Radius.circular(8))),
-        ),
         StreamBuilder<PositionData>(
           stream: sl<SurahAudioController>().positionDataStream,
           builder: (context, snapshot) {
@@ -74,7 +66,7 @@ class DownloadSurahSeekBar extends StatelessWidget {
           width: 250,
           margin: const EdgeInsets.symmetric(horizontal: 4),
           decoration: BoxDecoration(
-              color: Get.theme.dividerColor.withOpacity(.4),
+              color: Get.theme.colorScheme.primary.withOpacity(.15),
               borderRadius: const BorderRadius.all(Radius.circular(8))),
         ),
         StreamBuilder<PositionData>(

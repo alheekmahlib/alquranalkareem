@@ -66,11 +66,11 @@ Widget bookmarkIcon(BuildContext context, double height, double width,
   });
 }
 
-Widget surahName(BuildContext context, double height, double width) {
+Widget surahName(double height, double width) {
   return SvgPicture.asset(
     'assets/svg/surah_name/00${sl<SurahAudioController>().surahNum}.svg',
     colorFilter:
-        ColorFilter.mode(Get.theme.colorScheme.surface, BlendMode.srcIn),
+        ColorFilter.mode(Get.theme.colorScheme.primary, BlendMode.srcIn),
     width: width,
     height: height,
   );
@@ -155,6 +155,22 @@ Widget font_size({double? height, double? width}) {
 Widget splash_icon({double? height, double? width}) {
   return SvgPicture.asset(
     'assets/svg/splash_icon.svg',
+    width: width,
+    height: height ?? 60,
+  );
+}
+
+Widget play_arrow({double? height, double? width}) {
+  return SvgPicture.asset(
+    'assets/svg/play-arrow.svg',
+    width: width,
+    height: height ?? 60,
+  );
+}
+
+Widget pause_arrow({double? height, double? width}) {
+  return SvgPicture.asset(
+    'assets/svg/pause_arrow.svg',
     width: width,
     height: height ?? 60,
   );

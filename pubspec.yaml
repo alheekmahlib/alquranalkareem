@@ -6,7 +6,7 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 version: 3.2.6+46
 
 environment:
-  sdk: '>=3.1.5 <4.0.0'
+  sdk: '>=3.2.6 <4.0.0'
 
 dependencies:
   anim_search_bar: ^2.0.3
@@ -30,6 +30,7 @@ dependencies:
   flutter_localizations:
     sdk: flutter
   flutter_screenutil: ^5.9.0
+  flutter_sliding_box: ^1.1.5
   flutter_sliding_up_panel: ^2.1.1
   flutter_staggered_animations: ^1.1.1
   flutter_svg: ^2.0.9
@@ -42,6 +43,7 @@ dependencies:
   hijri: ^3.0.0
 #  home_widget: ^0.4.1
   html: ^0.15.4
+  interactive_slider: ^0.2.2
   just_audio: ^0.9.36
   just_audio_background: ^0.0.1-beta.11
   lottie: ^2.7.0
@@ -107,7 +109,6 @@ flutter:
   uses-material-design: true
 
   assets:
-#    - assets/pages/
     - assets/svg/
     - assets/svg/surah_name/
     - assets/svg/juz/

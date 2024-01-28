@@ -12,7 +12,7 @@ import '../athkar/screens/alzkar_view.dart';
 import '../menu/menu_screen.dart';
 import '../notification/notification_screen.dart';
 import '../quran_text/screens/surah_text_screen.dart';
-import '../surah_audio_screen/audio_screen.dart';
+import '../surah_audio_screen/audio_surah.dart';
 import 'desktop.dart';
 
 class MainDScreen extends StatefulWidget {
