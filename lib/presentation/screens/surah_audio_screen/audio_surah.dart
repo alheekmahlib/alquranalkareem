@@ -14,6 +14,9 @@ class AudioScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final surahCtrl = sl<SurahAudioController>();
+    surahCtrl.loadSurahReader();
+    surahCtrl.loadLastSurahListen();
+    // surahCtrl.changeAudioSource();
     return Scaffold(
       backgroundColor: Get.theme.colorScheme.background,
       body: SafeArea(

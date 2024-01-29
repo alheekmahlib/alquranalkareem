@@ -11,6 +11,7 @@ class LastListen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final surahAudioCtrl = sl<SurahAudioController>();
     return Semantics(
       button: true,
       enabled: true,
@@ -57,7 +58,7 @@ class LastListen extends StatelessWidget {
                               const BorderRadius.all(Radius.circular(8))),
                       child: Obx(
                         () => SvgPicture.asset(
-                          'assets/svg/surah_name/00${sl<SurahAudioController>().surahNum}.svg',
+                          'assets/svg/surah_name/00${surahAudioCtrl.surahNum}.svg',
                           width: 110,
                           colorFilter: ColorFilter.mode(
                               Get.theme.colorScheme.secondary, BlendMode.srcIn),
@@ -67,7 +68,7 @@ class LastListen extends StatelessWidget {
                     if (context.mounted)
                       GetX<SurahAudioController>(
                         builder: (surahAudioController) => Text(
-                          '${sl<SurahAudioController>().formatDuration(Duration(seconds: sl<SurahAudioController>().lastPosition.value))}',
+                          '${surahAudioCtrl.formatDuration(Duration(seconds: surahAudioCtrl.lastPosition.value))}',
                           style: TextStyle(
                             fontFamily: 'kufi',
                             fontSize: 16,
@@ -84,11 +85,10 @@ class LastListen extends StatelessWidget {
           ),
         ),
         onTap: () {
-          sl<SurahAudioController>()
-              .controller
-              .jumpTo((sl<SurahAudioController>().surahNum.value - 1) * 65.0);
+          surahAudioCtrl.controller
+              .jumpTo((surahAudioCtrl.surahNum.value - 1) * 65.0);
           sl<GeneralController>().widgetPosition.value = 0.0;
-          sl<SurahAudioController>().lastAudioSource();
+          surahAudioCtrl.lastAudioSource();
         },
       ),
     );

@@ -76,9 +76,6 @@ class OnlinePlayButton extends StatelessWidget {
                       print(
                           'isDownloading: ${surahAudioCtrl.isDownloading.value}');
                       // await surahAudioCtrl.audioPlayer.pause();
-                      if (surahAudioCtrl.selectedSurah.value == -1) {
-                        surahAudioCtrl.changeAudioSource();
-                      }
                       await surahAudioCtrl.audioPlayer.play();
                     },
                   );

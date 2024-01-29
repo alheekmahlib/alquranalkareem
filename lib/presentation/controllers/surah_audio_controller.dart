@@ -281,6 +281,10 @@ class SurahAudioController extends GetxController {
   Future<void> onInit() async {
     super.onInit();
     _addDownloadedSurahToPlaylist();
+    loadLastSurahListen();
+    _loadLastSurahAndPosition();
+    loadSurahReader();
+    loadLastSurahListen();
     surahsPlayList = List.generate(114, (i) {
       surahNum.value = i + 1;
       return AudioSource.uri(
@@ -291,10 +295,6 @@ class SurahAudioController extends GetxController {
     _connectivitySubscription =
         _connectivity.onConnectivityChanged.listen(_updateConnectionStatus);
     initConnectivity();
-    loadLastSurahListen();
-    _loadLastSurahAndPosition();
-    loadSorahReader();
-    loadLastSurahListen();
   }
 
   Stream<PositionData> get positionDataStream =>
@@ -313,7 +313,7 @@ class SurahAudioController extends GetxController {
           (position, bufferedPosition, duration) => PositionData(
               position, bufferedPosition, duration ?? Duration.zero));
 
-  loadSorahReader() async {
+  loadSurahReader() async {
     sorahReaderValue.value = await sl<SharedPrefServices>().getString(
         SURAH_AUDIO_PLAYER_SOUND,
         defaultValue: "https://server7.mp3quran.net/");
@@ -329,14 +329,13 @@ class SurahAudioController extends GetxController {
     selectedSurah.value = await sl<SharedPrefServices>()
         .getInteger(SELECTED_SURAH, defaultValue: -1);
 
-    // This line converts the saved double back to a Duration
     lastPosition.value = await sl<SharedPrefServices>()
         .getInteger(LAST_POSITION, defaultValue: 0);
 
     return {
       LAST_SURAH: lastSurah,
       SELECTED_SURAH: selectedSurah,
-      LAST_POSITION: lastPosition.value, // Now this is a Duration object
+      LAST_POSITION: lastPosition.value,
     };
   }
 
@@ -404,15 +403,12 @@ class SurahAudioController extends GetxController {
   }
 
   void searchSurah(BuildContext context, String searchInput) {
-    // Get the current state of the SorahCubit
-    List<Surah>? sorahList = sl<SurahRepositoryController>().sorahs;
+    List<Surah>? surahList = sl<SurahRepositoryController>().sorahs;
 
-    // Check if the list is not null before using it
     int index =
-        sorahList.indexWhere((sorah) => sorah.searchText.contains(searchInput));
+        surahList.indexWhere((surah) => surah.searchText.contains(searchInput));
     if (index != -1) {
-      controller
-          .jumpTo(index * 65.0); // Assuming 65.0 is the height of each ListTile
+      controller.jumpTo(index * 80.0);
       selectedSurah.value = index;
     }
   }

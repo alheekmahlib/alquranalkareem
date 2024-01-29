@@ -20,17 +20,15 @@ class ChangeSurahReader extends StatelessWidget {
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Text(
-            surahReaderInfo[surahAudioCtrl.surahReaderIndex.value]['name'],
-            style: TextStyle(
-                color: surahAudioCtrl.sorahReaderNameValue ==
-                        surahReaderInfo[surahAudioCtrl.surahReaderIndex.value]
-                            ['readerN']
-                    ? Get.theme.primaryColorLight
-                    : const Color(0xffcdba72),
-                fontSize: 14,
-                fontFamily: 'kufi'),
-          ),
+          Obx(() {
+            return Text(
+              surahReaderInfo[surahAudioCtrl.surahReaderIndex.value]['name'],
+              style: TextStyle(
+                  color: Get.theme.colorScheme.primary,
+                  fontSize: 14,
+                  fontFamily: 'kufi'),
+            );
+          }),
           Semantics(
             button: true,
             enabled: true,
@@ -143,8 +141,7 @@ class ChangeSurahReader extends StatelessWidget {
                                   surahReaderInfo[index]['readerN']);
                               await sl<SharedPreferences>()
                                   .setInt(SURAH_READER_INDEX, index);
-                              surahAudioCtrl.surahReaderIndex.value =
-                                  surahReaderInfo[index]['name'];
+                              surahAudioCtrl.surahReaderIndex.value = index;
                               surahAudioCtrl.changeAudioSource();
                               Navigator.pop(context);
                             },
