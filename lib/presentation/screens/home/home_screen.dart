@@ -36,7 +36,7 @@ class HomeScreen extends StatelessWidget {
                         const Gap(8),
                         const LastRead(),
                         const Gap(8),
-                        const DailyZeker(),
+                        DailyZeker(),
                         const Gap(16),
                       ],
                     ),

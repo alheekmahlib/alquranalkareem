@@ -94,29 +94,23 @@ class AzkarController extends GetxController {
     if (zekerOfTheDay != null) return zekerOfTheDay!;
     final String? zekerOfTheDayIdAndId =
         sl<SharedPreferences>().getString(ZEKER_OF_THE_DAY_AND_ID);
-    print('missing daily Zeker111');
     zekerOfTheDay = await _getZekerForThisDay(
         _hasZekerSettedForThisDay ? zekerOfTheDayIdAndId : null);
-    print('missing daily Zeker222');
-    sl<SharedPreferences>()
-      ..setString(ZEKER_OF_THE_DAY_AND_ID, '${zekerOfTheDay!.id}')
-      ..setString(SETTED_DATE_FOR_ZEKER, HijriCalendar.now().fullDate());
-    print('goooooooaaaallllll');
+
     return zekerOfTheDay!;
   }
 
   bool get _hasZekerSettedForThisDay {
     final settedDate = sl<SharedPreferences>().getString(SETTED_DATE_FOR_ZEKER);
-    return (settedDate != null || settedDate == HijriCalendar.now().fullDate());
+    return (settedDate != null && settedDate == HijriCalendar.now().fullDate());
   }
 
   Future<Zekr> _getZekerForThisDay([String? zekerOfTheDayIdAndZekerId]) async {
     log("zekerOfTheDayIdAndZekerId: ${zekerOfTheDayIdAndZekerId == null ? "null" : "NOT NULL"}");
     if (zekerOfTheDayIdAndZekerId != null) {
-      log("before trying to get ziker");
+      log("before trying to get ziker", name: 'BEFORE');
       final cachedZeker = allAzkar[int.parse(zekerOfTheDayIdAndZekerId) - 1];
-      print('gggggggggg');
-
+      log("date: ${HijriCalendar.now().fullDate()}", name: 'CAHECH HADITH');
       return cachedZeker;
     }
     final random = math.Random().nextInt(allAzkar.length);
@@ -124,11 +118,14 @@ class AzkarController extends GetxController {
     Zekr? zeker = allAzkar.firstWhereOrNull((z) => z.id == random);
     log('allAzkar length: ${allAzkar.length} 2222');
     while (zeker == null) {
-      log('allAzkar length: ${allAzkar.length} while');
+      log('allAzkar length: ${allAzkar.length} ', name: 'while');
       zeker = allAzkar.firstWhereOrNull((z) => z.id == random);
       print('zikr is null  ' * 5);
     }
     log('before listing');
+    sl<SharedPreferences>()
+      ..setString(ZEKER_OF_THE_DAY_AND_ID, '${zeker.id}')
+      ..setString(SETTED_DATE_FOR_ZEKER, HijriCalendar.now().fullDate());
     return zeker;
   }
 

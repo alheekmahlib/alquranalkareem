@@ -6,11 +6,10 @@ import '../../athkar/models/zeker_model.dart';
 import '/presentation/controllers/azkar_controller.dart';
 
 class DailyZeker extends StatelessWidget {
-  const DailyZeker({super.key});
-
+  DailyZeker({super.key});
+  final azkarCtrl = sl<AzkarController>();
   @override
   Widget build(BuildContext context) {
-    final azkarCtrl = sl<AzkarController>();
     return Container(
       width: 380,
       padding: const EdgeInsets.symmetric(horizontal: 32.0),
