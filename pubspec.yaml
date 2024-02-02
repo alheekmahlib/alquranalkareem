@@ -163,10 +163,6 @@ flutter:
       fonts:
         - asset: assets/fonts/NotoSerifBengali.ttf
 
-    - family: v1Page3
-      fonts:
-        - asset: assets/fonts/testing/p3.ttf
-
     - family: page1
       fonts:
         - asset: assets/fonts/quran_fonts/p2001.ttf
