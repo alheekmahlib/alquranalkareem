@@ -248,7 +248,7 @@ class MPages extends StatelessWidget {
               return const Center(child: CircularProgressIndicator());
             }
             List<Ayah> ayahs = quranCtrl.getAyahsForCurrentPage();
-            String text = ayahs.map((ayah) => ayah.code_v2).join();
+            String text = ayahs.map((ayah) => "${ayah.code_v2} ").join();
 
             return Text(
               text,
@@ -260,7 +260,7 @@ class MPages extends StatelessWidget {
                 wordSpacing: .01,
                 color: Colors.black,
               ),
-              // textAlign: TextAlign.justify,
+              textAlign: TextAlign.center,
               textDirection: TextDirection.rtl,
             );
           }),
