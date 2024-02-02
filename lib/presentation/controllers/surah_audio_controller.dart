@@ -56,6 +56,7 @@ class SurahAudioController extends GetxController {
   final BoxController boxController = BoxController();
   final TextEditingController textEditingController = TextEditingController();
   RxInt surahReaderIndex = 1.obs;
+  Map<int, RxBool> surahDownloadStatus = {};
 
   late final surahsList = ConcatenatingAudioSource(
     // Start loading next item just before reaching it
@@ -207,6 +208,41 @@ class SurahAudioController extends GetxController {
     return false;
   }
 
+  void initializeSurahDownloadStatus() async {
+    Map<int, bool> initialStatus =
+        await checkAllSurahsDownloaded(); // Assume this returns the initial download status for each Surah
+    initialStatus.forEach((surahNumber, isDownloaded) {
+      surahDownloadStatus[surahNumber] = RxBool(isDownloaded);
+    });
+  }
+
+  void updateDownloadStatus(int surahNumber, bool downloaded) {
+    if (surahDownloadStatus.containsKey(surahNumber)) {
+      surahDownloadStatus[surahNumber]?.value = downloaded;
+    } else {
+      // If for some reason the surahNumber is not in the map, add it
+      surahDownloadStatus[surahNumber] = RxBool(downloaded);
+    }
+  }
+
+  void onDownloadSuccess(int surahNumber) {
+    // Assuming this function is called when a Surah download is successful
+    updateDownloadStatus(surahNumber, true);
+  }
+
+  Future<Map<int, bool>> checkAllSurahsDownloaded() async {
+    Directory? directory = await getApplicationDocumentsDirectory();
+    Map<int, bool> surahDownloadStatus = {};
+
+    for (int i = 1; i <= 114; i++) {
+      String filePath =
+          '${directory.path}/${sorahReaderNameValue.value}${i.toString().padLeft(3, '0')}.mp3';
+      File file = File(filePath);
+      surahDownloadStatus[i] = await file.exists();
+    }
+    return surahDownloadStatus;
+  }
+
   void cancelDownload() {
     cancelToken.cancel('Request cancelled');
   }
@@ -280,6 +316,7 @@ class SurahAudioController extends GetxController {
   @override
   Future<void> onInit() async {
     super.onInit();
+    initializeSurahDownloadStatus();
     _addDownloadedSurahToPlaylist();
     loadLastSurahListen();
     _loadLastSurahAndPosition();

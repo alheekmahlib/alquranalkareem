@@ -16,7 +16,7 @@ class AudioScreen extends StatelessWidget {
     final surahCtrl = sl<SurahAudioController>();
     surahCtrl.loadSurahReader();
     surahCtrl.loadLastSurahListen();
-    // surahCtrl.changeAudioSource();
+    // surahCtrl.initializeSurahDownloadStatus();
     return Scaffold(
       backgroundColor: Get.theme.colorScheme.background,
       body: SafeArea(

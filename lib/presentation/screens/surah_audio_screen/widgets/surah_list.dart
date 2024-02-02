@@ -28,14 +28,18 @@ class SurahList extends StatelessWidget {
               borderRadius: const BorderRadius.all(Radius.circular(8)),
               border:
                   Border.all(width: 1, color: Get.theme.colorScheme.primary)),
-          child: Obx(
-            () => ListView.builder(
+          child: Obx(() {
+            return ListView.builder(
                 physics: const AlwaysScrollableScrollPhysics(),
                 itemCount: sl<SurahRepositoryController>().sorahs.length,
                 controller: surahAudioCtrl.controller,
                 padding: EdgeInsets.zero,
                 itemBuilder: (_, index) {
                   final sorah = sl<SurahRepositoryController>().sorahs[index];
+                  int surahNumber = index + 1;
+                  RxBool isDownloaded =
+                      surahAudioCtrl.surahDownloadStatus[surahNumber] ??
+                          RxBool(false);
                   return AnimationConfiguration.staggeredList(
                     position: index,
                     duration: const Duration(milliseconds: 450),
@@ -143,6 +147,16 @@ class SurahList extends StatelessWidget {
                                               width: 4,
                                               height: 15,
                                             ),
+                                          Obx(() => Icon(
+                                                surahAudioCtrl
+                                                            .surahDownloadStatus[
+                                                                surahNumber]
+                                                            ?.value ??
+                                                        false
+                                                    ? Icons.check_circle_outline
+                                                    : Icons
+                                                        .cloud_download_outlined,
+                                              )),
                                         ],
                                       ),
                                     )),
@@ -167,8 +181,8 @@ class SurahList extends StatelessWidget {
                       ),
                     ),
                   );
-                }),
-          ),
+                });
+          }),
         ),
       ),
     );
