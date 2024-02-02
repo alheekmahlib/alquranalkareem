@@ -1,15 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 import '../../../../core/services/services_locator.dart';
+import '../../../../core/utils/constants/size_config.dart';
 import '../../../../core/utils/constants/svg_picture.dart';
 import '../../../../core/widgets/widgets.dart';
 import '../../../controllers/bookmarks_controller.dart';
 import '../../../controllers/general_controller.dart';
 import '../../../controllers/quran_controller.dart';
 import '../data/model/surahs_model.dart';
-import '../data/model/verse.dart';
 import '../widgets/left_page.dart';
 import '../widgets/right_page.dart';
 import '/core/utils/constants/extensions.dart';
@@ -20,6 +19,7 @@ class MPages extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     sl<BookmarksController>().getBookmarks();
+    SizeConfig().init(context);
 
     return context.customOrientation(
         SafeArea(
@@ -30,6 +30,7 @@ class MPages extends StatelessWidget {
               builder: (generalController) => PageView.builder(
                   controller: sl<GeneralController>().pageController(),
                   itemCount: 604,
+                  physics: const ClampingScrollPhysics(),
                   onPageChanged: sl<GeneralController>().pageChanged,
                   itemBuilder: (_, index) {
                     return (index % 2 == 0
@@ -130,6 +131,7 @@ class MPages extends StatelessWidget {
               builder: (generalController) => PageView.builder(
                   controller: sl<GeneralController>().pageController(),
                   itemCount: 604,
+                  physics: const ClampingScrollPhysics(),
                   onPageChanged: sl<GeneralController>().pageChanged,
                   itemBuilder: (_, index) {
                     return SingleChildScrollView(
@@ -239,38 +241,36 @@ class MPages extends StatelessWidget {
         }
       },
       child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 30.0, horizontal: 29.0),
-        child: SizedBox(
-          height: 1200.h, // MediaQuery.sizeOf(context).height / 1.2, // 1280,
-          width: 800.w, //MediaQuery.sizeOf(context).width / 0.5, // 800,
-          child: Center(
-            child: Obx(() {
-              if (quranCtrl.surahs.isEmpty) {
-                return const Center(child: CircularProgressIndicator());
-              }
-              List<Ayah> ayahs = quranCtrl.getAyahsForCurrentPage();
-              String text = ayahs.map((ayah) => ayah.code_v2).join();
+        padding: const EdgeInsets.symmetric(vertical: 30.0, horizontal: 24.0),
+        child: Center(
+          child: Obx(() {
+            if (quranCtrl.surahs.isEmpty) {
+              return const Center(child: CircularProgressIndicator());
+            }
+            List<Ayah> ayahs = quranCtrl.getAyahsForCurrentPage();
+            String text = ayahs.map((ayah) => ayah.code_v2).join();
 
-              return Text(
-                text,
-                style: TextStyle(
-                  fontSize: 21.sp,
-                  fontFamily: 'hafs${index + 1}',
-                  height: 1.7.h,
-                  letterSpacing: 1,
-                  color: Colors.black,
-                ),
-                textAlign: TextAlign.justify,
-                textDirection: TextDirection.rtl,
-              );
-            }),
-          ),
+            return Text(
+              text,
+              style: TextStyle(
+                fontFamily: 'page${index + 1}',
+                fontSize: getProportionateScreenWidth(18),
+                height: 1.7,
+                letterSpacing: .01,
+                wordSpacing: .01,
+                color: Colors.black,
+              ),
+              // textAlign: TextAlign.justify,
+              textDirection: TextDirection.rtl,
+            );
+          }),
         ),
       ),
     );
   }
 
   Widget _pages2(BuildContext context, int index) {
+    final quranCtrl = sl<QuranController>();
     return InkWell(
       onTap: () {
         if (sl<GeneralController>().opened.value == true) {
@@ -280,11 +280,37 @@ class MPages extends StatelessWidget {
           sl<GeneralController>().showControl();
         }
       },
-      child: QuranPage(
-        imageUrl: 'assets/pages/00${index + 1}.png',
-        imageUrl2: 'assets/pages/000${index + 1}.png',
-        currentPage: index + 1,
+      child: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 30.0, horizontal: 24.0),
+        child: Center(
+          child: Obx(() {
+            if (quranCtrl.surahs.isEmpty) {
+              return const Center(child: CircularProgressIndicator());
+            }
+            List<Ayah> ayahs = quranCtrl.getAyahsForCurrentPage();
+            String text = ayahs.map((ayah) => ayah.code_v2).join();
+
+            return Text(
+              text,
+              style: TextStyle(
+                fontFamily: 'page${index + 1}',
+                fontSize: getProportionateScreenWidth(18),
+                height: 1.7,
+                letterSpacing: .01,
+                wordSpacing: .01,
+                color: Colors.black,
+              ),
+              textAlign: TextAlign.justify,
+              textDirection: TextDirection.rtl,
+            );
+          }),
+        ),
       ),
+      // child: QuranPage(
+      //   imageUrl: 'assets/pages/00${index + 1}.png',
+      //   imageUrl2: 'assets/pages/000${index + 1}.png',
+      //   currentPage: index + 1,
+      // ),
     );
   }
 }
