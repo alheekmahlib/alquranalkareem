@@ -17,7 +17,7 @@ class QuranController extends GetxController {
     loadQuran();
   }
 
-  void loadQuran() async {
+  Future<void> loadQuran() async {
     String jsonString = await rootBundle.loadString('assets/json/quranV2.json');
     Map<String, dynamic> jsonResponse = jsonDecode(jsonString);
     List<dynamic> surahsJson = jsonResponse['data']['surahs'];
