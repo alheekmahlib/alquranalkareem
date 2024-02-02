@@ -63,8 +63,8 @@ class ScreensList extends StatelessWidget {
                                                 const BorderRadius.all(
                                                     Radius.circular(4)),
                                             border: Border.all(
-                                                color: Get
-                                                    .theme.colorScheme.surface,
+                                                color: Get.theme.colorScheme
+                                                    .onSecondary,
                                                 width: 1)),
                                         child: FittedBox(
                                           fit: BoxFit.scaleDown,

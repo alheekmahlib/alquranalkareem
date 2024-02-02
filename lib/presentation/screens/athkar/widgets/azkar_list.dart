@@ -89,11 +89,8 @@ class AzkarList extends StatelessWidget {
                                                     azkarCtrl.categories[index]
                                                         .toString(),
                                                     style: TextStyle(
-                                                      color: Get.isDarkMode
-                                                          ? Get
-                                                              .theme.canvasColor
-                                                          : Get.theme
-                                                              .primaryColorDark,
+                                                      color:
+                                                          Get.theme.hintColor,
                                                       fontSize: 22,
                                                       fontFamily: 'naskh',
                                                     ),

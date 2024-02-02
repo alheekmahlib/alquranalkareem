@@ -31,7 +31,7 @@ class HijriDate extends StatelessWidget {
                     style: TextStyle(
                       fontSize: 16.0,
                       fontFamily: 'kufi',
-                      color: Get.theme.colorScheme.primary,
+                      color: Get.theme.hintColor,
                     ),
                     textAlign: TextAlign.center,
                   ),
@@ -47,8 +47,8 @@ class HijriDate extends StatelessWidget {
               ),
               SvgPicture.asset('assets/svg/hijri/${today.hMonth}.svg',
                   height: 90,
-                  colorFilter: ColorFilter.mode(
-                      Get.theme.colorScheme.primary, BlendMode.srcIn)),
+                  colorFilter:
+                      ColorFilter.mode(Get.theme.hintColor, BlendMode.srcIn)),
               Transform.translate(
                 offset: const Offset(110, -55),
                 child: Container(
@@ -63,7 +63,7 @@ class HijriDate extends StatelessWidget {
                     style: TextStyle(
                       fontSize: 26.0,
                       fontFamily: 'kufi',
-                      color: Get.theme.colorScheme.background,
+                      color: Get.theme.canvasColor,
                     ),
                     textAlign: TextAlign.center,
                   ),
@@ -83,7 +83,7 @@ class HijriDate extends StatelessWidget {
                     style: TextStyle(
                       fontSize: 20.0,
                       fontFamily: 'kufi',
-                      color: Get.theme.colorScheme.background,
+                      color: Get.theme.canvasColor,
                     ),
                     textAlign: TextAlign.center,
                   ),

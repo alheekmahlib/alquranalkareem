@@ -41,7 +41,7 @@ class TabBarWidget extends StatelessWidget {
                                     const BorderRadius.all(Radius.circular(4)),
                                 border: Border.all(
                                     width: 1,
-                                    color: Get.theme.colorScheme.surface)),
+                                    color: Get.theme.colorScheme.onSecondary)),
                             child: home(height: 25.0, width: 25.0)),
                       ],
                     ),
@@ -63,7 +63,8 @@ class TabBarWidget extends StatelessWidget {
                           borderRadius:
                               const BorderRadius.all(Radius.circular(4)),
                           border: Border.all(
-                              width: 1, color: Get.theme.colorScheme.surface)),
+                              width: 1,
+                              color: Get.theme.colorScheme.onSecondary)),
                       child: options(height: 25.0, width: 25.0)),
                 ],
               ),

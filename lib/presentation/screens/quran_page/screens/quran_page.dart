@@ -250,15 +250,17 @@ class MPages extends StatelessWidget {
             List<Ayah> ayahs = quranCtrl.getAyahsForCurrentPage();
             String text = ayahs.map((ayah) => "${ayah.code_v2} ").join();
 
-            return Text(
-              text,
-              style: TextStyle(
-                fontFamily: 'page${index + 1}',
-                fontSize: getProportionateScreenWidth(18),
-                height: 1.7,
-                letterSpacing: .01,
-                wordSpacing: .01,
-                color: Colors.black,
+            return Text.rich(
+              TextSpan(
+                text: text,
+                style: TextStyle(
+                  fontFamily: 'page${index + 1}',
+                  fontSize: getProportionateScreenWidth(18),
+                  height: 1.7,
+                  letterSpacing: .01,
+                  wordSpacing: .01,
+                  color: Colors.black,
+                ),
               ),
               textAlign: TextAlign.center,
               textDirection: TextDirection.rtl,

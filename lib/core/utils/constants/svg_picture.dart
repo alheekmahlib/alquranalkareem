@@ -103,7 +103,7 @@ Widget options({double? height, double? width, Color? color}) {
     width: width,
     height: height ?? 60,
     colorFilter: ColorFilter.mode(
-        color ?? Get.theme.colorScheme.background, BlendMode.srcIn),
+        color ?? Get.theme.colorScheme.secondary, BlendMode.srcIn),
   );
 }
 
@@ -113,7 +113,7 @@ Widget home({double? height, double? width, Color? color}) {
     width: width,
     height: height ?? 60,
     colorFilter: ColorFilter.mode(
-        color ?? Get.theme.colorScheme.background, BlendMode.srcIn),
+        color ?? Get.theme.colorScheme.secondary, BlendMode.srcIn),
   );
 }
 
