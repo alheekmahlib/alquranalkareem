@@ -9,8 +9,8 @@ import '../../../../core/services/services_locator.dart';
 import '../../../controllers/general_controller.dart';
 import '../../../controllers/surah_repository_controller.dart';
 
-class SurahList extends StatelessWidget {
-  SurahList({super.key});
+class QuranSurahList extends StatelessWidget {
+  QuranSurahList({super.key});
 
   @override
   Widget build(BuildContext context) {

@@ -48,8 +48,7 @@ class SingleAyah extends StatelessWidget {
                 borderRadius: const BorderRadius.all(Radius.circular(4))),
             child: Column(
               children: [
-                sl<QuranTextController>()
-                    .besmAllahWidget(context, surah, index),
+                sl<QuranTextController>().besmAllahWidget(surah, index),
                 Padding(
                   padding:
                       const EdgeInsets.only(top: 64.0, right: 16.0, left: 16.0),

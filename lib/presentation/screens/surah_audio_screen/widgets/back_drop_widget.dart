@@ -7,7 +7,7 @@ import '../../../../core/utils/constants/lottie.dart';
 import '../../../controllers/surah_audio_controller.dart';
 import 'last_listen.dart';
 import 'play_banner.dart';
-import 'surah_list.dart';
+import 'surah_audio_list.dart';
 import 'surah_search.dart';
 
 class BackDropWidget extends StatelessWidget {
@@ -63,7 +63,7 @@ class BackDropWidget extends StatelessWidget {
           ),
         ),
 
-        const Flexible(child: SurahList()),
+        const Flexible(child: SurahAudioList()),
         // Obx(
         //   () => AnimatedPositioned(
         //     duration: const Duration(milliseconds: 300),

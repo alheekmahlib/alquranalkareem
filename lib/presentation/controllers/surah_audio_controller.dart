@@ -56,7 +56,7 @@ class SurahAudioController extends GetxController {
   final BoxController boxController = BoxController();
   final TextEditingController textEditingController = TextEditingController();
   RxInt surahReaderIndex = 1.obs;
-  Map<int, RxBool> surahDownloadStatus = {};
+  final Rx<Map<int, bool>> surahDownloadStatus = Rx<Map<int, bool>>({});
 
   late final surahsList = ConcatenatingAudioSource(
     // Start loading next item just before reaching it
@@ -209,20 +209,17 @@ class SurahAudioController extends GetxController {
   }
 
   void initializeSurahDownloadStatus() async {
-    Map<int, bool> initialStatus =
-        await checkAllSurahsDownloaded(); // Assume this returns the initial download status for each Surah
-    initialStatus.forEach((surahNumber, isDownloaded) {
-      surahDownloadStatus[surahNumber] = RxBool(isDownloaded);
-    });
+    // Directly obtain the initial download status for each Surah
+    Map<int, bool> initialStatus = await checkAllSurahsDownloaded();
+
+    // Assign it to the Rx variable to ensure it's observable
+    surahDownloadStatus.value = initialStatus;
   }
 
   void updateDownloadStatus(int surahNumber, bool downloaded) {
-    if (surahDownloadStatus.containsKey(surahNumber)) {
-      surahDownloadStatus[surahNumber]?.value = downloaded;
-    } else {
-      // If for some reason the surahNumber is not in the map, add it
-      surahDownloadStatus[surahNumber] = RxBool(downloaded);
-    }
+    final newStatus = Map<int, bool>.from(surahDownloadStatus.value);
+    newStatus[surahNumber] = downloaded;
+    surahDownloadStatus.value = newStatus; // This should trigger UI updates
   }
 
   void onDownloadSuccess(int surahNumber) {

@@ -53,8 +53,7 @@ class PageAyah extends StatelessWidget {
                     ),
                   ),
                 ),
-                sl<QuranTextController>()
-                    .besmAllahWidget(context, surah, index),
+                sl<QuranTextController>().besmAllahWidget(surah, index),
                 Container(
                   padding: const EdgeInsets.symmetric(horizontal: 32),
                   child: Obx(() {

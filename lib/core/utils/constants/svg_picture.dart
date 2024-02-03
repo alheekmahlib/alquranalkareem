@@ -7,7 +7,7 @@ import '../../../presentation/controllers/general_controller.dart';
 import '../../../presentation/controllers/surah_audio_controller.dart';
 import '../../services/services_locator.dart';
 
-Widget besmAllah(BuildContext context) {
+Widget besmAllah() {
   return SvgPicture.asset(
     'assets/svg/besmAllah.svg',
     width: 250,
@@ -16,7 +16,7 @@ Widget besmAllah(BuildContext context) {
   );
 }
 
-Widget besmAllah2(BuildContext context) {
+Widget besmAllah2() {
   return SvgPicture.asset(
     'assets/svg/besmAllah2.svg',
     width: 250,

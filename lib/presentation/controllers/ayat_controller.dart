@@ -1,19 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../screens/quran_page/data/data_source/baghawy_data_client.dart';
-import '/presentation/screens/quran_page/data/model/aya.dart';
-import '../screens/quran_page/data/data_source/qurtubi_data_client.dart';
-import '../screens/quran_page/data/data_source/saadi_data_client.dart';
-import '../screens/quran_page/data/data_source/tabari_data_client.dart';
 import '../../core/services/services_locator.dart';
 import '../../core/utils/constants/shared_pref_services.dart';
 import '../../core/utils/constants/shared_preferences_constants.dart';
+import '../screens/quran_page/data/data_source/baghawy_data_client.dart';
 import '../screens/quran_page/data/data_source/ibnkatheer_data_client.dart';
+import '../screens/quran_page/data/data_source/qurtubi_data_client.dart';
+import '../screens/quran_page/data/data_source/saadi_data_client.dart';
+import '../screens/quran_page/data/data_source/tabari_data_client.dart';
 import '../screens/quran_page/data/model/translate.dart';
 import '../screens/quran_page/data/repository/ayat_repository.dart';
-import '../screens/quran_page/data/repository/translate_repository.dart';
+import '../screens/quran_page/data/repository/tafseer_repository.dart';
 import '../screens/quran_page/widgets/show_tafseer.dart';
+import '/presentation/screens/quran_page/data/model/aya.dart';
 import 'audio_controller.dart';
 import 'general_controller.dart';
 import 'surahTextController.dart';

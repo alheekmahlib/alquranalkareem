@@ -166,13 +166,13 @@ class QuranTextController extends GetxController {
     // setSurahsPages();
   }
 
-  Widget besmAllahWidget(BuildContext context, SurahText? surah, int index) {
+  Widget besmAllahWidget(SurahText? surah, int index) {
     return surah!.number == 9 || surah.number == 1
         ? const SizedBox.shrink()
         : surah.ayahs![index].numberInSurah == 1
             ? (surah.number == 95 || surah.number == 97)
-                ? besmAllah2(context)
-                : besmAllah(context)
+                ? besmAllah2()
+                : besmAllah()
             : const SizedBox.shrink();
   }
 

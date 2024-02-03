@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../surah_audio_screen/widgets/surah_list.dart';
 import 'juz_page.dart';
+import 'quran_surah_list.dart';
 
 class SurahJuzList extends StatelessWidget {
   SurahJuzList({super.key});
@@ -46,7 +46,7 @@ class SurahJuzList extends StatelessWidget {
               Expanded(
                 child: TabBarView(
                   children: <Widget>[
-                    SurahList(),
+                    QuranSurahList(),
                     QuranJuz(),
                   ],
                 ),

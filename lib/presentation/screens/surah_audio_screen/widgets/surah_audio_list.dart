@@ -9,8 +9,8 @@ import '../../../../core/services/services_locator.dart';
 import '../../../controllers/surah_audio_controller.dart';
 import '../../../controllers/surah_repository_controller.dart';
 
-class SurahList extends StatelessWidget {
-  const SurahList({super.key});
+class SurahAudioList extends StatelessWidget {
+  const SurahAudioList({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -37,9 +37,9 @@ class SurahList extends StatelessWidget {
                 itemBuilder: (_, index) {
                   final sorah = sl<SurahRepositoryController>().sorahs[index];
                   int surahNumber = index + 1;
-                  RxBool isDownloaded =
-                      surahAudioCtrl.surahDownloadStatus[surahNumber] ??
-                          RxBool(false);
+                  // RxBool isDownloaded =
+                  //     surahAudioCtrl.surahDownloadStatus[surahNumber] ??
+                  //         RxBool(false);
                   return AnimationConfiguration.staggeredList(
                     position: index,
                     duration: const Duration(milliseconds: 450),
@@ -148,10 +148,9 @@ class SurahList extends StatelessWidget {
                                               height: 15,
                                             ),
                                           Obx(() => Icon(
-                                                surahAudioCtrl
-                                                            .surahDownloadStatus[
-                                                                surahNumber]
-                                                            ?.value ??
+                                                surahAudioCtrl.surahDownloadStatus
+                                                                .value[
+                                                            surahNumber] ??
                                                         false
                                                     ? Icons.check_circle_outline
                                                     : Icons
