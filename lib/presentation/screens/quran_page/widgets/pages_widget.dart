@@ -38,7 +38,7 @@ class PagesWidget extends StatelessWidget {
                   return const Center(child: CircularProgressIndicator());
                 }
                 List<Ayah> ayahs = quranCtrl.getAyahsForCurrentPage(index + 1);
-                // todo: Helal fix me please
+
                 List<InlineSpan> spans = ayahs.asMap().entries.map((entry) {
                   int idx = entry.key;
                   Ayah ayah = entry.value;
@@ -81,26 +81,83 @@ class PagesWidget extends StatelessWidget {
                   }
                 }).toList();
 
-                return Column(
-                  children: [
-                    quranCtrl.besmAllahWidget(index + 1),
-                    RichText(
-                      textAlign: TextAlign.center,
-                      textDirection: TextDirection.rtl,
-                      text: TextSpan(
+                return RichText(
+                  textDirection: TextDirection.rtl,
+                  textAlign: TextAlign.center,
+                  text: TextSpan(
+                    style: TextStyle(
+                      fontFamily: 'page${index + 1}',
+                      fontSize: getProportionateScreenWidth(
+                          context.customOrientation(19.0, 18.0)),
+                      height: 1.9,
+                      letterSpacing: 1.5,
+                      color: Get.theme.colorScheme.inversePrimary,
+                    ),
+                    children: List.generate(ayahs.length, (ayahIndex) {
+                      quranCtrl.isSelected =
+                          quranCtrl.selectedAyahIndexes.contains(ayahIndex);
+                      if (ayahIndex == 0) {
+                        return TextSpan(
+                          text:
+                              "${ayahs[ayahIndex].code_v2[0]} ${ayahs[ayahIndex].code_v2.substring(1)}",
+                          style: TextStyle(
+                            fontFamily: 'page${index + 1}',
+                            fontSize: getProportionateScreenWidth(
+                                context.customOrientation(19.0, 18.0)),
+                            height: 1.9,
+                            letterSpacing: 1.5,
+                            color: Get.theme.colorScheme.inversePrimary,
+                            backgroundColor: quranCtrl.isSelected!
+                                ? Get.theme.colorScheme.primary.withOpacity(.25)
+                                : Colors.transparent,
+                          ),
+                          recognizer: LongPressGestureRecognizer(
+                              duration: const Duration(milliseconds: 500))
+                            ..onLongPressStart =
+                                (LongPressStartDetails details) {
+                              quranCtrl.toggleAyahSelection(ayahIndex);
+                              quranCtrl.menu(details: details);
+                            },
+                        );
+                      }
+                      return TextSpan(
+                        text: ayahs[ayahIndex].code_v2,
                         style: TextStyle(
                           fontFamily: 'page${index + 1}',
                           fontSize: getProportionateScreenWidth(
                               context.customOrientation(19.0, 18.0)),
                           height: 1.9,
-                          letterSpacing: 2,
+                          letterSpacing: 1.5,
                           color: Get.theme.colorScheme.inversePrimary,
+                          backgroundColor: quranCtrl.isSelected!
+                              ? Get.theme.colorScheme.primary.withOpacity(.25)
+                              : Colors.transparent,
                         ),
-                        children: spans,
-                      ),
-                    ),
-                  ],
+                        recognizer: LongPressGestureRecognizer(
+                            duration: const Duration(milliseconds: 500))
+                          ..onLongPressStart = (LongPressStartDetails details) {
+                            quranCtrl.toggleAyahSelection(ayahIndex);
+                            quranCtrl.menu(details: details);
+                          },
+                      );
+                    }),
+                  ),
                 );
+                /*return RichText(
+                  textAlign: TextAlign.center,
+                  textDirection: TextDirection.rtl,
+                  text: TextSpan(
+                    style: TextStyle(
+                      fontFamily: 'page${index + 1}',
+                      fontSize: getProportionateScreenWidth(
+                          context.customOrientation(19.0, 18.0)),
+                      height: 1.9,
+                      letterSpacing: 2,
+                      color: Get.theme.colorScheme.inversePrimary,
+                    ),
+                    children: spans,
+                  ),
+                );*/
               }),
             ],
           ),

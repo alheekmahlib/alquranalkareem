@@ -643,5 +643,10 @@
   "@dailyZeker": {
     "type": "text",
     "placeholders": {}
+  },
+  "lang": "العربية",
+  "@lang": {
+    "type": "text",
+    "placeholders": {}
   }
 }

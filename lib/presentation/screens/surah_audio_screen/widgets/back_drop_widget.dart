@@ -33,7 +33,10 @@ class BackDropWidget extends StatelessWidget {
                   child: Stack(
                     alignment: Alignment.topCenter,
                     children: [
-                      TabBarWidget(isChild: true),
+                      TabBarWidget(
+                        isChild: true,
+                        isIndicator: false,
+                      ),
                       Padding(
                         padding: EdgeInsets.only(top: 14.0),
                         child: LastListen(),

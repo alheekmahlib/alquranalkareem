@@ -26,6 +26,7 @@ class HomeScreen extends StatelessWidget {
                 children: [
                   const TabBarWidget(
                     isChild: false,
+                    isIndicator: false,
                   ),
                   Flexible(
                     child: ListView(

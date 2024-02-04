@@ -652,5 +652,10 @@
   "@dailyZeker": {
     "type": "text",
     "placeholders": {}
+  },
+  "lang": "Español",
+  "@lang": {
+    "type": "text",
+    "placeholders": {}
   }
 }

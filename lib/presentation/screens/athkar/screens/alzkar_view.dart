@@ -22,6 +22,7 @@ class AzkarView extends StatelessWidget {
                   children: [
                     const TabBarWidget(
                       isChild: true,
+                      isIndicator: false,
                     ),
                     Container(
                       height: 40,

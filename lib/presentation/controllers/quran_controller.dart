@@ -1,9 +1,13 @@
 import 'dart:convert';
 
+import 'package:alquranalkareem/presentation/controllers/general_controller.dart';
+import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' show rootBundle;
+import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 
+import '../../core/services/services_locator.dart';
 import '../../core/utils/constants/svg_picture.dart';
 import '../screens/quran_page/data/model/surahs_model.dart';
 
@@ -13,7 +17,12 @@ class QuranController extends GetxController {
   RxInt selectedVerseIndex = 0.obs;
   RxBool selectedAyah = false.obs;
   var selectedAyahIndexes = <int>[].obs;
-  bool? isSelected;
+  bool isSelected = false;
+  final ScrollController scrollIndicatorController = ScrollController();
+  RxInt selectedIndicatorIndex = 0.obs;
+  PreferDirection preferDirection = PreferDirection.topCenter;
+
+  final generalCtrl = sl<GeneralController>();
 
   void toggleAyahSelection(int index) {
     if (selectedAyahIndexes.contains(index)) {
@@ -62,8 +71,8 @@ class QuranController extends GetxController {
   }
 
   Widget besmAllahWidget(int pageNumber) {
-    int surahNumber = getSurahNumberFromPage(pageNumber);
     List<Ayah> ayahsOnPage = getAyahsForCurrentPage(pageNumber);
+    int surahNumber = getSurahNumberFromPage(pageNumber);
 
     if (surahNumber == -1 || surahNumber == 9 || surahNumber == 1) {
       return const SizedBox.shrink();
@@ -76,5 +85,148 @@ class QuranController extends GetxController {
     } else {
       return const SizedBox.shrink();
     }
+  }
+
+  void indicatorOnTap(int pageNumber, int itemWidth, double screenWidth) {
+    currentPage.value = pageNumber;
+    selectedIndicatorIndex.value = pageNumber;
+    final targetOffset =
+        itemWidth * pageNumber - (screenWidth * .69 / 2) + itemWidth / 2;
+    scrollIndicatorController.animateTo(
+      targetOffset,
+      duration: const Duration(milliseconds: 500),
+      curve: Curves.easeIn,
+    );
+    generalCtrl.quranPageController.animateToPage(
+      pageNumber,
+      duration: const Duration(milliseconds: 500),
+      curve: Curves.easeIn,
+    );
+  }
+
+  void indicatorScroll(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
+    final itemWidth = 80;
+    selectedIndicatorIndex.value = currentPage.value;
+    final targetOffset =
+        itemWidth * currentPage.value - (screenWidth * .69 / 2) + itemWidth / 2;
+    if (scrollIndicatorController.hasClients) {
+      final targetOffset = itemWidth * currentPage.value -
+          (screenWidth * .69 / 2) +
+          itemWidth / 2;
+      scrollIndicatorController.animateTo(
+        targetOffset,
+        duration: const Duration(milliseconds: 500),
+        curve: Curves.easeIn,
+      );
+    } else {
+      // Handle the case where the scroll view is not ready
+    }
+  }
+
+  void menu({var details}) {
+    BotToast.showAttachedWidget(
+      target: details.globalPosition,
+      verticalOffset: 0.0,
+      horizontalOffset: 0.0,
+      preferDirection: preferDirection,
+      animationDuration: const Duration(microseconds: 700),
+      animationReverseDuration: const Duration(microseconds: 700),
+      attachedBuilder: (cancel) => Card(
+        color: Get.theme.colorScheme.primary,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(8),
+        ),
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 6.0),
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              GestureDetector(
+                child: Semantics(
+                  button: true,
+                  enabled: true,
+                  label: 'Show Tafseer',
+                  child: Icon(
+                    Icons.text_snippet_outlined,
+                    size: 24,
+                    color: Get.theme.colorScheme.secondary,
+                  ),
+                ),
+                onTap: () {
+                  cancel();
+                },
+              ),
+              const Gap(8),
+              GestureDetector(
+                child: Semantics(
+                  button: true,
+                  enabled: true,
+                  label: 'Add Bookmark',
+                  child: Icon(
+                    Icons.bookmark,
+                    size: 24,
+                    color: Get.theme.colorScheme.secondary,
+                  ),
+                ),
+                onTap: () {
+                  cancel();
+                },
+              ),
+              const SizedBox(
+                width: 8.0,
+              ),
+              GestureDetector(
+                child: Semantics(
+                  button: true,
+                  enabled: true,
+                  label: 'Copy Ayah',
+                  child: Icon(
+                    Icons.copy_outlined,
+                    size: 24,
+                    color: Get.theme.colorScheme.secondary,
+                  ),
+                ),
+                onTap: () async {
+                  cancel();
+                },
+              ),
+              const SizedBox(
+                width: 8.0,
+              ),
+              GestureDetector(
+                child: Semantics(
+                  button: true,
+                  enabled: true,
+                  label: 'Play Ayah',
+                  child: play_arrow(height: 20.0),
+                ),
+                onTap: () {
+                  cancel();
+                },
+              ),
+              const SizedBox(
+                width: 8.0,
+              ),
+              GestureDetector(
+                child: Semantics(
+                  button: true,
+                  enabled: true,
+                  label: 'Share Ayah',
+                  child: Icon(
+                    Icons.share_outlined,
+                    size: 23,
+                    color: Get.theme.colorScheme.secondary,
+                  ),
+                ),
+                onTap: () {
+                  cancel();
+                },
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
   }
 }

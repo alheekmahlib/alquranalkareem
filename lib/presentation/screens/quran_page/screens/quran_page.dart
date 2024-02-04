@@ -116,7 +116,10 @@ class MPages extends StatelessWidget {
                 }),
           ),
           Obx(() => generalCtrl.isShowControl.value
-              ? const TabBarWidget(isChild: true)
+              ? const TabBarWidget(
+                  isChild: true,
+                  isIndicator: true,
+                )
               : const SizedBox.shrink())
         ],
       ),

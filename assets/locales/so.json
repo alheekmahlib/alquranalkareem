@@ -644,5 +644,10 @@
   "@dailyZeker": {
     "type": "text",
     "placeholders": {}
+  },
+  "lang": "Soomaali",
+  "@lang": {
+    "type": "text",
+    "placeholders": {}
   }
 }
