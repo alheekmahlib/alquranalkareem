@@ -67,6 +67,17 @@ class MPages extends StatelessWidget {
                                     icon: bookmarkIcon(context, 30.0, 30.0),
                                   ),
                                 ),
+                                Align(
+                                  alignment: Alignment.bottomRight,
+                                  child: Text(
+                                    '${index + 1}',
+                                    style: TextStyle(
+                                        fontSize: 18,
+                                        fontFamily: 'naskh',
+                                        color: Get
+                                            .theme.colorScheme.inversePrimary),
+                                  ),
+                                )
                               ],
                             ),
                           ),
@@ -109,6 +120,17 @@ class MPages extends StatelessWidget {
                                     icon: bookmarkIcon(context, 30.0, 30.0),
                                   ),
                                 ),
+                                Align(
+                                  alignment: Alignment.bottomLeft,
+                                  child: Text(
+                                    '${index + 1}',
+                                    style: TextStyle(
+                                        fontSize: 18,
+                                        fontFamily: 'naskh',
+                                        color: Get
+                                            .theme.colorScheme.inversePrimary),
+                                  ),
+                                )
                               ],
                             ),
                           ),
