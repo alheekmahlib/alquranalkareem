@@ -30,7 +30,7 @@ class SurahTextController extends GetxController {
   }
 
   Future<void> loadQuranData() async {
-    final jsondata = await rootBundle.loadString('assets/json/quran.json');
+    final jsondata = await rootBundle.loadString('assets/json/quranV2.json');
     final list = json.decode(jsondata);
     var data = list["data"]["surahs"];
     var loadedSurahs = <SurahText>[];

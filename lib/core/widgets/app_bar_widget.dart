@@ -4,7 +4,6 @@ import 'package:get/get.dart';
 import '../../presentation/controllers/azkar_controller.dart';
 import '../services/services_locator.dart';
 import '/core/utils/constants/extensions.dart';
-import 'widgets.dart';
 
 class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
   final bool isTitled;
@@ -45,7 +44,7 @@ class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
             color: Get.theme.colorScheme.primary,
           )),
       actions: [
-        fontSizeDropDown(context),
+        context.fontSizeDropDown(),
       ],
     );
   }

@@ -71,7 +71,6 @@ class Sliding extends StatelessWidget {
                   label: 'onboardTitle2'.tr,
                   child: GestureDetector(
                     onTap: () {
-                      sl<GeneralController>().slideWidgetSwitch(0);
                       if (!sl<GeneralController>().isPanelControllerDisposed) {
                         sl<GeneralController>().slideHandle();
                       }

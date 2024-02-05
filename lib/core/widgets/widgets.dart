@@ -1,9 +1,5 @@
 import 'dart:io' show Platform;
 
-import 'package:another_xlider/another_xlider.dart';
-import 'package:another_xlider/models/handler.dart';
-import 'package:another_xlider/models/handler_animation.dart';
-import 'package:another_xlider/models/trackbar.dart';
 import 'package:arabic_numbers/arabic_numbers.dart';
 import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
@@ -18,9 +14,6 @@ import '../../presentation/screens/notes/notes_list.dart';
 import '../../presentation/screens/quran_text/widgets/bookmarks_text_list.dart';
 import '../../presentation/screens/quran_text/widgets/quran_text_search.dart';
 import '../services/services_locator.dart';
-import '../utils/constants/shared_pref_services.dart';
-import '../utils/constants/shared_preferences_constants.dart';
-import '../utils/constants/svg_picture.dart';
 import '/core/utils/constants/extensions.dart';
 import '/presentation/screens/quran_page/widgets/quran_search.dart';
 import 'custom_paint/bg_icon.dart';
@@ -46,7 +39,6 @@ Widget quranPageSearch(BuildContext context, double width) {
           );
         } else {
           sl<GeneralController>().slideOpen();
-          sl<GeneralController>().slideWidgetSwitch(1);
         }
       },
     ),
@@ -62,7 +54,6 @@ Widget quranPageSorahList(BuildContext context, double width) {
         child: iconBg(context, Icons.list_alt_outlined),
         onTap: () {
           sl<GeneralController>().slideOpen();
-          sl<GeneralController>().slideWidgetSwitch(2);
           // allModalBottomSheet(
           //     context,
           //     MediaQuery.sizeOf(context).height / 1 / 2,
@@ -89,7 +80,6 @@ Widget notesList(BuildContext context, double width) {
           );
         } else {
           sl<GeneralController>().slideOpen();
-          sl<GeneralController>().slideWidgetSwitch(3);
         }
       },
     ),
@@ -120,7 +110,6 @@ Widget bookmarksList(BuildContext context, double width) {
       child: iconBg(context, Icons.bookmarks_outlined),
       onTap: () {
         sl<GeneralController>().slideOpen();
-        sl<GeneralController>().slideWidgetSwitch(4);
         // allModalBottomSheet(
         //   context,
         //   MediaQuery.sizeOf(context).height / 1 / 2,
@@ -997,68 +986,6 @@ Widget Function(BuildContext, EditableTextState) buildMyContextMenuText() {
       buttonItems: buttonItems,
     );
   };
-}
-
-Widget fontSizeDropDown(BuildContext context) {
-  return PopupMenuButton(
-    position: PopupMenuPosition.under,
-    icon: Semantics(
-      button: true,
-      enabled: true,
-      label: 'Change Font Size',
-      child: font_size(height: 35),
-    ),
-    color: Get.theme.colorScheme.primary.withOpacity(.8),
-    itemBuilder: (context) => [
-      PopupMenuItem(
-        child: Obx(
-          () => SizedBox(
-            height: 30,
-            width: MediaQuery.sizeOf(context).width,
-            child: FlutterSlider(
-              values: [sl<GeneralController>().fontSizeArabic.value],
-              max: 50,
-              min: 20,
-              rtl: true,
-              trackBar: FlutterSliderTrackBar(
-                inactiveTrackBarHeight: 5,
-                activeTrackBarHeight: 5,
-                inactiveTrackBar: BoxDecoration(
-                  borderRadius: BorderRadius.circular(8),
-                  color: Get.theme.colorScheme.surface,
-                ),
-                activeTrackBar: BoxDecoration(
-                    borderRadius: BorderRadius.circular(4),
-                    color: Get.theme.colorScheme.background),
-              ),
-              handlerAnimation: const FlutterSliderHandlerAnimation(
-                  curve: Curves.elasticOut,
-                  reverseCurve: null,
-                  duration: Duration(milliseconds: 700),
-                  scale: 1.4),
-              onDragging: (handlerIndex, lowerValue, upperValue) async {
-                lowerValue = lowerValue;
-                upperValue = upperValue;
-                sl<GeneralController>().fontSizeArabic.value = lowerValue;
-                await sl<SharedPrefServices>()
-                    .saveDouble(FONT_SIZE, lowerValue);
-              },
-              handler: FlutterSliderHandler(
-                decoration: const BoxDecoration(),
-                child: Material(
-                  type: MaterialType.circle,
-                  color: Colors.transparent,
-                  elevation: 3,
-                  child: SvgPicture.asset('assets/svg/slider_ic.svg'),
-                ),
-              ),
-            ),
-          ),
-        ),
-        height: 30,
-      ),
-    ],
-  );
 }
 
 Widget audioContainer(BuildContext context, Widget myWidget,

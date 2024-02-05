@@ -366,3 +366,23 @@ List surahReaderInfo = [
     'readerI': 'Ghamadi'
   }
 ];
+
+List tafsirName = [
+  {'name': '${'tafIbnkatheerN'.tr}', 'bookName': '${'tafIbnkatheerD'.tr}'},
+  {
+    'name': '${'tafBaghawyN'.tr}',
+    'bookName': '${'tafBaghawyD'.tr}',
+  },
+  {
+    'name': '${'tafQurtubiN'.tr}',
+    'bookName': '${'tafQurtubiD'.tr}',
+  },
+  {
+    'name': '${'tafSaadiN'.tr}',
+    'bookName': '${'tafSaadiD'.tr}',
+  },
+  {
+    'name': '${'tafTabariN'.tr}',
+    'bookName': '${'tafTabariD'.tr}',
+  },
+];

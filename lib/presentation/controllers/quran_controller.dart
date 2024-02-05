@@ -1,17 +1,15 @@
 import 'dart:convert';
 import 'dart:developer';
 
-import 'package:alquranalkareem/presentation/controllers/general_controller.dart';
 import 'package:bot_toast/bot_toast.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' show rootBundle;
-import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 
 import '../../core/services/services_locator.dart';
-import '../../core/utils/constants/svg_picture.dart';
 import '../screens/quran_page/data/model/surahs_model.dart';
+import '/presentation/controllers/general_controller.dart';
 
 class QuranController extends GetxController {
   var currentPage = 1.obs;
@@ -57,6 +55,7 @@ class QuranController extends GetxController {
     for (final surah in surahs) {
       allAyahs.addAll(surah.ayahs);
       log('Added ${surah.arabicName} ayahs');
+      update();
     }
     List.generate(604, (pageIndex) {
       pages.add(allAyahs.where((ayah) => ayah.page == pageIndex + 1).toList());
@@ -86,7 +85,7 @@ class QuranController extends GetxController {
   /// you can use [ayahs.last].
   int getSurahNumberFromPage(int pageNumber) => surahs
       .firstWhere(
-          (s) => s.ayahs.contains(getCurrentPageAyahs(pageNumber - 1).first))
+          (s) => s.ayahs.contains(getCurrentPageAyahs(pageNumber).first))
       .surahNumber;
 
   // int getSurahNumberFromPage(int pageNumber) {
@@ -154,111 +153,5 @@ class QuranController extends GetxController {
     } else {
       // Handle the case where the scroll view is not ready
     }
-  }
-
-  void menu({var details}) {
-    BotToast.showAttachedWidget(
-      target: details.globalPosition,
-      verticalOffset: 0.0,
-      horizontalOffset: 0.0,
-      preferDirection: preferDirection,
-      animationDuration: const Duration(microseconds: 700),
-      animationReverseDuration: const Duration(microseconds: 700),
-      attachedBuilder: (cancel) => Card(
-        color: Get.theme.colorScheme.primary,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(8),
-        ),
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 6.0),
-          child: Row(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              GestureDetector(
-                child: Semantics(
-                  button: true,
-                  enabled: true,
-                  label: 'Show Tafseer',
-                  child: Icon(
-                    Icons.text_snippet_outlined,
-                    size: 24,
-                    color: Get.theme.colorScheme.secondary,
-                  ),
-                ),
-                onTap: () {
-                  cancel();
-                },
-              ),
-              const Gap(8),
-              GestureDetector(
-                child: Semantics(
-                  button: true,
-                  enabled: true,
-                  label: 'Add Bookmark',
-                  child: Icon(
-                    Icons.bookmark,
-                    size: 24,
-                    color: Get.theme.colorScheme.secondary,
-                  ),
-                ),
-                onTap: () {
-                  cancel();
-                },
-              ),
-              const SizedBox(
-                width: 8.0,
-              ),
-              GestureDetector(
-                child: Semantics(
-                  button: true,
-                  enabled: true,
-                  label: 'Copy Ayah',
-                  child: Icon(
-                    Icons.copy_outlined,
-                    size: 24,
-                    color: Get.theme.colorScheme.secondary,
-                  ),
-                ),
-                onTap: () async {
-                  cancel();
-                },
-              ),
-              const SizedBox(
-                width: 8.0,
-              ),
-              GestureDetector(
-                child: Semantics(
-                  button: true,
-                  enabled: true,
-                  label: 'Play Ayah',
-                  child: play_arrow(height: 20.0),
-                ),
-                onTap: () {
-                  cancel();
-                },
-              ),
-              const SizedBox(
-                width: 8.0,
-              ),
-              GestureDetector(
-                child: Semantics(
-                  button: true,
-                  enabled: true,
-                  label: 'Share Ayah',
-                  child: Icon(
-                    Icons.share_outlined,
-                    size: 23,
-                    color: Get.theme.colorScheme.secondary,
-                  ),
-                ),
-                onTap: () {
-                  cancel();
-                },
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
   }
 }

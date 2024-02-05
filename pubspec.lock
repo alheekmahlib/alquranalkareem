@@ -435,6 +435,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.3.9"
+  flutter_popup:
+    dependency: "direct main"
+    description:
+      name: flutter_popup
+      sha256: "43f74ed30f7ebe2ef8d0b2e94c0dc2bdfb8286623d27333f4303b4daf80893b8"
+      url: "https://pub.dev"
+    source: hosted
+    version: "3.1.8"
   flutter_rating_bar:
     dependency: transitive
     description:

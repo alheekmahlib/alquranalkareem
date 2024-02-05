@@ -55,24 +55,20 @@ class QuranPage extends StatelessWidget {
                 ),
               ),
               Align(
-                  alignment: Alignment.bottomCenter,
-                  child: Obx(
-                    () => Sliding(
-                      myWidget1: quranPageSearch(
-                          context, MediaQuery.sizeOf(context).width),
-                      myWidget2: quranPageSorahList(
-                          context, MediaQuery.sizeOf(context).width),
-                      myWidget3:
-                          notesList(context, MediaQuery.sizeOf(context).width),
-                      myWidget4: bookmarksList(
-                          context, MediaQuery.sizeOf(context).width),
-                      myWidget5: Container(
-                        color: Get.theme.colorScheme.background,
-                        child: sl<GeneralController>().slideWidget.value,
-                      ),
-                      cHeight: context.customOrientation(230.0, 90.0),
-                    ),
-                  )),
+                alignment: Alignment.bottomCenter,
+                child: Sliding(
+                  myWidget1: quranPageSearch(
+                      context, MediaQuery.sizeOf(context).width),
+                  myWidget2: quranPageSorahList(
+                      context, MediaQuery.sizeOf(context).width),
+                  myWidget3:
+                      notesList(context, MediaQuery.sizeOf(context).width),
+                  myWidget4:
+                      bookmarksList(context, MediaQuery.sizeOf(context).width),
+                  myWidget5: Container(),
+                  cHeight: context.customOrientation(230.0, 90.0),
+                ),
+              )
             ],
           ),
         ),

@@ -97,6 +97,17 @@ Widget button_curve({double? height, double? width, Color? color}) {
   );
 }
 
+Widget menu_curve({double? height, double? width, Color? color}) {
+  return SvgPicture.asset(
+    'assets/svg/menu_curve.svg',
+    width: width,
+    height: height ?? 60,
+    colorFilter: ColorFilter.mode(
+        color ?? Get.theme.colorScheme.primary.withOpacity(.7),
+        BlendMode.srcIn),
+  );
+}
+
 Widget options({double? height, double? width, Color? color}) {
   return SvgPicture.asset(
     'assets/svg/options.svg',
@@ -141,13 +152,15 @@ Widget azkar_b({double? height, double? width}) {
   );
 }
 
-Widget font_size({double? height, double? width}) {
+Widget font_size({double? height, double? width, Color? color}) {
   return Transform.translate(
     offset: const Offset(0, -5),
     child: SvgPicture.asset(
       'assets/svg/font_size.svg',
       width: width,
-      height: height ?? 60,
+      height: height ?? 35,
+      colorFilter: ColorFilter.mode(
+          color ?? Get.theme.colorScheme.secondary, BlendMode.srcIn),
     ),
   );
 }
@@ -171,6 +184,54 @@ Widget play_arrow({double? height, double? width}) {
 Widget pause_arrow({double? height, double? width}) {
   return SvgPicture.asset(
     'assets/svg/pause_arrow.svg',
+    width: width,
+    height: height ?? 60,
+  );
+}
+
+Widget tafsir_icon({double? height, double? width}) {
+  return SvgPicture.asset(
+    'assets/svg/tafsir_icon.svg',
+    width: width,
+    height: height ?? 60,
+  );
+}
+
+Widget bookmark_icon({double? height, double? width}) {
+  return SvgPicture.asset(
+    'assets/svg/bookmark_icon.svg',
+    width: width,
+    height: height ?? 60,
+  );
+}
+
+Widget copy_icon({double? height, double? width}) {
+  return SvgPicture.asset(
+    'assets/svg/copy_icon.svg',
+    width: width,
+    height: height ?? 60,
+  );
+}
+
+Widget share_icon({double? height, double? width}) {
+  return SvgPicture.asset(
+    'assets/svg/share_icon.svg',
+    width: width,
+    height: height ?? 60,
+  );
+}
+
+Widget books_icon({double? height, double? width}) {
+  return SvgPicture.asset(
+    'assets/svg/books.svg',
+    width: width,
+    height: height ?? 60,
+  );
+}
+
+Widget tafseer_icon({double? height, double? width}) {
+  return SvgPicture.asset(
+    'assets/svg/tafseer.svg',
     width: width,
     height: height ?? 60,
   );

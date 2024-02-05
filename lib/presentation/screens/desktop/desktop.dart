@@ -3,10 +3,8 @@ import 'package:flutter_sliding_up_panel/flutter_sliding_up_panel.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../../../core/services/services_locator.dart';
 import '../../../core/widgets/widgets.dart';
 import '../../../database/notificationDatabase.dart';
-import '../../controllers/general_controller.dart';
 import '../quran_page/widgets/sliding_up.dart';
 import 'desktop_quran_page.dart';
 
@@ -72,10 +70,7 @@ class _DesktopState extends State<Desktop> with TickerProviderStateMixin {
                     context,
                     MediaQuery.sizeOf(context).width / 1 / 2,
                   ),
-                  myWidget5: Container(
-                    color: Get.theme.colorScheme.background,
-                    child: sl<GeneralController>().slideWidget.value,
-                  ),
+                  myWidget5: Container(),
                   cHeight: 220.0,
                 ),
               ),

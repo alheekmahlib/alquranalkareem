@@ -4,8 +4,8 @@ import 'package:get/get.dart';
 import '../../core/widgets/widgets.dart';
 import '../../database/databaseHelper.dart';
 import '../screens/notes/model/Notes.dart';
-import '../screens/quran_page/widgets/show_tafseer.dart';
 import '../screens/quran_text/screens/text_page_view.dart';
+import '../screens/quran_text/widgets/show_text_tafseer.dart';
 
 class NotesController extends GetxController {
   final RxList<Notes> notes = <Notes>[].obs;

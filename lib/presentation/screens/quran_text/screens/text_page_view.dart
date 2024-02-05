@@ -79,7 +79,7 @@ class TextPageView extends StatelessWidget {
                   padding: const EdgeInsets.only(left: 16.0),
                   child: Row(
                     children: [
-                      fontSizeDropDown(context),
+                      context.fontSizeDropDown(),
                       SizedBox(
                         width: 70,
                         child: animatedToggleSwitch(context),

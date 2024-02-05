@@ -1,10 +1,3 @@
-import 'package:alquranalkareem/core/utils/constants/extensions.dart';
-import 'package:alquranalkareem/presentation/screens/home/home_screen.dart';
-import 'package:alquranalkareem/presentation/screens/notes/notes_list.dart';
-import 'package:alquranalkareem/presentation/screens/quran_page/widgets/bookmarks_list.dart';
-import 'package:alquranalkareem/presentation/screens/quran_page/widgets/quran_search.dart';
-import 'package:alquranalkareem/presentation/screens/quran_page/widgets/show_tafseer.dart';
-import 'package:alquranalkareem/presentation/screens/quran_page/widgets/surah_juz_list.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:flutter_sliding_up_panel/sliding_up_panel_widget.dart';
@@ -19,6 +12,8 @@ import '../screens/athkar/screens/alzkar_view.dart';
 import '../screens/quran_page/data/model/sorah_bookmark.dart';
 import '../screens/quran_page/screens/quran_home.dart';
 import '../screens/surah_audio_screen/audio_surah.dart';
+import '/core/utils/constants/extensions.dart';
+import '/presentation/screens/home/home_screen.dart';
 import 'audio_controller.dart';
 import 'ayat_controller.dart';
 import 'bookmarks_controller.dart';
@@ -72,7 +67,6 @@ class GeneralController extends GetxController {
   double ayahItemWidth = 30.0;
   RxBool isLoading = false.obs;
   var verses;
-  var slideWidget = Rx<Widget>(ShowTafseer());
   final searchTextEditing = TextEditingController();
   RxBool showSelectScreenPage = false.obs;
   RxInt screenSelectedValue = 0.obs;
@@ -134,7 +128,6 @@ class GeneralController extends GetxController {
     isShowControl.value = !isShowControl.value;
     if (SlidingUpPanelStatus.hidden == panelController.status) {
       panelController.collapse();
-      slideWidgetSwitch(0);
       audioWidgetPosition.value = 70.0;
     } else {
       audioWidgetPosition.value = -240.0;
@@ -221,35 +214,6 @@ class GeneralController extends GetxController {
     if (SlidingUpPanelStatus.anchored == panelController.status) {
       panelController.hide();
     }
-  }
-
-  void showTafseerWhenCollapsed() {
-    if (SlidingUpPanelStatus.collapsed == panelController.status) {
-      slideWidgetSwitch(0);
-    }
-  }
-
-  slideWidgetSwitch(int val) {
-    switch (val) {
-      case 0:
-        slideWidget.value = ShowTafseer();
-        break;
-      case 1:
-        slideWidget.value = QuranSearch();
-        break;
-      case 2:
-        slideWidget.value = SurahJuzList();
-        break;
-      case 3:
-        slideWidget.value = NotesList();
-        break;
-      case 4:
-        slideWidget.value = const BookmarksList();
-        break;
-      default:
-        slideWidget.value = ShowTafseer();
-    }
-    return slideWidget.value;
   }
 
   PageController pageController() {

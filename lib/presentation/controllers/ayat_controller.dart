@@ -12,10 +12,12 @@ import '../screens/quran_page/data/data_source/tabari_data_client.dart';
 import '../screens/quran_page/data/model/translate.dart';
 import '../screens/quran_page/data/repository/ayat_repository.dart';
 import '../screens/quran_page/data/repository/tafseer_repository.dart';
-import '../screens/quran_page/widgets/show_tafseer.dart';
+import '../screens/quran_text/widgets/show_text_tafseer.dart';
 import '/presentation/screens/quran_page/data/model/aya.dart';
 import 'audio_controller.dart';
 import 'general_controller.dart';
+import 'quranText_controller.dart';
+import 'quran_controller.dart';
 import 'surahTextController.dart';
 
 class AyatController extends GetxController {
@@ -39,6 +41,7 @@ class AyatController extends GetxController {
   RxInt radioValue = 0.obs;
   RxInt numberOfAyahText = 1.obs;
   RxString ayahTextNumber = '1'.obs;
+  RxString ayahTextNormal = ''.obs;
   RxString surahTextNumber = '1'.obs;
   RxInt ayahSelected = (-1).obs;
   RxInt ayahNumber = (-1).obs;
@@ -211,7 +214,6 @@ class AyatController extends GetxController {
     surahNumber.value = aya.surahNum;
     tafseerAyah = aya.text;
     tafseerText = ayaTafseer.text;
-    surahName = aya.sorahName;
     update();
   }
 
@@ -225,6 +227,19 @@ class AyatController extends GetxController {
     sl<SurahTextController>().currentSurahIndex =
         int.parse('${(aya.surahNum) - 1}');
     print(sl<AudioController>().pageAyahNumber);
+  }
+
+  void showTafsirOnTap(int surahNum, int ayahNum, String ayahText,
+      int pageIndex, String ayahTextN) {
+    tafseerAyah = ayahText;
+    numberOfAyahText.value = ayahNum;
+    surahNumber.value = surahNum;
+    ayahTextNumber.value = ayahNum.toString();
+    ayahTextNormal.value = ayahTextN;
+    sl<QuranController>().currentPage.value = pageIndex;
+    sl<QuranTextController>().selected.value =
+        !sl<QuranTextController>().selected.value;
+    Get.bottomSheet(ShowTextTafseer(), isScrollControlled: true);
   }
 }
 

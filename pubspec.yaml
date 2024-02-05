@@ -29,6 +29,7 @@ dependencies:
   flutter_local_notifications: ^16.2.0
   flutter_localizations:
     sdk: flutter
+  flutter_popup: ^3.1.8
   flutter_screenutil: ^5.9.0
   flutter_sliding_box: ^1.1.5
   flutter_sliding_up_panel: ^2.1.1
@@ -129,7 +130,6 @@ flutter:
     - assets/qurtubiV2.db
     - assets/tabariV2.db
     - assets/saadiV2.db
-    # - assets/ayahinfo_1260.db
     - assets/app_icon.png
     - assets/json/azkar.json
 

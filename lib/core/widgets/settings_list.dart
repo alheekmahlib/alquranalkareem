@@ -1,11 +1,11 @@
-import 'package:alquranalkareem/core/widgets/select_screen_build.dart';
-import 'package:alquranalkareem/presentation/controllers/general_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 
 import '../services/services_locator.dart';
 import '/core/utils/constants/extensions.dart';
+import '/core/widgets/select_screen_build.dart';
+import '/presentation/controllers/general_controller.dart';
 import 'language_list.dart';
 import 'select_screen.dart';
 import 'theme_change.dart';
