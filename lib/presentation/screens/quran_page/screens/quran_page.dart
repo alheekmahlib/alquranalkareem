@@ -36,7 +36,7 @@ class MPages extends StatelessWidget {
                             child: Stack(
                               alignment: Alignment.center,
                               children: [
-                                PagesWidget(index: index),
+                                PagesWidget(pageIndex: index),
                                 Align(
                                   alignment: Alignment.topRight,
                                   child: IconButton(
@@ -89,7 +89,7 @@ class MPages extends StatelessWidget {
                             child: Stack(
                               alignment: Alignment.center,
                               children: [
-                                PagesWidget(index: index),
+                                PagesWidget(pageIndex: index),
                                 Align(
                                   alignment: Alignment.topLeft,
                                   child: IconButton(
