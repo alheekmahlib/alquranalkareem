@@ -197,7 +197,7 @@ class AudioController extends GetxController {
           print(e);
         }
         if (_connectionStatus == ConnectivityResult.none) {
-          customErrorSnackBar(context, 'noInternet'.tr);
+          customErrorSnackBar('noInternet'.tr);
         } else if (_connectionStatus == ConnectivityResult.mobile) {
           await downloadFile(path, url, fileName);
           customMobileNoteSnackBar(context, 'mobileDataAyat'.tr);
@@ -349,7 +349,7 @@ class AudioController extends GetxController {
           print(e);
         }
         if (_connectionStatus == ConnectivityResult.none) {
-          customErrorSnackBar(context, 'noInternet'.tr);
+          customErrorSnackBar('noInternet'.tr);
         } else if (_connectionStatus == ConnectivityResult.mobile) {
           await downloadFile(path, url, fileName);
           customMobileNoteSnackBar(context, 'mobileDataAyat'.tr);
@@ -585,7 +585,7 @@ class AudioController extends GetxController {
               ),
             ));
           } else {
-            customErrorSnackBar(context, 'noInternet'.tr);
+            customErrorSnackBar('noInternet'.tr);
           }
         } else if (_connectionStatus == ConnectivityResult.mobile) {
           await downloadFile(path, url, fileName);

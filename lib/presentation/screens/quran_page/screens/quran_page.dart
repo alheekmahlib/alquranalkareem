@@ -7,6 +7,7 @@ import '../../../../core/utils/constants/svg_picture.dart';
 import '../../../../core/widgets/widgets.dart';
 import '../../../controllers/bookmarks_controller.dart';
 import '../../../controllers/general_controller.dart';
+import '../widgets/audio_widget.dart';
 import '../widgets/left_page.dart';
 import '../widgets/right_page.dart';
 import '/presentation/screens/quran_page/widgets/pages_widget.dart';
@@ -142,7 +143,13 @@ class MPages extends StatelessWidget {
                   isChild: true,
                   isIndicator: true,
                 )
-              : const SizedBox.shrink())
+              : const SizedBox.shrink()),
+          Obx(() => generalCtrl.isShowControl.value
+              ? Align(
+                  alignment: Alignment.bottomCenter,
+                  child: AudioWidget(),
+                )
+              : const SizedBox.shrink()),
         ],
       ),
     );

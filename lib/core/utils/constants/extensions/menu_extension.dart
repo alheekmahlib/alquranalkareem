@@ -1,4 +1,3 @@
-import 'package:alquranalkareem/core/utils/constants/extensions.dart';
 import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
@@ -7,11 +6,13 @@ import 'package:get/get.dart';
 import '../../../../presentation/controllers/ayat_controller.dart';
 import '../../../../presentation/controllers/quran_controller.dart';
 import '../../../services/services_locator.dart';
+import '../../../widgets/share/share_ayah_options.dart';
 import '../svg_picture.dart';
+import '/core/utils/constants/extensions.dart';
 
 extension ContextMenuExtension on BuildContext {
   void showAyahMenu(int surahNum, int ayahNum, String ayahText, int pageIndex,
-      String ayahTextNormal,
+      String ayahTextNormal, int ayahUQNum,
       {dynamic details}) {
     BotToast.showAttachedWidget(
       target: details.globalPosition,
@@ -51,7 +52,7 @@ extension ContextMenuExtension on BuildContext {
                       ),
                       onTap: () {
                         sl<AyatController>().showTafsirOnTap(surahNum, ayahNum,
-                            ayahText, pageIndex, ayahTextNormal);
+                            ayahText, pageIndex, ayahTextNormal, ayahUQNum);
                         cancel();
                       },
                     ),
@@ -65,6 +66,7 @@ extension ContextMenuExtension on BuildContext {
                         child: play_arrow(height: 25.0),
                       ),
                       onTap: () {
+                        sl<QuranController>().isPlayExpanded.value = true;
                         cancel();
                       },
                     ),
@@ -99,16 +101,16 @@ extension ContextMenuExtension on BuildContext {
                     const Gap(6),
                     this.vDivider(height: 18.0),
                     const Gap(6),
-                    GestureDetector(
-                      child: Semantics(
-                        button: true,
-                        enabled: true,
-                        label: 'Share Ayah',
-                        child: share_icon(height: 25.0),
-                      ),
-                      onTap: () {
-                        cancel();
-                      },
+                    ShareAyahOptions(
+                      verseNumber: ayahNum,
+                      verseUQNumber: ayahUQNum,
+                      surahNumber: surahNum,
+                      ayahTextNormal: ayahTextNormal,
+                      verseText: ayahTextNormal,
+                      surahName: 'surahName',
+                      textTranslate:
+                          sl<AyatController>().currentText.value?.translate ??
+                              '',
                     ),
                   ],
                 ),

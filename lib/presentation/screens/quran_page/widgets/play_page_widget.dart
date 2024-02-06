@@ -1,3 +1,4 @@
+import 'package:alquranalkareem/presentation/controllers/quran_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:square_percent_indicater/square_percent_indicater.dart';
@@ -26,9 +27,9 @@ class PlayPage extends StatelessWidget {
               borderRadius: 8,
               shadowWidth: 1.5,
               progressWidth: 2,
-              shadowColor: Get.theme.dividerColor.withOpacity(.5),
+              shadowColor: Get.theme.colorScheme.surface.withOpacity(.15),
               progressColor: sl<AudioController>().downloadingPage.value
-                  ? Get.theme.colorScheme.surface
+                  ? Get.theme.colorScheme.primary
                   : Colors.transparent,
               progress: sl<AudioController>().progressPage.value,
             ),
@@ -40,7 +41,7 @@ class PlayPage extends StatelessWidget {
                       style: TextStyle(
                           fontSize: 14,
                           fontFamily: 'kufi',
-                          color: Get.theme.colorScheme.surface),
+                          color: Get.theme.hintColor),
                     ),
                   )
                 : Obx(
@@ -56,8 +57,9 @@ class PlayPage extends StatelessWidget {
                           size: 25,
                         ),
                       ),
-                      color: Get.theme.colorScheme.surface,
+                      color: Get.theme.colorScheme.primary,
                       onPressed: () {
+                        sl<QuranController>().isPlayExpanded.value = true;
                         print(sl<AudioController>().progressPageString.value);
 
                         sl<AudioController>().isPlay.value = false;

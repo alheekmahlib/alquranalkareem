@@ -1,9 +1,13 @@
+import 'package:alquranalkareem/presentation/controllers/translate_controller.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../core/services/services_locator.dart';
 import '../../core/utils/constants/shared_pref_services.dart';
 import '../../core/utils/constants/shared_preferences_constants.dart';
+import '../../core/widgets/widgets.dart';
 import '../screens/quran_page/data/data_source/baghawy_data_client.dart';
 import '../screens/quran_page/data/data_source/ibnkatheer_data_client.dart';
 import '../screens/quran_page/data/data_source/qurtubi_data_client.dart';
@@ -12,7 +16,7 @@ import '../screens/quran_page/data/data_source/tabari_data_client.dart';
 import '../screens/quran_page/data/model/translate.dart';
 import '../screens/quran_page/data/repository/ayat_repository.dart';
 import '../screens/quran_page/data/repository/tafseer_repository.dart';
-import '../screens/quran_text/widgets/show_text_tafseer.dart';
+import '../screens/quran_page/widgets/show_tafseer.dart';
 import '/presentation/screens/quran_page/data/model/aya.dart';
 import 'audio_controller.dart';
 import 'general_controller.dart';
@@ -58,6 +62,7 @@ class AyatController extends GetxController {
   ValueNotifier<int> selectedTafseerIndex = ValueNotifier<int>(0);
   final TafseerRepository translateRepository = TafseerRepository();
   final AyatRepository ayatRepository = AyatRepository();
+  RxBool isTafseer = false.obs;
 
   Future<Map<String, dynamic>> getAyatAndTafseer() async {
     final ayat = await fetchAyatPage(sl<GeneralController>().currentPage.value);
@@ -96,31 +101,66 @@ class AyatController extends GetxController {
     }
   }
 
-  // "ON (${sl<AyatController>().tableName}.aya = ${Ayat.tableName}.Verse) AND (${sl<AyatController>().tableName}.sura = ${Ayat.tableName}.SuraNum) "
-
   TafseerRepository handleRadioValueChanged(int val) {
     radioValue.value = val;
     switch (radioValue.value) {
       case 0:
+        isTafseer.value = true;
         dBName = ibnkatheerClient?.database;
         selectedDBName = MufaserName.ibnkatheer.name;
         break;
       case 1:
+        isTafseer.value = true;
         dBName = baghawyClient?.database;
         selectedDBName = MufaserName.baghawy.name;
         break;
       case 2:
+        isTafseer.value = true;
         dBName = qurtubiClient?.database;
         selectedDBName = MufaserName.qurtubi.name;
         break;
       case 3:
+        isTafseer.value = true;
         dBName = saadiClient?.database;
         selectedDBName = MufaserName.saadi.name;
         break;
       case 4:
+        isTafseer.value = true;
         dBName = tabariClient?.database;
         selectedDBName = MufaserName.tabari.name;
         break;
+      case 5:
+        isTafseer.value = false;
+        sl<TranslateDataController>().trans.value = 'en';
+        sl<SharedPreferences>().setString(TRANS, 'en');
+      case 6:
+        isTafseer.value = false;
+        sl<TranslateDataController>().trans.value = 'es';
+        sl<SharedPreferences>().setString(TRANS, 'es');
+      case 7:
+        isTafseer.value = false;
+        sl<TranslateDataController>().trans.value = 'be';
+        sl<SharedPreferences>().setString(TRANS, 'be');
+      case 8:
+        isTafseer.value = false;
+        sl<TranslateDataController>().trans.value = 'urdu';
+        sl<SharedPreferences>().setString(TRANS, 'urdu');
+      case 9:
+        isTafseer.value = false;
+        sl<TranslateDataController>().trans.value = 'so';
+        sl<SharedPreferences>().setString(TRANS, 'so');
+      case 10:
+        isTafseer.value = false;
+        sl<TranslateDataController>().trans.value = 'in';
+        sl<SharedPreferences>().setString(TRANS, 'in');
+      case 11:
+        isTafseer.value = false;
+        sl<TranslateDataController>().trans.value = 'ku';
+        sl<SharedPreferences>().setString(TRANS, 'ku');
+      case 12:
+        isTafseer.value = false;
+        sl<TranslateDataController>().trans.value = 'tr';
+        sl<SharedPreferences>().setString(TRANS, 'tr');
       default:
         dBName = ibnkatheerClient?.database;
         selectedDBName = MufaserName.ibnkatheer.name;
@@ -230,16 +270,24 @@ class AyatController extends GetxController {
   }
 
   void showTafsirOnTap(int surahNum, int ayahNum, String ayahText,
-      int pageIndex, String ayahTextN) {
+      int pageIndex, String ayahTextN, int ayahUQNum) {
     tafseerAyah = ayahText;
     numberOfAyahText.value = ayahNum;
     surahNumber.value = surahNum;
     ayahTextNumber.value = ayahNum.toString();
     ayahTextNormal.value = ayahTextN;
+    ayahUQNumber.value = ayahUQNum;
     sl<QuranController>().currentPage.value = pageIndex;
     sl<QuranTextController>().selected.value =
         !sl<QuranTextController>().selected.value;
-    Get.bottomSheet(ShowTextTafseer(), isScrollControlled: true);
+    Get.bottomSheet(ShowTafseer(), isScrollControlled: true);
+  }
+
+  Future<void> copyOnTap() async {
+    await Clipboard.setData(ClipboardData(
+            text:
+                '﴿${ayahTextNormal.value}﴾\n\n${currentText.value!.translate}'))
+        .then((value) => customErrorSnackBar('copyTafseer'.tr));
   }
 }
 

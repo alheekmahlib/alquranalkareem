@@ -12,7 +12,6 @@ import '../../../../core/services/services_locator.dart';
 import '../../../../core/utils/constants/lists.dart';
 import '../../../../core/utils/constants/shared_pref_services.dart';
 import '../../../../core/utils/constants/shared_preferences_constants.dart';
-import '../../../../core/widgets/share/ayah_to_images.dart';
 import '../../../../core/widgets/widgets.dart';
 import '../../../controllers/audio_controller.dart';
 import '../../../controllers/ayat_controller.dart';
@@ -264,14 +263,7 @@ menu(BuildContext context, int b, int index, translateData, SurahText widget,
                         final verseNumber = widget.ayahs![b].number!;
                         final translation =
                             translateData?[verseNumber - 1]['text'];
-                        showVerseOptionsBottomSheet(
-                            context,
-                            widget.ayahs![b].numberInSurah!,
-                            widget.ayahs![b].number!,
-                            widget.number,
-                            "${widget.ayahs![b].text}",
-                            translation ?? '',
-                            widget.name);
+
                         print("Verse Number: $verseNumber");
                         print("Translation: translation");
                         cancel();
@@ -523,14 +515,7 @@ singleAyahMenu(BuildContext context, int b, index, translateData, widget,
                   widget.number!, widget.ayahs![b].numberInSurah!);
               final verseNumber = widget.ayahs![b].number!;
               final translation = translateData?[verseNumber - 1]['text'];
-              showVerseOptionsBottomSheet(
-                  context,
-                  widget.ayahs![b].numberInSurah!,
-                  verseNumber,
-                  widget.number,
-                  "${widget.ayahs![b].text}",
-                  translation ?? '',
-                  widget.name);
+
               print("Verse Number: $verseNumber");
               print("Translation: $translation");
             },

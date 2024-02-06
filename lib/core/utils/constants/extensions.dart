@@ -41,14 +41,14 @@ extension ContextExtensions on BuildContext {
     );
   }
 
-  Widget customClose({var close}) {
+  Widget customClose({var close, double? height}) {
     return Semantics(
       button: true,
       label: 'Close',
       child: GestureDetector(
         child: SvgPicture.asset(
           'assets/svg/close.svg',
-          height: 30,
+          height: height ?? 30,
           width: 30,
         ),
         onTap: close ??

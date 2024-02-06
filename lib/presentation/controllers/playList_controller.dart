@@ -225,7 +225,7 @@ class PlayListController extends GetxController {
     addPlayList(controller.text);
     controller.clear();
     // } else {
-    //   customErrorSnackBar(context, AppLocalizations.of(context)!.fillAllFields);
+    //   customErrorSnackBar(AppLocalizations.of(context)!.fillAllFields);
     // }
   }
 
@@ -267,7 +267,7 @@ class PlayListController extends GetxController {
   deletePlayList(BuildContext context, int index) async {
     // Delete the reminder
     await PlayListStorage.deletePlayList(index)
-        .then((value) => customErrorSnackBar(context, 'deletedPlayList'.tr));
+        .then((value) => customErrorSnackBar('deletedPlayList'.tr));
 
     // Update the playList list
     playLists.removeAt(index);

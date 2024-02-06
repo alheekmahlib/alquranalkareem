@@ -236,3 +236,27 @@ Widget tafseer_icon({double? height, double? width}) {
     height: height ?? 60,
   );
 }
+
+Widget surah_banner1({double? height, double? width}) {
+  return SvgPicture.asset(
+    'assets/svg/surah_banner1.svg',
+    width: width,
+    height: height ?? 35,
+  );
+}
+
+Widget surah_banner2({double? height, double? width}) {
+  return SvgPicture.asset(
+    'assets/svg/surah_banner2.svg',
+    width: width,
+    height: height ?? 35,
+  );
+}
+
+Widget surah_banner3({double? height, double? width}) {
+  return SvgPicture.asset(
+    'assets/svg/surah_banner3.svg',
+    width: width,
+    height: height ?? 35,
+  );
+}

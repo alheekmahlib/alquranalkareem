@@ -3,8 +3,12 @@ import 'package:gap/gap.dart';
 import 'package:screenshot/screenshot.dart';
 
 import '../../../presentation/controllers/share_controller.dart';
+import '../../../presentation/screens/quran_text/widgets/widgets.dart';
 import '../../services/services_locator.dart';
 import '../../utils/helpers/functions.dart';
+import '/core/utils/constants/extensions.dart';
+import '/core/utils/constants/svg_picture.dart';
+import '/core/widgets/widgets.dart';
 
 class VerseImageCreator extends StatelessWidget {
   final int verseNumber;
@@ -26,6 +30,7 @@ class VerseImageCreator extends StatelessWidget {
         Screenshot(
           controller: ayahToImage.ayahScreenController,
           child: buildVerseImageWidget(
+            context: context,
             verseNumber: verseNumber,
             surahNumber: surahNumber,
             verseText: verseText,
@@ -41,44 +46,33 @@ class VerseImageCreator extends StatelessWidget {
   }
 
   Widget buildVerseImageWidget({
+    required BuildContext context,
     required int verseNumber,
     required int surahNumber,
     required String verseText,
   }) {
-    final ayahToImage = sl<ShareController>();
     return Directionality(
       textDirection: TextDirection.rtl,
       child: Container(
         width: 960.0,
         decoration: const BoxDecoration(
-            color: const Color(0xff91a57d),
+            color: const Color(0xff404C6E),
             borderRadius: BorderRadius.all(Radius.circular(8))),
         child: Container(
           margin: const EdgeInsets.all(8.0),
           decoration: const BoxDecoration(
-              color: Color(0xfff3efdf),
+              color: Color(0xffffffff),
               borderRadius: BorderRadius.all(Radius.circular(8))),
           child: Padding(
-            padding:
-                const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+            padding: const EdgeInsets.symmetric(horizontal: 16.0),
             child: Column(
               children: [
                 Stack(
                   alignment: Alignment.center,
                   children: [
-                    ClipRRect(
-                      borderRadius: const BorderRadius.all(Radius.circular(15)),
-                      child: Image.asset(
-                        'assets/share_images/Sorah_name_ba.png',
-                        height: 40.0,
-                        width: 940.0,
-                        fit: BoxFit.fill,
-                      ),
-                    ),
-                    Image.asset(
-                        height: 30.0,
-                        width: 100,
-                        'assets/share_images/surah_name/${formatNumber(surahNumber)}.png'),
+                    surah_banner1(),
+                    surahNameWidget(
+                        formatNumber(surahNumber), const Color(0xff404C6E)),
                   ],
                 ),
                 const Gap(16),
@@ -92,7 +86,7 @@ class VerseImageCreator extends StatelessWidget {
                         children: [
                           TextSpan(
                             text:
-                                ayahToImage.shareNumber(verseText, verseNumber),
+                                '﴿ $verseText ${arabicNumber.convert(verseNumber)} ﴾',
                             style: const TextStyle(
                               fontSize: 20,
                               fontFamily: 'uthmanic2',
@@ -105,12 +99,23 @@ class VerseImageCreator extends StatelessWidget {
                   ),
                 ),
                 const Gap(24),
-                Image.asset(
-                  'assets/share_images/Logo_line2.png',
-                  height: 40,
-                  width: 160,
-                ),
-                // Add more widgets as needed
+                Align(
+                    alignment: Alignment.centerRight,
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        splash_icon(height: 40.0),
+                        context.vDivider(),
+                        const Text(
+                          'القـرآن الكريــــم\nمكتبة الحكمة',
+                          style: TextStyle(
+                            fontSize: 10,
+                            fontFamily: 'kufi',
+                            color: Color(0xff161f07),
+                          ),
+                        )
+                      ],
+                    ))
               ],
             ),
           ),

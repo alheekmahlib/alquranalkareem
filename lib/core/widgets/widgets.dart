@@ -308,7 +308,7 @@ customSnackBar(BuildContext context, String text) {
   ScaffoldMessenger.of(context).showSnackBar(snackBar);
 }
 
-void customErrorSnackBar(BuildContext context, String text) {
+void customErrorSnackBar(String text) {
   BotToast.showCustomNotification(
     enableSlideOff: false,
     toastBuilder: (cancelFunc) {
@@ -484,22 +484,13 @@ Widget pageNumber(String num, context, Color color) {
   );
 }
 
-Widget sorahName(String num, context, Color color) {
+Widget surahNameWidget(String num, Color color) {
   return SizedBox(
     height: 50,
-    child: Stack(
-      alignment: Alignment.center,
-      children: [
-        SvgPicture.asset(
-          'assets/svg/surah_na.svg',
-          width: 150,
-        ),
-        SvgPicture.asset(
-          'assets/svg/surah_name/00$num.svg',
-          width: 60,
-          colorFilter: ColorFilter.mode(color, BlendMode.srcIn),
-        ),
-      ],
+    child: SvgPicture.asset(
+      'assets/svg/surah_name/00$num.svg',
+      height: 33,
+      colorFilter: ColorFilter.mode(color, BlendMode.srcIn),
     ),
   );
 }
@@ -572,127 +563,6 @@ Widget juzNumEn(String num, context, Color color) {
     ],
   );
 }
-
-// Widget sorahPageReaderDropDown(BuildContext context) {
-//   List<String> readerName = <String>[
-//     AppLocalizations.of(context)!.reader1,
-//     AppLocalizations.of(context)!.reader2,
-//     AppLocalizations.of(context)!.reader3,
-//     AppLocalizations.of(context)!.reader4,
-//   ];
-//
-//   List<String> readerD = <String>[
-//     "https://server7.mp3quran.net/",
-//     "https://server10.mp3quran.net/",
-//     "https://server13.mp3quran.net/",
-//     "https://server10.mp3quran.net/",
-//   ];
-//
-//   List<String> readerN = <String>[
-//     "basit/",
-//     "minsh/",
-//     "husr/",
-//     "ajm/",
-//   ];
-//
-//   return DropdownButton2(
-//     isExpanded: true,
-//     alignment: Alignment.center,
-//     items: [
-//       DropdownMenuItem<String>(
-//         child: Padding(
-//           padding: const EdgeInsets.symmetric(vertical: 8.0),
-//           child: ListView.builder(
-//             itemCount: readerName.length,
-//             itemBuilder: (BuildContext context, int index) {
-//               return Column(
-//                 children: [
-//                   ListTile(
-//                     title: Text(
-//                       readerName[index],
-//                       style: TextStyle(
-//                         color: sl<SurahAudioController>().sorahReaderNameValue ==
-//                                 readerN[index]
-//                             ? const Color(0xfffcbb76)
-//                             : Get.theme.canvasColor,
-//                         fontSize: 14,
-//                       ),
-//                     ),
-//                     leading: Container(
-//                       height: 20,
-//                       width: 20,
-//                       decoration: BoxDecoration(
-//                         borderRadius:
-//                             const BorderRadius.all(Radius.circular(2.0)),
-//                         border: Border.all(
-//                             color: sl<SurahAudioController>().sorahReaderNameValue ==
-//                                     readerN[index]
-//                                 ? const Color(0xfffcbb76)
-//                                 : Get.theme.canvasColor,
-//                             width: 2),
-//                         color: const Color(0xff39412a),
-//                       ),
-//                       child: sl<SurahAudioController>().sorahReaderNameValue ==
-//                               readerN[index]
-//                           ? const Icon(Icons.done,
-//                               size: 14, color: Color(0xfffcbb76))
-//                           : null,
-//                     ),
-//                     onTap: () {
-//                       surahAudioController.sorahReaderValue = readerD[index];
-//                       surahAudioController.sorahReaderNameValue =
-//                           readerN[index];
-//                       surahAudioController.saveSorahReader(
-//                           readerD[index], readerN[index]);
-//                       Navigator.pop(context);
-//                     },
-//                   ),
-//                   const Divider(
-//                     endIndent: 16,
-//                     indent: 16,
-//                     height: 3,
-//                   ),
-//                 ],
-//               );
-//             },
-//           ),
-//         ),
-//       ),
-//     ],
-//     value: selectedValue,
-//     onChanged: (value) {
-//       selectedValue = value as String;
-//     },
-//     customButton: Icon(
-//       Icons.person_search_outlined,
-//       color: Get.theme.colorScheme.surface,
-//     ),
-//     iconStyleData: const IconStyleData(
-//       iconSize: 24,
-//     ),
-//     buttonStyleData: const ButtonStyleData(
-//       height: 50,
-//       width: 50,
-//       elevation: 0,
-//     ),
-//     dropdownStyleData: DropdownStyleData(
-//         decoration: BoxDecoration(
-//             color: Get.theme.colorScheme.surface.withOpacity(.9),
-//             borderRadius: const BorderRadius.all(Radius.circular(8))),
-//         padding: const EdgeInsets.only(left: 14, right: 14),
-//         maxHeight: 230,
-//         width: 230,
-//         elevation: 0,
-//         offset: const Offset(0, 0),
-//         scrollbarTheme: ScrollbarThemeData(
-//           radius: const Radius.circular(8),
-//           thickness: MaterialStateProperty.all(6),
-//         )),
-//     menuItemStyleData: const MenuItemStyleData(
-//       height: 35,
-//     ),
-//   );
-// }
 
 Route animatRoute(Widget myWidget) {
   return PageRouteBuilder(
@@ -986,42 +856,4 @@ Widget Function(BuildContext, EditableTextState) buildMyContextMenuText() {
       buttonItems: buttonItems,
     );
   };
-}
-
-Widget audioContainer(BuildContext context, Widget myWidget,
-    {double? height,
-    double? width,
-    EdgeInsetsGeometry? margin,
-    EdgeInsetsGeometry? margin2,
-    EdgeInsetsGeometry? padding,
-    Color? color}) {
-  return Align(
-    alignment: Alignment.bottomCenter,
-    child: Container(
-        alignment: Alignment.topCenter,
-        height: height ?? 124,
-        width: width ?? 400,
-        margin: margin ??
-            const EdgeInsets.symmetric(horizontal: 16.0, vertical: 32.0),
-        padding: padding ?? const EdgeInsets.symmetric(vertical: 2.0),
-        decoration: BoxDecoration(
-          color: color ?? Get.theme.dividerColor,
-          borderRadius: const BorderRadius.all(Radius.circular(8)),
-          // boxShadow: [
-          //   BoxShadow(
-          //     offset: const Offset(0, -2),
-          //     blurRadius: 10,
-          //     color: Get.theme.colorScheme.surface,
-          //   ),
-          // ],
-        ),
-        child: Container(
-          margin: margin2 ?? const EdgeInsets.symmetric(horizontal: 8.0),
-          decoration: BoxDecoration(
-            color: color ?? Get.theme.colorScheme.background,
-            borderRadius: const BorderRadius.all(Radius.circular(8)),
-          ),
-          child: myWidget,
-        )),
-  );
 }

@@ -7,6 +7,7 @@ import '../../../../core/services/services_locator.dart';
 import '../../../../core/utils/constants/lists.dart';
 import '../../../../core/utils/constants/shared_preferences_constants.dart';
 import '../../../controllers/ayat_controller.dart';
+import '../../../controllers/translate_controller.dart';
 
 class ChangeTafsir extends StatelessWidget {
   const ChangeTafsir({super.key});
@@ -44,7 +45,7 @@ class ChangeTafsir extends StatelessWidget {
       ),
       color: Get.theme.colorScheme.background,
       itemBuilder: (context) => List.generate(
-          5,
+          tafsirName.length,
           (index) => PopupMenuItem(
                 padding: const EdgeInsets.symmetric(horizontal: 16.0),
                 child: ListTile(
@@ -92,6 +93,7 @@ class ChangeTafsir extends StatelessWidget {
                     sl<AyatController>().getNewTranslationAndNotify(
                         int.parse(sl<AyatController>().surahTextNumber.value),
                         int.parse(sl<AyatController>().ayahTextNumber.value));
+                    sl<TranslateDataController>().fetchTranslate(context);
                     Get.back();
                   },
                   leading: Container(

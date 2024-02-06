@@ -8,13 +8,17 @@ import 'package:flutter/services.dart' show rootBundle;
 import 'package:get/get.dart';
 
 import '../../core/services/services_locator.dart';
+import '../../core/utils/constants/svg_picture.dart';
+import '../../core/widgets/widgets.dart';
 import '../screens/quran_page/data/model/surahs_model.dart';
 import '/presentation/controllers/general_controller.dart';
+import '/presentation/controllers/theme_controller.dart';
 
 class QuranController extends GetxController {
   var currentPage = 1.obs;
   List<Surah> surahs = [];
   List<List<Ayah>> pages = [];
+  List<Ayah> allAyahs = [];
 
   RxInt selectedVerseIndex = 0.obs;
   RxBool selectedAyah = false.obs;
@@ -23,8 +27,11 @@ class QuranController extends GetxController {
   final ScrollController scrollIndicatorController = ScrollController();
   RxInt selectedIndicatorIndex = 0.obs;
   PreferDirection preferDirection = PreferDirection.topCenter;
+  RxDouble textWidgetPosition = (-240.0).obs;
+  RxBool isPlayExpanded = false.obs;
 
   final generalCtrl = sl<GeneralController>();
+  final themeCtrl = sl<ThemeController>();
 
   void toggleAyahSelection(int index) {
     if (selectedAyahIndexes.contains(index)) {
@@ -51,7 +58,7 @@ class QuranController extends GetxController {
     Map<String, dynamic> jsonResponse = jsonDecode(jsonString);
     List<dynamic> surahsJson = jsonResponse['data']['surahs'];
     surahs = surahsJson.map((s) => Surah.fromJson(s)).toList();
-    List<Ayah> allAyahs = [];
+
     for (final surah in surahs) {
       allAyahs.addAll(surah.ayahs);
       log('Added ${surah.arabicName} ayahs');
@@ -68,15 +75,6 @@ class QuranController extends GetxController {
           .splitBetween((f, s) => f.ayahNumber > s.ayahNumber)
           .toList();
 
-  /// This approach is not good.. it takse alot of memory..
-  // List<Ayah> getAyahsForCurrentPage(int index) {
-  //   List<Ayah> ayahs = [];
-  //   for (var surah in surahs) {
-  //     ayahs.addAll(surah.ayahs.where((ayah) => ayah.page == index));
-  //   }
-  //   return ayahs;
-  // }
-
   List<Ayah> getCurrentPageAyahs(int pageIndex) => pages[pageIndex];
 
   /// will return the surah number of the first ayahs..
@@ -88,35 +86,8 @@ class QuranController extends GetxController {
           (s) => s.ayahs.contains(getCurrentPageAyahs(pageNumber).first))
       .surahNumber;
 
-  // int getSurahNumberFromPage(int pageNumber) {
-  //   for (var surah in surahs) {
-  //     for (var ayah in surah.ayahs) {
-  //       if (ayah.page == pageNumber && ayah.ayahNumber == 1) {
-  //         return surah.surahNumber;
-  //       }
-  //     }
-  //   }
-  //   return -1;
-  // }
-
-  /// it's not good to return widgets from the controller..
-  /// instead return indexes or maps or separated lists..
-  // Widget besmAllahWidget(int pageNumber) {
-  //   List<Ayah> ayahsOnPage = getAyahsForCurrentPage(pageNumber);
-  //   int surahNumber = getSurahNumberFromPage(pageNumber);
-
-  //   if (surahNumber == -1 || surahNumber == 9 || surahNumber == 1) {
-  //     return const SizedBox.shrink();
-  //   } else if (ayahsOnPage.isNotEmpty && ayahsOnPage.first.ayahNumber == 1) {
-  //     if (surahNumber == 95 || surahNumber == 97) {
-  //       return besmAllah2();
-  //     } else {
-  //       return besmAllah();
-  //     }
-  //   } else {
-  //     return const SizedBox.shrink();
-  //   }
-  // }
+  int getSurahNumberByAyah(Ayah ayah) =>
+      surahs.firstWhere((s) => s.ayahs.contains(ayah)).surahNumber;
 
   void indicatorOnTap(int pageNumber, int itemWidth, double screenWidth) {
     currentPage.value = pageNumber;
@@ -152,6 +123,26 @@ class QuranController extends GetxController {
       );
     } else {
       // Handle the case where the scroll view is not ready
+    }
+  }
+
+  Widget bannerWithSurahName(Widget child, String number) {
+    return Stack(
+      alignment: Alignment.center,
+      children: [
+        child,
+        surahNameWidget(number, Get.theme.hintColor),
+      ],
+    );
+  }
+
+  Widget surahBannerWidget(String number) {
+    if (themeCtrl.isBlueMode) {
+      return bannerWithSurahName(surah_banner1(), number);
+    } else if (themeCtrl.isBrownMode) {
+      return bannerWithSurahName(surah_banner2(), number);
+    } else {
+      return bannerWithSurahName(surah_banner3(), number);
     }
   }
 }

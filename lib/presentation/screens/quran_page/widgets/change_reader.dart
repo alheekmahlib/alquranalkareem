@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../../core/services/services_locator.dart';
+import '../../../../core/utils/constants/lists.dart';
 import '../../../../core/utils/constants/shared_pref_services.dart';
 import '../../../../core/utils/constants/shared_preferences_constants.dart';
 import '../../../../core/widgets/widgets.dart';
@@ -12,78 +13,25 @@ class ChangeReader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    List ayahReaderInfo = [
-      {
-        'name': 'reader1'.tr,
-        'readerD': 'Abdul_Basit_Murattal_192kbps',
-        'readerI': 'basit'
-      },
-      {
-        'name': 'reader2'.tr,
-        'readerD': 'Minshawy_Murattal_128kbps',
-        'readerI': 'minshawy'
-      },
-      {'name': 'reader3'.tr, 'readerD': 'Husary_128kbps', 'readerI': 'husary'},
-      // {
-      //   'name': 'reader4'.tr,
-      //   'readerD': 'Ahmed_ibn_Ali_al-Ajamy_64kbps_QuranExplorer.Com',
-      //   'readerI': 'ajamy'
-      // },
-      {
-        'name': 'reader5'.tr,
-        'readerD': 'MaherAlMuaiqly128kbps',
-        'readerI': 'muaiqly'
-      },
-      {'name': 'reader6'.tr, 'readerD': 'Ghamadi_40kbps', 'readerI': 'Ghamadi'}
-    ];
     return GestureDetector(
-      child: Container(
-        height: 35,
-        width: 200,
-        padding: const EdgeInsets.symmetric(horizontal: 4.0),
-        margin: const EdgeInsets.symmetric(vertical: 4.0, horizontal: 4.0),
-        decoration: BoxDecoration(
-            borderRadius: const BorderRadius.all(Radius.circular(8)),
-            border: Border.all(
-                width: 1, color: Get.theme.dividerColor.withOpacity(.5))),
-        child: Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Expanded(
-              flex: 8,
-              child: Obx(
-                () => FittedBox(
-                  fit: BoxFit.scaleDown,
-                  child: Text(
-                    ayahReaderInfo[sl<AudioController>().readerIndex.value]
-                        ['name'],
-                    style: TextStyle(
-                        color: Get.isDarkMode
-                            ? Get.theme.colorScheme.surface
-                            : Get.theme.primaryColor,
-                        fontSize: 14,
-                        fontFamily: "kufi"),
-                  ),
-                ),
-              ),
-            ),
-            const SizedBox(
-              width: 8.0,
-            ),
-            Expanded(
-              child: Semantics(
-                button: true,
-                enabled: true,
-                label: 'Change Reader',
-                child: Icon(Icons.person_search_outlined,
-                    size: 20,
-                    color: Get.isDarkMode
-                        ? Get.theme.colorScheme.surface
-                        : Get.theme.primaryColor),
-              ),
-            ),
-          ],
-        ),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Obx(() {
+            return Text(
+              ayahReaderInfo[sl<AudioController>().readerIndex.value]['name'],
+              style: TextStyle(
+                  color: Get.theme.hintColor, fontSize: 14, fontFamily: 'kufi'),
+            );
+          }),
+          Semantics(
+            button: true,
+            enabled: true,
+            label: 'Change Reader',
+            child: Icon(Icons.keyboard_arrow_down_outlined,
+                size: 20, color: Get.theme.hintColor),
+          ),
+        ],
       ),
       onTap: () => dropDownModalBottomSheet(
         context,

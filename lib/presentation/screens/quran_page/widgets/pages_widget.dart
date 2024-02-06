@@ -22,12 +22,7 @@ class PagesWidget extends StatelessWidget {
       return SingleChildScrollView(
         child: InkWell(
           onTap: () {
-            if (sl<GeneralController>().opened.value == true) {
-              sl<GeneralController>().opened.value = false;
-              sl<GeneralController>().update();
-            } else {
-              sl<GeneralController>().showControl();
-            }
+            sl<GeneralController>().showControl();
           },
           child: Padding(
             padding:
@@ -42,7 +37,23 @@ class PagesWidget extends StatelessWidget {
                       final ayahs = quranCtrl
                           .getCurrentPageAyahsSeparatedForBasmala(pageIndex)[i];
                       return Column(children: [
-                        if (ayahs.first.ayahNumber == 1) besmAllah(),
+                        if (ayahs.first.ayahNumber == 1)
+                          quranCtrl.surahBannerWidget(quranCtrl
+                              .getSurahNumberByAyah(ayahs.first)
+                              .toString()),
+                        quranCtrl.getSurahNumberByAyah(ayahs.first) == 9 ||
+                                quranCtrl.getSurahNumberByAyah(ayahs.first) == 1
+                            ? const SizedBox.shrink()
+                            : ayahs.first.ayahNumber == 1
+                                ? (quranCtrl.getSurahNumberByAyah(
+                                                ayahs.first) ==
+                                            95 ||
+                                        quranCtrl.getSurahNumberByAyah(
+                                                ayahs.first) ==
+                                            97)
+                                    ? besmAllah2()
+                                    : besmAllah()
+                                : const SizedBox.shrink(),
                         Obx(() {
                           return RichText(
                             textDirection: TextDirection.rtl,
@@ -81,6 +92,7 @@ class PagesWidget extends StatelessWidget {
                                             ayahs[ayahIndex].code_v2,
                                             pageIndex,
                                             ayahs[ayahIndex].text,
+                                            ayahs[ayahIndex].ayahUQNumber,
                                             details: details);
                                       });
                                 }
@@ -100,6 +112,7 @@ class PagesWidget extends StatelessWidget {
                                           ayahs[ayahIndex].code_v2,
                                           pageIndex,
                                           ayahs[ayahIndex].text,
+                                          ayahs[ayahIndex].ayahUQNumber,
                                           details: details);
                                     });
                               }),

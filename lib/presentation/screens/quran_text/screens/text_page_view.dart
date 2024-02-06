@@ -6,11 +6,10 @@ import '../../../../core/services/services_locator.dart';
 import '../../../../core/widgets/widgets.dart';
 import '../../../controllers/general_controller.dart';
 import '../../../controllers/translate_controller.dart';
+import '../../quran_page/widgets/show_tafseer.dart';
 import '../../quran_page/widgets/sliding_up.dart';
 import '../data/models/QuranModel.dart';
-import '../widgets/audio_text_widget.dart';
 import '../widgets/scrollable_list.dart';
-import '../widgets/show_text_tafseer.dart';
 import '../widgets/widgets.dart';
 import '/core/utils/constants/extensions.dart';
 import '/presentation/controllers/quranText_controller.dart';
@@ -57,9 +56,8 @@ class TextPageView extends StatelessWidget {
             backgroundColor: Get.theme.colorScheme.background,
             appBar: AppBar(
               backgroundColor: Get.theme.colorScheme.background,
-              title: sorahName(
+              title: surahNameWidget(
                 sl<QuranTextController>().currentSurahIndex.toString(),
-                context,
                 Get.isDarkMode ? Colors.white : Colors.black,
               ),
               centerTitle: true,
@@ -107,17 +105,10 @@ class TextPageView extends StatelessWidget {
                       ),
                     ),
                   ),
-                  Obx(() => AnimatedPositioned(
-                      duration: const Duration(milliseconds: 300),
-                      curve: Curves.easeInOut,
-                      bottom: sl<GeneralController>().textWidgetPosition.value,
-                      left: 0,
-                      right: 0,
-                      child: const AudioTextWidget())),
                   Align(
                       alignment: Alignment.bottomCenter,
                       child: TextSliding(
-                        myWidget1: ShowTextTafseer(),
+                        myWidget1: ShowTafseer(),
                         cHeight: 110.0,
                       )),
                 ],

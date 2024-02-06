@@ -9,7 +9,6 @@ import 'package:share_plus/share_plus.dart';
 
 import '../../core/services/services_locator.dart';
 import '../../core/utils/constants/lists.dart';
-import '../screens/quran_text/widgets/widgets.dart';
 import '/core/widgets/widgets.dart';
 import 'ayat_controller.dart';
 import 'general_controller.dart';
@@ -45,8 +44,7 @@ class ShareController extends GetxController {
     }
   }
 
-  void changeTafseer(
-      BuildContext context, int verseUQNumber, int surahNum, int ayahNum) {
+  void changeTafseer(int verseUQNumber, int surahNum, int ayahNum) {
     if (isTafseer.value) {
       // textTafseer!.value = sl<AyatController>().currentText.value!.translate;
       if (sl<AyatController>().radioValue.value != 3 ||
@@ -55,7 +53,7 @@ class ShareController extends GetxController {
         sl<AyatController>()
             .fetchTafseerPage(sl<GeneralController>().currentPage.value);
         sl<AyatController>().getNewTranslationAndNotify(surahNum, ayahNum);
-        customErrorSnackBar(context, 'تم تغيير التفسير إلى: ${'tafSaadiN'.tr}');
+        customErrorSnackBar('تم تغيير التفسير إلى: ${'tafSaadiN'.tr}');
       }
       // tafseerOrTranslateName!.value = sl<AyatController>().radioValue.value != 3
       //     ? ''
@@ -117,14 +115,6 @@ class ShareController extends GetxController {
           await File('${directory.path}/verse_image.png').create();
       await imagePath.writeAsBytes(ayahToImageBytes!);
       await Share.shareXFiles([XFile((imagePath.path))], text: 'appName'.tr);
-    }
-  }
-
-  String shareNumber(String verseText, int verseNumber) {
-    if (sl<GeneralController>().shareTafseerValue.value == 1) {
-      return '﴿ $verseText ﴾';
-    } else {
-      return '﴿ $verseText ${arabicNumber.convert(verseNumber)} ﴾\n';
     }
   }
 

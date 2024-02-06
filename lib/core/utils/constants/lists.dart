@@ -139,14 +139,6 @@ List<String> semanticsTranslateName = <String>[
   'turkish'
 ];
 
-List<String> tafseerName = <String>[
-  'Tafsir Ibn Kathir',
-  'Tafsir al-Baghawi',
-  'Tafsir al-Qurtubi',
-  'Tafsir As-Sadi',
-  'Tafsir al-Tabari'
-];
-
 final List<String> waqfMarks = <String>[
   'assets/svg/alwaqf/01.svg',
   'assets/svg/alwaqf/02.svg',
@@ -385,4 +377,61 @@ List tafsirName = [
     'name': '${'tafTabariN'.tr}',
     'bookName': '${'tafTabariD'.tr}',
   },
+  {
+    'name': 'English',
+    'bookName': '',
+  },
+  {
+    'name': 'Español',
+    'bookName': '',
+  },
+  {
+    'name': 'বাংলা',
+    'bookName': '',
+  },
+  {
+    'name': 'اردو',
+    'bookName': '',
+  },
+  {
+    'name': 'Soomaali',
+    'bookName': '',
+  },
+  {
+    'name': 'bahasa Indonesia',
+    'bookName': '',
+  },
+  {
+    'name': 'کوردی',
+    'bookName': '',
+  },
+  {
+    'name': 'Türkçe',
+    'bookName': '',
+  },
+];
+
+List ayahReaderInfo = [
+  {
+    'name': 'reader1'.tr,
+    'readerD': 'Abdul_Basit_Murattal_192kbps',
+    'readerI': 'basit'
+  },
+  {
+    'name': 'reader2'.tr,
+    'readerD': 'Minshawy_Murattal_128kbps',
+    'readerI': 'minshawy'
+  },
+  {'name': 'reader3'.tr, 'readerD': 'Husary_128kbps', 'readerI': 'husary'},
+  // {
+  //   'name': 'reader4'.tr,
+  //   'readerD': 'Ahmed_ibn_Ali_al-Ajamy_64kbps_QuranExplorer.Com',
+  //   'readerI': 'ajamy'
+  // },
+  {
+    'name': 'reader5'.tr,
+    'readerD': 'MaherAlMuaiqly128kbps',
+    'readerI': 'muaiqly'
+  },
+  {'name': 'reader6'.tr, 'readerD': 'Ghamadi_40kbps', 'readerI': 'Ghamadi'}
 ];
