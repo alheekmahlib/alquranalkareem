@@ -25,6 +25,7 @@ import '../screens/quran_text/screens/text_page_view.dart';
 import 'ayat_controller.dart';
 import 'general_controller.dart';
 import 'quranText_controller.dart';
+import 'quran_controller.dart';
 import 'surahTextController.dart';
 
 class AudioController extends GetxController {
@@ -183,7 +184,7 @@ class AudioController extends GetxController {
   //   );
   // }
 
-  Future playFile(BuildContext context, String url, String fileName) async {
+  Future playFile(String url, String fileName) async {
     String path;
     try {
       var dir = await getApplicationDocumentsDirectory();
@@ -200,12 +201,12 @@ class AudioController extends GetxController {
           customErrorSnackBar('noInternet'.tr);
         } else if (_connectionStatus == ConnectivityResult.mobile) {
           await downloadFile(path, url, fileName);
-          customMobileNoteSnackBar(context, 'mobileDataAyat'.tr);
+          customMobileNoteSnackBar('mobileDataAyat'.tr);
         } else if (_connectionStatus == ConnectivityResult.wifi) {
           await downloadFile(path, url, fileName);
         }
       }
-      lastAyahInPage.value = sl<AyatController>().ayatList.last.ayaNum;
+      lastAyahInPage.value = sl<QuranController>().allAyahs.last.ayahNumber;
       // lastAyahInSurah.value = sl<AyaController>().ayahList.last.ayaNum;
       await audioPlayer.setAudioSource(AudioSource.file(
         path,
@@ -272,7 +273,7 @@ class AudioController extends GetxController {
     }
   }
 
-  Future<void> playNextAyah(BuildContext context) async {
+  Future<void> playNextAyah() async {
     print('playNextAyah ' * 6);
 
     // currentAyahInPage.value = int.parse(sl<AyatController>().currentAyahNumber.value);
@@ -283,9 +284,7 @@ class AudioController extends GetxController {
       goingToNewSurah = false;
       // await playFile(context, bismillahFileUrl(readerValue!),
       //     bismillahFileName(readerValue!));
-      await playFile(
-          context,
-          "https://www.everyayah.com/data/$readerValue!/001007.mp3",
+      await playFile("https://www.everyayah.com/data/$readerValue!/001007.mp3",
           "$readerValue!/001007.mp3");
     } else {
       currentAyahInPage.value += 1;
@@ -307,11 +306,11 @@ class AudioController extends GetxController {
 
     print('currentAyah ${currentAyahInPage.value}');
 
-    await playFile(context, url, fileName);
+    await playFile(url, fileName);
     isProcessingNextAyah.value = false;
   }
 
-  Future<void> playAyah(BuildContext context) async {
+  Future<void> playAyah() async {
     await audioPlayer.pause();
     currentAyahInPage.value =
         int.parse(sl<AyatController>().currentAyahNumber.value);
@@ -330,7 +329,7 @@ class AudioController extends GetxController {
       isPlay.value = false;
       print('audioPlayer: pause');
     } else {
-      await playFile(context, url, fileName);
+      await playFile(url, fileName);
       isPlay.value = true;
     }
   }
@@ -352,7 +351,7 @@ class AudioController extends GetxController {
           customErrorSnackBar('noInternet'.tr);
         } else if (_connectionStatus == ConnectivityResult.mobile) {
           await downloadFile(path, url, fileName);
-          customMobileNoteSnackBar(context, 'mobileDataAyat'.tr);
+          customMobileNoteSnackBar('mobileDataAyat'.tr);
         } else if (_connectionStatus == ConnectivityResult.wifi) {
           await downloadFile(path, url, fileName);
         }
@@ -589,7 +588,7 @@ class AudioController extends GetxController {
           }
         } else if (_connectionStatus == ConnectivityResult.mobile) {
           await downloadFile(path, url, fileName);
-          customMobileNoteSnackBar(context, 'mobileDataAyat'.tr);
+          customMobileNoteSnackBar('mobileDataAyat'.tr);
         } else if (_connectionStatus == ConnectivityResult.wifi) {
           await downloadFile(path, url, fileName);
         }

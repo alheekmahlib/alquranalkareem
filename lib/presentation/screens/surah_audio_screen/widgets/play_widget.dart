@@ -20,7 +20,7 @@ class PlayWidget extends StatelessWidget {
     final size = MediaQuery.sizeOf(context);
     final surahCtrl = sl<SurahAudioController>();
     return Container(
-      height: 290,
+      height: 291,
       width: size.width,
       decoration: BoxDecoration(
         color: Get.theme.colorScheme.background,
@@ -77,7 +77,7 @@ class PlayWidget extends StatelessWidget {
               Align(
                 alignment: Alignment.bottomCenter,
                 child: SizedBox(
-                  height: 55,
+                  height: 61,
                   child: Obx(
                     () => sl<SurahAudioController>().isDownloading.value == true
                         ? const DownloadSurahSeekBar()

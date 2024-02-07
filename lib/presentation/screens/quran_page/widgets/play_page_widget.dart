@@ -1,11 +1,11 @@
-import 'package:alquranalkareem/presentation/controllers/quran_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:square_percent_indicater/square_percent_indicater.dart';
 
 import '../../../../core/services/services_locator.dart';
 import '../../../controllers/audio_controller.dart';
 import '../../../controllers/general_controller.dart';
+import '/core/utils/constants/svg_picture.dart';
+import '/presentation/controllers/quran_controller.dart';
 
 class PlayPage extends StatelessWidget {
   const PlayPage({super.key});
@@ -19,20 +19,20 @@ class PlayPage extends StatelessWidget {
         child: Stack(
           alignment: Alignment.center,
           children: [
-            SquarePercentIndicator(
-              width: 35,
-              height: 35,
-              startAngle: StartAngle.topRight,
-              // reverse: true,
-              borderRadius: 8,
-              shadowWidth: 1.5,
-              progressWidth: 2,
-              shadowColor: Get.theme.colorScheme.surface.withOpacity(.15),
-              progressColor: sl<AudioController>().downloadingPage.value
-                  ? Get.theme.colorScheme.primary
-                  : Colors.transparent,
-              progress: sl<AudioController>().progressPage.value,
-            ),
+            // SquarePercentIndicator(
+            //   width: 35,
+            //   height: 35,
+            //   startAngle: StartAngle.topRight,
+            //   // reverse: true,
+            //   borderRadius: 8,
+            //   shadowWidth: 1.5,
+            //   progressWidth: 2,
+            //   shadowColor: Get.theme.colorScheme.surface.withOpacity(.15),
+            //   progressColor: sl<AudioController>().downloadingPage.value
+            //       ? Get.theme.colorScheme.primary
+            //       : Colors.transparent,
+            //   progress: sl<AudioController>().progressPage.value,
+            // ),
             sl<AudioController>().downloadingPage.value
                 ? Container(
                     alignment: Alignment.center,
@@ -45,28 +45,43 @@ class PlayPage extends StatelessWidget {
                     ),
                   )
                 : Obx(
-                    () => IconButton(
-                      icon: Semantics(
-                        button: true,
-                        enabled: true,
-                        label: 'Play Page',
-                        child: Icon(
-                          sl<AudioController>().isPagePlay.value
-                              ? Icons.pause
-                              : Icons.playlist_play_sharp,
-                          size: 25,
-                        ),
-                      ),
-                      color: Get.theme.colorScheme.primary,
-                      onPressed: () {
-                        sl<QuranController>().isPlayExpanded.value = true;
-                        print(sl<AudioController>().progressPageString.value);
+                    () => sl<AudioController>().isPagePlay.value
+                        ? GestureDetector(
+                            child: Semantics(
+                              button: true,
+                              enabled: true,
+                              label: 'Pause Page',
+                              child: pause_arrow(height: 25.0),
+                            ),
+                            onTap: () {
+                              sl<QuranController>().isPlayExpanded.value = true;
+                              print(sl<AudioController>()
+                                  .progressPageString
+                                  .value);
 
-                        sl<AudioController>().isPlay.value = false;
-                        sl<AudioController>().playPage(
-                            context, sl<GeneralController>().currentPage.value);
-                      },
-                    ),
+                              sl<AudioController>().isPlay.value = false;
+                              sl<AudioController>().playPage(context,
+                                  sl<GeneralController>().currentPage.value);
+                            },
+                          )
+                        : GestureDetector(
+                            child: Semantics(
+                              button: true,
+                              enabled: true,
+                              label: 'Play Page',
+                              child: play_page(height: 25.0),
+                            ),
+                            onTap: () {
+                              sl<QuranController>().isPlayExpanded.value = true;
+                              print(sl<AudioController>()
+                                  .progressPageString
+                                  .value);
+
+                              sl<AudioController>().isPlay.value = false;
+                              sl<AudioController>().playPage(context,
+                                  sl<GeneralController>().currentPage.value);
+                            },
+                          ),
                   ),
           ],
         ),

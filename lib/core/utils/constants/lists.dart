@@ -276,31 +276,31 @@ final List screensList = [
   {
     'name': 'home'.tr,
     'svgUrl': 'assets/svg/splash_icon_w.svg',
-    'route': const HomeScreen(),
+    'route': () => const HomeScreen(),
     'width': 240.0
   },
   {
     'name': 'quran'.tr,
     'svgUrl': 'assets/svg/splash_icon_w.svg',
-    'route': QuranPage(),
+    'route': () => QuranPage(),
     'width': 240.0
   },
   {
     'name': '',
     'svgUrl': 'assets/svg/alwaqf.svg',
-    'route': AlwaqfScreen(),
+    'route': () => AlwaqfScreen(),
     'width': 70.0
   },
   {
     'name': 'azkar'.tr,
     'svgUrl': 'assets/svg/azkar.svg',
-    'route': const AzkarView(),
+    'route': () => const AzkarView(),
     'width': 70.0
   },
   {
     'name': 'quranAudio'.tr,
     'svgUrl': 'assets/svg/quran_au_ic.svg',
-    'route': const AudioScreen(),
+    'route': () => const AudioScreen(),
     'width': 240.0
   },
 ];
@@ -323,38 +323,38 @@ final List themeList = [
 List surahReaderInfo = [
   {
     'name': 'reader1'.tr,
-    'readerD': 'https://server7.mp3quran.net/',
-    'readerN': 'basit/',
+    'readerD': 'https://download.quranicaudio.com/quran/',
+    'readerN': 'abdul_basit_murattal/',
     'readerI': 'basit'
   },
   {
     'name': 'reader2'.tr,
-    'readerD': 'https://server10.mp3quran.net/',
-    'readerN': 'minsh/',
+    'readerD': 'https://download.quranicaudio.com/quran/',
+    'readerN': 'muhammad_siddeeq_al-minshaawee/',
     'readerI': 'minshawy'
   },
   {
     'name': 'reader3'.tr,
-    'readerD': 'https://server13.mp3quran.net/',
-    'readerN': 'husr/',
+    'readerD': 'https://download.quranicaudio.com/quran/',
+    'readerN': 'mahmood_khaleel_al-husaree_iza3a/',
     'readerI': 'husary'
   },
   {
     'name': 'reader4'.tr,
-    'readerD': 'https://server10.mp3quran.net/',
-    'readerN': 'ajm/',
+    'readerD': 'https://download.quranicaudio.com/quran/',
+    'readerN': 'ahmed_ibn_3ali_al-3ajamy/',
     'readerI': 'ajamy'
   },
   {
     'name': 'reader5'.tr,
-    'readerD': 'https://server12.mp3quran.net/',
-    'readerN': 'maher/',
+    'readerD': 'https://download.quranicaudio.com/quran/',
+    'readerN': 'maher_almu3aiqly/year1440/',
     'readerI': 'muaiqly'
   },
   {
     'name': 'reader6'.tr,
-    'readerD': 'https://server7.mp3quran.net/',
-    'readerN': 's_gmd/',
+    'readerD': 'https://download.quranicaudio.com/quran/',
+    'readerN': 'sa3d_al-ghaamidi/complete/',
     'readerI': 'Ghamadi'
   }
 ];

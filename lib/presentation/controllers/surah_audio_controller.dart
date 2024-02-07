@@ -44,8 +44,8 @@ class SurahAudioController extends GetxController {
   late var cancelToken = CancelToken();
   TextEditingController textController = TextEditingController();
   RxInt selectedSurah = 0.obs;
-  RxString sorahReaderValue = "https://server7.mp3quran.net/".obs;
-  RxString sorahReaderNameValue = "basit/".obs;
+  RxString sorahReaderValue = "https://download.quranicaudio.com/quran/".obs;
+  RxString sorahReaderNameValue = "abdul_basit_murattal/".obs;
   final bool _isDisposed = false;
   List<AudioSource>? surahsPlayList;
   List<Map<int, AudioSource>> downloadSurahsPlayList = [];

@@ -46,8 +46,8 @@ class PlayListPlayWidget extends StatelessWidget {
                     builder: (context, snapshot) {
                       if (snapshot.hasData) {
                         final positionData = snapshot.data;
-                        return SeekBar(
-                          // timeShow: true,
+                        return SliderWidget(
+                          horizontalPadding: 0.0,
                           duration: positionData?.duration ?? Duration.zero,
                           position: positionData?.position ?? Duration.zero,
                           bufferedPosition:

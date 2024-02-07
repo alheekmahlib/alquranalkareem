@@ -23,7 +23,8 @@ class SurahSeekBar extends StatelessWidget {
               final positionData = snapshot.data;
 
               sl<SurahAudioController>().updateControllerValues(positionData!);
-              return SeekBar(
+              return SliderWidget(
+                horizontalPadding: 32.0,
                 duration: positionData.duration ?? Duration.zero,
                 position: sl<SurahAudioController>().lastTime != null
                     ? Duration(
@@ -77,7 +78,8 @@ class DownloadSurahSeekBar extends StatelessWidget {
               final positionData = snapshot.data;
 
               sl<SurahAudioController>().updateControllerValues(positionData!);
-              return SeekBar(
+              return SliderWidget(
+                horizontalPadding: 32.0,
                 duration: positionData.duration ?? Duration.zero,
                 position: sl<SurahAudioController>().lastTime != null
                     ? Duration(

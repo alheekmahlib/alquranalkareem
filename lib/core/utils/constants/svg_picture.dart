@@ -189,6 +189,22 @@ Widget pause_arrow({double? height, double? width}) {
   );
 }
 
+Widget play_page({double? height, double? width}) {
+  return SvgPicture.asset(
+    'assets/svg/play_page.svg',
+    width: width,
+    height: height ?? 60,
+  );
+}
+
+Widget playlist({double? height, double? width}) {
+  return SvgPicture.asset(
+    'assets/svg/playlist.svg',
+    width: width,
+    height: height ?? 60,
+  );
+}
+
 Widget tafsir_icon({double? height, double? width}) {
   return SvgPicture.asset(
     'assets/svg/tafsir_icon.svg',

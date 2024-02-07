@@ -1,8 +1,17 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
-class SeekBar extends StatelessWidget {
+import 'custom_paint/custom_slider.dart';
+
+class PositionData {
+  final Duration position;
+  final Duration bufferedPosition;
+  final Duration duration;
+
+  PositionData(this.position, this.bufferedPosition, this.duration);
+}
+
+class SliderWidget extends StatefulWidget {
   final Duration duration;
   final Duration position;
   final Duration bufferedPosition;
@@ -13,217 +22,147 @@ class SeekBar extends StatelessWidget {
   final Color? valueIndicatorColor;
   final Color? textColor;
   final bool? timeShow;
-  double? dragValue;
-  final ValueChanged<double>? onDragValueChanged;
   final double? padding;
+  final double sliderHeight;
+  final int min;
+  final int max;
+  final bool fullWidth;
+  final double horizontalPadding;
 
-  SeekBar(
-      {Key? key,
-      required this.duration,
-      required this.position,
-      required this.bufferedPosition,
-      this.onChanged,
-      this.onChangeEnd,
-      this.activeTrackColor,
-      this.inactiveTrackColor,
-      this.valueIndicatorColor,
-      this.textColor,
-      this.timeShow,
-      this.dragValue,
-      this.onDragValueChanged,
-      this.padding})
-      : super(key: key);
+  SliderWidget({
+    required this.duration,
+    required this.position,
+    required this.bufferedPosition,
+    this.onChanged,
+    this.onChangeEnd,
+    this.activeTrackColor,
+    this.inactiveTrackColor,
+    this.valueIndicatorColor,
+    this.textColor,
+    this.timeShow,
+    this.padding,
+    this.sliderHeight = 48,
+    this.max = 10,
+    this.min = 0,
+    this.fullWidth = false,
+    required this.horizontalPadding,
+  });
 
-  late final SliderThemeData sliderThemeData;
+  @override
+  _SliderWidgetState createState() => _SliderWidgetState();
+}
+
+class _SliderWidgetState extends State<SliderWidget> {
+  double _sliderValue = 0;
+
+  @override
+  void initState() {
+    super.initState();
+    _sliderValue = widget.position.inMilliseconds.toDouble();
+  }
 
   @override
   Widget build(BuildContext context) {
-    // sl<SurahAudioController>().lastPosition.value = remaining.inSeconds.toDouble();
-    final SliderThemeData sliderThemeData = SliderTheme.of(context).copyWith(
-      trackHeight: 2.0,
-    );
-    return SizedBox(
-      width: 250,
-      child: Stack(
-        children: [
-          SizedBox(
-            width: 250,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                timeShow == true
-                    ? Padding(
-                        padding: EdgeInsets.only(top: padding ?? 36.0),
-                        child: Text(
-                            RegExp(r'((^0*[1-9]\d*:)?\d{2}:\d{2})\.\d+$')
-                                    .firstMatch("$remaining")
-                                    ?.group(1) ??
-                                '$remaining',
-                            style: TextStyle(
-                                color: textColor ??
-                                    Theme.of(context).canvasColor)),
-                      )
-                    : const SizedBox.shrink(),
-                timeShow == true
-                    ? Padding(
-                        padding: EdgeInsets.only(top: padding ?? 36.0),
-                        child: Text(
-                            RegExp(r'((^0*[1-9]\d*:)?\d{2}:\d{2})\.\d+$')
-                                    .firstMatch("$total")
-                                    ?.group(1) ??
-                                '$total',
-                            style: TextStyle(
-                                color: textColor ??
-                                    Theme.of(context).canvasColor)),
-                      )
-                    : const SizedBox.shrink(),
-              ],
-            ),
-          ),
-          Stack(
-            children: [
-              SliderTheme(
-                data: sliderThemeData.copyWith(
-                  thumbShape: HiddenThumbComponentShape(),
+    _sliderValue = widget.position.inMilliseconds
+        .toDouble()
+        .clamp(0.0, widget.duration.inMilliseconds.toDouble());
+
+    return Directionality(
+      textDirection: TextDirection.rtl,
+      child: Container(
+        child: Column(
+          children: <Widget>[
+            Padding(
+              padding:
+                  EdgeInsets.symmetric(horizontal: widget.horizontalPadding),
+              child: SliderTheme(
+                data: SliderTheme.of(context).copyWith(
                   activeTrackColor:
-                      activeTrackColor ?? Theme.of(context).canvasColor,
-                  inactiveTrackColor:
-                      inactiveTrackColor ?? Theme.of(context).dividerColor,
-                  valueIndicatorColor:
-                      inactiveTrackColor ?? Theme.of(context).canvasColor,
-                ),
-                child: ExcludeSemantics(
-                  child: Slider(
-                    min: 0.0,
-                    max: duration.inMilliseconds.toDouble(),
-                    value: min(bufferedPosition.inMilliseconds.toDouble(),
-                        duration.inMilliseconds.toDouble()),
-                    onChanged: (value) {
-                      onDragValueChanged?.call(value);
-                      if (onChanged != null) {
-                        onChanged!(Duration(milliseconds: value.round()));
-                      }
-                    },
-                    onChangeEnd: (value) {
-                      if (onChangeEnd != null) {
-                        onChangeEnd!(Duration(milliseconds: value.round()));
-                      }
-                      dragValue = null;
-                    },
+                      widget.activeTrackColor ?? Get.theme.colorScheme.primary,
+                  inactiveTrackColor: widget.inactiveTrackColor ??
+                      Theme.of(context).dividerColor,
+                  thumbShape: CustomSliderThumbRect(
+                    thumbRadius: 20,
+                    thumbHeight: 15.0,
+                    min: widget.min,
+                    max: widget.max,
                   ),
-                ),
-              ),
-              SliderTheme(
-                data: sliderThemeData.copyWith(
-                  inactiveTrackColor: Colors.transparent,
+                  overlayShape:
+                      const RoundSliderOverlayShape(overlayRadius: 10.0),
                 ),
                 child: Slider(
                   min: 0.0,
-                  max: duration.inMilliseconds.toDouble(),
-                  value: min(dragValue ?? position.inMilliseconds.toDouble(),
-                      duration.inMilliseconds.toDouble()),
+                  max: widget.duration.inMilliseconds.toDouble(),
+                  value: _sliderValue,
                   onChanged: (value) {
-                    onDragValueChanged?.call(value);
-                    if (onChanged != null) {
-                      onChanged!(Duration(milliseconds: value.round()));
+                    setState(() {
+                      _sliderValue = value;
+                    });
+                    if (widget.onChanged != null) {
+                      widget.onChanged!(Duration(milliseconds: value.round()));
                     }
                   },
                   onChangeEnd: (value) {
-                    if (onChangeEnd != null) {
-                      onChangeEnd!(Duration(milliseconds: value.round()));
+                    if (widget.onChangeEnd != null) {
+                      widget
+                          .onChangeEnd!(Duration(milliseconds: value.round()));
                     }
-                    dragValue = null;
                   },
                 ),
               ),
-            ],
-          ),
-        ],
+            ),
+            Transform.translate(
+              offset: const Offset(0, -8),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Container(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 8.0, vertical: 2.0),
+                    decoration: BoxDecoration(
+                      color: Get.theme.colorScheme.primary,
+                      borderRadius: const BorderRadius.only(
+                        topLeft: Radius.circular(4),
+                        bottomLeft: Radius.circular(4),
+                      ),
+                    ),
+                    child: Text(
+                        RegExp(r'((^0*[1-9]\d*:)?\d{2}:\d{2})\.\d+$')
+                                .firstMatch("$remaining")
+                                ?.group(1) ??
+                            '$remaining',
+                        style: TextStyle(
+                            color: widget.textColor ??
+                                Theme.of(context).canvasColor)),
+                  ),
+                  Container(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 8.0, vertical: 2.0),
+                    decoration: BoxDecoration(
+                      color: Get.theme.colorScheme.primary,
+                      borderRadius: const BorderRadius.only(
+                        topRight: Radius.circular(4),
+                        bottomRight: Radius.circular(4),
+                      ),
+                    ),
+                    child: Text(
+                        RegExp(r'((^0*[1-9]\d*:)?\d{2}:\d{2})\.\d+$')
+                                .firstMatch("$total")
+                                ?.group(1) ??
+                            '$total',
+                        style: TextStyle(
+                            color: widget.textColor ??
+                                Theme.of(context).canvasColor)),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
 
-  Duration get remaining => position;
-  Duration get total => duration;
+  Duration get remaining => widget.position;
+  Duration get total => widget.duration;
 }
-
-class HiddenThumbComponentShape extends SliderComponentShape {
-  @override
-  Size getPreferredSize(bool isEnabled, bool isDiscrete) => Size.zero;
-
-  @override
-  void paint(
-    PaintingContext context,
-    Offset center, {
-    required Animation<double> activationAnimation,
-    required Animation<double> enableAnimation,
-    required bool isDiscrete,
-    required TextPainter labelPainter,
-    required RenderBox parentBox,
-    required SliderThemeData sliderTheme,
-    required TextDirection textDirection,
-    required double value,
-    required double textScaleFactor,
-    required Size sizeWithOverflow,
-  }) {}
-}
-
-class PositionData {
-  final Duration position;
-  final Duration bufferedPosition;
-  final Duration duration;
-
-  PositionData(this.position, this.bufferedPosition, this.duration);
-}
-
-class pagePositionData {
-  final Duration position;
-  final Duration bufferedPosition;
-  final Duration duration;
-
-  pagePositionData(this.position, this.bufferedPosition, this.duration);
-}
-
-void showSliderDialog({
-  required BuildContext context,
-  required String title,
-  required int divisions,
-  required double min,
-  required double max,
-  String valueSuffix = '',
-  // TODO: Replace these two by ValueStream.
-  required double value,
-  required Stream<double> stream,
-  required ValueChanged<double> onChanged,
-}) {
-  showDialog<void>(
-    context: context,
-    builder: (context) => AlertDialog(
-      title: Text(title, textAlign: TextAlign.center),
-      content: StreamBuilder<double>(
-        stream: stream,
-        builder: (context, snapshot) => SizedBox(
-          height: 100.0,
-          child: Column(
-            children: [
-              Text('${snapshot.data?.toStringAsFixed(1)}$valueSuffix',
-                  style: const TextStyle(
-                      fontFamily: 'Fixed',
-                      fontWeight: FontWeight.bold,
-                      fontSize: 24.0)),
-              Slider(
-                divisions: divisions,
-                min: min,
-                max: max,
-                value: snapshot.data ?? value,
-                onChanged: onChanged,
-              ),
-            ],
-          ),
-        ),
-      ),
-    ),
-  );
-}
-
-T? ambiguate<T>(T? value) => value;

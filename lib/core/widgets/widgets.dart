@@ -381,7 +381,7 @@ void customErrorSnackBar(String text) {
   );
 }
 
-void customMobileNoteSnackBar(BuildContext context, String text) {
+void customMobileNoteSnackBar(String text) {
   BotToast.showCustomNotification(
     enableSlideOff: false,
     toastBuilder: (cancelFunc) {
@@ -424,7 +424,7 @@ void customMobileNoteSnackBar(BuildContext context, String text) {
                     Align(
                       alignment: Alignment.centerLeft,
                       child: SizedBox(
-                        width: MediaQuery.sizeOf(context).width / 1 / 2,
+                        width: 300,
                         child: Text(
                           text,
                           style: const TextStyle(
