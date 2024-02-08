@@ -15,7 +15,7 @@ import '/presentation/controllers/general_controller.dart';
 import '/presentation/controllers/theme_controller.dart';
 
 class QuranController extends GetxController {
-  var currentPage = 1.obs;
+  // RxInt currentPage = 1.obs;
   List<Surah> surahs = [];
   List<List<Ayah>> pages = [];
   List<Ayah> allAyahs = [];
@@ -90,7 +90,7 @@ class QuranController extends GetxController {
       surahs.firstWhere((s) => s.ayahs.contains(ayah)).surahNumber;
 
   void indicatorOnTap(int pageNumber, int itemWidth, double screenWidth) {
-    currentPage.value = pageNumber;
+    sl<GeneralController>().currentPage.value = pageNumber;
     selectedIndicatorIndex.value = pageNumber;
     final targetOffset =
         itemWidth * pageNumber - (screenWidth * .69 / 2) + itemWidth / 2;
@@ -109,13 +109,12 @@ class QuranController extends GetxController {
   void indicatorScroll(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
     final itemWidth = 80;
-    selectedIndicatorIndex.value = currentPage.value;
-    final targetOffset =
-        itemWidth * currentPage.value - (screenWidth * .69 / 2) + itemWidth / 2;
+    selectedIndicatorIndex.value = sl<GeneralController>().currentPage.value;
     if (scrollIndicatorController.hasClients) {
-      final targetOffset = itemWidth * currentPage.value -
-          (screenWidth * .69 / 2) +
-          itemWidth / 2;
+      final targetOffset =
+          itemWidth * sl<GeneralController>().currentPage.value -
+              (screenWidth * .69 / 2) +
+              itemWidth / 2;
       scrollIndicatorController.animateTo(
         targetOffset,
         duration: const Duration(milliseconds: 500),

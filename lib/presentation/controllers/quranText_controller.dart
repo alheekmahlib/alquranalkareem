@@ -1,5 +1,4 @@
 import 'package:bot_toast/bot_toast.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
@@ -11,14 +10,10 @@ import '../../core/utils/constants/svg_picture.dart';
 import '../screens/quran_text/data/models/Ahya.dart';
 import '../screens/quran_text/data/models/QuranModel.dart';
 import '../screens/quran_text/data/models/bookmark_text.dart';
-import '../screens/quran_text/screens/text_page_view.dart';
-import '../screens/quran_text/widgets/widgets.dart';
 import '/core/utils/constants/shared_preferences_constants.dart';
-import 'audio_controller.dart';
 import 'ayat_controller.dart';
 import 'bookmarksText_controller.dart';
 import 'surahTextController.dart';
-import 'translate_controller.dart';
 
 class QuranTextController extends GetxController {
   int? id;
@@ -52,96 +47,6 @@ class QuranTextController extends GetxController {
   int currentSurahIndex = 1;
   List<List<Ayahs>> surahsAyahs = [];
   List<Ayahs> get currentSurahAyahs => surahsAyahs[currentSurahIndex];
-
-  pageText(BuildContext context, SurahText surah, List<InlineSpan> text,
-      int index, int nomPageF, int nomPageL) {
-    int ayahLength = surah.ayahs!.length;
-    for (int b = 0; b < ayahLength; b++) {
-      if (surah.ayahs![b].text!.length > 1) {
-        if (surah.ayahs![b].page == (index + nomPageF)) {
-          juz = surah.ayahs![b].juz.toString();
-          sajda = surah.ayahs![b].sajda;
-          // sl<AudioController>().lastAyah(pageN, widget);
-
-          // text2 = surah!.ayahs![b].text! as List<String>;
-
-          text.add(TextSpan(children: <InlineSpan>[
-            TextSpan(
-                text: ' ${surah.ayahs![b].text!}',
-                style: TextStyle(
-                  fontWeight: FontWeight.normal,
-                  fontFamily: 'uthmanic2',
-                  background: Paint()
-                    ..color = surah.ayahs![b].numberInSurah ==
-                            sl<AudioController>().ayahSelected.value
-                        ? selected.value
-                            ? backColor!
-                            : Colors.transparent
-                        : Colors.transparent
-                    ..strokeJoin = StrokeJoin.round
-                    ..strokeCap = StrokeCap.round
-                    ..style = PaintingStyle.fill,
-                  color: Get.isDarkMode ? Colors.white : Colors.black,
-                ),
-                recognizer: TapGestureRecognizer()
-                  ..onTapDown = (TapDownDetails details) {
-                    textText = text.map((e) => e).toString();
-                    textTitle = text.map((e) => e).toString();
-                    pageN = surah.ayahs![b].pageInSurah! - 1;
-                    sl<AudioController>().lastAyahInTextPage.value = surah
-                        .ayahs!
-                        .firstWhere((e) =>
-                            surah.ayahs!.last.numberInSurah == e.numberInSurah)
-                        .numberInSurah!;
-                    textSurahNum = surah.number;
-                    menu(context, b, index, sl<TranslateDataController>().data,
-                        surah, nomPageF, nomPageL,
-                        details: details);
-                    selected.value = !selected.value;
-                    // backColor = Colors.transparent;
-                    sl<AyatController>().surahTextNumber.value =
-                        surah.number!.toString();
-                    sl<AyatController>().ayahTextNumber.value =
-                        surah.ayahs![b].numberInSurah.toString();
-                    sl<AudioController>().ayahSelected.value =
-                        surah.ayahs![b].numberInSurah!;
-                    update();
-                  })
-          ]));
-          text.add(TextSpan(children: <InlineSpan>[
-            TextSpan(
-              text: ' ${arabicNumber.convert(surah.ayahs![b].numberInSurah)}',
-              style: TextStyle(
-                fontWeight: sl<BookmarksTextController>()
-                        .hasBookmark(
-                            surah.number!, surah.ayahs![b].numberInSurah!)
-                        .value
-                    ? FontWeight.bold
-                    : FontWeight.normal,
-                fontFamily: 'uthmanic2',
-                background: Paint()
-                  ..color = surah.ayahs![b].numberInSurah ==
-                          sl<AudioController>().ayahSelected.value
-                      ? selected.value
-                          ? backColor!
-                          : Colors.transparent
-                      : Colors.transparent
-                  ..strokeJoin = StrokeJoin.round
-                  ..strokeCap = StrokeCap.round
-                  ..style = PaintingStyle.fill,
-                color: sl<BookmarksTextController>()
-                        .hasBookmark(
-                            surah.number!, surah.ayahs![b].numberInSurah!)
-                        .value
-                    ? const Color(0xfffcbb76)
-                    : Colors.black,
-              ),
-            ),
-          ]));
-        }
-      }
-    }
-  }
 
   ayahText(SurahText surah) {
     int ayahLength = surah.ayahs!.length;
@@ -349,38 +254,38 @@ class QuranTextController extends GetxController {
         (scrollController.position.maxScrollExtent));
   }
 
-  jumbToPage(var pageNumber) async {
-    int pageNum = pageNumber ??
-        0; // Use the null coalescing operator to ensure pageNum is not null
-
-    if (pageNum == 0 ||
-        pageNum == 1 ||
-        pageNum == 585 ||
-        pageNum == 586 ||
-        pageNum == 587 ||
-        pageNum == 589 ||
-        pageNum == 590 ||
-        pageNum == 591 ||
-        pageNum == 592 ||
-        pageNum == 593 ||
-        pageNum == 594 ||
-        pageNum == 595 ||
-        pageNum == 596 ||
-        pageNum == 597 ||
-        pageNum == 598 ||
-        pageNum == 599 ||
-        pageNum == 600 ||
-        pageNum == 601 ||
-        pageNum == 602 ||
-        pageNum == 603 ||
-        pageNum == 604) {
-    } else {
-      await itemScrollController.scrollTo(
-          index: (value.value == 1 ? pageNum + 1 : pageNum - 1),
-          duration: const Duration(seconds: 1),
-          curve: Curves.easeOut);
-      sl<AudioController>().ayahSelected.value =
-          value.value == 1 ? pageNum : pageNum - 1;
-    }
-  }
+  // jumbToPage(var pageNumber) async {
+  //   int pageNum = pageNumber ??
+  //       0; // Use the null coalescing operator to ensure pageNum is not null
+  //
+  //   if (pageNum == 0 ||
+  //       pageNum == 1 ||
+  //       pageNum == 585 ||
+  //       pageNum == 586 ||
+  //       pageNum == 587 ||
+  //       pageNum == 589 ||
+  //       pageNum == 590 ||
+  //       pageNum == 591 ||
+  //       pageNum == 592 ||
+  //       pageNum == 593 ||
+  //       pageNum == 594 ||
+  //       pageNum == 595 ||
+  //       pageNum == 596 ||
+  //       pageNum == 597 ||
+  //       pageNum == 598 ||
+  //       pageNum == 599 ||
+  //       pageNum == 600 ||
+  //       pageNum == 601 ||
+  //       pageNum == 602 ||
+  //       pageNum == 603 ||
+  //       pageNum == 604) {
+  //   } else {
+  //     await itemScrollController.scrollTo(
+  //         index: (value.value == 1 ? pageNum + 1 : pageNum - 1),
+  //         duration: const Duration(seconds: 1),
+  //         curve: Curves.easeOut);
+  //     sl<AudioController>().ayahSelected.value =
+  //         value.value == 1 ? pageNum : pageNum - 1;
+  //   }
+  // }
 }

@@ -46,8 +46,8 @@ class TextPageView extends StatelessWidget {
     sl<TranslateDataController>().loadTranslateValue();
     backColor = const Color(0xff91a57d).withOpacity(0.4);
 
-    WidgetsBinding.instance.addPostFrameCallback(
-        (_) => sl<QuranTextController>().jumbToPage(pageNum));
+    // WidgetsBinding.instance.addPostFrameCallback(
+    //     (_) => sl<QuranTextController>().jumbToPage(pageNum));
     return GetBuilder<QuranTextController>(builder: (textController) {
       return Directionality(
         textDirection: TextDirection.rtl,

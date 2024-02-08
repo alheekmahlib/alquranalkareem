@@ -3,7 +3,6 @@ import 'package:get/get.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 
 import '../../../../core/services/services_locator.dart';
-import '../../../controllers/audio_controller.dart';
 import '../../../controllers/bookmarksText_controller.dart';
 import '../../../controllers/quranText_controller.dart';
 import '/presentation/screens/quran_text/data/models/QuranModel.dart';
@@ -36,23 +35,23 @@ class _ScrollableListState extends State<ScrollableList> {
   //       ?.numberInSurah;
   //   return i;
   // }
-  int? get isHeighlited {
-    if (sl<AudioController>().ayahSelected.value == -1) return null;
-    if (widget.surah.ayahs == null ||
-        sl<AudioController>().ayahSelected.value >=
-            widget.surah.ayahs!.length ||
-        sl<AudioController>().ayahSelected.value < 0) {
-      return null;
-    }
-
-    final i = widget.surah.ayahs!
-        .firstWhereOrNull((a) =>
-            a ==
-            widget.surah.ayahs![sl<AudioController>().ayahSelected.value - 1])
-        ?.numberInSurah;
-    sl<AudioController>().update();
-    return i;
-  }
+  // int? get isHeighlited {
+  //   if (sl<AudioController>().ayahSelected.value == -1) return null;
+  //   if (widget.surah.ayahs == null ||
+  //       sl<AudioController>().ayahSelected.value >=
+  //           widget.surah.ayahs!.length ||
+  //       sl<AudioController>().ayahSelected.value < 0) {
+  //     return null;
+  //   }
+  //
+  //   final i = widget.surah.ayahs!
+  //       .firstWhereOrNull((a) =>
+  //           a ==
+  //           widget.surah.ayahs![sl<AudioController>().ayahSelected.value - 1])
+  //       ?.numberInSurah;
+  //   sl<AudioController>().update();
+  //   return i;
+  // }
 
   // int? get isHeighlited {
   //   if (heighlitedAyah.value == -1) return null;
@@ -87,8 +86,8 @@ class _ScrollableListState extends State<ScrollableList> {
         if (textController.value.value == 1) {
           textController.ayahText(widget.surah);
         } else {
-          textController.pageText(context, widget.surah, text, index,
-              widget.nomPageF, widget.nomPageL);
+          // textController.pageText(context, widget.surah, text, index,
+          //     widget.nomPageF, widget.nomPageL);
         }
         return Obx(
           () => textController.value.value == 1

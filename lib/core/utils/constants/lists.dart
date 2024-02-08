@@ -6,6 +6,7 @@ import '../../../presentation/screens/alwaqf_screen/alwaqf_screen.dart';
 import '../../../presentation/screens/athkar/screens/alzkar_view.dart';
 import '../../../presentation/screens/quran_page/screens/quran_home.dart';
 import '../../../presentation/screens/surah_audio_screen/audio_surah.dart';
+import 'constants.dart';
 
 List<String> zikr = <String>[
   'اللّهُـمَّ بِكَ أَصْـبَحْنا وَبِكَ أَمْسَـينا ، وَبِكَ نَحْـيا وَبِكَ نَمُـوتُ وَإِلَـيْكَ النُّـشُور.',
@@ -323,37 +324,37 @@ final List themeList = [
 List surahReaderInfo = [
   {
     'name': 'reader1'.tr,
-    'readerD': 'https://download.quranicaudio.com/quran/',
+    'readerD': '${UrlConstants.surahUrl}',
     'readerN': 'abdul_basit_murattal/',
     'readerI': 'basit'
   },
   {
     'name': 'reader2'.tr,
-    'readerD': 'https://download.quranicaudio.com/quran/',
+    'readerD': '${UrlConstants.surahUrl}',
     'readerN': 'muhammad_siddeeq_al-minshaawee/',
     'readerI': 'minshawy'
   },
   {
     'name': 'reader3'.tr,
-    'readerD': 'https://download.quranicaudio.com/quran/',
+    'readerD': '${UrlConstants.surahUrl}',
     'readerN': 'mahmood_khaleel_al-husaree_iza3a/',
     'readerI': 'husary'
   },
   {
     'name': 'reader4'.tr,
-    'readerD': 'https://download.quranicaudio.com/quran/',
+    'readerD': '${UrlConstants.surahUrl}',
     'readerN': 'ahmed_ibn_3ali_al-3ajamy/',
     'readerI': 'ajamy'
   },
   {
     'name': 'reader5'.tr,
-    'readerD': 'https://download.quranicaudio.com/quran/',
+    'readerD': '${UrlConstants.surahUrl}',
     'readerN': 'maher_almu3aiqly/year1440/',
     'readerI': 'muaiqly'
   },
   {
     'name': 'reader6'.tr,
-    'readerD': 'https://download.quranicaudio.com/quran/',
+    'readerD': '${UrlConstants.surahUrl}',
     'readerN': 'sa3d_al-ghaamidi/complete/',
     'readerI': 'Ghamadi'
   }

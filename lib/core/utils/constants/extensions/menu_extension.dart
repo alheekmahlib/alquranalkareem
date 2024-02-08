@@ -1,3 +1,4 @@
+import 'package:alquranalkareem/presentation/controllers/audio_controller.dart';
 import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
@@ -66,7 +67,9 @@ extension ContextMenuExtension on BuildContext {
                         child: play_arrow(height: 25.0),
                       ),
                       onTap: () {
+                        sl<AudioController>().startPlayingToggle();
                         sl<QuranController>().isPlayExpanded.value = true;
+                        sl<AudioController>().playAyahOnTap(surahNum, ayahNum);
                         cancel();
                       },
                     ),

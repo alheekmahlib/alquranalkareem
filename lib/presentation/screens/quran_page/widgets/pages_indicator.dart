@@ -51,9 +51,10 @@ class PagesIndicator extends StatelessWidget {
                               alignment: Alignment.center,
                               children: [
                                 Opacity(
-                                  opacity: quranCtrl.currentPage.value == index
-                                      ? 1
-                                      : .5,
+                                  opacity:
+                                      generalCtrl.currentPage.value == index
+                                          ? 1
+                                          : .5,
                                   child: SvgPicture.asset(
                                     themeList[0][
                                         'svgUrl'], // Assuming themeList is your items list
@@ -88,7 +89,7 @@ class PagesIndicator extends StatelessWidget {
                               children: [
                                 Opacity(
                                   opacity:
-                                      quranCtrl.currentPage.value == index + 1
+                                      generalCtrl.currentPage.value == index + 1
                                           ? 1
                                           : .5,
                                   child: SvgPicture.asset(

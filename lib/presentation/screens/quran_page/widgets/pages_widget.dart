@@ -26,7 +26,7 @@ class PagesWidget extends StatelessWidget {
           },
           child: Padding(
             padding:
-                const EdgeInsets.symmetric(vertical: 30.0, horizontal: 16.0),
+                const EdgeInsets.symmetric(vertical: 30.0, horizontal: 8.0),
             child: quranCtrl.pages.isEmpty
                 ? const CircularProgressIndicator.adaptive()
                 : Column(
@@ -62,9 +62,9 @@ class PagesWidget extends StatelessWidget {
                               style: TextStyle(
                                 fontFamily: 'page${pageIndex + 1}',
                                 fontSize: getProportionateScreenWidth(
-                                    context.customOrientation(19.0, 18.0)),
-                                height: 1.9,
-                                letterSpacing: 1.5,
+                                    context.customOrientation(20.0, 18.0)),
+                                height: 2,
+                                letterSpacing: 2,
                                 color: Get.theme.colorScheme.inversePrimary,
                               ),
                               children:
@@ -80,7 +80,7 @@ class PagesWidget extends StatelessWidget {
                                       isSelected: quranCtrl.isSelected,
                                       fontSize: getProportionateScreenWidth(
                                           context.customOrientation(
-                                              19.0, 18.0)),
+                                              20.0, 18.0)),
                                       onLongPressStart:
                                           (LongPressStartDetails details) {
                                         quranCtrl
@@ -101,7 +101,7 @@ class PagesWidget extends StatelessWidget {
                                     pageIndex: pageIndex,
                                     isSelected: quranCtrl.isSelected,
                                     fontSize: getProportionateScreenWidth(
-                                        context.customOrientation(19.0, 18.0)),
+                                        context.customOrientation(20.0, 18.0)),
                                     onLongPressStart:
                                         (LongPressStartDetails details) {
                                       quranCtrl.toggleAyahSelection(ayahIndex);
@@ -129,27 +129,52 @@ class PagesWidget extends StatelessWidget {
   }
 }
 
-TextSpan span(
-        {required String text,
-        required int pageIndex,
-        required bool isSelected,
-        required double fontSize,
-        required LongPressStartDetailsFunction onLongPressStart}) =>
-    TextSpan(
-      text: text,
+TextSpan span({
+  required String text,
+  required int pageIndex,
+  required bool isSelected,
+  required double fontSize,
+  required LongPressStartDetailsFunction onLongPressStart,
+}) {
+  if (text.isNotEmpty) {
+    final String initialPart = text.substring(0, text.length - 1);
+    final String lastCharacter = text.substring(text.length - 1);
+
+    final TextSpan initialTextSpan = TextSpan(
+      text: initialPart,
       style: TextStyle(
         fontFamily: 'page${pageIndex + 1}',
         fontSize: fontSize,
-        height: 1.9,
-        letterSpacing: 1.5,
+        height: 2,
+        letterSpacing: 2,
         color: Get.theme.colorScheme.inversePrimary,
-        backgroundColor: isSelected
-            ? Get.theme.colorScheme.primary.withOpacity(.25)
-            : Colors.transparent,
+        backgroundColor:
+            isSelected ? Get.theme.highlightColor : Colors.transparent,
       ),
+    );
+
+    final TextSpan lastCharacterSpan = TextSpan(
+      text: lastCharacter,
+      style: TextStyle(
+        fontFamily: 'page${pageIndex + 1}',
+        fontSize: fontSize,
+        height: 2,
+        letterSpacing: 2,
+        color: Colors.red,
+        backgroundColor:
+            isSelected ? Get.theme.highlightColor : Colors.transparent,
+      ),
+    );
+
+    return TextSpan(
+      children: [initialTextSpan, lastCharacterSpan],
       recognizer: LongPressGestureRecognizer(
           duration: const Duration(milliseconds: 500))
         ..onLongPressStart = onLongPressStart,
     );
+  } else {
+    return const TextSpan(text: '');
+  }
+}
 
 typedef LongPressStartDetailsFunction = void Function(LongPressStartDetails)?;

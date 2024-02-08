@@ -1,4 +1,5 @@
 import 'package:alquranalkareem/core/widgets/tab_bar_widget.dart';
+import 'package:alquranalkareem/presentation/controllers/audio_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -17,6 +18,7 @@ class MPages extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final audioCtrl = sl<AudioController>();
     final generalCtrl = sl<GeneralController>();
     sl<BookmarksController>().getBookmarks();
     return SafeArea(
@@ -144,12 +146,13 @@ class MPages extends StatelessWidget {
                   isIndicator: true,
                 )
               : const SizedBox.shrink()),
-          Obx(() => generalCtrl.isShowControl.value
-              ? Align(
-                  alignment: Alignment.bottomCenter,
-                  child: AudioWidget(),
-                )
-              : const SizedBox.shrink()),
+          Obx(() =>
+              audioCtrl.isStartPlaying.value || generalCtrl.isShowControl.value
+                  ? Align(
+                      alignment: Alignment.bottomCenter,
+                      child: AudioWidget(),
+                    )
+                  : const SizedBox.shrink()),
         ],
       ),
     );

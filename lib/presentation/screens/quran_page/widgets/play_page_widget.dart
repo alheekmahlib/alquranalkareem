@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:just_audio/just_audio.dart';
 
 import '../../../../core/services/services_locator.dart';
+import '../../../../core/utils/constants/lottie.dart';
 import '../../../controllers/audio_controller.dart';
 import '../../../controllers/general_controller.dart';
 import '/core/utils/constants/svg_picture.dart';
@@ -12,6 +14,7 @@ class PlayPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final audioCtrl = sl<AudioController>();
     return Obx(
       () => SizedBox(
         width: 40,
@@ -44,44 +47,37 @@ class PlayPage extends StatelessWidget {
                           color: Get.theme.hintColor),
                     ),
                   )
-                : Obx(
-                    () => sl<AudioController>().isPagePlay.value
-                        ? GestureDetector(
-                            child: Semantics(
-                              button: true,
-                              enabled: true,
-                              label: 'Pause Page',
-                              child: pause_arrow(height: 25.0),
-                            ),
-                            onTap: () {
-                              sl<QuranController>().isPlayExpanded.value = true;
-                              print(sl<AudioController>()
-                                  .progressPageString
-                                  .value);
-
-                              sl<AudioController>().isPlay.value = false;
-                              sl<AudioController>().playPage(context,
-                                  sl<GeneralController>().currentPage.value);
-                            },
-                          )
-                        : GestureDetector(
-                            child: Semantics(
-                              button: true,
-                              enabled: true,
-                              label: 'Play Page',
-                              child: play_page(height: 25.0),
-                            ),
-                            onTap: () {
-                              sl<QuranController>().isPlayExpanded.value = true;
-                              print(sl<AudioController>()
-                                  .progressPageString
-                                  .value);
-
-                              sl<AudioController>().isPlay.value = false;
-                              sl<AudioController>().playPage(context,
-                                  sl<GeneralController>().currentPage.value);
-                            },
-                          ),
+                : StreamBuilder<PlayerState>(
+                    stream: audioCtrl.pageAudioPlayer.playerStateStream,
+                    builder: (context, snapshot) {
+                      final playerState = snapshot.data;
+                      final processingState = playerState?.processingState;
+                      final playing = playerState?.playing;
+                      if (processingState == ProcessingState.loading ||
+                          processingState == ProcessingState.buffering) {
+                        return playButtonLottie(20.0, 20.0);
+                      } else if (!audioCtrl.isPagePlay.value) {
+                        return GestureDetector(
+                          child: play_page(height: 25.0),
+                          onTap: () async {
+                            audioCtrl.cancelDownload();
+                            sl<QuranController>().isPlayExpanded.value = true;
+                            sl<AudioController>().isPlay.value = false;
+                            sl<AudioController>().playPage(
+                                sl<GeneralController>().currentPage.value);
+                          },
+                        );
+                      }
+                      return GestureDetector(
+                        child: pause_arrow(height: 25.0),
+                        onTap: () {
+                          sl<QuranController>().isPlayExpanded.value = true;
+                          sl<AudioController>().isPlay.value = false;
+                          sl<AudioController>().playPage(
+                              sl<GeneralController>().currentPage.value);
+                        },
+                      );
+                    },
                   ),
           ],
         ),

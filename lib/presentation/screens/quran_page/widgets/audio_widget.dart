@@ -20,6 +20,7 @@ class AudioWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final quranCtrl = sl<QuranController>();
+    final audioCtrl = sl<AudioController>();
     return Directionality(
       textDirection: TextDirection.rtl,
       child: Container(
@@ -95,7 +96,9 @@ class AudioWidget extends StatelessWidget {
                             alignment: Alignment.center,
                             // width: 250,
                             child: StreamBuilder<PositionData>(
-                              stream: sl<AudioController>().positionDataStream,
+                              stream: audioCtrl.isPlay.value
+                                  ? audioCtrl.positionDataStream
+                                  : audioCtrl.positionPageDataStream,
                               builder: (context, snapshot) {
                                 if (snapshot.hasData) {
                                   final positionData = snapshot.data;

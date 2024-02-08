@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:developer' as developer;
 import 'dart:io';
 
+import 'package:alquranalkareem/core/utils/constants/constants.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
@@ -21,16 +22,14 @@ import '../../core/widgets/seek_bar.dart';
 import '../../core/widgets/widgets.dart';
 import '../screens/quran_text/data/models/Ahya.dart';
 import '../screens/quran_text/data/models/QuranModel.dart';
-import '../screens/quran_text/screens/text_page_view.dart';
 import 'ayat_controller.dart';
 import 'general_controller.dart';
-import 'quranText_controller.dart';
 import 'quran_controller.dart';
 import 'surahTextController.dart';
 
 class AudioController extends GetxController {
   AudioPlayer audioPlayer = AudioPlayer();
-  // AudioPlayer pageAudioPlayer = AudioPlayer();
+  AudioPlayer pageAudioPlayer = AudioPlayer();
   AudioPlayer textAudioPlayer = AudioPlayer();
   RxBool isPlay = false.obs;
   RxBool downloading = false.obs;
@@ -41,7 +40,6 @@ class AudioController extends GetxController {
   RxBool downloadingPage = false.obs;
   RxString progressPageString = "0".obs;
   RxDouble progressPage = 0.0.obs;
-  RxInt ayahSelected = (-1).obs;
   String? currentPlay;
   RxBool autoPlay = false.obs;
   double? sliderValue;
@@ -63,17 +61,39 @@ class AudioController extends GetxController {
   RxInt lastAyahInTextPage = 0.obs;
   RxInt lastAyahInSurah = 0.obs;
   Color? backColor;
-  RxInt currentAyahInPage = 1.obs;
-  int? currentSorahInPage;
-  int? currentAyah;
-  int? currentSorah;
+  RxInt _currentAyahInPage = 1.obs;
+  RxInt _currentSurahInPage = 1.obs;
   bool goingToNewSurah = false;
   RxBool selected = false.obs;
   RxInt readerIndex = 0.obs;
+  RxBool isStartPlaying = false.obs;
 
-  String bismillahFileUrl(String reader) =>
-      "https://www.everyayah.com/data/${bismillahFileName(reader)}";
-  String bismillahFileName(String reader) => "$reader/001007.mp3";
+  void startPlayingToggle() {
+    isStartPlaying.value = true;
+    Future.delayed(const Duration(seconds: 3), () {
+      isStartPlaying.value = false;
+    });
+  }
+
+  void playAyahOnTap(int surahNum, int ayahNum) {
+    _currentAyahInPage.value = ayahNum;
+    _currentSurahInPage.value = surahNum;
+    playAyah();
+  }
+
+  int get currentAyahInPage => _currentAyahInPage.value == 1
+      ? sl<QuranController>()
+          .allAyahs
+          .firstWhere(
+              (ayah) => ayah.page == sl<GeneralController>().currentPage.value)
+          .ayahNumber
+      : _currentAyahInPage.value;
+
+  int get currentSurahInPage => _currentSurahInPage.value == 1
+      ? sl<QuranController>()
+          .getSurahNumberFromPage(sl<GeneralController>().currentPage.value)
+      : _currentSurahInPage.value;
+
   // final controller = Get.find<AyatController>();
 
   // Color determineColor(int b) {
@@ -123,11 +143,11 @@ class AudioController extends GetxController {
           (position, bufferedPosition, duration) => PositionData(
               position, bufferedPosition, duration ?? Duration.zero));
 
-  Stream<PositionData> get textPositionDataStream =>
+  Stream<PositionData> get positionPageDataStream =>
       R.Rx.combineLatest3<Duration, Duration, Duration?, PositionData>(
-          textAudioPlayer.positionStream,
-          textAudioPlayer.bufferedPositionStream,
-          textAudioPlayer.durationStream,
+          pageAudioPlayer.positionStream,
+          pageAudioPlayer.bufferedPositionStream,
+          pageAudioPlayer.durationStream,
           (position, bufferedPosition, duration) => PositionData(
               position, bufferedPosition, duration ?? Duration.zero));
 
@@ -273,55 +293,51 @@ class AudioController extends GetxController {
     }
   }
 
-  Future<void> playNextAyah() async {
-    print('playNextAyah ' * 6);
-
-    // currentAyahInPage.value = int.parse(sl<AyatController>().currentAyahNumber.value);
-    if (goingToNewSurah) {
-      currentAyahInPage.value = 1;
-      currentAyah = 1;
-      sl<SurahTextController>().currentSurahIndex += 1;
-      goingToNewSurah = false;
-      // await playFile(context, bismillahFileUrl(readerValue!),
-      //     bismillahFileName(readerValue!));
-      await playFile("https://www.everyayah.com/data/$readerValue!/001007.mp3",
-          "$readerValue!/001007.mp3");
-    } else {
-      currentAyahInPage.value += 1;
-      currentAyah ??= 0 + 1;
-    }
-
-    sl<AyatController>().currentAyahNumber.value = '${currentAyahInPage.value}';
-    // currentAyahInPage.value == sl<AyatController>().ayatList.last.ayaNum
-    //     ? currentSorahInPage = int.parse(pageSurahNumber!) + 1
-    //     : currentSorahInPage = int.parse(pageSurahNumber!);
-    sl<AyatController>().currentAyahNumber.value =
-        formatNumber(currentAyahInPage.value);
-
-    String reader = readerValue!;
-    String fileName =
-        "$reader/${formatNumber(sl<SurahTextController>().currentSurahIndex + 1)}${sl<AyatController>().currentAyahNumber.value}.mp3";
-    String url = "https://www.everyayah.com/data/$fileName";
-    print('nextURL $url');
-
-    print('currentAyah ${currentAyahInPage.value}');
-
-    await playFile(url, fileName);
-    isProcessingNextAyah.value = false;
-  }
+  // Future<void> playNextAyah() async {
+  //   print('playNextAyah ' * 6);
+  //
+  //   // currentAyahInPage = int.parse(sl<AyatController>().currentAyahNumber.value);
+  //   if (goingToNewSurah) {
+  //     currentAyahInPage = 1;
+  //     // currentAyah = 1;
+  //     sl<SurahTextController>().currentSurahIndex += 1;
+  //     goingToNewSurah = false;
+  //     // await playFile(context, bismillahFileUrl(readerValue!),
+  //     //     bismillahFileName(readerValue!));
+  //     await playFile("https://www.everyayah.com/data/$readerValue!/001007.mp3",
+  //         "$readerValue!/001007.mp3");
+  //   } else {
+  //     currentAyahInPage += 1;
+  //     currentAyah ??= 0 + 1;
+  //   }
+  //
+  //   sl<AyatController>().currentAyahNumber.value = '${currentAyahInPage}';
+  //   // currentAyahInPage == sl<AyatController>().ayatList.last.ayaNum
+  //   //     ? currentSorahInPage = int.parse(pageSurahNumber!) + 1
+  //   //     : currentSorahInPage = int.parse(pageSurahNumber!);
+  //   sl<AyatController>().currentAyahNumber.value =
+  //       formatNumber(currentAyahInPage);
+  //
+  //   String reader = readerValue!;
+  //   String fileName =
+  //       "$reader/${formatNumber(sl<SurahTextController>().currentSurahIndex + 1)}${sl<AyatController>().currentAyahNumber.value}.mp3";
+  //   String url = "https://www.everyayah.com/data/$fileName";
+  //   print('nextURL $url');
+  //
+  //   print('currentAyah ${currentAyahInPage}');
+  //
+  //   await playFile(url, fileName);
+  //   isProcessingNextAyah.value = false;
+  // }
 
   Future<void> playAyah() async {
-    await audioPlayer.pause();
-    currentAyahInPage.value =
-        int.parse(sl<AyatController>().currentAyahNumber.value);
-    // currentSorahInPage = sl<SurahTextController>().currentSurahIndex + 1;
-    sl<AyatController>().currentAyahNumber.value =
-        formatNumber(currentAyahInPage.value);
+    isPagePlay.value = false;
+    await pageAudioPlayer.pause();
 
     String reader = readerValue!;
     String fileName =
-        "$reader/${formatNumber(sl<SurahTextController>().currentSurahIndex + 1)}${sl<AyatController>().currentAyahNumber.value}.mp3";
-    String url = "https://www.everyayah.com/data/$fileName";
+        "$reader/${formatNumber(currentSurahInPage)}${formatNumber(currentAyahInPage)}.mp3";
+    String url = "${UrlConstants.ayahUrl}$fileName";
     print('URL: $url');
 
     if (!goingToNewSurah && isPlay.value) {
@@ -332,135 +348,6 @@ class AudioController extends GetxController {
       await playFile(url, fileName);
       isPlay.value = true;
     }
-  }
-
-  Future textPlayFile(BuildContext context, String url, String fileName) async {
-    String path;
-    try {
-      var dir = await getApplicationDocumentsDirectory();
-      path = join(dir.path, fileName);
-      var file = File(path);
-      bool exists = await file.exists();
-      if (!exists) {
-        try {
-          await Directory(dirname(path)).create(recursive: true);
-        } catch (e) {
-          print(e);
-        }
-        if (_connectionStatus == ConnectivityResult.none) {
-          customErrorSnackBar('noInternet'.tr);
-        } else if (_connectionStatus == ConnectivityResult.mobile) {
-          await downloadFile(path, url, fileName);
-          customMobileNoteSnackBar('mobileDataAyat'.tr);
-        } else if (_connectionStatus == ConnectivityResult.wifi) {
-          await downloadFile(path, url, fileName);
-        }
-      }
-      await textAudioPlayer.setAudioSource(AudioSource.file(
-        path,
-        tag: MediaItem(
-          // Specify a unique ID for each media item:
-          id: '${sl<AyatController>().ayahUQNumber.value}',
-          // Metadata to display in the notification:
-          album: '${sl<AyatController>().currentAyah?.sorahName ?? ''}',
-          title: '${sl<AyatController>().currentAyah?.ayaNum ?? ''}',
-          // artUri: Uri.parse('https://example.com/albumart.jpg'),
-        ),
-      ));
-      textAudioPlayer.playerStateStream.listen((playerState) async {
-        if (playerState.processingState == ProcessingState.completed &&
-            !isProcessingNextAyah.value) {
-          // isProcessingNextAyah.value = true;
-
-          isPlay.value = false;
-          await textAudioPlayer.pause();
-          isPlay.value = false;
-          // sl<QuranTextController>().value.value == 1
-          //     ? textPlayNextAyah(context)
-          //     : textPlayNextPage(context);
-
-          print('ProcessingState.completed');
-        }
-      });
-
-      // Duration position = await textAudioPlayer.position;
-      // lastPosition = position;
-      // if (lastPosition != null) {
-      //   textAudioPlayer
-      //       .seek(lastPosition); // Seek to the last position when resuming
-      //   print('lastPosition != null: $lastPosition');
-      //   lastPosition = null; // Reset the last position
-      //   isPlay.value = true;
-      //   // await textAudioPlayer.play();
-      // }
-      isPlay.value = true;
-      await textAudioPlayer.play();
-      print('playFile2: play');
-    } catch (e) {
-      print(e);
-    }
-  }
-
-  textPlayAyah(BuildContext context) async {
-    currentAyah = int.parse(sl<AyatController>().ayahTextNumber.value);
-    currentSorah = int.parse(sl<AyatController>().surahTextNumber.value);
-    sl<AyatController>().surahTextNumber.value = formatNumber(currentSorah!);
-    sl<AyatController>().ayahTextNumber.value = formatNumber(currentAyah!);
-
-    String reader = readerValue!;
-    String fileName =
-        "$reader/${sl<AyatController>().surahTextNumber.value}${sl<AyatController>().ayahTextNumber.value}.mp3";
-    String url = "https://www.everyayah.com/data/$fileName";
-
-    if (isPlay.value) {
-      await textAudioPlayer.pause();
-      isPlay.value = false;
-      print('audioPlayer: pause');
-    } else {
-      await textPlayFile(context, url, fileName);
-      isPlay.value = true;
-    }
-  }
-
-  void textPlayNextAyah(BuildContext context) async {
-    print('playNextAyah ' * 6);
-    ayahSelected.value;
-    ayahSelected.value = ayahSelected.value + 1;
-
-    currentAyah = int.parse(sl<AyatController>().ayahTextNumber.value) + 1;
-    currentSorah = int.parse(sl<AyatController>().surahTextNumber.value);
-    sl<AyatController>().surahTextNumber.value = formatNumber(currentSorah!);
-    sl<AyatController>().ayahTextNumber.value = formatNumber(currentAyah!);
-
-    String reader = readerValue!;
-    String fileName =
-        "$reader/${sl<AyatController>().surahTextNumber.value}${sl<AyatController>().ayahTextNumber.value}.mp3";
-    String url = "https://www.everyayah.com/data/$fileName";
-    print('nextURL $url');
-
-    print('currentAyah $currentAyah');
-
-    sl<QuranTextController>().itemScrollController.scrollTo(
-        index: (currentAyah! - 1),
-        duration: const Duration(seconds: 1),
-        curve: Curves.easeOut);
-    await textPlayFile(context, url, fileName);
-    print('lastAyahInPageA $lastAyahInPageA');
-    // if (currentAyah == lastAyahInPage.value) {
-    //   audioController.ayahSelected.value = currentAyah!;
-    //   print('ayahSelected.value: ${audioController.ayahSelected.value}');
-    //   sl<QuranTextController>().itemScrollController.scrollTo(
-    //       index: pageNumber.value + 1,
-    //       duration: const Duration(seconds: 1),
-    //       curve: Curves.easeOut);
-    //   await textPlayFile(context, url, fileName);
-    // } else {
-    //   audioController.ayahSelected.value = currentAyah!;
-    //   print('ayahSelected.value: ${audioController.ayahSelected.value}');
-    //   await textPlayFile(context, url, fileName);
-    // }
-
-    isProcessingNextAyah.value = false;
   }
 
   int? lastAyah(int pageNamber, var widget) {
@@ -557,7 +444,7 @@ class AudioController extends GetxController {
     cancelToken.cancel('Request cancelled');
   }
 
-  Future playPageFile(BuildContext context, String url, String fileName) async {
+  Future playPageFile(String url, String fileName) async {
     String path;
     try {
       var dir = await getApplicationDocumentsDirectory();
@@ -572,7 +459,7 @@ class AudioController extends GetxController {
         }
         if (_connectionStatus == ConnectivityResult.none) {
           if (exists) {
-            await audioPlayer.setAudioSource(AudioSource.file(
+            await pageAudioPlayer.setAudioSource(AudioSource.file(
               path,
               tag: MediaItem(
                 // Specify a unique ID for each media item:
@@ -595,7 +482,7 @@ class AudioController extends GetxController {
       }
       // await audioPlayer.stop();
       // isPagePlay.value = true;
-      await audioPlayer.setAudioSource(AudioSource.file(
+      await pageAudioPlayer.setAudioSource(AudioSource.file(
         path,
         tag: MediaItem(
           // Specify a unique ID for each media item:
@@ -606,26 +493,24 @@ class AudioController extends GetxController {
           // artUri: Uri.parse('https://example.com/albumart.jpg'),
         ),
       ));
-      audioPlayer.playerStateStream.listen((playerState) async {
+      pageAudioPlayer.playerStateStream.listen((playerState) async {
         if (playerState.processingState == ProcessingState.completed &&
             !isProcessingNextAyah.value) {
           isProcessingNextAyah.value = true;
-          print(
-              'sl<GeneralController>().cuMPage.value ${sl<GeneralController>().currentPage.value}');
           isPagePlay.value = false;
           if (sl<GeneralController>().currentPage.value == 604) {
-            await audioPlayer.stop();
+            await pageAudioPlayer.stop();
             isPagePlay.value = false;
           } else {
-            playNextPage(context);
+            playNextPage();
           }
           print('ProcessingState.completed');
         }
       });
-      Duration position = audioPlayer.position;
+      Duration position = pageAudioPlayer.position;
       pageLastPosition = position;
       if (pageLastPosition != null) {
-        await audioPlayer
+        await pageAudioPlayer
             .seek(pageLastPosition); // Seek to the last position when resuming
         isPagePlay.value = true;
         print('pageLastPosition != null: $pageLastPosition');
@@ -633,7 +518,7 @@ class AudioController extends GetxController {
         // await pageAudioPlayer.play();
       }
       isPagePlay.value = true;
-      await audioPlayer.play();
+      await pageAudioPlayer.play();
 
       print('playPageFile2: play');
     } catch (e) {
@@ -641,7 +526,7 @@ class AudioController extends GetxController {
     }
   }
 
-  void playNextPage(BuildContext context) async {
+  void playNextPage() async {
     print('playNextPage ' * 6);
     int pageNum = sl<GeneralController>().currentPage.value + 1;
     sl<GeneralController>().quranPageController.animateToPage(
@@ -662,21 +547,22 @@ class AudioController extends GetxController {
     String reader = readerValue!;
     String fileName = "$reader/PageMp3s/Page${stringPageNum!}.mp3";
     print(readerValue);
-    String url = "https://everyayah.com/data/$fileName";
+    String url = "${UrlConstants.ayahUrl}$fileName";
     print("url $url");
 
     if (isPagePlay.value) {
-      await audioPlayer.pause();
+      await pageAudioPlayer.pause();
       isPagePlay.value = false;
     } else {
-      await playPageFile(context, url, fileName);
+      await playPageFile(url, fileName);
       isPagePlay.value = true;
     }
 
     isProcessingNextAyah.value = false;
   }
 
-  playPage(BuildContext context, int pageNum) async {
+  playPage(int pageNum) async {
+    isPlay.value = false;
     await audioPlayer.pause();
     pageNum = sl<GeneralController>().currentPage.value;
     String? stringPageNum;
@@ -697,10 +583,10 @@ class AudioController extends GetxController {
     print("url $url");
 
     if (isPagePlay.value) {
-      await audioPlayer.pause();
+      await pageAudioPlayer.pause();
       isPagePlay.value = false;
     } else {
-      await playPageFile(context, url, fileName);
+      await playPageFile(url, fileName);
       isPagePlay.value = true;
     }
   }

@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:just_audio/just_audio.dart';
 
 import '../../../../core/services/services_locator.dart';
-import '../../../../core/widgets/widgets.dart';
+import '../../../../core/utils/constants/lottie.dart';
 import '../../../controllers/audio_controller.dart';
 import '../../../controllers/quran_controller.dart';
 import '/core/utils/constants/svg_picture.dart';
@@ -12,6 +13,7 @@ class PlayAyah extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final audioCtrl = sl<AudioController>();
     return Obx(
       () => SizedBox(
         width: 40,
@@ -46,45 +48,35 @@ class PlayAyah extends StatelessWidget {
                           color: Get.theme.hintColor),
                     ),
                   )
-                : sl<AudioController>().isPlay.value
-                    ? GestureDetector(
-                        child: Semantics(
-                          button: true,
-                          enabled: true,
-                          label: 'Pause Ayah',
-                          child: pause_arrow(height: 25.0),
-                        ),
-                        onTap: () {
-                          sl<QuranController>().isPlayExpanded.value = true;
-                          sl<AudioController>().isPagePlay.value = false;
-                          print(sl<AudioController>().progressString.value);
-                          if (sl<AudioController>().pageAyahNumber == null) {
-                            customErrorSnackBar('choiceAyah'.tr);
-                          } else {
-                            sl<AudioController>().playAyah();
-                          }
-                          sl<AudioController>().isPagePlay.value = false;
-                        },
-                      )
-                    : GestureDetector(
-                        child: Semantics(
-                          button: true,
-                          enabled: true,
-                          label: 'Play Ayah',
+                : StreamBuilder<PlayerState>(
+                    stream: audioCtrl.audioPlayer.playerStateStream,
+                    builder: (context, snapshot) {
+                      final playerState = snapshot.data;
+                      final processingState = playerState?.processingState;
+                      final playing = playerState?.playing;
+                      if (processingState == ProcessingState.loading ||
+                          processingState == ProcessingState.buffering) {
+                        return playButtonLottie(20.0, 20.0);
+                      } else if (!audioCtrl.isPlay.value) {
+                        return GestureDetector(
                           child: play_arrow(height: 25.0),
-                        ),
+                          onTap: () async {
+                            sl<QuranController>().isPlayExpanded.value = true;
+                            sl<AudioController>().isPagePlay.value = false;
+                            sl<AudioController>().playAyah();
+                          },
+                        );
+                      }
+                      return GestureDetector(
+                        child: pause_arrow(height: 25.0),
                         onTap: () {
                           sl<QuranController>().isPlayExpanded.value = true;
                           sl<AudioController>().isPagePlay.value = false;
-                          print(sl<AudioController>().progressString.value);
-                          if (sl<AudioController>().pageAyahNumber == null) {
-                            customErrorSnackBar('choiceAyah'.tr);
-                          } else {
-                            sl<AudioController>().playAyah();
-                          }
-                          sl<AudioController>().isPagePlay.value = false;
+                          sl<AudioController>().playAyah();
                         },
-                      ),
+                      );
+                    },
+                  ),
           ],
         ),
       ),

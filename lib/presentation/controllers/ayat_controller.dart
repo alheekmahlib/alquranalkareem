@@ -21,7 +21,6 @@ import '/presentation/screens/quran_page/data/model/aya.dart';
 import 'audio_controller.dart';
 import 'general_controller.dart';
 import 'quranText_controller.dart';
-import 'quran_controller.dart';
 import 'surahTextController.dart';
 
 class AyatController extends GetxController {
@@ -277,7 +276,7 @@ class AyatController extends GetxController {
     ayahTextNumber.value = ayahNum.toString();
     ayahTextNormal.value = ayahTextN;
     ayahUQNumber.value = ayahUQNum;
-    sl<QuranController>().currentPage.value = pageIndex;
+    sl<GeneralController>().currentPage.value = pageIndex;
     sl<QuranTextController>().selected.value =
         !sl<QuranTextController>().selected.value;
     Get.bottomSheet(ShowTafseer(), isScrollControlled: true);
