@@ -161,24 +161,20 @@ class QuranTextController extends GetxController {
   }
 
   addBookmarkText(
-    String sorahName,
-    int sorahNum,
+    String surahName,
+    int surahNum,
     pageNum,
     ayahNum,
-    nomPageF,
-    nomPageL,
     lastRead,
   ) async {
     try {
       int? bookmark = await sl<BookmarksTextController>().addBookmarksText(
         BookmarksText(
           id,
-          sorahName,
-          sorahNum,
+          surahName,
+          surahNum,
           pageNum,
           ayahNum,
-          nomPageF,
-          nomPageL,
           lastRead,
         ),
       );

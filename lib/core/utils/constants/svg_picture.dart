@@ -59,8 +59,8 @@ Widget bookmarkIcon(BuildContext context, double height, double width,
         height: height,
         colorFilter: sl<BookmarksController>().isPageBookmarked(
                 pageNum ?? sl<GeneralController>().currentPage.value)
-            ? null
-            : ColorFilter.mode(Get.theme.colorScheme.surface, BlendMode.srcIn),
+            ? const ColorFilter.mode(Color(0xffa24308), BlendMode.srcIn)
+            : const ColorFilter.mode(Color(0xffCD9974), BlendMode.srcIn),
       ),
     );
   });
@@ -216,6 +216,14 @@ Widget tafsir_icon({double? height, double? width}) {
 Widget bookmark_icon({double? height, double? width}) {
   return SvgPicture.asset(
     'assets/svg/bookmark_icon.svg',
+    width: width,
+    height: height ?? 60,
+  );
+}
+
+Widget bookmark_icon2({double? height, double? width, Color? color}) {
+  return SvgPicture.asset(
+    'assets/svg/bookmark_icon2.svg',
     width: width,
     height: height ?? 60,
   );

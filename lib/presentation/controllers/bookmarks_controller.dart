@@ -79,7 +79,7 @@ class BookmarksController extends GetxController {
     if (bookmarkToDelete != null) {
       int result = await DatabaseHelper.deleteBookmark(bookmarkToDelete);
       if (result > 0) {
-        customSnackBar(context, 'deletedBookmark'.tr);
+        customErrorSnackBar('deletedBookmark'.tr);
         await getBookmarks();
         update();
         return true;

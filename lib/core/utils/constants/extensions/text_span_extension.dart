@@ -37,10 +37,9 @@ extension TextSpanExtension on String {
         final String preText = text.substring(lastMatchEnd, match.start);
         final String matchedText = text.substring(match.start, match.end);
         final bool isBraceMatch = regExpBraces.hasMatch(matchedText);
-        final bool isParenthesesMatch =
-            regExpParentheses.hasMatch(matchedText); // Added
+        final bool isParenthesesMatch = regExpParentheses.hasMatch(matchedText);
         final bool isSquareBracketMatch =
-            regExpSquareBrackets.hasMatch(matchedText); // Added
+            regExpSquareBrackets.hasMatch(matchedText);
 
         if (preText.isNotEmpty) {
           spans.add(TextSpan(text: preText));
@@ -52,11 +51,9 @@ extension TextSpanExtension on String {
               color: Color(0xff008000), fontFamily: 'uthmanic2');
         } else if (isParenthesesMatch) {
           matchedTextStyle = const TextStyle(
-              color: Color(0xff008000),
-              fontFamily: 'uthmanic2'); // Example color
+              color: Color(0xff008000), fontFamily: 'uthmanic2');
         } else if (isSquareBracketMatch) {
-          matchedTextStyle =
-              const TextStyle(color: Color(0xff814714)); // Example color
+          matchedTextStyle = const TextStyle(color: Color(0xff814714));
         } else {
           matchedTextStyle =
               const TextStyle(color: Color(0xffa24308), fontFamily: 'naskh');

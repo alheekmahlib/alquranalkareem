@@ -649,5 +649,10 @@
   "@lang": {
     "type": "text",
     "placeholders": {}
+  },
+  "juz": "Part",
+  "@juz": {
+    "type": "text",
+    "placeholders": {}
   }
 }

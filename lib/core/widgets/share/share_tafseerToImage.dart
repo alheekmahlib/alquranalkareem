@@ -8,7 +8,6 @@ import '../../../presentation/controllers/share_controller.dart';
 import '../../../presentation/screens/quran_text/widgets/widgets.dart';
 import '../../services/services_locator.dart';
 import '../../utils/constants/svg_picture.dart';
-import '../../utils/helpers/functions.dart';
 import '../widgets.dart';
 import '/core/utils/constants/extensions.dart';
 import '/presentation/controllers/translate_controller.dart';
@@ -86,8 +85,7 @@ class TafseerImageCreator extends StatelessWidget {
                     alignment: Alignment.center,
                     children: [
                       surah_banner1(),
-                      surahNameWidget(
-                          formatNumber(surahNumber), const Color(0xff404C6E)),
+                      surahNameWidget('$surahNumber', const Color(0xff404C6E)),
                     ],
                   ),
                   const Gap(16),
@@ -105,7 +103,7 @@ class TafseerImageCreator extends StatelessWidget {
                                 fontFamily: 'uthmanic2',
                                 color: Color(0xff161f07),
                               ),
-                              textAlign: TextAlign.center,
+                              textAlign: TextAlign.justify,
                             ),
                           ),
                           const Gap(16),

@@ -648,5 +648,10 @@
   "@lang": {
     "type": "text",
     "placeholders": {}
+  },
+  "juz": "الجزء",
+  "@juz": {
+    "type": "text",
+    "placeholders": {}
   }
 }

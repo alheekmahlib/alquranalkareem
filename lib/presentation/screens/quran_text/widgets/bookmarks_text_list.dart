@@ -46,8 +46,7 @@ class BookmarksTextList extends StatelessWidget {
                               key: ValueKey<int>(bookmark.id!),
                               onDismissed: (DismissDirection direction) {
                                 sl<BookmarksTextController>()
-                                    .deleteBookmarksText(
-                                        bookmark.ayahNum!, context);
+                                    .deleteBookmarksText(bookmark.ayahNum!);
                               },
                               child: GestureDetector(
                                 onTap: () {

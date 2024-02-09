@@ -649,5 +649,10 @@
   "@lang": {
     "type": "text",
     "placeholders": {}
+  },
+  "juz": "অংশ",
+  "@juz": {
+    "type": "text",
+    "placeholders": {}
   }
 }

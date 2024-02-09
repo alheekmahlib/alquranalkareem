@@ -118,45 +118,45 @@ menu(BuildContext context, int b, int index, translateData, SurahText widget,
                         ),
                       ),
                       onPressed: () {
-                        sl<QuranTextController>().selected.value =
-                            !sl<QuranTextController>().selected.value;
-                        if (sl<BookmarksTextController>()
-                            .hasBookmark(
-                                widget.number!, widget.ayahs![b].numberInSurah!)
-                            .value) {
-                          sl<BookmarksTextController>().deleteBookmarksText(
-                              widget.ayahs![b].numberInSurah!, context);
-                        } else {
-                          sl<QuranTextController>()
-                              .addBookmarkText(
-                                  widget.name!,
-                                  widget.number!,
-                                  index == 0 ? index + 1 : index + 2,
-                                  widget.ayahs![b].numberInSurah,
-                                  // widget.surah!.ayahs![b].page,
-                                  nomPageF,
-                                  nomPageL,
-                                  sl<GeneralController>().timeNow.lastRead)
-                              .then((value) =>
-                                  customSnackBar(context, 'addBookmark'.tr));
-                        }
-                        // sl<QuranTextController>()
-                        //     .addBookmarkText(
-                        //         widget.name!,
-                        //         widget.number!,
-                        //         index == 0 ? index + 1 : index + 2,
-                        //         widget.ayahs![b].numberInSurah,
-                        //         // widget.surah!.ayahs![b].page,
-                        //         nomPageF,
-                        //         nomPageL,
-                        //         sl<GeneralController>().timeNow.lastRead)
-                        //     .then((value) => customSnackBar(context,
-                        //         AppLocalizations.of(context)!.addBookmark));
-                        print(widget.name!);
-                        print(widget.number!);
-                        print(nomPageF);
-                        print(nomPageL);
-                        cancel();
+                        // sl<QuranTextController>().selected.value =
+                        //     !sl<QuranTextController>().selected.value;
+                        // if (sl<BookmarksTextController>()
+                        //     .hasBookmark(
+                        //         widget.number!, widget.ayahs![b].numberInSurah!)
+                        //     .value) {
+                        //   sl<BookmarksTextController>().deleteBookmarksText(
+                        //       widget.ayahs![b].numberInSurah!, context);
+                        // } else {
+                        //   sl<QuranTextController>()
+                        //       .addBookmarkText(
+                        //           widget.name!,
+                        //           widget.number!,
+                        //           index == 0 ? index + 1 : index + 2,
+                        //           widget.ayahs![b].numberInSurah,
+                        //           // widget.surah!.ayahs![b].page,
+                        //           nomPageF,
+                        //           nomPageL,
+                        //           sl<GeneralController>().timeNow.lastRead)
+                        //       .then((value) =>
+                        //           customSnackBar(context, 'addBookmark'.tr));
+                        // }
+                        // // sl<QuranTextController>()
+                        // //     .addBookmarkText(
+                        // //         widget.name!,
+                        // //         widget.number!,
+                        // //         index == 0 ? index + 1 : index + 2,
+                        // //         widget.ayahs![b].numberInSurah,
+                        // //         // widget.surah!.ayahs![b].page,
+                        // //         nomPageF,
+                        // //         nomPageL,
+                        // //         sl<GeneralController>().timeNow.lastRead)
+                        // //     .then((value) => customSnackBar(context,
+                        // //         AppLocalizations.of(context)!.addBookmark));
+                        // print(widget.name!);
+                        // print(widget.number!);
+                        // print(nomPageF);
+                        // print(nomPageL);
+                        // cancel();
                       },
                     ),
                   ),
@@ -394,32 +394,32 @@ singleAyahMenu(BuildContext context, int b, index, translateData, widget,
                 ),
               ),
               onPressed: () {
-                sl<QuranTextController>().selected.value =
-                    !sl<QuranTextController>().selected.value;
-                if (sl<BookmarksTextController>()
-                    .hasBookmark(
-                        widget.number!, widget.ayahs![index].numberInSurah!)
-                    .value) {
-                  sl<BookmarksTextController>().deleteBookmarksText(
-                      widget.ayahs![index].numberInSurah!, context);
-                } else {
-                  sl<QuranTextController>()
-                      .addBookmarkText(
-                          widget.name!,
-                          widget.number!,
-                          index == 0 ? index + 1 : index + 2,
-                          widget.ayahs![b].numberInSurah,
-                          // widget.surah!.ayahs![b].page,
-                          nomPageF,
-                          nomPageL,
-                          sl<GeneralController>().timeNow.lastRead)
-                      .then(
-                          (value) => customSnackBar(context, 'addBookmark'.tr));
-                }
-                print(widget.name!);
-                print(widget.number!);
-                print(nomPageF);
-                print(nomPageL);
+                // sl<QuranTextController>().selected.value =
+                //     !sl<QuranTextController>().selected.value;
+                // if (sl<BookmarksTextController>()
+                //     .hasBookmark(
+                //         widget.number!, widget.ayahs![index].numberInSurah!)
+                //     .value) {
+                //   sl<BookmarksTextController>().deleteBookmarksText(
+                //       widget.ayahs![index].numberInSurah!, context);
+                // } else {
+                //   sl<QuranTextController>()
+                //       .addBookmarkText(
+                //           widget.name!,
+                //           widget.number!,
+                //           index == 0 ? index + 1 : index + 2,
+                //           widget.ayahs![b].numberInSurah,
+                //           // widget.surah!.ayahs![b].page,
+                //           nomPageF,
+                //           nomPageL,
+                //           sl<GeneralController>().timeNow.lastRead)
+                //       .then(
+                //           (value) => customSnackBar(context, 'addBookmark'.tr));
+                // }
+                // print(widget.name!);
+                // print(widget.number!);
+                // print(nomPageF);
+                // print(nomPageL);
               },
             ),
           ),

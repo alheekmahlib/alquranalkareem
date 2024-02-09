@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 
 import '../../core/services/services_locator.dart';
@@ -23,7 +22,7 @@ class BookmarksTextController extends GetxController {
         bookmarksText.map((data) => BookmarksText.fromJson(data)).toList());
   }
 
-  Future<bool> deleteBookmarksText(int ayahNum, BuildContext context) async {
+  Future<bool> deleteBookmarksText(int ayahNum) async {
     // Find the bookmark with the given pageNum
     BookmarksText? bookmarkToDelete = BookmarkList.firstWhereOrNull(
         (bookmark) => bookmark.ayahNum == ayahNum);
@@ -32,7 +31,7 @@ class BookmarksTextController extends GetxController {
       int result = await DatabaseHelper.deleteBookmarkText(bookmarkToDelete);
       sl<QuranTextController>().update();
       if (result > 0) {
-        customSnackBar(context, 'deletedBookmark'.tr);
+        customErrorSnackBar('deletedBookmark'.tr);
         await getBookmarksText();
         update();
         return true;

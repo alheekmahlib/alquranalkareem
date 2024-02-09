@@ -62,6 +62,7 @@ class AudioController extends GetxController {
   RxInt lastAyahInSurah = 0.obs;
   Color? backColor;
   RxInt _currentAyahInPage = 1.obs;
+  RxInt _currentAyahUQInPage = 1.obs;
   RxInt _currentSurahInPage = 1.obs;
   bool goingToNewSurah = false;
   RxBool selected = false.obs;
@@ -75,9 +76,10 @@ class AudioController extends GetxController {
     });
   }
 
-  void playAyahOnTap(int surahNum, int ayahNum) {
+  void playAyahOnTap(int surahNum, int ayahNum, int ayahUQNum) {
     _currentAyahInPage.value = ayahNum;
     _currentSurahInPage.value = surahNum;
+    _currentAyahUQInPage.value = ayahUQNum;
     playAyah();
   }
 
@@ -333,6 +335,29 @@ class AudioController extends GetxController {
   Future<void> playAyah() async {
     isPagePlay.value = false;
     await pageAudioPlayer.pause();
+
+    int currentAyahInPage = _currentAyahInPage.value == 1
+        ? sl<QuranController>()
+            .allAyahs
+            .firstWhere((ayah) =>
+                ayah.page == sl<GeneralController>().currentPage.value)
+            .ayahNumber
+        : _currentAyahInPage.value;
+
+    int currentAyahUQInPage = _currentAyahUQInPage.value == 1
+        ? sl<QuranController>()
+            .allAyahs
+            .firstWhere((ayah) =>
+                ayah.page == sl<GeneralController>().currentPage.value)
+            .ayahUQNumber
+        : _currentAyahUQInPage.value;
+
+    sl<QuranController>().selectedAyahIndexes.add(currentAyahUQInPage);
+
+    int currentSurahInPage = _currentSurahInPage.value == 1
+        ? sl<QuranController>()
+            .getSurahNumberFromPage(sl<GeneralController>().currentPage.value)
+        : _currentSurahInPage.value;
 
     String reader = readerValue!;
     String fileName =

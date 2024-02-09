@@ -1,3 +1,4 @@
+import 'package:alquranalkareem/presentation/controllers/quran_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:flutter_sliding_up_panel/sliding_up_panel_widget.dart';
@@ -151,6 +152,7 @@ class GeneralController extends GetxController {
     sl<SharedPrefServices>().saveInteger(MSTART_PAGE, index + 1);
     sl<SharedPreferences>()
         .setString(MLAST_URAH, (soraBookmark.SoraNum! + 1).toString());
+    sl<QuranController>().selectedAyahIndexes.clear();
   }
 
   /// Greeting

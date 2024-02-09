@@ -4,12 +4,10 @@ class BookmarksText {
   int? sorahNum;
   int? pageNum;
   int? ayahNum;
-  int? nomPageF;
-  int? nomPageL;
   String? lastRead;
 
   BookmarksText(this.id, this.sorahName, this.sorahNum, this.pageNum,
-      this.ayahNum, this.nomPageF, this.nomPageL, this.lastRead);
+      this.ayahNum, this.lastRead);
 
   Map<String, dynamic> toJson() {
     return <String, dynamic>{
@@ -18,8 +16,6 @@ class BookmarksText {
       'sorahNum': sorahNum,
       'pageNum': pageNum,
       'ayahNum': ayahNum,
-      'nomPageF': nomPageF,
-      'nomPageL': nomPageL,
       'lastRead': lastRead,
     };
   }
@@ -30,8 +26,6 @@ class BookmarksText {
     sorahNum = json['sorahNum'];
     pageNum = json['pageNum'];
     ayahNum = json['ayahNum'];
-    nomPageF = json['nomPageF'];
-    nomPageL = json['nomPageL'];
     lastRead = json['lastRead'];
   }
 }

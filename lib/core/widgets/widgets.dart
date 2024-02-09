@@ -315,7 +315,7 @@ void customErrorSnackBar(String text) {
       return Container(
         height: 60,
         decoration: BoxDecoration(
-            color: Get.theme.colorScheme.surface,
+            color: Get.theme.colorScheme.primary,
             borderRadius: const BorderRadius.all(
               Radius.circular(8),
             )),

@@ -649,5 +649,10 @@
   "@lang": {
     "type": "text",
     "placeholders": {}
+  },
+  "juz": "حصہ",
+  "@juz": {
+    "type": "text",
+    "placeholders": {}
   }
 }

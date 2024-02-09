@@ -20,8 +20,6 @@ class QuranController extends GetxController {
   List<List<Ayah>> pages = [];
   List<Ayah> allAyahs = [];
 
-  RxInt selectedVerseIndex = 0.obs;
-  RxBool selectedAyah = false.obs;
   var selectedAyahIndexes = <int>[].obs;
   bool isSelected = false;
   final ScrollController scrollIndicatorController = ScrollController();
@@ -37,14 +35,19 @@ class QuranController extends GetxController {
     if (selectedAyahIndexes.contains(index)) {
       selectedAyahIndexes.remove(index);
     } else {
+      selectedAyahIndexes.clear();
       selectedAyahIndexes.add(index);
+      selectedAyahIndexes.refresh();
     }
     selectedAyahIndexes.refresh();
   }
 
-  void clearSelections() {
-    selectedAyahIndexes.clear();
-    selectedAyahIndexes.refresh();
+  void clearSelection() {
+    if (selectedAyahIndexes.isNotEmpty) {
+      selectedAyahIndexes.clear();
+    } else {
+      sl<GeneralController>().showControl();
+    }
   }
 
   @override
@@ -85,6 +88,18 @@ class QuranController extends GetxController {
       .firstWhere(
           (s) => s.ayahs.contains(getCurrentPageAyahs(pageNumber).first))
       .surahNumber;
+
+  String getSurahNameFromPage(int pageNumber) {
+    try {
+      return surahs
+          .firstWhere(
+              (s) => s.ayahs.contains(getCurrentPageAyahs(pageNumber).first))
+          .arabicName;
+    } catch (e) {
+      // Handle the error or return a default/fallback value
+      return "Surah not found"; // Or any other fallback logic you prefer
+    }
+  }
 
   int getSurahNumberByAyah(Ayah ayah) =>
       surahs.firstWhere((s) => s.ayahs.contains(ayah)).surahNumber;

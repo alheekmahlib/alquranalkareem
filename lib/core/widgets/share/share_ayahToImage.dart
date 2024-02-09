@@ -5,7 +5,6 @@ import 'package:screenshot/screenshot.dart';
 import '../../../presentation/controllers/share_controller.dart';
 import '../../../presentation/screens/quran_text/widgets/widgets.dart';
 import '../../services/services_locator.dart';
-import '../../utils/helpers/functions.dart';
 import '/core/utils/constants/extensions.dart';
 import '/core/utils/constants/svg_picture.dart';
 import '/core/widgets/widgets.dart';
@@ -71,8 +70,7 @@ class VerseImageCreator extends StatelessWidget {
                   alignment: Alignment.center,
                   children: [
                     surah_banner1(),
-                    surahNameWidget(
-                        formatNumber(surahNumber), const Color(0xff404C6E)),
+                    surahNameWidget('$surahNumber', const Color(0xff404C6E)),
                   ],
                 ),
                 const Gap(16),
@@ -81,7 +79,7 @@ class VerseImageCreator extends StatelessWidget {
                   child: SizedBox(
                     width: 928.0,
                     child: RichText(
-                      textAlign: TextAlign.center,
+                      textAlign: TextAlign.justify,
                       text: TextSpan(
                         children: [
                           TextSpan(

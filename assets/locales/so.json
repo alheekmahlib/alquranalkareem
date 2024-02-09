@@ -649,5 +649,10 @@
   "@lang": {
     "type": "text",
     "placeholders": {}
+  },
+  "juz": "Qayb",
+  "@juz": {
+    "type": "text",
+    "placeholders": {}
   }
 }

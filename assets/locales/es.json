@@ -657,5 +657,10 @@
   "@lang": {
     "type": "text",
     "placeholders": {}
+  },
+  "juz": "Parte",
+  "@juz": {
+    "type": "text",
+    "placeholders": {}
   }
 }

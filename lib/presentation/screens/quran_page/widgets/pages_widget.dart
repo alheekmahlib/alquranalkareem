@@ -7,7 +7,7 @@ import 'package:get/get.dart';
 
 import '../../../../core/services/services_locator.dart';
 import '../../../../core/utils/constants/size_config.dart';
-import '../../../controllers/general_controller.dart';
+import '../../../controllers/bookmarksText_controller.dart';
 import '../../../controllers/quran_controller.dart';
 
 class PagesWidget extends StatelessWidget {
@@ -17,12 +17,13 @@ class PagesWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    sl<BookmarksTextController>().getBookmarksText();
     SizeConfig().init(context);
     return GetBuilder<QuranController>(builder: (quranCtrl) {
       return SingleChildScrollView(
         child: InkWell(
           onTap: () {
-            sl<GeneralController>().showControl();
+            quranCtrl.clearSelection();
           },
           child: Padding(
             padding:
@@ -71,7 +72,7 @@ class PagesWidget extends StatelessWidget {
                                   List.generate(ayahs.length, (ayahIndex) {
                                 quranCtrl.isSelected = quranCtrl
                                     .selectedAyahIndexes
-                                    .contains(ayahIndex);
+                                    .contains(ayahs[ayahIndex].ayahUQNumber);
                                 if (ayahIndex == 0) {
                                   return span(
                                       text:
@@ -81,10 +82,13 @@ class PagesWidget extends StatelessWidget {
                                       fontSize: getProportionateScreenWidth(
                                           context.customOrientation(
                                               20.0, 18.0)),
+                                      surahNum: quranCtrl
+                                          .getSurahNumberFromPage(pageIndex),
+                                      ayahNum: ayahs[ayahIndex].ayahNumber,
                                       onLongPressStart:
                                           (LongPressStartDetails details) {
-                                        quranCtrl
-                                            .toggleAyahSelection(ayahIndex);
+                                        quranCtrl.toggleAyahSelection(
+                                            ayahs[ayahIndex].ayahUQNumber);
                                         context.showAyahMenu(
                                             quranCtrl.getSurahNumberFromPage(
                                                 pageIndex),
@@ -93,6 +97,8 @@ class PagesWidget extends StatelessWidget {
                                             pageIndex,
                                             ayahs[ayahIndex].text,
                                             ayahs[ayahIndex].ayahUQNumber,
+                                            quranCtrl.getSurahNameFromPage(
+                                                pageIndex),
                                             details: details);
                                       });
                                 }
@@ -102,9 +108,13 @@ class PagesWidget extends StatelessWidget {
                                     isSelected: quranCtrl.isSelected,
                                     fontSize: getProportionateScreenWidth(
                                         context.customOrientation(20.0, 18.0)),
+                                    surahNum: quranCtrl
+                                        .getSurahNumberFromPage(pageIndex),
+                                    ayahNum: ayahs[ayahIndex].ayahNumber,
                                     onLongPressStart:
                                         (LongPressStartDetails details) {
-                                      quranCtrl.toggleAyahSelection(ayahIndex);
+                                      quranCtrl.toggleAyahSelection(
+                                          ayahs[ayahIndex].ayahUQNumber);
                                       context.showAyahMenu(
                                           quranCtrl.getSurahNumberFromPage(
                                               pageIndex),
@@ -113,6 +123,8 @@ class PagesWidget extends StatelessWidget {
                                           pageIndex,
                                           ayahs[ayahIndex].text,
                                           ayahs[ayahIndex].ayahUQNumber,
+                                          quranCtrl
+                                              .getSurahNameFromPage(pageIndex),
                                           details: details);
                                     });
                               }),
@@ -134,6 +146,8 @@ TextSpan span({
   required int pageIndex,
   required bool isSelected,
   required double fontSize,
+  required int surahNum,
+  required int ayahNum,
   required LongPressStartDetailsFunction onLongPressStart,
 }) {
   if (text.isNotEmpty) {
@@ -149,8 +163,15 @@ TextSpan span({
         letterSpacing: 2,
         color: Get.theme.colorScheme.inversePrimary,
         backgroundColor:
-            isSelected ? Get.theme.highlightColor : Colors.transparent,
+            sl<BookmarksTextController>().hasBookmark(surahNum, ayahNum).value
+                ? const Color(0xffCD9974).withOpacity(.5)
+                : isSelected
+                    ? Get.theme.highlightColor
+                    : Colors.transparent,
       ),
+      recognizer: LongPressGestureRecognizer(
+          duration: const Duration(milliseconds: 500))
+        ..onLongPressStart = onLongPressStart,
     );
 
     final TextSpan lastCharacterSpan = TextSpan(
@@ -160,10 +181,20 @@ TextSpan span({
         fontSize: fontSize,
         height: 2,
         letterSpacing: 2,
-        color: Colors.red,
+        color:
+            sl<BookmarksTextController>().hasBookmark(surahNum, ayahNum).value
+                ? Get.theme.colorScheme.inversePrimary
+                : const Color(0xffa24308),
         backgroundColor:
-            isSelected ? Get.theme.highlightColor : Colors.transparent,
+            sl<BookmarksTextController>().hasBookmark(surahNum, ayahNum).value
+                ? const Color(0xffCD9974).withOpacity(.5)
+                : isSelected
+                    ? Get.theme.highlightColor
+                    : Colors.transparent,
       ),
+      recognizer: LongPressGestureRecognizer(
+          duration: const Duration(milliseconds: 500))
+        ..onLongPressStart = onLongPressStart,
     );
 
     return TextSpan(
