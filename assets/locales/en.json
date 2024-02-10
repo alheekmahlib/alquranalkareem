@@ -654,5 +654,10 @@
   "@juz": {
     "type": "text",
     "placeholders": {}
+  },
+  "sajda": "Prostration",
+  "@sajda": {
+    "type": "text",
+    "placeholders": {}
   }
 }

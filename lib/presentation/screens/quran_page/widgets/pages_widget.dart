@@ -1,7 +1,6 @@
 import 'package:alquranalkareem/core/utils/constants/extensions.dart';
 import 'package:alquranalkareem/core/utils/constants/extensions/menu_extension.dart';
 import 'package:alquranalkareem/core/utils/constants/svg_picture.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -9,6 +8,8 @@ import '../../../../core/services/services_locator.dart';
 import '../../../../core/utils/constants/size_config.dart';
 import '../../../controllers/bookmarksText_controller.dart';
 import '../../../controllers/quran_controller.dart';
+import '../data/model/surahs_model.dart';
+import 'custom_span.dart';
 
 class PagesWidget extends StatelessWidget {
   final int pageIndex;
@@ -35,13 +36,14 @@ class PagesWidget extends StatelessWidget {
                         quranCtrl
                             .getCurrentPageAyahsSeparatedForBasmala(pageIndex)
                             .length, (i) {
+                      List<Ayah> currentPageAyahs = quranCtrl.pages[pageIndex];
+                      quranCtrl.getSajdaInfoForPage(currentPageAyahs)
+                          ? quranCtrl.showVerseToast(i, currentPageAyahs.length)
+                          : const SizedBox.shrink();
                       final ayahs = quranCtrl
                           .getCurrentPageAyahsSeparatedForBasmala(pageIndex)[i];
                       return Column(children: [
-                        if (ayahs.first.ayahNumber == 1)
-                          quranCtrl.surahBannerWidget(quranCtrl
-                              .getSurahNumberByAyah(ayahs.first)
-                              .toString()),
+                        quranCtrl.surahBannerFirstPlace(pageIndex, i),
                         quranCtrl.getSurahNumberByAyah(ayahs.first) == 9 ||
                                 quranCtrl.getSurahNumberByAyah(ayahs.first) == 1
                             ? const SizedBox.shrink()
@@ -75,8 +77,9 @@ class PagesWidget extends StatelessWidget {
                                     .contains(ayahs[ayahIndex].ayahUQNumber);
                                 if (ayahIndex == 0) {
                                   return span(
+                                      isFirstAyah: true,
                                       text:
-                                          "${ayahs[ayahIndex].code_v2[0]} ${ayahs[ayahIndex].code_v2.substring(1)}",
+                                          "${ayahs[ayahIndex].code_v2[0]}${ayahs[ayahIndex].code_v2.substring(1)}",
                                       pageIndex: pageIndex,
                                       isSelected: quranCtrl.isSelected,
                                       fontSize: getProportionateScreenWidth(
@@ -103,6 +106,7 @@ class PagesWidget extends StatelessWidget {
                                       });
                                 }
                                 return span(
+                                    isFirstAyah: false,
                                     text: ayahs[ayahIndex].code_v2,
                                     pageIndex: pageIndex,
                                     isSelected: quranCtrl.isSelected,
@@ -131,6 +135,7 @@ class PagesWidget extends StatelessWidget {
                             ),
                           );
                         }),
+                        quranCtrl.surahBannerLastPlace(pageIndex, i),
                       ]);
                     }),
                   ),
@@ -140,72 +145,3 @@ class PagesWidget extends StatelessWidget {
     });
   }
 }
-
-TextSpan span({
-  required String text,
-  required int pageIndex,
-  required bool isSelected,
-  required double fontSize,
-  required int surahNum,
-  required int ayahNum,
-  required LongPressStartDetailsFunction onLongPressStart,
-}) {
-  if (text.isNotEmpty) {
-    final String initialPart = text.substring(0, text.length - 1);
-    final String lastCharacter = text.substring(text.length - 1);
-
-    final TextSpan initialTextSpan = TextSpan(
-      text: initialPart,
-      style: TextStyle(
-        fontFamily: 'page${pageIndex + 1}',
-        fontSize: fontSize,
-        height: 2,
-        letterSpacing: 2,
-        color: Get.theme.colorScheme.inversePrimary,
-        backgroundColor:
-            sl<BookmarksTextController>().hasBookmark(surahNum, ayahNum).value
-                ? const Color(0xffCD9974).withOpacity(.5)
-                : isSelected
-                    ? Get.theme.highlightColor
-                    : Colors.transparent,
-      ),
-      recognizer: LongPressGestureRecognizer(
-          duration: const Duration(milliseconds: 500))
-        ..onLongPressStart = onLongPressStart,
-    );
-
-    final TextSpan lastCharacterSpan = TextSpan(
-      text: lastCharacter,
-      style: TextStyle(
-        fontFamily: 'page${pageIndex + 1}',
-        fontSize: fontSize,
-        height: 2,
-        letterSpacing: 2,
-        color:
-            sl<BookmarksTextController>().hasBookmark(surahNum, ayahNum).value
-                ? Get.theme.colorScheme.inversePrimary
-                : const Color(0xffa24308),
-        backgroundColor:
-            sl<BookmarksTextController>().hasBookmark(surahNum, ayahNum).value
-                ? const Color(0xffCD9974).withOpacity(.5)
-                : isSelected
-                    ? Get.theme.highlightColor
-                    : Colors.transparent,
-      ),
-      recognizer: LongPressGestureRecognizer(
-          duration: const Duration(milliseconds: 500))
-        ..onLongPressStart = onLongPressStart,
-    );
-
-    return TextSpan(
-      children: [initialTextSpan, lastCharacterSpan],
-      recognizer: LongPressGestureRecognizer(
-          duration: const Duration(milliseconds: 500))
-        ..onLongPressStart = onLongPressStart,
-    );
-  } else {
-    return const TextSpan(text: '');
-  }
-}
-
-typedef LongPressStartDetailsFunction = void Function(LongPressStartDetails)?;

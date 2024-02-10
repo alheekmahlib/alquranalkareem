@@ -284,3 +284,11 @@ Widget surah_banner3({double? height, double? width}) {
     height: height ?? 35,
   );
 }
+
+Widget sajda_icon({double? height, double? width}) {
+  return SvgPicture.asset(
+    'assets/svg/sajda_icon.svg',
+    width: width,
+    height: height ?? 35,
+  );
+}

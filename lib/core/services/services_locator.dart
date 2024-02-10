@@ -179,8 +179,8 @@ class ServicesLocator {
     sl.registerLazySingleton<PlayListController>(() =>
         Get.put<PlayListController>(PlayListController(), permanent: true));
 
-    sl.registerLazySingleton<QuranController>(
-        () => Get.put<QuranController>(QuranController(), permanent: true));
+    sl.registerSingleton<QuranController>(
+        Get.put<QuranController>(QuranController(), permanent: true));
 
     sl.registerLazySingleton<SplashScreenController>(() =>
         Get.put<SplashScreenController>(SplashScreenController(),

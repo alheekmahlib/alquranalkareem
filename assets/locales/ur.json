@@ -654,5 +654,10 @@
   "@juz": {
     "type": "text",
     "placeholders": {}
+  },
+  "sajda": "سجدہ",
+  "@sajda": {
+    "type": "text",
+    "placeholders": {}
   }
 }

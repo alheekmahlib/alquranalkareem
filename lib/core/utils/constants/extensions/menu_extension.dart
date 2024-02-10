@@ -24,7 +24,7 @@ extension ContextMenuExtension on BuildContext {
     sl<QuranController>().selectedAyahIndexes.isNotEmpty
         ? BotToast.showAttachedWidget(
             target: details.globalPosition,
-            verticalOffset: 0.0,
+            verticalOffset: 30.0,
             horizontalOffset: 0.0,
             preferDirection: sl<QuranController>().preferDirection,
             animationDuration: const Duration(microseconds: 700),

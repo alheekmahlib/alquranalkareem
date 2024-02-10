@@ -5,6 +5,7 @@ import 'package:bot_toast/bot_toast.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' show rootBundle;
+import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 
 import '../../core/services/services_locator.dart';
@@ -27,6 +28,7 @@ class QuranController extends GetxController {
   PreferDirection preferDirection = PreferDirection.topCenter;
   RxDouble textWidgetPosition = (-240.0).obs;
   RxBool isPlayExpanded = false.obs;
+  RxBool isSajda = false.obs;
 
   final generalCtrl = sl<GeneralController>();
   final themeCtrl = sl<ThemeController>();
@@ -104,6 +106,54 @@ class QuranController extends GetxController {
   int getSurahNumberByAyah(Ayah ayah) =>
       surahs.firstWhere((s) => s.ayahs.contains(ayah)).surahNumber;
 
+  bool getSajdaInfoForPage(List<Ayah> pageAyahs) {
+    for (var ayah in pageAyahs) {
+      if (ayah.sajda != false && ayah.sajda is Map) {
+        var sajdaDetails = ayah.sajda;
+        if (sajdaDetails['recommended'] == true ||
+            sajdaDetails['obligatory'] == true) {
+          return isSajda.value = true;
+        }
+      }
+    }
+    // No sajda found on this page
+    return isSajda.value == false;
+  }
+
+  void showVerseToast(int verseIndex, int totalVerses) {
+    double convertedNumber = verseIndex / 10.0;
+    isSajda.value
+        ? BotToast.showCustomText(
+            align: Alignment(.8, convertedNumber),
+            toastBuilder: (void Function() cancelFunc) {
+              return Container(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
+                decoration: BoxDecoration(
+                  color: Get.theme.colorScheme.primary,
+                  borderRadius: const BorderRadius.all(Radius.circular(4.0)),
+                ),
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    sajda_icon(height: 15.0),
+                    const Gap(8),
+                    Text(
+                      'sajda'.tr,
+                      style: TextStyle(
+                        color: Get.theme.canvasColor,
+                        fontFamily: 'kufi',
+                        fontSize: 16,
+                      ),
+                    )
+                  ],
+                ),
+              );
+            },
+          )
+        : const SizedBox.shrink();
+  }
+
   void indicatorOnTap(int pageNumber, int itemWidth, double screenWidth) {
     sl<GeneralController>().currentPage.value = pageNumber;
     selectedIndicatorIndex.value = pageNumber;
@@ -158,5 +208,61 @@ class QuranController extends GetxController {
     } else {
       return bannerWithSurahName(surah_banner3(), number);
     }
+  }
+
+  Widget surahBannerLastPlace(int pageIndex, int i) {
+    final ayahs = getCurrentPageAyahsSeparatedForBasmala(pageIndex)[i];
+    return pageIndex == 75 ||
+            pageIndex == 206 ||
+            pageIndex == 330 ||
+            pageIndex == 340 ||
+            pageIndex == 348 ||
+            pageIndex == 365 ||
+            pageIndex == 375 ||
+            pageIndex == 413 ||
+            pageIndex == 415 ||
+            pageIndex == 434 ||
+            pageIndex == 450 ||
+            pageIndex == 496 ||
+            pageIndex == 504 ||
+            pageIndex == 523 ||
+            pageIndex == 546 ||
+            pageIndex == 553 ||
+            pageIndex == 555 ||
+            pageIndex == 582 ||
+            pageIndex == 584 ||
+            pageIndex == 588 ||
+            pageIndex == 592
+        ? surahBannerWidget((getSurahNumberByAyah(ayahs.first) + 1).toString())
+        : const SizedBox.shrink();
+  }
+
+  Widget surahBannerFirstPlace(int pageIndex, int i) {
+    final ayahs = getCurrentPageAyahsSeparatedForBasmala(pageIndex)[i];
+    return ayahs.first.ayahNumber == 1
+        ? pageIndex == 75 ||
+                pageIndex == 206 ||
+                pageIndex == 330 ||
+                pageIndex == 340 ||
+                pageIndex == 348 ||
+                pageIndex == 365 ||
+                pageIndex == 375 ||
+                pageIndex == 413 ||
+                pageIndex == 415 ||
+                pageIndex == 434 ||
+                pageIndex == 450 ||
+                pageIndex == 496 ||
+                pageIndex == 504 ||
+                pageIndex == 523 ||
+                pageIndex == 546 ||
+                pageIndex == 553 ||
+                pageIndex == 555 ||
+                pageIndex == 582 ||
+                pageIndex == 584 ||
+                pageIndex == 588 ||
+                pageIndex == 592
+            ? surahBannerWidget(getSurahNumberByAyah(ayahs.first).toString())
+            : const SizedBox.shrink()
+        : const SizedBox.shrink();
   }
 }

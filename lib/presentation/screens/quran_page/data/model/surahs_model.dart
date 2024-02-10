@@ -34,15 +34,18 @@ class Ayah {
   final String code_v2;
   final int juz;
   final int page;
+  dynamic sajda;
 
-  Ayah(
-      {required this.ayahUQNumber,
-      required this.ayahNumber,
-      required this.text,
-      required this.aya_text_emlaey,
-      required this.code_v2,
-      required this.juz,
-      required this.page});
+  Ayah({
+    required this.ayahUQNumber,
+    required this.ayahNumber,
+    required this.text,
+    required this.aya_text_emlaey,
+    required this.code_v2,
+    required this.juz,
+    required this.page,
+    required this.sajda,
+  });
 
   factory Ayah.fromJson(Map<String, dynamic> json) {
     return Ayah(
@@ -52,7 +55,26 @@ class Ayah {
       aya_text_emlaey: json['aya_text_emlaey'],
       code_v2: json['code_v2'],
       juz: json['juz'],
-      page: json['page'], // Parse the page field from JSON
+      page: json['page'],
+      sajda: json['sajda'],
+    );
+  }
+}
+
+class Sajda {
+  final int id;
+  final bool recommended;
+  final bool obligatory;
+
+  Sajda(
+      {required this.id, required this.recommended, required this.obligatory});
+
+  factory Sajda.fromJson(Map<String, dynamic> json) {
+    return Sajda(
+      id: json['id'],
+      recommended: json['recommended'],
+      obligatory: json['obligatory'] ??
+          false, // Assuming obligatory might not always be present
     );
   }
 }

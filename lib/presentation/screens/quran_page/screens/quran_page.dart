@@ -112,7 +112,7 @@ class MPages extends StatelessWidget {
                                         fontFamily: 'naskh',
                                         color: Color(0xff77554B)),
                                   ),
-                                )
+                                ),
                               ],
                             ),
                           ),
