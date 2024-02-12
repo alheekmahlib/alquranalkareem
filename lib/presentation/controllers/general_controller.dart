@@ -1,6 +1,6 @@
-import 'package:alquranalkareem/presentation/controllers/quran_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
+import 'package:flutter_slider_drawer/flutter_slider_drawer.dart';
 import 'package:flutter_sliding_up_panel/sliding_up_panel_widget.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -10,10 +10,11 @@ import '../../core/utils/constants/shared_pref_services.dart';
 import '../../core/utils/constants/shared_preferences_constants.dart';
 import '../../core/widgets/time_now.dart';
 import '../screens/athkar/screens/alzkar_view.dart';
-import '../screens/quran_page/data/model/sorah_bookmark.dart';
 import '../screens/quran_page/screens/quran_home.dart';
 import '../screens/surah_audio_screen/audio_surah.dart';
 import '/core/utils/constants/extensions.dart';
+import '/presentation/controllers/quran_controller.dart';
+import '/presentation/controllers/share_controller.dart';
 import '/presentation/screens/home/home_screen.dart';
 import 'audio_controller.dart';
 import 'ayat_controller.dart';
@@ -68,9 +69,11 @@ class GeneralController extends GetxController {
   double ayahItemWidth = 30.0;
   RxBool isLoading = false.obs;
   var verses;
-  final searchTextEditing = TextEditingController();
+
   RxBool showSelectScreenPage = false.obs;
   RxInt screenSelectedValue = 0.obs;
+  final GlobalKey<SliderDrawerState> drawerKey =
+      GlobalKey<SliderDrawerState>(debugLabel: 'SliderDrawerStateKey');
 
   double get scr_height => _screenSize!.value.height;
 
@@ -82,6 +85,14 @@ class GeneralController extends GetxController {
 
   void selectScreenToggleView() {
     showSelectScreenPage.value = !showSelectScreenPage.value;
+  }
+
+  checkRtlLayout(var rtl, var ltr) {
+    if (sl<ShareController>().isRtlLanguage('lang'.tr)) {
+      return rtl;
+    } else {
+      return ltr;
+    }
   }
 
   final cacheManager = CacheManager(Config(
@@ -146,12 +157,10 @@ class GeneralController extends GetxController {
     sl<AudioController>().pageAyahNumber = '0';
 
     sl<BookmarksController>().getBookmarks();
-    SoraBookmark soraBookmark =
-        sl<BookmarksController>().soraBookmarkList![index];
-    soMName.value = '${soraBookmark.SoraNum! + 1}';
+    String surah = sl<QuranController>().getSurahNameFromPage(index + 1);
+    soMName.value = surah;
     sl<SharedPrefServices>().saveInteger(MSTART_PAGE, index + 1);
-    sl<SharedPreferences>()
-        .setString(MLAST_URAH, (soraBookmark.SoraNum! + 1).toString());
+    sl<SharedPreferences>().setString(MLAST_URAH, surah);
     sl<QuranController>().selectedAyahIndexes.clear();
   }
 

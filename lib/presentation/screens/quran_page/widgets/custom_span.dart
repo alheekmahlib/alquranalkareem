@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../../core/services/services_locator.dart';
-import '../../../controllers/bookmarksText_controller.dart';
+import '../../../controllers/bookmarks_controller.dart';
 
 TextSpan span({
   required String text,
@@ -33,7 +33,11 @@ TextSpan span({
           letterSpacing: 8,
           color: Colors.black,
           backgroundColor:
-              isSelected ? Get.theme.highlightColor : Colors.transparent,
+              sl<BookmarksController>().hasBookmark(surahNum, ayahNum).value
+                  ? const Color(0xffCD9974).withOpacity(.4)
+                  : isSelected
+                      ? Get.theme.highlightColor
+                      : Colors.transparent,
         ),
         recognizer: LongPressGestureRecognizer(
             duration: const Duration(milliseconds: 500))
@@ -49,7 +53,11 @@ TextSpan span({
           // wordSpacing: wordSpacing + 10,
           color: Colors.black,
           backgroundColor:
-              isSelected ? Get.theme.highlightColor : Colors.transparent,
+              sl<BookmarksController>().hasBookmark(surahNum, ayahNum).value
+                  ? const Color(0xffCD9974).withOpacity(.4)
+                  : isSelected
+                      ? Get.theme.highlightColor
+                      : Colors.transparent,
         ),
         recognizer: LongPressGestureRecognizer(
             duration: const Duration(milliseconds: 500))
@@ -66,8 +74,8 @@ TextSpan span({
         letterSpacing: 2,
         color: Get.theme.colorScheme.inversePrimary,
         backgroundColor:
-            sl<BookmarksTextController>().hasBookmark(surahNum, ayahNum).value
-                ? const Color(0xffCD9974).withOpacity(.5)
+            sl<BookmarksController>().hasBookmark(surahNum, ayahNum).value
+                ? const Color(0xffCD9974).withOpacity(.4)
                 : isSelected
                     ? Get.theme.highlightColor
                     : Colors.transparent,
@@ -84,13 +92,12 @@ TextSpan span({
         fontSize: fontSize,
         height: 2,
         letterSpacing: 2,
-        color:
-            sl<BookmarksTextController>().hasBookmark(surahNum, ayahNum).value
-                ? Get.theme.colorScheme.inversePrimary
-                : const Color(0xffa24308),
+        color: sl<BookmarksController>().hasBookmark(surahNum, ayahNum).value
+            ? Get.theme.colorScheme.inversePrimary
+            : const Color(0xffa24308),
         backgroundColor:
-            sl<BookmarksTextController>().hasBookmark(surahNum, ayahNum).value
-                ? const Color(0xffCD9974).withOpacity(.5)
+            sl<BookmarksController>().hasBookmark(surahNum, ayahNum).value
+                ? const Color(0xffCD9974).withOpacity(.4)
                 : isSelected
                     ? Get.theme.highlightColor
                     : Colors.transparent,

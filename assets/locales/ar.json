@@ -84,7 +84,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "quran_sorah": "كل السور",
+  "quran_sorah": "السور",
   "@quran_sorah": {
     "type": "text",
     "placeholders": {}
@@ -134,7 +134,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "search_word": "الآية المراد البحث عنها",
+  "search_word": "ابحث عن آية",
   "@search_word": {
     "type": "text",
     "placeholders": {}
@@ -354,7 +354,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "allJuz": "أجزاء المصحف",
+  "allJuz": "الأجزاء",
   "@allJuz": {
     "type": "text",
     "placeholders": {}
@@ -404,7 +404,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "deletedZekrBookmark": "تم حذف الذكر إلى المفضلة!",
+  "deletedZekrBookmark": "تم حذف الذكر من المفضلة!",
   "@deletedZekrBookmark": {
     "type": "text",
     "placeholders": {}
@@ -656,6 +656,16 @@
   },
   "sajda": "سجدة",
   "@sajda": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "pages": "صفحات",
+  "@pages": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "ayahs": "آيات",
+  "@ayahs": {
     "type": "text",
     "placeholders": {}
   }

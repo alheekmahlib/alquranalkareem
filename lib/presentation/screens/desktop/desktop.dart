@@ -54,9 +54,8 @@ class _DesktopState extends State<Desktop> with TickerProviderStateMixin {
               alignment: Alignment.bottomCenter,
               child: Obx(
                 () => Sliding(
-                  myWidget1: quranPageSearch(
-                    context,
-                    MediaQuery.sizeOf(context).width / 1 / 2,
+                  myWidget1: Container(
+                    width: MediaQuery.sizeOf(context).width / 1 / 2,
                   ),
                   myWidget2: quranPageSorahList(
                     context,

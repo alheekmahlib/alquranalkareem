@@ -3,11 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 
-import '../../../../core/services/services_locator.dart';
-import '../../../../core/widgets/playList/ayahs_playList_widget.dart';
-import '../../../../core/widgets/seek_bar.dart';
-import '../../../../core/widgets/widgets.dart';
-import '../../../controllers/audio_controller.dart';
+import '../../../../../core/services/services_locator.dart';
+import '../../../../../core/widgets/playList/ayahs_playList_widget.dart';
+import '../../../../../core/widgets/seek_bar.dart';
+import '../../../../../core/widgets/widgets.dart';
+import '../../../../controllers/audio_controller.dart';
 import '/core/utils/constants/extensions.dart';
 import '/presentation/controllers/quran_controller.dart';
 import 'change_reader.dart';
@@ -24,7 +24,7 @@ class AudioWidget extends StatelessWidget {
     return Directionality(
       textDirection: TextDirection.rtl,
       child: Container(
-          margin: const EdgeInsets.only(bottom: 64.0, right: 32.0, left: 32.0),
+          margin: const EdgeInsets.only(bottom: 96.0, right: 32.0, left: 32.0),
           decoration: BoxDecoration(
               color: Get.theme.colorScheme.background,
               borderRadius: const BorderRadius.all(Radius.circular(8)),

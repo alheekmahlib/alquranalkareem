@@ -21,7 +21,7 @@ class PagesIndicator extends StatelessWidget {
     return Container(
       height: 40,
       width: screenWidth * .67,
-      // margin: const EdgeInsets.only(top: 30),
+      margin: const EdgeInsets.only(bottom: 6.0),
       decoration: BoxDecoration(
         color: Theme.of(context).colorScheme.primary,
         borderRadius: const BorderRadius.all(Radius.circular(8)),

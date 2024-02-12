@@ -1,4 +1,3 @@
-import 'package:alquranalkareem/presentation/controllers/translate_controller.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -6,9 +5,9 @@ import '../../core/services/services_locator.dart';
 import '../../core/utils/constants/shared_preferences_constants.dart';
 import '../screens/onboarding/onboarding_screen.dart';
 import '../screens/screen_type.dart';
+import '/presentation/controllers/translate_controller.dart';
 import 'audio_controller.dart';
 import 'ayat_controller.dart';
-import 'bookmarks_controller.dart';
 import 'general_controller.dart';
 import 'settings_controller.dart';
 
@@ -21,7 +20,6 @@ class SplashScreenController extends GetxController {
     sl<TranslateDataController>().loadTranslateValue();
     sl<SettingsController>().loadLang();
     sl<AudioController>().loadQuranReader();
-    sl<BookmarksController>().getBookmarksList();
     sl<GeneralController>().getLastPageAndFontSize();
     sl<GeneralController>().updateGreeting();
     sl<GeneralController>().screenSelectedValue.value =

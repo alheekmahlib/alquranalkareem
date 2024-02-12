@@ -85,7 +85,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "quran_sorah": "Todo Sorah",
+  "quran_sorah": "Surahs",
   "@quran_sorah": {
     "type": "text",
     "placeholders": {}
@@ -137,7 +137,7 @@
     "placeholders": {}
   },
 
-  "search_word": "Busca el verso",
+  "search_word": "Buscar un Versículo",
   "@search_word": {
     "type": "text",
     "placeholders": {}
@@ -363,7 +363,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "allJuz": "Partes del Corán",
+  "allJuz": "Partes",
   "@allJuz": {
     "type": "text",
     "placeholders": {}
@@ -665,6 +665,16 @@
   },
   "sajda": "Prosternación",
   "@sajda": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "pages": "Páginas",
+  "@pages": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "ayahs": "Versículos",
+  "@ayahs": {
     "type": "text",
     "placeholders": {}
   }

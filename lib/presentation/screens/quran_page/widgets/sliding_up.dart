@@ -6,7 +6,7 @@ import 'package:get/get.dart';
 import '../../../../core/services/services_locator.dart';
 import '../../../controllers/general_controller.dart';
 import '/core/utils/constants/extensions.dart';
-import '/presentation/screens/quran_page/widgets/audio_widget.dart';
+import 'audio/audio_widget.dart';
 
 class Sliding extends StatelessWidget {
   final Widget? myWidget1;

@@ -7,8 +7,9 @@ import '../../../../core/utils/constants/svg_picture.dart';
 import '../../../../core/widgets/widgets.dart';
 import '../../../controllers/bookmarks_controller.dart';
 import '../../../controllers/general_controller.dart';
-import '../widgets/audio_widget.dart';
+import '../widgets/audio/audio_widget.dart';
 import '../widgets/left_page.dart';
+import '../widgets/nav_bar_widget.dart';
 import '../widgets/right_page.dart';
 import '/core/widgets/tab_bar_widget.dart';
 import '/presentation/controllers/audio_controller.dart';
@@ -17,15 +18,17 @@ import '/presentation/screens/quran_page/widgets/pages_widget.dart';
 
 class MPages extends StatelessWidget {
   MPages({Key? key}) : super(key: key);
+  final audioCtrl = sl<AudioController>();
+  final generalCtrl = sl<GeneralController>();
+  final quranCtrl = sl<QuranController>();
+  final bookmarkCtrl = sl<BookmarksController>();
 
   @override
   Widget build(BuildContext context) {
-    final audioCtrl = sl<AudioController>();
-    final generalCtrl = sl<GeneralController>();
-    final quranCtrl = sl<QuranController>();
-    sl<BookmarksController>().getBookmarks();
+    bookmarkCtrl.getBookmarks();
     return SafeArea(
       child: Stack(
+        alignment: Alignment.center,
         children: [
           GetBuilder<GeneralController>(
             builder: (generalCtrl) => PageView.builder(
@@ -52,19 +55,17 @@ class MPages extends StatelessWidget {
                                       children: [
                                         GestureDetector(
                                           onTap: () {
-                                            if (sl<BookmarksController>()
+                                            if (bookmarkCtrl
                                                 .isPageBookmarked(index + 1)) {
-                                              sl<BookmarksController>()
-                                                  .deleteBookmarks(
-                                                      index + 1, context);
+                                              bookmarkCtrl.deleteBookmarks(
+                                                  index + 1, context);
                                             } else {
-                                              sl<BookmarksController>()
-                                                  .addBookmark(
+                                              bookmarkCtrl
+                                                  .addAyahBookmark(
                                                       index + 1,
-                                                      sl<BookmarksController>()
-                                                          .soraBookmarkList![
-                                                              index + 1]
-                                                          .SoraName_ar!,
+                                                      quranCtrl
+                                                          .getSurahNameFromPage(
+                                                              index + 1),
                                                       generalCtrl
                                                           .timeNow.lastRead)
                                                   .then((value) =>
@@ -73,7 +74,7 @@ class MPages extends StatelessWidget {
                                               print('addBookmark');
                                               print(
                                                   '${generalCtrl.timeNow.lastRead}');
-                                              // sl<BookmarksController>()
+                                              // bookmarkCtrl
                                               //     .savelastBookmark(index + 1);
                                             }
                                           },
@@ -133,8 +134,7 @@ class MPages extends StatelessWidget {
                                     child: Row(
                                       children: [
                                         Text(
-                                          quranCtrl
-                                              .getSurahNameFromPage(index + 1),
+                                          quranCtrl.getSurahNameFromPage(index),
                                           style: const TextStyle(
                                               fontSize: 18,
                                               // fontWeight: FontWeight.bold,
@@ -143,7 +143,7 @@ class MPages extends StatelessWidget {
                                         ),
                                         const Spacer(),
                                         Text(
-                                          '${'juz'.tr}: ${generalCtrl.convertNumbers(quranCtrl.pages[index + 1].first.juz.toString())}',
+                                          '${'juz'.tr}: ${generalCtrl.convertNumbers(quranCtrl.pages[index].first.juz.toString())}',
                                           style: const TextStyle(
                                               fontSize: 18,
                                               // fontWeight: FontWeight.bold,
@@ -153,19 +153,17 @@ class MPages extends StatelessWidget {
                                         const Gap(16),
                                         GestureDetector(
                                           onTap: () {
-                                            if (sl<BookmarksController>()
+                                            if (bookmarkCtrl
                                                 .isPageBookmarked(index + 1)) {
-                                              sl<BookmarksController>()
-                                                  .deleteBookmarks(
-                                                      index + 1, context);
+                                              bookmarkCtrl.deleteBookmarks(
+                                                  index + 1, context);
                                             } else {
-                                              sl<BookmarksController>()
-                                                  .addBookmark(
+                                              bookmarkCtrl
+                                                  .addAyahBookmark(
                                                       index + 1,
-                                                      sl<BookmarksController>()
-                                                          .soraBookmarkList![
-                                                              index + 1]
-                                                          .SoraName_ar!,
+                                                      quranCtrl
+                                                          .getSurahNameFromPage(
+                                                              index + 1),
                                                       generalCtrl
                                                           .timeNow.lastRead)
                                                   .then((value) =>
@@ -174,7 +172,7 @@ class MPages extends StatelessWidget {
                                               print('addBookmark');
                                               print(
                                                   '${generalCtrl.timeNow.lastRead}');
-                                              // sl<BookmarksController>()
+                                              // bookmarkCtrl
                                               //     .savelastBookmark(index + 1);
                                             }
                                           },
@@ -215,6 +213,12 @@ class MPages extends StatelessWidget {
                       child: AudioWidget(),
                     )
                   : const SizedBox.shrink()),
+          Obx(() => generalCtrl.isShowControl.value
+              ? const Align(
+                  alignment: Alignment.bottomCenter,
+                  child: NavBarWidget(),
+                )
+              : const SizedBox.shrink()),
         ],
       ),
     );

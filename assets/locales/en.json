@@ -85,7 +85,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "quran_sorah": "All Sorah",
+  "quran_sorah": "Surahs",
   "@quran_sorah": {
     "type": "text",
     "placeholders": {}
@@ -135,7 +135,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "search_word": "Ayah To search",
+  "search_word": "Search for a Verse",
   "@search_word": {
     "type": "text",
     "placeholders": {}
@@ -355,7 +355,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "allJuz": "Parts of the Qur'an",
+  "allJuz": "Parts",
   "@allJuz": {
     "type": "text",
     "placeholders": {}
@@ -405,7 +405,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "deletedZekrBookmark": "The Zekr has been removed to favourites!",
+  "deletedZekrBookmark": "The Zekr has been removed from favourites!",
   "@deletedZekrBookmark": {
     "type": "text",
     "placeholders": {}
@@ -657,6 +657,16 @@
   },
   "sajda": "Prostration",
   "@sajda": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "pages": "Pages",
+  "@pages": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "ayahs": "Ayahs",
+  "@ayahs": {
     "type": "text",
     "placeholders": {}
   }

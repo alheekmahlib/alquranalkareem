@@ -85,7 +85,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "quran_sorah": "تمام سورہ",
+  "quran_sorah": "سورہ",
   "@quran_sorah": {
     "type": "text",
     "placeholders": {}
@@ -135,7 +135,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "search_word": "آیت تلاش کرنا",
+  "search_word": "آیت تلاش کریں",
   "@search_word": {
     "type": "text",
     "placeholders": {}
@@ -355,7 +355,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "allJuz": "قرآن کے حصے",
+  "allJuz": "حصے",
   "@allJuz": {
     "type": "text",
     "placeholders": {}
@@ -657,6 +657,16 @@
   },
   "sajda": "سجدہ",
   "@sajda": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "pages": "صفحات",
+  "@pages": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "ayahs": "آیات",
+  "@ayahs": {
     "type": "text",
     "placeholders": {}
   }

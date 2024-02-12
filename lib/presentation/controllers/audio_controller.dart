@@ -242,7 +242,6 @@ class AudioController extends GetxController {
         ),
       ));
       audioPlayer.playerStateStream.listen((playerState) async {
-        // if (playerState.processingState == ProcessingState.completed) {
         if (playerState.processingState == ProcessingState.completed &&
             !isProcessingNextAyah.value) {
           isProcessingNextAyah.value = false;

@@ -6,9 +6,8 @@ import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 
 import '../../../../presentation/controllers/ayat_controller.dart';
-import '../../../../presentation/controllers/bookmarksText_controller.dart';
+import '../../../../presentation/controllers/bookmarks_controller.dart';
 import '../../../../presentation/controllers/general_controller.dart';
-import '../../../../presentation/controllers/quranText_controller.dart';
 import '../../../../presentation/controllers/quran_controller.dart';
 import '../../../../presentation/screens/quran_text/widgets/widgets.dart';
 import '../../../services/services_locator.dart';
@@ -92,7 +91,7 @@ extension ContextMenuExtension on BuildContext {
                           button: true,
                           enabled: true,
                           label: 'Add Bookmark',
-                          child: sl<BookmarksTextController>()
+                          child: sl<BookmarksController>()
                                   .hasBookmark(surahNum, ayahNum)
                                   .value
                               ? bookmark_icon2(
@@ -101,22 +100,26 @@ extension ContextMenuExtension on BuildContext {
                               : bookmark_icon(height: 25.0),
                         ),
                         onTap: () async {
-                          if (sl<BookmarksTextController>()
+                          if (sl<BookmarksController>()
                               .hasBookmark(surahNum, ayahNum)
                               .value) {
-                            sl<BookmarksTextController>()
-                                .deleteBookmarksText(ayahNum);
+                            sl<BookmarksController>()
+                                .deleteBookmarksText(ayahUQNum);
+                            // sl<QuranController>().clearSelection();
                           } else {
-                            sl<QuranTextController>()
+                            sl<BookmarksController>()
                                 .addBookmarkText(
                                     surahName,
                                     surahNum,
-                                    pageIndex,
+                                    pageIndex + 1,
                                     ayahNum,
+                                    ayahUQNum,
                                     sl<GeneralController>().timeNow.lastRead)
                                 .then((value) =>
                                     customErrorSnackBar('addBookmark'.tr));
+                            // sl<QuranController>().clearSelection();
                           }
+                          sl<QuranController>().clearSelection();
                           cancel();
                         },
                       ),

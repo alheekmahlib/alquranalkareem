@@ -9,10 +9,8 @@ import '../../core/utils/constants/shared_pref_services.dart';
 import '../../core/utils/constants/svg_picture.dart';
 import '../screens/quran_text/data/models/Ahya.dart';
 import '../screens/quran_text/data/models/QuranModel.dart';
-import '../screens/quran_text/data/models/bookmark_text.dart';
 import '/core/utils/constants/shared_preferences_constants.dart';
 import 'ayat_controller.dart';
-import 'bookmarksText_controller.dart';
 import 'surahTextController.dart';
 
 class QuranTextController extends GetxController {
@@ -158,30 +156,6 @@ class QuranTextController extends GetxController {
   Future<void> loadScrollSpeedValue() async {
     scrollSpeed = sl<SharedPreferences>().getDouble('scroll_speed') ?? .05;
     print('scroll_speed $scrollSpeed');
-  }
-
-  addBookmarkText(
-    String surahName,
-    int surahNum,
-    pageNum,
-    ayahNum,
-    lastRead,
-  ) async {
-    try {
-      int? bookmark = await sl<BookmarksTextController>().addBookmarksText(
-        BookmarksText(
-          id,
-          surahName,
-          surahNum,
-          pageNum,
-          ayahNum,
-          lastRead,
-        ),
-      );
-      print('bookmark number: ${bookmark!}');
-    } catch (e) {
-      print('Error');
-    }
   }
 
   // addBookmarkText2(

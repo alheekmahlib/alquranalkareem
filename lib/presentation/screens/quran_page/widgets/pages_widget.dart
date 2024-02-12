@@ -1,14 +1,14 @@
-import 'package:alquranalkareem/core/utils/constants/extensions.dart';
-import 'package:alquranalkareem/core/utils/constants/extensions/menu_extension.dart';
-import 'package:alquranalkareem/core/utils/constants/svg_picture.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../../core/services/services_locator.dart';
 import '../../../../core/utils/constants/size_config.dart';
-import '../../../controllers/bookmarksText_controller.dart';
+import '../../../controllers/bookmarks_controller.dart';
 import '../../../controllers/quran_controller.dart';
 import '../data/model/surahs_model.dart';
+import '/core/utils/constants/extensions.dart';
+import '/core/utils/constants/extensions/menu_extension.dart';
+import '/core/utils/constants/svg_picture.dart';
 import 'custom_span.dart';
 
 class PagesWidget extends StatelessWidget {
@@ -18,7 +18,7 @@ class PagesWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    sl<BookmarksTextController>().getBookmarksText();
+    sl<BookmarksController>().getBookmarksText();
     SizeConfig().init(context);
     return GetBuilder<QuranController>(builder: (quranCtrl) {
       return SingleChildScrollView(

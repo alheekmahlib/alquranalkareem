@@ -3,7 +3,6 @@ import 'package:get/get.dart';
 
 import '../../../core/services/services_locator.dart';
 import '../../../core/utils/constants/svg_picture.dart';
-import '../../../core/widgets/widgets.dart';
 import '../../controllers/bookmarks_controller.dart';
 import '../../controllers/general_controller.dart';
 import '../quran_page/widgets/left_page.dart';
@@ -63,18 +62,18 @@ class DPages extends StatelessWidget {
                                                 index + 1, context);
                                       } else {
                                         // If there's no bookmark for the current page, add a new one
-                                        sl<BookmarksController>()
-                                            .addBookmark(
-                                                index + 1,
-                                                sl<BookmarksController>()
-                                                    .soraBookmarkList![
-                                                        index + 1]
-                                                    .SoraName_ar!,
-                                                sl<GeneralController>()
-                                                    .timeNow
-                                                    .lastRead)
-                                            .then((value) => customSnackBar(
-                                                context, 'addBookmark'.tr));
+                                        // sl<BookmarksController>()
+                                        //     .addAyahBookmark(
+                                        //         index + 1,
+                                        //         sl<BookmarksController>()
+                                        //             .soraBookmarkList![
+                                        //                 index + 1]
+                                        //             .SoraName_ar!,
+                                        //         sl<GeneralController>()
+                                        //             .timeNow
+                                        //             .lastRead)
+                                        //     .then((value) => customSnackBar(
+                                        //         context, 'addBookmark'.tr));
 
                                         // sl<BookmarksController>()
                                         //     .savelastBookmark(index + 1);
@@ -120,18 +119,18 @@ class DPages extends StatelessWidget {
                                                 index + 1, context);
                                       } else {
                                         // If there's no bookmark for the current page, add a new one
-                                        sl<BookmarksController>()
-                                            .addBookmark(
-                                                index + 1,
-                                                sl<BookmarksController>()
-                                                    .soraBookmarkList![
-                                                        index + 1]
-                                                    .SoraName_ar!,
-                                                sl<GeneralController>()
-                                                    .timeNow
-                                                    .lastRead)
-                                            .then((value) => customSnackBar(
-                                                context, 'addBookmark'.tr));
+                                        // sl<BookmarksController>()
+                                        //     .addAyahBookmark(
+                                        //         index + 1,
+                                        //         sl<BookmarksController>()
+                                        //             .soraBookmarkList![
+                                        //                 index + 1]
+                                        //             .SoraName_ar!,
+                                        //         sl<GeneralController>()
+                                        //             .timeNow
+                                        //             .lastRead)
+                                        //     .then((value) => customSnackBar(
+                                        //         context, 'addBookmark'.tr));
                                         // sl<BookmarksController>()
                                         //     .savelastBookmark(index + 1);
                                       }

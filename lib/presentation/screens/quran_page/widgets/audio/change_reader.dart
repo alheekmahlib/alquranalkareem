@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../../../core/services/services_locator.dart';
-import '../../../../core/utils/constants/lists.dart';
-import '../../../../core/utils/constants/shared_pref_services.dart';
-import '../../../../core/utils/constants/shared_preferences_constants.dart';
-import '../../../controllers/audio_controller.dart';
+import '../../../../../core/services/services_locator.dart';
+import '../../../../../core/utils/constants/lists.dart';
+import '../../../../../core/utils/constants/shared_pref_services.dart';
+import '../../../../../core/utils/constants/shared_preferences_constants.dart';
+import '../../../../controllers/audio_controller.dart';
 
 class ChangeReader extends StatelessWidget {
   const ChangeReader({super.key});

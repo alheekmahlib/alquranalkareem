@@ -3,10 +3,10 @@ import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 
 import '../../../presentation/controllers/ayat_controller.dart';
+import '../../../presentation/screens/quran_page/widgets/audio/change_reader.dart';
 import '../../services/services_locator.dart';
 import '/core/widgets/widgets.dart';
 import '/presentation/controllers/playList_controller.dart';
-import '/presentation/screens/quran_page/widgets/change_reader.dart';
 import 'ayahs_choice_widget.dart';
 import 'playList_build.dart';
 import 'playList_play_widget.dart';

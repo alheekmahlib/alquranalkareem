@@ -20,7 +20,7 @@ class BookmarksTextList extends StatelessWidget {
     sl<BookmarksTextController>().getBookmarksText();
     return Expanded(
       child: Obx(() {
-        if (sl<BookmarksTextController>().BookmarkList.isEmpty) {
+        if (sl<BookmarksTextController>().BookmarkTextList.isEmpty) {
           return bookmarks(150.0, 150.0);
         } else {
           return AnimationLimiter(
@@ -28,10 +28,11 @@ class BookmarksTextList extends StatelessWidget {
               alignment: Alignment.topCenter,
               child: ListView.builder(
                   shrinkWrap: true,
-                  itemCount: sl<BookmarksTextController>().BookmarkList.length,
+                  itemCount:
+                      sl<BookmarksTextController>().BookmarkTextList.length,
                   itemBuilder: (BuildContext context, int index) {
                     var bookmark =
-                        sl<BookmarksTextController>().BookmarkList[index];
+                        sl<BookmarksTextController>().BookmarkTextList[index];
                     return AnimationConfiguration.staggeredList(
                       position: index,
                       duration: const Duration(milliseconds: 450),

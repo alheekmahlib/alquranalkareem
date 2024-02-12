@@ -33,25 +33,6 @@ class QuranController extends GetxController {
   final generalCtrl = sl<GeneralController>();
   final themeCtrl = sl<ThemeController>();
 
-  void toggleAyahSelection(int index) {
-    if (selectedAyahIndexes.contains(index)) {
-      selectedAyahIndexes.remove(index);
-    } else {
-      selectedAyahIndexes.clear();
-      selectedAyahIndexes.add(index);
-      selectedAyahIndexes.refresh();
-    }
-    selectedAyahIndexes.refresh();
-  }
-
-  void clearSelection() {
-    if (selectedAyahIndexes.isNotEmpty) {
-      selectedAyahIndexes.clear();
-    } else {
-      sl<GeneralController>().showControl();
-    }
-  }
-
   @override
   void onInit() async {
     super.onInit();
@@ -98,8 +79,7 @@ class QuranController extends GetxController {
               (s) => s.ayahs.contains(getCurrentPageAyahs(pageNumber).first))
           .arabicName;
     } catch (e) {
-      // Handle the error or return a default/fallback value
-      return "Surah not found"; // Or any other fallback logic you prefer
+      return "Surah not found";
     }
   }
 
@@ -118,6 +98,26 @@ class QuranController extends GetxController {
     }
     // No sajda found on this page
     return isSajda.value == false;
+  }
+
+  void toggleAyahSelection(int index) {
+    if (selectedAyahIndexes.contains(index)) {
+      selectedAyahIndexes.remove(index);
+    } else {
+      selectedAyahIndexes.clear();
+      selectedAyahIndexes.add(index);
+      selectedAyahIndexes.refresh();
+    }
+    selectedAyahIndexes.refresh();
+  }
+
+  void clearSelection() {
+    if (selectedAyahIndexes.isNotEmpty) {
+      selectedAyahIndexes.clear();
+    } else {
+      sl<GeneralController>().showControl();
+    }
+    generalCtrl.drawerKey.currentState!.closeSlider();
   }
 
   void showVerseToast(int verseIndex, int totalVerses) {
@@ -240,29 +240,29 @@ class QuranController extends GetxController {
   Widget surahBannerFirstPlace(int pageIndex, int i) {
     final ayahs = getCurrentPageAyahsSeparatedForBasmala(pageIndex)[i];
     return ayahs.first.ayahNumber == 1
-        ? pageIndex == 75 ||
-                pageIndex == 206 ||
-                pageIndex == 330 ||
-                pageIndex == 340 ||
-                pageIndex == 348 ||
-                pageIndex == 365 ||
-                pageIndex == 375 ||
-                pageIndex == 413 ||
-                pageIndex == 415 ||
-                pageIndex == 434 ||
-                pageIndex == 450 ||
-                pageIndex == 496 ||
-                pageIndex == 504 ||
-                pageIndex == 523 ||
-                pageIndex == 546 ||
-                pageIndex == 553 ||
-                pageIndex == 555 ||
-                pageIndex == 582 ||
-                pageIndex == 584 ||
-                pageIndex == 588 ||
-                pageIndex == 592
-            ? surahBannerWidget(getSurahNumberByAyah(ayahs.first).toString())
-            : const SizedBox.shrink()
+        ? pageIndex == 76 ||
+                pageIndex == 207 ||
+                pageIndex == 331 ||
+                pageIndex == 341 ||
+                pageIndex == 349 ||
+                pageIndex == 366 ||
+                pageIndex == 376 ||
+                pageIndex == 414 ||
+                pageIndex == 416 ||
+                pageIndex == 435 ||
+                pageIndex == 451 ||
+                pageIndex == 497 ||
+                pageIndex == 505 ||
+                pageIndex == 524 ||
+                pageIndex == 547 ||
+                pageIndex == 554 ||
+                pageIndex == 556 ||
+                pageIndex == 583 ||
+                pageIndex == 585 ||
+                pageIndex == 589 ||
+                pageIndex == 593
+            ? const SizedBox.shrink()
+            : surahBannerWidget(getSurahNumberByAyah(ayahs.first).toString())
         : const SizedBox.shrink();
   }
 }

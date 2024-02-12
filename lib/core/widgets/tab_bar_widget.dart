@@ -1,12 +1,13 @@
-import 'package:alquranalkareem/presentation/controllers/general_controller.dart';
-import 'package:alquranalkareem/presentation/screens/home/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../presentation/screens/quran_page/widgets/pages_indicator.dart';
+import '../../presentation/controllers/search_controller.dart';
+import '../../presentation/screens/quran_page/widgets/search/search_bar.dart';
 import '../services/services_locator.dart';
 import '../utils/constants/svg_picture.dart';
-import '/core/widgets/settings_list.dart';
+import '/presentation/controllers/general_controller.dart';
+import '/presentation/screens/home/home_screen.dart';
+import 'settings_list.dart';
 
 class TabBarWidget extends StatelessWidget {
   final bool isChild;
@@ -51,7 +52,24 @@ class TabBarWidget extends StatelessWidget {
                     ),
                   )
                 : const SizedBox.shrink(),
-            isIndicator ? PagesIndicator() : const SizedBox.shrink(),
+            isIndicator
+                ? OpenContainerWrapper(
+                    transitionType: sl<QuranSearchController>().transitionType,
+                    closedBuilder:
+                        (BuildContext _, VoidCallback openContainer) {
+                      return SearchBarWidget(openContainer: openContainer);
+                    },
+                  )
+                // Container(
+                //         height: 40,
+                //         width: MediaQuery.sizeOf(context).width * .67,
+                //         // margin: const EdgeInsets.only(bottom: 6.0),
+                //         decoration: BoxDecoration(
+                //           color: Theme.of(context).colorScheme.primary,
+                //           borderRadius: const BorderRadius.all(Radius.circular(8)),
+                //         ),
+                //       )
+                : const SizedBox.shrink(),
             GestureDetector(
               onTap: () {
                 Get.bottomSheet(const SettingsList(), isScrollControlled: true);

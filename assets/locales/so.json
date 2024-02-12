@@ -85,7 +85,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "quran_sorah": "Dhammaan Suuradaha",
+  "quran_sorah": "Suuradaha",
   "@quran_sorah": {
     "type": "text",
     "placeholders": {}
@@ -135,7 +135,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "search_word": "Aayad Raadinayo",
+  "search_word": "Raadi Aayad",
   "@search_word": {
     "type": "text",
     "placeholders": {}
@@ -355,7 +355,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "allJuz": "Qaybaha Quraanka",
+  "allJuz": "Qaybaha",
   "@allJuz": {
     "type": "text",
     "placeholders": {}
@@ -657,6 +657,16 @@
   },
   "sajda": "Sujuud",
   "@sajda": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "pages": "Bogag",
+  "@pages": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "ayahs": "Aayadaha",
+  "@ayahs": {
     "type": "text",
     "placeholders": {}
   }

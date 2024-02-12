@@ -2,15 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:just_audio/just_audio.dart';
 
-import '../../../../core/services/services_locator.dart';
-import '../../../../core/utils/constants/lottie.dart';
-import '../../../controllers/audio_controller.dart';
-import '../../../controllers/general_controller.dart';
+import '../../../../../core/services/services_locator.dart';
+import '../../../../../core/utils/constants/lottie.dart';
+import '../../../../controllers/audio_controller.dart';
+import '../../../../controllers/quran_controller.dart';
 import '/core/utils/constants/svg_picture.dart';
-import '/presentation/controllers/quran_controller.dart';
 
-class PlayPage extends StatelessWidget {
-  const PlayPage({super.key});
+class PlayAyah extends StatelessWidget {
+  const PlayAyah({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -31,16 +30,18 @@ class PlayPage extends StatelessWidget {
             //   shadowWidth: 1.5,
             //   progressWidth: 2,
             //   shadowColor: Get.theme.colorScheme.surface.withOpacity(.15),
-            //   progressColor: sl<AudioController>().downloadingPage.value
+            //   progressColor: sl<AudioController>().downloading.value
             //       ? Get.theme.colorScheme.primary
             //       : Colors.transparent,
-            //   progress: sl<AudioController>().progressPage.value,
+            //   progress: sl<AudioController>().progress.value,
             // ),
-            sl<AudioController>().downloadingPage.value
+            sl<AudioController>().downloading.value
                 ? Container(
+                    width: 35,
+                    height: 35,
                     alignment: Alignment.center,
                     child: Text(
-                      sl<AudioController>().progressPageString.value,
+                      sl<AudioController>().progressString.value,
                       style: TextStyle(
                           fontSize: 14,
                           fontFamily: 'kufi',
@@ -48,7 +49,7 @@ class PlayPage extends StatelessWidget {
                     ),
                   )
                 : StreamBuilder<PlayerState>(
-                    stream: audioCtrl.pageAudioPlayer.playerStateStream,
+                    stream: audioCtrl.audioPlayer.playerStateStream,
                     builder: (context, snapshot) {
                       final playerState = snapshot.data;
                       final processingState = playerState?.processingState;
@@ -56,15 +57,13 @@ class PlayPage extends StatelessWidget {
                       if (processingState == ProcessingState.loading ||
                           processingState == ProcessingState.buffering) {
                         return playButtonLottie(20.0, 20.0);
-                      } else if (!audioCtrl.isPagePlay.value) {
+                      } else if (!audioCtrl.isPlay.value) {
                         return GestureDetector(
-                          child: play_page(height: 25.0),
+                          child: play_arrow(height: 25.0),
                           onTap: () async {
-                            audioCtrl.cancelDownload();
                             sl<QuranController>().isPlayExpanded.value = true;
-                            sl<AudioController>().isPlay.value = false;
-                            sl<AudioController>().playPage(
-                                sl<GeneralController>().currentPage.value);
+                            sl<AudioController>().isPagePlay.value = false;
+                            sl<AudioController>().playAyah();
                           },
                         );
                       }
@@ -72,9 +71,8 @@ class PlayPage extends StatelessWidget {
                         child: pause_arrow(height: 25.0),
                         onTap: () {
                           sl<QuranController>().isPlayExpanded.value = true;
-                          sl<AudioController>().isPlay.value = false;
-                          sl<AudioController>().playPage(
-                              sl<GeneralController>().currentPage.value);
+                          sl<AudioController>().isPagePlay.value = false;
+                          sl<AudioController>().playAyah();
                         },
                       );
                     },

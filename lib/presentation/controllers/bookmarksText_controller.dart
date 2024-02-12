@@ -7,10 +7,10 @@ import '../screens/quran_text/data/models/bookmark_text.dart';
 import '/presentation/controllers/quranText_controller.dart';
 
 class BookmarksTextController extends GetxController {
-  final RxList<BookmarksText> BookmarkList = <BookmarksText>[].obs;
+  final RxList<BookmarksText> BookmarkTextList = <BookmarksText>[].obs;
 
   Future<int?> addBookmarksText(BookmarksText? bookmarksText) {
-    BookmarkList.add(bookmarksText!);
+    BookmarkTextList.add(bookmarksText!);
     sl<QuranTextController>().update();
     return DatabaseHelper.addBookmarkText(bookmarksText!);
   }
@@ -18,13 +18,13 @@ class BookmarksTextController extends GetxController {
   Future<void> getBookmarksText() async {
     final List<Map<String, dynamic>> bookmarksText =
         await DatabaseHelper.queryT();
-    BookmarkList.assignAll(
+    BookmarkTextList.assignAll(
         bookmarksText.map((data) => BookmarksText.fromJson(data)).toList());
   }
 
   Future<bool> deleteBookmarksText(int ayahNum) async {
     // Find the bookmark with the given pageNum
-    BookmarksText? bookmarkToDelete = BookmarkList.firstWhereOrNull(
+    BookmarksText? bookmarkToDelete = BookmarkTextList.firstWhereOrNull(
         (bookmark) => bookmark.ayahNum == ayahNum);
 
     if (bookmarkToDelete != null) {
@@ -50,7 +50,7 @@ class BookmarksTextController extends GetxController {
   }
 
   RxBool hasBookmark(int surahNum, int ayahNum) {
-    return (BookmarkList.obs.value
+    return (BookmarkTextList.obs.value
                     .firstWhereOrNull(((element) =>
                         element.sorahNum == surahNum &&
                         element.ayahNum == ayahNum))

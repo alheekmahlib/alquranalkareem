@@ -15,35 +15,11 @@ import '../../presentation/screens/quran_text/widgets/bookmarks_text_list.dart';
 import '../../presentation/screens/quran_text/widgets/quran_text_search.dart';
 import '../services/services_locator.dart';
 import '/core/utils/constants/extensions.dart';
-import '/presentation/screens/quran_page/widgets/quran_search.dart';
 import 'custom_paint/bg_icon.dart';
 
 double lowerValue = 24;
 double upperValue = 50;
 String? selectedValue;
-
-Widget quranPageSearch(BuildContext context, double width) {
-  return Semantics(
-    button: true,
-    enabled: true,
-    label: 'search'.tr,
-    child: GestureDetector(
-      child: iconBg(context, Icons.search_outlined),
-      onTap: () {
-        if (Platform.isIOS || Platform.isAndroid || Platform.isFuchsia) {
-          fullModalBottomSheet(
-            context,
-            MediaQuery.sizeOf(context).height * .75,
-            MediaQuery.sizeOf(context).width,
-            const QuranSearch(),
-          );
-        } else {
-          sl<GeneralController>().slideOpen();
-        }
-      },
-    ),
-  );
-}
 
 Widget quranPageSorahList(BuildContext context, double width) {
   return Semantics(

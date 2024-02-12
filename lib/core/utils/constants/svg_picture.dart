@@ -292,3 +292,27 @@ Widget sajda_icon({double? height, double? width}) {
     height: height ?? 35,
   );
 }
+
+Widget bookmark_list({double? height, double? width}) {
+  return SvgPicture.asset(
+    'assets/svg/bookmark_list.svg',
+    width: width,
+    height: height ?? 35,
+  );
+}
+
+Widget list_icon({double? height, double? width}) {
+  return SvgPicture.asset(
+    'assets/svg/list_icon.svg',
+    width: width,
+    height: height ?? 35,
+  );
+}
+
+Widget search_icon({double? height, double? width}) {
+  return SvgPicture.asset(
+    'assets/svg/search_icon.svg',
+    width: width,
+    height: height ?? 35,
+  );
+}

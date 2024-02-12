@@ -85,7 +85,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "quran_sorah": "সব সূরা",
+  "quran_sorah": "সূরা",
   "@quran_sorah": {
     "type": "text",
     "placeholders": {}
@@ -135,7 +135,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "search_word": "আয়াত অনুসন্ধান করতে",
+  "search_word": "একটি আয়াত খুঁজুন",
   "@search_word": {
     "type": "text",
     "placeholders": {}
@@ -355,7 +355,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "allJuz": "কুরআনের কিছু অংশ",
+  "allJuz": "অংশগুলি",
   "@allJuz": {
     "type": "text",
     "placeholders": {}
@@ -657,6 +657,16 @@
   },
   "sajda": "সিজদা",
   "@sajda": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "pages": "পাতাগুলি",
+  "@pages": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "ayahs": "আয়াতসমূহ",
+  "@ayahs": {
     "type": "text",
     "placeholders": {}
   }
