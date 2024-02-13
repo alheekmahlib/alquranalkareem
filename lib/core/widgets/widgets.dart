@@ -460,14 +460,11 @@ Widget pageNumber(String num, context, Color color) {
   );
 }
 
-Widget surahNameWidget(String num, Color color) {
-  return SizedBox(
-    height: 50,
-    child: SvgPicture.asset(
-      'assets/svg/surah_name/00$num.svg',
-      height: 33,
-      colorFilter: ColorFilter.mode(color, BlendMode.srcIn),
-    ),
+Widget surahNameWidget(String num, Color color, {double? height}) {
+  return SvgPicture.asset(
+    'assets/svg/surah_name/00$num.svg',
+    height: height ?? 33,
+    colorFilter: ColorFilter.mode(color, BlendMode.srcIn),
   );
 }
 

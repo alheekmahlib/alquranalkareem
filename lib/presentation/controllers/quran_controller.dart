@@ -86,6 +86,10 @@ class QuranController extends GetxController {
   int getSurahNumberByAyah(Ayah ayah) =>
       surahs.firstWhere((s) => s.ayahs.contains(ayah)).surahNumber;
 
+  String getSurahByAyahUQ(int ayah) => surahs
+      .firstWhere((s) => s.ayahs.any((a) => a.ayahUQNumber == ayah))
+      .arabicName;
+
   bool getSajdaInfoForPage(List<Ayah> pageAyahs) {
     for (var ayah in pageAyahs) {
       if (ayah.sajda != false && ayah.sajda is Map) {

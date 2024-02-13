@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../presentation/controllers/search_controller.dart';
+import '../../presentation/controllers/aya_controller.dart';
 import '../../presentation/screens/quran_page/widgets/search/search_bar.dart';
 import '../services/services_locator.dart';
 import '../utils/constants/svg_picture.dart';
@@ -54,7 +54,7 @@ class TabBarWidget extends StatelessWidget {
                 : const SizedBox.shrink(),
             isIndicator
                 ? OpenContainerWrapper(
-                    transitionType: sl<QuranSearchController>().transitionType,
+                    transitionType: sl<AyaController>().transitionType,
                     closedBuilder:
                         (BuildContext _, VoidCallback openContainer) {
                       return SearchBarWidget(openContainer: openContainer);

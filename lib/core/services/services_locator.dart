@@ -11,7 +11,6 @@ import 'package:timezone/data/latest.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
 
 import '../../presentation/controllers/quran_controller.dart';
-import '../../presentation/controllers/search_controller.dart';
 import '../../presentation/controllers/splash_screen_controller.dart';
 import '../../presentation/controllers/theme_controller.dart';
 import '../utils/constants/shared_pref_services.dart';
@@ -186,11 +185,6 @@ class ServicesLocator {
     sl.registerLazySingleton<SplashScreenController>(() =>
         Get.put<SplashScreenController>(SplashScreenController(),
             permanent: true));
-
-    sl.registerLazySingleton<QuranSearchController>(() =>
-        Get.put<QuranSearchController>(QuranSearchController(),
-            permanent: true));
-
     // NotifyHelper().initializeNotification();
     // sl<NotificationsController>().initializeLocalNotifications();
 

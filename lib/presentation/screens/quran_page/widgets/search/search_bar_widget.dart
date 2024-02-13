@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../../../core/services/services_locator.dart';
-import '../../../../controllers/search_controller.dart';
+import '../../../../controllers/aya_controller.dart';
 import '/core/utils/constants/extensions.dart';
 import '/core/utils/constants/svg_picture.dart';
 
 class SearchBarWidget extends StatelessWidget {
   SearchBarWidget({super.key});
 
-  final searchCtrl = sl<QuranSearchController>();
+  final ayahCtrl = sl<AyaController>();
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +21,7 @@ class SearchBarWidget extends StatelessWidget {
         width: context.customOrientation(MediaQuery.sizeOf(context).width * .7,
             MediaQuery.sizeOf(context).width * .5),
         child: TextField(
-          controller: searchCtrl.searchTextEditing,
+          controller: ayahCtrl.searchTextEditing,
           maxLines: 1,
           style: TextStyle(
             fontSize: 16.0,
@@ -62,8 +62,9 @@ class SearchBarWidget extends StatelessWidget {
                 color: Get.theme.hintColor,
               ),
               onPressed: () {
-                searchCtrl.searchTextEditing.clear();
-                searchCtrl.update();
+                ayahCtrl.searchTextEditing.clear();
+                ayahCtrl.ayahList.clear();
+                ayahCtrl.surahList.clear();
               },
             ),
             labelText: 'search_word'.tr,
@@ -73,9 +74,13 @@ class SearchBarWidget extends StatelessWidget {
               color: Get.theme.hintColor.withOpacity(.7),
             ),
           ),
-          onChanged: (query) => searchCtrl.searchQuran(query),
+          onChanged: (query) {
+            if (query.length > 3) ayahCtrl.surahSearch(query);
+            if (query.length > 3) ayahCtrl.search(query);
+          },
           onSubmitted: (query) {
-            searchCtrl.searchQuran(query);
+            ayahCtrl.surahSearch(query);
+            ayahCtrl.search(query);
             // await sl<QuranSearchControllers>().addSearchItem(query);
             // searchCtrl.textSearchController.clear();
           },
