@@ -120,7 +120,7 @@ class AzkarController extends GetxController {
     while (zeker == null) {
       log('allAzkar length: ${allAzkar.length} ', name: 'while');
       zeker = allAzkar.firstWhereOrNull((z) => z.id == random);
-      print('zikr is null  ' * 5);
+      log('zikr is null  ' * 5);
     }
     log('before listing');
     sl<SharedPreferences>()

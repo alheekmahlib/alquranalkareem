@@ -92,7 +92,7 @@ extension ContextMenuExtension on BuildContext {
                           enabled: true,
                           label: 'Add Bookmark',
                           child: sl<BookmarksController>()
-                                  .hasBookmark(surahNum, ayahNum)
+                                  .hasBookmark(surahNum, ayahUQNum)
                                   .value
                               ? bookmark_icon2(
                                   height: 25.0,
@@ -101,7 +101,7 @@ extension ContextMenuExtension on BuildContext {
                         ),
                         onTap: () async {
                           if (sl<BookmarksController>()
-                              .hasBookmark(surahNum, ayahNum)
+                              .hasBookmark(surahNum, ayahUQNum)
                               .value) {
                             sl<BookmarksController>()
                                 .deleteBookmarksText(ayahUQNum);
@@ -119,7 +119,7 @@ extension ContextMenuExtension on BuildContext {
                                     customErrorSnackBar('addBookmark'.tr));
                             // sl<QuranController>().clearSelection();
                           }
-                          sl<QuranController>().clearSelection();
+                          sl<AudioController>().clearSelection();
                           cancel();
                         },
                       ),

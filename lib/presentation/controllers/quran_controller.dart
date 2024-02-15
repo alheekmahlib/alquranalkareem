@@ -56,7 +56,7 @@ class QuranController extends GetxController {
     log('Pages Length: ${pages.length}', name: 'Quran Controller');
   }
 
-  List<List<Ayah>> getCurrentPageAyahsSeparatedForBasmala(int pageIndex) =>
+  List<List<Ayah>> getCurrentPageAyahsSeparatedForBasmalah(int pageIndex) =>
       pages[pageIndex]
           .splitBetween((f, s) => f.ayahNumber > s.ayahNumber)
           .toList();
@@ -71,6 +71,9 @@ class QuranController extends GetxController {
       .firstWhere(
           (s) => s.ayahs.contains(getCurrentPageAyahs(pageNumber).first))
       .surahNumber;
+
+  Surah getCurrentSurahByPage(int pageNumber) => surahs.firstWhere(
+      (s) => s.ayahs.contains(getCurrentPageAyahs(pageNumber).first));
 
   String getSurahNameFromPage(int pageNumber) {
     try {
@@ -101,8 +104,54 @@ class QuranController extends GetxController {
       }
     }
     // No sajda found on this page
-    return isSajda.value == false;
+    return isSajda.value = false;
   }
+
+  List<Ayah> get currentPageAyahs => pages[generalCtrl.currentPage.value - 1];
+
+  double getSajdaPosition(int pageIndex) {
+    final sajdaAyah = _getAyahWithSajdaInPage(pageIndex);
+    final newLineRegex = RegExp(r'\n');
+    // final List<Ayah> ayahsAfterSajda = currentPageAyahs
+    //     .where((a) => a.ayahUQNumber > sajdaAyah.ayahUQNumber)
+    //     .toList();
+    // final currentPageAyahsTexts =  currentPageAyahs.map((a)=>a.text);
+    // return .indexWhere((ayah) => ayah ==sajdaAyah)+1;
+    isSajda.value = sajdaAyah != null ? true : false;
+    final lines = pages[pageIndex]
+        .map((a) {
+          if (a.text.contains('۩')) {
+            return '${a.code_v2}۩';
+          }
+          return a.code_v2;
+        })
+        .join()
+        .split('\n');
+    // final lines =newLineRegex
+    //     .allMatches(currentPageAyahs.map((a) {
+    //   if(a.text.contains('۩')){
+    //     return '${a.code_v2}۩';
+    //   }
+    //   return a.code_v2;
+    // }).join()).toList();
+    double position =
+        (lines.indexWhere((line) => line.contains('۩')) + 1).toDouble();
+    log("Sajda Position is: $position");
+
+    return position;
+  }
+
+  Ayah? _getAyahWithSajdaInPage(int pageIndex) =>
+      pages[pageIndex].firstWhereOrNull((ayah) {
+        if (ayah.sajda != false && ayah.sajda is Map) {
+          var sajdaDetails = ayah.sajda;
+          if (sajdaDetails['recommended'] == true ||
+              sajdaDetails['obligatory'] == true) {
+            return true;
+          }
+        }
+        return false;
+      });
 
   void toggleAyahSelection(int index) {
     if (selectedAyahIndexes.contains(index)) {
@@ -115,20 +164,17 @@ class QuranController extends GetxController {
     selectedAyahIndexes.refresh();
   }
 
-  void clearSelection() {
-    if (selectedAyahIndexes.isNotEmpty) {
-      selectedAyahIndexes.clear();
-    } else {
-      sl<GeneralController>().showControl();
-    }
-    generalCtrl.drawerKey.currentState!.closeSlider();
+  void clearAndAddSelection(int index) {
+    selectedAyahIndexes.clear();
+    selectedAyahIndexes.add(index);
+    selectedAyahIndexes.refresh();
   }
 
-  void showVerseToast(int verseIndex, int totalVerses) {
-    double convertedNumber = verseIndex / 10.0;
+  void showVerseToast(int pageIndex) {
+    double convertedNumber = getSajdaPosition(pageIndex) / 10.0;
     isSajda.value
         ? BotToast.showCustomText(
-            align: Alignment(.8, convertedNumber),
+            align: Alignment(.8, (convertedNumber + .02)),
             toastBuilder: (void Function() cancelFunc) {
               return Container(
                 padding:
@@ -195,12 +241,15 @@ class QuranController extends GetxController {
   }
 
   Widget bannerWithSurahName(Widget child, String number) {
-    return Stack(
-      alignment: Alignment.center,
-      children: [
-        child,
-        surahNameWidget(number, Get.theme.hintColor),
-      ],
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 8.0),
+      child: Stack(
+        alignment: Alignment.center,
+        children: [
+          child,
+          surahNameWidget(number, Get.theme.hintColor),
+        ],
+      ),
     );
   }
 
@@ -215,7 +264,7 @@ class QuranController extends GetxController {
   }
 
   Widget surahBannerLastPlace(int pageIndex, int i) {
-    final ayahs = getCurrentPageAyahsSeparatedForBasmala(pageIndex)[i];
+    final ayahs = getCurrentPageAyahsSeparatedForBasmalah(pageIndex)[i];
     return pageIndex == 75 ||
             pageIndex == 206 ||
             pageIndex == 330 ||
@@ -231,18 +280,15 @@ class QuranController extends GetxController {
             pageIndex == 504 ||
             pageIndex == 523 ||
             pageIndex == 546 ||
-            pageIndex == 553 ||
-            pageIndex == 555 ||
-            pageIndex == 582 ||
-            pageIndex == 584 ||
-            pageIndex == 588 ||
-            pageIndex == 592
+            pageIndex == 554 ||
+            pageIndex == 556 ||
+            pageIndex == 583
         ? surahBannerWidget((getSurahNumberByAyah(ayahs.first) + 1).toString())
         : const SizedBox.shrink();
   }
 
   Widget surahBannerFirstPlace(int pageIndex, int i) {
-    final ayahs = getCurrentPageAyahsSeparatedForBasmala(pageIndex)[i];
+    final ayahs = getCurrentPageAyahsSeparatedForBasmalah(pageIndex)[i];
     return ayahs.first.ayahNumber == 1
         ? pageIndex == 76 ||
                 pageIndex == 207 ||
@@ -260,11 +306,10 @@ class QuranController extends GetxController {
                 pageIndex == 524 ||
                 pageIndex == 547 ||
                 pageIndex == 554 ||
-                pageIndex == 556 ||
+                pageIndex == 555 ||
+                pageIndex == 557 ||
                 pageIndex == 583 ||
-                pageIndex == 585 ||
-                pageIndex == 589 ||
-                pageIndex == 593
+                pageIndex == 584
             ? const SizedBox.shrink()
             : surahBannerWidget(getSurahNumberByAyah(ayahs.first).toString())
         : const SizedBox.shrink();

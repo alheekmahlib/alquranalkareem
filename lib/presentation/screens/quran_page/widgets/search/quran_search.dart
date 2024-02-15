@@ -34,38 +34,42 @@ class QuranSearch extends StatelessWidget {
                 } else if (ayahCtrl.surahList.isNotEmpty) {
                   return Expanded(
                     flex: 1,
-                    child: ListView.builder(
-                      itemCount: ayahCtrl.surahList.length,
-                      scrollDirection: Axis.horizontal,
-                      itemBuilder: (context, index) {
-                        Aya search = ayahCtrl.surahList[index];
-                        return Directionality(
-                          textDirection: TextDirection.rtl,
-                          child: GestureDetector(
-                            onTap: () {
-                              generalCtrl.quranPageController.animateToPage(
-                                search.pageNum - 1,
-                                duration: const Duration(milliseconds: 500),
-                                curve: Curves.easeIn,
-                              );
-                              Get.back();
-                            },
-                            child: Container(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 4.0),
-                              margin: const EdgeInsets.symmetric(
-                                  horizontal: 32.0, vertical: 10.0),
-                              decoration: BoxDecoration(
-                                  color: Get.theme.colorScheme.primary,
-                                  borderRadius: const BorderRadius.all(
-                                      Radius.circular(8))),
-                              child: surahNameWidget(search.surahNum.toString(),
-                                  Get.theme.canvasColor,
-                                  height: 40),
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                      child: ListView.builder(
+                        itemCount: ayahCtrl.surahList.length,
+                        scrollDirection: Axis.horizontal,
+                        itemBuilder: (context, index) {
+                          Aya search = ayahCtrl.surahList[index];
+                          return Directionality(
+                            textDirection: TextDirection.rtl,
+                            child: GestureDetector(
+                              onTap: () {
+                                generalCtrl.quranPageController.animateToPage(
+                                  search.pageNum - 1,
+                                  duration: const Duration(milliseconds: 500),
+                                  curve: Curves.easeIn,
+                                );
+                                Get.back();
+                              },
+                              child: Container(
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 4.0),
+                                margin: const EdgeInsets.symmetric(
+                                    horizontal: 4.0, vertical: 10.0),
+                                decoration: BoxDecoration(
+                                    color: Get.theme.colorScheme.primary,
+                                    borderRadius: const BorderRadius.all(
+                                        Radius.circular(8))),
+                                child: surahNameWidget(
+                                    search.surahNum.toString(),
+                                    Get.theme.canvasColor,
+                                    height: 40),
+                              ),
                             ),
-                          ),
-                        );
-                      },
+                          );
+                        },
+                      ),
                     ),
                   );
                 } else {
@@ -119,25 +123,11 @@ class QuranSearch extends StatelessWidget {
                                           fontFamily: "uthmanic2",
                                           fontWeight: FontWeight.normal,
                                           fontSize: 22,
-                                          color: Get.isDarkMode
-                                              ? Get.theme.canvasColor
-                                              : Get.theme.primaryColorDark,
+                                          color: Get.theme.hintColor,
                                         ),
                                       ),
                                       textAlign: TextAlign.justify,
                                     ),
-                                    // child: Text(
-                                    //   search.text,
-                                    //   style: TextStyle(
-                                    //     fontFamily: "uthmanic2",
-                                    //     fontWeight: FontWeight.normal,
-                                    //     fontSize: 22,
-                                    //     color: Get.isDarkMode
-                                    //         ? Get.theme.canvasColor
-                                    //         : Get.theme.primaryColorDark,
-                                    //   ),
-                                    //   textAlign: TextAlign.justify,
-                                    // ),
                                   ),
                                   subtitle: Container(
                                     height: 20,
@@ -150,16 +140,22 @@ class QuranSearch extends StatelessWidget {
                                       children: [
                                         Expanded(
                                           child: Container(
-                                              color:
-                                                  Get.theme.primaryColorLight,
+                                              decoration: BoxDecoration(
+                                                  color: Get
+                                                      .theme.colorScheme.primary
+                                                      .withOpacity(.7),
+                                                  borderRadius:
+                                                      const BorderRadius.only(
+                                                    topRight:
+                                                        Radius.circular(4),
+                                                    bottomRight:
+                                                        Radius.circular(4),
+                                                  )),
                                               child: Text(
                                                 " ${'part'.tr}: ${search.partNum}",
                                                 textAlign: TextAlign.center,
                                                 style: TextStyle(
-                                                    color: Get.isDarkMode
-                                                        ? Get.theme.canvasColor
-                                                        : Get.theme.colorScheme
-                                                            .background,
+                                                    color: Get.theme.hintColor,
                                                     fontSize: 12),
                                               )),
                                         ),
@@ -177,10 +173,7 @@ class QuranSearch extends StatelessWidget {
                                                 " ${'page'.tr}: ${search.pageNum}",
                                                 textAlign: TextAlign.center,
                                                 style: TextStyle(
-                                                    color: Get.isDarkMode
-                                                        ? Get.theme.canvasColor
-                                                        : Get.theme.colorScheme
-                                                            .background,
+                                                    color: Get.theme.hintColor,
                                                     fontSize: 12),
                                               )),
                                         ),

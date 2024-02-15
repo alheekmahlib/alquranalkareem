@@ -5,8 +5,8 @@ import '../../../core/services/services_locator.dart';
 import '../../../core/utils/constants/svg_picture.dart';
 import '../../controllers/bookmarks_controller.dart';
 import '../../controllers/general_controller.dart';
-import '../quran_page/widgets/left_page.dart';
-import '/presentation/screens/quran_page/widgets/right_page.dart';
+import '../quran_page/widgets/pages/left_page.dart';
+import '../quran_page/widgets/pages/right_page.dart';
 
 class DPages extends StatelessWidget {
   DPages({Key? key}) : super(key: key);

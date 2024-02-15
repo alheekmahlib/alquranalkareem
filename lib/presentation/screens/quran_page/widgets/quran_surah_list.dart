@@ -148,47 +148,53 @@ class QuranSurahList extends StatelessWidget {
                                           ),
                                           Expanded(
                                             flex: 5,
-                                            child: Row(
-                                              mainAxisSize: MainAxisSize.min,
-                                              children: [
-                                                context.vDivider(height: 30.0),
-                                                Column(
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment.center,
-                                                  crossAxisAlignment:
-                                                      CrossAxisAlignment.start,
-                                                  children: [
-                                                    Text(
-                                                      'aya_count'.tr,
-                                                      style: TextStyle(
-                                                        fontFamily: "uthman",
-                                                        fontSize: 13,
-                                                        color: Get
-                                                            .theme
-                                                            .colorScheme
-                                                            .surface,
+                                            child: FittedBox(
+                                              fit: BoxFit.scaleDown,
+                                              child: Row(
+                                                mainAxisSize: MainAxisSize.min,
+                                                children: [
+                                                  context.vDivider(
+                                                      height: 30.0),
+                                                  Column(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .center,
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment
+                                                            .start,
+                                                    children: [
+                                                      Text(
+                                                        'aya_count'.tr,
+                                                        style: TextStyle(
+                                                          fontFamily: "uthman",
+                                                          fontSize: 13,
+                                                          color: Get
+                                                              .theme
+                                                              .colorScheme
+                                                              .surface,
+                                                        ),
                                                       ),
-                                                    ),
-                                                    Text(
-                                                      generalCtrl
-                                                          .convertNumbers(surah
-                                                              .ayahs
-                                                              .last
-                                                              .ayahNumber
-                                                              .toString()),
-                                                      style: TextStyle(
-                                                        fontFamily: "kufi",
-                                                        fontSize: 13,
-                                                        fontWeight:
-                                                            FontWeight.bold,
-                                                        color: Get
-                                                            .theme.hintColor
-                                                            .withOpacity(.7),
+                                                      Text(
+                                                        generalCtrl
+                                                            .convertNumbers(surah
+                                                                .ayahs
+                                                                .last
+                                                                .ayahNumber
+                                                                .toString()),
+                                                        style: TextStyle(
+                                                          fontFamily: "kufi",
+                                                          fontSize: 13,
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                          color: Get
+                                                              .theme.hintColor
+                                                              .withOpacity(.7),
+                                                        ),
                                                       ),
-                                                    ),
-                                                  ],
-                                                ),
-                                              ],
+                                                    ],
+                                                  ),
+                                                ],
+                                              ),
                                             ),
                                           )
                                         ],

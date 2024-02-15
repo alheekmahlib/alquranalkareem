@@ -6,7 +6,6 @@ import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../core/services/services_locator.dart';
-import '../../core/utils/constants/shared_pref_services.dart';
 import '../../core/utils/constants/shared_preferences_constants.dart';
 import '../../core/widgets/time_now.dart';
 import '../screens/athkar/screens/alzkar_view.dart';
@@ -35,7 +34,7 @@ class GeneralController extends GetxController {
   PageController quranPageController = PageController();
 
   RxInt currentPage = 1.obs;
-  RxString soMName = '1'.obs;
+  RxInt lastReadSurahNumber = 1.obs;
   RxDouble fontSizeArabic = 20.0.obs;
   List<InlineSpan> text = [];
 
@@ -120,16 +119,17 @@ class GeneralController extends GetxController {
 
   Future<void> getLastPageAndFontSize() async {
     try {
-      currentPage.value = await sl<SharedPrefServices>()
-          .getInteger(MSTART_PAGE, defaultValue: 1); // Set a default value
-      soMName.value = await sl<SharedPrefServices>()
-          .getString(MLAST_URAH, defaultValue: '1'); // Set a default value
+      currentPage.value = await sl<SharedPreferences>().getInt(MSTART_PAGE) ??
+          1; // Set a default value
+      lastReadSurahNumber.value =
+          await sl<SharedPreferences>().getInt(MLAST_URAH) ??
+              1; // Set a default value
       double fontSizeFromPref =
-          await sl<SharedPrefServices>().getDouble(FONT_SIZE);
+          await sl<SharedPreferences>().getDouble(FONT_SIZE) ?? 24.0;
       if (fontSizeFromPref != 0.0 && fontSizeFromPref > 0) {
         fontSizeArabic.value = fontSizeFromPref;
       } else {
-        fontSizeArabic.value = 24.0; // Setting to a valid default value
+        fontSizeArabic.value = 24.0;
       }
     } catch (e) {
       print('Failed to load last page: $e');
@@ -157,11 +157,11 @@ class GeneralController extends GetxController {
     sl<AudioController>().pageAyahNumber = '0';
 
     sl<BookmarksController>().getBookmarks();
-    String surah = sl<QuranController>().getSurahNameFromPage(index + 1);
-    soMName.value = surah;
-    sl<SharedPrefServices>().saveInteger(MSTART_PAGE, index + 1);
-    sl<SharedPreferences>().setString(MLAST_URAH, surah);
-    sl<QuranController>().selectedAyahIndexes.clear();
+    lastReadSurahNumber.value =
+        sl<QuranController>().getSurahNumberFromPage(index + 1);
+    sl<SharedPreferences>().setInt(MSTART_PAGE, index + 1);
+    sl<SharedPreferences>().setInt(MLAST_URAH, lastReadSurahNumber.value);
+    // sl<QuranController>().selectedAyahIndexes.clear();
   }
 
   /// Greeting
@@ -318,5 +318,13 @@ class GeneralController extends GetxController {
       default:
         return const HomeScreen();
     }
+  }
+
+  double screenWidth(double smallWidth, double largeWidth) {
+    final size = Get.width;
+    if (size <= 600) {
+      return smallWidth;
+    }
+    return largeWidth;
   }
 }

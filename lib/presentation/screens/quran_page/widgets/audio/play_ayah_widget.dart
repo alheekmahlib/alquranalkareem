@@ -62,7 +62,6 @@ class PlayAyah extends StatelessWidget {
                           child: play_arrow(height: 25.0),
                           onTap: () async {
                             sl<QuranController>().isPlayExpanded.value = true;
-                            sl<AudioController>().isPagePlay.value = false;
                             sl<AudioController>().playAyah();
                           },
                         );
@@ -71,7 +70,6 @@ class PlayAyah extends StatelessWidget {
                         child: pause_arrow(height: 25.0),
                         onTap: () {
                           sl<QuranController>().isPlayExpanded.value = true;
-                          sl<AudioController>().isPagePlay.value = false;
                           sl<AudioController>().playAyah();
                         },
                       );

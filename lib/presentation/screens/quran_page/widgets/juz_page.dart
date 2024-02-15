@@ -140,7 +140,7 @@ class QuranJuz extends StatelessWidget {
                                                         : Get.theme
                                                             .primaryColorDark,
                                                     fontFamily: "uthmanic2",
-                                                    fontSize: 14,
+                                                    fontSize: 20,
                                                     height: 2,
                                                   ),
                                                   maxLines: 1,

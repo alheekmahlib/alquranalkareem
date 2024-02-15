@@ -19,7 +19,7 @@ class LastRead extends StatelessWidget {
       onTap: () {
         Get.to(() => QuranPage(), transition: Transition.downToUp);
         generalCtrl.quranPageController.animateToPage(
-          int.parse(generalCtrl.soMName.value),
+          generalCtrl.lastReadSurahNumber.value,
           duration: const Duration(milliseconds: 500),
           curve: Curves.easeIn,
         );
@@ -58,7 +58,7 @@ class LastRead extends StatelessWidget {
                       Expanded(
                         flex: 4,
                         child: SvgPicture.asset(
-                          'assets/svg/surah_name/00${generalCtrl.soMName.value}.svg',
+                          'assets/svg/surah_name/00${generalCtrl.lastReadSurahNumber.value}.svg',
                           height: 60,
                           colorFilter: ColorFilter.mode(
                               Get.theme.cardColor, BlendMode.srcIn),

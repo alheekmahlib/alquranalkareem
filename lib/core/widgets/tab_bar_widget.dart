@@ -21,13 +21,12 @@ class TabBarWidget extends StatelessWidget {
     return Column(
       children: [
         Container(
-          height: 25,
+          height: 15,
           width: MediaQuery.sizeOf(context).width,
           color: Get.theme.colorScheme.primary,
         ),
         Row(
-          // mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.end,
+          crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             isChild
@@ -53,22 +52,16 @@ class TabBarWidget extends StatelessWidget {
                   )
                 : const SizedBox.shrink(),
             isIndicator
-                ? OpenContainerWrapper(
-                    transitionType: sl<AyaController>().transitionType,
-                    closedBuilder:
-                        (BuildContext _, VoidCallback openContainer) {
-                      return SearchBarWidget(openContainer: openContainer);
-                    },
+                ? Padding(
+                    padding: const EdgeInsets.only(top: 15.0),
+                    child: OpenContainerWrapper(
+                      transitionType: sl<AyaController>().transitionType,
+                      closedBuilder:
+                          (BuildContext _, VoidCallback openContainer) {
+                        return SearchBarWidget(openContainer: openContainer);
+                      },
+                    ),
                   )
-                // Container(
-                //         height: 40,
-                //         width: MediaQuery.sizeOf(context).width * .67,
-                //         // margin: const EdgeInsets.only(bottom: 6.0),
-                //         decoration: BoxDecoration(
-                //           color: Theme.of(context).colorScheme.primary,
-                //           borderRadius: const BorderRadius.all(Radius.circular(8)),
-                //         ),
-                //       )
                 : const SizedBox.shrink(),
             GestureDetector(
               onTap: () {

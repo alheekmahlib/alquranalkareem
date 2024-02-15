@@ -4,6 +4,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 
 import '../../../../core/utils/constants/lists.dart';
+import '../../../../core/widgets/container_button.dart';
 
 class ScreensList extends StatelessWidget {
   const ScreensList({super.key});
@@ -26,22 +27,9 @@ class ScreensList extends StatelessWidget {
                       : GestureDetector(
                           onTap: () => Get.to(screensList[index]['route'],
                               transition: Transition.downToUp),
-                          child: Container(
+                          child: ContainerButton(
                             height: 65,
                             width: screensList[index]['width'],
-                            margin: const EdgeInsets.all(8),
-                            decoration: BoxDecoration(
-                                color: Get.theme.colorScheme.primary,
-                                borderRadius:
-                                    const BorderRadius.all(Radius.circular(8)),
-                                boxShadow: [
-                                  BoxShadow(
-                                      color: Get.theme.colorScheme.surface
-                                          .withOpacity(.4),
-                                      offset: const Offset(6, 6),
-                                      spreadRadius: 0,
-                                      blurRadius: 0)
-                                ]),
                             child: Row(
                               mainAxisSize: MainAxisSize.min,
                               mainAxisAlignment: MainAxisAlignment.center,

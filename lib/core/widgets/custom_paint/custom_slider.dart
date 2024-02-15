@@ -37,7 +37,7 @@ class CustomSliderThumbRect extends SliderComponentShape {
     final Canvas canvas = context.canvas;
 
     final rRect = RRect.fromRectAndRadius(
-      Rect.fromCenter(center: center, width: 30, height: 15),
+      Rect.fromCenter(center: center, width: 20, height: 13),
       const Radius.circular(4),
     );
 

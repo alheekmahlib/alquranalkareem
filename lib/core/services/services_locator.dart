@@ -127,12 +127,15 @@ class ServicesLocator {
     sl.registerLazySingleton<GeneralController>(
         () => Get.put<GeneralController>(GeneralController(), permanent: true));
 
+    sl.registerLazySingleton<AudioController>(
+        () => Get.put<AudioController>(AudioController(), permanent: true));
+
+    sl.registerSingleton<QuranController>(
+        Get.put<QuranController>(QuranController(), permanent: true));
+
     sl.registerLazySingleton<NotificationsController>(() =>
         Get.put<NotificationsController>(NotificationsController(),
             permanent: true));
-
-    sl.registerLazySingleton<AudioController>(
-        () => Get.put<AudioController>(AudioController(), permanent: true));
 
     sl.registerLazySingleton<SurahAudioController>(() =>
         Get.put<SurahAudioController>(SurahAudioController(), permanent: true));
@@ -178,9 +181,6 @@ class ServicesLocator {
 
     sl.registerLazySingleton<PlayListController>(() =>
         Get.put<PlayListController>(PlayListController(), permanent: true));
-
-    sl.registerSingleton<QuranController>(
-        Get.put<QuranController>(QuranController(), permanent: true));
 
     sl.registerLazySingleton<SplashScreenController>(() =>
         Get.put<SplashScreenController>(SplashScreenController(),

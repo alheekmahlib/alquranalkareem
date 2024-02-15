@@ -134,7 +134,7 @@ class BookmarksController extends GetxController {
     return (BookmarkTextList.obs.value
                     .firstWhereOrNull(((element) =>
                         element.sorahNum == surahNum &&
-                        element.ayahNum == ayahNum))
+                        element.ayahUQNum == ayahNum))
                     .obs)
                 .value ==
             null
