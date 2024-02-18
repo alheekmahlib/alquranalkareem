@@ -71,9 +71,13 @@ class PlayWidget extends StatelessWidget {
               SizedBox(
                 height: 61,
                 child: Obx(
-                  () => sl<SurahAudioController>().isDownloading.value == true
-                      ? const DownloadSurahSeekBar()
-                      : const SurahSeekBar(),
+                  () => surahCtrl.surahDownloadStatus
+                              .value[surahCtrl.surahNum.value] ??
+                          false
+                      ? const SurahSeekBar()
+                      : sl<SurahAudioController>().isDownloading.value == true
+                          ? const DownloadSurahSeekBar()
+                          : const SurahSeekBar(),
                 ),
               ),
               Padding(

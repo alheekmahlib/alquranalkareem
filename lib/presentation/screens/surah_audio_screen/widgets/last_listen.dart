@@ -72,9 +72,7 @@ class LastListen extends StatelessWidget {
                           style: TextStyle(
                             fontFamily: 'kufi',
                             fontSize: 16,
-                            color: Get.isDarkMode
-                                ? Get.theme.canvasColor
-                                : Get.theme.primaryColor,
+                            color: Get.theme.hintColor,
                           ),
                         ),
                       ),

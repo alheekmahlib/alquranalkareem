@@ -96,10 +96,26 @@ class SurahAudioController extends GetxController {
         .first;
   }
 
+  Future<void> playPreviousSurah() async {
+    if (isDownloading.value) {
+      surahNum.value -= 1;
+      selectedSurah.value -= 1;
+      await downloadSurah();
+    } else if (surahNum.value - 1 == 1) {
+      await audioPlayer.stop();
+    } else if (isPlaying.value) {
+      surahNum.value -= 1;
+      selectedSurah.value -= 1;
+      await audioPlayer.seekToPrevious();
+    } else {
+      surahNum.value -= 1;
+      selectedSurah.value -= 1;
+      await audioPlayer.seekToPrevious();
+    }
+  }
+
   Future<void> playNextSurah() async {
-    print('first print: ${DateTime.now()}');
     if (isDownloading.value == true) {
-      // await downAudioPlayer.setAudioSource(getAudioSource);
       await downloadSurah();
     } else {
       await audioPlayer.setAudioSource(surahsPlayList![surahNum.value - 1]);
@@ -107,12 +123,11 @@ class SurahAudioController extends GetxController {
         if (playerState.processingState == ProcessingState.completed) {
           if (surahNum.value - 1 == 114) {
             await audioPlayer.stop();
+          } else if (surahNum.value - 1 == 1) {
+            await audioPlayer.stop();
           } else {
             surahNum.value += 1;
             await audioPlayer.seekToNext();
-            // await audioPlayer
-            //     .setAudioSource(surahsPlayList![surahNum.value - 1])
-            //     .then((value) async => await audioPlayer.play());
           }
         }
       });
