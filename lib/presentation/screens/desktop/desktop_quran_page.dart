@@ -1,3 +1,4 @@
+import 'package:alquranalkareem/presentation/controllers/quran_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -162,7 +163,7 @@ class DPages extends StatelessWidget {
           sl<GeneralController>().opened.value = false;
           sl<GeneralController>().update();
         } else {
-          sl<GeneralController>().showControl();
+          sl<QuranController>().showControl();
         }
       },
       child: Center(

@@ -1,4 +1,3 @@
-import 'package:alquranalkareem/core/utils/constants/extensions.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
@@ -8,6 +7,7 @@ import 'package:get/get.dart';
 import '../../../../core/services/services_locator.dart';
 import '../../../controllers/general_controller.dart';
 import '../../../controllers/quran_controller.dart';
+import '/core/utils/constants/extensions.dart';
 
 class QuranJuz extends StatelessWidget {
   final controller = ScrollController();
@@ -172,7 +172,7 @@ class QuranJuz extends StatelessWidget {
                                   ),
                                 )),
                             onTap: () {
-                              sl<GeneralController>().currentPage.value =
+                              sl<GeneralController>().currentPageNumber.value =
                                   surah.ayahs.first.page - 1;
                               sl<GeneralController>()
                                   .quranPageController

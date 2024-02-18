@@ -35,11 +35,8 @@ class PlayBanner extends StatelessWidget {
                 () => SvgPicture.asset(
                   'assets/svg/surah_name/00${sl<SurahAudioController>().surahNum}.svg',
                   width: 100,
-                  colorFilter: ColorFilter.mode(
-                      Get.isDarkMode
-                          ? Get.theme.canvasColor
-                          : Get.theme.primaryColorDark,
-                      BlendMode.srcIn),
+                  colorFilter:
+                      ColorFilter.mode(Get.theme.hintColor, BlendMode.srcIn),
                 ),
               ),
               MiniMusicVisualizer(

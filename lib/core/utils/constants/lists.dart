@@ -19,6 +19,18 @@ List<String> translateName = <String>[
   'Türkçe'
 ];
 
+List<String> shareTranslateName = <String>[
+  'English',
+  'Español',
+  'বাংলা',
+  'اردو',
+  'Soomaali',
+  'bahasa Indonesia',
+  'کوردی',
+  'Türkçe',
+  'تفسير السعدي'
+];
+
 List<String> rtlLang = <String>[
   'العربية',
   'עברית',
@@ -182,7 +194,7 @@ final List screensList = [
   {
     'name': 'quran'.tr,
     'svgUrl': 'assets/svg/splash_icon_w.svg',
-    'route': () => QuranPage(),
+    'route': () => QuranHome(),
     'width': 240.0
   },
   {
@@ -202,6 +214,17 @@ final List screensList = [
     'svgUrl': 'assets/svg/quran_au_ic.svg',
     'route': () => const AudioScreen(),
     'width': 240.0
+  },
+];
+
+final List mushafSettingsList = [
+  {
+    'name': 'pages'.tr,
+    'imageUrl': 'assets/images/pages.png',
+  },
+  {
+    'name': 'ayahs'.tr,
+    'imageUrl': 'assets/images/ayahs.png',
   },
 ];
 

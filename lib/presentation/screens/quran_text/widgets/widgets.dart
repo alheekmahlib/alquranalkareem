@@ -4,12 +4,10 @@ import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_sliding_up_panel/sliding_up_panel_widget.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 
 import '../../../../core/services/services_locator.dart';
-import '../../../../core/utils/constants/lists.dart';
 import '../../../../core/utils/constants/shared_pref_services.dart';
 import '../../../../core/utils/constants/shared_preferences_constants.dart';
 import '../../../../core/widgets/widgets.dart';
@@ -18,7 +16,6 @@ import '../../../controllers/ayat_controller.dart';
 import '../../../controllers/bookmarksText_controller.dart';
 import '../../../controllers/general_controller.dart';
 import '../../../controllers/quranText_controller.dart';
-import '../../../controllers/translate_controller.dart';
 import '/presentation/screens/quran_text/data/models/QuranModel.dart';
 
 ArabicNumbers arabicNumber = ArabicNumbers();
@@ -33,8 +30,9 @@ menu(BuildContext context, int b, int index, translateData, SurahText widget,
     selectedValue = false;
   }
   sl<AyatController>()
-      .fetchTafseerPage(sl<GeneralController>().currentPage.value);
-  sl<AyatController>().fetchAyatPage(sl<GeneralController>().currentPage.value);
+      .fetchTafseerPage(sl<GeneralController>().currentPageNumber.value);
+  sl<AyatController>()
+      .fetchAyatPage(sl<GeneralController>().currentPageNumber.value);
   sl<QuranTextController>().selected.value == selectedValue!
       ? BotToast.showAttachedWidget(
           target: details.globalPosition,
@@ -567,170 +565,6 @@ Widget rollingIconBuilder(int value, bool foreground) {
       data,
       size: 20,
       color: const Color(0xff161f07),
-    ),
-  );
-}
-
-translateDropDown(BuildContext context) {
-  dropDownModalBottomSheet(
-    context,
-    MediaQuery.sizeOf(context).height / 1 / 2,
-    MediaQuery.sizeOf(context).width,
-    Padding(
-      padding: const EdgeInsets.symmetric(vertical: 8.0),
-      child: Stack(
-        children: [
-          Align(
-            alignment: Alignment.topRight,
-            child: GestureDetector(
-              onTap: () => Navigator.of(context).pop(),
-              child: Container(
-                height: 30,
-                width: 30,
-                margin: const EdgeInsets.all(16.0),
-                decoration: BoxDecoration(
-                    color: Get.theme.colorScheme.background,
-                    borderRadius: const BorderRadius.all(
-                      Radius.circular(8),
-                    ),
-                    border:
-                        Border.all(width: 2, color: Get.theme.dividerColor)),
-                child: Semantics(
-                  button: true,
-                  enabled: true,
-                  label: 'Close',
-                  child: Icon(
-                    Icons.close_outlined,
-                    color: Get.theme.colorScheme.surface,
-                  ),
-                ),
-              ),
-            ),
-          ),
-          Align(
-            alignment: Alignment.topCenter,
-            child: Padding(
-              padding: const EdgeInsets.only(top: 24.0),
-              child: Semantics(
-                button: true,
-                enabled: true,
-                label: 'Translate',
-                child: Text(
-                  'translation'.tr,
-                  style: TextStyle(
-                      color: Get.theme.dividerColor,
-                      fontSize: 22,
-                      fontFamily: "kufi"),
-                ),
-              ),
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.only(top: 70.0),
-            child: ListView.builder(
-              itemCount: translateName.length,
-              itemBuilder: (BuildContext context, int index) {
-                return Column(
-                  children: [
-                    Container(
-                      child: Obx(
-                        () => Semantics(
-                          button: true,
-                          enabled: true,
-                          excludeSemantics: true,
-                          label: semanticsTranslateName[index],
-                          child: ListTile(
-                            title: Text(
-                              translateName[index],
-                              style: TextStyle(
-                                  color: sl<TranslateDataController>()
-                                              .transValue
-                                              .value ==
-                                          index
-                                      ? Get.theme.primaryColorLight
-                                      : const Color(0xffcdba72),
-                                  fontSize: 14,
-                                  fontFamily: "kufi"),
-                            ),
-                            trailing: Container(
-                              height: 20,
-                              width: 20,
-                              decoration: BoxDecoration(
-                                borderRadius: const BorderRadius.all(
-                                    Radius.circular(2.0)),
-                                border: Border.all(
-                                    color: sl<TranslateDataController>()
-                                                .transValue
-                                                .value ==
-                                            index
-                                        ? Get.theme.primaryColorLight
-                                        : const Color(0xffcdba72),
-                                    width: 2),
-                                color: const Color(0xff39412a),
-                              ),
-                              child: sl<TranslateDataController>()
-                                          .transValue
-                                          .value ==
-                                      index
-                                  ? const Icon(Icons.done,
-                                      size: 14, color: Color(0xffcdba72))
-                                  : null,
-                            ),
-                            onTap: () async {
-                              sl<TranslateDataController>().transValue.value ==
-                                  index;
-                              await sl<SharedPrefServices>()
-                                  .saveInteger(TRANSLATE_VALUE, index);
-                              sl<TranslateDataController>()
-                                  .translateHandleRadioValueChanged(index);
-                              sl<TranslateDataController>()
-                                  .fetchTranslate(context);
-                              Navigator.pop(context);
-                            },
-                            leading: Container(
-                                height: 85.0,
-                                width: 41.0,
-                                decoration: BoxDecoration(
-                                    shape: BoxShape.rectangle,
-                                    borderRadius: const BorderRadius.all(
-                                        Radius.circular(4.0)),
-                                    border: Border.all(
-                                        color: Get.theme.dividerColor,
-                                        width: 2)),
-                                child: Opacity(
-                                  opacity: sl<TranslateDataController>()
-                                              .transValue
-                                              .value ==
-                                          index
-                                      ? 1
-                                      : .4,
-                                  child: SvgPicture.asset(
-                                    'assets/svg/tafseer_book.svg',
-                                  ),
-                                )),
-                          ),
-                        ),
-                      ),
-                      decoration: BoxDecoration(
-                          borderRadius:
-                              const BorderRadius.all(Radius.circular(8.0)),
-                          border: Border.all(
-                              color: Get.theme.dividerColor, width: 1)),
-                      margin: const EdgeInsets.symmetric(
-                          horizontal: 16.0, vertical: 4.0),
-                    ),
-                    // const Divider(
-                    //   endIndent: 16,
-                    //   indent: 16,
-                    //   height: 3,
-                    // ),
-                  ],
-                );
-              },
-            ),
-          ),
-        ],
-      ),
     ),
   );
 }

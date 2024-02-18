@@ -5,6 +5,7 @@ import '../../core/services/services_locator.dart';
 import '../../core/utils/constants/shared_preferences_constants.dart';
 import '../screens/onboarding/onboarding_screen.dart';
 import '../screens/screen_type.dart';
+import '/presentation/controllers/quran_controller.dart';
 import '/presentation/controllers/translate_controller.dart';
 import 'audio_controller.dart';
 import 'ayat_controller.dart';
@@ -22,6 +23,7 @@ class SplashScreenController extends GetxController {
     sl<AudioController>().loadQuranReader();
     sl<GeneralController>().getLastPageAndFontSize();
     sl<GeneralController>().updateGreeting();
+    sl<QuranController>().loadSwitchValue();
     sl<GeneralController>().screenSelectedValue.value =
         sl<SharedPreferences>().getInt(SCREEN_SELECTED_VALUE) ?? 0;
     startTime();

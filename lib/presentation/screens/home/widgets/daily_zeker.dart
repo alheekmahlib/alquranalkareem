@@ -46,8 +46,10 @@ class DailyZeker extends StatelessWidget {
                             ),
                           ),
                           Container(
+                            width: MediaQuery.sizeOf(context).width,
                             margin: const EdgeInsets.all(16.0),
                             padding: const EdgeInsets.all(8.0),
+                            alignment: Alignment.center,
                             decoration: BoxDecoration(
                                 borderRadius:
                                     const BorderRadius.all(Radius.circular(4)),

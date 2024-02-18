@@ -17,7 +17,7 @@ class LastRead extends StatelessWidget {
     final generalCtrl = sl<GeneralController>();
     return GestureDetector(
       onTap: () {
-        Get.to(() => QuranPage(), transition: Transition.downToUp);
+        Get.to(() => QuranHome(), transition: Transition.downToUp);
         generalCtrl.quranPageController.animateToPage(
           generalCtrl.lastReadSurahNumber.value,
           duration: const Duration(milliseconds: 500),
@@ -71,7 +71,7 @@ class LastRead extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Text(
-                              '${'pageNo'.tr} ${generalCtrl.currentPage.value}',
+                              '${'pageNo'.tr} ${generalCtrl.currentPageNumber.value}',
                               style: TextStyle(
                                   fontSize: 20.0,
                                   fontFamily: 'naskh',

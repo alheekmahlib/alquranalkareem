@@ -128,6 +128,7 @@ class ChangeSurahReader extends StatelessWidget {
                                   : null,
                             ),
                             onTap: () async {
+                              surahAudioCtrl.initializeSurahDownloadStatus();
                               surahAudioCtrl.sorahReaderValue.value =
                                   surahReaderInfo[index]['readerD'];
                               surahAudioCtrl.sorahReaderNameValue.value =

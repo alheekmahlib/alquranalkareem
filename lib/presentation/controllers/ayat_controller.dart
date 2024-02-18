@@ -64,10 +64,11 @@ class AyatController extends GetxController {
   RxBool isTafseer = false.obs;
 
   Future<Map<String, dynamic>> getAyatAndTafseer() async {
-    final ayat = await fetchAyatPage(sl<GeneralController>().currentPage.value);
+    final ayat =
+        await fetchAyatPage(sl<GeneralController>().currentPageNumber.value);
 
     final tafseer =
-        await fetchTafseerPage(sl<GeneralController>().currentPage.value);
+        await fetchTafseerPage(sl<GeneralController>().currentPageNumber.value);
 
     return {
       'ayat': ayat,
@@ -276,10 +277,15 @@ class AyatController extends GetxController {
     ayahTextNumber.value = ayahNum.toString();
     ayahTextNormal.value = ayahTextN;
     ayahUQNumber.value = ayahUQNum;
-    sl<GeneralController>().currentPage.value = pageIndex;
+    sl<GeneralController>().currentPageNumber.value = pageIndex;
     sl<QuranTextController>().selected.value =
         !sl<QuranTextController>().selected.value;
-    Get.bottomSheet(ShowTafseer(), isScrollControlled: true);
+    Get.bottomSheet(
+      ShowTafseer(),
+      isScrollControlled: true,
+      enterBottomSheetDuration: const Duration(milliseconds: 400),
+      exitBottomSheetDuration: const Duration(milliseconds: 400),
+    );
   }
 
   Future<void> copyOnTap() async {

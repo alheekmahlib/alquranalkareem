@@ -85,12 +85,13 @@ class AudioController extends GetxController {
 
   int get currentAyahInPage => _currentAyahInSurah.value == 1
       ? quranCtrl.allAyahs
-          .firstWhere((ayah) => ayah.page == generalCtrl.currentPage.value)
+          .firstWhere(
+              (ayah) => ayah.page == generalCtrl.currentPageNumber.value)
           .ayahNumber
       : _currentAyahInSurah.value;
 
   int get currentSurahInPage => _currentSurahInPage.value == 1
-      ? quranCtrl.getSurahNumberFromPage(generalCtrl.currentPage.value)
+      ? quranCtrl.getSurahNumberFromPage(generalCtrl.currentPageNumber.value)
       : _currentSurahInPage.value;
 
   @override
@@ -133,20 +134,20 @@ class AudioController extends GetxController {
 
   bool get isLastAyahInPage =>
       quranCtrl
-          .getCurrentPageAyahs(generalCtrl.currentPage.value - 1)
+          .getCurrentPageAyahs(generalCtrl.currentPageNumber.value - 1)
           .last
           .ayahUQNumber ==
       _currentAyahUQInPage.value;
   bool get isFirstAyahInPage =>
       quranCtrl
-          .getCurrentPageAyahs(generalCtrl.currentPage.value - 1)
+          .getCurrentPageAyahs(generalCtrl.currentPageNumber.value - 1)
           .first
           .ayahUQNumber ==
       _currentAyahUQInPage.value;
 
   bool get isLastAyahInSurah =>
       quranCtrl
-          .getCurrentSurahByPage(generalCtrl.currentPage.value - 1)
+          .getCurrentSurahByPage(generalCtrl.currentPageNumber.value - 1)
           .ayahs
           .last
           .ayahUQNumber ==
@@ -154,7 +155,7 @@ class AudioController extends GetxController {
 
   bool get isFirstAyahInSurah =>
       quranCtrl
-          .getCurrentSurahByPage(generalCtrl.currentPage.value - 1)
+          .getCurrentSurahByPage(generalCtrl.currentPageNumber.value - 1)
           .ayahs
           .first
           .ayahUQNumber ==
@@ -180,7 +181,7 @@ class AudioController extends GetxController {
   void moveToNextPage({bool withScroll = true}) {
     if (withScroll) {
       generalCtrl.quranPageController.animateToPage(
-          (generalCtrl.currentPage.value),
+          (generalCtrl.currentPageNumber.value),
           duration: const Duration(milliseconds: 600),
           curve: Curves.easeInOut);
     }
@@ -189,7 +190,7 @@ class AudioController extends GetxController {
   void moveToPreviousPage({bool withScroll = true}) {
     if (withScroll) {
       generalCtrl.quranPageController.animateToPage(
-          (generalCtrl.currentPage.value - 2),
+          (generalCtrl.currentPageNumber.value - 2),
           duration: const Duration(milliseconds: 600),
           curve: Curves.easeInOut);
     }
@@ -232,28 +233,23 @@ class AudioController extends GetxController {
         if (playerState.processingState == ProcessingState.completed &&
             !isProcessingNextAyah.value) {
           isProcessingNextAyah.value = true;
-          // _currentAyahUQInPage.value += 1;
           log(_currentAyahUQInPage.value);
           log(_currentAyahInSurah.value);
-          // isPlay.value = false;
-          // await audioPlayer.pause();
-          // isPlay.value = false;
-          if (generalCtrl.currentPage.value == 604) {
-            print('doneeeeeeeeeeee');
-            await audioPlayer.pause();
-            isPlay.value = false;
-          } else if (isLastAyahInPageButNotInSurah) {
-            print('moveToPage');
-            // generalCtrl.currentPage.value += 1;
-            moveToNextPage();
-            // isPlay.value = true;
-          } else if (isLastAyahInSurahAndPage) {
-            // generalCtrl.currentPage.value += 1;
-            moveToNextPage();
-            goingToNewSurah = true;
-          } else if (isLastAyahInSurahButNotInPage) {
-            moveToNextPage(withScroll: false);
-            goingToNewSurah = true;
+          if (quranCtrl.isPages.value == 0) {
+            if (generalCtrl.currentPageNumber.value == 604) {
+              print('doneeeeeeeeeeee');
+              await audioPlayer.pause();
+              isPlay.value = false;
+            } else if (isLastAyahInPageButNotInSurah) {
+              print('moveToPage');
+              moveToNextPage();
+            } else if (isLastAyahInSurahAndPage) {
+              moveToNextPage();
+              goingToNewSurah = true;
+            } else if (isLastAyahInSurahButNotInPage) {
+              moveToNextPage(withScroll: false);
+              goingToNewSurah = true;
+            }
           }
 
           await playNextAyah();
@@ -261,17 +257,6 @@ class AudioController extends GetxController {
           print('ProcessingState.completed');
         }
       });
-
-      // Duration position = await audioPlayer.position;
-      // lastPosition = position;
-      // if (lastPosition != null) {
-      //   audioPlayer
-      //       .seek(lastPosition); // Seek to the last position when resuming
-      //   print('lastPosition != null: $lastPosition');
-      //   lastPosition = null; // Reset the last position
-      //   isPlay.value = true;
-      //   // await audioPlayer.play();
-      // }
       isPlay.value = true;
       await audioPlayer.play();
       print('playFile2: play');
@@ -286,19 +271,35 @@ class AudioController extends GetxController {
     quranCtrl.clearAndAddSelection(_currentAyahUQInPage.value);
     await playFile(url, fileName);
     isProcessingNextAyah.value = false;
+    if (quranCtrl.isPages.value == 1) {
+      quranCtrl.itemScrollController.scrollTo(
+        index: _currentAyahUQInPage.value,
+        duration: const Duration(milliseconds: 600),
+        curve: Curves.easeInOut,
+      );
+    }
   }
 
   Future<void> playAyah() async {
-    if (_currentAyahUQInPage.value == 1) {}
-
-    _currentAyahUQInPage.value = _currentAyahUQInPage.value == 1
-        ? quranCtrl.allAyahs
-            .firstWhere((ayah) => ayah.page == generalCtrl.currentPage.value)
-            .ayahUQNumber
-        : _currentAyahUQInPage.value;
-
+    if (quranCtrl.isPages.value == 1) {
+      _currentAyahUQInPage.value = _currentAyahUQInPage.value == 1
+          ? quranCtrl.allAyahs
+              .firstWhere((ayah) =>
+                  ayah.page ==
+                  quranCtrl.itemPositionsListener.itemPositions.value.last
+                          .index +
+                      1)
+              .ayahUQNumber
+          : _currentAyahUQInPage.value;
+    } else {
+      _currentAyahUQInPage.value = _currentAyahUQInPage.value == 1
+          ? quranCtrl.allAyahs
+              .firstWhere(
+                  (ayah) => ayah.page == generalCtrl.currentPageNumber.value)
+              .ayahUQNumber
+          : _currentAyahUQInPage.value;
+    }
     quranCtrl.clearAndAddSelection(_currentAyahUQInPage.value);
-
     if (isPlay.value) {
       await audioPlayer.pause();
       isPlay.value = false;
@@ -392,11 +393,15 @@ class AudioController extends GetxController {
   }
 
   void clearSelection() {
-    if (isPlay.value) {
-      sl<GeneralController>().showControl();
+    if (quranCtrl.isPages.value == 1) {
+      generalCtrl.isShowControl.value = true;
     } else {
-      sl<GeneralController>().showControl();
-      quranCtrl.selectedAyahIndexes.clear();
+      if (isPlay.value) {
+        quranCtrl.showControl();
+      } else {
+        quranCtrl.showControl();
+        quranCtrl.selectedAyahIndexes.clear();
+      }
     }
     generalCtrl.drawerKey.currentState!.closeSlider();
   }

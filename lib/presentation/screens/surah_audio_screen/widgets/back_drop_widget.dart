@@ -1,10 +1,10 @@
-import 'package:alquranalkareem/core/widgets/tab_bar_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../../core/services/services_locator.dart';
 import '../../../../core/utils/constants/lottie.dart';
 import '../../../controllers/surah_audio_controller.dart';
+import '/core/widgets/tab_bar_widget.dart';
 import 'last_listen.dart';
 import 'play_banner.dart';
 import 'surah_audio_list.dart';
@@ -15,7 +15,6 @@ class BackDropWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final size = MediaQuery.of(context).size;
     return Column(
       children: [
         SizedBox(
@@ -65,18 +64,7 @@ class BackDropWidget extends StatelessWidget {
             ],
           ),
         ),
-
         const Flexible(child: SurahAudioList()),
-        // Obx(
-        //   () => AnimatedPositioned(
-        //     duration: const Duration(milliseconds: 300),
-        //     curve: Curves.easeInOut,
-        //     bottom: sl<GeneralController>().widgetPosition.value,
-        //     left: 0,
-        //     right: 0,
-        //     child: PlayWidget(),
-        //   ),
-        // ),
       ],
     );
   }

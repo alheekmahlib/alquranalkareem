@@ -58,7 +58,7 @@ Widget bookmarkIcon(BuildContext context, double height, double width,
         width: width,
         height: height,
         colorFilter: sl<BookmarksController>().isPageBookmarked(
-                pageNum ?? sl<GeneralController>().currentPage.value)
+                pageNum ?? sl<GeneralController>().currentPageNumber.value)
             ? const ColorFilter.mode(Color(0xffa24308), BlendMode.srcIn)
             : const ColorFilter.mode(Color(0xffCD9974), BlendMode.srcIn),
       ),
@@ -272,6 +272,22 @@ Widget surah_banner1({double? height, double? width}) {
 Widget surah_banner2({double? height, double? width}) {
   return SvgPicture.asset(
     'assets/svg/surah_banner2.svg',
+    width: width,
+    height: height ?? 35,
+  );
+}
+
+Widget surah_ayah_banner1({double? height, double? width}) {
+  return SvgPicture.asset(
+    'assets/svg/surah_banner_ayah1.svg',
+    width: width,
+    height: height ?? 35,
+  );
+}
+
+Widget surah_ayah_banner2({double? height, double? width}) {
+  return SvgPicture.asset(
+    'assets/svg/surah_banner_ayah2.svg',
     width: width,
     height: height ?? 35,
   );

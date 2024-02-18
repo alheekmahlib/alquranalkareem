@@ -19,133 +19,51 @@ class DownloadPlayButton extends StatelessWidget {
       child: Stack(
         alignment: Alignment.center,
         children: [
-          Align(
-            alignment: Alignment.topCenter,
-            child: StreamBuilder<LoopMode>(
-              stream: surahAudioCtrl.audioPlayer.loopModeStream,
-              builder: (context, snapshot) {
-                final loopMode = snapshot.data ?? LoopMode.off;
-                List<Widget> icons = [
-                  Icon(Icons.repeat,
-                      color: Get.theme.colorScheme.primary.withOpacity(.4)),
-                  Icon(Icons.repeat, color: Get.theme.colorScheme.primary),
-                ];
-                const cycleModes = [
-                  LoopMode.off,
-                  LoopMode.all,
-                ];
-                final index = cycleModes.indexOf(loopMode);
+          Obx(
+            () => SquarePercentIndicator(
+              width: 40,
+              height: 40,
+              borderRadius: 4,
+              shadowWidth: 1.5,
+              progressWidth: 2,
+              shadowColor: Colors.transparent,
+              progressColor: surahAudioCtrl.onDownloading.value
+                  ? Get.theme.colorScheme.surface
+                  : Colors.transparent,
+              progress: surahAudioCtrl.progress.value,
+            ),
+          ),
+          StreamBuilder<PlayerState>(
+            stream: surahAudioCtrl.audioPlayer.playerStateStream,
+            builder: (context, snapshot) {
+              final playerState = snapshot.data;
+              final processingState = playerState?.processingState;
+              final playing = playerState?.playing;
+              if (processingState == ProcessingState.loading ||
+                  processingState == ProcessingState.buffering) {
+                return playButtonLottie(20.0, 20.0);
+              } else {
                 return IconButton(
                   icon: Semantics(
                       button: true,
                       enabled: true,
-                      label: 'repeatSurah'.tr,
-                      child: icons[index]),
-                  onPressed: () {
-                    surahAudioCtrl.audioPlayer.setLoopMode(cycleModes[
-                        (cycleModes.indexOf(loopMode) + 1) %
-                            cycleModes.length]);
-                  },
-                );
-              },
-            ),
-          ),
-          Align(
-            alignment: Alignment.center,
-            child: Stack(
-              alignment: Alignment.center,
-              children: [
-                Obx(
-                  () => SquarePercentIndicator(
-                    width: 40,
-                    height: 40,
-                    borderRadius: 8,
-                    shadowWidth: 1.5,
-                    progressWidth: 4,
-                    shadowColor: Get.theme.colorScheme.primary.withOpacity(.5),
-                    progressColor: Get.isDarkMode
-                        ? Colors.white
-                        : Get.theme.primaryColorLight,
-                    progress: surahAudioCtrl.progress.value,
-                    child: Container(
-                      height: 40,
-                      width: 40,
-                      alignment: Alignment.center,
-                      padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                      decoration: BoxDecoration(
-                        color: Get.theme.colorScheme.background,
-                        borderRadius: const BorderRadius.all(
-                          Radius.circular(8),
-                        ),
-                        // border: Border.all(
-                        //     width: 2, color: Get.theme.dividerColor)
-                      ),
-                    ),
-                  ),
-                ),
-                StreamBuilder<PlayerState>(
-                  stream: surahAudioCtrl.audioPlayer.playerStateStream,
-                  builder: (context, snapshot) {
-                    final playerState = snapshot.data;
-                    final processingState = playerState?.processingState;
-                    final playing = playerState?.playing;
-                    if (processingState == ProcessingState.loading ||
-                        processingState == ProcessingState.buffering) {
-                      return playButtonLottie(20.0, 20.0);
-                    } else if (!surahAudioCtrl.isDownloading.value) {
-                      return IconButton(
-                        icon: Semantics(
-                            button: true,
-                            enabled: true,
-                            label: 'download'.tr,
-                            child: const Icon(Icons.download_outlined)),
-                        iconSize: 24.0,
-                        color: Get.theme.colorScheme.primary,
-                        onPressed: () async {
-                          surahAudioCtrl.isDownloading.value = true;
-                          surahAudioCtrl.isPlaying.value = false;
+                      label: 'download'.tr,
+                      child: const Icon(Icons.cloud_download_outlined)),
+                  iconSize: 24.0,
+                  color: Get.theme.colorScheme.primary,
+                  onPressed: () async {
+                    surahAudioCtrl.isDownloading.value = true;
+                    surahAudioCtrl.isPlaying.value = true;
 
-                          if (surahAudioCtrl.onDownloading.value) {
-                            surahAudioCtrl.cancelDownload();
-                          } else {
-                            await surahAudioCtrl.startDownload();
-                          }
-                        },
-                      );
-                    } else if (processingState != ProcessingState.completed) {
-                      return IconButton(
-                        icon: Semantics(
-                            button: true,
-                            enabled: true,
-                            label: 'pauseSurah'.tr,
-                            child: const Icon(Icons.pause)),
-                        iconSize: 24.0,
-                        color: Get.theme.colorScheme.primary,
-                        onPressed: () {
-                          surahAudioCtrl.audioPlayer.pause();
-                          surahAudioCtrl.isDownloading.value = false;
-                        },
-                      );
+                    if (surahAudioCtrl.onDownloading.value) {
+                      surahAudioCtrl.cancelDownload();
                     } else {
-                      return IconButton(
-                        icon: Semantics(
-                            button: true,
-                            enabled: true,
-                            label: 'replaySurah'.tr,
-                            child: const Icon(Icons.replay)),
-                        iconSize: 24.0,
-                        onPressed: () {
-                          surahAudioCtrl.isDownloading.value = true;
-                          surahAudioCtrl.audioPlayer.seek(Duration.zero,
-                              index: surahAudioCtrl
-                                  .audioPlayer.effectiveIndices!.first);
-                        },
-                      );
+                      await surahAudioCtrl.startDownload();
                     }
                   },
-                ),
-              ],
-            ),
+                );
+              }
+            },
           ),
         ],
       ),

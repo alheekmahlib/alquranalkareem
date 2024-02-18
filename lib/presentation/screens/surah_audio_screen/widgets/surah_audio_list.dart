@@ -2,6 +2,7 @@ import 'package:alquranalkareem/core/utils/constants/extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:mini_music_visualizer/mini_music_visualizer.dart';
 
@@ -82,13 +83,8 @@ class SurahAudioList extends StatelessWidget {
                                                     surahAudioCtrl.arabicNumber
                                                         .convert(sorah.id),
                                                     style: TextStyle(
-                                                        color: Get.isDarkMode
-                                                            ? Get
-                                                                .theme
-                                                                .colorScheme
-                                                                .secondary
-                                                            : Get.theme
-                                                                .primaryColorDark,
+                                                        color:
+                                                            Get.theme.hintColor,
                                                         fontFamily: "kufi",
                                                         fontSize: 14,
                                                         fontWeight:
@@ -110,13 +106,7 @@ class SurahAudioList extends StatelessWidget {
                                                 SvgPicture.asset(
                                                   'assets/svg/surah_name/00${index + 1}.svg',
                                                   colorFilter: ColorFilter.mode(
-                                                      Get.isDarkMode
-                                                          ? Get
-                                                              .theme
-                                                              .colorScheme
-                                                              .primary
-                                                          : Get.theme
-                                                              .primaryColorDark,
+                                                      Get.theme.hintColor,
                                                       BlendMode.srcIn),
                                                   width: 100,
                                                 ),
@@ -147,15 +137,17 @@ class SurahAudioList extends StatelessWidget {
                                               width: 4,
                                               height: 15,
                                             ),
-                                          Obx(() => Icon(
-                                                surahAudioCtrl.surahDownloadStatus
-                                                                .value[
-                                                            surahNumber] ??
-                                                        false
-                                                    ? Icons.check_circle_outline
-                                                    : Icons
-                                                        .cloud_download_outlined,
-                                              )),
+                                          const Gap(8.0),
+                                          Obx(() => surahAudioCtrl
+                                                      .surahDownloadStatus
+                                                      .value[surahNumber] ??
+                                                  false
+                                              ? const SizedBox.shrink()
+                                              : Icon(
+                                                  Icons.cloud_download_outlined,
+                                                  color: Get.theme.colorScheme
+                                                      .surface,
+                                                )),
                                         ],
                                       ),
                                     )),

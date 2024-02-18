@@ -62,8 +62,7 @@ class OnlinePlayButton extends StatelessWidget {
                 final playerState = snapshot.data;
                 final processingState = playerState?.processingState;
                 final playing = playerState?.playing;
-                if (processingState == ProcessingState.loading ||
-                    processingState == ProcessingState.buffering) {
+                if (processingState == ProcessingState.buffering) {
                   return playButtonLottie(20.0, 20.0);
                 } else if (!surahAudioCtrl.isPlaying.value) {
                   return GestureDetector(
@@ -76,7 +75,11 @@ class OnlinePlayButton extends StatelessWidget {
                       print(
                           'isDownloading: ${surahAudioCtrl.isDownloading.value}');
                       // await surahAudioCtrl.audioPlayer.pause();
-                      await surahAudioCtrl.audioPlayer.play();
+                      surahAudioCtrl.surahDownloadStatus
+                                  .value[surahAudioCtrl.surahNum.value] ??
+                              false
+                          ? await surahAudioCtrl.startDownload()
+                          : await surahAudioCtrl.audioPlayer.play();
                     },
                   );
                 } else if (processingState != ProcessingState.completed) {

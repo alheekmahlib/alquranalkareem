@@ -32,7 +32,7 @@ class settingsButton extends StatelessWidget {
             sl<GeneralController>().showSettings.value = true;
             Navigator.of(context).push(HeroDialogRoute(builder: (context) {
               return settingsPopupCard(
-                child: const SettingsList(),
+                child: SettingsList(),
                 height: context.customOrientation(
                     MediaQuery.sizeOf(context).height * 1 / 2,
                     MediaQuery.sizeOf(context).height * 1 / 2 * 1.6),

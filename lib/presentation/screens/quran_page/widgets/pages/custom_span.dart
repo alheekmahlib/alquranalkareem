@@ -12,7 +12,7 @@ TextSpan span({
   required double fontSize,
   required int surahNum,
   required int ayahNum,
-  required LongPressStartDetailsFunction onLongPressStart,
+  LongPressStartDetailsFunction? onLongPressStart,
   required bool isFirstAyah,
 }) {
   if (text.isNotEmpty) {

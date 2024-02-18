@@ -5,11 +5,9 @@ import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../core/services/services_locator.dart';
-import '../../core/utils/constants/shared_pref_services.dart';
 import '../../core/utils/constants/svg_picture.dart';
 import '../screens/quran_text/data/models/Ahya.dart';
 import '../screens/quran_text/data/models/QuranModel.dart';
-import '/core/utils/constants/shared_preferences_constants.dart';
 import 'ayat_controller.dart';
 import 'surahTextController.dart';
 
@@ -141,12 +139,6 @@ class QuranTextController extends GetxController {
   //   saveTextLastPlace(TextPageView.textCurrentPage, TextPageView.lastTime,
   //       TextPageView.sorahTextName);
   // }
-
-  Future<void> loadSwitchValue() async {
-    value.value = await sl<SharedPrefServices>()
-        .getInteger(SWITCH_VALUE, defaultValue: 0);
-    print('switchـvalue ${value.value}');
-  }
 
   // Save & Load Scroll Speed For Quran Text
   Future<void> saveScrollSpeedValue(double scroll) async {

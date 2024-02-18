@@ -1,11 +1,13 @@
 import 'dart:convert';
 
+import 'package:alquranalkareem/presentation/controllers/ayat_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../core/services/services_locator.dart';
 import '../../core/utils/constants/shared_pref_services.dart';
 import '../../core/utils/constants/shared_preferences_constants.dart';
+import '../screens/quran_page/data/model/translate.dart';
 import '/presentation/controllers/share_controller.dart';
 
 class TranslateDataController extends GetxController {
@@ -106,6 +108,9 @@ class TranslateDataController extends GetxController {
         await sl<SharedPrefServices>().saveString(TRANS, 'tr');
       case 8:
         sl<ShareController>().isTafseer.value = true;
+        sl<AyatController>().dBName =
+            sl<AyatController>().saadiClient?.database;
+        sl<AyatController>().selectedDBName = MufaserName.saadi.name;
         sl<SharedPrefServices>().saveBoolean(IS_TAFSEER, true);
       default:
         trans.value = 'en';

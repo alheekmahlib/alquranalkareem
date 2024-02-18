@@ -32,7 +32,6 @@ class SurahAudioController extends GetxController {
   RxBool isDownloading = false.obs;
   RxBool onDownloading = false.obs;
   RxBool isPlaying = false.obs;
-  RxBool downloading = false.obs;
   RxString progressString = "0".obs;
   RxDouble progress = 0.0.obs;
   RxInt surahNum = 1.obs;
@@ -150,6 +149,7 @@ class SurahAudioController extends GetxController {
         String filePath =
             '${directory.path}/${sorahReaderNameValue.value}$beautifiedSurahNumber.mp3';
         _addFileAudioSourceToPlayList(filePath);
+        onDownloadSuccess(int.parse(beautifiedSurahNumber!));
         print("File successfully downloaded and saved to $filePath");
         await audioPlayer
             .setAudioSource(AudioSource.file(
@@ -219,7 +219,7 @@ class SurahAudioController extends GetxController {
   void updateDownloadStatus(int surahNumber, bool downloaded) {
     final newStatus = Map<int, bool>.from(surahDownloadStatus.value);
     newStatus[surahNumber] = downloaded;
-    surahDownloadStatus.value = newStatus; // This should trigger UI updates
+    surahDownloadStatus.value = newStatus;
   }
 
   void onDownloadSuccess(int surahNumber) {
@@ -241,6 +241,7 @@ class SurahAudioController extends GetxController {
   }
 
   void cancelDownload() {
+    isPlaying.value = false;
     cancelToken.cancel('Request cancelled');
   }
 
@@ -281,11 +282,19 @@ class SurahAudioController extends GetxController {
   }
 
   changeAudioSource() async {
-    await audioPlayer.setAudioSource(AudioSource.uri(
-      Uri.parse(
-          '${sorahReaderValue.value}${sorahReaderNameValue.value}${beautifiedSurahNumber ?? 001}.mp3'),
-      // tag: await mediaItem,
-    ));
+    Directory? directory = await getApplicationDocumentsDirectory();
+    String filePath =
+        '${directory.path}/${sorahReaderNameValue.value}${beautifiedSurahNumber}.mp3';
+    surahDownloadStatus.value[surahNum.value] ?? false
+        ? await audioPlayer.setAudioSource(AudioSource.file(
+            '$filePath',
+            // tag: await mediaItem,
+          ))
+        : await audioPlayer.setAudioSource(AudioSource.uri(
+            Uri.parse(
+                '${sorahReaderValue.value}${sorahReaderNameValue.value}${beautifiedSurahNumber ?? 001}.mp3'),
+            // tag: await mediaItem,
+          ));
     print(
         'URL: ${sorahReaderValue.value}${sorahReaderNameValue.value}$beautifiedSurahNumber.mp3');
   }

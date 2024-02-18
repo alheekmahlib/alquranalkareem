@@ -134,7 +134,7 @@ class AnimatedStack extends StatelessWidget {
                             Navigator.of(context)
                                 .push(HeroDialogRoute(builder: (context) {
                               return settingsPopupCard(
-                                child: const SettingsList(),
+                                child: SettingsList(),
                                 height: context.customOrientation(
                                     400.0,
                                     MediaQuery.sizeOf(context).height *

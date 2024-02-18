@@ -6,10 +6,12 @@ import 'package:get/get.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:screenshot/screenshot.dart';
 import 'package:share_plus/share_plus.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../core/services/services_locator.dart';
 import '../../core/utils/constants/lists.dart';
-import '/core/widgets/widgets.dart';
+import '../../core/utils/constants/shared_preferences_constants.dart';
+import '../screens/quran_page/data/model/translate.dart';
 import 'ayat_controller.dart';
 import 'general_controller.dart';
 import 'translate_controller.dart';
@@ -44,30 +46,33 @@ class ShareController extends GetxController {
     }
   }
 
-  void changeTafseer(int verseUQNumber, int surahNum, int ayahNum) {
+  Future<void> shareButtonOnTap(BuildContext context, int selectedIndex,
+      int verseUQNumber, int surahNumber, int verseNumber) async {
+    sl<TranslateDataController>().shareTransValue.value == selectedIndex;
+    sl<SharedPreferences>().setInt(SHARE_TRANSLATE_VALUE, selectedIndex);
+    sl<SharedPreferences>()
+        .setString(CURRENT_TRANSLATE, shareTranslateName[selectedIndex]);
+    currentTranslate.value = shareTranslateName[selectedIndex];
+    sl<TranslateDataController>().shareTranslateHandleRadioValue(selectedIndex);
     if (isTafseer.value) {
-      // textTafseer!.value = sl<AyatController>().currentText.value!.translate;
-      if (sl<AyatController>().radioValue.value != 3 ||
-          sl<TranslateDataController>().shareTransValue.value == 8) {
-        sl<AyatController>().handleRadioValueChanged(3);
-        sl<AyatController>()
-            .fetchTafseerPage(sl<GeneralController>().currentPage.value);
-        sl<AyatController>().getNewTranslationAndNotify(surahNum, ayahNum);
-        customErrorSnackBar('تم تغيير التفسير إلى: ${'tafSaadiN'.tr}');
-      }
-      // tafseerOrTranslateName!.value = sl<AyatController>().radioValue.value != 3
-      //     ? ''
-      //     : AppLocalizations.of(context)!.tafSaadiN;
+      await sl<AyatController>()
+          .fetchTafseerPage(sl<GeneralController>().currentPageNumber.value);
+      sl<AyatController>().getNewTranslationAndNotify(surahNumber, verseNumber);
+    } else {
+      sl<TranslateDataController>().fetchTranslate(context);
     }
-    // else {
-    //   sl<TranslateDataController>().fetchTranslate(context);
-    //   textTafseer!.value =
-    //       sl<TranslateDataController>().data[verseUQNumber - 1]['text'];
-    // }
-    // else if (sl<GeneralController>().shareTafseerValue.value == 2) {
-    //   tafseerOrTranslateName!.value =
-    //       translateName[sl<TranslateDataController>().transValue.value];
-    // }
+    sl<TranslateDataController>().update();
+    Get.back();
+  }
+
+  void fetchTafseerSaadi(int surahNum, int ayahNum) {
+    if (isTafseer.value) {
+      sl<AyatController>().dBName = sl<AyatController>().saadiClient?.database;
+      sl<AyatController>().selectedDBName = MufaserName.saadi.name;
+      sl<AyatController>()
+          .fetchTafseerPage(sl<GeneralController>().currentPageNumber.value);
+      sl<AyatController>().getNewTranslationAndNotify(surahNum, ayahNum);
+    }
   }
 
   bool isRtlLanguage(String languageName) {
@@ -116,17 +121,5 @@ class ShareController extends GetxController {
       await imagePath.writeAsBytes(ayahToImageBytes!);
       await Share.shareXFiles([XFile((imagePath.path))], text: 'appName'.tr);
     }
-  }
-
-  Color getColor(Set<MaterialState> states) {
-    const Set<MaterialState> interactiveStates = <MaterialState>{
-      MaterialState.pressed,
-      MaterialState.hovered,
-      MaterialState.focused,
-    };
-    if (states.any(interactiveStates.contains)) {
-      return Colors.blue;
-    }
-    return Colors.red;
   }
 }

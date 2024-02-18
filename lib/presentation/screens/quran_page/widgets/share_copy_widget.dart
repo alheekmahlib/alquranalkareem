@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 
-import '../../../../../core/services/services_locator.dart';
-import '../../../../../core/utils/constants/svg_picture.dart';
-import '../../../../../core/widgets/share/share_ayah_options.dart';
+import '../../../../core/services/services_locator.dart';
+import '../../../../core/utils/constants/svg_picture.dart';
+import '../../../../core/widgets/share/share_ayah_options.dart';
 import '/presentation/controllers/ayat_controller.dart';
 
 class ShareCopyWidget extends StatelessWidget {

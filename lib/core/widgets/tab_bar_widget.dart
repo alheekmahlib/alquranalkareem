@@ -65,7 +65,7 @@ class TabBarWidget extends StatelessWidget {
                 : const SizedBox.shrink(),
             GestureDetector(
               onTap: () {
-                Get.bottomSheet(const SettingsList(), isScrollControlled: true);
+                Get.bottomSheet(SettingsList(), isScrollControlled: true);
                 generalCtrl.showSelectScreenPage.value = false;
               },
               child: Stack(

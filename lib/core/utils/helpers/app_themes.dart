@@ -98,7 +98,7 @@ final ThemeData darkTheme = ThemeData.dark(
     onError: Color(0xff404C6E),
     background: Color(0xff1E1E1E),
     onBackground: Color(0xff1E1E1E),
-    surface: Color(0xff404C6E),
+    surface: Color(0xffCDAD80),
     onSurface: Color(0xff404C6E),
     inversePrimary: Color(0xffffffff),
     inverseSurface: Color(0xffCD9974),

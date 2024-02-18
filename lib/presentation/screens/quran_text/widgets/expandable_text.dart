@@ -47,27 +47,27 @@ class ExpandableText extends StatelessWidget {
                   ? SelectableText(
                       text,
                       textAlign: textAlign,
-                      style: TextStyle(
-                        fontSize:
-                            sl<GeneralController>().fontSizeArabic.value - 8,
-                        fontFamily: 'kufi',
-                        color: Get.isDarkMode ? Colors.white : Colors.black,
-                        // overflow: TextOverflow.fade,
-                      ),
+                      style: textStyle,
                       textDirection: TextDirection.ltr,
                     )
-                  : Text(
-                      text,
-                      softWrap: true,
-                      overflow: TextOverflow.fade,
-                      textAlign: textAlign,
-                      style: TextStyle(
-                        fontSize:
-                            sl<GeneralController>().fontSizeArabic.value - 8,
-                        fontFamily: 'kufi',
-                        color: Get.isDarkMode ? Colors.white : Colors.black,
+                  : ShaderMask(
+                      shaderCallback: (Rect bounds) {
+                        return const LinearGradient(
+                          begin: Alignment.bottomCenter,
+                          end: Alignment.topCenter,
+                          colors: [Colors.transparent, Colors.black],
+                          stops: [0.0, 1.2],
+                        ).createShader(bounds);
+                      },
+                      blendMode: BlendMode.dstIn,
+                      child: Text(
+                        text,
+                        softWrap: true,
+                        overflow: TextOverflow.fade,
+                        textAlign: textAlign,
+                        style: textStyle,
+                        textDirection: TextDirection.ltr,
                       ),
-                      textDirection: TextDirection.ltr,
                     ),
             ),
           ),

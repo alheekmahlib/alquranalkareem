@@ -92,7 +92,6 @@ class ReadMoreLess extends StatelessWidget {
                   )
                 : Text(text,
                     softWrap: true,
-                    overflow: TextOverflow.fade,
                     textAlign: textAlign,
                     textDirection: TextDirection.ltr,
                     style: textStyle ?? Get.theme.textTheme.titleMedium);

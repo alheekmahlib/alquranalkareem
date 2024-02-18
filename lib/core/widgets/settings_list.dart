@@ -2,21 +2,25 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 
+import '../../presentation/screens/quran_page/widgets/mushaf_settings.dart';
 import '../services/services_locator.dart';
 import '/core/utils/constants/extensions.dart';
 import '/core/widgets/select_screen_build.dart';
 import '/presentation/controllers/general_controller.dart';
+import '/presentation/controllers/quran_controller.dart';
 import 'language_list.dart';
 import 'select_screen.dart';
 import 'theme_change.dart';
 
 class SettingsList extends StatelessWidget {
-  const SettingsList({Key? key}) : super(key: key);
+  SettingsList({Key? key}) : super(key: key);
+  final generalCtrl = sl<GeneralController>();
+  final quranCtrl = sl<QuranController>();
 
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.sizeOf(context);
-    final generalCtrl = sl<GeneralController>();
+
     return Container(
       height: size.height * .9,
       width: size.width,
@@ -56,6 +60,13 @@ class SettingsList extends StatelessWidget {
                     const ThemeChange(),
                     const Gap(16),
                     const SelectScreen(),
+                    const Gap(16),
+                    const MushafSettings(),
+                    // Switch(
+                    //   value: quranCtrl.isPages.value,
+                    //   activeColor: Colors.red,
+                    //   onChanged: quranCtrl.switchMode,
+                    // ),
                   ],
                 )),
         ),

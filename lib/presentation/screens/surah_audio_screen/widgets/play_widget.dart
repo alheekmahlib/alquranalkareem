@@ -49,56 +49,50 @@ class PlayWidget extends StatelessWidget {
           ),
           Column(
             children: [
-              Align(
-                alignment: Alignment.topCenter,
-                child: Obx(
-                  () => Stack(
-                    alignment: Alignment.center,
-                    children: [
-                      Opacity(
-                        opacity: .1,
-                        child: surahName(
-                          90,
-                          150,
-                        ),
-                      ),
-                      surahName(
-                        70,
+              Obx(
+                () => Stack(
+                  alignment: Alignment.center,
+                  children: [
+                    Opacity(
+                      opacity: .1,
+                      child: surahName(
+                        90,
                         150,
                       ),
-                    ],
-                  ),
+                    ),
+                    surahName(
+                      70,
+                      150,
+                    ),
+                  ],
                 ),
               ),
-              const Align(
-                alignment: Alignment.center,
-                child: ChangeSurahReader(),
-              ),
-              Align(
-                alignment: Alignment.bottomCenter,
-                child: SizedBox(
-                  height: 61,
-                  child: Obx(
-                    () => sl<SurahAudioController>().isDownloading.value == true
-                        ? const DownloadSurahSeekBar()
-                        : const SurahSeekBar(),
-                  ),
+              const ChangeSurahReader(),
+              SizedBox(
+                height: 61,
+                child: Obx(
+                  () => sl<SurahAudioController>().isDownloading.value == true
+                      ? const DownloadSurahSeekBar()
+                      : const SurahSeekBar(),
                 ),
               ),
-              const Align(
-                alignment: Alignment.center,
-                child: Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 32.0),
-                  child: Row(
-                    children: [
-                      const DownloadPlayButton(),
-                      Expanded(flex: 1, child: SkipToPrevious()),
-                      OnlinePlayButton(
-                        isRepeat: true,
-                      ),
-                      Expanded(flex: 1, child: SkipToNext()),
-                    ],
-                  ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 32.0),
+                child: Row(
+                  children: [
+                    Obx(
+                      () => surahCtrl.surahDownloadStatus
+                                  .value[surahCtrl.surahNum.value] ??
+                              false
+                          ? const SizedBox.shrink()
+                          : const DownloadPlayButton(),
+                    ),
+                    const Expanded(flex: 1, child: SkipToPrevious()),
+                    const OnlinePlayButton(
+                      isRepeat: true,
+                    ),
+                    const Expanded(flex: 1, child: SkipToNext()),
+                  ],
                 ),
               ),
             ],

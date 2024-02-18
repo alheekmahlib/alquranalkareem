@@ -41,7 +41,6 @@ class TextPageView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    sl<QuranTextController>().loadSwitchValue();
     sl<TranslateDataController>().fetchTranslate(context);
     sl<TranslateDataController>().loadTranslateValue();
     backColor = const Color(0xff91a57d).withOpacity(0.4);

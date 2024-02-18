@@ -201,17 +201,7 @@ class QuranSurahList extends StatelessWidget {
                                       ),
                                     )),
                                 onTap: () {
-                                  sl<GeneralController>().currentPage.value =
-                                      surah.ayahs.first.page - 1;
-                                  sl<GeneralController>()
-                                      .quranPageController
-                                      .animateToPage(
-                                        surah.ayahs.first.page - 1,
-                                        duration:
-                                            const Duration(milliseconds: 500),
-                                        curve: Curves.easeIn,
-                                      );
-                                  generalCtrl.drawerKey.currentState!.toggle();
+                                  quranCtrl.changeSurahListOnTap(surah);
                                 },
                               ),
                               context.hDivider(

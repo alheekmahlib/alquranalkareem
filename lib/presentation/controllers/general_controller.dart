@@ -33,7 +33,7 @@ class GeneralController extends GetxController {
   /// Page Controller
   PageController quranPageController = PageController();
 
-  RxInt currentPage = 1.obs;
+  RxInt currentPageNumber = 1.obs;
   RxInt lastReadSurahNumber = 1.obs;
   RxDouble fontSizeArabic = 20.0.obs;
   List<InlineSpan> text = [];
@@ -119,8 +119,9 @@ class GeneralController extends GetxController {
 
   Future<void> getLastPageAndFontSize() async {
     try {
-      currentPage.value = await sl<SharedPreferences>().getInt(MSTART_PAGE) ??
-          1; // Set a default value
+      currentPageNumber.value =
+          await sl<SharedPreferences>().getInt(MSTART_PAGE) ??
+              1; // Set a default value
       lastReadSurahNumber.value =
           await sl<SharedPreferences>().getInt(MLAST_URAH) ??
               1; // Set a default value
@@ -136,19 +137,8 @@ class GeneralController extends GetxController {
     }
   }
 
-  showControl() {
-    isShowControl.value = !isShowControl.value;
-    if (SlidingUpPanelStatus.hidden == panelController.status) {
-      panelController.collapse();
-      audioWidgetPosition.value = 70.0;
-    } else {
-      audioWidgetPosition.value = -240.0;
-      panelController.hide();
-    }
-  }
-
   Future<void> pageChanged(int index) async {
-    currentPage.value = index + 1;
+    currentPageNumber.value = index + 1;
     sl<PlayListController>().reset();
     panelController.hide();
     isShowControl.value = false;
@@ -183,7 +173,7 @@ class GeneralController extends GetxController {
 
   int get surahNumber => sl<AyatController>()
       .ayatList
-      .firstWhere((s) => s.pageNum == currentPage.value)
+      .firstWhere((s) => s.pageNum == currentPageNumber.value)
       .surahNum;
 
   surahPosition() {
@@ -227,16 +217,16 @@ class GeneralController extends GetxController {
     }
   }
 
-  PageController pageController() {
+  PageController get pageController {
     return quranPageController = PageController(
-        initialPage: sl<GeneralController>().currentPage.value - 1,
+        initialPage: sl<GeneralController>().currentPageNumber.value - 1,
         keepPage: true);
   }
 
   PageController dPageController({double? viewport}) {
     return quranPageController = PageController(
         viewportFraction: viewport!,
-        initialPage: sl<GeneralController>().currentPage.value - 1,
+        initialPage: sl<GeneralController>().currentPageNumber.value - 1,
         keepPage: true);
   }
 
@@ -310,7 +300,7 @@ class GeneralController extends GetxController {
       case 0:
         return const HomeScreen();
       case 1:
-        return QuranPage();
+        return QuranHome();
       case 2:
         return const AudioScreen();
       case 3:

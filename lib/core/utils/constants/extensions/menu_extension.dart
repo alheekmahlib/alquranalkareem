@@ -1,19 +1,16 @@
-import 'package:alquranalkareem/presentation/controllers/audio_controller.dart';
 import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 
 import '../../../../presentation/controllers/ayat_controller.dart';
-import '../../../../presentation/controllers/bookmarks_controller.dart';
-import '../../../../presentation/controllers/general_controller.dart';
 import '../../../../presentation/controllers/quran_controller.dart';
-import '../../../../presentation/screens/quran_text/widgets/widgets.dart';
+import '../../../../presentation/screens/quran_page/widgets/buttons/add_bookmark_button.dart';
+import '../../../../presentation/screens/quran_page/widgets/buttons/copy_button.dart';
+import '../../../../presentation/screens/quran_page/widgets/buttons/play_button.dart';
+import '../../../../presentation/screens/quran_page/widgets/buttons/tafsir_button.dart';
 import '../../../services/services_locator.dart';
 import '../../../widgets/share/share_ayah_options.dart';
-import '../../../widgets/widgets.dart';
-import '../svg_picture.dart';
 import '/core/utils/constants/extensions.dart';
 
 extension ContextMenuExtension on BuildContext {
@@ -48,99 +45,41 @@ extension ContextMenuExtension on BuildContext {
                   child: Row(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      GestureDetector(
-                        child: Semantics(
-                          button: true,
-                          enabled: true,
-                          label: 'Show Tafseer',
-                          child: tafsir_icon(height: 25.0),
-                        ),
-                        onTap: () {
-                          sl<AyatController>().showTafsirOnTap(
-                              surahNum,
-                              ayahNum,
-                              ayahText,
-                              pageIndex,
-                              ayahTextNormal,
-                              ayahUQNum);
-                          cancel();
-                        },
+                      TafsirButton(
+                        surahNum: surahNum,
+                        ayahNum: ayahNum,
+                        ayahText: ayahText,
+                        pageIndex: pageIndex,
+                        ayahTextNormal: ayahTextNormal,
+                        ayahUQNum: ayahUQNum,
+                        cancel: cancel,
                       ),
                       const Gap(6),
                       this.vDivider(height: 18.0),
-                      GestureDetector(
-                        child: Semantics(
-                          button: true,
-                          enabled: true,
-                          label: 'Play Ayah',
-                          child: play_arrow(height: 25.0),
-                        ),
-                        onTap: () {
-                          sl<AudioController>().startPlayingToggle();
-                          sl<QuranController>().isPlayExpanded.value = true;
-                          sl<AudioController>()
-                              .playAyahOnTap(surahNum, ayahNum, ayahUQNum);
-                          cancel();
-                        },
+                      PlayButton(
+                        surahNum: surahNum,
+                        ayahNum: ayahNum,
+                        ayahUQNum: ayahUQNum,
+                        cancel: cancel,
                       ),
                       const Gap(2),
                       this.vDivider(height: 18.0),
                       const Gap(6),
-                      GestureDetector(
-                        child: Semantics(
-                          button: true,
-                          enabled: true,
-                          label: 'Add Bookmark',
-                          child: sl<BookmarksController>()
-                                  .hasBookmark(surahNum, ayahUQNum)
-                                  .value
-                              ? bookmark_icon2(
-                                  height: 25.0,
-                                )
-                              : bookmark_icon(height: 25.0),
-                        ),
-                        onTap: () async {
-                          if (sl<BookmarksController>()
-                              .hasBookmark(surahNum, ayahUQNum)
-                              .value) {
-                            sl<BookmarksController>()
-                                .deleteBookmarksText(ayahUQNum);
-                            // sl<QuranController>().clearSelection();
-                          } else {
-                            sl<BookmarksController>()
-                                .addBookmarkText(
-                                    surahName,
-                                    surahNum,
-                                    pageIndex + 1,
-                                    ayahNum,
-                                    ayahUQNum,
-                                    sl<GeneralController>().timeNow.lastRead)
-                                .then((value) =>
-                                    customErrorSnackBar('addBookmark'.tr));
-                            // sl<QuranController>().clearSelection();
-                          }
-                          sl<AudioController>().clearSelection();
-                          cancel();
-                        },
+                      AddBookmarkButton(
+                        surahNum: surahNum,
+                        ayahNum: ayahNum,
+                        ayahUQNum: ayahUQNum,
+                        pageIndex: pageIndex,
+                        surahName: surahName,
+                        cancel: cancel,
                       ),
                       const Gap(6),
                       this.vDivider(height: 18.0),
                       const Gap(6),
-                      GestureDetector(
-                        child: Semantics(
-                          button: true,
-                          enabled: true,
-                          label: 'Copy Ayah',
-                          child: copy_icon(height: 25.0),
-                        ),
-                        onTap: () async {
-                          await Clipboard.setData(ClipboardData(
-                                  text:
-                                      '﴿${ayahTextNormal}﴾ [$surahName-${arabicNumber.convert(ayahNum.toString())}]'))
-                              .then((value) =>
-                                  customErrorSnackBar('copyAyah'.tr));
-                          cancel();
-                        },
+                      CopyButton(
+                        ayahNum: ayahNum,
+                        ayahTextNormal: ayahTextNormal,
+                        cancel: cancel,
                       ),
                       const Gap(6),
                       this.vDivider(height: 18.0),

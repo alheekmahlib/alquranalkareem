@@ -183,28 +183,28 @@ class PlayListController extends GetxController {
 
   int? get firstAyah => startNum.value == 1
       ? quranCtrl
-          .getCurrentPageAyahs(generalCtrl.currentPage.value - 1)
+          .getCurrentPageAyahs(generalCtrl.currentPageNumber.value - 1)
           .first
           .ayahNumber
       : startNum.value;
 
   int? get lastAyah => endNum.value == 1
       ? quranCtrl
-          .getCurrentPageAyahs(generalCtrl.currentPage.value - 1)
+          .getCurrentPageAyahs(generalCtrl.currentPageNumber.value - 1)
           .last
           .ayahNumber
       : endNum.value;
 
   int? get firstAyahUQ => startUQNum.value == 1
       ? quranCtrl
-          .getCurrentPageAyahs(generalCtrl.currentPage.value - 1)
+          .getCurrentPageAyahs(generalCtrl.currentPageNumber.value - 1)
           .first
           .ayahUQNumber
       : startUQNum.value;
 
   int? get lastAyahUQ => endUQNum.value == 1
       ? quranCtrl
-          .getCurrentPageAyahs(generalCtrl.currentPage.value - 1)
+          .getCurrentPageAyahs(generalCtrl.currentPageNumber.value - 1)
           .last
           .ayahUQNumber
       : endUQNum.value;
@@ -232,12 +232,13 @@ class PlayListController extends GetxController {
         endNum: endNum.value,
         startUQNum: startUQNum.value,
         endUQNum: endUQNum.value,
-        surahNum:
-            quranCtrl.getSurahNumberFromPage(generalCtrl.currentPage.value),
+        surahNum: quranCtrl
+            .getSurahNumberFromPage(generalCtrl.currentPageNumber.value),
         surahName:
-            quranCtrl.getSurahNameFromPage(generalCtrl.currentPage.value),
+            quranCtrl.getSurahNameFromPage(generalCtrl.currentPageNumber.value),
         readerName: audioCtrl.readerValue!,
-        name: quranCtrl.getSurahNameFromPage(generalCtrl.currentPage.value)));
+        name: quranCtrl
+            .getSurahNameFromPage(generalCtrl.currentPageNumber.value)));
     PlayListStorage.savePlayList(playLists);
     print('playLists: ${playLists.length.toString()}');
   }

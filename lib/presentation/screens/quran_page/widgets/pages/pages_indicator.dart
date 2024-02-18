@@ -54,7 +54,8 @@ class PagesIndicator extends StatelessWidget {
                               children: [
                                 Opacity(
                                   opacity:
-                                      generalCtrl.currentPage.value == index
+                                      generalCtrl.currentPageNumber.value ==
+                                              index
                                           ? 1
                                           : .5,
                                   child: SvgPicture.asset(
@@ -90,7 +91,8 @@ class PagesIndicator extends StatelessWidget {
                               children: [
                                 Opacity(
                                   opacity:
-                                      generalCtrl.currentPage.value == index + 1
+                                      generalCtrl.currentPageNumber.value ==
+                                              index + 1
                                           ? 1
                                           : .5,
                                   child: SvgPicture.asset(

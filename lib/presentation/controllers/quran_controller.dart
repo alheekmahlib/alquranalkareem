@@ -7,8 +7,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' show rootBundle;
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
+import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../core/services/services_locator.dart';
+import '../../core/utils/constants/shared_preferences_constants.dart';
 import '../../core/utils/constants/svg_picture.dart';
 import '../../core/widgets/widgets.dart';
 import '../screens/quran_page/data/model/surahs_model.dart';
@@ -29,6 +32,54 @@ class QuranController extends GetxController {
   RxDouble textWidgetPosition = (-240.0).obs;
   RxBool isPlayExpanded = false.obs;
   RxBool isSajda = false.obs;
+  RxInt isPages = 0.obs;
+  RxBool isMoreOptions = false.obs;
+  final itemScrollController = ItemScrollController();
+  final itemPositionsListener = ItemPositionsListener.create();
+  var moreOptionsMap = <String, bool>{}.obs;
+  RxInt selectMushafSettingsPage = 0.obs;
+  List<int> lastPlaceBannerPageIndex = [
+    75,
+    206,
+    330,
+    340,
+    348,
+    365,
+    375,
+    413,
+    415,
+    434,
+    450,
+    496,
+    504,
+    523,
+    546,
+    554,
+    556,
+    583
+  ];
+  List<int> firstPlaceBannerPageIndex = [
+    76,
+    207,
+    331,
+    341,
+    349,
+    366,
+    376,
+    414,
+    416,
+    435,
+    451,
+    497,
+    505,
+    524,
+    547,
+    554,
+    555,
+    557,
+    583,
+    584
+  ];
 
   final generalCtrl = sl<GeneralController>();
   final themeCtrl = sl<ThemeController>();
@@ -37,6 +88,43 @@ class QuranController extends GetxController {
   void onInit() async {
     super.onInit();
     await loadQuran();
+  }
+
+  void switchMode(int newMode) {
+    isPages.value = newMode;
+    selectMushafSettingsPage.value = newMode;
+    sl<SharedPreferences>().setInt(SWITCH_VALUE, newMode);
+    Get.back();
+    update();
+    if (newMode == 1) {
+      Future.delayed(const Duration(milliseconds: 600)).then((_) {
+        if (itemScrollController.isAttached) {
+          itemScrollController.jumpTo(
+            index: generalCtrl.currentPageNumber.value - 1,
+          );
+        }
+      });
+    } else {
+      generalCtrl.currentPageNumber.value =
+          itemPositionsListener.itemPositions.value.last.index + 1;
+    }
+  }
+
+  void changeSurahListOnTap(Surah surah) {
+    sl<GeneralController>().currentPageNumber.value =
+        surah.ayahs.first.page - 1;
+    if (isPages == 1) {
+      itemScrollController.jumpTo(
+        index: surah.ayahs.first.page - 1,
+      );
+    } else {
+      sl<GeneralController>().quranPageController.animateToPage(
+            surah.ayahs.first.page - 1,
+            duration: const Duration(milliseconds: 500),
+            curve: Curves.easeIn,
+          );
+    }
+    generalCtrl.drawerKey.currentState!.toggle();
   }
 
   Future<void> loadQuran() async {
@@ -107,7 +195,8 @@ class QuranController extends GetxController {
     return isSajda.value = false;
   }
 
-  List<Ayah> get currentPageAyahs => pages[generalCtrl.currentPage.value - 1];
+  List<Ayah> get currentPageAyahs =>
+      pages[generalCtrl.currentPageNumber.value - 1];
 
   double getSajdaPosition(int pageIndex) {
     final sajdaAyah = _getAyahWithSajdaInPage(pageIndex);
@@ -205,7 +294,7 @@ class QuranController extends GetxController {
   }
 
   void indicatorOnTap(int pageNumber, int itemWidth, double screenWidth) {
-    sl<GeneralController>().currentPage.value = pageNumber;
+    sl<GeneralController>().currentPageNumber.value = pageNumber;
     selectedIndicatorIndex.value = pageNumber;
     final targetOffset =
         itemWidth * pageNumber - (screenWidth * .69 / 2) + itemWidth / 2;
@@ -224,10 +313,11 @@ class QuranController extends GetxController {
   void indicatorScroll(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
     final itemWidth = 80;
-    selectedIndicatorIndex.value = sl<GeneralController>().currentPage.value;
+    selectedIndicatorIndex.value =
+        sl<GeneralController>().currentPageNumber.value;
     if (scrollIndicatorController.hasClients) {
       final targetOffset =
-          itemWidth * sl<GeneralController>().currentPage.value -
+          itemWidth * sl<GeneralController>().currentPageNumber.value -
               (screenWidth * .69 / 2) +
               itemWidth / 2;
       scrollIndicatorController.animateTo(
@@ -263,26 +353,48 @@ class QuranController extends GetxController {
     }
   }
 
+  Widget surahAyahBannerWidget(String number) {
+    if (themeCtrl.isBlueMode) {
+      return bannerWithSurahName(surah_ayah_banner1(), number);
+    } else if (themeCtrl.isBrownMode) {
+      return bannerWithSurahName(surah_ayah_banner2(), number);
+    } else {
+      return bannerWithSurahName(surah_banner3(), number);
+    }
+  }
+
+  Widget surahAyahBannerFirstPlace(int pageIndex, int i) {
+    final ayahs = getCurrentPageAyahsSeparatedForBasmalah(pageIndex)[i];
+    return ayahs.first.ayahNumber == 1
+        ? Container(
+            margin: const EdgeInsets.only(top: 16.0, right: 8.0, left: 8.0),
+            padding: const EdgeInsets.symmetric(horizontal: 16.0),
+            decoration: BoxDecoration(
+                color: Get.theme.colorScheme.surface.withOpacity(.4),
+                borderRadius: const BorderRadius.all(Radius.circular(8))),
+            width: double.infinity,
+            child: Column(
+              children: [
+                surahAyahBannerWidget(
+                    getSurahNumberByAyah(ayahs.first).toString()),
+                getSurahNumberByAyah(ayahs.first) == 9 ||
+                        getSurahNumberByAyah(ayahs.first) == 1
+                    ? const SizedBox.shrink()
+                    : ayahs.first.ayahNumber == 1
+                        ? (getSurahNumberByAyah(ayahs.first) == 95 ||
+                                getSurahNumberByAyah(ayahs.first) == 97)
+                            ? besmAllah2()
+                            : besmAllah()
+                        : const SizedBox.shrink(),
+                const Gap(6),
+              ],
+            ))
+        : const SizedBox.shrink();
+  }
+
   Widget surahBannerLastPlace(int pageIndex, int i) {
     final ayahs = getCurrentPageAyahsSeparatedForBasmalah(pageIndex)[i];
-    return pageIndex == 75 ||
-            pageIndex == 206 ||
-            pageIndex == 330 ||
-            pageIndex == 340 ||
-            pageIndex == 348 ||
-            pageIndex == 365 ||
-            pageIndex == 375 ||
-            pageIndex == 413 ||
-            pageIndex == 415 ||
-            pageIndex == 434 ||
-            pageIndex == 450 ||
-            pageIndex == 496 ||
-            pageIndex == 504 ||
-            pageIndex == 523 ||
-            pageIndex == 546 ||
-            pageIndex == 554 ||
-            pageIndex == 556 ||
-            pageIndex == 583
+    return pageIndex == lastPlaceBannerPageIndex
         ? surahBannerWidget((getSurahNumberByAyah(ayahs.first) + 1).toString())
         : const SizedBox.shrink();
   }
@@ -290,28 +402,26 @@ class QuranController extends GetxController {
   Widget surahBannerFirstPlace(int pageIndex, int i) {
     final ayahs = getCurrentPageAyahsSeparatedForBasmalah(pageIndex)[i];
     return ayahs.first.ayahNumber == 1
-        ? pageIndex == 76 ||
-                pageIndex == 207 ||
-                pageIndex == 331 ||
-                pageIndex == 341 ||
-                pageIndex == 349 ||
-                pageIndex == 366 ||
-                pageIndex == 376 ||
-                pageIndex == 414 ||
-                pageIndex == 416 ||
-                pageIndex == 435 ||
-                pageIndex == 451 ||
-                pageIndex == 497 ||
-                pageIndex == 505 ||
-                pageIndex == 524 ||
-                pageIndex == 547 ||
-                pageIndex == 554 ||
-                pageIndex == 555 ||
-                pageIndex == 557 ||
-                pageIndex == 583 ||
-                pageIndex == 584
+        ? pageIndex == firstPlaceBannerPageIndex
             ? const SizedBox.shrink()
             : surahBannerWidget(getSurahNumberByAyah(ayahs.first).toString())
         : const SizedBox.shrink();
+  }
+
+  showControl() {
+    generalCtrl.isShowControl.value = !generalCtrl.isShowControl.value;
+  }
+
+  void toggleMenu(String verseKey) {
+    var currentState = moreOptionsMap[verseKey] ?? false;
+    moreOptionsMap[verseKey] = !currentState;
+    moreOptionsMap.forEach((key, value) {
+      if (key != verseKey) moreOptionsMap[key] = false;
+    });
+    update();
+  }
+
+  Future<void> loadSwitchValue() async {
+    isPages.value = await sl<SharedPreferences>().getInt(SWITCH_VALUE) ?? 0;
   }
 }

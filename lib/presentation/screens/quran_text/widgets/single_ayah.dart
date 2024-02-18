@@ -134,7 +134,7 @@ class SingleAyah extends StatelessWidget {
                           size: 24,
                         ),
                       ),
-                      onPressed: () => translateDropDown(context),
+                      onPressed: () {},
                     ),
                     Expanded(
                         flex: 6,

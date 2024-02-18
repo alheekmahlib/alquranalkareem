@@ -33,9 +33,10 @@ class AudioWidget extends StatelessWidget {
               borderRadius: const BorderRadius.all(Radius.circular(8)),
               boxShadow: [
                 BoxShadow(
-                    offset: const Offset(0, 0),
-                    blurRadius: 5,
-                    color: Get.theme.colorScheme.primary)
+                    offset: const Offset(0, -6),
+                    blurRadius: 3,
+                    spreadRadius: 3,
+                    color: Get.theme.colorScheme.primary.withOpacity(.15))
               ]),
           child: Obx(() => AnimatedCrossFade(
                 duration: const Duration(milliseconds: 200),

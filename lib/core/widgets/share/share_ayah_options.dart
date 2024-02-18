@@ -1,14 +1,14 @@
-import 'package:alquranalkareem/core/utils/constants/extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../presentation/controllers/share_controller.dart';
 import '../../../presentation/controllers/translate_controller.dart';
 import '../../services/services_locator.dart';
+import '../../utils/constants/lists.dart';
 import '../../utils/constants/lottie.dart';
-import '../../utils/constants/shared_pref_services.dart';
-import '../../utils/constants/shared_preferences_constants.dart';
 import '../../utils/constants/svg_picture.dart';
+import '/core/utils/constants/extensions.dart';
+import '/presentation/controllers/quran_controller.dart';
 import 'share_ayahToImage.dart';
 import 'share_tafseerToImage.dart';
 
@@ -20,6 +20,7 @@ class ShareAyahOptions extends StatelessWidget {
   final String? textTranslate;
   final String surahName;
   final String ayahTextNormal;
+  final Function? cancel;
   const ShareAyahOptions({
     super.key,
     required this.verseNumber,
@@ -29,30 +30,23 @@ class ShareAyahOptions extends StatelessWidget {
     this.textTranslate,
     required this.surahName,
     required this.ayahTextNormal,
+    this.cancel,
   });
 
   @override
   Widget build(BuildContext context) {
     final shareToImage = sl<ShareController>();
-    List<String> translateName = <String>[
-      'English',
-      'Español',
-      'বাংলা',
-      'اردو',
-      'Soomaali',
-      'bahasa Indonesia',
-      'کوردی',
-      'Türkçe',
-      'تفسير السعدي'
-    ];
+
     return GestureDetector(
       child: Semantics(
         button: true,
         enabled: true,
         label: 'share'.tr,
-        child: share_icon(height: 25.0),
+        child: share_icon(
+            height: sl<QuranController>().isPages.value == 0 ? 20.0 : 25.0),
       ),
       onTap: () {
+        shareToImage.fetchTafseerSaadi(surahNumber, verseNumber);
         Get.bottomSheet(
             Container(
               height: MediaQuery.sizeOf(context).height * .9,
@@ -269,10 +263,10 @@ class ShareAyahOptions extends StatelessWidget {
                                               ),
                                             ),
                                             itemBuilder: (context) =>
-                                                translateName.map(
+                                                shareTranslateName.map(
                                               (e) {
                                                 int selectedIndex = 0;
-                                                translateName
+                                                shareTranslateName
                                                     .asMap()
                                                     .forEach((index, item) {
                                                   if (item == e) {
@@ -307,40 +301,13 @@ class ShareAyahOptions extends StatelessWidget {
                                                         ),
                                                       ),
                                                       onTap: () {
-                                                        sl<ShareController>()
-                                                            .changeTafseer(
+                                                        shareToImage
+                                                            .shareButtonOnTap(
+                                                                context,
+                                                                selectedIndex,
                                                                 verseUQNumber,
                                                                 surahNumber,
                                                                 verseNumber);
-                                                        sl<TranslateDataController>()
-                                                                .shareTransValue
-                                                                .value ==
-                                                            selectedIndex;
-                                                        sl<SharedPrefServices>()
-                                                            .saveInteger(
-                                                                TRANSLATE_VALUE,
-                                                                selectedIndex);
-                                                        sl<SharedPrefServices>()
-                                                            .saveString(
-                                                                CURRENT_TRANSLATE,
-                                                                translateName[
-                                                                    selectedIndex]);
-
-                                                        shareToImage
-                                                                .currentTranslate
-                                                                .value =
-                                                            translateName[
-                                                                selectedIndex];
-
-                                                        sl<TranslateDataController>()
-                                                            .shareTranslateHandleRadioValue(
-                                                                selectedIndex);
-                                                        sl<TranslateDataController>()
-                                                            .fetchTranslate(
-                                                                context);
-                                                        sl<TranslateDataController>()
-                                                            .update();
-                                                        Navigator.pop(context);
                                                       },
                                                     ),
                                                   ),

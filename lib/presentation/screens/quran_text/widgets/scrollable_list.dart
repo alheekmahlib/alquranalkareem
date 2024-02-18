@@ -5,8 +5,8 @@ import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 import '../../../../core/services/services_locator.dart';
 import '../../../controllers/bookmarksText_controller.dart';
 import '../../../controllers/quranText_controller.dart';
+import '../../quran_page/widgets/ayahs/ayahs_widget.dart';
 import '/presentation/screens/quran_text/data/models/QuranModel.dart';
-import '/presentation/screens/quran_text/widgets/page_ayah.dart';
 import '/presentation/screens/quran_text/widgets/single_ayah.dart';
 
 class ScrollableList extends StatefulWidget {
@@ -96,13 +96,7 @@ class _ScrollableListState extends State<ScrollableList> {
                   index: index,
                   nomPageF: widget.nomPageF,
                   nomPageL: widget.nomPageL)
-              : PageAyah(
-                  surah: widget.surah,
-                  text: text,
-                  index: index,
-                  nomPageF: widget.nomPageF,
-                  nomPageL: widget.nomPageL,
-                ),
+              : AyahsWidget(),
         );
       },
     );

@@ -30,7 +30,7 @@ class _QuranPageScreenState extends State<QuranPageScreen> {
   }
 
   final pages = [
-    QuranPage(),
+    QuranHome(),
     const SurahTextScreen(),
     const AzkarView(),
     const AudioScreen(),

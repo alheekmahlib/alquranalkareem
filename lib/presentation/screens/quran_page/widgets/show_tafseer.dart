@@ -8,12 +8,12 @@ import '../../../../core/widgets/widgets.dart';
 import '../../../controllers/ayat_controller.dart';
 import '../../../controllers/general_controller.dart';
 import '../../../controllers/translate_controller.dart';
-import '../../quran_text/widgets/tafsir_wedget/share_copy_wedget.dart';
 import '../data/model/aya.dart';
 import '/core/utils/constants/extensions.dart';
 import '/core/utils/constants/extensions/text_span_extension.dart';
 import '/core/utils/constants/svg_picture.dart';
 import 'change_tafsir.dart';
+import 'share_copy_widget.dart';
 
 class ShowTafseer extends StatelessWidget {
   ShowTafseer({Key? key}) : super(key: key);
