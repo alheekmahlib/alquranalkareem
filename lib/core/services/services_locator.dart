@@ -10,6 +10,7 @@ import 'package:sqflite_common_ffi/sqflite_ffi.dart';
 import 'package:timezone/data/latest.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
 
+import '../../presentation/controllers/ourApps_controller.dart';
 import '../../presentation/controllers/quran_controller.dart';
 import '../../presentation/controllers/splash_screen_controller.dart';
 import '../../presentation/controllers/theme_controller.dart';
@@ -185,6 +186,9 @@ class ServicesLocator {
     sl.registerLazySingleton<SplashScreenController>(() =>
         Get.put<SplashScreenController>(SplashScreenController(),
             permanent: true));
+
+    sl.registerLazySingleton<OurAppsController>(
+        () => Get.put<OurAppsController>(OurAppsController(), permanent: true));
     // NotifyHelper().initializeNotification();
     // sl<NotificationsController>().initializeLocalNotifications();
 

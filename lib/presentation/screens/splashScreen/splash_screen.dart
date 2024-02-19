@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../../core/utils/constants/svg_picture.dart';
 import '/core/utils/constants/extensions.dart';
 import '/presentation/screens/splashScreen/widgets/logo_and_title.dart';
 import 'widgets/alheekmah_and_loading.dart';
@@ -15,29 +16,47 @@ class SplashScreen extends StatelessWidget {
       body: Directionality(
         textDirection: TextDirection.rtl,
         child: context.customOrientation(
-            const Stack(
+            Stack(
               children: [
-                Align(
+                const Align(
                   alignment: Alignment.center,
                   child: LogoAndTitle(),
                 ),
                 Align(
+                  alignment: Alignment.topLeft,
+                  child: quran_ic_s(
+                    width: 600.0,
+                    height: 300.0,
+                  ),
+                ),
+                const Align(
                   alignment: Alignment.bottomCenter,
                   child: AlheekmahAndLoading(),
                 )
               ],
             ),
-            const Center(
-              child: Row(
+            Center(
+              child: Stack(
                 children: [
-                  Expanded(
-                    flex: 4,
-                    child: LogoAndTitle(),
+                  const Row(
+                    children: [
+                      Expanded(
+                        flex: 4,
+                        child: LogoAndTitle(),
+                      ),
+                      Expanded(
+                        flex: 4,
+                        child: AlheekmahAndLoading(),
+                      )
+                    ],
                   ),
-                  Expanded(
-                    flex: 4,
-                    child: AlheekmahAndLoading(),
-                  )
+                  Align(
+                    alignment: Alignment.topLeft,
+                    child: quran_ic_s(
+                      width: 600.0,
+                      height: 300.0,
+                    ),
+                  ),
                 ],
               ),
             )),

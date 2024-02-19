@@ -14,7 +14,6 @@ import '../../controllers/general_controller.dart';
 import '../../controllers/reminder_controller.dart';
 import '../about_app/about_app.dart';
 import '../alwaqf_screen/alwaqf_screen.dart';
-import '../info_app/info_app.dart';
 import '/core/utils/constants/extensions.dart';
 import 'data/models/reminder_model.dart';
 
@@ -315,7 +314,7 @@ class _MenuScreenState extends State<MenuScreen> {
                 ),
               ),
               onTap: () async {
-                Navigator.of(context).push(animatRoute(const InfoApp()));
+                // Navigator.of(context).push(animatRoute(const InfoApp()));
               },
             ),
           ),

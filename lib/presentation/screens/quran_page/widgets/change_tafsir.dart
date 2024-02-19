@@ -96,12 +96,6 @@ class ChangeTafsir extends StatelessWidget {
                         sl<AyatController>().handleRadioValueChanged(index);
                         await sl<SharedPreferences>()
                             .setInt(TAFSEER_VAL, index);
-                        // Get new translation and update state
-                        sl<AyatController>().getNewTranslationAndNotify(
-                            int.parse(
-                                sl<AyatController>().surahTextNumber.value),
-                            int.parse(
-                                sl<AyatController>().ayahTextNumber.value));
                         sl<TranslateDataController>().fetchTranslate(context);
                         Get.back();
                       },

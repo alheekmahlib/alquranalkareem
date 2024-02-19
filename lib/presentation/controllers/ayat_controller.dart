@@ -63,6 +63,8 @@ class AyatController extends GetxController {
   final AyatRepository ayatRepository = AyatRepository();
   RxBool isTafseer = false.obs;
 
+  // TODO; لوجيك التفسير بحاجة إلى إعادة ترتيب
+
   Future<Map<String, dynamic>> getAyatAndTafseer() async {
     final ayat =
         await fetchAyatPage(sl<GeneralController>().currentPageNumber.value);
@@ -214,38 +216,24 @@ class AyatController extends GetxController {
   //   }
   // }
 
-  void getNewTranslationAndNotify(
-      int selectedSurahNumber, int selectedAyahNumber) async {
-    try {
-      List<Tafseer> ayahsTafseer =
-          await handleRadioValueChanged(radioValue.value)
-              .getAyahTafseer(selectedAyahNumber, selectedSurahNumber);
+  Tafseer? selectedTafsir;
+  List<Tafseer>? currentPageTafseer;
 
-      if (ayahsTafseer.isNotEmpty) {
-        // If you still need to find a specific Ayah's Tafseer:
-        Tafseer? selectedAyah = ayahsTafseer
-            .firstWhereOrNull((ayah) => ayah.aya == selectedAyahNumber);
-        if (selectedAyah != null) {
-          updateText("$tafseerAyah", selectedAyah.text);
-        } else {
-          updateText("$tafseerAyah", '');
-          print(
-              'No Tafseer found for Ayah $selectedAyahNumber in Surah $selectedSurahNumber.');
-        }
-      } else {
-        // Handle the case where no Tafseer entries were found for the Surah
-        updateText("$tafseerAyah", '');
-        print('No Tafseer entries found for Surah $selectedSurahNumber.');
-      }
-    } catch (e) {
-      // If there's an error, handle it here
-      print('An error occurred: $e');
-      updateText("$tafseerAyah", '');
-    }
+  // Tafseer? get currentTafseer => currentPageTafseer!.firstWhereOrNull((ayah) => ayah.index == ayahUQNumber);
+
+  Future<void> getTafsir(int ayahUQNumber, int surahNumber) async {
+    currentPageTafseer = await handleRadioValueChanged(radioValue.value)
+        .getAyahTafseer(ayahUQNumber, surahNumber);
+    selectedTafsir = currentPageTafseer!
+        .firstWhereOrNull((ayah) => ayah.index == ayahUQNumber);
   }
 
+  Future<List<Tafseer>> ayahsTafseer(int ayahUQNumber, int surahNumber) async =>
+      await handleRadioValueChanged(radioValue.value)
+          .getAyahTafseer(ayahUQNumber, surahNumber);
+
   void ayahTafseerOnTap(Tafseer ayaTafseer, Aya aya, int index) {
-    getNewTranslationAndNotify(aya.surahNum, aya.ayaNum);
+    // getNewTranslationAndNotify(aya.surahNum, aya.index);
     print("suraNum ${aya.ayaNum}");
     isSelected.value = index.toDouble();
     ayahSelected.value = index;
@@ -274,14 +262,17 @@ class AyatController extends GetxController {
     tafseerAyah = ayahText;
     numberOfAyahText.value = ayahNum;
     surahNumber.value = surahNum;
-    ayahTextNumber.value = ayahNum.toString();
+    ayahTextNumber.value = ayahUQNum.toString();
     ayahTextNormal.value = ayahTextN;
     ayahUQNumber.value = ayahUQNum;
     sl<GeneralController>().currentPageNumber.value = pageIndex;
     sl<QuranTextController>().selected.value =
         !sl<QuranTextController>().selected.value;
     Get.bottomSheet(
-      ShowTafseer(),
+      ShowTafseer(
+        ayahUQNumber: ayahUQNum,
+        ayahNumber: ayahNum,
+      ),
       isScrollControlled: true,
       enterBottomSheetDuration: const Duration(milliseconds: 400),
       exitBottomSheetDuration: const Duration(milliseconds: 400),

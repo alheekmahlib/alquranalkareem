@@ -57,7 +57,7 @@ class ShareController extends GetxController {
     if (isTafseer.value) {
       await sl<AyatController>()
           .fetchTafseerPage(sl<GeneralController>().currentPageNumber.value);
-      sl<AyatController>().getNewTranslationAndNotify(surahNumber, verseNumber);
+      sl<AyatController>().ayahsTafseer(verseUQNumber, surahNumber);
     } else {
       sl<TranslateDataController>().fetchTranslate(context);
     }
@@ -65,13 +65,13 @@ class ShareController extends GetxController {
     Get.back();
   }
 
-  void fetchTafseerSaadi(int surahNum, int ayahNum) {
+  void fetchTafseerSaadi(int surahNum, int ayahNum, int ayahUQNum) {
     if (isTafseer.value) {
       sl<AyatController>().dBName = sl<AyatController>().saadiClient?.database;
       sl<AyatController>().selectedDBName = MufaserName.saadi.name;
       sl<AyatController>()
           .fetchTafseerPage(sl<GeneralController>().currentPageNumber.value);
-      sl<AyatController>().getNewTranslationAndNotify(surahNum, ayahNum);
+      sl<AyatController>().ayahsTafseer(ayahUQNum, surahNum);
     }
   }
 

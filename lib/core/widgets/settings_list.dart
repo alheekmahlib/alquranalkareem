@@ -2,8 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 
+import '../../presentation/screens/about_app/about_app.dart';
+import '../../presentation/screens/ourApp/ourApps_screen.dart';
 import '../../presentation/screens/quran_page/widgets/mushaf_settings.dart';
 import '../services/services_locator.dart';
+import '../utils/constants/svg_picture.dart';
 import '/core/utils/constants/extensions.dart';
 import '/core/widgets/select_screen_build.dart';
 import '/presentation/controllers/general_controller.dart';
@@ -62,11 +65,127 @@ class SettingsList extends StatelessWidget {
                     const SelectScreen(),
                     const Gap(16),
                     const MushafSettings(),
-                    // Switch(
-                    //   value: quranCtrl.isPages.value,
-                    //   activeColor: Colors.red,
-                    //   onChanged: quranCtrl.switchMode,
-                    // ),
+                    const Gap(16),
+                    Container(
+                      margin: const EdgeInsets.symmetric(horizontal: 16.0),
+                      padding: const EdgeInsets.all(4.0),
+                      decoration: BoxDecoration(
+                          border: Border.all(
+                              color: Get.theme.colorScheme.surface, width: 1),
+                          borderRadius:
+                              const BorderRadius.all(Radius.circular(8))),
+                      child: Column(
+                        children: [
+                          Container(
+                            padding:
+                                const EdgeInsets.symmetric(horizontal: 16.0),
+                            decoration: BoxDecoration(
+                                color: Get.theme.colorScheme.primary
+                                    .withOpacity(.2),
+                                borderRadius:
+                                    const BorderRadius.all(Radius.circular(8))),
+                            child: InkWell(
+                              child: SizedBox(
+                                height: 45,
+                                child: Row(
+                                  children: [
+                                    Expanded(
+                                        flex: 2,
+                                        child: alheekmah_logo(
+                                            width: 60.0,
+                                            color: Theme.of(context)
+                                                .colorScheme
+                                                .primary)),
+                                    context.vDivider(height: 20.0),
+                                    Expanded(
+                                      flex: 8,
+                                      child: Text(
+                                        'ourApps'.tr,
+                                        style: TextStyle(
+                                          fontFamily: 'kufi',
+                                          fontSize: 16,
+                                          color: Theme.of(context)
+                                              .colorScheme
+                                              .primary,
+                                        ),
+                                      ),
+                                    ),
+                                    const Spacer(),
+                                    Expanded(
+                                      flex: 1,
+                                      child: Icon(
+                                        Icons.arrow_forward_ios_outlined,
+                                        color: Theme.of(context)
+                                            .colorScheme
+                                            .primary,
+                                        size: 18,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              onTap: () {
+                                Get.to(() => const OurApps(),
+                                    transition: Transition.downToUp);
+                              },
+                            ),
+                          ),
+                          const Gap(4),
+                          Container(
+                            padding:
+                                const EdgeInsets.symmetric(horizontal: 16.0),
+                            decoration: BoxDecoration(
+                                color: Get.theme.colorScheme.primary
+                                    .withOpacity(.2),
+                                borderRadius:
+                                    const BorderRadius.all(Radius.circular(8))),
+                            child: InkWell(
+                              child: SizedBox(
+                                height: 45,
+                                child: Row(
+                                  children: [
+                                    Expanded(
+                                        flex: 2,
+                                        child: splash_icon(
+                                          height: 35.0,
+                                        )),
+                                    context.vDivider(height: 20.0),
+                                    Expanded(
+                                      flex: 8,
+                                      child: Text(
+                                        'aboutApp'.tr,
+                                        style: TextStyle(
+                                          fontFamily: 'kufi',
+                                          fontSize: 16,
+                                          color: Theme.of(context)
+                                              .colorScheme
+                                              .primary,
+                                        ),
+                                      ),
+                                    ),
+                                    const Spacer(),
+                                    Expanded(
+                                      flex: 1,
+                                      child: Icon(
+                                        Icons.arrow_forward_ios_outlined,
+                                        color: Theme.of(context)
+                                            .colorScheme
+                                            .primary,
+                                        size: 18,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              onTap: () {
+                                Get.to(() => const AboutApp(),
+                                    transition: Transition.downToUp);
+                              },
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
                   ],
                 )),
         ),

@@ -1,11 +1,18 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:flutter_slider_drawer/flutter_slider_drawer.dart';
 import 'package:flutter_sliding_up_panel/sliding_up_panel_widget.dart';
 import 'package:get/get.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:share_plus/share_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../core/services/services_locator.dart';
+import '../../core/utils/constants/lists.dart';
 import '../../core/utils/constants/shared_preferences_constants.dart';
 import '../../core/widgets/time_now.dart';
 import '../screens/athkar/screens/alzkar_view.dart';
@@ -316,5 +323,56 @@ class GeneralController extends GetxController {
       return smallWidth;
     }
     return largeWidth;
+  }
+
+  bool isRtlLanguage(String languageName) {
+    return rtlLang.contains(languageName);
+  }
+
+  RotatedBox checkWidgetRtlLayout(Widget myWidget) {
+    if (isRtlLanguage('lang'.tr)) {
+      return RotatedBox(quarterTurns: 0, child: myWidget);
+    } else {
+      return RotatedBox(quarterTurns: 2, child: myWidget);
+    }
+  }
+
+  Future<void> launchEmail() async {
+    const String subject = "تطبيق القرآن الكريم - مكتبة الحكمة";
+    const String stringText =
+        "يرجى كتابة أي ملاحظة أو إستفسار\n| جزاكم الله خيرًا |";
+    String uri =
+        'mailto:haozo89@gmail.com?subject=${Uri.encodeComponent(subject)}&body=${Uri.encodeComponent(stringText)}';
+    if (await canLaunchUrl(Uri.parse(uri))) {
+      await launchUrl(Uri.parse(uri));
+    } else {
+      print("No email client found");
+    }
+  }
+
+  Future<void> launchFacebookUrl() async {
+    String uri = 'https://www.facebook.com/alheekmahlib';
+    if (await canLaunchUrl(Uri.parse(uri))) {
+      await launchUrl(Uri.parse(uri));
+    } else {
+      print("No url client found");
+    }
+  }
+
+  Future<void> share(BuildContext context) async {
+    final box = context.findRenderObject() as RenderBox?;
+    final ByteData bytes =
+        await rootBundle.load('assets/images/AlQuranAlKareem.jpg');
+    final Uint8List list = bytes.buffer.asUint8List();
+
+    final tempDir = await getTemporaryDirectory();
+    final file = await File('${tempDir.path}/AlQuranAlKareem.jpg').create();
+    file.writeAsBytesSync(list);
+    await Share.shareXFiles(
+      [XFile((file.path))],
+      text:
+          'تطبيق "القرآن الكريم - مكتبة الحكمة" التطبيق الأمثل لقراءة القرآن.\n\nللتحميل:\nalheekmahlib.com/#/download/app/0',
+      sharePositionOrigin: box!.localToGlobal(Offset.zero) & box.size,
+    );
   }
 }

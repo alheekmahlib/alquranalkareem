@@ -6,8 +6,6 @@ import '../../../../core/services/services_locator.dart';
 import '../../../../core/widgets/widgets.dart';
 import '../../../controllers/general_controller.dart';
 import '../../../controllers/translate_controller.dart';
-import '../../quran_page/widgets/show_tafseer.dart';
-import '../../quran_page/widgets/sliding_up.dart';
 import '../data/models/QuranModel.dart';
 import '../widgets/scrollable_list.dart';
 import '../widgets/widgets.dart';
@@ -104,12 +102,12 @@ class TextPageView extends StatelessWidget {
                       ),
                     ),
                   ),
-                  Align(
-                      alignment: Alignment.bottomCenter,
-                      child: TextSliding(
-                        myWidget1: ShowTafseer(),
-                        cHeight: 110.0,
-                      )),
+                  // Align(
+                  //     alignment: Alignment.bottomCenter,
+                  //     child: TextSliding(
+                  //       myWidget1: ShowTafseer(),
+                  //       cHeight: 110.0,
+                  //     )),
                 ],
               ),
             )),

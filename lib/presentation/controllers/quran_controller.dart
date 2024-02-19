@@ -90,43 +90,6 @@ class QuranController extends GetxController {
     await loadQuran();
   }
 
-  void switchMode(int newMode) {
-    isPages.value = newMode;
-    selectMushafSettingsPage.value = newMode;
-    sl<SharedPreferences>().setInt(SWITCH_VALUE, newMode);
-    Get.back();
-    update();
-    if (newMode == 1) {
-      Future.delayed(const Duration(milliseconds: 600)).then((_) {
-        if (itemScrollController.isAttached) {
-          itemScrollController.jumpTo(
-            index: generalCtrl.currentPageNumber.value - 1,
-          );
-        }
-      });
-    } else {
-      generalCtrl.currentPageNumber.value =
-          itemPositionsListener.itemPositions.value.last.index + 1;
-    }
-  }
-
-  void changeSurahListOnTap(Surah surah) {
-    sl<GeneralController>().currentPageNumber.value =
-        surah.ayahs.first.page - 1;
-    if (isPages == 1) {
-      itemScrollController.jumpTo(
-        index: surah.ayahs.first.page - 1,
-      );
-    } else {
-      sl<GeneralController>().quranPageController.animateToPage(
-            surah.ayahs.first.page - 1,
-            duration: const Duration(milliseconds: 500),
-            curve: Curves.easeIn,
-          );
-    }
-    generalCtrl.drawerKey.currentState!.toggle();
-  }
-
   Future<void> loadQuran() async {
     String jsonString = await rootBundle.loadString('assets/json/quranV2.json');
     Map<String, dynamic> jsonResponse = jsonDecode(jsonString);
@@ -423,5 +386,42 @@ class QuranController extends GetxController {
 
   Future<void> loadSwitchValue() async {
     isPages.value = await sl<SharedPreferences>().getInt(SWITCH_VALUE) ?? 0;
+  }
+
+  void switchMode(int newMode) {
+    isPages.value = newMode;
+    selectMushafSettingsPage.value = newMode;
+    sl<SharedPreferences>().setInt(SWITCH_VALUE, newMode);
+    Get.back();
+    update();
+    if (newMode == 1) {
+      Future.delayed(const Duration(milliseconds: 600)).then((_) {
+        if (itemScrollController.isAttached) {
+          itemScrollController.jumpTo(
+            index: generalCtrl.currentPageNumber.value - 1,
+          );
+        }
+      });
+    } else {
+      generalCtrl.currentPageNumber.value =
+          itemPositionsListener.itemPositions.value.last.index + 1;
+    }
+  }
+
+  void changeSurahListOnTap(Surah surah) {
+    sl<GeneralController>().currentPageNumber.value =
+        surah.ayahs.first.page - 1;
+    if (isPages == 1) {
+      itemScrollController.jumpTo(
+        index: surah.ayahs.first.page - 1,
+      );
+    } else {
+      sl<GeneralController>().quranPageController.animateToPage(
+            surah.ayahs.first.page - 1,
+            duration: const Duration(milliseconds: 500),
+            curve: Curves.easeIn,
+          );
+    }
+    generalCtrl.drawerKey.currentState!.toggle();
   }
 }

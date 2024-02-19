@@ -329,6 +329,22 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.4.0"
+  device_info_plus:
+    dependency: "direct main"
+    description:
+      name: device_info_plus
+      sha256: "77f757b789ff68e4eaf9c56d1752309bd9f7ad557cb105b938a7f8eb89e59110"
+      url: "https://pub.dev"
+    source: hosted
+    version: "9.1.2"
+  device_info_plus_platform_interface:
+    dependency: transitive
+    description:
+      name: device_info_plus_platform_interface
+      sha256: d3b01d5868b50ae571cd1dc6e502fc94d956b665756180f7b16ead09e836fd64
+      url: "https://pub.dev"
+    source: hosted
+    version: "7.0.0"
   dio:
     dependency: "direct main"
     description:
@@ -629,6 +645,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "4.1.4"
+  info_popup:
+    dependency: "direct main"
+    description:
+      name: info_popup
+      sha256: "82f54db29c19802c9b499de5d87a81a901e27a804677902a5b540df35e6493f1"
+      url: "https://pub.dev"
+    source: hosted
+    version: "4.3.1"
   interactive_slider:
     dependency: "direct main"
     description:
@@ -1418,6 +1442,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "5.2.0"
+  win32_registry:
+    dependency: transitive
+    description:
+      name: win32_registry
+      sha256: "41fd8a189940d8696b1b810efb9abcf60827b6cbfab90b0c43e8439e3a39d85a"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.1.2"
   workmanager:
     dependency: "direct main"
     description:

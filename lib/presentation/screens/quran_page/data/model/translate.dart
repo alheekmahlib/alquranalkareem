@@ -17,6 +17,7 @@ class Tafseer {
 
   static fromMap(Map map) {
     Tafseer translate = Tafseer();
+    translate.index = map["index"];
     translate.aya = map["aya"];
     translate.surah = map["sura"];
     translate.text = map["text"];

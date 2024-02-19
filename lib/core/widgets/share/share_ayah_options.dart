@@ -46,7 +46,7 @@ class ShareAyahOptions extends StatelessWidget {
             height: sl<QuranController>().isPages.value == 0 ? 20.0 : 25.0),
       ),
       onTap: () {
-        shareToImage.fetchTafseerSaadi(surahNumber, verseNumber);
+        shareToImage.fetchTafseerSaadi(surahNumber, verseNumber, verseUQNumber);
         Get.bottomSheet(
             Container(
               height: MediaQuery.sizeOf(context).height * .9,

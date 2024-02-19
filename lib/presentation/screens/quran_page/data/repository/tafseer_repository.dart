@@ -1,8 +1,8 @@
 import 'package:sqflite/sqflite.dart';
 
-import '/presentation/controllers/ayat_controller.dart';
 import '../../../../../core/services/services_locator.dart';
 import '../model/translate.dart';
+import '/presentation/controllers/ayat_controller.dart';
 
 class TafseerRepository {
   String? tableName;
@@ -24,11 +24,12 @@ class TafseerRepository {
     return ayaList;
   }
 
-  Future<List<Tafseer>> getAyahTafseer(int ayahNumber, int surahNumber) async {
+  Future<List<Tafseer>> getAyahTafseer(
+      int ayahUQNumber, int surahNumber) async {
     Database? database = await dBName;
     List<Map<String, Object?>>? results = await database?.rawQuery(
-        "SELECT * FROM ${sl<AyatController>().selectedDBName} WHERE aya = ? AND sura = ?",
-        [ayahNumber, surahNumber]);
+        "SELECT * FROM ${sl<AyatController>().selectedDBName} WHERE \"index\" = ? AND sura = ?",
+        [ayahUQNumber, surahNumber]);
     List<Tafseer> ayaList = [];
     results?.forEach((result) {
       ayaList.add(Tafseer.fromMap(result));

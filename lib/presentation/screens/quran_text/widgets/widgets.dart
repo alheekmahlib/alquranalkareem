@@ -253,11 +253,7 @@ menu(BuildContext context, int b, int index, translateData, SurahText widget,
                         sl<GeneralController>().shareTafseerValue.value = 2;
                         sl<QuranTextController>().selected.value =
                             !sl<QuranTextController>().selected.value;
-                        sl<AyatController>().getNewTranslationAndNotify(
-                            int.parse(
-                                sl<AyatController>().surahTextNumber.value),
-                            int.parse(
-                                sl<AyatController>().ayahTextNumber.value));
+
                         final verseNumber = widget.ayahs![b].number!;
                         final translation =
                             translateData?[verseNumber - 1]['text'];
@@ -509,8 +505,6 @@ singleAyahMenu(BuildContext context, int b, index, translateData, widget,
               sl<GeneralController>().shareTafseerValue.value = 2;
               sl<QuranTextController>().selected.value =
                   !sl<QuranTextController>().selected.value;
-              sl<AyatController>().getNewTranslationAndNotify(
-                  widget.number!, widget.ayahs![b].numberInSurah!);
               final verseNumber = widget.ayahs![b].number!;
               final translation = translateData?[verseNumber - 1]['text'];
 

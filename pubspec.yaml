@@ -20,6 +20,7 @@ dependencies:
   cupertino_icons: ^1.0.6
   day_night_time_picker: ^1.3.0+1
   desktop_window: ^0.4.0
+  device_info_plus: ^9.1.2
   dio: ^5.4.0
   easy_image_viewer: ^1.3.2
   equatable: ^2.0.5
@@ -46,6 +47,7 @@ dependencies:
   hijri: ^3.0.0
 #  home_widget: ^0.4.1
   html: ^0.15.4
+  info_popup: ^4.3.1
   interactive_slider: ^0.2.2
   just_audio: ^0.9.36
   just_audio_background: ^0.0.1-beta.11
@@ -113,6 +115,7 @@ flutter:
 
   assets:
     - assets/svg/
+    - assets/icons/
     - assets/svg/surah_name/
     - assets/svg/juz/
     - assets/onboarding/

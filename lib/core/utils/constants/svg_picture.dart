@@ -173,6 +173,14 @@ Widget splash_icon({double? height, double? width}) {
   );
 }
 
+Widget splash_icon_s({double? height, double? width}) {
+  return SvgPicture.asset(
+    'assets/svg/splash_icon_s.svg',
+    width: width,
+    height: height ?? 60,
+  );
+}
+
 Widget play_arrow({double? height, double? width}) {
   return SvgPicture.asset(
     'assets/svg/play-arrow.svg',
@@ -330,5 +338,15 @@ Widget search_icon({double? height, double? width}) {
     'assets/svg/search_icon.svg',
     width: width,
     height: height ?? 35,
+  );
+}
+
+Widget alheekmah_logo({double? height, double? width, Color? color}) {
+  return SvgPicture.asset(
+    'assets/svg/alheekmah_logo.svg',
+    width: width,
+    height: height ?? 35,
+    colorFilter: ColorFilter.mode(
+        color ?? Get.theme.colorScheme.secondary, BlendMode.srcIn),
   );
 }
