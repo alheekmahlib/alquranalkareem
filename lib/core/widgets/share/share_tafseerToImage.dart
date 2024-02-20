@@ -1,3 +1,5 @@
+import 'package:alquranalkareem/core/utils/constants/extensions/text_span_extension.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
@@ -17,7 +19,7 @@ class TafseerImageCreator extends StatelessWidget {
   final int verseUQNumber;
   final int surahNumber;
   final String verseText;
-  final String tafseerText;
+  final List<TextSpan> tafseerText;
 
   TafseerImageCreator({
     Key? key,
@@ -60,7 +62,7 @@ class TafseerImageCreator extends StatelessWidget {
     required int verseUQNumber,
     required int surahNumber,
     required String verseText,
-    required String tafseerText,
+    required List<TextSpan> tafseerText,
   }) {
     final tafseerToImage = sl<ShareController>();
 
@@ -85,7 +87,8 @@ class TafseerImageCreator extends StatelessWidget {
                     alignment: Alignment.center,
                     children: [
                       surah_banner1(),
-                      surahNameWidget('$surahNumber', const Color(0xff404C6E)),
+                      surahNameWidget(
+                          height: 25, '$surahNumber', const Color(0xff404C6E)),
                     ],
                   ),
                   const Gap(16),
@@ -121,7 +124,7 @@ class TafseerImageCreator extends StatelessWidget {
                                 () => Text(
                                   tafseerToImage.currentTranslate.value,
                                   style: const TextStyle(
-                                    fontSize: 14,
+                                    fontSize: 10,
                                     fontFamily: 'kufi',
                                     color: Color(0xff161f07),
                                   ),
@@ -138,19 +141,28 @@ class TafseerImageCreator extends StatelessWidget {
                                 borderRadius:
                                     const BorderRadius.all(Radius.circular(8))),
                             child: Obx(
-                              () => Text(
+                              () => Text.rich(
                                 sl<ShareController>().isTafseer.value
-                                    ? sl<AyatController>()
-                                        .currentText
-                                        .value!
-                                        .translate
-                                    : sl<TranslateDataController>()
-                                        .data[verseUQNumber - 1]['text'],
-                                style: const TextStyle(
-                                  fontSize: 16,
-                                  fontFamily: 'naskh',
-                                  color: Color(0xff161f07),
-                                ),
+                                    ? TextSpan(
+                                        children: sl<AyatController>()
+                                            .selectedTafsir!
+                                            .text
+                                            .buildTextSpans(),
+                                        style: const TextStyle(
+                                          fontSize: 16,
+                                          fontFamily: 'naskh',
+                                          color: Color(0xff161f07),
+                                        ),
+                                      )
+                                    : TextSpan(
+                                        text: sl<TranslateDataController>()
+                                            .data[verseUQNumber - 1]['text'],
+                                        style: const TextStyle(
+                                          fontSize: 16,
+                                          fontFamily: 'naskh',
+                                          color: Color(0xff161f07),
+                                        ),
+                                      ),
                                 textAlign: TextAlign.justify,
                                 textDirection:
                                     tafseerToImage.checkApplyRtlLayout(

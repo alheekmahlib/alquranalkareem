@@ -1,10 +1,10 @@
-import 'package:alquranalkareem/presentation/screens/quran_page/widgets/bookmarks/bookmarks_list.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../../../core/services/services_locator.dart';
 import '../../../../../core/utils/constants/svg_picture.dart';
 import '../../../../controllers/general_controller.dart';
+import '/presentation/screens/quran_page/widgets/bookmarks/bookmarks_list.dart';
 
 class NavBarWidget extends StatelessWidget {
   const NavBarWidget({super.key});

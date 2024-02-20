@@ -289,22 +289,22 @@
     "type": "text",
     "placeholders": {}
   },
-  "reader1": "عبد الباسط عبد الصمد",
+  "reader1": "عبد الباسط",
   "@reader1": {
     "type": "text",
     "placeholders": {}
   },
-  "reader2": "محمد صديق المنشاوي",
+  "reader2": "محمد المنشاوي",
   "@reader2": {
     "type": "text",
     "placeholders": {}
   },
-  "reader3": "محمود خليل الحصري",
+  "reader3": "محمود الحصري",
   "@reader3": {
     "type": "text",
     "placeholders": {}
   },
-  "reader4": "أحمد بن علي العجمي",
+  "reader4": "أحمد العجمي",
   "@reader4": {
     "type": "text",
     "placeholders": {}

@@ -209,15 +209,6 @@ class SingleAyah extends StatelessWidget {
                 children: [
                   juzNum('${surah!.ayahs![index].juz}', context,
                       Get.isDarkMode ? Colors.white : Colors.black, 25),
-                  singleAyahMenu(
-                      context,
-                      index,
-                      index,
-                      // details,
-                      sl<TranslateDataController>().data,
-                      surah,
-                      nomPageF,
-                      nomPageL),
                 ],
               ),
             ),

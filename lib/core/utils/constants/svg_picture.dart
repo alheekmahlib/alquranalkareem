@@ -10,7 +10,7 @@ import '../../services/services_locator.dart';
 Widget besmAllah() {
   return SvgPicture.asset(
     'assets/svg/besmAllah.svg',
-    width: 250,
+    height: 30,
     colorFilter:
         ColorFilter.mode(Get.theme.cardColor.withOpacity(.8), BlendMode.srcIn),
   );
@@ -19,7 +19,7 @@ Widget besmAllah() {
 Widget besmAllah2() {
   return SvgPicture.asset(
     'assets/svg/besmAllah2.svg',
-    width: 250,
+    height: 30,
     colorFilter:
         ColorFilter.mode(Get.theme.cardColor.withOpacity(.8), BlendMode.srcIn),
   );
@@ -273,7 +273,7 @@ Widget surah_banner1({double? height, double? width}) {
   return SvgPicture.asset(
     'assets/svg/surah_banner1.svg',
     width: width,
-    height: height ?? 35,
+    height: height ?? 30,
   );
 }
 
@@ -281,7 +281,7 @@ Widget surah_banner2({double? height, double? width}) {
   return SvgPicture.asset(
     'assets/svg/surah_banner2.svg',
     width: width,
-    height: height ?? 35,
+    height: height ?? 30,
   );
 }
 
@@ -305,7 +305,7 @@ Widget surah_banner3({double? height, double? width}) {
   return SvgPicture.asset(
     'assets/svg/surah_banner3.svg',
     width: width,
-    height: height ?? 35,
+    height: height ?? 30,
   );
 }
 

@@ -140,6 +140,9 @@ class QuranController extends GetxController {
   int getSurahNumberByAyah(Ayah ayah) =>
       surahs.firstWhere((s) => s.ayahs.contains(ayah)).surahNumber;
 
+  Surah getSurahDataByAyahUQ(int ayah) =>
+      surahs.firstWhere((s) => s.ayahs.any((a) => a.ayahUQNumber == ayah));
+
   String getSurahByAyahUQ(int ayah) => surahs
       .firstWhere((s) => s.ayahs.any((a) => a.ayahUQNumber == ayah))
       .arabicName;

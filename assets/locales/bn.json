@@ -295,17 +295,17 @@
     "type": "text",
     "placeholders": {}
   },
-  "reader2": "মোহাম্মদ সিদ্দিক এল-মিনশাওয়ি",
+  "reader2": "মোহাম্মদ এল-মিনশাওয়ি",
   "@reader2": {
     "type": "text",
     "placeholders": {}
   },
-  "reader3": "মাহমুদ খলিল আল হুসারি",
+  "reader3": "মাহমুদ আল হুসারি",
   "@reader3": {
     "type": "text",
     "placeholders": {}
   },
-  "reader4": "আহমদ ইবনে আলী আল-আজামী",
+  "reader4": "আহমদ আল-আজামী",
   "@reader4": {
     "type": "text",
     "placeholders": {}

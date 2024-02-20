@@ -61,7 +61,7 @@ class PagesWidget extends StatelessWidget {
                           style: TextStyle(
                             fontFamily: 'page${pageIndex + 1}',
                             fontSize: getProportionateScreenWidth(
-                                context.customOrientation(20.0, 18.0)),
+                                context.customOrientation(17.0, 19.0)),
                             height: 2,
                             letterSpacing: 2,
                             color: Get.theme.colorScheme.inversePrimary,
@@ -77,7 +77,7 @@ class PagesWidget extends StatelessWidget {
                                   pageIndex: pageIndex,
                                   isSelected: quranCtrl.isSelected,
                                   fontSize: getProportionateScreenWidth(
-                                      context.customOrientation(20.0, 18.0)),
+                                      context.customOrientation(17.0, 19.0)),
                                   surahNum: quranCtrl
                                       .getSurahNumberFromPage(pageIndex),
                                   ayahNum: ayahs[ayahIndex].ayahUQNumber,
@@ -104,7 +104,7 @@ class PagesWidget extends StatelessWidget {
                                 pageIndex: pageIndex,
                                 isSelected: quranCtrl.isSelected,
                                 fontSize: getProportionateScreenWidth(
-                                    context.customOrientation(20.0, 18.0)),
+                                    context.customOrientation(17.0, 19.0)),
                                 surahNum:
                                     quranCtrl.getSurahNumberFromPage(pageIndex),
                                 ayahNum: ayahs[ayahIndex].ayahUQNumber,

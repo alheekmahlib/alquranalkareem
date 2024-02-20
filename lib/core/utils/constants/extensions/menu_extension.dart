@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 
-import '../../../../presentation/controllers/ayat_controller.dart';
 import '../../../../presentation/controllers/quran_controller.dart';
 import '../../../../presentation/screens/quran_page/widgets/buttons/add_bookmark_button.dart';
 import '../../../../presentation/screens/quran_page/widgets/buttons/copy_button.dart';
@@ -91,9 +90,6 @@ extension ContextMenuExtension on BuildContext {
                         ayahTextNormal: ayahTextNormal,
                         verseText: ayahTextNormal,
                         surahName: 'surahName',
-                        textTranslate:
-                            sl<AyatController>().currentText.value?.translate ??
-                                '',
                       ),
                     ],
                   ),

@@ -44,7 +44,6 @@ class ShareCopyWidget extends StatelessWidget {
               ayahTextNormal: ayatCtrl.ayahTextNormal.value,
               verseText: ayatCtrl.tafseerAyah,
               surahName: 'surahName',
-              textTranslate: ayatCtrl.currentText.value?.translate ?? '',
             ),
           ],
         ),

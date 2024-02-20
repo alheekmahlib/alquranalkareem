@@ -1,3 +1,4 @@
+import 'package:alquranalkareem/core/utils/constants/extensions/text_span_extension.dart';
 import 'package:alquranalkareem/presentation/controllers/translate_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -13,15 +14,13 @@ import '../screens/quran_page/data/data_source/ibnkatheer_data_client.dart';
 import '../screens/quran_page/data/data_source/qurtubi_data_client.dart';
 import '../screens/quran_page/data/data_source/saadi_data_client.dart';
 import '../screens/quran_page/data/data_source/tabari_data_client.dart';
-import '../screens/quran_page/data/model/translate.dart';
+import '../screens/quran_page/data/model/tafsir.dart';
 import '../screens/quran_page/data/repository/ayat_repository.dart';
 import '../screens/quran_page/data/repository/tafseer_repository.dart';
 import '../screens/quran_page/widgets/show_tafseer.dart';
 import '/presentation/screens/quran_page/data/model/aya.dart';
-import 'audio_controller.dart';
 import 'general_controller.dart';
 import 'quranText_controller.dart';
-import 'surahTextController.dart';
 
 class AyatController extends GetxController {
   IbnkatheerDataBaseClient? ibnkatheerClient;
@@ -38,7 +37,7 @@ class AyatController extends GetxController {
   }
   var ayatList = <Aya>[].obs;
   var allAyatList = <Aya>[].obs;
-  var tafseerList = <Tafseer>[].obs;
+  var tafseerList = <Tafsir>[].obs;
   String? selectedDBName;
   var dBName;
   RxInt radioValue = 0.obs;
@@ -55,52 +54,22 @@ class AyatController extends GetxController {
   RxString currentAyahNumber = '1'.obs;
   Aya? currentAyah;
   var isSelected = (-1.0).obs;
-  var currentText = Rx<TextUpdated?>(null);
   var currentPageLoading = RxBool(false);
   var currentPageError = RxString('');
   ValueNotifier<int> selectedTafseerIndex = ValueNotifier<int>(0);
   final TafseerRepository translateRepository = TafseerRepository();
   final AyatRepository ayatRepository = AyatRepository();
   RxBool isTafseer = false.obs;
+  Tafsir? selectedTafsir;
+  List<Tafsir>? currentPageTafseer;
 
-  // TODO; لوجيك التفسير بحاجة إلى إعادة ترتيب
-
-  Future<Map<String, dynamic>> getAyatAndTafseer() async {
-    final ayat =
-        await fetchAyatPage(sl<GeneralController>().currentPageNumber.value);
-
-    final tafseer =
-        await fetchTafseerPage(sl<GeneralController>().currentPageNumber.value);
-
-    return {
-      'ayat': ayat,
-      'tafseer': tafseer,
-    };
-  }
-
-  Future<List<Tafseer>> fetchTafseerPage(int pageNum) async {
-    List<Tafseer>? tafseer =
+  Future<List<Tafsir>> fetchTafseerPage(int pageNum) async {
+    List<Tafsir>? tafseer =
         await handleRadioValueChanged(radioValue.value).getPageTafseer(pageNum);
     if (tafseer.isNotEmpty) {
       tafseerList.value = tafseer;
     }
     return tafseer;
-  }
-
-  Future<List<Aya>> fetchAyatPage(int pageNum) async {
-    List<Aya>? ayat = await handleRadioAyatChanged().getPageAyat(pageNum);
-    if (ayat.isNotEmpty) {
-      ayatList.value = ayat;
-    }
-    return ayat;
-  }
-
-  void fetchAllAyat() async {
-    List<Aya>? allAyat =
-        await handleRadioAyatChanged().getAllAyah(ayatList.first.surahNum);
-    if (allAyat.isNotEmpty) {
-      allAyatList.value = allAyat;
-    }
   }
 
   TafseerRepository handleRadioValueChanged(int val) {
@@ -174,19 +143,9 @@ class AyatController extends GetxController {
     return translateRepository;
   }
 
-  AyatRepository handleRadioAyatChanged() {
-    final AyatRepository ayatRepository = AyatRepository();
-    ayatRepository.tableName = "${MufaserName.ibnkatheer.name}.db";
-    return ayatRepository;
-  }
-
   Future<void> loadTafseer() async {
     radioValue.value =
         await sl<SharedPrefServices>().getInteger(TAFSEER_VAL, defaultValue: 0);
-  }
-
-  void updateText(String ayatext, String translate) {
-    currentText.value = TextUpdated(ayatext, translate);
   }
 
   Future<void> getTranslatedPage(int pageNum, BuildContext context) async {
@@ -216,11 +175,6 @@ class AyatController extends GetxController {
   //   }
   // }
 
-  Tafseer? selectedTafsir;
-  List<Tafseer>? currentPageTafseer;
-
-  // Tafseer? get currentTafseer => currentPageTafseer!.firstWhereOrNull((ayah) => ayah.index == ayahUQNumber);
-
   Future<void> getTafsir(int ayahUQNumber, int surahNumber) async {
     currentPageTafseer = await handleRadioValueChanged(radioValue.value)
         .getAyahTafseer(ayahUQNumber, surahNumber);
@@ -228,34 +182,9 @@ class AyatController extends GetxController {
         .firstWhereOrNull((ayah) => ayah.index == ayahUQNumber);
   }
 
-  Future<List<Tafseer>> ayahsTafseer(int ayahUQNumber, int surahNumber) async =>
+  Future<List<Tafsir>> ayahsTafseer(int ayahUQNumber, int surahNumber) async =>
       await handleRadioValueChanged(radioValue.value)
           .getAyahTafseer(ayahUQNumber, surahNumber);
-
-  void ayahTafseerOnTap(Tafseer ayaTafseer, Aya aya, int index) {
-    // getNewTranslationAndNotify(aya.surahNum, aya.index);
-    print("suraNum ${aya.ayaNum}");
-    isSelected.value = index.toDouble();
-    ayahSelected.value = index;
-    ayahNumber.value = aya.ayaNum;
-    ayahUQNumber.value = aya.id;
-    surahNumber.value = aya.surahNum;
-    tafseerAyah = aya.text;
-    tafseerText = ayaTafseer.text;
-    update();
-  }
-
-  void ayahAudioOnTap(Aya aya, int index) {
-    isSelected.value = index.toDouble();
-
-    sl<AudioController>().pageAyahNumber = '${aya.ayaNum}';
-    currentAyah = aya;
-    currentAyahNumber.value = '${aya.ayaNum}';
-
-    sl<SurahTextController>().currentSurahIndex =
-        int.parse('${(aya.surahNum) - 1}');
-    print(sl<AudioController>().pageAyahNumber);
-  }
 
   void showTafsirOnTap(int surahNum, int ayahNum, String ayahText,
       int pageIndex, String ayahTextN, int ayahUQNum) {
@@ -282,14 +211,7 @@ class AyatController extends GetxController {
   Future<void> copyOnTap() async {
     await Clipboard.setData(ClipboardData(
             text:
-                '﴿${ayahTextNormal.value}﴾\n\n${currentText.value!.translate}'))
+                '﴿${ayahTextNormal.value}﴾\n\n${selectedTafsir!.text.buildTextSpans()}'))
         .then((value) => customErrorSnackBar('copyTafseer'.tr));
   }
-}
-
-class TextUpdated {
-  final String translateAyah;
-  final String translate;
-
-  TextUpdated(this.translateAyah, this.translate);
 }

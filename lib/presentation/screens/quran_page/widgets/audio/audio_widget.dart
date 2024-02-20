@@ -33,7 +33,7 @@ class AudioWidget extends StatelessWidget {
               borderRadius: const BorderRadius.all(Radius.circular(8)),
               boxShadow: [
                 BoxShadow(
-                    offset: const Offset(0, -6),
+                    offset: const Offset(0, -2),
                     blurRadius: 3,
                     spreadRadius: 3,
                     color: Get.theme.colorScheme.primary.withOpacity(.15))
@@ -43,7 +43,7 @@ class AudioWidget extends StatelessWidget {
                 firstChild: SizedBox(
                   height: 50,
                   width: generalCtrl.screenWidth(
-                      290, MediaQuery.sizeOf(context).width * .67),
+                      MediaQuery.sizeOf(context).width * .64, 290),
                   child: Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 16.0),
                     child: Row(
@@ -77,7 +77,7 @@ class AudioWidget extends StatelessWidget {
                 secondChild: SizedBox(
                     height: 150,
                     width: generalCtrl.screenWidth(
-                        290, MediaQuery.sizeOf(context).width * .67),
+                        MediaQuery.sizeOf(context).width * .64, 290),
                     child: Column(
                       children: [
                         const Gap(11),

@@ -5,7 +5,6 @@ import 'package:get/get.dart';
 
 import '../../../../../core/services/services_locator.dart';
 import '../../../../../core/widgets/share/share_ayah_options.dart';
-import '../../../../controllers/ayat_controller.dart';
 import '../../../../controllers/general_controller.dart';
 import '../../../../controllers/quran_controller.dart';
 import '../buttons/add_bookmark_button.dart';
@@ -160,9 +159,6 @@ class AyahsMenu extends StatelessWidget {
                       ayahTextNormal: ayahTextNormal,
                       verseText: ayahTextNormal,
                       surahName: 'surahName',
-                      textTranslate:
-                          sl<AyatController>().currentText.value?.translate ??
-                              '',
                     ),
                     const Gap(6),
                     context.vDivider(height: 18.0),

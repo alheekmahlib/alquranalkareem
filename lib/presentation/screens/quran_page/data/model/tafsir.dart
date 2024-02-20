@@ -6,7 +6,7 @@ enum MufaserName {
   tabari,
 }
 
-class Tafseer {
+class Tafsir {
   late int index;
   late int surah;
   late int aya;
@@ -16,7 +16,7 @@ class Tafseer {
   static final columns = ["index", "sura", 'aya', 'text', 'PageNum'];
 
   static fromMap(Map map) {
-    Tafseer translate = Tafseer();
+    Tafsir translate = Tafsir();
     translate.index = map["index"];
     translate.aya = map["aya"];
     translate.surah = map["sura"];

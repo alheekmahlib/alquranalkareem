@@ -7,7 +7,7 @@ import 'package:get/get.dart';
 import '../../core/services/services_locator.dart';
 import '../../core/utils/constants/shared_pref_services.dart';
 import '../../core/utils/constants/shared_preferences_constants.dart';
-import '../screens/quran_page/data/model/translate.dart';
+import '../screens/quran_page/data/model/tafsir.dart';
 import '/presentation/controllers/share_controller.dart';
 
 class TranslateDataController extends GetxController {

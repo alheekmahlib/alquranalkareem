@@ -63,7 +63,7 @@ class QuranHome extends StatelessWidget {
                 Obx(() => generalCtrl.isShowControl.value
                     ? const TabBarWidget(
                         isChild: true,
-                        isIndicator: true,
+                        isSearch: true,
                       )
                     : const SizedBox.shrink()),
                 Obx(() => audioCtrl.isStartPlaying.value ||

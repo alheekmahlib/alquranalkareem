@@ -1,6 +1,8 @@
+import 'package:alquranalkareem/core/utils/constants/extensions/text_span_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../../presentation/controllers/ayat_controller.dart';
 import '../../../presentation/controllers/share_controller.dart';
 import '../../../presentation/controllers/translate_controller.dart';
 import '../../services/services_locator.dart';
@@ -17,7 +19,6 @@ class ShareAyahOptions extends StatelessWidget {
   final int verseUQNumber;
   final int surahNumber;
   final String verseText;
-  final String? textTranslate;
   final String surahName;
   final String ayahTextNormal;
   final Function? cancel;
@@ -27,7 +28,6 @@ class ShareAyahOptions extends StatelessWidget {
     required this.verseUQNumber,
     required this.surahNumber,
     required this.verseText,
-    this.textTranslate,
     required this.surahName,
     required this.ayahTextNormal,
     this.cancel,
@@ -216,7 +216,7 @@ class ShareAyahOptions extends StatelessWidget {
                                           ),
                                         ),
                                         Expanded(
-                                          flex: 4,
+                                          flex: 5,
                                           child: PopupMenuButton(
                                             position: PopupMenuPosition.under,
                                             color: Get
@@ -237,18 +237,25 @@ class ShareAyahOptions extends StatelessWidget {
                                                     MainAxisAlignment
                                                         .spaceBetween,
                                                 children: [
-                                                  Obx(
-                                                    () => Text(
-                                                      shareToImage
-                                                          .currentTranslate
-                                                          .value,
-                                                      style: TextStyle(
-                                                        fontFamily: 'kufi',
-                                                        fontSize: 16,
-                                                        color: Get.isDarkMode
-                                                            ? Colors.white
-                                                            : Get.theme
-                                                                .primaryColor,
+                                                  SizedBox(
+                                                    width: 100,
+                                                    child: FittedBox(
+                                                      fit: BoxFit.scaleDown,
+                                                      child: Obx(
+                                                        () => Text(
+                                                          shareToImage
+                                                              .currentTranslate
+                                                              .value,
+                                                          style: TextStyle(
+                                                            fontFamily: 'kufi',
+                                                            fontSize: 14,
+                                                            color: Get
+                                                                    .isDarkMode
+                                                                ? Colors.white
+                                                                : Get.theme
+                                                                    .primaryColor,
+                                                          ),
+                                                        ),
                                                       ),
                                                     ),
                                                   ),
@@ -333,13 +340,33 @@ class ShareAyahOptions extends StatelessWidget {
                                               .withOpacity(.15),
                                           borderRadius: const BorderRadius.all(
                                               Radius.circular(4))),
-                                      child: TafseerImageCreator(
-                                        verseNumber: verseNumber,
-                                        verseUQNumber: verseUQNumber,
-                                        surahNumber: surahNumber,
-                                        verseText: ayahTextNormal,
-                                        tafseerText: textTranslate ?? '',
-                                      ),
+                                      child: FutureBuilder(
+                                          future: sl<AyatController>()
+                                              .getTafsir(
+                                                  verseUQNumber,
+                                                  sl<QuranController>()
+                                                      .getSurahDataByAyahUQ(
+                                                          verseUQNumber)
+                                                      .surahNumber),
+                                          builder: (context, snapshot) {
+                                            if (snapshot.connectionState ==
+                                                ConnectionState.done) {
+                                              return TafseerImageCreator(
+                                                verseNumber: verseNumber,
+                                                verseUQNumber: verseUQNumber,
+                                                surahNumber: surahNumber,
+                                                verseText: ayahTextNormal,
+                                                tafseerText:
+                                                    sl<AyatController>()
+                                                        .selectedTafsir!
+                                                        .text
+                                                        .buildTextSpans(),
+                                              );
+                                            } else {
+                                              return const CircularProgressIndicator
+                                                  .adaptive();
+                                            }
+                                          }),
                                     ),
                                     onTap: () async {
                                       await shareToImage

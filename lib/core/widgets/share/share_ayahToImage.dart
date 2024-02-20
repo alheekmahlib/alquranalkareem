@@ -70,7 +70,8 @@ class VerseImageCreator extends StatelessWidget {
                   alignment: Alignment.center,
                   children: [
                     surah_banner1(),
-                    surahNameWidget('$surahNumber', const Color(0xff404C6E)),
+                    surahNameWidget(
+                        height: 25, '$surahNumber', const Color(0xff404C6E)),
                   ],
                 ),
                 const Gap(16),
