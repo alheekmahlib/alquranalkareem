@@ -186,13 +186,13 @@ final List<String> surahNameList = <String>[
 
 final List screensList = [
   {
-    'name': 'home'.tr,
+    'name': 'home',
     'svgUrl': 'assets/svg/splash_icon_w.svg',
     'route': () => const HomeScreen(),
     'width': 240.0
   },
   {
-    'name': 'quran'.tr,
+    'name': 'quran',
     'svgUrl': 'assets/svg/splash_icon_w.svg',
     'route': () => QuranHome(),
     'width': 240.0
@@ -204,13 +204,13 @@ final List screensList = [
     'width': 70.0
   },
   {
-    'name': 'azkar'.tr,
+    'name': 'azkar',
     'svgUrl': 'assets/svg/azkar.svg',
     'route': () => const AzkarView(),
     'width': 70.0
   },
   {
-    'name': 'quranAudio'.tr,
+    'name': 'quranAudio',
     'svgUrl': 'assets/svg/quran_au_ic.svg',
     'route': () => const AudioScreen(),
     'width': 240.0
@@ -219,11 +219,11 @@ final List screensList = [
 
 final List mushafSettingsList = [
   {
-    'name': 'pages'.tr,
+    'name': 'pages',
     'imageUrl': 'assets/images/pages.png',
   },
   {
-    'name': 'ayahs'.tr,
+    'name': 'ayahs',
     'imageUrl': 'assets/images/ayahs.png',
   },
 ];

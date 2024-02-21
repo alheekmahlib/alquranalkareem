@@ -22,7 +22,7 @@ class UserOptions extends StatelessWidget {
                 children: [
                   Icon(
                     Icons.share_outlined,
-                    color: Get.theme.hintColor,
+                    color: Theme.of(context).hintColor,
                     size: 22,
                   ),
                   Container(
@@ -34,7 +34,7 @@ class UserOptions extends StatelessWidget {
                   Text(
                     'share'.tr,
                     style: TextStyle(
-                        color: Get.theme.hintColor,
+                        color: Theme.of(context).hintColor,
                         fontFamily: 'kufi',
                         fontStyle: FontStyle.italic,
                         fontSize: 14),
@@ -52,7 +52,7 @@ class UserOptions extends StatelessWidget {
                 children: [
                   Icon(
                     Icons.email_outlined,
-                    color: Get.theme.hintColor,
+                    color: Theme.of(context).hintColor,
                     size: 22,
                   ),
                   Container(
@@ -64,7 +64,7 @@ class UserOptions extends StatelessWidget {
                   Text(
                     'email'.tr,
                     style: TextStyle(
-                        color: Get.theme.hintColor,
+                        color: Theme.of(context).hintColor,
                         fontFamily: 'kufi',
                         fontStyle: FontStyle.italic,
                         fontSize: 14),

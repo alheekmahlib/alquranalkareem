@@ -24,13 +24,12 @@ class LanguageList extends StatelessWidget {
                   const EdgeInsets.symmetric(horizontal: 6.0, vertical: 4.0),
               margin: const EdgeInsets.symmetric(horizontal: 16.0),
               decoration: BoxDecoration(
-                  color: Get.theme.colorScheme.primary.withOpacity(.2),
+                  color: Theme.of(context).colorScheme.primary.withOpacity(.2),
                   borderRadius: const BorderRadius.all(Radius.circular(4))),
               child: Text(
                 'langChange'.tr,
                 style: TextStyle(
-                    color:
-                        Get.isDarkMode ? Colors.white : Get.theme.primaryColor,
+                    color: Theme.of(context).hintColor,
                     fontFamily: 'kufi',
                     fontStyle: FontStyle.italic,
                     fontSize: 16),
@@ -41,7 +40,7 @@ class LanguageList extends StatelessWidget {
               padding: const EdgeInsets.all(4.0),
               decoration: BoxDecoration(
                   border: Border.all(
-                      color: Get.theme.colorScheme.surface, width: 1),
+                      color: Theme.of(context).colorScheme.surface, width: 1),
                   borderRadius: const BorderRadius.all(Radius.circular(8))),
               child: ExpansionTileCard(
                 elevation: 0.0,
@@ -55,13 +54,15 @@ class LanguageList extends StatelessWidget {
                       style: TextStyle(
                         fontFamily: 'kufi',
                         fontSize: 18,
-                        color: Theme.of(context).primaryColorLight,
+                        color: Theme.of(context).hintColor,
                       ),
                     );
                   }),
                 ),
-                baseColor: Get.theme.colorScheme.primary.withOpacity(.2),
-                expandedColor: Get.theme.colorScheme.primary.withOpacity(.2),
+                baseColor:
+                    Theme.of(context).colorScheme.primary.withOpacity(.2),
+                expandedColor:
+                    Theme.of(context).colorScheme.primary.withOpacity(.2),
                 children: <Widget>[
                   const Divider(
                     thickness: 1.0,
@@ -92,27 +93,32 @@ class LanguageList extends StatelessWidget {
                                         Radius.circular(20.0)),
                                     border: Border.all(
                                         color: 'appLang'.tr == lang['appLang']
-                                            ? Theme.of(context).dividerColor
+                                            ? Theme.of(context)
+                                                .colorScheme
+                                                .surface
                                             : Theme.of(context)
                                                 .colorScheme
                                                 .background
                                                 .withOpacity(.5),
                                         width: 3),
-                                    color: Get.theme.colorScheme.primary,
+                                    color:
+                                        Theme.of(context).colorScheme.primary,
                                   ),
                                   child: 'appLang'.tr == lang['appLang']
                                       ? Icon(Icons.done,
                                           size: 14,
-                                          color: Theme.of(context).dividerColor)
+                                          color: Theme.of(context)
+                                              .colorScheme
+                                              .surface)
                                       : null,
                                 ),
                                 Text(
                                   lang['name'],
                                   style: TextStyle(
                                     color: 'appLang'.tr == lang['appLang']
-                                        ? Theme.of(context).primaryColorLight
+                                        ? Theme.of(context).colorScheme.surface
                                         : Theme.of(context)
-                                            .primaryColorLight
+                                            .canvasColor
                                             .withOpacity(.5),
                                     fontSize: 18,
                                     fontWeight: 'appLang'.tr == lang['appLang']

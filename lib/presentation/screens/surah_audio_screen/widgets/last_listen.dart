@@ -19,27 +19,29 @@ class LastListen extends StatelessWidget {
       child: GestureDetector(
         child: Container(
           width: 280.0,
-          height: 80,
           decoration: BoxDecoration(
               borderRadius: const BorderRadius.all(Radius.circular(8)),
               border: Border.all(
-                  color: Get.theme.colorScheme.primary.withOpacity(.2),
+                  color: Theme.of(context).colorScheme.primary.withOpacity(.2),
                   width: 1)),
-          margin: const EdgeInsets.all(16.0),
+          margin: const EdgeInsets.symmetric(vertical: 8.0),
           child: Row(
             children: <Widget>[
               Expanded(
                 flex: 3,
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: Text(
-                    'lastListen'.tr,
-                    style: TextStyle(
-                      fontFamily: 'kufi',
-                      fontSize: 18,
-                      color: Get.theme.colorScheme.primary,
+                  child: FittedBox(
+                    fit: BoxFit.scaleDown,
+                    child: Text(
+                      'lastListen'.tr.replaceAll(' ', '\n'),
+                      style: TextStyle(
+                        fontFamily: 'kufi',
+                        fontSize: 18,
+                        color: Theme.of(context).colorScheme.primary,
+                      ),
+                      textAlign: TextAlign.center,
                     ),
-                    textAlign: TextAlign.center,
                   ),
                 ),
               ),
@@ -53,7 +55,7 @@ class LastListen extends StatelessWidget {
                       padding: const EdgeInsets.symmetric(
                           horizontal: 6.0, vertical: 4.0),
                       decoration: BoxDecoration(
-                          color: Get.theme.colorScheme.primary,
+                          color: Theme.of(context).colorScheme.primary,
                           borderRadius:
                               const BorderRadius.all(Radius.circular(8))),
                       child: Obx(
@@ -61,7 +63,8 @@ class LastListen extends StatelessWidget {
                           'assets/svg/surah_name/00${surahAudioCtrl.surahNum}.svg',
                           width: 110,
                           colorFilter: ColorFilter.mode(
-                              Get.theme.colorScheme.secondary, BlendMode.srcIn),
+                              Theme.of(context).colorScheme.secondary,
+                              BlendMode.srcIn),
                         ),
                       ),
                     ),
@@ -72,7 +75,7 @@ class LastListen extends StatelessWidget {
                           style: TextStyle(
                             fontFamily: 'kufi',
                             fontSize: 16,
-                            color: Get.theme.hintColor,
+                            color: Theme.of(context).hintColor,
                           ),
                         ),
                       ),

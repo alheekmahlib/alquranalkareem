@@ -1,4 +1,4 @@
-import 'package:alquranalkareem/core/utils/constants/extensions.dart';
+import 'package:alquranalkareem/core/utils/constants/extensions/extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
@@ -23,10 +23,10 @@ class AyahsPlayListWidget extends StatelessWidget {
     final size = MediaQuery.sizeOf(context);
     return SingleChildScrollView(
       child: Container(
-        height: size.height * .8,
+        height: size.height * .97,
         width: context.customOrientation(size.width, size.width * .5),
         decoration: BoxDecoration(
-            color: Get.theme.colorScheme.background,
+            color: Theme.of(context).colorScheme.background,
             borderRadius: const BorderRadius.only(
               topLeft: Radius.circular(8),
               topRight: Radius.circular(8),
@@ -41,7 +41,7 @@ class AyahsPlayListWidget extends StatelessWidget {
                 Text(
                   'createPlayList'.tr,
                   style: TextStyle(
-                    color: Get.theme.hintColor,
+                    color: Theme.of(context).hintColor,
                     fontSize: 16,
                     fontFamily: 'kufi',
                   ),
@@ -55,7 +55,8 @@ class AyahsPlayListWidget extends StatelessWidget {
                 borderRadius: const BorderRadius.all(Radius.circular(8)),
                 border: Border.all(
                     width: 1,
-                    color: Get.theme.colorScheme.primary.withOpacity(.15)),
+                    color:
+                        Theme.of(context).colorScheme.primary.withOpacity(.15)),
               ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,

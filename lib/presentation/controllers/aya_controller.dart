@@ -130,8 +130,7 @@ class AyaController extends GetxController {
       'أ': 'ا',
       'إ': 'ا',
       'آ': 'ا',
-      'إٔ':
-          'ا', // These mappings already seem comprehensive, but double inclusion for clarity
+      'إٔ': 'ا',
       'إٕ': 'ا',
       'إٓ': 'ا',
       'أَ': 'ا',
@@ -150,25 +149,24 @@ class AyaController extends GetxController {
       'ّ': '',
       'ْ': '',
       'ـ': '',
-      // Adding more comprehensive handling for combinations and less common diacritics
-      'ٰ': '', // Dagger alif (small alif on top of characters)
-      'ٖ': '', // Kharijatayn (small noon)
-      'ٗ': '', // Inverted damma
-      'ٕ': '', // Small kasra
-      'ٓ': '', // Maddah above
-      'ۖ': '', // Small high seen
-      'ۗ': '', // Small high rounded zero
-      'ۘ': '', // Small high upright rectangular zero
-      'ۙ': '', // Small high dotless head of khah
-      'ۚ': '', // Small high meem isolated form
-      'ۛ': '', // Small low seen
-      'ۜ': '', // Small waw
-      '۝': '', // Small yeh
-      '۞': '', // Small high noon
-      '۟': '', // Empty centre low stop
-      '۠': '', // Empty centre high stop
-      'ۡ': '', // Rounded high stop with filled centre
-      'ۢ': '', // Small low meem
+      'ٰ': '',
+      'ٖ': '',
+      'ٗ': '',
+      'ٕ': '',
+      'ٓ': '',
+      'ۖ': '',
+      'ۗ': '',
+      'ۘ': '',
+      'ۙ': '',
+      'ۚ': '',
+      'ۛ': '',
+      'ۜ': '',
+      '۝': '',
+      '۞': '',
+      '۟': '',
+      '۠': '',
+      'ۡ': '',
+      'ۢ': '',
     };
 
     StringBuffer buffer = StringBuffer();

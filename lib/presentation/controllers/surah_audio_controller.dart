@@ -19,8 +19,8 @@ import '../../core/services/services_locator.dart';
 import '../../core/utils/constants/shared_pref_services.dart';
 import '../../core/utils/constants/shared_preferences_constants.dart';
 import '../../core/widgets/seek_bar.dart';
-import '../screens/quran_page/data/model/surah.dart';
-import 'surah_repository_controller.dart';
+import '/presentation/controllers/aya_controller.dart';
+import 'quran_controller.dart';
 
 class SurahAudioController extends GetxController {
   final ScrollController controller = ScrollController();
@@ -460,11 +460,13 @@ class SurahAudioController extends GetxController {
     connectionStatus = result;
   }
 
-  void searchSurah(BuildContext context, String searchInput) {
-    List<Surah>? surahList = sl<SurahRepositoryController>().sorahs;
+  void searchSurah(String searchInput) {
+    final surahList = sl<QuranController>().surahs;
 
-    int index =
-        surahList.indexWhere((surah) => surah.searchText.contains(searchInput));
+    int index = surahList.indexWhere((surah) => sl<AyaController>()
+        .removeDiacritics(surah.arabicName)
+        .contains(searchInput));
+    developer.log('surahNumber: $index');
     if (index != -1) {
       controller.jumpTo(index * 80.0);
       selectedSurah.value = index;

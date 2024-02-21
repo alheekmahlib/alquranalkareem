@@ -20,7 +20,7 @@ class SkipToNext extends StatelessWidget {
           label: 'next'.tr,
           child: Icon(
             Icons.skip_previous,
-            color: Get.theme.colorScheme.primary,
+            color: Theme.of(context).colorScheme.primary,
             size: 30,
           ),
         ),

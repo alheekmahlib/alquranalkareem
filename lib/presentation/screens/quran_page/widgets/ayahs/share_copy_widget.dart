@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 
-import '../../../../core/services/services_locator.dart';
-import '../../../../core/utils/constants/svg_picture.dart';
-import '../../../../core/widgets/share/share_ayah_options.dart';
+import '../../../../../core/services/services_locator.dart';
+import '../../../../../core/utils/constants/svg_picture.dart';
+import '../../../../../core/widgets/share/share_ayah_options.dart';
 import '/presentation/controllers/ayat_controller.dart';
 
 class ShareCopyWidget extends StatelessWidget {
@@ -18,12 +18,12 @@ class ShareCopyWidget extends StatelessWidget {
         padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 6.0),
         margin: const EdgeInsets.symmetric(vertical: 16.0),
         decoration: BoxDecoration(
-            color: Get.theme.colorScheme.background,
+            color: Theme.of(context).colorScheme.background,
             borderRadius: const BorderRadius.all(Radius.circular(4)),
             border: Border.symmetric(
                 vertical: BorderSide(
               width: 3,
-              color: Get.theme.colorScheme.primary,
+              color: Theme.of(context).colorScheme.primary,
             ))),
         child: Row(
           children: [

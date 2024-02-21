@@ -1,14 +1,15 @@
-import 'package:alquranalkareem/presentation/controllers/audio_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../../../core/services/services_locator.dart';
+import '../../../../../core/utils/constants/extensions/extensions.dart';
 import '../../../../../core/utils/constants/size_config.dart';
 import '../../../../controllers/bookmarks_controller.dart';
 import '../../../../controllers/quran_controller.dart';
-import '/core/utils/constants/extensions.dart';
 import '/core/utils/constants/extensions/menu_extension.dart';
+import '/core/utils/constants/extensions/surah_name_with_banner.dart';
 import '/core/utils/constants/svg_picture.dart';
+import '/presentation/controllers/audio_controller.dart';
 import 'custom_span.dart';
 
 class PagesWidget extends StatelessWidget {
@@ -40,7 +41,7 @@ class PagesWidget extends StatelessWidget {
                   quranCtrl.showVerseToast(pageIndex);
                   // : const SizedBox.shrink();
                   return Column(children: [
-                    quranCtrl.surahBannerFirstPlace(pageIndex, i),
+                    context.surahBannerFirstPlace(pageIndex, i),
                     quranCtrl.getSurahNumberByAyah(ayahs.first) == 9 ||
                             quranCtrl.getSurahNumberByAyah(ayahs.first) == 1
                         ? const SizedBox.shrink()
@@ -64,7 +65,7 @@ class PagesWidget extends StatelessWidget {
                                 context.customOrientation(17.0, 19.0)),
                             height: 2,
                             letterSpacing: 2,
-                            color: Get.theme.colorScheme.inversePrimary,
+                            color: Theme.of(context).colorScheme.inversePrimary,
                           ),
                           children: List.generate(ayahs.length, (ayahIndex) {
                             quranCtrl.isSelected = quranCtrl.selectedAyahIndexes
@@ -127,7 +128,7 @@ class PagesWidget extends StatelessWidget {
                         ),
                       );
                     }),
-                    quranCtrl.surahBannerLastPlace(pageIndex, i),
+                    context.surahBannerLastPlace(pageIndex, i),
                   ]);
                 }),
               ),

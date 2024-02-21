@@ -10,7 +10,7 @@ import '../../../../presentation/screens/quran_page/widgets/buttons/play_button.
 import '../../../../presentation/screens/quran_page/widgets/buttons/tafsir_button.dart';
 import '../../../services/services_locator.dart';
 import '../../../widgets/share/share_ayah_options.dart';
-import '/core/utils/constants/extensions.dart';
+import 'extensions.dart';
 
 extension ContextMenuExtension on BuildContext {
   void showAyahMenu(int surahNum, int ayahNum, String ayahText, int pageIndex,
@@ -77,6 +77,7 @@ extension ContextMenuExtension on BuildContext {
                       const Gap(6),
                       CopyButton(
                         ayahNum: ayahNum,
+                        surahName: surahName,
                         ayahTextNormal: ayahTextNormal,
                         cancel: cancel,
                       ),

@@ -17,7 +17,7 @@ class ThemeController extends GetxController {
   @override
   void onInit() async {
     var theme = await loadThemePreference();
-    setTheme(theme, updateApp: false);
+    setTheme(theme);
     super.onInit();
   }
 
@@ -59,7 +59,7 @@ class ThemeController extends GetxController {
     );
   }
 
-  void setTheme(AppTheme theme, {bool updateApp = true}) {
+  void setTheme(AppTheme theme) {
     _currentTheme.value = theme;
     ThemeData newThemeData;
     switch (theme) {
@@ -77,9 +77,7 @@ class ThemeController extends GetxController {
     }
 
     Get.changeTheme(newThemeData);
-    if (updateApp) {
-      Get.forceAppUpdate();
-    }
+    Get.forceAppUpdate();
 
     // Save theme preference
     sl<SharedPreferences>().setString(SET_THEME, theme.toString());

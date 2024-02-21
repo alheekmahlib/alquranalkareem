@@ -5,8 +5,8 @@ import 'package:get/get.dart';
 
 import '../../../../../core/services/services_locator.dart';
 import '../../../../controllers/playList_controller.dart';
+import '/presentation/controllers/general_controller.dart';
 import '/presentation/controllers/quran_controller.dart';
-import '/presentation/screens/quran_text/widgets/widgets.dart';
 
 class PlayListAyatWidget extends StatelessWidget {
   final bool? startNum;
@@ -14,6 +14,7 @@ class PlayListAyatWidget extends StatelessWidget {
   PlayListAyatWidget({super.key, this.startNum = false, this.endNum = false});
   final playList = sl<PlayListController>();
   final quranCtrl = sl<QuranController>();
+  final generalCtrl = sl<GeneralController>();
 
   @override
   Widget build(BuildContext context) {
@@ -35,9 +36,9 @@ class PlayListAyatWidget extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        'آية | ${arabicNumber.convert(ayah.ayahNumber)}',
+                        'آية | ${generalCtrl.arabicNumber.convert(ayah.ayahNumber)}',
                         style: TextStyle(
-                          color: Get.theme.hintColor,
+                          color: Theme.of(context).hintColor,
                           fontSize: 18,
                           fontFamily: 'naskh',
                         ),
@@ -45,7 +46,7 @@ class PlayListAyatWidget extends StatelessWidget {
                       Text(
                         ayah.text.toString(),
                         style: TextStyle(
-                            color: Get.theme.colorScheme.surface,
+                            color: Theme.of(context).colorScheme.surface,
                             fontSize: 18,
                             fontFamily: 'uthmanic2',
                             overflow: TextOverflow.fade),

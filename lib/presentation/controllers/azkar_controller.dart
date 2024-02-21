@@ -10,9 +10,9 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../core/services/services_locator.dart';
 import '../../core/utils/constants/shared_preferences_constants.dart';
-import '../../core/widgets/widgets.dart';
 import '../../database/databaseHelper.dart';
 import '../screens/athkar/models/zeker_model.dart';
+import '/core/utils/constants/extensions/custom_error_snackBar.dart';
 
 class AzkarController extends GetxController {
   final RxList<Zekr> azkarList = <Zekr>[].obs;
@@ -79,8 +79,8 @@ class AzkarController extends GetxController {
   }
 
   void deleteAzkar(Zekr? azkar, BuildContext context) async {
-    await DatabaseHelper.deleteAzkar(azkar!)
-        .then((value) => customSnackBar(context, 'deletedZekrBookmark'.tr));
+    await DatabaseHelper.deleteAzkar(azkar!).then(
+        (value) => context.showCustomErrorSnackBar('deletedZekrBookmark'.tr));
     getAzkar();
   }
 
@@ -144,8 +144,8 @@ class AzkarController extends GetxController {
       }
       spans.add(TextSpan(
         text: matchedText,
-        style: const TextStyle(
-          color: Colors.black,
+        style: TextStyle(
+          color: Get.theme.colorScheme.inversePrimary,
           fontFamily: 'uthmanic2',
         ),
       ));

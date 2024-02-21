@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:arabic_numbers/arabic_numbers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
@@ -12,13 +13,13 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../core/services/services_locator.dart';
+import '../../core/utils/constants/extensions/extensions.dart';
 import '../../core/utils/constants/lists.dart';
 import '../../core/utils/constants/shared_preferences_constants.dart';
 import '../../core/widgets/time_now.dart';
 import '../screens/athkar/screens/alzkar_view.dart';
 import '../screens/quran_page/screens/quran_home.dart';
 import '../screens/surah_audio_screen/audio_surah.dart';
-import '/core/utils/constants/extensions.dart';
 import '/presentation/controllers/quran_controller.dart';
 import '/presentation/controllers/share_controller.dart';
 import '/presentation/screens/home/home_screen.dart';
@@ -75,11 +76,11 @@ class GeneralController extends GetxController {
   double ayahItemWidth = 30.0;
   RxBool isLoading = false.obs;
   var verses;
+  ArabicNumbers arabicNumber = ArabicNumbers();
 
   RxBool showSelectScreenPage = false.obs;
   RxInt screenSelectedValue = 0.obs;
-  final GlobalKey<SliderDrawerState> drawerKey =
-      GlobalKey<SliderDrawerState>(debugLabel: 'SliderDrawerStateKey');
+  final GlobalKey<SliderDrawerState> drawerKey = GlobalKey<SliderDrawerState>();
 
   double get scr_height => _screenSize!.value.height;
 

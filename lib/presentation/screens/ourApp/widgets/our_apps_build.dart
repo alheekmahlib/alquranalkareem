@@ -5,10 +5,10 @@ import 'package:get/get.dart';
 import 'package:info_popup/info_popup.dart';
 
 import '../../../../core/services/services_locator.dart';
+import '../../../../core/utils/constants/extensions/extensions.dart';
 import '../../../../core/utils/constants/lottie.dart';
 import '../../../controllers/ourApps_controller.dart';
 import '../data/models/ourApp_model.dart';
-import '/core/utils/constants/extensions.dart';
 
 class OurAppsBuild extends StatelessWidget {
   const OurAppsBuild({super.key});

@@ -15,7 +15,7 @@ class SearchBarWidget extends StatelessWidget {
     return Container(
       height: 40,
       decoration: BoxDecoration(
-        color: Get.theme.colorScheme.background,
+        color: Theme.of(context).colorScheme.background,
         borderRadius: const BorderRadius.all(Radius.circular(8)),
       ),
       child: _InkWellOverlay(
@@ -29,7 +29,7 @@ class SearchBarWidget extends StatelessWidget {
               Text(
                 'search_word'.tr,
                 style: TextStyle(
-                    color: Get.theme.colorScheme.primary,
+                    color: Theme.of(context).colorScheme.primary,
                     fontFamily: 'kufi',
                     fontSize: 15),
               ),
@@ -85,8 +85,8 @@ class OpenContainerWrapper extends StatelessWidget {
       ),
       transitionType: transitionType,
       closedElevation: 5,
-      closedColor: Get.theme.colorScheme.background,
-      openColor: Get.theme.colorScheme.background,
+      closedColor: Theme.of(context).colorScheme.background,
+      openColor: Theme.of(context).colorScheme.background,
       openBuilder: (BuildContext context, VoidCallback _) {
         return QuranSearch();
       },

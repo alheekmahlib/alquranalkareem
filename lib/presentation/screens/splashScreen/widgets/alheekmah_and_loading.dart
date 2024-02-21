@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:get/get.dart';
 
 import '../../../../core/utils/constants/lottie.dart';
 
@@ -17,7 +16,7 @@ class AlheekmahAndLoading extends StatelessWidget {
           SvgPicture.asset(
             'assets/svg/alheekmah_logo.svg',
             colorFilter: ColorFilter.mode(
-                Get.theme.colorScheme.background, BlendMode.srcIn),
+                Theme.of(context).colorScheme.background, BlendMode.srcIn),
             width: 90,
           ),
           Transform.translate(

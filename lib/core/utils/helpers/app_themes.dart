@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 final ThemeData blueTheme = ThemeData.light(
-  useMaterial3: false,
+  useMaterial3: true,
 ).copyWith(
   colorScheme: const ColorScheme(
     brightness: Brightness.light,
@@ -46,7 +46,7 @@ final ThemeData blueTheme = ThemeData.light(
 );
 
 final ThemeData brownTheme = ThemeData(
-  useMaterial3: false,
+  useMaterial3: true,
   colorScheme: const ColorScheme(
     brightness: Brightness.light,
     primary: Color(0xff77554B),
@@ -86,7 +86,7 @@ final ThemeData brownTheme = ThemeData(
 );
 
 final ThemeData darkTheme = ThemeData.dark(
-  useMaterial3: false,
+  useMaterial3: true,
 ).copyWith(
   colorScheme: const ColorScheme(
     brightness: Brightness.light,

@@ -28,10 +28,12 @@ class OnlinePlayButton extends StatelessWidget {
                       final loopMode = snapshot.data ?? LoopMode.off;
                       List<Widget> icons = [
                         Icon(Icons.repeat,
-                            color:
-                                Get.theme.colorScheme.primary.withOpacity(.4)),
+                            color: Theme.of(context)
+                                .colorScheme
+                                .primary
+                                .withOpacity(.4)),
                         Icon(Icons.repeat,
-                            color: Get.theme.colorScheme.primary),
+                            color: Theme.of(context).colorScheme.primary),
                       ];
                       const cycleModes = [
                         LoopMode.off,
@@ -98,7 +100,7 @@ class OnlinePlayButton extends StatelessWidget {
                         label: 'replaySurah'.tr,
                         child: const Icon(Icons.replay)),
                     iconSize: 24.0,
-                    color: Get.theme.canvasColor,
+                    color: Theme.of(context).canvasColor,
                     onPressed: () => surahAudioCtrl.audioPlayer.seek(
                         Duration.zero,
                         index:

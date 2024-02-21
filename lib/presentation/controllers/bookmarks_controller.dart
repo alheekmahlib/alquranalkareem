@@ -1,16 +1,14 @@
+import 'package:alquranalkareem/core/utils/constants/extensions/custom_error_snackBar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../core/services/services_locator.dart';
-import '../../core/widgets/widgets.dart';
 import '../../database/databaseHelper.dart';
 import '../screens/quran_page/data/model/bookmark.dart';
-import '../screens/quran_text/data/models/bookmark_text.dart';
-import 'quranText_controller.dart';
+import '../screens/quran_page/data/model/bookmark_ayahs.dart';
 
 class BookmarksController extends GetxController {
   final RxList<Bookmarks> bookmarksList = <Bookmarks>[].obs;
-  final RxList<BookmarksText> BookmarkTextList = <BookmarksText>[].obs;
+  final RxList<BookmarksAyahs> BookmarkTextList = <BookmarksAyahs>[].obs;
   late int lastBook;
 
   Future<int?> addBookmarks(
@@ -62,7 +60,7 @@ class BookmarksController extends GetxController {
     if (bookmarkToDelete != null) {
       int result = await DatabaseHelper.deleteBookmark(bookmarkToDelete);
       if (result > 0) {
-        customErrorSnackBar('deletedBookmark'.tr);
+        context.showCustomErrorSnackBar('deletedBookmark'.tr);
         await getBookmarks();
         update();
         return true;
@@ -91,9 +89,8 @@ class BookmarksController extends GetxController {
     }
   }
 
-  Future<int?> addBookmarksText(BookmarksText? bookmarksText) {
+  Future<int?> addBookmarksText(BookmarksAyahs? bookmarksText) {
     BookmarkTextList.add(bookmarksText!);
-    sl<QuranTextController>().update();
     return DatabaseHelper.addBookmarkText(bookmarksText);
   }
 
@@ -101,18 +98,18 @@ class BookmarksController extends GetxController {
     final List<Map<String, dynamic>> bookmarksText =
         await DatabaseHelper.queryT();
     BookmarkTextList.assignAll(
-        bookmarksText.map((data) => BookmarksText.fromJson(data)).toList());
+        bookmarksText.map((data) => BookmarksAyahs.fromJson(data)).toList());
   }
 
   Future<bool> deleteBookmarksText(int ayahUQNum) async {
     // Find the bookmark with the given pageNum
-    BookmarksText? bookmarkToDelete = BookmarkTextList.firstWhereOrNull(
-        (bookmark) => bookmark.ayahUQNum == ayahUQNum);
+    BookmarksAyahs? bookmarkToDelete = BookmarkTextList.firstWhereOrNull(
+        (bookmark) => bookmark.ayahUQNumber == ayahUQNum);
 
     if (bookmarkToDelete != null) {
       int result = await DatabaseHelper.deleteBookmarkText(bookmarkToDelete);
       if (result > 0) {
-        customErrorSnackBar('deletedBookmark'.tr);
+        Get.context!.showCustomErrorSnackBar('deletedBookmark'.tr);
         await getBookmarksText();
         update();
         return true;
@@ -120,12 +117,12 @@ class BookmarksController extends GetxController {
     }
     return false;
     // await DatabaseHelper.deleteBookmarkText(bookmarksText!).then((value) =>
-    //     customErrorSnackBar(
+    //     context.showCustomErrorSnackBar(
     //         context, AppLocalizations.of(context)!.deletedBookmark));
     // getBookmarksText();
   }
 
-  void updateBookmarksText(BookmarksText? bookmarksText) async {
+  void updateBookmarksText(BookmarksAyahs? bookmarksText) async {
     await DatabaseHelper.updateBookmarksText(bookmarksText!);
     getBookmarksText();
   }
@@ -133,8 +130,8 @@ class BookmarksController extends GetxController {
   RxBool hasBookmark(int surahNum, int ayahNum) {
     return (BookmarkTextList.obs.value
                     .firstWhereOrNull(((element) =>
-                        element.sorahNum == surahNum &&
-                        element.ayahUQNum == ayahNum))
+                        element.surahNumber == surahNum &&
+                        element.ayahUQNumber == ayahNum))
                     .obs)
                 .value ==
             null
@@ -152,7 +149,7 @@ class BookmarksController extends GetxController {
   ) async {
     try {
       int? bookmark = await addBookmarksText(
-        BookmarksText(
+        BookmarksAyahs(
           id,
           surahName,
           surahNum,

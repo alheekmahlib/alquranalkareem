@@ -1,4 +1,4 @@
-import 'package:alquranalkareem/core/utils/constants/extensions.dart';
+import 'package:alquranalkareem/core/utils/constants/extensions/extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
@@ -28,7 +28,7 @@ class ChangeTafsir extends StatelessWidget {
               return Text(
                 tafsirName[sl<AyatController>().radioValue.value]['name'],
                 style: TextStyle(
-                    color: Get.theme.colorScheme.primary,
+                    color: Theme.of(context).colorScheme.primary,
                     fontSize: 14,
                     fontWeight: FontWeight.bold,
                     fontFamily: 'kufi'),
@@ -39,12 +39,12 @@ class ChangeTafsir extends StatelessWidget {
               enabled: true,
               label: 'Change Reader',
               child: Icon(Icons.keyboard_arrow_down_outlined,
-                  size: 20, color: Get.theme.colorScheme.primary),
+                  size: 20, color: Theme.of(context).colorScheme.primary),
             ),
           ],
         ),
       ),
-      color: Get.theme.colorScheme.background,
+      color: Theme.of(context).colorScheme.background,
       itemBuilder: (context) => List.generate(
           tafsirName.length,
           (index) => PopupMenuItem(
@@ -57,7 +57,7 @@ class ChangeTafsir extends StatelessWidget {
                         style: TextStyle(
                             color:
                                 sl<AyatController>().radioValue.value == index
-                                    ? Get.theme.primaryColorLight
+                                    ? Theme.of(context).primaryColorLight
                                     : const Color(0xffCDAD80),
                             fontSize: 14,
                             fontFamily: 'kufi'),
@@ -67,7 +67,7 @@ class ChangeTafsir extends StatelessWidget {
                         style: TextStyle(
                             color:
                                 sl<AyatController>().radioValue.value == index
-                                    ? Get.theme.primaryColorLight
+                                    ? Theme.of(context).primaryColorLight
                                     : const Color(0xffCDAD80),
                             fontSize: 12,
                             fontFamily: 'kufi'),
@@ -81,10 +81,10 @@ class ChangeTafsir extends StatelessWidget {
                           border: Border.all(
                               color:
                                   sl<AyatController>().radioValue.value == index
-                                      ? Get.theme.primaryColorLight
+                                      ? Theme.of(context).primaryColorLight
                                       : const Color(0xffCDAD80),
                               width: 2),
-                          color: Get.theme.colorScheme.background,
+                          color: Theme.of(context).colorScheme.background,
                         ),
                         child: sl<AyatController>().radioValue.value == index
                             ? const Icon(Icons.done,
@@ -107,7 +107,8 @@ class ChangeTafsir extends StatelessWidget {
                               borderRadius:
                                   const BorderRadius.all(Radius.circular(4.0)),
                               border: Border.all(
-                                  color: Get.theme.cardColor, width: 2)),
+                                  color: Theme.of(context).cardColor,
+                                  width: 2)),
                           child: Opacity(
                             child: SvgPicture.asset(
                               'assets/svg/tafseer_book.svg',
@@ -135,7 +136,8 @@ class ChangeTafsir extends StatelessWidget {
                                                     .radioValue
                                                     .value ==
                                                 index
-                                            ? Get.theme.primaryColorLight
+                                            ? Theme.of(context)
+                                                .primaryColorLight
                                             : const Color(0xffCDAD80),
                                         fontSize: 14,
                                         fontFamily: 'kufi'),

@@ -36,7 +36,7 @@ class PagesIndicator extends StatelessWidget {
         itemBuilder: (context, index) {
           return Container(
             margin: const EdgeInsets.all(4),
-            color: Get.theme.colorScheme.background.withOpacity(.1),
+            color: Theme.of(context).colorScheme.background.withOpacity(.1),
             child: Row(
               mainAxisSize: MainAxisSize.min,
               children: [
@@ -69,7 +69,7 @@ class PagesIndicator extends StatelessWidget {
                                   style: TextStyle(
                                       fontSize: 16,
                                       fontFamily: 'naskh',
-                                      color: Get.theme.canvasColor),
+                                      color: Theme.of(context).canvasColor),
                                 )
                               ],
                             ),
@@ -106,7 +106,7 @@ class PagesIndicator extends StatelessWidget {
                                   style: TextStyle(
                                       fontSize: 16,
                                       fontFamily: 'naskh',
-                                      color: Get.theme.canvasColor),
+                                      color: Theme.of(context).canvasColor),
                                 )
                               ],
                             ),

@@ -1,9 +1,9 @@
+import 'package:alquranalkareem/core/utils/constants/extensions/extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../../core/services/services_locator.dart';
 import '../../../../core/utils/constants/svg_picture.dart';
-import '../../../../core/widgets/widgets.dart';
 import '../../../controllers/general_controller.dart';
 import '../../../controllers/surah_audio_controller.dart';
 import 'change_reader.dart';
@@ -28,7 +28,7 @@ class PlayWidgetLand extends StatelessWidget {
             borderRadius: const BorderRadius.only(
                 topRight: Radius.circular(12.0),
                 topLeft: Radius.circular(12.0)),
-            color: Get.theme.colorScheme.background,
+            color: Theme.of(context).colorScheme.background,
             boxShadow: [
               BoxShadow(
                 offset: const Offset(0, -2),
@@ -75,8 +75,7 @@ class PlayWidgetLand extends StatelessWidget {
             ),
             Align(
               alignment: Alignment.topRight,
-              child: customClose(
-                context,
+              child: context.customClose(
                 close: () => sl<GeneralController>().closeSlider(),
               ),
             ),

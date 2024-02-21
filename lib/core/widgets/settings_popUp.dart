@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 import '../../presentation/controllers/general_controller.dart';
 import '../../presentation/controllers/notes_controller.dart';
 import '../services/services_locator.dart';
-import '/core/utils/constants/extensions.dart';
+import '../utils/constants/extensions/extensions.dart';
 import '/core/widgets/settings_list.dart';
 import 'custom_rect_tween.dart';
 import 'hero_dialog_route.dart';
@@ -47,7 +47,7 @@ class settingsButton extends StatelessWidget {
           child: Container(
             height: 100,
             width: 100,
-            color: Get.theme.colorScheme.surface,
+            color: Theme.of(context).colorScheme.surface,
             child: Hero(
               tag: heroAddTodo,
               createRectTween: (begin, end) {
@@ -103,7 +103,7 @@ class settingsPopupCard extends StatelessWidget {
                 return CustomRectTween(begin: begin!, end: end!);
               },
               child: Material(
-                color: Get.theme.colorScheme.background,
+                color: Theme.of(context).colorScheme.background,
                 elevation: 1,
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(8)),
@@ -122,13 +122,15 @@ class settingsPopupCard extends StatelessWidget {
                           children: [
                             Icon(Icons.close_outlined,
                                 size: 40,
-                                color: Get.theme.colorScheme.surface
+                                color: Theme.of(context)
+                                    .colorScheme
+                                    .surface
                                     .withOpacity(.5)),
                             Icon(Icons.close_outlined,
                                 size: 24,
                                 color: Get.isDarkMode
-                                    ? Get.theme.canvasColor
-                                    : Get.theme.primaryColorDark),
+                                    ? Theme.of(context).canvasColor
+                                    : Theme.of(context).primaryColorDark),
                           ],
                         ),
                         onTap: () {

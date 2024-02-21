@@ -28,13 +28,13 @@ class ChangeTranslate extends StatelessWidget {
               enabled: true,
               label: 'Change Reader',
               child: Icon(Icons.keyboard_arrow_down_outlined,
-                  size: 20, color: Get.theme.colorScheme.primary),
+                  size: 20, color: Theme.of(context).colorScheme.primary),
             ),
             Obx(() {
               return Text(
                 translateName[translateCtrl.transValue.value],
                 style: TextStyle(
-                    color: Get.theme.colorScheme.surface,
+                    color: Theme.of(context).colorScheme.surface,
                     fontSize: 14,
                     fontWeight: FontWeight.bold,
                     fontFamily: 'kufi'),
@@ -43,7 +43,7 @@ class ChangeTranslate extends StatelessWidget {
           ],
         ),
       ),
-      color: Get.theme.colorScheme.background,
+      color: Theme.of(context).colorScheme.background,
       itemBuilder: (context) => List.generate(
           translateName.length,
           (index) => PopupMenuItem(
@@ -59,7 +59,7 @@ class ChangeTranslate extends StatelessWidget {
                         translateName[index],
                         style: TextStyle(
                             color: translateCtrl.transValue.value == index
-                                ? Get.theme.primaryColorLight
+                                ? Theme.of(context).primaryColorLight
                                 : const Color(0xffcdba72),
                             fontSize: 14,
                             fontFamily: "kufi"),
@@ -72,7 +72,7 @@ class ChangeTranslate extends StatelessWidget {
                               const BorderRadius.all(Radius.circular(2.0)),
                           border: Border.all(
                               color: translateCtrl.transValue.value == index
-                                  ? Get.theme.primaryColorLight
+                                  ? Theme.of(context).primaryColorLight
                                   : const Color(0xffcdba72),
                               width: 2),
                           color: const Color(0xff39412a),
@@ -98,7 +98,8 @@ class ChangeTranslate extends StatelessWidget {
                               borderRadius:
                                   const BorderRadius.all(Radius.circular(4.0)),
                               border: Border.all(
-                                  color: Get.theme.dividerColor, width: 2)),
+                                  color: Theme.of(context).dividerColor,
+                                  width: 2)),
                           child: Opacity(
                             opacity: translateCtrl.transValue.value == index
                                 ? 1

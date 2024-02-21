@@ -15,7 +15,7 @@ class CollapsedPlayWidget extends StatelessWidget {
     return Container(
       width: width,
       decoration: BoxDecoration(
-        color: Get.theme.colorScheme.primary.withOpacity(.15),
+        color: Theme.of(context).colorScheme.primary.withOpacity(.15),
       ),
       child: Stack(
         children: [

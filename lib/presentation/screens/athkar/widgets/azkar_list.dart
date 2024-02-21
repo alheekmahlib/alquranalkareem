@@ -1,4 +1,4 @@
-import 'package:alquranalkareem/core/utils/constants/extensions.dart';
+import 'package:alquranalkareem/core/utils/constants/extensions/extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:gap/gap.dart';
@@ -30,7 +30,8 @@ class AzkarList extends StatelessWidget {
                 decoration: BoxDecoration(
                     borderRadius: const BorderRadius.all(Radius.circular(8)),
                     border: Border.all(
-                        color: Get.theme.colorScheme.surface, width: 1)),
+                        color: Theme.of(context).colorScheme.surface,
+                        width: 1)),
                 child: AnimationLimiter(
                   child: Obx(() {
                     return ListView.builder(
@@ -57,7 +58,9 @@ class AzkarList extends StatelessWidget {
                                   decoration: BoxDecoration(
                                     borderRadius: const BorderRadius.all(
                                         Radius.circular(4)),
-                                    color: Get.theme.colorScheme.primary
+                                    color: Theme.of(context)
+                                        .colorScheme
+                                        .primary
                                         .withOpacity(.1),
                                   ),
                                   child: Row(
@@ -73,7 +76,8 @@ class AzkarList extends StatelessWidget {
                                                   const BorderRadius.all(
                                                       Radius.circular(4)),
                                               border: Border.all(
-                                                  color: Get.theme.colorScheme
+                                                  color: Theme.of(context)
+                                                      .colorScheme
                                                       .surface,
                                                   width: 1)),
                                           child: Row(
@@ -89,8 +93,8 @@ class AzkarList extends StatelessWidget {
                                                     azkarCtrl.categories[index]
                                                         .toString(),
                                                     style: TextStyle(
-                                                      color:
-                                                          Get.theme.hintColor,
+                                                      color: Theme.of(context)
+                                                          .hintColor,
                                                       fontSize: 22,
                                                       fontFamily: 'naskh',
                                                     ),
@@ -128,7 +132,8 @@ class AzkarList extends StatelessWidget {
                 decoration: BoxDecoration(
                     borderRadius: const BorderRadius.all(Radius.circular(8)),
                     border: Border.all(
-                        color: Get.theme.colorScheme.surface, width: 1)),
+                        color: Theme.of(context).colorScheme.surface,
+                        width: 1)),
                 child: AnimationLimiter(
                   child: Obx(() {
                     return ListView.builder(
@@ -155,7 +160,9 @@ class AzkarList extends StatelessWidget {
                                   decoration: BoxDecoration(
                                     borderRadius: const BorderRadius.all(
                                         Radius.circular(4)),
-                                    color: Get.theme.colorScheme.primary
+                                    color: Theme.of(context)
+                                        .colorScheme
+                                        .primary
                                         .withOpacity(.1),
                                   ),
                                   child: Row(
@@ -171,7 +178,8 @@ class AzkarList extends StatelessWidget {
                                                   const BorderRadius.all(
                                                       Radius.circular(4)),
                                               border: Border.all(
-                                                  color: Get.theme.colorScheme
+                                                  color: Theme.of(context)
+                                                      .colorScheme
                                                       .surface,
                                                   width: 1)),
                                           child: Row(
@@ -190,7 +198,7 @@ class AzkarList extends StatelessWidget {
                                                       color: Get.isDarkMode
                                                           ? Get
                                                               .theme.canvasColor
-                                                          : Get.theme
+                                                          : Theme.of(context)
                                                               .primaryColorDark,
                                                       fontSize: 22,
                                                       fontFamily: 'naskh',

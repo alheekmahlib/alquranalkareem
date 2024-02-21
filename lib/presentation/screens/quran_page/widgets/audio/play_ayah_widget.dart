@@ -29,9 +29,9 @@ class PlayAyah extends StatelessWidget {
             //   borderRadius: 8,
             //   shadowWidth: 1.5,
             //   progressWidth: 2,
-            //   shadowColor: Get.theme.colorScheme.surface.withOpacity(.15),
+            //   shadowColor: Theme.of(context).colorScheme.surface.withOpacity(.15),
             //   progressColor: sl<AudioController>().downloading.value
-            //       ? Get.theme.colorScheme.primary
+            //       ? Theme.of(context).colorScheme.primary
             //       : Colors.transparent,
             //   progress: sl<AudioController>().progress.value,
             // ),
@@ -45,7 +45,7 @@ class PlayAyah extends StatelessWidget {
                       style: TextStyle(
                           fontSize: 14,
                           fontFamily: 'kufi',
-                          color: Get.theme.hintColor),
+                          color: Theme.of(context).hintColor),
                     ),
                   )
                 : StreamBuilder<PlayerState>(

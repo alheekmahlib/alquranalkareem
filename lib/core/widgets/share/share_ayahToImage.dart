@@ -3,11 +3,10 @@ import 'package:gap/gap.dart';
 import 'package:screenshot/screenshot.dart';
 
 import '../../../presentation/controllers/share_controller.dart';
-import '../../../presentation/screens/quran_text/widgets/widgets.dart';
 import '../../services/services_locator.dart';
-import '/core/utils/constants/extensions.dart';
+import '../../utils/constants/extensions/extensions.dart';
+import '/core/utils/constants/extensions/surah_name_with_banner.dart';
 import '/core/utils/constants/svg_picture.dart';
-import '/core/widgets/widgets.dart';
 
 class VerseImageCreator extends StatelessWidget {
   final int verseNumber;
@@ -20,10 +19,10 @@ class VerseImageCreator extends StatelessWidget {
     required this.surahNumber,
     required this.verseText,
   }) : super(key: key);
+  final ayahToImage = sl<ShareController>();
 
   @override
   Widget build(BuildContext context) {
-    final ayahToImage = sl<ShareController>();
     return Column(
       children: [
         Screenshot(
@@ -70,7 +69,7 @@ class VerseImageCreator extends StatelessWidget {
                   alignment: Alignment.center,
                   children: [
                     surah_banner1(),
-                    surahNameWidget(
+                    context.surahNameWidget(
                         height: 25, '$surahNumber', const Color(0xff404C6E)),
                   ],
                 ),
@@ -85,7 +84,7 @@ class VerseImageCreator extends StatelessWidget {
                         children: [
                           TextSpan(
                             text:
-                                '﴿ $verseText ${arabicNumber.convert(verseNumber)} ﴾',
+                                '﴿ $verseText ${ayahToImage.arabicNumber.convert(verseNumber)} ﴾',
                             style: const TextStyle(
                               fontSize: 20,
                               fontFamily: 'uthmanic2',

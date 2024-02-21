@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 
 import 'custom_paint/custom_slider.dart';
 
@@ -77,8 +76,8 @@ class _SliderWidgetState extends State<SliderWidget> {
                   EdgeInsets.symmetric(horizontal: widget.horizontalPadding),
               child: SliderTheme(
                 data: SliderTheme.of(context).copyWith(
-                  activeTrackColor:
-                      widget.activeTrackColor ?? Get.theme.colorScheme.primary,
+                  activeTrackColor: widget.activeTrackColor ??
+                      Theme.of(context).colorScheme.primary,
                   inactiveTrackColor: widget.inactiveTrackColor ??
                       Theme.of(context).dividerColor,
                   thumbShape: CustomSliderThumbRect(
@@ -120,7 +119,7 @@ class _SliderWidgetState extends State<SliderWidget> {
                     padding: const EdgeInsets.symmetric(
                         horizontal: 8.0, vertical: 2.0),
                     decoration: BoxDecoration(
-                      color: Get.theme.colorScheme.primary,
+                      color: Theme.of(context).colorScheme.primary,
                       borderRadius: const BorderRadius.only(
                         topLeft: Radius.circular(4),
                         bottomLeft: Radius.circular(4),
@@ -139,7 +138,7 @@ class _SliderWidgetState extends State<SliderWidget> {
                     padding: const EdgeInsets.symmetric(
                         horizontal: 8.0, vertical: 2.0),
                     decoration: BoxDecoration(
-                      color: Get.theme.colorScheme.primary,
+                      color: Theme.of(context).colorScheme.primary,
                       borderRadius: const BorderRadius.only(
                         topRight: Radius.circular(4),
                         bottomRight: Radius.circular(4),

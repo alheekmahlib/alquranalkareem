@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 
 import '../../../../core/services/services_locator.dart';
 import '../../../../core/utils/constants/shared_pref_services.dart';
@@ -37,8 +36,8 @@ class SurahSeekBar extends StatelessWidget {
               await sl<SharedPrefServices>()
                   .saveInteger(LAST_POSITION, newPosition.inSeconds);
             },
-            activeTrackColor: Get.theme.colorScheme.surface,
-            textColor: Get.theme.canvasColor,
+            activeTrackColor: Theme.of(context).colorScheme.surface,
+            textColor: Theme.of(context).canvasColor,
             timeShow: true,
           );
         }
@@ -78,8 +77,8 @@ class DownloadSurahSeekBar extends StatelessWidget {
               await sl<SharedPrefServices>()
                   .saveInteger(LAST_POSITION, newPosition.inSeconds);
             },
-            activeTrackColor: Get.theme.colorScheme.surface,
-            textColor: Get.theme.canvasColor,
+            activeTrackColor: Theme.of(context).colorScheme.surface,
+            textColor: Theme.of(context).canvasColor,
             timeShow: true,
           );
         }

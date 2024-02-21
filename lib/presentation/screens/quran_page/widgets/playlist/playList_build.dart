@@ -24,7 +24,8 @@ class PlayListBuild extends StatelessWidget {
       decoration: BoxDecoration(
         borderRadius: const BorderRadius.all(Radius.circular(8)),
         border: Border.all(
-            width: 1, color: Get.theme.colorScheme.primary.withOpacity(.15)),
+            width: 1,
+            color: Theme.of(context).colorScheme.primary.withOpacity(.15)),
       ),
       child: ExpansionTileCard(
         key: playList.saveCard,
@@ -35,13 +36,13 @@ class PlayListBuild extends StatelessWidget {
           child: Text(
             'playList'.tr,
             style: TextStyle(
-              color: Get.theme.hintColor,
+              color: Theme.of(context).hintColor,
               fontSize: 16,
               fontFamily: 'kufi',
             ),
           ),
         ),
-        baseColor: Get.theme.colorScheme.primary.withOpacity(.1),
+        baseColor: Theme.of(context).colorScheme.primary.withOpacity(.1),
         expandedColor: Colors.transparent,
         children: [
           SizedBox(
@@ -61,7 +62,9 @@ class PlayListBuild extends StatelessWidget {
                             height: 55,
                             width: MediaQuery.sizeOf(context).width,
                             decoration: BoxDecoration(
-                              color: Get.theme.colorScheme.primary
+                              color: Theme.of(context)
+                                  .colorScheme
+                                  .primary
                                   .withOpacity(.15),
                               borderRadius:
                                   const BorderRadius.all(Radius.circular(4)),
@@ -92,7 +95,8 @@ class PlayListBuild extends StatelessWidget {
                                                 horizontal: 16.0,
                                                 vertical: 4.0),
                                             decoration: BoxDecoration(
-                                                color: Get.theme.colorScheme
+                                                color: Theme.of(context)
+                                                    .colorScheme
                                                     .background
                                                     .withOpacity(.8),
                                                 borderRadius:
@@ -105,7 +109,8 @@ class PlayListBuild extends StatelessWidget {
                                                 fontSize: 16,
                                                 color: Get.isDarkMode
                                                     ? Colors.white
-                                                    : Get.theme.primaryColor,
+                                                    : Theme.of(context)
+                                                        .primaryColor,
                                               ),
                                               maxLines: 2,
                                             ),
@@ -119,7 +124,8 @@ class PlayListBuild extends StatelessWidget {
                                             style: TextStyle(
                                               fontFamily: 'kufi',
                                               fontSize: 18,
-                                              color: Get.theme.hintColor,
+                                              color:
+                                                  Theme.of(context).hintColor,
                                             ),
                                           ),
                                         ],

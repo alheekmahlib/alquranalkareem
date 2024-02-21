@@ -10,11 +10,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:timezone/timezone.dart' as tz;
 
 import '../../core/services/local_notifications.dart';
-import '../../core/services/services_locator.dart';
-import '../../core/widgets/widgets.dart';
 import '../../database/notificationDatabase.dart';
 import '../screens/onboarding/widgets/postPage.dart';
-import 'general_controller.dart';
 
 class NotificationsController extends GetxController {
   late NotifyHelper notifyHelper;
@@ -58,13 +55,10 @@ class NotificationsController extends GetxController {
 
   void selectNotification(String payload) async {
     print('Notification tapped, payload: $payload');
-    Navigator.of(
-            sl<GeneralController>().navigatorNotificationKey.currentContext!)
-        .push(
-      animatNameRoute(
-        pushName: '/post',
-        myWidget: PostPage(int.parse(payload)),
-      ),
+
+    Get.toNamed(
+      '/post',
+      arguments: PostPage(int.parse(payload)),
     );
   }
 

@@ -1,4 +1,4 @@
-import 'package:alquranalkareem/core/utils/constants/extensions.dart';
+import 'package:alquranalkareem/core/utils/constants/extensions/extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
@@ -22,7 +22,7 @@ class PlayBanner extends StatelessWidget {
           width: 150,
           height: 50,
           decoration: BoxDecoration(
-            color: Get.theme.colorScheme.surface.withOpacity(.2),
+            color: Theme.of(context).colorScheme.surface.withOpacity(.2),
             borderRadius: const BorderRadius.all(Radius.circular(8)),
           ),
           margin: context.customOrientation(
@@ -35,12 +35,12 @@ class PlayBanner extends StatelessWidget {
                 () => SvgPicture.asset(
                   'assets/svg/surah_name/00${sl<SurahAudioController>().surahNum}.svg',
                   width: 100,
-                  colorFilter:
-                      ColorFilter.mode(Get.theme.hintColor, BlendMode.srcIn),
+                  colorFilter: ColorFilter.mode(
+                      Theme.of(context).hintColor, BlendMode.srcIn),
                 ),
               ),
               MiniMusicVisualizer(
-                color: Get.theme.colorScheme.surface,
+                color: Theme.of(context).colorScheme.surface,
                 width: 4,
                 height: 15,
               ),
@@ -48,7 +48,7 @@ class PlayBanner extends StatelessWidget {
                 height: 80,
                 width: 10,
                 decoration: BoxDecoration(
-                  color: Get.theme.colorScheme.surface,
+                  color: Theme.of(context).colorScheme.surface,
                   borderRadius: const BorderRadius.all(
                     Radius.circular(8),
                   ),

@@ -16,7 +16,7 @@ class SurahJuzList extends StatelessWidget {
       padding: const EdgeInsets.symmetric(vertical: 15.0),
       child: Container(
         decoration: BoxDecoration(
-          color: Get.theme.colorScheme.background,
+          color: Theme.of(context).colorScheme.background,
         ),
         child: DefaultTabController(
             length: 2,
@@ -28,7 +28,7 @@ class SurahJuzList extends StatelessWidget {
                   padding: const EdgeInsets.all(4.0),
                   margin: const EdgeInsets.symmetric(horizontal: 8.0),
                   decoration: BoxDecoration(
-                    color: Get.theme.colorScheme.primary,
+                    color: Theme.of(context).colorScheme.primary,
                     borderRadius: const BorderRadius.all(
                       Radius.circular(8),
                     ),
@@ -36,7 +36,7 @@ class SurahJuzList extends StatelessWidget {
                   child: TabBar(
                     unselectedLabelColor: Colors.grey,
                     labelStyle: TextStyle(
-                      color: Get.theme.hintColor,
+                      color: Theme.of(context).hintColor,
                       fontFamily: 'kufi',
                       fontSize: 11,
                     ),
@@ -44,14 +44,16 @@ class SurahJuzList extends StatelessWidget {
                         borderRadius: const BorderRadius.all(
                           Radius.circular(8),
                         ),
-                        color:
-                            Get.theme.colorScheme.background.withOpacity(.3)),
+                        color: Theme.of(context)
+                            .colorScheme
+                            .background
+                            .withOpacity(.3)),
                     tabs: [
                       Tab(
                         child: Text(
                           'quran_sorah'.tr,
                           style: TextStyle(
-                              color: Get.theme.canvasColor,
+                              color: Theme.of(context).canvasColor,
                               fontSize: 12,
                               fontFamily: 'kufi'),
                         ),
@@ -60,7 +62,7 @@ class SurahJuzList extends StatelessWidget {
                         child: Text(
                           'allJuz'.tr,
                           style: TextStyle(
-                              color: Get.theme.canvasColor,
+                              color: Theme.of(context).canvasColor,
                               fontSize: 12,
                               fontFamily: 'kufi'),
                         ),

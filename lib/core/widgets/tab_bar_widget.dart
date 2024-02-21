@@ -1,9 +1,6 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../presentation/controllers/aya_controller.dart';
-import '../../presentation/screens/quran_page/widgets/search/search_bar.dart';
 import '../services/services_locator.dart';
 import '../utils/constants/svg_picture.dart';
 import '/presentation/controllers/general_controller.dart';
@@ -11,10 +8,14 @@ import '/presentation/screens/home/home_screen.dart';
 import 'settings_list.dart';
 
 class TabBarWidget extends StatelessWidget {
-  final bool isChild;
-  final bool isSearch;
+  final bool isFirstChild;
+  final bool isCenterChild;
+  final Widget? centerChild;
   const TabBarWidget(
-      {super.key, required this.isChild, required this.isSearch});
+      {super.key,
+      required this.isFirstChild,
+      required this.isCenterChild,
+      this.centerChild});
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +25,7 @@ class TabBarWidget extends StatelessWidget {
         Container(
           height: 15,
           width: MediaQuery.sizeOf(context).width,
-          color: Get.theme.colorScheme.primary,
+          color: Theme.of(context).colorScheme.primary,
         ),
         Transform.translate(
           offset: const Offset(0, -1),
@@ -34,7 +35,7 @@ class TabBarWidget extends StatelessWidget {
             children: [
               Expanded(
                 flex: 2,
-                child: isChild
+                child: isFirstChild
                     ? GestureDetector(
                         onTap: () => Get.to(() => const HomeScreen(),
                             transition: Transition.upToDown),
@@ -50,8 +51,9 @@ class TabBarWidget extends StatelessWidget {
                                         Radius.circular(4)),
                                     border: Border.all(
                                         width: 1,
-                                        color:
-                                            Get.theme.colorScheme.onSecondary)),
+                                        color: Theme.of(context)
+                                            .colorScheme
+                                            .surface)),
                                 child: home(height: 25.0, width: 25.0)),
                           ],
                         ),
@@ -60,24 +62,16 @@ class TabBarWidget extends StatelessWidget {
               ),
               Expanded(
                   flex: 7,
-                  child: isSearch
-                      ? Padding(
-                          padding: const EdgeInsets.only(top: 15.0),
-                          child: OpenContainerWrapper(
-                            transitionType: sl<AyaController>().transitionType,
-                            closedBuilder:
-                                (BuildContext _, VoidCallback openContainer) {
-                              return SearchBarWidget(
-                                  openContainer: openContainer);
-                            },
-                          ),
-                        )
-                      : const SizedBox.shrink()),
+                  child:
+                      isCenterChild ? centerChild! : const SizedBox.shrink()),
               Expanded(
                 flex: 2,
                 child: GestureDetector(
                   onTap: () {
-                    Get.bottomSheet(SettingsList(), isScrollControlled: true);
+                    Get.bottomSheet(
+                      SettingsList(),
+                      isScrollControlled: true,
+                    );
                     generalCtrl.showSelectScreenPage.value = false;
                   },
                   child: Stack(
@@ -92,7 +86,8 @@ class TabBarWidget extends StatelessWidget {
                                   const BorderRadius.all(Radius.circular(4)),
                               border: Border.all(
                                   width: 1,
-                                  color: Get.theme.colorScheme.onSecondary)),
+                                  color:
+                                      Theme.of(context).colorScheme.surface)),
                           child: options(height: 25.0, width: 25.0)),
                     ],
                   ),

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 
 import 'expandable_text.dart';
 
@@ -61,8 +60,8 @@ class ReadMoreLess extends StatelessWidget {
             final span = TextSpan(
               text: text,
               style: textStyle ??
-                  Get.theme.textTheme.titleMedium
-                      ?.copyWith(color: Get.theme.textTheme.bodyMedium?.color),
+                  Theme.of(context).textTheme.titleMedium?.copyWith(
+                      color: Theme.of(context).textTheme.bodyMedium?.color),
             );
 
             final tp = TextPainter(
@@ -94,7 +93,8 @@ class ReadMoreLess extends StatelessWidget {
                     softWrap: true,
                     textAlign: textAlign,
                     textDirection: TextDirection.ltr,
-                    style: textStyle ?? Get.theme.textTheme.titleMedium);
+                    style:
+                        textStyle ?? Theme.of(context).textTheme.titleMedium);
           },
         ),
       ],

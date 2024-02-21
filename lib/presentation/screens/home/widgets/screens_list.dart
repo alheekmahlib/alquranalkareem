@@ -14,8 +14,8 @@ class ScreensList extends StatelessWidget {
     return FittedBox(
       fit: BoxFit.scaleDown,
       child: ContainerWithLines(
-          linesColor: Get.theme.colorScheme.primary,
-          containerColor: Get.theme.colorScheme.primary.withOpacity(.2),
+          linesColor: Theme.of(context).colorScheme.primary,
+          containerColor: Theme.of(context).colorScheme.primary.withOpacity(.2),
           child: Padding(
             padding: const EdgeInsets.all(8.0),
             child: Wrap(
@@ -51,17 +51,19 @@ class ScreensList extends StatelessWidget {
                                                 const BorderRadius.all(
                                                     Radius.circular(4)),
                                             border: Border.all(
-                                                color: Get.theme.colorScheme
-                                                    .onSecondary,
+                                                color: Theme.of(context)
+                                                    .colorScheme
+                                                    .surface,
                                                 width: 1)),
                                         child: FittedBox(
                                           fit: BoxFit.scaleDown,
                                           child: Text(
-                                            screensList[index]['name'],
+                                            '${screensList[index]['name']}'.tr,
                                             style: TextStyle(
                                                 fontSize: 17,
                                                 fontFamily: 'kufi',
-                                                color: Get.theme.colorScheme
+                                                color: Theme.of(context)
+                                                    .colorScheme
                                                     .secondary),
                                           ),
                                         ),

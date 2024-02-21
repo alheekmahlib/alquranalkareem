@@ -1,4 +1,3 @@
-import 'package:alquranalkareem/presentation/controllers/azkar_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
@@ -6,11 +5,12 @@ import 'package:group_button/group_button.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 
 import '../../../core/services/services_locator.dart';
+import '../../../core/utils/constants/extensions/extensions.dart';
 import '../../../core/utils/constants/lists.dart';
 import '../../../core/utils/constants/svg_picture.dart';
 import '../../../core/widgets/app_bar_widget.dart';
 import '../../controllers/general_controller.dart';
-import '/core/utils/constants/extensions.dart';
+import '/presentation/controllers/azkar_controller.dart';
 
 class AlwaqfScreen extends StatelessWidget {
   AlwaqfScreen({Key? key}) : super(key: key);
@@ -22,7 +22,7 @@ class AlwaqfScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Get.theme.colorScheme.background,
+        backgroundColor: Theme.of(context).colorScheme.background,
         appBar: const AppBarWidget(isTitled: false),
         body: SafeArea(
           child: Directionality(
@@ -43,8 +43,10 @@ class AlwaqfScreen extends StatelessWidget {
                             width: 50,
                             decoration: BoxDecoration(
                               color: isSelected
-                                  ? Get.theme.colorScheme.primary
-                                  : Get.theme.colorScheme.primary
+                                  ? Theme.of(context).colorScheme.primary
+                                  : Theme.of(context)
+                                      .colorScheme
+                                      .primary
                                       .withOpacity(.6),
                               borderRadius: BorderRadius.circular(4),
                             ),
@@ -54,10 +56,10 @@ class AlwaqfScreen extends StatelessWidget {
                               width: 40,
                               colorFilter: isSelected
                                   ? ColorFilter.mode(
-                                      Get.theme.colorScheme.surface,
+                                      Theme.of(context).colorScheme.surface,
                                       BlendMode.srcIn)
                                   : ColorFilter.mode(
-                                      Get.theme.colorScheme.secondary,
+                                      Theme.of(context).colorScheme.secondary,
                                       BlendMode.srcIn),
                             ),
                           );
@@ -65,10 +67,12 @@ class AlwaqfScreen extends StatelessWidget {
                         buttons: waqfMarks,
                         options: GroupButtonOptions(
                           selectedShadow: const [],
-                          selectedColor: Get.theme.colorScheme.primary,
+                          selectedColor: Theme.of(context).colorScheme.primary,
                           unselectedShadow: const [],
-                          unselectedColor:
-                              Get.theme.colorScheme.primary.withOpacity(.5),
+                          unselectedColor: Theme.of(context)
+                              .colorScheme
+                              .primary
+                              .withOpacity(.5),
                           unselectedTextStyle: TextStyle(
                             fontSize: 18,
                             fontFamily: 'kufi',
@@ -98,7 +102,7 @@ class AlwaqfScreen extends StatelessWidget {
                     ],
                   ),
                 ),
-                context.hDivider(color: Get.theme.colorScheme.primary),
+                context.hDivider(color: Theme.of(context).colorScheme.primary),
                 Expanded(
                   flex: 9,
                   child: SizedBox(
@@ -117,11 +121,13 @@ class AlwaqfScreen extends StatelessWidget {
                                   horizontal: 16, vertical: 16),
                               width: MediaQuery.sizeOf(context).width,
                               decoration: BoxDecoration(
-                                  color: Get.theme.colorScheme.background,
+                                  color:
+                                      Theme.of(context).colorScheme.background,
                                   borderRadius: const BorderRadius.all(
                                       Radius.circular(8)),
                                   border: Border.all(
-                                      color: Get.theme.colorScheme.primary,
+                                      color:
+                                          Theme.of(context).colorScheme.primary,
                                       width: 1)),
                               child: Padding(
                                 padding:
@@ -137,7 +143,9 @@ class AlwaqfScreen extends StatelessWidget {
                                             height: 70,
                                             width: 70,
                                             colorFilter: ColorFilter.mode(
-                                                Get.theme.colorScheme.primary,
+                                                Theme.of(context)
+                                                    .colorScheme
+                                                    .primary,
                                                 BlendMode.srcIn),
                                           )),
                                     ),
@@ -155,14 +163,15 @@ class AlwaqfScreen extends StatelessWidget {
                                                 .fontSizeArabic
                                                 .value,
                                             fontFamily: 'naskh',
-                                            color: Get.isDarkMode
-                                                ? Colors.white
-                                                : Colors.black,
+                                            color: Theme.of(context)
+                                                .colorScheme
+                                                .inversePrimary,
                                           ),
                                         ),
                                         showCursor: true,
                                         cursorWidth: 3,
-                                        cursorColor: Get.theme.dividerColor,
+                                        cursorColor:
+                                            Theme.of(context).dividerColor,
                                         cursorRadius: const Radius.circular(5),
                                         scrollPhysics:
                                             const ClampingScrollPhysics(),

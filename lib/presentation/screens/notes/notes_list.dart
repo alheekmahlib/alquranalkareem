@@ -3,12 +3,12 @@ import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:get/get.dart';
 
 import '../../../core/services/services_locator.dart';
+import '../../../core/utils/constants/extensions/extensions.dart';
 import '../../../core/utils/constants/lottie.dart';
 import '../../../core/widgets/delete_widget.dart';
 import '../../../core/widgets/hero_dialog_route.dart';
 import '../../../core/widgets/settings_popUp.dart';
 import '../../controllers/notes_controller.dart';
-import '/core/utils/constants/extensions.dart';
 import '/presentation/screens/notes/model/Notes.dart';
 
 class NotesList extends StatelessWidget {
@@ -23,16 +23,16 @@ class NotesList extends StatelessWidget {
     return ListView(
       children: [
         ExpansionTile(
-          iconColor: Get.theme.secondaryHeaderColor,
+          iconColor: Theme.of(context).secondaryHeaderColor,
           trailing: Icon(
             Icons.add,
-            color: Get.theme.secondaryHeaderColor,
+            color: Theme.of(context).secondaryHeaderColor,
             size: 20,
           ),
           title: Text(
             'add_new_note'.tr,
             style: TextStyle(
-                color: Get.theme.secondaryHeaderColor,
+                color: Theme.of(context).secondaryHeaderColor,
                 fontSize: 14,
                 fontFamily: 'kufi'),
           ),
@@ -48,7 +48,7 @@ class NotesList extends StatelessWidget {
                     autofocus: true,
                     cursorHeight: 18,
                     cursorWidth: 3,
-                    cursorColor: Get.theme.dividerColor,
+                    cursorColor: Theme.of(context).dividerColor,
                     onChanged: (value) {
                       sl<NotesController>().title = value.trim();
                     },
@@ -56,7 +56,7 @@ class NotesList extends StatelessWidget {
                       FocusManager.instance.primaryFocus?.unfocus();
                     },
                     style: TextStyle(
-                        color: Get.theme.colorScheme.surface,
+                        color: Theme.of(context).colorScheme.surface,
                         fontFamily: 'kufi',
                         fontSize: 12),
                     decoration: InputDecoration(
@@ -65,24 +65,27 @@ class NotesList extends StatelessWidget {
                             sl<NotesController>().titleController.clear(),
                         icon: Icon(
                           Icons.clear,
-                          color: Get.theme.colorScheme.surface,
+                          color: Theme.of(context).colorScheme.surface,
                         ),
                       ),
                       focusedBorder: UnderlineInputBorder(
-                        borderSide:
-                            BorderSide(color: Get.theme.colorScheme.surface),
+                        borderSide: BorderSide(
+                            color: Theme.of(context).colorScheme.surface),
                       ),
                       hintText: 'note_title'.tr,
                       label: Text(
                         'note_title'.tr,
-                        style: TextStyle(color: Get.theme.colorScheme.surface),
+                        style: TextStyle(
+                            color: Theme.of(context).colorScheme.surface),
                       ),
                       hintStyle: TextStyle(
                           // height: 1.5,
-                          color: Get.theme.primaryColorLight.withOpacity(0.5),
+                          color: Theme.of(context)
+                              .primaryColorLight
+                              .withOpacity(0.5),
                           fontFamily: 'kufi',
                           fontWeight: FontWeight.normal,
-                          decorationColor: Get.theme.primaryColor,
+                          decorationColor: Theme.of(context).primaryColor,
                           fontSize: 12),
                       contentPadding:
                           const EdgeInsets.only(right: 16, left: 16),
@@ -97,7 +100,7 @@ class NotesList extends StatelessWidget {
                     autofocus: true,
                     cursorHeight: 18,
                     cursorWidth: 3,
-                    cursorColor: Get.theme.dividerColor,
+                    cursorColor: Theme.of(context).dividerColor,
                     maxLines: null,
                     keyboardType: TextInputType.multiline,
                     onChanged: (value) {
@@ -107,7 +110,7 @@ class NotesList extends StatelessWidget {
                       FocusManager.instance.primaryFocus?.unfocus();
                     },
                     style: TextStyle(
-                        color: Get.theme.colorScheme.surface,
+                        color: Theme.of(context).colorScheme.surface,
                         fontFamily: 'kufi',
                         fontSize: 12),
                     decoration: InputDecoration(
@@ -116,23 +119,26 @@ class NotesList extends StatelessWidget {
                             sl<NotesController>().descriptionController.clear(),
                         icon: Icon(
                           Icons.clear,
-                          color: Get.theme.colorScheme.surface,
+                          color: Theme.of(context).colorScheme.surface,
                         ),
                       ),
                       focusedBorder: UnderlineInputBorder(
-                        borderSide:
-                            BorderSide(color: Get.theme.colorScheme.surface),
+                        borderSide: BorderSide(
+                            color: Theme.of(context).colorScheme.surface),
                       ),
                       hintText: 'note_details'.tr,
                       label: Text(
                         'note_details'.tr,
-                        style: TextStyle(color: Get.theme.colorScheme.surface),
+                        style: TextStyle(
+                            color: Theme.of(context).colorScheme.surface),
                       ),
                       hintStyle: TextStyle(
-                          color: Get.theme.primaryColorLight.withOpacity(0.5),
+                          color: Theme.of(context)
+                              .primaryColorLight
+                              .withOpacity(0.5),
                           fontFamily: 'kufi',
                           fontWeight: FontWeight.normal,
-                          decorationColor: Get.theme.primaryColor,
+                          decorationColor: Theme.of(context).primaryColor,
                           fontSize: 12),
                       contentPadding:
                           const EdgeInsets.only(right: 16, left: 16),
@@ -145,10 +151,11 @@ class NotesList extends StatelessWidget {
                     alignment: Alignment.bottomLeft,
                     child: ElevatedButton(
                       style: ElevatedButton.styleFrom(
-                          backgroundColor: Get.theme.colorScheme.surface,
+                          backgroundColor:
+                              Theme.of(context).colorScheme.surface,
                           side: BorderSide(
                             width: 1.0,
-                            color: Get.theme.dividerColor,
+                            color: Theme.of(context).dividerColor,
                           )),
                       onPressed: () {
                         sl<NotesController>().validate(context);
@@ -158,8 +165,8 @@ class NotesList extends StatelessWidget {
                       },
                       child: Text(
                         'save'.tr,
-                        style:
-                            TextStyle(color: Get.theme.colorScheme.background),
+                        style: TextStyle(
+                            color: Theme.of(context).colorScheme.background),
                       ),
                     ),
                   )
@@ -244,7 +251,9 @@ class NotesList extends StatelessWidget {
                                         width:
                                             MediaQuery.of(context).size.width,
                                         decoration: BoxDecoration(
-                                            color: Get.theme.colorScheme.surface
+                                            color: Theme.of(context)
+                                                .colorScheme
+                                                .surface
                                                 .withOpacity(.2),
                                             borderRadius:
                                                 const BorderRadius.all(
@@ -262,7 +271,7 @@ class NotesList extends StatelessWidget {
                                                   fontFamily: 'uthmanic2',
                                                   color: Get.isDarkMode
                                                       ? Colors.white
-                                                      : Get.theme
+                                                      : Theme.of(context)
                                                           .primaryColorDark,
                                                 ),
                                                 textAlign: TextAlign.justify,
@@ -281,7 +290,7 @@ class NotesList extends StatelessWidget {
                                                   fontFamily: 'naskh',
                                                   color: Get.isDarkMode
                                                       ? Colors.white
-                                                      : Get.theme
+                                                      : Theme.of(context)
                                                           .primaryColorDark,
                                                 ),
                                                 textAlign: TextAlign.justify,
@@ -312,7 +321,7 @@ class NotesList extends StatelessWidget {
       child: Container(
         width: MediaQuery.sizeOf(context).width,
         decoration: BoxDecoration(
-            color: Get.theme.colorScheme.surface.withOpacity(.2),
+            color: Theme.of(context).colorScheme.surface.withOpacity(.2),
             borderRadius: const BorderRadius.all(Radius.circular(8))),
         child: Padding(
           padding: const EdgeInsets.all(16.0),
@@ -326,7 +335,7 @@ class NotesList extends StatelessWidget {
                 cursorHeight: 18,
                 cursorWidth: 3,
                 maxLines: null,
-                cursorColor: Get.theme.dividerColor,
+                cursorColor: Theme.of(context).dividerColor,
                 onChanged: (value) {
                   sl<NotesController>().title = value.trim();
                 },
@@ -336,7 +345,7 @@ class NotesList extends StatelessWidget {
                 style: TextStyle(
                     color: Get.isDarkMode
                         ? Colors.white
-                        : Get.theme.primaryColorLight,
+                        : Theme.of(context).primaryColorLight,
                     fontFamily: 'uthmanic2',
                     fontSize: 18),
                 decoration: InputDecoration(
@@ -345,24 +354,26 @@ class NotesList extends StatelessWidget {
                         sl<NotesController>().titleController.clear(),
                     icon: Icon(
                       Icons.clear,
-                      color: Get.theme.colorScheme.surface,
+                      color: Theme.of(context).colorScheme.surface,
                     ),
                   ),
                   focusedBorder: UnderlineInputBorder(
-                    borderSide:
-                        BorderSide(color: Get.theme.colorScheme.surface),
+                    borderSide: BorderSide(
+                        color: Theme.of(context).colorScheme.surface),
                   ),
                   hintText: 'note_title'.tr,
                   label: Text(
                     'note_title'.tr,
-                    style: TextStyle(color: Get.theme.colorScheme.surface),
+                    style:
+                        TextStyle(color: Theme.of(context).colorScheme.surface),
                   ),
                   hintStyle: TextStyle(
                       // height: 1.5,
-                      color: Get.theme.primaryColorLight.withOpacity(0.5),
+                      color:
+                          Theme.of(context).primaryColorLight.withOpacity(0.5),
                       fontFamily: 'kufi',
                       fontWeight: FontWeight.normal,
-                      decorationColor: Get.theme.primaryColor,
+                      decorationColor: Theme.of(context).primaryColor,
                       fontSize: 12),
                   contentPadding: const EdgeInsets.only(right: 16, left: 16),
                 ),
@@ -381,7 +392,7 @@ class NotesList extends StatelessWidget {
                 cursorHeight: 18,
                 cursorWidth: 3,
                 maxLines: null,
-                cursorColor: Get.theme.dividerColor,
+                cursorColor: Theme.of(context).dividerColor,
                 onChanged: (value) {
                   sl<NotesController>().description = value.trim();
                 },
@@ -391,7 +402,7 @@ class NotesList extends StatelessWidget {
                 style: TextStyle(
                     color: Get.isDarkMode
                         ? Colors.white
-                        : Get.theme.primaryColorLight,
+                        : Theme.of(context).primaryColorLight,
                     fontFamily: 'naskh',
                     fontSize: 18),
                 decoration: InputDecoration(
@@ -400,34 +411,36 @@ class NotesList extends StatelessWidget {
                         sl<NotesController>().descriptionController.clear(),
                     icon: Icon(
                       Icons.clear,
-                      color: Get.theme.colorScheme.surface,
+                      color: Theme.of(context).colorScheme.surface,
                     ),
                   ),
                   focusedBorder: UnderlineInputBorder(
-                    borderSide:
-                        BorderSide(color: Get.theme.colorScheme.surface),
+                    borderSide: BorderSide(
+                        color: Theme.of(context).colorScheme.surface),
                   ),
                   hintText: 'note_details'.tr,
                   label: Text(
                     'note_details'.tr,
-                    style: TextStyle(color: Get.theme.colorScheme.surface),
+                    style:
+                        TextStyle(color: Theme.of(context).colorScheme.surface),
                   ),
                   hintStyle: TextStyle(
                       // height: 1.5,
-                      color: Get.theme.primaryColorLight.withOpacity(0.5),
+                      color:
+                          Theme.of(context).primaryColorLight.withOpacity(0.5),
                       fontFamily: 'kufi',
                       fontWeight: FontWeight.normal,
-                      decorationColor: Get.theme.primaryColor,
+                      decorationColor: Theme.of(context).primaryColor,
                       fontSize: 12),
                   contentPadding: const EdgeInsets.only(right: 16, left: 16),
                 ),
               ),
               ElevatedButton(
                 style: ElevatedButton.styleFrom(
-                    backgroundColor: Get.theme.colorScheme.surface,
+                    backgroundColor: Theme.of(context).colorScheme.surface,
                     side: BorderSide(
                       width: 1.0,
-                      color: Get.theme.dividerColor,
+                      color: Theme.of(context).dividerColor,
                     )),
                 onPressed: () {
                   note.title =
@@ -441,7 +454,8 @@ class NotesList extends StatelessWidget {
                 },
                 child: Text(
                   'save'.tr,
-                  style: TextStyle(color: Get.theme.colorScheme.background),
+                  style: TextStyle(
+                      color: Theme.of(context).colorScheme.background),
                 ),
               )
             ],

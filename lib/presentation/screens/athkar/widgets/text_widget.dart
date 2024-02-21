@@ -20,7 +20,7 @@ class TextWidget extends StatelessWidget {
           child: Container(
             padding: const EdgeInsets.all(8),
             decoration: BoxDecoration(
-                color: Get.theme.colorScheme.primary.withOpacity(.1),
+                color: Theme.of(context).colorScheme.primary.withOpacity(.1),
                 borderRadius: const BorderRadius.all(Radius.circular(8))),
             width: double.infinity,
             child: Obx(() {
@@ -35,7 +35,7 @@ class TextWidget extends StatelessWidget {
                 ),
                 showCursor: true,
                 cursorWidth: 3,
-                cursorColor: Get.theme.dividerColor,
+                cursorColor: Theme.of(context).dividerColor,
                 cursorRadius: const Radius.circular(5),
                 scrollPhysics: const ClampingScrollPhysics(),
                 textDirection: TextDirection.rtl,
@@ -55,14 +55,17 @@ class TextWidget extends StatelessWidget {
                   decoration: BoxDecoration(
                       borderRadius: const BorderRadius.all(Radius.circular(4)),
                       border: Border.all(
-                          color: Get.theme.colorScheme.primary.withOpacity(.15),
+                          color: Theme.of(context)
+                              .colorScheme
+                              .primary
+                              .withOpacity(.15),
                           width: 1)),
                   child: Text(
                     zekr.reference,
                     style: TextStyle(
                       color: Get.isDarkMode
                           ? Colors.white
-                          : Get.theme.primaryColorDark,
+                          : Theme.of(context).primaryColorDark,
                       fontSize: 14,
                       fontFamily: 'naskh',
                     ),
@@ -81,15 +84,17 @@ class TextWidget extends StatelessWidget {
                         borderRadius:
                             const BorderRadius.all(Radius.circular(4)),
                         border: Border.all(
-                            color:
-                                Get.theme.colorScheme.primary.withOpacity(.15),
+                            color: Theme.of(context)
+                                .colorScheme
+                                .primary
+                                .withOpacity(.15),
                             width: 1)),
                     child: Text(
                       zekr.description,
                       style: TextStyle(
                           color: Get.isDarkMode
                               ? Colors.white
-                              : Get.theme.primaryColorDark,
+                              : Theme.of(context).primaryColorDark,
                           fontSize: 16,
                           fontFamily: 'naskh',
                           fontWeight: FontWeight.bold),

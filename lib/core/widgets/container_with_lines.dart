@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 
-import '/core/utils/constants/extensions.dart';
+import '../utils/constants/extensions/extensions.dart';
 
 class ContainerWithLines extends StatelessWidget {
   final Widget child;
@@ -29,7 +28,7 @@ class ContainerWithLines extends StatelessWidget {
             width: width ?? MediaQuery.sizeOf(context).width,
             margin: const EdgeInsets.symmetric(horizontal: 16.0),
             decoration: BoxDecoration(
-              color: containerColor ?? Get.theme.colorScheme.background,
+              color: containerColor ?? Theme.of(context).colorScheme.background,
               borderRadius: const BorderRadius.all(
                 Radius.circular(4),
               ),

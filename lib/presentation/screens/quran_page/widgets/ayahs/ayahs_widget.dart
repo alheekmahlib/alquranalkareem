@@ -19,7 +19,7 @@ class AyahsWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     // quranCtrl.listenToScrollPositions();
     return Container(
-      color: Get.theme.colorScheme.background,
+      color: Theme.of(context).colorScheme.background,
       padding: const EdgeInsets.symmetric(vertical: 64.0),
       child: GestureDetector(
         onTap: () {
@@ -42,7 +42,10 @@ class AyahsWidget extends StatelessWidget {
                             const BorderRadius.all(Radius.circular(8)),
                         border: Border.all(
                           width: 1,
-                          color: Get.theme.colorScheme.primary.withOpacity(.5),
+                          color: Theme.of(context)
+                              .colorScheme
+                              .primary
+                              .withOpacity(.5),
                         )),
                     child: AyahsBuild(
                       pageIndex: pageIndex,

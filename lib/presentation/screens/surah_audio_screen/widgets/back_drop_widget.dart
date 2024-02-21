@@ -33,12 +33,9 @@ class BackDropWidget extends StatelessWidget {
                     alignment: Alignment.topCenter,
                     children: [
                       TabBarWidget(
-                        isChild: true,
-                        isSearch: false,
-                      ),
-                      Padding(
-                        padding: EdgeInsets.only(top: 14.0),
-                        child: LastListen(),
+                        isFirstChild: true,
+                        isCenterChild: true,
+                        centerChild: LastListen(),
                       ),
                     ],
                   )),
@@ -64,7 +61,7 @@ class BackDropWidget extends StatelessWidget {
             ],
           ),
         ),
-        const Flexible(child: SurahAudioList()),
+        Flexible(child: SurahAudioList()),
       ],
     );
   }

@@ -4,6 +4,7 @@ import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 
 import '../../../../../core/services/services_locator.dart';
+import '../../../../../core/utils/constants/extensions/extensions.dart';
 import '../../../../../core/widgets/share/share_ayah_options.dart';
 import '../../../../controllers/general_controller.dart';
 import '../../../../controllers/quran_controller.dart';
@@ -11,7 +12,6 @@ import '../buttons/add_bookmark_button.dart';
 import '../buttons/copy_button.dart';
 import '../buttons/play_button.dart';
 import '../buttons/tafsir_button.dart';
-import '/core/utils/constants/extensions.dart';
 
 class AyahsMenu extends StatelessWidget {
   final int surahNum;
@@ -45,8 +45,8 @@ class AyahsMenu extends StatelessWidget {
       padding: const EdgeInsets.symmetric(vertical: 6.0, horizontal: 16.0),
       decoration: BoxDecoration(
           color: isSelected
-              ? Get.theme.colorScheme.surface.withOpacity(.4)
-              : Get.theme.colorScheme.surface.withOpacity(.15),
+              ? Theme.of(context).colorScheme.surface.withOpacity(.4)
+              : Theme.of(context).colorScheme.surface.withOpacity(.15),
           borderRadius: const BorderRadius.all(Radius.circular(4))),
       width: double.infinity,
       child: Row(
@@ -64,11 +64,11 @@ class AyahsMenu extends StatelessWidget {
                 FittedBox(
                   fit: BoxFit.scaleDown,
                   child: Padding(
-                    padding: const EdgeInsets.all(8.0),
+                    padding: const EdgeInsets.all(10.0),
                     child: Text(
                       generalCtrl.convertNumbers(ayahNum.toString()),
                       style: TextStyle(
-                          color: Get.theme.hintColor,
+                          color: Theme.of(context).hintColor,
                           fontFamily: "kufi",
                           fontSize: 14,
                           fontWeight: FontWeight.bold,
@@ -108,7 +108,7 @@ class AyahsMenu extends StatelessWidget {
                       child: Icon(
                         Icons.more_vert_outlined,
                         size: 24,
-                        color: Get.theme.colorScheme.primary,
+                        color: Theme.of(context).colorScheme.primary,
                       ),
                     ),
                   ],
@@ -147,6 +147,7 @@ class AyahsMenu extends StatelessWidget {
                     const Gap(6),
                     CopyButton(
                       ayahNum: ayahNum,
+                      surahName: surahName,
                       ayahTextNormal: ayahTextNormal,
                     ),
                     const Gap(6),

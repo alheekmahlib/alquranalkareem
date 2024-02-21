@@ -25,7 +25,7 @@ class LogoAndTitle extends StatelessWidget {
           ),
           const Gap(16),
           ContainerWithBorder(
-            color: Get.theme.colorScheme.primary,
+            color: Theme.of(context).colorScheme.primary,
             child: Obx(() {
               return AnimatedOpacity(
                 duration: const Duration(seconds: 1),
@@ -34,7 +34,7 @@ class LogoAndTitle extends StatelessWidget {
                   'وَرَتِّلِ ٱلۡقُرۡءَانَ تَرۡتِيلًا',
                   style: TextStyle(
                       fontFamily: 'uthmanic2',
-                      color: Get.theme.colorScheme.background,
+                      color: Theme.of(context).colorScheme.background,
                       fontSize: 22),
                 ),
               );

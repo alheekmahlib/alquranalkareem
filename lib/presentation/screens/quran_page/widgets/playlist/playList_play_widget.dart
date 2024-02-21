@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 
 import '../../../../../core/services/services_locator.dart';
 import '../../../../../core/widgets/seek_bar.dart';
@@ -32,8 +31,8 @@ class PlayListPlayWidget extends StatelessWidget {
                     position: positionData?.position ?? Duration.zero,
                     bufferedPosition:
                         positionData?.bufferedPosition ?? Duration.zero,
-                    activeTrackColor: Get.theme.colorScheme.surface,
-                    // textColor: Get.theme.primaryColorLight,
+                    activeTrackColor: Theme.of(context).colorScheme.surface,
+                    // textColor: Theme.of(context).primaryColorLight,
                     onChangeEnd: playList.playlistAudioPlayer.seek,
                   );
                 }

@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../../core/services/services_locator.dart';
+import '../../../../core/utils/constants/extensions/extensions.dart';
 import '../../../../core/utils/constants/svg_picture.dart';
 import '../../../controllers/surah_audio_controller.dart';
-import '/core/utils/constants/extensions.dart';
 import 'change_reader.dart';
 import 'download_play_button.dart';
 import 'online_play_button.dart';
@@ -23,7 +23,7 @@ class PlayWidget extends StatelessWidget {
       height: 291,
       width: size.width,
       decoration: BoxDecoration(
-        color: Get.theme.colorScheme.background,
+        color: Theme.of(context).colorScheme.background,
       ),
       child: Stack(
         alignment: Alignment.center,

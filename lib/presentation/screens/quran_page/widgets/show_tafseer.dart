@@ -4,16 +4,16 @@ import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 
 import '../../../../core/services/services_locator.dart';
+import '../../../../core/utils/constants/extensions/extensions.dart';
 import '../../../controllers/ayat_controller.dart';
 import '../../../controllers/general_controller.dart';
 import '../../../controllers/translate_controller.dart';
 import '../data/model/aya.dart';
-import '/core/utils/constants/extensions.dart';
 import '/core/utils/constants/extensions/text_span_extension.dart';
 import '/core/utils/constants/svg_picture.dart';
 import '/presentation/controllers/quran_controller.dart';
+import 'ayahs/share_copy_widget.dart';
 import 'change_tafsir.dart';
-import 'share_copy_widget.dart';
 
 class ShowTafseer extends StatelessWidget {
   late int ayahUQNumber;
@@ -35,7 +35,7 @@ class ShowTafseer extends StatelessWidget {
       height: size.height * .9,
       width: size.width,
       decoration: BoxDecoration(
-          color: Get.theme.colorScheme.background,
+          color: Theme.of(context).colorScheme.background,
           borderRadius: const BorderRadius.only(
             topLeft: Radius.circular(8),
             topRight: Radius.circular(8),
@@ -104,12 +104,16 @@ class ShowTafseer extends StatelessWidget {
                                 return Container(
                                   width: MediaQuery.sizeOf(context).width,
                                   decoration: BoxDecoration(
-                                      color: Get.theme.colorScheme.surface
+                                      color: Theme.of(context)
+                                          .colorScheme
+                                          .surface
                                           .withOpacity(.1),
                                       border: Border.symmetric(
                                           horizontal: BorderSide(
                                         width: 2,
-                                        color: Get.theme.colorScheme.primary,
+                                        color: Theme.of(context)
+                                            .colorScheme
+                                            .primary,
                                       ))),
                                   child: Padding(
                                     padding: const EdgeInsets.symmetric(
@@ -128,7 +132,8 @@ class ShowTafseer extends StatelessWidget {
                                                     fontFamily: 'uthmanic2',
                                                     fontSize: 24,
                                                     height: 1.9,
-                                                    color: Get.theme.colorScheme
+                                                    color: Theme.of(context)
+                                                        .colorScheme
                                                         .inversePrimary,
                                                   ),
                                                 ),
@@ -193,7 +198,7 @@ class ShowTafseer extends StatelessWidget {
                                             ),
                                             // showCursor: true,
                                             // cursorWidth: 3,
-                                            // cursorColor: Get.theme.dividerColor,
+                                            // cursorColor: Theme.of(context).dividerColor,
                                             // cursorRadius: const Radius.circular(5),
                                             // scrollPhysics:
                                             //     const ClampingScrollPhysics(),

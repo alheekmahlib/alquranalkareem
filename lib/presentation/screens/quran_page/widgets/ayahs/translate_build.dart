@@ -8,7 +8,7 @@ import '../../../../controllers/general_controller.dart';
 import '../../../../controllers/settings_controller.dart';
 import '../../../../controllers/share_controller.dart';
 import '../../../../controllers/translate_controller.dart';
-import '../../../quran_text/widgets/text_overflow_detector.dart';
+import '../text_overflow_detector.dart';
 import 'change_translate.dart';
 
 class TranslateBuild extends StatelessWidget {
@@ -43,7 +43,7 @@ class TranslateBuild extends StatelessWidget {
                 textStyle: TextStyle(
                   fontSize: sl<GeneralController>().fontSizeArabic.value - 3,
                   fontFamily: sl<SettingsController>().languageFont.value,
-                  color: Get.theme.hintColor,
+                  color: Theme.of(context).hintColor,
                 ),
                 // textAlign: TextAlign.justify,
                 readMoreText: 'readMore'.tr,
@@ -51,9 +51,9 @@ class TranslateBuild extends StatelessWidget {
                 buttonTextStyle: TextStyle(
                   fontSize: 12,
                   fontFamily: 'kufi',
-                  color: Get.theme.hintColor,
+                  color: Theme.of(context).hintColor,
                 ),
-                iconColor: Get.theme.hintColor,
+                iconColor: Theme.of(context).hintColor,
               );
             },
           ),

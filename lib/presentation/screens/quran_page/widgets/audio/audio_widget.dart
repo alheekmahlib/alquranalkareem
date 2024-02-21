@@ -3,11 +3,10 @@ import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 
 import '../../../../../core/services/services_locator.dart';
+import '../../../../../core/utils/constants/extensions/extensions.dart';
 import '../../../../../core/widgets/seek_bar.dart';
-import '../../../../../core/widgets/widgets.dart';
 import '../../../../controllers/audio_controller.dart';
 import '../playlist/ayahs_playList_widget.dart';
-import '/core/utils/constants/extensions.dart';
 import '/core/utils/constants/svg_picture.dart';
 import '/presentation/controllers/general_controller.dart';
 import '/presentation/controllers/quran_controller.dart';
@@ -29,14 +28,15 @@ class AudioWidget extends StatelessWidget {
       child: Container(
           margin: const EdgeInsets.only(bottom: 24.0, right: 32.0, left: 32.0),
           decoration: BoxDecoration(
-              color: Get.theme.colorScheme.background,
+              color: Theme.of(context).colorScheme.background,
               borderRadius: const BorderRadius.all(Radius.circular(8)),
               boxShadow: [
                 BoxShadow(
                     offset: const Offset(0, -2),
                     blurRadius: 3,
                     spreadRadius: 3,
-                    color: Get.theme.colorScheme.primary.withOpacity(.15))
+                    color:
+                        Theme.of(context).colorScheme.primary.withOpacity(.15))
               ]),
           child: Obx(() => AnimatedCrossFade(
                 duration: const Duration(milliseconds: 200),
@@ -63,11 +63,8 @@ class AudioWidget extends StatelessWidget {
                             child: playlist(height: 25.0),
                           ),
                           onTap: () {
-                            fullModalBottomSheet(
-                                context,
-                                MediaQuery.sizeOf(context).height / 1 / 2,
-                                MediaQuery.sizeOf(context).width,
-                                AyahsPlayListWidget());
+                            Get.bottomSheet(AyahsPlayListWidget(),
+                                isScrollControlled: true);
                           },
                         )),
                       ],
@@ -129,7 +126,7 @@ class AudioWidget extends StatelessWidget {
                                         positionData?.bufferedPosition ??
                                             Duration.zero,
                                     activeTrackColor:
-                                        Get.theme.colorScheme.primary,
+                                        Theme.of(context).colorScheme.primary,
                                     onChangeEnd:
                                         sl<AudioController>().audioPlayer.seek,
                                   );

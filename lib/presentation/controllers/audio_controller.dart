@@ -3,7 +3,6 @@ import 'dart:developer' as developer;
 import 'dart:io';
 import 'dart:math';
 
-import 'package:alquranalkareem/core/utils/constants/constants.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
@@ -18,15 +17,13 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../core/services/services_locator.dart';
 import '../../core/utils/constants/shared_preferences_constants.dart';
-import '../../core/utils/helpers/functions.dart';
 import '../../core/widgets/seek_bar.dart';
-import '../../core/widgets/widgets.dart';
-import '../screens/quran_text/data/models/Ahya.dart';
-import '../screens/quran_text/data/models/QuranModel.dart';
+import '/core/utils/constants/constants.dart';
+import '/core/utils/constants/extensions/custom_error_snackBar.dart';
+import '/core/utils/constants/extensions/custom_mobile_notes_snack_bar.dart';
 import 'ayat_controller.dart';
 import 'general_controller.dart';
 import 'quran_controller.dart';
-import 'surahTextController.dart';
 
 class AudioController extends GetxController {
   AudioPlayer audioPlayer = AudioPlayer();
@@ -66,7 +63,6 @@ class AudioController extends GetxController {
 
   final generalCtrl = sl<GeneralController>();
   final quranCtrl = sl<QuranController>();
-  final surahTextCtrl = sl<SurahTextController>();
   final ayatCtrl = sl<AyatController>();
 
   void startPlayingToggle() {
@@ -113,24 +109,6 @@ class AudioController extends GetxController {
           audioPlayer.durationStream,
           (position, bufferedPosition, duration) => PositionData(
               position, bufferedPosition, duration ?? Duration.zero));
-
-  String get currentAyahFileName {
-    final surahNumber = surahTextCtrl.surahs
-        .where((s) =>
-            s.ayahs != null &&
-            s.ayahs!.any((a) => a.number == ayatCtrl.currentAyah?.id))
-        .first
-        .number;
-    return "$readerValue/${formatNumber(surahNumber!)}${formatNumber(ayatCtrl.currentAyah!.id)}.mp3";
-  }
-
-  SurahText get getCurrentSurah {
-    print(surahTextCtrl.surahs.length);
-    return surahTextCtrl.currentSurah;
-  }
-
-  Ayahs get currentAyahs => getCurrentSurah.ayahs!
-      .firstWhere((a) => a.number == ayatCtrl.currentAyah!.id);
 
   bool get isLastAyahInPage =>
       quranCtrl
@@ -210,10 +188,10 @@ class AudioController extends GetxController {
           print(e);
         }
         if (_connectionStatus == ConnectivityResult.none) {
-          customErrorSnackBar('noInternet'.tr);
+          Get.context!.showCustomErrorSnackBar('noInternet'.tr);
         } else if (_connectionStatus == ConnectivityResult.mobile) {
           await downloadFile(path, url, fileName);
-          customMobileNoteSnackBar('mobileDataAyat'.tr);
+          Get.context!.customMobileNoteSnackBar('mobileDataAyat'.tr);
         } else if (_connectionStatus == ConnectivityResult.wifi) {
           await downloadFile(path, url, fileName);
         }

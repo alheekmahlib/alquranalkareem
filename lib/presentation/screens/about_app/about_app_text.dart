@@ -1,4 +1,4 @@
-import 'package:alquranalkareem/core/utils/constants/extensions.dart';
+import 'package:alquranalkareem/core/utils/constants/extensions/extensions.dart';
 import 'package:expansion_tile_card/expansion_tile_card.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
@@ -20,7 +20,7 @@ class AboutAppText extends StatelessWidget {
           style: TextStyle(
             fontFamily: 'kufi',
             fontSize: 18,
-            color: Get.theme.hintColor,
+            color: Theme.of(context).hintColor,
           ),
         ),
       ),
@@ -39,7 +39,7 @@ class AboutAppText extends StatelessWidget {
                 fontFamily: 'naskh',
                 fontSize: 20,
                 fontWeight: FontWeight.bold,
-                color: Get.theme.hintColor,
+                color: Theme.of(context).hintColor,
               ),
               textAlign: TextAlign.justify,
             ),
@@ -56,7 +56,7 @@ class AboutAppText extends StatelessWidget {
                         fontSize: 18.0,
                         fontFamily: 'naskh',
                         fontWeight: FontWeight.bold,
-                        color: Get.theme.hintColor,
+                        color: Theme.of(context).hintColor,
                       ),
                     ),
                     Text(('aboutApp${index + 1}').tr,
@@ -64,7 +64,7 @@ class AboutAppText extends StatelessWidget {
                           fontSize: 18.0,
                           fontFamily: 'naskh',
                           fontWeight: FontWeight.w500,
-                          color: Get.theme.hintColor,
+                          color: Theme.of(context).hintColor,
                         ),
                         textAlign: TextAlign.justify),
                     context.hDivider(width: MediaQuery.sizeOf(context).width),

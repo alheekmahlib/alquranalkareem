@@ -3,11 +3,8 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
-import '../../../core/services/services_locator.dart';
 import '../../../core/utils/constants/lottie.dart';
-import '../../../core/widgets/widgets.dart';
 import '../../../database/notificationDatabase.dart';
-import '../../controllers/general_controller.dart';
 import '../onboarding/widgets/postPage.dart';
 
 class NotificationScreen extends StatelessWidget {
@@ -37,7 +34,7 @@ class NotificationScreen extends StatelessWidget {
     }
 
     return Scaffold(
-      backgroundColor: Get.theme.primaryColorLight,
+      backgroundColor: Theme.of(context).primaryColorLight,
       body: Padding(
         padding: const EdgeInsets.only(
             top: 70.0, bottom: 16.0, right: 16.0, left: 16.0),
@@ -51,15 +48,15 @@ class NotificationScreen extends StatelessWidget {
                   height: 30,
                   width: 30,
                   decoration: BoxDecoration(
-                      color: Get.theme.colorScheme.background,
+                      color: Theme.of(context).colorScheme.background,
                       borderRadius: const BorderRadius.all(
                         Radius.circular(8),
                       ),
-                      border:
-                          Border.all(width: 2, color: Get.theme.dividerColor)),
+                      border: Border.all(
+                          width: 2, color: Theme.of(context).dividerColor)),
                   child: Icon(
                     Icons.close_outlined,
-                    color: Get.theme.colorScheme.surface,
+                    color: Theme.of(context).colorScheme.surface,
                   ),
                 ),
               ),
@@ -69,7 +66,7 @@ class NotificationScreen extends StatelessWidget {
               style: TextStyle(
                 fontSize: 24,
                 fontFamily: 'kufi',
-                color: Get.theme.canvasColor,
+                color: Theme.of(context).canvasColor,
               ),
             ),
             SvgPicture.asset(
@@ -83,7 +80,7 @@ class NotificationScreen extends StatelessWidget {
               child: Container(
                 height: MediaQuery.sizeOf(context).height,
                 decoration: BoxDecoration(
-                  color: Get.theme.colorScheme.surface,
+                  color: Theme.of(context).colorScheme.surface,
                   borderRadius: const BorderRadius.all(Radius.circular(8)),
                 ),
                 padding: const EdgeInsets.symmetric(horizontal: 8.0),
@@ -105,7 +102,7 @@ class NotificationScreen extends StatelessWidget {
                           return Container(
                             height: 70,
                             decoration: BoxDecoration(
-                              color: Get.theme.colorScheme.background,
+                              color: Theme.of(context).colorScheme.background,
                               borderRadius:
                                   const BorderRadius.all(Radius.circular(8)),
                             ),
@@ -135,17 +132,12 @@ class NotificationScreen extends StatelessWidget {
                               trailing: Icon(
                                 Icons.notifications_active,
                                 size: 28,
-                                color: Get.theme.dividerColor,
+                                color: Theme.of(context).dividerColor,
                               ),
                               onTap: () {
-                                Navigator.of(sl<GeneralController>()
-                                        .navigatorNotificationKey
-                                        .currentContext!)
-                                    .push(
-                                  animatNameRoute(
-                                    pushName: '/post',
-                                    myWidget: PostPage(notification['id']),
-                                  ),
+                                Get.toNamed(
+                                  '/post',
+                                  arguments: PostPage(notification['id']),
                                 );
                               },
                             ),

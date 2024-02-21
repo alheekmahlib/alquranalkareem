@@ -21,12 +21,12 @@ class SelectScreen extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 6.0, vertical: 4.0),
             margin: const EdgeInsets.symmetric(horizontal: 16.0),
             decoration: BoxDecoration(
-                color: Get.theme.colorScheme.primary.withOpacity(.2),
+                color: Theme.of(context).colorScheme.primary.withOpacity(.2),
                 borderRadius: const BorderRadius.all(Radius.circular(4))),
             child: Text(
               'startScreen'.tr,
               style: TextStyle(
-                  color: Get.isDarkMode ? Colors.white : Get.theme.primaryColor,
+                  color: Theme.of(context).hintColor,
                   fontFamily: 'kufi',
                   fontStyle: FontStyle.italic,
                   fontSize: 16),
@@ -36,15 +36,16 @@ class SelectScreen extends StatelessWidget {
           Container(
             padding: const EdgeInsets.all(4.0),
             decoration: BoxDecoration(
-                border:
-                    Border.all(color: Get.theme.colorScheme.surface, width: 1),
+                border: Border.all(
+                    color: Theme.of(context).colorScheme.surface, width: 1),
                 borderRadius: const BorderRadius.all(Radius.circular(8))),
             child: GestureDetector(
               onTap: () => generalCtrl.selectScreenToggleView(),
               child: Container(
                 padding: const EdgeInsets.symmetric(horizontal: 16.0),
                 decoration: BoxDecoration(
-                    color: Get.theme.colorScheme.primary.withOpacity(.2),
+                    color:
+                        Theme.of(context).colorScheme.primary.withOpacity(.2),
                     borderRadius: const BorderRadius.all(Radius.circular(8))),
                 child: SizedBox(
                   height: 60,
@@ -59,7 +60,7 @@ class SelectScreen extends StatelessWidget {
                           style: TextStyle(
                             fontFamily: 'kufi',
                             fontSize: 18,
-                            color: Theme.of(context).primaryColorLight,
+                            color: Theme.of(context).hintColor,
                           ),
                         ),
                       ),
@@ -68,7 +69,7 @@ class SelectScreen extends StatelessWidget {
                         child: Icon(
                           Icons.arrow_forward_ios_outlined,
                           size: 20,
-                          color: Get.theme.colorScheme.primary,
+                          color: Theme.of(context).hintColor,
                         ),
                       )
                     ],

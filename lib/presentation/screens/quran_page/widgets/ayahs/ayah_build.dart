@@ -7,6 +7,7 @@ import '../../../../controllers/general_controller.dart';
 import '../../../../controllers/quran_controller.dart';
 import '../../../../controllers/translate_controller.dart';
 import '../pages/custom_span.dart';
+import '/core/utils/constants/extensions/surah_name_with_banner.dart';
 import 'ayahs_menu.dart';
 import 'translate_build.dart';
 
@@ -29,7 +30,7 @@ class AyahsBuild extends StatelessWidget {
           final ayahs =
               quranCtrl.getCurrentPageAyahsSeparatedForBasmalah(pageIndex)[i];
           return Column(children: [
-            quranCtrl.surahAyahBannerFirstPlace(pageIndex, i),
+            context.surahAyahBannerFirstPlace(pageIndex, i),
             Obx(() {
               return Column(
                   children: List.generate(ayahs.length, (ayahIndex) {
@@ -65,7 +66,9 @@ class AyahsBuild extends StatelessWidget {
                                       .fontSizeArabic
                                       .value,
                                   height: 2,
-                                  color: Get.theme.colorScheme.inversePrimary,
+                                  color: Theme.of(context)
+                                      .colorScheme
+                                      .inversePrimary,
                                 ),
                                 children: [
                                   ayahIndex == 0
@@ -122,7 +125,7 @@ class AyahsBuild extends StatelessWidget {
                 width: 50,
                 padding: const EdgeInsets.symmetric(horizontal: 8.0),
                 decoration: BoxDecoration(
-                    color: Get.theme.colorScheme.surface,
+                    color: Theme.of(context).colorScheme.surface,
                     borderRadius: const BorderRadius.only(
                       topRight: Radius.circular(4),
                       bottomLeft: Radius.circular(8),
@@ -132,7 +135,7 @@ class AyahsBuild extends StatelessWidget {
                       .convertNumbers(ayahs[i].page.toString()),
                   style: TextStyle(
                       fontSize: 18,
-                      color: Get.theme.colorScheme.background,
+                      color: Theme.of(context).colorScheme.background,
                       fontFamily: 'naskh'),
                 ),
               ),

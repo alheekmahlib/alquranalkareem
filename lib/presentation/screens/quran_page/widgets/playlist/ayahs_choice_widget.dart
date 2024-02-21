@@ -1,5 +1,3 @@
-import 'package:alquranalkareem/presentation/controllers/general_controller.dart';
-import 'package:alquranalkareem/presentation/controllers/quran_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
@@ -7,7 +5,8 @@ import 'package:get/get.dart';
 import '../../../../../core/services/services_locator.dart';
 import '../../../../../core/utils/constants/lottie.dart';
 import '../../../../controllers/playList_controller.dart';
-import '../../../quran_text/widgets/widgets.dart';
+import '/presentation/controllers/general_controller.dart';
+import '/presentation/controllers/quran_controller.dart';
 import 'playList_ayat_widget.dart';
 
 class AyahsChoiceWidget extends StatelessWidget {
@@ -28,12 +27,15 @@ class AyahsChoiceWidget extends StatelessWidget {
               } else {
                 return PopupMenuButton(
                   position: PopupMenuPosition.under,
-                  color: Get.theme.colorScheme.background,
+                  color: Theme.of(context).colorScheme.background,
                   child: Container(
                     height: 45,
                     padding: const EdgeInsets.all(4.0),
                     decoration: BoxDecoration(
-                      color: Get.theme.colorScheme.primary.withOpacity(.15),
+                      color: Theme.of(context)
+                          .colorScheme
+                          .primary
+                          .withOpacity(.15),
                       borderRadius: const BorderRadius.all(Radius.circular(8)),
                     ),
                     child: Row(
@@ -45,25 +47,25 @@ class AyahsChoiceWidget extends StatelessWidget {
                           style: TextStyle(
                             fontFamily: 'kufi',
                             fontSize: 16,
-                            color: Get.theme.hintColor,
+                            color: Theme.of(context).hintColor,
                           ),
                         ),
                         Obx(
                           () => Text(
-                            '${quranCtrl.getSurahNameFromPage(generalCtrl.currentPageNumber.value - 1)} | ${arabicNumber.convert(playList.firstAyah)}',
+                            '${quranCtrl.getSurahNameFromPage(generalCtrl.currentPageNumber.value - 1).replaceAll('سُورَةُ ', '')} | ${generalCtrl.arabicNumber.convert(playList.firstAyah)}',
                             style: TextStyle(
                               fontFamily: 'kufi',
                               fontSize: 16,
                               color: Get.isDarkMode
                                   ? Colors.white
-                                  : Get.theme.colorScheme.primary,
+                                  : Theme.of(context).colorScheme.primary,
                             ),
                           ),
                         ),
                         Icon(
                           Icons.keyboard_arrow_down_rounded,
                           size: 20,
-                          color: Get.theme.colorScheme.primary,
+                          color: Theme.of(context).colorScheme.primary,
                         )
                       ],
                     ),
@@ -87,12 +89,15 @@ class AyahsChoiceWidget extends StatelessWidget {
               } else {
                 return PopupMenuButton(
                   position: PopupMenuPosition.under,
-                  color: Get.theme.colorScheme.background,
+                  color: Theme.of(context).colorScheme.background,
                   child: Container(
                     height: 45,
                     padding: const EdgeInsets.all(4.0),
                     decoration: BoxDecoration(
-                      color: Get.theme.colorScheme.primary.withOpacity(.15),
+                      color: Theme.of(context)
+                          .colorScheme
+                          .primary
+                          .withOpacity(.15),
                       borderRadius: const BorderRadius.all(Radius.circular(8)),
                     ),
                     child: Row(
@@ -104,23 +109,23 @@ class AyahsChoiceWidget extends StatelessWidget {
                           style: TextStyle(
                             fontFamily: 'kufi',
                             fontSize: 16,
-                            color: Get.theme.hintColor,
+                            color: Theme.of(context).hintColor,
                           ),
                         ),
                         Text(
-                          '${quranCtrl.getSurahNameFromPage(generalCtrl.currentPageNumber.value - 1)} | ${arabicNumber.convert(playList.lastAyah)}',
+                          '${quranCtrl.getSurahNameFromPage(generalCtrl.currentPageNumber.value - 1).replaceAll('سُورَةُ ', '')} | ${generalCtrl.arabicNumber.convert(playList.lastAyah)}',
                           style: TextStyle(
                             fontFamily: 'kufi',
                             fontSize: 16,
                             color: Get.isDarkMode
                                 ? Colors.white
-                                : Get.theme.colorScheme.primary,
+                                : Theme.of(context).colorScheme.primary,
                           ),
                         ),
                         Icon(
                           Icons.keyboard_arrow_down_rounded,
                           size: 20,
-                          color: Get.theme.colorScheme.primary,
+                          color: Theme.of(context).colorScheme.primary,
                         )
                       ],
                     ),

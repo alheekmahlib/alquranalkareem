@@ -5,9 +5,9 @@ import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 
 import '../../../core/services/services_locator.dart';
+import '../../../core/utils/constants/extensions/extensions.dart';
 import '../../../core/utils/constants/svg_picture.dart';
 import '../../controllers/general_controller.dart';
-import '/core/utils/constants/extensions.dart';
 import '/core/widgets/container_with_lines.dart';
 import '/presentation/controllers/ourApps_controller.dart';
 import '/presentation/screens/ourApp/widgets/our_apps_build.dart';
@@ -51,14 +51,14 @@ class OurApps extends StatelessWidget {
                 ),
                 const Gap(32),
                 ContainerWithLines(
-                  linesColor: Get.theme.colorScheme.primary,
+                  linesColor: Theme.of(context).colorScheme.primary,
                   containerColor:
-                      Get.theme.colorScheme.surface.withOpacity(.15),
+                      Theme.of(context).colorScheme.surface.withOpacity(.15),
                   child: const OurAppsBuild(),
                 ),
                 const Spacer(),
                 Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 32.0),
+                  padding: const EdgeInsets.only(bottom: 32.0),
                   child: alheekmah_logo(
                       width: 80.w,
                       color: Theme.of(context).colorScheme.primary),
@@ -89,9 +89,9 @@ class OurApps extends StatelessWidget {
                 Expanded(
                   flex: 4,
                   child: ContainerWithLines(
-                    linesColor: Get.theme.colorScheme.primary,
+                    linesColor: Theme.of(context).colorScheme.primary,
                     containerColor:
-                        Get.theme.colorScheme.surface.withOpacity(.15),
+                        Theme.of(context).colorScheme.surface.withOpacity(.15),
                     child: const OurAppsBuild(),
                   ),
                 ),

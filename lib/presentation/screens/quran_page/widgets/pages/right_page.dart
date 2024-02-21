@@ -16,8 +16,8 @@ class RightPage extends StatelessWidget {
             child: Container(
               decoration: BoxDecoration(
                   color: Get.isDarkMode
-                      ? Get.theme.primaryColorDark.withOpacity(.5)
-                      : Get.theme.dividerColor.withOpacity(.5),
+                      ? Theme.of(context).primaryColorDark.withOpacity(.5)
+                      : Theme.of(context).dividerColor.withOpacity(.5),
                   borderRadius: const BorderRadius.only(
                       topRight: Radius.circular(12),
                       bottomRight: Radius.circular(12))),
@@ -29,8 +29,8 @@ class RightPage extends StatelessWidget {
             child: Container(
               decoration: BoxDecoration(
                   color: Get.isDarkMode
-                      ? Get.theme.primaryColorDark.withOpacity(.7)
-                      : Get.theme.dividerColor.withOpacity(.7),
+                      ? Theme.of(context).primaryColorDark.withOpacity(.7)
+                      : Theme.of(context).dividerColor.withOpacity(.7),
                   borderRadius: const BorderRadius.only(
                       topRight: Radius.circular(12),
                       bottomRight: Radius.circular(12))),
@@ -42,7 +42,7 @@ class RightPage extends StatelessWidget {
                 const EdgeInsets.only(right: 12.0, top: 16.0, bottom: 16.0),
             child: Container(
               decoration: BoxDecoration(
-                  color: Get.theme.colorScheme.background,
+                  color: Theme.of(context).colorScheme.background,
                   borderRadius: const BorderRadius.only(
                       topRight: Radius.circular(12),
                       bottomRight: Radius.circular(12))),

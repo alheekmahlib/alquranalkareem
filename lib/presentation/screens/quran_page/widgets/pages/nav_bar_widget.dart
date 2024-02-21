@@ -32,12 +32,12 @@ class NavBarWidget extends StatelessWidget {
                       padding: const EdgeInsets.all(4),
                       margin: const EdgeInsets.only(bottom: 5),
                       decoration: BoxDecoration(
-                          color: Get.theme.colorScheme.background,
+                          color: Theme.of(context).colorScheme.background,
                           borderRadius:
                               const BorderRadius.all(Radius.circular(4)),
                           border: Border.all(
                               width: 1,
-                              color: Get.theme.colorScheme.onSecondary)),
+                              color: Theme.of(context).colorScheme.surface)),
                       child: list_icon(height: 25.0, width: 25.0)),
                 ],
               ),
@@ -58,12 +58,12 @@ class NavBarWidget extends StatelessWidget {
                       padding: const EdgeInsets.all(4),
                       margin: const EdgeInsets.only(bottom: 5),
                       decoration: BoxDecoration(
-                          color: Get.theme.colorScheme.background,
+                          color: Theme.of(context).colorScheme.background,
                           borderRadius:
                               const BorderRadius.all(Radius.circular(4)),
                           border: Border.all(
                               width: 1,
-                              color: Get.theme.colorScheme.onSecondary)),
+                              color: Theme.of(context).colorScheme.surface)),
                       child: bookmark_list(height: 25.0, width: 25.0)),
                 ],
               ),
@@ -73,7 +73,7 @@ class NavBarWidget extends StatelessWidget {
         Container(
           height: 15,
           width: MediaQuery.sizeOf(context).width,
-          color: Get.theme.colorScheme.primary,
+          color: Theme.of(context).colorScheme.primary,
         ),
       ],
     );

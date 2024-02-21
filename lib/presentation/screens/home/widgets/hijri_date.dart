@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:get/get.dart';
 import 'package:hijri/hijri_calendar.dart';
 
 import '../../../../../../core/services/services_locator.dart';
@@ -31,7 +30,7 @@ class HijriDate extends StatelessWidget {
                     style: TextStyle(
                       fontSize: 16.0,
                       fontFamily: 'kufi',
-                      color: Get.theme.hintColor,
+                      color: Theme.of(context).hintColor,
                     ),
                     textAlign: TextAlign.center,
                   ),
@@ -43,12 +42,13 @@ class HijriDate extends StatelessWidget {
                 decoration: BoxDecoration(
                     borderRadius: const BorderRadius.all(Radius.circular(4)),
                     border: Border.all(
-                        color: Get.theme.colorScheme.primary, width: 1)),
+                        color: Theme.of(context).colorScheme.primary,
+                        width: 1)),
               ),
               SvgPicture.asset('assets/svg/hijri/${today.hMonth}.svg',
                   height: 90,
-                  colorFilter:
-                      ColorFilter.mode(Get.theme.hintColor, BlendMode.srcIn)),
+                  colorFilter: ColorFilter.mode(
+                      Theme.of(context).hintColor, BlendMode.srcIn)),
               Transform.translate(
                 offset: const Offset(110, -55),
                 child: Container(
@@ -56,14 +56,14 @@ class HijriDate extends StatelessWidget {
                   width: 45,
                   alignment: Alignment.center,
                   decoration: BoxDecoration(
-                      color: Get.theme.colorScheme.primary,
+                      color: Theme.of(context).colorScheme.primary,
                       borderRadius: const BorderRadius.all(Radius.circular(4))),
                   child: Text(
                     general.convertNumbers('${today.hDay}'),
                     style: TextStyle(
                       fontSize: 26.0,
                       fontFamily: 'kufi',
-                      color: Get.theme.canvasColor,
+                      color: Theme.of(context).canvasColor,
                     ),
                     textAlign: TextAlign.center,
                   ),
@@ -76,14 +76,14 @@ class HijriDate extends StatelessWidget {
                   width: 100,
                   alignment: Alignment.center,
                   decoration: BoxDecoration(
-                      color: Get.theme.colorScheme.primary,
+                      color: Theme.of(context).colorScheme.primary,
                       borderRadius: const BorderRadius.all(Radius.circular(4))),
                   child: Text(
                     general.convertNumbers('${today.hYear} هـ'),
                     style: TextStyle(
                       fontSize: 20.0,
                       fontFamily: 'kufi',
-                      color: Get.theme.canvasColor,
+                      color: Theme.of(context).canvasColor,
                     ),
                     textAlign: TextAlign.center,
                   ),

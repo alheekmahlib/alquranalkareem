@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../../../core/services/services_locator.dart';
+import '../../../../../core/utils/constants/extensions/extensions.dart';
 import '../../../../controllers/aya_controller.dart';
-import '/core/utils/constants/extensions.dart';
 import '/core/utils/constants/svg_picture.dart';
 
 class SearchBarWidget extends StatelessWidget {
@@ -29,28 +29,28 @@ class SearchBarWidget extends StatelessWidget {
             fontWeight: FontWeight.w600,
             // height: 1.5.h,
             // FIXME: the text is being heidded by half size.
-            color: Get.theme.hintColor.withOpacity(.7),
+            color: Theme.of(context).hintColor.withOpacity(.7),
           ),
           decoration: InputDecoration(
             hintText: 'search_word'.tr,
             enabledBorder: OutlineInputBorder(
-              borderSide:
-                  BorderSide(color: Get.theme.colorScheme.primary, width: 1),
+              borderSide: BorderSide(
+                  color: Theme.of(context).colorScheme.primary, width: 1),
               borderRadius: BorderRadius.circular(8.0),
             ),
             border: OutlineInputBorder(
-              borderSide:
-                  BorderSide(color: Get.theme.colorScheme.primary, width: 1),
+              borderSide: BorderSide(
+                  color: Theme.of(context).colorScheme.primary, width: 1),
               borderRadius: BorderRadius.circular(8.0),
             ),
             hintStyle: TextStyle(
               fontSize: 14.0,
               fontFamily: 'kufi',
               fontWeight: FontWeight.w600,
-              color: Get.theme.colorScheme.surface.withOpacity(.3),
+              color: Theme.of(context).colorScheme.surface.withOpacity(.3),
             ),
             filled: true,
-            fillColor: Get.theme.colorScheme.background,
+            fillColor: Theme.of(context).colorScheme.background,
             prefixIcon: Container(
               height: 20,
               padding: const EdgeInsets.all(10.0),
@@ -59,7 +59,7 @@ class SearchBarWidget extends StatelessWidget {
             suffixIcon: IconButton(
               icon: Icon(
                 Icons.close,
-                color: Get.theme.hintColor,
+                color: Theme.of(context).hintColor,
               ),
               onPressed: () {
                 ayahCtrl.searchTextEditing.clear();
@@ -71,7 +71,7 @@ class SearchBarWidget extends StatelessWidget {
             labelStyle: TextStyle(
               fontSize: 14.0,
               fontFamily: 'kufi',
-              color: Get.theme.hintColor.withOpacity(.7),
+              color: Theme.of(context).hintColor.withOpacity(.7),
             ),
           ),
           onChanged: (query) {

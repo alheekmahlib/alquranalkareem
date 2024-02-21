@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'dart:typed_data';
 
+import 'package:arabic_numbers/arabic_numbers.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:path_provider/path_provider.dart';
@@ -25,6 +26,7 @@ class ShareController extends GetxController {
   RxString currentTranslate = 'English'.obs;
   RxString? textTafseer;
   RxBool isTafseer = false.obs;
+  ArabicNumbers arabicNumber = ArabicNumbers();
 
   Future<void> createAndShowVerseImage() async {
     try {

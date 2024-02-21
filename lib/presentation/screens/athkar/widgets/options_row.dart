@@ -6,9 +6,9 @@ import 'package:share_plus/share_plus.dart';
 
 import '../../../../core/services/services_locator.dart';
 import '../../../../core/utils/constants/svg_picture.dart';
-import '../../../../core/widgets/widgets.dart';
 import '../../../controllers/azkar_controller.dart';
 import '../models/zeker_model.dart';
+import '/core/utils/constants/extensions/custom_error_snackBar.dart';
 
 class OptionsRow extends StatelessWidget {
   var zekr;
@@ -20,7 +20,7 @@ class OptionsRow extends StatelessWidget {
       margin: const EdgeInsets.symmetric(horizontal: 8.0),
       padding: const EdgeInsets.symmetric(vertical: 3.0),
       decoration: BoxDecoration(
-          color: Get.theme.colorScheme.primary.withOpacity(.15),
+          color: Theme.of(context).colorScheme.primary.withOpacity(.15),
           borderRadius: const BorderRadius.all(Radius.circular(4))),
       width: double.infinity,
       child: Row(
@@ -44,7 +44,7 @@ class OptionsRow extends StatelessWidget {
                     label: 'share'.tr,
                     child: Icon(
                       Icons.share,
-                      color: Get.theme.colorScheme.primary,
+                      color: Theme.of(context).colorScheme.primary,
                       size: 20,
                     ),
                   ),
@@ -54,8 +54,8 @@ class OptionsRow extends StatelessWidget {
                     await Clipboard.setData(ClipboardData(
                             text:
                                 '${zekr.category}\n\n${zekr.zekr}\n\n| ${zekr.description}. | (التكرار: ${zekr.count})'))
-                        .then((value) =>
-                            customSnackBar(context, 'copyAzkarText'.tr));
+                        .then((value) => context
+                            .showCustomErrorSnackBar('copyAzkarText'.tr));
                   },
                   child: Semantics(
                     button: true,
@@ -63,7 +63,7 @@ class OptionsRow extends StatelessWidget {
                     label: 'copy'.tr,
                     child: Icon(
                       Icons.copy,
-                      color: Get.theme.colorScheme.primary,
+                      color: Theme.of(context).colorScheme.primary,
                       size: 20,
                     ),
                   ),
@@ -78,8 +78,8 @@ class OptionsRow extends StatelessWidget {
                             description: zekr.description,
                             reference: zekr.reference,
                             zekr: zekr.zekr))
-                        .then((value) =>
-                            customSnackBar(context, 'addZekrBookmark'.tr));
+                        .then((value) => context
+                            .showCustomErrorSnackBar('addZekrBookmark'.tr));
                   },
                   child: Semantics(
                     button: true,
@@ -87,7 +87,7 @@ class OptionsRow extends StatelessWidget {
                     label: 'addToBookmark'.tr,
                     child: Icon(
                       Icons.bookmark_add,
-                      color: Get.theme.colorScheme.primary,
+                      color: Theme.of(context).colorScheme.primary,
                       size: 20,
                     ),
                   ),
@@ -104,7 +104,7 @@ class OptionsRow extends StatelessWidget {
                   topRight: Radius.circular(8),
                   bottomRight: Radius.circular(8),
                 ),
-                color: Get.theme.colorScheme.primary,
+                color: Theme.of(context).colorScheme.primary,
               ),
               child: Row(
                 children: [
@@ -113,7 +113,7 @@ class OptionsRow extends StatelessWidget {
                     style: TextStyle(
                         color: Get.isDarkMode
                             ? Colors.white
-                            : Get.theme.colorScheme.background,
+                            : Theme.of(context).colorScheme.background,
                         fontSize: 14,
                         fontFamily: 'kufi',
                         fontStyle: FontStyle.italic),
@@ -123,7 +123,7 @@ class OptionsRow extends StatelessWidget {
                     Icons.repeat,
                     color: Get.isDarkMode
                         ? Colors.white
-                        : Get.theme.colorScheme.background,
+                        : Theme.of(context).colorScheme.background,
                     size: 20,
                   ),
                 ],

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_sliding_box/flutter_sliding_box.dart';
-import 'package:get/get.dart';
 
 import '../../../core/services/services_locator.dart';
 import '../../controllers/surah_audio_controller.dart';
@@ -18,7 +17,7 @@ class AudioScreen extends StatelessWidget {
     surahCtrl.loadLastSurahListen();
     // surahCtrl.initializeSurahDownloadStatus();
     return Scaffold(
-      backgroundColor: Get.theme.colorScheme.background,
+      backgroundColor: Theme.of(context).colorScheme.background,
       body: SafeArea(
         child: Directionality(
           textDirection: TextDirection.rtl,
@@ -35,7 +34,7 @@ class AudioScreen extends StatelessWidget {
             backdrop: Backdrop(
               fading: false,
               overlay: false,
-              color: Get.theme.colorScheme.background,
+              color: Theme.of(context).colorScheme.background,
               body: const BackDropWidget(),
             ),
             collapsedBody: const CollapsedPlayWidget(),

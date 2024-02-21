@@ -2,17 +2,20 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 
+import '../../../../../core/services/services_locator.dart';
 import '../../../../../core/utils/constants/svg_picture.dart';
-import '../../../../../core/widgets/widgets.dart';
-import '../../../quran_text/widgets/widgets.dart';
+import '../../../../controllers/general_controller.dart';
+import '/core/utils/constants/extensions/custom_error_snackBar.dart';
 
 class CopyButton extends StatelessWidget {
   final int ayahNum;
+  final String surahName;
   final String ayahTextNormal;
   final Function? cancel;
   const CopyButton(
       {super.key,
       required this.ayahNum,
+      required this.surahName,
       required this.ayahTextNormal,
       this.cancel});
 
@@ -28,8 +31,8 @@ class CopyButton extends StatelessWidget {
       onTap: () async {
         await Clipboard.setData(ClipboardData(
                 text:
-                    '﴿${ayahTextNormal}﴾ [$surahName-${arabicNumber.convert(ayahNum.toString())}]'))
-            .then((value) => customErrorSnackBar('copyAyah'.tr));
+                    '﴿${ayahTextNormal}﴾ [$surahName-${sl<GeneralController>().arabicNumber.convert(ayahNum)}]'))
+            .then((value) => context.showCustomErrorSnackBar('copyAyah'.tr));
       },
     );
   }

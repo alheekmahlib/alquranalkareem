@@ -4,8 +4,8 @@ import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 
 import '../../../../core/services/services_locator.dart';
+import '../../../../core/utils/constants/extensions/extensions.dart';
 import '../../../controllers/general_controller.dart';
-import '/core/utils/constants/extensions.dart';
 import 'audio/audio_widget.dart';
 
 class Sliding extends StatelessWidget {
@@ -78,7 +78,7 @@ class Sliding extends StatelessWidget {
                     child: Container(
                       alignment: Alignment.center,
                       decoration: BoxDecoration(
-                          color: Get.theme.colorScheme.background,
+                          color: Theme.of(context).colorScheme.background,
                           borderRadius: const BorderRadius.only(
                             topLeft: Radius.circular(8),
                             topRight: Radius.circular(8),
@@ -99,7 +99,7 @@ class Sliding extends StatelessWidget {
                                 Icon(
                                   Icons.drag_handle_outlined,
                                   size: 20,
-                                  color: Get.theme.colorScheme.surface,
+                                  color: Theme.of(context).colorScheme.surface,
                                 ),
                                 Row(
                                   crossAxisAlignment: CrossAxisAlignment.start,

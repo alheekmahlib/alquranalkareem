@@ -8,8 +8,7 @@ import 'package:sqflite_common_ffi/sqflite_ffi.dart';
 
 import '../presentation/screens/athkar/models/zeker_model.dart';
 import '../presentation/screens/notes/model/Notes.dart';
-import '../presentation/screens/quran_text/data/models/bookmark_text.dart';
-import '../presentation/screens/quran_text/data/models/bookmark_text_ayah.dart';
+import '../presentation/screens/quran_page/data/model/bookmark_ayahs.dart';
 import '/presentation/screens/quran_page/data/model/bookmark.dart';
 
 class DatabaseHelper {
@@ -19,12 +18,10 @@ class DatabaseHelper {
   static const String tableBookmarks = 'bookmarkTable';
   static const String tableBookmarksText = 'bookmarkTextTable';
   static const String tableAzkar = 'azkarTable';
-  static const String tablebookmarkTextAyah = 'bookmarkTextAyahTable';
   static const String columnId = 'id';
   static const String columnBId = 'id';
   static const String columnCId = 'id';
   static const String columnTId = 'id';
-  static const String columnAId = 'id';
   static const String columnPageNum = 'pageNum';
 
   DatabaseHelper._privateConstructor();
@@ -191,7 +188,7 @@ class DatabaseHelper {
   }
 
   /// bookmarks Text database
-  static Future<int?> addBookmarkText(BookmarksText? bookmarksText) async {
+  static Future<int?> addBookmarkText(BookmarksAyahs? bookmarksText) async {
     print('Save Text Bookmarks');
     try {
       return await _db!.insert(tableBookmarksText, bookmarksText!.toJson());
@@ -200,13 +197,13 @@ class DatabaseHelper {
     }
   }
 
-  static Future<int> deleteBookmarkText(BookmarksText? bookmarksText) async {
+  static Future<int> deleteBookmarkText(BookmarksAyahs? bookmarksText) async {
     print('Delete Text Bookmarks');
     return await _db!.delete(tableBookmarksText,
         where: '$columnTId = ?', whereArgs: [bookmarksText!.id]);
   }
 
-  static Future<int> updateBookmarksText(BookmarksText bookmarksText) async {
+  static Future<int> updateBookmarksText(BookmarksAyahs bookmarksText) async {
     print('Update Text Bookmarks');
     return await _db!.update(tableBookmarksText, bookmarksText.toJson(),
         where: "$columnTId = ?", whereArgs: [bookmarksText.id]);
@@ -242,37 +239,6 @@ class DatabaseHelper {
   static Future<List<Map<String, dynamic>>> queryC() async {
     print('Update Azkar');
     return await _db!.query(tableAzkar);
-  }
-
-  /// bookmarks Text database
-  static Future<int?> addBookmarkAyahText(
-      BookmarksTextAyah? bookmarksTextAyah) async {
-    print('Save Text Ayah Bookmarks');
-    try {
-      return await _db!
-          .insert(tablebookmarkTextAyah, bookmarksTextAyah!.toJson());
-    } catch (e) {
-      return 90000;
-    }
-  }
-
-  static Future<int> deleteBookmarkAyahText(
-      BookmarksTextAyah? bookmarksTextAyah) async {
-    print('Delete Text Ayah Bookmarks');
-    return await _db!.delete(tablebookmarkTextAyah,
-        where: '$columnAId = ?', whereArgs: [bookmarksTextAyah!.id]);
-  }
-
-  static Future<int> updateBookmarksAyahText(
-      BookmarksTextAyah bookmarksTextAyah) async {
-    print('Update Text Ayah Bookmarks');
-    return await _db!.update(tablebookmarkTextAyah, bookmarksTextAyah.toJson(),
-        where: "$columnAId = ?", whereArgs: [bookmarksTextAyah.id]);
-  }
-
-  static Future<List<Map<String, dynamic>>> queryA() async {
-    print('get Text Ayah Bookmarks');
-    return await _db!.query(tablebookmarkTextAyah);
   }
 
   Future close() async {

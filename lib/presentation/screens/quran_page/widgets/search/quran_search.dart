@@ -1,13 +1,13 @@
-import 'package:alquranalkareem/core/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../../../core/services/services_locator.dart';
+import '../../../../../core/utils/constants/extensions/extensions.dart';
 import '../../../../../core/utils/constants/lottie.dart';
 import '../../../../controllers/aya_controller.dart';
 import '../../../../controllers/general_controller.dart';
 import '../../data/model/aya.dart';
-import '/core/utils/constants/extensions.dart';
+import '/core/utils/constants/extensions/surah_name_with_banner.dart';
 import '/presentation/controllers/quran_controller.dart';
 import 'search_bar_widget.dart';
 
@@ -45,11 +45,7 @@ class QuranSearch extends StatelessWidget {
                             textDirection: TextDirection.rtl,
                             child: GestureDetector(
                               onTap: () {
-                                generalCtrl.quranPageController.animateToPage(
-                                  search.pageNum - 1,
-                                  duration: const Duration(milliseconds: 500),
-                                  curve: Curves.easeIn,
-                                );
+                                quranCtrl.changeSurahListOnTap(search.pageNum);
                                 Get.back();
                               },
                               child: Container(
@@ -58,12 +54,13 @@ class QuranSearch extends StatelessWidget {
                                 margin: const EdgeInsets.symmetric(
                                     horizontal: 4.0, vertical: 10.0),
                                 decoration: BoxDecoration(
-                                    color: Get.theme.colorScheme.primary,
+                                    color:
+                                        Theme.of(context).colorScheme.primary,
                                     borderRadius: const BorderRadius.all(
                                         Radius.circular(8))),
-                                child: surahNameWidget(
+                                child: context.surahNameWidget(
                                     search.surahNum.toString(),
-                                    Get.theme.canvasColor,
+                                    Theme.of(context).canvasColor,
                                     height: 40),
                               ),
                             ),
@@ -98,20 +95,18 @@ class QuranSearch extends StatelessWidget {
                             children: <Widget>[
                               Container(
                                 color: (index % 2 == 0
-                                    ? Get.theme.colorScheme.surface
+                                    ? Theme.of(context)
+                                        .colorScheme
+                                        .surface
                                         .withOpacity(.05)
-                                    : Get.theme.colorScheme.surface
+                                    : Theme.of(context)
+                                        .colorScheme
+                                        .surface
                                         .withOpacity(.1)),
                                 child: ListTile(
                                   onTap: () {
-                                    generalCtrl.quranPageController
-                                        .animateToPage(
-                                      search.pageNum - 1,
-                                      // 19,
-                                      duration:
-                                          const Duration(milliseconds: 500),
-                                      curve: Curves.easeIn,
-                                    );
+                                    quranCtrl
+                                        .changeSurahListOnTap(search.pageNum);
                                     Get.back();
                                   },
                                   title: Padding(
@@ -123,7 +118,7 @@ class QuranSearch extends StatelessWidget {
                                           fontFamily: "uthmanic2",
                                           fontWeight: FontWeight.normal,
                                           fontSize: 22,
-                                          color: Get.theme.hintColor,
+                                          color: Theme.of(context).hintColor,
                                         ),
                                       ),
                                       textAlign: TextAlign.justify,
@@ -132,7 +127,8 @@ class QuranSearch extends StatelessWidget {
                                   subtitle: Container(
                                     height: 20,
                                     decoration: BoxDecoration(
-                                        color: Get.theme.primaryColorLight,
+                                        color:
+                                            Theme.of(context).primaryColorLight,
                                         borderRadius: const BorderRadius.all(
                                             Radius.circular(4))),
                                     child: Row(
@@ -155,14 +151,16 @@ class QuranSearch extends StatelessWidget {
                                                 " ${'part'.tr}: ${search.partNum}",
                                                 textAlign: TextAlign.center,
                                                 style: TextStyle(
-                                                    color: Get.theme.hintColor,
+                                                    color: Theme.of(context)
+                                                        .hintColor,
                                                     fontSize: 12),
                                               )),
                                         ),
                                         Expanded(
                                           child: Container(
                                               decoration: BoxDecoration(
-                                                  color: Get.theme.primaryColor,
+                                                  color: Theme.of(context)
+                                                      .primaryColor,
                                                   borderRadius:
                                                       const BorderRadius.only(
                                                     topLeft: Radius.circular(4),
@@ -173,16 +171,17 @@ class QuranSearch extends StatelessWidget {
                                                 " ${'page'.tr}: ${search.pageNum}",
                                                 textAlign: TextAlign.center,
                                                 style: TextStyle(
-                                                    color: Get.theme.hintColor,
+                                                    color: Theme.of(context)
+                                                        .hintColor,
                                                     fontSize: 12),
                                               )),
                                         ),
                                       ],
                                     ),
                                   ),
-                                  leading: surahNameWidget(
+                                  leading: context.surahNameWidget(
                                       search.surahNum.toString(),
-                                      Get.theme.hintColor),
+                                      Theme.of(context).hintColor),
                                 ),
                               ),
                               const Divider()

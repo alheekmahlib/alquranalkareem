@@ -28,7 +28,7 @@ class DownloadPlayButton extends StatelessWidget {
               progressWidth: 2,
               shadowColor: Colors.transparent,
               progressColor: surahAudioCtrl.onDownloading.value
-                  ? Get.theme.colorScheme.surface
+                  ? Theme.of(context).colorScheme.surface
                   : Colors.transparent,
               progress: surahAudioCtrl.progress.value,
             ),
@@ -50,7 +50,7 @@ class DownloadPlayButton extends StatelessWidget {
                       label: 'download'.tr,
                       child: const Icon(Icons.cloud_download_outlined)),
                   iconSize: 24.0,
-                  color: Get.theme.colorScheme.primary,
+                  color: Theme.of(context).colorScheme.primary,
                   onPressed: () async {
                     if (surahAudioCtrl.onDownloading.value) {
                       surahAudioCtrl.cancelDownload();

@@ -1,11 +1,10 @@
+import 'package:alquranalkareem/core/utils/constants/extensions/custom_error_snackBar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../core/widgets/widgets.dart';
 import '../../database/databaseHelper.dart';
 import '../screens/notes/model/Notes.dart';
 import '../screens/quran_page/widgets/show_tafseer.dart';
-import '../screens/quran_text/screens/text_page_view.dart';
 
 class NotesController extends GetxController {
   final RxList<Notes> notes = <Notes>[].obs;
@@ -55,7 +54,7 @@ class NotesController extends GetxController {
         descriptionController.text.isNotEmpty) {
       addNoteMethod(context);
     } else {
-      customSnackBar(context, 'fillAllFields'.tr);
+      context.showCustomErrorSnackBar('fillAllFields'.tr);
     }
   }
 
@@ -70,7 +69,7 @@ class NotesController extends GetxController {
         ),
       );
     } else {
-      customSnackBar(context, 'fillAllFields'.tr);
+      context.showCustomErrorSnackBar('fillAllFields'.tr);
     }
   }
 
@@ -86,5 +85,24 @@ class NotesController extends GetxController {
       addSelectedTextAsNote(selectedTextT!, textTitle);
       selectedTextT = null;
     }
+  }
+}
+
+String textText = '';
+String textTitle = '';
+String? selectedTextT;
+
+void handleSelectionChangedText(
+    TextSelection selection, SelectionChangedCause? cause) {
+  if (cause == SelectionChangedCause.longPress) {
+    final characters = textText.characters;
+    final start = characters.take(selection.start).length;
+    final end = characters.take(selection.end).length;
+    final selectedText = textText.substring(start - 1, end - 1);
+
+    // setState(() {
+    selectedTextT = selectedText;
+    // });
+    print(selectedText);
   }
 }

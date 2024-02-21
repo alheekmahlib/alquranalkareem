@@ -4,8 +4,8 @@ import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 
 import '../../../core/services/services_locator.dart';
+import '../../../core/utils/constants/extensions/extensions.dart';
 import '../../../core/utils/constants/svg_picture.dart';
-import '/core/utils/constants/extensions.dart';
 import '/presentation/controllers/general_controller.dart';
 import 'about_app_text.dart';
 import 'user_options.dart';

@@ -3,10 +3,10 @@ import 'package:get/get.dart';
 
 import '../../../../../core/services/services_locator.dart';
 import '../../../../../core/utils/constants/svg_picture.dart';
-import '../../../../../core/widgets/widgets.dart';
 import '../../../../controllers/audio_controller.dart';
 import '../../../../controllers/bookmarks_controller.dart';
 import '../../../../controllers/general_controller.dart';
+import '/core/utils/constants/extensions/custom_error_snackBar.dart';
 
 class AddBookmarkButton extends StatelessWidget {
   final int surahNum;
@@ -47,8 +47,9 @@ class AddBookmarkButton extends StatelessWidget {
         } else {
           sl<BookmarksController>()
               .addBookmarkText(surahName, surahNum, pageIndex + 1, ayahNum,
-                  ayahUQNum, sl<GeneralController>().timeNow.lastRead)
-              .then((value) => customErrorSnackBar('addBookmark'.tr));
+                  ayahUQNum, sl<GeneralController>().timeNow.dateNow)
+              .then(
+                  (value) => context.showCustomErrorSnackBar('addBookmark'.tr));
           // sl<QuranController>().clearSelection();
         }
         sl<AudioController>().clearSelection();

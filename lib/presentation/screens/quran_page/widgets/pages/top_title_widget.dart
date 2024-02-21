@@ -3,13 +3,13 @@ import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 
 import '../../../../../core/services/services_locator.dart';
+import '../../../../../core/utils/constants/extensions/extensions.dart';
 import '../../../../../core/utils/constants/svg_picture.dart';
-import '../../../../../core/widgets/widgets.dart';
 import '../../../../controllers/audio_controller.dart';
 import '../../../../controllers/bookmarks_controller.dart';
 import '../../../../controllers/general_controller.dart';
 import '../../../../controllers/quran_controller.dart';
-import '/core/utils/constants/extensions.dart';
+import '/core/utils/constants/extensions/custom_error_snackBar.dart';
 
 class TopTitleWidget extends StatelessWidget {
   final int index;
@@ -36,11 +36,11 @@ class TopTitleWidget extends StatelessWidget {
                           .addAyahBookmark(
                               index + 1,
                               quranCtrl.getSurahNameFromPage(index + 1),
-                              generalCtrl.timeNow.lastRead)
-                          .then(
-                              (value) => customErrorSnackBar('addBookmark'.tr));
+                              generalCtrl.timeNow.dateNow)
+                          .then((value) => context
+                              .showCustomErrorSnackBar('addBookmark'.tr));
                       print('addBookmark');
-                      print('${generalCtrl.timeNow.lastRead}');
+                      print('${generalCtrl.timeNow.dateNow}');
                       // bookmarkCtrl
                       //     .savelastBookmark(index + 1);
                     }
@@ -96,11 +96,11 @@ class TopTitleWidget extends StatelessWidget {
                           .addAyahBookmark(
                               index + 1,
                               quranCtrl.getSurahNameFromPage(index + 1),
-                              generalCtrl.timeNow.lastRead)
-                          .then(
-                              (value) => customErrorSnackBar('addBookmark'.tr));
+                              generalCtrl.timeNow.dateNow)
+                          .then((value) => context
+                              .showCustomErrorSnackBar('addBookmark'.tr));
                       print('addBookmark');
-                      print('${generalCtrl.timeNow.lastRead}');
+                      print('${generalCtrl.timeNow.dateNow}');
                       // bookmarkCtrl
                       //     .savelastBookmark(index + 1);
                     }

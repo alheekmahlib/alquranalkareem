@@ -3,9 +3,11 @@ import 'package:flutter_slider_drawer/flutter_slider_drawer.dart';
 import 'package:get/get.dart';
 
 import '../../../../core/services/services_locator.dart';
+import '../../../../core/utils/constants/extensions/extensions.dart';
 import '../../../../core/widgets/tab_bar_widget.dart';
 import '../../../../database/notificationDatabase.dart';
 import '../../../controllers/audio_controller.dart';
+import '../../../controllers/aya_controller.dart';
 import '../../../controllers/bookmarks_controller.dart';
 import '../../../controllers/general_controller.dart';
 import '../../../controllers/notifications_controller.dart';
@@ -13,8 +15,8 @@ import '../../../controllers/translate_controller.dart';
 import '../widgets/audio/audio_widget.dart';
 import '../widgets/pages/nav_bar_widget.dart';
 import '../widgets/pages/screen_switch.dart';
+import '../widgets/search/search_bar.dart';
 import '../widgets/surah_juz_list.dart';
-import '/core/utils/constants/extensions.dart';
 
 class QuranHome extends StatelessWidget {
   QuranHome({Key? key}) : super(key: key);
@@ -37,7 +39,7 @@ class QuranHome extends StatelessWidget {
     final generalCtrl = sl<GeneralController>();
     return Scaffold(
       resizeToAvoidBottomInset: true,
-      backgroundColor: Get.theme.colorScheme.primary,
+      backgroundColor: Theme.of(context).colorScheme.primary,
       body: SafeArea(
         child: SliderDrawer(
           key: generalCtrl.drawerKey,
@@ -51,7 +53,7 @@ class QuranHome extends StatelessWidget {
           slider: SurahJuzList(),
           child: Container(
             decoration: BoxDecoration(
-              color: Get.theme.primaryColorDark,
+              color: Theme.of(context).primaryColorDark,
             ),
             child: Stack(
               children: <Widget>[
@@ -61,9 +63,20 @@ class QuranHome extends StatelessWidget {
                       child: ScreenSwitch(),
                     )),
                 Obx(() => generalCtrl.isShowControl.value
-                    ? const TabBarWidget(
-                        isChild: true,
-                        isSearch: true,
+                    ? TabBarWidget(
+                        isFirstChild: true,
+                        isCenterChild: true,
+                        centerChild: Padding(
+                          padding: const EdgeInsets.only(top: 15.0),
+                          child: OpenContainerWrapper(
+                            transitionType: sl<AyaController>().transitionType,
+                            closedBuilder:
+                                (BuildContext _, VoidCallback openContainer) {
+                              return SearchBarWidget(
+                                  openContainer: openContainer);
+                            },
+                          ),
+                        ),
                       )
                     : const SizedBox.shrink()),
                 Obx(() => audioCtrl.isStartPlaying.value ||

@@ -40,7 +40,7 @@ class DPages extends StatelessWidget {
                             margin: const EdgeInsets.only(
                                 right: 6.0, top: 16.0, bottom: 16.0),
                             decoration: BoxDecoration(
-                                color: Get.theme.colorScheme.background,
+                                color: Theme.of(context).colorScheme.background,
                                 borderRadius: const BorderRadius.only(
                                     topRight: Radius.circular(8),
                                     bottomRight: Radius.circular(8))),
@@ -97,7 +97,7 @@ class DPages extends StatelessWidget {
                             margin: const EdgeInsets.only(
                                 left: 6.0, top: 16.0, bottom: 16.0),
                             decoration: BoxDecoration(
-                                color: Get.theme.colorScheme.background,
+                                color: Theme.of(context).colorScheme.background,
                                 borderRadius: const BorderRadius.only(
                                     topLeft: Radius.circular(8),
                                     bottomLeft: Radius.circular(8))),

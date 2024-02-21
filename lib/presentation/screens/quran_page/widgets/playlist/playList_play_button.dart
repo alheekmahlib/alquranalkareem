@@ -23,8 +23,10 @@ class PlayListPlayButton extends StatelessWidget {
               final loopMode = snapshot.data ?? LoopMode.off;
               List<Widget> icons = [
                 Icon(Icons.repeat,
-                    color: Get.theme.colorScheme.surface.withOpacity(.4)),
-                Icon(Icons.repeat, color: Get.theme.colorScheme.surface),
+                    color:
+                        Theme.of(context).colorScheme.surface.withOpacity(.4)),
+                Icon(Icons.repeat,
+                    color: Theme.of(context).colorScheme.surface),
               ];
               const cycleModes = [
                 LoopMode.off,
@@ -59,9 +61,9 @@ class PlayListPlayButton extends StatelessWidget {
               //   borderRadius: 8,
               //   shadowWidth: 1.5,
               //   progressWidth: 2,
-              //   shadowColor: Get.theme.colorScheme.surface.withOpacity(.15),
+              //   shadowColor: Theme.of(context).colorScheme.surface.withOpacity(.15),
               //   progressColor: sl<AudioController>().downloading.value
-              //       ? Get.theme.colorScheme.primary
+              //       ? Theme.of(context).colorScheme.primary
               //       : Colors.transparent,
               //   progress: sl<AudioController>().progress.value,
               // ),

@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 
 import '../../presentation/controllers/azkar_controller.dart';
 import '../services/services_locator.dart';
-import '/core/utils/constants/extensions.dart';
+import '../utils/constants/extensions/extensions.dart';
 
 class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
   final bool isTitled;
@@ -13,7 +13,7 @@ class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
   Widget build(BuildContext context) {
     final azkarCtrl = sl<AzkarController>();
     return AppBar(
-      backgroundColor: Get.theme.colorScheme.background,
+      backgroundColor: Theme.of(context).colorScheme.background,
       elevation: 0,
       title: isTitled
           ? Container(
@@ -22,11 +22,13 @@ class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
               decoration: BoxDecoration(
                   borderRadius: const BorderRadius.all(Radius.circular(4)),
                   border: Border.all(
-                      color: Get.theme.colorScheme.primary, width: 1)),
+                      color: Theme.of(context).colorScheme.primary, width: 1)),
               child: Text(
                 azkarCtrl.filteredZekrList.first.category,
                 style: TextStyle(
-                  color: Get.isDarkMode ? Colors.white : Get.theme.primaryColor,
+                  color: Get.isDarkMode
+                      ? Colors.white
+                      : Theme.of(context).primaryColor,
                   fontSize: context.customOrientation(12.0, 16.0),
                   fontFamily: 'kufi',
                 ),
@@ -41,7 +43,7 @@ class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
           icon: Icon(
             Icons.arrow_back_ios_new_outlined,
             size: 22,
-            color: Get.theme.colorScheme.primary,
+            color: Theme.of(context).colorScheme.primary,
           )),
       actions: [
         context.fontSizeDropDown(),

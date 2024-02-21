@@ -3,6 +3,7 @@ import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 
 import '../../../../core/services/services_locator.dart';
+import '../../../../core/utils/constants/extensions/extensions.dart';
 import '../../../controllers/bookmarks_controller.dart';
 import '../../../controllers/general_controller.dart';
 import '../../../controllers/translate_controller.dart';
@@ -10,7 +11,6 @@ import '../widgets/pages/left_page.dart';
 import '../widgets/pages/pages_widget.dart';
 import '../widgets/pages/right_page.dart';
 import '../widgets/pages/top_title_widget.dart';
-import '/core/utils/constants/extensions.dart';
 import '/presentation/controllers/audio_controller.dart';
 
 class QuranPages extends StatelessWidget {

@@ -22,19 +22,15 @@ import '/presentation/controllers/audio_controller.dart';
 import '/presentation/controllers/aya_controller.dart';
 import '/presentation/controllers/ayat_controller.dart';
 import '/presentation/controllers/azkar_controller.dart';
-import '/presentation/controllers/bookmarksText_controller.dart';
 import '/presentation/controllers/bookmarks_controller.dart';
 import '/presentation/controllers/general_controller.dart';
 import '/presentation/controllers/notes_controller.dart';
 import '/presentation/controllers/notifications_controller.dart';
 import '/presentation/controllers/playList_controller.dart';
-import '/presentation/controllers/quranText_controller.dart';
 import '/presentation/controllers/reminder_controller.dart';
 import '/presentation/controllers/settings_controller.dart';
 import '/presentation/controllers/share_controller.dart';
-import '/presentation/controllers/surahTextController.dart';
 import '/presentation/controllers/surah_audio_controller.dart';
-import '/presentation/controllers/surah_repository_controller.dart';
 import '/presentation/controllers/translate_controller.dart';
 import '/presentation/screens/quran_page/data/data_source/baghawy_data_client.dart';
 import '/presentation/screens/quran_page/data/data_source/data_client.dart';
@@ -145,25 +141,11 @@ class ServicesLocator {
         Get.put<TranslateDataController>(TranslateDataController(),
             permanent: true));
 
-    sl.registerLazySingleton<QuranTextController>(() =>
-        Get.put<QuranTextController>(QuranTextController(), permanent: true));
-
-    sl.registerLazySingleton<SurahRepositoryController>(() =>
-        Get.put<SurahRepositoryController>(SurahRepositoryController(),
-            permanent: true));
-
     sl.registerLazySingleton<NotesController>(
         () => Get.put<NotesController>(NotesController(), permanent: true));
 
     sl.registerLazySingleton<BookmarksController>(() =>
         Get.put<BookmarksController>(BookmarksController(), permanent: true));
-
-    sl.registerLazySingleton<BookmarksTextController>(() =>
-        Get.put<BookmarksTextController>(BookmarksTextController(),
-            permanent: true));
-
-    sl.registerLazySingleton<SurahTextController>(() =>
-        Get.put<SurahTextController>(SurahTextController(), permanent: true));
 
     sl.registerLazySingleton<AyaController>(
         () => Get.put<AyaController>(AyaController(), permanent: true));

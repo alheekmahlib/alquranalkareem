@@ -22,7 +22,7 @@ class PlayListSaveWidget extends StatelessWidget {
           child: Text(
             'save'.tr,
             style: TextStyle(
-              color: Get.theme.canvasColor,
+              color: Theme.of(context).canvasColor,
               fontSize: 14,
               fontFamily: 'kufi',
             ),

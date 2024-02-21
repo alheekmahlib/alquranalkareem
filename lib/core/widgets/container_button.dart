@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 
 class ContainerButton extends StatelessWidget {
   final double? height;
@@ -16,11 +15,11 @@ class ContainerButton extends StatelessWidget {
       margin: const EdgeInsets.all(8),
       alignment: Alignment.center,
       decoration: BoxDecoration(
-          color: Get.theme.colorScheme.primary,
+          color: Theme.of(context).colorScheme.primary,
           borderRadius: const BorderRadius.all(Radius.circular(8)),
           boxShadow: [
             BoxShadow(
-                color: Get.theme.colorScheme.surface.withOpacity(.4),
+                color: Theme.of(context).colorScheme.surface.withOpacity(.4),
                 offset: const Offset(6, 6),
                 spreadRadius: 0,
                 blurRadius: 0)

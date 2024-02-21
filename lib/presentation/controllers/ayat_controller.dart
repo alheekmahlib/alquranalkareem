@@ -1,5 +1,3 @@
-import 'package:alquranalkareem/core/utils/constants/extensions/text_span_extension.dart';
-import 'package:alquranalkareem/presentation/controllers/translate_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
@@ -8,7 +6,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../../core/services/services_locator.dart';
 import '../../core/utils/constants/shared_pref_services.dart';
 import '../../core/utils/constants/shared_preferences_constants.dart';
-import '../../core/widgets/widgets.dart';
 import '../screens/quran_page/data/data_source/baghawy_data_client.dart';
 import '../screens/quran_page/data/data_source/ibnkatheer_data_client.dart';
 import '../screens/quran_page/data/data_source/qurtubi_data_client.dart';
@@ -18,9 +15,11 @@ import '../screens/quran_page/data/model/tafsir.dart';
 import '../screens/quran_page/data/repository/ayat_repository.dart';
 import '../screens/quran_page/data/repository/tafseer_repository.dart';
 import '../screens/quran_page/widgets/show_tafseer.dart';
+import '/core/utils/constants/extensions/custom_error_snackBar.dart';
+import '/core/utils/constants/extensions/text_span_extension.dart';
+import '/presentation/controllers/translate_controller.dart';
 import '/presentation/screens/quran_page/data/model/aya.dart';
 import 'general_controller.dart';
-import 'quranText_controller.dart';
 
 class AyatController extends GetxController {
   IbnkatheerDataBaseClient? ibnkatheerClient;
@@ -195,8 +194,6 @@ class AyatController extends GetxController {
     ayahTextNormal.value = ayahTextN;
     ayahUQNumber.value = ayahUQNum;
     sl<GeneralController>().currentPageNumber.value = pageIndex;
-    sl<QuranTextController>().selected.value =
-        !sl<QuranTextController>().selected.value;
     Get.bottomSheet(
       ShowTafseer(
         ayahUQNumber: ayahUQNum,
@@ -212,6 +209,7 @@ class AyatController extends GetxController {
     await Clipboard.setData(ClipboardData(
             text:
                 '﴿${ayahTextNormal.value}﴾\n\n${selectedTafsir!.text.buildTextSpans()}'))
-        .then((value) => customErrorSnackBar('copyTafseer'.tr));
+        .then(
+            (value) => Get.context!.showCustomErrorSnackBar('copyTafseer'.tr));
   }
 }

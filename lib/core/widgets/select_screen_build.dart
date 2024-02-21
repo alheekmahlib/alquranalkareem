@@ -16,7 +16,7 @@ class SelectScreenBuild extends StatelessWidget {
   Widget build(BuildContext context) {
     final generalCtrl = sl<GeneralController>();
     return Container(
-      color: Get.theme.colorScheme.background,
+      color: Theme.of(context).colorScheme.background,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -28,14 +28,14 @@ class SelectScreenBuild extends StatelessWidget {
                 Icon(
                   Icons.arrow_back_ios_new_outlined,
                   size: 20,
-                  color: Get.theme.colorScheme.primary,
+                  color: Theme.of(context).hintColor,
                 ),
                 Text(
                   'setting'.tr,
                   style: TextStyle(
                     fontFamily: 'kufi',
                     fontSize: 18,
-                    color: Theme.of(context).primaryColorLight,
+                    color: Theme.of(context).hintColor,
                   ),
                 ),
               ],
@@ -49,13 +49,12 @@ class SelectScreenBuild extends StatelessWidget {
                   const EdgeInsets.symmetric(horizontal: 6.0, vertical: 4.0),
               margin: const EdgeInsets.symmetric(horizontal: 16.0),
               decoration: BoxDecoration(
-                  color: Get.theme.colorScheme.primary.withOpacity(.2),
+                  color: Theme.of(context).colorScheme.primary.withOpacity(.2),
                   borderRadius: const BorderRadius.all(Radius.circular(4))),
               child: Text(
                 'selectScreen'.tr,
                 style: TextStyle(
-                    color:
-                        Get.isDarkMode ? Colors.white : Get.theme.primaryColor,
+                    color: Theme.of(context).hintColor,
                     fontFamily: 'kufi',
                     fontStyle: FontStyle.italic,
                     fontSize: 16),
@@ -69,7 +68,7 @@ class SelectScreenBuild extends StatelessWidget {
               padding: const EdgeInsets.all(4.0),
               decoration: BoxDecoration(
                   border: Border.all(
-                      color: Get.theme.colorScheme.surface, width: 1),
+                      color: Theme.of(context).colorScheme.surface, width: 1),
                   borderRadius: const BorderRadius.all(Radius.circular(8))),
               child: Wrap(
                 children: List.generate(
@@ -103,10 +102,13 @@ class SelectScreenBuild extends StatelessWidget {
                                         borderRadius: const BorderRadius.all(
                                             Radius.circular(20.0)),
                                         border: Border.all(
-                                            color:
-                                                Get.theme.colorScheme.surface,
+                                            color: Theme.of(context)
+                                                .colorScheme
+                                                .surface,
                                             width: 2),
-                                        color: Get.theme.colorScheme.primary,
+                                        color: Theme.of(context)
+                                            .colorScheme
+                                            .primary,
                                       ),
                                       child: index ==
                                               generalCtrl

@@ -1,4 +1,4 @@
-import 'package:alquranalkareem/core/utils/constants/extensions.dart';
+import 'package:alquranalkareem/core/utils/constants/extensions/extensions.dart';
 import 'package:anim_search_bar/anim_search_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -25,22 +25,22 @@ class SurahSearch extends StatelessWidget {
             textController: sl<SurahAudioController>().textController,
             rtl: true,
             textFieldColor: Get.isDarkMode
-                ? Get.theme.colorScheme.secondary
-                : Get.theme.colorScheme.primary,
+                ? Theme.of(context).colorScheme.secondary
+                : Theme.of(context).colorScheme.primary,
             helpText: 'searchToSurah'.tr,
-            textFieldIconColor: Get.theme.colorScheme.secondary,
-            searchIconColor: Get.theme.colorScheme.secondary,
+            textFieldIconColor: Theme.of(context).colorScheme.secondary,
+            searchIconColor: Theme.of(context).colorScheme.secondary,
             style: TextStyle(
-                color: Get.theme.colorScheme.secondary,
+                color: Theme.of(context).colorScheme.secondary,
                 fontFamily: 'kufi',
                 fontSize: 15),
             onSubmitted: (String value) {
-              sl<SurahAudioController>().searchSurah(context, value);
+              sl<SurahAudioController>().searchSurah(value);
             },
             autoFocus: false,
             color: Get.isDarkMode
-                ? Get.theme.colorScheme.secondary
-                : Get.theme.colorScheme.primary,
+                ? Theme.of(context).colorScheme.secondary
+                : Theme.of(context).colorScheme.primary,
             onSuffixTap: () {
               sl<SurahAudioController>().textController.clear();
             },

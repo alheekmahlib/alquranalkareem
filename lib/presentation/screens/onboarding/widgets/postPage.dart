@@ -5,9 +5,9 @@ import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
 
 import '../../../../core/services/services_locator.dart';
+import '../../../../core/utils/constants/extensions/extensions.dart';
 import '../../../../core/utils/constants/lottie.dart';
 import '../../../controllers/notifications_controller.dart';
-import '/core/utils/constants/extensions.dart';
 
 class PostPage extends StatelessWidget {
   const PostPage(this.postId, {super.key});
@@ -68,7 +68,7 @@ class PostPage extends StatelessWidget {
       right: false,
       left: false,
       child: Scaffold(
-        backgroundColor: Get.theme.colorScheme.background,
+        backgroundColor: Theme.of(context).colorScheme.background,
         body: Padding(
           padding: context.customOrientation(
               const EdgeInsets.only(right: 16.0, left: 16.0, top: 70.0),
@@ -96,15 +96,16 @@ class PostPage extends StatelessWidget {
                           height: 30,
                           width: 30,
                           decoration: BoxDecoration(
-                              color: Get.theme.colorScheme.background,
+                              color: Theme.of(context).colorScheme.background,
                               borderRadius: const BorderRadius.all(
                                 Radius.circular(8),
                               ),
                               border: Border.all(
-                                  width: 2, color: Get.theme.dividerColor)),
+                                  width: 2,
+                                  color: Theme.of(context).dividerColor)),
                           child: Icon(
                             Icons.close_outlined,
-                            color: Get.theme.colorScheme.surface,
+                            color: Theme.of(context).colorScheme.surface,
                           ),
                         ),
                       ),

@@ -5,9 +5,9 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 
 import '../../../../core/services/services_locator.dart';
+import '../../../../core/utils/constants/extensions/extensions.dart';
 import '../../../controllers/general_controller.dart';
 import '../../../controllers/quran_controller.dart';
-import '/core/utils/constants/extensions.dart';
 
 class QuranJuz extends StatelessWidget {
   final controller = ScrollController();
@@ -24,7 +24,7 @@ class QuranJuz extends StatelessWidget {
         child: Container(
           padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 8.0),
           decoration: BoxDecoration(
-            color: Get.theme.colorScheme.background,
+            color: Theme.of(context).colorScheme.background,
           ),
           child: ListView.builder(
               padding: EdgeInsets.zero,
@@ -52,8 +52,8 @@ class QuranJuz extends StatelessWidget {
                               '${'juz'.tr} ${generalCtrl.convertNumbers((index + 1).toString())}',
                               style: TextStyle(
                                   color: Get.isDarkMode
-                                      ? Get.theme.colorScheme.secondary
-                                      : Get.theme.primaryColorDark,
+                                      ? Theme.of(context).colorScheme.secondary
+                                      : Theme.of(context).primaryColorDark,
                                   fontFamily: "kufi",
                                   fontSize: 14,
                                   fontWeight: FontWeight.bold,
@@ -65,7 +65,9 @@ class QuranJuz extends StatelessWidget {
                                 height: 60,
                                 decoration: BoxDecoration(
                                     color: (index % 2 == 0
-                                        ? Get.theme.colorScheme.primary
+                                        ? Theme.of(context)
+                                            .colorScheme
+                                            .primary
                                             .withOpacity(.15)
                                         : Colors.transparent),
                                     borderRadius: const BorderRadius.all(
@@ -111,7 +113,7 @@ class QuranJuz extends StatelessWidget {
                                                                 .theme
                                                                 .colorScheme
                                                                 .secondary
-                                                            : Get.theme
+                                                            : Theme.of(context)
                                                                 .primaryColorDark,
                                                         fontFamily: "kufi",
                                                         fontSize: 14,
@@ -135,9 +137,10 @@ class QuranJuz extends StatelessWidget {
                                                   '${juz.text}',
                                                   style: TextStyle(
                                                     color: Get.isDarkMode
-                                                        ? Get.theme.colorScheme
+                                                        ? Theme.of(context)
+                                                            .colorScheme
                                                             .secondary
-                                                        : Get.theme
+                                                        : Theme.of(context)
                                                             .primaryColorDark,
                                                     fontFamily: "uthmanic2",
                                                     fontSize: 20,
@@ -158,8 +161,9 @@ class QuranJuz extends StatelessWidget {
                                                       fontWeight:
                                                           FontWeight.w600,
                                                       fontSize: 12,
-                                                      color: Get.theme
-                                                          .colorScheme.surface,
+                                                      color: Theme.of(context)
+                                                          .colorScheme
+                                                          .surface,
                                                     ),
                                                   ),
                                                 ),
@@ -172,20 +176,13 @@ class QuranJuz extends StatelessWidget {
                                   ),
                                 )),
                             onTap: () {
-                              sl<GeneralController>().currentPageNumber.value =
-                                  surah.ayahs.first.page - 1;
-                              sl<GeneralController>()
-                                  .quranPageController
-                                  .animateToPage(
-                                    surah.ayahs.first.page - 1,
-                                    duration: const Duration(milliseconds: 500),
-                                    curve: Curves.easeIn,
-                                  );
-                              generalCtrl.drawerKey.currentState!.toggle();
+                              quranCtrl.changeSurahListOnTap(juz.page);
                             },
                           ),
                           context.hDivider(
-                              color: Get.theme.colorScheme.primary
+                              color: Theme.of(context)
+                                  .colorScheme
+                                  .primary
                                   .withOpacity(.2)),
                         ],
                       ),

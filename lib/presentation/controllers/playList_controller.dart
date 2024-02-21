@@ -2,7 +2,6 @@ import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
 
-import 'package:alquranalkareem/core/utils/constants/constants.dart';
 import 'package:dio/dio.dart';
 import 'package:expansion_tile_card/expansion_tile_card.dart';
 import 'package:flutter/material.dart';
@@ -15,8 +14,9 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../core/data/models/playList_model.dart';
 import '../../core/services/services_locator.dart';
+import '../../core/utils/constants/constants.dart';
 import '../../core/widgets/seek_bar.dart';
-import '../../core/widgets/widgets.dart';
+import '/core/utils/constants/extensions/custom_error_snackBar.dart';
 import 'audio_controller.dart';
 import 'general_controller.dart';
 import 'quran_controller.dart';
@@ -246,7 +246,7 @@ class PlayListController extends GetxController {
   deletePlayList(BuildContext context, int index) async {
     // Delete the reminder
     await PlayListStorage.deletePlayList(index)
-        .then((value) => customErrorSnackBar('deletedPlayList'.tr));
+        .then((value) => context.showCustomErrorSnackBar('deletedPlayList'.tr));
 
     // Update the playList list
     playLists.removeAt(index);

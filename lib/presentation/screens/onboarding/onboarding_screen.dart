@@ -3,9 +3,9 @@ import 'package:get/get.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 import '../../../core/services/services_locator.dart';
+import '../../../core/utils/constants/extensions/extensions.dart';
 import '../../controllers/general_controller.dart';
 import '../screen_type.dart';
-import '/core/utils/constants/extensions.dart';
 
 class OnboardingScreen extends StatefulWidget {
   const OnboardingScreen({Key? key}) : super(key: key);
@@ -167,7 +167,8 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                                       style: TextStyle(
                                           fontFamily: 'kufi',
                                           fontSize: 20,
-                                          color: Get.theme.canvasColor)),
+                                          color:
+                                              Theme.of(context).canvasColor)),
                                 ),
                               ),
                               onTap: () {
@@ -308,7 +309,8 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                                       style: TextStyle(
                                           fontFamily: 'kufi',
                                           fontSize: 20,
-                                          color: Get.theme.canvasColor)),
+                                          color:
+                                              Theme.of(context).canvasColor)),
                                 ),
                               ),
                               onTap: () {

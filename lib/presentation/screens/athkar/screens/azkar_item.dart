@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
-import 'package:get/get.dart';
 
 import '../../../../core/services/services_locator.dart';
+import '../../../../core/utils/constants/extensions/extensions.dart';
 import '../../../../core/widgets/app_bar_widget.dart';
 import '../../../controllers/azkar_controller.dart';
 import '../widgets/options_row.dart';
 import '../widgets/text_widget.dart';
-import '/core/utils/constants/extensions.dart';
 
 class AzkarItem extends StatelessWidget {
   const AzkarItem({Key? key}) : super(key: key);
@@ -18,7 +17,7 @@ class AzkarItem extends StatelessWidget {
     return Directionality(
       textDirection: TextDirection.rtl,
       child: Scaffold(
-        backgroundColor: Get.theme.colorScheme.background,
+        backgroundColor: Theme.of(context).colorScheme.background,
         appBar: const AppBarWidget(isTitled: true),
         body: SafeArea(
           child: Padding(

@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_sliding_up_panel/flutter_sliding_up_panel.dart';
-import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../../../core/widgets/widgets.dart';
 import '../../../database/notificationDatabase.dart';
-import '../quran_page/widgets/sliding_up.dart';
 import 'desktop_quran_page.dart';
 
 class Desktop extends StatefulWidget {
@@ -49,30 +46,6 @@ class _DesktopState extends State<Desktop> with TickerProviderStateMixin {
             Directionality(
               textDirection: TextDirection.rtl,
               child: DPages(),
-            ),
-            Align(
-              alignment: Alignment.bottomCenter,
-              child: Obx(
-                () => Sliding(
-                  myWidget1: Container(
-                    width: MediaQuery.sizeOf(context).width / 1 / 2,
-                  ),
-                  myWidget2: quranPageSorahList(
-                    context,
-                    MediaQuery.sizeOf(context).width / 1 / 2,
-                  ),
-                  myWidget3: notesList(
-                    context,
-                    MediaQuery.sizeOf(context).width / 1 / 2,
-                  ),
-                  myWidget4: bookmarksList(
-                    context,
-                    MediaQuery.sizeOf(context).width / 1 / 2,
-                  ),
-                  myWidget5: Container(),
-                  cHeight: 220.0,
-                ),
-              ),
             ),
           ],
         ),

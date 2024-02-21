@@ -21,12 +21,12 @@ class MushafSettings extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 6.0, vertical: 4.0),
             margin: const EdgeInsets.symmetric(horizontal: 16.0),
             decoration: BoxDecoration(
-                color: Get.theme.colorScheme.primary.withOpacity(.2),
+                color: Theme.of(context).colorScheme.primary.withOpacity(.2),
                 borderRadius: const BorderRadius.all(Radius.circular(4))),
             child: Text(
               'اختر طريقة العرض'.tr,
               style: TextStyle(
-                  color: Get.isDarkMode ? Colors.white : Get.theme.primaryColor,
+                  color: Theme.of(context).hintColor,
                   fontFamily: 'kufi',
                   fontStyle: FontStyle.italic,
                   fontSize: 16),
@@ -36,8 +36,8 @@ class MushafSettings extends StatelessWidget {
           Container(
             padding: const EdgeInsets.all(4.0),
             decoration: BoxDecoration(
-                border:
-                    Border.all(color: Get.theme.colorScheme.surface, width: 1),
+                border: Border.all(
+                    color: Theme.of(context).colorScheme.surface, width: 1),
                 borderRadius: const BorderRadius.all(Radius.circular(8))),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -58,9 +58,12 @@ class MushafSettings extends StatelessWidget {
                                     borderRadius: const BorderRadius.all(
                                         Radius.circular(4.0)),
                                     border: Border.all(
-                                        color: Get.theme.colorScheme.surface,
+                                        color: Theme.of(context)
+                                            .colorScheme
+                                            .surface,
                                         width: 1),
-                                    color: Get.theme.colorScheme.primary,
+                                    color:
+                                        Theme.of(context).colorScheme.primary,
                                   ),
                                   child: Image.asset(
                                     mushafSettingsList[index]['imageUrl'],
@@ -75,9 +78,12 @@ class MushafSettings extends StatelessWidget {
                                     borderRadius: const BorderRadius.all(
                                         Radius.circular(20.0)),
                                     border: Border.all(
-                                        color: Get.theme.colorScheme.surface,
+                                        color: Theme.of(context)
+                                            .colorScheme
+                                            .surface,
                                         width: 2),
-                                    color: Get.theme.colorScheme.primary,
+                                    color:
+                                        Theme.of(context).colorScheme.primary,
                                   ),
                                   child: quranCtrl.isPages.value == index
                                       ? const Icon(Icons.done,

@@ -9,10 +9,10 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../../../presentation/controllers/general_controller.dart';
-import '../../services/services_locator.dart';
-import 'shared_preferences_constants.dart';
-import 'svg_picture.dart';
+import '../../../../presentation/controllers/general_controller.dart';
+import '../../../services/services_locator.dart';
+import '../shared_preferences_constants.dart';
+import '../svg_picture.dart';
 
 extension ContextExtensions on BuildContext {
   dynamic customOrientation(var n1, var n2) {

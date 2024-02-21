@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 
+import '../../../core/utils/constants/extensions/extensions.dart';
 import '../../../core/utils/constants/svg_picture.dart';
-import '/core/utils/constants/extensions.dart';
 import '/presentation/screens/splashScreen/widgets/logo_and_title.dart';
 import 'widgets/alheekmah_and_loading.dart';
 
@@ -12,7 +11,7 @@ class SplashScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Get.theme.colorScheme.primary,
+      backgroundColor: Theme.of(context).colorScheme.primary,
       body: Directionality(
         textDirection: TextDirection.rtl,
         child: context.customOrientation(

@@ -6,10 +6,10 @@ import '../../../presentation/controllers/ayat_controller.dart';
 import '../../../presentation/controllers/share_controller.dart';
 import '../../../presentation/controllers/translate_controller.dart';
 import '../../services/services_locator.dart';
+import '../../utils/constants/extensions/extensions.dart';
 import '../../utils/constants/lists.dart';
 import '../../utils/constants/lottie.dart';
 import '../../utils/constants/svg_picture.dart';
-import '/core/utils/constants/extensions.dart';
 import '/presentation/controllers/quran_controller.dart';
 import 'share_ayahToImage.dart';
 import 'share_tafseerToImage.dart';
@@ -53,7 +53,7 @@ class ShareAyahOptions extends StatelessWidget {
               alignment: Alignment.center,
               padding: const EdgeInsets.all(16.0),
               decoration: BoxDecoration(
-                  color: Get.theme.colorScheme.background,
+                  color: Theme.of(context).colorScheme.background,
                   borderRadius: const BorderRadius.only(
                     topLeft: Radius.circular(8),
                     topRight: Radius.circular(8),
@@ -83,8 +83,8 @@ class ShareAyahOptions extends StatelessWidget {
                               'shareText'.tr,
                               style: TextStyle(
                                   color: Get.isDarkMode
-                                      ? Get.theme.colorScheme.primary
-                                      : Get.theme.colorScheme.primary,
+                                      ? Theme.of(context).colorScheme.primary
+                                      : Theme.of(context).colorScheme.primary,
                                   fontSize: 16,
                                   fontFamily: 'kufi'),
                             ),
@@ -100,7 +100,9 @@ class ShareAyahOptions extends StatelessWidget {
                                   right: 16.0,
                                   left: 16.0),
                               decoration: BoxDecoration(
-                                  color: Get.theme.colorScheme.primary
+                                  color: Theme.of(context)
+                                      .colorScheme
+                                      .primary
                                       .withOpacity(.15),
                                   borderRadius: const BorderRadius.all(
                                       Radius.circular(4))),
@@ -113,7 +115,8 @@ class ShareAyahOptions extends StatelessWidget {
                                     flex: 2,
                                     child: Icon(
                                       Icons.text_fields,
-                                      color: Get.theme.colorScheme.surface,
+                                      color:
+                                          Theme.of(context).colorScheme.surface,
                                       size: 24,
                                     ),
                                   ),
@@ -122,7 +125,7 @@ class ShareAyahOptions extends StatelessWidget {
                                     child: Text(
                                       "﴿ $ayahTextNormal ﴾",
                                       style: TextStyle(
-                                          color: Get.theme.hintColor,
+                                          color: Theme.of(context).hintColor,
                                           fontSize: 16,
                                           fontFamily: 'uthmanic2'),
                                       textDirection: TextDirection.rtl,
@@ -138,7 +141,7 @@ class ShareAyahOptions extends StatelessWidget {
                             },
                           ),
                           context.hDivider(
-                              color: Get.theme.colorScheme.primary),
+                              color: Theme.of(context).colorScheme.primary),
                           Column(
                             children: [
                               Column(
@@ -153,7 +156,8 @@ class ShareAyahOptions extends StatelessWidget {
                                         Text(
                                           'shareImage'.tr,
                                           style: TextStyle(
-                                              color: Get.theme.hintColor,
+                                              color:
+                                                  Theme.of(context).hintColor,
                                               fontSize: 16,
                                               fontFamily: 'kufi'),
                                         ),
@@ -171,7 +175,9 @@ class ShareAyahOptions extends StatelessWidget {
                                           right: 16.0,
                                           left: 16.0),
                                       decoration: BoxDecoration(
-                                          color: Get.theme.colorScheme.primary
+                                          color: Theme.of(context)
+                                              .colorScheme
+                                              .primary
                                               .withOpacity(.15),
                                           borderRadius: const BorderRadius.all(
                                               Radius.circular(4))),
@@ -210,7 +216,8 @@ class ShareAyahOptions extends StatelessWidget {
                                           child: Text(
                                             'shareImageWTrans'.tr,
                                             style: TextStyle(
-                                                color: Get.theme.hintColor,
+                                                color:
+                                                    Theme.of(context).hintColor,
                                                 fontSize: 16,
                                                 fontFamily: 'kufi'),
                                           ),
@@ -226,7 +233,8 @@ class ShareAyahOptions extends StatelessWidget {
                                               padding:
                                                   const EdgeInsets.all(8.0),
                                               decoration: BoxDecoration(
-                                                color: Get.theme.dividerColor
+                                                color: Theme.of(context)
+                                                    .dividerColor
                                                     .withOpacity(.4),
                                                 borderRadius:
                                                     const BorderRadius.all(
@@ -252,7 +260,8 @@ class ShareAyahOptions extends StatelessWidget {
                                                             color: Get
                                                                     .isDarkMode
                                                                 ? Colors.white
-                                                                : Get.theme
+                                                                : Theme.of(
+                                                                        context)
                                                                     .primaryColor,
                                                           ),
                                                         ),
@@ -263,7 +272,8 @@ class ShareAyahOptions extends StatelessWidget {
                                                     Icons
                                                         .keyboard_arrow_down_rounded,
                                                     size: 20,
-                                                    color: Get.theme.colorScheme
+                                                    color: Theme.of(context)
+                                                        .colorScheme
                                                         .primary,
                                                   ),
                                                 ],
@@ -300,7 +310,8 @@ class ShareAyahOptions extends StatelessWidget {
                                                                         .shareTransValue
                                                                         .value ==
                                                                     selectedIndex
-                                                                ? Get.theme
+                                                                ? Theme.of(
+                                                                        context)
                                                                     .primaryColorLight
                                                                 : const Color(
                                                                     0xffCDAD80),
@@ -336,7 +347,9 @@ class ShareAyahOptions extends StatelessWidget {
                                           right: 16.0,
                                           left: 16.0),
                                       decoration: BoxDecoration(
-                                          color: Get.theme.colorScheme.primary
+                                          color: Theme.of(context)
+                                              .colorScheme
+                                              .primary
                                               .withOpacity(.15),
                                           borderRadius: const BorderRadius.all(
                                               Radius.circular(4))),
@@ -383,8 +396,12 @@ class ShareAyahOptions extends StatelessWidget {
                                       'shareTrans'.tr,
                                       style: TextStyle(
                                           color: Get.isDarkMode
-                                              ? Get.theme.colorScheme.primary
-                                              : Get.theme.colorScheme.primary,
+                                              ? Theme.of(context)
+                                                  .colorScheme
+                                                  .primary
+                                              : Theme.of(context)
+                                                  .colorScheme
+                                                  .primary,
                                           fontSize: 14,
                                           fontFamily: 'kufi'),
                                       textAlign: TextAlign.justify,

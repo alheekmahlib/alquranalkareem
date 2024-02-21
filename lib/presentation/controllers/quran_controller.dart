@@ -13,7 +13,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../../core/services/services_locator.dart';
 import '../../core/utils/constants/shared_preferences_constants.dart';
 import '../../core/utils/constants/svg_picture.dart';
-import '../../core/widgets/widgets.dart';
 import '../screens/quran_page/data/model/surahs_model.dart';
 import '/presentation/controllers/general_controller.dart';
 import '/presentation/controllers/theme_controller.dart';
@@ -296,84 +295,6 @@ class QuranController extends GetxController {
     }
   }
 
-  Widget bannerWithSurahName(Widget child, String number) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 8.0),
-      child: Stack(
-        alignment: Alignment.center,
-        children: [
-          child,
-          surahNameWidget(number, Get.theme.hintColor),
-        ],
-      ),
-    );
-  }
-
-  Widget surahBannerWidget(String number) {
-    if (themeCtrl.isBlueMode) {
-      return bannerWithSurahName(surah_banner1(), number);
-    } else if (themeCtrl.isBrownMode) {
-      return bannerWithSurahName(surah_banner2(), number);
-    } else {
-      return bannerWithSurahName(surah_banner3(), number);
-    }
-  }
-
-  Widget surahAyahBannerWidget(String number) {
-    if (themeCtrl.isBlueMode) {
-      return bannerWithSurahName(surah_ayah_banner1(), number);
-    } else if (themeCtrl.isBrownMode) {
-      return bannerWithSurahName(surah_ayah_banner2(), number);
-    } else {
-      return bannerWithSurahName(surah_banner3(), number);
-    }
-  }
-
-  Widget surahAyahBannerFirstPlace(int pageIndex, int i) {
-    final ayahs = getCurrentPageAyahsSeparatedForBasmalah(pageIndex)[i];
-    return ayahs.first.ayahNumber == 1
-        ? Container(
-            margin: const EdgeInsets.only(top: 16.0, right: 8.0, left: 8.0),
-            padding: const EdgeInsets.symmetric(horizontal: 16.0),
-            decoration: BoxDecoration(
-                color: Get.theme.colorScheme.surface.withOpacity(.4),
-                borderRadius: const BorderRadius.all(Radius.circular(8))),
-            width: double.infinity,
-            child: Column(
-              children: [
-                surahAyahBannerWidget(
-                    getSurahNumberByAyah(ayahs.first).toString()),
-                getSurahNumberByAyah(ayahs.first) == 9 ||
-                        getSurahNumberByAyah(ayahs.first) == 1
-                    ? const SizedBox.shrink()
-                    : ayahs.first.ayahNumber == 1
-                        ? (getSurahNumberByAyah(ayahs.first) == 95 ||
-                                getSurahNumberByAyah(ayahs.first) == 97)
-                            ? besmAllah2()
-                            : besmAllah()
-                        : const SizedBox.shrink(),
-                const Gap(6),
-              ],
-            ))
-        : const SizedBox.shrink();
-  }
-
-  Widget surahBannerLastPlace(int pageIndex, int i) {
-    final ayahs = getCurrentPageAyahsSeparatedForBasmalah(pageIndex)[i];
-    return pageIndex == lastPlaceBannerPageIndex
-        ? surahBannerWidget((getSurahNumberByAyah(ayahs.first) + 1).toString())
-        : const SizedBox.shrink();
-  }
-
-  Widget surahBannerFirstPlace(int pageIndex, int i) {
-    final ayahs = getCurrentPageAyahsSeparatedForBasmalah(pageIndex)[i];
-    return ayahs.first.ayahNumber == 1
-        ? pageIndex == firstPlaceBannerPageIndex
-            ? const SizedBox.shrink()
-            : surahBannerWidget(getSurahNumberByAyah(ayahs.first).toString())
-        : const SizedBox.shrink();
-  }
-
   showControl() {
     generalCtrl.isShowControl.value = !generalCtrl.isShowControl.value;
   }
@@ -411,20 +332,19 @@ class QuranController extends GetxController {
     }
   }
 
-  void changeSurahListOnTap(Surah surah) {
-    sl<GeneralController>().currentPageNumber.value =
-        surah.ayahs.first.page - 1;
+  void changeSurahListOnTap(int page) {
+    sl<GeneralController>().currentPageNumber.value = page - 1;
     if (isPages == 1) {
       itemScrollController.jumpTo(
-        index: surah.ayahs.first.page - 1,
+        index: page - 1,
       );
     } else {
       sl<GeneralController>().quranPageController.animateToPage(
-            surah.ayahs.first.page - 1,
+            page - 1,
             duration: const Duration(milliseconds: 500),
             curve: Curves.easeIn,
           );
     }
-    generalCtrl.drawerKey.currentState!.toggle();
+    generalCtrl.drawerKey.currentState!.closeSlider();
   }
 }

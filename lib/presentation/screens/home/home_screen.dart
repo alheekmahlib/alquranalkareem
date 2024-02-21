@@ -18,15 +18,15 @@ class HomeScreen extends StatelessWidget {
     return GetBuilder<ThemeController>(builder: (_) {
       return ScreenUtilInit(
         child: Scaffold(
-          backgroundColor: Get.theme.colorScheme.primary,
+          backgroundColor: Theme.of(context).colorScheme.primary,
           body: SafeArea(
             child: Container(
-              color: Get.theme.colorScheme.background,
+              color: Theme.of(context).colorScheme.background,
               child: Column(
                 children: [
                   const TabBarWidget(
-                    isChild: false,
-                    isSearch: false,
+                    isFirstChild: false,
+                    isCenterChild: false,
                   ),
                   Flexible(
                     child: ListView(
