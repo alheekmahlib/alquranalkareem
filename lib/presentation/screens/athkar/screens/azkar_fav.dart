@@ -23,7 +23,7 @@ class AzkarFav extends StatelessWidget {
           Expanded(
             child: Obx(() {
               if (azkarCtrl.azkarList.isEmpty) {
-                return bookmarks(150.0, 150.0);
+                return open_book(height: 250.0, width: 250.0);
               } else {
                 return AnimationLimiter(
                   child: Align(

@@ -315,8 +315,43 @@
     "type": "text",
     "placeholders": {}
   },
-  "reader6": "সাদ আল গামদি",
+  "reader6": "সাউদ আল-শুরাইম",
   "@reader6": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "reader7": "সাদ আল-গামদি",
+  "@reader7": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "reader8": "মুস্তফা আল-আজাওয়ি",
+  "@reader8": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "reader9": "নাসের আল-কাতামি",
+  "@reader9": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "reader10": "قادر الكردي",
+  "@reader10": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "reader11": "شيرزاد طاهر",
+  "@reader11": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "reader12": "عبدالرحمن العوسي",
+  "@reader12": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "reader13": "وديع اليمني",
+  "@reader13": {
     "type": "text",
     "placeholders": {}
   },
@@ -667,6 +702,31 @@
   },
   "ayahs": "আয়াতসমূহ",
   "@ayahs": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "eidGreetingContent": "আল্লাহ আমাদের এবং আপনাদের থেকে রোজা, নামাজ এবং সৎকর্ম কবুল করুন।",
+  "@eidGreetingContent": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "eidGreetingContent2": "প্রতি বছর আপনারা আল্লাহর আরও নিকট হোন।",
+  "@eidGreetingContent2": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "eidGreetingTitle": "ঈদ মোবারক",
+  "@eidGreetingTitle": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "ramadhanMubarak": "রমজান মোবারক",
+  "@ramadhanMubarak": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "home": "হোম",
+  "@home": {
     "type": "text",
     "placeholders": {}
   }

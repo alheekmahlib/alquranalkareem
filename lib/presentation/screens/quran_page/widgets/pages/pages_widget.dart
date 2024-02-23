@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../../../core/services/services_locator.dart';
-import '../../../../../core/utils/constants/extensions/extensions.dart';
 import '../../../../../core/utils/constants/size_config.dart';
 import '../../../../controllers/bookmarks_controller.dart';
 import '../../../../controllers/quran_controller.dart';
@@ -35,11 +34,7 @@ class PagesWidget extends StatelessWidget {
                         .length, (i) {
                   final ayahs = quranCtrl
                       .getCurrentPageAyahsSeparatedForBasmalah(pageIndex)[i];
-                  // List<Ayah> currentPageAyahs = ayahs;
-                  // quranCtrl.getSajdaInfoForPage(currentPageAyahs)
-                  //     ?
                   quranCtrl.showVerseToast(pageIndex);
-                  // : const SizedBox.shrink();
                   return Column(children: [
                     context.surahBannerFirstPlace(pageIndex, i),
                     quranCtrl.getSurahNumberByAyah(ayahs.first) == 9 ||
@@ -61,8 +56,7 @@ class PagesWidget extends StatelessWidget {
                         text: TextSpan(
                           style: TextStyle(
                             fontFamily: 'page${pageIndex + 1}',
-                            fontSize: getProportionateScreenWidth(
-                                context.customOrientation(17.0, 19.0)),
+                            fontSize: getProportionateScreenWidth(19),
                             height: 2,
                             letterSpacing: 2,
                             color: Theme.of(context).colorScheme.inversePrimary,
@@ -77,8 +71,7 @@ class PagesWidget extends StatelessWidget {
                                       "${ayahs[ayahIndex].code_v2[0]}${ayahs[ayahIndex].code_v2.substring(1)}",
                                   pageIndex: pageIndex,
                                   isSelected: quranCtrl.isSelected,
-                                  fontSize: getProportionateScreenWidth(
-                                      context.customOrientation(17.0, 19.0)),
+                                  fontSize: getProportionateScreenWidth(19),
                                   surahNum: quranCtrl
                                       .getSurahNumberFromPage(pageIndex),
                                   ayahNum: ayahs[ayahIndex].ayahUQNumber,
@@ -104,8 +97,7 @@ class PagesWidget extends StatelessWidget {
                                 text: ayahs[ayahIndex].code_v2,
                                 pageIndex: pageIndex,
                                 isSelected: quranCtrl.isSelected,
-                                fontSize: getProportionateScreenWidth(
-                                    context.customOrientation(17.0, 19.0)),
+                                fontSize: getProportionateScreenWidth(19),
                                 surahNum:
                                     quranCtrl.getSurahNumberFromPage(pageIndex),
                                 ayahNum: ayahs[ayahIndex].ayahUQNumber,

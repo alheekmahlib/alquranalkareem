@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../../../core/services/services_locator.dart';
 import '../../../../../core/utils/constants/lists.dart';
-import '../../../../../core/utils/constants/shared_pref_services.dart';
 import '../../../../../core/utils/constants/shared_preferences_constants.dart';
 import '../../../../controllers/audio_controller.dart';
 
@@ -83,12 +83,11 @@ class ChangeReader extends StatelessWidget {
                     sl<AudioController>().readerValue =
                         ayahReaderInfo[index]['readerD'];
                     sl<AudioController>().readerIndex.value = index;
-                    await sl<SharedPrefServices>().saveString(
+                    await sl<SharedPreferences>().setString(
                         AUDIO_PLAYER_SOUND, ayahReaderInfo[index]['readerD']);
-                    await sl<SharedPrefServices>()
-                        .saveString(READER_NAME, ayahReaderInfo[index]['name']);
-                    await sl<SharedPrefServices>()
-                        .saveInteger(READER_INDEX, index);
+                    await sl<SharedPreferences>()
+                        .setString(READER_NAME, ayahReaderInfo[index]['name']);
+                    await sl<SharedPreferences>().setInt(READER_INDEX, index);
                     Navigator.pop(context);
                   },
                   leading: Container(

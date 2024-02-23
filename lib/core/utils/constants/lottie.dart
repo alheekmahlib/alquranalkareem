@@ -66,3 +66,12 @@ Widget quran_au_ic({double? width, double? height}) {
 Widget arrow({double? width, double? height}) {
   return Lottie.asset('assets/lottie/arrow.json', width: width, height: height);
 }
+
+Widget open_book({double? width, double? height}) {
+  return Lottie.asset('assets/lottie/open_book.json',
+      width: width, height: height);
+}
+
+Widget ramadanOrEid(String name, {double? width, double? height}) {
+  return Lottie.asset('assets/lottie/$name.json', width: width, height: height);
+}

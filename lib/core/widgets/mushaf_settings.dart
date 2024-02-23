@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 
-import '../../../../core/services/services_locator.dart';
+import '../services/services_locator.dart';
 import '/core/utils/constants/lists.dart';
 import '/presentation/controllers/quran_controller.dart';
 
@@ -24,7 +24,7 @@ class MushafSettings extends StatelessWidget {
                 color: Theme.of(context).colorScheme.primary.withOpacity(.2),
                 borderRadius: const BorderRadius.all(Radius.circular(4))),
             child: Text(
-              'اختر طريقة العرض'.tr,
+              'اختر'.tr,
               style: TextStyle(
                   color: Theme.of(context).hintColor,
                   fontFamily: 'kufi',

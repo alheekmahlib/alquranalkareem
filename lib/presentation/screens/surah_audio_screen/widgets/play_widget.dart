@@ -20,7 +20,7 @@ class PlayWidget extends StatelessWidget {
     final size = MediaQuery.sizeOf(context);
     final surahCtrl = sl<SurahAudioController>();
     return Container(
-      height: 291,
+      height: 295,
       width: size.width,
       decoration: BoxDecoration(
         color: Theme.of(context).colorScheme.background,
@@ -68,17 +68,14 @@ class PlayWidget extends StatelessWidget {
                 ),
               ),
               const ChangeSurahReader(),
-              SizedBox(
-                height: 61,
-                child: Obx(
-                  () => surahCtrl.surahDownloadStatus
-                              .value[surahCtrl.surahNum.value] ??
-                          false
-                      ? const SurahSeekBar()
-                      : sl<SurahAudioController>().isDownloading.value == true
-                          ? const DownloadSurahSeekBar()
-                          : const SurahSeekBar(),
-                ),
+              Obx(
+                () => surahCtrl.surahDownloadStatus
+                            .value[surahCtrl.surahNum.value] ??
+                        false
+                    ? const SurahSeekBar()
+                    : sl<SurahAudioController>().isDownloading.value == true
+                        ? const DownloadSurahSeekBar()
+                        : const SurahSeekBar(),
               ),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 32.0),

@@ -68,96 +68,92 @@ class _SliderWidgetState extends State<SliderWidget> {
 
     return Directionality(
       textDirection: TextDirection.rtl,
-      child: Container(
-        child: Column(
-          children: <Widget>[
-            Padding(
-              padding:
-                  EdgeInsets.symmetric(horizontal: widget.horizontalPadding),
-              child: SliderTheme(
-                data: SliderTheme.of(context).copyWith(
-                  activeTrackColor: widget.activeTrackColor ??
-                      Theme.of(context).colorScheme.primary,
-                  inactiveTrackColor: widget.inactiveTrackColor ??
-                      Theme.of(context).dividerColor,
-                  thumbShape: CustomSliderThumbRect(
-                    thumbRadius: 20,
-                    thumbHeight: 15.0,
-                    min: widget.min,
-                    max: widget.max,
-                  ),
-                  overlayShape:
-                      const RoundSliderOverlayShape(overlayRadius: 10.0),
+      child: Column(
+        children: <Widget>[
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: widget.horizontalPadding),
+            child: SliderTheme(
+              data: SliderTheme.of(context).copyWith(
+                activeTrackColor: widget.activeTrackColor ??
+                    Theme.of(context).colorScheme.primary,
+                inactiveTrackColor:
+                    widget.inactiveTrackColor ?? Theme.of(context).dividerColor,
+                thumbShape: CustomSliderThumbRect(
+                  thumbRadius: 20,
+                  thumbHeight: 15.0,
+                  min: widget.min,
+                  max: widget.max,
                 ),
-                child: Slider(
-                  min: 0.0,
-                  max: widget.duration.inMilliseconds.toDouble(),
-                  value: _sliderValue,
-                  onChanged: (value) {
-                    setState(() {
-                      _sliderValue = value;
-                    });
-                    if (widget.onChanged != null) {
-                      widget.onChanged!(Duration(milliseconds: value.round()));
-                    }
-                  },
-                  onChangeEnd: (value) {
-                    if (widget.onChangeEnd != null) {
-                      widget
-                          .onChangeEnd!(Duration(milliseconds: value.round()));
-                    }
-                  },
-                ),
+                overlayShape:
+                    const RoundSliderOverlayShape(overlayRadius: 10.0),
+              ),
+              child: Slider(
+                min: 0.0,
+                max: widget.duration.inMilliseconds.toDouble(),
+                value: _sliderValue,
+                onChanged: (value) {
+                  setState(() {
+                    _sliderValue = value;
+                  });
+                  if (widget.onChanged != null) {
+                    widget.onChanged!(Duration(milliseconds: value.round()));
+                  }
+                },
+                onChangeEnd: (value) {
+                  if (widget.onChangeEnd != null) {
+                    widget.onChangeEnd!(Duration(milliseconds: value.round()));
+                  }
+                },
               ),
             ),
-            Transform.translate(
-              offset: const Offset(0, -8),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Container(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 8.0, vertical: 2.0),
-                    decoration: BoxDecoration(
-                      color: Theme.of(context).colorScheme.primary,
-                      borderRadius: const BorderRadius.only(
-                        topLeft: Radius.circular(4),
-                        bottomLeft: Radius.circular(4),
-                      ),
+          ),
+          Transform.translate(
+            offset: const Offset(0, -8),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Container(
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: 8.0, vertical: 2.0),
+                  decoration: BoxDecoration(
+                    color: Theme.of(context).colorScheme.primary,
+                    borderRadius: const BorderRadius.only(
+                      topLeft: Radius.circular(4),
+                      bottomLeft: Radius.circular(4),
                     ),
-                    child: Text(
-                        RegExp(r'((^0*[1-9]\d*:)?\d{2}:\d{2})\.\d+$')
-                                .firstMatch("$remaining")
-                                ?.group(1) ??
-                            '$remaining',
-                        style: TextStyle(
-                            color: widget.textColor ??
-                                Theme.of(context).canvasColor)),
                   ),
-                  Container(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 8.0, vertical: 2.0),
-                    decoration: BoxDecoration(
-                      color: Theme.of(context).colorScheme.primary,
-                      borderRadius: const BorderRadius.only(
-                        topRight: Radius.circular(4),
-                        bottomRight: Radius.circular(4),
-                      ),
+                  child: Text(
+                      RegExp(r'((^0*[1-9]\d*:)?\d{2}:\d{2})\.\d+$')
+                              .firstMatch("$remaining")
+                              ?.group(1) ??
+                          '$remaining',
+                      style: TextStyle(
+                          color: widget.textColor ??
+                              Theme.of(context).canvasColor)),
+                ),
+                Container(
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: 8.0, vertical: 2.0),
+                  decoration: BoxDecoration(
+                    color: Theme.of(context).colorScheme.primary,
+                    borderRadius: const BorderRadius.only(
+                      topRight: Radius.circular(4),
+                      bottomRight: Radius.circular(4),
                     ),
-                    child: Text(
-                        RegExp(r'((^0*[1-9]\d*:)?\d{2}:\d{2})\.\d+$')
-                                .firstMatch("$total")
-                                ?.group(1) ??
-                            '$total',
-                        style: TextStyle(
-                            color: widget.textColor ??
-                                Theme.of(context).canvasColor)),
                   ),
-                ],
-              ),
+                  child: Text(
+                      RegExp(r'((^0*[1-9]\d*:)?\d{2}:\d{2})\.\d+$')
+                              .firstMatch("$total")
+                              ?.group(1) ??
+                          '$total',
+                      style: TextStyle(
+                          color: widget.textColor ??
+                              Theme.of(context).canvasColor)),
+                ),
+              ],
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

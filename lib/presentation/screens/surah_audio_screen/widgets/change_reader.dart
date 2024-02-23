@@ -4,7 +4,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../../core/services/services_locator.dart';
 import '../../../../core/utils/constants/lists.dart';
-import '../../../../core/utils/constants/shared_pref_services.dart';
 import '../../../../core/utils/constants/shared_preferences_constants.dart';
 import '../../../controllers/surah_audio_controller.dart';
 
@@ -44,7 +43,7 @@ class ChangeSurahReader extends StatelessWidget {
       ),
       color: Theme.of(context).colorScheme.background,
       itemBuilder: (context) => List.generate(
-          ayahReaderInfo.length,
+          surahReaderInfo.length,
           (index) => PopupMenuItem(
                 padding:
                     const EdgeInsets.symmetric(horizontal: 16.0, vertical: 4.0),
@@ -86,10 +85,10 @@ class ChangeSurahReader extends StatelessWidget {
                     surahAudioCtrl.sorahReaderNameValue.value =
                         surahReaderInfo[index]['readerN'];
 
-                    await sl<SharedPrefServices>().saveString(
+                    await sl<SharedPreferences>().setString(
                         SURAH_AUDIO_PLAYER_SOUND,
                         surahReaderInfo[index]['readerD']);
-                    await sl<SharedPrefServices>().saveString(
+                    await sl<SharedPreferences>().setString(
                         SURAH_AUDIO_PLAYER_NAME,
                         surahReaderInfo[index]['readerN']);
                     await sl<SharedPreferences>()
@@ -104,7 +103,7 @@ class ChangeSurahReader extends StatelessWidget {
                     decoration: BoxDecoration(
                         image: DecorationImage(
                           image: AssetImage(
-                              'assets/images/${ayahReaderInfo[index]['readerI']}.jpg'),
+                              'assets/images/${surahReaderInfo[index]['readerI']}.jpg'),
                           fit: BoxFit.fitWidth,
                           opacity: surahAudioCtrl.sorahReaderNameValue ==
                                   surahReaderInfo[index]['readerN']

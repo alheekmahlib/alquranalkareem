@@ -14,7 +14,6 @@ import '../../presentation/controllers/ourApps_controller.dart';
 import '../../presentation/controllers/quran_controller.dart';
 import '../../presentation/controllers/splash_screen_controller.dart';
 import '../../presentation/controllers/theme_controller.dart';
-import '../utils/constants/shared_pref_services.dart';
 import '../utils/helpers/ui_helper.dart';
 import '/database/databaseHelper.dart';
 import '/database/notificationDatabase.dart';
@@ -42,14 +41,9 @@ import '/presentation/screens/quran_page/data/data_source/tabari_data_client.dar
 final sl = GetIt.instance;
 
 class ServicesLocator {
-  void initSingleton() {
-    sl<SharedPrefServices>();
-  }
-
   Future<void> _initPrefs() async =>
       await SharedPreferences.getInstance().then((v) {
         sl.registerSingleton<SharedPreferences>(v);
-        sl.registerSingleton<SharedPrefServices>(SharedPrefServices(v));
       });
 
   Future<void> _initDatabaseHelper() async =>

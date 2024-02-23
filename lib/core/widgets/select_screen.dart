@@ -55,8 +55,8 @@ class SelectScreen extends StatelessWidget {
                       Expanded(
                         flex: 9,
                         child: Text(
-                          screensList[generalCtrl.screenSelectedValue.value]
-                              ['name'],
+                          '${screensList[generalCtrl.screenSelectedValue.value]['name']}'
+                              .tr,
                           style: TextStyle(
                             fontFamily: 'kufi',
                             fontSize: 18,

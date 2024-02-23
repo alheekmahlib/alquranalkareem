@@ -14,19 +14,16 @@ class ScreenTypeL extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final generalCtrl = sl<GeneralController>();
+    generalCtrl.ramadhanOrEidGreeting();
     WakelockPlus.enable();
     if (Platform.isIOS || Platform.isAndroid || Platform.isFuchsia) {
       UiHelper.showRateDialog(context);
     }
     return ScreenTypeLayout.builder(
       mobile: (BuildContext context) {
-        sl<GeneralController>()
-            .setScreenSize(MediaQuery.sizeOf(context), context);
         return generalCtrl.screenSelect();
       },
       desktop: (BuildContext context) {
-        sl<GeneralController>()
-            .setScreenSize(MediaQuery.sizeOf(context), context);
         return generalCtrl.screenSelect();
       },
       breakpoints:

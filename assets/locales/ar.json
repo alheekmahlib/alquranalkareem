@@ -314,8 +314,43 @@
     "type": "text",
     "placeholders": {}
   },
-  "reader6": "سعد الغامدي",
+  "reader6": "سعود الشريم",
   "@reader6": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "reader7": "سعد الغامدي",
+  "@reader7": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "reader8": "مصطفى العزاوي",
+  "@reader8": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "reader9": "ناصر القطامي",
+  "@reader9": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "reader10": "قادر الكردي",
+  "@reader10": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "reader11": "شيرزاد طاهر",
+  "@reader11": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "reader12": "عبدالرحمن العوسي",
+  "@reader12": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "reader13": "وديع اليمني",
+  "@reader13": {
     "type": "text",
     "placeholders": {}
   },
@@ -666,6 +701,31 @@
   },
   "ayahs": "آيات",
   "@ayahs": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "eidGreetingContent": "تقبل الله منا ومنكم الصيام والقيام وصالح الأعمال.",
+  "@eidGreetingContent": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "eidGreetingContent2": "كل عام وأنتم إلى الله أقرب.",
+  "@eidGreetingContent2": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "eidGreetingTitle": "Eid Mubarak",
+  "@eidGreetingTitle": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "ramadhanMubarak": "Ramadhan Mubarak",
+  "@ramadhanMubarak": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "home": "الرئيسية",
+  "@home": {
     "type": "text",
     "placeholders": {}
   }

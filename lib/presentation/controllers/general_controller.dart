@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:alquranalkareem/presentation/controllers/theme_controller.dart';
 import 'package:arabic_numbers/arabic_numbers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -7,15 +8,16 @@ import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:flutter_slider_drawer/flutter_slider_drawer.dart';
 import 'package:flutter_sliding_up_panel/sliding_up_panel_widget.dart';
 import 'package:get/get.dart';
+import 'package:hijri/hijri_calendar.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../core/services/services_locator.dart';
-import '../../core/utils/constants/extensions/extensions.dart';
 import '../../core/utils/constants/lists.dart';
 import '../../core/utils/constants/shared_preferences_constants.dart';
+import '../../core/widgets/ramadan_greeting.dart';
 import '../../core/widgets/time_now.dart';
 import '../screens/athkar/screens/alzkar_view.dart';
 import '../screens/quran_page/screens/quran_home.dart';
@@ -77,7 +79,7 @@ class GeneralController extends GetxController {
   RxBool isLoading = false.obs;
   var verses;
   ArabicNumbers arabicNumber = ArabicNumbers();
-
+  final themeCtrl = sl<ThemeController>();
   RxBool showSelectScreenPage = false.obs;
   RxInt screenSelectedValue = 0.obs;
   final GlobalKey<SliderDrawerState> drawerKey = GlobalKey<SliderDrawerState>();
@@ -113,26 +115,12 @@ class GeneralController extends GetxController {
             imageUrl); // Use cached URI if available, otherwise use the original URL
   }
 
-  void setScreenSize(Size newSize, BuildContext context) {
-    if (_screenSize?.value == null || _screenSize?.value != newSize) {
-      _screenSize = newSize.obs;
-
-      xScale = context.customOrientation(
-          (60 + _fabPosition * 5) * 120 / scr_width,
-          (60 + _fabPosition * 5) * 100 / scr_width);
-      yScale = (60 + _fabPosition * 2) * 100 / scr_height;
-      update();
-    }
-  }
-
   Future<void> getLastPageAndFontSize() async {
     try {
       currentPageNumber.value =
-          await sl<SharedPreferences>().getInt(MSTART_PAGE) ??
-              1; // Set a default value
+          await sl<SharedPreferences>().getInt(MSTART_PAGE) ?? 1;
       lastReadSurahNumber.value =
-          await sl<SharedPreferences>().getInt(MLAST_URAH) ??
-              1; // Set a default value
+          await sl<SharedPreferences>().getInt(MLAST_URAH) ?? 1;
       double fontSizeFromPref =
           await sl<SharedPreferences>().getDouble(FONT_SIZE) ?? 24.0;
       if (fontSizeFromPref != 0.0 && fontSizeFromPref > 0) {
@@ -309,10 +297,10 @@ class GeneralController extends GetxController {
         return const HomeScreen();
       case 1:
         return QuranHome();
-      case 2:
-        return const AudioScreen();
       case 3:
         return const AzkarView();
+      case 4:
+        return const AudioScreen();
       default:
         return const HomeScreen();
     }
@@ -375,5 +363,63 @@ class GeneralController extends GetxController {
           'تطبيق "القرآن الكريم - مكتبة الحكمة" التطبيق الأمثل لقراءة القرآن.\n\nللتحميل:\nalheekmahlib.com/#/download/app/0',
       sharePositionOrigin: box!.localToGlobal(Offset.zero) & box.size,
     );
+  }
+
+  var today = HijriCalendar.now();
+
+  List get eidDaysList =>
+      ['1-10', '2-10', '3-10', '10-12', '11-12', '12-12', '13-12'];
+
+  String get eidGreetingContent =>
+      today.hMonth == 10 ? 'eidGreetingContent'.tr : 'eidGreetingContent2'.tr;
+
+  bool get eidDays {
+    String todayString = '${today.hDay}-${today.hMonth}';
+    return eidDaysList.contains(todayString);
+  }
+
+  Future<void> ramadhanOrEidGreeting() async {
+    final String ramadhan;
+    final String eid;
+    bool isRamadhan = false;
+    isRamadhan = sl<SharedPreferences>().getBool(IS_RAMADAN) ?? false;
+    bool isEid = false;
+    isEid = sl<SharedPreferences>().getBool(IS_EID) ?? false;
+    if (themeCtrl.isBlueMode) {
+      ramadhan = 'ramadan_blue';
+      eid = 'eid_blue';
+    } else if (themeCtrl.isBrownMode) {
+      ramadhan = 'ramadan_brown';
+      eid = 'eid_brown';
+    } else {
+      ramadhan = 'ramadan_white';
+      eid = 'eid_white';
+    }
+    if (today.hMonth == 9 && isRamadhan == false) {
+      await Future.delayed(const Duration(seconds: 2));
+      Get.bottomSheet(
+              RamadanGreeting(
+                lottieFile: ramadhan,
+                title: 'رمضان مبارك - ${'ramadhanMubarak'.tr}',
+                content:
+                    'عَنْ أَبِي هُرَيْرَةَ، قَالَ قَالَ رَسُولُ اللَّهِ صلى الله عليه وسلم ‏ "‏ أَتَاكُمْ رَمَضَانُ شَهْرٌ مُبَارَكٌ فَرَضَ اللَّهُ عَزَّ وَجَلَّ عَلَيْكُمْ صِيَامَهُ تُفْتَحُ فِيهِ أَبْوَابُ السَّمَاءِ وَتُغْلَقُ فِيهِ أَبْوَابُ الْجَحِيمِ وَتُغَلُّ فِيهِ مَرَدَةُ الشَّيَاطِينِ لِلَّهِ فِيهِ لَيْلَةٌ خَيْرٌ مِنْ أَلْفِ شَهْرٍ مَنْ حُرِمَ خَيْرَهَا فَقَدْ حُرِمَ ‏"‏ ‏.‏\nسنن النسائي - كتاب الصيام - ٢١٠٦\n\n"The Messenger of Allah said: There has come to you Ramadan, a blessed month, which Allah, the Mighty and Sublime, has enjoined you to fast. In it the gates of heavens are opened and the gates of Hell are closed, and every devil is chained up. In it Allah has a night which is better than a thousand months; whoever is deprived of its goodness is indeed deprived.”\nSunan an-Nasai - The Book of Fasting - 2106',
+              ),
+              isScrollControlled: true)
+          .then((value) => sl<SharedPreferences>().setBool(IS_RAMADAN, true));
+    }
+    if (eidDays && isEid == false) {
+      await Future.delayed(const Duration(seconds: 2));
+      Get.bottomSheet(
+              RamadanGreeting(
+                lottieFile: eid,
+                title: 'عيدكم مبارك - ${'eidGreetingTitle'.tr}',
+                content: eidGreetingContent,
+              ),
+              isScrollControlled: true)
+          .then((value) => sl<SharedPreferences>().setBool(IS_EID, true));
+    }
+    if (today.hMonth == 10) sl<SharedPreferences>().setBool(IS_RAMADAN, false);
+    if (today.hMonth == 11) sl<SharedPreferences>().setBool(IS_EID, false);
+    if (today.hMonth == 1) sl<SharedPreferences>().setBool(IS_EID, false);
   }
 }

@@ -16,7 +16,7 @@ import 'package:rxdart/rxdart.dart' as R;
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../core/services/services_locator.dart';
-import '../../core/utils/constants/shared_pref_services.dart';
+import '../../core/utils/constants/constants.dart';
 import '../../core/utils/constants/shared_preferences_constants.dart';
 import '../../core/widgets/seek_bar.dart';
 import '/presentation/controllers/aya_controller.dart';
@@ -372,23 +372,23 @@ class SurahAudioController extends GetxController {
               position, bufferedPosition, duration ?? Duration.zero));
 
   loadSurahReader() async {
-    sorahReaderValue.value = await sl<SharedPrefServices>().getString(
-        SURAH_AUDIO_PLAYER_SOUND,
-        defaultValue: "https://server7.mp3quran.net/");
-    sorahReaderNameValue.value = await sl<SharedPrefServices>()
-        .getString(SURAH_AUDIO_PLAYER_NAME, defaultValue: "basit/");
+    sorahReaderValue.value =
+        await sl<SharedPreferences>().getString(SURAH_AUDIO_PLAYER_SOUND) ??
+            UrlConstants.surahUrl;
+    sorahReaderNameValue.value =
+        await sl<SharedPreferences>().getString(SURAH_AUDIO_PLAYER_NAME) ??
+            'abdul_basit_murattal/';
     surahReaderIndex.value =
         sl<SharedPreferences>().getInt(SURAH_READER_INDEX) ?? 0;
   }
 
   Future loadLastSurahListen() async {
-    int? lastSurah =
-        await sl<SharedPrefServices>().getInteger(LAST_SURAH, defaultValue: 1);
-    selectedSurah.value = await sl<SharedPrefServices>()
-        .getInteger(SELECTED_SURAH, defaultValue: -1);
+    int? lastSurah = await sl<SharedPreferences>().getInt(LAST_SURAH) ?? 1;
+    selectedSurah.value =
+        await sl<SharedPreferences>().getInt(SELECTED_SURAH) ?? -1;
 
-    lastPosition.value = await sl<SharedPrefServices>()
-        .getInteger(LAST_POSITION, defaultValue: 0);
+    lastPosition.value =
+        await sl<SharedPreferences>().getInt(LAST_POSITION) ?? 0;
 
     return {
       LAST_SURAH: lastSurah,

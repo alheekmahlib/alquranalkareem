@@ -315,8 +315,43 @@
     "type": "text",
     "placeholders": {}
   },
-  "reader6": "سعد الغامدي",
+  "reader6": "سعود الشریم",
   "@reader6": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "reader7": "سعد الغامدی",
+  "@reader7": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "reader8": "مصطفیٰ العزاوی",
+  "@reader8": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "reader9": "ناصر القطامی",
+  "@reader9": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "reader10": "قادر الكردي",
+  "@reader10": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "reader11": "شيرزاد طاهر",
+  "@reader11": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "reader12": "عبدالرحمن العوسي",
+  "@reader12": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "reader13": "وديع اليمني",
+  "@reader13": {
     "type": "text",
     "placeholders": {}
   },
@@ -667,6 +702,31 @@
   },
   "ayahs": "آیات",
   "@ayahs": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "eidGreetingContent": "اللہ ہم سے اور آپ سے روزہ، نماز اور نیک عمل قبول فرمائے۔",
+  "@eidGreetingContent": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "eidGreetingContent2": "ہر سال آپ اللہ کے زیادہ قریب ہوں۔",
+  "@eidGreetingContent2": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "eidGreetingTitle": "آپ کو عید مبارک",
+  "@eidGreetingTitle": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "ramadhanMubarak": "رمضان مبارک",
+  "@ramadhanMubarak": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "home": "ہوم",
+  "@home": {
     "type": "text",
     "placeholders": {}
   }

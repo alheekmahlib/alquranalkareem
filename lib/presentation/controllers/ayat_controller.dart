@@ -4,7 +4,6 @@ import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../core/services/services_locator.dart';
-import '../../core/utils/constants/shared_pref_services.dart';
 import '../../core/utils/constants/shared_preferences_constants.dart';
 import '../screens/quran_page/data/data_source/baghawy_data_client.dart';
 import '../screens/quran_page/data/data_source/ibnkatheer_data_client.dart';
@@ -143,8 +142,7 @@ class AyatController extends GetxController {
   }
 
   Future<void> loadTafseer() async {
-    radioValue.value =
-        await sl<SharedPrefServices>().getInteger(TAFSEER_VAL, defaultValue: 0);
+    radioValue.value = await sl<SharedPreferences>().getInt(TAFSEER_VAL) ?? 0;
   }
 
   Future<void> getTranslatedPage(int pageNum, BuildContext context) async {

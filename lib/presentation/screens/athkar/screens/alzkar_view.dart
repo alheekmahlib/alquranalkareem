@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 import '../../../../core/widgets/tab_bar_widget.dart';
@@ -30,8 +29,9 @@ class AzkarView extends StatelessWidget {
                       labelStyle: TextStyle(
                         color: Theme.of(context).colorScheme.secondary,
                         fontFamily: 'kufi',
-                        fontSize: 11.sp,
+                        fontSize: 11,
                       ),
+                      indicatorSize: TabBarIndicatorSize.tab,
                       indicator: BoxDecoration(
                           borderRadius: const BorderRadius.all(
                             Radius.circular(8),

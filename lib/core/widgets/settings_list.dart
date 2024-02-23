@@ -4,7 +4,6 @@ import 'package:get/get.dart';
 
 import '../../presentation/screens/about_app/about_app.dart';
 import '../../presentation/screens/ourApp/ourApps_screen.dart';
-import '../../presentation/screens/quran_page/widgets/mushaf_settings.dart';
 import '../services/services_locator.dart';
 import '../utils/constants/extensions/extensions.dart';
 import '../utils/constants/svg_picture.dart';
@@ -13,6 +12,7 @@ import '/presentation/controllers/general_controller.dart';
 import '/presentation/controllers/quran_controller.dart';
 import '/presentation/controllers/theme_controller.dart';
 import 'language_list.dart';
+import 'mushaf_settings.dart';
 import 'select_screen.dart';
 import 'theme_change.dart';
 

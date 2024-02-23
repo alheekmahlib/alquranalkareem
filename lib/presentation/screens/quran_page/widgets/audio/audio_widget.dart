@@ -108,7 +108,7 @@ class AudioWidget extends StatelessWidget {
                         Directionality(
                           textDirection: TextDirection.rtl,
                           child: Container(
-                            height: 61,
+                            height: 65,
                             alignment: Alignment.center,
                             // width: 250,
                             child: StreamBuilder<PositionData>(
