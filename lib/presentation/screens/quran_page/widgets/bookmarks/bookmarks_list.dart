@@ -19,7 +19,7 @@ class BookmarksList extends StatelessWidget {
     bookmarkCtrl.getBookmarks();
     bookmarkCtrl.getBookmarksText();
     return Container(
-      height: MediaQuery.sizeOf(context).height * .96,
+      height: MediaQuery.sizeOf(context).height * .93,
       width: MediaQuery.sizeOf(context).width,
       decoration: BoxDecoration(
           color: Theme.of(context).colorScheme.background,

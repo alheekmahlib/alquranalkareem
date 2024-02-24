@@ -11,7 +11,7 @@ class SplashScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Theme.of(context).colorScheme.primary,
+      backgroundColor: Theme.of(context).primaryColor,
       body: Directionality(
         textDirection: TextDirection.rtl,
         child: context.customOrientation(
@@ -23,9 +23,11 @@ class SplashScreen extends StatelessWidget {
                 ),
                 Align(
                   alignment: Alignment.topLeft,
-                  child: quran_ic_s(
-                    width: 600.0,
-                    height: 300.0,
+                  child: Padding(
+                    padding: const EdgeInsets.only(top: 64.0),
+                    child: splash_icon_half_s(
+                      height: MediaQuery.sizeOf(context).width * .5,
+                    ),
                   ),
                 ),
                 const Align(

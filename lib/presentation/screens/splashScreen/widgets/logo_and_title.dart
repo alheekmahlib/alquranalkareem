@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 
 import '../../../../core/services/services_locator.dart';
+import '../../../../core/utils/constants/svg_picture.dart';
 import '../../../../core/widgets/container_with_border.dart';
 import '../../../../core/widgets/container_with_lines.dart';
 import '../../../controllers/splash_screen_controller.dart';
@@ -18,8 +18,7 @@ class LogoAndTitle extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          SvgPicture.asset(
-            'assets/svg/splash_icon.svg',
+          splash_icon(
             height: 100,
             width: 100,
           ),

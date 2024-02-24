@@ -22,8 +22,9 @@ class AyahsBuild extends StatelessWidget {
   Widget build(BuildContext context) {
     sl<TranslateDataController>().loadTranslateValue();
     return ListView.builder(
-        primary: false,
+        // primary: false,
         shrinkWrap: true,
+        controller: quranCtrl.ayahsScrollController,
         itemCount:
             quranCtrl.getCurrentPageAyahsSeparatedForBasmalah(pageIndex).length,
         itemBuilder: (context, i) {

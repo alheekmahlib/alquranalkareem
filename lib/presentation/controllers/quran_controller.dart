@@ -26,6 +26,7 @@ class QuranController extends GetxController {
   var selectedAyahIndexes = <int>[].obs;
   bool isSelected = false;
   final ScrollController scrollIndicatorController = ScrollController();
+  final ScrollController ayahsScrollController = ScrollController();
   RxInt selectedIndicatorIndex = 0.obs;
   PreferDirection preferDirection = PreferDirection.topCenter;
   RxDouble textWidgetPosition = (-240.0).obs;

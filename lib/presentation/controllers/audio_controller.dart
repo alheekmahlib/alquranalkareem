@@ -228,6 +228,11 @@ class AudioController extends GetxController {
               moveToNextPage(withScroll: false);
               goingToNewSurah = true;
             }
+          } else if (quranCtrl.isPages.value == 1) {
+            if (_currentAyahUQInPage.value == 6236) {
+              await audioPlayer.pause();
+              isPlay.value = false;
+            } else {}
           }
 
           await playNextAyah();
@@ -250,8 +255,8 @@ class AudioController extends GetxController {
     await playFile(url, fileName);
     isProcessingNextAyah.value = false;
     if (quranCtrl.isPages.value == 1) {
-      quranCtrl.itemScrollController.scrollTo(
-        index: _currentAyahUQInPage.value,
+      quranCtrl.ayahsScrollController.animateTo(
+        _currentAyahUQInPage.value.toDouble(),
         duration: const Duration(milliseconds: 600),
         curve: Curves.easeInOut,
       );
@@ -405,9 +410,10 @@ class AudioController extends GetxController {
     } else {
       if (isPlay.value) {
         quranCtrl.showControl();
+      } else if (quranCtrl.selectedAyahIndexes.isNotEmpty) {
+        quranCtrl.selectedAyahIndexes.clear();
       } else {
         quranCtrl.showControl();
-        quranCtrl.selectedAyahIndexes.clear();
       }
     }
     generalCtrl.drawerKey.currentState!.closeSlider();

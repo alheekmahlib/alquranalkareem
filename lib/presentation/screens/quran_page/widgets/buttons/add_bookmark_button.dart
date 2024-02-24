@@ -35,9 +35,7 @@ class AddBookmarkButton extends StatelessWidget {
             label: 'Add Bookmark',
             child:
                 sl<BookmarksController>().hasBookmark(surahNum, ayahUQNum).value
-                    ? bookmark_icon2(
-                        height: 20.0,
-                      )
+                    ? bookmark_icon2(height: 20.0)
                     : bookmark_icon(height: 20.0),
           )),
       onTap: () async {

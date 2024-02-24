@@ -136,6 +136,14 @@ Widget quran_ic_s({double? height, double? width}) {
   );
 }
 
+Widget splash_icon_half_s({double? height, double? width}) {
+  return SvgPicture.asset(
+    'assets/svg/splash_icon_half_s.svg',
+    width: width,
+    height: height ?? 60,
+  );
+}
+
 Widget slider_ic2({double? height, double? width}) {
   return SvgPicture.asset(
     'assets/svg/slider_ic2.svg',

@@ -83,15 +83,15 @@ dev_dependencies:
     sdk: flutter
 
 flutter_native_splash:
-  color: "#f3efdf"
+  color: "#404C6E"
   color_dark: "#2d2d2d"
-  image: assets/app_icon.png
-  image_dark: assets/app_icon.png
+  image: assets/splash_icon512.png
+  image_dark: assets/splash_icon512.png
 
   android_12:
-    image: assets/app_icon.png
-    icon_background_color: "#f3efdf"
-    image_dark: assets/app_icon.png
+    image: assets/splash_icon512.png
+    icon_background_color: "#404C6E"
+    image_dark: assets/splash_icon512.png
     icon_background_color_dark: "#2d2d2d"
 
 package_rename_config:

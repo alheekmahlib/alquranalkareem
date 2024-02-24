@@ -1,3 +1,4 @@
+import 'package:alquranalkareem/core/utils/constants/extensions/surah_name_with_banner.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -32,8 +33,9 @@ TextSpan span({
           height: 2,
           letterSpacing: 8,
           color: Get.theme.colorScheme.inversePrimary,
-          backgroundColor:
-              sl<BookmarksController>().hasBookmark(surahNum, ayahNum).value
+          backgroundColor: quranCtrl.isPages.value == 1
+              ? Colors.transparent
+              : sl<BookmarksController>().hasBookmark(surahNum, ayahNum).value
                   ? const Color(0xffCD9974).withOpacity(.4)
                   : isSelected
                       ? Get.theme.highlightColor
@@ -52,8 +54,9 @@ TextSpan span({
           letterSpacing: 2,
           // wordSpacing: wordSpacing + 10,
           color: Get.theme.colorScheme.inversePrimary,
-          backgroundColor:
-              sl<BookmarksController>().hasBookmark(surahNum, ayahNum).value
+          backgroundColor: quranCtrl.isPages.value == 1
+              ? Colors.transparent
+              : sl<BookmarksController>().hasBookmark(surahNum, ayahNum).value
                   ? const Color(0xffCD9974).withOpacity(.4)
                   : isSelected
                       ? Get.theme.highlightColor
@@ -73,8 +76,9 @@ TextSpan span({
         height: 2,
         letterSpacing: 2,
         color: Get.theme.colorScheme.inversePrimary,
-        backgroundColor:
-            sl<BookmarksController>().hasBookmark(surahNum, ayahNum).value
+        backgroundColor: quranCtrl.isPages.value == 1
+            ? Colors.transparent
+            : sl<BookmarksController>().hasBookmark(surahNum, ayahNum).value
                 ? const Color(0xffCD9974).withOpacity(.4)
                 : isSelected
                     ? Get.theme.highlightColor
@@ -95,8 +99,9 @@ TextSpan span({
         color: sl<BookmarksController>().hasBookmark(surahNum, ayahNum).value
             ? Get.theme.colorScheme.inversePrimary
             : const Color(0xffa24308),
-        backgroundColor:
-            sl<BookmarksController>().hasBookmark(surahNum, ayahNum).value
+        backgroundColor: quranCtrl.isPages.value == 1
+            ? Colors.transparent
+            : sl<BookmarksController>().hasBookmark(surahNum, ayahNum).value
                 ? const Color(0xffCD9974).withOpacity(.4)
                 : isSelected
                     ? Get.theme.highlightColor
