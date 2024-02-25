@@ -35,6 +35,8 @@ class SurahJuzList extends StatelessWidget {
                   ),
                   child: TabBar(
                     unselectedLabelColor: Colors.grey,
+                    indicatorSize: TabBarIndicatorSize.tab,
+                    dividerColor: Colors.transparent,
                     labelStyle: TextStyle(
                       color: Theme.of(context).hintColor,
                       fontFamily: 'kufi',

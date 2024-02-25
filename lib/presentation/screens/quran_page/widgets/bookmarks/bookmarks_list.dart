@@ -16,8 +16,6 @@ class BookmarksList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    bookmarkCtrl.getBookmarks();
-    bookmarkCtrl.getBookmarksText();
     return Container(
       height: MediaQuery.sizeOf(context).height * .93,
       width: MediaQuery.sizeOf(context).width,

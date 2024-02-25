@@ -11,6 +11,13 @@ class BookmarksController extends GetxController {
   final RxList<BookmarksAyahs> BookmarkTextList = <BookmarksAyahs>[].obs;
   late int lastBook;
 
+  @override
+  void onInit() {
+    getBookmarks();
+    getBookmarksText();
+    super.onInit();
+  }
+
   Future<int?> addBookmarks(
       int pageNum, String sorahName, String lastRead) async {
     // Check if there's a bookmark for the current page

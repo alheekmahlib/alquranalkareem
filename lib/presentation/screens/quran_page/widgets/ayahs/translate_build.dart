@@ -6,7 +6,6 @@ import '../../../../../core/services/services_locator.dart';
 import '../../../../../core/utils/constants/lottie.dart';
 import '../../../../controllers/general_controller.dart';
 import '../../../../controllers/settings_controller.dart';
-import '../../../../controllers/share_controller.dart';
 import '../../../../controllers/translate_controller.dart';
 import '../text_overflow_detector.dart';
 import 'change_translate.dart';
@@ -35,11 +34,9 @@ class TranslateBuild extends StatelessWidget {
                 return search(50.0, 50.0);
               }
               return ReadMoreLess(
-                text: sl<ShareController>().isTafseer.value
-                    ? translateCtrl.data[ayahs[ayahIndex].ayahUQNumber - 1]
-                            ['text'] ??
-                        ''
-                    : '',
+                text: translateCtrl.data[ayahs[ayahIndex].ayahUQNumber - 1]
+                        ['text'] ??
+                    '',
                 textStyle: TextStyle(
                   fontSize: sl<GeneralController>().fontSizeArabic.value - 3,
                   fontFamily: sl<SettingsController>().languageFont.value,

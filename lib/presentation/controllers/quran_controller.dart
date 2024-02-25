@@ -3,6 +3,7 @@ import 'dart:developer';
 
 import 'package:bot_toast/bot_toast.dart';
 import 'package:collection/collection.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' show rootBundle;
 import 'package:gap/gap.dart';
@@ -36,8 +37,10 @@ class QuranController extends GetxController {
   RxBool isMoreOptions = false.obs;
   final itemScrollController = ItemScrollController();
   final itemPositionsListener = ItemPositionsListener.create();
+  final scrollOffsetController = ScrollOffsetController();
   var moreOptionsMap = <String, bool>{}.obs;
   RxInt selectMushafSettingsPage = 0.obs;
+  RxDouble ayahsWidgetHeight = 0.0.obs;
   List<int> lastPlaceBannerPageIndex = [
     75,
     206,

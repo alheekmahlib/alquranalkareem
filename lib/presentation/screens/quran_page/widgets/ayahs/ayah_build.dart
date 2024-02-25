@@ -3,6 +3,7 @@ import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 
 import '../../../../../core/services/services_locator.dart';
+import '../../../../../core/widgets/measure_size_widget.dart';
 import '../../../../controllers/general_controller.dart';
 import '../../../../controllers/quran_controller.dart';
 import '../../../../controllers/translate_controller.dart';
@@ -37,83 +38,95 @@ class AyahsBuild extends StatelessWidget {
                   children: List.generate(ayahs.length, (ayahIndex) {
                 quranCtrl.isSelected = quranCtrl.selectedAyahIndexes
                     .contains(ayahs[ayahIndex].ayahUQNumber);
-                return GestureDetector(
-                  onTap: () => quranCtrl
-                      .toggleAyahSelection(ayahs[ayahIndex].ayahUQNumber),
-                  child: Column(
-                    children: [
-                      const Gap(16),
-                      AyahsMenu(
-                        surahNum: quranCtrl.getSurahNumberFromPage(pageIndex),
-                        ayahNum: ayahs[ayahIndex].ayahNumber,
-                        ayahText: ayahs[ayahIndex].code_v2,
-                        pageIndex: pageIndex,
-                        ayahTextNormal: ayahs[ayahIndex].text,
-                        ayahUQNum: ayahs[ayahIndex].ayahUQNumber,
-                        surahName: quranCtrl.getSurahNameFromPage(pageIndex),
-                        isSelected: quranCtrl.isSelected,
-                      ),
-                      const Gap(16),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                        child: Obx(
-                          () => RichText(
-                            textDirection: TextDirection.rtl,
-                            textAlign: TextAlign.center,
-                            text: TextSpan(
-                                style: TextStyle(
-                                  fontFamily: 'page${pageIndex + 1}',
-                                  fontSize: sl<GeneralController>()
-                                      .fontSizeArabic
-                                      .value,
-                                  height: 2,
-                                  color: Theme.of(context)
-                                      .colorScheme
-                                      .inversePrimary,
-                                ),
-                                children: [
-                                  ayahIndex == 0
-                                      ? span(
-                                          isFirstAyah: true,
-                                          text:
-                                              "${ayahs[ayahIndex].code_v2[0].replaceAll('\n', '')}${ayahs[ayahIndex].code_v2.substring(1).replaceAll('\n', '')}",
-                                          pageIndex: pageIndex,
-                                          isSelected: quranCtrl.isSelected,
-                                          fontSize: sl<GeneralController>()
-                                              .fontSizeArabic
-                                              .value,
-                                          surahNum:
-                                              quranCtrl.getSurahNumberFromPage(
-                                                  pageIndex),
-                                          ayahNum:
-                                              ayahs[ayahIndex].ayahUQNumber,
-                                        )
-                                      : span(
-                                          isFirstAyah: false,
-                                          text: ayahs[ayahIndex]
-                                              .code_v2
-                                              .replaceAll('\n', ''),
-                                          pageIndex: pageIndex,
-                                          isSelected: quranCtrl.isSelected,
-                                          fontSize: sl<GeneralController>()
-                                              .fontSizeArabic
-                                              .value,
-                                          surahNum:
-                                              quranCtrl.getSurahNumberFromPage(
-                                                  pageIndex),
-                                          ayahNum:
-                                              ayahs[ayahIndex].ayahUQNumber,
-                                        ),
-                                ]),
+                return MeasureSizeWidget(
+                  onChange: (size) {
+                    quranCtrl.ayahsWidgetHeight.value = size.height;
+                    print("Item $ayahIndex size: ${size.height}");
+                  },
+                  child: Container(
+                    key: ValueKey(i),
+                    child: GestureDetector(
+                      onTap: () => quranCtrl
+                          .toggleAyahSelection(ayahs[ayahIndex].ayahUQNumber),
+                      child: Column(
+                        children: [
+                          const Gap(16),
+                          AyahsMenu(
+                            surahNum:
+                                quranCtrl.getSurahNumberFromPage(pageIndex),
+                            ayahNum: ayahs[ayahIndex].ayahNumber,
+                            ayahText: ayahs[ayahIndex].code_v2,
+                            pageIndex: pageIndex,
+                            ayahTextNormal: ayahs[ayahIndex].text,
+                            ayahUQNum: ayahs[ayahIndex].ayahUQNumber,
+                            surahName:
+                                quranCtrl.getSurahNameFromPage(pageIndex),
+                            isSelected: quranCtrl.isSelected,
                           ),
-                        ),
+                          const Gap(16),
+                          Padding(
+                            padding:
+                                const EdgeInsets.symmetric(horizontal: 16.0),
+                            child: Obx(
+                              () => RichText(
+                                textDirection: TextDirection.rtl,
+                                textAlign: TextAlign.center,
+                                text: TextSpan(
+                                    style: TextStyle(
+                                      fontFamily: 'page${pageIndex + 1}',
+                                      fontSize: sl<GeneralController>()
+                                          .fontSizeArabic
+                                          .value,
+                                      height: 2,
+                                      color: Theme.of(context)
+                                          .colorScheme
+                                          .inversePrimary,
+                                    ),
+                                    children: [
+                                      ayahIndex == 0
+                                          ? span(
+                                              isFirstAyah: true,
+                                              text:
+                                                  "${ayahs[ayahIndex].code_v2[0].replaceAll('\n', '')}${ayahs[ayahIndex].code_v2.substring(1).replaceAll('\n', '')}",
+                                              pageIndex: pageIndex,
+                                              isSelected: quranCtrl.isSelected,
+                                              fontSize: sl<GeneralController>()
+                                                  .fontSizeArabic
+                                                  .value,
+                                              surahNum: quranCtrl
+                                                  .getSurahNumberFromPage(
+                                                      pageIndex),
+                                              ayahNum:
+                                                  ayahs[ayahIndex].ayahUQNumber,
+                                            )
+                                          : span(
+                                              isFirstAyah: false,
+                                              text: ayahs[ayahIndex]
+                                                  .code_v2
+                                                  .replaceAll('\n', ''),
+                                              pageIndex: pageIndex,
+                                              isSelected: quranCtrl.isSelected,
+                                              fontSize: sl<GeneralController>()
+                                                  .fontSizeArabic
+                                                  .value,
+                                              surahNum: quranCtrl
+                                                  .getSurahNumberFromPage(
+                                                      pageIndex),
+                                              ayahNum:
+                                                  ayahs[ayahIndex].ayahUQNumber,
+                                            ),
+                                    ]),
+                              ),
+                            ),
+                          ),
+                          const Gap(16),
+                          TranslateBuild(
+                            ayahs: ayahs,
+                            ayahIndex: ayahIndex,
+                          ),
+                        ],
                       ),
-                      const Gap(16),
-                      TranslateBuild(
-                        ayahs: ayahs,
-                        ayahIndex: ayahIndex,
-                      ),
-                    ],
+                    ),
                   ),
                 );
               }));

@@ -126,7 +126,7 @@ class TranslateDataController extends GetxController {
     sl<ShareController>().currentTranslate.value =
         await sl<SharedPreferences>().getString(CURRENT_TRANSLATE) ?? 'English';
     sl<ShareController>().isTafseer.value =
-        (await sl<SharedPreferences>().getBool(IS_TAFSEER))!;
+        (await sl<SharedPreferences>().getBool(IS_TAFSEER)) ?? false;
     print('trans.value ${trans.value}');
     print('translateـvalue $transValue');
   }

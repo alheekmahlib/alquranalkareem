@@ -1,14 +1,10 @@
-import 'dart:developer';
-
 import 'package:alquranalkareem/presentation/controllers/audio_controller.dart';
 import 'package:alquranalkareem/presentation/controllers/general_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../../../core/services/services_locator.dart';
-import '../../../../../core/utils/constants/shared_preferences_constants.dart';
 import '../../../../controllers/quran_controller.dart';
 import 'ayah_build.dart';
 
@@ -39,11 +35,16 @@ class AyahsWidget extends StatelessWidget {
                   initialScrollIndex: generalCtrl.currentPageNumber.value - 1,
                   itemScrollController: quranCtrl.itemScrollController,
                   itemPositionsListener: quranCtrl.itemPositionsListener,
+                  scrollOffsetController: quranCtrl.scrollOffsetController,
                   itemCount: quranCtrl.pages.length,
                   physics: const BouncingScrollPhysics(),
                   itemBuilder: (context, pageIndex) {
-                    sl<SharedPreferences>().setInt(MSTART_PAGE, pageIndex);
-                    log('pageIndex: $pageIndex');
+                    // sl<SharedPreferences>().setInt(
+                    //     MSTART_PAGE,
+                    //     quranCtrl.itemPositionsListener.itemPositions.value.last
+                    //             .index +
+                    //         1);
+                    // log('pageIndex: ${quranCtrl.itemPositionsListener.itemPositions.value.last.index + 1}');
                     return Container(
                       margin: const EdgeInsets.symmetric(
                           horizontal: 16.0, vertical: 4.0),

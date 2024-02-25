@@ -255,8 +255,8 @@ class AudioController extends GetxController {
     await playFile(url, fileName);
     isProcessingNextAyah.value = false;
     if (quranCtrl.isPages.value == 1) {
-      quranCtrl.ayahsScrollController.animateTo(
-        _currentAyahUQInPage.value.toDouble(),
+      quranCtrl.scrollOffsetController.animateScroll(
+        offset: quranCtrl.ayahsWidgetHeight.value,
         duration: const Duration(milliseconds: 600),
         curve: Curves.easeInOut,
       );
