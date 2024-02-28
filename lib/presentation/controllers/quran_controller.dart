@@ -14,12 +14,14 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../../core/services/services_locator.dart';
 import '../../core/utils/constants/shared_preferences_constants.dart';
 import '../../core/utils/constants/svg_picture.dart';
+import '../../core/utils/helpers/global_key_manager.dart';
 import '../screens/quran_page/data/model/surahs_model.dart';
 import '/presentation/controllers/general_controller.dart';
 import '/presentation/controllers/theme_controller.dart';
 
+// late GlobalKey<SliderDrawerState> drawerKey = GlobalKey<SliderDrawerState>();
+
 class QuranController extends GetxController {
-  // RxInt currentPage = 1.obs;
   List<Surah> surahs = [];
   List<List<Ayah>> pages = [];
   List<Ayah> allAyahs = [];
@@ -42,6 +44,7 @@ class QuranController extends GetxController {
   RxInt selectMushafSettingsPage = 0.obs;
   RxDouble ayahsWidgetHeight = 0.0.obs;
   RxInt currentListPage = 1.obs;
+
   List<int> lastPlaceBannerPageIndex = [
     75,
     206,
@@ -352,7 +355,7 @@ class QuranController extends GetxController {
             curve: Curves.easeIn,
           );
     }
-    generalCtrl.drawerKey.currentState!.closeSlider();
+    GlobalKeyManager().drawerKey.currentState!.closeSlider();
   }
 
   void currentListPageNumber() {
@@ -388,6 +391,7 @@ class QuranController extends GetxController {
   @override
   void onClose() {
     itemPositionsListener.itemPositions.removeListener(_updatePageNumber);
+    itemPositionsListener.itemPositions.removeListener(currentListPageNumber);
     super.onClose();
   }
 }

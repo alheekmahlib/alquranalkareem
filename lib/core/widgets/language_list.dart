@@ -118,7 +118,7 @@ class LanguageList extends StatelessWidget {
                                     color: 'appLang'.tr == lang['appLang']
                                         ? Theme.of(context).colorScheme.surface
                                         : Theme.of(context)
-                                            .canvasColor
+                                            .hintColor
                                             .withOpacity(.5),
                                     fontSize: 18,
                                     fontWeight: 'appLang'.tr == lang['appLang']

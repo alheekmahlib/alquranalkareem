@@ -1,8 +1,9 @@
-import 'package:alquranalkareem/core/utils/constants/extensions/extensions.dart';
 import 'package:expansion_tile_card/expansion_tile_card.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
+
+import '/core/utils/constants/extensions/extensions.dart';
 
 class AboutAppText extends StatelessWidget {
   const AboutAppText({super.key});
@@ -34,7 +35,7 @@ class AboutAppText extends StatelessWidget {
           buttonMinWidth: 90.0,
           children: [
             Text(
-              'aboutAppDetails'.tr,
+              'about_app'.tr,
               style: TextStyle(
                 fontFamily: 'naskh',
                 fontSize: 20,
@@ -45,34 +46,21 @@ class AboutAppText extends StatelessWidget {
             ),
             const Gap(24),
             Column(
-              children: List.generate(
-                5,
-                (index) => Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      ('aboutAppTitle${index + 1}').tr,
-                      style: TextStyle(
-                        fontSize: 18.0,
-                        fontFamily: 'naskh',
-                        fontWeight: FontWeight.bold,
-                        color: Theme.of(context).hintColor,
-                      ),
-                    ),
-                    Text(('aboutApp${index + 1}').tr,
-                        style: TextStyle(
-                          fontSize: 18.0,
-                          fontFamily: 'naskh',
-                          fontWeight: FontWeight.w500,
-                          color: Theme.of(context).hintColor,
-                        ),
-                        textAlign: TextAlign.justify),
-                    context.hDivider(width: MediaQuery.sizeOf(context).width),
-                    const Gap(16),
-                  ],
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  ('about_app3').tr,
+                  style: TextStyle(
+                    fontSize: 18.0,
+                    fontFamily: 'naskh',
+                    // fontWeight: FontWeight.bold,
+                    color: Theme.of(context).hintColor,
+                  ),
                 ),
-              ),
-            )
+                context.hDivider(width: MediaQuery.sizeOf(context).width),
+                const Gap(16),
+              ],
+            ),
           ],
         ),
       ],

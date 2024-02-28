@@ -22,6 +22,7 @@ class AyahsMenu extends StatelessWidget {
   final int ayahUQNum;
   final String surahName;
   final bool isSelected;
+  final int index;
 
   AyahsMenu({
     super.key,
@@ -33,6 +34,7 @@ class AyahsMenu extends StatelessWidget {
     required this.ayahUQNum,
     required this.surahName,
     required this.isSelected,
+    required this.index,
   });
 
   final generalCtrl = sl<GeneralController>();
@@ -93,6 +95,7 @@ class AyahsMenu extends StatelessWidget {
                       pageIndex: pageIndex,
                       ayahTextNormal: ayahTextNormal,
                       ayahUQNum: ayahUQNum,
+                      index: index,
                     ),
                     const Gap(6),
                     context.vDivider(height: 18.0),
@@ -129,6 +132,7 @@ class AyahsMenu extends StatelessWidget {
                           pageIndex: pageIndex,
                           ayahTextNormal: ayahTextNormal,
                           ayahUQNum: ayahUQNum,
+                          index: index,
                         ),
                         const Gap(6),
                         context.vDivider(height: 18.0),

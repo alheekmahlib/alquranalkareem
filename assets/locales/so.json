@@ -100,7 +100,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "about_app": "The application of the Qur’an Al Kareem is characterized by its approval of the edition of the King Fahd Complex for Printing the Noble Qur’an in Madinah because of its reliability and mastery.\nThe Quran Al Kareem application is sponsored by the \"Al-Heekmah Library\".\nIt is a well-designed application that allows you to read interactively with the text of the electronic Quran, listen to recitations, study the  Quran Al Kareem and memorize it with ease.",
+  "about_app": "Barnaamijka \"Quraanka Kariimka - Maktabadda Hikmah\" waa barnaamij dhammaystiran oo bixiya xulasho ballaaran oo ah sifooyin si loo hagaajiyo khibradda akhriska iyo barashada Quraanka Kariimka. Sifooyinkan waxaa ka mid ah:",
   "@about_app": {
     "type": "text",
     "placeholders": {}
@@ -110,7 +110,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "about_app3": "◉ This application enables you to read the Quran as if you were reading in the Mus'haf, and you can read in vertical and horizontal mode.\\n◉ You can also read in variable mode that enables you to zoom in and out as you like.\\n◉ The application has the feature of textual search in the verses of the Qur’an through real-time search and display of results with pages in addition to the possibility of going to the page as needed.\\n◉ Addition to bookmarks so that the reader can save the page and return to it whenever he wants.\\n◉ Addition to notes.\\n◉ Ability to listen to each verse in voice of different readers.\\n◉ The app allows interpretation for each verse, you can change between interpretations, and you can resize the interpretation line.\\n◉ Index of Surahs.\\n◉ Move between Surahs easily.\\n◉ The app lets you read the meaning of stop signs.\\n◉ The application enables you to read the Muslim fortress in full and divided by remembrance so that it is easy for the reader to navigate between sections, and you can add any mention to favorites.\\n◉ The application allows the reader to read to change color patterns, including the dark pattern, which changes the background color in black and white lines to give the reader complete comfort when reading in a low-light atmosphere. \\n◉ The app enables you to listen to the Surahs or download and listen to them at any time without the need for the internet.",
+  "about_app3": "◉ Interface cusub oo saaxiibtinimo leh: Barnaamijka waxaa loo naqshadeeyay interface isticmaale casri ah oo garaad leh taas oo fududeyneysa in isticmaalayaashu ay si fudud ugu dhex maraan oo ay u gaaraan sifooyinka kala duwan.\n◉ Isticmaalka daabacaadda Majma'ul Malik Fahd: Barnaamijku wuxuu isticmaalaa daabacaadda Majma'ul Malik Fahd ee daabacaadda Quraanka Kariimka, taas oo loo yaqaan inay tahay mid lagu kalsoonaan karo oo sax ah, taasoo damaanad qaadaysa saxnaanta qoraalka iyo daacadnimadiisa.\n◉ Akhris is-dhexgal iyo dhammaystiran: Barnaamijku wuxuu bixiyaa suurtagalnimada akhriska is-dhexgalka leh ee qoraalka Quraanka elektaroonigga ah, marka lagu daro dhageysiga tajwiidka, iyo barashada iyo xifdinta Quraanka Kariimka si fudud.\n◉ Akhris dabacsan: Isticmaalayaashu waxay akhrin karaan Quraanka sidii iyagoo akhrinaya mushaf warqadeed ama dooran karaan habka aayadda keliya si ay u helaan diiradda dheeraad ah.\n◉ Muuqaalka baarista qoraalka: Barnaamijku wuxuu ku jiraa muuqaal baaris degdeg ah oo ku saabsan aayaadka Quraanka, iyadoo suurtogal ah in si toos ah loogu guuro bogga ama suuradda la rabo.\n◉ Ku darista calaamadaha buugga: Muuqaalkani wuxuu u oggolaanayaa in la kaydiyo bogagga ama aayaadka si fudud loogu noqdo waqti kasta.\n◉ Dhageysiga aayaadka: Barnaamijku wuxuu bixiyaa suurtagalnimada dhageysiga aayad kasta oo ay akhriyaan qaar ka mid ah qurraa'da caanka ah.\n◉ Tafsiirka iyo tarjumada aayaadka: Isticmaalayaashu waxay heli karaan tafsiirka ama tarjumada aayad kasta, iyagoo beddeli kara tafsiirada sida ay doonaan.\n◉ Sahlan u wareejinta suuradaha: Barnaamijku wuxuu sahlayaa wareejinta suuradaha si habsami leh oo degdeg ah.\n◉ Akhriska calaamadaha joogsiga: Muuqaalkani wuxuu ka caawiyaa fahamka meelaha ku habboon ee joogsiga inta lagu jiro akhriska.\n◉ Adkaar Al-Muslim Fortress: Waxaa suurtagal ah in la akhriyo dhammaan Adkaar Al-Muslim Fortress oo si fudud loogu dhex maro qaybaha, iyadoo suurtogal ah in lagu daro adkaar kuwa la jecel yahay.\n◉ Beddelka qaababka midabka: Barnaamijku wuxuu taageeraa beddelka qaababka midabka, oo ay ku jiraan habka madow, si loo hagaajiyo khibradda akhriska.\n◉ Dhageysiga iyo soo dejinta: Waxaa suurtagal ah in la dhageysto suuradaha ama loo soo dejiyo si dib loogu dhageysto iyada oo aan loo baahnayn internetka.\n\nSifooyinkan waxay ka dhigayaan barnaamijka \"Quraanka Kariimka - Maktabadda Hikmah\" qalab dhammaystiran qof kasta oo doonaya inuu akhriyo, barto, oo uu ku fikiro Quraanka Kariimka si fudud oo wax ku ool ah.",
   "@about_app3": {
     "type": "text",
     "placeholders": {}
@@ -782,6 +782,16 @@
   },
   "What'sNewTitle5": "Ku daridda qurraa dheeraad ah:",
   "@What'sNewTitle5": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "ourApps": "Apps-keena",
+  "@ourApps": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "choseQuran": "Dooro Habka Akhriska",
+  "@choseQuran": {
     "type": "text",
     "placeholders": {}
   }

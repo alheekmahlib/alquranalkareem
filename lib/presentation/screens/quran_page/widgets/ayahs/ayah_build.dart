@@ -62,6 +62,7 @@ class AyahsBuild extends StatelessWidget {
                             surahName:
                                 quranCtrl.getSurahNameFromPage(pageIndex),
                             isSelected: quranCtrl.isSelected,
+                            index: ayahIndex,
                           ),
                           const Gap(16),
                           Padding(

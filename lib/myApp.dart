@@ -8,7 +8,6 @@ import 'core/services/languages/app_constants.dart';
 import 'core/services/languages/localization_controller.dart';
 import 'core/services/languages/messages.dart';
 import 'core/services/services_locator.dart';
-import 'presentation/controllers/general_controller.dart';
 import 'presentation/controllers/theme_controller.dart';
 import 'presentation/screens/notification/postPage.dart';
 import 'presentation/screens/splashScreen/splash_screen.dart';
@@ -34,12 +33,12 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    initialization();
+    // initialization();
     sl<ThemeController>().checkTheme();
     final localizationCtrl = Get.find<LocalizationController>();
     return GetBuilder<ThemeController>(
       builder: (themeCtrl) => GetMaterialApp(
-        navigatorKey: sl<GeneralController>().navigatorNotificationKey,
+        // navigatorKey: sl<GeneralController>().navigatorNotificationKey,
         debugShowCheckedModeBanner: false,
         title: 'Al Quran Al Kareem',
         localizationsDelegates: const [

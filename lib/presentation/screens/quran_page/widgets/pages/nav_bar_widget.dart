@@ -3,15 +3,18 @@ import 'package:get/get.dart';
 
 import '../../../../../core/services/services_locator.dart';
 import '../../../../../core/utils/constants/svg_picture.dart';
+import '../../../../../core/utils/helpers/global_key_manager.dart';
 import '../../../../controllers/general_controller.dart';
+import '/presentation/controllers/quran_controller.dart';
 import '/presentation/screens/quran_page/widgets/bookmarks/bookmarks_list.dart';
 
 class NavBarWidget extends StatelessWidget {
-  const NavBarWidget({super.key});
+  NavBarWidget({super.key});
+  final generalCtrl = sl<GeneralController>();
+  final quranCtrl = sl<QuranController>();
 
   @override
   Widget build(BuildContext context) {
-    final generalCtrl = sl<GeneralController>();
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
@@ -21,7 +24,11 @@ class NavBarWidget extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             GestureDetector(
-              onTap: () => generalCtrl.drawerKey.currentState!.toggle(),
+              onTap: () {
+                if (GlobalKeyManager().drawerKey.currentState != null) {
+                  GlobalKeyManager().drawerKey.currentState!.toggle();
+                }
+              },
               child: Stack(
                 alignment: Alignment.center,
                 children: [

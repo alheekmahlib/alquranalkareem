@@ -100,7 +100,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "about_app": "La aplicación del Corán Al Kareem se caracteriza por su aprobación de la edición del Complejo Rey Fahd para la Impresión del Noble Corán en Medina por su confiabilidad y maestría.\nLa aplicación Quran Al Kareem está patrocinada por la \"Biblioteca Al-Heekmah\".\nEs una aplicación bien diseñada que le permite leer de forma interactiva con el texto del Corán electrónico, escuchar recitaciones, estudiar el Corán Al Kareem y memorizarlo con facilidad.",
+  "about_app": "La aplicación \"El Sagrado Corán - Biblioteca Al-Hikma\" es una aplicación integral que ofrece una amplia gama de características para mejorar la experiencia de lectura y aprendizaje del Corán. Estas características incluyen:",
   "@about_app": {
     "type": "text",
     "placeholders": {}
@@ -110,7 +110,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "about_app3": "◉ Esta aplicación le permite leer el Corán como si estuviera leyendo en el Mus'haf, y puede leer en modo vertical y horizontal.\\n◉ También puede leer en modo variable que le permite acercar y alejar el zoom a medida que como.\\n◉ La aplicación tiene la función de búsqueda textual en los versos del Corán a través de búsqueda en tiempo real y visualización de resultados con páginas además de la posibilidad de ir a la página según sea necesario.\\n◉ Adición a marcadores para que el lector pueda guardar la página y volver a ella cuando quiera.\\n◉ Adición a notas.\\n◉ Posibilidad de escuchar cada verso en voz de diferentes lectores.\\n◉ La aplicación permite la interpretación de cada verso, puede cambiar entre interpretaciones y puede cambiar el tamaño de la línea de interpretación.\\n◉ Índice de Surahs.\\n◉ Muévase entre Surahs fácilmente.\\n◉ La aplicación le permite leer el significado de las señales de alto.\\n◉ La aplicación le permite para leer la fortaleza musulmana en su totalidad y dividida por el recuerdo para que sea fácil para el lector navegar entre se y puede agregar cualquier mención a favoritos.\\n◉ La aplicación le permite al lector leer para cambiar los patrones de color, incluido el patrón oscuro, que cambia el color de fondo en líneas en blanco y negro para brindar al lector total comodidad al leer en un ambiente de poca luz. \\n◉ La aplicación le permite escuchar las suras o descargarlas y escucharlas en cualquier momento sin necesidad de Internet.",
+  "about_app3": "◉ Una interfaz nueva y fácil de usar: La aplicación está diseñada con una interfaz de usuario moderna e intuitiva que facilita a los usuarios navegar y acceder a diferentes características.\n◉ Adopción de la edición del Complejo Rey Fahd: La aplicación utiliza la edición del Complejo Rey Fahd para la impresión del Sagrado Corán, conocida por su fiabilidad y perfección, asegurando la precisión e integridad del texto.\n◉ Lectura interactiva y completa: La aplicación ofrece la posibilidad de lectura interactiva con el texto electrónico del Corán, además de escuchar recitaciones, y estudiar y memorizar el Sagrado Corán fácilmente.\n◉ Lectura flexible: Los usuarios pueden leer el Corán como si estuvieran leyendo un mushaf de papel o elegir el modo de verso único para mayor enfoque.\n◉ Característica de búsqueda de texto: La aplicación contiene una característica de búsqueda instantánea en los versículos del Corán, con la posibilidad de moverse directamente a la página o sura deseada.\n◉ Añadir insignias de marcadores: Esta característica permite guardar páginas o versículos para referencia fácil en cualquier momento.\n◉ Escuchar versículos: La aplicación proporciona la posibilidad de escuchar cada versículo recitado por una serie de recitadores famosos.\n◉ Interpretación y traducción de versículos: Los usuarios pueden acceder a la interpretación o traducción de cada versículo, y cambiar entre interpretaciones según lo deseado.\n◉ Navegación fácil entre suras: La aplicación permite una navegación suave y rápida entre suras.\n◉ Lectura de marcas de parada: Esta característica ayuda a entender los lugares apropiados de parada durante la lectura.\n◉ Athkar de la Fortaleza del Musulmán: Es posible leer el Athkar completo de la Fortaleza del Musulmán y navegar entre secciones fácilmente, con la posibilidad de añadir Athkar a favoritos.\n◉ Cambiar estilos de color: La aplicación admite cambiar estilos de color, incluido el modo oscuro, para mejorar la experiencia de lectura.\n◉ Escuchar y descargar: Es posible escuchar las suras o descargarlas para escucharlas más tarde sin necesidad de internet.\n\nEstas características hacen de la aplicación \"El Sagrado Corán - Biblioteca Al-Hikma\" una herramienta integral para cualquiera que desee leer, aprender y contemplar el Sagrado Corán de manera fácil y efectiva.",
   "@about_app3": {
     "type": "text",
     "placeholders": {}
@@ -790,6 +790,16 @@
   },
   "What'sNewTitle5": "Añadiendo más recitadores:",
   "@What'sNewTitle5": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "ourApps": "Nuestras Aplicaciones",
+  "@ourApps": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "choseQuran": "Elige el Modo de Lectura",
+  "@choseQuran": {
     "type": "text",
     "placeholders": {}
   }

@@ -25,8 +25,10 @@ class ScreensList extends StatelessWidget {
                   (index) => index == 0
                       ? const SizedBox.shrink()
                       : GestureDetector(
-                          onTap: () => Get.to(screensList[index]['route'],
-                              transition: Transition.downToUp),
+                          onTap: () {
+                            Get.to(screensList[index]['route'],
+                                transition: Transition.downToUp);
+                          },
                           child: ContainerButton(
                             height: 65,
                             width: screensList[index]['width'],

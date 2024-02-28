@@ -106,6 +106,7 @@ class PagesWidget extends StatelessWidget {
                                             ayahs[ayahIndex].ayahUQNumber,
                                             quranCtrl.getSurahNameFromPage(
                                                 pageIndex),
+                                            ayahIndex,
                                             details: details);
                                       });
                                 }
@@ -137,6 +138,7 @@ class PagesWidget extends StatelessWidget {
                                           ayahs[ayahIndex].ayahUQNumber,
                                           quranCtrl
                                               .getSurahNameFromPage(pageIndex),
+                                          ayahIndex,
                                           details: details);
                                     });
                               }),

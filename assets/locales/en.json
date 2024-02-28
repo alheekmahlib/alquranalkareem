@@ -100,7 +100,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "about_app": "The application of the Qur’an Al Kareem is characterized by its approval of the edition of the King Fahd Complex for Printing the Noble Qur’an in Madinah because of its reliability and mastery.\nThe Quran Al Kareem application is sponsored by the \"Al-Heekmah Library\".\nIt is a well-designed application that allows you to read interactively with the text of the electronic Quran, listen to recitations, study the  Quran Al Kareem and memorize it with ease.",
+  "about_app": "The \"Holy Quran - Hikma Library\" app is an integrated application that offers a wide range of features to enhance the experience of reading and learning the Holy Quran, including:",
   "@about_app": {
     "type": "text",
     "placeholders": {}
@@ -110,7 +110,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "about_app3": "◉ This application enables you to read the Quran as if you were reading in the Mus'haf, and you can read in vertical and horizontal mode.\\n◉ You can also read in variable mode that enables you to zoom in and out as you like.\\n◉ The application has the feature of textual search in the verses of the Qur’an through real-time search and display of results with pages in addition to the possibility of going to the page as needed.\\n◉ Addition to bookmarks so that the reader can save the page and return to it whenever he wants.\\n◉ Addition to notes.\\n◉ Ability to listen to each verse in voice of different readers.\\n◉ The app allows interpretation for each verse, you can change between interpretations, and you can resize the interpretation line.\\n◉ Index of Surahs.\\n◉ Move between Surahs easily.\\n◉ The app lets you read the meaning of stop signs.\\n◉ The application enables you to read the Muslim fortress in full and divided by remembrance so that it is easy for the reader to navigate between sections, and you can add any mention to favorites.\\n◉ The application allows the reader to read to change color patterns, including the dark pattern, which changes the background color in black and white lines to give the reader complete comfort when reading in a low-light atmosphere. \\n◉ The app enables you to listen to the Surahs or download and listen to them at any time without the need for the internet.",
+  "about_app3": "◉ A new and user-friendly interface: The application has been designed with a modern and intuitive user interface that makes it easy for users to navigate and access different features.\n◉ Adoption of the King Fahd Complex edition: The application uses the edition of the King Fahd Complex for the printing of the Holy Quran, known for its reliability and perfection, ensuring the accuracy and integrity of the text.\n◉ Interactive and integrated reading: The application provides the possibility of interactive reading with the electronic Quran text, in addition to listening to recitations, and studying and memorizing the Holy Quran easily.\n◉ Flexible reading: Users can read the Quran as if they were reading a paper copy or choose the single verse mode for greater focus.\n◉ Textual search feature: The application contains an instant search feature in the verses of the Quran, with the ability to go directly to the desired page or surah.\n◉ Adding bookmark badges: This feature allows saving pages or verses for easy reference at any time.\n◉ Listening to verses: The application provides the possibility to listen to each verse by a number of famous reciters.\n◉ Interpretation and translation of verses: Users can access the interpretation or translation of each verse, and switch between interpretations as desired.\n◉ Easy navigation between surahs: The application facilitates smooth and quick navigation between surahs.\n◉ Reading stop signs: This feature helps to understand the appropriate places to stop while reading.\n◉ Fortress of the Muslim Dhikr: It is possible to read the complete Fortress of the Muslim Dhikr and navigate between sections easily, with the possibility of adding Dhikr to favorites.\n◉ Changing color styles: The application supports changing color styles, including the dark mode, to improve the reading experience.\n◉ Listening and downloading: It is possible to listen to the surahs or download them for later listening without the need for the internet.\n\nThese features make the \"Holy Quran - Hikma Library\" app a comprehensive tool for anyone wishing to read, learn, and contemplate the Holy Quran in an easy and effective way.",
   "@about_app3": {
     "type": "text",
     "placeholders": {}
@@ -782,6 +782,16 @@
   },
   "What'sNewTitle5": "Adding more reciters:",
   "@What'sNewTitle5": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "ourApps": "Our Apps",
+  "@ourApps": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "choseQuran": "Choose Reading Mode",
+  "@choseQuran": {
     "type": "text",
     "placeholders": {}
   }

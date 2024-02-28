@@ -5,7 +5,6 @@ import 'package:arabic_numbers/arabic_numbers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
-import 'package:flutter_slider_drawer/flutter_slider_drawer.dart';
 import 'package:flutter_sliding_up_panel/sliding_up_panel_widget.dart';
 import 'package:get/get.dart';
 import 'package:hijri/hijri_calendar.dart';
@@ -79,7 +78,6 @@ class GeneralController extends GetxController {
   final themeCtrl = sl<ThemeController>();
   RxBool showSelectScreenPage = false.obs;
   RxInt screenSelectedValue = 0.obs;
-  final GlobalKey<SliderDrawerState> drawerKey = GlobalKey<SliderDrawerState>();
 
   double get scr_height => _screenSize!.value.height;
 

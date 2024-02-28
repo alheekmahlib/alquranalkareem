@@ -14,7 +14,7 @@ import 'extensions.dart';
 
 extension ContextMenuExtension on BuildContext {
   void showAyahMenu(int surahNum, int ayahNum, String ayahText, int pageIndex,
-      String ayahTextNormal, int ayahUQNum, String surahName,
+      String ayahTextNormal, int ayahUQNum, String surahName, int index,
       {dynamic details}) {
     sl<QuranController>().selectedAyahIndexes.isNotEmpty
         ? BotToast.showAttachedWidget(
@@ -51,6 +51,7 @@ extension ContextMenuExtension on BuildContext {
                         pageIndex: pageIndex,
                         ayahTextNormal: ayahTextNormal,
                         ayahUQNum: ayahUQNum,
+                        index: index,
                         cancel: cancel,
                       ),
                       const Gap(6),

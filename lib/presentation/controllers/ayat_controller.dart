@@ -184,7 +184,7 @@ class AyatController extends GetxController {
           .getAyahTafseer(ayahUQNumber, surahNumber);
 
   void showTafsirOnTap(int surahNum, int ayahNum, String ayahText,
-      int pageIndex, String ayahTextN, int ayahUQNum) {
+      int pageIndex, String ayahTextN, int ayahUQNum, int index) {
     tafseerAyah = ayahText;
     numberOfAyahText.value = ayahNum;
     surahNumber.value = surahNum;
@@ -195,7 +195,7 @@ class AyatController extends GetxController {
     Get.bottomSheet(
       ShowTafseer(
         ayahUQNumber: ayahUQNum,
-        ayahNumber: ayahNum,
+        index: index,
       ),
       isScrollControlled: true,
       enterBottomSheetDuration: const Duration(milliseconds: 400),

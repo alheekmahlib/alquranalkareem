@@ -24,7 +24,7 @@ class MushafSettings extends StatelessWidget {
                 color: Theme.of(context).colorScheme.primary.withOpacity(.2),
                 borderRadius: const BorderRadius.all(Radius.circular(4))),
             child: Text(
-              'اختر'.tr,
+              'choseQuran'.tr,
               style: TextStyle(
                   color: Theme.of(context).hintColor,
                   fontFamily: 'kufi',

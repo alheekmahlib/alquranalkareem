@@ -17,6 +17,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../core/services/services_locator.dart';
 import '../../core/utils/constants/shared_preferences_constants.dart';
+import '../../core/utils/helpers/global_key_manager.dart';
 import '../../core/widgets/seek_bar.dart';
 import '/core/utils/constants/constants.dart';
 import '/core/utils/constants/extensions/custom_error_snackBar.dart';
@@ -293,24 +294,44 @@ class AudioController extends GetxController {
     }
   }
 
-  Future downloadFile(String path, String url, String fileName) async {
+  Future<bool> downloadFile(String path, String url, String fileName) async {
     Dio dio = Dio();
-    cancelToken = CancelToken();
+    CancelToken cancelToken = CancelToken();
     try {
       await Directory(dirname(path)).create(recursive: true);
       downloading.value = true;
       onDownloading.value = true;
       progressString.value = "Indeterminate";
       progress.value = 0;
+
+      // First, attempt to fetch file size to decide on progress indication strategy
+      var fileSize = await _fetchFileSize(url, dio);
+      if (fileSize != null) {
+        print("Known file size: $fileSize bytes");
+      } else {
+        print("File size unknown.");
+      }
+
+      var incrementalProgress = 0.0;
+      const incrementalStep =
+          0.1; // Adjust the step size based on expected download sizes and durations
+
       await dio.download(url, path, onReceiveProgress: (rec, total) {
-        if (total > 0) {
-          double progressValue = (rec / total).toDouble();
-          progressValue = progressValue.clamp(0.0, 1.0);
-          progressString.value = (progressValue * 100).toStringAsFixed(0) + "%";
+        if (total <= 0) {
+          // Update the progress value incrementally
+          incrementalProgress += incrementalStep;
+          if (incrementalProgress >= 1) {
+            incrementalProgress = 0; // Reset if it reaches 1
+          }
+          // Update your UI based on incrementalProgress here
+          // For example, update a progress bar's value or animate an indicator
+        } else {
+          // Handle determinate progress as before
+          double progressValue = (rec / total).toDouble().clamp(0.0, 1.0);
           progress.value = progressValue;
-        } else {}
+        }
         print("Received bytes: $rec, Total bytes: $total");
-      }, cancelToken: cancelToken);
+      });
     } catch (e) {
       if (e is DioException && e.type == DioExceptionType.cancel) {
         print('Download canceled');
@@ -328,13 +349,26 @@ class AudioController extends GetxController {
       } else {
         print(e);
       }
+    } finally {
+      downloading.value = false;
+      onDownloading.value = false;
+      progressString.value =
+          "Completed"; // Or dynamically update based on actual download outcome
+      print("Download completed or failed");
     }
+    return true; // Indicate successful completion
+  }
 
-    downloading.value = false;
-    onDownloading.value = false;
-    progressString.value = "Completed";
-    print("Download completed or failed");
-    return true;
+  Future<int?> _fetchFileSize(String url, Dio dio) async {
+    try {
+      var response = await dio.head(url);
+      if (response.headers.value('Content-Length') != null) {
+        return int.tryParse(response.headers.value('Content-Length')!);
+      }
+    } catch (e) {
+      print("Error fetching file size: $e");
+    }
+    return null; // File size unknown or fetching failed
   }
 
   void cancelDownload() {
@@ -382,7 +416,7 @@ class AudioController extends GetxController {
     } else {
       quranCtrl.showControl();
     }
-    generalCtrl.drawerKey.currentState!.closeSlider();
+    GlobalKeyManager().drawerKey.currentState!.closeSlider();
   }
 
   Future<void> initConnectivity() async {

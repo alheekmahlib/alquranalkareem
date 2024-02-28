@@ -17,9 +17,9 @@ import 'change_tafsir.dart';
 
 class ShowTafseer extends StatelessWidget {
   late int ayahUQNumber;
-  late int ayahNumber;
+  late int index;
 
-  ShowTafseer({Key? key, required this.ayahUQNumber, required this.ayahNumber})
+  ShowTafseer({Key? key, required this.ayahUQNumber, required this.index})
       : super(key: key);
 
   final ScrollController _scrollController = ScrollController();
@@ -76,8 +76,7 @@ class ShowTafseer extends StatelessWidget {
                 Flexible(
                   flex: 4,
                   child: Obx(() => PageView.builder(
-                      controller:
-                          PageController(initialPage: (ayahNumber).toInt()),
+                      controller: PageController(initialPage: (index).toInt()),
                       itemCount: quranCtrl
                           .getCurrentPageAyahs(
                               generalCtrl.currentPageNumber.value)

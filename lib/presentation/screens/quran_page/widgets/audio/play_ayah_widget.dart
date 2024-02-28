@@ -43,7 +43,9 @@ class PlayAyah extends StatelessWidget {
                 final processingState = playerState?.processingState;
                 final playing = playerState?.processingState;
                 if (processingState == ProcessingState.loading ||
-                    processingState == ProcessingState.buffering) {
+                    processingState == ProcessingState.buffering ||
+                    (audioCtrl.downloading.value &&
+                        audioCtrl.progress.value == 0)) {
                   return playButtonLottie(20.0, 20.0);
                 } else if (!audioCtrl.isPlay.value) {
                   return GestureDetector(

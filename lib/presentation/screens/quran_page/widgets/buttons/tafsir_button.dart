@@ -11,6 +11,7 @@ class TafsirButton extends StatelessWidget {
   final int pageIndex;
   final String ayahTextNormal;
   final int ayahUQNum;
+  final int index;
   final Function? cancel;
   const TafsirButton(
       {super.key,
@@ -20,7 +21,8 @@ class TafsirButton extends StatelessWidget {
       required this.pageIndex,
       required this.ayahTextNormal,
       required this.ayahUQNum,
-      this.cancel});
+      this.cancel,
+      required this.index});
 
   @override
   Widget build(BuildContext context) {
@@ -32,8 +34,8 @@ class TafsirButton extends StatelessWidget {
         child: tafsir_icon(height: 20.0),
       ),
       onTap: () {
-        sl<AyatController>().showTafsirOnTap(
-            surahNum, ayahNum, ayahText, pageIndex, ayahTextNormal, ayahUQNum);
+        sl<AyatController>().showTafsirOnTap(surahNum, ayahNum, ayahText,
+            pageIndex, ayahTextNormal, ayahUQNum, index);
       },
     );
   }
