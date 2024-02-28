@@ -38,6 +38,7 @@ class SplashScreen extends StatelessWidget {
             ),
             Center(
               child: Stack(
+                alignment: Alignment.center,
                 children: [
                   const Row(
                     children: [

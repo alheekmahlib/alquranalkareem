@@ -729,5 +729,60 @@
   "@home": {
     "type": "text",
     "placeholders": {}
+  },
+  "skip": "Ka bood",
+  "@skip": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "What's New": "Maxaa Cusub",
+  "@What's New": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "What'sNewTitle": "Interface cusub oo sahlan in la isticmaalo:",
+  "@What'sNewTitle": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "What'sNewDetails": "App-ka waxaa loo naqshadeeyay interface isticmaale oo casri ah iyo intuitive ah taas oo fududeynaysa in isticmaalayaashu ay si fudud ugu dhex maraan kuna gaaraan astaamaha kala duwan.",
+  "@What'sNewDetails": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "What'sNewTitle2": "Xulashada Aayadaha:",
+  "@What'sNewTitle2": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "What'sNewDetails2": "Aayadda dheer riix si aad u muujiso:\n\n◉ Fasiraadda ama tarjumada aayadda.\n◉ Dhageysiga aayadda.\n◉ Ku daridda aayadda bookmark-ga.\n◉ Koobiga aayadda.\n◉ Wadaagidda aayadda qoraal ama sawir ahaan.",
+  "@What'sNewDetails2": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "What'sNewTitle3": "Feature-ka raadinta qoraalka:",
+  "@What'sNewTitle3": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "What'sNewDetails3": "App-ku wuxuu ku jiraa feature degdeg ah oo raadin ah aayadaha Qur'aanka, iyadoo suurtagal ah in si toos ah loogu gudbo bogga ama suuradda la doonayo.",
+  "@What'sNewDetails3": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "What'sNewTitle4": "Fasiraadda iyo tarjumada aayadaha:",
+  "@What'sNewTitle4": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "What'sNewDetails4": "Isticmaalayaashu waxay heli karaan fasiraadda ama tarjumada aayad kasta, waxayna u beddeli karaan fasiraadaha sida ay doonaan.",
+  "@What'sNewDetails4": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "What'sNewTitle5": "Ku daridda qurraa dheeraad ah:",
+  "@What'sNewTitle5": {
+    "type": "text",
+    "placeholders": {}
   }
 }

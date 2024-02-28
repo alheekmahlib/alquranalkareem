@@ -10,7 +10,7 @@ import 'core/services/languages/messages.dart';
 import 'core/services/services_locator.dart';
 import 'presentation/controllers/general_controller.dart';
 import 'presentation/controllers/theme_controller.dart';
-import 'presentation/screens/onboarding/widgets/postPage.dart';
+import 'presentation/screens/notification/postPage.dart';
 import 'presentation/screens/splashScreen/splash_screen.dart';
 
 class MyApp extends StatelessWidget {

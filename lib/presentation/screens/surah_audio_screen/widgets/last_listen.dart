@@ -3,7 +3,6 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 
 import '../../../../core/services/services_locator.dart';
-import '../../../controllers/general_controller.dart';
 import '../../../controllers/surah_audio_controller.dart';
 
 class LastListen extends StatelessWidget {
@@ -87,8 +86,7 @@ class LastListen extends StatelessWidget {
         ),
         onTap: () {
           surahAudioCtrl.controller
-              .jumpTo((surahAudioCtrl.surahNum.value - 1) * 65.0);
-          sl<GeneralController>().widgetPosition.value = 0.0;
+              .jumpTo((surahAudioCtrl.surahNum.value - 1) * 80.0);
           surahAudioCtrl.lastAudioSource();
         },
       ),

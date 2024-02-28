@@ -4,10 +4,10 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
 
-import '../../../../core/services/services_locator.dart';
-import '../../../../core/utils/constants/extensions/extensions.dart';
-import '../../../../core/utils/constants/lottie.dart';
-import '../../../controllers/notifications_controller.dart';
+import '../../../core/services/services_locator.dart';
+import '../../../core/utils/constants/extensions/extensions.dart';
+import '../../../core/utils/constants/lottie.dart';
+import '../../controllers/notifications_controller.dart';
 
 class PostPage extends StatelessWidget {
   const PostPage(this.postId, {super.key});

@@ -729,5 +729,60 @@
   "@home": {
     "type": "text",
     "placeholders": {}
+  },
+  "skip": "چھوڑ دیں",
+  "@skip": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "What's New": "کیا نیا ہے",
+  "@What's New": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "What'sNewTitle": "نیا اور صارف دوست انٹرفیس:",
+  "@What'sNewTitle": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "What'sNewDetails": "ایپ کو جدید اور بدیہی صارف انٹرفیس کے ساتھ ڈیزائن کیا گیا ہے جو صارفین کو مختلف خصوصیات تک رسائی اور نیویگیشن آسان بناتا ہے۔",
+  "@What'sNewDetails": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "What'sNewTitle2": "آیات کا انتخاب:",
+  "@What'sNewTitle2": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "What'sNewDetails2": "آیت پر طویل دباؤ دینے سے دکھائی دیتا ہے:\n\n◉ آیت کی تفسیر یا ترجمہ۔\n◉ آیت سننا۔\n◉ آیت کو بک مارک میں شامل کرنا۔\n◉ آیت کاپی کرنا۔\n◉ آیت کو متن یا تصویر کے طور پر شیئر کرنا۔",
+  "@What'sNewDetails2": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "What'sNewTitle3": "متنی تلاش کی خصوصیت:",
+  "@What'sNewTitle3": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "What'sNewDetails3": "ایپ میں قرآن کی آیات میں فوری تلاش کی خصوصیت موجود ہے، مطلوبہ صفحہ یا سورہ پر براہ راست منتقلی کی سہولت کے ساتھ۔",
+  "@What'sNewDetails3": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "What'sNewTitle4": "آیات کی تفسیر و ترجمہ:",
+  "@What'sNewTitle4": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "What'sNewDetails4": "صارفین ہر آیت کی تفسیر یا ترجمہ تک رسائی حاصل کر سکتے ہیں، اور خواہش کے مطابق تفاسیر کے درمیان تبدیلی کر سکتے ہیں۔",
+  "@What'sNewDetails4": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "What'sNewTitle5": "مزید قاریوں کا اضافہ:\n",
+  "@What'sNewTitle5": {
+    "type": "text",
+    "placeholders": {}
   }
 }

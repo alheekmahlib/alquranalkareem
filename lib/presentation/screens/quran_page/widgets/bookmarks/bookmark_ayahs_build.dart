@@ -17,7 +17,7 @@ class BookmarkAyahsBuild extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetBuilder<BookmarksController>(
-        builder: (bookmarkCtrl) => bookmarkCtrl.BookmarkTextList.isEmpty
+        builder: (bookmarkCtrl) => bookmarkCtrl.bookmarkTextList.isEmpty
             ? const SizedBox.shrink()
             : Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -47,10 +47,10 @@ class BookmarkAyahsBuild extends StatelessWidget {
                           child: ListView.builder(
                               shrinkWrap: true,
                               primary: false,
-                              itemCount: bookmarkCtrl.BookmarkTextList.length,
+                              itemCount: bookmarkCtrl.bookmarkTextList.length,
                               itemBuilder: (BuildContext context, int index) {
                                 var bookmark =
-                                    bookmarkCtrl.BookmarkTextList[index];
+                                    bookmarkCtrl.bookmarkTextList[index];
                                 final ayah =
                                     sl<QuranController>().allAyahs.firstWhere(
                                           (a) =>

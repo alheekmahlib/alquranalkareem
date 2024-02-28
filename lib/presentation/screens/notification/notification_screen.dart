@@ -5,7 +5,7 @@ import 'package:intl/intl.dart';
 
 import '../../../core/utils/constants/lottie.dart';
 import '../../../database/notificationDatabase.dart';
-import '../onboarding/widgets/postPage.dart';
+import 'postPage.dart';
 
 class NotificationScreen extends StatelessWidget {
   final List<Map<String, dynamic>> notifications;

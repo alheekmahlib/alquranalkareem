@@ -41,7 +41,7 @@ class PlayAyah extends StatelessWidget {
               builder: (context, snapshot) {
                 final playerState = snapshot.data;
                 final processingState = playerState?.processingState;
-                final playing = playerState?.playing;
+                final playing = playerState?.processingState;
                 if (processingState == ProcessingState.loading ||
                     processingState == ProcessingState.buffering) {
                   return playButtonLottie(20.0, 20.0);

@@ -1,4 +1,3 @@
-import 'package:alquranalkareem/core/utils/constants/extensions/extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:gap/gap.dart';
@@ -9,6 +8,7 @@ import '../../../../core/utils/constants/lottie.dart';
 import '../../../../core/utils/constants/svg_picture.dart';
 import '../../../controllers/azkar_controller.dart';
 import '../screens/azkar_item.dart';
+import '/core/utils/constants/extensions/extensions.dart';
 
 class AzkarList extends StatelessWidget {
   const AzkarList({super.key});
@@ -49,7 +49,7 @@ class AzkarList extends StatelessWidget {
                                 onTap: () {
                                   azkarCtrl.filterByCategory(
                                       azkarCtrl.categories[index]);
-                                  Get.to(const AzkarItem(),
+                                  Get.to(() => const AzkarItem(),
                                       transition: Transition.leftToRight);
                                 },
                                 child: Container(

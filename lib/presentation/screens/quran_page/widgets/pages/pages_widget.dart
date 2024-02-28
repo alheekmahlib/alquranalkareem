@@ -1,3 +1,4 @@
+import 'package:alquranalkareem/presentation/controllers/general_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -17,6 +18,7 @@ class PagesWidget extends StatelessWidget {
   PagesWidget({super.key, required this.pageIndex});
 
   final audioCtrl = sl<AudioController>();
+  final generalCtrl = sl<GeneralController>();
 
   @override
   Widget build(BuildContext context) {
@@ -49,77 +51,98 @@ class PagesWidget extends StatelessWidget {
                                 ? besmAllah2()
                                 : besmAllah()
                             : const SizedBox.shrink(),
-                    Obx(() {
-                      return RichText(
-                        textDirection: TextDirection.rtl,
-                        textAlign: TextAlign.center,
-                        text: TextSpan(
-                          style: TextStyle(
-                            fontFamily: 'page${pageIndex + 1}',
-                            fontSize: getProportionateScreenWidth(19),
-                            height: 2,
-                            letterSpacing: 2,
-                            color: Theme.of(context).colorScheme.inversePrimary,
-                          ),
-                          children: List.generate(ayahs.length, (ayahIndex) {
-                            quranCtrl.isSelected = quranCtrl.selectedAyahIndexes
-                                .contains(ayahs[ayahIndex].ayahUQNumber);
-                            if (ayahIndex == 0) {
-                              return span(
-                                  isFirstAyah: true,
-                                  text:
-                                      "${ayahs[ayahIndex].code_v2[0]}${ayahs[ayahIndex].code_v2.substring(1)}",
-                                  pageIndex: pageIndex,
-                                  isSelected: quranCtrl.isSelected,
-                                  fontSize: getProportionateScreenWidth(19),
-                                  surahNum: quranCtrl
-                                      .getSurahNumberFromPage(pageIndex),
-                                  ayahNum: ayahs[ayahIndex].ayahUQNumber,
-                                  onLongPressStart:
-                                      (LongPressStartDetails details) {
-                                    quranCtrl.toggleAyahSelection(
-                                        ayahs[ayahIndex].ayahUQNumber);
-                                    context.showAyahMenu(
-                                        quranCtrl
-                                            .getSurahNumberFromPage(pageIndex),
-                                        ayahs[ayahIndex].ayahNumber,
-                                        ayahs[ayahIndex].code_v2,
-                                        pageIndex,
-                                        ayahs[ayahIndex].text,
-                                        ayahs[ayahIndex].ayahUQNumber,
-                                        quranCtrl
-                                            .getSurahNameFromPage(pageIndex),
-                                        details: details);
-                                  });
-                            }
-                            return span(
-                                isFirstAyah: false,
-                                text: ayahs[ayahIndex].code_v2,
-                                pageIndex: pageIndex,
-                                isSelected: quranCtrl.isSelected,
-                                fontSize: getProportionateScreenWidth(19),
-                                surahNum:
-                                    quranCtrl.getSurahNumberFromPage(pageIndex),
-                                ayahNum: ayahs[ayahIndex].ayahUQNumber,
-                                onLongPressStart:
-                                    (LongPressStartDetails details) {
-                                  quranCtrl.toggleAyahSelection(
-                                      ayahs[ayahIndex].ayahUQNumber);
-                                  context.showAyahMenu(
-                                      quranCtrl
+                    FittedBox(
+                      fit: BoxFit.scaleDown,
+                      child: Obx(() => RichText(
+                            textDirection: TextDirection.rtl,
+                            textAlign: TextAlign.center,
+                            text: TextSpan(
+                              style: TextStyle(
+                                fontFamily: 'page${pageIndex + 1}',
+                                fontSize: generalCtrl.customSize(
+                                  getProportionateScreenWidth(17),
+                                  getProportionateScreenWidth(19),
+                                  getProportionateScreenWidth(19),
+                                  getProportionateScreenWidth(19),
+                                ),
+                                height: 2,
+                                letterSpacing: 2,
+                                color: Theme.of(context)
+                                    .colorScheme
+                                    .inversePrimary,
+                              ),
+                              children:
+                                  List.generate(ayahs.length, (ayahIndex) {
+                                quranCtrl.isSelected = quranCtrl
+                                    .selectedAyahIndexes
+                                    .contains(ayahs[ayahIndex].ayahUQNumber);
+                                if (ayahIndex == 0) {
+                                  return span(
+                                      isFirstAyah: true,
+                                      text:
+                                          "${ayahs[ayahIndex].code_v2[0]}${ayahs[ayahIndex].code_v2.substring(1)}",
+                                      pageIndex: pageIndex,
+                                      isSelected: quranCtrl.isSelected,
+                                      fontSize: generalCtrl.customSize(
+                                        getProportionateScreenWidth(17),
+                                        getProportionateScreenWidth(19),
+                                        getProportionateScreenWidth(19),
+                                        getProportionateScreenWidth(19),
+                                      ),
+                                      surahNum: quranCtrl
                                           .getSurahNumberFromPage(pageIndex),
-                                      ayahs[ayahIndex].ayahNumber,
-                                      ayahs[ayahIndex].code_v2,
-                                      pageIndex,
-                                      ayahs[ayahIndex].text,
-                                      ayahs[ayahIndex].ayahUQNumber,
-                                      quranCtrl.getSurahNameFromPage(pageIndex),
-                                      details: details);
-                                });
-                          }),
-                        ),
-                      );
-                    }),
+                                      ayahNum: ayahs[ayahIndex].ayahUQNumber,
+                                      onLongPressStart:
+                                          (LongPressStartDetails details) {
+                                        quranCtrl.toggleAyahSelection(
+                                            ayahs[ayahIndex].ayahUQNumber);
+                                        context.showAyahMenu(
+                                            quranCtrl.getSurahNumberFromPage(
+                                                pageIndex),
+                                            ayahs[ayahIndex].ayahNumber,
+                                            ayahs[ayahIndex].code_v2,
+                                            pageIndex,
+                                            ayahs[ayahIndex].text,
+                                            ayahs[ayahIndex].ayahUQNumber,
+                                            quranCtrl.getSurahNameFromPage(
+                                                pageIndex),
+                                            details: details);
+                                      });
+                                }
+                                return span(
+                                    isFirstAyah: false,
+                                    text: ayahs[ayahIndex].code_v2,
+                                    pageIndex: pageIndex,
+                                    isSelected: quranCtrl.isSelected,
+                                    fontSize: generalCtrl.customSize(
+                                      getProportionateScreenWidth(17),
+                                      getProportionateScreenWidth(19),
+                                      getProportionateScreenWidth(19),
+                                      getProportionateScreenWidth(19),
+                                    ),
+                                    surahNum: quranCtrl
+                                        .getSurahNumberFromPage(pageIndex),
+                                    ayahNum: ayahs[ayahIndex].ayahUQNumber,
+                                    onLongPressStart:
+                                        (LongPressStartDetails details) {
+                                      quranCtrl.toggleAyahSelection(
+                                          ayahs[ayahIndex].ayahUQNumber);
+                                      context.showAyahMenu(
+                                          quranCtrl.getSurahNumberFromPage(
+                                              pageIndex),
+                                          ayahs[ayahIndex].ayahNumber,
+                                          ayahs[ayahIndex].code_v2,
+                                          pageIndex,
+                                          ayahs[ayahIndex].text,
+                                          ayahs[ayahIndex].ayahUQNumber,
+                                          quranCtrl
+                                              .getSurahNameFromPage(pageIndex),
+                                          details: details);
+                                    });
+                              }),
+                            ),
+                          )),
+                    ),
                     context.surahBannerLastPlace(pageIndex, i),
                   ]);
                 }),

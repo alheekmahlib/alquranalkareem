@@ -32,9 +32,9 @@ extension ContextExtensions on BuildContext {
     );
   }
 
-  Widget hDivider({double? width, Color? color}) {
+  Widget hDivider({double? width, double? height, Color? color}) {
     return Container(
-      height: 2,
+      height: height ?? 2,
       width: width ?? MediaQuery.sizeOf(this).width,
       margin: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 4.0),
       color: color ?? Get.theme.colorScheme.surface,
@@ -66,7 +66,7 @@ extension ContextExtensions on BuildContext {
         button: true,
         enabled: true,
         label: 'Change Font Size',
-        child: font_size(height: height, color: Get.theme.colorScheme.primary),
+        child: font_size(height: height, color: Get.theme.colorScheme.surface),
       ),
       color: Get.theme.colorScheme.primary.withOpacity(.8),
       iconSize: height ?? 35.0,

@@ -1,4 +1,3 @@
-import 'package:alquranalkareem/presentation/screens/home/home_screen.dart';
 import 'package:get/get.dart';
 
 import '../../../presentation/controllers/theme_controller.dart';
@@ -6,6 +5,7 @@ import '../../../presentation/screens/alwaqf_screen/alwaqf_screen.dart';
 import '../../../presentation/screens/athkar/screens/alzkar_view.dart';
 import '../../../presentation/screens/quran_page/screens/quran_home.dart';
 import '../../../presentation/screens/surah_audio_screen/audio_surah.dart';
+import '/presentation/screens/home/home_screen.dart';
 import 'constants.dart';
 
 List<String> translateName = <String>[
@@ -279,4 +279,38 @@ List ayahReaderInfo = [
     'readerI': 'muaiqly'
   },
   {'name': 'reader6'.tr, 'readerD': '64/ar.saoodshuraym', 'readerI': 'saood'}
+];
+
+List<Map<String, dynamic>> whatsNewList = [
+  {
+    'index': 1,
+    'title': "What'sNewTitle",
+    'details': "What'sNewDetails",
+    'imagePath': 'assets/images/allScreens.png',
+  },
+  {
+    'index': 2,
+    'title': "What'sNewTitle2",
+    'details': "What'sNewDetails2",
+    'imagePath': 'assets/images/ayahSelect.png',
+  },
+  {
+    'index': 3,
+    'title': "What'sNewTitle3",
+    'details': "What'sNewDetails3",
+    'imagePath': 'assets/images/ayahSearch.png',
+  },
+  {
+    'index': 4,
+    'title': "What'sNewTitle4",
+    'details': "What'sNewDetails4",
+    'imagePath': 'assets/images/ayahTranslate.png',
+  },
+  {
+    'index': 5,
+    'title': "What'sNewTitle5",
+    'details':
+        "${'ayahs'.tr}:\n\n◉ ${'reader4'.tr}\n◉ ${'reader5'.tr}\n◉ ${'reader6'.tr}\n\n${'quran_sorah'.tr}:\n\n◉ ${'reader7'.tr}\n◉ ${'reader8'.tr}\n◉ ${'reader9'.tr}\n◉ ${'reader10'.tr}\n◉ ${'reader11'.tr}\n◉ ${'reader12'.tr}\n◉ ${'reader13'.tr}",
+    'imagePath': '',
+  },
 ];

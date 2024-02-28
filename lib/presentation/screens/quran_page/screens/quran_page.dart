@@ -22,6 +22,7 @@ class QuranPages extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     bookmarkCtrl.getBookmarks();
+    final size = MediaQuery.sizeOf(context);
 
     return SafeArea(
       child: GetBuilder<GeneralController>(
@@ -30,115 +31,56 @@ class QuranPages extends StatelessWidget {
             audioCtrl.clearSelection();
           },
           child: PageView.builder(
-              controller: generalCtrl.pageController,
-              itemCount: 604,
-              scrollDirection: Axis.horizontal,
-              physics: const ClampingScrollPhysics(),
-              onPageChanged: generalCtrl.pageChanged,
-              itemBuilder: (_, index) {
-                sl<TranslateDataController>().fetchTranslate(context);
-                return context.customOrientation(
-                    (index % 2 == 0
-                        ? Semantics(
-                            image: true,
-                            label: 'Quran Page',
-                            child: RightPage(
-                              child: Column(
-                                children: [
-                                  TopTitleWidget(index: index, isRight: true),
-                                  const Spacer(),
-                                  PagesWidget(pageIndex: index),
-                                  const Spacer(),
-                                  Text(
-                                    '${generalCtrl.convertNumbers('${index + 1}')}',
-                                    style: TextStyle(
-                                        fontSize: context.customOrientation(
-                                            18.0, 22.0),
-                                        // fontWeight: FontWeight.bold,
-                                        fontFamily: 'naskh',
-                                        color: const Color(0xff77554B)),
-                                  ),
-                                ],
-                              ),
+            controller: generalCtrl.pageController,
+            itemCount: 604,
+            scrollDirection: Axis.horizontal,
+            physics: const ClampingScrollPhysics(),
+            onPageChanged: generalCtrl.pageChanged,
+            itemBuilder: (_, index) {
+              sl<TranslateDataController>().fetchTranslate(context);
+              return index.isEven
+                  ? RightPage(
+                      child: ListView(
+                        children: [
+                          TopTitleWidget(index: index, isRight: true),
+                          Gap(size.height * .04),
+                          PagesWidget(pageIndex: index),
+                          Gap(size.height * .04),
+                          Center(
+                            child: Text(
+                              '${generalCtrl.convertNumbers('${index + 1}')}',
+                              style: TextStyle(
+                                  fontSize:
+                                      context.customOrientation(18.0, 22.0),
+                                  fontFamily: 'naskh',
+                                  color: const Color(0xff77554B)),
+                            ),
+                          ),
+                        ],
+                      ),
+                    )
+                  : LeftPage(
+                      child: ListView(
+                        children: [
+                          TopTitleWidget(index: index, isRight: false),
+                          Gap(size.height * .04),
+                          PagesWidget(pageIndex: index),
+                          Gap(size.height * .04),
+                          Center(
+                            child: Text(
+                              '${generalCtrl.convertNumbers('${index + 1}')}',
+                              style: TextStyle(
+                                  fontSize:
+                                      context.customOrientation(18.0, 22.0),
+                                  fontFamily: 'naskh',
+                                  color: const Color(0xff77554B)),
                             ),
                           )
-                        : Semantics(
-                            image: true,
-                            label: 'Quran Page',
-                            child: LeftPage(
-                              child: Column(
-                                children: [
-                                  TopTitleWidget(index: index, isRight: false),
-                                  const Spacer(),
-                                  PagesWidget(pageIndex: index),
-                                  const Spacer(),
-                                  Text(
-                                    '${generalCtrl.convertNumbers('${index + 1}')}',
-                                    style: TextStyle(
-                                        fontSize: context.customOrientation(
-                                            18.0, 22.0),
-                                        // fontWeight: FontWeight.bold,
-                                        fontFamily: 'naskh',
-                                        color: const Color(0xff77554B)),
-                                  )
-                                ],
-                              ),
-                            ),
-                          )),
-                    (index % 2 == 0
-                        ? Semantics(
-                            image: true,
-                            label: 'Quran Page',
-                            child: RightPage(
-                              child: ListView(
-                                children: [
-                                  TopTitleWidget(index: index, isRight: true),
-                                  const Gap(32),
-                                  PagesWidget(pageIndex: index),
-                                  const Gap(32),
-                                  Align(
-                                    alignment: Alignment.center,
-                                    child: Text(
-                                      '${generalCtrl.convertNumbers('${index + 1}')}',
-                                      style: TextStyle(
-                                          fontSize: context.customOrientation(
-                                              18.0, 22.0),
-                                          // fontWeight: FontWeight.bold,
-                                          fontFamily: 'naskh',
-                                          color: const Color(0xff77554B)),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          )
-                        : Semantics(
-                            image: true,
-                            label: 'Quran Page',
-                            child: LeftPage(
-                              child: ListView(
-                                children: [
-                                  TopTitleWidget(index: index, isRight: true),
-                                  const Gap(32),
-                                  PagesWidget(pageIndex: index),
-                                  const Gap(32),
-                                  Align(
-                                    alignment: Alignment.center,
-                                    child: Text(
-                                      '${generalCtrl.convertNumbers('${index + 1}')}',
-                                      style: TextStyle(
-                                          fontSize: context.customOrientation(
-                                              18.0, 22.0),
-                                          // fontWeight: FontWeight.bold,
-                                          fontFamily: 'naskh',
-                                          color: const Color(0xff77554B)),
-                                    ),
-                                  )
-                                ],
-                              ),
-                            ),
-                          )));
-              }),
+                        ],
+                      ),
+                    );
+            },
+          ),
         ),
       ),
     );

@@ -41,12 +41,12 @@ class AyahsBuild extends StatelessWidget {
                 return MeasureSizeWidget(
                   onChange: (size) {
                     quranCtrl.ayahsWidgetHeight.value = size.height;
-                    print("Item $ayahIndex size: ${size.height}");
+                    // print("Item $ayahIndex size: ${size.height}");
                   },
                   child: Container(
                     key: ValueKey(i),
                     child: GestureDetector(
-                      onTap: () => quranCtrl
+                      onLongPress: () => quranCtrl
                           .toggleAyahSelection(ayahs[ayahIndex].ayahUQNumber),
                       child: Column(
                         children: [

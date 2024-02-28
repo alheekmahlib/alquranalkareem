@@ -28,7 +28,7 @@ class TextWidget extends StatelessWidget {
                 TextSpan(
                   children: azkarCtrl.buildTextSpans(zekr.zekr),
                   style: TextStyle(
-                      color: Get.isDarkMode ? Colors.white : Colors.black,
+                      color: Theme.of(context).hintColor,
                       height: 1.4,
                       fontFamily: 'naskh',
                       fontSize: sl<GeneralController>().fontSizeArabic.value),
@@ -63,9 +63,7 @@ class TextWidget extends StatelessWidget {
                   child: Text(
                     zekr.reference,
                     style: TextStyle(
-                      color: Get.isDarkMode
-                          ? Colors.white
-                          : Theme.of(context).primaryColorDark,
+                      color: Theme.of(context).hintColor.withOpacity(.6),
                       fontSize: 14,
                       fontFamily: 'naskh',
                     ),
@@ -92,9 +90,7 @@ class TextWidget extends StatelessWidget {
                     child: Text(
                       zekr.description,
                       style: TextStyle(
-                          color: Get.isDarkMode
-                              ? Colors.white
-                              : Theme.of(context).primaryColorDark,
+                          color: Theme.of(context).hintColor.withOpacity(.8),
                           fontSize: 16,
                           fontFamily: 'naskh',
                           fontWeight: FontWeight.bold),

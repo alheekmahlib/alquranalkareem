@@ -21,27 +21,34 @@ class ChangeTafsir extends StatelessWidget {
         button: true,
         enabled: true,
         label: 'Change Font Size',
-        child: Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Obx(() {
-              return Text(
-                tafsirName[sl<AyatController>().radioValue.value]['name'],
-                style: TextStyle(
-                    color: Theme.of(context).colorScheme.primary,
-                    fontSize: 14,
-                    fontWeight: FontWeight.bold,
-                    fontFamily: 'kufi'),
-              );
-            }),
-            Semantics(
-              button: true,
-              enabled: true,
-              label: 'Change Reader',
-              child: Icon(Icons.keyboard_arrow_down_outlined,
-                  size: 20, color: Theme.of(context).colorScheme.primary),
+        child: SizedBox(
+          width: 120,
+          child: FittedBox(
+            fit: BoxFit.scaleDown,
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                Obx(() {
+                  return Text(
+                    tafsirName[sl<AyatController>().radioValue.value]['name'],
+                    style: TextStyle(
+                        color: Theme.of(context).colorScheme.primary,
+                        fontSize: 14,
+                        fontWeight: FontWeight.bold,
+                        fontFamily: 'kufi'),
+                  );
+                }),
+                Semantics(
+                  button: true,
+                  enabled: true,
+                  label: 'Change Reader',
+                  child: Icon(Icons.keyboard_arrow_down_outlined,
+                      size: 20, color: Theme.of(context).colorScheme.primary),
+                ),
+              ],
             ),
-          ],
+          ),
         ),
       ),
       color: Theme.of(context).colorScheme.background,
@@ -128,7 +135,7 @@ class ChangeTafsir extends StatelessWidget {
                                     flex: 2,
                                     child: context.hDivider(width: 70)),
                                 Expanded(
-                                  flex: 2,
+                                  flex: 3,
                                   child: Text(
                                     'translation'.tr,
                                     style: TextStyle(

@@ -39,7 +39,10 @@ class SettingsList extends StatelessWidget {
           child: Padding(
             padding: const EdgeInsets.all(16.0),
             child: Obx(() => generalCtrl.showSelectScreenPage.value
-                ? const SelectScreenBuild()
+                ? const SelectScreenBuild(
+                    isButtonBack: true,
+                    isButton: false,
+                  )
                 : ListView(
                     children: [
                       const Gap(8),

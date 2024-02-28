@@ -23,7 +23,6 @@ import '/presentation/controllers/ayat_controller.dart';
 import '/presentation/controllers/azkar_controller.dart';
 import '/presentation/controllers/bookmarks_controller.dart';
 import '/presentation/controllers/general_controller.dart';
-import '/presentation/controllers/notes_controller.dart';
 import '/presentation/controllers/notifications_controller.dart';
 import '/presentation/controllers/playList_controller.dart';
 import '/presentation/controllers/reminder_controller.dart';
@@ -134,9 +133,6 @@ class ServicesLocator {
     sl.registerLazySingleton<TranslateDataController>(() =>
         Get.put<TranslateDataController>(TranslateDataController(),
             permanent: true));
-
-    sl.registerLazySingleton<NotesController>(
-        () => Get.put<NotesController>(NotesController(), permanent: true));
 
     sl.registerLazySingleton<BookmarksController>(() =>
         Get.put<BookmarksController>(BookmarksController(), permanent: true));

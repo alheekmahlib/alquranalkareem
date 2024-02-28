@@ -1,14 +1,19 @@
 import 'dart:convert';
 import 'dart:developer' show log;
+import 'dart:io';
 import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:hijri/hijri_calendar.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:screenshot/screenshot.dart';
+import 'package:share_plus/share_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../core/services/services_locator.dart';
+import '../../core/utils/constants/constants.dart';
 import '../../core/utils/constants/shared_preferences_constants.dart';
 import '../../database/databaseHelper.dart';
 import '../screens/athkar/models/zeker_model.dart';
@@ -25,6 +30,8 @@ class AzkarController extends GetxController {
   var filteredFavZekrList = <Zekr>[].obs;
   var categories = <String>[].obs;
   Zekr? zekerOfTheDay;
+  final ScreenshotController zekrScreenController = ScreenshotController();
+  Uint8List? ayahToImageBytes;
 
   @override
   void onInit() async {
@@ -79,8 +86,10 @@ class AzkarController extends GetxController {
   }
 
   void deleteAzkar(Zekr? azkar, BuildContext context) async {
-    await DatabaseHelper.deleteAzkar(azkar!).then(
-        (value) => context.showCustomErrorSnackBar('deletedZekrBookmark'.tr));
+    await DatabaseHelper.deleteAzkar(azkar!).then((value) {
+      context.showCustomErrorSnackBar('deletedZekrBookmark'.tr);
+      update();
+    });
     getAzkar();
   }
 
@@ -158,5 +167,78 @@ class AzkarController extends GetxController {
     }
 
     return spans;
+  }
+
+  List<TextSpan> shareTextSpans(String text) {
+    final RegExp regExp = RegExp(r'\{(.*?)\}');
+    final Iterable<Match> matches = regExp.allMatches(text);
+    int lastMatchEnd = 0;
+    List<TextSpan> spans = [];
+
+    for (final Match match in matches) {
+      final String preText = text.substring(lastMatchEnd, match.start);
+      final String matchedText = match.group(1)!;
+
+      if (preText.isNotEmpty) {
+        spans.add(TextSpan(text: preText));
+      }
+      spans.add(TextSpan(
+        text: matchedText,
+        style: const TextStyle(
+          color: Color(0xff161f07),
+          fontFamily: 'uthmanic2',
+        ),
+      ));
+
+      lastMatchEnd = match.end;
+    }
+
+    if (lastMatchEnd < text.length) {
+      spans.add(TextSpan(text: text.substring(lastMatchEnd)));
+    }
+
+    return spans;
+  }
+
+  RxBool hasBookmark(String category, String zekr) {
+    return (azkarList.obs.value
+                    .firstWhereOrNull(
+                        ((a) => a.category == category && a.zekr == zekr))
+                    .obs)
+                .value ==
+            null
+        ? false.obs
+        : true.obs;
+  }
+
+  shareText(String zekrText, String category, String reference,
+      String description, String count) {
+    Share.share(
+        '$category\n'
+        '$zekrText'
+        '$reference\n'
+        'التكرار: $count\n'
+        '$description\n\n'
+        '${'appName'.tr}\n${UrlConstants.downloadAppUrl}',
+        subject: '${'appName'.tr}\n$category');
+  }
+
+  Future<void> createAndShowZekrImage() async {
+    try {
+      final Uint8List? imageBytes = await zekrScreenController.capture();
+      ayahToImageBytes = imageBytes;
+      update();
+    } catch (e) {
+      debugPrint('Error capturing verse image: $e');
+    }
+  }
+
+  Future<void> shareZekr(BuildContext context) async {
+    if (ayahToImageBytes! != null) {
+      final directory = await getTemporaryDirectory();
+      final imagePath = await File('${directory.path}/zekr_image.png').create();
+      await imagePath.writeAsBytes(ayahToImageBytes!);
+      await Share.shareXFiles([XFile((imagePath.path))], text: 'appName'.tr);
+    }
   }
 }

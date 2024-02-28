@@ -7,7 +7,6 @@ import 'package:sqflite/sqflite.dart' as sqflite;
 import 'package:sqflite_common_ffi/sqflite_ffi.dart';
 
 import '../presentation/screens/athkar/models/zeker_model.dart';
-import '../presentation/screens/notes/model/Notes.dart';
 import '../presentation/screens/quran_page/data/model/bookmark_ayahs.dart';
 import '/presentation/screens/quran_page/data/model/bookmark.dart';
 
@@ -21,7 +20,7 @@ class DatabaseHelper {
   static const String columnId = 'id';
   static const String columnBId = 'id';
   static const String columnCId = 'id';
-  static const String columnTId = 'id';
+  static const String columnTId = 'nomPageF';
   static const String columnPageNum = 'pageNum';
 
   DatabaseHelper._privateConstructor();
@@ -59,13 +58,6 @@ class DatabaseHelper {
 
   Future onCreate(Database db, int version) async {
     await db.execute(
-      'CREATE TABLE noteTable ('
-      'id INTEGER PRIMARY KEY, '
-      'title TEXT, '
-      'description TEXT)',
-    );
-    print('create noteTable');
-    await db.execute(
       'CREATE TABLE bookmarkTable ('
       'id INTEGER PRIMARY KEY, '
       'sorahName TEXT, '
@@ -95,17 +87,6 @@ class DatabaseHelper {
       'lastRead TEXT)',
     );
     print('create bookmarkTextTable');
-    // await db.execute(
-    //   'CREATE TABLE bookmarkTextAyahTable ('
-    //   'id INTEGER PRIMARY KEY, '
-    //   'sorahName TEXT, '
-    //   'sorahNum INTEGER, '
-    //   'ayahNum INTEGER, '
-    //   'nomPageF INTEGER, '
-    //   'nomPageL INTEGER, '
-    //   'lastRead TEXT)',
-    // );
-    // print('create bookmarkTextAyahTable');
   }
 
   Future onUpgrade(Database db, int oldVersion, int newVersion) async {
@@ -126,38 +107,6 @@ class DatabaseHelper {
     //   );
     print('Upgrade bookmarkTextTable');
     // }
-  }
-
-  static Future<int?> saveNote(Notes? note) async {
-    print('Save Note');
-    try {
-      return await _db!.insert(tableNote, note!.toJson());
-    } catch (e) {
-      return 90000;
-    }
-  }
-
-  static Future<int> deleteNote(int id) async {
-    print('Delete Note');
-    return await _db!
-        .delete(tableNote, where: '$columnId = ?', whereArgs: [id]);
-  }
-
-  static Future<int> updateNote(Notes? note) async {
-    print('Update Note');
-    return await _db!.update(tableNote, note!.toJson(),
-        where: "$columnId = ?", whereArgs: [note.id]);
-  }
-
-  static Future<List<Map<String, dynamic>>> queryN() async {
-    print('Update Note');
-
-    if (_db == null) {
-      // Initialize _db or throw an error.
-      throw Exception('Database not initialized');
-    }
-
-    return await _db!.query(tableNote);
   }
 
   /// bookmarks database
@@ -200,7 +149,7 @@ class DatabaseHelper {
   static Future<int> deleteBookmarkText(BookmarksAyahs? bookmarksText) async {
     print('Delete Text Bookmarks');
     return await _db!.delete(tableBookmarksText,
-        where: '$columnTId = ?', whereArgs: [bookmarksText!.id]);
+        where: '$columnTId = ?', whereArgs: [bookmarksText!.ayahUQNumber]);
   }
 
   static Future<int> updateBookmarksText(BookmarksAyahs bookmarksText) async {

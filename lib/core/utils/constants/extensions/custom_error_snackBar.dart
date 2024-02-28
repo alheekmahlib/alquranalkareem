@@ -1,71 +1,59 @@
 import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:gap/gap.dart';
 
 extension CustomErrorSnackBarExtension on BuildContext {
   void showCustomErrorSnackBar(String text) {
+    final backgroundColor = Theme.of(this).colorScheme.background;
+    final borderColor = Theme.of(this).colorScheme.primary.withOpacity(.3);
+    final hintColor = Theme.of(this).hintColor;
     BotToast.showCustomNotification(
-      enableSlideOff: false,
+      enableSlideOff: true,
+      useSafeArea: true,
       toastBuilder: (cancelFunc) {
         return Container(
-          height: 60,
+          height: 50,
           decoration: BoxDecoration(
-            color: Theme.of(this).colorScheme.primary, // Adapted to use context
-            borderRadius: const BorderRadius.all(
-              Radius.circular(8),
-            ),
-          ),
+              color: backgroundColor,
+              borderRadius: const BorderRadius.all(
+                Radius.circular(8),
+              ),
+              border: Border.all(
+                color: borderColor,
+                width: 2,
+              )),
           margin: const EdgeInsets.symmetric(horizontal: 16.0),
+          padding: const EdgeInsets.symmetric(horizontal: 16.0),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Expanded(
                 flex: 1,
-                child: SvgPicture.asset(
-                  'assets/svg/snackBar_zakh.svg',
-                ),
-              ),
-              Expanded(
-                flex: 7,
-                child: SizedBox(
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Align(
-                        alignment: Alignment.centerRight,
-                        child: Opacity(
-                          opacity: .8,
-                          child: SvgPicture.asset(
-                            'assets/svg/alert.svg',
-                            height: 25,
-                          ),
-                        ),
-                      ),
-                      const SizedBox(
-                        width: 8,
-                      ),
-                      Align(
-                        alignment: Alignment.centerLeft,
-                        child: Text(
-                          text,
-                          style: const TextStyle(
-                              color: Colors.white,
-                              fontFamily: 'kufi',
-                              fontStyle: FontStyle.italic,
-                              fontSize: 16),
-                          textAlign: TextAlign.center,
-                        ),
-                      ),
-                    ],
+                child: Align(
+                  alignment: Alignment.centerRight,
+                  child: Opacity(
+                    opacity: .8,
+                    child: SvgPicture.asset(
+                      'assets/svg/alert.svg',
+                      height: 25,
+                    ),
                   ),
                 ),
               ),
+              const Gap(16),
               Expanded(
-                flex: 1,
-                child: RotatedBox(
-                  quarterTurns: 2,
-                  child: SvgPicture.asset(
-                    'assets/svg/snackBar_zakh.svg',
+                flex: 8,
+                child: FittedBox(
+                  fit: BoxFit.scaleDown,
+                  child: Align(
+                    alignment: Alignment.centerLeft,
+                    child: Text(
+                      text,
+                      style: TextStyle(
+                          color: hintColor, fontFamily: 'naskh', fontSize: 20),
+                      textAlign: TextAlign.center,
+                    ),
                   ),
                 ),
               ),

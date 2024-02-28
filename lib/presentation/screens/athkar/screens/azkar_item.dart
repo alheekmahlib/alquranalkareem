@@ -14,6 +14,7 @@ class AzkarItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final azkarCtrl = sl<AzkarController>();
+    azkarCtrl.getAzkar();
     return Directionality(
       textDirection: TextDirection.rtl,
       child: Scaffold(
@@ -35,6 +36,7 @@ class AzkarItem extends StatelessWidget {
                         const Gap(32),
                         OptionsRow(
                           zekr: zekr,
+                          azkarFav: false,
                         ),
                         TextWidget(
                           zekr: zekr,

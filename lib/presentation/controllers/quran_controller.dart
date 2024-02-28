@@ -41,6 +41,7 @@ class QuranController extends GetxController {
   var moreOptionsMap = <String, bool>{}.obs;
   RxInt selectMushafSettingsPage = 0.obs;
   RxDouble ayahsWidgetHeight = 0.0.obs;
+  RxInt currentListPage = 1.obs;
   List<int> lastPlaceBannerPageIndex = [
     75,
     206,
@@ -91,6 +92,8 @@ class QuranController extends GetxController {
   void onInit() async {
     super.onInit();
     await loadQuran();
+    itemPositionsListener.itemPositions.addListener(_updatePageNumber);
+    itemPositionsListener.itemPositions.addListener(currentListPageNumber);
   }
 
   Future<void> loadQuran() async {
@@ -350,5 +353,41 @@ class QuranController extends GetxController {
           );
     }
     generalCtrl.drawerKey.currentState!.closeSlider();
+  }
+
+  void currentListPageNumber() {
+    final positions = itemPositionsListener.itemPositions.value;
+    final filteredPositions =
+        positions.where((position) => position.itemLeadingEdge >= 0);
+    if (filteredPositions.isNotEmpty) {
+      final firstItemIndex = filteredPositions
+          .reduce((minPosition, position) =>
+              position.itemLeadingEdge < minPosition.itemLeadingEdge
+                  ? position
+                  : minPosition)
+          .index;
+      currentListPage.value = firstItemIndex;
+    }
+  }
+
+  void _updatePageNumber() {
+    final positions = itemPositionsListener.itemPositions.value;
+    final filteredPositions =
+        positions.where((position) => position.itemLeadingEdge >= 0);
+    if (filteredPositions.isNotEmpty) {
+      final firstItemIndex = filteredPositions
+          .reduce((minPosition, position) =>
+              position.itemLeadingEdge < minPosition.itemLeadingEdge
+                  ? position
+                  : minPosition)
+          .index;
+      sl<SharedPreferences>().setInt(MSTART_PAGE, firstItemIndex + 1);
+    } else {}
+  }
+
+  @override
+  void onClose() {
+    itemPositionsListener.itemPositions.removeListener(_updatePageNumber);
+    super.onClose();
   }
 }

@@ -2,13 +2,15 @@ import 'package:alquranalkareem/core/utils/constants/extensions/custom_error_sna
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../core/services/services_locator.dart';
 import '../../database/databaseHelper.dart';
 import '../screens/quran_page/data/model/bookmark.dart';
 import '../screens/quran_page/data/model/bookmark_ayahs.dart';
+import 'quran_controller.dart';
 
 class BookmarksController extends GetxController {
   final RxList<Bookmarks> bookmarksList = <Bookmarks>[].obs;
-  final RxList<BookmarksAyahs> BookmarkTextList = <BookmarksAyahs>[].obs;
+  final RxList<BookmarksAyahs> bookmarkTextList = <BookmarksAyahs>[].obs;
   late int lastBook;
 
   @override
@@ -97,30 +99,32 @@ class BookmarksController extends GetxController {
   }
 
   Future<int?> addBookmarksText(BookmarksAyahs? bookmarksText) {
-    BookmarkTextList.add(bookmarksText!);
+    bookmarkTextList.add(bookmarksText!);
     return DatabaseHelper.addBookmarkText(bookmarksText);
   }
 
   Future<void> getBookmarksText() async {
     final List<Map<String, dynamic>> bookmarksText =
         await DatabaseHelper.queryT();
-    BookmarkTextList.assignAll(
+    bookmarkTextList.assignAll(
         bookmarksText.map((data) => BookmarksAyahs.fromJson(data)).toList());
   }
 
-  Future<bool> deleteBookmarksText(int ayahUQNum) async {
+  bool deleteBookmarksText(int ayahUQNum) {
     // Find the bookmark with the given pageNum
-    BookmarksAyahs? bookmarkToDelete = BookmarkTextList.firstWhereOrNull(
-        (bookmark) => bookmark.ayahUQNumber == ayahUQNum);
+    BookmarksAyahs? bookmarkToDelete = bookmarkTextList
+        .firstWhereOrNull((bookmark) => bookmark.ayahUQNumber == ayahUQNum);
 
     if (bookmarkToDelete != null) {
-      int result = await DatabaseHelper.deleteBookmarkText(bookmarkToDelete);
-      if (result > 0) {
-        Get.context!.showCustomErrorSnackBar('deletedBookmark'.tr);
-        await getBookmarksText();
-        update();
-        return true;
-      }
+      DatabaseHelper.deleteBookmarkText(bookmarkToDelete).then((value) {
+        int result = value;
+        if (result > 0) {
+          Get.context!.showCustomErrorSnackBar('deletedBookmark'.tr);
+          getBookmarksText();
+          sl<QuranController>().update();
+          return true;
+        }
+      });
     }
     return false;
     // await DatabaseHelper.deleteBookmarkText(bookmarksText!).then((value) =>
@@ -135,7 +139,7 @@ class BookmarksController extends GetxController {
   }
 
   RxBool hasBookmark(int surahNum, int ayahNum) {
-    return (BookmarkTextList.obs.value
+    return (bookmarkTextList.obs.value
                     .firstWhereOrNull(((element) =>
                         element.surahNumber == surahNum &&
                         element.ayahUQNumber == ayahNum))

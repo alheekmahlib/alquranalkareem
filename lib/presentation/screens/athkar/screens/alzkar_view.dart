@@ -31,6 +31,7 @@ class AzkarView extends StatelessWidget {
                         fontFamily: 'kufi',
                         fontSize: 11,
                       ),
+                      dividerColor: Colors.transparent,
                       indicatorSize: TabBarIndicatorSize.tab,
                       indicator: BoxDecoration(
                           borderRadius: const BorderRadius.all(

@@ -54,7 +54,9 @@ class ThemeChange extends StatelessWidget {
                           child: GestureDetector(
                             onTap: () {
                               themeCtrl.setTheme(themeList[index]['name']);
-                              Get.forceAppUpdate();
+                              Get.forceAppUpdate().then((_) {
+                                Get.back();
+                              });
                             },
                             child: Column(
                               children: [

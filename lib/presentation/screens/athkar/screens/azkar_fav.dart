@@ -51,6 +51,7 @@ class AzkarFav extends StatelessWidget {
                                       const Gap(32),
                                       OptionsRow(
                                         zekr: azkar,
+                                        azkarFav: true,
                                       ),
                                       TextWidget(
                                         zekr: azkar,

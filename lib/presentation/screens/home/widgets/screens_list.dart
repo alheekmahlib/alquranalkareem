@@ -1,10 +1,10 @@
-import 'package:alquranalkareem/core/widgets/container_with_lines.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 
 import '../../../../core/utils/constants/lists.dart';
 import '../../../../core/widgets/container_button.dart';
+import '/core/widgets/container_with_lines.dart';
 
 class ScreensList extends StatelessWidget {
   const ScreensList({super.key});

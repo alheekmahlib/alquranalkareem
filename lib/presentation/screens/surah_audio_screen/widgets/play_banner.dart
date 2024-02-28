@@ -1,12 +1,11 @@
-import 'package:alquranalkareem/core/utils/constants/extensions/extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:mini_music_visualizer/mini_music_visualizer.dart';
 
 import '../../../../core/services/services_locator.dart';
-import '../../../controllers/general_controller.dart';
 import '../../../controllers/surah_audio_controller.dart';
+import '/core/utils/constants/extensions/extensions.dart';
 
 class PlayBanner extends StatelessWidget {
   const PlayBanner({super.key});
@@ -61,7 +60,6 @@ class PlayBanner extends StatelessWidget {
           sl<SurahAudioController>()
               .controller
               .jumpTo((sl<SurahAudioController>().surahNum.value - 1) * 65.0);
-          sl<GeneralController>().widgetPosition.value = 0.0;
         },
       ),
     );

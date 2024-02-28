@@ -42,8 +42,7 @@ class ShareAyahOptions extends StatelessWidget {
         button: true,
         enabled: true,
         label: 'share'.tr,
-        child: share_icon(
-            height: sl<QuranController>().isPages.value == 0 ? 20.0 : 25.0),
+        child: share_icon(height: 20.0),
       ),
       onTap: () {
         shareToImage.fetchTafseerSaadi(surahNumber, verseNumber, verseUQNumber);
@@ -257,12 +256,9 @@ class ShareAyahOptions extends StatelessWidget {
                                                           style: TextStyle(
                                                             fontFamily: 'kufi',
                                                             fontSize: 14,
-                                                            color: Get
-                                                                    .isDarkMode
-                                                                ? Colors.white
-                                                                : Theme.of(
-                                                                        context)
-                                                                    .primaryColor,
+                                                            color: Theme.of(
+                                                                    context)
+                                                                .hintColor,
                                                           ),
                                                         ),
                                                       ),
@@ -312,9 +308,11 @@ class ShareAyahOptions extends StatelessWidget {
                                                                     selectedIndex
                                                                 ? Theme.of(
                                                                         context)
-                                                                    .primaryColorLight
-                                                                : const Color(
-                                                                    0xffCDAD80),
+                                                                    .hintColor
+                                                                : Theme.of(
+                                                                        context)
+                                                                    .colorScheme
+                                                                    .surface,
                                                           ),
                                                         ),
                                                       ),

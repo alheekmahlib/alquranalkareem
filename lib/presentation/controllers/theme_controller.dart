@@ -12,7 +12,6 @@ class ThemeController extends GetxController {
   AppTheme? initialTheme;
   ThemeData? initialThemeData;
   Rx<AppTheme> _currentTheme = AppTheme.blue.obs;
-  // Rx<ThemeData> currentThemeData = blueTheme.obs;
 
   @override
   void onInit() async {
@@ -20,19 +19,6 @@ class ThemeController extends GetxController {
     setTheme(theme);
     super.onInit();
   }
-
-  // ThemeData get currentThemeData {
-  //   switch (_currentTheme.value) {
-  //     case AppTheme.blue:
-  //       return blueTheme;
-  //     case AppTheme.brown:
-  //       return brownTheme;
-  //     case AppTheme.dark:
-  //       return darkTheme;
-  //     default:
-  //       return blueTheme;
-  //   }
-  // }
 
   void checkTheme() {
     switch (initialTheme) {
@@ -46,7 +32,7 @@ class ThemeController extends GetxController {
         initialThemeData = darkTheme;
         break;
       default:
-        initialThemeData = blueTheme; // Default theme
+        initialThemeData = blueTheme;
     }
   }
 

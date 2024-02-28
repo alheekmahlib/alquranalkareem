@@ -293,51 +293,22 @@ class AudioController extends GetxController {
     }
   }
 
-  Future<int?> fetchFileSize(String url) async {
-    try {
-      Dio dio = Dio();
-      var response = await dio.head(url);
-      if (response.headers.value('Content-Length') != null) {
-        return int.tryParse(response.headers.value('Content-Length')!);
-      }
-    } catch (e) {
-      print("Error fetching file size: $e");
-    }
-    return null; // File size unknown
-  }
-
   Future downloadFile(String path, String url, String fileName) async {
     Dio dio = Dio();
     cancelToken = CancelToken();
     try {
-      int? fileSize = await fetchFileSize(url);
-      if (fileSize != null) {
-        // Proceed with downloading if file size is known
-        print("File size: $fileSize bytes");
-        // Your download logic here, using fileSize to track progress accurately
-      } else {
-        // Handle indeterminate progress scenario
-        print("File size unknown, proceeding with indeterminate progress.");
-        // Your download logic here, with indeterminate progress indication
-      }
       await Directory(dirname(path)).create(recursive: true);
       downloading.value = true;
       onDownloading.value = true;
-      // Set an initial state indicating indeterminate progress.
       progressString.value = "Indeterminate";
-      progress.value =
-          -1; // Use -1 or any specific value you prefer to indicate indeterminate state
+      progress.value = 0;
       await dio.download(url, path, onReceiveProgress: (rec, total) {
         if (total > 0) {
           double progressValue = (rec / total).toDouble();
           progressValue = progressValue.clamp(0.0, 1.0);
           progressString.value = (progressValue * 100).toStringAsFixed(0) + "%";
           progress.value = progressValue;
-        } else {
-          // Here, the total size is unknown, so we keep the state as indeterminate.
-          // You might want to update progress.value periodically to animate a progress indicator
-          // in an indeterminate state, or leave it as is.
-        }
+        } else {}
         print("Received bytes: $rec, Total bytes: $total");
       }, cancelToken: cancelToken);
     } catch (e) {
@@ -361,10 +332,9 @@ class AudioController extends GetxController {
 
     downloading.value = false;
     onDownloading.value = false;
-    progressString.value =
-        "Completed"; // Or "Failed" based on the actual outcome
+    progressString.value = "Completed";
     print("Download completed or failed");
-    return true; // Return true upon successful completion or false if failed
+    return true;
   }
 
   void cancelDownload() {
@@ -405,16 +375,12 @@ class AudioController extends GetxController {
   }
 
   void clearSelection() {
-    if (quranCtrl.isPages.value == 1) {
-      generalCtrl.isShowControl.value = true;
+    if (isPlay.value) {
+      quranCtrl.showControl();
+    } else if (quranCtrl.selectedAyahIndexes.isNotEmpty) {
+      quranCtrl.selectedAyahIndexes.clear();
     } else {
-      if (isPlay.value) {
-        quranCtrl.showControl();
-      } else if (quranCtrl.selectedAyahIndexes.isNotEmpty) {
-        quranCtrl.selectedAyahIndexes.clear();
-      } else {
-        quranCtrl.showControl();
-      }
+      quranCtrl.showControl();
     }
     generalCtrl.drawerKey.currentState!.closeSlider();
   }

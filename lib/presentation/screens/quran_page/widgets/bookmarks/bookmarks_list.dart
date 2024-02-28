@@ -33,7 +33,7 @@ class BookmarksList extends StatelessWidget {
             context.customClose(),
             GetBuilder<BookmarksController>(
               builder: (bookmarkCtrl) => bookmarkCtrl.bookmarksList.isEmpty &&
-                      bookmarkCtrl.BookmarkTextList.isEmpty
+                      bookmarkCtrl.bookmarkTextList.isEmpty
                   ? Center(
                       child: Column(
                       children: [
@@ -68,7 +68,7 @@ class BookmarksList extends StatelessWidget {
                               ? const SizedBox.shrink()
                               : Flexible(flex: 10, child: BookmarkPagesBuild()),
                           const Gap(16),
-                          bookmarkCtrl.BookmarkTextList.isEmpty
+                          bookmarkCtrl.bookmarkTextList.isEmpty
                               ? const SizedBox.shrink()
                               : Flexible(flex: 10, child: BookmarkAyahsBuild()),
                         ],

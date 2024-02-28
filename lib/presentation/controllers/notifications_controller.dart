@@ -11,7 +11,7 @@ import 'package:timezone/timezone.dart' as tz;
 
 import '../../core/services/local_notifications.dart';
 import '../../database/notificationDatabase.dart';
-import '../screens/onboarding/widgets/postPage.dart';
+import '../screens/notification/postPage.dart';
 
 class NotificationsController extends GetxController {
   late NotifyHelper notifyHelper;

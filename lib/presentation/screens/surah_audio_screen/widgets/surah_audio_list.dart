@@ -35,7 +35,7 @@ class SurahAudioList extends StatelessWidget {
               controller: surahAudioCtrl.controller,
               padding: EdgeInsets.zero,
               itemBuilder: (_, index) {
-                final sorah = quranCtrl.surahs[index];
+                final surah = quranCtrl.surahs[index];
                 int surahNumber = index + 1;
                 // RxBool isDownloaded =
                 //     surahAudioCtrl.surahDownloadStatus[surahNumber] ??
@@ -79,11 +79,17 @@ class SurahAudioList extends StatelessWidget {
                                                     width: 40,
                                                     child: SvgPicture.asset(
                                                       'assets/svg/sora_num.svg',
+                                                      colorFilter:
+                                                          ColorFilter.mode(
+                                                              Theme.of(context)
+                                                                  .colorScheme
+                                                                  .primary,
+                                                              BlendMode.srcIn),
                                                     )),
                                                 Text(
                                                   surahAudioCtrl.arabicNumber
                                                       .convert(
-                                                          sorah.surahNumber),
+                                                          surah.surahNumber),
                                                   style: TextStyle(
                                                       color: Theme.of(context)
                                                           .hintColor,
@@ -116,7 +122,7 @@ class SurahAudioList extends StatelessWidget {
                                                 padding: const EdgeInsets.only(
                                                     right: 8.0),
                                                 child: Text(
-                                                  sorah.englishName,
+                                                  surah.englishName,
                                                   style: TextStyle(
                                                     fontFamily: "naskh",
                                                     fontWeight: FontWeight.w600,

@@ -17,6 +17,7 @@ import 'package:url_launcher/url_launcher.dart';
 import '../../core/services/services_locator.dart';
 import '../../core/utils/constants/lists.dart';
 import '../../core/utils/constants/shared_preferences_constants.dart';
+import '../../core/utils/helpers/responsive.dart';
 import '../../core/widgets/ramadan_greeting.dart';
 import '../../core/widgets/time_now.dart';
 import '../screens/athkar/screens/alzkar_view.dart';
@@ -57,12 +58,8 @@ class GeneralController extends GetxController {
   RxInt shareTafseerValue = 1.obs;
   RxInt pageIndex = 0.obs;
   RxBool isExpanded = false.obs;
-  int? onboardingPageNumber;
   bool isReversed = false;
   RxBool showSettings = true.obs;
-  RxDouble widgetPosition = (-240.0).obs;
-  RxDouble textWidgetPosition = (-240.0).obs;
-  RxDouble audioWidgetPosition = (70.0).obs;
   RxDouble viewport = .5.obs;
   TimeNow timeNow = TimeNow();
   RxDouble? animatedWidth;
@@ -138,7 +135,6 @@ class GeneralController extends GetxController {
     sl<PlayListController>().reset();
     panelController.hide();
     isShowControl.value = false;
-    audioWidgetPosition.value = -240;
     sl<AyatController>().isSelected.value = (-1.0);
     sl<AudioController>().pageAyahNumber = '0';
 
@@ -155,11 +151,6 @@ class GeneralController extends GetxController {
     final now = DateTime.now();
     final isMorning = now.hour < 12;
     greeting.value = isMorning ? 'صبحكم الله بالخير' : 'مساكم الله بالخير';
-  }
-
-  closeSlider() {
-    sl<GeneralController>().widgetPosition.value =
-        sl<GeneralController>().widgetPosition.value == 0.0 ? -220.0 : 0.0;
   }
 
   scrollToSurah(int surahNumber) {
@@ -215,6 +206,7 @@ class GeneralController extends GetxController {
 
   PageController get pageController {
     return quranPageController = PageController(
+        viewportFraction: Responsive.isDesktop(Get.context!) ? .5 : 1,
         initialPage: sl<GeneralController>().currentPageNumber.value - 1,
         keepPage: true);
   }
@@ -326,6 +318,14 @@ class GeneralController extends GetxController {
     }
   }
 
+  dynamic checkDirectionRtlLayout(var textDirection, var textDirection2) {
+    if (isRtlLanguage('lang'.tr)) {
+      return textDirection;
+    } else {
+      return textDirection2;
+    }
+  }
+
   Future<void> launchEmail() async {
     const String subject = "تطبيق القرآن الكريم - مكتبة الحكمة";
     const String stringText =
@@ -421,5 +421,18 @@ class GeneralController extends GetxController {
     if (today.hMonth == 10) sl<SharedPreferences>().setBool(IS_RAMADAN, false);
     if (today.hMonth == 11) sl<SharedPreferences>().setBool(IS_EID, false);
     if (today.hMonth == 1) sl<SharedPreferences>().setBool(IS_EID, false);
+  }
+
+  double customSize(
+      double mobile, double largeMobile, double tablet, double desktop) {
+    if (Responsive.isMobile(Get.context!)) {
+      return mobile;
+    } else if (Responsive.isMobileLarge(Get.context!)) {
+      return largeMobile;
+    } else if (Responsive.isTablet(Get.context!)) {
+      return tablet;
+    } else {
+      return desktop;
+    }
   }
 }

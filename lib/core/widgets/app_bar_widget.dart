@@ -22,13 +22,13 @@ class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
               decoration: BoxDecoration(
                   borderRadius: const BorderRadius.all(Radius.circular(4)),
                   border: Border.all(
-                      color: Theme.of(context).colorScheme.primary, width: 1)),
+                      color: Theme.of(context).colorScheme.surface, width: 1)),
               child: Text(
                 azkarCtrl.filteredZekrList.first.category,
                 style: TextStyle(
                   color: Get.isDarkMode
                       ? Colors.white
-                      : Theme.of(context).primaryColor,
+                      : Theme.of(context).hintColor,
                   fontSize: context.customOrientation(12.0, 16.0),
                   fontFamily: 'kufi',
                 ),
@@ -36,15 +36,17 @@ class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
             )
           : const SizedBox.shrink(),
       centerTitle: true,
-      leading: IconButton(
-          onPressed: () {
-            Get.back();
-          },
-          icon: Icon(
-            Icons.arrow_back_ios_new_outlined,
-            size: 22,
-            color: Theme.of(context).colorScheme.primary,
-          )),
+      leading: GestureDetector(
+        onTap: () {
+          Get.back();
+        },
+        child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16.0),
+            child: Image.asset(
+              'assets/icons/arrow_back.png',
+              color: Theme.of(context).colorScheme.primary,
+            )),
+      ),
       actions: [
         context.fontSizeDropDown(),
       ],

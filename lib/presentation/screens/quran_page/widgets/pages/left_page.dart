@@ -7,8 +7,9 @@ class LeftPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: 1280,
+    return Semantics(
+      image: true,
+      label: 'Quran Page',
       child: Stack(
         children: [
           Padding(

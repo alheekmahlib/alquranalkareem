@@ -3,7 +3,6 @@ import 'package:flutter_slider_drawer/flutter_slider_drawer.dart';
 import 'package:get/get.dart';
 
 import '../../../../core/services/services_locator.dart';
-import '../../../../core/utils/constants/extensions/extensions.dart';
 import '../../../../core/widgets/tab_bar_widget.dart';
 import '../../../../database/notificationDatabase.dart';
 import '../../../controllers/audio_controller.dart';
@@ -46,7 +45,7 @@ class QuranHome extends StatelessWidget {
           splashColor: Theme.of(context).colorScheme.background,
           slideDirection: generalCtrl.checkRtlLayout(
               SlideDirection.RIGHT_TO_LEFT, SlideDirection.LEFT_TO_RIGHT),
-          sliderOpenSize: context.customOrientation(width * .7, width * .8),
+          sliderOpenSize: 300.0,
           isCupertino: true,
           isDraggable: true,
           appBar: const SizedBox.shrink(),

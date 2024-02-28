@@ -21,7 +21,8 @@ class SettingsController extends GetxController {
     String? langCode = await sl<SharedPreferences>().getString("lang");
     String? langName =
         await sl<SharedPreferences>().getString("langName") ?? 'العربية';
-    String? langFont = await sl<SharedPreferences>().getString("languageFont");
+    String? langFont =
+        await sl<SharedPreferences>().getString("languageFont") ?? 'naskh';
     // String? langFont2 =
     //     await sl<SharedPreferences>().getString("languageFont2");
 

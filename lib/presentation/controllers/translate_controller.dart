@@ -16,6 +16,7 @@ class TranslateDataController extends GetxController {
   var trans = 'en'.obs;
   RxInt transValue = 0.obs;
   RxInt shareTransValue = 0.obs;
+  var expandedMap = <int, bool>{}.obs;
 
   Future<void> fetchTranslate(BuildContext context) async {
     isLoading.value = true; // Set isLoading to true
