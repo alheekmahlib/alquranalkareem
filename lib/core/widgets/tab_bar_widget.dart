@@ -37,7 +37,7 @@ class TabBarWidget extends StatelessWidget {
                 flex: 2,
                 child: isFirstChild
                     ? GestureDetector(
-                        onTap: () => Get.to(() => const HomeScreen(),
+                        onTap: () => Get.offAll(() => const HomeScreen(),
                             transition: Transition.upToDown),
                         child: Stack(
                           alignment: Alignment.center,

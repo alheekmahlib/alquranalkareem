@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:get/get.dart';
-import 'package:info_popup/info_popup.dart';
 
 import '../../../../core/services/services_locator.dart';
 import '../../../../core/utils/constants/extensions/extensions.dart';
 import '../../../../core/utils/constants/lottie.dart';
 import '../../../controllers/ourApps_controller.dart';
 import '../data/models/ourApp_model.dart';
+import '/core/utils/constants/lottie_constants.dart';
 
 class OurAppsBuild extends StatelessWidget {
   const OurAppsBuild({super.key});
@@ -85,34 +84,34 @@ class OurAppsBuild extends StatelessWidget {
                               ],
                             ),
                           ),
-                          InfoPopupWidget(
-                            contentTitle: apps[index].aboutApp3.tr,
-                            arrowTheme: InfoPopupArrowTheme(
-                              color: Theme.of(context).colorScheme.surface,
-                              arrowDirection: ArrowDirection.down,
-                            ),
-                            contentTheme: InfoPopupContentTheme(
-                              infoContainerBackgroundColor:
-                                  Theme.of(context).colorScheme.background,
-                              infoTextStyle: TextStyle(
-                                  color: Theme.of(context).colorScheme.surface,
-                                  fontSize: 12,
-                                  fontFamily: 'kufi'),
-                              contentPadding: const EdgeInsets.all(16.0),
-                              contentBorderRadius:
-                                  const BorderRadius.all(Radius.circular(4)),
-                              infoTextAlign: TextAlign.justify,
-                            ),
-                            dismissTriggerBehavior:
-                                PopupDismissTriggerBehavior.onTapArea,
-                            areaBackgroundColor: Colors.transparent,
-                            indicatorOffset: Offset.zero,
-                            contentOffset: Offset.zero,
-                            child: Icon(
-                              Icons.info_outline_rounded,
-                              color: Theme.of(context).colorScheme.surface,
-                            ),
-                          ),
+                          // InfoPopupWidget(
+                          //   contentTitle: apps[index].aboutApp3.tr,
+                          //   arrowTheme: InfoPopupArrowTheme(
+                          //     color: Theme.of(context).colorScheme.surface,
+                          //     arrowDirection: ArrowDirection.down,
+                          //   ),
+                          //   contentTheme: InfoPopupContentTheme(
+                          //     infoContainerBackgroundColor:
+                          //         Theme.of(context).colorScheme.background,
+                          //     infoTextStyle: TextStyle(
+                          //         color: Theme.of(context).colorScheme.surface,
+                          //         fontSize: 12,
+                          //         fontFamily: 'kufi'),
+                          //     contentPadding: const EdgeInsets.all(16.0),
+                          //     contentBorderRadius:
+                          //         const BorderRadius.all(Radius.circular(4)),
+                          //     infoTextAlign: TextAlign.justify,
+                          //   ),
+                          //   dismissTriggerBehavior:
+                          //       PopupDismissTriggerBehavior.onTapArea,
+                          //   areaBackgroundColor: Colors.transparent,
+                          //   indicatorOffset: Offset.zero,
+                          //   contentOffset: Offset.zero,
+                          //   child: Icon(
+                          //     Icons.info_outline_rounded,
+                          //     color: Theme.of(context).colorScheme.surface,
+                          //   ),
+                          // ),
                         ],
                       ),
                     ),
@@ -127,7 +126,8 @@ class OurAppsBuild extends StatelessWidget {
         } else if (snapshot.hasError) {
           return Text('${snapshot.error}');
         }
-        return loading(width: 200.0, height: 200.0);
+        return customLottie(LottieConstants.assetsLottieSplashLoading,
+            width: 200.0, height: 200.0);
       },
     );
   }

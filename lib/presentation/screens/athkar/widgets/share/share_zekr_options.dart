@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 
 import '../../../../../core/services/services_locator.dart';
 import '../../../../../core/utils/constants/lottie.dart';
+import '../../../../../core/utils/constants/lottie_constants.dart';
 import '../../../../../core/utils/constants/svg_picture.dart';
 import '../../../../controllers/azkar_controller.dart';
 import '/core/utils/constants/extensions/extensions.dart';
@@ -58,7 +59,8 @@ class ShareZekrOptions extends StatelessWidget {
                     ),
                     Align(
                       alignment: Alignment.topCenter,
-                      child: shareLottie(width: 120.0),
+                      child: customLottie(LottieConstants.assetsLottieShare,
+                          width: 120.0),
                     ),
                     Padding(
                       padding: const EdgeInsets.only(top: 70.0),

@@ -1,4 +1,6 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 
@@ -9,7 +11,6 @@ import '../../../../controllers/audio_controller.dart';
 import '../../../../controllers/bookmarks_controller.dart';
 import '../../../../controllers/general_controller.dart';
 import '../../../../controllers/quran_controller.dart';
-import '/core/utils/constants/extensions/custom_error_snackBar.dart';
 
 class TopTitleWidget extends StatelessWidget {
   final int index;
@@ -29,27 +30,28 @@ class TopTitleWidget extends StatelessWidget {
               children: [
                 GestureDetector(
                   onTap: () {
-                    if (bookmarkCtrl.isPageBookmarked(index + 1)) {
-                      bookmarkCtrl.deleteBookmarks(index + 1, context);
-                    } else {
-                      bookmarkCtrl
-                          .addAyahBookmark(
-                              index + 1,
-                              quranCtrl.getSurahNameFromPage(index + 1),
-                              generalCtrl.timeNow.dateNow)
-                          .then((value) => context
-                              .showCustomErrorSnackBar('addBookmark'.tr));
-                      print('addBookmark');
-                      print('${generalCtrl.timeNow.dateNow}');
-                      // bookmarkCtrl
-                      //     .savelastBookmark(index + 1);
-                    }
+                    bookmarkCtrl.addPageBookmarkOnTap(context, index);
                   },
-                  child: bookmarkIcon(context, 30.0, 30.0),
+                  child: bookmarkIcon(
+                      width: context.customOrientation(20.w, 15.w)),
                 ),
+                // Expanded(
+                //     flex: 2,
+                //     child: customSvg(
+                //       'assets/svg/juz/${quranCtrl.getJuzByPage(index).juz}.svg',
+                //       color: const Color(0xff77554B),
+                //     )),
+                // const Spacer(),
+                // Expanded(
+                //   flex: 1,
+                //   child: context.surahNameWidget(
+                //     quranCtrl.getSurahNumberFromPage(index).toString(),
+                //     const Color(0xff77554B),
+                //   ),
+                // ),
                 const Gap(16),
                 Text(
-                  '${'juz'.tr}: ${generalCtrl.convertNumbers(quranCtrl.pages[index + 1].first.juz.toString())}',
+                  '${'juz'.tr}: ${generalCtrl.convertNumbers(quranCtrl.getJuzByPage(index).juz.toString())}',
                   style: TextStyle(
                       fontSize: context.customOrientation(18.0, 22.0),
                       // fontWeight: FontWeight.bold,
@@ -69,6 +71,20 @@ class TopTitleWidget extends StatelessWidget {
             )
           : Row(
               children: [
+                // Expanded(
+                //   flex: 2,
+                //   child: context.surahNameWidget(
+                //     quranCtrl.getSurahNumberFromPage(index).toString(),
+                //     const Color(0xff77554B),
+                //   ),
+                // ),
+                // const Spacer(),
+                // Expanded(
+                //     flex: 2,
+                //     child: customSvg(
+                //       'assets/svg/juz/${quranCtrl.getJuzByPage(index).juz}.svg',
+                //       color: const Color(0xff77554B),
+                //     )),
                 Text(
                   quranCtrl.getSurahNameFromPage(index),
                   style: TextStyle(
@@ -79,7 +95,7 @@ class TopTitleWidget extends StatelessWidget {
                 ),
                 const Spacer(),
                 Text(
-                  '${'juz'.tr}: ${generalCtrl.convertNumbers(quranCtrl.pages[index].first.juz.toString())}',
+                  '${'juz'.tr}: ${generalCtrl.convertNumbers(quranCtrl.getJuzByPage(index).juz.toString())}',
                   style: TextStyle(
                       fontSize: context.customOrientation(18.0, 22.0),
                       // fontWeight: FontWeight.bold,
@@ -89,23 +105,10 @@ class TopTitleWidget extends StatelessWidget {
                 const Gap(16),
                 GestureDetector(
                   onTap: () {
-                    if (bookmarkCtrl.isPageBookmarked(index + 1)) {
-                      bookmarkCtrl.deleteBookmarks(index + 1, context);
-                    } else {
-                      bookmarkCtrl
-                          .addAyahBookmark(
-                              index + 1,
-                              quranCtrl.getSurahNameFromPage(index + 1),
-                              generalCtrl.timeNow.dateNow)
-                          .then((value) => context
-                              .showCustomErrorSnackBar('addBookmark'.tr));
-                      print('addBookmark');
-                      print('${generalCtrl.timeNow.dateNow}');
-                      // bookmarkCtrl
-                      //     .savelastBookmark(index + 1);
-                    }
+                    bookmarkCtrl.addPageBookmarkOnTap(context, index);
                   },
-                  child: bookmarkIcon(context, 30.0, 30.0),
+                  child: bookmarkIcon(
+                      width: context.customOrientation(20.w, 15.w)),
                 ),
               ],
             ),

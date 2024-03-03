@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 
 import '../../../../core/services/services_locator.dart';
 import '../../../../core/utils/constants/lottie.dart';
+import '../../../../core/utils/constants/lottie_constants.dart';
 import '../../../controllers/azkar_controller.dart';
 import '../widgets/options_row.dart';
 import '../widgets/text_widget.dart';
@@ -23,7 +24,8 @@ class AzkarFav extends StatelessWidget {
           Expanded(
             child: Obx(() {
               if (azkarCtrl.azkarList.isEmpty) {
-                return open_book(height: 250.0, width: 250.0);
+                return customLottie(LottieConstants.assetsLottieOpenBook,
+                    height: 250.0, width: 250.0);
               } else {
                 return AnimationLimiter(
                   child: Align(

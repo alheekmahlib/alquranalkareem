@@ -4,6 +4,7 @@ import 'package:just_audio/just_audio.dart';
 
 import '../../../../../../core/services/services_locator.dart';
 import '../../../../../../core/utils/constants/lottie.dart';
+import '../../../../../core/utils/constants/lottie_constants.dart';
 import '../../../../../core/utils/constants/svg_picture.dart';
 import '../../../../controllers/playList_controller.dart';
 
@@ -75,7 +76,8 @@ class PlayListPlayButton extends StatelessWidget {
                   final playing = playerState?.playing;
                   if (processingState == ProcessingState.loading ||
                       processingState == ProcessingState.buffering) {
-                    return playButtonLottie(20.0, 20.0);
+                    return customLottie(LottieConstants.assetsLottiePlayButton,
+                        width: 20.0, height: 20.0);
                   } else if (playing != true) {
                     return GestureDetector(
                       child: play_arrow(height: 25.0),

@@ -12,7 +12,7 @@ import '../screens/ourApp/data/models/ourApp_model.dart';
 class OurAppsController extends GetxController {
   Future<List<OurAppInfo>> fetchApps() async {
     final response = await http.get(Uri.parse(
-        'https://raw.githubusercontent.com/alheekmahlib/thegarlanded/master/ourApps.json'));
+        'https://raw.githubusercontent.com/alheekmahlib/thegarlanded/master/ourAppV2.json'));
 
     if (response.statusCode == 200) {
       List<dynamic> jsonData = jsonDecode(response.body);

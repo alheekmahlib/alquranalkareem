@@ -99,11 +99,11 @@ class ChangeTafsir extends StatelessWidget {
                             : null,
                       ),
                       onTap: () async {
-                        print("IconButton pressed, calling updateTextText");
                         sl<AyatController>().handleRadioValueChanged(index);
                         await sl<SharedPreferences>()
                             .setInt(TAFSEER_VAL, index);
                         sl<TranslateDataController>().fetchTranslate(context);
+                        sl<AyatController>().update();
                         Get.back();
                       },
                       leading: Container(

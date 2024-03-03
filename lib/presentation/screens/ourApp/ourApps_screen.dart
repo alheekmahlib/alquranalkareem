@@ -40,64 +40,60 @@ class OurApps extends StatelessWidget {
             )),
         leadingWidth: 56,
       ),
-      body: Directionality(
-        textDirection: TextDirection.rtl,
-        child: context.customOrientation(
-            Column(
-              children: [
-                const Gap(32),
-                splash_icon_s(
-                  height: 200.0,
+      body: context.customOrientation(
+          Column(
+            children: [
+              const Gap(32),
+              splash_icon_s(
+                height: 200.0,
+              ),
+              const Gap(32),
+              ContainerWithLines(
+                linesColor: Theme.of(context).colorScheme.primary,
+                containerColor:
+                    Theme.of(context).colorScheme.surface.withOpacity(.15),
+                child: const OurAppsBuild(),
+              ),
+              const Spacer(),
+              Padding(
+                padding: const EdgeInsets.only(bottom: 32.0),
+                child: alheekmah_logo(
+                    width: 80.w, color: Theme.of(context).colorScheme.primary),
+              ),
+            ],
+          ),
+          Row(
+            children: [
+              Expanded(
+                flex: 4,
+                child: Column(
+                  children: [
+                    splash_icon_s(
+                      height: 150.0,
+                    ),
+                    const Spacer(),
+                    Padding(
+                      padding: context.customOrientation(
+                          const EdgeInsets.symmetric(vertical: 40.0).r,
+                          const EdgeInsets.symmetric(vertical: 32.0).r),
+                      child: alheekmah_logo(
+                          width: 80.w,
+                          color: Theme.of(context).colorScheme.surface),
+                    ),
+                  ],
                 ),
-                const Gap(32),
-                ContainerWithLines(
+              ),
+              Expanded(
+                flex: 4,
+                child: ContainerWithLines(
                   linesColor: Theme.of(context).colorScheme.primary,
                   containerColor:
                       Theme.of(context).colorScheme.surface.withOpacity(.15),
                   child: const OurAppsBuild(),
                 ),
-                const Spacer(),
-                Padding(
-                  padding: const EdgeInsets.only(bottom: 32.0),
-                  child: alheekmah_logo(
-                      width: 80.w,
-                      color: Theme.of(context).colorScheme.primary),
-                ),
-              ],
-            ),
-            Row(
-              children: [
-                Expanded(
-                  flex: 4,
-                  child: Column(
-                    children: [
-                      splash_icon_s(
-                        height: 150.0,
-                      ),
-                      const Spacer(),
-                      Padding(
-                        padding: context.customOrientation(
-                            const EdgeInsets.symmetric(vertical: 40.0).r,
-                            const EdgeInsets.symmetric(vertical: 32.0).r),
-                        child: alheekmah_logo(
-                            width: 80.w,
-                            color: Theme.of(context).colorScheme.surface),
-                      ),
-                    ],
-                  ),
-                ),
-                Expanded(
-                  flex: 4,
-                  child: ContainerWithLines(
-                    linesColor: Theme.of(context).colorScheme.primary,
-                    containerColor:
-                        Theme.of(context).colorScheme.surface.withOpacity(.15),
-                    child: const OurAppsBuild(),
-                  ),
-                ),
-              ],
-            )),
-      ),
+              ),
+            ],
+          )),
     );
   }
 }

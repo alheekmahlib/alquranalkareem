@@ -10,7 +10,7 @@ TextSpan span({
   required String text,
   required int pageIndex,
   required bool isSelected,
-  required double fontSize,
+  double? fontSize,
   required int surahNum,
   required int ayahNum,
   LongPressStartDetailsFunction? onLongPressStart,
@@ -31,7 +31,7 @@ TextSpan span({
           fontFamily: 'page${pageIndex + 1}',
           fontSize: fontSize,
           height: 2,
-          letterSpacing: 8,
+          letterSpacing: 20,
           color: Get.theme.colorScheme.inversePrimary,
           backgroundColor: quranCtrl.isPages.value == 1
               ? Colors.transparent
@@ -98,7 +98,7 @@ TextSpan span({
         letterSpacing: 2,
         color: sl<BookmarksController>().hasBookmark(surahNum, ayahNum).value
             ? Get.theme.colorScheme.inversePrimary
-            : const Color(0xffa24308),
+            : const Color(0xff77554B),
         backgroundColor: quranCtrl.isPages.value == 1
             ? Colors.transparent
             : sl<BookmarksController>().hasBookmark(surahNum, ayahNum).value

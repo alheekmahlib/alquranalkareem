@@ -86,18 +86,21 @@ class SurahAudioList extends StatelessWidget {
                                                                   .primary,
                                                               BlendMode.srcIn),
                                                     )),
-                                                Text(
-                                                  surahAudioCtrl.arabicNumber
-                                                      .convert(
-                                                          surah.surahNumber),
-                                                  style: TextStyle(
-                                                      color: Theme.of(context)
-                                                          .hintColor,
-                                                      fontFamily: "kufi",
-                                                      fontSize: 14,
-                                                      fontWeight:
-                                                          FontWeight.bold,
-                                                      height: 2),
+                                                Transform.translate(
+                                                  offset: const Offset(0, 1),
+                                                  child: Text(
+                                                    surahAudioCtrl.arabicNumber
+                                                        .convert(
+                                                            surah.surahNumber),
+                                                    style: TextStyle(
+                                                        color: Theme.of(context)
+                                                            .hintColor,
+                                                        fontFamily: "kufi",
+                                                        fontSize: 14,
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                        height: 2),
+                                                  ),
                                                 ),
                                               ],
                                             ),

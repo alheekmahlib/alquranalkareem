@@ -1,9 +1,13 @@
+import 'package:alquranalkareem/core/utils/constants/extensions/extensions.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 
 import '../../../services/services_locator.dart';
+import '../size_config.dart';
 import '../svg_picture.dart';
 import '/presentation/controllers/quran_controller.dart';
 import '/presentation/controllers/theme_controller.dart';
@@ -27,19 +31,21 @@ extension CustomSurahNameWithBannerExtension on BuildContext {
         alignment: Alignment.center,
         children: [
           child,
-          surahNameWidget(number, Get.theme.hintColor),
+          surahNameWidget(number, Get.theme.hintColor,
+              height: getProportionateScreenWidth(25.h)),
         ],
       ),
     );
   }
 
   Widget surahBannerWidget(String number) {
+    final customWidth = this.customOrientation(Get.width * .3, Get.width * .15);
     if (themeCtrl.isBlueMode) {
-      return bannerWithSurahName(surah_banner1(), number);
+      return bannerWithSurahName(surah_banner1(height: customWidth), number);
     } else if (themeCtrl.isBrownMode) {
-      return bannerWithSurahName(surah_banner2(), number);
+      return bannerWithSurahName(surah_banner2(height: customWidth), number);
     } else {
-      return bannerWithSurahName(surah_banner3(), number);
+      return bannerWithSurahName(surah_banner3(height: customWidth), number);
     }
   }
 
@@ -87,7 +93,7 @@ extension CustomSurahNameWithBannerExtension on BuildContext {
   Widget surahBannerLastPlace(int pageIndex, int i) {
     final ayahs =
         quranCtrl.getCurrentPageAyahsSeparatedForBasmalah(pageIndex)[i];
-    return pageIndex == quranCtrl.lastPlaceBannerPageIndex
+    return quranCtrl.downThePageIndex.contains(pageIndex)
         ? surahBannerWidget(
             (quranCtrl.getSurahNumberByAyah(ayahs.first) + 1).toString())
         : const SizedBox.shrink();
@@ -97,7 +103,7 @@ extension CustomSurahNameWithBannerExtension on BuildContext {
     final ayahs =
         quranCtrl.getCurrentPageAyahsSeparatedForBasmalah(pageIndex)[i];
     return ayahs.first.ayahNumber == 1
-        ? pageIndex == quranCtrl.firstPlaceBannerPageIndex
+        ? quranCtrl.topOfThePageIndex.contains(pageIndex)
             ? const SizedBox.shrink()
             : surahBannerWidget(
                 quranCtrl.getSurahNumberByAyah(ayahs.first).toString())

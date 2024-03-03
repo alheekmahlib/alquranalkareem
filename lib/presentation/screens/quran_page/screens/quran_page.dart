@@ -1,5 +1,6 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:gap/gap.dart';
+import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 
 import '../../../../core/services/services_locator.dart';
@@ -22,8 +23,6 @@ class QuranPages extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     bookmarkCtrl.getBookmarks();
-    final size = MediaQuery.sizeOf(context);
-
     return SafeArea(
       child: GetBuilder<GeneralController>(
         builder: (generalCtrl) => GestureDetector(
@@ -33,52 +32,114 @@ class QuranPages extends StatelessWidget {
           child: PageView.builder(
             controller: generalCtrl.pageController,
             itemCount: 604,
+            padEnds: false,
             scrollDirection: Axis.horizontal,
             physics: const ClampingScrollPhysics(),
             onPageChanged: generalCtrl.pageChanged,
             itemBuilder: (_, index) {
               sl<TranslateDataController>().fetchTranslate(context);
-              return index.isEven
-                  ? RightPage(
-                      child: ListView(
-                        children: [
-                          TopTitleWidget(index: index, isRight: true),
-                          Gap(size.height * .04),
-                          PagesWidget(pageIndex: index),
-                          Gap(size.height * .04),
-                          Center(
-                            child: Text(
-                              '${generalCtrl.convertNumbers('${index + 1}')}',
-                              style: TextStyle(
-                                  fontSize:
-                                      context.customOrientation(18.0, 22.0),
-                                  fontFamily: 'naskh',
-                                  color: const Color(0xff77554B)),
+              return context.customOrientation(
+                  index.isEven
+                      ? RightPage(
+                          child: Column(
+                            children: [
+                              Expanded(
+                                flex: 1,
+                                child: Align(
+                                    alignment: Alignment.topCenter,
+                                    child: TopTitleWidget(
+                                        index: index, isRight: true)),
+                              ),
+                              Expanded(
+                                  flex: 10,
+                                  child: FittedBox(
+                                      fit: BoxFit.scaleDown,
+                                      child: PagesWidget(pageIndex: index))),
+                              Expanded(
+                                flex: 1,
+                                child: Align(
+                                  alignment: Alignment.bottomCenter,
+                                  child: Text(
+                                    '${generalCtrl.convertNumbers('${index + 1}')}',
+                                    style: TextStyle(
+                                        fontSize: context.customOrientation(
+                                            18.0, 22.0),
+                                        fontFamily: 'naskh',
+                                        color: const Color(0xff77554B)),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        )
+                      : LeftPage(
+                          child: Column(
+                            children: [
+                              Expanded(
+                                  flex: 1,
+                                  child: Align(
+                                      alignment: Alignment.topCenter,
+                                      child: TopTitleWidget(
+                                          index: index, isRight: false))),
+                              Expanded(
+                                  flex: 10,
+                                  child: FittedBox(
+                                      fit: BoxFit.scaleDown,
+                                      child: PagesWidget(pageIndex: index))),
+                              Expanded(
+                                flex: 1,
+                                child: Align(
+                                  alignment: Alignment.bottomCenter,
+                                  child: Text(
+                                    '${generalCtrl.convertNumbers('${index + 1}')}',
+                                    style: TextStyle(
+                                        fontSize: context.customOrientation(
+                                            18.0, 22.0),
+                                        fontFamily: 'naskh',
+                                        color: const Color(0xff77554B)),
+                                  ),
+                                ),
+                              )
+                            ],
+                          ),
+                        ),
+                  index.isEven
+                      ? RightPage(
+                          child: SingleChildScrollView(
+                            child: Column(
+                              children: [
+                                TopTitleWidget(index: index, isRight: true),
+                                PagesWidget(pageIndex: index),
+                                Text(
+                                  '${generalCtrl.convertNumbers('${index + 1}')}',
+                                  style: TextStyle(
+                                      fontSize:
+                                          context.customOrientation(18.0, 22.0),
+                                      fontFamily: 'naskh',
+                                      color: const Color(0xff77554B)),
+                                ),
+                              ],
                             ),
                           ),
-                        ],
-                      ),
-                    )
-                  : LeftPage(
-                      child: ListView(
-                        children: [
-                          TopTitleWidget(index: index, isRight: false),
-                          Gap(size.height * .04),
-                          PagesWidget(pageIndex: index),
-                          Gap(size.height * .04),
-                          Center(
-                            child: Text(
-                              '${generalCtrl.convertNumbers('${index + 1}')}',
-                              style: TextStyle(
-                                  fontSize:
-                                      context.customOrientation(18.0, 22.0),
-                                  fontFamily: 'naskh',
-                                  color: const Color(0xff77554B)),
+                        )
+                      : LeftPage(
+                          child: SingleChildScrollView(
+                            child: Column(
+                              children: [
+                                TopTitleWidget(index: index, isRight: false),
+                                PagesWidget(pageIndex: index),
+                                Text(
+                                  '${generalCtrl.convertNumbers('${index + 1}')}',
+                                  style: TextStyle(
+                                      fontSize:
+                                          context.customOrientation(18.0, 22.0),
+                                      fontFamily: 'naskh',
+                                      color: const Color(0xff77554B)),
+                                )
+                              ],
                             ),
-                          )
-                        ],
-                      ),
-                    );
+                          ),
+                        ));
             },
           ),
         ),

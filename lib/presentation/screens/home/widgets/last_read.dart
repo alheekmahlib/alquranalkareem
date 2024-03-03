@@ -1,3 +1,4 @@
+import 'package:alquranalkareem/core/utils/constants/lottie_constants.dart';
 import 'package:alquranalkareem/presentation/controllers/quran_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -19,8 +20,9 @@ class LastRead extends StatelessWidget {
     final quranCtrl = sl<QuranController>();
     return GestureDetector(
       onTap: () {
-        Get.to(() => QuranHome(), transition: Transition.downToUp);
-        quranCtrl.changeSurahListOnTap(generalCtrl.currentPageNumber.value);
+        Get.to(() => QuranHome(), transition: Transition.downToUp)!.then(
+            (value) => quranCtrl
+                .changeSurahListOnTap(generalCtrl.currentPageNumber.value + 1));
       },
       child: Container(
         height: 125,
@@ -102,10 +104,14 @@ class LastRead extends StatelessWidget {
                                 generalCtrl.checkRtlLayout(
                                     RotatedBox(
                                         quarterTurns: 15,
-                                        child: arrow(height: 50.0)),
+                                        child: customLottie(
+                                            LottieConstants.assetsLottieArrow,
+                                            height: 50.0)),
                                     RotatedBox(
                                         quarterTurns: 25,
-                                        child: arrow(height: 50.0))),
+                                        child: customLottie(
+                                            LottieConstants.assetsLottieArrow,
+                                            height: 50.0))),
                               ],
                             )
                           ],

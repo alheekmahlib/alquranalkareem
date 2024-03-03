@@ -1,3 +1,4 @@
+import 'package:alquranalkareem/core/utils/constants/lottie_constants.dart';
 import 'package:easy_image_viewer/easy_image_viewer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -78,7 +79,8 @@ class PostPage extends StatelessWidget {
             builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
                 return Center(
-                  child: loadingLottie(200.0, 200.0),
+                  child: customLottie(LottieConstants.assetsLottieLoading,
+                      width: 200.0, height: 200.0),
                 );
               } else if (snapshot.hasError) {
                 return SelectableText('Error: ${snapshot.error}');

@@ -59,14 +59,15 @@ extension ContextExtensions on BuildContext {
     );
   }
 
-  Widget fontSizeDropDown({double? height}) {
+  Widget fontSizeDropDown({double? height, Color? color}) {
     return PopupMenuButton(
       position: PopupMenuPosition.under,
       icon: Semantics(
         button: true,
         enabled: true,
         label: 'Change Font Size',
-        child: font_size(height: height, color: Get.theme.colorScheme.surface),
+        child: font_size(
+            height: height, color: color ?? Get.theme.colorScheme.surface),
       ),
       color: Get.theme.colorScheme.primary.withOpacity(.8),
       iconSize: height ?? 35.0,

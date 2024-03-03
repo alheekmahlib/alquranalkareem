@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 
@@ -10,7 +11,7 @@ import '../../services/services_locator.dart';
 Widget besmAllah() {
   return SvgPicture.asset(
     'assets/svg/besmAllah.svg',
-    height: 30,
+    height: 30.h,
     colorFilter:
         ColorFilter.mode(Get.theme.cardColor.withOpacity(.8), BlendMode.srcIn),
   );
@@ -19,7 +20,7 @@ Widget besmAllah() {
 Widget besmAllah2() {
   return SvgPicture.asset(
     'assets/svg/besmAllah2.svg',
-    height: 30,
+    height: 30.h,
     colorFilter:
         ColorFilter.mode(Get.theme.cardColor.withOpacity(.8), BlendMode.srcIn),
   );
@@ -36,31 +37,19 @@ Widget spaceLine(double height, width) {
   );
 }
 
-Widget quranIcon({double? height, double? width}) {
-  return SvgPicture.asset(
-    'assets/svg/quran_au_ic.svg',
-    colorFilter:
-        ColorFilter.mode(Get.theme.colorScheme.surface, BlendMode.srcIn),
-    width: width,
-    height: height,
-  );
-}
-
-Widget bookmarkIcon(BuildContext context, double height, double width,
-    {int? pageNum}) {
+Widget bookmarkIcon({double? height, double? width, int? pageNum}) {
   return Obx(() {
     return Semantics(
       button: true,
       enabled: true,
       label: 'Add Bookmark',
       child: SvgPicture.asset(
-        'assets/svg/bookmark_ic.svg',
+        sl<BookmarksController>().isPageBookmarked(
+                pageNum ?? sl<GeneralController>().currentPageNumber.value)
+            ? 'assets/svg/bookmarked.svg'
+            : 'assets/svg/bookmark.svg',
         width: width,
         height: height,
-        colorFilter: sl<BookmarksController>().isPageBookmarked(
-                pageNum ?? sl<GeneralController>().currentPageNumber.value)
-            ? const ColorFilter.mode(Color(0xffa24308), BlendMode.srcIn)
-            : const ColorFilter.mode(Color(0xffCD9974), BlendMode.srcIn),
       ),
     );
   });
@@ -152,14 +141,6 @@ Widget slider_ic2({double? height, double? width}) {
   );
 }
 
-Widget azkar_b({double? height, double? width}) {
-  return SvgPicture.asset(
-    'assets/svg/azkar_b.svg',
-    width: width,
-    height: height ?? 60,
-  );
-}
-
 Widget font_size({double? height, double? width, Color? color}) {
   return Transform.translate(
     offset: const Offset(0, -5),
@@ -200,14 +181,6 @@ Widget play_arrow({double? height, double? width}) {
 Widget pause_arrow({double? height, double? width}) {
   return SvgPicture.asset(
     'assets/svg/pause_arrow.svg',
-    width: width,
-    height: height ?? 60,
-  );
-}
-
-Widget play_page({double? height, double? width}) {
-  return SvgPicture.asset(
-    'assets/svg/play_page.svg',
     width: width,
     height: height ?? 60,
   );
@@ -256,14 +229,6 @@ Widget copy_icon({double? height, double? width}) {
 Widget share_icon({double? height, double? width}) {
   return SvgPicture.asset(
     'assets/svg/share_icon.svg',
-    width: width,
-    height: height ?? 60,
-  );
-}
-
-Widget books_icon({double? height, double? width}) {
-  return SvgPicture.asset(
-    'assets/svg/books.svg',
     width: width,
     height: height ?? 60,
   );
@@ -354,6 +319,16 @@ Widget alheekmah_logo({double? height, double? width, Color? color}) {
     'assets/svg/alheekmah_logo.svg',
     width: width,
     height: height ?? 35,
+    colorFilter: ColorFilter.mode(
+        color ?? Get.theme.colorScheme.secondary, BlendMode.srcIn),
+  );
+}
+
+Widget customSvg(String path, {double? height, double? width, Color? color}) {
+  return SvgPicture.asset(
+    path,
+    width: width,
+    height: height,
     colorFilter: ColorFilter.mode(
         color ?? Get.theme.colorScheme.secondary, BlendMode.srcIn),
   );

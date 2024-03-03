@@ -1,3 +1,4 @@
+import 'package:alquranalkareem/core/utils/constants/lottie_constants.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -70,7 +71,8 @@ class QuranSearch extends StatelessWidget {
                     ),
                   );
                 } else {
-                  return notFound();
+                  return customLottie(LottieConstants.assetsLottieNotFound,
+                      height: 200.0, width: 200.0);
                 }
               },
             ),
@@ -78,8 +80,10 @@ class QuranSearch extends StatelessWidget {
               flex: 9,
               child: Obx(
                 () {
-                  if (ayahCtrl.ayahList.isEmpty) {
-                    return search(200.0, 200.0);
+                  if (ayahCtrl.ayahList.isEmpty ||
+                      ayahCtrl.searchTextEditing.text.length <= 0) {
+                    return customLottie(LottieConstants.assetsLottieSearch,
+                        width: 200.0, height: 200.0);
                   } else if (ayahCtrl.ayahList.isNotEmpty) {
                     return ListView.builder(
                       controller: ayahCtrl.scrollController,
@@ -152,7 +156,7 @@ class QuranSearch extends StatelessWidget {
                                                 textAlign: TextAlign.center,
                                                 style: TextStyle(
                                                     color: Theme.of(context)
-                                                        .hintColor,
+                                                        .canvasColor,
                                                     fontSize: 12),
                                               )),
                                         ),
@@ -172,7 +176,7 @@ class QuranSearch extends StatelessWidget {
                                                 textAlign: TextAlign.center,
                                                 style: TextStyle(
                                                     color: Theme.of(context)
-                                                        .hintColor,
+                                                        .canvasColor,
                                                     fontSize: 12),
                                               )),
                                         ),
@@ -191,7 +195,8 @@ class QuranSearch extends StatelessWidget {
                       },
                     );
                   } else {
-                    return notFound();
+                    return customLottie(LottieConstants.assetsLottieNotFound,
+                        height: 200.0, width: 200.0);
                   }
                 },
               ),

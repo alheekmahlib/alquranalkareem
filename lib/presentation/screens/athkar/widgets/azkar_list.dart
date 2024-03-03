@@ -1,3 +1,4 @@
+import 'package:alquranalkareem/core/utils/constants/lottie_constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:gap/gap.dart';
@@ -20,7 +21,8 @@ class AzkarList extends StatelessWidget {
         Column(
           children: [
             const Gap(32),
-            azkar(height: 120),
+            customLottie(LottieConstants.assetsLottieAzkar,
+                height: 120, isRepeat: false),
             const Gap(32),
             Flexible(
               child: Container(
@@ -224,7 +226,10 @@ class AzkarList extends StatelessWidget {
                 ),
               ),
             ),
-            Expanded(flex: 4, child: azkar(height: 120)),
+            Expanded(
+                flex: 4,
+                child: customLottie(LottieConstants.assetsLottieAzkar,
+                    height: 120, isRepeat: false)),
           ],
         ));
   }

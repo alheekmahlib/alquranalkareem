@@ -37,7 +37,10 @@ class AyahsPlayListWidget extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                context.customClose(),
+                context.customClose(close: () {
+                  playList.isSelect.value = false;
+                  Get.back();
+                }),
                 Text(
                   'createPlayList'.tr,
                   style: TextStyle(
@@ -71,7 +74,9 @@ class AyahsPlayListWidget extends StatelessWidget {
             ),
             const Gap(16),
             PlayListBuild(),
-            const PlayListPlayWidget(),
+            Obx(() => playList.isSelect.value
+                ? const PlayListPlayWidget()
+                : const SizedBox.shrink()),
           ],
         ),
       ),

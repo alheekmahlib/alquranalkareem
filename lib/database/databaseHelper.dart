@@ -12,7 +12,7 @@ import '/presentation/screens/quran_page/data/model/bookmark.dart';
 
 class DatabaseHelper {
   static Database? _db;
-  static const int _version = 7;
+  static const int _version = 8;
   static const String tableNote = 'noteTable';
   static const String tableBookmarks = 'bookmarkTable';
   static const String tableBookmarksText = 'bookmarkTextTable';

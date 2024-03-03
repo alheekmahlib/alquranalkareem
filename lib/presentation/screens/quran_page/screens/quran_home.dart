@@ -3,6 +3,7 @@ import 'package:flutter_slider_drawer/flutter_slider_drawer.dart';
 import 'package:get/get.dart';
 
 import '../../../../core/services/services_locator.dart';
+import '../../../../core/utils/constants/size_config.dart';
 import '../../../../core/utils/helpers/global_key_manager.dart';
 import '../../../../core/widgets/tab_bar_widget.dart';
 import '../../../../database/notificationDatabase.dart';
@@ -34,6 +35,7 @@ class QuranHome extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     GlobalKeyManager().resetDrawerKey();
+    SizeConfig().init(context);
     NotificationDatabaseHelper.loadNotifications();
     return Scaffold(
       resizeToAvoidBottomInset: true,

@@ -5,17 +5,17 @@ import '../data_source/data_client.dart';
 import '../model/aya.dart';
 
 class AyaRepository {
-  // DataBaseClient? _client;
-  // AyaRepository() {
-  //   _client = DataBaseClient.instance;
-  // }
+  Future<Database?> getDatabase() async {
+    try {
+      return await sl<DataBaseClient>().database;
+    } catch (e) {
+      throw DatabaseException("Database connection failed: ${e.toString()}");
+    }
+  }
 
   Future<List<Aya>> search(String text) async {
-    // Attempt to get a database instance.
-    Database? database = await sl<DataBaseClient>().database;
-    if (database == null) {
-      throw DatabaseException("Database connection failed.");
-    }
+    final Database? database = await getDatabase();
+    if (database == null) throw DatabaseException("Database is not available");
 
     List<Aya> ayaList = [];
     try {
@@ -82,55 +82,6 @@ class AyaRepository {
       print("Error in search: $e");
       throw DatabaseException("An error occurred during the search operation.");
     }
-
-    return ayaList;
-  }
-
-  Future<List<Aya>> getPage(int pageNum) async {
-    Database? database = await sl<DataBaseClient>().database;
-    List<Aya> ayaList = [];
-    await database?.transaction((txn) async {
-      List<Map>? results = await txn.query(
-        Aya.tableName,
-        columns: Aya.columns,
-        where: "PageNum = $pageNum",
-      );
-      for (var result in results) {
-        ayaList.add(Aya.fromMap(result));
-      }
-    });
-    return ayaList;
-  }
-
-  Future<List<Aya>> allTafseer(int ayahNum) async {
-    Database? database = await sl<DataBaseClient>().database;
-    List<Map>? results = await database?.transaction((txn) async {
-      return await txn.query(
-        Aya.tableName,
-        columns: Aya.columns,
-        where: "PageNum = $ayahNum",
-      );
-    });
-    List<Aya> ayaList = [];
-    results?.forEach((result) {
-      ayaList.add(Aya.fromMap(result));
-    });
-    return ayaList;
-  }
-
-  Future<List<Aya>> all() async {
-    Database? database = await sl<DataBaseClient>().database;
-    List<Aya> ayaList = [];
-
-    await database!.transaction((txn) async {
-      List<Map>? results = await txn.query(
-        Aya.tableName,
-        columns: Aya.columns,
-      );
-      for (var result in results) {
-        ayaList.add(Aya.fromMap(result));
-      }
-    });
 
     return ayaList;
   }

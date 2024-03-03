@@ -75,12 +75,16 @@ class SearchBarWidget extends StatelessWidget {
             ),
           ),
           onChanged: (query) {
-            if (query.length > 3) ayahCtrl.surahSearch(query);
-            if (query.length > 3) ayahCtrl.search(query);
+            if (ayahCtrl.searchTextEditing.text.isNotEmpty) {
+              ayahCtrl.surahSearch(query);
+              ayahCtrl.search(query);
+            }
           },
           onSubmitted: (query) {
-            ayahCtrl.surahSearch(query);
-            ayahCtrl.search(query);
+            if (query.length <= 0) {
+              ayahCtrl.surahSearch(query);
+              ayahCtrl.search(query);
+            }
             // await sl<QuranSearchControllers>().addSearchItem(query);
             // searchCtrl.textSearchController.clear();
           },

@@ -25,14 +25,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.0.3"
-  animated_toggle_switch:
-    dependency: "direct main"
-    description:
-      name: animated_toggle_switch
-      sha256: "19afc84373ad0fca147869e1b984afb3778ea8080f8d0af4fd1ff604d41b2635"
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.8.0"
   animations:
     dependency: "direct main"
     description:
@@ -234,7 +226,7 @@ packages:
     source: hosted
     version: "4.10.0"
   collection:
-    dependency: "direct main"
+    dependency: transitive
     description:
       name: collection
       sha256: ee67cb0715911d28db6bf4af1026078bd6f0128b07a5f66fb2ed94ec6783c09a
@@ -349,34 +341,18 @@ packages:
     dependency: "direct main"
     description:
       name: dio
-      sha256: "797e1e341c3dd2f69f2dad42564a6feff3bfb87187d05abb93b9609e6f1645c3"
+      sha256: "49af28382aefc53562459104f64d16b9dfd1e8ef68c862d5af436cc8356ce5a8"
       url: "https://pub.dev"
     source: hosted
-    version: "5.4.0"
-  drift:
-    dependency: "direct main"
-    description:
-      name: drift
-      sha256: "3b276c838ff7f8e19aac18a51f9b388715268f3534eaaf8047c8455ef3c1738d"
-      url: "https://pub.dev"
-    source: hosted
-    version: "2.16.0"
+    version: "5.4.1"
   easy_image_viewer:
     dependency: "direct main"
     description:
       name: easy_image_viewer
-      sha256: "6d765e9040a6e625796b387140b95f23318f25a448bf2647af30d17a77cea022"
+      sha256: "750bb85e0a34504557d378a616110540caeec2324490fc040709589219e75834"
       url: "https://pub.dev"
     source: hosted
-    version: "1.4.0"
-  equatable:
-    dependency: "direct main"
-    description:
-      name: equatable
-      sha256: c2b87cb7756efdf69892005af546c56c0b5037f54d2a88269b4f347a505e3ca2
-      url: "https://pub.dev"
-    source: hosted
-    version: "2.0.5"
+    version: "1.4.1"
   expansion_tile_card:
     dependency: "direct main"
     description:
@@ -467,14 +443,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.3.9"
-  flutter_popup:
-    dependency: "direct main"
-    description:
-      name: flutter_popup
-      sha256: "43f74ed30f7ebe2ef8d0b2e94c0dc2bdfb8286623d27333f4303b4daf80893b8"
-      url: "https://pub.dev"
-    source: hosted
-    version: "3.1.8"
   flutter_rating_bar:
     dependency: transitive
     description:
@@ -507,14 +475,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.1.5"
-  flutter_sliding_up_panel:
-    dependency: "direct main"
-    description:
-      name: flutter_sliding_up_panel
-      sha256: "94f928973d83e146bbc52051e2d9f2a7ed7a5c9e7f04b54d835fff2e41d6cb99"
-      url: "https://pub.dev"
-    source: hosted
-    version: "2.1.1"
   flutter_staggered_animations:
     dependency: "direct main"
     description:
@@ -527,10 +487,10 @@ packages:
     dependency: "direct main"
     description:
       name: flutter_svg
-      sha256: d39e7f95621fc84376bc0f7d504f05c3a41488c562f4a8ad410569127507402c
+      sha256: "7b4ca6cf3304575fe9c8ec64813c8d02ee41d2afe60bcfe0678bcb5375d596a2"
       url: "https://pub.dev"
     source: hosted
-    version: "2.0.9"
+    version: "2.0.10+1"
   flutter_test:
     dependency: "direct dev"
     description: flutter
@@ -661,14 +621,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "4.3.1"
-  interactive_slider:
-    dependency: "direct main"
-    description:
-      name: interactive_slider
-      sha256: f90020cd1f1376fc8c0a099f48432d25bb2128cef95f9f72acc71e06c5f7d622
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.2.2"
   intl:
     dependency: transitive
     description:
@@ -777,10 +729,10 @@ packages:
     dependency: "direct main"
     description:
       name: lottie
-      sha256: a93542cc2d60a7057255405f62252533f8e8956e7e06754955669fd32fb4b216
+      sha256: ce2bb2605753915080e4ee47f036a64228c88dc7f56f7bc1dbe912d75b55b1e2
       url: "https://pub.dev"
     source: hosted
-    version: "2.7.0"
+    version: "3.1.0"
   matcher:
     dependency: transitive
     description:
@@ -817,10 +769,10 @@ packages:
     dependency: "direct main"
     description:
       name: mini_music_visualizer
-      sha256: "7f42d95663449595457edff06ff397de796166c95f2a1ab7fd87405200571802"
+      sha256: "095b3c5e12f4c045544432829a044a7fe1c5a7789a6d0003347c73d9bf3170cc"
       url: "https://pub.dev"
     source: hosted
-    version: "1.0.2"
+    version: "1.1.0"
   nested:
     dependency: transitive
     description:
@@ -977,10 +929,10 @@ packages:
     dependency: transitive
     description:
       name: provider
-      sha256: "9a96a0a19b594dbc5bf0f1f27d2bc67d5f95957359b461cd9feb44ed6ae75096"
+      sha256: c8a055ee5ce3fd98d6fc872478b03823ffdb448699c6ebdbbc71d59b596fd48c
       url: "https://pub.dev"
     source: hosted
-    version: "6.1.1"
+    version: "6.1.2"
   pub_semver:
     dependency: transitive
     description:
@@ -997,14 +949,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.2.3"
-  quiver:
-    dependency: "direct main"
-    description:
-      name: quiver
-      sha256: b1c1ac5ce6688d77f65f3375a9abb9319b3cb32486bdc7a1e0fdf004d7ba4e47
-      url: "https://pub.dev"
-    source: hosted
-    version: "3.2.1"
   rate_my_app:
     dependency: "direct main"
     description:
@@ -1057,10 +1001,10 @@ packages:
     dependency: "direct main"
     description:
       name: share_plus
-      sha256: f74fc3f1cbd99f39760182e176802f693fa0ec9625c045561cfad54681ea93dd
+      sha256: "3ef39599b00059db0990ca2e30fca0a29d8b37aae924d60063f8e0184cf20900"
       url: "https://pub.dev"
     source: hosted
-    version: "7.2.1"
+    version: "7.2.2"
   share_plus_platform_interface:
     dependency: transitive
     description:
@@ -1174,10 +1118,10 @@ packages:
     dependency: "direct main"
     description:
       name: sqflite
-      sha256: c2c32eb0c74021d987336522acc3b6bf0082fbd0c540c36a9cf4ddb8ba891ddc
+      sha256: a9016f495c927cb90557c909ff26a6d92d9bd54fc42ba92e19d4e79d61e798c6
       url: "https://pub.dev"
     source: hosted
-    version: "2.3.1"
+    version: "2.3.2"
   sqflite_common:
     dependency: transitive
     description:
@@ -1190,10 +1134,10 @@ packages:
     dependency: "direct main"
     description:
       name: sqflite_common_ffi
-      sha256: d0e3f0d04fdf668e57db8db1df758f56c4193cb429092c708e7bfcc6ab04b27e
+      sha256: "754927d82de369a6b9e760fb60640aa81da650f35ffd468d5a992814d6022908"
       url: "https://pub.dev"
     source: hosted
-    version: "2.3.2"
+    version: "2.3.2+1"
   sqlite3:
     dependency: transitive
     description:
@@ -1302,10 +1246,10 @@ packages:
     dependency: "direct main"
     description:
       name: url_launcher
-      sha256: c512655380d241a337521703af62d2c122bf7b77a46ff7dd750092aa9433499c
+      sha256: "0ecc004c62fd3ed36a2ffcbe0dd9700aee63bd7532d0b642a488b1ec310f492e"
       url: "https://pub.dev"
     source: hosted
-    version: "6.2.4"
+    version: "6.2.5"
   url_launcher_android:
     dependency: transitive
     description:
@@ -1374,26 +1318,26 @@ packages:
     dependency: transitive
     description:
       name: vector_graphics
-      sha256: "18f6690295af52d081f6808f2f7c69f0eed6d7e23a71539d75f4aeb8f0062172"
+      sha256: "32c3c684e02f9bc0afb0ae0aa653337a2fe022e8ab064bcd7ffda27a74e288e3"
       url: "https://pub.dev"
     source: hosted
-    version: "1.1.9+2"
+    version: "1.1.11+1"
   vector_graphics_codec:
     dependency: transitive
     description:
       name: vector_graphics_codec
-      sha256: "531d20465c10dfac7f5cd90b60bbe4dd9921f1ec4ca54c83ebb176dbacb7bb2d"
+      sha256: c86987475f162fadff579e7320c7ddda04cd2fdeffbe1129227a85d9ac9e03da
       url: "https://pub.dev"
     source: hosted
-    version: "1.1.9+2"
+    version: "1.1.11+1"
   vector_graphics_compiler:
     dependency: transitive
     description:
       name: vector_graphics_compiler
-      sha256: "03012b0a33775c5530576b70240308080e1d5050f0faf000118c20e6463bc0ad"
+      sha256: "12faff3f73b1741a36ca7e31b292ddeb629af819ca9efe9953b70bd63fc8cd81"
       url: "https://pub.dev"
     source: hosted
-    version: "1.1.9+2"
+    version: "1.1.11+1"
   vector_math:
     dependency: transitive
     description:
@@ -1450,38 +1394,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.4.0"
-  webview_flutter:
-    dependency: "direct main"
-    description:
-      name: webview_flutter
-      sha256: "71e1bfaef41016c8d5954291df5e9f8c6172f1f6ff3af01b5656456ddb11f94c"
-      url: "https://pub.dev"
-    source: hosted
-    version: "4.4.4"
-  webview_flutter_android:
-    dependency: transitive
-    description:
-      name: webview_flutter_android
-      sha256: "4ea3c4e1b8ed590162b15b8a61b41b1ef3ff179a314627c16ce40c086d94b8af"
-      url: "https://pub.dev"
-    source: hosted
-    version: "3.14.0"
-  webview_flutter_platform_interface:
-    dependency: transitive
-    description:
-      name: webview_flutter_platform_interface
-      sha256: d937581d6e558908d7ae3dc1989c4f87b786891ab47bb9df7de548a151779d8d
-      url: "https://pub.dev"
-    source: hosted
-    version: "2.10.0"
-  webview_flutter_wkwebview:
-    dependency: transitive
-    description:
-      name: webview_flutter_wkwebview
-      sha256: b99ca8d8bae9c6b43d568218691aa537fb0aeae1d7d34eadf112a6aa36d26506
-      url: "https://pub.dev"
-    source: hosted
-    version: "3.11.0"
   win32:
     dependency: transitive
     description:

@@ -4,6 +4,7 @@ import 'package:just_audio/just_audio.dart';
 
 import '../../../../core/services/services_locator.dart';
 import '../../../../core/utils/constants/lottie.dart';
+import '../../../../core/utils/constants/lottie_constants.dart';
 import '../../../../core/utils/constants/svg_picture.dart';
 import '../../../controllers/surah_audio_controller.dart';
 
@@ -65,7 +66,8 @@ class OnlinePlayButton extends StatelessWidget {
                 final processingState = playerState?.processingState;
                 final playing = playerState?.playing;
                 if (processingState == ProcessingState.buffering) {
-                  return playButtonLottie(20.0, 20.0);
+                  return customLottie(LottieConstants.assetsLottiePlayButton,
+                      width: 20.0, height: 20.0);
                 } else if (!surahAudioCtrl.isPlaying.value) {
                   return GestureDetector(
                     child: play_arrow(height: 30.0),

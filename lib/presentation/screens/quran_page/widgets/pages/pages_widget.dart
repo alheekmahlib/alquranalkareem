@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../../../core/services/services_locator.dart';
-import '../../../../../core/utils/constants/size_config.dart';
 import '../../../../controllers/bookmarks_controller.dart';
 import '../../../../controllers/quran_controller.dart';
 import '/core/utils/constants/extensions/menu_extension.dart';
@@ -23,48 +22,50 @@ class PagesWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     sl<BookmarksController>().getBookmarksText();
-    SizeConfig().init(context);
-    return GetBuilder<QuranController>(builder: (quranCtrl) {
-      return Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 8.0),
-        child: quranCtrl.pages.isEmpty
-            ? const CircularProgressIndicator.adaptive()
-            : Column(
-                children: List.generate(
-                    quranCtrl
-                        .getCurrentPageAyahsSeparatedForBasmalah(pageIndex)
-                        .length, (i) {
-                  final ayahs = quranCtrl
-                      .getCurrentPageAyahsSeparatedForBasmalah(pageIndex)[i];
-                  quranCtrl.showVerseToast(pageIndex);
-                  return Column(children: [
-                    context.surahBannerFirstPlace(pageIndex, i),
-                    quranCtrl.getSurahNumberByAyah(ayahs.first) == 9 ||
-                            quranCtrl.getSurahNumberByAyah(ayahs.first) == 1
-                        ? const SizedBox.shrink()
-                        : ayahs.first.ayahNumber == 1
-                            ? (quranCtrl.getSurahNumberByAyah(ayahs.first) ==
-                                        95 ||
-                                    quranCtrl.getSurahNumberByAyah(
-                                            ayahs.first) ==
-                                        97)
-                                ? besmAllah2()
-                                : besmAllah()
-                            : const SizedBox.shrink(),
-                    FittedBox(
-                      fit: BoxFit.scaleDown,
-                      child: Obx(() => RichText(
+    return FittedBox(
+      fit: BoxFit.fitWidth,
+      child: GetBuilder<QuranController>(builder: (quranCtrl) {
+        return Padding(
+          padding: pageIndex == 0 || pageIndex == 1
+              ? EdgeInsets.symmetric(horizontal: Get.width * .5)
+              : const EdgeInsets.symmetric(horizontal: 64.0),
+          child: quranCtrl.pages.isEmpty
+              ? const CircularProgressIndicator.adaptive()
+              : Column(
+                  children: List.generate(
+                      quranCtrl
+                          .getCurrentPageAyahsSeparatedForBasmalah(pageIndex)
+                          .length, (i) {
+                    final ayahs = quranCtrl
+                        .getCurrentPageAyahsSeparatedForBasmalah(pageIndex)[i];
+                    quranCtrl.showVerseToast(pageIndex);
+                    return Column(children: [
+                      context.surahBannerFirstPlace(pageIndex, i),
+                      quranCtrl.getSurahNumberByAyah(ayahs.first) == 9 ||
+                              quranCtrl.getSurahNumberByAyah(ayahs.first) == 1
+                          ? const SizedBox.shrink()
+                          : ayahs.first.ayahNumber == 1
+                              ? (quranCtrl.getSurahNumberByAyah(ayahs.first) ==
+                                          95 ||
+                                      quranCtrl.getSurahNumberByAyah(
+                                              ayahs.first) ==
+                                          97)
+                                  ? besmAllah2()
+                                  : besmAllah()
+                              : const SizedBox.shrink(),
+                      Obx(() => RichText(
                             textDirection: TextDirection.rtl,
                             textAlign: TextAlign.center,
                             text: TextSpan(
                               style: TextStyle(
                                 fontFamily: 'page${pageIndex + 1}',
-                                fontSize: generalCtrl.customSize(
-                                  getProportionateScreenWidth(17),
-                                  getProportionateScreenWidth(19),
-                                  getProportionateScreenWidth(19),
-                                  getProportionateScreenWidth(19),
-                                ),
+                                fontSize: 100,
+                                // fontSize: generalCtrl.customSize(
+                                //   getProportionateScreenWidth(17),
+                                //   getProportionateScreenWidth(19),
+                                //   getProportionateScreenWidth(19),
+                                //   getProportionateScreenWidth(19),
+                                // ),
                                 height: 2,
                                 letterSpacing: 2,
                                 color: Theme.of(context)
@@ -83,12 +84,13 @@ class PagesWidget extends StatelessWidget {
                                           "${ayahs[ayahIndex].code_v2[0]}${ayahs[ayahIndex].code_v2.substring(1)}",
                                       pageIndex: pageIndex,
                                       isSelected: quranCtrl.isSelected,
-                                      fontSize: generalCtrl.customSize(
-                                        getProportionateScreenWidth(17),
-                                        getProportionateScreenWidth(19),
-                                        getProportionateScreenWidth(19),
-                                        getProportionateScreenWidth(19),
-                                      ),
+                                      fontSize: 100,
+                                      // fontSize: generalCtrl.customSize(
+                                      //   getProportionateScreenWidth(17),
+                                      //   getProportionateScreenWidth(19),
+                                      //   getProportionateScreenWidth(19),
+                                      //   getProportionateScreenWidth(19),
+                                      // ),
                                       surahNum: quranCtrl
                                           .getSurahNumberFromPage(pageIndex),
                                       ayahNum: ayahs[ayahIndex].ayahUQNumber,
@@ -115,12 +117,13 @@ class PagesWidget extends StatelessWidget {
                                     text: ayahs[ayahIndex].code_v2,
                                     pageIndex: pageIndex,
                                     isSelected: quranCtrl.isSelected,
-                                    fontSize: generalCtrl.customSize(
-                                      getProportionateScreenWidth(17),
-                                      getProportionateScreenWidth(19),
-                                      getProportionateScreenWidth(19),
-                                      getProportionateScreenWidth(19),
-                                    ),
+                                    fontSize: 100,
+                                    // fontSize: generalCtrl.customSize(
+                                    //   getProportionateScreenWidth(17),
+                                    //   getProportionateScreenWidth(19),
+                                    //   getProportionateScreenWidth(19),
+                                    //   getProportionateScreenWidth(19),
+                                    // ),
                                     surahNum: quranCtrl
                                         .getSurahNumberFromPage(pageIndex),
                                     ayahNum: ayahs[ayahIndex].ayahUQNumber,
@@ -144,12 +147,12 @@ class PagesWidget extends StatelessWidget {
                               }),
                             ),
                           )),
-                    ),
-                    context.surahBannerLastPlace(pageIndex, i),
-                  ]);
-                }),
-              ),
-      );
-    });
+                      context.surahBannerLastPlace(pageIndex, i),
+                    ]);
+                  }),
+                ),
+        );
+      }),
+    );
   }
 }

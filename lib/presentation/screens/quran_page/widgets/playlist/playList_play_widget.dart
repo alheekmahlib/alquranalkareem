@@ -31,8 +31,7 @@ class PlayListPlayWidget extends StatelessWidget {
                     position: positionData?.position ?? Duration.zero,
                     bufferedPosition:
                         positionData?.bufferedPosition ?? Duration.zero,
-                    activeTrackColor: Theme.of(context).colorScheme.surface,
-                    // textColor: Theme.of(context).primaryColorLight,
+                    activeTrackColor: Theme.of(context).colorScheme.primary,
                     onChangeEnd: playList.playlistAudioPlayer.seek,
                   );
                 }

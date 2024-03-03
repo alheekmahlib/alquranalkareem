@@ -1,3 +1,4 @@
+import 'package:alquranalkareem/core/utils/constants/lottie_constants.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
@@ -22,6 +23,7 @@ class TranslateBuild extends StatelessWidget {
   Widget build(BuildContext context) {
     translateCtrl.expandedMap[ayahs[ayahIndex].ayahUQNumber - 1] =
         translateCtrl.expandedMap[ayahs[ayahIndex].ayahUQNumber - 1] ?? false;
+    translateCtrl.fetchTranslate(context);
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 8.0),
       child: Column(
@@ -33,7 +35,8 @@ class TranslateBuild extends StatelessWidget {
           const Gap(16),
           Obx(() {
             if (translateCtrl.isLoading.value) {
-              return search(50.0, 50.0);
+              return customLottie(LottieConstants.assetsLottieSearch,
+                  height: 50.0, width: 50.0);
             }
             return ReadMoreLess(
               text: translateCtrl.data[ayahs[ayahIndex].ayahUQNumber - 1]
@@ -48,6 +51,7 @@ class TranslateBuild extends StatelessWidget {
               textAlign: TextAlign.center,
               animationDuration: const Duration(milliseconds: 300),
               maxLines: 1,
+              collapsedHeight: 20,
               readMoreText: 'readMore'.tr,
               readLessText: 'readLess'.tr,
               buttonTextStyle: TextStyle(

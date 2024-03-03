@@ -82,19 +82,6 @@ class AyaController extends GetxController {
     isLoading.value = value;
   }
 
-  String _convertArabicToEnglishNumbers(String input) {
-    const arabicNumbers = '٠١٢٣٤٥٦٧٨٩';
-    const englishNumbers = '0123456789';
-
-    return input.split('').map((char) {
-      int index = arabicNumbers.indexOf(char);
-      if (index != -1) {
-        return englishNumbers[index];
-      }
-      return char;
-    }).join('');
-  }
-
   void _onScroll() {
     if (scrollController.position.maxScrollExtent ==
             scrollController.position.pixels &&
@@ -122,6 +109,19 @@ class AyaController extends GetxController {
       errorMessage.value = error.toString();
       isLoading.value = false;
     });
+  }
+
+  String _convertArabicToEnglishNumbers(String input) {
+    const arabicNumbers = '٠١٢٣٤٥٦٧٨٩';
+    const englishNumbers = '0123456789';
+
+    return input.split('').map((char) {
+      int index = arabicNumbers.indexOf(char);
+      if (index != -1) {
+        return englishNumbers[index];
+      }
+      return char;
+    }).join('');
   }
 
   Map<int, int> indexMapping = {};
@@ -200,31 +200,27 @@ class AyaController extends GetxController {
       final startIndex =
           lineWithoutDiacritics.indexOf(searchTermWithoutDiacritics, start);
       if (startIndex == -1) {
-        spans.add(TextSpan(text: line.substring(indexMapping[start] ?? start)));
+        spans.add(TextSpan(
+            text: line.substring(start))); // Modified to use start directly.
         break;
       }
 
       if (startIndex > start) {
         spans.add(TextSpan(
-            text: line.substring(indexMapping[start] ?? start,
-                indexMapping[startIndex] ?? startIndex)));
+            text: line.substring(
+                start, startIndex))); // Simplified by removing indexMapping.
       }
 
-      int originalStartIndex = indexMapping[startIndex] ?? startIndex;
-      int originalEndIndex =
-          indexMapping[startIndex + searchTermWithoutDiacritics.length - 1] ??
-              (startIndex + searchTermWithoutDiacritics.length - 1);
-      originalEndIndex = originalEndIndex + 1 <= line.length
-          ? originalEndIndex + 1
-          : line.length;
+      int endIndex = startIndex + searchTermWithoutDiacritics.length;
+      endIndex = endIndex <= line.length ? endIndex : line.length;
 
       spans.add(TextSpan(
-        text: line.substring(originalStartIndex, originalEndIndex),
+        text: line.substring(startIndex, endIndex),
         style: const TextStyle(
             color: Color(0xffa24308), fontWeight: FontWeight.bold),
       ));
 
-      start = startIndex + searchTermWithoutDiacritics.length;
+      start = endIndex; // Move past the end of the current match.
     }
     return spans;
   }

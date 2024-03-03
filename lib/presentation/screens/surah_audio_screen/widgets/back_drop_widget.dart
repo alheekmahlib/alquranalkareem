@@ -1,3 +1,4 @@
+import 'package:alquranalkareem/core/utils/constants/lottie_constants.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -26,7 +27,8 @@ class BackDropWidget extends StatelessWidget {
                   alignment: Alignment.center,
                   child: Padding(
                       padding: const EdgeInsets.only(top: 104.0),
-                      child: quran_au_ic(height: 120))),
+                      child: customLottie(LottieConstants.assetsLottieQuranAuIc,
+                          height: 120, isRepeat: false))),
               const Align(
                   alignment: Alignment.topCenter,
                   child: Stack(

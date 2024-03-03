@@ -1,3 +1,4 @@
+import 'package:alquranalkareem/core/utils/constants/lottie_constants.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
@@ -46,7 +47,8 @@ class BookmarksList extends StatelessWidget {
                               fontWeight: FontWeight.w700,
                               fontSize: 18),
                         ),
-                        search(150.0, 150.0),
+                        customLottie(LottieConstants.assetsLottieSearch,
+                            height: 150.0, width: 150.0),
                       ],
                     ))
                   : Flexible(

@@ -16,8 +16,8 @@ import 'package:rxdart/rxdart.dart' as R;
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../core/services/services_locator.dart';
-import '../../core/utils/constants/constants.dart';
 import '../../core/utils/constants/shared_preferences_constants.dart';
+import '../../core/utils/constants/url_constants.dart';
 import '../../core/widgets/seek_bar.dart';
 import '/presentation/controllers/aya_controller.dart';
 import 'quran_controller.dart';

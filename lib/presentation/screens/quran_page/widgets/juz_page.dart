@@ -51,9 +51,7 @@ class QuranJuz extends StatelessWidget {
                             child: Text(
                               '${'juz'.tr} ${generalCtrl.convertNumbers((index + 1).toString())}',
                               style: TextStyle(
-                                  color: Get.isDarkMode
-                                      ? Theme.of(context).colorScheme.secondary
-                                      : Theme.of(context).primaryColorDark,
+                                  color: Theme.of(context).hintColor,
                                   fontFamily: "kufi",
                                   fontSize: 14,
                                   fontWeight: FontWeight.bold,
@@ -104,22 +102,29 @@ class QuranJuz extends StatelessWidget {
                                                       width: 40,
                                                       child: SvgPicture.asset(
                                                         'assets/svg/sora_num.svg',
+                                                        colorFilter:
+                                                            ColorFilter.mode(
+                                                                Theme.of(
+                                                                        context)
+                                                                    .colorScheme
+                                                                    .primary,
+                                                                BlendMode
+                                                                    .srcIn),
                                                       )),
-                                                  Text(
-                                                    '${generalCtrl.convertNumbers((index + 1).toString())}',
-                                                    style: TextStyle(
-                                                        color: Get.isDarkMode
-                                                            ? Get
-                                                                .theme
-                                                                .colorScheme
-                                                                .secondary
-                                                            : Theme.of(context)
-                                                                .primaryColorDark,
-                                                        fontFamily: "kufi",
-                                                        fontSize: 14,
-                                                        fontWeight:
-                                                            FontWeight.bold,
-                                                        height: 2),
+                                                  Transform.translate(
+                                                    offset: const Offset(0, 1),
+                                                    child: Text(
+                                                      '${generalCtrl.convertNumbers((index + 1).toString())}',
+                                                      style: TextStyle(
+                                                          color:
+                                                              Theme.of(context)
+                                                                  .hintColor,
+                                                          fontFamily: "kufi",
+                                                          fontSize: 14,
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                          height: 2),
+                                                    ),
                                                   ),
                                                 ],
                                               ),
@@ -136,12 +141,8 @@ class QuranJuz extends StatelessWidget {
                                                 Text(
                                                   '${juz.text}',
                                                   style: TextStyle(
-                                                    color: Get.isDarkMode
-                                                        ? Theme.of(context)
-                                                            .colorScheme
-                                                            .secondary
-                                                        : Theme.of(context)
-                                                            .primaryColorDark,
+                                                    color: Theme.of(context)
+                                                        .hintColor,
                                                     fontFamily: "uthmanic2",
                                                     fontSize: 20,
                                                     height: 2,

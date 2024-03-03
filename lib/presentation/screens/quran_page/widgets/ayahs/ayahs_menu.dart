@@ -62,6 +62,8 @@ class AyahsMenu extends StatelessWidget {
               children: [
                 SvgPicture.asset(
                   'assets/svg/sora_num.svg',
+                  colorFilter: ColorFilter.mode(
+                      Theme.of(context).colorScheme.primary, BlendMode.srcIn),
                 ),
                 FittedBox(
                   fit: BoxFit.scaleDown,

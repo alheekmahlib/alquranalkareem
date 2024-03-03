@@ -6,12 +6,15 @@ import '../../core/services/services_locator.dart';
 import '../../database/databaseHelper.dart';
 import '../screens/quran_page/data/model/bookmark.dart';
 import '../screens/quran_page/data/model/bookmark_ayahs.dart';
+import 'general_controller.dart';
 import 'quran_controller.dart';
 
 class BookmarksController extends GetxController {
   final RxList<Bookmarks> bookmarksList = <Bookmarks>[].obs;
   final RxList<BookmarksAyahs> bookmarkTextList = <BookmarksAyahs>[].obs;
   late int lastBook;
+  final quranCtrl = sl<QuranController>();
+  final generalCtrl = sl<GeneralController>();
 
   @override
   void onInit() {
@@ -173,6 +176,16 @@ class BookmarksController extends GetxController {
       print('bookmark number: ${bookmark!}');
     } catch (e) {
       print('Error');
+    }
+  }
+
+  void addPageBookmarkOnTap(BuildContext context, int index) {
+    if (isPageBookmarked(index + 1)) {
+      deleteBookmarks(index + 1, context);
+    } else {
+      addAyahBookmark(index + 1, quranCtrl.getSurahNameFromPage(index),
+              generalCtrl.timeNow.dateNow)
+          .then((value) => context.showCustomErrorSnackBar('addBookmark'.tr));
     }
   }
 }

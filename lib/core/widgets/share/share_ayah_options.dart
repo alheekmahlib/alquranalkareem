@@ -1,4 +1,5 @@
 import 'package:alquranalkareem/core/utils/constants/extensions/text_span_extension.dart';
+import 'package:alquranalkareem/core/utils/constants/lottie_constants.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -69,7 +70,8 @@ class ShareAyahOptions extends StatelessWidget {
                     ),
                     Align(
                       alignment: Alignment.topCenter,
-                      child: shareLottie(width: 120.0),
+                      child: customLottie(LottieConstants.assetsLottieShare,
+                          width: 120.0),
                     ),
                     Padding(
                       padding: const EdgeInsets.only(top: 70.0),

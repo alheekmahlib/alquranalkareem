@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import '../../../../../core/services/services_locator.dart';
 import '../../../../../core/utils/constants/lottie.dart';
 import '../../../../controllers/playList_controller.dart';
+import '/core/utils/constants/lottie_constants.dart';
 import '/presentation/controllers/general_controller.dart';
 import '/presentation/controllers/quran_controller.dart';
 import 'playList_ayat_widget.dart';
@@ -23,7 +24,9 @@ class AyahsChoiceWidget extends StatelessWidget {
           child: Obx(
             () {
               if (quranCtrl.currentPageAyahs.isEmpty) {
-                return Center(child: search(100.0, 40.0));
+                return Center(
+                    child: customLottie(LottieConstants.assetsLottieSearch,
+                        width: 100.0, height: 40.0));
               } else {
                 return PopupMenuButton(
                   position: PopupMenuPosition.under,
@@ -85,7 +88,9 @@ class AyahsChoiceWidget extends StatelessWidget {
           child: Obx(
             () {
               if (quranCtrl.currentPageAyahs.isEmpty) {
-                return Center(child: search(100.0, 40.0));
+                return Center(
+                    child: customLottie(LottieConstants.assetsLottieSearch,
+                        width: 100.0, height: 40.0));
               } else {
                 return PopupMenuButton(
                   position: PopupMenuPosition.under,

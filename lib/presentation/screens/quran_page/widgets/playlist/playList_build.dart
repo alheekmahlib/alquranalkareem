@@ -102,17 +102,19 @@ class PlayListBuild extends StatelessWidget {
                                                 borderRadius:
                                                     const BorderRadius.all(
                                                         Radius.circular(4))),
-                                            child: Text(
-                                              play.name,
-                                              style: TextStyle(
-                                                fontFamily: 'kufi',
-                                                fontSize: 16,
-                                                color: Get.isDarkMode
-                                                    ? Colors.white
-                                                    : Theme.of(context)
-                                                        .primaryColor,
+                                            child: Transform.translate(
+                                              offset: const Offset(0, 2),
+                                              child: Text(
+                                                play.name
+                                                    .replaceAll('سُورَةُ ', ''),
+                                                style: TextStyle(
+                                                  fontFamily: 'kufi',
+                                                  fontSize: 16,
+                                                  color: Theme.of(context)
+                                                      .hintColor,
+                                                ),
+                                                maxLines: 2,
                                               ),
-                                              maxLines: 2,
                                             ),
                                           ),
                                         ],
@@ -137,6 +139,7 @@ class PlayListBuild extends StatelessWidget {
                             ),
                           ),
                           onTap: () {
+                            playList.isSelect.value = true;
                             playList.choiceFromPlayList(
                                 play.startNum,
                                 play.endNum,

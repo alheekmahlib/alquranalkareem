@@ -1,11 +1,9 @@
 import 'dart:io';
 
-import 'package:alquranalkareem/presentation/controllers/theme_controller.dart';
 import 'package:arabic_numbers/arabic_numbers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
-import 'package:flutter_sliding_up_panel/sliding_up_panel_widget.dart';
 import 'package:get/get.dart';
 import 'package:hijri/hijri_calendar.dart';
 import 'package:path_provider/path_provider.dart';
@@ -24,6 +22,7 @@ import '../screens/quran_page/screens/quran_home.dart';
 import '../screens/surah_audio_screen/audio_surah.dart';
 import '/presentation/controllers/quran_controller.dart';
 import '/presentation/controllers/share_controller.dart';
+import '/presentation/controllers/theme_controller.dart';
 import '/presentation/screens/home/home_screen.dart';
 import 'audio_controller.dart';
 import 'ayat_controller.dart';
@@ -36,8 +35,6 @@ class GeneralController extends GetxController {
 
   /// Slide and Scroll Controller
   late ScrollController scrollController;
-  SlidingUpPanelController panelController = SlidingUpPanelController();
-  SlidingUpPanelController panelTextController = SlidingUpPanelController();
   bool isPanelControllerDisposed = false;
 
   /// Page Controller
@@ -131,14 +128,13 @@ class GeneralController extends GetxController {
   Future<void> pageChanged(int index) async {
     currentPageNumber.value = index + 1;
     sl<PlayListController>().reset();
-    panelController.hide();
     isShowControl.value = false;
     sl<AyatController>().isSelected.value = (-1.0);
     sl<AudioController>().pageAyahNumber = '0';
 
     sl<BookmarksController>().getBookmarks();
     lastReadSurahNumber.value =
-        sl<QuranController>().getSurahNumberFromPage(index + 1);
+        sl<QuranController>().getSurahNumberFromPage(index);
     sl<SharedPreferences>().setInt(MSTART_PAGE, index + 1);
     sl<SharedPreferences>().setInt(MLAST_URAH, lastReadSurahNumber.value);
     // sl<QuranController>().selectedAyahIndexes.clear();
@@ -182,29 +178,9 @@ class GeneralController extends GetxController {
     });
   }
 
-  void slideHandle() {
-    if (SlidingUpPanelStatus.anchored == panelController.status) {
-      panelController.collapse();
-    } else {
-      panelController.anchor();
-    }
-  }
-
-  void slideOpen() {
-    if (SlidingUpPanelStatus.collapsed == panelController.status) {
-      panelController.anchor();
-    }
-  }
-
-  void slideClose() {
-    if (SlidingUpPanelStatus.anchored == panelController.status) {
-      panelController.hide();
-    }
-  }
-
   PageController get pageController {
     return quranPageController = PageController(
-        viewportFraction: Responsive.isDesktop(Get.context!) ? .5 : 1,
+        viewportFraction: Responsive.isDesktop(Get.context!) ? 1 / 2 : 1,
         initialPage: sl<GeneralController>().currentPageNumber.value - 1,
         keepPage: true);
   }

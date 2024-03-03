@@ -1,3 +1,4 @@
+import 'package:alquranalkareem/core/utils/constants/lottie_constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
@@ -88,11 +89,17 @@ class NotificationScreen extends StatelessWidget {
                   future: loadNotifications(),
                   builder: (context, snapshot) {
                     if (snapshot.connectionState == ConnectionState.waiting) {
-                      return notificationLottie(400.0, 400.0);
+                      return customLottie(
+                          LottieConstants.assetsLottieNotification,
+                          width: 400.0,
+                          height: 400.0);
                     } else if (snapshot.hasError) {
                       return Text('Error: ${snapshot.error}');
                     } else if (notifications.isEmpty) {
-                      return notificationLottie(800.0, 800.0);
+                      return customLottie(
+                          LottieConstants.assetsLottieNotification,
+                          width: 800.0,
+                          height: 800.0);
                     } else {
                       List<Map<String, dynamic>> notifications = snapshot.data!;
                       return ListView.builder(

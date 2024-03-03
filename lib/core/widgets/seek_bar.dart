@@ -76,8 +76,8 @@ class _SliderWidgetState extends State<SliderWidget> {
               data: SliderTheme.of(context).copyWith(
                 activeTrackColor: widget.activeTrackColor ??
                     Theme.of(context).colorScheme.primary,
-                inactiveTrackColor:
-                    widget.inactiveTrackColor ?? Theme.of(context).dividerColor,
+                inactiveTrackColor: widget.inactiveTrackColor ??
+                    Theme.of(context).colorScheme.surface,
                 thumbShape: CustomSliderThumbRect(
                   thumbRadius: 20,
                   thumbHeight: 15.0,

@@ -138,6 +138,7 @@ class AyatController extends GetxController {
     // Set the tableName property in the translateRepository
     translateRepository.dBName = dBName;
     translateRepository.tableName = selectedDBName;
+    update();
     return translateRepository;
   }
 

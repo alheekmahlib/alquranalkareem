@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
 import '../../../../core/utils/constants/lottie.dart';
+import '../../../../core/utils/constants/lottie_constants.dart';
 
 class AlheekmahAndLoading extends StatelessWidget {
   const AlheekmahAndLoading({super.key});
@@ -23,7 +24,8 @@ class AlheekmahAndLoading extends StatelessWidget {
             offset: const Offset(0, 30),
             child: RotatedBox(
               quarterTurns: 2,
-              child: loading(width: 250.0),
+              child: customLottie(LottieConstants.assetsLottieSplashLoading,
+                  width: 250.0),
             ),
           ),
         ],

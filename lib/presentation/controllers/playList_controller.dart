@@ -14,7 +14,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../core/data/models/playList_model.dart';
 import '../../core/services/services_locator.dart';
-import '../../core/utils/constants/constants.dart';
+import '../../core/utils/constants/url_constants.dart';
 import '../../core/widgets/seek_bar.dart';
 import '/core/utils/constants/extensions/custom_error_snackBar.dart';
 import 'audio_controller.dart';
@@ -38,6 +38,7 @@ class PlayListController extends GetxController {
   RxString progressString = "0".obs;
   RxDouble progress = 0.0.obs;
   late var cancelToken = CancelToken();
+  RxBool isSelect = false.obs;
 
   // Assuming these are your dependency injection methods to get controllers
   final audioCtrl = sl<AudioController>();
@@ -67,10 +68,10 @@ class PlayListController extends GetxController {
   }
 
   Future<void> loadPlaylist() async {
-    if (startUQNum.value <= endUQNum.value) {
+    if (firstAyahUQ! <= lastAyahUQ!) {
       List<AudioSource> generatedList = [];
 
-      for (int i = startUQNum.value; i <= endUQNum.value; i++) {
+      for (int i = firstAyahUQ!; i <= lastAyahUQ!; i++) {
         String fileName = "$i.mp3";
         String localFilePath =
             await getLocalPath() + "${audioCtrl.readerValue!}/$fileName";
@@ -228,17 +229,17 @@ class PlayListController extends GetxController {
   Future<void> addPlayList() async {
     playLists.add(PlayListModel(
         id: playLists.length,
-        startNum: startNum.value,
-        endNum: endNum.value,
-        startUQNum: startUQNum.value,
-        endUQNum: endUQNum.value,
+        startNum: firstAyah!,
+        endNum: lastAyah!,
+        startUQNum: firstAyahUQ!,
+        endUQNum: lastAyahUQ!,
         surahNum: quranCtrl
-            .getSurahNumberFromPage(generalCtrl.currentPageNumber.value),
-        surahName:
-            quranCtrl.getSurahNameFromPage(generalCtrl.currentPageNumber.value),
+            .getSurahNumberFromPage(generalCtrl.currentPageNumber.value - 1),
+        surahName: quranCtrl
+            .getSurahNameFromPage(generalCtrl.currentPageNumber.value - 1),
         readerName: audioCtrl.readerValue!,
         name: quranCtrl
-            .getSurahNameFromPage(generalCtrl.currentPageNumber.value)));
+            .getSurahNameFromPage(generalCtrl.currentPageNumber.value - 1)));
     PlayListStorage.savePlayList(playLists);
     print('playLists: ${playLists.length.toString()}');
   }

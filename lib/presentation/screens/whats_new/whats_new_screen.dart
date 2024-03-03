@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
@@ -113,6 +114,8 @@ class WhatsNewScreen extends StatelessWidget {
                                     Container(
                                       padding: const EdgeInsets.symmetric(
                                           horizontal: 8.0, vertical: 4.0),
+                                      margin: const EdgeInsets.symmetric(
+                                          horizontal: 8.0),
                                       decoration: BoxDecoration(
                                           color: Theme.of(context)
                                               .colorScheme
@@ -124,7 +127,7 @@ class WhatsNewScreen extends StatelessWidget {
                                         '${newFeatures[index]['title']}'.tr,
                                         style: TextStyle(
                                           color: Theme.of(context).hintColor,
-                                          fontSize: 16.0,
+                                          fontSize: 16.0.sp,
                                           fontFamily: 'kufi',
                                         ),
                                       ),
@@ -138,6 +141,9 @@ class WhatsNewScreen extends StatelessWidget {
                                                   const EdgeInsets.symmetric(
                                                       horizontal: 8.0,
                                                       vertical: 4.0),
+                                              margin:
+                                                  const EdgeInsets.symmetric(
+                                                      horizontal: 8.0),
                                               decoration: BoxDecoration(
                                                   color: Theme.of(context)
                                                       .colorScheme
@@ -170,6 +176,8 @@ class WhatsNewScreen extends StatelessWidget {
                                             padding: const EdgeInsets.symmetric(
                                                 horizontal: 16.0,
                                                 vertical: 8.0),
+                                            margin: const EdgeInsets.symmetric(
+                                                horizontal: 8.0),
                                             decoration: BoxDecoration(
                                                 color: Theme.of(context)
                                                     .colorScheme
@@ -184,7 +192,7 @@ class WhatsNewScreen extends StatelessWidget {
                                               style: TextStyle(
                                                 color:
                                                     Theme.of(context).hintColor,
-                                                fontSize: 14.0,
+                                                fontSize: 14.0.sp,
                                                 fontFamily: 'kufi',
                                               ),
                                             ),

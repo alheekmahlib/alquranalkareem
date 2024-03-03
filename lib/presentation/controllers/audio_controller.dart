@@ -19,9 +19,9 @@ import '../../core/services/services_locator.dart';
 import '../../core/utils/constants/shared_preferences_constants.dart';
 import '../../core/utils/helpers/global_key_manager.dart';
 import '../../core/widgets/seek_bar.dart';
-import '/core/utils/constants/constants.dart';
 import '/core/utils/constants/extensions/custom_error_snackBar.dart';
 import '/core/utils/constants/extensions/custom_mobile_notes_snack_bar.dart';
+import '/core/utils/constants/url_constants.dart';
 import 'ayat_controller.dart';
 import 'general_controller.dart';
 import 'quran_controller.dart';
@@ -352,8 +352,7 @@ class AudioController extends GetxController {
     } finally {
       downloading.value = false;
       onDownloading.value = false;
-      progressString.value =
-          "Completed"; // Or dynamically update based on actual download outcome
+      progressString.value = "Completed";
       print("Download completed or failed");
     }
     return true; // Indicate successful completion

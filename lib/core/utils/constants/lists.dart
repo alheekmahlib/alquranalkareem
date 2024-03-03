@@ -6,7 +6,7 @@ import '../../../presentation/screens/athkar/screens/alzkar_view.dart';
 import '../../../presentation/screens/quran_page/screens/quran_home.dart';
 import '../../../presentation/screens/surah_audio_screen/audio_surah.dart';
 import '/presentation/screens/home/home_screen.dart';
-import 'constants.dart';
+import 'url_constants.dart';
 
 List<String> translateName = <String>[
   'English',

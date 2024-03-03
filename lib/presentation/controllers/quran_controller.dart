@@ -45,7 +45,7 @@ class QuranController extends GetxController {
   RxDouble ayahsWidgetHeight = 0.0.obs;
   RxInt currentListPage = 1.obs;
 
-  List<int> lastPlaceBannerPageIndex = [
+  List<int> downThePageIndex = [
     75,
     206,
     330,
@@ -54,18 +54,19 @@ class QuranController extends GetxController {
     365,
     375,
     413,
-    415,
+    416,
     434,
-    450,
-    496,
-    504,
-    523,
-    546,
+    444,
+    451,
+    497,
+    505,
+    524,
+    547,
     554,
     556,
     583
   ];
-  List<int> firstPlaceBannerPageIndex = [
+  List<int> topOfThePageIndex = [
     76,
     207,
     331,
@@ -74,13 +75,14 @@ class QuranController extends GetxController {
     366,
     376,
     414,
-    416,
+    417,
     435,
-    451,
-    497,
-    505,
-    524,
-    547,
+    445,
+    452,
+    498,
+    506,
+    525,
+    548,
     554,
     555,
     557,
@@ -151,6 +153,8 @@ class QuranController extends GetxController {
 
   Surah getSurahDataByAyahUQ(int ayah) =>
       surahs.firstWhere((s) => s.ayahs.any((a) => a.ayahUQNumber == ayah));
+
+  Ayah getJuzByPage(int page) => allAyahs.firstWhere((a) => a.page == page + 1);
 
   String getSurahByAyahUQ(int ayah) => surahs
       .firstWhere((s) => s.ayahs.any((a) => a.ayahUQNumber == ayah))

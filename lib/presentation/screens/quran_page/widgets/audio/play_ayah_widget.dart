@@ -1,3 +1,4 @@
+import 'package:alquranalkareem/core/utils/constants/lottie_constants.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:just_audio/just_audio.dart';
@@ -46,7 +47,8 @@ class PlayAyah extends StatelessWidget {
                     processingState == ProcessingState.buffering ||
                     (audioCtrl.downloading.value &&
                         audioCtrl.progress.value == 0)) {
-                  return playButtonLottie(20.0, 20.0);
+                  return customLottie(LottieConstants.assetsLottiePlayButton,
+                      width: 20.0, height: 20.0);
                 } else if (!audioCtrl.isPlay.value) {
                   return GestureDetector(
                     child: play_arrow(height: 25.0),

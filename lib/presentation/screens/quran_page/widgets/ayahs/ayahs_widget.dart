@@ -2,6 +2,7 @@ import 'package:alquranalkareem/core/utils/constants/extensions/extensions.dart'
 import 'package:alquranalkareem/presentation/controllers/audio_controller.dart';
 import 'package:alquranalkareem/presentation/controllers/general_controller.dart';
 import 'package:flutter/material.dart';
+import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 
@@ -25,8 +26,10 @@ class AyahsWidget extends StatelessWidget {
       color: Theme.of(context).colorScheme.background,
       child: Column(
         children: [
+          const Gap(4),
           Container(
-            height: 40,
+            height: 45,
+            alignment: Alignment.center,
             color: Theme.of(context).colorScheme.background,
             margin: const EdgeInsets.symmetric(horizontal: 32.0),
             child: Row(
@@ -40,33 +43,32 @@ class AyahsWidget extends StatelessWidget {
                           Theme.of(context).colorScheme.surface.withOpacity(.1),
                       borderRadius:
                           const BorderRadius.all(Radius.circular(8.0))),
-                  child: Obx(() => Text(
-                        quranCtrl.getSurahNameFromPage(
-                            quranCtrl.currentListPage.value),
-                        style: TextStyle(
-                            fontSize: context.customOrientation(18.0, 22.0),
-                            fontFamily: 'naskh',
-                            color: Theme.of(context).hintColor),
-                      )),
-                ),
-                Container(
-                  padding: const EdgeInsets.symmetric(
-                      horizontal: 8.0, vertical: 2.0),
-                  decoration: BoxDecoration(
-                      color:
-                          Theme.of(context).colorScheme.surface.withOpacity(.1),
-                      borderRadius:
-                          const BorderRadius.all(Radius.circular(8.0))),
-                  child: Obx(
-                    () => Text(
-                      '${'juz'.tr}: ${generalCtrl.convertNumbers(quranCtrl.pages[quranCtrl.currentListPage.value].first.juz.toString())}',
-                      style: TextStyle(
-                          fontSize: context.customOrientation(18.0, 22.0),
-                          fontFamily: 'naskh',
-                          color: Theme.of(context).hintColor),
-                    ),
+                  child: Row(
+                    children: [
+                      Obx(() => Text(
+                            quranCtrl.getSurahNameFromPage(
+                                quranCtrl.currentListPage.value),
+                            style: TextStyle(
+                                fontSize: context.customOrientation(18.0, 22.0),
+                                fontFamily: 'naskh',
+                                color: Theme.of(context).hintColor),
+                          )),
+                      Obx(
+                        () => Text(
+                          ' | ${'juz'.tr}: ${generalCtrl.convertNumbers(quranCtrl.pages[quranCtrl.currentListPage.value].first.juz.toString())}',
+                          style: TextStyle(
+                              fontSize: context.customOrientation(18.0, 22.0),
+                              fontFamily: 'naskh',
+                              color: Theme.of(context).hintColor),
+                        ),
+                      ),
+                    ],
                   ),
                 ),
+                context.fontSizeDropDown(
+                    height: 25.0,
+                    color:
+                        Theme.of(context).colorScheme.surface.withOpacity(.7)),
               ],
             ),
           ),
