@@ -1,3 +1,4 @@
+import 'package:alquranalkareem/core/utils/constants/extensions/extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_sliding_box/flutter_sliding_box.dart';
 
@@ -15,7 +16,7 @@ class AudioScreen extends StatelessWidget {
     final surahCtrl = sl<SurahAudioController>();
     surahCtrl.loadSurahReader();
     surahCtrl.loadLastSurahListen();
-    // surahCtrl.initializeSurahDownloadStatus();
+    final size = MediaQuery.sizeOf(context);
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.background,
       body: SafeArea(
@@ -37,6 +38,8 @@ class AudioScreen extends StatelessWidget {
               color: Theme.of(context).colorScheme.background,
               body: const BackDropWidget(),
             ),
+            style: BoxStyle.shadow,
+            width: context.customOrientation(size.width, size.width * 0.5),
             collapsedBody: const CollapsedPlayWidget(),
             body: PlayWidget(),
           ),

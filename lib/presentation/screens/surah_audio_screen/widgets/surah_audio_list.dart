@@ -23,7 +23,8 @@ class SurahAudioList extends StatelessWidget {
         // interactive: true,
         controller: surahAudioCtrl.controller,
         child: Container(
-          margin: const EdgeInsets.only(bottom: 50.0, right: 32.0, left: 32.0),
+          margin: const EdgeInsets.only(
+              bottom: 50.0, right: 32.0, left: 32.0, top: 16.0),
           padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
           decoration: BoxDecoration(
               borderRadius: const BorderRadius.all(Radius.circular(8)),

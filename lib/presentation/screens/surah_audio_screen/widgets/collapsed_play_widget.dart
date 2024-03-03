@@ -1,3 +1,4 @@
+import 'package:alquranalkareem/core/utils/constants/extensions/extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -12,48 +13,51 @@ class CollapsedPlayWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.sizeOf(context).width;
-    return Container(
-      width: width,
-      decoration: BoxDecoration(
-        color: Theme.of(context).colorScheme.primary.withOpacity(.15),
-      ),
-      child: Stack(
-        children: [
-          Align(
-            alignment: Alignment.bottomRight,
-            child: decorations(context),
-          ),
-          Align(
-            alignment: Alignment.topLeft,
-            child: RotatedBox(
-              quarterTurns: 2,
+    return Align(
+      alignment: Alignment.centerLeft,
+      child: Container(
+        width: context.customOrientation(width, width * .5),
+        decoration: BoxDecoration(
+          color: Theme.of(context).colorScheme.primary.withOpacity(.15),
+        ),
+        child: Stack(
+          children: [
+            Align(
+              alignment: Alignment.bottomRight,
               child: decorations(context),
             ),
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 32.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                const Row(
-                  children: [
-                    SkipToPrevious(),
-                    OnlinePlayButton(
-                      isRepeat: false,
-                    ),
-                    SkipToNext(),
-                  ],
-                ),
-                Obx(
-                  () => surahName(
-                    50,
-                    100,
-                  ),
-                ),
-              ],
+            Align(
+              alignment: Alignment.topLeft,
+              child: RotatedBox(
+                quarterTurns: 2,
+                child: decorations(context),
+              ),
             ),
-          ),
-        ],
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 32.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  const Row(
+                    children: [
+                      SkipToPrevious(),
+                      OnlinePlayButton(
+                        isRepeat: false,
+                      ),
+                      SkipToNext(),
+                    ],
+                  ),
+                  Obx(
+                    () => surahName(
+                      50,
+                      100,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
