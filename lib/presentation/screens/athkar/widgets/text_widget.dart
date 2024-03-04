@@ -25,8 +25,8 @@ class TextWidget extends StatelessWidget {
                 borderRadius: const BorderRadius.all(Radius.circular(8))),
             width: double.infinity,
             child: Obx(() {
-              return SelectableText.rich(
-                TextSpan(
+              return RichText(
+                text: TextSpan(
                   children: azkarCtrl.buildTextSpans(zekr.zekr),
                   style: TextStyle(
                       color: Theme.of(context).hintColor,
@@ -34,11 +34,6 @@ class TextWidget extends StatelessWidget {
                       fontFamily: 'naskh',
                       fontSize: sl<GeneralController>().fontSizeArabic.value),
                 ),
-                showCursor: true,
-                cursorWidth: 3,
-                cursorColor: Theme.of(context).dividerColor,
-                cursorRadius: const Radius.circular(5),
-                scrollPhysics: const ClampingScrollPhysics(),
                 textDirection: TextDirection.rtl,
                 textAlign: TextAlign.justify,
               );

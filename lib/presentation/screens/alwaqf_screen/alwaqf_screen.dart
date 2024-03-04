@@ -153,8 +153,8 @@ class AlwaqfScreen extends StatelessWidget {
                                       child: splash_icon(),
                                     ),
                                     Obx(() {
-                                      return SelectableText.rich(
-                                        TextSpan(
+                                      return RichText(
+                                        text: TextSpan(
                                           children: sl<AzkarController>()
                                               .buildTextSpans(
                                                   waqfExplain[index]),
@@ -168,13 +168,6 @@ class AlwaqfScreen extends StatelessWidget {
                                                 .inversePrimary,
                                           ),
                                         ),
-                                        showCursor: true,
-                                        cursorWidth: 3,
-                                        cursorColor:
-                                            Theme.of(context).dividerColor,
-                                        cursorRadius: const Radius.circular(5),
-                                        scrollPhysics:
-                                            const ClampingScrollPhysics(),
                                         textDirection: TextDirection.rtl,
                                         textAlign: TextAlign.justify,
                                       );
