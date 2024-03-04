@@ -1,4 +1,4 @@
-import 'package:alquranalkareem/presentation/controllers/audio_controller.dart';
+import '../../../../controllers/audio_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:just_audio/just_audio.dart';

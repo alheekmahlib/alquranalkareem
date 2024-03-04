@@ -1,4 +1,4 @@
-import 'package:alquranalkareem/core/widgets/container_with_border.dart';
+import '../../../core/widgets/container_with_border.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

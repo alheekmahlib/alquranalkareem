@@ -1,4 +1,4 @@
-import 'package:alquranalkareem/presentation/screens/quran_page/widgets/search/quran_search.dart';
+import 'quran_search.dart';
 import 'package:animations/animations.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';

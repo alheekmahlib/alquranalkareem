@@ -1,4 +1,4 @@
-import 'package:alquranalkareem/core/utils/constants/lottie_constants.dart';
+import '../../../../../core/utils/constants/lottie_constants.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

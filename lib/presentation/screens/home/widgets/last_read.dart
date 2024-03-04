@@ -1,5 +1,5 @@
-import 'package:alquranalkareem/core/utils/constants/lottie_constants.dart';
-import 'package:alquranalkareem/presentation/controllers/quran_controller.dart';
+import '../../../../core/utils/constants/lottie_constants.dart';
+import '../../../controllers/quran_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:gap/gap.dart';

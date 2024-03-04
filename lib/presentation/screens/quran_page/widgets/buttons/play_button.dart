@@ -1,4 +1,4 @@
-import 'package:alquranalkareem/core/utils/constants/svg_picture.dart';
+import '../../../../../core/utils/constants/svg_picture.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../../core/services/services_locator.dart';

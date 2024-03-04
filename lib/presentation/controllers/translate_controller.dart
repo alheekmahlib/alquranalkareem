@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:alquranalkareem/presentation/controllers/ayat_controller.dart';
+import 'ayat_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';

@@ -1,4 +1,4 @@
-import 'package:alquranalkareem/core/utils/constants/extensions/surah_name_with_banner.dart';
+import '../../../../../core/utils/constants/extensions/surah_name_with_banner.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';

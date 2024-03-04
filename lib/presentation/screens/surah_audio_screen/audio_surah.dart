@@ -1,4 +1,4 @@
-import 'package:alquranalkareem/core/utils/constants/extensions/extensions.dart';
+import '../../../core/utils/constants/extensions/extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_sliding_box/flutter_sliding_box.dart';
 

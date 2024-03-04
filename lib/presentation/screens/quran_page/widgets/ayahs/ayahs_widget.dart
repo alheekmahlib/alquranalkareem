@@ -1,6 +1,6 @@
-import 'package:alquranalkareem/core/utils/constants/extensions/extensions.dart';
-import 'package:alquranalkareem/presentation/controllers/audio_controller.dart';
-import 'package:alquranalkareem/presentation/controllers/general_controller.dart';
+import '../../../../../core/utils/constants/extensions/extensions.dart';
+import '../../../../controllers/audio_controller.dart';
+import '../../../../controllers/general_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';

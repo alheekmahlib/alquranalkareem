@@ -1,5 +1,5 @@
-import 'package:alquranalkareem/core/utils/constants/extensions/text_span_extension.dart';
-import 'package:alquranalkareem/core/utils/constants/lottie_constants.dart';
+import '../../utils/constants/extensions/text_span_extension.dart';
+import '../../utils/constants/lottie_constants.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

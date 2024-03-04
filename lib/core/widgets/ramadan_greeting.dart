@@ -1,4 +1,4 @@
-import 'package:alquranalkareem/core/widgets/container_with_lines.dart';
+import 'container_with_lines.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 

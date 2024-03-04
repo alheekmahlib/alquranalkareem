@@ -1,4 +1,4 @@
-import 'package:alquranalkareem/core/utils/constants/extensions/custom_error_snackBar.dart';
+import '../../core/utils/constants/extensions/custom_error_snackBar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

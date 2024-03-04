@@ -1,15 +1,15 @@
-import '../../../../controllers/general_controller.dart';
+import '../../../controllers/general_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../../../core/services/services_locator.dart';
-import '../../../../controllers/bookmarks_controller.dart';
-import '../../../../controllers/quran_controller.dart';
+import '../../../controllers/bookmarks_controller.dart';
+import '../../../controllers/quran_controller.dart';
 import '/core/utils/constants/extensions/menu_extension.dart';
 import '/core/utils/constants/extensions/surah_name_with_banner.dart';
 import '/core/utils/constants/svg_picture.dart';
 import '/presentation/controllers/audio_controller.dart';
-import 'custom_span.dart';
+import 'pages/custom_span.dart';
 
 class PagesWidget extends StatelessWidget {
   final int pageIndex;
