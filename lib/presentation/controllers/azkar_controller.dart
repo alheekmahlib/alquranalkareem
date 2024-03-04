@@ -234,7 +234,7 @@ class AzkarController extends GetxController {
   }
 
   Future<void> shareZekr(BuildContext context) async {
-    if (ayahToImageBytes! != null) {
+    if (ayahToImageBytes != null) {
       final directory = await getTemporaryDirectory();
       final imagePath = await File('${directory.path}/zekr_image.png').create();
       await imagePath.writeAsBytes(ayahToImageBytes!);

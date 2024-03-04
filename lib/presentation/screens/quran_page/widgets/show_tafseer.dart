@@ -16,8 +16,8 @@ import 'ayahs/share_copy_widget.dart';
 import 'change_tafsir.dart';
 
 class ShowTafseer extends StatelessWidget {
-  late int ayahUQNumber;
-  late int index;
+  late final int ayahUQNumber;
+  late final int index;
 
   ShowTafseer({Key? key, required this.ayahUQNumber, required this.index})
       : super(key: key);
@@ -43,7 +43,7 @@ class ShowTafseer extends StatelessWidget {
       child: SafeArea(
         child: Obx(() {
           final ayat = ayatCtrl.ayatList;
-          if (ayat != null && ayat.length > ayatCtrl.numberOfAyahText.value) {
+          if (ayat.length > ayatCtrl.numberOfAyahText.value) {
             Aya aya = ayat[ayatCtrl.numberOfAyahText.value];
             print('numberOfAyahText${aya.ayaNum}');
           }

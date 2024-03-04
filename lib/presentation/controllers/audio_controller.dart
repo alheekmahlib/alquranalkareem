@@ -296,7 +296,6 @@ class AudioController extends GetxController {
 
   Future<bool> downloadFile(String path, String url, String fileName) async {
     Dio dio = Dio();
-    CancelToken cancelToken = CancelToken();
     try {
       await Directory(dirname(path)).create(recursive: true);
       downloading.value = true;

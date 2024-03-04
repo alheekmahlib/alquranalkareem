@@ -21,12 +21,12 @@ class SurahSeekBar extends StatelessWidget {
           sl<SurahAudioController>().updateControllerValues(positionData!);
           return SliderWidget(
             horizontalPadding: 32.0,
-            duration: positionData.duration ?? Duration.zero,
+            duration: positionData.duration,
             position: sl<SurahAudioController>().lastTime != null
                 ? Duration(
                     seconds: sl<SurahAudioController>().lastTime!.toInt())
-                : positionData.position ?? Duration.zero,
-            bufferedPosition: positionData.bufferedPosition ?? Duration.zero,
+                : positionData.position,
+            bufferedPosition: positionData.bufferedPosition,
             onChangeEnd: (newPosition) async {
               sl<SurahAudioController>().audioPlayer.seek(newPosition);
               await sl<SharedPreferences>().setInt(
@@ -62,12 +62,12 @@ class DownloadSurahSeekBar extends StatelessWidget {
           sl<SurahAudioController>().updateControllerValues(positionData!);
           return SliderWidget(
             horizontalPadding: 32.0,
-            duration: positionData.duration ?? Duration.zero,
+            duration: positionData.duration,
             position: sl<SurahAudioController>().lastTime != null
                 ? Duration(
                     seconds: sl<SurahAudioController>().lastTime!.toInt())
-                : positionData.position ?? Duration.zero,
-            bufferedPosition: positionData.bufferedPosition ?? Duration.zero,
+                : positionData.position,
+            bufferedPosition: positionData.bufferedPosition,
             onChangeEnd: (newPosition) async {
               sl<SurahAudioController>().downAudioPlayer.seek(newPosition);
               await sl<SharedPreferences>().setInt(

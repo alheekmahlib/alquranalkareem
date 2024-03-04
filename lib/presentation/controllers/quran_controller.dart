@@ -179,12 +179,6 @@ class QuranController extends GetxController {
 
   double getSajdaPosition(int pageIndex) {
     final sajdaAyah = _getAyahWithSajdaInPage(pageIndex);
-    final newLineRegex = RegExp(r'\n');
-    // final List<Ayah> ayahsAfterSajda = currentPageAyahs
-    //     .where((a) => a.ayahUQNumber > sajdaAyah.ayahUQNumber)
-    //     .toList();
-    // final currentPageAyahsTexts =  currentPageAyahs.map((a)=>a.text);
-    // return .indexWhere((ayah) => ayah ==sajdaAyah)+1;
     isSajda.value = sajdaAyah != null ? true : false;
     final lines = pages[pageIndex]
         .map((a) {

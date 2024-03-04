@@ -39,7 +39,6 @@ class DownloadPlayButton extends StatelessWidget {
             builder: (context, snapshot) {
               final playerState = snapshot.data;
               final processingState = playerState?.processingState;
-              final playing = playerState?.playing;
               if (processingState == ProcessingState.loading ||
                   processingState == ProcessingState.buffering) {
                 return customLottie(LottieConstants.assetsLottiePlayButton,

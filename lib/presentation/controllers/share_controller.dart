@@ -106,7 +106,7 @@ class ShareController extends GetxController {
   }
 
   Future<void> shareVerseWithTranslate(BuildContext context) async {
-    if (tafseerToImageBytes! != null) {
+    if (tafseerToImageBytes != null) {
       final directory = await getTemporaryDirectory();
       final imagePath =
           await File('${directory.path}/verse_tafseer_image.png').create();
@@ -116,12 +116,9 @@ class ShareController extends GetxController {
   }
 
   Future<void> shareVerse(BuildContext context) async {
-    if (ayahToImageBytes! != null) {
-      final directory = await getTemporaryDirectory();
-      final imagePath =
-          await File('${directory.path}/verse_image.png').create();
-      await imagePath.writeAsBytes(ayahToImageBytes!);
-      await Share.shareXFiles([XFile((imagePath.path))], text: 'appName'.tr);
-    }
+    final directory = await getTemporaryDirectory();
+    final imagePath = await File('${directory.path}/verse_image.png').create();
+    await imagePath.writeAsBytes(ayahToImageBytes!);
+    await Share.shareXFiles([XFile((imagePath.path))], text: 'appName'.tr);
   }
 }

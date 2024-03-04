@@ -37,7 +37,7 @@ class SettingsController extends GetxController {
     }
 
     languageName.value = langName;
-    languageFont.value = langFont!;
+    languageFont.value = langFont;
     // languageFont2.value = langFont2;
 
     print('get lang $initialLang');

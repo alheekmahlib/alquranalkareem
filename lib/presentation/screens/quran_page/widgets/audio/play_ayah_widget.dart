@@ -1,4 +1,3 @@
-import '../../../../../core/utils/constants/lottie_constants.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:just_audio/just_audio.dart';
@@ -6,6 +5,7 @@ import 'package:square_percent_indicater/square_percent_indicater.dart';
 
 import '../../../../../core/services/services_locator.dart';
 import '../../../../../core/utils/constants/lottie.dart';
+import '../../../../../core/utils/constants/lottie_constants.dart';
 import '../../../../controllers/audio_controller.dart';
 import '../../../../controllers/quran_controller.dart';
 import '/core/utils/constants/svg_picture.dart';
@@ -42,7 +42,6 @@ class PlayAyah extends StatelessWidget {
               builder: (context, snapshot) {
                 final playerState = snapshot.data;
                 final processingState = playerState?.processingState;
-                final playing = playerState?.processingState;
                 if (processingState == ProcessingState.loading ||
                     processingState == ProcessingState.buffering ||
                     (audioCtrl.downloading.value &&

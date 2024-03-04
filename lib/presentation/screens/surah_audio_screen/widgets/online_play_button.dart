@@ -64,7 +64,6 @@ class OnlinePlayButton extends StatelessWidget {
               builder: (context, snapshot) {
                 final playerState = snapshot.data;
                 final processingState = playerState?.processingState;
-                final playing = playerState?.playing;
                 if (processingState == ProcessingState.buffering) {
                   return customLottie(LottieConstants.assetsLottiePlayButton,
                       width: 20.0, height: 20.0);

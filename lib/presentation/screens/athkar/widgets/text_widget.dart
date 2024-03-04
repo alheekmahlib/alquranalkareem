@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../../../core/services/services_locator.dart';
 import '../../../controllers/azkar_controller.dart';
 import '../../../controllers/general_controller.dart';
+import '../models/zeker_model.dart';
+import '/core/services/services_locator.dart';
 
 class TextWidget extends StatelessWidget {
-  var zekr;
-  TextWidget({super.key, this.zekr});
+  final Zekr zekr;
+  TextWidget({super.key, required this.zekr});
 
   @override
   Widget build(BuildContext context) {

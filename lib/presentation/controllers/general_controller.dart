@@ -101,7 +101,7 @@ class GeneralController extends GetxController {
 
   Future<Uri> getCachedArtUri(String imageUrl) async {
     final file = await cacheManager.getSingleFile(imageUrl);
-    return file != null
+    return await file.exists()
         ? file.uri
         : Uri.parse(
             imageUrl); // Use cached URI if available, otherwise use the original URL
