@@ -325,11 +325,11 @@ class GeneralController extends GetxController {
   Future<void> share(BuildContext context) async {
     final box = context.findRenderObject() as RenderBox?;
     final ByteData bytes =
-        await rootBundle.load('assets/images/AlQuranAlKareem.jpg');
+        await rootBundle.load('assets/images/quran_banner.png');
     final Uint8List list = bytes.buffer.asUint8List();
 
     final tempDir = await getTemporaryDirectory();
-    final file = await File('${tempDir.path}/AlQuranAlKareem.jpg').create();
+    final file = await File('${tempDir.path}/quran_banner.png').create();
     file.writeAsBytesSync(list);
     await Share.shareXFiles(
       [XFile((file.path))],
@@ -408,5 +408,9 @@ class GeneralController extends GetxController {
     } else {
       return desktop;
     }
+  }
+
+  double ifBigScreenSize(double s, double l) {
+    return Get.width >= 1025.0 ? s : l;
   }
 }

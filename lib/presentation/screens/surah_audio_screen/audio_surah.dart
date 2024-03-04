@@ -38,7 +38,6 @@ class AudioScreen extends StatelessWidget {
               color: Theme.of(context).colorScheme.background,
               body: const BackDropWidget(),
             ),
-            style: BoxStyle.shadow,
             width: context.customOrientation(size.width, size.width * 0.5),
             collapsedBody: const CollapsedPlayWidget(),
             body: PlayWidget(),

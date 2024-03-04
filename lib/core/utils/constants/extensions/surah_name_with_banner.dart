@@ -1,13 +1,12 @@
-import 'package:alquranalkareem/core/utils/constants/extensions/extensions.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 
 import '../../../services/services_locator.dart';
-import '../size_config.dart';
 import '../svg_picture.dart';
 import '/presentation/controllers/quran_controller.dart';
 import '/presentation/controllers/theme_controller.dart';
@@ -16,10 +15,12 @@ final themeCtrl = sl<ThemeController>();
 final quranCtrl = sl<QuranController>();
 
 extension CustomSurahNameWithBannerExtension on BuildContext {
-  Widget surahNameWidget(String num, Color color, {double? height}) {
+  Widget surahNameWidget(String num, Color color,
+      {double? height, double? width}) {
     return SvgPicture.asset(
       'assets/svg/surah_name/00$num.svg',
       height: height ?? 30,
+      width: width,
       colorFilter: ColorFilter.mode(color, BlendMode.srcIn),
     );
   }
@@ -31,21 +32,22 @@ extension CustomSurahNameWithBannerExtension on BuildContext {
         alignment: Alignment.center,
         children: [
           child,
-          surahNameWidget(number, Get.theme.hintColor,
-              height: getProportionateScreenWidth(25.h)),
+          SizedBox(
+              height: 27.h,
+              width: 120.w,
+              child: surahNameWidget(number, Get.theme.hintColor)),
         ],
       ),
     );
   }
 
   Widget surahBannerWidget(String number) {
-    final customWidth = this.customOrientation(Get.width * .3, Get.width * .15);
     if (themeCtrl.isBlueMode) {
-      return bannerWithSurahName(surah_banner1(height: customWidth), number);
+      return bannerWithSurahName(surah_banner1(width: Get.width * .8), number);
     } else if (themeCtrl.isBrownMode) {
-      return bannerWithSurahName(surah_banner2(height: customWidth), number);
+      return bannerWithSurahName(surah_banner2(width: Get.width * .8), number);
     } else {
-      return bannerWithSurahName(surah_banner3(height: customWidth), number);
+      return bannerWithSurahName(surah_banner3(width: Get.width * .8), number);
     }
   }
 

@@ -22,38 +22,42 @@ class PagesWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     sl<BookmarksController>().getBookmarksText();
-    return FittedBox(
-      fit: BoxFit.fitWidth,
-      child: GetBuilder<QuranController>(builder: (quranCtrl) {
-        return Padding(
-          padding: pageIndex == 0 || pageIndex == 1
-              ? EdgeInsets.symmetric(horizontal: Get.width * .5)
-              : const EdgeInsets.symmetric(horizontal: 64.0),
-          child: quranCtrl.pages.isEmpty
-              ? const CircularProgressIndicator.adaptive()
-              : Column(
-                  children: List.generate(
-                      quranCtrl
-                          .getCurrentPageAyahsSeparatedForBasmalah(pageIndex)
-                          .length, (i) {
-                    final ayahs = quranCtrl
-                        .getCurrentPageAyahsSeparatedForBasmalah(pageIndex)[i];
-                    quranCtrl.showVerseToast(pageIndex);
-                    return Column(children: [
-                      context.surahBannerFirstPlace(pageIndex, i),
-                      quranCtrl.getSurahNumberByAyah(ayahs.first) == 9 ||
-                              quranCtrl.getSurahNumberByAyah(ayahs.first) == 1
-                          ? const SizedBox.shrink()
-                          : ayahs.first.ayahNumber == 1
-                              ? (quranCtrl.getSurahNumberByAyah(ayahs.first) ==
-                                          95 ||
-                                      quranCtrl.getSurahNumberByAyah(
-                                              ayahs.first) ==
-                                          97)
-                                  ? besmAllah2()
-                                  : besmAllah()
-                              : const SizedBox.shrink(),
-                      Obx(() => RichText(
+    return GetBuilder<QuranController>(builder: (quranCtrl) {
+      return Container(
+        padding: pageIndex == 0 || pageIndex == 1
+            ? EdgeInsets.symmetric(horizontal: Get.width * .13)
+            : const EdgeInsets.symmetric(horizontal: 32.0),
+        margin: pageIndex == 0 || pageIndex == 1
+            ? EdgeInsets.symmetric(vertical: Get.width * .34)
+            : const EdgeInsets.symmetric(horizontal: 0.0),
+        child: quranCtrl.pages.isEmpty
+            ? const CircularProgressIndicator.adaptive()
+            : Column(
+                mainAxisSize: MainAxisSize.min,
+                children: List.generate(
+                    quranCtrl
+                        .getCurrentPageAyahsSeparatedForBasmalah(pageIndex)
+                        .length, (i) {
+                  final ayahs = quranCtrl
+                      .getCurrentPageAyahsSeparatedForBasmalah(pageIndex)[i];
+                  quranCtrl.showVerseToast(pageIndex);
+                  return Column(children: [
+                    context.surahBannerFirstPlace(pageIndex, i),
+                    quranCtrl.getSurahNumberByAyah(ayahs.first) == 9 ||
+                            quranCtrl.getSurahNumberByAyah(ayahs.first) == 1
+                        ? const SizedBox.shrink()
+                        : ayahs.first.ayahNumber == 1
+                            ? (quranCtrl.getSurahNumberByAyah(ayahs.first) ==
+                                        95 ||
+                                    quranCtrl.getSurahNumberByAyah(
+                                            ayahs.first) ==
+                                        97)
+                                ? besmAllah2()
+                                : besmAllah()
+                            : const SizedBox.shrink(),
+                    FittedBox(
+                      fit: BoxFit.fitWidth,
+                      child: Obx(() => RichText(
                             textDirection: TextDirection.rtl,
                             textAlign: TextAlign.center,
                             text: TextSpan(
@@ -147,12 +151,12 @@ class PagesWidget extends StatelessWidget {
                               }),
                             ),
                           )),
-                      context.surahBannerLastPlace(pageIndex, i),
-                    ]);
-                  }),
-                ),
-        );
-      }),
-    );
+                    ),
+                    context.surahBannerLastPlace(pageIndex, i),
+                  ]);
+                }),
+              ),
+      );
+    });
   }
 }

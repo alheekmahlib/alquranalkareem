@@ -13,7 +13,7 @@ import '../../../controllers/bookmarks_controller.dart';
 import '../../../controllers/general_controller.dart';
 import '../widgets/audio/audio_widget.dart';
 import '../widgets/pages/nav_bar_widget.dart';
-import '../widgets/pages/screen_switch.dart';
+import '../widgets/screen_switch.dart';
 import '../widgets/search/search_bar.dart';
 import '../widgets/surah_juz_list.dart';
 import '/presentation/controllers/quran_controller.dart';
@@ -56,6 +56,7 @@ class QuranHome extends StatelessWidget {
               color: Theme.of(context).primaryColorDark,
             ),
             child: Stack(
+              alignment: Alignment.center,
               children: <Widget>[
                 Directionality(
                     textDirection: TextDirection.rtl,

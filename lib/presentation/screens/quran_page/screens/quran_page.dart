@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 
 import '../../../../core/services/services_locator.dart';
@@ -29,94 +30,44 @@ class QuranPages extends StatelessWidget {
           onTap: () {
             audioCtrl.clearSelection();
           },
-          child: PageView.builder(
-            controller: generalCtrl.pageController,
-            itemCount: 604,
-            padEnds: false,
-            scrollDirection: Axis.horizontal,
-            physics: const ClampingScrollPhysics(),
-            onPageChanged: generalCtrl.pageChanged,
-            itemBuilder: (_, index) {
-              sl<TranslateDataController>().fetchTranslate(context);
-              return context.customOrientation(
-                  index.isEven
-                      ? RightPage(
-                          child: Column(
-                            children: [
-                              Expanded(
-                                flex: 1,
-                                child: Align(
-                                    alignment: Alignment.topCenter,
-                                    child: TopTitleWidget(
-                                        index: index, isRight: true)),
-                              ),
-                              Expanded(
-                                  flex: 10,
-                                  child: FittedBox(
-                                      fit: BoxFit.scaleDown,
-                                      child: PagesWidget(pageIndex: index))),
-                              Expanded(
-                                flex: 1,
-                                child: Align(
-                                  alignment: Alignment.bottomCenter,
-                                  child: Text(
-                                    '${generalCtrl.convertNumbers('${index + 1}')}',
-                                    style: TextStyle(
-                                        fontSize: context.customOrientation(
-                                            18.0, 22.0),
-                                        fontFamily: 'naskh',
-                                        color: const Color(0xff77554B)),
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        )
-                      : LeftPage(
-                          child: Column(
-                            children: [
-                              Expanded(
-                                  flex: 1,
-                                  child: Align(
-                                      alignment: Alignment.topCenter,
-                                      child: TopTitleWidget(
-                                          index: index, isRight: false))),
-                              Expanded(
-                                  flex: 10,
-                                  child: FittedBox(
-                                      fit: BoxFit.scaleDown,
-                                      child: PagesWidget(pageIndex: index))),
-                              Expanded(
-                                flex: 1,
-                                child: Align(
-                                  alignment: Alignment.bottomCenter,
-                                  child: Text(
-                                    '${generalCtrl.convertNumbers('${index + 1}')}',
-                                    style: TextStyle(
-                                        fontSize: context.customOrientation(
-                                            18.0, 22.0),
-                                        fontFamily: 'naskh',
-                                        color: const Color(0xff77554B)),
-                                  ),
-                                ),
-                              )
-                            ],
-                          ),
-                        ),
-                  index.isEven
+          child: SizedBox(
+            height: MediaQuery.sizeOf(context).height,
+            child: PageView.builder(
+              controller: generalCtrl.pageController,
+              itemCount: 604,
+              padEnds: false,
+              scrollDirection: Axis.horizontal,
+              physics: const ClampingScrollPhysics(),
+              onPageChanged: generalCtrl.pageChanged,
+              itemBuilder: (_, index) {
+                sl<TranslateDataController>().fetchTranslate(context);
+                return Center(
+                  child: index.isEven
                       ? RightPage(
                           child: SingleChildScrollView(
                             child: Column(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
-                                TopTitleWidget(index: index, isRight: true),
-                                PagesWidget(pageIndex: index),
-                                Text(
-                                  '${generalCtrl.convertNumbers('${index + 1}')}',
-                                  style: TextStyle(
-                                      fontSize:
-                                          context.customOrientation(18.0, 22.0),
-                                      fontFamily: 'naskh',
-                                      color: const Color(0xff77554B)),
+                                Align(
+                                    alignment: Alignment.topCenter,
+                                    child: TopTitleWidget(
+                                        index: index, isRight: true)),
+                                const Gap(32),
+                                Align(
+                                    alignment: Alignment.center,
+                                    child: PagesWidget(pageIndex: index)),
+                                const Gap(32),
+                                Align(
+                                  alignment: Alignment.bottomCenter,
+                                  child: Text(
+                                    '${generalCtrl.convertNumbers('${index + 1}')}',
+                                    style: TextStyle(
+                                        fontSize: context.customOrientation(
+                                            18.0, 22.0),
+                                        fontFamily: 'naskh',
+                                        color: const Color(0xff77554B)),
+                                  ),
                                 ),
                               ],
                             ),
@@ -125,22 +76,36 @@ class QuranPages extends StatelessWidget {
                       : LeftPage(
                           child: SingleChildScrollView(
                             child: Column(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
-                                TopTitleWidget(index: index, isRight: false),
-                                PagesWidget(pageIndex: index),
-                                Text(
-                                  '${generalCtrl.convertNumbers('${index + 1}')}',
-                                  style: TextStyle(
-                                      fontSize:
-                                          context.customOrientation(18.0, 22.0),
-                                      fontFamily: 'naskh',
-                                      color: const Color(0xff77554B)),
+                                Align(
+                                    alignment: Alignment.topCenter,
+                                    child: TopTitleWidget(
+                                        index: index, isRight: false)),
+                                const Gap(32),
+                                Align(
+                                    alignment: Alignment.center,
+                                    child: PagesWidget(pageIndex: index)),
+                                const Gap(32),
+                                Align(
+                                  alignment: Alignment.bottomCenter,
+                                  child: Text(
+                                    '${generalCtrl.convertNumbers('${index + 1}')}',
+                                    style: TextStyle(
+                                        fontSize: context.customOrientation(
+                                            18.0, 22.0),
+                                        fontFamily: 'naskh',
+                                        color: const Color(0xff77554B)),
+                                  ),
                                 )
                               ],
                             ),
                           ),
-                        ));
-            },
+                        ),
+                );
+              },
+            ),
           ),
         ),
       ),

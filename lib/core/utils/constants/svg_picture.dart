@@ -11,7 +11,7 @@ import '../../services/services_locator.dart';
 Widget besmAllah() {
   return SvgPicture.asset(
     'assets/svg/besmAllah.svg',
-    height: 30.h,
+    width: sl<GeneralController>().ifBigScreenSize(100.0.w, 150.0.w),
     colorFilter:
         ColorFilter.mode(Get.theme.cardColor.withOpacity(.8), BlendMode.srcIn),
   );
@@ -20,7 +20,7 @@ Widget besmAllah() {
 Widget besmAllah2() {
   return SvgPicture.asset(
     'assets/svg/besmAllah2.svg',
-    height: 30.h,
+    width: sl<GeneralController>().ifBigScreenSize(100.0.w, 150.0.w),
     colorFilter:
         ColorFilter.mode(Get.theme.cardColor.withOpacity(.8), BlendMode.srcIn),
   );
@@ -246,7 +246,7 @@ Widget surah_banner1({double? height, double? width}) {
   return SvgPicture.asset(
     'assets/svg/surah_banner1.svg',
     width: width,
-    height: height ?? 30,
+    height: height,
   );
 }
 
