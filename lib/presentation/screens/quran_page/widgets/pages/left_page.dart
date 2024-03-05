@@ -11,6 +11,7 @@ class LeftPage extends StatelessWidget {
       image: true,
       label: 'Quran Page',
       child: Container(
+        height: MediaQuery.sizeOf(context).height,
         margin: const EdgeInsets.only(left: 4.0, top: 16.0, bottom: 16.0),
         decoration: BoxDecoration(
             color: Get.isDarkMode

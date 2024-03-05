@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 
 import '../../../../core/services/services_locator.dart';
@@ -25,26 +24,27 @@ class QuranPages extends StatelessWidget {
   Widget build(BuildContext context) {
     bookmarkCtrl.getBookmarks();
     return SafeArea(
-      child: GetBuilder<GeneralController>(
-        builder: (generalCtrl) => GestureDetector(
-          onTap: () {
-            audioCtrl.clearSelection();
-          },
-          child: SizedBox(
-            height: MediaQuery.sizeOf(context).height,
-            child: PageView.builder(
-              controller: generalCtrl.pageController,
-              itemCount: 604,
-              padEnds: false,
-              scrollDirection: Axis.horizontal,
-              physics: const ClampingScrollPhysics(),
-              onPageChanged: generalCtrl.pageChanged,
-              itemBuilder: (_, index) {
-                sl<TranslateDataController>().fetchTranslate(context);
-                return Center(
-                  child: index.isEven
-                      ? RightPage(
-                          child: SingleChildScrollView(
+      child: SingleChildScrollView(
+        child: GetBuilder<GeneralController>(
+          builder: (generalCtrl) => GestureDetector(
+            onTap: () {
+              audioCtrl.clearSelection();
+            },
+            child: Container(
+              padding: const EdgeInsets.symmetric(vertical: 8.0),
+              height: MediaQuery.sizeOf(context).height,
+              child: PageView.builder(
+                controller: generalCtrl.pageController,
+                itemCount: 604,
+                padEnds: false,
+                scrollDirection: Axis.horizontal,
+                physics: const ClampingScrollPhysics(),
+                onPageChanged: generalCtrl.pageChanged,
+                itemBuilder: (_, index) {
+                  sl<TranslateDataController>().fetchTranslate(context);
+                  return Center(
+                    child: index.isEven
+                        ? RightPage(
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               crossAxisAlignment: CrossAxisAlignment.center,
@@ -53,11 +53,17 @@ class QuranPages extends StatelessWidget {
                                     alignment: Alignment.topCenter,
                                     child: TopTitleWidget(
                                         index: index, isRight: true)),
-                                const Gap(32),
-                                Align(
-                                    alignment: Alignment.center,
-                                    child: PagesWidget(pageIndex: index)),
-                                const Gap(32),
+                                Flexible(
+                                  child: Align(
+                                      alignment: Alignment.center,
+                                      child: Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 16.0),
+                                        child: SingleChildScrollView(
+                                            child:
+                                                PagesWidget(pageIndex: index)),
+                                      )),
+                                ),
                                 Align(
                                   alignment: Alignment.bottomCenter,
                                   child: Text(
@@ -71,10 +77,8 @@ class QuranPages extends StatelessWidget {
                                 ),
                               ],
                             ),
-                          ),
-                        )
-                      : LeftPage(
-                          child: SingleChildScrollView(
+                          )
+                        : LeftPage(
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               crossAxisAlignment: CrossAxisAlignment.center,
@@ -83,11 +87,17 @@ class QuranPages extends StatelessWidget {
                                     alignment: Alignment.topCenter,
                                     child: TopTitleWidget(
                                         index: index, isRight: false)),
-                                const Gap(32),
-                                Align(
-                                    alignment: Alignment.center,
-                                    child: PagesWidget(pageIndex: index)),
-                                const Gap(32),
+                                Flexible(
+                                  child: Align(
+                                      alignment: Alignment.center,
+                                      child: Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 16.0),
+                                        child: SingleChildScrollView(
+                                            child:
+                                                PagesWidget(pageIndex: index)),
+                                      )),
+                                ),
                                 Align(
                                   alignment: Alignment.bottomCenter,
                                   child: Text(
@@ -102,9 +112,9 @@ class QuranPages extends StatelessWidget {
                               ],
                             ),
                           ),
-                        ),
-                );
-              },
+                  );
+                },
+              ),
             ),
           ),
         ),

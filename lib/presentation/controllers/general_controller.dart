@@ -185,13 +185,6 @@ class GeneralController extends GetxController {
         keepPage: true);
   }
 
-  PageController dPageController({double? viewport}) {
-    return quranPageController = PageController(
-        viewportFraction: viewport!,
-        initialPage: sl<GeneralController>().currentPageNumber.value - 1,
-        keepPage: true);
-  }
-
   String convertNumbers(String inputStr) {
     Map<String, Map<String, String>> numberSets = {
       'العربية': {

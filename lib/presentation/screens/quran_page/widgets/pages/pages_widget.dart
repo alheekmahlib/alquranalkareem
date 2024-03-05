@@ -1,9 +1,9 @@
-import '../../../../controllers/general_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../../../core/services/services_locator.dart';
 import '../../../../controllers/bookmarks_controller.dart';
+import '../../../../controllers/general_controller.dart';
 import '../../../../controllers/quran_controller.dart';
 import '/core/utils/constants/extensions/menu_extension.dart';
 import '/core/utils/constants/extensions/surah_name_with_banner.dart';
@@ -46,15 +46,19 @@ class PagesWidget extends StatelessWidget {
                     quranCtrl.getSurahNumberByAyah(ayahs.first) == 9 ||
                             quranCtrl.getSurahNumberByAyah(ayahs.first) == 1
                         ? const SizedBox.shrink()
-                        : ayahs.first.ayahNumber == 1
-                            ? (quranCtrl.getSurahNumberByAyah(ayahs.first) ==
-                                        95 ||
-                                    quranCtrl.getSurahNumberByAyah(
-                                            ayahs.first) ==
-                                        97)
-                                ? besmAllah2()
-                                : besmAllah()
-                            : const SizedBox.shrink(),
+                        : Padding(
+                            padding: const EdgeInsets.only(bottom: 8.0),
+                            child: ayahs.first.ayahNumber == 1
+                                ? (quranCtrl.getSurahNumberByAyah(
+                                                ayahs.first) ==
+                                            95 ||
+                                        quranCtrl.getSurahNumberByAyah(
+                                                ayahs.first) ==
+                                            97)
+                                    ? besmAllah2()
+                                    : besmAllah()
+                                : const SizedBox.shrink(),
+                          ),
                     FittedBox(
                       fit: BoxFit.fitWidth,
                       child: Obx(() => RichText(
