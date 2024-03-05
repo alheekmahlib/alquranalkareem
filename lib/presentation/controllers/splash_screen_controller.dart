@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:hijri/hijri_calendar.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../core/services/services_locator.dart';
 import '../../core/utils/constants/lists.dart';
+import '../../core/utils/constants/lottie.dart';
 import '../../core/utils/constants/shared_preferences_constants.dart';
 import '../screens/screen_type.dart';
 import '../screens/whats_new/whats_new_screen.dart';
@@ -17,7 +19,9 @@ import 'settings_controller.dart';
 class SplashScreenController extends GetxController {
   RxBool animate = false.obs;
   final sharedCtrl = sl<SharedPreferences>();
+  final generalCtrl = sl<GeneralController>();
   RxInt onboardingPageNumber = 0.obs;
+  var today = HijriCalendar.now();
 
   @override
   void onInit() {
@@ -81,10 +85,17 @@ class SplashScreenController extends GetxController {
   void showWhatsNew() async {
     List<Map<String, dynamic>> newFeatures = await getNewFeatures();
     if (newFeatures.isNotEmpty) {
-      // Code to display new features to the user, e.g., through a dialog or a new screen
-
-      // After displaying, update the last shown index
       await saveLastShownIndex(newFeatures.last['index']);
+    }
+  }
+
+  Widget ramadhanOrEidGreeting() {
+    if (today.hMonth == 9) {
+      return ramadanOrEid('ramadan_white', height: 100.0);
+    } else if (generalCtrl.eidDays) {
+      return ramadanOrEid('eid_white', height: 100.0);
+    } else {
+      return const SizedBox.shrink();
     }
   }
 }
