@@ -31,7 +31,9 @@ class QuranPages extends StatelessWidget {
               audioCtrl.clearSelection();
             },
             child: Container(
-              padding: const EdgeInsets.symmetric(vertical: 8.0),
+              padding: context.customOrientation(
+                  const EdgeInsets.symmetric(vertical: 8.0),
+                  const EdgeInsets.symmetric(vertical: 0.0)),
               height: MediaQuery.sizeOf(context).height,
               child: PageView.builder(
                 controller: generalCtrl.pageController,

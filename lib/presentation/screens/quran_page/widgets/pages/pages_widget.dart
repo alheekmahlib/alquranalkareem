@@ -68,17 +68,20 @@ class PagesWidget extends StatelessWidget {
                               style: TextStyle(
                                 fontFamily: 'page${pageIndex + 1}',
                                 fontSize: 100,
-                                // fontSize: generalCtrl.customSize(
-                                //   getProportionateScreenWidth(17),
-                                //   getProportionateScreenWidth(19),
-                                //   getProportionateScreenWidth(19),
-                                //   getProportionateScreenWidth(19),
-                                // ),
                                 height: 2,
                                 letterSpacing: 2,
                                 color: Theme.of(context)
                                     .colorScheme
                                     .inversePrimary,
+                                shadows: [
+                                  Shadow(
+                                    blurRadius: 0.5,
+                                    color: quranCtrl.isBold.value == 0
+                                        ? Colors.black
+                                        : Colors.transparent,
+                                    offset: const Offset(0.5, 0.5),
+                                  ),
+                                ],
                               ),
                               children:
                                   List.generate(ayahs.length, (ayahIndex) {
@@ -93,12 +96,6 @@ class PagesWidget extends StatelessWidget {
                                       pageIndex: pageIndex,
                                       isSelected: quranCtrl.isSelected,
                                       fontSize: 100,
-                                      // fontSize: generalCtrl.customSize(
-                                      //   getProportionateScreenWidth(17),
-                                      //   getProportionateScreenWidth(19),
-                                      //   getProportionateScreenWidth(19),
-                                      //   getProportionateScreenWidth(19),
-                                      // ),
                                       surahNum: quranCtrl
                                           .getSurahNumberFromPage(pageIndex),
                                       ayahNum: ayahs[ayahIndex].ayahUQNumber,
@@ -126,12 +123,6 @@ class PagesWidget extends StatelessWidget {
                                     pageIndex: pageIndex,
                                     isSelected: quranCtrl.isSelected,
                                     fontSize: 100,
-                                    // fontSize: generalCtrl.customSize(
-                                    //   getProportionateScreenWidth(17),
-                                    //   getProportionateScreenWidth(19),
-                                    //   getProportionateScreenWidth(19),
-                                    //   getProportionateScreenWidth(19),
-                                    // ),
                                     surahNum: quranCtrl
                                         .getSurahNumberFromPage(pageIndex),
                                     ayahNum: ayahs[ayahIndex].ayahUQNumber,

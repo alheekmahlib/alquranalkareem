@@ -793,5 +793,25 @@
   "@choseQuran": {
     "type": "text",
     "placeholders": {}
+  },
+  "blueMode": "أزرق",
+  "@blueMode": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "brownMode": "بني",
+  "@brownMode": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "oldMode": "القديم",
+  "@oldMode": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "darkMode": "الداكن",
+  "@darkMode": {
+    "type": "text",
+    "placeholders": {}
   }
 }

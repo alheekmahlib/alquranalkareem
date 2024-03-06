@@ -794,5 +794,25 @@
   "@choseQuran": {
     "type": "text",
     "placeholders": {}
+  },
+  "blueMode": "نیلا",
+  "@blueMode": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "brownMode": "بھورا",
+  "@brownMode": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "oldMode": "پرانا",
+  "@oldMode": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "darkMode": "گہرا",
+  "@darkMode": {
+    "type": "text",
+    "placeholders": {}
   }
 }

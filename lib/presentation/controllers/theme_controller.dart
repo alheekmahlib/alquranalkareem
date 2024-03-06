@@ -6,7 +6,7 @@ import '../../core/services/services_locator.dart';
 import '../../core/utils/constants/shared_preferences_constants.dart';
 import '../../core/utils/helpers/app_themes.dart';
 
-enum AppTheme { blue, brown, dark }
+enum AppTheme { blue, brown, old, dark }
 
 class ThemeController extends GetxController {
   AppTheme? initialTheme;
@@ -27,6 +27,9 @@ class ThemeController extends GetxController {
         break;
       case AppTheme.brown:
         initialThemeData = brownTheme;
+        break;
+      case AppTheme.old:
+        initialThemeData = oldTheme;
         break;
       case AppTheme.dark:
         initialThemeData = darkTheme;
@@ -55,6 +58,9 @@ class ThemeController extends GetxController {
       case AppTheme.brown:
         newThemeData = brownTheme;
         break;
+      case AppTheme.old:
+        newThemeData = oldTheme;
+        break;
       case AppTheme.dark:
         newThemeData = darkTheme;
         break;
@@ -75,6 +81,8 @@ class ThemeController extends GetxController {
         return blueTheme;
       case AppTheme.brown:
         return brownTheme;
+      case AppTheme.old:
+        return oldTheme;
       case AppTheme.dark:
         return darkTheme;
       default:
@@ -86,5 +94,6 @@ class ThemeController extends GetxController {
 
   bool get isBlueMode => _currentTheme.value == AppTheme.blue;
   bool get isBrownMode => _currentTheme.value == AppTheme.brown;
+  bool get isOldMode => _currentTheme.value == AppTheme.old;
   bool get isDarkMode => _currentTheme.value == AppTheme.dark;
 }

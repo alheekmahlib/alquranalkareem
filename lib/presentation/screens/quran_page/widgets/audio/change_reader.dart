@@ -21,15 +21,14 @@ class ChangeReader extends StatelessWidget {
         child: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Obx(() {
-              return Text(
-                ayahReaderInfo[sl<AudioController>().readerIndex.value]['name'],
-                style: TextStyle(
-                    color: Theme.of(context).colorScheme.surface,
-                    fontSize: 13,
-                    fontFamily: 'kufi'),
-              );
-            }),
+            Text(
+              '${ayahReaderInfo[sl<AudioController>().readerIndex.value]['name']}'
+                  .tr,
+              style: TextStyle(
+                  color: Theme.of(context).colorScheme.surface,
+                  fontSize: 13,
+                  fontFamily: 'kufi'),
+            ),
             Semantics(
               button: true,
               enabled: true,

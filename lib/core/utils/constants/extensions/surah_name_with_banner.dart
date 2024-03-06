@@ -33,7 +33,7 @@ extension CustomSurahNameWithBannerExtension on BuildContext {
         children: [
           child,
           SizedBox(
-              height: 27.h,
+              // height: 27.h,
               width: 120.w,
               child: surahNameWidget(number, Get.theme.hintColor)),
         ],
@@ -46,6 +46,8 @@ extension CustomSurahNameWithBannerExtension on BuildContext {
       return bannerWithSurahName(surah_banner1(width: Get.width * .8), number);
     } else if (themeCtrl.isBrownMode) {
       return bannerWithSurahName(surah_banner2(width: Get.width * .8), number);
+    } else if (themeCtrl.isOldMode) {
+      return bannerWithSurahName(surah_banner4(width: Get.width * .8), number);
     } else {
       return bannerWithSurahName(surah_banner3(width: Get.width * .8), number);
     }
@@ -56,8 +58,22 @@ extension CustomSurahNameWithBannerExtension on BuildContext {
       return bannerWithSurahName(surah_ayah_banner1(), number);
     } else if (themeCtrl.isBrownMode) {
       return bannerWithSurahName(surah_ayah_banner2(), number);
+    } else if (themeCtrl.isOldMode) {
+      return bannerWithSurahName(surah_ayah_banner4(), number);
     } else {
       return bannerWithSurahName(surah_banner3(), number);
+    }
+  }
+
+  String bookmarkPageIcon() {
+    if (themeCtrl.isBlueMode) {
+      return 'assets/svg/bookmark.svg';
+    } else if (themeCtrl.isBrownMode) {
+      return 'assets/svg/bookmark2.svg';
+    } else if (themeCtrl.isOldMode) {
+      return 'assets/svg/bookmark3.svg';
+    } else {
+      return 'assets/svg/bookmark.svg';
     }
   }
 

@@ -19,23 +19,16 @@ class LanguageList extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Container(
-              padding:
-                  const EdgeInsets.symmetric(horizontal: 6.0, vertical: 4.0),
-              margin: const EdgeInsets.symmetric(horizontal: 16.0),
-              decoration: BoxDecoration(
-                  color: Theme.of(context).colorScheme.primary.withOpacity(.2),
-                  borderRadius: const BorderRadius.all(Radius.circular(4))),
-              child: Text(
-                'langChange'.tr,
-                style: TextStyle(
-                    color: Theme.of(context).hintColor,
-                    fontFamily: 'kufi',
-                    fontStyle: FontStyle.italic,
-                    fontSize: 16),
-              ),
+            Text(
+              'langChange'.tr,
+              style: TextStyle(
+                  color: Theme.of(context).hintColor,
+                  fontFamily: 'kufi',
+                  fontStyle: FontStyle.italic,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 16),
             ),
-            const Gap(8),
+            const Gap(4),
             Container(
               padding: const EdgeInsets.all(4.0),
               decoration: BoxDecoration(

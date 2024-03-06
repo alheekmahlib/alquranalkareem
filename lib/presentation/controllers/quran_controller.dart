@@ -36,6 +36,7 @@ class QuranController extends GetxController {
   RxBool isPlayExpanded = false.obs;
   RxBool isSajda = false.obs;
   RxInt isPages = 0.obs;
+  RxInt isBold = 1.obs;
   RxBool isMoreOptions = false.obs;
   final itemScrollController = ItemScrollController();
   final itemPositionsListener = ItemPositionsListener.create();
@@ -99,6 +100,7 @@ class QuranController extends GetxController {
     await loadQuran();
     itemPositionsListener.itemPositions.addListener(_updatePageNumber);
     itemPositionsListener.itemPositions.addListener(currentListPageNumber);
+    isBold.value = sl<SharedPreferences>().getInt(IS_BOLD) ?? 1;
   }
 
   Future<void> loadQuran() async {

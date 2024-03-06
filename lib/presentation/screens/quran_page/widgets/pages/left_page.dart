@@ -1,3 +1,4 @@
+import 'package:alquranalkareem/core/utils/constants/extensions/extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -12,7 +13,9 @@ class LeftPage extends StatelessWidget {
       label: 'Quran Page',
       child: Container(
         height: MediaQuery.sizeOf(context).height,
-        margin: const EdgeInsets.only(left: 4.0, top: 16.0, bottom: 16.0),
+        margin: context.customOrientation(
+            const EdgeInsets.only(left: 4.0, top: 16.0, bottom: 16.0),
+            const EdgeInsets.only(left: 4.0)),
         decoration: BoxDecoration(
             color: Get.isDarkMode
                 ? Theme.of(context).primaryColorDark.withOpacity(.5)

@@ -802,5 +802,25 @@
   "@choseQuran": {
     "type": "text",
     "placeholders": {}
+  },
+  "blueMode": "Azul",
+  "@blueMode": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "brownMode": "Marrón",
+  "@brownMode": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "oldMode": "Viejo",
+  "@oldMode": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "darkMode": "Oscuro",
+  "@darkMode": {
+    "type": "text",
+    "placeholders": {}
   }
 }

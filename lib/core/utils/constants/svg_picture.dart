@@ -1,3 +1,4 @@
+import 'package:alquranalkareem/core/utils/constants/extensions/surah_name_with_banner.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
@@ -47,12 +48,23 @@ Widget bookmarkIcon({double? height, double? width, int? pageNum}) {
         sl<BookmarksController>().isPageBookmarked(
                 pageNum ?? sl<GeneralController>().currentPageNumber.value)
             ? 'assets/svg/bookmarked.svg'
-            : 'assets/svg/bookmark.svg',
+            : Get.context!.bookmarkPageIcon(),
         width: width,
         height: height,
       ),
     );
   });
+}
+
+Widget bookmarkPageIcon({double? height, double? width, int? pageNum}) {
+  return SvgPicture.asset(
+    sl<BookmarksController>().isPageBookmarked(
+            pageNum ?? sl<GeneralController>().currentPageNumber.value)
+        ? 'assets/svg/bookmarked.svg'
+        : Get.context!.bookmarkPageIcon(),
+    width: width,
+    height: height,
+  );
 }
 
 Widget surahName(double height, double width) {
@@ -254,7 +266,15 @@ Widget surah_banner2({double? height, double? width}) {
   return SvgPicture.asset(
     'assets/svg/surah_banner2.svg',
     width: width,
-    height: height ?? 30,
+    height: height,
+  );
+}
+
+Widget surah_banner4({double? height, double? width}) {
+  return SvgPicture.asset(
+    'assets/svg/surah_banner4.svg',
+    width: width,
+    height: height,
   );
 }
 
@@ -274,11 +294,19 @@ Widget surah_ayah_banner2({double? height, double? width}) {
   );
 }
 
+Widget surah_ayah_banner4({double? height, double? width}) {
+  return SvgPicture.asset(
+    'assets/svg/surah_banner4.svg',
+    width: width,
+    height: height ?? 35,
+  );
+}
+
 Widget surah_banner3({double? height, double? width}) {
   return SvgPicture.asset(
     'assets/svg/surah_banner3.svg',
     width: width,
-    height: height ?? 30,
+    height: height,
   );
 }
 

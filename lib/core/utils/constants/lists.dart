@@ -119,14 +119,22 @@ final List mushafSettingsList = [
 final List themeList = [
   {
     'name': AppTheme.blue,
+    'title': 'blueMode',
     'svgUrl': 'assets/svg/theme0.svg',
   },
   {
     'name': AppTheme.brown,
+    'title': 'brownMode',
     'svgUrl': 'assets/svg/theme1.svg',
   },
   {
+    'name': AppTheme.old,
+    'title': 'oldMode',
+    'svgUrl': 'assets/svg/theme3.svg',
+  },
+  {
     'name': AppTheme.dark,
+    'title': 'darkMode',
     'svgUrl': 'assets/svg/theme2.svg',
   }
 ];
@@ -266,19 +274,15 @@ List tafsirName = [
 
 List ayahReaderInfo = [
   {
-    'name': 'reader1'.tr,
+    'name': 'reader1',
     'readerD': '192/ar.abdulbasitmurattal',
     'readerI': 'basit'
   },
-  {'name': 'reader2'.tr, 'readerD': '128/ar.minshawi', 'readerI': 'minshawy'},
-  {'name': 'reader3'.tr, 'readerD': '128/ar.husary', 'readerI': 'husary'},
-  {'name': 'reader4'.tr, 'readerD': '128/ar.ahmedajamy', 'readerI': 'ajamy'},
-  {
-    'name': 'reader5'.tr,
-    'readerD': '128/ar.mahermuaiqly',
-    'readerI': 'muaiqly'
-  },
-  {'name': 'reader6'.tr, 'readerD': '64/ar.saoodshuraym', 'readerI': 'saood'}
+  {'name': 'reader2', 'readerD': '128/ar.minshawi', 'readerI': 'minshawy'},
+  {'name': 'reader3', 'readerD': '128/ar.husary', 'readerI': 'husary'},
+  {'name': 'reader4', 'readerD': '128/ar.ahmedajamy', 'readerI': 'ajamy'},
+  {'name': 'reader5', 'readerD': '128/ar.mahermuaiqly', 'readerI': 'muaiqly'},
+  {'name': 'reader6', 'readerD': '64/ar.saoodshuraym', 'readerI': 'saood'}
 ];
 
 List<Map<String, dynamic>> whatsNewList = [

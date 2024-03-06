@@ -794,5 +794,25 @@
   "@choseQuran": {
     "type": "text",
     "placeholders": {}
+  },
+  "blueMode": "নীল",
+  "@blueMode": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "brownMode": "বাদামী",
+  "@brownMode": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "oldMode": "পুরানো",
+  "@oldMode": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "darkMode": "গাঢ়",
+  "@darkMode": {
+    "type": "text",
+    "placeholders": {}
   }
 }

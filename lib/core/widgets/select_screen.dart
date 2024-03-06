@@ -1,10 +1,10 @@
-import '../utils/constants/lists.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 
 import '../../presentation/controllers/general_controller.dart';
 import '../services/services_locator.dart';
+import '../utils/constants/lists.dart';
 
 class SelectScreen extends StatelessWidget {
   const SelectScreen({super.key});
@@ -17,22 +17,16 @@ class SelectScreen extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Container(
-            padding: const EdgeInsets.symmetric(horizontal: 6.0, vertical: 4.0),
-            margin: const EdgeInsets.symmetric(horizontal: 16.0),
-            decoration: BoxDecoration(
-                color: Theme.of(context).colorScheme.primary.withOpacity(.2),
-                borderRadius: const BorderRadius.all(Radius.circular(4))),
-            child: Text(
-              'startScreen'.tr,
-              style: TextStyle(
-                  color: Theme.of(context).hintColor,
-                  fontFamily: 'kufi',
-                  fontStyle: FontStyle.italic,
-                  fontSize: 16),
-            ),
+          Text(
+            'startScreen'.tr,
+            style: TextStyle(
+                color: Theme.of(context).hintColor,
+                fontFamily: 'kufi',
+                fontStyle: FontStyle.italic,
+                fontWeight: FontWeight.bold,
+                fontSize: 16),
           ),
-          const Gap(8),
+          const Gap(4),
           Container(
             padding: const EdgeInsets.all(4.0),
             decoration: BoxDecoration(

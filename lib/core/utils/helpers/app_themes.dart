@@ -85,6 +85,50 @@ final ThemeData brownTheme = ThemeData(
   ),
 );
 
+final ThemeData oldTheme = ThemeData.light(
+  useMaterial3: true,
+).copyWith(
+  colorScheme: const ColorScheme(
+    brightness: Brightness.light,
+    primary: Color(0xff232c13),
+    onPrimary: Color(0xff161f07),
+    secondary: Color(0xfff3efdf),
+    onSecondary: Color(0xff91a57d),
+    error: Color(0xffE0E1E0),
+    onError: Color(0xffE0E1E0),
+    background: Color(0xfff3efdf),
+    onBackground: Color(0xfff3efdf),
+    surface: Color(0xff91a57d),
+    onSurface: Color(0xffE0E1E0),
+    inversePrimary: Color(0xff000000),
+    inverseSurface: Color(0xffCD9974),
+  ),
+  primaryColor: const Color(0xff232c13),
+  primaryColorLight: const Color(0xff53618c),
+  primaryColorDark: const Color(0xff161f07),
+  dialogBackgroundColor: const Color(0xfff3efdf),
+  dividerColor: const Color(0xff91a57d),
+  highlightColor: const Color(0xff91a57d).withOpacity(0.25),
+  indicatorColor: const Color(0xff91a57d),
+  scaffoldBackgroundColor: const Color(0xff232c13),
+  canvasColor: const Color(0xfff3efdf),
+  hoverColor: const Color(0xfff3efdf).withOpacity(0.3),
+  disabledColor: const Color(0xfff3efdf),
+  hintColor: const Color(0xff232c13),
+  focusColor: const Color(0xffE0E1E0),
+  secondaryHeaderColor: const Color(0xff53618c),
+  cardColor: const Color(0xff232c13),
+  dividerTheme: const DividerThemeData(
+    color: Color(0xff91a57d),
+  ),
+  textSelectionTheme: TextSelectionThemeData(
+      selectionColor: const Color(0xffE0E1E0).withOpacity(0.3),
+      selectionHandleColor: const Color(0xffE0E1E0)),
+  cupertinoOverrideTheme: const CupertinoThemeData(
+    primaryColor: Color(0xff53618c),
+  ),
+);
+
 final ThemeData darkTheme = ThemeData.dark(
   useMaterial3: true,
 ).copyWith(
