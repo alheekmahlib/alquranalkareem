@@ -26,10 +26,13 @@ class PagesWidget extends StatelessWidget {
       return Container(
         padding: pageIndex == 0 || pageIndex == 1
             ? EdgeInsets.symmetric(horizontal: Get.width * .13)
-            : const EdgeInsets.symmetric(horizontal: 32.0),
+            : const EdgeInsets.symmetric(horizontal: 16.0),
         margin: pageIndex == 0 || pageIndex == 1
             ? EdgeInsets.symmetric(vertical: Get.width * .34)
-            : const EdgeInsets.symmetric(horizontal: 0.0),
+            : const EdgeInsets.symmetric(
+                horizontal: 0.0,
+                vertical: 32.0,
+              ),
         child: quranCtrl.pages.isEmpty
             ? const CircularProgressIndicator.adaptive()
             : Column(

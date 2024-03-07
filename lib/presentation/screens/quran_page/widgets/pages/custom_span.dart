@@ -1,9 +1,9 @@
-import '../../../../../core/utils/constants/extensions/surah_name_with_banner.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../../../core/services/services_locator.dart';
+import '../../../../../core/utils/constants/extensions/surah_name_with_banner.dart';
 import '../../../../controllers/bookmarks_controller.dart';
 
 TextSpan span({
@@ -31,7 +31,7 @@ TextSpan span({
           fontFamily: 'page${pageIndex + 1}',
           fontSize: fontSize,
           height: 2,
-          letterSpacing: 20,
+          letterSpacing: 30,
           color: Get.theme.colorScheme.inversePrimary,
           backgroundColor: quranCtrl.isPages.value == 1
               ? Colors.transparent
@@ -51,7 +51,7 @@ TextSpan span({
           fontFamily: 'page${pageIndex + 1}',
           fontSize: fontSize,
           height: 2,
-          letterSpacing: 2,
+          letterSpacing: 5,
           // wordSpacing: wordSpacing + 10,
           color: Get.theme.colorScheme.inversePrimary,
           backgroundColor: quranCtrl.isPages.value == 1
@@ -74,7 +74,7 @@ TextSpan span({
         fontFamily: 'page${pageIndex + 1}',
         fontSize: fontSize,
         height: 2,
-        letterSpacing: 2,
+        letterSpacing: 5,
         color: Get.theme.colorScheme.inversePrimary,
         backgroundColor: quranCtrl.isPages.value == 1
             ? Colors.transparent
@@ -95,7 +95,7 @@ TextSpan span({
         fontFamily: 'page${pageIndex + 1}',
         fontSize: fontSize,
         height: 2,
-        letterSpacing: 2,
+        letterSpacing: 5,
         color: sl<BookmarksController>().hasBookmark(surahNum, ayahNum).value
             ? Get.theme.colorScheme.inversePrimary
             : const Color(0xff77554B),
