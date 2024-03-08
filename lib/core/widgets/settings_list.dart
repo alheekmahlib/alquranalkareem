@@ -1,247 +1,195 @@
-import 'package:expansion_tile_card/expansion_tile_card.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
+import 'package:gap/gap.dart';
 import 'package:get/get.dart';
-import 'package:theme_provider/theme_provider.dart';
 
-import '../../presentation/controllers/settings_controller.dart';
-import '../services/l10n/app_localizations.dart';
+import '../../presentation/screens/about_app/about_app.dart';
+import '../../presentation/screens/ourApp/ourApps_screen.dart';
 import '../services/services_locator.dart';
-import '../utils/constants/shared_pref_services.dart';
-import '../utils/constants/shared_preferences_constants.dart';
+import '../utils/constants/extensions/extensions.dart';
 import '../utils/constants/svg_picture.dart';
+import '/core/widgets/select_screen_build.dart';
+import '/presentation/controllers/general_controller.dart';
+import '/presentation/controllers/quran_controller.dart';
+import '/presentation/controllers/theme_controller.dart';
+import 'language_list.dart';
+import 'mushaf_settings.dart';
+import 'select_screen.dart';
 import 'theme_change.dart';
-import 'widgets.dart';
 
 class SettingsList extends StatelessWidget {
-  const SettingsList({Key? key}) : super(key: key);
+  SettingsList({Key? key}) : super(key: key);
+  final generalCtrl = sl<GeneralController>();
+  final quranCtrl = sl<QuranController>();
 
   @override
   Widget build(BuildContext context) {
-    return ListView(
-      padding: EdgeInsets.zero,
-      // direction: Axis.vertical,
-      children: [
-        Center(
-          child: spaceLine(
-            30,
-            MediaQuery.sizeOf(context).width * 3 / 4,
-          ),
-        ),
-        Directionality(
-          textDirection: TextDirection.rtl,
-          child: Container(
-            color: Theme.of(context).colorScheme.surface.withOpacity(.2),
-            child: Column(
-              children: [
-                customContainer(
-                  context,
-                  FittedBox(
-                    child: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        SvgPicture.asset(
-                          'assets/svg/line.svg',
-                          height: 15,
-                        ),
-                        Text(
-                          AppLocalizations.of(context)!.langChange,
-                          style: TextStyle(
-                              color: ThemeProvider.themeOf(context).id == 'dark'
-                                  ? Colors.white
-                                  : Theme.of(context).primaryColor,
-                              fontFamily: 'kufi',
-                              fontStyle: FontStyle.italic,
-                              fontSize: 16),
-                        ),
-                        SvgPicture.asset(
-                          'assets/svg/line2.svg',
-                          height: 15,
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Obx(
-                    () => ExpansionTileCard(
-                      elevation: 0.0,
-                      initialElevation: 0.0,
-                      title: SizedBox(
-                        width: 100.0,
-                        child: Text(
-                          sl<SettingsController>().languageName.value,
-                          style: TextStyle(
-                            fontFamily:
-                                sl<SettingsController>().languageFont.value,
-                            fontSize: 16,
-                            color: ThemeProvider.themeOf(context).id == 'dark'
-                                ? Colors.white
-                                : Theme.of(context).primaryColor,
+    final size = MediaQuery.sizeOf(context);
+
+    return GetBuilder<ThemeController>(builder: (_) {
+      return Container(
+        height: size.height * .9,
+        width: size.width,
+        decoration: BoxDecoration(
+            color: Theme.of(context).colorScheme.background,
+            borderRadius: const BorderRadius.only(
+              topLeft: Radius.circular(8),
+              topRight: Radius.circular(8),
+            )),
+        child: SafeArea(
+          child: Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Obx(() => generalCtrl.showSelectScreenPage.value
+                ? const SelectScreenBuild(
+                    isButtonBack: true,
+                    isButton: false,
+                  )
+                : ListView(
+                    children: [
+                      const Gap(8),
+                      Row(
+                        children: [
+                          context.customClose(),
+                          const Gap(32),
+                          Text(
+                            'setting'.tr,
+                            style: TextStyle(
+                                color: Theme.of(context).hintColor,
+                                fontFamily: 'kufi',
+                                fontWeight: FontWeight.bold,
+                                fontSize: 20),
                           ),
-                        ),
+                        ],
                       ),
-                      baseColor: Theme.of(context)
-                          .colorScheme
-                          .background
-                          .withOpacity(.2),
-                      expandedColor: Theme.of(context)
-                          .colorScheme
-                          .background
-                          .withOpacity(.2),
-                      children: <Widget>[
-                        const Divider(
-                          thickness: 1.0,
-                          height: 1.0,
-                        ),
-                        ButtonBar(
-                            alignment: MainAxisAlignment.spaceAround,
-                            buttonHeight: 42.0,
-                            buttonMinWidth: 90.0,
-                            children: List.generate(
-                                sl<SettingsController>().languageList.length,
-                                (index) {
-                              final lang =
-                                  sl<SettingsController>().languageList[index];
-                              return InkWell(
-                                child: Container(
-                                  constraints: BoxConstraints(
-                                      maxWidth:
-                                          MediaQuery.of(context).size.width *
-                                              0.8),
+                      const Gap(32),
+                      const LanguageList(),
+                      const Gap(24),
+                      const ThemeChange(),
+                      const Gap(24),
+                      const SelectScreen(),
+                      const Gap(24),
+                      const MushafSettings(),
+                      const Gap(24),
+                      Container(
+                        margin: const EdgeInsets.symmetric(horizontal: 16.0),
+                        padding: const EdgeInsets.all(4.0),
+                        decoration: BoxDecoration(
+                            border: Border.all(
+                                color: Theme.of(context).colorScheme.surface,
+                                width: 1),
+                            borderRadius:
+                                const BorderRadius.all(Radius.circular(8))),
+                        child: Column(
+                          children: [
+                            Container(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 16.0),
+                              decoration: BoxDecoration(
+                                  color: Theme.of(context)
+                                      .colorScheme
+                                      .primary
+                                      .withOpacity(.2),
+                                  borderRadius: const BorderRadius.all(
+                                      Radius.circular(8))),
+                              child: InkWell(
+                                child: SizedBox(
+                                  height: 45,
                                   child: Row(
                                     children: [
-                                      Container(
-                                        height: 20,
-                                        width: 20,
-                                        decoration: BoxDecoration(
-                                          borderRadius: const BorderRadius.all(
-                                              Radius.circular(2.0)),
-                                          border: Border.all(
+                                      Expanded(
+                                          flex: 2,
+                                          child: alheekmah_logo(
+                                              width: 60.0,
                                               color:
-                                                  AppLocalizations.of(context)!
-                                                              .appLang ==
-                                                          lang['appLang']
-                                                      ? Theme.of(context)
-                                                          .secondaryHeaderColor
-                                                      : Theme.of(context)
-                                                          .colorScheme
-                                                          .surface
-                                                          .withOpacity(.5),
-                                              width: 2),
-                                          color: const Color(0xff39412a),
+                                                  Theme.of(context).hintColor)),
+                                      context.vDivider(height: 20.0),
+                                      Expanded(
+                                        flex: 8,
+                                        child: Text(
+                                          'ourApps'.tr,
+                                          style: TextStyle(
+                                            fontFamily: 'kufi',
+                                            fontSize: 16,
+                                            color: Theme.of(context).hintColor,
+                                          ),
                                         ),
-                                        child: AppLocalizations.of(context)!
-                                                    .appLang ==
-                                                lang['appLang']
-                                            ? Icon(Icons.done,
-                                                size: 14,
-                                                color: Theme.of(context)
-                                                    .colorScheme
-                                                    .surface)
-                                            : null,
                                       ),
-                                      const SizedBox(
-                                        width: 16.0,
-                                      ),
-                                      Text(
-                                        lang['name'],
-                                        style: TextStyle(
-                                          color: AppLocalizations.of(context)!
-                                                      .appLang ==
-                                                  lang['appLang']
-                                              ? Theme.of(context)
-                                                  .secondaryHeaderColor
-                                              : Theme.of(context)
-                                                  .colorScheme
-                                                  .surface
-                                                  .withOpacity(.8),
-                                          fontSize: 16,
-                                          fontFamily: 'noto',
+                                      const Spacer(),
+                                      Expanded(
+                                        flex: 1,
+                                        child: Icon(
+                                          Icons.arrow_forward_ios_outlined,
+                                          color: Theme.of(context).hintColor,
+                                          size: 18,
                                         ),
                                       ),
                                     ],
                                   ),
                                 ),
-                                onTap: () async {
-                                  sl<SettingsController>().setLocale(
-                                      Locale.fromSubtags(
-                                          languageCode: lang['lang']));
-                                  await sl<SharedPrefServices>()
-                                      .saveString(LANG, lang['lang']);
-                                  await sl<SharedPrefServices>()
-                                      .saveString(LANG_NAME, lang['name']);
-                                  await sl<SharedPrefServices>()
-                                      .saveString(LANGUAGE_FONT, lang['font']);
-                                  sl<SettingsController>().languageName.value =
-                                      lang['name'];
-                                  sl<SettingsController>().languageFont.value =
-                                      lang['font'];
+                                onTap: () {
+                                  Get.to(() => const OurApps(),
+                                      transition: Transition.downToUp);
                                 },
-                              );
-                            })),
-                      ],
-                    ),
-                  ),
-                ),
-              ],
-            ),
+                              ),
+                            ),
+                            const Gap(4),
+                            Container(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 16.0),
+                              decoration: BoxDecoration(
+                                  color: Theme.of(context)
+                                      .colorScheme
+                                      .primary
+                                      .withOpacity(.2),
+                                  borderRadius: const BorderRadius.all(
+                                      Radius.circular(8))),
+                              child: InkWell(
+                                child: SizedBox(
+                                  height: 45,
+                                  child: Row(
+                                    children: [
+                                      Expanded(
+                                          flex: 2,
+                                          child: splash_icon(
+                                            height: 35.0,
+                                          )),
+                                      context.vDivider(height: 20.0),
+                                      Expanded(
+                                        flex: 8,
+                                        child: Text(
+                                          'aboutApp'.tr,
+                                          style: TextStyle(
+                                            fontFamily: 'kufi',
+                                            fontSize: 16,
+                                            color: Theme.of(context).hintColor,
+                                          ),
+                                        ),
+                                      ),
+                                      const Spacer(),
+                                      Expanded(
+                                        flex: 1,
+                                        child: Icon(
+                                          Icons.arrow_forward_ios_outlined,
+                                          color: Theme.of(context).hintColor,
+                                          size: 18,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                onTap: () {
+                                  Get.to(() => const AboutApp(),
+                                      transition: Transition.downToUp);
+                                },
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  )),
           ),
         ),
-        const SizedBox(
-          height: 16.0,
-        ),
-        Directionality(
-          textDirection: TextDirection.rtl,
-          child: Container(
-            color: Theme.of(context).colorScheme.surface.withOpacity(.2),
-            child: Column(
-              children: [
-                customContainer(
-                  context,
-                  FittedBox(
-                    child: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        SvgPicture.asset(
-                          'assets/svg/line.svg',
-                          height: 15,
-                        ),
-                        Text(
-                          AppLocalizations.of(context)!.themeTitle,
-                          style: TextStyle(
-                              color: ThemeProvider.themeOf(context).id == 'dark'
-                                  ? Colors.white
-                                  : Theme.of(context).primaryColor,
-                              fontFamily: 'kufi',
-                              fontStyle: FontStyle.italic,
-                              fontSize: 16),
-                        ),
-                        SvgPicture.asset(
-                          'assets/svg/line2.svg',
-                          height: 15,
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-                const Padding(
-                  padding: EdgeInsets.all(8.0),
-                  child: ThemeChange(),
-                ),
-              ],
-            ),
-          ),
-        ),
-        Center(
-          child: spaceLine(
-            30,
-            MediaQuery.sizeOf(context).width * 3 / 4,
-          ),
-        ),
-      ],
-    );
+      );
+    });
   }
 }

@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 import 'dart:io';
 
 import 'package:dio/dio.dart';
@@ -11,40 +12,39 @@ import 'package:path_provider/path_provider.dart';
 import 'package:rxdart/rxdart.dart' as R;
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '/presentation/controllers/audio_controller.dart';
 import '../../core/data/models/playList_model.dart';
-import '../../core/services/l10n/app_localizations.dart';
 import '../../core/services/services_locator.dart';
-import '../../core/utils/helpers/functions.dart';
+import '../../core/utils/constants/url_constants.dart';
 import '../../core/widgets/seek_bar.dart';
-import '../../core/widgets/widgets.dart';
-import 'ayat_controller.dart';
-import 'surahTextController.dart';
+import '/core/utils/constants/extensions/custom_error_snackBar.dart';
+import 'audio_controller.dart';
+import 'general_controller.dart';
+import 'quran_controller.dart';
 
 class PlayListController extends GetxController {
   final AudioPlayer playlistAudioPlayer = AudioPlayer();
   final RxList<AudioSource> ayahsPlayList = <AudioSource>[].obs;
   RxList<PlayListModel> playLists = RxList<PlayListModel>();
-  TextEditingController controller = TextEditingController();
   final ScrollController scrollController = ScrollController();
-  final ayatList = sl<AyatController>();
   RxInt ayahPlayListNumber = 1.obs;
   RxInt startNum = 1.obs;
   RxInt endNum = 1.obs;
+  RxInt startUQNum = 1.obs;
+  RxInt endUQNum = 1.obs;
   RxInt surahNum = 1.obs;
   double ayahItemHeight = 80.0;
-  RxString playListReader = 'Abdul_Basit_Murattal_192kbps'.obs;
   RxBool downloading = false.obs;
   RxBool onDownloading = false.obs;
   RxString progressString = "0".obs;
   RxDouble progress = 0.0.obs;
   late var cancelToken = CancelToken();
+  RxBool isSelect = false.obs;
 
   // Assuming these are your dependency injection methods to get controllers
-  final SurahTextController surahTextController = sl<SurahTextController>();
-  final AudioController audioController = sl<AudioController>();
-  final AyatController ayatController = sl<AyatController>();
+  final audioCtrl = sl<AudioController>();
   final GlobalKey<ExpansionTileCardState> saveCard = GlobalKey();
+  final quranCtrl = sl<QuranController>();
+  final generalCtrl = sl<GeneralController>();
 
   Stream<PositionData> get positionDataStream =>
       R.Rx.combineLatest3<Duration, Duration, Duration?, PositionData>(
@@ -67,81 +67,70 @@ class PlayListController extends GetxController {
     return directory.path;
   }
 
-// This method now ensures files are downloaded before creating audio sources
   Future<void> loadPlaylist() async {
-    if (startNum.value <= endNum.value) {
+    if (firstAyahUQ! <= lastAyahUQ!) {
       List<AudioSource> generatedList = [];
 
-      // This loop should await the download of each verse
-      for (int i = startNum.value; i <= endNum.value; i++) {
-        String fileName =
-            "${formatNumber(surahNum.value)}${formatNumber(i)}.mp3";
+      for (int i = firstAyahUQ!; i <= lastAyahUQ!; i++) {
+        String fileName = "$i.mp3";
         String localFilePath =
-            await getLocalPath() + "/$fileName"; // Correctly constructed path
+            await getLocalPath() + "${audioCtrl.readerValue!}/$fileName";
 
-        // Await the download and check the result
         bool downloadResult = await downloadFile(
-            generateUrl(i, surahNum.value, playListReader.value), fileName);
+            generateUrl(i, audioCtrl.readerValue!), fileName);
+        log('downloadResult: $downloadResult');
         if (downloadResult) {
-          // If the download was successful, create the audio source
           AudioSource source = createAudioSource(localFilePath);
           generatedList.add(source);
         } else {
-          // Handle the error appropriately
           print("Error downloading file: $fileName");
         }
       }
 
-      // Once all files are downloaded, assign them to the playlist
       ayahsPlayList.assignAll(generatedList);
 
-      // This setAudioSource call should also be awaited
       await playlistAudioPlayer
           .setAudioSource(ConcatenatingAudioSource(children: ayahsPlayList));
     } else {
-      // Handle the error case where startNum is greater than endNum
       print("Error: startNum is greater than endNum.");
     }
   }
 
-// Helper method to generate the URL for downloading
-  String generateUrl(int ayahNumber, int surahNumber, String readerName) {
-    return "https://www.everyayah.com/data/$readerName/${formatNumber(surahNumber)}${formatNumber(ayahNumber)}.mp3";
+  String generateUrl(int ayahNumber, String readerName) {
+    log("generateUrl: ${UrlConstants.ayahUrl}$readerName/$ayahNumber.mp3");
+    return "${UrlConstants.ayahUrl}$readerName/$ayahNumber.mp3";
   }
 
-  Future<bool> choiceFromPlayList(int startNumber, int endNumber,
-      int surahNumber, String readerName) async {
+  Future<bool> choiceFromPlayList(
+      int startNumber,
+      int endNumber,
+      int startUQNumber,
+      int endUQNumber,
+      int surahNumber,
+      String readerName) async {
     startNum.value = startNumber;
     endNum.value = endNumber;
+    startUQNum.value = startUQNumber;
+    endUQNum.value = endUQNumber;
     surahNum.value = surahNumber;
-    playListReader.value = readerName;
     List<AudioSource> playlistSources = [];
 
-    // Get the local directory path
     String localDirectoryPath = await getLocalPath();
-
-    for (int i = startNumber; i <= endNumber; i++) {
-      String fileName = "${formatNumber(surahNumber)}${formatNumber(i)}.mp3";
-
-      // Use the correct local directory path to construct the full file path
+    for (int i = startUQNumber; i <= endUQNumber; i++) {
+      String fileName = "$i.mp3";
       String localFilePath =
-          "$localDirectoryPath/$fileName"; // This is correct now
-
-      // Download the file using the correct URL and the filename only, path handling is inside downloadFile
+          "$localDirectoryPath/${audioCtrl.readerValue!}/$fileName";
       bool downloadResult =
-          await downloadFile(generateUrl(i, surahNumber, readerName), fileName);
+          await downloadFile(generateUrl(i, audioCtrl.readerValue!), fileName);
 
       if (downloadResult) {
-        // If the download was successful, create the audio source with the local file path
         AudioSource source = createAudioSource(localFilePath);
         playlistSources.add(source);
       } else {
-        // Handle the error case here
         return false;
       }
     }
 
-    // Load the local files into the playlist
     ayahsPlayList.assignAll(playlistSources);
     await playlistAudioPlayer
         .setAudioSource(ConcatenatingAudioSource(children: playlistSources));
@@ -150,8 +139,8 @@ class PlayListController extends GetxController {
   }
 
   Future<bool> downloadFile(String url, String fileName) async {
-    final path = await getLocalPath();
-    final localFilePath = '$path/$fileName';
+    String localFilePath =
+        await getLocalPath() + "${audioCtrl.readerValue!}/$fileName";
     final file = File(localFilePath);
 
     // Check if the file already exists and return true immediately if it does
@@ -187,54 +176,39 @@ class PlayListController extends GetxController {
     }
   }
 
-  // void loadPlaylist() {
-  //   if (startNum.value <= endNum.value) {
-  //     List<AudioSource> generatedList = List.generate(
-  //       endNum.value - startNum.value + 1,
-  //           (index) => createAudioSource(
-  //           index + startNum.value, surahNum.value, playListReader.value),
-  //     );
-  //     ayahsPlayList.assignAll(generatedList);
-  //     playlistAudioPlayer.setAudioSource(
-  //       ConcatenatingAudioSource(children: ayahsPlayList),
-  //     );
-  //   } else {}
-  // }
-  //
-  // AudioSource createAudioSource(int startNum, int surahNum, String readerName) {
-  //   String audioUrl =
-  //       "https://www.everyayah.com/data/$readerName/${formatNumber(surahNum)}${formatNumber(startNum)}.mp3";
-  //   print('listURL: $audioUrl');
-  //   return AudioSource.uri(Uri.parse(audioUrl));
-  // }
-  //
-  // void choiceFromPlayList(
-  //     int startNumber, int endNumber, int surahNumber, String readerName) {
-  //   startNum.value = startNumber;
-  //   endNum.value = endNumber;
-  //   surahNum.value = surahNumber;
-  //   surahNum.value = surahNumber;
-  //   playListReader.value = readerName;
-  //   createAudioSource(startNumber, surahNumber, readerName);
-  //   loadPlaylist();
-  // }
-
   void saveList() {
-    // if (controller.text.isNotEmpty) {
     loadPlaylist();
     PlayListStorage.savePlayList(playLists);
-    addPlayList(controller.text);
-    controller.clear();
-    // } else {
-    //   customErrorSnackBar(context, AppLocalizations.of(context)!.fillAllFields);
-    // }
+    addPlayList();
   }
 
-  int? get firstAyah =>
-      startNum.value == 1 ? ayatList.ayatList.first.ayaNum : startNum.value;
+  int? get firstAyah => startNum.value == 1
+      ? quranCtrl
+          .getCurrentPageAyahs(generalCtrl.currentPageNumber.value - 1)
+          .first
+          .ayahNumber
+      : startNum.value;
 
-  int? get lastAyah =>
-      endNum.value == 1 ? ayatList.ayatList.last.ayaNum : endNum.value;
+  int? get lastAyah => endNum.value == 1
+      ? quranCtrl
+          .getCurrentPageAyahs(generalCtrl.currentPageNumber.value - 1)
+          .last
+          .ayahNumber
+      : endNum.value;
+
+  int? get firstAyahUQ => startUQNum.value == 1
+      ? quranCtrl
+          .getCurrentPageAyahs(generalCtrl.currentPageNumber.value - 1)
+          .first
+          .ayahUQNumber
+      : startUQNum.value;
+
+  int? get lastAyahUQ => endUQNum.value == 1
+      ? quranCtrl
+          .getCurrentPageAyahs(generalCtrl.currentPageNumber.value - 1)
+          .last
+          .ayahUQNumber
+      : endUQNum.value;
 
   void reset() {
     startNum.value = 1;
@@ -252,24 +226,28 @@ class PlayListController extends GetxController {
     playLists.value = RxList<PlayListModel>(loadedPlayList);
   }
 
-  Future<void> addPlayList(String playListName) async {
+  Future<void> addPlayList() async {
     playLists.add(PlayListModel(
         id: playLists.length,
-        startNum: startNum.value,
-        endNum: endNum.value,
-        surahNum: ayatList.allAyatList.first.surahNum,
-        surahName: ayatList.allAyatList.first.sorahName,
-        readerName: audioController.readerValue!,
-        name: playListName));
+        startNum: firstAyah!,
+        endNum: lastAyah!,
+        startUQNum: firstAyahUQ!,
+        endUQNum: lastAyahUQ!,
+        surahNum: quranCtrl
+            .getSurahNumberFromPage(generalCtrl.currentPageNumber.value - 1),
+        surahName: quranCtrl
+            .getSurahNameFromPage(generalCtrl.currentPageNumber.value - 1),
+        readerName: audioCtrl.readerValue!,
+        name: quranCtrl
+            .getSurahNameFromPage(generalCtrl.currentPageNumber.value - 1)));
     PlayListStorage.savePlayList(playLists);
     print('playLists: ${playLists.length.toString()}');
   }
 
   deletePlayList(BuildContext context, int index) async {
     // Delete the reminder
-    await PlayListStorage.deletePlayList(index).then((value) =>
-        customErrorSnackBar(
-            context, AppLocalizations.of(context)!.deletedPlayList));
+    await PlayListStorage.deletePlayList(index)
+        .then((value) => context.showCustomErrorSnackBar('deletedPlayList'.tr));
 
     // Update the playList list
     playLists.removeAt(index);

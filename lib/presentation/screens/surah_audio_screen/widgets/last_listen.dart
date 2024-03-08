@@ -1,109 +1,93 @@
-import 'package:alquranalkareem/core/widgets/widgets.dart';
-import 'package:alquranalkareem/presentation/controllers/surah_audio_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
-import 'package:theme_provider/theme_provider.dart';
 
-import '../../../../core/services/l10n/app_localizations.dart';
 import '../../../../core/services/services_locator.dart';
-import '../../../controllers/general_controller.dart';
+import '../../../controllers/surah_audio_controller.dart';
 
 class LastListen extends StatelessWidget {
   const LastListen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    double width = MediaQuery.sizeOf(context).width;
+    final surahAudioCtrl = sl<SurahAudioController>();
     return Semantics(
       button: true,
       enabled: true,
-      label: AppLocalizations.of(context)!.lastListen,
+      label: 'lastListen'.tr,
       child: GestureDetector(
         child: Container(
-          width: orientation(context, width, 300.0),
-          height: 80,
+          width: 280.0,
           decoration: BoxDecoration(
-            color: Theme.of(context).colorScheme.surface.withOpacity(.2),
-            borderRadius: const BorderRadius.all(Radius.circular(8)),
-          ),
-          margin: orientation(context, const EdgeInsets.all(16.0),
-              const EdgeInsets.only(bottom: 16.0, left: 32.0)),
-          child: Column(
+              borderRadius: const BorderRadius.all(Radius.circular(8)),
+              border: Border.all(
+                  color: Theme.of(context).colorScheme.primary.withOpacity(.2),
+                  width: 1)),
+          margin: const EdgeInsets.symmetric(vertical: 8.0),
+          child: Row(
             children: <Widget>[
-              Container(
-                width: width,
-                height: 30,
-                decoration: BoxDecoration(
-                  color: Theme.of(context).colorScheme.surface,
-                  borderRadius: const BorderRadius.all(
-                    Radius.circular(8),
-                  ),
-                ),
-                alignment: Alignment.center,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      AppLocalizations.of(context)!.lastListen,
+              Expanded(
+                flex: 3,
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: FittedBox(
+                    fit: BoxFit.scaleDown,
+                    child: Text(
+                      'lastListen'.tr.replaceAll(' ', '\n'),
                       style: TextStyle(
                         fontFamily: 'kufi',
-                        fontSize: 14,
-                        color: Theme.of(context).canvasColor,
+                        fontSize: 18,
+                        color: Theme.of(context).colorScheme.primary,
                       ),
                       textAlign: TextAlign.center,
                     ),
-                    const Divider(
-                      endIndent: 8,
-                      indent: 8,
-                      height: 8,
-                    ),
-                    Icon(
-                      Icons.record_voice_over_outlined,
-                      color: Theme.of(context).canvasColor,
-                      size: 22,
-                    ),
-                  ],
+                  ),
                 ),
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  Obx(
-                    () => SvgPicture.asset(
-                      'assets/svg/surah_name/00${sl<SurahAudioController>().surahNum}.svg',
-                      width: 100,
-                      colorFilter: ColorFilter.mode(
-                          ThemeProvider.themeOf(context).id == 'dark'
-                              ? Theme.of(context).canvasColor
-                              : Theme.of(context).primaryColorDark,
-                          BlendMode.srcIn),
-                    ),
-                  ),
-                  if (context.mounted)
-                    GetX<SurahAudioController>(
-                      builder: (surahAudioController) => Text(
-                        '${sl<SurahAudioController>().formatDuration(Duration(seconds: sl<SurahAudioController>().lastPosition.value))}',
-                        style: TextStyle(
-                          fontFamily: 'kufi',
-                          fontSize: 14,
-                          color: ThemeProvider.themeOf(context).id == 'dark'
-                              ? Theme.of(context).canvasColor
-                              : Theme.of(context).primaryColor,
+              Expanded(
+                flex: 7,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    Container(
+                      width: MediaQuery.sizeOf(context).width,
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 6.0, vertical: 4.0),
+                      decoration: BoxDecoration(
+                          color: Theme.of(context).colorScheme.primary,
+                          borderRadius:
+                              const BorderRadius.all(Radius.circular(8))),
+                      child: Obx(
+                        () => SvgPicture.asset(
+                          'assets/svg/surah_name/00${surahAudioCtrl.surahNum}.svg',
+                          width: 110,
+                          colorFilter: ColorFilter.mode(
+                              Theme.of(context).colorScheme.secondary,
+                              BlendMode.srcIn),
                         ),
                       ),
                     ),
-                ],
+                    if (context.mounted)
+                      GetX<SurahAudioController>(
+                        builder: (surahAudioController) => Text(
+                          '${surahAudioCtrl.formatDuration(Duration(seconds: surahAudioCtrl.lastPosition.value))}',
+                          style: TextStyle(
+                            fontFamily: 'kufi',
+                            fontSize: 16,
+                            color: Theme.of(context).hintColor,
+                          ),
+                        ),
+                      ),
+                  ],
+                ),
               ),
             ],
           ),
         ),
         onTap: () {
-          sl<SurahAudioController>()
-              .controller
-              .jumpTo((sl<SurahAudioController>().surahNum.value - 1) * 65.0);
-          sl<GeneralController>().widgetPosition.value = 0.0;
-          sl<SurahAudioController>().lastAudioSource();
+          surahAudioCtrl.controller
+              .jumpTo((surahAudioCtrl.surahNum.value - 1) * 80.0);
+          surahAudioCtrl.lastAudioSource();
         },
       ),
     );

@@ -1,8 +1,8 @@
-import 'package:alquranalkareem/presentation/screens/quran_page/widgets/highlighting_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:lottie/lottie.dart';
 
+import '/core/services/languages/dependency_inj.dart' as dep;
 // import 'quran_page/data/data_client.dart';
 // import 'quran_page/data/tafseer_data_client.dart';
 import 'core/services/services_locator.dart';
@@ -15,11 +15,14 @@ import 'myApp.dart';
 //   runApp(MyApp(theme: ThemeData.light()));
 // }
 
-void main() {
+Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  runApp(LoadingScreen());
+  Map<String, Map<String, String>> languages = await dep.init();
+  // runApp(LoadingScreen());
   initializeApp().then((_) {
-    runApp(MyApp(theme: ThemeData.light()));
+    runApp(MyApp(
+      languages: languages,
+    ));
   });
 }
 
@@ -30,7 +33,6 @@ Future<void> initializeApp() async {
   // TafseerDataBaseClient tafseerDataBaseClient = TafseerDataBaseClient.instance;
   // tafseerDataBaseClient.initDatabase();
   // FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
-  await DBHelper.instance;
   Future.delayed(const Duration(seconds: 0));
   FlutterNativeSplash.remove();
   await ServicesLocator().init();

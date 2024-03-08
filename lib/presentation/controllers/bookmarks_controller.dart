@@ -1,16 +1,27 @@
-import 'package:alquranalkareem/presentation/screens/quran_page/data/repository/sorah_bookmark_repository.dart';
-import 'package:flutter/cupertino.dart';
+import '../../core/utils/constants/extensions/custom_error_snackBar.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../core/services/l10n/app_localizations.dart';
-import '../../core/widgets/widgets.dart';
+import '../../core/services/services_locator.dart';
 import '../../database/databaseHelper.dart';
 import '../screens/quran_page/data/model/bookmark.dart';
-import '../screens/quran_page/data/model/sorah_bookmark.dart';
+import '../screens/quran_page/data/model/bookmark_ayahs.dart';
+import 'general_controller.dart';
+import 'quran_controller.dart';
 
 class BookmarksController extends GetxController {
   final RxList<Bookmarks> bookmarksList = <Bookmarks>[].obs;
+  final RxList<BookmarksAyahs> bookmarkTextList = <BookmarksAyahs>[].obs;
   late int lastBook;
+  final quranCtrl = sl<QuranController>();
+  final generalCtrl = sl<GeneralController>();
+
+  @override
+  void onInit() {
+    getBookmarks();
+    getBookmarksText();
+    super.onInit();
+  }
 
   Future<int?> addBookmarks(
       int pageNum, String sorahName, String lastRead) async {
@@ -53,25 +64,6 @@ class BookmarksController extends GetxController {
     }
   }
 
-  Future<bool> deleteBookmarkByPageNum(
-      int pageNum, BuildContext context) async {
-    // Find the bookmark with the given pageNum
-    Bookmarks? bookmarkToDelete = bookmarksList
-        .firstWhereOrNull((bookmark) => bookmark.pageNum == pageNum);
-
-    if (bookmarkToDelete != null) {
-      int result = await DatabaseHelper.deleteBookmark(bookmarkToDelete);
-      if (result > 0) {
-        customSnackBar(context, AppLocalizations.of(context)!.deletedBookmark);
-        await getBookmarks();
-        return true;
-      }
-    } else {
-      print('Bookmark not found for pageNum: $pageNum');
-    }
-    return false;
-  }
-
   Future<bool> deleteBookmarks(int pageNum, BuildContext context) async {
     // Find the bookmark with the given pageNum
     Bookmarks? bookmarkToDelete = bookmarksList
@@ -80,7 +72,7 @@ class BookmarksController extends GetxController {
     if (bookmarkToDelete != null) {
       int result = await DatabaseHelper.deleteBookmark(bookmarkToDelete);
       if (result > 0) {
-        customSnackBar(context, AppLocalizations.of(context)!.deletedBookmark);
+        context.showCustomErrorSnackBar('deletedBookmark'.tr);
         await getBookmarks();
         update();
         return true;
@@ -89,17 +81,13 @@ class BookmarksController extends GetxController {
     return false;
   }
 
-  // BookmarksController() {
-  //   getBookmarks();
-  // }
-
   void updateBookmarks(Bookmarks? bookmarks) async {
     await DatabaseHelper.updateBookmarks(bookmarks!);
     getBookmarks();
   }
 
   int? id;
-  addBookmark(int pageNum, String sorahName, String lastRead) async {
+  addAyahBookmark(int pageNum, String sorahName, String lastRead) async {
     try {
       int? bookmark = await addBookmarks(
         pageNum,
@@ -113,13 +101,91 @@ class BookmarksController extends GetxController {
     }
   }
 
-  /// Bookmarks
-  SorahBookmarkRepository sorahBookmarkRepository = SorahBookmarkRepository();
-  List<SoraBookmark>? soraBookmarkList;
+  Future<int?> addBookmarksText(BookmarksAyahs? bookmarksText) {
+    bookmarkTextList.add(bookmarksText!);
+    return DatabaseHelper.addBookmarkText(bookmarksText);
+  }
 
-  Future<void> getBookmarksList() async {
-    await sorahBookmarkRepository.all().then((values) {
-      soraBookmarkList = values;
-    });
+  Future<void> getBookmarksText() async {
+    final List<Map<String, dynamic>> bookmarksText =
+        await DatabaseHelper.queryT();
+    bookmarkTextList.assignAll(
+        bookmarksText.map((data) => BookmarksAyahs.fromJson(data)).toList());
+  }
+
+  bool deleteBookmarksText(int ayahUQNum) {
+    // Find the bookmark with the given pageNum
+    BookmarksAyahs? bookmarkToDelete = bookmarkTextList
+        .firstWhereOrNull((bookmark) => bookmark.ayahUQNumber == ayahUQNum);
+
+    if (bookmarkToDelete != null) {
+      DatabaseHelper.deleteBookmarkText(bookmarkToDelete).then((value) {
+        int result = value;
+        if (result > 0) {
+          Get.context!.showCustomErrorSnackBar('deletedBookmark'.tr);
+          getBookmarksText();
+          sl<QuranController>().update();
+          return true;
+        }
+      });
+    }
+    return false;
+    // await DatabaseHelper.deleteBookmarkText(bookmarksText!).then((value) =>
+    //     context.showCustomErrorSnackBar(
+    //         context, AppLocalizations.of(context)!.deletedBookmark));
+    // getBookmarksText();
+  }
+
+  void updateBookmarksText(BookmarksAyahs? bookmarksText) async {
+    await DatabaseHelper.updateBookmarksText(bookmarksText!);
+    getBookmarksText();
+  }
+
+  RxBool hasBookmark(int surahNum, int ayahNum) {
+    return (bookmarkTextList.obs.value
+                    .firstWhereOrNull(((element) =>
+                        element.surahNumber == surahNum &&
+                        element.ayahUQNumber == ayahNum))
+                    .obs)
+                .value ==
+            null
+        ? false.obs
+        : true.obs;
+  }
+
+  addBookmarkText(
+    String surahName,
+    int surahNum,
+    pageNum,
+    ayahNum,
+    ayahUQNum,
+    lastRead,
+  ) async {
+    try {
+      int? bookmark = await addBookmarksText(
+        BookmarksAyahs(
+          id,
+          surahName,
+          surahNum,
+          pageNum,
+          ayahNum,
+          ayahUQNum,
+          lastRead,
+        ),
+      );
+      print('bookmark number: ${bookmark!}');
+    } catch (e) {
+      print('Error');
+    }
+  }
+
+  void addPageBookmarkOnTap(BuildContext context, int index) {
+    if (isPageBookmarked(index + 1)) {
+      deleteBookmarks(index + 1, context);
+    } else {
+      addAyahBookmark(index + 1, quranCtrl.getSurahNameFromPage(index),
+              generalCtrl.timeNow.dateNow)
+          .then((value) => context.showCustomErrorSnackBar('addBookmark'.tr));
+    }
   }
 }

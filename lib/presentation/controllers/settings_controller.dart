@@ -1,9 +1,9 @@
 import 'dart:ui' show Locale;
 
 import 'package:get/get.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../core/services/services_locator.dart';
-import '../../core/utils/constants/shared_pref_services.dart';
 
 class SettingsController extends GetxController {
   Locale? initialLang;
@@ -18,12 +18,13 @@ class SettingsController extends GetxController {
   }
 
   Future<void> loadLang() async {
-    String? langCode = await sl<SharedPrefServices>().getString("lang");
-    String? langName = await sl<SharedPrefServices>()
-        .getString("langName", defaultValue: 'العربية');
-    String? langFont = await sl<SharedPrefServices>().getString("languageFont");
+    String? langCode = await sl<SharedPreferences>().getString("lang");
+    String? langName =
+        await sl<SharedPreferences>().getString("langName") ?? 'العربية';
+    String? langFont =
+        await sl<SharedPreferences>().getString("languageFont") ?? 'naskh';
     // String? langFont2 =
-    //     await sl<SharedPrefServices>().getString("languageFont2");
+    //     await sl<SharedPreferences>().getString("languageFont2");
 
     print(
         'Lang code: $langCode'); // Add this line to debug the value of langCode
@@ -78,11 +79,11 @@ class SettingsController extends GetxController {
       'font': 'urdu',
       'font2': 'urdu'
     },
-    // {
-    //   'lang': 'so',
-    //   'appLang': 'Luqadda Appka',
-    //   'name': 'Soomaali',
-    //   'font': 'naskh'
-    // },
+    {
+      'lang': 'so',
+      'appLang': 'Luqadda Appka',
+      'name': 'Soomaali',
+      'font': 'naskh'
+    },
   ];
 }

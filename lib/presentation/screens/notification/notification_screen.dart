@@ -1,14 +1,12 @@
+import '../../../core/utils/constants/lottie_constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:get/get.dart';
 import 'package:intl/intl.dart';
-import 'package:theme_provider/theme_provider.dart';
 
-import '../../../core/services/services_locator.dart';
 import '../../../core/utils/constants/lottie.dart';
-import '../../../core/widgets/widgets.dart';
 import '../../../database/notificationDatabase.dart';
-import '../../controllers/general_controller.dart';
-import '../onboarding/widgets/postPage.dart';
+import 'postPage.dart';
 
 class NotificationScreen extends StatelessWidget {
   final List<Map<String, dynamic>> notifications;
@@ -91,11 +89,17 @@ class NotificationScreen extends StatelessWidget {
                   future: loadNotifications(),
                   builder: (context, snapshot) {
                     if (snapshot.connectionState == ConnectionState.waiting) {
-                      return notificationLottie(400.0, 400.0);
+                      return customLottie(
+                          LottieConstants.assetsLottieNotification,
+                          width: 400.0,
+                          height: 400.0);
                     } else if (snapshot.hasError) {
                       return Text('Error: ${snapshot.error}');
                     } else if (notifications.isEmpty) {
-                      return notificationLottie(800.0, 800.0);
+                      return customLottie(
+                          LottieConstants.assetsLottieNotification,
+                          width: 800.0,
+                          height: 800.0);
                     } else {
                       List<Map<String, dynamic>> notifications = snapshot.data!;
                       return ListView.builder(
@@ -116,8 +120,7 @@ class NotificationScreen extends StatelessWidget {
                                 style: TextStyle(
                                   fontSize: 16,
                                   fontFamily: 'kufi',
-                                  color: ThemeProvider.themeOf(context).id ==
-                                          'dark'
+                                  color: Get.isDarkMode
                                       ? Colors.white
                                       : Colors.black,
                                 ),
@@ -128,8 +131,7 @@ class NotificationScreen extends StatelessWidget {
                                 style: TextStyle(
                                   fontSize: 12,
                                   fontFamily: 'kufi',
-                                  color: ThemeProvider.themeOf(context).id ==
-                                          'dark'
+                                  color: Get.isDarkMode
                                       ? Colors.white
                                       : Colors.black,
                                 ),
@@ -140,14 +142,9 @@ class NotificationScreen extends StatelessWidget {
                                 color: Theme.of(context).dividerColor,
                               ),
                               onTap: () {
-                                Navigator.of(sl<GeneralController>()
-                                        .navigatorNotificationKey
-                                        .currentContext!)
-                                    .push(
-                                  animatNameRoute(
-                                    pushName: '/post',
-                                    myWidget: PostPage(notification['id']),
-                                  ),
+                                Get.toNamed(
+                                  '/post',
+                                  arguments: PostPage(notification['id']),
                                 );
                               },
                             ),

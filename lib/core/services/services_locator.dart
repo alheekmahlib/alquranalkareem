@@ -10,7 +10,10 @@ import 'package:sqflite_common_ffi/sqflite_ffi.dart';
 import 'package:timezone/data/latest.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
 
-import '../utils/constants/shared_pref_services.dart';
+import '../../presentation/controllers/ourApps_controller.dart';
+import '../../presentation/controllers/quran_controller.dart';
+import '../../presentation/controllers/splash_screen_controller.dart';
+import '../../presentation/controllers/theme_controller.dart';
 import '../utils/helpers/ui_helper.dart';
 import '/database/databaseHelper.dart';
 import '/database/notificationDatabase.dart';
@@ -18,19 +21,14 @@ import '/presentation/controllers/audio_controller.dart';
 import '/presentation/controllers/aya_controller.dart';
 import '/presentation/controllers/ayat_controller.dart';
 import '/presentation/controllers/azkar_controller.dart';
-import '/presentation/controllers/bookmarksText_controller.dart';
 import '/presentation/controllers/bookmarks_controller.dart';
 import '/presentation/controllers/general_controller.dart';
-import '/presentation/controllers/notes_controller.dart';
 import '/presentation/controllers/notifications_controller.dart';
 import '/presentation/controllers/playList_controller.dart';
-import '/presentation/controllers/quranText_controller.dart';
 import '/presentation/controllers/reminder_controller.dart';
 import '/presentation/controllers/settings_controller.dart';
 import '/presentation/controllers/share_controller.dart';
-import '/presentation/controllers/surahTextController.dart';
 import '/presentation/controllers/surah_audio_controller.dart';
-import '/presentation/controllers/surah_repository_controller.dart';
 import '/presentation/controllers/translate_controller.dart';
 import '/presentation/screens/quran_page/data/data_source/baghawy_data_client.dart';
 import '/presentation/screens/quran_page/data/data_source/data_client.dart';
@@ -42,14 +40,9 @@ import '/presentation/screens/quran_page/data/data_source/tabari_data_client.dar
 final sl = GetIt.instance;
 
 class ServicesLocator {
-  void initSingleton() {
-    sl<SharedPrefServices>();
-  }
-
   Future<void> _initPrefs() async =>
       await SharedPreferences.getInstance().then((v) {
         sl.registerSingleton<SharedPreferences>(v);
-        sl.registerSingleton<SharedPrefServices>(SharedPrefServices(v));
       });
 
   Future<void> _initDatabaseHelper() async =>
@@ -115,18 +108,24 @@ class ServicesLocator {
     ]);
 
     // Controllers
+    sl.registerLazySingleton<ThemeController>(
+        () => Get.put<ThemeController>(ThemeController(), permanent: true));
+
     sl.registerLazySingleton<AyatController>(
         () => Get.put<AyatController>(AyatController(), permanent: true));
 
     sl.registerLazySingleton<GeneralController>(
         () => Get.put<GeneralController>(GeneralController(), permanent: true));
 
+    sl.registerLazySingleton<AudioController>(
+        () => Get.put<AudioController>(AudioController(), permanent: true));
+
+    sl.registerSingleton<QuranController>(
+        Get.put<QuranController>(QuranController(), permanent: true));
+
     sl.registerLazySingleton<NotificationsController>(() =>
         Get.put<NotificationsController>(NotificationsController(),
             permanent: true));
-
-    sl.registerLazySingleton<AudioController>(
-        () => Get.put<AudioController>(AudioController(), permanent: true));
 
     sl.registerLazySingleton<SurahAudioController>(() =>
         Get.put<SurahAudioController>(SurahAudioController(), permanent: true));
@@ -135,25 +134,8 @@ class ServicesLocator {
         Get.put<TranslateDataController>(TranslateDataController(),
             permanent: true));
 
-    sl.registerLazySingleton<QuranTextController>(() =>
-        Get.put<QuranTextController>(QuranTextController(), permanent: true));
-
-    sl.registerLazySingleton<SurahRepositoryController>(() =>
-        Get.put<SurahRepositoryController>(SurahRepositoryController(),
-            permanent: true));
-
-    sl.registerLazySingleton<NotesController>(
-        () => Get.put<NotesController>(NotesController(), permanent: true));
-
     sl.registerLazySingleton<BookmarksController>(() =>
         Get.put<BookmarksController>(BookmarksController(), permanent: true));
-
-    sl.registerLazySingleton<BookmarksTextController>(() =>
-        Get.put<BookmarksTextController>(BookmarksTextController(),
-            permanent: true));
-
-    sl.registerLazySingleton<SurahTextController>(() =>
-        Get.put<SurahTextController>(SurahTextController(), permanent: true));
 
     sl.registerLazySingleton<AyaController>(
         () => Get.put<AyaController>(AyaController(), permanent: true));
@@ -164,8 +146,8 @@ class ServicesLocator {
     sl.registerLazySingleton<ReminderController>(() =>
         Get.put<ReminderController>(ReminderController(), permanent: true));
 
-    sl.registerLazySingleton<AzkarController>(
-        () => Get.put<AzkarController>(AzkarController(), permanent: true));
+    sl.registerSingleton<AzkarController>(
+        Get.put<AzkarController>(AzkarController(), permanent: true));
 
     sl.registerLazySingleton<ShareController>(
         () => Get.put<ShareController>(ShareController(), permanent: true));
@@ -173,6 +155,12 @@ class ServicesLocator {
     sl.registerLazySingleton<PlayListController>(() =>
         Get.put<PlayListController>(PlayListController(), permanent: true));
 
+    sl.registerLazySingleton<SplashScreenController>(() =>
+        Get.put<SplashScreenController>(SplashScreenController(),
+            permanent: true));
+
+    sl.registerLazySingleton<OurAppsController>(
+        () => Get.put<OurAppsController>(OurAppsController(), permanent: true));
     // NotifyHelper().initializeNotification();
     // sl<NotificationsController>().initializeLocalNotifications();
 

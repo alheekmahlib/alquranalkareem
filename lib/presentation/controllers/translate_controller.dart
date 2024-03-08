@@ -1,11 +1,13 @@
 import 'dart:convert';
 
+import 'ayat_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../core/services/services_locator.dart';
-import '../../core/utils/constants/shared_pref_services.dart';
 import '../../core/utils/constants/shared_preferences_constants.dart';
+import '../screens/quran_page/data/model/tafsir.dart';
 import '/presentation/controllers/share_controller.dart';
 
 class TranslateDataController extends GetxController {
@@ -14,6 +16,7 @@ class TranslateDataController extends GetxController {
   var trans = 'en'.obs;
   RxInt transValue = 0.obs;
   RxInt shareTransValue = 0.obs;
+  var expandedMap = <int, bool>{}.obs;
 
   Future<void> fetchTranslate(BuildContext context) async {
     isLoading.value = true; // Set isLoading to true
@@ -32,38 +35,38 @@ class TranslateDataController extends GetxController {
       case 0:
         sl<ShareController>().isTafseer.value = false;
         trans.value = 'en';
-        await sl<SharedPrefServices>().saveString(TRANS, 'en');
+        await sl<SharedPreferences>().setString(TRANS, 'en');
       case 1:
         sl<ShareController>().isTafseer.value = false;
         trans.value = 'es';
-        await sl<SharedPrefServices>().saveString(TRANS, 'es');
+        await sl<SharedPreferences>().setString(TRANS, 'es');
       case 2:
         sl<ShareController>().isTafseer.value = false;
         trans.value = 'be';
-        await sl<SharedPrefServices>().saveString(TRANS, 'be');
+        await sl<SharedPreferences>().setString(TRANS, 'be');
       case 3:
         sl<ShareController>().isTafseer.value = false;
         trans.value = 'urdu';
-        await sl<SharedPrefServices>().saveString(TRANS, 'urdu');
+        await sl<SharedPreferences>().setString(TRANS, 'urdu');
       case 4:
         sl<ShareController>().isTafseer.value = false;
         trans.value = 'so';
-        await sl<SharedPrefServices>().saveString(TRANS, 'so');
+        await sl<SharedPreferences>().setString(TRANS, 'so');
       case 5:
         sl<ShareController>().isTafseer.value = false;
         trans.value = 'in';
-        await sl<SharedPrefServices>().saveString(TRANS, 'in');
+        await sl<SharedPreferences>().setString(TRANS, 'in');
       case 6:
         sl<ShareController>().isTafseer.value = false;
         trans.value = 'ku';
-        await sl<SharedPrefServices>().saveString(TRANS, 'ku');
+        await sl<SharedPreferences>().setString(TRANS, 'ku');
       case 7:
         sl<ShareController>().isTafseer.value = false;
         trans.value = 'tr';
-        await sl<SharedPrefServices>().saveString(TRANS, 'tr');
+        await sl<SharedPreferences>().setString(TRANS, 'tr');
       case 8:
         sl<ShareController>().isTafseer.value = true;
-        sl<SharedPrefServices>().saveBoolean(IS_TAFSEER, true);
+        sl<SharedPreferences>().setBool(IS_TAFSEER, true);
       default:
         trans.value = 'en';
     }
@@ -75,55 +78,56 @@ class TranslateDataController extends GetxController {
       case 0:
         sl<ShareController>().isTafseer.value = false;
         trans.value = 'en';
-        await sl<SharedPrefServices>().saveString(TRANS, 'en');
+        await sl<SharedPreferences>().setString(TRANS, 'en');
       case 1:
         sl<ShareController>().isTafseer.value = false;
         trans.value = 'es';
-        await sl<SharedPrefServices>().saveString(TRANS, 'es');
+        await sl<SharedPreferences>().setString(TRANS, 'es');
       case 2:
         sl<ShareController>().isTafseer.value = false;
         trans.value = 'be';
-        await sl<SharedPrefServices>().saveString(TRANS, 'be');
+        await sl<SharedPreferences>().setString(TRANS, 'be');
       case 3:
         sl<ShareController>().isTafseer.value = false;
         trans.value = 'urdu';
-        await sl<SharedPrefServices>().saveString(TRANS, 'urdu');
+        await sl<SharedPreferences>().setString(TRANS, 'urdu');
       case 4:
         sl<ShareController>().isTafseer.value = false;
         trans.value = 'so';
-        await sl<SharedPrefServices>().saveString(TRANS, 'so');
+        await sl<SharedPreferences>().setString(TRANS, 'so');
       case 5:
         sl<ShareController>().isTafseer.value = false;
         trans.value = 'in';
-        await sl<SharedPrefServices>().saveString(TRANS, 'in');
+        await sl<SharedPreferences>().setString(TRANS, 'in');
       case 6:
         sl<ShareController>().isTafseer.value = false;
         trans.value = 'ku';
-        await sl<SharedPrefServices>().saveString(TRANS, 'ku');
+        await sl<SharedPreferences>().setString(TRANS, 'ku');
       case 7:
         sl<ShareController>().isTafseer.value = false;
         trans.value = 'tr';
-        await sl<SharedPrefServices>().saveString(TRANS, 'tr');
+        await sl<SharedPreferences>().setString(TRANS, 'tr');
       case 8:
         sl<ShareController>().isTafseer.value = true;
-        sl<SharedPrefServices>().saveBoolean(IS_TAFSEER, true);
+        sl<AyatController>().dBName =
+            sl<AyatController>().saadiClient?.database;
+        sl<AyatController>().selectedDBName = MufaserName.saadi.name;
+        sl<SharedPreferences>().setBool(IS_TAFSEER, true);
       default:
         trans.value = 'en';
     }
   }
 
   Future<void> loadTranslateValue() async {
-    transValue.value = await sl<SharedPrefServices>()
-        .getInteger(TRANSLATE_VALUE, defaultValue: 0);
-    shareTransValue.value = await sl<SharedPrefServices>()
-        .getInteger(SHARE_TRANSLATE_VALUE, defaultValue: 0);
-    trans.value =
-        await sl<SharedPrefServices>().getString(TRANS, defaultValue: 'en');
+    transValue.value =
+        await sl<SharedPreferences>().getInt(TRANSLATE_VALUE) ?? 0;
+    shareTransValue.value =
+        await sl<SharedPreferences>().getInt(SHARE_TRANSLATE_VALUE) ?? 0;
+    trans.value = await sl<SharedPreferences>().getString(TRANS) ?? 'en';
     sl<ShareController>().currentTranslate.value =
-        await sl<SharedPrefServices>()
-            .getString(CURRENT_TRANSLATE, defaultValue: 'English');
+        await sl<SharedPreferences>().getString(CURRENT_TRANSLATE) ?? 'English';
     sl<ShareController>().isTafseer.value =
-        await sl<SharedPrefServices>().getBoolean(IS_TAFSEER);
+        (await sl<SharedPreferences>().getBool(IS_TAFSEER)) ?? false;
     print('trans.value ${trans.value}');
     print('translateـvalue $transValue');
   }

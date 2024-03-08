@@ -1,13 +1,13 @@
-import 'dart:convert';
-
-import 'package:arabic_numbers/arabic_numbers.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:theme_provider/theme_provider.dart';
+import 'package:get/get.dart';
 
-import '/core/widgets/widgets.dart';
 import '../../../../core/services/services_locator.dart';
+import '../../../../core/utils/constants/extensions/extensions.dart';
 import '../../../controllers/general_controller.dart';
+import '../../../controllers/quran_controller.dart';
 
 class QuranJuz extends StatelessWidget {
   final controller = ScrollController();
@@ -16,223 +16,182 @@ class QuranJuz extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    ArabicNumbers arabicNumber = ArabicNumbers();
-    return Directionality(
-      textDirection: TextDirection.rtl,
-      child: Padding(
-        padding: const EdgeInsets.only(bottom: 16.0),
-        child: FutureBuilder(
-          builder: (context, snapshot) {
-            var showData = json.decode(snapshot.data.toString());
-            if (snapshot.connectionState == ConnectionState.done) {
-              return Scrollbar(
-                thumbVisibility: true,
-                interactive: true,
-                controller: controller,
-                child: ListView.builder(
-                  controller: controller,
-                  itemBuilder: (BuildContext context, int index) {
-                    return GestureDetector(
+    final generalCtrl = sl<GeneralController>();
+    final quranCtrl = sl<QuranController>();
+    return AnimationLimiter(
+      child: CupertinoScrollbar(
+        controller: sl<GeneralController>().surahListController,
+        child: Container(
+          padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 8.0),
+          decoration: BoxDecoration(
+            color: Theme.of(context).colorScheme.background,
+          ),
+          child: ListView.builder(
+              padding: EdgeInsets.zero,
+              physics: const AlwaysScrollableScrollPhysics(),
+              itemCount: 30,
+              controller: sl<GeneralController>().surahListController,
+              itemBuilder: (_, index) {
+                final surah = quranCtrl.surahs[index];
+                final juz = quranCtrl.allAyahs.firstWhere(
+                  (a) => a.juz == index + 1,
+                );
+                return AnimationConfiguration.staggeredList(
+                  position: index,
+                  duration: const Duration(milliseconds: 450),
+                  child: SlideAnimation(
+                    verticalOffset: 50.0,
+                    child: FadeInAnimation(
                       child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 16),
-                            child: Container(
-                              width: MediaQuery.sizeOf(context).width,
-                              decoration: BoxDecoration(
-                                  border: Border.all(
-                                    color:
-                                        Theme.of(context).colorScheme.surface,
-                                    width: 1,
-                                  ),
-                                  borderRadius: const BorderRadius.only(
-                                      topRight: Radius.circular(8),
-                                      topLeft: Radius.circular(8))),
-                              child: Column(
-                                children: [
-                                  Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                        vertical: 8, horizontal: 8),
-                                    child: juzNum2(
-                                        '${showData[index]['index']}',
-                                        context,
-                                        ThemeProvider.themeOf(context).id ==
-                                                'dark'
-                                            ? Colors.white
-                                            : Colors.black,
-                                        30),
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.all(8),
-                                    child: Column(
-                                      children: [
-                                        Text(
-                                          'من الآية ${arabicNumber.convert(showData[index]['start']['verse'])}',
-                                          style: TextStyle(
-                                            fontFamily: "kufi",
-                                            fontWeight: FontWeight.normal,
-                                            fontSize: 10,
-                                            color:
-                                                ThemeProvider.themeOf(context)
-                                                            .id ==
-                                                        'dark'
-                                                    ? Theme.of(context)
-                                                        .canvasColor
-                                                    : Theme.of(context)
-                                                        .primaryColorDark,
-                                          ),
-                                        ),
-                                        Padding(
-                                          padding: const EdgeInsets.all(8.0),
-                                          child: RichText(
-                                              textAlign: TextAlign.justify,
-                                              text: TextSpan(
-                                                  style: TextStyle(
-                                                      fontFamily: "uthmanic",
-                                                      fontWeight:
-                                                          FontWeight.normal,
-                                                      fontSize: 18,
-                                                      color: ThemeProvider
-                                                                      .themeOf(
-                                                                          context)
-                                                                  .id ==
-                                                              'dark'
-                                                          ? Theme.of(context)
-                                                              .canvasColor
-                                                          : Theme.of(context)
-                                                              .primaryColorDark,
-                                                      backgroundColor:
-                                                          Theme.of(context)
-                                                              .colorScheme
-                                                              .surface
-                                                              .withOpacity(.2)),
-                                                  text:
-                                                      '﴿${showData[index]['start']['ayatext']}﴾',
-                                                  children: [
-                                                    WidgetSpan(
-                                                        child: ayaNum(
-                                                            arabicNumber.convert(
-                                                                showData[index][
-                                                                        'start']
-                                                                    ['verse']),
-                                                            context,
-                                                            Theme.of(context)
-                                                                .primaryColorDark)),
-                                                  ])),
-                                        ),
-                                        const Divider(
-                                          height: 4,
-                                        ),
-                                        Text(
-                                          'إلى الآية ${arabicNumber.convert(showData[index]['end']['verse'])}',
-                                          style: TextStyle(
-                                            fontFamily: "kufi",
-                                            fontWeight: FontWeight.normal,
-                                            fontSize: 10,
-                                            color:
-                                                ThemeProvider.themeOf(context)
-                                                            .id ==
-                                                        'dark'
-                                                    ? Theme.of(context)
-                                                        .canvasColor
-                                                    : Theme.of(context)
-                                                        .primaryColorDark,
-                                          ),
-                                        ),
-                                        Padding(
-                                          padding: const EdgeInsets.all(8.0),
-                                          child: RichText(
-                                              textAlign: TextAlign.justify,
-                                              text: TextSpan(
-                                                  style: TextStyle(
-                                                      fontFamily: "uthmanic",
-                                                      fontWeight:
-                                                          FontWeight.normal,
-                                                      fontSize: 18,
-                                                      color: ThemeProvider
-                                                                      .themeOf(
-                                                                          context)
-                                                                  .id ==
-                                                              'dark'
-                                                          ? Theme.of(context)
-                                                              .canvasColor
-                                                          : Theme.of(context)
-                                                              .primaryColorDark,
-                                                      backgroundColor:
-                                                          Theme.of(context)
-                                                              .colorScheme
-                                                              .surface
-                                                              .withOpacity(.2)),
-                                                  text:
-                                                      '﴿${showData[index]['end']['ayatext']}﴾',
-                                                  children: [
-                                                    WidgetSpan(
-                                                        child: ayaNum(
-                                                      arabicNumber.convert(
-                                                          showData[index]['end']
-                                                              ['verse']),
-                                                      context,
-                                                      Theme.of(context)
-                                                          .primaryColorDark,
-                                                    )),
-                                                  ])),
-                                        ),
-                                      ],
-                                    ),
-                                  )
-                                ],
-                              ),
+                            padding:
+                                const EdgeInsets.symmetric(horizontal: 8.0),
+                            child: Text(
+                              '${'juz'.tr} ${generalCtrl.convertNumbers((index + 1).toString())}',
+                              style: TextStyle(
+                                  color: Theme.of(context).hintColor,
+                                  fontFamily: "kufi",
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.bold,
+                                  height: 2),
                             ),
                           ),
-                          const SizedBox(
-                            height: 16,
-                          )
+                          GestureDetector(
+                            child: Container(
+                                height: 60,
+                                decoration: BoxDecoration(
+                                    color: (index % 2 == 0
+                                        ? Theme.of(context)
+                                            .colorScheme
+                                            .primary
+                                            .withOpacity(.15)
+                                        : Colors.transparent),
+                                    borderRadius: const BorderRadius.all(
+                                        Radius.circular(8))),
+                                child: Padding(
+                                  padding:
+                                      const EdgeInsets.symmetric(horizontal: 8),
+                                  child: Directionality(
+                                    textDirection: TextDirection.rtl,
+                                    child: ShaderMask(
+                                      shaderCallback: (Rect bounds) {
+                                        return const LinearGradient(
+                                          begin: Alignment.centerLeft,
+                                          end: Alignment.centerRight,
+                                          colors: [
+                                            Colors.transparent,
+                                            Colors.black
+                                          ],
+                                          stops: [0.0, 0.2],
+                                        ).createShader(bounds);
+                                      },
+                                      blendMode: BlendMode.dstIn,
+                                      child: Row(
+                                        children: [
+                                          Expanded(
+                                            flex: 2,
+                                            child: Align(
+                                              alignment: Alignment.centerRight,
+                                              child: Stack(
+                                                alignment: Alignment.center,
+                                                children: [
+                                                  SizedBox(
+                                                      height: 40,
+                                                      width: 40,
+                                                      child: SvgPicture.asset(
+                                                        'assets/svg/sora_num.svg',
+                                                        colorFilter:
+                                                            ColorFilter.mode(
+                                                                Theme.of(
+                                                                        context)
+                                                                    .colorScheme
+                                                                    .primary,
+                                                                BlendMode
+                                                                    .srcIn),
+                                                      )),
+                                                  Transform.translate(
+                                                    offset: const Offset(0, 1),
+                                                    child: Text(
+                                                      '${generalCtrl.convertNumbers((index + 1).toString())}',
+                                                      style: TextStyle(
+                                                          color:
+                                                              Theme.of(context)
+                                                                  .hintColor,
+                                                          fontFamily: "kufi",
+                                                          fontSize: 14,
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                          height: 2),
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                          ),
+                                          Expanded(
+                                            flex: 8,
+                                            child: Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              children: [
+                                                Text(
+                                                  '${juz.text}',
+                                                  style: TextStyle(
+                                                    color: Theme.of(context)
+                                                        .hintColor,
+                                                    fontFamily: "uthmanic2",
+                                                    fontSize: 20,
+                                                    height: 2,
+                                                  ),
+                                                  maxLines: 1,
+                                                  overflow: TextOverflow
+                                                      .clip, // Change overflow to clip
+                                                ),
+                                                Padding(
+                                                  padding:
+                                                      const EdgeInsets.only(
+                                                          right: 8.0),
+                                                  child: Text(
+                                                    '${surah.arabicName} ${generalCtrl.convertNumbers(surah.surahNumber.toString())} - ${'page'.tr} ${generalCtrl.convertNumbers(juz.page.toString())}',
+                                                    style: TextStyle(
+                                                      fontFamily: "naskh",
+                                                      fontWeight:
+                                                          FontWeight.w600,
+                                                      fontSize: 12,
+                                                      color: Theme.of(context)
+                                                          .colorScheme
+                                                          .surface,
+                                                    ),
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                )),
+                            onTap: () {
+                              quranCtrl.changeSurahListOnTap(juz.page);
+                            },
+                          ),
+                          context.hDivider(
+                              color: Theme.of(context)
+                                  .colorScheme
+                                  .primary
+                                  .withOpacity(.2)),
                         ],
                       ),
-                      onTap: () {
-                        sl<GeneralController>()
-                            .quranPageController
-                            .animateToPage(
-                              showData[index]['start']['pageNum'] - 1,
-                              duration: const Duration(milliseconds: 300),
-                              curve: Curves.easeInOut,
-                            );
-                        sl<GeneralController>().slideClose();
-                      },
-                    );
-                  },
-                  itemCount: 30,
-                ),
-              );
-            } else {
-              return const Center(
-                child: CircularProgressIndicator(),
-              );
-            }
-          },
-          future:
-              DefaultAssetBundle.of(context).loadString("assets/json/juz.json"),
+                    ),
+                  ),
+                );
+              }),
         ),
-      ),
-    );
-  }
-
-  Widget ayaNum(String num, context, Color color) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 5),
-      child: Stack(
-        alignment: Alignment.center,
-        children: [
-          SizedBox(
-              height: 30,
-              width: 30,
-              child: SvgPicture.asset('assets/svg/ayah_no.svg')),
-          Text(
-            num,
-            style: TextStyle(
-                fontSize: 9, fontWeight: FontWeight.bold, color: color),
-          ),
-        ],
       ),
     );
   }

@@ -1,327 +1,177 @@
-import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:theme_provider/theme_provider.dart';
+import 'dart:developer';
 
-import '../../../../core/services/l10n/app_localizations.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
+import 'package:get/get.dart';
+
 import '../../../../core/services/services_locator.dart';
-import '../../../../core/utils/constants/svg_picture.dart';
-import '../../../../core/widgets/widgets.dart';
+import '../../../../core/utils/constants/extensions/extensions.dart';
+import '../../../../core/utils/helpers/responsive.dart';
 import '../../../controllers/bookmarks_controller.dart';
 import '../../../controllers/general_controller.dart';
+import '../../../controllers/translate_controller.dart';
+import '../widgets/pages/left_page.dart';
+import '../widgets/pages/pages_widget.dart';
+import '../widgets/pages/right_page.dart';
+import '../widgets/pages/top_title_widget.dart';
+import '/presentation/controllers/audio_controller.dart';
 
-class MPages extends StatelessWidget {
-  MPages({Key? key}) : super(key: key);
+class QuranPages extends StatelessWidget {
+  QuranPages({Key? key}) : super(key: key);
+  final audioCtrl = sl<AudioController>();
+  final generalCtrl = sl<GeneralController>();
+  final bookmarkCtrl = sl<BookmarksController>();
 
   @override
   Widget build(BuildContext context) {
-    sl<BookmarksController>().getBookmarks();
-
-    return orientation(
-        context,
-        SafeArea(
-          child: GetBuilder<GeneralController>(
-            builder: (generalController) => PageView.builder(
-                controller: sl<GeneralController>().pageController(),
-                itemCount: 604,
-                onPageChanged: sl<GeneralController>().pageChanged,
-                itemBuilder: (_, index) {
-                  return (index % 2 == 0
-                      ? Semantics(
-                          image: true,
-                          label: 'Quran Page',
-                          child: rightPage(
-                            context,
-                            Stack(
-                              children: [
-                                _pages(context, index),
-                                Align(
-                                  alignment: Alignment.topRight,
-                                  child: IconButton(
-                                    onPressed: () {
-                                      // Check if there's a bookmark for the current page
-                                      if (sl<BookmarksController>()
-                                          .isPageBookmarked(index + 1)) {
-                                        sl<BookmarksController>()
-                                            .deleteBookmarks(
-                                                index + 1, context);
-                                      } else {
-                                        // If there's no bookmark for the current page, add a new one
-                                        sl<BookmarksController>()
-                                            .addBookmark(
-                                                index + 1,
-                                                sl<BookmarksController>()
-                                                    .soraBookmarkList![
-                                                        index + 1]
-                                                    .SoraName_ar!,
-                                                sl<GeneralController>()
-                                                    .timeNow
-                                                    .lastRead)
-                                            .then((value) => customSnackBar(
-                                                context,
-                                                AppLocalizations.of(context)!
-                                                    .addBookmark));
-                                        print('addBookmark');
-                                        print(
-                                            '${sl<GeneralController>().timeNow.lastRead}');
-                                        // sl<BookmarksController>()
-                                        //     .savelastBookmark(index + 1);
-                                      }
-                                    },
-                                    icon: bookmarkIcon(context, 30.0, 30.0),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        )
-                      : Semantics(
-                          image: true,
-                          label: 'Quran Page',
-                          child: leftPage(
-                            context,
-                            Stack(
-                              children: [
-                                _pages(context, index),
-                                Align(
-                                  alignment: Alignment.topLeft,
-                                  child: IconButton(
-                                    onPressed: () {
-                                      // Check if there's a bookmark for the current page
-                                      if (sl<BookmarksController>()
-                                          .isPageBookmarked(index + 1)) {
-                                        sl<BookmarksController>()
-                                            .deleteBookmarks(
-                                                index + 1, context);
-                                      } else {
-                                        // If there's no bookmark for the current page, add a new one
-                                        sl<BookmarksController>()
-                                            .addBookmark(
-                                                index + 1,
-                                                sl<BookmarksController>()
-                                                    .soraBookmarkList![
-                                                        index + 1]
-                                                    .SoraName_ar!,
-                                                sl<GeneralController>()
-                                                    .timeNow
-                                                    .lastRead)
-                                            .then((value) => customSnackBar(
-                                                context,
-                                                AppLocalizations.of(context)!
-                                                    .addBookmark));
-                                        print('addBookmark');
-                                        print(
-                                            '${sl<GeneralController>().timeNow.lastRead}');
-                                        // sl<BookmarksController>()
-                                        //     .savelastBookmark(index + 1);
-                                      }
-                                    },
-                                    icon: bookmarkIcon(context, 30.0, 30.0),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ));
-                }),
-          ),
-        ),
-        SafeArea(
-          child: Padding(
-            padding: const EdgeInsets.symmetric(vertical: 0.0),
-            child: GetBuilder<GeneralController>(
-              builder: (generalController) => PageView.builder(
-                  controller: sl<GeneralController>().pageController(),
-                  itemCount: 604,
-                  onPageChanged: sl<GeneralController>().pageChanged,
-                  itemBuilder: (_, index) {
-                    return SingleChildScrollView(
-                      child: (index % 2 == 0
-                          ? Semantics(
-                              image: true,
-                              label: 'Quran Page',
-                              child: rightPage(
-                                context,
-                                Stack(
+    bookmarkCtrl.getBookmarks();
+    return SafeArea(
+      child: GetBuilder<GeneralController>(
+        builder: (generalCtrl) => GestureDetector(
+          onTap: () {
+            audioCtrl.clearSelection();
+          },
+          child: Container(
+            padding: context.customOrientation(
+                const EdgeInsets.symmetric(vertical: 8.0),
+                const EdgeInsets.symmetric(vertical: 0.0)),
+            height: MediaQuery.sizeOf(context).height,
+            child: PageView.builder(
+              controller: generalCtrl.pageController,
+              itemCount: 604,
+              padEnds: false,
+              scrollDirection: Axis.horizontal,
+              physics: const ClampingScrollPhysics(),
+              onPageChanged: generalCtrl.pageChanged,
+              itemBuilder: (_, index) {
+                sl<TranslateDataController>().fetchTranslate(context);
+                log('width: ${MediaQuery.sizeOf(context).width}');
+                return Responsive.isMobile(context) ||
+                        Responsive.isMobileLarge(context)
+                    ? Center(
+                        child: index.isEven
+                            ? RightPage(
+                                child: Stack(
+                                  // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  // crossAxisAlignment: CrossAxisAlignment.center,
                                   children: [
-                                    _pages2(context, index),
                                     Align(
-                                      alignment: Alignment.topRight,
-                                      child: IconButton(
-                                        onPressed: () {
-                                          // Check if there's a bookmark for the current page
-                                          if (sl<BookmarksController>()
-                                              .isPageBookmarked(index + 1)) {
-                                            sl<BookmarksController>()
-                                                .deleteBookmarks(
-                                                    index + 1, context);
-                                          } else {
-                                            // If there's no bookmark for the current page, add a new one
-                                            sl<BookmarksController>()
-                                                .addBookmark(
-                                                    index + 1,
-                                                    sl<BookmarksController>()
-                                                        .soraBookmarkList![
-                                                            index + 1]
-                                                        .SoraName_ar!,
-                                                    sl<GeneralController>()
-                                                        .timeNow
-                                                        .lastRead)
-                                                .then((value) => customSnackBar(
-                                                    context,
-                                                    AppLocalizations.of(
-                                                            context)!
-                                                        .addBookmark));
-                                            print('addBookmark');
-                                            // sl<BookmarksController>()
-                                            //     .savelastBookmark(index + 1);
-                                          }
-                                        },
-                                        icon: bookmarkIcon(context, 30.0, 30.0),
+                                        alignment: Alignment.topCenter,
+                                        child: TopTitleWidget(
+                                            index: index, isRight: true)),
+                                    Align(
+                                        alignment: Alignment.center,
+                                        child: Padding(
+                                          padding: const EdgeInsets.symmetric(
+                                            horizontal: 24.0,
+                                          ),
+                                          child: PagesWidget(pageIndex: index),
+                                        )),
+                                    Align(
+                                      alignment: Alignment.bottomCenter,
+                                      child: Text(
+                                        '${generalCtrl.convertNumbers('${index + 1}')}',
+                                        style: TextStyle(
+                                            fontSize: context.customOrientation(
+                                                18.0, 22.0),
+                                            fontFamily: 'naskh',
+                                            color: const Color(0xff77554B)),
                                       ),
                                     ),
                                   ],
                                 ),
-                              ),
-                            )
-                          : Semantics(
-                              image: true,
-                              label: 'Quran Page',
-                              child: leftPage(
-                                context,
-                                Stack(
+                              )
+                            : LeftPage(
+                                child: Stack(
+                                  // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  // crossAxisAlignment: CrossAxisAlignment.center,
                                   children: [
-                                    _pages2(context, index),
                                     Align(
-                                      alignment: Alignment.topLeft,
-                                      child: IconButton(
-                                        onPressed: () {
-                                          // Check if there's a bookmark for the current page
-                                          if (sl<BookmarksController>()
-                                              .isPageBookmarked(index + 1)) {
-                                            sl<BookmarksController>()
-                                                .deleteBookmarks(
-                                                    index + 1, context);
-                                          } else {
-                                            // If there's no bookmark for the current page, add a new one
-                                            sl<BookmarksController>()
-                                                .addBookmark(
-                                                    index + 1,
-                                                    sl<BookmarksController>()
-                                                        .soraBookmarkList![
-                                                            index + 1]
-                                                        .SoraName_ar!,
-                                                    sl<GeneralController>()
-                                                        .timeNow
-                                                        .lastRead)
-                                                .then((value) => customSnackBar(
-                                                    context,
-                                                    AppLocalizations.of(
-                                                            context)!
-                                                        .addBookmark));
-                                            print('addBookmark');
-                                            // sl<BookmarksController>()
-                                            //     .savelastBookmark(index + 1);
-                                          }
-                                        },
-                                        icon: bookmarkIcon(context, 30.0, 30.0),
+                                        alignment: Alignment.topCenter,
+                                        child: TopTitleWidget(
+                                            index: index, isRight: false)),
+                                    Align(
+                                        alignment: Alignment.center,
+                                        child: Padding(
+                                          padding: const EdgeInsets.symmetric(
+                                            horizontal: 24.0,
+                                          ),
+                                          child: PagesWidget(pageIndex: index),
+                                        )),
+                                    Align(
+                                      alignment: Alignment.bottomCenter,
+                                      child: Text(
+                                        '${generalCtrl.convertNumbers('${index + 1}')}',
+                                        style: TextStyle(
+                                            fontSize: context.customOrientation(
+                                                18.0, 22.0),
+                                            fontFamily: 'naskh',
+                                            color: const Color(0xff77554B)),
+                                      ),
+                                    )
+                                  ],
+                                ),
+                              ))
+                    : Center(
+                        child: index.isEven
+                            ? RightPage(
+                                child: ListView(
+                                  // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  // crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    TopTitleWidget(index: index, isRight: true),
+                                    Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                        horizontal: 32.0,
+                                      ),
+                                      child: PagesWidget(pageIndex: index),
+                                    ),
+                                    Align(
+                                      alignment: Alignment.bottomCenter,
+                                      child: Text(
+                                        '${generalCtrl.convertNumbers('${index + 1}')}',
+                                        style: TextStyle(
+                                            fontSize: context.customOrientation(
+                                                18.0, 22.0),
+                                            fontFamily: 'naskh',
+                                            color: const Color(0xff77554B)),
                                       ),
                                     ),
                                   ],
                                 ),
-                              ),
-                            )),
-                    );
-                  }),
+                              )
+                            : LeftPage(
+                                child: ListView(
+                                  // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  // crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    TopTitleWidget(
+                                        index: index, isRight: false),
+                                    Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                        horizontal: 32.0,
+                                      ),
+                                      child: PagesWidget(pageIndex: index),
+                                    ),
+                                    Align(
+                                      alignment: Alignment.bottomCenter,
+                                      child: Text(
+                                        '${generalCtrl.convertNumbers('${index + 1}')}',
+                                        style: TextStyle(
+                                            fontSize: context.customOrientation(
+                                                18.0, 22.0),
+                                            fontFamily: 'naskh',
+                                            color: const Color(0xff77554B)),
+                                      ),
+                                    )
+                                  ],
+                                ),
+                              ));
+              },
             ),
           ),
-        ));
-  }
-
-  Widget _pages(BuildContext context, int index) {
-    // Get.put(BottomSheetController());
-    return InkWell(
-      onTap: () {
-        if (sl<GeneralController>().opened.value == true) {
-          sl<GeneralController>().opened.value = false;
-          sl<GeneralController>().update();
-        } else {
-          sl<GeneralController>().showControl();
-        }
-      },
-      child: Center(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 16.0),
-          child: Stack(
-            children: <Widget>[
-              Image.asset(
-                "assets/pages/00${index + 1}.png",
-                fit: BoxFit.contain,
-                color: ThemeProvider.themeOf(context).id == 'dark'
-                    ? Colors.white
-                    : null,
-                width: MediaQuery.sizeOf(context).width,
-                alignment: Alignment.center,
-              ),
-              Image.asset(
-                "assets/pages/000${index + 1}.png",
-                fit: BoxFit.contain,
-                width: MediaQuery.sizeOf(context).width,
-                alignment: Alignment.center,
-              ),
-              // HighlightingWidget(
-              //   safha: index + 1,
-              // )
-              // QuranPage(
-              //   imageUrl: 'assets/pages/00${index + 1}.png',
-              //   imageUrl2: 'assets/pages/000${index + 1}.png',
-              //   currentPage: index + 1,
-              // )
-            ],
-          ),
         ),
-      ),
-    );
-  }
-
-  Widget _pages2(BuildContext context, int index) {
-    return InkWell(
-      onTap: () {
-        if (sl<GeneralController>().opened.value == true) {
-          sl<GeneralController>().opened.value = false;
-          sl<GeneralController>().update();
-        } else {
-          sl<GeneralController>().showControl();
-        }
-      },
-      child: Stack(
-        children: <Widget>[
-          Image.asset(
-            "assets/pages/00${index + 1}.png",
-            fit: BoxFit.contain,
-            color: ThemeProvider.themeOf(context).id == 'dark'
-                ? Colors.white
-                : null,
-            height: orientation == Orientation.portrait
-                ? sl<GeneralController>().height! - 60
-                : null,
-            width: MediaQuery.sizeOf(context).width,
-            alignment: Alignment.center,
-          ),
-          Image.asset(
-            "assets/pages/000${index + 1}.png",
-            fit: BoxFit.contain,
-            height: orientation == Orientation.portrait
-                ? sl<GeneralController>().height! - 60
-                : null,
-            width: MediaQuery.sizeOf(context).width,
-            alignment: Alignment.center,
-          ),
-          // QuranPage(
-          //   imageUrl: 'assets/pages/00${index + 1}.png',
-          //   imageUrl2: 'assets/pages/000${index + 1}.png',
-          //   currentPage: index + 1,
-          // )
-        ],
       ),
     );
   }

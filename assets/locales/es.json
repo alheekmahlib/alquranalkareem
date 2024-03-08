@@ -1,0 +1,826 @@
+{
+  "appName": "Al Quran Al Kareem - Biblioteca Al Heekmah",
+  "@appName": {
+    "description": "appName",
+    "type": "text",
+    "placeholders": {}
+  },
+  "search_hint": "Buscar los versos del Corán",
+  "@search_hint": {
+    "description": "search_hint",
+    "type": "text",
+    "placeholders": {}
+  },
+  "menu": "Menu",
+  "@menu": {
+    "description": "Menú",
+    "type": "text",
+    "placeholders": {}
+  },
+  "notes": "Notas",
+  "@notes": {
+    "description": "Notas",
+    "type": "text",
+    "placeholders": {}
+  },
+  "note_title": "Título",
+  "@note_title": {
+    "description": "note_title",
+    "type": "text",
+    "placeholders": {}
+  },
+  "add_new_note": "Agregar una nueva nota",
+  "@add_new_note": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "note_details": "Detalles de la nota",
+  "@note_details": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "bookmarks": "Marcadores guardados",
+  "@bookmarks": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "bookmark_title": "Nombre del marcador",
+  "@bookmark_title": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "add_new_bookmark": "Agregar un nuevo marcador",
+  "@add_new_bookmark": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "save": "Ahorrar",
+  "@save": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "edit": "Editar",
+  "@edit": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "azkar": "Athkar",
+  "@azkar": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "qibla": "Qibla Direction",
+  "@qibla": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "salat": "Prayer Times",
+  "@salat": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "aya_count": "Número de versos",
+  "@aya_count": {
+    "description": "aya_count",
+    "type": "text",
+    "placeholders": {}
+  },
+  "quran_sorah": "Surahs",
+  "@quran_sorah": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "about_us": "Acerca de la aplicación",
+  "@about_us": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "stop_title": "El noble Corán - Biblioteca Al-Heekmah",
+  "@stop_title": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "about_app": "La aplicación \"El Sagrado Corán - Biblioteca Al-Hikma\" es una aplicación integral que ofrece una amplia gama de características para mejorar la experiencia de lectura y aprendizaje del Corán. Estas características incluyen:",
+  "@about_app": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "about_app2": "Entre las características más importantes de la aplicación:",
+  "@about_app2": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "about_app3": "۞ Una interfaz nueva y fácil de usar: La aplicación está diseñada con una interfaz de usuario moderna e intuitiva que facilita a los usuarios navegar y acceder a diferentes características.\n۞ Adopción de la edición del Complejo Rey Fahd: La aplicación utiliza la edición del Complejo Rey Fahd para la impresión del Sagrado Corán, conocida por su fiabilidad y perfección, asegurando la precisión e integridad del texto.\n۞ Lectura interactiva y completa: La aplicación ofrece la posibilidad de lectura interactiva con el texto electrónico del Corán, además de escuchar recitaciones, y estudiar y memorizar el Sagrado Corán fácilmente.\n۞ Lectura flexible: Los usuarios pueden leer el Corán como si estuvieran leyendo un mushaf de papel o elegir el modo de verso único para mayor enfoque.\n۞ Característica de búsqueda de texto: La aplicación contiene una característica de búsqueda instantánea en los versículos del Corán, con la posibilidad de moverse directamente a la página o sura deseada.\n۞ Añadir insignias de marcadores: Esta característica permite guardar páginas o versículos para referencia fácil en cualquier momento.\n۞ Escuchar versículos: La aplicación proporciona la posibilidad de escuchar cada versículo recitado por una serie de recitadores famosos.\n۞ Interpretación y traducción de versículos: Los usuarios pueden acceder a la interpretación o traducción de cada versículo, y cambiar entre interpretaciones según lo deseado.\n۞ Navegación fácil entre suras: La aplicación permite una navegación suave y rápida entre suras.\n۞ Lectura de marcas de parada: Esta característica ayuda a entender los lugares apropiados de parada durante la lectura.\n۞ Athkar de la Fortaleza del Musulmán: Es posible leer el Athkar completo de la Fortaleza del Musulmán y navegar entre secciones fácilmente, con la posibilidad de añadir Athkar a favoritos.\n۞ Cambiar estilos de color: La aplicación admite cambiar estilos de color, incluido el modo oscuro, para mejorar la experiencia de lectura.\n۞ Escuchar y descargar: Es posible escuchar las suras o descargarlas para escucharlas más tarde sin necesidad de internet.\n\nEstas características hacen de la aplicación \"El Sagrado Corán - Biblioteca Al-Hikma\" una herramienta integral para cualquiera que desee leer, aprender y contemplar el Sagrado Corán de manera fácil y efectiva.",
+  "@about_app3": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "email": "Contacta con nosotras",
+  "@email": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "select_player": "Lector seleccionada",
+  "@select_player": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "delete": "Borrar",
+  "@delete": {
+    "type": "text",
+    "placeholders": {}
+  },
+
+  "page": "Página",
+  "@page": {
+    "type": "text",
+    "placeholders": {}
+  },
+
+  "search_word": "Buscar un Versículo",
+  "@search_word": {
+    "type": "text",
+    "placeholders": {}
+  },
+
+  "search_description": "Puede buscar todos los versos del Noble Corán, simplemente escriba una palabra del verso.",
+  "@search_description": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "fontSize": "Cambia tamaño de fuente",
+  "@fontSize": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "waqfName": "Señales de alto",
+  "@waqfName": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "onboardTitle1": "Interfaz fácil",
+  "@onboardTitle1": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "onboardDesc1": "- Ease of searching for a verse.\n- Change the language.\n- Listen to the page.\n- Change the reader.",
+  "@onboardDesc1": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "onboardTitle2": "Show The Tafseer",
+  "@onboardTitle2": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "onboardDesc2": "The interpretation of each verse can be read by pulling the list up.",
+  "@onboardDesc2": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "onboardTitle3": "Click Options",
+  "@onboardTitle3": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "onboardDesc3": "1- When you double click the page is enlarged.\n2- Upon long click you will be presented with the option to save the page.\n3- When you press once, the menus appear.",
+  "@onboardDesc3": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "green": "Modo verde",
+  "@green": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "brown": "Modo Marrón",
+  "@brown": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "dark": "Modo oscuro",
+  "@dark": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "azkarfav": "Athkar favorita",
+  "@azkarfav": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "themeTitle": "Elija Apariencia",
+  "@themeTitle": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "sorah": "Sorah",
+  "@sorah": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "part": "Parte",
+  "@part": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "langChange": "Cambia el idioma",
+  "@langChange": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "tafChange": "Elige un tafsir",
+  "@tafChange": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "tafIbnkatheerN": "Tafsir Ibn Kathir",
+  "@tafIbnkatheerN": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "tafBaghawyN": "Tafsir al-Baghawi",
+  "@tafBaghawyN": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "tafQurtubiN": "Tafsir al-Qurtubi",
+  "@tafQurtubiN": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "tafSaadiN": "Tafsir As-Sadi",
+  "@tafSaadiN": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "tafTabariN": "Tafsir al-Tabari",
+  "@tafTabariN": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "tafIbnkatheerD": "Tafsir al-Corán al-Azim",
+  "@tafIbnkatheerD": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "tafBaghawyD": "Maalim al-Tanzil",
+  "@tafBaghawyD": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "tafQurtubiD": "Al-Jami li Ahkam al-Corán",
+  "@tafQurtubiD": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "tafSaadiD": "Taiseer Kalam Almannan",
+  "@tafSaadiD": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "tafTabariD": "Jami al-Bayan an Tawil [ay] al Corán",
+  "@tafTabariD": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "appLang": "Idioma de la aplicación",
+  "@appLang": {
+    "type": "text",
+    "placeholders": {}
+  },
+
+  "setting": "Configuración",
+  "@setting": {
+    "type": "text",
+    "placeholders": {}
+  },
+
+  "reader1": "Abdul Basit",
+  "@reader1": {
+    "type": "text",
+    "placeholders": {}
+  },
+
+  "reader2": "Mohamed El-Minshawi",
+  "@reader2": {
+    "type": "text",
+    "placeholders": {}
+  },
+
+  "reader3": "Mahmoud Al-Hussary",
+  "@reader3": {
+    "type": "text",
+    "placeholders": {}
+  },
+
+  "reader4": "Ahmed Al-Ajamy",
+  "@reader4": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "reader5": "Maher Al Muaiqly",
+  "@reader5": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "reader6": "Saud Al-Shuraim",
+  "@reader6": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "reader7": "Saad Al-Ghamdi",
+  "@reader7": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "reader8": "Mustafa Al-Azzawi",
+  "@reader8": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "reader9": "Nasser Al-Qatami",
+  "@reader9": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "reader10": "Qader Al-Kurdi",
+  "@reader10": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "reader11": "Sherzad Taher",
+  "@reader11": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "reader12": "Abdulrahman Al-Ousi",
+  "@reader12": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "reader13": "Wadi Al-Yemeni",
+  "@reader13": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "alheekmahlib": "Biblioteca Alheekmah",
+  "@alheekmahlib": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "backTo": "De regreso",
+  "@backTo": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "next": "Próxima",
+  "@next": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "start": "Comenzar",
+  "@start": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "quranPages": "Al Corán (Páginas)",
+  "@quranPages": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "quranText": "Al Corán (Ayah)",
+  "@quranText": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "tafseer": "Al Tafseer",
+  "@tafseer": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "allJuz": "Partes",
+  "@allJuz": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "copyAzkarText": "¡Se ha copiado el Azkar!",
+  "@copyAzkarText": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "addBookmark": "¡Marcador añadido!",
+  "@addBookmark": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "deletedBookmark": "¡Marcador eliminado!",
+  "@deletedBookmark": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "deletedReminder": "¡Recordatorio eliminado!",
+  "@deletedReminder": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "fillAllFields": "¡Por favor complete los campos!",
+  "@fillAllFields": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "version": "Versión",
+  "@version": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "share": "Comparte la aplicación",
+  "@share": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "facebook": "Síguenos en Facebook",
+  "@facebook": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "addZekrBookmark": "El Zekr ha sido agregado a favoritos",
+  "@addZekrBookmark": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "deletedZekrBookmark": "¡El Zekr ha sido eliminado de favoritos!",
+  "@deletedZekrBookmark": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "pageNo": "Nú de página",
+  "@pageNo": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "lastRead": "Última lectura",
+  "@lastRead": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "copyAyah": "El verso ha sido copiado.",
+  "@copyAyah": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "copyTafseer": "La Tafseer ha sido copiada",
+  "@copyTafseer": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "online": "En línea",
+  "@online": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "download": "Descargar",
+  "@download": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "noInternet": "¡El dispositivo no está conectado a Internet!",
+  "@noInternet": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "mobileDataAyat": "Nota: ¡Está utilizando datos móviles para descargar versos!",
+  "@mobileDataAyat": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "mobileDataSurahs": "Nota: ¡Está utilizando datos móviles para descargar las suras!",
+  "@mobileDataSurahs": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "mobileDataListen": "Nota: ¡Está utilizando datos móviles para escuchar suras!",
+  "@mobileDataListen": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "choiceAyah": "¡Elige el verso primero!",
+  "@choiceAyah": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "stopSigns": "Señales de alto",
+  "@stopSigns": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "aboutApp": "Acerca de la aplicación",
+  "@aboutApp": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "readMore": "Leer más",
+  "@readMore": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "readLess": "Leer menos",
+  "@readLess": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "ok": "Cancelar",
+  "@ok": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "cancel": "Cancelar",
+  "@cancel": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "searchToSurah": "Buscar a Sura",
+  "@searchToSurah": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "addReminder": "Agregar nuevo recordatorio",
+  "@addReminder": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "lastListen": "Última Escucha",
+  "@lastListen": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "hizb": "Hizb",
+  "@hizb": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "shareText": "Como texto",
+  "@shareText": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "shareImage": "Como una imagen",
+  "@shareImage": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "shareImageWTrans": "Como una imagen",
+  "@shareImageWTrans": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "shareTrans": "Nota: Compartir la interpretación en una imagen solo respalda la interpretación de Al-Saadi, porque la interpretación no es larga.",
+  "@shareTrans": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "translation": "Traducción",
+  "@translation": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "search": "Buscar",
+  "@search": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "surahsList": "Lista de suras",
+  "@surahsList": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "bookmarksList": "Lista de marcadores",
+  "@bookmarksList": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "copy": "Copiar",
+  "@copy": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "shareTafseer": "Compartir",
+  "@shareTafseer": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "addToBookmark": "Agregar al marcador",
+  "@addToBookmark": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "repeatSurah": "repetir sura",
+  "@repeatSurah": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "pauseSurah": "Pausa Sura",
+  "@pauseSurah": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "replaySurah": "Reproducir sura",
+  "@replaySurah": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "skipToPrevious": "Saltar a la anterior",
+  "@skipToPrevious": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "deletedPlayList": "La lista de reproducción ha sido eliminada",
+  "@deletedPlayList": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "createPlayList": "Crear la lista de reproducción",
+  "@createPlayList": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "playList": "Listas de reproducción",
+  "@playList": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "playListName": "Escribe el nombre de la lista de reproducción",
+  "@playListName": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "from": "De",
+  "@from": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "to": "A",
+  "@to": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "quran": "El Sagrado Corán",
+  "@quran": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "quranAudio": "Escuchar el Corán",
+  "@quranAudio": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "startScreen": "Pantalla de Inicio",
+  "@startScreen": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "selectScreen": "Elige Pantalla de Inicio",
+  "@selectScreen": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "dailyZeker": "Oración del Día",
+  "@dailyZeker": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "lang": "Español",
+  "@lang": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "juz": "Parte",
+  "@juz": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "sajda": "Prosternación",
+  "@sajda": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "pages": "Páginas",
+  "@pages": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "ayahs": "Versículos",
+  "@ayahs": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "eidGreetingContent": "Que Alá acepte de nosotros y de vosotros el ayuno, la oración y las buenas obras.",
+  "@eidGreetingContent": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "eidGreetingContent2": "Cada año y ustedes más cerca de Alá.",
+  "@eidGreetingContent2": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "eidGreetingTitle": "Feliz Eid para ustedes",
+  "@eidGreetingTitle": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "ramadhanMubarak": "Ramadán Bendecido",
+  "@ramadhanMubarak": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "home": "Principal",
+  "@home": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "skip": "Omitir",
+  "@skip": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "What's New": "Qué hay de nuevo",
+  "@What's New": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "What'sNewTitle": "Interfaz nueva y fácil de usar:",
+  "@What'sNewTitle": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "What'sNewDetails": "La aplicación ha sido diseñada con una interfaz de usuario moderna e intuitiva que facilita a los usuarios la navegación y el acceso a diferentes características.",
+  "@What'sNewDetails": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "What'sNewTitle2": "Selección de versículos:",
+  "@What'sNewTitle2": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "What'sNewDetails2": "Mantén presionado el versículo para mostrar:\n\n۞ Interpretación o traducción del versículo.\n۞ Escuchar el versículo.\n۞ Añadir el versículo a los marcadores.\n۞ Copiar el versículo.\n۞ Compartir el versículo como texto o imagen.",
+  "@What'sNewDetails2": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "What'sNewTitle3": "Característica de búsqueda textual:",
+  "@What'sNewTitle3": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "What'sNewDetails3": "La aplicación contiene una función de búsqueda instantánea en los versículos del Corán, con la capacidad de moverse directamente a la página o Surah deseada.",
+  "@What'sNewDetails3": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "What'sNewTitle4": "Interpretación y traducción de versículos:",
+  "@What'sNewTitle4": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "What'sNewDetails4": "Los usuarios pueden acceder a la interpretación o traducción de cada versículo, y cambiar entre interpretaciones según lo deseen.",
+  "@What'sNewDetails4": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "What'sNewTitle5": "Añadiendo más recitadores:",
+  "@What'sNewTitle5": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "ourApps": "Nuestras Aplicaciones",
+  "@ourApps": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "choseQuran": "Elige el Modo de Lectura",
+  "@choseQuran": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "blueMode": "Azul",
+  "@blueMode": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "brownMode": "Marrón",
+  "@brownMode": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "oldMode": "Viejo",
+  "@oldMode": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "darkMode": "Oscuro",
+  "@darkMode": {
+    "type": "text",
+    "placeholders": {}
+  }
+}
