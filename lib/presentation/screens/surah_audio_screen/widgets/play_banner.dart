@@ -2,12 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:mini_music_visualizer/mini_music_visualizer.dart';
-import 'package:theme_provider/theme_provider.dart';
 
 import '../../../../core/services/services_locator.dart';
-import '../../../../core/widgets/widgets.dart';
-import '../../../controllers/general_controller.dart';
 import '../../../controllers/surah_audio_controller.dart';
+import '/core/utils/constants/extensions/extensions.dart';
 
 class PlayBanner extends StatelessWidget {
   const PlayBanner({super.key});
@@ -26,8 +24,7 @@ class PlayBanner extends StatelessWidget {
             color: Theme.of(context).colorScheme.surface.withOpacity(.2),
             borderRadius: const BorderRadius.all(Radius.circular(8)),
           ),
-          margin: orientation(
-              context,
+          margin: context.customOrientation(
               const EdgeInsets.only(top: 75.0, right: 16.0),
               const EdgeInsets.only(bottom: 16.0, left: 32.0)),
           child: Row(
@@ -38,10 +35,7 @@ class PlayBanner extends StatelessWidget {
                   'assets/svg/surah_name/00${sl<SurahAudioController>().surahNum}.svg',
                   width: 100,
                   colorFilter: ColorFilter.mode(
-                      ThemeProvider.themeOf(context).id == 'dark'
-                          ? Theme.of(context).canvasColor
-                          : Theme.of(context).primaryColorDark,
-                      BlendMode.srcIn),
+                      Theme.of(context).hintColor, BlendMode.srcIn),
                 ),
               ),
               MiniMusicVisualizer(
@@ -66,7 +60,6 @@ class PlayBanner extends StatelessWidget {
           sl<SurahAudioController>()
               .controller
               .jumpTo((sl<SurahAudioController>().surahNum.value - 1) * 65.0);
-          sl<GeneralController>().widgetPosition.value = 0.0;
         },
       ),
     );

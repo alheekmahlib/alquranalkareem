@@ -48,15 +48,15 @@ class NotificationDatabaseHelper {
     );
   }
 
-  Future _onCreate(Database db, int version) async {
-    await db.execute('''
-          CREATE TABLE $table (
-        id INTEGER PRIMARY KEY,
-        title TEXT NOT NULL,
-        timestamp TEXT
-      )
-          ''');
-  }
+  // Future _onCreate(Database db, int version) async {
+  //   await db.execute('''
+  //         CREATE TABLE $table (
+  //       id INTEGER PRIMARY KEY,
+  //       title TEXT NOT NULL,
+  //       timestamp TEXT
+  //     )
+  //         ''');
+  // }
 
   Future<int> insertNotification(Map<String, dynamic> data) async {
     Database? db = await instance.database;

@@ -1,9 +1,9 @@
 class TimeNow {
   DateTime now = DateTime.now();
-  late String lastRead;
+  late String dateNow;
 
   TimeNow() {
-    lastRead =
-        "${now.year}-${now.month.toString().padLeft(2, '0')}-${now.day.toString().padLeft(2, '0')}";
+    dateNow =
+        "${now.year}/${now.month.toString().padLeft(2, '0')}/${now.day.toString().padLeft(2, '0')}";
   }
 }

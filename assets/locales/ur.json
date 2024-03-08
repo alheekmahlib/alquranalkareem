@@ -1,0 +1,818 @@
+{
+  "appName": "القرآن الکریم - الحکمہ لائبریری",
+  "@appName": {
+    "description": "appName",
+    "type": "text",
+    "placeholders": {}
+  },
+  "search_hint": "قرآن کی آیات تلاش کریں",
+  "@search_hint": {
+    "description": "search_hint",
+    "type": "text",
+    "placeholders": {}
+  },
+  "menu": "مینو",
+  "@menu": {
+    "description": "menu",
+    "type": "text",
+    "placeholders": {}
+  },
+  "notes": "نوٹ",
+  "@notes": {
+    "description": "notes",
+    "type": "text",
+    "placeholders": {}
+  },
+  "note_title": "نوٹ کا عنوان",
+  "@note_title": {
+    "description": "note_title",
+    "type": "text",
+    "placeholders": {}
+  },
+  "add_new_note": "ایک نیا نوٹ شامل کریں",
+  "@add_new_note": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "note_details": "نوٹ کی تفصیلات",
+  "@note_details": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "bookmarks": "بک مارکس محفوظ",
+  "@bookmarks": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "bookmark_title": "بک مارک کا نام",
+  "@bookmark_title": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "add_new_bookmark": "ایک نیا بک مارک شامل کریں",
+  "@add_new_bookmark": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "save": "محفوظ کریں",
+  "@save": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "edit": "ترمیم",
+  "@edit": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "azkar": "اذکار",
+  "@azkar": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "qibla": "Qibla Direction",
+  "@qibla": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "salat": "Prayer Times",
+  "@salat": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "aya_count": "آیات کی تعداد",
+  "@aya_count": {
+    "description": "aya_count",
+    "type": "text",
+    "placeholders": {}
+  },
+  "quran_sorah": "سورہ",
+  "@quran_sorah": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "about_us": "ایپ کے بارے میں",
+  "@about_us": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "stop_title": "نوبل قرآن - الحکمہ لائبریری",
+  "@stop_title": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "about_app": "مقدس قرآن - الحکمہ لائبریری\" ایپلیکیشن ایک جامع ایپ ہے جو قرآن کی تلاوت اور سیکھنے کے تجربے کو بہتر بنانے کے لئے وسیع رینج کی خصوصیات فراہم کرتی ہے۔ ان خصوصیات میں شامل ہیں:",
+  "@about_app": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "about_app2": "Among the most important features of the application :",
+  "@about_app2": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "about_app3": "۞ نیا اور صارف دوست انٹرفیس: ایپ کو ایک جدید اور انٹویٹو صارف انٹرفیس کے ساتھ ڈیزائن کیا گیا ہے جو صارفین کو مختلف خصوصیات تک رسائی اور نیویگیشن کو آسان بناتا ہے۔\n۞ کنگ فہد کمپلیکس ایڈیشن کی اپنائیت: ایپلیکیشن مقدس قرآن کی چھپائی کے لئے کنگ فہد کمپلیکس ایڈیشن کا استعمال کرتی ہے، جو اس کی قابل اعتمادی اور کمال کے لئے معروف ہے، جو متن کی صحت اور درستگی کو یقینی بناتی ہے۔\n۞ انٹریکٹو اور مکمل تلاوت: ایپلیکیشن الیکٹرانک قرآن متن کے ساتھ انٹریکٹو تلاوت کی صلاحیت فراہم کرتی ہے، اس کے علاوہ تلاوت سننے، اور آسانی سے مقدس قرآن کی تعلیم اور حفظ کرنے کے امکانات بھی فراہم کرتی ہے۔\n۞ لچکدار تلاوت: صارفین قرآن کو اس طرح پڑھ سکتے ہیں جیسے وہ کاغذی مصحف پڑھ رہے ہوں یا زیادہ توجہ مرکوز کرنے کے لئے سنگل آیت موڈ کا انتخاب کر سکتے ہیں۔\n۞ متنی تلاش کی خصوصیت: ایپلیکیشن قرآنی آیات میں فوری تلاش کی خصوصیت رکھتی ہے، مطلوبہ صفحہ یا سورہ تک براہ راست منتقل ہونے کی صلاحیت کے ساتھ۔\n۞ بک مارک بیجز کا اضافہ: یہ خصوصیت کسی بھی وقت آسانی سے حوالہ کے لئے صفحات یا آیات کو محفوظ کرنے کی اجازت دیتی ہے۔\n۞ آیات سننا: ایپلیکیشن ہر آیت کو معروف قاریوں کی آواز میں سننے کی صلاحیت فراہم کرتی ہے۔\n۞ آیات کی تفسیر اور ترجمہ: صارفین ہر آیت کی تفسیر یا ترجمہ تک رسائی حاصل کر سکتے ہیں، اور خواہش کے مطابق تفاسیر کے درمیان تبدیلی کر سکتے ہیں۔\n۞ سورہ کے درمیان آسان نیویگیشن: ایپلیکیشن سورہ کے درمیان ہموار اور تیز نیویگیشن کی سہولت فراہم کرتی ہے۔\n۞ سٹاپنگ مارکس پڑھنا: یہ خصوصیت تلاوت کے دوران مناسب سٹاپنگ پوائنٹس کو سمجھنے میں مدد دیتی ہے۔\n۞ مسلم کے قلعہ کے اذکار: مسلم کے قلعہ کے مکمل اذکار کو پڑھنا اور آسانی سے حصوں کے درمیان نیویگیشن کرنا ممکن ہے، پسندیدہ میں اذکار کو شامل کرنے کی صلاحیت کے ساتھ۔\n۞ رنگوں کے انداز تبدیل کرنا: ایپلیکیشن رنگوں کے انداز تبدیل کرنے کی سپورٹ کرتی ہے، بشمول ڈارک موڈ، پڑھنے کے تجربے کو بہتر بنانے کے لئے۔\n۞ سننا اور ڈاؤنلوڈ کرنا: سورہ کو سننا یا بعد میں سننے کے لئے ڈاؤنلوڈ کرنا ممکن ہے، انٹرنیٹ کی ضرورت کے بغیر۔\n\nیہ خصوصیات \"مقدس قرآن - الحکمہ لائبریری\" ایپلیکیشن کو قرآن کو پڑھنے، سیکھنے، اور غور کرنے کے خواہشمند ہر شخص کے لئے ایک جامع ٹول بناتی ہیں۔",
+  "@about_app3": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "email": "ہم سے رابطہ کریں",
+  "@email": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "select_player": "قاری کا انتخاب کیا گیا",
+  "@select_player": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "delete": "حذف کریں",
+  "@delete": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "page": "صفحہ",
+  "@page": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "search_word": "آیت تلاش کریں",
+  "@search_word": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "search_description": "آپ نوبل قرآن کی تمام آیات کو تلاش کر سکتے ہیں، صرف آیت سے ایک لفظ ٹائپ کریں",
+  "@search_description": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "fontSize": "فونٹ کا سائز تبدیل کریں",
+  "@fontSize": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "waqfName": "رکاوٹ کی علامتیں",
+  "@waqfName": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "onboardTitle1": "Easy interface",
+  "@onboardTitle1": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "onboardDesc1": "- Ease of searching for a verse.\n- Change the language.\n- Listen to the page.\n- Change the reader.",
+  "@onboardDesc1": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "onboardTitle2": "Show The Tafseer",
+  "@onboardTitle2": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "onboardDesc2": "The interpretation of each verse can be read by pulling the list up.",
+  "@onboardDesc2": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "onboardTitle3": "Click Options",
+  "@onboardTitle3": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "onboardDesc3": "1- When you double click the page is enlarged.\n2- Upon long click you will be presented with the option to save the page.\n3- When you press once, the menus appear.",
+  "@onboardDesc3": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "green": "ہرا موڈ",
+  "@green": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "brown": "بہورا موڈ",
+  "@brown": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "dark": "ڈارک موڈ",
+  "@dark": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "azkarfav": "پسندیدہ اذکار",
+  "@azkarfav": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "themeTitle": "ظاہری شکل کا انتخاب کریں",
+  "@themeTitle": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "sorah": "سورہ",
+  "@sorah": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "part": "حصہ",
+  "@part": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "langChange": "زبان تبدیل کریں",
+  "@langChange": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "tafChange": "تفسیر کا انتخاب کریں",
+  "@tafChange": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "tafIbnkatheerN": "تفسیر ابن کثیر",
+  "@tafIbnkatheerN": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "tafBaghawyN": "تفسیر البغوی",
+  "@tafBaghawyN": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "tafQurtubiN": "تفسیر القرطبی",
+  "@tafQurtubiN": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "tafSaadiN": "تفسیر السعدی",
+  "@tafSaadiN": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "tafTabariN": "تفسیر الطبری",
+  "@tafTabariN": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "tafIbnkatheerD": "تفسیر القرآن العظیم",
+  "@tafIbnkatheerD": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "tafBaghawyD": "معالیم التنزیل",
+  "@tafBaghawyD": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "tafQurtubiD": "الجامع لاحکام القرآن",
+  "@tafQurtubiD": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "tafSaadiD": "تیسیر کلام المنان",
+  "@tafSaadiD": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "tafTabariD": "جامع البیان عن تاویل آی القرآن",
+  "@tafTabariD": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "appLang": "ایپ کی زبان",
+  "@appLang": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "setting": "ترتیبات",
+  "@setting": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "reader1": "عبد الباسط",
+  "@reader1": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "reader2": "محمد المنشوی",
+  "@reader2": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "reader3": "محمود الحصری",
+  "@reader3": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "reader4": "احمد العجمی",
+  "@reader4": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "reader5": "ماهر المعيقلي",
+  "@reader5": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "reader6": "سعود الشریم",
+  "@reader6": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "reader7": "سعد الغامدی",
+  "@reader7": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "reader8": "مصطفیٰ العزاوی",
+  "@reader8": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "reader9": "ناصر القطامی",
+  "@reader9": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "reader10": "قادر الكردي",
+  "@reader10": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "reader11": "شيرزاد طاهر",
+  "@reader11": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "reader12": "عبدالرحمن العوسي",
+  "@reader12": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "reader13": "وديع اليمني",
+  "@reader13": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "alheekmahlib": "الحکمہ لائبریری",
+  "@alheekmahlib": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "backTo": "Back To",
+  "@backTo": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "next": "اگلے",
+  "@next": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "start": "شروع کریں",
+  "@start": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "quranPages": "القرآن (صفحات)",
+  "@quranPages": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "quranText": "القرآن (آیت)",
+  "@quranText": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "tafseer": "التفسیر",
+  "@tafseer": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "allJuz": "حصے",
+  "@allJuz": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "copyAzkarText": "اذکار کو کاپی کر لیا گیا ہے!",
+  "@copyAzkarText": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "addBookmark": "بک مارک شامل کر لیا گیا!",
+  "@addBookmark": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "deletedBookmark": "بک مارک حذف کر دیا گیا!",
+  "@deletedBookmark": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "deletedReminder": "یاد دہانی حذف کر دی گئی!",
+  "@deletedReminder": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "fillAllFields": "مہربانی کرکے فیلڈز بھریں!",
+  "@fillAllFields": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "version": "ورژن",
+  "@version": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "share": "ایپ کو شیئر کریں",
+  "@share": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "facebook": "ہمیں فیس بک پر فالو کریں",
+  "@facebook": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "addZekrBookmark": "ذکر کو پسندیدہ میں شامل کر دیا گیا ہے",
+  "@addZekrBookmark": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "deletedZekrBookmark": "ذکر کو پسندیدہ سے ہٹا دیا گیا ہے",
+  "@deletedZekrBookmark": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "pageNo": "صفحہ نمبر",
+  "@pageNo": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "lastRead": "آخری پڑھائی",
+  "@lastRead": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "copyAyah": "آیت کو کاپی کر لیا گیا ہے",
+  "@copyAyah": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "copyTafseer": "تفسیر کو کاپی کر لیا گیا ہے",
+  "@copyTafseer": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "online": "آن لائن",
+  "@online": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "download": "ڈاؤن لوڈ",
+  "@download": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "noInternet": "ڈیوائس انٹرنیٹ سے منسلک نہیں ہے!",
+  "@noInternet": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "mobileDataAyat": "نوٹ: آپ ورسز ڈاؤن لوڈ کرنے کے لیے سیلولر ڈیٹا استعمال کر رہے ہیں!",
+  "@mobileDataAyat": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "mobileDataSurahs": "نوٹ: آپ سورہ ڈاؤن لوڈ کرنے کے لیے سیلولر ڈیٹا استعمال کر رہے ہیں!",
+  "@mobileDataSurahs": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "mobileDataListen": "نوٹ: آپ سورہ سننے کے لیے سیلولر ڈیٹا استعمال کر رہے ہیں!",
+  "@mobileDataListen": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "choiceAyah": "مہربانی کرکے پہلے آیت کا انتخاب کریں!",
+  "@choiceAyah": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "stopSigns": "رکاوٹ کی علامتیں",
+  "@stopSigns": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "aboutApp": "ایپ کے بارے میں",
+  "@aboutApp": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "readMore": "مزید پڑھیں",
+  "@readMore": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "readLess": "کم پڑھیں",
+  "@readLess": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "ok": "ٹھیک ہے",
+  "@ok": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "cancel": "منسوخ کریں",
+  "@cancel": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "searchToSurah": "سورہ تلاش کریں",
+  "@searchToSurah": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "addReminder": "نیا یاد دہانی شامل کریں",
+  "@addReminder": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "lastListen": "آخری سنائی",
+  "@lastListen": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "hizb": "حزب",
+  "@hizb": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "shareText": "مواد کے طور پر",
+  "@shareText": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "shareImage": "تصویر کے طور پر",
+  "@shareImage": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "shareImageWTrans": "اضافی مواد کے ساتھ تصویر کے طور پر",
+  "@shareImageWTrans": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "shareTrans": "نوٹ: تصویر میں تفسیر کا اشتراک صرف السعدی کی تفسیر کا سمارٹھن کرتا ہے، کیونکہ تفسیر لمبی نہیں ہے۔",
+  "@shareTrans": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "translation": "ترجمہ",
+  "@translation": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "search": "تلاش کریں۔",
+  "@search": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "surahsList": "سورتوں کی فہرست",
+  "@surahsList": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "bookmarksList": "بک مارکس کی فہرست",
+  "@bookmarksList": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "copy": "کاپی",
+  "@copy": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "shareTafseer": "بانٹیں",
+  "@shareTafseer": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "addToBookmark": "بک مارک میں شامل کریں۔",
+  "@addToBookmark": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "repeatSurah": "سورہ کو دہرائیں۔",
+  "@repeatSurah": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "pauseSurah": "سورہ توقف کریں۔",
+  "@pauseSurah": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "replaySurah": "سورہ کو دوبارہ چلائیں۔",
+  "@replaySurah": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "skipToPrevious": "پچھلے پر جائیں",
+  "@skipToPrevious": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "deletedPlayList": "پلے لسٹ کو حذف کر دیا گیا ہے",
+  "@deletedPlayList": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "createPlayList": "پلے لسٹ بنائیں",
+  "@createPlayList": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "playList": "پلے لسٹس",
+  "@playList": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "playListName": "پلے لسٹ کا نام لکھیں",
+  "@playListName": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "from": "سے",
+  "@from": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "to": "کو",
+  "@to": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "quran": "مقدس قرآن",
+  "@quran": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "quranAudio": "قرآن کی سماعت",
+  "@quranAudio": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "startScreen": "اسٹارٹ اسکرین",
+  "@startScreen": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "selectScreen": "اسٹارٹ اسکرین منتخب کریں",
+  "@selectScreen": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "dailyZeker": "آج کی دعا",
+  "@dailyZeker": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "lang": "اردو",
+  "@lang": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "juz": "حصہ",
+  "@juz": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "sajda": "سجدہ",
+  "@sajda": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "pages": "صفحات",
+  "@pages": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "ayahs": "آیات",
+  "@ayahs": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "eidGreetingContent": "اللہ ہم سے اور آپ سے روزہ، نماز اور نیک عمل قبول فرمائے۔",
+  "@eidGreetingContent": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "eidGreetingContent2": "ہر سال آپ اللہ کے زیادہ قریب ہوں۔",
+  "@eidGreetingContent2": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "eidGreetingTitle": "آپ کو عید مبارک",
+  "@eidGreetingTitle": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "ramadhanMubarak": "رمضان مبارک",
+  "@ramadhanMubarak": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "home": "ہوم",
+  "@home": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "skip": "چھوڑ دیں",
+  "@skip": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "What's New": "کیا نیا ہے",
+  "@What's New": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "What'sNewTitle": "نیا اور صارف دوست انٹرفیس:",
+  "@What'sNewTitle": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "What'sNewDetails": "ایپ کو جدید اور بدیہی صارف انٹرفیس کے ساتھ ڈیزائن کیا گیا ہے جو صارفین کو مختلف خصوصیات تک رسائی اور نیویگیشن آسان بناتا ہے۔",
+  "@What'sNewDetails": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "What'sNewTitle2": "آیات کا انتخاب:",
+  "@What'sNewTitle2": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "What'sNewDetails2": "آیت پر طویل دباؤ دینے سے دکھائی دیتا ہے:\n\n۞ آیت کی تفسیر یا ترجمہ۔\n۞ آیت سننا۔\n۞ آیت کو بک مارک میں شامل کرنا۔\n۞ آیت کاپی کرنا۔\n۞ آیت کو متن یا تصویر کے طور پر شیئر کرنا۔",
+  "@What'sNewDetails2": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "What'sNewTitle3": "متنی تلاش کی خصوصیت:",
+  "@What'sNewTitle3": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "What'sNewDetails3": "ایپ میں قرآن کی آیات میں فوری تلاش کی خصوصیت موجود ہے، مطلوبہ صفحہ یا سورہ پر براہ راست منتقلی کی سہولت کے ساتھ۔",
+  "@What'sNewDetails3": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "What'sNewTitle4": "آیات کی تفسیر و ترجمہ:",
+  "@What'sNewTitle4": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "What'sNewDetails4": "صارفین ہر آیت کی تفسیر یا ترجمہ تک رسائی حاصل کر سکتے ہیں، اور خواہش کے مطابق تفاسیر کے درمیان تبدیلی کر سکتے ہیں۔",
+  "@What'sNewDetails4": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "What'sNewTitle5": "مزید قاریوں کا اضافہ:\n",
+  "@What'sNewTitle5": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "ourApps": "ہماری ایپس",
+  "@ourApps": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "choseQuran": "پڑھائی کا طریقہ منتخب کریں",
+  "@choseQuran": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "blueMode": "نیلا",
+  "@blueMode": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "brownMode": "بھورا",
+  "@brownMode": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "oldMode": "پرانا",
+  "@oldMode": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "darkMode": "گہرا",
+  "@darkMode": {
+    "type": "text",
+    "placeholders": {}
+  }
+}

@@ -2,9 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../../core/services/services_locator.dart';
+import '../../../../core/utils/constants/extensions/extensions.dart';
 import '../../../../core/utils/constants/svg_picture.dart';
-import '../../../../core/widgets/widgets.dart';
-import '../../../controllers/general_controller.dart';
 import '../../../controllers/surah_audio_controller.dart';
 import 'change_reader.dart';
 import 'download_play_button.dart';
@@ -18,30 +17,19 @@ class PlayWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    double width = MediaQuery.sizeOf(context).width;
-    return Container(
-      height: 220.0,
-      width: width,
-      decoration: BoxDecoration(
-          borderRadius: const BorderRadius.only(
-              topRight: Radius.circular(12.0), topLeft: Radius.circular(12.0)),
+    final size = MediaQuery.sizeOf(context);
+    final surahCtrl = sl<SurahAudioController>();
+    return Align(
+      alignment: Alignment.centerLeft,
+      child: Container(
+        height: 295,
+        width: context.customOrientation(size.width, size.width * .5),
+        decoration: BoxDecoration(
           color: Theme.of(context).colorScheme.background,
-          boxShadow: [
-            BoxShadow(
-              offset: const Offset(0, -2),
-              blurRadius: 10,
-              color: Theme.of(context).colorScheme.surface,
-            ),
-          ]),
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16.0),
+        ),
         child: Stack(
           alignment: Alignment.center,
           children: [
-            Align(
-              alignment: Alignment.bottomRight,
-              child: decorations(context),
-            ),
             Align(
               alignment: Alignment.topLeft,
               child: RotatedBox(
@@ -50,71 +38,67 @@ class PlayWidget extends StatelessWidget {
               ),
             ),
             Align(
-              alignment: Alignment.topRight,
-              child: customClose(
-                context,
-                close: () => sl<GeneralController>().closeSlider(),
-              ),
+              alignment: Alignment.bottomRight,
+              child: decorations(context),
             ),
             Align(
-              alignment: Alignment.topCenter,
-              child: Obx(
-                () => Stack(
-                  alignment: Alignment.center,
-                  children: [
-                    Opacity(
-                      opacity: .1,
-                      child: surahName(
-                        context,
-                        90,
+              alignment: Alignment.topRight,
+              child: Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: context.customClose(
+                    close: () => surahCtrl.boxController.closeBox()),
+              ),
+            ),
+            Column(
+              children: [
+                Obx(
+                  () => Stack(
+                    alignment: Alignment.center,
+                    children: [
+                      Opacity(
+                        opacity: .1,
+                        child: surahName(
+                          90,
+                          150,
+                        ),
+                      ),
+                      surahName(
+                        70,
                         150,
                       ),
-                    ),
-                    surahName(
-                      context,
-                      70,
-                      150,
-                    ),
-                  ],
-                ),
-              ),
-            ),
-            const Align(
-              alignment: Alignment.topLeft,
-              child: ChangeSurahReader(),
-            ),
-            Align(
-              alignment: Alignment.bottomCenter,
-              child: Padding(
-                padding: const EdgeInsets.symmetric(vertical: 16.0),
-                child: SizedBox(
-                  height: 50,
-                  child: Obx(
-                    () => sl<SurahAudioController>().isDownloading.value == true
-                        ? const DownloadSurahSeekBar()
-                        : const SurahSeekBar(),
+                    ],
                   ),
                 ),
-              ),
-            ),
-            const Padding(
-              padding: EdgeInsets.only(top: 32.0),
-              child: Align(
-                alignment: Alignment.center,
-                child: Row(
-                  children: [
-                    Expanded(flex: 1, child: SkipToPrevious()),
-                    OnlinePlayButton(),
-                    Expanded(flex: 1, child: SkipToNext()),
-                  ],
+                const ChangeSurahReader(),
+                Obx(
+                  () => surahCtrl.surahDownloadStatus
+                              .value[surahCtrl.surahNum.value] ??
+                          false
+                      ? const SurahSeekBar()
+                      : sl<SurahAudioController>().isDownloading.value == true
+                          ? const DownloadSurahSeekBar()
+                          : const SurahSeekBar(),
                 ),
-              ),
-            ),
-            const Align(
-              alignment: Alignment.centerRight,
-              child: Padding(
-                  padding: EdgeInsets.only(top: 32.0),
-                  child: DownloadPlayButton()),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 32.0),
+                  child: Row(
+                    children: [
+                      Obx(
+                        () => surahCtrl.surahDownloadStatus
+                                    .value[surahCtrl.surahNum.value] ??
+                                false
+                            ? const SizedBox.shrink()
+                            : const DownloadPlayButton(),
+                      ),
+                      const Expanded(flex: 1, child: SkipToPrevious()),
+                      const OnlinePlayButton(
+                        isRepeat: true,
+                      ),
+                      const Expanded(flex: 1, child: SkipToNext()),
+                    ],
+                  ),
+                ),
+              ],
             ),
           ],
         ),

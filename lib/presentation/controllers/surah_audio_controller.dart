@@ -7,20 +7,20 @@ import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_sliding_box/flutter_sliding_box.dart';
 import 'package:get/get.dart';
 import 'package:just_audio/just_audio.dart';
-import 'package:just_audio_background/just_audio_background.dart';
 import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:rxdart/rxdart.dart' as R;
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../core/services/services_locator.dart';
-import '../../core/utils/constants/shared_pref_services.dart';
 import '../../core/utils/constants/shared_preferences_constants.dart';
+import '../../core/utils/constants/url_constants.dart';
 import '../../core/widgets/seek_bar.dart';
-import '../screens/quran_page/data/model/surah.dart';
-import 'general_controller.dart';
-import 'surah_repository_controller.dart';
+import '/presentation/controllers/aya_controller.dart';
+import 'quran_controller.dart';
 
 class SurahAudioController extends GetxController {
   final ScrollController controller = ScrollController();
@@ -32,7 +32,6 @@ class SurahAudioController extends GetxController {
   RxBool isDownloading = false.obs;
   RxBool onDownloading = false.obs;
   RxBool isPlaying = false.obs;
-  RxBool downloading = false.obs;
   RxString progressString = "0".obs;
   RxDouble progress = 0.0.obs;
   RxInt surahNum = 1.obs;
@@ -44,9 +43,8 @@ class SurahAudioController extends GetxController {
   late var cancelToken = CancelToken();
   TextEditingController textController = TextEditingController();
   RxInt selectedSurah = 0.obs;
-  // RxDouble lastPosition = 0.0.obs;
-  RxString sorahReaderValue = "https://server7.mp3quran.net/".obs;
-  RxString sorahReaderNameValue = "basit/".obs;
+  RxString sorahReaderValue = "https://download.quranicaudio.com/quran/".obs;
+  RxString sorahReaderNameValue = "abdul_basit_murattal/".obs;
   final bool _isDisposed = false;
   List<AudioSource>? surahsPlayList;
   List<Map<int, AudioSource>> downloadSurahsPlayList = [];
@@ -54,6 +52,10 @@ class SurahAudioController extends GetxController {
   RxInt lastPosition = 0.obs;
   Rx<PositionData>? positionData;
   var activeButton = RxString('');
+  final BoxController boxController = BoxController();
+  final TextEditingController textEditingController = TextEditingController();
+  RxInt surahReaderIndex = 1.obs;
+  final Rx<Map<int, bool>> surahDownloadStatus = Rx<Map<int, bool>>({});
 
   late final surahsList = ConcatenatingAudioSource(
     // Start loading next item just before reaching it
@@ -64,7 +66,7 @@ class SurahAudioController extends GetxController {
     children: surahsPlayList!,
   );
 
-  String get beautifiedSurahNumber {
+  String? get beautifiedSurahNumber {
     // String sorahNumString;
     switch (surahNum.value) {
       case < 10:
@@ -94,10 +96,26 @@ class SurahAudioController extends GetxController {
         .first;
   }
 
+  Future<void> playPreviousSurah() async {
+    if (isDownloading.value) {
+      surahNum.value -= 1;
+      selectedSurah.value -= 1;
+      await downloadSurah();
+    } else if (surahNum.value - 1 == 1) {
+      await audioPlayer.stop();
+    } else if (isPlaying.value) {
+      surahNum.value -= 1;
+      selectedSurah.value -= 1;
+      await audioPlayer.seekToPrevious();
+    } else {
+      surahNum.value -= 1;
+      selectedSurah.value -= 1;
+      await audioPlayer.seekToPrevious();
+    }
+  }
+
   Future<void> playNextSurah() async {
-    print('first print: ${DateTime.now()}');
     if (isDownloading.value == true) {
-      // await downAudioPlayer.setAudioSource(getAudioSource);
       await downloadSurah();
     } else {
       await audioPlayer.setAudioSource(surahsPlayList![surahNum.value - 1]);
@@ -105,12 +123,11 @@ class SurahAudioController extends GetxController {
         if (playerState.processingState == ProcessingState.completed) {
           if (surahNum.value - 1 == 114) {
             await audioPlayer.stop();
+          } else if (surahNum.value - 1 == 1) {
+            await audioPlayer.stop();
           } else {
             surahNum.value += 1;
             await audioPlayer.seekToNext();
-            // await audioPlayer
-            //     .setAudioSource(surahsPlayList![surahNum.value - 1])
-            //     .then((value) async => await audioPlayer.play());
           }
         }
       });
@@ -133,7 +150,7 @@ class SurahAudioController extends GetxController {
 
       await audioPlayer.setAudioSource(AudioSource.file(
         filePath,
-        tag: await mediaItem,
+        // tag: await mediaItem,
       ));
       audioPlayer.play();
     } else {
@@ -147,11 +164,12 @@ class SurahAudioController extends GetxController {
         String filePath =
             '${directory.path}/${sorahReaderNameValue.value}$beautifiedSurahNumber.mp3';
         _addFileAudioSourceToPlayList(filePath);
+        onDownloadSuccess(int.parse(beautifiedSurahNumber!));
         print("File successfully downloaded and saved to $filePath");
         await audioPlayer
             .setAudioSource(AudioSource.file(
               filePath,
-              tag: await mediaItem,
+              // tag: await mediaItem,
             ))
             .then((_) => audioPlayer.play());
       }
@@ -205,7 +223,40 @@ class SurahAudioController extends GetxController {
     return false;
   }
 
+  void initializeSurahDownloadStatus() async {
+    // Directly obtain the initial download status for each Surah
+    Map<int, bool> initialStatus = await checkAllSurahsDownloaded();
+
+    // Assign it to the Rx variable to ensure it's observable
+    surahDownloadStatus.value = initialStatus;
+  }
+
+  void updateDownloadStatus(int surahNumber, bool downloaded) {
+    final newStatus = Map<int, bool>.from(surahDownloadStatus.value);
+    newStatus[surahNumber] = downloaded;
+    surahDownloadStatus.value = newStatus;
+  }
+
+  void onDownloadSuccess(int surahNumber) {
+    // Assuming this function is called when a Surah download is successful
+    updateDownloadStatus(surahNumber, true);
+  }
+
+  Future<Map<int, bool>> checkAllSurahsDownloaded() async {
+    Directory? directory = await getApplicationDocumentsDirectory();
+    Map<int, bool> surahDownloadStatus = {};
+
+    for (int i = 1; i <= 114; i++) {
+      String filePath =
+          '${directory.path}/${sorahReaderNameValue.value}${i.toString().padLeft(3, '0')}.mp3';
+      File file = File(filePath);
+      surahDownloadStatus[i] = await file.exists();
+    }
+    return surahDownloadStatus;
+  }
+
   void cancelDownload() {
+    isPlaying.value = false;
     cancelToken.cancel('Request cancelled');
   }
 
@@ -227,7 +278,7 @@ class SurahAudioController extends GetxController {
         downloadSurahsPlayList.add({
           i: AudioSource.file(
             filePath,
-            tag: await mediaItem,
+            // tag: await mediaItem,
           )
         });
       } else {
@@ -240,17 +291,25 @@ class SurahAudioController extends GetxController {
     downloadSurahsPlayList.add({
       surahNum.value: AudioSource.file(
         filePath,
-        tag: await mediaItem,
+        // tag: await mediaItem,
       )
     });
   }
 
   changeAudioSource() async {
-    await audioPlayer.setAudioSource(AudioSource.uri(
-      Uri.parse(
-          '${sorahReaderValue.value}${sorahReaderNameValue.value}$beautifiedSurahNumber.mp3'),
-      tag: await mediaItem,
-    ));
+    Directory? directory = await getApplicationDocumentsDirectory();
+    String filePath =
+        '${directory.path}/${sorahReaderNameValue.value}${beautifiedSurahNumber}.mp3';
+    surahDownloadStatus.value[surahNum.value] ?? false
+        ? await audioPlayer.setAudioSource(AudioSource.file(
+            '$filePath',
+            // tag: await mediaItem,
+          ))
+        : await audioPlayer.setAudioSource(AudioSource.uri(
+            Uri.parse(
+                '${sorahReaderValue.value}${sorahReaderNameValue.value}${beautifiedSurahNumber ?? 001}.mp3'),
+            // tag: await mediaItem,
+          ));
     print(
         'URL: ${sorahReaderValue.value}${sorahReaderNameValue.value}$beautifiedSurahNumber.mp3');
   }
@@ -259,26 +318,31 @@ class SurahAudioController extends GetxController {
     await audioPlayer.setAudioSource(AudioSource.uri(
       Uri.parse(
           '${sorahReaderValue.value}${sorahReaderNameValue.value}$beautifiedSurahNumber.mp3'),
-      tag: await mediaItem,
+      // tag: await mediaItem,
     ));
     await audioPlayer.seek(Duration(seconds: lastPosition.value));
     print(
         'URL: ${sorahReaderValue.value}${sorahReaderNameValue.value}$beautifiedSurahNumber.mp3');
   }
 
-  Future<MediaItem> get mediaItem async => MediaItem(
-        id: '${surahNum.value - 1}',
-        title:
-            '${sl<SurahRepositoryController>().surahs[(surahNum.value - 1) ?? 1].name ?? ''}',
-        artist: '${sorahReaderNameValue.value ?? ''}',
-        artUri: await sl<GeneralController>().getCachedArtUri(
-            'https://raw.githubusercontent.com/alheekmahlib/alquranalkareem/main/assets/app_icon.png'),
-      );
+  // Future<MediaItem> get mediaItem async => MediaItem(
+  //       id: '${surahNum.value - 1}',
+  //       title:
+  //           '${sl<SurahRepositoryController>().surahs[(surahNum.value - 1) ?? 1].name ?? ''}',
+  //       artist: '${sorahReaderNameValue.value ?? ''}',
+  //       artUri: await sl<GeneralController>().getCachedArtUri(
+  //           'https://raw.githubusercontent.com/alheekmahlib/alquranalkareem/main/assets/app_icon.png'),
+  //     );
 
   @override
   Future<void> onInit() async {
     super.onInit();
+    initializeSurahDownloadStatus();
     _addDownloadedSurahToPlaylist();
+    loadLastSurahListen();
+    _loadLastSurahAndPosition();
+    loadSurahReader();
+    loadLastSurahListen();
     surahsPlayList = List.generate(114, (i) {
       surahNum.value = i + 1;
       return AudioSource.uri(
@@ -289,10 +353,6 @@ class SurahAudioController extends GetxController {
     _connectivitySubscription =
         _connectivity.onConnectivityChanged.listen(_updateConnectionStatus);
     initConnectivity();
-    loadLastSurahListen();
-    _loadLastSurahAndPosition();
-    loadSorahReader();
-    loadLastSurahListen();
   }
 
   Stream<PositionData> get positionDataStream =>
@@ -311,28 +371,29 @@ class SurahAudioController extends GetxController {
           (position, bufferedPosition, duration) => PositionData(
               position, bufferedPosition, duration ?? Duration.zero));
 
-  loadSorahReader() async {
-    sorahReaderValue.value = await sl<SharedPrefServices>().getString(
-        SURAH_AUDIO_PLAYER_SOUND,
-        defaultValue: "https://server7.mp3quran.net/");
-    sorahReaderNameValue.value = await sl<SharedPrefServices>()
-        .getString(SURAH_AUDIO_PLAYER_NAME, defaultValue: "basit/");
+  loadSurahReader() async {
+    sorahReaderValue.value =
+        await sl<SharedPreferences>().getString(SURAH_AUDIO_PLAYER_SOUND) ??
+            UrlConstants.surahUrl;
+    sorahReaderNameValue.value =
+        await sl<SharedPreferences>().getString(SURAH_AUDIO_PLAYER_NAME) ??
+            'abdul_basit_murattal/';
+    surahReaderIndex.value =
+        sl<SharedPreferences>().getInt(SURAH_READER_INDEX) ?? 0;
   }
 
   Future loadLastSurahListen() async {
-    int? lastSurah =
-        await sl<SharedPrefServices>().getInteger(LAST_SURAH, defaultValue: 1);
-    selectedSurah.value = await sl<SharedPrefServices>()
-        .getInteger(SELECTED_SURAH, defaultValue: -1);
+    int? lastSurah = await sl<SharedPreferences>().getInt(LAST_SURAH) ?? 1;
+    selectedSurah.value =
+        await sl<SharedPreferences>().getInt(SELECTED_SURAH) ?? -1;
 
-    // This line converts the saved double back to a Duration
-    lastPosition.value = await sl<SharedPrefServices>()
-        .getInteger(LAST_POSITION, defaultValue: 0);
+    lastPosition.value =
+        await sl<SharedPreferences>().getInt(LAST_POSITION) ?? 0;
 
     return {
       LAST_SURAH: lastSurah,
       SELECTED_SURAH: selectedSurah,
-      LAST_POSITION: lastPosition.value, // Now this is a Duration object
+      LAST_POSITION: lastPosition.value,
     };
   }
 
@@ -370,6 +431,7 @@ class SurahAudioController extends GetxController {
     controller.dispose();
     _connectivitySubscription.cancel();
     audioPlayer.pause();
+    boxController.dispose();
     super.onClose();
   }
 
@@ -398,16 +460,15 @@ class SurahAudioController extends GetxController {
     connectionStatus = result;
   }
 
-  void searchSurah(BuildContext context, String searchInput) {
-    // Get the current state of the SorahCubit
-    List<Surah>? sorahList = sl<SurahRepositoryController>().sorahs;
+  void searchSurah(String searchInput) {
+    final surahList = sl<QuranController>().surahs;
 
-    // Check if the list is not null before using it
-    int index =
-        sorahList.indexWhere((sorah) => sorah.searchText.contains(searchInput));
+    int index = surahList.indexWhere((surah) => sl<AyaController>()
+        .removeDiacritics(surah.arabicName)
+        .contains(searchInput));
+    developer.log('surahNumber: $index');
     if (index != -1) {
-      controller
-          .jumpTo(index * 65.0); // Assuming 65.0 is the height of each ListTile
+      controller.jumpTo(index * 80.0);
       selectedSurah.value = index;
     }
   }

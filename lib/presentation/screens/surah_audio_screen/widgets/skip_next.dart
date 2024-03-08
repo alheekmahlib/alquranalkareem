@@ -1,5 +1,5 @@
-import 'package:alquranalkareem/core/services/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:just_audio/just_audio.dart';
 
 import '../../../../core/services/services_locator.dart';
@@ -7,7 +7,6 @@ import '../../../controllers/surah_audio_controller.dart';
 
 class SkipToNext extends StatelessWidget {
   const SkipToNext({super.key});
-
   @override
   Widget build(BuildContext context) {
     final surahAudioCtrl = sl<SurahAudioController>();
@@ -17,10 +16,10 @@ class SkipToNext extends StatelessWidget {
         icon: Semantics(
           button: true,
           enabled: true,
-          label: AppLocalizations.of(context)!.next,
+          label: 'next'.tr,
           child: Icon(
             Icons.skip_previous,
-            color: Theme.of(context).colorScheme.surface,
+            color: Theme.of(context).colorScheme.primary,
             size: 30,
           ),
         ),
