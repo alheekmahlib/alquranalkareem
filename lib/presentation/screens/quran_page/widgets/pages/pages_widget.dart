@@ -43,7 +43,11 @@ class PagesWidget extends StatelessWidget {
                         .length, (i) {
                   final ayahs = quranCtrl
                       .getCurrentPageAyahsSeparatedForBasmalah(pageIndex)[i];
-                  quranCtrl.showVerseToast(pageIndex);
+                  // debounce(
+                  //     pageIndex.obs, (_) =>
+                  // quranCtrl.showVerseToast(pageIndex);
+                  // , time: const Duration(milliseconds: 500));
+
                   return Column(children: [
                     context.surahBannerFirstPlace(pageIndex, i),
                     quranCtrl.getSurahNumberByAyah(ayahs.first) == 9 ||

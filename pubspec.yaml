@@ -3,7 +3,7 @@ description: Al-Quran Al-Kareem - Al-Heekmah Library.
 
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 
-version: 4.0.3+49
+version: 4.0.4+50
 
 environment:
   sdk: '>=3.2.6 <4.0.0'
@@ -25,7 +25,7 @@ dependencies:
   flutter:
     sdk: flutter
   flutter_cache_manager: ^3.3.1
-  flutter_local_notifications: ^16.3.2
+  flutter_local_notifications: ^16.3.3
   flutter_localizations:
     sdk: flutter
   flutter_screenutil: ^5.9.0
