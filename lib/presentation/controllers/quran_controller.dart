@@ -163,14 +163,14 @@ class QuranController extends GetxController {
       .arabicName;
 
   String getHizbQuarterDisplayByPage(int pageNumber) {
-    List<Ayah> ayahList = allAyahs.where((a) => a.page == pageNumber).toList();
+    List<Ayah> ayahList = allAyahs
+        .where((a) => a.page == pageNumber || a.ayahNumber == 3)
+        .toList();
 
-    if (pageNumber > 2) {
-      ayahList.insert(
-          0,
-          allAyahs.lastWhere((a) =>
-              a.page == pageNumber &&
-              a.hizbQuarter < ayahList.first.hizbQuarter));
+    if (pageNumber > 2 && ayahList.first.hizbQuarter > 1) {
+      final prevAyah = allAyahs.lastWhereOrNull((a) =>
+          a.page == pageNumber && a.hizbQuarter < ayahList.first.hizbQuarter);
+      if (prevAyah != null) ayahList.insert(0, prevAyah);
     }
 
     ayahList.splitBetween((f, s) => f.hizbQuarter < s.hizbQuarter);
