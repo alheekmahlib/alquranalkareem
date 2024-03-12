@@ -162,13 +162,15 @@ class QuranController extends GetxController {
       .firstWhere((s) => s.ayahs.any((a) => a.ayahUQNumber == ayah))
       .arabicName;
 
-  // TODO
   String getHizbQuarterDisplayByPage(int pageNumber) {
     List<Ayah> ayahList = [];
     if (pageNumber > 2) {
-      ayahList = [...allAyahs[pageNumber - 1], allAyahs[pageNumber - 2].last];
+      ayahList = [
+        allAyahs.lastWhere((a) => a.page == pageNumber),
+        ...allAyahs.where((a) => a.page == pageNumber)
+      ];
     } else {
-      ayahList = allAyahs[pageNumber - 1];
+      ayahList = allAyahs.where((a) => a.page == pageNumber).toList();
     }
 
     ayahList.splitBetween((f, s) => f.hizbQuarter < s.hizbQuarter);
