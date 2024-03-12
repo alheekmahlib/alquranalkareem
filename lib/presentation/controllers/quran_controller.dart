@@ -163,14 +163,14 @@ class QuranController extends GetxController {
       .arabicName;
 
   String getHizbQuarterDisplayByPage(int pageNumber) {
-    List<Ayah> ayahList = [];
+    List<Ayah> ayahList = allAyahs.where((a) => a.page == pageNumber).toList();
+
     if (pageNumber > 2) {
-      ayahList = [
-        allAyahs.lastWhere((a) => a.page == pageNumber),
-        ...allAyahs.where((a) => a.page == pageNumber)
-      ];
-    } else {
-      ayahList = allAyahs.where((a) => a.page == pageNumber).toList();
+      ayahList.insert(
+          0,
+          allAyahs.lastWhere((a) =>
+              a.page == pageNumber &&
+              a.hizbQuarter < ayahList.first.hizbQuarter));
     }
 
     ayahList.splitBetween((f, s) => f.hizbQuarter < s.hizbQuarter);
@@ -248,7 +248,7 @@ class QuranController extends GetxController {
   }
 
   Widget showVerseToast(int pageIndex) {
-    log('sajda working');
+    log('checking sajda posision');
     _getAyahWithSajdaInPage(pageIndex);
     return isSajda.value
         ? Row(
