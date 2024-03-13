@@ -814,5 +814,10 @@
   "@darkMode": {
     "type": "text",
     "placeholders": {}
+  },
+  "What'sNewDetails6": "۞ Adding Juz' to the pages\n۞ Adding Sajdah to the pages",
+  "@What'sNewDetails6": {
+    "type": "text",
+    "placeholders": {}
   }
 }

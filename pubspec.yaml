@@ -3,7 +3,7 @@ description: Al-Quran Al-Kareem - Al-Heekmah Library.
 
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 
-version: 4.0.4+50
+version: 4.0.5+51
 
 environment:
   sdk: '>=3.2.6 <4.0.0'
@@ -58,7 +58,7 @@ dependencies:
   share_plus: ^7.2.2
   shared_preferences: ^2.2.2
   smooth_page_indicator: ^1.1.0
-  speech_to_text: ^6.6.0
+#  speech_to_text: ^6.6.0
   sqflite: ^2.3.2
   sqflite_common_ffi: ^2.3.2+1
   square_percent_indicater: ^0.1.0

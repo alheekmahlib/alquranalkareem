@@ -814,5 +814,10 @@
   "@darkMode": {
     "type": "text",
     "placeholders": {}
+  },
+  "What'sNewDetails6": "۞ Sayfalara Cüz eklenmesi\n۞ Sayfalara Secde eklenmesi",
+  "@What'sNewDetails6": {
+    "type": "text",
+    "placeholders": {}
   }
 }

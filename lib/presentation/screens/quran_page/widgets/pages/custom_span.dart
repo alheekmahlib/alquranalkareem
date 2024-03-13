@@ -18,6 +18,13 @@ TextSpan span({
 }) {
   if (text.isNotEmpty) {
     final String partOne = text.length < 3 ? text[0] : text[0] + text[1];
+    // final String partOne = pageIndex == 250
+    //     ? text.length < 3
+    //         ? text[0]
+    //         : text[0] + text[1]
+    //     : text.length < 3
+    //         ? text[0]
+    //         : text[0] + text[1];
     final String? partTwo =
         text.length > 2 ? text.substring(2, text.length - 1) : null;
     final String initialPart = text.substring(0, text.length - 1);

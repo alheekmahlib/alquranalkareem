@@ -19,7 +19,6 @@ import '../../core/widgets/ramadan_greeting.dart';
 import '../../core/widgets/time_now.dart';
 import '../screens/athkar/screens/alzkar_view.dart';
 import '../screens/quran_page/screens/quran_home.dart';
-import '../screens/quran_page/screens/stt.dart';
 import '../screens/surah_audio_screen/audio_surah.dart';
 import '/presentation/controllers/quran_controller.dart';
 import '/presentation/controllers/share_controller.dart';
@@ -251,7 +250,6 @@ class GeneralController extends GetxController {
   }
 
   Widget screenSelect() {
-    return SttPage();
     switch (screenSelectedValue.value) {
       case 0:
         return const HomeScreen();

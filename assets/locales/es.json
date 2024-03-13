@@ -822,5 +822,10 @@
   "@darkMode": {
     "type": "text",
     "placeholders": {}
+  },
+  "What'sNewDetails6": "۞ Añadir Juz' a las páginas\n۞ Añadir Sajdah a las páginas",
+  "@What'sNewDetails6": {
+    "type": "text",
+    "placeholders": {}
   }
 }

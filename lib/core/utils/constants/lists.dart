@@ -317,4 +317,10 @@ List<Map<String, dynamic>> whatsNewList = [
         "${'ayahs'.tr}:\n\n◉ ${'reader4'.tr}\n◉ ${'reader5'.tr}\n◉ ${'reader6'.tr}\n\n${'quran_sorah'.tr}:\n\n◉ ${'reader7'.tr}\n◉ ${'reader8'.tr}\n◉ ${'reader9'.tr}\n◉ ${'reader10'.tr}\n◉ ${'reader11'.tr}\n◉ ${'reader12'.tr}\n◉ ${'reader13'.tr}",
     'imagePath': '',
   },
+  {
+    'index': 6,
+    'title': "",
+    'details': "۞ إضافة الأحزاب للصفحات\n۞ إضافة السجدة للصفحات",
+    'imagePath': 'assets/images/sajda.png',
+  },
 ];
