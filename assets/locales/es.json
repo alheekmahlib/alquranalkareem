@@ -827,5 +827,10 @@
   "@What'sNewDetails6": {
     "type": "text",
     "placeholders": {}
+  },
+  "What'sNewDetails7": "۞ Aumentar y disminuir el tamaño de la fuente.",
+  "@What'sNewDetails7": {
+    "type": "text",
+    "placeholders": {}
   }
 }

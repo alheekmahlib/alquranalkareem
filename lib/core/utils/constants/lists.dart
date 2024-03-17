@@ -320,7 +320,13 @@ List<Map<String, dynamic>> whatsNewList = [
   {
     'index': 6,
     'title': "",
-    'details': "۞ إضافة الأحزاب للصفحات\n۞ إضافة السجدة للصفحات",
+    'details': "What'sNewDetails6",
     'imagePath': 'assets/images/sajda.png',
+  },
+  {
+    'index': 7,
+    'title': "",
+    'details': "What'sNewDetails7",
+    'imagePath': 'assets/images/fontSize.png',
   },
 ];

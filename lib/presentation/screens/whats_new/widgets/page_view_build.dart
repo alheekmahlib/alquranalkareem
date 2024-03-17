@@ -23,8 +23,11 @@ class PageViewBuild extends StatelessWidget {
           itemCount: newFeatures.length,
           onPageChanged: (page) {
             splashCtrl.onboardingPageNumber.value = page;
+            splashCtrl.currentPageIndex.value = page;
           },
           itemBuilder: (context, index) {
+            // splashCtrl.onboardingPageNumber.value =
+            //     newFeatures[index]['index'] + index;
             return SingleChildScrollView(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,

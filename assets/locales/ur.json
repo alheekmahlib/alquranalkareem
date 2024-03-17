@@ -819,5 +819,10 @@
   "@What'sNewDetails6": {
     "type": "text",
     "placeholders": {}
+  },
+  "What'sNewDetails7": "۞ فونٹ کو بڑا اور چھوٹا کرنا.",
+  "@What'sNewDetails7": {
+    "type": "text",
+    "placeholders": {}
   }
 }

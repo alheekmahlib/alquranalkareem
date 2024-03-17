@@ -789,6 +789,11 @@
     "type": "text",
     "placeholders": {}
   },
+  "What'sNewDetails7": "۞ تكبير وتصغير الخط",
+  "@What'sNewDetails7": {
+    "type": "text",
+    "placeholders": {}
+  },
   "ourApps": "تطبيقاتنا",
   "@ourApps": {
     "type": "text",

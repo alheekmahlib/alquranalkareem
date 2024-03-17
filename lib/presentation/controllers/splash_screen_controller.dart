@@ -22,6 +22,7 @@ class SplashScreenController extends GetxController {
   final generalCtrl = sl<GeneralController>();
   RxInt onboardingPageNumber = 0.obs;
   var today = HijriCalendar.now();
+  RxInt currentPageIndex = 0.obs;
 
   @override
   void onInit() {
@@ -57,7 +58,7 @@ class SplashScreenController extends GetxController {
           isScrollControlled: true,
         );
       } else {
-        Get.off(() => const ScreenTypeL());
+        Get.offAll(() => const ScreenTypeL());
       }
     });
     // Get.off(() => OnboardingScreen());
@@ -80,6 +81,17 @@ class SplashScreenController extends GetxController {
     }).toList();
 
     return newFeatures;
+  }
+
+  Future<bool> isLastIndex() async {
+    List<Map<String, dynamic>> newFeatures = await getNewFeatures();
+    for (int i = 0; i < whatsNewList.length; i++) {
+      if (whatsNewList[i] == newFeatures.length) {
+        return true;
+        break;
+      }
+    }
+    return false;
   }
 
   void showWhatsNew() async {

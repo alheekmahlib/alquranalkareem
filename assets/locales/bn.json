@@ -819,5 +819,10 @@
   "@What'sNewDetails6": {
     "type": "text",
     "placeholders": {}
+  },
+  "What'sNewDetails7": "۞ ফন্ট বড় ও ছোট করা.",
+  "@What'sNewDetails7": {
+    "type": "text",
+    "placeholders": {}
   }
 }

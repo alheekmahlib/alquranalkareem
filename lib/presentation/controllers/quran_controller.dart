@@ -37,7 +37,7 @@ class QuranController extends GetxController {
   RxBool isPlayExpanded = false.obs;
   RxBool isSajda = false.obs;
   RxInt isPages = 0.obs;
-  RxInt isBold = 1.obs;
+  RxInt isBold = 0.obs;
   RxBool isMoreOptions = false.obs;
   final itemScrollController = ItemScrollController();
   final itemPositionsListener = ItemPositionsListener.create();
@@ -46,6 +46,16 @@ class QuranController extends GetxController {
   RxInt selectMushafSettingsPage = 0.obs;
   RxDouble ayahsWidgetHeight = 0.0.obs;
   RxInt currentListPage = 1.obs;
+  RxDouble scaleFactor = 1.0.obs;
+  RxDouble baseScaleFactor = 1.0.obs;
+
+  Widget textScale(dynamic widget1, dynamic widget2) {
+    if (scaleFactor.value <= 1.0) {
+      return widget1;
+    } else {
+      return widget2;
+    }
+  }
 
   List<int> downThePageIndex = [
     75,
@@ -101,7 +111,7 @@ class QuranController extends GetxController {
     await loadQuran();
     itemPositionsListener.itemPositions.addListener(_updatePageNumber);
     itemPositionsListener.itemPositions.addListener(currentListPageNumber);
-    isBold.value = sl<SharedPreferences>().getInt(IS_BOLD) ?? 1;
+    isBold.value = sl<SharedPreferences>().getInt(IS_BOLD) ?? 0;
   }
 
   Future<void> loadQuran() async {

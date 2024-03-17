@@ -819,5 +819,10 @@
   "@What'sNewDetails6": {
     "type": "text",
     "placeholders": {}
+  },
+  "What'sNewDetails7": "۞ Zoom in and zoom out the font.",
+  "@What'sNewDetails7": {
+    "type": "text",
+    "placeholders": {}
   }
 }

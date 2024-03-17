@@ -819,5 +819,10 @@
   "@What'sNewDetails6": {
     "type": "text",
     "placeholders": {}
+  },
+  "What'sNewDetails7": "۞ Font-ka weyneyn iyo yareyn.",
+  "@What'sNewDetails7": {
+    "type": "text",
+    "placeholders": {}
   }
 }
