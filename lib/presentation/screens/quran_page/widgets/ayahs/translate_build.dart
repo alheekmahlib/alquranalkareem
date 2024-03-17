@@ -1,4 +1,3 @@
-import '../../../../../core/utils/constants/lottie_constants.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
@@ -6,6 +5,7 @@ import 'package:read_more_less/read_more_less.dart';
 
 import '../../../../../core/services/services_locator.dart';
 import '../../../../../core/utils/constants/lottie.dart';
+import '../../../../../core/utils/constants/lottie_constants.dart';
 import '../../../../controllers/general_controller.dart';
 import '../../../../controllers/settings_controller.dart';
 import '../../../../controllers/translate_controller.dart';
@@ -23,7 +23,6 @@ class TranslateBuild extends StatelessWidget {
   Widget build(BuildContext context) {
     translateCtrl.expandedMap[ayahs[ayahIndex].ayahUQNumber - 1] =
         translateCtrl.expandedMap[ayahs[ayahIndex].ayahUQNumber - 1] ?? false;
-    translateCtrl.fetchTranslate(context);
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 8.0),
       child: Column(

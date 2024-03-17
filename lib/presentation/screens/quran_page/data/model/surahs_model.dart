@@ -34,6 +34,7 @@ class Ayah {
   final String code_v2;
   final int juz;
   final int page;
+  final int hizbQuarter;
   dynamic sajda;
 
   Ayah({
@@ -44,6 +45,7 @@ class Ayah {
     required this.code_v2,
     required this.juz,
     required this.page,
+    required this.hizbQuarter,
     required this.sajda,
   });
 
@@ -56,6 +58,7 @@ class Ayah {
       code_v2: json['code_v2'],
       juz: json['juz'],
       page: json['page'],
+      hizbQuarter: json['hizbQuarter'],
       sajda: json['sajda'],
     );
   }

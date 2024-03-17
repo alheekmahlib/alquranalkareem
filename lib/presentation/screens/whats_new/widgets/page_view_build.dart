@@ -23,33 +23,38 @@ class PageViewBuild extends StatelessWidget {
           itemCount: newFeatures.length,
           onPageChanged: (page) {
             splashCtrl.onboardingPageNumber.value = page;
+            splashCtrl.currentPageIndex.value = page;
           },
           itemBuilder: (context, index) {
+            // splashCtrl.onboardingPageNumber.value =
+            //     newFeatures[index]['index'] + index;
             return SingleChildScrollView(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   const Gap(16),
-                  Container(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 8.0, vertical: 4.0),
-                    margin: const EdgeInsets.symmetric(horizontal: 8.0),
-                    decoration: BoxDecoration(
-                        color: Theme.of(context)
-                            .colorScheme
-                            .surface
-                            .withOpacity(.1),
-                        borderRadius:
-                            const BorderRadius.all(Radius.circular(4))),
-                    child: Text(
-                      '${newFeatures[index]['title']}'.tr,
-                      style: TextStyle(
-                        color: Theme.of(context).hintColor,
-                        fontSize: 16.0.sp,
-                        fontFamily: 'kufi',
-                      ),
-                    ),
-                  ),
+                  newFeatures[index]['title'] == ''
+                      ? const SizedBox.shrink()
+                      : Container(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 8.0, vertical: 4.0),
+                          margin: const EdgeInsets.symmetric(horizontal: 8.0),
+                          decoration: BoxDecoration(
+                              color: Theme.of(context)
+                                  .colorScheme
+                                  .surface
+                                  .withOpacity(.1),
+                              borderRadius:
+                                  const BorderRadius.all(Radius.circular(4))),
+                          child: Text(
+                            '${newFeatures[index]['title']}'.tr,
+                            style: TextStyle(
+                              color: Theme.of(context).hintColor,
+                              fontSize: 16.0.sp,
+                              fontFamily: 'kufi',
+                            ),
+                          ),
+                        ),
                   const Gap(8),
                   newFeatures[index]['imagePath'] == ''
                       ? const SizedBox.shrink()

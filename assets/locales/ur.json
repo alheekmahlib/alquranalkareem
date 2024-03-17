@@ -814,5 +814,15 @@
   "@darkMode": {
     "type": "text",
     "placeholders": {}
+  },
+  "What'sNewDetails6": "۞ صفحات میں جزء کا اضافہ\n۞ صفحات میں سجدہ کا اضافہ",
+  "@What'sNewDetails6": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "What'sNewDetails7": "۞ فونٹ کو بڑا اور چھوٹا کرنا.",
+  "@What'sNewDetails7": {
+    "type": "text",
+    "placeholders": {}
   }
 }

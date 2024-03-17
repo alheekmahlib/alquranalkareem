@@ -1,6 +1,5 @@
 import 'dart:convert';
 
-import 'ayat_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -9,6 +8,7 @@ import '../../core/services/services_locator.dart';
 import '../../core/utils/constants/shared_preferences_constants.dart';
 import '../screens/quran_page/data/model/tafsir.dart';
 import '/presentation/controllers/share_controller.dart';
+import 'ayat_controller.dart';
 
 class TranslateDataController extends GetxController {
   var data = [].obs;
@@ -130,5 +130,11 @@ class TranslateDataController extends GetxController {
         (await sl<SharedPreferences>().getBool(IS_TAFSEER)) ?? false;
     print('trans.value ${trans.value}');
     print('translateـvalue $transValue');
+  }
+
+  @override
+  void onInit() {
+    fetchTranslate(Get.context!);
+    super.onInit();
   }
 }

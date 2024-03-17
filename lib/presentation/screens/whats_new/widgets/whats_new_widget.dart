@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 class WhatsNewWidget extends StatelessWidget {
@@ -18,7 +19,7 @@ class WhatsNewWidget extends StatelessWidget {
         "What's New".tr,
         style: TextStyle(
           color: Theme.of(context).colorScheme.primary,
-          fontSize: 20.0,
+          fontSize: 14.0.sp,
           fontFamily: 'kufi',
         ),
       ),

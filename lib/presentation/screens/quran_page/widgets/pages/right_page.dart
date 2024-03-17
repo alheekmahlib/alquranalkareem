@@ -13,8 +13,7 @@ class RightPage extends StatelessWidget {
       label: 'Quran Page',
       child: Container(
         height: MediaQuery.sizeOf(context).height,
-        margin: context.customOrientation(
-            const EdgeInsets.only(right: 4.0, top: 16.0, bottom: 16.0),
+        margin: context.customOrientation(const EdgeInsets.only(right: 4.0),
             const EdgeInsets.only(right: 4.0)),
         decoration: BoxDecoration(
             color: Get.isDarkMode

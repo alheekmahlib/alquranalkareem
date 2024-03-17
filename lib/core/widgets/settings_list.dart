@@ -71,7 +71,7 @@ class SettingsList extends StatelessWidget {
                       const Gap(24),
                       Container(
                         margin: const EdgeInsets.symmetric(horizontal: 16.0),
-                        padding: const EdgeInsets.all(4.0),
+                        padding: const EdgeInsets.all(8.0),
                         decoration: BoxDecoration(
                             border: Border.all(
                                 color: Theme.of(context).colorScheme.surface,
@@ -131,7 +131,7 @@ class SettingsList extends StatelessWidget {
                                 },
                               ),
                             ),
-                            const Gap(4),
+                            const Gap(8),
                             Container(
                               padding:
                                   const EdgeInsets.symmetric(horizontal: 16.0),

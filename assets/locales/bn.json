@@ -814,5 +814,15 @@
   "@darkMode": {
     "type": "text",
     "placeholders": {}
+  },
+  "What'sNewDetails6": "۞ পৃষ্ঠাগুলিতে জুজ' যোগ করা\n۞ পৃষ্ঠাগুলিতে সিজদা যোগ করা",
+  "@What'sNewDetails6": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "What'sNewDetails7": "۞ ফন্ট বড় ও ছোট করা.",
+  "@What'sNewDetails7": {
+    "type": "text",
+    "placeholders": {}
   }
 }

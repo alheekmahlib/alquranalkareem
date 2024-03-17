@@ -784,6 +784,16 @@
     "type": "text",
     "placeholders": {}
   },
+  "What'sNewDetails6": "۞ إضافة الأحزاب للصفحات\n۞ إضافة السجدة للصفحات",
+  "@What'sNewDetails6": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "What'sNewDetails7": "۞ تكبير وتصغير الخط",
+  "@What'sNewDetails7": {
+    "type": "text",
+    "placeholders": {}
+  },
   "ourApps": "تطبيقاتنا",
   "@ourApps": {
     "type": "text",
