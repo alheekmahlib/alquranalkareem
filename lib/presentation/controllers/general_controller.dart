@@ -131,7 +131,6 @@ class GeneralController extends GetxController {
     isShowControl.value = false;
     sl<AyatController>().isSelected.value = (-1.0);
     sl<AudioController>().pageAyahNumber = '0';
-
     sl<BookmarksController>().getBookmarks();
     lastReadSurahNumber.value =
         sl<QuranController>().getSurahNumberFromPage(index);

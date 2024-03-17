@@ -1,0 +1,9 @@
+/* 
+  InfoPlist.strings
+  Runner
+
+  Created by Hawazen Mahmood on 3/7/24.
+  
+*/
+CFBundleDisplayName = "The Quran Alheekmah Library";
+CFBundleName = "The Quran Alheekmah Library";

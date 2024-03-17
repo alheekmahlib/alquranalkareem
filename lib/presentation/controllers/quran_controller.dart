@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:developer';
+import 'dart:math' as math;
 
 import 'package:bot_toast/bot_toast.dart';
 import 'package:collection/collection.dart';
@@ -36,7 +37,7 @@ class QuranController extends GetxController {
   RxBool isPlayExpanded = false.obs;
   RxBool isSajda = false.obs;
   RxInt isPages = 0.obs;
-  RxInt isBold = 1.obs;
+  RxInt isBold = 0.obs;
   RxBool isMoreOptions = false.obs;
   final itemScrollController = ItemScrollController();
   final itemPositionsListener = ItemPositionsListener.create();
@@ -45,6 +46,16 @@ class QuranController extends GetxController {
   RxInt selectMushafSettingsPage = 0.obs;
   RxDouble ayahsWidgetHeight = 0.0.obs;
   RxInt currentListPage = 1.obs;
+  RxDouble scaleFactor = 1.0.obs;
+  RxDouble baseScaleFactor = 1.0.obs;
+
+  Widget textScale(dynamic widget1, dynamic widget2) {
+    if (scaleFactor.value <= 1.0) {
+      return widget1;
+    } else {
+      return widget2;
+    }
+  }
 
   List<int> downThePageIndex = [
     75,
@@ -100,7 +111,7 @@ class QuranController extends GetxController {
     await loadQuran();
     itemPositionsListener.itemPositions.addListener(_updatePageNumber);
     itemPositionsListener.itemPositions.addListener(currentListPageNumber);
-    isBold.value = sl<SharedPreferences>().getInt(IS_BOLD) ?? 1;
+    isBold.value = sl<SharedPreferences>().getInt(IS_BOLD) ?? 0;
   }
 
   Future<void> loadQuran() async {
@@ -162,6 +173,47 @@ class QuranController extends GetxController {
       .firstWhere((s) => s.ayahs.any((a) => a.ayahUQNumber == ayah))
       .arabicName;
 
+  // Assuming `lastDisplayedHizbQuarter` is a class variable that keeps track of the last displayed Hizb quarter.
+  int? lastDisplayedHizbQuarter;
+  Map<int, int> pageToHizbQuarterMap = {};
+
+  String getHizbQuarterDisplayByPage(int pageNumber) {
+    final List<Ayah> currentPageAyahs =
+        allAyahs.where((ayah) => ayah.page == pageNumber).toList();
+    if (currentPageAyahs.isEmpty) return "";
+
+    // Find the highest Hizb quarter on the current page
+    int? currentMaxHizbQuarter =
+        currentPageAyahs.map((ayah) => ayah.hizbQuarter).reduce(math.max);
+
+    // Store/update the highest Hizb quarter for this page
+    pageToHizbQuarterMap[pageNumber] = currentMaxHizbQuarter;
+
+    // For displaying the Hizb quarter, check if this is a new Hizb quarter different from the previous page's Hizb quarter
+    // For the first page, there is no "previous page" to compare, so display its Hizb quarter
+    if (pageNumber == 1 ||
+        pageToHizbQuarterMap[pageNumber - 1] != currentMaxHizbQuarter) {
+      int hizbNumber = ((currentMaxHizbQuarter - 1) ~/ 4) + 1;
+      int quarterPosition = (currentMaxHizbQuarter - 1) % 4;
+
+      switch (quarterPosition) {
+        case 0:
+          return "الحزب ${generalCtrl.convertNumbers('$hizbNumber')}";
+        case 1:
+          return "١/٤ الحزب ${generalCtrl.convertNumbers('$hizbNumber')}";
+        case 2:
+          return "١/٢ الحزب ${generalCtrl.convertNumbers('$hizbNumber')}";
+        case 3:
+          return "٣/٤ الحزب ${generalCtrl.convertNumbers('$hizbNumber')}";
+        default:
+          return "";
+      }
+    }
+
+    // If the page's Hizb quarter is the same as the previous page, do not display it again
+    return "";
+  }
+
   bool getSajdaInfoForPage(List<Ayah> pageAyahs) {
     for (var ayah in pageAyahs) {
       if (ayah.sajda != false && ayah.sajda is Map) {
@@ -179,42 +231,20 @@ class QuranController extends GetxController {
   List<Ayah> get currentPageAyahs =>
       pages[generalCtrl.currentPageNumber.value - 1];
 
-  double getSajdaPosition(int pageIndex) {
-    final sajdaAyah = _getAyahWithSajdaInPage(pageIndex);
-    isSajda.value = sajdaAyah != null ? true : false;
-    final lines = pages[pageIndex]
-        .map((a) {
-          if (a.text.contains('۩')) {
-            return '${a.code_v2}۩';
-          }
-          return a.code_v2;
-        })
-        .join()
-        .split('\n');
-    // final lines =newLineRegex
-    //     .allMatches(currentPageAyahs.map((a) {
-    //   if(a.text.contains('۩')){
-    //     return '${a.code_v2}۩';
-    //   }
-    //   return a.code_v2;
-    // }).join()).toList();
-    double position =
-        (lines.indexWhere((line) => line.contains('۩')) + 1).toDouble();
-    log("Sajda Position is: $position");
-
-    return position;
-  }
-
   Ayah? _getAyahWithSajdaInPage(int pageIndex) =>
       pages[pageIndex].firstWhereOrNull((ayah) {
-        if (ayah.sajda != false && ayah.sajda is Map) {
-          var sajdaDetails = ayah.sajda;
-          if (sajdaDetails['recommended'] == true ||
-              sajdaDetails['obligatory'] == true) {
-            return true;
+        if (ayah.sajda != false) {
+          if (ayah.sajda is Map) {
+            var sajdaDetails = ayah.sajda;
+            if (sajdaDetails['recommended'] == true ||
+                sajdaDetails['obligatory'] == true) {
+              return isSajda.value = true;
+            }
+          } else {
+            return ayah.sajda == true;
           }
         }
-        return false;
+        return isSajda.value = false;
       });
 
   void toggleAyahSelection(int index) {
@@ -234,36 +264,24 @@ class QuranController extends GetxController {
     selectedAyahIndexes.refresh();
   }
 
-  void showVerseToast(int pageIndex) {
-    double convertedNumber = getSajdaPosition(pageIndex) / 10.0;
-    isSajda.value
-        ? BotToast.showCustomText(
-            align: Alignment(.8, (convertedNumber + .02)),
-            toastBuilder: (void Function() cancelFunc) {
-              return Container(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
-                decoration: BoxDecoration(
-                  color: Get.theme.colorScheme.primary,
-                  borderRadius: const BorderRadius.all(Radius.circular(4.0)),
+  Widget showVerseToast(int pageIndex) {
+    log('checking sajda posision');
+    _getAyahWithSajdaInPage(pageIndex);
+    return isSajda.value
+        ? Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              sajda_icon(height: 15.0),
+              const Gap(8),
+              Text(
+                'sajda'.tr,
+                style: const TextStyle(
+                  color: Color(0xff77554B),
+                  fontFamily: 'kufi',
+                  fontSize: 16,
                 ),
-                child: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    sajda_icon(height: 15.0),
-                    const Gap(8),
-                    Text(
-                      'sajda'.tr,
-                      style: TextStyle(
-                        color: Get.theme.canvasColor,
-                        fontFamily: 'kufi',
-                        fontSize: 16,
-                      ),
-                    )
-                  ],
-                ),
-              );
-            },
+              )
+            ],
           )
         : const SizedBox.shrink();
   }

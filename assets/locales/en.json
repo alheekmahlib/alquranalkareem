@@ -814,5 +814,15 @@
   "@darkMode": {
     "type": "text",
     "placeholders": {}
+  },
+  "What'sNewDetails6": "۞ Adding Juz' to the pages\n۞ Adding Sajdah to the pages",
+  "@What'sNewDetails6": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "What'sNewDetails7": "۞ Zoom in and zoom out the font.",
+  "@What'sNewDetails7": {
+    "type": "text",
+    "placeholders": {}
   }
 }

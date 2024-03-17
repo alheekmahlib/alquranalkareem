@@ -113,6 +113,7 @@ class AlwaqfScreen extends StatelessWidget {
                       addAutomaticKeepAlives: true,
                       itemScrollController: _scrollController,
                       itemCount: waqfMarks.length,
+                      physics: const ClampingScrollPhysics(),
                       itemBuilder: (context, index) {
                         return Stack(
                           children: [

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 
@@ -50,7 +51,7 @@ class WhatsNewScreen extends StatelessWidget {
                               'skip'.tr,
                               style: TextStyle(
                                 color: Theme.of(context).colorScheme.surface,
-                                fontSize: 16.0,
+                                fontSize: 12.0.sp,
                                 fontFamily: 'kufi',
                               ),
                             ),
