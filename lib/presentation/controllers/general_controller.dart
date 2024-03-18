@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:alquranalkareem/presentation/controllers/khatmah_controller.dart';
 import 'package:arabic_numbers/arabic_numbers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -75,6 +76,7 @@ class GeneralController extends GetxController {
   final themeCtrl = sl<ThemeController>();
   RxBool showSelectScreenPage = false.obs;
   RxInt screenSelectedValue = 0.obs;
+  final khatmahCtrl = sl<KhatmahController>();
 
   double get scr_height => _screenSize!.value.height;
 
@@ -136,6 +138,8 @@ class GeneralController extends GetxController {
         sl<QuranController>().getSurahNumberFromPage(index);
     sl<SharedPreferences>().setInt(MSTART_PAGE, index + 1);
     sl<SharedPreferences>().setInt(MLAST_URAH, lastReadSurahNumber.value);
+    khatmahCtrl.saveLastKhatmah(
+        surahNumber: lastReadSurahNumber.value, pageNumber: index);
     // sl<QuranController>().selectedAyahIndexes.clear();
   }
 
@@ -404,5 +408,16 @@ class GeneralController extends GetxController {
 
   double ifBigScreenSize(double s, double l) {
     return Get.width >= 1025.0 ? s : l;
+  }
+
+  double calculateProgress(int currentPage) {
+    const int totalPages = 604;
+    if (currentPage < 1) {
+      return 0.0;
+    }
+    if (currentPage > totalPages) {
+      return 100.0;
+    }
+    return (currentPage / totalPages) * Get.width;
   }
 }

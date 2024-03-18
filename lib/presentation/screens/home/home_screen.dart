@@ -1,3 +1,4 @@
+import 'package:alquranalkareem/core/widgets/khatmah/khatmahs_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
@@ -36,6 +37,13 @@ class HomeScreen extends StatelessWidget {
                         const ScreensList(),
                         const Gap(8),
                         const LastRead(),
+                        const Gap(8),
+                        IconButton(
+                            onPressed: () => Get.bottomSheet(KhatmasScreen()),
+                            icon: const Icon(
+                              Icons.add,
+                              size: 24,
+                            )),
                         const Gap(8),
                         DailyZeker(),
                         const Gap(16),

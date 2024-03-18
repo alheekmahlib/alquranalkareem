@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../../core/services/services_locator.dart';
+import '../../../../core/utils/constants/shared_preferences_constants.dart';
 import '../../../../core/widgets/container_button.dart';
 import '../../../controllers/general_controller.dart';
 import '../../../controllers/splash_screen_controller.dart';
+import '../../screen_type.dart';
 
 class ButtonWidget extends StatelessWidget {
   final PageController controller;
@@ -43,8 +46,9 @@ class ButtonWidget extends StatelessWidget {
           onTap: () async {
             if (splashCtrl.currentPageIndex.value == newFeatures.length - 1) {
               splashCtrl.saveLastShownIndex(newFeatures.last['index']);
-              generalCtrl.showSelectScreenPage.value = true;
-              // Get.off(() => const ScreenTypeL());
+              sl<SharedPreferences>().getBool(IS_SCREEN_SELECTED_VALUE) == true
+                  ? Get.off(() => const ScreenTypeL())
+                  : generalCtrl.showSelectScreenPage.value = true;
             } else {
               controller.animateToPage(controller.page!.toInt() + 1,
                   duration: const Duration(milliseconds: 400),
