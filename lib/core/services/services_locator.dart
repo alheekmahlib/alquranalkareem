@@ -10,6 +10,7 @@ import 'package:sqflite_common_ffi/sqflite_ffi.dart';
 import 'package:timezone/data/latest.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
 
+import '../../presentation/controllers/daily_ayah_controller.dart';
 import '../../presentation/controllers/khatmah_controller.dart';
 import '../../presentation/controllers/ourApps_controller.dart';
 import '../../presentation/controllers/quran_controller.dart';
@@ -26,7 +27,6 @@ import '/presentation/controllers/bookmarks_controller.dart';
 import '/presentation/controllers/general_controller.dart';
 import '/presentation/controllers/notifications_controller.dart';
 import '/presentation/controllers/playList_controller.dart';
-import '/presentation/controllers/reminder_controller.dart';
 import '/presentation/controllers/settings_controller.dart';
 import '/presentation/controllers/share_controller.dart';
 import '/presentation/controllers/surah_audio_controller.dart';
@@ -144,9 +144,6 @@ class ServicesLocator {
     sl.registerLazySingleton<SettingsController>(() =>
         Get.put<SettingsController>(SettingsController(), permanent: true));
 
-    sl.registerLazySingleton<ReminderController>(() =>
-        Get.put<ReminderController>(ReminderController(), permanent: true));
-
     sl.registerSingleton<AzkarController>(
         Get.put<AzkarController>(AzkarController(), permanent: true));
 
@@ -165,6 +162,9 @@ class ServicesLocator {
 
     sl.registerLazySingleton<KhatmahController>(
         () => Get.put<KhatmahController>(KhatmahController(), permanent: true));
+
+    sl.registerLazySingleton<DailyAyahController>(() =>
+        Get.put<DailyAyahController>(DailyAyahController(), permanent: true));
     // NotifyHelper().initializeNotification();
     // sl<NotificationsController>().initializeLocalNotifications();
 

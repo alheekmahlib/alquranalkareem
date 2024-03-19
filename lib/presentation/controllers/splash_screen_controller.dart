@@ -58,7 +58,7 @@ class SplashScreenController extends GetxController {
           isScrollControlled: true,
         );
       } else {
-        Get.offAll(() => const ScreenTypeL());
+        Get.offAll(() => const ScreenTypeL(), transition: Transition.downToUp);
       }
     });
     // Get.off(() => OnboardingScreen());
@@ -81,17 +81,6 @@ class SplashScreenController extends GetxController {
     }).toList();
 
     return newFeatures;
-  }
-
-  Future<bool> isLastIndex() async {
-    List<Map<String, dynamic>> newFeatures = await getNewFeatures();
-    for (int i = 0; i < whatsNewList.length; i++) {
-      if (whatsNewList[i] == newFeatures.length) {
-        return true;
-        break;
-      }
-    }
-    return false;
   }
 
   void showWhatsNew() async {

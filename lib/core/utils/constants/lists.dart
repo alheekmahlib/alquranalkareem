@@ -141,82 +141,88 @@ final List themeList = [
 
 List surahReaderInfo = [
   {
-    'name': 'reader1'.tr,
+    'name': 'reader1',
     'readerD': '${UrlConstants.surahUrl}',
     'readerN': 'abdul_basit_murattal/',
     'readerI': 'basit'
   },
   {
-    'name': 'reader2'.tr,
+    'name': 'reader2',
     'readerD': '${UrlConstants.surahUrl}',
     'readerN': 'muhammad_siddeeq_al-minshaawee/',
     'readerI': 'minshawy'
   },
   {
-    'name': 'reader3'.tr,
+    'name': 'reader3',
     'readerD': '${UrlConstants.surahUrl}',
     'readerN': 'mahmood_khaleel_al-husaree_iza3a/',
     'readerI': 'husary'
   },
   {
-    'name': 'reader4'.tr,
+    'name': 'reader4',
     'readerD': '${UrlConstants.surahUrl}',
     'readerN': 'ahmed_ibn_3ali_al-3ajamy/',
     'readerI': 'ajamy'
   },
   {
-    'name': 'reader5'.tr,
+    'name': 'reader5',
     'readerD': '${UrlConstants.surahUrl}',
     'readerN': 'maher_almu3aiqly/year1440/',
     'readerI': 'muaiqly'
   },
   {
-    'name': 'reader6'.tr,
+    'name': 'reader6',
     'readerD': '${UrlConstants.surahUrl}',
     'readerN': 'sa3ood_al-shuraym/',
     'readerI': 'saood'
   },
   {
-    'name': 'reader7'.tr,
+    'name': 'reader7',
     'readerD': '${UrlConstants.surahUrl}',
     'readerN': 'sa3d_al-ghaamidi/complete/',
     'readerI': 'Ghamadi'
   },
   {
-    'name': 'reader8'.tr,
+    'name': 'reader8',
     'readerD': '${UrlConstants.surahUrl}',
     'readerN': 'mustafa_al3azzawi/',
     'readerI': 'mustafa'
   },
   {
-    'name': 'reader9'.tr,
+    'name': 'reader9',
     'readerD': '${UrlConstants.surahUrl}',
     'readerN': 'nasser_bin_ali_alqatami/',
     'readerI': 'nasser'
   },
   {
-    'name': 'reader10'.tr,
+    'name': 'reader10',
     'readerD': '${UrlConstants.surahUrl2}',
     'readerN': 'peshawa/Rewayat-Hafs-A-n-Assem/',
     'readerI': 'qader'
   },
   {
-    'name': 'reader11'.tr,
+    'name': 'reader11',
     'readerD': '${UrlConstants.surahUrl3}',
     'readerN': 'taher/',
     'readerI': 'taher'
   },
   {
-    'name': 'reader12'.tr,
+    'name': 'reader12',
     'readerD': '${UrlConstants.surahUrl4}',
     'readerN': 'aloosi/',
     'readerI': 'aloosi'
   },
   {
-    'name': 'reader13'.tr,
+    'name': 'reader13',
     'readerD': '${UrlConstants.surahUrl4}',
     'readerN': 'wdee3/',
     'readerI': 'wdee3'
+  },
+  {
+    'name': 'reader14',
+    'readerD': '${UrlConstants.surahUrl}',
+    'readerN': 'yasser_ad-dussary/',
+    'readerI': 'yasser_ad-dussary'
   }
 ];
 

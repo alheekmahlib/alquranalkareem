@@ -355,6 +355,11 @@
     "type": "text",
     "placeholders": {}
   },
+  "reader14": "یاسر الدوسری",
+  "@reader14": {
+    "type": "text",
+    "placeholders": {}
+  },
   "alheekmahlib": "الحکمہ لائبریری",
   "@alheekmahlib": {
     "type": "text",

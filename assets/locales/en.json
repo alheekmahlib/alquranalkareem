@@ -355,6 +355,11 @@
     "type": "text",
     "placeholders": {}
   },
+  "reader14": "Yasser Al-Dosari",
+  "@reader14": {
+    "type": "text",
+    "placeholders": {}
+  },
   "alheekmahlib": "Alheekmah Library",
   "@alheekmahlib": {
     "type": "text",

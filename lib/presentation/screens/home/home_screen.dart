@@ -1,9 +1,9 @@
-import 'package:alquranalkareem/core/widgets/khatmah/khatmahs_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 
+import '../../../core/widgets/daily_ayah/ayah_widget.dart';
 import '../../../core/widgets/tab_bar_widget.dart';
 import '../../controllers/theme_controller.dart';
 import 'widgets/daily_zeker.dart';
@@ -37,14 +37,8 @@ class HomeScreen extends StatelessWidget {
                         const ScreensList(),
                         const Gap(8),
                         const LastRead(),
-                        const Gap(8),
-                        IconButton(
-                            onPressed: () => Get.bottomSheet(KhatmasScreen()),
-                            icon: const Icon(
-                              Icons.add,
-                              size: 24,
-                            )),
-                        const Gap(8),
+                        AyahWidget(),
+                        const Gap(16),
                         DailyZeker(),
                         const Gap(16),
                       ],

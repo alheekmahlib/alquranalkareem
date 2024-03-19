@@ -335,23 +335,28 @@
     "type": "text",
     "placeholders": {}
   },
-  "reader10": "قادر الكردي",
+  "reader10": "কাদের আল-কুর্দি",
   "@reader10": {
     "type": "text",
     "placeholders": {}
   },
-  "reader11": "شيرزاد طاهر",
+  "reader11": "শিরজাদ তাহের",
   "@reader11": {
     "type": "text",
     "placeholders": {}
   },
-  "reader12": "عبدالرحمن العوسي",
+  "reader12": "আব্দুলরহমান আল-ওসি",
   "@reader12": {
     "type": "text",
     "placeholders": {}
   },
-  "reader13": "وديع اليمني",
+  "reader13": "ওয়াদিয়া আল-ইয়েমেনি",
   "@reader13": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "reader14": "ইয়াসের আল-দোসারি",
+  "@reader14": {
     "type": "text",
     "placeholders": {}
   },

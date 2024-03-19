@@ -24,7 +24,8 @@ class ChangeSurahReader extends StatelessWidget {
           children: [
             Obx(() {
               return Text(
-                surahReaderInfo[surahAudioCtrl.surahReaderIndex.value]['name'],
+                '${surahReaderInfo[surahAudioCtrl.surahReaderIndex.value]['name']}'
+                    .tr,
                 style: TextStyle(
                     color: Theme.of(context).colorScheme.surface,
                     fontSize: 13,
@@ -49,7 +50,7 @@ class ChangeSurahReader extends StatelessWidget {
                     const EdgeInsets.symmetric(horizontal: 16.0, vertical: 4.0),
                 child: ListTile(
                   title: Text(
-                    surahReaderInfo[index]['name'],
+                    '${surahReaderInfo[index]['name']}'.tr,
                     style: TextStyle(
                         color: surahAudioCtrl.sorahReaderNameValue ==
                                 surahReaderInfo[index]['readerN']
