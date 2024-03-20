@@ -103,11 +103,5 @@
 		<string>App requires access to the photo library to save images</string>
 		<key>NSMicrophoneUsageDescription</key>
 		<string>We need access to the microphone for recording audio.</string>
-		<!-- For TTS -->
-		<key>NSSpeechRecognitionUsageDescription</key>
-		<string>recognize speech</string>
-		<key>NSMicrophoneUsageDescription</key>	
-		<string>App requires access to the microphone for uploading audio</string>
-		<!-- For TTS -->
 	</dict>
 </plist>
