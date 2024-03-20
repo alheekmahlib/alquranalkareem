@@ -94,7 +94,7 @@ class AyaRepository {
     // It assumes that you have a way to order the Ayahs consistently.
     await database!.transaction((txn) async {
       List<Map>? results = await txn.rawQuery(
-        'SELECT * FROM ${Aya.tableName} ORDER BY some_order_column LIMIT ? OFFSET ?',
+        'SELECT * FROM ${Aya.tableName} LIMIT ? OFFSET ?',
         [limit, offset],
       );
       for (var result in results) {

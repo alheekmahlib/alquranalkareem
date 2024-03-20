@@ -355,6 +355,11 @@
     "type": "text",
     "placeholders": {}
   },
+  "reader14": "Yasser Al-Dosari",
+  "@reader14": {
+    "type": "text",
+    "placeholders": {}
+  },
   "alheekmahlib": "Maktabadda Al Heekmah",
   "@alheekmahlib": {
     "type": "text",
@@ -812,6 +817,16 @@
   },
   "darkMode": "Madoow",
   "@darkMode": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "What'sNewDetails6": "۞ Sayfalara Cüz eklenmesi\n۞ Sayfalara Secde eklenmesi",
+  "@What'sNewDetails6": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "What'sNewDetails7": "۞ Font-ka weyneyn iyo yareyn.",
+  "@What'sNewDetails7": {
     "type": "text",
     "placeholders": {}
   }

@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:developer';
+import 'dart:math' as math;
 
 import 'package:bot_toast/bot_toast.dart';
 import 'package:collection/collection.dart';
@@ -36,7 +37,7 @@ class QuranController extends GetxController {
   RxBool isPlayExpanded = false.obs;
   RxBool isSajda = false.obs;
   RxInt isPages = 0.obs;
-  RxInt isBold = 1.obs;
+  RxInt isBold = 0.obs;
   RxBool isMoreOptions = false.obs;
   final itemScrollController = ItemScrollController();
   final itemPositionsListener = ItemPositionsListener.create();
@@ -45,6 +46,16 @@ class QuranController extends GetxController {
   RxInt selectMushafSettingsPage = 0.obs;
   RxDouble ayahsWidgetHeight = 0.0.obs;
   RxInt currentListPage = 1.obs;
+  RxDouble scaleFactor = 1.0.obs;
+  RxDouble baseScaleFactor = 1.0.obs;
+
+  Widget textScale(dynamic widget1, dynamic widget2) {
+    if (scaleFactor.value <= 1.0) {
+      return widget1;
+    } else {
+      return widget2;
+    }
+  }
 
   List<int> downThePageIndex = [
     75,
@@ -100,7 +111,7 @@ class QuranController extends GetxController {
     await loadQuran();
     itemPositionsListener.itemPositions.addListener(_updatePageNumber);
     itemPositionsListener.itemPositions.addListener(currentListPageNumber);
-    isBold.value = sl<SharedPreferences>().getInt(IS_BOLD) ?? 1;
+    isBold.value = sl<SharedPreferences>().getInt(IS_BOLD) ?? 0;
   }
 
   Future<void> loadQuran() async {
@@ -162,37 +173,45 @@ class QuranController extends GetxController {
       .firstWhere((s) => s.ayahs.any((a) => a.ayahUQNumber == ayah))
       .arabicName;
 
+  // Assuming `lastDisplayedHizbQuarter` is a class variable that keeps track of the last displayed Hizb quarter.
+  int? lastDisplayedHizbQuarter;
+  Map<int, int> pageToHizbQuarterMap = {};
+
   String getHizbQuarterDisplayByPage(int pageNumber) {
-    List<Ayah> ayahList = allAyahs.where((a) => a.page == pageNumber).toList();
+    final List<Ayah> currentPageAyahs =
+        allAyahs.where((ayah) => ayah.page == pageNumber).toList();
+    if (currentPageAyahs.isEmpty) return "";
 
-    if (pageNumber > 2 && ayahList.first.hizbQuarter > 1) {
-      final prevAyah = allAyahs.lastWhereOrNull((a) =>
-          a.page == pageNumber && a.hizbQuarter < ayahList.first.hizbQuarter);
-      if (prevAyah != null) ayahList.insert(0, prevAyah);
+    // Find the highest Hizb quarter on the current page
+    int? currentMaxHizbQuarter =
+        currentPageAyahs.map((ayah) => ayah.hizbQuarter).reduce(math.max);
+
+    // Store/update the highest Hizb quarter for this page
+    pageToHizbQuarterMap[pageNumber] = currentMaxHizbQuarter;
+
+    // For displaying the Hizb quarter, check if this is a new Hizb quarter different from the previous page's Hizb quarter
+    // For the first page, there is no "previous page" to compare, so display its Hizb quarter
+    if (pageNumber == 1 ||
+        pageToHizbQuarterMap[pageNumber - 1] != currentMaxHizbQuarter) {
+      int hizbNumber = ((currentMaxHizbQuarter - 1) ~/ 4) + 1;
+      int quarterPosition = (currentMaxHizbQuarter - 1) % 4;
+
+      switch (quarterPosition) {
+        case 0:
+          return "الحزب ${generalCtrl.convertNumbers('$hizbNumber')}";
+        case 1:
+          return "١/٤ الحزب ${generalCtrl.convertNumbers('$hizbNumber')}";
+        case 2:
+          return "١/٢ الحزب ${generalCtrl.convertNumbers('$hizbNumber')}";
+        case 3:
+          return "٣/٤ الحزب ${generalCtrl.convertNumbers('$hizbNumber')}";
+        default:
+          return "";
+      }
     }
 
-    ayahList.splitBetween((f, s) => f.hizbQuarter < s.hizbQuarter);
-    if (ayahList.length < 2) return "";
-    int currentHizbQuarter = ayahList.last.hizbQuarter;
-    // .reduce((curr, next) => curr > next ? curr : next);
-
-    int hizbNumber = ((currentHizbQuarter - 1) ~/ 4) + 1;
-    int quarterPosition = (currentHizbQuarter - 1) % 4;
-
-    switch (quarterPosition) {
-      case 0:
-        return "الحزب ${generalCtrl.convertNumbers('$hizbNumber')}";
-      case 1:
-        return "١/٤ الحزب ${generalCtrl.convertNumbers('$hizbNumber')}";
-      case 2:
-        return "١/٢ الحزب ${generalCtrl.convertNumbers('$hizbNumber')}";
-      case 3:
-        return "٣/٤ الحزب ${generalCtrl.convertNumbers('$hizbNumber')}";
-      // case 4:
-      // return "الحزب ${generalCtrl.convertNumbers('$hizbNumber')}";
-      default:
-        return "";
-    }
+    // If the page's Hizb quarter is the same as the previous page, do not display it again
+    return "";
   }
 
   bool getSajdaInfoForPage(List<Ayah> pageAyahs) {

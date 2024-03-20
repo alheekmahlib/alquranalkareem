@@ -363,6 +363,11 @@
     "type": "text",
     "placeholders": {}
   },
+  "reader14": "Yasser Al-Dosari",
+  "@reader14": {
+    "type": "text",
+    "placeholders": {}
+  },
   "alheekmahlib": "Biblioteca Alheekmah",
   "@alheekmahlib": {
     "type": "text",
@@ -820,6 +825,16 @@
   },
   "darkMode": "Oscuro",
   "@darkMode": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "What'sNewDetails6": "۞ Añadir Juz' a las páginas\n۞ Añadir Sajdah a las páginas",
+  "@What'sNewDetails6": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "What'sNewDetails7": "۞ Aumentar y disminuir el tamaño de la fuente.",
+  "@What'sNewDetails7": {
     "type": "text",
     "placeholders": {}
   }

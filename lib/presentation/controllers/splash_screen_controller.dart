@@ -22,6 +22,7 @@ class SplashScreenController extends GetxController {
   final generalCtrl = sl<GeneralController>();
   RxInt onboardingPageNumber = 0.obs;
   var today = HijriCalendar.now();
+  RxInt currentPageIndex = 0.obs;
 
   @override
   void onInit() {
@@ -57,7 +58,7 @@ class SplashScreenController extends GetxController {
           isScrollControlled: true,
         );
       } else {
-        Get.off(() => const ScreenTypeL());
+        Get.offAll(() => const ScreenTypeL(), transition: Transition.downToUp);
       }
     });
     // Get.off(() => OnboardingScreen());

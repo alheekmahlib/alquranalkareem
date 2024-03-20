@@ -23,12 +23,12 @@ class AyaController extends GetxController {
   void onInit() {
     super.onInit();
     fetchAyahs();
-    scrollController.addListener(_onScroll);
+    // scrollController.addListener(_onScroll);
   }
 
   @override
   void onClose() {
-    scrollController.dispose();
+    // scrollController.dispose();
     super.onClose();
   }
 
@@ -82,13 +82,13 @@ class AyaController extends GetxController {
     isLoading.value = value;
   }
 
-  void _onScroll() {
-    if (scrollController.position.maxScrollExtent ==
-            scrollController.position.pixels &&
-        hasMore) {
-      fetchAyahs();
-    }
-  }
+  // void _onScroll() {
+  //   if (scrollController.position.maxScrollExtent ==
+  //           scrollController.position.pixels &&
+  //       hasMore) {
+  //     fetchAyahs();
+  //   }
+  // }
 
   void fetchAyahs() {
     if (isLoading.isTrue || !hasMore) return;

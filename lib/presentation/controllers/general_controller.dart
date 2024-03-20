@@ -75,6 +75,7 @@ class GeneralController extends GetxController {
   final themeCtrl = sl<ThemeController>();
   RxBool showSelectScreenPage = false.obs;
   RxInt screenSelectedValue = 0.obs;
+  // final khatmahCtrl = sl<KhatmahController>();
 
   double get scr_height => _screenSize!.value.height;
 
@@ -136,6 +137,8 @@ class GeneralController extends GetxController {
         sl<QuranController>().getSurahNumberFromPage(index);
     sl<SharedPreferences>().setInt(MSTART_PAGE, index + 1);
     sl<SharedPreferences>().setInt(MLAST_URAH, lastReadSurahNumber.value);
+    // khatmahCtrl.saveLastKhatmah(
+    //     surahNumber: lastReadSurahNumber.value, pageNumber: index);
     // sl<QuranController>().selectedAyahIndexes.clear();
   }
 
@@ -151,16 +154,16 @@ class GeneralController extends GetxController {
     surahListController.jumpTo(position);
   }
 
-  int get surahNumber => sl<AyatController>()
-      .ayatList
-      .firstWhere((s) => s.pageNum == currentPageNumber.value)
-      .surahNum;
+  // int get surahNumber => sl<QuranController>()
+  //     .allAyahs
+  //     .firstWhere((s) => s.page == currentPageNumber.value)
+  //     .surahNum;
 
-  surahPosition() {
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      scrollToSurah(surahNumber);
-    });
-  }
+  // surahPosition() {
+  //   WidgetsBinding.instance.addPostFrameCallback((_) {
+  //     scrollToSurah(surahNumber);
+  //   });
+  // }
 
   scrollToAyah(int ayahNumber) {
     if (ayahListController.hasClients) {
@@ -404,5 +407,16 @@ class GeneralController extends GetxController {
 
   double ifBigScreenSize(double s, double l) {
     return Get.width >= 1025.0 ? s : l;
+  }
+
+  double calculateProgress(int currentPage) {
+    const int totalPages = 604;
+    if (currentPage < 1) {
+      return 0.0;
+    }
+    if (currentPage > totalPages) {
+      return 100.0;
+    }
+    return (currentPage / totalPages) * Get.width;
   }
 }

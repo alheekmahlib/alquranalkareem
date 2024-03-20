@@ -18,6 +18,13 @@ TextSpan span({
 }) {
   if (text.isNotEmpty) {
     final String partOne = text.length < 3 ? text[0] : text[0] + text[1];
+    // final String partOne = pageIndex == 250
+    //     ? text.length < 3
+    //         ? text[0]
+    //         : text[0] + text[1]
+    //     : text.length < 3
+    //         ? text[0]
+    //         : text[0] + text[1];
     final String? partTwo =
         text.length > 2 ? text.substring(2, text.length - 1) : null;
     final String initialPart = text.substring(0, text.length - 1);
@@ -30,7 +37,7 @@ TextSpan span({
         style: TextStyle(
           fontFamily: 'page${pageIndex + 1}',
           fontSize: fontSize,
-          height: 2,
+          height: 1.8,
           letterSpacing: 30,
           color: Get.theme.colorScheme.inversePrimary,
           backgroundColor: quranCtrl.isPages.value == 1
@@ -50,7 +57,7 @@ TextSpan span({
         style: TextStyle(
           fontFamily: 'page${pageIndex + 1}',
           fontSize: fontSize,
-          height: 2,
+          height: 1.8,
           letterSpacing: 5,
           // wordSpacing: wordSpacing + 10,
           color: Get.theme.colorScheme.inversePrimary,
@@ -73,7 +80,7 @@ TextSpan span({
       style: TextStyle(
         fontFamily: 'page${pageIndex + 1}',
         fontSize: fontSize,
-        height: 2,
+        height: 1.8,
         letterSpacing: 5,
         color: Get.theme.colorScheme.inversePrimary,
         backgroundColor: quranCtrl.isPages.value == 1
@@ -94,7 +101,7 @@ TextSpan span({
       style: TextStyle(
         fontFamily: 'page${pageIndex + 1}',
         fontSize: fontSize,
-        height: 2,
+        height: 1.8,
         letterSpacing: 5,
         color: sl<BookmarksController>().hasBookmark(surahNum, ayahNum).value
             ? Get.theme.colorScheme.inversePrimary
@@ -116,6 +123,70 @@ TextSpan span({
       children: isFirstAyah
           ? [first!, second!, lastCharacterSpan]
           : [initialTextSpan, lastCharacterSpan],
+      recognizer: LongPressGestureRecognizer(
+          duration: const Duration(milliseconds: 500))
+        ..onLongPressStart = onLongPressStart,
+    );
+  } else {
+    return const TextSpan(text: '');
+  }
+}
+
+TextSpan customSpan({
+  required String text,
+  required String ayahNumber,
+  required int pageIndex,
+  required bool isSelected,
+  double? fontSize,
+  required int surahNum,
+  required int ayahNum,
+  LongPressStartDetailsFunction? onLongPressStart,
+}) {
+  if (text.isNotEmpty) {
+    return TextSpan(
+      children: [
+        TextSpan(
+          text: text,
+          style: TextStyle(
+            fontFamily: 'uthmanic2',
+            fontSize: fontSize,
+            height: 1.8,
+            color: Get.theme.colorScheme.inversePrimary,
+            backgroundColor: quranCtrl.isPages.value == 1
+                ? Colors.transparent
+                : sl<BookmarksController>().hasBookmark(surahNum, ayahNum).value
+                    ? const Color(0xffCD9974).withOpacity(.4)
+                    : isSelected
+                        ? Get.theme.highlightColor
+                        : Colors.transparent,
+          ),
+          recognizer: LongPressGestureRecognizer(
+              duration: const Duration(milliseconds: 500))
+            ..onLongPressStart = onLongPressStart,
+        ),
+        TextSpan(
+          text: ayahNumber.toString(),
+          style: TextStyle(
+            fontFamily: 'uthmanic2',
+            fontSize: fontSize,
+            height: 1.8,
+            color:
+                sl<BookmarksController>().hasBookmark(surahNum, ayahNum).value
+                    ? Get.theme.colorScheme.inversePrimary
+                    : const Color(0xff77554B),
+            backgroundColor: quranCtrl.isPages.value == 1
+                ? Colors.transparent
+                : sl<BookmarksController>().hasBookmark(surahNum, ayahNum).value
+                    ? const Color(0xffCD9974).withOpacity(.4)
+                    : isSelected
+                        ? Get.theme.highlightColor
+                        : Colors.transparent,
+          ),
+          recognizer: LongPressGestureRecognizer(
+              duration: const Duration(milliseconds: 500))
+            ..onLongPressStart = onLongPressStart,
+        ),
+      ],
       recognizer: LongPressGestureRecognizer(
           duration: const Duration(milliseconds: 500))
         ..onLongPressStart = onLongPressStart,
