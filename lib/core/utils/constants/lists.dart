@@ -278,6 +278,26 @@ List tafsirName = [
   },
 ];
 
+List tafsirNameRandom = [
+  {'name': '${'tafIbnkatheerN'.tr}', 'bookName': '${'tafIbnkatheerD'.tr}'},
+  {
+    'name': '${'tafBaghawyN'.tr}',
+    'bookName': '${'tafBaghawyD'.tr}',
+  },
+  {
+    'name': '${'tafQurtubiN'.tr}',
+    'bookName': '${'tafQurtubiD'.tr}',
+  },
+  {
+    'name': '${'tafSaadiN'.tr}',
+    'bookName': '${'tafSaadiD'.tr}',
+  },
+  {
+    'name': '${'tafTabariN'.tr}',
+    'bookName': '${'tafTabariD'.tr}',
+  }
+];
+
 List ayahReaderInfo = [
   {
     'name': 'reader1',
@@ -335,4 +355,12 @@ List<Map<String, dynamic>> whatsNewList = [
     'details': "What'sNewDetails7",
     'imagePath': 'assets/images/fontSize.png',
   },
+];
+
+const List occasionList = [
+  {'title': 'Start of the Hijri Year', 'month': 1, 'day': 1},
+  {'title': 'Ramadan', 'month': 9, 'day': 1},
+  {'title': 'Blessed Eid al-Fitr', 'month': 10, 'day': 1},
+  {'title': 'Day of Arafah', 'month': 12, 'day': 9},
+  {'title': 'Blessed Eid al-Adha', 'month': 12, 'day': 10}
 ];

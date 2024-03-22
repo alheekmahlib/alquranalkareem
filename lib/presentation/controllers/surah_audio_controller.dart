@@ -56,6 +56,7 @@ class SurahAudioController extends GetxController {
   final TextEditingController textEditingController = TextEditingController();
   RxInt surahReaderIndex = 1.obs;
   final Rx<Map<int, bool>> surahDownloadStatus = Rx<Map<int, bool>>({});
+  RxInt seekNextSeconds = 5.obs;
 
   late final surahsList = ConcatenatingAudioSource(
     // Start loading next item just before reaching it

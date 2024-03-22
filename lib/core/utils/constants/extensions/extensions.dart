@@ -59,6 +59,25 @@ extension ContextExtensions on BuildContext {
     );
   }
 
+  Widget customWhiteClose({var close, double? height}) {
+    return Semantics(
+      button: true,
+      label: 'Close',
+      child: GestureDetector(
+        child: SvgPicture.asset(
+          'assets/svg/close.svg',
+          height: height ?? 30,
+          width: 30,
+          colorFilter: const ColorFilter.mode(Colors.white, BlendMode.srcIn),
+        ),
+        onTap: close ??
+            () {
+              Get.back();
+            },
+      ),
+    );
+  }
+
   Widget fontSizeDropDown({double? height, Color? color}) {
     return PopupMenuButton(
       position: PopupMenuPosition.under,

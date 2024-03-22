@@ -1,3 +1,4 @@
+import 'package:alquranalkareem/core/utils/constants/extensions/extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
@@ -12,8 +13,9 @@ class ScreensList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FittedBox(
-      fit: BoxFit.scaleDown,
+      fit: context.customOrientation(BoxFit.scaleDown, BoxFit.none),
       child: ContainerWithLines(
+          width: 390,
           linesColor: Theme.of(context).colorScheme.primary,
           containerColor: Theme.of(context).colorScheme.primary.withOpacity(.2),
           child: Padding(

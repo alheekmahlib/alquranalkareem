@@ -829,5 +829,145 @@
   "@What'sNewDetails7": {
     "type": "text",
     "placeholders": {}
+  },
+  "Sunday": "Axad",
+  "@Sunday": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Monday": "Isniin",
+  "@Monday": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Tuesday": "Talaado",
+  "@Tuesday": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Wednesday": "Arbaco",
+  "@Wednesday": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Thursday": "Khamiis",
+  "@Thursday": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Friday": "Jimco",
+  "@Friday": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Saturday": "Sabti",
+  "@Saturday": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "RemainsUntilTheEndOf": "Waxaa ka haray dhamaadka",
+  "@RemainsUntilTheEndOf": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Muharram": "Muharram",
+  "@Muharram": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Safar": "Safar",
+  "@Safar": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Rabi' al-awwal": "Rabi' al-awwal",
+  "@Rabi' al-awwal": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Rabi' al-thani": "Rabi' al-thani",
+  "@Rabi' al-thani": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Jumada al-awwal": "Jumada al-awwal",
+  "@Jumada al-awwal": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Jumada al-thani": "Jumada al-thani",
+  "@Jumada al-thani": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Rajab": "Rajab",
+  "@Rajab": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Sha'ban": "Sha'ban",
+  "@Sha'ban": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Ramadan": "Ramadan",
+  "@Ramadan": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Shawwal": "Shawwal",
+  "@Shawwal": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Dhu al-Qi'dah": "Dhu al-Qi'dah",
+  "@Dhu al-Qi'dah": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Dhu al-Hijjah": "Dhu al-Hijjah",
+  "@Dhu al-Hijjah": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Day": "Maalin",
+  "@Day": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Days": "Maalmood",
+  "@Days": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Start of the Hijri Year": "Bilowga Sanadka Hijriyada",
+  "@Start of the Hijri Year": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Blessed Eid al-Fitr": "Ciidul Fidriga Barakeysan",
+  "@Blessed Eid al-Fitr": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Day of Arafah": "Maalinta Carafa",
+  "@Day of Arafah": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Blessed Eid al-Adha": "Ciidul Adxada Barakeysan",
+  "@Blessed Eid al-Adha": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "hijriNote": "Ogeysiis: Fadlan ogow inay jiri karto farqi yar oo ku saabsan waqtiyada cayiman maadaama jadwalka Hijrigu ku saleysan yahay aragtida tooska ah ee dayaxa. Waxaan sameyneynaa dadaal kasta si aan u hubinno saxnaanta taariikhaha la shaaciyey, iyadoo la tixgelinayo in jadwalka la sixi doono haddii dayaxa la arko.",
+  "@hijriNote": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "AH": "AH",
+  "@AH": {
+    "type": "text",
+    "placeholders": {}
   }
 }

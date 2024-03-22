@@ -828,5 +828,145 @@
   "@darkMode": {
     "type": "text",
     "placeholders": {}
+  },
+  "Sunday": "أحد",
+  "@Sunday": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Monday": "أثنين",
+  "@Monday": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Tuesday": "ثلاثاء",
+  "@Tuesday": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Wednesday": "أربعاء",
+  "@Wednesday": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Thursday": "خميس",
+  "@Thursday": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Friday": "جمعة",
+  "@Friday": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Saturday": "سبت",
+  "@Saturday": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "RemainsUntilTheEndOf": "تبقى على إنتهاء",
+  "@RemainsUntilTheEndOf": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Muharram": "محرم",
+  "@Muharram": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Safar": "صفر",
+  "@Safar": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Rabi' al-awwal": "ربيع الاول",
+  "@Rabi' al-awwal": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Rabi' al-thani": "ربيع الثاني",
+  "@Rabi' al-thani": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Jumada al-awwal": "جمادى الاول",
+  "@Jumada al-awwal": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Jumada al-thani": "جمادى الآخرة",
+  "@Jumada al-thani": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Rajab": "رجب",
+  "@Rajab": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Sha'ban": "شعبان",
+  "@Sha'ban": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Ramadan": "رمضان",
+  "@Ramadan": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Shawwal": "شوال",
+  "@Shawwal": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Dhu al-Qi'dah": "ذو القعدة",
+  "@Dhu al-Qi'dah": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Dhu al-Hijjah": "ذوالحجة",
+  "@Dhu al-Hijjah": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Day": "يوم",
+  "@Day": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Days": "أيام",
+  "@Days": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Start of the Hijri Year": "بداية السنة الهجرية",
+  "@Start of the Hijri Year": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Blessed Eid al-Fitr": "عيد الفطر المبارك",
+  "@Blessed Eid al-Fitr": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Day of Arafah": "يوم عرفة",
+  "@Day of Arafah": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Blessed Eid al-Adha": "عيد الأضحى المبارك",
+  "@Blessed Eid al-Adha": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "hijriNote": "تنويه: يرجى العلم بأنه قد يحدث اختلاف طفيف في الأوقات المحددة نظرًا لأن التقويم الهجري يستند إلى الرؤية المباشرة للهلال. نحن نبذل قصارى جهدنا لضمان دقة التواريخ المعلنة، مع الأخذ في الاعتبار انه سيتم تصحيح التقويم في حال رؤية الهلال.",
+  "@hijriNote": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "AH": "للهجرة",
+  "@AH": {
+    "type": "text",
+    "placeholders": {}
   }
 }

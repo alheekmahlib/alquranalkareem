@@ -829,5 +829,145 @@
   "@What'sNewDetails7": {
     "type": "text",
     "placeholders": {}
+  },
+  "Sunday": "রবিবার",
+  "@Sunday": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Monday": "সোমবার",
+  "@Monday": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Tuesday": "মঙ্গলবার",
+  "@Tuesday": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Wednesday": "বুধবার",
+  "@Wednesday": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Thursday": "বৃহস্পতিবার",
+  "@Thursday": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Friday": "শুক্রবার",
+  "@Friday": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Saturday": "শনিবার",
+  "@Saturday": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "RemainsUntilTheEndOf": "শেষ হতে বাকি",
+  "@RemainsUntilTheEndOf": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Muharram": "মুহাররাম",
+  "@Muharram": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Safar": "সফর",
+  "@Safar": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Rabi' al-awwal": "রবিউল আউয়াল",
+  "@Rabi' al-awwal": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Rabi' al-thani": "রবিউস সানি",
+  "@Rabi' al-thani": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Jumada al-awwal": "জুমাদাল আউয়াল",
+  "@Jumada al-awwal": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Jumada al-thani": "জুমাদাস সানি",
+  "@Jumada al-thani": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Rajab": "রজব",
+  "@Rajab": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Sha'ban": "শাবান",
+  "@Sha'ban": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Ramadan": "রমজান",
+  "@Ramadan": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Shawwal": "শাওয়াল",
+  "@Shawwal": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Dhu al-Qi'dah": "জ্বিলকদ",
+  "@Dhu al-Qi'dah": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Dhu al-Hijjah": "জ্বিলহজ্জ",
+  "@Dhu al-Hijjah": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Day": "দিন",
+  "@Day": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Days": "দিনগুলি",
+  "@Days": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Start of the Hijri Year": "হিজরি সনের শুরু",
+  "@Start of the Hijri Year": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Blessed Eid al-Fitr": "মোবারক ঈদ-উল-ফিতর",
+  "@Blessed Eid al-Fitr": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Day of Arafah": "আরাফাত দিবস",
+  "@Day of Arafah": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Blessed Eid al-Adha": "মোবারক ঈদ-উল-আজহা",
+  "@Blessed Eid al-Adha": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "hijriNote": "নোটিশ: অনুগ্রহ করে জেনে রাখুন যে হিজরি ক্যালেন্ডার চাঁদের সরাসরি দেখা নির্ভর করে বলে নির্দিষ্ট সময়গুলিতে সামান্য পার্থক্য হতে পারে। ঘোষিত তারিখগুলির সঠিকতা নিশ্চিত করতে আমরা সর্বোচ্চ প্রচেষ্টা চালিয়ে যাচ্ছি, চাঁদ দেখা গেলে ক্যালেন্ডারে সংশোধন করা হবে এটি মাথায় রেখে।",
+  "@hijriNote": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "AH": "AH",
+  "@AH": {
+    "type": "text",
+    "placeholders": {}
   }
 }

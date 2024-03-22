@@ -43,7 +43,7 @@ class Khatmah extends StatelessWidget {
             children: [
               Container(
                 height: 70,
-                width: generalCtrl.calculateProgress(pageNumber),
+                width: generalCtrl.calculateProgress(pageNumber, 604),
                 padding: const EdgeInsets.symmetric(horizontal: 8.0),
                 decoration: BoxDecoration(
                     color:

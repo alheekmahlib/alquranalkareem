@@ -7,6 +7,7 @@ import 'package:hijri/hijri_calendar.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../core/services/services_locator.dart';
+import '../../core/utils/constants/lists.dart';
 import '../../core/utils/constants/shared_preferences_constants.dart';
 import '../screens/quran_page/data/model/surahs_model.dart';
 import '../screens/quran_page/data/model/tafsir.dart';
@@ -20,6 +21,7 @@ class DailyAyahController extends GetxController {
   Ayah? ayahOfTheDay;
   Tafsir? selectedTafsir;
   List<Tafsir>? currentPageTafseer;
+  RxInt radioValue = 0.obs;
 
   Future<Ayah> getDailyAyah() async {
     print('missing daily Ayah');
@@ -47,30 +49,31 @@ class DailyAyahController extends GetxController {
       return cachedAyah;
     }
     final random = math.Random().nextInt(quranCtrl.allAyahs.length);
+    final tafsirRandom = math.Random().nextInt(tafsirNameRandom.length);
+    radioValue.value = tafsirRandom;
     log('allAyahs length: ${quranCtrl.allAyahs.length}');
     Ayah? ayah =
         quranCtrl.allAyahs.firstWhereOrNull((a) => a.ayahUQNumber == random);
     currentPageTafseer = await ayatCtrl
-        .handleRadioValueChanged(ayatCtrl.radioValue.value)
+        .handleRadioValueChanged(tafsirRandom)
         .getAyahTafseer(ayah!.ayahUQNumber,
             quranCtrl.getSurahDataByAyahUQ(ayah.ayahUQNumber).surahNumber);
     selectedTafsir = currentPageTafseer!
         .firstWhereOrNull((a) => a.index == ayah!.ayahUQNumber);
-    Tafsir? tafsir = currentPageTafseer!
-        .firstWhereOrNull((t) => t.index == ayah!.ayahUQNumber);
     log('allAyahs length: ${quranCtrl.allAyahs.length} 2222');
-    while (ayah == null || tafsir == null) {
+    while (ayah == null || selectedTafsir == null) {
       log('allAyahs length: ${quranCtrl.allAyahs.length} ', name: 'while');
       ayah =
           quranCtrl.allAyahs.firstWhereOrNull((a) => a.ayahUQNumber == random);
-      tafsir = currentPageTafseer!
+      selectedTafsir = currentPageTafseer!
           .firstWhereOrNull((t) => t.index == ayah!.ayahUQNumber);
       log('ayah is null  ' * 5);
     }
     log('before listing');
     sl<SharedPreferences>()
       ..setString(AYAH_OF_THE_DAY_AND_AYAH_NUMBER, '${ayah.ayahUQNumber}')
-      ..setString(TAFSIR_OF_THE_DAY_AND_TAFSIR_NUMBER, '${tafsir.index}')
+      ..setString(
+          TAFSIR_OF_THE_DAY_AND_TAFSIR_NUMBER, '${selectedTafsir!.index}')
       ..setString(SETTED_DATE_FOR_AYAH, HijriCalendar.now().fullDate());
     return ayah;
   }

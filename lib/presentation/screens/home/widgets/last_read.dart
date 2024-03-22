@@ -57,7 +57,7 @@ class LastRead extends StatelessWidget {
                     Container(
                       height: 70,
                       width: generalCtrl.calculateProgress(
-                          generalCtrl.currentPageNumber.value),
+                          generalCtrl.currentPageNumber.value, 604),
                       padding: const EdgeInsets.symmetric(horizontal: 8.0),
                       decoration: BoxDecoration(
                           color: Theme.of(context)

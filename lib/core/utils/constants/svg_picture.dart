@@ -190,6 +190,22 @@ Widget play_arrow({double? height, double? width}) {
   );
 }
 
+Widget rewind_arrow({double? height, double? width}) {
+  return SvgPicture.asset(
+    'assets/svg/rewind.svg',
+    width: width,
+    height: height ?? 60,
+  );
+}
+
+Widget backward_arrow({double? height, double? width}) {
+  return SvgPicture.asset(
+    'assets/svg/backward.svg',
+    width: width,
+    height: height ?? 60,
+  );
+}
+
 Widget pause_arrow({double? height, double? width}) {
   return SvgPicture.asset(
     'assets/svg/pause_arrow.svg',

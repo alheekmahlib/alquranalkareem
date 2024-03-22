@@ -1,3 +1,4 @@
+import 'package:alquranalkareem/core/utils/constants/extensions/extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
@@ -30,19 +31,39 @@ class HomeScreen extends StatelessWidget {
                     isCenterChild: false,
                   ),
                   Flexible(
-                    child: ListView(
-                      padding: EdgeInsets.zero,
-                      children: [
-                        const HijriDate(),
-                        const ScreensList(),
-                        const Gap(8),
-                        const LastRead(),
-                        AyahWidget(),
-                        const Gap(16),
-                        DailyZeker(),
-                        const Gap(16),
-                      ],
-                    ),
+                    child: context.customOrientation(
+                        ListView(
+                          padding: EdgeInsets.zero,
+                          children: [
+                            HijriDate(),
+                            const Gap(16),
+                            const ScreensList(),
+                            const Gap(8),
+                            const LastRead(),
+                            AyahWidget(),
+                            const Gap(16),
+                            DailyZeker(),
+                            const Gap(16),
+                          ],
+                        ),
+                        ListView(
+                          padding: EdgeInsets.zero,
+                          children: [
+                            const Gap(8),
+                            Row(
+                              children: [
+                                Expanded(flex: 4, child: HijriDate()),
+                                const Expanded(flex: 4, child: ScreensList()),
+                              ],
+                            ),
+                            const Gap(8),
+                            const LastRead(),
+                            AyahWidget(),
+                            const Gap(16),
+                            DailyZeker(),
+                            const Gap(16),
+                          ],
+                        )),
                   ),
                 ],
               ),
