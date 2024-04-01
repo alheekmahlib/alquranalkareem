@@ -75,5 +75,9 @@
 		<string>Our app uses the microphone to allow voice chatting during gameplay.</string>
 		<key>UIStatusBarHidden</key>
 		<false/>
+		<key>UIBackgroundModes</key>
+        <array>
+            <string>audio</string>
+        </array>
 	</dict>
 </plist>
