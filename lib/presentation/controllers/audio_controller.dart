@@ -16,6 +16,7 @@ import 'package:rxdart/rxdart.dart' as R;
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../core/services/services_locator.dart';
+import '../../core/utils/constants/lists.dart';
 import '../../core/utils/constants/shared_preferences_constants.dart';
 import '../../core/utils/helpers/global_key_manager.dart';
 import '../../core/widgets/seek_bar.dart';
@@ -150,8 +151,14 @@ class AudioController extends GetxController {
       isFirstAyahInPage && !isFirstAyahInSurah;
 
   String get reader => readerValue!;
-  String get fileName => "$reader/${_currentAyahUQInPage.value}.mp3";
-  String get url => "${UrlConstants.ayahUrl}$fileName";
+  String get fileName => ayahReaderInfo[readerIndex.value]['url'] ==
+          UrlConstants.ayahUrl
+      ? "$reader/${_currentAyahUQInPage.value}.mp3"
+      : "$reader/${quranCtrl.getSurahNumberByAyah(quranCtrl.allAyahs[_currentAyahUQInPage.value]).toString().padLeft(3, "0")}${quranCtrl.allAyahs[_currentAyahUQInPage.value].ayahNumber.toString().padLeft(3, "0")}.mp3";
+  String get url =>
+      ayahReaderInfo[readerIndex.value]['url'] == UrlConstants.ayahUrl
+          ? "${UrlConstants.ayahUrl}$fileName"
+          : "${UrlConstants.ayahUrl2}$fileName";
   void get pausePlayer async {
     isPlay.value = false;
     await audioPlayer.pause();
@@ -418,6 +425,7 @@ class AudioController extends GetxController {
   }
 
   Future<void> initConnectivity() async {
+    late ConnectivityResult result;
     try {
       result = await _connectivity.checkConnectivity();
     } on PlatformException catch (e) {

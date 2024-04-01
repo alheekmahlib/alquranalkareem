@@ -33,8 +33,6 @@ class AyatController extends GetxController {
     saadiClient = SaadiDataBaseClient.instance;
     tabariClient = TabariDataBaseClient.instance;
   }
-  var ayatList = <Aya>[].obs;
-  var allAyatList = <Aya>[].obs;
   var tafseerList = <Tafsir>[].obs;
   String? selectedDBName;
   var dBName;

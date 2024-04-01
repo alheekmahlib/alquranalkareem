@@ -57,6 +57,8 @@ class WhatsNewScreen extends StatelessWidget {
                             ),
                             onTap: () {
                               Get.off(() => const ScreenTypeL());
+                              splashCtrl.saveLastShownIndex(
+                                  newFeatures.last['index']);
                             },
                           ),
                           SmoothPageIndicatorWidget(

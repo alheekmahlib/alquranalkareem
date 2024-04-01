@@ -31,43 +31,41 @@ class PagesWidget extends StatelessWidget {
             : const EdgeInsets.symmetric(vertical: 32.0, horizontal: 8.0),
         child: quranCtrl.pages.isEmpty
             ? const CircularProgressIndicator.adaptive()
-            : Column(
-                mainAxisSize: MainAxisSize.min,
-                children: List.generate(
-                    quranCtrl
-                        .getCurrentPageAyahsSeparatedForBasmalah(pageIndex)
-                        .length, (i) {
-                  final ayahs = quranCtrl
-                      .getCurrentPageAyahsSeparatedForBasmalah(pageIndex)[i];
-                  return Flexible(
-                    child: SingleChildScrollView(
-                      child: Column(children: [
-                        context.surahBannerFirstPlace(pageIndex, i),
-                        quranCtrl.getSurahNumberByAyah(ayahs.first) == 9 ||
-                                quranCtrl.getSurahNumberByAyah(ayahs.first) == 1
-                            ? const SizedBox.shrink()
-                            : Padding(
-                                padding: const EdgeInsets.only(bottom: 8.0),
-                                child: ayahs.first.ayahNumber == 1
-                                    ? (quranCtrl.getSurahNumberByAyah(
-                                                    ayahs.first) ==
-                                                95 ||
-                                            quranCtrl.getSurahNumberByAyah(
-                                                    ayahs.first) ==
-                                                97)
-                                        ? besmAllah2()
-                                        : besmAllah()
-                                    : const SizedBox.shrink(),
-                              ),
-                        TextBuild(
-                          pageIndex: pageIndex,
-                          ayahs: ayahs,
-                        ),
-                        context.surahBannerLastPlace(pageIndex, i),
-                      ]),
-                    ),
-                  );
-                }),
+            : SingleChildScrollView(
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: List.generate(
+                      quranCtrl
+                          .getCurrentPageAyahsSeparatedForBasmalah(pageIndex)
+                          .length, (i) {
+                    final ayahs = quranCtrl
+                        .getCurrentPageAyahsSeparatedForBasmalah(pageIndex)[i];
+                    return Column(children: [
+                      context.surahBannerFirstPlace(pageIndex, i),
+                      quranCtrl.getSurahNumberByAyah(ayahs.first) == 9 ||
+                              quranCtrl.getSurahNumberByAyah(ayahs.first) == 1
+                          ? const SizedBox.shrink()
+                          : Padding(
+                              padding: const EdgeInsets.only(bottom: 8.0),
+                              child: ayahs.first.ayahNumber == 1
+                                  ? (quranCtrl.getSurahNumberByAyah(
+                                                  ayahs.first) ==
+                                              95 ||
+                                          quranCtrl.getSurahNumberByAyah(
+                                                  ayahs.first) ==
+                                              97)
+                                      ? besmAllah2()
+                                      : besmAllah()
+                                  : const SizedBox.shrink(),
+                            ),
+                      TextBuild(
+                        pageIndex: pageIndex,
+                        ayahs: ayahs,
+                      ),
+                      context.surahBannerLastPlace(pageIndex, i),
+                    ]);
+                  }),
+                ),
               ),
       );
     });

@@ -24,7 +24,8 @@ class ChangeSurahReader extends StatelessWidget {
           children: [
             Obx(() {
               return Text(
-                surahReaderInfo[surahAudioCtrl.surahReaderIndex.value]['name'],
+                '${surahReaderInfo[surahAudioCtrl.surahReaderIndex.value]['name']}'
+                    .tr,
                 style: TextStyle(
                     color: Theme.of(context).colorScheme.surface,
                     fontSize: 13,
@@ -49,11 +50,11 @@ class ChangeSurahReader extends StatelessWidget {
                     const EdgeInsets.symmetric(horizontal: 16.0, vertical: 4.0),
                 child: ListTile(
                   title: Text(
-                    surahReaderInfo[index]['name'],
+                    '${surahReaderInfo[index]['name']}'.tr,
                     style: TextStyle(
                         color: surahAudioCtrl.sorahReaderNameValue ==
                                 surahReaderInfo[index]['readerN']
-                            ? Theme.of(context).primaryColorLight
+                            ? Theme.of(context).colorScheme.inversePrimary
                             : const Color(0xffcdba72),
                         fontSize: 14,
                         fontFamily: "kufi"),
@@ -62,20 +63,19 @@ class ChangeSurahReader extends StatelessWidget {
                     height: 20,
                     width: 20,
                     decoration: BoxDecoration(
-                      borderRadius:
-                          const BorderRadius.all(Radius.circular(2.0)),
+                      shape: BoxShape.circle,
                       border: Border.all(
                           color: surahAudioCtrl.sorahReaderNameValue ==
                                   surahReaderInfo[index]['readerN']
-                              ? Theme.of(context).primaryColorLight
+                              ? Theme.of(context).colorScheme.inversePrimary
                               : const Color(0xffcdba72),
                           width: 2),
-                      color: const Color(0xff39412a),
                     ),
                     child: surahAudioCtrl.sorahReaderNameValue ==
                             surahReaderInfo[index]['readerN']
-                        ? const Icon(Icons.done,
-                            size: 14, color: Color(0xffcdba72))
+                        ? Icon(Icons.done,
+                            size: 14,
+                            color: Theme.of(context).colorScheme.inversePrimary)
                         : null,
                   ),
                   onTap: () async {

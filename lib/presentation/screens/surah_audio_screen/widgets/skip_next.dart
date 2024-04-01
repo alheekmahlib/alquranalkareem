@@ -24,22 +24,12 @@ class SkipToNext extends StatelessWidget {
           ),
         ),
         onPressed: () {
-          if (surahAudioCtrl.isDownloading.value) {
-            if (surahAudioCtrl.surahNum.value == 114) {
-              surahAudioCtrl.surahNum.value = 1;
-              surahAudioCtrl.selectedSurah.value = 1;
-            } else {
-              surahAudioCtrl.surahNum.value += 1;
-              surahAudioCtrl.selectedSurah.value += 1;
-            }
+          if (surahAudioCtrl.surahNum.value == 114) {
+            surahAudioCtrl.surahNum.value = 1;
+            surahAudioCtrl.selectedSurah.value = 1;
           } else {
-            if (surahAudioCtrl.surahNum.value == 114) {
-              surahAudioCtrl.surahNum.value = 1;
-              surahAudioCtrl.selectedSurah.value = 1;
-            } else {
-              surahAudioCtrl.surahNum.value += 1;
-              surahAudioCtrl.selectedSurah.value += 1;
-            }
+            surahAudioCtrl.surahNum.value += 1;
+            surahAudioCtrl.selectedSurah.value += 1;
           }
           surahAudioCtrl.playNextSurah();
         },

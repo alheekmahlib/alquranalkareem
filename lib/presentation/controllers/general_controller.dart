@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:alquranalkareem/core/utils/constants/extensions/extensions.dart';
 import 'package:arabic_numbers/arabic_numbers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -75,6 +76,13 @@ class GeneralController extends GetxController {
   final themeCtrl = sl<ThemeController>();
   RxBool showSelectScreenPage = false.obs;
   RxInt screenSelectedValue = 0.obs;
+  var today = HijriCalendar.now();
+  List<int> noHadithInMonth = <int>[2, 3, 4, 5, 6];
+
+  bool get isNewHadith =>
+      today.hMonth != noHadithInMonth.contains(today.hMonth) ? true : false;
+
+  // final khatmahCtrl = sl<KhatmahController>();
 
   double get scr_height => _screenSize!.value.height;
 
@@ -136,6 +144,8 @@ class GeneralController extends GetxController {
         sl<QuranController>().getSurahNumberFromPage(index);
     sl<SharedPreferences>().setInt(MSTART_PAGE, index + 1);
     sl<SharedPreferences>().setInt(MLAST_URAH, lastReadSurahNumber.value);
+    // khatmahCtrl.saveLastKhatmah(
+    //     surahNumber: lastReadSurahNumber.value, pageNumber: index);
     // sl<QuranController>().selectedAyahIndexes.clear();
   }
 
@@ -151,16 +161,16 @@ class GeneralController extends GetxController {
     surahListController.jumpTo(position);
   }
 
-  int get surahNumber => sl<AyatController>()
-      .ayatList
-      .firstWhere((s) => s.pageNum == currentPageNumber.value)
-      .surahNum;
+  // int get surahNumber => sl<QuranController>()
+  //     .allAyahs
+  //     .firstWhere((s) => s.page == currentPageNumber.value)
+  //     .surahNum;
 
-  surahPosition() {
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      scrollToSurah(surahNumber);
-    });
-  }
+  // surahPosition() {
+  //   WidgetsBinding.instance.addPostFrameCallback((_) {
+  //     scrollToSurah(surahNumber);
+  //   });
+  // }
 
   scrollToAyah(int ayahNumber) {
     if (ayahListController.hasClients) {
@@ -331,8 +341,6 @@ class GeneralController extends GetxController {
     );
   }
 
-  var today = HijriCalendar.now();
-
   List get eidDaysList =>
       ['1-10', '2-10', '3-10', '10-12', '11-12', '12-12', '13-12'];
 
@@ -404,5 +412,75 @@ class GeneralController extends GetxController {
 
   double ifBigScreenSize(double s, double l) {
     return Get.width >= 1025.0 ? s : l;
+  }
+
+  double calculateProgress(int currentIndex, int total) {
+    int totalPages = total;
+    if (currentIndex < 1) {
+      return 0.0;
+    }
+    if (currentIndex > totalPages) {
+      return 100.0;
+    }
+    return ((currentIndex / totalPages) *
+        Get.context!.customOrientation(Get.width * .8, Get.width * .4));
+  }
+
+  double calculateProgress2(
+      int currentDay, int daysUntilEvent, double totalWidth) {
+    // Assuming currentDay is the day of the month and daysUntilEvent is the total days remaining until the event
+    double progressFraction = currentDay / (currentDay + daysUntilEvent);
+    return progressFraction * totalWidth;
+  }
+
+  String daysArabicConvert(int day) {
+    final List<int> daysList = [3, 4, 5, 6, 7, 8, 9, 10];
+    if ('lang'.tr == 'العربية') {
+      if (day == 1) {
+        return 'يوم';
+      } else if (day == 2) {
+        return 'يومان';
+      } else if (daysList.contains(day)) {
+        return 'أيام';
+      } else {
+        return 'Day';
+      }
+    } else {
+      return day == 1 ? 'Day' : 'Days';
+    }
+  }
+
+  double calculateDaysProgress(int year, int month, int day) {
+    HijriCalendar hijriCalendar = HijriCalendar();
+    DateTime start = DateTime.now();
+    DateTime end = hijriCalendar.hijriToGregorian(year, month, day);
+    int total = !start.isAfter(end)
+        ? DateTimeRange(start: start, end: end).duration.inDays
+        : DateTimeRange(start: end, end: start).duration.inDays;
+    int today = HijriCalendar.now().hDay;
+    int totalDays = total;
+    if (today < 1) {
+      return 0.0;
+    }
+    if (today > totalDays) {
+      return 100.0;
+    }
+    return (today / totalDays) * Get.width;
+  }
+
+  int calculateDaysUntilSpecificDate(int year, int month, int day) {
+    HijriCalendar hijriCalendar = HijriCalendar();
+    DateTime start = DateTime.now();
+    DateTime end = hijriCalendar.hijriToGregorian(year, month, day);
+    if (!start.isAfter(end)) {
+      // this if the end date is after the start date will do this logic
+      return DateTimeRange(start: start, end: end).duration.inDays;
+    } else {
+      // this if the end date is before the start date will do the else logic
+      end = end.copyWith(year: end.year + 1);
+      // return DateTimeRange(start: end, end: start).duration.inDays;
+      return DateTimeRange(start: start, end: end).duration.inDays;
+      // return start * end;
+    }
   }
 }

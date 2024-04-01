@@ -363,6 +363,21 @@
     "type": "text",
     "placeholders": {}
   },
+  "reader14": "Yasser Al-Dosari",
+  "@reader14": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "reader15": "Abdullah Al Juhany",
+  "@reader15": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "reader16": "Fares Abbad",
+  "@reader16": {
+    "type": "text",
+    "placeholders": {}
+  },
   "alheekmahlib": "Biblioteca Alheekmah",
   "@alheekmahlib": {
     "type": "text",
@@ -830,6 +845,141 @@
   },
   "What'sNewDetails7": "۞ Aumentar y disminuir el tamaño de la fuente.",
   "@What'sNewDetails7": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Sunday": "Domingo",
+  "@Sunday": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Monday": "Lunes",
+  "@Monday": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Tuesday": "Martes",
+  "@Tuesday": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Wednesday": "Miércoles",
+  "@Wednesday": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Thursday": "Jueves",
+  "@Thursday": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Friday": "Viernes",
+  "@Friday": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Saturday": "Sábado",
+  "@Saturday": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "RemainsUntilTheEndOf": "Queda hasta el final de",
+  "@RemainsUntilTheEndOf": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Muharram": "Muharram",
+  "@Muharram": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Safar": "Safar",
+  "@Safar": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Rabi' al-awwal": "Rabi' al-awwal",
+  "@Rabi' al-awwal": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Rabi' al-thani": "Rabi' al-thani",
+  "@Rabi' al-thani": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Jumada al-awwal": "Jumada al-awwal",
+  "@Jumada al-awwal": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Jumada al-thani": "Jumada al-thani",
+  "@Jumada al-thani": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Rajab": "Rajab",
+  "@Rajab": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Sha'ban": "Sha'ban",
+  "@Sha'ban": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Ramadan": "Ramadan",
+  "@Ramadan": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Shawwal": "Shawwal",
+  "@Shawwal": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Dhu al-Qi'dah": "Dhu al-Qi'dah",
+  "@Dhu al-Qi'dah": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Dhu al-Hijjah": "Dhu al-Hijjah",
+  "@Dhu al-Hijjah": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Day": "Día",
+  "@Day": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Days": "Días",
+  "@Days": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "hijriNote": "Nota: Tenga en cuenta que puede haber una ligera diferencia en los tiempos especificados ya que el calendario Hijri se basa en la observación directa de la luna creciente. Hacemos todo lo posible para asegurar la precisión de las fechas anunciadas, teniendo en cuenta que el calendario será corregido en caso de avistamiento de la luna.",
+  "@hijriNote": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "AH": "AH",
+  "@AH": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "What'sNewDetails8": "Un nuevo verso cada día con su interpretación",
+  "@What'sNewDetails8": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "What'sNewDetails9": "Fechas de las ocasiones islámicas",
+  "@What'sNewDetails9": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "What'sNewTitle8": "Un verso y su interpretación",
+  "@What'sNewTitle8": {
     "type": "text",
     "placeholders": {}
   }

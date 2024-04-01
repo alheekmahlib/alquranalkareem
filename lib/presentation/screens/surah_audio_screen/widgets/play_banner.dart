@@ -42,6 +42,7 @@ class PlayBanner extends StatelessWidget {
                 color: Theme.of(context).colorScheme.surface,
                 width: 4,
                 height: 15,
+                animate: true,
               ),
               Container(
                 height: 80,

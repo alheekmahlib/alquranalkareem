@@ -1,10 +1,10 @@
-import '../../../../core/utils/constants/extensions/extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../../core/services/services_locator.dart';
+import '../../../../core/utils/constants/extensions/extensions.dart';
 import '../../../../core/utils/constants/lists.dart';
 import '../../../../core/utils/constants/shared_preferences_constants.dart';
 import '../../../controllers/ayat_controller.dart';
@@ -62,20 +62,20 @@ class ChangeTafsir extends StatelessWidget {
                       title: Text(
                         tafsirName[index]['name'],
                         style: TextStyle(
-                            color:
-                                sl<AyatController>().radioValue.value == index
-                                    ? Theme.of(context).primaryColorLight
-                                    : const Color(0xffCDAD80),
+                            color: sl<AyatController>().radioValue.value ==
+                                    index
+                                ? Theme.of(context).colorScheme.inversePrimary
+                                : const Color(0xffCDAD80),
                             fontSize: 14,
                             fontFamily: 'kufi'),
                       ),
                       subtitle: Text(
                         tafsirName[index]['bookName'],
                         style: TextStyle(
-                            color:
-                                sl<AyatController>().radioValue.value == index
-                                    ? Theme.of(context).primaryColorLight
-                                    : const Color(0xffCDAD80),
+                            color: sl<AyatController>().radioValue.value ==
+                                    index
+                                ? Theme.of(context).colorScheme.inversePrimary
+                                : const Color(0xffCDAD80),
                             fontSize: 12,
                             fontFamily: 'kufi'),
                       ),
@@ -83,19 +83,21 @@ class ChangeTafsir extends StatelessWidget {
                         height: 20,
                         width: 20,
                         decoration: BoxDecoration(
-                          borderRadius:
-                              const BorderRadius.all(Radius.circular(20.0)),
+                          shape: BoxShape.circle,
                           border: Border.all(
-                              color:
-                                  sl<AyatController>().radioValue.value == index
-                                      ? Theme.of(context).primaryColorLight
-                                      : const Color(0xffCDAD80),
+                              color: sl<AyatController>().radioValue.value ==
+                                      index
+                                  ? Theme.of(context).colorScheme.inversePrimary
+                                  : const Color(0xffCDAD80),
                               width: 2),
                           color: Theme.of(context).colorScheme.background,
                         ),
                         child: sl<AyatController>().radioValue.value == index
-                            ? const Icon(Icons.done,
-                                size: 14, color: Color(0xff404C6E))
+                            ? Icon(Icons.done,
+                                size: 14,
+                                color: Theme.of(context)
+                                    .colorScheme
+                                    .inversePrimary)
                             : null,
                       ),
                       onTap: () async {

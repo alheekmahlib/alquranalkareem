@@ -108,6 +108,8 @@ class SelectScreenBuild extends StatelessWidget {
                                                 .value = index;
                                             sl<SharedPreferences>().setInt(
                                                 SCREEN_SELECTED_VALUE, index);
+                                            sl<SharedPreferences>().setBool(
+                                                IS_SCREEN_SELECTED_VALUE, true);
                                           },
                                           child: Column(
                                             children: [

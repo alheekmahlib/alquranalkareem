@@ -85,7 +85,11 @@ class QuranPages extends StatelessWidget {
                                     ),
                                     Align(
                                       alignment: Alignment.bottomLeft,
-                                      child: quranCtrl.showVerseToast(index),
+                                      child: Padding(
+                                          padding: const EdgeInsets.symmetric(
+                                              horizontal: 16.0),
+                                          child:
+                                              quranCtrl.showVerseToast(index)),
                                     ),
                                     Align(
                                       alignment: Alignment.bottomCenter,
@@ -185,7 +189,11 @@ class QuranPages extends StatelessWidget {
                                     ),
                                     Align(
                                       alignment: Alignment.bottomLeft,
-                                      child: quranCtrl.showVerseToast(index),
+                                      child: Padding(
+                                          padding: const EdgeInsets.symmetric(
+                                              horizontal: 16.0),
+                                          child:
+                                              quranCtrl.showVerseToast(index)),
                                     ),
                                     Align(
                                       alignment: Alignment.bottomCenter,
@@ -233,7 +241,11 @@ class QuranPages extends StatelessWidget {
                                     ),
                                     Align(
                                       alignment: Alignment.bottomRight,
-                                      child: quranCtrl.showVerseToast(index),
+                                      child: Padding(
+                                          padding: const EdgeInsets.symmetric(
+                                              horizontal: 16.0),
+                                          child:
+                                              quranCtrl.showVerseToast(index)),
                                     ),
                                     Align(
                                       alignment: Alignment.bottomCenter,

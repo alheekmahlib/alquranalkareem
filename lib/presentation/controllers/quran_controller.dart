@@ -67,7 +67,6 @@ class QuranController extends GetxController {
     375,
     413,
     416,
-    434,
     444,
     451,
     497,
