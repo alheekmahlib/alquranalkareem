@@ -148,6 +148,7 @@ class SurahAudioList extends StatelessWidget {
                                                 .surface,
                                             width: 4,
                                             height: 15,
+                                            animate: true,
                                           ),
                                         const Gap(8.0),
                                         Obx(() => surahAudioCtrl
@@ -167,10 +168,9 @@ class SurahAudioList extends StatelessWidget {
                               onTap: () {
                                 print('Surah tapped with index: $index');
                                 // sl<GeneralController>().closeSlider();
-                                surahAudioCtrl.isDownloading.value = false;
                                 surahAudioCtrl.selectedSurah.value = index;
                                 surahAudioCtrl.surahNum.value = index + 1;
-                                surahAudioCtrl.playNextSurah();
+                                // surahAudioCtrl.playNextSurah();
                                 surahAudioCtrl.changeAudioSource();
                                 print(
                                     'Updated sorahNum.value to: ${surahAudioCtrl.surahNum.value}');

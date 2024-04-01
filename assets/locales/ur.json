@@ -360,6 +360,16 @@
     "type": "text",
     "placeholders": {}
   },
+  "reader15": "عبد اللہ الجہنی",
+  "@reader15": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "reader16": "فارس عباد",
+  "@reader16": {
+    "type": "text",
+    "placeholders": {}
+  },
   "alheekmahlib": "الحکمہ لائبریری",
   "@alheekmahlib": {
     "type": "text",
@@ -967,6 +977,21 @@
   },
   "AH": "AH",
   "@AH": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "What'sNewDetails8": "ہر روز ایک نئی آیت اور اس کی تفسیر",
+  "@What'sNewDetails8": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "What'sNewDetails9": "اسلامی مواقع کی تاریخیں",
+  "@What'sNewDetails9": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "What'sNewTitle8": "آیت اور اس کی تفسیر",
+  "@What'sNewTitle8": {
     "type": "text",
     "placeholders": {}
   }

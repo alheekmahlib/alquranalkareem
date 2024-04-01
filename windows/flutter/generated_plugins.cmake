@@ -6,6 +6,7 @@ list(APPEND FLUTTER_PLUGIN_LIST
   connectivity_plus
   desktop_window
   share_plus
+  simple_animation_progress_bar
   url_launcher_windows
 )
 

@@ -77,6 +77,10 @@ class GeneralController extends GetxController {
   RxBool showSelectScreenPage = false.obs;
   RxInt screenSelectedValue = 0.obs;
   var today = HijriCalendar.now();
+  List<int> noHadithInMonth = <int>[2, 3, 4, 5, 6];
+
+  bool get isNewHadith =>
+      today.hMonth != noHadithInMonth.contains(today.hMonth) ? true : false;
 
   // final khatmahCtrl = sl<KhatmahController>();
 
@@ -418,16 +422,15 @@ class GeneralController extends GetxController {
     if (currentIndex > totalPages) {
       return 100.0;
     }
-    return (currentIndex / totalPages) *
-        Get.context!.customOrientation(Get.width, Get.width * .3);
+    return ((currentIndex / totalPages) *
+        Get.context!.customOrientation(Get.width * .8, Get.width * .4));
   }
 
   double calculateProgress2(
       int currentDay, int daysUntilEvent, double totalWidth) {
     // Assuming currentDay is the day of the month and daysUntilEvent is the total days remaining until the event
     double progressFraction = currentDay / (currentDay + daysUntilEvent);
-    return progressFraction *
-        totalWidth; // Calculate the proportional width based on progress
+    return progressFraction * totalWidth;
   }
 
   String daysArabicConvert(int day) {

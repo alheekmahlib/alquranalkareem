@@ -70,15 +70,7 @@ class PlayWidget extends StatelessWidget {
                   ),
                 ),
                 const ChangeSurahReader(),
-                Obx(
-                  () => surahCtrl.surahDownloadStatus
-                              .value[surahCtrl.surahNum.value] ??
-                          false
-                      ? const SurahSeekBar()
-                      : sl<SurahAudioController>().isDownloading.value == true
-                          ? const DownloadSurahSeekBar()
-                          : const SurahSeekBar(),
-                ),
+                const SurahSeekBar(),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 32.0),
                   child: Row(

@@ -21,14 +21,14 @@ class ChangeReader extends StatelessWidget {
         child: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Text(
-              '${ayahReaderInfo[sl<AudioController>().readerIndex.value]['name']}'
-                  .tr,
-              style: TextStyle(
-                  color: Theme.of(context).colorScheme.surface,
-                  fontSize: 13,
-                  fontFamily: 'kufi'),
-            ),
+            Obx(() => Text(
+                  '${ayahReaderInfo[sl<AudioController>().readerIndex.value]['name']}'
+                      .tr,
+                  style: TextStyle(
+                      color: Theme.of(context).colorScheme.surface,
+                      fontSize: 13,
+                      fontFamily: 'kufi'),
+                )),
             Semantics(
               button: true,
               enabled: true,
@@ -47,11 +47,11 @@ class ChangeReader extends StatelessWidget {
                     const EdgeInsets.symmetric(horizontal: 16.0, vertical: 4.0),
                 child: ListTile(
                   title: Text(
-                    ayahReaderInfo[index]['name'],
+                    '${ayahReaderInfo[index]['name']}'.tr,
                     style: TextStyle(
                         color: sl<AudioController>().readerValue ==
                                 ayahReaderInfo[index]['readerD']
-                            ? Theme.of(context).primaryColorLight
+                            ? Theme.of(context).colorScheme.inversePrimary
                             : const Color(0xffcdba72),
                         fontSize: 14,
                         fontFamily: "kufi"),
@@ -60,20 +60,20 @@ class ChangeReader extends StatelessWidget {
                     height: 20,
                     width: 20,
                     decoration: BoxDecoration(
-                      borderRadius:
-                          const BorderRadius.all(Radius.circular(2.0)),
+                      shape: BoxShape.circle,
                       border: Border.all(
                           color: sl<AudioController>().readerValue ==
                                   ayahReaderInfo[index]['readerD']
-                              ? Theme.of(context).primaryColorLight
+                              ? Theme.of(context).colorScheme.inversePrimary
                               : const Color(0xffcdba72),
                           width: 2),
-                      color: const Color(0xff39412a),
+                      // color: const Color(0xff39412a),
                     ),
                     child: sl<AudioController>().readerValue ==
                             ayahReaderInfo[index]['readerD']
-                        ? const Icon(Icons.done,
-                            size: 14, color: Color(0xffcdba72))
+                        ? Icon(Icons.done,
+                            size: 14,
+                            color: Theme.of(context).colorScheme.inversePrimary)
                         : null,
                   ),
                   onTap: () async {

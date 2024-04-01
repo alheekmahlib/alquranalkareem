@@ -1,11 +1,11 @@
-import '../../../../core/utils/constants/extensions/extensions.dart';
-import '../../../../core/utils/constants/lottie_constants.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../../core/services/services_locator.dart';
+import '../../../../core/utils/constants/extensions/extensions.dart';
 import '../../../../core/utils/constants/lottie.dart';
+import '../../../../core/utils/constants/lottie_constants.dart';
 import '../../../controllers/surah_audio_controller.dart';
 import '/core/widgets/tab_bar_widget.dart';
 import 'last_listen.dart';
@@ -55,15 +55,12 @@ class BackDropWidget extends StatelessWidget {
                           const Align(
                               alignment: Alignment.topRight,
                               child: SurahSearch()),
-                          Obx(() => sl<SurahAudioController>()
-                                      .isDownloading
-                                      .value ||
-                                  sl<SurahAudioController>().isPlaying.value ==
-                                      true
-                              ? const Align(
-                                  alignment: Alignment.topLeft,
-                                  child: PlayBanner())
-                              : const SizedBox.shrink())
+                          Obx(() =>
+                              sl<SurahAudioController>().isPlaying.value == true
+                                  ? const Align(
+                                      alignment: Alignment.topLeft,
+                                      child: PlayBanner())
+                                  : const SizedBox.shrink())
                         ],
                       ),
                     ),
@@ -111,17 +108,13 @@ class BackDropWidget extends StatelessWidget {
                           Column(
                             children: [
                               const SurahSearch(),
-                              Obx(() => sl<SurahAudioController>()
-                                          .isDownloading
-                                          .value ||
-                                      sl<SurahAudioController>()
-                                              .isPlaying
-                                              .value ==
+                              Obx(() =>
+                                  sl<SurahAudioController>().isPlaying.value ==
                                           true
-                                  ? const Align(
-                                      alignment: Alignment.topLeft,
-                                      child: PlayBanner())
-                                  : const SizedBox.shrink())
+                                      ? const Align(
+                                          alignment: Alignment.topLeft,
+                                          child: PlayBanner())
+                                      : const SizedBox.shrink())
                             ],
                           ),
                         ],

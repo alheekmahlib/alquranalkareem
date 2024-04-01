@@ -360,6 +360,16 @@
     "type": "text",
     "placeholders": {}
   },
+  "reader15": "Abdullah Al Juhany",
+  "@reader15": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "reader16": "Fares Abbad",
+  "@reader16": {
+    "type": "text",
+    "placeholders": {}
+  },
   "alheekmahlib": "Alheekmah Library",
   "@alheekmahlib": {
     "type": "text",
@@ -967,6 +977,21 @@
   },
   "AH": "AH",
   "@AH": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "What'sNewDetails8": "A new verse every day with its interpretation",
+  "@What'sNewDetails8": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "What'sNewDetails9": "Dates of Islamic occasions",
+  "@What'sNewDetails9": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "What'sNewTitle8": "A verse and its interpretation",
+  "@What'sNewTitle8": {
     "type": "text",
     "placeholders": {}
   }

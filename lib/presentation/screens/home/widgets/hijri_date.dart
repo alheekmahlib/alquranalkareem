@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
+import 'package:simple_animation_progress_bar/simple_animation_progress_bar.dart';
 
 import '../../../../../../core/services/services_locator.dart';
 import '../../../controllers/general_controller.dart';
@@ -22,7 +23,7 @@ class HijriDate extends StatelessWidget {
         onTap: () =>
             Get.bottomSheet(OccasionsWidget(), isScrollControlled: true),
         child: ContainerButton(
-          height: 170,
+          height: 190,
           width: 250,
           child: Container(
             width: MediaQuery.sizeOf(context).width,
@@ -122,31 +123,24 @@ class HijriDate extends StatelessWidget {
                   ],
                 ),
                 Container(
-                  height: 23,
+                  height: 40,
                   width: MediaQuery.sizeOf(context).width,
                   margin: const EdgeInsets.symmetric(horizontal: 8.0),
                   child: Stack(
                     children: [
-                      Container(
-                        decoration: BoxDecoration(
-                          color: Theme.of(context).canvasColor,
-                          borderRadius: const BorderRadius.all(
-                            Radius.circular(4),
-                          ),
-                        ),
-                      ),
-                      Container(
-                        width: generalCtrl.calculateProgress2(
-                            generalCtrl.today.hDay,
-                            generalCtrl.today.lengthOfMonth -
-                                generalCtrl.today.hDay,
-                            330),
-                        decoration: BoxDecoration(
-                          color: Theme.of(context).colorScheme.surface,
-                          borderRadius: const BorderRadius.all(
-                            Radius.circular(4),
-                          ),
-                        ),
+                      SimpleAnimationProgressBar(
+                        height: 40,
+                        width: 330,
+                        backgroundColor: Theme.of(context).canvasColor,
+                        foregrondColor: Theme.of(context).colorScheme.surface,
+                        ratio: (generalCtrl.today.hDay /
+                                generalCtrl.today.lengthOfMonth)
+                            .toDouble(),
+                        direction: Axis.horizontal,
+                        reverseAlignment: true,
+                        curve: Curves.fastLinearToSlowEaseIn,
+                        duration: const Duration(seconds: 3),
+                        borderRadius: BorderRadius.circular(4),
                       ),
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 8.0),
@@ -163,9 +157,7 @@ class HijriDate extends StatelessWidget {
                                     style: TextStyle(
                                       fontSize: 14.0,
                                       fontFamily: 'kufi',
-                                      color: Theme.of(context)
-                                          .colorScheme
-                                          .inversePrimary,
+                                      color: Theme.of(context).disabledColor,
                                     ),
                                     textAlign: TextAlign.center,
                                   ),
@@ -181,9 +173,7 @@ class HijriDate extends StatelessWidget {
                                     style: TextStyle(
                                       fontSize: 14.0,
                                       fontFamily: 'kufi',
-                                      color: Theme.of(context)
-                                          .colorScheme
-                                          .inversePrimary,
+                                      color: Theme.of(context).disabledColor,
                                     ),
                                     textAlign: TextAlign.center,
                                   ),

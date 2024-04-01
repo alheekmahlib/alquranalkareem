@@ -360,6 +360,16 @@
     "type": "text",
     "placeholders": {}
   },
+  "reader15": "Abdullah Al Juhany",
+  "@reader15": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "reader16": "Fares Abbad",
+  "@reader16": {
+    "type": "text",
+    "placeholders": {}
+  },
   "alheekmahlib": "Maktabadda Al Heekmah",
   "@alheekmahlib": {
     "type": "text",
@@ -967,6 +977,21 @@
   },
   "AH": "AH",
   "@AH": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "What'sNewDetails8": "Maalin kasta aayad cusub iyo fasiraaddeeda",
+  "@What'sNewDetails8": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "What'sNewDetails9": "Taariikhaha munaasabadaha Islaamka",
+  "@What'sNewDetails9": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "What'sNewTitle8": "Aayad iyo fasiraaddeeda",
+  "@What'sNewTitle8": {
     "type": "text",
     "placeholders": {}
   }

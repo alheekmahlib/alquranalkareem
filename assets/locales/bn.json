@@ -360,6 +360,16 @@
     "type": "text",
     "placeholders": {}
   },
+  "reader15": "আবদুল্লাহ আল-জুহানি",
+  "@reader15": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "reader16": "ফারেস আব্বাদ",
+  "@reader16": {
+    "type": "text",
+    "placeholders": {}
+  },
   "alheekmahlib": "আলহেকমাহ লাইব্রেরী",
   "@alheekmahlib": {
     "type": "text",
@@ -967,6 +977,21 @@
   },
   "AH": "AH",
   "@AH": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "What'sNewDetails8": "প্রতিদিন একটি নতুন আয়াত সহ এর ব্যাখ্যা",
+  "@What'sNewDetails8": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "What'sNewDetails9": "ইসলামিক উপলক্ষের তারিখসমূহ",
+  "@What'sNewDetails9": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "What'sNewTitle8": "একটি আয়াত এবং এর ব্যাখ্যা",
+  "@What'sNewTitle8": {
     "type": "text",
     "placeholders": {}
   }

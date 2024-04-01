@@ -54,6 +54,20 @@ class LastRead extends StatelessWidget {
                 child: Stack(
                   alignment: Alignment.centerRight,
                   children: [
+                    // SimpleAnimationProgressBar(
+                    //   height: 70,
+                    //   width: MediaQuery.sizeOf(context).width,
+                    //   backgroundColor: Theme.of(context).canvasColor,
+                    //   foregrondColor:
+                    //       Theme.of(context).colorScheme.surface.withOpacity(.5),
+                    //   ratio: generalCtrl.calculateProgress(
+                    //       generalCtrl.currentPageNumber.value, 604),
+                    //   direction: Axis.horizontal,
+                    //   reverseAlignment: true,
+                    //   curve: Curves.fastLinearToSlowEaseIn,
+                    //   duration: const Duration(seconds: 3),
+                    //   borderRadius: BorderRadius.circular(8),
+                    // ),
                     Container(
                       height: 70,
                       width: generalCtrl.calculateProgress(

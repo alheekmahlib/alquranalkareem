@@ -223,7 +223,19 @@ List surahReaderInfo = [
     'readerD': '${UrlConstants.surahUrl}',
     'readerN': 'yasser_ad-dussary/',
     'readerI': 'yasser_ad-dussary'
-  }
+  },
+  {
+    'name': 'reader15',
+    'readerD': '${UrlConstants.surahUrl}',
+    'readerN': 'abdullaah_3awwaad_al-juhaynee/',
+    'readerI': 'Juhaynee'
+  },
+  {
+    'name': 'reader16',
+    'readerD': '${UrlConstants.surahUrl}',
+    'readerN': 'fares/',
+    'readerI': 'Fares'
+  },
 ];
 
 List tafsirName = [
@@ -301,14 +313,52 @@ List tafsirNameRandom = [
 List ayahReaderInfo = [
   {
     'name': 'reader1',
-    'readerD': '192/ar.abdulbasitmurattal',
-    'readerI': 'basit'
+    'readerD': 'Abdul_Basit_Murattal_192kbps',
+    'readerI': 'basit',
+    'url': '${UrlConstants.ayahUrl2}'
   },
-  {'name': 'reader2', 'readerD': '128/ar.minshawi', 'readerI': 'minshawy'},
-  {'name': 'reader3', 'readerD': '128/ar.husary', 'readerI': 'husary'},
-  {'name': 'reader4', 'readerD': '128/ar.ahmedajamy', 'readerI': 'ajamy'},
-  {'name': 'reader5', 'readerD': '128/ar.mahermuaiqly', 'readerI': 'muaiqly'},
-  {'name': 'reader6', 'readerD': '64/ar.saoodshuraym', 'readerI': 'saood'}
+  {
+    'name': 'reader2',
+    'readerD': 'Minshawy_Murattal_128kbps',
+    'readerI': 'minshawy',
+    'url': '${UrlConstants.ayahUrl2}'
+  },
+  {
+    'name': 'reader3',
+    'readerD': 'Husary_128kbps',
+    'readerI': 'husary',
+    'url': '${UrlConstants.ayahUrl2}'
+  },
+  {
+    'name': 'reader4',
+    'readerD': '128/ar.ahmedajamy',
+    'readerI': 'ajamy',
+    'url': '${UrlConstants.ayahUrl}'
+  },
+  {
+    'name': 'reader5',
+    'readerD': 'MaherAlMuaiqly128kbps',
+    'readerI': 'muaiqly',
+    'url': '${UrlConstants.ayahUrl2}'
+  },
+  {
+    'name': 'reader6',
+    'readerD': 'Saood_ash-Shuraym_128kbps',
+    'readerI': 'saood',
+    'url': '${UrlConstants.ayahUrl2}'
+  },
+  {
+    'name': 'reader15',
+    'readerD': 'Abdullaah_3awwaad_Al-Juhaynee_128kbps',
+    'readerI': 'Juhaynee',
+    'url': '${UrlConstants.ayahUrl2}'
+  },
+  {
+    'name': 'reader16',
+    'readerD': 'Fares_Abbad_64kbps',
+    'readerI': 'Fares',
+    'url': '${UrlConstants.ayahUrl2}'
+  },
 ];
 
 List<Map<String, dynamic>> whatsNewList = [
@@ -355,6 +405,31 @@ List<Map<String, dynamic>> whatsNewList = [
     'details': "What'sNewDetails7",
     'imagePath': 'assets/images/fontSize.png',
   },
+  {
+    'index': 8,
+    'title': "What'sNewTitle8",
+    'details': "What'sNewDetails8",
+    'imagePath': 'assets/images/ayahAndTafsir.png',
+  },
+  {
+    'index': 9,
+    'title': "What'sNewDetails9",
+    'details': "",
+    'imagePath': 'assets/images/IslamicOccasions.png',
+  },
+  {
+    'index': 10,
+    'title': "What'sNewTitle5",
+    'details': "◉ ${'reader14'.tr}",
+    'imagePath': '',
+  },
+  {
+    'index': 11,
+    'title': "What'sNewTitle5",
+    'details':
+        "${'ayahs'.tr}:\n\n◉ ${'reader15'.tr}\n◉ ${'reader16'.tr}\n\n${'quran_sorah'.tr}:\n\n◉ ${'reader15'.tr}\n◉ ${'reader16'.tr}",
+    'imagePath': '',
+  },
 ];
 
 const List occasionList = [
@@ -363,4 +438,82 @@ const List occasionList = [
   {'title': 'Blessed Eid al-Fitr', 'month': 10, 'day': 1},
   {'title': 'Day of Arafah', 'month': 12, 'day': 9},
   {'title': 'Blessed Eid al-Adha', 'month': 12, 'day': 10}
+];
+
+const List monthHadithsList = [
+  {
+    'hadithPart1':
+        'عَنْ أَبِي هُرَيْرَةَ، - رضى الله عنه - قَالَ قَالَ رَسُولُ اللَّهِ صلى الله عليه وسلم',
+    'hadithPart2':
+        '"‏ أَفْضَلُ الصِّيَامِ بَعْدَ رَمَضَانَ شَهْرُ اللَّهِ الْمُحَرَّمُ وَأَفْضَلُ الصَّلاَةِ بَعْدَ الْفَرِيضَةِ صَلاَةُ اللَّيْلِ ‏"‏ ‏.‏',
+    'bookName': ' صحيح مسلم كتاب الصيام - ٤٠٤',
+  },
+  {
+    'hadithPart1':
+        ' كَانَ أَصْحَابُ رَسُولِ اللهِ صَلَّى اللهُ عَلَيْهِ وَسَلَّمَ، يَتَعَلَّمُونَ هَذَا الدُّعَاءَ كَمَا يَتَعَلَّمُونَ القُرآنَ إِذَا دَخَل الشَّهْرُ أَوِ السَّنَةُ: ',
+    'hadithPart2':
+        'اللَّهُمَّ أَدْخِلْهُ عَلَيْنَا بِالْأَمْنِ، وَالْإِيمَانِ، وَالسَّلَامَةِ، وَالْإِسْلَامِ، وَجوار مِنَ الشَّيْطَانِ، وَرِضْوَانٍ مِنَ الرَّحْمَنِ ".',
+    'bookName': ' صححه الحافظ ابن حجر في "الإصابة" ٦ / ٤٠٧ - ٤٠٨',
+  },
+  {
+    'hadithPart1': '',
+    'hadithPart2': '',
+    'bookName': '',
+  },
+  {
+    'hadithPart1': '',
+    'hadithPart2': '',
+    'bookName': '',
+  },
+  {
+    'hadithPart1': '',
+    'hadithPart2': '',
+    'bookName': '',
+  },
+  {
+    'hadithPart1': '',
+    'hadithPart2': '',
+    'bookName': '',
+  },
+  {
+    'hadithPart1':
+        'عَنْ أَبِي بَكْرَةَ ـ رضى الله عنه ـ عَنِ النَّبِيِّ صلى الله عليه وسلم قَالَ',
+    'hadithPart2':
+        '"‏ الزَّمَانُ قَدِ اسْتَدَارَ كَهَيْئَتِهِ يَوْمَ خَلَقَ السَّمَوَاتِ وَالأَرْضَ، السَّنَةُ اثْنَا عَشَرَ شَهْرًا، مِنْهَا أَرْبَعَةٌ حُرُمٌ، ثَلاَثَةٌ مُتَوَالِيَاتٌ ذُو الْقَعْدَةِ وَذُو الْحِجَّةِ وَالْمُحَرَّمُ، وَرَجَبُ مُضَرَ الَّذِي بَيْنَ جُمَادَى وَشَعْبَانَ ‏"‏‏.‏',
+    'bookName': ' صحيح البخاري كتاب بدء الخلق - ٣١٩٧',
+  },
+  {
+    'hadithPart1': 'عَنْ عَائِشَةَ ـ رضى الله عنها ـ قَالَتْ',
+    'hadithPart2':
+        '"كَانَ رَسُولُ اللَّهِ صلى الله عليه وسلم يَصُومُ حَتَّى نَقُولَ لاَ يُفْطِرُ، وَيُفْطِرُ حَتَّى نَقُولَ لاَ يَصُومُ‏.‏ فَمَا رَأَيْتُ رَسُولَ اللَّهِ صلى الله عليه وسلم اسْتَكْمَلَ صِيَامَ شَهْرٍ إِلاَّ رَمَضَانَ، وَمَا رَأَيْتُهُ أَكْثَرَ صِيَامًا مِنْهُ فِي شَعْبَانَ‏.‏"',
+    'bookName': ' صحيح البخاري كتاب الصوم - ١٩٦٩',
+  },
+  {
+    'hadithPart1':
+        'عَنْ أَبِي هُرَيْرَةَ، أَنَّ رَسُولَ اللَّهِ صلى الله عليه وسلم قَالَ',
+    'hadithPart2':
+        '"‏ مَنْ قَامَ رَمَضَانَ إِيمَانًا وَاحْتِسَابًا غُفِرَ لَهُ مَا تَقَدَّمَ مِنْ ذَنْبِهِ ‏"‏‏.‏',
+    'bookName': ' صحيح البخاري كتاب الإيمان - ٣٧',
+  },
+  {
+    'hadithPart1':
+        'عَنْ أَبِي أَيُّوبَ الأَنْصَارِيِّ، - رضى الله عنه - أَنَّهُ حَدَّثَهُ أَنَّ رَسُولَ اللَّهِ صلى الله عليه وسلم قَالَ',
+    'hadithPart2':
+        '"‏ مَنْ صَامَ رَمَضَانَ ثُمَّ أَتْبَعَهُ سِتًّا مِنْ شَوَّالٍ كَانَ كَصِيَامِ الدَّهْرِ ‏"‏ ‏.‏',
+    'bookName': ' صحيح مسلم كتاب الصيام - ٤٠٤',
+  },
+  {
+    'hadithPart1':
+        'عَنِ ابْنِ عَبَّاسٍ ـ رضى الله عنهما ـ أَنَّهُ سُئِلَ عَنْ مُتْعَةِ الْحَجِّ، فَقَالَ أَهَلَّ الْمُهَاجِرُونَ وَالأَنْصَارُ وَأَزْوَاجُ النَّبِيِّ صلى الله عليه وسلم فِي حَجَّةِ الْوَدَاعِ وَأَهْلَلْنَا، فَلَمَّا قَدِمْنَا مَكَّةَ قَالَ رَسُولُ اللَّهِ صلى الله عليه وسلم',
+    'hadithPart2':
+        '"‏ اجْعَلُوا إِهْلاَلَكُمْ بِالْحَجِّ عُمْرَةً إِلاَّ مَنْ قَلَّدَ الْهَدْىَ ‏"‏‏.‏ فَطُفْنَا بِالْبَيْتِ وَبِالصَّفَا وَالْمَرْوَةِ وَأَتَيْنَا النِّسَاءَ، وَلَبِسْنَا الثِّيَابَ وَقَالَ ‏"‏ مَنْ قَلَّدَ الْهَدْىَ فَإِنَّهُ لاَ يَحِلُّ لَهُ حَتَّى يَبْلُغَ الْهَدْىُ مَحِلَّهُ ‏"‏‏.‏ ثُمَّ أَمَرَنَا عَشِيَّةَ التَّرْوِيَةِ أَنْ نُهِلَّ بِالْحَجِّ، فَإِذَا فَرَغْنَا مِنَ الْمَنَاسِكِ جِئْنَا فَطُفْنَا بِالْبَيْتِ وَبِالصَّفَا وَالْمَرْوَةِ فَقَدْ تَمَّ حَجُّنَا، وَعَلَيْنَا الْهَدْىُ كَمَا قَالَ اللَّهُ تَعَالَى ‏{‏فَمَا اسْتَيْسَرَ مِنَ الْهَدْىِ فَمَنْ لَمْ يَجِدْ فَصِيَامُ ثَلاَثَةِ أَيَّامٍ فِي الْحَجِّ وَسَبْعَةٍ إِذَا رَجَعْتُمْ‏}‏ إِلَى أَمْصَارِكُمْ‏.‏ الشَّاةُ تَجْزِي، فَجَمَعُوا نُسُكَيْنِ فِي عَامٍ بَيْنَ الْحَجِّ وَالْعُمْرَةِ، فَإِنَّ اللَّهَ تَعَالَى أَنْزَلَهُ فِي كِتَابِهِ وَسَنَّهُ نَبِيُّهُ صلى الله عليه وسلم وَأَبَاحَهُ لِلنَّاسِ غَيْرَ أَهْلِ مَكَّةَ، قَالَ اللَّهُ ‏{‏ذَلِكَ لِمَنْ لَمْ يَكُنْ أَهْلُهُ حَاضِرِي الْمَسْجِدِ الْحَرَامِ‏}‏ وَأَشْهُرُ الْحَجِّ الَّتِي ذَكَرَ اللَّهُ تَعَالَى شَوَّالٌ وَذُو الْقَعْدَةِ وَذُو الْحَجَّةِ، فَمَنْ تَمَتَّعَ فِي هَذِهِ الأَشْهُرِ فَعَلَيْهِ دَمٌ أَوْ صَوْمٌ، وَالرَّفَثُ الْجِمَاعُ، وَالْفُسُوقُ الْمَعَاصِي، وَالْجِدَالُ الْمِرَاءُ‏.‏',
+    'bookName': ' صحيح البخاري كتاب الحج - ١٥٧٢',
+  },
+  {
+    'hadithPart1':
+        'أَخْبَرَنِي عَبْدُ الرَّحْمَنِ بْنُ أَبِي بَكْرَةَ، عَنْ أَبِيهِ ـ رضى الله عنه ـ عَنِ النَّبِيِّ صلى الله عليه وسلم قَالَ',
+    'hadithPart2':
+        '"‏ شَهْرَانِ لاَ يَنْقُصَانِ شَهْرَا عِيدٍ رَمَضَانُ وَذُو الْحَجَّةِ ‏"‏‏.‏',
+    'bookName': ' صحيح البخاري كتاب الصوم - ١٩١٢',
+  },
 ];

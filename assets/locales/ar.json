@@ -359,6 +359,16 @@
     "type": "text",
     "placeholders": {}
   },
+  "reader15": "عبد الله الجهني",
+  "@reader15": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "reader16": "فارس عباد",
+  "@reader16": {
+    "type": "text",
+    "placeholders": {}
+  },
   "alheekmahlib": "مكتبة الحكمة",
   "@alheekmahlib": {
     "type": "text",
@@ -966,6 +976,21 @@
   },
   "AH": "للهجرة",
   "@AH": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "What'sNewDetails8": "كل يوم آية جديدة مع تفسيرها",
+  "@What'sNewDetails8": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "What'sNewDetails9": "مواعيد المناسبات الإسلامية",
+  "@What'sNewDetails9": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "What'sNewTitle8": "آية وتفسيرها",
+  "@What'sNewTitle8": {
     "type": "text",
     "placeholders": {}
   }

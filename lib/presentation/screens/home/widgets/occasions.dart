@@ -58,8 +58,10 @@ class OccasionsWidget extends StatelessWidget {
                                 Text.rich(
                                   TextSpan(children: [
                                     TextSpan(
-                                      text:
-                                          ' كَانَ أَصْحَابُ رَسُولِ اللهِ صَلَّى اللهُ عَلَيْهِ وَسَلَّمَ، يَتَعَلَّمُونَ هَذَا الدُّعَاءَ كَمَا يَتَعَلَّمُونَ القُرآنَ إِذَا دَخَل الشَّهْرُ أَوِ السَّنَةُ: ',
+                                      text: generalCtrl.isNewHadith
+                                          ? monthHadithsList[generalCtrl
+                                              .today.hMonth]['hadithPart1']
+                                          : monthHadithsList[1]['hadithPart1'],
                                       style: TextStyle(
                                         fontSize: 14.0,
                                         fontFamily: 'kufi',
@@ -69,10 +71,12 @@ class OccasionsWidget extends StatelessWidget {
                                             .withOpacity(.7),
                                       ),
                                     ),
-                                    const TextSpan(
-                                      text:
-                                          'اللَّهُمَّ أَدْخِلْهُ عَلَيْنَا بِالْأَمْنِ، وَالْإِيمَانِ، وَالسَّلَامَةِ، وَالْإِسْلَامِ، وَجوار مِنَ الشَّيْطَانِ، وَرِضْوَانٍ مِنَ الرَّحْمَنِ ".\n\n',
-                                      style: TextStyle(
+                                    TextSpan(
+                                      text: generalCtrl.isNewHadith
+                                          ? monthHadithsList[generalCtrl
+                                              .today.hMonth]['hadithPart2']
+                                          : monthHadithsList[1]['hadithPart2'],
+                                      style: const TextStyle(
                                         fontSize: 14.0,
                                         fontFamily: 'kufi',
                                         height: 1.9,
@@ -80,8 +84,10 @@ class OccasionsWidget extends StatelessWidget {
                                       ),
                                     ),
                                     TextSpan(
-                                      text:
-                                          'صححه الحافظ ابن حجر في "الإصابة" (6 / 407 - 408)',
+                                      text: generalCtrl.isNewHadith
+                                          ? monthHadithsList[generalCtrl
+                                              .today.hMonth]['bookName']
+                                          : monthHadithsList[1]['bookName'],
                                       style: TextStyle(
                                         fontSize: 12.0,
                                         fontFamily: 'kufi',
@@ -131,6 +137,7 @@ class OccasionsWidget extends StatelessWidget {
                             ),
                             textAlign: TextAlign.center,
                           ),
+                          const Gap(16.0),
                           Column(
                             children: List.generate(
                               occasionList.length,
