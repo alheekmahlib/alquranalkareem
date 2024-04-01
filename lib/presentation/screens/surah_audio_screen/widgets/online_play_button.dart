@@ -72,11 +72,8 @@ class OnlinePlayButton extends StatelessWidget {
                     child: play_arrow(height: 30.0),
                     onTap: () async {
                       surahAudioCtrl.cancelDownload();
-                      surahAudioCtrl.isDownloading.value = false;
                       surahAudioCtrl.isPlaying.value = true;
                       surahAudioCtrl.boxController.openBox();
-                      print(
-                          'isDownloading: ${surahAudioCtrl.isDownloading.value}');
                       // await surahAudioCtrl.audioPlayer.pause();
                       surahAudioCtrl.surahDownloadStatus
                                   .value[surahAudioCtrl.surahNum.value] ??
@@ -85,7 +82,8 @@ class OnlinePlayButton extends StatelessWidget {
                           : await surahAudioCtrl.audioPlayer.play();
                     },
                   );
-                } else if (processingState != ProcessingState.completed) {
+                } else if (processingState != ProcessingState.completed ||
+                    !playerState!.playing) {
                   return GestureDetector(
                     child: pause_arrow(height: 30.0),
                     onTap: () {

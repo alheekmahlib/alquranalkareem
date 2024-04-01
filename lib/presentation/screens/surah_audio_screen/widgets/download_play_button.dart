@@ -59,7 +59,6 @@ class DownloadPlayButton extends StatelessWidget {
                             .value[surahAudioCtrl.surahNum.value] ==
                         true) {
                       surahAudioCtrl.isPlaying.value = true;
-                      surahAudioCtrl.isDownloading.value = false;
                     } else {
                       await surahAudioCtrl.startDownload();
                     }

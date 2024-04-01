@@ -355,6 +355,21 @@
     "type": "text",
     "placeholders": {}
   },
+  "reader14": "Yasser Al-Dosari",
+  "@reader14": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "reader15": "Abdullah Al Juhany",
+  "@reader15": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "reader16": "Fares Abbad",
+  "@reader16": {
+    "type": "text",
+    "placeholders": {}
+  },
   "alheekmahlib": "Alheekmah Library",
   "@alheekmahlib": {
     "type": "text",
@@ -822,6 +837,161 @@
   },
   "What'sNewDetails7": "۞ Zoom in and zoom out the font.",
   "@What'sNewDetails7": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Sunday": "Sunday",
+  "@Sunday": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Monday": "Monday",
+  "@Monday": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Tuesday": "Tuesday",
+  "@Tuesday": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Wednesday": "Wednesday",
+  "@Wednesday": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Thursday": "Thursday",
+  "@Thursday": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Friday": "Friday",
+  "@Friday": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Saturday": "Saturday",
+  "@Saturday": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "RemainsUntilTheEndOf": "Remains until the end of",
+  "@RemainsUntilTheEndOf": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Muharram": "Muharram",
+  "@Muharram": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Safar": "Safar",
+  "@Safar": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Rabi' al-awwal": "Rabi' al-awwal",
+  "@Rabi' al-awwal": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Rabi' al-thani": "Rabi' al-thani",
+  "@Rabi' al-thani": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Jumada al-awwal": "Jumada al-awwal",
+  "@Jumada al-awwal": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Jumada al-thani": "Jumada al-thani",
+  "@Jumada al-thani": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Rajab": "Rajab",
+  "@Rajab": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Sha'ban": "Sha'ban",
+  "@Sha'ban": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Ramadan": "Ramadan",
+  "@Ramadan": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Shawwal": "Shawwal",
+  "@Shawwal": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Dhu al-Qi'dah": "Dhu al-Qi'dah",
+  "@Dhu al-Qi'dah": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Dhu al-Hijjah": "Dhu al-Hijjah",
+  "@Dhu al-Hijjah": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Day": "Day",
+  "@Day": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Days": "Days",
+  "@Days": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Start of the Hijri Year": "Start of the Hijri Year",
+  "@Start of the Hijri Year": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Blessed Eid al-Fitr": "Blessed Eid al-Fitr",
+  "@Blessed Eid al-Fitr": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Day of Arafah": "Day of Arafah",
+  "@Day of Arafah": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Blessed Eid al-Adha": "Blessed Eid al-Adha",
+  "@Blessed Eid al-Adha": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "hijriNote": "Note: Please be aware that there might be a slight difference in the specified times as the Hijri calendar is based on the direct sighting of the crescent moon. We make every effort to ensure the accuracy of the announced dates, taking into account that the calendar will be corrected in case of the moon sighting.",
+  "@hijriNote": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "AH": "AH",
+  "@AH": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "What'sNewDetails8": "A new verse every day with its interpretation",
+  "@What'sNewDetails8": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "What'sNewDetails9": "Dates of Islamic occasions",
+  "@What'sNewDetails9": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "What'sNewTitle8": "A verse and its interpretation",
+  "@What'sNewTitle8": {
     "type": "text",
     "placeholders": {}
   }

@@ -29,7 +29,7 @@ class SurahAudioController extends GetxController {
 
   AudioPlayer audioPlayer = AudioPlayer();
   AudioPlayer downAudioPlayer = AudioPlayer();
-  RxBool isDownloading = false.obs;
+  // RxBool isDownloading = false.obs;
   RxBool onDownloading = false.obs;
   RxBool isPlaying = false.obs;
   RxString progressString = "0".obs;
@@ -56,6 +56,7 @@ class SurahAudioController extends GetxController {
   final TextEditingController textEditingController = TextEditingController();
   RxInt surahReaderIndex = 1.obs;
   final Rx<Map<int, bool>> surahDownloadStatus = Rx<Map<int, bool>>({});
+  RxInt seekNextSeconds = 5.obs;
 
   late final surahsList = ConcatenatingAudioSource(
     // Start loading next item just before reaching it
@@ -65,18 +66,6 @@ class SurahAudioController extends GetxController {
     // Specify the playlist items
     children: surahsPlayList!,
   );
-
-  String? get beautifiedSurahNumber {
-    // String sorahNumString;
-    switch (surahNum.value) {
-      case < 10:
-        return "00${surahNum.value}";
-      case < 100:
-        return "0${surahNum.value}";
-      default:
-        return "${surahNum.value}";
-    }
-  }
 
   String beautifySurahNumber(int surahNum) {
     switch (surahNum) {
@@ -89,91 +78,88 @@ class SurahAudioController extends GetxController {
     }
   }
 
-  AudioSource get getAudioSource {
-    return downloadSurahsPlayList
-        .firstWhere((e) => e.keys.first == surahNum.value)
-        .values
-        .first;
+  Future<String> get localFilePath async {
+    Directory? directory = await getApplicationDocumentsDirectory();
+    return '${directory.path}/${sorahReaderNameValue.value}${surahNum.value.toString().padLeft(3, "0")}.mp3';
+  }
+
+  String get urlFilePath {
+    return '${sorahReaderValue.value}${sorahReaderNameValue.value}${surahNum.value.toString().padLeft(3, "0") ?? 001}.mp3';
   }
 
   Future<void> playPreviousSurah() async {
-    if (isDownloading.value) {
-      surahNum.value -= 1;
-      selectedSurah.value -= 1;
-      await downloadSurah();
-    } else if (surahNum.value - 1 == 1) {
+    if (surahDownloadStatus.value[surahNum.value] == false) {
+      isPlaying.value = false;
       await audioPlayer.stop();
-    } else if (isPlaying.value) {
-      surahNum.value -= 1;
-      selectedSurah.value -= 1;
-      await audioPlayer.seekToPrevious();
     } else {
-      surahNum.value -= 1;
-      selectedSurah.value -= 1;
-      await audioPlayer.seekToPrevious();
+      if (surahNum.value - 1 == 1) {
+        await audioPlayer.stop();
+      } else {
+        await audioPlayer
+            .setAudioSource(AudioSource.file(
+              await localFilePath,
+              // tag: await mediaItem,
+            ))
+            .then((_) => audioPlayer.play());
+      }
     }
   }
 
+  // "https://everyayah.com/data/MaherAlMuaiqly128kbps/${_quranController.getSurahNumberByAya(_quranController.allAyas[ayaUniqeId.value - 1]).toString().padLeft(3, "0")}${_quranController.allAyas[ayaUniqeId.value - 1].numberOfAyaInSurah.toString().padLeft(3, "0")}.mp3",
+
   Future<void> playNextSurah() async {
-    if (isDownloading.value == true) {
-      await downloadSurah();
+    if (surahDownloadStatus.value[surahNum.value] == false) {
+      isPlaying.value = false;
+      await audioPlayer.stop();
     } else {
-      await audioPlayer.setAudioSource(surahsPlayList![surahNum.value - 1]);
-      audioPlayer.playerStateStream.listen((playerState) async {
-        if (playerState.processingState == ProcessingState.completed) {
-          if (surahNum.value - 1 == 114) {
-            await audioPlayer.stop();
-          } else if (surahNum.value - 1 == 1) {
-            await audioPlayer.stop();
-          } else {
-            surahNum.value += 1;
-            await audioPlayer.seekToNext();
-          }
-        }
-      });
+      if ((surahNum.value - 1) == 114) {
+        isPlaying.value = false;
+        audioPlayer.stop();
+      } else {
+        isPlaying.value = true;
+        await audioPlayer
+            .setAudioSource(AudioSource.file(
+              await localFilePath,
+              // tag: await mediaItem,
+            ))
+            .then((_) => audioPlayer.play());
+      }
     }
   }
 
   Future<void> downloadSurah() async {
-    Directory? directory = await getApplicationDocumentsDirectory();
-    String filePath =
-        '${directory.path}/${sorahReaderNameValue.value}$beautifiedSurahNumber.mp3';
-
-    File file = File(filePath);
-    print("File Path: $filePath");
-    isDownloading.value = true;
+    File file = File(await localFilePath);
+    print("File Path: $localFilePath");
+    isPlaying.value = true;
     if (await file.exists()) {
-      // if (downloadSurahsPlayList
-      //         .firstWhereOrNull((e) => e.keys.contains(filePath)) !=
-      //     null) {
       print("File exists. Playing...");
 
       await audioPlayer.setAudioSource(AudioSource.file(
-        filePath,
+        await localFilePath,
         // tag: await mediaItem,
       ));
       audioPlayer.play();
     } else {
       print("File doesn't exist. Downloading...");
       print("sorahReaderNameValue: ${sorahReaderNameValue.value}");
-      String fileUrl =
-          "${sorahReaderValue.value}${sorahReaderNameValue.value}$beautifiedSurahNumber.mp3";
-      print("Downloading from URL: $fileUrl");
-      // await downloadFile(filePath, fileUrl, beautifiedSurahNumber);
-      if (await downloadFile(filePath, fileUrl)) {
-        String filePath =
-            '${directory.path}/${sorahReaderNameValue.value}$beautifiedSurahNumber.mp3';
-        _addFileAudioSourceToPlayList(filePath);
-        onDownloadSuccess(int.parse(beautifiedSurahNumber!));
-        print("File successfully downloaded and saved to $filePath");
+      print("Downloading from URL: $urlFilePath");
+      if (await downloadFile(await localFilePath, urlFilePath)) {
+        _addFileAudioSourceToPlayList(await localFilePath);
+        onDownloadSuccess(int.parse(surahNum.value.toString().padLeft(3, "0")));
+        print("File successfully downloaded and saved to ${localFilePath}");
         await audioPlayer
             .setAudioSource(AudioSource.file(
-              filePath,
+              await localFilePath,
               // tag: await mediaItem,
             ))
             .then((_) => audioPlayer.play());
       }
     }
+    audioPlayer.playerStateStream.listen((playerState) async {
+      if (playerState.processingState == ProcessingState.completed) {
+        await playNextSurah();
+      }
+    });
   }
 
   Future<bool> downloadFile(String path, String url) async {
@@ -184,7 +170,6 @@ class SurahAudioController extends GetxController {
       try {
         print('22222222222222');
         await Directory(dirname(path)).create(recursive: true);
-        isDownloading.value = true;
         onDownloading.value = true;
         progressString.value = "0";
         progress.value = 0;
@@ -297,32 +282,25 @@ class SurahAudioController extends GetxController {
   }
 
   changeAudioSource() async {
-    Directory? directory = await getApplicationDocumentsDirectory();
-    String filePath =
-        '${directory.path}/${sorahReaderNameValue.value}${beautifiedSurahNumber}.mp3';
     surahDownloadStatus.value[surahNum.value] ?? false
         ? await audioPlayer.setAudioSource(AudioSource.file(
-            '$filePath',
+            await localFilePath,
             // tag: await mediaItem,
           ))
         : await audioPlayer.setAudioSource(AudioSource.uri(
-            Uri.parse(
-                '${sorahReaderValue.value}${sorahReaderNameValue.value}${beautifiedSurahNumber ?? 001}.mp3'),
+            Uri.parse(urlFilePath),
             // tag: await mediaItem,
           ));
-    print(
-        'URL: ${sorahReaderValue.value}${sorahReaderNameValue.value}$beautifiedSurahNumber.mp3');
+    print('URL: $urlFilePath');
   }
 
   lastAudioSource() async {
     await audioPlayer.setAudioSource(AudioSource.uri(
-      Uri.parse(
-          '${sorahReaderValue.value}${sorahReaderNameValue.value}$beautifiedSurahNumber.mp3'),
+      Uri.parse(urlFilePath),
       // tag: await mediaItem,
     ));
     await audioPlayer.seek(Duration(seconds: lastPosition.value));
-    print(
-        'URL: ${sorahReaderValue.value}${sorahReaderNameValue.value}$beautifiedSurahNumber.mp3');
+    print('URL: $urlFilePath');
   }
 
   // Future<MediaItem> get mediaItem async => MediaItem(
@@ -346,8 +324,7 @@ class SurahAudioController extends GetxController {
     surahsPlayList = List.generate(114, (i) {
       surahNum.value = i + 1;
       return AudioSource.uri(
-        Uri.parse(
-            '${sorahReaderValue.value}${sorahReaderNameValue.value}$beautifiedSurahNumber.mp3'),
+        Uri.parse(urlFilePath),
       );
     });
     _connectivitySubscription =
@@ -408,9 +385,7 @@ class SurahAudioController extends GetxController {
     position.value = lastSurahData[LAST_POSITION];
   }
 
-  Stream<PositionData> get audioStream => isDownloading.value == true
-      ? DownloadPositionDataStream
-      : positionDataStream;
+  Stream<PositionData> get audioStream => positionDataStream;
 
   String formatDuration(Duration duration) {
     String twoDigits(int n) => n.toString().padLeft(2, "0");
@@ -444,6 +419,7 @@ class SurahAudioController extends GetxController {
 
   // Platform messages are asynchronous, so we initialize in an async method.
   Future<void> initConnectivity() async {
+    late ConnectivityResult result;
     try {
       result = await _connectivity.checkConnectivity();
     } on PlatformException catch (e) {

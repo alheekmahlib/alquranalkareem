@@ -35,6 +35,8 @@ class SurahSeekBar extends StatelessWidget {
                   sl<SurahAudioController>().surahNum.value - 1);
               await sl<SharedPreferences>()
                   .setInt(LAST_POSITION, newPosition.inSeconds);
+              sl<SurahAudioController>().seekNextSeconds.value =
+                  newPosition.inSeconds;
             },
             activeTrackColor: Theme.of(context).colorScheme.primary,
             textColor: Theme.of(context).canvasColor,

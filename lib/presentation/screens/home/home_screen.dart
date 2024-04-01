@@ -1,8 +1,10 @@
+import 'package:alquranalkareem/core/utils/constants/extensions/extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 
+import '../../../core/widgets/daily_ayah/ayah_widget.dart';
 import '../../../core/widgets/tab_bar_widget.dart';
 import '../../controllers/theme_controller.dart';
 import 'widgets/daily_zeker.dart';
@@ -29,18 +31,39 @@ class HomeScreen extends StatelessWidget {
                     isCenterChild: false,
                   ),
                   Flexible(
-                    child: ListView(
-                      padding: EdgeInsets.zero,
-                      children: [
-                        const HijriDate(),
-                        const ScreensList(),
-                        const Gap(8),
-                        const LastRead(),
-                        const Gap(8),
-                        DailyZeker(),
-                        const Gap(16),
-                      ],
-                    ),
+                    child: context.customOrientation(
+                        ListView(
+                          padding: EdgeInsets.zero,
+                          children: [
+                            HijriDate(),
+                            const Gap(16),
+                            const ScreensList(),
+                            const Gap(8),
+                            const LastRead(),
+                            AyahWidget(),
+                            const Gap(16),
+                            DailyZeker(),
+                            const Gap(16),
+                          ],
+                        ),
+                        ListView(
+                          padding: EdgeInsets.zero,
+                          children: [
+                            const Gap(8),
+                            Row(
+                              children: [
+                                Expanded(flex: 4, child: HijriDate()),
+                                const Expanded(flex: 4, child: ScreensList()),
+                              ],
+                            ),
+                            const Gap(8),
+                            const LastRead(),
+                            AyahWidget(),
+                            const Gap(16),
+                            DailyZeker(),
+                            const Gap(16),
+                          ],
+                        )),
                   ),
                 ],
               ),

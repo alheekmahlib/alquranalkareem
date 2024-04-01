@@ -70,18 +70,11 @@ class PlayWidget extends StatelessWidget {
                   ),
                 ),
                 const ChangeSurahReader(),
-                Obx(
-                  () => surahCtrl.surahDownloadStatus
-                              .value[surahCtrl.surahNum.value] ??
-                          false
-                      ? const SurahSeekBar()
-                      : sl<SurahAudioController>().isDownloading.value == true
-                          ? const DownloadSurahSeekBar()
-                          : const SurahSeekBar(),
-                ),
+                const SurahSeekBar(),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 32.0),
                   child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
                       Obx(
                         () => surahCtrl.surahDownloadStatus
@@ -90,11 +83,45 @@ class PlayWidget extends StatelessWidget {
                             ? const SizedBox.shrink()
                             : const DownloadPlayButton(),
                       ),
-                      const Expanded(flex: 1, child: SkipToPrevious()),
+                      Row(
+                        children: [
+                          IconButton(
+                            icon: Semantics(
+                              button: true,
+                              enabled: true,
+                              label: 'backward'.tr,
+                              child: backward_arrow(height: 20.0),
+                            ),
+                            onPressed: () {
+                              surahCtrl.audioPlayer.seek(Duration(
+                                  seconds: surahCtrl.seekNextSeconds.value -=
+                                      5));
+                            },
+                          ),
+                          const SkipToPrevious(),
+                        ],
+                      ),
                       const OnlinePlayButton(
                         isRepeat: true,
                       ),
-                      const Expanded(flex: 1, child: SkipToNext()),
+                      Row(
+                        children: [
+                          const SkipToNext(),
+                          IconButton(
+                            icon: Semantics(
+                              button: true,
+                              enabled: true,
+                              label: 'rewind'.tr,
+                              child: rewind_arrow(height: 20.0),
+                            ),
+                            onPressed: () {
+                              surahCtrl.audioPlayer.seek(Duration(
+                                  seconds: surahCtrl.seekNextSeconds.value +=
+                                      5));
+                            },
+                          ),
+                        ],
+                      ),
                     ],
                   ),
                 ),
