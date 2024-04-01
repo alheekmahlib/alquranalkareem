@@ -10,16 +10,19 @@ import 'package:flutter/services.dart';
 import 'package:flutter_sliding_box/flutter_sliding_box.dart';
 import 'package:get/get.dart';
 import 'package:just_audio/just_audio.dart';
+import 'package:just_audio_background/just_audio_background.dart';
 import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:rxdart/rxdart.dart' as R;
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../core/services/services_locator.dart';
+import '../../core/utils/constants/lists.dart';
 import '../../core/utils/constants/shared_preferences_constants.dart';
 import '../../core/utils/constants/url_constants.dart';
 import '../../core/widgets/seek_bar.dart';
 import '/presentation/controllers/aya_controller.dart';
+import 'general_controller.dart';
 import 'quran_controller.dart';
 
 class SurahAudioController extends GetxController {
@@ -98,7 +101,7 @@ class SurahAudioController extends GetxController {
         await audioPlayer
             .setAudioSource(AudioSource.file(
               await localFilePath,
-              // tag: await mediaItem,
+              tag: await mediaItem,
             ))
             .then((_) => audioPlayer.play());
       }
@@ -120,7 +123,7 @@ class SurahAudioController extends GetxController {
         await audioPlayer
             .setAudioSource(AudioSource.file(
               await localFilePath,
-              // tag: await mediaItem,
+              tag: await mediaItem,
             ))
             .then((_) => audioPlayer.play());
       }
@@ -136,7 +139,7 @@ class SurahAudioController extends GetxController {
 
       await audioPlayer.setAudioSource(AudioSource.file(
         await localFilePath,
-        // tag: await mediaItem,
+        tag: await mediaItem,
       ));
       audioPlayer.play();
     } else {
@@ -150,7 +153,7 @@ class SurahAudioController extends GetxController {
         await audioPlayer
             .setAudioSource(AudioSource.file(
               await localFilePath,
-              // tag: await mediaItem,
+              tag: await mediaItem,
             ))
             .then((_) => audioPlayer.play());
       }
@@ -263,7 +266,7 @@ class SurahAudioController extends GetxController {
         downloadSurahsPlayList.add({
           i: AudioSource.file(
             filePath,
-            // tag: await mediaItem,
+            tag: await mediaItem,
           )
         });
       } else {
@@ -276,7 +279,7 @@ class SurahAudioController extends GetxController {
     downloadSurahsPlayList.add({
       surahNum.value: AudioSource.file(
         filePath,
-        // tag: await mediaItem,
+        tag: await mediaItem,
       )
     });
   }
@@ -285,11 +288,11 @@ class SurahAudioController extends GetxController {
     surahDownloadStatus.value[surahNum.value] ?? false
         ? await audioPlayer.setAudioSource(AudioSource.file(
             await localFilePath,
-            // tag: await mediaItem,
+            tag: await mediaItem,
           ))
         : await audioPlayer.setAudioSource(AudioSource.uri(
             Uri.parse(urlFilePath),
-            // tag: await mediaItem,
+            tag: await mediaItem,
           ));
     print('URL: $urlFilePath');
   }
@@ -297,20 +300,20 @@ class SurahAudioController extends GetxController {
   lastAudioSource() async {
     await audioPlayer.setAudioSource(AudioSource.uri(
       Uri.parse(urlFilePath),
-      // tag: await mediaItem,
+      tag: await mediaItem,
     ));
     await audioPlayer.seek(Duration(seconds: lastPosition.value));
     print('URL: $urlFilePath');
   }
 
-  // Future<MediaItem> get mediaItem async => MediaItem(
-  //       id: '${surahNum.value - 1}',
-  //       title:
-  //           '${sl<SurahRepositoryController>().surahs[(surahNum.value - 1) ?? 1].name ?? ''}',
-  //       artist: '${sorahReaderNameValue.value ?? ''}',
-  //       artUri: await sl<GeneralController>().getCachedArtUri(
-  //           'https://raw.githubusercontent.com/alheekmahlib/alquranalkareem/main/assets/app_icon.png'),
-  //     );
+  Future<MediaItem> get mediaItem async => MediaItem(
+        id: '${surahNum.value - 1}',
+        title:
+            '${sl<QuranController>().surahs[(surahNum.value - 1) ?? 1].arabicName ?? ''}',
+        artist: '${surahReaderInfo[surahReaderIndex.value]['name']}'.tr,
+        artUri: await sl<GeneralController>().getCachedArtUri(
+            'https://raw.githubusercontent.com/alheekmahlib/thegarlanded/master/Photos/ios-1024.png'),
+      );
 
   @override
   Future<void> onInit() async {
@@ -330,6 +333,14 @@ class SurahAudioController extends GetxController {
     _connectivitySubscription =
         _connectivity.onConnectivityChanged.listen(_updateConnectionStatus);
     initConnectivity();
+    if (Platform.isIOS) {
+      await JustAudioBackground.init(
+        androidNotificationChannelId:
+            'com.alheekmah.alquranalkareem.alquranalkareem',
+        androidNotificationChannelName: 'Audio playback',
+        androidNotificationOngoing: true,
+      );
+    }
   }
 
   Stream<PositionData> get positionDataStream =>
