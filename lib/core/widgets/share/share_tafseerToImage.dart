@@ -5,13 +5,11 @@ import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:screenshot/screenshot.dart';
 
-import '../../../presentation/controllers/ayat_controller.dart';
 import '../../../presentation/controllers/share_controller.dart';
 import '../../services/services_locator.dart';
 import '../../utils/constants/extensions/extensions.dart';
 import '../../utils/constants/svg_picture.dart';
 import '/core/utils/constants/extensions/surah_name_with_banner.dart';
-import '/core/utils/constants/extensions/text_span_extension.dart';
 import '/presentation/controllers/translate_controller.dart';
 
 class TafseerImageCreator extends StatelessWidget {
@@ -180,28 +178,28 @@ class TafseerImageCreator extends StatelessWidget {
                                         Radius.circular(8))),
                                 child: Obx(
                                   () => Text.rich(
-                                    sl<ShareController>().isTafseer.value
-                                        ? TextSpan(
-                                            children: sl<AyatController>()
-                                                .selectedTafsir!
-                                                .text
-                                                .buildTextSpans(),
-                                            style: const TextStyle(
-                                              fontSize: 16,
-                                              fontFamily: 'naskh',
-                                              color: Color(0xff161f07),
-                                            ),
-                                          )
-                                        : TextSpan(
-                                            text: sl<TranslateDataController>()
-                                                    .data[verseUQNumber - 1]
-                                                ['text'],
-                                            style: const TextStyle(
-                                              fontSize: 13,
-                                              fontFamily: 'naskh',
-                                              color: Color(0xff161f07),
-                                            ),
-                                          ),
+                                    // sl<ShareController>().isTafseer.value
+                                    //     ? TextSpan(
+                                    //         children: sl<AyatController>()
+                                    //             .selectedTafsir!
+                                    //             .text
+                                    //             .buildTextSpans(),
+                                    //         style: const TextStyle(
+                                    //           fontSize: 16,
+                                    //           fontFamily: 'naskh',
+                                    //           color: Color(0xff161f07),
+                                    //         ),
+                                    //       )
+                                    //     :
+                                    TextSpan(
+                                      text: sl<TranslateDataController>()
+                                          .data[verseUQNumber - 1]['text'],
+                                      style: const TextStyle(
+                                        fontSize: 13,
+                                        fontFamily: 'naskh',
+                                        color: Color(0xff161f07),
+                                      ),
+                                    ),
                                     textAlign: TextAlign.justify,
                                     textDirection: tafseerToImage
                                         .checkApplyRtlLayout(tafseerToImage

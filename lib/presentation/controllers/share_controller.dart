@@ -68,7 +68,8 @@ class ShareController extends GetxController {
   }
 
   void fetchTafseerSaadi(int surahNum, int ayahNum, int ayahUQNum) {
-    if (isTafseer.value) {
+    if (isTafseer.value &&
+        sl<TranslateDataController>().shareTransValue.value == 8) {
       sl<AyatController>().dBName = sl<AyatController>().saadiClient?.database;
       sl<AyatController>().selectedDBName = MufaserName.saadi.name;
       sl<AyatController>()
