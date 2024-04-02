@@ -25,12 +25,12 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity
-                android:name="com.alheekmah.alquranalkareem.alquranalkareem.AudioServiceActivity"
-                android:exported="true"
-                android:theme="@style/LaunchTheme">
-            <!-- Activity specific configuration here -->
-        </activity>
+<!--        <activity-->
+<!--                android:name="com.alheekmah.alquranalkareem.alquranalkareem.AudioServiceActivity"-->
+<!--                android:exported="true"-->
+<!--                android:theme="@style/LaunchTheme">-->
+<!--            &lt;!&ndash; Activity specific configuration here &ndash;&gt;-->
+<!--        </activity>-->
         <!-- Don't delete the meta-data below.
              This is used by the Flutter tool to generate GeneratedPluginRegistrant.java -->
         <meta-data

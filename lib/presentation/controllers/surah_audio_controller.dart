@@ -333,14 +333,14 @@ class SurahAudioController extends GetxController {
     _connectivitySubscription =
         _connectivity.onConnectivityChanged.listen(_updateConnectionStatus);
     initConnectivity();
-    if (Platform.isIOS) {
-      await JustAudioBackground.init(
-        androidNotificationChannelId:
-            'com.alheekmah.alquranalkareem.alquranalkareem',
-        androidNotificationChannelName: 'Audio playback',
-        androidNotificationOngoing: true,
-      );
-    }
+    // if (Platform.isIOS) {
+    await JustAudioBackground.init(
+      androidNotificationChannelId:
+          'com.alheekmah.alquranalkareem.alquranalkareem',
+      androidNotificationChannelName: 'Audio playback',
+      androidNotificationOngoing: true,
+    );
+    // }
   }
 
   Stream<PositionData> get positionDataStream =>

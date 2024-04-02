@@ -6,9 +6,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../core/services/services_locator.dart';
 import '../../core/utils/constants/shared_preferences_constants.dart';
-import '../screens/quran_page/data/model/tafsir.dart';
 import '/presentation/controllers/share_controller.dart';
-import 'ayat_controller.dart';
 
 class TranslateDataController extends GetxController {
   var data = [].obs;
@@ -107,12 +105,12 @@ class TranslateDataController extends GetxController {
         sl<ShareController>().isTafseer.value = false;
         trans.value = 'tr';
         await sl<SharedPreferences>().setString(TRANS, 'tr');
-      case 8:
-        sl<ShareController>().isTafseer.value = true;
-        sl<AyatController>().dBName =
-            sl<AyatController>().saadiClient?.database;
-        sl<AyatController>().selectedDBName = MufaserName.saadi.name;
-        sl<SharedPreferences>().setBool(IS_TAFSEER, true);
+      // case 8:
+      //   sl<ShareController>().isTafseer.value = true;
+      //   sl<AyatController>().dBName =
+      //       sl<AyatController>().saadiClient?.database;
+      //   sl<AyatController>().selectedDBName = MufaserName.saadi.name;
+      //   sl<SharedPreferences>().setBool(IS_TAFSEER, true);
       default:
         trans.value = 'en';
     }

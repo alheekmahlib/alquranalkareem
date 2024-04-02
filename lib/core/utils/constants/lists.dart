@@ -28,7 +28,7 @@ List<String> shareTranslateName = <String>[
   'bahasa Indonesia',
   'کوردی',
   'Türkçe',
-  'تفسير السعدي'
+  // 'تفسير السعدي'
 ];
 
 List<String> rtlLang = <String>[
