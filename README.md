@@ -6,7 +6,7 @@
 
 
 <p align="center">
-  <img src="[https://i.imgur.com/QtUt6NM.jpg](https://raw.githubusercontent.com/alheekmahlib/thegarlanded/master/Photos/quran/Feature%20graphic.png)" width="100%" height="100%" align=”middle”>
+  <img src="https://raw.githubusercontent.com/alheekmahlib/thegarlanded/master/Photos/quran/Feature%20graphic.png" width="100%" height="100%" align=”middle”>
 </p>
 
 
