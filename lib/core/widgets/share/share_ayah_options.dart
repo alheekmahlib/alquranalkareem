@@ -1,5 +1,3 @@
-import '../../utils/constants/extensions/text_span_extension.dart';
-import '../../utils/constants/lottie_constants.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -8,8 +6,10 @@ import '../../../presentation/controllers/share_controller.dart';
 import '../../../presentation/controllers/translate_controller.dart';
 import '../../services/services_locator.dart';
 import '../../utils/constants/extensions/extensions.dart';
+import '../../utils/constants/extensions/text_span_extension.dart';
 import '../../utils/constants/lists.dart';
 import '../../utils/constants/lottie.dart';
+import '../../utils/constants/lottie_constants.dart';
 import '../../utils/constants/svg_picture.dart';
 import '/presentation/controllers/quran_controller.dart';
 import 'share_ayahToImage.dart';
@@ -76,6 +76,7 @@ class ShareAyahOptions extends StatelessWidget {
                     Padding(
                       padding: const EdgeInsets.only(top: 70.0),
                       child: ListView(
+                        physics: const ClampingScrollPhysics(),
                         children: [
                           Padding(
                             padding:
