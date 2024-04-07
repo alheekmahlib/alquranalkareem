@@ -1,4 +1,3 @@
-import '../../../../../core/utils/constants/lottie_constants.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
@@ -6,6 +5,7 @@ import 'package:get/get.dart';
 import '../../../../../core/services/services_locator.dart';
 import '../../../../../core/utils/constants/extensions/extensions.dart';
 import '../../../../../core/utils/constants/lottie.dart';
+import '../../../../../core/utils/constants/lottie_constants.dart';
 import '../../../../controllers/bookmarks_controller.dart';
 import 'bookmark_ayahs_build.dart';
 import 'bookmark_pages_build.dart';
@@ -32,6 +32,7 @@ class BookmarksList extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             context.customClose(),
+            // Flexible(child: KhatmasScreen()),
             GetBuilder<BookmarksController>(
               builder: (bookmarkCtrl) => bookmarkCtrl.bookmarksList.isEmpty &&
                       bookmarkCtrl.bookmarkTextList.isEmpty

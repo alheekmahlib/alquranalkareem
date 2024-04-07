@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import '../../../../../core/services/services_locator.dart';
 import '../../../../../core/utils/constants/svg_picture.dart';
 import '../../../../controllers/general_controller.dart';
+import '../../../../controllers/quran_controller.dart';
 import '/core/utils/constants/extensions/custom_error_snackBar.dart';
 
 class CopyButton extends StatelessWidget {
@@ -33,6 +34,8 @@ class CopyButton extends StatelessWidget {
                 text:
                     '﴿${ayahTextNormal}﴾ [$surahName-${sl<GeneralController>().arabicNumber.convert(ayahNum)}]'))
             .then((value) => context.showCustomErrorSnackBar('copyAyah'.tr));
+        cancel!();
+        sl<QuranController>().selectedAyahIndexes.clear();
       },
     );
   }

@@ -2,19 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 
-import '../../../presentation/controllers/general_controller.dart';
-import '../../../presentation/controllers/quran_controller.dart';
-import '../../../presentation/screens/quran_page/screens/quran_home.dart';
-import '../../services/services_locator.dart';
-import '../../utils/constants/extensions/extensions.dart';
-import '../../utils/constants/lottie.dart';
-import '../../utils/constants/lottie_constants.dart';
+import '../../../../presentation/controllers/general_controller.dart';
+import '../../../../presentation/controllers/quran_controller.dart';
+import '../../../services/services_locator.dart';
+import '../../../utils/constants/extensions/extensions.dart';
+import '../../../utils/constants/lottie.dart';
+import '../../../utils/constants/lottie_constants.dart';
 
-class Khatmah extends StatelessWidget {
+class KhatmahWidget extends StatelessWidget {
   final String name;
   final int surahNumber;
   final int pageNumber;
-  Khatmah(
+  KhatmahWidget(
       {super.key,
       required this.name,
       required this.surahNumber,
@@ -27,8 +26,7 @@ class Khatmah extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Get.to(() => QuranHome(), transition: Transition.downToUp)!
-            .then((value) => quranCtrl.changeSurahListOnTap(pageNumber + 1));
+        quranCtrl.changeSurahListOnTap(pageNumber + 1);
       },
       child: Padding(
         padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 32.0),
