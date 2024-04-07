@@ -56,6 +56,8 @@
 		</array>
 		<key>NSPhotoLibraryUsageDescription</key>
 		<string>This app require permission to access gallery</string>
+		<key>NSLocationWhenInUseUsageDescription</key>
+        <string>This app needs access to location when open.</string>
 		<key>NSUserActivityTypes</key>
 		<array>
 			<string>ConfigurationIntent</string>
