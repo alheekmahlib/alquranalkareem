@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import '../services/services_locator.dart';
 import '../utils/constants/svg_picture.dart';
 import '/presentation/controllers/general_controller.dart';
+import '/presentation/controllers/quran_controller.dart';
 import '/presentation/screens/home/home_screen.dart';
 import 'settings_list.dart';
 
@@ -37,8 +38,11 @@ class TabBarWidget extends StatelessWidget {
                 flex: 2,
                 child: isFirstChild
                     ? GestureDetector(
-                        onTap: () => Get.offAll(() => const HomeScreen(),
-                            transition: Transition.upToDown),
+                        onTap: () {
+                          Get.offAll(() => const HomeScreen(),
+                              transition: Transition.upToDown);
+                          sl<QuranController>().selectedAyahIndexes.clear();
+                        },
                         child: Stack(
                           alignment: Alignment.center,
                           children: [

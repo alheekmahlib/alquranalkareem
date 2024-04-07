@@ -36,6 +36,7 @@ class TafsirButton extends StatelessWidget {
       onTap: () {
         sl<AyatController>().showTafsirOnTap(surahNum, ayahNum, ayahText,
             pageIndex, ayahTextNormal, ayahUQNum, index);
+        cancel!();
       },
     );
   }

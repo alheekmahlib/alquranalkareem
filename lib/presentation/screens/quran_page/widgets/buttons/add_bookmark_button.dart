@@ -51,6 +51,7 @@ class AddBookmarkButton extends StatelessWidget {
           // sl<QuranController>().clearSelection();
         }
         sl<AudioController>().clearSelection();
+        cancel!();
       },
     );
   }

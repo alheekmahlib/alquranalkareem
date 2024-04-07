@@ -35,63 +35,73 @@ class QuranHome extends StatelessWidget {
   Widget build(BuildContext context) {
     GlobalKeyManager().resetDrawerKey();
     NotificationDatabaseHelper.loadNotifications();
-    return Scaffold(
-      resizeToAvoidBottomInset: true,
-      backgroundColor: Theme.of(context).colorScheme.primary,
-      body: SafeArea(
-        child: SliderDrawer(
-          key: GlobalKeyManager().drawerKey,
-          splashColor: Theme.of(context).colorScheme.background,
-          slideDirection: generalCtrl.checkRtlLayout(
-              SlideDirection.RIGHT_TO_LEFT, SlideDirection.LEFT_TO_RIGHT),
-          sliderOpenSize: 300.0,
-          isCupertino: true,
-          isDraggable: true,
-          appBar: const SizedBox.shrink(),
-          slider: SurahJuzList(),
-          child: Container(
-            decoration: BoxDecoration(
-              color: Theme.of(context).primaryColorDark,
-            ),
-            child: Stack(
-              alignment: Alignment.center,
-              children: <Widget>[
-                Directionality(
-                    textDirection: TextDirection.rtl,
-                    child: Center(
-                      child: ScreenSwitch(),
-                    )),
-                Obx(() => generalCtrl.isShowControl.value
-                    ? TabBarWidget(
-                        isFirstChild: true,
-                        isCenterChild: true,
-                        centerChild: Padding(
-                          padding: const EdgeInsets.only(top: 15.0),
-                          child: OpenContainerWrapper(
-                            transitionType: sl<AyaController>().transitionType,
-                            closedBuilder:
-                                (BuildContext _, VoidCallback openContainer) {
-                              return SearchBarWidget(
-                                  openContainer: openContainer);
-                            },
+    return PopScope(
+      canPop: false,
+      onPopInvoked: (bool didPop) {
+        if (didPop) {
+          return;
+        }
+        quranCtrl.selectedAyahIndexes.clear();
+      },
+      child: Scaffold(
+        resizeToAvoidBottomInset: true,
+        backgroundColor: Theme.of(context).colorScheme.primary,
+        body: SafeArea(
+          child: SliderDrawer(
+            key: GlobalKeyManager().drawerKey,
+            splashColor: Theme.of(context).colorScheme.background,
+            slideDirection: generalCtrl.checkRtlLayout(
+                SlideDirection.RIGHT_TO_LEFT, SlideDirection.LEFT_TO_RIGHT),
+            sliderOpenSize: 300.0,
+            isCupertino: true,
+            isDraggable: true,
+            appBar: const SizedBox.shrink(),
+            slider: SurahJuzList(),
+            child: Container(
+              decoration: BoxDecoration(
+                color: Theme.of(context).primaryColorDark,
+              ),
+              child: Stack(
+                alignment: Alignment.center,
+                children: <Widget>[
+                  Directionality(
+                      textDirection: TextDirection.rtl,
+                      child: Center(
+                        child: ScreenSwitch(),
+                      )),
+                  Obx(() => generalCtrl.isShowControl.value
+                      ? TabBarWidget(
+                          isFirstChild: true,
+                          isCenterChild: true,
+                          centerChild: Padding(
+                            padding: const EdgeInsets.only(top: 15.0),
+                            child: OpenContainerWrapper(
+                              transitionType:
+                                  sl<AyaController>().transitionType,
+                              closedBuilder:
+                                  (BuildContext _, VoidCallback openContainer) {
+                                return SearchBarWidget(
+                                    openContainer: openContainer);
+                              },
+                            ),
                           ),
-                        ),
-                      )
-                    : const SizedBox.shrink()),
-                Obx(() => audioCtrl.isStartPlaying.value ||
-                        generalCtrl.isShowControl.value
-                    ? Align(
-                        alignment: Alignment.bottomCenter,
-                        child: AudioWidget(),
-                      )
-                    : const SizedBox.shrink()),
-                Obx(() => generalCtrl.isShowControl.value
-                    ? Align(
-                        alignment: Alignment.bottomCenter,
-                        child: NavBarWidget(),
-                      )
-                    : const SizedBox.shrink()),
-              ],
+                        )
+                      : const SizedBox.shrink()),
+                  Obx(() => audioCtrl.isStartPlaying.value ||
+                          generalCtrl.isShowControl.value
+                      ? Align(
+                          alignment: Alignment.bottomCenter,
+                          child: AudioWidget(),
+                        )
+                      : const SizedBox.shrink()),
+                  Obx(() => generalCtrl.isShowControl.value
+                      ? Align(
+                          alignment: Alignment.bottomCenter,
+                          child: NavBarWidget(),
+                        )
+                      : const SizedBox.shrink()),
+                ],
+              ),
             ),
           ),
         ),

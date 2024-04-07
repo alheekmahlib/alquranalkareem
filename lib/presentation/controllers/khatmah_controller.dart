@@ -1,44 +1,63 @@
-import 'dart:convert';
-
+import 'package:drift/drift.dart' as drift;
 import 'package:get/get.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
-import '../../core/services/services_locator.dart';
-import '../../core/utils/constants/shared_preferences_constants.dart';
-import '../../core/widgets/khatmah/khatmah_model.dart';
+import '../../core/widgets/khatmah/data/data_source/khatmah_database.dart';
 
 class KhatmahController extends GetxController {
-  RxList<KhatmahModel> khatmasList = <KhatmahModel>[].obs;
+  final db = KhatmahDatabase();
+  final RxList<Khatmah> khatmas = <Khatmah>[].obs;
+  final int totalPages = 604;
+  final int daysCount = 40;
 
   @override
-  void onInit() async {
-    khatmasList.value = await loadKhatmahs();
+  void onInit() {
     super.onInit();
+    loadKhatmas();
   }
 
-  Future<void> saveKhatmahs(List<KhatmahModel> khatmas) async {
-    final prefs = sl<SharedPreferences>();
-    final String encodedData =
-        jsonEncode(khatmas.map((k) => k.toMap()).toList());
-    await prefs.setString(KHATMAH, encodedData);
+  void loadKhatmas() async {
+    final loadedKhatmas = await db.getAllKhatmas();
+    khatmas.assignAll(loadedKhatmas);
   }
 
-  static Future<List<KhatmahModel>> loadKhatmahs() async {
-    final prefs = sl<SharedPreferences>();
-    final String? khatmasData = prefs.getString(KHATMAH);
-    if (khatmasData != null) {
-      List<dynamic> decodedData = jsonDecode(khatmasData);
-      return decodedData.map((item) => KhatmahModel.fromMap(item)).toList();
+  void addKhatmah({
+    String? name,
+    String? surahName,
+    int? startAyahNumber,
+    int? endAyahNumber,
+  }) {
+    final newKhatma = KhatmahsCompanion(
+      name: drift.Value(name),
+      surahName: drift.Value(surahName),
+      currentPage: drift.Value(1),
+      startAyahNumber: drift.Value(startAyahNumber),
+      endAyahNumber: drift.Value(endAyahNumber),
+      isCompleted: drift.Value(false),
+    );
+    db.insertKhatma(newKhatma).then((_) => loadKhatmas());
+  }
+
+  void markDayAsRead(int khatmaId, int day) {
+    final pagesPerDay = (totalPages / daysCount).ceil();
+    final newPage = day * pagesPerDay + 1;
+    final isCompleted = newPage >= totalPages;
+    db
+        .updateKhatma(KhatmahsCompanion(
+          id: drift.Value(khatmaId),
+          currentPage: drift.Value(newPage),
+          isCompleted: drift.Value(isCompleted),
+        ))
+        .then((_) => loadKhatmas());
+  }
+
+  void deleteKhatmah(int id) async {
+    try {
+      await db.deleteKhatmaById(id);
+      khatmas.remove(id);
+      loadKhatmas(); // Refresh the list after deletion
+    } catch (e) {
+      print("Error deleting Khatmah: $e");
+      // Handle the error or inform the user
     }
-    return [];
-  }
-
-  void saveLastKhatmah({int? surahNumber, int? pageNumber}) {
-    // khatmasList.add(KhatmahModel(
-    //   name: '',
-    //   surahNumber: surahNumber ?? 1,
-    //   pageNumber: pageNumber ?? 1,
-    // ));
-    saveKhatmahs(khatmasList);
   }
 }

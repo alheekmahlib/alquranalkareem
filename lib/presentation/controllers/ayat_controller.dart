@@ -1,3 +1,4 @@
+import 'package:alquranalkareem/presentation/controllers/quran_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
@@ -191,6 +192,7 @@ class AyatController extends GetxController {
     ayahTextNormal.value = ayahTextN;
     ayahUQNumber.value = ayahUQNum;
     sl<GeneralController>().currentPageNumber.value = pageIndex;
+    sl<QuranController>().selectedAyahIndexes.clear();
     Get.bottomSheet(
       ShowTafseer(
         ayahUQNumber: ayahUQNum,
@@ -198,7 +200,7 @@ class AyatController extends GetxController {
       ),
       isScrollControlled: true,
       enterBottomSheetDuration: const Duration(milliseconds: 400),
-      exitBottomSheetDuration: const Duration(milliseconds: 400),
+      exitBottomSheetDuration: const Duration(milliseconds: 300),
     );
   }
 

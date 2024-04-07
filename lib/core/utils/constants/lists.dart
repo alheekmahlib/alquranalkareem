@@ -40,7 +40,7 @@ List<String> rtlLang = <String>[
   'تفسير السعدي'
 ];
 
-List<String> semanticsTranslateName = <String>[
+const List<String> semanticsTranslateName = <String>[
   'English',
   'Spanish',
   'Bengal',
@@ -51,7 +51,7 @@ List<String> semanticsTranslateName = <String>[
   'turkish'
 ];
 
-final List<String> waqfMarks = <String>[
+const List<String> waqfMarks = <String>[
   'assets/svg/alwaqf/01.svg',
   'assets/svg/alwaqf/02.svg',
   'assets/svg/alwaqf/03.svg',
@@ -59,7 +59,7 @@ final List<String> waqfMarks = <String>[
   'assets/svg/alwaqf/05.svg',
 ];
 
-final List<String> waqfExplain = <String>[
+const List<String> waqfExplain = <String>[
   'عَلَامَة الوَقْفِ اللَّازم نَحوُ : {إِنَّمَا يَسْتَجِيبُ الَّذِينَ يَسْمَعُونَ ۘ وَالْمَوْتَىٰ يَبْعَثُهُمُ اللَّهُ}.',
   'عَلَامَة الوَقْفِ الجَائِزِ مَعَ كَوْنِ الوَقْفِ أَوْلَى نَحِوُ : {قُل رَّبِّي أَعْلَمُ بِعِدَّتِهِم مَّا يَعْلَمُهُمْ إِلَّا قَلِيلٌ ۗ فَلَا تُمَارِ فِيهِمْ}.',
   'عَلَامَة الوَقْفِ الجَائِزِ جَوَازًا مُسْتَوِيَ الطَّرَفَيْن نَحوُ : {نَّحْنُ نَقُصُّ عَلَيْكَ نَبَأَهُم بِالْحَقِّ ۚ إِنَّهُمْ فِتْيَةٌ آمَنُوا بِرَبِّهِمْ}.',
@@ -105,7 +105,7 @@ final List screensList = [
   },
 ];
 
-final List mushafSettingsList = [
+const List mushafSettingsList = [
   {
     'name': 'pages',
     'imageUrl': 'assets/images/pages.png',
@@ -116,7 +116,7 @@ final List mushafSettingsList = [
   },
 ];
 
-final List themeList = [
+const List themeList = [
   {
     'name': AppTheme.blue,
     'title': 'blueMode',
@@ -139,7 +139,7 @@ final List themeList = [
   }
 ];
 
-List surahReaderInfo = [
+const List surahReaderInfo = [
   {
     'name': 'reader1',
     'readerD': '${UrlConstants.surahUrl}',
@@ -310,7 +310,7 @@ List tafsirNameRandom = [
   }
 ];
 
-List ayahReaderInfo = [
+const List ayahReaderInfo = [
   {
     'name': 'reader1',
     'readerD': 'Abdul_Basit_Murattal_192kbps',
@@ -387,10 +387,10 @@ List<Map<String, dynamic>> whatsNewList = [
     'imagePath': 'assets/images/ayahTranslate.png',
   },
   {
-    'index': 5,
+    'index': 11,
     'title': "What'sNewTitle5",
     'details':
-        "${'ayahs'.tr}:\n\n◉ ${'reader4'.tr}\n◉ ${'reader5'.tr}\n◉ ${'reader6'.tr}\n\n${'quran_sorah'.tr}:\n\n◉ ${'reader7'.tr}\n◉ ${'reader8'.tr}\n◉ ${'reader9'.tr}\n◉ ${'reader10'.tr}\n◉ ${'reader11'.tr}\n◉ ${'reader12'.tr}\n◉ ${'reader13'.tr}",
+        "${'ayahs'.tr}:\n\n◉ ${'reader4'.tr}\n◉ ${'reader5'.tr}\n◉ ${'reader6'.tr}\n◉ ${'reader15'.tr}\n◉ ${'reader16'.tr}\n\n${'quran_sorah'.tr}:\n\n◉ ${'reader7'.tr}\n◉ ${'reader8'.tr}\n◉ ${'reader9'.tr}\n◉ ${'reader10'.tr}\n◉ ${'reader11'.tr}\n◉ ${'reader12'.tr}\n◉ ${'reader13'.tr}\n◉ ${'reader15'.tr}\n◉ ${'reader16'.tr}\n◉ ${'reader14'.tr}",
     'imagePath': '',
   },
   {
@@ -416,19 +416,6 @@ List<Map<String, dynamic>> whatsNewList = [
     'title': "What'sNewDetails9",
     'details': "",
     'imagePath': 'assets/images/IslamicOccasions.png',
-  },
-  {
-    'index': 10,
-    'title': "What'sNewTitle5",
-    'details': "◉ ${'reader14'.tr}",
-    'imagePath': '',
-  },
-  {
-    'index': 11,
-    'title': "What'sNewTitle5",
-    'details':
-        "${'ayahs'.tr}:\n\n◉ ${'reader15'.tr}\n◉ ${'reader16'.tr}\n\n${'quran_sorah'.tr}:\n\n◉ ${'reader15'.tr}\n◉ ${'reader16'.tr}",
-    'imagePath': '',
   },
 ];
 
