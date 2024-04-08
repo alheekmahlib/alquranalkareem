@@ -504,3 +504,11 @@ const List monthHadithsList = [
     'bookName': ' صحيح البخاري كتاب الصوم - ١٩١٢',
   },
 ];
+
+const List<Map<String, dynamic>> prayerNameList = [
+  {'name': 'Fajr', 'sharedAlarm': 'fajrAlarm'},
+  {'name': 'Dhuhr', 'sharedAlarm': 'dhuhrAlarm'},
+  {'name': 'Asr', 'sharedAlarm': 'asrAlarm'},
+  {'name': 'Maghrib', 'sharedAlarm': 'maghribAlarm'},
+  {'name': 'Isha', 'sharedAlarm': 'ishaAlarm'},
+];
