@@ -64,6 +64,11 @@ dependencies:
 #  scroll_to_index: ^3.0.1
   drift: ^2.16.0
   sqlite3_flutter_libs: ^0.5.20
+  # adhan packages
+  adhan: ^2.0.0+1
+  geolocator: ^11.0.0
+  geocoding: ^3.0.0
+  intl: ^0.18.1
 
   flutter:
     sdk: flutter
