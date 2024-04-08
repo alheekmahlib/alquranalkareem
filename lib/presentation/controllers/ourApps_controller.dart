@@ -1,9 +1,9 @@
 import 'dart:convert';
 
-import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:google_api_availability/google_api_availability.dart';
 import 'package:http/http.dart' as http;
 import 'package:url_launcher/url_launcher.dart';
 
@@ -31,10 +31,11 @@ class OurAppsController extends GetxController {
           throw 'Could not launch ${ourAppInfo.urlAppStore}';
         }
       } else if (Theme.of(context).platform == TargetPlatform.android) {
-        final deviceInfo = DeviceInfoPlugin();
-        AndroidDeviceInfo androidInfo = await deviceInfo.androidInfo;
+        GooglePlayServicesAvailability availability =
+            await GoogleApiAvailability.instance
+                .checkGooglePlayServicesAvailability(true);
 
-        if (androidInfo.manufacturer.toLowerCase() != 'huawei') {
+        if (availability == GooglePlayServicesAvailability.success) {
           if (await canLaunchUrl(Uri.parse(ourAppInfo.urlPlayStore))) {
             await launchUrl(Uri.parse(ourAppInfo.urlPlayStore));
           } else {
