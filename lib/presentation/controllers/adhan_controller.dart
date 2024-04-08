@@ -12,6 +12,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../../core/data/models/prayer_day_model.dart';
 import '../../core/services/services_locator.dart';
 import '../../core/utils/constants/lists.dart';
+import '../../core/utils/constants/location_enum.dart';
 
 class AdhanController extends GetxController {
   late PrayerTimes prayerTimes;
@@ -129,7 +130,7 @@ class AdhanController extends GetxController {
     coordinates = Coordinates(Location.instance.position!.latitude,
         Location.instance.position!.latitude);
     dateComponents = DateComponents.from(now);
-    params = CalculationMethod.north_america.getParameters();
+    params = getCalculationParametersFromLocation(Location.instance.country);
     params.madhab = Madhab.shafi;
     prayerTimes = PrayerTimes(coordinates, dateComponents, params);
     sunnahTimes = SunnahTimes(prayerTimes);
@@ -170,6 +171,32 @@ class AdhanController extends GetxController {
       isha: prayerTimes.isha,
       hijriDate: hijriDate,
     );
+  }
+
+  CalculationParameters getCalculationParametersFromLocation(String location) {
+    LocationEnum select = location.getCountry();
+    switch (select) {
+      case LocationEnum.NorthAmerica:
+        return CalculationMethod.north_america.getParameters();
+      case LocationEnum.Egyptian:
+        return CalculationMethod.egyptian.getParameters();
+      case LocationEnum.Dubai:
+        return CalculationMethod.dubai.getParameters();
+      case LocationEnum.Karachi:
+        return CalculationMethod.karachi.getParameters();
+      case LocationEnum.Kuwait:
+        return CalculationMethod.kuwait.getParameters();
+      case LocationEnum.Qatar:
+        return CalculationMethod.qatar.getParameters();
+      case LocationEnum.Turkey:
+        return CalculationMethod.turkey.getParameters();
+      case LocationEnum.Singapore:
+        return CalculationMethod.singapore.getParameters();
+      case LocationEnum.Tehran:
+        return CalculationMethod.tehran.getParameters();
+      default:
+        return CalculationMethod.other.getParameters();
+    }
   }
 
   // TODO: upcoming feature
