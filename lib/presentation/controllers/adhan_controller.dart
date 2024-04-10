@@ -3,16 +3,19 @@ import 'dart:async';
 import 'package:adhan/adhan.dart';
 import 'package:alquranalkareem/core/services/location/locations.dart';
 import 'package:alquranalkareem/core/utils/helpers/date_formatter.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get_rx/src/rx_types/rx_types.dart';
 import 'package:get/get_state_manager/src/simple/get_controllers.dart';
 import 'package:hijri/hijri_calendar.dart';
-import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../core/data/models/prayer_day_model.dart';
 import '../../core/services/services_locator.dart';
 import '../../core/utils/constants/lists.dart';
 import '../../core/utils/constants/location_enum.dart';
+import '../../core/utils/constants/lottie.dart';
+import '../../core/utils/constants/lottie_constants.dart';
 
 class AdhanController extends GetxController {
   late PrayerTimes prayerTimes;
@@ -30,43 +33,73 @@ class AdhanController extends GetxController {
   late final dateComponents;
   // Get calculation parameters based on your desired calculation method
   late final params;
+  RxDouble timeProgress = 0.0.obs;
+  Timer? timer;
+  // late String getFajrTime;
+  // late String getDhuhrTime;
+  // late String getAsrTime;
+  // late String getMaghribTime;
+  // late String getIshaTime;
+  // late String lastThirdStartTime;
+  // late String getMidnightTime;
 
-  String get getFajirTime => DateFormatter.justTime(prayerTimes.fajr);
-
-  String get getDhuhrTime => DateFormatter.justTime(prayerTimes.dhuhr);
-  String get getAsrTime => DateFormatter.justTime(prayerTimes.asr);
-  String get getMaghribTime => DateFormatter.justTime(prayerTimes.maghrib);
-  String get getIshaTime => DateFormatter.justTime(prayerTimes.isha);
   int get currentPrayer => prayerTimes.currentPrayer().index - 1;
   int get nextPrayer => prayerTimes.nextPrayer().index;
-  String get lastThirdStartTime =>
-      DateFormatter.justTime(sunnahTimes.lastThirdOfTheNight);
-  String get getMidnightTime =>
-      DateFormatter.justTime(sunnahTimes.middleOfTheNight);
 
-  String getTimeLeftForNextPrayer() {
-    if (nextPrayerTime == "Not available") {
-      return "Next prayer time not available";
+  Future<String> get getFajrTime async =>
+      await DateFormatter.justTime(prayerTimes.fajr);
+
+  Future<String> get getDhuhrTime async =>
+      await DateFormatter.justTime(prayerTimes.dhuhr);
+  Future<String> get getAsrTime async =>
+      await DateFormatter.justTime(prayerTimes.asr);
+  Future<String> get getMaghribTime async =>
+      await DateFormatter.justTime(prayerTimes.maghrib);
+  Future<String> get getIshaTime async =>
+      await DateFormatter.justTime(prayerTimes.isha);
+  Future<String> get lastThirdStartTime async =>
+      await DateFormatter.justTime(sunnahTimes.lastThirdOfTheNight);
+  Future<String> get getMidnightTime async =>
+      await DateFormatter.justTime(sunnahTimes.middleOfTheNight);
+
+  // Future<void> prayerTimesInitialization() async {
+  //   getFajrTime = await DateFormatter.justTime(prayerTimes.fajr);
+  //   getDhuhrTime = await DateFormatter.justTime(prayerTimes.dhuhr);
+  //   getAsrTime = await DateFormatter.justTime(prayerTimes.asr);
+  //   getMaghribTime = await DateFormatter.justTime(prayerTimes.maghrib);
+  //   getIshaTime = await DateFormatter.justTime(prayerTimes.isha);
+  //   lastThirdStartTime =
+  //       await DateFormatter.justTime(sunnahTimes.lastThirdOfTheNight);
+  //   getMidnightTime =
+  //       await DateFormatter.justTime(sunnahTimes.middleOfTheNight);
+  //   update();
+  // }
+
+  Widget get LottieWidget {
+    if (prayerTimes.sunrise.isBefore(now)) {
+      return customLottie(LottieConstants.assetsLottieSun, height: 120);
+    } else if (prayerTimes.maghrib.isBefore(now)) {
+      return customLottie(LottieConstants.assetsLottieMoon, height: 120);
+    } else {
+      return customLottie(LottieConstants.assetsLottieMoon, height: 120);
     }
-    final now = DateTime.now();
-    final nextPrayerDateTime =
-        prayerTimes.timeForPrayer(prayerTimes.nextPrayer());
-    if (nextPrayerDateTime == null) {
-      return "Next prayer time not calculated";
-    }
-    final duration = nextPrayerDateTime.difference(now);
-    if (duration.isNegative) {
-      return "The time for the next prayer has passed.";
-    }
-    final String formattedDuration =
-        '${duration.inHours.toString().padLeft(2, '0')}:${(duration.inMinutes % 60).toString().padLeft(2, '0')}:${(duration.inSeconds % 60).toString().padLeft(2, '0')}';
-    return formattedDuration;
   }
 
-  void startCountdownTimer() {
-    Timer.periodic(const Duration(seconds: 1), (timer) {
-      countdownTime.value = getTimeLeftForNextPrayer();
-    });
+  Widget get icon => prayerTimes.maghrib.isBefore(now)
+      ? customLottie(LottieConstants.assetsLottieSun, height: 120)
+      : customLottie(LottieConstants.assetsLottieMoon, height: 120);
+
+  Duration getTimeLeftForNextPrayer() {
+    final now = DateTime.now();
+    final Prayer? nextPrayer = prayerTimes.nextPrayer();
+    if (nextPrayer == null) {
+      return Duration.zero;
+    }
+    final DateTime? nextPrayerDateTime = prayerTimes.timeForPrayer(nextPrayer);
+    if (nextPrayerDateTime == null || nextPrayerDateTime.isBefore(now)) {
+      return Duration.zero;
+    }
+    return nextPrayerDateTime.difference(now);
   }
 
   void prayerAlarmSwitch(int index) {
@@ -119,32 +152,26 @@ class AdhanController extends GetxController {
   // }
 
   @override
-  void onInit() {
+  Future<void> onInit() async {
     super.onInit();
-    initializeAdhanVriables();
-    startCountdownTimer();
-    // prayerAlarm.value = sl<SharedPreferences>().getBool('sharedAlarm') ?? false;
+    await initializeAdhanVariables();
+    // await prayerTimesInitialization();
+    updateProgress();
+    timer = Timer.periodic(
+        const Duration(minutes: 1), (Timer t) => updateProgress());
   }
 
-  Future<void> initializeAdhanVriables() async {
+  Future<PrayerTimes> initializeAdhanVariables() async {
     coordinates = Coordinates(Location.instance.position!.latitude,
         Location.instance.position!.latitude);
     dateComponents = DateComponents.from(now);
-    params = getCalculationParametersFromLocation(Location.instance.country);
+    params = CalculationMethod.north_america.getParameters();
+    // params = getCalculationParametersFromLocation(Location.instance.country);
     params.madhab = Madhab.shafi;
-    prayerTimes = PrayerTimes(coordinates, dateComponents, params);
-    sunnahTimes = SunnahTimes(prayerTimes);
-    final nextPrayer = prayerTimes.nextPrayer();
-    if (nextPrayer != null) {
-      final DateTime? nextPrayerTimeDateTime =
-          prayerTimes.timeForPrayer(nextPrayer);
-      nextPrayerTime = nextPrayerTimeDateTime != null
-          ? DateFormat.jm().format(nextPrayerTimeDateTime)
-          : "Not available";
-    } else {
-      nextPrayerTime = "Not available";
-    }
+    final prayerTimesNow = PrayerTimes(coordinates, dateComponents, params);
+    sunnahTimes = SunnahTimes(prayerTimesNow);
     update();
+    return prayerTimes = prayerTimesNow;
   }
 
   getPrayerSelected(int index, var v1, var v2) =>
@@ -192,8 +219,6 @@ class AdhanController extends GetxController {
         return CalculationMethod.turkey.getParameters();
       case LocationEnum.Singapore:
         return CalculationMethod.singapore.getParameters();
-      case LocationEnum.Tehran:
-        return CalculationMethod.tehran.getParameters();
       default:
         return CalculationMethod.other.getParameters();
     }
@@ -249,4 +274,17 @@ class AdhanController extends GetxController {
   //     print(e); // or use a more sophisticated error handling approach
   //   }
   // }
+
+  void updateProgress() {
+    var now = DateTime.now();
+    var totalMinutes = 24 * 60;
+    var currentMinutes = now.hour * 60 + now.minute;
+    timeProgress.value = (currentMinutes / totalMinutes) * 100;
+  }
+
+  @override
+  void onClose() {
+    timer?.cancel();
+    super.onClose();
+  }
 }

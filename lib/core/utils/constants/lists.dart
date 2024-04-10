@@ -1,12 +1,16 @@
 import 'package:get/get.dart';
 
+import '../../../presentation/controllers/adhan_controller.dart';
 import '../../../presentation/controllers/theme_controller.dart';
 import '../../../presentation/screens/alwaqf_screen/alwaqf_screen.dart';
 import '../../../presentation/screens/athkar/screens/alzkar_view.dart';
 import '../../../presentation/screens/quran_page/screens/quran_home.dart';
 import '../../../presentation/screens/surah_audio_screen/audio_surah.dart';
+import '../../services/services_locator.dart';
 import '/presentation/screens/home/home_screen.dart';
 import 'url_constants.dart';
+
+final adhanCtrl = sl<AdhanController>();
 
 List<String> translateName = <String>[
   'English',
@@ -505,10 +509,50 @@ const List monthHadithsList = [
   },
 ];
 
-const List<Map<String, dynamic>> prayerNameList = [
-  {'name': 'Fajr', 'sharedAlarm': 'fajrAlarm'},
-  {'name': 'Dhuhr', 'sharedAlarm': 'dhuhrAlarm'},
-  {'name': 'Asr', 'sharedAlarm': 'asrAlarm'},
-  {'name': 'Maghrib', 'sharedAlarm': 'maghribAlarm'},
-  {'name': 'Isha', 'sharedAlarm': 'ishaAlarm'},
+List<Map<String, dynamic>> prayerNameList = [
+  {
+    'title': 'الفجر',
+    'time': adhanCtrl.getFajrTime,
+    'hourTime': adhanCtrl.prayerTimes.fajr.hour,
+    'minuteTime': adhanCtrl.prayerTimes.fajr.minute,
+    'sharedAlarm': 'ALARM_FAJR',
+    'sharedBefore': 'BEFORE_FAJR',
+    'sharedAfter': 'AFTER_FAJR',
+  },
+  {
+    'title': 'الظهر',
+    'time': adhanCtrl.getDhuhrTime,
+    'hourTime': adhanCtrl.prayerTimes.dhuhr.hour,
+    'minuteTime': adhanCtrl.prayerTimes.dhuhr.minute,
+    'sharedAlarm': 'ALARM_DHUHR',
+    'sharedBefore': 'BEFORE_DHUHR',
+    'sharedAfter': 'AFTER_DHUHR',
+  },
+  {
+    'title': 'العصر',
+    'time': adhanCtrl.getAsrTime,
+    'hourTime': adhanCtrl.prayerTimes.asr.hour,
+    'minuteTime': adhanCtrl.prayerTimes.asr.minute,
+    'sharedAlarm': 'ALARM_ASR',
+    'sharedBefore': 'BEFORE_ASR',
+    'sharedAfter': 'AFTER_ASR',
+  },
+  {
+    'title': 'المغرب',
+    'time': adhanCtrl.getMaghribTime,
+    'hourTime': adhanCtrl.prayerTimes.maghrib.hour,
+    'minuteTime': adhanCtrl.prayerTimes.maghrib.minute,
+    'sharedAlarm': 'ALARM_MAGHRIB',
+    'sharedBefore': 'BEFORE_MAGHRIB',
+    'sharedAfter': 'AFTER_MAGHRIB',
+  },
+  {
+    'title': 'العشاء',
+    'time': adhanCtrl.getIshaTime,
+    'hourTime': adhanCtrl.prayerTimes.isha.hour,
+    'minuteTime': adhanCtrl.prayerTimes.isha.minute,
+    'sharedAlarm': 'ALARM_ISHA',
+    'sharedBefore': 'BEFORE_ISHA',
+    'sharedAfter': 'AFTER_ISHA',
+  },
 ];
