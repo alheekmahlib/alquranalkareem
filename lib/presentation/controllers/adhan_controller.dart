@@ -31,18 +31,28 @@ class AdhanController extends GetxController {
   // Get calculation parameters based on your desired calculation method
   late final params;
 
-  String get getFajirTime => DateFormatter.justTime(prayerTimes.fajr);
+  late String getFajirTime;
+  late String getDhuhrTime;
+  late String getAsrTime;
+  late String getMaghribTime;
+  late String getIshaTime;
+  late String lastThirdStartTime;
+  late String getMidnightTime;
 
-  String get getDhuhrTime => DateFormatter.justTime(prayerTimes.dhuhr);
-  String get getAsrTime => DateFormatter.justTime(prayerTimes.asr);
-  String get getMaghribTime => DateFormatter.justTime(prayerTimes.maghrib);
-  String get getIshaTime => DateFormatter.justTime(prayerTimes.isha);
   int get currentPrayer => prayerTimes.currentPrayer().index - 1;
   int get nextPrayer => prayerTimes.nextPrayer().index;
-  String get lastThirdStartTime =>
-      DateFormatter.justTime(sunnahTimes.lastThirdOfTheNight);
-  String get getMidnightTime =>
-      DateFormatter.justTime(sunnahTimes.middleOfTheNight);
+
+  void prayerTimesInitialization() async {
+    getFajirTime = await DateFormatter.justTime(prayerTimes.fajr);
+    getDhuhrTime = await DateFormatter.justTime(prayerTimes.dhuhr);
+    getAsrTime = await DateFormatter.justTime(prayerTimes.asr);
+    getMaghribTime = await DateFormatter.justTime(prayerTimes.maghrib);
+    getIshaTime = await DateFormatter.justTime(prayerTimes.isha);
+    lastThirdStartTime =
+        await DateFormatter.justTime(sunnahTimes.lastThirdOfTheNight);
+    getMidnightTime =
+        await DateFormatter.justTime(sunnahTimes.middleOfTheNight);
+  }
 
   String getTimeLeftForNextPrayer() {
     if (nextPrayerTime == "Not available") {
@@ -122,6 +132,7 @@ class AdhanController extends GetxController {
   void onInit() {
     super.onInit();
     initializeAdhanVriables();
+    prayerTimesInitialization();
     startCountdownTimer();
     // prayerAlarm.value = sl<SharedPreferences>().getBool('sharedAlarm') ?? false;
   }
