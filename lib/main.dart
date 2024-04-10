@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:alquranalkareem/core/services/location/locations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
+import 'package:timezone/data/latest.dart' as tz;
 
 import '/core/services/languages/dependency_inj.dart' as dep;
 import 'core/services/services_locator.dart';
@@ -11,6 +12,7 @@ import 'myApp.dart';
 Future<void> main() async {
   WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
   widgetsBinding;
+  tz.initializeTimeZones();
   try {
     await LocationHelper.instance.getPositionDetails();
   } catch (e) {
