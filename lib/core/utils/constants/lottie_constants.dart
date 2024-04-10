@@ -25,6 +25,10 @@ class LottieConstants {
   /// assets/lottie/loading.json
   static const String assetsLottieLoading = "assets/lottie/loading.json";
 
+  /// Assets for assetsLottieMoon
+  /// assets/lottie/moon.json
+  static const String assetsLottieMoon = "assets/lottie/moon.json";
+
   /// Assets for assetsLottieNotFound
   /// assets/lottie/notFound.json
   static const String assetsLottieNotFound = "assets/lottie/notFound.json";
@@ -73,4 +77,8 @@ class LottieConstants {
   /// assets/lottie/splash_loading.json
   static const String assetsLottieSplashLoading =
       "assets/lottie/splash_loading.json";
+
+  /// Assets for assetsLottieSun
+  /// assets/lottie/sun.json
+  static const String assetsLottieSun = "assets/lottie/sun.json";
 }

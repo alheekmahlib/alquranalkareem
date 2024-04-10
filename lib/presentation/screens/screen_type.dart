@@ -2,7 +2,6 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:responsive_builder/responsive_builder.dart';
-import 'package:wakelock_plus/wakelock_plus.dart';
 
 import '../../core/services/services_locator.dart';
 import '../../core/utils/helpers/ui_helper.dart';
@@ -15,7 +14,6 @@ class ScreenTypeL extends StatelessWidget {
   Widget build(BuildContext context) {
     final generalCtrl = sl<GeneralController>();
     generalCtrl.ramadhanOrEidGreeting();
-    WakelockPlus.enable();
     if (Platform.isIOS || Platform.isAndroid || Platform.isFuchsia) {
       UiHelper.showRateDialog(context);
     }

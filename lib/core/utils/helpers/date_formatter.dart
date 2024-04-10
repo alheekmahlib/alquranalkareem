@@ -1,21 +1,47 @@
+import 'package:flutter_timezone/flutter_timezone.dart';
+import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import 'package:timezone/timezone.dart' as tz;
+
+import '../../services/languages/localization_controller.dart';
 
 class DateFormatter {
-  /// example 4:10 AM
-  static String justTime(DateTime dateTime) {
-    final hour = DateFormat('hh').format(dateTime);
-    final minute = DateFormat('mm').format(dateTime);
-    final period = DateFormat('a').format(dateTime);
-    return '$hour.$minute $period';
+  static String _locale =
+      Get.find<LocalizationController>().locale.languageCode;
+
+  /// Formats the given [dateTime] to just time (hour and minute) in the user's time zone.
+  /// Example: 4:10 AM (English), ٤:١٠ ص (Arabic)
+  static Future<String> justTime(DateTime dateTime) async {
+    final userDateTime = await _convertToUserTimeZone(dateTime);
+    final hour = DateFormat('hh', _locale).format(userDateTime);
+    final minute = DateFormat('mm', _locale).format(userDateTime);
+    final period = DateFormat('a', _locale).format(userDateTime);
+    return '$hour:$minute ${period}';
   }
 
-  /// example Apr 7, 2024
-  static String justDate(DateTime date) {
-    return DateFormat.yMMMd().format(date);
+  /// Formats the given [dateTime] to just date in the user's time zone.
+  /// Example: Apr 7, 2024
+  static Future<String> justDate(DateTime dateTime) async {
+    final userDateTime = await _convertToUserTimeZone(dateTime);
+    return DateFormat.yMMMd(_locale).format(userDateTime);
   }
 
-  /// example Apr 7, 2024, 8:00 PM
-  static String dateAndTime(DateTime dateTime) {
-    return DateFormat.yMMMd().add_jm().format(dateTime);
+  /// Formats the given [dateTime] to date and time in the user's time zone.
+  /// Example: Apr 7, 2024, 8:00 PM
+  static Future<String> dateAndTime(DateTime dateTime) async {
+    final userDateTime = await _convertToUserTimeZone(dateTime);
+    return DateFormat.yMMMd(_locale).add_jm().format(userDateTime);
+  }
+
+  /// Converts the given [dateTime] to the user's time zone.
+  static Future<tz.TZDateTime> _convertToUserTimeZone(DateTime dateTime) async {
+    final userTimeZone = await _getUserTimeZone();
+    return tz.TZDateTime.from(dateTime, userTimeZone);
+  }
+
+  /// Get the user's time zone
+  static Future<tz.Location> _getUserTimeZone() async {
+    final String currentTimeZone = await FlutterTimezone.getLocalTimezone();
+    return tz.getLocation(currentTimeZone);
   }
 }

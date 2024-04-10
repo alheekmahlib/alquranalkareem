@@ -10,6 +10,7 @@ import 'package:sqflite_common_ffi/sqflite_ffi.dart';
 import 'package:timezone/data/latest.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
 
+import '../../presentation/controllers/adhan_controller.dart';
 import '../../presentation/controllers/daily_ayah_controller.dart';
 import '../../presentation/controllers/khatmah_controller.dart';
 import '../../presentation/controllers/ourApps_controller.dart';
@@ -165,6 +166,9 @@ class ServicesLocator {
 
     sl.registerLazySingleton<DailyAyahController>(() =>
         Get.put<DailyAyahController>(DailyAyahController(), permanent: true));
+
+    sl.registerLazySingleton<AdhanController>(
+        () => Get.put<AdhanController>(AdhanController(), permanent: true));
     // NotifyHelper().initializeNotification();
     // sl<NotificationsController>().initializeLocalNotifications();
 
