@@ -3,10 +3,8 @@ import 'dart:async';
 import 'package:adhan/adhan.dart';
 import 'package:alquranalkareem/core/services/location/locations.dart';
 import 'package:alquranalkareem/core/utils/helpers/date_formatter.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get_rx/src/rx_types/rx_types.dart';
-import 'package:get/get_state_manager/src/simple/get_controllers.dart';
+import 'package:get/get.dart';
 import 'package:hijri/hijri_calendar.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -35,13 +33,13 @@ class AdhanController extends GetxController {
   late final params;
   RxDouble timeProgress = 0.0.obs;
   Timer? timer;
-  // late String getFajrTime;
-  // late String getDhuhrTime;
-  // late String getAsrTime;
-  // late String getMaghribTime;
-  // late String getIshaTime;
-  // late String lastThirdStartTime;
-  // late String getMidnightTime;
+  String fajrTime = '';
+  String dhuhrTime = '';
+  String asrTime = '';
+  String maghribTime = '';
+  String ishaTime = '';
+  String lastThirdTime = '';
+  String midnightTime = '';
 
   int get currentPrayer => prayerTimes.currentPrayer().index - 1;
   int get nextPrayer => prayerTimes.nextPrayer().index;
@@ -61,6 +59,92 @@ class AdhanController extends GetxController {
       await DateFormatter.justTime(sunnahTimes.lastThirdOfTheNight);
   Future<String> get getMidnightTime async =>
       await DateFormatter.justTime(sunnahTimes.middleOfTheNight);
+
+  List<Widget> buildPrayerTimeWidgets() {
+    final List<Map<String, String>> prayerTimes = [
+      {'name': 'Fajr', 'time': fajrTime},
+      {'name': 'Dhuhr', 'time': dhuhrTime},
+      {'name': 'Asr', 'time': asrTime},
+      {'name': 'Maghrib', 'time': maghribTime},
+      {'name': 'Isha', 'time': ishaTime},
+      {'name': 'Last Third', 'time': lastThirdTime},
+      {'name': 'Middle of the Night', 'time': midnightTime},
+    ];
+
+    return List.generate(
+        prayerTimes.length,
+        (index) => GestureDetector(
+              onTap: () => adhanCtrl.prayerAlarmSwitch(index),
+              child: Container(
+                width: 160,
+                margin:
+                    const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
+                decoration: BoxDecoration(
+                    color: Theme.of(Get.context!).colorScheme.primary,
+                    borderRadius: const BorderRadius.all(
+                      Radius.circular(5),
+                    ),
+                    border: Border.all(
+                      color: Theme.of(Get.context!).canvasColor,
+                      width: 1,
+                      strokeAlign: BorderSide.strokeAlignInside,
+                    )),
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Container(
+                      width: 110,
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 6.0, vertical: 2.0),
+                      decoration: BoxDecoration(
+                        color: adhanCtrl.getPrayerSelected(
+                            index,
+                            const Color(0xfff16938).withOpacity(.5),
+                            Theme.of(Get.context!).canvasColor.withOpacity(.2)),
+                        borderRadius: const BorderRadius.all(
+                          Radius.circular(4),
+                        ),
+                      ),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            prayerTimes[index]['name']!,
+                            style: TextStyle(
+                              fontFamily: 'kufi',
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold,
+                              color: Theme.of(Get.context!).canvasColor,
+                            ),
+                          ),
+                          Text(
+                            prayerTimes[index]['time']!,
+                            style: TextStyle(
+                              fontFamily: 'kufi',
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold,
+                              color: Theme.of(Get.context!).canvasColor,
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 8.0, horizontal: 12),
+                      child: Icon(
+                        adhanCtrl.getPrayerSelected(index,
+                            Icons.alarm_on_outlined, Icons.alarm_off_outlined),
+                        color: Theme.of(Get.context!).canvasColor,
+                        size: 24,
+                      ),
+                    )
+                  ],
+                ),
+              ),
+            ));
+  }
 
   // Future<void> prayerTimesInitialization() async {
   //   getFajrTime = await DateFormatter.justTime(prayerTimes.fajr);
@@ -132,30 +216,17 @@ class AdhanController extends GetxController {
     update();
   }
 
-  // TODO: check if it necessary or delete it
-  // void anotherTimeSwitch(int index) {
-  //   switch (index) {
-  //     case 0:
-  //       sharedCtrl.setBool(anotherTimeList[0]['sharedAlarm'],
-  //           prayerAlarm.value = !prayerAlarm.value);
-  //       break;
-  //     case 1:
-  //       sharedCtrl.setBool(anotherTimeList[1]['sharedAlarm'],
-  //           prayerAlarm.value = !prayerAlarm.value);
-  //       break;
-  //     case 2:
-  //       sharedCtrl.setBool(anotherTimeList[2]['sharedAlarm'],
-  //           prayerAlarm.value = !prayerAlarm.value);
-  //       break;
-  //   }
-  //   update();
-  // }
-
   @override
   Future<void> onInit() async {
     super.onInit();
     await initializeAdhanVariables();
-    // await prayerTimesInitialization();
+    fajrTime = await getFajrTime;
+    dhuhrTime = await getDhuhrTime;
+    asrTime = await getAsrTime;
+    maghribTime = await getMaghribTime;
+    ishaTime = await getIshaTime;
+    lastThirdTime = await lastThirdStartTime;
+    midnightTime = await getMidnightTime;
     updateProgress();
     timer = Timer.periodic(
         const Duration(minutes: 1), (Timer t) => updateProgress());

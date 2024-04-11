@@ -4,7 +4,6 @@ import 'package:get/get.dart';
 import 'package:slide_countdown/slide_countdown.dart';
 
 import '../../../../core/services/services_locator.dart';
-import '../../../../core/utils/constants/lists.dart';
 import '../../../controllers/adhan_controller.dart';
 import 'prayer_build.dart';
 
@@ -25,7 +24,7 @@ class PrayerWidget extends StatelessWidget {
               bottomCenterWidget: Column(
                 children: [
                   Text(
-                    prayerNameList[adhanCtrl.nextPrayer]['title'],
+                    '',
                     style: TextStyle(
                       fontFamily: 'kufi',
                       fontSize: 22,
@@ -34,7 +33,7 @@ class PrayerWidget extends StatelessWidget {
                     ),
                   ),
                   Text(
-                    prayerNameList[adhanCtrl.nextPrayer]['time'],
+                    '',
                     style: TextStyle(
                       fontFamily: 'kufi',
                       fontSize: 22,
