@@ -555,4 +555,22 @@ List<Map<String, dynamic>> prayerNameList = [
     'sharedBefore': 'BEFORE_ISHA',
     'sharedAfter': 'AFTER_ISHA',
   },
+  {
+    'title': 'العشاء',
+    'time': adhanCtrl.getIshaTime,
+    'hourTime': adhanCtrl.prayerTimes.isha.hour,
+    'minuteTime': adhanCtrl.prayerTimes.isha.minute,
+    'sharedAlarm': 'ALARM_ISHA',
+    'sharedBefore': 'BEFORE_ISHA',
+    'sharedAfter': 'AFTER_ISHA',
+  },
+  {
+    'title': 'العشاء',
+    'time': adhanCtrl.getIshaTime,
+    'hourTime': adhanCtrl.prayerTimes.isha.hour,
+    'minuteTime': adhanCtrl.prayerTimes.isha.minute,
+    'sharedAlarm': 'ALARM_ISHA',
+    'sharedBefore': 'BEFORE_ISHA',
+    'sharedAfter': 'AFTER_ISHA',
+  },
 ];
