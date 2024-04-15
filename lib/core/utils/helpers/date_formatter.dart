@@ -44,4 +44,10 @@ class DateFormatter {
     final String currentTimeZone = await FlutterTimezone.getLocalTimezone();
     return tz.getLocation(currentTimeZone);
   }
+
+  static String formatPrayerTime(DateTime? time) {
+    if (time == null) return "";
+    // Customize the format as needed
+    return DateFormat('h:mm a', _locale).format(time);
+  }
 }

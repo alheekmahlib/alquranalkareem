@@ -6,9 +6,12 @@ import 'package:responsive_builder/responsive_builder.dart';
 import '../../core/services/services_locator.dart';
 import '../../core/utils/helpers/ui_helper.dart';
 import '../controllers/general_controller.dart';
+import '../controllers/notification_controller.dart';
 
 class ScreenTypeL extends StatelessWidget {
-  const ScreenTypeL({super.key});
+  ScreenTypeL({super.key});
+
+  final notificationCtrl = sl<NotificationController>();
 
   @override
   Widget build(BuildContext context) {

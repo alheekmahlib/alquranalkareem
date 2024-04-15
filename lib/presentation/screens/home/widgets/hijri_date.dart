@@ -20,7 +20,8 @@ class HijriDate extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20.0),
       child: GestureDetector(
-        onTap: () => Get.to(OccasionsWidget(), transition: Transition.downToUp),
+        onTap: () =>
+            Get.to(() => OccasionsWidget(), transition: Transition.downToUp),
         child: ContainerButton(
           height: 190,
           width: 250,

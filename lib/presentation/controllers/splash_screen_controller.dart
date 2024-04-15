@@ -58,7 +58,7 @@ class SplashScreenController extends GetxController {
           isScrollControlled: true,
         );
       } else {
-        Get.offAll(() => const ScreenTypeL(), transition: Transition.downToUp);
+        Get.offAll(() => ScreenTypeL(), transition: Transition.downToUp);
       }
     });
     // Get.off(() => OnboardingScreen());

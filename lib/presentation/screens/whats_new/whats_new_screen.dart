@@ -56,7 +56,7 @@ class WhatsNewScreen extends StatelessWidget {
                               ),
                             ),
                             onTap: () {
-                              Get.off(() => const ScreenTypeL());
+                              Get.off(() => ScreenTypeL());
                               splashCtrl.saveLastShownIndex(
                                   newFeatures.last['index']);
                             },

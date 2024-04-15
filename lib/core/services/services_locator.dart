@@ -13,6 +13,7 @@ import 'package:timezone/timezone.dart' as tz;
 import '../../presentation/controllers/adhan_controller.dart';
 import '../../presentation/controllers/daily_ayah_controller.dart';
 import '../../presentation/controllers/khatmah_controller.dart';
+import '../../presentation/controllers/notification_controller.dart';
 import '../../presentation/controllers/ourApps_controller.dart';
 import '../../presentation/controllers/quran_controller.dart';
 import '../../presentation/controllers/splash_screen_controller.dart';
@@ -167,8 +168,12 @@ class ServicesLocator {
     sl.registerLazySingleton<DailyAyahController>(() =>
         Get.put<DailyAyahController>(DailyAyahController(), permanent: true));
 
-    sl.registerLazySingleton<AdhanController>(
-        () => Get.put<AdhanController>(AdhanController(), permanent: true));
+    sl.registerSingleton<AdhanController>(
+        Get.put<AdhanController>(AdhanController(), permanent: true));
+
+    sl.registerLazySingleton<NotificationController>(() =>
+        Get.put<NotificationController>(NotificationController(),
+            permanent: true));
     // NotifyHelper().initializeNotification();
     // sl<NotificationsController>().initializeLocalNotifications();
 

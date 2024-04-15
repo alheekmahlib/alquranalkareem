@@ -5,10 +5,12 @@ import 'package:get/get.dart';
 
 import '../../../../core/services/services_locator.dart';
 import '../../../../core/utils/constants/lists.dart';
+import '../../../../core/utils/constants/svg_picture.dart';
 import '/core/utils/constants/extensions/extensions.dart';
 import '/presentation/controllers/general_controller.dart';
 import 'occasion_widget.dart';
-import 'prayer_widget.dart';
+import 'prayer/prayer_settings.dart';
+import 'prayer/prayer_widget.dart';
 
 class OccasionsWidget extends StatelessWidget {
   OccasionsWidget({super.key});
@@ -20,6 +22,16 @@ class OccasionsWidget extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.primary,
+        actions: [
+          GestureDetector(
+            onTap: () =>
+                Get.bottomSheet(PrayerSettings(), isScrollControlled: true),
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16.0),
+              child: options(height: 30.0, width: 30.0),
+            ),
+          )
+        ],
       ),
       body: SafeArea(
         child: Container(
@@ -38,7 +50,60 @@ class OccasionsWidget extends StatelessWidget {
                       padding: EdgeInsets.zero,
                       physics: const BouncingScrollPhysics(),
                       children: [
-                        PrayerWidget(),
+                        Obx(
+                          () => !generalCtrl.activeLocation.value
+                              ? Container(
+                                  height: 80,
+                                  width: Get.width,
+                                  margin: const EdgeInsets.symmetric(
+                                      vertical: 8.0, horizontal: 16.0),
+                                  padding: const EdgeInsets.symmetric(
+                                      vertical: 8.0, horizontal: 16.0),
+                                  decoration: BoxDecoration(
+                                    color: Theme.of(context)
+                                        .canvasColor
+                                        .withOpacity(.1),
+                                    borderRadius: const BorderRadius.all(
+                                        Radius.circular(8)),
+                                  ),
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Expanded(
+                                        flex: 7,
+                                        child: Text(
+                                          'يرجى تفعيل تحديد الموقع لتفعيل أوقات الصلاة',
+                                          style: TextStyle(
+                                            fontSize: 18.0,
+                                            fontFamily: 'naskh',
+                                            fontWeight: FontWeight.bold,
+                                            color: Theme.of(context)
+                                                .canvasColor
+                                                .withOpacity(.7),
+                                          ),
+                                        ),
+                                      ),
+                                      const Gap(32),
+                                      Expanded(
+                                        flex: 2,
+                                        child: Switch(
+                                          value:
+                                              generalCtrl.activeLocation.value,
+                                          activeColor: Colors.red,
+                                          inactiveTrackColor: Theme.of(context)
+                                              .colorScheme
+                                              .surface
+                                              .withOpacity(.5),
+                                          onChanged: (bool value) => generalCtrl
+                                              .toggleLocationService(),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                )
+                              : PrayerWidget(),
+                        ),
                         SvgPicture.asset(
                             'assets/svg/hijri/${generalCtrl.today.hMonth}.svg',
                             width: 150,

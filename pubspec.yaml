@@ -22,7 +22,7 @@ dependencies:
   easy_image_viewer: ^1.4.1
   expansion_tile_card: ^3.0.0
   flutter_cache_manager: ^3.3.1
-  flutter_local_notifications: ^17.0.0
+  flutter_local_notifications: ^17.0.1
   flutter_screenutil: ^5.9.0
   flutter_slider_drawer: ^2.1.3
   flutter_sliding_box: ^1.1.5
@@ -133,6 +133,7 @@ flutter:
     - assets/json/translate/
     - assets/lottie/
     - assets/locales/
+    - assets/adhan_sounds/
     - assets/QuranV3.sqlite
     - assets/baghawyV2.db
     - assets/ibnkatheerV2.sqlite
