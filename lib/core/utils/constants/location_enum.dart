@@ -1,4 +1,5 @@
 enum LocationEnum {
+  umm_al_qura,
   NorthAmerica,
   Egyptian,
   Dubai,
@@ -7,20 +8,20 @@ enum LocationEnum {
   Qatar,
   Turkey,
   Singapore,
-  Tehran,
   Other,
 }
 
 extension LocationEnumExtension on String {
   LocationEnum getCountry() {
     switch (this.toLowerCase()) {
+      case 'Saudi Arabia':
+        return LocationEnum.umm_al_qura;
       case 'united states':
         return LocationEnum.NorthAmerica;
       case 'egypt':
         return LocationEnum.Egyptian;
       case 'united arab emirates':
         return LocationEnum.Dubai;
-      case 'pakistan':
       case 'karachi':
         return LocationEnum.Karachi;
       case 'kuwait':
@@ -31,8 +32,6 @@ extension LocationEnumExtension on String {
         return LocationEnum.Turkey;
       case 'singapore':
         return LocationEnum.Singapore;
-      case 'tehran':
-        return LocationEnum.Tehran;
       default:
         return LocationEnum.Other;
     }

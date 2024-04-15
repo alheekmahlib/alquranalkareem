@@ -225,7 +225,7 @@ class SelectScreenBuild extends StatelessWidget {
                         ),
                       ),
                       onTap: () {
-                        Get.off(() => const ScreenTypeL());
+                        Get.off(() => ScreenTypeL());
                       },
                     ),
                   ),

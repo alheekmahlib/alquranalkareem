@@ -1,6 +1,8 @@
+import 'dart:developer';
 import 'dart:io';
 
 import 'package:alquranalkareem/core/utils/constants/extensions/extensions.dart';
+import 'package:alquranalkareem/presentation/controllers/adhan_controller.dart';
 import 'package:arabic_numbers/arabic_numbers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -12,6 +14,7 @@ import 'package:share_plus/share_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import '../../core/services/location/locations.dart';
 import '../../core/services/services_locator.dart';
 import '../../core/utils/constants/lists.dart';
 import '../../core/utils/constants/shared_preferences_constants.dart';
@@ -78,6 +81,8 @@ class GeneralController extends GetxController {
   RxInt screenSelectedValue = 0.obs;
   var today = HijriCalendar.now();
   List<int> noHadithInMonth = <int>[2, 3, 4, 5, 6];
+  RxBool activeLocation = false.obs;
+  final sharedCtrl = sl<SharedPreferences>();
 
   bool get isNewHadith =>
       today.hMonth != noHadithInMonth.contains(today.hMonth) ? true : false;
@@ -91,6 +96,50 @@ class GeneralController extends GetxController {
   double get positionBottom => _fabSize + _fabPosition * 4;
 
   double get positionRight => _fabPosition;
+
+  @override
+  Future<void> onInit() async {
+    activeLocation.value = sharedCtrl.getBool(ACTIVE_LOCATION) ?? false;
+    // if (activeLocation.value) {
+    //   await initLocation();
+    // }
+    // setLocaleIdentifier(Get.locale!.languageCode);
+    super.onInit();
+  }
+
+  Future<void> initLocation() async {
+    try {
+      await LocationHelper.instance.getPositionDetails();
+    } catch (e) {
+      log(e.toString(), name: "Main", error: e);
+    }
+  }
+
+  Future<void> toggleLocationService() async {
+    bool isEnabled = await LocationHelper.instance.isLocationServiceEnabled();
+    if (!isEnabled) {
+      await LocationHelper.instance.openLocationSettings();
+      await Future.delayed(const Duration(seconds: 3));
+      isEnabled = await LocationHelper.instance.isLocationServiceEnabled();
+      if (isEnabled || activeLocation.value) {
+        await initLocation().then((_) {
+          activeLocation.value = true;
+          sharedCtrl.setBool(ACTIVE_LOCATION, true);
+          sl<AdhanController>().onInit();
+        });
+      } else {
+        log('Location services were not enabled by the user.');
+      }
+    } else {
+      await initLocation().then((_) {
+        activeLocation.value = true;
+        sharedCtrl.setBool(ACTIVE_LOCATION, true);
+        sl<AdhanController>().onInit();
+      });
+      log('Location services are already enabled.');
+    }
+    sl<AdhanController>().update();
+  }
 
   void selectScreenToggleView() {
     showSelectScreenPage.value = !showSelectScreenPage.value;
@@ -117,12 +166,9 @@ class GeneralController extends GetxController {
 
   Future<void> getLastPageAndFontSize() async {
     try {
-      currentPageNumber.value =
-          await sl<SharedPreferences>().getInt(MSTART_PAGE) ?? 1;
-      lastReadSurahNumber.value =
-          await sl<SharedPreferences>().getInt(MLAST_URAH) ?? 1;
-      double fontSizeFromPref =
-          await sl<SharedPreferences>().getDouble(FONT_SIZE) ?? 24.0;
+      currentPageNumber.value = await sharedCtrl.getInt(MSTART_PAGE) ?? 1;
+      lastReadSurahNumber.value = await sharedCtrl.getInt(MLAST_URAH) ?? 1;
+      double fontSizeFromPref = await sharedCtrl.getDouble(FONT_SIZE) ?? 24.0;
       if (fontSizeFromPref != 0.0 && fontSizeFromPref > 0) {
         fontSizeArabic.value = fontSizeFromPref;
       } else {
@@ -142,8 +188,8 @@ class GeneralController extends GetxController {
     sl<BookmarksController>().getBookmarks();
     lastReadSurahNumber.value =
         sl<QuranController>().getSurahNumberFromPage(index);
-    sl<SharedPreferences>().setInt(MSTART_PAGE, index + 1);
-    sl<SharedPreferences>().setInt(MLAST_URAH, lastReadSurahNumber.value);
+    sharedCtrl.setInt(MSTART_PAGE, index + 1);
+    sharedCtrl.setInt(MLAST_URAH, lastReadSurahNumber.value);
     // khatmahCtrl.saveLastKhatmah(
     //     surahNumber: lastReadSurahNumber.value, pageNumber: index);
     // sl<QuranController>().selectedAyahIndexes.clear();
@@ -356,9 +402,9 @@ class GeneralController extends GetxController {
     final String ramadhan;
     final String eid;
     bool isRamadhan = false;
-    isRamadhan = sl<SharedPreferences>().getBool(IS_RAMADAN) ?? false;
+    isRamadhan = sharedCtrl.getBool(IS_RAMADAN) ?? false;
     bool isEid = false;
-    isEid = sl<SharedPreferences>().getBool(IS_EID) ?? false;
+    isEid = sharedCtrl.getBool(IS_EID) ?? false;
     if (themeCtrl.isBlueMode) {
       ramadhan = 'ramadan_blue';
       eid = 'eid_blue';
@@ -379,7 +425,7 @@ class GeneralController extends GetxController {
                     'عَنْ أَبِي هُرَيْرَةَ، قَالَ قَالَ رَسُولُ اللَّهِ صلى الله عليه وسلم ‏ "‏ أَتَاكُمْ رَمَضَانُ شَهْرٌ مُبَارَكٌ فَرَضَ اللَّهُ عَزَّ وَجَلَّ عَلَيْكُمْ صِيَامَهُ تُفْتَحُ فِيهِ أَبْوَابُ السَّمَاءِ وَتُغْلَقُ فِيهِ أَبْوَابُ الْجَحِيمِ وَتُغَلُّ فِيهِ مَرَدَةُ الشَّيَاطِينِ لِلَّهِ فِيهِ لَيْلَةٌ خَيْرٌ مِنْ أَلْفِ شَهْرٍ مَنْ حُرِمَ خَيْرَهَا فَقَدْ حُرِمَ ‏"‏ ‏.‏\nسنن النسائي - كتاب الصيام - ٢١٠٦\n\n"The Messenger of Allah said: There has come to you Ramadan, a blessed month, which Allah, the Mighty and Sublime, has enjoined you to fast. In it the gates of heavens are opened and the gates of Hell are closed, and every devil is chained up. In it Allah has a night which is better than a thousand months; whoever is deprived of its goodness is indeed deprived.”\nSunan an-Nasai - The Book of Fasting - 2106',
               ),
               isScrollControlled: true)
-          .then((value) => sl<SharedPreferences>().setBool(IS_RAMADAN, true));
+          .then((value) => sharedCtrl.setBool(IS_RAMADAN, true));
     }
     if (eidDays && isEid == false) {
       await Future.delayed(const Duration(seconds: 2));
@@ -390,11 +436,11 @@ class GeneralController extends GetxController {
                 content: eidGreetingContent,
               ),
               isScrollControlled: true)
-          .then((value) => sl<SharedPreferences>().setBool(IS_EID, true));
+          .then((value) => sharedCtrl.setBool(IS_EID, true));
     }
-    if (today.hMonth == 10) sl<SharedPreferences>().setBool(IS_RAMADAN, false);
-    if (today.hMonth == 11) sl<SharedPreferences>().setBool(IS_EID, false);
-    if (today.hMonth == 1) sl<SharedPreferences>().setBool(IS_EID, false);
+    if (today.hMonth == 10) sharedCtrl.setBool(IS_RAMADAN, false);
+    if (today.hMonth == 11) sharedCtrl.setBool(IS_EID, false);
+    if (today.hMonth == 1) sharedCtrl.setBool(IS_EID, false);
   }
 
   double customSize(

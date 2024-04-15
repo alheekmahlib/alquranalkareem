@@ -1,9 +1,9 @@
 import 'dart:async';
+import 'dart:developer';
 
 import 'package:adhan/adhan.dart';
-import 'package:alquranalkareem/core/services/location/locations.dart';
-import 'package:alquranalkareem/core/utils/helpers/date_formatter.dart';
 import 'package:flutter/material.dart';
+import 'package:geocoding/geocoding.dart' as geo;
 import 'package:get/get.dart';
 import 'package:hijri/hijri_calendar.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -14,6 +14,10 @@ import '../../core/utils/constants/lists.dart';
 import '../../core/utils/constants/location_enum.dart';
 import '../../core/utils/constants/lottie.dart';
 import '../../core/utils/constants/lottie_constants.dart';
+import '../../core/utils/constants/shared_preferences_constants.dart';
+import '/core/services/location/locations.dart';
+import '/core/utils/helpers/date_formatter.dart';
+import 'general_controller.dart';
 
 class AdhanController extends GetxController {
   late PrayerTimes prayerTimes;
@@ -25,7 +29,7 @@ class AdhanController extends GetxController {
   late SunnahTimes sunnahTimes;
   // RxBool formatted12Hour = true.obs;
   // RxBool isHijri = true.obs;
-  // HijriCalendar hijriDateNow = HijriCalendar.now();
+  HijriCalendar hijriDateNow = HijriCalendar.now();
   late Coordinates coordinates;
   // Create date components from the provided date
   late final dateComponents;
@@ -33,117 +37,137 @@ class AdhanController extends GetxController {
   late final params;
   RxDouble timeProgress = 0.0.obs;
   Timer? timer;
-  String fajrTime = '';
-  String dhuhrTime = '';
-  String asrTime = '';
-  String maghribTime = '';
-  String ishaTime = '';
-  String lastThirdTime = '';
-  String midnightTime = '';
+  RxString fajrTime = ''.obs;
+  RxString dhuhrTime = ''.obs;
+  RxString asrTime = ''.obs;
+  RxString maghribTime = ''.obs;
+  RxString ishaTime = ''.obs;
+  RxString lastThirdTime = ''.obs;
+  RxString midnightTime = ''.obs;
+  RxBool madhab = true.obs;
+  RxInt highLatitudeRuleIndex = 2.obs;
+  RxBool twilightAngle = true.obs;
+  RxBool middleOfTheNight = false.obs;
+  RxBool seventhOfTheNight = false.obs;
+  var prayerTimesNow;
+  final generalCtrl = sl<GeneralController>();
+  var index = RxInt(0);
+  List<RxInt> adjustments = List.generate(7, (_) => 0.obs);
+
+  int get adjustment {
+    if (index.value >= 0 && index.value < adjustments.length) {
+      return adjustments[index.value].value;
+    }
+    return 0;
+  }
 
   int get currentPrayer => prayerTimes.currentPrayer().index - 1;
   int get nextPrayer => prayerTimes.nextPrayer().index;
 
-  Future<String> get getFajrTime async =>
-      await DateFormatter.justTime(prayerTimes.fajr);
+  Future<String> get getFajrTime async {
+    Duration adjustment = Duration(minutes: adjustments[0].value);
+    DateTime adjustedFajrTime = prayerTimes.fajr.add(adjustment);
+    return await DateFormatter.justTime(adjustedFajrTime);
+  }
 
-  Future<String> get getDhuhrTime async =>
-      await DateFormatter.justTime(prayerTimes.dhuhr);
-  Future<String> get getAsrTime async =>
-      await DateFormatter.justTime(prayerTimes.asr);
-  Future<String> get getMaghribTime async =>
-      await DateFormatter.justTime(prayerTimes.maghrib);
-  Future<String> get getIshaTime async =>
-      await DateFormatter.justTime(prayerTimes.isha);
-  Future<String> get lastThirdStartTime async =>
-      await DateFormatter.justTime(sunnahTimes.lastThirdOfTheNight);
-  Future<String> get getMidnightTime async =>
-      await DateFormatter.justTime(sunnahTimes.middleOfTheNight);
+  Future<String> get getDhuhrTime async {
+    Duration adjustment = Duration(minutes: adjustments[1].value);
+    DateTime adjustedDhuhrTime = prayerTimes.dhuhr.add(adjustment);
 
-  List<Widget> buildPrayerTimeWidgets() {
-    final List<Map<String, String>> prayerTimes = [
-      {'name': 'Fajr', 'time': fajrTime},
-      {'name': 'Dhuhr', 'time': dhuhrTime},
-      {'name': 'Asr', 'time': asrTime},
-      {'name': 'Maghrib', 'time': maghribTime},
-      {'name': 'Isha', 'time': ishaTime},
-      {'name': 'Last Third', 'time': lastThirdTime},
-      {'name': 'Middle of the Night', 'time': midnightTime},
-    ];
+    return await DateFormatter.justTime(adjustedDhuhrTime);
+  }
 
-    return List.generate(
-        prayerTimes.length,
-        (index) => GestureDetector(
-              onTap: () => adhanCtrl.prayerAlarmSwitch(index),
-              child: Container(
-                width: 160,
-                margin:
-                    const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
-                decoration: BoxDecoration(
-                    color: Theme.of(Get.context!).colorScheme.primary,
-                    borderRadius: const BorderRadius.all(
-                      Radius.circular(5),
-                    ),
-                    border: Border.all(
-                      color: Theme.of(Get.context!).canvasColor,
-                      width: 1,
-                      strokeAlign: BorderSide.strokeAlignInside,
-                    )),
-                child: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Container(
-                      width: 110,
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 6.0, vertical: 2.0),
-                      decoration: BoxDecoration(
-                        color: adhanCtrl.getPrayerSelected(
-                            index,
-                            const Color(0xfff16938).withOpacity(.5),
-                            Theme.of(Get.context!).canvasColor.withOpacity(.2)),
-                        borderRadius: const BorderRadius.all(
-                          Radius.circular(4),
-                        ),
-                      ),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            prayerTimes[index]['name']!,
-                            style: TextStyle(
-                              fontFamily: 'kufi',
-                              fontSize: 16,
-                              fontWeight: FontWeight.bold,
-                              color: Theme.of(Get.context!).canvasColor,
-                            ),
-                          ),
-                          Text(
-                            prayerTimes[index]['time']!,
-                            style: TextStyle(
-                              fontFamily: 'kufi',
-                              fontSize: 16,
-                              fontWeight: FontWeight.bold,
-                              color: Theme.of(Get.context!).canvasColor,
-                            ),
-                          )
-                        ],
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(
-                          vertical: 8.0, horizontal: 12),
-                      child: Icon(
-                        adhanCtrl.getPrayerSelected(index,
-                            Icons.alarm_on_outlined, Icons.alarm_off_outlined),
-                        color: Theme.of(Get.context!).canvasColor,
-                        size: 24,
-                      ),
-                    )
-                  ],
-                ),
-              ),
-            ));
+  Future<String> get getAsrTime async {
+    Duration adjustment = Duration(minutes: adjustments[2].value);
+    DateTime adjustedAsrTime = prayerTimes.asr.add(adjustment);
+
+    return await DateFormatter.justTime(adjustedAsrTime);
+  }
+
+  Future<String> get getMaghribTime async {
+    Duration adjustment = Duration(minutes: adjustments[3].value);
+    DateTime adjustedMaghribTime = prayerTimes.maghrib.add(adjustment);
+
+    return await DateFormatter.justTime(adjustedMaghribTime);
+  }
+
+  Future<String> get getIshaTime async {
+    Duration adjustment = Duration(minutes: adjustments[4].value);
+    DateTime adjustedIshaTime = prayerTimes.isha.add(adjustment);
+
+    return await DateFormatter.justTime(adjustedIshaTime);
+  }
+
+  Future<String> get lastThirdStartTime async {
+    Duration adjustment = Duration(minutes: adjustments[5].value);
+    DateTime adjustedLastThirdTime =
+        sunnahTimes.lastThirdOfTheNight.add(adjustment);
+
+    return await DateFormatter.justTime(adjustedLastThirdTime);
+  }
+
+  Future<String> get getMidnightTime async {
+    Duration adjustment = Duration(minutes: adjustments[6].value);
+    DateTime adjustedMidnightTime =
+        sunnahTimes.middleOfTheNight.add(adjustment);
+
+    return await DateFormatter.justTime(adjustedMidnightTime);
+  }
+
+  String get getFridayDhuhrTime =>
+      hijriDateNow.dayWeName == 'Friday' ? 'Friday' : 'Dhuhr';
+
+  RxBool getcurrentSelectedPrayer(int index) =>
+      currentPrayer == index ? true.obs : false.obs;
+
+  String getCurrentPrayerName() {
+    final Prayer currentPrayer = prayerTimes.currentPrayer();
+    return prayerNameFromEnum(currentPrayer);
+  }
+
+  String getNextPrayerName() {
+    final Prayer nextPrayer = prayerTimes.nextPrayer();
+    return prayerNameFromEnum(nextPrayer).tr;
+  }
+
+  DateTime? getCurrentPrayerTime() {
+    final Prayer currentPrayer = prayerTimes.currentPrayer();
+    return prayerTimes.timeForPrayer(currentPrayer);
+  }
+
+  DateTime? getNextPrayerTime() {
+    final Prayer nextPrayer = prayerTimes.nextPrayer();
+    return prayerTimes.timeForPrayer(nextPrayer);
+  }
+
+  String getCurrentPrayerDisplayName() {
+    final DateTime? time = getCurrentPrayerTime();
+    return DateFormatter.formatPrayerTime(time);
+  }
+
+  String getNextPrayerDisplayName() {
+    final DateTime? time = getNextPrayerTime();
+    return DateFormatter.formatPrayerTime(time);
+  }
+
+  String prayerNameFromEnum(Prayer prayer) {
+    switch (prayer) {
+      case Prayer.fajr:
+        return "Fajr";
+      case Prayer.sunrise:
+        return "Sunrise";
+      case Prayer.dhuhr:
+        return "Dhuhr";
+      case Prayer.asr:
+        return "Asr";
+      case Prayer.maghrib:
+        return "Maghrib";
+      case Prayer.isha:
+        return "Isha";
+      case Prayer.none:
+      default:
+        return "Fajr";
+    }
   }
 
   // Future<void> prayerTimesInitialization() async {
@@ -160,18 +184,16 @@ class AdhanController extends GetxController {
   // }
 
   Widget get LottieWidget {
-    if (prayerTimes.sunrise.isBefore(now)) {
-      return customLottie(LottieConstants.assetsLottieSun, height: 120);
-    } else if (prayerTimes.maghrib.isBefore(now)) {
-      return customLottie(LottieConstants.assetsLottieMoon, height: 120);
+    DateTime sunrise = prayerTimes.sunrise;
+    DateTime maghrib = prayerTimes.maghrib;
+
+    if (now.isAfter(sunrise) && now.isBefore(maghrib)) {
+      return customLottie(LottieConstants.assetsLottieSun,
+          height: 30, width: 30);
     } else {
       return customLottie(LottieConstants.assetsLottieMoon, height: 120);
     }
   }
-
-  Widget get icon => prayerTimes.maghrib.isBefore(now)
-      ? customLottie(LottieConstants.assetsLottieSun, height: 120)
-      : customLottie(LottieConstants.assetsLottieMoon, height: 120);
 
   Duration getTimeLeftForNextPrayer() {
     final now = DateTime.now();
@@ -208,10 +230,6 @@ class AdhanController extends GetxController {
         sharedCtrl.setBool(prayerNameList[4]['sharedAlarm'],
             prayerAlarm.value = !prayerAlarm.value);
         break;
-      case 5:
-        sharedCtrl.setBool(prayerNameList[5]['sharedAlarm'],
-            prayerAlarm.value = !prayerAlarm.value);
-        break;
     }
     update();
   }
@@ -219,30 +237,58 @@ class AdhanController extends GetxController {
   @override
   Future<void> onInit() async {
     super.onInit();
-    await initializeAdhanVariables();
-    fajrTime = await getFajrTime;
-    dhuhrTime = await getDhuhrTime;
-    asrTime = await getAsrTime;
-    maghribTime = await getMaghribTime;
-    ishaTime = await getIshaTime;
-    lastThirdTime = await lastThirdStartTime;
-    midnightTime = await getMidnightTime;
-    updateProgress();
-    timer = Timer.periodic(
-        const Duration(minutes: 1), (Timer t) => updateProgress());
+    getShared;
+    if (generalCtrl.activeLocation.value) {
+      await generalCtrl.initLocation().then((value) async {
+        geo.setLocaleIdentifier(Get.locale!.languageCode);
+        await initializeAdhanVariables();
+        await initTimes();
+
+        updateProgress();
+        timer = Timer.periodic(
+            const Duration(minutes: 1), (Timer t) => updateProgress());
+      });
+    }
   }
 
   Future<PrayerTimes> initializeAdhanVariables() async {
     coordinates = Coordinates(Location.instance.position!.latitude,
-        Location.instance.position!.latitude);
+        Location.instance.position!.longitude);
+    log('coordinates: ${Location.instance.position!.latitude} ${coordinates.longitude}');
     dateComponents = DateComponents.from(now);
-    params = CalculationMethod.north_america.getParameters();
-    // params = getCalculationParametersFromLocation(Location.instance.country);
-    params.madhab = Madhab.shafi;
-    final prayerTimesNow = PrayerTimes(coordinates, dateComponents, params);
+    // params = CalculationMethod.north_america.parameters();
+    params = getCalculationParametersFromLocation(Location.instance.country)
+      ..madhab = getMadhab(madhab.value)
+      ..highLatitudeRule = getHighLatitudeRule(highLatitudeRuleIndex.value);
+    prayerTimesNow = PrayerTimes(coordinates, dateComponents, params);
     sunnahTimes = SunnahTimes(prayerTimesNow);
     update();
     return prayerTimes = prayerTimesNow;
+  }
+
+  void get getShared {
+    madhab.value = sharedCtrl.getBool(SHAFI) ?? true;
+    highLatitudeRuleIndex.value = sharedCtrl.getInt(HIGH_LATITUDE_RULE) ?? 2;
+    adjustments[0].value = sharedCtrl.getInt('ADJUSTMENT_FAJR') ?? 0;
+    adjustments[1].value = sharedCtrl.getInt('ADJUSTMENT_DHUHR') ?? 0;
+    adjustments[2].value = sharedCtrl.getInt('ADJUSTMENT_ASR') ?? 0;
+    adjustments[3].value = sharedCtrl.getInt('ADJUSTMENT_MAGHRIB') ?? 0;
+    adjustments[4].value = sharedCtrl.getInt('ADJUSTMENT_ISHA') ?? 0;
+    adjustments[5].value = sharedCtrl.getInt('ADJUSTMENT_THIRD') ?? 0;
+    adjustments[6].value = sharedCtrl.getInt('ADJUSTMENT_MIDNIGHT') ?? 0;
+  }
+
+  Future<void> initTimes() async {
+    print("Updating times...");
+    fajrTime.value = await getFajrTime;
+    dhuhrTime.value = await getDhuhrTime;
+    asrTime.value = await getAsrTime;
+    maghribTime.value = await getMaghribTime;
+    ishaTime.value = await getIshaTime;
+    lastThirdTime.value = await lastThirdStartTime;
+    midnightTime.value = await getMidnightTime;
+    print("Times updated, calling update...");
+    update();
   }
 
   getPrayerSelected(int index, var v1, var v2) =>
@@ -271,9 +317,44 @@ class AdhanController extends GetxController {
     );
   }
 
+  Madhab getMadhab(bool madhab) {
+    if (madhab) {
+      return Madhab.shafi;
+    } else {
+      return Madhab.hanafi;
+    }
+  }
+
+  HighLatitudeRule getHighLatitudeRule(int index) {
+    switch (index) {
+      case 0:
+        twilightAngle.value = false;
+        seventhOfTheNight.value = false;
+        middleOfTheNight.value = true;
+        sharedCtrl.setInt(HIGH_LATITUDE_RULE, 0);
+        return HighLatitudeRule.middle_of_the_night;
+      case 1:
+        twilightAngle.value = false;
+        middleOfTheNight.value = false;
+        seventhOfTheNight.value = true;
+        sharedCtrl.setInt(HIGH_LATITUDE_RULE, 1);
+        return HighLatitudeRule.seventh_of_the_night;
+      case 2:
+        middleOfTheNight.value = false;
+        seventhOfTheNight.value = false;
+        twilightAngle.value = true;
+        sharedCtrl.setInt(HIGH_LATITUDE_RULE, 2);
+        return HighLatitudeRule.twilight_angle;
+      default:
+        return HighLatitudeRule.twilight_angle;
+    }
+  }
+
   CalculationParameters getCalculationParametersFromLocation(String location) {
     LocationEnum select = location.getCountry();
     switch (select) {
+      case LocationEnum.umm_al_qura:
+        return CalculationMethod.umm_al_qura.getParameters();
       case LocationEnum.NorthAmerica:
         return CalculationMethod.north_america.getParameters();
       case LocationEnum.Egyptian:
@@ -358,4 +439,109 @@ class AdhanController extends GetxController {
     timer?.cancel();
     super.onClose();
   }
+
+  void shafiOnTap() {
+    adhanCtrl.madhab.value = true;
+    sharedCtrl.setBool(SHAFI, adhanCtrl.madhab.value);
+  }
+
+  void hanafiOnTap() {
+    adhanCtrl.madhab.value = false;
+    sharedCtrl.setBool(SHAFI, adhanCtrl.madhab.value);
+  }
+
+  Future<void> removeOnTap(int index) async {
+    print("Before remove: ${adjustments[index].value}");
+    adjustments[index].value -= 1;
+    sharedCtrl.setInt(
+        prayerNameList[index]['sharedAdjustment'], adjustments[index].value);
+    print("After remove: ${adjustments[index].value}");
+    await initTimes();
+    update();
+  }
+
+  Future<void> addOnTap(int index) async {
+    print("Before add: ${adjustments[index].value}");
+    adjustments[index].value += 1;
+    sharedCtrl.setInt(
+        prayerNameList[index]['sharedAdjustment'], adjustments[index].value);
+    print("After add: ${adjustments[index].value}");
+    await initTimes();
+    update();
+  }
+
+  List<Map<String, dynamic>> _prayerNameList = [];
+
+  List<Map<String, dynamic>> get prayerNameList => _generatePrayerNameList();
+
+  set updatePrayerNameList(List<Map<String, dynamic>> newList) {
+    _prayerNameList = newList;
+    update();
+  }
+
+  List<Map<String, dynamic>> _generatePrayerNameList() => [
+        {
+          'title': 'الفجر',
+          'time': fajrTime.value,
+          'hourTime': prayerTimes.fajr,
+          'minuteTime': prayerTimes.fajr.minute,
+          'sharedAlarm': 'ALARM_FAJR',
+          'sharedAfter': 'AFTER_FAJR',
+          'sharedAdjustment': 'ADJUSTMENT_FAJR',
+        },
+        {
+          'title': 'الظهر',
+          'time': dhuhrTime.value,
+          'hourTime': prayerTimes.dhuhr,
+          'minuteTime': prayerTimes.dhuhr.minute,
+          'sharedAlarm': 'ALARM_DHUHR',
+          'sharedAfter': 'AFTER_DHUHR',
+          'sharedAdjustment': 'ADJUSTMENT_DHUHR',
+        },
+        {
+          'title': 'العصر',
+          'time': asrTime.value,
+          'hourTime': prayerTimes.asr,
+          'minuteTime': prayerTimes.asr.minute,
+          'sharedAlarm': 'ALARM_ASR',
+          'sharedAfter': 'AFTER_ASR',
+          'sharedAdjustment': 'ADJUSTMENT_ASR',
+        },
+        {
+          'title': 'المغرب',
+          'time': maghribTime.value,
+          'hourTime': prayerTimes.maghrib,
+          'minuteTime': prayerTimes.maghrib.minute,
+          'sharedAlarm': 'ALARM_MAGHRIB',
+          'sharedAfter': 'AFTER_MAGHRIB',
+          'sharedAdjustment': 'ADJUSTMENT_MAGHRIB',
+        },
+        {
+          'title': 'العشاء',
+          'time': ishaTime.value,
+          'hourTime': prayerTimes.isha,
+          'minuteTime': prayerTimes.isha.minute,
+          'sharedAlarm': 'ALARM_ISHA',
+          'sharedAfter': 'AFTER_ISHA',
+          'sharedAdjustment': 'ADJUSTMENT_ISHA',
+        },
+        {
+          'title': 'منتصف الليل',
+          'time': lastThirdTime.value,
+          'hourTime': prayerTimes.isha,
+          'minuteTime': prayerTimes.isha.minute,
+          'sharedAlarm': 'ALARM_MIDNIGHT',
+          'sharedAfter': 'AFTER_MIDNIGHT',
+          'sharedAdjustment': 'ADJUSTMENT_MIDNIGHT',
+        },
+        {
+          'title': 'الثلث الأخير',
+          'time': midnightTime.value,
+          'hourTime': prayerTimes.isha,
+          'minuteTime': prayerTimes.isha.minute,
+          'sharedAlarm': 'ALARM_LAST_THIRD',
+          'sharedAfter': 'AFTER_LAST_THIRD',
+          'sharedAdjustment': 'ADJUSTMENT_THIRD',
+        },
+      ];
 }

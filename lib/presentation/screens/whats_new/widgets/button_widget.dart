@@ -47,7 +47,7 @@ class ButtonWidget extends StatelessWidget {
             if (splashCtrl.currentPageIndex.value == newFeatures.length - 1) {
               splashCtrl.saveLastShownIndex(newFeatures.last['index']);
               sl<SharedPreferences>().getBool(IS_SCREEN_SELECTED_VALUE) == true
-                  ? Get.off(() => const ScreenTypeL())
+                  ? Get.off(() => ScreenTypeL())
                   : generalCtrl.showSelectScreenPage.value = true;
             } else {
               controller.animateToPage(controller.page!.toInt() + 1,

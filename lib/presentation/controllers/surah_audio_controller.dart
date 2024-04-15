@@ -167,11 +167,9 @@ class SurahAudioController extends GetxController {
 
   Future<bool> downloadFile(String path, String url) async {
     Dio dio = Dio();
-    print('11111111111');
     cancelToken = CancelToken();
     try {
       try {
-        print('22222222222222');
         await Directory(dirname(path)).create(recursive: true);
         onDownloading.value = true;
         progressString.value = "0";
