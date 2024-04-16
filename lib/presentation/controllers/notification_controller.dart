@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:timezone/timezone.dart' as tz;
+import 'package:workmanager/workmanager.dart';
 
 import '../../core/services/services_locator.dart';
 import '/presentation/controllers/adhan_controller.dart';
@@ -19,6 +20,24 @@ class NotificationController extends GetxController {
   RxString progressString = "0".obs;
   RxDouble progress = 0.0.obs;
   final generalCtrl = sl<GeneralController>();
+
+  // Function to register background task
+  void registerBackgroundTask() {
+    Workmanager().registerOneOffTask(
+      'notificationTask',
+      'sendNotification',
+      initialDelay: Duration(seconds: 5), // Set your desired delay
+    );
+  }
+
+// Function to execute in the background
+  void callbackDispatcher() {
+    Workmanager().executeTask((taskName, inputData) async {
+      // Call your existing notification scheduling logic here
+      await schedulePrayerNotifications();
+      return Future.value(true);
+    });
+  }
 
   Future<bool> downloadAdhan(String url) async {
     Dio dio = Dio();
@@ -112,7 +131,8 @@ class NotificationController extends GetxController {
 
   Future<void> schedulePrayerNotifications() async {
     for (var prayer in adhanCtrl.prayerNameList) {
-      final timeString = '${prayer['hourTime']}';
+      final timeString =
+          '${prayer['hourTime']}'; //'${adhanCtrl.now.add(const Duration(seconds: 10))}';
       final sharedAlarmKey = prayer['sharedAlarm'] as String;
       final now = DateTime.now();
       final prayerTime = DateTime.parse(timeString);

@@ -9,6 +9,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sqflite_common_ffi/sqflite_ffi.dart';
 import 'package:timezone/data/latest.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
+import 'package:workmanager/workmanager.dart';
 
 import '../../presentation/controllers/adhan_controller.dart';
 import '../../presentation/controllers/daily_ayah_controller.dart';
@@ -180,6 +181,9 @@ class ServicesLocator {
     if (Platform.isIOS || Platform.isAndroid || Platform.isFuchsia) {
       UiHelper.rateMyApp.init();
     }
+
+    Workmanager().initialize(sl<NotificationController>().callbackDispatcher);
+    sl<NotificationController>().registerBackgroundTask();
 
     final String timeZoneName = await FlutterTimezone.getLocalTimezone();
     tz.initializeTimeZones();
