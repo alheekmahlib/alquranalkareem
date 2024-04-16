@@ -1,12 +1,11 @@
-import 'package:alquranalkareem/core/widgets/container_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
-import 'package:simple_animation_progress_bar/simple_animation_progress_bar.dart';
 
 import '../../../../../../core/services/services_locator.dart';
 import '../../../controllers/general_controller.dart';
+import '/core/widgets/container_button.dart';
 import 'occasions.dart';
 
 class HijriDate extends StatelessWidget {
@@ -122,25 +121,19 @@ class HijriDate extends StatelessWidget {
                     ),
                   ],
                 ),
-                Container(
-                  height: 40,
-                  width: MediaQuery.sizeOf(context).width,
-                  margin: const EdgeInsets.symmetric(horizontal: 8.0),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 8.0),
                   child: Stack(
+                    alignment: Alignment.center,
                     children: [
-                      SimpleAnimationProgressBar(
-                        height: 40,
-                        width: 330,
+                      LinearProgressIndicator(
+                        minHeight: 40,
+                        borderRadius:
+                            const BorderRadius.all(Radius.circular(4)),
+                        value: (generalCtrl.today.hDay /
+                            generalCtrl.today.lengthOfMonth),
                         backgroundColor: Theme.of(context).canvasColor,
-                        foregrondColor: Theme.of(context).colorScheme.surface,
-                        ratio: (generalCtrl.today.hDay /
-                                generalCtrl.today.lengthOfMonth)
-                            .toDouble(),
-                        direction: Axis.horizontal,
-                        reverseAlignment: true,
-                        curve: Curves.fastLinearToSlowEaseIn,
-                        duration: const Duration(seconds: 3),
-                        borderRadius: BorderRadius.circular(4),
+                        color: Theme.of(context).colorScheme.surface,
                       ),
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 8.0),
@@ -185,7 +178,7 @@ class HijriDate extends StatelessWidget {
                       )
                     ],
                   ),
-                )
+                ),
               ],
             ),
           ),

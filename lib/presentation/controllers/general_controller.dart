@@ -472,6 +472,7 @@ class GeneralController extends GetxController {
         Get.context!.customOrientation(Get.width * .8, Get.width * .4));
   }
 
+  // TODO: need fixed
   double calculateProgress2(
       int currentDay, int daysUntilEvent, double totalWidth) {
     // Assuming currentDay is the day of the month and daysUntilEvent is the total days remaining until the event
@@ -514,6 +515,7 @@ class GeneralController extends GetxController {
     return (today / totalDays) * Get.width;
   }
 
+  // TODO: need fixed
   int calculateDaysUntilSpecificDate(int year, int month, int day) {
     HijriCalendar hijriCalendar = HijriCalendar();
     DateTime start = DateTime.now();
