@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'dart:io';
 
 import 'package:dio/dio.dart';
@@ -26,17 +27,8 @@ class NotificationController extends GetxController {
     Workmanager().registerOneOffTask(
       'notificationTask',
       'sendNotification',
-      initialDelay: Duration(seconds: 5), // Set your desired delay
+      initialDelay: Duration(seconds: 1),
     );
-  }
-
-// Function to execute in the background
-  void callbackDispatcher() {
-    Workmanager().executeTask((taskName, inputData) async {
-      // Call your existing notification scheduling logic here
-      await schedulePrayerNotifications();
-      return Future.value(true);
-    });
   }
 
   Future<bool> downloadAdhan(String url) async {
@@ -114,30 +106,17 @@ class NotificationController extends GetxController {
     );
   }
 
-  // Future<void> schedulePrayerNotifications() async {
-  //   for (var prayer in adhanCtrl.prayerNameList) {
-  //     final timeString = '${prayer['hourTime']}';
-  //     final sharedAlarmKey = prayer['sharedAlarm'] as String;
-  //     final now = DateTime.now();
-  //     log('now: $now');
-  //     log('timeString: $timeString');
-  //     final prayerTime = DateTime.parse(timeString);
-  //     if (prayerTime.isAfter(now) &&
-  //         sharedCtrl.getBool(sharedAlarmKey) == true) {
-  //       await _scheduleNotification(prayerTime, prayer['title'] as String);
-  //     }
-  //   }
-  // }
-
   Future<void> schedulePrayerNotifications() async {
     for (var prayer in adhanCtrl.prayerNameList) {
-      final timeString =
-          '${prayer['hourTime']}'; //'${adhanCtrl.now.add(const Duration(seconds: 10))}';
+      final timeString = '${prayer['hourTime']}';
+      // '${adhanCtrl.now.add(const Duration(minutes: 20))}';
       final sharedAlarmKey = prayer['sharedAlarm'] as String;
-      final now = DateTime.now();
       final prayerTime = DateTime.parse(timeString);
 
-      if (prayerTime.isAfter(now) &&
+      log('timeString: $prayerTime');
+      log('adhanCtrl.now: ${adhanCtrl.now}');
+      log('prayerTime.isAfter(adhanCtrl.now): ${prayerTime.isAfter(adhanCtrl.now) && sharedCtrl.getBool(sharedAlarmKey) == true}');
+      if (prayerTime.isAfter(adhanCtrl.now) &&
           sharedCtrl.getBool(sharedAlarmKey) == true) {
         if (Platform.isIOS) {
           await _scheduleNotification(prayerTime, prayer['title'] as String, 0);
