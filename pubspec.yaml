@@ -15,10 +15,10 @@ dependencies:
   arabic_numbers: ^1.0.0
   bot_toast: ^4.1.3
   connectivity_plus: ^5.0.2
-  cupertino_icons: ^1.0.6
+  cupertino_icons: ^1.0.8
   desktop_window: ^0.4.0
 #  device_info_plus: ^10.0.1
-  dio: ^5.4.2+1
+  dio: ^5.4.3+1
   easy_image_viewer: ^1.4.1
   expansion_tile_card: ^3.0.0
   flutter_cache_manager: ^3.3.1
@@ -31,7 +31,7 @@ dependencies:
   flutter_timezone: ^1.0.8
   gap: ^3.0.1
   get: ^4.6.6
-  get_it: ^7.6.8
+  get_it: ^7.7.0
   glob: ^2.1.2
   group_button: ^5.3.4
   hijri: ^3.0.0
@@ -43,21 +43,21 @@ dependencies:
   mini_music_visualizer: ^1.1.0
   package_rename: ^1.5.3
   path: ^1.9.0
-  path_provider: ^2.1.2
+  path_provider: ^2.1.3
   rate_my_app: ^2.0.0
   read_more_less: ^1.0.0
   responsive_builder: ^0.7.0
   rxdart: ^0.27.7
   screenshot: ^2.3.0
   scrollable_positioned_list: ^0.3.8
-  share_plus: ^8.0.2
-  shared_preferences: ^2.2.2
+  share_plus: ^8.0.3
+  shared_preferences: ^2.2.3
   smooth_page_indicator: ^1.1.0
 #  speech_to_text: ^6.6.0
   sqflite: ^2.3.3
   sqflite_common_ffi: ^2.3.3
   square_percent_indicater: ^0.1.0
-  url_launcher: ^6.2.5
+  url_launcher: ^6.2.6
 #  wakelock_plus: ^1.2.2
 #  audio_service: ^0.18.12
 #  scroll_to_index: ^3.0.1
@@ -73,10 +73,12 @@ dependencies:
     sdk: flutter
   flutter_localizations:
     sdk: flutter
-  simple_animation_progress_bar: ^1.6.0
+  simple_animation_progress_bar: ^1.8.2
   arc_progress_bar_new: ^1.0.4
   slide_countdown: ^1.6.1
   workmanager: ^0.5.2
+  home_widget: ^0.5.0
+  davinci:
 
 
 dev_dependencies:

@@ -1,8 +1,10 @@
 import 'dart:async';
+import 'dart:convert';
 import 'dart:developer';
 
 import 'package:adhan/adhan.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:geocoding/geocoding.dart' as geo;
 import 'package:get/get.dart';
 import 'package:hijri/hijri_calendar.dart';
@@ -15,6 +17,7 @@ import '../../core/utils/constants/location_enum.dart';
 import '../../core/utils/constants/lottie.dart';
 import '../../core/utils/constants/lottie_constants.dart';
 import '../../core/utils/constants/shared_preferences_constants.dart';
+import '../../core/widgets/home_widget/home_widget_config.dart';
 import '/core/services/location/locations.dart';
 import '/core/utils/helpers/date_formatter.dart';
 import 'general_controller.dart';
@@ -51,8 +54,17 @@ class AdhanController extends GetxController {
   RxBool seventhOfTheNight = false.obs;
   var prayerTimesNow;
   final generalCtrl = sl<GeneralController>();
+  RxBool autoCalculationMethod = true.obs;
+  RxString calculationMethodString = 'أم القرى'.obs;
+  RxString selectedCountry = ''.obs;
+  List<String> countries = [];
   var index = RxInt(0);
   List<RxInt> adjustments = List.generate(7, (_) => 0.obs);
+
+  Future<List<String>>? countryListFuture;
+  fetchCountryList() {
+    countryListFuture = getCountryList();
+  }
 
   int get adjustment {
     if (index.value >= 0 && index.value < adjustments.length) {
@@ -243,32 +255,36 @@ class AdhanController extends GetxController {
         geo.setLocaleIdentifier(Get.locale!.languageCode);
         await initializeAdhanVariables();
         await initTimes();
-
+        fetchCountryList();
+        getCountryList().then((list) => countries = list);
         updateProgress();
         timer = Timer.periodic(
             const Duration(minutes: 1), (Timer t) => updateProgress());
       });
+      await HomeWidgetConfig.initialize();
+      HomeWidgetConfig().updateHijriDate();
     }
   }
 
-  Future<PrayerTimes> initializeAdhanVariables() async {
-    coordinates = Coordinates(Location.instance.position!.latitude,
-        Location.instance.position!.longitude);
-    log('coordinates: ${Location.instance.position!.latitude} ${coordinates.longitude}');
-    dateComponents = DateComponents.from(now);
-    // params = CalculationMethod.north_america.parameters();
-    params = getCalculationParametersFromLocation(Location.instance.country)
-      ..madhab = getMadhab(madhab.value)
-      ..highLatitudeRule = getHighLatitudeRule(highLatitudeRuleIndex.value);
-    prayerTimesNow = PrayerTimes(coordinates, dateComponents, params);
-    sunnahTimes = SunnahTimes(prayerTimesNow);
-    update();
-    return prayerTimes = prayerTimesNow;
-  }
+  // Future<PrayerTimes> initializeAdhanVariables() async {
+  //   coordinates = Coordinates(Location.instance.position!.latitude,
+  //       Location.instance.position!.longitude);
+  //   log('coordinates: ${Location.instance.position!.latitude} ${coordinates.longitude}');
+  //   dateComponents = DateComponents.from(now);
+  //   // params = CalculationMethod.north_america.parameters();
+  //   params = getCalculationParametersFromLocation(Location.instance.country)
+  //     ..madhab = getMadhab(madhab.value)
+  //     ..highLatitudeRule = getHighLatitudeRule(highLatitudeRuleIndex.value);
+  //   prayerTimesNow = PrayerTimes(coordinates, dateComponents, params);
+  //   sunnahTimes = SunnahTimes(prayerTimesNow);
+  //   update();
+  //   return prayerTimes = prayerTimesNow;
+  // }
 
   void get getShared {
     madhab.value = sharedCtrl.getBool(SHAFI) ?? true;
     highLatitudeRuleIndex.value = sharedCtrl.getInt(HIGH_LATITUDE_RULE) ?? 2;
+    autoCalculationMethod.value = sharedCtrl.getBool(AUTO_CALCULATION) ?? true;
     adjustments[0].value = sharedCtrl.getInt('ADJUSTMENT_FAJR') ?? 0;
     adjustments[1].value = sharedCtrl.getInt('ADJUSTMENT_DHUHR') ?? 0;
     adjustments[2].value = sharedCtrl.getInt('ADJUSTMENT_ASR') ?? 0;
@@ -350,7 +366,30 @@ class AdhanController extends GetxController {
     }
   }
 
-  CalculationParameters getCalculationParametersFromLocation(String location) {
+  Future<PrayerTimes> initializeAdhanVariables() async {
+    coordinates = Coordinates(Location.instance.position!.latitude,
+        Location.instance.position!.longitude);
+    log('coordinates: ${Location.instance.position!.latitude} ${coordinates.longitude}');
+    dateComponents = DateComponents.from(now);
+
+    CalculationParameters? params =
+        await getCalculationParametersFromLocation(Location.instance.country);
+
+    if (!autoCalculationMethod.value) {
+      params = await getCalculationParametersFromJson(selectedCountry.value);
+    }
+
+    params!.madhab = getMadhab(madhab.value);
+    params.highLatitudeRule = getHighLatitudeRule(highLatitudeRuleIndex.value);
+
+    prayerTimesNow = PrayerTimes(coordinates, dateComponents, params);
+    sunnahTimes = SunnahTimes(prayerTimesNow);
+    update();
+    return prayerTimes = prayerTimesNow;
+  }
+
+  Future<CalculationParameters?> getCalculationParametersFromLocation(
+      String location) async {
     LocationEnum select = location.getCountry();
     switch (select) {
       case LocationEnum.umm_al_qura:
@@ -371,9 +410,43 @@ class AdhanController extends GetxController {
         return CalculationMethod.turkey.getParameters();
       case LocationEnum.Singapore:
         return CalculationMethod.singapore.getParameters();
+      case LocationEnum.muslim_world_league:
+        return CalculationMethod.muslim_world_league.getParameters();
       default:
-        return CalculationMethod.other.getParameters();
+        return await getCalculationParametersFromJson(location);
     }
+  }
+
+  Future<CalculationParameters?> getCalculationParametersFromJson(
+      String countryCode) async {
+    final jsonString = await rootBundle.loadString('assets/json/madhab.json');
+    final jsonData = jsonDecode(jsonString);
+    final countryData = jsonData[countryCode];
+
+    if (countryData == null) return null; // Handle missing country data
+
+    // Extract parameters from JSON
+    calculationMethodString.value = countryData['params'];
+    final CalculationMethod calculationMethod =
+        CalculationMethod.values.firstWhere(
+      (method) => method.name == calculationMethodString.value,
+      orElse: () => CalculationMethod.other, // Default if not found
+    );
+
+    // Create and return CalculationParameters object
+    return calculationMethod.getParameters();
+  }
+
+  Future<List<String>> getCountryList() async {
+    final jsonString = await rootBundle.loadString('assets/json/madhab.json');
+    final jsonData = jsonDecode(jsonString) as List<dynamic>; // Decode as List
+
+    // List<String> countries = [];
+    for (var item in jsonData) {
+      // Assuming each item is a map with a "country" key
+      countries.add(item['country'] as String);
+    }
+    return countries;
   }
 
   // TODO: upcoming feature
@@ -468,6 +541,11 @@ class AdhanController extends GetxController {
     print("After add: ${adjustments[index].value}");
     await initTimes();
     update();
+  }
+
+  void switchAutoCalculation(bool value) {
+    autoCalculationMethod.value = !autoCalculationMethod.value;
+    sharedCtrl.setBool(AUTO_CALCULATION, value);
   }
 
   List<Map<String, dynamic>> _prayerNameList = [];
