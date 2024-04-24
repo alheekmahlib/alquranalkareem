@@ -8,6 +8,7 @@ enum LocationEnum {
   Qatar,
   Turkey,
   Singapore,
+  muslim_world_league,
   Other,
 }
 

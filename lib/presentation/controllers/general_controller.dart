@@ -9,7 +9,9 @@ import 'package:flutter/services.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:get/get.dart';
 import 'package:hijri/hijri_calendar.dart';
+import 'package:home_widget/home_widget.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:screenshot/screenshot.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -18,6 +20,7 @@ import '../../core/services/location/locations.dart';
 import '../../core/services/services_locator.dart';
 import '../../core/utils/constants/lists.dart';
 import '../../core/utils/constants/shared_preferences_constants.dart';
+import '../../core/utils/constants/string_constants.dart';
 import '../../core/utils/helpers/responsive.dart';
 import '../../core/widgets/ramadan_greeting.dart';
 import '../../core/widgets/time_now.dart';
@@ -82,6 +85,9 @@ class GeneralController extends GetxController {
   var today = HijriCalendar.now();
   List<int> noHadithInMonth = <int>[2, 3, 4, 5, 6];
   RxBool activeLocation = false.obs;
+  RxString imagePath = ''.obs;
+  final globalKey = GlobalKey();
+
   final sharedCtrl = sl<SharedPreferences>();
 
   bool get isNewHadith =>
@@ -97,13 +103,32 @@ class GeneralController extends GetxController {
 
   double get positionRight => _fabPosition;
 
+  Uint8List? hijriWidgetToImageBytes;
+  final ScreenshotController hijriWidgetController = ScreenshotController();
+
+  Future<void> updateHijriWidget(Widget widget) async {
+    Uint8List? bytes = await hijriWidgetController.capture();
+    hijriWidgetToImageBytes = bytes;
+
+    final directory = await getTemporaryDirectory();
+    final tempFile =
+        File("${directory.path}/${DateTime.now().toIso8601String()}.png");
+    await tempFile.writeAsBytes(bytes!);
+
+    await HomeWidget.saveWidgetData('hijriDate', tempFile.path);
+    await HomeWidget.updateWidget(
+        iOSName: StringConstants.iosWidget,
+        androidName: StringConstants.androidWidget);
+  }
+
+  static Future<void> initialize() async {
+    await HomeWidget.setAppGroupId(StringConstants.groupId);
+  }
+
   @override
   Future<void> onInit() async {
     activeLocation.value = sharedCtrl.getBool(ACTIVE_LOCATION) ?? false;
-    // if (activeLocation.value) {
-    //   await initLocation();
-    // }
-    // setLocaleIdentifier(Get.locale!.languageCode);
+
     super.onInit();
   }
 

@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import '../../../../../core/services/services_locator.dart';
 import '../../../../controllers/general_controller.dart';
 import '/presentation/controllers/adhan_controller.dart';
+import 'pick_calculation_method.dart';
 import 'setting_prayer_times.dart';
 
 class SetTimingCalculations extends StatelessWidget {
@@ -37,43 +38,47 @@ class SetTimingCalculations extends StatelessWidget {
                 borderRadius: const BorderRadius.all(Radius.circular(8))),
             child: Column(
               children: [
-                Obx(() => Container(
-                      height: 50,
-                      width: Get.width,
-                      margin: const EdgeInsets.symmetric(
-                          vertical: 8.0, horizontal: 16.0),
-                      padding: const EdgeInsets.symmetric(
-                          vertical: 8.0, horizontal: 16.0),
-                      decoration: BoxDecoration(
-                        color: Theme.of(context).canvasColor.withOpacity(.1),
-                        borderRadius:
-                            const BorderRadius.all(Radius.circular(8)),
+                Container(
+                  height: 50,
+                  width: Get.width,
+                  margin: const EdgeInsets.symmetric(
+                      vertical: 8.0, horizontal: 16.0),
+                  padding: const EdgeInsets.symmetric(
+                      vertical: 8.0, horizontal: 16.0),
+                  decoration: BoxDecoration(
+                    color: Theme.of(context).canvasColor.withOpacity(.1),
+                    borderRadius: const BorderRadius.all(Radius.circular(8)),
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        'تحديد طريقة الحساب تلقائيًا',
+                        style: TextStyle(
+                          fontFamily: 'kufi',
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                          color: Theme.of(context).canvasColor,
+                        ),
                       ),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            'تحديد طريقة الحساب تلقائيًا',
-                            style: TextStyle(
-                              fontFamily: 'kufi',
-                              fontSize: 16,
-                              fontWeight: FontWeight.bold,
-                              color: Theme.of(context).canvasColor,
-                            ),
-                          ),
-                          Switch(
-                            value: generalCtrl.activeLocation.value,
+                      Obx(() => Switch(
+                            value: adhanCtrl.autoCalculationMethod.value,
                             activeColor: Colors.red,
                             inactiveTrackColor: Theme.of(context)
                                 .colorScheme
                                 .surface
                                 .withOpacity(.5),
-                            onChanged: (bool value) =>
-                                generalCtrl.toggleLocationService(),
-                          ),
-                        ],
-                      ),
-                    )),
+                            onChanged: (bool value) => adhanCtrl
+                                .autoCalculationMethod
+                                .value = !adhanCtrl.autoCalculationMethod.value,
+                          )),
+                    ],
+                  ),
+                ),
+                const Gap(8),
+                Obx(() => !adhanCtrl.autoCalculationMethod.value
+                    ? pickCalculationMethod()
+                    : const SizedBox.shrink()),
                 const Gap(8),
                 Text(
                   'المذهب'.tr,
