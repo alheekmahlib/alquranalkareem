@@ -111,7 +111,7 @@ class NotificationController extends GetxController {
     await FlutterLocalNotificationsPlugin().cancelAll();
     for (var prayer in adhanCtrl.prayerNameList) {
       final timeString = '${prayer['hourTime']}';
-      // '${adhanCtrl.now.add(const Duration(minutes: 20))}';
+      // '${adhanCtrl.now.add(const Duration(seconds: 20))}';
       final sharedAlarmKey = prayer['sharedAlarm'] as String;
       final prayerTime = DateTime.parse(timeString);
 
