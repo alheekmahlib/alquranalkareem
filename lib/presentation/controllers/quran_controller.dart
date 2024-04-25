@@ -121,13 +121,13 @@ class QuranController extends GetxController {
 
     for (final surah in surahs) {
       allAyahs.addAll(surah.ayahs);
-      log('Added ${surah.arabicName} ayahs');
+      // log('Added ${surah.arabicName} ayahs');
       update();
     }
     List.generate(604, (pageIndex) {
       pages.add(allAyahs.where((ayah) => ayah.page == pageIndex + 1).toList());
     });
-    log('Pages Length: ${pages.length}', name: 'Quran Controller');
+    // log('Pages Length: ${pages.length}', name: 'Quran Controller');
   }
 
   List<List<Ayah>> getCurrentPageAyahsSeparatedForBasmalah(int pageIndex) =>

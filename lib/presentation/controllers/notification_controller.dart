@@ -1,5 +1,5 @@
-import 'dart:developer';
-import 'dart:io';
+import 'dart:developer' show log;
+import 'dart:io' show Platform, File;
 
 import 'package:dio/dio.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
@@ -27,7 +27,7 @@ class NotificationController extends GetxController {
     Workmanager().registerOneOffTask(
       'notificationTask',
       'sendNotification',
-      initialDelay: Duration(seconds: 1),
+      initialDelay: const Duration(seconds: 1),
     );
   }
 
@@ -78,9 +78,9 @@ class NotificationController extends GetxController {
   Future<void> _showNotification(String prayerName, String prayerTime) async {
     const AndroidNotificationDetails androidPlatformChannelSpecifics =
         AndroidNotificationDetails(
-      '1',
-      'adhan_channel',
-      channelDescription: 'channel_for_adhan',
+      'alquranalkareem_adhan_channel_id',
+      'alquranalkareem_adhan_channel',
+      channelDescription: 'alquranalkareem adhan notifications channel',
       importance: Importance.max,
       priority: Priority.high,
       ticker: 'ticker',
@@ -107,6 +107,8 @@ class NotificationController extends GetxController {
   }
 
   Future<void> schedulePrayerNotifications() async {
+    log('Scheduling Notifications', name: 'NotificationsCtrl');
+    await FlutterLocalNotificationsPlugin().cancelAll();
     for (var prayer in adhanCtrl.prayerNameList) {
       final timeString = '${prayer['hourTime']}';
       // '${adhanCtrl.now.add(const Duration(minutes: 20))}';
@@ -132,18 +134,25 @@ class NotificationController extends GetxController {
         }
       }
     }
+    await _scheduleNotification(
+        DateTime(DateTime.now().minute + 5), 'Title', 1);
+    Future.delayed(const Duration(seconds: 5)).then((_) =>
+        _scheduleNotification(
+            DateTime(DateTime.now().minute + 5), 'Title now', 0,
+            now: true));
   }
 
   Future<void> _scheduleNotification(
-      DateTime prayerTime, String prayerName, int notificationId) async {
+      DateTime prayerTime, String prayerName, int notificationId,
+      {bool now = false}) async {
     final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
         FlutterLocalNotificationsPlugin();
 
-    const AndroidNotificationDetails androidPlatformChannelSpecifics =
-        AndroidNotificationDetails(
-      '1',
-      'adhan_channel',
-      channelDescription: 'channel_for_adhan',
+    AndroidNotificationDetails androidPlatformChannelSpecifics =
+        const AndroidNotificationDetails(
+      'alquranalkareem_adhan_channel_id',
+      'alquranalkareem_adhan_channel',
+      channelDescription: 'alquranalkareem adhan notifications channel',
       importance: Importance.max,
       priority: Priority.high,
       ticker: 'ticker',
@@ -154,22 +163,29 @@ class NotificationController extends GetxController {
       sound: '${notificationId + 1}.caf',
     );
 
-    NotificationDetails platformChannelSpecifics = NotificationDetails(
+    NotificationDetails notificationDetails = NotificationDetails(
       android: androidPlatformChannelSpecifics,
       iOS: iosPlatformChannelSpecifics,
       macOS: iosPlatformChannelSpecifics,
     );
-
-    await flutterLocalNotificationsPlugin.zonedSchedule(
-      notificationId, // Use the unique notificationId here
-      'موعد الصلاة',
-      '$prayerName في تمام ${prayerTime.hour}:${prayerTime.minute}',
-      tz.TZDateTime.from(prayerTime, tz.local),
-      platformChannelSpecifics,
-      androidAllowWhileIdle: true,
-      uiLocalNotificationDateInterpretation:
-          UILocalNotificationDateInterpretation.absoluteTime,
-    );
+    if (now) {
+      await flutterLocalNotificationsPlugin.show(
+          notificationId,
+          'موعد الصلاة',
+          '$prayerName في تمام ${prayerTime.hour}:${prayerTime.minute}',
+          notificationDetails);
+    } else {
+      await flutterLocalNotificationsPlugin.zonedSchedule(
+        notificationId, // Use the unique notificationId here
+        'موعد الصلاة', //TODO: needs translations
+        '$prayerName في تمام ${prayerTime.hour}:${prayerTime.minute}', //TODO: also here
+        tz.TZDateTime.from(prayerTime, tz.local),
+        notificationDetails,
+        androidScheduleMode: AndroidScheduleMode.exactAllowWhileIdle,
+        uiLocalNotificationDateInterpretation:
+            UILocalNotificationDateInterpretation.absoluteTime,
+      );
+    }
   }
 
   @override
@@ -178,7 +194,7 @@ class NotificationController extends GetxController {
     if (generalCtrl.activeLocation.value) {
       final flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
       const AndroidInitializationSettings initializationSettingsAndroid =
-          AndroidInitializationSettings('app_icon');
+          AndroidInitializationSettings('ic_launcher');
       const DarwinInitializationSettings initializationSettingsIOS =
           DarwinInitializationSettings();
       const InitializationSettings initializationSettings =
@@ -187,7 +203,6 @@ class NotificationController extends GetxController {
               iOS: initializationSettingsIOS,
               macOS: initializationSettingsIOS);
       await flutterLocalNotificationsPlugin.initialize(initializationSettings);
-
       schedulePrayerNotifications();
     }
   }

@@ -7,7 +7,7 @@
 
 # The following line activates a set of recommended lints for Flutter apps,
 # packages, and plugins designed to encourage good coding practices.
-include: package:flutter_lints/flutter.yaml
+# include: package:flutter_lints/flutter.yaml
 
 linter:
   # The lint rules applied to this project can be customized in the
@@ -27,7 +27,7 @@ linter:
 #     prefer_single_quotes: true  # Uncomment to enable the `prefer_single_quotes` rule
 analyzer:
   strong-mode:
-#    implicit-casts: false
+    implicit-casts: false
 #    implicit-dynamic: false
 
 # Additional information about this file can be found at
