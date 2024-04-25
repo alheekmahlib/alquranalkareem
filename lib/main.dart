@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
-import 'package:workmanager/workmanager.dart';
 
 import '/core/services/languages/dependency_inj.dart' as dep;
 import 'core/services/services_locator.dart';
@@ -23,16 +21,17 @@ Future<void> main() async {
 Future<void> initializeApp() async {
   Future.delayed(const Duration(seconds: 0));
   await ServicesLocator().init();
-  await Workmanager().initialize(callbackDispatcher, isInDebugMode: true);
+  sl<NotificationController>().schedulePrayerNotifications();
+  // await Workmanager().initialize(callbackDispatcher, isInDebugMode: true);
   FlutterNativeSplash.remove();
 }
 
-void callbackDispatcher() {
-  Workmanager().executeTask((task, inputData) async {
-    FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
-        FlutterLocalNotificationsPlugin();
-    // Initialize as needed
-    await NotificationController().schedulePrayerNotifications();
-    return Future.value(true);
-  });
-}
+// void callbackDispatcher() {
+//   Workmanager().executeTask((task, inputData) async {
+//     FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
+//         FlutterLocalNotificationsPlugin();
+//     // Initialize as needed
+//     await NotificationController().schedulePrayerNotifications();
+//     return Future.value(true);
+//   });
+// }
