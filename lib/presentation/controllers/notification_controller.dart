@@ -1,15 +1,20 @@
+import 'dart:convert';
 import 'dart:developer' show log;
-import 'dart:io' show Platform, File;
+import 'dart:io' show Directory, File, Platform;
 
 import 'package:dio/dio.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:get/get.dart';
+import 'package:just_audio/just_audio.dart';
+import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:timezone/timezone.dart' as tz;
 import 'package:workmanager/workmanager.dart';
 
 import '../../core/services/services_locator.dart';
+import '../screens/home/data/model/adhan_data.dart';
 import '/presentation/controllers/adhan_controller.dart';
 import 'general_controller.dart';
 
@@ -17,18 +22,71 @@ class NotificationController extends GetxController {
   final sharedCtrl = sl<SharedPreferences>();
   final adhanCtrl = sl<AdhanController>();
   late FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin;
+  final generalCtrl = sl<GeneralController>();
   RxBool onDownloading = false.obs;
   RxString progressString = "0".obs;
   RxDouble progress = 0.0.obs;
-  final generalCtrl = sl<GeneralController>();
+  final Rx<Map<String, bool>> adhanDownloadStatus = Rx<Map<String, bool>>({});
+  RxList<int> adhanDownloadIndex = <int>[0].obs;
+  RxBool isDownloading = false.obs;
+  RxInt adhanSoundSelect = 0.obs;
+  RxInt downloadIndex = 0.obs;
+  late var cancelToken = CancelToken();
+  late Future<List<AdhanData>> adhanData;
+  AudioPlayer audioPlayer = AudioPlayer();
+  RxInt adhanNumber = (-1).obs;
 
-  // Function to register background task
-  void registerBackgroundTask() {
-    Workmanager().registerOneOffTask(
-      'notificationTask',
-      'sendNotification',
-      initialDelay: const Duration(seconds: 1),
-    );
+  Future<void> playAudio(int index, String url) async {
+    adhanNumber.value = index;
+    await audioPlayer.setUrl(url);
+    await audioPlayer.play();
+  }
+
+  // Method to pause audio
+  void pauseAudio() {
+    audioPlayer.pause();
+    adhanNumber.value = -1;
+  }
+
+  Future<List<AdhanData>> loadAdhanData() async {
+    String jsonString =
+        await rootBundle.loadString('assets/json/adhanSounds.json');
+    final List<dynamic> jsonData = jsonDecode(jsonString);
+    return jsonData.map((data) => AdhanData.fromJson(data)).toList();
+  }
+
+  Future<void> adhanDownload(int i) async {
+    Directory databasePath = await getApplicationDocumentsDirectory();
+    var path = join(databasePath.path, '$i');
+    String fileUrl = 'https://muslimguider.com/mobile_files/$i';
+
+    if (!onDownloading.value) {
+      await downloadAdhan(fileUrl).then((_) {
+        onDownloadSuccess('$i');
+      });
+      print("Downloading from URL: $fileUrl");
+    }
+  }
+
+  void updateDownloadStatus(String adhanName, bool downloaded) {
+    final newStatus = Map<String, bool>.from(adhanDownloadStatus.value);
+    newStatus[adhanName] = downloaded;
+    adhanDownloadStatus.value = newStatus;
+  }
+
+  void onDownloadSuccess(String adhanName) {
+    updateDownloadStatus(adhanName, true);
+  }
+
+  Future<Map<String, bool>> checkAllAdhanDownloaded() async {
+    Directory? directory = await getApplicationDocumentsDirectory();
+
+    for (int i = 0; i <= 4; i++) {
+      String filePath = '${directory.path}/${i}';
+      File file = File(filePath);
+      adhanDownloadStatus.value['$i'] = await file.exists();
+    }
+    return adhanDownloadStatus.value;
   }
 
   Future<bool> downloadAdhan(String url) async {
@@ -75,6 +133,15 @@ class NotificationController extends GetxController {
     return false;
   }
 
+  // Function to register background task
+  void registerBackgroundTask() {
+    Workmanager().registerOneOffTask(
+      'notificationTask',
+      'sendNotification',
+      initialDelay: const Duration(seconds: 1),
+    );
+  }
+
   Future<void> _showNotification(String prayerName, String prayerTime) async {
     const AndroidNotificationDetails androidPlatformChannelSpecifics =
         AndroidNotificationDetails(
@@ -111,7 +178,7 @@ class NotificationController extends GetxController {
     await FlutterLocalNotificationsPlugin().cancelAll();
     for (var prayer in adhanCtrl.prayerNameList) {
       final timeString = '${prayer['hourTime']}';
-      // '${adhanCtrl.now.add(const Duration(seconds: 20))}';
+      // '${adhanCtrl.now.add(const Duration(minutes: 10))}';
       final sharedAlarmKey = prayer['sharedAlarm'] as String;
       final prayerTime = DateTime.parse(timeString);
 
@@ -134,12 +201,12 @@ class NotificationController extends GetxController {
         }
       }
     }
-    await _scheduleNotification(
-        DateTime(DateTime.now().minute + 5), 'Title', 1);
-    Future.delayed(const Duration(seconds: 5)).then((_) =>
-        _scheduleNotification(
-            DateTime(DateTime.now().minute + 5), 'Title now', 0,
-            now: true));
+    // await _scheduleNotification(
+    //     DateTime(DateTime.now().minute + 5), 'Title', 1);
+    // Future.delayed(const Duration(seconds: 5)).then((_) =>
+    //     _scheduleNotification(
+    //         DateTime(DateTime.now().minute + 5), 'Title now', 0,
+    //         now: true));
   }
 
   Future<void> _scheduleNotification(
@@ -175,16 +242,19 @@ class NotificationController extends GetxController {
           '$prayerName في تمام ${prayerTime.hour}:${prayerTime.minute}',
           notificationDetails);
     } else {
-      await flutterLocalNotificationsPlugin.zonedSchedule(
-        notificationId, // Use the unique notificationId here
-        'موعد الصلاة', //TODO: needs translations
-        '$prayerName في تمام ${prayerTime.hour}:${prayerTime.minute}', //TODO: also here
-        tz.TZDateTime.from(prayerTime, tz.local),
-        notificationDetails,
-        androidScheduleMode: AndroidScheduleMode.exactAllowWhileIdle,
-        uiLocalNotificationDateInterpretation:
-            UILocalNotificationDateInterpretation.absoluteTime,
-      );
+      if (prayerTime.isAfter(DateTime.now())) {
+        await flutterLocalNotificationsPlugin.zonedSchedule(
+          notificationId, // Use the unique notificationId here
+          'موعد الصلاة', //TODO: needs translations
+          '$prayerName في تمام ${prayerTime.hour}:${prayerTime.minute}', //TODO: also here
+          tz.TZDateTime.from(prayerTime, tz.local),
+          // RepeatInterval.daily,
+          notificationDetails,
+          androidScheduleMode: AndroidScheduleMode.exactAllowWhileIdle,
+          uiLocalNotificationDateInterpretation:
+              UILocalNotificationDateInterpretation.absoluteTime,
+        );
+      }
     }
   }
 
@@ -204,6 +274,8 @@ class NotificationController extends GetxController {
               macOS: initializationSettingsIOS);
       await flutterLocalNotificationsPlugin.initialize(initializationSettings);
       schedulePrayerNotifications();
+      adhanData = loadAdhanData();
+      checkAllAdhanDownloaded();
     }
   }
 }

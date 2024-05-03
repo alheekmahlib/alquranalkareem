@@ -26,15 +26,15 @@ class PrayerBuild extends StatelessWidget {
                       margin: const EdgeInsets.symmetric(
                           horizontal: 8.0, vertical: 4.0),
                       decoration: BoxDecoration(
-                          color: Theme.of(Get.context!).colorScheme.primary,
+                          color: Theme.of(context).colorScheme.primary,
                           borderRadius: const BorderRadius.all(
                             Radius.circular(5),
                           ),
                           border: Border.all(
                             color:
-                                adhanCtrl.getcurrentSelectedPrayer(index).value
+                                adhanCtrl.getCurrentSelectedPrayer(index).value
                                     ? const Color(0xfff16938)
-                                    : Theme.of(Get.context!).canvasColor,
+                                    : Theme.of(context).canvasColor,
                             width: 1,
                             strokeAlign: BorderSide.strokeAlignInside,
                           )),
@@ -47,9 +47,8 @@ class PrayerBuild extends StatelessWidget {
                             padding: const EdgeInsets.symmetric(
                                 horizontal: 6.0, vertical: 2.0),
                             decoration: BoxDecoration(
-                              color: Theme.of(Get.context!)
-                                  .canvasColor
-                                  .withOpacity(.2),
+                              color:
+                                  Theme.of(context).canvasColor.withOpacity(.2),
                               borderRadius: const BorderRadius.all(
                                 Radius.circular(4),
                               ),
@@ -66,7 +65,7 @@ class PrayerBuild extends StatelessWidget {
                                       fontFamily: 'kufi',
                                       fontSize: 16,
                                       fontWeight: FontWeight.bold,
-                                      color: Theme.of(Get.context!).canvasColor,
+                                      color: Theme.of(context).canvasColor,
                                     ),
                                   ),
                                 ),
@@ -76,7 +75,7 @@ class PrayerBuild extends StatelessWidget {
                                     fontFamily: 'kufi',
                                     fontSize: 16,
                                     fontWeight: FontWeight.bold,
-                                    color: Theme.of(Get.context!).canvasColor,
+                                    color: Theme.of(context).canvasColor,
                                   ),
                                 )
                               ],

@@ -68,9 +68,8 @@ class SetTimingCalculations extends StatelessWidget {
                                 .colorScheme
                                 .surface
                                 .withOpacity(.5),
-                            onChanged: (bool value) => adhanCtrl
-                                .autoCalculationMethod
-                                .value = !adhanCtrl.autoCalculationMethod.value,
+                            onChanged: (bool value) =>
+                                adhanCtrl.switchAutoCalculation(value),
                           )),
                     ],
                   ),
@@ -116,7 +115,7 @@ class SetTimingCalculations extends StatelessWidget {
                                 ),
                               ),
                               Switch(
-                                value: adhanCtrl.madhab.value,
+                                value: adhanCtrl.isHanafi.value,
                                 activeColor: Colors.red,
                                 inactiveTrackColor: Theme.of(context)
                                     .colorScheme
@@ -139,7 +138,7 @@ class SetTimingCalculations extends StatelessWidget {
                                 ),
                               ),
                               Switch(
-                                value: !adhanCtrl.madhab.value,
+                                value: !adhanCtrl.isHanafi.value,
                                 activeColor: Colors.red,
                                 inactiveTrackColor: Theme.of(context)
                                     .colorScheme

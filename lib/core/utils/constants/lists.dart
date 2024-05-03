@@ -508,3 +508,17 @@ const List monthHadithsList = [
     'bookName': ' صحيح البخاري كتاب الصوم - ١٩١٢',
   },
 ];
+
+const List adhanSoundsList = [
+  {
+    'country': '',
+    'sounds': [
+      {
+        'partOfAdhan': '',
+        'urlAdhanPart': '',
+        'fullAdhan': '',
+        'urlAdhanFull': '',
+      }
+    ]
+  },
+];
