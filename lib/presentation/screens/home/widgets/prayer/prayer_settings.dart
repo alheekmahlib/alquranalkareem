@@ -22,7 +22,7 @@ class PrayerSettings extends StatelessWidget {
               topLeft: Radius.circular(8),
               topRight: Radius.circular(8),
             )),
-        child: ListView(
+        child: Column(
           children: [
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -45,10 +45,16 @@ class PrayerSettings extends StatelessWidget {
                 ),
               ],
             ),
-            DetectLocation(),
-            const AdhanSounds(),
-            const Gap(8),
-            SetTimingCalculations()
+            Flexible(
+              child: ListView(
+                children: [
+                  DetectLocation(),
+                  AdhanSounds(),
+                  const Gap(8),
+                  SetTimingCalculations()
+                ],
+              ),
+            ),
           ],
         ),
       );

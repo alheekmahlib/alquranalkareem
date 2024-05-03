@@ -40,7 +40,7 @@ class HomeWidgetConfig {
                                 ),
                                 border: Border.all(
                                   color: adhanCtrl
-                                          .getcurrentSelectedPrayer(index)
+                                          .getCurrentSelectedPrayer(index)
                                           .value
                                       ? const Color(0xfff16938)
                                       : Theme.of(Get.context!).canvasColor,
