@@ -1,20 +1,3 @@
-buildscript {
-    ext.kotlin_version = '1.7.10'
-    repositories {
-        google()
-        mavenCentral()
-    }
-
-    dependencies {
-        // There have been reports that enabling desugaring may result in a Flutter apps crashing on Android 12L and above. This would be an issue with Flutter itself, not the plugin. One possible fix is adding the WindowManager library as a dependency:
-        // https://pub.dev/packages/flutter_local_notifications#androidmanifestxml-setup
-        implementation "androidx.window:window:1.0.0"
-        implementation "androidx.window:window-java:1.0.0"
-        classpath "com.android.tools.build:gradle:7.3.1"
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
-    }
-}
-
 allprojects {
     repositories {
         google()
