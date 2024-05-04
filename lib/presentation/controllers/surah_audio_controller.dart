@@ -91,43 +91,38 @@ class SurahAudioController extends GetxController {
   }
 
   Future<void> playPreviousSurah() async {
-    if (surahDownloadStatus.value[surahNum.value] == false) {
-      isPlaying.value = false;
-      await audioPlayer.stop();
-    } else {
-      if (surahNum.value - 1 == 1) {
-        await audioPlayer.stop();
-      } else {
-        await audioPlayer
-            .setAudioSource(AudioSource.file(
-              await localFilePath,
-              tag: await mediaItem,
-            ))
-            .then((_) => audioPlayer.play());
-      }
-    }
+    surahNum.value -= 1;
+    selectedSurah.value -= 1;
+    await audioPlayer
+        .setAudioSource(surahDownloadStatus.value[surahNum.value] == false
+            ? AudioSource.uri(
+                Uri.parse(urlFilePath),
+                tag: await mediaItem,
+              )
+            : AudioSource.file(
+                await localFilePath,
+                tag: await mediaItem,
+              ))
+        .then((_) => audioPlayer.play());
   }
 
   // "https://everyayah.com/data/MaherAlMuaiqly128kbps/${_quranController.getSurahNumberByAya(_quranController.allAyas[ayaUniqeId.value - 1]).toString().padLeft(3, "0")}${_quranController.allAyas[ayaUniqeId.value - 1].numberOfAyaInSurah.toString().padLeft(3, "0")}.mp3",
 
   Future<void> playNextSurah() async {
-    if (surahDownloadStatus.value[surahNum.value] == false) {
-      isPlaying.value = false;
-      await audioPlayer.stop();
-    } else {
-      if ((surahNum.value - 1) == 114) {
-        isPlaying.value = false;
-        audioPlayer.stop();
-      } else {
-        isPlaying.value = true;
-        await audioPlayer
-            .setAudioSource(AudioSource.file(
-              await localFilePath,
-              tag: await mediaItem,
-            ))
-            .then((_) => audioPlayer.play());
-      }
-    }
+    surahNum.value += 1;
+    selectedSurah.value += 1;
+    isPlaying.value = true;
+    await audioPlayer
+        .setAudioSource(surahDownloadStatus.value[surahNum.value] == false
+            ? AudioSource.uri(
+                Uri.parse(urlFilePath),
+                tag: await mediaItem,
+              )
+            : AudioSource.file(
+                await localFilePath,
+                tag: await mediaItem,
+              ))
+        .then((_) => audioPlayer.play());
   }
 
   Future<void> downloadSurah() async {
@@ -333,14 +328,14 @@ class SurahAudioController extends GetxController {
     _connectivitySubscription =
         _connectivity.onConnectivityChanged.listen(_updateConnectionStatus);
     initConnectivity();
-    // if (Platform.isIOS) {
-    await JustAudioBackground.init(
-      androidNotificationChannelId:
-          'com.alheekmah.alquranalkareem.alquranalkareem',
-      androidNotificationChannelName: 'Audio playback',
-      androidNotificationOngoing: true,
-    );
-    // }
+    if (Platform.isIOS) {
+      await JustAudioBackground.init(
+        androidNotificationChannelId:
+            'com.alheekmah.alquranalkareem.alquranalkareem',
+        androidNotificationChannelName: 'Audio playback',
+        androidNotificationOngoing: true,
+      );
+    }
   }
 
   Stream<PositionData> get positionDataStream =>

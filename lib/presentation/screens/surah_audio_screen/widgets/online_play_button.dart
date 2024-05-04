@@ -67,7 +67,7 @@ class OnlinePlayButton extends StatelessWidget {
                 if (processingState == ProcessingState.buffering) {
                   return customLottie(LottieConstants.assetsLottiePlayButton,
                       width: 20.0, height: 20.0);
-                } else if (playerState?.playing == false) {
+                } else if (playerState != null && !playerState.playing) {
                   return GestureDetector(
                     child: play_arrow(height: 30.0),
                     onTap: () async {

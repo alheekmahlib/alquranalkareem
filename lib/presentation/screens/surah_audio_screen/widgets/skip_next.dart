@@ -23,16 +23,11 @@ class SkipToNext extends StatelessWidget {
             size: 30,
           ),
         ),
-        onPressed: () {
-          if (surahAudioCtrl.surahNum.value == 114) {
-            surahAudioCtrl.surahNum.value = 1;
-            surahAudioCtrl.selectedSurah.value = 1;
-          } else {
-            surahAudioCtrl.surahNum.value += 1;
-            surahAudioCtrl.selectedSurah.value += 1;
-          }
-          surahAudioCtrl.playNextSurah();
-        },
+        onPressed: (surahAudioCtrl.surahNum.value) == 114
+            ? null
+            : () {
+                surahAudioCtrl.playNextSurah();
+              },
       ),
     );
   }

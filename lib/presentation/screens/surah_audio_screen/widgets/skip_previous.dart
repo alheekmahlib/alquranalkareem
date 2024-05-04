@@ -23,17 +23,11 @@ class SkipToPrevious extends StatelessWidget {
             size: 30,
           ),
         ),
-        onPressed: () {
-          if (sl<SurahAudioController>().surahNum.value == 114) {
-            sl<SurahAudioController>().surahNum.value = 1;
-            sl<SurahAudioController>().selectedSurah.value = 1;
-          } else {
-            sl<SurahAudioController>().surahNum.value -= 1;
-            sl<SurahAudioController>().selectedSurah.value -= 1;
-          }
-
-          sl<SurahAudioController>().playPreviousSurah();
-        },
+        onPressed: sl<SurahAudioController>().surahNum.value == 1
+            ? null
+            : () {
+                sl<SurahAudioController>().playPreviousSurah();
+              },
       ),
     );
   }

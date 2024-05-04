@@ -48,7 +48,7 @@ class PlayAyah extends StatelessWidget {
                         audioCtrl.progress.value == 0)) {
                   return customLottie(LottieConstants.assetsLottiePlayButton,
                       width: 20.0, height: 20.0);
-                } else if (!audioCtrl.isPlay.value) {
+                } else if (playerState != null && !playerState.playing) {
                   return GestureDetector(
                     child: play_arrow(height: 25.0),
                     onTap: () async {

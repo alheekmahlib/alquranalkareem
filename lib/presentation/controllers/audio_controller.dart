@@ -81,6 +81,15 @@ class AudioController extends GetxController {
     playAyah();
   }
 
+  Future<MediaItem> get mediaItem async => MediaItem(
+        id: '${_currentAyahUQInPage.value}',
+        title:
+            '${sl<QuranController>().getCurrentPageAyahs(generalCtrl.currentPageNumber.value)[_currentAyahInSurah.value].text ?? ''}',
+        artist: '${ayahReaderInfo[readerIndex.value]['name']}'.tr,
+        artUri: await sl<GeneralController>().getCachedArtUri(
+            'https://raw.githubusercontent.com/alheekmahlib/thegarlanded/master/Photos/ios-1024.png'),
+      );
+
   int get currentAyahInPage => _currentAyahInSurah.value == 1
       ? quranCtrl.allAyahs
           .firstWhere(
@@ -154,7 +163,7 @@ class AudioController extends GetxController {
   String get fileName => ayahReaderInfo[readerIndex.value]['url'] ==
           UrlConstants.ayahUrl
       ? "$reader/${_currentAyahUQInPage.value}.mp3"
-      : "$reader/${quranCtrl.getSurahNumberByAyah(quranCtrl.allAyahs[_currentAyahUQInPage.value]).toString().padLeft(3, "0")}${quranCtrl.allAyahs[_currentAyahUQInPage.value].ayahNumber.toString().padLeft(3, "0")}.mp3";
+      : "$reader/${quranCtrl.getSurahNumberByAyah(quranCtrl.allAyahs[_currentAyahUQInPage.value]).toString().padLeft(3, "0")}${quranCtrl.allAyahs[_currentAyahUQInPage.value - 1].ayahNumber.toString().padLeft(3, "0")}.mp3";
   String get url =>
       ayahReaderInfo[readerIndex.value]['url'] == UrlConstants.ayahUrl
           ? "${UrlConstants.ayahUrl}$fileName"
@@ -206,14 +215,7 @@ class AudioController extends GetxController {
       }
       await audioPlayer.setAudioSource(AudioSource.file(
         path,
-        tag: MediaItem(
-          // Specify a unique ID for each media item:
-          id: '${ayatCtrl.ayahUQNumber.value}',
-          // Metadata to display in the notification:
-          album: '${ayatCtrl.currentAyah?.sorahName ?? ''}',
-          title: '${ayatCtrl.currentAyah?.ayaNum ?? ''}',
-          // artUri: Uri.parse('https://example.com/albumart.jpg'),
-        ),
+        tag: await mediaItem,
       ));
       audioPlayer.playerStateStream.listen((playerState) async {
         if (playerState.processingState == ProcessingState.completed &&
