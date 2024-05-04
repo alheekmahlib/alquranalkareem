@@ -7,10 +7,10 @@ import '../../../../core/services/services_locator.dart';
 import '../../../../core/utils/constants/extensions/extensions.dart';
 import '../../../controllers/ayat_controller.dart';
 import '../../../controllers/general_controller.dart';
+import '../../../controllers/quran_controller.dart';
 import '../../../controllers/translate_controller.dart';
 import '/core/utils/constants/extensions/text_span_extension.dart';
 import '/core/utils/constants/svg_picture.dart';
-import '/presentation/controllers/quran_controller.dart';
 import 'ayahs/share_copy_widget.dart';
 import 'change_tafsir.dart';
 
@@ -73,14 +73,14 @@ class ShowTafseer extends StatelessWidget {
                 child: Obx(() => PageView.builder(
                     controller: PageController(initialPage: (index).toInt()),
                     itemCount: quranCtrl
-                        .getCurrentPageAyahs(
+                        .getPageAyahsByIndex(
                             generalCtrl.currentPageNumber.value)
                         .length,
                     itemBuilder: (context, index) {
-                      final ayahs = quranCtrl.getCurrentPageAyahs(
+                      final ayahs = quranCtrl.getPageAyahsByIndex(
                           generalCtrl.currentPageNumber.value)[index];
                       int ayahIndex = quranCtrl
-                              .getCurrentPageAyahs(
+                              .getPageAyahsByIndex(
                                   generalCtrl.currentPageNumber.value)
                               .first
                               .ayahUQNumber +

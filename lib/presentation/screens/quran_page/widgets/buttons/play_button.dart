@@ -1,7 +1,7 @@
-import '../../../../../core/utils/constants/svg_picture.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../../core/services/services_locator.dart';
+import '../../../../../core/utils/constants/svg_picture.dart';
 import '../../../../controllers/audio_controller.dart';
 import '../../../../controllers/general_controller.dart';
 import '../../../../controllers/quran_controller.dart';
@@ -10,7 +10,7 @@ class PlayButton extends StatelessWidget {
   final int surahNum;
   final int ayahNum;
   final int ayahUQNum;
-  final Function? cancel;
+  final VoidCallback? cancel;
   PlayButton(
       {super.key,
       required this.surahNum,
@@ -32,6 +32,9 @@ class PlayButton extends StatelessWidget {
         sl<AudioController>().startPlayingToggle();
         sl<QuranController>().isPlayExpanded.value = true;
         sl<AudioController>().playAyahOnTap(surahNum, ayahNum, ayahUQNum);
+        if (cancel != null) {
+          cancel!();
+        }
       },
     );
   }

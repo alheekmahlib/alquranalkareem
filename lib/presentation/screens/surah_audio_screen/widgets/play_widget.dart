@@ -22,7 +22,7 @@ class PlayWidget extends StatelessWidget {
     return Align(
       alignment: Alignment.centerLeft,
       child: Container(
-        height: 295,
+        height: size.height / 2.66, //295,
         width: context.customOrientation(size.width, size.width * .5),
         decoration: BoxDecoration(
           color: Theme.of(context).colorScheme.background,

@@ -72,10 +72,11 @@ class AudioWidget extends StatelessWidget {
                   ),
                 ),
                 secondChild: SizedBox(
-                    height: 150,
+                    height: 155,
                     width: generalCtrl.screenWidth(
                         MediaQuery.sizeOf(context).width * .64, 290),
                     child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
                         const Gap(11),
                         Padding(
@@ -108,7 +109,7 @@ class AudioWidget extends StatelessWidget {
                         Directionality(
                           textDirection: TextDirection.rtl,
                           child: Container(
-                            height: 65,
+                            height: 66,
                             alignment: Alignment.center,
                             // width: 250,
                             child: StreamBuilder<PositionData>(
