@@ -28,7 +28,7 @@ class PagesWidget extends StatelessWidget {
             : const EdgeInsets.symmetric(horizontal: 0.0),
         margin: pageIndex == 0 || pageIndex == 1
             ? EdgeInsets.symmetric(vertical: Get.width * .34)
-            : const EdgeInsets.symmetric(vertical: 32.0, horizontal: 8.0),
+            : const EdgeInsets.symmetric(vertical: 32.0, horizontal: 6.0),
         child: quranCtrl.pages.isEmpty
             ? const CircularProgressIndicator.adaptive()
             : SingleChildScrollView(

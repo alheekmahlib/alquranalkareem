@@ -1,7 +1,6 @@
 import 'dart:async';
-import 'dart:developer' as developer;
+import 'dart:developer' show log;
 import 'dart:io';
-import 'dart:math';
 
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:dio/dio.dart';
@@ -81,6 +80,15 @@ class AudioController extends GetxController {
     playAyah();
   }
 
+  Future<MediaItem> get mediaItem async => MediaItem(
+        id: '${_currentAyahUQInPage.value}',
+        title:
+            '${sl<QuranController>().getPageAyahsByIndex(generalCtrl.currentPageNumber.value - 1).firstWhere((a) => a.ayahUQNumber == _currentAyahUQInPage.value).text}',
+        artist: '${ayahReaderInfo[readerIndex.value]['name']}'.tr,
+        artUri: await sl<GeneralController>().getCachedArtUri(
+            'https://raw.githubusercontent.com/alheekmahlib/thegarlanded/master/Photos/ios-1024.png'),
+      );
+
   int get currentAyahInPage => _currentAyahInSurah.value == 1
       ? quranCtrl.allAyahs
           .firstWhere(
@@ -114,13 +122,13 @@ class AudioController extends GetxController {
 
   bool get isLastAyahInPage =>
       quranCtrl
-          .getCurrentPageAyahs(generalCtrl.currentPageNumber.value - 1)
+          .getPageAyahsByIndex(generalCtrl.currentPageNumber.value - 1)
           .last
           .ayahUQNumber ==
       _currentAyahUQInPage.value;
   bool get isFirstAyahInPage =>
       quranCtrl
-          .getCurrentPageAyahs(generalCtrl.currentPageNumber.value - 1)
+          .getPageAyahsByIndex(generalCtrl.currentPageNumber.value - 1)
           .first
           .ayahUQNumber ==
       _currentAyahUQInPage.value;
@@ -154,7 +162,7 @@ class AudioController extends GetxController {
   String get fileName => ayahReaderInfo[readerIndex.value]['url'] ==
           UrlConstants.ayahUrl
       ? "$reader/${_currentAyahUQInPage.value}.mp3"
-      : "$reader/${quranCtrl.getSurahNumberByAyah(quranCtrl.allAyahs[_currentAyahUQInPage.value]).toString().padLeft(3, "0")}${quranCtrl.allAyahs[_currentAyahUQInPage.value].ayahNumber.toString().padLeft(3, "0")}.mp3";
+      : "$reader/${quranCtrl.getSurahNumberByAyah(quranCtrl.allAyahs[_currentAyahUQInPage.value]).toString().padLeft(3, "0")}${quranCtrl.allAyahs[_currentAyahUQInPage.value - 1].ayahNumber.toString().padLeft(3, "0")}.mp3";
   String get url =>
       ayahReaderInfo[readerIndex.value]['url'] == UrlConstants.ayahUrl
           ? "${UrlConstants.ayahUrl}$fileName"
@@ -164,12 +172,13 @@ class AudioController extends GetxController {
     await audioPlayer.pause();
   }
 
-  void moveToNextPage({bool withScroll = true}) {
+  Future<void> moveToNextPage({bool withScroll = true}) async {
     if (withScroll) {
-      generalCtrl.quranPageController.animateToPage(
+      await generalCtrl.quranPageController.animateToPage(
           (generalCtrl.currentPageNumber.value),
           duration: const Duration(milliseconds: 600),
           curve: Curves.easeInOut);
+      log('Going To Next Page at: ${generalCtrl.currentPageNumber.value} ');
     }
   }
 
@@ -206,21 +215,15 @@ class AudioController extends GetxController {
       }
       await audioPlayer.setAudioSource(AudioSource.file(
         path,
-        tag: MediaItem(
-          // Specify a unique ID for each media item:
-          id: '${ayatCtrl.ayahUQNumber.value}',
-          // Metadata to display in the notification:
-          album: '${ayatCtrl.currentAyah?.sorahName ?? ''}',
-          title: '${ayatCtrl.currentAyah?.ayaNum ?? ''}',
-          // artUri: Uri.parse('https://example.com/albumart.jpg'),
-        ),
+        tag: await mediaItem,
       ));
       audioPlayer.playerStateStream.listen((playerState) async {
         if (playerState.processingState == ProcessingState.completed &&
             !isProcessingNextAyah.value) {
           isProcessingNextAyah.value = true;
-          log(_currentAyahUQInPage.value);
-          log(_currentAyahInSurah.value);
+          log('${'|' * 20} _currentAyahUQInPage.value: ${_currentAyahUQInPage.value}');
+          log('${'|' * 20} _currentAyahInSurah.value: ${_currentAyahInSurah.value}');
+          log('${'|' * 20} page num: ${generalCtrl.currentPageNumber.value}');
           if (quranCtrl.isPages.value == 0) {
             if (generalCtrl.currentPageNumber.value == 604) {
               print('doneeeeeeeeeeee');
@@ -228,12 +231,12 @@ class AudioController extends GetxController {
               isPlay.value = false;
             } else if (isLastAyahInPageButNotInSurah) {
               print('moveToPage');
-              moveToNextPage();
+              await moveToNextPage();
             } else if (isLastAyahInSurahAndPage) {
-              moveToNextPage();
+              await moveToNextPage();
               goingToNewSurah = true;
             } else if (isLastAyahInSurahButNotInPage) {
-              moveToNextPage(withScroll: false);
+              await moveToNextPage(withScroll: false);
               goingToNewSurah = true;
             }
           } else if (quranCtrl.isPages.value == 1) {
@@ -387,7 +390,7 @@ class AudioController extends GetxController {
       pausePlayer;
       _currentAyahUQInPage.value += 1;
       quranCtrl.clearAndAddSelection(_currentAyahUQInPage.value);
-      moveToNextPage();
+      await moveToNextPage();
       await playFile(url, fileName);
     } else {
       pausePlayer;
@@ -429,7 +432,7 @@ class AudioController extends GetxController {
     try {
       result = await _connectivity.checkConnectivity();
     } on PlatformException catch (e) {
-      developer.log('Couldn\'t check connectivity status', error: e);
+      log('Couldn\'t check connectivity status', error: e);
       return;
     }
     if (_isDisposed) {
@@ -459,7 +462,7 @@ class AudioController extends GetxController {
 
   loadQuranReader() async {
     readerValue = await sl<SharedPreferences>().getString(AUDIO_PLAYER_SOUND) ??
-        "192/ar.abdulbasitmurattal";
+        "Abdul_Basit_Murattal_192kbps";
 
     readerName.value = await sl<SharedPreferences>().getString(READER_NAME) ??
         'عبد الباسط عبد الصمد';

@@ -9,6 +9,7 @@ import '/presentation/controllers/azkar_controller.dart';
 class DailyZeker extends StatelessWidget {
   DailyZeker({super.key});
   final azkarCtrl = sl<AzkarController>();
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -86,7 +87,7 @@ class DailyZeker extends StatelessWidget {
                           const Gap(8)
                         ],
                       )
-                    : const CircularProgressIndicator();
+                    : const SizedBox.shrink();
               }),
         ));
   }
