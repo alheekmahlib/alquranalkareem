@@ -73,14 +73,14 @@ class ShowTafseer extends StatelessWidget {
                 child: Obx(() => PageView.builder(
                     controller: PageController(initialPage: (index).toInt()),
                     itemCount: quranCtrl
-                        .getCurrentPageAyahs(
+                        .getPageAyahsByIndex(
                             generalCtrl.currentPageNumber.value)
                         .length,
                     itemBuilder: (context, index) {
-                      final ayahs = quranCtrl.getCurrentPageAyahs(
+                      final ayahs = quranCtrl.getPageAyahsByIndex(
                           generalCtrl.currentPageNumber.value)[index];
                       int ayahIndex = quranCtrl
-                              .getCurrentPageAyahs(
+                              .getPageAyahsByIndex(
                                   generalCtrl.currentPageNumber.value)
                               .first
                               .ayahUQNumber +

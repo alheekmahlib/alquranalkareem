@@ -160,7 +160,10 @@ class DatabaseHelper {
 
   static Future<List<Map<String, dynamic>>> queryT() async {
     print('get Text Bookmarks');
-    return await _db!.query(tableBookmarksText);
+    print('${'=' * 30} db?.isOpen: ${_db?.isOpen}');
+    final data = await _db!.query(tableBookmarksText);
+    print('${'=' * 30} data: $data');
+    return data;
   }
 
   /// azkar database

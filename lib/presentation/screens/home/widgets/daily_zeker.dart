@@ -86,7 +86,7 @@ class DailyZeker extends StatelessWidget {
                           const Gap(8)
                         ],
                       )
-                    : const CircularProgressIndicator();
+                    : const SizedBox.shrink();
               }),
         ));
   }

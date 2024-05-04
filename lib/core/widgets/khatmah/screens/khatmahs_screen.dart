@@ -31,13 +31,13 @@ class KhatmasScreen extends StatelessWidget {
             child: ListView.builder(
               itemCount: khatmahCtrl.daysCount,
               itemBuilder: (context, index) {
-                final day = index + 1;
+                // final day = index + 1;
                 final pagesPerDay =
                     (khatmahCtrl.totalPages / khatmahCtrl.daysCount).ceil();
                 final startPage = index * pagesPerDay;
-                final endPage = (index + 1) * pagesPerDay;
-                final isDayCompleted = khatmahCtrl.khatmas.any((khatma) =>
-                    khatma.currentPage! > endPage || khatma.isCompleted);
+                // final endPage = (index + 1) * pagesPerDay;
+                // final isDayCompleted = khatmahCtrl.khatmas.any((khatma) =>
+                //     khatma.currentPage! > endPage || khatma.isCompleted);
                 return Dismissible(
                   background: const DeleteWidget(),
                   key: ValueKey<int>(index),

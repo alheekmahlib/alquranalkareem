@@ -3,13 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 
-import '../../../../presentation/controllers/quran_controller.dart';
-import '../../../../presentation/screens/quran_page/widgets/buttons/add_bookmark_button.dart';
-import '../../../../presentation/screens/quran_page/widgets/buttons/copy_button.dart';
-import '../../../../presentation/screens/quran_page/widgets/buttons/play_button.dart';
-import '../../../../presentation/screens/quran_page/widgets/buttons/tafsir_button.dart';
 import '../../../services/services_locator.dart';
 import '../../../widgets/share/share_ayah_options.dart';
+import '/presentation/controllers/quran_controller.dart';
+import '/presentation/screens/quran_page/widgets/buttons/add_bookmark_button.dart';
+import '/presentation/screens/quran_page/widgets/buttons/copy_button.dart';
+import '/presentation/screens/quran_page/widgets/buttons/play_button.dart';
+import '/presentation/screens/quran_page/widgets/buttons/tafsir_button.dart';
 import 'extensions.dart';
 
 extension ContextMenuExtension on BuildContext {

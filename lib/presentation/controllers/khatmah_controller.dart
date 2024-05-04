@@ -29,10 +29,10 @@ class KhatmahController extends GetxController {
     final newKhatma = KhatmahsCompanion(
       name: drift.Value(name),
       surahName: drift.Value(surahName),
-      currentPage: drift.Value(1),
+      currentPage: const drift.Value(1),
       startAyahNumber: drift.Value(startAyahNumber),
       endAyahNumber: drift.Value(endAyahNumber),
-      isCompleted: drift.Value(false),
+      isCompleted: const drift.Value(false),
     );
     db.insertKhatma(newKhatma).then((_) => loadKhatmas());
   }

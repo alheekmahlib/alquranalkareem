@@ -87,7 +87,7 @@ class SurahAudioController extends GetxController {
   }
 
   String get urlFilePath {
-    return '${sorahReaderValue.value}${sorahReaderNameValue.value}${surahNum.value.toString().padLeft(3, "0") ?? 001}.mp3';
+    return '${sorahReaderValue.value}${sorahReaderNameValue.value}${surahNum.value.toString().padLeft(3, "0")}.mp3';
   }
 
   Future<void> playPreviousSurah() async {
@@ -304,7 +304,7 @@ class SurahAudioController extends GetxController {
   Future<MediaItem> get mediaItem async => MediaItem(
         id: '${surahNum.value - 1}',
         title:
-            '${sl<QuranController>().surahs[(surahNum.value - 1) ?? 1].arabicName ?? ''}',
+            '${sl<QuranController>().surahs[(surahNum.value - 1)].arabicName}',
         artist: '${surahReaderInfo[surahReaderIndex.value]['name']}'.tr,
         artUri: await sl<GeneralController>().getCachedArtUri(
             'https://raw.githubusercontent.com/alheekmahlib/thegarlanded/master/Photos/ios-1024.png'),
