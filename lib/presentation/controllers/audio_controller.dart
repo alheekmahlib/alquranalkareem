@@ -162,7 +162,7 @@ class AudioController extends GetxController {
   String get fileName => ayahReaderInfo[readerIndex.value]['url'] ==
           UrlConstants.ayahUrl
       ? "$reader/${_currentAyahUQInPage.value}.mp3"
-      : "$reader/${quranCtrl.getSurahNumberByAyah(quranCtrl.allAyahs[_currentAyahUQInPage.value]).toString().padLeft(3, "0")}${quranCtrl.allAyahs[_currentAyahUQInPage.value - 1].ayahNumber.toString().padLeft(3, "0")}.mp3";
+      : "$reader/${quranCtrl.getSurahNumberByAyah(quranCtrl.allAyahs[_currentAyahUQInPage.value - 1]).toString().padLeft(3, "0")}${quranCtrl.allAyahs[_currentAyahUQInPage.value - 1].ayahNumber.toString().padLeft(3, "0")}.mp3";
   String get url =>
       ayahReaderInfo[readerIndex.value]['url'] == UrlConstants.ayahUrl
           ? "${UrlConstants.ayahUrl}$fileName"
