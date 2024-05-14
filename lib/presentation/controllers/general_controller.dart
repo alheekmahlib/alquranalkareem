@@ -34,6 +34,7 @@ import '/presentation/screens/home/home_screen.dart';
 import 'audio_controller.dart';
 import 'ayat_controller.dart';
 import 'bookmarks_controller.dart';
+import 'notification_controller.dart';
 import 'playList_controller.dart';
 
 class GeneralController extends GetxController {
@@ -147,8 +148,10 @@ class GeneralController extends GetxController {
       await Future.delayed(const Duration(seconds: 3));
       isEnabled = await LocationHelper.instance.isLocationServiceEnabled();
       if (isEnabled || activeLocation.value) {
-        await initLocation().then((_) {
+        await initLocation().then((_) async {
           activeLocation.value = true;
+          await sl<NotificationController>().initializeNotification();
+          await sl<AdhanController>().initializeAdhan();
           sharedCtrl.setBool(ACTIVE_LOCATION, true);
           sl<AdhanController>().onInit();
         });
@@ -156,8 +159,10 @@ class GeneralController extends GetxController {
         log('Location services were not enabled by the user.');
       }
     } else {
-      await initLocation().then((_) {
+      await initLocation().then((_) async {
         activeLocation.value = true;
+        await sl<NotificationController>().initializeNotification();
+        await sl<AdhanController>().initializeAdhan();
         sharedCtrl.setBool(ACTIVE_LOCATION, true);
         sl<AdhanController>().onInit();
       });

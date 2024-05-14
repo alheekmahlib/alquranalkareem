@@ -2,6 +2,8 @@ import 'dart:convert';
 import 'dart:developer' show log;
 import 'dart:io' show Directory, File, Platform;
 
+import 'package:alquranalkareem/core/utils/constants/extensions/custom_error_snackBar.dart';
+import 'package:archive/archive_io.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
@@ -14,11 +16,13 @@ import 'package:timezone/timezone.dart' as tz;
 import 'package:workmanager/workmanager.dart';
 
 import '../../core/services/services_locator.dart';
+import '../../core/utils/constants/shared_preferences_constants.dart';
 import '../screens/home/data/model/adhan_data.dart';
 import '/presentation/controllers/adhan_controller.dart';
 import 'general_controller.dart';
 
 class NotificationController extends GetxController {
+  // TODO: بابا هلال حباب شوف اللوجيك منظم لو اسبكتي
   final sharedCtrl = sl<SharedPreferences>();
   final adhanCtrl = sl<AdhanController>();
   late FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin;
@@ -55,17 +59,82 @@ class NotificationController extends GetxController {
     return jsonData.map((data) => AdhanData.fromJson(data)).toList();
   }
 
-  Future<void> adhanDownload(int i) async {
+  Future<void> adhanDownload(String url, String fileName, int index) async {
     Directory databasePath = await getApplicationDocumentsDirectory();
-    var path = join(databasePath.path, '$i');
-    String fileUrl = 'https://muslimguider.com/mobile_files/$i';
+    var path = join(databasePath.path, '$fileName');
+    String fileUrl = url;
 
     if (!onDownloading.value) {
-      await downloadAdhan(fileUrl).then((_) {
-        onDownloadSuccess('$i');
+      await downloadAdhan(fileUrl, fileName).then((_) {
+        onDownloadSuccess('$index');
       });
       print("Downloading from URL: $fileUrl");
     }
+  }
+
+  Future<bool> downloadAdhan(String url, String fileName) async {
+    Dio dio = Dio();
+    CancelToken cancelToken = CancelToken();
+
+    try {
+      try {
+        final directory = await getApplicationDocumentsDirectory();
+        final zipFilePath = '${directory.path}/$fileName.zip';
+        final extractedFilePath = '${directory.path}/$fileName/';
+
+        if (await File(extractedFilePath).exists()) {
+          print('Adhan file already exists. Skipping download.');
+          return true;
+        }
+
+        onDownloading.value = true;
+        progressString.value = "0";
+        progress.value = 0;
+
+        // Download the zip file
+        await dio.download(
+          url,
+          zipFilePath,
+          onReceiveProgress: (rec, total) {
+            progressString.value = ((rec / total) * 100).toStringAsFixed(0);
+            progress.value = (rec / total).toDouble();
+            print(progressString.value);
+          },
+          cancelToken: cancelToken,
+        );
+
+        // Extract the zip file
+        final bytes = await File(zipFilePath).readAsBytes();
+        final archive = ZipDecoder().decodeBytes(bytes);
+
+        for (final file in archive) {
+          final filename = basename(file.name);
+          log('filename: $directory/$filename');
+          if (file.isFile) {
+            final data = file.content as List<int>;
+            sharedCtrl.setStringList(
+                filename, data.map((e) => e.toString()).toList());
+            File('$directory/$filename')
+              ..createSync(recursive: true)
+              ..writeAsBytesSync(data);
+          } else {
+            // sharedCtrl.setString(ADHAN_SELECT,
+            //     '${directory.path}/Al-Saqqaf_part/Al-Assaf_ios/1.wav');
+            Directory('${directory.path}/$filename/Al-Assaf_ios/1.wav')
+                .createSync(recursive: true);
+          }
+        }
+
+        // Delete the zip file
+        await File(zipFilePath).delete();
+      } catch (e) {}
+      onDownloading.value = false;
+      progressString.value = "100%";
+      print("Download completed for $url");
+      return true;
+    } catch (e) {}
+
+    return false;
   }
 
   void updateDownloadStatus(String adhanName, bool downloaded) {
@@ -87,50 +156,6 @@ class NotificationController extends GetxController {
       adhanDownloadStatus.value['$i'] = await file.exists();
     }
     return adhanDownloadStatus.value;
-  }
-
-  Future<bool> downloadAdhan(String url) async {
-    Dio dio = Dio();
-    CancelToken cancelToken = CancelToken();
-
-    try {
-      try {
-        // Get application documents directory
-        final directory = await getApplicationDocumentsDirectory();
-        final filePath = '${directory.path}/adhan.mp3';
-
-        // If the file already exists, no need to download again
-        if (await File(filePath).exists()) {
-          print('Adhan file already exists. Skipping download.');
-          return true;
-        }
-
-        onDownloading.value = true;
-        progressString.value = "0";
-        progress.value = 0;
-
-        await dio.download(
-          url,
-          filePath,
-          onReceiveProgress: (rec, total) {
-            progressString.value = ((rec / total) * 100).toStringAsFixed(0);
-            progress.value = (rec / total).toDouble();
-            print(progressString.value);
-          },
-          cancelToken: cancelToken,
-        );
-      } catch (e) {
-        // ... (error handling as before) ...
-      }
-      onDownloading.value = false; // Indicate download completion
-      progressString.value = "100%"; // Set progress to 100%
-      print("Download completed for $url");
-      return true;
-    } catch (e) {
-      // ... (error handling as before) ...
-    }
-
-    return false;
   }
 
   // Function to register background task
@@ -177,8 +202,9 @@ class NotificationController extends GetxController {
     log('Scheduling Notifications', name: 'NotificationsCtrl');
     await FlutterLocalNotificationsPlugin().cancelAll();
     for (var prayer in adhanCtrl.prayerNameList) {
-      final timeString = '${prayer['hourTime']}';
-      // '${adhanCtrl.now.add(const Duration(minutes: 10))}';
+      final timeString =
+          // '${prayer['hourTime']}';
+          '${adhanCtrl.now.add(const Duration(seconds: 10))}';
       final sharedAlarmKey = prayer['sharedAlarm'] as String;
       final prayerTime = DateTime.parse(timeString);
 
@@ -201,12 +227,6 @@ class NotificationController extends GetxController {
         }
       }
     }
-    // await _scheduleNotification(
-    //     DateTime(DateTime.now().minute + 5), 'Title', 1);
-    // Future.delayed(const Duration(seconds: 5)).then((_) =>
-    //     _scheduleNotification(
-    //         DateTime(DateTime.now().minute + 5), 'Title now', 0,
-    //         now: true));
   }
 
   Future<void> _scheduleNotification(
@@ -214,6 +234,35 @@ class NotificationController extends GetxController {
       {bool now = false}) async {
     final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
         FlutterLocalNotificationsPlugin();
+
+    final audioDataList = sharedCtrl.getStringList(
+        sharedCtrl.getString(ADHAN_SELECT) ?? '${notificationId + 1}.caf');
+
+    // Convert the string list back to a list of integers
+    final audioData = audioDataList?.map((e) => int.parse(e)).toList();
+
+    if (audioData != null) {
+      AndroidNotificationDetails androidPlatformChannelSpecifics =
+          const AndroidNotificationDetails(
+        'alquranalkareem_adhan_channel_id',
+        'alquranalkareem_adhan_channel',
+        channelDescription: 'alquranalkareem adhan notifications channel',
+        importance: Importance.max,
+        priority: Priority.high,
+        ticker: 'ticker',
+        sound: RawResourceAndroidNotificationSound('aqsa'),
+      );
+      DarwinNotificationDetails iosPlatformChannelSpecifics =
+          DarwinNotificationDetails(
+        // sound: '${notificationId + 1}.caf',
+        // TODO: لا استطيع اضافة الاذان الذي تم تحميله
+        sound: sharedCtrl.getString(ADHAN_SELECT),
+        // sound: '/Al-Saqqaf_part/Al-Assaf_ios/1.wav',
+      );
+    } else {
+      // Handle the case where audio data is not found
+      // ...
+    }
 
     AndroidNotificationDetails androidPlatformChannelSpecifics =
         const AndroidNotificationDetails(
@@ -227,7 +276,9 @@ class NotificationController extends GetxController {
     );
     DarwinNotificationDetails iosPlatformChannelSpecifics =
         DarwinNotificationDetails(
-      sound: '${notificationId + 1}.caf',
+      // sound: '${notificationId + 1}.caf',
+      sound: sharedCtrl.getString(ADHAN_SELECT),
+      // sound: '/Al-Saqqaf_part/Al-Assaf_ios/1.wav',
     );
 
     NotificationDetails notificationDetails = NotificationDetails(
@@ -258,9 +309,7 @@ class NotificationController extends GetxController {
     }
   }
 
-  @override
-  void onInit() async {
-    super.onInit();
+  Future<void> initializeNotification() async {
     if (generalCtrl.activeLocation.value) {
       final flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
       const AndroidInitializationSettings initializationSettingsAndroid =
@@ -277,5 +326,40 @@ class NotificationController extends GetxController {
       adhanData = loadAdhanData();
       checkAllAdhanDownloaded();
     }
+  }
+
+  @override
+  void onInit() async {
+    super.onInit();
+    initializeNotification();
+    getSharedVariables();
+  }
+
+  Future<void> playButtonOnTap(int index, List<AdhanData> adhanData) async {
+    final directory = await getApplicationDocumentsDirectory();
+    adhanNumber.value = index;
+    await audioPlayer
+        .setAudioSource(AudioSource.file(
+            '${directory.path}/Al-Saqqaf_part/Al-Assaf_ios/1.wav'))
+        .then((_) async => await audioPlayer.play());
+    // await audioPlayer
+    //     .setUrl(adhanData[index - 1].urlPlayAdhan)
+    //     .then((_) async => await audioPlayer.play());
+    log('urlPlayAdhan: ${adhanData[index - 1].urlPlayAdhan} index: ${index - 1}');
+  }
+
+  void selectAdhanOnTap(int index, List<AdhanData> adhans) {
+    bool isDownloading =
+        adhanDownloadStatus.value[adhans[index].adhanFileName] ?? false;
+    if (isDownloading) {
+      adhanNumber.value = index;
+      sharedCtrl.setInt(ADHAN_NUMBER, index);
+    } else {
+      Get.context!.showCustomErrorSnackBar('يرجى تحميل الأذان أولًا.');
+    }
+  }
+
+  void getSharedVariables() {
+    adhanNumber.value = sharedCtrl.getInt(ADHAN_NUMBER) ?? 0;
   }
 }
