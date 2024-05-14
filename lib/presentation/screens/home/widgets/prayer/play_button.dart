@@ -9,7 +9,7 @@ import '../../../../controllers/notification_controller.dart';
 import '../../data/model/adhan_data.dart';
 
 class PlayButton extends StatelessWidget {
-  final AdhanData adhanData;
+  final List<AdhanData> adhanData;
   final int index;
   PlayButton({super.key, required this.adhanData, required this.index});
 
@@ -44,12 +44,8 @@ class PlayButton extends StatelessWidget {
               } else {
                 return GestureDetector(
                   child: play_arrow(height: 25.0),
-                  onTap: () async {
-                    notificationCtrl.adhanNumber.value = index;
-                    await notificationCtrl.audioPlayer
-                        .setUrl(adhanData.adhan.first.urlAndroidFullAdhan);
-                    await notificationCtrl.audioPlayer.play();
-                  },
+                  onTap: () async =>
+                      notificationCtrl.playButtonOnTap(index, adhanData),
                 );
               }
             },

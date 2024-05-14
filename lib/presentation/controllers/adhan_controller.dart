@@ -54,6 +54,7 @@ class AdhanController extends GetxController {
   RxBool seventhOfTheNight = false.obs;
   var prayerTimesNow;
   final generalCtrl = sl<GeneralController>();
+  // final notiCtrl = sl<NotificationController>();
   RxBool autoCalculationMethod = true.obs;
   RxString calculationMethodString = 'أم القرى'.obs;
   RxString selectedCountry = 'Saudi Arabia'.obs;
@@ -251,20 +252,7 @@ class AdhanController extends GetxController {
   Future<void> onInit() async {
     super.onInit();
     getShared;
-    if (generalCtrl.activeLocation.value) {
-      await generalCtrl.initLocation().then((value) async {
-        geo.setLocaleIdentifier(Get.locale!.languageCode);
-        await initializeAdhanVariables();
-        await initTimes();
-        fetchCountryList();
-        getCountryList().then((list) => countries = list);
-        updateProgress();
-        timer = Timer.periodic(
-            const Duration(minutes: 1), (Timer t) => updateProgress());
-      });
-      await HomeWidgetConfig.initialize();
-      HomeWidgetConfig().updateHijriDate();
-    }
+    initializeAdhan();
   }
 
   // Future<PrayerTimes> initializeAdhanVariables() async {
@@ -392,6 +380,23 @@ class AdhanController extends GetxController {
     update();
     prayerTimes = prayerTimesNow;
     return await initTimes();
+  }
+
+  Future<void> initializeAdhan() async {
+    if (generalCtrl.activeLocation.value) {
+      await generalCtrl.initLocation().then((value) async {
+        geo.setLocaleIdentifier(Get.locale!.languageCode);
+        await initializeAdhanVariables();
+        await initTimes();
+        fetchCountryList();
+        getCountryList().then((list) => countries = list);
+        updateProgress();
+        timer = Timer.periodic(
+            const Duration(minutes: 1), (Timer t) => updateProgress());
+      });
+      await HomeWidgetConfig.initialize();
+      HomeWidgetConfig().updateHijriDate();
+    }
   }
 
   Future<CalculationParameters> getCalculationParametersFromLocation(
@@ -560,9 +565,9 @@ class AdhanController extends GetxController {
     update();
   }
 
-  void switchAutoCalculation(bool value) {
+  Future<void> switchAutoCalculation(bool value) async {
     autoCalculationMethod.value = !autoCalculationMethod.value;
-    initializeAdhanVariables();
+    await initializeAdhanVariables();
     sharedCtrl.setBool(AUTO_CALCULATION, value);
   }
 

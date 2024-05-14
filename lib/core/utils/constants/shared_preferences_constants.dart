@@ -43,3 +43,5 @@ final String SHAFI = 'SHAFI';
 final String HANAFI = 'HANAFI';
 final String HIGH_LATITUDE_RULE = 'HIGH_LATITUDE_RULE';
 final String AUTO_CALCULATION = 'AUTO_CALCULATION';
+final String ADHAN_NUMBER = 'ADHAN_NUMBER';
+final String ADHAN_SELECT = 'ADHAN_SELECT';
