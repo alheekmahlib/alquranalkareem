@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '/presentation/controllers/general_controller.dart';
 import '../../../presentation/controllers/daily_ayah_controller.dart';
 import '../../../presentation/screens/quran_page/data/model/surahs_model.dart';
 import '../../services/services_locator.dart';
-import '/presentation/controllers/general_controller.dart';
 import 'ayah_tafsir_widget.dart';
 
 class AyahWidget extends StatelessWidget {
@@ -70,7 +70,7 @@ class AyahWidget extends StatelessWidget {
                       textDirection: TextDirection.rtl,
                     ),
                   )
-                : const CircularProgressIndicator();
+                : const SizedBox.shrink();
           }),
     );
   }

@@ -3,10 +3,10 @@ import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:square_percent_indicater/square_percent_indicater.dart';
 
+import '/core/utils/constants/extensions/extensions.dart';
 import '../../../../../core/services/services_locator.dart';
 import '../../../../controllers/notification_controller.dart';
 import '../../data/model/adhan_data.dart';
-import '/core/utils/constants/extensions/extensions.dart';
 import 'play_button.dart';
 
 class AdhanSounds extends StatelessWidget {
