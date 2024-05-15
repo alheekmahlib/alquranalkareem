@@ -15,10 +15,10 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:timezone/timezone.dart' as tz;
 import 'package:workmanager/workmanager.dart';
 
+import '/presentation/controllers/adhan_controller.dart';
 import '../../core/services/services_locator.dart';
 import '../../core/utils/constants/shared_preferences_constants.dart';
 import '../screens/home/data/model/adhan_data.dart';
-import '/presentation/controllers/adhan_controller.dart';
 import 'general_controller.dart';
 
 class NotificationController extends GetxController {
@@ -277,8 +277,9 @@ class NotificationController extends GetxController {
     DarwinNotificationDetails iosPlatformChannelSpecifics =
         DarwinNotificationDetails(
       // sound: '${notificationId + 1}.caf',
-      sound: sharedCtrl.getString(ADHAN_SELECT),
-      // sound: '/Al-Saqqaf_part/Al-Assaf_ios/1.wav',
+      // sound: sharedCtrl.getString(ADHAN_SELECT),
+      sound:
+          '${sharedCtrl.getString(ADHAN_SELECT)?.replaceAll('.DS_Store', '')}Al-Saqqaf_part/Al-Saqqaf_ios/1.wav',
     );
 
     NotificationDetails notificationDetails = NotificationDetails(
