@@ -16,6 +16,10 @@ import 'package:share_plus/share_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import '/presentation/controllers/quran_controller.dart';
+import '/presentation/controllers/share_controller.dart';
+import '/presentation/controllers/theme_controller.dart';
+import '/presentation/screens/home/home_screen.dart';
 import '../../core/services/location/locations.dart';
 import '../../core/services/services_locator.dart';
 import '../../core/utils/constants/lists.dart';
@@ -27,10 +31,6 @@ import '../../core/widgets/time_now.dart';
 import '../screens/athkar/screens/alzkar_view.dart';
 import '../screens/quran_page/screens/quran_home.dart';
 import '../screens/surah_audio_screen/audio_surah.dart';
-import '/presentation/controllers/quran_controller.dart';
-import '/presentation/controllers/share_controller.dart';
-import '/presentation/controllers/theme_controller.dart';
-import '/presentation/screens/home/home_screen.dart';
 import 'audio_controller.dart';
 import 'ayat_controller.dart';
 import 'bookmarks_controller.dart';
@@ -86,6 +86,7 @@ class GeneralController extends GetxController {
   var today = HijriCalendar.now();
   List<int> noHadithInMonth = <int>[2, 3, 4, 5, 6];
   RxBool activeLocation = false.obs;
+  RxBool isPageMode = false.obs;
   RxString imagePath = ''.obs;
   final globalKey = GlobalKey();
 
@@ -129,6 +130,7 @@ class GeneralController extends GetxController {
   @override
   Future<void> onInit() async {
     activeLocation.value = sharedCtrl.getBool(ACTIVE_LOCATION) ?? false;
+    isPageMode.value = sharedCtrl.getBool(PAGE_MODE) ?? false;
 
     super.onInit();
   }
@@ -560,5 +562,12 @@ class GeneralController extends GetxController {
       return DateTimeRange(start: start, end: end).duration.inDays;
       // return start * end;
     }
+  }
+
+  void pageModeOnTap(bool value) {
+    isPageMode.value = value;
+    sharedCtrl.setBool(PAGE_MODE, value);
+    update();
+    Get.back();
   }
 }
