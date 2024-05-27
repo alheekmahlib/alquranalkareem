@@ -54,11 +54,6 @@
 	</dict>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
-	<key>UIBackgroundModes</key>
-	<array>
-		<string>audio</string>
-		<string>processing</string>
-	</array>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>
@@ -81,6 +76,7 @@
 
 	<key>UIBackgroundModes</key>
     <array>
+    	<string>audio</string>
     	<string>processing</string>
 
     	<!-- If you need periodic tasks in iOS 13+ you need to enable Background Fetch as well -->
@@ -88,10 +84,9 @@
     </array>
     <key>BGTaskSchedulerPermittedIdentifiers</key>
     <array>
-    	<string>task-identifier</string>
-
-    	<!-- Register a periodic task in iOS 13+ -->
-    	<string>be.tramckrijte.workmanagerExample.iOSBackgroundAppRefresh</string>
+    	<string>com.alheekmah.alquranalkareem.alquranalkareem.dailyPrayerNotification</string>
+    	<string>com.alheekmah.alquranalkareem.alquranalkareem.hijriWidget</string>
+    	<string>com.alheekmah.alquranalkareem.alquranalkareem.currentPrayerTime</string>
     </array>
 </dict>
 </plist>

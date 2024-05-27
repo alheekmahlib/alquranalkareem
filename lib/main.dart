@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
+import 'package:timezone/data/latest.dart' as tz;
 
 import '/core/services/languages/dependency_inj.dart' as dep;
 import 'core/services/services_locator.dart';
@@ -20,17 +21,6 @@ Future<void> main() async {
 Future<void> initializeApp() async {
   Future.delayed(const Duration(seconds: 0));
   await ServicesLocator().init();
-  // sl<NotificationController>().schedulePrayerNotifications();
-  // await Workmanager().initialize(callbackDispatcher, isInDebugMode: true);
+  tz.initializeTimeZones();
   FlutterNativeSplash.remove();
 }
-
-// void callbackDispatcher() {
-//   Workmanager().executeTask((task, inputData) async {
-//     FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
-//         FlutterLocalNotificationsPlugin();
-//     // Initialize as needed
-//     await NotificationController().schedulePrayerNotifications();
-//     return Future.value(true);
-//   });
-// }

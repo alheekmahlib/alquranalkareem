@@ -50,4 +50,10 @@ class DateFormatter {
     // Customize the format as needed
     return DateFormat('h:mm a', _locale).format(time);
   }
+
+  static String timeLeft(DateTime? time) {
+    if (time == null) return "";
+    // Customize the format as needed
+    return DateFormat('hh:mm', _locale).format(time);
+  }
 }

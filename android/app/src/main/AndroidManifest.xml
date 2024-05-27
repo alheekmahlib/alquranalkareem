@@ -4,6 +4,24 @@
         android:label="@string/appName"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
+        <receiver android:name="es.antonborri.home_widget.HomeWidgetBackgroundReceiver"  android:exported="true">
+            <intent-filter>
+                <action android:name="es.antonborri.home_widget.action.BACKGROUND" />
+            </intent-filter>
+        </receiver>
+        <service android:name="es.antonborri.home_widget.HomeWidgetBackgroundService"
+                 android:permission="android.permission.BIND_JOB_SERVICE" android:exported="true"/>
+        <receiver
+                android:name=".HijriWidget"
+                android:exported="true">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+
+            <meta-data
+                    android:name="android.appwidget.provider"
+                    android:resource="@xml/hijri_widget_info" />
+        </receiver>
         <activity
             android:name=".MainActivity"
             android:exported="true"

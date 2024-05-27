@@ -11,15 +11,6 @@ import 'package:sqflite_common_ffi/sqflite_ffi.dart';
 import 'package:timezone/data/latest.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
 
-import '../../presentation/controllers/adhan_controller.dart';
-import '../../presentation/controllers/daily_ayah_controller.dart';
-import '../../presentation/controllers/khatmah_controller.dart';
-import '../../presentation/controllers/notification_controller.dart';
-import '../../presentation/controllers/ourApps_controller.dart';
-import '../../presentation/controllers/quran_controller.dart';
-import '../../presentation/controllers/splash_screen_controller.dart';
-import '../../presentation/controllers/theme_controller.dart';
-import '../utils/helpers/ui_helper.dart';
 import '/database/databaseHelper.dart';
 import '/database/notificationDatabase.dart';
 import '/presentation/controllers/audio_controller.dart';
@@ -40,6 +31,16 @@ import '/presentation/screens/quran_page/data/data_source/ibnkatheer_data_client
 import '/presentation/screens/quran_page/data/data_source/qurtubi_data_client.dart';
 import '/presentation/screens/quran_page/data/data_source/saadi_data_client.dart';
 import '/presentation/screens/quran_page/data/data_source/tabari_data_client.dart';
+import '../../presentation/controllers/adhan_controller.dart';
+import '../../presentation/controllers/daily_ayah_controller.dart';
+import '../../presentation/controllers/home_widget_controller.dart';
+import '../../presentation/controllers/khatmah_controller.dart';
+import '../../presentation/controllers/notification_controller.dart';
+import '../../presentation/controllers/ourApps_controller.dart';
+import '../../presentation/controllers/quran_controller.dart';
+import '../../presentation/controllers/splash_screen_controller.dart';
+import '../../presentation/controllers/theme_controller.dart';
+import '../utils/helpers/ui_helper.dart';
 
 final sl = GetIt.instance;
 
@@ -175,6 +176,9 @@ class ServicesLocator {
     sl.registerLazySingleton<NotificationController>(() =>
         Get.put<NotificationController>(NotificationController(),
             permanent: true));
+
+    sl.registerLazySingleton<HomeWidgetController>(() =>
+        Get.put<HomeWidgetController>(HomeWidgetController(), permanent: true));
     // NotifyHelper().initializeNotification();
     // sl<NotificationsController>().initializeLocalNotifications();
 

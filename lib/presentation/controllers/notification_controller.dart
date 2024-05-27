@@ -1,6 +1,6 @@
 import 'dart:convert';
 import 'dart:developer' show log;
-import 'dart:io' show Directory, File, Platform;
+import 'dart:io' show Directory, File;
 
 import 'package:alquranalkareem/core/utils/constants/extensions/custom_error_snackBar.dart';
 import 'package:archive/archive_io.dart';
@@ -22,7 +22,6 @@ import '../screens/home/data/model/adhan_data.dart';
 import 'general_controller.dart';
 
 class NotificationController extends GetxController {
-  // TODO: بابا هلال حباب شوف اللوجيك منظم لو اسبكتي
   final sharedCtrl = sl<SharedPreferences>();
   final adhanCtrl = sl<AdhanController>();
   late FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin;
@@ -46,7 +45,6 @@ class NotificationController extends GetxController {
     await audioPlayer.play();
   }
 
-  // Method to pause audio
   void pauseAudio() {
     audioPlayer.pause();
     adhanNumber.value = -1;
@@ -60,8 +58,6 @@ class NotificationController extends GetxController {
   }
 
   Future<void> adhanDownload(String url, String fileName, int index) async {
-    Directory databasePath = await getApplicationDocumentsDirectory();
-    var path = join(databasePath.path, '$fileName');
     String fileUrl = url;
 
     if (!onDownloading.value) {
@@ -77,64 +73,59 @@ class NotificationController extends GetxController {
     CancelToken cancelToken = CancelToken();
 
     try {
-      try {
-        final directory = await getApplicationDocumentsDirectory();
-        final zipFilePath = '${directory.path}/$fileName.zip';
-        final extractedFilePath = '${directory.path}/$fileName/';
+      final directory = await getApplicationDocumentsDirectory();
+      final zipFilePath = '${directory.path}/$fileName.zip';
+      final extractedFilePath = '${directory.path}/$fileName/';
 
-        if (await File(extractedFilePath).exists()) {
-          print('Adhan file already exists. Skipping download.');
-          return true;
+      if (await File(extractedFilePath).exists()) {
+        print('Adhan file already exists. Skipping download.');
+        return true;
+      }
+
+      onDownloading.value = true;
+      progressString.value = "0";
+      progress.value = 0;
+
+      await dio.download(
+        url,
+        zipFilePath,
+        onReceiveProgress: (rec, total) {
+          progressString.value = ((rec / total) * 100).toStringAsFixed(0);
+          progress.value = (rec / total).toDouble();
+          print(progressString.value);
+        },
+        cancelToken: cancelToken,
+      );
+
+      final bytes = await File(zipFilePath).readAsBytes();
+      final archive = ZipDecoder().decodeBytes(bytes);
+
+      for (final file in archive) {
+        final filename = basename(file.name);
+        log('filename: $directory/$filename');
+        if (file.isFile) {
+          final data = file.content as List<int>;
+          sharedCtrl.setStringList(
+              filename, data.map((e) => e.toString()).toList());
+          File('$directory/$filename')
+            ..createSync(recursive: true)
+            ..writeAsBytesSync(data);
+        } else {
+          Directory('${directory.path}/$filename/Al-Assaf_ios/1.wav')
+              .createSync(recursive: true);
         }
+      }
 
-        onDownloading.value = true;
-        progressString.value = "0";
-        progress.value = 0;
-
-        // Download the zip file
-        await dio.download(
-          url,
-          zipFilePath,
-          onReceiveProgress: (rec, total) {
-            progressString.value = ((rec / total) * 100).toStringAsFixed(0);
-            progress.value = (rec / total).toDouble();
-            print(progressString.value);
-          },
-          cancelToken: cancelToken,
-        );
-
-        // Extract the zip file
-        final bytes = await File(zipFilePath).readAsBytes();
-        final archive = ZipDecoder().decodeBytes(bytes);
-
-        for (final file in archive) {
-          final filename = basename(file.name);
-          log('filename: $directory/$filename');
-          if (file.isFile) {
-            final data = file.content as List<int>;
-            sharedCtrl.setStringList(
-                filename, data.map((e) => e.toString()).toList());
-            File('$directory/$filename')
-              ..createSync(recursive: true)
-              ..writeAsBytesSync(data);
-          } else {
-            // sharedCtrl.setString(ADHAN_SELECT,
-            //     '${directory.path}/Al-Saqqaf_part/Al-Assaf_ios/1.wav');
-            Directory('${directory.path}/$filename/Al-Assaf_ios/1.wav')
-                .createSync(recursive: true);
-          }
-        }
-
-        // Delete the zip file
-        await File(zipFilePath).delete();
-      } catch (e) {}
+      await File(zipFilePath).delete();
       onDownloading.value = false;
       progressString.value = "100%";
       print("Download completed for $url");
       return true;
-    } catch (e) {}
-
-    return false;
+    } catch (e) {
+      onDownloading.value = false;
+      log('Download failed: $e');
+      return false;
+    }
   }
 
   void updateDownloadStatus(String adhanName, bool downloaded) {
@@ -158,16 +149,27 @@ class NotificationController extends GetxController {
     return adhanDownloadStatus.value;
   }
 
-  // Function to register background task
-  void registerBackgroundTask() {
-    Workmanager().registerOneOffTask(
-      'notificationTask',
-      'sendNotification',
-      initialDelay: const Duration(seconds: 1),
-    );
+  Future<void> schedulePrayerNotifications() async {
+    log('Scheduling Notifications', name: 'NotificationsCtrl');
+    await FlutterLocalNotificationsPlugin().cancelAll();
+
+    for (var prayer in adhanCtrl.prayerNameList) {
+      final timeString = '${prayer['hourTime']}';
+      final sharedAlarmKey = prayer['sharedAlarm'] as String;
+      final prayerTime = DateTime.parse(timeString);
+
+      if (prayerTime.isAfter(DateTime.now()) &&
+          sharedCtrl.getBool(sharedAlarmKey) == true) {
+        await _scheduleDailyNotification(prayerTime, prayer['title'] as String);
+      }
+    }
   }
 
-  Future<void> _showNotification(String prayerName, String prayerTime) async {
+  Future<void> _scheduleDailyNotification(
+      DateTime prayerTime, String prayerName) async {
+    final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
+        FlutterLocalNotificationsPlugin();
+
     const AndroidNotificationDetails androidPlatformChannelSpecifics =
         AndroidNotificationDetails(
       'alquranalkareem_adhan_channel_id',
@@ -178,140 +180,35 @@ class NotificationController extends GetxController {
       ticker: 'ticker',
       sound: RawResourceAndroidNotificationSound('aqsa'),
     );
-    const DarwinNotificationDetails iosPlatformChannelSpecifics =
-        DarwinNotificationDetails(
-      sound: 'adhan_sounds/aqsa.wav',
-    );
 
-    const NotificationDetails platformChannelSpecifics = NotificationDetails(
-      android: androidPlatformChannelSpecifics,
-      iOS: iosPlatformChannelSpecifics,
-      macOS: iosPlatformChannelSpecifics,
-    );
-
-    await FlutterLocalNotificationsPlugin().show(
-      0,
-      'موعد الصلاة',
-      '$prayerName $prayerTime',
-      platformChannelSpecifics,
-      payload: 'item x',
-    );
-  }
-
-  Future<void> schedulePrayerNotifications() async {
-    log('Scheduling Notifications', name: 'NotificationsCtrl');
-    await FlutterLocalNotificationsPlugin().cancelAll();
-    for (var prayer in adhanCtrl.prayerNameList) {
-      final timeString =
-          // '${prayer['hourTime']}';
-          '${adhanCtrl.now.add(const Duration(seconds: 10))}';
-      final sharedAlarmKey = prayer['sharedAlarm'] as String;
-      final prayerTime = DateTime.parse(timeString);
-
-      log('timeString: $prayerTime');
-      log('adhanCtrl.now: ${adhanCtrl.now}');
-      log('prayerTime.isAfter(adhanCtrl.now): ${prayerTime.isAfter(adhanCtrl.now) && sharedCtrl.getBool(sharedAlarmKey) == true}');
-      if (prayerTime.isAfter(adhanCtrl.now) &&
-          sharedCtrl.getBool(sharedAlarmKey) == true) {
-        if (Platform.isIOS) {
-          await _scheduleNotification(prayerTime, prayer['title'] as String, 0);
-
-          for (int i = 1; i <= 6; i++) {
-            DateTime nextNotificationTime =
-                prayerTime.add(Duration(seconds: 30 * i));
-            await _scheduleNotification(
-                nextNotificationTime, prayer['title'] as String, i);
-          }
-        } else {
-          await _scheduleNotification(prayerTime, prayer['title'] as String, 0);
-        }
-      }
-    }
-  }
-
-  Future<void> _scheduleNotification(
-      DateTime prayerTime, String prayerName, int notificationId,
-      {bool now = false}) async {
-    final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
-        FlutterLocalNotificationsPlugin();
-
-    final audioDataList = sharedCtrl.getStringList(
-        sharedCtrl.getString(ADHAN_SELECT) ?? '${notificationId + 1}.caf');
-
-    // Convert the string list back to a list of integers
-    final audioData = audioDataList?.map((e) => int.parse(e)).toList();
-
-    if (audioData != null) {
-      AndroidNotificationDetails androidPlatformChannelSpecifics =
-          const AndroidNotificationDetails(
-        'alquranalkareem_adhan_channel_id',
-        'alquranalkareem_adhan_channel',
-        channelDescription: 'alquranalkareem adhan notifications channel',
-        importance: Importance.max,
-        priority: Priority.high,
-        ticker: 'ticker',
-        sound: RawResourceAndroidNotificationSound('aqsa'),
-      );
-      DarwinNotificationDetails iosPlatformChannelSpecifics =
-          DarwinNotificationDetails(
-        // sound: '${notificationId + 1}.caf',
-        // TODO: لا استطيع اضافة الاذان الذي تم تحميله
-        sound: sharedCtrl.getString(ADHAN_SELECT),
-        // sound: '/Al-Saqqaf_part/Al-Assaf_ios/1.wav',
-      );
-    } else {
-      // Handle the case where audio data is not found
-      // ...
-    }
-
-    AndroidNotificationDetails androidPlatformChannelSpecifics =
-        const AndroidNotificationDetails(
-      'alquranalkareem_adhan_channel_id',
-      'alquranalkareem_adhan_channel',
-      channelDescription: 'alquranalkareem adhan notifications channel',
-      importance: Importance.max,
-      priority: Priority.high,
-      ticker: 'ticker',
-      sound: RawResourceAndroidNotificationSound('aqsa'),
-    );
     DarwinNotificationDetails iosPlatformChannelSpecifics =
         DarwinNotificationDetails(
-      // sound: '${notificationId + 1}.caf',
-      // sound: sharedCtrl.getString(ADHAN_SELECT),
-      sound:
-          '${sharedCtrl.getString(ADHAN_SELECT)?.replaceAll('.DS_Store', '')}Al-Saqqaf_part/Al-Saqqaf_ios/1.wav',
+      sound: 'aqsa_ios/aqsa_ios/1.wav',
     );
 
-    NotificationDetails notificationDetails = NotificationDetails(
+    NotificationDetails platformChannelSpecifics = NotificationDetails(
       android: androidPlatformChannelSpecifics,
       iOS: iosPlatformChannelSpecifics,
       macOS: iosPlatformChannelSpecifics,
     );
-    if (now) {
-      await flutterLocalNotificationsPlugin.show(
-          notificationId,
-          'موعد الصلاة',
-          '$prayerName في تمام ${prayerTime.hour}:${prayerTime.minute}',
-          notificationDetails);
-    } else {
-      if (prayerTime.isAfter(DateTime.now())) {
-        await flutterLocalNotificationsPlugin.zonedSchedule(
-          notificationId, // Use the unique notificationId here
-          'موعد الصلاة', //TODO: needs translations
-          '$prayerName في تمام ${prayerTime.hour}:${prayerTime.minute}', //TODO: also here
-          tz.TZDateTime.from(prayerTime, tz.local),
-          // RepeatInterval.daily,
-          notificationDetails,
-          androidScheduleMode: AndroidScheduleMode.exactAllowWhileIdle,
-          uiLocalNotificationDateInterpretation:
-              UILocalNotificationDateInterpretation.absoluteTime,
-        );
-      }
-    }
+
+    await flutterLocalNotificationsPlugin.zonedSchedule(
+      prayerTime.hashCode,
+      'موعد الصلاة',
+      '$prayerName في تمام ${prayerTime.hour}:${prayerTime.minute}',
+      tz.TZDateTime.from(prayerTime, tz.local).add(const Duration(days: 1)),
+      platformChannelSpecifics,
+      androidScheduleMode: AndroidScheduleMode.exactAllowWhileIdle,
+      uiLocalNotificationDateInterpretation:
+          UILocalNotificationDateInterpretation.absoluteTime,
+      matchDateTimeComponents: DateTimeComponents.time,
+    );
+    log('Prayer Scheduled: $prayerName');
   }
 
   Future<void> initializeNotification() async {
     if (generalCtrl.activeLocation.value) {
+      log('initialize Notification');
       final flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
       const AndroidInitializationSettings initializationSettingsAndroid =
           AndroidInitializationSettings('ic_launcher');
@@ -323,17 +220,41 @@ class NotificationController extends GetxController {
               iOS: initializationSettingsIOS,
               macOS: initializationSettingsIOS);
       await flutterLocalNotificationsPlugin.initialize(initializationSettings);
+
       schedulePrayerNotifications();
       adhanData = loadAdhanData();
       checkAllAdhanDownloaded();
+
+      registerDailyPrayers();
+    }
+  }
+
+  Future<void> registerDailyPrayers() async {
+    try {
+      log('register Daily Prayers');
+      final delay = adhanCtrl.getDelayUntilNextIsha();
+
+      await Workmanager().cancelAll();
+
+      Workmanager().registerOneOffTask(
+        'com.alheekmah.alquranalkareem.alquranalkareem.dailyPrayerNotification_${DateTime.now().millisecondsSinceEpoch}',
+        'com.alheekmah.alquranalkareem.alquranalkareem.dailyPrayerNotification',
+        initialDelay: delay,
+      );
+    } catch (e) {
+      log('Error scheduling daily task: $e', name: 'NotificationsCtrl');
     }
   }
 
   @override
-  void onInit() async {
+  void onInit() {
     super.onInit();
     initializeNotification();
     getSharedVariables();
+    Workmanager().initialize(
+      callbackDispatcher,
+      isInDebugMode: true,
+    );
   }
 
   Future<void> playButtonOnTap(int index, List<AdhanData> adhanData) async {
@@ -343,9 +264,6 @@ class NotificationController extends GetxController {
         .setAudioSource(AudioSource.file(
             '${directory.path}/Al-Saqqaf_part/Al-Assaf_ios/1.wav'))
         .then((_) async => await audioPlayer.play());
-    // await audioPlayer
-    //     .setUrl(adhanData[index - 1].urlPlayAdhan)
-    //     .then((_) async => await audioPlayer.play());
     log('urlPlayAdhan: ${adhanData[index - 1].urlPlayAdhan} index: ${index - 1}');
   }
 
@@ -363,4 +281,16 @@ class NotificationController extends GetxController {
   void getSharedVariables() {
     adhanNumber.value = sharedCtrl.getInt(ADHAN_NUMBER) ?? 0;
   }
+}
+
+void callbackDispatcher() {
+  Workmanager().executeTask((task, inputData) async {
+    final AdhanController adhanCtrl = Get.find();
+    final NotificationController notificationController = Get.find();
+    await adhanCtrl.initializeAdhan().then((_) async {
+      await notificationController.schedulePrayerNotifications();
+      notificationController.registerDailyPrayers();
+    });
+    return Future.value(true);
+  });
 }
