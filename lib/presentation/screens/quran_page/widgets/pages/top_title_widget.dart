@@ -4,8 +4,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 
-import '../../../../../core/services/services_locator.dart';
-import '../../../../../core/utils/constants/extensions/extensions.dart';
+import '/core/utils/constants/extensions/convert_number_extension.dart';
+import '/core/utils/constants/extensions/extensions.dart';
 import '../../../../../core/utils/constants/svg_picture.dart';
 import '../../../../controllers/audio_controller.dart';
 import '../../../../controllers/bookmarks_controller.dart';
@@ -16,10 +16,10 @@ class TopTitleWidget extends StatelessWidget {
   final int index;
   final bool isRight;
   TopTitleWidget({super.key, required this.index, required this.isRight});
-  final bookmarkCtrl = sl<BookmarksController>();
-  final quranCtrl = sl<QuranController>();
-  final audioCtrl = sl<AudioController>();
-  final generalCtrl = sl<GeneralController>();
+  final bookmarkCtrl = BookmarksController.instance;
+  final quranCtrl = QuranController.instance;
+  final audioCtrl = AudioController.instance;
+  final generalCtrl = GeneralController.instance;
 
   @override
   Widget build(BuildContext context) {
@@ -51,7 +51,7 @@ class TopTitleWidget extends StatelessWidget {
                 // ),
                 const Gap(16),
                 Text(
-                  '${'juz'.tr}: ${generalCtrl.convertNumbers(quranCtrl.getJuzByPage(index).juz.toString())}',
+                  '${'juz'.tr}: ${quranCtrl.getJuzByPage(index).juz.toString().convertNumbers()}',
                   style: TextStyle(
                       fontSize: context.customOrientation(18.0, 22.0),
                       // fontWeight: FontWeight.bold,
@@ -95,7 +95,7 @@ class TopTitleWidget extends StatelessWidget {
                 ),
                 const Spacer(),
                 Text(
-                  '${'juz'.tr}: ${generalCtrl.convertNumbers(quranCtrl.getJuzByPage(index).juz.toString())}',
+                  '${'juz'.tr}: ${quranCtrl.getJuzByPage(index).juz.toString().convertNumbers()}',
                   style: TextStyle(
                       fontSize: context.customOrientation(18.0, 22.0),
                       // fontWeight: FontWeight.bold,

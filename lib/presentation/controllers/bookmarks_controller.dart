@@ -1,8 +1,8 @@
-import '../../core/utils/constants/extensions/custom_error_snackBar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../core/services/services_locator.dart';
+import '../../core/utils/constants/extensions/custom_error_snackBar.dart';
 import '../../database/databaseHelper.dart';
 import '../screens/quran_page/data/model/bookmark.dart';
 import '../screens/quran_page/data/model/bookmark_ayahs.dart';
@@ -10,11 +10,15 @@ import 'general_controller.dart';
 import 'quran_controller.dart';
 
 class BookmarksController extends GetxController {
+  static BookmarksController get instance =>
+      Get.isRegistered<BookmarksController>()
+          ? Get.find<BookmarksController>()
+          : Get.put<BookmarksController>(BookmarksController());
   final RxList<Bookmarks> bookmarksList = <Bookmarks>[].obs;
   final RxList<BookmarksAyahs> bookmarkTextList = <BookmarksAyahs>[].obs;
   late int lastBook;
-  final quranCtrl = sl<QuranController>();
-  final generalCtrl = sl<GeneralController>();
+  final quranCtrl = QuranController.instance;
+  final generalCtrl = GeneralController.instance;
 
   @override
   void onInit() {

@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 
-import '../../../../core/services/services_locator.dart';
 import '../../../controllers/surah_audio_controller.dart';
 
 class LastListen extends StatelessWidget {
@@ -10,7 +9,7 @@ class LastListen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final surahAudioCtrl = sl<SurahAudioController>();
+    final surahAudioCtrl = SurahAudioController.instance;
     return Semantics(
       button: true,
       enabled: true,

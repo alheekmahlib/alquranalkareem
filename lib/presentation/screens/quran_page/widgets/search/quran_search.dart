@@ -1,22 +1,22 @@
-import '../../../../../core/utils/constants/lottie_constants.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../../../../core/services/services_locator.dart';
+import '/core/utils/constants/extensions/surah_name_with_banner.dart';
+import '/presentation/controllers/quran_controller.dart';
+import '/presentation/screens/quran_page/widgets/search/search_extensions/highlight_extension.dart';
 import '../../../../../core/utils/constants/extensions/extensions.dart';
 import '../../../../../core/utils/constants/lottie.dart';
+import '../../../../../core/utils/constants/lottie_constants.dart';
 import '../../../../controllers/aya_controller.dart';
 import '../../../../controllers/general_controller.dart';
 import '../../data/model/aya.dart';
-import '/core/utils/constants/extensions/surah_name_with_banner.dart';
-import '/presentation/controllers/quran_controller.dart';
 import 'search_bar_widget.dart';
 
 class QuranSearch extends StatelessWidget {
   QuranSearch({super.key});
-  final generalCtrl = sl<GeneralController>();
-  final quranCtrl = sl<QuranController>();
-  final ayahCtrl = sl<AyaController>();
+  final generalCtrl = GeneralController.instance;
+  final quranCtrl = QuranController.instance;
+  final ayahCtrl = AyaController.instance;
 
   @override
   Widget build(BuildContext context) {
@@ -59,7 +59,7 @@ class QuranSearch extends StatelessWidget {
                                         Theme.of(context).colorScheme.primary,
                                     borderRadius: const BorderRadius.all(
                                         Radius.circular(8))),
-                                child: context.surahNameWidget(
+                                child: surahNameWidget(
                                     search.surahNum.toString(),
                                     Theme.of(context).canvasColor,
                                     height: 40),
@@ -90,8 +90,8 @@ class QuranSearch extends StatelessWidget {
                       itemCount: ayahCtrl.ayahList.length,
                       itemBuilder: (context, index) {
                         Aya search = ayahCtrl.ayahList[index];
-                        List<TextSpan> highlightedTextSpans =
-                            ayahCtrl.highlightLine(search.SearchText);
+                        // List<TextSpan> highlightedTextSpans =
+                        //     highlightLine(search.SearchText);
                         return Directionality(
                           textDirection: TextDirection.rtl,
                           child: Container(
@@ -109,6 +109,7 @@ class QuranSearch extends StatelessWidget {
                                         .withOpacity(.1)),
                                 child: ListTile(
                                   onTap: () {
+                                    quranCtrl.clearAndAddSelection(search.id);
                                     quranCtrl
                                         .changeSurahListOnTap(search.pageNum);
                                     Get.back();
@@ -117,7 +118,10 @@ class QuranSearch extends StatelessWidget {
                                     padding: const EdgeInsets.all(8.0),
                                     child: RichText(
                                       text: TextSpan(
-                                        children: highlightedTextSpans,
+                                        children:
+                                            search.SearchText.highlightLine(
+                                                ayahCtrl
+                                                    .searchTextEditing.text),
                                         style: TextStyle(
                                           fontFamily: "uthmanic2",
                                           fontWeight: FontWeight.normal,
@@ -183,7 +187,7 @@ class QuranSearch extends StatelessWidget {
                                       ],
                                     ),
                                   ),
-                                  leading: context.surahNameWidget(
+                                  leading: surahNameWidget(
                                       search.surahNum.toString(),
                                       Theme.of(context).hintColor),
                                 ),

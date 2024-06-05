@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../../../core/services/services_locator.dart';
-import '../../../../core/utils/constants/extensions/extensions.dart';
+import '/core/utils/constants/extensions/extensions.dart';
+import '/core/utils/constants/extensions/svg_extensions.dart';
+import '../../../../core/utils/constants/svg_constants.dart';
 import '../../../../core/utils/constants/svg_picture.dart';
 import '../../../controllers/surah_audio_controller.dart';
 import 'change_reader.dart';
@@ -18,14 +19,14 @@ class PlayWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.sizeOf(context);
-    final surahCtrl = sl<SurahAudioController>();
+    final surahCtrl = SurahAudioController.instance;
     return Align(
       alignment: Alignment.centerLeft,
       child: Container(
         height: size.height / 2.66, //295,
         width: context.customOrientation(size.width, size.width * .5),
         decoration: BoxDecoration(
-          color: Theme.of(context).colorScheme.background,
+          color: Theme.of(context).colorScheme.primaryContainer,
         ),
         child: Stack(
           alignment: Alignment.center,
@@ -34,12 +35,24 @@ class PlayWidget extends StatelessWidget {
               alignment: Alignment.topLeft,
               child: RotatedBox(
                 quarterTurns: 2,
-                child: decorations(context),
+                child: Opacity(
+                  opacity: .6,
+                  child: customSvg(
+                    SvgPath.svgDecorations,
+                    height: 60,
+                  ),
+                ),
               ),
             ),
             Align(
               alignment: Alignment.bottomRight,
-              child: decorations(context),
+              child: Opacity(
+                opacity: .6,
+                child: customSvg(
+                  SvgPath.svgDecorations,
+                  height: 60,
+                ),
+              ),
             ),
             Align(
               alignment: Alignment.topRight,
@@ -90,7 +103,10 @@ class PlayWidget extends StatelessWidget {
                               button: true,
                               enabled: true,
                               label: 'backward'.tr,
-                              child: backward_arrow(height: 20.0),
+                              child: customSvg(
+                                SvgPath.svgBackward,
+                                height: 20,
+                              ),
                             ),
                             onPressed: () {
                               surahCtrl.audioPlayer.seek(Duration(
@@ -112,7 +128,10 @@ class PlayWidget extends StatelessWidget {
                               button: true,
                               enabled: true,
                               label: 'rewind'.tr,
-                              child: rewind_arrow(height: 20.0),
+                              child: customSvg(
+                                SvgPath.svgRewind,
+                                height: 20,
+                              ),
                             ),
                             onPressed: () {
                               surahCtrl.audioPlayer.seek(Duration(

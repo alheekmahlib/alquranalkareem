@@ -1,18 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
-import '../../../../../core/services/services_locator.dart';
-import '../../../../controllers/adhan_controller.dart';
+import '/core/utils/constants/extensions/convert_number_extension.dart';
 import '/core/utils/constants/extensions/extensions.dart';
 import '/presentation/controllers/general_controller.dart';
+import '../../../../controllers/adhan_controller.dart';
 
 class SettingPrayerTimes extends StatelessWidget {
   SettingPrayerTimes({super.key});
 
-  final sharedCtrl = sl<SharedPreferences>();
-  final generalCtrl = sl<GeneralController>();
+  final generalCtrl = GeneralController.instance;
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +30,7 @@ class SettingPrayerTimes extends StatelessWidget {
               ),
               const Gap(4),
               SizedBox(
-                height: 595,
+                height: 690,
                 child: ListView.builder(
                   primary: false,
                   itemCount: adhanCtrl.prayerNameList.length,
@@ -82,8 +80,7 @@ class SettingPrayerTimes extends StatelessWidget {
                                   Row(
                                     children: [
                                       Text(
-                                        generalCtrl.convertNumbers(
-                                            '${adhanCtrl.adjustments[index].value}'),
+                                        '${'${adhanCtrl.adjustments[index].value}'.convertNumbers()}',
                                         style: TextStyle(
                                           fontFamily: 'kufi',
                                           fontSize: 16,

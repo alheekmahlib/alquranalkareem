@@ -6,22 +6,26 @@ import 'package:dio/dio.dart';
 import 'package:expansion_tile_card/expansion_tile_card.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:rxdart/rxdart.dart' as R;
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '/core/utils/constants/extensions/custom_error_snackBar.dart';
 import '../../core/data/models/playList_model.dart';
-import '../../core/services/services_locator.dart';
 import '../../core/utils/constants/url_constants.dart';
 import '../../core/widgets/seek_bar.dart';
-import '/core/utils/constants/extensions/custom_error_snackBar.dart';
 import 'audio_controller.dart';
 import 'general_controller.dart';
 import 'quran_controller.dart';
 
 class PlayListController extends GetxController {
+  static PlayListController get instance =>
+      Get.isRegistered<PlayListController>()
+          ? Get.find<PlayListController>()
+          : Get.put<PlayListController>(PlayListController());
   final AudioPlayer playlistAudioPlayer = AudioPlayer();
   final RxList<AudioSource> ayahsPlayList = <AudioSource>[].obs;
   RxList<PlayListModel> playLists = RxList<PlayListModel>();
@@ -39,12 +43,13 @@ class PlayListController extends GetxController {
   RxDouble progress = 0.0.obs;
   late var cancelToken = CancelToken();
   RxBool isSelect = false.obs;
+  final box = GetStorage();
 
   // Assuming these are your dependency injection methods to get controllers
-  final audioCtrl = sl<AudioController>();
+  final audioCtrl = AudioController.instance;
   final GlobalKey<ExpansionTileCardState> saveCard = GlobalKey();
-  final quranCtrl = sl<QuranController>();
-  final generalCtrl = sl<GeneralController>();
+  final quranCtrl = QuranController.instance;
+  final generalCtrl = GeneralController.instance;
 
   Stream<PositionData> get positionDataStream =>
       R.Rx.combineLatest3<Duration, Duration, Duration?, PositionData>(

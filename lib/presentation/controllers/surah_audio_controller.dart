@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:developer' as developer;
+import 'dart:developer';
 import 'dart:io';
 
 import 'package:arabic_numbers/arabic_numbers.dart';
@@ -9,23 +10,27 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_sliding_box/flutter_sliding_box.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:just_audio_background/just_audio_background.dart';
 import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:rxdart/rxdart.dart' as R;
-import 'package:shared_preferences/shared_preferences.dart';
 
+import '/presentation/screens/quran_page/widgets/search/search_extensions/highlight_extension.dart';
 import '../../core/services/services_locator.dart';
 import '../../core/utils/constants/lists.dart';
 import '../../core/utils/constants/shared_preferences_constants.dart';
 import '../../core/utils/constants/url_constants.dart';
 import '../../core/widgets/seek_bar.dart';
-import '/presentation/controllers/aya_controller.dart';
 import 'general_controller.dart';
 import 'quran_controller.dart';
 
 class SurahAudioController extends GetxController {
+  static SurahAudioController get instance =>
+      Get.isRegistered<SurahAudioController>()
+          ? Get.find<SurahAudioController>()
+          : Get.put<SurahAudioController>(SurahAudioController());
   final ScrollController controller = ScrollController();
   RxInt position = RxInt(0);
   ArabicNumbers arabicNumber = ArabicNumbers();
@@ -39,10 +44,9 @@ class SurahAudioController extends GetxController {
   RxDouble progress = 0.0.obs;
   RxInt surahNum = 1.obs;
   var url;
-  ConnectivityResult connectionStatus = ConnectivityResult.none;
-  late StreamSubscription<ConnectivityResult> _connectivitySubscription;
-  late ConnectivityResult result;
-  final _connectivity = Connectivity();
+  List<ConnectivityResult> _connectionStatus = [ConnectivityResult.none];
+  final Connectivity _connectivity = Connectivity();
+  late StreamSubscription<List<ConnectivityResult>> _connectivitySubscription;
   late var cancelToken = CancelToken();
   TextEditingController textController = TextEditingController();
   RxInt selectedSurah = 0.obs;
@@ -60,6 +64,7 @@ class SurahAudioController extends GetxController {
   RxInt surahReaderIndex = 1.obs;
   final Rx<Map<int, bool>> surahDownloadStatus = Rx<Map<int, bool>>({});
   RxInt seekNextSeconds = 5.obs;
+  final box = GetStorage();
 
   late final surahsList = ConcatenatingAudioSource(
     // Start loading next item just before reaching it
@@ -359,22 +364,17 @@ class SurahAudioController extends GetxController {
 
   loadSurahReader() async {
     sorahReaderValue.value =
-        await sl<SharedPreferences>().getString(SURAH_AUDIO_PLAYER_SOUND) ??
-            UrlConstants.surahUrl;
+        await box.read(SURAH_AUDIO_PLAYER_SOUND) ?? UrlConstants.surahUrl;
     sorahReaderNameValue.value =
-        await sl<SharedPreferences>().getString(SURAH_AUDIO_PLAYER_NAME) ??
-            'abdul_basit_murattal/';
-    surahReaderIndex.value =
-        sl<SharedPreferences>().getInt(SURAH_READER_INDEX) ?? 0;
+        await box.read(SURAH_AUDIO_PLAYER_NAME) ?? 'abdul_basit_murattal/';
+    surahReaderIndex.value = box.read(SURAH_READER_INDEX) ?? 0;
   }
 
   Future loadLastSurahListen() async {
-    int? lastSurah = await sl<SharedPreferences>().getInt(LAST_SURAH) ?? 1;
-    selectedSurah.value =
-        await sl<SharedPreferences>().getInt(SELECTED_SURAH) ?? -1;
+    int? lastSurah = await box.read(LAST_SURAH) ?? 1;
+    selectedSurah.value = await box.read(SELECTED_SURAH) ?? -1;
 
-    lastPosition.value =
-        await sl<SharedPreferences>().getInt(LAST_POSITION) ?? 0;
+    lastPosition.value = await box.read(LAST_POSITION) ?? 0;
 
     return {
       LAST_SURAH: lastSurah,
@@ -428,27 +428,36 @@ class SurahAudioController extends GetxController {
 
   // Platform messages are asynchronous, so we initialize in an async method.
   Future<void> initConnectivity() async {
-    late ConnectivityResult result;
+    late List<ConnectivityResult> result;
+    // Platform messages may fail, so we use a try/catch PlatformException.
     try {
       result = await _connectivity.checkConnectivity();
     } on PlatformException catch (e) {
-      developer.log('Couldn\'t check connectivity status', error: e);
+      log('Couldn\'t check connectivity status', error: e);
       return;
     }
+
+    // If the widget was removed from the tree while the asynchronous platform
+    // message was in flight, we want to discard the reply rather than calling
+    // setState to update our non-existent appearance.
     if (_isDisposed) {
       return Future.value(null);
     }
+
     return _updateConnectionStatus(result);
   }
 
-  Future<void> _updateConnectionStatus(ConnectivityResult result) async {
-    connectionStatus = result;
+  Future<void> _updateConnectionStatus(List<ConnectivityResult> result) async {
+    _connectionStatus = result;
+    update();
+    // ignore: avoid_print
+    print('Connectivity changed: $_connectionStatus');
   }
 
   void searchSurah(String searchInput) {
-    final surahList = sl<QuranController>().surahs;
+    final surahList = QuranController.instance.surahs;
 
-    int index = surahList.indexWhere((surah) => sl<AyaController>()
+    int index = surahList.indexWhere((surah) => surah.arabicName
         .removeDiacritics(surah.arabicName)
         .contains(searchInput));
     developer.log('surahNumber: $index');
@@ -456,5 +465,17 @@ class SurahAudioController extends GetxController {
       controller.jumpTo(index * 80.0);
       selectedSurah.value = index;
     }
+  }
+
+  void changeReadersOnTap(int index) {
+    initializeSurahDownloadStatus();
+    sorahReaderValue.value = surahReaderInfo[index]['readerD'];
+    sorahReaderNameValue.value = surahReaderInfo[index]['readerN'];
+    box.write(SURAH_AUDIO_PLAYER_SOUND, surahReaderInfo[index]['readerD']);
+    box.write(SURAH_AUDIO_PLAYER_NAME, surahReaderInfo[index]['readerN']);
+    box.write(SURAH_READER_INDEX, index);
+    surahReaderIndex.value = index;
+    changeAudioSource();
+    Get.back();
   }
 }

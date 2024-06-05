@@ -1,14 +1,14 @@
+import 'package:alquranalkareem/core/utils/constants/extensions/convert_number_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 
 import '../../../../presentation/controllers/general_controller.dart';
-import '../../../services/services_locator.dart';
 
 class HijriHomeWidget extends StatelessWidget {
   HijriHomeWidget({super.key});
 
-  final generalCtrl = sl<GeneralController>();
+  final generalCtrl = GeneralController.instance;
 
   @override
   Widget build(BuildContext context) {
@@ -51,8 +51,7 @@ class HijriHomeWidget extends StatelessWidget {
                           child: Transform.translate(
                             offset: const Offset(0, 4),
                             child: Text(
-                              generalCtrl
-                                  .convertNumbers('${generalCtrl.today.hDay}'),
+                              '${generalCtrl.today.hDay}'.convertNumbers(),
                               style: TextStyle(
                                 fontSize: 26.0,
                                 fontFamily: 'kufi',
@@ -76,8 +75,7 @@ class HijriHomeWidget extends StatelessWidget {
                                 textAlign: TextAlign.center,
                               ),
                               Text(
-                                generalCtrl.convertNumbers(
-                                    '${generalCtrl.today.hYear} هـ'),
+                                '${'${generalCtrl.today.hYear}'.convertNumbers()} هـ',
                                 style: TextStyle(
                                   fontSize: 14.0,
                                   fontFamily: 'kufi',

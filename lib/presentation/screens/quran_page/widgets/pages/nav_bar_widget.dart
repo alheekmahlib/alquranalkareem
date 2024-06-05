@@ -1,17 +1,17 @@
+import 'package:alquranalkareem/core/utils/constants/extensions/svg_extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../../../../core/services/services_locator.dart';
-import '../../../../../core/utils/constants/svg_picture.dart';
-import '../../../../../core/utils/helpers/global_key_manager.dart';
-import '../../../../controllers/general_controller.dart';
 import '/presentation/controllers/quran_controller.dart';
 import '/presentation/screens/quran_page/widgets/bookmarks/bookmarks_list.dart';
+import '../../../../../core/utils/constants/svg_constants.dart';
+import '../../../../../core/utils/helpers/global_key_manager.dart';
+import '../../../../controllers/general_controller.dart';
 
 class NavBarWidget extends StatelessWidget {
   NavBarWidget({super.key});
-  final generalCtrl = sl<GeneralController>();
-  final quranCtrl = sl<QuranController>();
+  final generalCtrl = GeneralController.instance;
+  final quranCtrl = QuranController.instance;
 
   @override
   Widget build(BuildContext context) {
@@ -33,19 +33,28 @@ class NavBarWidget extends StatelessWidget {
                 alignment: Alignment.center,
                 children: [
                   RotatedBox(
-                      quarterTurns: 30,
-                      child: button_curve(height: 45.0, width: 45.0)),
+                    quarterTurns: 30,
+                    child: customSvgWithColor(SvgPath.svgButtonCurve,
+                        height: 45.0,
+                        width: 45.0,
+                        color: Get.theme.colorScheme.primary),
+                  ),
                   Container(
-                      padding: const EdgeInsets.all(4),
-                      margin: const EdgeInsets.only(bottom: 5),
-                      decoration: BoxDecoration(
-                          color: Theme.of(context).colorScheme.background,
-                          borderRadius:
-                              const BorderRadius.all(Radius.circular(4)),
-                          border: Border.all(
-                              width: 1,
-                              color: Theme.of(context).colorScheme.surface)),
-                      child: list_icon(height: 25.0, width: 25.0)),
+                    padding: const EdgeInsets.all(4),
+                    margin: const EdgeInsets.only(bottom: 5),
+                    decoration: BoxDecoration(
+                        color: Theme.of(context).colorScheme.primaryContainer,
+                        borderRadius:
+                            const BorderRadius.all(Radius.circular(4)),
+                        border: Border.all(
+                            width: 1,
+                            color: Theme.of(context).colorScheme.surface)),
+                    child: customSvg(
+                      SvgPath.svgListIcon,
+                      height: 25,
+                      width: 25,
+                    ),
+                  ),
                 ],
               ),
             ),
@@ -59,19 +68,28 @@ class NavBarWidget extends StatelessWidget {
                 alignment: Alignment.center,
                 children: [
                   RotatedBox(
-                      quarterTurns: 30,
-                      child: button_curve(height: 45.0, width: 45.0)),
+                    quarterTurns: 30,
+                    child: customSvgWithColor(SvgPath.svgButtonCurve,
+                        height: 45.0,
+                        width: 45.0,
+                        color: Get.theme.colorScheme.primary),
+                  ),
                   Container(
-                      padding: const EdgeInsets.all(4),
-                      margin: const EdgeInsets.only(bottom: 5),
-                      decoration: BoxDecoration(
-                          color: Theme.of(context).colorScheme.background,
-                          borderRadius:
-                              const BorderRadius.all(Radius.circular(4)),
-                          border: Border.all(
-                              width: 1,
-                              color: Theme.of(context).colorScheme.surface)),
-                      child: bookmark_list(height: 25.0, width: 25.0)),
+                    padding: const EdgeInsets.all(4),
+                    margin: const EdgeInsets.only(bottom: 5),
+                    decoration: BoxDecoration(
+                        color: Theme.of(context).colorScheme.primaryContainer,
+                        borderRadius:
+                            const BorderRadius.all(Radius.circular(4)),
+                        border: Border.all(
+                            width: 1,
+                            color: Theme.of(context).colorScheme.surface)),
+                    child: customSvg(
+                      SvgPath.svgBookmarkList,
+                      height: 25,
+                      width: 25,
+                    ),
+                  ),
                 ],
               ),
             ),

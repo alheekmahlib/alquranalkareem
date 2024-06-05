@@ -1,7 +1,7 @@
 import 'dart:ui';
 
 import 'package:get/get.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:get_storage/get_storage.dart';
 
 import '../../../../presentation/controllers/settings_controller.dart';
 import '../../utils/constants/shared_preferences_constants.dart';
@@ -10,9 +10,9 @@ import 'app_constants.dart';
 import 'language_models.dart';
 
 class LocalizationController extends GetxController implements GetxService {
-  final SharedPreferences sharedPreferences;
+  GetStorage box = GetStorage();
 
-  LocalizationController({required this.sharedPreferences}) {
+  LocalizationController() {
     loadCurrentLanguage();
   }
 
@@ -27,9 +27,9 @@ class LocalizationController extends GetxController implements GetxService {
 
   void loadCurrentLanguage() {
     _locale = Locale(
-        sharedPreferences.getString(AppConstants.LANGUAGE_CODE) ??
+        box.read(AppConstants.LANGUAGE_CODE) ??
             AppConstants.languages[1].languageCode,
-        sharedPreferences.getString(AppConstants.COUNTRY_CODE) ??
+        box.read(AppConstants.COUNTRY_CODE) ??
             AppConstants.languages[1].countryCode);
 
     for (int index = 0; index < AppConstants.languages.length; index++) {
@@ -56,16 +56,15 @@ class LocalizationController extends GetxController implements GetxService {
   }
 
   void saveLanguage(Locale locale) async {
-    sharedPreferences.setString(
-        AppConstants.LANGUAGE_CODE, locale.languageCode);
-    sharedPreferences.setString(AppConstants.COUNTRY_CODE, locale.countryCode!);
+    box.write(AppConstants.LANGUAGE_CODE, locale.languageCode);
+    box.write(AppConstants.COUNTRY_CODE, locale.countryCode!);
   }
 
   Future<void> changeLangOnTap(int index) async {
     final lang = sl<SettingsController>().languageList[index];
     setLanguage(Locale(lang['lang'], ''));
-    await sl<SharedPreferences>().setString(LANG, lang['lang']);
-    await sl<SharedPreferences>().setString(LANG_NAME, lang['name']);
+    await box.write(LANG, lang['lang']);
+    await box.write(LANG_NAME, lang['name']);
     sl<SettingsController>().languageName.value = lang['name'];
     sl<SettingsController>().languageFont.value = lang['font'];
   }

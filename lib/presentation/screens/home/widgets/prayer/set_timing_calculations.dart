@@ -2,16 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 
+import '/presentation/controllers/adhan_controller.dart';
 import '../../../../../core/services/services_locator.dart';
 import '../../../../controllers/general_controller.dart';
-import '/presentation/controllers/adhan_controller.dart';
 import 'pick_calculation_method.dart';
 import 'setting_prayer_times.dart';
 
 class SetTimingCalculations extends StatelessWidget {
   SetTimingCalculations({super.key});
 
-  final generalCtrl = sl<GeneralController>();
+  final generalCtrl = GeneralController.instance;
   final adhanCtrl = sl<AdhanController>();
 
   @override

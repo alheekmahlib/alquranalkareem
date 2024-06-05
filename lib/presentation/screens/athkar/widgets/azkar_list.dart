@@ -1,22 +1,22 @@
-import '../../../../core/utils/constants/lottie_constants.dart';
+import 'package:alquranalkareem/core/utils/constants/extensions/svg_extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 
-import '../../../../core/services/services_locator.dart';
+import '/core/utils/constants/extensions/extensions.dart';
 import '../../../../core/utils/constants/lottie.dart';
-import '../../../../core/utils/constants/svg_picture.dart';
+import '../../../../core/utils/constants/lottie_constants.dart';
+import '../../../../core/utils/constants/svg_constants.dart';
 import '../../../controllers/azkar_controller.dart';
 import '../screens/azkar_item.dart';
-import '/core/utils/constants/extensions/extensions.dart';
 
 class AzkarList extends StatelessWidget {
   const AzkarList({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final azkarCtrl = sl<AzkarController>();
+    final azkarCtrl = AzkarController.instance;
     return context.customOrientation(
         Column(
           children: [
@@ -68,8 +68,12 @@ class AzkarList extends StatelessWidget {
                                   child: Row(
                                     children: [
                                       Expanded(
-                                          flex: 2,
-                                          child: slider_ic2(height: 30)),
+                                        flex: 2,
+                                        child: customSvg(
+                                          SvgPath.svgSliderIc2,
+                                          height: 30,
+                                        ),
+                                      ),
                                       Expanded(
                                         flex: 8,
                                         child: Container(
@@ -170,8 +174,12 @@ class AzkarList extends StatelessWidget {
                                   child: Row(
                                     children: [
                                       Expanded(
-                                          flex: 2,
-                                          child: slider_ic2(height: 30)),
+                                        flex: 2,
+                                        child: customSvg(
+                                          SvgPath.svgSliderIc2,
+                                          height: 30,
+                                        ),
+                                      ),
                                       Expanded(
                                         flex: 8,
                                         child: Container(

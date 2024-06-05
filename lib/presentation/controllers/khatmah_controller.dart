@@ -4,6 +4,9 @@ import 'package:get/get.dart';
 import '../../core/widgets/khatmah/data/data_source/khatmah_database.dart';
 
 class KhatmahController extends GetxController {
+  static KhatmahController get instance => Get.isRegistered<KhatmahController>()
+      ? Get.find<KhatmahController>()
+      : Get.put<KhatmahController>(KhatmahController());
   final db = KhatmahDatabase();
   final RxList<Khatmah> khatmas = <Khatmah>[].obs;
   final int totalPages = 604;

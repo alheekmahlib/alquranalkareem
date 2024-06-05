@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '/core/utils/constants/extensions/extensions.dart';
+import '/core/utils/constants/extensions/svg_extensions.dart';
 import '../../../../../core/services/services_locator.dart';
 import '../../../../../core/utils/constants/lottie.dart';
 import '../../../../../core/utils/constants/lottie_constants.dart';
-import '../../../../../core/utils/constants/svg_picture.dart';
+import '../../../../../core/utils/constants/svg_constants.dart';
 import '../../../../controllers/azkar_controller.dart';
-import '/core/utils/constants/extensions/extensions.dart';
 import 'share_zekrToImage.dart';
 
 class ShareZekrOptions extends StatelessWidget {
@@ -26,14 +27,17 @@ class ShareZekrOptions extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final shareToImage = sl<AzkarController>();
+    final shareToImage = AzkarController.instance;
 
     return GestureDetector(
       child: Semantics(
         button: true,
         enabled: true,
         label: 'share'.tr,
-        child: share_icon(height: 20.0),
+        child: customSvg(
+          SvgPath.svgShareIcon,
+          height: 20,
+        ),
       ),
       onTap: () {
         Get.bottomSheet(
@@ -42,7 +46,7 @@ class ShareZekrOptions extends StatelessWidget {
               alignment: Alignment.center,
               padding: const EdgeInsets.all(16.0),
               decoration: BoxDecoration(
-                  color: Theme.of(context).colorScheme.background,
+                  color: Theme.of(context).colorScheme.primaryContainer,
                   borderRadius: const BorderRadius.only(
                     topLeft: Radius.circular(8),
                     topRight: Radius.circular(8),

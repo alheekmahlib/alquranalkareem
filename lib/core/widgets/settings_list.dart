@@ -2,15 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 
+import '/core/utils/constants/extensions/svg_extensions.dart';
 import '/core/widgets/select_screen_build.dart';
 import '/presentation/controllers/general_controller.dart';
 import '/presentation/controllers/quran_controller.dart';
 import '/presentation/controllers/theme_controller.dart';
 import '../../presentation/screens/about_app/about_app.dart';
 import '../../presentation/screens/ourApp/ourApps_screen.dart';
-import '../services/services_locator.dart';
 import '../utils/constants/extensions/extensions.dart';
-import '../utils/constants/svg_picture.dart';
+import '../utils/constants/svg_constants.dart';
 import 'language_list.dart';
 import 'mushaf_settings.dart';
 import 'select_screen.dart';
@@ -18,8 +18,8 @@ import 'theme_change.dart';
 
 class SettingsList extends StatelessWidget {
   SettingsList({Key? key}) : super(key: key);
-  final generalCtrl = sl<GeneralController>();
-  final quranCtrl = sl<QuranController>();
+  final generalCtrl = GeneralController.instance;
+  final quranCtrl = QuranController.instance;
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +30,7 @@ class SettingsList extends StatelessWidget {
         height: size.height * .9,
         width: size.width,
         decoration: BoxDecoration(
-            color: Theme.of(context).colorScheme.background,
+            color: Theme.of(context).colorScheme.primaryContainer,
             borderRadius: const BorderRadius.only(
               topLeft: Radius.circular(8),
               topRight: Radius.circular(8),
@@ -102,10 +102,11 @@ class SettingsList extends StatelessWidget {
                                           children: [
                                             Expanded(
                                                 flex: 2,
-                                                child: alheekmah_logo(
+                                                child: customSvgWithColor(
+                                                    SvgPath.svgAlheekmahLogo,
                                                     width: 60.0,
-                                                    color: Theme.of(context)
-                                                        .hintColor)),
+                                                    color: Get.theme.colorScheme
+                                                        .primary)),
                                             context.vDivider(height: 20.0),
                                             Expanded(
                                               flex: 8,
@@ -156,10 +157,12 @@ class SettingsList extends StatelessWidget {
                                         child: Row(
                                           children: [
                                             Expanded(
-                                                flex: 2,
-                                                child: splash_icon(
-                                                  height: 35.0,
-                                                )),
+                                              flex: 2,
+                                              child: customSvg(
+                                                SvgPath.svgSplashIcon,
+                                                height: 35,
+                                              ),
+                                            ),
                                             context.vDivider(height: 20.0),
                                             Expanded(
                                               flex: 8,

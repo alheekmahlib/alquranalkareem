@@ -4,10 +4,10 @@ import 'package:flutter_svg/svg.dart';
 import 'package:gap/gap.dart';
 import 'package:screenshot/screenshot.dart';
 
-import '../../../../../core/services/services_locator.dart';
-import '../../../../controllers/azkar_controller.dart';
 import '/core/utils/constants/extensions/extensions.dart';
-import '/core/utils/constants/svg_picture.dart';
+import '/core/utils/constants/extensions/svg_extensions.dart';
+import '../../../../../core/utils/constants/svg_constants.dart';
+import '../../../../controllers/azkar_controller.dart';
 
 class VerseImageCreator extends StatelessWidget {
   final String zekrText;
@@ -24,14 +24,14 @@ class VerseImageCreator extends StatelessWidget {
     required this.description,
     required this.count,
   }) : super(key: key);
-  final zekrToImage = sl<AzkarController>();
+  final zekrToImage = AzkarController.instance;
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
         Screenshot(
-          controller: zekrToImage.zekrScreenController,
+          controller: zekrToImage.dhekrScreenController,
           child: buildVerseImageWidget(
             context: context,
             zekrText: zekrText,
@@ -177,7 +177,10 @@ class VerseImageCreator extends StatelessWidget {
                         child: Row(
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
-                            splash_icon(height: 40.0),
+                            customSvg(
+                              SvgPath.svgSplashIcon,
+                              height: 40,
+                            ),
                             context.vDivider(),
                             const Text(
                               'القـرآن الكريــــم\nمكتبة الحكمة',

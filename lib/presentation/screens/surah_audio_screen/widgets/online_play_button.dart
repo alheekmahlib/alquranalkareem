@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:just_audio/just_audio.dart';
 
-import '../../../../core/services/services_locator.dart';
+import '/core/utils/constants/extensions/svg_extensions.dart';
 import '../../../../core/utils/constants/lottie.dart';
 import '../../../../core/utils/constants/lottie_constants.dart';
-import '../../../../core/utils/constants/svg_picture.dart';
+import '../../../../core/utils/constants/svg_constants.dart';
 import '../../../controllers/surah_audio_controller.dart';
 
 class OnlinePlayButton extends StatelessWidget {
@@ -14,7 +14,7 @@ class OnlinePlayButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final surahAudioCtrl = sl<SurahAudioController>();
+    final surahAudioCtrl = SurahAudioController.instance;
     return SizedBox(
       height: 120,
       child: Stack(
@@ -69,7 +69,10 @@ class OnlinePlayButton extends StatelessWidget {
                       width: 20.0, height: 20.0);
                 } else if (playerState?.playing == false) {
                   return GestureDetector(
-                    child: play_arrow(height: 30.0),
+                    child: customSvg(
+                      SvgPath.svgPlayArrow,
+                      height: 30,
+                    ),
                     onTap: () async {
                       surahAudioCtrl.cancelDownload();
                       surahAudioCtrl.isPlaying.value = true;
@@ -85,7 +88,10 @@ class OnlinePlayButton extends StatelessWidget {
                 } else if (processingState != ProcessingState.completed ||
                     !playerState!.playing) {
                   return GestureDetector(
-                    child: pause_arrow(height: 30.0),
+                    child: customSvg(
+                      SvgPath.svgPauseArrow,
+                      height: 30,
+                    ),
                     onTap: () {
                       surahAudioCtrl.isPlaying.value = false;
                       surahAudioCtrl.audioPlayer.pause();

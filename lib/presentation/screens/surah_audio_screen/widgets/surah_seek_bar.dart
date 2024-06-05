@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:get_storage/get_storage.dart';
 
 import '../../../../core/services/services_locator.dart';
 import '../../../../core/utils/constants/shared_preferences_constants.dart';
@@ -29,12 +29,11 @@ class SurahSeekBar extends StatelessWidget {
             bufferedPosition: positionData.bufferedPosition,
             onChangeEnd: (newPosition) async {
               sl<SurahAudioController>().audioPlayer.seek(newPosition);
-              await sl<SharedPreferences>().setInt(
-                  LAST_SURAH, sl<SurahAudioController>().surahNum.value);
-              await sl<SharedPreferences>().setInt(SELECTED_SURAH,
+              GetStorage()
+                  .write(LAST_SURAH, sl<SurahAudioController>().surahNum.value);
+              GetStorage().write(SELECTED_SURAH,
                   sl<SurahAudioController>().surahNum.value - 1);
-              await sl<SharedPreferences>()
-                  .setInt(LAST_POSITION, newPosition.inSeconds);
+              GetStorage().write(LAST_POSITION, newPosition.inSeconds);
               sl<SurahAudioController>().seekNextSeconds.value =
                   newPosition.inSeconds;
             },
@@ -72,12 +71,11 @@ class DownloadSurahSeekBar extends StatelessWidget {
             bufferedPosition: positionData.bufferedPosition,
             onChangeEnd: (newPosition) async {
               sl<SurahAudioController>().downAudioPlayer.seek(newPosition);
-              await sl<SharedPreferences>().setInt(
-                  LAST_SURAH, sl<SurahAudioController>().surahNum.value);
-              await sl<SharedPreferences>().setInt(SELECTED_SURAH,
+              GetStorage()
+                  .write(LAST_SURAH, sl<SurahAudioController>().surahNum.value);
+              GetStorage().write(SELECTED_SURAH,
                   sl<SurahAudioController>().surahNum.value - 1);
-              await sl<SharedPreferences>()
-                  .setInt(LAST_POSITION, newPosition.inSeconds);
+              GetStorage().write(LAST_POSITION, newPosition.inSeconds);
             },
             activeTrackColor: Theme.of(context).colorScheme.surface,
             textColor: Theme.of(context).canvasColor,

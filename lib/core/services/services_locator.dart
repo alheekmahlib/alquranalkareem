@@ -6,7 +6,6 @@ import 'package:desktop_window/desktop_window.dart';
 import 'package:flutter_timezone/flutter_timezone.dart';
 import 'package:get/get.dart';
 import 'package:get_it/get_it.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sqflite_common_ffi/sqflite_ffi.dart';
 import 'package:timezone/data/latest.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
@@ -45,10 +44,10 @@ import '../utils/helpers/ui_helper.dart';
 final sl = GetIt.instance;
 
 class ServicesLocator {
-  Future<void> _initPrefs() async =>
-      await SharedPreferences.getInstance().then((v) {
-        sl.registerSingleton<SharedPreferences>(v);
-      });
+  // Future<void> _initPrefs() async =>
+  // await SharedPreferences.getInstance().then((v) {
+  //   sl.registerSingleton<SharedPreferences>(v);
+  // });
 
   Future<void> _initDatabaseHelper() async =>
       sl.registerSingleton<DatabaseHelper>(await DatabaseHelper.instance
@@ -100,7 +99,8 @@ class ServicesLocator {
       //   androidNotificationChannelName: 'Audio playback',
       //   androidNotificationOngoing: true,
       // ),
-      _initPrefs(),
+
+      // _initPrefs(), // moved to notificationsCtrl
       _initDatabaseHelper(),
       _initDatabaseNotification(),
       _initDatabaseClient(),
@@ -173,7 +173,7 @@ class ServicesLocator {
     sl.registerSingleton<AdhanController>(
         Get.put<AdhanController>(AdhanController(), permanent: true));
 
-    sl.registerLazySingleton<NotificationController>(() =>
+    sl.registerSingleton<NotificationController>(
         Get.put<NotificationController>(NotificationController(),
             permanent: true));
 

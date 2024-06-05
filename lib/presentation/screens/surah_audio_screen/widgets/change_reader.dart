@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
-import '../../../../core/services/services_locator.dart';
 import '../../../../core/utils/constants/lists.dart';
-import '../../../../core/utils/constants/shared_preferences_constants.dart';
 import '../../../controllers/surah_audio_controller.dart';
 
 class ChangeSurahReader extends StatelessWidget {
@@ -12,7 +9,7 @@ class ChangeSurahReader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final surahAudioCtrl = sl<SurahAudioController>();
+    final surahAudioCtrl = SurahAudioController.instance;
     return PopupMenuButton(
       position: PopupMenuPosition.over,
       child: Semantics(
@@ -42,7 +39,7 @@ class ChangeSurahReader extends StatelessWidget {
           ],
         ),
       ),
-      color: Theme.of(context).colorScheme.background,
+      color: Theme.of(context).colorScheme.primaryContainer,
       itemBuilder: (context) => List.generate(
           surahReaderInfo.length,
           (index) => PopupMenuItem(
@@ -78,25 +75,7 @@ class ChangeSurahReader extends StatelessWidget {
                             color: Theme.of(context).colorScheme.inversePrimary)
                         : null,
                   ),
-                  onTap: () async {
-                    surahAudioCtrl.initializeSurahDownloadStatus();
-                    surahAudioCtrl.sorahReaderValue.value =
-                        surahReaderInfo[index]['readerD'];
-                    surahAudioCtrl.sorahReaderNameValue.value =
-                        surahReaderInfo[index]['readerN'];
-
-                    await sl<SharedPreferences>().setString(
-                        SURAH_AUDIO_PLAYER_SOUND,
-                        surahReaderInfo[index]['readerD']);
-                    await sl<SharedPreferences>().setString(
-                        SURAH_AUDIO_PLAYER_NAME,
-                        surahReaderInfo[index]['readerN']);
-                    await sl<SharedPreferences>()
-                        .setInt(SURAH_READER_INDEX, index);
-                    surahAudioCtrl.surahReaderIndex.value = index;
-                    surahAudioCtrl.changeAudioSource();
-                    Get.back();
-                  },
+                  onTap: () => surahAudioCtrl.changeReadersOnTap(index),
                   leading: Container(
                     height: 80.0,
                     width: 80.0,

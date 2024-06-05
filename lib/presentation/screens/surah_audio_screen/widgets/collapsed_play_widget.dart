@@ -1,7 +1,9 @@
-import '../../../../core/utils/constants/extensions/extensions.dart';
+import 'package:alquranalkareem/core/utils/constants/extensions/svg_extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../../../core/utils/constants/extensions/extensions.dart';
+import '../../../../core/utils/constants/svg_constants.dart';
 import '../../../../core/utils/constants/svg_picture.dart';
 import 'online_play_button.dart';
 import 'skip_next.dart';
@@ -24,13 +26,25 @@ class CollapsedPlayWidget extends StatelessWidget {
           children: [
             Align(
               alignment: Alignment.bottomRight,
-              child: decorations(context),
+              child: Opacity(
+                opacity: .6,
+                child: customSvg(
+                  SvgPath.svgDecorations,
+                  height: 60,
+                ),
+              ),
             ),
             Align(
               alignment: Alignment.topLeft,
               child: RotatedBox(
                 quarterTurns: 2,
-                child: decorations(context),
+                child: Opacity(
+                  opacity: .6,
+                  child: customSvg(
+                    SvgPath.svgDecorations,
+                    height: 60,
+                  ),
+                ),
               ),
             ),
             Padding(

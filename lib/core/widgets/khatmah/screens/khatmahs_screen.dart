@@ -1,20 +1,19 @@
 import 'package:flutter/material.dart';
 
 import '../../../../presentation/controllers/khatmah_controller.dart';
-import '../../../services/services_locator.dart';
 import '../../delete_widget.dart';
 import '../widgets/khatmah_widget.dart';
 
 class KhatmasScreen extends StatelessWidget {
   KhatmasScreen({super.key});
 
-  final khatmahCtrl = sl<KhatmahController>();
+  final khatmahCtrl = KhatmahController.instance;
 
   @override
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-          color: Theme.of(context).colorScheme.background,
+          color: Theme.of(context).colorScheme.primaryContainer,
           borderRadius: const BorderRadius.only(
             topLeft: Radius.circular(8),
             topRight: Radius.circular(8),

@@ -1,11 +1,10 @@
-import '../../../../../core/utils/constants/extensions/extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 
-import '../../../../../core/services/services_locator.dart';
-import '../audio/change_reader.dart';
 import '/presentation/controllers/playList_controller.dart';
+import '../../../../../core/utils/constants/extensions/extensions.dart';
+import '../audio/change_reader.dart';
 import 'ayahs_choice_widget.dart';
 import 'playList_build.dart';
 import 'playList_play_widget.dart';
@@ -15,7 +14,7 @@ List<GlobalKey> playListTextFieldKeys = [];
 
 class AyahsPlayListWidget extends StatelessWidget {
   AyahsPlayListWidget({super.key});
-  final playList = sl<PlayListController>();
+  final playList = PlayListController.instance;
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +25,7 @@ class AyahsPlayListWidget extends StatelessWidget {
         height: size.height * .97,
         width: context.customOrientation(size.width, size.width * .5),
         decoration: BoxDecoration(
-            color: Theme.of(context).colorScheme.background,
+            color: Theme.of(context).colorScheme.primaryContainer,
             borderRadius: const BorderRadius.only(
               topLeft: Radius.circular(8),
               topRight: Radius.circular(8),

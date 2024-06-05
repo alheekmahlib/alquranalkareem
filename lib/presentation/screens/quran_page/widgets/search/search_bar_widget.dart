@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../../../../core/services/services_locator.dart';
+import '/core/utils/constants/extensions/svg_extensions.dart';
 import '../../../../../core/utils/constants/extensions/extensions.dart';
+import '../../../../../core/utils/constants/svg_constants.dart';
 import '../../../../controllers/aya_controller.dart';
-import '/core/utils/constants/svg_picture.dart';
 
 class SearchBarWidget extends StatelessWidget {
   SearchBarWidget({super.key});
 
-  final ayahCtrl = sl<AyaController>();
+  final ayahCtrl = AyaController.instance;
 
   @override
   Widget build(BuildContext context) {
@@ -50,11 +50,14 @@ class SearchBarWidget extends StatelessWidget {
               color: Theme.of(context).colorScheme.surface.withOpacity(.3),
             ),
             filled: true,
-            fillColor: Theme.of(context).colorScheme.background,
+            fillColor: Theme.of(context).colorScheme.primaryContainer,
             prefixIcon: Container(
               height: 20,
               padding: const EdgeInsets.all(10.0),
-              child: search_icon(),
+              child: customSvg(
+                SvgPath.svgSearchIcon,
+                height: 35,
+              ),
             ),
             suffixIcon: IconButton(
               icon: Icon(

@@ -17,7 +17,8 @@ class AlheekmahAndLoading extends StatelessWidget {
           SvgPicture.asset(
             'assets/svg/alheekmah_logo.svg',
             colorFilter: ColorFilter.mode(
-                Theme.of(context).colorScheme.background, BlendMode.srcIn),
+                Theme.of(context).colorScheme.primaryContainer,
+                BlendMode.srcIn),
             width: 90,
           ),
           Transform.translate(
