@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '/core/utils/constants/extensions/surah_name_with_banner.dart';
+import '/core/utils/constants/svg_picture.dart';
+import '/presentation/controllers/audio_controller.dart';
 import '../../../../../core/services/services_locator.dart';
 import '../../../../controllers/bookmarks_controller.dart';
 import '../../../../controllers/general_controller.dart';
 import '../../../../controllers/quran_controller.dart';
-import '/core/utils/constants/extensions/surah_name_with_banner.dart';
-import '/core/utils/constants/svg_picture.dart';
-import '/presentation/controllers/audio_controller.dart';
 import 'text_build.dart';
 
 class PagesWidget extends StatelessWidget {
@@ -15,8 +15,8 @@ class PagesWidget extends StatelessWidget {
 
   PagesWidget({super.key, required this.pageIndex});
 
-  final audioCtrl = sl<AudioController>();
-  final generalCtrl = sl<GeneralController>();
+  final audioCtrl = AudioController.instance;
+  final generalCtrl = GeneralController.instance;
 
   @override
   Widget build(BuildContext context) {
@@ -41,7 +41,7 @@ class PagesWidget extends StatelessWidget {
                     final ayahs = quranCtrl
                         .getCurrentPageAyahsSeparatedForBasmalah(pageIndex)[i];
                     return Column(children: [
-                      context.surahBannerFirstPlace(pageIndex, i),
+                      surahBannerFirstPlace(pageIndex, i),
                       quranCtrl.getSurahNumberByAyah(ayahs.first) == 9 ||
                               quranCtrl.getSurahNumberByAyah(ayahs.first) == 1
                           ? const SizedBox.shrink()
@@ -62,7 +62,7 @@ class PagesWidget extends StatelessWidget {
                         pageIndex: pageIndex,
                         ayahs: ayahs,
                       ),
-                      context.surahBannerLastPlace(pageIndex, i),
+                      surahBannerLastPlace(pageIndex, i),
                     ]);
                   }),
                 ),

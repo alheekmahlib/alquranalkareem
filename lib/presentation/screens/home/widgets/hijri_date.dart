@@ -3,15 +3,15 @@ import 'package:flutter_svg/svg.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 
-import '../../../../../../core/services/services_locator.dart';
-import '../../../controllers/general_controller.dart';
+import '/core/utils/constants/extensions/convert_number_extension.dart';
 import '/core/widgets/container_button.dart';
+import '../../../controllers/general_controller.dart';
 import 'occasions.dart';
 
 class HijriDate extends StatelessWidget {
   HijriDate({super.key});
 
-  final generalCtrl = sl<GeneralController>();
+  final generalCtrl = GeneralController.instance;
 
   @override
   Widget build(BuildContext context) {
@@ -70,8 +70,7 @@ class HijriDate extends StatelessWidget {
                             child: Transform.translate(
                               offset: const Offset(0, 4),
                               child: Text(
-                                generalCtrl.convertNumbers(
-                                    '${generalCtrl.today.hDay}'),
+                                '${generalCtrl.today.hDay}'.convertNumbers(),
                                 style: TextStyle(
                                   fontSize: 26.0,
                                   fontFamily: 'kufi',
@@ -96,8 +95,7 @@ class HijriDate extends StatelessWidget {
                                   textAlign: TextAlign.center,
                                 ),
                                 Text(
-                                  generalCtrl.convertNumbers(
-                                      '${generalCtrl.today.hYear} هـ'),
+                                  '${'${generalCtrl.today.hYear}'.convertNumbers()} هـ',
                                   style: TextStyle(
                                     fontSize: 18.0,
                                     fontFamily: 'kufi',

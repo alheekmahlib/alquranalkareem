@@ -1,10 +1,12 @@
 import 'dart:developer';
 
-import 'package:alquranalkareem/presentation/controllers/quran_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '/core/utils/constants/extensions/convert_number_extension.dart';
+import '/core/utils/constants/extensions/sajda_extension.dart';
 import '/presentation/controllers/audio_controller.dart';
+import '/presentation/controllers/quran_controller.dart';
 import '../../../../core/services/services_locator.dart';
 import '../../../../core/utils/constants/extensions/extensions.dart';
 import '../../../../core/utils/helpers/responsive.dart';
@@ -18,9 +20,9 @@ import '../widgets/pages/top_title_widget.dart';
 
 class QuranPages extends StatelessWidget {
   QuranPages({Key? key}) : super(key: key);
-  final audioCtrl = sl<AudioController>();
-  final quranCtrl = sl<QuranController>();
-  final bookmarkCtrl = sl<BookmarksController>();
+  final audioCtrl = AudioController.instance;
+  final quranCtrl = QuranController.instance;
+  final bookmarkCtrl = BookmarksController.instance;
 
   @override
   Widget build(BuildContext context) {
@@ -95,12 +97,12 @@ class QuranPages extends StatelessWidget {
                           child: Padding(
                               padding:
                                   const EdgeInsets.symmetric(horizontal: 16.0),
-                              child: quranCtrl.showVerseToast(index)),
+                              child: showVerseToast(index)),
                         ),
                         Align(
                           alignment: Alignment.bottomCenter,
                           child: Text(
-                            '${generalCtrl.convertNumbers('${index + 1}')}',
+                            '${'${index + 1}'.convertNumbers()}',
                             style: TextStyle(
                                 fontSize: context.customOrientation(20.0, 22.0),
                                 fontFamily: 'naskh',
@@ -142,13 +144,13 @@ class QuranPages extends StatelessWidget {
                           child: Padding(
                             padding:
                                 const EdgeInsets.symmetric(horizontal: 16.0),
-                            child: quranCtrl.showVerseToast(index),
+                            child: showVerseToast(index),
                           ),
                         ),
                         Align(
                           alignment: Alignment.bottomCenter,
                           child: Text(
-                            '${generalCtrl.convertNumbers('${index + 1}')}',
+                            '${'${index + 1}'.convertNumbers()}',
                             style: TextStyle(
                                 fontSize: context.customOrientation(20.0, 22.0),
                                 fontFamily: 'naskh',
@@ -192,12 +194,12 @@ class QuranPages extends StatelessWidget {
                           child: Padding(
                               padding:
                                   const EdgeInsets.symmetric(horizontal: 16.0),
-                              child: quranCtrl.showVerseToast(index)),
+                              child: showVerseToast(index)),
                         ),
                         Align(
                           alignment: Alignment.bottomCenter,
                           child: Text(
-                            '${generalCtrl.convertNumbers('${index + 1}')}',
+                            '${'${index + 1}'.convertNumbers()}',
                             style: TextStyle(
                                 fontSize: context.customOrientation(18.0, 22.0),
                                 fontFamily: 'naskh',
@@ -239,12 +241,12 @@ class QuranPages extends StatelessWidget {
                           child: Padding(
                               padding:
                                   const EdgeInsets.symmetric(horizontal: 16.0),
-                              child: quranCtrl.showVerseToast(index)),
+                              child: showVerseToast(index)),
                         ),
                         Align(
                           alignment: Alignment.bottomCenter,
                           child: Text(
-                            '${generalCtrl.convertNumbers('${index + 1}')}',
+                            '${index + 1}'.convertNumbers(),
                             style: TextStyle(
                                 fontSize: context.customOrientation(18.0, 22.0),
                                 fontFamily: 'naskh',
@@ -263,7 +265,7 @@ class QuranPages extends StatelessWidget {
             child: index.isEven
                 ? Container(
                     height: MediaQuery.sizeOf(context).height,
-                    color: Theme.of(context).colorScheme.background,
+                    color: Theme.of(context).colorScheme.primaryContainer,
                     child: Stack(
                       children: [
                         Align(
@@ -292,12 +294,12 @@ class QuranPages extends StatelessWidget {
                           child: Padding(
                               padding:
                                   const EdgeInsets.symmetric(horizontal: 16.0),
-                              child: quranCtrl.showVerseToast(index)),
+                              child: showVerseToast(index)),
                         ),
                         Align(
                           alignment: Alignment.bottomCenter,
                           child: Text(
-                            '${generalCtrl.convertNumbers('${index + 1}')}',
+                            '${index + 1}'.convertNumbers(),
                             style: TextStyle(
                                 fontSize: context.customOrientation(20.0, 22.0),
                                 fontFamily: 'naskh',
@@ -309,7 +311,7 @@ class QuranPages extends StatelessWidget {
                   )
                 : Container(
                     height: MediaQuery.sizeOf(context).height,
-                    color: Theme.of(context).colorScheme.background,
+                    color: Theme.of(context).colorScheme.primaryContainer,
                     child: Stack(
                       // mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       // crossAxisAlignment: CrossAxisAlignment.center,
@@ -341,13 +343,13 @@ class QuranPages extends StatelessWidget {
                           child: Padding(
                             padding:
                                 const EdgeInsets.symmetric(horizontal: 16.0),
-                            child: quranCtrl.showVerseToast(index),
+                            child: showVerseToast(index),
                           ),
                         ),
                         Align(
                           alignment: Alignment.bottomCenter,
                           child: Text(
-                            '${generalCtrl.convertNumbers('${index + 1}')}',
+                            '${index + 1}'.convertNumbers(),
                             style: TextStyle(
                                 fontSize: context.customOrientation(20.0, 22.0),
                                 fontFamily: 'naskh',
@@ -361,7 +363,7 @@ class QuranPages extends StatelessWidget {
             child: index.isEven
                 ? Container(
                     height: MediaQuery.sizeOf(context).height,
-                    color: Theme.of(context).colorScheme.background,
+                    color: Theme.of(context).colorScheme.primaryContainer,
                     child: ListView(
                       // mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       // crossAxisAlignment: CrossAxisAlignment.center,
@@ -393,12 +395,12 @@ class QuranPages extends StatelessWidget {
                           child: Padding(
                               padding:
                                   const EdgeInsets.symmetric(horizontal: 16.0),
-                              child: quranCtrl.showVerseToast(index)),
+                              child: showVerseToast(index)),
                         ),
                         Align(
                           alignment: Alignment.bottomCenter,
                           child: Text(
-                            '${generalCtrl.convertNumbers('${index + 1}')}',
+                            '${index + 1}'.convertNumbers(),
                             style: TextStyle(
                                 fontSize: context.customOrientation(18.0, 22.0),
                                 fontFamily: 'naskh',
@@ -410,7 +412,7 @@ class QuranPages extends StatelessWidget {
                   )
                 : Container(
                     height: MediaQuery.sizeOf(context).height,
-                    color: Theme.of(context).colorScheme.background,
+                    color: Theme.of(context).colorScheme.primaryContainer,
                     child: ListView(
                       // mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       // crossAxisAlignment: CrossAxisAlignment.center,
@@ -442,12 +444,12 @@ class QuranPages extends StatelessWidget {
                           child: Padding(
                               padding:
                                   const EdgeInsets.symmetric(horizontal: 16.0),
-                              child: quranCtrl.showVerseToast(index)),
+                              child: showVerseToast(index)),
                         ),
                         Align(
                           alignment: Alignment.bottomCenter,
                           child: Text(
-                            '${generalCtrl.convertNumbers('${index + 1}')}',
+                            '${index + 1}'.convertNumbers(),
                             style: TextStyle(
                                 fontSize: context.customOrientation(18.0, 22.0),
                                 fontFamily: 'naskh',

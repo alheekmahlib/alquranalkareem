@@ -1,16 +1,19 @@
 import 'dart:ui' show Locale;
 
 import 'package:get/get.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-
-import '../../core/services/services_locator.dart';
+import 'package:get_storage/get_storage.dart';
 
 class SettingsController extends GetxController {
+  static SettingsController get instance =>
+      Get.isRegistered<SettingsController>()
+          ? Get.find<SettingsController>()
+          : Get.put<SettingsController>(SettingsController());
   Locale? initialLang;
   RxString languageName = 'العربية'.obs;
   RxString languageFont = 'naskh'.obs;
   // RxString languageFont2 = 'kufi'.obs;
   RxBool settingsSelected = false.obs;
+  final box = GetStorage();
 
   void setLocale(Locale value) {
     initialLang = value;
@@ -18,13 +21,11 @@ class SettingsController extends GetxController {
   }
 
   Future<void> loadLang() async {
-    String? langCode = await sl<SharedPreferences>().getString("lang");
-    String? langName =
-        await sl<SharedPreferences>().getString("langName") ?? 'العربية';
-    String? langFont =
-        await sl<SharedPreferences>().getString("languageFont") ?? 'naskh';
+    String? langCode = await box.read("lang");
+    String? langName = await box.read("langName") ?? 'العربية';
+    String? langFont = await box.read("languageFont") ?? 'naskh';
     // String? langFont2 =
-    //     await sl<SharedPreferences>().getString("languageFont2");
+    //     await box.read("languageFont2");
 
     print(
         'Lang code: $langCode'); // Add this line to debug the value of langCode

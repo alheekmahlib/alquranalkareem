@@ -15,14 +15,14 @@ class ContainerWithBorder extends StatelessWidget {
             Radius.circular(4),
           ),
           border: Border.all(
-              color: color ?? Theme.of(context).colorScheme.background,
+              color: color ?? Theme.of(context).colorScheme.primaryContainer,
               width: 1)),
       child: Container(
         // width: width ?? MediaQuery.sizeOf(context).width,
         margin: const EdgeInsets.symmetric(horizontal: 4.0, vertical: 2.0),
         padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 2.0),
         decoration: BoxDecoration(
-          color: color ?? Theme.of(context).colorScheme.background,
+          color: color ?? Theme.of(context).colorScheme.primaryContainer,
           borderRadius: const BorderRadius.all(
             Radius.circular(4),
           ),

@@ -2,12 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:home_widget/home_widget.dart';
 
 import '../../../../presentation/controllers/home_widget_controller.dart';
-import '../../../services/services_locator.dart';
 import '../../../utils/constants/string_constants.dart';
 import 'hijri_home_widget.dart';
 
 class HijriWidgetConfig {
-  final homeWCtrl = sl<HomeWidgetController>();
+  final homeWCtrl = HomeWidgetController.instance;
 
   Future<void> updateHijriDate() async {
     var path = await HomeWidget.renderFlutterWidget(
@@ -18,7 +17,7 @@ class HijriWidgetConfig {
       // pixelRatio: MediaQuery.of(Get.context!!).devicePixelRatio,
     );
 
-    sl<HomeWidgetController>().hijriPathImage.value = (path as String?)!;
+    homeWCtrl.hijriPathImage.value = (path as String?)!;
 
     HomeWidget.updateWidget(
       iOSName: StringConstants.iosHijriWidget,

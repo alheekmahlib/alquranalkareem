@@ -2,12 +2,11 @@ import 'package:alquranalkareem/core/utils/constants/extensions/extensions.dart'
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:get_storage/get_storage.dart';
 
 import '/core/utils/constants/lists.dart';
 import '/presentation/controllers/quran_controller.dart';
 import '../../presentation/controllers/general_controller.dart';
-import '../services/services_locator.dart';
 import '../utils/constants/shared_preferences_constants.dart';
 
 class MushafSettings extends StatelessWidget {
@@ -15,7 +14,7 @@ class MushafSettings extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final quranCtrl = sl<QuranController>();
+    final quranCtrl = QuranController.instance;
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16.0),
       child: Column(
@@ -113,7 +112,7 @@ class MushafSettings extends StatelessWidget {
                       (index) => Obx(() => GestureDetector(
                             onTap: () {
                               quranCtrl.isBold.value = index;
-                              sl<SharedPreferences>().setInt(IS_BOLD, index);
+                              GetStorage().write(IS_BOLD, index);
                             },
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
@@ -213,7 +212,9 @@ class MushafSettings extends StatelessWidget {
                         child: Container(
                           margin: const EdgeInsets.only(right: 4.0),
                           decoration: BoxDecoration(
-                              color: Theme.of(context).colorScheme.background,
+                              color: Theme.of(context)
+                                  .colorScheme
+                                  .primaryContainer,
                               borderRadius: const BorderRadius.only(
                                   topRight: Radius.circular(12),
                                   bottomRight: Radius.circular(12))),
@@ -252,7 +253,7 @@ class MushafSettings extends StatelessWidget {
                     borderRadius: const BorderRadius.all(Radius.circular(4.0)),
                     border: Border.all(
                         color: Theme.of(context).colorScheme.surface, width: 1),
-                    color: Theme.of(context).colorScheme.background,
+                    color: Theme.of(context).colorScheme.primaryContainer,
                   ),
                 ),
                 const Gap(6),

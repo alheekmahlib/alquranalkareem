@@ -55,7 +55,7 @@ class pickCalculationMethod extends StatelessWidget {
                   ),
                 ),
               ),
-              color: Theme.of(context).colorScheme.background,
+              color: Theme.of(context).colorScheme.primaryContainer,
               itemBuilder: (context) => List.generate(
                   adhanCtrl.countries.length,
                   (index) => PopupMenuItem(

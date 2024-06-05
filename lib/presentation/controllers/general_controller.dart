@@ -1,27 +1,24 @@
 import 'dart:developer';
 import 'dart:io';
 
-import 'package:alquranalkareem/core/utils/constants/extensions/extensions.dart';
-import 'package:alquranalkareem/presentation/controllers/adhan_controller.dart';
 import 'package:arabic_numbers/arabic_numbers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:hijri/hijri_calendar.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:share_plus/share_plus.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:workmanager/workmanager.dart';
 
+import '/core/utils/constants/extensions/extensions.dart';
+import '/presentation/controllers/adhan_controller.dart';
 import '/presentation/controllers/quran_controller.dart';
-import '/presentation/controllers/share_controller.dart';
-import '/presentation/controllers/theme_controller.dart';
 import '/presentation/screens/home/home_screen.dart';
 import '../../core/services/location/locations.dart';
 import '../../core/services/services_locator.dart';
-import '../../core/utils/constants/lists.dart';
 import '../../core/utils/constants/shared_preferences_constants.dart';
 import '../../core/utils/helpers/responsive.dart';
 import '../../core/widgets/ramadan_greeting.dart';
@@ -35,14 +32,15 @@ import 'bookmarks_controller.dart';
 import 'home_widget_controller.dart';
 import 'notification_controller.dart';
 import 'playList_controller.dart';
+import 'theme_controller.dart';
 
 class GeneralController extends GetxController {
+  static GeneralController get instance => Get.isRegistered<GeneralController>()
+      ? Get.find<GeneralController>()
+      : Get.put<GeneralController>(GeneralController());
   final GlobalKey<NavigatorState> navigatorNotificationKey =
       GlobalKey<NavigatorState>();
-
-  /// Slide and Scroll Controller
-  late ScrollController scrollController;
-  bool isPanelControllerDisposed = false;
+  final box = GetStorage();
 
   /// Page Controller
   PageController quranPageController = PageController();
@@ -50,44 +48,21 @@ class GeneralController extends GetxController {
   RxInt currentPageNumber = 1.obs;
   RxInt lastReadSurahNumber = 1.obs;
   RxDouble fontSizeArabic = 20.0.obs;
-  List<InlineSpan> text = [];
-
   RxBool isShowControl = true.obs;
-  RxBool opened = false.obs;
-  // RxBool menuOpened = false.obs;
-  double? height;
-  double width = 800;
   RxString greeting = ''.obs;
-  RxInt shareTafseerValue = 1.obs;
-  RxInt pageIndex = 0.obs;
-  RxBool isExpanded = false.obs;
-  bool isReversed = false;
-  RxBool showSettings = true.obs;
-  RxDouble viewport = .5.obs;
   TimeNow timeNow = TimeNow();
-  RxDouble? animatedWidth;
-  RxDouble? animatedHeight;
-  Rx<Size>? _screenSize;
-  double? xScale;
-  double? yScale;
-  double _fabPosition = 16;
-  double _fabSize = 56;
   final ScrollController surahListController = ScrollController();
   final ScrollController ayahListController = ScrollController();
   double surahItemHeight = 65.0;
   double ayahItemWidth = 30.0;
-  RxBool isLoading = false.obs;
-  var verses;
   ArabicNumbers arabicNumber = ArabicNumbers();
-  final themeCtrl = sl<ThemeController>();
+  // final sl<ThemeController>() = sl<ThemeController>();
   RxBool showSelectScreenPage = false.obs;
   RxInt screenSelectedValue = 0.obs;
   var today = HijriCalendar.now();
   List<int> noHadithInMonth = <int>[2, 3, 4, 5, 6];
   RxBool activeLocation = false.obs;
   RxBool isPageMode = false.obs;
-
-  final sharedCtrl = sl<SharedPreferences>();
 
   bool get isNewHadith =>
       today.hMonth != noHadithInMonth.contains(today.hMonth) ? true : false;
@@ -96,8 +71,8 @@ class GeneralController extends GetxController {
 
   @override
   Future<void> onInit() async {
-    activeLocation.value = sharedCtrl.getBool(ACTIVE_LOCATION) ?? false;
-    isPageMode.value = sharedCtrl.getBool(PAGE_MODE) ?? false;
+    activeLocation.value = box.read(ACTIVE_LOCATION) ?? false;
+    isPageMode.value = box.read(PAGE_MODE) ?? false;
     Workmanager().initialize(
       callbackDispatcherHijri,
       isInDebugMode: true,
@@ -124,7 +99,7 @@ class GeneralController extends GetxController {
           activeLocation.value = true;
           await sl<NotificationController>().initializeNotification();
           await sl<AdhanController>().initializeAdhan();
-          sharedCtrl.setBool(ACTIVE_LOCATION, true);
+          box.write(ACTIVE_LOCATION, true);
           sl<AdhanController>().onInit();
         });
       } else {
@@ -135,7 +110,7 @@ class GeneralController extends GetxController {
         activeLocation.value = true;
         await sl<NotificationController>().initializeNotification();
         await sl<AdhanController>().initializeAdhan();
-        sharedCtrl.setBool(ACTIVE_LOCATION, true);
+        box.write(ACTIVE_LOCATION, true);
         sl<AdhanController>().onInit();
       });
       log('Location services are already enabled.');
@@ -145,14 +120,6 @@ class GeneralController extends GetxController {
 
   void selectScreenToggleView() {
     showSelectScreenPage.value = !showSelectScreenPage.value;
-  }
-
-  checkRtlLayout(var rtl, var ltr) {
-    if (sl<ShareController>().isRtlLanguage('lang'.tr)) {
-      return rtl;
-    } else {
-      return ltr;
-    }
   }
 
   final cacheManager = CacheManager(Config(
@@ -168,9 +135,9 @@ class GeneralController extends GetxController {
 
   Future<void> getLastPageAndFontSize() async {
     try {
-      currentPageNumber.value = await sharedCtrl.getInt(MSTART_PAGE) ?? 1;
-      lastReadSurahNumber.value = await sharedCtrl.getInt(MLAST_URAH) ?? 1;
-      double fontSizeFromPref = await sharedCtrl.getDouble(FONT_SIZE) ?? 24.0;
+      currentPageNumber.value = box.read(MSTART_PAGE) ?? 1;
+      lastReadSurahNumber.value = box.read(MLAST_URAH) ?? 1;
+      double fontSizeFromPref = box.read(FONT_SIZE) ?? 24.0;
       if (fontSizeFromPref != 0.0 && fontSizeFromPref > 0) {
         fontSizeArabic.value = fontSizeFromPref;
       } else {
@@ -190,8 +157,8 @@ class GeneralController extends GetxController {
     sl<BookmarksController>().getBookmarks();
     lastReadSurahNumber.value =
         sl<QuranController>().getSurahNumberFromPage(index);
-    sharedCtrl.setInt(MSTART_PAGE, index + 1);
-    sharedCtrl.setInt(MLAST_URAH, lastReadSurahNumber.value);
+    box.write(MSTART_PAGE, index + 1);
+    box.write(MLAST_URAH, lastReadSurahNumber.value);
     // khatmahCtrl.saveLastKhatmah(
     //     surahNumber: lastReadSurahNumber.value, pageNumber: index);
     // sl<QuranController>().selectedAyahIndexes.clear();
@@ -242,71 +209,6 @@ class GeneralController extends GetxController {
         keepPage: true);
   }
 
-  String convertNumbers(String inputStr) {
-    Map<String, Map<String, String>> numberSets = {
-      'العربية': {
-        '0': '٠',
-        '1': '١',
-        '2': '٢',
-        '3': '٣',
-        '4': '٤',
-        '5': '٥',
-        '6': '٦',
-        '7': '٧',
-        '8': '٨',
-        '9': '٩',
-      },
-      'English': {
-        '0': '0',
-        '1': '1',
-        '2': '2',
-        '3': '3',
-        '4': '4',
-        '5': '5',
-        '6': '6',
-        '7': '7',
-        '8': '8',
-        '9': '9',
-      },
-      'বাংলা': {
-        '0': '০',
-        '1': '১',
-        '2': '২',
-        '3': '৩',
-        '4': '৪',
-        '5': '৫',
-        '6': '৬',
-        '7': '৭',
-        '8': '৮',
-        '9': '৯',
-      },
-      'اردو': {
-        '0': '۰',
-        '1': '۱',
-        '2': '۲',
-        '3': '۳',
-        '4': '۴',
-        '5': '۵',
-        '6': '۶',
-        '7': '۷',
-        '8': '۸',
-        '9': '۹',
-      },
-    };
-
-    Map<String, String>? numSet = numberSets['lang'.tr];
-
-    if (numSet == null) {
-      return inputStr;
-    }
-
-    for (var entry in numSet.entries) {
-      inputStr = inputStr.replaceAll(entry.key, entry.value);
-    }
-
-    return inputStr;
-  }
-
   Widget screenSelect() {
     switch (screenSelectedValue.value) {
       case 0:
@@ -328,26 +230,6 @@ class GeneralController extends GetxController {
       return smallWidth;
     }
     return largeWidth;
-  }
-
-  bool isRtlLanguage(String languageName) {
-    return rtlLang.contains(languageName);
-  }
-
-  RotatedBox checkWidgetRtlLayout(Widget myWidget) {
-    if (isRtlLanguage('lang'.tr)) {
-      return RotatedBox(quarterTurns: 0, child: myWidget);
-    } else {
-      return RotatedBox(quarterTurns: 2, child: myWidget);
-    }
-  }
-
-  dynamic checkDirectionRtlLayout(var textDirection, var textDirection2) {
-    if (isRtlLanguage('lang'.tr)) {
-      return textDirection;
-    } else {
-      return textDirection2;
-    }
   }
 
   Future<void> launchEmail() async {
@@ -404,13 +286,13 @@ class GeneralController extends GetxController {
     final String ramadhan;
     final String eid;
     bool isRamadhan = false;
-    isRamadhan = sharedCtrl.getBool(IS_RAMADAN) ?? false;
+    isRamadhan = box.read(IS_RAMADAN) ?? false;
     bool isEid = false;
-    isEid = sharedCtrl.getBool(IS_EID) ?? false;
-    if (themeCtrl.isBlueMode) {
+    isEid = box.read(IS_EID) ?? false;
+    if (sl<ThemeController>().isBlueMode) {
       ramadhan = 'ramadan_blue';
       eid = 'eid_blue';
-    } else if (themeCtrl.isBrownMode) {
+    } else if (sl<ThemeController>().isBrownMode) {
       ramadhan = 'ramadan_brown';
       eid = 'eid_brown';
     } else {
@@ -427,7 +309,7 @@ class GeneralController extends GetxController {
                     'عَنْ أَبِي هُرَيْرَةَ، قَالَ قَالَ رَسُولُ اللَّهِ صلى الله عليه وسلم ‏ "‏ أَتَاكُمْ رَمَضَانُ شَهْرٌ مُبَارَكٌ فَرَضَ اللَّهُ عَزَّ وَجَلَّ عَلَيْكُمْ صِيَامَهُ تُفْتَحُ فِيهِ أَبْوَابُ السَّمَاءِ وَتُغْلَقُ فِيهِ أَبْوَابُ الْجَحِيمِ وَتُغَلُّ فِيهِ مَرَدَةُ الشَّيَاطِينِ لِلَّهِ فِيهِ لَيْلَةٌ خَيْرٌ مِنْ أَلْفِ شَهْرٍ مَنْ حُرِمَ خَيْرَهَا فَقَدْ حُرِمَ ‏"‏ ‏.‏\nسنن النسائي - كتاب الصيام - ٢١٠٦\n\n"The Messenger of Allah said: There has come to you Ramadan, a blessed month, which Allah, the Mighty and Sublime, has enjoined you to fast. In it the gates of heavens are opened and the gates of Hell are closed, and every devil is chained up. In it Allah has a night which is better than a thousand months; whoever is deprived of its goodness is indeed deprived.”\nSunan an-Nasai - The Book of Fasting - 2106',
               ),
               isScrollControlled: true)
-          .then((value) => sharedCtrl.setBool(IS_RAMADAN, true));
+          .then((value) => box.write(IS_RAMADAN, true));
     }
     if (eidDays && isEid == false) {
       await Future.delayed(const Duration(seconds: 2));
@@ -438,11 +320,11 @@ class GeneralController extends GetxController {
                 content: eidGreetingContent,
               ),
               isScrollControlled: true)
-          .then((value) => sharedCtrl.setBool(IS_EID, true));
+          .then((value) => box.write(IS_EID, true));
     }
-    if (today.hMonth == 10) sharedCtrl.setBool(IS_RAMADAN, false);
-    if (today.hMonth == 11) sharedCtrl.setBool(IS_EID, false);
-    if (today.hMonth == 1) sharedCtrl.setBool(IS_EID, false);
+    if (today.hMonth == 10) box.write(IS_RAMADAN, false);
+    if (today.hMonth == 11) box.write(IS_EID, false);
+    if (today.hMonth == 1) box.write(IS_EID, false);
   }
 
   double customSize(
@@ -536,7 +418,7 @@ class GeneralController extends GetxController {
 
   void pageModeOnTap(bool value) {
     isPageMode.value = value;
-    sharedCtrl.setBool(PAGE_MODE, value);
+    box.write(PAGE_MODE, value);
     update();
     Get.back();
   }

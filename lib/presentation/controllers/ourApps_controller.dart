@@ -9,6 +9,9 @@ import 'package:url_launcher/url_launcher.dart';
 import '../screens/ourApp/data/models/ourApp_model.dart';
 
 class OurAppsController extends GetxController {
+  static OurAppsController get instance => Get.isRegistered<OurAppsController>()
+      ? Get.find<OurAppsController>()
+      : Get.put<OurAppsController>(OurAppsController());
   Future<List<OurAppInfo>> fetchApps() async {
     final response = await http.get(Uri.parse(
         'https://raw.githubusercontent.com/alheekmahlib/thegarlanded/master/ourAppV2.json'));

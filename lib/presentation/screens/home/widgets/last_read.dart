@@ -3,10 +3,11 @@ import 'package:flutter_svg/svg.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 
-import '../../../../core/services/services_locator.dart';
-import '../../../../core/utils/constants/extensions/extensions.dart';
-import '../../../../core/utils/constants/lottie.dart';
-import '../../../../core/utils/constants/lottie_constants.dart';
+import '/core/utils/constants/extensions/alignment_rotated_extension.dart';
+import '/core/utils/constants/extensions/convert_number_extension.dart';
+import '/core/utils/constants/extensions/extensions.dart';
+import '/core/utils/constants/lottie.dart';
+import '/core/utils/constants/lottie_constants.dart';
 import '../../../controllers/general_controller.dart';
 import '../../../controllers/quran_controller.dart';
 import '../../quran_page/screens/quran_home.dart';
@@ -16,8 +17,8 @@ class LastRead extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final generalCtrl = sl<GeneralController>();
-    final quranCtrl = sl<QuranController>();
+    final generalCtrl = GeneralController.instance;
+    final quranCtrl = QuranController.instance;
     return GestureDetector(
       onTap: () {
         Get.to(() => QuranHome(), transition: Transition.downToUp)!.then(
@@ -108,7 +109,7 @@ class LastRead extends StatelessWidget {
                                     child: FittedBox(
                                       fit: BoxFit.scaleDown,
                                       child: Text(
-                                        '${'pageNo'.tr}: ${generalCtrl.convertNumbers(generalCtrl.currentPageNumber.value.toString())}',
+                                        '${'pageNo'.tr}: ${generalCtrl.currentPageNumber.value.toString().convertNumbers()}',
                                         style: TextStyle(
                                             fontSize: 18.0,
                                             fontFamily: 'naskh',
@@ -136,7 +137,8 @@ class LastRead extends StatelessWidget {
                                                 const BorderRadius.all(
                                                     Radius.circular(8))),
                                       ),
-                                      generalCtrl.checkRtlLayout(
+                                      alignmentLayout(
+                                          context,
                                           RotatedBox(
                                               quarterTurns: 15,
                                               child: customLottie(

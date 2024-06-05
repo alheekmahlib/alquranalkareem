@@ -1,10 +1,11 @@
+import 'package:alquranalkareem/core/utils/constants/extensions/svg_extensions.dart';
+import 'package:alquranalkareem/core/utils/constants/svg_constants.dart';
 import 'package:flutter/material.dart';
 
-import '../../../core/services/services_locator.dart';
-import '../../../core/utils/constants/extensions/extensions.dart';
-import '../../../core/utils/constants/svg_picture.dart';
 import '/presentation/controllers/splash_screen_controller.dart';
 import '/presentation/screens/splashScreen/widgets/logo_and_title.dart';
+import '../../../core/services/services_locator.dart';
+import '../../../core/utils/constants/extensions/extensions.dart';
 import 'widgets/alheekmah_and_loading.dart';
 
 class SplashScreen extends StatelessWidget {
@@ -25,7 +26,8 @@ class SplashScreen extends StatelessWidget {
                     padding: const EdgeInsets.only(top: 48.0),
                     child: Opacity(
                       opacity: .4,
-                      child: splash_icon_half_s(
+                      child: customSvg(
+                        SvgPath.svgSplashIconHalfS,
                         height: MediaQuery.sizeOf(context).width * .4,
                       ),
                     ),
@@ -70,7 +72,8 @@ class SplashScreen extends StatelessWidget {
                   ),
                   Align(
                     alignment: Alignment.topLeft,
-                    child: splash_icon_half_s(
+                    child: customSvg(
+                      SvgPath.svgSplashIconHalfS,
                       height: MediaQuery.sizeOf(context).width * .25,
                     ),
                   ),

@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:home_widget/home_widget.dart';
@@ -10,28 +11,15 @@ import '../../../utils/constants/string_constants.dart';
 import 'prayers_home_widget.dart';
 
 class PrayersWidgetConfig {
-  late Timer _timer;
-  final homeWCtrl = sl<HomeWidgetController>();
+  final homeWCtrl = HomeWidgetController.instance;
   final adhanCtrl = sl<AdhanController>();
-
-  void updateRemainingTime() {
-    _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
-      String remainingTime = adhanCtrl.getTimeLeftForNextPrayerHomeWidget();
-      HomeWidget.saveWidgetData<String>('remainingTime', remainingTime);
-      HomeWidget.updateWidget(
-        iOSName: StringConstants.iosPrayersWidget,
-        androidName: StringConstants.androidPrayersWidget,
-      );
-    });
-  }
 
   Future<void> updatePrayersDate() async {
     var path = await HomeWidget.renderFlutterWidget(
       PrayersHomeWidget(),
       key: 'prayerDateImage',
-      logicalSize: const Size(300, 300),
+      logicalSize: const Size(353, 300),
       pixelRatio: 7,
-      // pixelRatio: MediaQuery.of(Get.context!!).devicePixelRatio,
     );
     var fajrTime = adhanCtrl.prayerNameList[0]['time'];
     var dhuhrTime = adhanCtrl.prayerNameList[1]['time'];
@@ -52,6 +40,11 @@ class PrayersWidgetConfig {
     HomeWidget.saveWidgetData('isha', '$ishaTime');
 
     sl<HomeWidgetController>().prayersPathImages.value = (path as String?)!;
+
+    DateTime nextPrayerTime = adhanCtrl.getTimeLeftForHomeWidgetNextPrayer();
+    String nextPrayerTimeString = nextPrayerTime.toIso8601String();
+    log('Next prayer time: $nextPrayerTimeString');
+    HomeWidget.saveWidgetData<String>('nextPrayerTime', nextPrayerTimeString);
 
     HomeWidget.updateWidget(
       iOSName: StringConstants.iosPrayersWidget,

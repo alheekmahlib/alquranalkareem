@@ -1,3 +1,4 @@
+import 'package:alquranalkareem/core/utils/constants/extensions/svg_extensions.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -6,15 +7,29 @@ import 'package:flutter_svg/svg.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 
-import '../../../services/services_locator.dart';
-import '../svg_picture.dart';
 import '/presentation/controllers/quran_controller.dart';
 import '/presentation/controllers/theme_controller.dart';
+import '../svg_constants.dart';
+import '../svg_picture.dart';
 
-final themeCtrl = sl<ThemeController>();
-final quranCtrl = sl<QuranController>();
+final themeCtrl = ThemeController.instance;
+final quranCtrl = QuranController.instance;
 
-extension CustomSurahNameWithBannerExtension on BuildContext {
+extension BookmarkPageIconPath on BuildContext {
+  String bookmarkPageIconPath() {
+    if (themeCtrl.isBlueMode) {
+      return 'assets/svg/bookmark.svg';
+    } else if (themeCtrl.isBrownMode) {
+      return 'assets/svg/bookmark2.svg';
+    } else if (themeCtrl.isOldMode) {
+      return 'assets/svg/bookmark3.svg';
+    } else {
+      return 'assets/svg/bookmark.svg';
+    }
+  }
+}
+
+extension CustomSurahNameWithBannerExtension on Widget {
   Widget surahNameWidget(String num, Color color,
       {double? height, double? width}) {
     return SvgPicture.asset(
@@ -43,37 +58,31 @@ extension CustomSurahNameWithBannerExtension on BuildContext {
 
   Widget surahBannerWidget(String number) {
     if (themeCtrl.isBlueMode) {
-      return bannerWithSurahName(surah_banner1(width: Get.width * .8), number);
+      return bannerWithSurahName(
+          customSvg(SvgPath.svgSurahBanner1, width: Get.width * .8), number);
     } else if (themeCtrl.isBrownMode) {
-      return bannerWithSurahName(surah_banner2(width: Get.width * .8), number);
+      return bannerWithSurahName(
+          customSvg(SvgPath.svgSurahBanner2, width: Get.width * .8), number);
     } else if (themeCtrl.isOldMode) {
-      return bannerWithSurahName(surah_banner4(width: Get.width * .8), number);
+      return bannerWithSurahName(
+          customSvg(SvgPath.svgSurahBanner4, width: Get.width * .8), number);
     } else {
-      return bannerWithSurahName(surah_banner3(width: Get.width * .8), number);
+      return bannerWithSurahName(
+          customSvg(SvgPath.svgSurahBanner3, width: Get.width * .8), number);
     }
   }
 
   Widget surahAyahBannerWidget(String number) {
     if (themeCtrl.isBlueMode) {
-      return bannerWithSurahName(surah_ayah_banner1(), number);
+      return bannerWithSurahName(
+          customSvg(SvgPath.svgSurahBannerAyah1), number);
     } else if (themeCtrl.isBrownMode) {
-      return bannerWithSurahName(surah_ayah_banner2(), number);
+      return bannerWithSurahName(
+          customSvg(SvgPath.svgSurahBannerAyah2), number);
     } else if (themeCtrl.isOldMode) {
-      return bannerWithSurahName(surah_ayah_banner4(), number);
+      return bannerWithSurahName(customSvg(SvgPath.svgSurahBanner4), number);
     } else {
-      return bannerWithSurahName(surah_banner3(), number);
-    }
-  }
-
-  String bookmarkPageIcon() {
-    if (themeCtrl.isBlueMode) {
-      return 'assets/svg/bookmark.svg';
-    } else if (themeCtrl.isBrownMode) {
-      return 'assets/svg/bookmark2.svg';
-    } else if (themeCtrl.isOldMode) {
-      return 'assets/svg/bookmark3.svg';
-    } else {
-      return 'assets/svg/bookmark.svg';
+      return bannerWithSurahName(customSvg(SvgPath.svgSurahBanner3), number);
     }
   }
 

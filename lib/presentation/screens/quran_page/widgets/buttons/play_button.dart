@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 
+import '/core/utils/constants/extensions/svg_extensions.dart';
 import '../../../../../core/services/services_locator.dart';
-import '../../../../../core/utils/constants/svg_picture.dart';
+import '../../../../../core/utils/constants/svg_constants.dart';
 import '../../../../controllers/audio_controller.dart';
 import '../../../../controllers/general_controller.dart';
 import '../../../../controllers/quran_controller.dart';
@@ -17,7 +18,7 @@ class PlayButton extends StatelessWidget {
       required this.ayahNum,
       required this.ayahUQNum,
       this.cancel});
-  final generalCtrl = sl<GeneralController>();
+  final generalCtrl = GeneralController.instance;
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +27,10 @@ class PlayButton extends StatelessWidget {
         button: true,
         enabled: true,
         label: 'Play Ayah',
-        child: play_arrow(height: 20.0),
+        child: customSvg(
+          SvgPath.svgPlayArrow,
+          height: 20,
+        ),
       ),
       onTap: () {
         sl<AudioController>().startPlayingToggle();

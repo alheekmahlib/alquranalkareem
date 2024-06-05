@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:get_storage/get_storage.dart';
 
 import '../../presentation/controllers/general_controller.dart';
 import '../../presentation/screens/screen_type.dart';
-import '../services/services_locator.dart';
 import '../utils/constants/lists.dart';
 import '../utils/constants/shared_preferences_constants.dart';
 import 'container_button.dart';
@@ -18,10 +17,10 @@ class SelectScreenBuild extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final generalCtrl = sl<GeneralController>();
+    final generalCtrl = GeneralController.instance;
     final size = MediaQuery.sizeOf(context);
     return Container(
-      color: Theme.of(context).colorScheme.background,
+      color: Theme.of(context).colorScheme.primaryContainer,
       child: Stack(
         children: [
           Column(
@@ -106,9 +105,9 @@ class SelectScreenBuild extends StatelessWidget {
                                           onTap: () {
                                             generalCtrl.screenSelectedValue
                                                 .value = index;
-                                            sl<SharedPreferences>().setInt(
+                                            GetStorage().write(
                                                 SCREEN_SELECTED_VALUE, index);
-                                            sl<SharedPreferences>().setBool(
+                                            GetStorage().write(
                                                 IS_SCREEN_SELECTED_VALUE, true);
                                           },
                                           child: Column(

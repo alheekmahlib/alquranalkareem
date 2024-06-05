@@ -2,19 +2,24 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:get_storage/get_storage.dart';
 
+import '/presentation/controllers/share_controller.dart';
 import '../../core/services/services_locator.dart';
 import '../../core/utils/constants/shared_preferences_constants.dart';
-import '/presentation/controllers/share_controller.dart';
 
 class TranslateDataController extends GetxController {
+  static TranslateDataController get instance =>
+      Get.isRegistered<TranslateDataController>()
+          ? Get.find<TranslateDataController>()
+          : Get.put<TranslateDataController>(TranslateDataController());
   var data = [].obs;
   var isLoading = false.obs;
   var trans = 'en'.obs;
   RxInt transValue = 0.obs;
   RxInt shareTransValue = 0.obs;
   var expandedMap = <int, bool>{}.obs;
+  final box = GetStorage();
 
   Future<void> fetchTranslate(BuildContext context) async {
     isLoading.value = true; // Set isLoading to true
@@ -33,38 +38,38 @@ class TranslateDataController extends GetxController {
       case 0:
         sl<ShareController>().isTafseer.value = false;
         trans.value = 'en';
-        await sl<SharedPreferences>().setString(TRANS, 'en');
+        await box.write(TRANS, 'en');
       case 1:
         sl<ShareController>().isTafseer.value = false;
         trans.value = 'es';
-        await sl<SharedPreferences>().setString(TRANS, 'es');
+        await box.write(TRANS, 'es');
       case 2:
         sl<ShareController>().isTafseer.value = false;
         trans.value = 'be';
-        await sl<SharedPreferences>().setString(TRANS, 'be');
+        await box.write(TRANS, 'be');
       case 3:
         sl<ShareController>().isTafseer.value = false;
         trans.value = 'urdu';
-        await sl<SharedPreferences>().setString(TRANS, 'urdu');
+        await box.write(TRANS, 'urdu');
       case 4:
         sl<ShareController>().isTafseer.value = false;
         trans.value = 'so';
-        await sl<SharedPreferences>().setString(TRANS, 'so');
+        await box.write(TRANS, 'so');
       case 5:
         sl<ShareController>().isTafseer.value = false;
         trans.value = 'in';
-        await sl<SharedPreferences>().setString(TRANS, 'in');
+        await box.write(TRANS, 'in');
       case 6:
         sl<ShareController>().isTafseer.value = false;
         trans.value = 'ku';
-        await sl<SharedPreferences>().setString(TRANS, 'ku');
+        await box.write(TRANS, 'ku');
       case 7:
         sl<ShareController>().isTafseer.value = false;
         trans.value = 'tr';
-        await sl<SharedPreferences>().setString(TRANS, 'tr');
+        await box.write(TRANS, 'tr');
       case 8:
         sl<ShareController>().isTafseer.value = true;
-        sl<SharedPreferences>().setBool(IS_TAFSEER, true);
+        box.write(IS_TAFSEER, true);
       default:
         trans.value = 'en';
     }
@@ -76,56 +81,54 @@ class TranslateDataController extends GetxController {
       case 0:
         sl<ShareController>().isTafseer.value = false;
         trans.value = 'en';
-        await sl<SharedPreferences>().setString(TRANS, 'en');
+        await box.write(TRANS, 'en');
       case 1:
         sl<ShareController>().isTafseer.value = false;
         trans.value = 'es';
-        await sl<SharedPreferences>().setString(TRANS, 'es');
+        await box.write(TRANS, 'es');
       case 2:
         sl<ShareController>().isTafseer.value = false;
         trans.value = 'be';
-        await sl<SharedPreferences>().setString(TRANS, 'be');
+        await box.write(TRANS, 'be');
       case 3:
         sl<ShareController>().isTafseer.value = false;
         trans.value = 'urdu';
-        await sl<SharedPreferences>().setString(TRANS, 'urdu');
+        await box.write(TRANS, 'urdu');
       case 4:
         sl<ShareController>().isTafseer.value = false;
         trans.value = 'so';
-        await sl<SharedPreferences>().setString(TRANS, 'so');
+        await box.write(TRANS, 'so');
       case 5:
         sl<ShareController>().isTafseer.value = false;
         trans.value = 'in';
-        await sl<SharedPreferences>().setString(TRANS, 'in');
+        await box.write(TRANS, 'in');
       case 6:
         sl<ShareController>().isTafseer.value = false;
         trans.value = 'ku';
-        await sl<SharedPreferences>().setString(TRANS, 'ku');
+        await box.write(TRANS, 'ku');
       case 7:
         sl<ShareController>().isTafseer.value = false;
         trans.value = 'tr';
-        await sl<SharedPreferences>().setString(TRANS, 'tr');
+        await box.write(TRANS, 'tr');
       // case 8:
       //   sl<ShareController>().isTafseer.value = true;
       //   sl<AyatController>().dBName =
       //       sl<AyatController>().saadiClient?.database;
       //   sl<AyatController>().selectedDBName = MufaserName.saadi.name;
-      //   sl<SharedPreferences>().setBool(IS_TAFSEER, true);
+      //   box.write(IS_TAFSEER, true);
       default:
         trans.value = 'en';
     }
   }
 
   Future<void> loadTranslateValue() async {
-    transValue.value =
-        await sl<SharedPreferences>().getInt(TRANSLATE_VALUE) ?? 0;
-    shareTransValue.value =
-        await sl<SharedPreferences>().getInt(SHARE_TRANSLATE_VALUE) ?? 0;
-    trans.value = await sl<SharedPreferences>().getString(TRANS) ?? 'en';
+    transValue.value = await box.read(TRANSLATE_VALUE) ?? 0;
+    shareTransValue.value = await box.read(SHARE_TRANSLATE_VALUE) ?? 0;
+    trans.value = await box.read(TRANS) ?? 'en';
     sl<ShareController>().currentTranslate.value =
-        await sl<SharedPreferences>().getString(CURRENT_TRANSLATE) ?? 'English';
+        await box.read(CURRENT_TRANSLATE) ?? 'English';
     sl<ShareController>().isTafseer.value =
-        (await sl<SharedPreferences>().getBool(IS_TAFSEER)) ?? false;
+        (await box.read(IS_TAFSEER)) ?? false;
     print('trans.value ${trans.value}');
     print('translateـvalue $transValue');
   }
@@ -134,5 +137,13 @@ class TranslateDataController extends GetxController {
   void onInit() {
     fetchTranslate(Get.context!);
     super.onInit();
+  }
+
+  void changeTranslateOnTap(int index) {
+    transValue.value == index;
+    box.write(TRANSLATE_VALUE, index);
+    translateHandleRadioValueChanged(index);
+    fetchTranslate(Get.context!);
+    Get.back();
   }
 }

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:get_storage/get_storage.dart';
 
 import '../../../../core/services/services_locator.dart';
 import '../../../../core/utils/constants/extensions/extensions.dart';
@@ -51,7 +51,7 @@ class ChangeTafsir extends StatelessWidget {
           ),
         ),
       ),
-      color: Theme.of(context).colorScheme.background,
+      color: Theme.of(context).colorScheme.primaryContainer,
       itemBuilder: (context) => List.generate(
           tafsirName.length,
           (index) => PopupMenuItem(
@@ -90,7 +90,7 @@ class ChangeTafsir extends StatelessWidget {
                                   ? Theme.of(context).colorScheme.inversePrimary
                                   : const Color(0xffCDAD80),
                               width: 2),
-                          color: Theme.of(context).colorScheme.background,
+                          color: Theme.of(context).colorScheme.primaryContainer,
                         ),
                         child: sl<AyatController>().radioValue.value == index
                             ? Icon(Icons.done,
@@ -102,8 +102,7 @@ class ChangeTafsir extends StatelessWidget {
                       ),
                       onTap: () async {
                         sl<AyatController>().handleRadioValueChanged(index);
-                        await sl<SharedPreferences>()
-                            .setInt(TAFSEER_VAL, index);
+                        GetStorage().write(TAFSEER_VAL, index);
                         sl<TranslateDataController>().fetchTranslate(context);
                         sl<AyatController>().update();
                         Get.back();

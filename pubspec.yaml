@@ -6,7 +6,7 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 version: 4.1.1+57
 
 environment:
-  sdk: '>=3.3.2 <4.0.0'
+  sdk: '>=3.4.1 <4.0.0'
 
 dependencies:
   anim_search_bar: ^2.0.3
@@ -14,7 +14,7 @@ dependencies:
   another_xlider: ^3.0.2
   arabic_numbers: ^1.0.0
   bot_toast: ^4.1.3
-  connectivity_plus: ^5.0.2
+  connectivity_plus: ^6.0.3
   cupertino_icons: ^1.0.8
   desktop_window: ^0.4.0
 #  device_info_plus: ^10.0.1
@@ -44,14 +44,14 @@ dependencies:
   package_rename: ^1.6.0
   path: ^1.9.0
   path_provider: ^2.1.3
-  rate_my_app: ^2.1.0
+  rate_my_app: ^2.2.0
   read_more_less: ^1.0.0
   responsive_builder: ^0.7.0
   rxdart: ^0.27.7
   screenshot: ^3.0.0
   scrollable_positioned_list: ^0.3.8
   share_plus: ^9.0.0
-  shared_preferences: ^2.2.3
+#  shared_preferences: ^2.2.3
   smooth_page_indicator: ^1.1.0
 #  speech_to_text: ^6.6.0
   sqflite: ^2.3.3+1
@@ -62,7 +62,7 @@ dependencies:
 #  audio_service: ^0.18.12
 #  scroll_to_index: ^3.0.1
   drift: ^2.18.0
-  sqlite3_flutter_libs: ^0.5.21
+  sqlite3_flutter_libs: ^0.5.22
   # adhan packages
   adhan: ^2.0.0+1
   geolocator: ^12.0.0
@@ -78,10 +78,12 @@ dependencies:
   slide_countdown: ^1.6.1
   workmanager: ^0.5.2
   home_widget: ^0.6.0
-  davinci:
-  archive: ^3.5.1
-  sunicons: ^0.0.3
+  archive: ^3.6.0
   solar_icons: ^0.0.5
+  nominatim_geocoding: ^0.0.6
+  alarm: ^3.1.4
+  flutter_background_service: ^5.0.5
+  device_info_plus: ^10.1.0
 
 
 dev_dependencies:
@@ -118,9 +120,13 @@ package_rename_config:
   flutter_lints: ^4.0.0
 
 flutter_assets:
-  assets_path: assets/lottie/
+  # assets_path: assets/lottie/
+  assets_path: assets/svg/
   output_path: lib/core/utils/constants/
-  filename: lottie_constants.dart
+  # filename: lottie_constants.dart
+  filename: svg_constants.dart
+  field_prefix:
+  class_name: SvgPath
 
 flutter:
 
@@ -132,6 +138,7 @@ flutter:
     - assets/icons/
     - assets/svg/surah_name/
     - assets/images/
+    - assets/images/icons/
     - assets/svg/hijri/
     - assets/svg/alwaqf/
     - assets/json/

@@ -3,14 +3,15 @@ import 'package:flutter/services.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 
-import '../../../../core/utils/constants/svg_picture.dart';
+import '/core/utils/constants/extensions/custom_error_snackBar.dart';
+import '/core/utils/constants/extensions/svg_extensions.dart';
+import '../../../../core/utils/constants/svg_constants.dart';
 import '../../../controllers/azkar_controller.dart';
 import '../models/zeker_model.dart';
-import '/core/utils/constants/extensions/custom_error_snackBar.dart';
 import 'share/share_zekr_options.dart';
 
 class OptionsRow extends StatelessWidget {
-  final Zekr zekr;
+  final Dhekr zekr;
   final bool azkarFav;
 
   OptionsRow({super.key, required this.zekr, required this.azkarFav});
@@ -28,7 +29,13 @@ class OptionsRow extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Expanded(flex: 2, child: slider_ic2(height: 25)),
+            Expanded(
+              flex: 2,
+              child: customSvg(
+                SvgPath.svgSliderIc2,
+                height: 25,
+              ),
+            ),
             Expanded(
               flex: 6,
               child: Row(
@@ -53,15 +60,18 @@ class OptionsRow extends StatelessWidget {
                       button: true,
                       enabled: true,
                       label: 'copy'.tr,
-                      child: copy_icon(height: 20.0),
+                      child: customSvg(
+                        SvgPath.svgCopyIcon,
+                        height: 20,
+                      ),
                     ),
                   ),
                   GestureDetector(
                     onTap: () async {
                       azkarCtrl.hasBookmark(zekr.category, zekr.zekr).value
-                          ? azkarCtrl.deleteAzkar(zekr, context)
+                          ? azkarCtrl.deleteAdhkar(zekr, context)
                           : await azkarCtrl
-                              .addAzkar(Zekr(
+                              .addAdhkar(Dhekr(
                                   id: zekr.id,
                                   category: zekr.category,
                                   count: zekr.count,
@@ -71,7 +81,7 @@ class OptionsRow extends StatelessWidget {
                               .then((value) {
                               context.showCustomErrorSnackBar(
                                   'addZekrBookmark'.tr);
-                              azkarCtrl.getAzkar();
+                              azkarCtrl.getAdhkar();
                               azkarCtrl.update();
                             });
                     },
@@ -81,8 +91,14 @@ class OptionsRow extends StatelessWidget {
                       label: 'addToBookmark'.tr,
                       child:
                           azkarCtrl.hasBookmark(zekr.category, zekr.zekr).value
-                              ? bookmark_icon2(height: 23.0)
-                              : bookmark_icon(height: 20.0),
+                              ? customSvg(
+                                  SvgPath.svgBookmarkIcon2,
+                                  height: 23,
+                                )
+                              : customSvg(
+                                  SvgPath.svgBookmarkIcon,
+                                  height: 20,
+                                ),
                     ),
                   ),
                 ],
@@ -106,7 +122,7 @@ class OptionsRow extends StatelessWidget {
                       style: TextStyle(
                           color: Get.isDarkMode
                               ? Colors.white
-                              : Theme.of(context).colorScheme.background,
+                              : Theme.of(context).colorScheme.primaryContainer,
                           fontSize: 14,
                           fontFamily: 'kufi',
                           fontStyle: FontStyle.italic),
@@ -116,7 +132,7 @@ class OptionsRow extends StatelessWidget {
                       Icons.repeat,
                       color: Get.isDarkMode
                           ? Colors.white
-                          : Theme.of(context).colorScheme.background,
+                          : Theme.of(context).colorScheme.primaryContainer,
                       size: 20,
                     ),
                   ],

@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 
+import '/core/utils/constants/extensions/alignment_rotated_extension.dart';
+import '/core/utils/constants/extensions/convert_number_extension.dart';
 import '../../../../presentation/controllers/general_controller.dart';
 import '../../../../presentation/controllers/quran_controller.dart';
-import '../../../services/services_locator.dart';
 import '../../../utils/constants/extensions/extensions.dart';
 import '../../../utils/constants/lottie.dart';
 import '../../../utils/constants/lottie_constants.dart';
@@ -19,8 +20,8 @@ class KhatmahWidget extends StatelessWidget {
       required this.surahNumber,
       required this.pageNumber});
 
-  final generalCtrl = sl<GeneralController>();
-  final quranCtrl = sl<QuranController>();
+  final generalCtrl = GeneralController.instance;
+  final quranCtrl = QuranController.instance;
 
   @override
   Widget build(BuildContext context) {
@@ -72,7 +73,7 @@ class KhatmahWidget extends StatelessWidget {
                             child: FittedBox(
                               fit: BoxFit.scaleDown,
                               child: Text(
-                                '${'pageNo'.tr}: ${generalCtrl.convertNumbers(pageNumber.toString())}',
+                                '${'pageNo'.tr}: ${(pageNumber.toString().convertNumbers())}',
                                 style: TextStyle(
                                     fontSize: 18.0,
                                     fontFamily: 'naskh',
@@ -98,7 +99,8 @@ class KhatmahWidget extends StatelessWidget {
                                     borderRadius: const BorderRadius.all(
                                         Radius.circular(8))),
                               ),
-                              generalCtrl.checkRtlLayout(
+                              alignmentLayout(
+                                  context,
                                   RotatedBox(
                                       quarterTurns: 15,
                                       child: customLottie(

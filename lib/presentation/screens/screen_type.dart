@@ -15,7 +15,7 @@ class ScreenTypeL extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final generalCtrl = sl<GeneralController>();
+    final generalCtrl = GeneralController.instance;
     generalCtrl.ramadhanOrEidGreeting();
     if (Platform.isIOS || Platform.isAndroid || Platform.isFuchsia) {
       UiHelper.showRateDialog(context);

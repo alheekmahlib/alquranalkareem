@@ -2,14 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:just_audio/just_audio.dart';
 
-import '../../../../core/services/services_locator.dart';
 import '../../../controllers/surah_audio_controller.dart';
 
 class SkipToNext extends StatelessWidget {
   const SkipToNext({super.key});
   @override
   Widget build(BuildContext context) {
-    final surahAudioCtrl = sl<SurahAudioController>();
+    final surahAudioCtrl = SurahAudioController.instance;
     return StreamBuilder<SequenceState?>(
       stream: surahAudioCtrl.audioPlayer.sequenceStateStream,
       builder: (context, snapshot) => IconButton(

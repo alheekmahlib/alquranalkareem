@@ -24,7 +24,7 @@ class HomeScreen extends StatelessWidget {
           backgroundColor: Theme.of(context).colorScheme.primary,
           body: SafeArea(
             child: Container(
-              color: Theme.of(context).colorScheme.background,
+              color: Theme.of(context).colorScheme.primaryContainer,
               child: Column(
                 children: [
                   const TabBarWidget(

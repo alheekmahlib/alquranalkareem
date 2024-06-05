@@ -3,9 +3,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 
-import '../../../../core/services/services_locator.dart';
-import '../../../controllers/splash_screen_controller.dart';
 import '/core/utils/constants/extensions/extensions.dart';
+import '../../../controllers/splash_screen_controller.dart';
 
 class PageViewBuild extends StatelessWidget {
   final PageController controller;
@@ -13,7 +12,7 @@ class PageViewBuild extends StatelessWidget {
   PageViewBuild(
       {super.key, required this.controller, required this.newFeatures});
 
-  final splashCtrl = sl<SplashScreenController>();
+  final splashCtrl = SplashScreenController.instance;
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.sizeOf(context);

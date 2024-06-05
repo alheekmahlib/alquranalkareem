@@ -1,9 +1,12 @@
-import 'package:alquranalkareem/presentation/controllers/quran_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:get_storage/get_storage.dart';
 
+import '/core/utils/constants/extensions/custom_error_snackBar.dart';
+import '/presentation/controllers/quran_controller.dart';
+import '/presentation/controllers/translate_controller.dart';
+import '/presentation/screens/quran_page/data/model/aya.dart';
 import '../../core/services/services_locator.dart';
 import '../../core/utils/constants/shared_preferences_constants.dart';
 import '../screens/quran_page/data/data_source/baghawy_data_client.dart';
@@ -15,13 +18,12 @@ import '../screens/quran_page/data/model/tafsir.dart';
 import '../screens/quran_page/data/repository/ayat_repository.dart';
 import '../screens/quran_page/data/repository/tafseer_repository.dart';
 import '../screens/quran_page/widgets/show_tafseer.dart';
-import '/core/utils/constants/extensions/custom_error_snackBar.dart';
-import '/core/utils/constants/extensions/text_span_extension.dart';
-import '/presentation/controllers/translate_controller.dart';
-import '/presentation/screens/quran_page/data/model/aya.dart';
 import 'general_controller.dart';
 
 class AyatController extends GetxController {
+  static AyatController get instance => Get.isRegistered<AyatController>()
+      ? Get.find<AyatController>()
+      : Get.put<AyatController>(AyatController());
   IbnkatheerDataBaseClient? ibnkatheerClient;
   BaghawyDataBaseClient? baghawyClient;
   QurtubiDataBaseClient? qurtubiClient;
@@ -38,11 +40,7 @@ class AyatController extends GetxController {
   String? selectedDBName;
   var dBName;
   RxInt radioValue = 0.obs;
-  RxInt numberOfAyahText = 1.obs;
-  RxString ayahTextNumber = '1'.obs;
   RxString ayahTextNormal = ''.obs;
-  RxString surahTextNumber = '1'.obs;
-  RxInt ayahSelected = (-1).obs;
   RxInt ayahNumber = (-1).obs;
   RxInt ayahUQNumber = (-1).obs;
   RxInt surahNumber = 1.obs;
@@ -59,6 +57,7 @@ class AyatController extends GetxController {
   RxBool isTafseer = false.obs;
   Tafsir? selectedTafsir;
   List<Tafsir>? currentPageTafseer;
+  final box = GetStorage();
 
   Future<List<Tafsir>> fetchTafseerPage(int pageNum) async {
     List<Tafsir>? tafseer =
@@ -100,35 +99,35 @@ class AyatController extends GetxController {
       case 5:
         isTafseer.value = false;
         sl<TranslateDataController>().trans.value = 'en';
-        sl<SharedPreferences>().setString(TRANS, 'en');
+        box.write(TRANS, 'en');
       case 6:
         isTafseer.value = false;
         sl<TranslateDataController>().trans.value = 'es';
-        sl<SharedPreferences>().setString(TRANS, 'es');
+        box.write(TRANS, 'es');
       case 7:
         isTafseer.value = false;
         sl<TranslateDataController>().trans.value = 'be';
-        sl<SharedPreferences>().setString(TRANS, 'be');
+        box.write(TRANS, 'be');
       case 8:
         isTafseer.value = false;
         sl<TranslateDataController>().trans.value = 'urdu';
-        sl<SharedPreferences>().setString(TRANS, 'urdu');
+        box.write(TRANS, 'urdu');
       case 9:
         isTafseer.value = false;
         sl<TranslateDataController>().trans.value = 'so';
-        sl<SharedPreferences>().setString(TRANS, 'so');
+        box.write(TRANS, 'so');
       case 10:
         isTafseer.value = false;
         sl<TranslateDataController>().trans.value = 'in';
-        sl<SharedPreferences>().setString(TRANS, 'in');
+        box.write(TRANS, 'in');
       case 11:
         isTafseer.value = false;
         sl<TranslateDataController>().trans.value = 'ku';
-        sl<SharedPreferences>().setString(TRANS, 'ku');
+        box.write(TRANS, 'ku');
       case 12:
         isTafseer.value = false;
         sl<TranslateDataController>().trans.value = 'tr';
-        sl<SharedPreferences>().setString(TRANS, 'tr');
+        box.write(TRANS, 'tr');
       default:
         dBName = ibnkatheerClient?.database;
         selectedDBName = MufaserName.ibnkatheer.name;
@@ -142,7 +141,7 @@ class AyatController extends GetxController {
   }
 
   Future<void> loadTafseer() async {
-    radioValue.value = await sl<SharedPreferences>().getInt(TAFSEER_VAL) ?? 0;
+    radioValue.value = await box.read(TAFSEER_VAL) ?? 0;
   }
 
   Future<void> getTranslatedPage(int pageNum, BuildContext context) async {
@@ -156,21 +155,6 @@ class AyatController extends GetxController {
       currentPageError.value = "Error fetching Translated Page: $e";
     }
   }
-
-  // Future<void> getTranslatedAyah(BuildContext context, int selectedSurahNumber,
-  //     int selectedAyahNumber) async {
-  //   currentPageLoading.value = true;
-  //   try {
-  //     List<Tafseer> ayahs = await handleRadioValueChanged(radioValue.value)
-  //         .getAyahTafseer(selectedSurahNumber, selectedAyahNumber);
-  //     currentPageLoading.value = false;
-  //     // Update other observables if needed
-  //     // Use the 'ayahs' as needed here, e.g., update UI or state
-  //   } catch (e) {
-  //     currentPageLoading.value = false;
-  //     currentPageError.value = "Error fetching Translated Page: $e";
-  //   }
-  // }
 
   Future<void> getTafsir(int ayahUQNumber, int surahNumber) async {
     currentPageTafseer = await handleRadioValueChanged(radioValue.value)
@@ -186,9 +170,7 @@ class AyatController extends GetxController {
   void showTafsirOnTap(int surahNum, int ayahNum, String ayahText,
       int pageIndex, String ayahTextN, int ayahUQNum, int index) {
     tafseerAyah = ayahText;
-    numberOfAyahText.value = ayahNum;
     surahNumber.value = surahNum;
-    ayahTextNumber.value = ayahUQNum.toString();
     ayahTextNormal.value = ayahTextN;
     ayahUQNumber.value = ayahUQNum;
     sl<GeneralController>().currentPageNumber.value = pageIndex;
@@ -204,10 +186,9 @@ class AyatController extends GetxController {
     );
   }
 
-  Future<void> copyOnTap() async {
+  Future<void> copyOnTap(String tafsirName, String tafsir) async {
     await Clipboard.setData(ClipboardData(
-            text:
-                '﴿${ayahTextNormal.value}﴾\n\n${selectedTafsir!.text.buildTextSpans()}'))
+            text: '﴿${ayahTextNormal.value}﴾\n\n$tafsirName\n${tafsir}'))
         .then(
             (value) => Get.context!.showCustomErrorSnackBar('copyTafseer'.tr));
   }

@@ -3,7 +3,6 @@ import 'package:get/get.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:square_percent_indicater/square_percent_indicater.dart';
 
-import '../../../../core/services/services_locator.dart';
 import '../../../../core/utils/constants/lottie.dart';
 import '../../../../core/utils/constants/lottie_constants.dart';
 import '../../../controllers/surah_audio_controller.dart';
@@ -13,7 +12,7 @@ class DownloadPlayButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final surahAudioCtrl = sl<SurahAudioController>();
+    final surahAudioCtrl = SurahAudioController.instance;
     return SizedBox(
       height: 120,
       width: 40,

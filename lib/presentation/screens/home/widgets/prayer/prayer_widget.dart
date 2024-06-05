@@ -4,7 +4,6 @@ import 'package:get/get.dart';
 import 'package:slide_countdown/slide_countdown.dart';
 
 import '../../../../../core/services/location/locations.dart';
-import '../../../../../core/services/services_locator.dart';
 import '../../../../controllers/adhan_controller.dart';
 import '../../../../controllers/general_controller.dart';
 import 'prayer_build.dart';
@@ -12,7 +11,7 @@ import 'prayer_build.dart';
 class PrayerWidget extends StatelessWidget {
   PrayerWidget({super.key});
 
-  final generalCtrl = sl<GeneralController>();
+  final generalCtrl = GeneralController.instance;
 
   @override
   Widget build(BuildContext context) {

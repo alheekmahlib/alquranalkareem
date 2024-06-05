@@ -7,42 +7,52 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:geocoding/geocoding.dart' as geo;
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:hijri/hijri_calendar.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:solar_icons/solar_icons.dart';
 
+import '/core/data/models/prayer_day_model.dart';
 import '/core/services/location/locations.dart';
+import '/core/services/services_locator.dart';
+import '/core/utils/constants/lists.dart';
+import '/core/utils/constants/location_enum.dart';
+import '/core/utils/constants/lottie.dart';
+import '/core/utils/constants/lottie_constants.dart';
+import '/core/utils/constants/shared_preferences_constants.dart';
 import '/core/utils/helpers/date_formatter.dart';
-import '../../core/data/models/prayer_day_model.dart';
-import '../../core/services/services_locator.dart';
-import '../../core/utils/constants/lists.dart';
-import '../../core/utils/constants/location_enum.dart';
-import '../../core/utils/constants/lottie.dart';
-import '../../core/utils/constants/lottie_constants.dart';
-import '../../core/utils/constants/shared_preferences_constants.dart';
-import '../../core/widgets/home_widget/hijri_widget/hijri_widget_config.dart';
-import '../../core/widgets/home_widget/prayers_widget/prayers_widget_config.dart';
+import '/core/widgets/home_widget/hijri_widget/hijri_widget_config.dart';
+import '/core/widgets/home_widget/prayers_widget/prayers_widget_config.dart';
 import 'general_controller.dart';
 import 'notification_controller.dart';
 
 class AdhanController extends GetxController {
-  late PrayerTimes prayerTimes;
-  String nextPrayerTime = "";
+  static AdhanController get instance => Get.isRegistered<AdhanController>()
+      ? Get.find<AdhanController>()
+      : Get.put<AdhanController>(AdhanController());
+  final box = GetStorage();
+  //  PrayerTimes? prayerTimes;
+  PrayerTimes get prayerTimes => PrayerTimes(
+      Coordinates(Location.instance.position!.longitude,
+          Location.instance.position!.latitude),
+      dateComponents,
+      params);
   final DateTime now = DateTime.now();
   RxBool prayerAlarm = true.obs;
-  final sharedCtrl = sl<SharedPreferences>();
   var countdownTime = "".obs;
-  late SunnahTimes sunnahTimes;
+  SunnahTimes get sunnahTimes => SunnahTimes(prayerTimes);
   // RxBool formatted12Hour = true.obs;
   // RxBool isHijri = true.obs;
   HijriCalendar hijriDateNow = HijriCalendar.now();
-  late Coordinates coordinates;
+  // Coordinates get coordinates => Coordinates(
+  //    (Location.instance.position?? box.read('key')));
+  Coordinates? coordinates;
   // Create date components from the provided date
-  late DateComponents dateComponents;
+  DateComponents get dateComponents => DateComponents.from(now);
   // Get calculation parameters based on your desired calculation method
   late CalculationParameters params;
   RxDouble timeProgress = 0.0.obs;
   Timer? timer;
+  RxString sunriseTimeStr = ''.obs;
   RxString fajrTime = ''.obs;
   RxString dhuhrTime = ''.obs;
   RxString asrTime = ''.obs;
@@ -55,8 +65,8 @@ class AdhanController extends GetxController {
   RxBool twilightAngle = true.obs;
   RxBool middleOfTheNight = false.obs;
   RxBool seventhOfTheNight = false.obs;
-  var prayerTimesNow;
-  final generalCtrl = sl<GeneralController>();
+  // var prayerTimesNow;
+  final generalCtrl = GeneralController.instance;
   // final notiCtrl = sl<NotificationController>();
   RxBool autoCalculationMethod = true.obs;
   RxString calculationMethodString = 'أم القرى'.obs;
@@ -64,7 +74,7 @@ class AdhanController extends GetxController {
   List<String> countries = [];
   late final HighLatitudeRule highLatitudeRule;
   var index = RxInt(0);
-  List<RxInt> adjustments = List.generate(7, (_) => 0.obs);
+  List<RxInt> adjustments = List.generate(8, (_) => 0.obs);
 
   Future<List<String>>? countryListFuture;
   fetchCountryList() {
@@ -85,6 +95,12 @@ class AdhanController extends GetxController {
     Duration adjustment = Duration(minutes: adjustments[0].value);
     DateTime adjustedFajrTime = prayerTimes.fajr.add(adjustment);
     return await DateFormatter.justTime(adjustedFajrTime);
+  }
+
+  Future<String> get getSunriseTime async {
+    Duration adjustment = Duration(minutes: adjustments[0].value);
+    DateTime adjustedSunriseTime = prayerTimes.sunrise.add(adjustment);
+    return await DateFormatter.justTime(adjustedSunriseTime);
   }
 
   Future<String> get getDhuhrTime async {
@@ -212,40 +228,40 @@ class AdhanController extends GetxController {
     return nextPrayerDateTime.difference(now);
   }
 
-  String getTimeLeftForNextPrayerHomeWidget() {
+  DateTime getTimeLeftForHomeWidgetNextPrayer() {
     final now = DateTime.now();
-    final Prayer? nextPrayer = prayerTimes.nextPrayer();
+    final Prayer? nextPrayer = adhanCtrl.prayerTimes.nextPrayer();
     if (nextPrayer == null) {
-      return '${Duration.zero}';
+      return now.add(Duration(hours: 1)); // Default to one hour from now
     }
-    final DateTime? nextPrayerDateTime = prayerTimes.timeForPrayer(nextPrayer);
+    final DateTime? nextPrayerDateTime =
+        adhanCtrl.prayerTimes.timeForPrayer(nextPrayer);
     if (nextPrayerDateTime == null || nextPrayerDateTime.isBefore(now)) {
-      return '${Duration.zero}';
+      return now.add(Duration(hours: 1)); // Default to one hour from now
     }
-    nextPrayerDateTime.difference(now);
-    return DateFormatter.timeLeft(nextPrayerDateTime);
+    return nextPrayerDateTime;
   }
 
   void prayerAlarmSwitch(int index) {
     switch (index) {
       case 0:
-        sharedCtrl.setBool(prayerNameList[0]['sharedAlarm'],
+        box.write(prayerNameList[0]['sharedAlarm'],
             prayerAlarm.value = !prayerAlarm.value);
         break;
       case 1:
-        sharedCtrl.setBool(prayerNameList[1]['sharedAlarm'],
+        box.write(prayerNameList[1]['sharedAlarm'],
             prayerAlarm.value = !prayerAlarm.value);
         break;
       case 2:
-        sharedCtrl.setBool(prayerNameList[2]['sharedAlarm'],
+        box.write(prayerNameList[2]['sharedAlarm'],
             prayerAlarm.value = !prayerAlarm.value);
         break;
       case 3:
-        sharedCtrl.setBool(prayerNameList[3]['sharedAlarm'],
+        box.write(prayerNameList[3]['sharedAlarm'],
             prayerAlarm.value = !prayerAlarm.value);
         break;
       case 4:
-        sharedCtrl.setBool(prayerNameList[4]['sharedAlarm'],
+        box.write(prayerNameList[4]['sharedAlarm'],
             prayerAlarm.value = !prayerAlarm.value);
         break;
     }
@@ -261,21 +277,22 @@ class AdhanController extends GetxController {
   }
 
   void get getShared {
-    isHanafi.value = sharedCtrl.getBool(SHAFI) ?? true;
-    highLatitudeRuleIndex.value = sharedCtrl.getInt(HIGH_LATITUDE_RULE) ?? 2;
-    autoCalculationMethod.value = sharedCtrl.getBool(AUTO_CALCULATION) ?? true;
-    adjustments[0].value = sharedCtrl.getInt('ADJUSTMENT_FAJR') ?? 0;
-    adjustments[1].value = sharedCtrl.getInt('ADJUSTMENT_DHUHR') ?? 0;
-    adjustments[2].value = sharedCtrl.getInt('ADJUSTMENT_ASR') ?? 0;
-    adjustments[3].value = sharedCtrl.getInt('ADJUSTMENT_MAGHRIB') ?? 0;
-    adjustments[4].value = sharedCtrl.getInt('ADJUSTMENT_ISHA') ?? 0;
-    adjustments[5].value = sharedCtrl.getInt('ADJUSTMENT_THIRD') ?? 0;
-    adjustments[6].value = sharedCtrl.getInt('ADJUSTMENT_MIDNIGHT') ?? 0;
+    isHanafi.value = box.read(SHAFI) ?? true;
+    highLatitudeRuleIndex.value = box.read(HIGH_LATITUDE_RULE) ?? 2;
+    autoCalculationMethod.value = box.read(AUTO_CALCULATION) ?? true;
+    adjustments[0].value = box.read('ADJUSTMENT_FAJR') ?? 0;
+    adjustments[1].value = box.read('ADJUSTMENT_DHUHR') ?? 0;
+    adjustments[2].value = box.read('ADJUSTMENT_ASR') ?? 0;
+    adjustments[3].value = box.read('ADJUSTMENT_MAGHRIB') ?? 0;
+    adjustments[4].value = box.read('ADJUSTMENT_ISHA') ?? 0;
+    adjustments[5].value = box.read('ADJUSTMENT_THIRD') ?? 0;
+    adjustments[6].value = box.read('ADJUSTMENT_MIDNIGHT') ?? 0;
   }
 
   Future<void> initTimes() async {
     print("Updating times...");
     await Future.wait([
+      getSunriseTime.then((v) => sunriseTimeStr.value = v),
       getFajrTime.then((v) => fajrTime.value = v),
       getDhuhrTime.then((v) => dhuhrTime.value = v),
       getAsrTime.then((v) => asrTime.value = v),
@@ -289,9 +306,7 @@ class AdhanController extends GetxController {
   }
 
   getPrayerSelected(int index, var v1, var v2) =>
-      sharedCtrl.getBool(prayerNameList[index]['sharedAlarm']) == true
-          ? v1
-          : v2;
+      box.read(prayerNameList[index]['sharedAlarm']) == true ? v1 : v2;
 
   Future<PrayerDay> getPrayerTimesForDay(DateTime date) async {
     // Convert to Hijri
@@ -323,19 +338,19 @@ class AdhanController extends GetxController {
         twilightAngle.value = false;
         seventhOfTheNight.value = false;
         middleOfTheNight.value = true;
-        sharedCtrl.setInt(HIGH_LATITUDE_RULE, 0);
+        box.write(HIGH_LATITUDE_RULE, 0);
         return HighLatitudeRule.middle_of_the_night;
       case 1:
         twilightAngle.value = false;
         middleOfTheNight.value = false;
         seventhOfTheNight.value = true;
-        sharedCtrl.setInt(HIGH_LATITUDE_RULE, 1);
+        box.write(HIGH_LATITUDE_RULE, 1);
         return HighLatitudeRule.seventh_of_the_night;
       case 2:
         middleOfTheNight.value = false;
         seventhOfTheNight.value = false;
         twilightAngle.value = true;
-        sharedCtrl.setInt(HIGH_LATITUDE_RULE, 2);
+        box.write(HIGH_LATITUDE_RULE, 2);
         return HighLatitudeRule.twilight_angle;
       default:
         return HighLatitudeRule.twilight_angle;
@@ -343,10 +358,9 @@ class AdhanController extends GetxController {
   }
 
   Future<void> initializeAdhanVariables() async {
-    coordinates = Coordinates(Location.instance.position!.latitude,
-        Location.instance.position!.longitude);
-    log('coordinates: ${Location.instance.position!.latitude} ${coordinates.longitude}');
-    dateComponents = DateComponents.from(now);
+    coordinates = Coordinates(Location.instance.position!.longitude,
+        Location.instance.position!.latitude);
+    log('coordinates: ${Location.instance.position!.latitude} ${coordinates!.longitude}');
 
     if (!autoCalculationMethod.value) {
       params =
@@ -360,10 +374,9 @@ class AdhanController extends GetxController {
       ..madhab = getMadhab(isHanafi.value)
       ..highLatitudeRule = getHighLatitudeRule(highLatitudeRuleIndex.value);
 
-    prayerTimesNow = PrayerTimes(coordinates, dateComponents, params);
-    sunnahTimes = SunnahTimes(prayerTimesNow);
+    // prayerTimes= PrayerTimes(coordinates, dateComponents, params);
     update();
-    prayerTimes = prayerTimesNow;
+    // prayerTimes = prayerTimesNow;
     return await initTimes();
   }
 
@@ -381,7 +394,7 @@ class AdhanController extends GetxController {
       });
       await PrayersWidgetConfig.initialize();
       PrayersWidgetConfig().updatePrayersDate();
-      PrayersWidgetConfig().updateRemainingTime();
+      // PrayersWidgetConfig().updateRemainingTime();
     }
     await HijriWidgetConfig.initialize();
     HijriWidgetConfig().updateHijriDate();
@@ -485,20 +498,20 @@ class AdhanController extends GetxController {
     adhanCtrl.isHanafi.value = true;
     initializeAdhanVariables();
     sl<NotificationController>().initializeNotification();
-    sharedCtrl.setBool(SHAFI, adhanCtrl.isHanafi.value);
+    box.write(SHAFI, adhanCtrl.isHanafi.value);
   }
 
   void hanafiOnTap() {
     adhanCtrl.isHanafi.value = false;
     initializeAdhanVariables();
     sl<NotificationController>().initializeNotification();
-    sharedCtrl.setBool(SHAFI, adhanCtrl.isHanafi.value);
+    box.write(SHAFI, adhanCtrl.isHanafi.value);
   }
 
   Future<void> removeOnTap(int index) async {
     print("Before remove: ${adjustments[index].value}");
     adjustments[index].value -= 1;
-    sharedCtrl.setInt(
+    box.write(
         prayerNameList[index]['sharedAdjustment'], adjustments[index].value);
     print("After remove: ${adjustments[index].value}");
     await initTimes();
@@ -509,7 +522,7 @@ class AdhanController extends GetxController {
   Future<void> addOnTap(int index) async {
     print("Before add: ${adjustments[index].value}");
     adjustments[index].value += 1;
-    sharedCtrl.setInt(
+    box.write(
         prayerNameList[index]['sharedAdjustment'], adjustments[index].value);
     print("After add: ${adjustments[index].value}");
     await initTimes();
@@ -521,7 +534,7 @@ class AdhanController extends GetxController {
     autoCalculationMethod.value = !autoCalculationMethod.value;
     await initializeAdhanVariables();
     sl<NotificationController>().initializeNotification();
-    sharedCtrl.setBool(AUTO_CALCULATION, value);
+    box.write(AUTO_CALCULATION, value);
   }
 
   List<Map<String, dynamic>> _prayerNameList = [];
@@ -545,6 +558,16 @@ class AdhanController extends GetxController {
           'icon': SolarIconsBold.moonFog,
         },
         {
+          'title': 'الشروق',
+          'time': sunriseTimeStr.value,
+          'hourTime': prayerTimes.sunrise,
+          'minuteTime': prayerTimes.sunrise.minute,
+          'sharedAlarm': 'ALARM_SUNRISE',
+          'sharedAfter': 'AFTER_SUNRISE',
+          'sharedAdjustment': 'ADJUSTMENT_SUNRISE',
+          'icon': SolarIconsBold.sunrise,
+        },
+        {
           'title': 'الظهر',
           'time': dhuhrTime.value,
           'hourTime': prayerTimes.dhuhr,
@@ -552,7 +575,7 @@ class AdhanController extends GetxController {
           'sharedAlarm': 'ALARM_DHUHR',
           'sharedAfter': 'AFTER_DHUHR',
           'sharedAdjustment': 'ADJUSTMENT_DHUHR',
-          'icon': SolarIconsBold.sun,
+          'icon': SolarIconsBold.sun2,
         },
         {
           'title': 'العصر',
@@ -562,7 +585,7 @@ class AdhanController extends GetxController {
           'sharedAlarm': 'ALARM_ASR',
           'sharedAfter': 'AFTER_ASR',
           'sharedAdjustment': 'ADJUSTMENT_ASR',
-          'icon': SolarIconsBold.sun2,
+          'icon': SolarIconsBold.sun,
         },
         {
           'title': 'المغرب',

@@ -1,25 +1,26 @@
-import 'package:alquranalkareem/core/utils/constants/extensions/extensions.dart';
-import 'package:alquranalkareem/core/utils/constants/extensions/surah_name_with_banner.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 
+import '/core/utils/constants/extensions/convert_number_extension.dart';
+import '/core/utils/constants/extensions/extensions.dart';
+import '/core/utils/constants/extensions/surah_name_with_banner.dart';
+import '/core/utils/constants/extensions/text_span_extension.dart';
+import '/presentation/controllers/ayat_controller.dart';
+import '/presentation/controllers/quran_controller.dart';
 import '../../../presentation/controllers/daily_ayah_controller.dart';
 import '../../../presentation/controllers/general_controller.dart';
 import '../../services/services_locator.dart';
 import '../../utils/constants/lists.dart';
-import '/core/utils/constants/extensions/text_span_extension.dart';
-import '/presentation/controllers/ayat_controller.dart';
-import '/presentation/controllers/quran_controller.dart';
 
 class AyahTafsirWidget extends StatelessWidget {
   AyahTafsirWidget({super.key});
 
-  final dailyCtrl = sl<DailyAyahController>();
-  final ayatCtrl = sl<AyatController>();
-  final generalCtrl = sl<GeneralController>();
-  final quranCtrl = sl<QuranController>();
+  final dailyCtrl = DailyAyahController.instance;
+  final ayatCtrl = AyatController.instance;
+  final generalCtrl = GeneralController.instance;
+  final quranCtrl = QuranController.instance;
 
   @override
   Widget build(BuildContext context) {
@@ -37,7 +38,7 @@ class AyahTafsirWidget extends StatelessWidget {
             const Gap(8),
             context.customClose(),
             const Gap(16),
-            context.surahBannerWidget(quranCtrl
+            surahBannerWidget(quranCtrl
                 .getSurahDataByAyahUQ(dailyCtrl.ayahOfTheDay!.ayahUQNumber)
                 .surahNumber
                 .toString()),
@@ -47,7 +48,7 @@ class AyahTafsirWidget extends StatelessWidget {
               width: MediaQuery.sizeOf(context).width,
               margin: const EdgeInsets.symmetric(horizontal: 16.0),
               decoration: BoxDecoration(
-                  color: Theme.of(context).colorScheme.background,
+                  color: Theme.of(context).colorScheme.primaryContainer,
                   borderRadius: const BorderRadius.all(Radius.circular(6))),
               child: Container(
                 padding:
@@ -83,8 +84,9 @@ class AyahTafsirWidget extends StatelessWidget {
                               margin:
                                   const EdgeInsets.symmetric(horizontal: 16.0),
                               decoration: BoxDecoration(
-                                  color:
-                                      Theme.of(context).colorScheme.background,
+                                  color: Theme.of(context)
+                                      .colorScheme
+                                      .primaryContainer,
                                   borderRadius: const BorderRadius.all(
                                       Radius.circular(8))),
                               child: Padding(
@@ -99,7 +101,7 @@ class AyahTafsirWidget extends StatelessWidget {
                                         children: <InlineSpan>[
                                           TextSpan(
                                             text:
-                                                '﴿${dailyCtrl.ayahOfTheDay!.text} ${generalCtrl.convertNumbers(dailyCtrl.ayahOfTheDay!.ayahNumber.toString())}﴾\n',
+                                                '﴿${dailyCtrl.ayahOfTheDay!.text} ${dailyCtrl.ayahOfTheDay!.ayahNumber.toString().convertNumbers()}﴾\n',
                                             style: TextStyle(
                                               fontFamily: 'uthmanic2',
                                               fontSize: 24,

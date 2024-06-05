@@ -4,7 +4,6 @@ import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 
 import '../../presentation/controllers/theme_controller.dart';
-import '../services/services_locator.dart';
 import '../utils/constants/lists.dart';
 
 class ThemeChange extends StatelessWidget {
@@ -12,7 +11,7 @@ class ThemeChange extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final themeCtrl = sl<ThemeController>();
+    final themeCtrl = ThemeController.instance;
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16.0),
       child: Column(

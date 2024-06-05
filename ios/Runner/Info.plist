@@ -84,9 +84,15 @@
     </array>
     <key>BGTaskSchedulerPermittedIdentifiers</key>
     <array>
-    	<string>com.alheekmah.alquranalkareem.alquranalkareem.dailyPrayerNotification</string>
-    	<string>com.alheekmah.alquranalkareem.alquranalkareem.hijriWidget</string>
-    	<string>com.alheekmah.alquranalkareem.alquranalkareem.currentPrayerTime</string>
+      <string>dev.flutter.background.refresh</string>
+      <string>com.alheekmah.alquranalkareem.alquranalkareem.dailyPrayerNotification</string>
+      <string>com.alheekmah.alquranalkareem.alquranalkareem.hijriWidget</string>
+      <string>com.alheekmah.alquranalkareem.alquranalkareem.currentPrayerTime</string>
     </array>
+    <key>NSLocationTemporaryUsageDescriptionDictionary</key>
+    	<dict>
+    		<key>Adhan</key>
+    		<string>يقوم  تطبيق القرآن الكريم - مكتبة الحكمة بتحديد الموقع من أجل جعل الأذان أكثر دقة</string>
+    	</dict>
 </dict>
 </plist>

@@ -2,19 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 
-import '../../../../../core/services/services_locator.dart';
-import '../../../../../core/utils/constants/lottie.dart';
-import '../../../../controllers/playList_controller.dart';
 import '/core/utils/constants/lottie_constants.dart';
 import '/presentation/controllers/general_controller.dart';
 import '/presentation/controllers/quran_controller.dart';
+import '../../../../../core/utils/constants/lottie.dart';
+import '../../../../controllers/playList_controller.dart';
 import 'playList_ayat_widget.dart';
 
 class AyahsChoiceWidget extends StatelessWidget {
   AyahsChoiceWidget({super.key});
-  final playList = sl<PlayListController>();
-  final quranCtrl = sl<QuranController>();
-  final generalCtrl = sl<GeneralController>();
+  final playList = PlayListController.instance;
+  final quranCtrl = QuranController.instance;
+  final generalCtrl = GeneralController.instance;
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +29,7 @@ class AyahsChoiceWidget extends StatelessWidget {
               } else {
                 return PopupMenuButton(
                   position: PopupMenuPosition.under,
-                  color: Theme.of(context).colorScheme.background,
+                  color: Theme.of(context).colorScheme.primaryContainer,
                   child: Container(
                     height: 45,
                     padding: const EdgeInsets.all(4.0),
@@ -94,7 +93,7 @@ class AyahsChoiceWidget extends StatelessWidget {
               } else {
                 return PopupMenuButton(
                   position: PopupMenuPosition.under,
-                  color: Theme.of(context).colorScheme.background,
+                  color: Theme.of(context).colorScheme.primaryContainer,
                   child: Container(
                     height: 45,
                     padding: const EdgeInsets.all(4.0),

@@ -1,31 +1,37 @@
 import 'dart:convert';
-import 'dart:developer' show log;
-import 'dart:io' show Directory, File;
+import 'dart:developer';
+import 'dart:io';
 
-import 'package:alquranalkareem/core/utils/constants/extensions/custom_error_snackBar.dart';
 import 'package:archive/archive_io.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:just_audio/just_audio.dart';
-import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:timezone/timezone.dart' as tz;
-import 'package:workmanager/workmanager.dart';
 
-import '/presentation/controllers/adhan_controller.dart';
-import '../../core/services/services_locator.dart';
-import '../../core/utils/constants/shared_preferences_constants.dart';
+import '/core/utils/constants/extensions/custom_error_snackBar.dart';
+import '/core/utils/constants/shared_preferences_constants.dart';
 import '../screens/home/data/model/adhan_data.dart';
+import 'adhan_controller.dart';
 import 'general_controller.dart';
 
+// sound: adhanPath != null ? adhanPath + '1.wav' : 'default_sound',
+// log('adhanPath: $adhanPath');
+
 class NotificationController extends GetxController {
-  final sharedCtrl = sl<SharedPreferences>();
-  final adhanCtrl = sl<AdhanController>();
-  late FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin;
-  final generalCtrl = sl<GeneralController>();
+  static NotificationController get instance =>
+      Get.isRegistered<NotificationController>()
+          ? Get.find<NotificationController>()
+          : Get.put<NotificationController>(NotificationController());
+  final box = GetStorage();
+  // final adhanCtrl = AdhanController.instance;
+  final generalCtrl = GeneralController.instance;
+
+  final flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
+
   RxBool onDownloading = false.obs;
   RxString progressString = "0".obs;
   RxDouble progress = 0.0.obs;
@@ -39,6 +45,34 @@ class NotificationController extends GetxController {
   AudioPlayer audioPlayer = AudioPlayer();
   RxInt adhanNumber = (-1).obs;
 
+  @override
+  Future<void> onInit() async {
+    getSharedVariables();
+    await initializeNotification();
+    super.onInit();
+  }
+
+  Future<void> initializeNotification() async {
+    if (generalCtrl.activeLocation.value) {
+      log('initialize Notification');
+      // flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
+      const AndroidInitializationSettings initializationSettingsAndroid =
+          AndroidInitializationSettings('ic_launcher');
+      const DarwinInitializationSettings initializationSettingsIOS =
+          DarwinInitializationSettings();
+      const InitializationSettings initializationSettings =
+          InitializationSettings(
+        android: initializationSettingsAndroid,
+        iOS: initializationSettingsIOS,
+        macOS: initializationSettingsIOS,
+      );
+      await flutterLocalNotificationsPlugin.initialize(initializationSettings);
+
+      adhanData = loadAdhanData();
+      await checkAllAdhanDownloaded();
+    }
+  }
+
   Future<void> playAudio(int index, String url) async {
     adhanNumber.value = index;
     await audioPlayer.setUrl(url);
@@ -51,37 +85,33 @@ class NotificationController extends GetxController {
   }
 
   Future<List<AdhanData>> loadAdhanData() async {
-    String jsonString =
+    final jsonString =
         await rootBundle.loadString('assets/json/adhanSounds.json');
     final List<dynamic> jsonData = jsonDecode(jsonString);
     return jsonData.map((data) => AdhanData.fromJson(data)).toList();
   }
 
   Future<void> adhanDownload(String url, String fileName, int index) async {
-    String fileUrl = url;
-
     if (!onDownloading.value) {
-      await downloadAdhan(fileUrl, fileName).then((_) {
-        onDownloadSuccess('$index');
+      await downloadAdhan(url, fileName).then((success) {
+        if (success) onDownloadSuccess('$index');
       });
-      print("Downloading from URL: $fileUrl");
     }
   }
 
   Future<bool> downloadAdhan(String url, String fileName) async {
     Dio dio = Dio();
     CancelToken cancelToken = CancelToken();
+    final directory = await getApplicationDocumentsDirectory();
+    final zipFilePath = '${directory.path}/$fileName.zip';
+    final extractedFilePath = '${directory.path}/$fileName/';
+
+    if (await Directory(extractedFilePath).exists()) {
+      log('Adhan file already exists. Skipping download.');
+      return true;
+    }
 
     try {
-      final directory = await getApplicationDocumentsDirectory();
-      final zipFilePath = '${directory.path}/$fileName.zip';
-      final extractedFilePath = '${directory.path}/$fileName/';
-
-      if (await File(extractedFilePath).exists()) {
-        print('Adhan file already exists. Skipping download.');
-        return true;
-      }
-
       onDownloading.value = true;
       progressString.value = "0";
       progress.value = 0;
@@ -92,34 +122,15 @@ class NotificationController extends GetxController {
         onReceiveProgress: (rec, total) {
           progressString.value = ((rec / total) * 100).toStringAsFixed(0);
           progress.value = (rec / total).toDouble();
-          print(progressString.value);
         },
         cancelToken: cancelToken,
       );
 
-      final bytes = await File(zipFilePath).readAsBytes();
-      final archive = ZipDecoder().decodeBytes(bytes);
-
-      for (final file in archive) {
-        final filename = basename(file.name);
-        log('filename: $directory/$filename');
-        if (file.isFile) {
-          final data = file.content as List<int>;
-          sharedCtrl.setStringList(
-              filename, data.map((e) => e.toString()).toList());
-          File('$directory/$filename')
-            ..createSync(recursive: true)
-            ..writeAsBytesSync(data);
-        } else {
-          Directory('${directory.path}/$filename/Al-Assaf_ios/1.wav')
-              .createSync(recursive: true);
-        }
-      }
-
+      await _extractZipFile(zipFilePath, extractedFilePath);
       await File(zipFilePath).delete();
+
       onDownloading.value = false;
       progressString.value = "100%";
-      print("Download completed for $url");
       return true;
     } catch (e) {
       onDownloading.value = false;
@@ -128,10 +139,36 @@ class NotificationController extends GetxController {
     }
   }
 
+  Future<void> _extractZipFile(
+      String zipFilePath, String extractedFilePath) async {
+    final inputStream = InputFileStream(zipFilePath);
+    final archive = ZipDecoder().decodeBuffer(inputStream);
+
+    for (final file in archive) {
+      final filename = '$extractedFilePath${file.name}';
+      if (file.isFile) {
+        if (filename.endsWith('.tar.gz') ||
+            filename.endsWith('.tgz') ||
+            filename.endsWith('.tar.bz2') ||
+            filename.endsWith('.tbz') ||
+            filename.endsWith('.tar.xz') ||
+            filename.endsWith('.txz') ||
+            filename.endsWith('.tar') ||
+            filename.endsWith('.zip')) {
+          extractFileToDisk('$file', extractedFilePath);
+          box.write('adhan_path', filename);
+        }
+      } else {
+        await Directory(filename).create(recursive: true);
+      }
+    }
+  }
+
   void updateDownloadStatus(String adhanName, bool downloaded) {
-    final newStatus = Map<String, bool>.from(adhanDownloadStatus.value);
-    newStatus[adhanName] = downloaded;
-    adhanDownloadStatus.value = newStatus;
+    adhanDownloadStatus.value = {
+      ...adhanDownloadStatus.value,
+      adhanName: downloaded,
+    };
   }
 
   void onDownloadSuccess(String adhanName) {
@@ -139,27 +176,28 @@ class NotificationController extends GetxController {
   }
 
   Future<Map<String, bool>> checkAllAdhanDownloaded() async {
-    Directory? directory = await getApplicationDocumentsDirectory();
+    final directory = await getApplicationDocumentsDirectory();
 
     for (int i = 0; i <= 4; i++) {
-      String filePath = '${directory.path}/${i}';
-      File file = File(filePath);
-      adhanDownloadStatus.value['$i'] = await file.exists();
+      final filePath = '${directory.path}/$i';
+      adhanDownloadStatus.value['$i'] = await File(filePath).exists();
     }
     return adhanDownloadStatus.value;
   }
 
   Future<void> schedulePrayerNotifications() async {
     log('Scheduling Notifications', name: 'NotificationsCtrl');
-    await FlutterLocalNotificationsPlugin().cancelAll();
 
-    for (var prayer in adhanCtrl.prayerNameList) {
+    await flutterLocalNotificationsPlugin.cancelAll();
+
+    for (var prayer in AdhanController.instance.prayerNameList) {
       final timeString = '${prayer['hourTime']}';
+      // '${AdhanController.instance.now.add(const Duration(seconds: 20))}';
       final sharedAlarmKey = prayer['sharedAlarm'] as String;
       final prayerTime = DateTime.parse(timeString);
 
       if (prayerTime.isAfter(DateTime.now()) &&
-          sharedCtrl.getBool(sharedAlarmKey) == true) {
+          box.read(sharedAlarmKey) == true) {
         await _scheduleDailyNotification(prayerTime, prayer['title'] as String);
       }
     }
@@ -167,13 +205,10 @@ class NotificationController extends GetxController {
 
   Future<void> _scheduleDailyNotification(
       DateTime prayerTime, String prayerName) async {
-    final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
-        FlutterLocalNotificationsPlugin();
-
-    const AndroidNotificationDetails androidPlatformChannelSpecifics =
-        AndroidNotificationDetails(
-      'alquranalkareem_adhan_channel_id',
-      'alquranalkareem_adhan_channel',
+    final soundPath = await _getAdhanSoundPath();
+    final androidPlatformChannelSpecifics = const AndroidNotificationDetails(
+      'com.alheekmah.alquranalkareem.alquranalkareem.dailyPrayerNotification',
+      'MY FOREGROUND SERVICE',
       channelDescription: 'alquranalkareem adhan notifications channel',
       importance: Importance.max,
       priority: Priority.high,
@@ -181,12 +216,14 @@ class NotificationController extends GetxController {
       sound: RawResourceAndroidNotificationSound('aqsa'),
     );
 
-    DarwinNotificationDetails iosPlatformChannelSpecifics =
-        DarwinNotificationDetails(
-      sound: 'aqsa_ios/aqsa_ios/1.wav',
+    final iosPlatformChannelSpecifics = DarwinNotificationDetails(
+      sound: soundPath,
+      // sharedCtrl.getString('adhan_path') != null
+      //     ? '${sharedCtrl.getString('adhan_path')}1.wav'
+      //     : 'default_sound',
     );
 
-    NotificationDetails platformChannelSpecifics = NotificationDetails(
+    final platformChannelSpecifics = NotificationDetails(
       android: androidPlatformChannelSpecifics,
       iOS: iosPlatformChannelSpecifics,
       macOS: iosPlatformChannelSpecifics,
@@ -206,55 +243,14 @@ class NotificationController extends GetxController {
     log('Prayer Scheduled: $prayerName');
   }
 
-  Future<void> initializeNotification() async {
-    if (generalCtrl.activeLocation.value) {
-      log('initialize Notification');
-      final flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
-      const AndroidInitializationSettings initializationSettingsAndroid =
-          AndroidInitializationSettings('ic_launcher');
-      const DarwinInitializationSettings initializationSettingsIOS =
-          DarwinInitializationSettings();
-      const InitializationSettings initializationSettings =
-          InitializationSettings(
-              android: initializationSettingsAndroid,
-              iOS: initializationSettingsIOS,
-              macOS: initializationSettingsIOS);
-      await flutterLocalNotificationsPlugin.initialize(initializationSettings);
-
-      schedulePrayerNotifications();
-      adhanData = loadAdhanData();
-      checkAllAdhanDownloaded();
-
-      registerDailyPrayers();
+  Future<String?> _getAdhanSoundPath() async {
+    // Get the path from SharedPreferences
+    String? adhanPath = box.read('adhan_path');
+    // log('adhan_path: $adhanPath');
+    if (adhanPath != null) {
+      return '${adhanPath}1.wav';
     }
-  }
-
-  Future<void> registerDailyPrayers() async {
-    try {
-      log('register Daily Prayers');
-      final delay = adhanCtrl.getDelayUntilNextIsha();
-
-      await Workmanager().cancelAll();
-
-      Workmanager().registerOneOffTask(
-        'com.alheekmah.alquranalkareem.alquranalkareem.dailyPrayerNotification_${DateTime.now().millisecondsSinceEpoch}',
-        'com.alheekmah.alquranalkareem.alquranalkareem.dailyPrayerNotification',
-        initialDelay: delay,
-      );
-    } catch (e) {
-      log('Error scheduling daily task: $e', name: 'NotificationsCtrl');
-    }
-  }
-
-  @override
-  void onInit() {
-    super.onInit();
-    initializeNotification();
-    getSharedVariables();
-    Workmanager().initialize(
-      callbackDispatcher,
-      isInDebugMode: true,
-    );
+    return 'aqsa_ios/aqsa_ios/1.wav';
   }
 
   Future<void> playButtonOnTap(int index, List<AdhanData> adhanData) async {
@@ -268,29 +264,18 @@ class NotificationController extends GetxController {
   }
 
   void selectAdhanOnTap(int index, List<AdhanData> adhans) {
-    bool isDownloading =
+    final isDownloading =
         adhanDownloadStatus.value[adhans[index].adhanFileName] ?? false;
     if (isDownloading) {
       adhanNumber.value = index;
-      sharedCtrl.setInt(ADHAN_NUMBER, index);
+
+      box.write(ADHAN_NUMBER, index);
     } else {
       Get.context!.showCustomErrorSnackBar('يرجى تحميل الأذان أولًا.');
     }
   }
 
   void getSharedVariables() {
-    adhanNumber.value = sharedCtrl.getInt(ADHAN_NUMBER) ?? 0;
+    adhanNumber.value = box.read(ADHAN_NUMBER) ?? 0;
   }
-}
-
-void callbackDispatcher() {
-  Workmanager().executeTask((task, inputData) async {
-    final AdhanController adhanCtrl = Get.find();
-    final NotificationController notificationController = Get.find();
-    await adhanCtrl.initializeAdhan().then((_) async {
-      await notificationController.schedulePrayerNotifications();
-      notificationController.registerDailyPrayers();
-    });
-    return Future.value(true);
-  });
 }

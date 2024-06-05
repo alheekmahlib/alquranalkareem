@@ -9,6 +9,10 @@ import '../../core/widgets/home_widget/hijri_widget/hijri_widget_config.dart';
 import '../../core/widgets/home_widget/prayers_widget/prayers_widget_config.dart';
 
 class HomeWidgetController extends GetxController {
+  static HomeWidgetController get instance =>
+      Get.isRegistered<HomeWidgetController>()
+          ? Get.find<HomeWidgetController>()
+          : Get.put<HomeWidgetController>(HomeWidgetController());
   RxString hijriPathImage = ''.obs;
   RxString prayersPathImages = ''.obs;
 

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../../../../core/services/services_locator.dart';
 import '../../../../../core/widgets/container_button.dart';
 import '../../../../controllers/playList_controller.dart';
 
@@ -10,7 +9,7 @@ class PlayListSaveWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final playList = sl<PlayListController>();
+    final playList = PlayListController.instance;
     return GestureDetector(
         onTap: () {
           playList.saveList();

@@ -1,8 +1,7 @@
-import '../../../core/utils/constants/extensions/extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_sliding_box/flutter_sliding_box.dart';
 
-import '../../../core/services/services_locator.dart';
+import '/core/utils/constants/extensions/extensions.dart';
 import '../../controllers/surah_audio_controller.dart';
 import 'widgets/back_drop_widget.dart';
 import 'widgets/collapsed_play_widget.dart';
@@ -13,12 +12,12 @@ class AudioScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final surahCtrl = sl<SurahAudioController>();
+    final surahCtrl = SurahAudioController.instance;
     surahCtrl.loadSurahReader();
     surahCtrl.loadLastSurahListen();
     final size = MediaQuery.sizeOf(context);
     return Scaffold(
-      backgroundColor: Theme.of(context).colorScheme.background,
+      backgroundColor: Theme.of(context).colorScheme.primaryContainer,
       body: SafeArea(
         child: Directionality(
           textDirection: TextDirection.rtl,
@@ -26,7 +25,7 @@ class AudioScreen extends StatelessWidget {
             controller: surahCtrl.boxController,
             minHeight: 80,
             maxHeight: 290,
-            color: Theme.of(context).colorScheme.background,
+            color: Theme.of(context).colorScheme.primaryContainer,
             borderRadius: const BorderRadius.all(Radius.circular(8)),
             animationCurve: Curves.easeInOut,
             animationDuration: const Duration(milliseconds: 250),
@@ -35,7 +34,7 @@ class AudioScreen extends StatelessWidget {
             backdrop: Backdrop(
               fading: false,
               overlay: false,
-              color: Theme.of(context).colorScheme.background,
+              color: Theme.of(context).colorScheme.primaryContainer,
               body: const BackDropWidget(),
             ),
             width: context.customOrientation(size.width, size.width * 0.5),

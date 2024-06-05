@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 
-import '../../../../../core/services/services_locator.dart';
 import '../../../../../core/utils/constants/extensions/extensions.dart';
 import '../../../../../core/utils/constants/lottie.dart';
 import '../../../../../core/utils/constants/lottie_constants.dart';
@@ -13,7 +12,7 @@ import 'bookmark_pages_build.dart';
 class BookmarksList extends StatelessWidget {
   BookmarksList({Key? key}) : super(key: key);
 
-  final bookmarkCtrl = sl<BookmarksController>();
+  final bookmarkCtrl = BookmarksController.instance;
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +20,7 @@ class BookmarksList extends StatelessWidget {
       height: MediaQuery.sizeOf(context).height * .93,
       width: MediaQuery.sizeOf(context).width,
       decoration: BoxDecoration(
-          color: Theme.of(context).colorScheme.background,
+          color: Theme.of(context).colorScheme.primaryContainer,
           borderRadius: const BorderRadius.only(
             topLeft: Radius.circular(8.0),
             topRight: Radius.circular(8.0),

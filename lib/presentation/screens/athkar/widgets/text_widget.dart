@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '/core/services/services_locator.dart';
 import '../../../controllers/azkar_controller.dart';
 import '../../../controllers/general_controller.dart';
 import '../models/zeker_model.dart';
-import '/core/services/services_locator.dart';
 
 class TextWidget extends StatelessWidget {
-  final Zekr zekr;
+  final Dhekr zekr;
   TextWidget({super.key, required this.zekr});
 
   @override
   Widget build(BuildContext context) {
-    final azkarCtrl = sl<AzkarController>();
+    final azkarCtrl = AzkarController.instance;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [

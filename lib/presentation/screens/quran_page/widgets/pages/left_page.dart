@@ -31,7 +31,7 @@ class LeftPage extends StatelessWidget {
           child: Container(
             margin: const EdgeInsets.only(left: 4.0),
             decoration: BoxDecoration(
-                color: Theme.of(context).colorScheme.background,
+                color: Theme.of(context).colorScheme.primaryContainer,
                 borderRadius: const BorderRadius.only(
                     topLeft: Radius.circular(12),
                     bottomLeft: Radius.circular(12))),
