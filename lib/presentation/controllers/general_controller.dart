@@ -50,7 +50,7 @@ class GeneralController extends GetxController {
   RxDouble fontSizeArabic = 20.0.obs;
   RxBool isShowControl = true.obs;
   RxString greeting = ''.obs;
-  TimeNow timeNow = TimeNow();
+  TimeNow get timeNow => TimeNow();
   final ScrollController surahListController = ScrollController();
   final ScrollController ayahListController = ScrollController();
   double surahItemHeight = 65.0;
@@ -73,6 +73,7 @@ class GeneralController extends GetxController {
   Future<void> onInit() async {
     activeLocation.value = box.read(ACTIVE_LOCATION) ?? false;
     isPageMode.value = box.read(PAGE_MODE) ?? false;
+    await initLocation();
     Workmanager().initialize(
       callbackDispatcherHijri,
       isInDebugMode: true,
@@ -100,7 +101,7 @@ class GeneralController extends GetxController {
           await sl<NotificationController>().initializeNotification();
           await sl<AdhanController>().initializeAdhan();
           box.write(ACTIVE_LOCATION, true);
-          sl<AdhanController>().onInit();
+          // sl<AdhanController>().onInit();
         });
       } else {
         log('Location services were not enabled by the user.');

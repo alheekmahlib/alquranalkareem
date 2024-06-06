@@ -15,6 +15,8 @@ import 'package:timezone/data/latest.dart' as tz;
 import '/core/services/languages/dependency_inj.dart' as dep;
 import 'core/services/services_locator.dart';
 import 'myApp.dart';
+import 'presentation/controllers/adhan_controller.dart';
+import 'presentation/controllers/general_controller.dart';
 import 'presentation/controllers/notification_controller.dart';
 
 Future<void> main() async {
@@ -175,5 +177,7 @@ void onStart(ServiceInstance service) async {
 }
 
 Future<void> scheduleDailyPrayerNotifications() async {
+  await GeneralController.instance.initLocation();
+  await AdhanController.instance.onInit();
   await NotificationController.instance.schedulePrayerNotifications();
 }

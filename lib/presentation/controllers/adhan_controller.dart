@@ -1,6 +1,6 @@
-import 'dart:async';
-import 'dart:convert';
-import 'dart:developer';
+import 'dart:async' show Timer;
+import 'dart:convert' show jsonDecode;
+import 'dart:developer' show log;
 
 import 'package:adhan/adhan.dart';
 import 'package:flutter/material.dart';
@@ -30,12 +30,9 @@ class AdhanController extends GetxController {
       ? Get.find<AdhanController>()
       : Get.put<AdhanController>(AdhanController());
   final box = GetStorage();
-  //  PrayerTimes? prayerTimes;
-  PrayerTimes get prayerTimes => PrayerTimes(
-      Coordinates(Location.instance.position!.longitude,
-          Location.instance.position!.latitude),
-      dateComponents,
-      params);
+  //late PrayerTimes prayerTimes;
+  PrayerTimes get prayerTimes =>
+      PrayerTimes(Coordinates(40.741895, -12.406417), dateComponents, params);
   final DateTime now = DateTime.now();
   RxBool prayerAlarm = true.obs;
   var countdownTime = "".obs;
@@ -45,7 +42,7 @@ class AdhanController extends GetxController {
   HijriCalendar hijriDateNow = HijriCalendar.now();
   // Coordinates get coordinates => Coordinates(
   //    (Location.instance.position?? box.read('key')));
-  Coordinates? coordinates;
+  late Coordinates coordinates;
   // Create date components from the provided date
   DateComponents get dateComponents => DateComponents.from(now);
   // Get calculation parameters based on your desired calculation method
@@ -232,12 +229,12 @@ class AdhanController extends GetxController {
     final now = DateTime.now();
     final Prayer? nextPrayer = adhanCtrl.prayerTimes.nextPrayer();
     if (nextPrayer == null) {
-      return now.add(Duration(hours: 1)); // Default to one hour from now
+      return now.add(const Duration(hours: 1)); // Default to one hour from now
     }
     final DateTime? nextPrayerDateTime =
         adhanCtrl.prayerTimes.timeForPrayer(nextPrayer);
     if (nextPrayerDateTime == null || nextPrayerDateTime.isBefore(now)) {
-      return now.add(Duration(hours: 1)); // Default to one hour from now
+      return now.add(const Duration(hours: 1)); // Default to one hour from now
     }
     return nextPrayerDateTime;
   }
@@ -271,9 +268,9 @@ class AdhanController extends GetxController {
 
   @override
   Future<void> onInit() async {
-    super.onInit();
     getShared;
-    initializeAdhan();
+    await initializeAdhanVariables();
+    super.onInit();
   }
 
   void get getShared {
@@ -358,9 +355,21 @@ class AdhanController extends GetxController {
   }
 
   Future<void> initializeAdhanVariables() async {
+    // New York City
+    // final lat = 40.741895;
+    // final long = -12.406417;
+    if (Location.instance.position == null ||
+        Location.instance.position!.latitude.isNaN ||
+        Location.instance.position!.longitude.isNaN) {
+      // throw ArgumentError('Invalid coordinates: Latitude or Longitude is NaN');
+      log('NaN');
+    }
+
     coordinates = Coordinates(Location.instance.position!.longitude,
         Location.instance.position!.latitude);
-    log('coordinates: ${Location.instance.position!.latitude} ${coordinates!.longitude}');
+    // coordinates = Coordinates(Location.instance.position!.longitude,
+    //     Location.instance.position!.latitude);
+    log('coordinates: ${Location.instance.position!.latitude} ${coordinates.longitude}');
 
     if (!autoCalculationMethod.value) {
       params =
@@ -374,24 +383,24 @@ class AdhanController extends GetxController {
       ..madhab = getMadhab(isHanafi.value)
       ..highLatitudeRule = getHighLatitudeRule(highLatitudeRuleIndex.value);
 
-    // prayerTimes= PrayerTimes(coordinates, dateComponents, params);
-    update();
+    // prayerTimes = PrayerTimes(coordinates, dateComponents, params);
+    // update();
     // prayerTimes = prayerTimesNow;
-    return await initTimes();
+    // await initTimes();
   }
 
   Future<void> initializeAdhan() async {
     if (generalCtrl.activeLocation.value) {
-      await generalCtrl.initLocation().then((value) async {
-        geo.setLocaleIdentifier(Get.locale!.languageCode);
-        await initializeAdhanVariables();
-        await initTimes();
-        fetchCountryList();
-        getCountryList().then((list) => countries = list);
-        updateProgress();
-        timer = Timer.periodic(
-            const Duration(minutes: 1), (Timer t) => updateProgress());
-      });
+      await generalCtrl.initLocation();
+      geo.setLocaleIdentifier(Get.locale!.languageCode);
+      await initializeAdhanVariables();
+      await initTimes();
+      fetchCountryList();
+      getCountryList().then((list) => countries = list);
+      updateProgress();
+      timer = Timer.periodic(
+          const Duration(minutes: 1), (Timer t) => updateProgress());
+
       await PrayersWidgetConfig.initialize();
       PrayersWidgetConfig().updatePrayersDate();
       // PrayersWidgetConfig().updateRemainingTime();
