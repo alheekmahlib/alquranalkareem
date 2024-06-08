@@ -15,7 +15,7 @@ class HijriHomeWidget extends StatelessWidget {
     return Directionality(
       textDirection: TextDirection.rtl,
       child: Container(
-        width: MediaQuery.sizeOf(Get.context!).width,
+        width: MediaQuery.sizeOf(context).width,
         color: const Color(0xff404C6E),
         child: Container(
           width: MediaQuery.sizeOf(Get.context!).width,
