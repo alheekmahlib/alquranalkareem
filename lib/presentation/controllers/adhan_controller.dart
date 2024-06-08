@@ -11,17 +11,17 @@ import 'package:get_storage/get_storage.dart';
 import 'package:hijri/hijri_calendar.dart';
 import 'package:solar_icons/solar_icons.dart';
 
-import '/core/data/models/prayer_day_model.dart';
 import '/core/services/location/locations.dart';
-import '/core/services/services_locator.dart';
-import '/core/utils/constants/lists.dart';
-import '/core/utils/constants/location_enum.dart';
-import '/core/utils/constants/lottie.dart';
-import '/core/utils/constants/lottie_constants.dart';
-import '/core/utils/constants/shared_preferences_constants.dart';
 import '/core/utils/helpers/date_formatter.dart';
-import '/core/widgets/home_widget/hijri_widget/hijri_widget_config.dart';
-import '/core/widgets/home_widget/prayers_widget/prayers_widget_config.dart';
+import '../../core/data/models/prayer_day_model.dart';
+import '../../core/services/services_locator.dart';
+import '../../core/utils/constants/lists.dart';
+import '../../core/utils/constants/location_enum.dart';
+import '../../core/utils/constants/lottie.dart';
+import '../../core/utils/constants/lottie_constants.dart';
+import '../../core/utils/constants/shared_preferences_constants.dart';
+import '../../core/widgets/home_widget/hijri_widget/hijri_widget_config.dart';
+import '../../core/widgets/home_widget/prayers_widget/prayers_widget_config.dart';
 import 'general_controller.dart';
 import 'notification_controller.dart';
 
@@ -29,30 +29,25 @@ class AdhanController extends GetxController {
   static AdhanController get instance => Get.isRegistered<AdhanController>()
       ? Get.find<AdhanController>()
       : Get.put<AdhanController>(AdhanController());
+
+  final generalCtrl = GeneralController.instance;
   final box = GetStorage();
-  //  PrayerTimes? prayerTimes;
-  PrayerTimes get prayerTimes => PrayerTimes(
-      Coordinates(Location.instance.position!.longitude,
-          Location.instance.position!.latitude),
-      dateComponents,
-      params);
+  late PrayerTimes prayerTimes;
+  String nextPrayerTime = "";
   final DateTime now = DateTime.now();
   RxBool prayerAlarm = true.obs;
   var countdownTime = "".obs;
-  SunnahTimes get sunnahTimes => SunnahTimes(prayerTimes);
+  late SunnahTimes sunnahTimes;
   // RxBool formatted12Hour = true.obs;
   // RxBool isHijri = true.obs;
   HijriCalendar hijriDateNow = HijriCalendar.now();
-  // Coordinates get coordinates => Coordinates(
-  //    (Location.instance.position?? box.read('key')));
-  Coordinates? coordinates;
+  late Coordinates coordinates;
   // Create date components from the provided date
-  DateComponents get dateComponents => DateComponents.from(now);
+  late DateComponents dateComponents;
   // Get calculation parameters based on your desired calculation method
   late CalculationParameters params;
   RxDouble timeProgress = 0.0.obs;
   Timer? timer;
-  RxString sunriseTimeStr = ''.obs;
   RxString fajrTime = ''.obs;
   RxString dhuhrTime = ''.obs;
   RxString asrTime = ''.obs;
@@ -65,16 +60,14 @@ class AdhanController extends GetxController {
   RxBool twilightAngle = true.obs;
   RxBool middleOfTheNight = false.obs;
   RxBool seventhOfTheNight = false.obs;
-  // var prayerTimesNow;
-  final generalCtrl = GeneralController.instance;
-  // final notiCtrl = sl<NotificationController>();
+  var prayerTimesNow;
   RxBool autoCalculationMethod = true.obs;
   RxString calculationMethodString = 'أم القرى'.obs;
   RxString selectedCountry = 'Saudi Arabia'.obs;
   List<String> countries = [];
   late final HighLatitudeRule highLatitudeRule;
   var index = RxInt(0);
-  List<RxInt> adjustments = List.generate(8, (_) => 0.obs);
+  List<RxInt> adjustments = List.generate(7, (_) => 0.obs);
 
   Future<List<String>>? countryListFuture;
   fetchCountryList() {
@@ -95,12 +88,6 @@ class AdhanController extends GetxController {
     Duration adjustment = Duration(minutes: adjustments[0].value);
     DateTime adjustedFajrTime = prayerTimes.fajr.add(adjustment);
     return await DateFormatter.justTime(adjustedFajrTime);
-  }
-
-  Future<String> get getSunriseTime async {
-    Duration adjustment = Duration(minutes: adjustments[0].value);
-    DateTime adjustedSunriseTime = prayerTimes.sunrise.add(adjustment);
-    return await DateFormatter.justTime(adjustedSunriseTime);
   }
 
   Future<String> get getDhuhrTime async {
@@ -292,7 +279,6 @@ class AdhanController extends GetxController {
   Future<void> initTimes() async {
     print("Updating times...");
     await Future.wait([
-      getSunriseTime.then((v) => sunriseTimeStr.value = v),
       getFajrTime.then((v) => fajrTime.value = v),
       getDhuhrTime.then((v) => dhuhrTime.value = v),
       getAsrTime.then((v) => asrTime.value = v),
@@ -358,9 +344,10 @@ class AdhanController extends GetxController {
   }
 
   Future<void> initializeAdhanVariables() async {
-    coordinates = Coordinates(Location.instance.position!.longitude,
-        Location.instance.position!.latitude);
-    log('coordinates: ${Location.instance.position!.latitude} ${coordinates!.longitude}');
+    coordinates = Coordinates(Location.instance.position!.latitude,
+        Location.instance.position!.longitude);
+    log('coordinates: ${Location.instance.position!.latitude} ${coordinates.longitude}');
+    dateComponents = DateComponents.from(now);
 
     if (!autoCalculationMethod.value) {
       params =
@@ -374,9 +361,10 @@ class AdhanController extends GetxController {
       ..madhab = getMadhab(isHanafi.value)
       ..highLatitudeRule = getHighLatitudeRule(highLatitudeRuleIndex.value);
 
-    // prayerTimes= PrayerTimes(coordinates, dateComponents, params);
+    prayerTimesNow = PrayerTimes(coordinates, dateComponents, params);
+    sunnahTimes = SunnahTimes(prayerTimesNow);
     update();
-    // prayerTimes = prayerTimesNow;
+    prayerTimes = prayerTimesNow;
     return await initTimes();
   }
 
@@ -394,7 +382,6 @@ class AdhanController extends GetxController {
       });
       await PrayersWidgetConfig.initialize();
       PrayersWidgetConfig().updatePrayersDate();
-      // PrayersWidgetConfig().updateRemainingTime();
     }
     await HijriWidgetConfig.initialize();
     HijriWidgetConfig().updateHijriDate();
@@ -558,16 +545,6 @@ class AdhanController extends GetxController {
           'icon': SolarIconsBold.moonFog,
         },
         {
-          'title': 'الشروق',
-          'time': sunriseTimeStr.value,
-          'hourTime': prayerTimes.sunrise,
-          'minuteTime': prayerTimes.sunrise.minute,
-          'sharedAlarm': 'ALARM_SUNRISE',
-          'sharedAfter': 'AFTER_SUNRISE',
-          'sharedAdjustment': 'ADJUSTMENT_SUNRISE',
-          'icon': SolarIconsBold.sunrise,
-        },
-        {
           'title': 'الظهر',
           'time': dhuhrTime.value,
           'hourTime': prayerTimes.dhuhr,
@@ -575,7 +552,7 @@ class AdhanController extends GetxController {
           'sharedAlarm': 'ALARM_DHUHR',
           'sharedAfter': 'AFTER_DHUHR',
           'sharedAdjustment': 'ADJUSTMENT_DHUHR',
-          'icon': SolarIconsBold.sun2,
+          'icon': SolarIconsBold.sun,
         },
         {
           'title': 'العصر',
@@ -585,7 +562,7 @@ class AdhanController extends GetxController {
           'sharedAlarm': 'ALARM_ASR',
           'sharedAfter': 'AFTER_ASR',
           'sharedAdjustment': 'ADJUSTMENT_ASR',
-          'icon': SolarIconsBold.sun,
+          'icon': SolarIconsBold.sun2,
         },
         {
           'title': 'المغرب',
