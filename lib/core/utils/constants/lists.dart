@@ -458,6 +458,11 @@ const List monthHadithsList = [
     'bookName': '',
   },
   {
+    'hadithPart1': '',
+    'hadithPart2': '',
+    'bookName': '',
+  },
+  {
     'hadithPart1':
         'عَنْ أَبِي بَكْرَةَ ـ رضى الله عنه ـ عَنِ النَّبِيِّ صلى الله عليه وسلم قَالَ',
     'hadithPart2':

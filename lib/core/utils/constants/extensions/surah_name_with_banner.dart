@@ -1,4 +1,3 @@
-import 'package:alquranalkareem/core/utils/constants/extensions/svg_extensions.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -7,10 +6,12 @@ import 'package:flutter_svg/svg.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 
+import '/core/utils/constants/extensions/svg_extensions.dart';
 import '/presentation/controllers/quran_controller.dart';
 import '/presentation/controllers/theme_controller.dart';
+import '../../../../presentation/controllers/general_controller.dart';
+import '../../../services/services_locator.dart';
 import '../svg_constants.dart';
-import '../svg_picture.dart';
 
 final themeCtrl = ThemeController.instance;
 final quranCtrl = QuranController.instance;
@@ -108,8 +109,14 @@ extension CustomSurahNameWithBannerExtension on Widget {
                         ? (quranCtrl.getSurahNumberByAyah(ayahs.first) == 95 ||
                                 quranCtrl.getSurahNumberByAyah(ayahs.first) ==
                                     97)
-                            ? besmAllah2()
-                            : besmAllah()
+                            ? customSvgWithColor(SvgPath.svgBesmAllah2,
+                                width: sl<GeneralController>()
+                                    .ifBigScreenSize(100.0.w, 150.0.w),
+                                color: Get.theme.cardColor.withOpacity(.8))
+                            : customSvgWithColor(SvgPath.svgBesmAllah,
+                                width: sl<GeneralController>()
+                                    .ifBigScreenSize(100.0.w, 150.0.w),
+                                color: Get.theme.cardColor.withOpacity(.8))
                         : const SizedBox.shrink(),
                 const Gap(6),
               ],

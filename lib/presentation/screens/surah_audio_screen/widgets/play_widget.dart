@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '/core/utils/constants/extensions/extensions.dart';
+import '/core/utils/constants/extensions/surah_name_with_banner.dart';
 import '/core/utils/constants/extensions/svg_extensions.dart';
 import '../../../../core/utils/constants/svg_constants.dart';
-import '../../../../core/utils/constants/svg_picture.dart';
 import '../../../controllers/surah_audio_controller.dart';
 import 'change_reader.dart';
 import 'download_play_button.dart';
@@ -70,14 +70,18 @@ class PlayWidget extends StatelessWidget {
                     children: [
                       Opacity(
                         opacity: .1,
-                        child: surahName(
-                          90,
-                          150,
+                        child: surahNameWidget(
+                          surahCtrl.surahNum.toString(),
+                          Get.theme.colorScheme.primary,
+                          height: 90,
+                          width: 150,
                         ),
                       ),
-                      surahName(
-                        70,
-                        150,
+                      surahNameWidget(
+                        surahCtrl.surahNum.toString(),
+                        Get.theme.colorScheme.primary,
+                        height: 70,
+                        width: 150,
                       ),
                     ],
                   ),

@@ -1,32 +1,44 @@
 import 'dart:async';
 import 'dart:io';
-import 'dart:ui';
 
-import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_background_service/flutter_background_service.dart';
-import 'package:flutter_background_service_android/flutter_background_service_android.dart';
-import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
+import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:timezone/data/latest.dart' as tz;
+import 'package:workmanager/workmanager.dart';
 
 import '/core/services/languages/dependency_inj.dart' as dep;
 import 'core/services/services_locator.dart';
+import 'core/widgets/home_widget/prayers_widget/prayers_widget_config.dart';
 import 'myApp.dart';
-import 'presentation/controllers/notification_controller.dart';
+import 'presentation/controllers/home_widget_controller.dart';
 
 Future<void> main() async {
   WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
   widgetsBinding;
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
   Map<String, Map<String, String>> languages = await dep.init();
-  initializeApp().then((_) {
-    runApp(MyApp(
-      languages: languages,
-    ));
-  });
+  await initializeApp();
+  // Initialize WorkManager
+  Workmanager().initialize(
+    callbackDispatcherHijri,
+    isInDebugMode: true, // Set to false for production
+  );
+
+  // Cancel all previous tasks to avoid scheduling conflict
+  await Workmanager().cancelAll();
+
+  // Register the task (for testing purposes)
+  Workmanager().registerOneOffTask(
+    "1",
+    "com.alheekmah.alquranalkareem.alquranalkareem.hijriWidget",
+    initialDelay: const Duration(seconds: 20),
+  );
+
+  runApp(MyApp(
+    languages: languages,
+  ));
 }
 
 Future<void> initializeApp() async {
@@ -35,145 +47,43 @@ Future<void> initializeApp() async {
   await ServicesLocator().init();
   tz.initializeTimeZones();
   FlutterNativeSplash.remove();
-  initializeService();
 }
 
-Future<void> initializeService() async {
-  final service = FlutterBackgroundService();
+// void callbackDispatcherHijri() {
+//   WidgetsFlutterBinding.ensureInitialized();
+//   Workmanager().executeTask((task, inputData) async {
+//     final HomeWidgetController homeWCtrl = Get.find();
+//     HijriWidgetConfig().updateHijriDate();
+//     homeWCtrl.registerDailyTask();
+//     return Future.value(true);
+//   });
+// }
 
-  // Optional: Using custom notification channel id
-  const AndroidNotificationChannel channel = AndroidNotificationChannel(
-    'com.alheekmah.alquranalkareem.alquranalkareem.dailyPrayerNotification', // id
-    'MY FOREGROUND SERVICE', // title
-    description:
-        'This channel is used for important notifications.', // description
-    importance: Importance.low, // importance must be at low or higher level
-  );
-
-  final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
-      FlutterLocalNotificationsPlugin();
-
-  if (Platform.isIOS || Platform.isAndroid) {
-    await flutterLocalNotificationsPlugin.initialize(
-      const InitializationSettings(
-        iOS: DarwinInitializationSettings(),
-        android: AndroidInitializationSettings('ic_bg_service_small'),
-      ),
-    );
-  }
-
-  await flutterLocalNotificationsPlugin
-      .resolvePlatformSpecificImplementation<
-          AndroidFlutterLocalNotificationsPlugin>()
-      ?.createNotificationChannel(channel);
-
-  await service.configure(
-    androidConfiguration: AndroidConfiguration(
-      onStart: onStart,
-      autoStart: true,
-      isForegroundMode: true,
-      notificationChannelId:
-          'com.alheekmah.alquranalkareem.alquranalkareem.dailyPrayerNotification',
-      initialNotificationTitle: 'AWESOME SERVICE',
-      initialNotificationContent: 'Initializing',
-      foregroundServiceNotificationId: 888,
-    ),
-    iosConfiguration: IosConfiguration(
-      autoStart: true,
-      onForeground: onStart,
-      onBackground: onIosBackground,
-    ),
-  );
-}
-
-@pragma('vm:entry-point')
-Future<bool> onIosBackground(ServiceInstance service) async {
+void callbackDispatcherHijri() {
   WidgetsFlutterBinding.ensureInitialized();
-  DartPluginRegistrant.ensureInitialized();
+  Workmanager().executeTask((task, inputData) async {
+    print("Background Task Triggered: $task");
 
-  SharedPreferences preferences = await SharedPreferences.getInstance();
-  await preferences.reload();
-  final log = preferences.getStringList('log') ?? <String>[];
-  log.add(DateTime.now().toIso8601String());
-  await preferences.setStringList('log', log);
-
-  return true;
+    try {
+      // Simulate task execution
+      await Future.delayed(const Duration(seconds: 2));
+      print("Background Task Completed Successfully: $task");
+      return Future.value(true);
+    } catch (e) {
+      print("Background Task Error: $e");
+      return Future.value(false);
+    }
+  });
 }
 
-@pragma('vm:entry-point')
-void onStart(ServiceInstance service) async {
-  DartPluginRegistrant.ensureInitialized();
-
-  SharedPreferences preferences = await SharedPreferences.getInstance();
-  await preferences.setString("hello", "world");
-
-  final flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
-
-  if (service is AndroidServiceInstance) {
-    service.on('setAsForeground').listen((event) {
-      service.setAsForegroundService();
-    });
-
-    service.on('setAsBackground').listen((event) {
-      service.setAsBackgroundService();
-    });
-  }
-
-  service.on('stopService').listen((event) {
-    service.stopSelf();
-  });
-
-  // Schedule daily notifications for prayer times
-  await scheduleDailyPrayerNotifications();
-
-  Timer.periodic(const Duration(seconds: 1), (timer) async {
-    if (service is AndroidServiceInstance) {
-      if (await service.isForegroundService()) {
-        flutterLocalNotificationsPlugin.show(
-          888,
-          'COOL SERVICE',
-          'Awesome ${DateTime.now()}',
-          const NotificationDetails(
-            android: AndroidNotificationDetails(
-              'com.alheekmah.alquranalkareem.alquranalkareem.dailyPrayerNotification',
-              'MY FOREGROUND SERVICE',
-              icon: 'ic_bg_service_small',
-              ongoing: true,
-            ),
-          ),
-        );
-
-        service.setForegroundNotificationInfo(
-          title: "My App Service",
-          content: "Updated at ${DateTime.now()}",
-        );
-      }
-    }
-
-    print('FLUTTER BACKGROUND SERVICE: ${DateTime.now()}');
-
-    final deviceInfo = DeviceInfoPlugin();
-    String? device;
-    if (Platform.isAndroid) {
-      final androidInfo = await deviceInfo.androidInfo;
-      device = androidInfo.model;
-    }
-
+void callbackDispatcherPrayers() {
+  WidgetsFlutterBinding.ensureInitialized();
+  Workmanager().executeTask((task, inputData) async {
     if (Platform.isIOS) {
-      final iosInfo = await deviceInfo.iosInfo;
-      device = iosInfo.model;
+      final HomeWidgetController homeWCtrl = Get.find();
+      PrayersWidgetConfig().updatePrayersDate();
+      homeWCtrl.registerDailyPrayers();
     }
-
-    service.invoke(
-      'update',
-      {
-        "current_date": DateTime.now().toIso8601String(),
-        "device": device,
-      },
-    );
+    return Future.value(true);
   });
-}
-
-Future<void> scheduleDailyPrayerNotifications() async {
-  await NotificationController.instance.schedulePrayerNotifications();
 }

@@ -11,7 +11,6 @@ import 'package:hijri/hijri_calendar.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:workmanager/workmanager.dart';
 
 import '/core/utils/constants/extensions/extensions.dart';
 import '/presentation/controllers/adhan_controller.dart';
@@ -29,7 +28,6 @@ import '../screens/surah_audio_screen/audio_surah.dart';
 import 'audio_controller.dart';
 import 'ayat_controller.dart';
 import 'bookmarks_controller.dart';
-import 'home_widget_controller.dart';
 import 'notification_controller.dart';
 import 'playList_controller.dart';
 import 'theme_controller.dart';
@@ -73,10 +71,6 @@ class GeneralController extends GetxController {
   Future<void> onInit() async {
     activeLocation.value = box.read(ACTIVE_LOCATION) ?? false;
     isPageMode.value = box.read(PAGE_MODE) ?? false;
-    Workmanager().initialize(
-      callbackDispatcherHijri,
-      isInDebugMode: true,
-    );
     super.onInit();
   }
 

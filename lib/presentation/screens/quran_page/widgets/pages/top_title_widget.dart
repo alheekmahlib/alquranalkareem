@@ -1,12 +1,14 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 
 import '/core/utils/constants/extensions/convert_number_extension.dart';
 import '/core/utils/constants/extensions/extensions.dart';
-import '../../../../../core/utils/constants/svg_picture.dart';
+import '/core/utils/constants/extensions/surah_name_with_banner.dart';
+import '../../../../../core/services/services_locator.dart';
 import '../../../../controllers/audio_controller.dart';
 import '../../../../controllers/bookmarks_controller.dart';
 import '../../../../controllers/general_controller.dart';
@@ -113,5 +115,23 @@ class TopTitleWidget extends StatelessWidget {
               ],
             ),
     );
+  }
+
+  Widget bookmarkIcon({double? height, double? width, int? pageNum}) {
+    return Obx(() {
+      return Semantics(
+        button: true,
+        enabled: true,
+        label: 'Add Bookmark',
+        child: SvgPicture.asset(
+          sl<BookmarksController>().isPageBookmarked(
+                  pageNum ?? sl<GeneralController>().currentPageNumber.value)
+              ? 'assets/svg/bookmarked.svg'
+              : Get.context!.bookmarkPageIconPath(),
+          width: width,
+          height: height,
+        ),
+      );
+    });
   }
 }

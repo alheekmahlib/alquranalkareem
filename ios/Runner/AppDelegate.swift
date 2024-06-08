@@ -2,7 +2,6 @@ import UIKit
 import Flutter
 import workmanager
 import flutter_local_notifications
-import flutter_background_service_ios
 
 @UIApplicationMain
 @objc class AppDelegate: FlutterAppDelegate {
@@ -10,13 +9,12 @@ import flutter_background_service_ios
     _ application: UIApplication,
     didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?
   ) -> Bool {
-    SwiftFlutterBackgroundServicePlugin.taskIdentifier = "com.alheekmah.alquranalkareem.alquranalkareem.dailyPrayerNotification"
     FlutterLocalNotificationsPlugin.setPluginRegistrantCallback { (registry) in
         GeneratedPluginRegistrant.register(with: registry)
     }
 
     UIApplication.shared.setMinimumBackgroundFetchInterval(TimeInterval(60*20))
-//        WorkmanagerPlugin.register(with: self.registrar(forPlugin: "com.alheekmah.alquranalkareem.alquranalkareem.dailyPrayerNotification")!)
+        WorkmanagerPlugin.register(with: self.registrar(forPlugin: "com.alheekmah.alquranalkareem.alquranalkareem.dailyPrayerNotification")!)
         WorkmanagerPlugin.register(with: self.registrar(forPlugin: "com.alheekmah.alquranalkareem.alquranalkareem.hijriWidget")!)
         WorkmanagerPlugin.register(with: self.registrar(forPlugin: "com.alheekmah.alquranalkareem.alquranalkareem.currentPrayerTime")!)
 

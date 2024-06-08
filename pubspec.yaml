@@ -77,12 +77,11 @@ dependencies:
   arc_progress_bar_new: ^1.0.4
   slide_countdown: ^1.6.1
   workmanager: ^0.5.2
-  home_widget: ^0.6.0
-  archive: ^3.6.0
+#  home_widget: ^0.6.0
+  archive: ^3.6.1
   solar_icons: ^0.0.5
   nominatim_geocoding: ^0.0.6
   alarm: ^3.1.4
-  flutter_background_service: ^5.0.5
   device_info_plus: ^10.1.0
 
 
