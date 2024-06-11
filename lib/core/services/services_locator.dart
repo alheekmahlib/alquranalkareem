@@ -36,6 +36,7 @@ import '../../presentation/controllers/home_widget_controller.dart';
 import '../../presentation/controllers/khatmah_controller.dart';
 import '../../presentation/controllers/notification_controller.dart';
 import '../../presentation/controllers/ourApps_controller.dart';
+import '../../presentation/controllers/prayer_progress_controller.dart';
 import '../../presentation/controllers/quran_controller.dart';
 import '../../presentation/controllers/splash_screen_controller.dart';
 import '../../presentation/controllers/theme_controller.dart';
@@ -179,6 +180,10 @@ class ServicesLocator {
 
     sl.registerLazySingleton<HomeWidgetController>(() =>
         Get.put<HomeWidgetController>(HomeWidgetController(), permanent: true));
+
+    sl.registerLazySingleton<PrayerProgressController>(() =>
+        Get.put<PrayerProgressController>(PrayerProgressController(),
+            permanent: true));
     // NotifyHelper().initializeNotification();
     // sl<NotificationsController>().initializeLocalNotifications();
 

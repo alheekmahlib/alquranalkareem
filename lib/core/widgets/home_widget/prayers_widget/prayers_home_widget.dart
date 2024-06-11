@@ -1,8 +1,8 @@
-import 'package:alquranalkareem/core/utils/constants/extensions/extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 
+import '/core/utils/constants/extensions/extensions.dart';
 import '/presentation/controllers/adhan_controller.dart';
 import '../../../services/services_locator.dart';
 

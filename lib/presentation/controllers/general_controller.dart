@@ -359,19 +359,15 @@ class GeneralController extends GetxController {
   }
 
   String daysArabicConvert(int day) {
-    final List<int> daysList = [3, 4, 5, 6, 7, 8, 9, 10];
-    if ('lang'.tr == 'العربية') {
-      if (day == 1) {
-        return 'يوم';
-      } else if (day == 2) {
-        return 'يومان';
-      } else if (daysList.contains(day)) {
-        return 'أيام';
-      } else {
-        return 'Day';
-      }
+    const List<int> daysList = [3, 4, 5, 6, 7, 8, 9, 10];
+    if (day == 1) {
+      return 'Day';
+    } else if (day == 2) {
+      return 'يومان';
+    } else if (daysList.contains(day)) {
+      return 'Days';
     } else {
-      return day == 1 ? 'Day' : 'Days';
+      return 'Day';
     }
   }
 

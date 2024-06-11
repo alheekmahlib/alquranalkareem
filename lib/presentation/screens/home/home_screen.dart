@@ -1,15 +1,15 @@
-import 'package:alquranalkareem/core/utils/constants/extensions/extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 
+import '/core/utils/constants/extensions/extensions.dart';
 import '../../../core/widgets/daily_ayah/ayah_widget.dart';
-import '../../../core/widgets/home_widget/prayers_widget/prayers_home_widget.dart';
 import '../../../core/widgets/tab_bar_widget.dart';
 import '../../controllers/theme_controller.dart';
 import 'widgets/daily_zeker.dart';
 import 'widgets/hijri_date.dart';
+import 'widgets/hijri_prayer_widget/prayer_progress_bar_widget.dart';
 import 'widgets/last_read.dart';
 import 'widgets/screens_list.dart';
 
@@ -38,7 +38,7 @@ class HomeScreen extends StatelessWidget {
                           children: [
                             HijriDate(),
                             const Gap(16),
-                            PrayersHomeWidget(),
+                            PrayerProgressBar(),
                             const ScreensList(),
                             const Gap(8),
                             const LastRead(),

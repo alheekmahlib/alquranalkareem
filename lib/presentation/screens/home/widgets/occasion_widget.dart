@@ -70,8 +70,8 @@ class OccasionWidget extends StatelessWidget {
                       fit: BoxFit.scaleDown,
                       child: Text(
                         generalCtrl.today.hMonth == month
-                            ? '${(generalCtrl.today.lengthOfMonth - generalCtrl.today.hDay).toString().convertNumbers()}\n${'${generalCtrl.daysArabicConvert(generalCtrl.today.hDay)}'.tr}'
-                            : '${daysUntilEvent.toString().convertNumbers()}\n${'${generalCtrl.daysArabicConvert(generalCtrl.today.hDay)}'.tr}',
+                            ? '${(generalCtrl.today.lengthOfMonth - generalCtrl.today.hDay).toString().convertNumbers()}\n${'${generalCtrl.daysArabicConvert(generalCtrl.today.lengthOfMonth - generalCtrl.today.hDay)}'.tr}'
+                            : '${daysUntilEvent.toString().convertNumbers()}\n${'${generalCtrl.daysArabicConvert(generalCtrl.today.lengthOfMonth - generalCtrl.today.hDay)}'.tr}',
                         style: TextStyle(
                           fontSize: 16.0,
                           fontFamily: 'kufi',
