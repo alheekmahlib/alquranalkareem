@@ -17,14 +17,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.0.0+1"
-  alarm:
-    dependency: "direct main"
-    description:
-      name: alarm
-      sha256: "944d2a8ffbd5317a71f1d63785a395b97baef97aa918a1c8141897e2a643a51a"
-      url: "https://pub.dev"
-    source: hosted
-    version: "3.1.4"
   analyzer:
     dependency: transitive
     description:
@@ -361,22 +353,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.4.0"
-  device_info_plus:
-    dependency: "direct main"
-    description:
-      name: device_info_plus
-      sha256: eead12d1a1ed83d8283ab4c2f3fca23ac4082f29f25f29dff0f758f57d06ec91
-      url: "https://pub.dev"
-    source: hosted
-    version: "10.1.0"
-  device_info_plus_platform_interface:
-    dependency: transitive
-    description:
-      name: device_info_plus_platform_interface
-      sha256: d3b01d5868b50ae571cd1dc6e502fc94d956b665756180f7b16ead09e836fd64
-      url: "https://pub.dev"
-    source: hosted
-    version: "7.0.0"
   dio:
     dependency: "direct main"
     description:
@@ -470,14 +446,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.3.2"
-  flutter_fgbg:
-    dependency: transitive
-    description:
-      name: flutter_fgbg
-      sha256: "08c4d2fd229e3df26083d5aecc3dea9ff4f2d188f8cd57aaf2b3f047bd08a047"
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.3.0"
   flutter_local_notifications:
     dependency: "direct main"
     description:
@@ -523,6 +491,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "4.0.1"
+  flutter_rounded_progress_bar:
+    dependency: "direct main"
+    description:
+      name: flutter_rounded_progress_bar
+      sha256: c35e3eb01467052c4ad441c227cb91d5a8f748fef5926ee572c548fec91e0aec
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.3.2"
   flutter_screenutil:
     dependency: "direct main"
     description:
@@ -965,6 +941,22 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.1.0"
+  package_info_plus:
+    dependency: transitive
+    description:
+      name: package_info_plus
+      sha256: b93d8b4d624b4ea19b0a5a208b2d6eff06004bc3ce74c06040b120eeadd00ce0
+      url: "https://pub.dev"
+    source: hosted
+    version: "8.0.0"
+  package_info_plus_platform_interface:
+    dependency: transitive
+    description:
+      name: package_info_plus_platform_interface
+      sha256: f49918f3433a3146047372f9d4f1f847511f2acd5cd030e1f44fe5a50036b70e
+      url: "https://pub.dev"
+    source: hosted
+    version: "3.0.0"
   package_rename:
     dependency: "direct main"
     description:
@@ -1562,6 +1554,22 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "14.2.1"
+  wakelock_plus:
+    dependency: "direct main"
+    description:
+      name: wakelock_plus
+      sha256: "14758533319a462ffb5aa3b7ddb198e59b29ac3b02da14173a1715d65d4e6e68"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.2.5"
+  wakelock_plus_platform_interface:
+    dependency: transitive
+    description:
+      name: wakelock_plus_platform_interface
+      sha256: "422d1cdbb448079a8a62a5a770b69baa489f8f7ca21aef47800c726d404f9d16"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.2.1"
   watcher:
     dependency: transitive
     description:
@@ -1602,14 +1610,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "5.5.1"
-  win32_registry:
-    dependency: transitive
-    description:
-      name: win32_registry
-      sha256: "10589e0d7f4e053f2c61023a31c9ce01146656a70b7b7f0828c0b46d7da2a9bb"
-      url: "https://pub.dev"
-    source: hosted
-    version: "1.1.3"
   workmanager:
     dependency: "direct main"
     description:
