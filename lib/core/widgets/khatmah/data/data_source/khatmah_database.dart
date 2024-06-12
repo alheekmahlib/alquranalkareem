@@ -5,9 +5,17 @@ import 'package:drift/native.dart';
 import 'package:path/path.dart' as p;
 import 'package:path_provider/path_provider.dart';
 
-import '../model/khatmah_model.dart';
-
 part 'khatmah_database.g.dart';
+
+class Khatmahs extends Table {
+  IntColumn get id => integer().autoIncrement()();
+  TextColumn get name => text().nullable()();
+  IntColumn get currentPage => integer().nullable()();
+  IntColumn get startAyahNumber => integer().nullable()();
+  IntColumn get endAyahNumber => integer().nullable()();
+  BoolColumn get isCompleted => boolean().withDefault(Constant(false))();
+  IntColumn get daysCount => integer().withDefault(Constant(30))();
+}
 
 @DriftDatabase(tables: [Khatmahs])
 class KhatmahDatabase extends _$KhatmahDatabase {
@@ -33,7 +41,6 @@ LazyDatabase _openConnection() {
   return LazyDatabase(() async {
     final dbFolder = await getApplicationDocumentsDirectory();
     final file = File(p.join(dbFolder.path, 'khatmah.sqlite'));
-
-    return NativeDatabase.createInBackground(file);
+    return NativeDatabase(file);
   });
 }

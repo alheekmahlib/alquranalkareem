@@ -961,10 +961,10 @@ packages:
     dependency: "direct main"
     description:
       name: package_rename
-      sha256: "5066d021830f7a984f66a3d6912b0b95efb1d91f14322ba26ceacce2a62fd312"
+      sha256: "69b30b62b540fe4637342a2d633b30d4f6475af65d3162b13d7750fe41b780c7"
       url: "https://pub.dev"
     source: hosted
-    version: "1.6.0"
+    version: "1.7.0"
   path:
     dependency: "direct main"
     description:
@@ -1041,10 +1041,10 @@ packages:
     dependency: transitive
     description:
       name: platform
-      sha256: "12220bb4b65720483f8fa9450b4332347737cf8213dd2840d8b2c823e47243ec"
+      sha256: "9b71283fc13df574056616011fb138fd3b793ea47cc509c189a6c3fa5f8a1a65"
       url: "https://pub.dev"
     source: hosted
-    version: "3.1.4"
+    version: "3.1.5"
   plugin_platform_interface:
     dependency: transitive
     description:

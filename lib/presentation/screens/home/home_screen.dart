@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 
 import '/core/utils/constants/extensions/extensions.dart';
 import '../../../core/widgets/daily_ayah/ayah_widget.dart';
+import '../../../core/widgets/khatmah/screens/khatmahs_screen.dart';
 import '../../../core/widgets/tab_bar_widget.dart';
 import '../../controllers/theme_controller.dart';
 import 'widgets/daily_zeker.dart';
@@ -38,6 +39,13 @@ class HomeScreen extends StatelessWidget {
                           children: [
                             HijriDate(),
                             const Gap(16),
+                            IconButton(
+                                onPressed: () => Get.to(() => KhatmasScreen(),
+                                    transition: Transition.downToUp),
+                                icon: Icon(
+                                  Icons.add,
+                                  size: 30,
+                                )),
                             PrayerProgressBar(),
                             const ScreensList(),
                             const Gap(8),
