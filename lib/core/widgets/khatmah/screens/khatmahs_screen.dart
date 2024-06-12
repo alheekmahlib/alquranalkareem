@@ -5,6 +5,7 @@ import '../../../../presentation/controllers/khatmah_controller.dart';
 import '../../delete_widget.dart';
 import '../widgets/khatmah_widget.dart';
 
+/// =============[KhatmahScreen]==============
 class KhatmasScreen extends StatelessWidget {
   KhatmasScreen({super.key});
 
