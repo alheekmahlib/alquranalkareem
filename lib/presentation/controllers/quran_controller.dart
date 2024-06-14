@@ -203,7 +203,7 @@ class QuranController extends GetxController {
         case 1:
           return "١/٤ الحزب ${'$hizbNumber'.convertNumbers()}";
         case 2:
-          return "١/٢ الحزب ${'$hizbNumber'.convertNumbers}";
+          return "١/٢ الحزب ${'$hizbNumber'.convertNumbers()}";
         case 3:
           return "٣/٤ الحزب ${'$hizbNumber'.convertNumbers()}";
         default:

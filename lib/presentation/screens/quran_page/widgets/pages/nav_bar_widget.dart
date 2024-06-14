@@ -1,12 +1,12 @@
-import 'package:alquranalkareem/core/utils/constants/extensions/svg_extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '/core/utils/constants/extensions/svg_extensions.dart';
 import '/presentation/controllers/quran_controller.dart';
-import '/presentation/screens/quran_page/widgets/bookmarks/bookmarks_list.dart';
 import '../../../../../core/utils/constants/svg_constants.dart';
 import '../../../../../core/utils/helpers/global_key_manager.dart';
 import '../../../../controllers/general_controller.dart';
+import '../bookmarks/khatmah_bookmarks_screen.dart';
 
 class NavBarWidget extends StatelessWidget {
   NavBarWidget({super.key});
@@ -61,7 +61,8 @@ class NavBarWidget extends StatelessWidget {
             // PagesIndicator(),
             GestureDetector(
               onTap: () {
-                Get.bottomSheet(BookmarksList(), isScrollControlled: true);
+                Get.bottomSheet(const KhatmahBookmarksScreen(),
+                    isScrollControlled: true);
                 generalCtrl.showSelectScreenPage.value = false;
               },
               child: Stack(

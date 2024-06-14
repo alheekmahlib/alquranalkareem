@@ -6,8 +6,23 @@ import '../../../../../core/utils/constants/extensions/extensions.dart';
 import '../../../../../core/utils/constants/svg_constants.dart';
 import '../../../../controllers/aya_controller.dart';
 
-class SearchBarWidget extends StatelessWidget {
-  SearchBarWidget({super.key});
+class TextFieldBarWidget extends StatelessWidget {
+  final TextEditingController? controller;
+  final String? hintText;
+  final Widget? prefixIcon;
+  final void Function()? onPressed;
+  final void Function(String)? onChanged;
+  final void Function(String)? onSubmitted;
+  final double? horizontalPadding;
+  TextFieldBarWidget(
+      {super.key,
+      this.controller,
+      this.hintText,
+      this.prefixIcon,
+      this.onPressed,
+      this.onChanged,
+      this.onSubmitted,
+      this.horizontalPadding});
 
   final ayahCtrl = AyaController.instance;
 
@@ -15,24 +30,24 @@ class SearchBarWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: MediaQuery.sizeOf(context).width,
-      margin: const EdgeInsets.symmetric(vertical: 32.0, horizontal: 32.0),
+      margin: EdgeInsets.symmetric(
+          vertical: 8.0, horizontal: horizontalPadding ?? 32.0),
       child: SizedBox(
         height: 50,
         width: context.customOrientation(MediaQuery.sizeOf(context).width * .7,
             MediaQuery.sizeOf(context).width * .5),
         child: TextField(
-          controller: ayahCtrl.searchTextEditing,
+          controller: controller ?? ayahCtrl.searchTextEditing,
           maxLines: 1,
           style: TextStyle(
             fontSize: 16.0,
             fontFamily: 'naskh',
             fontWeight: FontWeight.w600,
-            // height: 1.5.h,
-            // FIXME: the text is being heidded by half size.
             color: Theme.of(context).hintColor.withOpacity(.7),
           ),
           decoration: InputDecoration(
-            hintText: 'search_word'.tr,
+            contentPadding: EdgeInsets.zero,
+            hintText: hintText ?? 'search_word'.tr,
             enabledBorder: OutlineInputBorder(
               borderSide: BorderSide(
                   color: Theme.of(context).colorScheme.primary, width: 1),
@@ -51,46 +66,50 @@ class SearchBarWidget extends StatelessWidget {
             ),
             filled: true,
             fillColor: Theme.of(context).colorScheme.primaryContainer,
-            prefixIcon: Container(
-              height: 20,
-              padding: const EdgeInsets.all(10.0),
-              child: customSvg(
-                SvgPath.svgSearchIcon,
-                height: 35,
-              ),
-            ),
+            prefixIcon: prefixIcon ??
+                Container(
+                  height: 20,
+                  padding: const EdgeInsets.all(10.0),
+                  child: customSvg(
+                    SvgPath.svgSearchIcon,
+                    height: 35,
+                  ),
+                ),
             suffixIcon: IconButton(
               icon: Icon(
                 Icons.close,
                 color: Theme.of(context).hintColor,
               ),
-              onPressed: () {
-                ayahCtrl.searchTextEditing.clear();
-                ayahCtrl.ayahList.clear();
-                ayahCtrl.surahList.clear();
-              },
+              onPressed: onPressed ??
+                  () {
+                    ayahCtrl.searchTextEditing.clear();
+                    ayahCtrl.ayahList.clear();
+                    ayahCtrl.surahList.clear();
+                  },
             ),
-            labelText: 'search_word'.tr,
+            labelText: hintText ?? 'search_word'.tr,
             labelStyle: TextStyle(
               fontSize: 14.0,
               fontFamily: 'kufi',
               color: Theme.of(context).hintColor.withOpacity(.7),
             ),
           ),
-          onChanged: (query) {
-            if (ayahCtrl.searchTextEditing.text.isNotEmpty) {
-              ayahCtrl.surahSearch(query);
-              ayahCtrl.search(query);
-            }
-          },
-          onSubmitted: (query) {
-            if (query.length <= 0) {
-              ayahCtrl.surahSearch(query);
-              ayahCtrl.search(query);
-            }
-            // await sl<QuranSearchControllers>().addSearchItem(query);
-            // searchCtrl.textSearchController.clear();
-          },
+          onChanged: onChanged ??
+              (query) {
+                if (ayahCtrl.searchTextEditing.text.isNotEmpty) {
+                  ayahCtrl.surahSearch(query);
+                  ayahCtrl.search(query);
+                }
+              },
+          onSubmitted: onSubmitted ??
+              (query) {
+                if (query.length <= 0) {
+                  ayahCtrl.surahSearch(query);
+                  ayahCtrl.search(query);
+                }
+                // await sl<QuranSearchControllers>().addSearchItem(query);
+                // searchCtrl.textSearchController.clear();
+              },
           onTapOutside: (event) {
             FocusManager.instance.primaryFocus?.unfocus();
           },

@@ -8,7 +8,7 @@ class DeleteWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       // height: 55,
-      width: MediaQuery.sizeOf(context).width,
+      width: Get.width,
       decoration: const BoxDecoration(
           color: Colors.red,
           borderRadius: BorderRadius.all(Radius.circular(8))),

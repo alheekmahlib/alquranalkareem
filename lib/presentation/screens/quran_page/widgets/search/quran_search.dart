@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 
 import '/core/utils/constants/extensions/surah_name_with_banner.dart';
@@ -27,7 +28,9 @@ class QuranSearch extends StatelessWidget {
         child: Column(
           children: <Widget>[
             context.customClose(),
-            SearchBarWidget(),
+            const Gap(16),
+            TextFieldBarWidget(),
+            const Gap(16),
             Obx(
               () {
                 if (ayahCtrl.surahList.isEmpty) {
