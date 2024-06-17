@@ -5,6 +5,7 @@ import '../../../presentation/controllers/adhan_controller.dart';
 import '../../../presentation/controllers/theme_controller.dart';
 import '../../../presentation/screens/alwaqf_screen/alwaqf_screen.dart';
 import '../../../presentation/screens/athkar/screens/alzkar_view.dart';
+import '../../../presentation/screens/books/screens/books_screen.dart';
 import '../../../presentation/screens/quran_page/screens/quran_home.dart';
 import '../../../presentation/screens/surah_audio_screen/audio_surah.dart';
 import '../../services/services_locator.dart';
@@ -96,6 +97,13 @@ final List screensList = [
     'svgUrl': 'assets/svg/quran_au_ic.svg',
     'imagePath': 'assets/images/audio.png',
     'route': () => const AudioScreen(),
+    'width': 240.0
+  },
+  {
+    'name': 'quran',
+    'svgUrl': 'assets/svg/splash_icon_w.svg',
+    'imagePath': 'assets/images/pages.png',
+    'route': () => BooksPage(),
     'width': 240.0
   },
 ];

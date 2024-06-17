@@ -31,6 +31,7 @@ import '/presentation/screens/quran_page/data/data_source/qurtubi_data_client.da
 import '/presentation/screens/quran_page/data/data_source/saadi_data_client.dart';
 import '/presentation/screens/quran_page/data/data_source/tabari_data_client.dart';
 import '../../presentation/controllers/adhan_controller.dart';
+import '../../presentation/controllers/books_controller.dart';
 import '../../presentation/controllers/daily_ayah_controller.dart';
 import '../../presentation/controllers/home_widget_controller.dart';
 import '../../presentation/controllers/khatmah_controller.dart';
@@ -184,6 +185,9 @@ class ServicesLocator {
     sl.registerLazySingleton<PrayerProgressController>(() =>
         Get.put<PrayerProgressController>(PrayerProgressController(),
             permanent: true));
+
+    sl.registerLazySingleton<BooksController>(
+        () => Get.put<BooksController>(BooksController(), permanent: true));
     // NotifyHelper().initializeNotification();
     // sl<NotificationsController>().initializeLocalNotifications();
 
