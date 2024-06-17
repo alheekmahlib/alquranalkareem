@@ -58,20 +58,32 @@ class $KhatmahsTable extends Khatmahs with TableInfo<$KhatmahsTable, Khatmah> {
       type: DriftSqlType.int,
       requiredDuringInsert: false,
       defaultValue: Constant(30));
-  static const VerificationMeta _isTahzibSalafMeta =
-      const VerificationMeta('isTahzibSalaf');
+  static const VerificationMeta _isTahzibSahabahMeta =
+      const VerificationMeta('isTahzibSahabah');
   @override
-  late final GeneratedColumn<bool> isTahzibSalaf = GeneratedColumn<bool>(
-      'is_tahzib_salaf', aliasedName, false,
+  late final GeneratedColumn<bool> isTahzibSahabah = GeneratedColumn<bool>(
+      'is_tahzib_sahabah', aliasedName, false,
       type: DriftSqlType.bool,
       requiredDuringInsert: false,
       defaultConstraints: GeneratedColumn.constraintIsAlways(
-          'CHECK ("is_tahzib_salaf" IN (0, 1))'),
+          'CHECK ("is_tahzib_sahabah" IN (0, 1))'),
       defaultValue: Constant(false));
   static const VerificationMeta _colorMeta = const VerificationMeta('color');
   @override
   late final GeneratedColumn<int> color = GeneratedColumn<int>(
       'color', aliasedName, true,
+      type: DriftSqlType.int, requiredDuringInsert: false);
+  static const VerificationMeta _startPageMeta =
+      const VerificationMeta('startPage');
+  @override
+  late final GeneratedColumn<int> startPage = GeneratedColumn<int>(
+      'start_page', aliasedName, true,
+      type: DriftSqlType.int, requiredDuringInsert: false);
+  static const VerificationMeta _endPageMeta =
+      const VerificationMeta('endPage');
+  @override
+  late final GeneratedColumn<int> endPage = GeneratedColumn<int>(
+      'end_page', aliasedName, true,
       type: DriftSqlType.int, requiredDuringInsert: false);
   @override
   List<GeneratedColumn> get $columns => [
@@ -82,8 +94,10 @@ class $KhatmahsTable extends Khatmahs with TableInfo<$KhatmahsTable, Khatmah> {
         endAyahNumber,
         isCompleted,
         daysCount,
-        isTahzibSalaf,
-        color
+        isTahzibSahabah,
+        color,
+        startPage,
+        endPage
       ];
   @override
   String get aliasedName => _alias ?? actualTableName;
@@ -130,15 +144,23 @@ class $KhatmahsTable extends Khatmahs with TableInfo<$KhatmahsTable, Khatmah> {
       context.handle(_daysCountMeta,
           daysCount.isAcceptableOrUnknown(data['days_count']!, _daysCountMeta));
     }
-    if (data.containsKey('is_tahzib_salaf')) {
+    if (data.containsKey('is_tahzib_sahabah')) {
       context.handle(
-          _isTahzibSalafMeta,
-          isTahzibSalaf.isAcceptableOrUnknown(
-              data['is_tahzib_salaf']!, _isTahzibSalafMeta));
+          _isTahzibSahabahMeta,
+          isTahzibSahabah.isAcceptableOrUnknown(
+              data['is_tahzib_sahabah']!, _isTahzibSahabahMeta));
     }
     if (data.containsKey('color')) {
       context.handle(
           _colorMeta, color.isAcceptableOrUnknown(data['color']!, _colorMeta));
+    }
+    if (data.containsKey('start_page')) {
+      context.handle(_startPageMeta,
+          startPage.isAcceptableOrUnknown(data['start_page']!, _startPageMeta));
+    }
+    if (data.containsKey('end_page')) {
+      context.handle(_endPageMeta,
+          endPage.isAcceptableOrUnknown(data['end_page']!, _endPageMeta));
     }
     return context;
   }
@@ -163,10 +185,14 @@ class $KhatmahsTable extends Khatmahs with TableInfo<$KhatmahsTable, Khatmah> {
           .read(DriftSqlType.bool, data['${effectivePrefix}is_completed'])!,
       daysCount: attachedDatabase.typeMapping
           .read(DriftSqlType.int, data['${effectivePrefix}days_count'])!,
-      isTahzibSalaf: attachedDatabase.typeMapping
-          .read(DriftSqlType.bool, data['${effectivePrefix}is_tahzib_salaf'])!,
+      isTahzibSahabah: attachedDatabase.typeMapping.read(
+          DriftSqlType.bool, data['${effectivePrefix}is_tahzib_sahabah'])!,
       color: attachedDatabase.typeMapping
           .read(DriftSqlType.int, data['${effectivePrefix}color']),
+      startPage: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}start_page']),
+      endPage: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}end_page']),
     );
   }
 
@@ -184,8 +210,10 @@ class Khatmah extends DataClass implements Insertable<Khatmah> {
   final int? endAyahNumber;
   final bool isCompleted;
   final int daysCount;
-  final bool isTahzibSalaf;
+  final bool isTahzibSahabah;
   final int? color;
+  final int? startPage;
+  final int? endPage;
   const Khatmah(
       {required this.id,
       this.name,
@@ -194,8 +222,10 @@ class Khatmah extends DataClass implements Insertable<Khatmah> {
       this.endAyahNumber,
       required this.isCompleted,
       required this.daysCount,
-      required this.isTahzibSalaf,
-      this.color});
+      required this.isTahzibSahabah,
+      this.color,
+      this.startPage,
+      this.endPage});
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
@@ -214,9 +244,15 @@ class Khatmah extends DataClass implements Insertable<Khatmah> {
     }
     map['is_completed'] = Variable<bool>(isCompleted);
     map['days_count'] = Variable<int>(daysCount);
-    map['is_tahzib_salaf'] = Variable<bool>(isTahzibSalaf);
+    map['is_tahzib_sahabah'] = Variable<bool>(isTahzibSahabah);
     if (!nullToAbsent || color != null) {
       map['color'] = Variable<int>(color);
+    }
+    if (!nullToAbsent || startPage != null) {
+      map['start_page'] = Variable<int>(startPage);
+    }
+    if (!nullToAbsent || endPage != null) {
+      map['end_page'] = Variable<int>(endPage);
     }
     return map;
   }
@@ -236,9 +272,15 @@ class Khatmah extends DataClass implements Insertable<Khatmah> {
           : Value(endAyahNumber),
       isCompleted: Value(isCompleted),
       daysCount: Value(daysCount),
-      isTahzibSalaf: Value(isTahzibSalaf),
+      isTahzibSahabah: Value(isTahzibSahabah),
       color:
           color == null && nullToAbsent ? const Value.absent() : Value(color),
+      startPage: startPage == null && nullToAbsent
+          ? const Value.absent()
+          : Value(startPage),
+      endPage: endPage == null && nullToAbsent
+          ? const Value.absent()
+          : Value(endPage),
     );
   }
 
@@ -253,8 +295,10 @@ class Khatmah extends DataClass implements Insertable<Khatmah> {
       endAyahNumber: serializer.fromJson<int?>(json['endAyahNumber']),
       isCompleted: serializer.fromJson<bool>(json['isCompleted']),
       daysCount: serializer.fromJson<int>(json['daysCount']),
-      isTahzibSalaf: serializer.fromJson<bool>(json['isTahzibSalaf']),
+      isTahzibSahabah: serializer.fromJson<bool>(json['isTahzibSahabah']),
       color: serializer.fromJson<int?>(json['color']),
+      startPage: serializer.fromJson<int?>(json['startPage']),
+      endPage: serializer.fromJson<int?>(json['endPage']),
     );
   }
   @override
@@ -268,8 +312,10 @@ class Khatmah extends DataClass implements Insertable<Khatmah> {
       'endAyahNumber': serializer.toJson<int?>(endAyahNumber),
       'isCompleted': serializer.toJson<bool>(isCompleted),
       'daysCount': serializer.toJson<int>(daysCount),
-      'isTahzibSalaf': serializer.toJson<bool>(isTahzibSalaf),
+      'isTahzibSahabah': serializer.toJson<bool>(isTahzibSahabah),
       'color': serializer.toJson<int?>(color),
+      'startPage': serializer.toJson<int?>(startPage),
+      'endPage': serializer.toJson<int?>(endPage),
     };
   }
 
@@ -281,8 +327,10 @@ class Khatmah extends DataClass implements Insertable<Khatmah> {
           Value<int?> endAyahNumber = const Value.absent(),
           bool? isCompleted,
           int? daysCount,
-          bool? isTahzibSalaf,
-          Value<int?> color = const Value.absent()}) =>
+          bool? isTahzibSahabah,
+          Value<int?> color = const Value.absent(),
+          Value<int?> startPage = const Value.absent(),
+          Value<int?> endPage = const Value.absent()}) =>
       Khatmah(
         id: id ?? this.id,
         name: name.present ? name.value : this.name,
@@ -294,8 +342,10 @@ class Khatmah extends DataClass implements Insertable<Khatmah> {
             endAyahNumber.present ? endAyahNumber.value : this.endAyahNumber,
         isCompleted: isCompleted ?? this.isCompleted,
         daysCount: daysCount ?? this.daysCount,
-        isTahzibSalaf: isTahzibSalaf ?? this.isTahzibSalaf,
+        isTahzibSahabah: isTahzibSahabah ?? this.isTahzibSahabah,
         color: color.present ? color.value : this.color,
+        startPage: startPage.present ? startPage.value : this.startPage,
+        endPage: endPage.present ? endPage.value : this.endPage,
       );
   @override
   String toString() {
@@ -307,15 +357,27 @@ class Khatmah extends DataClass implements Insertable<Khatmah> {
           ..write('endAyahNumber: $endAyahNumber, ')
           ..write('isCompleted: $isCompleted, ')
           ..write('daysCount: $daysCount, ')
-          ..write('isTahzibSalaf: $isTahzibSalaf, ')
-          ..write('color: $color')
+          ..write('isTahzibSahabah: $isTahzibSahabah, ')
+          ..write('color: $color, ')
+          ..write('startPage: $startPage, ')
+          ..write('endPage: $endPage')
           ..write(')'))
         .toString();
   }
 
   @override
-  int get hashCode => Object.hash(id, name, currentPage, startAyahNumber,
-      endAyahNumber, isCompleted, daysCount, isTahzibSalaf, color);
+  int get hashCode => Object.hash(
+      id,
+      name,
+      currentPage,
+      startAyahNumber,
+      endAyahNumber,
+      isCompleted,
+      daysCount,
+      isTahzibSahabah,
+      color,
+      startPage,
+      endPage);
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
@@ -327,8 +389,10 @@ class Khatmah extends DataClass implements Insertable<Khatmah> {
           other.endAyahNumber == this.endAyahNumber &&
           other.isCompleted == this.isCompleted &&
           other.daysCount == this.daysCount &&
-          other.isTahzibSalaf == this.isTahzibSalaf &&
-          other.color == this.color);
+          other.isTahzibSahabah == this.isTahzibSahabah &&
+          other.color == this.color &&
+          other.startPage == this.startPage &&
+          other.endPage == this.endPage);
 }
 
 class KhatmahsCompanion extends UpdateCompanion<Khatmah> {
@@ -339,8 +403,10 @@ class KhatmahsCompanion extends UpdateCompanion<Khatmah> {
   final Value<int?> endAyahNumber;
   final Value<bool> isCompleted;
   final Value<int> daysCount;
-  final Value<bool> isTahzibSalaf;
+  final Value<bool> isTahzibSahabah;
   final Value<int?> color;
+  final Value<int?> startPage;
+  final Value<int?> endPage;
   const KhatmahsCompanion({
     this.id = const Value.absent(),
     this.name = const Value.absent(),
@@ -349,8 +415,10 @@ class KhatmahsCompanion extends UpdateCompanion<Khatmah> {
     this.endAyahNumber = const Value.absent(),
     this.isCompleted = const Value.absent(),
     this.daysCount = const Value.absent(),
-    this.isTahzibSalaf = const Value.absent(),
+    this.isTahzibSahabah = const Value.absent(),
     this.color = const Value.absent(),
+    this.startPage = const Value.absent(),
+    this.endPage = const Value.absent(),
   });
   KhatmahsCompanion.insert({
     this.id = const Value.absent(),
@@ -360,8 +428,10 @@ class KhatmahsCompanion extends UpdateCompanion<Khatmah> {
     this.endAyahNumber = const Value.absent(),
     this.isCompleted = const Value.absent(),
     this.daysCount = const Value.absent(),
-    this.isTahzibSalaf = const Value.absent(),
+    this.isTahzibSahabah = const Value.absent(),
     this.color = const Value.absent(),
+    this.startPage = const Value.absent(),
+    this.endPage = const Value.absent(),
   });
   static Insertable<Khatmah> custom({
     Expression<int>? id,
@@ -371,8 +441,10 @@ class KhatmahsCompanion extends UpdateCompanion<Khatmah> {
     Expression<int>? endAyahNumber,
     Expression<bool>? isCompleted,
     Expression<int>? daysCount,
-    Expression<bool>? isTahzibSalaf,
+    Expression<bool>? isTahzibSahabah,
     Expression<int>? color,
+    Expression<int>? startPage,
+    Expression<int>? endPage,
   }) {
     return RawValuesInsertable({
       if (id != null) 'id': id,
@@ -382,8 +454,10 @@ class KhatmahsCompanion extends UpdateCompanion<Khatmah> {
       if (endAyahNumber != null) 'end_ayah_number': endAyahNumber,
       if (isCompleted != null) 'is_completed': isCompleted,
       if (daysCount != null) 'days_count': daysCount,
-      if (isTahzibSalaf != null) 'is_tahzib_salaf': isTahzibSalaf,
+      if (isTahzibSahabah != null) 'is_tahzib_sahabah': isTahzibSahabah,
       if (color != null) 'color': color,
+      if (startPage != null) 'start_page': startPage,
+      if (endPage != null) 'end_page': endPage,
     });
   }
 
@@ -395,8 +469,10 @@ class KhatmahsCompanion extends UpdateCompanion<Khatmah> {
       Value<int?>? endAyahNumber,
       Value<bool>? isCompleted,
       Value<int>? daysCount,
-      Value<bool>? isTahzibSalaf,
-      Value<int?>? color}) {
+      Value<bool>? isTahzibSahabah,
+      Value<int?>? color,
+      Value<int?>? startPage,
+      Value<int?>? endPage}) {
     return KhatmahsCompanion(
       id: id ?? this.id,
       name: name ?? this.name,
@@ -405,8 +481,10 @@ class KhatmahsCompanion extends UpdateCompanion<Khatmah> {
       endAyahNumber: endAyahNumber ?? this.endAyahNumber,
       isCompleted: isCompleted ?? this.isCompleted,
       daysCount: daysCount ?? this.daysCount,
-      isTahzibSalaf: isTahzibSalaf ?? this.isTahzibSalaf,
+      isTahzibSahabah: isTahzibSahabah ?? this.isTahzibSahabah,
       color: color ?? this.color,
+      startPage: startPage ?? this.startPage,
+      endPage: endPage ?? this.endPage,
     );
   }
 
@@ -434,11 +512,17 @@ class KhatmahsCompanion extends UpdateCompanion<Khatmah> {
     if (daysCount.present) {
       map['days_count'] = Variable<int>(daysCount.value);
     }
-    if (isTahzibSalaf.present) {
-      map['is_tahzib_salaf'] = Variable<bool>(isTahzibSalaf.value);
+    if (isTahzibSahabah.present) {
+      map['is_tahzib_sahabah'] = Variable<bool>(isTahzibSahabah.value);
     }
     if (color.present) {
       map['color'] = Variable<int>(color.value);
+    }
+    if (startPage.present) {
+      map['start_page'] = Variable<int>(startPage.value);
+    }
+    if (endPage.present) {
+      map['end_page'] = Variable<int>(endPage.value);
     }
     return map;
   }
@@ -453,8 +537,10 @@ class KhatmahsCompanion extends UpdateCompanion<Khatmah> {
           ..write('endAyahNumber: $endAyahNumber, ')
           ..write('isCompleted: $isCompleted, ')
           ..write('daysCount: $daysCount, ')
-          ..write('isTahzibSalaf: $isTahzibSalaf, ')
-          ..write('color: $color')
+          ..write('isTahzibSahabah: $isTahzibSahabah, ')
+          ..write('color: $color, ')
+          ..write('startPage: $startPage, ')
+          ..write('endPage: $endPage')
           ..write(')'))
         .toString();
   }
@@ -498,8 +584,21 @@ class $KhatmahDaysTable extends KhatmahDays
       defaultConstraints: GeneratedColumn.constraintIsAlways(
           'CHECK ("is_completed" IN (0, 1))'),
       defaultValue: Constant(false));
+  static const VerificationMeta _startPageMeta =
+      const VerificationMeta('startPage');
   @override
-  List<GeneratedColumn> get $columns => [id, khatmahId, day, isCompleted];
+  late final GeneratedColumn<int> startPage = GeneratedColumn<int>(
+      'start_page', aliasedName, true,
+      type: DriftSqlType.int, requiredDuringInsert: false);
+  static const VerificationMeta _endPageMeta =
+      const VerificationMeta('endPage');
+  @override
+  late final GeneratedColumn<int> endPage = GeneratedColumn<int>(
+      'end_page', aliasedName, true,
+      type: DriftSqlType.int, requiredDuringInsert: false);
+  @override
+  List<GeneratedColumn> get $columns =>
+      [id, khatmahId, day, isCompleted, startPage, endPage];
   @override
   String get aliasedName => _alias ?? actualTableName;
   @override
@@ -531,6 +630,14 @@ class $KhatmahDaysTable extends KhatmahDays
           isCompleted.isAcceptableOrUnknown(
               data['is_completed']!, _isCompletedMeta));
     }
+    if (data.containsKey('start_page')) {
+      context.handle(_startPageMeta,
+          startPage.isAcceptableOrUnknown(data['start_page']!, _startPageMeta));
+    }
+    if (data.containsKey('end_page')) {
+      context.handle(_endPageMeta,
+          endPage.isAcceptableOrUnknown(data['end_page']!, _endPageMeta));
+    }
     return context;
   }
 
@@ -548,6 +655,10 @@ class $KhatmahDaysTable extends KhatmahDays
           .read(DriftSqlType.int, data['${effectivePrefix}day'])!,
       isCompleted: attachedDatabase.typeMapping
           .read(DriftSqlType.bool, data['${effectivePrefix}is_completed'])!,
+      startPage: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}start_page']),
+      endPage: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}end_page']),
     );
   }
 
@@ -562,11 +673,15 @@ class KhatmahDay extends DataClass implements Insertable<KhatmahDay> {
   final int khatmahId;
   final int day;
   final bool isCompleted;
+  final int? startPage;
+  final int? endPage;
   const KhatmahDay(
       {required this.id,
       required this.khatmahId,
       required this.day,
-      required this.isCompleted});
+      required this.isCompleted,
+      this.startPage,
+      this.endPage});
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
@@ -574,6 +689,12 @@ class KhatmahDay extends DataClass implements Insertable<KhatmahDay> {
     map['khatmah_id'] = Variable<int>(khatmahId);
     map['day'] = Variable<int>(day);
     map['is_completed'] = Variable<bool>(isCompleted);
+    if (!nullToAbsent || startPage != null) {
+      map['start_page'] = Variable<int>(startPage);
+    }
+    if (!nullToAbsent || endPage != null) {
+      map['end_page'] = Variable<int>(endPage);
+    }
     return map;
   }
 
@@ -583,6 +704,12 @@ class KhatmahDay extends DataClass implements Insertable<KhatmahDay> {
       khatmahId: Value(khatmahId),
       day: Value(day),
       isCompleted: Value(isCompleted),
+      startPage: startPage == null && nullToAbsent
+          ? const Value.absent()
+          : Value(startPage),
+      endPage: endPage == null && nullToAbsent
+          ? const Value.absent()
+          : Value(endPage),
     );
   }
 
@@ -594,6 +721,8 @@ class KhatmahDay extends DataClass implements Insertable<KhatmahDay> {
       khatmahId: serializer.fromJson<int>(json['khatmahId']),
       day: serializer.fromJson<int>(json['day']),
       isCompleted: serializer.fromJson<bool>(json['isCompleted']),
+      startPage: serializer.fromJson<int?>(json['startPage']),
+      endPage: serializer.fromJson<int?>(json['endPage']),
     );
   }
   @override
@@ -604,15 +733,25 @@ class KhatmahDay extends DataClass implements Insertable<KhatmahDay> {
       'khatmahId': serializer.toJson<int>(khatmahId),
       'day': serializer.toJson<int>(day),
       'isCompleted': serializer.toJson<bool>(isCompleted),
+      'startPage': serializer.toJson<int?>(startPage),
+      'endPage': serializer.toJson<int?>(endPage),
     };
   }
 
-  KhatmahDay copyWith({int? id, int? khatmahId, int? day, bool? isCompleted}) =>
+  KhatmahDay copyWith(
+          {int? id,
+          int? khatmahId,
+          int? day,
+          bool? isCompleted,
+          Value<int?> startPage = const Value.absent(),
+          Value<int?> endPage = const Value.absent()}) =>
       KhatmahDay(
         id: id ?? this.id,
         khatmahId: khatmahId ?? this.khatmahId,
         day: day ?? this.day,
         isCompleted: isCompleted ?? this.isCompleted,
+        startPage: startPage.present ? startPage.value : this.startPage,
+        endPage: endPage.present ? endPage.value : this.endPage,
       );
   @override
   String toString() {
@@ -620,13 +759,16 @@ class KhatmahDay extends DataClass implements Insertable<KhatmahDay> {
           ..write('id: $id, ')
           ..write('khatmahId: $khatmahId, ')
           ..write('day: $day, ')
-          ..write('isCompleted: $isCompleted')
+          ..write('isCompleted: $isCompleted, ')
+          ..write('startPage: $startPage, ')
+          ..write('endPage: $endPage')
           ..write(')'))
         .toString();
   }
 
   @override
-  int get hashCode => Object.hash(id, khatmahId, day, isCompleted);
+  int get hashCode =>
+      Object.hash(id, khatmahId, day, isCompleted, startPage, endPage);
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
@@ -634,7 +776,9 @@ class KhatmahDay extends DataClass implements Insertable<KhatmahDay> {
           other.id == this.id &&
           other.khatmahId == this.khatmahId &&
           other.day == this.day &&
-          other.isCompleted == this.isCompleted);
+          other.isCompleted == this.isCompleted &&
+          other.startPage == this.startPage &&
+          other.endPage == this.endPage);
 }
 
 class KhatmahDaysCompanion extends UpdateCompanion<KhatmahDay> {
@@ -642,17 +786,23 @@ class KhatmahDaysCompanion extends UpdateCompanion<KhatmahDay> {
   final Value<int> khatmahId;
   final Value<int> day;
   final Value<bool> isCompleted;
+  final Value<int?> startPage;
+  final Value<int?> endPage;
   const KhatmahDaysCompanion({
     this.id = const Value.absent(),
     this.khatmahId = const Value.absent(),
     this.day = const Value.absent(),
     this.isCompleted = const Value.absent(),
+    this.startPage = const Value.absent(),
+    this.endPage = const Value.absent(),
   });
   KhatmahDaysCompanion.insert({
     this.id = const Value.absent(),
     required int khatmahId,
     required int day,
     this.isCompleted = const Value.absent(),
+    this.startPage = const Value.absent(),
+    this.endPage = const Value.absent(),
   })  : khatmahId = Value(khatmahId),
         day = Value(day);
   static Insertable<KhatmahDay> custom({
@@ -660,12 +810,16 @@ class KhatmahDaysCompanion extends UpdateCompanion<KhatmahDay> {
     Expression<int>? khatmahId,
     Expression<int>? day,
     Expression<bool>? isCompleted,
+    Expression<int>? startPage,
+    Expression<int>? endPage,
   }) {
     return RawValuesInsertable({
       if (id != null) 'id': id,
       if (khatmahId != null) 'khatmah_id': khatmahId,
       if (day != null) 'day': day,
       if (isCompleted != null) 'is_completed': isCompleted,
+      if (startPage != null) 'start_page': startPage,
+      if (endPage != null) 'end_page': endPage,
     });
   }
 
@@ -673,12 +827,16 @@ class KhatmahDaysCompanion extends UpdateCompanion<KhatmahDay> {
       {Value<int>? id,
       Value<int>? khatmahId,
       Value<int>? day,
-      Value<bool>? isCompleted}) {
+      Value<bool>? isCompleted,
+      Value<int?>? startPage,
+      Value<int?>? endPage}) {
     return KhatmahDaysCompanion(
       id: id ?? this.id,
       khatmahId: khatmahId ?? this.khatmahId,
       day: day ?? this.day,
       isCompleted: isCompleted ?? this.isCompleted,
+      startPage: startPage ?? this.startPage,
+      endPage: endPage ?? this.endPage,
     );
   }
 
@@ -697,6 +855,12 @@ class KhatmahDaysCompanion extends UpdateCompanion<KhatmahDay> {
     if (isCompleted.present) {
       map['is_completed'] = Variable<bool>(isCompleted.value);
     }
+    if (startPage.present) {
+      map['start_page'] = Variable<int>(startPage.value);
+    }
+    if (endPage.present) {
+      map['end_page'] = Variable<int>(endPage.value);
+    }
     return map;
   }
 
@@ -706,7 +870,9 @@ class KhatmahDaysCompanion extends UpdateCompanion<KhatmahDay> {
           ..write('id: $id, ')
           ..write('khatmahId: $khatmahId, ')
           ..write('day: $day, ')
-          ..write('isCompleted: $isCompleted')
+          ..write('isCompleted: $isCompleted, ')
+          ..write('startPage: $startPage, ')
+          ..write('endPage: $endPage')
           ..write(')'))
         .toString();
   }
@@ -744,8 +910,10 @@ typedef $$KhatmahsTableInsertCompanionBuilder = KhatmahsCompanion Function({
   Value<int?> endAyahNumber,
   Value<bool> isCompleted,
   Value<int> daysCount,
-  Value<bool> isTahzibSalaf,
+  Value<bool> isTahzibSahabah,
   Value<int?> color,
+  Value<int?> startPage,
+  Value<int?> endPage,
 });
 typedef $$KhatmahsTableUpdateCompanionBuilder = KhatmahsCompanion Function({
   Value<int> id,
@@ -755,8 +923,10 @@ typedef $$KhatmahsTableUpdateCompanionBuilder = KhatmahsCompanion Function({
   Value<int?> endAyahNumber,
   Value<bool> isCompleted,
   Value<int> daysCount,
-  Value<bool> isTahzibSalaf,
+  Value<bool> isTahzibSahabah,
   Value<int?> color,
+  Value<int?> startPage,
+  Value<int?> endPage,
 });
 
 class $$KhatmahsTableTableManager extends RootTableManager<
@@ -786,8 +956,10 @@ class $$KhatmahsTableTableManager extends RootTableManager<
             Value<int?> endAyahNumber = const Value.absent(),
             Value<bool> isCompleted = const Value.absent(),
             Value<int> daysCount = const Value.absent(),
-            Value<bool> isTahzibSalaf = const Value.absent(),
+            Value<bool> isTahzibSahabah = const Value.absent(),
             Value<int?> color = const Value.absent(),
+            Value<int?> startPage = const Value.absent(),
+            Value<int?> endPage = const Value.absent(),
           }) =>
               KhatmahsCompanion(
             id: id,
@@ -797,8 +969,10 @@ class $$KhatmahsTableTableManager extends RootTableManager<
             endAyahNumber: endAyahNumber,
             isCompleted: isCompleted,
             daysCount: daysCount,
-            isTahzibSalaf: isTahzibSalaf,
+            isTahzibSahabah: isTahzibSahabah,
             color: color,
+            startPage: startPage,
+            endPage: endPage,
           ),
           getInsertCompanionBuilder: ({
             Value<int> id = const Value.absent(),
@@ -808,8 +982,10 @@ class $$KhatmahsTableTableManager extends RootTableManager<
             Value<int?> endAyahNumber = const Value.absent(),
             Value<bool> isCompleted = const Value.absent(),
             Value<int> daysCount = const Value.absent(),
-            Value<bool> isTahzibSalaf = const Value.absent(),
+            Value<bool> isTahzibSahabah = const Value.absent(),
             Value<int?> color = const Value.absent(),
+            Value<int?> startPage = const Value.absent(),
+            Value<int?> endPage = const Value.absent(),
           }) =>
               KhatmahsCompanion.insert(
             id: id,
@@ -819,8 +995,10 @@ class $$KhatmahsTableTableManager extends RootTableManager<
             endAyahNumber: endAyahNumber,
             isCompleted: isCompleted,
             daysCount: daysCount,
-            isTahzibSalaf: isTahzibSalaf,
+            isTahzibSahabah: isTahzibSahabah,
             color: color,
+            startPage: startPage,
+            endPage: endPage,
           ),
         ));
 }
@@ -875,13 +1053,23 @@ class $$KhatmahsTableFilterComposer
       builder: (column, joinBuilders) =>
           ColumnFilters(column, joinBuilders: joinBuilders));
 
-  ColumnFilters<bool> get isTahzibSalaf => $state.composableBuilder(
-      column: $state.table.isTahzibSalaf,
+  ColumnFilters<bool> get isTahzibSahabah => $state.composableBuilder(
+      column: $state.table.isTahzibSahabah,
       builder: (column, joinBuilders) =>
           ColumnFilters(column, joinBuilders: joinBuilders));
 
   ColumnFilters<int> get color => $state.composableBuilder(
       column: $state.table.color,
+      builder: (column, joinBuilders) =>
+          ColumnFilters(column, joinBuilders: joinBuilders));
+
+  ColumnFilters<int> get startPage => $state.composableBuilder(
+      column: $state.table.startPage,
+      builder: (column, joinBuilders) =>
+          ColumnFilters(column, joinBuilders: joinBuilders));
+
+  ColumnFilters<int> get endPage => $state.composableBuilder(
+      column: $state.table.endPage,
       builder: (column, joinBuilders) =>
           ColumnFilters(column, joinBuilders: joinBuilders));
 
@@ -937,13 +1125,23 @@ class $$KhatmahsTableOrderingComposer
       builder: (column, joinBuilders) =>
           ColumnOrderings(column, joinBuilders: joinBuilders));
 
-  ColumnOrderings<bool> get isTahzibSalaf => $state.composableBuilder(
-      column: $state.table.isTahzibSalaf,
+  ColumnOrderings<bool> get isTahzibSahabah => $state.composableBuilder(
+      column: $state.table.isTahzibSahabah,
       builder: (column, joinBuilders) =>
           ColumnOrderings(column, joinBuilders: joinBuilders));
 
   ColumnOrderings<int> get color => $state.composableBuilder(
       column: $state.table.color,
+      builder: (column, joinBuilders) =>
+          ColumnOrderings(column, joinBuilders: joinBuilders));
+
+  ColumnOrderings<int> get startPage => $state.composableBuilder(
+      column: $state.table.startPage,
+      builder: (column, joinBuilders) =>
+          ColumnOrderings(column, joinBuilders: joinBuilders));
+
+  ColumnOrderings<int> get endPage => $state.composableBuilder(
+      column: $state.table.endPage,
       builder: (column, joinBuilders) =>
           ColumnOrderings(column, joinBuilders: joinBuilders));
 }
@@ -954,6 +1152,8 @@ typedef $$KhatmahDaysTableInsertCompanionBuilder = KhatmahDaysCompanion
   required int khatmahId,
   required int day,
   Value<bool> isCompleted,
+  Value<int?> startPage,
+  Value<int?> endPage,
 });
 typedef $$KhatmahDaysTableUpdateCompanionBuilder = KhatmahDaysCompanion
     Function({
@@ -961,6 +1161,8 @@ typedef $$KhatmahDaysTableUpdateCompanionBuilder = KhatmahDaysCompanion
   Value<int> khatmahId,
   Value<int> day,
   Value<bool> isCompleted,
+  Value<int?> startPage,
+  Value<int?> endPage,
 });
 
 class $$KhatmahDaysTableTableManager extends RootTableManager<
@@ -987,24 +1189,32 @@ class $$KhatmahDaysTableTableManager extends RootTableManager<
             Value<int> khatmahId = const Value.absent(),
             Value<int> day = const Value.absent(),
             Value<bool> isCompleted = const Value.absent(),
+            Value<int?> startPage = const Value.absent(),
+            Value<int?> endPage = const Value.absent(),
           }) =>
               KhatmahDaysCompanion(
             id: id,
             khatmahId: khatmahId,
             day: day,
             isCompleted: isCompleted,
+            startPage: startPage,
+            endPage: endPage,
           ),
           getInsertCompanionBuilder: ({
             Value<int> id = const Value.absent(),
             required int khatmahId,
             required int day,
             Value<bool> isCompleted = const Value.absent(),
+            Value<int?> startPage = const Value.absent(),
+            Value<int?> endPage = const Value.absent(),
           }) =>
               KhatmahDaysCompanion.insert(
             id: id,
             khatmahId: khatmahId,
             day: day,
             isCompleted: isCompleted,
+            startPage: startPage,
+            endPage: endPage,
           ),
         ));
 }
@@ -1039,6 +1249,16 @@ class $$KhatmahDaysTableFilterComposer
       builder: (column, joinBuilders) =>
           ColumnFilters(column, joinBuilders: joinBuilders));
 
+  ColumnFilters<int> get startPage => $state.composableBuilder(
+      column: $state.table.startPage,
+      builder: (column, joinBuilders) =>
+          ColumnFilters(column, joinBuilders: joinBuilders));
+
+  ColumnFilters<int> get endPage => $state.composableBuilder(
+      column: $state.table.endPage,
+      builder: (column, joinBuilders) =>
+          ColumnFilters(column, joinBuilders: joinBuilders));
+
   $$KhatmahsTableFilterComposer get khatmahId {
     final $$KhatmahsTableFilterComposer composer = $state.composerBuilder(
         composer: this,
@@ -1067,6 +1287,16 @@ class $$KhatmahDaysTableOrderingComposer
 
   ColumnOrderings<bool> get isCompleted => $state.composableBuilder(
       column: $state.table.isCompleted,
+      builder: (column, joinBuilders) =>
+          ColumnOrderings(column, joinBuilders: joinBuilders));
+
+  ColumnOrderings<int> get startPage => $state.composableBuilder(
+      column: $state.table.startPage,
+      builder: (column, joinBuilders) =>
+          ColumnOrderings(column, joinBuilders: joinBuilders));
+
+  ColumnOrderings<int> get endPage => $state.composableBuilder(
+      column: $state.table.endPage,
       builder: (column, joinBuilders) =>
           ColumnOrderings(column, joinBuilders: joinBuilders));
 

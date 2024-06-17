@@ -1,8 +1,8 @@
+import 'package:alquranalkareem/core/utils/constants/extensions/convert_number_extension.dart';
 import 'package:alquranalkareem/core/utils/constants/extensions/extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '/core/utils/constants/extensions/convert_number_extension.dart';
 import '../../../../../controllers/khatmah_controller.dart';
 import '../../../../../controllers/quran_controller.dart';
 
@@ -16,7 +16,7 @@ class KhatmahDaysPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final int daysCount = khatmah.daysCount; // عدد الأيام
-    final bool isTahzibSalaf = khatmah.isTahzibSalaf;
+    final bool isTahzibSahabah = khatmah.isTahzibSahabah;
     final int pagesPerDay = (khatmahCtrl.totalPages / daysCount).ceil();
     final int currentDay =
         khatmah.dayStatuses.indexWhere((status) => !status.isCompleted) + 1;
@@ -42,7 +42,7 @@ class KhatmahDaysPage extends StatelessWidget {
                 color: Theme.of(context).colorScheme.surface,
               ),
               subtitle: Text(
-                '${'pages'.tr}: ${isTahzibSalaf ? khatmahCtrl.getTahzibSalafPageForDay(currentDay) : (currentDay - 1) * pagesPerDay + 1} - ${isTahzibSalaf ? (currentDay < 7 ? khatmahCtrl.getTahzibSalafPageForDay(currentDay + 1) - 1 : 604) : currentDay * pagesPerDay}'
+                '${'pages'.tr}: ${isTahzibSahabah ? khatmahCtrl.getTahzibSahabahPageForDay(currentDay) : (currentDay - 1) * pagesPerDay + 1} - ${isTahzibSahabah ? (currentDay < 7 ? khatmahCtrl.getTahzibSahabahPageForDay(currentDay + 1) - 1 : 604) : ((currentDay * pagesPerDay > 604) ? 604 : currentDay * pagesPerDay)}'
                     .convertNumbers(),
                 style: TextStyle(
                   color: Theme.of(context).colorScheme.surface,
@@ -56,17 +56,11 @@ class KhatmahDaysPage extends StatelessWidget {
             child: ListView.builder(
               primary: false,
               shrinkWrap: true,
-              itemCount: isTahzibSalaf ? 7 : daysCount,
+              itemCount: isTahzibSahabah ? 7 : daysCount,
               itemBuilder: (context, index) {
-                final int startPage = isTahzibSalaf
-                    ? khatmahCtrl.getTahzibSalafPageForDay(index + 1)
-                    : index * pagesPerDay + 1;
-                final int endPage = isTahzibSalaf
-                    ? (index < 6
-                        ? khatmahCtrl.getTahzibSalafPageForDay(index + 2) - 1
-                        : 604)
-                    : (index + 1) * pagesPerDay;
                 final dayStatus = khatmah.dayStatuses[index];
+                final startPage = dayStatus.startPage;
+                final endPage = dayStatus.endPage;
 
                 return ListTile(
                   title: Text(

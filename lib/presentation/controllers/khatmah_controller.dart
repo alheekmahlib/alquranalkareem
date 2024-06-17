@@ -12,7 +12,7 @@ class KhatmahController extends GetxController {
   final db = KhatmahDatabase();
   final RxList<Khatmah> khatmas = <Khatmah>[].obs;
   final int totalPages = 604;
-  RxBool isTahzibSalaf = false.obs;
+  RxBool isTahzibSahabah = false.obs;
   RxInt screenPickerColor = 0xff404C6E.obs;
 
   final TextEditingController nameController = TextEditingController();
@@ -30,7 +30,11 @@ class KhatmahController extends GetxController {
     for (var khatmah in loadedKhatmas) {
       final days = await db.getDaysForKhatmah(khatmah.id);
       final dayStatuses = days
-          .map((day) => DayStatus(day: day.day, isCompleted: day.isCompleted))
+          .map((day) => DayStatus(
+              day: day.day,
+              isCompleted: day.isCompleted,
+              startPage: day.startPage ?? 1,
+              endPage: day.endPage ?? 604))
           .toList();
       khatmahList.add(Khatmah(
           id: khatmah.id,
@@ -40,7 +44,7 @@ class KhatmahController extends GetxController {
           endAyahNumber: khatmah.endAyahNumber,
           isCompleted: khatmah.isCompleted,
           daysCount: khatmah.daysCount,
-          isTahzibSalaf: khatmah.isTahzibSalaf,
+          isTahzibSahabah: khatmah.isTahzibSahabah,
           dayStatuses: dayStatuses,
           color: khatmah.color ?? 0xff404C6E));
     }
@@ -50,22 +54,73 @@ class KhatmahController extends GetxController {
   void addKhatmah(
       {String? name,
       int? daysCount = 30,
-      bool isTahzibSalaf = false,
+      bool isTahzibSahabah = false,
       int? color}) async {
     final khatmaId = await db.insertKhatma(KhatmahsCompanion(
         name: drift.Value(name),
         currentPage: drift.Value(1),
         isCompleted: drift.Value(false),
         daysCount: drift.Value(daysCount!),
-        isTahzibSalaf: drift.Value(isTahzibSalaf),
+        isTahzibSahabah: drift.Value(isTahzibSahabah),
         color: drift.Value(color!)));
 
-    for (int i = 1; i <= daysCount; i++) {
-      await db.insertKhatmahDay(KhatmahDaysCompanion(
-        khatmahId: drift.Value(khatmaId),
-        day: drift.Value(i),
-        isCompleted: drift.Value(false),
-      ));
+    if (isTahzibSahabah) {
+      // استخدام تقسيم تحزيب السلف
+      const pages = [
+        1,
+        106,
+        107,
+        207,
+        208,
+        281,
+        282,
+        366,
+        367,
+        445,
+        446,
+        517,
+        518,
+        604
+      ];
+
+      for (int i = 0; i < 7; i++) {
+        await db.insertKhatmahDay(KhatmahDaysCompanion(
+          khatmahId: drift.Value(khatmaId),
+          day: drift.Value(i + 1),
+          isCompleted: drift.Value(false),
+          startPage: drift.Value(pages[i * 2]),
+          endPage: drift.Value(pages[i * 2 + 1]),
+        ));
+      }
+    } else {
+      // استخدام التقسيم العادي
+      int pagesPerDay = totalPages ~/ daysCount!;
+      int remainder = totalPages % daysCount;
+      int currentPage = 1;
+
+      for (int i = 0; i < daysCount; i++) {
+        int startPage = currentPage;
+        int endPage = startPage + pagesPerDay - 1;
+
+        if (remainder > 0) {
+          endPage++;
+          remainder--;
+        }
+
+        if (endPage > totalPages) {
+          endPage = totalPages;
+        }
+
+        await db.insertKhatmahDay(KhatmahDaysCompanion(
+          khatmahId: drift.Value(khatmaId),
+          day: drift.Value(i + 1),
+          isCompleted: drift.Value(false),
+          startPage: drift.Value(startPage),
+          endPage: drift.Value(endPage),
+        ));
+
+        currentPage = endPage + 1;
+      }
     }
 
     loadKhatmas();
@@ -79,12 +134,14 @@ class KhatmahController extends GetxController {
           .getSingleOrNull();
 
       if (existingDay != null) {
+        // تحديث الحالة في قاعدة البيانات
         await db.updateKhatmahDay(KhatmahDaysCompanion(
           id: drift.Value(existingDay.id),
           khatmahId: drift.Value(khatmaId),
           day: drift.Value(day),
           isCompleted: drift.Value(isCompleted),
         ));
+        // تحميل البيانات المحدثة
         loadKhatmas();
       } else {
         print("Day $day for Khatmah with id $khatmaId not found.");
@@ -104,22 +161,22 @@ class KhatmahController extends GetxController {
     }
   }
 
-  int getTahzibSalafPageForDay(int day) {
+  int getTahzibSahabahPageForDay(int day) {
     const pages = [
-      1, // بداية اليوم الأول
-      106, // نهاية اليوم الأول
-      107, // بداية اليوم الثاني
-      207, // نهاية اليوم الثاني
-      208, // بداية اليوم الثالث
-      281, // نهاية اليوم الثالث
-      282, // بداية اليوم الرابع
-      366, // نهاية اليوم الرابع
-      367, // بداية اليوم الخامس
-      440, // نهاية اليوم الخامس
-      441, // بداية اليوم السادس
-      517, // نهاية اليوم السادس
-      518, // بداية اليوم السابع
-      604 // نهاية اليوم السابع
+      1,
+      106,
+      106,
+      207,
+      208,
+      281,
+      282,
+      366,
+      367,
+      445,
+      446,
+      517,
+      518,
+      604
     ];
 
     if (day < 1 || day > 7) {
@@ -128,9 +185,9 @@ class KhatmahController extends GetxController {
     return pages[day - 1];
   }
 
-  void isTahzibSalafOnTap() {
-    isTahzibSalaf.value = !isTahzibSalaf.value;
-    if (isTahzibSalaf.value) {
+  void isTahzibSahabahOnTap() {
+    isTahzibSahabah.value = !isTahzibSahabah.value;
+    if (isTahzibSahabah.value) {
       daysController.text = '7';
     } else {
       daysController.clear();
@@ -146,9 +203,11 @@ class Khatmah {
   final int? endAyahNumber;
   final bool isCompleted;
   final int daysCount;
-  final bool isTahzibSalaf;
+  final bool isTahzibSahabah;
   final List<DayStatus> dayStatuses;
   final int color;
+  final int? startPage;
+  final int? endPage;
 
   Khatmah({
     required this.id,
@@ -158,15 +217,24 @@ class Khatmah {
     this.endAyahNumber,
     required this.isCompleted,
     required this.daysCount,
-    required this.isTahzibSalaf,
+    required this.isTahzibSahabah,
     required this.dayStatuses,
     required this.color,
+    this.startPage,
+    this.endPage,
   });
 }
 
 class DayStatus {
   final int day;
   bool isCompleted;
+  final int startPage;
+  final int endPage;
 
-  DayStatus({required this.day, this.isCompleted = false});
+  DayStatus({
+    required this.day,
+    this.isCompleted = false,
+    required this.startPage,
+    required this.endPage,
+  });
 }

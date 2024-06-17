@@ -55,7 +55,7 @@ class AddKhatmahWidget extends StatelessWidget {
                         SizedBox(
                           width: 160,
                           child: Obx(() => CustomDropdown<int>(
-                                enabled: !khatmahCtrl.isTahzibSalaf.value,
+                                enabled: !khatmahCtrl.isTahzibSahabah.value,
                                 decoration: CustomDropdownDecoration(
                                   closedFillColor:
                                       Theme.of(context).colorScheme.surface,
@@ -90,18 +90,18 @@ class AddKhatmahWidget extends StatelessWidget {
                                 onChanged: (value) {
                                   log('changing value to: $value');
                                   khatmahCtrl.daysController.text =
-                                      value.toString();
+                                      (value! + 1).toString();
                                 },
                               )),
                         ),
-                        const Gap(32),
+                        const Gap(16),
                         Obx(() => GestureDetector(
-                              onTap: () => khatmahCtrl.isTahzibSalafOnTap(),
+                              onTap: () => khatmahCtrl.isTahzibSahabahOnTap(),
                               child: Container(
                                 padding: const EdgeInsets.symmetric(
                                     horizontal: 8.0, vertical: 7.0),
                                 decoration: BoxDecoration(
-                                  color: khatmahCtrl.isTahzibSalaf.value
+                                  color: khatmahCtrl.isTahzibSahabah.value
                                       ? Theme.of(context).colorScheme.surface
                                       : Theme.of(context)
                                           .colorScheme
@@ -111,7 +111,7 @@ class AddKhatmahWidget extends StatelessWidget {
                                       Radius.circular(8)),
                                 ),
                                 child: Text(
-                                  'تحزيب السلف',
+                                  'تحزيب الصحابة',
                                   style: TextStyle(
                                     color: Theme.of(context)
                                         .colorScheme
@@ -140,6 +140,7 @@ class AddKhatmahWidget extends StatelessWidget {
                       khatmahCtrl.addKhatmah(
                           name: name,
                           daysCount: days,
+                          isTahzibSahabah: khatmahCtrl.isTahzibSahabah.value,
                           color: khatmahCtrl.screenPickerColor.value);
                     },
                     child: Container(
