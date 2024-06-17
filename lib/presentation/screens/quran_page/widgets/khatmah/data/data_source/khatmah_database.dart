@@ -15,8 +15,10 @@ class Khatmahs extends Table {
   IntColumn get endAyahNumber => integer().nullable()();
   BoolColumn get isCompleted => boolean().withDefault(Constant(false))();
   IntColumn get daysCount => integer().withDefault(Constant(30))();
-  BoolColumn get isTahzibSalaf => boolean().withDefault(Constant(false))();
-  IntColumn get color => integer().nullable()(); // إضافة العمود الجديد
+  BoolColumn get isTahzibSahabah => boolean().withDefault(Constant(false))();
+  IntColumn get color => integer().nullable()();
+  IntColumn get startPage => integer().nullable()();
+  IntColumn get endPage => integer().nullable()();
 }
 
 class KhatmahDays extends Table {
@@ -25,6 +27,8 @@ class KhatmahDays extends Table {
       .customConstraint('REFERENCES khatmahs(id) ON DELETE CASCADE NOT NULL')();
   IntColumn get day => integer()();
   BoolColumn get isCompleted => boolean().withDefault(Constant(false))();
+  IntColumn get startPage => integer().nullable()(); // إضافة حقل startPage
+  IntColumn get endPage => integer().nullable()(); // إضافة حقل endPage
 }
 
 @DriftDatabase(tables: [Khatmahs, KhatmahDays])
@@ -36,7 +40,7 @@ class KhatmahDatabase extends _$KhatmahDatabase {
   factory KhatmahDatabase() => _instance;
 
   @override
-  int get schemaVersion => 4; // تحديث رقم الإصدار
+  int get schemaVersion => 1; // تحديث رقم الإصدار
 
   @override
   MigrationStrategy get migration => MigrationStrategy(
@@ -48,8 +52,11 @@ class KhatmahDatabase extends _$KhatmahDatabase {
             await m.createTable(khatmahDays);
           }
           if (from < 3) {
-            await m.addColumn(
-                khatmahs, khatmahs.color); // إضافة العمود الجديد في الترقية
+            await m.addColumn(khatmahs, khatmahs.color);
+          }
+          if (from < 5) {
+            await m.addColumn(khatmahDays, khatmahDays.startPage);
+            await m.addColumn(khatmahDays, khatmahDays.endPage);
           }
         },
         beforeOpen: (details) async {
