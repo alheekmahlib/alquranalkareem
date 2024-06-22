@@ -84,6 +84,7 @@ dependencies:
   flutter_rounded_progress_bar: ^0.3.2
   animated_custom_dropdown: ^3.1.1
   flex_color_picker: ^3.5.0
+  shimmer: ^3.0.0
 #  alarm: ^3.1.4
 #  device_info_plus: ^10.1.0
 

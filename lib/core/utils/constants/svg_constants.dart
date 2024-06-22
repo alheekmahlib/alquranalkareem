@@ -165,6 +165,10 @@ class SvgPath {
   /// assets/svg/home.svg
   static const String svgHome = "assets/svg/home.svg";
 
+  /// Assets for svgLeftBook
+  /// assets/svg/left_book.svg
+  static const String svgLeftBook = "assets/svg/left_book.svg";
+
   /// Assets for svgListIcon
   /// assets/svg/list_icon.svg
   static const String svgListIcon = "assets/svg/list_icon.svg";
@@ -208,6 +212,10 @@ class SvgPath {
   /// Assets for svgRewind
   /// assets/svg/rewind.svg
   static const String svgRewind = "assets/svg/rewind.svg";
+
+  /// Assets for svgRightBook
+  /// assets/svg/right_book.svg
+  static const String svgRightBook = "assets/svg/right_book.svg";
 
   /// Assets for svgSajdaIcon
   /// assets/svg/sajda_icon.svg

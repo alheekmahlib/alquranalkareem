@@ -58,6 +58,7 @@ class GeneralController extends GetxController {
   RxBool showSelectScreenPage = false.obs;
   RxInt screenSelectedValue = 0.obs;
   var today = HijriCalendar.now();
+  var now = DateTime.now();
   List<int> noHadithInMonth = <int>[2, 3, 4, 5, 6];
   RxBool activeLocation = false.obs;
   RxBool isPageMode = false.obs;
@@ -348,6 +349,35 @@ class GeneralController extends GetxController {
     }
     return ((currentIndex / totalPages) *
         Get.context!.customOrientation(Get.width * .8, Get.width * .4));
+  }
+
+  double calculate(int year, int month, int day) {
+    log('year: $year');
+    HijriCalendar hijriCalendar = HijriCalendar();
+    DateTime start = DateTime.now();
+    // تحويل التاريخ الهجري الحالي إلى ميلادي
+    DateTime end = hijriCalendar.hijriToGregorian(year, month, day);
+
+    // حساب التاريخ الميلادي لأول يوم من الشهر الهجري القادم
+    int nextMonth = month + 1;
+    int nextYear = year;
+    if (nextMonth > 12) {
+      nextMonth = 1;
+      nextYear += 1;
+    }
+    DateTime nextMonthStart =
+        hijriCalendar.hijriToGregorian(nextYear, nextMonth, 1);
+
+    // حساب الفارق بين التاريخ الحالي وبداية الشهر الهجري القادم
+    if (!start.isAfter(nextMonthStart)) {
+      return DateTimeRange(start: start, end: nextMonthStart)
+              .duration
+              .inDays
+              .toDouble() /
+          100;
+    } else {
+      return 1.0;
+    }
   }
 
   // TODO: need fixed

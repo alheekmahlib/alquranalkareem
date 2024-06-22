@@ -2,6 +2,7 @@ import 'part_model.dart';
 
 class Book {
   final int bookNumber;
+  final String bookFullName;
   final String bookName;
   final bool hasChapters;
   final int partsCount;
@@ -10,6 +11,7 @@ class Book {
 
   Book({
     required this.bookNumber,
+    required this.bookFullName,
     required this.bookName,
     required this.hasChapters,
     required this.partsCount,
@@ -23,6 +25,7 @@ class Book {
 
     return Book(
       bookNumber: json['bookNumber'],
+      bookFullName: json['bookFullName'],
       bookName: json['bookName'],
       hasChapters: json['hasChapters'],
       partsCount: json['parts_count'],
@@ -35,6 +38,7 @@ class Book {
   factory Book.empty() {
     return Book(
       bookNumber: 0,
+      bookFullName: '',
       bookName: '',
       hasChapters: true,
       partsCount: 0,
