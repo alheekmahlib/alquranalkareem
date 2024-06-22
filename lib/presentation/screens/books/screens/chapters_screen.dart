@@ -1,40 +1,59 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
+import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 
+import '/core/utils/constants/extensions/svg_extensions.dart';
+import '../../../../core/utils/constants/svg_constants.dart';
 import '../../../controllers/books_controller.dart';
-import 'read_view_screen.dart';
+import '../widgets/book_details_widget.dart';
+import '../widgets/books_chapters_build.dart';
+import '../widgets/search_screen.dart';
 
 class ChaptersPage extends StatelessWidget {
   final int bookNumber;
-  final BooksController booksCtrl = BooksController.instance;
+  final String bookName;
 
-  ChaptersPage({required this.bookNumber});
+  ChaptersPage({required this.bookNumber, required this.bookName});
+
+  final booksCtrl = BooksController.instance;
 
   @override
   Widget build(BuildContext context) {
-    final chapters = booksCtrl.getChapters(bookNumber);
     return Scaffold(
+      backgroundColor: Theme.of(context).colorScheme.primaryContainer,
       appBar: AppBar(
-        title: Text('الفصول'),
+        backgroundColor: Theme.of(context).colorScheme.primary,
+        title: Text('الكتب'),
+        centerTitle: true,
+        actions: [
+          IconButton(
+              onPressed: () =>
+                  Get.bottomSheet(SearchScreen(), isScrollControlled: true),
+              icon: customSvgWithColor(SvgPath.svgSearchIcon,
+                  color: Theme.of(context).canvasColor)),
+        ],
       ),
-      body: ListView.builder(
-        itemCount: chapters.length,
-        itemBuilder: (context, index) {
-          final chapter = chapters[index];
-          return ListTile(
-            title: Text(chapter.chapterName),
-            onTap: () async {
-              int initialPage = await booksCtrl.getChapterStartPage(
-                  bookNumber, chapter.chapterName);
-              log('Initial page for chapter ${chapter.chapterName}: $initialPage');
-              Get.to(() =>
-                  PagesPage(bookNumber: bookNumber, initialPage: initialPage));
-            },
-          );
-        },
-      ),
+      body: SafeArea(
+          child: Column(
+        children: [
+          const Gap(8),
+          BookDetails(
+            bookNumber: bookNumber,
+            bookName: bookName,
+          ),
+          const Gap(64),
+          Flexible(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 24.0),
+              child: SingleChildScrollView(
+                child: BooksChapterBuild(
+                  bookNumber: bookNumber,
+                ),
+              ),
+            ),
+          ),
+        ],
+      )),
     );
   }
 }

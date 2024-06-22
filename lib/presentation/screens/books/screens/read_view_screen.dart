@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shimmer/shimmer.dart';
 
 import '../../../controllers/books_controller.dart';
 import '../data/models/page_model.dart';
@@ -6,7 +7,7 @@ import '../data/models/page_model.dart';
 class PagesPage extends StatelessWidget {
   final int bookNumber;
   final int initialPage;
-  final BooksController booksCtrl = BooksController.instance;
+  final booksCtrl = BooksController.instance;
 
   PagesPage({required this.bookNumber, required this.initialPage});
 
@@ -20,7 +21,7 @@ class PagesPage extends StatelessWidget {
         future: booksCtrl.getPages(bookNumber),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return Center(child: CircularProgressIndicator());
+            return _buildShimmerEffect();
           } else if (snapshot.hasError) {
             return Center(child: Text('Error: ${snapshot.error}'));
           } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
@@ -32,6 +33,8 @@ class PagesPage extends StatelessWidget {
               itemCount: pages.length,
               itemBuilder: (context, index) {
                 final page = pages[index];
+                booksCtrl.saveLastRead(
+                    page.pageNumber, page.bookTitle, bookNumber, pages.length);
                 return Padding(
                   padding: const EdgeInsets.all(16.0),
                   child: SingleChildScrollView(
@@ -45,6 +48,23 @@ class PagesPage extends StatelessWidget {
             );
           }
         },
+      ),
+    );
+  }
+
+  Widget _buildShimmerEffect() {
+    return Shimmer.fromColors(
+      baseColor: Colors.grey[300]!,
+      highlightColor: Colors.grey[100]!,
+      child: ListView.builder(
+        itemCount: 5,
+        itemBuilder: (context, index) => Padding(
+          padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
+          child: Container(
+            height: 200,
+            color: Colors.white,
+          ),
+        ),
       ),
     );
   }

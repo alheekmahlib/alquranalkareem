@@ -28,21 +28,33 @@ class OccasionWidget extends StatelessWidget {
         child: Stack(
           alignment: Alignment.centerRight,
           children: [
-            Container(
-              height: 70,
-              width: generalCtrl.calculateProgress2(
-                  generalCtrl.today.hDay,
-                  generalCtrl.today.hMonth == month
-                      ? generalCtrl.today.lengthOfMonth - generalCtrl.today.hDay
-                      : daysUntilEvent,
-                  380),
-              padding: const EdgeInsets.symmetric(horizontal: 8.0),
-              decoration: BoxDecoration(
-                  color: generalCtrl.today.hMonth == month
-                      ? const Color(0xffa22c08).withOpacity(.5)
-                      : Theme.of(context).colorScheme.surface.withOpacity(.5),
-                  borderRadius: const BorderRadius.all(Radius.circular(8.0))),
+            LinearProgressIndicator(
+              minHeight: 70,
+              borderRadius: const BorderRadius.all(Radius.circular(4)),
+              value: generalCtrl.calculate(
+                generalCtrl.today.hYear,
+                generalCtrl.today.hMonth,
+                generalCtrl.today.hDay,
+              ),
+              backgroundColor: Theme.of(context).canvasColor,
+              color: Theme.of(context).colorScheme.surface,
             ),
+            // Container(
+            //   height: 70,
+            //   width: generalCtrl
+            //       .calculate(
+            //         generalCtrl.today.hYear,
+            //         generalCtrl.today.hMonth,
+            //         generalCtrl.today.hDay,
+            //       )
+            //       .toDouble(),
+            //   padding: const EdgeInsets.symmetric(horizontal: 8.0),
+            //   decoration: BoxDecoration(
+            //       color: generalCtrl.today.hMonth == month
+            //           ? const Color(0xffa22c08).withOpacity(.5)
+            //           : Theme.of(context).colorScheme.surface.withOpacity(.5),
+            //       borderRadius: const BorderRadius.all(Radius.circular(8.0))),
+            // ),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 8.0),
               child: Row(
@@ -116,6 +128,17 @@ class OccasionNextWidget extends StatelessWidget {
         child: Stack(
           alignment: Alignment.centerRight,
           children: [
+            LinearProgressIndicator(
+              minHeight: 70,
+              borderRadius: const BorderRadius.all(Radius.circular(4)),
+              value: generalCtrl.calculate(
+                generalCtrl.today.hYear + 1,
+                generalCtrl.today.hMonth,
+                generalCtrl.today.hDay,
+              ),
+              backgroundColor: Theme.of(context).canvasColor,
+              color: Theme.of(context).colorScheme.surface,
+            ),
             Container(
               height: 70,
               width: generalCtrl.calculateProgress2(
