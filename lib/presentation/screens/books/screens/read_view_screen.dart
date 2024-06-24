@@ -18,7 +18,8 @@ class PagesPage extends StatelessWidget {
         title: Text('صفحات الكتاب'),
       ),
       body: FutureBuilder<List<PageContent>>(
-        future: booksCtrl.getPages(bookNumber),
+        future: Future.delayed(const Duration(milliseconds: 600))
+            .then((_) => booksCtrl.getPages(bookNumber)),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return _buildShimmerEffect();
@@ -34,7 +35,10 @@ class PagesPage extends StatelessWidget {
               itemBuilder: (context, index) {
                 final page = pages[index];
                 booksCtrl.saveLastRead(
-                    page.pageNumber, page.bookTitle, bookNumber, pages.length);
+                    page.pageNumber,
+                    booksCtrl.booksList[bookNumber].bookName,
+                    bookNumber,
+                    pages.length);
                 return Padding(
                   padding: const EdgeInsets.all(16.0),
                   child: SingleChildScrollView(

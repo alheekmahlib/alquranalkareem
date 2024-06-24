@@ -14,6 +14,7 @@ import '../screens/books/data/models/books_model.dart';
 import '../screens/books/data/models/chapter_model.dart';
 import '../screens/books/data/models/page_model.dart';
 import '../screens/books/data/models/part_model.dart';
+import '../screens/books/screens/read_view_screen.dart';
 
 class BooksController extends GetxController {
   static BooksController get instance => Get.isRegistered<BooksController>()
@@ -29,6 +30,8 @@ class BooksController extends GetxController {
   var downloadProgress = <int, double>{}.obs;
   var searchResults = <PageContent>[].obs;
   final TextEditingController searchController = TextEditingController();
+  final PageController pageController = PageController(initialPage: 3);
+  Map<int, int> lastReadPage = {};
 
   /// Books getters----------
   int get currentPage => box.read(PAGE_NUMBER) ?? 0;
@@ -40,6 +43,7 @@ class BooksController extends GetxController {
   void onInit() {
     super.onInit();
     fetchBooks();
+    _loadLastRead();
   }
 
   Future<void> fetchBooks() async {
@@ -51,7 +55,7 @@ class BooksController extends GetxController {
       booksList.value = booksJson.map((book) => Book.fromJson(book)).toList();
       _loadDownloadedBooks();
     } catch (e) {
-      print(e);
+      log('Error fetching books: $e');
     } finally {
       isLoading(false);
     }
@@ -82,7 +86,7 @@ class BooksController extends GetxController {
       downloaded[bookNumber] = true;
       _saveDownloadedBooks();
     } catch (e) {
-      print(e);
+      log('Error downloading book: $e');
     } finally {
       downloading[bookNumber] = false;
     }
@@ -207,11 +211,45 @@ class BooksController extends GetxController {
     }
   }
 
+  Future<void> deleteBook(int bookNumber) async {
+    try {
+      final directory = await getApplicationDocumentsDirectory();
+      final file = File('${directory.path}/$bookNumber.json');
+      if (await file.exists()) {
+        await file.delete();
+        downloaded[bookNumber] = false;
+        _saveDownloadedBooks();
+        log('Book $bookNumber deleted successfully.');
+      }
+    } catch (e) {
+      log('Error deleting book: $e');
+    }
+  }
+
   void saveLastRead(
-          int pageNumber, String bookName, int bookNumber, int totalPages) =>
-      box
-        ..write(PAGE_NUMBER, pageNumber)
-        ..write(BOOK_NAME, bookName)
-        ..write(BOOK_NUMBER, bookNumber)
-        ..write(TOTAL_PAGES, totalPages);
+      int pageNumber, String bookName, int bookNumber, int totalPages) {
+    lastReadPage[bookNumber] = pageNumber;
+    box.write('lastRead_$bookNumber', {
+      'pageNumber': pageNumber,
+      'bookName': bookName,
+      'totalPages': totalPages,
+    });
+  }
+
+  void _loadLastRead() {
+    booksList.forEach((book) {
+      var lastRead = box.read('lastRead_${book.bookNumber}');
+      if (lastRead != null) {
+        lastReadPage[book.bookNumber] = lastRead['pageNumber'];
+      }
+    });
+  }
+
+  /// -------- [onTap] --------
+  Future<void> moveToPage(Chapter chapter, int bookNumber) async {
+    int initialPage =
+        await getChapterStartPage(bookNumber, chapter.chapterName);
+    log('Initial page for chapter ${chapter.chapterName}: $initialPage');
+    Get.to(() => PagesPage(bookNumber: bookNumber, initialPage: initialPage));
+  }
 }

@@ -1,10 +1,7 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../controllers/books_controller.dart';
-import '../screens/read_view_screen.dart';
 
 class BooksChapterBuild extends StatelessWidget {
   final int bookNumber;
@@ -73,15 +70,8 @@ class BooksChapterBuild extends StatelessWidget {
                               padding: const EdgeInsets.symmetric(
                                   horizontal: 16.0, vertical: 4.0),
                               child: GestureDetector(
-                                onTap: () async {
-                                  int initialPage =
-                                      await booksCtrl.getChapterStartPage(
-                                          bookNumber, chapter.chapterName);
-                                  log('Initial page for chapter ${chapter.chapterName}: $initialPage');
-                                  Get.to(() => PagesPage(
-                                      bookNumber: bookNumber,
-                                      initialPage: initialPage));
-                                },
+                                onTap: () async => await booksCtrl.moveToPage(
+                                    chapter, bookNumber),
                                 child: Container(
                                     decoration: BoxDecoration(
                                         color: Theme.of(context)

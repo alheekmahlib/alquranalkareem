@@ -104,7 +104,6 @@ class BookDetails extends StatelessWidget {
                             fontWeight: FontWeight.bold,
                             color: Theme.of(context).colorScheme.secondary,
                             height: 1.5),
-                        maxLines: 2,
                         textAlign: TextAlign.center,
                       ),
                     ),
@@ -115,7 +114,15 @@ class BookDetails extends StatelessWidget {
                 alignment: AlignmentDirectional.bottomEnd,
                 child: Obx(
                   () => booksCtrl.downloaded[bookNumber] == true
-                      ? const SizedBox.shrink()
+                      ? GestureDetector(
+                          child: Icon(
+                            Icons.delete,
+                            size: 24,
+                            color: Colors.red,
+                          ),
+                          onTap: () async =>
+                              await booksCtrl.deleteBook(bookNumber),
+                        )
                       : booksCtrl.downloading[bookNumber] == true
                           ? SquarePercentIndicator(
                               width: 50,
