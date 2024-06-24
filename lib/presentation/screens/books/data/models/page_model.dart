@@ -24,4 +24,15 @@ class PageContent {
       bookTitle: bookTitle, // تعيين اسم الكتاب
     );
   }
+
+  // دالة لإرجاع كائن فارغ من PageContent
+  factory PageContent.empty() {
+    return PageContent(
+      title: '',
+      pageNumber: 0,
+      content: '',
+      footnotes: [],
+      bookTitle: '',
+    );
+  }
 }
