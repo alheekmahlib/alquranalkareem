@@ -29,21 +29,24 @@ class BooksController extends GetxController {
   var downloaded = <int, bool>{}.obs;
   var downloadProgress = <int, double>{}.obs;
   var searchResults = <PageContent>[].obs;
+  RxBool isDownloaded = false.obs;
   final TextEditingController searchController = TextEditingController();
   final PageController pageController = PageController(initialPage: 3);
   Map<int, int> lastReadPage = {};
+  Map<int, int> bookTotalPages = {};
 
   /// Books getters----------
-  int get currentPage => box.read(PAGE_NUMBER) ?? 0;
-  String get bookName => '${box.read(BOOK_NAME) ?? ''}'.replaceAll('=', '');
-  int get bookNumber => box.read(BOOK_NUMBER) ?? 0;
-  double get pageProgress => (box.read(PAGE_NUMBER) / box.read(TOTAL_PAGES));
+  // int get currentPage => box.read(PAGE_NUMBER) ?? 0;
+  // String get bookName => '${box.read(BOOK_NAME) ?? ''}'.replaceAll('=', '');
+  // int get bookNumber => box.read(BOOK_NUMBER) ?? 0;
+  // double get pageProgress => (box.read(PAGE_NUMBER) / box.read(TOTAL_PAGES));
 
   @override
   void onInit() {
     super.onInit();
-    fetchBooks();
-    _loadLastRead();
+    fetchBooks().then((_) {
+      _loadLastRead();
+    });
   }
 
   Future<void> fetchBooks() async {
@@ -53,6 +56,7 @@ class BooksController extends GetxController {
           await rootBundle.loadString('assets/json/collections.json');
       var booksJson = json.decode(jsonString) as List;
       booksList.value = booksJson.map((book) => Book.fromJson(book)).toList();
+      log('Books loaded: ${booksList.length}');
       _loadDownloadedBooks();
     } catch (e) {
       log('Error fetching books: $e');
@@ -220,6 +224,12 @@ class BooksController extends GetxController {
         downloaded[bookNumber] = false;
         _saveDownloadedBooks();
         log('Book $bookNumber deleted successfully.');
+
+        // حذف آخر قراءة خاصة بالكتاب
+        box.remove('lastRead_$bookNumber');
+        lastReadPage.remove(bookNumber);
+        bookTotalPages.remove(bookNumber);
+        log('Last read data for book $bookNumber deleted successfully.');
       }
     } catch (e) {
       log('Error deleting book: $e');
@@ -229,6 +239,7 @@ class BooksController extends GetxController {
   void saveLastRead(
       int pageNumber, String bookName, int bookNumber, int totalPages) {
     lastReadPage[bookNumber] = pageNumber;
+    bookTotalPages[bookNumber] = totalPages;
     box.write('lastRead_$bookNumber', {
       'pageNumber': pageNumber,
       'bookName': bookName,
@@ -237,12 +248,19 @@ class BooksController extends GetxController {
   }
 
   void _loadLastRead() {
-    booksList.forEach((book) {
-      var lastRead = box.read('lastRead_${book.bookNumber}');
-      if (lastRead != null) {
-        lastReadPage[book.bookNumber] = lastRead['pageNumber'];
-      }
-    });
+    if (booksList.isNotEmpty) {
+      booksList.forEach((book) {
+        var lastRead = box.read('lastRead_${book.bookNumber}');
+        if (lastRead != null) {
+          lastReadPage[book.bookNumber] = lastRead['pageNumber'];
+          log('lastReadPage[book.bookNumber]: ${lastReadPage[book.bookNumber]}');
+          bookTotalPages[book.bookNumber] = lastRead['totalPages'];
+          log('bookTotalPages[book.bookNumber]: ${bookTotalPages[book.bookNumber]}');
+        }
+      });
+    } else {
+      log('booksList is empty.');
+    }
   }
 
   /// -------- [onTap] --------

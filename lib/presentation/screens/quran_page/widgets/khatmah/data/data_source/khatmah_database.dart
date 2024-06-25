@@ -40,7 +40,7 @@ class KhatmahDatabase extends _$KhatmahDatabase {
   factory KhatmahDatabase() => _instance;
 
   @override
-  int get schemaVersion => 1; // تحديث رقم الإصدار
+  int get schemaVersion => 1;
 
   @override
   MigrationStrategy get migration => MigrationStrategy(

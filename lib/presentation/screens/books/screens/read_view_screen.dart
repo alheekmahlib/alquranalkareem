@@ -1,6 +1,9 @@
+import 'package:alquranalkareem/core/utils/constants/extensions/custom_error_snackBar.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:shimmer/shimmer.dart';
 
+import '../../../controllers/books_bookmarks_controller.dart';
 import '../../../controllers/books_controller.dart';
 import '../data/models/page_model.dart';
 
@@ -8,6 +11,7 @@ class PagesPage extends StatelessWidget {
   final int bookNumber;
   final int initialPage;
   final booksCtrl = BooksController.instance;
+  final booksBookmarksCtrl = BooksBookmarksController.instance;
 
   PagesPage({required this.bookNumber, required this.initialPage});
 
@@ -39,14 +43,28 @@ class PagesPage extends StatelessWidget {
                     booksCtrl.booksList[bookNumber].bookName,
                     bookNumber,
                     pages.length);
-                return Padding(
-                  padding: const EdgeInsets.all(16.0),
-                  child: SingleChildScrollView(
-                    child: Text(
-                      page.content,
-                      style: TextStyle(fontSize: 18.0),
+                return Column(
+                  children: [
+                    IconButton(
+                      icon: Icon(Icons.bookmark),
+                      onPressed: () {
+                        booksBookmarksCtrl.addBookmark(
+                            booksCtrl.booksList[bookNumber - 1].bookName,
+                            bookNumber,
+                            index);
+                        context.showCustomErrorSnackBar('addBookmark'.tr);
+                      },
                     ),
-                  ),
+                    Padding(
+                      padding: const EdgeInsets.all(16.0),
+                      child: SingleChildScrollView(
+                        child: Text(
+                          page.content,
+                          style: TextStyle(fontSize: 18.0),
+                        ),
+                      ),
+                    ),
+                  ],
                 );
               },
             );

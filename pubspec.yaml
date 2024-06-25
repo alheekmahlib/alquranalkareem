@@ -85,6 +85,7 @@ dependencies:
   animated_custom_dropdown: ^3.1.1
   flex_color_picker: ^3.5.0
   shimmer: ^3.0.0
+  animated_toggle_switch: ^0.8.2
 #  alarm: ^3.1.4
 #  device_info_plus: ^10.1.0
 
