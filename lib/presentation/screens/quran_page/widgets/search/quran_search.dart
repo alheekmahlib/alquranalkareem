@@ -29,7 +29,28 @@ class QuranSearch extends StatelessWidget {
           children: <Widget>[
             context.customClose(),
             const Gap(16),
-            TextFieldBarWidget(),
+            TextFieldBarWidget(
+              controller: ayahCtrl.searchTextEditing,
+              onPressed: () {
+                ayahCtrl.searchTextEditing.clear();
+                ayahCtrl.ayahList.clear();
+                ayahCtrl.surahList.clear();
+              },
+              onChanged: (query) {
+                if (ayahCtrl.searchTextEditing.text.isNotEmpty) {
+                  ayahCtrl.surahSearch(query);
+                  ayahCtrl.search(query);
+                }
+              },
+              onSubmitted: (query) {
+                if (query.length <= 0) {
+                  ayahCtrl.surahSearch(query);
+                  ayahCtrl.search(query);
+                }
+                // await sl<QuranSearchControllers>().addSearchItem(query);
+                // searchCtrl.textSearchController.clear();
+              },
+            ),
             const Gap(16),
             Obx(
               () {

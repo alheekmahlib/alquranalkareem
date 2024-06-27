@@ -54,13 +54,13 @@ class BookBookmarksScreen extends StatelessWidget {
                       color: Theme.of(context).colorScheme.surface,
                     ),
                     onPressed: () {
-                      booksBookmarksCtrl.deleteBookmark(bookmark.id);
+                      booksBookmarksCtrl.deleteBookmark(
+                          bookmark.id, bookmark.currentPage!);
                     },
                   ),
                   onTap: () {
                     Get.to(() => PagesPage(
                           bookNumber: bookmark.bookNumber ?? 0,
-                          initialPage: bookmark.currentPage ?? 0,
                         ));
                   },
                 );

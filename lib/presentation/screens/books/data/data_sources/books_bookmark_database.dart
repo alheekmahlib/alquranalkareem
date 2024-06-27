@@ -49,8 +49,11 @@ class BooksBookmarkDatabase extends _$BooksBookmarkDatabase {
   Future deleteBookmark(Insertable<BooksBookmarkData> bookmark) =>
       delete(booksBookmark).delete(bookmark);
 
-  Future<void> deleteBookmarkById(int id) async {
-    await (delete(booksBookmark)..where((t) => t.id.equals(id))).go();
+  Future<void> deleteBookmarkById(int bookNumber, int currentPage) async {
+    await (delete(booksBookmark)
+          ..where((t) => t.bookNumber.equals(bookNumber))
+          ..where((tt) => tt.currentPage.equals(currentPage)))
+        .go();
   }
 }
 

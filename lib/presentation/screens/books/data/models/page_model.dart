@@ -4,6 +4,7 @@ class PageContent {
   final String content;
   final List<dynamic> footnotes;
   final String bookTitle;
+  final int bookNumber; // Add this line
 
   PageContent({
     required this.title,
@@ -11,6 +12,7 @@ class PageContent {
     required this.content,
     required this.footnotes,
     required this.bookTitle,
+    required this.bookNumber, // Add this line
   });
 
   factory PageContent.fromJson(Map<String, dynamic> json, String bookTitle) {
@@ -21,11 +23,13 @@ class PageContent {
           0,
       content: json['content'] ?? '',
       footnotes: json['footnotes'] ?? [],
-      bookTitle: bookTitle, // تعيين اسم الكتاب
+      bookTitle: bookTitle,
+      bookNumber: json['bookNumber'] ??
+          0, // Ensure this line matches how bookNumber is stored
     );
   }
 
-  // دالة لإرجاع كائن فارغ من PageContent
+  // Factory method for an empty PageContent instance
   factory PageContent.empty() {
     return PageContent(
       title: '',
@@ -33,6 +37,7 @@ class PageContent {
       content: '',
       footnotes: [],
       bookTitle: '',
+      bookNumber: 0, // Add this line
     );
   }
 }

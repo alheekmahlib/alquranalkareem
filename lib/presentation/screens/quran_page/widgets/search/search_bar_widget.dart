@@ -4,7 +4,6 @@ import 'package:get/get.dart';
 import '/core/utils/constants/extensions/svg_extensions.dart';
 import '../../../../../core/utils/constants/extensions/extensions.dart';
 import '../../../../../core/utils/constants/svg_constants.dart';
-import '../../../../controllers/aya_controller.dart';
 
 class TextFieldBarWidget extends StatelessWidget {
   final TextEditingController? controller;
@@ -24,8 +23,6 @@ class TextFieldBarWidget extends StatelessWidget {
       this.onSubmitted,
       this.horizontalPadding});
 
-  final ayahCtrl = AyaController.instance;
-
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -37,7 +34,7 @@ class TextFieldBarWidget extends StatelessWidget {
         width: context.customOrientation(MediaQuery.sizeOf(context).width * .7,
             MediaQuery.sizeOf(context).width * .5),
         child: TextField(
-          controller: controller ?? ayahCtrl.searchTextEditing,
+          controller: controller,
           maxLines: 1,
           style: TextStyle(
             fontSize: 16.0,
@@ -80,12 +77,7 @@ class TextFieldBarWidget extends StatelessWidget {
                 Icons.close,
                 color: Theme.of(context).hintColor,
               ),
-              onPressed: onPressed ??
-                  () {
-                    ayahCtrl.searchTextEditing.clear();
-                    ayahCtrl.ayahList.clear();
-                    ayahCtrl.surahList.clear();
-                  },
+              onPressed: onPressed,
             ),
             labelText: hintText ?? 'search_word'.tr,
             labelStyle: TextStyle(
@@ -94,22 +86,8 @@ class TextFieldBarWidget extends StatelessWidget {
               color: Theme.of(context).hintColor.withOpacity(.7),
             ),
           ),
-          onChanged: onChanged ??
-              (query) {
-                if (ayahCtrl.searchTextEditing.text.isNotEmpty) {
-                  ayahCtrl.surahSearch(query);
-                  ayahCtrl.search(query);
-                }
-              },
-          onSubmitted: onSubmitted ??
-              (query) {
-                if (query.length <= 0) {
-                  ayahCtrl.surahSearch(query);
-                  ayahCtrl.search(query);
-                }
-                // await sl<QuranSearchControllers>().addSearchItem(query);
-                // searchCtrl.textSearchController.clear();
-              },
+          onChanged: onChanged,
+          onSubmitted: onSubmitted,
           onTapOutside: (event) {
             FocusManager.instance.primaryFocus?.unfocus();
           },

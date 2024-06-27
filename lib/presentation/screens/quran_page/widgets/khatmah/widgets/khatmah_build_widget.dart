@@ -32,7 +32,7 @@ class KhatmahBuildWidget extends StatelessWidget {
               background: const DeleteWidget(),
               key: ValueKey<int>(khatmah.id),
               onDismissed: (DismissDirection direction) {
-                khatmahCtrl.deleteKhatmah(khatmah.id);
+                khatmahCtrl.deleteKhatmahOnTap(khatmah.id);
               },
               child: ExpansionTileCard(
                 elevation: 0.0,
