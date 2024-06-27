@@ -2,13 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 
+import '/core/utils/constants/extensions/convert_number_extension.dart';
+import '/core/utils/constants/extensions/surah_name_with_banner.dart';
 import '../../../../../core/services/services_locator.dart';
 import '../../../../../core/widgets/measure_size_widget.dart';
 import '../../../../controllers/general_controller.dart';
 import '../../../../controllers/quran_controller.dart';
 import '../../../../controllers/translate_controller.dart';
 import '../pages/custom_span.dart';
-import '/core/utils/constants/extensions/surah_name_with_banner.dart';
 import 'ayahs_menu.dart';
 import 'translate_build.dart';
 
@@ -17,7 +18,7 @@ class AyahsBuild extends StatelessWidget {
 
   AyahsBuild({super.key, required this.pageIndex});
 
-  final quranCtrl = sl<QuranController>();
+  final quranCtrl = QuranController.instance;
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +33,7 @@ class AyahsBuild extends StatelessWidget {
           final ayahs =
               quranCtrl.getCurrentPageAyahsSeparatedForBasmalah(pageIndex)[i];
           return Column(children: [
-            context.surahAyahBannerFirstPlace(pageIndex, i),
+            surahAyahBannerFirstPlace(pageIndex, i),
             Obx(() {
               return Column(
                   children: List.generate(ayahs.length, (ayahIndex) {
@@ -146,11 +147,10 @@ class AyahsBuild extends StatelessWidget {
                       bottomLeft: Radius.circular(8),
                     )),
                 child: Text(
-                  sl<GeneralController>()
-                      .convertNumbers(ayahs[i].page.toString()),
+                  '${ayahs[i].page.toString().convertNumbers()}',
                   style: TextStyle(
                       fontSize: 18,
-                      color: Theme.of(context).colorScheme.background,
+                      color: Theme.of(context).colorScheme.primaryContainer,
                       fontFamily: 'naskh'),
                 ),
               ),

@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../services/services_locator.dart';
-import '../utils/constants/svg_picture.dart';
+import '/core/utils/constants/extensions/svg_extensions.dart';
+import '/core/utils/constants/svg_constants.dart';
 import '/presentation/controllers/general_controller.dart';
 import '/presentation/controllers/quran_controller.dart';
 import '/presentation/screens/home/home_screen.dart';
+import '../services/services_locator.dart';
 import 'settings_list.dart';
 
 class TabBarWidget extends StatelessWidget {
@@ -20,7 +21,7 @@ class TabBarWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final generalCtrl = sl<GeneralController>();
+    final generalCtrl = GeneralController.instance;
     return Column(
       children: [
         Container(
@@ -46,7 +47,10 @@ class TabBarWidget extends StatelessWidget {
                         child: Stack(
                           alignment: Alignment.center,
                           children: [
-                            button_curve(height: 45.0, width: 45.0),
+                            customSvgWithColor(SvgPath.svgButtonCurve,
+                                height: 45.0,
+                                width: 45.0,
+                                color: Get.theme.colorScheme.primary),
                             Container(
                                 padding: const EdgeInsets.all(4),
                                 margin: const EdgeInsets.only(bottom: 5),
@@ -58,7 +62,10 @@ class TabBarWidget extends StatelessWidget {
                                         color: Theme.of(context)
                                             .colorScheme
                                             .surface)),
-                                child: home(height: 25.0, width: 25.0)),
+                                child: customSvgWithColor(SvgPath.svgHome,
+                                    height: 25.0,
+                                    width: 25.0,
+                                    color: Get.theme.colorScheme.secondary)),
                           ],
                         ),
                       )
@@ -81,7 +88,10 @@ class TabBarWidget extends StatelessWidget {
                   child: Stack(
                     alignment: Alignment.center,
                     children: [
-                      button_curve(height: 45.0, width: 45.0),
+                      customSvgWithColor(SvgPath.svgButtonCurve,
+                          height: 45.0,
+                          width: 45.0,
+                          color: Get.theme.colorScheme.primary),
                       Container(
                           padding: const EdgeInsets.all(4),
                           margin: const EdgeInsets.only(bottom: 5),
@@ -92,7 +102,10 @@ class TabBarWidget extends StatelessWidget {
                                   width: 1,
                                   color:
                                       Theme.of(context).colorScheme.surface)),
-                          child: options(height: 25.0, width: 25.0)),
+                          child: customSvgWithColor(SvgPath.svgOptions,
+                              height: 25.0,
+                              width: 25.0,
+                              color: Get.theme.colorScheme.secondary)),
                     ],
                   ),
                 ),

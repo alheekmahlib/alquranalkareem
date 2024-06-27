@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '/core/utils/constants/extensions/convert_number_extension.dart';
+import '/presentation/controllers/general_controller.dart';
 import '../../../presentation/controllers/daily_ayah_controller.dart';
 import '../../../presentation/screens/quran_page/data/model/surahs_model.dart';
-import '../../services/services_locator.dart';
-import '/presentation/controllers/general_controller.dart';
 import 'ayah_tafsir_widget.dart';
 
 class AyahWidget extends StatelessWidget {
   AyahWidget({super.key});
-  final dailyCtrl = sl<DailyAyahController>();
-  final generalCtrl = sl<GeneralController>();
+  final dailyCtrl = DailyAyahController.instance;
+  final generalCtrl = GeneralController.instance;
 
   @override
   Widget build(BuildContext context) {
@@ -55,7 +55,7 @@ class AyahWidget extends StatelessWidget {
                         ),
                         TextSpan(
                           text:
-                              ' ${generalCtrl.convertNumbers(dailyCtrl.ayahOfTheDay!.ayahNumber.toString())}',
+                              ' ${dailyCtrl.ayahOfTheDay!.ayahNumber.toString().convertNumbers()}',
                           style: TextStyle(
                               fontSize: 24.0,
                               fontFamily: 'uthmanic2',
@@ -70,7 +70,7 @@ class AyahWidget extends StatelessWidget {
                       textDirection: TextDirection.rtl,
                     ),
                   )
-                : const CircularProgressIndicator();
+                : const SizedBox.shrink();
           }),
     );
   }

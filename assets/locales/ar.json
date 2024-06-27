@@ -929,13 +929,13 @@
     "type": "text",
     "placeholders": {}
   },
-  "Dhu al-Qi'dah": "ذو القعدة",
-  "@Dhu al-Qi'dah": {
+  "Dhu Al-Qi'dah": "ذو القعدة",
+  "@Dhu Al-Qi'dah": {
     "type": "text",
     "placeholders": {}
   },
-  "Dhu al-Hijjah": "ذوالحجة",
-  "@Dhu al-Hijjah": {
+  "Dhu Al-Hijjah": "ذوالحجة",
+  "@Dhu Al-Hijjah": {
     "type": "text",
     "placeholders": {}
   },
@@ -991,6 +991,46 @@
   },
   "What'sNewTitle8": "آية وتفسيرها",
   "@What'sNewTitle8": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Fajr": "الفجر",
+  "@Fajr": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Dhuhr": "الظهر",
+  "@Dhuhr": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Asr": "العصر",
+  "@Asr": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Maghrib": "المغرب",
+  "@Maghrib": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Isha": "العشاء",
+  "@Isha": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Last Third": "الثلث الأخير",
+  "@Last Third": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Middle of the Night": "منتصف الليل",
+  "@Middle of the Night": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Sunrise": "الشروق",
+  "@Sunrise": {
     "type": "text",
     "placeholders": {}
   }

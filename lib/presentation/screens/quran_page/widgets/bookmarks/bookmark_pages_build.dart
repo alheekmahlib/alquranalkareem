@@ -2,17 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:get/get.dart';
 
-import '../../../../../core/services/services_locator.dart';
+import '/core/utils/constants/extensions/convert_number_extension.dart';
+import '/presentation/controllers/quran_controller.dart';
 import '../../../../../core/utils/constants/extensions/extensions.dart';
 import '../../../../../core/widgets/delete_widget.dart';
 import '../../../../controllers/bookmarks_controller.dart';
 import '../../../../controllers/general_controller.dart';
-import '/presentation/controllers/quran_controller.dart';
 
 class BookmarkPagesBuild extends StatelessWidget {
   BookmarkPagesBuild({super.key});
-  final quranCtrl = sl<QuranController>();
-  final generalCtrl = sl<GeneralController>();
+  final quranCtrl = QuranController.instance;
+  final generalCtrl = GeneralController.instance;
   @override
   Widget build(BuildContext context) {
     return GetBuilder<BookmarksController>(
@@ -109,10 +109,7 @@ class BookmarkPagesBuild extends StatelessWidget {
                                                                 size: 50,
                                                               ),
                                                               Text(
-                                                                generalCtrl.convertNumbers(
-                                                                    bookmark
-                                                                        .pageNum
-                                                                        .toString()),
+                                                                '${bookmark.pageNum.toString().convertNumbers()}',
                                                                 textAlign:
                                                                     TextAlign
                                                                         .center,
@@ -154,7 +151,7 @@ class BookmarkPagesBuild extends StatelessWidget {
                                                         Expanded(
                                                           flex: 3,
                                                           child: Text(
-                                                            "${generalCtrl.convertNumbers(bookmark.lastRead.toString())}",
+                                                            "${bookmark.lastRead.toString().convertNumbers()}",
                                                             style: TextStyle(
                                                                 color: Theme.of(
                                                                         context)

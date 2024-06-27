@@ -1,8 +1,12 @@
-import '../../../../core/utils/constants/extensions/extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../../../core/utils/constants/svg_picture.dart';
+import '/core/utils/constants/extensions/surah_name_with_banner.dart';
+import '/core/utils/constants/extensions/svg_extensions.dart';
+import '../../../../core/services/services_locator.dart';
+import '../../../../core/utils/constants/extensions/extensions.dart';
+import '../../../../core/utils/constants/svg_constants.dart';
+import '../../../controllers/surah_audio_controller.dart';
 import 'online_play_button.dart';
 import 'skip_next.dart';
 import 'skip_previous.dart';
@@ -24,13 +28,25 @@ class CollapsedPlayWidget extends StatelessWidget {
           children: [
             Align(
               alignment: Alignment.bottomRight,
-              child: decorations(context),
+              child: Opacity(
+                opacity: .6,
+                child: customSvg(
+                  SvgPath.svgDecorations,
+                  height: 60,
+                ),
+              ),
             ),
             Align(
               alignment: Alignment.topLeft,
               child: RotatedBox(
                 quarterTurns: 2,
-                child: decorations(context),
+                child: Opacity(
+                  opacity: .6,
+                  child: customSvg(
+                    SvgPath.svgDecorations,
+                    height: 60,
+                  ),
+                ),
               ),
             ),
             Padding(
@@ -48,9 +64,11 @@ class CollapsedPlayWidget extends StatelessWidget {
                     ],
                   ),
                   Obx(
-                    () => surahName(
-                      50,
-                      100,
+                    () => surahNameWidget(
+                      sl<SurahAudioController>().surahNum.toString(),
+                      Get.theme.colorScheme.primary,
+                      height: 50,
+                      width: 100,
                     ),
                   ),
                 ],

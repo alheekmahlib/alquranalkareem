@@ -4,6 +4,7 @@ import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 
+import '/core/utils/constants/extensions/convert_number_extension.dart';
 import '../../../../core/services/services_locator.dart';
 import '../../../../core/utils/constants/extensions/extensions.dart';
 import '../../../controllers/general_controller.dart';
@@ -16,15 +17,14 @@ class QuranJuz extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final generalCtrl = sl<GeneralController>();
-    final quranCtrl = sl<QuranController>();
+    final quranCtrl = QuranController.instance;
     return AnimationLimiter(
       child: CupertinoScrollbar(
         controller: sl<GeneralController>().surahListController,
         child: Container(
           padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 8.0),
           decoration: BoxDecoration(
-            color: Theme.of(context).colorScheme.background,
+            color: Theme.of(context).colorScheme.primaryContainer,
           ),
           child: ListView.builder(
               padding: EdgeInsets.zero,
@@ -49,7 +49,7 @@ class QuranJuz extends StatelessWidget {
                             padding:
                                 const EdgeInsets.symmetric(horizontal: 8.0),
                             child: Text(
-                              '${'juz'.tr} ${generalCtrl.convertNumbers((index + 1).toString())}',
+                              '${'juz'.tr} ${(index + 1).toString().convertNumbers()}',
                               style: TextStyle(
                                   color: Theme.of(context).hintColor,
                                   fontFamily: "kufi",
@@ -114,7 +114,7 @@ class QuranJuz extends StatelessWidget {
                                                   Transform.translate(
                                                     offset: const Offset(0, 1),
                                                     child: Text(
-                                                      '${generalCtrl.convertNumbers((index + 1).toString())}',
+                                                      '${(index + 1).toString().convertNumbers()}',
                                                       style: TextStyle(
                                                           color:
                                                               Theme.of(context)
@@ -156,7 +156,7 @@ class QuranJuz extends StatelessWidget {
                                                       const EdgeInsets.only(
                                                           right: 8.0),
                                                   child: Text(
-                                                    '${surah.arabicName} ${generalCtrl.convertNumbers(surah.surahNumber.toString())} - ${'page'.tr} ${generalCtrl.convertNumbers(juz.page.toString())}',
+                                                    '${surah.arabicName} ${surah.surahNumber.toString().convertNumbers()} - ${'page'.tr} ${juz.page.toString().convertNumbers()}',
                                                     style: TextStyle(
                                                       fontFamily: "naskh",
                                                       fontWeight:
@@ -177,6 +177,7 @@ class QuranJuz extends StatelessWidget {
                                   ),
                                 )),
                             onTap: () {
+                              quranCtrl.clearAndAddSelection(juz.ayahUQNumber);
                               quranCtrl.changeSurahListOnTap(juz.page);
                             },
                           ),

@@ -1,9 +1,10 @@
-import 'quran_search.dart';
+import 'package:alquranalkareem/core/utils/constants/extensions/svg_extensions.dart';
 import 'package:animations/animations.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../../../../core/utils/constants/svg_picture.dart';
+import '../../../../../core/utils/constants/svg_constants.dart';
+import 'quran_search.dart';
 
 class SearchBarWidget extends StatelessWidget {
   const SearchBarWidget({required this.openContainer});
@@ -15,7 +16,7 @@ class SearchBarWidget extends StatelessWidget {
     return Container(
       height: 40,
       decoration: BoxDecoration(
-        color: Theme.of(context).colorScheme.background,
+        color: Theme.of(context).colorScheme.primaryContainer,
         borderRadius: const BorderRadius.all(Radius.circular(8)),
       ),
       child: _InkWellOverlay(
@@ -33,7 +34,10 @@ class SearchBarWidget extends StatelessWidget {
                     fontFamily: 'kufi',
                     fontSize: 15),
               ),
-              search_icon(height: 20.0)
+              customSvg(
+                SvgPath.svgSearchIcon,
+                height: 20,
+              ),
             ],
           ),
         ),
@@ -85,8 +89,8 @@ class OpenContainerWrapper extends StatelessWidget {
       ),
       transitionType: transitionType,
       closedElevation: 5,
-      closedColor: Theme.of(context).colorScheme.background,
-      openColor: Theme.of(context).colorScheme.background,
+      closedColor: Theme.of(context).colorScheme.primaryContainer,
+      openColor: Theme.of(context).colorScheme.primaryContainer,
       openBuilder: (BuildContext context, VoidCallback _) {
         return QuranSearch();
       },

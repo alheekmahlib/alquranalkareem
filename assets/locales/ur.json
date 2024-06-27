@@ -930,13 +930,13 @@
     "type": "text",
     "placeholders": {}
   },
-  "Dhu al-Qi'dah": "ذو القعده",
-  "@Dhu al-Qi'dah": {
+  "Dhu Al-Qi'dah": "ذو القعده",
+  "@Dhu Al-Qi'dah": {
     "type": "text",
     "placeholders": {}
   },
-  "Dhu al-Hijjah": "ذوالحجہ",
-  "@Dhu al-Hijjah": {
+  "Dhu Al-Hijjah": "ذوالحجہ",
+  "@Dhu Al-Hijjah": {
     "type": "text",
     "placeholders": {}
   },
@@ -992,6 +992,46 @@
   },
   "What'sNewTitle8": "آیت اور اس کی تفسیر",
   "@What'sNewTitle8": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Fajr": "فجر",
+  "@Fajr": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Sunrise": "طلوع",
+  "@Sunrise": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Dhuhr": "ظہر",
+  "@Dhuhr": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Asr": "عصر",
+  "@Asr": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Maghrib": "مغرب",
+  "@Maghrib": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Isha": "عشاء",
+  "@Isha": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Last Third": "رات کا آخری تہائی حصہ",
+  "@Last Third": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Middle of the Night": "آدھی رات",
+  "@Middle of the Night": {
     "type": "text",
     "placeholders": {}
   }

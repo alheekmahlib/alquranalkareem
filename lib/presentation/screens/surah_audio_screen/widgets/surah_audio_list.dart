@@ -5,15 +5,14 @@ import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:mini_music_visualizer/mini_music_visualizer.dart';
 
-import '../../../../core/services/services_locator.dart';
+import '/presentation/controllers/quran_controller.dart';
 import '../../../../core/utils/constants/extensions/extensions.dart';
 import '../../../controllers/surah_audio_controller.dart';
-import '/presentation/controllers/quran_controller.dart';
 
 class SurahAudioList extends StatelessWidget {
   SurahAudioList({super.key});
-  final quranCtrl = sl<QuranController>();
-  final surahAudioCtrl = sl<SurahAudioController>();
+  final quranCtrl = QuranController.instance;
+  final surahAudioCtrl = SurahAudioController.instance;
 
   @override
   Widget build(BuildContext context) {

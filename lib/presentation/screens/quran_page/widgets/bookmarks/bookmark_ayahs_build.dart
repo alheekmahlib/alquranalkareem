@@ -3,17 +3,18 @@ import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 
+import '/core/utils/constants/extensions/convert_number_extension.dart';
+import '/presentation/controllers/quran_controller.dart';
 import '../../../../../core/services/services_locator.dart';
 import '../../../../../core/utils/constants/extensions/extensions.dart';
 import '../../../../../core/widgets/delete_widget.dart';
 import '../../../../controllers/bookmarks_controller.dart';
 import '../../../../controllers/general_controller.dart';
-import '/presentation/controllers/quran_controller.dart';
 
 class BookmarkAyahsBuild extends StatelessWidget {
   BookmarkAyahsBuild({super.key});
-  final generalCtrl = sl<GeneralController>();
-  final quranCtrl = sl<QuranController>();
+  final generalCtrl = GeneralController.instance;
+  final quranCtrl = QuranController.instance;
   @override
   Widget build(BuildContext context) {
     return GetBuilder<BookmarksController>(
@@ -141,9 +142,7 @@ class BookmarkAyahsBuild extends StatelessWidget {
                                                                     size: 50,
                                                                   ),
                                                                   Text(
-                                                                    sl<GeneralController>().convertNumbers(bookmark
-                                                                        .ayahNumber
-                                                                        .toString()),
+                                                                    '${bookmark.ayahNumber.toString().convertNumbers()}',
                                                                     textAlign:
                                                                         TextAlign
                                                                             .center,
@@ -187,7 +186,7 @@ class BookmarkAyahsBuild extends StatelessWidget {
                                                                   Row(
                                                                     children: [
                                                                       Text(
-                                                                        "${bookmark.surahName} - ${'page'.tr}: ${generalCtrl.convertNumbers(bookmark.pageNumber.toString())}",
+                                                                        "${bookmark.surahName} - ${'page'.tr}: ${bookmark.pageNumber.toString().convertNumbers()}",
                                                                         style: TextStyle(
                                                                             color: Get
                                                                                 .theme.colorScheme.surface,
@@ -200,7 +199,7 @@ class BookmarkAyahsBuild extends StatelessWidget {
                                                                       ),
                                                                       const Spacer(),
                                                                       Text(
-                                                                        "${generalCtrl.convertNumbers(bookmark.lastRead.toString())}",
+                                                                        "${bookmark.lastRead.toString().convertNumbers()}",
                                                                         style: TextStyle(
                                                                             color: Get
                                                                                 .theme.colorScheme.surface,

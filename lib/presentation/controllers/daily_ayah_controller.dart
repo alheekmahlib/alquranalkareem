@@ -3,10 +3,9 @@ import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:hijri/hijri_calendar.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
-import '../../core/services/services_locator.dart';
 import '../../core/utils/constants/lists.dart';
 import '../../core/utils/constants/shared_preferences_constants.dart';
 import '../screens/quran_page/data/model/surahs_model.dart';
@@ -15,19 +14,24 @@ import 'ayat_controller.dart';
 import 'quran_controller.dart';
 
 class DailyAyahController extends GetxController {
+  static DailyAyahController get instance =>
+      Get.isRegistered<DailyAyahController>()
+          ? Get.find<DailyAyahController>()
+          : Get.put<DailyAyahController>(DailyAyahController());
   final ScrollController scrollController = ScrollController();
-  final quranCtrl = sl<QuranController>();
-  final ayatCtrl = sl<AyatController>();
+  final quranCtrl = QuranController.instance;
+  final ayatCtrl = AyatController.instance;
   Ayah? ayahOfTheDay;
   Tafsir? selectedTafsir;
   List<Tafsir>? currentPageTafseer;
   RxInt radioValue = 0.obs;
+  final box = GetStorage();
 
   Future<Ayah> getDailyAyah() async {
     print('missing daily Ayah');
     if (ayahOfTheDay != null) return ayahOfTheDay!;
     final String? ayahOfTheDayIdAndId =
-        sl<SharedPreferences>().getString(AYAH_OF_THE_DAY_AND_AYAH_NUMBER);
+        box.read(AYAH_OF_THE_DAY_AND_AYAH_NUMBER);
     ayahOfTheDay = await _getAyahForThisDay(
         _hasAyahSettedForThisDay ? ayahOfTheDayIdAndId : null);
 
@@ -35,7 +39,7 @@ class DailyAyahController extends GetxController {
   }
 
   bool get _hasAyahSettedForThisDay {
-    final settedDate = sl<SharedPreferences>().getString(SETTED_DATE_FOR_AYAH);
+    final settedDate = box.read(SETTED_DATE_FOR_AYAH);
     return (settedDate != null && settedDate == HijriCalendar.now().fullDate());
   }
 
@@ -70,23 +74,20 @@ class DailyAyahController extends GetxController {
       log('ayah is null  ' * 5);
     }
     log('before listing');
-    sl<SharedPreferences>()
-      ..setString(AYAH_OF_THE_DAY_AND_AYAH_NUMBER, '${ayah.ayahUQNumber}')
-      ..setString(
-          TAFSIR_OF_THE_DAY_AND_TAFSIR_NUMBER, '${selectedTafsir!.index}')
-      ..setString(SETTED_DATE_FOR_AYAH, HijriCalendar.now().fullDate());
+    box
+      ..write(AYAH_OF_THE_DAY_AND_AYAH_NUMBER, '${ayah.ayahUQNumber}')
+      ..write(TAFSIR_OF_THE_DAY_AND_TAFSIR_NUMBER, '${selectedTafsir!.index}')
+      ..write(SETTED_DATE_FOR_AYAH, HijriCalendar.now().fullDate());
     return ayah;
   }
 
   // Future<void> saveKhatmahs(List<Ayah> ayah) async {
-  //   final prefs = sl<SharedPreferences>();
   //   final String encodedData =
   //   jsonEncode(ayah.map((a) => a.toMap()).toList());
   //   await prefs.setString(AYAH_OF_THE_DAY, encodedData);
   // }
   //
   // static Future<List<Ayah>> loadKhatmahs() async {
-  //   final prefs = sl<SharedPreferences>();
   //   final String? ayahData = prefs.getString(AYAH_OF_THE_DAY);
   //   if (ayahData != null) {
   //     List<dynamic> decodedData = jsonDecode(ayahData);

@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 
-import '../../../../core/services/services_locator.dart';
-import '../../athkar/models/zeker_model.dart';
 import '/presentation/controllers/azkar_controller.dart';
+import '../../athkar/models/zeker_model.dart';
 
 class DailyZeker extends StatelessWidget {
   DailyZeker({super.key});
-  final azkarCtrl = sl<AzkarController>();
+  final azkarCtrl = AzkarController.instance;
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -19,10 +19,10 @@ class DailyZeker extends StatelessWidget {
           decoration: BoxDecoration(
               color: Theme.of(context).colorScheme.primary.withOpacity(.1),
               borderRadius: const BorderRadius.all(Radius.circular(4))),
-          child: FutureBuilder<Zekr>(
-              future: azkarCtrl.getDailyZeker(),
+          child: FutureBuilder<Dhekr>(
+              future: azkarCtrl.getDailyDhekr(),
               builder: (context, snapshot) {
-                return snapshot.data != null && azkarCtrl.zekerOfTheDay != null
+                return snapshot.data != null && azkarCtrl.dhekrOfTheDay != null
                     ? Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
@@ -58,7 +58,7 @@ class DailyZeker extends StatelessWidget {
                                         Theme.of(context).colorScheme.primary,
                                     width: 1)),
                             child: Text(
-                              '${azkarCtrl.zekerOfTheDay!.zekr}',
+                              '${azkarCtrl.dhekrOfTheDay!.zekr}',
                               style: TextStyle(
                                   fontSize: 20.0,
                                   fontFamily: 'naskh',
@@ -73,7 +73,7 @@ class DailyZeker extends StatelessWidget {
                             padding:
                                 const EdgeInsets.symmetric(horizontal: 8.0),
                             child: Text(
-                              azkarCtrl.zekerOfTheDay!.category,
+                              azkarCtrl.dhekrOfTheDay!.category,
                               style: TextStyle(
                                 fontSize: 13.0,
                                 fontFamily: 'kufi',

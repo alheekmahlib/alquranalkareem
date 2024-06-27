@@ -1,4 +1,4 @@
-class Zekr {
+class Dhekr {
   final int? id;
   final String category;
   final String count;
@@ -6,7 +6,7 @@ class Zekr {
   final String reference;
   final String zekr;
 
-  Zekr({
+  Dhekr({
     this.id,
     required this.category,
     required this.count,
@@ -15,8 +15,8 @@ class Zekr {
     required this.zekr,
   });
 
-  factory Zekr.fromJson(Map<String, dynamic> json) {
-    return Zekr(
+  factory Dhekr.fromJson(Map<String, dynamic> json) {
+    return Dhekr(
       id: json['id'],
       category: json['category'],
       count: json['count'],

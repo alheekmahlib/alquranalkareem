@@ -1,12 +1,17 @@
 import 'package:get/get.dart';
 
+import '/presentation/screens/home/home_screen.dart';
+import '../../../presentation/controllers/adhan_controller.dart';
 import '../../../presentation/controllers/theme_controller.dart';
 import '../../../presentation/screens/alwaqf_screen/alwaqf_screen.dart';
 import '../../../presentation/screens/athkar/screens/alzkar_view.dart';
+import '../../../presentation/screens/books/screens/books_screen.dart';
 import '../../../presentation/screens/quran_page/screens/quran_home.dart';
 import '../../../presentation/screens/surah_audio_screen/audio_surah.dart';
-import '/presentation/screens/home/home_screen.dart';
+import '../../services/services_locator.dart';
 import 'url_constants.dart';
+
+final adhanCtrl = sl<AdhanController>();
 
 List<String> translateName = <String>[
   'English',
@@ -29,15 +34,6 @@ List<String> shareTranslateName = <String>[
   'کوردی',
   'Türkçe',
   // 'تفسير السعدي'
-];
-
-List<String> rtlLang = <String>[
-  'العربية',
-  'עברית',
-  'فارسی',
-  'اردو',
-  'کوردی',
-  'تفسير السعدي'
 ];
 
 const List<String> semanticsTranslateName = <String>[
@@ -101,6 +97,13 @@ final List screensList = [
     'svgUrl': 'assets/svg/quran_au_ic.svg',
     'imagePath': 'assets/images/audio.png',
     'route': () => const AudioScreen(),
+    'width': 240.0
+  },
+  {
+    'name': 'quran',
+    'svgUrl': 'assets/svg/splash_icon_w.svg',
+    'imagePath': 'assets/images/pages.png',
+    'route': () => BooksPage(),
     'width': 240.0
   },
 ];
@@ -463,6 +466,11 @@ const List monthHadithsList = [
     'bookName': '',
   },
   {
+    'hadithPart1': '',
+    'hadithPart2': '',
+    'bookName': '',
+  },
+  {
     'hadithPart1':
         'عَنْ أَبِي بَكْرَةَ ـ رضى الله عنه ـ عَنِ النَّبِيِّ صلى الله عليه وسلم قَالَ',
     'hadithPart2':
@@ -502,5 +510,19 @@ const List monthHadithsList = [
     'hadithPart2':
         '"‏ شَهْرَانِ لاَ يَنْقُصَانِ شَهْرَا عِيدٍ رَمَضَانُ وَذُو الْحَجَّةِ ‏"‏‏.‏',
     'bookName': ' صحيح البخاري كتاب الصوم - ١٩١٢',
+  },
+];
+
+const List adhanSoundsList = [
+  {
+    'country': '',
+    'sounds': [
+      {
+        'partOfAdhan': '',
+        'urlAdhanPart': '',
+        'fullAdhan': '',
+        'urlAdhanFull': '',
+      }
+    ]
   },
 ];

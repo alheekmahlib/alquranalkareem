@@ -2,6 +2,8 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 	<dict>
+		<key>CADisableMinimumFrameDurationOnPhone</key>
+		<true/>
 		<key>CFBundleDevelopmentRegion</key>
 		<string>$(DEVELOPMENT_LANGUAGE)</string>
 		<key>CFBundleDisplayName</key>
@@ -24,10 +26,40 @@
 		<string>$(FLUTTER_BUILD_NUMBER)</string>
 		<key>LSRequiresIPhoneOS</key>
 		<true/>
+		<key>NSAppTransportSecurity</key>
+		<dict>
+			<key>NSAllowsArbitraryLoads</key>
+			<true/>
+		</dict>
+		<key>NSBonjourServices</key>
+		<array>
+			<string>_dartobservatory._tcp</string>
+		</array>
+		<key>NSLocationWhenInUseUsageDescription</key>
+		<string>This app needs access to location when open.</string>
+		<key>NSMicrophoneUsageDescription</key>
+		<string>Our app uses the microphone to allow voice chatting during gameplay.</string>
+		<key>NSPhotoLibraryAddUsageDescription</key>
+		<string>App requires access to the photo library to save images</string>
+		<key>NSPhotoLibraryUsageDescription</key>
+		<string>App requires access to the photo library to save images</string>
+		<key>NSUserActivityTypes</key>
+		<array>
+			<string>ConfigurationIntent</string>
+		</array>
+		<key>UIApplicationSceneManifest</key>
+		<dict>
+			<key>UISceneConfigurations</key>
+			<dict/>
+		</dict>
+		<key>UIApplicationSupportsIndirectInputEvents</key>
+		<true/>
 		<key>UILaunchStoryboardName</key>
 		<string>LaunchScreen</string>
 		<key>UIMainStoryboardFile</key>
 		<string>Main</string>
+		<key>UIStatusBarHidden</key>
+		<false/>
 		<key>UISupportedInterfaceOrientations</key>
 		<array>
 			<string>UIInterfaceOrientationPortrait</string>
@@ -41,43 +73,23 @@
 			<string>UIInterfaceOrientationLandscapeLeft</string>
 			<string>UIInterfaceOrientationLandscapeRight</string>
 		</array>
-		<key>CADisableMinimumFrameDurationOnPhone</key>
-		<true/>
-		<key>UIApplicationSupportsIndirectInputEvents</key>
-		<true/>
-		<key>NSAppTransportSecurity</key>
-		<dict>
-			<key>NSAllowsArbitraryLoads</key>
-			<true/>
-		</dict>
-		<key>NSBonjourServices</key>
-		<array>
-			<string>_dartobservatory._tcp</string>
-		</array>
-		<key>NSPhotoLibraryUsageDescription</key>
-		<string>This app require permission to access gallery</string>
-		<key>NSUserActivityTypes</key>
-		<array>
-			<string>ConfigurationIntent</string>
-		</array>
-		<key>UIApplicationSceneManifest</key>
-		<dict>
-			<key>UISceneConfigurations</key>
-			<dict/>
-		</dict>
-		<key>UIApplicationSupportsIndirectInputEvents</key>
-		<true/>
-		<key>NSPhotoLibraryAddUsageDescription</key>
-		<string>App requires access to the photo library to save images</string>
-		<key>NSPhotoLibraryUsageDescription</key>
-		<string>App requires access to the photo library to save images</string>
-		<key>NSMicrophoneUsageDescription</key>
-		<string>Our app uses the microphone to allow voice chatting during gameplay.</string>
-		<key>UIStatusBarHidden</key>
-		<false/>
 		<key>UIBackgroundModes</key>
-        <array>
-            <string>audio</string>
-        </array>
+		<array>
+			<string>audio</string>
+			<string>processing</string>
+			<!-- If you need periodic tasks in iOS 13+ you need to enable Background Fetch as well -->
+			<string>fetch</string>
+		</array>
+		<key>BGTaskSchedulerPermittedIdentifiers</key>
+		<array>
+			<string>com.alheekmah.alquranalkareem.alquranalkareem.dailyPrayerNotification</string>
+			<string>com.alheekmah.alquranalkareem.alquranalkareem.hijriWidget</string>
+			<string>com.alheekmah.alquranalkareem.alquranalkareem.currentPrayerTime</string>
+		</array>
+		<key>NSLocationTemporaryUsageDescriptionDictionary</key>
+		<dict>
+			<key>Adhan</key>
+			<string>يقوم تطبيق القرآن الكريم - مكتبة الحكمة بتحديد الموقع من أجل جعل الأذان أكثر دقة</string>
+		</dict>
 	</dict>
 </plist>

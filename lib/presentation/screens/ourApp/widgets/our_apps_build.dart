@@ -2,19 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 
-import '../../../../core/services/services_locator.dart';
+import '/core/utils/constants/lottie_constants.dart';
 import '../../../../core/utils/constants/extensions/extensions.dart';
 import '../../../../core/utils/constants/lottie.dart';
 import '../../../controllers/ourApps_controller.dart';
 import '../data/models/ourApp_model.dart';
-import '/core/utils/constants/lottie_constants.dart';
 
 class OurAppsBuild extends StatelessWidget {
-  const OurAppsBuild({super.key});
+  OurAppsBuild({super.key});
+
+  final ourApps = OurAppsController.instance;
 
   @override
   Widget build(BuildContext context) {
-    final ourApps = sl<OurAppsController>();
     return FutureBuilder<List<OurAppInfo>>(
       future: ourApps.fetchApps(),
       builder: (context, snapshot) {
@@ -39,7 +39,7 @@ class OurAppsBuild extends StatelessWidget {
                   return InkWell(
                     child: Container(
                       decoration: BoxDecoration(
-                          color: Theme.of(context).colorScheme.background,
+                          color: Theme.of(context).colorScheme.primaryContainer,
                           borderRadius:
                               const BorderRadius.all(Radius.circular(8))),
                       padding: const EdgeInsets.all(8.0),
@@ -92,7 +92,7 @@ class OurAppsBuild extends StatelessWidget {
                           //   ),
                           //   contentTheme: InfoPopupContentTheme(
                           //     infoContainerBackgroundColor:
-                          //         Theme.of(context).colorScheme.background,
+                          //         Theme.of(context).colorScheme.primaryContainer,
                           //     infoTextStyle: TextStyle(
                           //         color: Theme.of(context).colorScheme.surface,
                           //         fontSize: 12,

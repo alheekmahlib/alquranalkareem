@@ -3,11 +3,10 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 
-import '../../../core/services/services_locator.dart';
 import '../../../core/widgets/select_screen_build.dart';
+import '../../controllers/general_controller.dart';
 import '../../controllers/splash_screen_controller.dart';
 import '../screen_type.dart';
-import '/presentation/controllers/general_controller.dart';
 import 'widgets/button_widget.dart';
 import 'widgets/page_view_build.dart';
 import 'widgets/smooth_page_indicator.dart';
@@ -18,8 +17,8 @@ class WhatsNewScreen extends StatelessWidget {
   WhatsNewScreen({Key? key, required this.newFeatures}) : super(key: key);
 
   final controller = PageController(viewportFraction: 1, keepPage: true);
-  final splashCtrl = sl<SplashScreenController>();
-  final generalCtrl = sl<GeneralController>();
+  final splashCtrl = SplashScreenController.instance;
+  final generalCtrl = GeneralController.instance;
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +26,7 @@ class WhatsNewScreen extends StatelessWidget {
     return Container(
         height: size.height * .94,
         decoration: BoxDecoration(
-            color: Theme.of(context).colorScheme.background,
+            color: Theme.of(context).colorScheme.primaryContainer,
             borderRadius: const BorderRadius.only(
               topRight: Radius.circular(8),
               topLeft: Radius.circular(8),
@@ -56,7 +55,7 @@ class WhatsNewScreen extends StatelessWidget {
                               ),
                             ),
                             onTap: () {
-                              Get.off(() => const ScreenTypeL());
+                              Get.off(() => ScreenTypeL());
                               splashCtrl.saveLastShownIndex(
                                   newFeatures.last['index']);
                             },

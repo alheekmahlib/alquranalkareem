@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../../../core/services/services_locator.dart';
 import '../../../controllers/quran_controller.dart';
 import '../screens/quran_page.dart';
 import 'ayahs/ayahs_widget.dart';
@@ -9,7 +8,7 @@ import 'ayahs/ayahs_widget.dart';
 class ScreenSwitch extends StatelessWidget {
   ScreenSwitch({super.key});
 
-  final quranCtrl = sl<QuranController>();
+  final quranCtrl = QuranController.instance;
 
   @override
   Widget build(BuildContext context) {

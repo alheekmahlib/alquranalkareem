@@ -1,28 +1,32 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:hijri/hijri_calendar.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
+import '/presentation/controllers/quran_controller.dart';
+import '/presentation/controllers/translate_controller.dart';
 import '../../core/services/services_locator.dart';
 import '../../core/utils/constants/lists.dart';
 import '../../core/utils/constants/lottie.dart';
 import '../../core/utils/constants/shared_preferences_constants.dart';
 import '../screens/screen_type.dart';
 import '../screens/whats_new/whats_new_screen.dart';
-import '/presentation/controllers/quran_controller.dart';
-import '/presentation/controllers/translate_controller.dart';
 import 'audio_controller.dart';
 import 'ayat_controller.dart';
 import 'general_controller.dart';
 import 'settings_controller.dart';
 
 class SplashScreenController extends GetxController {
+  static SplashScreenController get instance =>
+      Get.isRegistered<SplashScreenController>()
+          ? Get.find<SplashScreenController>()
+          : Get.put<SplashScreenController>(SplashScreenController());
   RxBool animate = false.obs;
-  final sharedCtrl = sl<SharedPreferences>();
-  final generalCtrl = sl<GeneralController>();
+  final generalCtrl = GeneralController.instance;
   RxInt onboardingPageNumber = 0.obs;
   var today = HijriCalendar.now();
   RxInt currentPageIndex = 0.obs;
+  final box = GetStorage();
 
   @override
   void onInit() {
@@ -34,7 +38,7 @@ class SplashScreenController extends GetxController {
     sl<GeneralController>().updateGreeting();
     sl<QuranController>().loadSwitchValue();
     sl<GeneralController>().screenSelectedValue.value =
-        sl<SharedPreferences>().getInt(SCREEN_SELECTED_VALUE) ?? 0;
+        box.read(SCREEN_SELECTED_VALUE) ?? 0;
     startTime();
     super.onInit();
   }
@@ -58,7 +62,7 @@ class SplashScreenController extends GetxController {
           isScrollControlled: true,
         );
       } else {
-        Get.offAll(() => const ScreenTypeL(), transition: Transition.downToUp);
+        Get.offAll(() => ScreenTypeL(), transition: Transition.downToUp);
       }
     });
     // Get.off(() => OnboardingScreen());
@@ -66,11 +70,11 @@ class SplashScreenController extends GetxController {
   }
 
   Future<void> saveLastShownIndex(int index) async {
-    await sharedCtrl.setInt(LAST_SHOWN_UPDATE_INDEX, index);
+    await box.write(LAST_SHOWN_UPDATE_INDEX, index);
   }
 
   Future<int> getLastShownIndex() async {
-    return sharedCtrl.getInt(LAST_SHOWN_UPDATE_INDEX) ?? 0;
+    return box.read(LAST_SHOWN_UPDATE_INDEX) ?? 0;
   }
 
   Future<List<Map<String, dynamic>>> getNewFeatures() async {

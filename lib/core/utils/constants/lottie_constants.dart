@@ -1,6 +1,6 @@
 class LottieConstants {
   LottieConstants._();
-
+  
   /// Assets for assetsLottieArrow
   /// assets/lottie/arrow.json
   static const String assetsLottieArrow = "assets/lottie/arrow.json";
@@ -25,14 +25,17 @@ class LottieConstants {
   /// assets/lottie/loading.json
   static const String assetsLottieLoading = "assets/lottie/loading.json";
 
+  /// Assets for assetsLottieMoon
+  /// assets/lottie/moon.json
+  static const String assetsLottieMoon = "assets/lottie/moon.json";
+
   /// Assets for assetsLottieNotFound
   /// assets/lottie/notFound.json
   static const String assetsLottieNotFound = "assets/lottie/notFound.json";
 
   /// Assets for assetsLottieNotification
   /// assets/lottie/notification.json
-  static const String assetsLottieNotification =
-      "assets/lottie/notification.json";
+  static const String assetsLottieNotification = "assets/lottie/notification.json";
 
   /// Assets for assetsLottieOpenBook
   /// assets/lottie/open_book.json
@@ -48,18 +51,15 @@ class LottieConstants {
 
   /// Assets for assetsLottieRamadanBlue
   /// assets/lottie/ramadan_blue.json
-  static const String assetsLottieRamadanBlue =
-      "assets/lottie/ramadan_blue.json";
+  static const String assetsLottieRamadanBlue = "assets/lottie/ramadan_blue.json";
 
   /// Assets for assetsLottieRamadanBrown
   /// assets/lottie/ramadan_brown.json
-  static const String assetsLottieRamadanBrown =
-      "assets/lottie/ramadan_brown.json";
+  static const String assetsLottieRamadanBrown = "assets/lottie/ramadan_brown.json";
 
   /// Assets for assetsLottieRamadanWhite
   /// assets/lottie/ramadan_white.json
-  static const String assetsLottieRamadanWhite =
-      "assets/lottie/ramadan_white.json";
+  static const String assetsLottieRamadanWhite = "assets/lottie/ramadan_white.json";
 
   /// Assets for assetsLottieSearch
   /// assets/lottie/search.json
@@ -71,6 +71,10 @@ class LottieConstants {
 
   /// Assets for assetsLottieSplashLoading
   /// assets/lottie/splash_loading.json
-  static const String assetsLottieSplashLoading =
-      "assets/lottie/splash_loading.json";
+  static const String assetsLottieSplashLoading = "assets/lottie/splash_loading.json";
+
+  /// Assets for assetsLottieSun
+  /// assets/lottie/sun.json
+  static const String assetsLottieSun = "assets/lottie/sun.json";
 }
+

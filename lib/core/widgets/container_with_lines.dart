@@ -28,7 +28,8 @@ class ContainerWithLines extends StatelessWidget {
             width: width ?? MediaQuery.sizeOf(context).width,
             margin: const EdgeInsets.symmetric(horizontal: 16.0),
             decoration: BoxDecoration(
-              color: containerColor ?? Theme.of(context).colorScheme.background,
+              color: containerColor ??
+                  Theme.of(context).colorScheme.primaryContainer,
               borderRadius: const BorderRadius.all(
                 Radius.circular(4),
               ),

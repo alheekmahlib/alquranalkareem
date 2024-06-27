@@ -1,9 +1,9 @@
-import 'container_with_lines.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 
-import '../utils/constants/lottie.dart';
 import '/core/utils/constants/extensions/extensions.dart';
+import '../utils/constants/lottie.dart';
+import 'container_with_lines.dart';
 
 class RamadanGreeting extends StatelessWidget {
   final String lottieFile;
@@ -22,7 +22,7 @@ class RamadanGreeting extends StatelessWidget {
       height: size.height * .9,
       width: size.width,
       decoration: BoxDecoration(
-          color: Theme.of(context).colorScheme.background,
+          color: Theme.of(context).colorScheme.primaryContainer,
           borderRadius: const BorderRadius.only(
             topLeft: Radius.circular(8),
             topRight: Radius.circular(8),

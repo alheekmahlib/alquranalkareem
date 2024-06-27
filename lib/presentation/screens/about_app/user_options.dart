@@ -1,8 +1,7 @@
-import '../../../core/widgets/container_with_border.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../../core/services/services_locator.dart';
+import '../../../core/widgets/container_with_border.dart';
 import '../../controllers/general_controller.dart';
 
 class UserOptions extends StatelessWidget {
@@ -10,7 +9,7 @@ class UserOptions extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final generalCtrl = sl<GeneralController>();
+    final generalCtrl = GeneralController.instance;
     return ContainerWithBorder(
       color: Theme.of(context).colorScheme.surface.withOpacity(.15),
       child: Padding(

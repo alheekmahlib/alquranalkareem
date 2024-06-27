@@ -33,7 +33,8 @@ extension ContextMenuExtension on BuildContext {
               ),
               child: Container(
                 decoration: BoxDecoration(
-                    color: Get.theme.colorScheme.background.withOpacity(.95),
+                    color:
+                        Get.theme.colorScheme.primaryContainer.withOpacity(.95),
                     borderRadius: const BorderRadius.all(Radius.circular(8)),
                     border: Border.all(
                         width: 2,
@@ -86,11 +87,11 @@ extension ContextMenuExtension on BuildContext {
                       this.vDivider(height: 18.0),
                       const Gap(6),
                       ShareAyahOptions(
-                        verseNumber: ayahNum,
-                        verseUQNumber: ayahUQNum,
+                        ayahNumber: ayahNum,
+                        ayahUQNumber: ayahUQNum,
                         surahNumber: surahNum,
                         ayahTextNormal: ayahTextNormal,
-                        verseText: ayahTextNormal,
+                        ayahText: ayahTextNormal,
                         surahName: 'surahName',
                       ),
                     ],

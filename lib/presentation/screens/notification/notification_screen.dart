@@ -1,10 +1,10 @@
-import '../../../core/utils/constants/lottie_constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
 import '../../../core/utils/constants/lottie.dart';
+import '../../../core/utils/constants/lottie_constants.dart';
 import '../../../database/notificationDatabase.dart';
 import 'postPage.dart';
 
@@ -49,7 +49,7 @@ class NotificationScreen extends StatelessWidget {
                   height: 30,
                   width: 30,
                   decoration: BoxDecoration(
-                      color: Theme.of(context).colorScheme.background,
+                      color: Theme.of(context).colorScheme.primaryContainer,
                       borderRadius: const BorderRadius.all(
                         Radius.circular(8),
                       ),
@@ -109,7 +109,9 @@ class NotificationScreen extends StatelessWidget {
                           return Container(
                             height: 70,
                             decoration: BoxDecoration(
-                              color: Theme.of(context).colorScheme.background,
+                              color: Theme.of(context)
+                                  .colorScheme
+                                  .primaryContainer,
                               borderRadius:
                                   const BorderRadius.all(Radius.circular(8)),
                             ),

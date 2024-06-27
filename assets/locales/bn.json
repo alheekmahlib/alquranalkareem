@@ -930,13 +930,13 @@
     "type": "text",
     "placeholders": {}
   },
-  "Dhu al-Qi'dah": "জ্বিলকদ",
-  "@Dhu al-Qi'dah": {
+  "Dhu Al-Qi'dah": "জ্বিলকদ",
+  "@Dhu Al-Qi'dah": {
     "type": "text",
     "placeholders": {}
   },
-  "Dhu al-Hijjah": "জ্বিলহজ্জ",
-  "@Dhu al-Hijjah": {
+  "Dhu Al-Hijjah": "জ্বিলহজ্জ",
+  "@Dhu Al-Hijjah": {
     "type": "text",
     "placeholders": {}
   },
@@ -992,6 +992,46 @@
   },
   "What'sNewTitle8": "একটি আয়াত এবং এর ব্যাখ্যা",
   "@What'sNewTitle8": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Fajr": "ফজর",
+  "@Fajr": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Dhuhr": "যোহর",
+  "@Dhuhr": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Asr": "আসর",
+  "@Asr": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Maghrib": "মাগরিব",
+  "@Maghrib": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Isha": "ইশা",
+  "@Isha": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Last Third": "রাতের শেষ তৃতীয়াংশ",
+  "@Last Third": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Middle of the Night": "মধ্যরাত",
+  "@Middle of the Night": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Sunrise": "সূর্যোদয়",
+  "@Sunrise": {
     "type": "text",
     "placeholders": {}
   }

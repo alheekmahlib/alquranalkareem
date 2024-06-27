@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../../../../../core/services/services_locator.dart';
 import '../../../../../core/widgets/seek_bar.dart';
 import '../../../../controllers/playList_controller.dart';
 import 'playList_play_button.dart';
@@ -10,7 +9,7 @@ class PlayListPlayWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final playList = sl<PlayListController>();
+    final playList = PlayListController.instance;
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [

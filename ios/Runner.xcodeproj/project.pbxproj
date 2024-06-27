@@ -11,11 +11,29 @@
 		331C808B294A63AB00263BE5 /* RunnerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 331C807B294A618700263BE5 /* RunnerTests.swift */; };
 		3B3967161E833CAA004F5970 /* AppFrameworkInfo.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3B3967151E833CAA004F5970 /* AppFrameworkInfo.plist */; };
 		74858FAF1ED2DC5600515810 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74858FAE1ED2DC5600515810 /* AppDelegate.swift */; };
-		821883B58443F02B7FCFD23D /* Pods_RunnerTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2774B6B725CE4EC8BAE43346 /* Pods_RunnerTests.framework */; };
 		97C146FC1CF9000F007C117D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 97C146FA1CF9000F007C117D /* Main.storyboard */; };
 		97C146FE1CF9000F007C117D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 97C146FD1CF9000F007C117D /* Assets.xcassets */; };
 		97C147011CF9000F007C117D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 97C146FF1CF9000F007C117D /* LaunchScreen.storyboard */; };
-		BFD21654899E0B86747863D7 /* Pods_Runner.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2A193EE208E88A834648C9FE /* Pods_Runner.framework */; };
+		9E295AEFFF9DF541ACFD6593 /* Pods_Runner.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B2937F9E052B02F19C85A72 /* Pods_Runner.framework */; };
+		B92E3F8A01527B1AFFA60C02 /* Pods_RunnerTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A48D81F227CF1E2F02E81C74 /* Pods_RunnerTests.framework */; };
+		D430A8AF2BD3AF2900A93DA4 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D430A8AE2BD3AF2900A93DA4 /* WidgetKit.framework */; };
+		D430A8B12BD3AF2900A93DA4 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D430A8B02BD3AF2900A93DA4 /* SwiftUI.framework */; };
+		D430A8B42BD3AF2900A93DA4 /* hijri_widgetBundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = D430A8B32BD3AF2900A93DA4 /* hijri_widgetBundle.swift */; };
+		D430A8B62BD3AF2900A93DA4 /* hijri_widgetLiveActivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = D430A8B52BD3AF2900A93DA4 /* hijri_widgetLiveActivity.swift */; };
+		D430A8B82BD3AF2900A93DA4 /* hijri_widget.swift in Sources */ = {isa = PBXBuildFile; fileRef = D430A8B72BD3AF2900A93DA4 /* hijri_widget.swift */; };
+		D430A8BA2BD3AF2900A93DA4 /* AppIntent.swift in Sources */ = {isa = PBXBuildFile; fileRef = D430A8B92BD3AF2900A93DA4 /* AppIntent.swift */; };
+		D430A8BC2BD3AF2C00A93DA4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D430A8BB2BD3AF2C00A93DA4 /* Assets.xcassets */; };
+		D430A8C02BD3AF2C00A93DA4 /* hijri_widgetExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = D430A8AD2BD3AF2900A93DA4 /* hijri_widgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		D445E9752BFC72EE00EA966C /* aqsa_ios in Resources */ = {isa = PBXBuildFile; fileRef = D445E9742BFC72EE00EA966C /* aqsa_ios */; };
+		D4749A7E2BFF2BE90023F0F1 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D430A8AE2BD3AF2900A93DA4 /* WidgetKit.framework */; };
+		D4749A7F2BFF2BE90023F0F1 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D430A8B02BD3AF2900A93DA4 /* SwiftUI.framework */; };
+		D4749A822BFF2BE90023F0F1 /* prayer_widgetBundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4749A812BFF2BE90023F0F1 /* prayer_widgetBundle.swift */; };
+		D4749A842BFF2BE90023F0F1 /* prayer_widgetLiveActivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4749A832BFF2BE90023F0F1 /* prayer_widgetLiveActivity.swift */; };
+		D4749A862BFF2BE90023F0F1 /* prayer_widget.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4749A852BFF2BE90023F0F1 /* prayer_widget.swift */; };
+		D4749A882BFF2BE90023F0F1 /* AppIntent.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4749A872BFF2BE90023F0F1 /* AppIntent.swift */; };
+		D4749A8A2BFF2BEB0023F0F1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D4749A892BFF2BEB0023F0F1 /* Assets.xcassets */; };
+		D4749A8E2BFF2BEB0023F0F1 /* prayer_widgetExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = D4749A7D2BFF2BE90023F0F1 /* prayer_widgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		D4E179BA2BD4C2AF00B52758 /* hijri_widget.swift in Sources */ = {isa = PBXBuildFile; fileRef = D430A8B72BD3AF2900A93DA4 /* hijri_widget.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -25,6 +43,20 @@
 			proxyType = 1;
 			remoteGlobalIDString = 97C146ED1CF9000F007C117D;
 			remoteInfo = Runner;
+		};
+		D430A8BE2BD3AF2C00A93DA4 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 97C146E61CF9000F007C117D /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = D430A8AC2BD3AF2900A93DA4;
+			remoteInfo = hijri_widgetExtension;
+		};
+		D4749A8C2BFF2BEB0023F0F1 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 97C146E61CF9000F007C117D /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = D4749A7C2BFF2BE90023F0F1;
+			remoteInfo = prayer_widgetExtension;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -39,24 +71,34 @@
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		D430A8C12BD3AF2C00A93DA4 /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				D430A8C02BD3AF2C00A93DA4 /* hijri_widgetExtension.appex in Embed Foundation Extensions */,
+				D4749A8E2BFF2BEB0023F0F1 /* prayer_widgetExtension.appex in Embed Foundation Extensions */,
+			);
+			name = "Embed Foundation Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		1498D2321E8E86230040F4C2 /* GeneratedPluginRegistrant.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GeneratedPluginRegistrant.h; sourceTree = "<group>"; };
 		1498D2331E8E89220040F4C2 /* GeneratedPluginRegistrant.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GeneratedPluginRegistrant.m; sourceTree = "<group>"; };
-		2774B6B725CE4EC8BAE43346 /* Pods_RunnerTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RunnerTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		2A193EE208E88A834648C9FE /* Pods_Runner.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Runner.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		1B2937F9E052B02F19C85A72 /* Pods_Runner.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Runner.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		331C807B294A618700263BE5 /* RunnerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RunnerTests.swift; sourceTree = "<group>"; };
 		331C8081294A63A400263BE5 /* RunnerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RunnerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		3B3967151E833CAA004F5970 /* AppFrameworkInfo.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = AppFrameworkInfo.plist; path = Flutter/AppFrameworkInfo.plist; sourceTree = "<group>"; };
-		40ABDF87CBBFE26F7E2D4B6B /* Pods-RunnerTests.profile.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RunnerTests.profile.xcconfig"; path = "Target Support Files/Pods-RunnerTests/Pods-RunnerTests.profile.xcconfig"; sourceTree = "<group>"; };
-		647A9751A402E22D377F61D4 /* Pods-RunnerTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RunnerTests.debug.xcconfig"; path = "Target Support Files/Pods-RunnerTests/Pods-RunnerTests.debug.xcconfig"; sourceTree = "<group>"; };
+		72F41FEC9C2FC8D294D0B768 /* Pods-Runner.profile.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Runner.profile.xcconfig"; path = "Target Support Files/Pods-Runner/Pods-Runner.profile.xcconfig"; sourceTree = "<group>"; };
 		74858FAD1ED2DC5600515810 /* Runner-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Runner-Bridging-Header.h"; sourceTree = "<group>"; };
 		74858FAE1ED2DC5600515810 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		7549524008813992503D4529 /* Pods-Runner.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Runner.release.xcconfig"; path = "Target Support Files/Pods-Runner/Pods-Runner.release.xcconfig"; sourceTree = "<group>"; };
-		7655A01B66B8A6BEAC20BE3F /* Pods-Runner.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Runner.debug.xcconfig"; path = "Target Support Files/Pods-Runner/Pods-Runner.debug.xcconfig"; sourceTree = "<group>"; };
+		7A56688EA2D2115E0ADACAD7 /* Pods-Runner.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Runner.release.xcconfig"; path = "Target Support Files/Pods-Runner/Pods-Runner.release.xcconfig"; sourceTree = "<group>"; };
 		7AFA3C8E1D35360C0083082E /* Release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = Release.xcconfig; path = Flutter/Release.xcconfig; sourceTree = "<group>"; };
-		7BC803D81C1C357858F23BE2 /* Pods-Runner.profile.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Runner.profile.xcconfig"; path = "Target Support Files/Pods-Runner/Pods-Runner.profile.xcconfig"; sourceTree = "<group>"; };
+		810B687D28935EB52A77DB34 /* Pods-Runner.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Runner.debug.xcconfig"; path = "Target Support Files/Pods-Runner/Pods-Runner.debug.xcconfig"; sourceTree = "<group>"; };
+		8F8F537C2942CDFE534E384F /* Pods-RunnerTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RunnerTests.debug.xcconfig"; path = "Target Support Files/Pods-RunnerTests/Pods-RunnerTests.debug.xcconfig"; sourceTree = "<group>"; };
 		9740EEB21CF90195004384FC /* Debug.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = Debug.xcconfig; path = Flutter/Debug.xcconfig; sourceTree = "<group>"; };
 		9740EEB31CF90195004384FC /* Generated.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = Generated.xcconfig; path = Flutter/Generated.xcconfig; sourceTree = "<group>"; };
 		97C146EE1CF9000F007C117D /* Runner.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Runner.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -64,7 +106,29 @@
 		97C146FD1CF9000F007C117D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		97C147001CF9000F007C117D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		97C147021CF9000F007C117D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		AEBA0057C5C9DEB8147890E8 /* Pods-RunnerTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RunnerTests.release.xcconfig"; path = "Target Support Files/Pods-RunnerTests/Pods-RunnerTests.release.xcconfig"; sourceTree = "<group>"; };
+		A48D81F227CF1E2F02E81C74 /* Pods_RunnerTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RunnerTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		B2B09510BCA3A5530A4CCD4B /* Pods-RunnerTests.profile.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RunnerTests.profile.xcconfig"; path = "Target Support Files/Pods-RunnerTests/Pods-RunnerTests.profile.xcconfig"; sourceTree = "<group>"; };
+		CD1F150DD9BF02E3E5D57DBA /* Pods-RunnerTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RunnerTests.release.xcconfig"; path = "Target Support Files/Pods-RunnerTests/Pods-RunnerTests.release.xcconfig"; sourceTree = "<group>"; };
+		D430A8AD2BD3AF2900A93DA4 /* hijri_widgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = hijri_widgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		D430A8AE2BD3AF2900A93DA4 /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
+		D430A8B02BD3AF2900A93DA4 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
+		D430A8B32BD3AF2900A93DA4 /* hijri_widgetBundle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = hijri_widgetBundle.swift; sourceTree = "<group>"; };
+		D430A8B52BD3AF2900A93DA4 /* hijri_widgetLiveActivity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = hijri_widgetLiveActivity.swift; sourceTree = "<group>"; };
+		D430A8B72BD3AF2900A93DA4 /* hijri_widget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = hijri_widget.swift; sourceTree = "<group>"; };
+		D430A8B92BD3AF2900A93DA4 /* AppIntent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppIntent.swift; sourceTree = "<group>"; };
+		D430A8BB2BD3AF2C00A93DA4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		D430A8BD2BD3AF2C00A93DA4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D430A8C62BD3AF6B00A93DA4 /* hijri_widgetExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = hijri_widgetExtension.entitlements; sourceTree = "<group>"; };
+		D430A8C72BD3AF7D00A93DA4 /* Runner.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Runner.entitlements; sourceTree = "<group>"; };
+		D445E9742BFC72EE00EA966C /* aqsa_ios */ = {isa = PBXFileReference; lastKnownFileType = folder; path = aqsa_ios; sourceTree = "<group>"; };
+		D4749A7D2BFF2BE90023F0F1 /* prayer_widgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = prayer_widgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		D4749A812BFF2BE90023F0F1 /* prayer_widgetBundle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = prayer_widgetBundle.swift; sourceTree = "<group>"; };
+		D4749A832BFF2BE90023F0F1 /* prayer_widgetLiveActivity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = prayer_widgetLiveActivity.swift; sourceTree = "<group>"; };
+		D4749A852BFF2BE90023F0F1 /* prayer_widget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = prayer_widget.swift; sourceTree = "<group>"; };
+		D4749A872BFF2BE90023F0F1 /* AppIntent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppIntent.swift; sourceTree = "<group>"; };
+		D4749A892BFF2BEB0023F0F1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		D4749A8B2BFF2BEB0023F0F1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D4749A932BFF2C030023F0F1 /* prayer_widgetExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = prayer_widgetExtension.entitlements; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -72,7 +136,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				821883B58443F02B7FCFD23D /* Pods_RunnerTests.framework in Frameworks */,
+				B92E3F8A01527B1AFFA60C02 /* Pods_RunnerTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -80,42 +144,50 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BFD21654899E0B86747863D7 /* Pods_Runner.framework in Frameworks */,
+				9E295AEFFF9DF541ACFD6593 /* Pods_Runner.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D430A8AA2BD3AF2900A93DA4 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D430A8B12BD3AF2900A93DA4 /* SwiftUI.framework in Frameworks */,
+				D430A8AF2BD3AF2900A93DA4 /* WidgetKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D4749A7A2BFF2BE90023F0F1 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D4749A7F2BFF2BE90023F0F1 /* SwiftUI.framework in Frameworks */,
+				D4749A7E2BFF2BE90023F0F1 /* WidgetKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1A5DC0A27C11C21C1C030F50 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				810B687D28935EB52A77DB34 /* Pods-Runner.debug.xcconfig */,
+				7A56688EA2D2115E0ADACAD7 /* Pods-Runner.release.xcconfig */,
+				72F41FEC9C2FC8D294D0B768 /* Pods-Runner.profile.xcconfig */,
+				8F8F537C2942CDFE534E384F /* Pods-RunnerTests.debug.xcconfig */,
+				CD1F150DD9BF02E3E5D57DBA /* Pods-RunnerTests.release.xcconfig */,
+				B2B09510BCA3A5530A4CCD4B /* Pods-RunnerTests.profile.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
 		331C8082294A63A400263BE5 /* RunnerTests */ = {
 			isa = PBXGroup;
 			children = (
 				331C807B294A618700263BE5 /* RunnerTests.swift */,
 			);
 			path = RunnerTests;
-			sourceTree = "<group>";
-		};
-		3CCE9DEF423378C405C724AA /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				7655A01B66B8A6BEAC20BE3F /* Pods-Runner.debug.xcconfig */,
-				7549524008813992503D4529 /* Pods-Runner.release.xcconfig */,
-				7BC803D81C1C357858F23BE2 /* Pods-Runner.profile.xcconfig */,
-				647A9751A402E22D377F61D4 /* Pods-RunnerTests.debug.xcconfig */,
-				AEBA0057C5C9DEB8147890E8 /* Pods-RunnerTests.release.xcconfig */,
-				40ABDF87CBBFE26F7E2D4B6B /* Pods-RunnerTests.profile.xcconfig */,
-			);
-			name = Pods;
-			path = Pods;
-			sourceTree = "<group>";
-		};
-		5B14FD525B86265DD6C7E65E /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				2A193EE208E88A834648C9FE /* Pods_Runner.framework */,
-				2774B6B725CE4EC8BAE43346 /* Pods_RunnerTests.framework */,
-			);
-			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		9740EEB11CF90186004384FC /* Flutter */ = {
@@ -132,12 +204,17 @@
 		97C146E51CF9000F007C117D = {
 			isa = PBXGroup;
 			children = (
+				D4749A932BFF2C030023F0F1 /* prayer_widgetExtension.entitlements */,
+				D445E9742BFC72EE00EA966C /* aqsa_ios */,
+				D430A8C62BD3AF6B00A93DA4 /* hijri_widgetExtension.entitlements */,
 				9740EEB11CF90186004384FC /* Flutter */,
 				97C146F01CF9000F007C117D /* Runner */,
+				D430A8B22BD3AF2900A93DA4 /* hijri_widget */,
+				D4749A802BFF2BE90023F0F1 /* prayer_widget */,
 				97C146EF1CF9000F007C117D /* Products */,
 				331C8082294A63A400263BE5 /* RunnerTests */,
-				3CCE9DEF423378C405C724AA /* Pods */,
-				5B14FD525B86265DD6C7E65E /* Frameworks */,
+				1A5DC0A27C11C21C1C030F50 /* Pods */,
+				9CBDBB0EAA87A842521C4F89 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -146,6 +223,8 @@
 			children = (
 				97C146EE1CF9000F007C117D /* Runner.app */,
 				331C8081294A63A400263BE5 /* RunnerTests.xctest */,
+				D430A8AD2BD3AF2900A93DA4 /* hijri_widgetExtension.appex */,
+				D4749A7D2BFF2BE90023F0F1 /* prayer_widgetExtension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -153,6 +232,7 @@
 		97C146F01CF9000F007C117D /* Runner */ = {
 			isa = PBXGroup;
 			children = (
+				D430A8C72BD3AF7D00A93DA4 /* Runner.entitlements */,
 				97C146FA1CF9000F007C117D /* Main.storyboard */,
 				97C146FD1CF9000F007C117D /* Assets.xcassets */,
 				97C146FF1CF9000F007C117D /* LaunchScreen.storyboard */,
@@ -165,6 +245,43 @@
 			path = Runner;
 			sourceTree = "<group>";
 		};
+		9CBDBB0EAA87A842521C4F89 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				D430A8AE2BD3AF2900A93DA4 /* WidgetKit.framework */,
+				D430A8B02BD3AF2900A93DA4 /* SwiftUI.framework */,
+				1B2937F9E052B02F19C85A72 /* Pods_Runner.framework */,
+				A48D81F227CF1E2F02E81C74 /* Pods_RunnerTests.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		D430A8B22BD3AF2900A93DA4 /* hijri_widget */ = {
+			isa = PBXGroup;
+			children = (
+				D430A8B32BD3AF2900A93DA4 /* hijri_widgetBundle.swift */,
+				D430A8B52BD3AF2900A93DA4 /* hijri_widgetLiveActivity.swift */,
+				D430A8B72BD3AF2900A93DA4 /* hijri_widget.swift */,
+				D430A8B92BD3AF2900A93DA4 /* AppIntent.swift */,
+				D430A8BB2BD3AF2C00A93DA4 /* Assets.xcassets */,
+				D430A8BD2BD3AF2C00A93DA4 /* Info.plist */,
+			);
+			path = hijri_widget;
+			sourceTree = "<group>";
+		};
+		D4749A802BFF2BE90023F0F1 /* prayer_widget */ = {
+			isa = PBXGroup;
+			children = (
+				D4749A812BFF2BE90023F0F1 /* prayer_widgetBundle.swift */,
+				D4749A832BFF2BE90023F0F1 /* prayer_widgetLiveActivity.swift */,
+				D4749A852BFF2BE90023F0F1 /* prayer_widget.swift */,
+				D4749A872BFF2BE90023F0F1 /* AppIntent.swift */,
+				D4749A892BFF2BEB0023F0F1 /* Assets.xcassets */,
+				D4749A8B2BFF2BEB0023F0F1 /* Info.plist */,
+			);
+			path = prayer_widget;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -172,7 +289,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 331C8087294A63A400263BE5 /* Build configuration list for PBXNativeTarget "RunnerTests" */;
 			buildPhases = (
-				DF0A26C33314FB9822325978 /* [CP] Check Pods Manifest.lock */,
+				6938586949163840B6C8E5E7 /* [CP] Check Pods Manifest.lock */,
 				331C807D294A63A400263BE5 /* Sources */,
 				331C807F294A63A400263BE5 /* Resources */,
 				4FB2F5F3C3BBAE7A87969BD8 /* Frameworks */,
@@ -191,23 +308,60 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 97C147051CF9000F007C117D /* Build configuration list for PBXNativeTarget "Runner" */;
 			buildPhases = (
-				46208C48C3FBD3401689C43F /* [CP] Check Pods Manifest.lock */,
+				9584E5F0CE878C6A34944825 /* [CP] Check Pods Manifest.lock */,
 				9740EEB61CF901F6004384FC /* Run Script */,
 				97C146EA1CF9000F007C117D /* Sources */,
 				97C146EB1CF9000F007C117D /* Frameworks */,
+				D430A8C12BD3AF2C00A93DA4 /* Embed Foundation Extensions */,
 				97C146EC1CF9000F007C117D /* Resources */,
 				9705A1C41CF9048500538489 /* Embed Frameworks */,
 				3B06AD1E1E4923F5004D2608 /* Thin Binary */,
-				D3B3EFAF3D819E2F1211C400 /* [CP] Embed Pods Frameworks */,
+				AB49C1FA06808004EAFC6CDA /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				D430A8BF2BD3AF2C00A93DA4 /* PBXTargetDependency */,
+				D4749A8D2BFF2BEB0023F0F1 /* PBXTargetDependency */,
 			);
 			name = Runner;
 			productName = Runner;
 			productReference = 97C146EE1CF9000F007C117D /* Runner.app */;
 			productType = "com.apple.product-type.application";
+		};
+		D430A8AC2BD3AF2900A93DA4 /* hijri_widgetExtension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D430A8C52BD3AF2C00A93DA4 /* Build configuration list for PBXNativeTarget "hijri_widgetExtension" */;
+			buildPhases = (
+				D430A8A92BD3AF2900A93DA4 /* Sources */,
+				D430A8AA2BD3AF2900A93DA4 /* Frameworks */,
+				D430A8AB2BD3AF2900A93DA4 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = hijri_widgetExtension;
+			productName = hijri_widgetExtension;
+			productReference = D430A8AD2BD3AF2900A93DA4 /* hijri_widgetExtension.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
+		D4749A7C2BFF2BE90023F0F1 /* prayer_widgetExtension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D4749A922BFF2BEC0023F0F1 /* Build configuration list for PBXNativeTarget "prayer_widgetExtension" */;
+			buildPhases = (
+				D4749A792BFF2BE90023F0F1 /* Sources */,
+				D4749A7A2BFF2BE90023F0F1 /* Frameworks */,
+				D4749A7B2BFF2BE90023F0F1 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = prayer_widgetExtension;
+			productName = prayer_widgetExtension;
+			productReference = D4749A7D2BFF2BE90023F0F1 /* prayer_widgetExtension.appex */;
+			productType = "com.apple.product-type.app-extension";
 		};
 /* End PBXNativeTarget section */
 
@@ -216,6 +370,7 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = YES;
+				LastSwiftUpdateCheck = 1510;
 				LastUpgradeCheck = 1510;
 				ORGANIZATIONNAME = "";
 				TargetAttributes = {
@@ -226,6 +381,12 @@
 					97C146ED1CF9000F007C117D = {
 						CreatedOnToolsVersion = 7.3.1;
 						LastSwiftMigration = 1100;
+					};
+					D430A8AC2BD3AF2900A93DA4 = {
+						CreatedOnToolsVersion = 15.1;
+					};
+					D4749A7C2BFF2BE90023F0F1 = {
+						CreatedOnToolsVersion = 15.1;
 					};
 				};
 			};
@@ -244,6 +405,8 @@
 			targets = (
 				97C146ED1CF9000F007C117D /* Runner */,
 				331C8080294A63A400263BE5 /* RunnerTests */,
+				D430A8AC2BD3AF2900A93DA4 /* hijri_widgetExtension */,
+				D4749A7C2BFF2BE90023F0F1 /* prayer_widgetExtension */,
 			);
 		};
 /* End PBXProject section */
@@ -262,8 +425,25 @@
 			files = (
 				97C147011CF9000F007C117D /* LaunchScreen.storyboard in Resources */,
 				3B3967161E833CAA004F5970 /* AppFrameworkInfo.plist in Resources */,
+				D445E9752BFC72EE00EA966C /* aqsa_ios in Resources */,
 				97C146FE1CF9000F007C117D /* Assets.xcassets in Resources */,
 				97C146FC1CF9000F007C117D /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D430A8AB2BD3AF2900A93DA4 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D430A8BC2BD3AF2C00A93DA4 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D4749A7B2BFF2BE90023F0F1 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D4749A8A2BFF2BEB0023F0F1 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -284,9 +464,31 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "/bin/sh \"$FLUTTER_ROOT/packages/flutter_tools/bin/xcode_backend.sh\" embed_and_thin";
+			shellScript = "/bin/sh \"$FLUTTER_ROOT/packages/flutter_tools/bin/xcode_backend.sh\" embed_and_thin\n";
 		};
-		46208C48C3FBD3401689C43F /* [CP] Check Pods Manifest.lock */ = {
+		6938586949163840B6C8E5E7 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-RunnerTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		9584E5F0CE878C6A34944825 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -321,9 +523,9 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "/bin/sh \"$FLUTTER_ROOT/packages/flutter_tools/bin/xcode_backend.sh\" build";
+			shellScript = "/bin/sh \"$FLUTTER_ROOT/packages/flutter_tools/bin/xcode_backend.sh\" build\n";
 		};
-		D3B3EFAF3D819E2F1211C400 /* [CP] Embed Pods Frameworks */ = {
+		AB49C1FA06808004EAFC6CDA /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -338,28 +540,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Runner/Pods-Runner-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		DF0A26C33314FB9822325978 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-RunnerTests-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -378,7 +558,30 @@
 			buildActionMask = 2147483647;
 			files = (
 				74858FAF1ED2DC5600515810 /* AppDelegate.swift in Sources */,
+				D4E179BA2BD4C2AF00B52758 /* hijri_widget.swift in Sources */,
 				1498D2341E8E89220040F4C2 /* GeneratedPluginRegistrant.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D430A8A92BD3AF2900A93DA4 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D430A8B42BD3AF2900A93DA4 /* hijri_widgetBundle.swift in Sources */,
+				D430A8BA2BD3AF2900A93DA4 /* AppIntent.swift in Sources */,
+				D430A8B82BD3AF2900A93DA4 /* hijri_widget.swift in Sources */,
+				D430A8B62BD3AF2900A93DA4 /* hijri_widgetLiveActivity.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D4749A792BFF2BE90023F0F1 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D4749A822BFF2BE90023F0F1 /* prayer_widgetBundle.swift in Sources */,
+				D4749A882BFF2BE90023F0F1 /* AppIntent.swift in Sources */,
+				D4749A842BFF2BE90023F0F1 /* prayer_widgetLiveActivity.swift in Sources */,
+				D4749A862BFF2BE90023F0F1 /* prayer_widget.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -389,6 +592,16 @@
 			isa = PBXTargetDependency;
 			target = 97C146ED1CF9000F007C117D /* Runner */;
 			targetProxy = 331C8085294A63A400263BE5 /* PBXContainerItemProxy */;
+		};
+		D430A8BF2BD3AF2C00A93DA4 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = D430A8AC2BD3AF2900A93DA4 /* hijri_widgetExtension */;
+			targetProxy = D430A8BE2BD3AF2C00A93DA4 /* PBXContainerItemProxy */;
+		};
+		D4749A8D2BFF2BEB0023F0F1 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = D4749A7C2BFF2BE90023F0F1 /* prayer_widgetExtension */;
+			targetProxy = D4749A8C2BFF2BEB0023F0F1 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -468,8 +681,10 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 7AFA3C8E1D35360C0083082E /* Release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = Runner/Runner.entitlements;
 				CURRENT_PROJECT_VERSION = "$(FLUTTER_BUILD_NUMBER)";
 				DEVELOPMENT_TEAM = Y9R8TJ3LS7;
 				ENABLE_BITCODE = NO;
@@ -488,7 +703,7 @@
 		};
 		331C8088294A63A400263BE5 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 647A9751A402E22D377F61D4 /* Pods-RunnerTests.debug.xcconfig */;
+			baseConfigurationReference = 8F8F537C2942CDFE534E384F /* Pods-RunnerTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
@@ -506,7 +721,7 @@
 		};
 		331C8089294A63A400263BE5 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = AEBA0057C5C9DEB8147890E8 /* Pods-RunnerTests.release.xcconfig */;
+			baseConfigurationReference = CD1F150DD9BF02E3E5D57DBA /* Pods-RunnerTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
@@ -522,7 +737,7 @@
 		};
 		331C808A294A63A400263BE5 /* Profile */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 40ABDF87CBBFE26F7E2D4B6B /* Pods-RunnerTests.profile.xcconfig */;
+			baseConfigurationReference = B2B09510BCA3A5530A4CCD4B /* Pods-RunnerTests.profile.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
@@ -651,8 +866,10 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 9740EEB21CF90195004384FC /* Debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = Runner/Runner.entitlements;
 				CURRENT_PROJECT_VERSION = "$(FLUTTER_BUILD_NUMBER)";
 				DEVELOPMENT_TEAM = Y9R8TJ3LS7;
 				ENABLE_BITCODE = NO;
@@ -674,8 +891,10 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 7AFA3C8E1D35360C0083082E /* Release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = Runner/Runner.entitlements;
 				CURRENT_PROJECT_VERSION = "$(FLUTTER_BUILD_NUMBER)";
 				DEVELOPMENT_TEAM = Y9R8TJ3LS7;
 				ENABLE_BITCODE = NO;
@@ -691,6 +910,246 @@
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Release;
+		};
+		D430A8C22BD3AF2C00A93DA4 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_ENTITLEMENTS = hijri_widgetExtension.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = Y9R8TJ3LS7;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = hijri_widget/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = hijri_widget;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.2;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MARKETING_VERSION = 1.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.alheekmah.alquranalkareem.alquranalkareem.hijri-widget";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		D430A8C32BD3AF2C00A93DA4 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_ENTITLEMENTS = hijri_widgetExtension.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = Y9R8TJ3LS7;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = hijri_widget/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = hijri_widget;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.2;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MARKETING_VERSION = 1.0;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.alheekmah.alquranalkareem.alquranalkareem.hijri-widget";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		D430A8C42BD3AF2C00A93DA4 /* Profile */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_ENTITLEMENTS = hijri_widgetExtension.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = Y9R8TJ3LS7;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = hijri_widget/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = hijri_widget;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.2;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MARKETING_VERSION = 1.0;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.alheekmah.alquranalkareem.alquranalkareem.hijri-widget";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Profile;
+		};
+		D4749A8F2BFF2BEC0023F0F1 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_ENTITLEMENTS = prayer_widgetExtension.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = Y9R8TJ3LS7;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = prayer_widget/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = prayer_widget;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.2;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MARKETING_VERSION = 1.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.alheekmah.alquranalkareem.alquranalkareem.prayer-widget";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		D4749A902BFF2BEC0023F0F1 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_ENTITLEMENTS = prayer_widgetExtension.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = Y9R8TJ3LS7;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = prayer_widget/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = prayer_widget;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.2;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MARKETING_VERSION = 1.0;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.alheekmah.alquranalkareem.alquranalkareem.prayer-widget";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		D4749A912BFF2BEC0023F0F1 /* Profile */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_ENTITLEMENTS = prayer_widgetExtension.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = Y9R8TJ3LS7;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = prayer_widget/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = prayer_widget;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.2;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MARKETING_VERSION = 1.0;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.alheekmah.alquranalkareem.alquranalkareem.prayer-widget";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Profile;
 		};
 /* End XCBuildConfiguration section */
 
@@ -721,6 +1180,26 @@
 				97C147061CF9000F007C117D /* Debug */,
 				97C147071CF9000F007C117D /* Release */,
 				249021D4217E4FDB00AE95B9 /* Profile */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		D430A8C52BD3AF2C00A93DA4 /* Build configuration list for PBXNativeTarget "hijri_widgetExtension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D430A8C22BD3AF2C00A93DA4 /* Debug */,
+				D430A8C32BD3AF2C00A93DA4 /* Release */,
+				D430A8C42BD3AF2C00A93DA4 /* Profile */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		D4749A922BFF2BEC0023F0F1 /* Build configuration list for PBXNativeTarget "prayer_widgetExtension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D4749A8F2BFF2BEC0023F0F1 /* Debug */,
+				D4749A902BFF2BEC0023F0F1 /* Release */,
+				D4749A912BFF2BEC0023F0F1 /* Profile */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

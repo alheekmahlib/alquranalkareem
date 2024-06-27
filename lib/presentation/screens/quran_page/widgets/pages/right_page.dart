@@ -34,7 +34,7 @@ class RightPage extends StatelessWidget {
           child: Container(
             margin: const EdgeInsets.only(right: 4.0),
             decoration: BoxDecoration(
-                color: Theme.of(context).colorScheme.background,
+                color: Theme.of(context).colorScheme.primaryContainer,
                 borderRadius: const BorderRadius.only(
                     topRight: Radius.circular(12),
                     bottomRight: Radius.circular(12))),
