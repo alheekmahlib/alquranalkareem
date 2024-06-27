@@ -9,7 +9,6 @@ import 'core/services/languages/localization_controller.dart';
 import 'core/services/languages/messages.dart';
 import 'core/services/services_locator.dart';
 import 'presentation/controllers/theme_controller.dart';
-import 'presentation/screens/notification/postPage.dart';
 import 'presentation/screens/splashScreen/splash_screen.dart';
 
 class MyApp extends StatelessWidget {
@@ -48,14 +47,6 @@ class MyApp extends StatelessWidget {
               // theme: brownTheme,
               builder: BotToastInit(),
               navigatorObservers: [BotToastNavigatorObserver()],
-              routes: {
-                // Other routes...
-                '/post': (context) {
-                  int postId =
-                      ModalRoute.of(context)!.settings.arguments as int;
-                  return PostPage(postId);
-                },
-              },
               home: const Directionality(
                 textDirection: TextDirection.rtl,
                 child: SplashScreen(),

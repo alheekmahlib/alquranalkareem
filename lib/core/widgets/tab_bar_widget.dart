@@ -13,11 +13,13 @@ class TabBarWidget extends StatelessWidget {
   final bool isFirstChild;
   final bool isCenterChild;
   final Widget? centerChild;
+  final bool? isQuranSetting;
   const TabBarWidget(
       {super.key,
       required this.isFirstChild,
       required this.isCenterChild,
-      this.centerChild});
+      this.centerChild,
+      this.isQuranSetting});
 
   @override
   Widget build(BuildContext context) {
@@ -80,7 +82,9 @@ class TabBarWidget extends StatelessWidget {
                 child: GestureDetector(
                   onTap: () {
                     Get.bottomSheet(
-                      SettingsList(),
+                      SettingsList(
+                        isQuranSetting: isQuranSetting,
+                      ),
                       isScrollControlled: true,
                     );
                     generalCtrl.showSelectScreenPage.value = false;

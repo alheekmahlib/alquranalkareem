@@ -38,7 +38,7 @@ TextSpan span({
           fontFamily: 'page${pageIndex + 1}',
           fontSize: fontSize,
           height: 1.8,
-          letterSpacing: 30,
+          letterSpacing: quranCtrl.isPages.value == 1 ? 10 : 30,
           color: Get.theme.colorScheme.inversePrimary,
           backgroundColor: quranCtrl.isPages.value == 1
               ? Colors.transparent

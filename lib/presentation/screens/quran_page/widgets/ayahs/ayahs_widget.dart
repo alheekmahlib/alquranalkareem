@@ -56,7 +56,7 @@ class AyahsWidget extends StatelessWidget {
                           )),
                       Obx(
                         () => Text(
-                          ' | ${'juz'.tr}: ${quranCtrl.pages[quranCtrl.currentListPage.value].first.juz.toString().convertNumbers()}',
+                          ' | ${'juz'.tr}: ${quranCtrl.pages[quranCtrl.currentListPage.value + 1].first.juz.toString().convertNumbers()}',
                           style: TextStyle(
                               fontSize: context.customOrientation(18.0, 22.0),
                               fontFamily: 'naskh',

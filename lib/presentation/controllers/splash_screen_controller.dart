@@ -60,6 +60,7 @@ class SplashScreenController extends GetxController {
             newFeatures: newFeatures,
           ),
           isScrollControlled: true,
+          enableDrag: false,
         );
       } else {
         Get.offAll(() => ScreenTypeL(), transition: Transition.downToUp);

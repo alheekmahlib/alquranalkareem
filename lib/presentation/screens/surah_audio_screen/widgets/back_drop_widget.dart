@@ -2,12 +2,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '/core/widgets/tab_bar_widget.dart';
 import '../../../../core/services/services_locator.dart';
 import '../../../../core/utils/constants/extensions/extensions.dart';
 import '../../../../core/utils/constants/lottie.dart';
 import '../../../../core/utils/constants/lottie_constants.dart';
 import '../../../controllers/surah_audio_controller.dart';
-import '/core/widgets/tab_bar_widget.dart';
 import 'last_listen.dart';
 import 'play_banner.dart';
 import 'surah_audio_list.dart';
@@ -42,6 +42,7 @@ class BackDropWidget extends StatelessWidget {
                           TabBarWidget(
                             isFirstChild: true,
                             isCenterChild: true,
+                            isQuranSetting: false,
                             centerChild: LastListen(),
                           ),
                         ],
@@ -95,6 +96,7 @@ class BackDropWidget extends StatelessWidget {
                           TabBarWidget(
                             isFirstChild: true,
                             isCenterChild: true,
+                            isQuranSetting: false,
                             centerChild: LastListen(),
                           ),
                         ],
