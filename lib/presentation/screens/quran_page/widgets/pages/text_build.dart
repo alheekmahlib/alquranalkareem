@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../../../../core/services/services_locator.dart';
+import '/core/utils/constants/extensions/convert_number_extension.dart';
+import '/core/utils/constants/extensions/menu_extension.dart';
 import '../../../../controllers/audio_controller.dart';
 import '../../../../controllers/general_controller.dart';
 import '../../../../controllers/quran_controller.dart';
 import '../../data/model/surahs_model.dart';
-import '/core/utils/constants/extensions/menu_extension.dart';
 import 'custom_span.dart';
 
 class TextBuild extends StatelessWidget {
@@ -14,9 +14,9 @@ class TextBuild extends StatelessWidget {
   final List<Ayah> ayahs;
   TextBuild({super.key, required this.pageIndex, required this.ayahs});
 
-  final audioCtrl = sl<AudioController>();
-  final generalCtrl = sl<GeneralController>();
-  final quranCtrl = sl<QuranController>();
+  final audioCtrl = AudioController.instance;
+  final generalCtrl = GeneralController.instance;
+  final quranCtrl = QuranController.instance;
 
   @override
   Widget build(BuildContext context) {
@@ -112,8 +112,8 @@ class TextBuild extends StatelessWidget {
                       .contains(ayahs[ayahIndex].ayahUQNumber);
                   return customSpan(
                       text: "${ayahs[ayahIndex].text}",
-                      ayahNumber: generalCtrl.convertNumbers(
-                          ayahs[ayahIndex].ayahNumber.toString()),
+                      ayahNumber:
+                          '${ayahs[ayahIndex].ayahNumber.toString().convertNumbers()}',
                       pageIndex: pageIndex,
                       isSelected: quranCtrl.isSelected,
                       fontSize: 20 * quranCtrl.scaleFactor.value,

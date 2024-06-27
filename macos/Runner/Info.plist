@@ -20,6 +20,8 @@
 	<string>$(FLUTTER_BUILD_NAME)</string>
 	<key>CFBundleVersion</key>
 	<string>$(FLUTTER_BUILD_NUMBER)</string>
+	<key>LSApplicationCategoryType</key>
+	<string>public.app-category.developer-tools</string>
 	<key>LSMinimumSystemVersion</key>
 	<string>$(MACOSX_DEPLOYMENT_TARGET)</string>
 	<key>NSAppTransportSecurity</key>
@@ -29,13 +31,20 @@
 	</dict>
 	<key>NSHumanReadableCopyright</key>
 	<string>$(PRODUCT_COPYRIGHT)</string>
+	<key>NSLocationTemporaryUsageDescriptionDictionary</key>
+	<dict>
+		<key>Adhan</key>
+		<string>يقوم  تطبيق القرآن الكريم - مكتبة الحكمة بتحديد الموقع من أجل جعل الأذان أكثر دقة</string>
+	</dict>
+	<key>NSLocationUsageDescription</key>
+	<string>This app needs access to location.</string>
 	<key>NSMainNibFile</key>
 	<string>MainMenu</string>
-	<key>NSPrincipalClass</key>
-	<string>NSApplication</string>
-	<key>LSApplicationCategoryType</key>
-	<string>public.app-category.developer-tools</string>
 	<key>NSMicrophoneUsageDescription</key>
 	<string>We need access to the microphone for recording audio.</string>
+	<key>NSPrincipalClass</key>
+	<string>NSApplication</string>
+	<key>com.apple.security.personal-information.location</key>
+	<true/>
 </dict>
 </plist>

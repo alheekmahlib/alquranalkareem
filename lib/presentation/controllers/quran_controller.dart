@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:developer';
 import 'dart:math' as math;
 
 import 'package:bot_toast/bot_toast.dart';
@@ -7,22 +6,24 @@ import 'package:collection/collection.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' show rootBundle;
-import 'package:gap/gap.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
-import '../../core/services/services_locator.dart';
-import '../../core/utils/constants/shared_preferences_constants.dart';
-import '../../core/utils/constants/svg_picture.dart';
-import '../../core/utils/helpers/global_key_manager.dart';
-import '../screens/quran_page/data/model/surahs_model.dart';
+import '/core/utils/constants/extensions/convert_number_extension.dart';
 import '/presentation/controllers/general_controller.dart';
 import '/presentation/controllers/theme_controller.dart';
+import '../../core/services/services_locator.dart';
+import '../../core/utils/constants/shared_preferences_constants.dart';
+import '../../core/utils/helpers/global_key_manager.dart';
+import '../screens/quran_page/data/model/surahs_model.dart';
 
 // late GlobalKey<SliderDrawerState> drawerKey = GlobalKey<SliderDrawerState>();
 
 class QuranController extends GetxController {
+  static QuranController get instance => Get.isRegistered<QuranController>()
+      ? Get.find<QuranController>()
+      : Get.put<QuranController>(QuranController());
   List<Surah> surahs = [];
   List<List<Ayah>> pages = [];
   List<Ayah> allAyahs = [];
@@ -48,6 +49,7 @@ class QuranController extends GetxController {
   RxInt currentListPage = 1.obs;
   RxDouble scaleFactor = 1.0.obs;
   RxDouble baseScaleFactor = 1.0.obs;
+  final box = GetStorage();
 
   Widget textScale(dynamic widget1, dynamic widget2) {
     if (scaleFactor.value <= 1.0) {
@@ -101,8 +103,8 @@ class QuranController extends GetxController {
     584
   ];
 
-  final generalCtrl = sl<GeneralController>();
-  final themeCtrl = sl<ThemeController>();
+  final generalCtrl = GeneralController.instance;
+  final themeCtrl = ThemeController.instance;
 
   @override
   void onInit() async {
@@ -110,7 +112,7 @@ class QuranController extends GetxController {
     await loadQuran();
     itemPositionsListener.itemPositions.addListener(_updatePageNumber);
     itemPositionsListener.itemPositions.addListener(currentListPageNumber);
-    isBold.value = sl<SharedPreferences>().getInt(IS_BOLD) ?? 0;
+    isBold.value = box.read(IS_BOLD) ?? 0;
   }
 
   Future<void> loadQuran() async {
@@ -121,13 +123,13 @@ class QuranController extends GetxController {
 
     for (final surah in surahs) {
       allAyahs.addAll(surah.ayahs);
-      log('Added ${surah.arabicName} ayahs');
+      // log('Added ${surah.arabicName} ayahs');
       update();
     }
     List.generate(604, (pageIndex) {
       pages.add(allAyahs.where((ayah) => ayah.page == pageIndex + 1).toList());
     });
-    log('Pages Length: ${pages.length}', name: 'Quran Controller');
+    // log('Pages Length: ${pages.length}', name: 'Quran Controller');
   }
 
   List<List<Ayah>> getCurrentPageAyahsSeparatedForBasmalah(int pageIndex) =>
@@ -197,13 +199,13 @@ class QuranController extends GetxController {
 
       switch (quarterPosition) {
         case 0:
-          return "الحزب ${generalCtrl.convertNumbers('$hizbNumber')}";
+          return "الحزب ${'$hizbNumber'.convertNumbers()}";
         case 1:
-          return "١/٤ الحزب ${generalCtrl.convertNumbers('$hizbNumber')}";
+          return "١/٤ الحزب ${'$hizbNumber'.convertNumbers()}";
         case 2:
-          return "١/٢ الحزب ${generalCtrl.convertNumbers('$hizbNumber')}";
+          return "١/٢ الحزب ${'$hizbNumber'.convertNumbers()}";
         case 3:
-          return "٣/٤ الحزب ${generalCtrl.convertNumbers('$hizbNumber')}";
+          return "٣/٤ الحزب ${'$hizbNumber'.convertNumbers()}";
         default:
           return "";
       }
@@ -230,7 +232,7 @@ class QuranController extends GetxController {
   List<Ayah> get currentPageAyahs =>
       pages[generalCtrl.currentPageNumber.value - 1];
 
-  Ayah? _getAyahWithSajdaInPage(int pageIndex) =>
+  Ayah? getAyahWithSajdaInPage(int pageIndex) =>
       pages[pageIndex].firstWhereOrNull((ayah) {
         if (ayah.sajda != false) {
           if (ayah.sajda is Map) {
@@ -261,28 +263,6 @@ class QuranController extends GetxController {
     selectedAyahIndexes.clear();
     selectedAyahIndexes.add(index);
     selectedAyahIndexes.refresh();
-  }
-
-  Widget showVerseToast(int pageIndex) {
-    log('checking sajda posision');
-    _getAyahWithSajdaInPage(pageIndex);
-    return isSajda.value
-        ? Row(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              sajda_icon(height: 15.0),
-              const Gap(8),
-              Text(
-                'sajda'.tr,
-                style: const TextStyle(
-                  color: Color(0xff77554B),
-                  fontFamily: 'kufi',
-                  fontSize: 16,
-                ),
-              )
-            ],
-          )
-        : const SizedBox.shrink();
   }
 
   void indicatorOnTap(int pageNumber, int itemWidth, double screenWidth) {
@@ -336,13 +316,13 @@ class QuranController extends GetxController {
   }
 
   Future<void> loadSwitchValue() async {
-    isPages.value = await sl<SharedPreferences>().getInt(SWITCH_VALUE) ?? 0;
+    isPages.value = await box.read(SWITCH_VALUE) ?? 0;
   }
 
   void switchMode(int newMode) {
     isPages.value = newMode;
     selectMushafSettingsPage.value = newMode;
-    sl<SharedPreferences>().setInt(SWITCH_VALUE, newMode);
+    box.write(SWITCH_VALUE, newMode);
     Get.back();
     update();
     if (newMode == 1) {
@@ -401,7 +381,7 @@ class QuranController extends GetxController {
                   ? position
                   : minPosition)
           .index;
-      sl<SharedPreferences>().setInt(MSTART_PAGE, firstItemIndex + 1);
+      box.write(MSTART_PAGE, firstItemIndex + 1);
     } else {}
   }
 

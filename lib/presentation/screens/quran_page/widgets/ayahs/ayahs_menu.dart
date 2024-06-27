@@ -3,7 +3,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 
-import '../../../../../core/services/services_locator.dart';
+import '/core/utils/constants/extensions/convert_number_extension.dart';
 import '../../../../../core/utils/constants/extensions/extensions.dart';
 import '../../../../../core/widgets/share/share_ayah_options.dart';
 import '../../../../controllers/general_controller.dart';
@@ -37,8 +37,8 @@ class AyahsMenu extends StatelessWidget {
     required this.index,
   });
 
-  final generalCtrl = sl<GeneralController>();
-  final quranCtrl = sl<QuranController>();
+  final generalCtrl = GeneralController.instance;
+  final quranCtrl = QuranController.instance;
 
   @override
   Widget build(BuildContext context) {
@@ -70,7 +70,7 @@ class AyahsMenu extends StatelessWidget {
                   child: Padding(
                     padding: const EdgeInsets.all(10.0),
                     child: Text(
-                      generalCtrl.convertNumbers(ayahNum.toString()),
+                      '${ayahNum.toString().convertNumbers()}',
                       style: TextStyle(
                           color: Theme.of(context).hintColor,
                           fontFamily: "kufi",
@@ -165,11 +165,11 @@ class AyahsMenu extends StatelessWidget {
                         context.vDivider(height: 18.0),
                         const Gap(6),
                         ShareAyahOptions(
-                          verseNumber: ayahNum,
-                          verseUQNumber: ayahUQNum,
+                          ayahNumber: ayahNum,
+                          ayahUQNumber: ayahUQNum,
                           surahNumber: surahNum,
                           ayahTextNormal: ayahTextNormal,
-                          verseText: ayahTextNormal,
+                          ayahText: ayahTextNormal,
                           surahName: 'surahName',
                         ),
                         const Gap(6),

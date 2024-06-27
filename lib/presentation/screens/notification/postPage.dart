@@ -1,4 +1,3 @@
-import '../../../core/utils/constants/lottie_constants.dart';
 import 'package:easy_image_viewer/easy_image_viewer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -8,6 +7,7 @@ import 'package:lottie/lottie.dart';
 import '../../../core/services/services_locator.dart';
 import '../../../core/utils/constants/extensions/extensions.dart';
 import '../../../core/utils/constants/lottie.dart';
+import '../../../core/utils/constants/lottie_constants.dart';
 import '../../controllers/notifications_controller.dart';
 
 class PostPage extends StatelessWidget {
@@ -69,7 +69,7 @@ class PostPage extends StatelessWidget {
       right: false,
       left: false,
       child: Scaffold(
-        backgroundColor: Theme.of(context).colorScheme.background,
+        backgroundColor: Theme.of(context).colorScheme.primaryContainer,
         body: Padding(
           padding: context.customOrientation(
               const EdgeInsets.only(right: 16.0, left: 16.0, top: 70.0),
@@ -98,7 +98,9 @@ class PostPage extends StatelessWidget {
                           height: 30,
                           width: 30,
                           decoration: BoxDecoration(
-                              color: Theme.of(context).colorScheme.background,
+                              color: Theme.of(context)
+                                  .colorScheme
+                                  .primaryContainer,
                               borderRadius: const BorderRadius.all(
                                 Radius.circular(8),
                               ),

@@ -7,26 +7,29 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:just_audio_background/just_audio_background.dart';
 import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:rxdart/rxdart.dart' as R;
-import 'package:shared_preferences/shared_preferences.dart';
 
+import '/core/utils/constants/extensions/custom_error_snackBar.dart';
+import '/core/utils/constants/extensions/custom_mobile_notes_snack_bar.dart';
+import '/core/utils/constants/url_constants.dart';
 import '../../core/services/services_locator.dart';
 import '../../core/utils/constants/lists.dart';
 import '../../core/utils/constants/shared_preferences_constants.dart';
 import '../../core/utils/helpers/global_key_manager.dart';
 import '../../core/widgets/seek_bar.dart';
-import '/core/utils/constants/extensions/custom_error_snackBar.dart';
-import '/core/utils/constants/extensions/custom_mobile_notes_snack_bar.dart';
-import '/core/utils/constants/url_constants.dart';
 import 'ayat_controller.dart';
 import 'general_controller.dart';
 import 'quran_controller.dart';
 
 class AudioController extends GetxController {
+  static AudioController get instance => Get.isRegistered<AudioController>()
+      ? Get.find<AudioController>()
+      : Get.put<AudioController>(AudioController());
   AudioPlayer audioPlayer = AudioPlayer();
   AudioPlayer textAudioPlayer = AudioPlayer();
   RxBool isPlay = false.obs;
@@ -40,10 +43,9 @@ class AudioController extends GetxController {
   String? readerValue;
   RxString readerName = 'عبد الباسط عبد الصمد'.obs;
   String? pageAyahNumber;
-  ConnectivityResult _connectionStatus = ConnectivityResult.none;
-  late StreamSubscription<ConnectivityResult> _connectivitySubscription;
-  late ConnectivityResult result;
-  final _connectivity = Connectivity();
+  List<ConnectivityResult> _connectionStatus = [ConnectivityResult.none];
+  final Connectivity _connectivity = Connectivity();
+  late StreamSubscription<List<ConnectivityResult>> _connectivitySubscription;
   late var cancelToken = CancelToken();
   final bool _isDisposed = false; // to keep track of the controller lifecycle
   RxBool isProcessingNextAyah = false.obs;
@@ -61,10 +63,11 @@ class AudioController extends GetxController {
   RxBool selected = false.obs;
   RxInt readerIndex = 0.obs;
   RxBool isStartPlaying = false.obs;
+  final box = GetStorage();
 
-  final generalCtrl = sl<GeneralController>();
-  final quranCtrl = sl<QuranController>();
-  final ayatCtrl = sl<AyatController>();
+  final generalCtrl = GeneralController.instance;
+  final quranCtrl = QuranController.instance;
+  final ayatCtrl = AyatController.instance;
 
   void startPlayingToggle() {
     isStartPlaying.value = true;
@@ -104,11 +107,10 @@ class AudioController extends GetxController {
   void onInit() {
     isPlay.value = false;
     sliderValue = 0;
+    initConnectivity();
     _connectivitySubscription =
         _connectivity.onConnectivityChanged.listen(_updateConnectionStatus);
-    initConnectivity();
     loadQuranReader();
-
     super.onInit();
   }
 
@@ -204,12 +206,12 @@ class AudioController extends GetxController {
         } catch (e) {
           print(e);
         }
-        if (_connectionStatus == ConnectivityResult.none) {
+        if (_connectionStatus.contains(ConnectivityResult.none)) {
           Get.context!.showCustomErrorSnackBar('noInternet'.tr);
-        } else if (_connectionStatus == ConnectivityResult.mobile) {
+        } else if (_connectionStatus.contains(ConnectivityResult.mobile)) {
           await downloadFile(path, url, fileName);
           Get.context!.customMobileNoteSnackBar('mobileDataAyat'.tr);
-        } else if (_connectionStatus == ConnectivityResult.wifi) {
+        } else if (_connectionStatus.contains(ConnectivityResult.wifi)) {
           await downloadFile(path, url, fileName);
         }
       }
@@ -364,7 +366,7 @@ class AudioController extends GetxController {
       progressString.value = "Completed";
       print("Download completed or failed");
     }
-    return true; // Indicate successful completion
+    return true;
   }
 
   Future<int?> _fetchFileSize(String url, Dio dio) async {
@@ -376,7 +378,7 @@ class AudioController extends GetxController {
     } catch (e) {
       print("Error fetching file size: $e");
     }
-    return null; // File size unknown or fetching failed
+    return null;
   }
 
   void cancelDownload() {
@@ -428,21 +430,40 @@ class AudioController extends GetxController {
   }
 
   Future<void> initConnectivity() async {
-    late ConnectivityResult result;
+    late dynamic result; // Can be either List<ConnectivityResult> or String
+    // Platform messages may fail, so we use a try/catch PlatformException.
     try {
       result = await _connectivity.checkConnectivity();
     } on PlatformException catch (e) {
       log('Couldn\'t check connectivity status', error: e);
       return;
     }
+
+    // Handle both potential return types
+    if (result is List<ConnectivityResult>) {
+      _updateConnectionStatus(result);
+    } else if (result is String) {
+      // Handle String case (parse the string or handle error)
+      // For example, log an error message
+      log('Unexpected data type from checkConnectivity: $result');
+    } else {
+      // Handle unexpected data type (shouldn't happen)
+      log('Unknown data type from checkConnectivity: $result');
+    }
+
+    // If the widget was removed from the tree while the asynchronous platform
+    // message was in flight, we want to discard the reply rather than calling
+    // setState to update our non-existent appearance.
     if (_isDisposed) {
       return Future.value(null);
     }
-    return _updateConnectionStatus(result);
   }
 
-  Future<void> _updateConnectionStatus(ConnectivityResult result) async {
+  Future<void> _updateConnectionStatus(List<ConnectivityResult> result) async {
     _connectionStatus = result;
+    update();
+    // ignore: avoid_print
+    print('Connectivity changed: $_connectionStatus');
   }
 
   @override
@@ -461,12 +482,21 @@ class AudioController extends GetxController {
   }
 
   loadQuranReader() async {
-    readerValue = await sl<SharedPreferences>().getString(AUDIO_PLAYER_SOUND) ??
-        "Abdul_Basit_Murattal_192kbps";
+    readerValue =
+        await box.read(AUDIO_PLAYER_SOUND) ?? "Abdul_Basit_Murattal_192kbps";
 
-    readerName.value = await sl<SharedPreferences>().getString(READER_NAME) ??
-        'عبد الباسط عبد الصمد';
+    readerName.value = await box.read(READER_NAME) ?? 'عبد الباسط عبد الصمد';
 
-    readerIndex.value = await sl<SharedPreferences>().getInt(READER_INDEX) ?? 0;
+    readerIndex.value = await box.read(READER_INDEX) ?? 0;
+  }
+
+  void changeReadersOnTap(int index) {
+    readerName.value = ayahReaderInfo[index]['name'];
+    readerValue = ayahReaderInfo[index]['readerD'];
+    readerIndex.value = index;
+    box.write(AUDIO_PLAYER_SOUND, ayahReaderInfo[index]['readerD']);
+    box.write(READER_NAME, ayahReaderInfo[index]['name']);
+    box.write(READER_INDEX, index);
+    Get.back();
   }
 }

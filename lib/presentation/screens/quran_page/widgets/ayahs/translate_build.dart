@@ -17,7 +17,7 @@ class TranslateBuild extends StatelessWidget {
 
   TranslateBuild({super.key, required this.ayahs, required this.ayahIndex});
 
-  final translateCtrl = sl<TranslateDataController>();
+  final translateCtrl = TranslateDataController.instance;
 
   @override
   Widget build(BuildContext context) {

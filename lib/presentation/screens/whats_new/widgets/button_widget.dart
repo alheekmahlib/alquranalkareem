@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:get_storage/get_storage.dart';
 
-import '../../../../core/services/services_locator.dart';
 import '../../../../core/utils/constants/shared_preferences_constants.dart';
 import '../../../../core/widgets/container_button.dart';
 import '../../../controllers/general_controller.dart';
@@ -16,8 +15,8 @@ class ButtonWidget extends StatelessWidget {
   ButtonWidget(
       {super.key, required this.controller, required this.newFeatures});
 
-  final splashCtrl = sl<SplashScreenController>();
-  final generalCtrl = sl<GeneralController>();
+  final splashCtrl = SplashScreenController.instance;
+  final generalCtrl = GeneralController.instance;
 
   @override
   Widget build(BuildContext context) {
@@ -46,8 +45,8 @@ class ButtonWidget extends StatelessWidget {
           onTap: () async {
             if (splashCtrl.currentPageIndex.value == newFeatures.length - 1) {
               splashCtrl.saveLastShownIndex(newFeatures.last['index']);
-              sl<SharedPreferences>().getBool(IS_SCREEN_SELECTED_VALUE) == true
-                  ? Get.off(() => const ScreenTypeL())
+              GetStorage().read(IS_SCREEN_SELECTED_VALUE) == true
+                  ? Get.off(() => ScreenTypeL())
                   : generalCtrl.showSelectScreenPage.value = true;
             } else {
               controller.animateToPage(controller.page!.toInt() + 1,

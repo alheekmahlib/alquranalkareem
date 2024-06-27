@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 
-import '../../../../core/services/services_locator.dart';
-import '../../../../core/utils/constants/svg_picture.dart';
+import '/core/utils/constants/extensions/svg_extensions.dart';
+import '../../../../core/utils/constants/svg_constants.dart';
 import '../../../../core/widgets/container_with_border.dart';
 import '../../../../core/widgets/container_with_lines.dart';
 import '../../../controllers/splash_screen_controller.dart';
@@ -13,12 +13,13 @@ class LogoAndTitle extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final splashCtrl = sl<SplashScreenController>();
+    final splashCtrl = SplashScreenController.instance;
     return ContainerWithLines(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          splash_icon(
+          customSvg(
+            SvgPath.svgSplashIcon,
             height: 100,
             width: 100,
           ),
@@ -33,7 +34,7 @@ class LogoAndTitle extends StatelessWidget {
                   'وَرَتِّلِ ٱلۡقُرۡءَانَ تَرۡتِيلًا',
                   style: TextStyle(
                       fontFamily: 'uthmanic2',
-                      color: Theme.of(context).colorScheme.background,
+                      color: Theme.of(context).colorScheme.primaryContainer,
                       fontSize: 22),
                 ),
               );

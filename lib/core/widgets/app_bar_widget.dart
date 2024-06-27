@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '/core/utils/constants/extensions/font_size_extension.dart';
 import '../../presentation/controllers/azkar_controller.dart';
-import '../services/services_locator.dart';
 import '../utils/constants/extensions/extensions.dart';
 
 class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
@@ -11,9 +11,9 @@ class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context) {
-    final azkarCtrl = sl<AzkarController>();
+    final azkarCtrl = AzkarController.instance;
     return AppBar(
-      backgroundColor: Theme.of(context).colorScheme.background,
+      backgroundColor: Theme.of(context).colorScheme.primaryContainer,
       elevation: 0,
       title: isTitled
           ? Container(
@@ -24,7 +24,7 @@ class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
                   border: Border.all(
                       color: Theme.of(context).colorScheme.surface, width: 1)),
               child: Text(
-                azkarCtrl.filteredZekrList.first.category,
+                azkarCtrl.filteredDhekrList.first.category,
                 style: TextStyle(
                   color: Get.isDarkMode
                       ? Colors.white
@@ -48,7 +48,7 @@ class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
             )),
       ),
       actions: [
-        context.fontSizeDropDown(),
+        fontSizeDropDown(),
       ],
     );
   }

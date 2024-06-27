@@ -3,19 +3,20 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 
-import '../../../../../core/services/services_locator.dart';
-import '../../../../../core/utils/constants/svg_picture.dart';
-import '../../../../../core/widgets/delete_widget.dart';
-import '../../../../controllers/playList_controller.dart';
+import '/core/utils/constants/extensions/convert_number_extension.dart';
+import '/core/utils/constants/extensions/svg_extensions.dart';
 import '/presentation/controllers/audio_controller.dart';
 import '/presentation/controllers/general_controller.dart';
+import '../../../../../core/utils/constants/svg_constants.dart';
+import '../../../../../core/widgets/delete_widget.dart';
+import '../../../../controllers/playList_controller.dart';
 import 'ayahs_playList_widget.dart';
 
 class PlayListBuild extends StatelessWidget {
   PlayListBuild({super.key});
-  final playList = sl<PlayListController>();
-  final generalCtrl = sl<GeneralController>();
-  final audioCtrl = sl<AudioController>();
+  final playList = PlayListController.instance;
+  final generalCtrl = GeneralController.instance;
+  final audioCtrl = AudioController.instance;
 
   @override
   Widget build(BuildContext context) {
@@ -87,7 +88,10 @@ class PlayListBuild extends StatelessWidget {
                                     children: [
                                       Row(
                                         children: [
-                                          playlist(height: 25.0),
+                                          customSvg(
+                                            SvgPath.svgPlaylist,
+                                            height: 25,
+                                          ),
                                           const Gap(8),
                                           Container(
                                             width: 120,
@@ -122,7 +126,7 @@ class PlayListBuild extends StatelessWidget {
                                       Row(
                                         children: [
                                           Text(
-                                            '${generalCtrl.convertNumbers(play.startNum.toString())}-${generalCtrl.convertNumbers(play.endNum.toString())}',
+                                            '${play.startNum.toString().convertNumbers()}-${play.endNum.toString().convertNumbers()}',
                                             style: TextStyle(
                                               fontFamily: 'kufi',
                                               fontSize: 18,

@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_slider_drawer/flutter_slider_drawer.dart';
 import 'package:get/get.dart';
 
+import '/core/utils/constants/extensions/alignment_rotated_extension.dart';
+import '/presentation/controllers/quran_controller.dart';
 import '../../../../core/services/services_locator.dart';
 import '../../../../core/utils/helpers/global_key_manager.dart';
 import '../../../../core/widgets/tab_bar_widget.dart';
@@ -15,15 +17,14 @@ import '../widgets/pages/nav_bar_widget.dart';
 import '../widgets/screen_switch.dart';
 import '../widgets/search/search_bar.dart';
 import '../widgets/surah_juz_list.dart';
-import '/presentation/controllers/quran_controller.dart';
 
 class QuranHome extends StatelessWidget {
   QuranHome({Key? key}) : super(key: key);
 
-  final audioCtrl = sl<AudioController>();
-  final generalCtrl = sl<GeneralController>();
-  final bookmarkCtrl = sl<BookmarksController>();
-  final quranCtrl = sl<QuranController>();
+  final audioCtrl = AudioController.instance;
+  final generalCtrl = GeneralController.instance;
+  final bookmarkCtrl = BookmarksController.instance;
+  final quranCtrl = QuranController.instance;
 
   // bool hasUnopenedNotifications() {
   //   return sl<NotificationsController>()
@@ -45,12 +46,12 @@ class QuranHome extends StatelessWidget {
       },
       child: Scaffold(
         resizeToAvoidBottomInset: true,
-        backgroundColor: Theme.of(context).colorScheme.primary,
+        backgroundColor: Theme.of(context).colorScheme.primaryContainer,
         body: SafeArea(
           child: SliderDrawer(
             key: GlobalKeyManager().drawerKey,
-            splashColor: Theme.of(context).colorScheme.background,
-            slideDirection: generalCtrl.checkRtlLayout(
+            splashColor: Theme.of(context).colorScheme.primaryContainer,
+            slideDirection: alignmentLayout(context,
                 SlideDirection.RIGHT_TO_LEFT, SlideDirection.LEFT_TO_RIGHT),
             sliderOpenSize: 300.0,
             isCupertino: true,

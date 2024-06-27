@@ -930,13 +930,13 @@
     "type": "text",
     "placeholders": {}
   },
-  "Dhu al-Qi'dah": "Dhu al-Qi'dah",
-  "@Dhu al-Qi'dah": {
+  "Dhu Al-Qi'dah": "Dhu al-Qi'dah",
+  "@Dhu Al-Qi'dah": {
     "type": "text",
     "placeholders": {}
   },
-  "Dhu al-Hijjah": "Dhu al-Hijjah",
-  "@Dhu al-Hijjah": {
+  "Dhu Al-Hijjah": "Dhu al-Hijjah",
+  "@Dhu Al-Hijjah": {
     "type": "text",
     "placeholders": {}
   },
@@ -992,6 +992,46 @@
   },
   "What'sNewTitle8": "A verse and its interpretation",
   "@What'sNewTitle8": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Fajr": "Fajr",
+  "@Fajr": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Sunrise": "Sunrise",
+  "@Sunrise": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Dhuhr": "Dhuhr",
+  "@Dhuhr": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Asr": "Asr",
+  "@Asr": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Maghrib": "Maghrib",
+  "@Maghrib": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Isha": "Isha",
+  "@Isha": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Last Third": "The last third",
+  "@Last Third": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Middle of the Night": "Midnight",
+  "@Middle of the Night": {
     "type": "text",
     "placeholders": {}
   }

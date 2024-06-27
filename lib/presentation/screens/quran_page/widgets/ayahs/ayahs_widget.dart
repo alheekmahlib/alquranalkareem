@@ -3,8 +3,9 @@ import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 
-import '../../../../../core/services/services_locator.dart';
-import '../../../../../core/utils/constants/extensions/extensions.dart';
+import '/core/utils/constants/extensions/convert_number_extension.dart';
+import '/core/utils/constants/extensions/extensions.dart';
+import '/core/utils/constants/extensions/font_size_extension.dart';
 import '../../../../controllers/audio_controller.dart';
 import '../../../../controllers/general_controller.dart';
 import '../../../../controllers/quran_controller.dart';
@@ -15,22 +16,22 @@ class AyahsWidget extends StatelessWidget {
     super.key,
   });
 
-  final quranCtrl = sl<QuranController>();
-  final audioCtrl = sl<AudioController>();
-  final generalCtrl = sl<GeneralController>();
+  final quranCtrl = QuranController.instance;
+  final audioCtrl = AudioController.instance;
+  final generalCtrl = GeneralController.instance;
 
   @override
   Widget build(BuildContext context) {
     // quranCtrl.listenToScrollPositions();
     return Container(
-      color: Theme.of(context).colorScheme.background,
+      color: Theme.of(context).colorScheme.primaryContainer,
       child: Column(
         children: [
           const Gap(4),
           Container(
             height: 45,
             alignment: Alignment.center,
-            color: Theme.of(context).colorScheme.background,
+            color: Theme.of(context).colorScheme.primaryContainer,
             margin: const EdgeInsets.symmetric(horizontal: 32.0),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -55,7 +56,7 @@ class AyahsWidget extends StatelessWidget {
                           )),
                       Obx(
                         () => Text(
-                          ' | ${'juz'.tr}: ${generalCtrl.convertNumbers(quranCtrl.pages[quranCtrl.currentListPage.value].first.juz.toString())}',
+                          ' | ${'juz'.tr}: ${quranCtrl.pages[quranCtrl.currentListPage.value].first.juz.toString().convertNumbers()}',
                           style: TextStyle(
                               fontSize: context.customOrientation(18.0, 22.0),
                               fontFamily: 'naskh',
@@ -65,7 +66,7 @@ class AyahsWidget extends StatelessWidget {
                     ],
                   ),
                 ),
-                context.fontSizeDropDown(
+                fontSizeDropDown(
                     height: 25.0,
                     color:
                         Theme.of(context).colorScheme.surface.withOpacity(.7)),

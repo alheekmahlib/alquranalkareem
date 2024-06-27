@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '/core/utils/constants/extensions/custom_error_snackBar.dart';
+import '/core/utils/constants/extensions/svg_extensions.dart';
 import '../../../../../core/services/services_locator.dart';
-import '../../../../../core/utils/constants/svg_picture.dart';
+import '../../../../../core/utils/constants/svg_constants.dart';
 import '../../../../controllers/audio_controller.dart';
 import '../../../../controllers/bookmarks_controller.dart';
 import '../../../../controllers/general_controller.dart';
-import '/core/utils/constants/extensions/custom_error_snackBar.dart';
 
 class AddBookmarkButton extends StatelessWidget {
   final int surahNum;
@@ -35,8 +36,14 @@ class AddBookmarkButton extends StatelessWidget {
             label: 'Add Bookmark',
             child:
                 sl<BookmarksController>().hasBookmark(surahNum, ayahUQNum).value
-                    ? bookmark_icon2(height: 20.0)
-                    : bookmark_icon(height: 20.0),
+                    ? customSvg(
+                        SvgPath.svgBookmarkIcon2,
+                        height: 20,
+                      )
+                    : customSvg(
+                        SvgPath.svgBookmarkIcon,
+                        height: 20,
+                      ),
           )),
       onTap: () async {
         if (sl<BookmarksController>().hasBookmark(surahNum, ayahUQNum).value) {

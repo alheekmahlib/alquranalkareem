@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:io';
 import 'dart:ui' show Size;
 
@@ -5,18 +6,10 @@ import 'package:desktop_window/desktop_window.dart';
 import 'package:flutter_timezone/flutter_timezone.dart';
 import 'package:get/get.dart';
 import 'package:get_it/get_it.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sqflite_common_ffi/sqflite_ffi.dart';
 import 'package:timezone/data/latest.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
 
-import '../../presentation/controllers/daily_ayah_controller.dart';
-import '../../presentation/controllers/khatmah_controller.dart';
-import '../../presentation/controllers/ourApps_controller.dart';
-import '../../presentation/controllers/quran_controller.dart';
-import '../../presentation/controllers/splash_screen_controller.dart';
-import '../../presentation/controllers/theme_controller.dart';
-import '../utils/helpers/ui_helper.dart';
 import '/database/databaseHelper.dart';
 import '/database/notificationDatabase.dart';
 import '/presentation/controllers/audio_controller.dart';
@@ -37,14 +30,26 @@ import '/presentation/screens/quran_page/data/data_source/ibnkatheer_data_client
 import '/presentation/screens/quran_page/data/data_source/qurtubi_data_client.dart';
 import '/presentation/screens/quran_page/data/data_source/saadi_data_client.dart';
 import '/presentation/screens/quran_page/data/data_source/tabari_data_client.dart';
+import '../../presentation/controllers/adhan_controller.dart';
+import '../../presentation/controllers/books_controller.dart';
+import '../../presentation/controllers/daily_ayah_controller.dart';
+import '../../presentation/controllers/home_widget_controller.dart';
+import '../../presentation/controllers/khatmah_controller.dart';
+import '../../presentation/controllers/notification_controller.dart';
+import '../../presentation/controllers/ourApps_controller.dart';
+import '../../presentation/controllers/prayer_progress_controller.dart';
+import '../../presentation/controllers/quran_controller.dart';
+import '../../presentation/controllers/splash_screen_controller.dart';
+import '../../presentation/controllers/theme_controller.dart';
+import '../utils/helpers/ui_helper.dart';
 
 final sl = GetIt.instance;
 
 class ServicesLocator {
-  Future<void> _initPrefs() async =>
-      await SharedPreferences.getInstance().then((v) {
-        sl.registerSingleton<SharedPreferences>(v);
-      });
+  // Future<void> _initPrefs() async =>
+  // await SharedPreferences.getInstance().then((v) {
+  //   sl.registerSingleton<SharedPreferences>(v);
+  // });
 
   Future<void> _initDatabaseHelper() async =>
       sl.registerSingleton<DatabaseHelper>(await DatabaseHelper.instance
@@ -96,7 +101,8 @@ class ServicesLocator {
       //   androidNotificationChannelName: 'Audio playback',
       //   androidNotificationOngoing: true,
       // ),
-      _initPrefs(),
+
+      // _initPrefs(), // moved to notificationsCtrl
       _initDatabaseHelper(),
       _initDatabaseNotification(),
       _initDatabaseClient(),
@@ -165,12 +171,32 @@ class ServicesLocator {
 
     sl.registerLazySingleton<DailyAyahController>(() =>
         Get.put<DailyAyahController>(DailyAyahController(), permanent: true));
+
+    sl.registerSingleton<AdhanController>(
+        Get.put<AdhanController>(AdhanController(), permanent: true));
+
+    sl.registerSingleton<NotificationController>(
+        Get.put<NotificationController>(NotificationController(),
+            permanent: true));
+
+    sl.registerLazySingleton<HomeWidgetController>(() =>
+        Get.put<HomeWidgetController>(HomeWidgetController(), permanent: true));
+
+    sl.registerLazySingleton<PrayerProgressController>(() =>
+        Get.put<PrayerProgressController>(PrayerProgressController(),
+            permanent: true));
+
+    sl.registerLazySingleton<BooksController>(
+        () => Get.put<BooksController>(BooksController(), permanent: true));
     // NotifyHelper().initializeNotification();
     // sl<NotificationsController>().initializeLocalNotifications();
 
     if (Platform.isIOS || Platform.isAndroid || Platform.isFuchsia) {
       UiHelper.rateMyApp.init();
     }
+
+    // Workmanager().initialize(sl<NotificationController>().callbackDispatcher);
+    // sl<NotificationController>().registerBackgroundTask();
 
     final String timeZoneName = await FlutterTimezone.getLocalTimezone();
     tz.initializeTimeZones();

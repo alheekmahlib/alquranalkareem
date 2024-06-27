@@ -1,17 +1,17 @@
-import '../../../../controllers/quran_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 
-import '../../../../../core/services/services_locator.dart';
-import '../../../../../core/utils/constants/lists.dart';
+import '/core/utils/constants/extensions/convert_number_extension.dart';
 import '/presentation/controllers/general_controller.dart';
+import '../../../../../core/utils/constants/lists.dart';
+import '../../../../controllers/quran_controller.dart';
 
 class PagesIndicator extends StatelessWidget {
   PagesIndicator({super.key});
 
-  final generalCtrl = sl<GeneralController>();
-  final quranCtrl = sl<QuranController>();
+  final generalCtrl = GeneralController.instance;
+  final quranCtrl = QuranController.instance;
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +36,8 @@ class PagesIndicator extends StatelessWidget {
         itemBuilder: (context, index) {
           return Container(
             margin: const EdgeInsets.all(4),
-            color: Theme.of(context).colorScheme.background.withOpacity(.1),
+            color:
+                Theme.of(context).colorScheme.primaryContainer.withOpacity(.1),
             child: Row(
               mainAxisSize: MainAxisSize.min,
               children: [
@@ -65,7 +66,7 @@ class PagesIndicator extends StatelessWidget {
                                   ),
                                 ),
                                 Text(
-                                  generalCtrl.convertNumbers('${index + 1}'),
+                                  '${'${index + 1}'.convertNumbers}',
                                   style: TextStyle(
                                       fontSize: 16,
                                       fontFamily: 'naskh',
@@ -102,7 +103,7 @@ class PagesIndicator extends StatelessWidget {
                                   ),
                                 ),
                                 Text(
-                                  generalCtrl.convertNumbers('${index + 2}'),
+                                  '${'${index + 2}'.convertNumbers()}',
                                   style: TextStyle(
                                       fontSize: 16,
                                       fontFamily: 'naskh',

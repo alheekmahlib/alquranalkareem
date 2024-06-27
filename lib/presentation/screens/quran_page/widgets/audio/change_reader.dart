@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../../../core/services/services_locator.dart';
 import '../../../../../core/utils/constants/lists.dart';
-import '../../../../../core/utils/constants/shared_preferences_constants.dart';
 import '../../../../controllers/audio_controller.dart';
 
 class ChangeReader extends StatelessWidget {
@@ -39,7 +37,7 @@ class ChangeReader extends StatelessWidget {
           ],
         ),
       ),
-      color: Theme.of(context).colorScheme.background,
+      color: Theme.of(context).colorScheme.primaryContainer,
       itemBuilder: (context) => List.generate(
           ayahReaderInfo.length,
           (index) => PopupMenuItem(
@@ -76,19 +74,7 @@ class ChangeReader extends StatelessWidget {
                             color: Theme.of(context).colorScheme.inversePrimary)
                         : null,
                   ),
-                  onTap: () async {
-                    sl<AudioController>().readerName.value =
-                        ayahReaderInfo[index]['name'];
-                    sl<AudioController>().readerValue =
-                        ayahReaderInfo[index]['readerD'];
-                    sl<AudioController>().readerIndex.value = index;
-                    await sl<SharedPreferences>().setString(
-                        AUDIO_PLAYER_SOUND, ayahReaderInfo[index]['readerD']);
-                    await sl<SharedPreferences>()
-                        .setString(READER_NAME, ayahReaderInfo[index]['name']);
-                    await sl<SharedPreferences>().setInt(READER_INDEX, index);
-                    Navigator.pop(context);
-                  },
+                  onTap: () => sl<AudioController>().changeReadersOnTap(index),
                   leading: Container(
                     height: 80.0,
                     width: 80.0,

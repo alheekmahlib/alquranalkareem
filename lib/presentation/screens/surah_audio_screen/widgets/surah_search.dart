@@ -26,8 +26,8 @@ class SurahSearch extends StatelessWidget {
             rtl: true,
             textFieldColor: Theme.of(context).colorScheme.primary,
             helpText: 'searchToSurah'.tr,
-            textFieldIconColor: Theme.of(context).colorScheme.background,
-            searchIconColor: Theme.of(context).colorScheme.background,
+            textFieldIconColor: Theme.of(context).colorScheme.primaryContainer,
+            searchIconColor: Theme.of(context).colorScheme.primaryContainer,
             style: TextStyle(
                 color: Theme.of(context).colorScheme.inverseSurface,
                 fontFamily: 'kufi',

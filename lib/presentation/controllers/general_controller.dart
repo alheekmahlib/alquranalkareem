@@ -1,19 +1,23 @@
+import 'dart:developer';
 import 'dart:io';
 
-import 'package:alquranalkareem/core/utils/constants/extensions/extensions.dart';
 import 'package:arabic_numbers/arabic_numbers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:hijri/hijri_calendar.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:share_plus/share_plus.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import '/core/utils/constants/extensions/extensions.dart';
+import '/presentation/controllers/adhan_controller.dart';
+import '/presentation/controllers/quran_controller.dart';
+import '/presentation/screens/home/home_screen.dart';
+import '../../core/services/location/locations.dart';
 import '../../core/services/services_locator.dart';
-import '../../core/utils/constants/lists.dart';
 import '../../core/utils/constants/shared_preferences_constants.dart';
 import '../../core/utils/helpers/responsive.dart';
 import '../../core/widgets/ramadan_greeting.dart';
@@ -21,22 +25,20 @@ import '../../core/widgets/time_now.dart';
 import '../screens/athkar/screens/alzkar_view.dart';
 import '../screens/quran_page/screens/quran_home.dart';
 import '../screens/surah_audio_screen/audio_surah.dart';
-import '/presentation/controllers/quran_controller.dart';
-import '/presentation/controllers/share_controller.dart';
-import '/presentation/controllers/theme_controller.dart';
-import '/presentation/screens/home/home_screen.dart';
 import 'audio_controller.dart';
 import 'ayat_controller.dart';
 import 'bookmarks_controller.dart';
+import 'notification_controller.dart';
 import 'playList_controller.dart';
+import 'theme_controller.dart';
 
 class GeneralController extends GetxController {
+  static GeneralController get instance => Get.isRegistered<GeneralController>()
+      ? Get.find<GeneralController>()
+      : Get.put<GeneralController>(GeneralController());
   final GlobalKey<NavigatorState> navigatorNotificationKey =
       GlobalKey<NavigatorState>();
-
-  /// Slide and Scroll Controller
-  late ScrollController scrollController;
-  bool isPanelControllerDisposed = false;
+  final box = GetStorage();
 
   /// Page Controller
   PageController quranPageController = PageController();
@@ -44,64 +46,75 @@ class GeneralController extends GetxController {
   RxInt currentPageNumber = 1.obs;
   RxInt lastReadSurahNumber = 1.obs;
   RxDouble fontSizeArabic = 20.0.obs;
-  List<InlineSpan> text = [];
-
   RxBool isShowControl = true.obs;
-  RxBool opened = false.obs;
-  // RxBool menuOpened = false.obs;
-  double? height;
-  double width = 800;
   RxString greeting = ''.obs;
-  RxInt shareTafseerValue = 1.obs;
-  RxInt pageIndex = 0.obs;
-  RxBool isExpanded = false.obs;
-  bool isReversed = false;
-  RxBool showSettings = true.obs;
-  RxDouble viewport = .5.obs;
   TimeNow timeNow = TimeNow();
-  RxDouble? animatedWidth;
-  RxDouble? animatedHeight;
-  Rx<Size>? _screenSize;
-  double? xScale;
-  double? yScale;
-  double _fabPosition = 16;
-  double _fabSize = 56;
   final ScrollController surahListController = ScrollController();
   final ScrollController ayahListController = ScrollController();
   double surahItemHeight = 65.0;
   double ayahItemWidth = 30.0;
-  RxBool isLoading = false.obs;
-  var verses;
   ArabicNumbers arabicNumber = ArabicNumbers();
-  final themeCtrl = sl<ThemeController>();
+  // final sl<ThemeController>() = sl<ThemeController>();
   RxBool showSelectScreenPage = false.obs;
   RxInt screenSelectedValue = 0.obs;
   var today = HijriCalendar.now();
+  var now = DateTime.now();
   List<int> noHadithInMonth = <int>[2, 3, 4, 5, 6];
+  RxBool activeLocation = false.obs;
+  RxBool isPageMode = false.obs;
 
   bool get isNewHadith =>
       today.hMonth != noHadithInMonth.contains(today.hMonth) ? true : false;
 
   // final khatmahCtrl = sl<KhatmahController>();
 
-  double get scr_height => _screenSize!.value.height;
+  @override
+  Future<void> onInit() async {
+    activeLocation.value = box.read(ACTIVE_LOCATION) ?? false;
+    isPageMode.value = box.read(PAGE_MODE) ?? false;
+    super.onInit();
+  }
 
-  double get scr_width => _screenSize!.value.width;
+  Future<void> initLocation() async {
+    try {
+      await LocationHelper.instance.getPositionDetails();
+    } catch (e) {
+      log(e.toString(), name: "Main", error: e);
+    }
+  }
 
-  double get positionBottom => _fabSize + _fabPosition * 4;
-
-  double get positionRight => _fabPosition;
+  Future<void> toggleLocationService() async {
+    bool isEnabled = await LocationHelper.instance.isLocationServiceEnabled();
+    if (!isEnabled) {
+      await LocationHelper.instance.openLocationSettings();
+      await Future.delayed(const Duration(seconds: 3));
+      isEnabled = await LocationHelper.instance.isLocationServiceEnabled();
+      if (isEnabled || activeLocation.value) {
+        await initLocation().then((_) async {
+          activeLocation.value = true;
+          await sl<NotificationController>().initializeNotification();
+          await sl<AdhanController>().initializeAdhan();
+          box.write(ACTIVE_LOCATION, true);
+          sl<AdhanController>().onInit();
+        });
+      } else {
+        log('Location services were not enabled by the user.');
+      }
+    } else {
+      await initLocation().then((_) async {
+        activeLocation.value = true;
+        await sl<NotificationController>().initializeNotification();
+        await sl<AdhanController>().initializeAdhan();
+        box.write(ACTIVE_LOCATION, true);
+        sl<AdhanController>().onInit();
+      });
+      log('Location services are already enabled.');
+    }
+    sl<AdhanController>().update();
+  }
 
   void selectScreenToggleView() {
     showSelectScreenPage.value = !showSelectScreenPage.value;
-  }
-
-  checkRtlLayout(var rtl, var ltr) {
-    if (sl<ShareController>().isRtlLanguage('lang'.tr)) {
-      return rtl;
-    } else {
-      return ltr;
-    }
   }
 
   final cacheManager = CacheManager(Config(
@@ -117,12 +130,9 @@ class GeneralController extends GetxController {
 
   Future<void> getLastPageAndFontSize() async {
     try {
-      currentPageNumber.value =
-          await sl<SharedPreferences>().getInt(MSTART_PAGE) ?? 1;
-      lastReadSurahNumber.value =
-          await sl<SharedPreferences>().getInt(MLAST_URAH) ?? 1;
-      double fontSizeFromPref =
-          await sl<SharedPreferences>().getDouble(FONT_SIZE) ?? 24.0;
+      currentPageNumber.value = box.read(MSTART_PAGE) ?? 1;
+      lastReadSurahNumber.value = box.read(MLAST_URAH) ?? 1;
+      double fontSizeFromPref = box.read(FONT_SIZE) ?? 24.0;
       if (fontSizeFromPref != 0.0 && fontSizeFromPref > 0) {
         fontSizeArabic.value = fontSizeFromPref;
       } else {
@@ -142,8 +152,8 @@ class GeneralController extends GetxController {
     sl<BookmarksController>().getBookmarks();
     lastReadSurahNumber.value =
         sl<QuranController>().getSurahNumberFromPage(index);
-    sl<SharedPreferences>().setInt(MSTART_PAGE, index + 1);
-    sl<SharedPreferences>().setInt(MLAST_URAH, lastReadSurahNumber.value);
+    box.write(MSTART_PAGE, index + 1);
+    box.write(MLAST_URAH, lastReadSurahNumber.value);
     // khatmahCtrl.saveLastKhatmah(
     //     surahNumber: lastReadSurahNumber.value, pageNumber: index);
     // sl<QuranController>().selectedAyahIndexes.clear();
@@ -194,71 +204,6 @@ class GeneralController extends GetxController {
         keepPage: true);
   }
 
-  String convertNumbers(String inputStr) {
-    Map<String, Map<String, String>> numberSets = {
-      'العربية': {
-        '0': '٠',
-        '1': '١',
-        '2': '٢',
-        '3': '٣',
-        '4': '٤',
-        '5': '٥',
-        '6': '٦',
-        '7': '٧',
-        '8': '٨',
-        '9': '٩',
-      },
-      'English': {
-        '0': '0',
-        '1': '1',
-        '2': '2',
-        '3': '3',
-        '4': '4',
-        '5': '5',
-        '6': '6',
-        '7': '7',
-        '8': '8',
-        '9': '9',
-      },
-      'বাংলা': {
-        '0': '০',
-        '1': '১',
-        '2': '২',
-        '3': '৩',
-        '4': '৪',
-        '5': '৫',
-        '6': '৬',
-        '7': '৭',
-        '8': '৮',
-        '9': '৯',
-      },
-      'اردو': {
-        '0': '۰',
-        '1': '۱',
-        '2': '۲',
-        '3': '۳',
-        '4': '۴',
-        '5': '۵',
-        '6': '۶',
-        '7': '۷',
-        '8': '۸',
-        '9': '۹',
-      },
-    };
-
-    Map<String, String>? numSet = numberSets['lang'.tr];
-
-    if (numSet == null) {
-      return inputStr;
-    }
-
-    for (var entry in numSet.entries) {
-      inputStr = inputStr.replaceAll(entry.key, entry.value);
-    }
-
-    return inputStr;
-  }
-
   Widget screenSelect() {
     switch (screenSelectedValue.value) {
       case 0:
@@ -280,26 +225,6 @@ class GeneralController extends GetxController {
       return smallWidth;
     }
     return largeWidth;
-  }
-
-  bool isRtlLanguage(String languageName) {
-    return rtlLang.contains(languageName);
-  }
-
-  RotatedBox checkWidgetRtlLayout(Widget myWidget) {
-    if (isRtlLanguage('lang'.tr)) {
-      return RotatedBox(quarterTurns: 0, child: myWidget);
-    } else {
-      return RotatedBox(quarterTurns: 2, child: myWidget);
-    }
-  }
-
-  dynamic checkDirectionRtlLayout(var textDirection, var textDirection2) {
-    if (isRtlLanguage('lang'.tr)) {
-      return textDirection;
-    } else {
-      return textDirection2;
-    }
   }
 
   Future<void> launchEmail() async {
@@ -356,13 +281,13 @@ class GeneralController extends GetxController {
     final String ramadhan;
     final String eid;
     bool isRamadhan = false;
-    isRamadhan = sl<SharedPreferences>().getBool(IS_RAMADAN) ?? false;
+    isRamadhan = box.read(IS_RAMADAN) ?? false;
     bool isEid = false;
-    isEid = sl<SharedPreferences>().getBool(IS_EID) ?? false;
-    if (themeCtrl.isBlueMode) {
+    isEid = box.read(IS_EID) ?? false;
+    if (sl<ThemeController>().isBlueMode) {
       ramadhan = 'ramadan_blue';
       eid = 'eid_blue';
-    } else if (themeCtrl.isBrownMode) {
+    } else if (sl<ThemeController>().isBrownMode) {
       ramadhan = 'ramadan_brown';
       eid = 'eid_brown';
     } else {
@@ -379,7 +304,7 @@ class GeneralController extends GetxController {
                     'عَنْ أَبِي هُرَيْرَةَ، قَالَ قَالَ رَسُولُ اللَّهِ صلى الله عليه وسلم ‏ "‏ أَتَاكُمْ رَمَضَانُ شَهْرٌ مُبَارَكٌ فَرَضَ اللَّهُ عَزَّ وَجَلَّ عَلَيْكُمْ صِيَامَهُ تُفْتَحُ فِيهِ أَبْوَابُ السَّمَاءِ وَتُغْلَقُ فِيهِ أَبْوَابُ الْجَحِيمِ وَتُغَلُّ فِيهِ مَرَدَةُ الشَّيَاطِينِ لِلَّهِ فِيهِ لَيْلَةٌ خَيْرٌ مِنْ أَلْفِ شَهْرٍ مَنْ حُرِمَ خَيْرَهَا فَقَدْ حُرِمَ ‏"‏ ‏.‏\nسنن النسائي - كتاب الصيام - ٢١٠٦\n\n"The Messenger of Allah said: There has come to you Ramadan, a blessed month, which Allah, the Mighty and Sublime, has enjoined you to fast. In it the gates of heavens are opened and the gates of Hell are closed, and every devil is chained up. In it Allah has a night which is better than a thousand months; whoever is deprived of its goodness is indeed deprived.”\nSunan an-Nasai - The Book of Fasting - 2106',
               ),
               isScrollControlled: true)
-          .then((value) => sl<SharedPreferences>().setBool(IS_RAMADAN, true));
+          .then((value) => box.write(IS_RAMADAN, true));
     }
     if (eidDays && isEid == false) {
       await Future.delayed(const Duration(seconds: 2));
@@ -390,11 +315,11 @@ class GeneralController extends GetxController {
                 content: eidGreetingContent,
               ),
               isScrollControlled: true)
-          .then((value) => sl<SharedPreferences>().setBool(IS_EID, true));
+          .then((value) => box.write(IS_EID, true));
     }
-    if (today.hMonth == 10) sl<SharedPreferences>().setBool(IS_RAMADAN, false);
-    if (today.hMonth == 11) sl<SharedPreferences>().setBool(IS_EID, false);
-    if (today.hMonth == 1) sl<SharedPreferences>().setBool(IS_EID, false);
+    if (today.hMonth == 10) box.write(IS_RAMADAN, false);
+    if (today.hMonth == 11) box.write(IS_EID, false);
+    if (today.hMonth == 1) box.write(IS_EID, false);
   }
 
   double customSize(
@@ -426,6 +351,36 @@ class GeneralController extends GetxController {
         Get.context!.customOrientation(Get.width * .8, Get.width * .4));
   }
 
+  double calculate(int year, int month, int day) {
+    log('year: $year');
+    HijriCalendar hijriCalendar = HijriCalendar();
+    DateTime start = DateTime.now();
+    // تحويل التاريخ الهجري الحالي إلى ميلادي
+    DateTime end = hijriCalendar.hijriToGregorian(year, month, day);
+
+    // حساب التاريخ الميلادي لأول يوم من الشهر الهجري القادم
+    int nextMonth = month + 1;
+    int nextYear = year;
+    if (nextMonth > 12) {
+      nextMonth = 1;
+      nextYear += 1;
+    }
+    DateTime nextMonthStart =
+        hijriCalendar.hijriToGregorian(nextYear, nextMonth, 1);
+
+    // حساب الفارق بين التاريخ الحالي وبداية الشهر الهجري القادم
+    if (!start.isAfter(nextMonthStart)) {
+      return DateTimeRange(start: start, end: nextMonthStart)
+              .duration
+              .inDays
+              .toDouble() /
+          100;
+    } else {
+      return 1.0;
+    }
+  }
+
+  // TODO: need fixed
   double calculateProgress2(
       int currentDay, int daysUntilEvent, double totalWidth) {
     // Assuming currentDay is the day of the month and daysUntilEvent is the total days remaining until the event
@@ -434,19 +389,15 @@ class GeneralController extends GetxController {
   }
 
   String daysArabicConvert(int day) {
-    final List<int> daysList = [3, 4, 5, 6, 7, 8, 9, 10];
-    if ('lang'.tr == 'العربية') {
-      if (day == 1) {
-        return 'يوم';
-      } else if (day == 2) {
-        return 'يومان';
-      } else if (daysList.contains(day)) {
-        return 'أيام';
-      } else {
-        return 'Day';
-      }
+    const List<int> daysList = [3, 4, 5, 6, 7, 8, 9, 10];
+    if (day == 1) {
+      return 'Day';
+    } else if (day == 2) {
+      return 'يومان';
+    } else if (daysList.contains(day)) {
+      return 'Days';
     } else {
-      return day == 1 ? 'Day' : 'Days';
+      return 'Day';
     }
   }
 
@@ -468,6 +419,7 @@ class GeneralController extends GetxController {
     return (today / totalDays) * Get.width;
   }
 
+  // TODO: need fixed
   int calculateDaysUntilSpecificDate(int year, int month, int day) {
     HijriCalendar hijriCalendar = HijriCalendar();
     DateTime start = DateTime.now();
@@ -482,5 +434,12 @@ class GeneralController extends GetxController {
       return DateTimeRange(start: start, end: end).duration.inDays;
       // return start * end;
     }
+  }
+
+  void pageModeOnTap(bool value) {
+    isPageMode.value = value;
+    box.write(PAGE_MODE, value);
+    update();
+    Get.back();
   }
 }

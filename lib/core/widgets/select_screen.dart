@@ -3,7 +3,6 @@ import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 
 import '../../presentation/controllers/general_controller.dart';
-import '../services/services_locator.dart';
 import '../utils/constants/lists.dart';
 
 class SelectScreen extends StatelessWidget {
@@ -11,7 +10,7 @@ class SelectScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final generalCtrl = sl<GeneralController>();
+    final generalCtrl = GeneralController.instance;
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16.0),
       child: Column(

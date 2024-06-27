@@ -2,24 +2,25 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 
-import '../../../../../core/services/services_locator.dart';
-import '../../../../../core/utils/constants/extensions/extensions.dart';
-import '../../../../../core/widgets/seek_bar.dart';
-import '../../../../controllers/audio_controller.dart';
-import '../playlist/ayahs_playList_widget.dart';
-import '/core/utils/constants/svg_picture.dart';
+import '/core/utils/constants/extensions/svg_extensions.dart';
 import '/presentation/controllers/general_controller.dart';
 import '/presentation/controllers/quran_controller.dart';
 import '/presentation/screens/quran_page/widgets/audio/skip_next.dart';
 import '/presentation/screens/quran_page/widgets/audio/skip_previous.dart';
+import '../../../../../core/services/services_locator.dart';
+import '../../../../../core/utils/constants/extensions/extensions.dart';
+import '../../../../../core/utils/constants/svg_constants.dart';
+import '../../../../../core/widgets/seek_bar.dart';
+import '../../../../controllers/audio_controller.dart';
+import '../playlist/ayahs_playList_widget.dart';
 import 'change_reader.dart';
 import 'play_ayah_widget.dart';
 
 class AudioWidget extends StatelessWidget {
   AudioWidget({Key? key}) : super(key: key);
-  final quranCtrl = sl<QuranController>();
-  final audioCtrl = sl<AudioController>();
-  final generalCtrl = sl<GeneralController>();
+  final quranCtrl = QuranController.instance;
+  final audioCtrl = AudioController.instance;
+  final generalCtrl = GeneralController.instance;
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +29,7 @@ class AudioWidget extends StatelessWidget {
       child: Container(
           margin: const EdgeInsets.only(bottom: 24.0, right: 32.0, left: 32.0),
           decoration: BoxDecoration(
-              color: Theme.of(context).colorScheme.background,
+              color: Theme.of(context).colorScheme.primaryContainer,
               borderRadius: const BorderRadius.all(Radius.circular(8)),
               boxShadow: [
                 BoxShadow(
@@ -60,7 +61,10 @@ class AudioWidget extends StatelessWidget {
                             button: true,
                             enabled: true,
                             label: 'Playlist',
-                            child: playlist(height: 25.0),
+                            child: customSvg(
+                              SvgPath.svgPlaylist,
+                              height: 25,
+                            ),
                           ),
                           onTap: () {
                             Get.bottomSheet(AyahsPlayListWidget(),
@@ -95,7 +99,10 @@ class AudioWidget extends StatelessWidget {
                                   button: true,
                                   enabled: true,
                                   label: 'Playlist',
-                                  child: playlist(height: 25.0),
+                                  child: customSvg(
+                                    SvgPath.svgPlaylist,
+                                    height: 25,
+                                  ),
                                 ),
                                 onTap: () {
                                   Get.bottomSheet(AyahsPlayListWidget(),

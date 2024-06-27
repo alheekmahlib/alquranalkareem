@@ -4,6 +4,7 @@ import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 
+import '/core/utils/constants/extensions/convert_number_extension.dart';
 import '../../../../core/services/services_locator.dart';
 import '../../../../core/utils/constants/extensions/extensions.dart';
 import '../../../controllers/general_controller.dart';
@@ -14,15 +15,14 @@ class QuranSurahList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final generalCtrl = sl<GeneralController>();
-    final quranCtrl = sl<QuranController>();
+    final quranCtrl = QuranController.instance;
     return AnimationLimiter(
       child: CupertinoScrollbar(
         controller: sl<GeneralController>().surahListController,
         child: Container(
           padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 8.0),
           decoration: BoxDecoration(
-            color: Theme.of(context).colorScheme.background,
+            color: Theme.of(context).colorScheme.primaryContainer,
           ),
           child: ListView.builder(
               padding: EdgeInsets.zero,
@@ -95,10 +95,7 @@ class QuranSurahList extends StatelessWidget {
                                                   Transform.translate(
                                                     offset: const Offset(0, 1),
                                                     child: Text(
-                                                      generalCtrl
-                                                          .convertNumbers(surah
-                                                              .surahNumber
-                                                              .toString()),
+                                                      '${'${surah.surahNumber}'.convertNumbers()}',
                                                       style: TextStyle(
                                                           color:
                                                               Theme.of(context)
@@ -170,7 +167,7 @@ class QuranSurahList extends StatelessWidget {
                                                       Text(
                                                         'aya_count'.tr,
                                                         style: TextStyle(
-                                                          fontFamily: "uthman",
+                                                          fontFamily: "naskh",
                                                           fontSize: 13,
                                                           color: Get
                                                               .theme
@@ -179,12 +176,7 @@ class QuranSurahList extends StatelessWidget {
                                                         ),
                                                       ),
                                                       Text(
-                                                        generalCtrl
-                                                            .convertNumbers(surah
-                                                                .ayahs
-                                                                .last
-                                                                .ayahNumber
-                                                                .toString()),
+                                                        '${'${surah.ayahs.last.ayahNumber}'.convertNumbers()}',
                                                         style: TextStyle(
                                                           fontFamily: "kufi",
                                                           fontSize: 13,
@@ -204,10 +196,8 @@ class QuranSurahList extends StatelessWidget {
                                         ],
                                       ),
                                     )),
-                                onTap: () {
-                                  quranCtrl.changeSurahListOnTap(
-                                      surah.ayahs.first.page);
-                                },
+                                onTap: () => quranCtrl.changeSurahListOnTap(
+                                    surah.ayahs.first.page),
                               ),
                               context.hDivider(
                                   color: Theme.of(context)

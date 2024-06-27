@@ -3,7 +3,6 @@ import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 
-import '../../../../core/services/services_locator.dart';
 import '../../../../core/utils/constants/lottie.dart';
 import '../../../../core/utils/constants/lottie_constants.dart';
 import '../../../controllers/azkar_controller.dart';
@@ -15,15 +14,15 @@ class AzkarFav extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final azkarCtrl = sl<AzkarController>();
-    azkarCtrl.getAzkar();
+    final azkarCtrl = AzkarController.instance;
+    azkarCtrl.getAdhkar();
     return Directionality(
       textDirection: TextDirection.rtl,
       child: Column(
         children: [
           Expanded(
             child: Obx(() {
-              if (azkarCtrl.azkarList.isEmpty) {
+              if (azkarCtrl.adhkarList.isEmpty) {
                 return customLottie(LottieConstants.assetsLottieOpenBook,
                     height: 250.0, width: 250.0);
               } else {
@@ -34,9 +33,9 @@ class AzkarFav extends StatelessWidget {
                         shrinkWrap: true,
                         controller: azkarCtrl.favController,
                         padding: EdgeInsets.zero,
-                        itemCount: azkarCtrl.azkarList.length,
+                        itemCount: azkarCtrl.adhkarList.length,
                         itemBuilder: (BuildContext context, int index) {
-                          var azkar = azkarCtrl.azkarList[index];
+                          var azkar = azkarCtrl.adhkarList[index];
                           return AnimationConfiguration.staggeredList(
                             position: index,
                             duration: const Duration(milliseconds: 450),

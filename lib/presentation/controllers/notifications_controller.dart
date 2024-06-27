@@ -5,8 +5,8 @@ import 'dart:io' show Platform;
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:http/http.dart' as http;
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:timezone/timezone.dart' as tz;
 
 import '../../core/services/local_notifications.dart';
@@ -16,6 +16,7 @@ import '../screens/notification/postPage.dart';
 class NotificationsController extends GetxController {
   late NotifyHelper notifyHelper;
   DateTime now = DateTime.now();
+  final box = GetStorage();
 
   RxList<Map<String, dynamic>> sentNotifications = <Map<String, dynamic>>[].obs;
 
@@ -142,9 +143,8 @@ class NotificationsController extends GetxController {
     print('Task triggered on app start');
     final latestPosts = await fetchLatestPosts();
     print('Latest posts: ${latestPosts.toString()}');
-    SharedPreferences prefs = await SharedPreferences.getInstance();
     // await prefs.clear();
-    int lastSeenPostId = prefs.getInt('lastSeenPostId') ?? 0;
+    int lastSeenPostId = box.read('lastSeenPostId') ?? 0;
 
     int newLastSeenPostId = lastSeenPostId;
 
@@ -177,7 +177,7 @@ class NotificationsController extends GetxController {
       }
     }
 
-    await prefs.setInt('lastSeenPostId', newLastSeenPostId);
+    await box.write('lastSeenPostId', newLastSeenPostId);
   }
 
   Future<void> displayNotification({

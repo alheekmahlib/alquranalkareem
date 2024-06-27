@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../../../core/services/services_locator.dart';
+import '/core/utils/constants/extensions/convert_number_extension.dart';
 import '../../../controllers/general_controller.dart';
 
 class OccasionWidget extends StatelessWidget {
@@ -11,7 +11,7 @@ class OccasionWidget extends StatelessWidget {
   OccasionWidget(
       {super.key, required this.month, required this.day, required this.name});
 
-  final generalCtrl = sl<GeneralController>();
+  final generalCtrl = GeneralController.instance;
 
   @override
   Widget build(BuildContext context) {
@@ -28,21 +28,33 @@ class OccasionWidget extends StatelessWidget {
         child: Stack(
           alignment: Alignment.centerRight,
           children: [
-            Container(
-              height: 70,
-              width: generalCtrl.calculateProgress2(
-                  generalCtrl.today.hDay,
-                  generalCtrl.today.hMonth == month
-                      ? generalCtrl.today.lengthOfMonth - generalCtrl.today.hDay
-                      : daysUntilEvent,
-                  380),
-              padding: const EdgeInsets.symmetric(horizontal: 8.0),
-              decoration: BoxDecoration(
-                  color: generalCtrl.today.hMonth == month
-                      ? const Color(0xffa22c08).withOpacity(.5)
-                      : Theme.of(context).colorScheme.surface.withOpacity(.5),
-                  borderRadius: const BorderRadius.all(Radius.circular(8.0))),
+            LinearProgressIndicator(
+              minHeight: 70,
+              borderRadius: const BorderRadius.all(Radius.circular(4)),
+              value: generalCtrl.calculate(
+                generalCtrl.today.hYear,
+                generalCtrl.today.hMonth,
+                generalCtrl.today.hDay,
+              ),
+              backgroundColor: Theme.of(context).canvasColor,
+              color: Theme.of(context).colorScheme.surface,
             ),
+            // Container(
+            //   height: 70,
+            //   width: generalCtrl
+            //       .calculate(
+            //         generalCtrl.today.hYear,
+            //         generalCtrl.today.hMonth,
+            //         generalCtrl.today.hDay,
+            //       )
+            //       .toDouble(),
+            //   padding: const EdgeInsets.symmetric(horizontal: 8.0),
+            //   decoration: BoxDecoration(
+            //       color: generalCtrl.today.hMonth == month
+            //           ? const Color(0xffa22c08).withOpacity(.5)
+            //           : Theme.of(context).colorScheme.surface.withOpacity(.5),
+            //       borderRadius: const BorderRadius.all(Radius.circular(8.0))),
+            // ),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 8.0),
               child: Row(
@@ -70,8 +82,8 @@ class OccasionWidget extends StatelessWidget {
                       fit: BoxFit.scaleDown,
                       child: Text(
                         generalCtrl.today.hMonth == month
-                            ? '${generalCtrl.convertNumbers((generalCtrl.today.lengthOfMonth - generalCtrl.today.hDay).toString())}\n${'${generalCtrl.daysArabicConvert(generalCtrl.today.hDay)}'.tr}'
-                            : '${generalCtrl.convertNumbers(daysUntilEvent.toString())}\n${'${generalCtrl.daysArabicConvert(generalCtrl.today.hDay)}'.tr}',
+                            ? '${(generalCtrl.today.lengthOfMonth - generalCtrl.today.hDay).toString().convertNumbers()}\n${'${generalCtrl.daysArabicConvert(generalCtrl.today.lengthOfMonth - generalCtrl.today.hDay)}'.tr}'
+                            : '${daysUntilEvent.toString().convertNumbers()}\n${'${generalCtrl.daysArabicConvert(generalCtrl.today.lengthOfMonth - generalCtrl.today.hDay)}'.tr}',
                         style: TextStyle(
                           fontSize: 16.0,
                           fontFamily: 'kufi',
@@ -99,7 +111,7 @@ class OccasionNextWidget extends StatelessWidget {
   OccasionNextWidget(
       {super.key, required this.month, required this.day, required this.name});
 
-  final generalCtrl = sl<GeneralController>();
+  final generalCtrl = GeneralController.instance;
 
   @override
   Widget build(BuildContext context) {
@@ -116,6 +128,17 @@ class OccasionNextWidget extends StatelessWidget {
         child: Stack(
           alignment: Alignment.centerRight,
           children: [
+            LinearProgressIndicator(
+              minHeight: 70,
+              borderRadius: const BorderRadius.all(Radius.circular(4)),
+              value: generalCtrl.calculate(
+                generalCtrl.today.hYear + 1,
+                generalCtrl.today.hMonth,
+                generalCtrl.today.hDay,
+              ),
+              backgroundColor: Theme.of(context).canvasColor,
+              color: Theme.of(context).colorScheme.surface,
+            ),
             Container(
               height: 70,
               width: generalCtrl.calculateProgress2(
@@ -168,10 +191,10 @@ class OccasionNextWidget extends StatelessWidget {
                       fit: BoxFit.scaleDown,
                       child: Text(
                         generalCtrl.today.hYear + 1 != generalCtrl.today.hYear
-                            ? '${generalCtrl.convertNumbers(daysUntilEvent.toString())}\n${'${generalCtrl.daysArabicConvert(generalCtrl.today.hDay)}'.tr}'
+                            ? '${daysUntilEvent.toString().convertNumbers()}\n${'${generalCtrl.daysArabicConvert(generalCtrl.today.hDay)}'.tr}'
                             : generalCtrl.today.hMonth == month
-                                ? '${generalCtrl.convertNumbers((generalCtrl.today.lengthOfMonth - generalCtrl.today.hDay).toString())}\n${'${generalCtrl.daysArabicConvert(generalCtrl.today.hDay)}'.tr}'
-                                : '${generalCtrl.convertNumbers(daysUntilEvent.toString())}\n${'${generalCtrl.daysArabicConvert(generalCtrl.today.hDay)}'.tr}',
+                                ? '${(generalCtrl.today.lengthOfMonth - generalCtrl.today.hDay).toString().convertNumbers()}\n${'${generalCtrl.daysArabicConvert(generalCtrl.today.hDay)}'.tr}'
+                                : '${daysUntilEvent.toString().convertNumbers()}\n${'${generalCtrl.daysArabicConvert(generalCtrl.today.hDay)}'.tr}',
                         style: TextStyle(
                           fontSize: 16.0,
                           fontFamily: 'kufi',

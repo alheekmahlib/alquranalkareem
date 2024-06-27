@@ -3,19 +3,20 @@ import 'package:get/get.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:square_percent_indicater/square_percent_indicater.dart';
 
+import '/core/utils/constants/extensions/svg_extensions.dart';
 import '../../../../../core/services/services_locator.dart';
 import '../../../../../core/utils/constants/lottie.dart';
 import '../../../../../core/utils/constants/lottie_constants.dart';
+import '../../../../../core/utils/constants/svg_constants.dart';
 import '../../../../controllers/audio_controller.dart';
 import '../../../../controllers/quran_controller.dart';
-import '/core/utils/constants/svg_picture.dart';
 
 class PlayAyah extends StatelessWidget {
   const PlayAyah({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final audioCtrl = sl<AudioController>();
+    final audioCtrl = AudioController.instance;
     return Obx(
       () => SizedBox(
         width: 40,
@@ -50,7 +51,10 @@ class PlayAyah extends StatelessWidget {
                       width: 20.0, height: 20.0);
                 } else if (playerState != null && !playerState.playing) {
                   return GestureDetector(
-                    child: play_arrow(height: 25.0),
+                    child: customSvg(
+                      SvgPath.svgPlayArrow,
+                      height: 25,
+                    ),
                     onTap: () async {
                       sl<QuranController>().isPlayExpanded.value = true;
                       sl<AudioController>().playAyah();
@@ -58,7 +62,10 @@ class PlayAyah extends StatelessWidget {
                   );
                 }
                 return GestureDetector(
-                  child: pause_arrow(height: 25.0),
+                  child: customSvg(
+                    SvgPath.svgPauseArrow,
+                    height: 25,
+                  ),
                   onTap: () {
                     sl<QuranController>().isPlayExpanded.value = true;
                     sl<AudioController>().playAyah();

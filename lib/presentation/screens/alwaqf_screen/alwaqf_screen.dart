@@ -4,13 +4,14 @@ import 'package:get/get.dart';
 import 'package:group_button/group_button.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 
+import '/core/utils/constants/extensions/svg_extensions.dart';
+import '/presentation/controllers/azkar_controller.dart';
 import '../../../core/services/services_locator.dart';
 import '../../../core/utils/constants/extensions/extensions.dart';
 import '../../../core/utils/constants/lists.dart';
-import '../../../core/utils/constants/svg_picture.dart';
+import '../../../core/utils/constants/svg_constants.dart';
 import '../../../core/widgets/app_bar_widget.dart';
 import '../../controllers/general_controller.dart';
-import '/presentation/controllers/azkar_controller.dart';
 
 class AlwaqfScreen extends StatelessWidget {
   AlwaqfScreen({Key? key}) : super(key: key);
@@ -22,7 +23,7 @@ class AlwaqfScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Theme.of(context).colorScheme.background,
+        backgroundColor: Theme.of(context).colorScheme.primaryContainer,
         appBar: const AppBarWidget(isTitled: false),
         body: SafeArea(
           child: Directionality(
@@ -122,8 +123,9 @@ class AlwaqfScreen extends StatelessWidget {
                                   horizontal: 16, vertical: 16),
                               width: MediaQuery.sizeOf(context).width,
                               decoration: BoxDecoration(
-                                  color:
-                                      Theme.of(context).colorScheme.background,
+                                  color: Theme.of(context)
+                                      .colorScheme
+                                      .primaryContainer,
                                   borderRadius: const BorderRadius.all(
                                       Radius.circular(8)),
                                   border: Border.all(
@@ -151,7 +153,10 @@ class AlwaqfScreen extends StatelessWidget {
                                           )),
                                     ),
                                     Center(
-                                      child: splash_icon(),
+                                      child: customSvg(
+                                        SvgPath.svgSplashIcon,
+                                        height: 60,
+                                      ),
                                     ),
                                     Obx(() {
                                       return RichText(
@@ -174,11 +179,18 @@ class AlwaqfScreen extends StatelessWidget {
                                       );
                                     }),
                                     Center(
-                                      child: spaceLine(
-                                        30,
-                                        MediaQuery.of(context).size.width /
-                                            1 /
-                                            4,
+                                      child: Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                            vertical: 8.0),
+                                        child: customSvg(
+                                          SvgPath.svgSpaceLine,
+                                          height: 30,
+                                          width: MediaQuery.of(context)
+                                                  .size
+                                                  .width /
+                                              1 /
+                                              4,
+                                        ),
                                       ),
                                     ),
                                   ],

@@ -1,0 +1,86 @@
+[
+  {
+    "adhanFileName": "aqsa_part/aqsa_ios/aqsa_ios/",
+    "adhanName": "أذان الأقصى",
+    "urlAndroidAdhanZip": "https://raw.githubusercontent.com/alheekmahlib/adhan_sounds/main/aqsa_part.zip",
+    "urlIosAdhanZip": "https://raw.githubusercontent.com/alheekmahlib/adhan_sounds/main/aqsa_part.zip",
+    "urlPlayAdhan": "https://raw.githubusercontent.com/alheekmahlib/adhan_sounds/main/aqsa_ios/aqsa_ios/1.wav"
+  },
+  {
+    "adhanFileName": "aqsaFull",
+    "adhanName": "أذان الأقصى | كامل |",
+    "urlAndroidAdhanZip": "https://raw.githubusercontent.com/alheekmahlib/adhan_sounds/main/aqsaAndroid.zip",
+    "urlIosAdhanZip": "https://raw.githubusercontent.com/alheekmahlib/adhan_sounds/main/aqsa_ios.zip",
+    "urlPlayAdhan": "https://raw.githubusercontent.com/alheekmahlib/adhan_sounds/main/aqsaAndroid/aqsa.wav"
+  },
+  {
+    "adhanFileName": "Al-Saqqaf_part/Al-Saqqaf_ios/Al-Saqqaf_ios/",
+    "adhanName": "هاشم السقاف",
+    "urlAndroidAdhanZip": "https://raw.githubusercontent.com/alheekmahlib/adhan_sounds/main/Al-Saqqaf_part.zip",
+    "urlIosAdhanZip": "https://raw.githubusercontent.com/alheekmahlib/adhan_sounds/main/Al-Saqqaf_part.zip",
+    "urlPlayAdhan": "https://raw.githubusercontent.com/alheekmahlib/adhan_sounds/main/Al-Saqqaf_ios/Al-Saqqaf_ios/1.wav"
+  },
+  {
+    "adhanFileName": "saqqafFull",
+    "adhanName": "هاشم السقاف | كامل |",
+    "urlAndroidAdhanZip": "https://raw.githubusercontent.com/alheekmahlib/adhan_sounds/main/Al-SaqqafAndroid.zip",
+    "urlIosAdhanZip": "https://raw.githubusercontent.com/alheekmahlib/adhan_sounds/main/Al-Saqqaf_ios.zip",
+    "urlPlayAdhan": "https://raw.githubusercontent.com/alheekmahlib/adhan_sounds/main/Al-SaqqafAndroid/Al-Saqqaf.wav"
+  },
+  {
+    "adhanFileName": "saqqaf",
+    "adhanName": "عبد الباسط",
+    "urlAndroidAdhanZip": "https://raw.githubusercontent.com/alheekmahlib/adhan_sounds/main/basit_part.zip",
+    "urlIosAdhanZip": "https://raw.githubusercontent.com/alheekmahlib/adhan_sounds/main/basit_part.zip",
+    "urlPlayAdhan": "https://raw.githubusercontent.com/alheekmahlib/adhan_sounds/main/basit_ios/basit_ios/1.wav"
+  },
+  {
+    "adhanFileName": "saqqafFull",
+    "adhanName": "عبد الباسط | كامل |",
+    "urlAndroidAdhanZip": "https://raw.githubusercontent.com/alheekmahlib/adhan_sounds/main/basitAndroid.zip",
+    "urlIosAdhanZip": "https://raw.githubusercontent.com/alheekmahlib/adhan_sounds/main/basit_ios.zip",
+    "urlPlayAdhan": "https://raw.githubusercontent.com/alheekmahlib/adhan_sounds/main/basitAndroid/basit.wav"
+  },
+  {
+    "adhanFileName": "wadih",
+    "adhanName": "وديع حمادي",
+    "urlAndroidAdhanZip": "https://raw.githubusercontent.com/alheekmahlib/adhan_sounds/main/Wadih_part.zip",
+    "urlIosAdhanZip": "https://raw.githubusercontent.com/alheekmahlib/adhan_sounds/main/Wadih_part.zip",
+    "urlPlayAdhan": "https://raw.githubusercontent.com/alheekmahlib/adhan_sounds/main/Wadih_ios/Wadih_ios/1.wav"
+  },
+  {
+    "adhanFileName": "wadihFull",
+    "adhanName": "وديع حمادي | كامل |",
+    "urlAndroidAdhanZip": "https://raw.githubusercontent.com/alheekmahlib/adhan_sounds/main/WadihAndroid.zip",
+    "urlIosAdhanZip": "https://raw.githubusercontent.com/alheekmahlib/adhan_sounds/main/Wadih_ios.zip",
+    "urlPlayAdhan": "https://raw.githubusercontent.com/alheekmahlib/adhan_sounds/main/WadihAndroid/Wadih.wav"
+  },
+  {
+    "adhanFileName": "ossama",
+    "adhanName": "أسامة الأخضر",
+    "urlAndroidAdhanZip": "https://raw.githubusercontent.com/alheekmahlib/adhan_sounds/main/Ossama_part.zip",
+    "urlIosAdhanZip": "https://raw.githubusercontent.com/alheekmahlib/adhan_sounds/main/Ossama_part.zip",
+    "urlPlayAdhan": "https://raw.githubusercontent.com/alheekmahlib/adhan_sounds/main/Ossama_ios/Ossama_ios/1.wav"
+  },
+  {
+    "adhanFileName": "ossamaFull",
+    "adhanName": "أسامة الأخضر | كامل |",
+    "urlAndroidAdhanZip": "https://raw.githubusercontent.com/alheekmahlib/adhan_sounds/main/OssamaAndroid.zip",
+    "urlIosAdhanZip": "https://raw.githubusercontent.com/alheekmahlib/adhan_sounds/main/Ossama_ios.zip",
+    "urlPlayAdhan": "https://raw.githubusercontent.com/alheekmahlib/adhan_sounds/main/OssamaAndroid/Ossama.wav"
+  },
+  {
+    "adhanFileName": "sami",
+    "adhanName": "سامي ريس",
+    "urlAndroidAdhanZip": "https://raw.githubusercontent.com/alheekmahlib/adhan_sounds/main/Sami_part.zip",
+    "urlIosAdhanZip": "https://raw.githubusercontent.com/alheekmahlib/adhan_sounds/main/Sami_part.zip",
+    "urlPlayAdhan": "https://raw.githubusercontent.com/alheekmahlib/adhan_sounds/main/Sami_ios/Sami_ios/1.wav"
+  },
+  {
+    "adhanFileName": "samiFull",
+    "adhanName": "سامي ريس | كامل |",
+    "urlAndroidAdhanZip": "https://raw.githubusercontent.com/alheekmahlib/adhan_sounds/main/SamiAndroid.zip",
+    "urlIosAdhanZip": "https://raw.githubusercontent.com/alheekmahlib/adhan_sounds/main/Sami_ios.zip",
+    "urlPlayAdhan": "https://raw.githubusercontent.com/alheekmahlib/adhan_sounds/main/SamiAndroid/Sami.wav"
+  }
+]
