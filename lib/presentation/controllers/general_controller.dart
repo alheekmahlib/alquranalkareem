@@ -13,7 +13,6 @@ import 'package:share_plus/share_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '/core/utils/constants/extensions/extensions.dart';
-import '/presentation/controllers/adhan_controller.dart';
 import '/presentation/controllers/quran_controller.dart';
 import '/presentation/screens/home/home_screen.dart';
 import '../../core/services/location/locations.dart';
@@ -28,7 +27,6 @@ import '../screens/surah_audio_screen/audio_surah.dart';
 import 'audio_controller.dart';
 import 'ayat_controller.dart';
 import 'bookmarks_controller.dart';
-import 'notification_controller.dart';
 import 'playList_controller.dart';
 import 'theme_controller.dart';
 
@@ -60,7 +58,6 @@ class GeneralController extends GetxController {
   var today = HijriCalendar.now();
   var now = DateTime.now();
   List<int> noHadithInMonth = <int>[2, 3, 4, 5, 6];
-  RxBool activeLocation = false.obs;
   RxBool isPageMode = false.obs;
 
   bool get isNewHadith =>
@@ -70,7 +67,6 @@ class GeneralController extends GetxController {
 
   @override
   Future<void> onInit() async {
-    activeLocation.value = box.read(ACTIVE_LOCATION) ?? false;
     isPageMode.value = box.read(PAGE_MODE) ?? false;
     super.onInit();
   }
@@ -81,36 +77,6 @@ class GeneralController extends GetxController {
     } catch (e) {
       log(e.toString(), name: "Main", error: e);
     }
-  }
-
-  Future<void> toggleLocationService() async {
-    bool isEnabled = await LocationHelper.instance.isLocationServiceEnabled();
-    if (!isEnabled) {
-      await LocationHelper.instance.openLocationSettings();
-      await Future.delayed(const Duration(seconds: 3));
-      isEnabled = await LocationHelper.instance.isLocationServiceEnabled();
-      if (isEnabled || activeLocation.value) {
-        await initLocation().then((_) async {
-          activeLocation.value = true;
-          await sl<NotificationController>().initializeNotification();
-          await sl<AdhanController>().initializeAdhan();
-          box.write(ACTIVE_LOCATION, true);
-          sl<AdhanController>().onInit();
-        });
-      } else {
-        log('Location services were not enabled by the user.');
-      }
-    } else {
-      await initLocation().then((_) async {
-        activeLocation.value = true;
-        await sl<NotificationController>().initializeNotification();
-        await sl<AdhanController>().initializeAdhan();
-        box.write(ACTIVE_LOCATION, true);
-        sl<AdhanController>().onInit();
-      });
-      log('Location services are already enabled.');
-    }
-    sl<AdhanController>().update();
   }
 
   void selectScreenToggleView() {

@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 
+import '/core/widgets/container_with_lines.dart';
 import '../../../../core/utils/constants/lists.dart';
 import '../../../../core/widgets/container_button.dart';
-import '/core/widgets/container_with_lines.dart';
 
 class ScreensList extends StatelessWidget {
   const ScreensList({super.key});
@@ -36,16 +36,16 @@ class ScreensList extends StatelessWidget {
                             width: screensList[index]['width'],
                             child: Row(
                               mainAxisSize: MainAxisSize.min,
-                              mainAxisAlignment: MainAxisAlignment.center,
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 SvgPicture.asset(
                                   screensList[index]['svgUrl'],
-                                  height: 65,
+                                  height: index == 5 ? 40 : 65,
                                 ),
                                 index == 2 || index == 3
                                     ? const SizedBox.shrink()
                                     : Container(
-                                        width: 150,
+                                        width: index == 5 ? 190 : 150,
                                         margin: const EdgeInsets.symmetric(
                                             horizontal: 8.0),
                                         padding: const EdgeInsets.symmetric(

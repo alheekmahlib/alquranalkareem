@@ -17,7 +17,8 @@ import 'select_screen.dart';
 import 'theme_change.dart';
 
 class SettingsList extends StatelessWidget {
-  SettingsList({Key? key}) : super(key: key);
+  final bool? isQuranSetting;
+  SettingsList({Key? key, this.isQuranSetting}) : super(key: key);
   final generalCtrl = GeneralController.instance;
   final quranCtrl = QuranController.instance;
 
@@ -70,7 +71,9 @@ class SettingsList extends StatelessWidget {
                             const Gap(24),
                             const SelectScreen(),
                             const Gap(24),
-                            const MushafSettings(),
+                            isQuranSetting!
+                                ? const MushafSettings()
+                                : const SizedBox.shrink(),
                             const Gap(24),
                             Container(
                               margin:

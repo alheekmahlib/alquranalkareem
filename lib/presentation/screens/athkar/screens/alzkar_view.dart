@@ -19,6 +19,7 @@ class AzkarView extends StatelessWidget {
                 TabBarWidget(
                   isFirstChild: true,
                   isCenterChild: true,
+                  isQuranSetting: false,
                   centerChild: Container(
                     height: 40,
                     width: MediaQuery.sizeOf(context).width * .69,

@@ -111,46 +111,43 @@ class BookDetails extends StatelessWidget {
               ),
               Align(
                 alignment: Alignment.center,
-                child: Obx(
-                  () => booksCtrl.isBookDownloaded(bookNumber)
-                      ? GestureDetector(
-                          child: Icon(
-                            Icons.delete,
-                            size: 28,
-                            color: Theme.of(context).colorScheme.surface,
-                          ),
-                          onTap: () async =>
-                              await booksCtrl.deleteBook(bookNumber),
-                        )
-                      : booksCtrl.downloading[bookNumber] == true
-                          ? SquarePercentIndicator(
-                              width: 50,
-                              height: 50,
-                              startAngle: StartAngle.topRight,
-                              reverse: false,
-                              borderRadius: 12,
-                              shadowWidth: 1.5,
-                              progressWidth: 5,
-                              shadowColor: Colors.grey,
-                              progressColor: Colors.blue,
-                              progress:
-                                  booksCtrl.downloadProgress[bookNumber] ?? 0,
-                              child: Center(
-                                child: Text(
-                                  '${((booksCtrl.downloadProgress[bookNumber] ?? 0) * 100).toStringAsFixed(0)}%',
-                                  style: TextStyle(fontSize: 10),
-                                ),
-                              ),
-                            )
-                          : GestureDetector(
-                              child: Icon(
-                                Icons.download,
-                                size: 24,
-                                color: Theme.of(context).colorScheme.primary,
-                              ),
-                              onTap: () async =>
-                                  await booksCtrl.downloadBook(bookNumber),
+                child: Center(
+                  child: Obx(
+                    () => booksCtrl.isBookDownloaded(bookNumber)
+                        ? GestureDetector(
+                            child: Icon(
+                              Icons.delete,
+                              size: 28,
+                              color: Theme.of(context).colorScheme.surface,
                             ),
+                            onTap: () async =>
+                                await booksCtrl.deleteBook(bookNumber),
+                          )
+                        : booksCtrl.downloading[bookNumber] == true
+                            ? SquarePercentIndicator(
+                                width: 45,
+                                height: 45,
+                                startAngle: StartAngle.topRight,
+                                reverse: false,
+                                borderRadius: 12,
+                                shadowWidth: 1.5,
+                                progressWidth: 5,
+                                shadowColor: Colors.grey,
+                                progressColor:
+                                    Theme.of(context).colorScheme.surface,
+                                progress:
+                                    booksCtrl.downloadProgress[bookNumber] ?? 0,
+                              )
+                            : GestureDetector(
+                                child: Icon(
+                                  Icons.download,
+                                  size: 24,
+                                  color: Theme.of(context).colorScheme.primary,
+                                ),
+                                onTap: () async =>
+                                    await booksCtrl.downloadBook(bookNumber),
+                              ),
+                  ),
                 ),
               ),
             ],

@@ -18,7 +18,6 @@ import '/presentation/controllers/ayat_controller.dart';
 import '/presentation/controllers/azkar_controller.dart';
 import '/presentation/controllers/bookmarks_controller.dart';
 import '/presentation/controllers/general_controller.dart';
-import '/presentation/controllers/notifications_controller.dart';
 import '/presentation/controllers/playList_controller.dart';
 import '/presentation/controllers/settings_controller.dart';
 import '/presentation/controllers/share_controller.dart';
@@ -30,14 +29,10 @@ import '/presentation/screens/quran_page/data/data_source/ibnkatheer_data_client
 import '/presentation/screens/quran_page/data/data_source/qurtubi_data_client.dart';
 import '/presentation/screens/quran_page/data/data_source/saadi_data_client.dart';
 import '/presentation/screens/quran_page/data/data_source/tabari_data_client.dart';
-import '../../presentation/controllers/adhan_controller.dart';
 import '../../presentation/controllers/books_controller.dart';
 import '../../presentation/controllers/daily_ayah_controller.dart';
-import '../../presentation/controllers/home_widget_controller.dart';
 import '../../presentation/controllers/khatmah_controller.dart';
-import '../../presentation/controllers/notification_controller.dart';
 import '../../presentation/controllers/ourApps_controller.dart';
-import '../../presentation/controllers/prayer_progress_controller.dart';
 import '../../presentation/controllers/quran_controller.dart';
 import '../../presentation/controllers/splash_screen_controller.dart';
 import '../../presentation/controllers/theme_controller.dart';
@@ -130,10 +125,6 @@ class ServicesLocator {
     sl.registerSingleton<QuranController>(
         Get.put<QuranController>(QuranController(), permanent: true));
 
-    sl.registerLazySingleton<NotificationsController>(() =>
-        Get.put<NotificationsController>(NotificationsController(),
-            permanent: true));
-
     sl.registerLazySingleton<SurahAudioController>(() =>
         Get.put<SurahAudioController>(SurahAudioController(), permanent: true));
 
@@ -171,20 +162,6 @@ class ServicesLocator {
 
     sl.registerLazySingleton<DailyAyahController>(() =>
         Get.put<DailyAyahController>(DailyAyahController(), permanent: true));
-
-    sl.registerSingleton<AdhanController>(
-        Get.put<AdhanController>(AdhanController(), permanent: true));
-
-    sl.registerSingleton<NotificationController>(
-        Get.put<NotificationController>(NotificationController(),
-            permanent: true));
-
-    sl.registerLazySingleton<HomeWidgetController>(() =>
-        Get.put<HomeWidgetController>(HomeWidgetController(), permanent: true));
-
-    sl.registerLazySingleton<PrayerProgressController>(() =>
-        Get.put<PrayerProgressController>(PrayerProgressController(),
-            permanent: true));
 
     sl.registerLazySingleton<BooksController>(
         () => Get.put<BooksController>(BooksController(), permanent: true));

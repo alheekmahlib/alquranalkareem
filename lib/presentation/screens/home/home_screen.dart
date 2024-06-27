@@ -9,7 +9,6 @@ import '../../../core/widgets/tab_bar_widget.dart';
 import '../../controllers/theme_controller.dart';
 import 'widgets/daily_zeker.dart';
 import 'widgets/hijri_date.dart';
-import 'widgets/hijri_prayer_widget/prayer_progress_bar_widget.dart';
 import 'widgets/last_read.dart';
 import 'widgets/screens_list.dart';
 
@@ -30,6 +29,7 @@ class HomeScreen extends StatelessWidget {
                   const TabBarWidget(
                     isFirstChild: false,
                     isCenterChild: false,
+                    isQuranSetting: false,
                   ),
                   Flexible(
                     child: context.customOrientation(
@@ -38,7 +38,6 @@ class HomeScreen extends StatelessWidget {
                           children: [
                             HijriDate(),
                             const Gap(16),
-                            PrayerProgressBar(),
                             const ScreensList(),
                             const Gap(8),
                             const LastRead(),

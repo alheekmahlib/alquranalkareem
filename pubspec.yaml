@@ -155,7 +155,7 @@ flutter:
     - assets/ibnkatheerV2.sqlite
     - assets/qurtubiV2.db
     - assets/tabariV2.db
-    - assets/saadiV2.db
+    - assets/saadiV3.db
     - assets/app_icon.png
     - assets/json/azkar.json
 
