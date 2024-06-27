@@ -51,3 +51,4 @@ final String BOOK_NAME = 'BOOK_NAME';
 final String BOOK_NUMBER = 'BOOK_NUMBER';
 final String TOTAL_PAGES = 'TOTAL_PAGES';
 final String DOWNLOADED_BOOKS = 'downloaded_books';
+final String IS_TASHKIL = 'IS_TASHKIL';

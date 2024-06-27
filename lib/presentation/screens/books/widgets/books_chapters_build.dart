@@ -57,7 +57,7 @@ class BooksChapterBuild extends StatelessWidget {
                               .surface
                               .withOpacity(.1),
                           title: Text(
-                            'الجزء ${part.partNumber}',
+                            '${'part'.tr} ${part.partNumber}',
                             style: TextStyle(
                               fontSize: 18,
                               fontFamily: 'kufi',
@@ -70,49 +70,58 @@ class BooksChapterBuild extends StatelessWidget {
                               padding: const EdgeInsets.symmetric(
                                   horizontal: 16.0, vertical: 4.0),
                               child: GestureDetector(
-                                onTap: () async => await booksCtrl.moveToPage(
-                                    chapter, bookNumber),
-                                child: Container(
-                                    decoration: BoxDecoration(
-                                        color: Theme.of(context)
-                                            .colorScheme
-                                            .surface
-                                            .withOpacity(.6),
-                                        borderRadius: const BorderRadius.all(
-                                            Radius.circular(8))),
-                                    child: Row(
-                                      children: [
-                                        Expanded(
-                                          flex: 1,
-                                          child: Icon(
-                                            Icons.menu,
-                                            size: 20,
-                                            color: Theme.of(context)
-                                                .colorScheme
-                                                .secondary,
+                                onTap: () async =>
+                                    await booksCtrl.moveToBookPage(
+                                        chapter.chapterName, bookNumber),
+                                child: Opacity(
+                                  opacity:
+                                      booksCtrl.isBookDownloaded(bookNumber)
+                                          ? 1
+                                          : .5,
+                                  child: Container(
+                                      decoration: BoxDecoration(
+                                          color: Theme.of(context)
+                                              .colorScheme
+                                              .surface
+                                              .withOpacity(.6),
+                                          borderRadius: const BorderRadius.all(
+                                              Radius.circular(8))),
+                                      child: Row(
+                                        children: [
+                                          Expanded(
+                                            flex: 1,
+                                            child: Icon(
+                                              Icons.menu,
+                                              size: 20,
+                                              color: Theme.of(context)
+                                                  .colorScheme
+                                                  .secondary,
+                                            ),
                                           ),
-                                        ),
-                                        Expanded(
-                                            flex: 9,
-                                            child: Container(
-                                                padding:
-                                                    const EdgeInsets.symmetric(
-                                                        horizontal: 8.0,
-                                                        vertical: 4.0),
-                                                child: Text(
-                                                  chapter.chapterName,
-                                                  style: TextStyle(
-                                                    fontSize: 22.0,
-                                                    fontFamily: 'naskh',
-                                                    fontWeight: FontWeight.w500,
-                                                    color: Theme.of(context)
-                                                        .colorScheme
-                                                        .inversePrimary,
-                                                  ),
-                                                  textAlign: TextAlign.justify,
-                                                )))
-                                      ],
-                                    )),
+                                          Expanded(
+                                              flex: 9,
+                                              child: Container(
+                                                  padding: const EdgeInsets
+                                                      .symmetric(
+                                                      horizontal: 8.0,
+                                                      vertical: 4.0),
+                                                  child: Text(
+                                                    chapter.chapterName,
+                                                    style: TextStyle(
+                                                      fontSize: 22.0,
+                                                      fontFamily: 'naskh',
+                                                      fontWeight:
+                                                          FontWeight.w500,
+                                                      color: Theme.of(context)
+                                                          .colorScheme
+                                                          .inversePrimary,
+                                                    ),
+                                                    textAlign:
+                                                        TextAlign.justify,
+                                                  )))
+                                        ],
+                                      )),
+                                ),
                               ),
                             );
                           }).toList(),

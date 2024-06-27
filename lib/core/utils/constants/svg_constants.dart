@@ -757,6 +757,10 @@ class SvgPath {
   /// assets/svg/tafsir_icon.svg
   static const String svgTafsirIcon = "assets/svg/tafsir_icon.svg";
 
+  /// Assets for svgTashkil
+  /// assets/svg/tashkil.svg
+  static const String svgTashkil = "assets/svg/tashkil.svg";
+
   /// Assets for svgTheme0
   /// assets/svg/theme0.svg
   static const String svgTheme0 = "assets/svg/theme0.svg";

@@ -196,10 +196,8 @@ class QuranSurahList extends StatelessWidget {
                                         ],
                                       ),
                                     )),
-                                onTap: () {
-                                  quranCtrl.changeSurahListOnTap(
-                                      surah.ayahs.first.page);
-                                },
+                                onTap: () => quranCtrl.changeSurahListOnTap(
+                                    surah.ayahs.first.page),
                               ),
                               context.hDivider(
                                   color: Theme.of(context)

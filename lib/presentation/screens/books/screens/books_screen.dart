@@ -23,8 +23,11 @@ class BooksPage extends StatelessWidget {
         centerTitle: true,
         actions: [
           IconButton(
-              onPressed: () =>
-                  Get.bottomSheet(SearchScreen(), isScrollControlled: true),
+              onPressed: () => Get.bottomSheet(
+                  SearchScreen(
+                      onSubmitted: (value) => booksCtrl
+                          .searchBooks(booksCtrl.searchController.text)),
+                  isScrollControlled: true),
               icon: customSvgWithColor(SvgPath.svgSearchIcon,
                   color: Theme.of(context).canvasColor)),
         ],

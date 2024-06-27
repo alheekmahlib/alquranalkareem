@@ -9,20 +9,22 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:path_provider/path_provider.dart';
 
+import '/core/utils/constants/extensions/custom_error_snackBar.dart';
 import '../../core/utils/constants/shared_preferences_constants.dart';
 import '../screens/books/data/models/books_model.dart';
 import '../screens/books/data/models/chapter_model.dart';
 import '../screens/books/data/models/page_model.dart';
 import '../screens/books/data/models/part_model.dart';
 import '../screens/books/screens/read_view_screen.dart';
+import '../screens/quran_page/widgets/search/search_extensions/highlight_extension.dart';
 
 class BooksController extends GetxController {
   static BooksController get instance => Get.isRegistered<BooksController>()
       ? Get.find<BooksController>()
       : Get.put(BooksController());
 
+  /// -------- [Variables] ----------
   final box = GetStorage();
-
   var booksList = <Book>[].obs;
   var isLoading = true.obs;
   var downloading = <int, bool>{}.obs;
@@ -31,15 +33,21 @@ class BooksController extends GetxController {
   var searchResults = <PageContent>[].obs;
   RxBool isDownloaded = false.obs;
   final TextEditingController searchController = TextEditingController();
-  final PageController pageController = PageController(initialPage: 3);
+  PageController quranPageController = PageController();
+  RxInt currentPageNumber = 0.obs;
   Map<int, int> lastReadPage = {};
   Map<int, int> bookTotalPages = {};
+  RxBool isTashkil = true.obs;
 
-  /// Books getters----------
-  // int get currentPage => box.read(PAGE_NUMBER) ?? 0;
-  // String get bookName => '${box.read(BOOK_NAME) ?? ''}'.replaceAll('=', '');
-  // int get bookNumber => box.read(BOOK_NUMBER) ?? 0;
-  // double get pageProgress => (box.read(PAGE_NUMBER) / box.read(TOTAL_PAGES));
+  /// -------- [Getter] ----------
+
+  PageController get pageController {
+    return quranPageController =
+        PageController(initialPage: currentPageNumber.value, keepPage: true);
+  }
+
+  bool isBookDownloaded(int bookNumber) =>
+      downloaded[bookNumber] == true ? true : false;
 
   @override
   void onInit() {
@@ -47,7 +55,10 @@ class BooksController extends GetxController {
     fetchBooks().then((_) {
       _loadLastRead();
     });
+    _loadFromGetStorage();
   }
+
+  /// -------- [Methods] ----------
 
   Future<void> fetchBooks() async {
     try {
@@ -162,7 +173,7 @@ class BooksController extends GetxController {
     }
   }
 
-  void searchBooks(String query) async {
+  void searchBooks(String query, {int? bookNumber}) async {
     searchResults.clear();
     if (query.isEmpty) {
       return;
@@ -170,15 +181,52 @@ class BooksController extends GetxController {
 
     log('Starting search for: $query');
 
-    for (var book in booksList) {
+    String queryWithoutDiacritics = query.removeDiacritics(query);
+    List<String> queryWords = queryWithoutDiacritics.split(' ');
+
+    // إذا كان bookNumber موجودًا، ابحث في هذا الكتاب فقط، وإلا ابحث في جميع الكتب
+    List<Book> booksToSearch;
+    if (bookNumber != null) {
+      booksToSearch =
+          booksList.where((book) => book.bookNumber == bookNumber).toList();
+    } else {
+      booksToSearch = booksList;
+    }
+
+    for (var book in booksToSearch) {
       final pages = await getPages(book.bookNumber);
       for (var page in pages) {
-        var pageContent = PageContent.fromJson(
-            page as Map<String, dynamic>, book.bookName); // تمرير اسم الكتاب
-        if (pageContent.content.contains(query) ||
-            pageContent.title.contains(query)) {
-          log('Match found in book ${book.bookName}, page title: ${pageContent.title}');
-          searchResults.add(pageContent);
+        String contentWithoutDiacritics =
+            page.content.removeDiacritics(page.content);
+        String titleWithoutDiacritics = page.title.removeDiacritics(page.title);
+
+        if (queryWords.every((word) =>
+            contentWithoutDiacritics.contains(word) ||
+            titleWithoutDiacritics.contains(word))) {
+          log('Match found in book ${book.bookName}, page title: ${page.title}');
+
+          List<String> words = contentWithoutDiacritics.split(' ');
+          int queryIndex =
+              words.indexWhere((word) => word.contains(queryWords[0]));
+
+          if (queryIndex != -1) {
+            int start = (queryIndex - 5).clamp(0, words.length);
+            int end = (queryIndex + 5).clamp(0, words.length);
+
+            List<String> snippet = words.sublist(start, end);
+            String snippetText = snippet.join(' ');
+
+            PageContent snippetPage = PageContent(
+              title: page.title,
+              pageNumber: page.pageNumber,
+              content: snippetText,
+              footnotes: page.footnotes,
+              bookTitle: page.bookTitle,
+              bookNumber: book.bookNumber, // تأكد من إضافة رقم الكتاب هنا
+            );
+
+            searchResults.add(snippetPage);
+          }
         }
       }
     }
@@ -236,6 +284,7 @@ class BooksController extends GetxController {
     }
   }
 
+  /// -------- [Save & Load From GetStorage] --------
   void saveLastRead(
       int pageNumber, String bookName, int bookNumber, int totalPages) {
     lastReadPage[bookNumber] = pageNumber;
@@ -263,11 +312,36 @@ class BooksController extends GetxController {
     }
   }
 
+  void _loadFromGetStorage() {
+    isTashkil.value = box.read(IS_TASHKIL) ?? true;
+  }
+
   /// -------- [onTap] --------
-  Future<void> moveToPage(Chapter chapter, int bookNumber) async {
-    int initialPage =
-        await getChapterStartPage(bookNumber, chapter.chapterName);
-    log('Initial page for chapter ${chapter.chapterName}: $initialPage');
-    Get.to(() => PagesPage(bookNumber: bookNumber, initialPage: initialPage));
+  Future<void> moveToBookPage(String chapterName, int bookNumber) async {
+    if (isBookDownloaded(bookNumber)) {
+      int initialPage = await getChapterStartPage(bookNumber, chapterName);
+      currentPageNumber.value = initialPage;
+      log('Initial page for chapter $chapterName: $initialPage');
+      Get.to(() => PagesPage(bookNumber: bookNumber));
+    } else {
+      Get.context!.showCustomErrorSnackBar('downloadBookFirst'.tr);
+    }
+  }
+
+  Future<void> moveToPage(String chapterName, int bookNumber) async {
+    if (isBookDownloaded(bookNumber)) {
+      int initialPage = await getChapterStartPage(bookNumber, chapterName);
+      currentPageNumber.value = initialPage;
+      log('Initial page for chapter $chapterName: $initialPage');
+      quranPageController.animateToPage(initialPage,
+          duration: const Duration(milliseconds: 400), curve: Curves.easeInOut);
+    } else {
+      Get.context!.showCustomErrorSnackBar('downloadBookFirst'.tr);
+    }
+  }
+
+  void isTashkilOnTap() {
+    isTashkil.value = !isTashkil.value;
+    box.write(IS_TASHKIL, isTashkil.value);
   }
 }

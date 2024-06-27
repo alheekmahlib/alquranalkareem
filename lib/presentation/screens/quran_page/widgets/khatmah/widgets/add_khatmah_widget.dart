@@ -133,16 +133,7 @@ class AddKhatmahWidget extends StatelessWidget {
                 child: RotatedBox(
                   quarterTurns: 3,
                   child: GestureDetector(
-                    onTap: () {
-                      String name = khatmahCtrl.nameController.text;
-                      int days =
-                          int.tryParse(khatmahCtrl.daysController.text) ?? 30;
-                      khatmahCtrl.addKhatmah(
-                          name: name,
-                          daysCount: days,
-                          isTahzibSahabah: khatmahCtrl.isTahzibSahabah.value,
-                          color: khatmahCtrl.screenPickerColor.value);
-                    },
+                    onTap: () => khatmahCtrl.addKhatmahOnTap(),
                     child: Container(
                       width: 110,
                       padding: const EdgeInsets.symmetric(

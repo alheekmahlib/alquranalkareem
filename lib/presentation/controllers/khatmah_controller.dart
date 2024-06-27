@@ -9,6 +9,7 @@ class KhatmahController extends GetxController {
       ? Get.find<KhatmahController>()
       : Get.put(KhatmahController());
 
+  /// -------- [Variables] ----------
   final db = KhatmahDatabase();
   final RxList<Khatmah> khatmas = <Khatmah>[].obs;
   final int totalPages = 604;
@@ -151,16 +152,6 @@ class KhatmahController extends GetxController {
     }
   }
 
-  void deleteKhatmah(int id) async {
-    try {
-      await db.deleteKhatmahDaysByKhatmahId(id);
-      await db.deleteKhatmaById(id);
-      khatmas.removeWhere((k) => k.id == id);
-    } catch (e) {
-      print("Error deleting Khatmah: $e");
-    }
-  }
-
   int getTahzibSahabahPageForDay(int day) {
     const pages = [
       1,
@@ -185,12 +176,33 @@ class KhatmahController extends GetxController {
     return pages[day - 1];
   }
 
+  /// -------- [OnTap] ----------
   void isTahzibSahabahOnTap() {
     isTahzibSahabah.value = !isTahzibSahabah.value;
     if (isTahzibSahabah.value) {
       daysController.text = '7';
     } else {
       daysController.clear();
+    }
+  }
+
+  void addKhatmahOnTap() {
+    String name = nameController.text;
+    int days = int.tryParse(daysController.text) ?? 30;
+    addKhatmah(
+        name: name,
+        daysCount: days,
+        isTahzibSahabah: isTahzibSahabah.value,
+        color: screenPickerColor.value);
+  }
+
+  void deleteKhatmahOnTap(int id) async {
+    try {
+      await db.deleteKhatmahDaysByKhatmahId(id);
+      await db.deleteKhatmaById(id);
+      khatmas.removeWhere((k) => k.id == id);
+    } catch (e) {
+      print("Error deleting Khatmah: $e");
     }
   }
 }

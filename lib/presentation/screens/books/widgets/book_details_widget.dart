@@ -83,7 +83,6 @@ class BookDetails extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: 16.0),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Stack(
                 alignment: Alignment.center,
@@ -111,14 +110,14 @@ class BookDetails extends StatelessWidget {
                 ],
               ),
               Align(
-                alignment: AlignmentDirectional.bottomEnd,
+                alignment: Alignment.center,
                 child: Obx(
-                  () => booksCtrl.downloaded[bookNumber] == true
+                  () => booksCtrl.isBookDownloaded(bookNumber)
                       ? GestureDetector(
                           child: Icon(
                             Icons.delete,
-                            size: 24,
-                            color: Colors.red,
+                            size: 28,
+                            color: Theme.of(context).colorScheme.surface,
                           ),
                           onTap: () async =>
                               await booksCtrl.deleteBook(bookNumber),

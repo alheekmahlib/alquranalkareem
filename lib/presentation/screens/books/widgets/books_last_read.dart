@@ -54,9 +54,11 @@ class BooksLastRead extends StatelessWidget {
                         var progress = currentPage / totalPages;
 
                         return GestureDetector(
-                          onTap: () => Get.to(() => PagesPage(
-                              bookNumber: book.bookNumber,
-                              initialPage: currentPage)),
+                          onTap: () {
+                            bookCtrl.currentPageNumber.value = currentPage - 1;
+                            Get.to(
+                                () => PagesPage(bookNumber: book.bookNumber));
+                          },
                           child: Container(
                             margin: const EdgeInsets.symmetric(horizontal: 8.0),
                             width: 70,

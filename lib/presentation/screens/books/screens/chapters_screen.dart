@@ -23,12 +23,19 @@ class ChaptersPage extends StatelessWidget {
       backgroundColor: Theme.of(context).colorScheme.primaryContainer,
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.primary,
-        title: Text('الكتب'),
+        title: Text(
+          'books'.tr,
+        ),
         centerTitle: true,
         actions: [
           IconButton(
-              onPressed: () =>
-                  Get.bottomSheet(SearchScreen(), isScrollControlled: true),
+              onPressed: () => Get.bottomSheet(
+                  SearchScreen(
+                    onSubmitted: (v) => booksCtrl.searchBooks(
+                        booksCtrl.searchController.text,
+                        bookNumber: bookNumber),
+                  ),
+                  isScrollControlled: true),
               icon: customSvgWithColor(SvgPath.svgSearchIcon,
                   color: Theme.of(context).canvasColor)),
         ],
