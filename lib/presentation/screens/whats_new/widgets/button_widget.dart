@@ -5,7 +5,7 @@ import 'package:get_storage/get_storage.dart';
 import '../../../../core/utils/constants/shared_preferences_constants.dart';
 import '../../../../core/widgets/container_button.dart';
 import '../../../controllers/general_controller.dart';
-import '../../../controllers/splash_screen_controller.dart';
+import '../../../controllers/whats_new_controller.dart';
 import '../../screen_type.dart';
 
 class ButtonWidget extends StatelessWidget {
@@ -15,13 +15,13 @@ class ButtonWidget extends StatelessWidget {
   ButtonWidget(
       {super.key, required this.controller, required this.newFeatures});
 
-  final splashCtrl = SplashScreenController.instance;
+  final whatsNewCtrl = WhatsNewController.instance;
   final generalCtrl = GeneralController.instance;
 
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.sizeOf(context);
-    splashCtrl.currentPageIndex.value = controller.page?.toInt() ?? 0;
+    whatsNewCtrl.currentPageIndex.value = controller.page?.toInt() ?? 0;
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 32.0, vertical: 8.0),
       child: Obx(() {
@@ -30,21 +30,22 @@ class ButtonWidget extends StatelessWidget {
             height: 40,
             width: size.width,
             child: Center(
-              child: splashCtrl.currentPageIndex.value == newFeatures.length - 1
-                  ? Text('start'.tr,
-                      style: TextStyle(
-                          fontFamily: 'kufi',
-                          fontSize: 18,
-                          color: Theme.of(context).canvasColor))
-                  : const Icon(
-                      Icons.arrow_forward,
-                      color: Color(0xfff3efdf),
-                    ),
+              child:
+                  whatsNewCtrl.currentPageIndex.value == newFeatures.length - 1
+                      ? Text('start'.tr,
+                          style: TextStyle(
+                              fontFamily: 'kufi',
+                              fontSize: 18,
+                              color: Theme.of(context).canvasColor))
+                      : const Icon(
+                          Icons.arrow_forward,
+                          color: Color(0xfff3efdf),
+                        ),
             ),
           ),
           onTap: () async {
-            if (splashCtrl.currentPageIndex.value == newFeatures.length - 1) {
-              splashCtrl.saveLastShownIndex(newFeatures.last['index']);
+            if (whatsNewCtrl.currentPageIndex.value == newFeatures.length - 1) {
+              whatsNewCtrl.saveLastShownIndex(newFeatures.last['index']);
               GetStorage().read(IS_SCREEN_SELECTED_VALUE) == true
                   ? Get.off(() => ScreenTypeL())
                   : generalCtrl.showSelectScreenPage.value = true;

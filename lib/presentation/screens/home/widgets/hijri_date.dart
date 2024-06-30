@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 
 import '/core/utils/constants/extensions/convert_number_extension.dart';
 import '/core/widgets/container_button.dart';
+import '../../../controllers/count_down_controller.dart';
 import '../../../controllers/general_controller.dart';
 import 'occasions.dart';
 
@@ -12,6 +13,7 @@ class HijriDate extends StatelessWidget {
   HijriDate({super.key});
 
   final generalCtrl = GeneralController.instance;
+  final countdownCtrl = CountdownController.instance;
 
   @override
   Widget build(BuildContext context) {
@@ -160,7 +162,7 @@ class HijriDate extends StatelessWidget {
                                 child: FittedBox(
                                   fit: BoxFit.scaleDown,
                                   child: Text(
-                                    '${generalCtrl.today.lengthOfMonth - generalCtrl.today.hDay} ${'${generalCtrl.daysArabicConvert(generalCtrl.today.lengthOfMonth - generalCtrl.today.hDay)}'.tr}',
+                                    '${generalCtrl.today.lengthOfMonth - generalCtrl.today.hDay} ${'${countdownCtrl.daysArabicConvert(generalCtrl.today.lengthOfMonth - generalCtrl.today.hDay)}'.tr}',
                                     style: TextStyle(
                                       fontSize: 14.0,
                                       fontFamily: 'kufi',

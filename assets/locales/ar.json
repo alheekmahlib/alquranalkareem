@@ -754,61 +754,6 @@
     "type": "text",
     "placeholders": {}
   },
-  "What'sNewTitle": "واجهة جديدة وسهلة الإستخدام:",
-  "@What'sNewTitle": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "What'sNewDetails": "تم تصميم التطبيق بواجهة مستخدم عصرية وبديهية تسهل على المستخدمين التنقل والوصول إلى المزايا المختلفة.",
-  "@What'sNewDetails": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "What'sNewTitle2": "تحديد الآيات:",
-  "@What'sNewTitle2": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "What'sNewDetails2": "الضغط مطولًا على الآية لإظهار:\n\n۞ تفسير الآية أو ترجمتها.\n۞ الإستماع للآية.\n۞ إضافة الآية لشارة المرجعية.\n۞ نسخ الآية.\n۞ مشاركة الآية كنص أو كصورة.",
-  "@What'sNewDetails2": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "What'sNewTitle3": "خاصية البحث النصي:",
-  "@What'sNewTitle3": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "What'sNewDetails3": "يحتوي التطبيق على ميزة البحث الفوري في آيات القرآن، مع إمكانية الانتقال مباشرة إلى الصفحة أو السورة المطلوبة.",
-  "@What'sNewDetails3": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "What'sNewTitle4": "تفسير وترجمة الآيات:",
-  "@What'sNewTitle4": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "What'sNewDetails4": "يمكن للمستخدمين الوصول إلى التفسير أو الترجمة لكل آية، والتغيير بين التفاسير بحسب الرغبة.",
-  "@What'sNewDetails4": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "What'sNewTitle5": "إضافة المزيد من القراء:",
-  "@What'sNewTitle5": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "What'sNewDetails6": "۞ إضافة الأحزاب للصفحات\n۞ إضافة السجدة للصفحات",
-  "@What'sNewDetails6": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "What'sNewDetails7": "۞ تكبير وتصغير الخط",
-  "@What'sNewDetails7": {
-    "type": "text",
-    "placeholders": {}
-  },
   "ourApps": "تطبيقاتنا",
   "@ourApps": {
     "type": "text",
@@ -979,18 +924,8 @@
     "type": "text",
     "placeholders": {}
   },
-  "What'sNewDetails8": "كل يوم آية جديدة مع تفسيرها",
-  "@What'sNewDetails8": {
-    "type": "text",
-    "placeholders": {}
-  },
   "What'sNewDetails9": "مواعيد المناسبات الإسلامية",
   "@What'sNewDetails9": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "What'sNewTitle8": "آية وتفسيرها",
-  "@What'sNewTitle8": {
     "type": "text",
     "placeholders": {}
   },

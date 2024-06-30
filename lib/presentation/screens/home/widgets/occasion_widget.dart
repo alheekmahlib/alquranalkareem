@@ -2,59 +2,50 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '/core/utils/constants/extensions/convert_number_extension.dart';
+import '../../../controllers/count_down_controller.dart';
 import '../../../controllers/general_controller.dart';
 
 class OccasionWidget extends StatelessWidget {
   final String name;
+  final int year;
   final int month;
   final int day;
   OccasionWidget(
-      {super.key, required this.month, required this.day, required this.name});
+      {super.key,
+      required this.month,
+      required this.day,
+      required this.name,
+      required this.year});
 
   final generalCtrl = GeneralController.instance;
+  final countdownCtrl = CountdownController.instance;
 
   @override
   Widget build(BuildContext context) {
-    int daysUntilEvent = generalCtrl.calculateDaysUntilSpecificDate(
-        generalCtrl.today.hYear, month, day);
+    int daysRemaining = countdownCtrl.calculate(year + 1, month, day);
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 32.0),
       child: Container(
-        height: 70,
+        height: 50,
         width: 380,
+        padding: const EdgeInsets.all(4),
         decoration: BoxDecoration(
-            color: Theme.of(context).canvasColor,
-            borderRadius: const BorderRadius.all(Radius.circular(8.0))),
+            borderRadius: const BorderRadius.all(Radius.circular(8.0)),
+            border: Border.all(
+              width: 1,
+              color: Theme.of(context).canvasColor.withOpacity(.5),
+            )),
         child: Stack(
           alignment: Alignment.centerRight,
           children: [
             LinearProgressIndicator(
-              minHeight: 70,
+              minHeight: 50,
               borderRadius: const BorderRadius.all(Radius.circular(4)),
-              value: generalCtrl.calculate(
-                generalCtrl.today.hYear,
-                generalCtrl.today.hMonth,
-                generalCtrl.today.hDay,
-              ),
+              value: (1.0 - (daysRemaining / 1000))
+                  .clamp(0.0, 1.0), //(daysRemaining / 1000).toDouble(),
               backgroundColor: Theme.of(context).canvasColor,
               color: Theme.of(context).colorScheme.surface,
             ),
-            // Container(
-            //   height: 70,
-            //   width: generalCtrl
-            //       .calculate(
-            //         generalCtrl.today.hYear,
-            //         generalCtrl.today.hMonth,
-            //         generalCtrl.today.hDay,
-            //       )
-            //       .toDouble(),
-            //   padding: const EdgeInsets.symmetric(horizontal: 8.0),
-            //   decoration: BoxDecoration(
-            //       color: generalCtrl.today.hMonth == month
-            //           ? const Color(0xffa22c08).withOpacity(.5)
-            //           : Theme.of(context).colorScheme.surface.withOpacity(.5),
-            //       borderRadius: const BorderRadius.all(Radius.circular(8.0))),
-            // ),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 8.0),
               child: Row(
@@ -64,9 +55,10 @@ class OccasionWidget extends StatelessWidget {
                     child: FittedBox(
                       fit: BoxFit.scaleDown,
                       child: Text(
-                        generalCtrl.today.hMonth == month
-                            ? '${'RemainsUntilTheEndOf'.tr}\n$name'
-                            : name,
+                        // generalCtrl.today.hMonth == month
+                        //     ? '${'RemainsUntilTheEndOf'.tr}\n$name'
+                        //     :
+                        name,
                         style: TextStyle(
                           fontSize: 18.0,
                           fontFamily: 'kufi',
@@ -81,124 +73,10 @@ class OccasionWidget extends StatelessWidget {
                     child: FittedBox(
                       fit: BoxFit.scaleDown,
                       child: Text(
-                        generalCtrl.today.hMonth == month
-                            ? '${(generalCtrl.today.lengthOfMonth - generalCtrl.today.hDay).toString().convertNumbers()}\n${'${generalCtrl.daysArabicConvert(generalCtrl.today.lengthOfMonth - generalCtrl.today.hDay)}'.tr}'
-                            : '${daysUntilEvent.toString().convertNumbers()}\n${'${generalCtrl.daysArabicConvert(generalCtrl.today.lengthOfMonth - generalCtrl.today.hDay)}'.tr}',
+                        '${daysRemaining.toString().convertNumbers()} ${'${countdownCtrl.daysArabicConvert(daysRemaining)}'.tr}',
                         style: TextStyle(
                           fontSize: 16.0,
                           fontFamily: 'kufi',
-                          fontWeight: FontWeight.bold,
-                          color: Theme.of(context).colorScheme.inversePrimary,
-                        ),
-                        textAlign: TextAlign.center,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-class OccasionNextWidget extends StatelessWidget {
-  final String name;
-  final int month;
-  final int day;
-  OccasionNextWidget(
-      {super.key, required this.month, required this.day, required this.name});
-
-  final generalCtrl = GeneralController.instance;
-
-  @override
-  Widget build(BuildContext context) {
-    int daysUntilEvent = generalCtrl.calculateDaysUntilSpecificDate(
-        generalCtrl.today.hYear + 1, month, day);
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 32.0),
-      child: Container(
-        height: 70,
-        width: 380,
-        decoration: BoxDecoration(
-            color: Theme.of(context).canvasColor,
-            borderRadius: const BorderRadius.all(Radius.circular(8.0))),
-        child: Stack(
-          alignment: Alignment.centerRight,
-          children: [
-            LinearProgressIndicator(
-              minHeight: 70,
-              borderRadius: const BorderRadius.all(Radius.circular(4)),
-              value: generalCtrl.calculate(
-                generalCtrl.today.hYear + 1,
-                generalCtrl.today.hMonth,
-                generalCtrl.today.hDay,
-              ),
-              backgroundColor: Theme.of(context).canvasColor,
-              color: Theme.of(context).colorScheme.surface,
-            ),
-            Container(
-              height: 70,
-              width: generalCtrl.calculateProgress2(
-                  generalCtrl.today.hDay,
-                  generalCtrl.today.hYear + 1 != generalCtrl.today.hYear
-                      ? daysUntilEvent
-                      : generalCtrl.today.hMonth == month
-                          ? generalCtrl.today.lengthOfMonth -
-                              generalCtrl.today.hDay
-                          : daysUntilEvent,
-                  380),
-              padding: const EdgeInsets.symmetric(horizontal: 8.0),
-              decoration: BoxDecoration(
-                  color: generalCtrl.today.hYear + 1 != generalCtrl.today.hYear
-                      ? Theme.of(context).colorScheme.surface.withOpacity(.5)
-                      : generalCtrl.today.hMonth == month
-                          ? const Color(0xffa22c08).withOpacity(.5)
-                          : Theme.of(context)
-                              .colorScheme
-                              .surface
-                              .withOpacity(.5),
-                  borderRadius: const BorderRadius.all(Radius.circular(8.0))),
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 8.0),
-              child: Row(
-                children: [
-                  Expanded(
-                    flex: 7,
-                    child: FittedBox(
-                      fit: BoxFit.scaleDown,
-                      child: Text(
-                        generalCtrl.today.hYear + 1 != generalCtrl.today.hYear
-                            ? name
-                            : generalCtrl.today.hMonth == month
-                                ? '${'RemainsUntilTheEndOf'.tr}\n$name'
-                                : name,
-                        style: TextStyle(
-                          fontSize: 18.0,
-                          fontFamily: 'kufi',
-                          color: Theme.of(context).colorScheme.inversePrimary,
-                        ),
-                        textAlign: TextAlign.center,
-                      ),
-                    ),
-                  ),
-                  Expanded(
-                    flex: 3,
-                    child: FittedBox(
-                      fit: BoxFit.scaleDown,
-                      child: Text(
-                        generalCtrl.today.hYear + 1 != generalCtrl.today.hYear
-                            ? '${daysUntilEvent.toString().convertNumbers()}\n${'${generalCtrl.daysArabicConvert(generalCtrl.today.hDay)}'.tr}'
-                            : generalCtrl.today.hMonth == month
-                                ? '${(generalCtrl.today.lengthOfMonth - generalCtrl.today.hDay).toString().convertNumbers()}\n${'${generalCtrl.daysArabicConvert(generalCtrl.today.hDay)}'.tr}'
-                                : '${daysUntilEvent.toString().convertNumbers()}\n${'${generalCtrl.daysArabicConvert(generalCtrl.today.hDay)}'.tr}',
-                        style: TextStyle(
-                          fontSize: 16.0,
-                          fontFamily: 'kufi',
-                          fontWeight: FontWeight.bold,
                           color: Theme.of(context).colorScheme.inversePrimary,
                         ),
                         textAlign: TextAlign.center,

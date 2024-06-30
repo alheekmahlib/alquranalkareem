@@ -24,7 +24,7 @@ class ChaptersPage extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.primary,
         title: Text(
-          'books'.tr,
+          'tafsirLibrary'.tr,
         ),
         centerTitle: true,
         actions: [

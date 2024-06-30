@@ -768,46 +768,6 @@
     "type": "text",
     "placeholders": {}
   },
-  "What'sNewDetails": "La aplicación ha sido diseñada con una interfaz de usuario moderna e intuitiva que facilita a los usuarios la navegación y el acceso a diferentes características.",
-  "@What'sNewDetails": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "What'sNewTitle2": "Selección de versículos:",
-  "@What'sNewTitle2": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "What'sNewDetails2": "Mantén presionado el versículo para mostrar:\n\n۞ Interpretación o traducción del versículo.\n۞ Escuchar el versículo.\n۞ Añadir el versículo a los marcadores.\n۞ Copiar el versículo.\n۞ Compartir el versículo como texto o imagen.",
-  "@What'sNewDetails2": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "What'sNewTitle3": "Característica de búsqueda textual:",
-  "@What'sNewTitle3": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "What'sNewDetails3": "La aplicación contiene una función de búsqueda instantánea en los versículos del Corán, con la capacidad de moverse directamente a la página o Surah deseada.",
-  "@What'sNewDetails3": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "What'sNewTitle4": "Interpretación y traducción de versículos:",
-  "@What'sNewTitle4": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "What'sNewDetails4": "Los usuarios pueden acceder a la interpretación o traducción de cada versículo, y cambiar entre interpretaciones según lo deseen.",
-  "@What'sNewDetails4": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "What'sNewTitle5": "Añadiendo más recitadores:",
-  "@What'sNewTitle5": {
-    "type": "text",
-    "placeholders": {}
-  },
   "ourApps": "Nuestras Aplicaciones",
   "@ourApps": {
     "type": "text",
@@ -835,16 +795,6 @@
   },
   "darkMode": "Oscuro",
   "@darkMode": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "What'sNewDetails6": "۞ Añadir Juz' a las páginas\n۞ Añadir Sajdah a las páginas",
-  "@What'sNewDetails6": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "What'sNewDetails7": "۞ Aumentar y disminuir el tamaño de la fuente.",
-  "@What'sNewDetails7": {
     "type": "text",
     "placeholders": {}
   },
@@ -968,18 +918,8 @@
     "type": "text",
     "placeholders": {}
   },
-  "What'sNewDetails8": "Un nuevo verso cada día con su interpretación",
-  "@What'sNewDetails8": {
-    "type": "text",
-    "placeholders": {}
-  },
   "What'sNewDetails9": "Fechas de las ocasiones islámicas",
   "@What'sNewDetails9": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "What'sNewTitle8": "Un verso y su interpretación",
-  "@What'sNewTitle8": {
     "type": "text",
     "placeholders": {}
   },

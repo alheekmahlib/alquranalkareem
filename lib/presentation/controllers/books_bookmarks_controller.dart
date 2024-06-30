@@ -80,14 +80,14 @@ class BooksBookmarksController extends GetxController {
   }
 
   /// --------[OnTap]---------
-  void addBookmarkOnTap(
-      int bookNumber, int index, PageContent page, int pageNumber) {
+  void addBookmarkOnTap(int bookNumber, int index, PageContent page) {
     if (isPageBookmarked(bookNumber, page.pageNumber)) {
-      deleteBookmark(bookNumber, pageNumber);
+      deleteBookmark(bookNumber, page.pageNumber).then(
+          (_) => Get.context!.showCustomErrorSnackBar('deletedBookmark'.tr));
     } else {
-      addBookmark(
-          booksCtrl.booksList[bookNumber - 1].bookName, bookNumber, index + 1);
-      Get.context!.showCustomErrorSnackBar('addBookmark'.tr);
+      addBookmark(booksCtrl.booksList[bookNumber - 1].bookName, bookNumber,
+              index + 1)
+          .then((_) => Get.context!.showCustomErrorSnackBar('addBookmark'.tr));
     }
   }
 }
