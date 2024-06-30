@@ -760,46 +760,6 @@
     "type": "text",
     "placeholders": {}
   },
-  "What'sNewDetails": "The app has been designed with a modern and intuitive user interface that makes it easy for users to navigate and access different features.",
-  "@What'sNewDetails": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "What'sNewTitle2": "Verse selection:",
-  "@What'sNewTitle2": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "What'sNewDetails2": "Long press on the verse to show:\n\n۞ Interpretation or translation of the verse.\n۞ Listen to the verse.\n۞ Add the verse to the bookmark.\n۞ Copy the verse.\n۞ Share the verse as text or image.",
-  "@What'sNewDetails2": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "What'sNewTitle3": "Textual search feature:",
-  "@What'sNewTitle3": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "What'sNewDetails3": "The app contains an instant search feature in the Quranic verses, with the ability to directly move to the desired page or Surah.",
-  "@What'sNewDetails3": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "What'sNewTitle4": "Interpretation and translation of verses:",
-  "@What'sNewTitle4": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "What'sNewDetails4": "Users can access the interpretation or translation of each verse, and switch between interpretations as desired.",
-  "@What'sNewDetails4": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "What'sNewTitle5": "Adding more reciters:",
-  "@What'sNewTitle5": {
-    "type": "text",
-    "placeholders": {}
-  },
   "ourApps": "Our Apps",
   "@ourApps": {
     "type": "text",
@@ -827,16 +787,6 @@
   },
   "darkMode": "Dark",
   "@darkMode": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "What'sNewDetails6": "۞ Adding Juz' to the pages\n۞ Adding Sajdah to the pages",
-  "@What'sNewDetails6": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "What'sNewDetails7": "۞ Zoom in and zoom out the font.",
-  "@What'sNewDetails7": {
     "type": "text",
     "placeholders": {}
   },
@@ -980,18 +930,8 @@
     "type": "text",
     "placeholders": {}
   },
-  "What'sNewDetails8": "A new verse every day with its interpretation",
-  "@What'sNewDetails8": {
-    "type": "text",
-    "placeholders": {}
-  },
   "What'sNewDetails9": "Dates of Islamic occasions",
   "@What'sNewDetails9": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "What'sNewTitle8": "A verse and its interpretation",
-  "@What'sNewTitle8": {
     "type": "text",
     "placeholders": {}
   },

@@ -116,7 +116,7 @@ class BooksTopTitleWidget extends StatelessWidget {
             builder: (booksBookmarksCtrl) {
               return GestureDetector(
                 onTap: () => booksBookmarksCtrl.addBookmarkOnTap(
-                    bookNumber, index, page, page.pageNumber),
+                    bookNumber, index, page),
                 child: Stack(
                   alignment: Alignment.center,
                   children: [

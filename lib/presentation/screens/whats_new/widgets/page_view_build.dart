@@ -4,7 +4,7 @@ import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 
 import '/core/utils/constants/extensions/extensions.dart';
-import '../../../controllers/splash_screen_controller.dart';
+import '../../../controllers/whats_new_controller.dart';
 
 class PageViewBuild extends StatelessWidget {
   final PageController controller;
@@ -12,7 +12,7 @@ class PageViewBuild extends StatelessWidget {
   PageViewBuild(
       {super.key, required this.controller, required this.newFeatures});
 
-  final splashCtrl = SplashScreenController.instance;
+  final whatsNewCtrl = WhatsNewController.instance;
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.sizeOf(context);
@@ -21,8 +21,8 @@ class PageViewBuild extends StatelessWidget {
           controller: controller,
           itemCount: newFeatures.length,
           onPageChanged: (page) {
-            splashCtrl.onboardingPageNumber.value = page;
-            splashCtrl.currentPageIndex.value = page;
+            whatsNewCtrl.onboardingPageNumber.value = page;
+            whatsNewCtrl.currentPageIndex.value = page;
           },
           itemBuilder: (context, index) {
             // splashCtrl.onboardingPageNumber.value =

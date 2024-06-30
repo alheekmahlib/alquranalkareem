@@ -19,59 +19,58 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetBuilder<ThemeController>(builder: (_) {
       return ScreenUtilInit(
-        child: Scaffold(
-          backgroundColor: Theme.of(context).colorScheme.primary,
-          body: SafeArea(
-            child: Container(
-              color: Theme.of(context).colorScheme.primaryContainer,
-              child: Column(
-                children: [
-                  const TabBarWidget(
-                    isFirstChild: false,
-                    isCenterChild: false,
-                    isQuranSetting: false,
-                  ),
-                  Flexible(
-                    child: context.customOrientation(
-                        ListView(
-                          padding: EdgeInsets.zero,
-                          children: [
-                            HijriDate(),
-                            const Gap(16),
-                            const ScreensList(),
-                            const Gap(8),
-                            const LastRead(),
-                            AyahWidget(),
-                            const Gap(16),
-                            DailyZeker(),
-                            const Gap(16),
-                          ],
-                        ),
-                        ListView(
-                          padding: EdgeInsets.zero,
-                          children: [
-                            const Gap(8),
-                            Row(
-                              children: [
-                                Expanded(flex: 4, child: HijriDate()),
-                                const Expanded(flex: 4, child: ScreensList()),
-                              ],
-                            ),
-                            const Gap(8),
-                            const LastRead(),
-                            AyahWidget(),
-                            const Gap(16),
-                            DailyZeker(),
-                            const Gap(16),
-                          ],
-                        )),
-                  ),
-                ],
-              ),
+          child: Scaffold(
+        backgroundColor: Theme.of(context).colorScheme.primary,
+        body: SafeArea(
+          child: Container(
+            color: Theme.of(context).colorScheme.primaryContainer,
+            child: Column(
+              children: [
+                const TabBarWidget(
+                  isFirstChild: false,
+                  isCenterChild: false,
+                  isQuranSetting: false,
+                ),
+                Flexible(
+                  child: context.customOrientation(
+                      ListView(
+                        padding: EdgeInsets.zero,
+                        children: [
+                          HijriDate(),
+                          const Gap(16),
+                          const ScreensList(),
+                          const Gap(8),
+                          LastRead(),
+                          AyahWidget(),
+                          const Gap(16),
+                          DailyZeker(),
+                          const Gap(16),
+                        ],
+                      ),
+                      ListView(
+                        padding: EdgeInsets.zero,
+                        children: [
+                          const Gap(8),
+                          Row(
+                            children: [
+                              Expanded(flex: 4, child: HijriDate()),
+                              const Expanded(flex: 4, child: ScreensList()),
+                            ],
+                          ),
+                          const Gap(8),
+                          LastRead(),
+                          AyahWidget(),
+                          const Gap(16),
+                          DailyZeker(),
+                          const Gap(16),
+                        ],
+                      )),
+                ),
+              ],
             ),
           ),
         ),
-      );
+      ));
     });
   }
 }

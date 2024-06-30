@@ -8,17 +8,20 @@ import '/core/utils/constants/extensions/convert_number_extension.dart';
 import '/core/utils/constants/extensions/extensions.dart';
 import '/core/utils/constants/lottie.dart';
 import '/core/utils/constants/lottie_constants.dart';
+import '../../../controllers/count_down_controller.dart';
 import '../../../controllers/general_controller.dart';
 import '../../../controllers/quran_controller.dart';
 import '../../quran_page/screens/quran_home.dart';
 
 class LastRead extends StatelessWidget {
-  const LastRead({super.key});
+  LastRead({super.key});
+
+  final countdownCtrl = CountdownController.instance;
+  final generalCtrl = GeneralController.instance;
+  final quranCtrl = QuranController.instance;
 
   @override
   Widget build(BuildContext context) {
-    final generalCtrl = GeneralController.instance;
-    final quranCtrl = QuranController.instance;
     return GestureDetector(
       onTap: () {
         Get.to(() => QuranHome(), transition: Transition.downToUp)!.then(
@@ -71,7 +74,7 @@ class LastRead extends StatelessWidget {
                     // ),
                     Container(
                       height: 70,
-                      width: generalCtrl.calculateProgress(
+                      width: countdownCtrl.calculateProgress(
                           generalCtrl.currentPageNumber.value, 604),
                       padding: const EdgeInsets.symmetric(horizontal: 8.0),
                       decoration: BoxDecoration(

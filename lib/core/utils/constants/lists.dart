@@ -362,55 +362,6 @@ const List ayahReaderInfo = [
 
 List<Map<String, dynamic>> whatsNewList = [
   {
-    'index': 1,
-    'title': "What'sNewTitle",
-    'details': "What'sNewDetails",
-    'imagePath': 'assets/images/allScreens.png',
-  },
-  {
-    'index': 2,
-    'title': "What'sNewTitle2",
-    'details': "What'sNewDetails2",
-    'imagePath': 'assets/images/ayahSelect.png',
-  },
-  {
-    'index': 3,
-    'title': "What'sNewTitle3",
-    'details': "What'sNewDetails3",
-    'imagePath': 'assets/images/ayahSearch.png',
-  },
-  {
-    'index': 4,
-    'title': "What'sNewTitle4",
-    'details': "What'sNewDetails4",
-    'imagePath': 'assets/images/ayahTranslate.png',
-  },
-  {
-    'index': 11,
-    'title': "What'sNewTitle5",
-    'details':
-        "${'ayahs'.tr}:\n\n◉ ${'reader4'.tr}\n◉ ${'reader5'.tr}\n◉ ${'reader6'.tr}\n◉ ${'reader15'.tr}\n◉ ${'reader16'.tr}\n\n${'quran_sorah'.tr}:\n\n◉ ${'reader7'.tr}\n◉ ${'reader8'.tr}\n◉ ${'reader9'.tr}\n◉ ${'reader10'.tr}\n◉ ${'reader11'.tr}\n◉ ${'reader12'.tr}\n◉ ${'reader13'.tr}\n◉ ${'reader15'.tr}\n◉ ${'reader16'.tr}\n◉ ${'reader14'.tr}",
-    'imagePath': '',
-  },
-  {
-    'index': 6,
-    'title': "",
-    'details': "What'sNewDetails6",
-    'imagePath': 'assets/images/sajda.png',
-  },
-  {
-    'index': 7,
-    'title': "",
-    'details': "What'sNewDetails7",
-    'imagePath': 'assets/images/fontSize.png',
-  },
-  {
-    'index': 8,
-    'title': "What'sNewTitle8",
-    'details': "What'sNewDetails8",
-    'imagePath': 'assets/images/ayahAndTafsir.png',
-  },
-  {
     'index': 9,
     'title': "What'sNewDetails9",
     'details': "",
@@ -440,11 +391,6 @@ const List monthHadithsList = [
     'hadithPart2':
         'اللَّهُمَّ أَدْخِلْهُ عَلَيْنَا بِالْأَمْنِ، وَالْإِيمَانِ، وَالسَّلَامَةِ، وَالْإِسْلَامِ، وَجوار مِنَ الشَّيْطَانِ، وَرِضْوَانٍ مِنَ الرَّحْمَنِ ".',
     'bookName': ' صححه الحافظ ابن حجر في "الإصابة" ٦ / ٤٠٧ - ٤٠٨',
-  },
-  {
-    'hadithPart1': '',
-    'hadithPart2': '',
-    'bookName': '',
   },
   {
     'hadithPart1': '',

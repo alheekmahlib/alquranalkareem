@@ -5,7 +5,7 @@ import 'package:get/get.dart';
 
 import '../../../core/widgets/select_screen_build.dart';
 import '../../controllers/general_controller.dart';
-import '../../controllers/splash_screen_controller.dart';
+import '../../controllers/whats_new_controller.dart';
 import '../screen_type.dart';
 import 'widgets/button_widget.dart';
 import 'widgets/page_view_build.dart';
@@ -17,7 +17,7 @@ class WhatsNewScreen extends StatelessWidget {
   WhatsNewScreen({Key? key, required this.newFeatures}) : super(key: key);
 
   final controller = PageController(viewportFraction: 1, keepPage: true);
-  final splashCtrl = SplashScreenController.instance;
+  final whatsNewCtrl = WhatsNewController.instance;
   final generalCtrl = GeneralController.instance;
 
   @override
@@ -56,7 +56,7 @@ class WhatsNewScreen extends StatelessWidget {
                             ),
                             onTap: () {
                               Get.off(() => ScreenTypeL());
-                              splashCtrl.saveLastShownIndex(
+                              whatsNewCtrl.saveLastShownIndex(
                                   newFeatures.last['index']);
                             },
                           ),

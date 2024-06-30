@@ -1,4 +1,3 @@
-import 'dart:developer';
 import 'dart:io';
 
 import 'package:arabic_numbers/arabic_numbers.dart';
@@ -12,10 +11,7 @@ import 'package:path_provider/path_provider.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-import '/core/utils/constants/extensions/extensions.dart';
-import '/presentation/controllers/quran_controller.dart';
 import '/presentation/screens/home/home_screen.dart';
-import '../../core/services/location/locations.dart';
 import '../../core/services/services_locator.dart';
 import '../../core/utils/constants/shared_preferences_constants.dart';
 import '../../core/utils/helpers/responsive.dart';
@@ -28,6 +24,7 @@ import 'audio_controller.dart';
 import 'ayat_controller.dart';
 import 'bookmarks_controller.dart';
 import 'playList_controller.dart';
+import 'quran_controller.dart';
 import 'theme_controller.dart';
 
 class GeneralController extends GetxController {
@@ -57,11 +54,7 @@ class GeneralController extends GetxController {
   RxInt screenSelectedValue = 0.obs;
   var today = HijriCalendar.now();
   var now = DateTime.now();
-  List<int> noHadithInMonth = <int>[2, 3, 4, 5, 6];
   RxBool isPageMode = false.obs;
-
-  bool get isNewHadith =>
-      today.hMonth != noHadithInMonth.contains(today.hMonth) ? true : false;
 
   // final khatmahCtrl = sl<KhatmahController>();
 
@@ -71,12 +64,9 @@ class GeneralController extends GetxController {
     super.onInit();
   }
 
-  Future<void> initLocation() async {
-    try {
-      await LocationHelper.instance.getPositionDetails();
-    } catch (e) {
-      log(e.toString(), name: "Main", error: e);
-    }
+  @override
+  void onClose() {
+    super.onClose();
   }
 
   void selectScreenToggleView() {
@@ -120,9 +110,6 @@ class GeneralController extends GetxController {
         sl<QuranController>().getSurahNumberFromPage(index);
     box.write(MSTART_PAGE, index + 1);
     box.write(MLAST_URAH, lastReadSurahNumber.value);
-    // khatmahCtrl.saveLastKhatmah(
-    //     surahNumber: lastReadSurahNumber.value, pageNumber: index);
-    // sl<QuranController>().selectedAyahIndexes.clear();
   }
 
   /// Greeting
@@ -303,103 +290,6 @@ class GeneralController extends GetxController {
 
   double ifBigScreenSize(double s, double l) {
     return Get.width >= 1025.0 ? s : l;
-  }
-
-  double calculateProgress(int currentIndex, int total) {
-    int totalPages = total;
-    if (currentIndex < 1) {
-      return 0.0;
-    }
-    if (currentIndex > totalPages) {
-      return 100.0;
-    }
-    return ((currentIndex / totalPages) *
-        Get.context!.customOrientation(Get.width * .8, Get.width * .4));
-  }
-
-  double calculate(int year, int month, int day) {
-    log('year: $year');
-    HijriCalendar hijriCalendar = HijriCalendar();
-    DateTime start = DateTime.now();
-    // تحويل التاريخ الهجري الحالي إلى ميلادي
-    DateTime end = hijriCalendar.hijriToGregorian(year, month, day);
-
-    // حساب التاريخ الميلادي لأول يوم من الشهر الهجري القادم
-    int nextMonth = month + 1;
-    int nextYear = year;
-    if (nextMonth > 12) {
-      nextMonth = 1;
-      nextYear += 1;
-    }
-    DateTime nextMonthStart =
-        hijriCalendar.hijriToGregorian(nextYear, nextMonth, 1);
-
-    // حساب الفارق بين التاريخ الحالي وبداية الشهر الهجري القادم
-    if (!start.isAfter(nextMonthStart)) {
-      return DateTimeRange(start: start, end: nextMonthStart)
-              .duration
-              .inDays
-              .toDouble() /
-          100;
-    } else {
-      return 1.0;
-    }
-  }
-
-  // TODO: need fixed
-  double calculateProgress2(
-      int currentDay, int daysUntilEvent, double totalWidth) {
-    // Assuming currentDay is the day of the month and daysUntilEvent is the total days remaining until the event
-    double progressFraction = currentDay / (currentDay + daysUntilEvent);
-    return progressFraction * totalWidth;
-  }
-
-  String daysArabicConvert(int day) {
-    const List<int> daysList = [3, 4, 5, 6, 7, 8, 9, 10];
-    if (day == 1) {
-      return 'Day';
-    } else if (day == 2) {
-      return 'يومان';
-    } else if (daysList.contains(day)) {
-      return 'Days';
-    } else {
-      return 'Day';
-    }
-  }
-
-  double calculateDaysProgress(int year, int month, int day) {
-    HijriCalendar hijriCalendar = HijriCalendar();
-    DateTime start = DateTime.now();
-    DateTime end = hijriCalendar.hijriToGregorian(year, month, day);
-    int total = !start.isAfter(end)
-        ? DateTimeRange(start: start, end: end).duration.inDays
-        : DateTimeRange(start: end, end: start).duration.inDays;
-    int today = HijriCalendar.now().hDay;
-    int totalDays = total;
-    if (today < 1) {
-      return 0.0;
-    }
-    if (today > totalDays) {
-      return 100.0;
-    }
-    return (today / totalDays) * Get.width;
-  }
-
-  // TODO: need fixed
-  int calculateDaysUntilSpecificDate(int year, int month, int day) {
-    HijriCalendar hijriCalendar = HijriCalendar();
-    DateTime start = DateTime.now();
-    DateTime end = hijriCalendar.hijriToGregorian(year, month, day);
-    if (!start.isAfter(end)) {
-      // this if the end date is after the start date will do this logic
-      return DateTimeRange(start: start, end: end).duration.inDays;
-    } else {
-      // this if the end date is before the start date will do the else logic
-      end = end.copyWith(year: end.year + 1);
-      // return DateTimeRange(start: end, end: start).duration.inDays;
-      return DateTimeRange(start: start, end: end).duration.inDays;
-      // return start * end;
-    }
   }
 
   void pageModeOnTap(bool value) {

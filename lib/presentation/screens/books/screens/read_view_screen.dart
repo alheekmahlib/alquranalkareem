@@ -1,12 +1,12 @@
-import 'package:alquranalkareem/core/utils/constants/extensions/convert_number_extension.dart';
-import 'package:alquranalkareem/core/utils/constants/extensions/extensions.dart';
-import 'package:alquranalkareem/core/utils/constants/extensions/text_span_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
-import 'package:shimmer/shimmer.dart';
 
+import '/core/utils/constants/extensions/convert_number_extension.dart';
+import '/core/utils/constants/extensions/extensions.dart';
+import '/core/utils/constants/extensions/text_span_extension.dart';
 import '/presentation/screens/quran_page/widgets/search/search_extensions/highlight_extension.dart';
+import '../../../../core/widgets/shimmer_effect_build.dart';
 import '../../../controllers/books_bookmarks_controller.dart';
 import '../../../controllers/books_controller.dart';
 import '../../../controllers/general_controller.dart';
@@ -42,7 +42,7 @@ class PagesPage extends StatelessWidget {
               .then((_) => booksCtrl.getPages(bookNumber)),
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
-              return _buildShimmerEffect();
+              return ShimmerEffectBuild();
             } else if (snapshot.hasError) {
               return Center(child: Text('Error: ${snapshot.error}'));
             } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
@@ -170,23 +170,6 @@ class PagesPage extends StatelessWidget {
               );
             }
           },
-        ),
-      ),
-    );
-  }
-
-  Widget _buildShimmerEffect() {
-    return Shimmer.fromColors(
-      baseColor: Colors.grey[300]!,
-      highlightColor: Colors.grey[100]!,
-      child: ListView.builder(
-        itemCount: 5,
-        itemBuilder: (context, index) => Padding(
-          padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
-          child: Container(
-            height: 200,
-            color: Colors.white,
-          ),
         ),
       ),
     );

@@ -760,46 +760,6 @@
     "type": "text",
     "placeholders": {}
   },
-  "What'sNewDetails": "অ্যাপ্লিকেশনটি আধুনিক এবং সহজবোধ্য ব্যবহারকারী ইন্টারফেসের সাথে ডিজাইন করা হয়েছে যা বিভিন্ন বৈশিষ্ট্য প্রবেশ এবং নেভিগেট করা ব্যবহারকারীদের জন্য সহজ করে তোলে।",
-  "@What'sNewDetails": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "What'sNewTitle2": "আয়াত নির্বাচন:",
-  "@What'sNewTitle2": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "What'sNewDetails2": "আয়াতে দীর্ঘ প্রেস করলে দেখায়:\n\n۞ আয়াতের ব্যাখ্যা বা অনুবাদ।\n۞ আয়াত শোনা।\n۞ আয়াতটি বুকমার্কে যোগ করুন।\n۞ আয়াত কপি করুন।\n۞ আয়াতটি টেক্সট বা ইমেজ হিসেবে শেয়ার করুন।",
-  "@What'sNewDetails2": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "What'sNewTitle3": "টেক্সট অনুসন্ধান বৈশিষ্ট্য:",
-  "@What'sNewTitle3": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "What'sNewDetails3": "অ্যাপ্লিকেশনে কোরআনের আয়াতগুলিতে তাত্ক্ষণিক অনুসন্ধানের বৈশিষ্ট্য রয়েছে, প্রয়োজনীয় পৃষ্ঠা বা সূরা সরাসরি চলে যাওয়ার সুবিধা দিয়ে।",
-  "@What'sNewDetails3": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "What'sNewTitle4": "আয়াতের ব্যাখ্যা এবং অনুবাদ:",
-  "@What'sNewTitle4": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "What'sNewDetails4": "ব্যবহারকারীরা প্রতিটি আয়াতের ব্যাখ্যা বা অনুবাদ প্রবেশ করতে পারেন, এবং ইচ্ছা অনুযায়ী ব্যাখ্যাগুলির মধ্যে পরিবর্তন করতে পারেন।",
-  "@What'sNewDetails4": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "What'sNewTitle5": "আরও কারীদের যোগ করা:",
-  "@What'sNewTitle5": {
-    "type": "text",
-    "placeholders": {}
-  },
   "ourApps": "আমাদের অ্যাপস",
   "@ourApps": {
     "type": "text",
@@ -827,16 +787,6 @@
   },
   "darkMode": "গাঢ়",
   "@darkMode": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "What'sNewDetails6": "۞ পৃষ্ঠাগুলিতে জুজ' যোগ করা\n۞ পৃষ্ঠাগুলিতে সিজদা যোগ করা",
-  "@What'sNewDetails6": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "What'sNewDetails7": "۞ ফন্ট বড় ও ছোট করা.",
-  "@What'sNewDetails7": {
     "type": "text",
     "placeholders": {}
   },
@@ -980,18 +930,8 @@
     "type": "text",
     "placeholders": {}
   },
-  "What'sNewDetails8": "প্রতিদিন একটি নতুন আয়াত সহ এর ব্যাখ্যা",
-  "@What'sNewDetails8": {
-    "type": "text",
-    "placeholders": {}
-  },
   "What'sNewDetails9": "ইসলামিক উপলক্ষের তারিখসমূহ",
   "@What'sNewDetails9": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "What'sNewTitle8": "একটি আয়াত এবং এর ব্যাখ্যা",
-  "@What'sNewTitle8": {
     "type": "text",
     "placeholders": {}
   },
