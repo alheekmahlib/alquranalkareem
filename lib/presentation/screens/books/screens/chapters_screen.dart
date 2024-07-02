@@ -12,8 +12,12 @@ import '../widgets/search_screen.dart';
 class ChaptersPage extends StatelessWidget {
   final int bookNumber;
   final String bookName;
+  final String aboutBook;
 
-  ChaptersPage({required this.bookNumber, required this.bookName});
+  ChaptersPage(
+      {required this.bookNumber,
+      required this.bookName,
+      required this.aboutBook});
 
   final booksCtrl = BooksController.instance;
 
@@ -47,8 +51,9 @@ class ChaptersPage extends StatelessWidget {
           BookDetails(
             bookNumber: bookNumber,
             bookName: bookName,
+            aboutBook: aboutBook,
           ),
-          const Gap(64),
+          const Gap(16),
           Flexible(
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 24.0),
