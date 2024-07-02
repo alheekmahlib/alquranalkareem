@@ -87,6 +87,7 @@ class MyLibraryBuild extends StatelessWidget {
                         () => ChaptersPage(
                           bookNumber: book.bookNumber,
                           bookName: book.bookName,
+                          aboutBook: book.aboutBook,
                         ),
                         transition: Transition.downToUp,
                       );

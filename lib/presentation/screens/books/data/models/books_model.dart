@@ -8,6 +8,7 @@ class Book {
   final int partsCount;
   final int chapterCount;
   final int PageTotal;
+  final String aboutBook;
   final List<Part> parts;
 
   Book({
@@ -18,6 +19,7 @@ class Book {
     required this.partsCount,
     required this.chapterCount,
     required this.PageTotal,
+    required this.aboutBook,
     required this.parts,
   });
 
@@ -33,6 +35,7 @@ class Book {
       partsCount: json['parts_count'],
       chapterCount: json['Chapter_count'],
       PageTotal: json['PageTotle'],
+      aboutBook: json['aboutBook'],
       parts: partsList,
     );
   }
@@ -47,6 +50,7 @@ class Book {
       partsCount: 0,
       chapterCount: 0,
       PageTotal: 0,
+      aboutBook: '',
       parts: [],
     );
   }
