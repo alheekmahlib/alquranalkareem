@@ -35,7 +35,7 @@ class BooksController extends GetxController {
   final TextEditingController searchController = TextEditingController();
   PageController quranPageController = PageController();
   RxInt currentPageNumber = 0.obs;
-  Map<int, int> lastReadPage = {};
+  var lastReadPage = <int, int>{}.obs;
   Map<int, int> bookTotalPages = {};
   RxBool isTashkil = true.obs;
 

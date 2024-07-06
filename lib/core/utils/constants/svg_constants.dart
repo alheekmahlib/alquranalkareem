@@ -33,6 +33,10 @@ class SvgPath {
   /// assets/svg/alwaqf/05.svg
   static const String svgAlwaqf05 = "assets/svg/alwaqf/05.svg";
 
+  /// Assets for svgAyahBookmarked
+  /// assets/svg/ayah_bookmarked.svg
+  static const String svgAyahBookmarked = "assets/svg/ayah_bookmarked.svg";
+
   /// Assets for svgAzkar
   /// assets/svg/azkar.svg
   static const String svgAzkar = "assets/svg/azkar.svg";
@@ -752,6 +756,10 @@ class SvgPath {
   /// Assets for svgTafseerBook
   /// assets/svg/tafseer_book.svg
   static const String svgTafseerBook = "assets/svg/tafseer_book.svg";
+
+  /// Assets for svgTafseerWhite
+  /// assets/svg/tafseer_white.svg
+  static const String svgTafseerWhite = "assets/svg/tafseer_white.svg";
 
   /// Assets for svgTafsirIcon
   /// assets/svg/tafsir_icon.svg

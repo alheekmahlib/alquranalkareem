@@ -29,6 +29,7 @@ class ButtonWidget extends StatelessWidget {
           child: ContainerButton(
             height: 40,
             width: size.width,
+            color: Theme.of(context).canvasColor,
             child: Center(
               child:
                   whatsNewCtrl.currentPageIndex.value == newFeatures.length - 1
@@ -36,10 +37,10 @@ class ButtonWidget extends StatelessWidget {
                           style: TextStyle(
                               fontFamily: 'kufi',
                               fontSize: 18,
-                              color: Theme.of(context).canvasColor))
-                      : const Icon(
+                              color: Theme.of(context).colorScheme.primary))
+                      : Icon(
                           Icons.arrow_forward,
-                          color: Color(0xfff3efdf),
+                          color: Theme.of(context).colorScheme.primary,
                         ),
             ),
           ),

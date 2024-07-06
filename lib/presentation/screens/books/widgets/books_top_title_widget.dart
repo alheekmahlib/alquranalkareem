@@ -147,7 +147,9 @@ class BooksTopTitleWidget extends StatelessWidget {
           const Gap(11),
           GestureDetector(
             onTap: () => Get.bottomSheet(
-              SettingsList(),
+              SettingsList(
+                isQuranSetting: false,
+              ),
               isScrollControlled: true,
             ),
             child: Container(

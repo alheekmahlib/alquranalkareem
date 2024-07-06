@@ -25,7 +25,7 @@ class AllBooksBuild extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: Text(
-              'allBooks',
+              'allBooks'.tr,
               style: TextStyle(
                 fontSize: 16.0,
                 fontFamily: 'kufi',

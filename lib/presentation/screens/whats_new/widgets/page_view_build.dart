@@ -48,7 +48,7 @@ class PageViewBuild extends StatelessWidget {
                           child: Text(
                             '${newFeatures[index]['title']}'.tr,
                             style: TextStyle(
-                              color: Theme.of(context).hintColor,
+                              color: Theme.of(context).canvasColor,
                               fontSize: 16.0.sp,
                               fontFamily: 'kufi',
                             ),
@@ -95,7 +95,7 @@ class PageViewBuild extends StatelessWidget {
                           child: Text(
                             '${newFeatures[index]['details']}'.tr,
                             style: TextStyle(
-                              color: Theme.of(context).hintColor,
+                              color: Theme.of(context).canvasColor,
                               fontSize: 14.0.sp,
                               fontFamily: 'kufi',
                             ),

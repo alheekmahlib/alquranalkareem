@@ -26,7 +26,7 @@ class WhatsNewScreen extends StatelessWidget {
     return Container(
         height: size.height * .94,
         decoration: BoxDecoration(
-            color: Theme.of(context).colorScheme.primaryContainer,
+            color: Theme.of(context).colorScheme.primary,
             borderRadius: const BorderRadius.only(
               topRight: Radius.circular(8),
               topLeft: Radius.circular(8),

@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:alquranalkareem/core/utils/constants/extensions/extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
@@ -24,10 +25,10 @@ extension SajdaExtension on Widget {
               const Gap(8),
               Text(
                 'sajda'.tr,
-                style: const TextStyle(
-                  color: Color(0xff77554B),
+                style: TextStyle(
+                  color: const Color(0xff77554B),
                   fontFamily: 'kufi',
-                  fontSize: 16,
+                  fontSize: Get.context!.customOrientation(13.0, 18.0),
                 ),
               )
             ],

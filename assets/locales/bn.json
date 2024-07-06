@@ -974,5 +974,75 @@
   "@Sunrise": {
     "type": "text",
     "placeholders": {}
+  },
+  "tafsirLibrary": "তাফসির লাইব্রেরি",
+  "@tafsirLibrary": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "allBooks": "সব বই",
+  "@allBooks": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "myLibrary": "আমার লাইব্রেরি",
+  "@myLibrary": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "bookmark": "বুকমার্কস",
+  "@bookmark": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "chapterBook": "বইয়ের অধ্যায়সমূহ",
+  "@chapterBook": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "aboutBook": "বই সম্পর্কে",
+  "@aboutBook": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "khatmah": "খাতমা",
+  "@khatmah": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "createKhatmah": "খাতমা তৈরি করুন",
+  "@createKhatmah": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "khatmahName": "খাতমার নাম",
+  "@khatmahName": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "addKhatmah": "একটি খাতমা যোগ করুন",
+  "@addKhatmah": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "duration": "সময়কাল",
+  "@duration": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "divisionBySahabah": "সাহাবীদের দ্বারা বিভাজন",
+  "@divisionBySahabah": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "choiceColor": "রঙ নির্বাচন করুন",
+  "@choiceColor": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "searchInBooks": "বইয়ের মধ্যে অনুসন্ধান করুন",
+  "@searchInBooks": {
+    "type": "text",
+    "placeholders": {}
   }
 }
