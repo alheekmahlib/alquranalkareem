@@ -99,7 +99,7 @@ final List screensList = [
     'name': 'tafsirLibrary',
     'svgUrl': 'assets/svg/tafseer_white.svg',
     'imagePath': 'assets/images/pages.png',
-    'route': () => BooksPage(),
+    'route': () => BooksScreen(),
     'width': 326.0
   },
 ];
@@ -363,6 +363,12 @@ const List ayahReaderInfo = [
 List<Map<String, dynamic>> whatsNewList = [
   {
     'index': 9,
+    'title': "What'sNewDetails9",
+    'details': "",
+    'imagePath': 'assets/images/IslamicOccasions.png',
+  },
+  {
+    'index': 10,
     'title': "What'sNewDetails9",
     'details': "",
     'imagePath': 'assets/images/IslamicOccasions.png',

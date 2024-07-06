@@ -1,7 +1,7 @@
-import 'package:alquranalkareem/core/utils/constants/extensions/convert_number_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '/core/utils/constants/extensions/convert_number_extension.dart';
 import '../../../controllers/books_bookmarks_controller.dart';
 import 'read_view_screen.dart';
 

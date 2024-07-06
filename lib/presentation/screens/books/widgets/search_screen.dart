@@ -31,9 +31,18 @@ class SearchScreen extends StatelessWidget {
           const Gap(16),
           context.customClose(),
           const Gap(8),
+          Text(
+            'search'.tr.replaceAll('بحث', 'البحث'),
+            style: TextStyle(
+              fontFamily: "kufi",
+              fontSize: 22,
+              color: Theme.of(context).canvasColor,
+            ),
+          ),
+          const Gap(8),
           TextFieldBarWidget(
             controller: booksCtrl.searchController,
-            hintText: 'khatmahName'.tr,
+            hintText: 'searchInBooks'.tr,
             horizontalPadding: 32.0,
             onPressed: () {
               booksCtrl.searchController.clear();

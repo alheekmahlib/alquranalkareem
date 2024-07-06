@@ -1,8 +1,8 @@
-import 'package:alquranalkareem/core/utils/constants/extensions/convert_number_extension.dart';
-import 'package:alquranalkareem/core/utils/constants/extensions/extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '/core/utils/constants/extensions/convert_number_extension.dart';
+import '/core/utils/constants/extensions/extensions.dart';
 import '../../../../../controllers/khatmah_controller.dart';
 import '../../../../../controllers/quran_controller.dart';
 
@@ -42,7 +42,7 @@ class KhatmahDaysPage extends StatelessWidget {
                 color: Theme.of(context).colorScheme.surface,
               ),
               subtitle: Text(
-                '${'pages'.tr}: ${isTahzibSahabah ? khatmahCtrl.getTahzibSahabahPageForDay(currentDay) : (currentDay - 1) * pagesPerDay + 1} - ${isTahzibSahabah ? (currentDay < 7 ? khatmahCtrl.getTahzibSahabahPageForDay(currentDay + 1) - 1 : 604) : ((currentDay * pagesPerDay > 604) ? 604 : currentDay * pagesPerDay)}'
+                '${'pages'.tr.replaceAll('صفحات', 'الصفحات')}: ${isTahzibSahabah ? khatmahCtrl.getTahzibSahabahPageForDay(currentDay) : (currentDay - 1) * pagesPerDay + 1} - ${isTahzibSahabah ? (currentDay < 7 ? khatmahCtrl.getTahzibSahabahPageForDay(currentDay + 1) - 1 : 604) : ((currentDay * pagesPerDay > 604) ? 604 : currentDay * pagesPerDay)}'
                     .convertNumbers(),
                 style: TextStyle(
                   color: Theme.of(context).colorScheme.surface,
@@ -64,7 +64,7 @@ class KhatmahDaysPage extends StatelessWidget {
 
                 return ListTile(
                   title: Text(
-                    '${'Day'.tr} ${index + 1}',
+                    '${'Day'.tr.replaceAll('يوم', 'اليوم')} ${index + 1}',
                     style: TextStyle(
                       color: Theme.of(context).colorScheme.inversePrimary,
                       fontSize: 14,
@@ -72,7 +72,8 @@ class KhatmahDaysPage extends StatelessWidget {
                     ),
                   ),
                   subtitle: Text(
-                    '${'pages'.tr}: $startPage - $endPage'.convertNumbers(),
+                    '${'pages'.tr.replaceAll('صفحات', 'الصفحات')}: $startPage - $endPage'
+                        .convertNumbers(),
                     style: TextStyle(
                       color: Theme.of(context).colorScheme.inversePrimary,
                       fontSize: 14,

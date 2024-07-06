@@ -1,6 +1,7 @@
 import 'package:drift/drift.dart' as drift;
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 
 import '../screens/quran_page/widgets/khatmah/data/data_source/khatmah_database.dart';
 
@@ -15,6 +16,7 @@ class KhatmahController extends GetxController {
   final int totalPages = 604;
   RxBool isTahzibSahabah = false.obs;
   RxInt screenPickerColor = 0xff404C6E.obs;
+  DateTime now = DateTime.now();
 
   final TextEditingController nameController = TextEditingController();
   final TextEditingController daysController = TextEditingController();
@@ -187,7 +189,9 @@ class KhatmahController extends GetxController {
   }
 
   void addKhatmahOnTap() {
-    String name = nameController.text;
+    String name = nameController.text.isEmpty
+        ? '${'khatmah'.tr.replaceAll('ال', '')}: ${DateFormat('yMd', Get.locale!.languageCode).format(now)}'
+        : nameController.text;
     int days = int.tryParse(daysController.text) ?? 30;
     addKhatmah(
         name: name,

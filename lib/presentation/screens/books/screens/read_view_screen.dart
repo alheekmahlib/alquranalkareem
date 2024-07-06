@@ -42,7 +42,7 @@ class PagesPage extends StatelessWidget {
               .then((_) => booksCtrl.getPages(bookNumber)),
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
-              return ShimmerEffectBuild();
+              return const ShimmerEffectBuild();
             } else if (snapshot.hasError) {
               return Center(child: Text('Error: ${snapshot.error}'));
             } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
@@ -55,11 +55,14 @@ class PagesPage extends StatelessWidget {
                 onPageChanged: (i) => booksCtrl.currentPageNumber.value = i,
                 itemBuilder: (context, index) {
                   final page = pages[index];
-                  booksCtrl.saveLastRead(
+                  WidgetsBinding.instance.addPostFrameCallback((_) {
+                    booksCtrl.saveLastRead(
                       page.pageNumber,
                       booksCtrl.booksList[bookNumber - 1].bookName,
                       bookNumber,
-                      pages.length);
+                      pages.length,
+                    );
+                  });
                   return Stack(
                     alignment: Alignment.center,
                     children: [

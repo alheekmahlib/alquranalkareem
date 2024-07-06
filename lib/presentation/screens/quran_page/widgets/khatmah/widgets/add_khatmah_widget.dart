@@ -22,7 +22,7 @@ class AddKhatmahWidget extends StatelessWidget {
       child: Column(
         children: [
           Text(
-            'أنشئ الختمة',
+            'createKhatmah'.tr,
             style: TextStyle(
               color: Theme.of(context).colorScheme.primary,
               fontSize: 20,
@@ -38,7 +38,7 @@ class AddKhatmahWidget extends StatelessWidget {
                   children: [
                     TextFieldBarWidget(
                       controller: khatmahCtrl.nameController,
-                      hintText: 'Khatmah Name',
+                      hintText: 'khatmahName'.tr,
                       prefixIcon: const SizedBox.shrink(),
                       horizontalPadding: 4.0,
                       onPressed: () {
@@ -53,7 +53,7 @@ class AddKhatmahWidget extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         SizedBox(
-                          width: 160,
+                          width: 120,
                           child: Obx(() => CustomDropdown<int>(
                                 enabled: !khatmahCtrl.isTahzibSahabah.value,
                                 decoration: CustomDropdownDecoration(
@@ -67,9 +67,9 @@ class AddKhatmahWidget extends StatelessWidget {
                                 closedHeaderPadding: const EdgeInsets.symmetric(
                                     vertical: 7.0, horizontal: 8.0),
                                 // hintText: 'المدة',
-                                hintBuilder: (context, _, select) => const Text(
-                                  'المدة',
-                                  style: TextStyle(
+                                hintBuilder: (context, _, select) => Text(
+                                  'duration'.tr,
+                                  style: const TextStyle(
                                     color: Colors.black,
                                     fontSize: 16,
                                     fontFamily: 'naskh',
@@ -98,6 +98,8 @@ class AddKhatmahWidget extends StatelessWidget {
                         Obx(() => GestureDetector(
                               onTap: () => khatmahCtrl.isTahzibSahabahOnTap(),
                               child: Container(
+                                height: 38,
+                                width: 160,
                                 padding: const EdgeInsets.symmetric(
                                     horizontal: 8.0, vertical: 7.0),
                                 decoration: BoxDecoration(
@@ -110,14 +112,17 @@ class AddKhatmahWidget extends StatelessWidget {
                                   borderRadius: const BorderRadius.all(
                                       Radius.circular(8)),
                                 ),
-                                child: Text(
-                                  'تحزيب الصحابة',
-                                  style: TextStyle(
-                                    color: Theme.of(context)
-                                        .colorScheme
-                                        .inversePrimary,
-                                    fontSize: 16,
-                                    fontFamily: 'naskh',
+                                child: FittedBox(
+                                  fit: BoxFit.scaleDown,
+                                  child: Text(
+                                    'divisionBySahabah'.tr,
+                                    style: TextStyle(
+                                      color: Theme.of(context)
+                                          .colorScheme
+                                          .inversePrimary,
+                                      fontSize: 16,
+                                      fontFamily: 'naskh',
+                                    ),
                                   ),
                                 ),
                               ),
@@ -143,12 +148,17 @@ class AddKhatmahWidget extends StatelessWidget {
                         borderRadius:
                             const BorderRadius.all(Radius.circular(8)),
                       ),
-                      child: const Text(
-                        'addKhatmah',
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 16,
-                          fontFamily: 'naskh',
+                      child: FittedBox(
+                        fit: BoxFit.scaleDown,
+                        child: Text(
+                          'addKhatmah'.tr,
+                          style: const TextStyle(
+                            color: Colors.black,
+                            fontSize: 20,
+                            fontFamily: 'naskh',
+                            height: .5,
+                          ),
+                          textAlign: TextAlign.center,
                         ),
                       ),
                     ),
@@ -160,33 +170,36 @@ class AddKhatmahWidget extends StatelessWidget {
           const Gap(16),
           GestureDetector(
             onTap: () {
-              Get.dialog(Padding(
-                padding: EdgeInsets.symmetric(vertical: Get.height * .2),
+              Get.dialog(Dialog(
+                alignment: Alignment.bottomCenter,
+                backgroundColor: Theme.of(context).colorScheme.primaryContainer,
                 child: SizedBox(
-                  height: 200,
+                  height: 450,
                   width: double.infinity,
                   child: Padding(
                     padding: const EdgeInsets.all(6),
-                    child: Card(
-                      elevation: 2,
-                      color: Theme.of(context).colorScheme.primaryContainer,
-                      child: ColorPicker(
-                        // Use the screenPickerColor as color.
-                        color: Color(khatmahCtrl.screenPickerColor.value),
-                        // Update the khatmahCtrl.screenPickerColor.value using the callback.
-                        onColorChanged: (Color color) =>
-                            khatmahCtrl.screenPickerColor.value = color.value,
-                        width: 44,
-                        height: 44,
-                        borderRadius: 22,
-                        heading: Text(
-                          'Select color',
-                          style: Theme.of(context).textTheme.headlineSmall,
+                    child: ColorPicker(
+                      // Use the screenPickerColor as color.
+                      color: Color(khatmahCtrl.screenPickerColor.value),
+                      // Update the khatmahCtrl.screenPickerColor.value using the callback.
+                      onColorChanged: (Color color) =>
+                          khatmahCtrl.screenPickerColor.value = color.value,
+                      width: 44,
+                      height: 44,
+                      borderRadius: 22,
+                      heading: Text(
+                        'choiceColor'.tr,
+                        style: const TextStyle(
+                          color: Colors.black,
+                          fontSize: 20,
+                          fontFamily: 'kufi',
+                          height: .5,
                         ),
-                        subheading: context.hDivider(
-                            width: Get.width,
-                            color: Theme.of(context).colorScheme.primary),
+                        textAlign: TextAlign.center,
                       ),
+                      subheading: context.hDivider(
+                          width: Get.width,
+                          color: Theme.of(context).colorScheme.primary),
                     ),
                   ),
                 ),
@@ -202,11 +215,11 @@ class AddKhatmahWidget extends StatelessWidget {
               ),
               child: Row(
                 children: [
-                  const Text(
-                    'choiceColor',
-                    style: TextStyle(
+                  Text(
+                    'choiceColor'.tr,
+                    style: const TextStyle(
                       color: Colors.black,
-                      fontSize: 16,
+                      fontSize: 18,
                       fontFamily: 'naskh',
                     ),
                   ),

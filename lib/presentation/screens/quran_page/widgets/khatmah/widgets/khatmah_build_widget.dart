@@ -16,9 +16,7 @@ class KhatmahBuildWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Obx(() {
       if (khatmahCtrl.khatmas.isEmpty) {
-        return Center(
-          child: Text('No Khatmas added yet'),
-        );
+        return const SizedBox.shrink();
       }
       return ListView.builder(
         primary: false,
@@ -41,7 +39,7 @@ class KhatmahBuildWidget extends StatelessWidget {
                   height: 40,
                   width: 40,
                   decoration: BoxDecoration(
-                      color: Color(khatmah.color!),
+                      color: Color(khatmah.color),
                       borderRadius: const BorderRadius.all(Radius.circular(8))),
                 ),
                 expandedTextColor: Theme.of(context).primaryColorDark,

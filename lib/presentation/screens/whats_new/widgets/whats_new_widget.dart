@@ -13,12 +13,12 @@ class WhatsNewWidget extends StatelessWidget {
       alignment: Alignment.center,
       padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
       decoration: BoxDecoration(
-          color: Theme.of(context).colorScheme.primary.withOpacity(.1),
+          color: Theme.of(context).canvasColor.withOpacity(.1),
           borderRadius: const BorderRadius.all(Radius.circular(8))),
       child: Text(
         "What's New".tr,
         style: TextStyle(
-          color: Theme.of(context).colorScheme.primary,
+          color: Theme.of(context).canvasColor,
           fontSize: 14.0.sp,
           fontFamily: 'kufi',
         ),

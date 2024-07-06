@@ -16,8 +16,8 @@ class SmoothPageIndicatorWidget extends StatelessWidget {
         dotHeight: 10,
         dotWidth: 13,
         paintStyle: PaintingStyle.fill,
-        dotColor: Theme.of(context).colorScheme.primary.withOpacity(.2),
-        activeDotColor: Theme.of(context).colorScheme.primary,
+        dotColor: Theme.of(context).canvasColor.withOpacity(.2),
+        activeDotColor: Theme.of(context).canvasColor,
         // strokeWidth: 5,
       ),
     );

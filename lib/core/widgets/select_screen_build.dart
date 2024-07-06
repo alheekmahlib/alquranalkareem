@@ -20,7 +20,10 @@ class SelectScreenBuild extends StatelessWidget {
     final generalCtrl = GeneralController.instance;
     final size = MediaQuery.sizeOf(context);
     return Container(
-      color: Theme.of(context).colorScheme.primaryContainer,
+      decoration: BoxDecoration(
+        color: Theme.of(context).colorScheme.primaryContainer,
+        borderRadius: const BorderRadius.all(Radius.circular(8)),
+      ),
       child: Stack(
         children: [
           Column(
