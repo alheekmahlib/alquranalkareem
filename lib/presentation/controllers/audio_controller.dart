@@ -195,6 +195,7 @@ class AudioController extends GetxController {
 
   Future playFile(String url, String fileName) async {
     String path;
+    log('url: $url');
     try {
       var dir = await getApplicationDocumentsDirectory();
       path = join(dir.path, fileName);
