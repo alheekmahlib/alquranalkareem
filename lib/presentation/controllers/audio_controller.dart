@@ -1,6 +1,6 @@
-import 'dart:async';
+import 'dart:async' show StreamSubscription;
 import 'dart:developer' show log;
-import 'dart:io';
+import 'dart:io' show File, Directory;
 
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:dio/dio.dart';
@@ -14,14 +14,14 @@ import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:rxdart/rxdart.dart' as R;
 
+import '/core/services/services_locator.dart';
 import '/core/utils/constants/extensions/custom_error_snackBar.dart';
 import '/core/utils/constants/extensions/custom_mobile_notes_snack_bar.dart';
+import '/core/utils/constants/lists.dart';
+import '/core/utils/constants/shared_preferences_constants.dart';
 import '/core/utils/constants/url_constants.dart';
-import '../../core/services/services_locator.dart';
-import '../../core/utils/constants/lists.dart';
-import '../../core/utils/constants/shared_preferences_constants.dart';
-import '../../core/utils/helpers/global_key_manager.dart';
-import '../../core/widgets/seek_bar.dart';
+import '/core/utils/helpers/global_key_manager.dart';
+import '/core/widgets/seek_bar.dart';
 import 'ayat_controller.dart';
 import 'general_controller.dart';
 import 'quran_controller.dart';
@@ -35,7 +35,7 @@ class AudioController extends GetxController {
   RxBool isPlay = false.obs;
   RxBool downloading = false.obs;
   RxBool onDownloading = false.obs;
-  RxString progressString = "0".obs;
+  RxString progressString = '0'.obs;
   RxDouble progress = 0.0.obs;
   String? currentPlay;
   RxBool autoPlay = false.obs;
@@ -46,6 +46,8 @@ class AudioController extends GetxController {
   List<ConnectivityResult> _connectionStatus = [ConnectivityResult.none];
   final Connectivity _connectivity = Connectivity();
   late StreamSubscription<List<ConnectivityResult>> _connectivitySubscription;
+  late Directory dir;
+  late Uri cachedArtUri;
   late var cancelToken = CancelToken();
   final bool _isDisposed = false; // to keep track of the controller lifecycle
   RxBool isProcessingNextAyah = false.obs;
@@ -58,11 +60,19 @@ class AudioController extends GetxController {
   Color? backColor;
   RxInt _currentAyahInSurah = 1.obs;
   RxInt _currentAyahUQInPage = 1.obs;
-  RxInt _currentSurahInPage = 1.obs;
+  RxInt _currentSurahNumInPage = 1.obs;
   bool goingToNewSurah = false;
   RxBool selected = false.obs;
   RxInt readerIndex = 0.obs;
   RxBool isStartPlaying = false.obs;
+
+  /// wether the app should play next ayahs or not..
+  bool playSingleAyahOnly = false;
+
+  /// to use it in future.. for now the app is playing all ayahs until user stop the player..
+  bool stopWhenSurahEnds = false;
+
+  /// GetStorage Box [SharedPrefrences]
   final box = GetStorage();
 
   final generalCtrl = GeneralController.instance;
@@ -76,21 +86,34 @@ class AudioController extends GetxController {
     });
   }
 
-  void playAyahOnTap(int surahNum, int ayahNum, int ayahUQNum) {
+  void playAyahOnTap(int surahNum, int ayahNum, int ayahUQNum,
+      [bool singleAyahOnly = false]) {
     _currentAyahInSurah.value = ayahNum;
-    _currentSurahInPage.value = surahNum;
+    _currentSurahNumInPage.value = surahNum;
     _currentAyahUQInPage.value = ayahUQNum;
+    playSingleAyahOnly = singleAyahOnly;
     playAyah();
   }
 
-  Future<MediaItem> get mediaItem async => MediaItem(
+  MediaItem get mediaItemForCurrentAyah => MediaItem(
         id: '${_currentAyahUQInPage.value}',
         title:
             '${sl<QuranController>().getPageAyahsByIndex(generalCtrl.currentPageNumber.value - 1).firstWhere((a) => a.ayahUQNumber == _currentAyahUQInPage.value).text}',
         artist: '${ayahReaderInfo[readerIndex.value]['name']}'.tr,
-        artUri: await sl<GeneralController>().getCachedArtUri(
-            'https://raw.githubusercontent.com/alheekmahlib/thegarlanded/master/Photos/ios-1024.png'),
+        artUri: cachedArtUri,
       );
+  List<MediaItem> get mediaItemsForCurrentSurah {
+    final ayahsOfCrntSurah =
+        sl<QuranController>().surahs[currentSurahNumInPage - 1].ayahs;
+    return List.generate(
+        ayahsOfCrntSurah.length,
+        (i) => MediaItem(
+              id: '${ayahsOfCrntSurah[i].ayahUQNumber}',
+              title: '${ayahsOfCrntSurah[i].text}',
+              artist: '${ayahReaderInfo[readerIndex.value]['name']}'.tr,
+              artUri: cachedArtUri,
+            ));
+  }
 
   int get currentAyahInPage => _currentAyahInSurah.value == 1
       ? quranCtrl.allAyahs
@@ -99,18 +122,25 @@ class AudioController extends GetxController {
           .ayahNumber
       : _currentAyahInSurah.value;
 
-  int get currentSurahInPage => _currentSurahInPage.value == 1
+  int get currentSurahNumInPage => _currentSurahNumInPage.value == 1
       ? quranCtrl.getSurahNumberFromPage(generalCtrl.currentPageNumber.value)
-      : _currentSurahInPage.value;
+      : _currentSurahNumInPage.value;
 
   @override
-  void onInit() {
+  void onInit() async {
     isPlay.value = false;
     sliderValue = 0;
     initConnectivity();
     _connectivitySubscription =
         _connectivity.onConnectivityChanged.listen(_updateConnectionStatus);
     loadQuranReader();
+    await Future.wait([
+      sl<GeneralController>()
+          .getCachedArtUri(
+              'https://raw.githubusercontent.com/alheekmahlib/thegarlanded/master/Photos/ios-1024.png')
+          .then((v) => cachedArtUri = v),
+      getApplicationDocumentsDirectory().then((v) => dir = v),
+    ]);
     super.onInit();
   }
 
@@ -161,14 +191,40 @@ class AudioController extends GetxController {
       isFirstAyahInPage && !isFirstAyahInSurah;
 
   String get reader => readerValue!;
-  String get fileName => ayahReaderInfo[readerIndex.value]['url'] ==
-          UrlConstants.ayahUrl
-      ? "$reader/${_currentAyahUQInPage.value}.mp3"
-      : "$reader/${quranCtrl.getSurahNumberByAyah(quranCtrl.allAyahs[_currentAyahUQInPage.value - 1]).toString().padLeft(3, "0")}${quranCtrl.allAyahs[_currentAyahUQInPage.value - 1].ayahNumber.toString().padLeft(3, "0")}.mp3";
-  String get url =>
-      ayahReaderInfo[readerIndex.value]['url'] == UrlConstants.ayahUrl
-          ? "${UrlConstants.ayahUrl}$fileName"
-          : "${UrlConstants.ayahUrl2}$fileName";
+  String get currentAyahFileName {
+    if (ayahReaderInfo[readerIndex.value]['url'] ==
+        UrlConstants.ayahs1stSource) {
+      return '$reader/${_currentAyahUQInPage.value}.mp3';
+    } else {
+      final surahNum = quranCtrl
+          .getSurahNumberByAyah(
+              quranCtrl.allAyahs[_currentAyahUQInPage.value - 1])
+          .toString()
+          .padLeft(3, '0');
+      final currentAyahNumber = quranCtrl
+          .allAyahs[_currentAyahUQInPage.value - 1].ayahNumber
+          .toString()
+          .padLeft(3, '0');
+      return '$reader/$surahNum$currentAyahNumber.mp3';
+    }
+  }
+
+  List<String> get selectedSurahAyahsFilePaths {
+    final selectedSurah = quranCtrl.surahs[currentSurahNumInPage - 1];
+    return List.generate(
+        selectedSurah.ayahs.length,
+        (i) => ayahReaderInfo[readerIndex.value]['url'] ==
+                UrlConstants.ayahs1stSource
+            ? '$reader/${selectedSurah.ayahs[i].ayahUQNumber}.mp3'
+            : '$reader/${selectedSurah.surahNumber}${selectedSurah.ayahs[i].ayahNumber}.mp3');
+  }
+
+  String get ayahDownloadSource =>
+      ayahReaderInfo[readerIndex.value]['url'] == UrlConstants.ayahs1stSource
+          ? UrlConstants.ayahs1stSource
+          : UrlConstants.ayahs2ndSource;
+
+  String get currentAyahUrl => '$ayahDownloadSource$currentAyahFileName';
   void get pausePlayer async {
     isPlay.value = false;
     await audioPlayer.pause();
@@ -193,80 +249,117 @@ class AudioController extends GetxController {
     }
   }
 
-  Future playFile(String url, String fileName) async {
+  Future<String> _downloadFileIfNotExist(String url, String fileName,
+      [bool showSnakbars = true]) async {
     String path;
-    log('url: $url');
-    try {
-      var dir = await getApplicationDocumentsDirectory();
-      path = join(dir.path, fileName);
-      var file = File(path);
-      bool exists = await file.exists();
-      if (!exists) {
-        try {
-          await Directory(dirname(path)).create(recursive: true);
-        } catch (e) {
-          print(e);
-        }
+    path = join(dir.path, fileName);
+    var file = File(path);
+    bool exists = await file.exists();
+    if (!exists) {
+      try {
+        await Directory(dirname(path)).create(recursive: true);
+      } catch (e) {
+        print(e);
+      }
+      if (showSnakbars) {
         if (_connectionStatus.contains(ConnectivityResult.none)) {
           Get.context!.showCustomErrorSnackBar('noInternet'.tr);
         } else if (_connectionStatus.contains(ConnectivityResult.mobile)) {
-          await downloadFile(path, url, fileName);
+          // await _downloadFile(path, url, fileName);
           Get.context!.customMobileNoteSnackBar('mobileDataAyat'.tr);
         } else if (_connectionStatus.contains(ConnectivityResult.wifi)) {
-          await downloadFile(path, url, fileName);
+          // await _downloadFile(path, url, fileName);
+        }
+      } else {
+        if (false == _connectionStatus.contains(ConnectivityResult.none)) {
+          await _downloadFile(path, url, fileName);
         }
       }
+    }
+    return path;
+  }
+
+  Future playFile() async {
+    log('currentAyahUrl: $currentAyahUrl', name: 'AudioController');
+    if (playSingleAyahOnly) {
+      final path =
+          await _downloadFileIfNotExist(currentAyahUrl, currentAyahFileName);
       await audioPlayer.setAudioSource(AudioSource.file(
         path,
-        tag: await mediaItem,
+        tag: mediaItemForCurrentAyah,
       ));
-      audioPlayer.playerStateStream.listen((playerState) async {
-        if (playerState.processingState == ProcessingState.completed &&
-            !isProcessingNextAyah.value) {
-          isProcessingNextAyah.value = true;
-          log('${'|' * 20} _currentAyahUQInPage.value: ${_currentAyahUQInPage.value}');
-          log('${'|' * 20} _currentAyahInSurah.value: ${_currentAyahInSurah.value}');
-          log('${'|' * 20} page num: ${generalCtrl.currentPageNumber.value}');
-          if (quranCtrl.isPages.value == 0) {
-            if (generalCtrl.currentPageNumber.value == 604) {
-              print('doneeeeeeeeeeee');
-              await audioPlayer.pause();
-              isPlay.value = false;
-            } else if (isLastAyahInPageButNotInSurah) {
-              print('moveToPage');
-              await moveToNextPage();
-            } else if (isLastAyahInSurahAndPage) {
-              await moveToNextPage();
-              goingToNewSurah = true;
-            } else if (isLastAyahInSurahButNotInPage) {
-              await moveToNextPage(withScroll: false);
-              goingToNewSurah = true;
-            }
-          } else if (quranCtrl.isPages.value == 1) {
-            if (_currentAyahUQInPage.value == 6236) {
-              await audioPlayer.pause();
-              isPlay.value = false;
-            } else {}
-          }
-
-          await playNextAyah();
-
-          print('ProcessingState.completed');
-        }
-      });
-      isPlay.value = true;
-      await audioPlayer.play();
-      print('playFile2: play');
-    } catch (e) {
-      print(e);
+    } else {
+      await audioPlayer.stop();
+      await Future.wait(List.generate(
+          selectedSurahAyahsFilePaths.length,
+          (i) => _downloadFileIfNotExist(
+              '$ayahDownloadSource/${selectedSurahAyahsFilePaths[i]}',
+              selectedSurahAyahsFilePaths[i])));
+      await audioPlayer.setAudioSource(
+        initialIndex: _currentAyahUQInPage.value,
+        ConcatenatingAudioSource(
+          children: List.generate(
+            selectedSurahAyahsFilePaths.length,
+            (i) => AudioSource.file(selectedSurahAyahsFilePaths[i],
+                tag: mediaItemsForCurrentSurah[i]),
+          ),
+        ),
+      );
     }
+
+    // audioPlayer.playerStateStream.listen((playerState) async {
+    //   if (playerState.processingState == ProcessingState.completed &&
+    //       !isProcessingNextAyah.value) {
+    //     isProcessingNextAyah.value = true;
+    //     log('${'|' * 20} _currentAyahUQInPage.value: ${_currentAyahUQInPage.value}');
+    //     log('${'|' * 20} _currentAyahInSurah.value: ${_currentAyahInSurah.value}');
+    //     log('${'|' * 20} page num: ${generalCtrl.currentPageNumber.value}');
+    //     if (quranCtrl.isPages.value == 0) {
+    //       if (generalCtrl.currentPageNumber.value == 604) {
+    //         print('doneeeeeeeeeeee');
+    //         await audioPlayer.pause();
+    //         isPlay.value = false;
+    //       } else if (isLastAyahInPageButNotInSurah) {
+    //         print('moveToPage');
+    //         await moveToNextPage();
+    //       } else if (isLastAyahInSurahAndPage) {
+    //         await moveToNextPage();
+    //         goingToNewSurah = true;
+    //       } else if (isLastAyahInSurahButNotInPage) {
+    //         await moveToNextPage(withScroll: false);
+    //         goingToNewSurah = true;
+    //       }
+    //     } else if (quranCtrl.isPages.value == 1) {
+    //       if (_currentAyahUQInPage.value == 6236) {
+    //         await audioPlayer.pause();
+    //         isPlay.value = false;
+    //       } else {}
+    //     }
+
+    /// stop player when player playes one ayah if user selected one ayah play mode
+    //     if (playSingleAyahOnly) return;
+
+    //     await playNextAyah();
+
+    //     print('ProcessingState.completed');
+    //   }
+    // });
+    isPlay.value = true;
+    await audioPlayer.play();
+    audioPlayer.currentIndexStream.listen((index) {
+      log('index: $index');
+      if (index != null) {
+        _currentAyahUQInPage.value = index;
+      }
+    });
+    print('playFile2: play');
   }
 
   Future<void> playNextAyah() async {
     isProcessingNextAyah.value = true;
     _currentAyahUQInPage.value += 1;
     quranCtrl.clearAndAddSelection(_currentAyahUQInPage.value);
-    await playFile(url, fileName);
+    await playFile();
     isProcessingNextAyah.value = false;
     if (quranCtrl.isPages.value == 1) {
       quranCtrl.scrollOffsetController.animateScroll(
@@ -302,26 +395,26 @@ class AudioController extends GetxController {
       isPlay.value = false;
       print('audioPlayer: pause');
     } else {
-      await playFile(url, fileName);
+      await playFile();
       isPlay.value = true;
     }
   }
 
-  Future<bool> downloadFile(String path, String url, String fileName) async {
+  Future<bool> _downloadFile(String path, String url, String fileName) async {
     Dio dio = Dio();
     try {
       await Directory(dirname(path)).create(recursive: true);
       downloading.value = true;
       onDownloading.value = true;
-      progressString.value = "Indeterminate";
+      progressString.value = 'Indeterminate';
       progress.value = 0;
 
       // First, attempt to fetch file size to decide on progress indication strategy
       var fileSize = await _fetchFileSize(url, dio);
       if (fileSize != null) {
-        print("Known file size: $fileSize bytes");
+        print('Known file size: $fileSize bytes');
       } else {
-        print("File size unknown.");
+        print('File size unknown.');
       }
 
       var incrementalProgress = 0.0;
@@ -342,7 +435,7 @@ class AudioController extends GetxController {
           double progressValue = (rec / total).toDouble().clamp(0.0, 1.0);
           progress.value = progressValue;
         }
-        print("Received bytes: $rec, Total bytes: $total");
+        print('Received bytes: $rec, Total bytes: $total');
       });
     } catch (e) {
       if (e is DioException && e.type == DioExceptionType.cancel) {
@@ -364,8 +457,8 @@ class AudioController extends GetxController {
     } finally {
       downloading.value = false;
       onDownloading.value = false;
-      progressString.value = "Completed";
-      print("Download completed or failed");
+      progressString.value = 'Completed';
+      print('Download completed or failed');
     }
     return true;
   }
@@ -377,7 +470,7 @@ class AudioController extends GetxController {
         return int.tryParse(response.headers.value('Content-Length')!);
       }
     } catch (e) {
-      print("Error fetching file size: $e");
+      print('Error fetching file size: $e');
     }
     return null;
   }
@@ -394,12 +487,12 @@ class AudioController extends GetxController {
       _currentAyahUQInPage.value += 1;
       quranCtrl.clearAndAddSelection(_currentAyahUQInPage.value);
       await moveToNextPage();
-      await playFile(url, fileName);
+      await playFile();
     } else {
       pausePlayer;
       _currentAyahUQInPage.value += 1;
       quranCtrl.clearAndAddSelection(_currentAyahUQInPage.value);
-      await playFile(url, fileName);
+      await playFile();
     }
   }
 
@@ -411,11 +504,11 @@ class AudioController extends GetxController {
       _currentAyahUQInPage.value -= 1;
       quranCtrl.clearAndAddSelection(_currentAyahUQInPage.value);
       moveToPreviousPage();
-      await playFile(url, fileName);
+      await playFile();
     } else {
       _currentAyahUQInPage.value -= 1;
       quranCtrl.clearAndAddSelection(_currentAyahUQInPage.value);
-      await playFile(url, fileName);
+      await playFile();
     }
   }
 
@@ -482,13 +575,11 @@ class AudioController extends GetxController {
     }
   }
 
-  loadQuranReader() async {
+  void loadQuranReader() {
     readerValue =
-        await box.read(AUDIO_PLAYER_SOUND) ?? "Abdul_Basit_Murattal_192kbps";
-
-    readerName.value = await box.read(READER_NAME) ?? 'عبد الباسط عبد الصمد';
-
-    readerIndex.value = await box.read(READER_INDEX) ?? 0;
+        box.read(AUDIO_PLAYER_SOUND) ?? 'Abdul_Basit_Murattal_192kbps';
+    readerName.value = box.read(READER_NAME) ?? 'عبد الباسط عبد الصمد';
+    readerIndex.value = box.read(READER_INDEX) ?? 0;
   }
 
   void changeReadersOnTap(int index) {
