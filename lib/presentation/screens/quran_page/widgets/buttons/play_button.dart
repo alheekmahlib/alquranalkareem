@@ -12,11 +12,15 @@ class PlayButton extends StatelessWidget {
   final int ayahNum;
   final int ayahUQNum;
   final VoidCallback? cancel;
+
+  /// just play the selected ayah.
+  final bool singleAyahOnly;
   PlayButton(
       {super.key,
       required this.surahNum,
       required this.ayahNum,
       required this.ayahUQNum,
+      this.singleAyahOnly = false,
       this.cancel});
   final generalCtrl = GeneralController.instance;
 
@@ -26,7 +30,7 @@ class PlayButton extends StatelessWidget {
       child: Semantics(
         button: true,
         enabled: true,
-        label: 'Play Ayah',
+        label: singleAyahOnly ? 'Play Ayah' : 'Play Surah',
         child: customSvg(
           SvgPath.svgPlayArrow,
           height: 20,
@@ -35,7 +39,8 @@ class PlayButton extends StatelessWidget {
       onTap: () {
         sl<AudioController>().startPlayingToggle();
         sl<QuranController>().isPlayExpanded.value = true;
-        sl<AudioController>().playAyahOnTap(surahNum, ayahNum, ayahUQNum);
+        sl<AudioController>()
+            .playAyahOnTap(surahNum, ayahNum, ayahUQNum, singleAyahOnly);
         if (cancel != null) {
           cancel!();
         }

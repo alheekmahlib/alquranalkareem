@@ -42,7 +42,7 @@ void main() {
 
   test('Test PrayerTimes.nextPrayerByDateTime', () {
     final kushtia = Coordinates(23.9088, 89.1220);
-    final kushtiaUtcOffset = Duration(hours: 6);
+    final kushtiaUtcOffset = const Duration(hours: 6);
     final date = DateComponents(2020, 6, 12);
     final params = CalculationMethod.karachi.getParameters();
     params.madhab = Madhab.hanafi;

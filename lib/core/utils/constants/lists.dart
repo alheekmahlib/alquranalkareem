@@ -141,61 +141,61 @@ const List themeList = [
 const List surahReaderInfo = [
   {
     'name': 'reader1',
-    'readerD': '${UrlConstants.surahUrl}',
+    'readerD': '${UrlConstants.ayahs3rdSource}',
     'readerN': 'abdul_basit_murattal/',
     'readerI': 'basit'
   },
   {
     'name': 'reader2',
-    'readerD': '${UrlConstants.surahUrl}',
+    'readerD': '${UrlConstants.ayahs3rdSource}',
     'readerN': 'muhammad_siddeeq_al-minshaawee/',
     'readerI': 'minshawy'
   },
   {
     'name': 'reader3',
-    'readerD': '${UrlConstants.surahUrl}',
+    'readerD': '${UrlConstants.ayahs3rdSource}',
     'readerN': 'mahmood_khaleel_al-husaree_iza3a/',
     'readerI': 'husary'
   },
   {
     'name': 'reader4',
-    'readerD': '${UrlConstants.surahUrl}',
+    'readerD': '${UrlConstants.ayahs3rdSource}',
     'readerN': 'ahmed_ibn_3ali_al-3ajamy/',
     'readerI': 'ajamy'
   },
   {
     'name': 'reader5',
-    'readerD': '${UrlConstants.surahUrl}',
+    'readerD': '${UrlConstants.ayahs3rdSource}',
     'readerN': 'maher_almu3aiqly/year1440/',
     'readerI': 'muaiqly'
   },
   {
     'name': 'reader6',
-    'readerD': '${UrlConstants.surahUrl}',
+    'readerD': '${UrlConstants.ayahs3rdSource}',
     'readerN': 'sa3ood_al-shuraym/',
     'readerI': 'saood'
   },
   {
     'name': 'reader7',
-    'readerD': '${UrlConstants.surahUrl}',
+    'readerD': '${UrlConstants.ayahs3rdSource}',
     'readerN': 'sa3d_al-ghaamidi/complete/',
     'readerI': 'Ghamadi'
   },
   {
     'name': 'reader8',
-    'readerD': '${UrlConstants.surahUrl}',
+    'readerD': '${UrlConstants.ayahs3rdSource}',
     'readerN': 'mustafa_al3azzawi/',
     'readerI': 'mustafa'
   },
   {
     'name': 'reader9',
-    'readerD': '${UrlConstants.surahUrl}',
+    'readerD': '${UrlConstants.ayahs3rdSource}',
     'readerN': 'nasser_bin_ali_alqatami/',
     'readerI': 'nasser'
   },
   {
     'name': 'reader10',
-    'readerD': '${UrlConstants.surahUrl2}',
+    'readerD': '${UrlConstants.ayahs4thSource}',
     'readerN': 'peshawa/Rewayat-Hafs-A-n-Assem/',
     'readerI': 'qader'
   },
@@ -219,19 +219,19 @@ const List surahReaderInfo = [
   },
   {
     'name': 'reader14',
-    'readerD': '${UrlConstants.surahUrl}',
+    'readerD': '${UrlConstants.ayahs3rdSource}',
     'readerN': 'yasser_ad-dussary/',
     'readerI': 'yasser_ad-dussary'
   },
   {
     'name': 'reader15',
-    'readerD': '${UrlConstants.surahUrl}',
+    'readerD': '${UrlConstants.ayahs3rdSource}',
     'readerN': 'abdullaah_3awwaad_al-juhaynee/',
     'readerI': 'Juhaynee'
   },
   {
     'name': 'reader16',
-    'readerD': '${UrlConstants.surahUrl}',
+    'readerD': '${UrlConstants.ayahs3rdSource}',
     'readerN': 'fares/',
     'readerI': 'Fares'
   },
@@ -314,49 +314,49 @@ const List ayahReaderInfo = [
     'name': 'reader1',
     'readerD': 'Abdul_Basit_Murattal_192kbps',
     'readerI': 'basit',
-    'url': '${UrlConstants.ayahUrl2}'
+    'url': '${UrlConstants.ayahs2ndSource}'
   },
   {
     'name': 'reader2',
     'readerD': 'Minshawy_Murattal_128kbps',
     'readerI': 'minshawy',
-    'url': '${UrlConstants.ayahUrl2}'
+    'url': '${UrlConstants.ayahs2ndSource}'
   },
   {
     'name': 'reader3',
     'readerD': 'Husary_128kbps',
     'readerI': 'husary',
-    'url': '${UrlConstants.ayahUrl2}'
+    'url': '${UrlConstants.ayahs2ndSource}'
   },
   {
     'name': 'reader4',
     'readerD': '128/ar.ahmedajamy',
     'readerI': 'ajamy',
-    'url': '${UrlConstants.ayahUrl}'
+    'url': '${UrlConstants.ayahs1stSource}'
   },
   {
     'name': 'reader5',
     'readerD': 'MaherAlMuaiqly128kbps',
     'readerI': 'muaiqly',
-    'url': '${UrlConstants.ayahUrl2}'
+    'url': '${UrlConstants.ayahs2ndSource}'
   },
   {
     'name': 'reader6',
     'readerD': 'Saood_ash-Shuraym_128kbps',
     'readerI': 'saood',
-    'url': '${UrlConstants.ayahUrl2}'
+    'url': '${UrlConstants.ayahs2ndSource}'
   },
   {
     'name': 'reader15',
     'readerD': 'Abdullaah_3awwaad_Al-Juhaynee_128kbps',
     'readerI': 'Juhaynee',
-    'url': '${UrlConstants.ayahUrl2}'
+    'url': '${UrlConstants.ayahs2ndSource}'
   },
   {
     'name': 'reader16',
     'readerD': 'Fares_Abbad_64kbps',
     'readerI': 'Fares',
-    'url': '${UrlConstants.ayahUrl2}'
+    'url': '${UrlConstants.ayahs2ndSource}'
   },
 ];
 

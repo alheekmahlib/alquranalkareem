@@ -359,7 +359,7 @@ class SurahAudioController extends GetxController {
 
   loadSurahReader() async {
     sorahReaderValue.value =
-        await box.read(SURAH_AUDIO_PLAYER_SOUND) ?? UrlConstants.surahUrl;
+        await box.read(SURAH_AUDIO_PLAYER_SOUND) ?? UrlConstants.ayahs3rdSource;
     sorahReaderNameValue.value =
         await box.read(SURAH_AUDIO_PLAYER_NAME) ?? 'abdul_basit_murattal/';
     surahReaderIndex.value = box.read(SURAH_READER_INDEX) ?? 0;

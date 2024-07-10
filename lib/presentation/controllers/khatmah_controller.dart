@@ -61,8 +61,8 @@ class KhatmahController extends GetxController {
       int? color}) async {
     final khatmaId = await db.insertKhatma(KhatmahsCompanion(
         name: drift.Value(name),
-        currentPage: drift.Value(1),
-        isCompleted: drift.Value(false),
+        currentPage: const drift.Value(1),
+        isCompleted: const drift.Value(false),
         daysCount: drift.Value(daysCount!),
         isTahzibSahabah: drift.Value(isTahzibSahabah),
         color: drift.Value(color!)));
@@ -90,14 +90,14 @@ class KhatmahController extends GetxController {
         await db.insertKhatmahDay(KhatmahDaysCompanion(
           khatmahId: drift.Value(khatmaId),
           day: drift.Value(i + 1),
-          isCompleted: drift.Value(false),
+          isCompleted: const drift.Value(false),
           startPage: drift.Value(pages[i * 2]),
           endPage: drift.Value(pages[i * 2 + 1]),
         ));
       }
     } else {
       // استخدام التقسيم العادي
-      int pagesPerDay = totalPages ~/ daysCount!;
+      int pagesPerDay = totalPages ~/ daysCount;
       int remainder = totalPages % daysCount;
       int currentPage = 1;
 
@@ -117,7 +117,7 @@ class KhatmahController extends GetxController {
         await db.insertKhatmahDay(KhatmahDaysCompanion(
           khatmahId: drift.Value(khatmaId),
           day: drift.Value(i + 1),
-          isCompleted: drift.Value(false),
+          isCompleted: const drift.Value(false),
           startPage: drift.Value(startPage),
           endPage: drift.Value(endPage),
         ));

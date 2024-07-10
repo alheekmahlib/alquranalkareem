@@ -102,8 +102,8 @@ class PlayListController extends GetxController {
   }
 
   String generateUrl(int ayahNumber, String readerName) {
-    log("generateUrl: ${UrlConstants.ayahUrl}$readerName/$ayahNumber.mp3");
-    return "${UrlConstants.ayahUrl}$readerName/$ayahNumber.mp3";
+    log("generateUrl: ${UrlConstants.ayahs1stSource}$readerName/$ayahNumber.mp3");
+    return "${UrlConstants.ayahs1stSource}$readerName/$ayahNumber.mp3";
   }
 
   Future<bool> choiceFromPlayList(

@@ -247,7 +247,7 @@ class BooksController extends GetxController {
     try {
       List<dynamic>? downloadedBooks = box.read(DOWNLOADED_BOOKS);
       log('Loaded downloaded books: $downloadedBooks');
-      if (downloadedBooks != null && downloadedBooks is List<dynamic>) {
+      if (downloadedBooks != null) {
         downloadedBooks.forEach((bookNumber) {
           if (bookNumber is String) {
             downloaded[int.parse(bookNumber)] = true;
