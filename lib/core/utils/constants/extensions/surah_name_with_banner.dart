@@ -49,8 +49,8 @@ extension CustomSurahNameWithBannerExtension on Widget {
         children: [
           child,
           SizedBox(
-              // height: 27.h,
-              width: 120.w,
+              height: Get.height * .2,
+              width: Get.height * .8,
               child: surahNameWidget(number, Get.theme.hintColor)),
         ],
       ),
@@ -60,16 +60,24 @@ extension CustomSurahNameWithBannerExtension on Widget {
   Widget surahBannerWidget(String number) {
     if (themeCtrl.isBlueMode) {
       return bannerWithSurahName(
-          customSvg(SvgPath.svgSurahBanner1, width: Get.width * .8), number);
+          customSvg(SvgPath.svgSurahBanner1,
+              width: Get.width * .75, height: Get.height * .19),
+          number);
     } else if (themeCtrl.isBrownMode) {
       return bannerWithSurahName(
-          customSvg(SvgPath.svgSurahBanner2, width: Get.width * .8), number);
+          customSvg(SvgPath.svgSurahBanner2,
+              width: Get.width * .75, height: Get.height * .19),
+          number);
     } else if (themeCtrl.isOldMode) {
       return bannerWithSurahName(
-          customSvg(SvgPath.svgSurahBanner4, width: Get.width * .8), number);
+          customSvg(SvgPath.svgSurahBanner4,
+              width: Get.width * .75, height: Get.height * .19),
+          number);
     } else {
       return bannerWithSurahName(
-          customSvg(SvgPath.svgSurahBanner3, width: Get.width * .8), number);
+          customSvg(SvgPath.svgSurahBanner3,
+              width: Get.width * .75, height: Get.height * .19),
+          number);
     }
   }
 

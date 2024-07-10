@@ -35,7 +35,7 @@ class TopTitleWidget extends StatelessWidget {
                     bookmarkCtrl.addPageBookmarkOnTap(context, index);
                   },
                   child: bookmarkIcon(
-                      height: context.customOrientation(35.h, 55.h)),
+                      height: context.customOrientation(30.h, 55.h)),
                 ),
                 // Expanded(
                 //     flex: 2,
@@ -110,7 +110,7 @@ class TopTitleWidget extends StatelessWidget {
                     bookmarkCtrl.addPageBookmarkOnTap(context, index);
                   },
                   child: bookmarkIcon(
-                      height: context.customOrientation(35.h, 55.h)),
+                      height: context.customOrientation(30.h, 55.h)),
                 ),
               ],
             ),

@@ -1,6 +1,5 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 
@@ -40,7 +39,7 @@ TextSpan span({
         style: TextStyle(
           fontFamily: 'page${pageIndex + 1}',
           fontSize: fontSize,
-          height: 1.8.h,
+          height: 2,
           letterSpacing: quranCtrl.isPages.value == 1 ? 10 : 30,
           color: Get.theme.colorScheme.inversePrimary,
           backgroundColor: quranCtrl.isPages.value == 1
@@ -60,7 +59,7 @@ TextSpan span({
         style: TextStyle(
           fontFamily: 'page${pageIndex + 1}',
           fontSize: fontSize,
-          height: 1.8.h,
+          height: 2,
           letterSpacing: 5,
           // wordSpacing: wordSpacing + 10,
           color: Get.theme.colorScheme.inversePrimary,
@@ -83,7 +82,7 @@ TextSpan span({
       style: TextStyle(
         fontFamily: 'page${pageIndex + 1}',
         fontSize: fontSize,
-        height: 1.8.h,
+        height: 2,
         letterSpacing: 5,
         color: Get.theme.colorScheme.inversePrimary,
         backgroundColor: quranCtrl.isPages.value == 1
@@ -115,7 +114,7 @@ TextSpan span({
                 style: TextStyle(
                   fontFamily: 'page${pageIndex + 1}',
                   fontSize: fontSize,
-                  height: 1.8.h,
+                  height: 2,
                   letterSpacing: 5,
                   color: sl<BookmarksController>()
                           .hasBookmark(surahNum, ayahNum)
@@ -168,7 +167,7 @@ TextSpan customSpan({
           style: TextStyle(
             fontFamily: 'uthmanic2',
             fontSize: fontSize,
-            height: 1.8.h,
+            height: 2,
             color: Get.theme.colorScheme.inversePrimary,
             backgroundColor: quranCtrl.isPages.value == 1
                 ? Colors.transparent
@@ -197,7 +196,7 @@ TextSpan customSpan({
                 style: TextStyle(
                   fontFamily: 'uthmanic2',
                   fontSize: fontSize,
-                  height: 1.8.h,
+                  height: 2,
                   color: sl<BookmarksController>()
                           .hasBookmark(surahNum, ayahNum)
                           .value

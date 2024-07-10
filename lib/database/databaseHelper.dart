@@ -162,7 +162,6 @@ class DatabaseHelper {
     print('get Text Bookmarks');
     print('${'=' * 30} db?.isOpen: ${_db?.isOpen}');
     final data = await _db!.query(tableBookmarksText);
-    print('${'=' * 30} data: $data');
     return data;
   }
 
