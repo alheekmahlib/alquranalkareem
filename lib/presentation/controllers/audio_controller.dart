@@ -210,13 +210,13 @@ class AudioController extends GetxController {
   }
 
   List<String> get selectedSurahAyahsFilePaths {
-    final selectedSurah = quranCtrl.surahs[currentSurahNumInPage - 1];
+    final selectedSurah = quranCtrl.surahs[currentSurahNumInPage - 2];
     return List.generate(
         selectedSurah.ayahs.length,
         (i) => ayahReaderInfo[readerIndex.value]['url'] ==
                 UrlConstants.ayahs1stSource
             ? '$reader/${selectedSurah.ayahs[i].ayahUQNumber}.mp3'
-            : '$reader/${selectedSurah.surahNumber}${selectedSurah.ayahs[i].ayahNumber}.mp3');
+            : '$reader/${selectedSurah.surahNumber.toString().padLeft(3, "0")}${selectedSurah.ayahs[i].ayahNumber.toString().padLeft(3, "0")}.mp3');
   }
 
   String get ayahDownloadSource =>
@@ -251,6 +251,7 @@ class AudioController extends GetxController {
 
   Future<String> _downloadFileIfNotExist(String url, String fileName,
       [bool showSnakbars = true]) async {
+    log('URL: $url');
     String path;
     path = join(dir.path, fileName);
     var file = File(path);
@@ -259,20 +260,32 @@ class AudioController extends GetxController {
       try {
         await Directory(dirname(path)).create(recursive: true);
       } catch (e) {
-        print(e);
+        print('Error creating directory: $e');
       }
       if (showSnakbars) {
         if (_connectionStatus.contains(ConnectivityResult.none)) {
           Get.context!.showCustomErrorSnackBar('noInternet'.tr);
         } else if (_connectionStatus.contains(ConnectivityResult.mobile)) {
-          // await _downloadFile(path, url, fileName);
-          Get.context!.customMobileNoteSnackBar('mobileDataAyat'.tr);
+          try {
+            await _downloadFile(path, url, fileName);
+            Get.context!.customMobileNoteSnackBar('mobileDataAyat'.tr);
+          } catch (e) {
+            log('Error downloading file: $e');
+          }
         } else if (_connectionStatus.contains(ConnectivityResult.wifi)) {
-          // await _downloadFile(path, url, fileName);
+          try {
+            await _downloadFile(path, url, fileName);
+          } catch (e) {
+            log('Error downloading file: $e');
+          }
         }
       } else {
         if (false == _connectionStatus.contains(ConnectivityResult.none)) {
-          await _downloadFile(path, url, fileName);
+          try {
+            await _downloadFile(path, url, fileName);
+          } catch (e) {
+            log('Error downloading file: $e');
+          }
         }
       }
     }
@@ -280,79 +293,90 @@ class AudioController extends GetxController {
   }
 
   Future playFile() async {
-    log('currentAyahUrl: $currentAyahUrl', name: 'AudioController');
-    if (playSingleAyahOnly) {
-      final path =
-          await _downloadFileIfNotExist(currentAyahUrl, currentAyahFileName);
-      await audioPlayer.setAudioSource(AudioSource.file(
-        path,
-        tag: mediaItemForCurrentAyah,
-      ));
-    } else {
-      await audioPlayer.stop();
-      await Future.wait(List.generate(
-          selectedSurahAyahsFilePaths.length,
-          (i) => _downloadFileIfNotExist(
-              '$ayahDownloadSource/${selectedSurahAyahsFilePaths[i]}',
-              selectedSurahAyahsFilePaths[i])));
-      await audioPlayer.setAudioSource(
-        initialIndex: _currentAyahUQInPage.value,
-        ConcatenatingAudioSource(
-          children: List.generate(
-            selectedSurahAyahsFilePaths.length,
-            (i) => AudioSource.file(selectedSurahAyahsFilePaths[i],
-                tag: mediaItemsForCurrentSurah[i]),
+    try {
+      log('currentAyahUrl: $currentAyahUrl', name: 'AudioController');
+      if (playSingleAyahOnly) {
+        final path =
+            await _downloadFileIfNotExist(currentAyahUrl, currentAyahFileName);
+        await audioPlayer.setAudioSource(AudioSource.file(
+          path,
+          tag: mediaItemForCurrentAyah,
+        ));
+      } else {
+        await audioPlayer.stop();
+        await Future.wait(
+            List.generate(selectedSurahAyahsFilePaths.length, (i) {
+          log('ayahDownloadSource: $ayahDownloadSource${selectedSurahAyahsFilePaths[i]}');
+          return _downloadFileIfNotExist(
+              '$ayahDownloadSource${selectedSurahAyahsFilePaths[i]}',
+              selectedSurahAyahsFilePaths[i]);
+        }));
+        await audioPlayer.setAudioSource(
+          initialIndex: _currentAyahUQInPage.value,
+          // AudioSource.file(
+          //   '${selectedSurahAyahsFilePaths[_currentAyahUQInPage.value]}.mp3',
+          //   tag: mediaItemsForCurrentSurah,
+          // ),
+          ConcatenatingAudioSource(
+            children: List.generate(
+              selectedSurahAyahsFilePaths.length,
+              (i) => AudioSource.file(
+                '$reader/${_currentAyahUQInPage.value}.mp3',
+                tag: mediaItemsForCurrentSurah[i],
+              ),
+            ),
           ),
-        ),
-      );
-    }
-
-    // audioPlayer.playerStateStream.listen((playerState) async {
-    //   if (playerState.processingState == ProcessingState.completed &&
-    //       !isProcessingNextAyah.value) {
-    //     isProcessingNextAyah.value = true;
-    //     log('${'|' * 20} _currentAyahUQInPage.value: ${_currentAyahUQInPage.value}');
-    //     log('${'|' * 20} _currentAyahInSurah.value: ${_currentAyahInSurah.value}');
-    //     log('${'|' * 20} page num: ${generalCtrl.currentPageNumber.value}');
-    //     if (quranCtrl.isPages.value == 0) {
-    //       if (generalCtrl.currentPageNumber.value == 604) {
-    //         print('doneeeeeeeeeeee');
-    //         await audioPlayer.pause();
-    //         isPlay.value = false;
-    //       } else if (isLastAyahInPageButNotInSurah) {
-    //         print('moveToPage');
-    //         await moveToNextPage();
-    //       } else if (isLastAyahInSurahAndPage) {
-    //         await moveToNextPage();
-    //         goingToNewSurah = true;
-    //       } else if (isLastAyahInSurahButNotInPage) {
-    //         await moveToNextPage(withScroll: false);
-    //         goingToNewSurah = true;
-    //       }
-    //     } else if (quranCtrl.isPages.value == 1) {
-    //       if (_currentAyahUQInPage.value == 6236) {
-    //         await audioPlayer.pause();
-    //         isPlay.value = false;
-    //       } else {}
-    //     }
-
-    /// stop player when player playes one ayah if user selected one ayah play mode
-    //     if (playSingleAyahOnly) return;
-
-    //     await playNextAyah();
-
-    //     print('ProcessingState.completed');
-    //   }
-    // });
-    isPlay.value = true;
-    await audioPlayer.play();
-    audioPlayer.currentIndexStream.listen((index) {
-      log('index: $index');
-      if (index != null) {
-        _currentAyahUQInPage.value = index;
+        );
       }
-    });
-    print('playFile2: play');
+      // audioPlayer.playerStateStream.listen((playerState) async {
+      //   if (playerState.processingState == ProcessingState.completed &&
+      //       !isProcessingNextAyah.value) {
+      //     isProcessingNextAyah.value = true;
+      //     log('${'|' * 20} _currentAyahUQInPage.value: ${_currentAyahUQInPage.value}');
+      //     log('${'|' * 20} _currentAyahInSurah.value: ${_currentAyahInSurah.value}');
+      //     log('${'|' * 20} page num: ${generalCtrl.currentPageNumber.value}');
+      //     if (quranCtrl.isPages.value == 0) {
+      //       if (generalCtrl.currentPageNumber.value == 604) {
+      //         print('doneeeeeeeeeeee');
+      //         await audioPlayer.pause();
+      //         isPlay.value = false;
+      //       } else if (isLastAyahInPageButNotInSurah) {
+      //         print('moveToPage');
+      //         await moveToNextPage();
+      //       } else if (isLastAyahInSurahAndPage) {
+      //         await moveToNextPage();
+      //         goingToNewSurah = true;
+      //       } else if (isLastAyahInSurahButNotInPage) {
+      //         await moveToNextPage(withScroll: false);
+      //         goingToNewSurah = true;
+      //       }
+      //     } else if (quranCtrl.isPages.value == 1) {
+      //       if (_currentAyahUQInPage.value == 6236) {
+      //         await audioPlayer.pause();
+      //         isPlay.value = false;
+      //       } else {}
+      //     }
+
+      /// stop player when player playes one ayah if user selected one ayah play mode
+      //     if (playSingleAyahOnly) return;
+
+      //     await playNextAyah();
+
+      //     print('ProcessingState.completed');
+      //   }
+      // });
+      isPlay.value = true;
+      await audioPlayer.play();
+      audioPlayer.currentIndexStream.listen((index) {
+        log('index: $index');
+        if (index != null) {
+          _currentAyahUQInPage.value = index;
+        }
+      });
+      print('playFile2: play');
+    } catch (e) {
+      log('Error in playFile: $e', name: 'AudioController');
+    }
   }
 
   Future<void> playNextAyah() async {
