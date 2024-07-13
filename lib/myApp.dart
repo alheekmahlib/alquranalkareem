@@ -1,3 +1,4 @@
+import 'package:alquranalkareem/presentation/screens/splash/screen/splash_screen.dart';
 import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -9,7 +10,6 @@ import 'core/services/languages/localization_controller.dart';
 import 'core/services/languages/messages.dart';
 import 'core/services/services_locator.dart';
 import 'presentation/controllers/theme_controller.dart';
-import 'presentation/screens/splashScreen/splash_screen.dart';
 
 class MyApp extends StatelessWidget {
   final Map<String, Map<String, String>> languages;

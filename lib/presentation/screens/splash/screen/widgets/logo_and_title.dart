@@ -3,10 +3,10 @@ import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 
 import '/core/utils/constants/extensions/svg_extensions.dart';
-import '../../../../core/utils/constants/svg_constants.dart';
-import '../../../../core/widgets/container_with_border.dart';
-import '../../../../core/widgets/container_with_lines.dart';
-import '../../../controllers/splash_screen_controller.dart';
+import '../../../../../core/utils/constants/svg_constants.dart';
+import '../../../../../core/widgets/container_with_border.dart';
+import '../../../../../core/widgets/container_with_lines.dart';
+import '../../controller/controller.dart';
 
 class LogoAndTitle extends StatelessWidget {
   const LogoAndTitle({super.key});
@@ -29,7 +29,7 @@ class LogoAndTitle extends StatelessWidget {
             child: Obx(() {
               return AnimatedOpacity(
                 duration: const Duration(seconds: 1),
-                opacity: splashCtrl.animate.value ? 1 : 0,
+                opacity: splashCtrl.state.animate.value ? 1 : 0,
                 child: Text(
                   'وَرَتِّلِ ٱلۡقُرۡءَانَ تَرۡتِيلًا',
                   style: TextStyle(
