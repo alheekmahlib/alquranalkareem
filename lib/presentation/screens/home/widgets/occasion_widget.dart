@@ -22,7 +22,7 @@ class OccasionWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    int daysRemaining = countdownCtrl.calculate(year + 1, month, day);
+    int daysRemaining = countdownCtrl.calculate(year, month, day);
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 32.0),
       child: Container(
@@ -41,10 +41,10 @@ class OccasionWidget extends StatelessWidget {
             LinearProgressIndicator(
               minHeight: 50,
               borderRadius: const BorderRadius.all(Radius.circular(4)),
-              value: (1.0 - (daysRemaining / 1000))
+              value: (1.0 - (daysRemaining / 355))
                   .clamp(0.0, 1.0), //(daysRemaining / 1000).toDouble(),
               backgroundColor: Theme.of(context).canvasColor,
-              color: Theme.of(context).colorScheme.surface,
+              color: Theme.of(context).colorScheme.surface.withOpacity(.7),
             ),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 8.0),
