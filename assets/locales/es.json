@@ -1032,5 +1032,10 @@
   "@searchInBooks": {
     "type": "text",
     "placeholders": {}
+  },
+  "hasPassed": "Ha pasado",
+  "@hasPassed": {
+    "type": "text",
+    "placeholders": {}
   }
 }

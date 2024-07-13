@@ -44,7 +44,9 @@ class OccasionWidget extends StatelessWidget {
               value: (1.0 - (daysRemaining / 355))
                   .clamp(0.0, 1.0), //(daysRemaining / 1000).toDouble(),
               backgroundColor: Theme.of(context).canvasColor,
-              color: Theme.of(context).colorScheme.surface.withOpacity(.7),
+              color: daysRemaining == 0
+                  ? Theme.of(context).colorScheme.surface
+                  : Theme.of(context).colorScheme.surface.withOpacity(.7),
             ),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 8.0),
@@ -55,10 +57,7 @@ class OccasionWidget extends StatelessWidget {
                     child: FittedBox(
                       fit: BoxFit.scaleDown,
                       child: Text(
-                        // generalCtrl.today.hMonth == month
-                        //     ? '${'RemainsUntilTheEndOf'.tr}\n$name'
-                        //     :
-                        name,
+                        daysRemaining == 0 ? 'hasPassed'.tr : name,
                         style: TextStyle(
                           fontSize: 18.0,
                           fontFamily: 'kufi',
@@ -68,21 +67,25 @@ class OccasionWidget extends StatelessWidget {
                       ),
                     ),
                   ),
-                  Expanded(
-                    flex: 3,
-                    child: FittedBox(
-                      fit: BoxFit.scaleDown,
-                      child: Text(
-                        '${daysRemaining.toString().convertNumbers()} ${'${countdownCtrl.daysArabicConvert(daysRemaining)}'.tr}',
-                        style: TextStyle(
-                          fontSize: 16.0,
-                          fontFamily: 'kufi',
-                          color: Theme.of(context).colorScheme.inversePrimary,
+                  daysRemaining == 0
+                      ? const SizedBox.shrink()
+                      : Expanded(
+                          flex: 3,
+                          child: FittedBox(
+                            fit: BoxFit.scaleDown,
+                            child: Text(
+                              '${daysRemaining.toString().convertNumbers()} ${'${countdownCtrl.daysArabicConvert(daysRemaining)}'.tr}',
+                              style: TextStyle(
+                                fontSize: 16.0,
+                                fontFamily: 'kufi',
+                                color: Theme.of(context)
+                                    .colorScheme
+                                    .inversePrimary,
+                              ),
+                              textAlign: TextAlign.center,
+                            ),
+                          ),
                         ),
-                        textAlign: TextAlign.center,
-                      ),
-                    ),
-                  ),
                 ],
               ),
             ),
