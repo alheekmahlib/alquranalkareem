@@ -347,6 +347,30 @@ class Khatmah extends DataClass implements Insertable<Khatmah> {
         startPage: startPage.present ? startPage.value : this.startPage,
         endPage: endPage.present ? endPage.value : this.endPage,
       );
+  Khatmah copyWithCompanion(KhatmahsCompanion data) {
+    return Khatmah(
+      id: data.id.present ? data.id.value : this.id,
+      name: data.name.present ? data.name.value : this.name,
+      currentPage:
+          data.currentPage.present ? data.currentPage.value : this.currentPage,
+      startAyahNumber: data.startAyahNumber.present
+          ? data.startAyahNumber.value
+          : this.startAyahNumber,
+      endAyahNumber: data.endAyahNumber.present
+          ? data.endAyahNumber.value
+          : this.endAyahNumber,
+      isCompleted:
+          data.isCompleted.present ? data.isCompleted.value : this.isCompleted,
+      daysCount: data.daysCount.present ? data.daysCount.value : this.daysCount,
+      isTahzibSahabah: data.isTahzibSahabah.present
+          ? data.isTahzibSahabah.value
+          : this.isTahzibSahabah,
+      color: data.color.present ? data.color.value : this.color,
+      startPage: data.startPage.present ? data.startPage.value : this.startPage,
+      endPage: data.endPage.present ? data.endPage.value : this.endPage,
+    );
+  }
+
   @override
   String toString() {
     return (StringBuffer('Khatmah(')
@@ -753,6 +777,18 @@ class KhatmahDay extends DataClass implements Insertable<KhatmahDay> {
         startPage: startPage.present ? startPage.value : this.startPage,
         endPage: endPage.present ? endPage.value : this.endPage,
       );
+  KhatmahDay copyWithCompanion(KhatmahDaysCompanion data) {
+    return KhatmahDay(
+      id: data.id.present ? data.id.value : this.id,
+      khatmahId: data.khatmahId.present ? data.khatmahId.value : this.khatmahId,
+      day: data.day.present ? data.day.value : this.day,
+      isCompleted:
+          data.isCompleted.present ? data.isCompleted.value : this.isCompleted,
+      startPage: data.startPage.present ? data.startPage.value : this.startPage,
+      endPage: data.endPage.present ? data.endPage.value : this.endPage,
+    );
+  }
+
   @override
   String toString() {
     return (StringBuffer('KhatmahDay(')
@@ -880,7 +916,7 @@ class KhatmahDaysCompanion extends UpdateCompanion<KhatmahDay> {
 
 abstract class _$KhatmahDatabase extends GeneratedDatabase {
   _$KhatmahDatabase(QueryExecutor e) : super(e);
-  _$KhatmahDatabaseManager get managers => _$KhatmahDatabaseManager(this);
+  $KhatmahDatabaseManager get managers => $KhatmahDatabaseManager(this);
   late final $KhatmahsTable khatmahs = $KhatmahsTable(this);
   late final $KhatmahDaysTable khatmahDays = $KhatmahDaysTable(this);
   @override
@@ -902,7 +938,7 @@ abstract class _$KhatmahDatabase extends GeneratedDatabase {
       );
 }
 
-typedef $$KhatmahsTableInsertCompanionBuilder = KhatmahsCompanion Function({
+typedef $$KhatmahsTableCreateCompanionBuilder = KhatmahsCompanion Function({
   Value<int> id,
   Value<String?> name,
   Value<int?> currentPage,
@@ -935,8 +971,7 @@ class $$KhatmahsTableTableManager extends RootTableManager<
     Khatmah,
     $$KhatmahsTableFilterComposer,
     $$KhatmahsTableOrderingComposer,
-    $$KhatmahsTableProcessedTableManager,
-    $$KhatmahsTableInsertCompanionBuilder,
+    $$KhatmahsTableCreateCompanionBuilder,
     $$KhatmahsTableUpdateCompanionBuilder> {
   $$KhatmahsTableTableManager(_$KhatmahDatabase db, $KhatmahsTable table)
       : super(TableManagerState(
@@ -946,9 +981,7 @@ class $$KhatmahsTableTableManager extends RootTableManager<
               $$KhatmahsTableFilterComposer(ComposerState(db, table)),
           orderingComposer:
               $$KhatmahsTableOrderingComposer(ComposerState(db, table)),
-          getChildManagerBuilder: (p) =>
-              $$KhatmahsTableProcessedTableManager(p),
-          getUpdateCompanionBuilder: ({
+          updateCompanionCallback: ({
             Value<int> id = const Value.absent(),
             Value<String?> name = const Value.absent(),
             Value<int?> currentPage = const Value.absent(),
@@ -974,7 +1007,7 @@ class $$KhatmahsTableTableManager extends RootTableManager<
             startPage: startPage,
             endPage: endPage,
           ),
-          getInsertCompanionBuilder: ({
+          createCompanionCallback: ({
             Value<int> id = const Value.absent(),
             Value<String?> name = const Value.absent(),
             Value<int?> currentPage = const Value.absent(),
@@ -1001,18 +1034,6 @@ class $$KhatmahsTableTableManager extends RootTableManager<
             endPage: endPage,
           ),
         ));
-}
-
-class $$KhatmahsTableProcessedTableManager extends ProcessedTableManager<
-    _$KhatmahDatabase,
-    $KhatmahsTable,
-    Khatmah,
-    $$KhatmahsTableFilterComposer,
-    $$KhatmahsTableOrderingComposer,
-    $$KhatmahsTableProcessedTableManager,
-    $$KhatmahsTableInsertCompanionBuilder,
-    $$KhatmahsTableUpdateCompanionBuilder> {
-  $$KhatmahsTableProcessedTableManager(super.$state);
 }
 
 class $$KhatmahsTableFilterComposer
@@ -1146,7 +1167,7 @@ class $$KhatmahsTableOrderingComposer
           ColumnOrderings(column, joinBuilders: joinBuilders));
 }
 
-typedef $$KhatmahDaysTableInsertCompanionBuilder = KhatmahDaysCompanion
+typedef $$KhatmahDaysTableCreateCompanionBuilder = KhatmahDaysCompanion
     Function({
   Value<int> id,
   required int khatmahId,
@@ -1171,8 +1192,7 @@ class $$KhatmahDaysTableTableManager extends RootTableManager<
     KhatmahDay,
     $$KhatmahDaysTableFilterComposer,
     $$KhatmahDaysTableOrderingComposer,
-    $$KhatmahDaysTableProcessedTableManager,
-    $$KhatmahDaysTableInsertCompanionBuilder,
+    $$KhatmahDaysTableCreateCompanionBuilder,
     $$KhatmahDaysTableUpdateCompanionBuilder> {
   $$KhatmahDaysTableTableManager(_$KhatmahDatabase db, $KhatmahDaysTable table)
       : super(TableManagerState(
@@ -1182,9 +1202,7 @@ class $$KhatmahDaysTableTableManager extends RootTableManager<
               $$KhatmahDaysTableFilterComposer(ComposerState(db, table)),
           orderingComposer:
               $$KhatmahDaysTableOrderingComposer(ComposerState(db, table)),
-          getChildManagerBuilder: (p) =>
-              $$KhatmahDaysTableProcessedTableManager(p),
-          getUpdateCompanionBuilder: ({
+          updateCompanionCallback: ({
             Value<int> id = const Value.absent(),
             Value<int> khatmahId = const Value.absent(),
             Value<int> day = const Value.absent(),
@@ -1200,7 +1218,7 @@ class $$KhatmahDaysTableTableManager extends RootTableManager<
             startPage: startPage,
             endPage: endPage,
           ),
-          getInsertCompanionBuilder: ({
+          createCompanionCallback: ({
             Value<int> id = const Value.absent(),
             required int khatmahId,
             required int day,
@@ -1217,18 +1235,6 @@ class $$KhatmahDaysTableTableManager extends RootTableManager<
             endPage: endPage,
           ),
         ));
-}
-
-class $$KhatmahDaysTableProcessedTableManager extends ProcessedTableManager<
-    _$KhatmahDatabase,
-    $KhatmahDaysTable,
-    KhatmahDay,
-    $$KhatmahDaysTableFilterComposer,
-    $$KhatmahDaysTableOrderingComposer,
-    $$KhatmahDaysTableProcessedTableManager,
-    $$KhatmahDaysTableInsertCompanionBuilder,
-    $$KhatmahDaysTableUpdateCompanionBuilder> {
-  $$KhatmahDaysTableProcessedTableManager(super.$state);
 }
 
 class $$KhatmahDaysTableFilterComposer
@@ -1313,9 +1319,9 @@ class $$KhatmahDaysTableOrderingComposer
   }
 }
 
-class _$KhatmahDatabaseManager {
+class $KhatmahDatabaseManager {
   final _$KhatmahDatabase _db;
-  _$KhatmahDatabaseManager(this._db);
+  $KhatmahDatabaseManager(this._db);
   $$KhatmahsTableTableManager get khatmahs =>
       $$KhatmahsTableTableManager(_db, _db.khatmahs);
   $$KhatmahDaysTableTableManager get khatmahDays =>
