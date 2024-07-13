@@ -4,7 +4,7 @@ import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 
 import '/core/utils/constants/extensions/extensions.dart';
-import '../../../controllers/splash_screen_controller.dart';
+import '../../splashScreen/controller/controller.dart';
 
 class PageViewBuild extends StatelessWidget {
   final PageController controller;
@@ -21,8 +21,8 @@ class PageViewBuild extends StatelessWidget {
           controller: controller,
           itemCount: newFeatures.length,
           onPageChanged: (page) {
-            splashCtrl.onboardingPageNumber.value = page;
-            splashCtrl.currentPageIndex.value = page;
+            splashCtrl.state.onboardingPageNumber.value = page;
+            splashCtrl.state.currentPageIndex.value = page;
           },
           itemBuilder: (context, index) {
             // splashCtrl.onboardingPageNumber.value =

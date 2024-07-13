@@ -1,53 +1,54 @@
+import 'package:alquranalkareem/presentation/screens/splashScreen/controller/state.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get_storage/get_storage.dart';
-import 'package:hijri/hijri_calendar.dart';
 
 import '/presentation/controllers/quran_controller.dart';
 import '/presentation/controllers/translate_controller.dart';
-import '../../core/services/services_locator.dart';
-import '../../core/utils/constants/lists.dart';
-import '../../core/utils/constants/lottie.dart';
-import '../../core/utils/constants/shared_preferences_constants.dart';
-import '../screens/screen_type.dart';
-import '../screens/whats_new/whats_new_screen.dart';
-import 'audio_controller.dart';
-import 'ayat_controller.dart';
-import 'general_controller.dart';
-import 'settings_controller.dart';
+import '../../../../core/services/services_locator.dart';
+import '../../../../core/utils/constants/lists.dart';
+import '../../../../core/utils/constants/lottie.dart';
+import '../../../../core/utils/constants/shared_preferences_constants.dart';
+import '../../../controllers/audio_controller.dart';
+import '../../../controllers/ayat_controller.dart';
+import '../../../controllers/general_controller.dart';
+import '../../../controllers/settings_controller.dart';
+import '../../screen_type.dart';
+import '../../whats_new/whats_new_screen.dart';
 
 class SplashScreenController extends GetxController {
   static SplashScreenController get instance =>
       Get.isRegistered<SplashScreenController>()
           ? Get.find<SplashScreenController>()
           : Get.put<SplashScreenController>(SplashScreenController());
-  RxBool animate = false.obs;
-  final generalCtrl = GeneralController.instance;
-  RxInt onboardingPageNumber = 0.obs;
-  var today = HijriCalendar.now();
-  RxInt currentPageIndex = 0.obs;
-  final box = GetStorage();
+
+  /// state class hold the values for better separation
+  SplashState state = SplashState();
 
   @override
   void onInit() {
-    sl<AyatController>().loadTafseer();
-    sl<TranslateDataController>().loadTranslateValue();
-    sl<SettingsController>().loadLang();
-    sl<AudioController>().loadQuranReader();
-    sl<GeneralController>().getLastPageAndFontSize();
-    sl<GeneralController>().updateGreeting();
-    sl<QuranController>().loadSwitchValue();
-    sl<GeneralController>().screenSelectedValue.value =
-        box.read(SCREEN_SELECTED_VALUE) ?? 0;
+    _loadInitialData();
     startTime();
     super.onInit();
   }
 
+  Future<void> _loadInitialData() async {
+    await Future.wait([
+      sl<AyatController>().loadTafseer(),
+      sl<TranslateDataController>().loadTranslateValue(),
+      sl<SettingsController>().loadLang(),
+      sl<GeneralController>().getLastPageAndFontSize(),
+      sl<QuranController>().loadSwitchValue(),
+    ]);
+    sl<GeneralController>().updateGreeting();
+    sl<AudioController>().loadQuranReader();
+    sl<GeneralController>().screenSelectedValue.value =
+        state.box.read(SCREEN_SELECTED_VALUE) ?? 0;
+  }
+
   Future startTime() async {
     await Future.delayed(const Duration(seconds: 1));
-    animate.value = true;
+    state.animate.value = true;
     await Future.delayed(const Duration(seconds: 3));
-    // Get.off(() => OnboardingScreen());
     navigationPage();
   }
 
@@ -65,16 +66,14 @@ class SplashScreenController extends GetxController {
         Get.offAll(() => ScreenTypeL(), transition: Transition.downToUp);
       }
     });
-    // Get.off(() => OnboardingScreen());
-    // Navigator.of(context).pushReplacementNamed(routeName);
   }
 
   Future<void> saveLastShownIndex(int index) async {
-    await box.write(LAST_SHOWN_UPDATE_INDEX, index);
+    await state.box.write(LAST_SHOWN_UPDATE_INDEX, index);
   }
 
   Future<int> getLastShownIndex() async {
-    return box.read(LAST_SHOWN_UPDATE_INDEX) ?? 0;
+    return state.box.read(LAST_SHOWN_UPDATE_INDEX) ?? 0;
   }
 
   Future<List<Map<String, dynamic>>> getNewFeatures() async {
@@ -95,9 +94,9 @@ class SplashScreenController extends GetxController {
   }
 
   Widget ramadhanOrEidGreeting() {
-    if (today.hMonth == 9) {
+    if (state.today.hMonth == 9) {
       return ramadanOrEid('ramadan_white', height: 100.0);
-    } else if (generalCtrl.eidDays) {
+    } else if (state.generalCtrl.eidDays) {
       return ramadanOrEid('eid_white', height: 100.0);
     } else {
       return const SizedBox.shrink();

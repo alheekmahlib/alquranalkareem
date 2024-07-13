@@ -38,8 +38,8 @@ import '../../presentation/controllers/notification_controller.dart';
 import '../../presentation/controllers/ourApps_controller.dart';
 import '../../presentation/controllers/prayer_progress_controller.dart';
 import '../../presentation/controllers/quran_controller.dart';
-import '../../presentation/controllers/splash_screen_controller.dart';
 import '../../presentation/controllers/theme_controller.dart';
+import '../../presentation/screens/splashScreen/controller/controller.dart';
 import '../utils/helpers/ui_helper.dart';
 
 final sl = GetIt.instance;

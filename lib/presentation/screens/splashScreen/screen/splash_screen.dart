@@ -1,12 +1,12 @@
 import 'package:alquranalkareem/core/utils/constants/extensions/svg_extensions.dart';
 import 'package:alquranalkareem/core/utils/constants/svg_constants.dart';
+import 'package:alquranalkareem/presentation/screens/splashScreen/screen/widgets/alheekmah_and_loading.dart';
 import 'package:flutter/material.dart';
 
-import '/presentation/controllers/splash_screen_controller.dart';
-import '/presentation/screens/splashScreen/widgets/logo_and_title.dart';
-import '../../../core/services/services_locator.dart';
-import '../../../core/utils/constants/extensions/extensions.dart';
-import 'widgets/alheekmah_and_loading.dart';
+import '/presentation/screens/splashScreen/screen/widgets/logo_and_title.dart';
+import '../../../../core/services/services_locator.dart';
+import '../../../../core/utils/constants/extensions/extensions.dart';
+import '../controller/controller.dart';
 
 class SplashScreen extends StatelessWidget {
   const SplashScreen({super.key});

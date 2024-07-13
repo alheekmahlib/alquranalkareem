@@ -5,8 +5,8 @@ import 'package:get/get.dart';
 
 import '../../../core/widgets/select_screen_build.dart';
 import '../../controllers/general_controller.dart';
-import '../../controllers/splash_screen_controller.dart';
 import '../screen_type.dart';
+import '../splashScreen/controller/controller.dart';
 import 'widgets/button_widget.dart';
 import 'widgets/page_view_build.dart';
 import 'widgets/smooth_page_indicator.dart';

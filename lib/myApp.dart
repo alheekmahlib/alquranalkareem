@@ -10,7 +10,7 @@ import 'core/services/languages/messages.dart';
 import 'core/services/services_locator.dart';
 import 'presentation/controllers/theme_controller.dart';
 import 'presentation/screens/notification/postPage.dart';
-import 'presentation/screens/splashScreen/splash_screen.dart';
+import 'presentation/screens/splashScreen/screen/splash_screen.dart';
 
 class MyApp extends StatelessWidget {
   final Map<String, Map<String, String>> languages;
@@ -59,9 +59,6 @@ class MyApp extends StatelessWidget {
               home: const Directionality(
                 textDirection: TextDirection.rtl,
                 child: SplashScreen(),
-                // child: WillPopScope(
-                //     onWillPop: () async => false, child: SplashScreen()),
-                // child: const HomePage(),
               ),
             ),
           );
