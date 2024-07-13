@@ -1044,5 +1044,10 @@
   "@searchInBooks": {
     "type": "text",
     "placeholders": {}
+  },
+  "hasPassed": "অতিবাহিত হয়েছে",
+  "@hasPassed": {
+    "type": "text",
+    "placeholders": {}
   }
 }
