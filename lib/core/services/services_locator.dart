@@ -34,9 +34,9 @@ import '../../presentation/controllers/daily_ayah_controller.dart';
 import '../../presentation/controllers/khatmah_controller.dart';
 import '../../presentation/controllers/ourApps_controller.dart';
 import '../../presentation/controllers/quran_controller.dart';
-import '../../presentation/controllers/splash_screen_controller.dart';
 import '../../presentation/controllers/theme_controller.dart';
 import '../../presentation/controllers/whats_new_controller.dart';
+import '../../presentation/screens/splash/controller/controller.dart';
 import '../utils/helpers/ui_helper.dart';
 
 final sl = GetIt.instance;
