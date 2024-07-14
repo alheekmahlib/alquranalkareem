@@ -92,6 +92,7 @@ class AudioController extends GetxController {
     _currentSurahNumInPage.value = surahNum;
     _currentAyahUQInPage.value = ayahUQNum;
     playSingleAyahOnly = singleAyahOnly;
+
     playAyah();
   }
 
@@ -209,7 +210,7 @@ class AudioController extends GetxController {
     }
   }
 
-  List<String> get selectedSurahAyahsFilePaths {
+  List<String> get selectedSurahAyahsFileNames {
     final selectedSurah = quranCtrl.surahs[currentSurahNumInPage - 2];
     return List.generate(
         selectedSurah.ayahs.length,
@@ -217,6 +218,22 @@ class AudioController extends GetxController {
                 UrlConstants.ayahs1stSource
             ? '$reader/${selectedSurah.ayahs[i].ayahUQNumber}.mp3'
             : '$reader/${selectedSurah.surahNumber.toString().padLeft(3, "0")}${selectedSurah.ayahs[i].ayahNumber.toString().padLeft(3, "0")}.mp3');
+  }
+
+  List<String> get selectedSurahAyahsUrls {
+    final selectedSurah = quranCtrl.surahs[currentSurahNumInPage - 2];
+    final ayahs = selectedSurah.ayahs;
+    return List.generate(selectedSurah.ayahs.length, (i) {
+      if (ayahReaderInfo[readerIndex.value]['url'] ==
+          UrlConstants.ayahs1stSource) {
+        return '$reader/${selectedSurah.ayahs[i].ayahUQNumber}.mp3';
+      } else {
+        final surahNum = selectedSurah.surahNumber.toString().padLeft(3, '0');
+        final currentAyahNumber =
+            ayahs[i].ayahNumber.toString().padLeft(3, '0');
+        return '$reader/$surahNum$currentAyahNumber.mp3';
+      }
+    });
   }
 
   String get ayahDownloadSource =>
@@ -303,25 +320,25 @@ class AudioController extends GetxController {
           tag: mediaItemForCurrentAyah,
         ));
       } else {
-        await audioPlayer.stop();
-        await Future.wait(
-            List.generate(selectedSurahAyahsFilePaths.length, (i) {
-          log('ayahDownloadSource: $ayahDownloadSource${selectedSurahAyahsFilePaths[i]}');
+        final futures = List.generate(selectedSurahAyahsFileNames.length, (i) {
+          log('ayahDownloadSource: $ayahDownloadSource${selectedSurahAyahsUrls[i]}');
           return _downloadFileIfNotExist(
-              '$ayahDownloadSource${selectedSurahAyahsFilePaths[i]}',
-              selectedSurahAyahsFilePaths[i]);
-        }));
+              selectedSurahAyahsUrls[i], selectedSurahAyahsFileNames[i]);
+        });
+
+        await Future.wait(futures);
+        quranCtrl.clearAndAddSelection(_currentAyahUQInPage.value);
         await audioPlayer.setAudioSource(
-          initialIndex: _currentAyahUQInPage.value,
+          initialIndex: _currentAyahUQInPage.value - 1,
           // AudioSource.file(
           //   '${selectedSurahAyahsFilePaths[_currentAyahUQInPage.value]}.mp3',
           //   tag: mediaItemsForCurrentSurah,
           // ),
           ConcatenatingAudioSource(
             children: List.generate(
-              selectedSurahAyahsFilePaths.length,
+              selectedSurahAyahsFileNames.length,
               (i) => AudioSource.file(
-                '$reader/${_currentAyahUQInPage.value}.mp3',
+                join(dir.path, selectedSurahAyahsFileNames[i]),
                 tag: mediaItemsForCurrentSurah[i],
               ),
             ),
@@ -368,9 +385,10 @@ class AudioController extends GetxController {
       isPlay.value = true;
       await audioPlayer.play();
       audioPlayer.currentIndexStream.listen((index) {
-        log('index: $index');
+        log('index: $index | _currentAyahUQInPage: ${_currentAyahUQInPage.value}');
         if (index != null) {
           _currentAyahUQInPage.value = index;
+          quranCtrl.clearAndAddSelection(_currentAyahUQInPage.value + 1);
         }
       });
       print('playFile2: play');
@@ -414,7 +432,7 @@ class AudioController extends GetxController {
           : _currentAyahUQInPage.value;
     }
     quranCtrl.clearAndAddSelection(_currentAyahUQInPage.value);
-    if (isPlay.value) {
+    if (audioPlayer.playing || isPlay.value) {
       await audioPlayer.pause();
       isPlay.value = false;
       print('audioPlayer: pause');
