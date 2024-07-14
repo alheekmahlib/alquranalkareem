@@ -3,10 +3,10 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 
 import '/core/utils/constants/lottie_constants.dart';
-import '../../../../core/utils/constants/extensions/extensions.dart';
-import '../../../../core/utils/constants/lottie.dart';
-import '../../../controllers/ourApps_controller.dart';
-import '../data/models/ourApp_model.dart';
+import '../../../../../core/utils/constants/extensions/extensions.dart';
+import '../../../../../core/utils/constants/lottie.dart';
+import '../../controller/ourApps_controller.dart';
+import '../../data/models/ourApp_model.dart';
 
 class OurAppsBuild extends StatelessWidget {
   OurAppsBuild({super.key});
@@ -33,9 +33,6 @@ class OurAppsBuild extends StatelessWidget {
                   child: context.hDivider(width: 10.0),
                 ),
                 itemBuilder: (context, index) {
-                  // if (index >= 2) {
-                  //   index++;
-                  // }
                   return InkWell(
                     child: Container(
                       decoration: BoxDecoration(
@@ -84,34 +81,6 @@ class OurAppsBuild extends StatelessWidget {
                               ],
                             ),
                           ),
-                          // InfoPopupWidget(
-                          //   contentTitle: apps[index].aboutApp3.tr,
-                          //   arrowTheme: InfoPopupArrowTheme(
-                          //     color: Theme.of(context).colorScheme.surface,
-                          //     arrowDirection: ArrowDirection.down,
-                          //   ),
-                          //   contentTheme: InfoPopupContentTheme(
-                          //     infoContainerBackgroundColor:
-                          //         Theme.of(context).colorScheme.primaryContainer,
-                          //     infoTextStyle: TextStyle(
-                          //         color: Theme.of(context).colorScheme.surface,
-                          //         fontSize: 12,
-                          //         fontFamily: 'kufi'),
-                          //     contentPadding: const EdgeInsets.all(16.0),
-                          //     contentBorderRadius:
-                          //         const BorderRadius.all(Radius.circular(4)),
-                          //     infoTextAlign: TextAlign.justify,
-                          //   ),
-                          //   dismissTriggerBehavior:
-                          //       PopupDismissTriggerBehavior.onTapArea,
-                          //   areaBackgroundColor: Colors.transparent,
-                          //   indicatorOffset: Offset.zero,
-                          //   contentOffset: Offset.zero,
-                          //   child: Icon(
-                          //     Icons.info_outline_rounded,
-                          //     color: Theme.of(context).colorScheme.surface,
-                          //   ),
-                          // ),
                         ],
                       ),
                     ),

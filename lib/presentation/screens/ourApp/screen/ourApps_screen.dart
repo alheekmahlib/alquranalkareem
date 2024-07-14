@@ -7,11 +7,11 @@ import 'package:get/get.dart';
 import '/core/utils/constants/extensions/alignment_rotated_extension.dart';
 import '/core/utils/constants/extensions/svg_extensions.dart';
 import '/core/widgets/container_with_lines.dart';
-import '/presentation/controllers/ourApps_controller.dart';
-import '/presentation/screens/ourApp/widgets/our_apps_build.dart';
-import '../../../core/services/services_locator.dart';
-import '../../../core/utils/constants/extensions/extensions.dart';
-import '../../../core/utils/constants/svg_constants.dart';
+import '/presentation/screens/ourApp/screen/widgets/our_apps_build.dart';
+import '../../../../core/services/services_locator.dart';
+import '../../../../core/utils/constants/extensions/extensions.dart';
+import '../../../../core/utils/constants/svg_constants.dart';
+import '../controller/ourApps_controller.dart';
 
 class OurApps extends StatelessWidget {
   const OurApps({super.key});

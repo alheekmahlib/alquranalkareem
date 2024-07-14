@@ -8,7 +8,7 @@ import '/presentation/controllers/general_controller.dart';
 import '/presentation/controllers/quran_controller.dart';
 import '/presentation/controllers/theme_controller.dart';
 import '../../presentation/screens/about_app/about_app.dart';
-import '../../presentation/screens/ourApp/ourApps_screen.dart';
+import '../../presentation/screens/ourApp/screen/ourApps_screen.dart';
 import '../utils/constants/extensions/extensions.dart';
 import '../utils/constants/svg_constants.dart';
 import 'language_list.dart';
