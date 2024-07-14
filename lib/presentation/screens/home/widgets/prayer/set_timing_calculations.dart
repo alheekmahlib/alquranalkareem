@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 
-import '/presentation/controllers/adhan_controller.dart';
 import '../../../../../core/services/services_locator.dart';
 import '../../../../controllers/general_controller.dart';
+import '../../controller/adhan/adhan_controller.dart';
 import 'pick_calculation_method.dart';
 import 'setting_prayer_times.dart';
 
@@ -62,7 +62,7 @@ class SetTimingCalculations extends StatelessWidget {
                         ),
                       ),
                       Obx(() => Switch(
-                            value: adhanCtrl.autoCalculationMethod.value,
+                            value: adhanCtrl.state.autoCalculationMethod.value,
                             activeColor: Colors.red,
                             inactiveTrackColor: Theme.of(context)
                                 .colorScheme
@@ -75,7 +75,7 @@ class SetTimingCalculations extends StatelessWidget {
                   ),
                 ),
                 const Gap(8),
-                Obx(() => !adhanCtrl.autoCalculationMethod.value
+                Obx(() => !adhanCtrl.state.autoCalculationMethod.value
                     ? pickCalculationMethod()
                     : const SizedBox.shrink()),
                 const Gap(8),
@@ -115,7 +115,7 @@ class SetTimingCalculations extends StatelessWidget {
                                 ),
                               ),
                               Switch(
-                                value: adhanCtrl.isHanafi.value,
+                                value: adhanCtrl.state.isHanafi.value,
                                 activeColor: Colors.red,
                                 inactiveTrackColor: Theme.of(context)
                                     .colorScheme
@@ -138,7 +138,7 @@ class SetTimingCalculations extends StatelessWidget {
                                 ),
                               ),
                               Switch(
-                                value: !adhanCtrl.isHanafi.value,
+                                value: !adhanCtrl.state.isHanafi.value,
                                 activeColor: Colors.red,
                                 inactiveTrackColor: Theme.of(context)
                                     .colorScheme
@@ -192,7 +192,7 @@ class SetTimingCalculations extends StatelessWidget {
                                 ),
                               ),
                               Switch(
-                                value: adhanCtrl.middleOfTheNight.value,
+                                value: adhanCtrl.state.middleOfTheNight.value,
                                 activeColor: Colors.red,
                                 inactiveTrackColor: Theme.of(context)
                                     .colorScheme
@@ -216,7 +216,7 @@ class SetTimingCalculations extends StatelessWidget {
                                 ),
                               ),
                               Switch(
-                                value: adhanCtrl.seventhOfTheNight.value,
+                                value: adhanCtrl.state.seventhOfTheNight.value,
                                 activeColor: Colors.red,
                                 inactiveTrackColor: Theme.of(context)
                                     .colorScheme
@@ -240,7 +240,7 @@ class SetTimingCalculations extends StatelessWidget {
                                 ),
                               ),
                               Switch(
-                                value: adhanCtrl.twilightAngle.value,
+                                value: adhanCtrl.state.twilightAngle.value,
                                 activeColor: Colors.red,
                                 inactiveTrackColor: Theme.of(context)
                                     .colorScheme

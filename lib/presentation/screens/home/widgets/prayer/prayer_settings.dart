@@ -3,8 +3,8 @@ import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 
 import '/core/utils/constants/extensions/extensions.dart';
-import '/presentation/controllers/adhan_controller.dart';
 import '/presentation/screens/home/widgets/prayer/adhan_sounds.dart';
+import '../../controller/adhan/adhan_controller.dart';
 import 'detect_location.dart';
 import 'set_timing_calculations.dart';
 

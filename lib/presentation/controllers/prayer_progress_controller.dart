@@ -1,6 +1,6 @@
 import 'package:get/get.dart';
 
-import 'adhan_controller.dart';
+import '../screens/home/controller/adhan/adhan_controller.dart';
 
 class PrayerProgressController extends GetxController {
   static PrayerProgressController get instance =>

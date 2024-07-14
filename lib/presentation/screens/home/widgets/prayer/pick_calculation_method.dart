@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../../../core/services/services_locator.dart';
-import '../../../../controllers/adhan_controller.dart';
+import '../../controller/adhan/adhan_controller.dart';
 
 class pickCalculationMethod extends StatelessWidget {
   pickCalculationMethod({super.key});
@@ -12,7 +12,7 @@ class pickCalculationMethod extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder<List<String>>(
-        future: adhanCtrl.countryListFuture,
+        future: adhanCtrl.state.countryListFuture,
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             return PopupMenuButton(
@@ -36,7 +36,7 @@ class pickCalculationMethod extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        adhanCtrl.selectedCountry.value,
+                        adhanCtrl.state.selectedCountry.value,
                         style: TextStyle(
                             color: Theme.of(context).canvasColor,
                             fontSize: 14,
@@ -57,14 +57,14 @@ class pickCalculationMethod extends StatelessWidget {
               ),
               color: Theme.of(context).colorScheme.primaryContainer,
               itemBuilder: (context) => List.generate(
-                  adhanCtrl.countries.length,
+                  adhanCtrl.state.countries.length,
                   (index) => PopupMenuItem(
                         padding: const EdgeInsets.symmetric(horizontal: 16.0),
                         child: Column(
                           children: [
                             ListTile(
                               title: Text(
-                                adhanCtrl.countries[index],
+                                adhanCtrl.state.countries[index],
                                 style: TextStyle(
                                     color: Theme.of(context)
                                         .colorScheme

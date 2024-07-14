@@ -14,8 +14,8 @@ import 'package:timezone/timezone.dart' as tz;
 
 import '/core/utils/constants/extensions/custom_error_snackBar.dart';
 import '/core/utils/constants/shared_preferences_constants.dart';
+import '../screens/home/controller/adhan/adhan_controller.dart';
 import '../screens/home/data/model/adhan_data.dart';
-import 'adhan_controller.dart';
 import 'general_controller.dart';
 
 // sound: adhanPath != null ? adhanPath + '1.wav' : 'default_sound',

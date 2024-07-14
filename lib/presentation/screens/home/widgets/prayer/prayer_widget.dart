@@ -4,8 +4,8 @@ import 'package:get/get.dart';
 import 'package:slide_countdown/slide_countdown.dart';
 
 import '../../../../../core/services/location/locations.dart';
-import '../../../../controllers/adhan_controller.dart';
 import '../../../../controllers/general_controller.dart';
+import '../../controller/adhan/adhan_controller.dart';
 import 'prayer_build.dart';
 
 class PrayerWidget extends StatelessWidget {
@@ -55,14 +55,14 @@ class PrayerWidget extends StatelessWidget {
                 ),
               ),
               Obx(() => ArcProgressBar(
-                    percentage: adhanCtrl.timeProgress.value,
+                    percentage: adhanCtrl.state.timeProgress.value,
                     arcThickness: 10,
                     innerPadding: 48,
                     strokeCap: StrokeCap.round,
                     bottomCenterWidget: Column(
                       children: [
                         Text(
-                          adhanCtrl.getNextPrayerName(),
+                          adhanCtrl.getNextPrayerDetails().prayerName,
                           style: TextStyle(
                             fontFamily: 'kufi',
                             fontSize: 22,
@@ -71,7 +71,8 @@ class PrayerWidget extends StatelessWidget {
                           ),
                         ),
                         Text(
-                          adhanCtrl.getNextPrayerDisplayName().toString(),
+                          adhanCtrl.getNextPrayerDetails().prayerDisplayName ??
+                              "No Name Available",
                           style: TextStyle(
                             fontFamily: 'kufi',
                             fontSize: 22,

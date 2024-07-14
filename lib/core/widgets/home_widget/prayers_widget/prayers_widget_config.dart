@@ -1,8 +1,8 @@
 import 'dart:async';
 import 'dart:io';
 
-import '../../../../presentation/controllers/adhan_controller.dart';
 import '../../../../presentation/controllers/home_widget_controller.dart';
+import '../../../../presentation/screens/home/controller/adhan/adhan_controller.dart';
 import '../../../services/services_locator.dart';
 
 class PrayersWidgetConfig {

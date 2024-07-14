@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '/presentation/controllers/adhan_controller.dart';
+import '../../controller/adhan/adhan_controller.dart';
 
 class PrayerBuild extends StatelessWidget {
   PrayerBuild({super.key});

@@ -1,0 +1,77 @@
+import 'package:solar_icons/solar_icons.dart';
+
+import '../../../../../core/utils/helpers/date_formatter.dart';
+import '../../controller/adhan/adhan_state.dart';
+
+List<Map<String, dynamic>> generatePrayerNameList(AdhanState state) => [
+      {
+        'title': 'الفجر',
+        'time': state.fajrTime.value,
+        'hourTime': state.prayerTimes.fajr,
+        'minuteTime': state.prayerTimes.fajr.minute,
+        'sharedAlarm': 'ALARM_FAJR',
+        'sharedAfter': 'AFTER_FAJR',
+        'sharedAdjustment': 'ADJUSTMENT_FAJR',
+        'icon': SolarIconsBold.moonFog,
+      },
+      {
+        'title': 'الظهر',
+        'time': state.dhuhrTime.value,
+        'hourTime': state.prayerTimes.dhuhr,
+        'minuteTime': state.prayerTimes.dhuhr.minute,
+        'sharedAlarm': 'ALARM_DHUHR',
+        'sharedAfter': 'AFTER_DHUHR',
+        'sharedAdjustment': 'ADJUSTMENT_DHUHR',
+        'icon': SolarIconsBold.sun,
+      },
+      {
+        'title': 'العصر',
+        'time': state.asrTime.value,
+        'hourTime': state.prayerTimes.asr,
+        'minuteTime': state.prayerTimes.asr.minute,
+        'sharedAlarm': 'ALARM_ASR',
+        'sharedAfter': 'AFTER_ASR',
+        'sharedAdjustment': 'ADJUSTMENT_ASR',
+        'icon': SolarIconsBold.sun2,
+      },
+      {
+        'title': 'المغرب',
+        'time': state.maghribTime.value,
+        'hourTime': state.prayerTimes.maghrib,
+        'minuteTime': state.prayerTimes.maghrib.minute,
+        'sharedAlarm': 'ALARM_MAGHRIB',
+        'sharedAfter': 'AFTER_MAGHRIB',
+        'sharedAdjustment': 'ADJUSTMENT_MAGHRIB',
+        'icon': SolarIconsBold.sunset,
+      },
+      {
+        'title': 'العشاء',
+        'time': DateFormatter.justTime(state.prayerTimes.isha),
+        'hourTime': state.prayerTimes.isha,
+        'minuteTime': state.prayerTimes.isha.minute,
+        'sharedAlarm': 'ALARM_ISHA',
+        'sharedAfter': 'AFTER_ISHA',
+        'sharedAdjustment': 'ADJUSTMENT_ISHA',
+        'icon': SolarIconsBold.moon,
+      },
+      {
+        'title': 'منتصف الليل',
+        'time': DateFormatter.justTime(state.sunnahTimes.middleOfTheNight),
+        'hourTime': state.prayerTimes.isha,
+        'minuteTime': state.prayerTimes.isha.minute,
+        'sharedAlarm': 'ALARM_MIDNIGHT',
+        'sharedAfter': 'AFTER_MIDNIGHT',
+        'sharedAdjustment': 'ADJUSTMENT_MIDNIGHT',
+        'icon': SolarIconsBold.moonStars,
+      },
+      {
+        'title': 'الثلث الأخير',
+        'time': DateFormatter.justTime(state.sunnahTimes.lastThirdOfTheNight),
+        'hourTime': state.prayerTimes.isha,
+        'minuteTime': state.prayerTimes.isha.minute,
+        'sharedAlarm': 'ALARM_LAST_THIRD',
+        'sharedAfter': 'AFTER_LAST_THIRD',
+        'sharedAdjustment': 'ADJUSTMENT_THIRD',
+        'icon': SolarIconsBold.moonStars,
+      },
+    ];

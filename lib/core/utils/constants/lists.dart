@@ -1,10 +1,10 @@
 import 'package:get/get.dart';
 
 import '/presentation/screens/home/home_screen.dart';
-import '../../../presentation/controllers/adhan_controller.dart';
 import '../../../presentation/controllers/theme_controller.dart';
 import '../../../presentation/screens/alwaqf_screen/alwaqf_screen.dart';
 import '../../../presentation/screens/athkar/screens/alzkar_view.dart';
+import '../../../presentation/screens/home/controller/adhan/adhan_controller.dart';
 import '../../../presentation/screens/quran_page/screens/quran_home.dart';
 import '../../../presentation/screens/surah_audio_screen/audio_surah.dart';
 import '../../services/services_locator.dart';

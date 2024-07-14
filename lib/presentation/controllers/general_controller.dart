@@ -13,7 +13,6 @@ import 'package:share_plus/share_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '/core/utils/constants/extensions/extensions.dart';
-import '/presentation/controllers/adhan_controller.dart';
 import '/presentation/controllers/quran_controller.dart';
 import '/presentation/screens/home/home_screen.dart';
 import '../../core/services/location/locations.dart';
@@ -23,6 +22,7 @@ import '../../core/utils/helpers/responsive.dart';
 import '../../core/widgets/ramadan_greeting.dart';
 import '../../core/widgets/time_now.dart';
 import '../screens/athkar/screens/alzkar_view.dart';
+import '../screens/home/controller/adhan/adhan_controller.dart';
 import '../screens/quran_page/screens/quran_home.dart';
 import '../screens/surah_audio_screen/audio_surah.dart';
 import 'audio_controller.dart';

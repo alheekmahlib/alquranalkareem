@@ -3,7 +3,7 @@ import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 
 import '/core/utils/constants/extensions/extensions.dart';
-import '/presentation/controllers/adhan_controller.dart';
+import '../../../../presentation/screens/home/controller/adhan/adhan_controller.dart';
 import '../../../services/services_locator.dart';
 
 class PrayersHomeWidget extends StatelessWidget {
@@ -69,7 +69,10 @@ class PrayersHomeWidget extends StatelessWidget {
                                   children: [
                                     const Gap(4),
                                     Text(
-                                      adhanCtrl.getNextPrayerName().tr,
+                                      adhanCtrl
+                                          .getNextPrayerDetails()
+                                          .prayerName
+                                          .tr,
                                       style: TextStyle(
                                         fontFamily: 'kufi',
                                         fontSize: 16,
@@ -79,7 +82,10 @@ class PrayersHomeWidget extends StatelessWidget {
                                     ),
                                     const Gap(4),
                                     Text(
-                                      adhanCtrl.getNextPrayerDisplayName(),
+                                      adhanCtrl
+                                              .getNextPrayerDetails()
+                                              .prayerDisplayName ??
+                                          "No Name Available",
                                       style: TextStyle(
                                         fontFamily: 'kufi',
                                         fontSize: 16,

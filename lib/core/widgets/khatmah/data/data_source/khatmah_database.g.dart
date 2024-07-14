@@ -249,6 +249,24 @@ class Khatmah extends DataClass implements Insertable<Khatmah> {
             endAyahNumber.present ? endAyahNumber.value : this.endAyahNumber,
         isCompleted: isCompleted ?? this.isCompleted,
       );
+  Khatmah copyWithCompanion(KhatmahsCompanion data) {
+    return Khatmah(
+      id: data.id.present ? data.id.value : this.id,
+      name: data.name.present ? data.name.value : this.name,
+      surahName: data.surahName.present ? data.surahName.value : this.surahName,
+      currentPage:
+          data.currentPage.present ? data.currentPage.value : this.currentPage,
+      startAyahNumber: data.startAyahNumber.present
+          ? data.startAyahNumber.value
+          : this.startAyahNumber,
+      endAyahNumber: data.endAyahNumber.present
+          ? data.endAyahNumber.value
+          : this.endAyahNumber,
+      isCompleted:
+          data.isCompleted.present ? data.isCompleted.value : this.isCompleted,
+    );
+  }
+
   @override
   String toString() {
     return (StringBuffer('Khatmah(')
@@ -388,10 +406,170 @@ class KhatmahsCompanion extends UpdateCompanion<Khatmah> {
 
 abstract class _$KhatmahDatabase extends GeneratedDatabase {
   _$KhatmahDatabase(QueryExecutor e) : super(e);
+  $KhatmahDatabaseManager get managers => $KhatmahDatabaseManager(this);
   late final $KhatmahsTable khatmahs = $KhatmahsTable(this);
   @override
   Iterable<TableInfo<Table, Object?>> get allTables =>
       allSchemaEntities.whereType<TableInfo<Table, Object?>>();
   @override
   List<DatabaseSchemaEntity> get allSchemaEntities => [khatmahs];
+}
+
+typedef $$KhatmahsTableCreateCompanionBuilder = KhatmahsCompanion Function({
+  Value<int> id,
+  Value<String?> name,
+  Value<String?> surahName,
+  Value<int?> currentPage,
+  Value<int?> startAyahNumber,
+  Value<int?> endAyahNumber,
+  Value<bool> isCompleted,
+});
+typedef $$KhatmahsTableUpdateCompanionBuilder = KhatmahsCompanion Function({
+  Value<int> id,
+  Value<String?> name,
+  Value<String?> surahName,
+  Value<int?> currentPage,
+  Value<int?> startAyahNumber,
+  Value<int?> endAyahNumber,
+  Value<bool> isCompleted,
+});
+
+class $$KhatmahsTableTableManager extends RootTableManager<
+    _$KhatmahDatabase,
+    $KhatmahsTable,
+    Khatmah,
+    $$KhatmahsTableFilterComposer,
+    $$KhatmahsTableOrderingComposer,
+    $$KhatmahsTableCreateCompanionBuilder,
+    $$KhatmahsTableUpdateCompanionBuilder> {
+  $$KhatmahsTableTableManager(_$KhatmahDatabase db, $KhatmahsTable table)
+      : super(TableManagerState(
+          db: db,
+          table: table,
+          filteringComposer:
+              $$KhatmahsTableFilterComposer(ComposerState(db, table)),
+          orderingComposer:
+              $$KhatmahsTableOrderingComposer(ComposerState(db, table)),
+          updateCompanionCallback: ({
+            Value<int> id = const Value.absent(),
+            Value<String?> name = const Value.absent(),
+            Value<String?> surahName = const Value.absent(),
+            Value<int?> currentPage = const Value.absent(),
+            Value<int?> startAyahNumber = const Value.absent(),
+            Value<int?> endAyahNumber = const Value.absent(),
+            Value<bool> isCompleted = const Value.absent(),
+          }) =>
+              KhatmahsCompanion(
+            id: id,
+            name: name,
+            surahName: surahName,
+            currentPage: currentPage,
+            startAyahNumber: startAyahNumber,
+            endAyahNumber: endAyahNumber,
+            isCompleted: isCompleted,
+          ),
+          createCompanionCallback: ({
+            Value<int> id = const Value.absent(),
+            Value<String?> name = const Value.absent(),
+            Value<String?> surahName = const Value.absent(),
+            Value<int?> currentPage = const Value.absent(),
+            Value<int?> startAyahNumber = const Value.absent(),
+            Value<int?> endAyahNumber = const Value.absent(),
+            Value<bool> isCompleted = const Value.absent(),
+          }) =>
+              KhatmahsCompanion.insert(
+            id: id,
+            name: name,
+            surahName: surahName,
+            currentPage: currentPage,
+            startAyahNumber: startAyahNumber,
+            endAyahNumber: endAyahNumber,
+            isCompleted: isCompleted,
+          ),
+        ));
+}
+
+class $$KhatmahsTableFilterComposer
+    extends FilterComposer<_$KhatmahDatabase, $KhatmahsTable> {
+  $$KhatmahsTableFilterComposer(super.$state);
+  ColumnFilters<int> get id => $state.composableBuilder(
+      column: $state.table.id,
+      builder: (column, joinBuilders) =>
+          ColumnFilters(column, joinBuilders: joinBuilders));
+
+  ColumnFilters<String> get name => $state.composableBuilder(
+      column: $state.table.name,
+      builder: (column, joinBuilders) =>
+          ColumnFilters(column, joinBuilders: joinBuilders));
+
+  ColumnFilters<String> get surahName => $state.composableBuilder(
+      column: $state.table.surahName,
+      builder: (column, joinBuilders) =>
+          ColumnFilters(column, joinBuilders: joinBuilders));
+
+  ColumnFilters<int> get currentPage => $state.composableBuilder(
+      column: $state.table.currentPage,
+      builder: (column, joinBuilders) =>
+          ColumnFilters(column, joinBuilders: joinBuilders));
+
+  ColumnFilters<int> get startAyahNumber => $state.composableBuilder(
+      column: $state.table.startAyahNumber,
+      builder: (column, joinBuilders) =>
+          ColumnFilters(column, joinBuilders: joinBuilders));
+
+  ColumnFilters<int> get endAyahNumber => $state.composableBuilder(
+      column: $state.table.endAyahNumber,
+      builder: (column, joinBuilders) =>
+          ColumnFilters(column, joinBuilders: joinBuilders));
+
+  ColumnFilters<bool> get isCompleted => $state.composableBuilder(
+      column: $state.table.isCompleted,
+      builder: (column, joinBuilders) =>
+          ColumnFilters(column, joinBuilders: joinBuilders));
+}
+
+class $$KhatmahsTableOrderingComposer
+    extends OrderingComposer<_$KhatmahDatabase, $KhatmahsTable> {
+  $$KhatmahsTableOrderingComposer(super.$state);
+  ColumnOrderings<int> get id => $state.composableBuilder(
+      column: $state.table.id,
+      builder: (column, joinBuilders) =>
+          ColumnOrderings(column, joinBuilders: joinBuilders));
+
+  ColumnOrderings<String> get name => $state.composableBuilder(
+      column: $state.table.name,
+      builder: (column, joinBuilders) =>
+          ColumnOrderings(column, joinBuilders: joinBuilders));
+
+  ColumnOrderings<String> get surahName => $state.composableBuilder(
+      column: $state.table.surahName,
+      builder: (column, joinBuilders) =>
+          ColumnOrderings(column, joinBuilders: joinBuilders));
+
+  ColumnOrderings<int> get currentPage => $state.composableBuilder(
+      column: $state.table.currentPage,
+      builder: (column, joinBuilders) =>
+          ColumnOrderings(column, joinBuilders: joinBuilders));
+
+  ColumnOrderings<int> get startAyahNumber => $state.composableBuilder(
+      column: $state.table.startAyahNumber,
+      builder: (column, joinBuilders) =>
+          ColumnOrderings(column, joinBuilders: joinBuilders));
+
+  ColumnOrderings<int> get endAyahNumber => $state.composableBuilder(
+      column: $state.table.endAyahNumber,
+      builder: (column, joinBuilders) =>
+          ColumnOrderings(column, joinBuilders: joinBuilders));
+
+  ColumnOrderings<bool> get isCompleted => $state.composableBuilder(
+      column: $state.table.isCompleted,
+      builder: (column, joinBuilders) =>
+          ColumnOrderings(column, joinBuilders: joinBuilders));
+}
+
+class $KhatmahDatabaseManager {
+  final _$KhatmahDatabase _db;
+  $KhatmahDatabaseManager(this._db);
+  $$KhatmahsTableTableManager get khatmahs =>
+      $$KhatmahsTableTableManager(_db, _db.khatmahs);
 }

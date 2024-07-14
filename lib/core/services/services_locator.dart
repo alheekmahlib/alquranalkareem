@@ -30,7 +30,6 @@ import '/presentation/screens/quran_page/data/data_source/ibnkatheer_data_client
 import '/presentation/screens/quran_page/data/data_source/qurtubi_data_client.dart';
 import '/presentation/screens/quran_page/data/data_source/saadi_data_client.dart';
 import '/presentation/screens/quran_page/data/data_source/tabari_data_client.dart';
-import '../../presentation/controllers/adhan_controller.dart';
 import '../../presentation/controllers/daily_ayah_controller.dart';
 import '../../presentation/controllers/home_widget_controller.dart';
 import '../../presentation/controllers/khatmah_controller.dart';
@@ -40,6 +39,7 @@ import '../../presentation/controllers/prayer_progress_controller.dart';
 import '../../presentation/controllers/quran_controller.dart';
 import '../../presentation/controllers/splash_screen_controller.dart';
 import '../../presentation/controllers/theme_controller.dart';
+import '../../presentation/screens/home/controller/adhan/adhan_controller.dart';
 import '../utils/helpers/ui_helper.dart';
 
 final sl = GetIt.instance;

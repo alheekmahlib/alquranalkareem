@@ -4,9 +4,9 @@ import 'package:get/get.dart';
 import 'package:slide_countdown/slide_countdown.dart';
 import 'package:solar_icons/solar_icons.dart';
 
-import '../../../../controllers/adhan_controller.dart';
 import '../../../../controllers/general_controller.dart';
 import '../../../../controllers/prayer_progress_controller.dart';
+import '../../controller/adhan/adhan_controller.dart';
 import 'vertical_progress_bar.dart';
 
 class PrayerWidget extends StatelessWidget {
@@ -19,11 +19,11 @@ class PrayerWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final stepTimes = [
-      adhanCtrl.prayerTimes.fajr,
-      adhanCtrl.prayerTimes.dhuhr,
-      adhanCtrl.prayerTimes.asr,
-      adhanCtrl.prayerTimes.maghrib,
-      adhanCtrl.prayerTimes.isha,
+      adhanCtrl.state.prayerTimes.fajr,
+      adhanCtrl.state.prayerTimes.dhuhr,
+      adhanCtrl.state.prayerTimes.asr,
+      adhanCtrl.state.prayerTimes.maghrib,
+      adhanCtrl.state.prayerTimes.isha,
     ];
 
     final stepIcons = [
@@ -75,7 +75,7 @@ class PrayerWidget extends StatelessWidget {
                       size: 70,
                     ),
                     Text(
-                      adhanCtrl.getNextPrayerName().tr,
+                      adhanCtrl.getNextPrayerDetails().prayerName.tr,
                       style: TextStyle(
                         fontFamily: 'kufi',
                         fontSize: 20,
@@ -90,7 +90,8 @@ class PrayerWidget extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      adhanCtrl.getNextPrayerDisplayName(),
+                      adhanCtrl.getNextPrayerDetails().prayerDisplayName ??
+                          "No Name Available",
                       style: TextStyle(
                         fontFamily: 'kufi',
                         fontSize: 16,
@@ -143,9 +144,9 @@ class PrayerWidget extends StatelessWidget {
                       borderRadius: BorderRadius.circular(8),
                       stepTimes: stepTimes,
                       stepIcons: stepIcons,
-                      startTime: prayerPBCtrl.adhanCtrl.prayerTimes.fajr
+                      startTime: prayerPBCtrl.adhanCtrl.state.prayerTimes.fajr
                           .subtract(const Duration(hours: 3)),
-                      endTime: prayerPBCtrl.adhanCtrl.prayerTimes.isha
+                      endTime: prayerPBCtrl.adhanCtrl.state.prayerTimes.isha
                           .add(const Duration(hours: 4)),
                     ),
                   ],

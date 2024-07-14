@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../../controllers/adhan_controller.dart';
+import '../../controller/adhan/adhan_controller.dart';
 
 class VerticalProgressBar extends StatelessWidget {
   final double progress;

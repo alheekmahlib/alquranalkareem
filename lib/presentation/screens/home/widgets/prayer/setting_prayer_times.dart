@@ -5,7 +5,7 @@ import 'package:get/get.dart';
 import '/core/utils/constants/extensions/convert_number_extension.dart';
 import '/core/utils/constants/extensions/extensions.dart';
 import '/presentation/controllers/general_controller.dart';
-import '../../../../controllers/adhan_controller.dart';
+import '../../controller/adhan/adhan_controller.dart';
 
 class SettingPrayerTimes extends StatelessWidget {
   SettingPrayerTimes({super.key});
@@ -80,7 +80,7 @@ class SettingPrayerTimes extends StatelessWidget {
                                   Row(
                                     children: [
                                       Text(
-                                        '${'${adhanCtrl.adjustments[index].value}'.convertNumbers()}',
+                                        '${'${adhanCtrl.state.adjustments[index].value}'.convertNumbers()}',
                                         style: TextStyle(
                                           fontFamily: 'kufi',
                                           fontSize: 16,
