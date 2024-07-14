@@ -11,7 +11,7 @@ import '../../../controllers/audio_controller.dart';
 import '../../../controllers/ayat_controller.dart';
 import '../../../controllers/general_controller.dart';
 import '../../../controllers/settings_controller.dart';
-import '../../../controllers/whats_new_controller.dart';
+import '../../whats_new/controller/controller.dart';
 
 class SplashScreenController extends GetxController {
   static SplashScreenController get instance =>

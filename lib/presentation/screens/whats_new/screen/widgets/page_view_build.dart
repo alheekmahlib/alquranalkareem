@@ -4,7 +4,7 @@ import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 
 import '/core/utils/constants/extensions/extensions.dart';
-import '../../../controllers/whats_new_controller.dart';
+import '../../controller/controller.dart';
 
 class PageViewBuild extends StatelessWidget {
   final PageController controller;
@@ -21,8 +21,8 @@ class PageViewBuild extends StatelessWidget {
           controller: controller,
           itemCount: newFeatures.length,
           onPageChanged: (page) {
-            whatsNewCtrl.onboardingPageNumber.value = page;
-            whatsNewCtrl.currentPageIndex.value = page;
+            whatsNewCtrl.state.onboardingPageNumber.value = page;
+            whatsNewCtrl.state.currentPageIndex.value = page;
           },
           itemBuilder: (context, index) {
             // splashCtrl.onboardingPageNumber.value =
