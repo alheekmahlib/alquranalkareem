@@ -53,15 +53,17 @@ class AyahsBuild extends StatelessWidget {
                         children: [
                           const Gap(16),
                           AyahsMenu(
-                            surahNum:
-                                quranCtrl.getSurahNumberFromPage(pageIndex),
+                            surahNum: quranCtrl.getSurahNumByAyahUQNum(
+                                ayahs[ayahIndex].ayahUQNumber),
                             ayahNum: ayahs[ayahIndex].ayahNumber,
                             ayahText: ayahs[ayahIndex].code_v2,
                             pageIndex: pageIndex,
                             ayahTextNormal: ayahs[ayahIndex].text,
                             ayahUQNum: ayahs[ayahIndex].ayahUQNumber,
-                            surahName:
-                                quranCtrl.getSurahNameFromPage(pageIndex),
+                            surahName: quranCtrl.surahs
+                                .firstWhere(
+                                    (s) => s.ayahs.contains(ayahs[ayahIndex]))
+                                .arabicName,
                             isSelected: quranCtrl.isSelected,
                             index: ayahIndex,
                           ),
@@ -96,8 +98,9 @@ class AyahsBuild extends StatelessWidget {
                                                   .fontSizeArabic
                                                   .value,
                                               surahNum: quranCtrl
-                                                  .getSurahNumberFromPage(
-                                                      pageIndex),
+                                                  .getSurahNumByAyahUQNum(
+                                                      ayahs[ayahIndex]
+                                                          .ayahUQNumber),
                                               ayahNum:
                                                   ayahs[ayahIndex].ayahUQNumber,
                                             )
@@ -112,8 +115,9 @@ class AyahsBuild extends StatelessWidget {
                                                   .fontSizeArabic
                                                   .value,
                                               surahNum: quranCtrl
-                                                  .getSurahNumberFromPage(
-                                                      pageIndex),
+                                                  .getSurahNumByAyahUQNum(
+                                                      ayahs[ayahIndex]
+                                                          .ayahUQNumber),
                                               ayahNum:
                                                   ayahs[ayahIndex].ayahUQNumber,
                                             ),
