@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
+import '/core/services/services_locator.dart';
 import '/core/utils/constants/extensions/svg_extensions.dart';
-import '../../../../../core/services/services_locator.dart';
-import '../../../../../core/utils/constants/svg_constants.dart';
+import '/core/utils/constants/svg_constants.dart';
 import '../../../../controllers/audio_controller.dart';
 import '../../../../controllers/general_controller.dart';
 import '../../../../controllers/quran_controller.dart';
@@ -39,6 +39,7 @@ class PlayButton extends StatelessWidget {
       onTap: () {
         sl<AudioController>().startPlayingToggle();
         sl<QuranController>().isPlayExpanded.value = true;
+        debugPrint('SurahNum: $surahNum');
         sl<AudioController>()
             .playAyahOnTap(surahNum, ayahNum, ayahUQNum, singleAyahOnly);
         if (cancel != null) {

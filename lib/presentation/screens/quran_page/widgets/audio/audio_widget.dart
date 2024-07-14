@@ -119,29 +119,39 @@ class AudioWidget extends StatelessWidget {
                             height: 66,
                             alignment: Alignment.center,
                             // width: 250,
-                            child: StreamBuilder<PositionData>(
-                              stream: audioCtrl.positionDataStream,
-                              builder: (context, snapshot) {
-                                if (snapshot.hasData) {
-                                  final positionData = snapshot.data;
-                                  return SliderWidget(
-                                    horizontalPadding: 0.0,
-                                    duration:
-                                        positionData?.duration ?? Duration.zero,
-                                    position:
-                                        positionData?.position ?? Duration.zero,
-                                    bufferedPosition:
-                                        positionData?.bufferedPosition ??
-                                            Duration.zero,
-                                    activeTrackColor:
-                                        Theme.of(context).colorScheme.primary,
-                                    onChangeEnd:
-                                        sl<AudioController>().audioPlayer.seek,
-                                  );
-                                }
-                                return const SizedBox.shrink();
-                              },
-                            ),
+                            child: audioCtrl.downloading.value
+                                ? SliderWidget.downloading(
+                                    currentPosition: audioCtrl
+                                        .tmpDownloadedAyahsCount.value
+                                        .toDouble(),
+                                    filesCount: audioCtrl
+                                        .selectedSurahAyahsFileNames.length,
+                                    horizontalPadding: 0)
+                                : StreamBuilder<PositionData>(
+                                    stream: audioCtrl.positionDataStream,
+                                    builder: (context, snapshot) {
+                                      if (snapshot.hasData) {
+                                        final positionData = snapshot.data;
+                                        return SliderWidget.player(
+                                          horizontalPadding: 0.0,
+                                          duration: positionData?.duration ??
+                                              Duration.zero,
+                                          position: positionData?.position ??
+                                              Duration.zero,
+                                          // bufferedPosition:
+                                          //     positionData?.bufferedPosition ??
+                                          //         Duration.zero,
+                                          activeTrackColor: Theme.of(context)
+                                              .colorScheme
+                                              .primary,
+                                          onChangeEnd: sl<AudioController>()
+                                              .audioPlayer
+                                              .seek,
+                                        );
+                                      }
+                                      return const SizedBox.shrink();
+                                    },
+                                  ),
                           ),
                         ),
                         Padding(

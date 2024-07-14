@@ -54,19 +54,24 @@ class TextBuild extends StatelessWidget {
                           pageIndex: pageIndex,
                           isSelected: quranCtrl.isSelected,
                           fontSize: 100,
-                          surahNum: quranCtrl.getSurahNumberFromPage(pageIndex),
+                          surahNum: quranCtrl.getSurahNumByAyahUQNum(
+                              ayahs[ayahIndex].ayahUQNumber),
                           ayahNum: ayahs[ayahIndex].ayahUQNumber,
                           onLongPressStart: (LongPressStartDetails details) {
                             quranCtrl.toggleAyahSelection(
                                 ayahs[ayahIndex].ayahUQNumber);
                             context.showAyahMenu(
-                                quranCtrl.getSurahNumberFromPage(pageIndex),
+                                quranCtrl.getSurahNumByAyahUQNum(
+                                    ayahs[ayahIndex].ayahUQNumber),
                                 ayahs[ayahIndex].ayahNumber,
                                 ayahs[ayahIndex].code_v2,
                                 pageIndex,
                                 ayahs[ayahIndex].text,
                                 ayahs[ayahIndex].ayahUQNumber,
-                                quranCtrl.getSurahNameFromPage(pageIndex),
+                                quranCtrl.surahs
+                                    .firstWhere((s) =>
+                                        s.ayahs.contains(ayahs[ayahIndex]))
+                                    .arabicName,
                                 ayahIndex,
                                 details: details);
                           });
@@ -77,13 +82,15 @@ class TextBuild extends StatelessWidget {
                         pageIndex: pageIndex,
                         isSelected: quranCtrl.isSelected,
                         fontSize: 100,
-                        surahNum: quranCtrl.getSurahNumberFromPage(pageIndex),
+                        surahNum: quranCtrl.getSurahNumByAyahUQNum(
+                            ayahs[ayahIndex].ayahUQNumber),
                         ayahNum: ayahs[ayahIndex].ayahUQNumber,
                         onLongPressStart: (LongPressStartDetails details) {
                           quranCtrl.toggleAyahSelection(
                               ayahs[ayahIndex].ayahUQNumber);
                           context.showAyahMenu(
-                              quranCtrl.getSurahNumberFromPage(pageIndex),
+                              quranCtrl.getSurahNumByAyahUQNum(
+                                  ayahs[ayahIndex].ayahUQNumber),
                               ayahs[ayahIndex].ayahNumber,
                               ayahs[ayahIndex].code_v2,
                               pageIndex,
@@ -117,13 +124,15 @@ class TextBuild extends StatelessWidget {
                       pageIndex: pageIndex,
                       isSelected: quranCtrl.isSelected,
                       fontSize: 20 * quranCtrl.scaleFactor.value,
-                      surahNum: quranCtrl.getSurahNumberFromPage(pageIndex),
+                      surahNum: quranCtrl.getSurahNumByAyahUQNum(
+                          ayahs[ayahIndex].ayahUQNumber),
                       ayahNum: ayahs[ayahIndex].ayahUQNumber,
                       onLongPressStart: (LongPressStartDetails details) {
                         quranCtrl
                             .toggleAyahSelection(ayahs[ayahIndex].ayahUQNumber);
                         context.showAyahMenu(
-                            quranCtrl.getSurahNumberFromPage(pageIndex),
+                            quranCtrl.getSurahNumByAyahUQNum(
+                                ayahs[ayahIndex].ayahUQNumber),
                             ayahs[ayahIndex].ayahNumber,
                             ayahs[ayahIndex].code_v2,
                             pageIndex,

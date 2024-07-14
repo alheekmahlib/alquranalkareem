@@ -145,17 +145,26 @@ class QuranController extends GetxController {
   /// you can use [ayahs.last].
   int getSurahNumberFromPage(int pageNumber) => surahs
       .firstWhere(
-          (s) => s.ayahs.contains(getPageAyahsByIndex(pageNumber).first))
+          (s) => s.ayahs.firstWhereOrNull((a) => a.page == pageNumber) != null)
       .surahNumber;
+
+  int getSurahNumByAyahUQNum(int ayahUqNum) => surahs
+      .firstWhere((s) =>
+          s.ayahs.firstWhereOrNull((a) => a.ayahUQNumber == ayahUqNum) != null)
+      .surahNumber;
+  int getSurahNumByAyah(Ayah ayah) =>
+      surahs.firstWhere((s) => s.ayahs.contains(ayah)).surahNumber;
 
   Surah getCurrentSurahByPage(int pageNumber) => surahs.firstWhere(
       (s) => s.ayahs.contains(getPageAyahsByIndex(pageNumber).first));
 
-  String getSurahNameFromPage(int pageNumber) {
+  ///! in multible surahs page, the function will return the first surah only..
+  /// so you should use ayah or ayah unique number..
+  String getSurahNameFromPage(int pageIndex) {
     try {
       return surahs
           .firstWhere(
-              (s) => s.ayahs.contains(getPageAyahsByIndex(pageNumber).first))
+              (s) => s.ayahs.contains(getPageAyahsByIndex(pageIndex).first))
           .arabicName;
     } catch (e) {
       return "Surah not found";

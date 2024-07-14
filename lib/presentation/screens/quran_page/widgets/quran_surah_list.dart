@@ -4,9 +4,9 @@ import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 
+import '/core/services/services_locator.dart';
 import '/core/utils/constants/extensions/convert_number_extension.dart';
-import '../../../../core/services/services_locator.dart';
-import '../../../../core/utils/constants/extensions/extensions.dart';
+import '/core/utils/constants/extensions/extensions.dart';
 import '../../../controllers/general_controller.dart';
 import '../../../controllers/quran_controller.dart';
 

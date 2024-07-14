@@ -4,8 +4,8 @@ import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 
 import '/core/utils/constants/extensions/convert_number_extension.dart';
-import '../../../../../core/utils/constants/extensions/extensions.dart';
-import '../../../../../core/widgets/share/share_ayah_options.dart';
+import '/core/utils/constants/extensions/extensions.dart';
+import '/core/widgets/share/share_ayah_options.dart';
 import '../../../../controllers/general_controller.dart';
 import '../../../../controllers/quran_controller.dart';
 import '../buttons/add_bookmark_button.dart';
