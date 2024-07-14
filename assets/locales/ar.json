@@ -1038,5 +1038,10 @@
   "@searchInBooks": {
     "type": "text",
     "placeholders": {}
+  },
+  "hasPassed": "قد مضى",
+  "@hasPassed": {
+    "type": "text",
+    "placeholders": {}
   }
 }

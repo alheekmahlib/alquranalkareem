@@ -1044,5 +1044,10 @@
   "@searchInBooks": {
     "type": "text",
     "placeholders": {}
+  },
+  "hasPassed": "گزر چکا ہے",
+  "@hasPassed": {
+    "type": "text",
+    "placeholders": {}
   }
 }

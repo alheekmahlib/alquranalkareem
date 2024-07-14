@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hijri/hijri_calendar.dart';
 
@@ -19,12 +20,18 @@ class CountdownController extends GetxController {
           : false;
 
   int calculate(int year, int month, int day) {
-    DateTime occasionDate = hijriNow.hijriToGregorian(year, month, day);
-    HijriCalendar today = HijriCalendar.now();
-    DateTime todayGregorian =
-        today.hijriToGregorian(today.hYear, today.hMonth, today.hDay);
-    Duration difference = occasionDate.difference(todayGregorian);
-    return difference.inDays;
+    HijriCalendar hijriCalendar = HijriCalendar();
+    DateTime start = DateTime.now();
+    DateTime end = hijriCalendar.hijriToGregorian(year, month, day);
+    if (!start.isAfter(end)) {
+      // this if the end date is aftar the start date will do this logic
+      return DateTimeRange(start: start, end: end).duration.inDays;
+    } else {
+      // this if the end date is before the start date will do the else logic
+      // end = end.copyWith(year: end.year + 1); // uncomment this if you want to make it calucate the next year occasion
+      // return DateTimeRange(start: end, end: start).duration.inDays; // you can make this like مضى X ايام
+      return 0;
+    }
   }
 
   double calculateProgress(int currentIndex, int total) {
