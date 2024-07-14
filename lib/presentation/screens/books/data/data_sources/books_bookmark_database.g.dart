@@ -164,6 +164,17 @@ class BooksBookmarkData extends DataClass
         bookNumber: bookNumber.present ? bookNumber.value : this.bookNumber,
         currentPage: currentPage.present ? currentPage.value : this.currentPage,
       );
+  BooksBookmarkData copyWithCompanion(BooksBookmarkCompanion data) {
+    return BooksBookmarkData(
+      id: data.id.present ? data.id.value : this.id,
+      bookName: data.bookName.present ? data.bookName.value : this.bookName,
+      bookNumber:
+          data.bookNumber.present ? data.bookNumber.value : this.bookNumber,
+      currentPage:
+          data.currentPage.present ? data.currentPage.value : this.currentPage,
+    );
+  }
+
   @override
   String toString() {
     return (StringBuffer('BooksBookmarkData(')
@@ -263,8 +274,8 @@ class BooksBookmarkCompanion extends UpdateCompanion<BooksBookmarkData> {
 
 abstract class _$BooksBookmarkDatabase extends GeneratedDatabase {
   _$BooksBookmarkDatabase(QueryExecutor e) : super(e);
-  _$BooksBookmarkDatabaseManager get managers =>
-      _$BooksBookmarkDatabaseManager(this);
+  $BooksBookmarkDatabaseManager get managers =>
+      $BooksBookmarkDatabaseManager(this);
   late final $BooksBookmarkTable booksBookmark = $BooksBookmarkTable(this);
   @override
   Iterable<TableInfo<Table, Object?>> get allTables =>
@@ -273,7 +284,7 @@ abstract class _$BooksBookmarkDatabase extends GeneratedDatabase {
   List<DatabaseSchemaEntity> get allSchemaEntities => [booksBookmark];
 }
 
-typedef $$BooksBookmarkTableInsertCompanionBuilder = BooksBookmarkCompanion
+typedef $$BooksBookmarkTableCreateCompanionBuilder = BooksBookmarkCompanion
     Function({
   Value<int> id,
   Value<String?> bookName,
@@ -294,8 +305,7 @@ class $$BooksBookmarkTableTableManager extends RootTableManager<
     BooksBookmarkData,
     $$BooksBookmarkTableFilterComposer,
     $$BooksBookmarkTableOrderingComposer,
-    $$BooksBookmarkTableProcessedTableManager,
-    $$BooksBookmarkTableInsertCompanionBuilder,
+    $$BooksBookmarkTableCreateCompanionBuilder,
     $$BooksBookmarkTableUpdateCompanionBuilder> {
   $$BooksBookmarkTableTableManager(
       _$BooksBookmarkDatabase db, $BooksBookmarkTable table)
@@ -306,9 +316,7 @@ class $$BooksBookmarkTableTableManager extends RootTableManager<
               $$BooksBookmarkTableFilterComposer(ComposerState(db, table)),
           orderingComposer:
               $$BooksBookmarkTableOrderingComposer(ComposerState(db, table)),
-          getChildManagerBuilder: (p) =>
-              $$BooksBookmarkTableProcessedTableManager(p),
-          getUpdateCompanionBuilder: ({
+          updateCompanionCallback: ({
             Value<int> id = const Value.absent(),
             Value<String?> bookName = const Value.absent(),
             Value<int?> bookNumber = const Value.absent(),
@@ -320,7 +328,7 @@ class $$BooksBookmarkTableTableManager extends RootTableManager<
             bookNumber: bookNumber,
             currentPage: currentPage,
           ),
-          getInsertCompanionBuilder: ({
+          createCompanionCallback: ({
             Value<int> id = const Value.absent(),
             Value<String?> bookName = const Value.absent(),
             Value<int?> bookNumber = const Value.absent(),
@@ -333,18 +341,6 @@ class $$BooksBookmarkTableTableManager extends RootTableManager<
             currentPage: currentPage,
           ),
         ));
-}
-
-class $$BooksBookmarkTableProcessedTableManager extends ProcessedTableManager<
-    _$BooksBookmarkDatabase,
-    $BooksBookmarkTable,
-    BooksBookmarkData,
-    $$BooksBookmarkTableFilterComposer,
-    $$BooksBookmarkTableOrderingComposer,
-    $$BooksBookmarkTableProcessedTableManager,
-    $$BooksBookmarkTableInsertCompanionBuilder,
-    $$BooksBookmarkTableUpdateCompanionBuilder> {
-  $$BooksBookmarkTableProcessedTableManager(super.$state);
 }
 
 class $$BooksBookmarkTableFilterComposer
@@ -395,9 +391,9 @@ class $$BooksBookmarkTableOrderingComposer
           ColumnOrderings(column, joinBuilders: joinBuilders));
 }
 
-class _$BooksBookmarkDatabaseManager {
+class $BooksBookmarkDatabaseManager {
   final _$BooksBookmarkDatabase _db;
-  _$BooksBookmarkDatabaseManager(this._db);
+  $BooksBookmarkDatabaseManager(this._db);
   $$BooksBookmarkTableTableManager get booksBookmark =>
       $$BooksBookmarkTableTableManager(_db, _db.booksBookmark);
 }
