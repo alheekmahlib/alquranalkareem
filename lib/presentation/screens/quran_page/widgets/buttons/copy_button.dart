@@ -7,7 +7,7 @@ import '/core/utils/constants/extensions/svg_extensions.dart';
 import '../../../../../core/services/services_locator.dart';
 import '../../../../../core/utils/constants/svg_constants.dart';
 import '../../../../controllers/general_controller.dart';
-import '../../../../controllers/quran_controller.dart';
+import '../../controller/quran_controller.dart';
 
 class CopyButton extends StatelessWidget {
   final int ayahNum;
@@ -39,7 +39,7 @@ class CopyButton extends StatelessWidget {
                     '﴿${ayahTextNormal}﴾ [$surahName-${sl<GeneralController>().arabicNumber.convert(ayahNum)}]'))
             .then((value) => context.showCustomErrorSnackBar('copyAyah'.tr));
         cancel!();
-        sl<QuranController>().selectedAyahIndexes.clear();
+        sl<QuranController>().state.selectedAyahIndexes.clear();
       },
     );
   }

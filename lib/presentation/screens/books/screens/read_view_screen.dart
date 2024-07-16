@@ -5,11 +5,13 @@ import 'package:get/get.dart';
 import '/core/utils/constants/extensions/convert_number_extension.dart';
 import '/core/utils/constants/extensions/extensions.dart';
 import '/core/utils/constants/extensions/text_span_extension.dart';
+import '/presentation/screens/books/controller/extensions/books_getters.dart';
+import '/presentation/screens/books/controller/extensions/books_storage_getters.dart';
 import '/presentation/screens/quran_page/widgets/search/search_extensions/highlight_extension.dart';
 import '../../../../core/widgets/shimmer_effect_build.dart';
-import '../../../controllers/books_bookmarks_controller.dart';
-import '../../../controllers/books_controller.dart';
 import '../../../controllers/general_controller.dart';
+import '../controller/books_bookmarks_controller.dart';
+import '../controller/books_controller.dart';
 import '../data/models/page_model.dart';
 import '../widgets/books_top_title_widget.dart';
 
@@ -28,7 +30,7 @@ class PagesPage extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.primaryContainer,
         title: Text(
-          booksCtrl.booksList[bookNumber - 1].bookName,
+          booksCtrl.state.booksList[bookNumber - 1].bookName,
           style: TextStyle(
             fontSize: 18,
             fontFamily: 'kufi',
@@ -52,13 +54,14 @@ class PagesPage extends StatelessWidget {
               return PageView.builder(
                 controller: booksCtrl.pageController,
                 itemCount: pages.length,
-                onPageChanged: (i) => booksCtrl.currentPageNumber.value = i,
+                onPageChanged: (i) =>
+                    booksCtrl.state.currentPageNumber.value = i,
                 itemBuilder: (context, index) {
                   final page = pages[index];
                   WidgetsBinding.instance.addPostFrameCallback((_) {
                     booksCtrl.saveLastRead(
                       page.pageNumber,
-                      booksCtrl.booksList[bookNumber - 1].bookName,
+                      booksCtrl.state.booksList[bookNumber - 1].bookName,
                       bookNumber,
                       pages.length,
                     );
@@ -85,14 +88,14 @@ class PagesPage extends StatelessWidget {
                                           Text.rich(
                                             TextSpan(children: <InlineSpan>[
                                               TextSpan(
-                                                children:
-                                                    booksCtrl.isTashkil.value
-                                                        ? page.content
-                                                            .buildTextSpans()
-                                                        : page.content
-                                                            .removeDiacritics(
-                                                                page.content)
-                                                            .buildTextSpans(),
+                                                children: booksCtrl
+                                                        .state.isTashkil.value
+                                                    ? page.content
+                                                        .buildTextSpans()
+                                                    : page.content
+                                                        .removeDiacritics(
+                                                            page.content)
+                                                        .buildTextSpans(),
                                                 style: TextStyle(
                                                   color: Get.theme.colorScheme
                                                       .inversePrimary,

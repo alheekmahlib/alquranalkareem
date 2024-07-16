@@ -14,12 +14,13 @@ import 'package:rxdart/rxdart.dart' as R;
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '/core/utils/constants/extensions/custom_error_snackBar.dart';
+import '/presentation/screens/quran_page/controller/extensions/quran_getters.dart';
 import '../../core/data/models/playList_model.dart';
 import '../../core/utils/constants/url_constants.dart';
 import '../../core/widgets/seek_bar.dart';
+import '../screens/quran_page/controller/quran_controller.dart';
 import 'audio_controller.dart';
 import 'general_controller.dart';
-import 'quran_controller.dart';
 
 class PlayListController extends GetxController {
   static PlayListController get instance =>
@@ -241,10 +242,12 @@ class PlayListController extends GetxController {
         surahNum: quranCtrl
             .getSurahNumberFromPage(generalCtrl.currentPageNumber.value - 1),
         surahName: quranCtrl
-            .getSurahNameFromPage(generalCtrl.currentPageNumber.value - 1),
+            .getCurrentSurahByPage(generalCtrl.currentPageNumber.value - 1)
+            .arabicName,
         readerName: audioCtrl.readerValue!,
         name: quranCtrl
-            .getSurahNameFromPage(generalCtrl.currentPageNumber.value - 1)));
+            .getCurrentSurahByPage(generalCtrl.currentPageNumber.value - 1)
+            .arabicName));
     PlayListStorage.savePlayList(playLists);
     print('playLists: ${playLists.length.toString()}');
   }

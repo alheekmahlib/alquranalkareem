@@ -2,11 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 
+import '/presentation/screens/whats_new/controller/extensions/whats_new_getters.dart';
 import '../../../../../core/utils/constants/shared_preferences_constants.dart';
 import '../../../../../core/widgets/container_button.dart';
 import '../../../../controllers/general_controller.dart';
 import '../../../screen_type.dart';
-import '../../controller/controller.dart';
+import '../../controller/whats_new_controller.dart';
 
 class ButtonWidget extends StatelessWidget {
   final PageController controller;

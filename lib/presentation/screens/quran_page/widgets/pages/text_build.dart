@@ -3,9 +3,11 @@ import 'package:get/get.dart';
 
 import '/core/utils/constants/extensions/convert_number_extension.dart';
 import '/core/utils/constants/extensions/menu_extension.dart';
+import '/presentation/screens/quran_page/controller/extensions/quran_getters.dart';
+import '/presentation/screens/quran_page/controller/extensions/quran_ui.dart';
 import '../../../../controllers/audio_controller.dart';
 import '../../../../controllers/general_controller.dart';
-import '../../../../controllers/quran_controller.dart';
+import '../../controller/quran_controller.dart';
 import '../../data/model/surahs_model.dart';
 import 'custom_span.dart';
 
@@ -36,7 +38,7 @@ class TextBuild extends StatelessWidget {
                     shadows: [
                       Shadow(
                         blurRadius: 0.5,
-                        color: quranCtrl.isBold.value == 0
+                        color: quranCtrl.state.isBold.value == 0
                             ? Colors.black
                             : Colors.transparent,
                         offset: const Offset(0.5, 0.5),
@@ -44,7 +46,8 @@ class TextBuild extends StatelessWidget {
                     ],
                   ),
                   children: List.generate(ayahs.length, (ayahIndex) {
-                    quranCtrl.isSelected = quranCtrl.selectedAyahIndexes
+                    quranCtrl.state.isSelected = quranCtrl
+                        .state.selectedAyahIndexes
                         .contains(ayahs[ayahIndex].ayahUQNumber);
                     if (ayahIndex == 0) {
                       return span(
@@ -52,23 +55,27 @@ class TextBuild extends StatelessWidget {
                           text:
                               "${ayahs[ayahIndex].code_v2[0]}${ayahs[ayahIndex].code_v2.substring(1)}",
                           pageIndex: pageIndex,
-                          isSelected: quranCtrl.isSelected,
+                          isSelected: quranCtrl.state.isSelected,
                           fontSize: 100,
-                          surahNum: quranCtrl.getSurahNumByAyahUQNum(
-                              ayahs[ayahIndex].ayahUQNumber),
+                          surahNum: quranCtrl
+                              .getSurahDataByAyahUQ(
+                                  ayahs[ayahIndex].ayahUQNumber)
+                              .surahNumber,
                           ayahNum: ayahs[ayahIndex].ayahUQNumber,
                           onLongPressStart: (LongPressStartDetails details) {
                             quranCtrl.toggleAyahSelection(
                                 ayahs[ayahIndex].ayahUQNumber);
                             context.showAyahMenu(
-                                quranCtrl.getSurahNumByAyahUQNum(
-                                    ayahs[ayahIndex].ayahUQNumber),
+                                quranCtrl
+                                    .getSurahDataByAyahUQ(
+                                        ayahs[ayahIndex].ayahUQNumber)
+                                    .surahNumber,
                                 ayahs[ayahIndex].ayahNumber,
                                 ayahs[ayahIndex].code_v2,
                                 pageIndex,
                                 ayahs[ayahIndex].text,
                                 ayahs[ayahIndex].ayahUQNumber,
-                                quranCtrl.surahs
+                                quranCtrl.state.surahs
                                     .firstWhere((s) =>
                                         s.ayahs.contains(ayahs[ayahIndex]))
                                     .arabicName,
@@ -80,23 +87,28 @@ class TextBuild extends StatelessWidget {
                         isFirstAyah: false,
                         text: ayahs[ayahIndex].code_v2,
                         pageIndex: pageIndex,
-                        isSelected: quranCtrl.isSelected,
+                        isSelected: quranCtrl.state.isSelected,
                         fontSize: 100,
-                        surahNum: quranCtrl.getSurahNumByAyahUQNum(
-                            ayahs[ayahIndex].ayahUQNumber),
+                        surahNum: quranCtrl
+                            .getSurahDataByAyahUQ(ayahs[ayahIndex].ayahUQNumber)
+                            .surahNumber,
                         ayahNum: ayahs[ayahIndex].ayahUQNumber,
                         onLongPressStart: (LongPressStartDetails details) {
                           quranCtrl.toggleAyahSelection(
                               ayahs[ayahIndex].ayahUQNumber);
                           context.showAyahMenu(
-                              quranCtrl.getSurahNumByAyahUQNum(
-                                  ayahs[ayahIndex].ayahUQNumber),
+                              quranCtrl
+                                  .getSurahDataByAyahUQ(
+                                      ayahs[ayahIndex].ayahUQNumber)
+                                  .surahNumber,
                               ayahs[ayahIndex].ayahNumber,
                               ayahs[ayahIndex].code_v2,
                               pageIndex,
                               ayahs[ayahIndex].text,
                               ayahs[ayahIndex].ayahUQNumber,
-                              quranCtrl.getSurahNameFromPage(pageIndex),
+                              quranCtrl
+                                  .getSurahDataByAyahUQ(pageIndex)
+                                  .arabicName,
                               ayahIndex,
                               details: details);
                         });
@@ -110,35 +122,41 @@ class TextBuild extends StatelessWidget {
               text: TextSpan(
                 style: TextStyle(
                   fontFamily: 'uthmanic2',
-                  fontSize: 20 * quranCtrl.scaleFactor.value,
+                  fontSize: 20 * quranCtrl.state.scaleFactor.value,
                   height: 1.7,
                   color: Theme.of(context).colorScheme.inversePrimary,
                 ),
                 children: List.generate(ayahs.length, (ayahIndex) {
-                  quranCtrl.isSelected = quranCtrl.selectedAyahIndexes
+                  quranCtrl.state.isSelected = quranCtrl
+                      .state.selectedAyahIndexes
                       .contains(ayahs[ayahIndex].ayahUQNumber);
                   return customSpan(
                       text: "${ayahs[ayahIndex].text}",
                       ayahNumber:
                           '${ayahs[ayahIndex].ayahNumber.toString().convertNumbers()}',
                       pageIndex: pageIndex,
-                      isSelected: quranCtrl.isSelected,
-                      fontSize: 20 * quranCtrl.scaleFactor.value,
-                      surahNum: quranCtrl.getSurahNumByAyahUQNum(
-                          ayahs[ayahIndex].ayahUQNumber),
+                      isSelected: quranCtrl.state.isSelected,
+                      fontSize: 20 * quranCtrl.state.scaleFactor.value,
+                      surahNum: quranCtrl
+                          .getSurahDataByAyahUQ(ayahs[ayahIndex].ayahUQNumber)
+                          .surahNumber,
                       ayahNum: ayahs[ayahIndex].ayahUQNumber,
                       onLongPressStart: (LongPressStartDetails details) {
                         quranCtrl
                             .toggleAyahSelection(ayahs[ayahIndex].ayahUQNumber);
                         context.showAyahMenu(
-                            quranCtrl.getSurahNumByAyahUQNum(
-                                ayahs[ayahIndex].ayahUQNumber),
+                            quranCtrl
+                                .getSurahDataByAyahUQ(
+                                    ayahs[ayahIndex].ayahUQNumber)
+                                .surahNumber,
                             ayahs[ayahIndex].ayahNumber,
                             ayahs[ayahIndex].code_v2,
                             pageIndex,
                             ayahs[ayahIndex].text,
                             ayahs[ayahIndex].ayahUQNumber,
-                            quranCtrl.getSurahNameFromPage(pageIndex),
+                            quranCtrl
+                                .getSurahDataByAyahUQ(pageIndex)
+                                .arabicName,
                             ayahIndex,
                             details: details);
                       });

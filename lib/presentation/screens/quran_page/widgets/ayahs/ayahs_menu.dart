@@ -6,8 +6,9 @@ import 'package:get/get.dart';
 import '/core/utils/constants/extensions/convert_number_extension.dart';
 import '/core/utils/constants/extensions/extensions.dart';
 import '/core/widgets/share/share_ayah_options.dart';
+import '/presentation/screens/quran_page/controller/extensions/quran_ui.dart';
 import '../../../../controllers/general_controller.dart';
-import '../../../../controllers/quran_controller.dart';
+import '../../controller/quran_controller.dart';
 import '../buttons/add_bookmark_button.dart';
 import '../buttons/copy_button.dart';
 import '../buttons/play_button.dart';
@@ -184,7 +185,7 @@ class AyahsMenu extends StatelessWidget {
                   ),
                 ),
                 crossFadeState:
-                    quranCtrl.moreOptionsMap["$surahNum-$ayahNum"] == true
+                    quranCtrl.state.moreOptionsMap["$surahNum-$ayahNum"] == true
                         ? CrossFadeState.showSecond
                         : CrossFadeState.showFirst,
               )),

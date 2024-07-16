@@ -4,7 +4,6 @@ import 'package:get/get.dart';
 
 import '/core/utils/constants/extensions/svg_extensions.dart';
 import '/presentation/controllers/general_controller.dart';
-import '/presentation/controllers/quran_controller.dart';
 import '/presentation/screens/quran_page/widgets/audio/skip_next.dart';
 import '/presentation/screens/quran_page/widgets/audio/skip_previous.dart';
 import '../../../../../core/services/services_locator.dart';
@@ -12,6 +11,7 @@ import '../../../../../core/utils/constants/extensions/extensions.dart';
 import '../../../../../core/utils/constants/svg_constants.dart';
 import '../../../../../core/widgets/seek_bar.dart';
 import '../../../../controllers/audio_controller.dart';
+import '../../controller/quran_controller.dart';
 import '../playlist/ayahs_playList_widget.dart';
 import 'change_reader.dart';
 import 'play_ayah_widget.dart';
@@ -90,8 +90,8 @@ class AudioWidget extends StatelessWidget {
                             children: [
                               context.customClose(
                                 height: 20,
-                                close: () =>
-                                    quranCtrl.isPlayExpanded.value = false,
+                                close: () => quranCtrl
+                                    .state.isPlayExpanded.value = false,
                               ),
                               const ChangeReader(),
                               GestureDetector(
@@ -167,7 +167,7 @@ class AudioWidget extends StatelessWidget {
                         ),
                       ],
                     )),
-                crossFadeState: quranCtrl.isPlayExpanded.value
+                crossFadeState: quranCtrl.state.isPlayExpanded.value
                     ? CrossFadeState.showSecond
                     : CrossFadeState.showFirst,
               ))),

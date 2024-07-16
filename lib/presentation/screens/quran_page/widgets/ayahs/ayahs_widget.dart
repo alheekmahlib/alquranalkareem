@@ -6,9 +6,10 @@ import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 import '/core/utils/constants/extensions/convert_number_extension.dart';
 import '/core/utils/constants/extensions/extensions.dart';
 import '/core/utils/constants/extensions/font_size_extension.dart';
+import '/presentation/screens/quran_page/controller/extensions/quran_getters.dart';
 import '../../../../controllers/audio_controller.dart';
 import '../../../../controllers/general_controller.dart';
-import '../../../../controllers/quran_controller.dart';
+import '../../controller/quran_controller.dart';
 import 'ayah_build.dart';
 
 class AyahsWidget extends StatelessWidget {
@@ -47,8 +48,10 @@ class AyahsWidget extends StatelessWidget {
                   child: Row(
                     children: [
                       Obx(() => Text(
-                            quranCtrl.getSurahNameFromPage(
-                                quranCtrl.currentListPage.value),
+                            quranCtrl
+                                .getCurrentSurahByPage(
+                                    quranCtrl.state.currentListPage.value)
+                                .arabicName,
                             style: TextStyle(
                                 fontSize: context.customOrientation(18.0, 22.0),
                                 fontFamily: 'naskh',
@@ -56,7 +59,7 @@ class AyahsWidget extends StatelessWidget {
                           )),
                       Obx(
                         () => Text(
-                          ' | ${'juz'.tr}: ${quranCtrl.pages[quranCtrl.currentListPage.value + 1].first.juz.toString().convertNumbers()}',
+                          ' | ${'juz'.tr}: ${quranCtrl.state.pages[quranCtrl.state.currentListPage.value + 1].first.juz.toString().convertNumbers()}',
                           style: TextStyle(
                               fontSize: context.customOrientation(18.0, 22.0),
                               fontFamily: 'naskh',
@@ -78,16 +81,19 @@ class AyahsWidget extends StatelessWidget {
               onTap: () {
                 audioCtrl.clearSelection();
               },
-              child: quranCtrl.pages.isEmpty
+              child: quranCtrl.state.pages.isEmpty
                   ? const CircularProgressIndicator.adaptive()
                   : ScrollablePositionedList.builder(
                       shrinkWrap: false,
                       initialScrollIndex:
                           generalCtrl.currentPageNumber.value - 1,
-                      itemScrollController: quranCtrl.itemScrollController,
-                      itemPositionsListener: quranCtrl.itemPositionsListener,
-                      scrollOffsetController: quranCtrl.scrollOffsetController,
-                      itemCount: quranCtrl.pages.length,
+                      itemScrollController:
+                          quranCtrl.state.itemScrollController,
+                      itemPositionsListener:
+                          quranCtrl.state.itemPositionsListener,
+                      scrollOffsetController:
+                          quranCtrl.state.scrollOffsetController,
+                      itemCount: quranCtrl.state.pages.length,
                       physics: const BouncingScrollPhysics(),
                       itemBuilder: (context, pageIndex) {
                         return Container(

@@ -5,10 +5,11 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 
 import '/core/utils/constants/extensions/convert_number_extension.dart';
+import '/presentation/screens/quran_page/controller/extensions/quran_ui.dart';
 import '../../../../core/services/services_locator.dart';
 import '../../../../core/utils/constants/extensions/extensions.dart';
 import '../../../controllers/general_controller.dart';
-import '../../../controllers/quran_controller.dart';
+import '../controller/quran_controller.dart';
 
 class QuranJuz extends StatelessWidget {
   final controller = ScrollController();
@@ -32,8 +33,8 @@ class QuranJuz extends StatelessWidget {
               itemCount: 30,
               controller: sl<GeneralController>().surahListController,
               itemBuilder: (_, index) {
-                final surah = quranCtrl.surahs[index];
-                final juz = quranCtrl.allAyahs.firstWhere(
+                final surah = quranCtrl.state.surahs[index];
+                final juz = quranCtrl.state.allAyahs.firstWhere(
                   (a) => a.juz == index + 1,
                 );
                 return AnimationConfiguration.staggeredList(

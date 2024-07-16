@@ -40,9 +40,9 @@ TextSpan span({
           fontFamily: 'page${pageIndex + 1}',
           fontSize: fontSize,
           height: 2,
-          letterSpacing: quranCtrl.isPages.value == 1 ? 10 : 30,
+          letterSpacing: quranCtrl.state.isPages.value == 1 ? 10 : 30,
           color: Get.theme.colorScheme.inversePrimary,
-          backgroundColor: quranCtrl.isPages.value == 1
+          backgroundColor: quranCtrl.state.isPages.value == 1
               ? Colors.transparent
               : sl<BookmarksController>().hasBookmark(surahNum, ayahNum).value
                   ? const Color(0xffCD9974).withOpacity(.4)
@@ -63,7 +63,7 @@ TextSpan span({
           letterSpacing: 5,
           // wordSpacing: wordSpacing + 10,
           color: Get.theme.colorScheme.inversePrimary,
-          backgroundColor: quranCtrl.isPages.value == 1
+          backgroundColor: quranCtrl.state.isPages.value == 1
               ? Colors.transparent
               : sl<BookmarksController>().hasBookmark(surahNum, ayahNum).value
                   ? const Color(0xffCD9974).withOpacity(.4)
@@ -85,7 +85,7 @@ TextSpan span({
         height: 2,
         letterSpacing: 5,
         color: Get.theme.colorScheme.inversePrimary,
-        backgroundColor: quranCtrl.isPages.value == 1
+        backgroundColor: quranCtrl.state.isPages.value == 1
             ? Colors.transparent
             : sl<BookmarksController>().hasBookmark(surahNum, ayahNum).value
                 ? const Color(0xffCD9974).withOpacity(.4)
@@ -121,7 +121,7 @@ TextSpan span({
                           .value
                       ? Get.theme.colorScheme.inversePrimary
                       : const Color(0xff77554B),
-                  backgroundColor: quranCtrl.isPages.value == 1
+                  backgroundColor: quranCtrl.state.isPages.value == 1
                       ? Colors.transparent
                       : sl<BookmarksController>()
                               .hasBookmark(surahNum, ayahNum)
@@ -169,7 +169,7 @@ TextSpan customSpan({
             fontSize: fontSize,
             height: 2,
             color: Get.theme.colorScheme.inversePrimary,
-            backgroundColor: quranCtrl.isPages.value == 1
+            backgroundColor: quranCtrl.state.isPages.value == 1
                 ? Colors.transparent
                 : sl<BookmarksController>().hasBookmark(surahNum, ayahNum).value
                     ? const Color(0xffCD9974).withOpacity(.4)
@@ -202,7 +202,7 @@ TextSpan customSpan({
                           .value
                       ? Get.theme.colorScheme.inversePrimary
                       : const Color(0xff77554B),
-                  backgroundColor: quranCtrl.isPages.value == 1
+                  backgroundColor: quranCtrl.state.isPages.value == 1
                       ? Colors.transparent
                       : sl<BookmarksController>()
                               .hasBookmark(surahNum, ayahNum)

@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../../controllers/books_controller.dart';
+import '/presentation/screens/books/controller/extensions/books_getters.dart';
+import '/presentation/screens/books/controller/extensions/books_ui.dart';
+import '../controller/books_controller.dart';
 
 class BooksChapterBuild extends StatelessWidget {
   final int bookNumber;

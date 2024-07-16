@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 
-import '../../../controllers/books_controller.dart';
 import '../../../controllers/general_controller.dart';
+import '../controller/books_controller.dart';
 import '../screens/read_view_screen.dart';
 
 class BooksLastRead extends StatelessWidget {
@@ -15,8 +15,8 @@ class BooksLastRead extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Obx(() {
-      var lastReadBooks = bookCtrl.booksList.where((book) {
-        return bookCtrl.lastReadPage.containsKey(book.bookNumber);
+      var lastReadBooks = bookCtrl.state.booksList.where((book) {
+        return bookCtrl.state.lastReadPage.containsKey(book.bookNumber);
       }).toList();
       return lastReadBooks.isNotEmpty
           ? Container(
@@ -48,14 +48,15 @@ class BooksLastRead extends StatelessWidget {
                       itemBuilder: (context, index) {
                         var book = lastReadBooks[index];
                         var currentPage =
-                            bookCtrl.lastReadPage[book.bookNumber] ?? 0;
+                            bookCtrl.state.lastReadPage[book.bookNumber] ?? 0;
                         var totalPages =
-                            bookCtrl.bookTotalPages[book.bookNumber] ?? 1;
+                            bookCtrl.state.bookTotalPages[book.bookNumber] ?? 1;
                         var progress = currentPage / totalPages;
 
                         return GestureDetector(
                           onTap: () {
-                            bookCtrl.currentPageNumber.value = currentPage - 1;
+                            bookCtrl.state.currentPageNumber.value =
+                                currentPage - 1;
                             Get.to(
                                 () => PagesPage(bookNumber: book.bookNumber));
                           },

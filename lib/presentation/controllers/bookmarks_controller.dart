@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '/presentation/screens/quran_page/controller/extensions/quran_getters.dart';
 import '../../core/services/services_locator.dart';
 import '../../core/utils/constants/extensions/custom_error_snackBar.dart';
 import '../../database/databaseHelper.dart';
+import '../screens/quran_page/controller/quran_controller.dart';
 import '../screens/quran_page/data/model/bookmark.dart';
 import '../screens/quran_page/data/model/bookmark_ayahs.dart';
 import 'general_controller.dart';
-import 'quran_controller.dart';
 
 class BookmarksController extends GetxController {
   static BookmarksController get instance =>
@@ -187,7 +188,9 @@ class BookmarksController extends GetxController {
     if (isPageBookmarked(index + 1)) {
       deleteBookmarks(index + 1, context);
     } else {
-      addAyahBookmark(index + 1, quranCtrl.getSurahNameFromPage(index),
+      addAyahBookmark(
+              index + 1,
+              quranCtrl.getCurrentSurahByPage(index).arabicName,
               generalCtrl.timeNow.dateNow)
           .then((value) => context.showCustomErrorSnackBar('addBookmark'.tr));
     }

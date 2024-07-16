@@ -4,12 +4,13 @@ import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 
 import '/core/utils/constants/extensions/convert_number_extension.dart';
-import '/presentation/controllers/quran_controller.dart';
+import '/presentation/screens/quran_page/controller/extensions/quran_ui.dart';
 import '../../../../../core/services/services_locator.dart';
 import '../../../../../core/utils/constants/extensions/extensions.dart';
 import '../../../../../core/widgets/delete_widget.dart';
 import '../../../../controllers/bookmarks_controller.dart';
 import '../../../../controllers/general_controller.dart';
+import '../../controller/quran_controller.dart';
 
 class BookmarkAyahsBuild extends StatelessWidget {
   BookmarkAyahsBuild({super.key});
@@ -52,12 +53,14 @@ class BookmarkAyahsBuild extends StatelessWidget {
                               itemBuilder: (BuildContext context, int index) {
                                 var bookmark =
                                     bookmarkCtrl.bookmarkTextList[index];
-                                final ayah =
-                                    sl<QuranController>().allAyahs.firstWhere(
-                                          (a) =>
-                                              a.ayahUQNumber ==
-                                              bookmark.ayahUQNumber,
-                                        );
+                                final ayah = sl<QuranController>()
+                                    .state
+                                    .allAyahs
+                                    .firstWhere(
+                                      (a) =>
+                                          a.ayahUQNumber ==
+                                          bookmark.ayahUQNumber,
+                                    );
                                 return AnimationConfiguration.staggeredList(
                                   position: index,
                                   duration: const Duration(milliseconds: 450),

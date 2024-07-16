@@ -6,14 +6,15 @@ import 'package:get/get.dart';
 import '/core/utils/constants/extensions/font_size_extension.dart';
 import '/core/utils/constants/extensions/svg_extensions.dart';
 import '/core/utils/constants/extensions/text_span_extension.dart';
+import '/presentation/screens/quran_page/controller/extensions/quran_getters.dart';
 import '../../../../core/services/services_locator.dart';
 import '../../../../core/utils/constants/extensions/extensions.dart';
 import '../../../../core/utils/constants/lists.dart';
 import '../../../../core/utils/constants/svg_constants.dart';
 import '../../../controllers/ayat_controller.dart';
 import '../../../controllers/general_controller.dart';
-import '../../../controllers/quran_controller.dart';
 import '../../../controllers/translate_controller.dart';
+import '../controller/quran_controller.dart';
 import 'ayahs/share_copy_widget.dart';
 import 'change_tafsir.dart';
 

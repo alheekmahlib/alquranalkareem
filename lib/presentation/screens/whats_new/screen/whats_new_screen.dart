@@ -3,10 +3,11 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 
+import '/presentation/screens/whats_new/controller/extensions/whats_new_getters.dart';
 import '../../../../core/widgets/select_screen_build.dart';
 import '../../../controllers/general_controller.dart';
 import '../../screen_type.dart';
-import '../controller/controller.dart';
+import '../controller/whats_new_controller.dart';
 import '../screen/widgets/button_widget.dart';
 import '../screen/widgets/page_view_build.dart';
 import '../screen/widgets/smooth_page_indicator.dart';

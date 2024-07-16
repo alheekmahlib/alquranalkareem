@@ -3,13 +3,13 @@ import 'package:get/get.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:square_percent_indicater/square_percent_indicater.dart';
 
-import '/core/utils/constants/extensions/svg_extensions.dart';
 import '/core/services/services_locator.dart';
+import '/core/utils/constants/extensions/svg_extensions.dart';
 import '/core/utils/constants/lottie.dart';
 import '/core/utils/constants/lottie_constants.dart';
 import '/core/utils/constants/svg_constants.dart';
 import '../../../../controllers/audio_controller.dart';
-import '../../../../controllers/quran_controller.dart';
+import '../../controller/quran_controller.dart';
 
 class PlayAyah extends StatelessWidget {
   const PlayAyah({super.key});
@@ -56,7 +56,7 @@ class PlayAyah extends StatelessWidget {
                       height: 25,
                     ),
                     onTap: () async {
-                      sl<QuranController>().isPlayExpanded.value = true;
+                      sl<QuranController>().state.isPlayExpanded.value = true;
                       sl<AudioController>().playAyah();
                     },
                   );
@@ -67,7 +67,7 @@ class PlayAyah extends StatelessWidget {
                     height: 25,
                   ),
                   onTap: () {
-                    sl<QuranController>().isPlayExpanded.value = true;
+                    sl<QuranController>().state.isPlayExpanded.value = true;
                     sl<AudioController>().playAyah();
                   },
                 );

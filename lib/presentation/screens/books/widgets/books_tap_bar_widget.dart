@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../../controllers/books_controller.dart';
+import '../controller/books_controller.dart';
 
 class BooksTapBarWidget extends StatelessWidget {
   BooksTapBarWidget({super.key});

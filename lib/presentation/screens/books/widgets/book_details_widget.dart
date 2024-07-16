@@ -5,8 +5,10 @@ import 'package:get/get.dart';
 import 'package:read_more_less/read_more_less.dart';
 
 import '/core/utils/constants/extensions/svg_extensions.dart';
+import '/presentation/screens/books/controller/extensions/books_getters.dart';
+import '/presentation/screens/books/controller/extensions/books_ui.dart';
 import '../../../../core/utils/constants/svg_constants.dart';
-import '../../../controllers/books_controller.dart';
+import '../controller/books_controller.dart';
 
 class BookDetails extends StatelessWidget {
   final int bookNumber;
@@ -128,7 +130,7 @@ class BookDetails extends StatelessWidget {
                           )
                         : Row(
                             children: [
-                              booksCtrl.downloading[bookNumber] == true
+                              booksCtrl.state.downloading[bookNumber] == true
                                   ? Container(
                                       width: 150,
                                       decoration: BoxDecoration(
@@ -145,7 +147,7 @@ class BookDetails extends StatelessWidget {
                                         minHeight: 10,
                                         borderRadius: const BorderRadius.all(
                                             Radius.circular(4)),
-                                        value: booksCtrl
+                                        value: booksCtrl.state
                                                 .downloadProgress[bookNumber] ??
                                             0, //(daysRemaining / 1000).toDouble(),
                                         backgroundColor:
@@ -156,7 +158,7 @@ class BookDetails extends StatelessWidget {
                                       ),
                                     )
                                   : const SizedBox.shrink(),
-                              booksCtrl.downloading[bookNumber] == true
+                              booksCtrl.state.downloading[bookNumber] == true
                                   ? const SizedBox.shrink()
                                   : GestureDetector(
                                       child: Icon(

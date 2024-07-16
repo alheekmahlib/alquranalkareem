@@ -7,9 +7,10 @@ import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 
 import '/core/utils/constants/extensions/svg_extensions.dart';
-import '/presentation/controllers/quran_controller.dart';
 import '/presentation/controllers/theme_controller.dart';
+import '/presentation/screens/quran_page/controller/extensions/quran_getters.dart';
 import '../../../../presentation/controllers/general_controller.dart';
+import '../../../../presentation/screens/quran_page/controller/quran_controller.dart';
 import '../../../services/services_locator.dart';
 import '../svg_constants.dart';
 
@@ -108,14 +109,24 @@ extension CustomSurahNameWithBannerExtension on Widget {
             width: double.infinity,
             child: Column(
               children: [
-                surahAyahBannerWidget(
-                    quranCtrl.getSurahNumberByAyah(ayahs.first).toString()),
-                quranCtrl.getSurahNumberByAyah(ayahs.first) == 9 ||
-                        quranCtrl.getSurahNumberByAyah(ayahs.first) == 1
+                surahAyahBannerWidget(quranCtrl
+                    .getSurahNumberByAyah(ayahs.first)
+                    .surahNumber
+                    .toString()),
+                quranCtrl.getSurahNumberByAyah(ayahs.first).surahNumber == 9 ||
+                        quranCtrl
+                                .getSurahNumberByAyah(ayahs.first)
+                                .surahNumber ==
+                            1
                     ? const SizedBox.shrink()
                     : ayahs.first.ayahNumber == 1
-                        ? (quranCtrl.getSurahNumberByAyah(ayahs.first) == 95 ||
-                                quranCtrl.getSurahNumberByAyah(ayahs.first) ==
+                        ? (quranCtrl
+                                        .getSurahNumberByAyah(ayahs.first)
+                                        .surahNumber ==
+                                    95 ||
+                                quranCtrl
+                                        .getSurahNumberByAyah(ayahs.first)
+                                        .surahNumber ==
                                     97)
                             ? customSvgWithColor(SvgPath.svgBesmAllah2,
                                 width: sl<GeneralController>()
@@ -137,7 +148,8 @@ extension CustomSurahNameWithBannerExtension on Widget {
         quranCtrl.getCurrentPageAyahsSeparatedForBasmalah(pageIndex)[i];
     return quranCtrl.downThePageIndex.contains(pageIndex)
         ? surahBannerWidget(
-            (quranCtrl.getSurahNumberByAyah(ayahs.first) + 1).toString())
+            (quranCtrl.getSurahNumberByAyah(ayahs.first).surahNumber + 1)
+                .toString())
         : const SizedBox.shrink();
   }
 
@@ -147,8 +159,10 @@ extension CustomSurahNameWithBannerExtension on Widget {
     return ayahs.first.ayahNumber == 1
         ? quranCtrl.topOfThePageIndex.contains(pageIndex)
             ? const SizedBox.shrink()
-            : surahBannerWidget(
-                quranCtrl.getSurahNumberByAyah(ayahs.first).toString())
+            : surahBannerWidget(quranCtrl
+                .getSurahNumberByAyah(ayahs.first)
+                .surahNumber
+                .toString())
         : const SizedBox.shrink();
   }
 }

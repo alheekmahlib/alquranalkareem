@@ -3,25 +3,25 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 
-import '/presentation/controllers/quran_controller.dart';
+import '/core/services/services_locator.dart';
+import '/core/widgets/share/share_ayah_options.dart';
 import '/presentation/screens/quran_page/widgets/buttons/add_bookmark_button.dart';
 import '/presentation/screens/quran_page/widgets/buttons/copy_button.dart';
 import '/presentation/screens/quran_page/widgets/buttons/play_button.dart';
 import '/presentation/screens/quran_page/widgets/buttons/tafsir_button.dart';
-import '/core/services/services_locator.dart';
-import '/core/widgets/share/share_ayah_options.dart';
+import '../../../../presentation/screens/quran_page/controller/quran_controller.dart';
 import 'extensions.dart';
 
 extension ContextMenuExtension on BuildContext {
   void showAyahMenu(int surahNum, int ayahNum, String ayahText, int pageIndex,
       String ayahTextNormal, int ayahUQNum, String surahName, int index,
       {dynamic details}) {
-    sl<QuranController>().selectedAyahIndexes.isNotEmpty
+    sl<QuranController>().state.selectedAyahIndexes.isNotEmpty
         ? BotToast.showAttachedWidget(
             target: details.globalPosition,
             verticalOffset: 30.0,
             horizontalOffset: 0.0,
-            preferDirection: sl<QuranController>().preferDirection,
+            preferDirection: sl<QuranController>().state.preferDirection,
             animationDuration: const Duration(microseconds: 700),
             animationReverseDuration: const Duration(microseconds: 700),
             attachedBuilder: (cancel) => Container(
