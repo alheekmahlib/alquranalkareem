@@ -6,13 +6,14 @@ import 'package:get/get.dart';
 import '/core/utils/constants/extensions/convert_number_extension.dart';
 import '/core/utils/constants/extensions/sajda_extension.dart';
 import '/presentation/controllers/audio_controller.dart';
-import '/presentation/controllers/quran_controller.dart';
+import '/presentation/screens/quran_page/controller/extensions/quran_getters.dart';
 import '../../../../core/services/services_locator.dart';
 import '../../../../core/utils/constants/extensions/extensions.dart';
 import '../../../../core/utils/helpers/responsive.dart';
 import '../../../controllers/bookmarks_controller.dart';
 import '../../../controllers/general_controller.dart';
 import '../../../controllers/translate_controller.dart';
+import '../controller/quran_controller.dart';
 import '../widgets/pages/left_page.dart';
 import '../widgets/pages/pages_widget.dart';
 import '../widgets/pages/right_page.dart';
@@ -34,11 +35,12 @@ class QuranPages extends StatelessWidget {
             audioCtrl.clearSelection();
           },
           onScaleStart: (details) {
-            quranCtrl.baseScaleFactor.value = quranCtrl.scaleFactor.value;
+            quranCtrl.state.baseScaleFactor.value =
+                quranCtrl.state.scaleFactor.value;
           },
           onScaleUpdate: (ScaleUpdateDetails details) {
-            quranCtrl.scaleFactor.value =
-                quranCtrl.baseScaleFactor.value * details.scale;
+            quranCtrl.state.scaleFactor.value =
+                quranCtrl.state.baseScaleFactor.value * details.scale;
           },
           child: Container(
             height: MediaQuery.sizeOf(context).height,

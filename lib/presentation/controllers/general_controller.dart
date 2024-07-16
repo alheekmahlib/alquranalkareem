@@ -8,24 +8,26 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:hijri/hijri_calendar.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '/presentation/screens/home/home_screen.dart';
+import '/presentation/screens/quran_page/controller/extensions/quran_getters.dart';
 import '../../core/services/services_locator.dart';
 import '../../core/utils/constants/shared_preferences_constants.dart';
 import '../../core/utils/helpers/responsive.dart';
 import '../../core/widgets/ramadan_greeting.dart';
 import '../../core/widgets/time_now.dart';
-import '../screens/athkar/screens/alzkar_view.dart';
+import '../screens/adhkar/screens/adhkar_view.dart';
 import '../screens/books/screens/books_screen.dart';
+import '../screens/quran_page/controller/quran_controller.dart';
 import '../screens/quran_page/screens/quran_home.dart';
-import '../screens/surah_audio_screen/audio_surah.dart';
+import '../screens/surah_audio/audio_surah.dart';
 import 'audio_controller.dart';
 import 'ayat_controller.dart';
 import 'bookmarks_controller.dart';
 import 'playList_controller.dart';
-import 'quran_controller.dart';
 import 'theme_controller.dart';
 
 class GeneralController extends GetxController {
@@ -56,6 +58,8 @@ class GeneralController extends GetxController {
   var today = HijriCalendar.now();
   var now = DateTime.now();
   RxBool isPageMode = false.obs;
+
+  final ItemScrollController waqfScrollController = ItemScrollController();
 
   // final khatmahCtrl = sl<KhatmahController>();
 
@@ -165,7 +169,7 @@ class GeneralController extends GetxController {
       case 1:
         return QuranHome();
       case 3:
-        return const AzkarView();
+        return const AdhkarView();
       case 4:
         return const AudioScreen();
       case 5:

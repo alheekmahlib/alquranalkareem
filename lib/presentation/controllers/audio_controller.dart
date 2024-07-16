@@ -22,9 +22,11 @@ import '/core/utils/constants/shared_preferences_constants.dart';
 import '/core/utils/constants/url_constants.dart';
 import '/core/utils/helpers/global_key_manager.dart';
 import '/core/widgets/seek_bar.dart';
+import '/presentation/screens/quran_page/controller/extensions/quran_getters.dart';
+import '/presentation/screens/quran_page/controller/extensions/quran_ui.dart';
+import '../screens/quran_page/controller/quran_controller.dart';
 import 'ayat_controller.dart';
 import 'general_controller.dart';
-import 'quran_controller.dart';
 
 class AudioController extends GetxController {
   static AudioController get instance => Get.isRegistered<AudioController>()
@@ -92,7 +94,7 @@ class AudioController extends GetxController {
     _currentSurahNumInPage.value = surahNum;
     _currentAyahUQInPage.value = ayahUQNum;
     playSingleAyahOnly = singleAyahOnly;
-    log('s: ${quranCtrl.surahs[_currentSurahNumInPage.value - 1].arabicName} | _currentAyahUQInPage: ${_currentAyahUQInPage.value}',
+    log('s: ${quranCtrl.state.surahs[_currentSurahNumInPage.value - 1].arabicName} | _currentAyahUQInPage: ${_currentAyahUQInPage.value}',
         name: 'AudioController_playAyahOnTap');
     playAyah();
   }
@@ -106,7 +108,7 @@ class AudioController extends GetxController {
       );
   List<MediaItem> get mediaItemsForCurrentSurah {
     final ayahsOfCrntSurah =
-        sl<QuranController>().surahs[currentSurahNumInPage - 1].ayahs;
+        quranCtrl.state.surahs[currentSurahNumInPage - 1].ayahs;
     return List.generate(
         ayahsOfCrntSurah.length,
         (i) => MediaItem(
@@ -118,7 +120,7 @@ class AudioController extends GetxController {
   }
 
   int get currentAyahInPage => _selectedAyahNum.value == 1
-      ? quranCtrl.allAyahs
+      ? quranCtrl.state.allAyahs
           .firstWhere(
               (ayah) => ayah.page == generalCtrl.currentPageNumber.value)
           .ayahNumber
@@ -200,11 +202,12 @@ class AudioController extends GetxController {
     } else {
       final surahNum = quranCtrl
           .getSurahNumberByAyah(
-              quranCtrl.allAyahs[_currentAyahUQInPage.value - 1])
+              quranCtrl.state.allAyahs[_currentAyahUQInPage.value - 1])
+          .surahNumber
           .toString()
           .padLeft(3, '0');
       final currentAyahNumber = quranCtrl
-          .allAyahs[_currentAyahUQInPage.value - 1].ayahNumber
+          .state.allAyahs[_currentAyahUQInPage.value - 1].ayahNumber
           .toString()
           .padLeft(3, '0');
       return '$reader/$surahNum$currentAyahNumber.mp3';
@@ -212,12 +215,12 @@ class AudioController extends GetxController {
   }
 
   List<int> get selectedSurahAyahsUniqueNumbers =>
-      quranCtrl.surahs[currentSurahNumInPage - 1].ayahs
+      quranCtrl.state.surahs[currentSurahNumInPage - 1].ayahs
           .map((ayah) => ayah.ayahUQNumber)
           .toList();
 
   List<String> get selectedSurahAyahsFileNames {
-    final selectedSurah = quranCtrl.surahs[currentSurahNumInPage - 1];
+    final selectedSurah = quranCtrl.state.surahs[currentSurahNumInPage - 1];
     log('selectedSurah: ${selectedSurah.arabicName}',
         name: 'AudioController_selectedSurahAyahsFileNames');
     return List.generate(
@@ -322,7 +325,7 @@ class AudioController extends GetxController {
           path,
           tag: mediaItemForCurrentAyah,
         ));
-        // quranCtrl.clearAndAddSelection(_currentAyahUQInPage.value + 2);
+        // quranCtrl.state.clearAndAddSelection(_currentAyahUQInPage.value + 2);
       } else {
         final futures = List.generate(
           ayahsFilesNames.length,
@@ -331,7 +334,7 @@ class AudioController extends GetxController {
         );
 
         await Future.wait(futures);
-        // quranCtrl.clearAndAddSelection(_currentAyahUQInPage.value -= 1);
+        // quranCtrl.state.clearAndAddSelection(_currentAyahUQInPage.value -= 1);
         await audioPlayer.setAudioSource(
           initialIndex: _selectedAyahNum.value - 1,
           ConcatenatingAudioSource(
@@ -385,13 +388,13 @@ class AudioController extends GetxController {
   // Future<void> playNextAyah() async {
   //   isProcessingNextAyah.value = true;
   //   // _currentAyahUQInPage.value += 1;
-  //   // quranCtrl.clearAndAddSelection(_currentAyahUQInPage.value);
+  //   // quranCtrl.state.clearAndAddSelection(_currentAyahUQInPage.value);
   //   // await playFile();
   //   await audioPlayer.seekToNext();
   //   isProcessingNextAyah.value = false;
-  //   if (quranCtrl.isPages.value == 1) {
-  //     quranCtrl.scrollOffsetController.animateScroll(
-  //       offset: quranCtrl.ayahsWidgetHeight.value,
+  //   if (quranCtrl.state.isPages.value == 1) {
+  //     quranCtrl.state.scrollOffsetController.animateScroll(
+  //       offset: quranCtrl.state.ayahsWidgetHeight.value,
   //       duration: const Duration(milliseconds: 600),
   //       curve: Curves.easeInOut,
   //     );
@@ -399,19 +402,19 @@ class AudioController extends GetxController {
   // }
 
   Future<void> playAyah() async {
-    if (quranCtrl.isPages.value == 1) {
+    if (quranCtrl.state.isPages.value == 1) {
       _currentAyahUQInPage.value = _currentAyahUQInPage.value == 1
-          ? quranCtrl.allAyahs
+          ? quranCtrl.state.allAyahs
               .firstWhere((ayah) =>
                   ayah.page ==
-                  quranCtrl.itemPositionsListener.itemPositions.value.last
+                  quranCtrl.state.itemPositionsListener.itemPositions.value.last
                           .index +
                       1)
               .ayahUQNumber
           : _currentAyahUQInPage.value;
     } else {
       _currentAyahUQInPage.value = _currentAyahUQInPage.value == 1
-          ? quranCtrl.allAyahs
+          ? quranCtrl.state.allAyahs
               .firstWhere(
                   (ayah) => ayah.page == generalCtrl.currentPageNumber.value)
               .ayahUQNumber
@@ -513,14 +516,14 @@ class AudioController extends GetxController {
     } else if (isLastAyahInPageButNotInSurah || isLastAyahInSurahAndPage) {
       // pausePlayer;
       // _currentAyahUQInPage.value += 1;
-      // quranCtrl.clearAndAddSelection(_currentAyahUQInPage.value);
+      // quranCtrl.state.clearAndAddSelection(_currentAyahUQInPage.value);
       await moveToNextPage();
       await audioPlayer.seekToNext();
       // await playFile();
     } else {
       // pausePlayer;
       // _currentAyahUQInPage.value += 1;
-      // quranCtrl.clearAndAddSelection(_currentAyahUQInPage.value);
+      // quranCtrl.state.clearAndAddSelection(_currentAyahUQInPage.value);
       // await playFile();
       await audioPlayer.seekToNext();
     }
@@ -532,13 +535,13 @@ class AudioController extends GetxController {
     } else if (isFirstAyahInPageButNotInSurah) {
       // pausePlayer;
       // _currentAyahUQInPage.value -= 1;
-      // quranCtrl.clearAndAddSelection(_currentAyahUQInPage.value);
+      // quranCtrl.state.clearAndAddSelection(_currentAyahUQInPage.value);
       moveToPreviousPage();
       // await playFile();
       await audioPlayer.seekToPrevious();
     } else {
       // _currentAyahUQInPage.value -= 1;
-      // quranCtrl.clearAndAddSelection(_currentAyahUQInPage.value);
+      // quranCtrl.state.clearAndAddSelection(_currentAyahUQInPage.value);
       // await playFile();
       await audioPlayer.seekToPrevious();
     }
@@ -547,8 +550,8 @@ class AudioController extends GetxController {
   void clearSelection() {
     if (isPlay.value) {
       quranCtrl.showControl();
-    } else if (quranCtrl.selectedAyahIndexes.isNotEmpty) {
-      quranCtrl.selectedAyahIndexes.clear();
+    } else if (quranCtrl.state.selectedAyahIndexes.isNotEmpty) {
+      quranCtrl.state.selectedAyahIndexes.clear();
     } else {
       quranCtrl.showControl();
     }

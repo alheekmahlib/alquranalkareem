@@ -4,9 +4,10 @@ import 'package:get/get.dart';
 
 import '/core/utils/constants/lottie_constants.dart';
 import '/presentation/controllers/general_controller.dart';
-import '/presentation/controllers/quran_controller.dart';
+import '/presentation/screens/quran_page/controller/extensions/quran_getters.dart';
 import '../../../../../core/utils/constants/lottie.dart';
 import '../../../../controllers/playList_controller.dart';
+import '../../controller/quran_controller.dart';
 import 'playList_ayat_widget.dart';
 
 class AyahsChoiceWidget extends StatelessWidget {
@@ -54,7 +55,7 @@ class AyahsChoiceWidget extends StatelessWidget {
                         ),
                         Obx(
                           () => Text(
-                            '${quranCtrl.getSurahNameFromPage(generalCtrl.currentPageNumber.value - 1).replaceAll('سُورَةُ ', '')} | ${generalCtrl.arabicNumber.convert(playList.firstAyah)}',
+                            '${quranCtrl.getCurrentSurahByPage(generalCtrl.currentPageNumber.value - 1).arabicName.replaceAll('سُورَةُ ', '')} | ${generalCtrl.arabicNumber.convert(playList.firstAyah)}',
                             style: TextStyle(
                               fontFamily: 'kufi',
                               fontSize: 16,
@@ -117,7 +118,7 @@ class AyahsChoiceWidget extends StatelessWidget {
                           ),
                         ),
                         Text(
-                          '${quranCtrl.getSurahNameFromPage(generalCtrl.currentPageNumber.value - 1).replaceAll('سُورَةُ ', '')} | ${generalCtrl.arabicNumber.convert(playList.lastAyah)}',
+                          '${quranCtrl.getCurrentSurahByPage(generalCtrl.currentPageNumber.value - 1).arabicName.replaceAll('سُورَةُ ', '')} | ${generalCtrl.arabicNumber.convert(playList.lastAyah)}',
                           style: TextStyle(
                             fontFamily: 'kufi',
                             fontSize: 16,

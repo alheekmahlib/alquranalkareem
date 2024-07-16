@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 
-import '/presentation/controllers/azkar_controller.dart';
-import '../../athkar/models/zeker_model.dart';
+import '/presentation/screens/adhkar/controller/extensions/adhkar_getters.dart';
+import '../../adhkar/controller/adhkar_controller.dart';
+import '../../adhkar/models/dheker_model.dart';
 
 class DailyZeker extends StatelessWidget {
   DailyZeker({super.key});
@@ -22,7 +23,8 @@ class DailyZeker extends StatelessWidget {
           child: FutureBuilder<Dhekr>(
               future: azkarCtrl.getDailyDhekr(),
               builder: (context, snapshot) {
-                return snapshot.data != null && azkarCtrl.dhekrOfTheDay != null
+                return snapshot.data != null &&
+                        azkarCtrl.state.dhekrOfTheDay != null
                     ? Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
@@ -58,7 +60,7 @@ class DailyZeker extends StatelessWidget {
                                         Theme.of(context).colorScheme.primary,
                                     width: 1)),
                             child: Text(
-                              '${azkarCtrl.dhekrOfTheDay!.zekr}',
+                              '${azkarCtrl.state.dhekrOfTheDay!.zekr}',
                               style: TextStyle(
                                   fontSize: 20.0,
                                   fontFamily: 'naskh',
@@ -73,7 +75,7 @@ class DailyZeker extends StatelessWidget {
                             padding:
                                 const EdgeInsets.symmetric(horizontal: 8.0),
                             child: Text(
-                              azkarCtrl.dhekrOfTheDay!.category,
+                              azkarCtrl.state.dhekrOfTheDay!.category,
                               style: TextStyle(
                                 fontSize: 13.0,
                                 fontFamily: 'kufi',

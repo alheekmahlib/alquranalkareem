@@ -7,8 +7,9 @@ import 'package:get/get.dart';
 import '/core/services/services_locator.dart';
 import '/core/utils/constants/extensions/convert_number_extension.dart';
 import '/core/utils/constants/extensions/extensions.dart';
+import '/presentation/screens/quran_page/controller/extensions/quran_ui.dart';
 import '../../../controllers/general_controller.dart';
-import '../../../controllers/quran_controller.dart';
+import '../controller/quran_controller.dart';
 
 class QuranSurahList extends StatelessWidget {
   QuranSurahList({super.key});
@@ -27,10 +28,10 @@ class QuranSurahList extends StatelessWidget {
           child: ListView.builder(
               padding: EdgeInsets.zero,
               physics: const AlwaysScrollableScrollPhysics(),
-              itemCount: quranCtrl.surahs.length,
+              itemCount: quranCtrl.state.surahs.length,
               controller: sl<GeneralController>().surahListController,
               itemBuilder: (_, index) {
-                final surah = quranCtrl.surahs[index];
+                final surah = quranCtrl.state.surahs[index];
                 return Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [

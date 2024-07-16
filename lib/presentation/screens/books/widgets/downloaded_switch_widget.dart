@@ -2,7 +2,7 @@ import 'package:animated_toggle_switch/animated_toggle_switch.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '/presentation/controllers/books_controller.dart';
+import '../controller/books_controller.dart';
 
 class DownloadedSwitchWidget extends StatelessWidget {
   DownloadedSwitchWidget({super.key});
@@ -14,7 +14,7 @@ class DownloadedSwitchWidget extends StatelessWidget {
       width: 70,
       child: Obx(
         () => AnimatedToggleSwitch<bool>.dual(
-            current: bookCtrl.isDownloaded.value,
+            current: bookCtrl.state.isDownloaded.value,
             first: true,
             second: false,
             spacing: 0,
@@ -26,7 +26,7 @@ class DownloadedSwitchWidget extends StatelessWidget {
             ),
             borderWidth: 1,
             height: 30,
-            onChanged: (b) => bookCtrl.isDownloaded.value = b,
+            onChanged: (b) => bookCtrl.state.isDownloaded.value = b,
             styleBuilder: (b) => ToggleStyle(
                 indicatorColor: b == 0
                     ? Theme.of(context).colorScheme.primary

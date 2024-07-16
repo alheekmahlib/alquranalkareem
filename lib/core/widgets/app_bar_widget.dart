@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '/core/utils/constants/extensions/font_size_extension.dart';
-import '../../presentation/controllers/azkar_controller.dart';
+import '../../presentation/screens/adhkar/controller/adhkar_controller.dart';
 import '../utils/constants/extensions/extensions.dart';
 
 class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
@@ -24,7 +24,7 @@ class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
                   border: Border.all(
                       color: Theme.of(context).colorScheme.surface, width: 1)),
               child: Text(
-                azkarCtrl.filteredDhekrList.first.category,
+                azkarCtrl.state.filteredDhekrList.first.category,
                 style: TextStyle(
                   color: Get.isDarkMode
                       ? Colors.white

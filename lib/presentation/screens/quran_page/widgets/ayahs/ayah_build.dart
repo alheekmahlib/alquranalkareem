@@ -4,11 +4,13 @@ import 'package:get/get.dart';
 
 import '/core/utils/constants/extensions/convert_number_extension.dart';
 import '/core/utils/constants/extensions/surah_name_with_banner.dart';
+import '/presentation/screens/quran_page/controller/extensions/quran_getters.dart';
+import '/presentation/screens/quran_page/controller/extensions/quran_ui.dart';
 import '../../../../../core/services/services_locator.dart';
 import '../../../../../core/widgets/measure_size_widget.dart';
 import '../../../../controllers/general_controller.dart';
-import '../../../../controllers/quran_controller.dart';
 import '../../../../controllers/translate_controller.dart';
+import '../../controller/quran_controller.dart';
 import '../pages/custom_span.dart';
 import 'ayahs_menu.dart';
 import 'translate_build.dart';
@@ -26,7 +28,7 @@ class AyahsBuild extends StatelessWidget {
     return ListView.builder(
         // primary: false,
         shrinkWrap: true,
-        controller: quranCtrl.ayahsScrollController,
+        controller: quranCtrl.state.ayahsScrollController,
         itemCount:
             quranCtrl.getCurrentPageAyahsSeparatedForBasmalah(pageIndex).length,
         itemBuilder: (context, i) {
@@ -37,11 +39,11 @@ class AyahsBuild extends StatelessWidget {
             Obx(() {
               return Column(
                   children: List.generate(ayahs.length, (ayahIndex) {
-                quranCtrl.isSelected = quranCtrl.selectedAyahIndexes
+                quranCtrl.state.isSelected = quranCtrl.state.selectedAyahIndexes
                     .contains(ayahs[ayahIndex].ayahUQNumber);
                 return MeasureSizeWidget(
                   onChange: (size) {
-                    quranCtrl.ayahsWidgetHeight.value = size.height;
+                    quranCtrl.state.ayahsWidgetHeight.value = size.height;
                     // print("Item $ayahIndex size: ${size.height}");
                   },
                   child: Container(
@@ -53,18 +55,20 @@ class AyahsBuild extends StatelessWidget {
                         children: [
                           const Gap(16),
                           AyahsMenu(
-                            surahNum: quranCtrl.getSurahNumByAyahUQNum(
-                                ayahs[ayahIndex].ayahUQNumber),
+                            surahNum: quranCtrl
+                                .getSurahDataByAyahUQ(
+                                    ayahs[ayahIndex].ayahUQNumber)
+                                .surahNumber,
                             ayahNum: ayahs[ayahIndex].ayahNumber,
                             ayahText: ayahs[ayahIndex].code_v2,
                             pageIndex: pageIndex,
                             ayahTextNormal: ayahs[ayahIndex].text,
                             ayahUQNum: ayahs[ayahIndex].ayahUQNumber,
-                            surahName: quranCtrl.surahs
+                            surahName: quranCtrl.state.surahs
                                 .firstWhere(
                                     (s) => s.ayahs.contains(ayahs[ayahIndex]))
                                 .arabicName,
-                            isSelected: quranCtrl.isSelected,
+                            isSelected: quranCtrl.state.isSelected,
                             index: ayahIndex,
                           ),
                           const Gap(16),
@@ -93,14 +97,16 @@ class AyahsBuild extends StatelessWidget {
                                               text:
                                                   "${ayahs[ayahIndex].code_v2[0].replaceAll('\n', '')}${ayahs[ayahIndex].code_v2.substring(1).replaceAll('\n', '')}",
                                               pageIndex: pageIndex,
-                                              isSelected: quranCtrl.isSelected,
+                                              isSelected:
+                                                  quranCtrl.state.isSelected,
                                               fontSize: sl<GeneralController>()
                                                   .fontSizeArabic
                                                   .value,
                                               surahNum: quranCtrl
-                                                  .getSurahNumByAyahUQNum(
+                                                  .getSurahDataByAyahUQ(
                                                       ayahs[ayahIndex]
-                                                          .ayahUQNumber),
+                                                          .ayahUQNumber)
+                                                  .surahNumber,
                                               ayahNum:
                                                   ayahs[ayahIndex].ayahUQNumber,
                                             )
@@ -110,14 +116,16 @@ class AyahsBuild extends StatelessWidget {
                                                   .code_v2
                                                   .replaceAll('\n', ''),
                                               pageIndex: pageIndex,
-                                              isSelected: quranCtrl.isSelected,
+                                              isSelected:
+                                                  quranCtrl.state.isSelected,
                                               fontSize: sl<GeneralController>()
                                                   .fontSizeArabic
                                                   .value,
                                               surahNum: quranCtrl
-                                                  .getSurahNumByAyahUQNum(
+                                                  .getSurahDataByAyahUQ(
                                                       ayahs[ayahIndex]
-                                                          .ayahUQNumber),
+                                                          .ayahUQNumber)
+                                                  .surahNumber,
                                               ayahNum:
                                                   ayahs[ayahIndex].ayahUQNumber,
                                             ),

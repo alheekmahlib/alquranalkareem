@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 
 import '/core/utils/constants/extensions/svg_extensions.dart';
 import '../../../../core/utils/constants/svg_constants.dart';
-import '../../../controllers/books_controller.dart';
+import '../controller/books_controller.dart';
 import '../widgets/book_details_widget.dart';
 import '../widgets/books_chapters_build.dart';
 import '../widgets/search_screen.dart';
@@ -36,7 +36,7 @@ class ChaptersPage extends StatelessWidget {
               onPressed: () => Get.bottomSheet(
                   SearchScreen(
                     onSubmitted: (v) => booksCtrl.searchBooks(
-                        booksCtrl.searchController.text,
+                        booksCtrl.state.searchController.text,
                         bookNumber: bookNumber),
                   ),
                   isScrollControlled: true),

@@ -7,7 +7,7 @@ import 'package:sqflite/sqflite.dart' as sqflite;
 import 'package:sqflite_common_ffi/sqflite_ffi.dart';
 
 import '/presentation/screens/quran_page/data/model/bookmark.dart';
-import '../presentation/screens/athkar/models/zeker_model.dart';
+import '../presentation/screens/adhkar/models/dheker_model.dart';
 import '../presentation/screens/quran_page/data/model/bookmark_ayahs.dart';
 
 class DatabaseHelper {

@@ -4,8 +4,8 @@ import 'package:get/get.dart';
 import '/core/utils/constants/extensions/svg_extensions.dart';
 import '/core/utils/constants/svg_constants.dart';
 import '../../../../core/widgets/settings_list.dart';
-import '../../../controllers/books_controller.dart';
 import '../../home/home_screen.dart';
+import '../controller/books_controller.dart';
 import '../widgets/all_books_build.dart';
 import '../widgets/books_last_read.dart';
 import '../widgets/books_tap_bar_widget.dart';
@@ -55,7 +55,7 @@ class BooksScreen extends StatelessWidget {
               onTap: () => Get.bottomSheet(
                   SearchScreen(
                       onSubmitted: (value) => booksCtrl
-                          .searchBooks(booksCtrl.searchController.text)),
+                          .searchBooks(booksCtrl.state.searchController.text)),
                   isScrollControlled: true),
               child: Container(
                 padding: const EdgeInsets.all(4),

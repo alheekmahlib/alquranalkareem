@@ -4,11 +4,11 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 
 import '/core/utils/constants/extensions/custom_error_snackBar.dart';
-import '/presentation/controllers/quran_controller.dart';
 import '/presentation/controllers/translate_controller.dart';
 import '/presentation/screens/quran_page/data/model/aya.dart';
 import '../../core/services/services_locator.dart';
 import '../../core/utils/constants/shared_preferences_constants.dart';
+import '../screens/quran_page/controller/quran_controller.dart';
 import '../screens/quran_page/data/data_source/baghawy_data_client.dart';
 import '../screens/quran_page/data/data_source/ibnkatheer_data_client.dart';
 import '../screens/quran_page/data/data_source/qurtubi_data_client.dart';
@@ -174,7 +174,7 @@ class AyatController extends GetxController {
     ayahTextNormal.value = ayahTextN;
     ayahUQNumber.value = ayahUQNum;
     sl<GeneralController>().currentPageNumber.value = pageIndex;
-    sl<QuranController>().selectedAyahIndexes.clear();
+    sl<QuranController>().state.selectedAyahIndexes.clear();
     Get.bottomSheet(
       ShowTafseer(
         ayahUQNumber: ayahUQNum,

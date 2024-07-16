@@ -8,9 +8,10 @@ import '/core/utils/constants/extensions/extensions.dart';
 import '/core/utils/constants/extensions/surah_name_with_banner.dart';
 import '/core/utils/constants/extensions/text_span_extension.dart';
 import '/presentation/controllers/ayat_controller.dart';
-import '/presentation/controllers/quran_controller.dart';
+import '/presentation/screens/quran_page/controller/extensions/quran_getters.dart';
 import '../../../presentation/controllers/daily_ayah_controller.dart';
 import '../../../presentation/controllers/general_controller.dart';
+import '../../../presentation/screens/quran_page/controller/quran_controller.dart';
 import '../../services/services_locator.dart';
 import '../../utils/constants/lists.dart';
 

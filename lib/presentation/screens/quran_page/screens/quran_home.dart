@@ -3,7 +3,6 @@ import 'package:flutter_slider_drawer/flutter_slider_drawer.dart';
 import 'package:get/get.dart';
 
 import '/core/utils/constants/extensions/alignment_rotated_extension.dart';
-import '/presentation/controllers/quran_controller.dart';
 import '../../../../core/services/services_locator.dart';
 import '../../../../core/utils/helpers/global_key_manager.dart';
 import '../../../../core/widgets/tab_bar_widget.dart';
@@ -12,6 +11,7 @@ import '../../../controllers/audio_controller.dart';
 import '../../../controllers/aya_controller.dart';
 import '../../../controllers/bookmarks_controller.dart';
 import '../../../controllers/general_controller.dart';
+import '../controller/quran_controller.dart';
 import '../widgets/audio/audio_widget.dart';
 import '../widgets/pages/nav_bar_widget.dart';
 import '../widgets/screen_switch.dart';
@@ -42,7 +42,7 @@ class QuranHome extends StatelessWidget {
         if (didPop) {
           return;
         }
-        quranCtrl.selectedAyahIndexes.clear();
+        quranCtrl.state.selectedAyahIndexes.clear();
       },
       child: Scaffold(
         resizeToAvoidBottomInset: true,

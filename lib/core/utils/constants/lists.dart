@@ -2,11 +2,11 @@ import 'package:get/get.dart';
 
 import '/presentation/screens/home/home_screen.dart';
 import '../../../presentation/controllers/theme_controller.dart';
+import '../../../presentation/screens/adhkar/screens/adhkar_view.dart';
 import '../../../presentation/screens/alwaqf_screen/alwaqf_screen.dart';
-import '../../../presentation/screens/athkar/screens/alzkar_view.dart';
 import '../../../presentation/screens/books/screens/books_screen.dart';
 import '../../../presentation/screens/quran_page/screens/quran_home.dart';
-import '../../../presentation/screens/surah_audio_screen/audio_surah.dart';
+import '../../../presentation/screens/surah_audio/audio_surah.dart';
 import 'url_constants.dart';
 
 List<String> translateName = <String>[
@@ -85,7 +85,7 @@ final List screensList = [
     'name': 'azkar',
     'svgUrl': 'assets/svg/azkar.svg',
     'imagePath': 'assets/images/athkar.png',
-    'route': () => const AzkarView(),
+    'route': () => const AdhkarView(),
     'width': 70.0
   },
   {

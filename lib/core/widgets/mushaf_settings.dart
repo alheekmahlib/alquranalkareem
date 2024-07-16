@@ -1,12 +1,13 @@
-import 'package:alquranalkareem/core/utils/constants/extensions/extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 
+import '/core/utils/constants/extensions/extensions.dart';
 import '/core/utils/constants/lists.dart';
-import '/presentation/controllers/quran_controller.dart';
+import '/presentation/screens/quran_page/controller/extensions/quran_ui.dart';
 import '../../presentation/controllers/general_controller.dart';
+import '../../presentation/screens/quran_page/controller/quran_controller.dart';
 import '../utils/constants/shared_preferences_constants.dart';
 
 class MushafSettings extends StatelessWidget {
@@ -45,8 +46,9 @@ class MushafSettings extends StatelessWidget {
                       mushafSettingsList.length,
                       (index) => Obx(() {
                             return AnimatedOpacity(
-                              opacity:
-                                  quranCtrl.isPages.value == index ? 1 : .5,
+                              opacity: quranCtrl.state.isPages.value == index
+                                  ? 1
+                                  : .5,
                               duration: const Duration(milliseconds: 300),
                               child: GestureDetector(
                                 onTap: () {
@@ -88,10 +90,11 @@ class MushafSettings extends StatelessWidget {
                                             .colorScheme
                                             .primary,
                                       ),
-                                      child: quranCtrl.isPages.value == index
-                                          ? const Icon(Icons.done,
-                                              size: 14, color: Colors.white)
-                                          : null,
+                                      child:
+                                          quranCtrl.state.isPages.value == index
+                                              ? const Icon(Icons.done,
+                                                  size: 14, color: Colors.white)
+                                              : null,
                                     ),
                                   ],
                                 ),
@@ -111,7 +114,7 @@ class MushafSettings extends StatelessWidget {
                       2,
                       (index) => Obx(() => GestureDetector(
                             onTap: () {
-                              quranCtrl.isBold.value = index;
+                              quranCtrl.state.isBold.value = index;
                               GetStorage().write(IS_BOLD, index);
                             },
                             child: Row(
@@ -131,7 +134,7 @@ class MushafSettings extends StatelessWidget {
                                     color:
                                         Theme.of(context).colorScheme.primary,
                                   ),
-                                  child: quranCtrl.isBold.value == index
+                                  child: quranCtrl.state.isBold.value == index
                                       ? const Icon(Icons.done,
                                           size: 14, color: Colors.white)
                                       : null,

@@ -5,7 +5,7 @@ import 'package:get/get.dart';
 import '/core/utils/constants/extensions/extensions.dart';
 import '/core/utils/constants/extensions/svg_extensions.dart';
 import '../../../../core/utils/constants/svg_constants.dart';
-import '../../../controllers/books_controller.dart';
+import '../controller/books_controller.dart';
 import '../screens/chapters_screen.dart';
 
 class AllBooksBuild extends StatelessWidget {
@@ -16,10 +16,10 @@ class AllBooksBuild extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Obx(() {
-      if (booksCtrl.isLoading.value) {
+      if (booksCtrl.state.isLoading.value) {
         return const Center(child: CircularProgressIndicator.adaptive());
       }
-      final allBooks = booksCtrl.booksList;
+      final allBooks = booksCtrl.state.booksList;
       return ListView(
         children: [
           Padding(

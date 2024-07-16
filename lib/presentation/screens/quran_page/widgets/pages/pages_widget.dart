@@ -5,11 +5,12 @@ import 'package:get/get.dart';
 import '/core/utils/constants/extensions/surah_name_with_banner.dart';
 import '/core/utils/constants/extensions/svg_extensions.dart';
 import '/presentation/controllers/audio_controller.dart';
+import '/presentation/screens/quran_page/controller/extensions/quran_getters.dart';
 import '../../../../../core/services/services_locator.dart';
 import '../../../../../core/utils/constants/svg_constants.dart';
 import '../../../../controllers/bookmarks_controller.dart';
 import '../../../../controllers/general_controller.dart';
-import '../../../../controllers/quran_controller.dart';
+import '../../controller/quran_controller.dart';
 import 'text_build.dart';
 
 class PagesWidget extends StatelessWidget {
@@ -31,7 +32,7 @@ class PagesWidget extends StatelessWidget {
         margin: pageIndex == 0 || pageIndex == 1
             ? EdgeInsets.symmetric(vertical: Get.width * .16)
             : const EdgeInsets.symmetric(vertical: 20.0, horizontal: 8.0),
-        child: quranCtrl.pages.isEmpty
+        child: quranCtrl.state.pages.isEmpty
             ? const CircularProgressIndicator.adaptive()
             : FittedBox(
                 fit: BoxFit.scaleDown,
@@ -47,17 +48,25 @@ class PagesWidget extends StatelessWidget {
                       Gap(Get.height * .06),
                       surahBannerFirstPlace(pageIndex, i),
                       Gap(Get.height * .06),
-                      quranCtrl.getSurahNumberByAyah(ayahs.first) == 9 ||
-                              quranCtrl.getSurahNumberByAyah(ayahs.first) == 1
+                      quranCtrl.getSurahNumberByAyah(ayahs.first).surahNumber ==
+                                  9 ||
+                              quranCtrl
+                                      .getSurahNumberByAyah(ayahs.first)
+                                      .surahNumber ==
+                                  1
                           ? const SizedBox.shrink()
                           : Padding(
                               padding: const EdgeInsets.only(bottom: 8.0),
                               child: ayahs.first.ayahNumber == 1
-                                  ? (quranCtrl.getSurahNumberByAyah(
-                                                  ayahs.first) ==
+                                  ? (quranCtrl
+                                                  .getSurahNumberByAyah(
+                                                      ayahs.first)
+                                                  .surahNumber ==
                                               95 ||
-                                          quranCtrl.getSurahNumberByAyah(
-                                                  ayahs.first) ==
+                                          quranCtrl
+                                                  .getSurahNumberByAyah(
+                                                      ayahs.first)
+                                                  .surahNumber ==
                                               97)
                                       ? customSvgWithColor(
                                           SvgPath.svgBesmAllah2,

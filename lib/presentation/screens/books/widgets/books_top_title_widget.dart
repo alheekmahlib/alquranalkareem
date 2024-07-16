@@ -6,10 +6,11 @@ import 'package:get/get.dart';
 import '/core/utils/constants/extensions/font_size_extension.dart';
 import '/core/utils/constants/extensions/surah_name_with_banner.dart';
 import '/core/utils/constants/extensions/svg_extensions.dart';
+import '/presentation/screens/books/controller/extensions/books_ui.dart';
 import '../../../../core/utils/constants/svg_constants.dart';
 import '../../../../core/widgets/settings_list.dart';
-import '../../../controllers/books_bookmarks_controller.dart';
-import '../../../controllers/books_controller.dart';
+import '../controller/books_bookmarks_controller.dart';
+import '../controller/books_controller.dart';
 import '../data/models/page_model.dart';
 import 'search_screen.dart';
 
@@ -80,7 +81,7 @@ class BooksTopTitleWidget extends StatelessWidget {
                   child: customSvgWithColor(
                     SvgPath.svgTashkil,
                     height: 30.0,
-                    color: booksCtrl.isTashkil.value
+                    color: booksCtrl.state.isTashkil.value
                         ? Theme.of(context).colorScheme.surface
                         : Theme.of(context).colorScheme.primary,
                   ),
@@ -176,7 +177,7 @@ class BooksTopTitleWidget extends StatelessWidget {
             onTap: () => Get.bottomSheet(
                 SearchScreen(
                   onSubmitted: (v) => booksCtrl.searchBooks(
-                      booksCtrl.searchController.text,
+                      booksCtrl.state.searchController.text,
                       bookNumber: bookNumber),
                   isInBook: true,
                 ),

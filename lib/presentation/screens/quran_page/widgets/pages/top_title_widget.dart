@@ -8,11 +8,12 @@ import 'package:get/get.dart';
 import '/core/utils/constants/extensions/convert_number_extension.dart';
 import '/core/utils/constants/extensions/extensions.dart';
 import '/core/utils/constants/extensions/surah_name_with_banner.dart';
+import '/presentation/screens/quran_page/controller/extensions/quran_getters.dart';
 import '../../../../../core/services/services_locator.dart';
 import '../../../../controllers/audio_controller.dart';
 import '../../../../controllers/bookmarks_controller.dart';
 import '../../../../controllers/general_controller.dart';
-import '../../../../controllers/quran_controller.dart';
+import '../../controller/quran_controller.dart';
 
 class TopTitleWidget extends StatelessWidget {
   final int index;
@@ -62,7 +63,7 @@ class TopTitleWidget extends StatelessWidget {
                 ),
                 const Spacer(),
                 Text(
-                  quranCtrl.getSurahNameFromPage(index),
+                  quranCtrl.getCurrentSurahByPage(index).arabicName,
                   style: TextStyle(
                       fontSize: context.customOrientation(18.0, 22.0),
                       // fontWeight: FontWeight.bold,
@@ -88,7 +89,7 @@ class TopTitleWidget extends StatelessWidget {
                 //       color: const Color(0xff77554B),
                 //     )),
                 Text(
-                  quranCtrl.getSurahNameFromPage(index),
+                  quranCtrl.getCurrentSurahByPage(index).arabicName,
                   style: TextStyle(
                       fontSize: context.customOrientation(18.0, 22.0),
                       // fontWeight: FontWeight.bold,

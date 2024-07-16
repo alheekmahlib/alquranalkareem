@@ -6,7 +6,7 @@ import '/core/utils/constants/extensions/svg_extensions.dart';
 import '../../../../../core/utils/constants/svg_constants.dart';
 import '../../../../../core/widgets/container_with_border.dart';
 import '../../../../../core/widgets/container_with_lines.dart';
-import '../../controller/controller.dart';
+import '../../controller/splash_screen_controller.dart';
 
 class LogoAndTitle extends StatelessWidget {
   const LogoAndTitle({super.key});

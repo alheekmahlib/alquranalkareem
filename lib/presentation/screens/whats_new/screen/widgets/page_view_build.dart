@@ -4,7 +4,7 @@ import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 
 import '/core/utils/constants/extensions/extensions.dart';
-import '../../controller/controller.dart';
+import '../../controller/whats_new_controller.dart';
 
 class PageViewBuild extends StatelessWidget {
   final PageController controller;

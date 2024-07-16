@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../../controllers/quran_controller.dart';
+import '../controller/quran_controller.dart';
 import '../screens/quran_page.dart';
 import 'ayahs/ayahs_widget.dart';
 
@@ -14,7 +14,8 @@ class ScreenSwitch extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetBuilder<QuranController>(builder: (quranCtrl) {
       return Container(
-        child: quranCtrl.isPages.value == 1 ? AyahsWidget() : QuranPages(),
+        child:
+            quranCtrl.state.isPages.value == 1 ? AyahsWidget() : QuranPages(),
       );
     });
   }

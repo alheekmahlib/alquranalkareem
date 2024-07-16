@@ -8,9 +8,10 @@ import '/core/utils/constants/extensions/convert_number_extension.dart';
 import '/core/utils/constants/extensions/extensions.dart';
 import '/core/utils/constants/lottie.dart';
 import '/core/utils/constants/lottie_constants.dart';
+import '/presentation/screens/quran_page/controller/extensions/quran_ui.dart';
 import '../../../controllers/count_down_controller.dart';
 import '../../../controllers/general_controller.dart';
-import '../../../controllers/quran_controller.dart';
+import '../../quran_page/controller/quran_controller.dart';
 import '../../quran_page/screens/quran_home.dart';
 
 class LastRead extends StatelessWidget {

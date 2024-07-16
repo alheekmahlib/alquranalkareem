@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '/core/utils/constants/extensions/svg_extensions.dart';
-import '/presentation/controllers/quran_controller.dart';
 import '../../../../../core/utils/constants/svg_constants.dart';
 import '../../../../../core/utils/helpers/global_key_manager.dart';
 import '../../../../controllers/general_controller.dart';
+import '../../controller/quran_controller.dart';
 import '../bookmarks/khatmah_bookmarks_screen.dart';
 
 class NavBarWidget extends StatelessWidget {

@@ -3,11 +3,12 @@ import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 
 import '/core/utils/constants/extensions/extensions.dart';
+import '/presentation/screens/books/controller/extensions/books_ui.dart';
 import '/presentation/screens/quran_page/widgets/search/search_extensions/highlight_extension.dart';
 import '../../../../core/utils/constants/lottie.dart';
 import '../../../../core/utils/constants/lottie_constants.dart';
-import '../../../controllers/books_controller.dart';
 import '../../quran_page/widgets/search/search_bar_widget.dart';
+import '../controller/books_controller.dart';
 
 class SearchScreen extends StatelessWidget {
   final void Function(String)? onSubmitted;
@@ -41,12 +42,12 @@ class SearchScreen extends StatelessWidget {
           ),
           const Gap(8),
           TextFieldBarWidget(
-            controller: booksCtrl.searchController,
+            controller: booksCtrl.state.searchController,
             hintText: 'searchInBooks'.tr,
             horizontalPadding: 32.0,
             onPressed: () {
-              booksCtrl.searchController.clear();
-              booksCtrl.searchResults.clear();
+              booksCtrl.state.searchController.clear();
+              booksCtrl.state.searchResults.clear();
             },
             onChanged: null,
             onSubmitted: (value) {
@@ -65,16 +66,16 @@ class SearchScreen extends StatelessWidget {
                 borderRadius: const BorderRadius.all(Radius.circular(8)),
               ),
               child: Obx(() {
-                if (booksCtrl.isLoading.value) {
+                if (booksCtrl.state.isLoading.value) {
                   return const Center(
                       child: CircularProgressIndicator.adaptive());
                 }
 
-                if (booksCtrl.searchResults.isNotEmpty) {
+                if (booksCtrl.state.searchResults.isNotEmpty) {
                   return ListView.builder(
-                    itemCount: booksCtrl.searchResults.length,
+                    itemCount: booksCtrl.state.searchResults.length,
                     itemBuilder: (context, index) {
-                      final result = booksCtrl.searchResults[index];
+                      final result = booksCtrl.state.searchResults[index];
                       return Column(
                         children: [
                           GestureDetector(
@@ -107,7 +108,7 @@ class SearchScreen extends StatelessWidget {
                                         children: result.content
                                             .removeDiacritics(result.content)
                                             .highlightLine(booksCtrl
-                                                .searchController.text),
+                                                .state.searchController.text),
                                         style: TextStyle(
                                           fontFamily: "naskh",
                                           fontWeight: FontWeight.normal,
