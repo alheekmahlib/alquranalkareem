@@ -121,17 +121,19 @@ class AudioWidget extends StatelessWidget {
                             alignment: Alignment.center,
                             // width: 250,
                             child: audioCtrl.state.downloading.value
-                                ? StreamBuilder<int>(
-                                    stream: audioCtrl
-                                        .state.tmpDownloadedAyahsCount.stream,
-                                    builder: (ctx, d) =>
-                                        SliderWidget.downloading(
-                                            currentPosition:
-                                                (d.data ?? 0).toDouble(),
-                                            filesCount: audioCtrl
-                                                .selectedSurahAyahsFileNames
-                                                .length,
-                                            horizontalPadding: 0))
+                                ? GetX<AudioController>(builder: (c) {
+                                    final data =
+                                        c.state.tmpDownloadedAyahsCount.value;
+
+                                    debugPrint(
+                                        '$data => REBUILDING  ${audioCtrl.state.tmpDownloadedAyahsCount}');
+
+                                    return SliderWidget.downloading(
+                                        currentPosition: data,
+                                        filesCount: audioCtrl
+                                            .selectedSurahAyahsFileNames.length,
+                                        horizontalPadding: 0);
+                                  })
                                 : StreamBuilder<PositionData>(
                                     stream: audioCtrl.positionDataStream,
                                     builder: (context, snapshot) {
