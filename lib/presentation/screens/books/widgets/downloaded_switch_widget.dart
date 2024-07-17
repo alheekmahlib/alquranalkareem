@@ -2,7 +2,7 @@ import 'package:animated_toggle_switch/animated_toggle_switch.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../controllers/books_controller.dart';
+import '../controller/books_controller.dart';
 
 class DownloadedSwitchWidget extends StatelessWidget {
   DownloadedSwitchWidget({super.key});
