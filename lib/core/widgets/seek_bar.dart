@@ -31,12 +31,12 @@ class SliderWidget extends StatefulWidget {
   final double? filesCount;
 
   factory SliderWidget.downloading({
-    double currentPosition = 0,
+    required int currentPosition,
     required int filesCount,
     required double horizontalPadding,
   }) {
     return SliderWidget(
-      currentPosition: currentPosition,
+      currentPosition: currentPosition.toDouble(),
       filesCount: filesCount.toDouble(),
       horizontalPadding: horizontalPadding,
     );

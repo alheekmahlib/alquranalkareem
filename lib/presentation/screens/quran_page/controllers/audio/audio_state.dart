@@ -52,6 +52,7 @@ class AudioState {
   bool stopWhenSurahEnds = false;
 
   /// used for download seek bar.
+  /// [4444] is the initial state when there is no downloadings.
   RxInt tmpDownloadedAyahsCount = 0.obs;
 
   /// GetStorage Box [SharedPreferences]

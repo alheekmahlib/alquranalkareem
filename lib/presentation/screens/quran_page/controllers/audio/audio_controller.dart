@@ -61,12 +61,16 @@ class AudioController extends GetxController {
   /// -------- [DownloadsMethods] ----------
 
   Future<String> _downloadFileIfNotExist(String url, String fileName,
-      [bool showSnakbars = true]) async {
+      {bool showSnakbars = true, bool setDownloadingStatus = true}) async {
     String path;
     path = join(state.dir.path, fileName);
     var file = File(path);
     bool exists = await file.exists();
     if (!exists) {
+      if (setDownloadingStatus && state.downloading.isFalse) {
+        state.downloading.value = true;
+        state.onDownloading.value = true;
+      }
       try {
         await Directory(dirname(path)).create(recursive: true);
       } catch (e) {
@@ -99,7 +103,12 @@ class AudioController extends GetxController {
         }
       }
     }
-    state.tmpDownloadedAyahsCount += 1;
+    if (setDownloadingStatus &&
+        state.downloading.isFalse &&
+        state.downloading.isTrue) {
+      state.downloading.value = false;
+      state.onDownloading.value = false;
+    }
     return path;
   }
 
@@ -107,22 +116,22 @@ class AudioController extends GetxController {
     Dio dio = Dio();
     try {
       await Directory(dirname(path)).create(recursive: true);
-      state.downloading.value = true;
-      state.onDownloading.value = true;
-      state.progressString.value = 'Indeterminate';
-      state.progress.value = 0;
+      // state.downloading.value = true;
+      // state.onDownloading.value = true;
+      // state.progressString.value = 'Indeterminate';
+      // state.progress.value = 0;
 
       // First, attempt to fetch file size to decide on progress indication strategy
-      var fileSize = await _fetchFileSize(url, dio);
-      if (fileSize != null) {
-        print('Known file size: $fileSize bytes');
-      } else {
-        print('File size unknown.');
-      }
-
+      // var fileSize = await _fetchFileSize(url, dio);
+      // if (fileSize != null) {
+      //   print('Known file size: $fileSize bytes');
+      // } else {
+      //   print('File size unknown.');
+      // }
+      state.progressString.value = 'Indeterminate';
+      state.progress.value = 0;
       var incrementalProgress = 0.0;
-      const incrementalStep =
-          0.1; // Adjust the step size based on expected download sizes and durations
+      const incrementalStep = 0.1;
 
       await dio.download(url, path, onReceiveProgress: (rec, total) {
         if (total <= 0) {
@@ -158,8 +167,8 @@ class AudioController extends GetxController {
         print(e);
       }
     } finally {
-      state.downloading.value = false;
-      state.onDownloading.value = false;
+      // state.downloading.value = false;
+      // state.onDownloading.value = false;
       state.progressString.value = 'Completed';
       print('Download completed or failed');
     }
@@ -220,12 +229,19 @@ class AudioController extends GetxController {
         final futures = List.generate(
           ayahsFilesNames.length,
           (i) => _downloadFileIfNotExist(
-              selectedSurahAyahsUrls[i], ayahsFilesNames[i]),
+                  selectedSurahAyahsUrls[i], ayahsFilesNames[i],
+                  setDownloadingStatus: false)
+              .whenComplete(() {
+            log('${state.tmpDownloadedAyahsCount.value} => download completed at ${DateTime.now().millisecond}');
+            state.tmpDownloadedAyahsCount.value++;
+          }),
         );
-        debounce(state.tmpDownloadedAyahsCount,
-            (_) => update([state.tmpDownloadedAyahsCount]),
-            time: const Duration(milliseconds: 200));
+        state.downloading.value = true;
+        state.onDownloading.value = true;
         await Future.wait(futures);
+        state.downloading.value = false;
+        state.onDownloading.value = false;
+
         // quranCtrl.state.clearAndAddSelection(state.currentAyahUQInPage.value -= 1);
         await state.audioPlayer.setAudioSource(
           initialIndex: state.selectedAyahNum.value - 1,
@@ -249,7 +265,6 @@ class AudioController extends GetxController {
         if (index != null &&
             index != 0 &&
             index != state.selectedAyahNum.value - 1) {
-          log('index: $index | state.selectedAyahNum: ${state.selectedAyahNum.value} | state.currentAyahUQInPage: ${state.currentAyahUQInPage.value}');
           log('state.currentAyahUQInPage.value: ${state.currentAyahUQInPage.value}');
           state.selectedAyahNum.value = index + 1;
           state.currentAyahUQInPage.value =
