@@ -4,10 +4,10 @@ import 'package:get/get.dart';
 
 import '/core/utils/constants/lottie_constants.dart';
 import '/presentation/controllers/general_controller.dart';
-import '/presentation/screens/quran_page/controller/extensions/quran_getters.dart';
+import '/presentation/screens/quran_page/controllers/extensions/quran_getters.dart';
 import '../../../../../core/utils/constants/lottie.dart';
-import '../../../../controllers/playList_controller.dart';
-import '../../controller/quran_controller.dart';
+import '../../controllers/playList_controller.dart';
+import '../../controllers/quran/quran_controller.dart';
 import 'playList_ayat_widget.dart';
 
 class AyahsChoiceWidget extends StatelessWidget {

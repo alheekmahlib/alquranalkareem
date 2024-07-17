@@ -6,7 +6,7 @@ import '/core/utils/constants/extensions/svg_extensions.dart';
 import '../../../../../../core/utils/constants/lottie.dart';
 import '../../../../../core/utils/constants/lottie_constants.dart';
 import '../../../../../core/utils/constants/svg_constants.dart';
-import '../../../../controllers/playList_controller.dart';
+import '../../controllers/playList_controller.dart';
 
 class PlayListPlayButton extends StatelessWidget {
   const PlayListPlayButton({super.key});

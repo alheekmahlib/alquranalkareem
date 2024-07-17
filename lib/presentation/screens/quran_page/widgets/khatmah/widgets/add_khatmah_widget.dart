@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 
-import '../../../../../controllers/khatmah_controller.dart';
+import '../../../controllers/khatmah_controller.dart';
 import '../../search/search_bar_widget.dart';
 
 class AddKhatmahWidget extends StatelessWidget {

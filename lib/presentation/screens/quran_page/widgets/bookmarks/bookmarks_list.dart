@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 
 import '../../../../../core/utils/constants/lottie.dart';
 import '../../../../../core/utils/constants/lottie_constants.dart';
-import '../../../../controllers/bookmarks_controller.dart';
+import '../../controllers/bookmarks_controller.dart';
 import 'bookmark_ayahs_build.dart';
 import 'bookmark_pages_build.dart';
 

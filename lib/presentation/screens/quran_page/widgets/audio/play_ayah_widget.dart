@@ -8,8 +8,8 @@ import '/core/utils/constants/extensions/svg_extensions.dart';
 import '/core/utils/constants/lottie.dart';
 import '/core/utils/constants/lottie_constants.dart';
 import '/core/utils/constants/svg_constants.dart';
-import '../../../../controllers/audio_controller.dart';
-import '../../controller/quran_controller.dart';
+import '../../controllers/audio/audio_controller.dart';
+import '../../controllers/quran/quran_controller.dart';
 
 class PlayAyah extends StatelessWidget {
   const PlayAyah({super.key});
@@ -33,20 +33,20 @@ class PlayAyah extends StatelessWidget {
               shadowWidth: 1.5,
               progressWidth: 2,
               shadowColor: Colors.transparent,
-              progressColor: sl<AudioController>().downloading.value
+              progressColor: audioCtrl.state.downloading.value
                   ? Theme.of(context).colorScheme.primary
                   : Colors.transparent,
-              progress: sl<AudioController>().progress.value,
+              progress: audioCtrl.state.progress.value,
             ),
             StreamBuilder<PlayerState>(
-              stream: audioCtrl.audioPlayer.playerStateStream,
+              stream: audioCtrl.state.audioPlayer.playerStateStream,
               builder: (context, snapshot) {
                 final playerState = snapshot.data;
                 final processingState = playerState?.processingState;
                 if (processingState == ProcessingState.loading ||
                     processingState == ProcessingState.buffering ||
-                    (audioCtrl.downloading.value &&
-                        audioCtrl.progress.value == 0)) {
+                    (audioCtrl.state.downloading.value &&
+                        audioCtrl.state.progress.value == 0)) {
                   return customLottie(LottieConstants.assetsLottiePlayButton,
                       width: 20.0, height: 20.0);
                 } else if (playerState != null && !playerState.playing) {
@@ -57,7 +57,7 @@ class PlayAyah extends StatelessWidget {
                     ),
                     onTap: () async {
                       sl<QuranController>().state.isPlayExpanded.value = true;
-                      sl<AudioController>().playAyah();
+                      audioCtrl.playAyah();
                     },
                   );
                 }
@@ -68,7 +68,7 @@ class PlayAyah extends StatelessWidget {
                   ),
                   onTap: () {
                     sl<QuranController>().state.isPlayExpanded.value = true;
-                    sl<AudioController>().playAyah();
+                    audioCtrl.playAyah();
                   },
                 );
               },

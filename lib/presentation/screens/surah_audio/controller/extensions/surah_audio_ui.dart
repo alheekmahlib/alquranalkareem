@@ -8,7 +8,7 @@ import '/presentation/screens/surah_audio/controller/extensions/surah_audio_gett
 import '../../../../../core/utils/constants/lists.dart';
 import '../../../../../core/utils/constants/shared_preferences_constants.dart';
 import '../../../../../core/utils/constants/url_constants.dart';
-import '../../../quran_page/controller/quran_controller.dart';
+import '../../../quran_page/controllers/quran/quran_controller.dart';
 import '../surah_audio_controller.dart';
 
 extension SurahAudioUi on SurahAudioController {

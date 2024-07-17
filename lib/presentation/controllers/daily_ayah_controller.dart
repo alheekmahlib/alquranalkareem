@@ -6,13 +6,13 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:hijri/hijri_calendar.dart';
 
-import '/presentation/screens/quran_page/controller/extensions/quran_getters.dart';
+import '/presentation/screens/quran_page/controllers/extensions/quran_getters.dart';
 import '../../core/utils/constants/lists.dart';
 import '../../core/utils/constants/shared_preferences_constants.dart';
-import '../screens/quran_page/controller/quran_controller.dart';
+import '../screens/quran_page/controllers/ayat_controller.dart';
+import '../screens/quran_page/controllers/quran/quran_controller.dart';
 import '../screens/quran_page/data/model/surahs_model.dart';
 import '../screens/quran_page/data/model/tafsir.dart';
-import 'ayat_controller.dart';
 
 class DailyAyahController extends GetxController {
   static DailyAyahController get instance =>

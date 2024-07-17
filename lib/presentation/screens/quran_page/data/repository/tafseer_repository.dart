@@ -1,8 +1,8 @@
 import 'package:sqflite/sqflite.dart';
 
 import '../../../../../core/services/services_locator.dart';
+import '../../controllers/ayat_controller.dart';
 import '../model/tafsir.dart';
-import '/presentation/controllers/ayat_controller.dart';
 
 class TafseerRepository {
   String? tableName;

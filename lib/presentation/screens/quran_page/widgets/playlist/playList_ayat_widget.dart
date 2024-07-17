@@ -4,9 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '/presentation/controllers/general_controller.dart';
-import '/presentation/screens/quran_page/controller/extensions/quran_getters.dart';
-import '../../../../controllers/playList_controller.dart';
-import '../../controller/quran_controller.dart';
+import '/presentation/screens/quran_page/controllers/extensions/quran_getters.dart';
+import '../../controllers/playList_controller.dart';
+import '../../controllers/quran/quran_controller.dart';
 
 class PlayListAyatWidget extends StatelessWidget {
   final bool? startNum;

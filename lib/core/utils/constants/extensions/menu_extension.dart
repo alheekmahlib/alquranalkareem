@@ -9,7 +9,7 @@ import '/presentation/screens/quran_page/widgets/buttons/add_bookmark_button.dar
 import '/presentation/screens/quran_page/widgets/buttons/copy_button.dart';
 import '/presentation/screens/quran_page/widgets/buttons/play_button.dart';
 import '/presentation/screens/quran_page/widgets/buttons/tafsir_button.dart';
-import '../../../../presentation/screens/quran_page/controller/quran_controller.dart';
+import '../../../../presentation/screens/quran_page/controllers/quran/quran_controller.dart';
 import 'extensions.dart';
 
 extension ContextMenuExtension on BuildContext {

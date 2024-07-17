@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '/core/widgets/seek_bar.dart';
-import '../../../../controllers/playList_controller.dart';
+import '../../controllers/playList_controller.dart';
 import 'playList_play_button.dart';
 
 class PlayListPlayWidget extends StatelessWidget {

@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
-import '../screens/quran_page/widgets/khatmah/data/data_source/khatmah_database.dart';
+import '../widgets/khatmah/data/data_source/khatmah_database.dart';
 
 class KhatmahController extends GetxController {
   static KhatmahController get instance => Get.isRegistered<KhatmahController>()

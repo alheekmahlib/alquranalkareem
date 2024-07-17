@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '/presentation/screens/quran_page/controller/quran_controller.dart';
 import '../../../../../core/services/services_locator.dart';
 import '../../../../../core/utils/constants/shared_preferences_constants.dart';
 import '../../../../../core/utils/helpers/global_key_manager.dart';
 import '../../../../controllers/general_controller.dart';
+import '../quran/quran_controller.dart';
 
 extension QuranUi on QuranController {
   /// -------- [onTap] --------

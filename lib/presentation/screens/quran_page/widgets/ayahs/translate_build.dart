@@ -8,7 +8,7 @@ import '../../../../../core/utils/constants/lottie.dart';
 import '../../../../../core/utils/constants/lottie_constants.dart';
 import '../../../../controllers/general_controller.dart';
 import '../../../../controllers/settings_controller.dart';
-import '../../../../controllers/translate_controller.dart';
+import '../../controllers/translate_controller.dart';
 import 'change_translate.dart';
 
 class TranslateBuild extends StatelessWidget {

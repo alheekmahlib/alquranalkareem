@@ -4,9 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 
-import '/presentation/controllers/share_controller.dart';
-import '../../core/services/services_locator.dart';
-import '../../core/utils/constants/shared_preferences_constants.dart';
+import '../../../../core/services/services_locator.dart';
+import '../../../../core/utils/constants/shared_preferences_constants.dart';
+import 'share_controller.dart';
 
 class TranslateDataController extends GetxController {
   static TranslateDataController get instance =>

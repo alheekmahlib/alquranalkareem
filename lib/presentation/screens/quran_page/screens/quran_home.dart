@@ -7,11 +7,11 @@ import '../../../../core/services/services_locator.dart';
 import '../../../../core/utils/helpers/global_key_manager.dart';
 import '../../../../core/widgets/tab_bar_widget.dart';
 import '../../../../database/notificationDatabase.dart';
-import '../../../controllers/audio_controller.dart';
-import '../../../controllers/aya_controller.dart';
-import '../../../controllers/bookmarks_controller.dart';
 import '../../../controllers/general_controller.dart';
-import '../controller/quran_controller.dart';
+import '../controllers/audio/audio_controller.dart';
+import '../controllers/aya_controller.dart';
+import '../controllers/bookmarks_controller.dart';
+import '../controllers/quran/quran_controller.dart';
 import '../widgets/audio/audio_widget.dart';
 import '../widgets/pages/nav_bar_widget.dart';
 import '../widgets/screen_switch.dart';
@@ -89,7 +89,7 @@ class QuranHome extends StatelessWidget {
                           ),
                         )
                       : const SizedBox.shrink()),
-                  Obx(() => audioCtrl.isStartPlaying.value ||
+                  Obx(() => audioCtrl.state.isStartPlaying.value ||
                           generalCtrl.isShowControl.value
                       ? Align(
                           alignment: Alignment.bottomCenter,

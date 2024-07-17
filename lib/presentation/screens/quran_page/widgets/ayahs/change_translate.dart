@@ -3,7 +3,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 
 import '/core/utils/constants/lists.dart';
-import '../../../../controllers/translate_controller.dart';
+import '../../controllers/translate_controller.dart';
 
 class ChangeTranslate extends StatelessWidget {
   ChangeTranslate({super.key});

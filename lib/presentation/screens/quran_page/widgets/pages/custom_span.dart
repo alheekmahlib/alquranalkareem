@@ -6,7 +6,7 @@ import 'package:get/get.dart';
 import '../../../../../core/services/services_locator.dart';
 import '../../../../../core/utils/constants/extensions/surah_name_with_banner.dart';
 import '../../../../../core/utils/constants/svg_constants.dart';
-import '../../../../controllers/bookmarks_controller.dart';
+import '../../controllers/bookmarks_controller.dart';
 
 TextSpan span({
   required String text,

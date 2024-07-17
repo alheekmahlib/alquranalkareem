@@ -3,9 +3,9 @@ import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 
 import '/core/utils/constants/extensions/svg_extensions.dart';
-import '/presentation/controllers/ayat_controller.dart';
 import '../../../../../core/utils/constants/svg_constants.dart';
 import '../../../../../core/widgets/share/share_ayah_options.dart';
+import '../../controllers/ayat_controller.dart';
 
 class ShareCopyWidget extends StatelessWidget {
   final int ayahNumber;

@@ -5,8 +5,8 @@ import 'package:get/get.dart';
 
 import '/presentation/controllers/general_controller.dart';
 import '/presentation/controllers/theme_controller.dart';
-import '../../../../core/utils/constants/shared_preferences_constants.dart';
-import '../data/model/surahs_model.dart';
+import '../../../../../core/utils/constants/shared_preferences_constants.dart';
+import '../../data/model/surahs_model.dart';
 import 'quran_state.dart';
 
 class QuranController extends GetxController {
@@ -15,50 +15,6 @@ class QuranController extends GetxController {
       : Get.put<QuranController>(QuranController());
 
   QuranState state = QuranState();
-
-  List<int> get downThePageIndex => [
-        75,
-        206,
-        330,
-        340,
-        348,
-        365,
-        375,
-        413,
-        416,
-        444,
-        451,
-        497,
-        505,
-        524,
-        547,
-        554,
-        556,
-        583
-      ];
-  List<int> get topOfThePageIndex => [
-        76,
-        207,
-        331,
-        341,
-        349,
-        366,
-        376,
-        414,
-        417,
-        435,
-        445,
-        452,
-        498,
-        506,
-        525,
-        548,
-        554,
-        555,
-        557,
-        583,
-        584
-      ];
 
   final generalCtrl = GeneralController.instance;
   final themeCtrl = ThemeController.instance;
@@ -101,10 +57,6 @@ class QuranController extends GetxController {
     // log('Pages Length: ${state.pages.length}', name: 'Quran Controller');
   }
 
-  Future<void> loadSwitchValue() async {
-    state.isPages.value = await state.box.read(SWITCH_VALUE) ?? 0;
-  }
-
   void currentListPageNumber() {
     final positions = state.itemPositionsListener.itemPositions.value;
     final filteredPositions =
@@ -133,5 +85,9 @@ class QuranController extends GetxController {
           .index;
       state.box.write(MSTART_PAGE, firstItemIndex + 1);
     } else {}
+  }
+
+  Future<void> loadSwitchValue() async {
+    state.isPages.value = await state.box.read(SWITCH_VALUE) ?? 0;
   }
 }

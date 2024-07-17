@@ -1,0 +1,411 @@
+import 'dart:developer' show log;
+import 'dart:io' show File, Directory;
+
+import 'package:connectivity_plus/connectivity_plus.dart';
+import 'package:dio/dio.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:get/get.dart';
+import 'package:just_audio/just_audio.dart';
+import 'package:path/path.dart';
+import 'package:path_provider/path_provider.dart';
+
+import '/core/services/services_locator.dart';
+import '/core/utils/constants/extensions/custom_error_snackBar.dart';
+import '/core/utils/constants/extensions/custom_mobile_notes_snack_bar.dart';
+import '/presentation/screens/quran_page/controllers/extensions/audio_getters.dart';
+import '/presentation/screens/quran_page/controllers/extensions/audiu_storage_getters.dart';
+import '/presentation/screens/quran_page/controllers/extensions/quran_ui.dart';
+import '../../../../controllers/general_controller.dart';
+import '../ayat_controller.dart';
+import '../quran/quran_controller.dart';
+import 'audio_state.dart';
+
+class AudioController extends GetxController {
+  static AudioController get instance => Get.isRegistered<AudioController>()
+      ? Get.find<AudioController>()
+      : Get.put<AudioController>(AudioController());
+
+  AudioState state = AudioState();
+
+  final generalCtrl = GeneralController.instance;
+  final quranCtrl = QuranController.instance;
+  final ayatCtrl = AyatController.instance;
+
+  @override
+  void onInit() async {
+    state.isPlay.value = false;
+    state.sliderValue = 0;
+    initConnectivity();
+    state.connectivitySubscription = state.connectivity.onConnectivityChanged
+        .listen(_updateConnectionStatus);
+    loadQuranReader();
+    await Future.wait([
+      sl<GeneralController>()
+          .getCachedArtUri(
+              'https://raw.githubusercontent.com/alheekmahlib/thegarlanded/master/Photos/ios-1024.png')
+          .then((v) => state.cachedArtUri = v),
+      getApplicationDocumentsDirectory().then((v) => state.dir = v),
+    ]);
+    super.onInit();
+  }
+
+  @override
+  void onClose() {
+    state.audioPlayer.pause();
+    state.audioPlayer.dispose();
+    state.connectivitySubscription.cancel();
+    super.onClose();
+  }
+
+  /// -------- [DownloadsMethods] ----------
+
+  Future<String> _downloadFileIfNotExist(String url, String fileName,
+      [bool showSnakbars = true]) async {
+    String path;
+    path = join(state.dir.path, fileName);
+    var file = File(path);
+    bool exists = await file.exists();
+    if (!exists) {
+      try {
+        await Directory(dirname(path)).create(recursive: true);
+      } catch (e) {
+        print('Error creating directory: $e');
+      }
+      if (showSnakbars) {
+        if (state.connectionStatus.contains(ConnectivityResult.none)) {
+          Get.context!.showCustomErrorSnackBar('noInternet'.tr);
+        } else if (state.connectionStatus.contains(ConnectivityResult.mobile)) {
+          try {
+            await _downloadFile(path, url, fileName);
+            Get.context!.customMobileNoteSnackBar('mobileDataAyat'.tr);
+          } catch (e) {
+            log('Error downloading file: $e');
+          }
+        } else if (state.connectionStatus.contains(ConnectivityResult.wifi)) {
+          try {
+            await _downloadFile(path, url, fileName);
+          } catch (e) {
+            log('Error downloading file: $e');
+          }
+        }
+      } else {
+        if (false == state.connectionStatus.contains(ConnectivityResult.none)) {
+          try {
+            await _downloadFile(path, url, fileName);
+          } catch (e) {
+            log('Error downloading file: $e');
+          }
+        }
+      }
+    }
+    state.tmpDownloadedAyahsCount += 1;
+    return path;
+  }
+
+  Future<bool> _downloadFile(String path, String url, String fileName) async {
+    Dio dio = Dio();
+    try {
+      await Directory(dirname(path)).create(recursive: true);
+      state.downloading.value = true;
+      state.onDownloading.value = true;
+      state.progressString.value = 'Indeterminate';
+      state.progress.value = 0;
+
+      // First, attempt to fetch file size to decide on progress indication strategy
+      var fileSize = await _fetchFileSize(url, dio);
+      if (fileSize != null) {
+        print('Known file size: $fileSize bytes');
+      } else {
+        print('File size unknown.');
+      }
+
+      var incrementalProgress = 0.0;
+      const incrementalStep =
+          0.1; // Adjust the step size based on expected download sizes and durations
+
+      await dio.download(url, path, onReceiveProgress: (rec, total) {
+        if (total <= 0) {
+          // Update the progress value incrementally
+          incrementalProgress += incrementalStep;
+          if (incrementalProgress >= 1) {
+            incrementalProgress = 0; // Reset if it reaches 1
+          }
+          // Update your UI based on incrementalProgress here
+          // For example, update a progress bar's value or animate an indicator
+        } else {
+          // Handle determinate progress as before
+          double progressValue = (rec / total).toDouble().clamp(0.0, 1.0);
+          state.progress.value = progressValue;
+        }
+        print('Received bytes: $rec, Total bytes: $total');
+      });
+    } catch (e) {
+      if (e is DioException && e.type == DioExceptionType.cancel) {
+        print('Download canceled');
+        try {
+          final file = File(path);
+          if (await file.exists()) {
+            await file.delete();
+            state.onDownloading.value = false;
+            print('Partially downloaded file deleted');
+          }
+        } catch (e) {
+          print('Error deleting partially downloaded file: $e');
+        }
+        return false;
+      } else {
+        print(e);
+      }
+    } finally {
+      state.downloading.value = false;
+      state.onDownloading.value = false;
+      state.progressString.value = 'Completed';
+      print('Download completed or failed');
+    }
+    return true;
+  }
+
+  Future<int?> _fetchFileSize(String url, Dio dio) async {
+    try {
+      var response = await dio.head(url);
+      if (response.headers.value('Content-Length') != null) {
+        return int.tryParse(response.headers.value('Content-Length')!);
+      }
+    } catch (e) {
+      print('Error fetching file size: $e');
+    }
+    return null;
+  }
+
+  void cancelDownload() {
+    state.cancelToken.cancel('Request cancelled');
+  }
+
+  /// -------- [PlayingMethods] ----------
+
+  Future<void> moveToNextPage({bool withScroll = true}) async {
+    if (withScroll) {
+      await generalCtrl.quranPageController.animateToPage(
+          (generalCtrl.currentPageNumber.value),
+          duration: const Duration(milliseconds: 600),
+          curve: Curves.easeInOut);
+      log('Going To Next Page at: ${generalCtrl.currentPageNumber.value} ');
+    }
+  }
+
+  void moveToPreviousPage({bool withScroll = true}) {
+    if (withScroll) {
+      generalCtrl.quranPageController.animateToPage(
+          (generalCtrl.currentPageNumber.value - 2),
+          duration: const Duration(milliseconds: 600),
+          curve: Curves.easeInOut);
+    }
+  }
+
+  Future playFile() async {
+    state.tmpDownloadedAyahsCount = 0.obs;
+    final ayahsFilesNames = selectedSurahAyahsFileNames;
+    try {
+      log('currentAyahUrl: $currentAyahUrl', name: 'AudioController');
+      if (state.playSingleAyahOnly) {
+        final path =
+            await _downloadFileIfNotExist(currentAyahUrl, currentAyahFileName);
+        await state.audioPlayer.setAudioSource(AudioSource.file(
+          path,
+          tag: mediaItemForCurrentAyah,
+        ));
+        // quranCtrl.state.clearAndAddSelection(state.currentAyahUQInPage.value + 2);
+      } else {
+        final futures = List.generate(
+          ayahsFilesNames.length,
+          (i) => _downloadFileIfNotExist(
+              selectedSurahAyahsUrls[i], ayahsFilesNames[i]),
+        );
+        debounce(state.tmpDownloadedAyahsCount,
+            (_) => update([state.tmpDownloadedAyahsCount]),
+            time: const Duration(milliseconds: 200));
+        await Future.wait(futures);
+        // quranCtrl.state.clearAndAddSelection(state.currentAyahUQInPage.value -= 1);
+        await state.audioPlayer.setAudioSource(
+          initialIndex: state.selectedAyahNum.value - 1,
+          ConcatenatingAudioSource(
+            children: List.generate(
+              ayahsFilesNames.length,
+              (i) => AudioSource.file(
+                join(state.dir.path, ayahsFilesNames[i]),
+                tag: mediaItemsForCurrentSurah[i],
+              ),
+            ),
+          ),
+        );
+      }
+      log('${'-' * 30} player is starting.. ${'-' * 30}',
+          name: 'AudioController');
+
+      // int lastIndex = state.selectedAyahNum.value - 1;
+
+      state.audioPlayer.currentIndexStream.listen((index) {
+        if (index != null &&
+            index != 0 &&
+            index != state.selectedAyahNum.value - 1) {
+          log('index: $index | state.selectedAyahNum: ${state.selectedAyahNum.value} | state.currentAyahUQInPage: ${state.currentAyahUQInPage.value}');
+          log('state.currentAyahUQInPage.value: ${state.currentAyahUQInPage.value}');
+          state.selectedAyahNum.value = index + 1;
+          state.currentAyahUQInPage.value =
+              selectedSurahAyahsUniqueNumbers[state.selectedAyahNum.value - 1];
+          // lastIndex = index;
+          quranCtrl.clearAndAddSelection(state.currentAyahUQInPage.value);
+        }
+      });
+
+      // state.audioPlayer.playerStateStream.listen((state) {
+      //   if (state.playing != state.isPlay.value) {
+      //     state.isPlay.value = state.playing;
+      //   }
+      // });
+      print('playFile2: play');
+      state.isPlay.value = true;
+      state.audioPlayer
+          .play()
+          .then((_) => state.isPlay.value = false)
+          .whenComplete(() {
+        state.audioPlayer.stop();
+        state.isPlay.value = false;
+      });
+    } catch (e) {
+      state.isPlay.value = false;
+      state.audioPlayer.stop();
+      log('Error in playFile: $e', name: 'AudioController');
+    }
+  }
+
+  // Future<void> playNextAyah() async {
+  //   isProcessingNextAyah.value = true;
+  //   // state.currentAyahUQInPage.value += 1;
+  //   // quranCtrl.state.clearAndAddSelection(state.currentAyahUQInPage.value);
+  //   // await playFile();
+  //   await state.audioPlayer.seekToNext();
+  //   isProcessingNextAyah.value = false;
+  //   if (quranCtrl.state.isPages.value == 1) {
+  //     quranCtrl.state.scrollOffsetController.animateScroll(
+  //       offset: quranCtrl.state.ayahsWidgetHeight.value,
+  //       duration: const Duration(milliseconds: 600),
+  //       curve: Curves.easeInOut,
+  //     );
+  //   }
+  // }
+
+  Future<void> playAyah() async {
+    if (quranCtrl.state.isPages.value == 1) {
+      state.currentAyahUQInPage.value = state.currentAyahUQInPage.value == 1
+          ? quranCtrl.state.allAyahs
+              .firstWhere((ayah) =>
+                  ayah.page ==
+                  quranCtrl.state.itemPositionsListener.itemPositions.value.last
+                          .index +
+                      1)
+              .ayahUQNumber
+          : state.currentAyahUQInPage.value;
+    } else {
+      state.currentAyahUQInPage.value = state.currentAyahUQInPage.value == 1
+          ? quranCtrl.state.allAyahs
+              .firstWhere(
+                  (ayah) => ayah.page == generalCtrl.currentPageNumber.value)
+              .ayahUQNumber
+          : state.currentAyahUQInPage.value;
+    }
+    quranCtrl.clearAndAddSelection(state.currentAyahUQInPage.value);
+    if (state.audioPlayer.playing || state.isPlay.value) {
+      state.isPlay.value = false;
+      await state.audioPlayer.pause();
+      print('state.audioPlayer: pause');
+    } else {
+      quranCtrl.clearAndAddSelection(state.currentAyahUQInPage.value);
+      await playFile();
+    }
+  }
+
+  Future<void> skipNextAyah() async {
+    if (state.currentAyahUQInPage.value == 6236) {
+      pausePlayer;
+    } else if (isLastAyahInPageButNotInSurah || isLastAyahInSurahAndPage) {
+      // pausePlayer;
+      // state.currentAyahUQInPage.value += 1;
+      // quranCtrl.state.clearAndAddSelection(state.currentAyahUQInPage.value);
+      await moveToNextPage();
+      await state.audioPlayer.seekToNext();
+      // await playFile();
+    } else {
+      // pausePlayer;
+      // state.currentAyahUQInPage.value += 1;
+      // quranCtrl.state.clearAndAddSelection(state.currentAyahUQInPage.value);
+      // await playFile();
+      await state.audioPlayer.seekToNext();
+    }
+  }
+
+  Future<void> skipPreviousAyah() async {
+    if (state.currentAyahUQInPage.value == 1) {
+      pausePlayer;
+    } else if (isFirstAyahInPageButNotInSurah) {
+      // pausePlayer;
+      // state.currentAyahUQInPage.value -= 1;
+      // quranCtrl.state.clearAndAddSelection(state.currentAyahUQInPage.value);
+      moveToPreviousPage();
+      // await playFile();
+      await state.audioPlayer.seekToPrevious();
+    } else {
+      // state.currentAyahUQInPage.value -= 1;
+      // quranCtrl.state.clearAndAddSelection(state.currentAyahUQInPage.value);
+      // await playFile();
+      await state.audioPlayer.seekToPrevious();
+    }
+  }
+
+  /// -------- [ConnectivityMethods] ----------
+
+  Future<void> initConnectivity() async {
+    late dynamic result; // Can be either List<ConnectivityResult> or String
+    // Platform messages may fail, so we use a try/catch PlatformException.
+    try {
+      result = await state.connectivity.checkConnectivity();
+    } on PlatformException catch (e) {
+      log('Couldn\'t check connectivity status', error: e);
+      return;
+    }
+
+    // Handle both potential return types
+    if (result is List<ConnectivityResult>) {
+      _updateConnectionStatus(result);
+    } else if (result is String) {
+      // Handle String case (parse the string or handle error)
+      // For example, log an error message
+      log('Unexpected data type from checkConnectivity: $result');
+    } else {
+      // Handle unexpected data type (shouldn't happen)
+      log('Unknown data type from checkConnectivity: $result');
+    }
+
+    // If the widget was removed from the tree while the asynchronous platform
+    // message was in flight, we want to discard the reply rather than calling
+    // setState to update our non-existent appearance.
+    if (state.isDisposed) {
+      return Future.value(null);
+    }
+  }
+
+  Future<void> _updateConnectionStatus(List<ConnectivityResult> result) async {
+    state.connectionStatus = result;
+    update();
+    // ignore: avoid_print
+    print('Connectivity changed: $state.connectionStatus');
+  }
+
+  void didChangeAppLifecycleState(AppLifecycleState states) {
+    if (states == AppLifecycleState.paused) {
+      state.audioPlayer.stop();
+      state.isPlay.value = false;
+    }
+  }
+}

@@ -3,11 +3,12 @@ import 'package:get/get.dart';
 
 import '/core/utils/constants/extensions/custom_error_snackBar.dart';
 import '/core/utils/constants/extensions/svg_extensions.dart';
+import '/presentation/screens/quran_page/controllers/extensions/audio_ui.dart';
 import '../../../../../core/services/services_locator.dart';
 import '../../../../../core/utils/constants/svg_constants.dart';
-import '../../../../controllers/audio_controller.dart';
-import '../../../../controllers/bookmarks_controller.dart';
 import '../../../../controllers/general_controller.dart';
+import '../../controllers/audio/audio_controller.dart';
+import '../../controllers/bookmarks_controller.dart';
 
 class AddBookmarkButton extends StatelessWidget {
   final int surahNum;
