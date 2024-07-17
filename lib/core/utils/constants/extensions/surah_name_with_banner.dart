@@ -8,9 +8,9 @@ import 'package:get/get.dart';
 
 import '/core/utils/constants/extensions/svg_extensions.dart';
 import '/presentation/controllers/theme_controller.dart';
-import '/presentation/screens/quran_page/controller/extensions/quran_getters.dart';
+import '/presentation/screens/quran_page/controllers/extensions/quran_getters.dart';
 import '../../../../presentation/controllers/general_controller.dart';
-import '../../../../presentation/screens/quran_page/controller/quran_controller.dart';
+import '../../../../presentation/screens/quran_page/controllers/quran/quran_controller.dart';
 import '../../../services/services_locator.dart';
 import '../svg_constants.dart';
 

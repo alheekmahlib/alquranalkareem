@@ -7,9 +7,9 @@ import 'package:get/get.dart';
 import '/core/services/services_locator.dart';
 import '/core/utils/constants/extensions/convert_number_extension.dart';
 import '/core/utils/constants/extensions/extensions.dart';
-import '/presentation/screens/quran_page/controller/extensions/quran_ui.dart';
+import '/presentation/screens/quran_page/controllers/extensions/quran_ui.dart';
 import '../../../controllers/general_controller.dart';
-import '../controller/quran_controller.dart';
+import '../controllers/quran/quran_controller.dart';
 
 class QuranSurahList extends StatelessWidget {
   QuranSurahList({super.key});

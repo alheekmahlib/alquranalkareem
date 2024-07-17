@@ -14,13 +14,13 @@ import 'package:rxdart/rxdart.dart' as R;
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '/core/utils/constants/extensions/custom_error_snackBar.dart';
-import '/presentation/screens/quran_page/controller/extensions/quran_getters.dart';
-import '../../core/data/models/playList_model.dart';
-import '../../core/utils/constants/url_constants.dart';
-import '../../core/widgets/seek_bar.dart';
-import '../screens/quran_page/controller/quran_controller.dart';
-import 'audio_controller.dart';
-import 'general_controller.dart';
+import '/presentation/screens/quran_page/controllers/extensions/quran_getters.dart';
+import '../../../../core/data/models/playList_model.dart';
+import '../../../../core/utils/constants/url_constants.dart';
+import '../../../../core/widgets/seek_bar.dart';
+import '../../../controllers/general_controller.dart';
+import 'audio/audio_controller.dart';
+import 'quran/quran_controller.dart';
 
 class PlayListController extends GetxController {
   static PlayListController get instance =>
@@ -80,10 +80,10 @@ class PlayListController extends GetxController {
       for (int i = firstAyahUQ!; i <= lastAyahUQ!; i++) {
         String fileName = "$i.mp3";
         String localFilePath =
-            await getLocalPath() + "${audioCtrl.readerValue!}/$fileName";
+            await getLocalPath() + "${audioCtrl.state.readerValue!}/$fileName";
 
         bool downloadResult = await downloadFile(
-            generateUrl(i, audioCtrl.readerValue!), fileName);
+            generateUrl(i, audioCtrl.state.readerValue!), fileName);
         log('downloadResult: $downloadResult');
         if (downloadResult) {
           AudioSource source = createAudioSource(localFilePath);
@@ -125,9 +125,9 @@ class PlayListController extends GetxController {
     for (int i = startUQNumber; i <= endUQNumber; i++) {
       String fileName = "$i.mp3";
       String localFilePath =
-          "$localDirectoryPath/${audioCtrl.readerValue!}/$fileName";
-      bool downloadResult =
-          await downloadFile(generateUrl(i, audioCtrl.readerValue!), fileName);
+          "$localDirectoryPath/${audioCtrl.state.readerValue!}/$fileName";
+      bool downloadResult = await downloadFile(
+          generateUrl(i, audioCtrl.state.readerValue!), fileName);
 
       if (downloadResult) {
         AudioSource source = createAudioSource(localFilePath);
@@ -146,7 +146,7 @@ class PlayListController extends GetxController {
 
   Future<bool> downloadFile(String url, String fileName) async {
     String localFilePath =
-        await getLocalPath() + "${audioCtrl.readerValue!}/$fileName";
+        await getLocalPath() + "${audioCtrl.state.readerValue!}/$fileName";
     final file = File(localFilePath);
 
     // Check if the file already exists and return true immediately if it does
@@ -244,7 +244,7 @@ class PlayListController extends GetxController {
         surahName: quranCtrl
             .getCurrentSurahByPage(generalCtrl.currentPageNumber.value - 1)
             .arabicName,
-        readerName: audioCtrl.readerValue!,
+        readerName: audioCtrl.state.readerValue!,
         name: quranCtrl
             .getCurrentSurahByPage(generalCtrl.currentPageNumber.value - 1)
             .arabicName));

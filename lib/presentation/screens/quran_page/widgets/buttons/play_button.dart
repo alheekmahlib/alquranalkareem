@@ -3,9 +3,10 @@ import 'package:flutter/material.dart';
 import '/core/services/services_locator.dart';
 import '/core/utils/constants/extensions/svg_extensions.dart';
 import '/core/utils/constants/svg_constants.dart';
-import '../../../../controllers/audio_controller.dart';
+import '/presentation/screens/quran_page/controllers/extensions/audio_ui.dart';
 import '../../../../controllers/general_controller.dart';
-import '../../controller/quran_controller.dart';
+import '../../controllers/audio/audio_controller.dart';
+import '../../controllers/quran/quran_controller.dart';
 
 class PlayButton extends StatelessWidget {
   final int surahNum;

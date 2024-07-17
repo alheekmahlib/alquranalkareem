@@ -4,13 +4,13 @@ import 'package:get/get.dart';
 
 import '/core/utils/constants/extensions/surah_name_with_banner.dart';
 import '/core/utils/constants/extensions/svg_extensions.dart';
-import '/presentation/controllers/audio_controller.dart';
-import '/presentation/screens/quran_page/controller/extensions/quran_getters.dart';
+import '/presentation/screens/quran_page/controllers/extensions/quran_getters.dart';
 import '../../../../../core/services/services_locator.dart';
 import '../../../../../core/utils/constants/svg_constants.dart';
-import '../../../../controllers/bookmarks_controller.dart';
 import '../../../../controllers/general_controller.dart';
-import '../../controller/quran_controller.dart';
+import '../../controllers/audio/audio_controller.dart';
+import '../../controllers/bookmarks_controller.dart';
+import '../../controllers/quran/quran_controller.dart';
 import 'text_build.dart';
 
 class PagesWidget extends StatelessWidget {

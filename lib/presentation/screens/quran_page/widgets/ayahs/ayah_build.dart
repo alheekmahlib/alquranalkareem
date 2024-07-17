@@ -4,13 +4,13 @@ import 'package:get/get.dart';
 
 import '/core/utils/constants/extensions/convert_number_extension.dart';
 import '/core/utils/constants/extensions/surah_name_with_banner.dart';
-import '/presentation/screens/quran_page/controller/extensions/quran_getters.dart';
-import '/presentation/screens/quran_page/controller/extensions/quran_ui.dart';
+import '/presentation/screens/quran_page/controllers/extensions/quran_getters.dart';
+import '/presentation/screens/quran_page/controllers/extensions/quran_ui.dart';
 import '../../../../../core/services/services_locator.dart';
 import '../../../../../core/widgets/measure_size_widget.dart';
 import '../../../../controllers/general_controller.dart';
-import '../../../../controllers/translate_controller.dart';
-import '../../controller/quran_controller.dart';
+import '../../controllers/quran/quran_controller.dart';
+import '../../controllers/translate_controller.dart';
 import '../pages/custom_span.dart';
 import 'ayahs_menu.dart';
 import 'translate_build.dart';

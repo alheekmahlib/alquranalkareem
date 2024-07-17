@@ -5,6 +5,8 @@ import '../../../../../core/utils/constants/shared_preferences_constants.dart';
 import '../surah_audio_controller.dart';
 
 extension SurahAudioStorageGetters on SurahAudioController {
+  /// -------- [Storage] ----------
+
   Future<void> lastAudioSource() async {
     await state.audioPlayer.setAudioSource(AudioSource.uri(
       Uri.parse(urlFilePath),

@@ -7,7 +7,7 @@ import 'package:mini_music_visualizer/mini_music_visualizer.dart';
 
 import '/presentation/screens/surah_audio/controller/extensions/surah_audio_ui.dart';
 import '../../../../core/utils/constants/extensions/extensions.dart';
-import '../../quran_page/controller/quran_controller.dart';
+import '../../quran_page/controllers/quran/quran_controller.dart';
 import '../controller/surah_audio_controller.dart';
 
 class SurahAudioList extends StatelessWidget {

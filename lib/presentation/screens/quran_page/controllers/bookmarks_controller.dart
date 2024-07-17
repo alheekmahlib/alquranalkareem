@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '/presentation/screens/quran_page/controller/extensions/quran_getters.dart';
-import '../../core/services/services_locator.dart';
-import '../../core/utils/constants/extensions/custom_error_snackBar.dart';
-import '../../database/databaseHelper.dart';
-import '../screens/quran_page/controller/quran_controller.dart';
-import '../screens/quran_page/data/model/bookmark.dart';
-import '../screens/quran_page/data/model/bookmark_ayahs.dart';
-import 'general_controller.dart';
+import '/presentation/screens/quran_page/controllers/extensions/quran_getters.dart';
+import '../../../../core/services/services_locator.dart';
+import '../../../../core/utils/constants/extensions/custom_error_snackBar.dart';
+import '../../../../database/databaseHelper.dart';
+import '../../../controllers/general_controller.dart';
+import '../data/model/bookmark.dart';
+import '../data/model/bookmark_ayahs.dart';
+import 'quran/quran_controller.dart';
 
 class BookmarksController extends GetxController {
   static BookmarksController get instance =>

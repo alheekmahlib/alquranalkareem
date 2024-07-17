@@ -13,7 +13,7 @@ import 'package:share_plus/share_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '/presentation/screens/home/home_screen.dart';
-import '/presentation/screens/quran_page/controller/extensions/quran_getters.dart';
+import '/presentation/screens/quran_page/controllers/extensions/quran_getters.dart';
 import '../../core/services/services_locator.dart';
 import '../../core/utils/constants/shared_preferences_constants.dart';
 import '../../core/utils/helpers/responsive.dart';
@@ -21,13 +21,13 @@ import '../../core/widgets/ramadan_greeting.dart';
 import '../../core/widgets/time_now.dart';
 import '../screens/adhkar/screens/adhkar_view.dart';
 import '../screens/books/screens/books_screen.dart';
-import '../screens/quran_page/controller/quran_controller.dart';
+import '../screens/quran_page/controllers/audio/audio_controller.dart';
+import '../screens/quran_page/controllers/ayat_controller.dart';
+import '../screens/quran_page/controllers/bookmarks_controller.dart';
+import '../screens/quran_page/controllers/playList_controller.dart';
+import '../screens/quran_page/controllers/quran/quran_controller.dart';
 import '../screens/quran_page/screens/quran_home.dart';
 import '../screens/surah_audio/audio_surah.dart';
-import 'audio_controller.dart';
-import 'ayat_controller.dart';
-import 'bookmarks_controller.dart';
-import 'playList_controller.dart';
 import 'theme_controller.dart';
 
 class GeneralController extends GetxController {
@@ -109,7 +109,7 @@ class GeneralController extends GetxController {
     sl<PlayListController>().reset();
     isShowControl.value = false;
     sl<AyatController>().isSelected.value = (-1.0);
-    sl<AudioController>().pageAyahNumber = '0';
+    sl<AudioController>().state.pageAyahNumber = '0';
     sl<BookmarksController>().getBookmarks();
     lastReadSurahNumber.value =
         sl<QuranController>().getSurahNumberFromPage(index);

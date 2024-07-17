@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../../../core/widgets/container_button.dart';
-import '../../../../controllers/playList_controller.dart';
+import '../../controllers/playList_controller.dart';
 
 class PlayListSaveWidget extends StatelessWidget {
   const PlayListSaveWidget({super.key});

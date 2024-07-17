@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '/presentation/screens/quran_page/widgets/search/search_extensions/convert_arabic_to_english_numbers_extension.dart';
-import '../screens/quran_page/data/model/aya.dart';
-import '../screens/quran_page/data/repository/aya_repository.dart';
+import '../data/model/aya.dart';
+import '../data/repository/aya_repository.dart';
 
 class AyaController extends GetxController {
   static AyaController get instance => Get.isRegistered<AyaController>()

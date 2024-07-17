@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../../../../core/widgets/delete_widget.dart';
-import '../../../../../controllers/khatmah_controller.dart';
+import '../../../controllers/khatmah_controller.dart';
 import 'khatmah_days_page.dart';
 import 'khatmah_name_widget.dart';
 

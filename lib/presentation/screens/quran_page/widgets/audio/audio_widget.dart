@@ -4,14 +4,15 @@ import 'package:get/get.dart';
 
 import '/core/utils/constants/extensions/svg_extensions.dart';
 import '/presentation/controllers/general_controller.dart';
+import '/presentation/screens/quran_page/controllers/extensions/audio_getters.dart';
 import '/presentation/screens/quran_page/widgets/audio/skip_next.dart';
 import '/presentation/screens/quran_page/widgets/audio/skip_previous.dart';
 import '../../../../../core/services/services_locator.dart';
 import '../../../../../core/utils/constants/extensions/extensions.dart';
 import '../../../../../core/utils/constants/svg_constants.dart';
 import '../../../../../core/widgets/seek_bar.dart';
-import '../../../../controllers/audio_controller.dart';
-import '../../controller/quran_controller.dart';
+import '../../controllers/audio/audio_controller.dart';
+import '../../controllers/quran/quran_controller.dart';
 import '../playlist/ayahs_playList_widget.dart';
 import 'change_reader.dart';
 import 'play_ayah_widget.dart';
@@ -119,14 +120,18 @@ class AudioWidget extends StatelessWidget {
                             height: 66,
                             alignment: Alignment.center,
                             // width: 250,
-                            child: audioCtrl.downloading.value
-                                ? SliderWidget.downloading(
-                                    currentPosition: audioCtrl
-                                        .tmpDownloadedAyahsCount.value
-                                        .toDouble(),
-                                    filesCount: audioCtrl
-                                        .selectedSurahAyahsFileNames.length,
-                                    horizontalPadding: 0)
+                            child: audioCtrl.state.downloading.value
+                                ? StreamBuilder<int>(
+                                    stream: audioCtrl
+                                        .state.tmpDownloadedAyahsCount.stream,
+                                    builder: (ctx, d) =>
+                                        SliderWidget.downloading(
+                                            currentPosition:
+                                                (d.data ?? 0).toDouble(),
+                                            filesCount: audioCtrl
+                                                .selectedSurahAyahsFileNames
+                                                .length,
+                                            horizontalPadding: 0))
                                 : StreamBuilder<PositionData>(
                                     stream: audioCtrl.positionDataStream,
                                     builder: (context, snapshot) {
@@ -145,6 +150,7 @@ class AudioWidget extends StatelessWidget {
                                               .colorScheme
                                               .primary,
                                           onChangeEnd: sl<AudioController>()
+                                              .state
                                               .audioPlayer
                                               .seek,
                                         );

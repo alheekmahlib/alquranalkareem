@@ -9,12 +9,12 @@ import 'package:path_provider/path_provider.dart';
 import 'package:screenshot/screenshot.dart';
 import 'package:share_plus/share_plus.dart';
 
-import '../../core/services/services_locator.dart';
-import '../../core/utils/constants/lists.dart';
-import '../../core/utils/constants/shared_preferences_constants.dart';
-import '../screens/quran_page/data/model/tafsir.dart';
+import '../../../../core/services/services_locator.dart';
+import '../../../../core/utils/constants/lists.dart';
+import '../../../../core/utils/constants/shared_preferences_constants.dart';
+import '../../../controllers/general_controller.dart';
+import '../data/model/tafsir.dart';
 import 'ayat_controller.dart';
-import 'general_controller.dart';
 import 'translate_controller.dart';
 
 class ShareController extends GetxController {

@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '/presentation/screens/quran_page/controllers/extensions/audio_ui.dart';
 import '../../../../../core/services/services_locator.dart';
 import '../../../../../core/utils/constants/lists.dart';
-import '../../../../controllers/audio_controller.dart';
+import '../../controllers/audio/audio_controller.dart';
 
 class ChangeReader extends StatelessWidget {
   const ChangeReader({super.key});
@@ -20,7 +21,7 @@ class ChangeReader extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             Obx(() => Text(
-                  '${ayahReaderInfo[sl<AudioController>().readerIndex.value]['name']}'
+                  '${ayahReaderInfo[sl<AudioController>().state.readerIndex.value]['name']}'
                       .tr,
                   style: TextStyle(
                       color: Theme.of(context).colorScheme.surface,
@@ -47,7 +48,7 @@ class ChangeReader extends StatelessWidget {
                   title: Text(
                     '${ayahReaderInfo[index]['name']}'.tr,
                     style: TextStyle(
-                        color: sl<AudioController>().readerValue ==
+                        color: sl<AudioController>().state.readerValue ==
                                 ayahReaderInfo[index]['readerD']
                             ? Theme.of(context).colorScheme.inversePrimary
                             : const Color(0xffcdba72),
@@ -60,14 +61,14 @@ class ChangeReader extends StatelessWidget {
                     decoration: BoxDecoration(
                       shape: BoxShape.circle,
                       border: Border.all(
-                          color: sl<AudioController>().readerValue ==
+                          color: sl<AudioController>().state.readerValue ==
                                   ayahReaderInfo[index]['readerD']
                               ? Theme.of(context).colorScheme.inversePrimary
                               : const Color(0xffcdba72),
                           width: 2),
                       // color: const Color(0xff39412a),
                     ),
-                    child: sl<AudioController>().readerValue ==
+                    child: sl<AudioController>().state.readerValue ==
                             ayahReaderInfo[index]['readerD']
                         ? Icon(Icons.done,
                             size: 14,
@@ -83,7 +84,7 @@ class ChangeReader extends StatelessWidget {
                           image: AssetImage(
                               'assets/images/${ayahReaderInfo[index]['readerI']}.jpg'),
                           fit: BoxFit.fitWidth,
-                          opacity: sl<AudioController>().readerValue ==
+                          opacity: sl<AudioController>().state.readerValue ==
                                   ayahReaderInfo[index]['readerD']
                               ? 1
                               : .4,

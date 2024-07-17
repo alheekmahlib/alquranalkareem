@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import '/core/utils/constants/extensions/svg_extensions.dart';
 import '../../../../../core/services/services_locator.dart';
 import '../../../../../core/utils/constants/svg_constants.dart';
-import '../../../../controllers/ayat_controller.dart';
+import '../../controllers/ayat_controller.dart';
 
 class TafsirButton extends StatelessWidget {
   final int surahNum;

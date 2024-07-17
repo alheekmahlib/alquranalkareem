@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 
-import '../data/model/surahs_model.dart';
+import '../../data/model/surahs_model.dart';
 
 class QuranState {
   /// -------- [Variables] ----------

@@ -9,7 +9,7 @@ import '../../../../../core/services/services_locator.dart';
 import '../../../../../core/utils/constants/lists.dart';
 import '../../../../../core/widgets/seek_bar.dart';
 import '../../../../controllers/general_controller.dart';
-import '../../../quran_page/controller/quran_controller.dart';
+import '../../../quran_page/controllers/quran/quran_controller.dart';
 import '../surah_audio_controller.dart';
 
 extension SurahAudioGetters on SurahAudioController {

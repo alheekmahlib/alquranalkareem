@@ -4,10 +4,55 @@ import 'package:collection/collection.dart';
 
 import '/core/utils/constants/extensions/convert_number_extension.dart';
 import '../../data/model/surahs_model.dart';
-import '../quran_controller.dart';
+import '../quran/quran_controller.dart';
 
 extension QuranGetters on QuranController {
   /// -------- [Getter] ----------
+
+  List<int> get downThePageIndex => [
+        75,
+        206,
+        330,
+        340,
+        348,
+        365,
+        375,
+        413,
+        416,
+        444,
+        451,
+        497,
+        505,
+        524,
+        547,
+        554,
+        556,
+        583
+      ];
+  List<int> get topOfThePageIndex => [
+        76,
+        207,
+        331,
+        341,
+        349,
+        366,
+        376,
+        414,
+        417,
+        435,
+        445,
+        452,
+        498,
+        506,
+        525,
+        548,
+        554,
+        555,
+        557,
+        583,
+        584
+      ];
+
   List<List<Ayah>> getCurrentPageAyahsSeparatedForBasmalah(int pageIndex) =>
       state.pages[pageIndex]
           .splitBetween((f, s) => f.ayahNumber > s.ayahNumber)

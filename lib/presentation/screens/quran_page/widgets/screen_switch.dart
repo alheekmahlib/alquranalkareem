@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../controller/quran_controller.dart';
+import '../controllers/quran/quran_controller.dart';
 import '../screens/quran_page.dart';
 import 'ayahs/ayahs_widget.dart';
 

@@ -7,8 +7,8 @@ import '../../../../core/services/services_locator.dart';
 import '../../../../core/utils/constants/extensions/extensions.dart';
 import '../../../../core/utils/constants/lists.dart';
 import '../../../../core/utils/constants/shared_preferences_constants.dart';
-import '../../../controllers/ayat_controller.dart';
-import '../../../controllers/translate_controller.dart';
+import '../controllers/ayat_controller.dart';
+import '../controllers/translate_controller.dart';
 
 class ChangeTafsir extends StatelessWidget {
   const ChangeTafsir({super.key});

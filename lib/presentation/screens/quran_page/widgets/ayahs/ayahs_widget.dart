@@ -6,10 +6,11 @@ import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 import '/core/utils/constants/extensions/convert_number_extension.dart';
 import '/core/utils/constants/extensions/extensions.dart';
 import '/core/utils/constants/extensions/font_size_extension.dart';
-import '/presentation/screens/quran_page/controller/extensions/quran_getters.dart';
-import '../../../../controllers/audio_controller.dart';
+import '/presentation/screens/quran_page/controllers/extensions/audio_ui.dart';
+import '/presentation/screens/quran_page/controllers/extensions/quran_getters.dart';
 import '../../../../controllers/general_controller.dart';
-import '../../controller/quran_controller.dart';
+import '../../controllers/audio/audio_controller.dart';
+import '../../controllers/quran/quran_controller.dart';
 import 'ayah_build.dart';
 
 class AyahsWidget extends StatelessWidget {

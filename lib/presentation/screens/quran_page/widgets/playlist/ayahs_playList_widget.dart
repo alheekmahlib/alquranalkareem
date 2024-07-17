@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 
-import '/presentation/controllers/playList_controller.dart';
 import '../../../../../core/utils/constants/extensions/extensions.dart';
+import '../../controllers/playList_controller.dart';
 import '../audio/change_reader.dart';
 import 'ayahs_choice_widget.dart';
 import 'playList_build.dart';
