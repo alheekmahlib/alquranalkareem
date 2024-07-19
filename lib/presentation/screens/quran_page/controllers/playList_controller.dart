@@ -15,10 +15,10 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import '/core/utils/constants/extensions/custom_error_snackBar.dart';
 import '/presentation/screens/quran_page/controllers/extensions/quran_getters.dart';
-import '../../../../core/data/models/playList_model.dart';
 import '../../../../core/utils/constants/url_constants.dart';
 import '../../../../core/widgets/seek_bar.dart';
 import '../../../controllers/general_controller.dart';
+import '../widgets/playlist/data/models/playList_model.dart';
 import 'audio/audio_controller.dart';
 import 'quran/quran_controller.dart';
 
@@ -190,28 +190,28 @@ class PlayListController extends GetxController {
 
   int? get firstAyah => startNum.value == 1
       ? quranCtrl
-          .getPageAyahsByIndex(generalCtrl.currentPageNumber.value - 1)
+          .getPageAyahsByIndex(quranCtrl.state.currentPageNumber.value - 1)
           .first
           .ayahNumber
       : startNum.value;
 
   int? get lastAyah => endNum.value == 1
       ? quranCtrl
-          .getPageAyahsByIndex(generalCtrl.currentPageNumber.value - 1)
+          .getPageAyahsByIndex(quranCtrl.state.currentPageNumber.value - 1)
           .last
           .ayahNumber
       : endNum.value;
 
   int? get firstAyahUQ => startUQNum.value == 1
       ? quranCtrl
-          .getPageAyahsByIndex(generalCtrl.currentPageNumber.value - 1)
+          .getPageAyahsByIndex(quranCtrl.state.currentPageNumber.value - 1)
           .first
           .ayahUQNumber
       : startUQNum.value;
 
   int? get lastAyahUQ => endUQNum.value == 1
       ? quranCtrl
-          .getPageAyahsByIndex(generalCtrl.currentPageNumber.value - 1)
+          .getPageAyahsByIndex(quranCtrl.state.currentPageNumber.value - 1)
           .last
           .ayahUQNumber
       : endUQNum.value;
@@ -239,14 +239,14 @@ class PlayListController extends GetxController {
         endNum: lastAyah!,
         startUQNum: firstAyahUQ!,
         endUQNum: lastAyahUQ!,
-        surahNum: quranCtrl
-            .getSurahNumberFromPage(generalCtrl.currentPageNumber.value - 1),
+        surahNum: quranCtrl.getSurahNumberFromPage(
+            quranCtrl.state.currentPageNumber.value - 1),
         surahName: quranCtrl
-            .getCurrentSurahByPage(generalCtrl.currentPageNumber.value - 1)
+            .getCurrentSurahByPage(quranCtrl.state.currentPageNumber.value - 1)
             .arabicName,
         readerName: audioCtrl.state.readerValue!,
         name: quranCtrl
-            .getCurrentSurahByPage(generalCtrl.currentPageNumber.value - 1)
+            .getCurrentSurahByPage(quranCtrl.state.currentPageNumber.value - 1)
             .arabicName));
     PlayListStorage.savePlayList(playLists);
     print('playLists: ${playLists.length.toString()}');

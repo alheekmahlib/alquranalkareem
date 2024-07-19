@@ -1,3 +1,4 @@
+import 'package:alquranalkareem/presentation/screens/surah_audio/controller/extensions/surah_audio_ui.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
@@ -16,6 +17,13 @@ class LastListen extends StatelessWidget {
       enabled: true,
       label: 'lastListen'.tr,
       child: GestureDetector(
+        onTap: () {
+          surahAudioCtrl.jumpToSurah(surahAudioCtrl.state.surahNum.value - 1);
+          surahAudioCtrl
+              .lastAudioSource()
+              .then((_) => surahAudioCtrl.state.audioPlayer.play());
+          surahAudioCtrl.state.boxController.openBox();
+        },
         child: Container(
           width: 280.0,
           decoration: BoxDecoration(
@@ -59,7 +67,7 @@ class LastListen extends StatelessWidget {
                               const BorderRadius.all(Radius.circular(8))),
                       child: Obx(
                         () => SvgPicture.asset(
-                          'assets/svg/surah_name/00${surahAudioCtrl.state.surahNum}.svg',
+                          'assets/svg/surah_name/00${surahAudioCtrl.state.surahNum.value}.svg',
                           width: 110,
                           colorFilter: ColorFilter.mode(
                               Theme.of(context).colorScheme.secondary,
@@ -84,11 +92,6 @@ class LastListen extends StatelessWidget {
             ],
           ),
         ),
-        onTap: () {
-          surahAudioCtrl.state.controller
-              .jumpTo((surahAudioCtrl.state.surahNum.value - 1) * 80.0);
-          surahAudioCtrl.lastAudioSource();
-        },
       ),
     );
   }

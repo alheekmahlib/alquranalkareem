@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:alquranalkareem/core/utils/constants/svg_constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
@@ -31,15 +32,45 @@ extension ContextExtensions on BuildContext {
     );
   }
 
-  Widget customClose({var close, double? height}) {
+  Widget customClose({var close, double? height, double? width}) {
     return Semantics(
       button: true,
       label: 'Close',
       child: GestureDetector(
         child: SvgPicture.asset(
-          'assets/svg/close.svg',
+          SvgPath.svgClose,
           height: height ?? 30,
-          width: 30,
+          width: width ?? 30,
+        ),
+        onTap: close ??
+            () {
+              Get.back();
+            },
+      ),
+    );
+  }
+
+  Widget customArrowDown(
+      {var close, double? height, double? width, bool? isBorder}) {
+    return Semantics(
+      button: true,
+      label: 'Close',
+      child: GestureDetector(
+        child: Container(
+          height: height ?? 35,
+          width: width ?? 35,
+          padding: const EdgeInsets.all(6.0),
+          decoration: isBorder!
+              ? BoxDecoration(
+                  borderRadius: const BorderRadius.all(Radius.circular(8)),
+                  border: Border.all(
+                    color: Theme.of(this).colorScheme.primary,
+                    width: 1,
+                  ))
+              : null,
+          child: SvgPicture.asset(
+            SvgPath.svgArrowDown,
+          ),
         ),
         onTap: close ??
             () {

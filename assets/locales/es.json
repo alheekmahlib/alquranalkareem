@@ -1037,5 +1037,10 @@
   "@hasPassed": {
     "type": "text",
     "placeholders": {}
+  },
+  "downloading": "Descargando...",
+  "@downloading": {
+    "type": "text",
+    "placeholders": {}
   }
 }

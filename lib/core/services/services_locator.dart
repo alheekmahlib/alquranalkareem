@@ -6,6 +6,7 @@ import 'package:desktop_window/desktop_window.dart';
 import 'package:flutter_timezone/flutter_timezone.dart';
 import 'package:get/get.dart';
 import 'package:get_it/get_it.dart';
+import 'package:just_audio_background/just_audio_background.dart';
 import 'package:sqflite_common_ffi/sqflite_ffi.dart';
 import 'package:timezone/data/latest.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
@@ -174,6 +175,15 @@ class ServicesLocator {
 
     if (Platform.isIOS || Platform.isAndroid || Platform.isFuchsia) {
       UiHelper.rateMyApp.init();
+    }
+
+    if (Platform.isIOS) {
+      await JustAudioBackground.init(
+        androidNotificationChannelId:
+            'com.alheekmah.alquranalkareem.alquranalkareem',
+        androidNotificationChannelName: 'Audio playback',
+        androidNotificationOngoing: true,
+      );
     }
 
     // Workmanager().initialize(sl<NotificationController>().callbackDispatcher);

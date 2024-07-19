@@ -1,3 +1,4 @@
+import 'package:alquranalkareem/presentation/screens/surah_audio/controller/extensions/surah_audio_ui.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
@@ -58,8 +59,8 @@ class PlayBanner extends StatelessWidget {
           ),
         ),
         onTap: () {
-          sl<SurahAudioController>().state.controller.jumpTo(
-              (sl<SurahAudioController>().state.surahNum.value - 1) * 65.0);
+          sl<SurahAudioController>()
+              .jumpToSurah(sl<SurahAudioController>().state.surahNum.value - 1);
         },
       ),
     );

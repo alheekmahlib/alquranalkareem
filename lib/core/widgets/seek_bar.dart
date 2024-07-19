@@ -1,4 +1,6 @@
+import 'package:alquranalkareem/core/utils/constants/extensions/convert_number_extension.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import 'custom_paint/custom_slider.dart';
 
@@ -168,17 +170,19 @@ class _SliderWidgetState extends State<SliderWidget> {
                         horizontal: 8.0, vertical: 2.0),
                     decoration: BoxDecoration(
                       color: Theme.of(context).colorScheme.primary,
-                      borderRadius: const BorderRadius.only(
-                        topLeft: Radius.circular(4),
-                        bottomLeft: Radius.circular(4),
+                      borderRadius: const BorderRadius.all(
+                        Radius.circular(4),
                       ),
                     ),
                     child: Text(
-                        // TODO: add translations
-                        'Downloading...',
-                        style: TextStyle(
-                            color: widget.textColor ??
-                                Theme.of(context).canvasColor)),
+                      'downloading'.tr,
+                      style: TextStyle(
+                        color:
+                            widget.textColor ?? Theme.of(context).canvasColor,
+                        fontSize: 16,
+                        fontFamily: 'kufi',
+                      ),
+                    ),
                   )
                 : Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -194,13 +198,18 @@ class _SliderWidgetState extends State<SliderWidget> {
                           ),
                         ),
                         child: Text(
-                            RegExp(r'((^0*[1-9]\d*:)?\d{2}:\d{2})\.\d+$')
-                                    .firstMatch("$remaining")
-                                    ?.group(1) ??
-                                '$remaining',
-                            style: TextStyle(
-                                color: widget.textColor ??
-                                    Theme.of(context).canvasColor)),
+                          (RegExp(r'((^0*[1-9]\d*:)?\d{2}:\d{2})\.\d+$')
+                                      .firstMatch("$remaining")
+                                      ?.group(1) ??
+                                  '$remaining')
+                              .convertNumbers(),
+                          style: TextStyle(
+                            color: widget.textColor ??
+                                Theme.of(context).canvasColor,
+                            fontSize: 16,
+                            fontFamily: 'kufi',
+                          ),
+                        ),
                       ),
                       Container(
                         padding: const EdgeInsets.symmetric(
@@ -213,13 +222,18 @@ class _SliderWidgetState extends State<SliderWidget> {
                           ),
                         ),
                         child: Text(
-                            RegExp(r'((^0*[1-9]\d*:)?\d{2}:\d{2})\.\d+$')
-                                    .firstMatch("$total")
-                                    ?.group(1) ??
-                                '$total',
-                            style: TextStyle(
-                                color: widget.textColor ??
-                                    Theme.of(context).canvasColor)),
+                          (RegExp(r'((^0*[1-9]\d*:)?\d{2}:\d{2})\.\d+$')
+                                      .firstMatch("$total")
+                                      ?.group(1) ??
+                                  '$total')
+                              .convertNumbers(),
+                          style: TextStyle(
+                            color: widget.textColor ??
+                                Theme.of(context).canvasColor,
+                            fontSize: 16,
+                            fontFamily: 'kufi',
+                          ),
+                        ),
                       ),
                     ],
                   ),

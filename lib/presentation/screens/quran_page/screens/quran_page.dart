@@ -7,6 +7,7 @@ import '/core/utils/constants/extensions/convert_number_extension.dart';
 import '/core/utils/constants/extensions/sajda_extension.dart';
 import '/presentation/screens/quran_page/controllers/extensions/audio_ui.dart';
 import '/presentation/screens/quran_page/controllers/extensions/quran_getters.dart';
+import '/presentation/screens/quran_page/controllers/extensions/quran_ui.dart';
 import '../../../../core/services/services_locator.dart';
 import '../../../../core/utils/constants/extensions/extensions.dart';
 import '../../../../core/utils/helpers/responsive.dart';
@@ -46,12 +47,12 @@ class QuranPages extends StatelessWidget {
           child: Container(
             height: MediaQuery.sizeOf(context).height,
             child: PageView.builder(
-              controller: generalCtrl.pageController,
+              controller: quranCtrl.pageController,
               itemCount: 604,
               padEnds: false,
               scrollDirection: Axis.horizontal,
               physics: const ClampingScrollPhysics(),
-              onPageChanged: generalCtrl.pageChanged,
+              onPageChanged: quranCtrl.pageChanged,
               itemBuilder: (_, index) {
                 sl<TranslateDataController>().fetchTranslate(context);
                 log('width: ${MediaQuery.sizeOf(context).width}');

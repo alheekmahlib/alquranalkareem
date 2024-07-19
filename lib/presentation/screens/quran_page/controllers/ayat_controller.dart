@@ -1,3 +1,4 @@
+import 'package:alquranalkareem/core/utils/constants/extensions/surah_name_with_banner.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
@@ -7,7 +8,6 @@ import '/core/utils/constants/extensions/custom_error_snackBar.dart';
 import '/presentation/screens/quran_page/data/model/aya.dart';
 import '../../../../core/services/services_locator.dart';
 import '../../../../core/utils/constants/shared_preferences_constants.dart';
-import '../../../controllers/general_controller.dart';
 import '../data/data_source/baghawy_data_client.dart';
 import '../data/data_source/ibnkatheer_data_client.dart';
 import '../data/data_source/qurtubi_data_client.dart';
@@ -17,7 +17,6 @@ import '../data/model/tafsir.dart';
 import '../data/repository/ayat_repository.dart';
 import '../data/repository/tafseer_repository.dart';
 import '../widgets/show_tafseer.dart';
-import 'quran/quran_controller.dart';
 import 'translate_controller.dart';
 
 class AyatController extends GetxController {
@@ -173,8 +172,8 @@ class AyatController extends GetxController {
     surahNumber.value = surahNum;
     ayahTextNormal.value = ayahTextN;
     ayahUQNumber.value = ayahUQNum;
-    sl<GeneralController>().currentPageNumber.value = pageIndex;
-    sl<QuranController>().state.selectedAyahIndexes.clear();
+    quranCtrl.state.currentPageNumber.value = pageIndex;
+    quranCtrl.state.selectedAyahIndexes.clear();
     Get.bottomSheet(
       ShowTafseer(
         ayahUQNumber: ayahUQNum,

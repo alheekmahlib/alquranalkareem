@@ -4,6 +4,7 @@ import 'dart:ui';
 
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:dio/dio.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:just_audio/just_audio.dart';
@@ -44,6 +45,7 @@ class AudioState {
   RxBool selected = false.obs;
   RxInt readerIndex = 0.obs;
   RxBool isStartPlaying = false.obs;
+  RxBool isDirectPlaying = false.obs;
 
   /// wether the app should play next ayahs or not..
   bool playSingleAyahOnly = false;

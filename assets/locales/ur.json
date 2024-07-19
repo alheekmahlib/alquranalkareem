@@ -1049,5 +1049,10 @@
   "@hasPassed": {
     "type": "text",
     "placeholders": {}
+  },
+  "downloading": "ڈاؤن لوڈ ہو رہا ہے...",
+  "@downloading": {
+    "type": "text",
+    "placeholders": {}
   }
 }

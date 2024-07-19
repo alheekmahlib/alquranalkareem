@@ -12,6 +12,11 @@ class QuranState {
   List<List<Ayah>> pages = [];
   List<Ayah> allAyahs = [];
 
+  /// Page Controller
+  PageController quranPageController = PageController();
+
+  RxInt currentPageNumber = 1.obs;
+  RxInt lastReadSurahNumber = 1.obs;
   var selectedAyahIndexes = <int>[].obs;
   bool isSelected = false;
   final ScrollController scrollIndicatorController = ScrollController();
@@ -37,4 +42,8 @@ class QuranState {
   // Assuming `lastDisplayedHizbQuarter` is a class variable that keeps track of the last displayed Hizb quarter.
   int? lastDisplayedHizbQuarter;
   Map<int, int> pageToHizbQuarterMap = {};
+
+  double surahItemHeight = 90.0;
+  ScrollController? surahController;
+  ScrollController? juzListController;
 }

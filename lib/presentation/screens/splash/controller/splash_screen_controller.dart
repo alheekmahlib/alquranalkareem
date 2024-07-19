@@ -39,6 +39,7 @@ class SplashScreenController extends GetxController {
       sl<SettingsController>().loadLang(),
       sl<GeneralController>().getLastPageAndFontSize(),
       sl<QuranController>().loadSwitchValue(),
+      sl<QuranController>().getLastPage(),
     ]);
     sl<GeneralController>().updateGreeting();
     sl<AudioController>().loadQuranReader();

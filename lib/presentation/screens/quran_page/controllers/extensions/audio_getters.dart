@@ -25,7 +25,7 @@ extension AudioGetters on AudioController {
   MediaItem get mediaItemForCurrentAyah => MediaItem(
         id: '${state.currentAyahUQInPage.value}',
         title:
-            '${sl<QuranController>().getPageAyahsByIndex(generalCtrl.currentPageNumber.value - 1).firstWhere((a) => a.ayahUQNumber == state.currentAyahUQInPage.value).text}',
+            '${sl<QuranController>().getPageAyahsByIndex(quranCtrl.state.currentPageNumber.value - 1).firstWhere((a) => a.ayahUQNumber == state.currentAyahUQInPage.value).text}',
         artist: '${ayahReaderInfo[state.readerIndex.value]['name']}'.tr,
         artUri: state.cachedArtUri,
       );
@@ -46,12 +46,13 @@ extension AudioGetters on AudioController {
   int get currentAyahInPage => state.selectedAyahNum.value == 1
       ? quranCtrl.state.allAyahs
           .firstWhere(
-              (ayah) => ayah.page == generalCtrl.currentPageNumber.value)
+              (ayah) => ayah.page == quranCtrl.state.currentPageNumber.value)
           .ayahNumber
       : state.selectedAyahNum.value;
 
   int get currentSurahNumInPage => state.currentSurahNumInPage.value == 1
-      ? quranCtrl.getSurahNumberFromPage(generalCtrl.currentPageNumber.value)
+      ? quranCtrl
+          .getSurahNumberFromPage(quranCtrl.state.currentPageNumber.value)
       : state.currentSurahNumInPage.value;
 
   Stream<PositionData> get positionDataStream =>
@@ -64,21 +65,21 @@ extension AudioGetters on AudioController {
 
   bool get isLastAyahInPage =>
       quranCtrl
-          .getPageAyahsByIndex(generalCtrl.currentPageNumber.value - 1)
+          .getPageAyahsByIndex(quranCtrl.state.currentPageNumber.value - 1)
           .last
           .ayahUQNumber ==
       state.currentAyahUQInPage.value;
 
   bool get isFirstAyahInPage =>
       quranCtrl
-          .getPageAyahsByIndex(generalCtrl.currentPageNumber.value - 1)
+          .getPageAyahsByIndex(quranCtrl.state.currentPageNumber.value - 1)
           .first
           .ayahUQNumber ==
       state.currentAyahUQInPage.value;
 
   bool get isLastAyahInSurah =>
       quranCtrl
-          .getCurrentSurahByPage(generalCtrl.currentPageNumber.value - 1)
+          .getCurrentSurahByPage(quranCtrl.state.currentPageNumber.value - 1)
           .ayahs
           .last
           .ayahUQNumber ==
@@ -86,7 +87,7 @@ extension AudioGetters on AudioController {
 
   bool get isFirstAyahInSurah =>
       quranCtrl
-          .getCurrentSurahByPage(generalCtrl.currentPageNumber.value - 1)
+          .getCurrentSurahByPage(quranCtrl.state.currentPageNumber.value - 1)
           .ayahs
           .first
           .ayahUQNumber ==
