@@ -195,18 +195,18 @@ class AudioController extends GetxController {
 
   Future<void> moveToNextPage({bool withScroll = true}) async {
     if (withScroll) {
-      await generalCtrl.quranPageController.animateToPage(
-          (generalCtrl.currentPageNumber.value),
+      await quranCtrl.state.quranPageController.animateToPage(
+          (quranCtrl.state.currentPageNumber.value),
           duration: const Duration(milliseconds: 600),
           curve: Curves.easeInOut);
-      log('Going To Next Page at: ${generalCtrl.currentPageNumber.value} ');
+      log('Going To Next Page at: ${quranCtrl.state.currentPageNumber.value} ');
     }
   }
 
   void moveToPreviousPage({bool withScroll = true}) {
     if (withScroll) {
-      generalCtrl.quranPageController.animateToPage(
-          (generalCtrl.currentPageNumber.value - 2),
+      quranCtrl.state.quranPageController.animateToPage(
+          (quranCtrl.state.currentPageNumber.value - 2),
           duration: const Duration(milliseconds: 600),
           curve: Curves.easeInOut);
     }
@@ -244,7 +244,10 @@ class AudioController extends GetxController {
 
         // quranCtrl.state.clearAndAddSelection(state.currentAyahUQInPage.value -= 1);
         await state.audioPlayer.setAudioSource(
-          initialIndex: state.selectedAyahNum.value - 1,
+          // TODO: this initialIndex need fix
+          initialIndex: state.isDirectPlaying.value
+              ? currentAyahInPage
+              : state.selectedAyahNum.value - 1,
           ConcatenatingAudioSource(
             children: List.generate(
               ayahsFilesNames.length,
@@ -325,8 +328,8 @@ class AudioController extends GetxController {
     } else {
       state.currentAyahUQInPage.value = state.currentAyahUQInPage.value == 1
           ? quranCtrl.state.allAyahs
-              .firstWhere(
-                  (ayah) => ayah.page == generalCtrl.currentPageNumber.value)
+              .firstWhere((ayah) =>
+                  ayah.page == quranCtrl.state.currentPageNumber.value)
               .ayahUQNumber
           : state.currentAyahUQInPage.value;
     }
@@ -414,7 +417,7 @@ class AudioController extends GetxController {
     state.connectionStatus = result;
     update();
     // ignore: avoid_print
-    print('Connectivity changed: $state.connectionStatus');
+    print('Connectivity changed: ${state.connectionStatus}');
   }
 
   void didChangeAppLifecycleState(AppLifecycleState states) {

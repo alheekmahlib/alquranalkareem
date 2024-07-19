@@ -33,6 +33,10 @@ class SvgPath {
   /// assets/svg/alwaqf/05.svg
   static const String svgAlwaqf05 = "assets/svg/alwaqf/05.svg";
 
+  /// Assets for svgArrowDown
+  /// assets/svg/arrow_down.svg
+  static const String svgArrowDown = "assets/svg/arrow_down.svg";
+
   /// Assets for svgAyahBookmarked
   /// assets/svg/ayah_bookmarked.svg
   static const String svgAyahBookmarked = "assets/svg/ayah_bookmarked.svg";

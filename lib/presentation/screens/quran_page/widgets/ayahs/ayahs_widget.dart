@@ -87,7 +87,7 @@ class AyahsWidget extends StatelessWidget {
                   : ScrollablePositionedList.builder(
                       shrinkWrap: false,
                       initialScrollIndex:
-                          generalCtrl.currentPageNumber.value - 1,
+                          quranCtrl.state.currentPageNumber.value - 1,
                       itemScrollController:
                           quranCtrl.state.itemScrollController,
                       itemPositionsListener:

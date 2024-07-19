@@ -1,8 +1,11 @@
 import 'dart:math' as math;
 
 import 'package:collection/collection.dart';
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import '/core/utils/constants/extensions/convert_number_extension.dart';
+import '../../../../../core/utils/helpers/responsive.dart';
 import '../../data/model/surahs_model.dart';
 import '../quran/quran_controller.dart';
 
@@ -133,7 +136,7 @@ extension QuranGetters on QuranController {
   }
 
   List<Ayah> get currentPageAyahs =>
-      state.pages[generalCtrl.currentPageNumber.value - 1];
+      state.pages[state.currentPageNumber.value - 1];
 
   Ayah? getAyahWithSajdaInPage(int pageIndex) =>
       state.pages[pageIndex].firstWhereOrNull((ayah) {
@@ -150,4 +153,42 @@ extension QuranGetters on QuranController {
         }
         return state.isSajda.value = false;
       });
+
+  RxBool getCurrentSurahNumber(int surahNum) =>
+      getCurrentSurahByPage(state.currentPageNumber.value).surahNumber - 1 ==
+              surahNum
+          ? true.obs
+          : false.obs;
+
+  RxBool getCurrentJuzNumber(int juzNum) =>
+      getJuzByPage(state.currentPageNumber.value).juz - 1 == juzNum
+          ? true.obs
+          : false.obs;
+
+  PageController get pageController {
+    return state.quranPageController = PageController(
+        viewportFraction: Responsive.isDesktop(Get.context!) ? 1 / 2 : 1,
+        initialPage: state.currentPageNumber.value - 1,
+        keepPage: true);
+  }
+
+  ScrollController get surahController {
+    if (state.surahController == null) {
+      state.surahController = ScrollController(
+        initialScrollOffset: state.surahItemHeight *
+            getCurrentSurahByPage(state.currentPageNumber.value).surahNumber,
+      );
+    }
+    return state.surahController!;
+  }
+
+  ScrollController get juzController {
+    if (state.juzListController == null) {
+      state.juzListController = ScrollController(
+        initialScrollOffset: state.surahItemHeight *
+            getJuzByPage(state.currentPageNumber.value).juz,
+      );
+    }
+    return state.juzListController!;
+  }
 }

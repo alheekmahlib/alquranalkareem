@@ -126,7 +126,7 @@ class TopTitleWidget extends StatelessWidget {
         label: 'Add Bookmark',
         child: SvgPicture.asset(
           sl<BookmarksController>().isPageBookmarked(
-                  pageNum ?? sl<GeneralController>().currentPageNumber.value)
+                  pageNum ?? quranCtrl.state.currentPageNumber.value)
               ? 'assets/svg/bookmarked.svg'
               : Get.context!.bookmarkPageIconPath(),
           width: width,

@@ -55,7 +55,7 @@ class AyahsChoiceWidget extends StatelessWidget {
                         ),
                         Obx(
                           () => Text(
-                            '${quranCtrl.getCurrentSurahByPage(generalCtrl.currentPageNumber.value - 1).arabicName.replaceAll('سُورَةُ ', '')} | ${generalCtrl.arabicNumber.convert(playList.firstAyah)}',
+                            '${quranCtrl.getCurrentSurahByPage(quranCtrl.state.currentPageNumber.value - 1).arabicName.replaceAll('سُورَةُ ', '')} | ${generalCtrl.arabicNumber.convert(playList.firstAyah)}',
                             style: TextStyle(
                               fontFamily: 'kufi',
                               fontSize: 16,
@@ -118,7 +118,7 @@ class AyahsChoiceWidget extends StatelessWidget {
                           ),
                         ),
                         Text(
-                          '${quranCtrl.getCurrentSurahByPage(generalCtrl.currentPageNumber.value - 1).arabicName.replaceAll('سُورَةُ ', '')} | ${generalCtrl.arabicNumber.convert(playList.lastAyah)}',
+                          '${quranCtrl.getCurrentSurahByPage(quranCtrl.state.currentPageNumber.value - 1).arabicName.replaceAll('سُورَةُ ', '')} | ${generalCtrl.arabicNumber.convert(playList.lastAyah)}',
                           style: TextStyle(
                             fontFamily: 'kufi',
                             fontSize: 16,

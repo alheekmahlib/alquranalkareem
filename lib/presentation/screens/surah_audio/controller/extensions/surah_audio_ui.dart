@@ -27,8 +27,8 @@ extension SurahAudioUi on SurahAudioController {
 
   void changeReadersOnTap(int index) {
     initializeSurahDownloadStatus();
-    state.sorahReaderValue.value = surahReaderInfo[index]['readerD'];
-    state.sorahReaderNameValue.value = surahReaderInfo[index]['readerN'];
+    state.surahReaderValue.value = surahReaderInfo[index]['readerD'];
+    state.surahReaderNameValue.value = surahReaderInfo[index]['readerN'];
     state.box
         .write(SURAH_AUDIO_PLAYER_SOUND, surahReaderInfo[index]['readerD']);
     state.box.write(SURAH_AUDIO_PLAYER_NAME, surahReaderInfo[index]['readerN']);
@@ -45,16 +45,30 @@ extension SurahAudioUi on SurahAudioController {
         .removeDiacritics(surah.arabicName)
         .contains(searchInput));
     developer.log('surahNumber: $index');
-    if (index != -1) {
-      state.controller.jumpTo(index * 80.0);
+    if (index != -1 || state.surahListController != false) {
+      jumpToSurah(index);
       state.selectedSurah.value = index;
     }
   }
 
+  // ItemScrollController get surahController {
+  //   if (state.surahListController!.isAttached) {
+  //     state.surahListController!.jumpTo(index: state.surahNum.value - 1);
+  //     // = ItemScrollController(
+  //     //     initialScrollOffset: 73.0 * state.surahNum.value - 1,
+  //     //   );
+  //   }
+  //   return state.surahListController!;
+  // }
+
+  void jumpToSurah(int index) {
+    state.surahListController.jumpTo(index: index);
+  }
+
   void loadSurahReader() {
-    state.sorahReaderValue.value =
+    state.surahReaderValue.value =
         state.box.read(SURAH_AUDIO_PLAYER_SOUND) ?? UrlConstants.ayahs3rdSource;
-    state.sorahReaderNameValue.value =
+    state.surahReaderNameValue.value =
         state.box.read(SURAH_AUDIO_PLAYER_NAME) ?? 'abdul_basit_murattal/';
     state.surahReaderIndex.value = state.box.read(SURAH_READER_INDEX) ?? 0;
   }

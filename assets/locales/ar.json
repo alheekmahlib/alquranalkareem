@@ -1043,5 +1043,10 @@
   "@hasPassed": {
     "type": "text",
     "placeholders": {}
+  },
+  "downloading": "جارِ التحميل...",
+  "@downloading": {
+    "type": "text",
+    "placeholders": {}
   }
 }

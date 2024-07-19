@@ -40,6 +40,7 @@ class PlayButton extends StatelessWidget {
       onTap: () {
         sl<AudioController>().startPlayingToggle();
         sl<QuranController>().state.isPlayExpanded.value = true;
+        sl<AudioController>().state.isDirectPlaying.value = false;
         debugPrint('SurahNum: $surahNum');
         sl<AudioController>()
             .playAyahOnTap(surahNum, ayahNum, ayahUQNum, singleAyahOnly);

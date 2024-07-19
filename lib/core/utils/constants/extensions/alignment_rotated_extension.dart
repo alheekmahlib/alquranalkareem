@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+const rtlLang = ['العربية', 'עברית', 'فارسی', 'اردو', 'کوردی'];
+
 extension StringExtension on String {
   bool isRtlLanguage() {
-    const rtlLang = ['العربية', 'עברית', 'فارسی', 'اردو', 'کوردی'];
     return rtlLang.contains(this);
   }
 
   bool isRtlLanguageWPassLang(String language) {
-    const rtlLang = ['العربية', 'עברית', 'فارسی', 'اردو', 'کوردی'];
     return rtlLang.contains(language);
   }
 }

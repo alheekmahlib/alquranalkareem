@@ -3,12 +3,11 @@ import 'dart:developer';
 import 'dart:io';
 
 import 'package:connectivity_plus/connectivity_plus.dart';
-import 'package:dio/dio.dart';
+import 'package:dio/dio.dart' as d;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:just_audio/just_audio.dart';
-import 'package:just_audio_background/just_audio_background.dart';
 import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
 
@@ -34,7 +33,6 @@ class SurahAudioController extends GetxController {
     loadLastSurahListen();
     loadLastSurahAndPosition();
     loadSurahReader();
-    loadLastSurahListen();
     state.surahsPlayList = List.generate(114, (i) {
       state.surahNum.value = i + 1;
       return AudioSource.uri(
@@ -44,20 +42,14 @@ class SurahAudioController extends GetxController {
     state.connectivitySubscription = state.connectivity.onConnectivityChanged
         .listen(_updateConnectionStatus);
     initConnectivity();
-    if (Platform.isIOS) {
-      await JustAudioBackground.init(
-        androidNotificationChannelId:
-            'com.alheekmah.alquranalkareem.alquranalkareem',
-        androidNotificationChannelName: 'Audio playback',
-        androidNotificationOngoing: true,
-      );
-    }
+    Future.delayed(const Duration(milliseconds: 500))
+        .then((_) => jumpToSurah(state.surahNum.value - 1));
   }
 
   @override
   void onClose() {
     state.audioPlayer.dispose();
-    state.controller.dispose();
+    // state.surahListController!.dispose();
     state.connectivitySubscription.cancel();
     state.audioPlayer.pause();
     state.boxController.dispose();
@@ -112,30 +104,42 @@ class SurahAudioController extends GetxController {
         .then((_) => state.audioPlayer.play());
   }
 
+  Future<void> _addFileAudioSourceToPlayList(String filePath) async {
+    state.downloadSurahsPlayList.add({
+      state.surahNum.value: AudioSource.file(
+        filePath,
+        tag: await mediaItem,
+      )
+    });
+  }
+
+  /// -------- [DownloadingMethods] ----------
+
   Future<void> downloadSurah() async {
-    File file = File(await localFilePath);
-    print("File Path: $localFilePath");
+    String filePath = await localFilePath;
+    File file = File(filePath);
+    log("File Path: $filePath");
     state.isPlaying.value = true;
     if (await file.exists()) {
-      print("File exists. Playing...");
+      log("File exists. Playing...");
 
       await state.audioPlayer.setAudioSource(AudioSource.file(
-        await localFilePath,
+        filePath,
         tag: await mediaItem,
       ));
       state.audioPlayer.play();
     } else {
-      print("File doesn't exist. Downloading...");
-      print("state.sorahReaderNameValue: ${state.sorahReaderNameValue.value}");
-      print("Downloading from URL: $urlFilePath");
-      if (await downloadFile(await localFilePath, urlFilePath)) {
-        _addFileAudioSourceToPlayList(await localFilePath);
+      log("File doesn't exist. Downloading...");
+      log("state.sorahReaderNameValue: ${state.surahReaderNameValue.value}");
+      log("Downloading from URL: $urlFilePath");
+      if (await downloadFile(filePath, urlFilePath)) {
+        _addFileAudioSourceToPlayList(filePath);
         onDownloadSuccess(
             int.parse(state.surahNum.value.toString().padLeft(3, "0")));
-        print("File successfully downloaded and saved to ${localFilePath}");
+        log("File successfully downloaded and saved to $filePath");
         await state.audioPlayer
             .setAudioSource(AudioSource.file(
-              await localFilePath,
+              filePath,
               tag: await mediaItem,
             ))
             .then((_) => state.audioPlayer.play());
@@ -149,47 +153,65 @@ class SurahAudioController extends GetxController {
   }
 
   Future<bool> downloadFile(String path, String url) async {
-    Dio dio = Dio();
-    state.cancelToken = CancelToken();
-    try {
-      try {
-        await Directory(dirname(path)).create(recursive: true);
-        state.onDownloading.value = true;
-        state.progressString.value = "0";
-        state.progress.value = 0;
+    d.Dio dio = d.Dio();
+    state.cancelToken = d.CancelToken();
 
-        await dio.download(url, path, onReceiveProgress: (rec, total) {
-          state.progressString.value = ((rec / total) * 100).toStringAsFixed(0);
-          state.progress.value = (rec / total).toDouble();
-          print(state.progressString.value);
-        }, cancelToken: state.cancelToken);
-      } catch (e) {
-        if (e is DioException && e.type == DioExceptionType.cancel) {
-          print('Download canceled');
-          // Delete the partially downloaded file
-          try {
-            final file = File(path);
-            if (await file.exists()) {
-              await file.delete();
-              state.onDownloading.value = false;
-              print('Partially downloaded file deleted');
-            }
-          } catch (e) {
-            print('Error deleting partially downloaded file: $e');
-          }
-          return false;
-        } else {
-          print(e);
-        }
+    try {
+      // الحصول على حجم الملف قبل التحميل
+      d.Response response = await dio.head(url);
+      int? contentLength =
+          response.headers.value(HttpHeaders.contentLengthHeader) != null
+              ? int.tryParse(
+                  response.headers.value(HttpHeaders.contentLengthHeader)!)
+              : null;
+
+      if (contentLength != null) {
+        state.fileSize.value = contentLength;
+        log('File size: $contentLength bytes');
+      } else {
+        log('Could not determine file size.');
       }
+
+      await Directory(dirname(path)).create(recursive: true);
+      state.onDownloading.value = true;
+      state.progressString.value = "0";
+      state.progress.value = 0;
+
+      await dio.download(url, path, onReceiveProgress: (rec, total) {
+        state.progressString.value = ((rec / total) * 100).toStringAsFixed(0);
+        state.progress.value = (rec / total).toDouble();
+        // log(message)(state.progressString.value);
+
+        state.downloadProgress.value = rec;
+        // update();
+      }, cancelToken: state.cancelToken);
+
       state.onDownloading.value = false;
       state.progressString.value = "100";
-      print("Download completed for $path");
+      log("Download completed for $path");
       return true;
     } catch (e) {
-      print("Error isDownloading: $e");
+      if (e is d.DioException && e.type == d.DioExceptionType.cancel) {
+        log('Download canceled');
+        // Delete the partially downloaded file
+        try {
+          final file = File(path);
+          if (await file.exists()) {
+            await file.delete();
+            state.onDownloading.value = false;
+            log('Partially downloaded file deleted');
+          }
+        } catch (e) {
+          log('Error deleting partially downloaded file: $e');
+        }
+        return false;
+      } else {
+        print(e);
+      }
+      state.onDownloading.value = false;
+      state.progressString.value = "0";
+      return false;
     }
-    return false;
   }
 
   void initializeSurahDownloadStatus() async {
@@ -217,7 +239,7 @@ class SurahAudioController extends GetxController {
 
     for (int i = 1; i <= 114; i++) {
       String filePath =
-          '${directory.path}/${state.sorahReaderNameValue.value}${i.toString().padLeft(3, '0')}.mp3';
+          '${directory.path}/${state.surahReaderNameValue.value}${i.toString().padLeft(3, '0')}.mp3';
       File file = File(filePath);
       surahDownloadStatus[i] = await file.exists();
     }
@@ -238,12 +260,12 @@ class SurahAudioController extends GetxController {
     Directory? directory = await getApplicationDocumentsDirectory();
     for (int i = 1; i <= 114; i++) {
       String filePath =
-          '${directory.path}/${state.sorahReaderNameValue.value}${i.toString().padLeft(3, "0")}.mp3';
+          '${directory.path}/${state.surahReaderNameValue.value}${i.toString().padLeft(3, "0")}.mp3';
 
       File file = File(filePath);
 
       if (await file.exists()) {
-        // print("File Path: $file");
+        // log(message)("File Path: $file");
         state.downloadSurahsPlayList.add({
           i: AudioSource.file(
             filePath,
@@ -251,18 +273,9 @@ class SurahAudioController extends GetxController {
           )
         });
       } else {
-        // print("iiiiiiiiii $i");
+        // log(message)("iiiiiiiiii $i");
       }
     }
-  }
-
-  Future<void> _addFileAudioSourceToPlayList(String filePath) async {
-    state.downloadSurahsPlayList.add({
-      state.surahNum.value: AudioSource.file(
-        filePath,
-        tag: await mediaItem,
-      )
-    });
   }
 
   String formatDuration(Duration duration) {
@@ -282,8 +295,10 @@ class SurahAudioController extends GetxController {
     if (states == AppLifecycleState.paused) {
       state.audioPlayer.pause();
     }
-    //print('state = $state');
+    //log(message)('state = $state');
   }
+
+  /// -------- [ConnectivityMethods] ----------
 
   // Platform messages are asynchronous, so we initialize in an async method.
   Future<void> initConnectivity() async {
@@ -309,7 +324,7 @@ class SurahAudioController extends GetxController {
   Future<void> _updateConnectionStatus(List<ConnectivityResult> result) async {
     state.connectionStatus = result;
     update();
-    // ignore: avoid_print
-    print('Connectivity changed: $state.connectionStatus');
+    // ignore: avoid_log(message)
+    log('Connectivity changed: ${state.connectionStatus}');
   }
 }

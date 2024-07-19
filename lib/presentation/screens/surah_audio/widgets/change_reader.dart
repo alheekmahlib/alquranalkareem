@@ -50,7 +50,7 @@ class ChangeSurahReader extends StatelessWidget {
                   title: Text(
                     '${surahReaderInfo[index]['name']}'.tr,
                     style: TextStyle(
-                        color: surahAudioCtrl.state.sorahReaderNameValue ==
+                        color: surahAudioCtrl.state.surahReaderNameValue ==
                                 surahReaderInfo[index]['readerN']
                             ? Theme.of(context).colorScheme.inversePrimary
                             : const Color(0xffcdba72),
@@ -63,13 +63,13 @@ class ChangeSurahReader extends StatelessWidget {
                     decoration: BoxDecoration(
                       shape: BoxShape.circle,
                       border: Border.all(
-                          color: surahAudioCtrl.state.sorahReaderNameValue ==
+                          color: surahAudioCtrl.state.surahReaderNameValue ==
                                   surahReaderInfo[index]['readerN']
                               ? Theme.of(context).colorScheme.inversePrimary
                               : const Color(0xffcdba72),
                           width: 2),
                     ),
-                    child: surahAudioCtrl.state.sorahReaderNameValue ==
+                    child: surahAudioCtrl.state.surahReaderNameValue ==
                             surahReaderInfo[index]['readerN']
                         ? Icon(Icons.done,
                             size: 14,
@@ -85,7 +85,7 @@ class ChangeSurahReader extends StatelessWidget {
                           image: AssetImage(
                               'assets/images/${surahReaderInfo[index]['readerI']}.jpg'),
                           fit: BoxFit.fitWidth,
-                          opacity: surahAudioCtrl.state.sorahReaderNameValue ==
+                          opacity: surahAudioCtrl.state.surahReaderNameValue ==
                                   surahReaderInfo[index]['readerN']
                               ? 1
                               : .4,

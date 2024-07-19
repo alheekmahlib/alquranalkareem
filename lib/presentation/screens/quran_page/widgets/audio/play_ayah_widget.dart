@@ -56,6 +56,7 @@ class PlayAyah extends StatelessWidget {
                       height: 25,
                     ),
                     onTap: () async {
+                      audioCtrl.state.isDirectPlaying.value = true;
                       sl<QuranController>().state.isPlayExpanded.value = true;
                       audioCtrl.playAyah();
                     },

@@ -13,7 +13,6 @@ import 'package:share_plus/share_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '/presentation/screens/home/home_screen.dart';
-import '/presentation/screens/quran_page/controllers/extensions/quran_getters.dart';
 import '../../core/services/services_locator.dart';
 import '../../core/utils/constants/shared_preferences_constants.dart';
 import '../../core/utils/helpers/responsive.dart';
@@ -21,11 +20,7 @@ import '../../core/widgets/ramadan_greeting.dart';
 import '../../core/widgets/time_now.dart';
 import '../screens/adhkar/screens/adhkar_view.dart';
 import '../screens/books/screens/books_screen.dart';
-import '../screens/quran_page/controllers/audio/audio_controller.dart';
 import '../screens/quran_page/controllers/ayat_controller.dart';
-import '../screens/quran_page/controllers/bookmarks_controller.dart';
-import '../screens/quran_page/controllers/playList_controller.dart';
-import '../screens/quran_page/controllers/quran/quran_controller.dart';
 import '../screens/quran_page/screens/quran_home.dart';
 import '../screens/surah_audio/audio_surah.dart';
 import 'theme_controller.dart';
@@ -38,18 +33,11 @@ class GeneralController extends GetxController {
       GlobalKey<NavigatorState>();
   final box = GetStorage();
 
-  /// Page Controller
-  PageController quranPageController = PageController();
-
-  RxInt currentPageNumber = 1.obs;
-  RxInt lastReadSurahNumber = 1.obs;
   RxDouble fontSizeArabic = 20.0.obs;
   RxBool isShowControl = true.obs;
   RxString greeting = ''.obs;
   TimeNow timeNow = TimeNow();
-  final ScrollController surahListController = ScrollController();
   final ScrollController ayahListController = ScrollController();
-  double surahItemHeight = 65.0;
   double ayahItemWidth = 30.0;
   ArabicNumbers arabicNumber = ArabicNumbers();
   // final sl<ThemeController>() = sl<ThemeController>();
@@ -91,8 +79,6 @@ class GeneralController extends GetxController {
 
   Future<void> getLastPageAndFontSize() async {
     try {
-      currentPageNumber.value = box.read(MSTART_PAGE) ?? 1;
-      lastReadSurahNumber.value = box.read(MLAST_URAH) ?? 1;
       double fontSizeFromPref = box.read(FONT_SIZE) ?? 24.0;
       if (fontSizeFromPref != 0.0 && fontSizeFromPref > 0) {
         fontSizeArabic.value = fontSizeFromPref;
@@ -104,29 +90,11 @@ class GeneralController extends GetxController {
     }
   }
 
-  Future<void> pageChanged(int index) async {
-    currentPageNumber.value = index + 1;
-    sl<PlayListController>().reset();
-    isShowControl.value = false;
-    sl<AyatController>().isSelected.value = (-1.0);
-    sl<AudioController>().state.pageAyahNumber = '0';
-    sl<BookmarksController>().getBookmarks();
-    lastReadSurahNumber.value =
-        sl<QuranController>().getSurahNumberFromPage(index);
-    box.write(MSTART_PAGE, index + 1);
-    box.write(MLAST_URAH, lastReadSurahNumber.value);
-  }
-
   /// Greeting
   updateGreeting() {
     final now = DateTime.now();
     final isMorning = now.hour < 12;
     greeting.value = isMorning ? 'صبحكم الله بالخير' : 'مساكم الله بالخير';
-  }
-
-  scrollToSurah(int surahNumber) {
-    double position = (surahNumber - 1) * surahItemHeight;
-    surahListController.jumpTo(position);
   }
 
   // int get surahNumber => sl<QuranController>()
@@ -153,13 +121,6 @@ class GeneralController extends GetxController {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       scrollToAyah(sl<AyatController>().isSelected.value.toInt());
     });
-  }
-
-  PageController get pageController {
-    return quranPageController = PageController(
-        viewportFraction: Responsive.isDesktop(Get.context!) ? 1 / 2 : 1,
-        initialPage: sl<GeneralController>().currentPageNumber.value - 1,
-        keepPage: true);
   }
 
   Widget screenSelect() {

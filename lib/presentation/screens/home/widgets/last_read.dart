@@ -26,8 +26,8 @@ class LastRead extends StatelessWidget {
     return GestureDetector(
       onTap: () {
         Get.to(() => QuranHome(), transition: Transition.downToUp)!.then(
-            (value) => quranCtrl
-                .changeSurahListOnTap(generalCtrl.currentPageNumber.value + 1));
+            (value) => quranCtrl.changeSurahListOnTap(
+                quranCtrl.state.currentPageNumber.value + 1));
       },
       child: Container(
         height: 125,
@@ -66,7 +66,7 @@ class LastRead extends StatelessWidget {
                     //   foregrondColor:
                     //       Theme.of(context).colorScheme.surface.withOpacity(.5),
                     //   ratio: generalCtrl.calculateProgress(
-                    //       generalCtrl.currentPageNumber.value, 604),
+                    //       quranCtrl.state.currentPageNumber.value, 604),
                     //   direction: Axis.horizontal,
                     //   reverseAlignment: true,
                     //   curve: Curves.fastLinearToSlowEaseIn,
@@ -76,7 +76,7 @@ class LastRead extends StatelessWidget {
                     Container(
                       height: 70,
                       width: countdownCtrl.calculateProgress(
-                          generalCtrl.currentPageNumber.value, 604),
+                          quranCtrl.state.currentPageNumber.value, 604),
                       padding: const EdgeInsets.symmetric(horizontal: 8.0),
                       decoration: BoxDecoration(
                           color: Theme.of(context)
@@ -94,7 +94,7 @@ class LastRead extends StatelessWidget {
                             Expanded(
                               flex: 4,
                               child: SvgPicture.asset(
-                                'assets/svg/surah_name/00${generalCtrl.lastReadSurahNumber.value}.svg',
+                                'assets/svg/surah_name/00${quranCtrl.state.lastReadSurahNumber.value}.svg',
                                 height: 60,
                                 colorFilter: ColorFilter.mode(
                                     Theme.of(context).cardColor,
@@ -113,7 +113,7 @@ class LastRead extends StatelessWidget {
                                     child: FittedBox(
                                       fit: BoxFit.scaleDown,
                                       child: Text(
-                                        '${'pageNo'.tr}: ${generalCtrl.currentPageNumber.value.toString().convertNumbers()}',
+                                        '${'pageNo'.tr}: ${quranCtrl.state.currentPageNumber.value.toString().convertNumbers()}',
                                         style: TextStyle(
                                             fontSize: 18.0,
                                             fontFamily: 'naskh',

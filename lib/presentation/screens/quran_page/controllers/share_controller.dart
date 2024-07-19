@@ -12,9 +12,9 @@ import 'package:share_plus/share_plus.dart';
 import '../../../../core/services/services_locator.dart';
 import '../../../../core/utils/constants/lists.dart';
 import '../../../../core/utils/constants/shared_preferences_constants.dart';
-import '../../../controllers/general_controller.dart';
 import '../data/model/tafsir.dart';
 import 'ayat_controller.dart';
+import 'quran/quran_controller.dart';
 import 'translate_controller.dart';
 
 class ShareController extends GetxController {
@@ -62,8 +62,8 @@ class ShareController extends GetxController {
     currentTranslate.value = shareTranslateName[selectedIndex];
     sl<TranslateDataController>().shareTranslateHandleRadioValue(selectedIndex);
     if (isTafseer.value) {
-      await sl<AyatController>()
-          .fetchTafseerPage(sl<GeneralController>().currentPageNumber.value);
+      await sl<AyatController>().fetchTafseerPage(
+          sl<QuranController>().state.currentPageNumber.value);
       sl<AyatController>().ayahsTafseer(verseUQNumber, surahNumber);
     } else {
       sl<TranslateDataController>().fetchTranslate(context);
@@ -77,8 +77,8 @@ class ShareController extends GetxController {
         sl<TranslateDataController>().shareTransValue.value == 8) {
       sl<AyatController>().dBName = sl<AyatController>().saadiClient?.database;
       sl<AyatController>().selectedDBName = MufaserName.saadi.name;
-      sl<AyatController>()
-          .fetchTafseerPage(sl<GeneralController>().currentPageNumber.value);
+      sl<AyatController>().fetchTafseerPage(
+          sl<QuranController>().state.currentPageNumber.value);
       sl<AyatController>().ayahsTafseer(ayahUQNum, surahNum);
     }
   }

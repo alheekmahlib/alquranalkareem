@@ -89,8 +89,9 @@ class AudioWidget extends StatelessWidget {
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              context.customClose(
-                                height: 20,
+                              context.customArrowDown(
+                                height: 26,
+                                isBorder: false,
                                 close: () => quranCtrl
                                     .state.isPlayExpanded.value = false,
                               ),
@@ -117,17 +118,15 @@ class AudioWidget extends StatelessWidget {
                         Directionality(
                           textDirection: TextDirection.rtl,
                           child: Container(
-                            height: 66,
+                            height: 67,
                             alignment: Alignment.center,
                             // width: 250,
                             child: audioCtrl.state.downloading.value
                                 ? GetX<AudioController>(builder: (c) {
                                     final data =
                                         c.state.tmpDownloadedAyahsCount.value;
-
                                     debugPrint(
                                         '$data => REBUILDING  ${audioCtrl.state.tmpDownloadedAyahsCount}');
-
                                     return SliderWidget.downloading(
                                         currentPosition: data,
                                         filesCount: audioCtrl

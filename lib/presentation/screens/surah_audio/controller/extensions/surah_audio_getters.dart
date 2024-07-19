@@ -16,11 +16,11 @@ extension SurahAudioGetters on SurahAudioController {
   /// -------- [Getters] ----------
   Future<String> get localFilePath async {
     Directory? directory = await getApplicationDocumentsDirectory();
-    return '${directory.path}/${state.sorahReaderNameValue.value}${state.surahNum.value.toString().padLeft(3, "0")}.mp3';
+    return '${directory.path}/${state.surahReaderNameValue.value}${state.surahNum.value.toString().padLeft(3, "0")}.mp3';
   }
 
   String get urlFilePath {
-    return '${state.sorahReaderValue.value}${state.sorahReaderNameValue.value}${state.surahNum.value.toString().padLeft(3, "0")}.mp3';
+    return '${state.surahReaderValue.value}${state.surahReaderNameValue.value}${state.surahNum.value.toString().padLeft(3, "0")}.mp3';
   }
 
   Stream<PositionData> get audioStream => positionDataStream;

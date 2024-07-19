@@ -90,4 +90,18 @@ class QuranController extends GetxController {
   Future<void> loadSwitchValue() async {
     state.isPages.value = await state.box.read(SWITCH_VALUE) ?? 0;
   }
+
+  Future<void> getLastPage() async {
+    try {
+      state.currentPageNumber.value = state.box.read(MSTART_PAGE) ?? 1;
+      state.lastReadSurahNumber.value = state.box.read(MLAST_URAH) ?? 1;
+    } catch (e) {
+      print('Failed to load last page: $e');
+    }
+  }
+
+  // ScrollController scrollToSurah(int surahNumber) {
+  //   double position = (surahNumber - 1) * surahItemHeight;
+  //   state.surahListController.jumpTo(position);
+  // }
 }
