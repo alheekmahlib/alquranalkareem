@@ -213,11 +213,44 @@ class AudioController extends GetxController {
     }
   }
 
-  Future playFile() async {
+  Future<void> playFile() async {
     state.tmpDownloadedAyahsCount = 0.obs;
+    final selectedSurah = quranCtrl.state.surahs[currentSurahNumInPage - 1];
     final ayahsFilesNames = selectedSurahAyahsFileNames;
+    final ayahsUrls = selectedSurahAyahsUrls;
+    final surahKey = 'surah_${selectedSurah.surahNumber}';
+
+    bool isSurahDownloaded = state.box.read(surahKey) ?? false;
+
+    if (!isSurahDownloaded) {
+      try {
+        final futures = List.generate(
+          ayahsFilesNames.length,
+          (i) => _downloadFileIfNotExist(ayahsUrls[i], ayahsFilesNames[i],
+                  setDownloadingStatus: false)
+              .whenComplete(() {
+            log('${state.tmpDownloadedAyahsCount.value} => download completed at ${DateTime.now().millisecond}');
+            state.tmpDownloadedAyahsCount.value++;
+          }),
+        );
+
+        state.downloading.value = true;
+        state.onDownloading.value = true;
+        await Future.wait(futures);
+        state.downloading.value = false;
+        state.onDownloading.value = false;
+
+        state.box.write(surahKey, true);
+
+        print('تحميل سورة ${selectedSurahAyahsFileNames} تم بنجاح.');
+      } catch (e) {
+        log('Error in playFile: $e', name: 'AudioController');
+      }
+    } else {
+      print('سورة ${selectedSurahAyahsFileNames} محملة بالكامل.');
+    }
+
     try {
-      log('currentAyahUrl: $currentAyahUrl', name: 'AudioController');
       if (state.playSingleAyahOnly) {
         final path =
             await _downloadFileIfNotExist(currentAyahUrl, currentAyahFileName);
@@ -225,30 +258,8 @@ class AudioController extends GetxController {
           path,
           tag: mediaItemForCurrentAyah,
         ));
-        // quranCtrl.state.clearAndAddSelection(state.currentAyahUQInPage.value + 2);
       } else {
-        final futures = List.generate(
-          ayahsFilesNames.length,
-          (i) => _downloadFileIfNotExist(
-                  selectedSurahAyahsUrls[i], ayahsFilesNames[i],
-                  setDownloadingStatus: false)
-              .whenComplete(() {
-            log('${state.tmpDownloadedAyahsCount.value} => download completed at ${DateTime.now().millisecond}');
-            state.tmpDownloadedAyahsCount.value++;
-          }),
-        );
-        state.downloading.value = true;
-        state.onDownloading.value = true;
-        await Future.wait(futures);
-        state.downloading.value = false;
-        state.onDownloading.value = false;
-
-        // quranCtrl.state.clearAndAddSelection(state.currentAyahUQInPage.value -= 1);
         await state.audioPlayer.setAudioSource(
-          // TODO: this initialIndex need fix
-          initialIndex: state.isDirectPlaying.value
-              ? currentAyahInPage
-              : state.selectedAyahNum.value - 1,
           ConcatenatingAudioSource(
             children: List.generate(
               ayahsFilesNames.length,
@@ -258,34 +269,27 @@ class AudioController extends GetxController {
               ),
             ),
           ),
+          initialIndex: state.isDirectPlaying.value
+              ? currentAyahInPage
+              : state.selectedAyahNum.value - 1,
         );
       }
+
       log('${'-' * 30} player is starting.. ${'-' * 30}',
           name: 'AudioController');
 
-      // int lastIndex = state.selectedAyahNum.value - 1;
-
       state.audioPlayer.currentIndexStream.listen((index) {
-        if (index != null &&
-            index != 0 &&
-            index != state.selectedAyahNum.value - 1) {
-          log('state.currentAyahUQInPage.value: ${state.currentAyahUQInPage.value}');
+        if (index != null && index != 0 && index != state.selectedAyahNum - 1) {
+          log('state.currentAyahUQInPage.value: ${state.currentAyahUQInPage}');
           state.selectedAyahNum.value = index + 1;
           state.currentAyahUQInPage.value =
               selectedSurahAyahsUniqueNumbers[state.selectedAyahNum.value - 1];
-          // lastIndex = index;
           quranCtrl.clearAndAddSelection(state.currentAyahUQInPage.value);
         }
       });
 
-      // state.audioPlayer.playerStateStream.listen((state) {
-      //   if (state.playing != state.isPlay.value) {
-      //     state.isPlay.value = state.playing;
-      //   }
-      // });
-      print('playFile2: play');
       state.isPlay.value = true;
-      state.audioPlayer
+      await state.audioPlayer
           .play()
           .then((_) => state.isPlay.value = false)
           .whenComplete(() {
