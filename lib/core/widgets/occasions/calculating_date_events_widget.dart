@@ -2,15 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '/core/utils/constants/extensions/convert_number_extension.dart';
-import '../../../controllers/count_down_controller.dart';
-import '../../../controllers/general_controller.dart';
+import '../../../presentation/controllers/general/general_controller.dart';
+import 'controller/event_controller.dart';
 
-class OccasionWidget extends StatelessWidget {
+class CalculatingDateEventsWidget extends StatelessWidget {
   final String name;
   final int year;
   final int month;
   final int day;
-  OccasionWidget(
+  CalculatingDateEventsWidget(
       {super.key,
       required this.month,
       required this.day,
@@ -18,7 +18,7 @@ class OccasionWidget extends StatelessWidget {
       required this.year});
 
   final generalCtrl = GeneralController.instance;
-  final countdownCtrl = CountdownController.instance;
+  final countdownCtrl = EventController.instance;
 
   @override
   Widget build(BuildContext context) {
@@ -57,11 +57,11 @@ class OccasionWidget extends StatelessWidget {
                     child: FittedBox(
                       fit: BoxFit.scaleDown,
                       child: Text(
-                        daysRemaining == 0 ? 'hasPassed'.tr : name,
+                        daysRemaining == 0 ? '$name: ${'hasPassed'.tr}' : name,
                         style: TextStyle(
                           fontSize: 18.0,
                           fontFamily: 'kufi',
-                          color: Theme.of(context).colorScheme.inversePrimary,
+                          color: Theme.of(context).colorScheme.onInverseSurface,
                         ),
                         textAlign: TextAlign.center,
                       ),
@@ -80,7 +80,7 @@ class OccasionWidget extends StatelessWidget {
                                 fontFamily: 'kufi',
                                 color: Theme.of(context)
                                     .colorScheme
-                                    .inversePrimary,
+                                    .onInverseSurface,
                               ),
                               textAlign: TextAlign.center,
                             ),

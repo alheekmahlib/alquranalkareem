@@ -17,7 +17,7 @@ import '/core/utils/constants/extensions/custom_error_snackBar.dart';
 import '/presentation/screens/quran_page/controllers/extensions/quran_getters.dart';
 import '../../../../core/utils/constants/url_constants.dart';
 import '../../../../core/widgets/seek_bar.dart';
-import '../../../controllers/general_controller.dart';
+import '../../../controllers/general/general_controller.dart';
 import '../widgets/playlist/data/models/playList_model.dart';
 import 'audio/audio_controller.dart';
 import 'quran/quran_controller.dart';

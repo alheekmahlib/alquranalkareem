@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '/core/services/services_locator.dart';
-import '../../../controllers/general_controller.dart';
+import '../../../controllers/general/general_controller.dart';
 import '../controller/adhkar_controller.dart';
 import '../models/dheker_model.dart';
 
@@ -32,7 +32,8 @@ class TextWidget extends StatelessWidget {
                       color: Theme.of(context).hintColor,
                       height: 1.4,
                       fontFamily: 'naskh',
-                      fontSize: sl<GeneralController>().fontSizeArabic.value),
+                      fontSize:
+                          sl<GeneralController>().state.fontSizeArabic.value),
                 ),
                 textDirection: TextDirection.rtl,
                 textAlign: TextAlign.justify,

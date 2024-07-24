@@ -5,10 +5,11 @@ import 'package:just_audio_background/just_audio_background.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:rxdart/rxdart.dart' as R;
 
+import '/presentation/controllers/general/extensions/general_getters.dart';
 import '../../../../../core/services/services_locator.dart';
 import '../../../../../core/utils/constants/lists.dart';
 import '../../../../../core/widgets/seek_bar.dart';
-import '../../../../controllers/general_controller.dart';
+import '../../../../controllers/general/general_controller.dart';
 import '../../../quran_page/controllers/quran/quran_controller.dart';
 import '../surah_audio_controller.dart';
 

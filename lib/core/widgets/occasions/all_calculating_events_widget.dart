@@ -1,24 +1,26 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 
 import '/core/utils/constants/extensions/convert_number_extension.dart';
 import '/core/utils/constants/extensions/extensions.dart';
-import '../../../../core/utils/constants/lists.dart';
-import '../../../controllers/count_down_controller.dart';
-import 'occasion_widget.dart';
+import '../../utils/constants/lists.dart';
+import 'calculating_date_events_widget.dart';
+import 'controller/event_controller.dart';
 
-class OccasionsWidget extends StatelessWidget {
-  OccasionsWidget({super.key});
+class AllCalculatingEventsWidget extends StatelessWidget {
+  AllCalculatingEventsWidget({super.key});
 
-  final countdownCtrl = CountdownController.instance;
+  final eventsCtrl = EventController.instance;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.primary,
+        systemOverlayStyle: SystemUiOverlayStyle.light,
       ),
       body: SafeArea(
         child: Container(
@@ -27,7 +29,7 @@ class OccasionsWidget extends StatelessWidget {
             alignment: Alignment.center,
             children: [
               SvgPicture.asset(
-                  'assets/svg/hijri/${countdownCtrl.hijriNow.hMonth}.svg',
+                  'assets/svg/hijri/${eventsCtrl.hijriNow.hMonth}.svg',
                   width: Get.width,
                   colorFilter: ColorFilter.mode(
                       Theme.of(context).canvasColor.withOpacity(.05),
@@ -37,7 +39,7 @@ class OccasionsWidget extends StatelessWidget {
                   physics: const BouncingScrollPhysics(),
                   children: [
                     SvgPicture.asset(
-                        'assets/svg/hijri/${countdownCtrl.hijriNow.hMonth}.svg',
+                        'assets/svg/hijri/${eventsCtrl.hijriNow.hMonth}.svg',
                         width: 150,
                         colorFilter: ColorFilter.mode(
                             Theme.of(context).canvasColor, BlendMode.srcIn)),
@@ -49,9 +51,9 @@ class OccasionsWidget extends StatelessWidget {
                           Text.rich(
                             TextSpan(children: [
                               TextSpan(
-                                text: countdownCtrl.isNewHadith
+                                text: eventsCtrl.isNewHadith
                                     ? monthHadithsList[
-                                            countdownCtrl.hijriNow.hMonth - 1]
+                                            eventsCtrl.hijriNow.hMonth - 1]
                                         ['hadithPart1']
                                     : monthHadithsList[1]['hadithPart1'],
                                 style: TextStyle(
@@ -65,9 +67,9 @@ class OccasionsWidget extends StatelessWidget {
                                 ),
                               ),
                               TextSpan(
-                                text: countdownCtrl.isNewHadith
+                                text: eventsCtrl.isNewHadith
                                     ? monthHadithsList[
-                                            countdownCtrl.hijriNow.hMonth - 1]
+                                            eventsCtrl.hijriNow.hMonth - 1]
                                         ['hadithPart2']
                                     : monthHadithsList[1]['hadithPart2'],
                                 style: const TextStyle(
@@ -79,9 +81,9 @@ class OccasionsWidget extends StatelessWidget {
                                 ),
                               ),
                               TextSpan(
-                                text: countdownCtrl.isNewHadith
+                                text: eventsCtrl.isNewHadith
                                     ? monthHadithsList[
-                                            countdownCtrl.hijriNow.hMonth - 1]
+                                            eventsCtrl.hijriNow.hMonth - 1]
                                         ['bookName']
                                     : monthHadithsList[1]['bookName'],
                                 style: TextStyle(
@@ -104,7 +106,7 @@ class OccasionsWidget extends StatelessWidget {
                     ),
                     const Gap(16.0),
                     Text(
-                      '${'${countdownCtrl.hijriNow.hYear}'.convertNumbers()} ${'AH'.tr}',
+                      '${'${eventsCtrl.hijriNow.hYear}'.convertNumbers()} ${'AH'.tr}',
                       style: TextStyle(
                         fontSize: 24.0,
                         fontFamily: 'kufi',
@@ -113,17 +115,35 @@ class OccasionsWidget extends StatelessWidget {
                       textAlign: TextAlign.center,
                     ),
                     const Gap(16.0),
-                    Column(
-                      children: List.generate(
-                        occasionList.length,
-                        (i) => OccasionWidget(
-                          name: '${occasionList[i]['title']}'.tr,
-                          year: countdownCtrl.hijriNow.hYear,
-                          month: occasionList[i]['month'],
-                          day: occasionList[i]['day'],
-                        ),
-                      ),
-                    ),
+                    Obx(() {
+                      if (eventsCtrl.events.isEmpty) {
+                        return const Center(
+                            child: CircularProgressIndicator.adaptive());
+                      } else {
+                        return Column(
+                          children: List.generate(
+                            eventsCtrl.events.length,
+                            (i) => CalculatingDateEventsWidget(
+                              name: eventsCtrl.events[i].title.tr,
+                              year: eventsCtrl.hijriNow.hYear,
+                              month: eventsCtrl.events[i].month,
+                              day: eventsCtrl.events[i].day.first,
+                            ),
+                          ),
+                        );
+                      }
+                    }),
+                    // Column(
+                    //   children: List.generate(
+                    //     occasionList.length,
+                    //     (i) => CalculatingDateEventsWidget(
+                    //       name: '${occasionList[i]['title']}'.tr,
+                    //       year: eventsCtrl.hijriNow.hYear,
+                    //       month: occasionList[i]['month'],
+                    //       day: occasionList[i]['day'],
+                    //     ),
+                    //   ),
+                    // ),
                     context.hDivider(width: Get.width),
                     const Gap(16.0),
                     Padding(

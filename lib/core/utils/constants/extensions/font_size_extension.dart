@@ -9,7 +9,7 @@ import 'package:get_storage/get_storage.dart';
 
 import '/core/utils/constants/extensions/svg_extensions.dart';
 import '/core/utils/constants/svg_constants.dart';
-import '../../../../presentation/controllers/general_controller.dart';
+import '../../../../presentation/controllers/general/general_controller.dart';
 import '../../../services/services_locator.dart';
 import '../shared_preferences_constants.dart';
 
@@ -37,7 +37,7 @@ extension FontSizeExtension on Widget {
               height: 30,
               width: MediaQuery.sizeOf(context).width,
               child: FlutterSlider(
-                values: [sl<GeneralController>().fontSizeArabic.value],
+                values: [sl<GeneralController>().state.fontSizeArabic.value],
                 max: 50,
                 min: 20,
                 rtl: true,
@@ -60,7 +60,8 @@ extension FontSizeExtension on Widget {
                 onDragging: (handlerIndex, lowerValue, upperValue) async {
                   lowerValue = lowerValue;
                   upperValue = upperValue;
-                  sl<GeneralController>().fontSizeArabic.value = lowerValue;
+                  sl<GeneralController>().state.fontSizeArabic.value =
+                      lowerValue;
 
                   box.write(FONT_SIZE, lowerValue);
                 },

@@ -4,8 +4,8 @@ import 'package:get/get.dart';
 
 import '/core/utils/constants/extensions/svg_extensions.dart';
 import '/core/widgets/select_screen_build.dart';
-import '/presentation/controllers/general_controller.dart';
 import '/presentation/controllers/theme_controller.dart';
+import '../../presentation/controllers/general/general_controller.dart';
 import '../../presentation/screens/about_app/about_app.dart';
 import '../../presentation/screens/ourApp/screen/ourApps_screen.dart';
 import '../../presentation/screens/quran_page/controllers/quran/quran_controller.dart';
@@ -39,7 +39,7 @@ class SettingsList extends StatelessWidget {
         child: SafeArea(
           child: Padding(
             padding: const EdgeInsets.all(16.0),
-            child: Obx(() => generalCtrl.showSelectScreenPage.value
+            child: Obx(() => generalCtrl.state.showSelectScreenPage.value
                 ? const SelectScreenBuild(
                     isButtonBack: true,
                     isButton: false,
@@ -47,9 +47,12 @@ class SettingsList extends StatelessWidget {
                 : Column(
                     children: [
                       Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           context.customClose(),
-                          const Gap(32),
+                          const Gap(8),
+                          context.vDivider(height: 20),
+                          const Gap(8),
                           Text(
                             'setting'.tr,
                             style: TextStyle(
@@ -66,19 +69,21 @@ class SettingsList extends StatelessWidget {
                           children: [
                             const Gap(32),
                             const LanguageList(),
+                            isQuranSetting!
+                                ? const Gap(24)
+                                : const SizedBox.shrink(),
+                            isQuranSetting!
+                                ? MushafSettings()
+                                : const SizedBox.shrink(),
                             const Gap(24),
                             const ThemeChange(),
                             const Gap(24),
                             const SelectScreen(),
                             const Gap(24),
-                            isQuranSetting!
-                                ? const MushafSettings()
-                                : const SizedBox.shrink(),
-                            const Gap(24),
                             Container(
                               margin:
                                   const EdgeInsets.symmetric(horizontal: 16.0),
-                              padding: const EdgeInsets.all(8.0),
+                              padding: const EdgeInsets.all(4.0),
                               decoration: BoxDecoration(
                                   border: Border.all(
                                       color:

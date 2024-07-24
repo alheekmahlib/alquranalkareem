@@ -8,7 +8,7 @@ import '/presentation/screens/quran_page/controllers/extensions/quran_getters.da
 import '/presentation/screens/quran_page/controllers/extensions/quran_ui.dart';
 import '../../../../../core/services/services_locator.dart';
 import '../../../../../core/widgets/measure_size_widget.dart';
-import '../../../../controllers/general_controller.dart';
+import '../../../../controllers/general/general_controller.dart';
 import '../../controllers/quran/quran_controller.dart';
 import '../../controllers/translate_controller.dart';
 import '../pages/custom_span.dart';
@@ -83,6 +83,7 @@ class AyahsBuild extends StatelessWidget {
                                     style: TextStyle(
                                       fontFamily: 'page${pageIndex + 1}',
                                       fontSize: sl<GeneralController>()
+                                          .state
                                           .fontSizeArabic
                                           .value,
                                       height: 2,
@@ -100,6 +101,7 @@ class AyahsBuild extends StatelessWidget {
                                               isSelected:
                                                   quranCtrl.state.isSelected,
                                               fontSize: sl<GeneralController>()
+                                                  .state
                                                   .fontSizeArabic
                                                   .value,
                                               surahNum: quranCtrl
@@ -119,6 +121,7 @@ class AyahsBuild extends StatelessWidget {
                                               isSelected:
                                                   quranCtrl.state.isSelected,
                                               fontSize: sl<GeneralController>()
+                                                  .state
                                                   .fontSizeArabic
                                                   .value,
                                               surahNum: quranCtrl

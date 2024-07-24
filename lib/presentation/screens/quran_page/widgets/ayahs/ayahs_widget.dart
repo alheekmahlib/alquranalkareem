@@ -8,7 +8,7 @@ import '/core/utils/constants/extensions/extensions.dart';
 import '/core/utils/constants/extensions/font_size_extension.dart';
 import '/presentation/screens/quran_page/controllers/extensions/audio_ui.dart';
 import '/presentation/screens/quran_page/controllers/extensions/quran_getters.dart';
-import '../../../../controllers/general_controller.dart';
+import '../../../../controllers/general/general_controller.dart';
 import '../../controllers/audio/audio_controller.dart';
 import '../../controllers/quran/quran_controller.dart';
 import 'ayah_build.dart';

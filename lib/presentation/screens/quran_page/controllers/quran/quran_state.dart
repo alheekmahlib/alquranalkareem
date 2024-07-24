@@ -1,6 +1,7 @@
 import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get/get_rx/get_rx.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 
@@ -46,4 +47,7 @@ class QuranState {
   double surahItemHeight = 90.0;
   ScrollController? surahController;
   ScrollController? juzListController;
+  RxBool isPageMode = false.obs;
+  RxInt backgroundPickerColor = 0xffFFFFFF.obs;
+  RxInt temporaryBackgroundColor = 0xffFFFFFF.obs;
 }

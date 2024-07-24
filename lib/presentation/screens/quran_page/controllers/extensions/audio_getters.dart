@@ -9,7 +9,7 @@ import '../../../../../core/services/services_locator.dart';
 import '../../../../../core/utils/constants/lists.dart';
 import '../../../../../core/utils/constants/url_constants.dart';
 import '../../../../../core/widgets/seek_bar.dart';
-import '../../../../controllers/general_controller.dart';
+import '../../../../controllers/general/general_controller.dart';
 import '../audio/audio_controller.dart';
 import '../ayat_controller.dart';
 import '../quran/quran_controller.dart';
@@ -45,9 +45,10 @@ extension AudioGetters on AudioController {
 
   int get currentAyahInPage => state.selectedAyahNum.value == 1
       ? quranCtrl.state.allAyahs
-          .firstWhere(
-              (ayah) => ayah.page == quranCtrl.state.currentPageNumber.value)
-          .ayahNumber
+              .firstWhere((ayah) =>
+                  ayah.page == quranCtrl.state.currentPageNumber.value)
+              .ayahNumber -
+          1
       : state.selectedAyahNum.value;
 
   int get currentSurahNumInPage => state.currentSurahNumInPage.value == 1

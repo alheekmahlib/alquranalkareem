@@ -3,9 +3,9 @@ import 'dart:convert';
 import 'package:flutter/services.dart' show rootBundle;
 import 'package:get/get.dart';
 
-import '/presentation/controllers/general_controller.dart';
 import '/presentation/controllers/theme_controller.dart';
 import '../../../../../core/utils/constants/shared_preferences_constants.dart';
+import '../../../../controllers/general/general_controller.dart';
 import '../../data/model/surahs_model.dart';
 import 'quran_state.dart';
 
@@ -27,6 +27,7 @@ class QuranController extends GetxController {
     state.itemPositionsListener.itemPositions
         .addListener(currentListPageNumber);
     state.isBold.value = state.box.read(IS_BOLD) ?? 0;
+    state.isPageMode.value = state.box.read(PAGE_MODE) ?? false;
   }
 
   @override

@@ -13,7 +13,6 @@ import 'package:timezone/timezone.dart' as tz;
 
 import '/database/databaseHelper.dart';
 import '/database/notificationDatabase.dart';
-import '/presentation/controllers/general_controller.dart';
 import '/presentation/controllers/settings_controller.dart';
 import '/presentation/screens/quran_page/data/data_source/baghawy_data_client.dart';
 import '/presentation/screens/quran_page/data/data_source/data_client.dart';
@@ -22,6 +21,7 @@ import '/presentation/screens/quran_page/data/data_source/qurtubi_data_client.da
 import '/presentation/screens/quran_page/data/data_source/saadi_data_client.dart';
 import '/presentation/screens/quran_page/data/data_source/tabari_data_client.dart';
 import '../../presentation/controllers/daily_ayah_controller.dart';
+import '../../presentation/controllers/general/general_controller.dart';
 import '../../presentation/controllers/theme_controller.dart';
 import '../../presentation/screens/adhkar/controller/adhkar_controller.dart';
 import '../../presentation/screens/books/controller/books_controller.dart';

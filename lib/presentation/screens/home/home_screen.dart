@@ -4,7 +4,7 @@ import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 
 import '/core/utils/constants/extensions/extensions.dart';
-import '../../../core/widgets/daily_ayah/ayah_widget.dart';
+import '../../../core/widgets/daily_ayah/ayah_tafsir_widget.dart';
 import '../../../core/widgets/tab_bar_widget.dart';
 import '../../controllers/theme_controller.dart';
 import 'widgets/daily_zeker.dart';
@@ -41,7 +41,7 @@ class HomeScreen extends StatelessWidget {
                           const ScreensList(),
                           const Gap(8),
                           LastRead(),
-                          AyahWidget(),
+                          AyahTafsirWidget(),
                           const Gap(16),
                           DailyZeker(),
                           const Gap(16),
@@ -59,7 +59,7 @@ class HomeScreen extends StatelessWidget {
                           ),
                           const Gap(8),
                           LastRead(),
-                          AyahWidget(),
+                          AyahTafsirWidget(),
                           const Gap(16),
                           DailyZeker(),
                           const Gap(16),

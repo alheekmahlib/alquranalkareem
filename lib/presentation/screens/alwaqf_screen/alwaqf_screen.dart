@@ -12,7 +12,12 @@ class AlwaqfScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: Theme.of(context).colorScheme.primaryContainer,
-        appBar: const AppBarWidget(isTitled: false),
+        appBar: const AppBarWidget(
+          isTitled: false,
+          title: '',
+          isFontSize: true,
+          searchButton: const SizedBox.shrink(),
+        ),
         body: SafeArea(
           child: Directionality(
             textDirection: TextDirection.rtl,

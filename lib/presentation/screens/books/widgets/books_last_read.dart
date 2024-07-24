@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 
-import '../../../controllers/general_controller.dart';
+import '../../../controllers/general/general_controller.dart';
 import '../controller/books_controller.dart';
 import '../screens/read_view_screen.dart';
 

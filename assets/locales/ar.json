@@ -894,26 +894,6 @@
     "type": "text",
     "placeholders": {}
   },
-  "Start of the Hijri Year": "بداية السنة الهجرية",
-  "@Start of the Hijri Year": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "Blessed Eid al-Fitr": "عيد الفطر المبارك",
-  "@Blessed Eid al-Fitr": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "Day of Arafah": "يوم عرفة",
-  "@Day of Arafah": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "Blessed Eid al-Adha": "عيد الأضحى المبارك",
-  "@Blessed Eid al-Adha": {
-    "type": "text",
-    "placeholders": {}
-  },
   "hijriNote": "تنويه: يرجى العلم بأنه قد يحدث اختلاف طفيف في الأوقات المحددة نظرًا لأن التقويم الهجري يستند إلى الرؤية المباشرة للهلال. نحن نبذل قصارى جهدنا لضمان دقة التواريخ المعلنة، مع الأخذ في الاعتبار انه سيتم تصحيح التقويم في حال رؤية الهلال.",
   "@hijriNote": {
     "type": "text",
@@ -1046,6 +1026,66 @@
   },
   "downloading": "جارِ التحميل...",
   "@downloading": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "startHijriYear": "بداية العام الهجري",
+  "@startHijriYear": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "reminderToFastTasoo'a": "تذكير بصيام تاسوعاء",
+  "@reminderToFastTasoo'a": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "reminderToFastAshura": "تذكير بصيام عاشوراء",
+  "@reminderToFastAshura": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "ramadhan": "شهر رمضان",
+  "@ramadhan": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "nightOfQadir": "تذكير بليلة القدر",
+  "@nightOfQadir": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "EidAl-Fitr": "عيد الفطر",
+  "@EidAl-Fitr": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "sexShawwal": "تذكير بصيام الستّ من شوال",
+  "@sexShawwal": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "arafahReminder": "تذكير بصيام يوم عرفة",
+  "@arafahReminder": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "tenDaysOfDhul-Hijjah": "وليال عشر",
+  "@tenDaysOfDhul-Hijjah": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "EidAl-Adha": "عيد الأضحى",
+  "@EidAl-Adha": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "choiceBackgroundColor": "اختر لون الخلفية",
+  "@choiceBackgroundColor": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "reset": "إعادة ضبط",
+  "@reset": {
     "type": "text",
     "placeholders": {}
   }

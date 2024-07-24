@@ -5,7 +5,7 @@ import 'package:get_storage/get_storage.dart';
 import '/presentation/screens/whats_new/controller/extensions/whats_new_getters.dart';
 import '../../../../../core/utils/constants/shared_preferences_constants.dart';
 import '../../../../../core/widgets/container_button.dart';
-import '../../../../controllers/general_controller.dart';
+import '../../../../controllers/general/general_controller.dart';
 import '../../../screen_type.dart';
 import '../../controller/whats_new_controller.dart';
 
@@ -51,7 +51,7 @@ class ButtonWidget extends StatelessWidget {
               whatsNewCtrl.saveLastShownIndex(newFeatures.last['index']);
               GetStorage().read(IS_SCREEN_SELECTED_VALUE) == true
                   ? Get.off(() => ScreenTypeL())
-                  : generalCtrl.showSelectScreenPage.value = true;
+                  : generalCtrl.state.showSelectScreenPage.value = true;
             } else {
               controller.animateToPage(controller.page!.toInt() + 1,
                   duration: const Duration(milliseconds: 400),

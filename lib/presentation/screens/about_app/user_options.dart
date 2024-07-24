@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../core/widgets/container_with_border.dart';
-import '../../controllers/general_controller.dart';
+import '../../controllers/general/general_controller.dart';
 
 class UserOptions extends StatelessWidget {
   const UserOptions({super.key});
@@ -41,7 +41,7 @@ class UserOptions extends StatelessWidget {
                 ],
               ),
               onTap: () async {
-                await generalCtrl.share(context);
+                await generalCtrl.share();
               },
             ),
             const Divider(),

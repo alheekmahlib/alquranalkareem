@@ -5,7 +5,7 @@ import 'package:get/get.dart';
 
 import '/presentation/screens/whats_new/controller/extensions/whats_new_getters.dart';
 import '../../../../core/widgets/select_screen_build.dart';
-import '../../../controllers/general_controller.dart';
+import '../../../controllers/general/general_controller.dart';
 import '../../screen_type.dart';
 import '../controller/whats_new_controller.dart';
 import '../screen/widgets/button_widget.dart';
@@ -35,7 +35,7 @@ class WhatsNewScreen extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.all(16.0),
           child: Obx(
-            () => generalCtrl.showSelectScreenPage.value
+            () => generalCtrl.state.showSelectScreenPage.value
                 ? const SelectScreenBuild(
                     isButtonBack: false,
                     isButton: true,

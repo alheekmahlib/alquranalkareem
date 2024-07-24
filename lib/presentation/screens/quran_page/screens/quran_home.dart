@@ -7,7 +7,7 @@ import '../../../../core/services/services_locator.dart';
 import '../../../../core/utils/helpers/global_key_manager.dart';
 import '../../../../core/widgets/tab_bar_widget.dart';
 import '../../../../database/notificationDatabase.dart';
-import '../../../controllers/general_controller.dart';
+import '../../../controllers/general/general_controller.dart';
 import '../controllers/audio/audio_controller.dart';
 import '../controllers/aya_controller.dart';
 import '../controllers/bookmarks_controller.dart';
@@ -46,12 +46,12 @@ class QuranHome extends StatelessWidget {
       },
       child: Scaffold(
         resizeToAvoidBottomInset: true,
-        backgroundColor: Theme.of(context).colorScheme.primaryContainer,
+        backgroundColor: Theme.of(context).colorScheme.primary,
         body: SafeArea(
           child: SliderDrawer(
             key: GlobalKeyManager().drawerKey,
             splashColor: Theme.of(context).colorScheme.primaryContainer,
-            slideDirection: alignmentLayout(context,
+            slideDirection: alignmentLayout(
                 SlideDirection.RIGHT_TO_LEFT, SlideDirection.LEFT_TO_RIGHT),
             sliderOpenSize: 300.0,
             isCupertino: true,
@@ -70,7 +70,7 @@ class QuranHome extends StatelessWidget {
                       child: Center(
                         child: ScreenSwitch(),
                       )),
-                  Obx(() => generalCtrl.isShowControl.value
+                  Obx(() => generalCtrl.state.isShowControl.value
                       ? TabBarWidget(
                           isFirstChild: true,
                           isCenterChild: true,
@@ -90,13 +90,13 @@ class QuranHome extends StatelessWidget {
                         )
                       : const SizedBox.shrink()),
                   Obx(() => audioCtrl.state.isStartPlaying.value ||
-                          generalCtrl.isShowControl.value
+                          generalCtrl.state.isShowControl.value
                       ? Align(
                           alignment: Alignment.bottomCenter,
                           child: AudioWidget(),
                         )
                       : const SizedBox.shrink()),
-                  Obx(() => generalCtrl.isShowControl.value
+                  Obx(() => generalCtrl.state.isShowControl.value
                       ? Align(
                           alignment: Alignment.bottomCenter,
                           child: NavBarWidget(),

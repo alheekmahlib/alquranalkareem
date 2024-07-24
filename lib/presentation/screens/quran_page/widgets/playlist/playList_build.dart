@@ -5,9 +5,9 @@ import 'package:get/get.dart';
 
 import '/core/utils/constants/extensions/convert_number_extension.dart';
 import '/core/utils/constants/extensions/svg_extensions.dart';
-import '/presentation/controllers/general_controller.dart';
 import '../../../../../core/utils/constants/svg_constants.dart';
 import '../../../../../core/widgets/delete_widget.dart';
+import '../../../../controllers/general/general_controller.dart';
 import '../../controllers/audio/audio_controller.dart';
 import '../../controllers/playList_controller.dart';
 import 'ayahs_playList_widget.dart';
