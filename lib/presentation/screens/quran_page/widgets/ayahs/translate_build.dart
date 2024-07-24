@@ -1,12 +1,14 @@
+import 'package:alquranalkareem/core/utils/constants/extensions/alignment_rotated_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:read_more_less/read_more_less.dart';
 
 import '../../../../../core/services/services_locator.dart';
+import '../../../../../core/utils/constants/lists.dart';
 import '../../../../../core/utils/constants/lottie.dart';
 import '../../../../../core/utils/constants/lottie_constants.dart';
-import '../../../../controllers/general_controller.dart';
+import '../../../../controllers/general/general_controller.dart';
 import '../../../../controllers/settings_controller.dart';
 import '../../controllers/translate_controller.dart';
 import 'change_translate.dart';
@@ -42,12 +44,16 @@ class TranslateBuild extends StatelessWidget {
                       ['text'] ??
                   '',
               textStyle: TextStyle(
-                fontSize: sl<GeneralController>().fontSizeArabic.value - 3,
+                fontSize:
+                    sl<GeneralController>().state.fontSizeArabic.value - 3,
                 fontFamily: sl<SettingsController>().languageFont.value,
                 color: Theme.of(context).hintColor,
                 overflow: TextOverflow.fade,
               ),
-              textAlign: TextAlign.center,
+              textAlign: alignmentLayoutWPassLang(
+                  translateName[translateCtrl.transValue.value],
+                  TextAlign.justify,
+                  TextAlign.left),
               animationDuration: const Duration(milliseconds: 300),
               maxLines: 1,
               collapsedHeight: 20,

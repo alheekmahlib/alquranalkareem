@@ -8,7 +8,7 @@ import '/presentation/screens/quran_page/widgets/search/search_extensions/highli
 import '../../../../../core/utils/constants/extensions/extensions.dart';
 import '../../../../../core/utils/constants/lottie.dart';
 import '../../../../../core/utils/constants/lottie_constants.dart';
-import '../../../../controllers/general_controller.dart';
+import '../../../../controllers/general/general_controller.dart';
 import '../../controllers/aya_controller.dart';
 import '../../controllers/quran/quran_controller.dart';
 import '../../data/model/aya.dart';

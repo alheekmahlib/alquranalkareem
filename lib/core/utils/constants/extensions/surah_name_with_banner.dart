@@ -7,9 +7,10 @@ import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 
 import '/core/utils/constants/extensions/svg_extensions.dart';
+import '/presentation/controllers/general/extensions/general_ui.dart';
 import '/presentation/controllers/theme_controller.dart';
 import '/presentation/screens/quran_page/controllers/extensions/quran_getters.dart';
-import '../../../../presentation/controllers/general_controller.dart';
+import '../../../../presentation/controllers/general/general_controller.dart';
 import '../../../../presentation/screens/quran_page/controllers/quran/quran_controller.dart';
 import '../../../services/services_locator.dart';
 import '../svg_constants.dart';
@@ -58,28 +59,23 @@ extension CustomSurahNameWithBannerExtension on Widget {
     );
   }
 
-  Widget surahBannerWidget(String number) {
+  String get surahBannerPath {
     if (themeCtrl.isBlueMode) {
-      return bannerWithSurahName(
-          customSvg(SvgPath.svgSurahBanner1,
-              width: Get.width * .75, height: Get.height * .19),
-          number);
+      return SvgPath.svgSurahBanner1;
     } else if (themeCtrl.isBrownMode) {
-      return bannerWithSurahName(
-          customSvg(SvgPath.svgSurahBanner2,
-              width: Get.width * .75, height: Get.height * .19),
-          number);
+      return SvgPath.svgSurahBanner2;
     } else if (themeCtrl.isOldMode) {
-      return bannerWithSurahName(
-          customSvg(SvgPath.svgSurahBanner4,
-              width: Get.width * .75, height: Get.height * .19),
-          number);
+      return SvgPath.svgSurahBanner4;
     } else {
-      return bannerWithSurahName(
-          customSvg(SvgPath.svgSurahBanner3,
-              width: Get.width * .75, height: Get.height * .19),
-          number);
+      return SvgPath.svgSurahBanner3;
     }
+  }
+
+  Widget surahBannerWidget(String number) {
+    return bannerWithSurahName(
+        customSvg(surahBannerPath,
+            width: Get.width * .75, height: Get.height * .19),
+        number);
   }
 
   Widget surahAyahBannerWidget(String number) {

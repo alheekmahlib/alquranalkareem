@@ -3,8 +3,8 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:group_button/group_button.dart';
 
-import '/presentation/controllers/general_controller.dart';
 import '../../../../core/utils/constants/lists.dart';
+import '../../../controllers/general/general_controller.dart';
 
 class GroupButtonsWidget extends StatelessWidget {
   GroupButtonsWidget({super.key});
@@ -65,7 +65,7 @@ class GroupButtonsWidget extends StatelessWidget {
           elevation: 0,
         ),
         onSelected: (isSelected, index, bool) =>
-            generalCtrl.waqfScrollController.scrollTo(
+            generalCtrl.state.waqfScrollController.scrollTo(
                 index: index, duration: const Duration(milliseconds: 400)),
         isRadio: true,
       ),

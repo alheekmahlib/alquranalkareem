@@ -82,19 +82,4 @@ class DailyAyahController extends GetxController {
       ..write(SETTED_DATE_FOR_AYAH, HijriCalendar.now().fullDate());
     return ayah;
   }
-
-  // Future<void> saveKhatmahs(List<Ayah> ayah) async {
-  //   final String encodedData =
-  //   jsonEncode(ayah.map((a) => a.toMap()).toList());
-  //   await prefs.setString(AYAH_OF_THE_DAY, encodedData);
-  // }
-  //
-  // static Future<List<Ayah>> loadKhatmahs() async {
-  //   final String? ayahData = prefs.getString(AYAH_OF_THE_DAY);
-  //   if (ayahData != null) {
-  //     List<dynamic> decodedData = jsonDecode(ayahData);
-  //     return decodedData.map((item) => Ayah.fromMap(item)).toList();
-  //   }
-  //   return [];
-  // }
 }

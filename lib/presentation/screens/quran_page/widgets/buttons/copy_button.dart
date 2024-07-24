@@ -6,7 +6,7 @@ import '/core/utils/constants/extensions/custom_error_snackBar.dart';
 import '/core/utils/constants/extensions/svg_extensions.dart';
 import '../../../../../core/services/services_locator.dart';
 import '../../../../../core/utils/constants/svg_constants.dart';
-import '../../../../controllers/general_controller.dart';
+import '../../../../controllers/general/general_controller.dart';
 import '../../controllers/quran/quran_controller.dart';
 
 class CopyButton extends StatelessWidget {
@@ -36,7 +36,7 @@ class CopyButton extends StatelessWidget {
       onTap: () async {
         await Clipboard.setData(ClipboardData(
                 text:
-                    '﴿${ayahTextNormal}﴾ [$surahName-${sl<GeneralController>().arabicNumber.convert(ayahNum)}]'))
+                    '﴿${ayahTextNormal}﴾ [$surahName-${sl<GeneralController>().state.arabicNumber.convert(ayahNum)}]'))
             .then((value) => context.showCustomErrorSnackBar('copyAyah'.tr));
         cancel!();
         sl<QuranController>().state.selectedAyahIndexes.clear();

@@ -19,7 +19,7 @@ class AudioScreen extends StatelessWidget {
     surahCtrl.loadLastSurahListen;
     final size = MediaQuery.sizeOf(context);
     return Scaffold(
-      backgroundColor: Theme.of(context).colorScheme.primaryContainer,
+      backgroundColor: Theme.of(context).colorScheme.primary,
       body: SafeArea(
         child: Directionality(
           textDirection: TextDirection.rtl,

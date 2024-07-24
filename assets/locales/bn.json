@@ -900,26 +900,6 @@
     "type": "text",
     "placeholders": {}
   },
-  "Start of the Hijri Year": "হিজরি সনের শুরু",
-  "@Start of the Hijri Year": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "Blessed Eid al-Fitr": "মোবারক ঈদ-উল-ফিতর",
-  "@Blessed Eid al-Fitr": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "Day of Arafah": "আরাফাত দিবস",
-  "@Day of Arafah": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "Blessed Eid al-Adha": "মোবারক ঈদ-উল-আজহা",
-  "@Blessed Eid al-Adha": {
-    "type": "text",
-    "placeholders": {}
-  },
   "hijriNote": "নোটিশ: অনুগ্রহ করে জেনে রাখুন যে হিজরি ক্যালেন্ডার চাঁদের সরাসরি দেখা নির্ভর করে বলে নির্দিষ্ট সময়গুলিতে সামান্য পার্থক্য হতে পারে। ঘোষিত তারিখগুলির সঠিকতা নিশ্চিত করতে আমরা সর্বোচ্চ প্রচেষ্টা চালিয়ে যাচ্ছি, চাঁদ দেখা গেলে ক্যালেন্ডারে সংশোধন করা হবে এটি মাথায় রেখে।",
   "@hijriNote": {
     "type": "text",
@@ -1052,6 +1032,66 @@
   },
   "downloading": "ডাউনলোড হচ্ছে...",
   "@downloading": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "startHijriYear": "হিজরি বছরের শুরু",
+  "@startHijriYear": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "reminderToFastTasoo'a": "তাসু'আর রোজা সম্পর্কে অনুস্মারক",
+  "@reminderToFastTasoo'a": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "reminderToFastAshura": "আশুরার রোজা সম্পর্কে অনুস্মারক",
+  "@reminderToFastAshura": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "ramadhan": "রমজান মাস",
+  "@ramadhan": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "nightOfQadir": "লাইলাতুল কদরের অনুস্মারক",
+  "@nightOfQadir": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "EidAl-Fitr": "ঈদ আল-ফিতর",
+  "@EidAl-Fitr": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "sexShawwal": "শাওয়ালের ছয় দিন রোজা সম্পর্কে অনুস্মারক",
+  "@sexShawwal": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "arafahReminder": "আরাফার দিনে রোজা সম্পর্কে অনুস্মারক",
+  "@arafahReminder": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "tenDaysOfDhul-Hijjah": "জিলহজ্জের প্রথম দশ দিন",
+  "@tenDaysOfDhul-Hijjah": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "EidAl-Adha": "ঈদ আল-আধা",
+  "@EidAl-Adha": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "choiceBackgroundColor": "পটভূমির রঙ নির্বাচন করুন",
+  "@choiceBackgroundColor": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "reset": "পুনরায় সেট করুন",
+  "@reset": {
     "type": "text",
     "placeholders": {}
   }

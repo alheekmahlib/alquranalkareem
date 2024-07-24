@@ -18,7 +18,12 @@ class AdhkarItem extends StatelessWidget {
       textDirection: TextDirection.rtl,
       child: Scaffold(
         backgroundColor: Theme.of(context).colorScheme.primaryContainer,
-        appBar: const AppBarWidget(isTitled: true),
+        appBar: AppBarWidget(
+          isTitled: true,
+          title: azkarCtrl.state.filteredDhekrList.first.category,
+          isFontSize: true,
+          searchButton: const SizedBox.shrink(),
+        ),
         body: SafeArea(
           child: Padding(
             padding: context.customOrientation(const EdgeInsets.all(0),

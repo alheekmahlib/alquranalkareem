@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 
 import '/core/utils/constants/extensions/svg_extensions.dart';
 import '../../../../core/utils/constants/svg_constants.dart';
+import '../../../../core/widgets/app_bar_widget.dart';
 import '../controller/books_controller.dart';
 import '../widgets/book_details_widget.dart';
 import '../widgets/books_chapters_build.dart';
@@ -25,25 +26,43 @@ class ChaptersPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.primaryContainer,
-      appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.primary,
-        title: Text(
-          'tafsirLibrary'.tr,
-        ),
-        centerTitle: true,
-        actions: [
-          IconButton(
-              onPressed: () => Get.bottomSheet(
-                  SearchScreen(
-                    onSubmitted: (v) => booksCtrl.searchBooks(
-                        booksCtrl.state.searchController.text,
-                        bookNumber: bookNumber),
-                  ),
-                  isScrollControlled: true),
-              icon: customSvgWithColor(SvgPath.svgSearchIcon,
-                  color: Theme.of(context).canvasColor)),
-        ],
+      appBar: AppBarWidget(
+        isTitled: true,
+        title: 'tafsirLibrary'.tr,
+        isFontSize: false,
+        searchButton: IconButton(
+            onPressed: () => Get.bottomSheet(
+                SearchScreen(
+                  onSubmitted: (v) => booksCtrl.searchBooks(
+                      booksCtrl.state.searchController.text,
+                      bookNumber: bookNumber),
+                ),
+                isScrollControlled: true),
+            icon: customSvgWithColor(SvgPath.svgSearchIcon,
+                color: Theme.of(context).colorScheme.surface)),
       ),
+      // AppBar(
+      //   backgroundColor: Theme.of(context).colorScheme.primary,
+      //   iconTheme: IconThemeData(
+      //     color: Theme.of(context).canvasColor,
+      //   ),
+      //   title: Text(
+      //     'tafsirLibrary'.tr,
+      //   ),
+      //   centerTitle: true,
+      //   actions: [
+      //     IconButton(
+      //         onPressed: () => Get.bottomSheet(
+      //             SearchScreen(
+      //               onSubmitted: (v) => booksCtrl.searchBooks(
+      //                   booksCtrl.state.searchController.text,
+      //                   bookNumber: bookNumber),
+      //             ),
+      //             isScrollControlled: true),
+      //         icon: customSvgWithColor(SvgPath.svgSearchIcon,
+      //             color: Theme.of(context).canvasColor)),
+      //   ],
+      // ),
       body: SafeArea(
           child: Column(
         children: [

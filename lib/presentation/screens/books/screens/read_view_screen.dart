@@ -9,7 +9,7 @@ import '/presentation/screens/books/controller/extensions/books_getters.dart';
 import '/presentation/screens/books/controller/extensions/books_storage_getters.dart';
 import '/presentation/screens/quran_page/widgets/search/search_extensions/highlight_extension.dart';
 import '../../../../core/widgets/shimmer_effect_build.dart';
-import '../../../controllers/general_controller.dart';
+import '../../../controllers/general/general_controller.dart';
 import '../controller/books_bookmarks_controller.dart';
 import '../controller/books_controller.dart';
 import '../data/models/page_model.dart';
@@ -36,6 +36,17 @@ class PagesPage extends StatelessWidget {
             fontFamily: 'kufi',
             color: Theme.of(context).colorScheme.inversePrimary,
           ),
+        ),
+        leading: GestureDetector(
+          onTap: () {
+            Get.back();
+          },
+          child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16.0),
+              child: Image.asset(
+                'assets/icons/arrow_back.png',
+                color: Theme.of(context).colorScheme.surface,
+              )),
         ),
       ),
       body: SafeArea(
@@ -100,7 +111,7 @@ class PagesPage extends StatelessWidget {
                                                   color: Get.theme.colorScheme
                                                       .inversePrimary,
                                                   height: 1.5,
-                                                  fontSize: generalCtrl
+                                                  fontSize: generalCtrl.state
                                                       .fontSizeArabic.value,
                                                 ),
                                               ),
@@ -121,6 +132,7 @@ class PagesPage extends StatelessWidget {
                                                       .withOpacity(.5),
                                                   height: 1.5,
                                                   fontSize: generalCtrl
+                                                          .state
                                                           .fontSizeArabic
                                                           .value -
                                                       5,

@@ -5,7 +5,7 @@ import 'package:get/get.dart';
 import '../../../../../core/services/services_locator.dart';
 import '../../../../../core/utils/constants/shared_preferences_constants.dart';
 import '../../../../../core/utils/helpers/global_key_manager.dart';
-import '../../../../controllers/general_controller.dart';
+import '../../../../controllers/general/general_controller.dart';
 import '../audio/audio_controller.dart';
 import '../ayat_controller.dart';
 import '../bookmarks_controller.dart';
@@ -76,7 +76,8 @@ extension QuranUi on QuranController {
   }
 
   void showControl() {
-    generalCtrl.isShowControl.value = !generalCtrl.isShowControl.value;
+    generalCtrl.state.isShowControl.value =
+        !generalCtrl.state.isShowControl.value;
   }
 
   void toggleMenu(String verseKey) {
@@ -91,7 +92,7 @@ extension QuranUi on QuranController {
   Future<void> pageChanged(int index) async {
     state.currentPageNumber.value = index + 1;
     sl<PlayListController>().reset();
-    sl<GeneralController>().isShowControl.value = false;
+    sl<GeneralController>().state.isShowControl.value = false;
     sl<AyatController>().isSelected.value = (-1.0);
     sl<AudioController>().state.pageAyahNumber = '0';
     sl<BookmarksController>().getBookmarks();
@@ -99,5 +100,12 @@ extension QuranUi on QuranController {
         sl<QuranController>().getSurahNumberFromPage(index);
     state.box.write(MSTART_PAGE, index + 1);
     state.box.write(MLAST_URAH, state.lastReadSurahNumber.value);
+  }
+
+  void pageModeOnTap(bool value) {
+    state.isPageMode.value = value;
+    state.box.write(PAGE_MODE, value);
+    update();
+    Get.back();
   }
 }

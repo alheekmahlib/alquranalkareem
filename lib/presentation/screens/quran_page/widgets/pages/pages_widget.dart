@@ -7,7 +7,7 @@ import '/core/utils/constants/extensions/svg_extensions.dart';
 import '/presentation/screens/quran_page/controllers/extensions/quran_getters.dart';
 import '../../../../../core/services/services_locator.dart';
 import '../../../../../core/utils/constants/svg_constants.dart';
-import '../../../../controllers/general_controller.dart';
+import '../../../../controllers/general/general_controller.dart';
 import '../../controllers/audio/audio_controller.dart';
 import '../../controllers/bookmarks_controller.dart';
 import '../../controllers/quran/quran_controller.dart';

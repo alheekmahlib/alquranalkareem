@@ -5,15 +5,15 @@ import 'package:get/get.dart';
 
 import '/core/utils/constants/extensions/convert_number_extension.dart';
 import '/core/widgets/container_button.dart';
-import '../../../controllers/count_down_controller.dart';
-import '../../../controllers/general_controller.dart';
-import 'occasions.dart';
+import '../../../../core/widgets/occasions/all_calculating_events_widget.dart';
+import '../../../../core/widgets/occasions/controller/event_controller.dart';
+import '../../../controllers/general/general_controller.dart';
 
 class HijriDate extends StatelessWidget {
   HijriDate({super.key});
 
   final generalCtrl = GeneralController.instance;
-  final countdownCtrl = CountdownController.instance;
+  final countdownCtrl = EventController.instance;
 
   @override
   Widget build(BuildContext context) {
@@ -21,8 +21,8 @@ class HijriDate extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20.0),
       child: GestureDetector(
-        onTap: () =>
-            Get.to(() => OccasionsWidget(), transition: Transition.downToUp),
+        onTap: () => Get.to(() => AllCalculatingEventsWidget(),
+            transition: Transition.downToUp),
         child: ContainerButton(
           height: 190,
           width: 250,
@@ -72,7 +72,8 @@ class HijriDate extends StatelessWidget {
                             child: Transform.translate(
                               offset: const Offset(0, 4),
                               child: Text(
-                                '${generalCtrl.today.hDay}'.convertNumbers(),
+                                '${generalCtrl.state.today.hDay}'
+                                    .convertNumbers(),
                                 style: TextStyle(
                                   fontSize: 26.0,
                                   fontFamily: 'kufi',
@@ -88,7 +89,7 @@ class HijriDate extends StatelessWidget {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  '${generalCtrl.today.dayWeName}'.tr,
+                                  '${generalCtrl.state.today.dayWeName}'.tr,
                                   style: TextStyle(
                                     fontSize: 16.0,
                                     fontFamily: 'kufi',
@@ -97,7 +98,7 @@ class HijriDate extends StatelessWidget {
                                   textAlign: TextAlign.center,
                                 ),
                                 Text(
-                                  '${'${generalCtrl.today.hYear}'.convertNumbers()} هـ',
+                                  '${'${generalCtrl.state.today.hYear}'.convertNumbers()} هـ',
                                   style: TextStyle(
                                     fontSize: 18.0,
                                     fontFamily: 'kufi',
@@ -114,7 +115,7 @@ class HijriDate extends StatelessWidget {
                     Expanded(
                       flex: 4,
                       child: SvgPicture.asset(
-                          'assets/svg/hijri/${generalCtrl.today.hMonth}.svg',
+                          'assets/svg/hijri/${generalCtrl.state.today.hMonth}.svg',
                           height: 90,
                           colorFilter: ColorFilter.mode(
                               Theme.of(context).canvasColor, BlendMode.srcIn)),
@@ -130,8 +131,8 @@ class HijriDate extends StatelessWidget {
                         minHeight: 40,
                         borderRadius:
                             const BorderRadius.all(Radius.circular(4)),
-                        value: (generalCtrl.today.hDay /
-                            generalCtrl.today.lengthOfMonth),
+                        value: (generalCtrl.state.today.hDay /
+                            generalCtrl.state.today.lengthOfMonth),
                         backgroundColor: Theme.of(context).canvasColor,
                         color: Theme.of(context).colorScheme.surface,
                       ),
@@ -146,7 +147,7 @@ class HijriDate extends StatelessWidget {
                                 child: FittedBox(
                                   fit: BoxFit.scaleDown,
                                   child: Text(
-                                    '${'RemainsUntilTheEndOf'.tr} ${'${generalCtrl.today.longMonthName}'.tr}',
+                                    '${'RemainsUntilTheEndOf'.tr} ${'${generalCtrl.state.today.longMonthName}'.tr}',
                                     style: TextStyle(
                                       fontSize: 14.0,
                                       fontFamily: 'kufi',
@@ -162,7 +163,7 @@ class HijriDate extends StatelessWidget {
                                 child: FittedBox(
                                   fit: BoxFit.scaleDown,
                                   child: Text(
-                                    '${generalCtrl.today.lengthOfMonth - generalCtrl.today.hDay} ${'${countdownCtrl.daysArabicConvert(generalCtrl.today.lengthOfMonth - generalCtrl.today.hDay)}'.tr}',
+                                    '${generalCtrl.state.today.lengthOfMonth - generalCtrl.state.today.hDay} ${'${countdownCtrl.daysArabicConvert(generalCtrl.state.today.lengthOfMonth - generalCtrl.state.today.hDay)}'.tr}',
                                     style: TextStyle(
                                       fontSize: 14.0,
                                       fontFamily: 'kufi',

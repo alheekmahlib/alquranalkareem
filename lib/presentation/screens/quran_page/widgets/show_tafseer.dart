@@ -11,7 +11,7 @@ import '../../../../core/services/services_locator.dart';
 import '../../../../core/utils/constants/extensions/extensions.dart';
 import '../../../../core/utils/constants/lists.dart';
 import '../../../../core/utils/constants/svg_constants.dart';
-import '../../../controllers/general_controller.dart';
+import '../../../controllers/general/general_controller.dart';
 import '../controllers/ayat_controller.dart';
 import '../controllers/quran/quran_controller.dart';
 import '../controllers/translate_controller.dart';
@@ -184,6 +184,7 @@ class ShowTafseer extends StatelessWidget {
                                                                 height: 1.5,
                                                                 fontSize:
                                                                     generalCtrl
+                                                                        .state
                                                                         .fontSizeArabic
                                                                         .value),
                                                           )
@@ -202,6 +203,7 @@ class ShowTafseer extends StatelessWidget {
                                                                 height: 1.5,
                                                                 fontSize:
                                                                     generalCtrl
+                                                                        .state
                                                                         .fontSizeArabic
                                                                         .value),
                                                           ),

@@ -22,7 +22,7 @@ extension RotatedAndAlignmentExtension on Widget {
     }
   }
 
-  alignmentLayout(BuildContext context, var rtl, var ltr) {
+  alignmentLayout(var rtl, var ltr) {
     if ('lang'.tr.isRtlLanguage()) {
       return rtl;
     } else {

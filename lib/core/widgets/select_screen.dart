@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 
-import '../../presentation/controllers/general_controller.dart';
+import '/presentation/controllers/general/extensions/general_ui.dart';
+import '../../presentation/controllers/general/general_controller.dart';
 import '../utils/constants/lists.dart';
 
 class SelectScreen extends StatelessWidget {
@@ -48,7 +49,7 @@ class SelectScreen extends StatelessWidget {
                       Expanded(
                         flex: 9,
                         child: Text(
-                          '${screensList[generalCtrl.screenSelectedValue.value]['name']}'
+                          '${screensList[generalCtrl.state.screenSelectedValue.value]['name']}'
                               .tr,
                           style: TextStyle(
                             fontFamily: 'kufi',

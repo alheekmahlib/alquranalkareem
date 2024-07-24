@@ -9,15 +9,15 @@ import '/core/utils/constants/extensions/extensions.dart';
 import '/core/utils/constants/lottie.dart';
 import '/core/utils/constants/lottie_constants.dart';
 import '/presentation/screens/quran_page/controllers/extensions/quran_ui.dart';
-import '../../../controllers/count_down_controller.dart';
-import '../../../controllers/general_controller.dart';
+import '../../../../core/widgets/occasions/controller/event_controller.dart';
+import '../../../controllers/general/general_controller.dart';
 import '../../quran_page/controllers/quran/quran_controller.dart';
 import '../../quran_page/screens/quran_home.dart';
 
 class LastRead extends StatelessWidget {
   LastRead({super.key});
 
-  final countdownCtrl = CountdownController.instance;
+  final countdownCtrl = EventController.instance;
   final generalCtrl = GeneralController.instance;
   final quranCtrl = QuranController.instance;
 
@@ -142,7 +142,6 @@ class LastRead extends StatelessWidget {
                                                     Radius.circular(8))),
                                       ),
                                       alignmentLayout(
-                                          context,
                                           RotatedBox(
                                               quarterTurns: 15,
                                               child: customLottie(

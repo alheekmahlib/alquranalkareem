@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '/presentation/controllers/general/extensions/general_getters.dart';
 import '/presentation/screens/quran_page/controllers/extensions/audiu_storage_getters.dart';
 import '/presentation/screens/splash/controller/splash_screen_state.dart';
 import '../../../../core/services/services_locator.dart';
 import '../../../../core/utils/constants/lottie.dart';
 import '../../../../core/utils/constants/shared_preferences_constants.dart';
-import '../../../controllers/general_controller.dart';
+import '../../../controllers/general/general_controller.dart';
 import '../../../controllers/settings_controller.dart';
 import '../../quran_page/controllers/audio/audio_controller.dart';
 import '../../quran_page/controllers/ayat_controller.dart';
@@ -43,7 +44,7 @@ class SplashScreenController extends GetxController {
     ]);
     sl<GeneralController>().updateGreeting();
     sl<AudioController>().loadQuranReader();
-    sl<GeneralController>().screenSelectedValue.value =
+    sl<GeneralController>().state.screenSelectedValue.value =
         state.box.read(SCREEN_SELECTED_VALUE) ?? 0;
   }
 

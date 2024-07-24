@@ -185,6 +185,10 @@ class SvgPath {
   /// assets/svg/menu_curve.svg
   static const String svgMenuCurve = "assets/svg/menu_curve.svg";
 
+  /// Assets for svgNightOfQadir
+  /// assets/svg/nightOfQadir.svg
+  static const String svgNightOfQadir = "assets/svg/nightOfQadir.svg";
+
   /// Assets for svgOptions
   /// assets/svg/options.svg
   static const String svgOptions = "assets/svg/options.svg";
@@ -192,6 +196,10 @@ class SvgPath {
   /// Assets for svgPauseArrow
   /// assets/svg/pause_arrow.svg
   static const String svgPauseArrow = "assets/svg/pause_arrow.svg";
+
+  /// Assets for svgPlayAll
+  /// assets/svg/play_all.svg
+  static const String svgPlayAll = "assets/svg/play_all.svg";
 
   /// Assets for svgPlayArrow
   /// assets/svg/play-arrow.svg
@@ -772,6 +780,11 @@ class SvgPath {
   /// Assets for svgTashkil
   /// assets/svg/tashkil.svg
   static const String svgTashkil = "assets/svg/tashkil.svg";
+
+  /// Assets for svgTenDaysOfDhulHijjah
+  /// assets/svg/tenDaysOfDhul-Hijjah.svg
+  static const String svgTenDaysOfDhulHijjah =
+      "assets/svg/tenDaysOfDhul-Hijjah.svg";
 
   /// Assets for svgTheme0
   /// assets/svg/theme0.svg

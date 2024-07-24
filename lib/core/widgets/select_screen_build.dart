@@ -3,7 +3,8 @@ import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 
-import '../../presentation/controllers/general_controller.dart';
+import '/presentation/controllers/general/extensions/general_ui.dart';
+import '../../presentation/controllers/general/general_controller.dart';
 import '../../presentation/screens/screen_type.dart';
 import '../utils/constants/lists.dart';
 import '../utils/constants/shared_preferences_constants.dart';
@@ -98,7 +99,7 @@ class SelectScreenBuild extends StatelessWidget {
                                   : Obx(() {
                                       return AnimatedOpacity(
                                         opacity: index ==
-                                                generalCtrl
+                                                generalCtrl.state
                                                     .screenSelectedValue.value
                                             ? 1
                                             : .5,
@@ -106,7 +107,9 @@ class SelectScreenBuild extends StatelessWidget {
                                             const Duration(milliseconds: 300),
                                         child: GestureDetector(
                                           onTap: () {
-                                            generalCtrl.screenSelectedValue
+                                            generalCtrl
+                                                .state
+                                                .screenSelectedValue
                                                 .value = index;
                                             GetStorage().write(
                                                 SCREEN_SELECTED_VALUE, index);
@@ -187,6 +190,7 @@ class SelectScreenBuild extends StatelessWidget {
                                                 ),
                                                 child: index ==
                                                         generalCtrl
+                                                            .state
                                                             .screenSelectedValue
                                                             .value
                                                     ? const Icon(Icons.done,

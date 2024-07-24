@@ -191,4 +191,8 @@ extension QuranGetters on QuranController {
     }
     return state.juzListController!;
   }
+
+  Color get backgroundColor => state.backgroundPickerColor.value == 0xffFFFFFF
+      ? Theme.of(Get.context!).colorScheme.primaryContainer
+      : Color(state.backgroundPickerColor.value);
 }

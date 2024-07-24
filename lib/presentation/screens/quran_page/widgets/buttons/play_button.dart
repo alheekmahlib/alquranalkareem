@@ -4,7 +4,7 @@ import '/core/services/services_locator.dart';
 import '/core/utils/constants/extensions/svg_extensions.dart';
 import '/core/utils/constants/svg_constants.dart';
 import '/presentation/screens/quran_page/controllers/extensions/audio_ui.dart';
-import '../../../../controllers/general_controller.dart';
+import '../../../../controllers/general/general_controller.dart';
 import '../../controllers/audio/audio_controller.dart';
 import '../../controllers/quran/quran_controller.dart';
 
@@ -33,7 +33,7 @@ class PlayButton extends StatelessWidget {
         enabled: true,
         label: singleAyahOnly ? 'Play Ayah' : 'Play Surah',
         child: customSvg(
-          SvgPath.svgPlayArrow,
+          singleAyahOnly ? SvgPath.svgPlayArrow : SvgPath.svgPlayAll,
           height: 20,
         ),
       ),

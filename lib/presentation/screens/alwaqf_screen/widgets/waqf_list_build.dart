@@ -1,13 +1,13 @@
-import 'package:alquranalkareem/core/utils/constants/extensions/svg_extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 
+import '/core/utils/constants/extensions/svg_extensions.dart';
 import '../../../../core/services/services_locator.dart';
 import '../../../../core/utils/constants/lists.dart';
 import '../../../../core/utils/constants/svg_constants.dart';
-import '../../../controllers/general_controller.dart';
+import '../../../controllers/general/general_controller.dart';
 import '../../adhkar/controller/adhkar_controller.dart';
 
 class WaqfListBuild extends StatelessWidget {
@@ -23,7 +23,7 @@ class WaqfListBuild extends StatelessWidget {
         scrollDirection: Axis.vertical,
         shrinkWrap: true,
         addAutomaticKeepAlives: true,
-        itemScrollController: generalCtrl.waqfScrollController,
+        itemScrollController: generalCtrl.state.waqfScrollController,
         itemCount: waqfMarks.length,
         physics: const ClampingScrollPhysics(),
         itemBuilder: (context, index) {
@@ -68,8 +68,10 @@ class WaqfListBuild extends StatelessWidget {
                             children: sl<AzkarController>()
                                 .buildTextSpans(waqfExplain[index]),
                             style: TextStyle(
-                              fontSize:
-                                  sl<GeneralController>().fontSizeArabic.value,
+                              fontSize: sl<GeneralController>()
+                                  .state
+                                  .fontSizeArabic
+                                  .value,
                               fontFamily: 'naskh',
                               color:
                                   Theme.of(context).colorScheme.inversePrimary,
