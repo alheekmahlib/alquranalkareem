@@ -1102,5 +1102,25 @@
   "@reset": {
     "type": "text",
     "placeholders": {}
+  },
+  "Medinan": "Medina",
+  "@Medinan": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Meccan": "Meca",
+  "@Meccan": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "surahNames": "Nombres de la sura",
+  "@surahNames": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "aboutSurah": "Acerca de la sura",
+  "@aboutSurah": {
+    "type": "text",
+    "placeholders": {}
   }
 }

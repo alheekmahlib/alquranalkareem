@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '/core/utils/constants/extensions/convert_number_extension.dart';
+import '../../../../../core/utils/constants/svg_constants.dart';
 import '../../../../../core/utils/helpers/responsive.dart';
 import '../../data/model/surahs_model.dart';
 import '../quran/quran_controller.dart';
@@ -75,7 +76,7 @@ extension QuranGetters on QuranController {
   Surah getCurrentSurahByPage(int pageNumber) => state.surahs.firstWhere(
       (s) => s.ayahs.contains(getPageAyahsByIndex(pageNumber).first));
 
-  Surah getSurahNumberByAyah(Ayah ayah) =>
+  Surah getSurahDataByAyah(Ayah ayah) =>
       state.surahs.firstWhere((s) => s.ayahs.contains(ayah));
 
   Surah getSurahDataByAyahUQ(int ayah) => state.surahs
@@ -155,7 +156,8 @@ extension QuranGetters on QuranController {
       });
 
   RxBool getCurrentSurahNumber(int surahNum) =>
-      getCurrentSurahByPage(state.currentPageNumber.value).surahNumber - 1 ==
+      getCurrentSurahByPage(state.currentPageNumber.value - 1).surahNumber -
+                  1 ==
               surahNum
           ? true.obs
           : false.obs;
@@ -176,7 +178,9 @@ extension QuranGetters on QuranController {
     if (state.surahController == null) {
       state.surahController = ScrollController(
         initialScrollOffset: state.surahItemHeight *
-            getCurrentSurahByPage(state.currentPageNumber.value).surahNumber,
+                getCurrentSurahByPage(state.currentPageNumber.value - 1)
+                    .surahNumber -
+            1,
       );
     }
     return state.surahController!;
@@ -195,4 +199,16 @@ extension QuranGetters on QuranController {
   Color get backgroundColor => state.backgroundPickerColor.value == 0xffFFFFFF
       ? Theme.of(Get.context!).colorScheme.primaryContainer
       : Color(state.backgroundPickerColor.value);
+
+  String get surahBannerPath {
+    if (themeCtrl.isBlueMode) {
+      return SvgPath.svgSurahBanner1;
+    } else if (themeCtrl.isBrownMode) {
+      return SvgPath.svgSurahBanner2;
+    } else if (themeCtrl.isOldMode) {
+      return SvgPath.svgSurahBanner4;
+    } else {
+      return SvgPath.svgSurahBanner3;
+    }
+  }
 }

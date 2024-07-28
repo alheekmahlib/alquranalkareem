@@ -3,7 +3,6 @@ import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 
 import '/core/utils/constants/extensions/convert_number_extension.dart';
-import '/core/utils/constants/extensions/surah_name_with_banner.dart';
 import '/presentation/screens/quran_page/controllers/extensions/quran_getters.dart';
 import '/presentation/screens/quran_page/controllers/extensions/quran_ui.dart';
 import '../../../../../core/services/services_locator.dart';
@@ -11,6 +10,7 @@ import '../../../../../core/widgets/measure_size_widget.dart';
 import '../../../../controllers/general/general_controller.dart';
 import '../../controllers/quran/quran_controller.dart';
 import '../../controllers/translate_controller.dart';
+import '../../extensions/surah_name_with_banner.dart';
 import '../pages/custom_span.dart';
 import 'ayahs_menu.dart';
 import 'translate_build.dart';
@@ -19,7 +19,6 @@ class AyahsBuild extends StatelessWidget {
   final int pageIndex;
 
   AyahsBuild({super.key, required this.pageIndex});
-
   final quranCtrl = QuranController.instance;
 
   @override

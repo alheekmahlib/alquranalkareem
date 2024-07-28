@@ -31,6 +31,7 @@ class QuranState {
   RxInt isBold = 0.obs;
   RxBool isMoreOptions = false.obs;
   final itemScrollController = ItemScrollController();
+  final ayahsItemScrollController = ItemScrollController();
   final itemPositionsListener = ItemPositionsListener.create();
   final scrollOffsetController = ScrollOffsetController();
   var moreOptionsMap = <String, bool>{}.obs;
@@ -50,4 +51,7 @@ class QuranState {
   RxBool isPageMode = false.obs;
   RxInt backgroundPickerColor = 0xffFFFFFF.obs;
   RxInt temporaryBackgroundColor = 0xffFFFFFF.obs;
+
+  // final ScrollController scrollController = ScrollController();
+  RxBool isScrolling = false.obs;
 }

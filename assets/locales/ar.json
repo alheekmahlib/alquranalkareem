@@ -1088,5 +1088,25 @@
   "@reset": {
     "type": "text",
     "placeholders": {}
+  },
+  "Medinan": "مدنية",
+  "@Medinan": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Meccan": "مكية",
+  "@Meccan": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "surahNames": "أسماء السورة",
+  "@surahNames": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "aboutSurah": "عن السورة",
+  "@aboutSurah": {
+    "type": "text",
+    "placeholders": {}
   }
 }

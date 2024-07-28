@@ -1094,5 +1094,25 @@
   "@reset": {
     "type": "text",
     "placeholders": {}
+  },
+  "Medinan": "مکی",
+  "@Medinan": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Meccan": "مدنی",
+  "@Meccan": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "surahNames": "سورہ کے نام",
+  "@surahNames": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "aboutSurah": "سورہ کے بارے میں",
+  "@aboutSurah": {
+    "type": "text",
+    "placeholders": {}
   }
 }

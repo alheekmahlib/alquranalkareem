@@ -1,3 +1,4 @@
+import 'package:alquranalkareem/core/utils/constants/svg_constants.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -85,7 +86,7 @@ class QuranSurahList extends StatelessWidget {
                                                   height: 40,
                                                   width: 40,
                                                   child: SvgPicture.asset(
-                                                    'assets/svg/sora_num.svg',
+                                                    SvgPath.svgSoraNum,
                                                     colorFilter:
                                                         ColorFilter.mode(
                                                             Theme.of(context)

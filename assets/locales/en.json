@@ -1094,5 +1094,25 @@
   "@reset": {
     "type": "text",
     "placeholders": {}
+  },
+  "Medinan": "Medinan",
+  "@Medinan": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Meccan": "Meccan",
+  "@Meccan": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "surahNames": "Names of the Surah",
+  "@surahNames": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "aboutSurah": "About the Surah",
+  "@aboutSurah": {
+    "type": "text",
+    "placeholders": {}
   }
 }

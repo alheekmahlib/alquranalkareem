@@ -29,7 +29,7 @@ class KhatmahBookmarksScreen extends StatelessWidget {
               Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  context.customClose(),
+                  context.customWhiteClose(),
                   const Gap(8),
                   context.vDivider(height: 20),
                   const Gap(8),

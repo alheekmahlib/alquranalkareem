@@ -108,4 +108,31 @@ extension QuranUi on QuranController {
     update();
     Get.back();
   }
+
+  // void scrollSlowly(BuildContext context, double duration) async {
+  //   double scrollPosition = 0.0;
+  //   final double totalHeight = state.pages.length.toDouble();
+  //   final int steps = (totalHeight / 100).round();
+  //   final double stepDuration = (duration * 60 * 1000) / steps;
+  //
+  //   state.isScrolling.value = true; // بدء التمرير
+  //
+  //   for (int i = steps; i >= 0; i--) {
+  //     if (!state.itemScrollController.isAttached || !state.isScrolling.value)
+  //       break; // استخدم break للخروج من الحلقة
+  //
+  //     scrollPosition = i * 100;
+  //     state.itemScrollController.scrollTo(
+  //       index: (scrollPosition / 100).floor(),
+  //       duration: Duration(milliseconds: stepDuration.toInt()),
+  //       curve: Curves.linear,
+  //     );
+  //     await Future.delayed(Duration(milliseconds: stepDuration.toInt()));
+  //
+  //     // تحقق من حالة isScrolling بعد التأخير
+  //     if (!state.isScrolling.value) break;
+  //   }
+  //
+  //   state.isScrolling.value = false; // التمرير انتهى
+  // }
 }

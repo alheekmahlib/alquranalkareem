@@ -1094,5 +1094,25 @@
   "@reset": {
     "type": "text",
     "placeholders": {}
+  },
+  "Medinan": "Madinah",
+  "@Medinan": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Meccan": "Makkah",
+  "@Meccan": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "surahNames": "Magacyada Suuradda",
+  "@surahNames": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "aboutSurah": "Ku saabsan Suuradda",
+  "@aboutSurah": {
+    "type": "text",
+    "placeholders": {}
   }
 }
