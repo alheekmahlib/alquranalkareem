@@ -65,7 +65,8 @@ class PrayerBuild extends StatelessWidget {
                                   ),
                                 ),
                                 Text(
-                                  adhanCtrl.prayerNameList[index]['time']!,
+                                  adhanCtrl.prayerNameList[index]['time']!
+                                      .toString(),
                                   style: TextStyle(
                                     fontFamily: 'kufi',
                                     fontSize: 16,

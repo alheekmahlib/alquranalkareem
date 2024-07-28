@@ -1,6 +1,5 @@
 import 'package:solar_icons/solar_icons.dart';
 
-import '../../../../../core/utils/helpers/date_formatter.dart';
 import '../../controller/adhan/adhan_state.dart';
 
 List<Map<String, dynamic>> generatePrayerNameList(AdhanState state) => [
@@ -46,7 +45,7 @@ List<Map<String, dynamic>> generatePrayerNameList(AdhanState state) => [
       },
       {
         'title': 'العشاء',
-        'time': DateFormatter.justTime(state.prayerTimes.isha),
+        'time': state.ishaTime.value,
         'hourTime': state.prayerTimes.isha,
         'minuteTime': state.prayerTimes.isha.minute,
         'sharedAlarm': 'ALARM_ISHA',
@@ -56,7 +55,7 @@ List<Map<String, dynamic>> generatePrayerNameList(AdhanState state) => [
       },
       {
         'title': 'منتصف الليل',
-        'time': DateFormatter.justTime(state.sunnahTimes.middleOfTheNight),
+        'time': state.midnightTime.value,
         'hourTime': state.prayerTimes.isha,
         'minuteTime': state.prayerTimes.isha.minute,
         'sharedAlarm': 'ALARM_MIDNIGHT',
@@ -66,7 +65,7 @@ List<Map<String, dynamic>> generatePrayerNameList(AdhanState state) => [
       },
       {
         'title': 'الثلث الأخير',
-        'time': DateFormatter.justTime(state.sunnahTimes.lastThirdOfTheNight),
+        'time': state.lastThirdTime.value,
         'hourTime': state.prayerTimes.isha,
         'minuteTime': state.prayerTimes.isha.minute,
         'sharedAlarm': 'ALARM_LAST_THIRD',
