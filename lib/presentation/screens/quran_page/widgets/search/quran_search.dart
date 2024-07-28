@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 
-import '/core/utils/constants/extensions/surah_name_with_banner.dart';
 import '/presentation/screens/quran_page/controllers/extensions/quran_ui.dart';
 import '/presentation/screens/quran_page/widgets/search/search_extensions/highlight_extension.dart';
 import '../../../../../core/utils/constants/extensions/extensions.dart';
@@ -12,6 +11,7 @@ import '../../../../controllers/general/general_controller.dart';
 import '../../controllers/aya_controller.dart';
 import '../../controllers/quran/quran_controller.dart';
 import '../../data/model/aya.dart';
+import '../../extensions/surah_name_with_banner.dart';
 import 'search_bar_widget.dart';
 
 class QuranSearch extends StatelessWidget {

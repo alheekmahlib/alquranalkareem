@@ -113,7 +113,7 @@ extension AudioGetters on AudioController {
       return '$reader/${state.currentAyahUQInPage.value}.mp3';
     } else {
       final surahNum = quranCtrl
-          .getSurahNumberByAyah(
+          .getSurahDataByAyah(
               quranCtrl.state.allAyahs[state.currentAyahUQInPage.value - 1])
           .surahNumber
           .toString()

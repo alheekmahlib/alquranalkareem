@@ -79,6 +79,7 @@ dependencies:
   flex_color_picker: ^3.5.1
   shimmer: ^3.0.0
   animated_toggle_switch: ^0.8.2
+  auto_scroll_slider: ^1.0.1
 
 
 dev_dependencies:

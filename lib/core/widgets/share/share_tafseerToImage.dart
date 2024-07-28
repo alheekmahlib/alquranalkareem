@@ -6,10 +6,10 @@ import 'package:get/get.dart';
 import 'package:screenshot/screenshot.dart';
 
 import '/core/utils/constants/extensions/alignment_rotated_extension.dart';
-import '/core/utils/constants/extensions/surah_name_with_banner.dart';
 import '/core/utils/constants/extensions/svg_extensions.dart';
 import '../../../presentation/screens/quran_page/controllers/share_controller.dart';
 import '../../../presentation/screens/quran_page/controllers/translate_controller.dart';
+import '../../../presentation/screens/quran_page/extensions/surah_name_with_banner.dart';
 import '../../services/services_locator.dart';
 import '../../utils/constants/extensions/extensions.dart';
 import '../../utils/constants/svg_constants.dart';

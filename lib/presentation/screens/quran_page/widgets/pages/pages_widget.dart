@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 
-import '/core/utils/constants/extensions/surah_name_with_banner.dart';
 import '/core/utils/constants/extensions/svg_extensions.dart';
 import '/presentation/screens/quran_page/controllers/extensions/quran_getters.dart';
 import '../../../../../core/services/services_locator.dart';
@@ -11,6 +10,7 @@ import '../../../../controllers/general/general_controller.dart';
 import '../../controllers/audio/audio_controller.dart';
 import '../../controllers/bookmarks_controller.dart';
 import '../../controllers/quran/quran_controller.dart';
+import '../../extensions/surah_name_with_banner.dart';
 import 'text_build.dart';
 
 class PagesWidget extends StatelessWidget {
@@ -48,10 +48,10 @@ class PagesWidget extends StatelessWidget {
                       Gap(Get.height * .06),
                       surahBannerFirstPlace(pageIndex, i),
                       Gap(Get.height * .06),
-                      quranCtrl.getSurahNumberByAyah(ayahs.first).surahNumber ==
+                      quranCtrl.getSurahDataByAyah(ayahs.first).surahNumber ==
                                   9 ||
                               quranCtrl
-                                      .getSurahNumberByAyah(ayahs.first)
+                                      .getSurahDataByAyah(ayahs.first)
                                       .surahNumber ==
                                   1
                           ? const SizedBox.shrink()
@@ -59,12 +59,12 @@ class PagesWidget extends StatelessWidget {
                               padding: const EdgeInsets.only(bottom: 8.0),
                               child: ayahs.first.ayahNumber == 1
                                   ? (quranCtrl
-                                                  .getSurahNumberByAyah(
+                                                  .getSurahDataByAyah(
                                                       ayahs.first)
                                                   .surahNumber ==
                                               95 ||
                                           quranCtrl
-                                                  .getSurahNumberByAyah(
+                                                  .getSurahDataByAyah(
                                                       ayahs.first)
                                                   .surahNumber ==
                                               97)

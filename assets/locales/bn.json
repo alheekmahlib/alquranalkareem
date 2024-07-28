@@ -1094,5 +1094,25 @@
   "@reset": {
     "type": "text",
     "placeholders": {}
+  },
+  "Medinan": "মাদানি",
+  "@Medinan": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Meccan": "মাক্কি",
+  "@Meccan": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "surahNames": "সূরার নামগুলি",
+  "@surahNames": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "aboutSurah": "সূরা সম্পর্কে",
+  "@aboutSurah": {
+    "type": "text",
+    "placeholders": {}
   }
 }

@@ -7,8 +7,8 @@ import 'package:get/get.dart';
 
 import '/core/utils/constants/extensions/convert_number_extension.dart';
 import '/core/utils/constants/extensions/extensions.dart';
-import '/core/utils/constants/extensions/surah_name_with_banner.dart';
 import '/presentation/screens/quran_page/controllers/extensions/quran_getters.dart';
+import '/presentation/screens/quran_page/extensions/bookmark_page_icon_path.dart';
 import '../../../../../core/services/services_locator.dart';
 import '../../../../controllers/general/general_controller.dart';
 import '../../controllers/audio/audio_controller.dart';

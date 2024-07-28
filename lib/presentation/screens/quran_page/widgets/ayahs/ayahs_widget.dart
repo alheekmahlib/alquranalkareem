@@ -70,6 +70,18 @@ class AyahsWidget extends StatelessWidget {
                     ],
                   ),
                 ),
+                // ElevatedButton(
+                //   onPressed: () {
+                //     if (quranCtrl.state.isScrolling.value) {
+                //       quranCtrl.state.isScrolling.value = false;
+                //     } else {
+                //       quranCtrl.scrollSlowly(context, 30.0);
+                //     }
+                //   },
+                //   child: Text(quranCtrl.state.isScrolling.value
+                //       ? 'إيقاف'
+                //       : 'التمرير'),
+                // ),
                 fontSizeDropDown(
                     height: 25.0,
                     color:

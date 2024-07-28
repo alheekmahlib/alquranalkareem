@@ -3,7 +3,6 @@ import 'package:get/get.dart';
 
 import '/core/utils/constants/extensions/convert_number_extension.dart';
 import '/core/utils/constants/extensions/extensions.dart';
-import '/core/utils/constants/extensions/surah_name_with_banner.dart';
 import '/core/utils/constants/extensions/text_span_extension.dart';
 import '/presentation/screens/quran_page/controllers/extensions/quran_getters.dart';
 import '../../../presentation/controllers/daily_ayah_controller.dart';
@@ -11,6 +10,7 @@ import '../../../presentation/controllers/general/general_controller.dart';
 import '../../../presentation/screens/quran_page/controllers/ayat_controller.dart';
 import '../../../presentation/screens/quran_page/controllers/quran/quran_controller.dart';
 import '../../../presentation/screens/quran_page/data/model/surahs_model.dart';
+import '../../../presentation/screens/quran_page/extensions/surah_name_with_banner.dart';
 import '../../utils/constants/lists.dart';
 import '../read_more_less/read_more_less.dart';
 
