@@ -189,6 +189,10 @@ class SvgPath {
   /// assets/svg/nightOfQadir.svg
   static const String svgNightOfQadir = "assets/svg/nightOfQadir.svg";
 
+  /// Assets for svgNotifications
+  /// assets/svg/notifications.svg
+  static const String svgNotifications = "assets/svg/notifications.svg";
+
   /// Assets for svgOptions
   /// assets/svg/options.svg
   static const String svgOptions = "assets/svg/options.svg";

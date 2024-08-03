@@ -7,6 +7,8 @@ import '/presentation/screens/home/home_screen.dart';
 import '../../presentation/controllers/general/general_controller.dart';
 import '../../presentation/screens/quran_page/controllers/quran/quran_controller.dart';
 import '../services/services_locator.dart';
+import 'local_notification/notification_screen.dart';
+import 'local_notification/widgets/notification_icon_widget.dart';
 import 'settings_list.dart';
 
 class TabBarWidget extends StatelessWidget {
@@ -14,12 +16,14 @@ class TabBarWidget extends StatelessWidget {
   final bool isCenterChild;
   final Widget? centerChild;
   final bool? isQuranSetting;
+  final bool isNotification;
   const TabBarWidget(
       {super.key,
       required this.isFirstChild,
       required this.isCenterChild,
       this.centerChild,
-      this.isQuranSetting});
+      this.isQuranSetting,
+      required this.isNotification});
 
   @override
   Widget build(BuildContext context) {
@@ -74,7 +78,17 @@ class TabBarWidget extends StatelessWidget {
                           ],
                         ),
                       )
-                    : const SizedBox.shrink(),
+                    : isNotification
+                        ? GestureDetector(
+                            onTap: () => Get.bottomSheet(NotificationsScreen(),
+                                isScrollControlled: true),
+                            child: const NotificationIconWidget(
+                              isCurve: true,
+                              iconHeight: 25,
+                              padding: 4.0,
+                            ),
+                          )
+                        : const SizedBox.shrink(),
               ),
               Expanded(
                   flex: 7,

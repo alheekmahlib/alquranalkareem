@@ -33,10 +33,13 @@ class ShowTafseer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final size = MediaQuery.sizeOf(context);
+    final pageAyahs =
+        quranCtrl.getPageAyahsByIndex(quranCtrl.state.currentPageNumber.value);
+    final selectedAyahIndexInFullPage =
+        pageAyahs.indexWhere((ayah) => ayah.ayahUQNumber == ayahUQNumber);
     return Container(
-      height: size.height * .9,
-      width: size.width,
+      height: Get.height * .9,
+      width: Get.width,
       decoration: BoxDecoration(
           color: Theme.of(context).colorScheme.primaryContainer,
           borderRadius: const BorderRadius.only(
@@ -77,21 +80,13 @@ class ShowTafseer extends StatelessWidget {
               ),
               Flexible(
                 flex: 4,
-                child: Obx(() => PageView.builder(
-                    controller: PageController(initialPage: (index).toInt()),
-                    itemCount: quranCtrl
-                        .getPageAyahsByIndex(
-                            quranCtrl.state.currentPageNumber.value)
-                        .length,
+                child: PageView.builder(
+                    controller: PageController(
+                        initialPage: (selectedAyahIndexInFullPage).toInt()),
+                    itemCount: pageAyahs.length,
                     itemBuilder: (context, index) {
-                      final ayahs = quranCtrl.getPageAyahsByIndex(
-                          quranCtrl.state.currentPageNumber.value)[index];
-                      int ayahIndex = quranCtrl
-                              .getPageAyahsByIndex(
-                                  quranCtrl.state.currentPageNumber.value)
-                              .first
-                              .ayahUQNumber +
-                          index;
+                      final ayahs = pageAyahs[index];
+                      int ayahIndex = pageAyahs.first.ayahUQNumber + index;
                       return GetX<AyatController>(
                         builder: (ayatCtrl) {
                           return FutureBuilder(
@@ -254,7 +249,7 @@ class ShowTafseer extends StatelessWidget {
                               });
                         },
                       );
-                    })),
+                    }),
               ),
             ],
           ),

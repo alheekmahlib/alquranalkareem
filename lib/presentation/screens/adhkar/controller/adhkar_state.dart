@@ -8,11 +8,9 @@ import 'package:screenshot/screenshot.dart';
 import '../models/dheker_model.dart';
 
 class AdhkarState {
-  /// -------- [Variables] ----------
   final RxList<Dhekr> adhkarList = <Dhekr>[].obs;
   final listController = ScrollController();
   final favController = ScrollController();
-  // math.Random random = math.Random();
   var allAdhkar = <Dhekr>[].obs;
   var filteredDhekrList = <Dhekr>[].obs;
   var filteredFavDhekrList = <Dhekr>[].obs;
@@ -20,5 +18,10 @@ class AdhkarState {
   Dhekr? dhekrOfTheDay;
   final ScreenshotController dhekrScreenController = ScreenshotController();
   Uint8List? dhekrToImageBytes;
+  RxBool isMorningEnabled = false.obs;
+  RxBool isEveningEnabled = false.obs;
+  RxMap<String, String> customAdhkar = <String, String>{}.obs;
+  RxMap<String, bool> customAdhkarEnabled = <String, bool>{}.obs;
+  var selectedCategory = Rxn<String>();
   final box = GetStorage();
 }

@@ -1,11 +1,5 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:path_provider/path_provider.dart';
-import 'package:share_plus/share_plus.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 import '/presentation/screens/home/home_screen.dart';
 import '../../../core/services/services_locator.dart';
@@ -22,16 +16,6 @@ class GeneralController extends GetxController {
       : Get.put<GeneralController>(GeneralController());
 
   GeneralState state = GeneralState();
-
-  @override
-  Future<void> onInit() async {
-    super.onInit();
-  }
-
-  @override
-  void onClose() {
-    super.onClose();
-  }
 
   /// -------- [Methods] ----------
 
@@ -73,44 +57,5 @@ class GeneralController extends GetxController {
       default:
         return const HomeScreen();
     }
-  }
-
-  Future<void> launchEmail() async {
-    const String subject = "تطبيق القرآن الكريم - مكتبة الحكمة";
-    const String stringText =
-        "يرجى كتابة أي ملاحظة أو إستفسار\n| جزاكم الله خيرًا |";
-    String uri =
-        'mailto:haozo89@gmail.com?subject=${Uri.encodeComponent(subject)}&body=${Uri.encodeComponent(stringText)}';
-    if (await canLaunchUrl(Uri.parse(uri))) {
-      await launchUrl(Uri.parse(uri));
-    } else {
-      print("No email client found");
-    }
-  }
-
-  Future<void> launchFacebookUrl() async {
-    String uri = 'https://www.facebook.com/alheekmahlib';
-    if (await canLaunchUrl(Uri.parse(uri))) {
-      await launchUrl(Uri.parse(uri));
-    } else {
-      print("No url client found");
-    }
-  }
-
-  Future<void> share() async {
-    final box = Get.context!.findRenderObject() as RenderBox?;
-    final ByteData bytes =
-        await rootBundle.load('assets/images/quran_banner.png');
-    final Uint8List list = bytes.buffer.asUint8List();
-
-    final tempDir = await getTemporaryDirectory();
-    final file = await File('${tempDir.path}/quran_banner.png').create();
-    file.writeAsBytesSync(list);
-    await Share.shareXFiles(
-      [XFile((file.path))],
-      text:
-          'تطبيق "القرآن الكريم - مكتبة الحكمة" التطبيق الأمثل لقراءة القرآن.\n\nللتحميل:\nalheekmahlib.com/#/download/app/0',
-      sharePositionOrigin: box!.localToGlobal(Offset.zero) & box.size,
-    );
   }
 }

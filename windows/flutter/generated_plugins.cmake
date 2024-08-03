@@ -5,7 +5,7 @@
 list(APPEND FLUTTER_PLUGIN_LIST
   connectivity_plus
   desktop_window
-  geolocator_windows
+  flutter_timezone
   share_plus
   simple_animation_progress_bar
   sqlite3_flutter_libs

@@ -904,11 +904,6 @@
     "type": "text",
     "placeholders": {}
   },
-  "What'sNewDetails9": "مواعيد المناسبات الإسلامية",
-  "@What'sNewDetails9": {
-    "type": "text",
-    "placeholders": {}
-  },
   "Fajr": "الفجر",
   "@Fajr": {
     "type": "text",
@@ -1106,6 +1101,36 @@
   },
   "aboutSurah": "عن السورة",
   "@aboutSurah": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "notification": "الإشعارات",
+  "@notification": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "noNotifications": "لا توجد إشعارات",
+  "@noNotifications": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "reminders": "تذكير",
+  "@reminders": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "customReminder": "تذكير مخصص",
+  "@customReminder": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "addMore": "أضف المزيد",
+  "@addMore": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "What'sNewDetails10": "۞ إضافة الختمة للقرآن.\n۞ إضافة خاصية تحميل كل آيات السورة لكي تعمل دون أنترنت.\n ۞ تحسينات في البحث الخاص بالقرآن.\n ۞ إضافة مكتبة التفسير.\n ۞ إضافة ميزة التذكير لقراءة الأذكار حيث يمكنك تخصيص وقت محدد لراءة الذكر.\n ۞ إضافة الإشعارات.\n ۞ والمزيد من الإضافات والتحسينات",
+  "@What'sNewDetails10": {
     "type": "text",
     "placeholders": {}
   }

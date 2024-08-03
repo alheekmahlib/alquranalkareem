@@ -75,6 +75,7 @@ class QuranHome extends StatelessWidget {
                           isFirstChild: true,
                           isCenterChild: true,
                           isQuranSetting: true,
+                          isNotification: false,
                           centerChild: Padding(
                             padding: const EdgeInsets.only(top: 15.0),
                             child: OpenContainerWrapper(

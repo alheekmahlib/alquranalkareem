@@ -39,10 +39,8 @@ class PageViewBuild extends StatelessWidget {
                               horizontal: 8.0, vertical: 4.0),
                           margin: const EdgeInsets.symmetric(horizontal: 8.0),
                           decoration: BoxDecoration(
-                              color: Theme.of(context)
-                                  .colorScheme
-                                  .surface
-                                  .withOpacity(.1),
+                              color:
+                                  Theme.of(context).canvasColor.withOpacity(.1),
                               borderRadius:
                                   const BorderRadius.all(Radius.circular(4))),
                           child: Text(
@@ -51,6 +49,7 @@ class PageViewBuild extends StatelessWidget {
                               color: Theme.of(context).canvasColor,
                               fontSize: 16.0.sp,
                               fontFamily: 'kufi',
+                              height: 2,
                             ),
                           ),
                         ),
@@ -82,14 +81,11 @@ class PageViewBuild extends StatelessWidget {
                       ? const SizedBox.shrink()
                       : Container(
                           width: size.width,
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 16.0, vertical: 8.0),
+                          padding: const EdgeInsets.all(16.0),
                           margin: const EdgeInsets.symmetric(horizontal: 8.0),
                           decoration: BoxDecoration(
-                              color: Theme.of(context)
-                                  .colorScheme
-                                  .surface
-                                  .withOpacity(.1),
+                              color:
+                                  Theme.of(context).canvasColor.withOpacity(.1),
                               borderRadius:
                                   const BorderRadius.all(Radius.circular(4))),
                           child: Text(
@@ -98,6 +94,7 @@ class PageViewBuild extends StatelessWidget {
                               color: Theme.of(context).canvasColor,
                               fontSize: 14.0.sp,
                               fontFamily: 'kufi',
+                              height: 2,
                             ),
                           ),
                         ),

@@ -4,8 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:timezone/data/latest.dart' as tz;
+import 'package:wakelock_plus/wakelock_plus.dart';
 
 import '/core/services/languages/dependency_inj.dart' as dep;
+import 'core/services/local_notifications.dart';
 import 'core/services/services_locator.dart';
 import 'myApp.dart';
 
@@ -26,5 +28,7 @@ Future<void> initializeApp() async {
   await GetStorage.init();
   await ServicesLocator().init();
   tz.initializeTimeZones();
+  await NotifyHelper().initializeNotification();
   FlutterNativeSplash.remove();
+  WakelockPlus.enable();
 }

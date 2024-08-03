@@ -22,6 +22,7 @@ class AdhkarView extends StatelessWidget {
                     isFirstChild: true,
                     isCenterChild: true,
                     isQuranSetting: false,
+                    isNotification: false,
                     centerChild: Container(
                       height: 45,
                       padding: const EdgeInsets.all(4.0),

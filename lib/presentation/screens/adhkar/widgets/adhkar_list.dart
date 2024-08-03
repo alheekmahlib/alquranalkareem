@@ -10,6 +10,7 @@ import '../../../../core/utils/constants/lottie_constants.dart';
 import '../../../../core/utils/constants/svg_constants.dart';
 import '../controller/adhkar_controller.dart';
 import '../screens/adhkar_item.dart';
+import 'azkar_reminder_widget.dart';
 
 class AdhkarList extends StatelessWidget {
   const AdhkarList({super.key});
@@ -21,8 +22,66 @@ class AdhkarList extends StatelessWidget {
         Column(
           children: [
             const Gap(32),
-            customLottie(LottieConstants.assetsLottieAzkar,
-                height: 120, isRepeat: false),
+            Stack(
+              alignment: Alignment.center,
+              children: [
+                Align(
+                  alignment: AlignmentDirectional.centerStart,
+                  child: GestureDetector(
+                    onTap: () => Get.bottomSheet(AdhkarReminderWidget(),
+                        isScrollControlled: true),
+                    child: Stack(
+                      alignment: Alignment.center,
+                      children: [
+                        Transform.translate(
+                          offset: const Offset(0, -2),
+                          child: RotatedBox(
+                            quarterTurns: 1,
+                            child: customSvgWithColor(SvgPath.svgButtonCurve,
+                                height: 45.0,
+                                width: 45.0,
+                                color: Get.theme.colorScheme.primary),
+                          ),
+                        ),
+                        Container(
+                          padding: const EdgeInsets.all(4),
+                          margin: const EdgeInsets.only(bottom: 5),
+                          decoration: BoxDecoration(
+                              borderRadius:
+                                  const BorderRadius.all(Radius.circular(4)),
+                              border: Border.all(
+                                  width: 1,
+                                  color:
+                                      Theme.of(context).colorScheme.surface)),
+                          child: Icon(
+                            Icons.alarm,
+                            size: 25,
+                            color: Theme.of(context).canvasColor,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                // Align(
+                //   alignment: AlignmentDirectional.centerStart,
+                //   child: Padding(
+                //     padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                //     child: GestureDetector(
+                //       onTap: () => Get.bottomSheet(AdhkarReminderWidget(),
+                //           isScrollControlled: true),
+                //       child: Icon(
+                //         Icons.alarm,
+                //         size: 30,
+                //         color: Theme.of(context).colorScheme.primary,
+                //       ),
+                //     ),
+                //   ),
+                // ),
+                customLottie(LottieConstants.assetsLottieAzkar,
+                    height: 120, isRepeat: false),
+              ],
+            ),
             const Gap(32),
             Flexible(
               child: Container(

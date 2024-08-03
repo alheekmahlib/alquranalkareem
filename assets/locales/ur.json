@@ -910,11 +910,6 @@
     "type": "text",
     "placeholders": {}
   },
-  "What'sNewDetails9": "اسلامی مواقع کی تاریخیں",
-  "@What'sNewDetails9": {
-    "type": "text",
-    "placeholders": {}
-  },
   "Fajr": "فجر",
   "@Fajr": {
     "type": "text",
@@ -1112,6 +1107,36 @@
   },
   "aboutSurah": "سورہ کے بارے میں",
   "@aboutSurah": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "notification": "اطلاعات",
+  "@notification": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "noNotifications": "کوئی اطلاعات نہیں",
+  "@noNotifications": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "reminders": "یاددہانیاں",
+  "@reminders": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "customReminder": "مخصوص یاددہانی",
+  "@customReminder": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "addMore": "مزید شامل کریں",
+  "@addMore": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "What'sNewDetails10": "۞ قرآن میں ختمہ شامل کرنا۔\n۞ ہر سورہ کی آیات کو ڈاؤن لوڈ کرنے کی خصوصیت شامل کرنا تاکہ یہ آف لائن کام کر سکے۔\n۞ قرآن کی تلاش میں بہتری۔\n۞ تفسیر کی لائبریری شامل کرنا۔\n۞ اذکار کی تلاوت کے لیے یاد دہانی کی خصوصیت شامل کرنا، جہاں آپ مخصوص وقت مقرر کر سکتے ہیں۔\n۞ نوٹیفکیشنز شامل کرنا۔\n۞ اور مزید اضافے اور بہتریاں۔",
+  "@What'sNewDetails10": {
     "type": "text",
     "placeholders": {}
   }

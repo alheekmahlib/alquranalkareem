@@ -30,10 +30,12 @@ class QuranState {
   RxInt isPages = 0.obs;
   RxInt isBold = 0.obs;
   RxBool isMoreOptions = false.obs;
-  final itemScrollController = ItemScrollController();
-  final ayahsItemScrollController = ItemScrollController();
-  final itemPositionsListener = ItemPositionsListener.create();
-  final scrollOffsetController = ScrollOffsetController();
+  ItemScrollController itemScrollController = ItemScrollController();
+  final ItemScrollController ayahsItemScrollController = ItemScrollController();
+  final ItemPositionsListener itemPositionsListener =
+      ItemPositionsListener.create();
+  final ScrollOffsetController scrollOffsetController =
+      ScrollOffsetController();
   var moreOptionsMap = <String, bool>{}.obs;
   RxInt selectMushafSettingsPage = 0.obs;
   RxDouble ayahsWidgetHeight = 0.0.obs;
@@ -41,7 +43,6 @@ class QuranState {
   RxDouble scaleFactor = 1.0.obs;
   RxDouble baseScaleFactor = 1.0.obs;
   final box = GetStorage();
-  // Assuming `lastDisplayedHizbQuarter` is a class variable that keeps track of the last displayed Hizb quarter.
   int? lastDisplayedHizbQuarter;
   Map<int, int> pageToHizbQuarterMap = {};
 
@@ -52,6 +53,5 @@ class QuranState {
   RxInt backgroundPickerColor = 0xffFFFFFF.obs;
   RxInt temporaryBackgroundColor = 0xffFFFFFF.obs;
 
-  // final ScrollController scrollController = ScrollController();
   RxBool isScrolling = false.obs;
 }

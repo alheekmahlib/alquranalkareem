@@ -108,23 +108,20 @@ class LastRead extends StatelessWidget {
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
                                 children: [
-                                  SizedBox(
-                                    width: 120,
-                                    child: FittedBox(
-                                      fit: BoxFit.scaleDown,
-                                      child: Text(
-                                        '${'pageNo'.tr}: ${quranCtrl.state.currentPageNumber.value.toString().convertNumbers()}',
-                                        style: TextStyle(
-                                            fontSize: 18.0,
-                                            fontFamily: 'naskh',
-                                            fontWeight: FontWeight.w500,
-                                            color: Theme.of(context).hintColor,
-                                            height: 1.5),
-                                        maxLines: 1,
-                                        overflow: TextOverflow.ellipsis,
-                                        textAlign: TextAlign.center,
-                                        textDirection: TextDirection.rtl,
-                                      ),
+                                  FittedBox(
+                                    fit: BoxFit.scaleDown,
+                                    child: Text(
+                                      '${'pageNo'.tr}: ${quranCtrl.state.currentPageNumber.value.toString().convertNumbers()}',
+                                      style: TextStyle(
+                                          fontSize: 18.0,
+                                          fontFamily: 'naskh',
+                                          fontWeight: FontWeight.w500,
+                                          color: Theme.of(context).hintColor,
+                                          height: 1.5),
+                                      maxLines: 1,
+                                      overflow: TextOverflow.ellipsis,
+                                      textAlign: TextAlign.center,
+                                      textDirection: TextDirection.rtl,
                                     ),
                                   ),
                                   Stack(
