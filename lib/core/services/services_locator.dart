@@ -39,6 +39,7 @@ import '../../presentation/screens/splash/controller/splash_screen_controller.da
 import '../../presentation/screens/surah_audio/controller/surah_audio_controller.dart';
 import '../../presentation/screens/whats_new/controller/whats_new_controller.dart';
 import '../utils/helpers/ui_helper.dart';
+import '../widgets/local_notification/controller/local_notifications_controller.dart';
 
 final sl = GetIt.instance;
 
@@ -170,6 +171,10 @@ class ServicesLocator {
 
     sl.registerLazySingleton<WhatsNewController>(() =>
         Get.put<WhatsNewController>(WhatsNewController(), permanent: true));
+
+    sl.registerLazySingleton<LocalNotificationsController>(() =>
+        Get.put<LocalNotificationsController>(LocalNotificationsController(),
+            permanent: true));
     // NotifyHelper().initializeNotification();
     // sl<NotificationsController>().initializeLocalNotifications();
 

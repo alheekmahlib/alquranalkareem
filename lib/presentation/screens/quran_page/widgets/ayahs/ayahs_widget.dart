@@ -24,7 +24,6 @@ class AyahsWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // quranCtrl.listenToScrollPositions();
     return Container(
       color: Theme.of(context).colorScheme.primaryContainer,
       child: Column(
@@ -91,43 +90,50 @@ class AyahsWidget extends StatelessWidget {
           ),
           Flexible(
             child: GestureDetector(
-              onTap: () {
-                audioCtrl.clearSelection();
-              },
-              child: quranCtrl.state.pages.isEmpty
-                  ? const CircularProgressIndicator.adaptive()
-                  : ScrollablePositionedList.builder(
-                      shrinkWrap: false,
-                      initialScrollIndex:
-                          quranCtrl.state.currentPageNumber.value - 1,
-                      itemScrollController:
-                          quranCtrl.state.itemScrollController,
-                      itemPositionsListener:
-                          quranCtrl.state.itemPositionsListener,
-                      scrollOffsetController:
-                          quranCtrl.state.scrollOffsetController,
-                      itemCount: quranCtrl.state.pages.length,
-                      physics: const BouncingScrollPhysics(),
-                      itemBuilder: (context, pageIndex) {
-                        return Container(
-                          margin: const EdgeInsets.symmetric(
-                              horizontal: 16.0, vertical: 4.0),
-                          decoration: BoxDecoration(
-                              borderRadius:
-                                  const BorderRadius.all(Radius.circular(8)),
-                              border: Border.all(
-                                width: 1,
-                                color: Theme.of(context)
-                                    .colorScheme
-                                    .primary
-                                    .withOpacity(.5),
-                              )),
-                          child: AyahsBuild(
-                            pageIndex: pageIndex,
-                          ),
-                        );
-                      },
-                    ),
+              onTap: () => audioCtrl.clearSelection(),
+              child: FutureBuilder<void>(
+                  future: Future.delayed(Duration.zero),
+                  builder: (context, snapshot) {
+                    if (snapshot.connectionState == ConnectionState.done) {
+                      return quranCtrl.state.pages.isEmpty
+                          ? const Center(
+                              child: CircularProgressIndicator.adaptive())
+                          : ScrollablePositionedList.builder(
+                              initialScrollIndex:
+                                  quranCtrl.state.currentPageNumber.value - 1,
+                              itemScrollController:
+                                  quranCtrl.state.itemScrollController,
+                              itemPositionsListener:
+                                  quranCtrl.state.itemPositionsListener,
+                              scrollOffsetController:
+                                  quranCtrl.state.scrollOffsetController,
+                              itemCount: quranCtrl.state.pages.length,
+                              physics: const BouncingScrollPhysics(),
+                              itemBuilder: (context, pageIndex) {
+                                return Container(
+                                  margin: const EdgeInsets.symmetric(
+                                      horizontal: 16.0, vertical: 4.0),
+                                  decoration: BoxDecoration(
+                                      borderRadius: const BorderRadius.all(
+                                          Radius.circular(8)),
+                                      border: Border.all(
+                                        width: 1,
+                                        color: Theme.of(context)
+                                            .colorScheme
+                                            .primary
+                                            .withOpacity(.5),
+                                      )),
+                                  child: AyahsBuild(
+                                    pageIndex: pageIndex,
+                                  ),
+                                );
+                              },
+                            );
+                    } else {
+                      return const Center(
+                          child: CircularProgressIndicator.adaptive());
+                    }
+                  }),
             ),
           ),
         ],

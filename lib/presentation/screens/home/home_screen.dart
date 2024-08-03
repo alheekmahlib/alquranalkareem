@@ -4,9 +4,9 @@ import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 
 import '/core/utils/constants/extensions/extensions.dart';
-import '../../../core/widgets/daily_ayah/ayah_tafsir_widget.dart';
 import '../../../core/widgets/tab_bar_widget.dart';
 import '../../controllers/theme_controller.dart';
+import 'widgets/ayah_tafsir_widget.dart';
 import 'widgets/daily_zeker.dart';
 import 'widgets/hijri_date.dart';
 import 'widgets/last_read.dart';
@@ -30,6 +30,7 @@ class HomeScreen extends StatelessWidget {
                   isFirstChild: false,
                   isCenterChild: false,
                   isQuranSetting: false,
+                  isNotification: true,
                 ),
                 Flexible(
                   child: context.customOrientation(

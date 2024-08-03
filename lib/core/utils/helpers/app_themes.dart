@@ -44,6 +44,43 @@ final ThemeData blueTheme = ThemeData.light(
   cupertinoOverrideTheme: const CupertinoThemeData(
     primaryColor: Color(0xff53618c),
   ),
+  timePickerTheme: TimePickerThemeData(
+    backgroundColor: const Color(0xffCDAD80),
+    dialBackgroundColor: const Color(0xffFFFFFF),
+    dialHandColor: const Color(0xffCDAD80),
+    dialTextColor: const Color(0xff000000).withOpacity(.6),
+    entryModeIconColor: const Color(0xff000000).withOpacity(.6),
+    hourMinuteTextColor: const Color(0xff000000).withOpacity(.6),
+    dayPeriodTextColor: const Color(0xff000000).withOpacity(.6),
+    cancelButtonStyle: ButtonStyle(
+      backgroundColor:
+          WidgetStateProperty.all(const Color(0xff000000).withOpacity(.6)),
+      foregroundColor: WidgetStateProperty.all(const Color(0xffFFFFFF)),
+      shape: WidgetStateProperty.all(
+        RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(8.0),
+        ),
+      ),
+      textStyle: WidgetStateProperty.all(const TextStyle(
+        fontFamily: 'kufi',
+        fontSize: 16,
+      )),
+    ),
+    confirmButtonStyle: ButtonStyle(
+      backgroundColor:
+          WidgetStateProperty.all(const Color(0xff000000).withOpacity(.8)),
+      foregroundColor: WidgetStateProperty.all(const Color(0xffFFFFFF)),
+      shape: WidgetStateProperty.all(
+        RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(8.0),
+        ),
+      ),
+      textStyle: WidgetStateProperty.all(const TextStyle(
+        fontFamily: 'kufi',
+        fontSize: 16,
+      )),
+    ),
+  ),
 );
 
 final ThemeData brownTheme = ThemeData(
@@ -84,6 +121,43 @@ final ThemeData brownTheme = ThemeData(
       selectionHandleColor: const Color(0xffCD9974)),
   cupertinoOverrideTheme: const CupertinoThemeData(
     primaryColor: Color(0xffCD9974),
+  ),
+  timePickerTheme: TimePickerThemeData(
+    backgroundColor: const Color(0xffCD9974),
+    dialBackgroundColor: const Color(0xffFFFBF8),
+    dialHandColor: const Color(0xffCD9974),
+    dialTextColor: const Color(0xff000000).withOpacity(.6),
+    entryModeIconColor: const Color(0xff000000).withOpacity(.6),
+    hourMinuteTextColor: const Color(0xff000000).withOpacity(.6),
+    dayPeriodTextColor: const Color(0xff000000).withOpacity(.6),
+    cancelButtonStyle: ButtonStyle(
+      backgroundColor:
+          WidgetStateProperty.all(const Color(0xff000000).withOpacity(.6)),
+      foregroundColor: WidgetStateProperty.all(const Color(0xffFFFBF8)),
+      shape: WidgetStateProperty.all(
+        RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(8.0),
+        ),
+      ),
+      textStyle: WidgetStateProperty.all(const TextStyle(
+        fontFamily: 'kufi',
+        fontSize: 16,
+      )),
+    ),
+    confirmButtonStyle: ButtonStyle(
+      backgroundColor:
+          WidgetStateProperty.all(const Color(0xff000000).withOpacity(.8)),
+      foregroundColor: WidgetStateProperty.all(const Color(0xffFFFBF8)),
+      shape: WidgetStateProperty.all(
+        RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(8.0),
+        ),
+      ),
+      textStyle: WidgetStateProperty.all(const TextStyle(
+        fontFamily: 'kufi',
+        fontSize: 16,
+      )),
+    ),
   ),
 );
 
@@ -130,6 +204,43 @@ final ThemeData oldTheme = ThemeData.light(
   cupertinoOverrideTheme: const CupertinoThemeData(
     primaryColor: Color(0xff53618c),
   ),
+  timePickerTheme: TimePickerThemeData(
+    backgroundColor: const Color(0xff91a57d),
+    dialBackgroundColor: const Color(0xfff3efdf),
+    dialHandColor: const Color(0xff91a57d),
+    dialTextColor: const Color(0xff000000).withOpacity(.6),
+    entryModeIconColor: const Color(0xff000000).withOpacity(.6),
+    hourMinuteTextColor: const Color(0xff000000).withOpacity(.6),
+    dayPeriodTextColor: const Color(0xff000000).withOpacity(.6),
+    cancelButtonStyle: ButtonStyle(
+      backgroundColor:
+          WidgetStateProperty.all(const Color(0xff000000).withOpacity(.6)),
+      foregroundColor: WidgetStateProperty.all(const Color(0xfff3efdf)),
+      shape: WidgetStateProperty.all(
+        RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(8.0),
+        ),
+      ),
+      textStyle: WidgetStateProperty.all(const TextStyle(
+        fontFamily: 'kufi',
+        fontSize: 16,
+      )),
+    ),
+    confirmButtonStyle: ButtonStyle(
+      backgroundColor:
+          WidgetStateProperty.all(const Color(0xff000000).withOpacity(.8)),
+      foregroundColor: WidgetStateProperty.all(const Color(0xfff3efdf)),
+      shape: WidgetStateProperty.all(
+        RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(8.0),
+        ),
+      ),
+      textStyle: WidgetStateProperty.all(const TextStyle(
+        fontFamily: 'kufi',
+        fontSize: 16,
+      )),
+    ),
+  ),
 );
 
 final ThemeData darkTheme = ThemeData.dark(
@@ -171,5 +282,43 @@ final ThemeData darkTheme = ThemeData.dark(
       selectionHandleColor: const Color(0xff404C6E)),
   cupertinoOverrideTheme: const CupertinoThemeData(
     primaryColor: Color(0xff404C6E),
+  ),
+  timePickerTheme: TimePickerThemeData(
+    backgroundColor: const Color(0xffCDAD80),
+    dialBackgroundColor: const Color(0xff1E1E1E),
+    dialHandColor: const Color(0xffCDAD80),
+    dialTextColor: const Color(0xffF6F6EE).withOpacity(.6),
+    entryModeIconColor: const Color(0xffF6F6EE).withOpacity(.6),
+    hourMinuteTextColor: const Color(0xffF6F6EE).withOpacity(.6),
+    dayPeriodTextColor: const Color(0xffF6F6EE).withOpacity(.6),
+    dayPeriodColor: const Color(0xff1E1E1E),
+    cancelButtonStyle: ButtonStyle(
+      backgroundColor:
+          WidgetStateProperty.all(const Color(0xffF6F6EE).withOpacity(.6)),
+      foregroundColor: WidgetStateProperty.all(const Color(0xff1E1E1E)),
+      shape: WidgetStateProperty.all(
+        RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(8.0),
+        ),
+      ),
+      textStyle: WidgetStateProperty.all(const TextStyle(
+        fontFamily: 'kufi',
+        fontSize: 16,
+      )),
+    ),
+    confirmButtonStyle: ButtonStyle(
+      backgroundColor:
+          WidgetStateProperty.all(const Color(0xffF6F6EE).withOpacity(.8)),
+      foregroundColor: WidgetStateProperty.all(const Color(0xff1E1E1E)),
+      shape: WidgetStateProperty.all(
+        RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(8.0),
+        ),
+      ),
+      textStyle: WidgetStateProperty.all(const TextStyle(
+        fontFamily: 'kufi',
+        fontSize: 16,
+      )),
+    ),
   ),
 );

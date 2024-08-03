@@ -53,9 +53,7 @@ class MushafSettings extends StatelessWidget {
                                   : .5,
                               duration: const Duration(milliseconds: 300),
                               child: GestureDetector(
-                                onTap: () {
-                                  quranCtrl.switchMode(index);
-                                },
+                                onTap: () => quranCtrl.switchMode(index),
                                 child: Column(
                                   children: [
                                     Container(

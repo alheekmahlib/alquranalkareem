@@ -5,14 +5,14 @@ import '/core/utils/constants/extensions/convert_number_extension.dart';
 import '/core/utils/constants/extensions/extensions.dart';
 import '/core/utils/constants/extensions/text_span_extension.dart';
 import '/presentation/screens/quran_page/controllers/extensions/quran_getters.dart';
-import '../../../presentation/controllers/daily_ayah_controller.dart';
-import '../../../presentation/controllers/general/general_controller.dart';
-import '../../../presentation/screens/quran_page/controllers/ayat_controller.dart';
-import '../../../presentation/screens/quran_page/controllers/quran/quran_controller.dart';
-import '../../../presentation/screens/quran_page/data/model/surahs_model.dart';
-import '../../../presentation/screens/quran_page/extensions/surah_name_with_banner.dart';
-import '../../utils/constants/lists.dart';
-import '../read_more_less/read_more_less.dart';
+import '../../../../core/utils/constants/lists.dart';
+import '../../../../core/widgets/read_more_less/read_more_less.dart';
+import '../../../controllers/daily_ayah_controller.dart';
+import '../../../controllers/general/general_controller.dart';
+import '../../quran_page/controllers/ayat_controller.dart';
+import '../../quran_page/controllers/quran/quran_controller.dart';
+import '../../quran_page/data/model/surahs_model.dart';
+import '../../quran_page/extensions/surah_name_with_banner.dart';
 
 class AyahTafsirWidget extends StatelessWidget {
   AyahTafsirWidget({super.key});
@@ -47,6 +47,7 @@ class AyahTafsirWidget extends StatelessWidget {
                           height: 1.9,
                           color: Theme.of(context).colorScheme.inversePrimary,
                         ),
+                        textAlign: TextAlign.justify,
                       ),
                       Row(
                         children: [
@@ -77,14 +78,17 @@ class AyahTafsirWidget extends StatelessWidget {
                                       .withOpacity(.4),
                                   borderRadius: const BorderRadius.all(
                                       Radius.circular(6))),
-                              child: Text(
-                                '${tafsirNameRandom[dailyCtrl.radioValue.value]['name']}',
-                                style: TextStyle(
-                                  fontFamily: 'naskh',
-                                  fontSize: 16,
-                                  color: Theme.of(context)
-                                      .colorScheme
-                                      .inversePrimary,
+                              child: FittedBox(
+                                fit: BoxFit.scaleDown,
+                                child: Text(
+                                  '${tafsirNameRandom[dailyCtrl.radioValue.value]['name']}',
+                                  style: TextStyle(
+                                    fontFamily: 'naskh',
+                                    fontSize: 16,
+                                    color: Theme.of(context)
+                                        .colorScheme
+                                        .inversePrimary,
+                                  ),
                                 ),
                               ),
                             ),

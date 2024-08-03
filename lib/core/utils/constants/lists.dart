@@ -362,16 +362,10 @@ const List ayahReaderInfo = [
 
 List<Map<String, dynamic>> whatsNewList = [
   {
-    'index': 9,
-    'title': "What'sNewDetails9",
-    'details': "",
-    'imagePath': 'assets/images/IslamicOccasions.png',
-  },
-  {
     'index': 10,
-    'title': "What'sNewDetails9",
-    'details': "",
-    'imagePath': 'assets/images/IslamicOccasions.png',
+    'title': "",
+    'details': "What'sNewDetails10",
+    'imagePath': '',
   },
 ];
 
