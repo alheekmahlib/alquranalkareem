@@ -1139,5 +1139,25 @@
   "@What'sNewDetails10": {
     "type": "text",
     "placeholders": {}
+  },
+  "chooseDhekr": "ذکر منتخب کریں۔",
+  "@chooseDhekr": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "selectTime": "تفکر کے لیے وقت مقرر کریں۔",
+  "@selectTime": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "downloadBookFirst": "براہ کرم پہلے کتاب ڈاؤن لوڈ کریں۔",
+  "@downloadBookFirst": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "lastDayOf": "کے مہینے کا آخری دن",
+  "@lastDayOf": {
+    "type": "text",
+    "placeholders": {}
   }
 }

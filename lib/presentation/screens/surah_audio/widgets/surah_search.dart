@@ -30,20 +30,18 @@ class SurahSearch extends StatelessWidget {
             textFieldIconColor: Theme.of(context).colorScheme.primaryContainer,
             searchIconColor: Theme.of(context).colorScheme.primaryContainer,
             style: TextStyle(
-                color: Theme.of(context).colorScheme.inverseSurface,
+                color: Theme.of(context).canvasColor,
                 fontFamily: 'kufi',
                 fontSize: 15),
-            onSubmitted: (String value) {
-              sl<SurahAudioController>().searchSurah(value);
-            },
+            onSubmitted: (String value) =>
+                sl<SurahAudioController>().searchSurah(value),
             closeSearchOnSuffixTap: true,
             autoFocus: true,
             color: Theme.of(context).colorScheme.primary,
             suffixIcon: Icon(Icons.close,
                 size: 20, color: Theme.of(context).colorScheme.onSurface),
-            onSuffixTap: () {
-              sl<SurahAudioController>().state.textController.clear();
-            },
+            onSuffixTap: () =>
+                sl<SurahAudioController>().state.textController.clear(),
           ),
         ),
       ),

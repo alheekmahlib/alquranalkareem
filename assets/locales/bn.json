@@ -1139,5 +1139,25 @@
   "@What'sNewDetails10": {
     "type": "text",
     "placeholders": {}
+  },
+  "chooseDhekr": "যিকির নির্বাচন করুন।",
+  "@chooseDhekr": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "selectTime": "চিন্তা করার জন্য সময় নির্ধারণ করুন।",
+  "@selectTime": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "downloadBookFirst": "অনুগ্রহ করে প্রথমে বইটি ডাউনলোড করুন।",
+  "@downloadBookFirst": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "lastDayOf": "মাসের শেষ দিন",
+  "@lastDayOf": {
+    "type": "text",
+    "placeholders": {}
   }
 }

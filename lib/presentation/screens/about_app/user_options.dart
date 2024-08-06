@@ -80,7 +80,7 @@ class UserOptions extends StatelessWidget {
                 children: [
                   Icon(
                     Icons.facebook_rounded,
-                    color: Theme.of(context).primaryColorLight,
+                    color: Theme.of(context).hintColor,
                     size: 22,
                   ),
                   Container(
@@ -92,7 +92,7 @@ class UserOptions extends StatelessWidget {
                   Text(
                     'facebook'.tr,
                     style: TextStyle(
-                        color: Theme.of(context).primaryColorLight,
+                        color: Theme.of(context).hintColor,
                         fontFamily: 'kufi',
                         fontStyle: FontStyle.italic,
                         fontSize: 14),

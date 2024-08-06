@@ -1147,5 +1147,25 @@
   "@What'sNewDetails10": {
     "type": "text",
     "placeholders": {}
+  },
+  "chooseDhekr": "Elige el recuerdo.",
+  "@chooseDhekr": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "selectTime": "Establece un tiempo para la reflexión.",
+  "@selectTime": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "downloadBookFirst": "Por favor, descargue el libro primero.",
+  "@downloadBookFirst": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "lastDayOf": "El último día del mes de",
+  "@lastDayOf": {
+    "type": "text",
+    "placeholders": {}
   }
 }

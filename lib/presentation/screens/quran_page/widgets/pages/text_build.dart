@@ -107,7 +107,7 @@ class TextBuild extends StatelessWidget {
                               ayahs[ayahIndex].text,
                               ayahs[ayahIndex].ayahUQNumber,
                               quranCtrl
-                                  .getSurahDataByAyahUQ(pageIndex)
+                                  .getCurrentSurahByPage(pageIndex)
                                   .arabicName,
                               ayahIndex,
                               details: details);
@@ -155,7 +155,7 @@ class TextBuild extends StatelessWidget {
                             ayahs[ayahIndex].text,
                             ayahs[ayahIndex].ayahUQNumber,
                             quranCtrl
-                                .getSurahDataByAyahUQ(pageIndex)
+                                .getCurrentSurahByPage(pageIndex)
                                 .arabicName,
                             ayahIndex,
                             details: details);

@@ -75,7 +75,8 @@ class ChangeReader extends StatelessWidget {
                             color: Theme.of(context).colorScheme.inversePrimary)
                         : null,
                   ),
-                  onTap: () => sl<AudioController>().changeReadersOnTap(index),
+                  onTap: () async =>
+                      await sl<AudioController>().changeReadersOnTap(index),
                   leading: Container(
                     height: 80.0,
                     width: 80.0,

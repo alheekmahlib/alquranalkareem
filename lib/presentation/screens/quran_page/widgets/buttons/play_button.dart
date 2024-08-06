@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '/core/services/services_locator.dart';
 import '/core/utils/constants/extensions/svg_extensions.dart';
 import '/core/utils/constants/svg_constants.dart';
 import '/presentation/screens/quran_page/controllers/extensions/audio_ui.dart';
@@ -38,11 +37,11 @@ class PlayButton extends StatelessWidget {
         ),
       ),
       onTap: () {
-        sl<AudioController>().startPlayingToggle();
-        sl<QuranController>().state.isPlayExpanded.value = true;
-        sl<AudioController>().state.isDirectPlaying.value = false;
+        AudioController.instance.startPlayingToggle();
+        QuranController.instance.state.isPlayExpanded.value = true;
+        AudioController.instance.state.isDirectPlaying.value = false;
         debugPrint('SurahNum: $surahNum');
-        sl<AudioController>()
+        AudioController.instance
             .playAyahOnTap(surahNum, ayahNum, ayahUQNum, singleAyahOnly);
         if (cancel != null) {
           cancel!();

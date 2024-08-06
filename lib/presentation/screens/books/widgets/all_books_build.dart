@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import '/core/utils/constants/extensions/extensions.dart';
 import '/core/utils/constants/extensions/svg_extensions.dart';
 import '../../../../core/utils/constants/svg_constants.dart';
+import '../../../../core/utils/helpers/responsive.dart';
 import '../controller/books_controller.dart';
 import '../screens/chapters_screen.dart';
 
@@ -44,7 +45,7 @@ class AllBooksBuild extends StatelessWidget {
                   child: GestureDetector(
                     child: Container(
                       height: 110.h,
-                      width: 95.w,
+                      width: Responsive.isDesktop(context) ? 95.w : 65.w,
                       padding: const EdgeInsets.symmetric(horizontal: 8.0),
                       decoration: BoxDecoration(
                         color: Theme.of(context)
@@ -63,11 +64,13 @@ class AllBooksBuild extends StatelessWidget {
                           ),
                           SizedBox(
                             height: 60.h,
-                            width: 60.w,
+                            width: Responsive.isDesktop(context) ? 60.w : 30.w,
                             child: Text(
                               book.bookName,
                               style: TextStyle(
-                                fontSize: 12.0.sp,
+                                fontSize: Responsive.isDesktop(context)
+                                    ? 12.0.sp
+                                    : 6.0.sp,
                                 fontFamily: 'kufi',
                                 fontWeight: FontWeight.bold,
                                 color: Theme.of(context).canvasColor,

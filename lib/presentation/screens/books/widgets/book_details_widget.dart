@@ -14,6 +14,7 @@ class BookDetails extends StatelessWidget {
   final int bookNumber;
   final String bookName;
   final String aboutBook;
+
   BookDetails({
     super.key,
     required this.bookName,
@@ -32,7 +33,7 @@ class BookDetails extends StatelessWidget {
         Container(
           // height: 290,
           width: 380,
-          margin: const EdgeInsets.only(top: 120),
+          margin: const EdgeInsets.only(top: 120, right: 16.0, left: 16.0),
           decoration: BoxDecoration(
               color: Theme.of(context).colorScheme.surface.withOpacity(.15),
               borderRadius: const BorderRadius.all(Radius.circular(8))),
@@ -62,25 +63,28 @@ class BookDetails extends StatelessWidget {
               Gap(35.h),
               Padding(
                   padding: const EdgeInsets.only(right: 16.0, left: 16.0),
-                  child: ReadMoreLess(
-                    text: aboutBook,
-                    maxLines: 1,
-                    collapsedHeight: 20,
-                    textStyle: TextStyle(
-                      fontSize: 20,
-                      fontFamily: 'naskh',
-                      color: Theme.of(context).colorScheme.inversePrimary,
-                    ),
-                    textAlign: TextAlign.justify,
-                    readMoreText: 'readMore'.tr,
-                    readLessText: 'readLess'.tr,
-                    buttonTextStyle: TextStyle(
-                      fontSize: 12,
-                      fontFamily: 'kufi',
-                      color: Theme.of(context).colorScheme.inversePrimary,
-                    ),
-                    iconColor: Theme.of(context).colorScheme.inversePrimary,
-                  )),
+                  child: Obx(() => ReadMoreLess(
+                        text: aboutBook,
+                        maxLines: 1,
+                        collapsedHeight:
+                            booksCtrl.collapsedHeight(bookNumber).value
+                                ? 130
+                                : 30,
+                        textStyle: TextStyle(
+                          fontSize: 20,
+                          fontFamily: 'naskh',
+                          color: Theme.of(context).colorScheme.inversePrimary,
+                        ),
+                        textAlign: TextAlign.justify,
+                        readMoreText: 'readMore'.tr,
+                        readLessText: 'readLess'.tr,
+                        buttonTextStyle: TextStyle(
+                          fontSize: 12,
+                          fontFamily: 'kufi',
+                          color: Theme.of(context).colorScheme.inversePrimary,
+                        ),
+                        iconColor: Theme.of(context).colorScheme.inversePrimary,
+                      ))),
             ],
           ),
         ),
@@ -149,7 +153,8 @@ class BookDetails extends StatelessWidget {
                                             Radius.circular(4)),
                                         value: booksCtrl.state
                                                 .downloadProgress[bookNumber] ??
-                                            0, //(daysRemaining / 1000).toDouble(),
+                                            0,
+                                        //(daysRemaining / 1000).toDouble(),
                                         backgroundColor:
                                             Theme.of(context).canvasColor,
                                         color: Theme.of(context)

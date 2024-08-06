@@ -176,6 +176,7 @@ class SurahAudioController extends GetxController {
       state.onDownloading.value = true;
       state.progressString.value = "0";
       state.progress.value = 0;
+      update(['seekBar_id']);
 
       await dio.download(url, path, onReceiveProgress: (rec, total) {
         state.progressString.value = ((rec / total) * 100).toStringAsFixed(0);
@@ -210,6 +211,7 @@ class SurahAudioController extends GetxController {
       }
       state.onDownloading.value = false;
       state.progressString.value = "0";
+      update(['seekBar_id']);
       return false;
     }
   }

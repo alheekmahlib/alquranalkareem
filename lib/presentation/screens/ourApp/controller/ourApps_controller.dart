@@ -13,13 +13,21 @@ class OurAppsController extends GetxController {
   static OurAppsController get instance => Get.isRegistered<OurAppsController>()
       ? Get.find<OurAppsController>()
       : Get.put<OurAppsController>(OurAppsController());
-  Future<List<OurAppInfo>> fetchApps() async {
-    final response = await http.get(Uri.parse(StringConstants.ourAppsUrl));
 
-    if (response.statusCode == 200) {
-      List<dynamic> jsonData = jsonDecode(response.body);
-      return jsonData.map((data) => OurAppInfo.fromJson(data)).toList();
-    } else {
+  Future<List<OurAppInfo>> fetchApps() async {
+    try {
+      final response = await http.get(Uri.parse(StringConstants.ourAppsUrl));
+
+      if (response.statusCode == 200) {
+        List<dynamic> jsonData = jsonDecode(response.body);
+        return jsonData.map((data) => OurAppInfo.fromJson(data)).toList();
+      } else {
+        print('Failed to load data: ${response.statusCode}');
+        print('Response body: ${response.body}');
+        throw Exception('Failed to load data');
+      }
+    } catch (e) {
+      print('Error occurred: $e');
       throw Exception('Failed to load data');
     }
   }

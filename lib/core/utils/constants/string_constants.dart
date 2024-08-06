@@ -5,5 +5,5 @@ class StringConstants {
   static const String iosPrayersWidget = 'prayer_widget';
   static const String androidPrayersWidget = 'PrayerHomeView';
   static const String ourAppsUrl =
-      'https://raw.githubusercontent.com/alheekmahlib/thegarlanded/master/ourAppV2.json';
+      'https://raw.githubusercontent.com/alheekmahlib/thegarlanded/master/ourApps.json';
 }

@@ -40,8 +40,16 @@ class ReminderController extends GetxController {
   }
 
   void toggleAdhkarEnabled(String id, bool isEnabled) {
-    state.customAdhkarEnabled[id] = isEnabled;
-    box.write('custom_$id', isEnabled);
+    if (id == "أذكار الصباح") {
+      state.isMorningEnabled.value = isEnabled;
+      box.write('custom_أذكار الصباح', isEnabled);
+    } else if (id == "أذكار المساء") {
+      state.isEveningEnabled.value = isEnabled;
+      box.write('custom_أذكار المساء', isEnabled);
+    } else {
+      state.customAdhkarEnabled[id] = isEnabled;
+      box.write('custom_$id', isEnabled);
+    }
 
     if (!isEnabled) {
       notifyHelper.cancelScheduledNotification(id.hashCode);
@@ -55,8 +63,8 @@ class ReminderController extends GetxController {
   }
 
   void loadSwitchValues() {
-    state.isMorningEnabled.value = loadSwitchValue('أذكار الصباح');
-    state.isEveningEnabled.value = loadSwitchValue('أذكار المساء');
+    state.isMorningEnabled.value = loadSwitchValue('custom_أذكار الصباح');
+    state.isEveningEnabled.value = loadSwitchValue('custom_أذكار المساء');
     for (var id in state.customAdhkar.keys) {
       state.customAdhkarEnabled[id] = loadSwitchValue('custom_$id');
     }

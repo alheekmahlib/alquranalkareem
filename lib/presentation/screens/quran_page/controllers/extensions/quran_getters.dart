@@ -1,5 +1,6 @@
 import 'dart:math' as math;
 
+import 'package:alquranalkareem/presentation/controllers/theme_controller.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -196,9 +197,11 @@ extension QuranGetters on QuranController {
     return state.juzListController!;
   }
 
-  Color get backgroundColor => state.backgroundPickerColor.value == 0xffFFFFFF
-      ? Theme.of(Get.context!).colorScheme.primaryContainer
-      : Color(state.backgroundPickerColor.value);
+  Color get backgroundColor => state.backgroundPickerColor.value == 0xfffaf7f3
+      ? Get.theme.colorScheme.surfaceContainer
+      : ThemeController.instance.isDarkMode
+          ? Get.theme.colorScheme.surfaceContainer
+          : Color(state.backgroundPickerColor.value);
 
   String get surahBannerPath {
     if (themeCtrl.isBlueMode) {

@@ -1,12 +1,12 @@
 import 'dart:convert';
 
-import 'package:alquranalkareem/core/utils/constants/extensions/convert_number_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:hijri/hijri_calendar.dart';
 
+import '/core/utils/constants/extensions/convert_number_extension.dart';
 import '/core/utils/constants/extensions/extensions.dart';
 import '../data/model/event_model.dart';
 import '../reminder_event_bottom_sheet.dart';
@@ -145,4 +145,7 @@ class EventController extends GetxController {
       return 'Day';
     }
   }
+
+  bool get isLastDayOfMonth =>
+      hijriNow.hDay == hijriNow.lengthOfMonth ? true : false;
 }

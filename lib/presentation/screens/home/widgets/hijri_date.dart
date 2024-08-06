@@ -13,7 +13,7 @@ class HijriDate extends StatelessWidget {
   HijriDate({super.key});
 
   final generalCtrl = GeneralController.instance;
-  final countdownCtrl = EventController.instance;
+  final eventCtrl = EventController.instance;
 
   @override
   Widget build(BuildContext context) {
@@ -139,42 +139,55 @@ class HijriDate extends StatelessWidget {
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 8.0),
                         child: Center(
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Expanded(
-                                flex: 7,
-                                child: FittedBox(
-                                  fit: BoxFit.scaleDown,
-                                  child: Text(
-                                    '${'RemainsUntilTheEndOf'.tr} ${'${generalCtrl.state.today.longMonthName}'.tr}',
-                                    style: TextStyle(
-                                      fontSize: 14.0,
-                                      fontFamily: 'kufi',
-                                      color: Theme.of(context).disabledColor,
-                                    ),
-                                    textAlign: TextAlign.center,
+                          child: eventCtrl.isLastDayOfMonth
+                              ? Text(
+                                  '${'lastDayOf'.tr} ${'${generalCtrl.state.today.longMonthName}'.tr}',
+                                  style: TextStyle(
+                                    fontSize: 14.0,
+                                    fontFamily: 'kufi',
+                                    color: Theme.of(context).disabledColor,
                                   ),
-                                ),
-                              ),
-                              const Gap(16),
-                              Expanded(
-                                flex: 3,
-                                child: FittedBox(
-                                  fit: BoxFit.scaleDown,
-                                  child: Text(
-                                    '${generalCtrl.state.today.lengthOfMonth - generalCtrl.state.today.hDay} ${'${countdownCtrl.daysArabicConvert(generalCtrl.state.today.lengthOfMonth - generalCtrl.state.today.hDay)}'.tr}',
-                                    style: TextStyle(
-                                      fontSize: 14.0,
-                                      fontFamily: 'kufi',
-                                      color: Theme.of(context).disabledColor,
+                                  textAlign: TextAlign.center,
+                                )
+                              : Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Expanded(
+                                      flex: 7,
+                                      child: FittedBox(
+                                        fit: BoxFit.scaleDown,
+                                        child: Text(
+                                          '${'RemainsUntilTheEndOf'.tr} ${'${generalCtrl.state.today.longMonthName}'.tr}',
+                                          style: TextStyle(
+                                            fontSize: 14.0,
+                                            fontFamily: 'kufi',
+                                            color:
+                                                Theme.of(context).disabledColor,
+                                          ),
+                                          textAlign: TextAlign.center,
+                                        ),
+                                      ),
                                     ),
-                                    textAlign: TextAlign.center,
-                                  ),
+                                    const Gap(16),
+                                    Expanded(
+                                      flex: 3,
+                                      child: FittedBox(
+                                        fit: BoxFit.scaleDown,
+                                        child: Text(
+                                          '${generalCtrl.state.today.lengthOfMonth - generalCtrl.state.today.hDay} ${'${eventCtrl.daysArabicConvert(generalCtrl.state.today.lengthOfMonth - generalCtrl.state.today.hDay)}'.tr}',
+                                          style: TextStyle(
+                                            fontSize: 14.0,
+                                            fontFamily: 'kufi',
+                                            color:
+                                                Theme.of(context).disabledColor,
+                                          ),
+                                          textAlign: TextAlign.center,
+                                        ),
+                                      ),
+                                    ),
+                                  ],
                                 ),
-                              ),
-                            ],
-                          ),
                         ),
                       )
                     ],
