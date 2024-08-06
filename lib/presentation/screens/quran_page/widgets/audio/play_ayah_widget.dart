@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:just_audio/just_audio.dart';
 
-import '/core/services/services_locator.dart';
 import '/core/utils/constants/extensions/svg_extensions.dart';
 import '/core/utils/constants/lottie.dart';
 import '/core/utils/constants/lottie_constants.dart';
@@ -36,8 +35,10 @@ class PlayAyah extends StatelessWidget {
                 height: 25,
               ),
               onTap: () async {
-                audioCtrl.state.isDirectPlaying.value = true;
-                sl<QuranController>().state.isPlayExpanded.value = true;
+                QuranController.instance.state.selectedAyahIndexes.isNotEmpty
+                    ? audioCtrl.state.isDirectPlaying.value = false
+                    : audioCtrl.state.isDirectPlaying.value = true;
+                QuranController.instance.state.isPlayExpanded.value = true;
                 audioCtrl.playAyah();
               },
             );
@@ -48,7 +49,7 @@ class PlayAyah extends StatelessWidget {
               height: 25,
             ),
             onTap: () {
-              sl<QuranController>().state.isPlayExpanded.value = true;
+              QuranController.instance.state.isPlayExpanded.value = true;
               audioCtrl.playAyah();
             },
           );

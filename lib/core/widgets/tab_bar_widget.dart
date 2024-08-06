@@ -36,7 +36,7 @@ class TabBarWidget extends StatelessWidget {
           color: Theme.of(context).colorScheme.primary,
         ),
         Transform.translate(
-          offset: const Offset(0, -1),
+          offset: const Offset(0, -2),
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.spaceBetween,

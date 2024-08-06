@@ -97,7 +97,7 @@ extension QuranUi on QuranController {
     sl<AudioController>().state.pageAyahNumber = '0';
     sl<BookmarksController>().getBookmarks();
     state.lastReadSurahNumber.value =
-        sl<QuranController>().getSurahNumberFromPage(index);
+        sl<QuranController>().getSurahNumberFromPage(index + 1);
     state.box.write(MSTART_PAGE, index + 1);
     state.box.write(MLAST_URAH, state.lastReadSurahNumber.value);
   }

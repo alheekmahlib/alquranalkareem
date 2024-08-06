@@ -1,4 +1,3 @@
-import 'package:alquranalkareem/presentation/screens/quran_page/controllers/extensions/quran_getters.dart';
 import 'package:flex_color_picker/flex_color_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
@@ -7,6 +6,7 @@ import 'package:get_storage/get_storage.dart';
 
 import '/core/utils/constants/extensions/extensions.dart';
 import '/core/utils/constants/lists.dart';
+import '/presentation/screens/quran_page/controllers/extensions/quran_getters.dart';
 import '/presentation/screens/quran_page/controllers/extensions/quran_ui.dart';
 import '../../presentation/screens/quran_page/controllers/quran/quran_controller.dart';
 import '../utils/constants/shared_preferences_constants.dart';
@@ -295,9 +295,9 @@ class MushafSettings extends StatelessWidget {
         Get.dialog(Dialog(
           alignment: Alignment.center,
           backgroundColor: Theme.of(context).colorScheme.primaryContainer,
-          surfaceTintColor: Theme.of(context).colorScheme.surface,
+          surfaceTintColor: Theme.of(context).colorScheme.primary,
           child: SizedBox(
-            height: 490,
+            height: 240,
             width: double.infinity,
             child: Padding(
               padding:
@@ -311,10 +311,25 @@ class MushafSettings extends StatelessWidget {
                     onColorChanged: (Color color) => quranCtrl
                         .state.temporaryBackgroundColor.value = color.value,
                     pickersEnabled: {
-                      ColorPickerType.wheel: true,
+                      ColorPickerType.wheel: false,
                       ColorPickerType.both: false,
                       ColorPickerType.primary: false,
                       ColorPickerType.accent: false,
+                      ColorPickerType.custom: true,
+                    },
+                    customColorSwatchesAndNames: {
+                      const MaterialColor(0xffFFFBF8, <int, Color>{
+                        50: Color(0xffffffff),
+                        100: Color(0xfffffbfb),
+                        200: Color(0xffFFFBF8),
+                        300: Color(0xfffff9f5),
+                        400: Color(0xfffff7f1),
+                        500: Color(0xfffff6e2),
+                        600: Color(0xffefe3d1),
+                        700: Color(0xffdacdba),
+                        800: Color(0xffc8bba6),
+                        900: Color(0xffe3d0ac),
+                      }): 'Brown',
                     },
                   ),
                   Row(
@@ -324,7 +339,7 @@ class MushafSettings extends StatelessWidget {
                         child: GestureDetector(
                           onTap: () {
                             quranCtrl.state.backgroundPickerColor.value =
-                                0xffFFFFFF;
+                                0xfffaf7f3;
                             quranCtrl.state.box.remove(BACKGROUND_PICKER_COLOR);
                             Get.back();
                           },

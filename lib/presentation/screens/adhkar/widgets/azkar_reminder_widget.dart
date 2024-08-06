@@ -204,11 +204,11 @@ class AdhkarReminderWidget extends StatelessWidget {
     print('Opening time picker for: $title');
 
     TimeOfDay? pickedTime = await showTimePicker(
-      context: context,
-      initialTime: TimeOfDay.now(),
-      confirmText: 'ok'.tr,
-      cancelText: 'cancel'.tr,
-    );
+        context: context,
+        initialTime: TimeOfDay.now(),
+        confirmText: 'ok'.tr,
+        cancelText: 'cancel'.tr,
+        helpText: 'selectTime'.tr);
 
     if (pickedTime != null) {
       int hour = pickedTime.hour;

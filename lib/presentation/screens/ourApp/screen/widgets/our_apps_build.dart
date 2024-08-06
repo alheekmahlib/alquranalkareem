@@ -20,80 +20,78 @@ class OurAppsBuild extends StatelessWidget {
       builder: (context, snapshot) {
         if (snapshot.hasData) {
           List<OurAppInfo>? apps = snapshot.data;
-          return SizedBox(
-            height: 240,
-            child: Padding(
-              padding: const EdgeInsets.symmetric(vertical: 16.0),
-              child: ListView.separated(
-                shrinkWrap: false,
-                padding: EdgeInsets.zero,
-                itemCount: apps!.length,
-                separatorBuilder: (context, i) => Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 32.0),
-                  child: context.hDivider(width: 10.0),
-                ),
-                itemBuilder: (context, index) {
-                  return InkWell(
-                    child: Container(
-                      decoration: BoxDecoration(
-                          color: Theme.of(context).colorScheme.primaryContainer,
-                          borderRadius:
-                              const BorderRadius.all(Radius.circular(8))),
-                      padding: const EdgeInsets.all(8.0),
-                      margin: const EdgeInsets.symmetric(horizontal: 16.0),
-                      child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          SvgPicture.network(
-                            apps[index].appLogo,
-                            height: 45,
-                            width: 45,
-                          ),
-                          context.vDivider(height: 40.0),
-                          Expanded(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  apps[index].appTitle,
-                                  style: TextStyle(
-                                      color:
-                                          Theme.of(context).colorScheme.primary,
-                                      fontSize: 13,
-                                      fontFamily: 'kufi',
-                                      fontWeight: FontWeight.bold),
-                                ),
-                                SizedBox(
-                                  height: 8.0.h,
-                                ),
-                                Text(
-                                  apps[index].body,
-                                  style: TextStyle(
-                                      color: Theme.of(context)
-                                          .colorScheme
-                                          .surface
-                                          .withOpacity(.7),
-                                      fontSize: 11,
-                                      fontFamily: 'kufi',
-                                      fontWeight: FontWeight.bold),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    onTap: () {
-                      ourApps.launchURL(context, index, apps[index]);
-                    },
-                  );
-                },
+          return Padding(
+            padding: const EdgeInsets.symmetric(vertical: 16.0),
+            child: ListView.separated(
+              shrinkWrap: true,
+              padding: EdgeInsets.zero,
+              itemCount: apps!.length,
+              separatorBuilder: (context, i) => Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 32.0),
+                child: context.hDivider(width: 10.0),
               ),
+              itemBuilder: (context, index) {
+                return InkWell(
+                  child: Container(
+                    decoration: BoxDecoration(
+                        color: Theme.of(context).colorScheme.primaryContainer,
+                        borderRadius:
+                            const BorderRadius.all(Radius.circular(8))),
+                    padding: const EdgeInsets.all(8.0),
+                    margin: const EdgeInsets.symmetric(horizontal: 16.0),
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        SvgPicture.network(
+                          apps[index].appLogo,
+                          height: 45,
+                          width: 45,
+                        ),
+                        context.vDivider(height: 40.0),
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                apps[index].appTitle,
+                                style: TextStyle(
+                                    color:
+                                        Theme.of(context).colorScheme.primary,
+                                    fontSize: 13,
+                                    fontFamily: 'kufi',
+                                    fontWeight: FontWeight.bold),
+                              ),
+                              SizedBox(
+                                height: 8.0.h,
+                              ),
+                              Text(
+                                apps[index].body,
+                                style: TextStyle(
+                                    color: Theme.of(context)
+                                        .colorScheme
+                                        .surface
+                                        .withOpacity(.7),
+                                    fontSize: 11,
+                                    fontFamily: 'kufi',
+                                    fontWeight: FontWeight.bold),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  onTap: () {
+                    ourApps.launchURL(context, index, apps[index]);
+                  },
+                );
+              },
             ),
           );
         } else if (snapshot.hasError) {
-          return Text('${snapshot.error}');
+          return customLottie(LottieConstants.assetsLottieNoInternet,
+              width: 150.0, height: 150.0);
         }
         return customLottie(LottieConstants.assetsLottieSplashLoading,
             width: 200.0, height: 200.0);

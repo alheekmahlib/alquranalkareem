@@ -1139,5 +1139,25 @@
   "@What'sNewDetails10": {
     "type": "text",
     "placeholders": {}
+  },
+  "chooseDhekr": "Dooro xuska.",
+  "@chooseDhekr": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "selectTime": "Deji waqti loogu talagalay milicsiga.",
+  "@selectTime": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "downloadBookFirst": "Fadlan marka hore buugga soo dejiso.",
+  "@downloadBookFirst": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "lastDayOf": "Maalinta ugu dambeysa ee bisha",
+  "@lastDayOf": {
+    "type": "text",
+    "placeholders": {}
   }
 }

@@ -110,6 +110,7 @@ class AudioController extends GetxController {
       state.downloading.value = false;
       state.onDownloading.value = false;
     }
+    update(['audio_seekBar_id']);
     return path;
   }
 
@@ -148,7 +149,7 @@ class AudioController extends GetxController {
           double progressValue = (rec / total).toDouble().clamp(0.0, 1.0);
           state.progress.value = progressValue;
         }
-        print('Received bytes: $rec, Total bytes: $total');
+        // print('Received bytes: $rec, Total bytes: $total');
       });
     } catch (e) {
       if (e is DioException && e.type == DioExceptionType.cancel) {
@@ -174,18 +175,6 @@ class AudioController extends GetxController {
       print('Download completed or failed');
     }
     return true;
-  }
-
-  Future<int?> _fetchFileSize(String url, Dio dio) async {
-    try {
-      var response = await dio.head(url);
-      if (response.headers.value('Content-Length') != null) {
-        return int.tryParse(response.headers.value('Content-Length')!);
-      }
-    } catch (e) {
-      print('Error fetching file size: $e');
-    }
-    return null;
   }
 
   void cancelDownload() {
@@ -218,7 +207,8 @@ class AudioController extends GetxController {
     final selectedSurah = quranCtrl.state.surahs[currentSurahNumInPage - 1];
     final ayahsFilesNames = selectedSurahAyahsFileNames;
     final ayahsUrls = selectedSurahAyahsUrls;
-    final surahKey = 'surah_${selectedSurah.surahNumber}';
+    final surahKey =
+        'surah_${selectedSurah.surahNumber}ـ${state.readerIndex.value}';
 
     bool isSurahDownloaded = state.box.read(surahKey) ?? false;
 
@@ -247,6 +237,7 @@ class AudioController extends GetxController {
         log('Error in playFile: $e', name: 'AudioController');
       }
     } else {
+      state.downloading.value = false;
       print('سورة ${selectedSurahAyahsFileNames} محملة بالكامل.');
     }
 
@@ -271,7 +262,7 @@ class AudioController extends GetxController {
           ),
           initialIndex: state.isDirectPlaying.value
               ? currentAyahInPage
-              : state.selectedAyahNum.value - 1,
+              : state.selectedAyahNum.value,
         );
       }
 
@@ -279,11 +270,11 @@ class AudioController extends GetxController {
           name: 'AudioController');
 
       state.audioPlayer.currentIndexStream.listen((index) {
-        if (index != null && index != 0 && index != state.selectedAyahNum - 1) {
+        if (index != null && index != 0 && index != state.selectedAyahNum) {
           log('state.currentAyahUQInPage.value: ${state.currentAyahUQInPage}');
-          state.selectedAyahNum.value = index + 1;
+          state.selectedAyahNum.value = index;
           state.currentAyahUQInPage.value =
-              selectedSurahAyahsUniqueNumbers[state.selectedAyahNum.value - 1];
+              selectedSurahAyahsUniqueNumbers[state.selectedAyahNum.value];
           quranCtrl.clearAndAddSelection(state.currentAyahUQInPage.value);
         }
       });

@@ -41,9 +41,7 @@ class AddKhatmahWidget extends StatelessWidget {
                       hintText: 'khatmahName'.tr,
                       prefixIcon: const SizedBox.shrink(),
                       horizontalPadding: 4.0,
-                      onPressed: () {
-                        khatmahCtrl.nameController.clear();
-                      },
+                      onPressed: () => khatmahCtrl.nameController.clear(),
                       onChanged: null,
                       onSubmitted: null,
                     ),
@@ -52,8 +50,8 @@ class AddKhatmahWidget extends StatelessWidget {
                       mainAxisSize: MainAxisSize.min,
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        SizedBox(
-                          width: 120,
+                        Expanded(
+                          flex: 4,
                           child: Obx(() => CustomDropdown<int>(
                                 enabled: !khatmahCtrl.isTahzibSahabah.value,
                                 decoration: CustomDropdownDecoration(
@@ -95,38 +93,40 @@ class AddKhatmahWidget extends StatelessWidget {
                               )),
                         ),
                         const Gap(16),
-                        Obx(() => GestureDetector(
-                              onTap: () => khatmahCtrl.isTahzibSahabahOnTap(),
-                              child: Container(
-                                height: 38,
-                                width: 160,
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal: 8.0, vertical: 7.0),
-                                decoration: BoxDecoration(
-                                  color: khatmahCtrl.isTahzibSahabah.value
-                                      ? Theme.of(context).colorScheme.surface
-                                      : Theme.of(context)
-                                          .colorScheme
-                                          .surface
-                                          .withOpacity(.3),
-                                  borderRadius: const BorderRadius.all(
-                                      Radius.circular(8)),
-                                ),
-                                child: FittedBox(
-                                  fit: BoxFit.scaleDown,
-                                  child: Text(
-                                    'divisionBySahabah'.tr,
-                                    style: TextStyle(
-                                      color: Theme.of(context)
-                                          .colorScheme
-                                          .inversePrimary,
-                                      fontSize: 16,
-                                      fontFamily: 'naskh',
+                        Expanded(
+                          flex: 6,
+                          child: Obx(() => GestureDetector(
+                                onTap: () => khatmahCtrl.isTahzibSahabahOnTap(),
+                                child: Container(
+                                  height: 38,
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 8.0, vertical: 7.0),
+                                  decoration: BoxDecoration(
+                                    color: khatmahCtrl.isTahzibSahabah.value
+                                        ? Theme.of(context).colorScheme.surface
+                                        : Theme.of(context)
+                                            .colorScheme
+                                            .surface
+                                            .withOpacity(.3),
+                                    borderRadius: const BorderRadius.all(
+                                        Radius.circular(8)),
+                                  ),
+                                  child: FittedBox(
+                                    fit: BoxFit.scaleDown,
+                                    child: Text(
+                                      'divisionBySahabah'.tr,
+                                      style: TextStyle(
+                                        color: Theme.of(context)
+                                            .colorScheme
+                                            .inversePrimary,
+                                        fontSize: 16,
+                                        fontFamily: 'naskh',
+                                      ),
                                     ),
                                   ),
                                 ),
-                              ),
-                            )),
+                              )),
+                        ),
                       ],
                     ),
                   ],

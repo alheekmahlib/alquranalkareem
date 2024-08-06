@@ -1,7 +1,7 @@
-import 'package:alquranalkareem/core/utils/constants/extensions/convert_number_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '/core/utils/constants/extensions/convert_number_extension.dart';
 import 'custom_paint/custom_slider.dart';
 
 class PositionData {

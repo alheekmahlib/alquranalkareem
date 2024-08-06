@@ -28,6 +28,7 @@ class NotifyHelper {
         InitializationSettings(
       iOS: initializationSettingsIOS,
       android: initializationSettingsAndroid,
+      macOS: initializationSettingsIOS,
     );
 
     await flutterLocalNotificationsPlugin.initialize(

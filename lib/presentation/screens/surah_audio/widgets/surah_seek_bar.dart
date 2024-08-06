@@ -13,100 +13,61 @@ class SurahSeekBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Obx(() {
-      return sl<SurahAudioController>().state.onDownloading.value
-          ? GetX<SurahAudioController>(builder: (c) {
-              return SliderWidget.downloading(
-                  currentPosition: c.state.downloadProgress.value.toInt(),
-                  filesCount: c.state.fileSize.value,
-                  horizontalPadding: 32.0);
-            })
-          : StreamBuilder<PositionData>(
-              stream: sl<SurahAudioController>().positionDataStream,
-              builder: (context, snapshot) {
-                if (snapshot.hasData && snapshot.data != null) {
-                  sl<SurahAudioController>().state.positionData?.value =
-                      snapshot.data!;
-                  final positionData = snapshot.data;
+    return GetBuilder<SurahAudioController>(
+        id: 'seekBar_id',
+        builder: (c) => c.state.onDownloading.value
+            ? GetX<SurahAudioController>(builder: (c) {
+                return SliderWidget.downloading(
+                    currentPosition: c.state.downloadProgress.value.toInt(),
+                    filesCount: c.state.fileSize.value,
+                    horizontalPadding: 32.0);
+              })
+            : StreamBuilder<PositionData>(
+                stream: sl<SurahAudioController>().positionDataStream,
+                builder: (context, snapshot) {
+                  if (snapshot.hasData && snapshot.data != null) {
+                    sl<SurahAudioController>().state.positionData?.value =
+                        snapshot.data!;
+                    final positionData = snapshot.data;
 
-                  sl<SurahAudioController>()
-                      .updateControllerValues(positionData!);
-                  return SliderWidget.player(
-                    horizontalPadding: 32.0,
-                    duration: positionData.duration,
-                    position: sl<SurahAudioController>().state.lastTime != null
-                        ? Duration(
-                            seconds: sl<SurahAudioController>()
-                                .state
-                                .lastPosition
-                                .value
-                                .toInt())
-                        : positionData.position,
-                    // bufferedPosition: positionData.bufferedPosition,
-                    onChangeEnd: (newPosition) async {
-                      sl<SurahAudioController>()
-                          .state
-                          .audioPlayer
-                          .seek(newPosition);
-                      GetStorage().write(LAST_SURAH,
-                          sl<SurahAudioController>().state.surahNum.value);
-                      GetStorage().write(SELECTED_SURAH,
-                          sl<SurahAudioController>().state.surahNum.value - 1);
-                      GetStorage().write(LAST_POSITION, newPosition.inSeconds);
-                      sl<SurahAudioController>().state.seekNextSeconds.value =
-                          newPosition.inSeconds;
-                    },
-                    activeTrackColor: Theme.of(context).colorScheme.primary,
-                    textColor: Theme.of(context).canvasColor,
-                    timeShow: true,
-                  );
-                }
-                return const SizedBox.shrink();
-              },
-            );
-    });
-  }
-}
-
-class DownloadSurahSeekBar extends StatelessWidget {
-  const DownloadSurahSeekBar({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return StreamBuilder<PositionData>(
-      stream: sl<SurahAudioController>().DownloadPositionDataStream,
-      builder: (context, snapshot) {
-        if (snapshot.hasData && snapshot.data != null) {
-          sl<SurahAudioController>().state.positionData?.value = snapshot.data!;
-          final positionData = snapshot.data;
-
-          sl<SurahAudioController>().updateControllerValues(positionData!);
-          return SliderWidget(
-            horizontalPadding: 32.0,
-            duration: positionData.duration,
-            position: sl<SurahAudioController>().state.lastTime != null
-                ? Duration(
-                    seconds: sl<SurahAudioController>().state.lastTime!.toInt())
-                : positionData.position,
-            // bufferedPosition: positionData.bufferedPosition,
-            onChangeEnd: (newPosition) async {
-              sl<SurahAudioController>()
-                  .state
-                  .downAudioPlayer
-                  .seek(newPosition);
-              GetStorage().write(
-                  LAST_SURAH, sl<SurahAudioController>().state.surahNum.value);
-              GetStorage().write(SELECTED_SURAH,
-                  sl<SurahAudioController>().state.surahNum.value - 1);
-              GetStorage().write(LAST_POSITION, newPosition.inSeconds);
-            },
-            activeTrackColor: Theme.of(context).colorScheme.surface,
-            textColor: Theme.of(context).canvasColor,
-            timeShow: true,
-          );
-        }
-        return const SizedBox.shrink();
-      },
-    );
+                    sl<SurahAudioController>()
+                        .updateControllerValues(positionData!);
+                    return SliderWidget.player(
+                      horizontalPadding: 32.0,
+                      duration: positionData.duration,
+                      position:
+                          sl<SurahAudioController>().state.lastTime != null
+                              ? Duration(
+                                  seconds: sl<SurahAudioController>()
+                                      .state
+                                      .lastPosition
+                                      .value
+                                      .toInt())
+                              : positionData.position,
+                      // bufferedPosition: positionData.bufferedPosition,
+                      onChangeEnd: (newPosition) async {
+                        sl<SurahAudioController>()
+                            .state
+                            .audioPlayer
+                            .seek(newPosition);
+                        GetStorage().write(LAST_SURAH,
+                            sl<SurahAudioController>().state.surahNum.value);
+                        GetStorage().write(
+                            SELECTED_SURAH,
+                            sl<SurahAudioController>().state.surahNum.value -
+                                1);
+                        GetStorage()
+                            .write(LAST_POSITION, newPosition.inSeconds);
+                        sl<SurahAudioController>().state.seekNextSeconds.value =
+                            newPosition.inSeconds;
+                      },
+                      activeTrackColor: Theme.of(context).colorScheme.primary,
+                      textColor: Theme.of(context).canvasColor,
+                      timeShow: true,
+                    );
+                  }
+                  return const SizedBox.shrink();
+                },
+              ));
   }
 }

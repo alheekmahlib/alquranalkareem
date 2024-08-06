@@ -50,8 +50,8 @@ class QuranState {
   ScrollController? surahController;
   ScrollController? juzListController;
   RxBool isPageMode = false.obs;
-  RxInt backgroundPickerColor = 0xffFFFFFF.obs;
-  RxInt temporaryBackgroundColor = 0xffFFFFFF.obs;
+  RxInt backgroundPickerColor = 0xfffaf7f3.obs;
+  RxInt temporaryBackgroundColor = 0xfffaf7f3.obs;
 
   RxBool isScrolling = false.obs;
 }

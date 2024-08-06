@@ -10,31 +10,15 @@ import '/presentation/screens/surah_audio/controller/extensions/surah_audio_ui.d
 import '../../quran_page/controllers/quran/quran_controller.dart';
 import '../controller/surah_audio_controller.dart';
 
-class SurahAudioList extends StatefulWidget {
+class SurahAudioList extends StatelessWidget {
   SurahAudioList({super.key});
 
-  @override
-  _SurahAudioListState createState() => _SurahAudioListState();
-}
-
-class _SurahAudioListState extends State<SurahAudioList> {
   final QuranController quranCtrl = QuranController.instance;
   final SurahAudioController surahAudioCtrl = SurahAudioController.instance;
 
   @override
-  void initState() {
-    super.initState();
-    surahAudioCtrl.state.surahListController = ItemScrollController();
-  }
-
-  @override
-  void dispose() {
-    // surahAudioCtrl.state.surahListController = null;
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
+    surahAudioCtrl.state.surahListController = ItemScrollController();
     return Container(
       margin: const EdgeInsets.only(
           bottom: 50.0, right: 32.0, left: 32.0, top: 16.0),
@@ -142,7 +126,8 @@ class _SurahAudioListState extends State<SurahAudioList> {
                                 ),
                               ),
                               if (index + 1 ==
-                                  surahAudioCtrl.state.surahNum.value)
+                                      surahAudioCtrl.state.surahNum.value &&
+                                  surahAudioCtrl.state.isPlaying.value)
                                 MiniMusicVisualizer(
                                   color: Theme.of(context).colorScheme.surface,
                                   width: 4,

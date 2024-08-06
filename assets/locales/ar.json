@@ -784,37 +784,37 @@
     "type": "text",
     "placeholders": {}
   },
-  "Sunday": "أحد",
+  "Sunday": "الأحد",
   "@Sunday": {
     "type": "text",
     "placeholders": {}
   },
-  "Monday": "أثنين",
+  "Monday": "الأثنين",
   "@Monday": {
     "type": "text",
     "placeholders": {}
   },
-  "Tuesday": "ثلاثاء",
+  "Tuesday": "الثلاثاء",
   "@Tuesday": {
     "type": "text",
     "placeholders": {}
   },
-  "Wednesday": "أربعاء",
+  "Wednesday": "الأربعاء",
   "@Wednesday": {
     "type": "text",
     "placeholders": {}
   },
-  "Thursday": "خميس",
+  "Thursday": "الخميس",
   "@Thursday": {
     "type": "text",
     "placeholders": {}
   },
-  "Friday": "جمعة",
+  "Friday": "الجمعة",
   "@Friday": {
     "type": "text",
     "placeholders": {}
   },
-  "Saturday": "سبت",
+  "Saturday": "السبت",
   "@Saturday": {
     "type": "text",
     "placeholders": {}
@@ -1131,6 +1131,26 @@
   },
   "What'sNewDetails10": "۞ إضافة الختمة للقرآن.\n۞ إضافة خاصية تحميل كل آيات السورة لكي تعمل دون أنترنت.\n ۞ تحسينات في البحث الخاص بالقرآن.\n ۞ إضافة مكتبة التفسير.\n ۞ إضافة ميزة التذكير لقراءة الأذكار حيث يمكنك تخصيص وقت محدد لراءة الذكر.\n ۞ إضافة الإشعارات.\n ۞ والمزيد من الإضافات والتحسينات",
   "@What'sNewDetails10": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "chooseDhekr": "اختر الذكر",
+  "@chooseDhekr": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "selectTime": "حدد وقتًا للتبينه",
+  "@selectTime": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "downloadBookFirst": "يرجى تحميل الكتاب أولًا.",
+  "@downloadBookFirst": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "lastDayOf": "اليوم الأخير لشهر",
+  "@lastDayOf": {
     "type": "text",
     "placeholders": {}
   }

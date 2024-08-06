@@ -63,21 +63,6 @@ class AdhkarList extends StatelessWidget {
                     ),
                   ),
                 ),
-                // Align(
-                //   alignment: AlignmentDirectional.centerStart,
-                //   child: Padding(
-                //     padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                //     child: GestureDetector(
-                //       onTap: () => Get.bottomSheet(AdhkarReminderWidget(),
-                //           isScrollControlled: true),
-                //       child: Icon(
-                //         Icons.alarm,
-                //         size: 30,
-                //         color: Theme.of(context).colorScheme.primary,
-                //       ),
-                //     ),
-                //   ),
-                // ),
                 customLottie(LottieConstants.assetsLottieAzkar,
                     height: 120, isRepeat: false),
               ],
@@ -296,9 +281,53 @@ class AdhkarList extends StatelessWidget {
               ),
             ),
             Expanded(
-                flex: 4,
-                child: customLottie(LottieConstants.assetsLottieAzkar,
-                    height: 120, isRepeat: false)),
+              flex: 4,
+              child: Stack(
+                alignment: Alignment.center,
+                children: [
+                  Align(
+                    alignment: AlignmentDirectional.centerEnd,
+                    child: GestureDetector(
+                      onTap: () => Get.bottomSheet(AdhkarReminderWidget(),
+                          isScrollControlled: true),
+                      child: Stack(
+                        alignment: Alignment.center,
+                        children: [
+                          Transform.translate(
+                            offset: const Offset(0, -2),
+                            child: RotatedBox(
+                              quarterTurns: 3,
+                              child: customSvgWithColor(SvgPath.svgButtonCurve,
+                                  height: 45.0,
+                                  width: 45.0,
+                                  color: Get.theme.colorScheme.primary),
+                            ),
+                          ),
+                          Container(
+                            padding: const EdgeInsets.all(4),
+                            margin: const EdgeInsets.only(bottom: 5),
+                            decoration: BoxDecoration(
+                                borderRadius:
+                                    const BorderRadius.all(Radius.circular(4)),
+                                border: Border.all(
+                                    width: 1,
+                                    color:
+                                        Theme.of(context).colorScheme.surface)),
+                            child: Icon(
+                              Icons.alarm,
+                              size: 25,
+                              color: Theme.of(context).canvasColor,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                  customLottie(LottieConstants.assetsLottieAzkar,
+                      height: 120, isRepeat: false),
+                ],
+              ),
+            ),
           ],
         ));
   }

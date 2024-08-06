@@ -1139,5 +1139,25 @@
   "@What'sNewDetails10": {
     "type": "text",
     "placeholders": {}
+  },
+  "chooseDhekr": "Set a time for reflection.",
+  "@chooseDhekr": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "selectTime": "Choose the remembrance.",
+  "@selectTime": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "downloadBookFirst": "Please download the book first.",
+  "@downloadBookFirst": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "lastDayOf": "The last day of the month of",
+  "@lastDayOf": {
+    "type": "text",
+    "placeholders": {}
   }
 }
