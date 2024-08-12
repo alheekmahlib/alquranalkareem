@@ -1159,5 +1159,20 @@
   "@lastDayOf": {
     "type": "text",
     "placeholders": {}
+  },
+  "booksDownloaded": "کتاب ڈاؤن لوڈ کی گئی ہے۔",
+  "@booksDownloaded": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "booksDeleted": "کتاب حذف کر دی گئی ہے۔",
+  "@booksDeleted": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "noBooksDownloaded": "آپ نے ابھی تک کوئی کتاب ڈاؤن لوڈ نہیں کی ہے۔",
+  "@noBooksDownloaded": {
+    "type": "text",
+    "placeholders": {}
   }
 }

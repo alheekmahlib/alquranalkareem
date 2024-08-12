@@ -49,10 +49,10 @@ extension QuranUi on QuranController {
         index: page - 1,
       );
     } else {
-      state.quranPageController.animateToPage(
+      state.quranPageController.jumpToPage(
         page - 1,
-        duration: const Duration(milliseconds: 500),
-        curve: Curves.easeIn,
+        // duration: const Duration(milliseconds: 500),
+        // curve: Curves.easeIn,
       );
     }
     GlobalKeyManager().drawerKey.currentState!.closeSlider();

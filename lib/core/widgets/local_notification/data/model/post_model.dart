@@ -1,5 +1,6 @@
 class PostModel {
   final int id;
+  final String appName;
   final String title;
   final String body;
   final bool isLottie;
@@ -10,6 +11,7 @@ class PostModel {
 
   PostModel({
     required this.id,
+    required this.appName,
     required this.title,
     required this.body,
     this.isLottie = false,
@@ -22,6 +24,7 @@ class PostModel {
   factory PostModel.fromJson(Map<String, dynamic> json) {
     return PostModel(
       id: json['id'],
+      appName: json['appName'],
       title: json['title'],
       body: json['body'],
       isLottie: json['isLottie'] ?? false,
@@ -35,6 +38,7 @@ class PostModel {
   Map<String, dynamic> toJson() {
     return {
       'id': id,
+      'appName': appName,
       'title': title,
       'body': body,
       'isLottie': isLottie,

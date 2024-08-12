@@ -1159,5 +1159,20 @@
   "@lastDayOf": {
     "type": "text",
     "placeholders": {}
+  },
+  "booksDownloaded": "Buugga waa la soo dejiyay.",
+  "@booksDownloaded": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "booksDeleted": "Buugga waa la tirtiray.",
+  "@booksDeleted": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "noBooksDownloaded": "Weli ma aadan soo dejisan wax buug ah.",
+  "@noBooksDownloaded": {
+    "type": "text",
+    "placeholders": {}
   }
 }

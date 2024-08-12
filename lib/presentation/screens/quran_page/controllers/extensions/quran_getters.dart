@@ -157,8 +157,7 @@ extension QuranGetters on QuranController {
       });
 
   RxBool getCurrentSurahNumber(int surahNum) =>
-      getCurrentSurahByPage(state.currentPageNumber.value - 1).surahNumber -
-                  1 ==
+      getCurrentSurahByPage(state.currentPageNumber.value).surahNumber - 1 ==
               surahNum
           ? true.obs
           : false.obs;
@@ -176,12 +175,12 @@ extension QuranGetters on QuranController {
   }
 
   ScrollController get surahController {
+    final suraNumber =
+        getCurrentSurahByPage(state.currentPageNumber.value - 1).surahNumber -
+            1;
     if (state.surahController == null) {
       state.surahController = ScrollController(
-        initialScrollOffset: state.surahItemHeight *
-                getCurrentSurahByPage(state.currentPageNumber.value - 1)
-                    .surahNumber -
-            1,
+        initialScrollOffset: state.surahItemHeight * suraNumber,
       );
     }
     return state.surahController!;

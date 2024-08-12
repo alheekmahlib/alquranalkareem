@@ -1153,5 +1153,20 @@
   "@lastDayOf": {
     "type": "text",
     "placeholders": {}
+  },
+  "booksDownloaded": "تم تحميل الكتاب.",
+  "@booksDownloaded": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "booksDeleted": "تم حذف الكتاب.",
+  "@booksDeleted": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "noBooksDownloaded": "لم تحمل أي كتاب بعد.",
+  "@noBooksDownloaded": {
+    "type": "text",
+    "placeholders": {}
   }
 }
