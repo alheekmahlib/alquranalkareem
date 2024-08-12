@@ -1,4 +1,3 @@
-import 'package:alquranalkareem/core/utils/constants/svg_constants.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -6,6 +5,7 @@ import 'package:get/get.dart';
 
 import '/core/utils/constants/extensions/convert_number_extension.dart';
 import '/core/utils/constants/extensions/extensions.dart';
+import '/core/utils/constants/svg_constants.dart';
 import '/presentation/screens/quran_page/controllers/extensions/quran_getters.dart';
 import '/presentation/screens/quran_page/controllers/extensions/quran_ui.dart';
 import '../controllers/quran/quran_controller.dart';
@@ -48,28 +48,32 @@ class QuranSurahList extends StatelessWidget {
                   Column(
                     children: [
                       GestureDetector(
+                        onTap: () => quranCtrl
+                            .changeSurahListOnTap(surah.ayahs.first.page),
                         child: GetX<QuranController>(
                           builder: (quranCtrl) {
                             return Container(
                                 height: 60,
                                 decoration: BoxDecoration(
-                                    color: (index % 2 == 0
-                                        ? Theme.of(context)
-                                            .colorScheme
-                                            .primary
-                                            .withOpacity(.15)
-                                        : Colors.transparent),
-                                    borderRadius: const BorderRadius.all(
-                                        Radius.circular(8)),
-                                    border: Border.all(
-                                        width: 2,
-                                        color: quranCtrl
-                                                .getCurrentSurahNumber(index)
-                                                .value
-                                            ? Theme.of(context)
-                                                .colorScheme
-                                                .primary
-                                            : Colors.transparent)),
+                                  color: (index % 2 == 0
+                                      ? Theme.of(context)
+                                          .colorScheme
+                                          .primary
+                                          .withOpacity(.15)
+                                      : Colors.transparent),
+                                  borderRadius: const BorderRadius.all(
+                                      Radius.circular(8)),
+                                  border: Border.all(
+                                      width: 2,
+                                      color: quranCtrl.state.lastReadSurahNumber
+                                                      .value -
+                                                  1 ==
+                                              index
+                                          ? Theme.of(context)
+                                              .colorScheme
+                                              .primary
+                                          : Colors.transparent),
+                                ),
                                 child: Padding(
                                   padding:
                                       const EdgeInsets.symmetric(horizontal: 8),
@@ -85,14 +89,16 @@ class QuranSurahList extends StatelessWidget {
                                               SizedBox(
                                                   height: 40,
                                                   width: 40,
-                                                  child: SvgPicture.asset(
-                                                    SvgPath.svgSoraNum,
-                                                    colorFilter:
-                                                        ColorFilter.mode(
-                                                            Theme.of(context)
-                                                                .colorScheme
-                                                                .primary,
-                                                            BlendMode.srcIn),
+                                                  child: RepaintBoundary(
+                                                    child: SvgPicture.asset(
+                                                      SvgPath.svgSoraNum,
+                                                      colorFilter:
+                                                          ColorFilter.mode(
+                                                              Theme.of(context)
+                                                                  .colorScheme
+                                                                  .primary,
+                                                              BlendMode.srcIn),
+                                                    ),
                                                   )),
                                               Transform.translate(
                                                 offset: const Offset(0, 1),
@@ -120,12 +126,14 @@ class QuranSurahList extends StatelessWidget {
                                           mainAxisAlignment:
                                               MainAxisAlignment.center,
                                           children: [
-                                            SvgPicture.asset(
-                                              'assets/svg/surah_name/00${index + 1}.svg',
-                                              colorFilter: ColorFilter.mode(
-                                                  Theme.of(context).hintColor,
-                                                  BlendMode.srcIn),
-                                              width: 90,
+                                            RepaintBoundary(
+                                              child: SvgPicture.asset(
+                                                'assets/svg/surah_name/00${index + 1}.svg',
+                                                colorFilter: ColorFilter.mode(
+                                                    Theme.of(context).hintColor,
+                                                    BlendMode.srcIn),
+                                                width: 90,
+                                              ),
                                             ),
                                             Padding(
                                               padding: const EdgeInsets.only(
@@ -190,8 +198,6 @@ class QuranSurahList extends StatelessWidget {
                                 ));
                           },
                         ),
-                        onTap: () => quranCtrl
-                            .changeSurahListOnTap(surah.ayahs.first.page),
                       ),
                       context.hDivider(
                           color: Theme.of(context)

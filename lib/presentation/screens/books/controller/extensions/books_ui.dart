@@ -56,6 +56,7 @@ extension BooksUi on BooksController {
         state.box.remove('lastRead_$bookNumber');
         state.lastReadPage.remove(bookNumber);
         state.bookTotalPages.remove(bookNumber);
+        Get.context!.showCustomErrorSnackBar('booksDeleted'.tr);
         log('Last read data for book $bookNumber deleted successfully.');
       }
     } catch (e) {

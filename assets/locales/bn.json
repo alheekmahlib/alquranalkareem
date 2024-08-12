@@ -1159,5 +1159,20 @@
   "@lastDayOf": {
     "type": "text",
     "placeholders": {}
+  },
+  "booksDownloaded": "বইটি ডাউনলোড করা হয়েছে।",
+  "@booksDownloaded": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "booksDeleted": "বইটি মুছে ফেলা হয়েছে।",
+  "@booksDeleted": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "noBooksDownloaded": "আপনি এখনো কোনো বই ডাউনলোড করেননি।",
+  "@noBooksDownloaded": {
+    "type": "text",
+    "placeholders": {}
   }
 }

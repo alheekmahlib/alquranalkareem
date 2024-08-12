@@ -1159,5 +1159,20 @@
   "@lastDayOf": {
     "type": "text",
     "placeholders": {}
+  },
+  "booksDownloaded": "The book has been downloaded.",
+  "@booksDownloaded": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "booksDeleted": "The book has been deleted.",
+  "@booksDeleted": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "noBooksDownloaded": "You have not downloaded any book yet.",
+  "@noBooksDownloaded": {
+    "type": "text",
+    "placeholders": {}
   }
 }

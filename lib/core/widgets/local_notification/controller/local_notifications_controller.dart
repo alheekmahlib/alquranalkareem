@@ -52,7 +52,7 @@ class LocalNotificationsController extends GetxController {
         int newLastSeenPostId = lastSeenPostId;
         update();
         for (var post in jsonResponse) {
-          if (post.id > lastSeenPostId) {
+          if (post.id > lastSeenPostId && post.appName == 'quran') {
             String title = post.title;
             String body = post.body;
             int id = post.id;
@@ -103,7 +103,7 @@ class LocalNotificationsController extends GetxController {
   void loadReadStatus() {
     List<dynamic> readPostsDynamic = box.read<List<dynamic>>('readPosts') ?? [];
     List<int> readPosts = readPostsDynamic.map((e) => e as int).toList();
-    log('Read posts IDs: $readPosts'); // طباعة المعرفات المخزنة
+    log('Read posts IDs: $readPosts');
 
     for (var post in postsList) {
       post.opened = readPosts.contains(post.id);

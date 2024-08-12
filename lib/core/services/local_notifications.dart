@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_timezone/flutter_timezone.dart';
@@ -45,22 +47,25 @@ class NotifyHelper {
       {int? hour, int? minutes}) async {
     if (hour == null || minutes == null) {
       // إرسال الإشعار فوراً إذا لم يتم تحديد الوقت
-      await displayNotification(title: title, body: body);
+      await displayNotification(title: title, body: body)
+          .then((_) => log('$title notification scheduled'));
     } else {
-      await flutterLocalNotificationsPlugin.zonedSchedule(
-        reminderId,
-        title,
-        body,
-        _nextInstanceOfScheduledTime(hour, minutes),
-        const NotificationDetails(
-          android: AndroidNotificationDetails(
-              'quran_channel_id', 'alQuran_alKareem'),
-        ),
-        uiLocalNotificationDateInterpretation:
-            UILocalNotificationDateInterpretation.absoluteTime,
-        androidAllowWhileIdle: true,
-        payload: title,
-      );
+      await flutterLocalNotificationsPlugin
+          .zonedSchedule(
+            reminderId,
+            title,
+            body,
+            _nextInstanceOfScheduledTime(hour, minutes),
+            const NotificationDetails(
+              android: AndroidNotificationDetails(
+                  'quran_channel_id', 'alQuran_alKareem'),
+            ),
+            uiLocalNotificationDateInterpretation:
+                UILocalNotificationDateInterpretation.absoluteTime,
+            androidAllowWhileIdle: true,
+            payload: title,
+          )
+          .then((_) => log('$title notification scheduled on $hour:$minutes'));
     }
   }
 

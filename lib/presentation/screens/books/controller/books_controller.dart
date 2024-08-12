@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
 
+import 'package:alquranalkareem/core/utils/constants/extensions/custom_error_snackBar.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/services.dart' show rootBundle;
 import 'package:get/get.dart';
@@ -78,6 +79,7 @@ class BooksController extends GetxController {
       log('Error downloading book: $e');
     } finally {
       state.downloading[bookNumber] = false;
+      Get.context!.showCustomErrorSnackBar('booksDownloaded'.tr);
     }
   }
 
