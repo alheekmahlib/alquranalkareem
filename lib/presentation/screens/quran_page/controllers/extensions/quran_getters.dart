@@ -74,6 +74,29 @@ extension QuranGetters on QuranController {
           (s) => s.ayahs.firstWhereOrNull((a) => a.page == pageNumber) != null)
       .surahNumber;
 
+  List<Surah> getSurahsByPage(int pageNumber) {
+    List<Ayah> pageAyahs = getPageAyahsByIndex(pageNumber);
+    List<Surah> surahsOnPage = [];
+    for (Ayah ayah in pageAyahs) {
+      Surah surah = state.surahs.firstWhere((s) => s.ayahs.contains(ayah),
+          orElse: () => Surah(
+              surahNumber: -1,
+              arabicName: 'Unknown',
+              englishName: 'Unknown',
+              revelationType: 'Unknown',
+              surahNames: 'Unknown',
+              surahNamesFromBook: 'Unknown',
+              surahInfo: 'Unknown',
+              surahInfoFromBook: 'Unknown',
+              ayahs: []));
+      if (!surahsOnPage.any((s) => s.surahNumber == surah.surahNumber) &&
+          surah.surahNumber != -1) {
+        surahsOnPage.add(surah);
+      }
+    }
+    return surahsOnPage;
+  }
+
   Surah getCurrentSurahByPage(int pageNumber) => state.surahs.firstWhere(
       (s) => s.ayahs.contains(getPageAyahsByIndex(pageNumber).first));
 

@@ -38,20 +38,6 @@ class TopTitleWidget extends StatelessWidget {
                   child: bookmarkIcon(
                       height: context.customOrientation(30.h, 55.h)),
                 ),
-                // Expanded(
-                //     flex: 2,
-                //     child: customSvg(
-                //       'assets/svg/juz/${quranCtrl.getJuzByPage(index).juz}.svg',
-                //       color: const Color(0xff77554B),
-                //     )),
-                // const Spacer(),
-                // Expanded(
-                //   flex: 1,
-                //   child: context.surahNameWidget(
-                //     quranCtrl.getSurahNumberFromPage(index).toString(),
-                //     const Color(0xff77554B),
-                //   ),
-                // ),
                 const Gap(16),
                 Text(
                   '${'juz'.tr}: ${quranCtrl.getJuzByPage(index).juz.toString().convertNumbers()}',
@@ -62,39 +48,33 @@ class TopTitleWidget extends StatelessWidget {
                       color: const Color(0xff77554B)),
                 ),
                 const Spacer(),
-                Text(
-                  quranCtrl.getCurrentSurahByPage(index).arabicName,
-                  style: TextStyle(
-                      fontSize: context.customOrientation(18.0, 22.0),
-                      // fontWeight: FontWeight.bold,
-                      fontFamily: 'naskh',
-                      color: const Color(0xff77554B)),
+                Row(
+                  children: List.generate(
+                      quranCtrl.getSurahsByPage(index).length,
+                      (i) => Text(
+                            ' ${quranCtrl.getSurahsByPage(index)[i].arabicName.replaceAll('سُورَةُ ', '')} ',
+                            style: TextStyle(
+                                fontSize: context.customOrientation(18.0, 22.0),
+                                // fontWeight: FontWeight.bold,
+                                fontFamily: 'naskh',
+                                color: const Color(0xff77554B)),
+                          )),
                 ),
               ],
             )
           : Row(
               children: [
-                // Expanded(
-                //   flex: 2,
-                //   child: context.surahNameWidget(
-                //     quranCtrl.getSurahNumberFromPage(index).toString(),
-                //     const Color(0xff77554B),
-                //   ),
-                // ),
-                // const Spacer(),
-                // Expanded(
-                //     flex: 2,
-                //     child: customSvg(
-                //       'assets/svg/juz/${quranCtrl.getJuzByPage(index).juz}.svg',
-                //       color: const Color(0xff77554B),
-                //     )),
-                Text(
-                  quranCtrl.getCurrentSurahByPage(index).arabicName,
-                  style: TextStyle(
-                      fontSize: context.customOrientation(18.0, 22.0),
-                      // fontWeight: FontWeight.bold,
-                      fontFamily: 'naskh',
-                      color: const Color(0xff77554B)),
+                Row(
+                  children: List.generate(
+                      quranCtrl.getSurahsByPage(index).length,
+                      (i) => Text(
+                            ' ${quranCtrl.getSurahsByPage(index)[i].arabicName.replaceAll('سُورَةُ ', '')} ',
+                            style: TextStyle(
+                                fontSize: context.customOrientation(18.0, 22.0),
+                                // fontWeight: FontWeight.bold,
+                                fontFamily: 'naskh',
+                                color: const Color(0xff77554B)),
+                          )),
                 ),
                 const Spacer(),
                 Text(
