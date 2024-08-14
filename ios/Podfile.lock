@@ -3,6 +3,8 @@ PODS:
     - Flutter
   - audio_session (0.0.1):
     - Flutter
+  - background_fetch (1.3.5):
+    - Flutter
   - connectivity_plus (0.0.1):
     - Flutter
     - FlutterMacOS
@@ -59,6 +61,7 @@ PODS:
 DEPENDENCIES:
   - audio_service (from `.symlinks/plugins/audio_service/ios`)
   - audio_session (from `.symlinks/plugins/audio_session/ios`)
+  - background_fetch (from `.symlinks/plugins/background_fetch/ios`)
   - connectivity_plus (from `.symlinks/plugins/connectivity_plus/darwin`)
   - Flutter (from `Flutter`)
   - flutter_local_notifications (from `.symlinks/plugins/flutter_local_notifications/ios`)
@@ -85,6 +88,8 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/audio_service/ios"
   audio_session:
     :path: ".symlinks/plugins/audio_session/ios"
+  background_fetch:
+    :path: ".symlinks/plugins/background_fetch/ios"
   connectivity_plus:
     :path: ".symlinks/plugins/connectivity_plus/darwin"
   Flutter:
@@ -121,6 +126,7 @@ EXTERNAL SOURCES:
 SPEC CHECKSUMS:
   audio_service: f509d65da41b9521a61f1c404dd58651f265a567
   audio_session: 088d2483ebd1dc43f51d253d4a1c517d9a2e7207
+  background_fetch: f73d045fee3d313ea8c0afa205317bff8a6bf8d2
   connectivity_plus: ddd7f30999e1faaef5967c23d5b6d503d10434db
   Flutter: e0871f40cf51350855a761d2e70bf5af5b9b5de7
   flutter_local_notifications: 4cde75091f6327eb8517fa068a0a5950212d2086

@@ -261,217 +261,204 @@ class QuranPages extends StatelessWidget {
   }
 
   Widget _regularModeWidget(BuildContext context, int index) {
-    return GetX<QuranController>(
-      builder: (quranCtrl) {
-        return Responsive.isMobile(context) || Responsive.isMobileLarge(context)
-            ? Center(
-                child: index.isEven
-                    ? Container(
-                        height: MediaQuery.sizeOf(context).height,
-                        color: quranCtrl.backgroundColor,
-                        child: Stack(
-                          children: [
-                            Align(
-                                alignment: Alignment.topCenter,
-                                child: TopTitleWidget(
-                                    index: index, isRight: true)),
-                            Align(
-                                alignment: Alignment.center,
-                                child: PagesWidget(pageIndex: index)),
-                            Align(
-                              alignment: Alignment.bottomRight,
-                              child: Padding(
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal: 16.0),
-                                child: Text(
-                                  quranCtrl
-                                      .getHizbQuarterDisplayByPage(index + 1),
-                                  style: TextStyle(
-                                      fontSize:
-                                          context.customOrientation(18.0, 22.0),
-                                      fontFamily: 'naskh',
-                                      color: const Color(0xff77554B)),
-                                ),
-                              ),
+    return Responsive.isMobile(context) || Responsive.isMobileLarge(context)
+        ? Center(
+            child: index.isEven
+                ? Container(
+                    height: MediaQuery.sizeOf(context).height,
+                    color: quranCtrl.backgroundColor,
+                    child: Stack(
+                      children: [
+                        Align(
+                            alignment: Alignment.topCenter,
+                            child: TopTitleWidget(index: index, isRight: true)),
+                        Align(
+                            alignment: Alignment.center,
+                            child: PagesWidget(pageIndex: index)),
+                        Align(
+                          alignment: Alignment.bottomRight,
+                          child: Padding(
+                            padding:
+                                const EdgeInsets.symmetric(horizontal: 16.0),
+                            child: Text(
+                              quranCtrl.getHizbQuarterDisplayByPage(index + 1),
+                              style: TextStyle(
+                                  fontSize:
+                                      context.customOrientation(18.0, 22.0),
+                                  fontFamily: 'naskh',
+                                  color: const Color(0xff77554B)),
                             ),
-                            Align(
-                              alignment: Alignment.bottomLeft,
-                              child: Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 16.0),
-                                  child: showVerseToast(index)),
-                            ),
-                            Align(
-                              alignment: Alignment.bottomCenter,
-                              child: Text(
-                                '${index + 1}'.convertNumbers(),
-                                style: TextStyle(
-                                    fontSize:
-                                        context.customOrientation(20.0, 22.0),
-                                    fontFamily: 'naskh',
-                                    color: const Color(0xff77554B)),
-                              ),
-                            ),
-                          ],
+                          ),
                         ),
-                      )
-                    : Container(
-                        height: MediaQuery.sizeOf(context).height,
-                        color: quranCtrl.backgroundColor,
-                        child: Stack(
-                          // mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          // crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Align(
-                                alignment: Alignment.topCenter,
-                                child: TopTitleWidget(
-                                    index: index, isRight: false)),
-                            Align(
-                                alignment: Alignment.center,
-                                child: PagesWidget(pageIndex: index)),
-                            Align(
-                              alignment: Alignment.bottomLeft,
-                              child: Padding(
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal: 16.0),
-                                child: Text(
-                                  quranCtrl
-                                      .getHizbQuarterDisplayByPage(index + 1),
-                                  style: TextStyle(
-                                      fontSize:
-                                          context.customOrientation(18.0, 22.0),
-                                      fontFamily: 'naskh',
-                                      color: const Color(0xff77554B)),
-                                ),
-                              ),
-                            ),
-                            Align(
-                              alignment: Alignment.bottomRight,
-                              child: Padding(
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal: 16.0),
-                                child: showVerseToast(index),
-                              ),
-                            ),
-                            Align(
-                              alignment: Alignment.bottomCenter,
-                              child: Text(
-                                '${index + 1}'.convertNumbers(),
-                                style: TextStyle(
-                                    fontSize:
-                                        context.customOrientation(20.0, 22.0),
-                                    fontFamily: 'naskh',
-                                    color: const Color(0xff77554B)),
-                              ),
-                            ),
-                          ],
+                        Align(
+                          alignment: Alignment.bottomLeft,
+                          child: Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 16.0),
+                              child: showVerseToast(index)),
                         ),
-                      ))
-            : Center(
-                child: index.isEven
-                    ? Container(
-                        height: MediaQuery.sizeOf(context).height,
-                        color: quranCtrl.backgroundColor,
-                        child: ListView(
-                          // mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          // crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            TopTitleWidget(index: index, isRight: true),
-                            Padding(
-                              padding: const EdgeInsets.symmetric(
-                                horizontal: 32.0,
-                              ),
-                              child: PagesWidget(pageIndex: index),
-                            ),
-                            Align(
-                              alignment: Alignment.bottomRight,
-                              child: Padding(
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal: 16.0),
-                                child: Text(
-                                  quranCtrl
-                                      .getHizbQuarterDisplayByPage(index + 1),
-                                  style: TextStyle(
-                                      fontSize:
-                                          context.customOrientation(18.0, 22.0),
-                                      fontFamily: 'naskh',
-                                      color: const Color(0xff77554B)),
-                                ),
-                              ),
-                            ),
-                            Align(
-                              alignment: Alignment.bottomLeft,
-                              child: Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 16.0),
-                                  child: showVerseToast(index)),
-                            ),
-                            Align(
-                              alignment: Alignment.bottomCenter,
-                              child: Text(
-                                '${index + 1}'.convertNumbers(),
-                                style: TextStyle(
-                                    fontSize:
-                                        context.customOrientation(18.0, 22.0),
-                                    fontFamily: 'naskh',
-                                    color: const Color(0xff77554B)),
-                              ),
-                            ),
-                          ],
+                        Align(
+                          alignment: Alignment.bottomCenter,
+                          child: Text(
+                            '${index + 1}'.convertNumbers(),
+                            style: TextStyle(
+                                fontSize: context.customOrientation(20.0, 22.0),
+                                fontFamily: 'naskh',
+                                color: const Color(0xff77554B)),
+                          ),
                         ),
-                      )
-                    : Container(
-                        height: MediaQuery.sizeOf(context).height,
-                        color: quranCtrl.backgroundColor,
-                        child: ListView(
-                          // mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          // crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            TopTitleWidget(index: index, isRight: false),
-                            Padding(
-                              padding: const EdgeInsets.symmetric(
-                                horizontal: 32.0,
-                              ),
-                              child: PagesWidget(pageIndex: index),
+                      ],
+                    ),
+                  )
+                : Container(
+                    height: MediaQuery.sizeOf(context).height,
+                    color: quranCtrl.backgroundColor,
+                    child: Stack(
+                      // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      // crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Align(
+                            alignment: Alignment.topCenter,
+                            child:
+                                TopTitleWidget(index: index, isRight: false)),
+                        Align(
+                            alignment: Alignment.center,
+                            child: PagesWidget(pageIndex: index)),
+                        Align(
+                          alignment: Alignment.bottomLeft,
+                          child: Padding(
+                            padding:
+                                const EdgeInsets.symmetric(horizontal: 16.0),
+                            child: Text(
+                              quranCtrl.getHizbQuarterDisplayByPage(index + 1),
+                              style: TextStyle(
+                                  fontSize:
+                                      context.customOrientation(18.0, 22.0),
+                                  fontFamily: 'naskh',
+                                  color: const Color(0xff77554B)),
                             ),
-                            Align(
-                              alignment: Alignment.bottomLeft,
-                              child: Padding(
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal: 16.0),
-                                child: Text(
-                                  quranCtrl
-                                      .getHizbQuarterDisplayByPage(index + 1),
-                                  style: TextStyle(
-                                      fontSize:
-                                          context.customOrientation(18.0, 22.0),
-                                      fontFamily: 'naskh',
-                                      color: const Color(0xff77554B)),
-                                ),
-                              ),
-                            ),
-                            Align(
-                              alignment: Alignment.bottomRight,
-                              child: Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 16.0),
-                                  child: showVerseToast(index)),
-                            ),
-                            Align(
-                              alignment: Alignment.bottomCenter,
-                              child: Text(
-                                '${index + 1}'.convertNumbers(),
-                                style: TextStyle(
-                                    fontSize:
-                                        context.customOrientation(18.0, 22.0),
-                                    fontFamily: 'naskh',
-                                    color: const Color(0xff77554B)),
-                              ),
-                            )
-                          ],
+                          ),
                         ),
-                      ));
-      },
-    );
+                        Align(
+                          alignment: Alignment.bottomRight,
+                          child: Padding(
+                            padding:
+                                const EdgeInsets.symmetric(horizontal: 16.0),
+                            child: showVerseToast(index),
+                          ),
+                        ),
+                        Align(
+                          alignment: Alignment.bottomCenter,
+                          child: Text(
+                            '${index + 1}'.convertNumbers(),
+                            style: TextStyle(
+                                fontSize: context.customOrientation(20.0, 22.0),
+                                fontFamily: 'naskh',
+                                color: const Color(0xff77554B)),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ))
+        : Center(
+            child: index.isEven
+                ? Container(
+                    height: MediaQuery.sizeOf(context).height,
+                    color: quranCtrl.backgroundColor,
+                    child: ListView(
+                      // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      // crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        TopTitleWidget(index: index, isRight: true),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 32.0,
+                          ),
+                          child: PagesWidget(pageIndex: index),
+                        ),
+                        Align(
+                          alignment: Alignment.bottomRight,
+                          child: Padding(
+                            padding:
+                                const EdgeInsets.symmetric(horizontal: 16.0),
+                            child: Text(
+                              quranCtrl.getHizbQuarterDisplayByPage(index + 1),
+                              style: TextStyle(
+                                  fontSize:
+                                      context.customOrientation(18.0, 22.0),
+                                  fontFamily: 'naskh',
+                                  color: const Color(0xff77554B)),
+                            ),
+                          ),
+                        ),
+                        Align(
+                          alignment: Alignment.bottomLeft,
+                          child: Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 16.0),
+                              child: showVerseToast(index)),
+                        ),
+                        Align(
+                          alignment: Alignment.bottomCenter,
+                          child: Text(
+                            '${index + 1}'.convertNumbers(),
+                            style: TextStyle(
+                                fontSize: context.customOrientation(18.0, 22.0),
+                                fontFamily: 'naskh',
+                                color: const Color(0xff77554B)),
+                          ),
+                        ),
+                      ],
+                    ),
+                  )
+                : Container(
+                    height: MediaQuery.sizeOf(context).height,
+                    color: quranCtrl.backgroundColor,
+                    child: ListView(
+                      // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      // crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        TopTitleWidget(index: index, isRight: false),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 32.0,
+                          ),
+                          child: PagesWidget(pageIndex: index),
+                        ),
+                        Align(
+                          alignment: Alignment.bottomLeft,
+                          child: Padding(
+                            padding:
+                                const EdgeInsets.symmetric(horizontal: 16.0),
+                            child: Text(
+                              quranCtrl.getHizbQuarterDisplayByPage(index + 1),
+                              style: TextStyle(
+                                  fontSize:
+                                      context.customOrientation(18.0, 22.0),
+                                  fontFamily: 'naskh',
+                                  color: const Color(0xff77554B)),
+                            ),
+                          ),
+                        ),
+                        Align(
+                          alignment: Alignment.bottomRight,
+                          child: Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 16.0),
+                              child: showVerseToast(index)),
+                        ),
+                        Align(
+                          alignment: Alignment.bottomCenter,
+                          child: Text(
+                            '${index + 1}'.convertNumbers(),
+                            style: TextStyle(
+                                fontSize: context.customOrientation(18.0, 22.0),
+                                fontFamily: 'naskh',
+                                color: const Color(0xff77554B)),
+                          ),
+                        )
+                      ],
+                    ),
+                  ));
   }
 }

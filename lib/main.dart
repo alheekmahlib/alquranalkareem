@@ -7,6 +7,7 @@ import 'package:timezone/data/latest.dart' as tz;
 import 'package:wakelock_plus/wakelock_plus.dart';
 
 import '/core/services/languages/dependency_inj.dart' as dep;
+import 'core/services/background_services.dart';
 import 'core/services/local_notifications.dart';
 import 'core/services/services_locator.dart';
 import 'myApp.dart';
@@ -29,6 +30,7 @@ Future<void> initializeApp() async {
   await ServicesLocator().init();
   tz.initializeTimeZones();
   await NotifyHelper().initializeNotification();
+  await BGServices().registerTask();
   FlutterNativeSplash.remove();
   WakelockPlus.enable();
 }

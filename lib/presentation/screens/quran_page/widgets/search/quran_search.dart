@@ -28,6 +28,7 @@ class QuranSearch extends StatelessWidget {
       child: SafeArea(
         child: Column(
           children: <Widget>[
+            const Gap(16),
             context.customClose(),
             const Gap(16),
             TextFieldBarWidget(
