@@ -965,75 +965,24 @@ typedef $$KhatmahsTableUpdateCompanionBuilder = KhatmahsCompanion Function({
   Value<int?> endPage,
 });
 
-class $$KhatmahsTableTableManager extends RootTableManager<
-    _$KhatmahDatabase,
-    $KhatmahsTable,
-    Khatmah,
-    $$KhatmahsTableFilterComposer,
-    $$KhatmahsTableOrderingComposer,
-    $$KhatmahsTableCreateCompanionBuilder,
-    $$KhatmahsTableUpdateCompanionBuilder> {
-  $$KhatmahsTableTableManager(_$KhatmahDatabase db, $KhatmahsTable table)
-      : super(TableManagerState(
-          db: db,
-          table: table,
-          filteringComposer:
-              $$KhatmahsTableFilterComposer(ComposerState(db, table)),
-          orderingComposer:
-              $$KhatmahsTableOrderingComposer(ComposerState(db, table)),
-          updateCompanionCallback: ({
-            Value<int> id = const Value.absent(),
-            Value<String?> name = const Value.absent(),
-            Value<int?> currentPage = const Value.absent(),
-            Value<int?> startAyahNumber = const Value.absent(),
-            Value<int?> endAyahNumber = const Value.absent(),
-            Value<bool> isCompleted = const Value.absent(),
-            Value<int> daysCount = const Value.absent(),
-            Value<bool> isTahzibSahabah = const Value.absent(),
-            Value<int?> color = const Value.absent(),
-            Value<int?> startPage = const Value.absent(),
-            Value<int?> endPage = const Value.absent(),
-          }) =>
-              KhatmahsCompanion(
-            id: id,
-            name: name,
-            currentPage: currentPage,
-            startAyahNumber: startAyahNumber,
-            endAyahNumber: endAyahNumber,
-            isCompleted: isCompleted,
-            daysCount: daysCount,
-            isTahzibSahabah: isTahzibSahabah,
-            color: color,
-            startPage: startPage,
-            endPage: endPage,
-          ),
-          createCompanionCallback: ({
-            Value<int> id = const Value.absent(),
-            Value<String?> name = const Value.absent(),
-            Value<int?> currentPage = const Value.absent(),
-            Value<int?> startAyahNumber = const Value.absent(),
-            Value<int?> endAyahNumber = const Value.absent(),
-            Value<bool> isCompleted = const Value.absent(),
-            Value<int> daysCount = const Value.absent(),
-            Value<bool> isTahzibSahabah = const Value.absent(),
-            Value<int?> color = const Value.absent(),
-            Value<int?> startPage = const Value.absent(),
-            Value<int?> endPage = const Value.absent(),
-          }) =>
-              KhatmahsCompanion.insert(
-            id: id,
-            name: name,
-            currentPage: currentPage,
-            startAyahNumber: startAyahNumber,
-            endAyahNumber: endAyahNumber,
-            isCompleted: isCompleted,
-            daysCount: daysCount,
-            isTahzibSahabah: isTahzibSahabah,
-            color: color,
-            startPage: startPage,
-            endPage: endPage,
-          ),
-        ));
+final class $$KhatmahsTableReferences
+    extends BaseReferences<_$KhatmahDatabase, $KhatmahsTable, Khatmah> {
+  $$KhatmahsTableReferences(super.$_db, super.$_table, super.$_typedResult);
+
+  static MultiTypedResultKey<$KhatmahDaysTable, List<KhatmahDay>>
+      _khatmahDaysRefsTable(_$KhatmahDatabase db) =>
+          MultiTypedResultKey.fromTable(db.khatmahDays,
+              aliasName: $_aliasNameGenerator(
+                  db.khatmahs.id, db.khatmahDays.khatmahId));
+
+  $$KhatmahDaysTableProcessedTableManager get khatmahDaysRefs {
+    final manager = $$KhatmahDaysTableTableManager($_db, $_db.khatmahDays)
+        .filter((f) => f.khatmahId.id($_item.id));
+
+    final cache = $_typedResult.readTableOrNull(_khatmahDaysRefsTable($_db));
+    return ProcessedTableManager(
+        manager.$state.copyWith(prefetchedData: cache));
+  }
 }
 
 class $$KhatmahsTableFilterComposer
@@ -1167,6 +1116,118 @@ class $$KhatmahsTableOrderingComposer
           ColumnOrderings(column, joinBuilders: joinBuilders));
 }
 
+class $$KhatmahsTableTableManager extends RootTableManager<
+    _$KhatmahDatabase,
+    $KhatmahsTable,
+    Khatmah,
+    $$KhatmahsTableFilterComposer,
+    $$KhatmahsTableOrderingComposer,
+    $$KhatmahsTableCreateCompanionBuilder,
+    $$KhatmahsTableUpdateCompanionBuilder,
+    (Khatmah, $$KhatmahsTableReferences),
+    Khatmah,
+    PrefetchHooks Function({bool khatmahDaysRefs})> {
+  $$KhatmahsTableTableManager(_$KhatmahDatabase db, $KhatmahsTable table)
+      : super(TableManagerState(
+          db: db,
+          table: table,
+          filteringComposer:
+              $$KhatmahsTableFilterComposer(ComposerState(db, table)),
+          orderingComposer:
+              $$KhatmahsTableOrderingComposer(ComposerState(db, table)),
+          updateCompanionCallback: ({
+            Value<int> id = const Value.absent(),
+            Value<String?> name = const Value.absent(),
+            Value<int?> currentPage = const Value.absent(),
+            Value<int?> startAyahNumber = const Value.absent(),
+            Value<int?> endAyahNumber = const Value.absent(),
+            Value<bool> isCompleted = const Value.absent(),
+            Value<int> daysCount = const Value.absent(),
+            Value<bool> isTahzibSahabah = const Value.absent(),
+            Value<int?> color = const Value.absent(),
+            Value<int?> startPage = const Value.absent(),
+            Value<int?> endPage = const Value.absent(),
+          }) =>
+              KhatmahsCompanion(
+            id: id,
+            name: name,
+            currentPage: currentPage,
+            startAyahNumber: startAyahNumber,
+            endAyahNumber: endAyahNumber,
+            isCompleted: isCompleted,
+            daysCount: daysCount,
+            isTahzibSahabah: isTahzibSahabah,
+            color: color,
+            startPage: startPage,
+            endPage: endPage,
+          ),
+          createCompanionCallback: ({
+            Value<int> id = const Value.absent(),
+            Value<String?> name = const Value.absent(),
+            Value<int?> currentPage = const Value.absent(),
+            Value<int?> startAyahNumber = const Value.absent(),
+            Value<int?> endAyahNumber = const Value.absent(),
+            Value<bool> isCompleted = const Value.absent(),
+            Value<int> daysCount = const Value.absent(),
+            Value<bool> isTahzibSahabah = const Value.absent(),
+            Value<int?> color = const Value.absent(),
+            Value<int?> startPage = const Value.absent(),
+            Value<int?> endPage = const Value.absent(),
+          }) =>
+              KhatmahsCompanion.insert(
+            id: id,
+            name: name,
+            currentPage: currentPage,
+            startAyahNumber: startAyahNumber,
+            endAyahNumber: endAyahNumber,
+            isCompleted: isCompleted,
+            daysCount: daysCount,
+            isTahzibSahabah: isTahzibSahabah,
+            color: color,
+            startPage: startPage,
+            endPage: endPage,
+          ),
+          withReferenceMapper: (p0) => p0
+              .map((e) =>
+                  (e.readTable(table), $$KhatmahsTableReferences(db, table, e)))
+              .toList(),
+          prefetchHooksCallback: ({khatmahDaysRefs = false}) {
+            return PrefetchHooks(
+              db: db,
+              explicitlyWatchedTables: [if (khatmahDaysRefs) db.khatmahDays],
+              addJoins: null,
+              getPrefetchedDataCallback: (items) async {
+                return [
+                  if (khatmahDaysRefs)
+                    await $_getPrefetchedData(
+                        currentTable: table,
+                        referencedTable:
+                            $$KhatmahsTableReferences._khatmahDaysRefsTable(db),
+                        managerFromTypedResult: (p0) =>
+                            $$KhatmahsTableReferences(db, table, p0)
+                                .khatmahDaysRefs,
+                        referencedItemsForCurrentItem:
+                            (item, referencedItems) => referencedItems
+                                .where((e) => e.khatmahId == item.id),
+                        typedResults: items)
+                ];
+              },
+            );
+          },
+        ));
+}
+
+typedef $$KhatmahsTableProcessedTableManager = ProcessedTableManager<
+    _$KhatmahDatabase,
+    $KhatmahsTable,
+    Khatmah,
+    $$KhatmahsTableFilterComposer,
+    $$KhatmahsTableOrderingComposer,
+    $$KhatmahsTableCreateCompanionBuilder,
+    $$KhatmahsTableUpdateCompanionBuilder,
+    (Khatmah, $$KhatmahsTableReferences),
+    Khatmah,
+    PrefetchHooks Function({bool khatmahDaysRefs})>;
 typedef $$KhatmahDaysTableCreateCompanionBuilder = KhatmahDaysCompanion
     Function({
   Value<int> id,
@@ -1186,55 +1247,23 @@ typedef $$KhatmahDaysTableUpdateCompanionBuilder = KhatmahDaysCompanion
   Value<int?> endPage,
 });
 
-class $$KhatmahDaysTableTableManager extends RootTableManager<
-    _$KhatmahDatabase,
-    $KhatmahDaysTable,
-    KhatmahDay,
-    $$KhatmahDaysTableFilterComposer,
-    $$KhatmahDaysTableOrderingComposer,
-    $$KhatmahDaysTableCreateCompanionBuilder,
-    $$KhatmahDaysTableUpdateCompanionBuilder> {
-  $$KhatmahDaysTableTableManager(_$KhatmahDatabase db, $KhatmahDaysTable table)
-      : super(TableManagerState(
-          db: db,
-          table: table,
-          filteringComposer:
-              $$KhatmahDaysTableFilterComposer(ComposerState(db, table)),
-          orderingComposer:
-              $$KhatmahDaysTableOrderingComposer(ComposerState(db, table)),
-          updateCompanionCallback: ({
-            Value<int> id = const Value.absent(),
-            Value<int> khatmahId = const Value.absent(),
-            Value<int> day = const Value.absent(),
-            Value<bool> isCompleted = const Value.absent(),
-            Value<int?> startPage = const Value.absent(),
-            Value<int?> endPage = const Value.absent(),
-          }) =>
-              KhatmahDaysCompanion(
-            id: id,
-            khatmahId: khatmahId,
-            day: day,
-            isCompleted: isCompleted,
-            startPage: startPage,
-            endPage: endPage,
-          ),
-          createCompanionCallback: ({
-            Value<int> id = const Value.absent(),
-            required int khatmahId,
-            required int day,
-            Value<bool> isCompleted = const Value.absent(),
-            Value<int?> startPage = const Value.absent(),
-            Value<int?> endPage = const Value.absent(),
-          }) =>
-              KhatmahDaysCompanion.insert(
-            id: id,
-            khatmahId: khatmahId,
-            day: day,
-            isCompleted: isCompleted,
-            startPage: startPage,
-            endPage: endPage,
-          ),
-        ));
+final class $$KhatmahDaysTableReferences
+    extends BaseReferences<_$KhatmahDatabase, $KhatmahDaysTable, KhatmahDay> {
+  $$KhatmahDaysTableReferences(super.$_db, super.$_table, super.$_typedResult);
+
+  static $KhatmahsTable _khatmahIdTable(_$KhatmahDatabase db) =>
+      db.khatmahs.createAlias(
+          $_aliasNameGenerator(db.khatmahDays.khatmahId, db.khatmahs.id));
+
+  $$KhatmahsTableProcessedTableManager? get khatmahId {
+    if ($_item.khatmahId == null) return null;
+    final manager = $$KhatmahsTableTableManager($_db, $_db.khatmahs)
+        .filter((f) => f.id($_item.khatmahId!));
+    final item = $_typedResult.readTableOrNull(_khatmahIdTable($_db));
+    if (item == null) return manager;
+    return ProcessedTableManager(
+        manager.$state.copyWith(prefetchedData: [item]));
+  }
 }
 
 class $$KhatmahDaysTableFilterComposer
@@ -1318,6 +1347,112 @@ class $$KhatmahDaysTableOrderingComposer
     return composer;
   }
 }
+
+class $$KhatmahDaysTableTableManager extends RootTableManager<
+    _$KhatmahDatabase,
+    $KhatmahDaysTable,
+    KhatmahDay,
+    $$KhatmahDaysTableFilterComposer,
+    $$KhatmahDaysTableOrderingComposer,
+    $$KhatmahDaysTableCreateCompanionBuilder,
+    $$KhatmahDaysTableUpdateCompanionBuilder,
+    (KhatmahDay, $$KhatmahDaysTableReferences),
+    KhatmahDay,
+    PrefetchHooks Function({bool khatmahId})> {
+  $$KhatmahDaysTableTableManager(_$KhatmahDatabase db, $KhatmahDaysTable table)
+      : super(TableManagerState(
+          db: db,
+          table: table,
+          filteringComposer:
+              $$KhatmahDaysTableFilterComposer(ComposerState(db, table)),
+          orderingComposer:
+              $$KhatmahDaysTableOrderingComposer(ComposerState(db, table)),
+          updateCompanionCallback: ({
+            Value<int> id = const Value.absent(),
+            Value<int> khatmahId = const Value.absent(),
+            Value<int> day = const Value.absent(),
+            Value<bool> isCompleted = const Value.absent(),
+            Value<int?> startPage = const Value.absent(),
+            Value<int?> endPage = const Value.absent(),
+          }) =>
+              KhatmahDaysCompanion(
+            id: id,
+            khatmahId: khatmahId,
+            day: day,
+            isCompleted: isCompleted,
+            startPage: startPage,
+            endPage: endPage,
+          ),
+          createCompanionCallback: ({
+            Value<int> id = const Value.absent(),
+            required int khatmahId,
+            required int day,
+            Value<bool> isCompleted = const Value.absent(),
+            Value<int?> startPage = const Value.absent(),
+            Value<int?> endPage = const Value.absent(),
+          }) =>
+              KhatmahDaysCompanion.insert(
+            id: id,
+            khatmahId: khatmahId,
+            day: day,
+            isCompleted: isCompleted,
+            startPage: startPage,
+            endPage: endPage,
+          ),
+          withReferenceMapper: (p0) => p0
+              .map((e) => (
+                    e.readTable(table),
+                    $$KhatmahDaysTableReferences(db, table, e)
+                  ))
+              .toList(),
+          prefetchHooksCallback: ({khatmahId = false}) {
+            return PrefetchHooks(
+              db: db,
+              explicitlyWatchedTables: [],
+              addJoins: <
+                  T extends TableManagerState<
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic>>(state) {
+                if (khatmahId) {
+                  state = state.withJoin(
+                    currentTable: table,
+                    currentColumn: table.khatmahId,
+                    referencedTable:
+                        $$KhatmahDaysTableReferences._khatmahIdTable(db),
+                    referencedColumn:
+                        $$KhatmahDaysTableReferences._khatmahIdTable(db).id,
+                  ) as T;
+                }
+
+                return state;
+              },
+              getPrefetchedDataCallback: (items) async {
+                return [];
+              },
+            );
+          },
+        ));
+}
+
+typedef $$KhatmahDaysTableProcessedTableManager = ProcessedTableManager<
+    _$KhatmahDatabase,
+    $KhatmahDaysTable,
+    KhatmahDay,
+    $$KhatmahDaysTableFilterComposer,
+    $$KhatmahDaysTableOrderingComposer,
+    $$KhatmahDaysTableCreateCompanionBuilder,
+    $$KhatmahDaysTableUpdateCompanionBuilder,
+    (KhatmahDay, $$KhatmahDaysTableReferences),
+    KhatmahDay,
+    PrefetchHooks Function({bool khatmahId})>;
 
 class $KhatmahDatabaseManager {
   final _$KhatmahDatabase _db;
