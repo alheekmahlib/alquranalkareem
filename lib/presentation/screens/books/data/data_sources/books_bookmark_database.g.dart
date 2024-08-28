@@ -299,50 +299,6 @@ typedef $$BooksBookmarkTableUpdateCompanionBuilder = BooksBookmarkCompanion
   Value<int?> currentPage,
 });
 
-class $$BooksBookmarkTableTableManager extends RootTableManager<
-    _$BooksBookmarkDatabase,
-    $BooksBookmarkTable,
-    BooksBookmarkData,
-    $$BooksBookmarkTableFilterComposer,
-    $$BooksBookmarkTableOrderingComposer,
-    $$BooksBookmarkTableCreateCompanionBuilder,
-    $$BooksBookmarkTableUpdateCompanionBuilder> {
-  $$BooksBookmarkTableTableManager(
-      _$BooksBookmarkDatabase db, $BooksBookmarkTable table)
-      : super(TableManagerState(
-          db: db,
-          table: table,
-          filteringComposer:
-              $$BooksBookmarkTableFilterComposer(ComposerState(db, table)),
-          orderingComposer:
-              $$BooksBookmarkTableOrderingComposer(ComposerState(db, table)),
-          updateCompanionCallback: ({
-            Value<int> id = const Value.absent(),
-            Value<String?> bookName = const Value.absent(),
-            Value<int?> bookNumber = const Value.absent(),
-            Value<int?> currentPage = const Value.absent(),
-          }) =>
-              BooksBookmarkCompanion(
-            id: id,
-            bookName: bookName,
-            bookNumber: bookNumber,
-            currentPage: currentPage,
-          ),
-          createCompanionCallback: ({
-            Value<int> id = const Value.absent(),
-            Value<String?> bookName = const Value.absent(),
-            Value<int?> bookNumber = const Value.absent(),
-            Value<int?> currentPage = const Value.absent(),
-          }) =>
-              BooksBookmarkCompanion.insert(
-            id: id,
-            bookName: bookName,
-            bookNumber: bookNumber,
-            currentPage: currentPage,
-          ),
-        ));
-}
-
 class $$BooksBookmarkTableFilterComposer
     extends FilterComposer<_$BooksBookmarkDatabase, $BooksBookmarkTable> {
   $$BooksBookmarkTableFilterComposer(super.$state);
@@ -390,6 +346,77 @@ class $$BooksBookmarkTableOrderingComposer
       builder: (column, joinBuilders) =>
           ColumnOrderings(column, joinBuilders: joinBuilders));
 }
+
+class $$BooksBookmarkTableTableManager extends RootTableManager<
+    _$BooksBookmarkDatabase,
+    $BooksBookmarkTable,
+    BooksBookmarkData,
+    $$BooksBookmarkTableFilterComposer,
+    $$BooksBookmarkTableOrderingComposer,
+    $$BooksBookmarkTableCreateCompanionBuilder,
+    $$BooksBookmarkTableUpdateCompanionBuilder,
+    (
+      BooksBookmarkData,
+      BaseReferences<_$BooksBookmarkDatabase, $BooksBookmarkTable,
+          BooksBookmarkData>
+    ),
+    BooksBookmarkData,
+    PrefetchHooks Function()> {
+  $$BooksBookmarkTableTableManager(
+      _$BooksBookmarkDatabase db, $BooksBookmarkTable table)
+      : super(TableManagerState(
+          db: db,
+          table: table,
+          filteringComposer:
+              $$BooksBookmarkTableFilterComposer(ComposerState(db, table)),
+          orderingComposer:
+              $$BooksBookmarkTableOrderingComposer(ComposerState(db, table)),
+          updateCompanionCallback: ({
+            Value<int> id = const Value.absent(),
+            Value<String?> bookName = const Value.absent(),
+            Value<int?> bookNumber = const Value.absent(),
+            Value<int?> currentPage = const Value.absent(),
+          }) =>
+              BooksBookmarkCompanion(
+            id: id,
+            bookName: bookName,
+            bookNumber: bookNumber,
+            currentPage: currentPage,
+          ),
+          createCompanionCallback: ({
+            Value<int> id = const Value.absent(),
+            Value<String?> bookName = const Value.absent(),
+            Value<int?> bookNumber = const Value.absent(),
+            Value<int?> currentPage = const Value.absent(),
+          }) =>
+              BooksBookmarkCompanion.insert(
+            id: id,
+            bookName: bookName,
+            bookNumber: bookNumber,
+            currentPage: currentPage,
+          ),
+          withReferenceMapper: (p0) => p0
+              .map((e) => (e.readTable(table), BaseReferences(db, table, e)))
+              .toList(),
+          prefetchHooksCallback: null,
+        ));
+}
+
+typedef $$BooksBookmarkTableProcessedTableManager = ProcessedTableManager<
+    _$BooksBookmarkDatabase,
+    $BooksBookmarkTable,
+    BooksBookmarkData,
+    $$BooksBookmarkTableFilterComposer,
+    $$BooksBookmarkTableOrderingComposer,
+    $$BooksBookmarkTableCreateCompanionBuilder,
+    $$BooksBookmarkTableUpdateCompanionBuilder,
+    (
+      BooksBookmarkData,
+      BaseReferences<_$BooksBookmarkDatabase, $BooksBookmarkTable,
+          BooksBookmarkData>
+    ),
+    BooksBookmarkData,
+    PrefetchHooks Function()>;
 
 class $BooksBookmarkDatabaseManager {
   final _$BooksBookmarkDatabase _db;
