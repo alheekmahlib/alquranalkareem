@@ -1,7 +1,14 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
+import 'package:get_storage/get_storage.dart';
+import 'package:timezone/data/latest.dart' as tz;
+import 'package:wakelock_plus/wakelock_plus.dart';
 
 import '/core/services/languages/dependency_inj.dart' as dep;
+import 'core/services/background_services.dart';
+import 'core/services/local_notifications.dart';
 import 'core/services/services_locator.dart';
 import 'myApp.dart';
 
@@ -10,27 +17,20 @@ Future<void> main() async {
   widgetsBinding;
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
   Map<String, Map<String, String>> languages = await dep.init();
-  initializeApp().then((_) {
-    runApp(MyApp(
-      languages: languages,
-    ));
-  });
+  await initializeApp();
+
+  runApp(MyApp(
+    languages: languages,
+  ));
 }
 
 Future<void> initializeApp() async {
   Future.delayed(const Duration(seconds: 0));
+  await GetStorage.init();
   await ServicesLocator().init();
-  // sl<NotificationController>().schedulePrayerNotifications();
-  // await Workmanager().initialize(callbackDispatcher, isInDebugMode: true);
+  tz.initializeTimeZones();
+  await NotifyHelper().initializeNotification();
+  await BGServices().registerTask();
   FlutterNativeSplash.remove();
+  WakelockPlus.enable();
 }
-
-// void callbackDispatcher() {
-//   Workmanager().executeTask((task, inputData) async {
-//     FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
-//         FlutterLocalNotificationsPlugin();
-//     // Initialize as needed
-//     await NotificationController().schedulePrayerNotifications();
-//     return Future.value(true);
-//   });
-// }

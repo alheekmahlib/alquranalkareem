@@ -3,10 +3,10 @@ import 'package:flutter/services.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 
-import '../../../core/services/services_locator.dart';
+import '/core/utils/constants/extensions/alignment_rotated_extension.dart';
+import '/core/utils/constants/extensions/svg_extensions.dart';
 import '../../../core/utils/constants/extensions/extensions.dart';
-import '../../../core/utils/constants/svg_picture.dart';
-import '/presentation/controllers/general_controller.dart';
+import '../../../core/utils/constants/svg_constants.dart';
 import 'about_app_text.dart';
 import 'user_options.dart';
 
@@ -16,25 +16,27 @@ class AboutApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Theme.of(context).colorScheme.background,
+      backgroundColor: Theme.of(context).colorScheme.primaryContainer,
       appBar: AppBar(
         centerTitle: true,
-        title: splash_icon(height: 50),
-        backgroundColor: Theme.of(context).colorScheme.background,
+        title: customSvg(
+          SvgPath.svgSplashIcon,
+          height: 50,
+        ),
+        backgroundColor: Theme.of(context).colorScheme.primaryContainer,
         systemOverlayStyle: SystemUiOverlayStyle.dark,
         elevation: 0,
         leading: GestureDetector(
             onTap: () {
               Get.back();
             },
-            child: sl<GeneralController>().checkWidgetRtlLayout(
-              Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                  child: Image.asset(
-                    'assets/icons/arrow_back.png',
-                    color: Theme.of(context).colorScheme.primary,
-                  )),
-            )),
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16.0),
+              child: Image.asset(
+                'assets/icons/arrow_back.png',
+                color: Theme.of(context).colorScheme.primary,
+              ),
+            ).rotatedRtlLayout()),
         leadingWidth: 56,
       ),
       body: SafeArea(
@@ -44,8 +46,9 @@ class AboutApp extends StatelessWidget {
               ListView(
                 children: [
                   const Gap(32),
-                  splash_icon_s(
-                    height: 200.0,
+                  customSvg(
+                    SvgPath.svgSplashIconS,
+                    height: 200,
                   ),
                   const Gap(32),
                   const AboutAppText(),
@@ -57,8 +60,9 @@ class AboutApp extends StatelessWidget {
                 children: [
                   Expanded(
                     flex: 4,
-                    child: splash_icon_s(
-                      height: 200.0,
+                    child: customSvg(
+                      SvgPath.svgSplashIconS,
+                      height: 200,
                     ),
                   ),
                   const Gap(32),

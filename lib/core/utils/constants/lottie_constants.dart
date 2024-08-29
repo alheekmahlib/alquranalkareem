@@ -81,4 +81,8 @@ class LottieConstants {
   /// Assets for assetsLottieSun
   /// assets/lottie/sun.json
   static const String assetsLottieSun = "assets/lottie/sun.json";
+
+  /// Assets for assetsLottieNoInternet
+  /// assets/lottie/noInternet.json
+  static const String assetsLottieNoInternet = "assets/lottie/noInternet.json";
 }

@@ -6,48 +6,48 @@ import 'package:desktop_window/desktop_window.dart';
 import 'package:flutter_timezone/flutter_timezone.dart';
 import 'package:get/get.dart';
 import 'package:get_it/get_it.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:just_audio_background/just_audio_background.dart';
 import 'package:sqflite_common_ffi/sqflite_ffi.dart';
 import 'package:timezone/data/latest.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
 
-import '../../presentation/controllers/adhan_controller.dart';
-import '../../presentation/controllers/daily_ayah_controller.dart';
-import '../../presentation/controllers/khatmah_controller.dart';
-import '../../presentation/controllers/notification_controller.dart';
-import '../../presentation/controllers/ourApps_controller.dart';
-import '../../presentation/controllers/quran_controller.dart';
-import '../../presentation/controllers/splash_screen_controller.dart';
-import '../../presentation/controllers/theme_controller.dart';
-import '../utils/helpers/ui_helper.dart';
 import '/database/databaseHelper.dart';
 import '/database/notificationDatabase.dart';
-import '/presentation/controllers/audio_controller.dart';
-import '/presentation/controllers/aya_controller.dart';
-import '/presentation/controllers/ayat_controller.dart';
-import '/presentation/controllers/azkar_controller.dart';
-import '/presentation/controllers/bookmarks_controller.dart';
-import '/presentation/controllers/general_controller.dart';
-import '/presentation/controllers/notifications_controller.dart';
-import '/presentation/controllers/playList_controller.dart';
 import '/presentation/controllers/settings_controller.dart';
-import '/presentation/controllers/share_controller.dart';
-import '/presentation/controllers/surah_audio_controller.dart';
-import '/presentation/controllers/translate_controller.dart';
 import '/presentation/screens/quran_page/data/data_source/baghawy_data_client.dart';
 import '/presentation/screens/quran_page/data/data_source/data_client.dart';
 import '/presentation/screens/quran_page/data/data_source/ibnkatheer_data_client.dart';
 import '/presentation/screens/quran_page/data/data_source/qurtubi_data_client.dart';
 import '/presentation/screens/quran_page/data/data_source/saadi_data_client.dart';
 import '/presentation/screens/quran_page/data/data_source/tabari_data_client.dart';
+import '../../presentation/controllers/daily_ayah_controller.dart';
+import '../../presentation/controllers/general/general_controller.dart';
+import '../../presentation/controllers/theme_controller.dart';
+import '../../presentation/screens/adhkar/controller/adhkar_controller.dart';
+import '../../presentation/screens/books/controller/books_controller.dart';
+import '../../presentation/screens/ourApp/controller/ourApps_controller.dart';
+import '../../presentation/screens/quran_page/controllers/audio/audio_controller.dart';
+import '../../presentation/screens/quran_page/controllers/aya_controller.dart';
+import '../../presentation/screens/quran_page/controllers/ayat_controller.dart';
+import '../../presentation/screens/quran_page/controllers/bookmarks_controller.dart';
+import '../../presentation/screens/quran_page/controllers/khatmah_controller.dart';
+import '../../presentation/screens/quran_page/controllers/playList_controller.dart';
+import '../../presentation/screens/quran_page/controllers/quran/quran_controller.dart';
+import '../../presentation/screens/quran_page/controllers/share_controller.dart';
+import '../../presentation/screens/quran_page/controllers/translate_controller.dart';
+import '../../presentation/screens/splash/controller/splash_screen_controller.dart';
+import '../../presentation/screens/surah_audio/controller/surah_audio_controller.dart';
+import '../../presentation/screens/whats_new/controller/whats_new_controller.dart';
+import '../utils/helpers/ui_helper.dart';
+import '../widgets/local_notification/controller/local_notifications_controller.dart';
 
 final sl = GetIt.instance;
 
 class ServicesLocator {
-  Future<void> _initPrefs() async =>
-      await SharedPreferences.getInstance().then((v) {
-        sl.registerSingleton<SharedPreferences>(v);
-      });
+  // Future<void> _initPrefs() async =>
+  // await SharedPreferences.getInstance().then((v) {
+  //   sl.registerSingleton<SharedPreferences>(v);
+  // });
 
   Future<void> _initDatabaseHelper() async =>
       sl.registerSingleton<DatabaseHelper>(await DatabaseHelper.instance
@@ -99,7 +99,8 @@ class ServicesLocator {
       //   androidNotificationChannelName: 'Audio playback',
       //   androidNotificationOngoing: true,
       // ),
-      _initPrefs(),
+
+      // _initPrefs(), // moved to notificationsCtrl
       _initDatabaseHelper(),
       _initDatabaseNotification(),
       _initDatabaseClient(),
@@ -126,10 +127,6 @@ class ServicesLocator {
 
     sl.registerSingleton<QuranController>(
         Get.put<QuranController>(QuranController(), permanent: true));
-
-    sl.registerLazySingleton<NotificationsController>(() =>
-        Get.put<NotificationsController>(NotificationsController(),
-            permanent: true));
 
     sl.registerLazySingleton<SurahAudioController>(() =>
         Get.put<SurahAudioController>(SurahAudioController(), permanent: true));
@@ -169,17 +166,29 @@ class ServicesLocator {
     sl.registerLazySingleton<DailyAyahController>(() =>
         Get.put<DailyAyahController>(DailyAyahController(), permanent: true));
 
-    sl.registerSingleton<AdhanController>(
-        Get.put<AdhanController>(AdhanController(), permanent: true));
+    sl.registerLazySingleton<BooksController>(
+        () => Get.put<BooksController>(BooksController(), permanent: true));
 
-    sl.registerLazySingleton<NotificationController>(() =>
-        Get.put<NotificationController>(NotificationController(),
+    sl.registerLazySingleton<WhatsNewController>(() =>
+        Get.put<WhatsNewController>(WhatsNewController(), permanent: true));
+
+    sl.registerLazySingleton<LocalNotificationsController>(() =>
+        Get.put<LocalNotificationsController>(LocalNotificationsController(),
             permanent: true));
     // NotifyHelper().initializeNotification();
     // sl<NotificationsController>().initializeLocalNotifications();
 
     if (Platform.isIOS || Platform.isAndroid || Platform.isFuchsia) {
       UiHelper.rateMyApp.init();
+    }
+
+    if (Platform.isIOS) {
+      await JustAudioBackground.init(
+        androidNotificationChannelId:
+            'com.alheekmah.alquranalkareem.alquranalkareem',
+        androidNotificationChannelName: 'Audio playback',
+        androidNotificationOngoing: true,
+      );
     }
 
     // Workmanager().initialize(sl<NotificationController>().callbackDispatcher);

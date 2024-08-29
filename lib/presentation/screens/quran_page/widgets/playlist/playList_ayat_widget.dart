@@ -3,18 +3,18 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../../../../core/services/services_locator.dart';
-import '../../../../controllers/playList_controller.dart';
-import '/presentation/controllers/general_controller.dart';
-import '/presentation/controllers/quran_controller.dart';
+import '/presentation/screens/quran_page/controllers/extensions/quran_getters.dart';
+import '../../../../controllers/general/general_controller.dart';
+import '../../controllers/playList_controller.dart';
+import '../../controllers/quran/quran_controller.dart';
 
 class PlayListAyatWidget extends StatelessWidget {
   final bool? startNum;
   final bool? endNum;
   PlayListAyatWidget({super.key, this.startNum = false, this.endNum = false});
-  final playList = sl<PlayListController>();
-  final quranCtrl = sl<QuranController>();
-  final generalCtrl = sl<GeneralController>();
+  final playList = PlayListController.instance;
+  final quranCtrl = QuranController.instance;
+  final generalCtrl = GeneralController.instance;
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +36,7 @@ class PlayListAyatWidget extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        'آية | ${generalCtrl.arabicNumber.convert(ayah.ayahNumber)}',
+                        'آية | ${generalCtrl.state.arabicNumber.convert(ayah.ayahNumber)}',
                         style: TextStyle(
                           color: Theme.of(context).hintColor,
                           fontSize: 18,

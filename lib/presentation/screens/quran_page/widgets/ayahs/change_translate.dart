@@ -1,16 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
-import '../../../../../core/services/services_locator.dart';
-import '../../../../../core/utils/constants/lists.dart';
-import '../../../../../core/utils/constants/shared_preferences_constants.dart';
-import '../../../../controllers/translate_controller.dart';
+import '/core/utils/constants/lists.dart';
+import '../../controllers/translate_controller.dart';
 
 class ChangeTranslate extends StatelessWidget {
   ChangeTranslate({super.key});
-  final translateCtrl = sl<TranslateDataController>();
+  final translateCtrl = TranslateDataController.instance;
 
   @override
   Widget build(BuildContext context) {
@@ -43,7 +40,7 @@ class ChangeTranslate extends StatelessWidget {
           ],
         ),
       ),
-      color: Theme.of(context).colorScheme.background,
+      color: Theme.of(context).colorScheme.primaryContainer,
       itemBuilder: (context) => List.generate(
           translateName.length,
           (index) => PopupMenuItem(
@@ -82,14 +79,7 @@ class ChangeTranslate extends StatelessWidget {
                                 size: 14, color: Color(0xffcdba72))
                             : null,
                       ),
-                      onTap: () async {
-                        translateCtrl.transValue.value == index;
-                        await sl<SharedPreferences>()
-                            .setInt(TRANSLATE_VALUE, index);
-                        translateCtrl.translateHandleRadioValueChanged(index);
-                        translateCtrl.fetchTranslate(context);
-                        Navigator.pop(context);
-                      },
+                      onTap: () => translateCtrl.changeTranslateOnTap(index),
                       leading: Container(
                           height: 85.0,
                           width: 41.0,

@@ -754,61 +754,6 @@
     "type": "text",
     "placeholders": {}
   },
-  "What'sNewTitle": "واجهة جديدة وسهلة الإستخدام:",
-  "@What'sNewTitle": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "What'sNewDetails": "تم تصميم التطبيق بواجهة مستخدم عصرية وبديهية تسهل على المستخدمين التنقل والوصول إلى المزايا المختلفة.",
-  "@What'sNewDetails": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "What'sNewTitle2": "تحديد الآيات:",
-  "@What'sNewTitle2": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "What'sNewDetails2": "الضغط مطولًا على الآية لإظهار:\n\n۞ تفسير الآية أو ترجمتها.\n۞ الإستماع للآية.\n۞ إضافة الآية لشارة المرجعية.\n۞ نسخ الآية.\n۞ مشاركة الآية كنص أو كصورة.",
-  "@What'sNewDetails2": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "What'sNewTitle3": "خاصية البحث النصي:",
-  "@What'sNewTitle3": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "What'sNewDetails3": "يحتوي التطبيق على ميزة البحث الفوري في آيات القرآن، مع إمكانية الانتقال مباشرة إلى الصفحة أو السورة المطلوبة.",
-  "@What'sNewDetails3": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "What'sNewTitle4": "تفسير وترجمة الآيات:",
-  "@What'sNewTitle4": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "What'sNewDetails4": "يمكن للمستخدمين الوصول إلى التفسير أو الترجمة لكل آية، والتغيير بين التفاسير بحسب الرغبة.",
-  "@What'sNewDetails4": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "What'sNewTitle5": "إضافة المزيد من القراء:",
-  "@What'sNewTitle5": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "What'sNewDetails6": "۞ إضافة الأحزاب للصفحات\n۞ إضافة السجدة للصفحات",
-  "@What'sNewDetails6": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "What'sNewDetails7": "۞ تكبير وتصغير الخط",
-  "@What'sNewDetails7": {
-    "type": "text",
-    "placeholders": {}
-  },
   "ourApps": "تطبيقاتنا",
   "@ourApps": {
     "type": "text",
@@ -839,37 +784,37 @@
     "type": "text",
     "placeholders": {}
   },
-  "Sunday": "أحد",
+  "Sunday": "الأحد",
   "@Sunday": {
     "type": "text",
     "placeholders": {}
   },
-  "Monday": "أثنين",
+  "Monday": "الأثنين",
   "@Monday": {
     "type": "text",
     "placeholders": {}
   },
-  "Tuesday": "ثلاثاء",
+  "Tuesday": "الثلاثاء",
   "@Tuesday": {
     "type": "text",
     "placeholders": {}
   },
-  "Wednesday": "أربعاء",
+  "Wednesday": "الأربعاء",
   "@Wednesday": {
     "type": "text",
     "placeholders": {}
   },
-  "Thursday": "خميس",
+  "Thursday": "الخميس",
   "@Thursday": {
     "type": "text",
     "placeholders": {}
   },
-  "Friday": "جمعة",
+  "Friday": "الجمعة",
   "@Friday": {
     "type": "text",
     "placeholders": {}
   },
-  "Saturday": "سبت",
+  "Saturday": "السبت",
   "@Saturday": {
     "type": "text",
     "placeholders": {}
@@ -929,13 +874,13 @@
     "type": "text",
     "placeholders": {}
   },
-  "Dhu al-Qi'dah": "ذو القعدة",
-  "@Dhu al-Qi'dah": {
+  "Dhu Al-Qi'dah": "ذو القعدة",
+  "@Dhu Al-Qi'dah": {
     "type": "text",
     "placeholders": {}
   },
-  "Dhu al-Hijjah": "ذوالحجة",
-  "@Dhu al-Hijjah": {
+  "Dhu Al-Hijjah": "ذوالحجة",
+  "@Dhu Al-Hijjah": {
     "type": "text",
     "placeholders": {}
   },
@@ -949,26 +894,6 @@
     "type": "text",
     "placeholders": {}
   },
-  "Start of the Hijri Year": "بداية السنة الهجرية",
-  "@Start of the Hijri Year": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "Blessed Eid al-Fitr": "عيد الفطر المبارك",
-  "@Blessed Eid al-Fitr": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "Day of Arafah": "يوم عرفة",
-  "@Day of Arafah": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "Blessed Eid al-Adha": "عيد الأضحى المبارك",
-  "@Blessed Eid al-Adha": {
-    "type": "text",
-    "placeholders": {}
-  },
   "hijriNote": "تنويه: يرجى العلم بأنه قد يحدث اختلاف طفيف في الأوقات المحددة نظرًا لأن التقويم الهجري يستند إلى الرؤية المباشرة للهلال. نحن نبذل قصارى جهدنا لضمان دقة التواريخ المعلنة، مع الأخذ في الاعتبار انه سيتم تصحيح التقويم في حال رؤية الهلال.",
   "@hijriNote": {
     "type": "text",
@@ -976,21 +901,6 @@
   },
   "AH": "للهجرة",
   "@AH": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "What'sNewDetails8": "كل يوم آية جديدة مع تفسيرها",
-  "@What'sNewDetails8": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "What'sNewDetails9": "مواعيد المناسبات الإسلامية",
-  "@What'sNewDetails9": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "What'sNewTitle8": "آية وتفسيرها",
-  "@What'sNewTitle8": {
     "type": "text",
     "placeholders": {}
   },
@@ -1031,6 +941,231 @@
   },
   "Sunrise": "الشروق",
   "@Sunrise": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "tafsirLibrary": "مكتبة التفسير",
+  "@tafsirLibrary": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "allBooks": "كل الكتب",
+  "@allBooks": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "myLibrary": "مكتبتي",
+  "@myLibrary": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "bookmark": "الفواصل",
+  "@bookmark": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "chapterBook": "أبواب الكتاب",
+  "@chapterBook": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "aboutBook": "عن الكتاب",
+  "@aboutBook": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "khatmah": "الختمة",
+  "@khatmah": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "createKhatmah": "أنشء ختمة",
+  "@createKhatmah": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "khatmahName": "إسم الختمة",
+  "@khatmahName": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "addKhatmah": "أضف ختمة",
+  "@addKhatmah": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "duration": "المدة",
+  "@duration": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "divisionBySahabah": "تحزيب الصحابة",
+  "@divisionBySahabah": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "choiceColor": "أختر اللون",
+  "@choiceColor": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "searchInBooks": "ابحث في الكتب",
+  "@searchInBooks": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "hasPassed": "قد مضى",
+  "@hasPassed": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "downloading": "جارِ التحميل...",
+  "@downloading": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "startHijriYear": "بداية العام الهجري",
+  "@startHijriYear": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "reminderToFastTasoo'a": "تذكير بصيام تاسوعاء",
+  "@reminderToFastTasoo'a": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "reminderToFastAshura": "تذكير بصيام عاشوراء",
+  "@reminderToFastAshura": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "ramadhan": "شهر رمضان",
+  "@ramadhan": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "nightOfQadir": "تذكير بليلة القدر",
+  "@nightOfQadir": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "EidAl-Fitr": "عيد الفطر",
+  "@EidAl-Fitr": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "sexShawwal": "تذكير بصيام الستّ من شوال",
+  "@sexShawwal": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "arafahReminder": "تذكير بصيام يوم عرفة",
+  "@arafahReminder": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "tenDaysOfDhul-Hijjah": "وليال عشر",
+  "@tenDaysOfDhul-Hijjah": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "EidAl-Adha": "عيد الأضحى",
+  "@EidAl-Adha": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "choiceBackgroundColor": "اختر لون الخلفية",
+  "@choiceBackgroundColor": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "reset": "إعادة ضبط",
+  "@reset": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Medinan": "مدنية",
+  "@Medinan": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Meccan": "مكية",
+  "@Meccan": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "surahNames": "أسماء السورة",
+  "@surahNames": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "aboutSurah": "عن السورة",
+  "@aboutSurah": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "notification": "الإشعارات",
+  "@notification": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "noNotifications": "لا توجد إشعارات",
+  "@noNotifications": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "reminders": "تذكير",
+  "@reminders": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "customReminder": "تذكير مخصص",
+  "@customReminder": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "addMore": "أضف المزيد",
+  "@addMore": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "What'sNewDetails10": "۞ إضافة الختمة للقرآن.\n۞ إضافة خاصية تحميل كل آيات السورة لكي تعمل دون أنترنت.\n ۞ تحسينات في البحث الخاص بالقرآن.\n ۞ إضافة مكتبة التفسير.\n ۞ إضافة ميزة التذكير لقراءة الأذكار حيث يمكنك تخصيص وقت محدد لراءة الذكر.\n ۞ إضافة الإشعارات.\n ۞ والمزيد من الإضافات والتحسينات",
+  "@What'sNewDetails10": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "chooseDhekr": "اختر الذكر",
+  "@chooseDhekr": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "selectTime": "حدد وقتًا للتبينه",
+  "@selectTime": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "downloadBookFirst": "يرجى تحميل الكتاب أولًا.",
+  "@downloadBookFirst": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "lastDayOf": "اليوم الأخير لشهر",
+  "@lastDayOf": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "booksDownloaded": "تم تحميل الكتاب.",
+  "@booksDownloaded": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "booksDeleted": "تم حذف الكتاب.",
+  "@booksDeleted": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "noBooksDownloaded": "لم تحمل أي كتاب بعد.",
+  "@noBooksDownloaded": {
     "type": "text",
     "placeholders": {}
   }

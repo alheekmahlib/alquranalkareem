@@ -760,46 +760,6 @@
     "type": "text",
     "placeholders": {}
   },
-  "What'sNewDetails": "অ্যাপ্লিকেশনটি আধুনিক এবং সহজবোধ্য ব্যবহারকারী ইন্টারফেসের সাথে ডিজাইন করা হয়েছে যা বিভিন্ন বৈশিষ্ট্য প্রবেশ এবং নেভিগেট করা ব্যবহারকারীদের জন্য সহজ করে তোলে।",
-  "@What'sNewDetails": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "What'sNewTitle2": "আয়াত নির্বাচন:",
-  "@What'sNewTitle2": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "What'sNewDetails2": "আয়াতে দীর্ঘ প্রেস করলে দেখায়:\n\n۞ আয়াতের ব্যাখ্যা বা অনুবাদ।\n۞ আয়াত শোনা।\n۞ আয়াতটি বুকমার্কে যোগ করুন।\n۞ আয়াত কপি করুন।\n۞ আয়াতটি টেক্সট বা ইমেজ হিসেবে শেয়ার করুন।",
-  "@What'sNewDetails2": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "What'sNewTitle3": "টেক্সট অনুসন্ধান বৈশিষ্ট্য:",
-  "@What'sNewTitle3": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "What'sNewDetails3": "অ্যাপ্লিকেশনে কোরআনের আয়াতগুলিতে তাত্ক্ষণিক অনুসন্ধানের বৈশিষ্ট্য রয়েছে, প্রয়োজনীয় পৃষ্ঠা বা সূরা সরাসরি চলে যাওয়ার সুবিধা দিয়ে।",
-  "@What'sNewDetails3": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "What'sNewTitle4": "আয়াতের ব্যাখ্যা এবং অনুবাদ:",
-  "@What'sNewTitle4": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "What'sNewDetails4": "ব্যবহারকারীরা প্রতিটি আয়াতের ব্যাখ্যা বা অনুবাদ প্রবেশ করতে পারেন, এবং ইচ্ছা অনুযায়ী ব্যাখ্যাগুলির মধ্যে পরিবর্তন করতে পারেন।",
-  "@What'sNewDetails4": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "What'sNewTitle5": "আরও কারীদের যোগ করা:",
-  "@What'sNewTitle5": {
-    "type": "text",
-    "placeholders": {}
-  },
   "ourApps": "আমাদের অ্যাপস",
   "@ourApps": {
     "type": "text",
@@ -827,16 +787,6 @@
   },
   "darkMode": "গাঢ়",
   "@darkMode": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "What'sNewDetails6": "۞ পৃষ্ঠাগুলিতে জুজ' যোগ করা\n۞ পৃষ্ঠাগুলিতে সিজদা যোগ করা",
-  "@What'sNewDetails6": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "What'sNewDetails7": "۞ ফন্ট বড় ও ছোট করা.",
-  "@What'sNewDetails7": {
     "type": "text",
     "placeholders": {}
   },
@@ -930,13 +880,13 @@
     "type": "text",
     "placeholders": {}
   },
-  "Dhu al-Qi'dah": "জ্বিলকদ",
-  "@Dhu al-Qi'dah": {
+  "Dhu Al-Qi'dah": "জ্বিলকদ",
+  "@Dhu Al-Qi'dah": {
     "type": "text",
     "placeholders": {}
   },
-  "Dhu al-Hijjah": "জ্বিলহজ্জ",
-  "@Dhu al-Hijjah": {
+  "Dhu Al-Hijjah": "জ্বিলহজ্জ",
+  "@Dhu Al-Hijjah": {
     "type": "text",
     "placeholders": {}
   },
@@ -950,26 +900,6 @@
     "type": "text",
     "placeholders": {}
   },
-  "Start of the Hijri Year": "হিজরি সনের শুরু",
-  "@Start of the Hijri Year": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "Blessed Eid al-Fitr": "মোবারক ঈদ-উল-ফিতর",
-  "@Blessed Eid al-Fitr": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "Day of Arafah": "আরাফাত দিবস",
-  "@Day of Arafah": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "Blessed Eid al-Adha": "মোবারক ঈদ-উল-আজহা",
-  "@Blessed Eid al-Adha": {
-    "type": "text",
-    "placeholders": {}
-  },
   "hijriNote": "নোটিশ: অনুগ্রহ করে জেনে রাখুন যে হিজরি ক্যালেন্ডার চাঁদের সরাসরি দেখা নির্ভর করে বলে নির্দিষ্ট সময়গুলিতে সামান্য পার্থক্য হতে পারে। ঘোষিত তারিখগুলির সঠিকতা নিশ্চিত করতে আমরা সর্বোচ্চ প্রচেষ্টা চালিয়ে যাচ্ছি, চাঁদ দেখা গেলে ক্যালেন্ডারে সংশোধন করা হবে এটি মাথায় রেখে।",
   "@hijriNote": {
     "type": "text",
@@ -977,21 +907,6 @@
   },
   "AH": "AH",
   "@AH": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "What'sNewDetails8": "প্রতিদিন একটি নতুন আয়াত সহ এর ব্যাখ্যা",
-  "@What'sNewDetails8": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "What'sNewDetails9": "ইসলামিক উপলক্ষের তারিখসমূহ",
-  "@What'sNewDetails9": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "What'sNewTitle8": "একটি আয়াত এবং এর ব্যাখ্যা",
-  "@What'sNewTitle8": {
     "type": "text",
     "placeholders": {}
   },
@@ -1032,6 +947,231 @@
   },
   "Sunrise": "সূর্যোদয়",
   "@Sunrise": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "tafsirLibrary": "তাফসির লাইব্রেরি",
+  "@tafsirLibrary": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "allBooks": "সব বই",
+  "@allBooks": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "myLibrary": "আমার লাইব্রেরি",
+  "@myLibrary": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "bookmark": "বুকমার্কস",
+  "@bookmark": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "chapterBook": "বইয়ের অধ্যায়সমূহ",
+  "@chapterBook": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "aboutBook": "বই সম্পর্কে",
+  "@aboutBook": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "khatmah": "খাতমা",
+  "@khatmah": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "createKhatmah": "খাতমা তৈরি করুন",
+  "@createKhatmah": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "khatmahName": "খাতমার নাম",
+  "@khatmahName": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "addKhatmah": "একটি খাতমা যোগ করুন",
+  "@addKhatmah": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "duration": "সময়কাল",
+  "@duration": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "divisionBySahabah": "সাহাবীদের দ্বারা বিভাজন",
+  "@divisionBySahabah": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "choiceColor": "রঙ নির্বাচন করুন",
+  "@choiceColor": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "searchInBooks": "বইয়ের মধ্যে অনুসন্ধান করুন",
+  "@searchInBooks": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "hasPassed": "অতিবাহিত হয়েছে",
+  "@hasPassed": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "downloading": "ডাউনলোড হচ্ছে...",
+  "@downloading": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "startHijriYear": "হিজরি বছরের শুরু",
+  "@startHijriYear": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "reminderToFastTasoo'a": "তাসু'আর রোজা সম্পর্কে অনুস্মারক",
+  "@reminderToFastTasoo'a": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "reminderToFastAshura": "আশুরার রোজা সম্পর্কে অনুস্মারক",
+  "@reminderToFastAshura": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "ramadhan": "রমজান মাস",
+  "@ramadhan": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "nightOfQadir": "লাইলাতুল কদরের অনুস্মারক",
+  "@nightOfQadir": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "EidAl-Fitr": "ঈদ আল-ফিতর",
+  "@EidAl-Fitr": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "sexShawwal": "শাওয়ালের ছয় দিন রোজা সম্পর্কে অনুস্মারক",
+  "@sexShawwal": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "arafahReminder": "আরাফার দিনে রোজা সম্পর্কে অনুস্মারক",
+  "@arafahReminder": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "tenDaysOfDhul-Hijjah": "জিলহজ্জের প্রথম দশ দিন",
+  "@tenDaysOfDhul-Hijjah": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "EidAl-Adha": "ঈদ আল-আধা",
+  "@EidAl-Adha": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "choiceBackgroundColor": "পটভূমির রঙ নির্বাচন করুন",
+  "@choiceBackgroundColor": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "reset": "পুনরায় সেট করুন",
+  "@reset": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Medinan": "মাদানি",
+  "@Medinan": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Meccan": "মাক্কি",
+  "@Meccan": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "surahNames": "সূরার নামগুলি",
+  "@surahNames": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "aboutSurah": "সূরা সম্পর্কে",
+  "@aboutSurah": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "notification": "নোটিফিকেশনস",
+  "@notification": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "noNotifications": "কোনো নোটিফিকেশন নেই",
+  "@noNotifications": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "reminders": "রিমাইন্ডারগুলি",
+  "@reminders": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "customReminder": "কাস্টম রিমাইন্ডার",
+  "@customReminder": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "addMore": "আরও যোগ করুন",
+  "@addMore": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "What'sNewDetails10": "۞ কোরআনে খাতমাহ যোগ করা হচ্ছে।\n۞ প্রতিটি সূরার আয়াত ডাউনলোড করে অফলাইনে কাজ করার ফিচার যোগ করা।\n۞ কোরআন অনুসন্ধানে উন্নতি।\n۞ তাফসির লাইব্রেরি যোগ করা হচ্ছে।\n۞ আজকার পাঠের জন্য রিমাইন্ডার ফিচার যোগ করা হচ্ছে, যেখানে আপনি নির্দিষ্ট সময় নির্ধারণ করতে পারেন।\n۞ নোটিফিকেশন যোগ করা হচ্ছে।\n۞ এবং আরও অনেক কিছু যোগ ও উন্নতি।",
+  "@What'sNewDetails10": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "chooseDhekr": "যিকির নির্বাচন করুন।",
+  "@chooseDhekr": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "selectTime": "চিন্তা করার জন্য সময় নির্ধারণ করুন।",
+  "@selectTime": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "downloadBookFirst": "অনুগ্রহ করে প্রথমে বইটি ডাউনলোড করুন।",
+  "@downloadBookFirst": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "lastDayOf": "মাসের শেষ দিন",
+  "@lastDayOf": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "booksDownloaded": "বইটি ডাউনলোড করা হয়েছে।",
+  "@booksDownloaded": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "booksDeleted": "বইটি মুছে ফেলা হয়েছে।",
+  "@booksDeleted": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "noBooksDownloaded": "আপনি এখনো কোনো বই ডাউনলোড করেননি।",
+  "@noBooksDownloaded": {
     "type": "text",
     "placeholders": {}
   }

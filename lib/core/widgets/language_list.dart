@@ -39,6 +39,10 @@ class LanguageList extends StatelessWidget {
                 elevation: 0.0,
                 initialElevation: 0.0,
                 expandedTextColor: Theme.of(context).primaryColorDark,
+                baseColor:
+                    Theme.of(context).colorScheme.primary.withOpacity(.2),
+                expandedColor:
+                    Theme.of(context).colorScheme.primary.withOpacity(.2),
                 title: SizedBox(
                   width: 100.0,
                   child: Obx(() {
@@ -52,10 +56,6 @@ class LanguageList extends StatelessWidget {
                     );
                   }),
                 ),
-                baseColor:
-                    Theme.of(context).colorScheme.primary.withOpacity(.2),
-                expandedColor:
-                    Theme.of(context).colorScheme.primary.withOpacity(.2),
                 children: <Widget>[
                   const Divider(
                     thickness: 1.0,

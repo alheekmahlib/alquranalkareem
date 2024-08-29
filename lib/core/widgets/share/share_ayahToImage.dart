@@ -3,11 +3,11 @@ import 'package:flutter_svg/svg.dart';
 import 'package:gap/gap.dart';
 import 'package:screenshot/screenshot.dart';
 
-import '../../../presentation/controllers/share_controller.dart';
-import '../../services/services_locator.dart';
+import '/core/utils/constants/extensions/svg_extensions.dart';
+import '../../../presentation/screens/quran_page/controllers/share_controller.dart';
+import '../../../presentation/screens/quran_page/extensions/surah_name_with_banner.dart';
 import '../../utils/constants/extensions/extensions.dart';
-import '/core/utils/constants/extensions/surah_name_with_banner.dart';
-import '/core/utils/constants/svg_picture.dart';
+import '../../utils/constants/svg_constants.dart';
 
 class VerseImageCreator extends StatelessWidget {
   final int verseNumber;
@@ -20,7 +20,7 @@ class VerseImageCreator extends StatelessWidget {
     required this.surahNumber,
     required this.verseText,
   }) : super(key: key);
-  final ayahToImage = sl<ShareController>();
+  final ayahToImage = ShareController.instance;
 
   @override
   Widget build(BuildContext context) {
@@ -104,8 +104,8 @@ class VerseImageCreator extends StatelessWidget {
                     Stack(
                       alignment: Alignment.center,
                       children: [
-                        surah_banner1(),
-                        context.surahNameWidget(
+                        customSvg(SvgPath.svgSurahBanner1),
+                        surahNameWidget(
                             height: 25,
                             '$surahNumber',
                             const Color(0xff404C6E)),

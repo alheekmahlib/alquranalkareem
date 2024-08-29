@@ -5,12 +5,14 @@ import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:screenshot/screenshot.dart';
 
-import '../../../presentation/controllers/share_controller.dart';
+import '/core/utils/constants/extensions/alignment_rotated_extension.dart';
+import '/core/utils/constants/extensions/svg_extensions.dart';
+import '../../../presentation/screens/quran_page/controllers/share_controller.dart';
+import '../../../presentation/screens/quran_page/controllers/translate_controller.dart';
+import '../../../presentation/screens/quran_page/extensions/surah_name_with_banner.dart';
 import '../../services/services_locator.dart';
 import '../../utils/constants/extensions/extensions.dart';
-import '../../utils/constants/svg_picture.dart';
-import '/core/utils/constants/extensions/surah_name_with_banner.dart';
-import '/presentation/controllers/translate_controller.dart';
+import '../../utils/constants/svg_constants.dart';
 
 class TafseerImageCreator extends StatelessWidget {
   final int verseNumber;
@@ -27,7 +29,7 @@ class TafseerImageCreator extends StatelessWidget {
     required this.verseText,
     required this.tafseerText,
   }) : super(key: key);
-  final tafseerToImage = sl<ShareController>();
+  final tafseerToImage = ShareController.instance;
 
   @override
   Widget build(BuildContext context) {
@@ -61,7 +63,7 @@ class TafseerImageCreator extends StatelessWidget {
     required String verseText,
     required List<TextSpan> tafseerText,
   }) {
-    final tafseerToImage = sl<ShareController>();
+    final tafseerToImage = ShareController.instance;
 
     return GetBuilder<TranslateDataController>(builder: (translateController) {
       return Directionality(
@@ -119,8 +121,8 @@ class TafseerImageCreator extends StatelessWidget {
                       Stack(
                         alignment: Alignment.center,
                         children: [
-                          surah_banner1(),
-                          context.surahNameWidget(
+                          customSvg(SvgPath.svgSurahBanner1),
+                          surahNameWidget(
                               height: 25,
                               '$surahNumber',
                               const Color(0xff404C6E)),
@@ -146,8 +148,10 @@ class TafseerImageCreator extends StatelessWidget {
                               ),
                               const Gap(16),
                               Align(
-                                alignment: tafseerToImage.checkAndApplyRtlLayout(
-                                    '${tafseerToImage.currentTranslate.value}'),
+                                alignment: alignmentLayoutWPassLang(
+                                    '${tafseerToImage.currentTranslate.value}',
+                                    Alignment.centerRight,
+                                    Alignment.centerLeft),
                                 child: Container(
                                   padding: const EdgeInsets.all(8.0),
                                   decoration: BoxDecoration(
@@ -201,9 +205,10 @@ class TafseerImageCreator extends StatelessWidget {
                                       ),
                                     ),
                                     textAlign: TextAlign.justify,
-                                    textDirection: tafseerToImage
-                                        .checkApplyRtlLayout(tafseerToImage
-                                            .currentTranslate.value),
+                                    textDirection: alignmentLayoutWPassLang(
+                                        tafseerToImage.currentTranslate.value,
+                                        TextDirection.rtl,
+                                        TextDirection.ltr),
                                   ),
                                 ),
                               ),

@@ -760,46 +760,6 @@
     "type": "text",
     "placeholders": {}
   },
-  "What'sNewDetails": "App-ka waxaa loo naqshadeeyay interface isticmaale oo casri ah iyo intuitive ah taas oo fududeynaysa in isticmaalayaashu ay si fudud ugu dhex maraan kuna gaaraan astaamaha kala duwan.",
-  "@What'sNewDetails": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "What'sNewTitle2": "Xulashada Aayadaha:",
-  "@What'sNewTitle2": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "What'sNewDetails2": "Aayadda dheer riix si aad u muujiso:\n\n۞ Fasiraadda ama tarjumada aayadda.\n۞ Dhageysiga aayadda.\n۞ Ku daridda aayadda bookmark-ga.\n۞ Koobiga aayadda.\n۞ Wadaagidda aayadda qoraal ama sawir ahaan.",
-  "@What'sNewDetails2": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "What'sNewTitle3": "Feature-ka raadinta qoraalka:",
-  "@What'sNewTitle3": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "What'sNewDetails3": "App-ku wuxuu ku jiraa feature degdeg ah oo raadin ah aayadaha Qur'aanka, iyadoo suurtagal ah in si toos ah loogu gudbo bogga ama suuradda la doonayo.",
-  "@What'sNewDetails3": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "What'sNewTitle4": "Fasiraadda iyo tarjumada aayadaha:",
-  "@What'sNewTitle4": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "What'sNewDetails4": "Isticmaalayaashu waxay heli karaan fasiraadda ama tarjumada aayad kasta, waxayna u beddeli karaan fasiraadaha sida ay doonaan.",
-  "@What'sNewDetails4": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "What'sNewTitle5": "Ku daridda qurraa dheeraad ah:",
-  "@What'sNewTitle5": {
-    "type": "text",
-    "placeholders": {}
-  },
   "ourApps": "Apps-keena",
   "@ourApps": {
     "type": "text",
@@ -827,16 +787,6 @@
   },
   "darkMode": "Madoow",
   "@darkMode": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "What'sNewDetails6": "۞ Sayfalara Cüz eklenmesi\n۞ Sayfalara Secde eklenmesi",
-  "@What'sNewDetails6": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "What'sNewDetails7": "۞ Font-ka weyneyn iyo yareyn.",
-  "@What'sNewDetails7": {
     "type": "text",
     "placeholders": {}
   },
@@ -930,13 +880,13 @@
     "type": "text",
     "placeholders": {}
   },
-  "Dhu al-Qi'dah": "Dhu al-Qi'dah",
-  "@Dhu al-Qi'dah": {
+  "Dhu Al-Qi'dah": "Dhu al-Qi'dah",
+  "@Dhu Al-Qi'dah": {
     "type": "text",
     "placeholders": {}
   },
-  "Dhu al-Hijjah": "Dhu al-Hijjah",
-  "@Dhu al-Hijjah": {
+  "Dhu Al-Hijjah": "Dhu al-Hijjah",
+  "@Dhu Al-Hijjah": {
     "type": "text",
     "placeholders": {}
   },
@@ -950,26 +900,6 @@
     "type": "text",
     "placeholders": {}
   },
-  "Start of the Hijri Year": "Bilowga Sanadka Hijriyada",
-  "@Start of the Hijri Year": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "Blessed Eid al-Fitr": "Ciidul Fidriga Barakeysan",
-  "@Blessed Eid al-Fitr": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "Day of Arafah": "Maalinta Carafa",
-  "@Day of Arafah": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "Blessed Eid al-Adha": "Ciidul Adxada Barakeysan",
-  "@Blessed Eid al-Adha": {
-    "type": "text",
-    "placeholders": {}
-  },
   "hijriNote": "Ogeysiis: Fadlan ogow inay jiri karto farqi yar oo ku saabsan waqtiyada cayiman maadaama jadwalka Hijrigu ku saleysan yahay aragtida tooska ah ee dayaxa. Waxaan sameyneynaa dadaal kasta si aan u hubinno saxnaanta taariikhaha la shaaciyey, iyadoo la tixgelinayo in jadwalka la sixi doono haddii dayaxa la arko.",
   "@hijriNote": {
     "type": "text",
@@ -977,21 +907,6 @@
   },
   "AH": "AH",
   "@AH": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "What'sNewDetails8": "Maalin kasta aayad cusub iyo fasiraaddeeda",
-  "@What'sNewDetails8": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "What'sNewDetails9": "Taariikhaha munaasabadaha Islaamka",
-  "@What'sNewDetails9": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "What'sNewTitle8": "Aayad iyo fasiraaddeeda",
-  "@What'sNewTitle8": {
     "type": "text",
     "placeholders": {}
   },
@@ -1032,6 +947,231 @@
   },
   "Middle of the Night": "Saqda dhexe",
   "@Middle of the Night": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "tafsirLibrary": "Maktabadda Tafsirka",
+  "@tafsirLibrary": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "allBooks": "Dhamaan Buugaagta",
+  "@allBooks": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "myLibrary": "Maktabadayda",
+  "@myLibrary": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "bookmark": "Calaamadeeyaha",
+  "@bookmark": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "chapterBook": "Cutubyada Buugga",
+  "@chapterBook": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "aboutBook": "Ku saabsan Buugga",
+  "@aboutBook": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "khatmah": "Khatmah",
+  "@khatmah": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "createKhatmah": "Abuur Khatmah",
+  "@createKhatmah": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "khatmahName": "Magaca Khatmah",
+  "@khatmahName": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "addKhatmah": "Ku dar Khatmah",
+  "@addKhatmah": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "duration": "Muddada",
+  "@duration": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "divisionBySahabah": "Qeybinta Asxaabta",
+  "@divisionBySahabah": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "choiceColor": "Xulo midabka",
+  "@choiceColor": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "searchInBooks": "Raadi buugaagta",
+  "@searchInBooks": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "hasPassed": "Waa dhaafay",
+  "@hasPassed": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "downloading": "Soo dejinaysa...",
+  "@downloading": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "startHijriYear": "Bilowga Sanadka Hijriyada",
+  "@startHijriYear": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "reminderToFastTasoo'a": "Xusuusin Soonka Tasu'a",
+  "@reminderToFastTasoo'a": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "reminderToFastAshura": "Xusuusin Soonka Ashura",
+  "@reminderToFastAshura": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "ramadhan": "Bisha Ramadaan",
+  "@ramadhan": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "nightOfQadir": "Xusuusin Habeenka Laylatul Qadr",
+  "@nightOfQadir": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "EidAl-Fitr": "Ciidul Fidriga",
+  "@EidAl-Fitr": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "sexShawwal": "Xusuusin Soonka Lixda Maalmood ee Shawwal",
+  "@sexShawwal": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "arafahReminder": "Xusuusin Soonka Maalinta Arafah",
+  "@arafahReminder": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "tenDaysOfDhul-Hijjah": "Tobanka Maalmood ee Ugu Horreeya Dhul Hijjah",
+  "@tenDaysOfDhul-Hijjah": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "EidAl-Adha": "Ciidul Adxaa",
+  "@EidAl-Adha": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "choiceBackgroundColor": "Dooro midabka asalka",
+  "@choiceBackgroundColor": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "reset": "Dib u dejiso",
+  "@reset": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Medinan": "Madinah",
+  "@Medinan": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Meccan": "Makkah",
+  "@Meccan": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "surahNames": "Magacyada Suuradda",
+  "@surahNames": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "aboutSurah": "Ku saabsan Suuradda",
+  "@aboutSurah": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "notification": "Ogeysiisyada",
+  "@notification": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "noNotifications": "Wax ogeysiis ah ma jiraan",
+  "@noNotifications": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "reminders": "Xusuusinno",
+  "@reminders": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "customReminder": "Xusuusin gaar ah",
+  "@customReminder": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "addMore": "Ku dar dheeraad",
+  "@addMore": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "What'sNewDetails10": "۞ Ku darista Khatmah ee Qur'aanka.\n۞ Ku darista sifo loogu talagalay in dhammaan aayadaha suuradda laga soo dejisan karo si ay u shaqeyso offline.\n۞ Horumarinta raadinta Qur'aanka.\n۞ Ku darista maktabadda Tafsirka.\n۞ Ku darista sifo xasuusin ah ee akhrinta Azkar oo aad dejisan karto waqti gaar ah oo akhrin ah.\n۞ Ku darista ogeysiisyada.\n۞ Iyo waxyaabo dheeraad ah oo lagu darayo oo lagu hagaajinayo.",
+  "@What'sNewDetails10": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "chooseDhekr": "Dooro xuska.",
+  "@chooseDhekr": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "selectTime": "Deji waqti loogu talagalay milicsiga.",
+  "@selectTime": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "downloadBookFirst": "Fadlan marka hore buugga soo dejiso.",
+  "@downloadBookFirst": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "lastDayOf": "Maalinta ugu dambeysa ee bisha",
+  "@lastDayOf": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "booksDownloaded": "Buugga waa la soo dejiyay.",
+  "@booksDownloaded": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "booksDeleted": "Buugga waa la tirtiray.",
+  "@booksDeleted": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "noBooksDownloaded": "Weli ma aadan soo dejisan wax buug ah.",
+  "@noBooksDownloaded": {
     "type": "text",
     "placeholders": {}
   }

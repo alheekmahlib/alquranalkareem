@@ -14,6 +14,7 @@ pluginManagement {
         google()
         mavenCentral()
         gradlePluginPortal()
+        maven { url "https://maven.transistorsoft.com/release" }
     }
 
     plugins {

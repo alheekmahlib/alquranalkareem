@@ -760,46 +760,6 @@
     "type": "text",
     "placeholders": {}
   },
-  "What'sNewDetails": "The app has been designed with a modern and intuitive user interface that makes it easy for users to navigate and access different features.",
-  "@What'sNewDetails": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "What'sNewTitle2": "Verse selection:",
-  "@What'sNewTitle2": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "What'sNewDetails2": "Long press on the verse to show:\n\n۞ Interpretation or translation of the verse.\n۞ Listen to the verse.\n۞ Add the verse to the bookmark.\n۞ Copy the verse.\n۞ Share the verse as text or image.",
-  "@What'sNewDetails2": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "What'sNewTitle3": "Textual search feature:",
-  "@What'sNewTitle3": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "What'sNewDetails3": "The app contains an instant search feature in the Quranic verses, with the ability to directly move to the desired page or Surah.",
-  "@What'sNewDetails3": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "What'sNewTitle4": "Interpretation and translation of verses:",
-  "@What'sNewTitle4": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "What'sNewDetails4": "Users can access the interpretation or translation of each verse, and switch between interpretations as desired.",
-  "@What'sNewDetails4": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "What'sNewTitle5": "Adding more reciters:",
-  "@What'sNewTitle5": {
-    "type": "text",
-    "placeholders": {}
-  },
   "ourApps": "Our Apps",
   "@ourApps": {
     "type": "text",
@@ -827,16 +787,6 @@
   },
   "darkMode": "Dark",
   "@darkMode": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "What'sNewDetails6": "۞ Adding Juz' to the pages\n۞ Adding Sajdah to the pages",
-  "@What'sNewDetails6": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "What'sNewDetails7": "۞ Zoom in and zoom out the font.",
-  "@What'sNewDetails7": {
     "type": "text",
     "placeholders": {}
   },
@@ -930,13 +880,13 @@
     "type": "text",
     "placeholders": {}
   },
-  "Dhu al-Qi'dah": "Dhu al-Qi'dah",
-  "@Dhu al-Qi'dah": {
+  "Dhu Al-Qi'dah": "Dhu al-Qi'dah",
+  "@Dhu Al-Qi'dah": {
     "type": "text",
     "placeholders": {}
   },
-  "Dhu al-Hijjah": "Dhu al-Hijjah",
-  "@Dhu al-Hijjah": {
+  "Dhu Al-Hijjah": "Dhu al-Hijjah",
+  "@Dhu Al-Hijjah": {
     "type": "text",
     "placeholders": {}
   },
@@ -950,26 +900,6 @@
     "type": "text",
     "placeholders": {}
   },
-  "Start of the Hijri Year": "Start of the Hijri Year",
-  "@Start of the Hijri Year": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "Blessed Eid al-Fitr": "Blessed Eid al-Fitr",
-  "@Blessed Eid al-Fitr": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "Day of Arafah": "Day of Arafah",
-  "@Day of Arafah": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "Blessed Eid al-Adha": "Blessed Eid al-Adha",
-  "@Blessed Eid al-Adha": {
-    "type": "text",
-    "placeholders": {}
-  },
   "hijriNote": "Note: Please be aware that there might be a slight difference in the specified times as the Hijri calendar is based on the direct sighting of the crescent moon. We make every effort to ensure the accuracy of the announced dates, taking into account that the calendar will be corrected in case of the moon sighting.",
   "@hijriNote": {
     "type": "text",
@@ -977,21 +907,6 @@
   },
   "AH": "AH",
   "@AH": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "What'sNewDetails8": "A new verse every day with its interpretation",
-  "@What'sNewDetails8": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "What'sNewDetails9": "Dates of Islamic occasions",
-  "@What'sNewDetails9": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "What'sNewTitle8": "A verse and its interpretation",
-  "@What'sNewTitle8": {
     "type": "text",
     "placeholders": {}
   },
@@ -1032,6 +947,231 @@
   },
   "Middle of the Night": "Midnight",
   "@Middle of the Night": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "tafsirLibrary": "Tafsir Library",
+  "@tafsirLibrary": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "allBooks": "All Books",
+  "@allBooks": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "myLibrary": "My Library",
+  "@myLibrary": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "bookmark": "Bookmarks",
+  "@bookmark": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "chapterBook": "Chapters of the Book",
+  "@chapterBook": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "aboutBook": "About the Book",
+  "@aboutBook": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "khatmah": "Khatmah",
+  "@khatmah": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "createKhatmah": "Create the Khatmah",
+  "@createKhatmah": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "khatmahName": "Name of the Khatmah",
+  "@khatmahName": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "addKhatmah": "Add a Khatmah",
+  "@addKhatmah": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "duration": "Duration",
+  "@duration": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "divisionBySahabah": "Division by the Sahabah",
+  "@divisionBySahabah": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "choiceColor": "Choose the color",
+  "@choiceColor": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "searchInBooks": "Search in Books",
+  "@searchInBooks": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "hasPassed": "Has passed",
+  "@hasPassed": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "downloading": "Downloading...",
+  "@downloading": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "startHijriYear": "Start of the Hijri Year",
+  "@startHijriYear": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "reminderToFastTasoo'a": "Reminder for the Fasting of Tasu'a",
+  "@reminderToFastTasoo'a": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "reminderToFastAshura": "Reminder for the Fasting of Ashura",
+  "@reminderToFastAshura": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "ramadhan": "Ramadan Month",
+  "@ramadhan": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "nightOfQadir": "Reminder for Laylat al-Qadr",
+  "@nightOfQadir": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "EidAl-Fitr": "Eid al-Fitr",
+  "@EidAl-Fitr": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "sexShawwal": "Reminder for the Fasting of Six Days of Shawwal",
+  "@sexShawwal": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "arafahReminder": "Reminder for the Fasting on the Day of Arafah",
+  "@arafahReminder": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "tenDaysOfDhul-Hijjah": "The First Ten Days of Dhul Hijjah",
+  "@tenDaysOfDhul-Hijjah": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "EidAl-Adha": "Eid al-Adha",
+  "@EidAl-Adha": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "choiceBackgroundColor": "Choose background color",
+  "@choiceBackgroundColor": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "reset": "Reset",
+  "@reset": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Medinan": "Medinan",
+  "@Medinan": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Meccan": "Meccan",
+  "@Meccan": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "surahNames": "Names of the Surah",
+  "@surahNames": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "aboutSurah": "About the Surah",
+  "@aboutSurah": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "notification": "Notifications",
+  "@notification": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "noNotifications": "No notifications",
+  "@noNotifications": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "reminders": "Reminders",
+  "@reminders": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "customReminder": "Custom reminder",
+  "@customReminder": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "addMore": "Add more",
+  "@addMore": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "What'sNewDetails10": "۞ Adding the Khatmah to the Quran.\n۞ Adding a feature to download all verses of a surah to work offline.\n۞ Improvements in Quran search.\n۞ Adding Tafsir library.\n۞ Adding reminder feature for reciting Azkar where you can set a specific time for recitation.\n۞ Adding notifications.\n۞ And more additions and improvements.",
+  "@What'sNewDetails10": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "chooseDhekr": "Set a time for reflection.",
+  "@chooseDhekr": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "selectTime": "Choose the remembrance.",
+  "@selectTime": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "downloadBookFirst": "Please download the book first.",
+  "@downloadBookFirst": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "lastDayOf": "The last day of the month of",
+  "@lastDayOf": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "booksDownloaded": "The book has been downloaded.",
+  "@booksDownloaded": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "booksDeleted": "The book has been deleted.",
+  "@booksDeleted": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "noBooksDownloaded": "You have not downloaded any book yet.",
+  "@noBooksDownloaded": {
     "type": "text",
     "placeholders": {}
   }

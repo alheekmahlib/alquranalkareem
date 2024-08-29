@@ -2,18 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:just_audio/just_audio.dart';
 
-import '../../../../../../core/services/services_locator.dart';
+import '/core/utils/constants/extensions/svg_extensions.dart';
 import '../../../../../../core/utils/constants/lottie.dart';
 import '../../../../../core/utils/constants/lottie_constants.dart';
-import '../../../../../core/utils/constants/svg_picture.dart';
-import '../../../../controllers/playList_controller.dart';
+import '../../../../../core/utils/constants/svg_constants.dart';
+import '../../controllers/playList_controller.dart';
 
 class PlayListPlayButton extends StatelessWidget {
   const PlayListPlayButton({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final playList = sl<PlayListController>();
+    final playList = PlayListController.instance;
     return Column(
       children: [
         SizedBox(
@@ -80,14 +80,20 @@ class PlayListPlayButton extends StatelessWidget {
                         width: 20.0, height: 20.0);
                   } else if (playing != true) {
                     return GestureDetector(
-                      child: play_arrow(height: 25.0),
+                      child: customSvg(
+                        SvgPath.svgPlayArrow,
+                        height: 25,
+                      ),
                       onTap: () async {
                         await playList.playlistAudioPlayer.play();
                       },
                     );
                   }
                   return GestureDetector(
-                    child: pause_arrow(height: 25.0),
+                    child: customSvg(
+                      SvgPath.svgPauseArrow,
+                      height: 25,
+                    ),
                     onTap: () async {
                       playList.playlistAudioPlayer.pause();
                     },

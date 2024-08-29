@@ -2,22 +2,24 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 
+import '/core/utils/constants/extensions/convert_number_extension.dart';
+import '/presentation/screens/quran_page/controllers/extensions/quran_getters.dart';
+import '/presentation/screens/quran_page/controllers/extensions/quran_ui.dart';
 import '../../../../../core/services/services_locator.dart';
 import '../../../../../core/widgets/measure_size_widget.dart';
-import '../../../../controllers/general_controller.dart';
-import '../../../../controllers/quran_controller.dart';
-import '../../../../controllers/translate_controller.dart';
+import '../../../../controllers/general/general_controller.dart';
+import '../../controllers/quran/quran_controller.dart';
+import '../../controllers/translate_controller.dart';
+import '../../extensions/surah_name_with_banner.dart';
 import '../pages/custom_span.dart';
-import '/core/utils/constants/extensions/surah_name_with_banner.dart';
 import 'ayahs_menu.dart';
 import 'translate_build.dart';
 
 class AyahsBuild extends StatelessWidget {
   final int pageIndex;
-
   AyahsBuild({super.key, required this.pageIndex});
 
-  final quranCtrl = sl<QuranController>();
+  final quranCtrl = QuranController.instance;
 
   @override
   Widget build(BuildContext context) {
@@ -25,22 +27,21 @@ class AyahsBuild extends StatelessWidget {
     return ListView.builder(
         // primary: false,
         shrinkWrap: true,
-        controller: quranCtrl.ayahsScrollController,
+        controller: quranCtrl.state.ayahsScrollController,
         itemCount:
             quranCtrl.getCurrentPageAyahsSeparatedForBasmalah(pageIndex).length,
         itemBuilder: (context, i) {
-          final ayahs =
-              quranCtrl.getCurrentPageAyahsSeparatedForBasmalah(pageIndex)[i];
+          final ayahs = quranCtrl.getPageAyahsByIndex(pageIndex);
           return Column(children: [
-            context.surahAyahBannerFirstPlace(pageIndex, i),
+            surahAyahBannerFirstPlace(pageIndex, i),
             Obx(() {
               return Column(
                   children: List.generate(ayahs.length, (ayahIndex) {
-                quranCtrl.isSelected = quranCtrl.selectedAyahIndexes
+                quranCtrl.state.isSelected = quranCtrl.state.selectedAyahIndexes
                     .contains(ayahs[ayahIndex].ayahUQNumber);
                 return MeasureSizeWidget(
                   onChange: (size) {
-                    quranCtrl.ayahsWidgetHeight.value = size.height;
+                    quranCtrl.state.ayahsWidgetHeight.value = size.height;
                     // print("Item $ayahIndex size: ${size.height}");
                   },
                   child: Container(
@@ -52,16 +53,20 @@ class AyahsBuild extends StatelessWidget {
                         children: [
                           const Gap(16),
                           AyahsMenu(
-                            surahNum:
-                                quranCtrl.getSurahNumberFromPage(pageIndex),
+                            surahNum: quranCtrl
+                                .getSurahDataByAyahUQ(
+                                    ayahs[ayahIndex].ayahUQNumber)
+                                .surahNumber,
                             ayahNum: ayahs[ayahIndex].ayahNumber,
                             ayahText: ayahs[ayahIndex].code_v2,
                             pageIndex: pageIndex,
                             ayahTextNormal: ayahs[ayahIndex].text,
                             ayahUQNum: ayahs[ayahIndex].ayahUQNumber,
-                            surahName:
-                                quranCtrl.getSurahNameFromPage(pageIndex),
-                            isSelected: quranCtrl.isSelected,
+                            surahName: quranCtrl.state.surahs
+                                .firstWhere(
+                                    (s) => s.ayahs.contains(ayahs[ayahIndex]))
+                                .arabicName,
+                            isSelected: quranCtrl.state.isSelected,
                             index: ayahIndex,
                           ),
                           const Gap(16),
@@ -76,6 +81,7 @@ class AyahsBuild extends StatelessWidget {
                                     style: TextStyle(
                                       fontFamily: 'page${pageIndex + 1}',
                                       fontSize: sl<GeneralController>()
+                                          .state
                                           .fontSizeArabic
                                           .value,
                                       height: 2,
@@ -90,13 +96,17 @@ class AyahsBuild extends StatelessWidget {
                                               text:
                                                   "${ayahs[ayahIndex].code_v2[0].replaceAll('\n', '')}${ayahs[ayahIndex].code_v2.substring(1).replaceAll('\n', '')}",
                                               pageIndex: pageIndex,
-                                              isSelected: quranCtrl.isSelected,
+                                              isSelected:
+                                                  quranCtrl.state.isSelected,
                                               fontSize: sl<GeneralController>()
+                                                  .state
                                                   .fontSizeArabic
                                                   .value,
                                               surahNum: quranCtrl
-                                                  .getSurahNumberFromPage(
-                                                      pageIndex),
+                                                  .getSurahDataByAyahUQ(
+                                                      ayahs[ayahIndex]
+                                                          .ayahUQNumber)
+                                                  .surahNumber,
                                               ayahNum:
                                                   ayahs[ayahIndex].ayahUQNumber,
                                             )
@@ -106,13 +116,17 @@ class AyahsBuild extends StatelessWidget {
                                                   .code_v2
                                                   .replaceAll('\n', ''),
                                               pageIndex: pageIndex,
-                                              isSelected: quranCtrl.isSelected,
+                                              isSelected:
+                                                  quranCtrl.state.isSelected,
                                               fontSize: sl<GeneralController>()
+                                                  .state
                                                   .fontSizeArabic
                                                   .value,
                                               surahNum: quranCtrl
-                                                  .getSurahNumberFromPage(
-                                                      pageIndex),
+                                                  .getSurahDataByAyahUQ(
+                                                      ayahs[ayahIndex]
+                                                          .ayahUQNumber)
+                                                  .surahNumber,
                                               ayahNum:
                                                   ayahs[ayahIndex].ayahUQNumber,
                                             ),
@@ -146,11 +160,10 @@ class AyahsBuild extends StatelessWidget {
                       bottomLeft: Radius.circular(8),
                     )),
                 child: Text(
-                  sl<GeneralController>()
-                      .convertNumbers(ayahs[i].page.toString()),
+                  '${ayahs[i].page.toString().convertNumbers()}',
                   style: TextStyle(
                       fontSize: 18,
-                      color: Theme.of(context).colorScheme.background,
+                      color: Theme.of(context).colorScheme.primaryContainer,
                       fontFamily: 'naskh'),
                 ),
               ),

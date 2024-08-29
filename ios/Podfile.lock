@@ -3,9 +3,11 @@ PODS:
     - Flutter
   - audio_session (0.0.1):
     - Flutter
+  - background_fetch (1.3.5):
+    - Flutter
   - connectivity_plus (0.0.1):
     - Flutter
-    - ReachabilitySwift
+    - FlutterMacOS
   - Flutter (1.0.0)
   - flutter_local_notifications (0.0.1):
     - Flutter
@@ -13,22 +15,16 @@ PODS:
     - Flutter
   - flutter_timezone (0.0.1):
     - Flutter
-  - geocoding_ios (1.0.5):
-    - Flutter
-  - geolocator_apple (1.2.0):
-    - Flutter
-  - home_widget (0.0.1):
-    - Flutter
   - just_audio (0.0.1):
     - Flutter
-  - open_file (0.0.1):
+  - package_info_plus (0.4.5):
     - Flutter
   - path_provider_foundation (0.0.1):
     - Flutter
     - FlutterMacOS
-  - rate_my_app (2.0.0):
+  - rate_my_app (2.2.0):
     - Flutter
-  - ReachabilitySwift (5.2.2)
+    - FlutterMacOS
   - share_plus (0.0.1):
     - Flutter
   - shared_preferences_foundation (0.0.1):
@@ -39,52 +35,52 @@ PODS:
   - sqflite (0.0.3):
     - Flutter
     - FlutterMacOS
-  - sqlite3 (3.45.1):
-    - sqlite3/common (= 3.45.1)
-  - sqlite3/common (3.45.1)
-  - sqlite3/fts5 (3.45.1):
+  - "sqlite3 (3.46.0+1)":
+    - "sqlite3/common (= 3.46.0+1)"
+  - "sqlite3/common (3.46.0+1)"
+  - "sqlite3/dbstatvtab (3.46.0+1)":
     - sqlite3/common
-  - sqlite3/perf-threadsafe (3.45.1):
+  - "sqlite3/fts5 (3.46.0+1)":
     - sqlite3/common
-  - sqlite3/rtree (3.45.1):
+  - "sqlite3/perf-threadsafe (3.46.0+1)":
+    - sqlite3/common
+  - "sqlite3/rtree (3.46.0+1)":
     - sqlite3/common
   - sqlite3_flutter_libs (0.0.1):
     - Flutter
-    - sqlite3 (~> 3.45.1)
+    - "sqlite3 (~> 3.46.0+1)"
+    - sqlite3/dbstatvtab
     - sqlite3/fts5
     - sqlite3/perf-threadsafe
     - sqlite3/rtree
   - url_launcher_ios (0.0.1):
     - Flutter
-  - workmanager (0.0.1):
+  - wakelock_plus (0.0.1):
     - Flutter
 
 DEPENDENCIES:
   - audio_service (from `.symlinks/plugins/audio_service/ios`)
   - audio_session (from `.symlinks/plugins/audio_session/ios`)
-  - connectivity_plus (from `.symlinks/plugins/connectivity_plus/ios`)
+  - background_fetch (from `.symlinks/plugins/background_fetch/ios`)
+  - connectivity_plus (from `.symlinks/plugins/connectivity_plus/darwin`)
   - Flutter (from `Flutter`)
   - flutter_local_notifications (from `.symlinks/plugins/flutter_local_notifications/ios`)
   - flutter_native_splash (from `.symlinks/plugins/flutter_native_splash/ios`)
   - flutter_timezone (from `.symlinks/plugins/flutter_timezone/ios`)
-  - geocoding_ios (from `.symlinks/plugins/geocoding_ios/ios`)
-  - geolocator_apple (from `.symlinks/plugins/geolocator_apple/ios`)
-  - home_widget (from `.symlinks/plugins/home_widget/ios`)
   - just_audio (from `.symlinks/plugins/just_audio/ios`)
-  - open_file (from `.symlinks/plugins/open_file/ios`)
+  - package_info_plus (from `.symlinks/plugins/package_info_plus/ios`)
   - path_provider_foundation (from `.symlinks/plugins/path_provider_foundation/darwin`)
-  - rate_my_app (from `.symlinks/plugins/rate_my_app/ios`)
+  - rate_my_app (from `.symlinks/plugins/rate_my_app/darwin`)
   - share_plus (from `.symlinks/plugins/share_plus/ios`)
   - shared_preferences_foundation (from `.symlinks/plugins/shared_preferences_foundation/darwin`)
   - simple_animation_progress_bar (from `.symlinks/plugins/simple_animation_progress_bar/ios`)
   - sqflite (from `.symlinks/plugins/sqflite/darwin`)
   - sqlite3_flutter_libs (from `.symlinks/plugins/sqlite3_flutter_libs/ios`)
   - url_launcher_ios (from `.symlinks/plugins/url_launcher_ios/ios`)
-  - workmanager (from `.symlinks/plugins/workmanager/ios`)
+  - wakelock_plus (from `.symlinks/plugins/wakelock_plus/ios`)
 
 SPEC REPOS:
   trunk:
-    - ReachabilitySwift
     - sqlite3
 
 EXTERNAL SOURCES:
@@ -92,8 +88,10 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/audio_service/ios"
   audio_session:
     :path: ".symlinks/plugins/audio_session/ios"
+  background_fetch:
+    :path: ".symlinks/plugins/background_fetch/ios"
   connectivity_plus:
-    :path: ".symlinks/plugins/connectivity_plus/ios"
+    :path: ".symlinks/plugins/connectivity_plus/darwin"
   Flutter:
     :path: Flutter
   flutter_local_notifications:
@@ -102,20 +100,14 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/flutter_native_splash/ios"
   flutter_timezone:
     :path: ".symlinks/plugins/flutter_timezone/ios"
-  geocoding_ios:
-    :path: ".symlinks/plugins/geocoding_ios/ios"
-  geolocator_apple:
-    :path: ".symlinks/plugins/geolocator_apple/ios"
-  home_widget:
-    :path: ".symlinks/plugins/home_widget/ios"
   just_audio:
     :path: ".symlinks/plugins/just_audio/ios"
-  open_file:
-    :path: ".symlinks/plugins/open_file/ios"
+  package_info_plus:
+    :path: ".symlinks/plugins/package_info_plus/ios"
   path_provider_foundation:
     :path: ".symlinks/plugins/path_provider_foundation/darwin"
   rate_my_app:
-    :path: ".symlinks/plugins/rate_my_app/ios"
+    :path: ".symlinks/plugins/rate_my_app/darwin"
   share_plus:
     :path: ".symlinks/plugins/share_plus/ios"
   shared_preferences_foundation:
@@ -128,33 +120,30 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/sqlite3_flutter_libs/ios"
   url_launcher_ios:
     :path: ".symlinks/plugins/url_launcher_ios/ios"
-  workmanager:
-    :path: ".symlinks/plugins/workmanager/ios"
+  wakelock_plus:
+    :path: ".symlinks/plugins/wakelock_plus/ios"
 
 SPEC CHECKSUMS:
   audio_service: f509d65da41b9521a61f1c404dd58651f265a567
   audio_session: 088d2483ebd1dc43f51d253d4a1c517d9a2e7207
-  connectivity_plus: bf0076dd84a130856aa636df1c71ccaff908fa1d
+  background_fetch: f73d045fee3d313ea8c0afa205317bff8a6bf8d2
+  connectivity_plus: ddd7f30999e1faaef5967c23d5b6d503d10434db
   Flutter: e0871f40cf51350855a761d2e70bf5af5b9b5de7
   flutter_local_notifications: 4cde75091f6327eb8517fa068a0a5950212d2086
   flutter_native_splash: edf599c81f74d093a4daf8e17bd7a018854bc778
   flutter_timezone: ffb07bdad3c6276af8dada0f11978d8a1f8a20bb
-  geocoding_ios: d7460f56e80e118d57678efe5c2cdc888739ff18
-  geolocator_apple: 6cbaf322953988e009e5ecb481f07efece75c450
-  home_widget: 0434835a4c9a75704264feff6be17ea40e0f0d57
   just_audio: baa7252489dbcf47a4c7cc9ca663e9661c99aafa
-  open_file: 02eb5cb6b21264bd3a696876f5afbfb7ca4f4b7d
-  path_provider_foundation: 3784922295ac71e43754bd15e0653ccfd36a147c
-  rate_my_app: 80fba94c4885cd31738231b7b1f51c1ad726f5c7
-  ReachabilitySwift: 2128f3a8c9107e1ad33574c6e58e8285d460b149
+  package_info_plus: 58f0028419748fad15bf008b270aaa8e54380b1c
+  path_provider_foundation: 2b6b4c569c0fb62ec74538f866245ac84301af46
+  rate_my_app: cd3e1c44d12f387482698ffaf6ea9bd669a69b94
   share_plus: 8875f4f2500512ea181eef553c3e27dba5135aad
-  shared_preferences_foundation: b4c3b4cddf1c21f02770737f147a3f5da9d39695
+  shared_preferences_foundation: fcdcbc04712aee1108ac7fda236f363274528f78
   simple_animation_progress_bar: 3f818acdbd78de0a8c48ddd7fdc88e1998a7b33f
   sqflite: 673a0e54cc04b7d6dba8d24fb8095b31c3a99eec
-  sqlite3: 73b7fc691fdc43277614250e04d183740cb15078
-  sqlite3_flutter_libs: af0e8fe9bce48abddd1ffdbbf839db0302d72d80
-  url_launcher_ios: 6116280ddcfe98ab8820085d8d76ae7449447586
-  workmanager: 0afdcf5628bbde6924c21af7836fed07b42e30e6
+  sqlite3: 292c3e1bfe89f64e51ea7fc7dab9182a017c8630
+  sqlite3_flutter_libs: c00457ebd31e59fa6bb830380ddba24d44fbcd3b
+  url_launcher_ios: 5334b05cef931de560670eeae103fd3e431ac3fe
+  wakelock_plus: 78ec7c5b202cab7761af8e2b2b3d0671be6c4ae1
 
 PODFILE CHECKSUM: 819463e6a0290f5a72f145ba7cde16e8b6ef0796
 

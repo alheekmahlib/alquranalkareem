@@ -1,34 +1,36 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../../presentation/controllers/ayat_controller.dart';
-import '../../../presentation/controllers/share_controller.dart';
-import '../../../presentation/controllers/translate_controller.dart';
+import '/core/utils/constants/extensions/svg_extensions.dart';
+import '/presentation/screens/quran_page/controllers/extensions/quran_getters.dart';
+import '../../../presentation/screens/quran_page/controllers/ayat_controller.dart';
+import '../../../presentation/screens/quran_page/controllers/quran/quran_controller.dart';
+import '../../../presentation/screens/quran_page/controllers/share_controller.dart';
+import '../../../presentation/screens/quran_page/controllers/translate_controller.dart';
 import '../../services/services_locator.dart';
 import '../../utils/constants/extensions/extensions.dart';
 import '../../utils/constants/extensions/text_span_extension.dart';
 import '../../utils/constants/lists.dart';
 import '../../utils/constants/lottie.dart';
 import '../../utils/constants/lottie_constants.dart';
-import '../../utils/constants/svg_picture.dart';
-import '/presentation/controllers/quran_controller.dart';
+import '../../utils/constants/svg_constants.dart';
 import 'share_ayahToImage.dart';
 import 'share_tafseerToImage.dart';
 
 class ShareAyahOptions extends StatelessWidget {
-  final int verseNumber;
-  final int verseUQNumber;
+  final int ayahNumber;
+  final int ayahUQNumber;
   final int surahNumber;
-  final String verseText;
+  final String ayahText;
   final String surahName;
   final String ayahTextNormal;
   final Function? cancel;
   const ShareAyahOptions({
     super.key,
-    required this.verseNumber,
-    required this.verseUQNumber,
+    required this.ayahNumber,
+    required this.ayahUQNumber,
     required this.surahNumber,
-    required this.verseText,
+    required this.ayahText,
     required this.surahName,
     required this.ayahTextNormal,
     this.cancel,
@@ -36,24 +38,27 @@ class ShareAyahOptions extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final shareToImage = sl<ShareController>();
+    final shareToImage = ShareController.instance;
 
     return GestureDetector(
       child: Semantics(
         button: true,
         enabled: true,
         label: 'share'.tr,
-        child: share_icon(height: 20.0),
+        child: customSvg(
+          SvgPath.svgShareIcon,
+          height: 20,
+        ),
       ),
       onTap: () {
-        shareToImage.fetchTafseerSaadi(surahNumber, verseNumber, verseUQNumber);
+        shareToImage.fetchTafseerSaadi(surahNumber, ayahNumber, ayahUQNumber);
         Get.bottomSheet(
             Container(
               height: MediaQuery.sizeOf(context).height * .9,
               alignment: Alignment.center,
               padding: const EdgeInsets.all(16.0),
               decoration: BoxDecoration(
-                  color: Theme.of(context).colorScheme.background,
+                  color: Get.theme.colorScheme.primaryContainer,
                   borderRadius: const BorderRadius.only(
                     topLeft: Radius.circular(8),
                     topRight: Radius.circular(8),
@@ -85,8 +90,8 @@ class ShareAyahOptions extends StatelessWidget {
                               'shareText'.tr,
                               style: TextStyle(
                                   color: Get.isDarkMode
-                                      ? Theme.of(context).colorScheme.primary
-                                      : Theme.of(context).colorScheme.primary,
+                                      ? Get.theme.colorScheme.primary
+                                      : Get.theme.colorScheme.primary,
                                   fontSize: 16,
                                   fontFamily: 'kufi'),
                             ),
@@ -102,9 +107,7 @@ class ShareAyahOptions extends StatelessWidget {
                                   right: 16.0,
                                   left: 16.0),
                               decoration: BoxDecoration(
-                                  color: Theme.of(context)
-                                      .colorScheme
-                                      .primary
+                                  color: Get.theme.colorScheme.primary
                                       .withOpacity(.15),
                                   borderRadius: const BorderRadius.all(
                                       Radius.circular(4))),
@@ -117,8 +120,7 @@ class ShareAyahOptions extends StatelessWidget {
                                     flex: 2,
                                     child: Icon(
                                       Icons.text_fields,
-                                      color:
-                                          Theme.of(context).colorScheme.surface,
+                                      color: Get.theme.colorScheme.surface,
                                       size: 24,
                                     ),
                                   ),
@@ -127,7 +129,7 @@ class ShareAyahOptions extends StatelessWidget {
                                     child: Text(
                                       "﴿ $ayahTextNormal ﴾",
                                       style: TextStyle(
-                                          color: Theme.of(context).hintColor,
+                                          color: Get.theme.hintColor,
                                           fontSize: 16,
                                           fontFamily: 'uthmanic2'),
                                       textDirection: TextDirection.rtl,
@@ -138,12 +140,12 @@ class ShareAyahOptions extends StatelessWidget {
                             ),
                             onTap: () {
                               shareToImage.shareText(
-                                  ayahTextNormal, surahName, verseNumber);
+                                  ayahTextNormal, surahName, ayahNumber);
                               Navigator.pop(context);
                             },
                           ),
                           context.hDivider(
-                              color: Theme.of(context).colorScheme.primary),
+                              color: Get.theme.colorScheme.primary),
                           Column(
                             children: [
                               Column(
@@ -158,8 +160,7 @@ class ShareAyahOptions extends StatelessWidget {
                                         Text(
                                           'shareImage'.tr,
                                           style: TextStyle(
-                                              color:
-                                                  Theme.of(context).hintColor,
+                                              color: Get.theme.hintColor,
                                               fontSize: 16,
                                               fontFamily: 'kufi'),
                                         ),
@@ -177,9 +178,7 @@ class ShareAyahOptions extends StatelessWidget {
                                           right: 16.0,
                                           left: 16.0),
                                       decoration: BoxDecoration(
-                                          color: Theme.of(context)
-                                              .colorScheme
-                                              .primary
+                                          color: Get.theme.colorScheme.primary
                                               .withOpacity(.15),
                                           borderRadius: const BorderRadius.all(
                                               Radius.circular(4))),
@@ -189,7 +188,7 @@ class ShareAyahOptions extends StatelessWidget {
                                       //   // width: 150,
                                       // ),
                                       child: VerseImageCreator(
-                                          verseNumber: verseNumber,
+                                          verseNumber: ayahNumber,
                                           surahNumber: surahNumber,
                                           verseText: ayahTextNormal),
                                     ),
@@ -218,8 +217,7 @@ class ShareAyahOptions extends StatelessWidget {
                                           child: Text(
                                             'shareImageWTrans'.tr,
                                             style: TextStyle(
-                                                color:
-                                                    Theme.of(context).hintColor,
+                                                color: Get.theme.hintColor,
                                                 fontSize: 16,
                                                 fontFamily: 'kufi'),
                                           ),
@@ -228,15 +226,14 @@ class ShareAyahOptions extends StatelessWidget {
                                           flex: 5,
                                           child: PopupMenuButton(
                                             position: PopupMenuPosition.under,
-                                            color: Get
-                                                .theme.colorScheme.background,
+                                            color: Get.theme.colorScheme
+                                                .primaryContainer,
                                             child: Container(
                                               // width: 140,
                                               padding:
                                                   const EdgeInsets.all(8.0),
                                               decoration: BoxDecoration(
-                                                color: Theme.of(context)
-                                                    .dividerColor
+                                                color: Get.theme.dividerColor
                                                     .withOpacity(.4),
                                                 borderRadius:
                                                     const BorderRadius.all(
@@ -259,8 +256,7 @@ class ShareAyahOptions extends StatelessWidget {
                                                           style: TextStyle(
                                                             fontFamily: 'kufi',
                                                             fontSize: 14,
-                                                            color: Theme.of(
-                                                                    context)
+                                                            color: Get.theme
                                                                 .hintColor,
                                                           ),
                                                         ),
@@ -271,8 +267,7 @@ class ShareAyahOptions extends StatelessWidget {
                                                     Icons
                                                         .keyboard_arrow_down_rounded,
                                                     size: 20,
-                                                    color: Theme.of(context)
-                                                        .colorScheme
+                                                    color: Get.theme.colorScheme
                                                         .primary,
                                                   ),
                                                 ],
@@ -324,9 +319,9 @@ class ShareAyahOptions extends StatelessWidget {
                                                             .shareButtonOnTap(
                                                                 context,
                                                                 selectedIndex,
-                                                                verseUQNumber,
+                                                                ayahUQNumber,
                                                                 surahNumber,
-                                                                verseNumber);
+                                                                ayahNumber);
                                                       },
                                                     ),
                                                   ),
@@ -348,26 +343,24 @@ class ShareAyahOptions extends StatelessWidget {
                                           right: 16.0,
                                           left: 16.0),
                                       decoration: BoxDecoration(
-                                          color: Theme.of(context)
-                                              .colorScheme
-                                              .primary
+                                          color: Get.theme.colorScheme.primary
                                               .withOpacity(.15),
                                           borderRadius: const BorderRadius.all(
                                               Radius.circular(4))),
                                       child: FutureBuilder(
                                           future: sl<AyatController>()
                                               .getTafsir(
-                                                  verseUQNumber,
+                                                  ayahUQNumber,
                                                   sl<QuranController>()
                                                       .getSurahDataByAyahUQ(
-                                                          verseUQNumber)
+                                                          ayahUQNumber)
                                                       .surahNumber),
                                           builder: (context, snapshot) {
                                             if (snapshot.connectionState ==
                                                 ConnectionState.done) {
                                               return TafseerImageCreator(
-                                                verseNumber: verseNumber,
-                                                verseUQNumber: verseUQNumber,
+                                                verseNumber: ayahNumber,
+                                                verseUQNumber: ayahUQNumber,
                                                 surahNumber: surahNumber,
                                                 verseText: ayahTextNormal,
                                                 tafseerText:
@@ -397,12 +390,8 @@ class ShareAyahOptions extends StatelessWidget {
                                       'shareTrans'.tr,
                                       style: TextStyle(
                                           color: Get.isDarkMode
-                                              ? Theme.of(context)
-                                                  .colorScheme
-                                                  .primary
-                                              : Theme.of(context)
-                                                  .colorScheme
-                                                  .primary,
+                                              ? Get.theme.colorScheme.primary
+                                              : Get.theme.colorScheme.primary,
                                           fontSize: 14,
                                           fontFamily: 'kufi'),
                                       textAlign: TextAlign.justify,

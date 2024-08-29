@@ -1,19 +1,27 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../presentation/controllers/azkar_controller.dart';
-import '../services/services_locator.dart';
+import '/core/utils/constants/extensions/font_size_extension.dart';
 import '../utils/constants/extensions/extensions.dart';
 
 class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
   final bool isTitled;
-  const AppBarWidget({super.key, required this.isTitled});
+  final bool isFontSize;
+  final Widget searchButton;
+  final String title;
+  final Color? color;
+  const AppBarWidget(
+      {super.key,
+      required this.isTitled,
+      required this.title,
+      required this.isFontSize,
+      required this.searchButton,
+      this.color});
 
   @override
   Widget build(BuildContext context) {
-    final azkarCtrl = sl<AzkarController>();
     return AppBar(
-      backgroundColor: Theme.of(context).colorScheme.background,
+      backgroundColor: color ?? Theme.of(context).colorScheme.primaryContainer,
       elevation: 0,
       title: isTitled
           ? Container(
@@ -24,7 +32,7 @@ class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
                   border: Border.all(
                       color: Theme.of(context).colorScheme.surface, width: 1)),
               child: Text(
-                azkarCtrl.filteredZekrList.first.category,
+                title,
                 style: TextStyle(
                   color: Get.isDarkMode
                       ? Colors.white
@@ -44,11 +52,12 @@ class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
             padding: const EdgeInsets.symmetric(horizontal: 16.0),
             child: Image.asset(
               'assets/icons/arrow_back.png',
-              color: Theme.of(context).colorScheme.primary,
+              color: Theme.of(context).colorScheme.surface,
             )),
       ),
       actions: [
-        context.fontSizeDropDown(),
+        isFontSize ? fontSizeDropDown() : const SizedBox.shrink(),
+        searchButton,
       ],
     );
   }

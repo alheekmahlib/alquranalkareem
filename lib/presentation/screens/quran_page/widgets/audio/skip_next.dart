@@ -2,17 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:just_audio/just_audio.dart';
 
-import '../../../../../core/services/services_locator.dart';
-import '../../../../controllers/audio_controller.dart';
+import '../../controllers/audio/audio_controller.dart';
 
 class SkipToNext extends StatelessWidget {
   SkipToNext({super.key});
-  final audioCtrl = sl<AudioController>();
+  final audioCtrl = AudioController.instance;
 
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<SequenceState?>(
-      stream: audioCtrl.audioPlayer.sequenceStateStream,
+      stream: audioCtrl.state.audioPlayer.sequenceStateStream,
       builder: (context, snapshot) => GestureDetector(
         child: Semantics(
           button: true,

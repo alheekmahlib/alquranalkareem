@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 
+import '/core/utils/constants/extensions/svg_extensions.dart';
 import '../../../../../core/services/services_locator.dart';
-import '../../../../../core/utils/constants/svg_picture.dart';
-import '../../../../controllers/ayat_controller.dart';
+import '../../../../../core/utils/constants/svg_constants.dart';
+import '../../controllers/ayat_controller.dart';
 
 class TafsirButton extends StatelessWidget {
   final int surahNum;
@@ -31,7 +32,10 @@ class TafsirButton extends StatelessWidget {
         button: true,
         enabled: true,
         label: 'Show Tafseer',
-        child: tafsir_icon(height: 20.0),
+        child: customSvg(
+          SvgPath.svgTafsirIcon,
+          height: 20,
+        ),
       ),
       onTap: () {
         sl<AyatController>().showTafsirOnTap(surahNum, ayahNum, ayahText,

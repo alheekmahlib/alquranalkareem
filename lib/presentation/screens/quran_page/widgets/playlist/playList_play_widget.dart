@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../../../../../core/services/services_locator.dart';
-import '../../../../../core/widgets/seek_bar.dart';
-import '../../../../controllers/playList_controller.dart';
+import '/core/widgets/seek_bar.dart';
+import '../../controllers/playList_controller.dart';
 import 'playList_play_button.dart';
 
 class PlayListPlayWidget extends StatelessWidget {
@@ -10,7 +9,7 @@ class PlayListPlayWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final playList = sl<PlayListController>();
+    final playList = PlayListController.instance;
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
@@ -25,12 +24,12 @@ class PlayListPlayWidget extends StatelessWidget {
               builder: (context, snapshot) {
                 if (snapshot.hasData) {
                   final positionData = snapshot.data;
-                  return SliderWidget(
+                  return SliderWidget.player(
                     horizontalPadding: 0.0,
                     duration: positionData?.duration ?? Duration.zero,
                     position: positionData?.position ?? Duration.zero,
-                    bufferedPosition:
-                        positionData?.bufferedPosition ?? Duration.zero,
+                    // bufferedPosition:
+                    //     positionData?.bufferedPosition ?? Duration.zero,
                     activeTrackColor: Theme.of(context).colorScheme.primary,
                     onChangeEnd: playList.playlistAudioPlayer.seek,
                   );
