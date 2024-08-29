@@ -1,4 +1,3 @@
-import 'package:alquranalkareem/presentation/screens/quran_page/controllers/extensions/quran_getters.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:gap/gap.dart';
@@ -7,6 +6,7 @@ import 'package:get/get.dart';
 import '/core/utils/constants/extensions/convert_number_extension.dart';
 import '/core/utils/constants/extensions/extensions.dart';
 import '/core/utils/constants/extensions/text_span_extension.dart';
+import '/presentation/screens/quran_page/controllers/extensions/quran_getters.dart';
 import '/presentation/screens/quran_page/extensions/surah_name_with_banner.dart';
 import '../../../../core/utils/constants/svg_constants.dart';
 import '../controllers/quran/quran_controller.dart';
@@ -41,7 +41,7 @@ extension SurahInfoExtension on Widget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Expanded(
-                    flex: 2,
+                    flex: 3,
                     child: Row(
                       children: [
                         Get.context!.customClose(height: 30),

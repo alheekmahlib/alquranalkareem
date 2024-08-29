@@ -9,17 +9,19 @@ class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
   final bool isFontSize;
   final Widget searchButton;
   final String title;
+  final Color? color;
   const AppBarWidget(
       {super.key,
       required this.isTitled,
       required this.title,
       required this.isFontSize,
-      required this.searchButton});
+      required this.searchButton,
+      this.color});
 
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      backgroundColor: Theme.of(context).colorScheme.primaryContainer,
+      backgroundColor: color ?? Theme.of(context).colorScheme.primaryContainer,
       elevation: 0,
       title: isTitled
           ? Container(

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
@@ -7,6 +6,7 @@ import 'package:get/get.dart';
 import '/core/utils/constants/extensions/convert_number_extension.dart';
 import '/core/utils/constants/extensions/extensions.dart';
 import '../../utils/constants/lists.dart';
+import '../app_bar_widget.dart';
 import 'calculating_date_events_widget.dart';
 import 'controller/event_controller.dart';
 
@@ -18,9 +18,12 @@ class AllCalculatingEventsWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.primary,
-        systemOverlayStyle: SystemUiOverlayStyle.light,
+      appBar: AppBarWidget(
+        isTitled: false,
+        title: '',
+        isFontSize: false,
+        searchButton: const SizedBox.shrink(),
+        color: context.theme.colorScheme.primary,
       ),
       body: SafeArea(
         child: Container(

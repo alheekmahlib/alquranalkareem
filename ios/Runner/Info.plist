@@ -5,7 +5,7 @@
 	<key>BGTaskSchedulerPermittedIdentifiers</key>
 	<array>
 		<string>com.transistorsoft.fetch</string>
-		<string>com.transistorsoft.scheduleNotifications</string>
+		<string>com.transistorsoft.fetchNotifications</string>
 	</array>
 	<key>CADisableMinimumFrameDurationOnPhone</key>
 	<true/>

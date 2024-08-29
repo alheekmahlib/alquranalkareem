@@ -341,6 +341,7 @@ class MushafSettings extends StatelessWidget {
                             quranCtrl.state.backgroundPickerColor.value =
                                 0xfffaf7f3;
                             quranCtrl.state.box.remove(BACKGROUND_PICKER_COLOR);
+                            quranCtrl.update();
                             Get.back();
                           },
                           child: Container(
@@ -421,6 +422,7 @@ class MushafSettings extends StatelessWidget {
                                 quranCtrl.state.temporaryBackgroundColor.value;
                             quranCtrl.state.box.write(BACKGROUND_PICKER_COLOR,
                                 quranCtrl.state.backgroundPickerColor.value);
+                            quranCtrl.update();
                             Get.back();
                           },
                           child: Container(

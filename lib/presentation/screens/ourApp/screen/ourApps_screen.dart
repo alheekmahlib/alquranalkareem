@@ -46,12 +46,12 @@ class OurApps extends StatelessWidget {
       body: context.customOrientation(
           Column(
             children: [
-              const Gap(32),
+              Gap(16.h),
               customSvg(
                 SvgPath.svgSplashIconS,
-                height: 200,
+                height: 160.h,
               ),
-              const Gap(32),
+              Gap(16.h),
               ContainerWithLines(
                 linesColor: Theme.of(context).colorScheme.primary,
                 containerColor:
@@ -89,11 +89,14 @@ class OurApps extends StatelessWidget {
               ),
               Expanded(
                 flex: 4,
-                child: ContainerWithLines(
-                  linesColor: Theme.of(context).colorScheme.primary,
-                  containerColor:
-                      Theme.of(context).colorScheme.surface.withOpacity(.15),
-                  child: OurAppsBuild(),
+                child: SingleChildScrollView(
+                  primary: false,
+                  child: ContainerWithLines(
+                    linesColor: Theme.of(context).colorScheme.primary,
+                    containerColor:
+                        Theme.of(context).colorScheme.surface.withOpacity(.15),
+                    child: OurAppsBuild(),
+                  ),
                 ),
               ),
             ],

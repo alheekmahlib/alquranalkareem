@@ -32,17 +32,13 @@ class QuranPages extends StatelessWidget {
     return SafeArea(
       child: GetBuilder<QuranController>(
         builder: (quranCtrl) => GestureDetector(
-          onTap: () {
-            audioCtrl.clearSelection();
-          },
-          onScaleStart: (details) {
-            quranCtrl.state.baseScaleFactor.value =
-                quranCtrl.state.scaleFactor.value;
-          },
-          onScaleUpdate: (ScaleUpdateDetails details) {
-            quranCtrl.state.scaleFactor.value =
-                quranCtrl.state.baseScaleFactor.value * details.scale;
-          },
+          onTap: () => audioCtrl.clearSelection(),
+          onScaleStart: (details) => quranCtrl.state.baseScaleFactor.value =
+              quranCtrl.state.scaleFactor.value,
+          onScaleUpdate: (ScaleUpdateDetails details) => quranCtrl
+              .state
+              .scaleFactor
+              .value = quranCtrl.state.baseScaleFactor.value * details.scale,
           child: Container(
             height: MediaQuery.sizeOf(context).height,
             child: PageView.builder(

@@ -17,8 +17,8 @@ import 'translate_build.dart';
 
 class AyahsBuild extends StatelessWidget {
   final int pageIndex;
-
   AyahsBuild({super.key, required this.pageIndex});
+
   final quranCtrl = QuranController.instance;
 
   @override
@@ -31,8 +31,7 @@ class AyahsBuild extends StatelessWidget {
         itemCount:
             quranCtrl.getCurrentPageAyahsSeparatedForBasmalah(pageIndex).length,
         itemBuilder: (context, i) {
-          final ayahs =
-              quranCtrl.getCurrentPageAyahsSeparatedForBasmalah(pageIndex)[i];
+          final ayahs = quranCtrl.getPageAyahsByIndex(pageIndex);
           return Column(children: [
             surahAyahBannerFirstPlace(pageIndex, i),
             Obx(() {
