@@ -1,9 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '/presentation/screens/quran_page/controllers/extensions/quran_getters.dart';
+import '/presentation/screens/quran_page/controllers/quran/quran_controller.dart';
+
 class LeftPage extends StatelessWidget {
   final Widget child;
-  const LeftPage({super.key, required this.child});
+
+  LeftPage({super.key, required this.child});
+
+  final quranCtrl = QuranController.instance;
 
   @override
   Widget build(BuildContext context) {
@@ -28,14 +34,16 @@ class LeftPage extends StatelessWidget {
               borderRadius: const BorderRadius.only(
                   topLeft: Radius.circular(12),
                   bottomLeft: Radius.circular(12))),
-          child: Container(
-            margin: const EdgeInsets.only(left: 4.0),
-            decoration: BoxDecoration(
-                color: Theme.of(context).colorScheme.background,
-                borderRadius: const BorderRadius.only(
-                    topLeft: Radius.circular(12),
-                    bottomLeft: Radius.circular(12))),
-            child: child,
+          child: GetX<QuranController>(
+            builder: (quranCtrl) => Container(
+              margin: const EdgeInsets.only(left: 4.0),
+              decoration: BoxDecoration(
+                  color: quranCtrl.backgroundColor,
+                  borderRadius: const BorderRadius.only(
+                      topLeft: Radius.circular(12),
+                      bottomLeft: Radius.circular(12))),
+              child: child,
+            ),
           ),
         ),
       ),

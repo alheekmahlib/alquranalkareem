@@ -3,6 +3,10 @@ class Surah {
   final String arabicName;
   final String englishName;
   final String revelationType;
+  final String surahNames;
+  final String surahNamesFromBook;
+  final String surahInfo;
+  final String surahInfoFromBook;
   final List<Ayah> ayahs;
 
   Surah(
@@ -10,6 +14,10 @@ class Surah {
       required this.arabicName,
       required this.englishName,
       required this.revelationType,
+      required this.surahNames,
+      required this.surahNamesFromBook,
+      required this.surahInfo,
+      required this.surahInfoFromBook,
       required this.ayahs});
 
   factory Surah.fromJson(Map<String, dynamic> json) {
@@ -21,6 +29,10 @@ class Surah {
       arabicName: json['name'],
       englishName: json['englishName'],
       revelationType: json['revelationType'],
+      surahNames: json['surahNames'],
+      surahNamesFromBook: json['surahNamesFromBook'],
+      surahInfo: json['surahInfo'],
+      surahInfoFromBook: json['surahInfoFromBook'],
       ayahs: ayahsList,
     );
   }

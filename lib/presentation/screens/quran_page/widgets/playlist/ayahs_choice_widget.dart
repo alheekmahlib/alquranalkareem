@@ -2,19 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 
-import '../../../../../core/services/services_locator.dart';
-import '../../../../../core/utils/constants/lottie.dart';
-import '../../../../controllers/playList_controller.dart';
 import '/core/utils/constants/lottie_constants.dart';
-import '/presentation/controllers/general_controller.dart';
-import '/presentation/controllers/quran_controller.dart';
+import '/presentation/screens/quran_page/controllers/extensions/quran_getters.dart';
+import '../../../../../core/utils/constants/lottie.dart';
+import '../../../../controllers/general/general_controller.dart';
+import '../../controllers/playList_controller.dart';
+import '../../controllers/quran/quran_controller.dart';
 import 'playList_ayat_widget.dart';
 
 class AyahsChoiceWidget extends StatelessWidget {
   AyahsChoiceWidget({super.key});
-  final playList = sl<PlayListController>();
-  final quranCtrl = sl<QuranController>();
-  final generalCtrl = sl<GeneralController>();
+  final playList = PlayListController.instance;
+  final quranCtrl = QuranController.instance;
+  final generalCtrl = GeneralController.instance;
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +30,7 @@ class AyahsChoiceWidget extends StatelessWidget {
               } else {
                 return PopupMenuButton(
                   position: PopupMenuPosition.under,
-                  color: Theme.of(context).colorScheme.background,
+                  color: Theme.of(context).colorScheme.primaryContainer,
                   child: Container(
                     height: 45,
                     padding: const EdgeInsets.all(4.0),
@@ -55,7 +55,7 @@ class AyahsChoiceWidget extends StatelessWidget {
                         ),
                         Obx(
                           () => Text(
-                            '${quranCtrl.getSurahNameFromPage(generalCtrl.currentPageNumber.value - 1).replaceAll('سُورَةُ ', '')} | ${generalCtrl.arabicNumber.convert(playList.firstAyah)}',
+                            '${quranCtrl.getCurrentSurahByPage(quranCtrl.state.currentPageNumber.value - 1).arabicName.replaceAll('سُورَةُ ', '')} | ${generalCtrl.state.arabicNumber.convert(playList.firstAyah)}',
                             style: TextStyle(
                               fontFamily: 'kufi',
                               fontSize: 16,
@@ -94,7 +94,7 @@ class AyahsChoiceWidget extends StatelessWidget {
               } else {
                 return PopupMenuButton(
                   position: PopupMenuPosition.under,
-                  color: Theme.of(context).colorScheme.background,
+                  color: Theme.of(context).colorScheme.primaryContainer,
                   child: Container(
                     height: 45,
                     padding: const EdgeInsets.all(4.0),
@@ -118,7 +118,7 @@ class AyahsChoiceWidget extends StatelessWidget {
                           ),
                         ),
                         Text(
-                          '${quranCtrl.getSurahNameFromPage(generalCtrl.currentPageNumber.value - 1).replaceAll('سُورَةُ ', '')} | ${generalCtrl.arabicNumber.convert(playList.lastAyah)}',
+                          '${quranCtrl.getCurrentSurahByPage(quranCtrl.state.currentPageNumber.value - 1).arabicName.replaceAll('سُورَةُ ', '')} | ${generalCtrl.state.arabicNumber.convert(playList.lastAyah)}',
                           style: TextStyle(
                             fontFamily: 'kufi',
                             fontSize: 16,

@@ -1,25 +1,28 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 
+import '/core/utils/constants/extensions/convert_number_extension.dart';
+import '/core/utils/constants/extensions/extensions.dart';
+import '/presentation/screens/quran_page/controllers/extensions/quran_getters.dart';
+import '/presentation/screens/quran_page/extensions/bookmark_page_icon_path.dart';
 import '../../../../../core/services/services_locator.dart';
-import '../../../../../core/utils/constants/extensions/extensions.dart';
-import '../../../../../core/utils/constants/svg_picture.dart';
-import '../../../../controllers/audio_controller.dart';
-import '../../../../controllers/bookmarks_controller.dart';
-import '../../../../controllers/general_controller.dart';
-import '../../../../controllers/quran_controller.dart';
+import '../../../../controllers/general/general_controller.dart';
+import '../../controllers/audio/audio_controller.dart';
+import '../../controllers/bookmarks_controller.dart';
+import '../../controllers/quran/quran_controller.dart';
 
 class TopTitleWidget extends StatelessWidget {
   final int index;
   final bool isRight;
   TopTitleWidget({super.key, required this.index, required this.isRight});
-  final bookmarkCtrl = sl<BookmarksController>();
-  final quranCtrl = sl<QuranController>();
-  final audioCtrl = sl<AudioController>();
-  final generalCtrl = sl<GeneralController>();
+  final bookmarkCtrl = BookmarksController.instance;
+  final quranCtrl = QuranController.instance;
+  final audioCtrl = AudioController.instance;
+  final generalCtrl = GeneralController.instance;
 
   @override
   Widget build(BuildContext context) {
@@ -33,25 +36,11 @@ class TopTitleWidget extends StatelessWidget {
                     bookmarkCtrl.addPageBookmarkOnTap(context, index);
                   },
                   child: bookmarkIcon(
-                      height: context.customOrientation(35.h, 55.h)),
+                      height: context.customOrientation(30.h, 55.h)),
                 ),
-                // Expanded(
-                //     flex: 2,
-                //     child: customSvg(
-                //       'assets/svg/juz/${quranCtrl.getJuzByPage(index).juz}.svg',
-                //       color: const Color(0xff77554B),
-                //     )),
-                // const Spacer(),
-                // Expanded(
-                //   flex: 1,
-                //   child: context.surahNameWidget(
-                //     quranCtrl.getSurahNumberFromPage(index).toString(),
-                //     const Color(0xff77554B),
-                //   ),
-                // ),
                 const Gap(16),
                 Text(
-                  '${'juz'.tr}: ${generalCtrl.convertNumbers(quranCtrl.getJuzByPage(index).juz.toString())}',
+                  '${'juz'.tr}: ${quranCtrl.getJuzByPage(index).juz.toString().convertNumbers()}',
                   style: TextStyle(
                       fontSize: context.customOrientation(18.0, 22.0),
                       // fontWeight: FontWeight.bold,
@@ -59,43 +48,37 @@ class TopTitleWidget extends StatelessWidget {
                       color: const Color(0xff77554B)),
                 ),
                 const Spacer(),
-                Text(
-                  quranCtrl.getSurahNameFromPage(index),
-                  style: TextStyle(
-                      fontSize: context.customOrientation(18.0, 22.0),
-                      // fontWeight: FontWeight.bold,
-                      fontFamily: 'naskh',
-                      color: const Color(0xff77554B)),
+                Row(
+                  children: List.generate(
+                      quranCtrl.getSurahsByPage(index).length,
+                      (i) => Text(
+                            ' ${quranCtrl.getSurahsByPage(index)[i].arabicName.replaceAll('سُورَةُ ', '')} ',
+                            style: TextStyle(
+                                fontSize: context.customOrientation(18.0, 22.0),
+                                // fontWeight: FontWeight.bold,
+                                fontFamily: 'naskh',
+                                color: const Color(0xff77554B)),
+                          )),
                 ),
               ],
             )
           : Row(
               children: [
-                // Expanded(
-                //   flex: 2,
-                //   child: context.surahNameWidget(
-                //     quranCtrl.getSurahNumberFromPage(index).toString(),
-                //     const Color(0xff77554B),
-                //   ),
-                // ),
-                // const Spacer(),
-                // Expanded(
-                //     flex: 2,
-                //     child: customSvg(
-                //       'assets/svg/juz/${quranCtrl.getJuzByPage(index).juz}.svg',
-                //       color: const Color(0xff77554B),
-                //     )),
-                Text(
-                  quranCtrl.getSurahNameFromPage(index),
-                  style: TextStyle(
-                      fontSize: context.customOrientation(18.0, 22.0),
-                      // fontWeight: FontWeight.bold,
-                      fontFamily: 'naskh',
-                      color: const Color(0xff77554B)),
+                Row(
+                  children: List.generate(
+                      quranCtrl.getSurahsByPage(index).length,
+                      (i) => Text(
+                            ' ${quranCtrl.getSurahsByPage(index)[i].arabicName.replaceAll('سُورَةُ ', '')} ',
+                            style: TextStyle(
+                                fontSize: context.customOrientation(18.0, 22.0),
+                                // fontWeight: FontWeight.bold,
+                                fontFamily: 'naskh',
+                                color: const Color(0xff77554B)),
+                          )),
                 ),
                 const Spacer(),
                 Text(
-                  '${'juz'.tr}: ${generalCtrl.convertNumbers(quranCtrl.getJuzByPage(index).juz.toString())}',
+                  '${'juz'.tr}: ${quranCtrl.getJuzByPage(index).juz.toString().convertNumbers()}',
                   style: TextStyle(
                       fontSize: context.customOrientation(18.0, 22.0),
                       // fontWeight: FontWeight.bold,
@@ -108,10 +91,28 @@ class TopTitleWidget extends StatelessWidget {
                     bookmarkCtrl.addPageBookmarkOnTap(context, index);
                   },
                   child: bookmarkIcon(
-                      height: context.customOrientation(35.h, 55.h)),
+                      height: context.customOrientation(30.h, 55.h)),
                 ),
               ],
             ),
     );
+  }
+
+  Widget bookmarkIcon({double? height, double? width, int? pageNum}) {
+    return Obx(() {
+      return Semantics(
+        button: true,
+        enabled: true,
+        label: 'Add Bookmark',
+        child: SvgPicture.asset(
+          sl<BookmarksController>().isPageBookmarked(
+                  pageNum ?? quranCtrl.state.currentPageNumber.value)
+              ? 'assets/svg/bookmarked.svg'
+              : Get.context!.bookmarkPageIconPath(),
+          width: width,
+          height: height,
+        ),
+      );
+    });
   }
 }

@@ -3,14 +3,18 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 
+import '/core/utils/constants/extensions/font_size_extension.dart';
+import '/core/utils/constants/extensions/svg_extensions.dart';
+import '/core/utils/constants/extensions/text_span_extension.dart';
+import '/presentation/screens/quran_page/controllers/extensions/quran_getters.dart';
 import '../../../../core/services/services_locator.dart';
 import '../../../../core/utils/constants/extensions/extensions.dart';
-import '../../../controllers/ayat_controller.dart';
-import '../../../controllers/general_controller.dart';
-import '../../../controllers/translate_controller.dart';
-import '/core/utils/constants/extensions/text_span_extension.dart';
-import '/core/utils/constants/svg_picture.dart';
-import '/presentation/controllers/quran_controller.dart';
+import '../../../../core/utils/constants/lists.dart';
+import '../../../../core/utils/constants/svg_constants.dart';
+import '../../../controllers/general/general_controller.dart';
+import '../controllers/ayat_controller.dart';
+import '../controllers/quran/quran_controller.dart';
+import '../controllers/translate_controller.dart';
 import 'ayahs/share_copy_widget.dart';
 import 'change_tafsir.dart';
 
@@ -22,19 +26,22 @@ class ShowTafseer extends StatelessWidget {
       : super(key: key);
 
   final ScrollController _scrollController = ScrollController();
-  final quranCtrl = sl<QuranController>();
-  final generalCtrl = sl<GeneralController>();
+  final quranCtrl = QuranController.instance;
+  final generalCtrl = GeneralController.instance;
 
   // final ayatCtrl = sl<AyatController>();
 
   @override
   Widget build(BuildContext context) {
-    final size = MediaQuery.sizeOf(context);
+    final pageAyahs =
+        quranCtrl.getPageAyahsByIndex(quranCtrl.state.currentPageNumber.value);
+    final selectedAyahIndexInFullPage =
+        pageAyahs.indexWhere((ayah) => ayah.ayahUQNumber == ayahUQNumber);
     return Container(
-      height: size.height * .9,
-      width: size.width,
+      height: Get.height * .9,
+      width: Get.width,
       decoration: BoxDecoration(
-          color: Theme.of(context).colorScheme.background,
+          color: Theme.of(context).colorScheme.primaryContainer,
           borderRadius: const BorderRadius.only(
             topLeft: Radius.circular(8),
             topRight: Radius.circular(8),
@@ -53,7 +60,10 @@ class ShowTafseer extends StatelessWidget {
                     children: [
                       context.customClose(),
                       const Gap(32),
-                      tafseer_icon(height: 30.0),
+                      customSvg(
+                        SvgPath.svgTafseer,
+                        height: 30,
+                      ),
                     ],
                   ),
                   Row(
@@ -63,28 +73,20 @@ class ShowTafseer extends StatelessWidget {
                       context.vDivider(height: 20.0),
                       Transform.translate(
                           offset: const Offset(0, 5),
-                          child: context.fontSizeDropDown(height: 25.0)),
+                          child: fontSizeDropDown(height: 25.0)),
                     ],
                   ),
                 ],
               ),
               Flexible(
                 flex: 4,
-                child: Obx(() => PageView.builder(
-                    controller: PageController(initialPage: (index).toInt()),
-                    itemCount: quranCtrl
-                        .getCurrentPageAyahs(
-                            generalCtrl.currentPageNumber.value)
-                        .length,
+                child: PageView.builder(
+                    controller: PageController(
+                        initialPage: (selectedAyahIndexInFullPage).toInt()),
+                    itemCount: pageAyahs.length,
                     itemBuilder: (context, index) {
-                      final ayahs = quranCtrl.getCurrentPageAyahs(
-                          generalCtrl.currentPageNumber.value)[index];
-                      int ayahIndex = quranCtrl
-                              .getCurrentPageAyahs(
-                                  generalCtrl.currentPageNumber.value)
-                              .first
-                              .ayahUQNumber +
-                          index;
+                      final ayahs = pageAyahs[index];
+                      int ayahIndex = pageAyahs.first.ayahUQNumber + index;
                       return GetX<AyatController>(
                         builder: (ayatCtrl) {
                           return FutureBuilder(
@@ -131,8 +133,37 @@ class ShowTafseer extends StatelessWidget {
                                                             .inversePrimary,
                                                       ),
                                                     ),
-                                                    const WidgetSpan(
-                                                      child: ShareCopyWidget(),
+                                                    WidgetSpan(
+                                                      child: ShareCopyWidget(
+                                                        ayahNumber:
+                                                            ayahs.ayahNumber,
+                                                        ayahText: ayahs.text,
+                                                        ayahTextNormal: ayahs
+                                                            .aya_text_emlaey,
+                                                        ayahUQNumber: ayahIndex,
+                                                        surahName: quranCtrl
+                                                            .getSurahDataByAyahUQ(
+                                                                ayahIndex)
+                                                            .arabicName,
+                                                        surahNumber: quranCtrl
+                                                            .getSurahDataByAyahUQ(
+                                                                ayahIndex)
+                                                            .surahNumber,
+                                                        tafsirName: tafsirName[
+                                                            ayatCtrl.radioValue
+                                                                .value]['name'],
+                                                        tafsir: ayatCtrl
+                                                                .isTafseer.value
+                                                            ? ayatCtrl
+                                                                .selectedTafsir!
+                                                                .text
+                                                            : sl<TranslateDataController>()
+                                                                    .data[ayatCtrl
+                                                                        .ayahUQNumber
+                                                                        .value -
+                                                                    1]['text'] ??
+                                                                '',
+                                                      ),
                                                     ),
                                                     ayatCtrl.isTafseer.value
                                                         ? TextSpan(
@@ -146,10 +177,11 @@ class ShowTafseer extends StatelessWidget {
                                                                     .colorScheme
                                                                     .inversePrimary,
                                                                 height: 1.5,
-                                                                fontSize: sl<
-                                                                        GeneralController>()
-                                                                    .fontSizeArabic
-                                                                    .value),
+                                                                fontSize:
+                                                                    generalCtrl
+                                                                        .state
+                                                                        .fontSizeArabic
+                                                                        .value),
                                                           )
                                                         : TextSpan(
                                                             text: sl<TranslateDataController>()
@@ -164,10 +196,11 @@ class ShowTafseer extends StatelessWidget {
                                                                     .colorScheme
                                                                     .inversePrimary,
                                                                 height: 1.5,
-                                                                fontSize: sl<
-                                                                        GeneralController>()
-                                                                    .fontSizeArabic
-                                                                    .value),
+                                                                fontSize:
+                                                                    generalCtrl
+                                                                        .state
+                                                                        .fontSizeArabic
+                                                                        .value),
                                                           ),
                                                     WidgetSpan(
                                                       child: Center(
@@ -216,7 +249,7 @@ class ShowTafseer extends StatelessWidget {
                               });
                         },
                       );
-                    })),
+                    }),
               ),
             ],
           ),
@@ -238,9 +271,7 @@ void handleSelectionChanged(
     final end = characters.take(selection.end).length;
     final selectedText = allText.substring(start - 5, end - 5);
 
-    // setState(() {
     selectedTextED = selectedText;
-    // });
     print(selectedText);
   }
 }

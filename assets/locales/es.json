@@ -768,46 +768,6 @@
     "type": "text",
     "placeholders": {}
   },
-  "What'sNewDetails": "La aplicación ha sido diseñada con una interfaz de usuario moderna e intuitiva que facilita a los usuarios la navegación y el acceso a diferentes características.",
-  "@What'sNewDetails": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "What'sNewTitle2": "Selección de versículos:",
-  "@What'sNewTitle2": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "What'sNewDetails2": "Mantén presionado el versículo para mostrar:\n\n۞ Interpretación o traducción del versículo.\n۞ Escuchar el versículo.\n۞ Añadir el versículo a los marcadores.\n۞ Copiar el versículo.\n۞ Compartir el versículo como texto o imagen.",
-  "@What'sNewDetails2": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "What'sNewTitle3": "Característica de búsqueda textual:",
-  "@What'sNewTitle3": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "What'sNewDetails3": "La aplicación contiene una función de búsqueda instantánea en los versículos del Corán, con la capacidad de moverse directamente a la página o Surah deseada.",
-  "@What'sNewDetails3": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "What'sNewTitle4": "Interpretación y traducción de versículos:",
-  "@What'sNewTitle4": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "What'sNewDetails4": "Los usuarios pueden acceder a la interpretación o traducción de cada versículo, y cambiar entre interpretaciones según lo deseen.",
-  "@What'sNewDetails4": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "What'sNewTitle5": "Añadiendo más recitadores:",
-  "@What'sNewTitle5": {
-    "type": "text",
-    "placeholders": {}
-  },
   "ourApps": "Nuestras Aplicaciones",
   "@ourApps": {
     "type": "text",
@@ -835,16 +795,6 @@
   },
   "darkMode": "Oscuro",
   "@darkMode": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "What'sNewDetails6": "۞ Añadir Juz' a las páginas\n۞ Añadir Sajdah a las páginas",
-  "@What'sNewDetails6": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "What'sNewDetails7": "۞ Aumentar y disminuir el tamaño de la fuente.",
-  "@What'sNewDetails7": {
     "type": "text",
     "placeholders": {}
   },
@@ -938,13 +888,13 @@
     "type": "text",
     "placeholders": {}
   },
-  "Dhu al-Qi'dah": "Dhu al-Qi'dah",
-  "@Dhu al-Qi'dah": {
+  "Dhu Al-Qi'dah": "Dhu al-Qi'dah",
+  "@Dhu Al-Qi'dah": {
     "type": "text",
     "placeholders": {}
   },
-  "Dhu al-Hijjah": "Dhu al-Hijjah",
-  "@Dhu al-Hijjah": {
+  "Dhu Al-Hijjah": "Dhu al-Hijjah",
+  "@Dhu Al-Hijjah": {
     "type": "text",
     "placeholders": {}
   },
@@ -965,21 +915,6 @@
   },
   "AH": "AH",
   "@AH": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "What'sNewDetails8": "Un nuevo verso cada día con su interpretación",
-  "@What'sNewDetails8": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "What'sNewDetails9": "Fechas de las ocasiones islámicas",
-  "@What'sNewDetails9": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "What'sNewTitle8": "Un verso y su interpretación",
-  "@What'sNewTitle8": {
     "type": "text",
     "placeholders": {}
   },
@@ -1020,6 +955,231 @@
   },
   "Middle of the Night": "Medianoche",
   "@Middle of the Night": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "tafsirLibrary": "Biblioteca de Tafsir",
+  "@tafsirLibrary": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "allBooks": "Todos los libros",
+  "@allBooks": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "myLibrary": "Mi biblioteca",
+  "@myLibrary": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "bookmark": "Marcadores",
+  "@bookmark": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "chapterBook": "Capítulos del libro",
+  "@chapterBook": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "aboutBook": "Acerca del libro",
+  "@aboutBook": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "khatmah": "Khatmah",
+  "@khatmah": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "createKhatmah": "Crear la Khatmah",
+  "@createKhatmah": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "khatmahName": "Nombre de la Khatmah",
+  "@khatmahName": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "addKhatmah": "Añadir una Khatmah",
+  "@addKhatmah": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "duration": "Duración",
+  "@duration": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "divisionBySahabah": "División por los Sahabah",
+  "@divisionBySahabah": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "choiceColor": "Elegir el color",
+  "@choiceColor": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "searchInBooks": "Buscar en los libros",
+  "@searchInBooks": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "hasPassed": "Ha pasado",
+  "@hasPassed": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "downloading": "Descargando...",
+  "@downloading": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "startHijriYear": "Inicio del Año Hijri",
+  "@startHijriYear": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "reminderToFastTasoo'a": "Recordatorio del Ayuno de Tasu'a",
+  "@reminderToFastTasoo'a": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "reminderToFastAshura": "Recordatorio del Ayuno de Ashura",
+  "@reminderToFastAshura": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "ramadhan": "Mes de Ramadán",
+  "@ramadhan": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "nightOfQadir": "Recordatorio de la Noche del Decreto",
+  "@nightOfQadir": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "EidAl-Fitr": "Eid al-Fitr",
+  "@EidAl-Fitr": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "sexShawwal": "Recordatorio del Ayuno de los Seis Días de Shawwal",
+  "@sexShawwal": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "arafahReminder": "Recordatorio del Ayuno del Día de Arafá",
+  "@arafahReminder": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "tenDaysOfDhul-Hijjah": "Los Primeros Diez Días de Dhul Hijjah",
+  "@tenDaysOfDhul-Hijjah": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "EidAl-Adha": "Eid al-Adha",
+  "@EidAl-Adha": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "choiceBackgroundColor": "Elegir color de fondo",
+  "@choiceBackgroundColor": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "reset": "Restablecer",
+  "@reset": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Medinan": "Medina",
+  "@Medinan": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Meccan": "Meca",
+  "@Meccan": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "surahNames": "Nombres de la sura",
+  "@surahNames": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "aboutSurah": "Acerca de la sura",
+  "@aboutSurah": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "notification": "Notificaciones",
+  "@notification": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "noNotifications": "No hay notificaciones",
+  "@noNotifications": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "reminders": "Recordatorios",
+  "@reminders": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "customReminder": "Recordatorio personalizado",
+  "@customReminder": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "addMore": "Añadir más",
+  "@addMore": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "What'sNewDetails10": "۞ Añadiendo la Khatmah al Corán.\n۞ Añadiendo una función para descargar todos los versículos de una sura para que funcione sin internet.\n۞ Mejoras en la búsqueda del Corán.\n۞ Añadiendo la biblioteca de Tafsir.\n۞ Añadiendo una función de recordatorio para recitar Azkar donde puedes establecer un tiempo específico para la recitación.\n۞ Añadiendo notificaciones.\n۞ Y más adiciones y mejoras.",
+  "@What'sNewDetails10": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "chooseDhekr": "Elige el recuerdo.",
+  "@chooseDhekr": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "selectTime": "Establece un tiempo para la reflexión.",
+  "@selectTime": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "downloadBookFirst": "Por favor, descargue el libro primero.",
+  "@downloadBookFirst": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "lastDayOf": "El último día del mes de",
+  "@lastDayOf": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "booksDownloaded": "El libro ha sido descargado.",
+  "@booksDownloaded": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "booksDeleted": "El libro ha sido eliminado.",
+  "@booksDeleted": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "noBooksDownloaded": "No has descargado ningún libro todavía.",
+  "@noBooksDownloaded": {
     "type": "text",
     "placeholders": {}
   }

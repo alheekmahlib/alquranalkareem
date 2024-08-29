@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 
-import '../../presentation/controllers/general_controller.dart';
-import '../services/services_locator.dart';
+import '/presentation/controllers/general/extensions/general_ui.dart';
+import '../../presentation/controllers/general/general_controller.dart';
 import '../utils/constants/lists.dart';
 
 class SelectScreen extends StatelessWidget {
@@ -11,7 +11,7 @@ class SelectScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final generalCtrl = sl<GeneralController>();
+    final generalCtrl = GeneralController.instance;
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16.0),
       child: Column(
@@ -49,7 +49,7 @@ class SelectScreen extends StatelessWidget {
                       Expanded(
                         flex: 9,
                         child: Text(
-                          '${screensList[generalCtrl.screenSelectedValue.value]['name']}'
+                          '${screensList[generalCtrl.state.screenSelectedValue.value]['name']}'
                               .tr,
                           style: TextStyle(
                             fontFamily: 'kufi',

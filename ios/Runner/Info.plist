@@ -2,6 +2,11 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>BGTaskSchedulerPermittedIdentifiers</key>
+	<array>
+		<string>com.transistorsoft.fetch</string>
+		<string>com.transistorsoft.fetchNotifications</string>
+	</array>
 	<key>CADisableMinimumFrameDurationOnPhone</key>
 	<true/>
 	<key>CFBundleDevelopmentRegion</key>
@@ -35,8 +40,6 @@
 	<array>
 		<string>_dartobservatory._tcp</string>
 	</array>
-	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>This app needs access to location when open.</string>
 	<key>NSMicrophoneUsageDescription</key>
 	<string>Our app uses the microphone to allow voice chatting during gameplay.</string>
 	<key>NSPhotoLibraryAddUsageDescription</key>
@@ -57,6 +60,7 @@
 	<key>UIBackgroundModes</key>
 	<array>
 		<string>audio</string>
+		<string>fetch</string>
 		<string>processing</string>
 	</array>
 	<key>UILaunchStoryboardName</key>
@@ -78,20 +82,5 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
-
-	<key>UIBackgroundModes</key>
-    <array>
-    	<string>processing</string>
-
-    	<!-- If you need periodic tasks in iOS 13+ you need to enable Background Fetch as well -->
-    	<string>fetch</string>
-    </array>
-    <key>BGTaskSchedulerPermittedIdentifiers</key>
-    <array>
-    	<string>task-identifier</string>
-
-    	<!-- Register a periodic task in iOS 13+ -->
-    	<string>be.tramckrijte.workmanagerExample.iOSBackgroundAppRefresh</string>
-    </array>
 </dict>
 </plist>

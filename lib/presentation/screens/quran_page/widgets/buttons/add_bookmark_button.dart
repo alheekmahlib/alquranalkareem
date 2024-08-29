@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../../../../core/services/services_locator.dart';
-import '../../../../../core/utils/constants/svg_picture.dart';
-import '../../../../controllers/audio_controller.dart';
-import '../../../../controllers/bookmarks_controller.dart';
-import '../../../../controllers/general_controller.dart';
 import '/core/utils/constants/extensions/custom_error_snackBar.dart';
+import '/core/utils/constants/extensions/svg_extensions.dart';
+import '/presentation/screens/quran_page/controllers/extensions/audio_ui.dart';
+import '../../../../../core/services/services_locator.dart';
+import '../../../../../core/utils/constants/svg_constants.dart';
+import '../../../../controllers/general/general_controller.dart';
+import '../../controllers/audio/audio_controller.dart';
+import '../../controllers/bookmarks_controller.dart';
 
 class AddBookmarkButton extends StatelessWidget {
   final int surahNum;
@@ -35,8 +37,14 @@ class AddBookmarkButton extends StatelessWidget {
             label: 'Add Bookmark',
             child:
                 sl<BookmarksController>().hasBookmark(surahNum, ayahUQNum).value
-                    ? bookmark_icon2(height: 20.0)
-                    : bookmark_icon(height: 20.0),
+                    ? customSvg(
+                        SvgPath.svgBookmarkIcon2,
+                        height: 20,
+                      )
+                    : customSvg(
+                        SvgPath.svgBookmarkIcon,
+                        height: 20,
+                      ),
           )),
       onTap: () async {
         if (sl<BookmarksController>().hasBookmark(surahNum, ayahUQNum).value) {
@@ -45,7 +53,7 @@ class AddBookmarkButton extends StatelessWidget {
         } else {
           sl<BookmarksController>()
               .addBookmarkText(surahName, surahNum, pageIndex + 1, ayahNum,
-                  ayahUQNum, sl<GeneralController>().timeNow.dateNow)
+                  ayahUQNum, sl<GeneralController>().state.timeNow.dateNow)
               .then(
                   (value) => context.showCustomErrorSnackBar('addBookmark'.tr));
           // sl<QuranController>().clearSelection();

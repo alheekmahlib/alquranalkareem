@@ -1,10 +1,12 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 
 import '../../../../../core/services/services_locator.dart';
-import '../../../../../core/utils/constants/extensions/surah_name_with_banner.dart';
-import '../../../../controllers/bookmarks_controller.dart';
+import '../../../../../core/utils/constants/svg_constants.dart';
+import '../../controllers/bookmarks_controller.dart';
+import '../../extensions/surah_name_with_banner.dart';
 
 TextSpan span({
   required String text,
@@ -37,10 +39,10 @@ TextSpan span({
         style: TextStyle(
           fontFamily: 'page${pageIndex + 1}',
           fontSize: fontSize,
-          height: 1.8,
-          letterSpacing: 30,
+          height: 2,
+          letterSpacing: quranCtrl.state.isPages.value == 1 ? 10 : 30,
           color: Get.theme.colorScheme.inversePrimary,
-          backgroundColor: quranCtrl.isPages.value == 1
+          backgroundColor: quranCtrl.state.isPages.value == 1
               ? Colors.transparent
               : sl<BookmarksController>().hasBookmark(surahNum, ayahNum).value
                   ? const Color(0xffCD9974).withOpacity(.4)
@@ -57,11 +59,11 @@ TextSpan span({
         style: TextStyle(
           fontFamily: 'page${pageIndex + 1}',
           fontSize: fontSize,
-          height: 1.8,
+          height: 2,
           letterSpacing: 5,
           // wordSpacing: wordSpacing + 10,
           color: Get.theme.colorScheme.inversePrimary,
-          backgroundColor: quranCtrl.isPages.value == 1
+          backgroundColor: quranCtrl.state.isPages.value == 1
               ? Colors.transparent
               : sl<BookmarksController>().hasBookmark(surahNum, ayahNum).value
                   ? const Color(0xffCD9974).withOpacity(.4)
@@ -80,10 +82,10 @@ TextSpan span({
       style: TextStyle(
         fontFamily: 'page${pageIndex + 1}',
         fontSize: fontSize,
-        height: 1.8,
+        height: 2,
         letterSpacing: 5,
         color: Get.theme.colorScheme.inversePrimary,
-        backgroundColor: quranCtrl.isPages.value == 1
+        backgroundColor: quranCtrl.state.isPages.value == 1
             ? Colors.transparent
             : sl<BookmarksController>().hasBookmark(surahNum, ayahNum).value
                 ? const Color(0xffCD9974).withOpacity(.4)
@@ -96,28 +98,43 @@ TextSpan span({
         ..onLongPressStart = onLongPressStart,
     );
 
-    final TextSpan lastCharacterSpan = TextSpan(
-      text: lastCharacter,
-      style: TextStyle(
-        fontFamily: 'page${pageIndex + 1}',
-        fontSize: fontSize,
-        height: 1.8,
-        letterSpacing: 5,
-        color: sl<BookmarksController>().hasBookmark(surahNum, ayahNum).value
-            ? Get.theme.colorScheme.inversePrimary
-            : const Color(0xff77554B),
-        backgroundColor: quranCtrl.isPages.value == 1
-            ? Colors.transparent
-            : sl<BookmarksController>().hasBookmark(surahNum, ayahNum).value
-                ? const Color(0xffCD9974).withOpacity(.4)
-                : isSelected
-                    ? Get.theme.highlightColor
-                    : Colors.transparent,
-      ),
-      recognizer: LongPressGestureRecognizer(
-          duration: const Duration(milliseconds: 500))
-        ..onLongPressStart = onLongPressStart,
-    );
+    var lastCharacterSpan =
+        sl<BookmarksController>().hasBookmark(surahNum, ayahNum).value
+            ? WidgetSpan(
+                child: Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 8.0, vertical: 30.0),
+                child: SvgPicture.asset(
+                  SvgPath.svgAyahBookmarked,
+                  height: 100,
+                ),
+              ))
+            : TextSpan(
+                text: lastCharacter,
+                style: TextStyle(
+                  fontFamily: 'page${pageIndex + 1}',
+                  fontSize: fontSize,
+                  height: 2,
+                  letterSpacing: 5,
+                  color: sl<BookmarksController>()
+                          .hasBookmark(surahNum, ayahNum)
+                          .value
+                      ? Get.theme.colorScheme.inversePrimary
+                      : const Color(0xff77554B),
+                  backgroundColor: quranCtrl.state.isPages.value == 1
+                      ? Colors.transparent
+                      : sl<BookmarksController>()
+                              .hasBookmark(surahNum, ayahNum)
+                              .value
+                          ? const Color(0xffCD9974).withOpacity(.4)
+                          : isSelected
+                              ? Get.theme.highlightColor
+                              : Colors.transparent,
+                ),
+                recognizer: LongPressGestureRecognizer(
+                    duration: const Duration(milliseconds: 500))
+                  ..onLongPressStart = onLongPressStart,
+              );
 
     return TextSpan(
       children: isFirstAyah
@@ -150,9 +167,9 @@ TextSpan customSpan({
           style: TextStyle(
             fontFamily: 'uthmanic2',
             fontSize: fontSize,
-            height: 1.8,
+            height: 2,
             color: Get.theme.colorScheme.inversePrimary,
-            backgroundColor: quranCtrl.isPages.value == 1
+            backgroundColor: quranCtrl.state.isPages.value == 1
                 ? Colors.transparent
                 : sl<BookmarksController>().hasBookmark(surahNum, ayahNum).value
                     ? const Color(0xffCD9974).withOpacity(.4)
@@ -164,28 +181,41 @@ TextSpan customSpan({
               duration: const Duration(milliseconds: 500))
             ..onLongPressStart = onLongPressStart,
         ),
-        TextSpan(
-          text: ayahNumber.toString(),
-          style: TextStyle(
-            fontFamily: 'uthmanic2',
-            fontSize: fontSize,
-            height: 1.8,
-            color:
-                sl<BookmarksController>().hasBookmark(surahNum, ayahNum).value
-                    ? Get.theme.colorScheme.inversePrimary
-                    : const Color(0xff77554B),
-            backgroundColor: quranCtrl.isPages.value == 1
-                ? Colors.transparent
-                : sl<BookmarksController>().hasBookmark(surahNum, ayahNum).value
-                    ? const Color(0xffCD9974).withOpacity(.4)
-                    : isSelected
-                        ? Get.theme.highlightColor
-                        : Colors.transparent,
-          ),
-          recognizer: LongPressGestureRecognizer(
-              duration: const Duration(milliseconds: 500))
-            ..onLongPressStart = onLongPressStart,
-        ),
+        sl<BookmarksController>().hasBookmark(surahNum, ayahNum).value
+            ? WidgetSpan(
+                child: Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 8.0, vertical: 15.0),
+                child: SvgPicture.asset(
+                  SvgPath.svgAyahBookmarked,
+                  height: 35,
+                ),
+              ))
+            : TextSpan(
+                text: ayahNumber.toString(),
+                style: TextStyle(
+                  fontFamily: 'uthmanic2',
+                  fontSize: fontSize,
+                  height: 2,
+                  color: sl<BookmarksController>()
+                          .hasBookmark(surahNum, ayahNum)
+                          .value
+                      ? Get.theme.colorScheme.inversePrimary
+                      : const Color(0xff77554B),
+                  backgroundColor: quranCtrl.state.isPages.value == 1
+                      ? Colors.transparent
+                      : sl<BookmarksController>()
+                              .hasBookmark(surahNum, ayahNum)
+                              .value
+                          ? const Color(0xffCD9974).withOpacity(.4)
+                          : isSelected
+                              ? Get.theme.highlightColor
+                              : Colors.transparent,
+                ),
+                recognizer: LongPressGestureRecognizer(
+                    duration: const Duration(milliseconds: 500))
+                  ..onLongPressStart = onLongPressStart,
+              ),
       ],
       recognizer: LongPressGestureRecognizer(
           duration: const Duration(milliseconds: 500))

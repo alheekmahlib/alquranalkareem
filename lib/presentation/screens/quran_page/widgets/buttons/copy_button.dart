@@ -2,11 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 
-import '../../../../../core/services/services_locator.dart';
-import '../../../../../core/utils/constants/svg_picture.dart';
-import '../../../../controllers/general_controller.dart';
-import '../../../../controllers/quran_controller.dart';
 import '/core/utils/constants/extensions/custom_error_snackBar.dart';
+import '/core/utils/constants/extensions/svg_extensions.dart';
+import '../../../../../core/services/services_locator.dart';
+import '../../../../../core/utils/constants/svg_constants.dart';
+import '../../../../controllers/general/general_controller.dart';
+import '../../controllers/quran/quran_controller.dart';
 
 class CopyButton extends StatelessWidget {
   final int ayahNum;
@@ -27,15 +28,18 @@ class CopyButton extends StatelessWidget {
         button: true,
         enabled: true,
         label: 'Copy Ayah',
-        child: copy_icon(height: 20.0),
+        child: customSvg(
+          SvgPath.svgCopyIcon,
+          height: 20,
+        ),
       ),
       onTap: () async {
         await Clipboard.setData(ClipboardData(
                 text:
-                    '﴿${ayahTextNormal}﴾ [$surahName-${sl<GeneralController>().arabicNumber.convert(ayahNum)}]'))
+                    '﴿${ayahTextNormal}﴾ [$surahName-${sl<GeneralController>().state.arabicNumber.convert(ayahNum)}]'))
             .then((value) => context.showCustomErrorSnackBar('copyAyah'.tr));
         cancel!();
-        sl<QuranController>().selectedAyahIndexes.clear();
+        sl<QuranController>().state.selectedAyahIndexes.clear();
       },
     );
   }

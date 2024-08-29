@@ -3,26 +3,31 @@ import 'package:flutter_svg/svg.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 
-import '../../../../core/services/services_locator.dart';
-import '../../../../core/utils/constants/extensions/extensions.dart';
-import '../../../../core/utils/constants/lottie.dart';
-import '../../../../core/utils/constants/lottie_constants.dart';
-import '../../../controllers/general_controller.dart';
-import '../../../controllers/quran_controller.dart';
+import '/core/utils/constants/extensions/alignment_rotated_extension.dart';
+import '/core/utils/constants/extensions/convert_number_extension.dart';
+import '/core/utils/constants/extensions/extensions.dart';
+import '/core/utils/constants/lottie.dart';
+import '/core/utils/constants/lottie_constants.dart';
+import '/presentation/screens/quran_page/controllers/extensions/quran_ui.dart';
+import '../../../../core/widgets/occasions/controller/event_controller.dart';
+import '../../../controllers/general/general_controller.dart';
+import '../../quran_page/controllers/quran/quran_controller.dart';
 import '../../quran_page/screens/quran_home.dart';
 
 class LastRead extends StatelessWidget {
-  const LastRead({super.key});
+  LastRead({super.key});
+
+  final countdownCtrl = EventController.instance;
+  final generalCtrl = GeneralController.instance;
+  final quranCtrl = QuranController.instance;
 
   @override
   Widget build(BuildContext context) {
-    final generalCtrl = sl<GeneralController>();
-    final quranCtrl = sl<QuranController>();
     return GestureDetector(
       onTap: () {
         Get.to(() => QuranHome(), transition: Transition.downToUp)!.then(
-            (value) => quranCtrl
-                .changeSurahListOnTap(generalCtrl.currentPageNumber.value + 1));
+            (value) => quranCtrl.changeSurahListOnTap(
+                quranCtrl.state.currentPageNumber.value + 1));
       },
       child: Container(
         height: 125,
@@ -61,7 +66,7 @@ class LastRead extends StatelessWidget {
                     //   foregrondColor:
                     //       Theme.of(context).colorScheme.surface.withOpacity(.5),
                     //   ratio: generalCtrl.calculateProgress(
-                    //       generalCtrl.currentPageNumber.value, 604),
+                    //       quranCtrl.state.currentPageNumber.value, 604),
                     //   direction: Axis.horizontal,
                     //   reverseAlignment: true,
                     //   curve: Curves.fastLinearToSlowEaseIn,
@@ -70,8 +75,8 @@ class LastRead extends StatelessWidget {
                     // ),
                     Container(
                       height: 70,
-                      width: generalCtrl.calculateProgress(
-                          generalCtrl.currentPageNumber.value, 604),
+                      width: countdownCtrl.calculateProgress(
+                          quranCtrl.state.currentPageNumber.value, 604),
                       padding: const EdgeInsets.symmetric(horizontal: 8.0),
                       decoration: BoxDecoration(
                           color: Theme.of(context)
@@ -89,7 +94,7 @@ class LastRead extends StatelessWidget {
                             Expanded(
                               flex: 4,
                               child: SvgPicture.asset(
-                                'assets/svg/surah_name/00${generalCtrl.lastReadSurahNumber.value}.svg',
+                                'assets/svg/surah_name/00${quranCtrl.state.lastReadSurahNumber.value}.svg',
                                 height: 60,
                                 colorFilter: ColorFilter.mode(
                                     Theme.of(context).cardColor,
@@ -103,23 +108,20 @@ class LastRead extends StatelessWidget {
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
                                 children: [
-                                  SizedBox(
-                                    width: 120,
-                                    child: FittedBox(
-                                      fit: BoxFit.scaleDown,
-                                      child: Text(
-                                        '${'pageNo'.tr}: ${generalCtrl.convertNumbers(generalCtrl.currentPageNumber.value.toString())}',
-                                        style: TextStyle(
-                                            fontSize: 18.0,
-                                            fontFamily: 'naskh',
-                                            fontWeight: FontWeight.w500,
-                                            color: Theme.of(context).hintColor,
-                                            height: 1.5),
-                                        maxLines: 1,
-                                        overflow: TextOverflow.ellipsis,
-                                        textAlign: TextAlign.center,
-                                        textDirection: TextDirection.rtl,
-                                      ),
+                                  FittedBox(
+                                    fit: BoxFit.scaleDown,
+                                    child: Text(
+                                      '${'pageNo'.tr}: ${quranCtrl.state.currentPageNumber.value.toString().convertNumbers()}',
+                                      style: TextStyle(
+                                          fontSize: 18.0,
+                                          fontFamily: 'naskh',
+                                          fontWeight: FontWeight.w500,
+                                          color: Theme.of(context).hintColor,
+                                          height: 1.5),
+                                      maxLines: 1,
+                                      overflow: TextOverflow.ellipsis,
+                                      textAlign: TextAlign.center,
+                                      textDirection: TextDirection.rtl,
                                     ),
                                   ),
                                   Stack(
@@ -136,7 +138,7 @@ class LastRead extends StatelessWidget {
                                                 const BorderRadius.all(
                                                     Radius.circular(8))),
                                       ),
-                                      generalCtrl.checkRtlLayout(
+                                      alignmentLayout(
                                           RotatedBox(
                                               quarterTurns: 15,
                                               child: customLottie(

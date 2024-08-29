@@ -1,26 +1,33 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../services/services_locator.dart';
-import '../utils/constants/svg_picture.dart';
-import '/presentation/controllers/general_controller.dart';
-import '/presentation/controllers/quran_controller.dart';
+import '/core/utils/constants/extensions/svg_extensions.dart';
+import '/core/utils/constants/svg_constants.dart';
 import '/presentation/screens/home/home_screen.dart';
+import '../../presentation/controllers/general/general_controller.dart';
+import '../../presentation/screens/quran_page/controllers/quran/quran_controller.dart';
+import '../services/services_locator.dart';
+import 'local_notification/notification_screen.dart';
+import 'local_notification/widgets/notification_icon_widget.dart';
 import 'settings_list.dart';
 
 class TabBarWidget extends StatelessWidget {
   final bool isFirstChild;
   final bool isCenterChild;
   final Widget? centerChild;
+  final bool? isQuranSetting;
+  final bool isNotification;
   const TabBarWidget(
       {super.key,
       required this.isFirstChild,
       required this.isCenterChild,
-      this.centerChild});
+      this.centerChild,
+      this.isQuranSetting,
+      required this.isNotification});
 
   @override
   Widget build(BuildContext context) {
-    final generalCtrl = sl<GeneralController>();
+    final generalCtrl = GeneralController.instance;
     return Column(
       children: [
         Container(
@@ -29,7 +36,7 @@ class TabBarWidget extends StatelessWidget {
           color: Theme.of(context).colorScheme.primary,
         ),
         Transform.translate(
-          offset: const Offset(0, -1),
+          offset: const Offset(0, -2),
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -41,12 +48,18 @@ class TabBarWidget extends StatelessWidget {
                         onTap: () {
                           Get.offAll(() => const HomeScreen(),
                               transition: Transition.upToDown);
-                          sl<QuranController>().selectedAyahIndexes.clear();
+                          sl<QuranController>()
+                              .state
+                              .selectedAyahIndexes
+                              .clear();
                         },
                         child: Stack(
                           alignment: Alignment.center,
                           children: [
-                            button_curve(height: 45.0, width: 45.0),
+                            customSvgWithColor(SvgPath.svgButtonCurve,
+                                height: 45.0,
+                                width: 45.0,
+                                color: Get.theme.colorScheme.primary),
                             Container(
                                 padding: const EdgeInsets.all(4),
                                 margin: const EdgeInsets.only(bottom: 5),
@@ -58,11 +71,24 @@ class TabBarWidget extends StatelessWidget {
                                         color: Theme.of(context)
                                             .colorScheme
                                             .surface)),
-                                child: home(height: 25.0, width: 25.0)),
+                                child: customSvgWithColor(SvgPath.svgHome,
+                                    height: 25.0,
+                                    width: 25.0,
+                                    color: Get.theme.colorScheme.secondary)),
                           ],
                         ),
                       )
-                    : const SizedBox.shrink(),
+                    : isNotification
+                        ? GestureDetector(
+                            onTap: () => Get.bottomSheet(NotificationsScreen(),
+                                isScrollControlled: true),
+                            child: const NotificationIconWidget(
+                              isCurve: true,
+                              iconHeight: 25,
+                              padding: 4.0,
+                            ),
+                          )
+                        : const SizedBox.shrink(),
               ),
               Expanded(
                   flex: 7,
@@ -73,15 +99,20 @@ class TabBarWidget extends StatelessWidget {
                 child: GestureDetector(
                   onTap: () {
                     Get.bottomSheet(
-                      SettingsList(),
+                      SettingsList(
+                        isQuranSetting: isQuranSetting,
+                      ),
                       isScrollControlled: true,
                     );
-                    generalCtrl.showSelectScreenPage.value = false;
+                    generalCtrl.state.showSelectScreenPage.value = false;
                   },
                   child: Stack(
                     alignment: Alignment.center,
                     children: [
-                      button_curve(height: 45.0, width: 45.0),
+                      customSvgWithColor(SvgPath.svgButtonCurve,
+                          height: 45.0,
+                          width: 45.0,
+                          color: Get.theme.colorScheme.primary),
                       Container(
                           padding: const EdgeInsets.all(4),
                           margin: const EdgeInsets.only(bottom: 5),
@@ -92,7 +123,10 @@ class TabBarWidget extends StatelessWidget {
                                   width: 1,
                                   color:
                                       Theme.of(context).colorScheme.surface)),
-                          child: options(height: 25.0, width: 25.0)),
+                          child: customSvgWithColor(SvgPath.svgOptions,
+                              height: 25.0,
+                              width: 25.0,
+                              color: Get.theme.colorScheme.secondary)),
                     ],
                   ),
                 ),

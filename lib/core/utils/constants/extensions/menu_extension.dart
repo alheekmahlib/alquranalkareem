@@ -3,25 +3,25 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 
-import '../../../../presentation/controllers/quran_controller.dart';
-import '../../../../presentation/screens/quran_page/widgets/buttons/add_bookmark_button.dart';
-import '../../../../presentation/screens/quran_page/widgets/buttons/copy_button.dart';
-import '../../../../presentation/screens/quran_page/widgets/buttons/play_button.dart';
-import '../../../../presentation/screens/quran_page/widgets/buttons/tafsir_button.dart';
-import '../../../services/services_locator.dart';
-import '../../../widgets/share/share_ayah_options.dart';
+import '/core/services/services_locator.dart';
+import '/core/widgets/share/share_ayah_options.dart';
+import '/presentation/screens/quran_page/widgets/buttons/add_bookmark_button.dart';
+import '/presentation/screens/quran_page/widgets/buttons/copy_button.dart';
+import '/presentation/screens/quran_page/widgets/buttons/play_button.dart';
+import '/presentation/screens/quran_page/widgets/buttons/tafsir_button.dart';
+import '../../../../presentation/screens/quran_page/controllers/quran/quran_controller.dart';
 import 'extensions.dart';
 
 extension ContextMenuExtension on BuildContext {
   void showAyahMenu(int surahNum, int ayahNum, String ayahText, int pageIndex,
       String ayahTextNormal, int ayahUQNum, String surahName, int index,
       {dynamic details}) {
-    sl<QuranController>().selectedAyahIndexes.isNotEmpty
+    sl<QuranController>().state.selectedAyahIndexes.isNotEmpty
         ? BotToast.showAttachedWidget(
             target: details.globalPosition,
             verticalOffset: 30.0,
             horizontalOffset: 0.0,
-            preferDirection: sl<QuranController>().preferDirection,
+            preferDirection: sl<QuranController>().state.preferDirection,
             animationDuration: const Duration(microseconds: 700),
             animationReverseDuration: const Duration(microseconds: 700),
             attachedBuilder: (cancel) => Container(
@@ -33,7 +33,8 @@ extension ContextMenuExtension on BuildContext {
               ),
               child: Container(
                 decoration: BoxDecoration(
-                    color: Get.theme.colorScheme.background.withOpacity(.95),
+                    color:
+                        Get.theme.colorScheme.primaryContainer.withOpacity(.95),
                     borderRadius: const BorderRadius.all(Radius.circular(8)),
                     border: Border.all(
                         width: 2,
@@ -56,6 +57,16 @@ extension ContextMenuExtension on BuildContext {
                       ),
                       const Gap(6),
                       this.vDivider(height: 18.0),
+                      PlayButton(
+                        surahNum: surahNum,
+                        ayahNum: ayahNum,
+                        ayahUQNum: ayahUQNum,
+                        singleAyahOnly: true,
+                        cancel: cancel,
+                      ),
+                      const Gap(6),
+                      this.vDivider(height: 18.0),
+                      // full surah playButton
                       PlayButton(
                         surahNum: surahNum,
                         ayahNum: ayahNum,
@@ -86,11 +97,11 @@ extension ContextMenuExtension on BuildContext {
                       this.vDivider(height: 18.0),
                       const Gap(6),
                       ShareAyahOptions(
-                        verseNumber: ayahNum,
-                        verseUQNumber: ayahUQNum,
+                        ayahNumber: ayahNum,
+                        ayahUQNumber: ayahUQNum,
                         surahNumber: surahNum,
                         ayahTextNormal: ayahTextNormal,
-                        verseText: ayahTextNormal,
+                        ayahText: ayahTextNormal,
                         surahName: 'surahName',
                       ),
                     ],

@@ -1,18 +1,9 @@
 import 'dart:io';
 
-import 'package:another_xlider/another_xlider.dart';
-import 'package:another_xlider/models/handler.dart';
-import 'package:another_xlider/models/handler_animation.dart';
-import 'package:another_xlider/models/trackbar.dart';
+import 'package:alquranalkareem/core/utils/constants/svg_constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-
-import '../../../../presentation/controllers/general_controller.dart';
-import '../../../services/services_locator.dart';
-import '../shared_preferences_constants.dart';
-import '../svg_picture.dart';
 
 extension ContextExtensions on BuildContext {
   dynamic customOrientation(var n1, var n2) {
@@ -41,15 +32,45 @@ extension ContextExtensions on BuildContext {
     );
   }
 
-  Widget customClose({var close, double? height}) {
+  Widget customClose({var close, double? height, double? width}) {
     return Semantics(
       button: true,
       label: 'Close',
       child: GestureDetector(
         child: SvgPicture.asset(
-          'assets/svg/close.svg',
+          SvgPath.svgClose,
           height: height ?? 30,
-          width: 30,
+          width: width ?? 30,
+        ),
+        onTap: close ??
+            () {
+              Get.back();
+            },
+      ),
+    );
+  }
+
+  Widget customArrowDown(
+      {var close, double? height, double? width, bool? isBorder}) {
+    return Semantics(
+      button: true,
+      label: 'Close',
+      child: GestureDetector(
+        child: Container(
+          height: height ?? 35,
+          width: width ?? 35,
+          padding: const EdgeInsets.all(6.0),
+          decoration: isBorder!
+              ? BoxDecoration(
+                  borderRadius: const BorderRadius.all(Radius.circular(8)),
+                  border: Border.all(
+                    color: Theme.of(this).colorScheme.primary,
+                    width: 1,
+                  ))
+              : null,
+          child: SvgPicture.asset(
+            SvgPath.svgArrowDown,
+          ),
         ),
         onTap: close ??
             () {
@@ -75,70 +96,6 @@ extension ContextExtensions on BuildContext {
               Get.back();
             },
       ),
-    );
-  }
-
-  Widget fontSizeDropDown({double? height, Color? color}) {
-    return PopupMenuButton(
-      position: PopupMenuPosition.under,
-      icon: Semantics(
-        button: true,
-        enabled: true,
-        label: 'Change Font Size',
-        child: font_size(
-            height: height, color: color ?? Get.theme.colorScheme.surface),
-      ),
-      color: Get.theme.colorScheme.primary.withOpacity(.8),
-      iconSize: height ?? 35.0,
-      itemBuilder: (context) => [
-        PopupMenuItem(
-          child: Obx(
-            () => SizedBox(
-              height: 30,
-              width: MediaQuery.sizeOf(this).width,
-              child: FlutterSlider(
-                values: [sl<GeneralController>().fontSizeArabic.value],
-                max: 50,
-                min: 20,
-                rtl: true,
-                trackBar: FlutterSliderTrackBar(
-                  inactiveTrackBarHeight: 5,
-                  activeTrackBarHeight: 5,
-                  inactiveTrackBar: BoxDecoration(
-                    borderRadius: BorderRadius.circular(8),
-                    color: Get.theme.colorScheme.surface,
-                  ),
-                  activeTrackBar: BoxDecoration(
-                      borderRadius: BorderRadius.circular(4),
-                      color: Get.theme.colorScheme.background),
-                ),
-                handlerAnimation: const FlutterSliderHandlerAnimation(
-                    curve: Curves.elasticOut,
-                    reverseCurve: null,
-                    duration: Duration(milliseconds: 700),
-                    scale: 1.4),
-                onDragging: (handlerIndex, lowerValue, upperValue) async {
-                  lowerValue = lowerValue;
-                  upperValue = upperValue;
-                  sl<GeneralController>().fontSizeArabic.value = lowerValue;
-                  await sl<SharedPreferences>()
-                      .setDouble(FONT_SIZE, lowerValue);
-                },
-                handler: FlutterSliderHandler(
-                  decoration: const BoxDecoration(),
-                  child: Material(
-                    type: MaterialType.circle,
-                    color: Colors.transparent,
-                    elevation: 3,
-                    child: SvgPicture.asset('assets/svg/slider_ic.svg'),
-                  ),
-                ),
-              ),
-            ),
-          ),
-          height: 30,
-        ),
-      ],
     );
   }
 }

@@ -1,17 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:get_storage/get_storage.dart';
 
-import '../../core/services/services_locator.dart';
 import '../../core/utils/constants/shared_preferences_constants.dart';
 import '../../core/utils/helpers/app_themes.dart';
 
 enum AppTheme { blue, brown, old, dark }
 
 class ThemeController extends GetxController {
+  static ThemeController get instance => Get.isRegistered<ThemeController>()
+      ? Get.find<ThemeController>()
+      : Get.put<ThemeController>(ThemeController());
   AppTheme? initialTheme;
   ThemeData? initialThemeData;
   Rx<AppTheme> _currentTheme = AppTheme.blue.obs;
+  final box = GetStorage();
 
   @override
   void onInit() async {
@@ -40,8 +43,7 @@ class ThemeController extends GetxController {
   }
 
   Future<AppTheme> loadThemePreference() async {
-    String themeString = sl<SharedPreferences>().getString(SET_THEME) ??
-        AppTheme.blue.toString();
+    String themeString = box.read(SET_THEME) ?? AppTheme.blue.toString();
     return initialTheme = AppTheme.values.firstWhere(
       (e) => e.toString() == themeString,
       orElse: () => AppTheme.blue,
@@ -72,7 +74,7 @@ class ThemeController extends GetxController {
     Get.forceAppUpdate();
 
     // Save theme preference
-    sl<SharedPreferences>().setString(SET_THEME, theme.toString());
+    box.write(SET_THEME, theme.toString());
   }
 
   ThemeData get currentThemeData {

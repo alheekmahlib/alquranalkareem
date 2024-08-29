@@ -2,24 +2,27 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 
-import '../../../../../core/services/services_locator.dart';
-import '../../../../../core/utils/constants/extensions/extensions.dart';
-import '../../../../../core/widgets/seek_bar.dart';
-import '../../../../controllers/audio_controller.dart';
-import '../playlist/ayahs_playList_widget.dart';
-import '/core/utils/constants/svg_picture.dart';
-import '/presentation/controllers/general_controller.dart';
-import '/presentation/controllers/quran_controller.dart';
+import '/core/utils/constants/extensions/svg_extensions.dart';
+import '/presentation/controllers/general/extensions/general_ui.dart';
+import '/presentation/screens/quran_page/controllers/extensions/audio_getters.dart';
 import '/presentation/screens/quran_page/widgets/audio/skip_next.dart';
 import '/presentation/screens/quran_page/widgets/audio/skip_previous.dart';
+import '../../../../../core/services/services_locator.dart';
+import '../../../../../core/utils/constants/extensions/extensions.dart';
+import '../../../../../core/utils/constants/svg_constants.dart';
+import '../../../../../core/widgets/seek_bar.dart';
+import '../../../../controllers/general/general_controller.dart';
+import '../../controllers/audio/audio_controller.dart';
+import '../../controllers/quran/quran_controller.dart';
+import '../playlist/ayahs_playList_widget.dart';
 import 'change_reader.dart';
 import 'play_ayah_widget.dart';
 
 class AudioWidget extends StatelessWidget {
   AudioWidget({Key? key}) : super(key: key);
-  final quranCtrl = sl<QuranController>();
-  final audioCtrl = sl<AudioController>();
-  final generalCtrl = sl<GeneralController>();
+  final quranCtrl = QuranController.instance;
+  final audioCtrl = AudioController.instance;
+  final generalCtrl = GeneralController.instance;
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +31,7 @@ class AudioWidget extends StatelessWidget {
       child: Container(
           margin: const EdgeInsets.only(bottom: 24.0, right: 32.0, left: 32.0),
           decoration: BoxDecoration(
-              color: Theme.of(context).colorScheme.background,
+              color: Theme.of(context).colorScheme.primaryContainer,
               borderRadius: const BorderRadius.all(Radius.circular(8)),
               boxShadow: [
                 BoxShadow(
@@ -60,7 +63,10 @@ class AudioWidget extends StatelessWidget {
                             button: true,
                             enabled: true,
                             label: 'Playlist',
-                            child: playlist(height: 25.0),
+                            child: customSvg(
+                              SvgPath.svgPlaylist,
+                              height: 25,
+                            ),
                           ),
                           onTap: () {
                             Get.bottomSheet(AyahsPlayListWidget(),
@@ -72,10 +78,11 @@ class AudioWidget extends StatelessWidget {
                   ),
                 ),
                 secondChild: SizedBox(
-                    height: 150,
+                    height: 155,
                     width: generalCtrl.screenWidth(
                         MediaQuery.sizeOf(context).width * .64, 290),
                     child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
                         const Gap(11),
                         Padding(
@@ -83,10 +90,11 @@ class AudioWidget extends StatelessWidget {
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              context.customClose(
-                                height: 20,
-                                close: () =>
-                                    quranCtrl.isPlayExpanded.value = false,
+                              context.customArrowDown(
+                                height: 26,
+                                isBorder: false,
+                                close: () => quranCtrl
+                                    .state.isPlayExpanded.value = false,
                               ),
                               const ChangeReader(),
                               GestureDetector(
@@ -94,7 +102,10 @@ class AudioWidget extends StatelessWidget {
                                   button: true,
                                   enabled: true,
                                   label: 'Playlist',
-                                  child: playlist(height: 25.0),
+                                  child: customSvg(
+                                    SvgPath.svgPlaylist,
+                                    height: 25,
+                                  ),
                                 ),
                                 onTap: () {
                                   Get.bottomSheet(AyahsPlayListWidget(),
@@ -108,32 +119,53 @@ class AudioWidget extends StatelessWidget {
                         Directionality(
                           textDirection: TextDirection.rtl,
                           child: Container(
-                            height: 65,
+                            height: 67,
                             alignment: Alignment.center,
                             // width: 250,
-                            child: StreamBuilder<PositionData>(
-                              stream: audioCtrl.positionDataStream,
-                              builder: (context, snapshot) {
-                                if (snapshot.hasData) {
-                                  final positionData = snapshot.data;
-                                  return SliderWidget(
-                                    horizontalPadding: 0.0,
-                                    duration:
-                                        positionData?.duration ?? Duration.zero,
-                                    position:
-                                        positionData?.position ?? Duration.zero,
-                                    bufferedPosition:
-                                        positionData?.bufferedPosition ??
-                                            Duration.zero,
-                                    activeTrackColor:
-                                        Theme.of(context).colorScheme.primary,
-                                    onChangeEnd:
-                                        sl<AudioController>().audioPlayer.seek,
-                                  );
-                                }
-                                return const SizedBox.shrink();
-                              },
-                            ),
+                            child: GetBuilder<AudioController>(
+                                id: 'audio_seekBar_id',
+                                builder: (c) => c.state.downloading.value
+                                    ? GetX<AudioController>(builder: (c) {
+                                        final data = c.state
+                                            .tmpDownloadedAyahsCount.value;
+                                        debugPrint(
+                                            '$data => REBUILDING  ${audioCtrl.state.tmpDownloadedAyahsCount}');
+                                        return SliderWidget.downloading(
+                                            currentPosition: data,
+                                            filesCount: audioCtrl
+                                                .selectedSurahAyahsFileNames
+                                                .length,
+                                            horizontalPadding: 0);
+                                      })
+                                    : StreamBuilder<PositionData>(
+                                        stream: audioCtrl.positionDataStream,
+                                        builder: (context, snapshot) {
+                                          if (snapshot.hasData) {
+                                            final positionData = snapshot.data;
+                                            return SliderWidget.player(
+                                              horizontalPadding: 0.0,
+                                              duration:
+                                                  positionData?.duration ??
+                                                      Duration.zero,
+                                              position:
+                                                  positionData?.position ??
+                                                      Duration.zero,
+                                              // bufferedPosition:
+                                              //     positionData?.bufferedPosition ??
+                                              //         Duration.zero,
+                                              activeTrackColor:
+                                                  Theme.of(context)
+                                                      .colorScheme
+                                                      .primary,
+                                              onChangeEnd: sl<AudioController>()
+                                                  .state
+                                                  .audioPlayer
+                                                  .seek,
+                                            );
+                                          }
+                                          return const SizedBox.shrink();
+                                        },
+                                      )),
                           ),
                         ),
                         Padding(
@@ -149,7 +181,7 @@ class AudioWidget extends StatelessWidget {
                         ),
                       ],
                     )),
-                crossFadeState: quranCtrl.isPlayExpanded.value
+                crossFadeState: quranCtrl.state.isPlayExpanded.value
                     ? CrossFadeState.showSecond
                     : CrossFadeState.showFirst,
               ))),

@@ -4,8 +4,9 @@ class ContainerButton extends StatelessWidget {
   final double? height;
   final double? width;
   final Widget child;
+  final Color? color;
   const ContainerButton(
-      {super.key, this.height, this.width, required this.child});
+      {super.key, this.height, this.width, required this.child, this.color});
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +16,7 @@ class ContainerButton extends StatelessWidget {
       margin: const EdgeInsets.all(8),
       alignment: Alignment.center,
       decoration: BoxDecoration(
-          color: Theme.of(context).colorScheme.primary,
+          color: color ?? Theme.of(context).colorScheme.primary,
           borderRadius: const BorderRadius.all(Radius.circular(8)),
           boxShadow: [
             BoxShadow(

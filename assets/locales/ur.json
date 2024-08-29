@@ -760,46 +760,6 @@
     "type": "text",
     "placeholders": {}
   },
-  "What'sNewDetails": "ایپ کو جدید اور بدیہی صارف انٹرفیس کے ساتھ ڈیزائن کیا گیا ہے جو صارفین کو مختلف خصوصیات تک رسائی اور نیویگیشن آسان بناتا ہے۔",
-  "@What'sNewDetails": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "What'sNewTitle2": "آیات کا انتخاب:",
-  "@What'sNewTitle2": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "What'sNewDetails2": "آیت پر طویل دباؤ دینے سے دکھائی دیتا ہے:\n\n۞ آیت کی تفسیر یا ترجمہ۔\n۞ آیت سننا۔\n۞ آیت کو بک مارک میں شامل کرنا۔\n۞ آیت کاپی کرنا۔\n۞ آیت کو متن یا تصویر کے طور پر شیئر کرنا۔",
-  "@What'sNewDetails2": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "What'sNewTitle3": "متنی تلاش کی خصوصیت:",
-  "@What'sNewTitle3": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "What'sNewDetails3": "ایپ میں قرآن کی آیات میں فوری تلاش کی خصوصیت موجود ہے، مطلوبہ صفحہ یا سورہ پر براہ راست منتقلی کی سہولت کے ساتھ۔",
-  "@What'sNewDetails3": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "What'sNewTitle4": "آیات کی تفسیر و ترجمہ:",
-  "@What'sNewTitle4": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "What'sNewDetails4": "صارفین ہر آیت کی تفسیر یا ترجمہ تک رسائی حاصل کر سکتے ہیں، اور خواہش کے مطابق تفاسیر کے درمیان تبدیلی کر سکتے ہیں۔",
-  "@What'sNewDetails4": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "What'sNewTitle5": "مزید قاریوں کا اضافہ:\n",
-  "@What'sNewTitle5": {
-    "type": "text",
-    "placeholders": {}
-  },
   "ourApps": "ہماری ایپس",
   "@ourApps": {
     "type": "text",
@@ -827,16 +787,6 @@
   },
   "darkMode": "گہرا",
   "@darkMode": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "What'sNewDetails6": "۞ صفحات میں جزء کا اضافہ\n۞ صفحات میں سجدہ کا اضافہ",
-  "@What'sNewDetails6": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "What'sNewDetails7": "۞ فونٹ کو بڑا اور چھوٹا کرنا.",
-  "@What'sNewDetails7": {
     "type": "text",
     "placeholders": {}
   },
@@ -930,13 +880,13 @@
     "type": "text",
     "placeholders": {}
   },
-  "Dhu al-Qi'dah": "ذو القعده",
-  "@Dhu al-Qi'dah": {
+  "Dhu Al-Qi'dah": "ذو القعده",
+  "@Dhu Al-Qi'dah": {
     "type": "text",
     "placeholders": {}
   },
-  "Dhu al-Hijjah": "ذوالحجہ",
-  "@Dhu al-Hijjah": {
+  "Dhu Al-Hijjah": "ذوالحجہ",
+  "@Dhu Al-Hijjah": {
     "type": "text",
     "placeholders": {}
   },
@@ -950,26 +900,6 @@
     "type": "text",
     "placeholders": {}
   },
-  "Start of the Hijri Year": "ہجری سال کا آغاز",
-  "@Start of the Hijri Year": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "Blessed Eid al-Fitr": "مبارک عید الفطر",
-  "@Blessed Eid al-Fitr": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "Day of Arafah": "یوم عرفہ",
-  "@Day of Arafah": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "Blessed Eid al-Adha": "مبارک عید الاضحی",
-  "@Blessed Eid al-Adha": {
-    "type": "text",
-    "placeholders": {}
-  },
   "hijriNote": "نوٹ: براہ کرم نوٹ کریں کہ چونکہ ہجری کیلنڈر چاند کی براہ راست دید پر مبنی ہے، لہٰذا مقررہ اوقات میں معمولی فرق ہو سکتا ہے۔ ہم اعلان کردہ تاریخوں کی درستگی کو یقینی بنانے کی پوری کوشش کر رہے ہیں، چاند دیکھے جانے کی صورت میں کیلنڈر میں تصحیح کی جائے گی اس بات کو مدنظر رکھتے ہوئے۔",
   "@hijriNote": {
     "type": "text",
@@ -977,21 +907,6 @@
   },
   "AH": "AH",
   "@AH": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "What'sNewDetails8": "ہر روز ایک نئی آیت اور اس کی تفسیر",
-  "@What'sNewDetails8": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "What'sNewDetails9": "اسلامی مواقع کی تاریخیں",
-  "@What'sNewDetails9": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "What'sNewTitle8": "آیت اور اس کی تفسیر",
-  "@What'sNewTitle8": {
     "type": "text",
     "placeholders": {}
   },
@@ -1032,6 +947,231 @@
   },
   "Middle of the Night": "آدھی رات",
   "@Middle of the Night": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "tafsirLibrary": "تفسیر لائبریری",
+  "@tafsirLibrary": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "allBooks": "تمام کتب",
+  "@allBooks": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "myLibrary": "میری لائبریری",
+  "@myLibrary": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "bookmark": "بک مارکس",
+  "@bookmark": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "chapterBook": "کتاب کے باب",
+  "@chapterBook": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "aboutBook": "کتاب کے بارے میں",
+  "@aboutBook": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "khatmah": "ختمہ",
+  "@khatmah": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "createKhatmah": "ختمہ بنائیں",
+  "@createKhatmah": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "khatmahName": "ختمہ کا نام",
+  "@khatmahName": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "addKhatmah": "ختمہ شامل کریں",
+  "@addKhatmah": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "duration": "مدت",
+  "@duration": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "divisionBySahabah": "صحابہ کے ذریعہ تقسیم",
+  "@divisionBySahabah": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "choiceColor": "رنگ منتخب کریں",
+  "@choiceColor": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "searchInBooks": "کتب میں تلاش کریں",
+  "@searchInBooks": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "hasPassed": "گزر چکا ہے",
+  "@hasPassed": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "downloading": "ڈاؤن لوڈ ہو رہا ہے...",
+  "@downloading": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "startHijriYear": "ہجری سال کی شروعات",
+  "@startHijriYear": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "reminderToFastTasoo'a": "تاسوعاء کے روزے کی یاد دہانی",
+  "@reminderToFastTasoo'a": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "reminderToFastAshura": "عاشوراء کے روزے کی یاد دہانی",
+  "@reminderToFastAshura": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "ramadhan": "رمضان المبارک",
+  "@ramadhan": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "nightOfQadir": "لیلتہ القدر کی یاد دہانی",
+  "@nightOfQadir": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "EidAl-Fitr": "عید الفطر",
+  "@EidAl-Fitr": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "sexShawwal": "شوال کے چھ دن روزے کی یاد دہانی",
+  "@sexShawwal": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "arafahReminder": "عرفہ کے دن روزے کی یاد دہانی",
+  "@arafahReminder": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "tenDaysOfDhul-Hijjah": "ذوالحجہ کے پہلے دس دن",
+  "@tenDaysOfDhul-Hijjah": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "EidAl-Adha": "عید الاضحی",
+  "@EidAl-Adha": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "choiceBackgroundColor": "پس منظر کا رنگ منتخب کریں",
+  "@choiceBackgroundColor": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "reset": "دوبارہ ترتیب دیں",
+  "@reset": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Medinan": "مکی",
+  "@Medinan": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Meccan": "مدنی",
+  "@Meccan": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "surahNames": "سورہ کے نام",
+  "@surahNames": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "aboutSurah": "سورہ کے بارے میں",
+  "@aboutSurah": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "notification": "اطلاعات",
+  "@notification": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "noNotifications": "کوئی اطلاعات نہیں",
+  "@noNotifications": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "reminders": "یاددہانیاں",
+  "@reminders": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "customReminder": "مخصوص یاددہانی",
+  "@customReminder": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "addMore": "مزید شامل کریں",
+  "@addMore": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "What'sNewDetails10": "۞ قرآن میں ختمہ شامل کرنا۔\n۞ ہر سورہ کی آیات کو ڈاؤن لوڈ کرنے کی خصوصیت شامل کرنا تاکہ یہ آف لائن کام کر سکے۔\n۞ قرآن کی تلاش میں بہتری۔\n۞ تفسیر کی لائبریری شامل کرنا۔\n۞ اذکار کی تلاوت کے لیے یاد دہانی کی خصوصیت شامل کرنا، جہاں آپ مخصوص وقت مقرر کر سکتے ہیں۔\n۞ نوٹیفکیشنز شامل کرنا۔\n۞ اور مزید اضافے اور بہتریاں۔",
+  "@What'sNewDetails10": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "chooseDhekr": "ذکر منتخب کریں۔",
+  "@chooseDhekr": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "selectTime": "تفکر کے لیے وقت مقرر کریں۔",
+  "@selectTime": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "downloadBookFirst": "براہ کرم پہلے کتاب ڈاؤن لوڈ کریں۔",
+  "@downloadBookFirst": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "lastDayOf": "کے مہینے کا آخری دن",
+  "@lastDayOf": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "booksDownloaded": "کتاب ڈاؤن لوڈ کی گئی ہے۔",
+  "@booksDownloaded": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "booksDeleted": "کتاب حذف کر دی گئی ہے۔",
+  "@booksDeleted": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "noBooksDownloaded": "آپ نے ابھی تک کوئی کتاب ڈاؤن لوڈ نہیں کی ہے۔",
+  "@noBooksDownloaded": {
     "type": "text",
     "placeholders": {}
   }

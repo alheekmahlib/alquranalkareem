@@ -1,16 +1,16 @@
-import '../../../core/widgets/container_with_border.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../../core/services/services_locator.dart';
-import '../../controllers/general_controller.dart';
+import '/core/utils/constants/extensions/contact_us_extension.dart';
+import '/core/utils/constants/extensions/launch_alheekmah_url_extension.dart';
+import '/core/utils/constants/extensions/share_app_extension.dart';
+import '../../../core/widgets/container_with_border.dart';
 
 class UserOptions extends StatelessWidget {
   const UserOptions({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final generalCtrl = sl<GeneralController>();
     return ContainerWithBorder(
       color: Theme.of(context).colorScheme.surface.withOpacity(.15),
       child: Padding(
@@ -41,13 +41,14 @@ class UserOptions extends StatelessWidget {
                   ),
                 ],
               ),
-              onTap: () async {
-                await generalCtrl.share(context);
-              },
+              onTap: () async => await shareApp(),
             ),
             const Divider(),
             InkWell(
-              onTap: generalCtrl.launchEmail,
+              onTap: () => contactUs(
+                  subject: 'تطبيق القرآن الكريم - مكتبة الحكمة',
+                  stringText:
+                      'يرجى كتابة أي ملاحظة أو إستفسار\n| جزاكم الله خيرًا |'),
               child: Row(
                 children: [
                   Icon(
@@ -73,32 +74,32 @@ class UserOptions extends StatelessWidget {
               ),
             ),
             const Divider(),
-            // InkWell(
-            //   onTap: launchFacebookUrl,
-            //   child: Row(
-            //     children: [
-            //       Icon(
-            //         Icons.facebook_rounded,
-            //         color: Theme.of(context).primaryColorLight,
-            //         size: 22,
-            //       ),
-            //       Container(
-            //         width: 2,
-            //         height: 20,
-            //         margin: const EdgeInsets.symmetric(horizontal: 8),
-            //         color: Theme.of(context).colorScheme.surface,
-            //       ),
-            //       Text(
-            //         'facebook'.tr,
-            //         style: TextStyle(
-            //             color: Theme.of(context).primaryColorLight,
-            //             fontFamily: 'kufi',
-            //             fontStyle: FontStyle.italic,
-            //             fontSize: 14),
-            //       ),
-            //     ],
-            //   ),
-            // ),
+            InkWell(
+              onTap: () => launchAlheekmahUrl(),
+              child: Row(
+                children: [
+                  Icon(
+                    Icons.facebook_rounded,
+                    color: Theme.of(context).hintColor,
+                    size: 22,
+                  ),
+                  Container(
+                    width: 2,
+                    height: 20,
+                    margin: const EdgeInsets.symmetric(horizontal: 8),
+                    color: Theme.of(context).colorScheme.surface,
+                  ),
+                  Text(
+                    'facebook'.tr,
+                    style: TextStyle(
+                        color: Theme.of(context).hintColor,
+                        fontFamily: 'kufi',
+                        fontStyle: FontStyle.italic,
+                        fontSize: 14),
+                  ),
+                ],
+              ),
+            ),
           ],
         ),
       ),

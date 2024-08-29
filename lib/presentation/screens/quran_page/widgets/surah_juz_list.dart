@@ -16,7 +16,7 @@ class SurahJuzList extends StatelessWidget {
       padding: const EdgeInsets.symmetric(vertical: 15.0),
       child: Container(
         decoration: BoxDecoration(
-          color: Theme.of(context).colorScheme.background,
+          color: Theme.of(context).colorScheme.primaryContainer,
         ),
         child: DefaultTabController(
             length: 2,
@@ -48,7 +48,7 @@ class SurahJuzList extends StatelessWidget {
                         ),
                         color: Theme.of(context)
                             .colorScheme
-                            .background
+                            .primaryContainer
                             .withOpacity(.3)),
                     tabs: [
                       Tab(
