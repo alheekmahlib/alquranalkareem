@@ -1,5 +1,15 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           xmlns:tools="http://schemas.android.com/tools">
+    <queries>
+        <intent>
+            <action android:name="android.intent.action.VIEW" />
+            <data android:scheme="mailto" />
+        </intent>
+        <intent>
+            <action android:name="android.intent.action.VIEW" />
+            <data android:scheme="https" android:host="www.facebook.com" />
+        </intent>
+    </queries>
     <application
             tools:replace="android:label"
         android:label="@string/appName"
@@ -48,6 +58,15 @@
                 <action android:name="com.htc.intent.action.QUICKBOOT_POWERON"/>
             </intent-filter>
         </receiver>
+        <!-- Background Fetch -->
+        <receiver android:name="com.transistorsoft.flutter.backgroundfetch.HeadlessBroadcastReceiver" android:exported="true">
+            <intent-filter>
+                <action android:name="com.transistorsoft.flutter.backgroundfetch.ACTION_TASK_TIMEOUT"/>
+                <action android:name="com.transistorsoft.flutter.backgroundfetch.ACTION_TASK_FINISH"/>
+                <action android:name="com.transistorsoft.flutter.backgroundfetch.ACTION_FETCH"/>
+            </intent-filter>
+        </receiver>
+        <!-- Background Fetch -->
 
 <!--        <service android:name="com.alheekmah.alquranalkareem.alquranalkareem.audioservice.AudioService"-->
 <!--                 android:foregroundServiceType="mediaPlayback"-->
@@ -73,5 +92,7 @@
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
-    <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM" android:maxSdkVersion="32" />
+    <!-- Background Fetch -->
+    <uses-permission android:minSdkVersion="34" android:name="android.permission.USE_EXACT_ALARM" />
+    <!-- Background Fetch -->
 </manifest>

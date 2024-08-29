@@ -6,7 +6,7 @@ import 'dart:io' show Platform;
 import 'package:background_fetch/background_fetch.dart';
 import 'package:get_storage/get_storage.dart';
 
-import 'local_notifications.dart';
+import '../widgets/local_notification/controller/local_notifications_controller.dart';
 
 // [Android-only] This "Headless Task" is run when the Android app is terminated with `enableHeadless: true`
 // Be sure to annotate your callback function to avoid issues in release mode on Flutter >= 3.3.0
@@ -64,19 +64,28 @@ class BGServices {
       log('Error Accourd on Background Service $e', name: 'Background service');
     });
 
-    await BackgroundFetch.scheduleTask(
-      TaskConfig(
-        taskId: "com.transistorsoft.scheduleNotifications", delay: 1200000,
-        stopOnTerminate: false,
-        enableHeadless: true, // Enable headless task execution
-        requiresBatteryNotLow: false,
-        requiresCharging: false,
-        requiresStorageNotLow: false,
-        requiresDeviceIdle: false,
-        periodic: true,
-        requiredNetworkType: NetworkType.ANY,
-      ),
-    );
+    try {
+      await BackgroundFetch.scheduleTask(
+        TaskConfig(
+          taskId: "com.transistorsoft.fetchNotifications",
+          delay: 24 * 60 * 60 * 1000,
+          stopOnTerminate: false,
+          enableHeadless: true, // Enable headless task execution
+          requiresBatteryNotLow: false,
+          requiresCharging: false,
+          requiresStorageNotLow: false,
+          requiresDeviceIdle: false,
+          periodic: true,
+          requiredNetworkType: NetworkType.ANY,
+        ),
+      );
+    } catch (e) {
+      if (Platform.isIOS) {
+        log("iOS Task Scheduling Error: $e", name: 'Background service');
+      } else {
+        log("Task Scheduling Error: $e", name: 'Background service');
+      }
+    }
   }
 }
 
@@ -99,11 +108,12 @@ Future<void>? _onTimeOut(String taskId) async {
 Future<void> _fetchDataAndScheduleNotifications() async {
   log('=' * 30, name: 'Background service');
   await GetStorage.init();
-  NotifyHelper().scheduledNotification(
-    DateTime.now().hashCode,
-    'Background service',
-    "Fetch Data And Schedule Notifications",
-  );
+  LocalNotificationsController.instance.fetchAndScheduleNotifications();
+  // NotifyHelper().scheduledNotification(
+  //   DateTime.now().hashCode,
+  //   'Background service',
+  //   "Fetch Data And Schedule Notifications",
+  // );
   log('after 20 seconds ${'+' * 20}', name: 'Background service');
   Future.delayed(const Duration(seconds: 20)).then(
       (_) => log('after 20 seconds ${'+' * 20}', name: 'Background service'));

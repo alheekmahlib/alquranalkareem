@@ -86,7 +86,7 @@ extension QuranUi on QuranController {
     state.moreOptionsMap.forEach((key, value) {
       if (key != verseKey) state.moreOptionsMap[key] = false;
     });
-    update();
+    update(['ayahs_menu']);
   }
 
   Future<void> pageChanged(int index) async {

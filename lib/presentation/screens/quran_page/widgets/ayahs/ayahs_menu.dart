@@ -85,47 +85,11 @@ class AyahsMenu extends StatelessWidget {
             ),
           ),
           const Spacer(),
-          Obx(() => AnimatedCrossFade(
-                duration: const Duration(milliseconds: 300),
-                firstChild: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    TafsirButton(
-                      surahNum: surahNum,
-                      ayahNum: ayahNum,
-                      ayahText: ayahText,
-                      pageIndex: pageIndex,
-                      ayahTextNormal: ayahTextNormal,
-                      ayahUQNum: ayahUQNum,
-                      index: index,
-                    ),
-                    const Gap(6),
-                    context.vDivider(height: 18.0),
-                    PlayButton(
-                      surahNum: surahNum,
-                      ayahNum: ayahNum,
-                      ayahUQNum: ayahUQNum,
-                      singleAyahOnly: true,
-                    ),
-                    const Gap(6),
-                    context.vDivider(height: 18.0),
-                    GestureDetector(
-                      onTap: () => quranCtrl.toggleMenu("$surahNum-$ayahNum"),
-                      child: Icon(
-                        Icons.more_vert_outlined,
-                        size: 24,
-                        color: Theme.of(context).colorScheme.primary,
-                      ),
-                    ),
-                  ],
-                ),
-                secondChild: Container(
-                  width: MediaQuery.sizeOf(context).width * .6,
-                  alignment: Alignment.centerLeft,
-                  child: FittedBox(
-                    fit: BoxFit.scaleDown,
-                    child: Row(
+          GetBuilder<QuranController>(
+              id: 'ayahs_menu',
+              builder: (c) => AnimatedCrossFade(
+                    duration: const Duration(milliseconds: 300),
+                    firstChild: Row(
                       mainAxisSize: MainAxisSize.min,
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
@@ -148,56 +112,95 @@ class AyahsMenu extends StatelessWidget {
                         ),
                         const Gap(6),
                         context.vDivider(height: 18.0),
-                        PlayButton(
-                          surahNum: surahNum,
-                          ayahNum: ayahNum,
-                          ayahUQNum: ayahUQNum,
-                        ),
-                        const Gap(4),
-                        context.vDivider(height: 18.0),
-                        const Gap(6),
-                        AddBookmarkButton(
-                          surahNum: surahNum,
-                          ayahNum: ayahNum,
-                          ayahUQNum: ayahUQNum,
-                          pageIndex: pageIndex,
-                          surahName: surahName,
-                        ),
-                        const Gap(6),
-                        context.vDivider(height: 18.0),
-                        const Gap(6),
-                        CopyButton(
-                          ayahNum: ayahNum,
-                          surahName: surahName,
-                          ayahTextNormal: ayahTextNormal,
-                        ),
-                        const Gap(6),
-                        context.vDivider(height: 18.0),
-                        const Gap(6),
-                        ShareAyahOptions(
-                          ayahNumber: ayahNum,
-                          ayahUQNumber: ayahUQNum,
-                          surahNumber: surahNum,
-                          ayahTextNormal: ayahTextNormal,
-                          ayahText: ayahTextNormal,
-                          surahName: 'surahName',
-                        ),
-                        const Gap(6),
-                        context.vDivider(height: 18.0),
-                        context.customClose(
-                          height: 16.0,
-                          close: () =>
+                        GestureDetector(
+                          onTap: () =>
                               quranCtrl.toggleMenu("$surahNum-$ayahNum"),
+                          child: Icon(
+                            Icons.more_vert_outlined,
+                            size: 24,
+                            color: Theme.of(context).colorScheme.primary,
+                          ),
                         ),
                       ],
                     ),
-                  ),
-                ),
-                crossFadeState:
-                    quranCtrl.state.moreOptionsMap["$surahNum-$ayahNum"] == true
-                        ? CrossFadeState.showSecond
-                        : CrossFadeState.showFirst,
-              )),
+                    secondChild: Container(
+                      width: MediaQuery.sizeOf(context).width * .6,
+                      alignment: Alignment.centerLeft,
+                      child: FittedBox(
+                        fit: BoxFit.scaleDown,
+                        child: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            TafsirButton(
+                              surahNum: surahNum,
+                              ayahNum: ayahNum,
+                              ayahText: ayahText,
+                              pageIndex: pageIndex,
+                              ayahTextNormal: ayahTextNormal,
+                              ayahUQNum: ayahUQNum,
+                              index: index,
+                            ),
+                            const Gap(6),
+                            context.vDivider(height: 18.0),
+                            PlayButton(
+                              surahNum: surahNum,
+                              ayahNum: ayahNum,
+                              ayahUQNum: ayahUQNum,
+                              singleAyahOnly: true,
+                            ),
+                            const Gap(6),
+                            context.vDivider(height: 18.0),
+                            PlayButton(
+                              surahNum: surahNum,
+                              ayahNum: ayahNum,
+                              ayahUQNum: ayahUQNum,
+                            ),
+                            const Gap(4),
+                            context.vDivider(height: 18.0),
+                            const Gap(6),
+                            AddBookmarkButton(
+                              surahNum: surahNum,
+                              ayahNum: ayahNum,
+                              ayahUQNum: ayahUQNum,
+                              pageIndex: pageIndex,
+                              surahName: surahName,
+                            ),
+                            const Gap(6),
+                            context.vDivider(height: 18.0),
+                            const Gap(6),
+                            CopyButton(
+                              ayahNum: ayahNum,
+                              surahName: surahName,
+                              ayahTextNormal: ayahTextNormal,
+                            ),
+                            const Gap(6),
+                            context.vDivider(height: 18.0),
+                            const Gap(6),
+                            ShareAyahOptions(
+                              ayahNumber: ayahNum,
+                              ayahUQNumber: ayahUQNum,
+                              surahNumber: surahNum,
+                              ayahTextNormal: ayahTextNormal,
+                              ayahText: ayahTextNormal,
+                              surahName: 'surahName',
+                            ),
+                            const Gap(6),
+                            context.vDivider(height: 18.0),
+                            context.customClose(
+                              height: 16.0,
+                              close: () =>
+                                  quranCtrl.toggleMenu("$surahNum-$ayahNum"),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                    crossFadeState:
+                        c.state.moreOptionsMap["$surahNum-$ayahNum"] == true
+                            ? CrossFadeState.showSecond
+                            : CrossFadeState.showFirst,
+                  )),
         ],
       ),
     );

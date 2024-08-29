@@ -28,6 +28,8 @@ class QuranController extends GetxController {
         .addListener(currentListPageNumber);
     state.isBold.value = state.box.read(IS_BOLD) ?? 0;
     state.isPageMode.value = state.box.read(PAGE_MODE) ?? false;
+    state.backgroundPickerColor.value =
+        state.box.read(BACKGROUND_PICKER_COLOR) ?? 0xfffaf7f3;
   }
 
   @override
