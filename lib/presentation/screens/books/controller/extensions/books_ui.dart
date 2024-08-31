@@ -1,7 +1,8 @@
 import 'dart:developer';
 import 'dart:io';
 
-import 'package:flutter/animation.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:path_provider/path_provider.dart';
 
@@ -30,7 +31,7 @@ extension BooksUi on BooksController {
       int initialPage = await getChapterStartPage(bookNumber, chapterName);
       state.currentPageNumber.value = initialPage;
       log('Initial page for chapter $chapterName: $initialPage');
-      state.quranPageController.animateToPage(initialPage,
+      state.bookPageController.animateToPage(initialPage,
           duration: const Duration(milliseconds: 400), curve: Curves.easeInOut);
     } else {
       Get.context!.showCustomErrorSnackBar('downloadBookFirst'.tr);
@@ -63,4 +64,42 @@ extension BooksUi on BooksController {
       log('Error deleting book: $e');
     }
   }
+
+  KeyEventResult controlRLByKeyboard(FocusNode node, KeyEvent event) {
+    if (event.logicalKey == LogicalKeyboardKey.arrowLeft) {
+      state.bookPageController.nextPage(
+        duration: const Duration(milliseconds: 600),
+        curve: Curves.easeInOut,
+      );
+      return KeyEventResult.handled;
+    } else if (event.logicalKey == LogicalKeyboardKey.arrowRight) {
+      state.bookPageController.previousPage(
+        duration: const Duration(milliseconds: 600),
+        curve: Curves.easeInOut,
+      );
+      return KeyEventResult.handled;
+    }
+    return KeyEventResult.ignored;
+  }
+
+  // KeyEventResult controlUDByKeyboard(FocusNode node, KeyEvent event) {
+  //   if (state.ScrollUpDownBook.hasClients) {
+  //     if (event.logicalKey == LogicalKeyboardKey.arrowUp) {
+  //       state.ScrollUpDownBook.animateTo(
+  //         state.ScrollUpDownBook.offset - 100,
+  //         duration: const Duration(milliseconds: 600),
+  //         curve: Curves.easeInOut,
+  //       );
+  //       return KeyEventResult.handled;
+  //     } else if (event.logicalKey == LogicalKeyboardKey.arrowDown) {
+  //       state.ScrollUpDownBook.animateTo(
+  //         state.ScrollUpDownBook.offset + 100,
+  //         duration: const Duration(milliseconds: 600),
+  //         curve: Curves.easeInOut,
+  //       );
+  //       return KeyEventResult.handled;
+  //     }
+  //   }
+  //   return KeyEventResult.ignored;
+  // }
 }

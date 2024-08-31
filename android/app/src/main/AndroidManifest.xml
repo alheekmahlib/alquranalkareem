@@ -93,6 +93,6 @@
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <!-- Background Fetch -->
-    <uses-permission android:minSdkVersion="34" android:name="android.permission.USE_EXACT_ALARM" />
+<!--    <uses-permission android:minSdkVersion="34" android:name="android.permission.USE_EXACT_ALARM" />-->
     <!-- Background Fetch -->
 </manifest>
