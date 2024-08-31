@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
@@ -30,7 +31,9 @@ Future<void> initializeApp() async {
   await ServicesLocator().init();
   tz.initializeTimeZones();
   await NotifyHelper().initializeNotification();
-  await BGServices().registerTask();
+  if (Platform.isIOS || Platform.isAndroid) {
+    await BGServices().registerTask();
+  }
   FlutterNativeSplash.remove();
   WakelockPlus.enable();
 }

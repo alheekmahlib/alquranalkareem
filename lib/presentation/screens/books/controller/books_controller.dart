@@ -32,6 +32,15 @@ class BooksController extends GetxController {
     loadFromGetStorage();
   }
 
+  @override
+  void onClose() {
+    state.bookPageController.dispose();
+    // state.ScrollUpDownBook.dispose();
+    state.bookRLFocusNode.dispose();
+    // state.bookUDFocusNode.dispose();
+    super.onClose();
+  }
+
   /// -------- [Methods] ----------
 
   Future<void> fetchBooks() async {

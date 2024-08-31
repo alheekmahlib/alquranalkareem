@@ -1,3 +1,4 @@
+import 'package:alquranalkareem/presentation/screens/quran_page/controllers/extensions/quran_ui.dart';
 import 'package:alquranalkareem/presentation/screens/quran_page/data/model/surahs_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -133,7 +134,9 @@ extension CustomSurahNameWithBannerExtension on Widget {
     return GestureDetector(
       onTap: () => Get.dialog(surahInfoWidget(pageIndex, i, 1)),
       child: quranCtrl.downThePageIndex.contains(pageIndex)
-          ? surahBannerWidget((surah.surahNumber + 1).toString())
+          ? SizedBox(
+              height: quranCtrl.textScale(Get.height * .2, 60.0),
+              child: surahBannerWidget((surah.surahNumber + 1).toString()))
           : const SizedBox.shrink(),
     );
   }
@@ -147,7 +150,9 @@ extension CustomSurahNameWithBannerExtension on Widget {
       child: ayahs.first.ayahNumber == 1
           ? quranCtrl.topOfThePageIndex.contains(pageIndex)
               ? const SizedBox.shrink()
-              : surahBannerWidget(surah.surahNumber.toString())
+              : SizedBox(
+                  height: quranCtrl.textScale(Get.height * .2, 57.0),
+                  child: surahBannerWidget(surah.surahNumber.toString()))
           : const SizedBox.shrink(),
     );
   }
