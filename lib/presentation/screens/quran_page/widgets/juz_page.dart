@@ -151,7 +151,7 @@ class QuranJuz extends StatelessWidget {
                                               padding: const EdgeInsets.only(
                                                   right: 8.0),
                                               child: Text(
-                                                '${surah.arabicName} ${surah.surahNumber.toString().convertNumbers()} - ${'page'.tr} ${juz.page.toString().convertNumbers()}',
+                                                '${quranCtrl.getCurrentSurahByPage(juz.page).arabicName} ${quranCtrl.getCurrentSurahByPage(juz.page).surahNumber.toString().convertNumbers()} - ${'page'.tr} ${juz.page.toString().convertNumbers()}',
                                                 style: TextStyle(
                                                   fontFamily: "naskh",
                                                   fontWeight: FontWeight.w600,

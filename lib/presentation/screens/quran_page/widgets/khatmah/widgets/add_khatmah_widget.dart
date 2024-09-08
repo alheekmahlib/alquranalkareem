@@ -77,7 +77,7 @@ class AddKhatmahWidget extends StatelessWidget {
                                 items: List.generate(100, (index) => index + 1),
                                 listItemBuilder: (context, index, select, _) =>
                                     Text(
-                                  '${index + 1}',
+                                  '${index}',
                                   style: const TextStyle(
                                     color: Colors.black,
                                     fontSize: 16,

@@ -1,10 +1,11 @@
+import 'package:alquranalkareem/core/utils/constants/svg_constants.dart';
 import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:gap/gap.dart';
 
 extension CustomErrorSnackBarExtension on BuildContext {
-  void showCustomErrorSnackBar(String text) {
+  void showCustomErrorSnackBar(String text, {bool? isDone = false}) {
     final backgroundColor = Theme.of(this).colorScheme.primaryContainer;
     final borderColor = Theme.of(this).colorScheme.primary.withOpacity(.3);
     final hintColor = Theme.of(this).hintColor;
@@ -35,7 +36,7 @@ extension CustomErrorSnackBarExtension on BuildContext {
                   child: Opacity(
                     opacity: .8,
                     child: SvgPicture.asset(
-                      'assets/svg/alert.svg',
+                      isDone! ? SvgPath.svgCheckMark : SvgPath.svgAlert,
                       height: 25,
                     ),
                   ),

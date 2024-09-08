@@ -88,7 +88,7 @@ class BooksController extends GetxController {
       log('Error downloading book: $e');
     } finally {
       state.downloading[bookNumber] = false;
-      Get.context!.showCustomErrorSnackBar('booksDownloaded'.tr);
+      Get.context!.showCustomErrorSnackBar('booksDownloaded'.tr, isDone: true);
     }
   }
 

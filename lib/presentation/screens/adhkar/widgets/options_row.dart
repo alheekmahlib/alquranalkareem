@@ -80,7 +80,8 @@ class OptionsRow extends StatelessWidget {
                                   zekr: zekr.zekr))
                               .then((value) {
                               context.showCustomErrorSnackBar(
-                                  'addZekrBookmark'.tr);
+                                  'addZekrBookmark'.tr,
+                                  isDone: true);
                               azkarCtrl.getAdhkar();
                               azkarCtrl.update();
                             });
