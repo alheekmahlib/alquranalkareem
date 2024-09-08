@@ -834,23 +834,23 @@
     "type": "text",
     "placeholders": {}
   },
-  "Rabi' al-awwal": "ربيع الاول",
-  "@Rabi' al-awwal": {
+  "Rabi' Al-Awwal": "ربيع الاول",
+  "@Rabi' Al-Awwal": {
     "type": "text",
     "placeholders": {}
   },
-  "Rabi' al-thani": "ربيع الثاني",
-  "@Rabi' al-thani": {
+  "Rabi' Al-Thani": "ربيع الثاني",
+  "@Rabi' Al-Thani": {
     "type": "text",
     "placeholders": {}
   },
-  "Jumada al-awwal": "جمادى الاول",
-  "@Jumada al-awwal": {
+  "Jumada Al-Awwal": "جمادى الاول",
+  "@Jumada Al-Awwal": {
     "type": "text",
     "placeholders": {}
   },
-  "Jumada al-thani": "جمادى الآخرة",
-  "@Jumada al-thani": {
+  "Jumada Al-Thani": "جمادى الآخرة",
+  "@Jumada Al-Thani": {
     "type": "text",
     "placeholders": {}
   },

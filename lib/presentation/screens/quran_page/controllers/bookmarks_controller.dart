@@ -192,7 +192,8 @@ class BookmarksController extends GetxController {
               index + 1,
               quranCtrl.getCurrentSurahByPage(index).arabicName,
               generalCtrl.state.timeNow.dateNow)
-          .then((value) => context.showCustomErrorSnackBar('addBookmark'.tr));
+          .then((value) =>
+              context.showCustomErrorSnackBar('addBookmark'.tr, isDone: true));
     }
   }
 }

@@ -54,8 +54,8 @@ class AddBookmarkButton extends StatelessWidget {
           sl<BookmarksController>()
               .addBookmarkText(surahName, surahNum, pageIndex + 1, ayahNum,
                   ayahUQNum, sl<GeneralController>().state.timeNow.dateNow)
-              .then(
-                  (value) => context.showCustomErrorSnackBar('addBookmark'.tr));
+              .then((value) => context.showCustomErrorSnackBar('addBookmark'.tr,
+                  isDone: true));
           // sl<QuranController>().clearSelection();
         }
         sl<AudioController>().clearSelection();
