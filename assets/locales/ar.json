@@ -1168,5 +1168,33 @@
   "@noBooksDownloaded": {
     "type": "text",
     "placeholders": {}
+  },
+  "notifyQuranBody": "لقد توقفت عند الصفحة {currentPageNumber} في القرآن الكريم، هل ترغب في المتابعة؟",
+  "@notifyQuranBody": {
+    "type": "text",
+    "placeholders": {
+      "currentPageNumber": {}
+    }
+  },
+  "notifyAdhkarBody": "لا تنسى قراءة {adhkarType}",
+  "@notifyAdhkarBody": {
+    "type": "text",
+    "placeholders": {
+      "adhkarType": {}
+    }
+  },
+  "notifyBooksBody": "لا تنسى متابعة قراءة كتاب {bookName}",
+  "@notifyBooksBody": {
+    "type": "text",
+    "placeholders": {
+      "bookName": {}
+    }
+  },
+  "notifyListenBody": "لا تنسى متابعة الإستماع للسور",
+  "@notifyListenBody": {
+    "type": "text",
+    "placeholders": {
+      "bookName": {}
+    }
   }
 }

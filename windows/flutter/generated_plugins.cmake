@@ -3,6 +3,8 @@
 #
 
 list(APPEND FLUTTER_PLUGIN_LIST
+  awesome_notifications
+  awesome_notifications_core
   connectivity_plus
   desktop_window
   flutter_timezone

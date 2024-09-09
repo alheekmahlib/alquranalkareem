@@ -1,11 +1,11 @@
 {
-  "appName": "Al Quraanka Al Kareem - Maktabadda Al Heekmah",
+  "appName": "Qur'an Al-Karim - Aklatan ng Karunungan",
   "@appName": {
     "description": "appName",
     "type": "text",
     "placeholders": {}
   },
-  "search_hint": "Raadi aayadaha Quraanka",
+  "search_hint": "Maghanap sa Mga Talata ng Qur'an",
   "@search_hint": {
     "description": "search_hint",
     "type": "text",
@@ -17,300 +17,299 @@
     "type": "text",
     "placeholders": {}
   },
-  "notes": "Qoraallo",
+  "notes": "Mga Tala",
   "@notes": {
     "description": "notes",
     "type": "text",
     "placeholders": {}
   },
-  "note_title": "Cinwaanka Qoraalka",
+  "note_title": "Pamagat",
   "@note_title": {
     "description": "note_title",
     "type": "text",
     "placeholders": {}
   },
-  "add_new_note": "Dar Qoraal Cusub",
+  "add_new_note": "Magdagdag ng Bagong Tala",
   "@add_new_note": {
     "type": "text",
     "placeholders": {}
   },
-  "note_details": "Faahfaahinta Qoraalka",
+  "note_details": "Mga Detalye ng Tala",
   "@note_details": {
     "type": "text",
     "placeholders": {}
   },
-  "bookmarks": "Calamaanka La Keydiyay",
+  "bookmarks": "Naka-save na Mga Bookmark",
   "@bookmarks": {
     "type": "text",
     "placeholders": {}
   },
-  "bookmark_title": "Magaca Calaamadda",
+  "bookmark_title": "Pangalan ng Bookmark",
   "@bookmark_title": {
     "type": "text",
     "placeholders": {}
   },
-  "add_new_bookmark": "Dar Calaamad Cusub",
+  "add_new_bookmark": "Magdagdag ng Bagong Bookmark",
   "@add_new_bookmark": {
     "type": "text",
     "placeholders": {}
   },
-  "save": "Keydi",
+  "save": "I-save",
   "@save": {
     "type": "text",
     "placeholders": {}
   },
-  "edit": "Tafatir",
+  "edit": "I-edit",
   "@edit": {
     "type": "text",
     "placeholders": {}
   },
-  "azkar": "Athkar",
+  "azkar": "Mga Dhikr",
   "@azkar": {
     "type": "text",
     "placeholders": {}
   },
-  "qibla": "Qibla Direction",
+  "qibla": "Direksyon ng Qibla",
   "@qibla": {
     "type": "text",
     "placeholders": {}
   },
-  "salat": "Prayer Times",
+  "salat": "Mga Oras ng Pagdarasal",
   "@salat": {
     "type": "text",
     "placeholders": {}
   },
-  "aya_count": "Tirada Aayadaha",
+  "aya_count": "Bilang ng mga Talata",
   "@aya_count": {
-    "description": "aya_count",
     "type": "text",
     "placeholders": {}
   },
-  "quran_sorah": "Suuradaha",
+  "quran_sorah": "Surah",
   "@quran_sorah": {
     "type": "text",
     "placeholders": {}
   },
-  "about_us": "Ku saabsan Appka",
+  "about_us": "Tungkol sa Aplikasyon",
   "@about_us": {
     "type": "text",
     "placeholders": {}
   },
-  "stop_title": "Quraanka Wanaagsan - Maktabadda Al Heekmah",
+  "stop_title": "Waqf ng Qur'an - Aklatan ng Karunungan",
   "@stop_title": {
     "type": "text",
     "placeholders": {}
   },
-  "about_app": "Barnaamijka \"Quraanka Kariimka - Maktabadda Hikmah\" waa barnaamij dhammaystiran oo bixiya xulasho ballaaran oo ah sifooyin si loo hagaajiyo khibradda akhriska iyo barashada Quraanka Kariimka. Sifooyinkan waxaa ka mid ah:",
+  "about_app": "Ang app na \"Qur'an Al-Karim - Aklatan ng Karunungan\" ay isang komprehensibong app na nag-aalok ng iba't ibang tampok upang mapahusay ang karanasan sa pagbabasa at pag-aaral ng Qur'an. Ang ilan sa mga tampok na ito ay:",
   "@about_app": {
     "type": "text",
     "placeholders": {}
   },
-  "about_app2": "Among the most important features of the application :",
+  "about_app2": "Mga pangunahing tampok ng app:",
   "@about_app2": {
     "type": "text",
     "placeholders": {}
   },
-  "about_app3": "۞ Interface cusub oo saaxiibtinimo leh: Barnaamijka waxaa loo naqshadeeyay interface isticmaale casri ah oo garaad leh taas oo fududeyneysa in isticmaalayaashu ay si fudud ugu dhex maraan oo ay u gaaraan sifooyinka kala duwan.\n۞ Isticmaalka daabacaadda Majma'ul Malik Fahd: Barnaamijku wuxuu isticmaalaa daabacaadda Majma'ul Malik Fahd ee daabacaadda Quraanka Kariimka, taas oo loo yaqaan inay tahay mid lagu kalsoonaan karo oo sax ah, taasoo damaanad qaadaysa saxnaanta qoraalka iyo daacadnimadiisa.\n۞ Akhris is-dhexgal iyo dhammaystiran: Barnaamijku wuxuu bixiyaa suurtagalnimada akhriska is-dhexgalka leh ee qoraalka Quraanka elektaroonigga ah, marka lagu daro dhageysiga tajwiidka, iyo barashada iyo xifdinta Quraanka Kariimka si fudud.\n۞ Akhris dabacsan: Isticmaalayaashu waxay akhrin karaan Quraanka sidii iyagoo akhrinaya mushaf warqadeed ama dooran karaan habka aayadda keliya si ay u helaan diiradda dheeraad ah.\n۞ Muuqaalka baarista qoraalka: Barnaamijku wuxuu ku jiraa muuqaal baaris degdeg ah oo ku saabsan aayaadka Quraanka, iyadoo suurtogal ah in si toos ah loogu guuro bogga ama suuradda la rabo.\n۞ Ku darista calaamadaha buugga: Muuqaalkani wuxuu u oggolaanayaa in la kaydiyo bogagga ama aayaadka si fudud loogu noqdo waqti kasta.\n۞ Dhageysiga aayaadka: Barnaamijku wuxuu bixiyaa suurtagalnimada dhageysiga aayad kasta oo ay akhriyaan qaar ka mid ah qurraa'da caanka ah.\n۞ Tafsiirka iyo tarjumada aayaadka: Isticmaalayaashu waxay heli karaan tafsiirka ama tarjumada aayad kasta, iyagoo beddeli kara tafsiirada sida ay doonaan.\n۞ Sahlan u wareejinta suuradaha: Barnaamijku wuxuu sahlayaa wareejinta suuradaha si habsami leh oo degdeg ah.\n۞ Akhriska calaamadaha joogsiga: Muuqaalkani wuxuu ka caawiyaa fahamka meelaha ku habboon ee joogsiga inta lagu jiro akhriska.\n۞ Adkaar Al-Muslim Fortress: Waxaa suurtagal ah in la akhriyo dhammaan Adkaar Al-Muslim Fortress oo si fudud loogu dhex maro qaybaha, iyadoo suurtogal ah in lagu daro adkaar kuwa la jecel yahay.\n۞ Beddelka qaababka midabka: Barnaamijku wuxuu taageeraa beddelka qaababka midabka, oo ay ku jiraan habka madow, si loo hagaajiyo khibradda akhriska.\n۞ Dhageysiga iyo soo dejinta: Waxaa suurtagal ah in la dhageysto suuradaha ama loo soo dejiyo si dib loogu dhageysto iyada oo aan loo baahnayn internetka.\n\nSifooyinkan waxay ka dhigayaan barnaamijka \"Quraanka Kariimka - Maktabadda Hikmah\" qalab dhammaystiran qof kasta oo doonaya inuu akhriyo, barto, oo uu ku fikiro Quraanka Kariimka si fudud oo wax ku ool ah.",
+  "about_app3": "۞ Bagong interface na madaling gamitin: Ang app ay dinisenyo na may modern at intuitive na user interface na nagpapadali sa mga gumagamit na mag-navigate at mag-access ng iba't ibang tampok.\n۞ Ginagamit ang King Fahd Edition: Ginagamit ng app ang King Fahd Edition ng Qur'an na kilala sa pagiging mapagkakatiwalaan at katumpakan nito, na tinitiyak ang katumpakan ng teksto.\n۞ Interactive at integrated na pagbasa: Ang app ay nagbibigay-daan sa interactive na pagbasa kasama ang electronic na teksto ng Qur'an, pati na rin ang pakikinig sa recitations, pag-aaral, at pag-memora ng Qur'an.\n۞ Flexible na pagbasa: Maaaring basahin ng mga gumagamit ang Qur'an na parang nasa pisikal na mushaf o gumamit ng solong ayah mode para sa mas malalim na pag-focus.\n۞ Textual na paghahanap: Nag-aalok ang app ng instant search sa mga talata ng Qur'an na may opsyon na direktang pumunta sa pahina o surah na hinahanap.\n۞ Magdagdag ng mga bookmark: Pinapayagan ng tampok na ito na mag-save ng mga pahina o talata para sa madaling pag-access anumang oras.\n۞ Makinig sa mga talata: Nag-aalok ang app ng pakikinig sa bawat talata mula sa iba't ibang kilalang qari.\n۞ Tafsir at pagsasalin: Maaaring mag-access ng mga gumagamit ang tafsir o pagsasalin ng bawat talata, at magpalit-palit ng tafsir ayon sa kagustuhan.\n۞ Madaling pag-navigate sa pagitan ng mga surah: Ang app ay nagbibigay-daan sa madaling pag-navigate sa pagitan ng mga surah.\n۞ Pagbasa ng mga marka ng waqf: Tumutulong ang tampok na ito sa pag-unawa ng mga tamang lugar ng paghinto sa pagbasa.\n۞ Mga Dhikr: Maaaring basahin ng mga gumagamit ang buong Dhikr at madaling mag-navigate sa mga seksyon, pati na rin ang pagdagdag ng mga Dhikr sa paborito.\n۞ Pagbabago ng kulay ng tema: Sinusuportahan ng app ang pagbabago ng mga kulay ng tema, kasama na ang dark mode, upang mapabuti ang karanasan sa pagbabasa.\n۞ Pakinggan at i-download: Maaaring makinig o mag-download ng mga surah para makinig offline sa ibang pagkakataon.\n\nAng mga tampok na ito ay ginagawa ang \"Qur'an Al-Karim - Aklatan ng Karunungan\" bilang isang komprehensibong kasangkapan para sa sinumang nais magbasa, mag-aral, at mag-unawa ng Qur'an sa isang madaling at epektibong paraan.",
   "@about_app3": {
     "type": "text",
     "placeholders": {}
   },
-  "email": "Nala Xiriir",
+  "email": "Makipag-ugnayan sa Amin",
   "@email": {
     "type": "text",
     "placeholders": {}
   },
-  "select_player": "Akhristaha la Doortay",
+  "select_player": "Pumili ng Qari",
   "@select_player": {
     "type": "text",
     "placeholders": {}
   },
-  "delete": "Tirtir",
+  "delete": "Tanggalin",
   "@delete": {
     "type": "text",
     "placeholders": {}
   },
-  "page": "Bog",
+  "page": "Pahina",
   "@page": {
     "type": "text",
     "placeholders": {}
   },
-  "search_word": "Raadi Aayad",
+  "search_word": "Maghanap ng Ayat",
   "@search_word": {
     "type": "text",
     "placeholders": {}
   },
-  "search_description": "Waad raadi kartaa dhammaan aayadaha Quraanka, keliya qor eray ka mid ah aayadda",
+  "search_description": "Maaari mong hanapin ang lahat ng mga talata sa Qur'an, i-type lamang ang isang salita mula sa talata.",
   "@search_description": {
     "type": "text",
     "placeholders": {}
   },
-  "fontSize": "Beddel Daqiiqadda Farshaxanka",
+  "fontSize": "Baguhin ang Laki ng Font",
   "@fontSize": {
     "type": "text",
     "placeholders": {}
   },
-  "waqfName": "Astamahyada Joojinta",
+  "waqfName": "Mga Marka ng Waqf",
   "@waqfName": {
     "type": "text",
     "placeholders": {}
   },
-  "onboardTitle1": "Easy interface",
+  "onboardTitle1": "Madaling Interface",
   "@onboardTitle1": {
     "type": "text",
     "placeholders": {}
   },
-  "onboardDesc1": "- Ease of searching for a verse.\n- Change the language.\n- Listen to the page.\n- Change the reader.",
+  "onboardDesc1": "- Madaling maghanap ng Ayat.\n- Palitan ang wika.\n- Makinig sa pahina.\n- Palitan ang Qari.",
   "@onboardDesc1": {
     "type": "text",
     "placeholders": {}
   },
-  "onboardTitle2": "Show The Tafseer",
+  "onboardTitle2": "Ipakita ang Tafsir",
   "@onboardTitle2": {
     "type": "text",
     "placeholders": {}
   },
-  "onboardDesc2": "The interpretation of each verse can be read by pulling the list up.",
+  "onboardDesc2": "Maaari mong basahin ang tafsir ng bawat ayat sa pamamagitan ng paghatak sa menu pataas.",
   "@onboardDesc2": {
     "type": "text",
     "placeholders": {}
   },
-  "onboardTitle3": "Click Options",
+  "onboardTitle3": "Mga Pagpipilian sa Pag-click",
   "@onboardTitle3": {
     "type": "text",
     "placeholders": {}
   },
-  "onboardDesc3": "1- When you double click the page is enlarged.\n2- Upon long click you will be presented with the option to save the page.\n3- When you press once, the menus appear.",
+  "onboardDesc3": "1- Kapag nag-double click, ang pahina ay mag-zoom in.\n2- Kapag matagal na pinindot, lalabas ang opsyon para sa pag-save ng pahina.\n3- Kapag isang beses na pinindot, lilitaw ang mga menu.",
   "@onboardDesc3": {
     "type": "text",
     "placeholders": {}
   },
-  "green": "Habka Cagaaran",
+  "green": "Berdeng Tema",
   "@green": {
     "type": "text",
     "placeholders": {}
   },
-  "brown": "Habka Buraan",
+  "brown": "Kayumangging Tema",
   "@brown": {
     "type": "text",
     "placeholders": {}
   },
-  "dark": "Habka Mugdiga",
+  "dark": "Madilim na Tema",
   "@dark": {
     "type": "text",
     "placeholders": {}
   },
-  "azkarfav": "Athkar Jecel",
+  "azkarfav": "Mga Paboritong Dhikr",
   "@azkarfav": {
     "type": "text",
     "placeholders": {}
   },
-  "themeTitle": "Dooro Muuqaalka",
+  "themeTitle": "Piliin ang Tema",
   "@themeTitle": {
     "type": "text",
     "placeholders": {}
   },
-  "sorah": "Suurah",
+  "sorah": "Surah",
   "@sorah": {
     "type": "text",
     "placeholders": {}
   },
-  "part": "Qayb",
+  "part": "Bahagi",
   "@part": {
     "type": "text",
     "placeholders": {}
   },
-  "langChange": "Beddel Luqadda",
+  "langChange": "Palitan ang Wika",
   "@langChange": {
     "type": "text",
     "placeholders": {}
   },
-  "tafChange": "Dooro Tafsiir",
+  "tafChange": "Piliin ang Tafsir",
   "@tafChange": {
     "type": "text",
     "placeholders": {}
   },
-  "tafIbnkatheerN": "Tafsiirka Ibn Kathir",
+  "tafIbnkatheerN": "Tafsir ni Ibn Katheer",
   "@tafIbnkatheerN": {
     "type": "text",
     "placeholders": {}
   },
-  "tafBaghawyN": "Tafsiirka al-Baghawi",
+  "tafBaghawyN": "Tafsir ni Al-Baghawy",
   "@tafBaghawyN": {
     "type": "text",
     "placeholders": {}
   },
-  "tafQurtubiN": "Tafsiirka al-Qurtubi",
+  "tafQurtubiN": "Tafsir ni Al-Qurtubi",
   "@tafQurtubiN": {
     "type": "text",
     "placeholders": {}
   },
-  "tafSaadiN": "Tafsiirka As-Sa'di",
+  "tafSaadiN": "Tafsir ni As-Sa'di",
   "@tafSaadiN": {
     "type": "text",
     "placeholders": {}
   },
-  "tafTabariN": "Tafsiirka al-Tabari",
+  "tafTabariN": "Tafsir ni At-Tabari",
   "@tafTabariN": {
     "type": "text",
     "placeholders": {}
   },
-  "tafIbnkatheerD": "Tafsiirka Quraanka Weyn",
+  "tafIbnkatheerD": "Tafsir ng Maluwalhating Qur'an",
   "@tafIbnkatheerD": {
     "type": "text",
     "placeholders": {}
   },
-  "tafBaghawyD": "Maalim al-Tanzil",
+  "tafBaghawyD": "Ma'alim At-Tanzil",
   "@tafBaghawyD": {
     "type": "text",
     "placeholders": {}
   },
-  "tafQurtubiD": "Al-Jaami' li Axkaam al-Quraan",
+  "tafQurtubiD": "Al-Jami' li Ahkam Al-Qur'an",
   "@tafQurtubiD": {
     "type": "text",
     "placeholders": {}
   },
-  "tafSaadiD": "Tayseer Kalaam Almannan",
+  "tafSaadiD": "Tafsir Karim Ar-Rahman sa Pagsasalin ng Salita ng Al-Mannan",
   "@tafSaadiD": {
     "type": "text",
     "placeholders": {}
   },
-  "tafTabariD": "Jami al-Bayan an Tawilay al-Quraan",
+  "tafTabariD": "Jami' Al-Bayan sa Pagsasalin ng Qur'an",
   "@tafTabariD": {
     "type": "text",
     "placeholders": {}
   },
-  "appLang": "Luqadda Appka",
+  "appLang": "Wika ng Aplikasyon",
   "@appLang": {
     "type": "text",
     "placeholders": {}
   },
-  "setting": "Dejinta",
+  "setting": "Mga Setting",
   "@setting": {
     "type": "text",
     "placeholders": {}
   },
-  "reader1": "Cabdul Baasit",
+  "reader1": "Abdul Basit",
   "@reader1": {
     "type": "text",
     "placeholders": {}
   },
-  "reader2": "Maxamed El-Minshawi",
+  "reader2": "Muhammad Al-Menshawy",
   "@reader2": {
     "type": "text",
     "placeholders": {}
   },
-  "reader3": "Maxmuud Al-Hussary",
+  "reader3": "Mahmoud Al-Hosary",
   "@reader3": {
     "type": "text",
     "placeholders": {}
   },
-  "reader4": "Axmed Al-Ajamy",
+  "reader4": "Ahmed Al-Ajmi",
   "@reader4": {
     "type": "text",
     "placeholders": {}
   },
-  "reader5": "Maher Al Muaiqly",
+  "reader5": "Maher Al-Muaiqly",
   "@reader5": {
     "type": "text",
     "placeholders": {}
@@ -340,17 +339,17 @@
     "type": "text",
     "placeholders": {}
   },
-  "reader11": "Sherzad Taher",
+  "reader11": "Sherzade Taher",
   "@reader11": {
     "type": "text",
     "placeholders": {}
   },
-  "reader12": "Abdulrahman Al-Ousi",
+  "reader12": "Abdulrahman Al-Awsi",
   "@reader12": {
     "type": "text",
     "placeholders": {}
   },
-  "reader13": "Wadi Al-Yemeni",
+  "reader13": "Wadih Al-Yamani",
   "@reader13": {
     "type": "text",
     "placeholders": {}
@@ -360,7 +359,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "reader15": "Abdullah Al Juhany",
+  "reader15": "Abdullah Al-Juhani",
   "@reader15": {
     "type": "text",
     "placeholders": {}
@@ -370,112 +369,112 @@
     "type": "text",
     "placeholders": {}
   },
-  "alheekmahlib": "Maktabadda Al Heekmah",
+  "alheekmahlib": "Aklatan ng Karunungan",
   "@alheekmahlib": {
     "type": "text",
     "placeholders": {}
   },
-  "backTo": "Back To",
+  "backTo": "Bumalik sa",
   "@backTo": {
     "type": "text",
     "placeholders": {}
   },
-  "next": "Xiga",
+  "next": "Susunod",
   "@next": {
     "type": "text",
     "placeholders": {}
   },
-  "start": "Bilaabo",
+  "start": "Simulan",
   "@start": {
     "type": "text",
     "placeholders": {}
   },
-  "quranPages": "Al Quraan (Bogag)",
+  "quranPages": "Qur'an (Mga Pahina)",
   "@quranPages": {
     "type": "text",
     "placeholders": {}
   },
-  "quranText": "Al Quraan (Aayadaha)",
+  "quranText": "Qur'an (Mga Talata)",
   "@quranText": {
     "type": "text",
     "placeholders": {}
   },
-  "tafseer": "Al Tafsiir",
+  "tafseer": "Tafsir",
   "@tafseer": {
     "type": "text",
     "placeholders": {}
   },
-  "allJuz": "Qaybaha",
+  "allJuz": "Mga Bahagi",
   "@allJuz": {
     "type": "text",
     "placeholders": {}
   },
-  "copyAzkarText": "Azkarka waa la keydiyay!",
+  "copyAzkarText": "Na-kopya ang Dhikr",
   "@copyAzkarText": {
     "type": "text",
     "placeholders": {}
   },
-  "addBookmark": "Calaamad waa la daray!",
+  "addBookmark": "Naidagdag ang bookmark",
   "@addBookmark": {
     "type": "text",
     "placeholders": {}
   },
-  "deletedBookmark": "Calaamad waa la tirtiray!",
+  "deletedBookmark": "Nabura ang bookmark!",
   "@deletedBookmark": {
     "type": "text",
     "placeholders": {}
   },
-  "deletedReminder": "Xusuusinta waa la tirtiray!",
+  "deletedReminder": "Nabura ang paalala!",
   "@deletedReminder": {
     "type": "text",
     "placeholders": {}
   },
-  "fillAllFields": "Fadlan buuxi goobaha!",
+  "fillAllFields": "Paki-punan ang lahat ng mga field!",
   "@fillAllFields": {
     "type": "text",
     "placeholders": {}
   },
-  "version": "Nooca",
+  "version": "Bersyon",
   "@version": {
     "type": "text",
     "placeholders": {}
   },
-  "share": "La Wadaag Appka",
+  "share": "Ibahagi ang App",
   "@share": {
     "type": "text",
     "placeholders": {}
   },
-  "facebook": "Nala raac Facebook",
+  "facebook": "Sundan kami sa Facebook",
   "@facebook": {
     "type": "text",
     "placeholders": {}
   },
-  "addZekrBookmark": "Dhikirka waa la daray kuwa jeclaysan",
+  "addZekrBookmark": "Naidagdag ang Dhikr sa mga paborito",
   "@addZekrBookmark": {
     "type": "text",
     "placeholders": {}
   },
-  "deletedZekrBookmark": "Dhikirka waa la tirtiray kuwa jeclaysan",
+  "deletedZekrBookmark": "Nabura ang Dhikr mula sa mga paborito!",
   "@deletedZekrBookmark": {
     "type": "text",
     "placeholders": {}
   },
-  "pageNo": "Tirada Bogga",
+  "pageNo": "Numero ng Pahina",
   "@pageNo": {
     "type": "text",
     "placeholders": {}
   },
-  "lastRead": "Akhris Ugu Danbeeyay",
+  "lastRead": "Huling Binasa",
   "@lastRead": {
     "type": "text",
     "placeholders": {}
   },
-  "copyAyah": "Aayadda waa la keydiyay",
+  "copyAyah": "Na-kopya ang Ayat",
   "@copyAyah": {
     "type": "text",
     "placeholders": {}
   },
-  "copyTafseer": "Tafsiirka waa la keydiyay",
+  "copyTafseer": "Na-kopya ang Tafsir",
   "@copyTafseer": {
     "type": "text",
     "placeholders": {}
@@ -485,77 +484,77 @@
     "type": "text",
     "placeholders": {}
   },
-  "download": "Deeqsi",
+  "download": "I-download",
   "@download": {
     "type": "text",
     "placeholders": {}
   },
-  "noInternet": "Qalabku ma xidhna Internetka!",
+  "noInternet": "Hindi nakakonekta ang device sa internet!",
   "@noInternet": {
     "type": "text",
     "placeholders": {}
   },
-  "mobileDataAyat": "Ogeysiis: Waad adeegsanaysaa Xogta Shabakadda inaad aayadaha deeqsiso!",
+  "mobileDataAyat": "Paalala: Gumagamit ka ng mobile data para mag-download ng mga ayat!",
   "@mobileDataAyat": {
     "type": "text",
     "placeholders": {}
   },
-  "mobileDataSurahs": "Ogeysiis: Waad adeegsanaysaa Xogta Shabakadda inaad Suuradaha deeqsiso!",
+  "mobileDataSurahs": "Paalala: Gumagamit ka ng mobile data para mag-download ng mga surah!",
   "@mobileDataSurahs": {
     "type": "text",
     "placeholders": {}
   },
-  "mobileDataListen": "Ogeysiis: Waad adeegsanaysaa Xogta Shabakadda inaad Suuradaha dhegaysato!",
+  "mobileDataListen": "Paalala: Gumagamit ka ng mobile data para makinig sa mga surah!",
   "@mobileDataListen": {
     "type": "text",
     "placeholders": {}
   },
-  "choiceAyah": "Fadlan dooro aayadda hore!",
+  "choiceAyah": "Paki-pili ang ayat muna!",
   "@choiceAyah": {
     "type": "text",
     "placeholders": {}
   },
-  "stopSigns": "Astamaha Joojinta",
+  "stopSigns": "Mga Palatandaan ng Waqf",
   "@stopSigns": {
     "type": "text",
     "placeholders": {}
   },
-  "aboutApp": "Ku saabsan Appka",
+  "aboutApp": "Tungkol sa Aplikasyon",
   "@aboutApp": {
     "type": "text",
     "placeholders": {}
   },
-  "readMore": "Akhri inta badan",
+  "readMore": "Magbasa ng Higit Pa",
   "@readMore": {
     "type": "text",
     "placeholders": {}
   },
-  "readLess": "Akhri inta yar",
+  "readLess": "Magbasa ng Mas Kaunti",
   "@readLess": {
     "type": "text",
     "placeholders": {}
   },
-  "ok": "Haa",
+  "ok": "Sige",
   "@ok": {
     "type": "text",
     "placeholders": {}
   },
-  "cancel": "Ka noqo",
+  "cancel": "Kanselahin",
   "@cancel": {
     "type": "text",
     "placeholders": {}
   },
-  "searchToSurah": "Raadi Suurah",
+  "searchToSurah": "Hanapin ang Surah",
   "@searchToSurah": {
     "type": "text",
     "placeholders": {}
   },
-  "addReminder": "Dar xusuus cusub",
+  "addReminder": "Magdagdag ng Paalala",
   "@addReminder": {
     "type": "text",
     "placeholders": {}
   },
-  "lastListen": "Dhegaysiga ugu danbeeyay",
+  "lastListen": "Huling Pakikinig",
   "@lastListen": {
     "type": "text",
     "placeholders": {}
@@ -565,267 +564,262 @@
     "type": "text",
     "placeholders": {}
   },
-  "shareText": "Sida qoraal",
+  "shareText": "Bilang Teksto",
   "@shareText": {
     "type": "text",
     "placeholders": {}
   },
-  "shareImage": "Sida sawir",
+  "shareImage": "Bilang Larawan",
   "@shareImage": {
     "type": "text",
     "placeholders": {}
   },
-  "shareImageWTrans": "Sida sawir iyo qoraal dheeraad ah",
+  "shareImageWTrans": "Bilang Larawan na may Karagdagang Nilalaman",
   "@shareImageWTrans": {
     "type": "text",
     "placeholders": {}
   },
-  "shareTrans": "Ogeysiis: La wadaagista tafsiirka sawir wuxuu kaliya taageeraa tafsiirka Al-Saadi, sababtoo ah tafsiirku ma ahan mid dheer.",
+  "shareTrans": "Paalala: Ang pagbabahagi ng tafsir bilang imahe ay sinusuportahan lamang ang Tafsir As-Sa'di dahil hindi mahaba ang tafsir.",
   "@shareTrans": {
     "type": "text",
     "placeholders": {}
   },
-  "translation": "Turjumaada",
+  "translation": "Pagsasalin",
   "@translation": {
     "type": "text",
     "placeholders": {}
   },
-  "search": "Search",
+  "search": "Maghanap",
   "@search": {
     "type": "text",
     "placeholders": {}
   },
-  "surahsList": "Surahs List",
+  "surahsList": "Listahan ng Surah",
   "@surahsList": {
     "type": "text",
     "placeholders": {}
   },
-  "bookmarksList": "Bookmarks List",
+  "bookmarksList": "Listahan ng mga Bookmark",
   "@bookmarksList": {
     "type": "text",
     "placeholders": {}
   },
-  "copy": "Copy",
+  "copy": "Kopyahin",
   "@copy": {
     "type": "text",
     "placeholders": {}
   },
-  "shareTafseer": "Share",
+  "shareTafseer": "Ibahagi",
   "@shareTafseer": {
     "type": "text",
     "placeholders": {}
   },
-  "addToBookmark": "Add To Bookmark",
+  "addToBookmark": "Idagdag sa Bookmark",
   "@addToBookmark": {
     "type": "text",
     "placeholders": {}
   },
-  "repeatSurah": "Repeat Surah",
+  "repeatSurah": "Ulitin ang Surah",
   "@repeatSurah": {
     "type": "text",
     "placeholders": {}
   },
-  "pauseSurah": "Pause Surah",
+  "pauseSurah": "I-pause ang Surah",
   "@pauseSurah": {
     "type": "text",
     "placeholders": {}
   },
-  "replaySurah": "Replay Surah",
+  "replaySurah": "I-replay ang Surah",
   "@replaySurah": {
     "type": "text",
     "placeholders": {}
   },
-  "skipToPrevious": "Skip To Previous",
+  "skipToPrevious": "Nakaraang Surah",
   "@skipToPrevious": {
     "type": "text",
     "placeholders": {}
   },
-  "deletedPlayList": "La lista de reproducción ha sido eliminada",
+  "deletedPlayList": "Na-delete na ang playlist",
   "@deletedPlayList": {
     "type": "text",
     "placeholders": {}
   },
-  "createPlayList": "Create the playlist",
+  "createPlayList": "Gumawa ng Playlist",
   "@createPlayList": {
     "type": "text",
     "placeholders": {}
   },
-  "playList": "Playlists",
+  "playList": "Mga Playlist",
   "@playList": {
     "type": "text",
     "placeholders": {}
   },
-  "playListName": "Type the name of the playlist",
+  "playListName": "Isulat ang Pangalan ng Playlist",
   "@playListName": {
     "type": "text",
     "placeholders": {}
   },
-  "from": "سے",
+  "from": "Mula",
   "@from": {
     "type": "text",
     "placeholders": {}
   },
-  "to": "کو",
+  "to": "Patungo",
   "@to": {
     "type": "text",
     "placeholders": {}
   },
-  "quran": "Quraanka Kariimka ah",
+  "quran": "Ang Qur'an",
   "@quran": {
     "type": "text",
     "placeholders": {}
   },
-  "quranAudio": "Dhageysiga Qur'aanka",
+  "quranAudio": "Pakikinig sa Qur'an",
   "@quranAudio": {
     "type": "text",
     "placeholders": {}
   },
-  "startScreen": "Shaashadda Bilowga",
+  "startScreen": "Pangunahing Screen",
   "@startScreen": {
     "type": "text",
     "placeholders": {}
   },
-  "selectScreen": "Dooro Shaashadda Bilowga",
+  "selectScreen": "Piliin ang Pangunahing Screen",
   "@selectScreen": {
     "type": "text",
     "placeholders": {}
   },
-  "dailyZeker": "Duceysiga Maanta",
+  "dailyZeker": "Panalangin ng Araw",
   "@dailyZeker": {
     "type": "text",
     "placeholders": {}
   },
-  "lang": "Soomaali",
+  "lang": "Arabic",
   "@lang": {
     "type": "text",
     "placeholders": {}
   },
-  "juz": "Qayb",
+  "juz": "Juz",
   "@juz": {
     "type": "text",
     "placeholders": {}
   },
-  "sajda": "Sujuud",
+  "sajda": "Sajdah",
   "@sajda": {
     "type": "text",
     "placeholders": {}
   },
-  "pages": "Bogag",
+  "pages": "Mga Pahina",
   "@pages": {
     "type": "text",
     "placeholders": {}
   },
-  "ayahs": "Aayadaha",
+  "ayahs": "Mga Ayah",
   "@ayahs": {
     "type": "text",
     "placeholders": {}
   },
-  "eidGreetingContent": "Allah ha naga aqbalo annaga iyo idinka soonka, salaadda, iyo camalada suuban.",
+  "eidGreetingContent": "Nawa'y tanggapin ng Allah ang ating pag-aayuno, mga dasal, at mabubuting gawa.",
   "@eidGreetingContent": {
     "type": "text",
     "placeholders": {}
   },
-  "eidGreetingContent2": "Sanad walba iyo idinkoo Allah ugu dhow.",
+  "eidGreetingContent2": "Nawa'y mas maging malapit ka sa Allah bawat taon.",
   "@eidGreetingContent2": {
     "type": "text",
     "placeholders": {}
   },
-  "eidGreetingTitle": "Ciid wanaagsan",
+  "eidGreetingTitle": "Eid Mubarak",
   "@eidGreetingTitle": {
     "type": "text",
     "placeholders": {}
   },
-  "ramadhanMubarak": "Ramadan Mubarak",
+  "ramadhanMubarak": "Ramadhan Mubarak",
   "@ramadhanMubarak": {
     "type": "text",
     "placeholders": {}
   },
-  "home": "Boga Hore",
+  "home": "Pangunahing Pahina",
   "@home": {
     "type": "text",
     "placeholders": {}
   },
-  "skip": "Ka bood",
+  "skip": "Laktawan",
   "@skip": {
     "type": "text",
     "placeholders": {}
   },
-  "What's New": "Maxaa Cusub",
+  "What's New": "Ano ang Bago",
   "@What's New": {
     "type": "text",
     "placeholders": {}
   },
-  "What'sNewTitle": "Interface cusub oo sahlan in la isticmaalo:",
-  "@What'sNewTitle": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "ourApps": "Apps-keena",
+  "ourApps": "Aming mga Aplikasyon",
   "@ourApps": {
     "type": "text",
     "placeholders": {}
   },
-  "choseQuran": "Dooro Habka Akhriska",
+  "choseQuran": "Piliin ang Paraan ng Pagbabasa",
   "@choseQuran": {
     "type": "text",
     "placeholders": {}
   },
-  "blueMode": "Buluug",
+  "blueMode": "Asul",
   "@blueMode": {
     "type": "text",
     "placeholders": {}
   },
-  "brownMode": "Bunni",
+  "brownMode": "Kayumanggi",
   "@brownMode": {
     "type": "text",
     "placeholders": {}
   },
-  "oldMode": "Duug ah",
+  "oldMode": "Luma",
   "@oldMode": {
     "type": "text",
     "placeholders": {}
   },
-  "darkMode": "Madoow",
+  "darkMode": "Madilim",
   "@darkMode": {
     "type": "text",
     "placeholders": {}
   },
-  "Sunday": "Axad",
+  "Sunday": "Linggo",
   "@Sunday": {
     "type": "text",
     "placeholders": {}
   },
-  "Monday": "Isniin",
+  "Monday": "Lunes",
   "@Monday": {
     "type": "text",
     "placeholders": {}
   },
-  "Tuesday": "Talaado",
+  "Tuesday": "Martes",
   "@Tuesday": {
     "type": "text",
     "placeholders": {}
   },
-  "Wednesday": "Arbaco",
+  "Wednesday": "Miyerkules",
   "@Wednesday": {
     "type": "text",
     "placeholders": {}
   },
-  "Thursday": "Khamiis",
+  "Thursday": "Huwebes",
   "@Thursday": {
     "type": "text",
     "placeholders": {}
   },
-  "Friday": "Jimco",
+  "Friday": "Biyernes",
   "@Friday": {
     "type": "text",
     "placeholders": {}
   },
-  "Saturday": "Sabti",
+  "Saturday": "Sabado",
   "@Saturday": {
     "type": "text",
     "placeholders": {}
   },
-  "RemainsUntilTheEndOf": "Waxaa ka haray dhamaadka",
+  "RemainsUntilTheEndOf": "Natitira hanggang sa katapusan ng",
   "@RemainsUntilTheEndOf": {
     "type": "text",
     "placeholders": {}
@@ -880,43 +874,38 @@
     "type": "text",
     "placeholders": {}
   },
-  "Dhu Al-Qi'dah": "Dhu al-Qi'dah",
+  "Dhu Al-Qi'dah": "Dhu Al-Qi'dah",
   "@Dhu Al-Qi'dah": {
     "type": "text",
     "placeholders": {}
   },
-  "Dhu Al-Hijjah": "Dhu al-Hijjah",
+  "Dhu Al-Hijjah": "Dhu Al-Hijjah",
   "@Dhu Al-Hijjah": {
     "type": "text",
     "placeholders": {}
   },
-  "Day": "Maalin",
+  "Day": "Araw",
   "@Day": {
     "type": "text",
     "placeholders": {}
   },
-  "Days": "Maalmood",
+  "Days": "Mga Araw",
   "@Days": {
     "type": "text",
     "placeholders": {}
   },
-  "hijriNote": "Ogeysiis: Fadlan ogow inay jiri karto farqi yar oo ku saabsan waqtiyada cayiman maadaama jadwalka Hijrigu ku saleysan yahay aragtida tooska ah ee dayaxa. Waxaan sameyneynaa dadaal kasta si aan u hubinno saxnaanta taariikhaha la shaaciyey, iyadoo la tixgelinayo in jadwalka la sixi doono haddii dayaxa la arko.",
+  "hijriNote": "Paalala: Mangyaring tandaan na maaaring may bahagyang pagkakaiba sa tinukoy na mga oras dahil ang kalendaryong Hijri ay batay sa aktwal na pagmamasid ng bagong buwan. Sinisikap naming tiyakin ang kawastuhan ng mga ipinahayag na petsa, na isinasaalang-alang na maaayos ang kalendaryo kapag nakita ang bagong buwan.",
   "@hijriNote": {
     "type": "text",
     "placeholders": {}
   },
-  "AH": "AH",
+  "AH": "Hijrah",
   "@AH": {
     "type": "text",
     "placeholders": {}
   },
   "Fajr": "Fajr",
   "@Fajr": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "Sunrise": "Qorrax-soo-bax",
-  "@Sunrise": {
     "type": "text",
     "placeholders": {}
   },
@@ -940,42 +929,47 @@
     "type": "text",
     "placeholders": {}
   },
-  "Last Third": "Saddexaadka dambe",
+  "Last Third": "Huling Ikatlong Bahagi",
   "@Last Third": {
     "type": "text",
     "placeholders": {}
   },
-  "Middle of the Night": "Saqda dhexe",
+  "Middle of the Night": "Kalagitnaan ng Gabi",
   "@Middle of the Night": {
     "type": "text",
     "placeholders": {}
   },
-  "tafsirLibrary": "Maktabadda Tafsirka",
+  "Sunrise": "Pagsikat ng Araw",
+  "@Sunrise": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "tafsirLibrary": "Aklatan ng Tafsir",
   "@tafsirLibrary": {
     "type": "text",
     "placeholders": {}
   },
-  "allBooks": "Dhamaan Buugaagta",
+  "allBooks": "Lahat ng Aklat",
   "@allBooks": {
     "type": "text",
     "placeholders": {}
   },
-  "myLibrary": "Maktabadayda",
+  "myLibrary": "Aking Aklatan",
   "@myLibrary": {
     "type": "text",
     "placeholders": {}
   },
-  "bookmark": "Calaamadeeyaha",
+  "bookmark": "Mga Bookmark",
   "@bookmark": {
     "type": "text",
     "placeholders": {}
   },
-  "chapterBook": "Cutubyada Buugga",
+  "chapterBook": "Mga Kabanata ng Aklat",
   "@chapterBook": {
     "type": "text",
     "placeholders": {}
   },
-  "aboutBook": "Ku saabsan Buugga",
+  "aboutBook": "Tungkol sa Aklat",
   "@aboutBook": {
     "type": "text",
     "placeholders": {}
@@ -985,218 +979,218 @@
     "type": "text",
     "placeholders": {}
   },
-  "createKhatmah": "Abuur Khatmah",
+  "createKhatmah": "Lumikha ng Khatmah",
   "@createKhatmah": {
     "type": "text",
     "placeholders": {}
   },
-  "khatmahName": "Magaca Khatmah",
+  "khatmahName": "Pangalan ng Khatmah",
   "@khatmahName": {
     "type": "text",
     "placeholders": {}
   },
-  "addKhatmah": "Ku dar Khatmah",
+  "addKhatmah": "Idagdag ang Khatmah",
   "@addKhatmah": {
     "type": "text",
     "placeholders": {}
   },
-  "duration": "Muddada",
+  "duration": "Tagal",
   "@duration": {
     "type": "text",
     "placeholders": {}
   },
-  "divisionBySahabah": "Qeybinta Asxaabta",
+  "divisionBySahabah": "Pagkakahati ayon sa Sahabah",
   "@divisionBySahabah": {
     "type": "text",
     "placeholders": {}
   },
-  "choiceColor": "Xulo midabka",
+  "choiceColor": "Piliin ang Kulay",
   "@choiceColor": {
     "type": "text",
     "placeholders": {}
   },
-  "searchInBooks": "Raadi buugaagta",
+  "searchInBooks": "Maghanap sa Mga Aklat",
   "@searchInBooks": {
     "type": "text",
     "placeholders": {}
   },
-  "hasPassed": "Waa dhaafay",
+  "hasPassed": "Lumipas Na",
   "@hasPassed": {
     "type": "text",
     "placeholders": {}
   },
-  "downloading": "Soo dejinaysa...",
+  "downloading": "Nagda-download...",
   "@downloading": {
     "type": "text",
     "placeholders": {}
   },
-  "startHijriYear": "Bilowga Sanadka Hijriyada",
+  "startHijriYear": "Simula ng Taong Hijri",
   "@startHijriYear": {
     "type": "text",
     "placeholders": {}
   },
-  "reminderToFastTasoo'a": "Xusuusin Soonka Tasu'a",
+  "reminderToFastTasoo'a": "Paalala sa Pag-aayuno ng Tasoo'a",
   "@reminderToFastTasoo'a": {
     "type": "text",
     "placeholders": {}
   },
-  "reminderToFastAshura": "Xusuusin Soonka Ashura",
+  "reminderToFastAshura": "Paalala sa Pag-aayuno ng Ashura",
   "@reminderToFastAshura": {
     "type": "text",
     "placeholders": {}
   },
-  "ramadhan": "Bisha Ramadaan",
+  "ramadhan": "Buwan ng Ramadan",
   "@ramadhan": {
     "type": "text",
     "placeholders": {}
   },
-  "nightOfQadir": "Xusuusin Habeenka Laylatul Qadr",
+  "nightOfQadir": "Paalala para sa Gabi ng Laylatul Qadr",
   "@nightOfQadir": {
     "type": "text",
     "placeholders": {}
   },
-  "EidAl-Fitr": "Ciidul Fidriga",
+  "EidAl-Fitr": "Eid Al-Fitr",
   "@EidAl-Fitr": {
     "type": "text",
     "placeholders": {}
   },
-  "sexShawwal": "Xusuusin Soonka Lixda Maalmood ee Shawwal",
+  "sexShawwal": "Paalala sa Pag-aayuno ng Anim na Araw ng Shawwal",
   "@sexShawwal": {
     "type": "text",
     "placeholders": {}
   },
-  "arafahReminder": "Xusuusin Soonka Maalinta Arafah",
+  "arafahReminder": "Paalala sa Pag-aayuno ng Araw ng Arafah",
   "@arafahReminder": {
     "type": "text",
     "placeholders": {}
   },
-  "tenDaysOfDhul-Hijjah": "Tobanka Maalmood ee Ugu Horreeya Dhul Hijjah",
+  "tenDaysOfDhul-Hijjah": "Sampung Araw ng Dzulhijjah",
   "@tenDaysOfDhul-Hijjah": {
     "type": "text",
     "placeholders": {}
   },
-  "EidAl-Adha": "Ciidul Adxaa",
+  "EidAl-Adha": "Eid Al-Adha",
   "@EidAl-Adha": {
     "type": "text",
     "placeholders": {}
   },
-  "choiceBackgroundColor": "Dooro midabka asalka",
+  "choiceBackgroundColor": "Piliin ang Kulay ng Background",
   "@choiceBackgroundColor": {
     "type": "text",
     "placeholders": {}
   },
-  "reset": "Dib u dejiso",
+  "reset": "I-reset",
   "@reset": {
     "type": "text",
     "placeholders": {}
   },
-  "Medinan": "Madinah",
+  "Medinan": "Madaniyah",
   "@Medinan": {
     "type": "text",
     "placeholders": {}
   },
-  "Meccan": "Makkah",
+  "Meccan": "Makkiyah",
   "@Meccan": {
     "type": "text",
     "placeholders": {}
   },
-  "surahNames": "Magacyada Suuradda",
+  "surahNames": "Mga Pangalan ng Surah",
   "@surahNames": {
     "type": "text",
     "placeholders": {}
   },
-  "aboutSurah": "Ku saabsan Suuradda",
+  "aboutSurah": "Tungkol sa Surah",
   "@aboutSurah": {
     "type": "text",
     "placeholders": {}
   },
-  "notification": "Ogeysiisyada",
+  "notification": "Mga Abiso",
   "@notification": {
     "type": "text",
     "placeholders": {}
   },
-  "noNotifications": "Wax ogeysiis ah ma jiraan",
+  "noNotifications": "Walang Mga Abiso",
   "@noNotifications": {
     "type": "text",
     "placeholders": {}
   },
-  "reminders": "Xusuusinno",
+  "reminders": "Mga Paalala",
   "@reminders": {
     "type": "text",
     "placeholders": {}
   },
-  "customReminder": "Xusuusin gaar ah",
+  "customReminder": "Pasadyang Paalala",
   "@customReminder": {
     "type": "text",
     "placeholders": {}
   },
-  "addMore": "Ku dar dheeraad",
+  "addMore": "Magdagdag Pa",
   "@addMore": {
     "type": "text",
     "placeholders": {}
   },
-  "What'sNewDetails10": "۞ Ku darista Khatmah ee Qur'aanka.\n۞ Ku darista sifo loogu talagalay in dhammaan aayadaha suuradda laga soo dejisan karo si ay u shaqeyso offline.\n۞ Horumarinta raadinta Qur'aanka.\n۞ Ku darista maktabadda Tafsirka.\n۞ Ku darista sifo xasuusin ah ee akhrinta Azkar oo aad dejisan karto waqti gaar ah oo akhrin ah.\n۞ Ku darista ogeysiisyada.\n۞ Iyo waxyaabo dheeraad ah oo lagu darayo oo lagu hagaajinayo.",
+  "What'sNewDetails10": "۞ Dagdag ng Khatmah para sa Qur'an.\n۞ Kakayahang mag-download ng lahat ng mga ayat ng surah upang gumana offline.\n۞ Mga pagpapabuti sa paghahanap ng Qur'an.\n۞ Dagdag ng Aklatan ng Tafsir.\n۞ Kakayahang magtakda ng paalala para sa pagbabasa ng mga dzikr na may naka-schedule na oras.\n۞ Dagdag ng mga notification.\n۞ At higit pang mga karagdagan at pagpapabuti.",
   "@What'sNewDetails10": {
     "type": "text",
     "placeholders": {}
   },
-  "chooseDhekr": "Dooro xuska.",
+  "chooseDhekr": "Piliin ang Dzikr",
   "@chooseDhekr": {
     "type": "text",
     "placeholders": {}
   },
-  "selectTime": "Deji waqti loogu talagalay milicsiga.",
+  "selectTime": "Pumili ng oras ng paalala",
   "@selectTime": {
     "type": "text",
     "placeholders": {}
   },
-  "downloadBookFirst": "Fadlan marka hore buugga soo dejiso.",
+  "downloadBookFirst": "Mangyaring i-download muna ang libro.",
   "@downloadBookFirst": {
     "type": "text",
     "placeholders": {}
   },
-  "lastDayOf": "Maalinta ugu dambeysa ee bisha",
+  "lastDayOf": "Huling araw ng buwan",
   "@lastDayOf": {
     "type": "text",
     "placeholders": {}
   },
-  "booksDownloaded": "Buugga waa la soo dejiyay.",
+  "booksDownloaded": "Na-download na ang libro.",
   "@booksDownloaded": {
     "type": "text",
     "placeholders": {}
   },
-  "booksDeleted": "Buugga waa la tirtiray.",
+  "booksDeleted": "Na-delete na ang libro.",
   "@booksDeleted": {
     "type": "text",
     "placeholders": {}
   },
-  "noBooksDownloaded": "Weli ma aadan soo dejisan wax buug ah.",
+  "noBooksDownloaded": "Wala ka pang na-download na libro.",
   "@noBooksDownloaded": {
     "type": "text",
     "placeholders": {}
   },
-  "notifyQuranBody": "Waxaad ku joogtay bogga {currentPageNumber} ee Qur'aanka, ma doonaysaa inaad sii waddo?",
+  "notifyQuranBody": "Huminto ka sa pahina {currentPageNumber} sa Quran, gusto mo bang ipagpatuloy?",
   "@notifyQuranBody": {
     "type": "text",
     "placeholders": {
       "currentPageNumber": {}
     }
   },
-  "notifyAdhkarBody": "Ha ilaawin inaad akhriso {adhkarType}",
+  "notifyAdhkarBody": "Huwag kalimutang basahin ang {adhkarType}",
   "@notifyAdhkarBody": {
     "type": "text",
     "placeholders": {
       "adhkarType": {}
     }
   },
-  "notifyBooksBody": "Ha iloobin inaad sii waddo akhriska buugga {bookName}",
+  "notifyBooksBody": "Huwag kalimutang ipagpatuloy ang pagbabasa ng aklat {bookName}",
   "@notifyBooksBody": {
     "type": "text",
     "placeholders": {
       "bookName": {}
     }
   },
-  "notifyListenBody": "Ha iloobin inaad sii waddo dhageysiga suuradaha",
+  "notifyListenBody": "Huwag kalimutang ipagpatuloy ang pakikinig sa mga surah",
   "@notifyListenBody": {
     "type": "text",
     "placeholders": {

@@ -25,71 +25,77 @@ class CalculatingDateEventsWidget extends StatelessWidget {
     int daysRemaining = countdownCtrl.calculate(year, month, day);
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 32.0),
-      child: Container(
-        height: 50,
-        width: 380,
-        padding: const EdgeInsets.all(4),
-        decoration: BoxDecoration(
-            borderRadius: const BorderRadius.all(Radius.circular(8.0)),
-            border: Border.all(
-              width: 1,
-              color: Theme.of(context).canvasColor.withOpacity(.5),
-            )),
-        child: Stack(
-          alignment: Alignment.centerRight,
-          children: [
-            LinearProgressIndicator(
-              minHeight: 50,
-              borderRadius: const BorderRadius.all(Radius.circular(4)),
-              value: (1.0 - (daysRemaining / 355))
-                  .clamp(0.0, 1.0), //(daysRemaining / 1000).toDouble(),
-              backgroundColor: Theme.of(context).canvasColor,
-              color: daysRemaining == 0
-                  ? Theme.of(context).colorScheme.surface
-                  : Theme.of(context).colorScheme.surface.withOpacity(.7),
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 8.0),
-              child: Row(
-                children: [
-                  Expanded(
-                    flex: 7,
-                    child: FittedBox(
-                      fit: BoxFit.scaleDown,
-                      child: Text(
-                        daysRemaining == 0 ? '$name: ${'hasPassed'.tr}' : name,
-                        style: TextStyle(
-                          fontSize: 18.0,
-                          fontFamily: 'kufi',
-                          color: Theme.of(context).colorScheme.onInverseSurface,
+      child: Opacity(
+        opacity: daysRemaining == 0 ? .5 : 1,
+        child: Container(
+          height: 50,
+          width: 380,
+          padding: const EdgeInsets.all(4),
+          decoration: BoxDecoration(
+              borderRadius: const BorderRadius.all(Radius.circular(8.0)),
+              border: Border.all(
+                width: 1,
+                color: Theme.of(context).canvasColor.withOpacity(.5),
+              )),
+          child: Stack(
+            alignment: Alignment.centerRight,
+            children: [
+              LinearProgressIndicator(
+                minHeight: 50,
+                borderRadius: const BorderRadius.all(Radius.circular(4)),
+                value: (1.0 - (daysRemaining / 355))
+                    .clamp(0.0, 1.0), //(daysRemaining / 1000).toDouble(),
+                backgroundColor: Theme.of(context).canvasColor,
+                color: daysRemaining == 0
+                    ? Theme.of(context).colorScheme.surface
+                    : Theme.of(context).colorScheme.surface.withOpacity(.7),
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                child: Row(
+                  children: [
+                    Expanded(
+                      flex: 7,
+                      child: FittedBox(
+                        fit: BoxFit.scaleDown,
+                        child: Text(
+                          daysRemaining == 0
+                              ? '$name: ${'hasPassed'.tr}'
+                              : name,
+                          style: TextStyle(
+                            fontSize: 18.0,
+                            fontFamily: 'kufi',
+                            color:
+                                Theme.of(context).colorScheme.onInverseSurface,
+                          ),
+                          textAlign: TextAlign.center,
                         ),
-                        textAlign: TextAlign.center,
                       ),
                     ),
-                  ),
-                  daysRemaining == 0
-                      ? const SizedBox.shrink()
-                      : Expanded(
-                          flex: 3,
-                          child: FittedBox(
-                            fit: BoxFit.scaleDown,
-                            child: Text(
-                              '${daysRemaining.toString().convertNumbers()} ${'${countdownCtrl.daysArabicConvert(daysRemaining)}'.tr}',
-                              style: TextStyle(
-                                fontSize: 16.0,
-                                fontFamily: 'kufi',
-                                color: Theme.of(context)
-                                    .colorScheme
-                                    .onInverseSurface,
+                    daysRemaining == 0
+                        ? const SizedBox.shrink()
+                        : Expanded(
+                            flex: 3,
+                            child: FittedBox(
+                              fit: BoxFit.scaleDown,
+                              child: Text(
+                                '${daysRemaining.toString().convertNumbers()} ${'${countdownCtrl.daysArabicConvert(daysRemaining)}'.tr}',
+                                style: TextStyle(
+                                  fontSize: 16.0,
+                                  fontFamily: 'kufi',
+                                  color: Theme.of(context)
+                                      .colorScheme
+                                      .onInverseSurface,
+                                ),
+                                textAlign: TextAlign.center,
                               ),
-                              textAlign: TextAlign.center,
                             ),
                           ),
-                        ),
-                ],
+                  ],
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

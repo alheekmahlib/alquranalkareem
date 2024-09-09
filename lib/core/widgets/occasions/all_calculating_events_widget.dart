@@ -24,6 +24,8 @@ class AllCalculatingEventsWidget extends StatelessWidget {
         isFontSize: false,
         searchButton: const SizedBox.shrink(),
         color: context.theme.colorScheme.primary,
+        isNotifi: false,
+        isBooks: false,
       ),
       body: SafeArea(
         child: Container(

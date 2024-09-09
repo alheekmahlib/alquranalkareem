@@ -2,11 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_slider_drawer/flutter_slider_drawer.dart';
 import 'package:get/get.dart';
 
-import '/core/utils/constants/extensions/alignment_rotated_extension.dart';
 import '/core/services/services_locator.dart';
+import '/core/utils/constants/extensions/alignment_rotated_extension.dart';
 import '/core/utils/helpers/global_key_manager.dart';
 import '/core/widgets/tab_bar_widget.dart';
-import '/database/notificationDatabase.dart';
 import '../../../controllers/general/general_controller.dart';
 import '../controllers/audio/audio_controller.dart';
 import '../controllers/aya_controller.dart';
@@ -35,7 +34,6 @@ class QuranHome extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     GlobalKeyManager().resetDrawerKey();
-    NotificationDatabaseHelper.loadNotifications();
     return PopScope(
       canPop: false,
       onPopInvoked: (bool didPop) {
