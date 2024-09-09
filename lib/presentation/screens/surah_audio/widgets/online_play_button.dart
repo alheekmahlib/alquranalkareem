@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:just_audio/just_audio.dart';
 
 import '/core/utils/constants/extensions/svg_extensions.dart';
+import '../../../../core/services/notifications_manager.dart';
 import '../../../../core/utils/constants/lottie.dart';
 import '../../../../core/utils/constants/lottie_constants.dart';
 import '../../../../core/utils/constants/svg_constants.dart';
@@ -74,6 +75,10 @@ class OnlinePlayButton extends StatelessWidget {
                       height: 30,
                     ),
                     onTap: () async {
+                      NotificationManager().updateBookProgress(
+                          'quranAudio'.tr,
+                          'notifyListenBody'.tr,
+                          surahAudioCtrl.state.surahNum.value);
                       surahAudioCtrl.cancelDownload();
                       surahAudioCtrl.state.isPlaying.value = true;
                       surahAudioCtrl.state.boxController.openBox();

@@ -1,4 +1,3 @@
-import 'package:alquranalkareem/presentation/screens/books/controller/extensions/books_ui.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
@@ -8,7 +7,9 @@ import '/core/utils/constants/extensions/extensions.dart';
 import '/core/utils/constants/extensions/text_span_extension.dart';
 import '/presentation/screens/books/controller/extensions/books_getters.dart';
 import '/presentation/screens/books/controller/extensions/books_storage_getters.dart';
+import '/presentation/screens/books/controller/extensions/books_ui.dart';
 import '/presentation/screens/quran_page/widgets/search/search_extensions/highlight_extension.dart';
+import '../../../../core/widgets/app_bar_widget.dart';
 import '../../../../core/widgets/shimmer_effect_build.dart';
 import '../../../controllers/general/general_controller.dart';
 import '../controller/books_bookmarks_controller.dart';
@@ -28,27 +29,13 @@ class PagesPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.primaryContainer,
-      appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.primaryContainer,
-        title: Text(
-          booksCtrl.state.booksList[bookNumber - 1].bookName,
-          style: TextStyle(
-            fontSize: 18,
-            fontFamily: 'kufi',
-            color: Theme.of(context).colorScheme.inversePrimary,
-          ),
-        ),
-        leading: GestureDetector(
-          onTap: () {
-            Get.back();
-          },
-          child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16.0),
-              child: Image.asset(
-                'assets/icons/arrow_back.png',
-                color: Theme.of(context).colorScheme.surface,
-              )),
-        ),
+      appBar: AppBarWidget(
+        isTitled: true,
+        title: booksCtrl.state.booksList[bookNumber - 1].bookName,
+        isFontSize: true,
+        searchButton: const SizedBox.shrink(),
+        isNotifi: true,
+        isBooks: true,
       ),
       body: SafeArea(
         child: FutureBuilder<List<PageContent>>(

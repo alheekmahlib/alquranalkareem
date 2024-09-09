@@ -7,6 +7,7 @@ import '/core/utils/constants/extensions/convert_number_extension.dart';
 import '/presentation/screens/quran_page/controllers/extensions/audio_ui.dart';
 import '/presentation/screens/quran_page/controllers/extensions/quran_getters.dart';
 import '/presentation/screens/quran_page/controllers/extensions/quran_ui.dart';
+import '../../../../core/services/notifications_manager.dart';
 import '../../../../core/services/services_locator.dart';
 import '../../../../core/utils/constants/extensions/extensions.dart';
 import '../../../../core/utils/helpers/responsive.dart';
@@ -29,6 +30,11 @@ class QuranPages extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     bookmarkCtrl.getBookmarks();
+    NotificationManager().updateBookProgress(
+        'quran'.tr,
+        'notifyQuranBody'.trArgs(
+            [String.fromCharCode(quranCtrl.state.currentPageNumber.value)]),
+        quranCtrl.state.currentPageNumber.value);
     return SafeArea(
       child: GetBuilder<QuranController>(
         builder: (quranCtrl) => GestureDetector(

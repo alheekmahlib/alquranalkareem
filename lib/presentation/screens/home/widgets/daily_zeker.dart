@@ -1,3 +1,4 @@
+import 'package:alquranalkareem/core/utils/constants/extensions/extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
@@ -19,46 +20,69 @@ class DailyZeker extends StatelessWidget {
           width: 380,
           decoration: BoxDecoration(
               color: Theme.of(context).colorScheme.primary.withOpacity(.1),
-              borderRadius: const BorderRadius.all(Radius.circular(4))),
+              borderRadius: const BorderRadius.all(Radius.circular(8))),
           child: FutureBuilder<Dhekr>(
               future: azkarCtrl.getDailyDhekr(),
               builder: (context, snapshot) {
                 return snapshot.data != null &&
                         azkarCtrl.state.dhekrOfTheDay != null
                     ? Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
-                          Container(
-                            height: 32,
-                            width: 150,
-                            alignment: Alignment.center,
-                            decoration: BoxDecoration(
-                                color: Theme.of(context).colorScheme.primary,
-                                borderRadius:
-                                    const BorderRadius.all(Radius.circular(4))),
-                            child: Text(
-                              'dailyZeker'.tr,
-                              style: TextStyle(
-                                fontSize: 16.0,
-                                fontFamily: 'kufi',
-                                fontWeight: FontWeight.w500,
-                                color: Theme.of(context).colorScheme.secondary,
+                          Stack(
+                            alignment: Alignment.topCenter,
+                            children: [
+                              Container(
+                                height: 37,
+                                width: 170,
+                                alignment: Alignment.center,
+                                decoration: BoxDecoration(
+                                    color: Theme.of(context)
+                                        .colorScheme
+                                        .primaryContainer,
+                                    borderRadius: const BorderRadius.only(
+                                      bottomLeft: Radius.circular(8),
+                                      bottomRight: Radius.circular(8),
+                                    )),
                               ),
-                              textAlign: TextAlign.center,
-                            ),
+                              Container(
+                                height: 32,
+                                width: 150,
+                                alignment: Alignment.center,
+                                decoration: BoxDecoration(
+                                    color: Theme.of(context)
+                                        .colorScheme
+                                        .surface
+                                        .withOpacity(.4),
+                                    borderRadius: const BorderRadius.only(
+                                      bottomRight: Radius.circular(8),
+                                      bottomLeft: Radius.circular(8),
+                                    )),
+                                child: Text(
+                                  'dailyZeker'.tr,
+                                  style: TextStyle(
+                                    fontSize: 16.0,
+                                    fontFamily: 'kufi',
+                                    fontWeight: FontWeight.w500,
+                                    color: Theme.of(context)
+                                        .colorScheme
+                                        .inversePrimary,
+                                  ),
+                                  textAlign: TextAlign.center,
+                                ),
+                              ),
+                            ],
                           ),
+                          const Gap(4),
+                          context.hDivider(
+                              width: Get.width,
+                              color: context.theme.colorScheme.surface),
                           Container(
                             width: MediaQuery.sizeOf(context).width,
-                            margin: const EdgeInsets.all(16.0),
+                            margin: const EdgeInsets.symmetric(
+                                horizontal: 16.0, vertical: 8.0),
                             padding: const EdgeInsets.all(8.0),
                             alignment: Alignment.center,
-                            decoration: BoxDecoration(
-                                borderRadius:
-                                    const BorderRadius.all(Radius.circular(4)),
-                                border: Border.all(
-                                    color:
-                                        Theme.of(context).colorScheme.primary,
-                                    width: 1)),
                             child: Text(
                               '${azkarCtrl.state.dhekrOfTheDay!.zekr}',
                               style: TextStyle(
@@ -71,6 +95,9 @@ class DailyZeker extends StatelessWidget {
                               textDirection: TextDirection.rtl,
                             ),
                           ),
+                          context.hDivider(
+                              width: Get.width,
+                              color: context.theme.colorScheme.surface),
                           Padding(
                             padding:
                                 const EdgeInsets.symmetric(horizontal: 8.0),

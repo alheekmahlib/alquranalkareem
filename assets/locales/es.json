@@ -1182,5 +1182,33 @@
   "@noBooksDownloaded": {
     "type": "text",
     "placeholders": {}
+  },
+  "notifyQuranBody": "Te detuviste en la página {currentPageNumber} del Corán, ¿quieres continuar?",
+  "@notifyQuranBody": {
+    "type": "text",
+    "placeholders": {
+      "currentPageNumber": {}
+    }
+  },
+  "notifyAdhkarBody": "No olvides leer {adhkarType}",
+  "@notifyAdhkarBody": {
+    "type": "text",
+    "placeholders": {
+      "adhkarType": {}
+    }
+  },
+  "notifyBooksBody": "No olvides continuar leyendo el libro {bookName}",
+  "@notifyBooksBody": {
+    "type": "text",
+    "placeholders": {
+      "bookName": {}
+    }
+  },
+  "notifyListenBody": "No olvides continuar escuchando las suras",
+  "@notifyListenBody": {
+    "type": "text",
+    "placeholders": {
+      "bookName": {}
+    }
   }
 }
