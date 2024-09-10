@@ -5,17 +5,17 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:screenshot/screenshot.dart';
 
-import '../models/dheker_model.dart';
+import '../../../../database/bookmark_db/bookmark_database.dart';
 
 class AdhkarState {
-  final RxList<Dhekr> adhkarList = <Dhekr>[].obs;
+  final RxList<AdhkarData> adhkarList = <AdhkarData>[].obs;
   final listController = ScrollController();
   final favController = ScrollController();
-  var allAdhkar = <Dhekr>[].obs;
-  var filteredDhekrList = <Dhekr>[].obs;
-  var filteredFavDhekrList = <Dhekr>[].obs;
+  var allAdhkar = <AdhkarData>[].obs;
+  var filteredDhekrList = <AdhkarData>[].obs;
+  var filteredFavDhekrList = <AdhkarData>[].obs;
   var categories = <String>[].obs;
-  Dhekr? dhekrOfTheDay;
+  AdhkarData? dhekrOfTheDay;
   final ScreenshotController dhekrScreenController = ScreenshotController();
   Uint8List? dhekrToImageBytes;
   RxBool isMorningEnabled = false.obs;

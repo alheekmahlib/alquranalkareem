@@ -8,6 +8,7 @@ import 'package:get/get.dart';
 import 'core/services/languages/app_constants.dart';
 import 'core/services/languages/localization_controller.dart';
 import 'core/services/languages/messages.dart';
+import 'core/services/notifications_helper.dart';
 import 'core/services/services_locator.dart';
 import 'core/widgets/local_notification/controller/local_notifications_controller.dart';
 import 'presentation/controllers/theme_controller.dart';
@@ -25,6 +26,7 @@ class MyApp extends StatelessWidget {
     sl<ThemeController>().checkTheme();
     final localizationCtrl = Get.find<LocalizationController>();
     LocalNotificationsController.instance;
+    NotifyHelper().requestPermissions();
     return ScreenUtilInit(
         designSize: const Size(360, 690),
         minTextAdapt: true,

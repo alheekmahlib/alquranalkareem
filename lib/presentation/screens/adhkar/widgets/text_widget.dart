@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '/core/services/services_locator.dart';
+import '../../../../database/bookmark_db/bookmark_database.dart';
 import '../../../controllers/general/general_controller.dart';
 import '../controller/adhkar_controller.dart';
-import '../models/dheker_model.dart';
 
 class TextWidget extends StatelessWidget {
-  final Dhekr zekr;
+  final AdhkarData zekr;
   TextWidget({super.key, required this.zekr});
 
   @override

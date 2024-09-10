@@ -1,34 +1,11 @@
-class BookmarksAyahs {
-  int? id;
-  String? surahName;
-  int? surahNumber;
-  int? pageNumber;
-  int? ayahNumber;
-  int? ayahUQNumber;
-  String? lastRead;
+import 'package:drift/drift.dart';
 
-  BookmarksAyahs(this.id, this.surahName, this.surahNumber, this.pageNumber,
-      this.ayahNumber, this.ayahUQNumber, this.lastRead);
-
-  Map<String, dynamic> toJson() {
-    return <String, dynamic>{
-      'id': id,
-      'sorahName': surahName,
-      'sorahNum': surahNumber,
-      'pageNum': pageNumber,
-      'ayahNum': ayahNumber,
-      'nomPageF': ayahUQNumber,
-      'lastRead': lastRead,
-    };
-  }
-
-  BookmarksAyahs.fromJson(Map<String, dynamic> json) {
-    id = json['id'];
-    surahName = json['sorahName'];
-    surahNumber = json['sorahNum'];
-    pageNumber = json['pageNum'];
-    ayahNumber = json['ayahNum'];
-    ayahUQNumber = json['nomPageF'];
-    lastRead = json['lastRead'];
-  }
+class BookmarksAyahs extends Table {
+  IntColumn get id => integer().autoIncrement()();
+  TextColumn get surahName => text()();
+  IntColumn get surahNumber => integer()();
+  IntColumn get pageNumber => integer()();
+  IntColumn get ayahNumber => integer()();
+  IntColumn get ayahUQNumber => integer()();
+  TextColumn get lastRead => text()();
 }

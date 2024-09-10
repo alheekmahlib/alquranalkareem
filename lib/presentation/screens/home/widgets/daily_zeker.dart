@@ -1,11 +1,11 @@
-import 'package:alquranalkareem/core/utils/constants/extensions/extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 
+import '/core/utils/constants/extensions/extensions.dart';
 import '/presentation/screens/adhkar/controller/extensions/adhkar_getters.dart';
+import '../../../../database/bookmark_db/bookmark_database.dart';
 import '../../adhkar/controller/adhkar_controller.dart';
-import '../../adhkar/models/dheker_model.dart';
 
 class DailyZeker extends StatelessWidget {
   DailyZeker({super.key});
@@ -21,7 +21,7 @@ class DailyZeker extends StatelessWidget {
           decoration: BoxDecoration(
               color: Theme.of(context).colorScheme.primary.withOpacity(.1),
               borderRadius: const BorderRadius.all(Radius.circular(8))),
-          child: FutureBuilder<Dhekr>(
+          child: FutureBuilder<AdhkarData>(
               future: azkarCtrl.getDailyDhekr(),
               builder: (context, snapshot) {
                 return snapshot.data != null &&

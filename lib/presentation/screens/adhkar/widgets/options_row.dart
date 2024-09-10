@@ -6,12 +6,12 @@ import 'package:get/get.dart';
 import '/core/utils/constants/extensions/custom_error_snackBar.dart';
 import '/core/utils/constants/extensions/svg_extensions.dart';
 import '../../../../core/utils/constants/svg_constants.dart';
+import '../../../../database/bookmark_db/bookmark_database.dart';
 import '../controller/adhkar_controller.dart';
-import '../models/dheker_model.dart';
 import 'share/share_dhekr_options.dart';
 
 class OptionsRow extends StatelessWidget {
-  final Dhekr zekr;
+  final AdhkarData zekr;
   final bool azkarFav;
 
   OptionsRow({super.key, required this.zekr, required this.azkarFav});
@@ -66,32 +66,25 @@ class OptionsRow extends StatelessWidget {
                       ),
                     ),
                   ),
-                  GestureDetector(
-                    onTap: () async {
-                      azkarCtrl.hasBookmark(zekr.category, zekr.zekr).value
-                          ? azkarCtrl.deleteAdhkar(zekr, context)
-                          : await azkarCtrl
-                              .addAdhkar(Dhekr(
+                  Obx(() => GestureDetector(
+                        onTap: () async {
+                          azkarCtrl.hasBookmark(zekr.category, zekr.zekr).value
+                              ? azkarCtrl.deleteAdhkar(zekr)
+                              : await azkarCtrl.addAdhkar(AdhkarData(
                                   id: zekr.id,
                                   category: zekr.category,
                                   count: zekr.count,
                                   description: zekr.description,
                                   reference: zekr.reference,
-                                  zekr: zekr.zekr))
-                              .then((value) {
-                              context.showCustomErrorSnackBar(
-                                  'addZekrBookmark'.tr,
-                                  isDone: true);
-                              azkarCtrl.getAdhkar();
-                              azkarCtrl.update();
-                            });
-                    },
-                    child: Semantics(
-                      button: true,
-                      enabled: true,
-                      label: 'addToBookmark'.tr,
-                      child:
-                          azkarCtrl.hasBookmark(zekr.category, zekr.zekr).value
+                                  zekr: zekr.zekr));
+                        },
+                        child: Semantics(
+                          button: true,
+                          enabled: true,
+                          label: 'addToBookmark'.tr,
+                          child: azkarCtrl
+                                  .hasBookmark(zekr.category, zekr.zekr)
+                                  .value
                               ? customSvg(
                                   SvgPath.svgBookmarkIcon2,
                                   height: 23,
@@ -100,8 +93,8 @@ class OptionsRow extends StatelessWidget {
                                   SvgPath.svgBookmarkIcon,
                                   height: 20,
                                 ),
-                    ),
-                  ),
+                        ),
+                      )),
                 ],
               ),
             ),

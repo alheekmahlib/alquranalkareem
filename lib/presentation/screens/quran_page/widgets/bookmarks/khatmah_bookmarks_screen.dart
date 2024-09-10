@@ -1,9 +1,9 @@
-import 'package:alquranalkareem/presentation/screens/quran_page/widgets/khatmah/screen/khatmahs_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 
 import '/core/utils/constants/extensions/extensions.dart';
+import '/presentation/screens/quran_page/widgets/khatmah/screen/khatmahs_screen.dart';
 import 'bookmarks_list.dart';
 
 class KhatmahBookmarksScreen extends StatelessWidget {

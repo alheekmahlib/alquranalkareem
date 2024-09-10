@@ -11,7 +11,6 @@ import 'package:sqflite_common_ffi/sqflite_ffi.dart';
 import 'package:timezone/data/latest.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
 
-import '/database/databaseHelper.dart';
 import '/presentation/controllers/settings_controller.dart';
 import '/presentation/screens/quran_page/data/data_source/baghawy_data_client.dart';
 import '/presentation/screens/quran_page/data/data_source/data_client.dart';
@@ -47,10 +46,6 @@ class ServicesLocator {
   // await SharedPreferences.getInstance().then((v) {
   //   sl.registerSingleton<SharedPreferences>(v);
   // });
-
-  Future<void> _initDatabaseHelper() async =>
-      sl.registerSingleton<DatabaseHelper>(await DatabaseHelper.instance
-        ..database);
 
   Future<void> _initDatabaseClient() async =>
       sl.registerSingleton<DataBaseClient>(await DataBaseClient.instance
@@ -95,7 +90,6 @@ class ServicesLocator {
       // ),
 
       // _initPrefs(), // moved to notificationsCtrl
-      _initDatabaseHelper(),
       _initDatabaseClient(),
       _initDatabaseIbnkatheer(),
       _initDatabaseBaghawy(),

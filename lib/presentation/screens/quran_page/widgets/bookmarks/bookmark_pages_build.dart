@@ -17,6 +17,7 @@ class BookmarkPagesBuild extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetBuilder<BookmarksController>(
+        id: 'pageBookmarked',
         builder: (bookmarkCtrl) => bookmarkCtrl.bookmarksList.isEmpty
             ? const SizedBox.shrink()
             : Column(
@@ -62,16 +63,16 @@ class BookmarkPagesBuild extends StatelessWidget {
                                             horizontal: 16.0, vertical: 8.0),
                                         child: Dismissible(
                                           background: const DeleteWidget(),
-                                          key: ValueKey<int>(bookmark.id!),
+                                          key: ValueKey<int>(bookmark.pageNum),
                                           onDismissed:
                                               (DismissDirection direction) {
                                             bookmarkCtrl.deleteBookmarks(
-                                                bookmark.pageNum!, context);
+                                                bookmark.pageNum);
                                           },
                                           child: GestureDetector(
                                             onTap: () {
                                               quranCtrl.changeSurahListOnTap(
-                                                  bookmark.pageNum!);
+                                                  bookmark.pageNum);
                                               Get.back();
                                             },
                                             child: Container(
