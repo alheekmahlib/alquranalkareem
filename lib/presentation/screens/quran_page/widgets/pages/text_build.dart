@@ -63,7 +63,8 @@ class TextBuild extends StatelessWidget {
                       ),
               ],
             ),
-            GetX<QuranController>(
+            GetBuilder<QuranController>(
+              id: 'bookmarked',
               builder: (quranCtrl) => FittedBox(
                 fit: BoxFit.fitWidth,
                 child: RichText(

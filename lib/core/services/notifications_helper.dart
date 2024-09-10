@@ -47,7 +47,7 @@ class NotifyHelper {
     return AwesomeNotifications().cancelSchedule(notificationId);
   }
 
-  void requistPermissions() {
+  void requestPermissions() {
     AwesomeNotifications().isNotificationAllowed().then((isAllowed) {
       if (!isAllowed) {
         // Get.dialog(

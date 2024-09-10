@@ -1,7 +1,7 @@
+import 'package:alquranalkareem/core/utils/constants/extensions/custom_error_snackBar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '/core/utils/constants/extensions/custom_error_snackBar.dart';
 import '/core/utils/constants/extensions/svg_extensions.dart';
 import '/presentation/screens/quran_page/controllers/extensions/audio_ui.dart';
 import '../../../../../core/services/services_locator.dart';
@@ -49,14 +49,12 @@ class AddBookmarkButton extends StatelessWidget {
       onTap: () async {
         if (sl<BookmarksController>().hasBookmark(surahNum, ayahUQNum).value) {
           sl<BookmarksController>().deleteBookmarksText(ayahUQNum);
-          // sl<QuranController>().clearSelection();
         } else {
           sl<BookmarksController>()
               .addBookmarkText(surahName, surahNum, pageIndex + 1, ayahNum,
                   ayahUQNum, sl<GeneralController>().state.timeNow.dateNow)
               .then((value) => context.showCustomErrorSnackBar('addBookmark'.tr,
                   isDone: true));
-          // sl<QuranController>().clearSelection();
         }
         sl<AudioController>().clearSelection();
         cancel!();

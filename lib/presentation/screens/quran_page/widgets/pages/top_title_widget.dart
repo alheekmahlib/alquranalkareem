@@ -32,9 +32,7 @@ class TopTitleWidget extends StatelessWidget {
           ? Row(
               children: [
                 GestureDetector(
-                  onTap: () {
-                    bookmarkCtrl.addPageBookmarkOnTap(context, index);
-                  },
+                  onTap: () => bookmarkCtrl.addPageBookmarkOnTap(index),
                   child: bookmarkIcon(
                       height: context.customOrientation(30.h, 55.h)),
                 ),
@@ -87,9 +85,7 @@ class TopTitleWidget extends StatelessWidget {
                 ),
                 const Gap(16),
                 GestureDetector(
-                  onTap: () {
-                    bookmarkCtrl.addPageBookmarkOnTap(context, index);
-                  },
+                  onTap: () => bookmarkCtrl.addPageBookmarkOnTap(index),
                   child: bookmarkIcon(
                       height: context.customOrientation(30.h, 55.h)),
                 ),
@@ -105,8 +101,10 @@ class TopTitleWidget extends StatelessWidget {
         enabled: true,
         label: 'Add Bookmark',
         child: SvgPicture.asset(
-          sl<BookmarksController>().isPageBookmarked(
-                  pageNum ?? quranCtrl.state.currentPageNumber.value)
+          sl<BookmarksController>()
+                  .hasPageBookmark(
+                      pageNum ?? quranCtrl.state.currentPageNumber.value)
+                  .value
               ? 'assets/svg/bookmarked.svg'
               : Get.context!.bookmarkPageIconPath(),
           width: width,

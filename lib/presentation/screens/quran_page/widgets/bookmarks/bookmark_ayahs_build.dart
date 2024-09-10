@@ -19,6 +19,7 @@ class BookmarkAyahsBuild extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetBuilder<BookmarksController>(
+        id: 'bookmarked',
         builder: (bookmarkCtrl) => bookmarkCtrl.bookmarkTextList.isEmpty
             ? const SizedBox.shrink()
             : Column(
