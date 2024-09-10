@@ -10,7 +10,7 @@ import '../../../../../core/utils/constants/lottie_constants.dart';
 import '../../../../controllers/general/general_controller.dart';
 import '../../controllers/aya_controller.dart';
 import '../../controllers/quran/quran_controller.dart';
-import '../../data/model/aya.dart';
+import '../../data/data_source/quran_database.dart';
 import '../../extensions/surah_name_with_banner.dart';
 import 'search_bar_widget.dart';
 
@@ -39,13 +39,14 @@ class QuranSearch extends StatelessWidget {
                 ayahCtrl.surahList.clear();
               },
               onChanged: (query) {
-                if (ayahCtrl.searchTextEditing.text.isNotEmpty) {
+                if (ayahCtrl.searchTextEditing.text.isNotEmpty ||
+                    query.trim().isNotEmpty) {
                   ayahCtrl.surahSearch(query);
                   ayahCtrl.search(query);
                 }
               },
               onSubmitted: (query) {
-                if (query.length <= 0) {
+                if (query.length <= 0 || query.trim().isNotEmpty) {
                   ayahCtrl.surahSearch(query);
                   ayahCtrl.search(query);
                 }
@@ -67,12 +68,12 @@ class QuranSearch extends StatelessWidget {
                         itemCount: ayahCtrl.surahList.length,
                         scrollDirection: Axis.horizontal,
                         itemBuilder: (context, index) {
-                          Aya search = ayahCtrl.surahList[index];
+                          QuranTableData search = ayahCtrl.surahList[index];
                           return Directionality(
                             textDirection: TextDirection.rtl,
                             child: GestureDetector(
                               onTap: () {
-                                quranCtrl.changeSurahListOnTap(search.pageNum);
+                                quranCtrl.changeSurahListOnTap(search.pageNum!);
                                 Get.back();
                               },
                               child: Container(
@@ -107,7 +108,7 @@ class QuranSearch extends StatelessWidget {
               child: Obx(
                 () {
                   if (ayahCtrl.ayahList.isEmpty ||
-                      ayahCtrl.searchTextEditing.text.length <= 0) {
+                      ayahCtrl.searchTextEditing.text.isEmpty) {
                     return customLottie(LottieConstants.assetsLottieSearch,
                         width: 200.0, height: 200.0);
                   } else if (ayahCtrl.ayahList.isNotEmpty) {
@@ -115,7 +116,7 @@ class QuranSearch extends StatelessWidget {
                       controller: ayahCtrl.scrollController,
                       itemCount: ayahCtrl.ayahList.length,
                       itemBuilder: (context, index) {
-                        Aya search = ayahCtrl.ayahList[index];
+                        QuranTableData search = ayahCtrl.ayahList[index];
                         // List<TextSpan> highlightedTextSpans =
                         //     highlightLine(search.SearchText);
                         return Directionality(
@@ -137,17 +138,16 @@ class QuranSearch extends StatelessWidget {
                                   onTap: () {
                                     quranCtrl.clearAndAddSelection(search.id);
                                     quranCtrl
-                                        .changeSurahListOnTap(search.pageNum);
+                                        .changeSurahListOnTap(search.pageNum!);
                                     Get.back();
                                   },
                                   title: Padding(
                                     padding: const EdgeInsets.all(8.0),
                                     child: RichText(
                                       text: TextSpan(
-                                        children:
-                                            search.SearchText.highlightLine(
-                                                ayahCtrl
-                                                    .searchTextEditing.text),
+                                        children: search.searchTextColumn
+                                            .highlightLine(ayahCtrl
+                                                .searchTextEditing.text),
                                         style: TextStyle(
                                           fontFamily: "uthmanic2",
                                           fontWeight: FontWeight.normal,

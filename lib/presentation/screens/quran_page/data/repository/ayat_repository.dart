@@ -1,48 +1,33 @@
-import 'package:sqflite/sqflite.dart';
-
-import '../../../../../core/services/services_locator.dart';
-import '../data_source/data_client.dart';
-import '../model/aya.dart';
-import '../model/ayat.dart';
-
-List<Ayat>? ayatListNot;
+import '../data_source/quran_database.dart';
 
 class AyatRepository {
-  List<Aya>? ayatListNot;
-  String? tableName;
+  List<QuranTableData>? ayatListNot;
 
-  Future<List<Aya>> getPageAyat(int pageNum) async {
-    // Assuming ayatListNot is some form of cache, we return cached data if available
+  Future<List<QuranTableData>> getPageAyat(int pageNum) async {
+    final db = QuranDatabase();
+
     if (ayatListNot != null) {
       return ayatListNot!;
     }
 
     print('isReloading');
-    Database? database = await sl<DataBaseClient>().database;
-    // Fixed query: removed the unnecessary JOIN
-    List<Map>? results = await database?.rawQuery(
-        "SELECT * FROM ${Aya.tableName} WHERE PageNum = ?", [pageNum]);
 
-    List<Aya> ayaList = [];
-    results?.forEach((result) {
-      ayaList.add(Aya.fromMap(result));
-    });
+    final results = await (db.select(db.quranTable)
+          ..where((t) => t.pageNum.equals(pageNum)))
+        .get();
 
-    ayatListNot = ayaList; // Cache the results
-    return ayaList;
+    ayatListNot = results;
+
+    return results;
   }
 
-  Future<List<Aya>> getAllAyah(int surahNumber) async {
-    Database? database = await sl<DataBaseClient>().database;
+  Future<List<QuranTableData>> getAllAyah(int surahNumber) async {
+    final db = QuranDatabase();
 
-    List<Map>? results = await database?.rawQuery(
-        "SELECT * FROM ${Aya.tableName} WHERE SoraNum = ?", [surahNumber]);
+    final results = await (db.select(db.quranTable)
+          ..where((t) => t.surahNum.equals(surahNumber)))
+        .get();
 
-    List<Aya> ayaList = [];
-    results?.forEach((result) {
-      ayaList.add(Aya.fromMap(result));
-    });
-
-    return ayaList;
+    return results;
   }
 }
