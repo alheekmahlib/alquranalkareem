@@ -13,7 +13,6 @@ import 'package:timezone/timezone.dart' as tz;
 
 import '/presentation/controllers/settings_controller.dart';
 import '/presentation/screens/quran_page/data/data_source/baghawy_data_client.dart';
-import '/presentation/screens/quran_page/data/data_source/data_client.dart';
 import '/presentation/screens/quran_page/data/data_source/ibnkatheer_data_client.dart';
 import '/presentation/screens/quran_page/data/data_source/qurtubi_data_client.dart';
 import '/presentation/screens/quran_page/data/data_source/saadi_data_client.dart';
@@ -46,10 +45,6 @@ class ServicesLocator {
   // await SharedPreferences.getInstance().then((v) {
   //   sl.registerSingleton<SharedPreferences>(v);
   // });
-
-  Future<void> _initDatabaseClient() async =>
-      sl.registerSingleton<DataBaseClient>(await DataBaseClient.instance
-        ..initDatabase());
 
   Future<void> _initDatabaseIbnkatheer() async =>
       sl.registerSingleton<IbnkatheerDataBaseClient>(
@@ -90,7 +85,6 @@ class ServicesLocator {
       // ),
 
       // _initPrefs(), // moved to notificationsCtrl
-      _initDatabaseClient(),
       _initDatabaseIbnkatheer(),
       _initDatabaseBaghawy(),
       _initDatabaseQurtubi(),

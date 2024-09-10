@@ -1,11 +1,10 @@
-import 'package:alquranalkareem/presentation/screens/quran_page/extensions/surah_name_with_banner.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 
 import '/core/utils/constants/extensions/custom_error_snackBar.dart';
-import '/presentation/screens/quran_page/data/model/aya.dart';
+import '/presentation/screens/quran_page/extensions/surah_name_with_banner.dart';
 import '../../../../core/services/services_locator.dart';
 import '../../../../core/utils/constants/shared_preferences_constants.dart';
 import '../data/data_source/baghawy_data_client.dart';
@@ -14,7 +13,6 @@ import '../data/data_source/qurtubi_data_client.dart';
 import '../data/data_source/saadi_data_client.dart';
 import '../data/data_source/tabari_data_client.dart';
 import '../data/model/tafsir.dart';
-import '../data/repository/ayat_repository.dart';
 import '../data/repository/tafseer_repository.dart';
 import '../widgets/show_tafseer.dart';
 import 'translate_controller.dart';
@@ -46,13 +44,11 @@ class AyatController extends GetxController {
   String tafseerAyah = '';
   String tafseerText = '';
   RxString currentAyahNumber = '1'.obs;
-  Aya? currentAyah;
   var isSelected = (-1.0).obs;
   var currentPageLoading = RxBool(false);
   var currentPageError = RxString('');
   ValueNotifier<int> selectedTafseerIndex = ValueNotifier<int>(0);
   final TafseerRepository translateRepository = TafseerRepository();
-  final AyatRepository ayatRepository = AyatRepository();
   RxBool isTafseer = false.obs;
   Tafsir? selectedTafsir;
   List<Tafsir>? currentPageTafseer;
