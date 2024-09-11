@@ -8,8 +8,8 @@ import '../../../../../core/utils/constants/extensions/extensions.dart';
 import '../../../../../core/utils/constants/lottie.dart';
 import '../../../../../core/utils/constants/lottie_constants.dart';
 import '../../../../controllers/general/general_controller.dart';
-import '../../controllers/aya_controller.dart';
 import '../../controllers/quran/quran_controller.dart';
+import '../../controllers/quran_search_controller.dart';
 import '../../data/data_source/quran_database.dart';
 import '../../extensions/surah_name_with_banner.dart';
 import 'search_bar_widget.dart';
@@ -18,7 +18,7 @@ class QuranSearch extends StatelessWidget {
   QuranSearch({super.key});
   final generalCtrl = GeneralController.instance;
   final quranCtrl = QuranController.instance;
-  final ayahCtrl = AyaController.instance;
+  final ayahCtrl = QuranSearchController.instance;
 
   @override
   Widget build(BuildContext context) {

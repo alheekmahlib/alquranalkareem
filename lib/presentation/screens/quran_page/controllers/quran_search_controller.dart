@@ -6,10 +6,11 @@ import '/presentation/screens/quran_page/widgets/search/search_extensions/conver
 import '../data/data_source/quran_database.dart';
 import '../data/repository/aya_repository.dart';
 
-class AyaController extends GetxController {
-  static AyaController get instance => Get.isRegistered<AyaController>()
-      ? Get.find<AyaController>()
-      : Get.put<AyaController>(AyaController());
+class QuranSearchController extends GetxController {
+  static QuranSearchController get instance =>
+      Get.isRegistered<QuranSearchController>()
+          ? Get.find<QuranSearchController>()
+          : Get.put<QuranSearchController>(QuranSearchController());
   final ScrollController scrollController = ScrollController();
   final searchTextEditing = TextEditingController();
   ContainerTransitionType transitionType = ContainerTransitionType.fade;
@@ -31,20 +32,16 @@ class AyaController extends GetxController {
   void search(String text) async {
     if (text.trim().isEmpty) {
       print("Empty search query, skipping search.");
-      errorMessage.value =
-          "Please enter a valid search term."; // رسالة توضح أن البحث فارغ
-      return; // أوقف تنفيذ البحث
+      errorMessage.value = "Please enter a valid search term.";
+      return;
     }
 
     ayahList.clear();
     _setLoading(true);
 
-    print("Searching for: $text");
-
     try {
       final List<QuranTableData>? values =
           await AyaRepository.searchAyahs(text);
-      print("Search values: $values");
       if (values!.isNotEmpty) {
         ayahList.assignAll(values);
         _setLoading(false);

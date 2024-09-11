@@ -24,12 +24,12 @@ import '../../presentation/screens/adhkar/controller/adhkar_controller.dart';
 import '../../presentation/screens/books/controller/books_controller.dart';
 import '../../presentation/screens/ourApp/controller/ourApps_controller.dart';
 import '../../presentation/screens/quran_page/controllers/audio/audio_controller.dart';
-import '../../presentation/screens/quran_page/controllers/aya_controller.dart';
 import '../../presentation/screens/quran_page/controllers/ayat_controller.dart';
 import '../../presentation/screens/quran_page/controllers/bookmarks_controller.dart';
 import '../../presentation/screens/quran_page/controllers/khatmah_controller.dart';
 import '../../presentation/screens/quran_page/controllers/playList_controller.dart';
 import '../../presentation/screens/quran_page/controllers/quran/quran_controller.dart';
+import '../../presentation/screens/quran_page/controllers/quran_search_controller.dart';
 import '../../presentation/screens/quran_page/controllers/share_controller.dart';
 import '../../presentation/screens/quran_page/controllers/translate_controller.dart';
 import '../../presentation/screens/splash/controller/splash_screen_controller.dart';
@@ -119,8 +119,9 @@ class ServicesLocator {
     sl.registerLazySingleton<BookmarksController>(() =>
         Get.put<BookmarksController>(BookmarksController(), permanent: true));
 
-    sl.registerLazySingleton<AyaController>(
-        () => Get.put<AyaController>(AyaController(), permanent: true));
+    sl.registerLazySingleton<QuranSearchController>(() =>
+        Get.put<QuranSearchController>(QuranSearchController(),
+            permanent: true));
 
     sl.registerLazySingleton<SettingsController>(() =>
         Get.put<SettingsController>(SettingsController(), permanent: true));

@@ -8,9 +8,9 @@ import '/core/utils/helpers/global_key_manager.dart';
 import '/core/widgets/tab_bar_widget.dart';
 import '../../../controllers/general/general_controller.dart';
 import '../controllers/audio/audio_controller.dart';
-import '../controllers/aya_controller.dart';
 import '../controllers/bookmarks_controller.dart';
 import '../controllers/quran/quran_controller.dart';
+import '../controllers/quran_search_controller.dart';
 import '../widgets/audio/audio_widget.dart';
 import '../widgets/pages/nav_bar_widget.dart';
 import '../widgets/screen_switch.dart';
@@ -78,7 +78,7 @@ class QuranHome extends StatelessWidget {
                             padding: const EdgeInsets.only(top: 15.0),
                             child: OpenContainerWrapper(
                               transitionType:
-                                  sl<AyaController>().transitionType,
+                                  sl<QuranSearchController>().transitionType,
                               closedBuilder:
                                   (BuildContext _, VoidCallback openContainer) {
                                 return SearchBarWidget(

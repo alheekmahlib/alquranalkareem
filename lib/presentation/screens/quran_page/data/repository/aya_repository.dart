@@ -8,7 +8,7 @@ class AyaRepository {
 
   static Future<List<QuranTableData>> getAyahsBySurah(String surahName) async {
     final db = QuranDatabase();
-    return await db.getAyahsBySurah(surahName);
+    return await db.searchSurah(surahName);
   }
 
   static Future<List<QuranTableData>> fetchAyahsByPage(
