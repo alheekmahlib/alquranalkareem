@@ -70,7 +70,8 @@ class TextScaleBuild extends StatelessWidget {
                         ),
                 ],
               ),
-              GetX<QuranController>(
+              GetBuilder<QuranController>(
+                id: 'bookmarked',
                 builder: (quranCtrl) => RichText(
                   textDirection: TextDirection.rtl,
                   textAlign: TextAlign.justify,

@@ -70,14 +70,15 @@ extension QuranUi on QuranController {
   void toggleAyahSelection(int index) {
     if (state.selectedAyahIndexes.contains(index)) {
       state.selectedAyahIndexes.remove(index);
-      QuranController.instance.update(['bookmarked']);
+      update(['bookmarked']);
     } else {
       state.selectedAyahIndexes.clear();
       state.selectedAyahIndexes.add(index);
       state.selectedAyahIndexes.refresh();
+      update(['bookmarked']);
     }
     state.selectedAyahIndexes.refresh();
-    QuranController.instance.update(['bookmarked']);
+    update(['bookmarked']);
   }
 
   void clearAndAddSelection(int index) {
