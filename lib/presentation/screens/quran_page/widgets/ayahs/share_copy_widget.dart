@@ -5,7 +5,7 @@ import 'package:get/get.dart';
 import '/core/utils/constants/extensions/svg_extensions.dart';
 import '../../../../../core/utils/constants/svg_constants.dart';
 import '../../../../../core/widgets/share/share_ayah_options.dart';
-import '../../controllers/ayat_controller.dart';
+import '../../controllers/tafsir_controller.dart';
 
 class ShareCopyWidget extends StatelessWidget {
   final int ayahNumber;
@@ -29,7 +29,7 @@ class ShareCopyWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final ayatCtrl = AyatController.instance;
+    final ayatCtrl = TafsirController.instance;
     return Center(
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 6.0),

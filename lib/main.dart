@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:io';
 
+import 'package:drift/drift.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:get_storage/get_storage.dart';
@@ -19,7 +20,7 @@ Future<void> main() async {
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
   Map<String, Map<String, String>> languages = await dep.init();
   await initializeApp();
-
+  driftRuntimeOptions.dontWarnAboutMultipleDatabases = true;
   runApp(MyApp(
     languages: languages,
   ));

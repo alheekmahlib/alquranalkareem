@@ -6,11 +6,11 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:hijri/hijri_calendar.dart';
 
-import '/presentation/screens/quran_page/controllers/extensions/quran_getters.dart';
 import '../../core/utils/constants/lists.dart';
 import '../../core/utils/constants/shared_preferences_constants.dart';
-import '../screens/quran_page/controllers/ayat_controller.dart';
 import '../screens/quran_page/controllers/quran/quran_controller.dart';
+import '../screens/quran_page/controllers/tafsir_controller.dart';
+import '../screens/quran_page/data/data_source/tafsir_database.dart';
 import '../screens/quran_page/data/model/surahs_model.dart';
 import '../screens/quran_page/data/model/tafsir.dart';
 
@@ -21,10 +21,10 @@ class DailyAyahController extends GetxController {
           : Get.put<DailyAyahController>(DailyAyahController());
   final ScrollController scrollController = ScrollController();
   final quranCtrl = QuranController.instance;
-  final ayatCtrl = AyatController.instance;
+  final ayatCtrl = TafsirController.instance;
   Ayah? ayahOfTheDay;
-  Tafsir? selectedTafsir;
-  List<Tafsir>? currentPageTafseer;
+  TafsirTableData? selectedTafsir;
+  List<TafsirTableData>? currentPageTafseer;
   RxInt radioValue = 0.obs;
   final box = GetStorage();
 
@@ -59,12 +59,17 @@ class DailyAyahController extends GetxController {
     log('allAyahs length: ${quranCtrl.state.allAyahs.length}');
     Ayah? ayah = quranCtrl.state.allAyahs
         .firstWhereOrNull((a) => a.ayahUQNumber == random);
-    currentPageTafseer = await ayatCtrl
-        .handleRadioValueChanged(tafsirRandom)
-        .getAyahTafseer(ayah!.ayahUQNumber,
-            quranCtrl.getSurahDataByAyahUQ(ayah.ayahUQNumber).surahNumber);
-    selectedTafsir = currentPageTafseer!
-        .firstWhereOrNull((a) => a.index == ayah!.ayahUQNumber);
+    currentPageTafseer = await TafsirDatabase(tafsirDBName[radioValue.value])
+        .getTafsirByAyah(ayah!.ayahUQNumber);
+    selectedTafsir = currentPageTafseer!.firstWhere(
+      (a) => a.id == ayah!.ayahUQNumber,
+      orElse: () => const TafsirTableData(
+          id: 0,
+          tafsirText: '',
+          ayahNum: 0,
+          pageNum: 0,
+          surahNum: 0), // تصرف في حالة عدم وجود التفسير
+    );
     log('allAyahs length: ${quranCtrl.state.allAyahs.length} 2222');
     while (ayah == null || selectedTafsir == null) {
       log('allAyahs length: ${quranCtrl.state.allAyahs.length} ',
@@ -72,13 +77,13 @@ class DailyAyahController extends GetxController {
       ayah = quranCtrl.state.allAyahs
           .firstWhereOrNull((a) => a.ayahUQNumber == random);
       selectedTafsir = currentPageTafseer!
-          .firstWhereOrNull((t) => t.index == ayah!.ayahUQNumber);
+          .firstWhereOrNull((t) => t.id == ayah!.ayahUQNumber);
       log('ayah is null  ' * 5);
     }
     log('before listing');
     box
       ..write(AYAH_OF_THE_DAY_AND_AYAH_NUMBER, '${ayah.ayahUQNumber}')
-      ..write(TAFSIR_OF_THE_DAY_AND_TAFSIR_NUMBER, '${selectedTafsir!.index}')
+      ..write(TAFSIR_OF_THE_DAY_AND_TAFSIR_NUMBER, '${selectedTafsir!.id}')
       ..write(SETTED_DATE_FOR_AYAH, HijriCalendar.now().fullDate());
     return ayah;
   }

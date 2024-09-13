@@ -8,6 +8,7 @@ const String READER_NAME = 'reader_name';
 const String SURAH_AUDIO_PLAYER_SOUND = 'sorah_audio_player_sound';
 const String SURAH_AUDIO_PLAYER_NAME = 'sorah_audio_player_name';
 const String TAFSEER_VAL = 'tafseer_val';
+const String TAFSEER_TABLE_VAL = 'tafseer_table_val';
 const String LAST_SURAH = 'lastSurah';
 const String SELECTED_SURAH = "selectedSurah";
 const String LAST_POSITION = "last_Position";
