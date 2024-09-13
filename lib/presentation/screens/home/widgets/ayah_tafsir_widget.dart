@@ -8,8 +8,8 @@ import '../../../../core/utils/constants/lists.dart';
 import '../../../../core/widgets/read_more_less/read_more_less.dart';
 import '../../../controllers/daily_ayah_controller.dart';
 import '../../../controllers/general/general_controller.dart';
-import '../../quran_page/controllers/ayat_controller.dart';
 import '../../quran_page/controllers/quran/quran_controller.dart';
+import '../../quran_page/controllers/tafsir_controller.dart';
 import '../../quran_page/data/model/surahs_model.dart';
 import '../../quran_page/extensions/surah_name_with_banner.dart';
 
@@ -17,7 +17,7 @@ class AyahTafsirWidget extends StatelessWidget {
   AyahTafsirWidget({super.key});
 
   final dailyCtrl = DailyAyahController.instance;
-  final ayatCtrl = AyatController.instance;
+  final ayatCtrl = TafsirController.instance;
   final generalCtrl = GeneralController.instance;
   final quranCtrl = QuranController.instance;
 
@@ -100,46 +100,35 @@ class AyahTafsirWidget extends StatelessWidget {
                             ),
                           ],
                         ),
-                        FutureBuilder(
-                            future: ayatCtrl.getTafsir(
-                                dailyCtrl.ayahOfTheDay!.ayahUQNumber,
-                                quranCtrl
-                                    .getSurahDataByAyahUQ(
-                                        dailyCtrl.ayahOfTheDay!.ayahUQNumber)
-                                    .surahNumber),
-                            builder: (context, snapshot) {
-                              return snapshot.connectionState ==
-                                      ConnectionState.done
-                                  ? ReadMoreLess(
-                                      text: ayatCtrl.selectedTafsir!.text
-                                          .buildTextSpans(),
-                                      textStyle: TextStyle(
-                                        fontSize: generalCtrl
-                                            .state.fontSizeArabic.value,
-                                        color: Theme.of(context)
-                                            .colorScheme
-                                            .inversePrimary,
-                                        overflow: TextOverflow.fade,
-                                      ),
-                                      textAlign: TextAlign.justify,
-                                      animationDuration:
-                                          const Duration(milliseconds: 300),
-                                      maxLines: 1,
-                                      collapsedHeight: 30,
-                                      readMoreText: 'readMore'.tr,
-                                      readLessText: 'readLess'.tr,
-                                      buttonTextStyle: TextStyle(
-                                        fontSize: 12,
-                                        fontFamily: 'kufi',
-                                        color: Theme.of(context).hintColor,
-                                      ),
-                                      iconColor: Theme.of(context).hintColor,
-                                    )
-                                  : const Center(
-                                      child:
-                                          CircularProgressIndicator.adaptive(),
-                                    );
-                            }),
+                        snapshot.connectionState == ConnectionState.done
+                            ? ReadMoreLess(
+                                text: dailyCtrl.selectedTafsir!.tafsirText
+                                    .buildTextSpans(),
+                                textStyle: TextStyle(
+                                  fontSize:
+                                      generalCtrl.state.fontSizeArabic.value,
+                                  color: Theme.of(context)
+                                      .colorScheme
+                                      .inversePrimary,
+                                  overflow: TextOverflow.fade,
+                                ),
+                                textAlign: TextAlign.justify,
+                                animationDuration:
+                                    const Duration(milliseconds: 300),
+                                maxLines: 1,
+                                collapsedHeight: 30,
+                                readMoreText: 'readMore'.tr,
+                                readLessText: 'readLess'.tr,
+                                buttonTextStyle: TextStyle(
+                                  fontSize: 12,
+                                  fontFamily: 'kufi',
+                                  color: Theme.of(context).hintColor,
+                                ),
+                                iconColor: Theme.of(context).hintColor,
+                              )
+                            : const Center(
+                                child: CircularProgressIndicator.adaptive(),
+                              ),
                       ],
                     ),
                   )

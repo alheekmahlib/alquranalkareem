@@ -12,11 +12,6 @@ import 'package:timezone/data/latest.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
 
 import '/presentation/controllers/settings_controller.dart';
-import '/presentation/screens/quran_page/data/data_source/baghawy_data_client.dart';
-import '/presentation/screens/quran_page/data/data_source/ibnkatheer_data_client.dart';
-import '/presentation/screens/quran_page/data/data_source/qurtubi_data_client.dart';
-import '/presentation/screens/quran_page/data/data_source/saadi_data_client.dart';
-import '/presentation/screens/quran_page/data/data_source/tabari_data_client.dart';
 import '../../presentation/controllers/daily_ayah_controller.dart';
 import '../../presentation/controllers/general/general_controller.dart';
 import '../../presentation/controllers/theme_controller.dart';
@@ -24,13 +19,14 @@ import '../../presentation/screens/adhkar/controller/adhkar_controller.dart';
 import '../../presentation/screens/books/controller/books_controller.dart';
 import '../../presentation/screens/ourApp/controller/ourApps_controller.dart';
 import '../../presentation/screens/quran_page/controllers/audio/audio_controller.dart';
-import '../../presentation/screens/quran_page/controllers/ayat_controller.dart';
 import '../../presentation/screens/quran_page/controllers/bookmarks_controller.dart';
 import '../../presentation/screens/quran_page/controllers/khatmah_controller.dart';
 import '../../presentation/screens/quran_page/controllers/playList_controller.dart';
 import '../../presentation/screens/quran_page/controllers/quran/quran_controller.dart';
 import '../../presentation/screens/quran_page/controllers/quran_search_controller.dart';
 import '../../presentation/screens/quran_page/controllers/share_controller.dart';
+import '../../presentation/screens/quran_page/controllers/tafsir_controller.dart';
+import '../../presentation/screens/quran_page/controllers/tafsir_ctrl.dart';
 import '../../presentation/screens/quran_page/controllers/translate_controller.dart';
 import '../../presentation/screens/splash/controller/splash_screen_controller.dart';
 import '../../presentation/screens/surah_audio/controller/surah_audio_controller.dart';
@@ -45,30 +41,6 @@ class ServicesLocator {
   // await SharedPreferences.getInstance().then((v) {
   //   sl.registerSingleton<SharedPreferences>(v);
   // });
-
-  Future<void> _initDatabaseIbnkatheer() async =>
-      sl.registerSingleton<IbnkatheerDataBaseClient>(
-          await IbnkatheerDataBaseClient.instance
-            ..initDatabase());
-
-  Future<void> _initDatabaseBaghawy() async =>
-      sl.registerSingleton<BaghawyDataBaseClient>(
-          await BaghawyDataBaseClient.instance
-            ..initDatabase());
-
-  Future<void> _initDatabaseQurtubi() async =>
-      sl.registerSingleton<QurtubiDataBaseClient>(
-          await QurtubiDataBaseClient.instance
-            ..initDatabase());
-
-  Future<void> _initDatabaseSaadi() async => sl
-      .registerSingleton<SaadiDataBaseClient>(await SaadiDataBaseClient.instance
-        ..initDatabase());
-
-  Future<void> _initDatabaseTabari() async =>
-      sl.registerSingleton<TabariDataBaseClient>(
-          await TabariDataBaseClient.instance
-            ..initDatabase());
 
   Future _windowSize() async {
     if (Platform.isMacOS || Platform.isWindows || Platform.isLinux)
@@ -85,11 +57,6 @@ class ServicesLocator {
       // ),
 
       // _initPrefs(), // moved to notificationsCtrl
-      _initDatabaseIbnkatheer(),
-      _initDatabaseBaghawy(),
-      _initDatabaseQurtubi(),
-      _initDatabaseSaadi(),
-      _initDatabaseTabari(),
       _windowSize(),
     ]);
 
@@ -97,8 +64,8 @@ class ServicesLocator {
     sl.registerLazySingleton<ThemeController>(
         () => Get.put<ThemeController>(ThemeController(), permanent: true));
 
-    sl.registerLazySingleton<AyatController>(
-        () => Get.put<AyatController>(AyatController(), permanent: true));
+    sl.registerLazySingleton<TafsirController>(
+        () => Get.put<TafsirController>(TafsirController(), permanent: true));
 
     sl.registerLazySingleton<GeneralController>(
         () => Get.put<GeneralController>(GeneralController(), permanent: true));
@@ -157,6 +124,9 @@ class ServicesLocator {
     sl.registerLazySingleton<LocalNotificationsController>(() =>
         Get.put<LocalNotificationsController>(LocalNotificationsController(),
             permanent: true));
+
+    sl.registerLazySingleton<TafsirCtrl>(
+        () => Get.put<TafsirCtrl>(TafsirCtrl(), permanent: true));
     // NotifyHelper().initializeNotification();
     // sl<NotificationsController>().initializeLocalNotifications();
 

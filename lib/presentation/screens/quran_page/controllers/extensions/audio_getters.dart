@@ -11,13 +11,13 @@ import '../../../../../core/utils/constants/url_constants.dart';
 import '../../../../../core/widgets/seek_bar.dart';
 import '../../../../controllers/general/general_controller.dart';
 import '../audio/audio_controller.dart';
-import '../ayat_controller.dart';
 import '../quran/quran_controller.dart';
+import '../tafsir_controller.dart';
 
 // AudioState state = AudioState();
 final generalCtrl = GeneralController.instance;
 final quranCtrl = QuranController.instance;
-final ayatCtrl = AyatController.instance;
+final ayatCtrl = TafsirController.instance;
 
 extension AudioGetters on AudioController {
   /// -------- [Getters] ----------

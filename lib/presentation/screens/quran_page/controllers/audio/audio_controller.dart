@@ -18,8 +18,8 @@ import '/presentation/controllers/general/general_controller.dart';
 import '/presentation/screens/quran_page/controllers/extensions/audio_getters.dart';
 import '/presentation/screens/quran_page/controllers/extensions/audiu_storage_getters.dart';
 import '/presentation/screens/quran_page/controllers/extensions/quran_ui.dart';
-import '../ayat_controller.dart';
 import '../quran/quran_controller.dart';
+import '../tafsir_controller.dart';
 import 'audio_state.dart';
 
 class AudioController extends GetxController {
@@ -31,7 +31,7 @@ class AudioController extends GetxController {
 
   final generalCtrl = GeneralController.instance;
   final quranCtrl = QuranController.instance;
-  final ayatCtrl = AyatController.instance;
+  final ayatCtrl = TafsirController.instance;
 
   @override
   void onInit() async {

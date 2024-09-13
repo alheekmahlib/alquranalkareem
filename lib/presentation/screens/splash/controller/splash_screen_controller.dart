@@ -10,8 +10,8 @@ import '../../../../core/utils/constants/shared_preferences_constants.dart';
 import '../../../controllers/general/general_controller.dart';
 import '../../../controllers/settings_controller.dart';
 import '../../quran_page/controllers/audio/audio_controller.dart';
-import '../../quran_page/controllers/ayat_controller.dart';
 import '../../quran_page/controllers/quran/quran_controller.dart';
+import '../../quran_page/controllers/tafsir_controller.dart';
 import '../../quran_page/controllers/translate_controller.dart';
 import '../../whats_new/controller/whats_new_controller.dart';
 
@@ -35,7 +35,7 @@ class SplashScreenController extends GetxController {
 
   Future<void> _loadInitialData() async {
     await Future.wait([
-      sl<AyatController>().loadTafseer(),
+      sl<TafsirController>().loadTafseer(),
       sl<TranslateDataController>().loadTranslateValue(),
       sl<SettingsController>().loadLang(),
       sl<GeneralController>().getLastPageAndFontSize(),
