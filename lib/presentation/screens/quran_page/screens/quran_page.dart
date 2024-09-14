@@ -4,15 +4,15 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '/core/utils/constants/extensions/convert_number_extension.dart';
-import '/presentation/screens/quran_page/controllers/extensions/audio_ui.dart';
-import '/presentation/screens/quran_page/controllers/extensions/quran_getters.dart';
-import '/presentation/screens/quran_page/controllers/extensions/quran_ui.dart';
 import '../../../../core/services/notifications_manager.dart';
 import '../../../../core/services/services_locator.dart';
 import '../../../../core/utils/constants/extensions/extensions.dart';
 import '../../../../core/utils/helpers/responsive.dart';
 import '../controllers/audio/audio_controller.dart';
 import '../controllers/bookmarks_controller.dart';
+import '../controllers/extensions/audio/audio_ui.dart';
+import '../controllers/extensions/quran/quran_getters.dart';
+import '../controllers/extensions/quran/quran_ui.dart';
 import '../controllers/quran/quran_controller.dart';
 import '../controllers/translate_controller.dart';
 import '../extensions/sajda_extension.dart';
@@ -37,6 +37,7 @@ class QuranPages extends StatelessWidget {
         quranCtrl.state.currentPageNumber.value);
     return SafeArea(
       child: GetBuilder<QuranController>(
+        id: 'clearSelection',
         builder: (quranCtrl) => GestureDetector(
           onTap: () => audioCtrl.clearSelection(),
           onScaleStart: (details) => quranCtrl.state.baseScaleFactor.value =

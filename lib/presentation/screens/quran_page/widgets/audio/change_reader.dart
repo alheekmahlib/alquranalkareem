@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '/presentation/screens/quran_page/controllers/extensions/audio_ui.dart';
 import '../../../../../core/services/services_locator.dart';
 import '../../../../../core/utils/constants/lists.dart';
 import '../../controllers/audio/audio_controller.dart';
+import '../../controllers/extensions/audio/audio_ui.dart';
 
 class ChangeReader extends StatelessWidget {
   const ChangeReader({super.key});

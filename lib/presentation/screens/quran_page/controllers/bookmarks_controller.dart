@@ -1,12 +1,12 @@
 import 'package:drift/drift.dart' as drift;
 import 'package:get/get.dart';
 
-import '/presentation/screens/quran_page/controllers/extensions/quran_getters.dart';
 import '../../../../core/services/services_locator.dart';
 import '../../../../core/utils/constants/extensions/custom_error_snackBar.dart';
 import '../../../../database/bookmark_db/bookmark_database.dart';
 import '../../../../database/bookmark_db/db_bookmark_helper.dart';
 import '../../../controllers/general/general_controller.dart';
+import 'extensions/quran/quran_getters.dart';
 import 'quran/quran_controller.dart';
 
 class BookmarksController extends GetxController {

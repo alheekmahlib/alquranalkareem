@@ -4,20 +4,18 @@ import 'package:get/get.dart';
 import 'package:just_audio_background/just_audio_background.dart';
 import 'package:rxdart/rxdart.dart' as R;
 
-import '/presentation/screens/quran_page/controllers/extensions/quran_getters.dart';
-import '../../../../../core/services/services_locator.dart';
-import '../../../../../core/utils/constants/lists.dart';
-import '../../../../../core/utils/constants/url_constants.dart';
-import '../../../../../core/widgets/seek_bar.dart';
-import '../../../../controllers/general/general_controller.dart';
-import '../audio/audio_controller.dart';
-import '../quran/quran_controller.dart';
-import '../tafsir_controller.dart';
+import '../../../../../../core/services/services_locator.dart';
+import '../../../../../../core/utils/constants/lists.dart';
+import '../../../../../../core/utils/constants/url_constants.dart';
+import '../../../../../../core/widgets/seek_bar.dart';
+import '../../../../../controllers/general/general_controller.dart';
+import '../../audio/audio_controller.dart';
+import '../../quran/quran_controller.dart';
+import '../quran/quran_getters.dart';
 
 // AudioState state = AudioState();
 final generalCtrl = GeneralController.instance;
 final quranCtrl = QuranController.instance;
-final ayatCtrl = TafsirController.instance;
 
 extension AudioGetters on AudioController {
   /// -------- [Getters] ----------

@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 
-import '/presentation/screens/quran_page/controllers/extensions/quran_ui.dart';
 import '/presentation/screens/quran_page/widgets/search/search_extensions/highlight_extension.dart';
 import '../../../../../core/utils/constants/extensions/extensions.dart';
 import '../../../../../core/utils/constants/lottie.dart';
 import '../../../../../core/utils/constants/lottie_constants.dart';
 import '../../../../controllers/general/general_controller.dart';
+import '../../controllers/extensions/quran/quran_ui.dart';
 import '../../controllers/quran/quran_controller.dart';
 import '../../controllers/quran_search_controller.dart';
 import '../../data/data_source/quran_database.dart';

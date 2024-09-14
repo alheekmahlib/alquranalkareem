@@ -20,6 +20,7 @@ class TafsirCtrl extends GetxController {
   RxString selectedTableName = MufaserName.ibnkatheer.name.obs;
   var radioValue = 0.obs;
   RxBool isTafsir = true.obs;
+  RxInt ayahUQNumber = (-1).obs;
   final box = GetStorage();
 
   @override

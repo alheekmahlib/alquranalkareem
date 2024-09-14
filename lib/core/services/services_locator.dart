@@ -7,7 +7,6 @@ import 'package:flutter_timezone/flutter_timezone.dart';
 import 'package:get/get.dart';
 import 'package:get_it/get_it.dart';
 import 'package:just_audio_background/just_audio_background.dart';
-import 'package:sqflite_common_ffi/sqflite_ffi.dart';
 import 'package:timezone/data/latest.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
 
@@ -25,7 +24,6 @@ import '../../presentation/screens/quran_page/controllers/playList_controller.da
 import '../../presentation/screens/quran_page/controllers/quran/quran_controller.dart';
 import '../../presentation/screens/quran_page/controllers/quran_search_controller.dart';
 import '../../presentation/screens/quran_page/controllers/share_controller.dart';
-import '../../presentation/screens/quran_page/controllers/tafsir_controller.dart';
 import '../../presentation/screens/quran_page/controllers/tafsir_ctrl.dart';
 import '../../presentation/screens/quran_page/controllers/translate_controller.dart';
 import '../../presentation/screens/splash/controller/splash_screen_controller.dart';
@@ -63,9 +61,6 @@ class ServicesLocator {
     // Controllers
     sl.registerLazySingleton<ThemeController>(
         () => Get.put<ThemeController>(ThemeController(), permanent: true));
-
-    sl.registerLazySingleton<TafsirController>(
-        () => Get.put<TafsirController>(TafsirController(), permanent: true));
 
     sl.registerLazySingleton<GeneralController>(
         () => Get.put<GeneralController>(GeneralController(), permanent: true));
@@ -149,9 +144,5 @@ class ServicesLocator {
     final String timeZoneName = await FlutterTimezone.getLocalTimezone();
     tz.initializeTimeZones();
     tz.setLocalLocation(tz.getLocation(timeZoneName));
-    if (Platform.isWindows || Platform.isLinux) {
-      // Initialize FFI
-      sqfliteFfiInit();
-    }
   }
 }

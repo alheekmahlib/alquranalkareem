@@ -4,7 +4,6 @@ import 'package:get/get.dart';
 
 import '/core/utils/constants/extensions/svg_extensions.dart';
 import '/presentation/controllers/general/extensions/general_ui.dart';
-import '/presentation/screens/quran_page/controllers/extensions/audio_getters.dart';
 import '/presentation/screens/quran_page/widgets/audio/skip_next.dart';
 import '/presentation/screens/quran_page/widgets/audio/skip_previous.dart';
 import '../../../../../core/services/services_locator.dart';
@@ -13,6 +12,7 @@ import '../../../../../core/utils/constants/svg_constants.dart';
 import '../../../../../core/widgets/seek_bar.dart';
 import '../../../../controllers/general/general_controller.dart';
 import '../../controllers/audio/audio_controller.dart';
+import '../../controllers/extensions/audio/audio_getters.dart';
 import '../../controllers/quran/quran_controller.dart';
 import '../playlist/ayahs_playList_widget.dart';
 import 'change_reader.dart';

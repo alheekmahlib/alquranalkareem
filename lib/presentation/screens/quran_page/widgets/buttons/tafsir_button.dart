@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
 import '/core/utils/constants/extensions/svg_extensions.dart';
+import '/presentation/screens/quran_page/controllers/extensions/tafsir/tafsir_ui.dart';
 import '../../../../../core/services/services_locator.dart';
 import '../../../../../core/utils/constants/svg_constants.dart';
-import '../../controllers/tafsir_controller.dart';
 import '../../controllers/tafsir_ctrl.dart';
 
 class TafsirButton extends StatelessWidget {
@@ -40,8 +40,8 @@ class TafsirButton extends StatelessWidget {
       ),
       onTap: () async {
         await TafsirCtrl.instance.fetchData(pageIndex + 1);
-        sl<TafsirController>().showTafsirOnTap(surahNum, ayahNum, ayahText,
-            pageIndex, ayahTextNormal, ayahUQNum, index);
+        sl<TafsirCtrl>().showTafsirOnTap(surahNum, ayahNum, ayahText, pageIndex,
+            ayahTextNormal, ayahUQNum, index);
         cancel!();
       },
     );

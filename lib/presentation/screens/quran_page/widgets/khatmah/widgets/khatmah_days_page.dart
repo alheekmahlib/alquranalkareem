@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 
 import '/core/utils/constants/extensions/convert_number_extension.dart';
 import '/core/utils/constants/extensions/extensions.dart';
-import '/presentation/screens/quran_page/controllers/extensions/quran_ui.dart';
+import '../../../controllers/extensions/quran/quran_ui.dart';
 import '../../../controllers/khatmah_controller.dart';
 import '../../../controllers/quran/quran_controller.dart';
 

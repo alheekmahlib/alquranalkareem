@@ -19,7 +19,6 @@ class TafseerImageCreator extends StatelessWidget {
   final int verseUQNumber;
   final int surahNumber;
   final String verseText;
-  final List<TextSpan> tafseerText;
 
   TafseerImageCreator({
     Key? key,
@@ -27,7 +26,6 @@ class TafseerImageCreator extends StatelessWidget {
     required this.verseUQNumber,
     required this.surahNumber,
     required this.verseText,
-    required this.tafseerText,
   }) : super(key: key);
   final tafseerToImage = ShareController.instance;
 
@@ -43,7 +41,6 @@ class TafseerImageCreator extends StatelessWidget {
             verseUQNumber: verseUQNumber,
             surahNumber: surahNumber,
             verseText: verseText,
-            tafseerText: tafseerText,
           ),
         ),
         // if (ayahToImage.ayahToImageBytes != null)
@@ -61,7 +58,6 @@ class TafseerImageCreator extends StatelessWidget {
     required int verseUQNumber,
     required int surahNumber,
     required String verseText,
-    required List<TextSpan> tafseerText,
   }) {
     final tafseerToImage = ShareController.instance;
 

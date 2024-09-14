@@ -15,11 +15,10 @@ import '/core/utils/constants/extensions/custom_error_snackBar.dart';
 import '/core/utils/constants/extensions/custom_mobile_notes_snack_bar.dart';
 import '/presentation/controllers/general/extensions/general_getters.dart';
 import '/presentation/controllers/general/general_controller.dart';
-import '/presentation/screens/quran_page/controllers/extensions/audio_getters.dart';
-import '/presentation/screens/quran_page/controllers/extensions/audiu_storage_getters.dart';
-import '/presentation/screens/quran_page/controllers/extensions/quran_ui.dart';
+import '../extensions/audio/audio_getters.dart';
+import '../extensions/audio/audiu_storage_getters.dart';
+import '../extensions/quran/quran_ui.dart';
 import '../quran/quran_controller.dart';
-import '../tafsir_controller.dart';
 import 'audio_state.dart';
 
 class AudioController extends GetxController {
@@ -31,7 +30,6 @@ class AudioController extends GetxController {
 
   final generalCtrl = GeneralController.instance;
   final quranCtrl = QuranController.instance;
-  final ayatCtrl = TafsirController.instance;
 
   @override
   void onInit() async {

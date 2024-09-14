@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '/presentation/screens/quran_page/controllers/extensions/quran_ui.dart';
 import '../../../../../core/services/services_locator.dart';
 import '../../../../controllers/general/general_controller.dart';
 import '../../controllers/audio/audio_controller.dart';
 import '../../controllers/bookmarks_controller.dart';
+import '../../controllers/extensions/quran/quran_ui.dart';
 import '../../controllers/quran/quran_controller.dart';
 import 'text_build.dart';
 import 'text_scale_build.dart';

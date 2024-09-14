@@ -2,10 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '/presentation/screens/home/home_screen.dart';
-import '../../../core/services/services_locator.dart';
 import '../../screens/adhkar/screens/adhkar_view.dart';
 import '../../screens/books/screens/books_screen.dart';
-import '../../screens/quran_page/controllers/tafsir_controller.dart';
 import '../../screens/quran_page/screens/quran_home.dart';
 import '../../screens/surah_audio/audio_surah.dart';
 import 'general_state.dart';
@@ -34,12 +32,6 @@ class GeneralController extends GetxController {
     } else {
       print("Controller not attached to any scroll views.");
     }
-  }
-
-  ayahPosition() {
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      scrollToAyah(sl<TafsirController>().isSelected.value.toInt());
-    });
   }
 
   Widget screenSelect() {

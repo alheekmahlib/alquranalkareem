@@ -6,10 +6,10 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '/core/utils/constants/extensions/convert_number_extension.dart';
-import '../../../../../core/utils/constants/svg_constants.dart';
-import '../../../../../core/utils/helpers/responsive.dart';
-import '../../data/model/surahs_model.dart';
-import '../quran/quran_controller.dart';
+import '../../../../../../core/utils/constants/svg_constants.dart';
+import '../../../../../../core/utils/helpers/responsive.dart';
+import '../../../data/model/surahs_model.dart';
+import '../../quran/quran_controller.dart';
 
 extension QuranGetters on QuranController {
   /// -------- [Getter] ----------

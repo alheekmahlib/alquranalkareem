@@ -3,13 +3,12 @@ import 'package:get/get.dart';
 
 import '/core/utils/constants/extensions/extensions.dart';
 import '/core/utils/constants/extensions/text_span_extension.dart';
-import '/presentation/screens/quran_page/controllers/extensions/quran_getters.dart';
 import '../../../../core/utils/constants/lists.dart';
 import '../../../../core/widgets/read_more_less/read_more_less.dart';
 import '../../../controllers/daily_ayah_controller.dart';
 import '../../../controllers/general/general_controller.dart';
+import '../../quran_page/controllers/extensions/quran/quran_getters.dart';
 import '../../quran_page/controllers/quran/quran_controller.dart';
-import '../../quran_page/controllers/tafsir_controller.dart';
 import '../../quran_page/data/model/surahs_model.dart';
 import '../../quran_page/extensions/surah_name_with_banner.dart';
 
@@ -17,7 +16,6 @@ class AyahTafsirWidget extends StatelessWidget {
   AyahTafsirWidget({super.key});
 
   final dailyCtrl = DailyAyahController.instance;
-  final ayatCtrl = TafsirController.instance;
   final generalCtrl = GeneralController.instance;
   final quranCtrl = QuranController.instance;
 

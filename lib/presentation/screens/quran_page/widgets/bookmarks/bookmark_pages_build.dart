@@ -3,11 +3,11 @@ import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:get/get.dart';
 
 import '/core/utils/constants/extensions/convert_number_extension.dart';
-import '/presentation/screens/quran_page/controllers/extensions/quran_ui.dart';
 import '../../../../../core/utils/constants/extensions/extensions.dart';
 import '../../../../../core/widgets/delete_widget.dart';
 import '../../../../controllers/general/general_controller.dart';
 import '../../controllers/bookmarks_controller.dart';
+import '../../controllers/extensions/quran/quran_ui.dart';
 import '../../controllers/quran/quran_controller.dart';
 
 class BookmarkPagesBuild extends StatelessWidget {
@@ -135,13 +135,10 @@ class BookmarkPagesBuild extends StatelessWidget {
                                                           child: Text(
                                                             '${bookmark.sorahName}',
                                                             style: TextStyle(
-                                                                color: Get
-                                                                        .isDarkMode
-                                                                    ? Get.theme
-                                                                        .canvasColor
-                                                                    : Theme.of(
-                                                                            context)
-                                                                        .primaryColorDark,
+                                                                color: Theme.of(
+                                                                        context)
+                                                                    .colorScheme
+                                                                    .inversePrimary,
                                                                 fontSize: 16,
                                                                 fontFamily:
                                                                     'kufi',

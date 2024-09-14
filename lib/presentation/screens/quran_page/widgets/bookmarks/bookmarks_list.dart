@@ -19,7 +19,7 @@ class BookmarksList extends StatelessWidget {
       padding: const EdgeInsets.all(8.0),
       margin: const EdgeInsets.all(8.0),
       decoration: BoxDecoration(
-          color: Theme.of(context).canvasColor,
+          color: Theme.of(context).colorScheme.primaryContainer,
           borderRadius: const BorderRadius.all(Radius.circular(8))),
       child: GetBuilder<BookmarksController>(
         builder: (bookmarkCtrl) => bookmarkCtrl.bookmarksList.isEmpty &&
