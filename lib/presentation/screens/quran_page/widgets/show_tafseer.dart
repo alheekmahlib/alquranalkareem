@@ -6,14 +6,13 @@ import 'package:get/get.dart';
 import '/core/utils/constants/extensions/font_size_extension.dart';
 import '/core/utils/constants/extensions/svg_extensions.dart';
 import '/core/utils/constants/extensions/text_span_extension.dart';
-import '/presentation/screens/quran_page/controllers/extensions/quran_getters.dart';
 import '../../../../core/services/services_locator.dart';
 import '../../../../core/utils/constants/extensions/extensions.dart';
 import '../../../../core/utils/constants/lists.dart';
 import '../../../../core/utils/constants/svg_constants.dart';
 import '../../../controllers/general/general_controller.dart';
+import '../controllers/extensions/quran/quran_getters.dart';
 import '../controllers/quran/quran_controller.dart';
-import '../controllers/tafsir_controller.dart';
 import '../controllers/tafsir_ctrl.dart';
 import '../controllers/translate_controller.dart';
 import '../data/data_source/tafsir_database.dart';
@@ -30,7 +29,6 @@ class ShowTafseer extends StatelessWidget {
   final ScrollController _scrollController = ScrollController();
   final quranCtrl = QuranController.instance;
   final generalCtrl = GeneralController.instance;
-  final ayatCtrl = TafsirController.instance;
   final tafsirCtrl = TafsirCtrl.instance;
 
   @override
@@ -159,12 +157,16 @@ class ShowTafseer extends StatelessWidget {
                                                   tafsirName: tafsirName[
                                                       tafsirCtrl.radioValue
                                                           .value]['name'],
-                                                  tafsir: ayatCtrl
-                                                          .isTafseer.value
-                                                      ? ayatCtrl.selectedTafsir!
+                                                  tafsir: tafsirCtrl
+                                                          .isTafsir.value
+                                                      ? tafsirCtrl
+                                                          .tafseerList[
+                                                              tafsirCtrl
+                                                                  .ayahUQNumber
+                                                                  .value]
                                                           .tafsirText
                                                       : sl<TranslateDataController>()
-                                                              .data[ayatCtrl
+                                                              .data[tafsirCtrl
                                                                   .ayahUQNumber
                                                                   .value -
                                                               1]['text'] ??
@@ -189,7 +191,7 @@ class ShowTafseer extends StatelessWidget {
                                                     )
                                                   : TextSpan(
                                                       text: sl<TranslateDataController>()
-                                                              .data[ayatCtrl
+                                                              .data[tafsirCtrl
                                                                   .ayahUQNumber
                                                                   .value -
                                                               1]['text'] ??

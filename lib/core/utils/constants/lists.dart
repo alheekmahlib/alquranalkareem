@@ -292,7 +292,10 @@ List tafsirName = [
 ];
 
 const List tafsirNameRandom = [
-  {'name': '${'tafIbnkatheerN'}', 'bookName': '${'tafIbnkatheerD'}'},
+  {
+    'name': '${'tafIbnkatheerN'}',
+    'bookName': '${'tafIbnkatheerD'}',
+  },
   {
     'name': '${'tafBaghawyN'}',
     'bookName': '${'tafBaghawyD'}',

@@ -1,17 +1,16 @@
-import 'package:alquranalkareem/presentation/screens/quran_page/controllers/extensions/quran_getters.dart';
+import 'package:alquranalkareem/presentation/screens/quran_page/controllers/extensions/quran/quran_getters.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 
-import '../../../../../core/services/services_locator.dart';
-import '../../../../../core/utils/constants/shared_preferences_constants.dart';
-import '../../../../../core/utils/helpers/global_key_manager.dart';
-import '../../../../controllers/general/general_controller.dart';
-import '../audio/audio_controller.dart';
-import '../bookmarks_controller.dart';
-import '../playList_controller.dart';
-import '../quran/quran_controller.dart';
-import '../tafsir_controller.dart';
+import '../../../../../../core/services/services_locator.dart';
+import '../../../../../../core/utils/constants/shared_preferences_constants.dart';
+import '../../../../../../core/utils/helpers/global_key_manager.dart';
+import '../../../../../controllers/general/general_controller.dart';
+import '../../audio/audio_controller.dart';
+import '../../bookmarks_controller.dart';
+import '../../playList_controller.dart';
+import '../../quran/quran_controller.dart';
 
 extension QuranUi on QuranController {
   /// -------- [onTap] --------
@@ -105,7 +104,6 @@ extension QuranUi on QuranController {
     state.currentPageNumber.value = index + 1;
     sl<PlayListController>().reset();
     sl<GeneralController>().state.isShowControl.value = false;
-    sl<TafsirController>().isSelected.value = (-1.0);
     sl<AudioController>().state.pageAyahNumber = '0';
     sl<BookmarksController>().getBookmarks();
     state.lastReadSurahNumber.value =

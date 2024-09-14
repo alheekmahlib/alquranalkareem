@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '/core/utils/constants/extensions/extensions.dart';
-import '/presentation/screens/quran_page/controllers/extensions/quran_getters.dart';
+import '../../controllers/extensions/quran/quran_getters.dart';
 import '../../controllers/quran/quran_controller.dart';
 
 class RightPage extends StatelessWidget {

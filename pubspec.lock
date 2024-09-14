@@ -81,16 +81,8 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.0.0"
-  arc_progress_bar_new:
-    dependency: "direct main"
-    description:
-      name: arc_progress_bar_new
-      sha256: "06f62301f78c2d62d34bce9c69e6219557779a53d02a80c8bc0e425d5778845f"
-      url: "https://pub.dev"
-    source: hosted
-    version: "1.0.4"
   archive:
-    dependency: "direct main"
+    dependency: transitive
     description:
       name: archive
       sha256: cb6a278ef2dbb298455e1a713bda08524a175630ec643a242c399c932a0a1f7d
@@ -145,14 +137,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.1.21"
-  auto_scroll_slider:
-    dependency: "direct main"
-    description:
-      name: auto_scroll_slider
-      sha256: "5711c83158f76697939b478b3691b42906ae7a1997a8585fe5a4a08008e33c32"
-      url: "https://pub.dev"
-    source: hosted
-    version: "1.0.1"
   awesome_notifications:
     dependency: "direct main"
     description:
@@ -509,10 +493,10 @@ packages:
     dependency: transitive
     description:
       name: flex_seed_scheme
-      sha256: cc08c81879ecfd2ab840664ce4770980da0b8a319e35f51bcf763849b7f7596b
+      sha256: "7d97ba5c20f0e5cb1e3e2c17c865e1f797d129de31fc1f75d2dcce9470d6373c"
       url: "https://pub.dev"
     source: hosted
-    version: "3.1.2"
+    version: "3.3.0"
   flutter:
     dependency: "direct main"
     description: flutter
@@ -547,14 +531,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "4.0.1"
-  flutter_rounded_progress_bar:
-    dependency: "direct main"
-    description:
-      name: flutter_rounded_progress_bar
-      sha256: c35e3eb01467052c4ad441c227cb91d5a8f748fef5926ee572c548fec91e0aec
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.3.2"
   flutter_screenutil:
     dependency: "direct main"
     description:
@@ -797,6 +773,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.4.11"
+  just_audio_windows:
+    dependency: "direct main"
+    description:
+      name: just_audio_windows
+      sha256: "48ab2dec79cf6097550602fe07b1a644f341450e138dc8fdc23e42ce0ed2d928"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.2.1"
   leak_tracker:
     dependency: transitive
     description:
@@ -1226,14 +1210,6 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.99"
-  slide_countdown:
-    dependency: "direct main"
-    description:
-      name: slide_countdown
-      sha256: "345cbe6d749bf8525df020cbc3763fa5005fed9a8fce59b32c61a5e1bac07b4e"
-      url: "https://pub.dev"
-    source: hosted
-    version: "1.6.1"
   smooth_page_indicator:
     dependency: "direct main"
     description:
@@ -1242,14 +1218,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.2.0+3"
-  solar_icons:
-    dependency: "direct main"
-    description:
-      name: solar_icons
-      sha256: "2865a62fb0a39a7c2403205bfe05453bd3f2fedbaa8e5c3d436cf2a080afe259"
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.0.5"
   source_gen:
     dependency: transitive
     description:
@@ -1275,7 +1243,7 @@ packages:
     source: hosted
     version: "7.0.0"
   sqflite:
-    dependency: "direct main"
+    dependency: transitive
     description:
       name: sqflite
       sha256: a43e5a27235518c03ca238e7b4732cf35eabe863a369ceba6cbefa537a66f16d
@@ -1290,14 +1258,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.5.4"
-  sqflite_common_ffi:
-    dependency: "direct main"
-    description:
-      name: sqflite_common_ffi
-      sha256: "4d6137c29e930d6e4a8ff373989dd9de7bac12e3bc87bce950f6e844e8ad3bb5"
-      url: "https://pub.dev"
-    source: hosted
-    version: "2.3.3"
   sqlite3:
     dependency: transitive
     description:
@@ -1346,14 +1306,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.1.2"
-  stream_duration:
-    dependency: transitive
-    description:
-      name: stream_duration
-      sha256: d4e833a8db38faec87325ca784079d1e90ba66f78c365ca96f353a59b26bd62e
-      url: "https://pub.dev"
-    source: hosted
-    version: "4.2.2"
   stream_transform:
     dependency: transitive
     description:

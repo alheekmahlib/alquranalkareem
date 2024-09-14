@@ -24,7 +24,7 @@ class AddKhatmahWidget extends StatelessWidget {
           Text(
             'createKhatmah'.tr,
             style: TextStyle(
-              color: Theme.of(context).colorScheme.primary,
+              color: Theme.of(context).colorScheme.surface,
               fontSize: 20,
               fontFamily: 'kufi',
             ),

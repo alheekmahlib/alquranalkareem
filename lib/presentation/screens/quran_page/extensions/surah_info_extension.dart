@@ -6,9 +6,9 @@ import 'package:get/get.dart';
 import '/core/utils/constants/extensions/convert_number_extension.dart';
 import '/core/utils/constants/extensions/extensions.dart';
 import '/core/utils/constants/extensions/text_span_extension.dart';
-import '/presentation/screens/quran_page/controllers/extensions/quran_getters.dart';
 import '/presentation/screens/quran_page/extensions/surah_name_with_banner.dart';
 import '../../../../core/utils/constants/svg_constants.dart';
+import '../controllers/extensions/quran/quran_getters.dart';
 import '../controllers/quran/quran_controller.dart';
 import '../data/model/surahs_model.dart';
 

@@ -4,12 +4,12 @@ import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 
 import '/core/utils/constants/extensions/convert_number_extension.dart';
-import '/presentation/screens/quran_page/controllers/extensions/quran_ui.dart';
 import '../../../../../core/services/services_locator.dart';
 import '../../../../../core/utils/constants/extensions/extensions.dart';
 import '../../../../../core/widgets/delete_widget.dart';
 import '../../../../controllers/general/general_controller.dart';
 import '../../controllers/bookmarks_controller.dart';
+import '../../controllers/extensions/quran/quran_ui.dart';
 import '../../controllers/quran/quran_controller.dart';
 
 class BookmarkAyahsBuild extends StatelessWidget {
@@ -74,16 +74,16 @@ class BookmarkAyahsBuild extends StatelessWidget {
                                         child: Dismissible(
                                           background: const DeleteWidget(),
                                           key: ValueKey<int>(
-                                              bookmark.ayahUQNumber!),
+                                              bookmark.ayahUQNumber),
                                           onDismissed:
                                               (DismissDirection direction) {
                                             bookmarkCtrl.deleteBookmarksText(
-                                                bookmark.ayahUQNumber!);
+                                                bookmark.ayahUQNumber);
                                           },
                                           child: GestureDetector(
                                             onTap: () {
                                               quranCtrl.changeSurahListOnTap(
-                                                  bookmark.pageNumber!);
+                                                  bookmark.pageNumber);
 
                                               Get.back();
                                             },
@@ -174,11 +174,9 @@ class BookmarkAyahsBuild extends StatelessWidget {
                                                                   Text(
                                                                     '${ayah.text}',
                                                                     style: TextStyle(
-                                                                        color: Get.isDarkMode
-                                                                            ? Theme.of(context)
-                                                                                .canvasColor
-                                                                            : Theme.of(context)
-                                                                                .primaryColorDark,
+                                                                        color: Theme.of(context)
+                                                                            .colorScheme
+                                                                            .inversePrimary,
                                                                         fontSize:
                                                                             18,
                                                                         fontFamily:
