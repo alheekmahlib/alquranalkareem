@@ -35,9 +35,7 @@ class SurahAudioController extends GetxController {
     loadSurahReader();
     state.surahsPlayList = List.generate(114, (i) {
       state.surahNum.value = i + 1;
-      return AudioSource.uri(
-        Uri.parse(urlFilePath),
-      );
+      return urlFilePath;
     });
     state.connectivitySubscription = state.connectivity.onConnectivityChanged
         .listen(_updateConnectionStatus);
@@ -58,14 +56,14 @@ class SurahAudioController extends GetxController {
 
   /// -------- [Methods] ----------
 
-  late final surahsList = ConcatenatingAudioSource(
-    // Start loading next item just before reaching it
-    useLazyPreparation: true,
-    // Customise the shuffle algorithm
-    shuffleOrder: DefaultShuffleOrder(),
-    // Specify the playlist items
-    children: state.surahsPlayList!,
-  );
+  // late final surahsList = ConcatenatingAudioSource(
+  //   // Start loading next item just before reaching it
+  //   useLazyPreparation: true,
+  //   // Customise the shuffle algorithm
+  //   shuffleOrder: DefaultShuffleOrder(),
+  //   // Specify the playlist items
+  //   children: state.surahsPlayList!!,
+  // );
 
   Future<void> playPreviousSurah() async {
     state.surahNum.value -= 1;
