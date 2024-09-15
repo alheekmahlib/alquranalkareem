@@ -82,8 +82,6 @@ class SurahAudioController extends GetxController {
         .then((_) => state.audioPlayer.play());
   }
 
-  // "https://everyayah.com/data/MaherAlMuaiqly128kbps/${_quranController.getSurahNumberByAya(_quranController.allAyas[ayaUniqeId.value - 1]).toString().padLeft(3, "0")}${_quranController.allAyas[ayaUniqeId.value - 1].numberOfAyaInSurah.toString().padLeft(3, "0")}.mp3",
-
   Future<void> playNextSurah() async {
     state.surahNum.value += 1;
     state.selectedSurah.value += 1;
