@@ -116,18 +116,6 @@ class AudioController extends GetxController {
     Dio dio = Dio();
     try {
       await Directory(dirname(path)).create(recursive: true);
-      // state.downloading.value = true;
-      // state.onDownloading.value = true;
-      // state.progressString.value = 'Indeterminate';
-      // state.progress.value = 0;
-
-      // First, attempt to fetch file size to decide on progress indication strategy
-      // var fileSize = await _fetchFileSize(url, dio);
-      // if (fileSize != null) {
-      //   print('Known file size: $fileSize bytes');
-      // } else {
-      //   print('File size unknown.');
-      // }
       state.progressString.value = 'Indeterminate';
       state.progress.value = 0;
       var incrementalProgress = 0.0;
@@ -147,7 +135,6 @@ class AudioController extends GetxController {
           double progressValue = (rec / total).toDouble().clamp(0.0, 1.0);
           state.progress.value = progressValue;
         }
-        // print('Received bytes: $rec, Total bytes: $total');
       });
     } catch (e) {
       if (e is DioException && e.type == DioExceptionType.cancel) {
@@ -167,8 +154,6 @@ class AudioController extends GetxController {
         print(e);
       }
     } finally {
-      // state.downloading.value = false;
-      // state.onDownloading.value = false;
       state.progressString.value = 'Completed';
       print('Download completed or failed');
     }
@@ -292,22 +277,6 @@ class AudioController extends GetxController {
     }
   }
 
-  // Future<void> playNextAyah() async {
-  //   isProcessingNextAyah.value = true;
-  //   // state.currentAyahUQInPage.value += 1;
-  //   // quranCtrl.state.clearAndAddSelection(state.currentAyahUQInPage.value);
-  //   // await playFile();
-  //   await state.audioPlayer.seekToNext();
-  //   isProcessingNextAyah.value = false;
-  //   if (quranCtrl.state.isPages.value == 1) {
-  //     quranCtrl.state.scrollOffsetController.animateScroll(
-  //       offset: quranCtrl.state.ayahsWidgetHeight.value,
-  //       duration: const Duration(milliseconds: 600),
-  //       curve: Curves.easeInOut,
-  //     );
-  //   }
-  // }
-
   Future<void> playAyah() async {
     if (quranCtrl.state.isPages.value == 1) {
       state.currentAyahUQInPage.value = state.currentAyahUQInPage.value == 1
@@ -342,17 +311,9 @@ class AudioController extends GetxController {
     if (state.currentAyahUQInPage.value == 6236) {
       pausePlayer;
     } else if (isLastAyahInPageButNotInSurah || isLastAyahInSurahAndPage) {
-      // pausePlayer;
-      // state.currentAyahUQInPage.value += 1;
-      // quranCtrl.state.clearAndAddSelection(state.currentAyahUQInPage.value);
       await moveToNextPage();
       await state.audioPlayer.seekToNext();
-      // await playFile();
     } else {
-      // pausePlayer;
-      // state.currentAyahUQInPage.value += 1;
-      // quranCtrl.state.clearAndAddSelection(state.currentAyahUQInPage.value);
-      // await playFile();
       await state.audioPlayer.seekToNext();
     }
   }
@@ -361,16 +322,9 @@ class AudioController extends GetxController {
     if (state.currentAyahUQInPage.value == 1) {
       pausePlayer;
     } else if (isFirstAyahInPageButNotInSurah) {
-      // pausePlayer;
-      // state.currentAyahUQInPage.value -= 1;
-      // quranCtrl.state.clearAndAddSelection(state.currentAyahUQInPage.value);
       moveToPreviousPage();
-      // await playFile();
       await state.audioPlayer.seekToPrevious();
     } else {
-      // state.currentAyahUQInPage.value -= 1;
-      // quranCtrl.state.clearAndAddSelection(state.currentAyahUQInPage.value);
-      // await playFile();
       await state.audioPlayer.seekToPrevious();
     }
   }
