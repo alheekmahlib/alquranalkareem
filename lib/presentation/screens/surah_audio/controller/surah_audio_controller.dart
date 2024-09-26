@@ -35,7 +35,9 @@ class SurahAudioController extends GetxController {
     loadSurahReader();
     state.surahsPlayList = List.generate(114, (i) {
       state.surahNum.value = i + 1;
-      return urlFilePath;
+      return AudioSource.uri(
+        Uri.parse(urlFilePath),
+      );
     });
     state.connectivitySubscription = state.connectivity.onConnectivityChanged
         .listen(_updateConnectionStatus);
@@ -56,14 +58,14 @@ class SurahAudioController extends GetxController {
 
   /// -------- [Methods] ----------
 
-  // late final surahsList = ConcatenatingAudioSource(
-  //   // Start loading next item just before reaching it
-  //   useLazyPreparation: true,
-  //   // Customise the shuffle algorithm
-  //   shuffleOrder: DefaultShuffleOrder(),
-  //   // Specify the playlist items
-  //   children: state.surahsPlayList!!,
-  // );
+  late final surahsList = ConcatenatingAudioSource(
+    // Start loading next item just before reaching it
+    useLazyPreparation: true,
+    // Customise the shuffle algorithm
+    shuffleOrder: DefaultShuffleOrder(),
+    // Specify the playlist items
+    children: state.surahsPlayList!,
+  );
 
   Future<void> playPreviousSurah() async {
     state.surahNum.value -= 1;
@@ -81,6 +83,8 @@ class SurahAudioController extends GetxController {
                   ))
         .then((_) => state.audioPlayer.play());
   }
+
+  // "https://everyayah.com/data/MaherAlMuaiqly128kbps/${_quranController.getSurahNumberByAya(_quranController.allAyas[ayaUniqeId.value - 1]).toString().padLeft(3, "0")}${_quranController.allAyas[ayaUniqeId.value - 1].numberOfAyaInSurah.toString().padLeft(3, "0")}.mp3",
 
   Future<void> playNextSurah() async {
     state.surahNum.value += 1;

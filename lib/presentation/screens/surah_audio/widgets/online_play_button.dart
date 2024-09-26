@@ -83,29 +83,11 @@ class OnlinePlayButton extends StatelessWidget {
                       surahAudioCtrl.state.isPlaying.value = true;
                       surahAudioCtrl.state.boxController.openBox();
                       // await surahAudioCtrl.state.audioPlayer.pause();
-                      if (surahAudioCtrl.state.surahDownloadStatus
-                              .value[surahAudioCtrl.state.surahNum.value] ??
-                          false) {
-                        surahAudioCtrl.startDownload().whenComplete(
-                          () async {
-                            // surahAudioCtrl.state.surahDownloadStatus
-                            //     .value[surahAudioCtrl.state.surahNum.value] ??
-                            //     false
-                            //     ? await surahAudioCtrl.startDownload()
-                            //     : await surahAudioCtrl.state.audioPlayer.play();
-                            // surahAudioCtrl.state.audioPlayer.setFilePath(
-                            //   surahAudioCtrl.state.surahsPlayList![
-                            //       surahAudioCtrl.state.surahNum.value],
-                            // );
-                            await surahAudioCtrl.state.audioPlayer.play();
-                          },
-                        );
-                      } else {
-                        surahAudioCtrl.state.audioPlayer.setUrl(
-                            surahAudioCtrl.state.surahsPlayList![
-                                surahAudioCtrl.state.surahNum.value]);
-                        await surahAudioCtrl.state.audioPlayer.play();
-                      }
+                      surahAudioCtrl.state.surahDownloadStatus
+                                  .value[surahAudioCtrl.state.surahNum.value] ??
+                              false
+                          ? await surahAudioCtrl.startDownload()
+                          : await surahAudioCtrl.state.audioPlayer.play();
                     },
                   );
                 } else if (processingState != ProcessingState.completed ||
