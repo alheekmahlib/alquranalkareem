@@ -38,7 +38,7 @@ class SurahAudioState {
   RxString surahReaderValue = "https://download.quranicaudio.com/quran/".obs;
   RxString surahReaderNameValue = "abdul_basit_murattal/".obs;
   final bool isDisposed = false;
-  List<String>? surahsPlayList;
+  List<AudioSource>? surahsPlayList;
   List<Map<int, AudioSource>> downloadSurahsPlayList = [];
   double? lastTime;
   RxInt lastPosition = 0.obs;
