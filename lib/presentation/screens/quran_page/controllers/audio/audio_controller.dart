@@ -1,5 +1,5 @@
 import 'dart:developer' show log;
-import 'dart:io' show File, Directory;
+import 'dart:io' show Directory, File;
 
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:dio/dio.dart';
@@ -10,13 +10,12 @@ import 'package:just_audio/just_audio.dart';
 import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
 
-import '/core/services/services_locator.dart';
 import '/core/utils/constants/extensions/custom_error_snackBar.dart';
 import '/core/utils/constants/extensions/custom_mobile_notes_snack_bar.dart';
 import '/presentation/controllers/general/extensions/general_getters.dart';
 import '/presentation/controllers/general/general_controller.dart';
 import '../extensions/audio/audio_getters.dart';
-import '../extensions/audio/audiu_storage_getters.dart';
+import '../extensions/audio/audio_storage_getters.dart';
 import '../extensions/quran/quran_ui.dart';
 import '../quran/quran_controller.dart';
 import 'audio_state.dart';
@@ -40,9 +39,8 @@ class AudioController extends GetxController {
         .listen(_updateConnectionStatus);
     loadQuranReader();
     await Future.wait([
-      sl<GeneralController>()
-          .getCachedArtUri(
-              'https://raw.githubusercontent.com/alheekmahlib/thegarlanded/master/Photos/ios-1024.png')
+      GeneralController.instance
+          .getCachedArtUri()
           .then((v) => state.cachedArtUri = v),
       getApplicationDocumentsDirectory().then((v) => state.dir = v),
     ]);
@@ -61,53 +59,46 @@ class AudioController extends GetxController {
 
   Future<String> _downloadFileIfNotExist(String url, String fileName,
       {bool showSnakbars = true, bool setDownloadingStatus = true}) async {
-    String path;
-    path = join(state.dir.path, fileName);
+    String path = join(state.dir.path, fileName);
     var file = File(path);
     bool exists = await file.exists();
+
     if (!exists) {
       if (setDownloadingStatus && state.downloading.isFalse) {
         state.downloading.value = true;
         state.onDownloading.value = true;
       }
+
       try {
         await Directory(dirname(path)).create(recursive: true);
       } catch (e) {
         print('Error creating directory: $e');
       }
-      if (showSnakbars) {
+
+      if (showSnakbars && !state.snackBarShownForBatch) {
         if (state.connectionStatus.contains(ConnectivityResult.none)) {
           Get.context!.showCustomErrorSnackBar('noInternet'.tr);
         } else if (state.connectionStatus.contains(ConnectivityResult.mobile)) {
-          try {
-            await _downloadFile(path, url, fileName);
-            Get.context!.customMobileNoteSnackBar('mobileDataAyat'.tr);
-          } catch (e) {
-            log('Error downloading file: $e');
-          }
-        } else if (state.connectionStatus.contains(ConnectivityResult.wifi)) {
-          try {
-            await _downloadFile(path, url, fileName);
-          } catch (e) {
-            log('Error downloading file: $e');
-          }
+          state.snackBarShownForBatch = true; // Set the flag to true
+          Get.context!.customMobileNoteSnackBar('mobileDataAyat'.tr);
         }
-      } else {
-        if (false == state.connectionStatus.contains(ConnectivityResult.none)) {
-          try {
-            await _downloadFile(path, url, fileName);
-          } catch (e) {
-            log('Error downloading file: $e');
-          }
+      }
+
+      // Proceed with the download
+      if (!state.connectionStatus.contains(ConnectivityResult.none)) {
+        try {
+          await _downloadFile(path, url, fileName);
+        } catch (e) {
+          log('Error downloading file: $e');
         }
       }
     }
-    if (setDownloadingStatus &&
-        state.downloading.isFalse &&
-        state.downloading.isTrue) {
+
+    if (setDownloadingStatus && state.downloading.isTrue) {
       state.downloading.value = false;
       state.onDownloading.value = false;
     }
+
     update(['audio_seekBar_id']);
     return path;
   }
@@ -134,6 +125,8 @@ class AudioController extends GetxController {
           // Handle determinate progress as before
           double progressValue = (rec / total).toDouble().clamp(0.0, 1.0);
           state.progress.value = progressValue;
+          update(['audio_seekBar_id']);
+          log('ayah downloading progress: $progressValue');
         }
       });
     } catch (e) {
@@ -196,16 +189,31 @@ class AudioController extends GetxController {
     bool isSurahDownloaded = state.box.read(surahKey) ?? false;
 
     if (!isSurahDownloaded) {
+      final futures;
       try {
-        final futures = List.generate(
-          ayahsFilesNames.length,
-          (i) => _downloadFileIfNotExist(ayahsUrls[i], ayahsFilesNames[i],
-                  setDownloadingStatus: false)
-              .whenComplete(() {
-            log('${state.tmpDownloadedAyahsCount.value} => download completed at ${DateTime.now().millisecond}');
-            state.tmpDownloadedAyahsCount.value++;
-          }),
-        );
+        if (state.playSingleAyahOnly) {
+          final path =
+              await _downloadFileIfNotExist(currentAyahUrl, currentAyahFileName)
+                  .then((_) {
+            state.downloading.value = false;
+            state.onDownloading.value = false;
+          });
+          futures = state.audioPlayer.setAudioSource(AudioSource.file(
+            path,
+            tag: mediaItemForCurrentAyah,
+          ));
+        } else {
+          state.snackBarShownForBatch = false;
+          futures = List.generate(
+            ayahsFilesNames.length,
+            (i) => _downloadFileIfNotExist(ayahsUrls[i], ayahsFilesNames[i],
+                    setDownloadingStatus: false)
+                .whenComplete(() {
+              log('${state.tmpDownloadedAyahsCount.value} => download completed at ${DateTime.now().millisecond}');
+              state.tmpDownloadedAyahsCount.value++;
+            }),
+          );
+        }
 
         state.downloading.value = true;
         state.onDownloading.value = true;

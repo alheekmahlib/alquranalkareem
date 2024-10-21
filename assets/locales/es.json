@@ -1210,5 +1210,10 @@
     "placeholders": {
       "bookName": {}
     }
+  },
+  "lastSearch": "Última búsqueda",
+  "@lastSearch": {
+    "type": "text",
+    "placeholders": {}
   }
 }

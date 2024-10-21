@@ -1019,22 +1019,94 @@ typedef $$BookmarksTableUpdateCompanionBuilder = BookmarksCompanion Function({
   Value<String> lastRead,
 });
 
+class $$BookmarksTableFilterComposer
+    extends Composer<_$BookmarkDatabase, $BookmarksTable> {
+  $$BookmarksTableFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<int> get id => $composableBuilder(
+      column: $table.id, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get sorahName => $composableBuilder(
+      column: $table.sorahName, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<int> get pageNum => $composableBuilder(
+      column: $table.pageNum, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get lastRead => $composableBuilder(
+      column: $table.lastRead, builder: (column) => ColumnFilters(column));
+}
+
+class $$BookmarksTableOrderingComposer
+    extends Composer<_$BookmarkDatabase, $BookmarksTable> {
+  $$BookmarksTableOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<int> get id => $composableBuilder(
+      column: $table.id, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get sorahName => $composableBuilder(
+      column: $table.sorahName, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<int> get pageNum => $composableBuilder(
+      column: $table.pageNum, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get lastRead => $composableBuilder(
+      column: $table.lastRead, builder: (column) => ColumnOrderings(column));
+}
+
+class $$BookmarksTableAnnotationComposer
+    extends Composer<_$BookmarkDatabase, $BookmarksTable> {
+  $$BookmarksTableAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<int> get id =>
+      $composableBuilder(column: $table.id, builder: (column) => column);
+
+  GeneratedColumn<String> get sorahName =>
+      $composableBuilder(column: $table.sorahName, builder: (column) => column);
+
+  GeneratedColumn<int> get pageNum =>
+      $composableBuilder(column: $table.pageNum, builder: (column) => column);
+
+  GeneratedColumn<String> get lastRead =>
+      $composableBuilder(column: $table.lastRead, builder: (column) => column);
+}
+
 class $$BookmarksTableTableManager extends RootTableManager<
     _$BookmarkDatabase,
     $BookmarksTable,
     Bookmark,
     $$BookmarksTableFilterComposer,
     $$BookmarksTableOrderingComposer,
+    $$BookmarksTableAnnotationComposer,
     $$BookmarksTableCreateCompanionBuilder,
-    $$BookmarksTableUpdateCompanionBuilder> {
+    $$BookmarksTableUpdateCompanionBuilder,
+    (Bookmark, BaseReferences<_$BookmarkDatabase, $BookmarksTable, Bookmark>),
+    Bookmark,
+    PrefetchHooks Function()> {
   $$BookmarksTableTableManager(_$BookmarkDatabase db, $BookmarksTable table)
       : super(TableManagerState(
           db: db,
           table: table,
-          filteringComposer:
-              $$BookmarksTableFilterComposer(ComposerState(db, table)),
-          orderingComposer:
-              $$BookmarksTableOrderingComposer(ComposerState(db, table)),
+          createFilteringComposer: () =>
+              $$BookmarksTableFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $$BookmarksTableOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $$BookmarksTableAnnotationComposer($db: db, $table: table),
           updateCompanionCallback: ({
             Value<int> id = const Value.absent(),
             Value<String> sorahName = const Value.absent(),
@@ -1059,57 +1131,25 @@ class $$BookmarksTableTableManager extends RootTableManager<
             pageNum: pageNum,
             lastRead: lastRead,
           ),
+          withReferenceMapper: (p0) => p0
+              .map((e) => (e.readTable(table), BaseReferences(db, table, e)))
+              .toList(),
+          prefetchHooksCallback: null,
         ));
 }
 
-class $$BookmarksTableFilterComposer
-    extends FilterComposer<_$BookmarkDatabase, $BookmarksTable> {
-  $$BookmarksTableFilterComposer(super.$state);
-  ColumnFilters<int> get id => $state.composableBuilder(
-      column: $state.table.id,
-      builder: (column, joinBuilders) =>
-          ColumnFilters(column, joinBuilders: joinBuilders));
-
-  ColumnFilters<String> get sorahName => $state.composableBuilder(
-      column: $state.table.sorahName,
-      builder: (column, joinBuilders) =>
-          ColumnFilters(column, joinBuilders: joinBuilders));
-
-  ColumnFilters<int> get pageNum => $state.composableBuilder(
-      column: $state.table.pageNum,
-      builder: (column, joinBuilders) =>
-          ColumnFilters(column, joinBuilders: joinBuilders));
-
-  ColumnFilters<String> get lastRead => $state.composableBuilder(
-      column: $state.table.lastRead,
-      builder: (column, joinBuilders) =>
-          ColumnFilters(column, joinBuilders: joinBuilders));
-}
-
-class $$BookmarksTableOrderingComposer
-    extends OrderingComposer<_$BookmarkDatabase, $BookmarksTable> {
-  $$BookmarksTableOrderingComposer(super.$state);
-  ColumnOrderings<int> get id => $state.composableBuilder(
-      column: $state.table.id,
-      builder: (column, joinBuilders) =>
-          ColumnOrderings(column, joinBuilders: joinBuilders));
-
-  ColumnOrderings<String> get sorahName => $state.composableBuilder(
-      column: $state.table.sorahName,
-      builder: (column, joinBuilders) =>
-          ColumnOrderings(column, joinBuilders: joinBuilders));
-
-  ColumnOrderings<int> get pageNum => $state.composableBuilder(
-      column: $state.table.pageNum,
-      builder: (column, joinBuilders) =>
-          ColumnOrderings(column, joinBuilders: joinBuilders));
-
-  ColumnOrderings<String> get lastRead => $state.composableBuilder(
-      column: $state.table.lastRead,
-      builder: (column, joinBuilders) =>
-          ColumnOrderings(column, joinBuilders: joinBuilders));
-}
-
+typedef $$BookmarksTableProcessedTableManager = ProcessedTableManager<
+    _$BookmarkDatabase,
+    $BookmarksTable,
+    Bookmark,
+    $$BookmarksTableFilterComposer,
+    $$BookmarksTableOrderingComposer,
+    $$BookmarksTableAnnotationComposer,
+    $$BookmarksTableCreateCompanionBuilder,
+    $$BookmarksTableUpdateCompanionBuilder,
+    (Bookmark, BaseReferences<_$BookmarkDatabase, $BookmarksTable, Bookmark>),
+    Bookmark,
+    PrefetchHooks Function()>;
 typedef $$BookmarksAyahsTableCreateCompanionBuilder = BookmarksAyahsCompanion
     Function({
   Value<int> id,
@@ -1131,23 +1171,126 @@ typedef $$BookmarksAyahsTableUpdateCompanionBuilder = BookmarksAyahsCompanion
   Value<String> lastRead,
 });
 
+class $$BookmarksAyahsTableFilterComposer
+    extends Composer<_$BookmarkDatabase, $BookmarksAyahsTable> {
+  $$BookmarksAyahsTableFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<int> get id => $composableBuilder(
+      column: $table.id, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get surahName => $composableBuilder(
+      column: $table.surahName, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<int> get surahNumber => $composableBuilder(
+      column: $table.surahNumber, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<int> get pageNumber => $composableBuilder(
+      column: $table.pageNumber, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<int> get ayahNumber => $composableBuilder(
+      column: $table.ayahNumber, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<int> get ayahUQNumber => $composableBuilder(
+      column: $table.ayahUQNumber, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get lastRead => $composableBuilder(
+      column: $table.lastRead, builder: (column) => ColumnFilters(column));
+}
+
+class $$BookmarksAyahsTableOrderingComposer
+    extends Composer<_$BookmarkDatabase, $BookmarksAyahsTable> {
+  $$BookmarksAyahsTableOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<int> get id => $composableBuilder(
+      column: $table.id, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get surahName => $composableBuilder(
+      column: $table.surahName, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<int> get surahNumber => $composableBuilder(
+      column: $table.surahNumber, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<int> get pageNumber => $composableBuilder(
+      column: $table.pageNumber, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<int> get ayahNumber => $composableBuilder(
+      column: $table.ayahNumber, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<int> get ayahUQNumber => $composableBuilder(
+      column: $table.ayahUQNumber,
+      builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get lastRead => $composableBuilder(
+      column: $table.lastRead, builder: (column) => ColumnOrderings(column));
+}
+
+class $$BookmarksAyahsTableAnnotationComposer
+    extends Composer<_$BookmarkDatabase, $BookmarksAyahsTable> {
+  $$BookmarksAyahsTableAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<int> get id =>
+      $composableBuilder(column: $table.id, builder: (column) => column);
+
+  GeneratedColumn<String> get surahName =>
+      $composableBuilder(column: $table.surahName, builder: (column) => column);
+
+  GeneratedColumn<int> get surahNumber => $composableBuilder(
+      column: $table.surahNumber, builder: (column) => column);
+
+  GeneratedColumn<int> get pageNumber => $composableBuilder(
+      column: $table.pageNumber, builder: (column) => column);
+
+  GeneratedColumn<int> get ayahNumber => $composableBuilder(
+      column: $table.ayahNumber, builder: (column) => column);
+
+  GeneratedColumn<int> get ayahUQNumber => $composableBuilder(
+      column: $table.ayahUQNumber, builder: (column) => column);
+
+  GeneratedColumn<String> get lastRead =>
+      $composableBuilder(column: $table.lastRead, builder: (column) => column);
+}
+
 class $$BookmarksAyahsTableTableManager extends RootTableManager<
     _$BookmarkDatabase,
     $BookmarksAyahsTable,
     BookmarksAyah,
     $$BookmarksAyahsTableFilterComposer,
     $$BookmarksAyahsTableOrderingComposer,
+    $$BookmarksAyahsTableAnnotationComposer,
     $$BookmarksAyahsTableCreateCompanionBuilder,
-    $$BookmarksAyahsTableUpdateCompanionBuilder> {
+    $$BookmarksAyahsTableUpdateCompanionBuilder,
+    (
+      BookmarksAyah,
+      BaseReferences<_$BookmarkDatabase, $BookmarksAyahsTable, BookmarksAyah>
+    ),
+    BookmarksAyah,
+    PrefetchHooks Function()> {
   $$BookmarksAyahsTableTableManager(
       _$BookmarkDatabase db, $BookmarksAyahsTable table)
       : super(TableManagerState(
           db: db,
           table: table,
-          filteringComposer:
-              $$BookmarksAyahsTableFilterComposer(ComposerState(db, table)),
-          orderingComposer:
-              $$BookmarksAyahsTableOrderingComposer(ComposerState(db, table)),
+          createFilteringComposer: () =>
+              $$BookmarksAyahsTableFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $$BookmarksAyahsTableOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $$BookmarksAyahsTableAnnotationComposer($db: db, $table: table),
           updateCompanionCallback: ({
             Value<int> id = const Value.absent(),
             Value<String> surahName = const Value.absent(),
@@ -1184,87 +1327,28 @@ class $$BookmarksAyahsTableTableManager extends RootTableManager<
             ayahUQNumber: ayahUQNumber,
             lastRead: lastRead,
           ),
+          withReferenceMapper: (p0) => p0
+              .map((e) => (e.readTable(table), BaseReferences(db, table, e)))
+              .toList(),
+          prefetchHooksCallback: null,
         ));
 }
 
-class $$BookmarksAyahsTableFilterComposer
-    extends FilterComposer<_$BookmarkDatabase, $BookmarksAyahsTable> {
-  $$BookmarksAyahsTableFilterComposer(super.$state);
-  ColumnFilters<int> get id => $state.composableBuilder(
-      column: $state.table.id,
-      builder: (column, joinBuilders) =>
-          ColumnFilters(column, joinBuilders: joinBuilders));
-
-  ColumnFilters<String> get surahName => $state.composableBuilder(
-      column: $state.table.surahName,
-      builder: (column, joinBuilders) =>
-          ColumnFilters(column, joinBuilders: joinBuilders));
-
-  ColumnFilters<int> get surahNumber => $state.composableBuilder(
-      column: $state.table.surahNumber,
-      builder: (column, joinBuilders) =>
-          ColumnFilters(column, joinBuilders: joinBuilders));
-
-  ColumnFilters<int> get pageNumber => $state.composableBuilder(
-      column: $state.table.pageNumber,
-      builder: (column, joinBuilders) =>
-          ColumnFilters(column, joinBuilders: joinBuilders));
-
-  ColumnFilters<int> get ayahNumber => $state.composableBuilder(
-      column: $state.table.ayahNumber,
-      builder: (column, joinBuilders) =>
-          ColumnFilters(column, joinBuilders: joinBuilders));
-
-  ColumnFilters<int> get ayahUQNumber => $state.composableBuilder(
-      column: $state.table.ayahUQNumber,
-      builder: (column, joinBuilders) =>
-          ColumnFilters(column, joinBuilders: joinBuilders));
-
-  ColumnFilters<String> get lastRead => $state.composableBuilder(
-      column: $state.table.lastRead,
-      builder: (column, joinBuilders) =>
-          ColumnFilters(column, joinBuilders: joinBuilders));
-}
-
-class $$BookmarksAyahsTableOrderingComposer
-    extends OrderingComposer<_$BookmarkDatabase, $BookmarksAyahsTable> {
-  $$BookmarksAyahsTableOrderingComposer(super.$state);
-  ColumnOrderings<int> get id => $state.composableBuilder(
-      column: $state.table.id,
-      builder: (column, joinBuilders) =>
-          ColumnOrderings(column, joinBuilders: joinBuilders));
-
-  ColumnOrderings<String> get surahName => $state.composableBuilder(
-      column: $state.table.surahName,
-      builder: (column, joinBuilders) =>
-          ColumnOrderings(column, joinBuilders: joinBuilders));
-
-  ColumnOrderings<int> get surahNumber => $state.composableBuilder(
-      column: $state.table.surahNumber,
-      builder: (column, joinBuilders) =>
-          ColumnOrderings(column, joinBuilders: joinBuilders));
-
-  ColumnOrderings<int> get pageNumber => $state.composableBuilder(
-      column: $state.table.pageNumber,
-      builder: (column, joinBuilders) =>
-          ColumnOrderings(column, joinBuilders: joinBuilders));
-
-  ColumnOrderings<int> get ayahNumber => $state.composableBuilder(
-      column: $state.table.ayahNumber,
-      builder: (column, joinBuilders) =>
-          ColumnOrderings(column, joinBuilders: joinBuilders));
-
-  ColumnOrderings<int> get ayahUQNumber => $state.composableBuilder(
-      column: $state.table.ayahUQNumber,
-      builder: (column, joinBuilders) =>
-          ColumnOrderings(column, joinBuilders: joinBuilders));
-
-  ColumnOrderings<String> get lastRead => $state.composableBuilder(
-      column: $state.table.lastRead,
-      builder: (column, joinBuilders) =>
-          ColumnOrderings(column, joinBuilders: joinBuilders));
-}
-
+typedef $$BookmarksAyahsTableProcessedTableManager = ProcessedTableManager<
+    _$BookmarkDatabase,
+    $BookmarksAyahsTable,
+    BookmarksAyah,
+    $$BookmarksAyahsTableFilterComposer,
+    $$BookmarksAyahsTableOrderingComposer,
+    $$BookmarksAyahsTableAnnotationComposer,
+    $$BookmarksAyahsTableCreateCompanionBuilder,
+    $$BookmarksAyahsTableUpdateCompanionBuilder,
+    (
+      BookmarksAyah,
+      BaseReferences<_$BookmarkDatabase, $BookmarksAyahsTable, BookmarksAyah>
+    ),
+    BookmarksAyah,
+    PrefetchHooks Function()>;
 typedef $$AdhkarTableCreateCompanionBuilder = AdhkarCompanion Function({
   Value<int> id,
   required String category,
@@ -1282,22 +1366,112 @@ typedef $$AdhkarTableUpdateCompanionBuilder = AdhkarCompanion Function({
   Value<String> zekr,
 });
 
+class $$AdhkarTableFilterComposer
+    extends Composer<_$BookmarkDatabase, $AdhkarTable> {
+  $$AdhkarTableFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<int> get id => $composableBuilder(
+      column: $table.id, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get category => $composableBuilder(
+      column: $table.category, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get count => $composableBuilder(
+      column: $table.count, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get description => $composableBuilder(
+      column: $table.description, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get reference => $composableBuilder(
+      column: $table.reference, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get zekr => $composableBuilder(
+      column: $table.zekr, builder: (column) => ColumnFilters(column));
+}
+
+class $$AdhkarTableOrderingComposer
+    extends Composer<_$BookmarkDatabase, $AdhkarTable> {
+  $$AdhkarTableOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<int> get id => $composableBuilder(
+      column: $table.id, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get category => $composableBuilder(
+      column: $table.category, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get count => $composableBuilder(
+      column: $table.count, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get description => $composableBuilder(
+      column: $table.description, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get reference => $composableBuilder(
+      column: $table.reference, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get zekr => $composableBuilder(
+      column: $table.zekr, builder: (column) => ColumnOrderings(column));
+}
+
+class $$AdhkarTableAnnotationComposer
+    extends Composer<_$BookmarkDatabase, $AdhkarTable> {
+  $$AdhkarTableAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<int> get id =>
+      $composableBuilder(column: $table.id, builder: (column) => column);
+
+  GeneratedColumn<String> get category =>
+      $composableBuilder(column: $table.category, builder: (column) => column);
+
+  GeneratedColumn<String> get count =>
+      $composableBuilder(column: $table.count, builder: (column) => column);
+
+  GeneratedColumn<String> get description => $composableBuilder(
+      column: $table.description, builder: (column) => column);
+
+  GeneratedColumn<String> get reference =>
+      $composableBuilder(column: $table.reference, builder: (column) => column);
+
+  GeneratedColumn<String> get zekr =>
+      $composableBuilder(column: $table.zekr, builder: (column) => column);
+}
+
 class $$AdhkarTableTableManager extends RootTableManager<
     _$BookmarkDatabase,
     $AdhkarTable,
     AdhkarData,
     $$AdhkarTableFilterComposer,
     $$AdhkarTableOrderingComposer,
+    $$AdhkarTableAnnotationComposer,
     $$AdhkarTableCreateCompanionBuilder,
-    $$AdhkarTableUpdateCompanionBuilder> {
+    $$AdhkarTableUpdateCompanionBuilder,
+    (AdhkarData, BaseReferences<_$BookmarkDatabase, $AdhkarTable, AdhkarData>),
+    AdhkarData,
+    PrefetchHooks Function()> {
   $$AdhkarTableTableManager(_$BookmarkDatabase db, $AdhkarTable table)
       : super(TableManagerState(
           db: db,
           table: table,
-          filteringComposer:
-              $$AdhkarTableFilterComposer(ComposerState(db, table)),
-          orderingComposer:
-              $$AdhkarTableOrderingComposer(ComposerState(db, table)),
+          createFilteringComposer: () =>
+              $$AdhkarTableFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $$AdhkarTableOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $$AdhkarTableAnnotationComposer($db: db, $table: table),
           updateCompanionCallback: ({
             Value<int> id = const Value.absent(),
             Value<String> category = const Value.absent(),
@@ -1330,76 +1504,25 @@ class $$AdhkarTableTableManager extends RootTableManager<
             reference: reference,
             zekr: zekr,
           ),
+          withReferenceMapper: (p0) => p0
+              .map((e) => (e.readTable(table), BaseReferences(db, table, e)))
+              .toList(),
+          prefetchHooksCallback: null,
         ));
 }
 
-class $$AdhkarTableFilterComposer
-    extends FilterComposer<_$BookmarkDatabase, $AdhkarTable> {
-  $$AdhkarTableFilterComposer(super.$state);
-  ColumnFilters<int> get id => $state.composableBuilder(
-      column: $state.table.id,
-      builder: (column, joinBuilders) =>
-          ColumnFilters(column, joinBuilders: joinBuilders));
-
-  ColumnFilters<String> get category => $state.composableBuilder(
-      column: $state.table.category,
-      builder: (column, joinBuilders) =>
-          ColumnFilters(column, joinBuilders: joinBuilders));
-
-  ColumnFilters<String> get count => $state.composableBuilder(
-      column: $state.table.count,
-      builder: (column, joinBuilders) =>
-          ColumnFilters(column, joinBuilders: joinBuilders));
-
-  ColumnFilters<String> get description => $state.composableBuilder(
-      column: $state.table.description,
-      builder: (column, joinBuilders) =>
-          ColumnFilters(column, joinBuilders: joinBuilders));
-
-  ColumnFilters<String> get reference => $state.composableBuilder(
-      column: $state.table.reference,
-      builder: (column, joinBuilders) =>
-          ColumnFilters(column, joinBuilders: joinBuilders));
-
-  ColumnFilters<String> get zekr => $state.composableBuilder(
-      column: $state.table.zekr,
-      builder: (column, joinBuilders) =>
-          ColumnFilters(column, joinBuilders: joinBuilders));
-}
-
-class $$AdhkarTableOrderingComposer
-    extends OrderingComposer<_$BookmarkDatabase, $AdhkarTable> {
-  $$AdhkarTableOrderingComposer(super.$state);
-  ColumnOrderings<int> get id => $state.composableBuilder(
-      column: $state.table.id,
-      builder: (column, joinBuilders) =>
-          ColumnOrderings(column, joinBuilders: joinBuilders));
-
-  ColumnOrderings<String> get category => $state.composableBuilder(
-      column: $state.table.category,
-      builder: (column, joinBuilders) =>
-          ColumnOrderings(column, joinBuilders: joinBuilders));
-
-  ColumnOrderings<String> get count => $state.composableBuilder(
-      column: $state.table.count,
-      builder: (column, joinBuilders) =>
-          ColumnOrderings(column, joinBuilders: joinBuilders));
-
-  ColumnOrderings<String> get description => $state.composableBuilder(
-      column: $state.table.description,
-      builder: (column, joinBuilders) =>
-          ColumnOrderings(column, joinBuilders: joinBuilders));
-
-  ColumnOrderings<String> get reference => $state.composableBuilder(
-      column: $state.table.reference,
-      builder: (column, joinBuilders) =>
-          ColumnOrderings(column, joinBuilders: joinBuilders));
-
-  ColumnOrderings<String> get zekr => $state.composableBuilder(
-      column: $state.table.zekr,
-      builder: (column, joinBuilders) =>
-          ColumnOrderings(column, joinBuilders: joinBuilders));
-}
+typedef $$AdhkarTableProcessedTableManager = ProcessedTableManager<
+    _$BookmarkDatabase,
+    $AdhkarTable,
+    AdhkarData,
+    $$AdhkarTableFilterComposer,
+    $$AdhkarTableOrderingComposer,
+    $$AdhkarTableAnnotationComposer,
+    $$AdhkarTableCreateCompanionBuilder,
+    $$AdhkarTableUpdateCompanionBuilder,
+    (AdhkarData, BaseReferences<_$BookmarkDatabase, $AdhkarTable, AdhkarData>),
+    AdhkarData,
+    PrefetchHooks Function()>;
 
 class $BookmarkDatabaseManager {
   final _$BookmarkDatabase _db;

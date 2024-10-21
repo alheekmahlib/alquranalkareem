@@ -6,7 +6,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:timezone/data/latest.dart' as tz;
-import 'package:wakelock_plus/wakelock_plus.dart';
 
 import '/core/services/languages/dependency_inj.dart' as dep;
 import 'core/services/background_services.dart';
@@ -36,5 +35,4 @@ Future<void> initializeApp() async {
     await BGServices().registerTask();
   }
   FlutterNativeSplash.remove();
-  WakelockPlus.enable();
 }

@@ -1,6 +1,8 @@
+import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:get/get.dart';
 
 import '../../../../core/utils/constants/shared_preferences_constants.dart';
+import '../../../../core/utils/constants/string_constants.dart';
 import '../general_controller.dart';
 
 extension GeneralGetters on GeneralController {
@@ -18,9 +20,12 @@ extension GeneralGetters on GeneralController {
     return eidDaysList.contains(todayString);
   }
 
-  Future<Uri> getCachedArtUri(String imageUrl) async {
-    final file = await state.cacheManager.getSingleFile(imageUrl);
-    return await file.exists() ? file.uri : Uri.parse(imageUrl);
+  Future<Uri> getCachedArtUri() async {
+    final file =
+        await DefaultCacheManager().getSingleFile(StringConstants.appsIcon1024);
+    return await file.exists()
+        ? file.uri
+        : Uri.parse(StringConstants.appsIcon1024);
   }
 
   Future<void> getLastPageAndFontSize() async {

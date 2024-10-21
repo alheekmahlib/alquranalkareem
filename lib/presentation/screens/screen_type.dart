@@ -3,7 +3,6 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 
-import '../../core/utils/helpers/ui_helper.dart';
 import '../../core/widgets/occasions/controller/event_controller.dart';
 import '../controllers/general/general_controller.dart';
 
@@ -16,7 +15,7 @@ class ScreenTypeL extends StatelessWidget {
   Widget build(BuildContext context) {
     occasionsCtrl.ramadhanOrEidGreeting();
     if (Platform.isIOS || Platform.isAndroid || Platform.isFuchsia) {
-      UiHelper.showRateDialog(context);
+      // UiHelper.showRateDialog(context);
     }
     return ScreenTypeLayout.builder(
       mobile: (BuildContext context) {

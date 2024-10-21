@@ -547,22 +547,155 @@ typedef $$QuranTableTableUpdateCompanionBuilder = QuranTableCompanion Function({
   Value<int> partNum,
 });
 
+class $$QuranTableTableFilterComposer
+    extends Composer<_$QuranDatabase, $QuranTableTable> {
+  $$QuranTableTableFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<int> get id => $composableBuilder(
+      column: $table.id, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<int> get surahNum => $composableBuilder(
+      column: $table.surahNum, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<int> get ayaNum => $composableBuilder(
+      column: $table.ayaNum, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<int> get pageNum => $composableBuilder(
+      column: $table.pageNum, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get sorahName => $composableBuilder(
+      column: $table.sorahName, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get sorahNameEn => $composableBuilder(
+      column: $table.sorahNameEn, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get ayaText => $composableBuilder(
+      column: $table.ayaText, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get searchTextColumn => $composableBuilder(
+      column: $table.searchTextColumn,
+      builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get soraNameSearch => $composableBuilder(
+      column: $table.soraNameSearch,
+      builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<int> get partNum => $composableBuilder(
+      column: $table.partNum, builder: (column) => ColumnFilters(column));
+}
+
+class $$QuranTableTableOrderingComposer
+    extends Composer<_$QuranDatabase, $QuranTableTable> {
+  $$QuranTableTableOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<int> get id => $composableBuilder(
+      column: $table.id, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<int> get surahNum => $composableBuilder(
+      column: $table.surahNum, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<int> get ayaNum => $composableBuilder(
+      column: $table.ayaNum, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<int> get pageNum => $composableBuilder(
+      column: $table.pageNum, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get sorahName => $composableBuilder(
+      column: $table.sorahName, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get sorahNameEn => $composableBuilder(
+      column: $table.sorahNameEn, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get ayaText => $composableBuilder(
+      column: $table.ayaText, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get searchTextColumn => $composableBuilder(
+      column: $table.searchTextColumn,
+      builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get soraNameSearch => $composableBuilder(
+      column: $table.soraNameSearch,
+      builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<int> get partNum => $composableBuilder(
+      column: $table.partNum, builder: (column) => ColumnOrderings(column));
+}
+
+class $$QuranTableTableAnnotationComposer
+    extends Composer<_$QuranDatabase, $QuranTableTable> {
+  $$QuranTableTableAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<int> get id =>
+      $composableBuilder(column: $table.id, builder: (column) => column);
+
+  GeneratedColumn<int> get surahNum =>
+      $composableBuilder(column: $table.surahNum, builder: (column) => column);
+
+  GeneratedColumn<int> get ayaNum =>
+      $composableBuilder(column: $table.ayaNum, builder: (column) => column);
+
+  GeneratedColumn<int> get pageNum =>
+      $composableBuilder(column: $table.pageNum, builder: (column) => column);
+
+  GeneratedColumn<String> get sorahName =>
+      $composableBuilder(column: $table.sorahName, builder: (column) => column);
+
+  GeneratedColumn<String> get sorahNameEn => $composableBuilder(
+      column: $table.sorahNameEn, builder: (column) => column);
+
+  GeneratedColumn<String> get ayaText =>
+      $composableBuilder(column: $table.ayaText, builder: (column) => column);
+
+  GeneratedColumn<String> get searchTextColumn => $composableBuilder(
+      column: $table.searchTextColumn, builder: (column) => column);
+
+  GeneratedColumn<String> get soraNameSearch => $composableBuilder(
+      column: $table.soraNameSearch, builder: (column) => column);
+
+  GeneratedColumn<int> get partNum =>
+      $composableBuilder(column: $table.partNum, builder: (column) => column);
+}
+
 class $$QuranTableTableTableManager extends RootTableManager<
     _$QuranDatabase,
     $QuranTableTable,
     QuranTableData,
     $$QuranTableTableFilterComposer,
     $$QuranTableTableOrderingComposer,
+    $$QuranTableTableAnnotationComposer,
     $$QuranTableTableCreateCompanionBuilder,
-    $$QuranTableTableUpdateCompanionBuilder> {
+    $$QuranTableTableUpdateCompanionBuilder,
+    (
+      QuranTableData,
+      BaseReferences<_$QuranDatabase, $QuranTableTable, QuranTableData>
+    ),
+    QuranTableData,
+    PrefetchHooks Function()> {
   $$QuranTableTableTableManager(_$QuranDatabase db, $QuranTableTable table)
       : super(TableManagerState(
           db: db,
           table: table,
-          filteringComposer:
-              $$QuranTableTableFilterComposer(ComposerState(db, table)),
-          orderingComposer:
-              $$QuranTableTableOrderingComposer(ComposerState(db, table)),
+          createFilteringComposer: () =>
+              $$QuranTableTableFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $$QuranTableTableOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $$QuranTableTableAnnotationComposer($db: db, $table: table),
           updateCompanionCallback: ({
             Value<int> id = const Value.absent(),
             Value<int> surahNum = const Value.absent(),
@@ -611,116 +744,28 @@ class $$QuranTableTableTableManager extends RootTableManager<
             soraNameSearch: soraNameSearch,
             partNum: partNum,
           ),
+          withReferenceMapper: (p0) => p0
+              .map((e) => (e.readTable(table), BaseReferences(db, table, e)))
+              .toList(),
+          prefetchHooksCallback: null,
         ));
 }
 
-class $$QuranTableTableFilterComposer
-    extends FilterComposer<_$QuranDatabase, $QuranTableTable> {
-  $$QuranTableTableFilterComposer(super.$state);
-  ColumnFilters<int> get id => $state.composableBuilder(
-      column: $state.table.id,
-      builder: (column, joinBuilders) =>
-          ColumnFilters(column, joinBuilders: joinBuilders));
-
-  ColumnFilters<int> get surahNum => $state.composableBuilder(
-      column: $state.table.surahNum,
-      builder: (column, joinBuilders) =>
-          ColumnFilters(column, joinBuilders: joinBuilders));
-
-  ColumnFilters<int> get ayaNum => $state.composableBuilder(
-      column: $state.table.ayaNum,
-      builder: (column, joinBuilders) =>
-          ColumnFilters(column, joinBuilders: joinBuilders));
-
-  ColumnFilters<int> get pageNum => $state.composableBuilder(
-      column: $state.table.pageNum,
-      builder: (column, joinBuilders) =>
-          ColumnFilters(column, joinBuilders: joinBuilders));
-
-  ColumnFilters<String> get sorahName => $state.composableBuilder(
-      column: $state.table.sorahName,
-      builder: (column, joinBuilders) =>
-          ColumnFilters(column, joinBuilders: joinBuilders));
-
-  ColumnFilters<String> get sorahNameEn => $state.composableBuilder(
-      column: $state.table.sorahNameEn,
-      builder: (column, joinBuilders) =>
-          ColumnFilters(column, joinBuilders: joinBuilders));
-
-  ColumnFilters<String> get ayaText => $state.composableBuilder(
-      column: $state.table.ayaText,
-      builder: (column, joinBuilders) =>
-          ColumnFilters(column, joinBuilders: joinBuilders));
-
-  ColumnFilters<String> get searchTextColumn => $state.composableBuilder(
-      column: $state.table.searchTextColumn,
-      builder: (column, joinBuilders) =>
-          ColumnFilters(column, joinBuilders: joinBuilders));
-
-  ColumnFilters<String> get soraNameSearch => $state.composableBuilder(
-      column: $state.table.soraNameSearch,
-      builder: (column, joinBuilders) =>
-          ColumnFilters(column, joinBuilders: joinBuilders));
-
-  ColumnFilters<int> get partNum => $state.composableBuilder(
-      column: $state.table.partNum,
-      builder: (column, joinBuilders) =>
-          ColumnFilters(column, joinBuilders: joinBuilders));
-}
-
-class $$QuranTableTableOrderingComposer
-    extends OrderingComposer<_$QuranDatabase, $QuranTableTable> {
-  $$QuranTableTableOrderingComposer(super.$state);
-  ColumnOrderings<int> get id => $state.composableBuilder(
-      column: $state.table.id,
-      builder: (column, joinBuilders) =>
-          ColumnOrderings(column, joinBuilders: joinBuilders));
-
-  ColumnOrderings<int> get surahNum => $state.composableBuilder(
-      column: $state.table.surahNum,
-      builder: (column, joinBuilders) =>
-          ColumnOrderings(column, joinBuilders: joinBuilders));
-
-  ColumnOrderings<int> get ayaNum => $state.composableBuilder(
-      column: $state.table.ayaNum,
-      builder: (column, joinBuilders) =>
-          ColumnOrderings(column, joinBuilders: joinBuilders));
-
-  ColumnOrderings<int> get pageNum => $state.composableBuilder(
-      column: $state.table.pageNum,
-      builder: (column, joinBuilders) =>
-          ColumnOrderings(column, joinBuilders: joinBuilders));
-
-  ColumnOrderings<String> get sorahName => $state.composableBuilder(
-      column: $state.table.sorahName,
-      builder: (column, joinBuilders) =>
-          ColumnOrderings(column, joinBuilders: joinBuilders));
-
-  ColumnOrderings<String> get sorahNameEn => $state.composableBuilder(
-      column: $state.table.sorahNameEn,
-      builder: (column, joinBuilders) =>
-          ColumnOrderings(column, joinBuilders: joinBuilders));
-
-  ColumnOrderings<String> get ayaText => $state.composableBuilder(
-      column: $state.table.ayaText,
-      builder: (column, joinBuilders) =>
-          ColumnOrderings(column, joinBuilders: joinBuilders));
-
-  ColumnOrderings<String> get searchTextColumn => $state.composableBuilder(
-      column: $state.table.searchTextColumn,
-      builder: (column, joinBuilders) =>
-          ColumnOrderings(column, joinBuilders: joinBuilders));
-
-  ColumnOrderings<String> get soraNameSearch => $state.composableBuilder(
-      column: $state.table.soraNameSearch,
-      builder: (column, joinBuilders) =>
-          ColumnOrderings(column, joinBuilders: joinBuilders));
-
-  ColumnOrderings<int> get partNum => $state.composableBuilder(
-      column: $state.table.partNum,
-      builder: (column, joinBuilders) =>
-          ColumnOrderings(column, joinBuilders: joinBuilders));
-}
+typedef $$QuranTableTableProcessedTableManager = ProcessedTableManager<
+    _$QuranDatabase,
+    $QuranTableTable,
+    QuranTableData,
+    $$QuranTableTableFilterComposer,
+    $$QuranTableTableOrderingComposer,
+    $$QuranTableTableAnnotationComposer,
+    $$QuranTableTableCreateCompanionBuilder,
+    $$QuranTableTableUpdateCompanionBuilder,
+    (
+      QuranTableData,
+      BaseReferences<_$QuranDatabase, $QuranTableTable, QuranTableData>
+    ),
+    QuranTableData,
+    PrefetchHooks Function()>;
 
 class $QuranDatabaseManager {
   final _$QuranDatabase _db;

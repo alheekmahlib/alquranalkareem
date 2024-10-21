@@ -32,8 +32,9 @@ class QuranPages extends StatelessWidget {
     bookmarkCtrl.getBookmarks();
     NotificationManager().updateBookProgress(
         'quran'.tr,
-        'notifyQuranBody'.trArgs(
-            [String.fromCharCode(quranCtrl.state.currentPageNumber.value)]),
+        'notifyQuranBody'.trParams({
+          'currentPageNumber': '${quranCtrl.state.currentPageNumber.value}'
+        }),
         quranCtrl.state.currentPageNumber.value);
     return SafeArea(
       child: GetBuilder<QuranController>(

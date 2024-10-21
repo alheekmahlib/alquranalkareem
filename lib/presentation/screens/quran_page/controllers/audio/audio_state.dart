@@ -46,6 +46,7 @@ class AudioState {
   RxInt readerIndex = 0.obs;
   RxBool isStartPlaying = false.obs;
   RxBool isDirectPlaying = false.obs;
+  bool snackBarShownForBatch = false;
 
   /// wether the app should play next ayahs or not..
   bool playSingleAyahOnly = false;

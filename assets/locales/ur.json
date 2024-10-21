@@ -1202,5 +1202,10 @@
     "placeholders": {
       "bookName": {}
     }
+  },
+  "lastSearch": "آخری تلاش",
+  "@lastSearch": {
+    "type": "text",
+    "placeholders": {}
   }
 }

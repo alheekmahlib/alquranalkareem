@@ -1196,5 +1196,10 @@
     "placeholders": {
       "bookName": {}
     }
+  },
+  "lastSearch": "Pencarian Terakhir",
+  "@lastSearch": {
+    "type": "text",
+    "placeholders": {}
   }
 }
