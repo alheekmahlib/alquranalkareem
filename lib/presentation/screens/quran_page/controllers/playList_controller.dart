@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
 
+import 'package:alquranalkareem/presentation/screens/quran_page/controllers/extensions/audio/audio_getters.dart';
 import 'package:dio/dio.dart';
 import 'package:expansion_tile_card/expansion_tile_card.dart';
 import 'package:flutter/material.dart';
@@ -14,6 +15,7 @@ import 'package:rxdart/rxdart.dart' as R;
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '/core/utils/constants/extensions/custom_error_snackBar.dart';
+import '../../../../core/utils/constants/lists.dart';
 import '../../../../core/utils/constants/url_constants.dart';
 import '../../../../core/widgets/seek_bar.dart';
 import '../../../controllers/general/general_controller.dart';
@@ -78,7 +80,16 @@ class PlayListController extends GetxController {
       List<AudioSource> generatedList = [];
 
       for (int i = firstAyahUQ!; i <= lastAyahUQ!; i++) {
-        String fileName = "$i.mp3";
+        final surahNum = quranCtrl
+            .getSurahDataByAyah(quranCtrl.state.allAyahs[i])
+            .surahNumber
+            .toString()
+            .padLeft(3, '0');
+        String fileName = ayahReaderInfo[audioCtrl.state.readerIndex.value]
+                    ['url'] ==
+                UrlConstants.ayahs1stSource
+            ? "${i.toString().padLeft(3, "0")}.mp3"
+            : "$surahNum${i.toString().padLeft(3, "0")}.mp3";
         String localFilePath =
             await getLocalPath() + "${audioCtrl.state.readerValue!}/$fileName";
 
@@ -103,8 +114,19 @@ class PlayListController extends GetxController {
   }
 
   String generateUrl(int ayahNumber, String readerName) {
-    log("generateUrl: ${UrlConstants.ayahs1stSource}$readerName/$ayahNumber.mp3");
-    return "${UrlConstants.ayahs1stSource}$readerName/$ayahNumber.mp3";
+    if (ayahReaderInfo[audioCtrl.state.readerIndex.value]['url'] ==
+        UrlConstants.ayahs1stSource) {
+      log('${ayahReaderInfo[audioCtrl.state.readerIndex.value]['url']}${audioCtrl.reader}/${ayahNumber}.mp3');
+      return '${ayahReaderInfo[audioCtrl.state.readerIndex.value]['url']}${audioCtrl.reader}/${ayahNumber}.mp3';
+    } else {
+      final surahNum = quranCtrl
+          .getSurahDataByAyah(quranCtrl.state.allAyahs[ayahNumber])
+          .surahNumber
+          .toString()
+          .padLeft(3, '0');
+      log('${ayahReaderInfo[audioCtrl.state.readerIndex.value]['url']}${audioCtrl.reader}/${surahNum.toString().padLeft(3, "0")}${ayahNumber.toString().padLeft(3, "0")}.mp3');
+      return '${ayahReaderInfo[audioCtrl.state.readerIndex.value]['url']}${audioCtrl.reader}/${surahNum.toString().padLeft(3, "0")}${ayahNumber.toString().padLeft(3, "0")}.mp3';
+    }
   }
 
   Future<bool> choiceFromPlayList(
@@ -123,7 +145,16 @@ class PlayListController extends GetxController {
 
     String localDirectoryPath = await getLocalPath();
     for (int i = startUQNumber; i <= endUQNumber; i++) {
-      String fileName = "$i.mp3";
+      final surahNum = quranCtrl
+          .getSurahDataByAyah(quranCtrl.state.allAyahs[i])
+          .surahNumber
+          .toString()
+          .padLeft(3, '0');
+      String fileName = ayahReaderInfo[audioCtrl.state.readerIndex.value]
+                  ['url'] ==
+              UrlConstants.ayahs1stSource
+          ? "${i.toString().padLeft(3, "0")}.mp3"
+          : "$surahNum${i.toString().padLeft(3, "0")}.mp3";
       String localFilePath =
           "$localDirectoryPath/${audioCtrl.state.readerValue!}/$fileName";
       bool downloadResult = await downloadFile(
@@ -239,8 +270,8 @@ class PlayListController extends GetxController {
         endNum: lastAyah!,
         startUQNum: firstAyahUQ!,
         endUQNum: lastAyahUQ!,
-        surahNum: quranCtrl.getSurahNumberFromPage(
-            quranCtrl.state.currentPageNumber.value - 1),
+        surahNum: quranCtrl
+            .getSurahNumberFromPage(quranCtrl.state.currentPageNumber.value),
         surahName: quranCtrl
             .getCurrentSurahByPage(quranCtrl.state.currentPageNumber.value - 1)
             .arabicName,

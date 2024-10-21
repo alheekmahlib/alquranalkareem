@@ -7,7 +7,6 @@ import '/presentation/screens/quran_page/widgets/search/search_extensions/highli
 import '/presentation/screens/surah_audio/controller/extensions/surah_audio_getters.dart';
 import '../../../../../core/utils/constants/lists.dart';
 import '../../../../../core/utils/constants/shared_preferences_constants.dart';
-import '../../../../../core/utils/constants/url_constants.dart';
 import '../../../quran_page/controllers/quran/quran_controller.dart';
 import '../surah_audio_controller.dart';
 
@@ -63,13 +62,5 @@ extension SurahAudioUi on SurahAudioController {
 
   void jumpToSurah(int index) {
     state.surahListController.jumpTo(index: index);
-  }
-
-  void loadSurahReader() {
-    state.surahReaderValue.value =
-        state.box.read(SURAH_AUDIO_PLAYER_SOUND) ?? UrlConstants.ayahs3rdSource;
-    state.surahReaderNameValue.value =
-        state.box.read(SURAH_AUDIO_PLAYER_NAME) ?? 'abdul_basit_murattal/';
-    state.surahReaderIndex.value = state.box.read(SURAH_READER_INDEX) ?? 0;
   }
 }

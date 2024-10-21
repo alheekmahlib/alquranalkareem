@@ -332,22 +332,106 @@ typedef $$TafsirTableTableUpdateCompanionBuilder = TafsirTableCompanion
   Value<int> pageNum,
 });
 
+class $$TafsirTableTableFilterComposer
+    extends Composer<_$TafsirDatabase, $TafsirTableTable> {
+  $$TafsirTableTableFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<int> get id => $composableBuilder(
+      column: $table.id, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<int> get surahNum => $composableBuilder(
+      column: $table.surahNum, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<int> get ayahNum => $composableBuilder(
+      column: $table.ayahNum, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get tafsirText => $composableBuilder(
+      column: $table.tafsirText, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<int> get pageNum => $composableBuilder(
+      column: $table.pageNum, builder: (column) => ColumnFilters(column));
+}
+
+class $$TafsirTableTableOrderingComposer
+    extends Composer<_$TafsirDatabase, $TafsirTableTable> {
+  $$TafsirTableTableOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<int> get id => $composableBuilder(
+      column: $table.id, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<int> get surahNum => $composableBuilder(
+      column: $table.surahNum, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<int> get ayahNum => $composableBuilder(
+      column: $table.ayahNum, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get tafsirText => $composableBuilder(
+      column: $table.tafsirText, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<int> get pageNum => $composableBuilder(
+      column: $table.pageNum, builder: (column) => ColumnOrderings(column));
+}
+
+class $$TafsirTableTableAnnotationComposer
+    extends Composer<_$TafsirDatabase, $TafsirTableTable> {
+  $$TafsirTableTableAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<int> get id =>
+      $composableBuilder(column: $table.id, builder: (column) => column);
+
+  GeneratedColumn<int> get surahNum =>
+      $composableBuilder(column: $table.surahNum, builder: (column) => column);
+
+  GeneratedColumn<int> get ayahNum =>
+      $composableBuilder(column: $table.ayahNum, builder: (column) => column);
+
+  GeneratedColumn<String> get tafsirText => $composableBuilder(
+      column: $table.tafsirText, builder: (column) => column);
+
+  GeneratedColumn<int> get pageNum =>
+      $composableBuilder(column: $table.pageNum, builder: (column) => column);
+}
+
 class $$TafsirTableTableTableManager extends RootTableManager<
     _$TafsirDatabase,
     $TafsirTableTable,
     TafsirTableData,
     $$TafsirTableTableFilterComposer,
     $$TafsirTableTableOrderingComposer,
+    $$TafsirTableTableAnnotationComposer,
     $$TafsirTableTableCreateCompanionBuilder,
-    $$TafsirTableTableUpdateCompanionBuilder> {
+    $$TafsirTableTableUpdateCompanionBuilder,
+    (
+      TafsirTableData,
+      BaseReferences<_$TafsirDatabase, $TafsirTableTable, TafsirTableData>
+    ),
+    TafsirTableData,
+    PrefetchHooks Function()> {
   $$TafsirTableTableTableManager(_$TafsirDatabase db, $TafsirTableTable table)
       : super(TableManagerState(
           db: db,
           table: table,
-          filteringComposer:
-              $$TafsirTableTableFilterComposer(ComposerState(db, table)),
-          orderingComposer:
-              $$TafsirTableTableOrderingComposer(ComposerState(db, table)),
+          createFilteringComposer: () =>
+              $$TafsirTableTableFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $$TafsirTableTableOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $$TafsirTableTableAnnotationComposer($db: db, $table: table),
           updateCompanionCallback: ({
             Value<int> id = const Value.absent(),
             Value<int> surahNum = const Value.absent(),
@@ -376,66 +460,28 @@ class $$TafsirTableTableTableManager extends RootTableManager<
             tafsirText: tafsirText,
             pageNum: pageNum,
           ),
+          withReferenceMapper: (p0) => p0
+              .map((e) => (e.readTable(table), BaseReferences(db, table, e)))
+              .toList(),
+          prefetchHooksCallback: null,
         ));
 }
 
-class $$TafsirTableTableFilterComposer
-    extends FilterComposer<_$TafsirDatabase, $TafsirTableTable> {
-  $$TafsirTableTableFilterComposer(super.$state);
-  ColumnFilters<int> get id => $state.composableBuilder(
-      column: $state.table.id,
-      builder: (column, joinBuilders) =>
-          ColumnFilters(column, joinBuilders: joinBuilders));
-
-  ColumnFilters<int> get surahNum => $state.composableBuilder(
-      column: $state.table.surahNum,
-      builder: (column, joinBuilders) =>
-          ColumnFilters(column, joinBuilders: joinBuilders));
-
-  ColumnFilters<int> get ayahNum => $state.composableBuilder(
-      column: $state.table.ayahNum,
-      builder: (column, joinBuilders) =>
-          ColumnFilters(column, joinBuilders: joinBuilders));
-
-  ColumnFilters<String> get tafsirText => $state.composableBuilder(
-      column: $state.table.tafsirText,
-      builder: (column, joinBuilders) =>
-          ColumnFilters(column, joinBuilders: joinBuilders));
-
-  ColumnFilters<int> get pageNum => $state.composableBuilder(
-      column: $state.table.pageNum,
-      builder: (column, joinBuilders) =>
-          ColumnFilters(column, joinBuilders: joinBuilders));
-}
-
-class $$TafsirTableTableOrderingComposer
-    extends OrderingComposer<_$TafsirDatabase, $TafsirTableTable> {
-  $$TafsirTableTableOrderingComposer(super.$state);
-  ColumnOrderings<int> get id => $state.composableBuilder(
-      column: $state.table.id,
-      builder: (column, joinBuilders) =>
-          ColumnOrderings(column, joinBuilders: joinBuilders));
-
-  ColumnOrderings<int> get surahNum => $state.composableBuilder(
-      column: $state.table.surahNum,
-      builder: (column, joinBuilders) =>
-          ColumnOrderings(column, joinBuilders: joinBuilders));
-
-  ColumnOrderings<int> get ayahNum => $state.composableBuilder(
-      column: $state.table.ayahNum,
-      builder: (column, joinBuilders) =>
-          ColumnOrderings(column, joinBuilders: joinBuilders));
-
-  ColumnOrderings<String> get tafsirText => $state.composableBuilder(
-      column: $state.table.tafsirText,
-      builder: (column, joinBuilders) =>
-          ColumnOrderings(column, joinBuilders: joinBuilders));
-
-  ColumnOrderings<int> get pageNum => $state.composableBuilder(
-      column: $state.table.pageNum,
-      builder: (column, joinBuilders) =>
-          ColumnOrderings(column, joinBuilders: joinBuilders));
-}
+typedef $$TafsirTableTableProcessedTableManager = ProcessedTableManager<
+    _$TafsirDatabase,
+    $TafsirTableTable,
+    TafsirTableData,
+    $$TafsirTableTableFilterComposer,
+    $$TafsirTableTableOrderingComposer,
+    $$TafsirTableTableAnnotationComposer,
+    $$TafsirTableTableCreateCompanionBuilder,
+    $$TafsirTableTableUpdateCompanionBuilder,
+    (
+      TafsirTableData,
+      BaseReferences<_$TafsirDatabase, $TafsirTableTable, TafsirTableData>
+    ),
+    TafsirTableData,
+    PrefetchHooks Function()>;
 
 class $TafsirDatabaseManager {
   final _$TafsirDatabase _db;

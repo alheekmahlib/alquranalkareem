@@ -69,14 +69,14 @@ class PlayWidget extends StatelessWidget {
                     Opacity(
                       opacity: .1,
                       child: surahNameWidget(
-                        surahCtrl.state.surahNum.toString(),
+                        surahCtrl.state.surahNum.value.toString(),
                         Get.theme.colorScheme.primary,
                         height: 90,
                         width: 150,
                       ),
                     ),
                     surahNameWidget(
-                      surahCtrl.state.surahNum.toString(),
+                      surahCtrl.state.surahNum.value.toString(),
                       Get.theme.colorScheme.primary,
                       height: 70,
                       width: 150,

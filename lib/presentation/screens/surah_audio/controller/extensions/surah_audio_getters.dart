@@ -1,16 +1,16 @@
 import 'dart:io';
 
+import 'package:audio_service/audio_service.dart';
 import 'package:get/get.dart';
-import 'package:just_audio_background/just_audio_background.dart';
+import 'package:just_audio/just_audio.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:rxdart/rxdart.dart' as R;
 
-import '/presentation/controllers/general/extensions/general_getters.dart';
-import '../../../../../core/services/services_locator.dart';
 import '../../../../../core/utils/constants/lists.dart';
 import '../../../../../core/widgets/seek_bar.dart';
-import '../../../../controllers/general/general_controller.dart';
+import '../../../quran_page/controllers/audio/audio_controller.dart';
 import '../../../quran_page/controllers/quran/quran_controller.dart';
+import '../audio_player_handler.dart';
 import '../surah_audio_controller.dart';
 
 extension SurahAudioGetters on SurahAudioController {
@@ -26,14 +26,34 @@ extension SurahAudioGetters on SurahAudioController {
 
   Stream<PositionData> get audioStream => positionDataStream;
 
-  Future<MediaItem> get mediaItem async => MediaItem(
-        id: '${state.surahNum.value - 1}',
+  MediaItem get mediaItem => MediaItem(
+        id: '${state.surahNum.value}',
         title:
-            '${sl<QuranController>().state.surahs[(state.surahNum.value - 1)].arabicName}',
+            '${QuranController.instance.state.surahs[(state.surahNum.value - 1)].arabicName}',
         artist: '${surahReaderInfo[state.surahReaderIndex.value]['name']}'.tr,
-        artUri: await sl<GeneralController>().getCachedArtUri(
-            'https://raw.githubusercontent.com/alheekmahlib/thegarlanded/master/Photos/ios-1024.png'),
+        artUri: AudioController.instance.state.cachedArtUri,
       );
+
+  Future<void> lastAudioSource() async {
+    await updateMediaItemAndPlay().then((_) async => await state.audioPlayer
+        .seek(Duration(seconds: state.lastPosition.value)));
+    print('URL: $urlFilePath');
+  }
+
+  Future<void> updateMediaItemAndPlay() async {
+    final newMediaItem = mediaItem;
+    AudioPlayerHandler.instance.mediaItem.add(newMediaItem);
+    await state.audioPlayer.setAudioSource(
+        state.surahDownloadStatus.value[state.surahNum.value] == false
+            ? AudioSource.uri(
+                Uri.parse(urlFilePath),
+                tag: newMediaItem,
+              )
+            : AudioSource.file(
+                await localFilePath,
+                tag: newMediaItem,
+              ));
+  }
 
   Stream<PositionData> get positionDataStream =>
       R.Rx.combineLatest3<Duration, Duration, Duration?, PositionData>(

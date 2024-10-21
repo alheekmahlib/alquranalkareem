@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:wakelock_plus/wakelock_plus.dart';
 
 import '/presentation/screens/home/home_screen.dart';
 import '../../screens/adhkar/screens/adhkar_view.dart';
@@ -14,6 +15,18 @@ class GeneralController extends GetxController {
       : Get.put<GeneralController>(GeneralController());
 
   GeneralState state = GeneralState();
+
+  @override
+  void onInit() async {
+    Future.delayed(const Duration(seconds: 1)).then((_) async {
+      try {
+        await WakelockPlus.enable();
+      } catch (e) {
+        print('Failed to enable wakelock: $e');
+      }
+    });
+    super.onInit();
+  }
 
   /// -------- [Methods] ----------
 

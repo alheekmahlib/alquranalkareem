@@ -9,7 +9,7 @@ import '../../../../core/utils/constants/shared_preferences_constants.dart';
 import '../../../controllers/general/general_controller.dart';
 import '../../../controllers/settings_controller.dart';
 import '../../quran_page/controllers/audio/audio_controller.dart';
-import '../../quran_page/controllers/extensions/audio/audiu_storage_getters.dart';
+import '../../quran_page/controllers/extensions/audio/audio_storage_getters.dart';
 import '../../quran_page/controllers/quran/quran_controller.dart';
 import '../../quran_page/controllers/translate_controller.dart';
 import '../../whats_new/controller/whats_new_controller.dart';

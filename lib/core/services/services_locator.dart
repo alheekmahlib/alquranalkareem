@@ -6,7 +6,6 @@ import 'package:desktop_window/desktop_window.dart';
 import 'package:flutter_timezone/flutter_timezone.dart';
 import 'package:get/get.dart';
 import 'package:get_it/get_it.dart';
-import 'package:just_audio_background/just_audio_background.dart';
 import 'package:timezone/data/latest.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
 
@@ -22,10 +21,10 @@ import '../../presentation/screens/quran_page/controllers/bookmarks_controller.d
 import '../../presentation/screens/quran_page/controllers/khatmah_controller.dart';
 import '../../presentation/screens/quran_page/controllers/playList_controller.dart';
 import '../../presentation/screens/quran_page/controllers/quran/quran_controller.dart';
-import '../../presentation/screens/quran_page/controllers/quran_search_controller.dart';
 import '../../presentation/screens/quran_page/controllers/share_controller.dart';
 import '../../presentation/screens/quran_page/controllers/tafsir_ctrl.dart';
 import '../../presentation/screens/quran_page/controllers/translate_controller.dart';
+import '../../presentation/screens/quran_page/widgets/search/controller/quran_search_controller.dart';
 import '../../presentation/screens/splash/controller/splash_screen_controller.dart';
 import '../../presentation/screens/surah_audio/controller/surah_audio_controller.dart';
 import '../../presentation/screens/whats_new/controller/whats_new_controller.dart';
@@ -127,16 +126,27 @@ class ServicesLocator {
 
     if (Platform.isIOS || Platform.isAndroid || Platform.isFuchsia) {
       UiHelper.rateMyApp.init();
+      // Future.delayed(const Duration(seconds: 7)).then((_) => {
+      //       AudioService.init(
+      //         builder: () => AudioPlayerHandler(),
+      //         config: const AudioServiceConfig(
+      //           androidNotificationChannelId:
+      //               'com.alheekmah.alquranalkareem.alquranalkareem',
+      //           androidNotificationChannelName: 'Audio playback',
+      //           androidNotificationOngoing: true,
+      //         ),
+      //       )
+      //     });
     }
 
-    if (Platform.isIOS) {
-      await JustAudioBackground.init(
-        androidNotificationChannelId:
-            'com.alheekmah.alquranalkareem.alquranalkareem',
-        androidNotificationChannelName: 'Audio playback',
-        androidNotificationOngoing: true,
-      );
-    }
+    // if (Platform.isIOS) {
+    // await AudioService.init(
+    //   androidNotificationChannelId:
+    //       'com.alheekmah.alquranalkareem.alquranalkareem',
+    //   androidNotificationChannelName: 'Audio playback',
+    //   androidNotificationOngoing: true,
+    // );
+    // }
 
     // Workmanager().initialize(sl<NotificationController>().callbackDispatcher);
     // sl<NotificationController>().registerBackgroundTask();

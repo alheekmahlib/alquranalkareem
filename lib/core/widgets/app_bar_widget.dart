@@ -55,8 +55,8 @@ class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
               ? NotificationManager().updateBookProgress(
                   title,
                   isBooks
-                      ? 'notifyBooksBody'.trArgs([title])
-                      : 'notifyAdhkarBody'.trArgs([title]),
+                      ? 'notifyBooksBody'.trParams({'bookName': '$title'})
+                      : 'notifyAdhkarBody'.trParams({'adhkarType': '$title'}),
                   0)
               : null;
           Get.back();

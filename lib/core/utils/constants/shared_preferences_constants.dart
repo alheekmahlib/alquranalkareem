@@ -53,3 +53,4 @@ final String TOTAL_PAGES = 'TOTAL_PAGES';
 final String DOWNLOADED_BOOKS = 'downloaded_books';
 final String IS_TASHKIL = 'IS_TASHKIL';
 final String BACKGROUND_PICKER_COLOR = 'BACKGROUND_PICKER_COLOR';
+final String SEARCH_HISTORY = 'SEARCH_HISTORY';

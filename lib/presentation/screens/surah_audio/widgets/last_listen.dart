@@ -1,27 +1,28 @@
-import 'package:alquranalkareem/presentation/screens/surah_audio/controller/extensions/surah_audio_ui.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 
-import '/presentation/screens/surah_audio/controller/extensions/surah_audio_storage_getters.dart';
+import '/presentation/screens/surah_audio/controller/extensions/surah_audio_getters.dart';
+import '/presentation/screens/surah_audio/controller/extensions/surah_audio_ui.dart';
 import '../controller/surah_audio_controller.dart';
 
 class LastListen extends StatelessWidget {
-  const LastListen({super.key});
+  LastListen({super.key});
+
+  final surahAudioCtrl = SurahAudioController.instance;
 
   @override
   Widget build(BuildContext context) {
-    final surahAudioCtrl = SurahAudioController.instance;
     return Semantics(
       button: true,
       enabled: true,
       label: 'lastListen'.tr,
       child: GestureDetector(
         onTap: () {
-          surahAudioCtrl.jumpToSurah(surahAudioCtrl.state.surahNum.value - 1);
           surahAudioCtrl
               .lastAudioSource()
               .then((_) => surahAudioCtrl.state.audioPlayer.play());
+          surahAudioCtrl.jumpToSurah((surahAudioCtrl.state.surahNum.value - 1));
           surahAudioCtrl.state.boxController.openBox();
         },
         child: Container(

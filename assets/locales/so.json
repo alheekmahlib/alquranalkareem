@@ -1202,5 +1202,10 @@
     "placeholders": {
       "bookName": {}
     }
+  },
+  "lastSearch": "Raadintii Ugu Dambaysay",
+  "@lastSearch": {
+    "type": "text",
+    "placeholders": {}
   }
 }

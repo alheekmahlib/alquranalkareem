@@ -1202,5 +1202,10 @@
     "placeholders": {
       "bookName": {}
     }
+  },
+  "lastSearch": "শেষ অনুসন্ধান",
+  "@lastSearch": {
+    "type": "text",
+    "placeholders": {}
   }
 }

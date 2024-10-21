@@ -1193,8 +1193,11 @@
   "notifyListenBody": "لا تنسى متابعة الإستماع للسور",
   "@notifyListenBody": {
     "type": "text",
-    "placeholders": {
-      "bookName": {}
-    }
+    "placeholders": {}
+  },
+  "lastSearch": "آخر بحث",
+  "@lastSearch": {
+    "type": "text",
+    "placeholders": {}
   }
 }

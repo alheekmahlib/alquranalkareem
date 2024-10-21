@@ -9,22 +9,23 @@ import '../../../../../core/utils/constants/lottie_constants.dart';
 import '../../../../controllers/general/general_controller.dart';
 import '../../controllers/extensions/quran/quran_ui.dart';
 import '../../controllers/quran/quran_controller.dart';
-import '../../controllers/quran_search_controller.dart';
 import '../../data/data_source/quran_database.dart';
 import '../../extensions/surah_name_with_banner.dart';
+import 'controller/quran_search_controller.dart';
+import 'last_search_widget.dart';
 import 'search_bar_widget.dart';
 
 class QuranSearch extends StatelessWidget {
   QuranSearch({super.key});
   final generalCtrl = GeneralController.instance;
   final quranCtrl = QuranController.instance;
-  final ayahCtrl = QuranSearchController.instance;
+  final searchCtrl = QuranSearchController.instance;
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: MediaQuery.sizeOf(context).height,
-      width: MediaQuery.sizeOf(context).width,
+      height: Get.height,
+      width: Get.width,
       child: SafeArea(
         child: Column(
           children: <Widget>[
@@ -32,23 +33,26 @@ class QuranSearch extends StatelessWidget {
             context.customClose(),
             const Gap(16),
             TextFieldBarWidget(
-              controller: ayahCtrl.searchTextEditing,
+              controller: searchCtrl.state.searchTextEditing,
               onPressed: () {
-                ayahCtrl.searchTextEditing.clear();
-                ayahCtrl.ayahList.clear();
-                ayahCtrl.surahList.clear();
+                searchCtrl.state.searchTextEditing.clear();
+                searchCtrl.state.ayahList.clear();
+                searchCtrl.state.surahList.clear();
               },
               onChanged: (query) {
-                if (ayahCtrl.searchTextEditing.text.isNotEmpty ||
+                if (searchCtrl.state.searchTextEditing.text.isNotEmpty ||
                     query.trim().isNotEmpty) {
-                  ayahCtrl.surahSearch(query);
-                  ayahCtrl.search(query);
+                  searchCtrl.surahSearch(query);
+                  searchCtrl.search(query);
+                } else {
+                  searchCtrl.state.searchTextEditing.clear();
+                  searchCtrl.state.ayahList.clear();
+                  searchCtrl.state.surahList.clear();
                 }
               },
               onSubmitted: (query) {
                 if (query.length <= 0 || query.trim().isNotEmpty) {
-                  ayahCtrl.surahSearch(query);
-                  ayahCtrl.search(query);
+                  searchCtrl.addSearchItem(query);
                 }
                 // await sl<QuranSearchControllers>().addSearchItem(query);
                 // searchCtrl.textSearchController.clear();
@@ -57,18 +61,21 @@ class QuranSearch extends StatelessWidget {
             const Gap(16),
             Obx(
               () {
-                if (ayahCtrl.surahList.isEmpty) {
-                  return const SizedBox.shrink();
-                } else if (ayahCtrl.surahList.isNotEmpty) {
+                if (searchCtrl.state.surahList.isEmpty ||
+                    searchCtrl.state.surahList.isEmpty ||
+                    searchCtrl.state.searchTextEditing.text.isEmpty) {
+                  return LastSearchWidget();
+                } else if (searchCtrl.state.surahList.isNotEmpty) {
                   return Expanded(
                     flex: 1,
                     child: Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 16.0),
                       child: ListView.builder(
-                        itemCount: ayahCtrl.surahList.length,
+                        itemCount: searchCtrl.state.surahList.length,
                         scrollDirection: Axis.horizontal,
                         itemBuilder: (context, index) {
-                          QuranTableData search = ayahCtrl.surahList[index];
+                          QuranTableData search =
+                              searchCtrl.state.surahList[index];
                           return Directionality(
                             textDirection: TextDirection.rtl,
                             child: GestureDetector(
@@ -107,16 +114,17 @@ class QuranSearch extends StatelessWidget {
               flex: 9,
               child: Obx(
                 () {
-                  if (ayahCtrl.ayahList.isEmpty ||
-                      ayahCtrl.searchTextEditing.text.isEmpty) {
+                  if (searchCtrl.state.ayahList.isEmpty ||
+                      searchCtrl.state.searchTextEditing.text.isEmpty) {
                     return customLottie(LottieConstants.assetsLottieSearch,
                         width: 200.0, height: 200.0);
-                  } else if (ayahCtrl.ayahList.isNotEmpty) {
+                  } else if (searchCtrl.state.ayahList.isNotEmpty) {
                     return ListView.builder(
-                      controller: ayahCtrl.scrollController,
-                      itemCount: ayahCtrl.ayahList.length,
+                      controller: searchCtrl.state.scrollController,
+                      itemCount: searchCtrl.state.ayahList.length,
                       itemBuilder: (context, index) {
-                        QuranTableData search = ayahCtrl.ayahList[index];
+                        QuranTableData search =
+                            searchCtrl.state.ayahList[index];
                         // List<TextSpan> highlightedTextSpans =
                         //     highlightLine(search.SearchText);
                         return Directionality(
@@ -146,8 +154,8 @@ class QuranSearch extends StatelessWidget {
                                     child: RichText(
                                       text: TextSpan(
                                         children: search.searchTextColumn
-                                            .highlightLine(ayahCtrl
-                                                .searchTextEditing.text),
+                                            .highlightLine(searchCtrl
+                                                .state.searchTextEditing.text),
                                         style: TextStyle(
                                           fontFamily: "uthmanic2",
                                           fontWeight: FontWeight.normal,

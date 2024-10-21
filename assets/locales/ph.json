@@ -1196,5 +1196,10 @@
     "placeholders": {
       "bookName": {}
     }
+  },
+  "lastSearch": "Huling Paghahanap",
+  "@lastSearch": {
+    "type": "text",
+    "placeholders": {}
   }
 }

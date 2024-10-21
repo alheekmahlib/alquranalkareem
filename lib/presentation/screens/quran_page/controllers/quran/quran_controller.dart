@@ -21,7 +21,6 @@ class QuranController extends GetxController {
 
   @override
   void onInit() async {
-    super.onInit();
     await loadQuran();
     state.itemPositionsListener.itemPositions.addListener(_updatePageNumber);
     state.itemPositionsListener.itemPositions
@@ -30,6 +29,7 @@ class QuranController extends GetxController {
     state.isPageMode.value = state.box.read(PAGE_MODE) ?? false;
     state.backgroundPickerColor.value =
         state.box.read(BACKGROUND_PICKER_COLOR) ?? 0xfffaf7f3;
+    super.onInit();
   }
 
   @override
@@ -47,21 +47,25 @@ class QuranController extends GetxController {
   /// -------- [Methods] ----------
 
   Future<void> loadQuran() async {
-    String jsonString = await rootBundle.loadString('assets/json/quranV2.json');
-    Map<String, dynamic> jsonResponse = jsonDecode(jsonString);
-    List<dynamic> surahsJson = jsonResponse['data']['surahs'];
-    state.surahs = surahsJson.map((s) => Surah.fromJson(s)).toList();
+    if (state.surahs.isEmpty) {
+      String jsonString =
+          await rootBundle.loadString('assets/json/quranV2.json');
+      Map<String, dynamic> jsonResponse = jsonDecode(jsonString);
+      List<dynamic> surahsJson = jsonResponse['data']['surahs'];
+      state.surahs = surahsJson.map((s) => Surah.fromJson(s)).toList();
 
-    for (final surah in state.surahs) {
-      state.allAyahs.addAll(surah.ayahs);
-      // log('Added ${surah.arabicName} ayahs');
-      update();
+      for (final surah in state.surahs) {
+        state.allAyahs.addAll(surah.ayahs);
+        // log('Added ${surah.arabicName} ayahs');
+        update();
+      }
+      List.generate(604, (pageIndex) {
+        state.pages.add(state.allAyahs
+            .where((ayah) => ayah.page == pageIndex + 1)
+            .toList());
+      });
+      // log('Pages Length: ${state.pages.length}', name: 'Quran Controller');
     }
-    List.generate(604, (pageIndex) {
-      state.pages.add(
-          state.allAyahs.where((ayah) => ayah.page == pageIndex + 1).toList());
-    });
-    // log('Pages Length: ${state.pages.length}', name: 'Quran Controller');
   }
 
   void currentListPageNumber() {
