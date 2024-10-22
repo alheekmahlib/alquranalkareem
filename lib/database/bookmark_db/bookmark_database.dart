@@ -9,7 +9,7 @@ import '../../presentation/screens/adhkar/models/dheker_model.dart';
 import '../../presentation/screens/quran_page/data/model/bookmark.dart';
 import '../../presentation/screens/quran_page/data/model/bookmark_ayahs.dart';
 
-part 'bookmark_database.g.dart'; // يتولد تلقائيًا عند بناء المشروع
+part 'bookmark_database.g.dart';
 
 @DriftDatabase(tables: [Bookmarks, BookmarksAyahs, Adhkar])
 class BookmarkDatabase extends _$BookmarkDatabase {
@@ -20,7 +20,35 @@ class BookmarkDatabase extends _$BookmarkDatabase {
   factory BookmarkDatabase() => _instance;
 
   @override
-  int get schemaVersion => 1;
+  int get schemaVersion => 9;
+
+  @override
+  MigrationStrategy get migration => MigrationStrategy(
+        onUpgrade: (Migrator m, int from, int to) async {
+          if (from < 9) {
+            await m.renameTable(bookmarks, 'bookmarkTable');
+            await m.renameTable(adhkar, 'azkarTable');
+            await m.renameTable(bookmarksAyahs, 'bookmarkTextTable');
+
+            await m.renameColumn(bookmarks, 'sorahName', bookmarks.sorahName);
+            await m.renameColumn(bookmarks, 'pageNum', bookmarks.pageNum);
+            await m.renameColumn(bookmarks, 'lastRead', bookmarks.lastRead);
+
+            await m.renameColumn(
+                bookmarksAyahs, 'sorahName', bookmarksAyahs.surahName);
+            await m.renameColumn(
+                bookmarksAyahs, 'sorahNum', bookmarksAyahs.surahNumber);
+            await m.renameColumn(
+                bookmarksAyahs, 'pageNum', bookmarksAyahs.pageNumber);
+            await m.renameColumn(
+                bookmarksAyahs, 'ayahNum', bookmarksAyahs.ayahNumber);
+            await m.renameColumn(
+                bookmarksAyahs, 'nomPageF', bookmarksAyahs.ayahUQNumber);
+            await m.renameColumn(
+                bookmarksAyahs, 'lastRead', bookmarksAyahs.lastRead);
+          }
+        },
+      );
 
   /// -------[BookmarkPage]--------
   Future<int> addBookmark(BookmarksCompanion bookmark) =>
