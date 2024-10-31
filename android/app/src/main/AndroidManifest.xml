@@ -1,6 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           xmlns:tools="http://schemas.android.com/tools"
-          package="com.alheekmah.alquranalkareem.alquranalkareem">
+          package="com.alheekmah.alquranalkareem.alquranalkareemPro">
     <queries>
         <intent>
             <action android:name="android.intent.action.VIEW" />
@@ -13,7 +13,7 @@
     </queries>
     <application
             tools:replace="android:label"
-        android:label="@string/appName"
+        android:label="القرآن الكريم+ - مكتبة الحكمة"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity
@@ -99,6 +99,10 @@
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE_MEDIA_PLAYBACK"/>
+    <!-- geolocator -->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <!-- geolocator -->
     <!-- Background Fetch -->
 <!--    <uses-permission android:minSdkVersion="34" android:name="android.permission.USE_EXACT_ALARM" />-->
     <!-- Background Fetch -->

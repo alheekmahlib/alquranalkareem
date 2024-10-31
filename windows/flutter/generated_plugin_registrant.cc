@@ -11,6 +11,7 @@
 #include <connectivity_plus/connectivity_plus_windows_plugin.h>
 #include <desktop_window/desktop_window_plugin.h>
 #include <flutter_timezone/flutter_timezone_plugin_c_api.h>
+#include <geolocator_windows/geolocator_windows.h>
 #include <just_audio_windows/just_audio_windows_plugin.h>
 #include <share_plus/share_plus_windows_plugin_c_api.h>
 #include <simple_animation_progress_bar/simple_animation_progress_bar_plugin_c_api.h>
@@ -28,6 +29,8 @@ void RegisterPlugins(flutter::PluginRegistry* registry) {
       registry->GetRegistrarForPlugin("DesktopWindowPlugin"));
   FlutterTimezonePluginCApiRegisterWithRegistrar(
       registry->GetRegistrarForPlugin("FlutterTimezonePluginCApi"));
+  GeolocatorWindowsRegisterWithRegistrar(
+      registry->GetRegistrarForPlugin("GeolocatorWindows"));
   JustAudioWindowsPluginRegisterWithRegistrar(
       registry->GetRegistrarForPlugin("JustAudioWindowsPlugin"));
   SharePlusWindowsPluginCApiRegisterWithRegistrar(

@@ -46,5 +46,7 @@
 	<string>NSApplication</string>
 	<key>com.apple.security.personal-information.location</key>
 	<true/>
+	<key>NSLocationUsageDescription</key>
+    <string>This app needs access to location.</string>
 </dict>
 </plist>

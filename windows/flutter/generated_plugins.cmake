@@ -8,6 +8,7 @@ list(APPEND FLUTTER_PLUGIN_LIST
   connectivity_plus
   desktop_window
   flutter_timezone
+  geolocator_windows
   just_audio_windows
   share_plus
   simple_animation_progress_bar

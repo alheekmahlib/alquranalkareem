@@ -79,6 +79,13 @@ dependencies:
     sdk: flutter
   flutter_localizations:
     sdk: flutter
+  geocoding: ^3.0.0
+  geolocator: ^13.0.1
+  adhan: ^2.0.0+1
+  solar_icons: ^0.0.5
+  slide_countdown: ^2.0.0
+  arc_progress_bar_new: ^1.0.4
+  get_storage: ^2.1.1
 
 
 dev_dependencies:
@@ -102,15 +109,16 @@ flutter_native_splash:
 
 package_rename_config:
   android:
-    package_name: com.alheekmah.alquranalkareem.alquranalkareem
+    app_name: القرآن الكريم+ - مكتبة الحكمة
+    package_name: com.alheekmah.alquranalkareem.alquranalkareemPro
 
   ios:
-    app_name: القرآن الكريم - مكتبة الحكمة
-    package_name: com.alheekmah.alquranalkareem.alquranalkareem
+    app_name: القرآن الكريم+ - مكتبة الحكمة
+    package_name: com.alheekmah.alquranalkareem.alquranalkareemPro
 
     macos:
-      app_name: القرآن الكريم مكتبة الحكمة
-      package_name: com.alheekmah.alquranalkareem.alquranalkareem2
+      app_name: القرآن الكريم+ - مكتبة الحكمة
+      package_name: com.alheekmah.alquranalkareem.alquranalkareemPro
 
   flutter_lints: ^5.0.0
 

@@ -29,7 +29,7 @@ if (keystorePropertiesFile.exists()) {
 }
 
 android {
-    namespace "com.alheekmah.alquranalkareem.alquranalkareem"
+    namespace = "com.alheekmah.alquranalkareem.alquranalkareemPro"
     compileSdkVersion 34
     ndkVersion flutter.ndkVersion
 
@@ -53,7 +53,7 @@ android {
 
     defaultConfig {
         // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
-        applicationId "com.alheekmah.alquranalkareem.alquranalkareem"
+        applicationId = "com.alheekmah.alquranalkareem.alquranalkareemPro"
         // You can update the following values to match your application needs.
         // For more information, see: https://docs.flutter.dev/deployment/android#reviewing-the-gradle-build-configuration.
         minSdkVersion flutter.minSdkVersion

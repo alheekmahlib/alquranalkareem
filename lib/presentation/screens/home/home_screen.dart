@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 import '/core/utils/constants/extensions/extensions.dart';
 import '../../../core/widgets/tab_bar_widget.dart';
 import '../../controllers/theme_controller.dart';
+import '../prayers/hijri_prayer_widget/prayer_progress_bar_widget.dart';
 import 'widgets/ayah_tafsir_widget.dart';
 import 'widgets/daily_zeker.dart';
 import 'widgets/hijri_date.dart';
@@ -37,7 +38,8 @@ class HomeScreen extends StatelessWidget {
                       ListView(
                         padding: EdgeInsets.zero,
                         children: [
-                          HijriDate(),
+                          // HijriDate(),
+                          PrayerProgressBar(),
                           const Gap(16),
                           const ScreensList(),
                           const Gap(8),

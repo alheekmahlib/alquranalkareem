@@ -24,6 +24,6 @@ class GeneralState {
   RxInt screenSelectedValue = 0.obs;
   var today = HijriCalendar.now();
   var now = DateTime.now();
-
+  RxBool activeLocation = false.obs;
   final ItemScrollController waqfScrollController = ItemScrollController();
 }

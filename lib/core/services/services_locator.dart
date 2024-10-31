@@ -6,6 +6,7 @@ import 'package:desktop_window/desktop_window.dart';
 import 'package:flutter_timezone/flutter_timezone.dart';
 import 'package:get/get.dart';
 import 'package:get_it/get_it.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:timezone/data/latest.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
 
@@ -16,6 +17,8 @@ import '../../presentation/controllers/theme_controller.dart';
 import '../../presentation/screens/adhkar/controller/adhkar_controller.dart';
 import '../../presentation/screens/books/controller/books_controller.dart';
 import '../../presentation/screens/ourApp/controller/ourApps_controller.dart';
+import '../../presentation/screens/prayers/controller/adhan/adhan_controller.dart';
+import '../../presentation/screens/prayers/controller/prayers_notifications/prayers_notifications_controller.dart';
 import '../../presentation/screens/quran_page/controllers/audio/audio_controller.dart';
 import '../../presentation/screens/quran_page/controllers/bookmarks_controller.dart';
 import '../../presentation/screens/quran_page/controllers/khatmah_controller.dart';
@@ -54,6 +57,7 @@ class ServicesLocator {
       // ),
 
       // _initPrefs(), // moved to notificationsCtrl
+      GetStorage.init('AdhanSounds'),
       _windowSize(),
     ]);
 
@@ -121,6 +125,13 @@ class ServicesLocator {
 
     sl.registerLazySingleton<TafsirCtrl>(
         () => Get.put<TafsirCtrl>(TafsirCtrl(), permanent: true));
+
+    sl.registerLazySingleton<AdhanController>(
+        () => Get.put<AdhanController>(AdhanController(), permanent: true));
+
+    sl.registerLazySingleton<PrayersNotificationsCtrl>(() =>
+        Get.put<PrayersNotificationsCtrl>(PrayersNotificationsCtrl(),
+            permanent: true));
     // NotifyHelper().initializeNotification();
     // sl<NotificationsController>().initializeLocalNotifications();
 
