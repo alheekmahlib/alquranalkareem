@@ -1169,21 +1169,21 @@
     "type": "text",
     "placeholders": {}
   },
-  "notifyQuranBody": "Huminto ka sa pahina {currentPageNumber} sa Quran, gusto mo bang ipagpatuloy?",
+  "notifyQuranBody": "Huminto ka sa pahina @currentPageNumber sa Quran, gusto mo bang ipagpatuloy?",
   "@notifyQuranBody": {
     "type": "text",
     "placeholders": {
       "currentPageNumber": {}
     }
   },
-  "notifyAdhkarBody": "Huwag kalimutang basahin ang {adhkarType}",
+  "notifyAdhkarBody": "Huwag kalimutang basahin ang @adhkarType",
   "@notifyAdhkarBody": {
     "type": "text",
     "placeholders": {
       "adhkarType": {}
     }
   },
-  "notifyBooksBody": "Huwag kalimutang ipagpatuloy ang pagbabasa ng aklat {bookName}",
+  "notifyBooksBody": "Huwag kalimutang ipagpatuloy ang pagbabasa ng aklat @bookName",
   "@notifyBooksBody": {
     "type": "text",
     "placeholders": {

@@ -1169,21 +1169,21 @@
     "type": "text",
     "placeholders": {}
   },
-  "notifyQuranBody": "Anda berhenti di halaman {currentPageNumber} dalam Al-Qur'an, apakah Anda ingin melanjutkan?",
+  "notifyQuranBody": "Anda berhenti di halaman @currentPageNumber dalam Al-Qur'an, apakah Anda ingin melanjutkan?",
   "@notifyQuranBody": {
     "type": "text",
     "placeholders": {
       "currentPageNumber": {}
     }
   },
-  "notifyAdhkarBody": "Jangan lupa membaca {adhkarType}",
+  "notifyAdhkarBody": "Jangan lupa membaca @adhkarType",
   "@notifyAdhkarBody": {
     "type": "text",
     "placeholders": {
       "adhkarType": {}
     }
   },
-  "notifyBooksBody": "Jangan lupa untuk melanjutkan membaca buku {bookName}",
+  "notifyBooksBody": "Jangan lupa untuk melanjutkan membaca buku @bookName",
   "@notifyBooksBody": {
     "type": "text",
     "placeholders": {

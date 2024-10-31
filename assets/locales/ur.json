@@ -1175,21 +1175,21 @@
     "type": "text",
     "placeholders": {}
   },
-  "notifyQuranBody": "آپ قرآن کی صفحہ {currentPageNumber} پر رکے ہیں، کیا آپ جاری رکھنا چاہتے ہیں؟",
+  "notifyQuranBody": "آپ قرآن کی صفحہ @currentPageNumber پر رکے ہیں، کیا آپ جاری رکھنا چاہتے ہیں؟",
   "@notifyQuranBody": {
     "type": "text",
     "placeholders": {
       "currentPageNumber": {}
     }
   },
-  "notifyAdhkarBody": "آپ {adhkarType} پڑھنا نہ بھولیں",
+  "notifyAdhkarBody": "آپ @adhkarType پڑھنا نہ بھولیں",
   "@notifyAdhkarBody": {
     "type": "text",
     "placeholders": {
       "adhkarType": {}
     }
   },
-  "notifyBooksBody": "آپ {bookName} کتاب پڑھنا جاری رکھنے کو نہ بھولیں",
+  "notifyBooksBody": "آپ @bookName کتاب پڑھنا جاری رکھنے کو نہ بھولیں",
   "@notifyBooksBody": {
     "type": "text",
     "placeholders": {

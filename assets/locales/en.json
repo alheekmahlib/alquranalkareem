@@ -1175,21 +1175,21 @@
     "type": "text",
     "placeholders": {}
   },
-  "notifyQuranBody": "You stopped at page {currentPageNumber} in the Quran, would you like to continue?",
+  "notifyQuranBody": "You stopped at page @currentPageNumber in the Quran, would you like to continue?",
   "@notifyQuranBody": {
     "type": "text",
     "placeholders": {
       "currentPageNumber": {}
     }
   },
-  "notifyAdhkarBody": "Don't forget to read {adhkarType}",
+  "notifyAdhkarBody": "Don't forget to read @adhkarType",
   "@notifyAdhkarBody": {
     "type": "text",
     "placeholders": {
       "adhkarType": {}
     }
   },
-  "notifyBooksBody": "Don't forget to continue reading the book {bookName}",
+  "notifyBooksBody": "Don't forget to continue reading the book @bookName",
   "@notifyBooksBody": {
     "type": "text",
     "placeholders": {
