@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:drift/drift.dart';
 import 'package:drift/native.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:path/path.dart' as p;
 import 'package:path_provider/path_provider.dart';
 
@@ -22,30 +23,43 @@ class BookmarkDatabase extends _$BookmarkDatabase {
   @override
   int get schemaVersion => 9;
 
+  Future<bool> _shouldRunUpgrade() async {
+    bool hasUpgraded = GetStorage().read('db_upgrade_9') ?? false;
+
+    if (!hasUpgraded) {
+      await GetStorage().write('db_upgrade_9', true);
+      return true;
+    }
+    return false;
+  }
+
   @override
   MigrationStrategy get migration => MigrationStrategy(
         onUpgrade: (Migrator m, int from, int to) async {
           if (from < 9) {
-            await m.renameTable(bookmarks, 'bookmarkTable');
-            await m.renameTable(adhkar, 'azkarTable');
-            await m.renameTable(bookmarksAyahs, 'bookmarkTextTable');
+            final shouldRun = await _shouldRunUpgrade();
+            if (shouldRun) {
+              await m.renameTable(bookmarks, 'bookmarkTable');
+              await m.renameTable(adhkar, 'azkarTable');
+              await m.renameTable(bookmarksAyahs, 'bookmarkTextTable');
 
-            await m.renameColumn(bookmarks, 'sorahName', bookmarks.sorahName);
-            await m.renameColumn(bookmarks, 'pageNum', bookmarks.pageNum);
-            await m.renameColumn(bookmarks, 'lastRead', bookmarks.lastRead);
+              await m.renameColumn(bookmarks, 'sorahName', bookmarks.sorahName);
+              await m.renameColumn(bookmarks, 'pageNum', bookmarks.pageNum);
+              await m.renameColumn(bookmarks, 'lastRead', bookmarks.lastRead);
 
-            await m.renameColumn(
-                bookmarksAyahs, 'sorahName', bookmarksAyahs.surahName);
-            await m.renameColumn(
-                bookmarksAyahs, 'sorahNum', bookmarksAyahs.surahNumber);
-            await m.renameColumn(
-                bookmarksAyahs, 'pageNum', bookmarksAyahs.pageNumber);
-            await m.renameColumn(
-                bookmarksAyahs, 'ayahNum', bookmarksAyahs.ayahNumber);
-            await m.renameColumn(
-                bookmarksAyahs, 'nomPageF', bookmarksAyahs.ayahUQNumber);
-            await m.renameColumn(
-                bookmarksAyahs, 'lastRead', bookmarksAyahs.lastRead);
+              await m.renameColumn(
+                  bookmarksAyahs, 'sorahName', bookmarksAyahs.surahName);
+              await m.renameColumn(
+                  bookmarksAyahs, 'sorahNum', bookmarksAyahs.surahNumber);
+              await m.renameColumn(
+                  bookmarksAyahs, 'pageNum', bookmarksAyahs.pageNumber);
+              await m.renameColumn(
+                  bookmarksAyahs, 'ayahNum', bookmarksAyahs.ayahNumber);
+              await m.renameColumn(
+                  bookmarksAyahs, 'nomPageF', bookmarksAyahs.ayahUQNumber);
+              await m.renameColumn(
+                  bookmarksAyahs, 'lastRead', bookmarksAyahs.lastRead);
+            }
           }
         },
       );

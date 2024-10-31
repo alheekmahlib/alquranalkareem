@@ -125,121 +125,123 @@ class ShowTafseer extends StatelessWidget {
                                   controller: _scrollController,
                                   child: SingleChildScrollView(
                                     controller: _scrollController,
-                                    child: Obx(() => Text.rich(
-                                          TextSpan(
-                                            children: <InlineSpan>[
-                                              TextSpan(
-                                                text: '﴿${ayahs.text}﴾\n',
-                                                style: TextStyle(
-                                                  fontFamily: 'uthmanic2',
-                                                  fontSize: 24,
-                                                  height: 1.9,
-                                                  color: Theme.of(context)
-                                                      .colorScheme
-                                                      .inversePrimary,
-                                                ),
-                                              ),
-                                              WidgetSpan(
-                                                child: ShareCopyWidget(
-                                                  ayahNumber: ayahs.ayahNumber,
-                                                  ayahText: ayahs.text,
-                                                  ayahTextNormal:
-                                                      ayahs.aya_text_emlaey,
-                                                  ayahUQNumber: ayahIndex,
-                                                  surahName: quranCtrl
-                                                      .getSurahDataByAyahUQ(
-                                                          ayahIndex)
-                                                      .arabicName,
-                                                  surahNumber: quranCtrl
-                                                      .getSurahDataByAyahUQ(
-                                                          ayahIndex)
-                                                      .surahNumber,
-                                                  tafsirName: tafsirName[
-                                                      tafsirCtrl.radioValue
-                                                          .value]['name'],
-                                                  tafsir: tafsirCtrl
-                                                          .isTafsir.value
-                                                      ? tafsirCtrl
-                                                          .tafseerList[
-                                                              tafsirCtrl
-                                                                  .ayahUQNumber
-                                                                  .value]
-                                                          .tafsirText
-                                                      : sl<TranslateDataController>()
-                                                              .data[tafsirCtrl
-                                                                  .ayahUQNumber
-                                                                  .value -
-                                                              1]['text'] ??
-                                                          '',
-                                                ),
-                                              ),
-                                              tafsirCtrl.isTafsir.value
-                                                  ? TextSpan(
-                                                      children: tafsir
-                                                          .tafsirText
-                                                          .buildTextSpans(),
-                                                      style: TextStyle(
-                                                          color: Get
-                                                              .theme
-                                                              .colorScheme
-                                                              .inversePrimary,
-                                                          height: 1.5,
-                                                          fontSize: generalCtrl
-                                                              .state
-                                                              .fontSizeArabic
-                                                              .value),
-                                                    )
-                                                  : TextSpan(
-                                                      text: sl<TranslateDataController>()
-                                                              .data[tafsirCtrl
-                                                                  .ayahUQNumber
-                                                                  .value -
-                                                              1]['text'] ??
-                                                          '',
-                                                      style: TextStyle(
-                                                          color: Get
-                                                              .theme
-                                                              .colorScheme
-                                                              .inversePrimary,
-                                                          height: 1.5,
-                                                          fontSize: generalCtrl
-                                                              .state
-                                                              .fontSizeArabic
-                                                              .value),
-                                                    ),
-                                              WidgetSpan(
-                                                child: Center(
-                                                  child: SizedBox(
-                                                    height: 50,
-                                                    child: SizedBox(
-                                                        width: MediaQuery.of(
-                                                                    context)
-                                                                .size
-                                                                .width /
-                                                            1 /
-                                                            2,
-                                                        child: SvgPicture.asset(
-                                                          'assets/svg/space_line.svg',
-                                                        )),
+                                    child: Obx(() => tafsirCtrl
+                                            .tafseerList.isEmpty
+                                        ? const SizedBox.shrink()
+                                        : Text.rich(
+                                            TextSpan(
+                                              children: <InlineSpan>[
+                                                TextSpan(
+                                                  text: '﴿${ayahs.text}﴾\n',
+                                                  style: TextStyle(
+                                                    fontFamily: 'uthmanic2',
+                                                    fontSize: 24,
+                                                    height: 1.9,
+                                                    color: Theme.of(context)
+                                                        .colorScheme
+                                                        .inversePrimary,
                                                   ),
                                                 ),
-                                              )
-                                              // TextSpan(text: 'world', style: TextStyle(fontWeight: FontWeight.bold)),
-                                            ],
-                                          ),
-                                          // showCursor: true,
-                                          // cursorWidth: 3,
-                                          // cursorColor: Theme.of(context).dividerColor,
-                                          // cursorRadius: const Radius.circular(5),
-                                          // scrollPhysics:
-                                          //     const ClampingScrollPhysics(),
-                                          textDirection: TextDirection.rtl,
-                                          textAlign: TextAlign.justify,
-                                          // contextMenuBuilder:
-                                          //     buildMyContextMenu(),
-                                          // onSelectionChanged:
-                                          //     handleSelectionChanged,
-                                        )),
+                                                WidgetSpan(
+                                                  child: ShareCopyWidget(
+                                                    ayahNumber:
+                                                        ayahs.ayahNumber,
+                                                    ayahText: ayahs.text,
+                                                    ayahTextNormal:
+                                                        ayahs.aya_text_emlaey,
+                                                    ayahUQNumber: ayahIndex,
+                                                    surahName: quranCtrl
+                                                        .getSurahDataByAyahUQ(
+                                                            ayahIndex)
+                                                        .arabicName,
+                                                    surahNumber: quranCtrl
+                                                        .getSurahDataByAyahUQ(
+                                                            ayahIndex)
+                                                        .surahNumber,
+                                                    tafsirName: tafsirName[
+                                                        tafsirCtrl.radioValue
+                                                            .value]['name'],
+                                                    tafsir: tafsirCtrl
+                                                            .isTafsir.value
+                                                        ? tafsirCtrl
+                                                            .tafseerList[index]
+                                                            .tafsirText
+                                                        : sl<TranslateDataController>()
+                                                                .data[tafsirCtrl
+                                                                    .ayahUQNumber
+                                                                    .value -
+                                                                1]['text'] ??
+                                                            '',
+                                                  ),
+                                                ),
+                                                tafsirCtrl.isTafsir.value
+                                                    ? TextSpan(
+                                                        children: tafsir
+                                                            .tafsirText
+                                                            .buildTextSpans(),
+                                                        style: TextStyle(
+                                                            color: Get
+                                                                .theme
+                                                                .colorScheme
+                                                                .inversePrimary,
+                                                            height: 1.5,
+                                                            fontSize: generalCtrl
+                                                                .state
+                                                                .fontSizeArabic
+                                                                .value),
+                                                      )
+                                                    : TextSpan(
+                                                        text: sl<TranslateDataController>()
+                                                                .data[tafsirCtrl
+                                                                    .ayahUQNumber
+                                                                    .value -
+                                                                1]['text'] ??
+                                                            '',
+                                                        style: TextStyle(
+                                                            color: Get
+                                                                .theme
+                                                                .colorScheme
+                                                                .inversePrimary,
+                                                            height: 1.5,
+                                                            fontSize: generalCtrl
+                                                                .state
+                                                                .fontSizeArabic
+                                                                .value),
+                                                      ),
+                                                WidgetSpan(
+                                                  child: Center(
+                                                    child: SizedBox(
+                                                      height: 50,
+                                                      child: SizedBox(
+                                                          width: MediaQuery.of(
+                                                                      context)
+                                                                  .size
+                                                                  .width /
+                                                              1 /
+                                                              2,
+                                                          child:
+                                                              SvgPicture.asset(
+                                                            'assets/svg/space_line.svg',
+                                                          )),
+                                                    ),
+                                                  ),
+                                                )
+                                                // TextSpan(text: 'world', style: TextStyle(fontWeight: FontWeight.bold)),
+                                              ],
+                                            ),
+                                            // showCursor: true,
+                                            // cursorWidth: 3,
+                                            // cursorColor: Theme.of(context).dividerColor,
+                                            // cursorRadius: const Radius.circular(5),
+                                            // scrollPhysics:
+                                            //     const ClampingScrollPhysics(),
+                                            textDirection: TextDirection.rtl,
+                                            textAlign: TextAlign.justify,
+                                            // contextMenuBuilder:
+                                            //     buildMyContextMenu(),
+                                            // onSelectionChanged:
+                                            //     handleSelectionChanged,
+                                          )),
                                   ),
                                 ),
                               ),

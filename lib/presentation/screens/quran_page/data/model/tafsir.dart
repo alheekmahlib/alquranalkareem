@@ -13,7 +13,7 @@ List<String> tafsirDBName = [
   'baghawyV2.db',
   'qurtubiV2.db',
   'saadiV3.db',
-  'ibnkatheerV2.sqlite',
+  'tabariV2.db',
 ];
 
 class TafsirTable extends Table {
