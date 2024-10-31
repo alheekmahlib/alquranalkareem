@@ -2,14 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '/core/utils/constants/extensions/svg_extensions.dart';
-import '/presentation/screens/quran_page/controllers/extensions/quran_getters.dart';
-import '../../../presentation/screens/quran_page/controllers/ayat_controller.dart';
-import '../../../presentation/screens/quran_page/controllers/quran/quran_controller.dart';
 import '../../../presentation/screens/quran_page/controllers/share_controller.dart';
 import '../../../presentation/screens/quran_page/controllers/translate_controller.dart';
 import '../../services/services_locator.dart';
 import '../../utils/constants/extensions/extensions.dart';
-import '../../utils/constants/extensions/text_span_extension.dart';
 import '../../utils/constants/lists.dart';
 import '../../utils/constants/lottie.dart';
 import '../../utils/constants/lottie_constants.dart';
@@ -347,33 +343,12 @@ class ShareAyahOptions extends StatelessWidget {
                                               .withOpacity(.15),
                                           borderRadius: const BorderRadius.all(
                                               Radius.circular(4))),
-                                      child: FutureBuilder(
-                                          future: sl<AyatController>()
-                                              .getTafsir(
-                                                  ayahUQNumber,
-                                                  sl<QuranController>()
-                                                      .getSurahDataByAyahUQ(
-                                                          ayahUQNumber)
-                                                      .surahNumber),
-                                          builder: (context, snapshot) {
-                                            if (snapshot.connectionState ==
-                                                ConnectionState.done) {
-                                              return TafseerImageCreator(
-                                                verseNumber: ayahNumber,
-                                                verseUQNumber: ayahUQNumber,
-                                                surahNumber: surahNumber,
-                                                verseText: ayahTextNormal,
-                                                tafseerText:
-                                                    sl<AyatController>()
-                                                        .selectedTafsir!
-                                                        .text
-                                                        .buildTextSpans(),
-                                              );
-                                            } else {
-                                              return const CircularProgressIndicator
-                                                  .adaptive();
-                                            }
-                                          }),
+                                      child: TafseerImageCreator(
+                                        verseNumber: ayahNumber,
+                                        verseUQNumber: ayahUQNumber,
+                                        surahNumber: surahNumber,
+                                        verseText: ayahTextNormal,
+                                      ),
                                     ),
                                     onTap: () async {
                                       await shareToImage
@@ -382,20 +357,6 @@ class ShareAyahOptions extends StatelessWidget {
                                           .shareVerseWithTranslate(context);
                                       Navigator.pop(context);
                                     },
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                        horizontal: 32.0),
-                                    child: Text(
-                                      'shareTrans'.tr,
-                                      style: TextStyle(
-                                          color: Get.isDarkMode
-                                              ? Get.theme.colorScheme.primary
-                                              : Get.theme.colorScheme.primary,
-                                          fontSize: 14,
-                                          fontFamily: 'kufi'),
-                                      textAlign: TextAlign.justify,
-                                    ),
                                   ),
                                 ],
                               ),

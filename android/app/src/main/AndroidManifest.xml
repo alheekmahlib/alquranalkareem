@@ -1,5 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          xmlns:tools="http://schemas.android.com/tools">
+          xmlns:tools="http://schemas.android.com/tools"
+          package="com.alheekmah.alquranalkareem.alquranalkareem">
     <queries>
         <intent>
             <action android:name="android.intent.action.VIEW" />
@@ -16,7 +17,7 @@
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity
-            android:name=".MainActivity"
+            android:name="com.ryanheise.audioservice.AudioServiceActivity"
             android:exported="true"
             android:launchMode="singleTop"
             android:theme="@style/LaunchTheme"
@@ -39,7 +40,7 @@
             </intent-filter>
         </activity>
 <!--        <activity-->
-<!--                android:name="com.alheekmah.alquranalkareem.alquranalkareem.AudioServiceActivity"-->
+<!--                android:name="com.ryanheise.audioservice.AudioServiceActivity"-->
 <!--                android:exported="true"-->
 <!--                android:theme="@style/LaunchTheme">-->
 <!--            &lt;!&ndash; Activity specific configuration here &ndash;&gt;-->
@@ -68,22 +69,26 @@
         </receiver>
         <!-- Background Fetch -->
 
-<!--        <service android:name="com.alheekmah.alquranalkareem.alquranalkareem.audioservice.AudioService"-->
-<!--                 android:foregroundServiceType="mediaPlayback"-->
-<!--                 android:exported="true" tools:ignore="Instantiatable">-->
-<!--            <intent-filter>-->
-<!--                <action android:name="android.media.browse.MediaBrowserService" />-->
-<!--            </intent-filter>-->
-<!--        </service>-->
 
-<!--        &lt;!&ndash; ADD THIS "RECEIVER" element &ndash;&gt;-->
-<!--        <receiver android:name="com.alheekmah.alquranalkareem.alquranalkareem.audioservice.MediaButtonReceiver"-->
-<!--                  android:exported="true" tools:ignore="Instantiatable">-->
-<!--            <intent-filter>-->
-<!--                <action android:name="android.intent.action.MEDIA_BUTTON" />-->
-<!--            </intent-filter>-->
-<!--        </receiver>-->
-<!--        <service android:name="com.ryanheise.just_audio.BackgroundAudioService"/>-->
+        <!-- ADD THIS for just_audio_background -->
+        <service
+                android:name="com.ryanheise.audioservice.AudioService"
+                android:foregroundServiceType="mediaPlayback"
+                android:exported="true">
+            <intent-filter>
+                <action android:name="android.media.browse.MediaBrowserService" />
+            </intent-filter>
+        </service>
+
+        <receiver
+                android:name="com.ryanheise.audioservice.MediaButtonReceiver"
+                android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MEDIA_BUTTON" />
+            </intent-filter>
+        </receiver>
+        <!-- end just_audio_background -->
+
     </application>
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
@@ -92,7 +97,9 @@
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_MEDIA_PLAYBACK"/>
     <!-- Background Fetch -->
-    <uses-permission android:minSdkVersion="34" android:name="android.permission.USE_EXACT_ALARM" />
+<!--    <uses-permission android:minSdkVersion="34" android:name="android.permission.USE_EXACT_ALARM" />-->
     <!-- Background Fetch -->
 </manifest>

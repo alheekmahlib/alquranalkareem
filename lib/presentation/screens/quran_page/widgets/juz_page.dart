@@ -4,9 +4,9 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 
 import '/core/utils/constants/extensions/convert_number_extension.dart';
-import '/presentation/screens/quran_page/controllers/extensions/quran_getters.dart';
-import '/presentation/screens/quran_page/controllers/extensions/quran_ui.dart';
 import '../../../../core/utils/constants/extensions/extensions.dart';
+import '../controllers/extensions/quran/quran_getters.dart';
+import '../controllers/extensions/quran/quran_ui.dart';
 import '../controllers/quran/quran_controller.dart';
 
 class QuranJuz extends StatelessWidget {
@@ -151,7 +151,7 @@ class QuranJuz extends StatelessWidget {
                                               padding: const EdgeInsets.only(
                                                   right: 8.0),
                                               child: Text(
-                                                '${surah.arabicName} ${surah.surahNumber.toString().convertNumbers()} - ${'page'.tr} ${juz.page.toString().convertNumbers()}',
+                                                '${quranCtrl.getCurrentSurahByPage(juz.page).arabicName} ${quranCtrl.getCurrentSurahByPage(juz.page).surahNumber.toString().convertNumbers()} - ${'page'.tr} ${juz.page.toString().convertNumbers()}',
                                                 style: TextStyle(
                                                   fontFamily: "naskh",
                                                   fontWeight: FontWeight.w600,

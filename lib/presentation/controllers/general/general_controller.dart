@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:wakelock_plus/wakelock_plus.dart';
 
 import '/presentation/screens/home/home_screen.dart';
-import '../../../core/services/services_locator.dart';
 import '../../screens/adhkar/screens/adhkar_view.dart';
 import '../../screens/books/screens/books_screen.dart';
-import '../../screens/quran_page/controllers/ayat_controller.dart';
 import '../../screens/quran_page/screens/quran_home.dart';
 import '../../screens/surah_audio/audio_surah.dart';
 import 'general_state.dart';
@@ -16,6 +15,18 @@ class GeneralController extends GetxController {
       : Get.put<GeneralController>(GeneralController());
 
   GeneralState state = GeneralState();
+
+  @override
+  void onInit() async {
+    Future.delayed(const Duration(seconds: 1)).then((_) async {
+      try {
+        await WakelockPlus.enable();
+      } catch (e) {
+        print('Failed to enable wakelock: $e');
+      }
+    });
+    super.onInit();
+  }
 
   /// -------- [Methods] ----------
 
@@ -34,12 +45,6 @@ class GeneralController extends GetxController {
     } else {
       print("Controller not attached to any scroll views.");
     }
-  }
-
-  ayahPosition() {
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      scrollToAyah(sl<AyatController>().isSelected.value.toInt());
-    });
   }
 
   Widget screenSelect() {

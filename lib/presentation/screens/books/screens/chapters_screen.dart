@@ -40,6 +40,8 @@ class ChaptersPage extends StatelessWidget {
                 isScrollControlled: true),
             icon: customSvgWithColor(SvgPath.svgSearchIcon,
                 color: Theme.of(context).colorScheme.surface)),
+        isNotifi: false,
+        isBooks: false,
       ),
       body: SafeArea(
           child: ListView(

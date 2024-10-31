@@ -16,7 +16,10 @@ class BooksState {
   var searchResults = <PageContent>[].obs;
   RxBool isDownloaded = false.obs;
   final TextEditingController searchController = TextEditingController();
-  PageController quranPageController = PageController();
+  PageController bookPageController = PageController();
+  final FocusNode bookRLFocusNode = FocusNode();
+  // final FocusNode bookUDFocusNode = FocusNode();
+  // final ScrollController ScrollUpDownBook = ScrollController();
   RxInt currentPageNumber = 0.obs;
   var lastReadPage = <int, int>{}.obs;
   Map<int, int> bookTotalPages = {};

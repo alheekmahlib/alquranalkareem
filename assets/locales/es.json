@@ -848,23 +848,23 @@
     "type": "text",
     "placeholders": {}
   },
-  "Rabi' al-awwal": "Rabi' al-awwal",
-  "@Rabi' al-awwal": {
+  "Rabi' Al-Awwal": "Rabi' Al-Awwal",
+  "@Rabi' Al-Awwal": {
     "type": "text",
     "placeholders": {}
   },
-  "Rabi' al-thani": "Rabi' al-thani",
-  "@Rabi' al-thani": {
+  "Rabi' Al-Thani": "Rabi' Al-Thani",
+  "@Rabi' Al-Thani": {
     "type": "text",
     "placeholders": {}
   },
-  "Jumada al-awwal": "Jumada al-awwal",
-  "@Jumada al-awwal": {
+  "Jumada Al-Awwal": "Jumada Al-Awwal",
+  "@Jumada Al-Awwal": {
     "type": "text",
     "placeholders": {}
   },
-  "Jumada al-thani": "Jumada al-thani",
-  "@Jumada al-thani": {
+  "Jumada Al-Thani": "Jumada Al-Thani",
+  "@Jumada Al-Thani": {
     "type": "text",
     "placeholders": {}
   },
@@ -1180,6 +1180,39 @@
   },
   "noBooksDownloaded": "No has descargado ningún libro todavía.",
   "@noBooksDownloaded": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "notifyQuranBody": "Te detuviste en la página @currentPageNumber del Corán, ¿quieres continuar?",
+  "@notifyQuranBody": {
+    "type": "text",
+    "placeholders": {
+      "currentPageNumber": {}
+    }
+  },
+  "notifyAdhkarBody": "No olvides leer @adhkarType",
+  "@notifyAdhkarBody": {
+    "type": "text",
+    "placeholders": {
+      "adhkarType": {}
+    }
+  },
+  "notifyBooksBody": "No olvides continuar leyendo el libro @bookName",
+  "@notifyBooksBody": {
+    "type": "text",
+    "placeholders": {
+      "bookName": {}
+    }
+  },
+  "notifyListenBody": "No olvides continuar escuchando las suras",
+  "@notifyListenBody": {
+    "type": "text",
+    "placeholders": {
+      "bookName": {}
+    }
+  },
+  "lastSearch": "Última búsqueda",
+  "@lastSearch": {
     "type": "text",
     "placeholders": {}
   }

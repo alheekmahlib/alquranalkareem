@@ -38,36 +38,28 @@ class SurahJuzList extends StatelessWidget {
                     indicatorSize: TabBarIndicatorSize.tab,
                     dividerColor: Colors.transparent,
                     labelStyle: TextStyle(
-                      color: Theme.of(context).hintColor,
+                      color: Theme.of(context).colorScheme.surface,
                       fontFamily: 'kufi',
-                      fontSize: 11,
+                      fontSize: 12,
+                      fontWeight: FontWeight.bold,
+                    ),
+                    unselectedLabelStyle: TextStyle(
+                      color: Theme.of(context).colorScheme.surface,
+                      fontFamily: 'kufi',
+                      fontSize: 12,
+                      fontWeight: FontWeight.bold,
                     ),
                     indicator: BoxDecoration(
                         borderRadius: const BorderRadius.all(
                           Radius.circular(8),
                         ),
-                        color: Theme.of(context)
-                            .colorScheme
-                            .primaryContainer
-                            .withOpacity(.3)),
+                        color: Theme.of(context).colorScheme.primaryContainer),
                     tabs: [
                       Tab(
-                        child: Text(
-                          'quran_sorah'.tr,
-                          style: TextStyle(
-                              color: Theme.of(context).canvasColor,
-                              fontSize: 12,
-                              fontFamily: 'kufi'),
-                        ),
+                        text: 'quran_sorah'.tr,
                       ),
                       Tab(
-                        child: Text(
-                          'allJuz'.tr,
-                          style: TextStyle(
-                              color: Theme.of(context).canvasColor,
-                              fontSize: 12,
-                              fontFamily: 'kufi'),
-                        ),
+                        text: 'allJuz'.tr,
                       ),
                     ],
                   ),

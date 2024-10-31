@@ -1,9 +1,9 @@
-import 'package:alquranalkareem/core/utils/constants/extensions/svg_extensions.dart';
-import 'package:alquranalkareem/core/utils/constants/svg_constants.dart';
-import 'package:alquranalkareem/presentation/screens/splash/screen/widgets/alheekmah_and_loading.dart';
-import 'package:alquranalkareem/presentation/screens/splash/screen/widgets/logo_and_title.dart';
 import 'package:flutter/material.dart';
 
+import '/core/utils/constants/extensions/svg_extensions.dart';
+import '/core/utils/constants/svg_constants.dart';
+import '/presentation/screens/splash/screen/widgets/alheekmah_and_loading.dart';
+import '/presentation/screens/splash/screen/widgets/logo_and_title.dart';
 import '../../../../core/services/services_locator.dart';
 import '../../../../core/utils/constants/extensions/extensions.dart';
 import '../controller/splash_screen_controller.dart';

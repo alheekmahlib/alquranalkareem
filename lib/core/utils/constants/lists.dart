@@ -10,6 +10,7 @@ import '../../../presentation/screens/surah_audio/audio_surah.dart';
 import 'url_constants.dart';
 
 List<String> translateName = <String>[
+  'nothing',
   'English',
   'Español',
   'বাংলা',
@@ -17,7 +18,7 @@ List<String> translateName = <String>[
   'Soomaali',
   'bahasa Indonesia',
   'کوردی',
-  'Türkçe'
+  'Türkçe',
 ];
 
 List<String> shareTranslateName = <String>[
@@ -33,6 +34,7 @@ List<String> shareTranslateName = <String>[
 ];
 
 const List<String> semanticsTranslateName = <String>[
+  'nothing',
   'English',
   'Spanish',
   'Bengal',
@@ -40,7 +42,7 @@ const List<String> semanticsTranslateName = <String>[
   'Somali',
   'Indonesian',
   'kurdish',
-  'turkish'
+  'turkish',
 ];
 
 const List<String> waqfMarks = <String>[
@@ -289,23 +291,26 @@ List tafsirName = [
   },
 ];
 
-List tafsirNameRandom = [
-  {'name': '${'tafIbnkatheerN'.tr}', 'bookName': '${'tafIbnkatheerD'.tr}'},
+const List tafsirNameRandom = [
   {
-    'name': '${'tafBaghawyN'.tr}',
-    'bookName': '${'tafBaghawyD'.tr}',
+    'name': '${'tafIbnkatheerN'}',
+    'bookName': '${'tafIbnkatheerD'}',
   },
   {
-    'name': '${'tafQurtubiN'.tr}',
-    'bookName': '${'tafQurtubiD'.tr}',
+    'name': '${'tafBaghawyN'}',
+    'bookName': '${'tafBaghawyD'}',
   },
   {
-    'name': '${'tafSaadiN'.tr}',
-    'bookName': '${'tafSaadiD'.tr}',
+    'name': '${'tafQurtubiN'}',
+    'bookName': '${'tafQurtubiD'}',
   },
   {
-    'name': '${'tafTabariN'.tr}',
-    'bookName': '${'tafTabariD'.tr}',
+    'name': '${'tafSaadiN'}',
+    'bookName': '${'tafSaadiD'}',
+  },
+  {
+    'name': '${'tafTabariN'}',
+    'bookName': '${'tafTabariD'}',
   }
 ];
 

@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 
 import '/core/utils/constants/extensions/svg_extensions.dart';
 import '/core/utils/constants/svg_constants.dart';
-import '/presentation/screens/quran_page/controllers/extensions/audio_ui.dart';
 import '../../../../controllers/general/general_controller.dart';
 import '../../controllers/audio/audio_controller.dart';
+import '../../controllers/extensions/audio/audio_ui.dart';
 import '../../controllers/quran/quran_controller.dart';
 
 class PlayButton extends StatelessWidget {

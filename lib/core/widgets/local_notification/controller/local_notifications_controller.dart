@@ -1,13 +1,12 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:developer';
-import 'dart:io';
 
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:http/http.dart' as http;
 
-import '../../../services/local_notifications.dart';
+import '../../../services/notifications_helper.dart';
 import '../data/model/post_model.dart';
 
 class LocalNotificationsController extends GetxController {
@@ -18,19 +17,14 @@ class LocalNotificationsController extends GetxController {
 
   RxList<PostModel> postsList = <PostModel>[].obs;
   final box = GetStorage();
-  final NotifyHelper notifyHelper = NotifyHelper();
   Timer? _timer;
 
   @override
   void onInit() {
     super.onInit();
-    notifyHelper.initializeNotification();
+    // NotifyHelper.initAwesomeNotifications();
     fetchAndScheduleNotifications();
     loadReadStatus();
-    if (Platform.isIOS || Platform.isMacOS) {
-      notifyHelper.requestIOSPermissions();
-      notifyHelper.requestMACPermissions();
-    }
   }
 
   Future<void> fetchAndScheduleNotifications() async {
@@ -57,7 +51,7 @@ class LocalNotificationsController extends GetxController {
             String body = post.body;
             int id = post.id;
 
-            await notifyHelper.scheduledNotification(id, title, body);
+            await NotifyHelper().scheduledNotification(id, title, body);
 
             if (id > newLastSeenPostId) {
               newLastSeenPostId = id;

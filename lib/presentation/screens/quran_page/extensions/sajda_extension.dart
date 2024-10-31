@@ -6,9 +6,9 @@ import 'package:get/get.dart';
 
 import '/core/utils/constants/extensions/extensions.dart';
 import '/core/utils/constants/extensions/svg_extensions.dart';
-import '/presentation/screens/quran_page/controllers/extensions/quran_getters.dart';
 import '../../../../core/services/services_locator.dart';
 import '../../../../core/utils/constants/svg_constants.dart';
+import '../controllers/extensions/quran/quran_getters.dart';
 import '../controllers/quran/quran_controller.dart';
 
 extension SajdaExtension on Widget {

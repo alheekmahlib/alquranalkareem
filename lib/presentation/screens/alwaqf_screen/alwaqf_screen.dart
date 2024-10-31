@@ -17,6 +17,8 @@ class AlwaqfScreen extends StatelessWidget {
           title: '',
           isFontSize: true,
           searchButton: const SizedBox.shrink(),
+          isNotifi: false,
+          isBooks: false,
         ),
         body: SafeArea(
           child: Directionality(

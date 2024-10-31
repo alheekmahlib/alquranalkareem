@@ -3,9 +3,10 @@ import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 
 import '/core/utils/constants/extensions/svg_extensions.dart';
+import '/presentation/screens/quran_page/controllers/extensions/tafsir/tafsir_ui.dart';
 import '../../../../../core/utils/constants/svg_constants.dart';
 import '../../../../../core/widgets/share/share_ayah_options.dart';
-import '../../controllers/ayat_controller.dart';
+import '../../controllers/tafsir_ctrl.dart';
 
 class ShareCopyWidget extends StatelessWidget {
   final int ayahNumber;
@@ -29,7 +30,7 @@ class ShareCopyWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final ayatCtrl = AyatController.instance;
+    final tafsirCtrl = TafsirCtrl.instance;
     return Center(
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 6.0),
@@ -54,7 +55,8 @@ class ShareCopyWidget extends StatelessWidget {
                   height: 25,
                 ),
               ),
-              onTap: () async => await ayatCtrl.copyOnTap(tafsirName, tafsir),
+              onTap: () async => await tafsirCtrl.copyTafsirOnTap(
+                  tafsirName, tafsir, ayahTextNormal),
             ),
             const Gap(16),
             ShareAyahOptions(

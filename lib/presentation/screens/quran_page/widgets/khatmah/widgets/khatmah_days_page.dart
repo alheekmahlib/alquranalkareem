@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 
 import '/core/utils/constants/extensions/convert_number_extension.dart';
 import '/core/utils/constants/extensions/extensions.dart';
-import '/presentation/screens/quran_page/controllers/extensions/quran_ui.dart';
+import '../../../controllers/extensions/quran/quran_ui.dart';
 import '../../../controllers/khatmah_controller.dart';
 import '../../../controllers/quran/quran_controller.dart';
 
@@ -18,7 +18,6 @@ class KhatmahDaysPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final int daysCount = khatmah.daysCount; // عدد الأيام
     final bool isTahzibSahabah = khatmah.isTahzibSahabah;
-    final int pagesPerDay = (khatmahCtrl.totalPages / daysCount).ceil();
     final int currentDay =
         khatmah.dayStatuses.indexWhere((status) => !status.isCompleted) + 1;
 
@@ -43,7 +42,7 @@ class KhatmahDaysPage extends StatelessWidget {
                 color: Theme.of(context).colorScheme.surface,
               ),
               subtitle: Text(
-                '${'pages'.tr.replaceAll('صفحات', 'الصفحات')}: ${isTahzibSahabah ? khatmahCtrl.getTahzibSahabahPageForDay(currentDay) : (currentDay - 1) * pagesPerDay + 1} - ${isTahzibSahabah ? (currentDay < 7 ? khatmahCtrl.getTahzibSahabahPageForDay(currentDay + 1) - 1 : 604) : ((currentDay * pagesPerDay > 604) ? 604 : currentDay * pagesPerDay)}'
+                '${'pages'.tr.replaceAll('صفحات', 'الصفحات')}: ${khatmah.dayStatuses[currentDay - 1].startPage} - ${khatmah.dayStatuses[currentDay - 1].endPage}'
                     .convertNumbers(),
                 style: TextStyle(
                   color: Theme.of(context).colorScheme.surface,

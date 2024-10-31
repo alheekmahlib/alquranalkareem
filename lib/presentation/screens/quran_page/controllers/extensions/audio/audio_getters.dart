@@ -1,23 +1,20 @@
 import 'dart:developer';
 
+import 'package:audio_service/audio_service.dart';
 import 'package:get/get.dart';
-import 'package:just_audio_background/just_audio_background.dart';
 import 'package:rxdart/rxdart.dart' as R;
 
-import '/presentation/screens/quran_page/controllers/extensions/quran_getters.dart';
-import '../../../../../core/services/services_locator.dart';
-import '../../../../../core/utils/constants/lists.dart';
-import '../../../../../core/utils/constants/url_constants.dart';
-import '../../../../../core/widgets/seek_bar.dart';
-import '../../../../controllers/general/general_controller.dart';
-import '../audio/audio_controller.dart';
-import '../ayat_controller.dart';
-import '../quran/quran_controller.dart';
+import '../../../../../../core/utils/constants/lists.dart';
+import '../../../../../../core/utils/constants/url_constants.dart';
+import '../../../../../../core/widgets/seek_bar.dart';
+import '../../../../../controllers/general/general_controller.dart';
+import '../../audio/audio_controller.dart';
+import '../../quran/quran_controller.dart';
+import '../quran/quran_getters.dart';
 
 // AudioState state = AudioState();
 final generalCtrl = GeneralController.instance;
 final quranCtrl = QuranController.instance;
-final ayatCtrl = AyatController.instance;
 
 extension AudioGetters on AudioController {
   /// -------- [Getters] ----------
@@ -25,7 +22,7 @@ extension AudioGetters on AudioController {
   MediaItem get mediaItemForCurrentAyah => MediaItem(
         id: '${state.currentAyahUQInPage.value}',
         title:
-            '${sl<QuranController>().getPageAyahsByIndex(quranCtrl.state.currentPageNumber.value - 1).firstWhere((a) => a.ayahUQNumber == state.currentAyahUQInPage.value).text}',
+            '${quranCtrl.getPageAyahsByIndex(quranCtrl.state.currentPageNumber.value - 1).firstWhere((a) => a.ayahUQNumber == state.currentAyahUQInPage.value).text}',
         artist: '${ayahReaderInfo[state.readerIndex.value]['name']}'.tr,
         artUri: state.cachedArtUri,
       );

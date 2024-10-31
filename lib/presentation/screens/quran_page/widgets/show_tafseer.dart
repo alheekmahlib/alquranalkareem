@@ -6,15 +6,16 @@ import 'package:get/get.dart';
 import '/core/utils/constants/extensions/font_size_extension.dart';
 import '/core/utils/constants/extensions/svg_extensions.dart';
 import '/core/utils/constants/extensions/text_span_extension.dart';
-import '/presentation/screens/quran_page/controllers/extensions/quran_getters.dart';
 import '../../../../core/services/services_locator.dart';
 import '../../../../core/utils/constants/extensions/extensions.dart';
 import '../../../../core/utils/constants/lists.dart';
 import '../../../../core/utils/constants/svg_constants.dart';
 import '../../../controllers/general/general_controller.dart';
-import '../controllers/ayat_controller.dart';
+import '../controllers/extensions/quran/quran_getters.dart';
 import '../controllers/quran/quran_controller.dart';
+import '../controllers/tafsir_ctrl.dart';
 import '../controllers/translate_controller.dart';
+import '../data/data_source/tafsir_database.dart';
 import 'ayahs/share_copy_widget.dart';
 import 'change_tafsir.dart';
 
@@ -28,8 +29,7 @@ class ShowTafseer extends StatelessWidget {
   final ScrollController _scrollController = ScrollController();
   final quranCtrl = QuranController.instance;
   final generalCtrl = GeneralController.instance;
-
-  // final ayatCtrl = sl<AyatController>();
+  final tafsirCtrl = TafsirCtrl.instance;
 
   @override
   Widget build(BuildContext context) {
@@ -80,175 +80,173 @@ class ShowTafseer extends StatelessWidget {
               ),
               Flexible(
                 flex: 4,
-                child: PageView.builder(
-                    controller: PageController(
-                        initialPage: (selectedAyahIndexInFullPage).toInt()),
-                    itemCount: pageAyahs.length,
-                    itemBuilder: (context, index) {
-                      final ayahs = pageAyahs[index];
-                      int ayahIndex = pageAyahs.first.ayahUQNumber + index;
-                      return GetX<AyatController>(
-                        builder: (ayatCtrl) {
-                          return FutureBuilder(
-                              future: ayatCtrl.getTafsir(
-                                  ayahIndex,
-                                  quranCtrl
-                                      .getSurahDataByAyahUQ(ayahIndex)
-                                      .surahNumber),
-                              builder: (context, snapshot) {
-                                if (snapshot.connectionState ==
-                                    ConnectionState.done) {
-                                  return Container(
-                                    width: MediaQuery.sizeOf(context).width,
-                                    decoration: BoxDecoration(
-                                        color: Theme.of(context)
-                                            .colorScheme
-                                            .surface
-                                            .withOpacity(.1),
-                                        border: Border.symmetric(
-                                            horizontal: BorderSide(
-                                          width: 2,
-                                          color: Theme.of(context)
-                                              .colorScheme
-                                              .primary,
-                                        ))),
-                                    child: Padding(
-                                      padding: const EdgeInsets.symmetric(
-                                          horizontal: 16.0, vertical: 8.0),
-                                      child: Scrollbar(
-                                        controller: _scrollController,
-                                        child: SingleChildScrollView(
-                                          controller: _scrollController,
-                                          child: Obx(() => Text.rich(
+                child: GetBuilder<TafsirCtrl>(
+                    id: 'change_tafsir',
+                    builder: (tafsirCtrl) {
+                      if (tafsirCtrl.tafseerList.isEmpty &&
+                          sl<TranslateDataController>().data.isEmpty) {
+                        return const Center(child: Text('No Tafsir available'));
+                      }
+                      return PageView.builder(
+                          controller: PageController(
+                              initialPage:
+                                  (selectedAyahIndexInFullPage).toInt()),
+                          itemCount: pageAyahs.length,
+                          itemBuilder: (context, index) {
+                            final ayahs = pageAyahs[index];
+                            int ayahIndex =
+                                pageAyahs.first.ayahUQNumber + index;
+                            final tafsir = tafsirCtrl.tafseerList.firstWhere(
+                              (element) => element.id == ayahIndex,
+                              orElse: () => const TafsirTableData(
+                                  id: 0,
+                                  tafsirText: '',
+                                  ayahNum: 0,
+                                  pageNum: 0,
+                                  surahNum: 0), // تصرف في حالة عدم وجود التفسير
+                            );
+                            return Container(
+                              width: MediaQuery.sizeOf(context).width,
+                              decoration: BoxDecoration(
+                                  color: Theme.of(context)
+                                      .colorScheme
+                                      .surface
+                                      .withOpacity(.1),
+                                  border: Border.symmetric(
+                                      horizontal: BorderSide(
+                                    width: 2,
+                                    color:
+                                        Theme.of(context).colorScheme.primary,
+                                  ))),
+                              child: Padding(
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 16.0, vertical: 8.0),
+                                child: Scrollbar(
+                                  controller: _scrollController,
+                                  child: SingleChildScrollView(
+                                    controller: _scrollController,
+                                    child: Obx(() => tafsirCtrl
+                                            .tafseerList.isEmpty
+                                        ? const SizedBox.shrink()
+                                        : Text.rich(
+                                            TextSpan(
+                                              children: <InlineSpan>[
                                                 TextSpan(
-                                                  children: <InlineSpan>[
-                                                    TextSpan(
-                                                      text: '﴿${ayahs.text}﴾\n',
-                                                      style: TextStyle(
-                                                        fontFamily: 'uthmanic2',
-                                                        fontSize: 24,
-                                                        height: 1.9,
-                                                        color: Theme.of(context)
-                                                            .colorScheme
-                                                            .inversePrimary,
-                                                      ),
-                                                    ),
-                                                    WidgetSpan(
-                                                      child: ShareCopyWidget(
-                                                        ayahNumber:
-                                                            ayahs.ayahNumber,
-                                                        ayahText: ayahs.text,
-                                                        ayahTextNormal: ayahs
-                                                            .aya_text_emlaey,
-                                                        ayahUQNumber: ayahIndex,
-                                                        surahName: quranCtrl
-                                                            .getSurahDataByAyahUQ(
-                                                                ayahIndex)
-                                                            .arabicName,
-                                                        surahNumber: quranCtrl
-                                                            .getSurahDataByAyahUQ(
-                                                                ayahIndex)
-                                                            .surahNumber,
-                                                        tafsirName: tafsirName[
-                                                            ayatCtrl.radioValue
-                                                                .value]['name'],
-                                                        tafsir: ayatCtrl
-                                                                .isTafseer.value
-                                                            ? ayatCtrl
-                                                                .selectedTafsir!
-                                                                .text
-                                                            : sl<TranslateDataController>()
-                                                                    .data[ayatCtrl
-                                                                        .ayahUQNumber
-                                                                        .value -
-                                                                    1]['text'] ??
-                                                                '',
-                                                      ),
-                                                    ),
-                                                    ayatCtrl.isTafseer.value
-                                                        ? TextSpan(
-                                                            children: ayatCtrl
-                                                                .selectedTafsir!
-                                                                .text
-                                                                .buildTextSpans(),
-                                                            style: TextStyle(
-                                                                color: Get
-                                                                    .theme
-                                                                    .colorScheme
-                                                                    .inversePrimary,
-                                                                height: 1.5,
-                                                                fontSize:
-                                                                    generalCtrl
-                                                                        .state
-                                                                        .fontSizeArabic
-                                                                        .value),
-                                                          )
-                                                        : TextSpan(
-                                                            text: sl<TranslateDataController>()
-                                                                    .data[ayatCtrl
-                                                                        .ayahUQNumber
-                                                                        .value -
-                                                                    1]['text'] ??
-                                                                '',
-                                                            style: TextStyle(
-                                                                color: Get
-                                                                    .theme
-                                                                    .colorScheme
-                                                                    .inversePrimary,
-                                                                height: 1.5,
-                                                                fontSize:
-                                                                    generalCtrl
-                                                                        .state
-                                                                        .fontSizeArabic
-                                                                        .value),
-                                                          ),
-                                                    WidgetSpan(
-                                                      child: Center(
-                                                        child: SizedBox(
-                                                          height: 50,
-                                                          child: SizedBox(
-                                                              width: MediaQuery.of(
-                                                                          context)
-                                                                      .size
-                                                                      .width /
-                                                                  1 /
-                                                                  2,
-                                                              child: SvgPicture
-                                                                  .asset(
-                                                                'assets/svg/space_line.svg',
-                                                              )),
-                                                        ),
-                                                      ),
-                                                    )
-                                                    // TextSpan(text: 'world', style: TextStyle(fontWeight: FontWeight.bold)),
-                                                  ],
+                                                  text: '﴿${ayahs.text}﴾\n',
+                                                  style: TextStyle(
+                                                    fontFamily: 'uthmanic2',
+                                                    fontSize: 24,
+                                                    height: 1.9,
+                                                    color: Theme.of(context)
+                                                        .colorScheme
+                                                        .inversePrimary,
+                                                  ),
                                                 ),
-                                                // showCursor: true,
-                                                // cursorWidth: 3,
-                                                // cursorColor: Theme.of(context).dividerColor,
-                                                // cursorRadius: const Radius.circular(5),
-                                                // scrollPhysics:
-                                                //     const ClampingScrollPhysics(),
-                                                textDirection:
-                                                    TextDirection.rtl,
-                                                textAlign: TextAlign.justify,
-                                                // contextMenuBuilder:
-                                                //     buildMyContextMenu(),
-                                                // onSelectionChanged:
-                                                //     handleSelectionChanged,
-                                              )),
-                                        ),
-                                      ),
-                                    ),
-                                  );
-                                } else {
-                                  return const Center(
-                                    child: CircularProgressIndicator.adaptive(),
-                                  );
-                                }
-                              });
-                        },
-                      );
+                                                WidgetSpan(
+                                                  child: ShareCopyWidget(
+                                                    ayahNumber:
+                                                        ayahs.ayahNumber,
+                                                    ayahText: ayahs.text,
+                                                    ayahTextNormal:
+                                                        ayahs.aya_text_emlaey,
+                                                    ayahUQNumber: ayahIndex,
+                                                    surahName: quranCtrl
+                                                        .getSurahDataByAyahUQ(
+                                                            ayahIndex)
+                                                        .arabicName,
+                                                    surahNumber: quranCtrl
+                                                        .getSurahDataByAyahUQ(
+                                                            ayahIndex)
+                                                        .surahNumber,
+                                                    tafsirName: tafsirName[
+                                                        tafsirCtrl.radioValue
+                                                            .value]['name'],
+                                                    tafsir: tafsirCtrl
+                                                            .isTafsir.value
+                                                        ? tafsirCtrl
+                                                            .tafseerList[index]
+                                                            .tafsirText
+                                                        : sl<TranslateDataController>()
+                                                                .data[tafsirCtrl
+                                                                    .ayahUQNumber
+                                                                    .value -
+                                                                1]['text'] ??
+                                                            '',
+                                                  ),
+                                                ),
+                                                tafsirCtrl.isTafsir.value
+                                                    ? TextSpan(
+                                                        children: tafsir
+                                                            .tafsirText
+                                                            .buildTextSpans(),
+                                                        style: TextStyle(
+                                                            color: Get
+                                                                .theme
+                                                                .colorScheme
+                                                                .inversePrimary,
+                                                            height: 1.5,
+                                                            fontSize: generalCtrl
+                                                                .state
+                                                                .fontSizeArabic
+                                                                .value),
+                                                      )
+                                                    : TextSpan(
+                                                        text: sl<TranslateDataController>()
+                                                                .data[tafsirCtrl
+                                                                    .ayahUQNumber
+                                                                    .value -
+                                                                1]['text'] ??
+                                                            '',
+                                                        style: TextStyle(
+                                                            color: Get
+                                                                .theme
+                                                                .colorScheme
+                                                                .inversePrimary,
+                                                            height: 1.5,
+                                                            fontSize: generalCtrl
+                                                                .state
+                                                                .fontSizeArabic
+                                                                .value),
+                                                      ),
+                                                WidgetSpan(
+                                                  child: Center(
+                                                    child: SizedBox(
+                                                      height: 50,
+                                                      child: SizedBox(
+                                                          width: MediaQuery.of(
+                                                                      context)
+                                                                  .size
+                                                                  .width /
+                                                              1 /
+                                                              2,
+                                                          child:
+                                                              SvgPicture.asset(
+                                                            'assets/svg/space_line.svg',
+                                                          )),
+                                                    ),
+                                                  ),
+                                                )
+                                                // TextSpan(text: 'world', style: TextStyle(fontWeight: FontWeight.bold)),
+                                              ],
+                                            ),
+                                            // showCursor: true,
+                                            // cursorWidth: 3,
+                                            // cursorColor: Theme.of(context).dividerColor,
+                                            // cursorRadius: const Radius.circular(5),
+                                            // scrollPhysics:
+                                            //     const ClampingScrollPhysics(),
+                                            textDirection: TextDirection.rtl,
+                                            textAlign: TextAlign.justify,
+                                            // contextMenuBuilder:
+                                            //     buildMyContextMenu(),
+                                            // onSelectionChanged:
+                                            //     handleSelectionChanged,
+                                          )),
+                                  ),
+                                ),
+                              ),
+                            );
+                          });
                     }),
               ),
             ],

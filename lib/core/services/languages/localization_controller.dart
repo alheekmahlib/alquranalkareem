@@ -61,11 +61,10 @@ class LocalizationController extends GetxController implements GetxService {
   }
 
   Future<void> changeLangOnTap(int index) async {
-    final lang = sl<SettingsController>().languageList[index];
-    setLanguage(Locale(lang['lang'], ''));
-    await box.write(LANG, lang['lang']);
-    await box.write(LANG_NAME, lang['name']);
-    sl<SettingsController>().languageName.value = lang['name'];
-    sl<SettingsController>().languageFont.value = lang['font'];
+    final lang = AppConstants.languages[index];
+    setLanguage(Locale(lang.languageCode, ''));
+    await box.write(LANG, lang.languageCode);
+    await box.write(LANG_NAME, lang.languageName);
+    sl<SettingsController>().languageName.value = lang.languageName;
   }
 }

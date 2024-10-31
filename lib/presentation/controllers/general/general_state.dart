@@ -1,6 +1,5 @@
 import 'package:arabic_numbers/arabic_numbers.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:hijri/hijri_calendar.dart';
@@ -27,7 +26,4 @@ class GeneralState {
   var now = DateTime.now();
 
   final ItemScrollController waqfScrollController = ItemScrollController();
-
-  final cacheManager = CacheManager(Config(
-      'https://raw.githubusercontent.com/alheekmahlib/alquranalkareem/main/assets/app_icon.png'));
 }

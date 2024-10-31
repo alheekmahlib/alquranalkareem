@@ -87,7 +87,8 @@ class BooksBookmarksController extends GetxController {
     } else {
       addBookmark(booksCtrl.state.booksList[bookNumber - 1].bookName,
               bookNumber, index + 1)
-          .then((_) => Get.context!.showCustomErrorSnackBar('addBookmark'.tr));
+          .then((_) => Get.context!
+              .showCustomErrorSnackBar('addBookmark'.tr, isDone: true));
     }
   }
 }

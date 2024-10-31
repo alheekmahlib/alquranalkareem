@@ -3,9 +3,12 @@
 #
 
 list(APPEND FLUTTER_PLUGIN_LIST
+  awesome_notifications
+  awesome_notifications_core
   connectivity_plus
   desktop_window
   flutter_timezone
+  just_audio_windows
   share_plus
   simple_animation_progress_bar
   sqlite3_flutter_libs

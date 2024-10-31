@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '/presentation/controllers/general/extensions/general_getters.dart';
-import '/presentation/screens/quran_page/controllers/extensions/audiu_storage_getters.dart';
 import '/presentation/screens/splash/controller/splash_screen_state.dart';
 import '../../../../core/services/services_locator.dart';
 import '../../../../core/utils/constants/lottie.dart';
@@ -10,7 +9,7 @@ import '../../../../core/utils/constants/shared_preferences_constants.dart';
 import '../../../controllers/general/general_controller.dart';
 import '../../../controllers/settings_controller.dart';
 import '../../quran_page/controllers/audio/audio_controller.dart';
-import '../../quran_page/controllers/ayat_controller.dart';
+import '../../quran_page/controllers/extensions/audio/audio_storage_getters.dart';
 import '../../quran_page/controllers/quran/quran_controller.dart';
 import '../../quran_page/controllers/translate_controller.dart';
 import '../../whats_new/controller/whats_new_controller.dart';
@@ -35,7 +34,6 @@ class SplashScreenController extends GetxController {
 
   Future<void> _loadInitialData() async {
     await Future.wait([
-      sl<AyatController>().loadTafseer(),
       sl<TranslateDataController>().loadTranslateValue(),
       sl<SettingsController>().loadLang(),
       sl<GeneralController>().getLastPageAndFontSize(),

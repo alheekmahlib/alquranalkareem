@@ -1,13 +1,12 @@
-import 'package:flutter/material.dart';
+import 'package:drift/drift.dart' as drift;
 import 'package:get/get.dart';
 
-import '/presentation/screens/quran_page/controllers/extensions/quran_getters.dart';
 import '../../../../core/services/services_locator.dart';
 import '../../../../core/utils/constants/extensions/custom_error_snackBar.dart';
-import '../../../../database/databaseHelper.dart';
+import '../../../../database/bookmark_db/bookmark_database.dart';
+import '../../../../database/bookmark_db/db_bookmark_helper.dart';
 import '../../../controllers/general/general_controller.dart';
-import '../data/model/bookmark.dart';
-import '../data/model/bookmark_ayahs.dart';
+import 'extensions/quran/quran_getters.dart';
 import 'quran/quran_controller.dart';
 
 class BookmarksController extends GetxController {
@@ -15,8 +14,8 @@ class BookmarksController extends GetxController {
       Get.isRegistered<BookmarksController>()
           ? Get.find<BookmarksController>()
           : Get.put<BookmarksController>(BookmarksController());
-  final RxList<Bookmarks> bookmarksList = <Bookmarks>[].obs;
-  final RxList<BookmarksAyahs> bookmarkTextList = <BookmarksAyahs>[].obs;
+  final RxList<Bookmark> bookmarksList = <Bookmark>[].obs;
+  final RxList<BookmarksAyah> bookmarkTextList = <BookmarksAyah>[].obs;
   late int lastBook;
   final quranCtrl = QuranController.instance;
   final generalCtrl = GeneralController.instance;
@@ -28,171 +27,137 @@ class BookmarksController extends GetxController {
     super.onInit();
   }
 
-  Future<int?> addBookmarks(
-      int pageNum, String sorahName, String lastRead) async {
-    // Check if there's a bookmark for the current page
-    Bookmarks? existingBookmark = bookmarksList
-        .firstWhereOrNull((bookmark) => bookmark.pageNum == pageNum);
-
-    if (existingBookmark == null) {
-      // If there's no bookmark for the current page, add a new one
-      Bookmarks newBookmark =
-          Bookmarks(pageNum: pageNum, sorahName: sorahName, lastRead: lastRead);
-
-      return DatabaseHelper.addBookmark(newBookmark).then((value) {
-        getBookmarks();
-        return value;
-      });
-    } else {
-      // If there's already a bookmark for the current page, return an error code
-      return Future.value(-1);
+  Future<void> addBookmarks(
+    int pageNum,
+    String surahName,
+    String lastRead,
+  ) async {
+    try {
+      int? bookmark = await DbBookmarkHelper.addBookmark(
+        BookmarksCompanion(
+          sorahName: drift.Value(surahName),
+          pageNum: drift.Value(pageNum),
+          lastRead: drift.Value(lastRead),
+        ),
+      );
+      getBookmarks();
+      sl<QuranController>().update(['pageBookmarked']);
+      print('bookmark number: $bookmark');
+    } catch (e, stacktrace) {
+      // طباعة تفاصيل الخطأ مع الاستثناء والمكدس الكامل
+      print('Error adding bookmark: $e');
+      print('Stacktrace: $stacktrace');
     }
-  }
-
-  int findBookmarkIndex(int pageNum) {
-    return bookmarksList.indexWhere((bookmark) => bookmark.pageNum == pageNum);
-  }
-
-  bool isPageBookmarked(int pageNum) {
-    return bookmarksList
-            .firstWhereOrNull((bookmark) => bookmark.pageNum == pageNum) !=
-        null;
   }
 
   Future<void> getBookmarks() async {
-    final List<Map<String, dynamic>>? bookmarks = await DatabaseHelper.queryB();
-    if (bookmarks != null) {
-      bookmarksList.assignAll(
-          bookmarks.map((data) => Bookmarks.fromJson(data)).toList());
-    } else {
-      // Handle the case when bookmarks is null
-    }
+    final bookmarks = await DbBookmarkHelper.queryB();
+    bookmarksList.assignAll(bookmarks);
   }
 
-  Future<bool> deleteBookmarks(int pageNum, BuildContext context) async {
-    // Find the bookmark with the given pageNum
-    Bookmarks? bookmarkToDelete = bookmarksList
+  Future<bool> deleteBookmarks(int pageNum) async {
+    Bookmark? bookmarkToDelete = bookmarksList
         .firstWhereOrNull((bookmark) => bookmark.pageNum == pageNum);
 
     if (bookmarkToDelete != null) {
-      int result = await DatabaseHelper.deleteBookmark(bookmarkToDelete);
+      await DbBookmarkHelper.deleteBookmark(bookmarkToDelete);
+      // تأكد من إزالة العلامة المرجعية من القائمة المحلية
+      bookmarksList.remove(bookmarkToDelete);
+      Get.context!.showCustomErrorSnackBar('deletedBookmark'.tr);
+      sl<QuranController>().update(['pageBookmarked']);
+      return true;
+    }
+    return false;
+  }
+
+  void updateBookmarks(Bookmark? bookmark) async {
+    await DbBookmarkHelper.updateBookmarks(bookmark!);
+    getBookmarks();
+  }
+
+  RxBool hasPageBookmark(int pageNum) {
+    return (bookmarksList.firstWhereOrNull(((b) => b.pageNum == pageNum)) !=
+            null)
+        ? true.obs
+        : false.obs;
+  }
+
+  void addPageBookmarkOnTap(int index) {
+    if (hasPageBookmark(index + 1).value) {
+      deleteBookmarks(index + 1);
+    } else {
+      addBookmarks(index + 1, quranCtrl.getCurrentSurahByPage(index).arabicName,
+              generalCtrl.state.timeNow.dateNow)
+          .then((value) => Get.context!
+              .showCustomErrorSnackBar('addBookmark'.tr, isDone: true));
+    }
+  }
+
+  /// =================================================================
+
+  Future<void> getBookmarksText() async {
+    final List<BookmarksAyah> bookmarksText = await DbBookmarkHelper.queryT();
+    bookmarkTextList.assignAll(bookmarksText); // تحديث القائمة
+    sl<QuranController>().update(['bookmarked']);
+  }
+
+  Future<bool> deleteBookmarksText(int ayahUQNum) async {
+    BookmarksAyah? bookmarkToDelete = bookmarkTextList
+        .firstWhereOrNull((bookmark) => bookmark.ayahUQNumber == ayahUQNum);
+
+    if (bookmarkToDelete != null) {
+      int result = await DbBookmarkHelper.deleteBookmarkText(bookmarkToDelete);
       if (result > 0) {
-        context.showCustomErrorSnackBar('deletedBookmark'.tr);
-        await getBookmarks();
-        update();
+        // تأكد من إزالة العلامة المرجعية من القائمة المحلية
+        bookmarkTextList.remove(bookmarkToDelete);
+        Get.context!.showCustomErrorSnackBar('deletedBookmark'.tr);
+        sl<QuranController>().update(['bookmarked']);
         return true;
       }
     }
     return false;
   }
 
-  void updateBookmarks(Bookmarks? bookmarks) async {
-    await DatabaseHelper.updateBookmarks(bookmarks!);
-    getBookmarks();
-  }
-
-  int? id;
-  addAyahBookmark(int pageNum, String sorahName, String lastRead) async {
-    try {
-      int? bookmark = await addBookmarks(
-        pageNum,
-        sorahName,
-        lastRead,
-      );
-      update();
-      print('$bookmark');
-    } catch (e) {
-      print('Error');
-    }
-  }
-
-  Future<int?> addBookmarksText(BookmarksAyahs? bookmarksText) {
-    bookmarkTextList.add(bookmarksText!);
-    return DatabaseHelper.addBookmarkText(bookmarksText);
-  }
-
-  Future<void> getBookmarksText() async {
-    final List<Map<String, dynamic>> bookmarksText =
-        await DatabaseHelper.queryT();
-    bookmarkTextList.assignAll(
-        bookmarksText.map((data) => BookmarksAyahs.fromJson(data)).toList());
-  }
-
-  bool deleteBookmarksText(int ayahUQNum) {
-    // Find the bookmark with the given pageNum
-    BookmarksAyahs? bookmarkToDelete = bookmarkTextList
-        .firstWhereOrNull((bookmark) => bookmark.ayahUQNumber == ayahUQNum);
-
-    if (bookmarkToDelete != null) {
-      DatabaseHelper.deleteBookmarkText(bookmarkToDelete).then((value) {
-        int result = value;
-        if (result > 0) {
-          Get.context!.showCustomErrorSnackBar('deletedBookmark'.tr);
-          getBookmarksText();
-          sl<QuranController>().update();
-          return true;
-        }
-      });
-    }
-    return false;
-    // await DatabaseHelper.deleteBookmarkText(bookmarksText!).then((value) =>
-    //     context.showCustomErrorSnackBar(
-    //         context, AppLocalizations.of(context)!.deletedBookmark));
-    // getBookmarksText();
-  }
-
-  void updateBookmarksText(BookmarksAyahs? bookmarksText) async {
-    await DatabaseHelper.updateBookmarksText(bookmarksText!);
-    getBookmarksText();
+  void updateBookmarksText(BookmarksAyah? bookmarksText) async {
+    await DbBookmarkHelper.updateBookmarksText(bookmarksText!);
+    await getBookmarksText();
   }
 
   RxBool hasBookmark(int surahNum, int ayahNum) {
-    return (bookmarkTextList.obs.value
-                    .firstWhereOrNull(((element) =>
-                        element.surahNumber == surahNum &&
-                        element.ayahUQNumber == ayahNum))
-                    .obs)
-                .value ==
-            null
-        ? false.obs
-        : true.obs;
+    return (bookmarkTextList.firstWhereOrNull(((element) =>
+                element.surahNumber == surahNum &&
+                element.ayahUQNumber == ayahNum)) !=
+            null)
+        ? true.obs
+        : false.obs;
   }
 
-  addBookmarkText(
+  Future<void> addBookmarkText(
     String surahName,
     int surahNum,
-    pageNum,
-    ayahNum,
-    ayahUQNum,
-    lastRead,
+    int pageNum,
+    int ayahNum,
+    int ayahUQNum,
+    String lastRead,
   ) async {
     try {
-      int? bookmark = await addBookmarksText(
-        BookmarksAyahs(
-          id,
-          surahName,
-          surahNum,
-          pageNum,
-          ayahNum,
-          ayahUQNum,
-          lastRead,
+      int? bookmark = await DbBookmarkHelper.addBookmarkText(
+        BookmarksAyahsCompanion(
+          surahName: drift.Value(surahName),
+          surahNumber: drift.Value(surahNum),
+          pageNumber: drift.Value(pageNum),
+          ayahNumber: drift.Value(ayahNum),
+          ayahUQNumber: drift.Value(ayahUQNum),
+          lastRead: drift.Value(lastRead),
         ),
       );
-      print('bookmark number: ${bookmark!}');
-    } catch (e) {
-      print('Error');
-    }
-  }
-
-  void addPageBookmarkOnTap(BuildContext context, int index) {
-    if (isPageBookmarked(index + 1)) {
-      deleteBookmarks(index + 1, context);
-    } else {
-      addAyahBookmark(
-              index + 1,
-              quranCtrl.getCurrentSurahByPage(index).arabicName,
-              generalCtrl.state.timeNow.dateNow)
-          .then((value) => context.showCustomErrorSnackBar('addBookmark'.tr));
+      getBookmarksText();
+      sl<QuranController>().update(['bookmarked']);
+      print('bookmark number: $bookmark');
+    } catch (e, stacktrace) {
+      // طباعة تفاصيل الخطأ مع الاستثناء والمكدس الكامل
+      print('Error adding bookmark: $e');
+      print('Stacktrace: $stacktrace');
     }
   }
 }

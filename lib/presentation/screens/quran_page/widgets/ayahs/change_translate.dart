@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 
+import '/core/utils/constants/extensions/svg_extensions.dart';
 import '/core/utils/constants/lists.dart';
+import '/core/utils/constants/svg_constants.dart';
 import '../../controllers/translate_controller.dart';
 
 class ChangeTranslate extends StatelessWidget {
@@ -27,16 +28,14 @@ class ChangeTranslate extends StatelessWidget {
               child: Icon(Icons.keyboard_arrow_down_outlined,
                   size: 20, color: Theme.of(context).colorScheme.primary),
             ),
-            Obx(() {
-              return Text(
-                translateName[translateCtrl.transValue.value],
-                style: TextStyle(
-                    color: Theme.of(context).colorScheme.surface,
-                    fontSize: 14,
-                    fontWeight: FontWeight.bold,
-                    fontFamily: 'kufi'),
-              );
-            }),
+            Obx(() => Text(
+                  translateName[translateCtrl.transValue.value],
+                  style: TextStyle(
+                      color: Theme.of(context).colorScheme.surface,
+                      fontSize: 14,
+                      fontWeight: FontWeight.bold,
+                      fontFamily: 'kufi'),
+                )),
           ],
         ),
       ),
@@ -94,8 +93,8 @@ class ChangeTranslate extends StatelessWidget {
                             opacity: translateCtrl.transValue.value == index
                                 ? 1
                                 : .4,
-                            child: SvgPicture.asset(
-                              'assets/svg/tafseer_book.svg',
+                            child: customSvg(
+                              SvgPath.svgTafseerBook,
                             ),
                           )),
                     ),

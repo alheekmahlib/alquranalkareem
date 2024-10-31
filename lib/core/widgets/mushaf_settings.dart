@@ -6,8 +6,8 @@ import 'package:get_storage/get_storage.dart';
 
 import '/core/utils/constants/extensions/extensions.dart';
 import '/core/utils/constants/lists.dart';
-import '/presentation/screens/quran_page/controllers/extensions/quran_getters.dart';
-import '/presentation/screens/quran_page/controllers/extensions/quran_ui.dart';
+import '../../presentation/screens/quran_page/controllers/extensions/quran/quran_getters.dart';
+import '../../presentation/screens/quran_page/controllers/extensions/quran/quran_ui.dart';
 import '../../presentation/screens/quran_page/controllers/quran/quran_controller.dart';
 import '../utils/constants/shared_preferences_constants.dart';
 
@@ -477,25 +477,34 @@ class MushafSettings extends StatelessWidget {
                 width: 1, color: Theme.of(context).colorScheme.surface)),
         child: Row(
           children: [
-            Text(
-              'choiceBackgroundColor'.tr,
-              style: TextStyle(
-                color: Theme.of(context).colorScheme.inversePrimary,
-                fontSize: 16,
-                fontFamily: 'kufi',
+            Expanded(
+              flex: 8,
+              child: FittedBox(
+                fit: BoxFit.scaleDown,
+                child: Text(
+                  'choiceBackgroundColor'.tr,
+                  style: TextStyle(
+                    color: Theme.of(context).colorScheme.inversePrimary,
+                    fontSize: 16,
+                    fontFamily: 'kufi',
+                  ),
+                ),
               ),
             ),
             const Spacer(),
-            Obx(() => Container(
-                  height: 30,
-                  width: 30,
-                  padding: const EdgeInsets.symmetric(
-                      horizontal: 8.0, vertical: 7.0),
-                  decoration: BoxDecoration(
-                    color: Color(quranCtrl.state.backgroundPickerColor.value),
-                    borderRadius: const BorderRadius.all(Radius.circular(8)),
-                  ),
-                )),
+            Expanded(
+              flex: 1,
+              child: Obx(() => Container(
+                    height: 30,
+                    width: 30,
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 8.0, vertical: 7.0),
+                    decoration: BoxDecoration(
+                      color: Color(quranCtrl.state.backgroundPickerColor.value),
+                      borderRadius: const BorderRadius.all(Radius.circular(8)),
+                    ),
+                  )),
+            ),
           ],
         ),
       ),
