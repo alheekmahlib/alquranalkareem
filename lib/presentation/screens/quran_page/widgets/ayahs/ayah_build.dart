@@ -3,11 +3,11 @@ import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 
 import '/core/utils/constants/extensions/convert_number_extension.dart';
-import '/presentation/screens/quran_page/controllers/extensions/quran_getters.dart';
-import '/presentation/screens/quran_page/controllers/extensions/quran_ui.dart';
 import '../../../../../core/services/services_locator.dart';
 import '../../../../../core/widgets/measure_size_widget.dart';
 import '../../../../controllers/general/general_controller.dart';
+import '../../controllers/extensions/quran/quran_getters.dart';
+import '../../controllers/extensions/quran/quran_ui.dart';
 import '../../controllers/quran/quran_controller.dart';
 import '../../controllers/translate_controller.dart';
 import '../../extensions/surah_name_with_banner.dart';

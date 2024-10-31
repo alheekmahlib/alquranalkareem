@@ -3,11 +3,11 @@ import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:get/get.dart';
 
 import '/core/utils/constants/extensions/convert_number_extension.dart';
-import '/presentation/screens/quran_page/controllers/extensions/quran_ui.dart';
 import '../../../../../core/utils/constants/extensions/extensions.dart';
 import '../../../../../core/widgets/delete_widget.dart';
 import '../../../../controllers/general/general_controller.dart';
 import '../../controllers/bookmarks_controller.dart';
+import '../../controllers/extensions/quran/quran_ui.dart';
 import '../../controllers/quran/quran_controller.dart';
 
 class BookmarkPagesBuild extends StatelessWidget {
@@ -17,6 +17,7 @@ class BookmarkPagesBuild extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetBuilder<BookmarksController>(
+        id: 'pageBookmarked',
         builder: (bookmarkCtrl) => bookmarkCtrl.bookmarksList.isEmpty
             ? const SizedBox.shrink()
             : Column(
@@ -62,16 +63,16 @@ class BookmarkPagesBuild extends StatelessWidget {
                                             horizontal: 16.0, vertical: 8.0),
                                         child: Dismissible(
                                           background: const DeleteWidget(),
-                                          key: ValueKey<int>(bookmark.id!),
+                                          key: ValueKey<int>(bookmark.pageNum),
                                           onDismissed:
                                               (DismissDirection direction) {
                                             bookmarkCtrl.deleteBookmarks(
-                                                bookmark.pageNum!, context);
+                                                bookmark.pageNum);
                                           },
                                           child: GestureDetector(
                                             onTap: () {
                                               quranCtrl.changeSurahListOnTap(
-                                                  bookmark.pageNum!);
+                                                  bookmark.pageNum);
                                               Get.back();
                                             },
                                             child: Container(
@@ -134,13 +135,10 @@ class BookmarkPagesBuild extends StatelessWidget {
                                                           child: Text(
                                                             '${bookmark.sorahName}',
                                                             style: TextStyle(
-                                                                color: Get
-                                                                        .isDarkMode
-                                                                    ? Get.theme
-                                                                        .canvasColor
-                                                                    : Theme.of(
-                                                                            context)
-                                                                        .primaryColorDark,
+                                                                color: Theme.of(
+                                                                        context)
+                                                                    .colorScheme
+                                                                    .inversePrimary,
                                                                 fontSize: 16,
                                                                 fontFamily:
                                                                     'kufi',

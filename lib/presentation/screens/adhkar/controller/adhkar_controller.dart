@@ -1,16 +1,18 @@
 import 'dart:convert';
+import 'dart:developer';
 import 'dart:io';
 
+import 'package:alquranalkareem/core/utils/constants/extensions/custom_error_snackBar.dart';
+import 'package:drift/drift.dart' as drift;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:share_plus/share_plus.dart';
 
-import '/core/utils/constants/extensions/custom_error_snackBar.dart';
 import '../../../../core/utils/constants/url_constants.dart';
-import '../../../../database/databaseHelper.dart';
-import '../models/dheker_model.dart';
+import '../../../../database/bookmark_db/bookmark_database.dart';
+import '../../../../database/bookmark_db/db_bookmark_helper.dart';
 import 'adhkar_state.dart';
 
 class AzkarController extends GetxController {
@@ -27,6 +29,14 @@ class AzkarController extends GetxController {
   }
 
   /// -------- [Methods] ----------
+
+  Future<List<AdhkarData>> readJsonData() async {
+    final jsonData = await rootBundle.loadString('assets/json/azkar.json');
+    final Map<String, dynamic> map = json.decode(jsonData);
+    final list = map['data'] as List<dynamic>;
+
+    return list.map((e) => AdhkarData.fromJson(e)).toList();
+  }
 
   Future<void> fetchDhekr() async {
     var dhekrs = await readJsonData();
@@ -58,35 +68,53 @@ class AzkarController extends GetxController {
     }
   }
 
-  Future<List<Dhekr>> readJsonData() async {
-    final jsonData = await rootBundle.loadString('assets/json/azkar.json');
-    final Map<String, dynamic> map = json.decode(jsonData);
-    final list = map['data'] as List<dynamic>;
-
-    return list.map((e) => Dhekr.fromJson(e)).toList();
-  }
-
-  Future<int?> addAdhkar(Dhekr? azkar) {
-    return DatabaseHelper.addAdhkar(azkar!);
+  Future<int?> addAdhkar(AdhkarData dhekr) {
+    // تحويل كائن Dhekr إلى AdhkarCompanion
+    final adhkarCompanion = AdhkarCompanion(
+      category: drift.Value(dhekr.category),
+      count: drift.Value(dhekr.count),
+      description: drift.Value(dhekr.description),
+      reference: drift.Value(dhekr.reference),
+      zekr: drift.Value(dhekr.zekr),
+    );
+    log('${adhkarCompanion.zekr}', name: 'AzkarController');
+    // إدخال البيانات إلى قاعدة البيانات باستخدام DbBookmarkHelper
+    return DbBookmarkHelper.addAdhkar(adhkarCompanion).then((value) {
+      Get.context!.showCustomErrorSnackBar('addZekrBookmark'.tr, isDone: true);
+      getAdhkar();
+      update();
+      return value;
+    });
   }
 
   Future<void> getAdhkar() async {
-    final List<Map<String, dynamic>> adhkar = await DatabaseHelper.queryC();
-    state.adhkarList
-        .assignAll(adhkar.map((data) => Dhekr.fromJson(data)).toList());
+    final List<AdhkarData> adhkarList = await DbBookmarkHelper.getAllAdhkar();
+    state.adhkarList.assignAll(adhkarList);
   }
 
-  void deleteAdhkar(Dhekr? azkar, BuildContext context) async {
-    await DatabaseHelper.deleteAdhkar(azkar!).then((value) {
-      context.showCustomErrorSnackBar('deletedZekrBookmark'.tr);
-      update();
-    });
+  void deleteAdhkar(AdhkarData dhekr) async {
+    await DbBookmarkHelper.deleteAdhkar(dhekr.category, dhekr.zekr);
+    getAdhkar(); // تحديث القائمة بعد الحذف
+  }
+
+  void updateAdhkar(AdhkarData adhkar) async {
+    final adhkarCompanion = AdhkarCompanion(
+      category: drift.Value(adhkar.category),
+      count: drift.Value(adhkar.count),
+      description: drift.Value(adhkar.description),
+      reference: drift.Value(adhkar.reference),
+      zekr: drift.Value(adhkar.zekr),
+    );
+    await DbBookmarkHelper.updateAdhkar(adhkarCompanion, adhkar.id!);
     getAdhkar();
   }
 
-  void updateAdhkar(Dhekr? adhkar) async {
-    await DatabaseHelper.updateAdhkar(adhkar!);
-    getAdhkar();
+  RxBool hasBookmark(String category, String zekr) {
+    return (state.adhkarList.firstWhereOrNull(
+                (a) => a.category == category && a.zekr == zekr) !=
+            null)
+        ? true.obs
+        : false.obs;
   }
 
   List<TextSpan> buildTextSpans(String text) {
@@ -149,17 +177,6 @@ class AzkarController extends GetxController {
     }
 
     return spans;
-  }
-
-  RxBool hasBookmark(String category, String zekr) {
-    return (state.adhkarList.obs.value
-                    .firstWhereOrNull(
-                        ((a) => a.category == category && a.zekr == zekr))
-                    .obs)
-                .value ==
-            null
-        ? false.obs
-        : true.obs;
   }
 
   shareText(String zekrText, String category, String reference,

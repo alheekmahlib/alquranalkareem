@@ -34,7 +34,9 @@ class NotificationIconWidget extends StatelessWidget {
               border: Border.all(
                   width: 1, color: Theme.of(context).colorScheme.surface)),
           child: GetX<LocalNotificationsController>(builder: (notiCtrl) {
-            int unreadCount = notiCtrl.postsList.where((n) => !n.opened).length;
+            int unreadCount = notiCtrl.postsList
+                .where((n) => n.appName == 'quran' && !n.opened)
+                .length;
 
             return badges.Badge(
               showBadge: unreadCount > 0,

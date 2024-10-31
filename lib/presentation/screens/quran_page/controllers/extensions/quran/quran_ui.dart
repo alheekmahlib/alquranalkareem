@@ -1,25 +1,33 @@
-import 'package:alquranalkareem/presentation/screens/quran_page/controllers/extensions/quran_getters.dart';
+import 'package:alquranalkareem/presentation/screens/quran_page/controllers/extensions/quran/quran_getters.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 
-import '../../../../../core/services/services_locator.dart';
-import '../../../../../core/utils/constants/shared_preferences_constants.dart';
-import '../../../../../core/utils/helpers/global_key_manager.dart';
-import '../../../../controllers/general/general_controller.dart';
-import '../audio/audio_controller.dart';
-import '../ayat_controller.dart';
-import '../bookmarks_controller.dart';
-import '../playList_controller.dart';
-import '../quran/quran_controller.dart';
+import '../../../../../../core/services/services_locator.dart';
+import '../../../../../../core/utils/constants/shared_preferences_constants.dart';
+import '../../../../../../core/utils/helpers/global_key_manager.dart';
+import '../../../../../controllers/general/general_controller.dart';
+import '../../audio/audio_controller.dart';
+import '../../bookmarks_controller.dart';
+import '../../playList_controller.dart';
+import '../../quran/quran_controller.dart';
 
 extension QuranUi on QuranController {
   /// -------- [onTap] --------
-  Widget textScale(dynamic widget1, dynamic widget2) {
-    if (state.scaleFactor.value <= 1.0) {
+  dynamic textScale(dynamic widget1, dynamic widget2) {
+    if (state.scaleFactor.value <= 1.3) {
       return widget1;
     } else {
       return widget2;
     }
+  }
+
+  void updateTextScale(ScaleUpdateDetails details) {
+    double newScaleFactor = state.baseScaleFactor.value * details.scale;
+    if (newScaleFactor < 1.0) {
+      newScaleFactor = 1.0;
+    }
+    state.scaleFactor.value = newScaleFactor;
   }
 
   void switchMode(int newMode) {
@@ -61,12 +69,15 @@ extension QuranUi on QuranController {
   void toggleAyahSelection(int index) {
     if (state.selectedAyahIndexes.contains(index)) {
       state.selectedAyahIndexes.remove(index);
+      update(['bookmarked']);
     } else {
       state.selectedAyahIndexes.clear();
       state.selectedAyahIndexes.add(index);
       state.selectedAyahIndexes.refresh();
+      update(['bookmarked']);
     }
     state.selectedAyahIndexes.refresh();
+    update(['bookmarked']);
   }
 
   void clearAndAddSelection(int index) {
@@ -93,7 +104,6 @@ extension QuranUi on QuranController {
     state.currentPageNumber.value = index + 1;
     sl<PlayListController>().reset();
     sl<GeneralController>().state.isShowControl.value = false;
-    sl<AyatController>().isSelected.value = (-1.0);
     sl<AudioController>().state.pageAyahNumber = '0';
     sl<BookmarksController>().getBookmarks();
     state.lastReadSurahNumber.value =
@@ -107,6 +117,42 @@ extension QuranUi on QuranController {
     state.box.write(PAGE_MODE, value);
     update();
     Get.back();
+  }
+
+  KeyEventResult controlRLByKeyboard(FocusNode node, KeyEvent event) {
+    if (event.logicalKey == LogicalKeyboardKey.arrowLeft) {
+      state.quranPageController.nextPage(
+        duration: const Duration(milliseconds: 600),
+        curve: Curves.easeInOut,
+      );
+      return KeyEventResult.handled;
+    } else if (event.logicalKey == LogicalKeyboardKey.arrowRight) {
+      state.quranPageController.previousPage(
+        duration: const Duration(milliseconds: 600),
+        curve: Curves.easeInOut,
+      );
+      return KeyEventResult.handled;
+    }
+    return KeyEventResult.ignored;
+  }
+
+  KeyEventResult controlUDByKeyboard(FocusNode node, KeyEvent event) {
+    if (event.logicalKey == LogicalKeyboardKey.arrowUp) {
+      state.ScrollUpDownQuranPage.animateTo(
+        state.ScrollUpDownQuranPage.offset - 100,
+        duration: const Duration(milliseconds: 600),
+        curve: Curves.easeInOut,
+      );
+      return KeyEventResult.handled;
+    } else if (event.logicalKey == LogicalKeyboardKey.arrowDown) {
+      state.ScrollUpDownQuranPage.animateTo(
+        state.ScrollUpDownQuranPage.offset + 100,
+        duration: const Duration(milliseconds: 600),
+        curve: Curves.easeInOut,
+      );
+      return KeyEventResult.handled;
+    }
+    return KeyEventResult.ignored;
   }
 
   // void scrollSlowly(BuildContext context, double duration) async {

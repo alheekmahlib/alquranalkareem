@@ -1,3 +1,4 @@
+// ignore_for_file: prefer_single_quotes
 class SvgPath {
   SvgPath._();
 
@@ -100,6 +101,10 @@ class SvgPath {
   /// Assets for svgButtonCurve
   /// assets/svg/button_curve.svg
   static const String svgButtonCurve = "assets/svg/button_curve.svg";
+
+  /// Assets for svgCheckMark
+  /// assets/svg/check_mark.svg
+  static const String svgCheckMark = "assets/svg/check_mark.svg";
 
   /// Assets for svgClose
   /// assets/svg/close.svg

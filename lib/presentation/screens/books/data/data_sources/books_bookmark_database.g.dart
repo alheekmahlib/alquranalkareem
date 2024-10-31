@@ -299,23 +299,99 @@ typedef $$BooksBookmarkTableUpdateCompanionBuilder = BooksBookmarkCompanion
   Value<int?> currentPage,
 });
 
+class $$BooksBookmarkTableFilterComposer
+    extends Composer<_$BooksBookmarkDatabase, $BooksBookmarkTable> {
+  $$BooksBookmarkTableFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<int> get id => $composableBuilder(
+      column: $table.id, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get bookName => $composableBuilder(
+      column: $table.bookName, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<int> get bookNumber => $composableBuilder(
+      column: $table.bookNumber, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<int> get currentPage => $composableBuilder(
+      column: $table.currentPage, builder: (column) => ColumnFilters(column));
+}
+
+class $$BooksBookmarkTableOrderingComposer
+    extends Composer<_$BooksBookmarkDatabase, $BooksBookmarkTable> {
+  $$BooksBookmarkTableOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<int> get id => $composableBuilder(
+      column: $table.id, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get bookName => $composableBuilder(
+      column: $table.bookName, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<int> get bookNumber => $composableBuilder(
+      column: $table.bookNumber, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<int> get currentPage => $composableBuilder(
+      column: $table.currentPage, builder: (column) => ColumnOrderings(column));
+}
+
+class $$BooksBookmarkTableAnnotationComposer
+    extends Composer<_$BooksBookmarkDatabase, $BooksBookmarkTable> {
+  $$BooksBookmarkTableAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<int> get id =>
+      $composableBuilder(column: $table.id, builder: (column) => column);
+
+  GeneratedColumn<String> get bookName =>
+      $composableBuilder(column: $table.bookName, builder: (column) => column);
+
+  GeneratedColumn<int> get bookNumber => $composableBuilder(
+      column: $table.bookNumber, builder: (column) => column);
+
+  GeneratedColumn<int> get currentPage => $composableBuilder(
+      column: $table.currentPage, builder: (column) => column);
+}
+
 class $$BooksBookmarkTableTableManager extends RootTableManager<
     _$BooksBookmarkDatabase,
     $BooksBookmarkTable,
     BooksBookmarkData,
     $$BooksBookmarkTableFilterComposer,
     $$BooksBookmarkTableOrderingComposer,
+    $$BooksBookmarkTableAnnotationComposer,
     $$BooksBookmarkTableCreateCompanionBuilder,
-    $$BooksBookmarkTableUpdateCompanionBuilder> {
+    $$BooksBookmarkTableUpdateCompanionBuilder,
+    (
+      BooksBookmarkData,
+      BaseReferences<_$BooksBookmarkDatabase, $BooksBookmarkTable,
+          BooksBookmarkData>
+    ),
+    BooksBookmarkData,
+    PrefetchHooks Function()> {
   $$BooksBookmarkTableTableManager(
       _$BooksBookmarkDatabase db, $BooksBookmarkTable table)
       : super(TableManagerState(
           db: db,
           table: table,
-          filteringComposer:
-              $$BooksBookmarkTableFilterComposer(ComposerState(db, table)),
-          orderingComposer:
-              $$BooksBookmarkTableOrderingComposer(ComposerState(db, table)),
+          createFilteringComposer: () =>
+              $$BooksBookmarkTableFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $$BooksBookmarkTableOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $$BooksBookmarkTableAnnotationComposer($db: db, $table: table),
           updateCompanionCallback: ({
             Value<int> id = const Value.absent(),
             Value<String?> bookName = const Value.absent(),
@@ -340,56 +416,29 @@ class $$BooksBookmarkTableTableManager extends RootTableManager<
             bookNumber: bookNumber,
             currentPage: currentPage,
           ),
+          withReferenceMapper: (p0) => p0
+              .map((e) => (e.readTable(table), BaseReferences(db, table, e)))
+              .toList(),
+          prefetchHooksCallback: null,
         ));
 }
 
-class $$BooksBookmarkTableFilterComposer
-    extends FilterComposer<_$BooksBookmarkDatabase, $BooksBookmarkTable> {
-  $$BooksBookmarkTableFilterComposer(super.$state);
-  ColumnFilters<int> get id => $state.composableBuilder(
-      column: $state.table.id,
-      builder: (column, joinBuilders) =>
-          ColumnFilters(column, joinBuilders: joinBuilders));
-
-  ColumnFilters<String> get bookName => $state.composableBuilder(
-      column: $state.table.bookName,
-      builder: (column, joinBuilders) =>
-          ColumnFilters(column, joinBuilders: joinBuilders));
-
-  ColumnFilters<int> get bookNumber => $state.composableBuilder(
-      column: $state.table.bookNumber,
-      builder: (column, joinBuilders) =>
-          ColumnFilters(column, joinBuilders: joinBuilders));
-
-  ColumnFilters<int> get currentPage => $state.composableBuilder(
-      column: $state.table.currentPage,
-      builder: (column, joinBuilders) =>
-          ColumnFilters(column, joinBuilders: joinBuilders));
-}
-
-class $$BooksBookmarkTableOrderingComposer
-    extends OrderingComposer<_$BooksBookmarkDatabase, $BooksBookmarkTable> {
-  $$BooksBookmarkTableOrderingComposer(super.$state);
-  ColumnOrderings<int> get id => $state.composableBuilder(
-      column: $state.table.id,
-      builder: (column, joinBuilders) =>
-          ColumnOrderings(column, joinBuilders: joinBuilders));
-
-  ColumnOrderings<String> get bookName => $state.composableBuilder(
-      column: $state.table.bookName,
-      builder: (column, joinBuilders) =>
-          ColumnOrderings(column, joinBuilders: joinBuilders));
-
-  ColumnOrderings<int> get bookNumber => $state.composableBuilder(
-      column: $state.table.bookNumber,
-      builder: (column, joinBuilders) =>
-          ColumnOrderings(column, joinBuilders: joinBuilders));
-
-  ColumnOrderings<int> get currentPage => $state.composableBuilder(
-      column: $state.table.currentPage,
-      builder: (column, joinBuilders) =>
-          ColumnOrderings(column, joinBuilders: joinBuilders));
-}
+typedef $$BooksBookmarkTableProcessedTableManager = ProcessedTableManager<
+    _$BooksBookmarkDatabase,
+    $BooksBookmarkTable,
+    BooksBookmarkData,
+    $$BooksBookmarkTableFilterComposer,
+    $$BooksBookmarkTableOrderingComposer,
+    $$BooksBookmarkTableAnnotationComposer,
+    $$BooksBookmarkTableCreateCompanionBuilder,
+    $$BooksBookmarkTableUpdateCompanionBuilder,
+    (
+      BooksBookmarkData,
+      BaseReferences<_$BooksBookmarkDatabase, $BooksBookmarkTable,
+          BooksBookmarkData>
+    ),
+    BooksBookmarkData,
+    PrefetchHooks Function()>;
 
 class $BooksBookmarkDatabaseManager {
   final _$BooksBookmarkDatabase _db;

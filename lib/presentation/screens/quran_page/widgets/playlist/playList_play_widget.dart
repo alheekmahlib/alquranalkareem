@@ -17,7 +17,7 @@ class PlayListPlayWidget extends StatelessWidget {
         Transform.translate(
           offset: const Offset(0, 2),
           child: Container(
-            height: 65,
+            height: 69,
             margin: const EdgeInsets.symmetric(horizontal: 32.0),
             child: StreamBuilder<PositionData>(
               stream: playList.positionDataStream,

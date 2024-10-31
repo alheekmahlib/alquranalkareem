@@ -24,7 +24,7 @@ class AddKhatmahWidget extends StatelessWidget {
           Text(
             'createKhatmah'.tr,
             style: TextStyle(
-              color: Theme.of(context).colorScheme.primary,
+              color: Theme.of(context).colorScheme.surface,
               fontSize: 20,
               fontFamily: 'kufi',
             ),
@@ -77,7 +77,7 @@ class AddKhatmahWidget extends StatelessWidget {
                                 items: List.generate(100, (index) => index + 1),
                                 listItemBuilder: (context, index, select, _) =>
                                     Text(
-                                  '${index + 1}',
+                                  '${index}',
                                   style: const TextStyle(
                                     color: Colors.black,
                                     fontSize: 16,

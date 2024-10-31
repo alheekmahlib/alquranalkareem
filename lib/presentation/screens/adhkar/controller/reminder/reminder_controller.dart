@@ -1,7 +1,7 @@
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 
-import '../../../../../core/services/local_notifications.dart';
+import '../../../../../core/services/notifications_helper.dart';
 import '../adhkar_state.dart';
 
 class ReminderController extends GetxController {
@@ -12,7 +12,6 @@ class ReminderController extends GetxController {
 
   AdhkarState state = AdhkarState();
   final box = GetStorage();
-  final NotifyHelper notifyHelper = NotifyHelper();
 
   @override
   void onInit() {
@@ -35,7 +34,7 @@ class ReminderController extends GetxController {
     state.customAdhkarEnabled.remove(id);
     saveCustomAdhkarData();
     box.remove('custom_$id');
-    notifyHelper.cancelScheduledNotification(id.hashCode);
+    NotifyHelper().cancelNotification(id.hashCode);
     update();
   }
 
@@ -52,7 +51,7 @@ class ReminderController extends GetxController {
     }
 
     if (!isEnabled) {
-      notifyHelper.cancelScheduledNotification(id.hashCode);
+      NotifyHelper().cancelNotification(id.hashCode);
     }
 
     update();

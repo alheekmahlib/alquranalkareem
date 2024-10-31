@@ -1,12 +1,12 @@
 import 'dart:developer';
 
 import 'package:alquranalkareem/presentation/screens/quran_page/controllers/audio/audio_controller.dart';
-import 'package:alquranalkareem/presentation/screens/quran_page/controllers/extensions/quran_ui.dart';
+import 'package:alquranalkareem/presentation/screens/quran_page/controllers/extensions/quran/quran_ui.dart';
 import 'package:get/get.dart';
 
-import '../../../../../core/utils/constants/lists.dart';
-import '../../../../../core/utils/constants/shared_preferences_constants.dart';
-import '../../../../../core/utils/helpers/global_key_manager.dart';
+import '../../../../../../core/utils/constants/lists.dart';
+import '../../../../../../core/utils/constants/shared_preferences_constants.dart';
+import '../../../../../../core/utils/helpers/global_key_manager.dart';
 
 extension AudioUi on AudioController {
   /// -------- [OnTap] ----------
@@ -50,6 +50,7 @@ extension AudioUi on AudioController {
       quranCtrl.showControl();
     } else if (quranCtrl.state.selectedAyahIndexes.isNotEmpty) {
       quranCtrl.state.selectedAyahIndexes.clear();
+      quranCtrl.update(['clearSelection']);
     } else {
       quranCtrl.showControl();
     }

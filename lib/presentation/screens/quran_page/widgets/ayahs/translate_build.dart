@@ -35,6 +35,9 @@ class TranslateBuild extends StatelessWidget {
           ),
           const Gap(16),
           Obx(() {
+            if (translateName[translateCtrl.transValue.value] == 'nothing') {
+              return const SizedBox.shrink();
+            }
             if (translateCtrl.isLoading.value) {
               return customLottie(LottieConstants.assetsLottieSearch,
                   height: 50.0, width: 50.0);

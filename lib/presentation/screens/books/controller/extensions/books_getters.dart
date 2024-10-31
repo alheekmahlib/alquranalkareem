@@ -7,7 +7,7 @@ extension BooksGetters on BooksController {
   /// -------- [Getter] ----------
 
   PageController get pageController {
-    return state.quranPageController = PageController(
+    return state.bookPageController = PageController(
         initialPage: state.currentPageNumber.value, keepPage: true);
   }
 

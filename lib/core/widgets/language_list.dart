@@ -67,13 +67,11 @@ class LanguageList extends StatelessWidget {
                       buttonMinWidth: 90.0,
                       children:
                           List.generate(AppConstants.languages.length, (index) {
-                        final lang =
-                            sl<SettingsController>().languageList[index];
+                        final lang = AppConstants.languages[index];
                         return InkWell(
                           child: Container(
-                            constraints: BoxConstraints(
-                                maxWidth:
-                                    MediaQuery.of(context).size.width * 0.8),
+                            constraints:
+                                BoxConstraints(maxWidth: Get.width * 0.8),
                             child: Row(
                               children: [
                                 Container(
@@ -85,19 +83,19 @@ class LanguageList extends StatelessWidget {
                                     borderRadius: const BorderRadius.all(
                                         Radius.circular(20.0)),
                                     border: Border.all(
-                                        color: 'appLang'.tr == lang['appLang']
+                                        color: 'appLang'.tr == lang.appLang
                                             ? Theme.of(context)
                                                 .colorScheme
                                                 .surface
                                             : Theme.of(context)
                                                 .colorScheme
-                                                .background
+                                                .primaryContainer
                                                 .withOpacity(.5),
                                         width: 3),
                                     color:
                                         Theme.of(context).colorScheme.primary,
                                   ),
-                                  child: 'appLang'.tr == lang['appLang']
+                                  child: 'appLang'.tr == lang.appLang
                                       ? Icon(Icons.done,
                                           size: 14,
                                           color: Theme.of(context)
@@ -106,15 +104,15 @@ class LanguageList extends StatelessWidget {
                                       : null,
                                 ),
                                 Text(
-                                  lang['name'],
+                                  lang.languageName,
                                   style: TextStyle(
-                                    color: 'appLang'.tr == lang['appLang']
+                                    color: 'appLang'.tr == lang.appLang
                                         ? Theme.of(context).colorScheme.surface
                                         : Theme.of(context)
                                             .hintColor
                                             .withOpacity(.5),
                                     fontSize: 18,
-                                    fontWeight: 'appLang'.tr == lang['appLang']
+                                    fontWeight: 'appLang'.tr == lang.appLang
                                         ? FontWeight.bold
                                         : FontWeight.normal,
                                     fontFamily: 'noto',

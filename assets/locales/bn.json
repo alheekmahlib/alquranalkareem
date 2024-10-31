@@ -840,23 +840,23 @@
     "type": "text",
     "placeholders": {}
   },
-  "Rabi' al-awwal": "রবিউল আউয়াল",
-  "@Rabi' al-awwal": {
+  "Rabi' Al-Awwal": "রবিউল আউয়াল",
+  "@Rabi' Al-Awwal": {
     "type": "text",
     "placeholders": {}
   },
-  "Rabi' al-thani": "রবিউস সানি",
-  "@Rabi' al-thani": {
+  "Rabi' Al-Thani": "রবিউস সানি",
+  "@Rabi' Al-Thani": {
     "type": "text",
     "placeholders": {}
   },
-  "Jumada al-awwal": "জুমাদাল আউয়াল",
-  "@Jumada al-awwal": {
+  "Jumada Al-Awwal": "জুমাদাল আউয়াল",
+  "@Jumada Al-Awwal": {
     "type": "text",
     "placeholders": {}
   },
-  "Jumada al-thani": "জুমাদাস সানি",
-  "@Jumada al-thani": {
+  "Jumada Al-Thani": "জুমাদাস সানি",
+  "@Jumada Al-Thani": {
     "type": "text",
     "placeholders": {}
   },
@@ -1172,6 +1172,39 @@
   },
   "noBooksDownloaded": "আপনি এখনো কোনো বই ডাউনলোড করেননি।",
   "@noBooksDownloaded": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "notifyQuranBody": "আপনি কোরআনের @currentPageNumber পৃষ্ঠায় থেমে গিয়েছেন, আপনি কি চালিয়ে যেতে চান?",
+  "@notifyQuranBody": {
+    "type": "text",
+    "placeholders": {
+      "currentPageNumber": {}
+    }
+  },
+  "notifyAdhkarBody": "আপনি @adhkarType পড়া ভুলবেন না",
+  "@notifyAdhkarBody": {
+    "type": "text",
+    "placeholders": {
+      "adhkarType": {}
+    }
+  },
+  "notifyBooksBody": "আপনি @bookName বই পড়া চালিয়ে যেতে ভুলবেন না",
+  "@notifyBooksBody": {
+    "type": "text",
+    "placeholders": {
+      "bookName": {}
+    }
+  },
+  "notifyListenBody": "আপনি সূরা শুনতে চালিয়ে যেতে ভুলবেন না",
+  "@notifyListenBody": {
+    "type": "text",
+    "placeholders": {
+      "bookName": {}
+    }
+  },
+  "lastSearch": "শেষ অনুসন্ধান",
+  "@lastSearch": {
     "type": "text",
     "placeholders": {}
   }

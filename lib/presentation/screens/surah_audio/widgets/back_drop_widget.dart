@@ -34,7 +34,7 @@ class BackDropWidget extends StatelessWidget {
                               LottieConstants.assetsLottieQuranAuIc,
                               height: 120,
                               isRepeat: false))),
-                  const Align(
+                  Align(
                       alignment: Alignment.topCenter,
                       child: Stack(
                         alignment: Alignment.topCenter,
@@ -92,7 +92,7 @@ class BackDropWidget extends StatelessWidget {
                               LottieConstants.assetsLottieQuranAuIc,
                               height: 120,
                               isRepeat: false))),
-                  const Align(
+                  Align(
                       alignment: Alignment.topCenter,
                       child: Stack(
                         alignment: Alignment.topCenter,

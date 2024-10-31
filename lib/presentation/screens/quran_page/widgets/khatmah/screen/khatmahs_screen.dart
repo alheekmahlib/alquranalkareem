@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:gap/gap.dart';
 
 import '../widgets/add_khatmah_widget.dart';
 import '../widgets/khatmah_build_widget.dart';
@@ -18,7 +17,6 @@ class KhatmasScreen extends StatelessWidget {
           borderRadius: const BorderRadius.all(Radius.circular(8))),
       child: ListView(
         children: [
-          const Gap(16),
           AddKhatmahWidget(),
           KhatmahBuildWidget(),
         ],

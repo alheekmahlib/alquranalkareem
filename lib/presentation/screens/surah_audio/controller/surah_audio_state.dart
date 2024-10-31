@@ -16,7 +16,6 @@ import '../../../../core/widgets/seek_bar.dart';
 
 class SurahAudioState {
   /// -------- [Variables] ----------
-  RxInt position = RxInt(0);
   ArabicNumbers arabicNumber = ArabicNumbers();
 
   AudioPlayer audioPlayer = AudioPlayer();

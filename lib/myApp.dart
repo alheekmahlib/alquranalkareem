@@ -1,13 +1,14 @@
-import 'package:alquranalkareem/presentation/screens/splash/screen/splash_screen.dart';
 import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
+import '/presentation/screens/splash/screen/splash_screen.dart';
 import 'core/services/languages/app_constants.dart';
 import 'core/services/languages/localization_controller.dart';
 import 'core/services/languages/messages.dart';
+import 'core/services/notifications_helper.dart';
 import 'core/services/services_locator.dart';
 import 'core/widgets/local_notification/controller/local_notifications_controller.dart';
 import 'presentation/controllers/theme_controller.dart';
@@ -25,6 +26,7 @@ class MyApp extends StatelessWidget {
     sl<ThemeController>().checkTheme();
     final localizationCtrl = Get.find<LocalizationController>();
     LocalNotificationsController.instance;
+    NotifyHelper().requestPermissions();
     return ScreenUtilInit(
         designSize: const Size(360, 690),
         minTextAdapt: true,

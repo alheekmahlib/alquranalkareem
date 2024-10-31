@@ -1,3 +1,4 @@
+import 'package:alquranalkareem/presentation/screens/quran_page/controllers/extensions/quran/quran_ui.dart';
 import 'package:alquranalkareem/presentation/screens/quran_page/data/model/surahs_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -8,10 +9,10 @@ import 'package:get/get.dart';
 import '/core/utils/constants/extensions/svg_extensions.dart';
 import '/presentation/controllers/general/extensions/general_ui.dart';
 import '/presentation/controllers/theme_controller.dart';
-import '/presentation/screens/quran_page/controllers/extensions/quran_getters.dart';
 import '/presentation/screens/quran_page/extensions/surah_info_extension.dart';
 import '../../../../core/utils/constants/svg_constants.dart';
 import '../../../controllers/general/general_controller.dart';
+import '../controllers/extensions/quran/quran_getters.dart';
 import '../controllers/quran/quran_controller.dart';
 
 final themeCtrl = ThemeController.instance;
@@ -133,7 +134,9 @@ extension CustomSurahNameWithBannerExtension on Widget {
     return GestureDetector(
       onTap: () => Get.dialog(surahInfoWidget(pageIndex, i, 1)),
       child: quranCtrl.downThePageIndex.contains(pageIndex)
-          ? surahBannerWidget((surah.surahNumber + 1).toString())
+          ? SizedBox(
+              height: quranCtrl.textScale(Get.height * .2, 60.0),
+              child: surahBannerWidget((surah.surahNumber + 1).toString()))
           : const SizedBox.shrink(),
     );
   }
@@ -147,7 +150,9 @@ extension CustomSurahNameWithBannerExtension on Widget {
       child: ayahs.first.ayahNumber == 1
           ? quranCtrl.topOfThePageIndex.contains(pageIndex)
               ? const SizedBox.shrink()
-              : surahBannerWidget(surah.surahNumber.toString())
+              : SizedBox(
+                  height: quranCtrl.textScale(Get.height * .2, 57.0),
+                  child: surahBannerWidget(surah.surahNumber.toString()))
           : const SizedBox.shrink(),
     );
   }

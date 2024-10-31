@@ -3,18 +3,16 @@ import 'package:flutter_slider_drawer/flutter_slider_drawer.dart';
 import 'package:get/get.dart';
 
 import '/core/utils/constants/extensions/alignment_rotated_extension.dart';
-import '/core/services/services_locator.dart';
 import '/core/utils/helpers/global_key_manager.dart';
 import '/core/widgets/tab_bar_widget.dart';
-import '/database/notificationDatabase.dart';
 import '../../../controllers/general/general_controller.dart';
 import '../controllers/audio/audio_controller.dart';
-import '../controllers/aya_controller.dart';
 import '../controllers/bookmarks_controller.dart';
 import '../controllers/quran/quran_controller.dart';
 import '../widgets/audio/audio_widget.dart';
 import '../widgets/pages/nav_bar_widget.dart';
 import '../widgets/screen_switch.dart';
+import '../widgets/search/controller/quran_search_controller.dart';
 import '../widgets/search/search_bar.dart';
 import '../widgets/surah_juz_list.dart';
 
@@ -35,7 +33,6 @@ class QuranHome extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     GlobalKeyManager().resetDrawerKey();
-    NotificationDatabaseHelper.loadNotifications();
     return PopScope(
       canPop: false,
       onPopInvoked: (bool didPop) {
@@ -79,8 +76,8 @@ class QuranHome extends StatelessWidget {
                           centerChild: Padding(
                             padding: const EdgeInsets.only(top: 15.0),
                             child: OpenContainerWrapper(
-                              transitionType:
-                                  sl<AyaController>().transitionType,
+                              transitionType: QuranSearchController
+                                  .instance.state.transitionType,
                               closedBuilder:
                                   (BuildContext _, VoidCallback openContainer) {
                                 return SearchBarWidget(

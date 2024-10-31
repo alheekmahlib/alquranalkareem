@@ -965,22 +965,224 @@ typedef $$KhatmahsTableUpdateCompanionBuilder = KhatmahsCompanion Function({
   Value<int?> endPage,
 });
 
+final class $$KhatmahsTableReferences
+    extends BaseReferences<_$KhatmahDatabase, $KhatmahsTable, Khatmah> {
+  $$KhatmahsTableReferences(super.$_db, super.$_table, super.$_typedResult);
+
+  static MultiTypedResultKey<$KhatmahDaysTable, List<KhatmahDay>>
+      _khatmahDaysRefsTable(_$KhatmahDatabase db) =>
+          MultiTypedResultKey.fromTable(db.khatmahDays,
+              aliasName: $_aliasNameGenerator(
+                  db.khatmahs.id, db.khatmahDays.khatmahId));
+
+  $$KhatmahDaysTableProcessedTableManager get khatmahDaysRefs {
+    final manager = $$KhatmahDaysTableTableManager($_db, $_db.khatmahDays)
+        .filter((f) => f.khatmahId.id($_item.id));
+
+    final cache = $_typedResult.readTableOrNull(_khatmahDaysRefsTable($_db));
+    return ProcessedTableManager(
+        manager.$state.copyWith(prefetchedData: cache));
+  }
+}
+
+class $$KhatmahsTableFilterComposer
+    extends Composer<_$KhatmahDatabase, $KhatmahsTable> {
+  $$KhatmahsTableFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<int> get id => $composableBuilder(
+      column: $table.id, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get name => $composableBuilder(
+      column: $table.name, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<int> get currentPage => $composableBuilder(
+      column: $table.currentPage, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<int> get startAyahNumber => $composableBuilder(
+      column: $table.startAyahNumber,
+      builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<int> get endAyahNumber => $composableBuilder(
+      column: $table.endAyahNumber, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<bool> get isCompleted => $composableBuilder(
+      column: $table.isCompleted, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<int> get daysCount => $composableBuilder(
+      column: $table.daysCount, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<bool> get isTahzibSahabah => $composableBuilder(
+      column: $table.isTahzibSahabah,
+      builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<int> get color => $composableBuilder(
+      column: $table.color, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<int> get startPage => $composableBuilder(
+      column: $table.startPage, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<int> get endPage => $composableBuilder(
+      column: $table.endPage, builder: (column) => ColumnFilters(column));
+
+  Expression<bool> khatmahDaysRefs(
+      Expression<bool> Function($$KhatmahDaysTableFilterComposer f) f) {
+    final $$KhatmahDaysTableFilterComposer composer = $composerBuilder(
+        composer: this,
+        getCurrentColumn: (t) => t.id,
+        referencedTable: $db.khatmahDays,
+        getReferencedColumn: (t) => t.khatmahId,
+        builder: (joinBuilder,
+                {$addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer}) =>
+            $$KhatmahDaysTableFilterComposer(
+              $db: $db,
+              $table: $db.khatmahDays,
+              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+              joinBuilder: joinBuilder,
+              $removeJoinBuilderFromRootComposer:
+                  $removeJoinBuilderFromRootComposer,
+            ));
+    return f(composer);
+  }
+}
+
+class $$KhatmahsTableOrderingComposer
+    extends Composer<_$KhatmahDatabase, $KhatmahsTable> {
+  $$KhatmahsTableOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<int> get id => $composableBuilder(
+      column: $table.id, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get name => $composableBuilder(
+      column: $table.name, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<int> get currentPage => $composableBuilder(
+      column: $table.currentPage, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<int> get startAyahNumber => $composableBuilder(
+      column: $table.startAyahNumber,
+      builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<int> get endAyahNumber => $composableBuilder(
+      column: $table.endAyahNumber,
+      builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<bool> get isCompleted => $composableBuilder(
+      column: $table.isCompleted, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<int> get daysCount => $composableBuilder(
+      column: $table.daysCount, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<bool> get isTahzibSahabah => $composableBuilder(
+      column: $table.isTahzibSahabah,
+      builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<int> get color => $composableBuilder(
+      column: $table.color, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<int> get startPage => $composableBuilder(
+      column: $table.startPage, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<int> get endPage => $composableBuilder(
+      column: $table.endPage, builder: (column) => ColumnOrderings(column));
+}
+
+class $$KhatmahsTableAnnotationComposer
+    extends Composer<_$KhatmahDatabase, $KhatmahsTable> {
+  $$KhatmahsTableAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<int> get id =>
+      $composableBuilder(column: $table.id, builder: (column) => column);
+
+  GeneratedColumn<String> get name =>
+      $composableBuilder(column: $table.name, builder: (column) => column);
+
+  GeneratedColumn<int> get currentPage => $composableBuilder(
+      column: $table.currentPage, builder: (column) => column);
+
+  GeneratedColumn<int> get startAyahNumber => $composableBuilder(
+      column: $table.startAyahNumber, builder: (column) => column);
+
+  GeneratedColumn<int> get endAyahNumber => $composableBuilder(
+      column: $table.endAyahNumber, builder: (column) => column);
+
+  GeneratedColumn<bool> get isCompleted => $composableBuilder(
+      column: $table.isCompleted, builder: (column) => column);
+
+  GeneratedColumn<int> get daysCount =>
+      $composableBuilder(column: $table.daysCount, builder: (column) => column);
+
+  GeneratedColumn<bool> get isTahzibSahabah => $composableBuilder(
+      column: $table.isTahzibSahabah, builder: (column) => column);
+
+  GeneratedColumn<int> get color =>
+      $composableBuilder(column: $table.color, builder: (column) => column);
+
+  GeneratedColumn<int> get startPage =>
+      $composableBuilder(column: $table.startPage, builder: (column) => column);
+
+  GeneratedColumn<int> get endPage =>
+      $composableBuilder(column: $table.endPage, builder: (column) => column);
+
+  Expression<T> khatmahDaysRefs<T extends Object>(
+      Expression<T> Function($$KhatmahDaysTableAnnotationComposer a) f) {
+    final $$KhatmahDaysTableAnnotationComposer composer = $composerBuilder(
+        composer: this,
+        getCurrentColumn: (t) => t.id,
+        referencedTable: $db.khatmahDays,
+        getReferencedColumn: (t) => t.khatmahId,
+        builder: (joinBuilder,
+                {$addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer}) =>
+            $$KhatmahDaysTableAnnotationComposer(
+              $db: $db,
+              $table: $db.khatmahDays,
+              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+              joinBuilder: joinBuilder,
+              $removeJoinBuilderFromRootComposer:
+                  $removeJoinBuilderFromRootComposer,
+            ));
+    return f(composer);
+  }
+}
+
 class $$KhatmahsTableTableManager extends RootTableManager<
     _$KhatmahDatabase,
     $KhatmahsTable,
     Khatmah,
     $$KhatmahsTableFilterComposer,
     $$KhatmahsTableOrderingComposer,
+    $$KhatmahsTableAnnotationComposer,
     $$KhatmahsTableCreateCompanionBuilder,
-    $$KhatmahsTableUpdateCompanionBuilder> {
+    $$KhatmahsTableUpdateCompanionBuilder,
+    (Khatmah, $$KhatmahsTableReferences),
+    Khatmah,
+    PrefetchHooks Function({bool khatmahDaysRefs})> {
   $$KhatmahsTableTableManager(_$KhatmahDatabase db, $KhatmahsTable table)
       : super(TableManagerState(
           db: db,
           table: table,
-          filteringComposer:
-              $$KhatmahsTableFilterComposer(ComposerState(db, table)),
-          orderingComposer:
-              $$KhatmahsTableOrderingComposer(ComposerState(db, table)),
+          createFilteringComposer: () =>
+              $$KhatmahsTableFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $$KhatmahsTableOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $$KhatmahsTableAnnotationComposer($db: db, $table: table),
           updateCompanionCallback: ({
             Value<int> id = const Value.absent(),
             Value<String?> name = const Value.absent(),
@@ -1033,140 +1235,48 @@ class $$KhatmahsTableTableManager extends RootTableManager<
             startPage: startPage,
             endPage: endPage,
           ),
+          withReferenceMapper: (p0) => p0
+              .map((e) =>
+                  (e.readTable(table), $$KhatmahsTableReferences(db, table, e)))
+              .toList(),
+          prefetchHooksCallback: ({khatmahDaysRefs = false}) {
+            return PrefetchHooks(
+              db: db,
+              explicitlyWatchedTables: [if (khatmahDaysRefs) db.khatmahDays],
+              addJoins: null,
+              getPrefetchedDataCallback: (items) async {
+                return [
+                  if (khatmahDaysRefs)
+                    await $_getPrefetchedData(
+                        currentTable: table,
+                        referencedTable:
+                            $$KhatmahsTableReferences._khatmahDaysRefsTable(db),
+                        managerFromTypedResult: (p0) =>
+                            $$KhatmahsTableReferences(db, table, p0)
+                                .khatmahDaysRefs,
+                        referencedItemsForCurrentItem:
+                            (item, referencedItems) => referencedItems
+                                .where((e) => e.khatmahId == item.id),
+                        typedResults: items)
+                ];
+              },
+            );
+          },
         ));
 }
 
-class $$KhatmahsTableFilterComposer
-    extends FilterComposer<_$KhatmahDatabase, $KhatmahsTable> {
-  $$KhatmahsTableFilterComposer(super.$state);
-  ColumnFilters<int> get id => $state.composableBuilder(
-      column: $state.table.id,
-      builder: (column, joinBuilders) =>
-          ColumnFilters(column, joinBuilders: joinBuilders));
-
-  ColumnFilters<String> get name => $state.composableBuilder(
-      column: $state.table.name,
-      builder: (column, joinBuilders) =>
-          ColumnFilters(column, joinBuilders: joinBuilders));
-
-  ColumnFilters<int> get currentPage => $state.composableBuilder(
-      column: $state.table.currentPage,
-      builder: (column, joinBuilders) =>
-          ColumnFilters(column, joinBuilders: joinBuilders));
-
-  ColumnFilters<int> get startAyahNumber => $state.composableBuilder(
-      column: $state.table.startAyahNumber,
-      builder: (column, joinBuilders) =>
-          ColumnFilters(column, joinBuilders: joinBuilders));
-
-  ColumnFilters<int> get endAyahNumber => $state.composableBuilder(
-      column: $state.table.endAyahNumber,
-      builder: (column, joinBuilders) =>
-          ColumnFilters(column, joinBuilders: joinBuilders));
-
-  ColumnFilters<bool> get isCompleted => $state.composableBuilder(
-      column: $state.table.isCompleted,
-      builder: (column, joinBuilders) =>
-          ColumnFilters(column, joinBuilders: joinBuilders));
-
-  ColumnFilters<int> get daysCount => $state.composableBuilder(
-      column: $state.table.daysCount,
-      builder: (column, joinBuilders) =>
-          ColumnFilters(column, joinBuilders: joinBuilders));
-
-  ColumnFilters<bool> get isTahzibSahabah => $state.composableBuilder(
-      column: $state.table.isTahzibSahabah,
-      builder: (column, joinBuilders) =>
-          ColumnFilters(column, joinBuilders: joinBuilders));
-
-  ColumnFilters<int> get color => $state.composableBuilder(
-      column: $state.table.color,
-      builder: (column, joinBuilders) =>
-          ColumnFilters(column, joinBuilders: joinBuilders));
-
-  ColumnFilters<int> get startPage => $state.composableBuilder(
-      column: $state.table.startPage,
-      builder: (column, joinBuilders) =>
-          ColumnFilters(column, joinBuilders: joinBuilders));
-
-  ColumnFilters<int> get endPage => $state.composableBuilder(
-      column: $state.table.endPage,
-      builder: (column, joinBuilders) =>
-          ColumnFilters(column, joinBuilders: joinBuilders));
-
-  ComposableFilter khatmahDaysRefs(
-      ComposableFilter Function($$KhatmahDaysTableFilterComposer f) f) {
-    final $$KhatmahDaysTableFilterComposer composer = $state.composerBuilder(
-        composer: this,
-        getCurrentColumn: (t) => t.id,
-        referencedTable: $state.db.khatmahDays,
-        getReferencedColumn: (t) => t.khatmahId,
-        builder: (joinBuilder, parentComposers) =>
-            $$KhatmahDaysTableFilterComposer(ComposerState($state.db,
-                $state.db.khatmahDays, joinBuilder, parentComposers)));
-    return f(composer);
-  }
-}
-
-class $$KhatmahsTableOrderingComposer
-    extends OrderingComposer<_$KhatmahDatabase, $KhatmahsTable> {
-  $$KhatmahsTableOrderingComposer(super.$state);
-  ColumnOrderings<int> get id => $state.composableBuilder(
-      column: $state.table.id,
-      builder: (column, joinBuilders) =>
-          ColumnOrderings(column, joinBuilders: joinBuilders));
-
-  ColumnOrderings<String> get name => $state.composableBuilder(
-      column: $state.table.name,
-      builder: (column, joinBuilders) =>
-          ColumnOrderings(column, joinBuilders: joinBuilders));
-
-  ColumnOrderings<int> get currentPage => $state.composableBuilder(
-      column: $state.table.currentPage,
-      builder: (column, joinBuilders) =>
-          ColumnOrderings(column, joinBuilders: joinBuilders));
-
-  ColumnOrderings<int> get startAyahNumber => $state.composableBuilder(
-      column: $state.table.startAyahNumber,
-      builder: (column, joinBuilders) =>
-          ColumnOrderings(column, joinBuilders: joinBuilders));
-
-  ColumnOrderings<int> get endAyahNumber => $state.composableBuilder(
-      column: $state.table.endAyahNumber,
-      builder: (column, joinBuilders) =>
-          ColumnOrderings(column, joinBuilders: joinBuilders));
-
-  ColumnOrderings<bool> get isCompleted => $state.composableBuilder(
-      column: $state.table.isCompleted,
-      builder: (column, joinBuilders) =>
-          ColumnOrderings(column, joinBuilders: joinBuilders));
-
-  ColumnOrderings<int> get daysCount => $state.composableBuilder(
-      column: $state.table.daysCount,
-      builder: (column, joinBuilders) =>
-          ColumnOrderings(column, joinBuilders: joinBuilders));
-
-  ColumnOrderings<bool> get isTahzibSahabah => $state.composableBuilder(
-      column: $state.table.isTahzibSahabah,
-      builder: (column, joinBuilders) =>
-          ColumnOrderings(column, joinBuilders: joinBuilders));
-
-  ColumnOrderings<int> get color => $state.composableBuilder(
-      column: $state.table.color,
-      builder: (column, joinBuilders) =>
-          ColumnOrderings(column, joinBuilders: joinBuilders));
-
-  ColumnOrderings<int> get startPage => $state.composableBuilder(
-      column: $state.table.startPage,
-      builder: (column, joinBuilders) =>
-          ColumnOrderings(column, joinBuilders: joinBuilders));
-
-  ColumnOrderings<int> get endPage => $state.composableBuilder(
-      column: $state.table.endPage,
-      builder: (column, joinBuilders) =>
-          ColumnOrderings(column, joinBuilders: joinBuilders));
-}
-
+typedef $$KhatmahsTableProcessedTableManager = ProcessedTableManager<
+    _$KhatmahDatabase,
+    $KhatmahsTable,
+    Khatmah,
+    $$KhatmahsTableFilterComposer,
+    $$KhatmahsTableOrderingComposer,
+    $$KhatmahsTableAnnotationComposer,
+    $$KhatmahsTableCreateCompanionBuilder,
+    $$KhatmahsTableUpdateCompanionBuilder,
+    (Khatmah, $$KhatmahsTableReferences),
+    Khatmah,
+    PrefetchHooks Function({bool khatmahDaysRefs})>;
 typedef $$KhatmahDaysTableCreateCompanionBuilder = KhatmahDaysCompanion
     Function({
   Value<int> id,
@@ -1186,22 +1296,182 @@ typedef $$KhatmahDaysTableUpdateCompanionBuilder = KhatmahDaysCompanion
   Value<int?> endPage,
 });
 
+final class $$KhatmahDaysTableReferences
+    extends BaseReferences<_$KhatmahDatabase, $KhatmahDaysTable, KhatmahDay> {
+  $$KhatmahDaysTableReferences(super.$_db, super.$_table, super.$_typedResult);
+
+  static $KhatmahsTable _khatmahIdTable(_$KhatmahDatabase db) =>
+      db.khatmahs.createAlias(
+          $_aliasNameGenerator(db.khatmahDays.khatmahId, db.khatmahs.id));
+
+  $$KhatmahsTableProcessedTableManager? get khatmahId {
+    if ($_item.khatmahId == null) return null;
+    final manager = $$KhatmahsTableTableManager($_db, $_db.khatmahs)
+        .filter((f) => f.id($_item.khatmahId!));
+    final item = $_typedResult.readTableOrNull(_khatmahIdTable($_db));
+    if (item == null) return manager;
+    return ProcessedTableManager(
+        manager.$state.copyWith(prefetchedData: [item]));
+  }
+}
+
+class $$KhatmahDaysTableFilterComposer
+    extends Composer<_$KhatmahDatabase, $KhatmahDaysTable> {
+  $$KhatmahDaysTableFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<int> get id => $composableBuilder(
+      column: $table.id, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<int> get day => $composableBuilder(
+      column: $table.day, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<bool> get isCompleted => $composableBuilder(
+      column: $table.isCompleted, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<int> get startPage => $composableBuilder(
+      column: $table.startPage, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<int> get endPage => $composableBuilder(
+      column: $table.endPage, builder: (column) => ColumnFilters(column));
+
+  $$KhatmahsTableFilterComposer get khatmahId {
+    final $$KhatmahsTableFilterComposer composer = $composerBuilder(
+        composer: this,
+        getCurrentColumn: (t) => t.khatmahId,
+        referencedTable: $db.khatmahs,
+        getReferencedColumn: (t) => t.id,
+        builder: (joinBuilder,
+                {$addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer}) =>
+            $$KhatmahsTableFilterComposer(
+              $db: $db,
+              $table: $db.khatmahs,
+              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+              joinBuilder: joinBuilder,
+              $removeJoinBuilderFromRootComposer:
+                  $removeJoinBuilderFromRootComposer,
+            ));
+    return composer;
+  }
+}
+
+class $$KhatmahDaysTableOrderingComposer
+    extends Composer<_$KhatmahDatabase, $KhatmahDaysTable> {
+  $$KhatmahDaysTableOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<int> get id => $composableBuilder(
+      column: $table.id, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<int> get day => $composableBuilder(
+      column: $table.day, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<bool> get isCompleted => $composableBuilder(
+      column: $table.isCompleted, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<int> get startPage => $composableBuilder(
+      column: $table.startPage, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<int> get endPage => $composableBuilder(
+      column: $table.endPage, builder: (column) => ColumnOrderings(column));
+
+  $$KhatmahsTableOrderingComposer get khatmahId {
+    final $$KhatmahsTableOrderingComposer composer = $composerBuilder(
+        composer: this,
+        getCurrentColumn: (t) => t.khatmahId,
+        referencedTable: $db.khatmahs,
+        getReferencedColumn: (t) => t.id,
+        builder: (joinBuilder,
+                {$addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer}) =>
+            $$KhatmahsTableOrderingComposer(
+              $db: $db,
+              $table: $db.khatmahs,
+              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+              joinBuilder: joinBuilder,
+              $removeJoinBuilderFromRootComposer:
+                  $removeJoinBuilderFromRootComposer,
+            ));
+    return composer;
+  }
+}
+
+class $$KhatmahDaysTableAnnotationComposer
+    extends Composer<_$KhatmahDatabase, $KhatmahDaysTable> {
+  $$KhatmahDaysTableAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<int> get id =>
+      $composableBuilder(column: $table.id, builder: (column) => column);
+
+  GeneratedColumn<int> get day =>
+      $composableBuilder(column: $table.day, builder: (column) => column);
+
+  GeneratedColumn<bool> get isCompleted => $composableBuilder(
+      column: $table.isCompleted, builder: (column) => column);
+
+  GeneratedColumn<int> get startPage =>
+      $composableBuilder(column: $table.startPage, builder: (column) => column);
+
+  GeneratedColumn<int> get endPage =>
+      $composableBuilder(column: $table.endPage, builder: (column) => column);
+
+  $$KhatmahsTableAnnotationComposer get khatmahId {
+    final $$KhatmahsTableAnnotationComposer composer = $composerBuilder(
+        composer: this,
+        getCurrentColumn: (t) => t.khatmahId,
+        referencedTable: $db.khatmahs,
+        getReferencedColumn: (t) => t.id,
+        builder: (joinBuilder,
+                {$addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer}) =>
+            $$KhatmahsTableAnnotationComposer(
+              $db: $db,
+              $table: $db.khatmahs,
+              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+              joinBuilder: joinBuilder,
+              $removeJoinBuilderFromRootComposer:
+                  $removeJoinBuilderFromRootComposer,
+            ));
+    return composer;
+  }
+}
+
 class $$KhatmahDaysTableTableManager extends RootTableManager<
     _$KhatmahDatabase,
     $KhatmahDaysTable,
     KhatmahDay,
     $$KhatmahDaysTableFilterComposer,
     $$KhatmahDaysTableOrderingComposer,
+    $$KhatmahDaysTableAnnotationComposer,
     $$KhatmahDaysTableCreateCompanionBuilder,
-    $$KhatmahDaysTableUpdateCompanionBuilder> {
+    $$KhatmahDaysTableUpdateCompanionBuilder,
+    (KhatmahDay, $$KhatmahDaysTableReferences),
+    KhatmahDay,
+    PrefetchHooks Function({bool khatmahId})> {
   $$KhatmahDaysTableTableManager(_$KhatmahDatabase db, $KhatmahDaysTable table)
       : super(TableManagerState(
           db: db,
           table: table,
-          filteringComposer:
-              $$KhatmahDaysTableFilterComposer(ComposerState(db, table)),
-          orderingComposer:
-              $$KhatmahDaysTableOrderingComposer(ComposerState(db, table)),
+          createFilteringComposer: () =>
+              $$KhatmahDaysTableFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $$KhatmahDaysTableOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $$KhatmahDaysTableAnnotationComposer($db: db, $table: table),
           updateCompanionCallback: ({
             Value<int> id = const Value.absent(),
             Value<int> khatmahId = const Value.absent(),
@@ -1234,90 +1504,62 @@ class $$KhatmahDaysTableTableManager extends RootTableManager<
             startPage: startPage,
             endPage: endPage,
           ),
+          withReferenceMapper: (p0) => p0
+              .map((e) => (
+                    e.readTable(table),
+                    $$KhatmahDaysTableReferences(db, table, e)
+                  ))
+              .toList(),
+          prefetchHooksCallback: ({khatmahId = false}) {
+            return PrefetchHooks(
+              db: db,
+              explicitlyWatchedTables: [],
+              addJoins: <
+                  T extends TableManagerState<
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic>>(state) {
+                if (khatmahId) {
+                  state = state.withJoin(
+                    currentTable: table,
+                    currentColumn: table.khatmahId,
+                    referencedTable:
+                        $$KhatmahDaysTableReferences._khatmahIdTable(db),
+                    referencedColumn:
+                        $$KhatmahDaysTableReferences._khatmahIdTable(db).id,
+                  ) as T;
+                }
+
+                return state;
+              },
+              getPrefetchedDataCallback: (items) async {
+                return [];
+              },
+            );
+          },
         ));
 }
 
-class $$KhatmahDaysTableFilterComposer
-    extends FilterComposer<_$KhatmahDatabase, $KhatmahDaysTable> {
-  $$KhatmahDaysTableFilterComposer(super.$state);
-  ColumnFilters<int> get id => $state.composableBuilder(
-      column: $state.table.id,
-      builder: (column, joinBuilders) =>
-          ColumnFilters(column, joinBuilders: joinBuilders));
-
-  ColumnFilters<int> get day => $state.composableBuilder(
-      column: $state.table.day,
-      builder: (column, joinBuilders) =>
-          ColumnFilters(column, joinBuilders: joinBuilders));
-
-  ColumnFilters<bool> get isCompleted => $state.composableBuilder(
-      column: $state.table.isCompleted,
-      builder: (column, joinBuilders) =>
-          ColumnFilters(column, joinBuilders: joinBuilders));
-
-  ColumnFilters<int> get startPage => $state.composableBuilder(
-      column: $state.table.startPage,
-      builder: (column, joinBuilders) =>
-          ColumnFilters(column, joinBuilders: joinBuilders));
-
-  ColumnFilters<int> get endPage => $state.composableBuilder(
-      column: $state.table.endPage,
-      builder: (column, joinBuilders) =>
-          ColumnFilters(column, joinBuilders: joinBuilders));
-
-  $$KhatmahsTableFilterComposer get khatmahId {
-    final $$KhatmahsTableFilterComposer composer = $state.composerBuilder(
-        composer: this,
-        getCurrentColumn: (t) => t.khatmahId,
-        referencedTable: $state.db.khatmahs,
-        getReferencedColumn: (t) => t.id,
-        builder: (joinBuilder, parentComposers) =>
-            $$KhatmahsTableFilterComposer(ComposerState(
-                $state.db, $state.db.khatmahs, joinBuilder, parentComposers)));
-    return composer;
-  }
-}
-
-class $$KhatmahDaysTableOrderingComposer
-    extends OrderingComposer<_$KhatmahDatabase, $KhatmahDaysTable> {
-  $$KhatmahDaysTableOrderingComposer(super.$state);
-  ColumnOrderings<int> get id => $state.composableBuilder(
-      column: $state.table.id,
-      builder: (column, joinBuilders) =>
-          ColumnOrderings(column, joinBuilders: joinBuilders));
-
-  ColumnOrderings<int> get day => $state.composableBuilder(
-      column: $state.table.day,
-      builder: (column, joinBuilders) =>
-          ColumnOrderings(column, joinBuilders: joinBuilders));
-
-  ColumnOrderings<bool> get isCompleted => $state.composableBuilder(
-      column: $state.table.isCompleted,
-      builder: (column, joinBuilders) =>
-          ColumnOrderings(column, joinBuilders: joinBuilders));
-
-  ColumnOrderings<int> get startPage => $state.composableBuilder(
-      column: $state.table.startPage,
-      builder: (column, joinBuilders) =>
-          ColumnOrderings(column, joinBuilders: joinBuilders));
-
-  ColumnOrderings<int> get endPage => $state.composableBuilder(
-      column: $state.table.endPage,
-      builder: (column, joinBuilders) =>
-          ColumnOrderings(column, joinBuilders: joinBuilders));
-
-  $$KhatmahsTableOrderingComposer get khatmahId {
-    final $$KhatmahsTableOrderingComposer composer = $state.composerBuilder(
-        composer: this,
-        getCurrentColumn: (t) => t.khatmahId,
-        referencedTable: $state.db.khatmahs,
-        getReferencedColumn: (t) => t.id,
-        builder: (joinBuilder, parentComposers) =>
-            $$KhatmahsTableOrderingComposer(ComposerState(
-                $state.db, $state.db.khatmahs, joinBuilder, parentComposers)));
-    return composer;
-  }
-}
+typedef $$KhatmahDaysTableProcessedTableManager = ProcessedTableManager<
+    _$KhatmahDatabase,
+    $KhatmahDaysTable,
+    KhatmahDay,
+    $$KhatmahDaysTableFilterComposer,
+    $$KhatmahDaysTableOrderingComposer,
+    $$KhatmahDaysTableAnnotationComposer,
+    $$KhatmahDaysTableCreateCompanionBuilder,
+    $$KhatmahDaysTableUpdateCompanionBuilder,
+    (KhatmahDay, $$KhatmahDaysTableReferences),
+    KhatmahDay,
+    PrefetchHooks Function({bool khatmahId})>;
 
 class $KhatmahDatabaseManager {
   final _$KhatmahDatabase _db;

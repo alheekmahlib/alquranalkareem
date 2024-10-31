@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '/core/utils/constants/extensions/font_size_extension.dart';
+import '../services/notifications_manager.dart';
 import '../utils/constants/extensions/extensions.dart';
 
 class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
@@ -10,13 +11,17 @@ class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
   final Widget searchButton;
   final String title;
   final Color? color;
+  final bool isNotifi;
+  final bool isBooks;
   const AppBarWidget(
       {super.key,
       required this.isTitled,
       required this.title,
       required this.isFontSize,
       required this.searchButton,
-      this.color});
+      this.color,
+      required this.isNotifi,
+      required this.isBooks});
 
   @override
   Widget build(BuildContext context) {
@@ -46,6 +51,14 @@ class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
       centerTitle: true,
       leading: GestureDetector(
         onTap: () {
+          isNotifi
+              ? NotificationManager().updateBookProgress(
+                  title,
+                  isBooks
+                      ? 'notifyBooksBody'.trParams({'bookName': '$title'})
+                      : 'notifyAdhkarBody'.trParams({'adhkarType': '$title'}),
+                  0)
+              : null;
           Get.back();
         },
         child: Padding(

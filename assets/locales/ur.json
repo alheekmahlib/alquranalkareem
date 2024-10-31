@@ -840,23 +840,23 @@
     "type": "text",
     "placeholders": {}
   },
-  "Rabi' al-awwal": "ربيع الاول",
-  "@Rabi' al-awwal": {
+  "Rabi' Al-Awwal": "ربيع الاول",
+  "@Rabi' Al-Awwal": {
     "type": "text",
     "placeholders": {}
   },
-  "Rabi' al-thani": "ربيع الثانى",
-  "@Rabi' al-thani": {
+  "Rabi' Al-Thani": "ربيع الثانى",
+  "@Rabi' Al-Thani": {
     "type": "text",
     "placeholders": {}
   },
-  "Jumada al-awwal": "جمادى الاول",
-  "@Jumada al-awwal": {
+  "Jumada Al-Awwal": "جمادى الاول",
+  "@Jumada Al-Awwal": {
     "type": "text",
     "placeholders": {}
   },
-  "Jumada al-thani": "جمادى الثانى",
-  "@Jumada al-thani": {
+  "Jumada Al-Thani": "جمادى الثانى",
+  "@Jumada Al-Thani": {
     "type": "text",
     "placeholders": {}
   },
@@ -1172,6 +1172,39 @@
   },
   "noBooksDownloaded": "آپ نے ابھی تک کوئی کتاب ڈاؤن لوڈ نہیں کی ہے۔",
   "@noBooksDownloaded": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "notifyQuranBody": "آپ قرآن کی صفحہ @currentPageNumber پر رکے ہیں، کیا آپ جاری رکھنا چاہتے ہیں؟",
+  "@notifyQuranBody": {
+    "type": "text",
+    "placeholders": {
+      "currentPageNumber": {}
+    }
+  },
+  "notifyAdhkarBody": "آپ @adhkarType پڑھنا نہ بھولیں",
+  "@notifyAdhkarBody": {
+    "type": "text",
+    "placeholders": {
+      "adhkarType": {}
+    }
+  },
+  "notifyBooksBody": "آپ @bookName کتاب پڑھنا جاری رکھنے کو نہ بھولیں",
+  "@notifyBooksBody": {
+    "type": "text",
+    "placeholders": {
+      "bookName": {}
+    }
+  },
+  "notifyListenBody": "آپ سورہ سننا جاری رکھنے کو نہ بھولیں",
+  "@notifyListenBody": {
+    "type": "text",
+    "placeholders": {
+      "bookName": {}
+    }
+  },
+  "lastSearch": "آخری تلاش",
+  "@lastSearch": {
     "type": "text",
     "placeholders": {}
   }

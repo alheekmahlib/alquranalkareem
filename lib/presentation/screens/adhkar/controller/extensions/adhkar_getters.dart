@@ -5,7 +5,7 @@ import 'package:get/get.dart';
 import 'package:hijri/hijri_calendar.dart';
 
 import '../../../../../core/utils/constants/shared_preferences_constants.dart';
-import '../../models/dheker_model.dart';
+import '../../../../../database/bookmark_db/bookmark_database.dart';
 import '../adhkar_controller.dart';
 
 extension AdhkarGetters on AzkarController {
@@ -15,7 +15,7 @@ extension AdhkarGetters on AzkarController {
     return (settedDate != null && settedDate == HijriCalendar.now().fullDate());
   }
 
-  Future<Dhekr> getDailyDhekr() async {
+  Future<AdhkarData> getDailyDhekr() async {
     print('missing daily Dhekr');
     if (state.dhekrOfTheDay != null) return state.dhekrOfTheDay!;
     final String? zekerOfTheDayIdAndId =
@@ -26,7 +26,8 @@ extension AdhkarGetters on AzkarController {
     return state.dhekrOfTheDay!;
   }
 
-  Future<Dhekr> _getZekerForThisDay([String? zekerOfTheDayIdAndZekerId]) async {
+  Future<AdhkarData> _getZekerForThisDay(
+      [String? zekerOfTheDayIdAndZekerId]) async {
     log("zekerOfTheDayIdAndZekerId: ${zekerOfTheDayIdAndZekerId == null ? "null" : "NOT NULL"}");
     if (zekerOfTheDayIdAndZekerId != null) {
       log("before trying to get ziker", name: 'BEFORE');
@@ -37,7 +38,7 @@ extension AdhkarGetters on AzkarController {
     }
     final random = math.Random().nextInt(state.allAdhkar.length);
     log('allAzkar length: ${state.allAdhkar.length}');
-    Dhekr? zeker = state.allAdhkar.firstWhereOrNull((z) => z.id == random);
+    AdhkarData? zeker = state.allAdhkar.firstWhereOrNull((z) => z.id == random);
     log('allAzkar length: ${state.allAdhkar.length} 2222');
     while (zeker == null) {
       log('allAzkar length: ${state.allAdhkar.length} ', name: 'while');

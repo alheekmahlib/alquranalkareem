@@ -3,8 +3,8 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '/presentation/screens/quran_page/controllers/extensions/quran_getters.dart';
 import '../../../../controllers/general/general_controller.dart';
+import '../../controllers/extensions/quran/quran_getters.dart';
 import '../../controllers/playList_controller.dart';
 import '../../controllers/quran/quran_controller.dart';
 

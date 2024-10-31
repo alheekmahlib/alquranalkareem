@@ -4,17 +4,16 @@ import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 
 import '/core/utils/constants/extensions/extensions.dart';
-import '../../../../core/services/local_notifications.dart';
+import '../../../../core/services/notifications_helper.dart';
 import '../controller/adhkar_controller.dart';
 import '../controller/reminder/reminder_controller.dart';
 
 class AdhkarReminderWidget extends StatelessWidget {
   final adhkarCtrl = AzkarController.instance;
   final reminderCtrl = ReminderController.instance;
-  final NotifyHelper notifyHelper = NotifyHelper();
 
   AdhkarReminderWidget() {
-    notifyHelper.initializeNotification();
+    NotifyHelper.initAwesomeNotifications();
   }
 
   @override
@@ -215,13 +214,8 @@ class AdhkarReminderWidget extends StatelessWidget {
       int minute = pickedTime.minute;
       print('Picked time: $hour:$minute');
 
-      notifyHelper.scheduledNotification(
-        id.hashCode,
-        title,
-        "تذكير ${title.toLowerCase()}",
-        hour: hour,
-        minutes: minute,
-      );
+      NotifyHelper().scheduledNotification(id.hashCode, title,
+          "تذكير ${title.toLowerCase()}", DateTime(hour, minute));
       reminderCtrl.toggleAdhkarEnabled(id, true);
       // Ensure the switch is set to true in the UI
       if (title == "أذكار الصباح") {

@@ -23,6 +23,8 @@ class AdhkarItem extends StatelessWidget {
           title: azkarCtrl.state.filteredDhekrList.first.category,
           isFontSize: true,
           searchButton: const SizedBox.shrink(),
+          isNotifi: true,
+          isBooks: false,
         ),
         body: SafeArea(
           child: Padding(

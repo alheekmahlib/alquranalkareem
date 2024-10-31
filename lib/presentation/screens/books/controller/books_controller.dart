@@ -32,6 +32,15 @@ class BooksController extends GetxController {
     loadFromGetStorage();
   }
 
+  @override
+  void onClose() {
+    state.bookPageController.dispose();
+    // state.ScrollUpDownBook.dispose();
+    state.bookRLFocusNode.dispose();
+    // state.bookUDFocusNode.dispose();
+    super.onClose();
+  }
+
   /// -------- [Methods] ----------
 
   Future<void> fetchBooks() async {
@@ -79,7 +88,7 @@ class BooksController extends GetxController {
       log('Error downloading book: $e');
     } finally {
       state.downloading[bookNumber] = false;
-      Get.context!.showCustomErrorSnackBar('booksDownloaded'.tr);
+      Get.context!.showCustomErrorSnackBar('booksDownloaded'.tr, isDone: true);
     }
   }
 

@@ -1,3 +1,4 @@
+import 'package:alquranalkareem/presentation/screens/surah_audio/controller/extensions/surah_audio_storage_getters.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:gap/gap.dart';
@@ -152,6 +153,7 @@ class SurahAudioList extends StatelessWidget {
                       surahAudioCtrl.state.selectedSurah.value = index;
                       surahAudioCtrl.state.surahNum.value = index + 1;
                       surahAudioCtrl.changeAudioSource();
+                      surahAudioCtrl.saveLastSurahListen();
                       print(
                           'Updated sorahNum.value to: ${surahAudioCtrl.state.surahNum.value}');
                     },
