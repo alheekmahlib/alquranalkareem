@@ -1175,21 +1175,21 @@
     "type": "text",
     "placeholders": {}
   },
-  "notifyQuranBody": "Waxaad ku joogtay bogga {currentPageNumber} ee Qur'aanka, ma doonaysaa inaad sii waddo?",
+  "notifyQuranBody": "Waxaad ku joogtay bogga @currentPageNumber ee Qur'aanka, ma doonaysaa inaad sii waddo?",
   "@notifyQuranBody": {
     "type": "text",
     "placeholders": {
       "currentPageNumber": {}
     }
   },
-  "notifyAdhkarBody": "Ha ilaawin inaad akhriso {adhkarType}",
+  "notifyAdhkarBody": "Ha ilaawin inaad akhriso @adhkarType",
   "@notifyAdhkarBody": {
     "type": "text",
     "placeholders": {
       "adhkarType": {}
     }
   },
-  "notifyBooksBody": "Ha iloobin inaad sii waddo akhriska buugga {bookName}",
+  "notifyBooksBody": "Ha iloobin inaad sii waddo akhriska buugga @bookName",
   "@notifyBooksBody": {
     "type": "text",
     "placeholders": {

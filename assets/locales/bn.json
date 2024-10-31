@@ -1175,21 +1175,21 @@
     "type": "text",
     "placeholders": {}
   },
-  "notifyQuranBody": "আপনি কোরআনের {currentPageNumber} পৃষ্ঠায় থেমে গিয়েছেন, আপনি কি চালিয়ে যেতে চান?",
+  "notifyQuranBody": "আপনি কোরআনের @currentPageNumber পৃষ্ঠায় থেমে গিয়েছেন, আপনি কি চালিয়ে যেতে চান?",
   "@notifyQuranBody": {
     "type": "text",
     "placeholders": {
       "currentPageNumber": {}
     }
   },
-  "notifyAdhkarBody": "আপনি {adhkarType} পড়া ভুলবেন না",
+  "notifyAdhkarBody": "আপনি @adhkarType পড়া ভুলবেন না",
   "@notifyAdhkarBody": {
     "type": "text",
     "placeholders": {
       "adhkarType": {}
     }
   },
-  "notifyBooksBody": "আপনি {bookName} বই পড়া চালিয়ে যেতে ভুলবেন না",
+  "notifyBooksBody": "আপনি @bookName বই পড়া চালিয়ে যেতে ভুলবেন না",
   "@notifyBooksBody": {
     "type": "text",
     "placeholders": {
