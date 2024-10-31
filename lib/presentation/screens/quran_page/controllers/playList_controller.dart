@@ -2,7 +2,6 @@ import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
 
-import 'package:alquranalkareem/presentation/screens/quran_page/controllers/extensions/audio/audio_getters.dart';
 import 'package:dio/dio.dart';
 import 'package:expansion_tile_card/expansion_tile_card.dart';
 import 'package:flutter/material.dart';
@@ -15,6 +14,7 @@ import 'package:rxdart/rxdart.dart' as R;
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '/core/utils/constants/extensions/custom_error_snackBar.dart';
+import '/presentation/screens/quran_page/controllers/extensions/audio/audio_getters.dart';
 import '../../../../core/utils/constants/lists.dart';
 import '../../../../core/utils/constants/url_constants.dart';
 import '../../../../core/widgets/seek_bar.dart';
@@ -124,8 +124,12 @@ class PlayListController extends GetxController {
           .surahNumber
           .toString()
           .padLeft(3, '0');
-      log('${ayahReaderInfo[audioCtrl.state.readerIndex.value]['url']}${audioCtrl.reader}/${surahNum.toString().padLeft(3, "0")}${ayahNumber.toString().padLeft(3, "0")}.mp3');
-      return '${ayahReaderInfo[audioCtrl.state.readerIndex.value]['url']}${audioCtrl.reader}/${surahNum.toString().padLeft(3, "0")}${ayahNumber.toString().padLeft(3, "0")}.mp3';
+      final currentAyahNumber = quranCtrl
+          .state.allAyahs[ayahNumber - 1].ayahNumber
+          .toString()
+          .padLeft(3, '0');
+      log('${ayahReaderInfo[audioCtrl.state.readerIndex.value]['url']}${audioCtrl.reader}/${surahNum.toString().padLeft(3, "0")}$currentAyahNumber.mp3');
+      return '${ayahReaderInfo[audioCtrl.state.readerIndex.value]['url']}${audioCtrl.reader}/${surahNum.toString().padLeft(3, "0")}$currentAyahNumber.mp3';
     }
   }
 
@@ -150,11 +154,13 @@ class PlayListController extends GetxController {
           .surahNumber
           .toString()
           .padLeft(3, '0');
+      final currentAyahNumber =
+          quranCtrl.state.allAyahs[i - 1].ayahNumber.toString().padLeft(3, '0');
       String fileName = ayahReaderInfo[audioCtrl.state.readerIndex.value]
                   ['url'] ==
               UrlConstants.ayahs1stSource
           ? "${i.toString().padLeft(3, "0")}.mp3"
-          : "$surahNum${i.toString().padLeft(3, "0")}.mp3";
+          : "$surahNum$currentAyahNumber.mp3";
       String localFilePath =
           "$localDirectoryPath/${audioCtrl.state.readerValue!}/$fileName";
       bool downloadResult = await downloadFile(
