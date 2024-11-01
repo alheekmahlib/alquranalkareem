@@ -1,13 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:gap/gap.dart';
-import 'package:get/get.dart';
-import 'package:slide_countdown/slide_countdown.dart';
-import 'package:solar_icons/solar_icons.dart';
-
-import '../controller/adhan/adhan_controller.dart';
-import '../controller/adhan/extensions/adhan_getters.dart';
-import '../controller/prayer_progress_controller.dart';
-import 'vertical_progress_bar.dart';
+part of '../prayers.dart';
 
 class PrayerProgressWidget extends StatelessWidget {
   PrayerProgressWidget({super.key});
@@ -111,18 +102,7 @@ class PrayerProgressWidget extends StatelessWidget {
                         ),
                         Transform.translate(
                           offset: const Offset(0, 2),
-                          child: SlideCountdown(
-                            decoration: const BoxDecoration(
-                              color: Colors.transparent,
-                            ),
-                            style: TextStyle(
-                              fontFamily: 'kufi',
-                              fontSize: 22,
-                              color: Theme.of(context).canvasColor,
-                            ),
-                            slideDirection: SlideDirection.up,
-                            duration: adhanCtrl.getTimeLeftForNextPrayer,
-                          ),
+                          child: SlideCountdownWidget(fontSize: 22),
                         ),
                       ],
                     ),

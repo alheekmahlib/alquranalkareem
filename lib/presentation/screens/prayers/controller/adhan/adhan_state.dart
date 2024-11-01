@@ -1,11 +1,4 @@
-import 'dart:async';
-
-import 'package:adhan/adhan.dart';
-import 'package:get/get.dart';
-import 'package:get_storage/get_storage.dart';
-import 'package:hijri/hijri_calendar.dart';
-
-import '../../../../controllers/general/general_controller.dart';
+part of '../../prayers.dart';
 
 class AdhanState {
   /// -------- [Variables] ----------

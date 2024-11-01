@@ -1,11 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:gap/gap.dart';
-import 'package:get/get.dart';
-
-import '/core/utils/constants/extensions/convert_number_extension.dart';
-import '/core/utils/constants/extensions/extensions.dart';
-import 'controller/adhan/adhan_controller.dart';
-import 'controller/adhan/extensions/adhan_ui.dart';
+part of '../../prayers.dart';
 
 class SettingPrayerTimes extends StatelessWidget {
   SettingPrayerTimes({super.key});

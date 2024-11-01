@@ -1,14 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
-import 'package:gap/gap.dart';
-import 'package:get/get.dart';
-
-import '/core/utils/constants/extensions/extensions.dart';
-import '/core/utils/constants/extensions/svg_extensions.dart';
-import '/core/utils/constants/svg_constants.dart';
-import '../../../controllers/general/general_controller.dart';
-import '../prayer_settings.dart';
-import '../prayer_widget.dart';
+part of '../prayers.dart';
 
 class OccasionsWidget extends StatelessWidget {
   OccasionsWidget({super.key});

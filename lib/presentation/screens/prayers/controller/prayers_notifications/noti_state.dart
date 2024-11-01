@@ -1,9 +1,4 @@
-import 'package:dio/dio.dart';
-import 'package:get/get.dart';
-import 'package:get_storage/get_storage.dart';
-import 'package:just_audio/just_audio.dart';
-
-import '../../data/model/adhan_data.dart';
+part of '../../prayers.dart';
 
 class NotiState {
   final box = GetStorage('AdhanSounds');

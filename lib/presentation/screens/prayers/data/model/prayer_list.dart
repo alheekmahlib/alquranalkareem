@@ -1,6 +1,4 @@
-import 'package:solar_icons/solar_icons.dart';
-
-import '../../controller/adhan/adhan_state.dart';
+part of '../../prayers.dart';
 
 List<Map<String, dynamic>> generatePrayerNameList(AdhanState state) => [
       {

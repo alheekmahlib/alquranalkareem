@@ -1,15 +1,4 @@
-import 'package:adhan/adhan.dart';
-import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:hijri/hijri_calendar.dart';
-
-import '../../../../../../core/utils/constants/lottie.dart';
-import '../../../../../../core/utils/constants/lottie_constants.dart';
-import '../../../../../../core/utils/constants/shared_preferences_constants.dart';
-import '../../../../../../core/utils/helpers/date_formatter.dart';
-import '../../../data/model/prayer_day_model.dart';
-import '../../../data/model/prayer_details.dart';
-import '../adhan_controller.dart';
+part of '../../../prayers.dart';
 
 extension AdhanGetters on AdhanController {
   /// -------- [Getters] ----------
@@ -75,7 +64,7 @@ extension AdhanGetters on AdhanController {
     if (nextPrayerDateTime == null || nextPrayerDateTime.isBefore(now)) {
       // إذا كانت الصلاة القادمة هي الفجر، نضبط التاريخ ليكون لليوم التالي
       if (nextPrayer == Prayer.fajr) {
-        nextPrayerDateTime = nextPrayerDateTime?.add(Duration(days: 1));
+        nextPrayerDateTime = nextPrayerDateTime?.add(const Duration(days: 1));
       } else {
         return Duration.zero;
       }

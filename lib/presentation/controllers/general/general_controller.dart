@@ -9,7 +9,7 @@ import '../../../core/services/location/locations.dart';
 import '../../../core/utils/constants/shared_preferences_constants.dart';
 import '../../screens/adhkar/screens/adhkar_view.dart';
 import '../../screens/books/screens/books_screen.dart';
-import '../../screens/prayers/controller/adhan/adhan_controller.dart';
+import '../../screens/prayers/prayers.dart';
 import '../../screens/quran_page/screens/quran_home.dart';
 import '../../screens/surah_audio/audio_surah.dart';
 import 'general_state.dart';

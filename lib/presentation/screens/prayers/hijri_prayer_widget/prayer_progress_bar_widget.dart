@@ -1,9 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-
-import '../screen/occasions.dart';
-import 'hijri_widget.dart';
-import 'prayer_widget.dart';
+part of '../prayers.dart';
 
 class PrayerProgressBar extends StatelessWidget {
   PrayerProgressBar();

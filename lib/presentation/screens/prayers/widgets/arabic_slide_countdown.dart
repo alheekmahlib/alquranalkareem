@@ -1,6 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
-import 'package:slide_countdown/slide_countdown.dart';
+part of '../prayers.dart';
 
 class ArabicSlideCountdown extends StatelessWidget {
   final Duration duration;
@@ -8,7 +6,7 @@ class ArabicSlideCountdown extends StatelessWidget {
   ArabicSlideCountdown({required this.duration});
 
   String _formatNumber(int number) {
-    final formatter = NumberFormat.decimalPattern("ar");
+    final formatter = intl.NumberFormat.decimalPattern("ar");
     return formatter.format(number);
   }
 

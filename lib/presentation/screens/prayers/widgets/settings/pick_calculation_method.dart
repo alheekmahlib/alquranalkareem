@@ -1,7 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-
-import 'controller/adhan/adhan_controller.dart';
+part of '../../prayers.dart';
 
 class pickCalculationMethod extends StatelessWidget {
   pickCalculationMethod({super.key});

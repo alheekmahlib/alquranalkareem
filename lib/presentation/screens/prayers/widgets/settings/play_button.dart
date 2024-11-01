@@ -1,13 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:just_audio/just_audio.dart';
-
-import '/core/utils/constants/extensions/svg_extensions.dart';
-import '/presentation/screens/prayers/controller/prayers_notifications/extensions/prayers_noti_ui.dart';
-import '../../../../../core/utils/constants/lottie.dart';
-import '../../../../../core/utils/constants/lottie_constants.dart';
-import '../../../../../core/utils/constants/svg_constants.dart';
-import 'controller/prayers_notifications/prayers_notifications_controller.dart';
-import 'data/model/adhan_data.dart';
+part of '../../prayers.dart';
 
 class PlayButton extends StatelessWidget {
   final List<AdhanData> adhanData;

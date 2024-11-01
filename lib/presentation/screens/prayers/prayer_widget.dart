@@ -1,12 +1,4 @@
-import 'package:arc_progress_bar_new/arc_progress_bar_new.dart';
-import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:slide_countdown/slide_countdown.dart';
-
-import '../../../../../core/services/location/locations.dart';
-import 'controller/adhan/adhan_controller.dart';
-import 'controller/adhan/extensions/adhan_getters.dart';
-import 'prayer_build.dart';
+part of 'prayers.dart';
 
 class PrayerWidget extends StatelessWidget {
   PrayerWidget({super.key});
@@ -80,20 +72,7 @@ class PrayerWidget extends StatelessWidget {
                             color: Theme.of(context).canvasColor,
                           ),
                         ),
-                        SlideCountdown(
-                          decoration: const BoxDecoration(
-                            color: Colors.transparent,
-                          ),
-                          slideDirection: SlideDirection.up,
-                          duration: adhanCtrl.getTimeLeftForNextPrayer,
-                          style: TextStyle(
-                            color: context.theme.canvasColor,
-                            locale: const Locale('ar'),
-                            fontFamily: 'kufi', // أو أي خط يدعم الأرقام العربية
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
+                        SlideCountdownWidget(fontSize: 18),
                       ],
                     ),
                     handleSize: 100,

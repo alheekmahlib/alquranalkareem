@@ -1,12 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:gap/gap.dart';
-import 'package:get/get.dart';
-
-import 'controller/adhan/adhan_controller.dart';
-import 'controller/adhan/extensions/adhan_getters.dart';
-import 'controller/adhan/extensions/adhan_ui.dart';
-import 'pick_calculation_method.dart';
-import 'setting_prayer_times.dart';
+part of '../../prayers.dart';
 
 class SetTimingCalculations extends StatelessWidget {
   SetTimingCalculations({super.key});

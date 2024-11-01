@@ -1,5 +1,4 @@
-import '../../../../../../core/utils/constants/shared_preferences_constants.dart';
-import '../adhan_controller.dart';
+part of '../../../prayers.dart';
 
 extension AdhanUi on AdhanController {
   /// -------- [OnTaps] ----------

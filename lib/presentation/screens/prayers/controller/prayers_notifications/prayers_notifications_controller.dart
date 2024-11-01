@@ -1,16 +1,4 @@
-import 'dart:convert' show jsonDecode, jsonEncode;
-import 'dart:developer' show log;
-
-import 'package:flutter/services.dart' show rootBundle;
-import 'package:get/get.dart';
-import 'package:get_storage/get_storage.dart';
-
-import '/core/services/notifications_helper.dart';
-import '/presentation/screens/prayers/controller/prayers_notifications/extensions/prayers_noti_ui.dart';
-import '../../../../../core/utils/constants/shared_preferences_constants.dart';
-import '../../data/model/adhan_data.dart';
-import '../../helpers/adhan_audio_downloader.dart';
-import 'noti_state.dart';
+part of '../../prayers.dart';
 
 extension NotificationsHelper on PrayersNotificationsCtrl {
   Future<void> scheduleDailyNotificationForPrayer(

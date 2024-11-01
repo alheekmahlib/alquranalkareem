@@ -1,17 +1,4 @@
-import 'dart:async';
-import 'dart:convert';
-import 'dart:developer';
-
-import 'package:adhan/adhan.dart';
-import 'package:flutter/services.dart';
-import 'package:geocoding/geocoding.dart' as geo;
-import 'package:get/get.dart';
-
-import '/core/services/location/locations.dart';
-import '../../data/model/prayer_list.dart';
-import 'adhan_state.dart';
-import 'extensions/adhan_getters.dart';
-import 'extensions/location_extension.dart';
+part of '../../prayers.dart';
 
 class AdhanController extends GetxController {
   static AdhanController get instance => Get.isRegistered<AdhanController>()

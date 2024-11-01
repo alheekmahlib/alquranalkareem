@@ -1,14 +1,4 @@
-import 'dart:developer';
-
-import 'package:audio_service/audio_service.dart';
-import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:just_audio/just_audio.dart';
-
-import '../../../../../../core/utils/constants/shared_preferences_constants.dart';
-import '../../../../quran_page/controllers/audio/audio_controller.dart';
-import '../../../data/model/adhan_data.dart';
-import '../prayers_notifications_controller.dart';
+part of '../../../prayers.dart';
 
 extension PrayersNotiUi on PrayersNotificationsCtrl {
   Future<void> playButtonOnTap(AdhanData? adhanData) async {

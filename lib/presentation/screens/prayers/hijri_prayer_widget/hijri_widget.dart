@@ -1,11 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
-import 'package:gap/gap.dart';
-import 'package:get/get.dart';
-
-import '/core/utils/constants/extensions/convert_number_extension.dart';
-import '../../../../core/widgets/occasions/controller/event_controller.dart';
-import '../../../controllers/general/general_controller.dart';
+part of '../prayers.dart';
 
 class HijriWidget extends StatelessWidget {
   HijriWidget({super.key});

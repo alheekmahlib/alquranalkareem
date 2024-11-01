@@ -1,9 +1,4 @@
-import 'dart:convert';
-
-import 'package:adhan/adhan.dart';
-import 'package:alquranalkareem/core/services/location/location_enum.dart';
-import 'package:flutter/services.dart';
-import 'package:get/get.dart';
+part of '../../../prayers.dart';
 
 extension LocationExtension on String {
   Future<CalculationParameters> getCalculationParameters() async {

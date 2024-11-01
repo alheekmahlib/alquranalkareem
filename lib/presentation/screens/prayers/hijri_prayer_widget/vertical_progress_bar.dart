@@ -1,8 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-
-import '../controller/adhan/adhan_controller.dart';
-import '../controller/adhan/extensions/adhan_getters.dart';
+part of '../prayers.dart';
 
 class VerticalProgressBar extends StatelessWidget {
   final double progress;

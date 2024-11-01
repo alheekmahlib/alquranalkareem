@@ -1,14 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:gap/gap.dart';
-import 'package:get/get.dart';
-import 'package:square_percent_indicater/square_percent_indicater.dart';
-
-import '/core/utils/constants/extensions/extensions.dart';
-import '/presentation/screens/prayers/controller/prayers_notifications/extensions/prayers_noti_ui.dart';
-import '../../../../../core/services/services_locator.dart';
-import 'controller/prayers_notifications/prayers_notifications_controller.dart';
-import 'data/model/adhan_data.dart';
-import 'play_button.dart';
+part of '../../prayers.dart';
 
 class AdhanSounds extends StatelessWidget {
   AdhanSounds({super.key});

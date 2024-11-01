@@ -1,12 +1,4 @@
-import 'dart:developer' show log;
-import 'dart:io' show File;
-
-import 'package:archive/archive.dart' show ZipDecoder;
-import 'package:dio/dio.dart';
-import 'package:path/path.dart' as path;
-import 'package:path_provider/path_provider.dart';
-
-import '../data/model/adhan_data.dart';
+part of '../prayers.dart';
 
 class AudioDownloader {
   Future<AdhanData> downloadAndUnzipAdhan(AdhanData adhanData,

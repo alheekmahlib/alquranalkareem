@@ -1,12 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:gap/gap.dart';
-import 'package:get/get.dart';
-
-import '/core/utils/constants/extensions/extensions.dart';
-import 'adhan_sounds.dart';
-import 'controller/adhan/adhan_controller.dart';
-import 'detect_location.dart';
-import 'set_timing_calculations.dart';
+part of '../../prayers.dart';
 
 class PrayerSettings extends StatelessWidget {
   PrayerSettings({super.key});
@@ -25,12 +17,12 @@ class PrayerSettings extends StatelessWidget {
         child: Column(
           children: [
             Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: context.customClose(height: 40),
                 ),
+                context.vDivider(height: 30),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 16.0),
                   child: Text(

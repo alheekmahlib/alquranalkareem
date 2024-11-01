@@ -1,7 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-
-import '../../controllers/general/general_controller.dart';
+part of '../../prayers.dart';
 
 class DetectLocation extends StatelessWidget {
   DetectLocation({super.key});
