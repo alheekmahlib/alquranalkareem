@@ -46,40 +46,42 @@ class PrayerWidget extends StatelessWidget {
                   ],
                 ),
               ),
-              Obx(() => ArcProgressBar(
-                    percentage: adhanCtrl.state.timeProgress.value,
-                    arcThickness: 10,
-                    innerPadding: 48,
-                    strokeCap: StrokeCap.round,
-                    bottomCenterWidget: Column(
-                      children: [
-                        Text(
-                          adhanCtrl.getNextPrayerDetails.prayerName,
-                          style: TextStyle(
-                            fontFamily: 'kufi',
-                            fontSize: 22,
-                            fontWeight: FontWeight.bold,
-                            color: Theme.of(context).canvasColor,
-                          ),
+              Obx(
+                () => ArcProgressBar(
+                  percentage: adhanCtrl.state.timeProgress.value,
+                  arcThickness: 10,
+                  innerPadding: 48,
+                  strokeCap: StrokeCap.round,
+                  bottomCenterWidget: Column(
+                    children: [
+                      Text(
+                        adhanCtrl.getNextPrayerDetails.prayerName,
+                        style: TextStyle(
+                          fontFamily: 'kufi',
+                          fontSize: 22,
+                          fontWeight: FontWeight.bold,
+                          color: Theme.of(context).canvasColor,
                         ),
-                        Text(
-                          adhanCtrl.getNextPrayerDetails.prayerDisplayName ??
-                              "No Name Available",
-                          style: TextStyle(
-                            fontFamily: 'kufi',
-                            fontSize: 22,
-                            fontWeight: FontWeight.bold,
-                            color: Theme.of(context).canvasColor,
-                          ),
+                      ),
+                      Text(
+                        adhanCtrl.getNextPrayerDetails.prayerDisplayName ??
+                            "No Name Available",
+                        style: TextStyle(
+                          fontFamily: 'kufi',
+                          fontSize: 22,
+                          fontWeight: FontWeight.bold,
+                          color: Theme.of(context).canvasColor,
                         ),
-                        SlideCountdownWidget(fontSize: 18),
-                      ],
-                    ),
-                    handleSize: 100,
-                    handleWidget: adhanCtrl.LottieWidget,
-                    foregroundColor: const Color(0xffa22c08).withOpacity(.6),
-                    backgroundColor: Theme.of(context).canvasColor,
-                  )),
+                      ),
+                      SlideCountdownWidget(fontSize: 18),
+                    ],
+                  ),
+                  handleSize: 100,
+                  handleWidget: adhanCtrl.LottieWidget,
+                  foregroundColor: const Color(0xffa22c08).withOpacity(.6),
+                  backgroundColor: Theme.of(context).canvasColor,
+                ),
+              ),
             ],
           ),
           PrayerBuild(),

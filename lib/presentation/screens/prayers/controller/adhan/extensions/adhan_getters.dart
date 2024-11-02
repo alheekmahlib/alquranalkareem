@@ -54,23 +54,25 @@ extension AdhanGetters on AdhanController {
 
   Duration get getTimeLeftForNextPrayer {
     final now = DateTime.now();
-    final Prayer? nextPrayer = state.prayerTimes.nextPrayer();
+    final Prayer? currentPrayer = state.prayerTimes.currentPrayer();
+    final Prayer? nextPrayer;
+
+    if (currentPrayer == Prayer.isha) {
+      nextPrayer = Prayer.fajr;
+    } else {
+      nextPrayer = state.prayerTimes.nextPrayer();
+    }
     if (nextPrayer == null) {
       return Duration.zero;
     }
     DateTime? nextPrayerDateTime = state.prayerTimes.timeForPrayer(nextPrayer);
-
-    // إذا لم تكن هناك صلاة قادمة (مثلاً بعد العشاء) أو كانت الصلاة القادمة قد مرت
-    if (nextPrayerDateTime == null || nextPrayerDateTime.isBefore(now)) {
-      // إذا كانت الصلاة القادمة هي الفجر، نضبط التاريخ ليكون لليوم التالي
-      if (nextPrayer == Prayer.fajr) {
-        nextPrayerDateTime = nextPrayerDateTime?.add(const Duration(days: 1));
-      } else {
-        return Duration.zero;
-      }
+    if (nextPrayer == Prayer.fajr && currentPrayer == Prayer.isha) {
+      nextPrayerDateTime = nextPrayerDateTime?.add(const Duration(days: 1));
     }
-
-    return nextPrayerDateTime!.difference(now);
+    if (nextPrayerDateTime == null || nextPrayerDateTime.isBefore(now)) {
+      return Duration.zero;
+    }
+    return nextPrayerDateTime.difference(now);
   }
 
   DateTime get getTimeLeftForHomeWidgetNextPrayer {
@@ -112,6 +114,11 @@ extension AdhanGetters on AdhanController {
     return nextIsha.difference(state.now);
   }
 
+  RxBool getIsAlarmed(String prayerTitle) =>
+      null == GetStorage('AdhanSounds').read('scheduledAdhan_$prayerTitle')
+          ? true.obs
+          : false.obs;
+
   getPrayerSelected(int index, var v1, var v2) =>
       state.box.read(prayerNameList[index]['sharedAlarm']) == true ? v1 : v2;
 
@@ -143,18 +150,21 @@ extension AdhanGetters on AdhanController {
         state.seventhOfTheNight.value = false;
         state.middleOfTheNight.value = true;
         state.box.write(HIGH_LATITUDE_RULE, 0);
+        // initializeAdhan();
         return HighLatitudeRule.middle_of_the_night;
       case 1:
         state.twilightAngle.value = false;
         state.middleOfTheNight.value = false;
         state.seventhOfTheNight.value = true;
         state.box.write(HIGH_LATITUDE_RULE, 1);
+        // initializeAdhan();
         return HighLatitudeRule.seventh_of_the_night;
       case 2:
         state.middleOfTheNight.value = false;
         state.seventhOfTheNight.value = false;
         state.twilightAngle.value = true;
         state.box.write(HIGH_LATITUDE_RULE, 2);
+        // initializeAdhan();
         return HighLatitudeRule.twilight_angle;
       default:
         return HighLatitudeRule.twilight_angle;

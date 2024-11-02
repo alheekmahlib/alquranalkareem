@@ -5,16 +5,17 @@ extension AdhanUi on AdhanController {
 
   void shafiOnTap() {
     state.isHanafi.value = true;
-    initializeAdhanVariables();
     // sl<NotificationController>().initializeNotification();
     state.box.write(SHAFI, state.isHanafi.value);
+    initializeAdhan();
   }
 
   void hanafiOnTap() {
     state.isHanafi.value = false;
-    initializeAdhanVariables();
     // sl<NotificationController>().initializeNotification();
     state.box.write(SHAFI, state.isHanafi.value);
+    initializeAdhan();
+    // update();
   }
 
   Future<void> removeOnTap(int index) async {
@@ -23,9 +24,9 @@ extension AdhanUi on AdhanController {
     state.box.write(prayerNameList[index]['sharedAdjustment'],
         state.adjustments[index].value);
     print("After remove: ${state.adjustments[index].value}");
-    await initTimes();
+    initializeAdhan();
     // sl<NotificationController>().initializeNotification();
-    update();
+    // update();
   }
 
   Future<void> addOnTap(int index) async {
@@ -40,9 +41,20 @@ extension AdhanUi on AdhanController {
   }
 
   Future<void> switchAutoCalculation(bool value) async {
-    state.autoCalculationMethod.value = !state.autoCalculationMethod.value;
-    await initializeAdhanVariables();
+    state.autoCalculationMethod.value = value;
     // sl<NotificationController>().initializeNotification();
     state.box.write(AUTO_CALCULATION, value);
+    initializeAdhan();
+  }
+
+  void notificationOptionsOnTap(int i, int prayerIndex) {
+    PrayersNotificationsCtrl.instance.scheduleDailyNotificationForPrayer(
+      prayerIndex,
+      (prayerNameList[prayerIndex]['hourTime'] as DateTime),
+      prayerNameList[prayerIndex]['title'],
+      notificationOptions[i]['title'],
+    );
+    Get.back();
+    update();
   }
 }

@@ -31,14 +31,14 @@ class pickCalculationMethod extends StatelessWidget {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text(
-                        adhanCtrl.state.selectedCountry.value,
-                        style: TextStyle(
-                            color: Theme.of(context).canvasColor,
-                            fontSize: 14,
-                            fontWeight: FontWeight.bold,
-                            fontFamily: 'kufi'),
-                      ),
+                      Obx(() => Text(
+                            adhanCtrl.state.selectedCountry.value,
+                            style: TextStyle(
+                                color: Theme.of(context).canvasColor,
+                                fontSize: 14,
+                                fontWeight: FontWeight.bold,
+                                fontFamily: 'kufi'),
+                          )),
                       Semantics(
                         button: true,
                         enabled: true,
@@ -69,6 +69,8 @@ class pickCalculationMethod extends StatelessWidget {
                                     fontFamily: 'kufi'),
                               ),
                               onTap: () {
+                                adhanCtrl.state.selectedCountry.value =
+                                    adhanCtrl.state.countries[index];
                                 Get.back();
                               },
                             ),

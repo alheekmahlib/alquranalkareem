@@ -33,6 +33,12 @@ class DetectLocation extends StatelessWidget {
                 activeColor: Colors.red,
                 inactiveTrackColor:
                     Theme.of(context).colorScheme.surface.withOpacity(.5),
+                activeTrackColor:
+                    Theme.of(context).colorScheme.surface.withOpacity(.7),
+                thumbColor: WidgetStatePropertyAll(
+                    Theme.of(context).colorScheme.surface),
+                trackOutlineColor: WidgetStatePropertyAll(
+                    Theme.of(context).colorScheme.surface),
                 onChanged: (bool value) => generalCtrl.toggleLocationService(),
               ),
             ],

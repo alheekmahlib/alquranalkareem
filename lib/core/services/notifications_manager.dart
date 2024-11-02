@@ -30,7 +30,7 @@ class NotificationManager {
           notificationId,
           'reminders'.tr,
           body,
-          DateTime.now().add(const Duration(days: 1)),
+          time: DateTime.now().add(const Duration(days: 1)),
         )
         .then((_) => log('$notificationId\n${'reminders'.tr}\n$body',
             name: 'NotificationManager'));
@@ -80,7 +80,7 @@ class NotificationManager {
       DateTime.now().millisecond + 1,
       'حديث اليوم',
       hadith,
-      DateTime.now().add(const Duration(hours: 8)),
+      time: DateTime.now().add(const Duration(hours: 8)),
     );
   }
 
@@ -89,7 +89,7 @@ class NotificationManager {
       DateTime.now().millisecond + 1,
       'أكمل القراءة!',
       'لا تنسَ مواصلة قراءة الكتاب الذي توقفت عنده.',
-      DateTime.now().add(const Duration(days: 2)),
+      time: DateTime.now().add(const Duration(days: 2)),
     );
   }
 
@@ -98,14 +98,14 @@ class NotificationManager {
       DateTime.now().millisecond + 1,
       'أكمل القراءة!',
       'تذكيرك اليومي بمتابعة قراءة الكتاب.',
-      DateTime.now().add(const Duration(days: 1)),
+      time: DateTime.now().add(const Duration(days: 1)),
     );
 
     NotifyHelper().scheduledNotification(
       DateTime.now().millisecond + 2,
       'حديث اليوم',
       'لا تفوت حديث اليوم! تابع القراءة.',
-      DateTime.now().add(const Duration(days: 1)),
+      time: DateTime.now().add(const Duration(days: 1)),
     );
   }
 
@@ -114,7 +114,7 @@ class NotificationManager {
       DateTime.now().millisecond + 2,
       'مرحبًا، لقد مرت فترة منذ آخر دخولك!',
       'لا تنسَ مواصلة التعلم والقراءة.',
-      DateTime.now().add(const Duration(days: 7)),
+      time: DateTime.now().add(const Duration(days: 7)),
     );
   }
 }

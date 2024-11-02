@@ -73,7 +73,7 @@ dependencies:
 
 
 # Commit this line if you want to run or build on ios / macOS
-  drift_flutter: ^0.2.1
+#  drift_flutter: ^0.2.1
 
   flutter:
     sdk: flutter
@@ -86,6 +86,7 @@ dependencies:
   slide_countdown: ^2.0.0
   arc_progress_bar_new: ^1.0.4
   get_storage: ^2.1.1
+  gauge_indicator: ^0.4.3
 
 
 dev_dependencies:

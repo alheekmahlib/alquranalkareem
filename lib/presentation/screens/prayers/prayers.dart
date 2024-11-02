@@ -51,6 +51,7 @@ part 'controller/adhan/extensions/adhan_ui.dart';
 part 'controller/adhan/extensions/location_extension.dart';
 part 'controller/prayer_progress_controller.dart';
 part 'controller/prayers_notifications/extensions/prayers_noti_ui.dart';
+part 'controller/prayers_notifications/extensions/schedule_daily_extension.dart';
 part 'controller/prayers_notifications/noti_state.dart';
 part 'controller/prayers_notifications/prayers_notifications_controller.dart';
 part 'data/model/prayer_list.dart';

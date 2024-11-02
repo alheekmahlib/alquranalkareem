@@ -14,4 +14,5 @@ class NotiState {
   RxString selectedAdhanPath = RxString('');
   String? notificationSoundType;
   final audioPlayer = AudioPlayer();
+  var currentlyPlayingIndex = Rxn<int>();
 }

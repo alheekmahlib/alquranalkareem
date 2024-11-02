@@ -26,83 +26,36 @@ class AdhanSounds extends StatelessWidget {
                   if (snapshot.connectionState == ConnectionState.done) {
                     return Padding(
                       padding: const EdgeInsets.symmetric(vertical: 8.0),
-                      child: Stack(
+                      child: Column(
                         children: [
-                          context.customClose(),
-                          Padding(
-                            padding: const EdgeInsets.only(top: 55),
+                          Row(
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: context.customClose(height: 40),
+                              ),
+                              context.vDivider(height: 30),
+                              Padding(
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 16.0),
+                                child: Text(
+                                  'adhanSounds'.tr,
+                                  style: TextStyle(
+                                    fontFamily: 'kufi',
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.bold,
+                                    color: Theme.of(context).canvasColor,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                          Flexible(
                             child: ListView(
-                              children: [
-                                Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 16.0),
-                                  child: Row(
-                                    children: [
-                                      Expanded(
-                                        flex: 4,
-                                        child: Text(
-                                          'محمل',
-                                          style: TextStyle(
-                                            color:
-                                                Theme.of(context).canvasColor,
-                                            fontSize: 18,
-                                          ),
-                                          textAlign: TextAlign.center,
-                                        ),
-                                      ),
-                                      Expanded(
-                                        flex: 6,
-                                        child:
-                                            context.hDivider(width: Get.width),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                                Column(
-                                  children: List.generate(
-                                      snapshot.data!.length,
-                                      (index) => Obx(() => notificationCtrl
-                                              .isAdhanDownloadedByIndex(index)
-                                              .value
-                                          ? adhanListBuild(context, index)
-                                          : const SizedBox.shrink())),
-                                ),
-                                const Gap(32),
-                                Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 16.0),
-                                  child: Row(
-                                    children: [
-                                      Expanded(
-                                        flex: 4,
-                                        child: Text(
-                                          'غير محملة',
-                                          style: TextStyle(
-                                            color:
-                                                Theme.of(context).canvasColor,
-                                            fontSize: 18,
-                                          ),
-                                          textAlign: TextAlign.center,
-                                        ),
-                                      ),
-                                      Expanded(
-                                        flex: 6,
-                                        child:
-                                            context.hDivider(width: Get.width),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                                Column(
-                                  children: List.generate(
-                                      snapshot.data!.length,
-                                      (index) => Obx(() => notificationCtrl
-                                              .isAdhanDownloadedByIndex(index)
-                                              .value
-                                          ? const SizedBox.shrink()
-                                          : adhanListBuild(context, index))),
-                                ),
-                              ],
+                              children: List.generate(
+                                snapshot.data!.length,
+                                (index) => adhanListBuild(context, index),
+                              ),
                             ),
                           ),
                         ],
@@ -128,7 +81,7 @@ class AdhanSounds extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(
-              'أصوات الأذان',
+              'adhanSounds'.tr,
               style: TextStyle(
                 fontFamily: 'kufi',
                 fontSize: 16,
@@ -164,7 +117,7 @@ class AdhanSounds extends StatelessWidget {
                                   notificationCtrl.state.downloadedAdhanData
                                       .firstWhereOrNull((e) => e.index == index)
                                       ?.path
-                              ? Theme.of(context).canvasColor
+                              ? Theme.of(context).colorScheme.surface
                               : Theme.of(context).canvasColor.withOpacity(.5),
                           width: notificationCtrl
                                       .state.selectedAdhanPath.value ==
@@ -195,7 +148,7 @@ class AdhanSounds extends StatelessWidget {
                                 ),
                                 PlayButton(
                                   adhanData: adhans,
-                                  index: index + 1,
+                                  index: index,
                                 ),
                               ],
                             ),

@@ -94,7 +94,7 @@ class AdhanController extends GetxController {
           .then((v) => state.midnightTime.value = v),
     ]);
     log("Times updated, calling update...");
-    update();
+    // update();
   }
 
   Future<void> initializeAdhanVariables() async {
@@ -117,8 +117,8 @@ class AdhanController extends GetxController {
     state.prayerTimesNow =
         PrayerTimes(state.coordinates, state.dateComponents, state.params);
     state.sunnahTimes = SunnahTimes(state.prayerTimesNow);
-    update();
     state.prayerTimes = state.prayerTimesNow;
+    // update();
     return await initTimes();
   }
 
@@ -127,13 +127,13 @@ class AdhanController extends GetxController {
     await state.generalCtrl.initLocation().then((value) async {
       geo.setLocaleIdentifier(Get.locale!.languageCode);
       await initializeAdhanVariables();
-      await initTimes();
       fetchCountryList();
       getCountryList().then((list) => state.countries = list);
       updateProgress();
       state.timer = Timer.periodic(
           const Duration(minutes: 1), (Timer t) => updateProgress());
     });
+    // update();
     // await PrayersWidgetConfig.initialize();
     // PrayersWidgetConfig().updatePrayersDate();
     // }

@@ -3,6 +3,7 @@ part of '../../prayers.dart';
 class PlayButton extends StatelessWidget {
   final List<AdhanData> adhanData;
   final int index;
+
   PlayButton({super.key, required this.adhanData, required this.index});
 
   final notificationCtrl = PrayersNotificationsCtrl.instance;
@@ -10,7 +11,7 @@ class PlayButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 30,
+      height: 40,
       child: Stack(
         alignment: Alignment.center,
         children: [
@@ -19,10 +20,7 @@ class PlayButton extends StatelessWidget {
             builder: (context, snapshot) {
               final playerState = snapshot.data;
               final isCurrentlyPlaying =
-                  notificationCtrl.state.downloadedAdhanData.length > index &&
-                      notificationCtrl.state.selectedAdhanPath.value ==
-                          notificationCtrl
-                              .state.downloadedAdhanData[index].path;
+                  notificationCtrl.state.currentlyPlayingIndex.value == index;
               final isPlaying = playerState?.playing ?? false;
 
               if (playerState?.processingState == ProcessingState.buffering &&
@@ -30,23 +28,26 @@ class PlayButton extends StatelessWidget {
                 return customLottie(LottieConstants.assetsLottiePlayButton,
                     width: 20.0, height: 20.0);
               } else if (isCurrentlyPlaying && isPlaying) {
-                return GestureDetector(
-                  child: customSvg(
+                return IconButton(
+                  icon: customSvg(
                     SvgPath.svgPauseArrow,
-                    height: 25,
+                    height: 28,
                   ),
-                  onTap: () {
+                  onPressed: () {
                     notificationCtrl.state.audioPlayer.pause();
+                    notificationCtrl.state.currentlyPlayingIndex.value = null;
                   },
                 );
               } else {
-                return GestureDetector(
-                  child: customSvg(
+                return IconButton(
+                  icon: customSvg(
                     SvgPath.svgPlayArrow,
-                    height: 25,
+                    height: 28,
                   ),
-                  onTap: () async =>
-                      notificationCtrl.playButtonOnTap(adhanData[index]),
+                  onPressed: () async {
+                    notificationCtrl.state.currentlyPlayingIndex.value = index;
+                    await notificationCtrl.playButtonOnTap(adhanData, index);
+                  },
                 );
               }
             },

@@ -76,6 +76,7 @@ class GeneralController extends GetxController {
   Future<void> initLocation() async {
     try {
       await LocationHelper.instance.getPositionDetails();
+      AdhanController.instance.update();
     } catch (e) {
       log(e.toString(), name: "Main", error: e);
     }
@@ -93,7 +94,7 @@ class GeneralController extends GetxController {
           // await sl<NotificationController>().initializeNotification();
           await AdhanController.instance.initializeAdhan();
           state.box.write(ACTIVE_LOCATION, true);
-          AdhanController.instance.onInit();
+          AdhanController.instance.update();
         });
       } else {
         log('Location services were not enabled by the user.');

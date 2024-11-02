@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '/presentation/screens/home/home_screen.dart';
@@ -516,4 +517,23 @@ const List<Map<String, dynamic>> prayerHadithsList = [
     'rule':
         'الراوي : عبدالله بن عمرو | المحدث : مسلم | المصدر : صحيح مسلم | الصفحة أو الرقم : 612',
   }
+];
+
+List notificationOptions = [
+  {
+    'title': 'nothing',
+    'icon': Icons.cancel_outlined,
+  },
+  {
+    'title': 'silent',
+    'icon': Icons.music_off_outlined,
+  },
+  {
+    'title': 'bell',
+    'icon': Icons.notifications_active,
+  },
+  {
+    'title': 'sound',
+    'icon': Icons.volume_up_rounded,
+  },
 ];

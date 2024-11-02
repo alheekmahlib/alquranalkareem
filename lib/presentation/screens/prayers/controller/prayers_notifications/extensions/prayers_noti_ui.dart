@@ -1,24 +1,42 @@
 part of '../../../prayers.dart';
 
 extension PrayersNotiUi on PrayersNotificationsCtrl {
-  Future<void> playButtonOnTap(AdhanData? adhanData) async {
-    selectAdhanOnTap(adhanData!.index);
-    adhanData = state.downloadedAdhanData.elementAtOrNull(adhanData.index);
-    if (adhanData == null) return;
-    await state.audioPlayer
-        .setAudioSource(
-          AudioSource.file(
-            adhanData.path!,
-            tag: MediaItem(
-              id: '${adhanData.index}',
-              title: adhanData.adhanName,
-              artist: adhanData.adhanName,
-              artUri: await AudioController.instance.state.cachedArtUri,
+  Future<void> playButtonOnTap(List<AdhanData>? adhanData, int i) async {
+    final isDownloaded = state.downloadedAdhanData
+        .firstWhereOrNull((d) => d.index == adhanData![i].index);
+    if (isDownloaded == true) {
+      AdhanData? adhan = state.downloadedAdhanData
+          .firstWhere((a) => a.index == adhanData![i].index);
+      await state.audioPlayer
+          .setAudioSource(
+            AudioSource.file(
+              adhan.path!,
+              tag: MediaItem(
+                id: '${adhan.index}',
+                title: adhan.adhanName,
+                artist: adhan.adhanName,
+                artUri: await AudioController.instance.state.cachedArtUri,
+              ),
             ),
-          ),
-        )
-        .then((_) async => await state.audioPlayer.play());
-    log('urlPlayAdhan: ${adhanData.urlPlayAdhan} index: ${adhanData.index}');
+          )
+          .then((_) async => await state.audioPlayer.play());
+      log('AdhanPath: ${adhan.path} index: ${adhanData![i].index}');
+    } else {
+      log('urlPlayAdhan: ${adhanData![i].urlPlayAdhan} index: ${adhanData[i].index}');
+      await state.audioPlayer
+          .setAudioSource(
+            AudioSource.uri(
+              Uri.parse(adhanData[i].urlPlayAdhan),
+              tag: MediaItem(
+                id: '${adhanData[i].index}',
+                title: adhanData[i].adhanName,
+                artist: adhanData[i].adhanName,
+                artUri: await AudioController.instance.state.cachedArtUri,
+              ),
+            ),
+          )
+          .then((_) async => await state.audioPlayer.play());
+    }
   }
 
   void selectAdhanOnTap(int index) {

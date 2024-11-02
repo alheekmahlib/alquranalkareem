@@ -8,7 +8,8 @@ class PrayerProgressBar extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 28.0),
       child: GestureDetector(
-        onTap: () => Get.to(OccasionsWidget(), transition: Transition.downToUp),
+        onTap: () =>
+            Get.to(() => OccasionsWidget(), transition: Transition.downToUp),
         child: SizedBox(
           height: 275,
           child: Stack(

@@ -30,6 +30,7 @@ Future<void> initializeApp() async {
   await GetStorage.init();
   await ServicesLocator().init();
   tz.initializeTimeZones();
+  NotifyHelper().requistPermissions();
   NotifyHelper.initAwesomeNotifications();
   if (Platform.isIOS || Platform.isAndroid) {
     await BGServices().registerTask();

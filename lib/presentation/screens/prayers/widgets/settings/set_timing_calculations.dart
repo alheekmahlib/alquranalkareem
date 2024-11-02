@@ -52,16 +52,28 @@ class SetTimingCalculations extends StatelessWidget {
                           color: Theme.of(context).canvasColor,
                         ),
                       ),
-                      Obx(() => Switch(
-                            value: adhanCtrl.state.autoCalculationMethod.value,
-                            activeColor: Colors.red,
-                            inactiveTrackColor: Theme.of(context)
-                                .colorScheme
-                                .surface
-                                .withOpacity(.5),
-                            onChanged: (bool value) =>
-                                adhanCtrl.switchAutoCalculation(value),
-                          )),
+                      Obx(
+                        () => Switch(
+                          value: adhanCtrl.state.autoCalculationMethod.value,
+                          activeColor: Colors.red,
+                          inactiveTrackColor: Theme.of(context)
+                              .colorScheme
+                              .surface
+                              .withOpacity(.5),
+                          activeTrackColor: Theme.of(context)
+                              .colorScheme
+                              .surface
+                              .withOpacity(.7),
+                          thumbColor: WidgetStatePropertyAll(
+                              Theme.of(context).colorScheme.surface),
+                          trackOutlineColor: WidgetStatePropertyAll(adhanCtrl
+                                  .state.autoCalculationMethod.value
+                              ? Theme.of(context).colorScheme.surface
+                              : Theme.of(context).canvasColor.withOpacity(.5)),
+                          onChanged: (bool value) =>
+                              adhanCtrl.switchAutoCalculation(value),
+                        ),
+                      ),
                     ],
                   ),
                 ),
@@ -112,6 +124,18 @@ class SetTimingCalculations extends StatelessWidget {
                                     .colorScheme
                                     .surface
                                     .withOpacity(.5),
+                                activeTrackColor: Theme.of(context)
+                                    .colorScheme
+                                    .surface
+                                    .withOpacity(.7),
+                                thumbColor: WidgetStatePropertyAll(
+                                    Theme.of(context).colorScheme.surface),
+                                trackOutlineColor: WidgetStatePropertyAll(
+                                    adhanCtrl.state.isHanafi.value
+                                        ? Theme.of(context).colorScheme.surface
+                                        : Theme.of(context)
+                                            .canvasColor
+                                            .withOpacity(.5)),
                                 onChanged: (_) => adhanCtrl.shafiOnTap(),
                               ),
                             ],
@@ -128,15 +152,29 @@ class SetTimingCalculations extends StatelessWidget {
                                   color: Theme.of(context).canvasColor,
                                 ),
                               ),
-                              Switch(
-                                value: !adhanCtrl.state.isHanafi.value,
-                                activeColor: Colors.red,
-                                inactiveTrackColor: Theme.of(context)
-                                    .colorScheme
-                                    .surface
-                                    .withOpacity(.5),
-                                onChanged: (_) => adhanCtrl.hanafiOnTap(),
-                              ),
+                              Obx(() => Switch(
+                                    value: !adhanCtrl.state.isHanafi.value,
+                                    activeColor: Colors.red,
+                                    inactiveTrackColor: Theme.of(context)
+                                        .colorScheme
+                                        .surface
+                                        .withOpacity(.5),
+                                    activeTrackColor: Theme.of(context)
+                                        .colorScheme
+                                        .surface
+                                        .withOpacity(.7),
+                                    thumbColor: WidgetStatePropertyAll(
+                                        Theme.of(context).colorScheme.surface),
+                                    trackOutlineColor: WidgetStatePropertyAll(
+                                        !adhanCtrl.state.isHanafi.value
+                                            ? Theme.of(context)
+                                                .colorScheme
+                                                .surface
+                                            : Theme.of(context)
+                                                .canvasColor
+                                                .withOpacity(.5)),
+                                    onChanged: (_) => adhanCtrl.hanafiOnTap(),
+                                  ))
                             ],
                           ),
                         ],
@@ -189,8 +227,22 @@ class SetTimingCalculations extends StatelessWidget {
                                     .colorScheme
                                     .surface
                                     .withOpacity(.5),
-                                onChanged: (_) =>
-                                    adhanCtrl.getHighLatitudeRule(0),
+                                activeTrackColor: Theme.of(context)
+                                    .colorScheme
+                                    .surface
+                                    .withOpacity(.7),
+                                thumbColor: WidgetStatePropertyAll(
+                                    Theme.of(context).colorScheme.surface),
+                                trackOutlineColor: WidgetStatePropertyAll(
+                                    adhanCtrl.state.middleOfTheNight.value
+                                        ? Theme.of(context).colorScheme.surface
+                                        : Theme.of(context)
+                                            .canvasColor
+                                            .withOpacity(.5)),
+                                onChanged: (_) {
+                                  adhanCtrl.getHighLatitudeRule(0);
+                                  adhanCtrl.initializeAdhan();
+                                },
                               ),
                             ],
                           ),
@@ -213,8 +265,22 @@ class SetTimingCalculations extends StatelessWidget {
                                     .colorScheme
                                     .surface
                                     .withOpacity(.5),
-                                onChanged: (_) =>
-                                    adhanCtrl.getHighLatitudeRule(1),
+                                activeTrackColor: Theme.of(context)
+                                    .colorScheme
+                                    .surface
+                                    .withOpacity(.7),
+                                thumbColor: WidgetStatePropertyAll(
+                                    Theme.of(context).colorScheme.surface),
+                                trackOutlineColor: WidgetStatePropertyAll(
+                                    adhanCtrl.state.seventhOfTheNight.value
+                                        ? Theme.of(context).colorScheme.surface
+                                        : Theme.of(context)
+                                            .canvasColor
+                                            .withOpacity(.5)),
+                                onChanged: (_) {
+                                  adhanCtrl.getHighLatitudeRule(1);
+                                  adhanCtrl.initializeAdhan();
+                                },
                               ),
                             ],
                           ),
@@ -237,8 +303,22 @@ class SetTimingCalculations extends StatelessWidget {
                                     .colorScheme
                                     .surface
                                     .withOpacity(.5),
-                                onChanged: (_) =>
-                                    adhanCtrl.getHighLatitudeRule(2),
+                                activeTrackColor: Theme.of(context)
+                                    .colorScheme
+                                    .surface
+                                    .withOpacity(.7),
+                                thumbColor: WidgetStatePropertyAll(
+                                    Theme.of(context).colorScheme.surface),
+                                trackOutlineColor: WidgetStatePropertyAll(
+                                    adhanCtrl.state.twilightAngle.value
+                                        ? Theme.of(context).colorScheme.surface
+                                        : Theme.of(context)
+                                            .canvasColor
+                                            .withOpacity(.5)),
+                                onChanged: (_) {
+                                  adhanCtrl.getHighLatitudeRule(2);
+                                  adhanCtrl.initializeAdhan();
+                                },
                               ),
                             ],
                           ),
