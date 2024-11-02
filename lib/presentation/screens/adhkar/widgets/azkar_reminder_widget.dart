@@ -214,8 +214,13 @@ class AdhkarReminderWidget extends StatelessWidget {
       int minute = pickedTime.minute;
       print('Picked time: $hour:$minute');
 
-      NotifyHelper().scheduledNotification(id.hashCode, title,
-          "تذكير ${title.toLowerCase()}", DateTime(hour, minute));
+      // Convert TimeOfDay to DateTime
+      DateTime now = DateTime.now();
+      DateTime scheduleDateTime =
+          DateTime(now.year, now.month, now.day, hour, minute);
+
+      NotifyHelper().scheduledNotification(
+          id.hashCode, title, "تذكير ${title.toLowerCase()}", scheduleDateTime);
       reminderCtrl.toggleAdhkarEnabled(id, true);
       // Ensure the switch is set to true in the UI
       if (title == "أذكار الصباح") {
