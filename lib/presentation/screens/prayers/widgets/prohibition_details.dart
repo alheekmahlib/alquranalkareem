@@ -29,22 +29,23 @@ class ProhibitionWidget extends StatelessWidget {
                 child: Stack(
                   alignment: Alignment.center,
                   children: [
-                    RoundedProgressBar(
-                      height: 34,
-                      style: RoundedProgressBarStyle(
-                        borderWidth: 0,
-                        widthShadow: 5,
-                        backgroundProgress:
-                            const Color(0xfff16938).withOpacity(.5),
-                        colorProgress: const Color(0xfff16938),
-                        colorProgressDark:
-                            const Color(0xfff16938).withOpacity(.5),
-                        colorBorder: Colors.transparent,
-                        colorBackgroundIcon: Colors.transparent,
-                      ),
-                      borderRadius: const BorderRadius.all(Radius.circular(4)),
-                      percent: adhanCtrl.getTimeLeftPercentage.value,
-                    ),
+                    Obx(() => RoundedProgressBar(
+                          height: 34,
+                          style: RoundedProgressBarStyle(
+                            borderWidth: 0,
+                            widthShadow: 5,
+                            backgroundProgress:
+                                const Color(0xfff16938).withOpacity(.5),
+                            colorProgress: const Color(0xfff16938),
+                            colorProgressDark:
+                                const Color(0xfff16938).withOpacity(.5),
+                            colorBorder: Colors.transparent,
+                            colorBackgroundIcon: Colors.transparent,
+                          ),
+                          borderRadius:
+                              const BorderRadius.all(Radius.circular(4)),
+                          percent: adhanCtrl.getTimeLeftPercentage.value,
+                        )),
                     Text(
                       'prohibitionTimes'.tr,
                       style: TextStyle(

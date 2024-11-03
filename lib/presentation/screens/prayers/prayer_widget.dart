@@ -88,7 +88,7 @@ class PrayerWidget extends StatelessWidget {
               ),
             ],
           ),
-          ProhibitionWidget(),
+          const ProhibitionWidget(),
           PrayerBuild(),
         ],
       );

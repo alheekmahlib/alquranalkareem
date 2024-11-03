@@ -7,7 +7,6 @@ class AdhanState {
   late PrayerTimes prayerTimes;
   String nextPrayerTime = "";
   final DateTime now = DateTime.now();
-  RxBool prayerAlarm = true.obs;
   RxString countdownTime = "".obs;
   late SunnahTimes sunnahTimes;
   HijriCalendar hijriDateNow = HijriCalendar.now();

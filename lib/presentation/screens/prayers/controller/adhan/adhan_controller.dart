@@ -46,33 +46,6 @@ class AdhanController extends GetxController {
     }
   }
 
-  void prayerAlarmSwitch(int index) {
-    switch (index) {
-      case 0:
-        state.box.write(prayerNameList[0]['sharedAlarm'],
-            state.prayerAlarm.value = !state.prayerAlarm.value);
-        break;
-      case 1:
-        state.box.write(prayerNameList[1]['sharedAlarm'],
-            state.prayerAlarm.value = !state.prayerAlarm.value);
-        break;
-      case 2:
-        state.box.write(prayerNameList[2]['sharedAlarm'],
-            state.prayerAlarm.value = !state.prayerAlarm.value);
-        break;
-      case 3:
-        state.box.write(prayerNameList[3]['sharedAlarm'],
-            state.prayerAlarm.value = !state.prayerAlarm.value);
-        break;
-      case 4:
-        state.box.write(prayerNameList[4]['sharedAlarm'],
-            state.prayerAlarm.value = !state.prayerAlarm.value);
-        break;
-    }
-    // sl<NotificationController>().initializeNotification();
-    update();
-  }
-
   Future<void> initTimes() async {
     log("====================");
     log("Updating times...");
