@@ -6,6 +6,7 @@ list(APPEND FLUTTER_PLUGIN_LIST
   awesome_notifications
   awesome_notifications_core
   desktop_window
+  rive_common
   simple_animation_progress_bar
   url_launcher_linux
 )

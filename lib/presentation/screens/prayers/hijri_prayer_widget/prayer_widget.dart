@@ -65,7 +65,10 @@ class PrayerProgressWidget extends StatelessWidget {
                       size: 70,
                     ),
                     Text(
-                      adhanCtrl.getNextPrayerDetails.prayerName.tr,
+                      adhanCtrl
+                          .getPrayerDetails(isNextPrayer: true)
+                          .prayerName
+                          .tr,
                       style: TextStyle(
                         fontFamily: 'kufi',
                         fontSize: 20,
@@ -80,7 +83,9 @@ class PrayerProgressWidget extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      adhanCtrl.getNextPrayerDetails.prayerDisplayName ??
+                      adhanCtrl
+                              .getPrayerDetails(isNextPrayer: true)
+                              .prayerDisplayName ??
                           "No Name Available",
                       style: TextStyle(
                         fontFamily: 'kufi',
@@ -113,7 +118,7 @@ class PrayerProgressWidget extends StatelessWidget {
             const Gap(8),
             Obx(() => Row(
                   children: [
-                    VerticalProgressBar(
+                    HorizontalProgressBar(
                       progress: prayerPBCtrl.progress.value,
                       backgroundColor:
                           Theme.of(context).canvasColor.withOpacity(.2),

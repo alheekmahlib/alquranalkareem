@@ -8,7 +8,7 @@ class AdhanState {
   String nextPrayerTime = "";
   final DateTime now = DateTime.now();
   RxBool prayerAlarm = true.obs;
-  var countdownTime = "".obs;
+  RxString countdownTime = "".obs;
   late SunnahTimes sunnahTimes;
   HijriCalendar hijriDateNow = HijriCalendar.now();
   late Coordinates coordinates;
@@ -34,7 +34,8 @@ class AdhanState {
   RxString selectedCountry = 'Saudi Arabia'.obs;
   List<String> countries = [];
   late final HighLatitudeRule highLatitudeRule;
-  var index = RxInt(0);
+  RxInt adjustmentIndex = RxInt(0);
   List<RxInt> adjustments = List.generate(7, (_) => 0.obs);
   Future<List<String>>? countryListFuture;
+  RxInt prohibitionTimesIndex = 0.obs;
 }

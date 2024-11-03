@@ -1,6 +1,6 @@
 part of '../prayers.dart';
 
-class VerticalProgressBar extends StatelessWidget {
+class HorizontalProgressBar extends StatelessWidget {
   final double progress;
   final Color backgroundColor;
   final Color progressColor;
@@ -12,7 +12,7 @@ class VerticalProgressBar extends StatelessWidget {
   final DateTime startTime;
   final DateTime endTime;
 
-  VerticalProgressBar({
+  HorizontalProgressBar({
     required this.progress,
     required this.backgroundColor,
     required this.progressColor,
@@ -44,21 +44,20 @@ class VerticalProgressBar extends StatelessWidget {
           child: Stack(
             alignment: AlignmentDirectional.centerStart,
             children: [
-              Container(
-                height: double.infinity,
-                padding: const EdgeInsetsDirectional.only(end: 8.0),
-                decoration: BoxDecoration(
-                  color: progressColor.withOpacity(.5),
-                  borderRadius: borderRadius,
+              RoundedProgressBar(
+                height: 32,
+                style: RoundedProgressBarStyle(
+                  borderWidth: 0,
+                  widthShadow: 5,
+                  backgroundProgress: Colors.transparent,
+                  colorProgress: progressColor,
+                  colorProgressDark: progressColor.withOpacity(.5),
+                  colorBorder: Colors.transparent,
+                  colorBackgroundIcon: Colors.transparent,
                 ),
-                child: Container(
-                  width: (300 * progress) / 100,
-                  height: double.infinity,
-                  decoration: BoxDecoration(
-                    color: progressColor,
-                    borderRadius: borderRadius,
-                  ),
-                ),
+                // margin: EdgeInsets.symmetric(vertical: 16),
+                borderRadius: borderRadius,
+                percent: progress,
               ),
               ...List.generate(stepIcons.length, (index) {
                 final stepTime = stepTimes[index];

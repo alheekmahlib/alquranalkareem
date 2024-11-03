@@ -81,53 +81,73 @@ class HijriWidget extends StatelessWidget {
           child: Stack(
             alignment: Alignment.center,
             children: [
-              LinearProgressIndicator(
-                minHeight: 40,
-                borderRadius: const BorderRadius.all(Radius.circular(4)),
-                value: (generalCtrl.state.today.hDay /
-                    generalCtrl.state.today.lengthOfMonth),
-                backgroundColor: Theme.of(context).canvasColor,
-                color: Theme.of(context).colorScheme.surface,
+              RoundedProgressBar(
+                height: 40,
+                style: RoundedProgressBarStyle(
+                  borderWidth: 0,
+                  widthShadow: 5,
+                  backgroundProgress: Theme.of(context).canvasColor,
+                  colorProgress: Theme.of(context).colorScheme.surface,
+                  colorProgressDark:
+                      Theme.of(context).colorScheme.surface.withOpacity(.5),
+                  colorBorder: Colors.transparent,
+                  colorBackgroundIcon: Colors.transparent,
+                ),
+                borderRadius: const BorderRadius.all(Radius.circular(8)),
+                percent: ((generalCtrl.state.today.lengthOfMonth /
+                            generalCtrl.state.today.hDay) *
+                        100)
+                    .clamp(0, 100),
               ),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 8.0),
                 child: Center(
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Expanded(
-                        flex: 7,
-                        child: FittedBox(
-                          fit: BoxFit.scaleDown,
-                          child: Text(
-                            '${'RemainsUntilTheEndOf'.tr} ${'${generalCtrl.state.today.longMonthName}'.tr}',
-                            style: TextStyle(
-                              fontSize: 14.0,
-                              fontFamily: 'kufi',
-                              color: Theme.of(context).disabledColor,
-                            ),
-                            textAlign: TextAlign.center,
+                  child: eventCtrl.isLastDayOfMonth
+                      ? Text(
+                          '${'lastDayOf'.tr} ${'${generalCtrl.state.today.longMonthName}'.tr}',
+                          style: TextStyle(
+                            fontSize: 14.0,
+                            fontFamily: 'kufi',
+                            color: Theme.of(context).disabledColor,
                           ),
-                        ),
-                      ),
-                      const Gap(16),
-                      Expanded(
-                        flex: 3,
-                        child: FittedBox(
-                          fit: BoxFit.scaleDown,
-                          child: Text(
-                            '${generalCtrl.state.today.lengthOfMonth - generalCtrl.state.today.hDay} ${'${eventCtrl.daysArabicConvert(generalCtrl.state.today.lengthOfMonth - generalCtrl.state.today.hDay)}'.tr}',
-                            style: TextStyle(
-                              fontSize: 14.0,
-                              fontFamily: 'kufi',
-                              color: Theme.of(context).disabledColor,
+                          textAlign: TextAlign.center,
+                        )
+                      : Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Expanded(
+                              flex: 7,
+                              child: FittedBox(
+                                fit: BoxFit.scaleDown,
+                                child: Text(
+                                  '${'RemainsUntilTheEndOf'.tr} ${'${generalCtrl.state.today.longMonthName}'.tr}',
+                                  style: TextStyle(
+                                    fontSize: 14.0,
+                                    fontFamily: 'kufi',
+                                    color: Theme.of(context).disabledColor,
+                                  ),
+                                  textAlign: TextAlign.center,
+                                ),
+                              ),
                             ),
-                            textAlign: TextAlign.center,
-                          ),
+                            const Gap(16),
+                            Expanded(
+                              flex: 3,
+                              child: FittedBox(
+                                fit: BoxFit.scaleDown,
+                                child: Text(
+                                  '${generalCtrl.state.today.lengthOfMonth - generalCtrl.state.today.hDay} ${'${eventCtrl.daysArabicConvert(generalCtrl.state.today.lengthOfMonth - generalCtrl.state.today.hDay)}'.tr}',
+                                  style: TextStyle(
+                                    fontSize: 14.0,
+                                    fontFamily: 'kufi',
+                                    color: Theme.of(context).disabledColor,
+                                  ),
+                                  textAlign: TextAlign.center,
+                                ),
+                              ),
+                            ),
+                          ],
                         ),
-                      ),
-                    ],
-                  ),
                 ),
               )
             ],

@@ -3,9 +3,9 @@ part of '../../../prayers.dart';
 extension AdhanGetters on AdhanController {
   /// -------- [Getters] ----------
   int get adjustment {
-    if (state.index.value >= 0 &&
-        state.index.value < state.adjustments.length) {
-      return state.adjustments[state.index.value].value;
+    if (state.adjustmentIndex.value >= 0 &&
+        state.adjustmentIndex.value < state.adjustments.length) {
+      return state.adjustments[state.adjustmentIndex.value].value;
     }
     return 0;
   }
@@ -14,42 +14,78 @@ extension AdhanGetters on AdhanController {
   int get nextPrayer => state.prayerTimes.nextPrayer().index;
 
   String get getFridayDhuhrTime =>
-      state.hijriDateNow.dayWeName == 'Friday' ? 'Friday' : 'Dhuhr';
+      state.hijriDateNow.dayWeName == 'Friday'.tr ? 'Friday'.tr : 'Dhuhr'.tr;
 
-  PrayerDetail get getCurrentPrayerDetails {
-    final Prayer currentPrayerEnum = state.prayerTimes.currentPrayer();
-    final DateTime? currentPrayerTime =
-        state.prayerTimes.timeForPrayer(currentPrayerEnum);
+  PrayerDetail getPrayerDetails({required bool isNextPrayer}) {
+    final Prayer? currentPrayer = state.prayerTimes.currentPrayer();
+    final Prayer? targetPrayer;
 
-    return PrayerDetail(
-      prayerName: prayerNameFromEnum(currentPrayerEnum),
-      prayerTime: currentPrayerTime,
-      prayerDisplayName: DateFormatter.formatPrayerTime(currentPrayerTime),
-    );
-  }
-
-  PrayerDetail get getNextPrayerDetails {
-    final Prayer nextPrayerEnum = state.prayerTimes.nextPrayer();
-    final DateTime? nextPrayerTime =
-        state.prayerTimes.timeForPrayer(nextPrayerEnum);
-
-    return PrayerDetail(
-      prayerName: prayerNameFromEnum(nextPrayerEnum).tr,
-      prayerTime: nextPrayerTime,
-      prayerDisplayName: DateFormatter.formatPrayerTime(nextPrayerTime),
-    );
-  }
-
-  Widget get LottieWidget {
-    DateTime sunrise = state.prayerTimes.sunrise;
-    DateTime maghrib = state.prayerTimes.maghrib;
-
-    if (state.now.isAfter(sunrise) && state.now.isBefore(maghrib)) {
-      return customLottie(LottieConstants.assetsLottieSun,
-          height: 30, width: 30);
+    if (isNextPrayer) {
+      if (currentPrayer == Prayer.isha) {
+        targetPrayer = Prayer.fajr;
+      } else {
+        targetPrayer = state.prayerTimes.nextPrayer();
+      }
     } else {
-      return customLottie(LottieConstants.assetsLottieMoon, height: 120);
+      targetPrayer = currentPrayer;
     }
+
+    if (targetPrayer == null) {
+      return PrayerDetail(
+        prayerName: "Unknown",
+        prayerTime: null,
+        prayerDisplayName: "",
+      );
+    }
+
+    DateTime? targetPrayerDateTime =
+        state.prayerTimes.timeForPrayer(targetPrayer);
+    if (isNextPrayer &&
+        targetPrayer == Prayer.fajr &&
+        currentPrayer == Prayer.isha) {
+      targetPrayerDateTime = targetPrayerDateTime?.add(const Duration(days: 1));
+    }
+
+    return PrayerDetail(
+      prayerName: prayerNameFromEnum(targetPrayer).tr,
+      prayerTime: targetPrayerDateTime,
+      prayerDisplayName: DateFormatter.formatPrayerTime(targetPrayerDateTime),
+    );
+  }
+
+  RxDouble get getTimeLeftPercentage {
+    final now = DateTime.now();
+    final Prayer? currentPrayer = state.prayerTimes.currentPrayer();
+    final Prayer? nextPrayer;
+
+    if (currentPrayer == Prayer.isha) {
+      nextPrayer = Prayer.fajr;
+    } else {
+      nextPrayer = state.prayerTimes.nextPrayer();
+    }
+    if (nextPrayer == null) {
+      return 0.0.obs;
+    }
+    DateTime? nextPrayerDateTime = state.prayerTimes.timeForPrayer(nextPrayer);
+    DateTime? currentPrayerDateTime =
+        state.prayerTimes.timeForPrayer(currentPrayer!);
+
+    if (nextPrayer == Prayer.fajr && currentPrayer == Prayer.isha) {
+      nextPrayerDateTime = nextPrayerDateTime?.add(const Duration(days: 1));
+    }
+    if (nextPrayerDateTime == null ||
+        currentPrayerDateTime == null ||
+        nextPrayerDateTime.isBefore(now)) {
+      return 0.0.obs;
+    }
+
+    final totalDuration =
+        nextPrayerDateTime.difference(currentPrayerDateTime).inMinutes;
+    final elapsedDuration = now.difference(currentPrayerDateTime).inMinutes;
+
+    double percentage =
+        ((elapsedDuration / totalDuration) * 100).clamp(0, 100).toDouble();
+    return percentage.obs;
   }
 
   Duration get getTimeLeftForNextPrayer {
@@ -87,6 +123,48 @@ extension AdhanGetters on AdhanController {
       return now.add(const Duration(hours: 1));
     }
     return nextPrayerDateTime;
+  }
+
+  Widget get LottieWidget {
+    DateTime sunrise = state.prayerTimes.sunrise;
+    DateTime maghrib = state.prayerTimes.maghrib;
+
+    if (state.now.isAfter(sunrise) && state.now.isBefore(maghrib)) {
+      // return customLottie(LottieConstants.assetsLottieSun,
+      //     height: 30, width: 30);
+      return RiveAnimation.asset(
+        'assets/rive/sun.riv',
+        fit: BoxFit.cover,
+        controllers: [
+          SimpleAnimation('Timeline 1', autoplay: true),
+        ],
+      );
+    } else {
+      return customLottie(LottieConstants.assetsLottieMoon, height: 120);
+    }
+  }
+
+  RxBool get prohibitionTimesBool {
+    DateTime fajr = state.prayerTimes.fajr;
+    DateTime sunrise = state.prayerTimes.sunrise;
+    DateTime dhuhr = state.prayerTimes.dhuhr;
+    DateTime asr = state.prayerTimes.asr;
+    DateTime maghrib = state.prayerTimes.maghrib;
+
+    if (state.now.isAfter(fajr) &&
+        state.now.isBefore(sunrise.add(const Duration(minutes: 15)))) {
+      state.prohibitionTimesIndex.value = 0;
+      return true.obs;
+    } else if (state.now.isAfter(dhuhr) &&
+        state.now.isBefore(dhuhr.subtract(const Duration(minutes: 10)))) {
+      state.prohibitionTimesIndex.value = 1;
+      return true.obs;
+    } else if (state.now.isAfter(asr) && state.now.isBefore(maghrib)) {
+      state.prohibitionTimesIndex.value = 2;
+      return true.obs;
+    } else {
+      return false.obs;
+    }
   }
 
   void get getShared {

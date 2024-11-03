@@ -9,6 +9,7 @@
 #include <awesome_notifications/awesome_notifications_plugin.h>
 #include <awesome_notifications_core/awesome_notifications_core_plugin.h>
 #include <desktop_window/desktop_window_plugin.h>
+#include <rive_common/rive_plugin.h>
 #include <simple_animation_progress_bar/simple_animation_progress_bar_plugin.h>
 #include <url_launcher_linux/url_launcher_plugin.h>
 
@@ -22,6 +23,9 @@ void fl_register_plugins(FlPluginRegistry* registry) {
   g_autoptr(FlPluginRegistrar) desktop_window_registrar =
       fl_plugin_registry_get_registrar_for_plugin(registry, "DesktopWindowPlugin");
   desktop_window_plugin_register_with_registrar(desktop_window_registrar);
+  g_autoptr(FlPluginRegistrar) rive_common_registrar =
+      fl_plugin_registry_get_registrar_for_plugin(registry, "RivePlugin");
+  rive_plugin_register_with_registrar(rive_common_registrar);
   g_autoptr(FlPluginRegistrar) simple_animation_progress_bar_registrar =
       fl_plugin_registry_get_registrar_for_plugin(registry, "SimpleAnimationProgressBarPlugin");
   simple_animation_progress_bar_plugin_register_with_registrar(simple_animation_progress_bar_registrar);

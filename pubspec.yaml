@@ -87,6 +87,8 @@ dependencies:
   arc_progress_bar_new: ^1.0.4
   get_storage: ^2.1.1
   gauge_indicator: ^0.4.3
+  flutter_rounded_progress_bar: ^0.3.2
+  rive: ^0.13.15
 
 
 dev_dependencies:
@@ -148,6 +150,7 @@ flutter:
     - assets/json/translate/
     - assets/lottie/
     - assets/locales/
+    - assets/rive/
     - assets/QuranV3.sqlite
     - assets/baghawyV2.db
     - assets/ibnkatheerV2.sqlite

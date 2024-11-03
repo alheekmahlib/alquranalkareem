@@ -10,6 +10,7 @@ list(APPEND FLUTTER_PLUGIN_LIST
   flutter_timezone
   geolocator_windows
   just_audio_windows
+  rive_common
   share_plus
   simple_animation_progress_bar
   url_launcher_windows

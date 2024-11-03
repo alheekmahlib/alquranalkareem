@@ -1,7 +1,7 @@
 part of 'prayers.dart';
 
 class PrayerWidget extends StatelessWidget {
-  PrayerWidget({super.key});
+  const PrayerWidget({super.key});
 
   // final generalCtrl = GeneralController.instance;
 
@@ -55,7 +55,9 @@ class PrayerWidget extends StatelessWidget {
                   bottomCenterWidget: Column(
                     children: [
                       Text(
-                        adhanCtrl.getNextPrayerDetails.prayerName,
+                        adhanCtrl
+                            .getPrayerDetails(isNextPrayer: true)
+                            .prayerName,
                         style: TextStyle(
                           fontFamily: 'kufi',
                           fontSize: 22,
@@ -64,7 +66,9 @@ class PrayerWidget extends StatelessWidget {
                         ),
                       ),
                       Text(
-                        adhanCtrl.getNextPrayerDetails.prayerDisplayName ??
+                        adhanCtrl
+                                .getPrayerDetails(isNextPrayer: true)
+                                .prayerDisplayName ??
                             "No Name Available",
                         style: TextStyle(
                           fontFamily: 'kufi',
@@ -78,12 +82,13 @@ class PrayerWidget extends StatelessWidget {
                   ),
                   handleSize: 100,
                   handleWidget: adhanCtrl.LottieWidget,
-                  foregroundColor: const Color(0xffa22c08).withOpacity(.6),
-                  backgroundColor: Theme.of(context).canvasColor,
+                  foregroundColor: context.theme.colorScheme.surface,
+                  backgroundColor: context.theme.canvasColor,
                 ),
               ),
             ],
           ),
+          ProhibitionWidget(),
           PrayerBuild(),
         ],
       );

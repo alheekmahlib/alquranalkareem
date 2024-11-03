@@ -1,13 +1,68 @@
 part of '../prayers.dart';
 
-class PrayerDetails extends StatelessWidget {
-  final int index;
-  final String prayerName;
-  const PrayerDetails(
-      {super.key, required this.index, required this.prayerName});
+class ProhibitionWidget extends StatelessWidget {
+  const ProhibitionWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
+    return GetX<AdhanController>(
+      builder: (adhanCtrl) => adhanCtrl.prohibitionTimesBool.value
+          ? GestureDetector(
+              onTap: () => Get.bottomSheet(
+                  prohibitionDetails(
+                    context,
+                    adhanCtrl.state.prohibitionTimesIndex.value,
+                  ),
+                  isScrollControlled: true),
+              child: Container(
+                height: 40,
+                width: Get.width * .7,
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 6.0, vertical: 3.0),
+                margin: const EdgeInsets.symmetric(horizontal: 6.0),
+                decoration: BoxDecoration(
+                  color: const Color(0xfff16938).withOpacity(.2),
+                  borderRadius: const BorderRadius.all(
+                    Radius.circular(4),
+                  ),
+                ),
+                child: Stack(
+                  alignment: Alignment.center,
+                  children: [
+                    RoundedProgressBar(
+                      height: 34,
+                      style: RoundedProgressBarStyle(
+                        borderWidth: 0,
+                        widthShadow: 5,
+                        backgroundProgress:
+                            const Color(0xfff16938).withOpacity(.5),
+                        colorProgress: const Color(0xfff16938),
+                        colorProgressDark:
+                            const Color(0xfff16938).withOpacity(.5),
+                        colorBorder: Colors.transparent,
+                        colorBackgroundIcon: Colors.transparent,
+                      ),
+                      borderRadius: const BorderRadius.all(Radius.circular(4)),
+                      percent: adhanCtrl.getTimeLeftPercentage.value,
+                    ),
+                    Text(
+                      'prohibitionTimes'.tr,
+                      style: TextStyle(
+                        fontFamily: 'kufi',
+                        fontSize: 14,
+                        fontWeight: FontWeight.bold,
+                        color: Theme.of(context).canvasColor,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            )
+          : const SizedBox.shrink(),
+    );
+  }
+
+  Widget prohibitionDetails(BuildContext context, int index) {
     return Container(
       height: Get.height * .55,
       decoration: BoxDecoration(
@@ -28,7 +83,7 @@ class PrayerDetails extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16.0),
                 child: Text(
-                  'aboutPrayer'.tr,
+                  'prohibitionTimes'.tr,
                   style: TextStyle(
                     fontFamily: 'kufi',
                     fontSize: 18,
@@ -46,7 +101,7 @@ class PrayerDetails extends StatelessWidget {
                   padding: const EdgeInsets.symmetric(
                       horizontal: 32.0, vertical: 16.0),
                   child: Text(
-                    prayerName.tr,
+                    '${prohibitionTimesList[index]['title']}'.tr,
                     style: TextStyle(
                       fontFamily: 'kufi',
                       fontSize: 24,
@@ -55,60 +110,6 @@ class PrayerDetails extends StatelessWidget {
                     ),
                     textAlign: TextAlign.center,
                   ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(
-                      horizontal: 32.0, vertical: 16.0),
-                  child: prayerHadithsList[index]['fromQuran'] != ''
-                      ? Column(
-                          children: [
-                            Align(
-                              alignment: AlignmentDirectional.centerStart,
-                              child: Text(
-                                'fromQuran:'.tr,
-                                style: TextStyle(
-                                  fontFamily: 'kufi',
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.bold,
-                                  color: Theme.of(context).canvasColor,
-                                ),
-                              ),
-                            ),
-                            const Gap(16),
-                            Container(
-                              padding: const EdgeInsets.symmetric(
-                                  horizontal: 16.0, vertical: 8.0),
-                              decoration: BoxDecoration(
-                                  color: Theme.of(context)
-                                      .canvasColor
-                                      .withOpacity(.2),
-                                  borderRadius: const BorderRadius.all(
-                                    Radius.circular(8),
-                                  )),
-                              child: Text(
-                                prayerHadithsList[index]['fromQuran'],
-                                style: TextStyle(
-                                  fontFamily: 'uthmanic2',
-                                  fontSize: 22,
-                                  color: Theme.of(context).canvasColor,
-                                ),
-                              ),
-                            ),
-                            context.hDivider(
-                                width: Get.width * .5,
-                                height: 1,
-                                color: context.theme.canvasColor),
-                            Text(
-                              prayerHadithsList[index]['ayahNumber'],
-                              style: TextStyle(
-                                fontFamily: 'naskh',
-                                fontSize: 14,
-                                color: Theme.of(context).canvasColor,
-                              ),
-                            ),
-                          ],
-                        )
-                      : const SizedBox.shrink(),
                 ),
                 Padding(
                   padding: const EdgeInsets.symmetric(
@@ -138,7 +139,7 @@ class PrayerDetails extends StatelessWidget {
                               Radius.circular(8),
                             )),
                         child: Text(
-                          prayerHadithsList[index]['fromSunnah'],
+                          prohibitionTimesList[index]['hadith'],
                           style: TextStyle(
                             fontFamily: 'naskh',
                             fontSize: 20,
@@ -154,7 +155,7 @@ class PrayerDetails extends StatelessWidget {
                           height: 1,
                           color: context.theme.canvasColor),
                       Text(
-                        prayerHadithsList[index]['rule'],
+                        prohibitionTimesList[index]['source'],
                         style: TextStyle(
                           fontFamily: 'naskh',
                           fontSize: 14,

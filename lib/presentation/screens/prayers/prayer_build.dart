@@ -32,9 +32,11 @@ class PrayerBuild extends StatelessWidget {
                     ),
                     border: Border.all(
                       color: adhanCtrl.getCurrentSelectedPrayer(index).value
-                          ? const Color(0xfff16938)
+                          ? context.theme.colorScheme.surface
                           : Theme.of(context).canvasColor,
-                      width: 1,
+                      width: adhanCtrl.getCurrentSelectedPrayer(index).value
+                          ? 2
+                          : 1,
                       strokeAlign: BorderSide.strokeAlignInside,
                     )),
                 child: Row(
@@ -63,7 +65,7 @@ class PrayerBuild extends StatelessWidget {
                               color: adhanCtrl
                                       .getCurrentSelectedPrayer(index)
                                       .value
-                                  ? const Color(0xfff16938)
+                                  ? context.theme.colorScheme.surface
                                   : context.theme.canvasColor,
                             ),
                           ),

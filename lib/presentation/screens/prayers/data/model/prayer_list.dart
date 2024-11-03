@@ -2,7 +2,7 @@ part of '../../prayers.dart';
 
 List<Map<String, dynamic>> generatePrayerNameList(AdhanState state) => [
       {
-        'title': 'الفجر',
+        'title': 'Fajr',
         'time': state.fajrTime.value,
         'hourTime': state.prayerTimes.fajr,
         'minuteTime': state.prayerTimes.fajr.minute,
@@ -12,7 +12,7 @@ List<Map<String, dynamic>> generatePrayerNameList(AdhanState state) => [
         'icon': SolarIconsBold.moonFog,
       },
       {
-        'title': 'الظهر',
+        'title': AdhanController.instance.getFridayDhuhrTime,
         'time': state.dhuhrTime.value,
         'hourTime': state.prayerTimes.dhuhr,
         'minuteTime': state.prayerTimes.dhuhr.minute,
@@ -22,7 +22,7 @@ List<Map<String, dynamic>> generatePrayerNameList(AdhanState state) => [
         'icon': SolarIconsBold.sun,
       },
       {
-        'title': 'العصر',
+        'title': 'Asr',
         'time': state.asrTime.value,
         'hourTime': state.prayerTimes.asr,
         'minuteTime': state.prayerTimes.asr.minute,
@@ -32,7 +32,7 @@ List<Map<String, dynamic>> generatePrayerNameList(AdhanState state) => [
         'icon': SolarIconsBold.sun2,
       },
       {
-        'title': 'المغرب',
+        'title': 'Maghrib',
         'time': state.maghribTime.value,
         'hourTime': state.prayerTimes.maghrib,
         'minuteTime': state.prayerTimes.maghrib.minute,
@@ -42,7 +42,7 @@ List<Map<String, dynamic>> generatePrayerNameList(AdhanState state) => [
         'icon': SolarIconsBold.sunset,
       },
       {
-        'title': 'العشاء',
+        'title': 'Isha',
         'time': state.ishaTime.value,
         'hourTime': state.prayerTimes.isha,
         'minuteTime': state.prayerTimes.isha.minute,
