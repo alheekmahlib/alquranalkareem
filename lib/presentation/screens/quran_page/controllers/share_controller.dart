@@ -1,18 +1,4 @@
-import 'dart:io';
-import 'dart:typed_data';
-
-import 'package:arabic_numbers/arabic_numbers.dart';
-import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:get_storage/get_storage.dart';
-import 'package:path_provider/path_provider.dart';
-import 'package:screenshot/screenshot.dart';
-import 'package:share_plus/share_plus.dart';
-
-import '../../../../core/services/services_locator.dart';
-import '../../../../core/utils/constants/lists.dart';
-import '../../../../core/utils/constants/shared_preferences_constants.dart';
-import 'translate_controller.dart';
+part of '../quran.dart';
 
 class ShareController extends GetxController {
   static ShareController get instance => Get.isRegistered<ShareController>()
@@ -53,25 +39,26 @@ class ShareController extends GetxController {
 
   Future<void> shareButtonOnTap(BuildContext context, int selectedIndex,
       int verseUQNumber, int surahNumber, int verseNumber) async {
-    sl<TranslateDataController>().shareTransValue.value == selectedIndex;
+    TranslateDataController.instance.shareTransValue.value == selectedIndex;
     box.write(SHARE_TRANSLATE_VALUE, selectedIndex);
     box.write(CURRENT_TRANSLATE, shareTranslateName[selectedIndex]);
     currentTranslate.value = shareTranslateName[selectedIndex];
-    sl<TranslateDataController>().shareTranslateHandleRadioValue(selectedIndex);
+    TranslateDataController.instance
+        .shareTranslateHandleRadioValue(selectedIndex);
     if (isTafseer.value) {
       // await sl<TafsirController>()
       //     .fetchTafsirPage(sl<QuranController>().state.currentPageNumber.value);
       // sl<TafsirController>().ayahsTafseer(verseUQNumber, surahNumber);
     } else {
-      sl<TranslateDataController>().fetchTranslate(context);
+      TranslateDataController.instance.fetchTranslate(context);
     }
-    sl<TranslateDataController>().update();
+    TranslateDataController.instance.update();
     Get.back();
   }
 
   void fetchTafseerSaadi(int surahNum, int ayahNum, int ayahUQNum) {
     if (isTafseer.value &&
-        sl<TranslateDataController>().shareTransValue.value == 8) {
+        TranslateDataController.instance.shareTransValue.value == 8) {
       // sl<TafsirController>().dBName =
       //     sl<TafsirController>().saadiClient?.database;
       // sl<TafsirController>().selectedDBName = MufaserName.saadi.name;

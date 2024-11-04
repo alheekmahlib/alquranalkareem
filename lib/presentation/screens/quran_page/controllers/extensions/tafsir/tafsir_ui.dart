@@ -1,10 +1,4 @@
-import 'package:flutter/services.dart';
-import 'package:get/get.dart';
-
-import '/core/utils/constants/extensions/custom_error_snackBar.dart';
-import '/presentation/screens/quran_page/controllers/tafsir_ctrl.dart';
-import '../../../widgets/show_tafseer.dart';
-import '../../quran/quran_controller.dart';
+part of '../../../quran.dart';
 
 extension TafsirUi on TafsirCtrl {
   /// -------- [onTap] --------

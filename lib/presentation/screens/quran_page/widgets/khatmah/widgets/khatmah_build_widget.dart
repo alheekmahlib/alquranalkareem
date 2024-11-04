@@ -1,11 +1,4 @@
-import 'package:expansion_tile_card/expansion_tile_card.dart';
-import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-
-import '../../../../../../core/widgets/delete_widget.dart';
-import '../../../controllers/khatmah_controller.dart';
-import 'khatmah_days_page.dart';
-import 'khatmah_name_widget.dart';
+part of '../../../quran.dart';
 
 class KhatmahBuildWidget extends StatelessWidget {
   KhatmahBuildWidget({super.key});

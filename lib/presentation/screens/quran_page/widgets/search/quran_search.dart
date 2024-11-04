@@ -1,19 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:gap/gap.dart';
-import 'package:get/get.dart';
-
-import '/presentation/screens/quran_page/widgets/search/search_extensions/highlight_extension.dart';
-import '../../../../../core/utils/constants/extensions/extensions.dart';
-import '../../../../../core/utils/constants/lottie.dart';
-import '../../../../../core/utils/constants/lottie_constants.dart';
-import '../../../../controllers/general/general_controller.dart';
-import '../../controllers/extensions/quran/quran_ui.dart';
-import '../../controllers/quran/quran_controller.dart';
-import '../../data/data_source/quran_database.dart';
-import '../../extensions/surah_name_with_banner.dart';
-import 'controller/quran_search_controller.dart';
-import 'last_search_widget.dart';
-import 'search_bar_widget.dart';
+part of '../../quran.dart';
 
 class QuranSearch extends StatelessWidget {
   QuranSearch({super.key});

@@ -1,12 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-
-import '/core/utils/constants/extensions/svg_extensions.dart';
-import '../../../../../core/utils/constants/svg_constants.dart';
-import '../../../../../core/utils/helpers/global_key_manager.dart';
-import '../../../../controllers/general/general_controller.dart';
-import '../../controllers/quran/quran_controller.dart';
-import '../bookmarks/khatmah_bookmarks_screen.dart';
+part of '../../quran.dart';
 
 class NavBarWidget extends StatelessWidget {
   NavBarWidget({super.key});

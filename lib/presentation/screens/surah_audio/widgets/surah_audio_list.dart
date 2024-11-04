@@ -8,7 +8,7 @@ import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 
 import '/core/utils/constants/extensions/extensions.dart';
 import '/presentation/screens/surah_audio/controller/extensions/surah_audio_ui.dart';
-import '../../quran_page/controllers/quran/quran_controller.dart';
+import '../../quran_page/quran.dart';
 import '../controller/surah_audio_controller.dart';
 
 class SurahAudioList extends StatelessWidget {

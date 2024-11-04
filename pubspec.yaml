@@ -3,7 +3,7 @@ description: Al-Quran Al-Kareem - Al-Heekmah Library.
 
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 
-version: 4.2.2+68
+version: 4.2.3+69
 
 environment:
   sdk: '>=3.5.3 <4.0.0'
@@ -73,12 +73,13 @@ dependencies:
 
 
 # Commit this line if you want to run or build on ios / macOS
-  drift_flutter: ^0.2.1
+#  drift_flutter: ^0.2.1
 
   flutter:
     sdk: flutter
   flutter_localizations:
     sdk: flutter
+  get_storage: ^2.1.1
 
 
 dev_dependencies:

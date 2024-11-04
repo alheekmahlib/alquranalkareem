@@ -1,13 +1,13 @@
 import 'dart:developer' as developer;
 
+import 'package:alquranalkareem/presentation/screens/quran_page/widgets/search/search_extensions/highlight_extension.dart';
 import 'package:get/get.dart';
 import 'package:just_audio/just_audio.dart';
 
-import '/presentation/screens/quran_page/widgets/search/search_extensions/highlight_extension.dart';
 import '/presentation/screens/surah_audio/controller/extensions/surah_audio_getters.dart';
 import '../../../../../core/utils/constants/lists.dart';
 import '../../../../../core/utils/constants/shared_preferences_constants.dart';
-import '../../../quran_page/controllers/quran/quran_controller.dart';
+import '../../../quran_page/quran.dart';
 import '../surah_audio_controller.dart';
 
 extension SurahAudioUi on SurahAudioController {

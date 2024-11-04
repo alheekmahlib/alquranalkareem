@@ -1,20 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_slider_drawer/flutter_slider_drawer.dart';
-import 'package:get/get.dart';
-
-import '/core/utils/constants/extensions/alignment_rotated_extension.dart';
-import '/core/utils/helpers/global_key_manager.dart';
-import '/core/widgets/tab_bar_widget.dart';
-import '../../../controllers/general/general_controller.dart';
-import '../controllers/audio/audio_controller.dart';
-import '../controllers/bookmarks_controller.dart';
-import '../controllers/quran/quran_controller.dart';
-import '../widgets/audio/audio_widget.dart';
-import '../widgets/pages/nav_bar_widget.dart';
-import '../widgets/screen_switch.dart';
-import '../widgets/search/controller/quran_search_controller.dart';
-import '../widgets/search/search_bar.dart';
-import '../widgets/surah_juz_list.dart';
+part of '../quran.dart';
 
 class QuranHome extends StatelessWidget {
   QuranHome({Key? key}) : super(key: key);
@@ -35,10 +19,17 @@ class QuranHome extends StatelessWidget {
     GlobalKeyManager().resetDrawerKey();
     return PopScope(
       canPop: false,
-      onPopInvoked: (bool didPop) {
+      onPopInvokedWithResult: (bool didPop, _) {
         if (didPop) {
           return;
         }
+        NotificationManager().updateBookProgress(
+            'quran'.tr,
+            'notifyQuranBody'.trParams({
+              'currentPageNumber':
+                  '${quranCtrl.state.currentPageNumber.value}'.convertNumbers()
+            }),
+            quranCtrl.state.currentPageNumber.value);
         quranCtrl.state.selectedAyahIndexes.clear();
       },
       child: Scaffold(

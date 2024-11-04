@@ -19,8 +19,7 @@ import '/presentation/screens/surah_audio/controller/extensions/surah_audio_ui.d
 import '../../../../core/utils/constants/shared_preferences_constants.dart';
 import '../../../../core/widgets/seek_bar.dart';
 import '../../../controllers/general/general_controller.dart';
-import '../../quran_page/controllers/audio/audio_controller.dart';
-import '../../quran_page/controllers/quran/quran_controller.dart';
+import '../../quran_page/quran.dart';
 import 'audio_player_handler.dart';
 import 'surah_audio_state.dart';
 

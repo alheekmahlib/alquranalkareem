@@ -1,12 +1,4 @@
-import 'dart:convert';
-
-import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:get_storage/get_storage.dart';
-
-import '../../../../core/services/services_locator.dart';
-import '../../../../core/utils/constants/shared_preferences_constants.dart';
-import 'share_controller.dart';
+part of '../quran.dart';
 
 class TranslateDataController extends GetxController {
   static TranslateDataController get instance =>
@@ -36,39 +28,39 @@ class TranslateDataController extends GetxController {
     transValue.value = translateVal;
     switch (transValue.value) {
       case 0:
-        sl<ShareController>().isTafseer.value = false;
+        ShareController.instance.isTafseer.value = false;
         trans.value = 'en';
         await box.write(TRANS, 'en');
       case 1:
-        sl<ShareController>().isTafseer.value = false;
+        ShareController.instance.isTafseer.value = false;
         trans.value = 'es';
         await box.write(TRANS, 'es');
       case 2:
-        sl<ShareController>().isTafseer.value = false;
+        ShareController.instance.isTafseer.value = false;
         trans.value = 'be';
         await box.write(TRANS, 'be');
       case 3:
-        sl<ShareController>().isTafseer.value = false;
+        ShareController.instance.isTafseer.value = false;
         trans.value = 'urdu';
         await box.write(TRANS, 'urdu');
       case 4:
-        sl<ShareController>().isTafseer.value = false;
+        ShareController.instance.isTafseer.value = false;
         trans.value = 'so';
         await box.write(TRANS, 'so');
       case 5:
-        sl<ShareController>().isTafseer.value = false;
+        ShareController.instance.isTafseer.value = false;
         trans.value = 'in';
         await box.write(TRANS, 'in');
       case 6:
-        sl<ShareController>().isTafseer.value = false;
+        ShareController.instance.isTafseer.value = false;
         trans.value = 'ku';
         await box.write(TRANS, 'ku');
       case 7:
-        sl<ShareController>().isTafseer.value = false;
+        ShareController.instance.isTafseer.value = false;
         trans.value = 'tr';
         await box.write(TRANS, 'tr');
       case 8:
-        sl<ShareController>().isTafseer.value = true;
+        ShareController.instance.isTafseer.value = true;
         box.write(IS_TAFSEER, true);
       default:
         trans.value = 'en';
@@ -79,39 +71,39 @@ class TranslateDataController extends GetxController {
     shareTransValue.value = translateVal;
     switch (shareTransValue.value) {
       case 0:
-        sl<ShareController>().isTafseer.value = false;
+        ShareController.instance.isTafseer.value = false;
         trans.value = 'en';
         await box.write(TRANS, 'en');
       case 1:
-        sl<ShareController>().isTafseer.value = false;
+        ShareController.instance.isTafseer.value = false;
         trans.value = 'es';
         await box.write(TRANS, 'es');
       case 2:
-        sl<ShareController>().isTafseer.value = false;
+        ShareController.instance.isTafseer.value = false;
         trans.value = 'be';
         await box.write(TRANS, 'be');
       case 3:
-        sl<ShareController>().isTafseer.value = false;
+        ShareController.instance.isTafseer.value = false;
         trans.value = 'urdu';
         await box.write(TRANS, 'urdu');
       case 4:
-        sl<ShareController>().isTafseer.value = false;
+        ShareController.instance.isTafseer.value = false;
         trans.value = 'so';
         await box.write(TRANS, 'so');
       case 5:
-        sl<ShareController>().isTafseer.value = false;
+        ShareController.instance.isTafseer.value = false;
         trans.value = 'in';
         await box.write(TRANS, 'in');
       case 6:
-        sl<ShareController>().isTafseer.value = false;
+        ShareController.instance.isTafseer.value = false;
         trans.value = 'ku';
         await box.write(TRANS, 'ku');
       case 7:
-        sl<ShareController>().isTafseer.value = false;
+        ShareController.instance.isTafseer.value = false;
         trans.value = 'tr';
         await box.write(TRANS, 'tr');
       // case 8:
-      //   sl<ShareController>().isTafseer.value = true;
+      //   ShareController.instance.isTafseer.value = true;
       //   sl<AyatController>().dBName =
       //       sl<AyatController>().saadiClient?.database;
       //   sl<AyatController>().selectedDBName = MufaserName.saadi.name;
@@ -125,9 +117,9 @@ class TranslateDataController extends GetxController {
     transValue.value = await box.read(TRANSLATE_VALUE) ?? 0;
     shareTransValue.value = await box.read(SHARE_TRANSLATE_VALUE) ?? 0;
     trans.value = await box.read(TRANS) ?? 'en';
-    sl<ShareController>().currentTranslate.value =
+    ShareController.instance.currentTranslate.value =
         await box.read(CURRENT_TRANSLATE) ?? 'English';
-    sl<ShareController>().isTafseer.value =
+    ShareController.instance.isTafseer.value =
         (await box.read(IS_TAFSEER)) ?? false;
     print('trans.value ${trans.value}');
     print('translateـvalue $transValue');

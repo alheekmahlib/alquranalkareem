@@ -1,12 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:just_audio/just_audio.dart';
-
-import '/core/utils/constants/extensions/svg_extensions.dart';
-import '../../../../../../core/utils/constants/lottie.dart';
-import '../../../../../core/utils/constants/lottie_constants.dart';
-import '../../../../../core/utils/constants/svg_constants.dart';
-import '../../controllers/playList_controller.dart';
+part of '../../quran.dart';
 
 class PlayListPlayButton extends StatelessWidget {
   const PlayListPlayButton({super.key});

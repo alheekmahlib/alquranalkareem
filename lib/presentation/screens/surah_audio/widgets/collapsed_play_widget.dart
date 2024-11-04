@@ -1,3 +1,5 @@
+import 'package:alquranalkareem/presentation/screens/quran_page/quran.dart'
+    as quran;
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -5,7 +7,6 @@ import '/core/utils/constants/extensions/svg_extensions.dart';
 import '../../../../core/services/services_locator.dart';
 import '../../../../core/utils/constants/extensions/extensions.dart';
 import '../../../../core/utils/constants/svg_constants.dart';
-import '../../quran_page/extensions/surah_name_with_banner.dart';
 import '../controller/surah_audio_controller.dart';
 import 'online_play_button.dart';
 import 'skip_next.dart';

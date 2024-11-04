@@ -1,17 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:gap/gap.dart';
-import 'package:get/get.dart';
-import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
-
-import '/core/utils/constants/extensions/convert_number_extension.dart';
-import '/core/utils/constants/extensions/extensions.dart';
-import '/core/utils/constants/extensions/font_size_extension.dart';
-import '../../../../controllers/general/general_controller.dart';
-import '../../controllers/audio/audio_controller.dart';
-import '../../controllers/extensions/audio/audio_ui.dart';
-import '../../controllers/extensions/quran/quran_getters.dart';
-import '../../controllers/quran/quran_controller.dart';
-import 'ayah_build.dart';
+part of '../../quran.dart';
 
 class AyahsWidget extends StatelessWidget {
   AyahsWidget({

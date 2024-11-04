@@ -5,11 +5,7 @@ import 'package:get/get.dart';
 
 import '/core/services/services_locator.dart';
 import '/core/widgets/share/share_ayah_options.dart';
-import '/presentation/screens/quran_page/widgets/buttons/add_bookmark_button.dart';
-import '/presentation/screens/quran_page/widgets/buttons/copy_button.dart';
-import '/presentation/screens/quran_page/widgets/buttons/play_button.dart';
-import '/presentation/screens/quran_page/widgets/buttons/tafsir_button.dart';
-import '../../../../presentation/screens/quran_page/controllers/quran/quran_controller.dart';
+import '../../../../presentation/screens/quran_page/quran.dart';
 import 'extensions.dart';
 
 extension ContextMenuExtension on BuildContext {

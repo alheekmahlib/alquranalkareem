@@ -1,8 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-
-import '../../../../../core/widgets/container_button.dart';
-import '../../controllers/playList_controller.dart';
+part of '../../quran.dart';
 
 class PlayListSaveWidget extends StatelessWidget {
   const PlayListSaveWidget({super.key});

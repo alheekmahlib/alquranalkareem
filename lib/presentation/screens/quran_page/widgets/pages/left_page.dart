@@ -1,8 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-
-import '/presentation/screens/quran_page/controllers/quran/quran_controller.dart';
-import '../../controllers/extensions/quran/quran_getters.dart';
+part of '../../quran.dart';
 
 class LeftPage extends StatelessWidget {
   final Widget child;

@@ -9,7 +9,7 @@ import '/presentation/screens/quran_page/widgets/search/search_extensions/highli
 import '../../../../core/utils/constants/lottie.dart';
 import '../../../../core/utils/constants/lottie_constants.dart';
 import '../../../../core/utils/constants/svg_constants.dart';
-import '../../quran_page/widgets/search/search_bar_widget.dart';
+import '../../quran_page/quran.dart';
 import '../controller/books_controller.dart';
 
 class SearchScreen extends StatelessWidget {

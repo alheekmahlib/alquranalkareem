@@ -1,14 +1,4 @@
-import 'dart:developer';
-
-import 'package:animated_custom_dropdown/custom_dropdown.dart';
-import 'package:flex_color_picker/flex_color_picker.dart';
-import 'package:flutter/material.dart';
-import 'package:gap/gap.dart';
-import 'package:get/get.dart';
-
-import '/core/utils/constants/extensions/extensions.dart';
-import '../../../controllers/khatmah_controller.dart';
-import '../../search/search_bar_widget.dart';
+part of '../../../quran.dart';
 
 class AddKhatmahWidget extends StatelessWidget {
   AddKhatmahWidget({super.key});

@@ -1,23 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:gap/gap.dart';
-import 'package:get/get.dart';
-
-import '/core/utils/constants/extensions/font_size_extension.dart';
-import '/core/utils/constants/extensions/svg_extensions.dart';
-import '/core/utils/constants/extensions/text_span_extension.dart';
-import '../../../../core/services/services_locator.dart';
-import '../../../../core/utils/constants/extensions/extensions.dart';
-import '../../../../core/utils/constants/lists.dart';
-import '../../../../core/utils/constants/svg_constants.dart';
-import '../../../controllers/general/general_controller.dart';
-import '../controllers/extensions/quran/quran_getters.dart';
-import '../controllers/quran/quran_controller.dart';
-import '../controllers/tafsir_ctrl.dart';
-import '../controllers/translate_controller.dart';
-import '../data/data_source/tafsir_database.dart';
-import 'ayahs/share_copy_widget.dart';
-import 'change_tafsir.dart';
+part of '../quran.dart';
 
 class ShowTafseer extends StatelessWidget {
   late final int ayahUQNumber;

@@ -1,3 +1,4 @@
+import 'package:alquranalkareem/core/utils/constants/extensions/convert_number_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -5,7 +6,8 @@ import '/core/utils/constants/extensions/svg_extensions.dart';
 import '/core/utils/constants/svg_constants.dart';
 import '/presentation/screens/home/home_screen.dart';
 import '../../presentation/controllers/general/general_controller.dart';
-import '../../presentation/screens/quran_page/controllers/quran/quran_controller.dart';
+import '../../presentation/screens/quran_page/quran.dart';
+import '../services/notifications_manager.dart';
 import '../services/services_locator.dart';
 import 'local_notification/notification_screen.dart';
 import 'local_notification/widgets/notification_icon_widget.dart';
@@ -46,6 +48,14 @@ class TabBarWidget extends StatelessWidget {
                 child: isFirstChild
                     ? GestureDetector(
                         onTap: () {
+                          NotificationManager().updateBookProgress(
+                              'quran'.tr,
+                              'notifyQuranBody'.trParams({
+                                'currentPageNumber':
+                                    '${quranCtrl.state.currentPageNumber.value}'
+                                        .convertNumbers()
+                              }),
+                              quranCtrl.state.currentPageNumber.value);
                           Get.offAll(() => const HomeScreen(),
                               transition: Transition.upToDown);
                           sl<QuranController>()
