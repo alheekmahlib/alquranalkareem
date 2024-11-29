@@ -1201,5 +1201,19 @@
   "@lastSearch": {
     "type": "text",
     "placeholders": {}
-  }
+  },
+  "islamicCalendar": "Kalender Islam",
+  "hijriCalendar": "Kalender Hijriah",
+  "calendar": "Kalender",
+  "events": "Acara",
+  "year": "Tahun",
+  "month": "Bulan",
+  "hijri": "Hijriah",
+  "Sun": "Min",
+  "Mon": "Sen",
+  "Tue": "Sel",
+  "Wed": "Rab",
+  "Thu": "Kam",
+  "Fri": "Jum",
+  "Sat": "Sab"
 }

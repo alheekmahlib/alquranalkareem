@@ -15,11 +15,14 @@ import '../screen/widgets/whats_new_widget.dart';
 
 class WhatsNewScreen extends StatelessWidget {
   final List<Map<String, dynamic>> newFeatures;
-  WhatsNewScreen({Key? key, required this.newFeatures}) : super(key: key);
-
   final controller = PageController(viewportFraction: 1, keepPage: true);
+
   final whatsNewCtrl = WhatsNewController.instance;
   final generalCtrl = GeneralController.instance;
+  WhatsNewScreen({
+    super.key,
+    required this.newFeatures,
+  });
 
   @override
   Widget build(BuildContext context) {

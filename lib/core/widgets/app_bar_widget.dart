@@ -13,15 +13,19 @@ class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
   final Color? color;
   final bool isNotifi;
   final bool isBooks;
-  const AppBarWidget(
-      {super.key,
-      required this.isTitled,
-      required this.title,
-      required this.isFontSize,
-      required this.searchButton,
-      this.color,
-      required this.isNotifi,
-      required this.isBooks});
+  final PreferredSizeWidget? bottom;
+
+  const AppBarWidget({
+    super.key,
+    required this.isTitled,
+    required this.title,
+    required this.isFontSize,
+    required this.searchButton,
+    this.color,
+    required this.isNotifi,
+    required this.isBooks,
+    this.bottom,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -72,9 +76,12 @@ class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
         isFontSize ? fontSizeDropDown() : const SizedBox.shrink(),
         searchButton,
       ],
+      bottom: bottom,
     );
   }
 
   @override
-  Size get preferredSize => const Size.fromHeight(kToolbarHeight);
+  Size get preferredSize => Size.fromHeight(
+        kToolbarHeight + (bottom?.preferredSize.height ?? 0.0),
+      );
 }

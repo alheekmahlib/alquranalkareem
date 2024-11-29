@@ -22,10 +22,10 @@ import '../widgets/pages/right_page.dart';
 import '../widgets/pages/top_title_widget.dart';
 
 class QuranPages extends StatelessWidget {
-  QuranPages({Key? key}) : super(key: key);
   final audioCtrl = AudioController.instance;
   final quranCtrl = QuranController.instance;
   final bookmarkCtrl = BookmarksController.instance;
+  QuranPages({super.key});
 
   @override
   Widget build(BuildContext context) {

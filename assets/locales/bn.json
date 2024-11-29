@@ -1207,5 +1207,19 @@
   "@lastSearch": {
     "type": "text",
     "placeholders": {}
-  }
+  },
+  "islamicCalendar": "ইসলামিক ক্যালেন্ডার",
+  "hijriCalendar": "হিজরি ক্যালেন্ডার",
+  "calendar": "ক্যালেন্ডার",
+  "events": "ইভেন্টগুলি",
+  "year": "বছর",
+  "month": "মাস",
+  "hijri": "হিজরি",
+  "Sun": "রবি",
+  "Mon": "সোম",
+  "Tue": "মঙ্গল",
+  "Wed": "বুধ",
+  "Thu": "বৃহঃ",
+  "Fri": "শুক্র",
+  "Sat": "শনি"
 }

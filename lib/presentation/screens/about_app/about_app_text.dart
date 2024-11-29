@@ -29,10 +29,10 @@ class AboutAppText extends StatelessWidget {
       expandedColor: Theme.of(context).colorScheme.surface.withOpacity(.15),
       children: <Widget>[
         context.hDivider(width: MediaQuery.sizeOf(context).width * .5),
-        ButtonBar(
+        OverflowBar(
           alignment: MainAxisAlignment.spaceAround,
-          buttonHeight: 42.0,
-          buttonMinWidth: 90.0,
+          spacing: 42.0,
+          overflowSpacing: 90.0,
           children: [
             Text(
               'about_app'.tr,

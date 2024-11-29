@@ -3,37 +3,6 @@ import 'package:flutter/material.dart';
 import 'expandable_text.dart';
 
 class ReadMoreLess extends StatelessWidget {
-  const ReadMoreLess({
-    Key? key,
-    required this.text,
-    this.readLessText,
-    this.readMoreText,
-    this.animationDuration = const Duration(milliseconds: 200),
-    this.collapsedHeight = 70,
-    this.maxLines = 4,
-    this.textStyle,
-    this.textAlign = TextAlign.center,
-    this.iconCollapsed,
-    this.iconExpanded,
-    this.customButtonBuilder,
-    this.iconColor = Colors.black,
-    this.buttonTextStyle,
-  })  : assert(
-          ((iconCollapsed == null && iconExpanded == null) ||
-              customButtonBuilder == null),
-          'You cannot use custom icons while using a custom button builder',
-        ),
-        assert(
-          (buttonTextStyle == null || customButtonBuilder == null),
-          'You cannot use a custom button style while using a custom button builder',
-        ),
-        assert(
-          ((readLessText == null && readMoreText == null) ||
-              customButtonBuilder == null),
-          'You cannot provide readLess or readMore text when using a custom button builder',
-        ),
-        super(key: key);
-
   /// The main text to be displayed.
   final List<TextSpan> text;
 
@@ -75,20 +44,35 @@ class ReadMoreLess extends StatelessWidget {
   /// The textstyle used for the read more/less button
   final TextStyle? buttonTextStyle;
 
-  bool exceedsMaxLines(TextStyle textStyle, BoxConstraints size) {
-    final span = TextSpan(children: text, style: textStyle);
-
-    final tp = TextPainter(
-      maxLines: maxLines,
-      textAlign: textAlign,
-      textDirection: TextDirection.ltr,
-      text: span,
-    );
-
-    tp.layout(maxWidth: size.maxWidth);
-
-    return tp.didExceedMaxLines;
-  }
+  const ReadMoreLess({
+    super.key,
+    required this.text,
+    this.readLessText,
+    this.readMoreText,
+    this.animationDuration = const Duration(milliseconds: 200),
+    this.collapsedHeight = 70,
+    this.maxLines = 4,
+    this.textStyle,
+    this.textAlign = TextAlign.center,
+    this.iconCollapsed,
+    this.iconExpanded,
+    this.customButtonBuilder,
+    this.iconColor = Colors.black,
+    this.buttonTextStyle,
+  })  : assert(
+          ((iconCollapsed == null && iconExpanded == null) ||
+              customButtonBuilder == null),
+          'You cannot use custom icons while using a custom button builder',
+        ),
+        assert(
+          (buttonTextStyle == null || customButtonBuilder == null),
+          'You cannot use a custom button style while using a custom button builder',
+        ),
+        assert(
+          ((readLessText == null && readMoreText == null) ||
+              customButtonBuilder == null),
+          'You cannot provide readLess or readMore text when using a custom button builder',
+        );
 
   @override
   Widget build(BuildContext context) {
@@ -123,5 +107,20 @@ class ReadMoreLess extends StatelessWidget {
         ),
       ],
     );
+  }
+
+  bool exceedsMaxLines(TextStyle textStyle, BoxConstraints size) {
+    final span = TextSpan(children: text, style: textStyle);
+
+    final tp = TextPainter(
+      maxLines: maxLines,
+      textAlign: textAlign,
+      textDirection: TextDirection.ltr,
+      text: span,
+    );
+
+    tp.layout(maxWidth: size.maxWidth);
+
+    return tp.didExceedMaxLines;
   }
 }

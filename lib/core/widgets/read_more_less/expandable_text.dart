@@ -3,23 +3,8 @@ import 'package:flutter/material.dart';
 import 'expandable_text_button.dart';
 
 class ExpandableText extends StatefulWidget {
-  const ExpandableText({
-    required this.text,
-    required this.textStyle,
-    Key? key,
-    this.readLessText,
-    this.readMoreText,
-    this.animationDuration = const Duration(milliseconds: 200),
-    this.collapsedHeight = 70,
-    this.iconCollapsed,
-    this.iconExpanded,
-    this.customButtonBuilder,
-    this.textAlign = TextAlign.center,
-    this.iconColor = Colors.black,
-    this.buttonTextStyle,
-  }) : super(key: key);
-
   final List<TextSpan> text;
+
   final String? readLessText;
   final String? readMoreText;
   final Duration animationDuration;
@@ -32,6 +17,21 @@ class ExpandableText extends StatefulWidget {
   final TextAlign textAlign;
   final Color iconColor;
   final TextStyle? buttonTextStyle;
+  const ExpandableText({
+    super.key,
+    required this.text,
+    required this.textStyle,
+    this.readLessText,
+    this.readMoreText,
+    this.animationDuration = const Duration(milliseconds: 200),
+    this.collapsedHeight = 70,
+    this.iconCollapsed,
+    this.iconExpanded,
+    this.customButtonBuilder,
+    this.textAlign = TextAlign.center,
+    this.iconColor = Colors.black,
+    this.buttonTextStyle,
+  });
 
   @override
   State<ExpandableText> createState() => _ExpandableTextState();
@@ -39,14 +39,6 @@ class ExpandableText extends StatefulWidget {
 
 class _ExpandableTextState extends State<ExpandableText> {
   CrossFadeState _crossFadeState = CrossFadeState.showFirst;
-
-  void _toggleExpand() {
-    setState(() {
-      _crossFadeState = _crossFadeState == CrossFadeState.showSecond
-          ? CrossFadeState.showFirst
-          : CrossFadeState.showSecond;
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -93,5 +85,13 @@ class _ExpandableTextState extends State<ExpandableText> {
           ),
       ],
     );
+  }
+
+  void _toggleExpand() {
+    setState(() {
+      _crossFadeState = _crossFadeState == CrossFadeState.showSecond
+          ? CrossFadeState.showFirst
+          : CrossFadeState.showSecond;
+    });
   }
 }
