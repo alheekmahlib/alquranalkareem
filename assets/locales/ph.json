@@ -1201,5 +1201,19 @@
   "@lastSearch": {
     "type": "text",
     "placeholders": {}
-  }
+  },
+  "islamicCalendar": "Kalendaryong Islamik",
+  "hijriCalendar": "Kalendaryong Hijri",
+  "calendar": "Kalendaryo",
+  "events": "Mga Evento",
+  "year": "Taon",
+  "month": "Buwan",
+  "hijri": "Hijri",
+  "Sun": "Lin",
+  "Mon": "Lun",
+  "Tue": "Mar",
+  "Wed": "Miy",
+  "Thu": "Huw",
+  "Fri": "Biy",
+  "Sat": "Sab"
 }

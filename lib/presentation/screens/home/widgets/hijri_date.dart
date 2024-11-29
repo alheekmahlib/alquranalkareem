@@ -5,15 +5,15 @@ import 'package:get/get.dart';
 
 import '/core/utils/constants/extensions/convert_number_extension.dart';
 import '/core/widgets/container_button.dart';
-import '../../../../core/widgets/occasions/all_calculating_events_widget.dart';
 import '../../../../core/widgets/occasions/controller/event_controller.dart';
+import '../../../../core/widgets/occasions/islamic_calendar_screen.dart';
 import '../../../controllers/general/general_controller.dart';
 
 class HijriDate extends StatelessWidget {
-  HijriDate({super.key});
-
   final generalCtrl = GeneralController.instance;
+
   final eventCtrl = EventController.instance;
+  HijriDate({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +21,7 @@ class HijriDate extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20.0),
       child: GestureDetector(
-        onTap: () => Get.to(() => AllCalculatingEventsWidget(),
+        onTap: () => Get.to(() => const IslamicCalendarScreen(),
             transition: Transition.downToUp),
         child: ContainerButton(
           height: 190,

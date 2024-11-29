@@ -1199,5 +1199,19 @@
   "@lastSearch": {
     "type": "text",
     "placeholders": {}
-  }
+  },
+  "islamicCalendar": "التقويم الاسلامي",
+  "hijriCalendar": "التقويم الهجري",
+  "calendar": "التقويم",
+  "events": "المناسبات",
+  "year": "سنة",
+  "month": "شهر",
+  "hijri": "هجري",
+  "Sun": "الأحد",
+  "Mon": "الإثنين",
+  "Tue": "الثلاثاء",
+  "Wed": "الأربعاء",
+  "Thu": "الخميس",
+  "Fri": "الجمعة",
+  "Sat": "السبت"
 }

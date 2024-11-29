@@ -1207,5 +1207,19 @@
   "@lastSearch": {
     "type": "text",
     "placeholders": {}
-  }
+  },
+  "islamicCalendar": "اِسلامی کیلنڈر",
+  "hijriCalendar": "ہجری کیلنڈر",
+  "calendar": "کیلنڈر",
+  "events": "اوقات",
+  "year": "سال",
+  "month": "مہینہ",
+  "hijri": "ہجری",
+  "Sun": "اتوار",
+  "Mon": "پیر",
+  "Tue": "منگل",
+  "Wed": "بدھ",
+  "Thu": "جمعرات",
+  "Fri": "جمعہ",
+  "Sat": "ہفتہ"
 }

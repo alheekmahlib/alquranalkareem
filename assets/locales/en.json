@@ -1207,5 +1207,19 @@
   "@lastSearch": {
     "type": "text",
     "placeholders": {}
-  }
+  },
+  "islamicCalendar": "Islamic Calendar",
+  "hijriCalendar": "Hijri Calendar",
+  "calendar": "Calendar",
+  "events": "Events",
+  "year": "Year",
+  "month": "Month",
+  "hijri": "Hijri",
+  "Sun": "Sun",
+  "Mon": "Mon",
+  "Tue": "Tue",
+  "Wed": "Wed",
+  "Thu": "Thu",
+  "Fri": "Fri",
+  "Sat": "Sat"
 }

@@ -130,19 +130,16 @@
     "type": "text",
     "placeholders": {}
   },
-
   "page": "Página",
   "@page": {
     "type": "text",
     "placeholders": {}
   },
-
   "search_word": "Buscar un Versículo",
   "@search_word": {
     "type": "text",
     "placeholders": {}
   },
-
   "search_description": "Puede buscar todos los versos del Noble Corán, simplemente escriba una palabra del verso.",
   "@search_description": {
     "type": "text",
@@ -288,31 +285,26 @@
     "type": "text",
     "placeholders": {}
   },
-
   "setting": "Configuración",
   "@setting": {
     "type": "text",
     "placeholders": {}
   },
-
   "reader1": "Abdul Basit",
   "@reader1": {
     "type": "text",
     "placeholders": {}
   },
-
   "reader2": "Mohamed El-Minshawi",
   "@reader2": {
     "type": "text",
     "placeholders": {}
   },
-
   "reader3": "Mahmoud Al-Hussary",
   "@reader3": {
     "type": "text",
     "placeholders": {}
   },
-
   "reader4": "Ahmed Al-Ajamy",
   "@reader4": {
     "type": "text",
@@ -1215,5 +1207,19 @@
   "@lastSearch": {
     "type": "text",
     "placeholders": {}
-  }
+  },
+  "islamicCalendar": "Calendario Islamic",
+  "hijriCalendar": "Calendario Hijri",
+  "calendar": "Calendario",
+  "events": "Eventos",
+  "year": "Año",
+  "month": "Mes",
+  "hijri": "Hijri",
+  "Sun": "Dom",
+  "Mon": "Lun",
+  "Tue": "Mar",
+  "Wed": "Mié",
+  "Thu": "Jue",
+  "Fri": "Vie",
+  "Sat": "Sáb"
 }
