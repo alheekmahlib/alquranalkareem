@@ -20,14 +20,14 @@ class TafseerImageCreator extends StatelessWidget {
   final int surahNumber;
   final String verseText;
 
+  final tafseerToImage = ShareController.instance;
   TafseerImageCreator({
-    Key? key,
+    super.key,
     required this.verseNumber,
     required this.verseUQNumber,
     required this.surahNumber,
     required this.verseText,
-  }) : super(key: key);
-  final tafseerToImage = ShareController.instance;
+  });
 
   @override
   Widget build(BuildContext context) {

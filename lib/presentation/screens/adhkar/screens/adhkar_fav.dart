@@ -10,7 +10,7 @@ import '../widgets/options_row.dart';
 import '../widgets/text_widget.dart';
 
 class AdhkarFav extends StatelessWidget {
-  const AdhkarFav({Key? key}) : super(key: key);
+  const AdhkarFav({super.key});
 
   @override
   Widget build(BuildContext context) {

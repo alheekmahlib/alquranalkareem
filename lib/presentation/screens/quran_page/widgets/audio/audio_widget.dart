@@ -19,10 +19,10 @@ import 'change_reader.dart';
 import 'play_ayah_widget.dart';
 
 class AudioWidget extends StatelessWidget {
-  AudioWidget({Key? key}) : super(key: key);
   final quranCtrl = QuranController.instance;
   final audioCtrl = AudioController.instance;
   final generalCtrl = GeneralController.instance;
+  AudioWidget({super.key});
 
   @override
   Widget build(BuildContext context) {

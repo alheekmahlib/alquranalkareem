@@ -17,9 +17,9 @@ class MyApp extends StatelessWidget {
   final Map<String, Map<String, String>> languages;
 
   const MyApp({
-    Key? key,
+    super.key,
     required this.languages,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
