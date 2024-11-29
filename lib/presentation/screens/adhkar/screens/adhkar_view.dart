@@ -5,7 +5,7 @@ import '../../../../core/widgets/tab_bar_widget.dart';
 import '../widgets/tab_bar_view_widget.dart';
 
 class AdhkarView extends StatelessWidget {
-  const AdhkarView({Key? key}) : super(key: key);
+  const AdhkarView({super.key});
 
   @override
   Widget build(BuildContext context) {

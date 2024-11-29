@@ -101,7 +101,7 @@ class PlayListBuild extends StatelessWidget {
                                             decoration: BoxDecoration(
                                                 color: Theme.of(context)
                                                     .colorScheme
-                                                    .background
+                                                    .surface
                                                     .withOpacity(.8),
                                                 borderRadius:
                                                     const BorderRadius.all(

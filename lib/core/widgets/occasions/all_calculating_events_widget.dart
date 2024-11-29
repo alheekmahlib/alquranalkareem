@@ -6,27 +6,26 @@ import 'package:get/get.dart';
 import '/core/utils/constants/extensions/convert_number_extension.dart';
 import '/core/utils/constants/extensions/extensions.dart';
 import '../../utils/constants/lists.dart';
-import '../app_bar_widget.dart';
 import 'calculating_date_events_widget.dart';
 import 'controller/event_controller.dart';
 
 class AllCalculatingEventsWidget extends StatelessWidget {
-  AllCalculatingEventsWidget({super.key});
-
   final eventsCtrl = EventController.instance;
+
+  AllCalculatingEventsWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBarWidget(
-        isTitled: false,
-        title: '',
-        isFontSize: false,
-        searchButton: const SizedBox.shrink(),
-        color: context.theme.colorScheme.primary,
-        isNotifi: false,
-        isBooks: false,
-      ),
+      // appBar: AppBarWidget(
+      //   isTitled: false,
+      //   title: '',
+      //   isFontSize: false,
+      //   searchButton: const SizedBox.shrink(),
+      //   color: context.theme.colorScheme.primary,
+      //   isNotifi: false,
+      //   isBooks: false,
+      // ),
       body: SafeArea(
         child: Container(
           color: Theme.of(context).colorScheme.primary,

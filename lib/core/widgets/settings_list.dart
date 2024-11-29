@@ -18,9 +18,9 @@ import 'theme_change.dart';
 
 class SettingsList extends StatelessWidget {
   final bool? isQuranSetting;
-  SettingsList({Key? key, this.isQuranSetting}) : super(key: key);
   final generalCtrl = GeneralController.instance;
   final quranCtrl = QuranController.instance;
+  SettingsList({super.key, this.isQuranSetting});
 
   @override
   Widget build(BuildContext context) {

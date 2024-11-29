@@ -1207,5 +1207,19 @@
   "@lastSearch": {
     "type": "text",
     "placeholders": {}
-  }
+  },
+  "islamicCalendar": "Kaleenda Islamic",
+  "hijriCalendar": "Taariikhda Hijriga",
+  "calendar": "Kaleenda",
+  "events": "Horeen",
+  "year": "Sanad",
+  "month": "Mees",
+  "hijri": "Hijri",
+  "Sun": "Axd",
+  "Mon": "Isn",
+  "Tue": "Tldo",
+  "Wed": "Arb",
+  "Thu": "Kms",
+  "Fri": "Jmc",
+  "Sat": "Sbt"
 }

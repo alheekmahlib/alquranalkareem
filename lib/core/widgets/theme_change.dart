@@ -7,7 +7,7 @@ import '../../presentation/controllers/theme_controller.dart';
 import '../utils/constants/lists.dart';
 
 class ThemeChange extends StatelessWidget {
-  const ThemeChange({Key? key}) : super(key: key);
+  const ThemeChange({super.key});
 
   @override
   Widget build(BuildContext context) {

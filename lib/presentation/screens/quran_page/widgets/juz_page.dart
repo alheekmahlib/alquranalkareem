@@ -29,7 +29,7 @@ class QuranJuz extends StatelessWidget {
             itemCount: 30,
             controller: quranCtrl.juzController,
             itemBuilder: (_, index) {
-              final surah = quranCtrl.state.surahs[index];
+              // final surah = quranCtrl.state.surahs[index];
               final juz = quranCtrl.state.allAyahs.firstWhere(
                 (a) => a.juz == index + 1,
               );

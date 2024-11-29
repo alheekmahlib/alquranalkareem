@@ -105,7 +105,7 @@ class AzkarController extends GetxController {
       reference: drift.Value(adhkar.reference),
       zekr: drift.Value(adhkar.zekr),
     );
-    await DbBookmarkHelper.updateAdhkar(adhkarCompanion, adhkar.id!);
+    await DbBookmarkHelper.updateAdhkar(adhkarCompanion, adhkar.id);
     getAdhkar();
   }
 

@@ -6,7 +6,7 @@ import 'widgets/group_buttons_widget.dart';
 import 'widgets/waqf_list_build.dart';
 
 class AlwaqfScreen extends StatelessWidget {
-  AlwaqfScreen({Key? key}) : super(key: key);
+  AlwaqfScreen({super.key});
 
   @override
   Widget build(BuildContext context) {

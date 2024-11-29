@@ -61,10 +61,10 @@ class LanguageList extends StatelessWidget {
                     thickness: 1.0,
                     height: 1.0,
                   ),
-                  ButtonBar(
+                  OverflowBar(
                       alignment: MainAxisAlignment.spaceAround,
-                      buttonHeight: 42.0,
-                      buttonMinWidth: 90.0,
+                      spacing: 42.0,
+                      overflowSpacing: 90.0,
                       children:
                           List.generate(AppConstants.languages.length, (index) {
                         final lang = AppConstants.languages[index];

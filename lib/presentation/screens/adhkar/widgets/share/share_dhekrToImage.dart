@@ -16,15 +16,15 @@ class DhekrImageCreator extends StatelessWidget {
   final String description;
   final String count;
 
+  final zekrToImage = AzkarController.instance;
   DhekrImageCreator({
-    Key? key,
+    super.key,
     required this.zekrText,
     required this.category,
     required this.reference,
     required this.description,
     required this.count,
-  }) : super(key: key);
-  final zekrToImage = AzkarController.instance;
+  });
 
   @override
   Widget build(BuildContext context) {
