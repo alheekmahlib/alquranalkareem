@@ -9,9 +9,9 @@ import 'bookmark_ayahs_build.dart';
 import 'bookmark_pages_build.dart';
 
 class BookmarksList extends StatelessWidget {
-  BookmarksList({Key? key}) : super(key: key);
-
   final bookmarkCtrl = BookmarksController.instance;
+
+  BookmarksList({super.key});
 
   @override
   Widget build(BuildContext context) {

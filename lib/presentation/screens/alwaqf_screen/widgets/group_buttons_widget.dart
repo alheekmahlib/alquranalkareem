@@ -7,9 +7,9 @@ import '../../../../core/utils/constants/lists.dart';
 import '../../../controllers/general/general_controller.dart';
 
 class GroupButtonsWidget extends StatelessWidget {
-  GroupButtonsWidget({super.key});
-
   final generalCtrl = GeneralController.instance;
+
+  GroupButtonsWidget({super.key});
 
   @override
   Widget build(BuildContext context) {

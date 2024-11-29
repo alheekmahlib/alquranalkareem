@@ -3,7 +3,6 @@ import 'package:flutter_sliding_box/flutter_sliding_box.dart';
 
 import '/core/utils/constants/extensions/extensions.dart';
 import '/presentation/screens/surah_audio/controller/extensions/surah_audio_storage_getters.dart';
-import '/presentation/screens/surah_audio/controller/extensions/surah_audio_ui.dart';
 import 'controller/surah_audio_controller.dart';
 import 'widgets/back_drop_widget.dart';
 import 'widgets/collapsed_play_widget.dart';

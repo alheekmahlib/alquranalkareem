@@ -122,7 +122,7 @@ extension TextSpanExtension on String {
         final bool isDashMatch = regExpDash.hasMatch(matchedText);
 
         if (preText.isNotEmpty) {
-          spans.add(TextSpan(text: preText, style: TextStyle(color: Colors.black)));
+          spans.add(TextSpan(text: preText, style: const TextStyle(color: Colors.black)));
         }
 
         TextStyle matchedTextStyle;
@@ -151,13 +151,13 @@ extension TextSpanExtension on String {
     }
 
     if (lastMatchEnd < text.length) {
-      spans.add(TextSpan(text: text.substring(lastMatchEnd), style: TextStyle(color: Colors.black)));
+      spans.add(TextSpan(text: text.substring(lastMatchEnd), style: const TextStyle(color: Colors.black)));
     }
 
     return RichText(
       text: TextSpan(
         children: spans,
-        style: TextStyle(fontSize: 16.0, color: Colors.black),
+        style: const TextStyle(fontSize: 16.0, color: Colors.black),
       ),
     );
   }

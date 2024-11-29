@@ -14,13 +14,13 @@ class VerseImageCreator extends StatelessWidget {
   final int surahNumber;
   final String verseText;
 
+  final ayahToImage = ShareController.instance;
   VerseImageCreator({
-    Key? key,
+    super.key,
     required this.verseNumber,
     required this.surahNumber,
     required this.verseText,
-  }) : super(key: key);
-  final ayahToImage = ShareController.instance;
+  });
 
   @override
   Widget build(BuildContext context) {

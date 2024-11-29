@@ -17,12 +17,12 @@ import '../widgets/search/search_bar.dart';
 import '../widgets/surah_juz_list.dart';
 
 class QuranHome extends StatelessWidget {
-  QuranHome({Key? key}) : super(key: key);
-
   final audioCtrl = AudioController.instance;
+
   final generalCtrl = GeneralController.instance;
   final bookmarkCtrl = BookmarksController.instance;
   final quranCtrl = QuranController.instance;
+  QuranHome({super.key});
 
   // bool hasUnopenedNotifications() {
   //   return sl<NotificationsController>()
@@ -35,7 +35,7 @@ class QuranHome extends StatelessWidget {
     GlobalKeyManager().resetDrawerKey();
     return PopScope(
       canPop: false,
-      onPopInvoked: (bool didPop) {
+      onPopInvokedWithResult: (bool didPop, _) {
         if (didPop) {
           return;
         }

@@ -19,17 +19,37 @@ import '../data/data_source/tafsir_database.dart';
 import 'ayahs/share_copy_widget.dart';
 import 'change_tafsir.dart';
 
+String allText = '';
+
+String allTitle = '';
+String? selectedTextED;
+void handleSelectionChanged(
+    TextSelection selection, SelectionChangedCause? cause) {
+  if (cause == SelectionChangedCause.longPress) {
+    final characters = allText.characters;
+    final start = characters.take(selection.start).length;
+    final end = characters.take(selection.end).length;
+    final selectedText = allText.substring(start - 5, end - 5);
+
+    selectedTextED = selectedText;
+    print(selectedText);
+  }
+}
+
 class ShowTafseer extends StatelessWidget {
   late final int ayahUQNumber;
   late final int index;
 
-  ShowTafseer({Key? key, required this.ayahUQNumber, required this.index})
-      : super(key: key);
-
   final ScrollController _scrollController = ScrollController();
+
   final quranCtrl = QuranController.instance;
   final generalCtrl = GeneralController.instance;
   final tafsirCtrl = TafsirCtrl.instance;
+  ShowTafseer({
+    super.key,
+    required this.ayahUQNumber,
+    required this.index,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -254,22 +274,5 @@ class ShowTafseer extends StatelessWidget {
         ),
       ),
     );
-  }
-}
-
-String allText = '';
-String allTitle = '';
-String? selectedTextED;
-
-void handleSelectionChanged(
-    TextSelection selection, SelectionChangedCause? cause) {
-  if (cause == SelectionChangedCause.longPress) {
-    final characters = allText.characters;
-    final start = characters.take(selection.start).length;
-    final end = characters.take(selection.end).length;
-    final selectedText = allText.substring(start - 5, end - 5);
-
-    selectedTextED = selectedText;
-    print(selectedText);
   }
 }

@@ -8,9 +8,9 @@ import 'khatmah_days_page.dart';
 import 'khatmah_name_widget.dart';
 
 class KhatmahBuildWidget extends StatelessWidget {
-  KhatmahBuildWidget({super.key});
-
   final khatmahCtrl = KhatmahController.instance;
+
+  KhatmahBuildWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -55,10 +55,10 @@ class KhatmahBuildWidget extends StatelessWidget {
                     thickness: 1.0,
                     height: 1.0,
                   ),
-                  ButtonBar(
+                  OverflowBar(
                     alignment: MainAxisAlignment.spaceAround,
-                    buttonHeight: 42.0,
-                    buttonMinWidth: 90.0,
+                    spacing: 42.0,
+                    overflowSpacing: 90.0,
                     children: <Widget>[
                       KhatmahDaysPage(khatmah: khatmah),
                     ],
