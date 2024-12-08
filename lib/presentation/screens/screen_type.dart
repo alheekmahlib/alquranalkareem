@@ -3,17 +3,17 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 
-import '../../core/widgets/occasions/controller/event_controller.dart';
+import '../../core/widgets/events/events.dart';
 import '../controllers/general/general_controller.dart';
 
 class ScreenTypeL extends StatelessWidget {
   ScreenTypeL({super.key});
   final generalCtrl = GeneralController.instance;
-  final occasionsCtrl = EventController.instance;
+  final eventsCtrl = EventController.instance;
 
   @override
   Widget build(BuildContext context) {
-    occasionsCtrl.ramadhanOrEidGreeting();
+    eventsCtrl.ramadhanOrEidGreeting();
     if (Platform.isIOS || Platform.isAndroid || Platform.isFuchsia) {
       // UiHelper.showRateDialog(context);
     }

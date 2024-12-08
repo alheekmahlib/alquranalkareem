@@ -1,28 +1,10 @@
-import 'package:flutter/material.dart';
-import 'package:gap/gap.dart';
-import 'package:get/get.dart';
-
-import '/core/utils/constants/extensions/svg_extensions.dart';
-import '/presentation/controllers/general/extensions/general_ui.dart';
-import '/presentation/screens/quran_page/widgets/audio/skip_next.dart';
-import '/presentation/screens/quran_page/widgets/audio/skip_previous.dart';
-import '../../../../../core/services/services_locator.dart';
-import '../../../../../core/utils/constants/extensions/extensions.dart';
-import '../../../../../core/utils/constants/svg_constants.dart';
-import '../../../../../core/widgets/seek_bar.dart';
-import '../../../../controllers/general/general_controller.dart';
-import '../../controllers/audio/audio_controller.dart';
-import '../../controllers/extensions/audio/audio_getters.dart';
-import '../../controllers/quran/quran_controller.dart';
-import '../playlist/ayahs_playList_widget.dart';
-import 'change_reader.dart';
-import 'play_ayah_widget.dart';
+part of '../../quran.dart';
 
 class AudioWidget extends StatelessWidget {
+  AudioWidget({Key? key}) : super(key: key);
   final quranCtrl = QuranController.instance;
   final audioCtrl = AudioController.instance;
   final generalCtrl = GeneralController.instance;
-  AudioWidget({super.key});
 
   @override
   Widget build(BuildContext context) {

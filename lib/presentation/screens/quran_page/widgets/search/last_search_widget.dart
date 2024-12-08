@@ -1,13 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:gap/gap.dart';
-import 'package:get/get.dart';
-
-import '/core/utils/constants/extensions/convert_number_extension.dart';
-import '/core/utils/constants/extensions/extensions.dart';
-import '/core/utils/constants/extensions/svg_extensions.dart';
-import '../../../../../core/utils/constants/svg_constants.dart';
-import 'controller/quran_search_controller.dart';
+part of '../../quran.dart';
 
 class LastSearchWidget extends StatelessWidget {
   LastSearchWidget({super.key});

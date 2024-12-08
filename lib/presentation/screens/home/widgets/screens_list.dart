@@ -5,7 +5,7 @@ import 'package:get/get.dart';
 import '/core/utils/constants/extensions/extensions.dart';
 import '/core/widgets/container_with_lines.dart';
 import '../../../../core/utils/constants/lists.dart';
-import '../../../../core/widgets/container_button.dart';
+import '../../../../core/widgets/elevated_button_widget.dart';
 
 class ScreensList extends StatelessWidget {
   const ScreensList({super.key});
@@ -31,16 +31,21 @@ class ScreensList extends StatelessWidget {
                             Get.to(screensList[index]['route'],
                                 transition: Transition.downToUp);
                           },
-                          child: ContainerButton(
-                            height: 65,
-                            width: screensList[index]['width'],
+                          child: ElevatedButtonWidget(
+                            index: index,
+                            onClick: () => Get.to(screensList[index]['route'],
+                                transition: Transition.downToUp),
+                            height: 70,
+                            width: index == 5
+                                ? screensList[index]['width'] - 5
+                                : screensList[index]['width'] + 5,
                             child: Row(
                               mainAxisSize: MainAxisSize.min,
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 SvgPicture.asset(
                                   screensList[index]['svgUrl'],
-                                  height: index == 5 ? 40 : 65,
+                                  height: index == 5 ? 35 : 65,
                                 ),
                                 index == 2 || index == 3
                                     ? const SizedBox.shrink()

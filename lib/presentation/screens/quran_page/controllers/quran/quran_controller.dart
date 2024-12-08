@@ -1,13 +1,4 @@
-import 'dart:convert';
-
-import 'package:flutter/services.dart' show rootBundle;
-import 'package:get/get.dart';
-
-import '/presentation/controllers/theme_controller.dart';
-import '../../../../../core/utils/constants/shared_preferences_constants.dart';
-import '../../../../controllers/general/general_controller.dart';
-import '../../data/model/surahs_model.dart';
-import 'quran_state.dart';
+part of '../../quran.dart';
 
 class QuranController extends GetxController {
   static QuranController get instance => Get.isRegistered<QuranController>()
@@ -64,6 +55,7 @@ class QuranController extends GetxController {
             .where((ayah) => ayah.page == pageIndex + 1)
             .toList());
       });
+      state.isQuranLoaded = true;
       // log('Pages Length: ${state.pages.length}', name: 'Quran Controller');
     }
   }

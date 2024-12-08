@@ -1200,6 +1200,16 @@
     "type": "text",
     "placeholders": {}
   },
+  "ashura": "عاشوراء",
+  "@ashura": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "arafah": "يوم عرفه",
+  "@arafah": {
+    "type": "text",
+    "placeholders": {}
+  },
   "islamicCalendar": "التقويم الاسلامي",
   "hijriCalendar": "التقويم الهجري",
   "calendar": "التقويم",

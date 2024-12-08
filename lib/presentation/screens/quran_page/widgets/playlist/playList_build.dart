@@ -1,16 +1,4 @@
-import 'package:expansion_tile_card/expansion_tile_card.dart';
-import 'package:flutter/material.dart';
-import 'package:gap/gap.dart';
-import 'package:get/get.dart';
-
-import '/core/utils/constants/extensions/convert_number_extension.dart';
-import '/core/utils/constants/extensions/svg_extensions.dart';
-import '../../../../../core/utils/constants/svg_constants.dart';
-import '../../../../../core/widgets/delete_widget.dart';
-import '../../../../controllers/general/general_controller.dart';
-import '../../controllers/audio/audio_controller.dart';
-import '../../controllers/playList_controller.dart';
-import 'ayahs_playList_widget.dart';
+part of '../../quran.dart';
 
 class PlayListBuild extends StatelessWidget {
   PlayListBuild({super.key});
@@ -101,7 +89,7 @@ class PlayListBuild extends StatelessWidget {
                                             decoration: BoxDecoration(
                                                 color: Theme.of(context)
                                                     .colorScheme
-                                                    .surface
+                                                    .background
                                                     .withOpacity(.8),
                                                 borderRadius:
                                                     const BorderRadius.all(

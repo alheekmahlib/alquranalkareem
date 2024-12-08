@@ -1,13 +1,4 @@
-import 'dart:developer';
-
-import 'package:alquranalkareem/presentation/screens/quran_page/controllers/quran/quran_controller.dart';
-import 'package:get/get.dart';
-import 'package:get_storage/get_storage.dart';
-
-import '../../../../core/utils/constants/shared_preferences_constants.dart';
-import '../data/data_source/tafsir_database.dart';
-import '../data/model/tafsir.dart';
-import 'translate_controller.dart';
+part of '../quran.dart';
 
 class TafsirCtrl extends GetxController {
   static TafsirCtrl get instance => Get.isRegistered<TafsirCtrl>()

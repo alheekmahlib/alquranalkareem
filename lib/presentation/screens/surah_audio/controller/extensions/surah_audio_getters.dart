@@ -8,8 +8,7 @@ import 'package:rxdart/rxdart.dart' as R;
 
 import '../../../../../core/utils/constants/lists.dart';
 import '../../../../../core/widgets/seek_bar.dart';
-import '../../../quran_page/controllers/audio/audio_controller.dart';
-import '../../../quran_page/controllers/quran/quran_controller.dart';
+import '../../../quran_page/quran.dart';
 import '../audio_player_handler.dart';
 import '../surah_audio_controller.dart';
 

@@ -1,55 +1,16 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:gap/gap.dart';
-import 'package:get/get.dart';
-
-import '/core/utils/constants/extensions/font_size_extension.dart';
-import '/core/utils/constants/extensions/svg_extensions.dart';
-import '/core/utils/constants/extensions/text_span_extension.dart';
-import '../../../../core/services/services_locator.dart';
-import '../../../../core/utils/constants/extensions/extensions.dart';
-import '../../../../core/utils/constants/lists.dart';
-import '../../../../core/utils/constants/svg_constants.dart';
-import '../../../controllers/general/general_controller.dart';
-import '../controllers/extensions/quran/quran_getters.dart';
-import '../controllers/quran/quran_controller.dart';
-import '../controllers/tafsir_ctrl.dart';
-import '../controllers/translate_controller.dart';
-import '../data/data_source/tafsir_database.dart';
-import 'ayahs/share_copy_widget.dart';
-import 'change_tafsir.dart';
-
-String allText = '';
-
-String allTitle = '';
-String? selectedTextED;
-void handleSelectionChanged(
-    TextSelection selection, SelectionChangedCause? cause) {
-  if (cause == SelectionChangedCause.longPress) {
-    final characters = allText.characters;
-    final start = characters.take(selection.start).length;
-    final end = characters.take(selection.end).length;
-    final selectedText = allText.substring(start - 5, end - 5);
-
-    selectedTextED = selectedText;
-    print(selectedText);
-  }
-}
+part of '../quran.dart';
 
 class ShowTafseer extends StatelessWidget {
   late final int ayahUQNumber;
   late final int index;
 
-  final ScrollController _scrollController = ScrollController();
+  ShowTafseer({Key? key, required this.ayahUQNumber, required this.index})
+      : super(key: key);
 
+  final ScrollController _scrollController = ScrollController();
   final quranCtrl = QuranController.instance;
   final generalCtrl = GeneralController.instance;
   final tafsirCtrl = TafsirCtrl.instance;
-  ShowTafseer({
-    super.key,
-    required this.ayahUQNumber,
-    required this.index,
-  });
 
   @override
   Widget build(BuildContext context) {
@@ -274,5 +235,22 @@ class ShowTafseer extends StatelessWidget {
         ),
       ),
     );
+  }
+}
+
+String allText = '';
+String allTitle = '';
+String? selectedTextED;
+
+void handleSelectionChanged(
+    TextSelection selection, SelectionChangedCause? cause) {
+  if (cause == SelectionChangedCause.longPress) {
+    final characters = allText.characters;
+    final start = characters.take(selection.start).length;
+    final end = characters.take(selection.end).length;
+    final selectedText = allText.substring(start - 5, end - 5);
+
+    selectedTextED = selectedText;
+    print(selectedText);
   }
 }

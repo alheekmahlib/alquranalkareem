@@ -1208,6 +1208,16 @@
     "type": "text",
     "placeholders": {}
   },
+  "ashura": "Carafa",
+  "@ashura": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "arafah": "Maalinta Carafa",
+  "@arafah": {
+    "type": "text",
+    "placeholders": {}
+  },
   "islamicCalendar": "Kaleenda Islamic",
   "hijriCalendar": "Taariikhda Hijriga",
   "calendar": "Kaleenda",

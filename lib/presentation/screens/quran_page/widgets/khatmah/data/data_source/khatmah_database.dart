@@ -13,9 +13,9 @@ class Khatmahs extends Table {
   IntColumn get currentPage => integer().nullable()();
   IntColumn get startAyahNumber => integer().nullable()();
   IntColumn get endAyahNumber => integer().nullable()();
-  BoolColumn get isCompleted => boolean().withDefault(const Constant(false))();
-  IntColumn get daysCount => integer().withDefault(const Constant(30))();
-  BoolColumn get isTahzibSahabah => boolean().withDefault(const Constant(false))();
+  BoolColumn get isCompleted => boolean().withDefault(Constant(false))();
+  IntColumn get daysCount => integer().withDefault(Constant(30))();
+  BoolColumn get isTahzibSahabah => boolean().withDefault(Constant(false))();
   IntColumn get color => integer().nullable()();
   IntColumn get startPage => integer().nullable()();
   IntColumn get endPage => integer().nullable()();
@@ -26,7 +26,7 @@ class KhatmahDays extends Table {
   IntColumn get khatmahId => integer()
       .customConstraint('REFERENCES khatmahs(id) ON DELETE CASCADE NOT NULL')();
   IntColumn get day => integer()();
-  BoolColumn get isCompleted => boolean().withDefault(const Constant(false))();
+  BoolColumn get isCompleted => boolean().withDefault(Constant(false))();
   IntColumn get startPage => integer().nullable()(); // إضافة حقل startPage
   IntColumn get endPage => integer().nullable()(); // إضافة حقل endPage
 }

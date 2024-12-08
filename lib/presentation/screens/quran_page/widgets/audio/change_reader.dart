@@ -1,10 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-
-import '../../../../../core/services/services_locator.dart';
-import '../../../../../core/utils/constants/lists.dart';
-import '../../controllers/audio/audio_controller.dart';
-import '../../controllers/extensions/audio/audio_ui.dart';
+part of '../../quran.dart';
 
 class ChangeReader extends StatelessWidget {
   const ChangeReader({super.key});

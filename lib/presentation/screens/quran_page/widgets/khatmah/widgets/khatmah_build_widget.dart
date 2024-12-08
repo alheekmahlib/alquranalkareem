@@ -1,16 +1,9 @@
-import 'package:expansion_tile_card/expansion_tile_card.dart';
-import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-
-import '../../../../../../core/widgets/delete_widget.dart';
-import '../../../controllers/khatmah_controller.dart';
-import 'khatmah_days_page.dart';
-import 'khatmah_name_widget.dart';
+part of '../../../quran.dart';
 
 class KhatmahBuildWidget extends StatelessWidget {
-  final khatmahCtrl = KhatmahController.instance;
-
   KhatmahBuildWidget({super.key});
+
+  final khatmahCtrl = KhatmahController.instance;
 
   @override
   Widget build(BuildContext context) {
@@ -55,10 +48,10 @@ class KhatmahBuildWidget extends StatelessWidget {
                     thickness: 1.0,
                     height: 1.0,
                   ),
-                  OverflowBar(
+                  ButtonBar(
                     alignment: MainAxisAlignment.spaceAround,
-                    spacing: 42.0,
-                    overflowSpacing: 90.0,
+                    buttonHeight: 42.0,
+                    buttonMinWidth: 90.0,
                     children: <Widget>[
                       KhatmahDaysPage(khatmah: khatmah),
                     ],

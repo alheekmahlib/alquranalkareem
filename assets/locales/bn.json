@@ -1208,6 +1208,16 @@
     "type": "text",
     "placeholders": {}
   },
+  "ashura": "আশুরা",
+  "@ashura": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "arafah": "আরাফাত দিবস",
+  "@arafah": {
+    "type": "text",
+    "placeholders": {}
+  },
   "islamicCalendar": "ইসলামিক ক্যালেন্ডার",
   "hijriCalendar": "হিজরি ক্যালেন্ডার",
   "calendar": "ক্যালেন্ডার",

@@ -1,5 +1,4 @@
-import '/presentation/screens/quran_page/controllers/audio/audio_controller.dart';
-import '../../../../../../core/utils/constants/shared_preferences_constants.dart';
+part of '../../../quran.dart';
 
 extension AudiuStorageGetters on AudioController {
   /// -------- [Storage] ----------

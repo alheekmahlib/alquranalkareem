@@ -1,5 +1,4 @@
-import '/presentation/screens/whats_new/controller/whats_new_controller.dart';
-import '../../../../../core/utils/constants/shared_preferences_constants.dart';
+part of '../../whats_new.dart';
 
 extension WhatsNewGetters on WhatsNewController {
   /// -------- [Getters] --------

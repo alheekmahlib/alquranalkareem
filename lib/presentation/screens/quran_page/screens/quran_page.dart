@@ -1,31 +1,10 @@
-import 'dart:developer';
-
-import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-
-import '/core/utils/constants/extensions/convert_number_extension.dart';
-import '../../../../core/services/notifications_manager.dart';
-import '../../../../core/services/services_locator.dart';
-import '../../../../core/utils/constants/extensions/extensions.dart';
-import '../../../../core/utils/helpers/responsive.dart';
-import '../controllers/audio/audio_controller.dart';
-import '../controllers/bookmarks_controller.dart';
-import '../controllers/extensions/audio/audio_ui.dart';
-import '../controllers/extensions/quran/quran_getters.dart';
-import '../controllers/extensions/quran/quran_ui.dart';
-import '../controllers/quran/quran_controller.dart';
-import '../controllers/translate_controller.dart';
-import '../extensions/sajda_extension.dart';
-import '../widgets/pages/left_page.dart';
-import '../widgets/pages/pages_widget.dart';
-import '../widgets/pages/right_page.dart';
-import '../widgets/pages/top_title_widget.dart';
+part of '../quran.dart';
 
 class QuranPages extends StatelessWidget {
+  QuranPages({Key? key}) : super(key: key);
   final audioCtrl = AudioController.instance;
   final quranCtrl = QuranController.instance;
   final bookmarkCtrl = BookmarksController.instance;
-  QuranPages({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -59,7 +38,7 @@ class QuranPages extends StatelessWidget {
                 physics: const ClampingScrollPhysics(),
                 onPageChanged: quranCtrl.pageChanged,
                 itemBuilder: (_, index) {
-                  sl<TranslateDataController>().fetchTranslate(context);
+                  sl<TranslateDataController>().fetchTranslate();
                   log('width: ${MediaQuery.sizeOf(context).width}');
                   return !quranCtrl.state.isPageMode.value
                       ? _regularModeWidget(context, index)

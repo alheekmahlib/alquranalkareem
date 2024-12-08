@@ -1,13 +1,4 @@
-import 'dart:async' show StreamSubscription;
-import 'dart:io';
-import 'dart:ui';
-
-import 'package:connectivity_plus/connectivity_plus.dart';
-import 'package:dio/dio.dart';
-import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:get_storage/get_storage.dart';
-import 'package:just_audio/just_audio.dart';
+part of '../../quran.dart';
 
 class AudioState {
   AudioPlayer audioPlayer = AudioPlayer();

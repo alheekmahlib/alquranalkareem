@@ -1,17 +1,9 @@
-import 'package:flutter/material.dart';
-import 'package:gap/gap.dart';
-import 'package:get/get.dart';
-
-import '../../../../../core/utils/constants/lottie.dart';
-import '../../../../../core/utils/constants/lottie_constants.dart';
-import '../../controllers/bookmarks_controller.dart';
-import 'bookmark_ayahs_build.dart';
-import 'bookmark_pages_build.dart';
+part of '../../quran.dart';
 
 class BookmarksList extends StatelessWidget {
-  final bookmarkCtrl = BookmarksController.instance;
+  BookmarksList({Key? key}) : super(key: key);
 
-  BookmarksList({super.key});
+  final bookmarkCtrl = BookmarksController.instance;
 
   @override
   Widget build(BuildContext context) {

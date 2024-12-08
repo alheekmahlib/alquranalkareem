@@ -1,14 +1,4 @@
-import 'package:alquranalkareem/core/utils/constants/extensions/custom_error_snackBar.dart';
-import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-
-import '/core/utils/constants/extensions/svg_extensions.dart';
-import '../../../../../core/services/services_locator.dart';
-import '../../../../../core/utils/constants/svg_constants.dart';
-import '../../../../controllers/general/general_controller.dart';
-import '../../controllers/audio/audio_controller.dart';
-import '../../controllers/bookmarks_controller.dart';
-import '../../controllers/extensions/audio/audio_ui.dart';
+part of '../../quran.dart';
 
 class AddBookmarkButton extends StatelessWidget {
   final int surahNum;

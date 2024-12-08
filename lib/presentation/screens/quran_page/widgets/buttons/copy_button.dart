@@ -1,13 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:get/get.dart';
-
-import '/core/utils/constants/extensions/custom_error_snackBar.dart';
-import '/core/utils/constants/extensions/svg_extensions.dart';
-import '../../../../../core/services/services_locator.dart';
-import '../../../../../core/utils/constants/svg_constants.dart';
-import '../../../../controllers/general/general_controller.dart';
-import '../../controllers/quran/quran_controller.dart';
+part of '../../quran.dart';
 
 class CopyButton extends StatelessWidget {
   final int ayahNum;

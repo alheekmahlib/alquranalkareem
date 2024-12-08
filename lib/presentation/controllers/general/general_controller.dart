@@ -5,8 +5,8 @@ import 'package:wakelock_plus/wakelock_plus.dart';
 import '/presentation/screens/home/home_screen.dart';
 import '../../screens/adhkar/screens/adhkar_view.dart';
 import '../../screens/books/screens/books_screen.dart';
-import '../../screens/quran_page/screens/quran_home.dart';
-import '../../screens/surah_audio/audio_surah.dart';
+import '../../screens/quran_page/quran.dart';
+import '../../screens/surah_audio/screen/audio_surah.dart';
 import 'general_state.dart';
 
 class GeneralController extends GetxController {

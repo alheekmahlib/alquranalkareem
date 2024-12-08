@@ -1,10 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-
-import '/core/utils/constants/extensions/svg_extensions.dart';
-import '/core/utils/constants/lists.dart';
-import '/core/utils/constants/svg_constants.dart';
-import '../../controllers/translate_controller.dart';
+part of '../../quran.dart';
 
 class ChangeTranslate extends StatelessWidget {
   ChangeTranslate({super.key});

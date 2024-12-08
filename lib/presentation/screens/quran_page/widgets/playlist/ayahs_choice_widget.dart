@@ -1,14 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:gap/gap.dart';
-import 'package:get/get.dart';
-
-import '/core/utils/constants/lottie_constants.dart';
-import '../../../../../core/utils/constants/lottie.dart';
-import '../../../../controllers/general/general_controller.dart';
-import '../../controllers/extensions/quran/quran_getters.dart';
-import '../../controllers/playList_controller.dart';
-import '../../controllers/quran/quran_controller.dart';
-import 'playList_ayat_widget.dart';
+part of '../../quran.dart';
 
 class AyahsChoiceWidget extends StatelessWidget {
   AyahsChoiceWidget({super.key});

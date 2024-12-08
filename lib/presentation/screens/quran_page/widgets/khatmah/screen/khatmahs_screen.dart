@@ -1,7 +1,4 @@
-import 'package:flutter/material.dart';
-
-import '../widgets/add_khatmah_widget.dart';
-import '../widgets/khatmah_build_widget.dart';
+part of '../../../quran.dart';
 
 /// =============[KhatmahScreen]==============
 class KhatmasScreen extends StatelessWidget {

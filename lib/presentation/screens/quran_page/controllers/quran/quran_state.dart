@@ -1,11 +1,4 @@
-import 'package:bot_toast/bot_toast.dart';
-import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:get/get_rx/get_rx.dart';
-import 'package:get_storage/get_storage.dart';
-import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
-
-import '../../data/model/surahs_model.dart';
+part of '../../quran.dart';
 
 class QuranState {
   /// -------- [Variables] ----------
@@ -57,4 +50,5 @@ class QuranState {
   RxInt temporaryBackgroundColor = 0xfffaf7f3.obs;
 
   RxBool isScrolling = false.obs;
+  bool isQuranLoaded = false;
 }

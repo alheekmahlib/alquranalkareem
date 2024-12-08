@@ -1,9 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-
-import '/core/utils/constants/extensions/extensions.dart';
-import '../../controllers/extensions/quran/quran_getters.dart';
-import '../../controllers/quran/quran_controller.dart';
+part of '../../quran.dart';
 
 class RightPage extends StatelessWidget {
   final Widget child;
