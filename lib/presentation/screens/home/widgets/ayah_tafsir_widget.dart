@@ -7,10 +7,8 @@ import '../../../../core/utils/constants/lists.dart';
 import '../../../../core/widgets/read_more_less/read_more_less.dart';
 import '../../../controllers/daily_ayah_controller.dart';
 import '../../../controllers/general/general_controller.dart';
-import '../../quran_page/controllers/extensions/quran/quran_getters.dart';
-import '../../quran_page/controllers/quran/quran_controller.dart';
 import '../../quran_page/data/model/surahs_model.dart';
-import '../../quran_page/extensions/surah_name_with_banner.dart';
+import '../../quran_page/quran.dart';
 
 class AyahTafsirWidget extends StatelessWidget {
   AyahTafsirWidget({super.key});

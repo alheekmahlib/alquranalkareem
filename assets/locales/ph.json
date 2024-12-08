@@ -1202,6 +1202,16 @@
     "type": "text",
     "placeholders": {}
   },
+  "ashura": "Ashura",
+  "@ashura": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "arafah": "Araw ng Arafah",
+  "@arafah": {
+    "type": "text",
+    "placeholders": {}
+  },
   "islamicCalendar": "Kalendaryong Islamik",
   "hijriCalendar": "Kalendaryong Hijri",
   "calendar": "Kalendaryo",

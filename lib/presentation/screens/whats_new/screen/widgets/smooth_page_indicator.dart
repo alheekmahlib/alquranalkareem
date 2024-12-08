@@ -1,5 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:smooth_page_indicator/smooth_page_indicator.dart';
+part of '../../whats_new.dart';
 
 class SmoothPageIndicatorWidget extends StatelessWidget {
   final PageController controller;
@@ -16,8 +15,8 @@ class SmoothPageIndicatorWidget extends StatelessWidget {
         dotHeight: 10,
         dotWidth: 13,
         paintStyle: PaintingStyle.fill,
-        dotColor: Theme.of(context).canvasColor.withOpacity(.2),
-        activeDotColor: Theme.of(context).canvasColor,
+        dotColor: Theme.of(context).colorScheme.surface,
+        activeDotColor: Theme.of(context).colorScheme.primary,
         // strokeWidth: 5,
       ),
     );

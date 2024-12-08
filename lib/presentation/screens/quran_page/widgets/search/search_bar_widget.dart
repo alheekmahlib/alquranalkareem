@@ -1,9 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-
-import '/core/utils/constants/extensions/svg_extensions.dart';
-import '../../../../../core/utils/constants/extensions/extensions.dart';
-import '../../../../../core/utils/constants/svg_constants.dart';
+part of '../../quran.dart';
 
 class TextFieldBarWidget extends StatelessWidget {
   final TextEditingController? controller;

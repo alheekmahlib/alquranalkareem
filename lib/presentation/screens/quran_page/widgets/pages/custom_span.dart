@@ -1,12 +1,4 @@
-import 'package:flutter/gestures.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
-import 'package:get/get.dart';
-
-import '../../../../../core/services/services_locator.dart';
-import '../../../../../core/utils/constants/svg_constants.dart';
-import '../../controllers/bookmarks_controller.dart';
-import '../../extensions/surah_name_with_banner.dart';
+part of '../../quran.dart';
 
 TextSpan span({
   required String text,

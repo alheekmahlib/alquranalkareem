@@ -1305,8 +1305,9 @@ final class $$KhatmahDaysTableReferences
           $_aliasNameGenerator(db.khatmahDays.khatmahId, db.khatmahs.id));
 
   $$KhatmahsTableProcessedTableManager? get khatmahId {
+    if ($_item.khatmahId == null) return null;
     final manager = $$KhatmahsTableTableManager($_db, $_db.khatmahs)
-        .filter((f) => f.id($_item.khatmahId));
+        .filter((f) => f.id($_item.khatmahId!));
     final item = $_typedResult.readTableOrNull(_khatmahIdTable($_db));
     if (item == null) return manager;
     return ProcessedTableManager(

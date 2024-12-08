@@ -3,9 +3,9 @@ PODS:
     - Flutter
   - audio_session (0.0.1):
     - Flutter
-  - awesome_notifications (0.9.3):
+  - awesome_notifications (0.10.0):
     - Flutter
-    - IosAwnCore (~> 0.9.3)
+    - IosAwnCore (~> 0.10.0)
   - awesome_notifications_core (0.0.1):
     - Flutter
   - background_fetch (1.3.7):
@@ -18,7 +18,7 @@ PODS:
     - Flutter
   - flutter_timezone (0.0.1):
     - Flutter
-  - IosAwnCore (0.9.3)
+  - IosAwnCore (0.10.0)
   - just_audio (0.0.1):
     - Flutter
   - package_info_plus (0.4.5):
@@ -39,6 +39,24 @@ PODS:
   - sqflite_darwin (0.0.4):
     - Flutter
     - FlutterMacOS
+  - sqlite3 (3.47.0):
+    - sqlite3/common (= 3.47.0)
+  - sqlite3/common (3.47.0)
+  - sqlite3/dbstatvtab (3.47.0):
+    - sqlite3/common
+  - sqlite3/fts5 (3.47.0):
+    - sqlite3/common
+  - sqlite3/perf-threadsafe (3.47.0):
+    - sqlite3/common
+  - sqlite3/rtree (3.47.0):
+    - sqlite3/common
+  - sqlite3_flutter_libs (0.0.1):
+    - Flutter
+    - sqlite3 (~> 3.47.0)
+    - sqlite3/dbstatvtab
+    - sqlite3/fts5
+    - sqlite3/perf-threadsafe
+    - sqlite3/rtree
   - url_launcher_ios (0.0.1):
     - Flutter
   - wakelock_plus (0.0.1):
@@ -62,12 +80,14 @@ DEPENDENCIES:
   - shared_preferences_foundation (from `.symlinks/plugins/shared_preferences_foundation/darwin`)
   - simple_animation_progress_bar (from `.symlinks/plugins/simple_animation_progress_bar/ios`)
   - sqflite_darwin (from `.symlinks/plugins/sqflite_darwin/darwin`)
+  - sqlite3_flutter_libs (from `.symlinks/plugins/sqlite3_flutter_libs/ios`)
   - url_launcher_ios (from `.symlinks/plugins/url_launcher_ios/ios`)
   - wakelock_plus (from `.symlinks/plugins/wakelock_plus/ios`)
 
 SPEC REPOS:
   trunk:
     - IosAwnCore
+    - sqlite3
 
 EXTERNAL SOURCES:
   audio_service:
@@ -104,6 +124,8 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/simple_animation_progress_bar/ios"
   sqflite_darwin:
     :path: ".symlinks/plugins/sqflite_darwin/darwin"
+  sqlite3_flutter_libs:
+    :path: ".symlinks/plugins/sqlite3_flutter_libs/ios"
   url_launcher_ios:
     :path: ".symlinks/plugins/url_launcher_ios/ios"
   wakelock_plus:
@@ -112,14 +134,14 @@ EXTERNAL SOURCES:
 SPEC CHECKSUMS:
   audio_service: f509d65da41b9521a61f1c404dd58651f265a567
   audio_session: 088d2483ebd1dc43f51d253d4a1c517d9a2e7207
-  awesome_notifications: 66d28ab7174ca2823b04d275cb043e0a4a3eb9cf
+  awesome_notifications: dd5518ff1c80be03d4f1c40f04da9d9cc2a37af5
   awesome_notifications_core: d02eed89738fa362d56cbd372850e9adcd2c6bef
   background_fetch: 39f11371c0dce04b001c4bfd5e782bcccb0a85e2
   connectivity_plus: 4c41c08fc6d7c91f63bc7aec70ffe3730b04f563
   Flutter: e0871f40cf51350855a761d2e70bf5af5b9b5de7
   flutter_native_splash: edf599c81f74d093a4daf8e17bd7a018854bc778
   flutter_timezone: ffb07bdad3c6276af8dada0f11978d8a1f8a20bb
-  IosAwnCore: b8601fbb37f7b3560f31b84ebf55a72f65812e05
+  IosAwnCore: 653786a911089012092ce831f2945cd339855a89
   just_audio: baa7252489dbcf47a4c7cc9ca663e9661c99aafa
   package_info_plus: c0502532a26c7662a62a356cebe2692ec5fe4ec4
   path_provider_foundation: 2b6b4c569c0fb62ec74538f866245ac84301af46
@@ -128,9 +150,11 @@ SPEC CHECKSUMS:
   shared_preferences_foundation: fcdcbc04712aee1108ac7fda236f363274528f78
   simple_animation_progress_bar: 3f818acdbd78de0a8c48ddd7fdc88e1998a7b33f
   sqflite_darwin: a553b1fd6fe66f53bbb0fe5b4f5bab93f08d7a13
+  sqlite3: 0aa20658a9b238a3b1ff7175eb7bdd863b0ab4fd
+  sqlite3_flutter_libs: b55ef23cfafea5318ae5081e0bf3fbbce8417c94
   url_launcher_ios: 5334b05cef931de560670eeae103fd3e431ac3fe
   wakelock_plus: 78ec7c5b202cab7761af8e2b2b3d0671be6c4ae1
 
 PODFILE CHECKSUM: d4c1a5030a8cbce3d2276496379558613c182943
 
-COCOAPODS: 1.15.2
+COCOAPODS: 1.16.2

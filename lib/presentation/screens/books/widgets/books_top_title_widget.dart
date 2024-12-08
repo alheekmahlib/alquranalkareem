@@ -6,7 +6,7 @@ import 'package:get/get.dart';
 import '/core/utils/constants/extensions/font_size_extension.dart';
 import '/core/utils/constants/extensions/svg_extensions.dart';
 import '/presentation/screens/books/controller/extensions/books_ui.dart';
-import '/presentation/screens/quran_page/extensions/bookmark_page_icon_path.dart';
+import '/presentation/screens/quran_page/quran.dart';
 import '../../../../core/utils/constants/svg_constants.dart';
 import '../../../../core/widgets/settings_list.dart';
 import '../controller/books_bookmarks_controller.dart';

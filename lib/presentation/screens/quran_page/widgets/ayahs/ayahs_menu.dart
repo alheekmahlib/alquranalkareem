@@ -1,18 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
-import 'package:gap/gap.dart';
-import 'package:get/get.dart';
-
-import '/core/utils/constants/extensions/convert_number_extension.dart';
-import '/core/utils/constants/extensions/extensions.dart';
-import '/core/widgets/share/share_ayah_options.dart';
-import '../../../../controllers/general/general_controller.dart';
-import '../../controllers/extensions/quran/quran_ui.dart';
-import '../../controllers/quran/quran_controller.dart';
-import '../buttons/add_bookmark_button.dart';
-import '../buttons/copy_button.dart';
-import '../buttons/play_button.dart';
-import '../buttons/tafsir_button.dart';
+part of '../../quran.dart';
 
 class AyahsMenu extends StatelessWidget {
   final int surahNum;

@@ -8,10 +8,10 @@ import 'package:hijri/hijri_calendar.dart';
 
 import '../../core/utils/constants/lists.dart';
 import '../../core/utils/constants/shared_preferences_constants.dart';
-import '../screens/quran_page/controllers/quran/quran_controller.dart';
 import '../screens/quran_page/data/data_source/tafsir_database.dart';
 import '../screens/quran_page/data/model/surahs_model.dart';
 import '../screens/quran_page/data/model/tafsir.dart';
+import '../screens/quran_page/quran.dart';
 
 class DailyAyahController extends GetxController {
   static DailyAyahController get instance =>

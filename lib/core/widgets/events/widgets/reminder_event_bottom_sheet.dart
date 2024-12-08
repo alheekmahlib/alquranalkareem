@@ -1,13 +1,4 @@
-import 'package:alquranalkareem/core/utils/constants/extensions/svg_extensions.dart';
-import 'package:alquranalkareem/core/utils/constants/extensions/text_span_extension.dart';
-import 'package:flutter/material.dart';
-import 'package:gap/gap.dart';
-import 'package:get/get.dart';
-
-import '/core/utils/constants/extensions/extensions.dart';
-import '../../../presentation/controllers/general/general_controller.dart';
-import '../../utils/constants/lottie.dart';
-import 'controller/event_controller.dart';
+part of '../events.dart';
 
 class ReminderEventBottomSheet extends StatelessWidget {
   final String lottieFile;
@@ -16,6 +7,8 @@ class ReminderEventBottomSheet extends StatelessWidget {
   final String bookInfo;
   final String titleString;
   final String svgPath;
+  final int? day;
+  final int? month;
   ReminderEventBottomSheet({
     super.key,
     required this.lottieFile,
@@ -24,6 +17,8 @@ class ReminderEventBottomSheet extends StatelessWidget {
     required this.bookInfo,
     required this.titleString,
     required this.svgPath,
+    this.day,
+    this.month,
   });
 
   final generalCtrl = GeneralController.instance;
@@ -31,10 +26,9 @@ class ReminderEventBottomSheet extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final size = MediaQuery.sizeOf(context);
     return Container(
-      height: size.height * .9,
-      width: size.width,
+      height: Get.height * .85,
+      width: Get.width,
       decoration: BoxDecoration(
           color: Theme.of(context).colorScheme.primary,
           borderRadius: const BorderRadius.only(
@@ -43,45 +37,39 @@ class ReminderEventBottomSheet extends StatelessWidget {
           )),
       child: Stack(
         children: [
-          Align(
-            alignment: Alignment.topCenter,
-            child: Opacity(
-                opacity: .05,
-                child: eventCtrl.getArtWidget(
-                  ramadanOrEid(lottieFile, width: Get.width),
-                  customSvgWithColor(svgPath,
-                      color: Theme.of(context).canvasColor,
-                      width: 200,
-                      height: 200),
-                  Text(
-                    titleString,
-                    style: TextStyle(
-                      color: Theme.of(context).canvasColor,
-                      fontFamily: 'kufi',
-                      fontWeight: FontWeight.bold,
-                      fontSize: 100,
-                      height: 3.3,
-                    ),
-                    textAlign: TextAlign.center,
-                  ),
-                )),
-          ),
           Padding(
-              padding: const EdgeInsets.symmetric(vertical: 16.0),
+              padding:
+                  const EdgeInsets.symmetric(vertical: 16.0, horizontal: 16.0),
               child: context.customOrientation(
                 Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
+                    Row(mainAxisSize: MainAxisSize.min, children: [
+                      context.customWhiteClose(),
+                      const Gap(8),
+                      context.vDivider(height: 20),
+                      const Gap(8),
+                      Text(
+                        'events'.tr,
+                        style: TextStyle(
+                          color: Theme.of(context).canvasColor,
+                          fontFamily: 'kufi',
+                          fontWeight: FontWeight.bold,
+                          fontSize: 20,
+                        ),
+                      ),
+                    ]),
                     const Gap(8),
-                    context.customWhiteClose(),
                     Flexible(
                       child: SingleChildScrollView(
+                        physics: const ClampingScrollPhysics(),
                         child: Column(
                           children: [
                             Container(
                                 width: Get.width,
                                 padding: const EdgeInsets.all(16),
                                 margin: const EdgeInsets.symmetric(
-                                    vertical: 16.0, horizontal: 32.0),
+                                    vertical: 16.0, horizontal: 16.0),
                                 decoration: BoxDecoration(
                                     borderRadius: const BorderRadius.all(
                                         Radius.circular(8)),
@@ -109,13 +97,15 @@ class ReminderEventBottomSheet extends StatelessWidget {
                                       textAlign: TextAlign.center,
                                     ),
                                   ),
+                                  day!,
+                                  month!,
                                 )),
                             Container(
                               width: Get.width,
                               padding: const EdgeInsets.symmetric(
                                   vertical: 8.0, horizontal: 16.0),
                               margin:
-                                  const EdgeInsets.symmetric(horizontal: 32.0),
+                                  const EdgeInsets.symmetric(horizontal: 16.0),
                               decoration: BoxDecoration(
                                   color: Theme.of(context).colorScheme.surface,
                                   borderRadius: const BorderRadius.only(
@@ -138,7 +128,7 @@ class ReminderEventBottomSheet extends StatelessWidget {
                               padding: const EdgeInsets.symmetric(
                                   vertical: 8.0, horizontal: 16.0),
                               margin:
-                                  const EdgeInsets.symmetric(horizontal: 32.0),
+                                  const EdgeInsets.symmetric(horizontal: 16.0),
                               decoration: BoxDecoration(
                                   color: Theme.of(context).canvasColor,
                                   borderRadius: const BorderRadius.only(

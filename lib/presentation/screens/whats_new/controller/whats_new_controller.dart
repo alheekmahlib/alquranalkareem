@@ -1,11 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-
-import '/presentation/screens/whats_new/controller/extensions/whats_new_getters.dart';
-import '/presentation/screens/whats_new/controller/whats_new_state.dart';
-import '../../../../core/utils/constants/lists.dart';
-import '../../screen_type.dart';
-import '../screen/whats_new_screen.dart';
+part of '../whats_new.dart';
 
 class WhatsNewController extends GetxController {
   static WhatsNewController get instance =>
@@ -15,26 +8,21 @@ class WhatsNewController extends GetxController {
 
   WhatsNewState state = WhatsNewState();
   @override
-  void onInit() {
+  Future<void> onInit() async {
     navigationPage();
+    state.newFeatures = await getNewFeatures();
     super.onInit();
   }
 
   /// -------- [Methods] ----------
 
-  void navigationPage() async {
-    WidgetsBinding.instance.addPostFrameCallback((_) async {
-      List<Map<String, dynamic>> newFeatures = await getNewFeatures();
-      if (newFeatures.isNotEmpty) {
-        Get.bottomSheet(
-          WhatsNewScreen(
-            newFeatures: newFeatures,
-          ),
-          isScrollControlled: true,
-          enableDrag: false,
-        );
+  void navigationPage() {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (state.newFeatures.isNotEmpty) {
+        SplashScreenController.instance.state.customWidget.value = 1;
       } else {
-        Get.offAll(() => ScreenTypeL(), transition: Transition.downToUp);
+        Get.offAll(() => ScreenTypeL(),
+            transition: Transition.fadeIn, curve: Curves.easeIn);
       }
     });
   }
@@ -55,4 +43,16 @@ class WhatsNewController extends GetxController {
       await saveLastShownIndex(newFeatures.last['index']);
     }
   }
+
+  // Future<void> activeLocation() async {
+  //   WidgetsBinding.instance.addPostFrameCallback((_) async {
+  //     if (!GeneralController.instance.isActiveLocation ||
+  //         !GeneralController.instance.state.activeLocation.value) {
+  //       GetStorage().write(IS_LOCATION_ACTIVE, true);
+  //       SplashScreenController.instance.state.customWidget.value = 1;
+  //     } else {
+  //       navigationPage();
+  //     }
+  //   });
+  // }
 }

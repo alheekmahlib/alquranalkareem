@@ -1,15 +1,15 @@
-import 'package:alquranalkareem/core/utils/constants/extensions/svg_extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 
 import '/core/utils/constants/extensions/extensions.dart';
+import '/core/utils/constants/extensions/svg_extensions.dart';
 import '/presentation/screens/books/controller/extensions/books_ui.dart';
 import '/presentation/screens/quran_page/widgets/search/search_extensions/highlight_extension.dart';
 import '../../../../core/utils/constants/lottie.dart';
 import '../../../../core/utils/constants/lottie_constants.dart';
 import '../../../../core/utils/constants/svg_constants.dart';
-import '../../quran_page/widgets/search/search_bar_widget.dart';
+import '../../quran_page/quran.dart';
 import '../controller/books_controller.dart';
 
 class SearchScreen extends StatelessWidget {

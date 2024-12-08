@@ -1,9 +1,4 @@
-import 'package:drift/drift.dart' as drift;
-import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:intl/intl.dart';
-
-import '../widgets/khatmah/data/data_source/khatmah_database.dart';
+part of '../quran.dart';
 
 class KhatmahController extends GetxController {
   static KhatmahController get instance => Get.isRegistered<KhatmahController>()
@@ -190,7 +185,7 @@ class KhatmahController extends GetxController {
 
   void addKhatmahOnTap() {
     String name = nameController.text.isEmpty
-        ? '${'khatmah'.tr.replaceAll('ال', '')}: ${DateFormat('yMd', Get.locale!.languageCode).format(now)}'
+        ? '${'khatmah'.tr.replaceAll('ال', '')}: ${intl.DateFormat('yMd', Get.locale!.languageCode).format(now)}'
         : nameController.text;
     int days = int.tryParse(daysController.text) ?? 30;
     addKhatmah(

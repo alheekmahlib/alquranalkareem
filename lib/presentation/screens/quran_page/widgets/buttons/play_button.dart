@@ -1,11 +1,4 @@
-import 'package:flutter/material.dart';
-
-import '/core/utils/constants/extensions/svg_extensions.dart';
-import '/core/utils/constants/svg_constants.dart';
-import '../../../../controllers/general/general_controller.dart';
-import '../../controllers/audio/audio_controller.dart';
-import '../../controllers/extensions/audio/audio_ui.dart';
-import '../../controllers/quran/quran_controller.dart';
+part of '../../quran.dart';
 
 class PlayButton extends StatelessWidget {
   final int surahNum;

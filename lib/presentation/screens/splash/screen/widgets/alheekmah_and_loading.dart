@@ -1,8 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
-
-import '../../../../../core/utils/constants/lottie.dart';
-import '../../../../../core/utils/constants/lottie_constants.dart';
+part of '../../splash.dart';
 
 class AlheekmahAndLoading extends StatelessWidget {
   const AlheekmahAndLoading({super.key});

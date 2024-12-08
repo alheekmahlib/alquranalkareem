@@ -1,10 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:gap/gap.dart';
-import 'package:get/get.dart';
-
-import '/core/utils/constants/extensions/extensions.dart';
-import '../../controller/whats_new_controller.dart';
+part of '../../whats_new.dart';
 
 class PageViewBuild extends StatelessWidget {
   final PageController controller;
@@ -39,14 +33,17 @@ class PageViewBuild extends StatelessWidget {
                               horizontal: 8.0, vertical: 4.0),
                           margin: const EdgeInsets.symmetric(horizontal: 8.0),
                           decoration: BoxDecoration(
-                              color:
-                                  Theme.of(context).canvasColor.withOpacity(.1),
+                              color: Theme.of(context)
+                                  .colorScheme
+                                  .surface
+                                  .withOpacity(.3),
                               borderRadius:
                                   const BorderRadius.all(Radius.circular(4))),
                           child: Text(
                             '${newFeatures[index]['title']}'.tr,
                             style: TextStyle(
-                              color: Theme.of(context).canvasColor,
+                              color:
+                                  Theme.of(context).colorScheme.inversePrimary,
                               fontSize: 16.0.sp,
                               fontFamily: 'kufi',
                               height: 2,
@@ -65,7 +62,7 @@ class PageViewBuild extends StatelessWidget {
                                 color: Theme.of(context)
                                     .colorScheme
                                     .surface
-                                    .withOpacity(.1),
+                                    .withOpacity(.3),
                                 borderRadius: const BorderRadius.all(
                                     Radius.circular(8.0))),
                             child: Image.asset(
@@ -84,14 +81,17 @@ class PageViewBuild extends StatelessWidget {
                           padding: const EdgeInsets.all(16.0),
                           margin: const EdgeInsets.symmetric(horizontal: 8.0),
                           decoration: BoxDecoration(
-                              color:
-                                  Theme.of(context).canvasColor.withOpacity(.1),
+                              color: Theme.of(context)
+                                  .colorScheme
+                                  .surface
+                                  .withOpacity(.3),
                               borderRadius:
                                   const BorderRadius.all(Radius.circular(4))),
                           child: Text(
                             '${newFeatures[index]['details']}'.tr,
                             style: TextStyle(
-                              color: Theme.of(context).canvasColor,
+                              color:
+                                  Theme.of(context).colorScheme.inversePrimary,
                               fontSize: 14.0.sp,
                               fontFamily: 'kufi',
                               height: 2,

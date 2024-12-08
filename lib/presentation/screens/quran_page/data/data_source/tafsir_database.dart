@@ -7,7 +7,7 @@ import 'package:flutter/services.dart';
 import 'package:path/path.dart' as p;
 import 'package:path_provider/path_provider.dart';
 
-import '../../controllers/tafsir_ctrl.dart';
+import '../../quran.dart';
 import '../model/tafsir.dart';
 
 part 'tafsir_database.g.dart';

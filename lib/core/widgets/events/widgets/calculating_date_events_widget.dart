@@ -1,9 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-
-import '/core/utils/constants/extensions/convert_number_extension.dart';
-import '../../../presentation/controllers/general/general_controller.dart';
-import 'controller/event_controller.dart';
+part of '../events.dart';
 
 class CalculatingDateEventsWidget extends StatelessWidget {
   final String name;
@@ -17,7 +12,6 @@ class CalculatingDateEventsWidget extends StatelessWidget {
       required this.name,
       required this.year});
 
-  final generalCtrl = GeneralController.instance;
   final countdownCtrl = EventController.instance;
 
   @override

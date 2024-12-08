@@ -1,15 +1,4 @@
-import 'dart:math' as math;
-
-import 'package:alquranalkareem/presentation/controllers/theme_controller.dart';
-import 'package:collection/collection.dart';
-import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-
-import '/core/utils/constants/extensions/convert_number_extension.dart';
-import '../../../../../../core/utils/constants/svg_constants.dart';
-import '../../../../../../core/utils/helpers/responsive.dart';
-import '../../../data/model/surahs_model.dart';
-import '../../quran/quran_controller.dart';
+part of '../../../quran.dart';
 
 extension QuranGetters on QuranController {
   /// -------- [Getter] ----------

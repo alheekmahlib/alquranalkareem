@@ -1,19 +1,4 @@
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/svg.dart';
-import 'package:gap/gap.dart';
-import 'package:get/get.dart';
-
-import '/core/utils/constants/extensions/convert_number_extension.dart';
-import '/core/utils/constants/extensions/extensions.dart';
-import '/presentation/screens/quran_page/extensions/bookmark_page_icon_path.dart';
-import '../../../../../core/services/services_locator.dart';
-import '../../../../controllers/general/general_controller.dart';
-import '../../controllers/audio/audio_controller.dart';
-import '../../controllers/bookmarks_controller.dart';
-import '../../controllers/extensions/quran/quran_getters.dart';
-import '../../controllers/quran/quran_controller.dart';
+part of '../../quran.dart';
 
 class TopTitleWidget extends StatelessWidget {
   final int index;

@@ -1,14 +1,4 @@
-import 'dart:developer';
-
-import 'package:animated_custom_dropdown/custom_dropdown.dart';
-import 'package:flex_color_picker/flex_color_picker.dart';
-import 'package:flutter/material.dart';
-import 'package:gap/gap.dart';
-import 'package:get/get.dart';
-
-import '/core/utils/constants/extensions/extensions.dart';
-import '../../../controllers/khatmah_controller.dart';
-import '../../search/search_bar_widget.dart';
+part of '../../../quran.dart';
 
 class AddKhatmahWidget extends StatelessWidget {
   AddKhatmahWidget({super.key});
@@ -137,29 +127,23 @@ class AddKhatmahWidget extends StatelessWidget {
                 flex: 1,
                 child: RotatedBox(
                   quarterTurns: 3,
-                  child: GestureDetector(
-                    onTap: () => khatmahCtrl.addKhatmahOnTap(),
-                    child: Container(
-                      width: 110,
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 8.0, vertical: 7.0),
-                      decoration: BoxDecoration(
-                        color: Theme.of(context).colorScheme.surface,
-                        borderRadius:
-                            const BorderRadius.all(Radius.circular(8)),
-                      ),
-                      child: FittedBox(
-                        fit: BoxFit.scaleDown,
-                        child: Text(
-                          'addKhatmah'.tr,
-                          style: const TextStyle(
-                            color: Colors.black,
-                            fontSize: 20,
-                            fontFamily: 'naskh',
-                            height: .5,
-                          ),
-                          textAlign: TextAlign.center,
+                  child: ElevatedButtonWidget(
+                    onClick: () => khatmahCtrl.addKhatmahOnTap(),
+                    index: 1,
+                    height: 40,
+                    width: 110,
+                    color: Theme.of(context).colorScheme.surface,
+                    child: FittedBox(
+                      fit: BoxFit.scaleDown,
+                      child: Text(
+                        'addKhatmah'.tr,
+                        style: const TextStyle(
+                          color: Colors.black,
+                          fontSize: 20,
+                          fontFamily: 'naskh',
+                          height: .5,
                         ),
+                        textAlign: TextAlign.center,
                       ),
                     ),
                   ),

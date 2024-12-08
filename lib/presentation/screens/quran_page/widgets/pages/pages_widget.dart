@@ -1,14 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-
-import '../../../../../core/services/services_locator.dart';
-import '../../../../controllers/general/general_controller.dart';
-import '../../controllers/audio/audio_controller.dart';
-import '../../controllers/bookmarks_controller.dart';
-import '../../controllers/extensions/quran/quran_ui.dart';
-import '../../controllers/quran/quran_controller.dart';
-import 'text_build.dart';
-import 'text_scale_build.dart';
+part of '../../quran.dart';
 
 class PagesWidget extends StatelessWidget {
   final int pageIndex;

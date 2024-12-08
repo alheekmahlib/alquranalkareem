@@ -1202,6 +1202,16 @@
     "type": "text",
     "placeholders": {}
   },
+  "ashura": "Asyura",
+  "@ashura": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "arafah": "Hari Arafah",
+  "@arafah": {
+    "type": "text",
+    "placeholders": {}
+  },
   "islamicCalendar": "Kalender Islam",
   "hijriCalendar": "Kalender Hijriah",
   "calendar": "Kalender",

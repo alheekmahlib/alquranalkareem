@@ -1,11 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-
-import '/core/utils/constants/extensions/convert_number_extension.dart';
-import '/core/utils/constants/extensions/extensions.dart';
-import '../../../controllers/extensions/quran/quran_ui.dart';
-import '../../../controllers/khatmah_controller.dart';
-import '../../../controllers/quran/quran_controller.dart';
+part of '../../../quran.dart';
 
 class KhatmahDaysPage extends StatelessWidget {
   final Khatmah khatmah;

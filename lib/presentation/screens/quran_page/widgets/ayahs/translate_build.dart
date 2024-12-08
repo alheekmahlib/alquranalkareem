@@ -1,17 +1,4 @@
-import 'package:alquranalkareem/core/utils/constants/extensions/alignment_rotated_extension.dart';
-import 'package:flutter/material.dart';
-import 'package:gap/gap.dart';
-import 'package:get/get.dart';
-import 'package:read_more_less/read_more_less.dart';
-
-import '../../../../../core/services/services_locator.dart';
-import '../../../../../core/utils/constants/lists.dart';
-import '../../../../../core/utils/constants/lottie.dart';
-import '../../../../../core/utils/constants/lottie_constants.dart';
-import '../../../../controllers/general/general_controller.dart';
-import '../../../../controllers/settings_controller.dart';
-import '../../controllers/translate_controller.dart';
-import 'change_translate.dart';
+part of '../../quran.dart';
 
 class TranslateBuild extends StatelessWidget {
   final dynamic ayahs;

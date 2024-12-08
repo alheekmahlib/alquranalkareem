@@ -1,24 +1,4 @@
-import 'dart:developer' show log;
-import 'dart:io' show Directory, File;
-
-import 'package:connectivity_plus/connectivity_plus.dart';
-import 'package:dio/dio.dart';
-import 'package:flutter/material.dart' show Curves, AppLifecycleState;
-import 'package:flutter/services.dart' show PlatformException;
-import 'package:get/get.dart';
-import 'package:just_audio/just_audio.dart';
-import 'package:path/path.dart';
-import 'package:path_provider/path_provider.dart';
-
-import '/core/utils/constants/extensions/custom_error_snackBar.dart';
-import '/core/utils/constants/extensions/custom_mobile_notes_snack_bar.dart';
-import '/presentation/controllers/general/extensions/general_getters.dart';
-import '/presentation/controllers/general/general_controller.dart';
-import '../extensions/audio/audio_getters.dart';
-import '../extensions/audio/audio_storage_getters.dart';
-import '../extensions/quran/quran_ui.dart';
-import '../quran/quran_controller.dart';
-import 'audio_state.dart';
+part of '../../quran.dart';
 
 class AudioController extends GetxController {
   static AudioController get instance => Get.isRegistered<AudioController>()

@@ -4,7 +4,6 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
-import '/presentation/screens/splash/screen/splash_screen.dart';
 import 'core/services/languages/app_constants.dart';
 import 'core/services/languages/localization_controller.dart';
 import 'core/services/languages/messages.dart';
@@ -12,6 +11,7 @@ import 'core/services/notifications_helper.dart';
 import 'core/services/services_locator.dart';
 import 'core/widgets/local_notification/controller/local_notifications_controller.dart';
 import 'presentation/controllers/theme_controller.dart';
+import 'presentation/screens/splash/splash.dart';
 
 class MyApp extends StatelessWidget {
   final Map<String, Map<String, String>> languages;
@@ -51,7 +51,7 @@ class MyApp extends StatelessWidget {
               // theme: brownTheme,
               builder: BotToastInit(),
               navigatorObservers: [BotToastNavigatorObserver()],
-              home: const Directionality(
+              home: Directionality(
                 textDirection: TextDirection.rtl,
                 child: SplashScreen(),
                 // child: WillPopScope(

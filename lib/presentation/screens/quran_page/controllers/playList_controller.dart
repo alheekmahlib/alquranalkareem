@@ -1,28 +1,4 @@
-import 'dart:convert';
-import 'dart:developer';
-import 'dart:io';
-
-import 'package:dio/dio.dart';
-import 'package:expansion_tile_card/expansion_tile_card.dart';
-import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:get_storage/get_storage.dart';
-import 'package:just_audio/just_audio.dart';
-import 'package:path/path.dart';
-import 'package:path_provider/path_provider.dart';
-import 'package:rxdart/rxdart.dart' as R;
-import 'package:shared_preferences/shared_preferences.dart';
-
-import '/core/utils/constants/extensions/custom_error_snackBar.dart';
-import '/presentation/screens/quran_page/controllers/extensions/audio/audio_getters.dart';
-import '../../../../core/utils/constants/lists.dart';
-import '../../../../core/utils/constants/url_constants.dart';
-import '../../../../core/widgets/seek_bar.dart';
-import '../../../controllers/general/general_controller.dart';
-import '../widgets/playlist/data/models/playList_model.dart';
-import 'audio/audio_controller.dart';
-import 'extensions/quran/quran_getters.dart';
-import 'quran/quran_controller.dart';
+part of '../quran.dart';
 
 class PlayListController extends GetxController {
   static PlayListController get instance =>

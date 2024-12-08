@@ -2,8 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '/core/utils/constants/extensions/svg_extensions.dart';
-import '../../../presentation/screens/quran_page/controllers/share_controller.dart';
-import '../../../presentation/screens/quran_page/controllers/translate_controller.dart';
+import '../../../presentation/screens/quran_page/quran.dart';
 import '../../services/services_locator.dart';
 import '../../utils/constants/extensions/extensions.dart';
 import '../../utils/constants/lists.dart';

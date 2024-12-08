@@ -1,13 +1,4 @@
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
-import 'package:get/get.dart';
-
-import '/core/utils/constants/extensions/convert_number_extension.dart';
-import '../../../../core/utils/constants/extensions/extensions.dart';
-import '../controllers/extensions/quran/quran_getters.dart';
-import '../controllers/extensions/quran/quran_ui.dart';
-import '../controllers/quran/quran_controller.dart';
+part of '../quran.dart';
 
 class QuranJuz extends StatelessWidget {
   QuranJuz({super.key});
@@ -29,7 +20,7 @@ class QuranJuz extends StatelessWidget {
             itemCount: 30,
             controller: quranCtrl.juzController,
             itemBuilder: (_, index) {
-              // final surah = quranCtrl.state.surahs[index];
+              final surah = quranCtrl.state.surahs[index];
               final juz = quranCtrl.state.allAyahs.firstWhere(
                 (a) => a.juz == index + 1,
               );

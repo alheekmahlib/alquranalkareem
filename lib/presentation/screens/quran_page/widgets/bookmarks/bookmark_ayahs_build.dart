@@ -1,16 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
-import 'package:gap/gap.dart';
-import 'package:get/get.dart';
-
-import '/core/utils/constants/extensions/convert_number_extension.dart';
-import '../../../../../core/services/services_locator.dart';
-import '../../../../../core/utils/constants/extensions/extensions.dart';
-import '../../../../../core/widgets/delete_widget.dart';
-import '../../../../controllers/general/general_controller.dart';
-import '../../controllers/bookmarks_controller.dart';
-import '../../controllers/extensions/quran/quran_ui.dart';
-import '../../controllers/quran/quran_controller.dart';
+part of '../../quran.dart';
 
 class BookmarkAyahsBuild extends StatelessWidget {
   BookmarkAyahsBuild({super.key});

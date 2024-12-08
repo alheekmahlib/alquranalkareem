@@ -1,16 +1,4 @@
-import 'package:alquranalkareem/presentation/screens/quran_page/controllers/extensions/quran/quran_getters.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:get/get.dart';
-
-import '../../../../../../core/services/services_locator.dart';
-import '../../../../../../core/utils/constants/shared_preferences_constants.dart';
-import '../../../../../../core/utils/helpers/global_key_manager.dart';
-import '../../../../../controllers/general/general_controller.dart';
-import '../../audio/audio_controller.dart';
-import '../../bookmarks_controller.dart';
-import '../../playList_controller.dart';
-import '../../quran/quran_controller.dart';
+part of '../../../quran.dart';
 
 extension QuranUi on QuranController {
   /// -------- [onTap] --------

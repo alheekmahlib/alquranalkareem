@@ -1,12 +1,4 @@
-import 'dart:convert';
-
-import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:get_storage/get_storage.dart';
-
-import '../../../../core/services/services_locator.dart';
-import '../../../../core/utils/constants/shared_preferences_constants.dart';
-import 'share_controller.dart';
+part of '../quran.dart';
 
 class TranslateDataController extends GetxController {
   static TranslateDataController get instance =>
@@ -21,11 +13,11 @@ class TranslateDataController extends GetxController {
   var expandedMap = <int, bool>{}.obs;
   final box = GetStorage();
 
-  Future<void> fetchTranslate(BuildContext context) async {
-    isLoading.value = true; // Set isLoading to true
-    String loadedData = await DefaultAssetBundle.of(context)
+  Future<void> fetchTranslate() async {
+    isLoading.value = true;
+    String jsonString = await rootBundle
         .loadString("assets/json/translate/${trans.value}.json");
-    Map<String, dynamic> showData = json.decode(loadedData);
+    Map<String, dynamic> showData = json.decode(jsonString);
     // List<dynamic> sura = showData[surahNumber];
     data.value = showData['translations'];
     isLoading.value = false; // Set isLoading to false and update the data
@@ -135,7 +127,7 @@ class TranslateDataController extends GetxController {
 
   @override
   void onInit() {
-    fetchTranslate(Get.context!);
+    fetchTranslate();
     super.onInit();
   }
 
@@ -143,7 +135,7 @@ class TranslateDataController extends GetxController {
     transValue.value == index;
     box.write(TRANSLATE_VALUE, index);
     translateHandleRadioValueChanged(index);
-    fetchTranslate(Get.context!);
+    fetchTranslate();
     Get.back();
   }
 }

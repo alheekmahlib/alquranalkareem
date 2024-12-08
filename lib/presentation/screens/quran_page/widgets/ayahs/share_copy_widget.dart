@@ -1,12 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:gap/gap.dart';
-import 'package:get/get.dart';
-
-import '/core/utils/constants/extensions/svg_extensions.dart';
-import '/presentation/screens/quran_page/controllers/extensions/tafsir/tafsir_ui.dart';
-import '../../../../../core/utils/constants/svg_constants.dart';
-import '../../../../../core/widgets/share/share_ayah_options.dart';
-import '../../controllers/tafsir_ctrl.dart';
+part of '../../quran.dart';
 
 class ShareCopyWidget extends StatelessWidget {
   final int ayahNumber;

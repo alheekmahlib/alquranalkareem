@@ -1,18 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-
-import '/presentation/controllers/general/extensions/general_getters.dart';
-import '/presentation/screens/splash/controller/splash_screen_state.dart';
-import '../../../../core/services/services_locator.dart';
-import '../../../../core/utils/constants/lottie.dart';
-import '../../../../core/utils/constants/shared_preferences_constants.dart';
-import '../../../controllers/general/general_controller.dart';
-import '../../../controllers/settings_controller.dart';
-import '../../quran_page/controllers/audio/audio_controller.dart';
-import '../../quran_page/controllers/extensions/audio/audio_storage_getters.dart';
-import '../../quran_page/controllers/quran/quran_controller.dart';
-import '../../quran_page/controllers/translate_controller.dart';
-import '../../whats_new/controller/whats_new_controller.dart';
+part of '../splash.dart';
 
 class SplashScreenController extends GetxController {
   static SplashScreenController get instance =>
@@ -26,7 +12,19 @@ class SplashScreenController extends GetxController {
   void onInit() {
     _loadInitialData();
     startTime();
-
+    Future.delayed(const Duration(milliseconds: 600))
+        .then((_) => state.containerAnimate.value = true);
+    Future.delayed(const Duration(seconds: 3)).then((_) {
+      state.containerHeight.value = Get.height;
+      state.containerHHeight.value = Get.height;
+      state.customWidget.value = 0;
+    });
+    Future.delayed(const Duration(milliseconds: 2800))
+        .then((_) => state.smallContainerHeight.value = Get.height);
+    Future.delayed(const Duration(milliseconds: 2900))
+        .then((_) => state.secondSmallContainerHeight.value = Get.height);
+    Future.delayed(const Duration(milliseconds: 2950))
+        .then((_) => state.thirdSmallContainerHeight.value = Get.height);
     super.onInit();
   }
 
@@ -34,15 +32,15 @@ class SplashScreenController extends GetxController {
 
   Future<void> _loadInitialData() async {
     await Future.wait([
-      sl<TranslateDataController>().loadTranslateValue(),
-      sl<SettingsController>().loadLang(),
-      sl<GeneralController>().getLastPageAndFontSize(),
-      sl<QuranController>().loadSwitchValue(),
-      sl<QuranController>().getLastPage(),
+      TranslateDataController.instance.loadTranslateValue(),
+      SettingsController.instance.loadLang(),
+      GeneralController.instance.getLastPageAndFontSize(),
+      QuranController.instance.loadSwitchValue(),
+      QuranController.instance.getLastPage(),
     ]);
-    sl<GeneralController>().updateGreeting();
-    sl<AudioController>().loadQuranReader();
-    sl<GeneralController>().state.screenSelectedValue.value =
+    GeneralController.instance.updateGreeting();
+    AudioController.instance.loadQuranReader();
+    GeneralController.instance.state.screenSelectedValue.value =
         state.box.read(SCREEN_SELECTED_VALUE) ?? 0;
   }
 
@@ -60,6 +58,19 @@ class SplashScreenController extends GetxController {
       return ramadanOrEid('eid_white', height: 100.0);
     } else {
       return const SizedBox.shrink();
+    }
+  }
+
+  Widget get customWidget {
+    switch (state.customWidget.value) {
+      case 0:
+        return const LogoAndTitle();
+      case 1:
+        return WhatsNewScreen(
+          newFeatures: WhatsNewController.instance.state.newFeatures,
+        );
+      default:
+        return const LogoAndTitle();
     }
   }
 }

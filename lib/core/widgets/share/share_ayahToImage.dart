@@ -4,8 +4,7 @@ import 'package:gap/gap.dart';
 import 'package:screenshot/screenshot.dart';
 
 import '/core/utils/constants/extensions/svg_extensions.dart';
-import '../../../presentation/screens/quran_page/controllers/share_controller.dart';
-import '../../../presentation/screens/quran_page/extensions/surah_name_with_banner.dart';
+import '../../../presentation/screens/quran_page/quran.dart';
 import '../../utils/constants/extensions/extensions.dart';
 import '../../utils/constants/svg_constants.dart';
 

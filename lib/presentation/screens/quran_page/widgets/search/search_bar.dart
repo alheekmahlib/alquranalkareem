@@ -1,10 +1,4 @@
-import 'package:alquranalkareem/core/utils/constants/extensions/svg_extensions.dart';
-import 'package:animations/animations.dart';
-import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-
-import '../../../../../core/utils/constants/svg_constants.dart';
-import 'quran_search.dart';
+part of '../../quran.dart';
 
 class SearchBarWidget extends StatelessWidget {
   const SearchBarWidget({required this.openContainer});

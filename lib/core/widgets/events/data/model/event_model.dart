@@ -1,3 +1,5 @@
+part of '../../events.dart';
+
 class Hadith {
   final String hadith;
   final String bookInfo;
@@ -20,6 +22,7 @@ class Event {
   final bool isLottie;
   final bool isSvg;
   final bool isTitle;
+  final bool isReminder;
   final String lottiePath;
   final String svgPath;
   final List<Hadith> hadith;
@@ -33,6 +36,7 @@ class Event {
     required this.isLottie,
     required this.isSvg,
     required this.isTitle,
+    required this.isReminder,
     required this.lottiePath,
     required this.svgPath,
   });
@@ -52,6 +56,7 @@ class Event {
       isLottie: json['isLottie'],
       isSvg: json['isSvg'],
       isTitle: json['isTitle'],
+      isReminder: json['isReminder'],
       lottiePath: json['lottiePath'],
       svgPath: json['svgPath'],
       hadith: hadiths,

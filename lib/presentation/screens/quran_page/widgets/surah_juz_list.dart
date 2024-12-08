@@ -1,9 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:gap/gap.dart';
-import 'package:get/get.dart';
-
-import 'juz_page.dart';
-import 'quran_surah_list.dart';
+part of '../quran.dart';
 
 class SurahJuzList extends StatelessWidget {
   SurahJuzList({super.key});

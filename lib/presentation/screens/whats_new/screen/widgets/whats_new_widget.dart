@@ -1,6 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:get/get.dart';
+part of '../../whats_new.dart';
 
 class WhatsNewWidget extends StatelessWidget {
   const WhatsNewWidget({super.key});
@@ -13,12 +11,12 @@ class WhatsNewWidget extends StatelessWidget {
       alignment: Alignment.center,
       padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
       decoration: BoxDecoration(
-          color: Theme.of(context).canvasColor.withOpacity(.1),
+          color: Theme.of(context).colorScheme.surface.withOpacity(.3),
           borderRadius: const BorderRadius.all(Radius.circular(8))),
       child: Text(
         "What's New".tr,
         style: TextStyle(
-          color: Theme.of(context).canvasColor,
+          color: Theme.of(context).colorScheme.inversePrimary,
           fontSize: 14.0.sp,
           fontFamily: 'kufi',
         ),

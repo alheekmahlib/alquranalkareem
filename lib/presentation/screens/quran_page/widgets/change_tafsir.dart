@@ -1,14 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
-import 'package:get/get.dart';
-import 'package:get_storage/get_storage.dart';
-
-import '../../../../core/services/services_locator.dart';
-import '../../../../core/utils/constants/extensions/extensions.dart';
-import '../../../../core/utils/constants/lists.dart';
-import '../../../../core/utils/constants/shared_preferences_constants.dart';
-import '../controllers/tafsir_ctrl.dart';
-import '../controllers/translate_controller.dart';
+part of '../quran.dart';
 
 class ChangeTafsir extends StatelessWidget {
   const ChangeTafsir({super.key});
@@ -103,7 +93,7 @@ class ChangeTafsir extends StatelessWidget {
                         onTap: () async {
                           await tafsirCtrl.handleRadioValueChanged(index);
                           GetStorage().write(TAFSEER_VAL, index);
-                          sl<TranslateDataController>().fetchTranslate(context);
+                          sl<TranslateDataController>().fetchTranslate();
                           tafsirCtrl.update(['change_tafsir']);
                           Get.back();
                         },

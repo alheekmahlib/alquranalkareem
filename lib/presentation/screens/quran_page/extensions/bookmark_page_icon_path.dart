@@ -1,6 +1,4 @@
-import 'package:flutter/material.dart';
-
-import '../../../controllers/theme_controller.dart';
+part of '../quran.dart';
 
 final themeCtrl = ThemeController.instance;
 

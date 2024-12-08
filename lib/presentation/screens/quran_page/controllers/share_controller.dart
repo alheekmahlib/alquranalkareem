@@ -1,18 +1,4 @@
-import 'dart:io';
-import 'dart:typed_data';
-
-import 'package:arabic_numbers/arabic_numbers.dart';
-import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:get_storage/get_storage.dart';
-import 'package:path_provider/path_provider.dart';
-import 'package:screenshot/screenshot.dart';
-import 'package:share_plus/share_plus.dart';
-
-import '../../../../core/services/services_locator.dart';
-import '../../../../core/utils/constants/lists.dart';
-import '../../../../core/utils/constants/shared_preferences_constants.dart';
-import 'translate_controller.dart';
+part of '../quran.dart';
 
 class ShareController extends GetxController {
   static ShareController get instance => Get.isRegistered<ShareController>()
@@ -63,7 +49,7 @@ class ShareController extends GetxController {
       //     .fetchTafsirPage(sl<QuranController>().state.currentPageNumber.value);
       // sl<TafsirController>().ayahsTafseer(verseUQNumber, surahNumber);
     } else {
-      sl<TranslateDataController>().fetchTranslate(context);
+      sl<TranslateDataController>().fetchTranslate();
     }
     sl<TranslateDataController>().update();
     Get.back();

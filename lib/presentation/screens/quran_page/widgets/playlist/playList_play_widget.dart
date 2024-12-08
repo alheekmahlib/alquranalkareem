@@ -1,8 +1,4 @@
-import 'package:flutter/material.dart';
-
-import '/core/widgets/seek_bar.dart';
-import '../../controllers/playList_controller.dart';
-import 'playList_play_button.dart';
+part of '../../quran.dart';
 
 class PlayListPlayWidget extends StatelessWidget {
   const PlayListPlayWidget({super.key});

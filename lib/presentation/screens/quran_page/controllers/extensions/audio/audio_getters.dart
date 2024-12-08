@@ -1,16 +1,4 @@
-import 'dart:developer';
-
-import 'package:audio_service/audio_service.dart';
-import 'package:get/get.dart';
-import 'package:rxdart/rxdart.dart' as R;
-
-import '../../../../../../core/utils/constants/lists.dart';
-import '../../../../../../core/utils/constants/url_constants.dart';
-import '../../../../../../core/widgets/seek_bar.dart';
-import '../../../../../controllers/general/general_controller.dart';
-import '../../audio/audio_controller.dart';
-import '../../quran/quran_controller.dart';
-import '../quran/quran_getters.dart';
+part of '../../../quran.dart';
 
 // AudioState state = AudioState();
 final generalCtrl = GeneralController.instance;

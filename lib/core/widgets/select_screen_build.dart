@@ -8,7 +8,7 @@ import '../../presentation/controllers/general/general_controller.dart';
 import '../../presentation/screens/screen_type.dart';
 import '../utils/constants/lists.dart';
 import '../utils/constants/shared_preferences_constants.dart';
-import 'container_button.dart';
+import 'elevated_button_widget.dart';
 
 class SelectScreenBuild extends StatelessWidget {
   final bool isButton;
@@ -218,21 +218,18 @@ class SelectScreenBuild extends StatelessWidget {
                   child: Padding(
                     padding: const EdgeInsets.symmetric(
                         horizontal: 32.0, vertical: 8.0),
-                    child: GestureDetector(
-                      child: ContainerButton(
-                        height: 40,
-                        width: size.width,
-                        child: Center(
-                          child: Text('save'.tr,
-                              style: TextStyle(
-                                  fontFamily: 'kufi',
-                                  fontSize: 18,
-                                  color: Theme.of(context).canvasColor)),
-                        ),
+                    child: ElevatedButtonWidget(
+                      onClick: () => Get.off(() => ScreenTypeL()),
+                      index: 1,
+                      height: 40,
+                      width: size.width,
+                      child: Center(
+                        child: Text('save'.tr,
+                            style: TextStyle(
+                                fontFamily: 'kufi',
+                                fontSize: 18,
+                                color: Theme.of(context).canvasColor)),
                       ),
-                      onTap: () {
-                        Get.off(() => ScreenTypeL());
-                      },
                     ),
                   ),
                 )

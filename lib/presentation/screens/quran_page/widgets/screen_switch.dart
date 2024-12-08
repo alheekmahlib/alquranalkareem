@@ -1,9 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-
-import '../controllers/quran/quran_controller.dart';
-import '../screens/quran_page.dart';
-import 'ayahs/ayahs_widget.dart';
+part of '../quran.dart';
 
 class ScreenSwitch extends StatelessWidget {
   ScreenSwitch({super.key});

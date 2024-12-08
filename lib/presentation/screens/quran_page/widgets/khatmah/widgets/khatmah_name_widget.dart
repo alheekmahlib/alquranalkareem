@@ -1,6 +1,4 @@
-import 'package:flutter/material.dart';
-
-import '../../../controllers/khatmah_controller.dart';
+part of '../../../quran.dart';
 
 class KhatmahNameWidget extends StatelessWidget {
   final Khatmah khatmah;
