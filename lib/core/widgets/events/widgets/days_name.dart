@@ -25,7 +25,7 @@ class DaysName extends StatelessWidget {
                 eventCtrl.getWeekdayName(index).tr,
                 style: TextStyle(
                   fontFamily: 'kufi',
-                  fontSize: 12.sp,
+                  fontSize: 16,
                   color: Theme.of(context).textTheme.bodyLarge!.color,
                 ),
                 textAlign: TextAlign.center,

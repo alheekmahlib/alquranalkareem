@@ -8,8 +8,8 @@ class MonthSelection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetBuilder<EventController>(
-      builder: (eventCtrl) => Align(
-        alignment: Alignment.topLeft,
+      builder: (eventCtrl) => Expanded(
+        flex: 4,
         child: Container(
           width: Get.width * .45,
           // margin: const EdgeInsets.symmetric(horizontal: 16.0),
