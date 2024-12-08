@@ -15,7 +15,7 @@ class HijriCalendarScreen extends StatelessWidget {
                   color: Get.theme.colorScheme.primaryContainer,
                   child: SlidingBox(
                     controller: eventCtrl.boxController,
-                    minHeight: 350,
+                    minHeight: context.customOrientation(350.0, 50.0),
                     maxHeight: Get.height * .8,
                     color: Colors.transparent,
                     style: BoxStyle.none,
@@ -24,6 +24,7 @@ class HijriCalendarScreen extends StatelessWidget {
                     animationDuration: const Duration(milliseconds: 250),
                     draggableIconVisible: false,
                     collapsed: true,
+                    borderRadius: const BorderRadius.all(Radius.circular(12)),
                     backdrop: Backdrop(
                       fading: false,
                       overlay: false,
@@ -38,93 +39,206 @@ class HijriCalendarScreen extends StatelessWidget {
                           Padding(
                             padding:
                                 const EdgeInsets.symmetric(horizontal: 8.0),
-                            child: Column(
-                              children: [
-                                Stack(
-                                  alignment: Alignment.center,
-                                  children: [
-                                    SvgPicture.asset(
-                                        'assets/svg/hijri/${eventsCtrl.hijriNow.hMonth}.svg',
-                                        width: 150,
-                                        colorFilter: ColorFilter.mode(
-                                            Theme.of(context)
-                                                .colorScheme
-                                                .surface,
-                                            BlendMode.srcIn)),
-                                    Transform.translate(
-                                      offset: const Offset(-70, 30),
-                                      child: Container(
-                                        padding: const EdgeInsets.symmetric(
-                                            horizontal: 10.0),
-                                        decoration: BoxDecoration(
-                                            color: Get.theme.colorScheme.primary
-                                                .withOpacity(.2),
-                                            borderRadius:
-                                                const BorderRadius.all(
-                                                    Radius.circular(4))),
-                                        child: Text(
-                                          '${eventsCtrl.hijriNow.hYear}'
-                                              .convertNumbers(),
-                                          style: TextStyle(
-                                            fontSize: 34.0,
-                                            fontFamily: 'kufi',
-                                            height: .5,
-                                            fontWeight: FontWeight.bold,
-                                            color: Theme.of(context)
-                                                .colorScheme
-                                                .primary,
+                            child: context.customOrientation(
+                              Column(
+                                children: [
+                                  Stack(
+                                    alignment: Alignment.center,
+                                    children: [
+                                      SvgPicture.asset(
+                                          'assets/svg/hijri/${eventsCtrl.hijriNow.hMonth}.svg',
+                                          width: 150,
+                                          colorFilter: ColorFilter.mode(
+                                              Theme.of(context)
+                                                  .colorScheme
+                                                  .surface,
+                                              BlendMode.srcIn)),
+                                      Transform.translate(
+                                        offset: const Offset(-70, 30),
+                                        child: Container(
+                                          padding: const EdgeInsets.symmetric(
+                                              horizontal: 10.0),
+                                          decoration: BoxDecoration(
+                                              color: Get
+                                                  .theme.colorScheme.primary
+                                                  .withOpacity(.2),
+                                              borderRadius:
+                                                  const BorderRadius.all(
+                                                      Radius.circular(4))),
+                                          child: Text(
+                                            '${eventsCtrl.hijriNow.hYear}'
+                                                .convertNumbers(),
+                                            style: TextStyle(
+                                              fontSize: 34.0,
+                                              fontFamily: 'kufi',
+                                              height: .5,
+                                              fontWeight: FontWeight.bold,
+                                              color: Theme.of(context)
+                                                  .colorScheme
+                                                  .primary,
+                                            ),
+                                            textAlign: TextAlign.center,
                                           ),
-                                          textAlign: TextAlign.center,
                                         ),
                                       ),
-                                    ),
-                                  ],
-                                ),
-                                const Gap(16.0),
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    YearSelection(),
-                                    const Gap(8),
-                                    MonthSelection(),
-                                  ],
-                                ),
-                                const Gap(16),
-                                DaysName(),
-                                const Gap(8),
-                                SizedBox(
-                                  height: 200,
-                                  child: PageView.builder(
-                                    controller: eventCtrl.pageController,
-                                    onPageChanged: eventCtrl.onMonthChanged,
-                                    physics: const ClampingScrollPhysics(),
-                                    itemCount: 12,
-                                    itemBuilder: (context, monthIndex) {
-                                      eventCtrl.calenderMonth.value =
-                                          eventCtrl.months[monthIndex];
-                                      final daysInMonth = eventCtrl
-                                          .calenderMonth.value
-                                          .getDaysInMonth(
-                                              eventCtrl
-                                                  .calenderMonth.value.hYear,
-                                              eventCtrl
-                                                  .calenderMonth.value.hMonth);
-                                      final firstDayWeekday = eventCtrl
-                                          .calenderMonth.value
-                                          .weekDay();
-                                      return Padding(
-                                        padding: const EdgeInsets.symmetric(
-                                            horizontal: 16.0),
-                                        child: CalendarBuild(
-                                          daysInMonth: daysInMonth,
-                                          firstDayWeekday: firstDayWeekday,
-                                          month: eventCtrl.calenderMonth.value,
-                                        ),
-                                      );
-                                    },
+                                    ],
                                   ),
-                                ),
-                              ],
+                                  const Gap(16.0),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      YearSelection(),
+                                      const Gap(8),
+                                      MonthSelection(),
+                                    ],
+                                  ),
+                                  const Gap(16),
+                                  DaysName(),
+                                  const Gap(8),
+                                  SizedBox(
+                                    height: 200,
+                                    child: PageView.builder(
+                                      controller: eventCtrl.pageController,
+                                      onPageChanged: eventCtrl.onMonthChanged,
+                                      physics: const ClampingScrollPhysics(),
+                                      itemCount: 12,
+                                      itemBuilder: (context, monthIndex) {
+                                        eventCtrl.calenderMonth.value =
+                                            eventCtrl.months[monthIndex];
+                                        final daysInMonth = eventCtrl
+                                            .calenderMonth.value
+                                            .getDaysInMonth(
+                                                eventCtrl
+                                                    .calenderMonth.value.hYear,
+                                                eventCtrl.calenderMonth.value
+                                                    .hMonth);
+                                        final firstDayWeekday = eventCtrl
+                                            .calenderMonth.value
+                                            .weekDay();
+                                        return Padding(
+                                          padding: const EdgeInsets.symmetric(
+                                              horizontal: 16.0),
+                                          child: CalendarBuild(
+                                            daysInMonth: daysInMonth,
+                                            firstDayWeekday: firstDayWeekday,
+                                            month:
+                                                eventCtrl.calenderMonth.value,
+                                          ),
+                                        );
+                                      },
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              Row(
+                                children: [
+                                  Expanded(
+                                    flex: 4,
+                                    child: Column(children: [
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          YearSelection(),
+                                          const Gap(8),
+                                          MonthSelection(),
+                                        ],
+                                      ),
+                                      const Gap(16),
+                                      DaysName(),
+                                      const Gap(8),
+                                      SizedBox(
+                                        height: 200,
+                                        child: PageView.builder(
+                                          controller: eventCtrl.pageController,
+                                          onPageChanged:
+                                              eventCtrl.onMonthChanged,
+                                          physics:
+                                              const ClampingScrollPhysics(),
+                                          itemCount: 12,
+                                          itemBuilder: (context, monthIndex) {
+                                            eventCtrl.calenderMonth.value =
+                                                eventCtrl.months[monthIndex];
+                                            final daysInMonth = eventCtrl
+                                                .calenderMonth.value
+                                                .getDaysInMonth(
+                                                    eventCtrl.calenderMonth
+                                                        .value.hYear,
+                                                    eventCtrl.calenderMonth
+                                                        .value.hMonth);
+                                            final firstDayWeekday = eventCtrl
+                                                .calenderMonth.value
+                                                .weekDay();
+                                            return Padding(
+                                              padding:
+                                                  const EdgeInsets.symmetric(
+                                                      horizontal: 16.0),
+                                              child: CalendarBuild(
+                                                daysInMonth: daysInMonth,
+                                                firstDayWeekday:
+                                                    firstDayWeekday,
+                                                month: eventCtrl
+                                                    .calenderMonth.value,
+                                              ),
+                                            );
+                                          },
+                                        ),
+                                      ),
+                                    ]),
+                                  ),
+                                  Expanded(
+                                    flex: 4,
+                                    child: Column(
+                                      children: [
+                                        Stack(
+                                          alignment: Alignment.center,
+                                          children: [
+                                            SvgPicture.asset(
+                                                'assets/svg/hijri/${eventsCtrl.hijriNow.hMonth}.svg',
+                                                width: 150,
+                                                colorFilter: ColorFilter.mode(
+                                                    Theme.of(context)
+                                                        .colorScheme
+                                                        .surface,
+                                                    BlendMode.srcIn)),
+                                            Transform.translate(
+                                              offset: const Offset(-70, 30),
+                                              child: Container(
+                                                padding:
+                                                    const EdgeInsets.symmetric(
+                                                        horizontal: 10.0),
+                                                decoration: BoxDecoration(
+                                                    color: Get.theme.colorScheme
+                                                        .primary
+                                                        .withOpacity(.2),
+                                                    borderRadius:
+                                                        const BorderRadius.all(
+                                                            Radius.circular(
+                                                                4))),
+                                                child: Text(
+                                                  '${eventsCtrl.hijriNow.hYear}'
+                                                      .convertNumbers(),
+                                                  style: TextStyle(
+                                                    fontSize: 34.0,
+                                                    fontFamily: 'kufi',
+                                                    height: .5,
+                                                    fontWeight: FontWeight.bold,
+                                                    color: Theme.of(context)
+                                                        .colorScheme
+                                                        .primary,
+                                                  ),
+                                                  textAlign: TextAlign.center,
+                                                ),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                        const Gap(16.0),
+                                      ],
+                                    ),
+                                  )
+                                ],
+                              ),
                             ),
                           ),
                         ],

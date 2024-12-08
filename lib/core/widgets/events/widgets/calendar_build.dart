@@ -40,11 +40,6 @@ class CalendarBuild extends StatelessWidget {
           child: Container(
             decoration: BoxDecoration(
               color: eventCtrl.getDayColor(isCurrentDay, myMonths, dayOffset),
-              // isCurrentDay
-              //   ? Theme.of(context).colorScheme.surface
-              //   : eventCtrl.isEvent(myMonths, dayOffset).value
-              //       ? Theme.of(context).colorScheme.primary.withOpacity(0.2)
-              //       : null,
               borderRadius: BorderRadius.circular(8),
               border: Border.all(
                 color: Theme.of(context).colorScheme.surface,
@@ -56,7 +51,7 @@ class CalendarBuild extends StatelessWidget {
                 dayOffset.toString().convertNumbers(),
                 style: TextStyle(
                   fontFamily: 'kufi',
-                  fontSize: 14.sp,
+                  fontSize: 16,
                   height: 2,
                   color: isCurrentDay
                       ? Theme.of(context).colorScheme.primaryContainer

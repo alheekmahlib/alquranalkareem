@@ -7,8 +7,8 @@ class YearSelection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Align(
-      alignment: Alignment.topRight,
+    return Expanded(
+      flex: 4,
       child: Container(
         width: Get.width * .45,
         // margin: const EdgeInsets.symmetric(horizontal: 16.0),
