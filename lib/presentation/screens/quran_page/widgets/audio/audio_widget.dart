@@ -20,8 +20,10 @@ class AudioWidget extends StatelessWidget {
                     offset: const Offset(0, -2),
                     blurRadius: 3,
                     spreadRadius: 3,
-                    color:
-                        Theme.of(context).colorScheme.primary.withOpacity(.15))
+                    color: Theme.of(context)
+                        .colorScheme
+                        .primary
+                        .withValues(alpha: .15))
               ]),
           child: Obx(() => AnimatedCrossFade(
                 duration: const Duration(milliseconds: 200),

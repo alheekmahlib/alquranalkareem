@@ -29,12 +29,13 @@ extension ContextMenuExtension on BuildContext {
               ),
               child: Container(
                 decoration: BoxDecoration(
-                    color:
-                        Get.theme.colorScheme.primaryContainer.withOpacity(.95),
+                    color: Get.theme.colorScheme.primaryContainer
+                        .withValues(alpha: .95),
                     borderRadius: const BorderRadius.all(Radius.circular(8)),
                     border: Border.all(
                         width: 2,
-                        color: Get.theme.colorScheme.primary.withOpacity(.5))),
+                        color: Get.theme.colorScheme.primary
+                            .withValues(alpha: .5))),
                 child: Padding(
                   padding: const EdgeInsets.symmetric(
                       horizontal: 10.0, vertical: 6.0),

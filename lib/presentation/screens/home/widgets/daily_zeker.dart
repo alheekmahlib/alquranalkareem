@@ -19,7 +19,8 @@ class DailyZeker extends StatelessWidget {
         child: Container(
           width: 380,
           decoration: BoxDecoration(
-              color: Theme.of(context).colorScheme.primary.withOpacity(.1),
+              color:
+                  Theme.of(context).colorScheme.primary.withValues(alpha: .1),
               borderRadius: const BorderRadius.all(Radius.circular(8))),
           child: FutureBuilder<AdhkarData>(
               future: azkarCtrl.getDailyDhekr(),
@@ -53,7 +54,7 @@ class DailyZeker extends StatelessWidget {
                                     color: Theme.of(context)
                                         .colorScheme
                                         .surface
-                                        .withOpacity(.4),
+                                        .withValues(alpha: .4),
                                     borderRadius: const BorderRadius.only(
                                       bottomRight: Radius.circular(8),
                                       bottomLeft: Radius.circular(8),

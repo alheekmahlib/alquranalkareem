@@ -136,7 +136,7 @@ class DhekrImageCreator extends StatelessWidget {
                         padding: const EdgeInsets.symmetric(
                             horizontal: 4.0, vertical: 2.0),
                         decoration: BoxDecoration(
-                          color: const Color(0xff404C6E).withOpacity(.05),
+                          color: const Color(0xff404C6E).withValues(alpha: .05),
                           borderRadius:
                               const BorderRadius.all(Radius.circular(4)),
                         ),
@@ -157,7 +157,7 @@ class DhekrImageCreator extends StatelessWidget {
                       padding: const EdgeInsets.symmetric(
                           horizontal: 4.0, vertical: 2.0),
                       decoration: BoxDecoration(
-                        color: const Color(0xff404C6E).withOpacity(.05),
+                        color: const Color(0xff404C6E).withValues(alpha: .05),
                         borderRadius:
                             const BorderRadius.all(Radius.circular(4)),
                       ),

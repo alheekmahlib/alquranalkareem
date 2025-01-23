@@ -22,7 +22,7 @@ class GroupButtonsWidget extends StatelessWidget {
             decoration: BoxDecoration(
               color: isSelected
                   ? Theme.of(context).colorScheme.primary
-                  : Theme.of(context).colorScheme.primary.withOpacity(.6),
+                  : Theme.of(context).colorScheme.primary.withValues(alpha: .6),
               borderRadius: BorderRadius.circular(4),
             ),
             child: SvgPicture.asset(
@@ -43,7 +43,7 @@ class GroupButtonsWidget extends StatelessWidget {
           selectedColor: Theme.of(context).colorScheme.primary,
           unselectedShadow: const [],
           unselectedColor:
-              Theme.of(context).colorScheme.primary.withOpacity(.5),
+              Theme.of(context).colorScheme.primary.withValues(alpha: .5),
           unselectedTextStyle: TextStyle(
             fontSize: 18,
             fontFamily: 'kufi',

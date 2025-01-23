@@ -11,7 +11,7 @@ class WhatsNewWidget extends StatelessWidget {
       alignment: Alignment.center,
       padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
       decoration: BoxDecoration(
-          color: Theme.of(context).colorScheme.surface.withOpacity(.3),
+          color: Theme.of(context).colorScheme.surface.withValues(alpha: .3),
           borderRadius: const BorderRadius.all(Radius.circular(8))),
       child: Text(
         "What's New".tr,

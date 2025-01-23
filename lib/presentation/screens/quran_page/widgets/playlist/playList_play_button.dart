@@ -16,8 +16,10 @@ class PlayListPlayButton extends StatelessWidget {
               final loopMode = snapshot.data ?? LoopMode.off;
               List<Widget> icons = [
                 Icon(Icons.repeat,
-                    color:
-                        Theme.of(context).colorScheme.surface.withOpacity(.4)),
+                    color: Theme.of(context)
+                        .colorScheme
+                        .surface
+                        .withValues(alpha: .4)),
                 Icon(Icons.repeat,
                     color: Theme.of(context).colorScheme.surface),
               ];
@@ -54,7 +56,7 @@ class PlayListPlayButton extends StatelessWidget {
               //   borderRadius: 8,
               //   shadowWidth: 1.5,
               //   progressWidth: 2,
-              //   shadowColor: Theme.of(context).colorScheme.surface.withOpacity(.15),
+              //   shadowColor: Theme.of(context).colorScheme.surface.withValues(alpha: .15),
               //   progressColor: sl<AudioController>().downloading.value
               //       ? Theme.of(context).colorScheme.primary
               //       : Colors.transparent,

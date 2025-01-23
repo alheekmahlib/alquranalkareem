@@ -72,7 +72,7 @@ class OurAppsBuild extends StatelessWidget {
                                     color: Theme.of(context)
                                         .colorScheme
                                         .surface
-                                        .withOpacity(.7),
+                                        .withValues(alpha: .7),
                                     fontSize: 11,
                                     fontFamily: 'kufi',
                                     fontWeight: FontWeight.bold),

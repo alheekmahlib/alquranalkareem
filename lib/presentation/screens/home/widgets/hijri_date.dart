@@ -1,3 +1,4 @@
+import 'package:alquranalkareem/core/utils/constants/extensions/extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:gap/gap.dart';
@@ -24,7 +25,7 @@ class HijriDate extends StatelessWidget {
             transition: Transition.downToUp),
         index: 1,
         height: 190,
-        width: Get.width * .91,
+        width: context.customOrientation(Get.width * .91, Get.width * .45),
         child: Container(
           width: MediaQuery.sizeOf(context).width,
           margin: const EdgeInsets.all(12.0),

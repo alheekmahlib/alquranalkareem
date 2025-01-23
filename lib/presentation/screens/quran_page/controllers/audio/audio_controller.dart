@@ -246,7 +246,7 @@ class AudioController extends GetxController {
           state.selectedAyahNum.value = index;
           state.currentAyahUQInPage.value =
               selectedSurahAyahsUniqueNumbers[state.selectedAyahNum.value];
-          quranCtrl.clearAndAddSelection(state.currentAyahUQInPage.value);
+          quranCtrl.toggleAyahSelection(state.currentAyahUQInPage.value);
         }
       });
 
@@ -284,6 +284,7 @@ class AudioController extends GetxController {
               .ayahUQNumber
           : state.currentAyahUQInPage.value;
     }
+    // quranCtrl.toggleAyahSelection(state.currentAyahUQInPage.value);
     quranCtrl.clearAndAddSelection(state.currentAyahUQInPage.value);
     if (state.audioPlayer.playing || state.isPlay.value) {
       state.isPlay.value = false;
@@ -304,6 +305,7 @@ class AudioController extends GetxController {
     } else {
       await state.audioPlayer.seekToNext();
     }
+    quranCtrl.toggleAyahSelection(state.currentAyahUQInPage.value);
   }
 
   Future<void> skipPreviousAyah() async {
@@ -315,6 +317,7 @@ class AudioController extends GetxController {
     } else {
       await state.audioPlayer.seekToPrevious();
     }
+    quranCtrl.toggleAyahSelection(state.currentAyahUQInPage.value);
   }
 
   /// -------- [ConnectivityMethods] ----------

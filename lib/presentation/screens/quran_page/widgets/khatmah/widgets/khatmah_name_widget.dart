@@ -20,7 +20,8 @@ class KhatmahNameWidget extends StatelessWidget {
           alignment: Alignment.center,
           padding: const EdgeInsets.symmetric(horizontal: 8.0),
           decoration: BoxDecoration(
-              color: Theme.of(context).colorScheme.surface.withOpacity(.6),
+              color:
+                  Theme.of(context).colorScheme.surface.withValues(alpha: .6),
               borderRadius: const BorderRadius.all(Radius.circular(8.0))),
           child: Text(
             khatmah.name ?? 'No Name',

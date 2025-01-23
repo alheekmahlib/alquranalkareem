@@ -100,7 +100,7 @@ class SettingsList extends StatelessWidget {
                                         color: Theme.of(context)
                                             .colorScheme
                                             .primary
-                                            .withOpacity(.2),
+                                            .withValues(alpha: .2),
                                         borderRadius: const BorderRadius.all(
                                             Radius.circular(8))),
                                     child: InkWell(
@@ -156,7 +156,7 @@ class SettingsList extends StatelessWidget {
                                         color: Theme.of(context)
                                             .colorScheme
                                             .primary
-                                            .withOpacity(.2),
+                                            .withValues(alpha: .2),
                                         borderRadius: const BorderRadius.all(
                                             Radius.circular(8))),
                                     child: InkWell(

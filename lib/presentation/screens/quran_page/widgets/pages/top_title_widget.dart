@@ -19,6 +19,7 @@ class TopTitleWidget extends StatelessWidget {
                 GestureDetector(
                   onTap: () => bookmarkCtrl.addPageBookmarkOnTap(index),
                   child: bookmarkIcon(
+                      pageNum: index + 1,
                       height: context.customOrientation(30.h, 55.h)),
                 ),
                 const Gap(16),
@@ -72,6 +73,7 @@ class TopTitleWidget extends StatelessWidget {
                 GestureDetector(
                   onTap: () => bookmarkCtrl.addPageBookmarkOnTap(index),
                   child: bookmarkIcon(
+                      pageNum: index + 1,
                       height: context.customOrientation(30.h, 55.h)),
                 ),
               ],

@@ -122,11 +122,11 @@ class QuranSearch extends StatelessWidget {
                                     ? Theme.of(context)
                                         .colorScheme
                                         .surface
-                                        .withOpacity(.05)
+                                        .withValues(alpha: .05)
                                     : Theme.of(context)
                                         .colorScheme
                                         .surface
-                                        .withOpacity(.1)),
+                                        .withValues(alpha: .1)),
                                 child: ListTile(
                                   onTap: () {
                                     quranCtrl.clearAndAddSelection(search.id);
@@ -166,7 +166,7 @@ class QuranSearch extends StatelessWidget {
                                               decoration: BoxDecoration(
                                                   color: Get
                                                       .theme.colorScheme.primary
-                                                      .withOpacity(.7),
+                                                      .withValues(alpha: .7),
                                                   borderRadius:
                                                       const BorderRadius.only(
                                                     topRight:

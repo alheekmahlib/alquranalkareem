@@ -35,7 +35,8 @@ class BookDetails extends StatelessWidget {
           width: 380,
           margin: const EdgeInsets.only(top: 120, right: 16.0, left: 16.0),
           decoration: BoxDecoration(
-              color: Theme.of(context).colorScheme.surface.withOpacity(.15),
+              color:
+                  Theme.of(context).colorScheme.surface.withValues(alpha: .15),
               borderRadius: const BorderRadius.all(Radius.circular(8))),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.end,

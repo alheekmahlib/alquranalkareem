@@ -45,14 +45,14 @@ class TextScaleBuild extends StatelessWidget {
                                       width: Get.width * .5,
                                       height: quranCtrl.textScale(
                                           Get.height * .2, 45.0),
-                                      color:
-                                          Get.theme.cardColor.withOpacity(.8))
+                                      color: Get.theme.cardColor
+                                          .withValues(alpha: .8))
                                   : customSvgWithColor(SvgPath.svgBesmAllah,
                                       width: Get.width * .5,
                                       height: quranCtrl.textScale(
                                           Get.height * .2, 45.0),
-                                      color:
-                                          Get.theme.cardColor.withOpacity(.8))
+                                      color: Get.theme.cardColor
+                                          .withValues(alpha: .8))
                               : const SizedBox.shrink(),
                         ),
                 ],

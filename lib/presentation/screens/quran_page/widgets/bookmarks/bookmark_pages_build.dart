@@ -32,7 +32,7 @@ class BookmarkPagesBuild extends StatelessWidget {
                               color: Theme.of(context)
                                   .colorScheme
                                   .surface
-                                  .withOpacity(.1),
+                                  .withValues(alpha: .1),
                               borderRadius:
                                   const BorderRadius.all(Radius.circular(8))),
                           child: ListView.builder(
@@ -72,7 +72,7 @@ class BookmarkPagesBuild extends StatelessWidget {
                                                   color: Theme.of(context)
                                                       .colorScheme
                                                       .surface
-                                                      .withOpacity(.2),
+                                                      .withValues(alpha: .2),
                                                   borderRadius:
                                                       const BorderRadius.all(
                                                           Radius.circular(8))),

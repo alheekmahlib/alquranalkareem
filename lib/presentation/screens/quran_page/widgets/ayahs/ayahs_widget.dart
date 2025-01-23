@@ -28,8 +28,10 @@ class AyahsWidget extends StatelessWidget {
                   padding: const EdgeInsets.symmetric(
                       horizontal: 8.0, vertical: 2.0),
                   decoration: BoxDecoration(
-                      color:
-                          Theme.of(context).colorScheme.surface.withOpacity(.1),
+                      color: Theme.of(context)
+                          .colorScheme
+                          .surface
+                          .withValues(alpha: .1),
                       borderRadius:
                           const BorderRadius.all(Radius.circular(8.0))),
                   child: Row(
@@ -70,8 +72,10 @@ class AyahsWidget extends StatelessWidget {
                 // ),
                 fontSizeDropDown(
                     height: 25.0,
-                    color:
-                        Theme.of(context).colorScheme.surface.withOpacity(.7)),
+                    color: Theme.of(context)
+                        .colorScheme
+                        .surface
+                        .withValues(alpha: .7)),
               ],
             ),
           ),
@@ -108,7 +112,7 @@ class AyahsWidget extends StatelessWidget {
                                         color: Theme.of(context)
                                             .colorScheme
                                             .primary
-                                            .withOpacity(.5),
+                                            .withValues(alpha: .5),
                                       )),
                                   child: AyahsBuild(
                                     pageIndex: pageIndex,

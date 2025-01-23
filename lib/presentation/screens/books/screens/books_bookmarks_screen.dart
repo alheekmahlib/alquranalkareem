@@ -55,10 +55,14 @@ class BookBookmarksScreen extends StatelessWidget {
                     collapsedIconColor:
                         Theme.of(context).colorScheme.inversePrimary,
                     iconColor: Theme.of(context).colorScheme.inversePrimary,
-                    backgroundColor:
-                        Theme.of(context).colorScheme.primary.withOpacity(.1),
-                    collapsedBackgroundColor:
-                        Theme.of(context).colorScheme.primary.withOpacity(.1),
+                    backgroundColor: Theme.of(context)
+                        .colorScheme
+                        .primary
+                        .withValues(alpha: .1),
+                    collapsedBackgroundColor: Theme.of(context)
+                        .colorScheme
+                        .primary
+                        .withValues(alpha: .1),
                     children: bookmarks.map((bookmark) {
                       return ListTile(
                         title: Text(

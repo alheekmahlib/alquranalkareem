@@ -1135,7 +1135,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "What'sNewDetails10": "۞ Añadiendo la Khatmah al Corán.\n۞ Añadiendo una función para descargar todos los versículos de una sura para que funcione sin internet.\n۞ Mejoras en la búsqueda del Corán.\n۞ Añadiendo la biblioteca de Tafsir.\n۞ Añadiendo una función de recordatorio para recitar Azkar donde puedes establecer un tiempo específico para la recitación.\n۞ Añadiendo notificaciones.\n۞ Y más adiciones y mejoras.",
+  "What'sNewDetails10": "۞ Se añadió el calendario islámico.\n۞ Se solucionó el problema de copiar algunos versículos.\n۞ Mejoras en el rendimiento.",
   "@What'sNewDetails10": {
     "type": "text",
     "placeholders": {}

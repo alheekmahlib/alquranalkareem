@@ -1,6 +1,5 @@
 part of '../quran.dart';
 
-
 extension SurahInfoExtension on Widget {
   Widget surahInfoWidget(int pageIndex, int index, int firstPlace) {
     final ayahs = quranCtrl
@@ -88,11 +87,12 @@ extension SurahInfoExtension on Widget {
                 padding: const EdgeInsets.symmetric(horizontal: 8.0),
                 margin: const EdgeInsets.symmetric(horizontal: 8.0),
                 decoration: BoxDecoration(
-                    color: Get.theme.colorScheme.surface.withOpacity(.1),
+                    color: Get.theme.colorScheme.surface.withValues(alpha: .1),
                     borderRadius: const BorderRadius.all(Radius.circular(8)),
                     border: Border.all(
                       width: 1,
-                      color: Get.theme.colorScheme.surface.withOpacity(.3),
+                      color:
+                          Get.theme.colorScheme.surface.withValues(alpha: .3),
                     )),
                 child: Row(
                   children: [
@@ -141,14 +141,14 @@ extension SurahInfoExtension on Widget {
                         height: 35,
                         margin: const EdgeInsets.symmetric(horizontal: 8.0),
                         decoration: BoxDecoration(
-                            color:
-                                Get.theme.colorScheme.surface.withOpacity(.1),
+                            color: Get.theme.colorScheme.surface
+                                .withValues(alpha: .1),
                             borderRadius:
                                 const BorderRadius.all(Radius.circular(8)),
                             border: Border.all(
                               width: 1,
-                              color:
-                                  Get.theme.colorScheme.surface.withOpacity(.3),
+                              color: Get.theme.colorScheme.surface
+                                  .withValues(alpha: .3),
                             )),
                         child: TabBar(
                           unselectedLabelColor: Colors.grey,
@@ -171,8 +171,8 @@ extension SurahInfoExtension on Widget {
                           indicator: BoxDecoration(
                             borderRadius:
                                 const BorderRadius.all(Radius.circular(8)),
-                            color:
-                                Get.theme.colorScheme.primary.withOpacity(.1),
+                            color: Get.theme.colorScheme.primary
+                                .withValues(alpha: .1),
                           ),
                           tabs: [
                             Tab(text: 'surahNames'.tr),

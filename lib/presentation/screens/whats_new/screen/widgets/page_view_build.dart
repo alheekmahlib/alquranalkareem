@@ -36,7 +36,7 @@ class PageViewBuild extends StatelessWidget {
                               color: Theme.of(context)
                                   .colorScheme
                                   .surface
-                                  .withOpacity(.3),
+                                  .withValues(alpha: .3),
                               borderRadius:
                                   const BorderRadius.all(Radius.circular(4))),
                           child: Text(
@@ -62,7 +62,7 @@ class PageViewBuild extends StatelessWidget {
                                 color: Theme.of(context)
                                     .colorScheme
                                     .surface
-                                    .withOpacity(.3),
+                                    .withValues(alpha: .3),
                                 borderRadius: const BorderRadius.all(
                                     Radius.circular(8.0))),
                             child: Image.asset(
@@ -84,7 +84,7 @@ class PageViewBuild extends StatelessWidget {
                               color: Theme.of(context)
                                   .colorScheme
                                   .surface
-                                  .withOpacity(.3),
+                                  .withValues(alpha: .3),
                               borderRadius:
                                   const BorderRadius.all(Radius.circular(4))),
                           child: Text(

@@ -29,7 +29,7 @@ class CalculatingDateEventsWidget extends StatelessWidget {
               borderRadius: const BorderRadius.all(Radius.circular(8.0)),
               border: Border.all(
                 width: 1,
-                color: Theme.of(context).canvasColor.withOpacity(.5),
+                color: Theme.of(context).canvasColor.withValues(alpha: .5),
               )),
           child: Stack(
             alignment: Alignment.centerRight,
@@ -42,7 +42,10 @@ class CalculatingDateEventsWidget extends StatelessWidget {
                 backgroundColor: Theme.of(context).canvasColor,
                 color: daysRemaining == 0
                     ? Theme.of(context).colorScheme.surface
-                    : Theme.of(context).colorScheme.surface.withOpacity(.7),
+                    : Theme.of(context)
+                        .colorScheme
+                        .surface
+                        .withValues(alpha: .7),
               ),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 8.0),

@@ -14,7 +14,7 @@ extension BottomSheetExtension on void {
             ),
             border: Border.all(
               width: 1,
-              color: Get.theme.colorScheme.surface.withOpacity(.4),
+              color: Get.theme.colorScheme.surface.withValues(alpha: .4),
             )),
         child: child,
       ),

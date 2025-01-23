@@ -15,7 +15,9 @@ class PagesWidget extends StatelessWidget {
       return Container(
         padding: pageIndex == 0 || pageIndex == 1
             ? EdgeInsets.symmetric(horizontal: Get.width * .08)
-            : EdgeInsets.zero,
+            : Responsive.isDesktop(context)
+                ? const EdgeInsets.only(bottom: 16.0, top: 32.0)
+                : EdgeInsets.zero,
         margin: pageIndex == 0 || pageIndex == 1
             ? EdgeInsets.symmetric(vertical: Get.width * .16)
             : const EdgeInsets.symmetric(vertical: 20.0, horizontal: 8.0),

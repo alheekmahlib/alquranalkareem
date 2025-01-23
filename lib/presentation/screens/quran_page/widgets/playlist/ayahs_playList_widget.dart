@@ -51,7 +51,7 @@ class AyahsPlayListWidget extends StatelessWidget {
                       color: Theme.of(context)
                           .colorScheme
                           .primary
-                          .withOpacity(.15)),
+                          .withValues(alpha: .15)),
                 ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,

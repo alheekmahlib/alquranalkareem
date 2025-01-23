@@ -14,7 +14,8 @@ class PlayListBuild extends StatelessWidget {
         borderRadius: const BorderRadius.all(Radius.circular(8)),
         border: Border.all(
             width: 1,
-            color: Theme.of(context).colorScheme.primary.withOpacity(.15)),
+            color:
+                Theme.of(context).colorScheme.primary.withValues(alpha: .15)),
       ),
       child: ExpansionTileCard(
         key: playList.saveCard,
@@ -31,7 +32,7 @@ class PlayListBuild extends StatelessWidget {
             ),
           ),
         ),
-        baseColor: Theme.of(context).colorScheme.primary.withOpacity(.1),
+        baseColor: Theme.of(context).colorScheme.primary.withValues(alpha: .1),
         expandedColor: Colors.transparent,
         children: [
           SizedBox(
@@ -54,7 +55,7 @@ class PlayListBuild extends StatelessWidget {
                               color: Theme.of(context)
                                   .colorScheme
                                   .primary
-                                  .withOpacity(.15),
+                                  .withValues(alpha: .15),
                               borderRadius:
                                   const BorderRadius.all(Radius.circular(4)),
                             ),
@@ -90,7 +91,7 @@ class PlayListBuild extends StatelessWidget {
                                                 color: Theme.of(context)
                                                     .colorScheme
                                                     .background
-                                                    .withOpacity(.8),
+                                                    .withValues(alpha: .8),
                                                 borderRadius:
                                                     const BorderRadius.all(
                                                         Radius.circular(4))),

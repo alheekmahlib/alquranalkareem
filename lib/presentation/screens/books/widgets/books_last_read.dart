@@ -67,7 +67,7 @@ class BooksLastRead extends StatelessWidget {
                                 color: Theme.of(context)
                                     .colorScheme
                                     .primary
-                                    .withOpacity(.15),
+                                    .withValues(alpha: .15),
                                 borderRadius: const BorderRadius.all(
                                     Radius.circular(8.0))),
                             child: Stack(
@@ -97,11 +97,11 @@ class BooksLastRead extends StatelessWidget {
                                     backgroundColor: Theme.of(context)
                                         .colorScheme
                                         .primary
-                                        .withOpacity(.15),
+                                        .withValues(alpha: .15),
                                     color: Theme.of(context)
                                         .colorScheme
                                         .surface
-                                        .withOpacity(.5),
+                                        .withValues(alpha: .5),
                                   ),
                                 ),
                               ],

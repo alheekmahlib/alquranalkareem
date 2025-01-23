@@ -33,7 +33,8 @@ class KhatmahBookmarksScreen extends StatelessWidget {
                       padding: const EdgeInsets.all(4.0),
                       margin: const EdgeInsets.symmetric(horizontal: 8.0),
                       decoration: BoxDecoration(
-                        color: Theme.of(context).canvasColor.withOpacity(.1),
+                        color:
+                            Theme.of(context).canvasColor.withValues(alpha: .1),
                         borderRadius: const BorderRadius.all(
                           Radius.circular(8),
                         ),

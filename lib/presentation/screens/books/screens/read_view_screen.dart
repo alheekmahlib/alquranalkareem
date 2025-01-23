@@ -123,7 +123,7 @@ class PagesPage extends StatelessWidget {
                                                   style: TextStyle(
                                                     color: Get.theme.colorScheme
                                                         .inversePrimary
-                                                        .withOpacity(.5),
+                                                        .withValues(alpha: .5),
                                                     height: 1.5,
                                                     fontSize: generalCtrl
                                                             .state

@@ -96,11 +96,11 @@ class NotificationsScreen extends StatelessWidget {
                                         baseColor: Theme.of(context)
                                             .colorScheme
                                             .primary
-                                            .withOpacity(.2),
+                                            .withValues(alpha: .2),
                                         expandedColor: Theme.of(context)
                                             .colorScheme
                                             .primary
-                                            .withOpacity(.2),
+                                            .withValues(alpha: .2),
                                         onExpansionChanged: (_) => notiCtrl
                                             .markNotificationAsRead(noti.id),
                                         title: Container(
@@ -112,11 +112,11 @@ class NotificationsScreen extends StatelessWidget {
                                             color: noti.opened
                                                 ? Theme.of(context)
                                                     .canvasColor
-                                                    .withOpacity(.1)
+                                                    .withValues(alpha: .1)
                                                 : Theme.of(context)
                                                     .colorScheme
                                                     .surface
-                                                    .withOpacity(.15),
+                                                    .withValues(alpha: .15),
                                             borderRadius:
                                                 const BorderRadius.all(
                                                     Radius.circular(8)),
@@ -199,7 +199,7 @@ class NotificationsScreen extends StatelessWidget {
                                                   decoration: BoxDecoration(
                                                     color: Theme.of(context)
                                                         .canvasColor
-                                                        .withOpacity(.15),
+                                                        .withValues(alpha: .15),
                                                     borderRadius:
                                                         const BorderRadius.all(
                                                             Radius.circular(8)),
@@ -231,7 +231,7 @@ class NotificationsScreen extends StatelessWidget {
                                                   decoration: BoxDecoration(
                                                     color: Theme.of(context)
                                                         .canvasColor
-                                                        .withOpacity(.15),
+                                                        .withValues(alpha: .15),
                                                     borderRadius:
                                                         const BorderRadius.all(
                                                             Radius.circular(8)),
