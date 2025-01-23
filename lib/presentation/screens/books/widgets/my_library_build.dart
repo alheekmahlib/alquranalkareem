@@ -76,7 +76,7 @@ class MyLibraryBuild extends StatelessWidget {
                               color: Theme.of(context)
                                   .colorScheme
                                   .primary
-                                  .withOpacity(.1),
+                                  .withValues(alpha: .1),
                               borderRadius:
                                   const BorderRadius.all(Radius.circular(8)),
                             ),

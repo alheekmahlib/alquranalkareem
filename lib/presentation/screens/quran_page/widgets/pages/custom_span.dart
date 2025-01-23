@@ -37,7 +37,7 @@ TextSpan span({
           backgroundColor: quranCtrl.state.isPages.value == 1
               ? Colors.transparent
               : sl<BookmarksController>().hasBookmark(surahNum, ayahNum).value
-                  ? const Color(0xffCD9974).withOpacity(.4)
+                  ? const Color(0xffCD9974).withValues(alpha: .4)
                   : isSelected
                       ? Get.theme.highlightColor
                       : Colors.transparent,
@@ -58,7 +58,7 @@ TextSpan span({
           backgroundColor: quranCtrl.state.isPages.value == 1
               ? Colors.transparent
               : sl<BookmarksController>().hasBookmark(surahNum, ayahNum).value
-                  ? const Color(0xffCD9974).withOpacity(.4)
+                  ? const Color(0xffCD9974).withValues(alpha: .4)
                   : isSelected
                       ? Get.theme.highlightColor
                       : Colors.transparent,
@@ -80,7 +80,7 @@ TextSpan span({
         backgroundColor: quranCtrl.state.isPages.value == 1
             ? Colors.transparent
             : sl<BookmarksController>().hasBookmark(surahNum, ayahNum).value
-                ? const Color(0xffCD9974).withOpacity(.4)
+                ? const Color(0xffCD9974).withValues(alpha: .4)
                 : isSelected
                     ? Get.theme.highlightColor
                     : Colors.transparent,
@@ -118,7 +118,7 @@ TextSpan span({
                       : sl<BookmarksController>()
                               .hasBookmark(surahNum, ayahNum)
                               .value
-                          ? const Color(0xffCD9974).withOpacity(.4)
+                          ? const Color(0xffCD9974).withValues(alpha: .4)
                           : isSelected
                               ? Get.theme.highlightColor
                               : Colors.transparent,
@@ -164,7 +164,7 @@ TextSpan customSpan({
             backgroundColor: quranCtrl.state.isPages.value == 1
                 ? Colors.transparent
                 : sl<BookmarksController>().hasBookmark(surahNum, ayahNum).value
-                    ? const Color(0xffCD9974).withOpacity(.4)
+                    ? const Color(0xffCD9974).withValues(alpha: .4)
                     : isSelected
                         ? Get.theme.highlightColor
                         : Colors.transparent,
@@ -199,7 +199,7 @@ TextSpan customSpan({
                       : sl<BookmarksController>()
                               .hasBookmark(surahNum, ayahNum)
                               .value
-                          ? const Color(0xffCD9974).withOpacity(.4)
+                          ? const Color(0xffCD9974).withValues(alpha: .4)
                           : isSelected
                               ? Get.theme.highlightColor
                               : Colors.transparent,

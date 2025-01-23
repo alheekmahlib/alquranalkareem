@@ -367,7 +367,7 @@ const List ayahReaderInfo = [
 
 List<Map<String, dynamic>> whatsNewList = [
   {
-    'index': 10,
+    'index': 11,
     'title': "",
     'details': "What'sNewDetails10",
     'imagePath': '',

@@ -20,7 +20,8 @@ class BooksTapBarWidget extends StatelessWidget {
             ),
             border: Border.all(
               width: 1,
-              color: Theme.of(context).colorScheme.primary.withOpacity(.3),
+              color:
+                  Theme.of(context).colorScheme.primary.withValues(alpha: .3),
             )),
         child: TabBar(
           unselectedLabelColor: Colors.grey,

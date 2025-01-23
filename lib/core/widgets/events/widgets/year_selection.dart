@@ -13,7 +13,7 @@ class YearSelection extends StatelessWidget {
         width: Get.width * .45,
         // margin: const EdgeInsets.symmetric(horizontal: 16.0),
         decoration: BoxDecoration(
-          color: Get.theme.colorScheme.primary.withOpacity(.1),
+          color: Get.theme.colorScheme.primary.withValues(alpha: .1),
           borderRadius: const BorderRadius.all(Radius.circular(8)),
         ),
         child: Row(
@@ -72,9 +72,10 @@ class YearSelection extends StatelessWidget {
                   decoration: BoxDecoration(
                     borderRadius: const BorderRadius.all(Radius.circular(8)),
                     color: eventCtrl.hijriNow.hYear == index
-                        ? Get.theme.colorScheme.primary.withOpacity(.2)
+                        ? Get.theme.colorScheme.primary.withValues(alpha: .2)
                         : select
-                            ? Get.theme.colorScheme.surface.withOpacity(.2)
+                            ? Get.theme.colorScheme.surface
+                                .withValues(alpha: .2)
                             : Colors.transparent,
                   ),
                   child: Text(

@@ -10,7 +10,7 @@ class DaysName extends StatelessWidget {
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 16.0),
       decoration: BoxDecoration(
-        color: Get.theme.colorScheme.primary.withOpacity(.1),
+        color: Get.theme.colorScheme.primary.withValues(alpha: .1),
         borderRadius: const BorderRadius.all(Radius.circular(8)),
       ),
       child: Row(

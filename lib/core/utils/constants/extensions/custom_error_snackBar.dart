@@ -7,7 +7,8 @@ import 'package:gap/gap.dart';
 extension CustomErrorSnackBarExtension on BuildContext {
   void showCustomErrorSnackBar(String text, {bool? isDone = false}) {
     final backgroundColor = Theme.of(this).colorScheme.primaryContainer;
-    final borderColor = Theme.of(this).colorScheme.primary.withOpacity(.3);
+    final borderColor =
+        Theme.of(this).colorScheme.primary.withValues(alpha: .3);
     final hintColor = Theme.of(this).hintColor;
     BotToast.showCustomNotification(
       enableSlideOff: true,

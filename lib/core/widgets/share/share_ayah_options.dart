@@ -103,7 +103,7 @@ class ShareAyahOptions extends StatelessWidget {
                                   left: 16.0),
                               decoration: BoxDecoration(
                                   color: Get.theme.colorScheme.primary
-                                      .withOpacity(.15),
+                                      .withValues(alpha: .15),
                                   borderRadius: const BorderRadius.all(
                                       Radius.circular(4))),
                               child: Row(
@@ -174,7 +174,7 @@ class ShareAyahOptions extends StatelessWidget {
                                           left: 16.0),
                                       decoration: BoxDecoration(
                                           color: Get.theme.colorScheme.primary
-                                              .withOpacity(.15),
+                                              .withValues(alpha: .15),
                                           borderRadius: const BorderRadius.all(
                                               Radius.circular(4))),
                                       // child: Image.memory(
@@ -229,7 +229,7 @@ class ShareAyahOptions extends StatelessWidget {
                                                   const EdgeInsets.all(8.0),
                                               decoration: BoxDecoration(
                                                 color: Get.theme.dividerColor
-                                                    .withOpacity(.4),
+                                                    .withValues(alpha: .4),
                                                 borderRadius:
                                                     const BorderRadius.all(
                                                         Radius.circular(8)),
@@ -339,7 +339,7 @@ class ShareAyahOptions extends StatelessWidget {
                                           left: 16.0),
                                       decoration: BoxDecoration(
                                           color: Get.theme.colorScheme.primary
-                                              .withOpacity(.15),
+                                              .withValues(alpha: .15),
                                           borderRadius: const BorderRadius.all(
                                               Radius.circular(4))),
                                       child: TafseerImageCreator(

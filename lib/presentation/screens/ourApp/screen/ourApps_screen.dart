@@ -54,8 +54,10 @@ class OurApps extends StatelessWidget {
               Gap(16.h),
               ContainerWithLines(
                 linesColor: Theme.of(context).colorScheme.primary,
-                containerColor:
-                    Theme.of(context).colorScheme.surface.withOpacity(.15),
+                containerColor: Theme.of(context)
+                    .colorScheme
+                    .surface
+                    .withValues(alpha: .15),
                 child: OurAppsBuild(),
               ),
               const Spacer(),
@@ -93,8 +95,10 @@ class OurApps extends StatelessWidget {
                   primary: false,
                   child: ContainerWithLines(
                     linesColor: Theme.of(context).colorScheme.primary,
-                    containerColor:
-                        Theme.of(context).colorScheme.surface.withOpacity(.15),
+                    containerColor: Theme.of(context)
+                        .colorScheme
+                        .surface
+                        .withValues(alpha: .15),
                     child: OurAppsBuild(),
                   ),
                 ),

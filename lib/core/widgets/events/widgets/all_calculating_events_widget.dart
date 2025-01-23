@@ -15,7 +15,7 @@ class AllCalculatingEventsWidget extends StatelessWidget {
           SvgPicture.asset('assets/svg/hijri/${eventsCtrl.hijriNow.hMonth}.svg',
               width: Get.width,
               colorFilter: ColorFilter.mode(
-                  Theme.of(context).canvasColor.withOpacity(.05),
+                  Theme.of(context).canvasColor.withValues(alpha: .05),
                   BlendMode.srcIn)),
           Column(mainAxisSize: MainAxisSize.max, children: [
             const Gap(16),
@@ -58,7 +58,9 @@ class AllCalculatingEventsWidget extends StatelessWidget {
                           fontFamily: 'naskh',
                           height: 1.9,
                           fontWeight: FontWeight.bold,
-                          color: Theme.of(context).canvasColor.withOpacity(.7),
+                          color: Theme.of(context)
+                              .canvasColor
+                              .withValues(alpha: .7),
                         ),
                       ),
                       TextSpan(
@@ -84,7 +86,9 @@ class AllCalculatingEventsWidget extends StatelessWidget {
                           fontFamily: 'naskh',
                           height: 1.7,
                           fontWeight: FontWeight.bold,
-                          color: Theme.of(context).canvasColor.withOpacity(.7),
+                          color: Theme.of(context)
+                              .canvasColor
+                              .withValues(alpha: .7),
                         ),
                       ),
                     ]),
@@ -127,7 +131,7 @@ class AllCalculatingEventsWidget extends StatelessWidget {
                   fontSize: 14.0,
                   fontFamily: 'kufi',
                   height: 1.7,
-                  color: Theme.of(context).canvasColor.withOpacity(.7),
+                  color: Theme.of(context).canvasColor.withValues(alpha: .7),
                 ),
                 textAlign: TextAlign.justify,
               ),

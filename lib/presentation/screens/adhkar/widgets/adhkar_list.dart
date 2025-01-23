@@ -107,7 +107,7 @@ class AdhkarList extends StatelessWidget {
                                     color: Theme.of(context)
                                         .colorScheme
                                         .primary
-                                        .withOpacity(.1),
+                                        .withValues(alpha: .1),
                                   ),
                                   child: Row(
                                     children: [
@@ -214,7 +214,7 @@ class AdhkarList extends StatelessWidget {
                                     color: Theme.of(context)
                                         .colorScheme
                                         .primary
-                                        .withOpacity(.1),
+                                        .withValues(alpha: .1),
                                   ),
                                   child: Row(
                                     children: [

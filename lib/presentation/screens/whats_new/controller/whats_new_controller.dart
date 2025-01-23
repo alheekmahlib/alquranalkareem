@@ -43,16 +43,4 @@ class WhatsNewController extends GetxController {
       await saveLastShownIndex(newFeatures.last['index']);
     }
   }
-
-  // Future<void> activeLocation() async {
-  //   WidgetsBinding.instance.addPostFrameCallback((_) async {
-  //     if (!GeneralController.instance.isActiveLocation ||
-  //         !GeneralController.instance.state.activeLocation.value) {
-  //       GetStorage().write(IS_LOCATION_ACTIVE, true);
-  //       SplashScreenController.instance.state.customWidget.value = 1;
-  //     } else {
-  //       navigationPage();
-  //     }
-  //   });
-  // }
 }

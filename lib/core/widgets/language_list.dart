@@ -40,9 +40,9 @@ class LanguageList extends StatelessWidget {
                 initialElevation: 0.0,
                 expandedTextColor: Theme.of(context).primaryColorDark,
                 baseColor:
-                    Theme.of(context).colorScheme.primary.withOpacity(.2),
+                    Theme.of(context).colorScheme.primary.withValues(alpha: .2),
                 expandedColor:
-                    Theme.of(context).colorScheme.primary.withOpacity(.2),
+                    Theme.of(context).colorScheme.primary.withValues(alpha: .2),
                 title: SizedBox(
                   width: 100.0,
                   child: Obx(() {
@@ -90,7 +90,7 @@ class LanguageList extends StatelessWidget {
                                             : Theme.of(context)
                                                 .colorScheme
                                                 .primaryContainer
-                                                .withOpacity(.5),
+                                                .withValues(alpha: .5),
                                         width: 3),
                                     color:
                                         Theme.of(context).colorScheme.primary,
@@ -110,7 +110,7 @@ class LanguageList extends StatelessWidget {
                                         ? Theme.of(context).colorScheme.surface
                                         : Theme.of(context)
                                             .hintColor
-                                            .withOpacity(.5),
+                                            .withValues(alpha: .5),
                                     fontSize: 18,
                                     fontWeight: 'appLang'.tr == lang.appLang
                                         ? FontWeight.bold

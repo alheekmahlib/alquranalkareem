@@ -44,7 +44,10 @@ class ElevatedButtonWidget extends StatelessWidget {
             boxShadow: [
               BoxShadow(
                   color: colorShadow ??
-                      Theme.of(context).colorScheme.surface.withOpacity(.4),
+                      Theme.of(context)
+                          .colorScheme
+                          .surface
+                          .withValues(alpha: .4),
                   // offset: const Offset(6, 6),
                   spreadRadius: 0,
                   blurRadius: 0)

@@ -49,7 +49,7 @@ class QuranJuz extends StatelessWidget {
                                     ? Theme.of(context)
                                         .colorScheme
                                         .primary
-                                        .withOpacity(.15)
+                                        .withValues(alpha: .15)
                                     : Colors.transparent),
                                 borderRadius:
                                     const BorderRadius.all(Radius.circular(8)),
@@ -172,7 +172,7 @@ class QuranJuz extends StatelessWidget {
                       color: Theme.of(context)
                           .colorScheme
                           .primary
-                          .withOpacity(.2)),
+                          .withValues(alpha: .2)),
                 ],
               );
             }),

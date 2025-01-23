@@ -28,7 +28,7 @@ class AyahsChoiceWidget extends StatelessWidget {
                       color: Theme.of(context)
                           .colorScheme
                           .primary
-                          .withOpacity(.15),
+                          .withValues(alpha: .15),
                       borderRadius: const BorderRadius.all(Radius.circular(8)),
                     ),
                     child: Row(
@@ -92,7 +92,7 @@ class AyahsChoiceWidget extends StatelessWidget {
                       color: Theme.of(context)
                           .colorScheme
                           .primary
-                          .withOpacity(.15),
+                          .withValues(alpha: .15),
                       borderRadius: const BorderRadius.all(Radius.circular(8)),
                     ),
                     child: Row(

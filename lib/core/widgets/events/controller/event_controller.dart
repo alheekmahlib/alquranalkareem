@@ -9,7 +9,7 @@ class EventController extends GetxController {
   var hijriNow = HijriCalendar.now();
   var now = DateTime.now();
   List<int> noHadithInMonth = <int>[2, 3, 4, 5];
-  List<int> notReminderIndex = <int>[1, 2, 3, 6, 7, 8, 9, 10, 12];
+  List<int> notReminderIndex = <int>[1, 2, 3, 5, 6, 7, 8, 9, 10, 12];
   var events = <Event>[].obs;
   late HijriCalendar selectedDate;
   late PageController pageController;
@@ -70,9 +70,9 @@ class EventController extends GetxController {
     if (!isEvent(months, days).value) {
       return Colors.transparent;
     } else if (reminder != null && reminder.isReminder) {
-      return Get.theme.colorScheme.surface.withOpacity(0.2);
+      return Get.theme.colorScheme.surface.withValues(alpha: 0.2);
     } else if (reminder != null && !reminder.isReminder) {
-      return Get.theme.colorScheme.primary.withOpacity(0.2);
+      return Get.theme.colorScheme.primary.withValues(alpha: 0.2);
     } else {
       return Colors.transparent;
     }

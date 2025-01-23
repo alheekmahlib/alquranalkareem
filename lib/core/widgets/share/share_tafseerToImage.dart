@@ -150,7 +150,7 @@ class TafseerImageCreator extends StatelessWidget {
                                   padding: const EdgeInsets.all(8.0),
                                   decoration: BoxDecoration(
                                       color: const Color(0xffCDAD80)
-                                          .withOpacity(.3),
+                                          .withValues(alpha: .3),
                                       borderRadius: const BorderRadius.all(
                                           Radius.circular(8))),
                                   child: Obx(
@@ -171,7 +171,7 @@ class TafseerImageCreator extends StatelessWidget {
                                 padding: const EdgeInsets.all(8.0),
                                 decoration: BoxDecoration(
                                     color: const Color(0xff404C6E)
-                                        .withOpacity(.15),
+                                        .withValues(alpha: .15),
                                     borderRadius: const BorderRadius.all(
                                         Radius.circular(8))),
                                 child: Obx(

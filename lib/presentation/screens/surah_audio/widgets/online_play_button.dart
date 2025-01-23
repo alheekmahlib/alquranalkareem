@@ -33,7 +33,7 @@ class OnlinePlayButton extends StatelessWidget {
                             color: Theme.of(context)
                                 .colorScheme
                                 .primary
-                                .withOpacity(.4)),
+                                .withValues(alpha: .4)),
                         Icon(Icons.repeat,
                             color: Theme.of(context).colorScheme.primary),
                       ];

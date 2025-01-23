@@ -21,7 +21,8 @@ class TextWidget extends StatelessWidget {
           child: Container(
             padding: const EdgeInsets.all(8),
             decoration: BoxDecoration(
-                color: Theme.of(context).colorScheme.primary.withOpacity(.1),
+                color:
+                    Theme.of(context).colorScheme.primary.withValues(alpha: .1),
                 borderRadius: const BorderRadius.all(Radius.circular(8))),
             width: double.infinity,
             child: Obx(() {
@@ -55,12 +56,12 @@ class TextWidget extends StatelessWidget {
                           color: Theme.of(context)
                               .colorScheme
                               .primary
-                              .withOpacity(.15),
+                              .withValues(alpha: .15),
                           width: 1)),
                   child: Text(
                     zekr.reference,
                     style: TextStyle(
-                      color: Theme.of(context).hintColor.withOpacity(.6),
+                      color: Theme.of(context).hintColor.withValues(alpha: .6),
                       fontSize: 14,
                       fontFamily: 'naskh',
                     ),
@@ -82,12 +83,13 @@ class TextWidget extends StatelessWidget {
                             color: Theme.of(context)
                                 .colorScheme
                                 .primary
-                                .withOpacity(.15),
+                                .withValues(alpha: .15),
                             width: 1)),
                     child: Text(
                       zekr.description,
                       style: TextStyle(
-                          color: Theme.of(context).hintColor.withOpacity(.8),
+                          color:
+                              Theme.of(context).hintColor.withValues(alpha: .8),
                           fontSize: 16,
                           fontFamily: 'naskh',
                           fontWeight: FontWeight.bold),

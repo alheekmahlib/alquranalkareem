@@ -34,7 +34,7 @@ class AyahTafsirWidget extends StatelessWidget {
                         color: Theme.of(context)
                             .colorScheme
                             .primary
-                            .withOpacity(.1),
+                            .withValues(alpha: .1),
                         borderRadius:
                             const BorderRadius.all(Radius.circular(8))),
                     child: Column(
@@ -75,7 +75,7 @@ class AyahTafsirWidget extends StatelessWidget {
                                     color: Theme.of(context)
                                         .colorScheme
                                         .surface
-                                        .withOpacity(.4),
+                                        .withValues(alpha: .4),
                                     borderRadius: const BorderRadius.all(
                                         Radius.circular(6))),
                                 child: FittedBox(

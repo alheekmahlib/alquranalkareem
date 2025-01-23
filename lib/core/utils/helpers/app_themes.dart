@@ -26,11 +26,11 @@ final ThemeData blueTheme = ThemeData.light(
   primaryColorDark: const Color(0xff404C6E),
   dialogBackgroundColor: const Color(0xffFFFFFF),
   dividerColor: const Color(0xffCDAD80),
-  highlightColor: const Color(0xffCDAD80).withOpacity(0.25),
+  highlightColor: const Color(0xffCDAD80).withValues(alpha: 0.25),
   indicatorColor: const Color(0xffCDAD80),
   scaffoldBackgroundColor: const Color(0xff404C6E),
   canvasColor: const Color(0xffFFFFFF),
-  hoverColor: const Color(0xffFFFFFF).withOpacity(0.3),
+  hoverColor: const Color(0xffFFFFFF).withValues(alpha: 0.3),
   disabledColor: const Color(0Xff000000),
   hintColor: const Color(0xff404C6E),
   focusColor: const Color(0xffE0E1E0),
@@ -40,7 +40,7 @@ final ThemeData blueTheme = ThemeData.light(
     color: Color(0xffCDAD80),
   ),
   textSelectionTheme: TextSelectionThemeData(
-      selectionColor: const Color(0xffE0E1E0).withOpacity(0.3),
+      selectionColor: const Color(0xffE0E1E0).withValues(alpha: 0.3),
       selectionHandleColor: const Color(0xffE0E1E0)),
   cupertinoOverrideTheme: const CupertinoThemeData(
     primaryColor: Color(0xff53618c),
@@ -49,13 +49,13 @@ final ThemeData blueTheme = ThemeData.light(
     backgroundColor: const Color(0xffCDAD80),
     dialBackgroundColor: const Color(0xffFFFFFF),
     dialHandColor: const Color(0xffCDAD80),
-    dialTextColor: const Color(0xff000000).withOpacity(.6),
-    entryModeIconColor: const Color(0xff000000).withOpacity(.6),
-    hourMinuteTextColor: const Color(0xff000000).withOpacity(.6),
-    dayPeriodTextColor: const Color(0xff000000).withOpacity(.6),
+    dialTextColor: const Color(0xff000000).withValues(alpha: .6),
+    entryModeIconColor: const Color(0xff000000).withValues(alpha: .6),
+    hourMinuteTextColor: const Color(0xff000000).withValues(alpha: .6),
+    dayPeriodTextColor: const Color(0xff000000).withValues(alpha: .6),
     cancelButtonStyle: ButtonStyle(
-      backgroundColor:
-          WidgetStateProperty.all(const Color(0xff000000).withOpacity(.6)),
+      backgroundColor: WidgetStateProperty.all(
+          const Color(0xff000000).withValues(alpha: .6)),
       foregroundColor: WidgetStateProperty.all(const Color(0xffFFFFFF)),
       shape: WidgetStateProperty.all(
         RoundedRectangleBorder(
@@ -68,8 +68,8 @@ final ThemeData blueTheme = ThemeData.light(
       )),
     ),
     confirmButtonStyle: ButtonStyle(
-      backgroundColor:
-          WidgetStateProperty.all(const Color(0xff000000).withOpacity(.8)),
+      backgroundColor: WidgetStateProperty.all(
+          const Color(0xff000000).withValues(alpha: .8)),
       foregroundColor: WidgetStateProperty.all(const Color(0xffFFFFFF)),
       shape: WidgetStateProperty.all(
         RoundedRectangleBorder(
@@ -108,18 +108,18 @@ final ThemeData brownTheme = ThemeData(
   primaryColorDark: const Color(0xff77554B),
   dialogBackgroundColor: const Color(0xffFFFBF8),
   dividerColor: const Color(0xffFFEEDC),
-  highlightColor: const Color(0xffCD9974).withOpacity(0.25),
+  highlightColor: const Color(0xffCD9974).withValues(alpha: 0.25),
   indicatorColor: const Color(0xffFFEEDC),
   scaffoldBackgroundColor: const Color(0xff77554B),
   canvasColor: const Color(0xffF2E5D5),
-  hoverColor: const Color(0xffF2E5D5).withOpacity(0.3),
+  hoverColor: const Color(0xffF2E5D5).withValues(alpha: 0.3),
   disabledColor: const Color(0xff000000),
   hintColor: const Color(0xff000000),
   focusColor: const Color(0xff77554B),
   secondaryHeaderColor: const Color(0xff77554B),
   cardColor: const Color(0xff77554B),
   textSelectionTheme: TextSelectionThemeData(
-      selectionColor: const Color(0xffCD9974).withOpacity(0.3),
+      selectionColor: const Color(0xffCD9974).withValues(alpha: 0.3),
       selectionHandleColor: const Color(0xffCD9974)),
   cupertinoOverrideTheme: const CupertinoThemeData(
     primaryColor: Color(0xffCD9974),
@@ -128,13 +128,13 @@ final ThemeData brownTheme = ThemeData(
     backgroundColor: const Color(0xffCD9974),
     dialBackgroundColor: const Color(0xffFFFBF8),
     dialHandColor: const Color(0xffCD9974),
-    dialTextColor: const Color(0xff000000).withOpacity(.6),
-    entryModeIconColor: const Color(0xff000000).withOpacity(.6),
-    hourMinuteTextColor: const Color(0xff000000).withOpacity(.6),
-    dayPeriodTextColor: const Color(0xff000000).withOpacity(.6),
+    dialTextColor: const Color(0xff000000).withValues(alpha: .6),
+    entryModeIconColor: const Color(0xff000000).withValues(alpha: .6),
+    hourMinuteTextColor: const Color(0xff000000).withValues(alpha: .6),
+    dayPeriodTextColor: const Color(0xff000000).withValues(alpha: .6),
     cancelButtonStyle: ButtonStyle(
-      backgroundColor:
-          WidgetStateProperty.all(const Color(0xff000000).withOpacity(.6)),
+      backgroundColor: WidgetStateProperty.all(
+          const Color(0xff000000).withValues(alpha: .6)),
       foregroundColor: WidgetStateProperty.all(const Color(0xffFFFBF8)),
       shape: WidgetStateProperty.all(
         RoundedRectangleBorder(
@@ -147,8 +147,8 @@ final ThemeData brownTheme = ThemeData(
       )),
     ),
     confirmButtonStyle: ButtonStyle(
-      backgroundColor:
-          WidgetStateProperty.all(const Color(0xff000000).withOpacity(.8)),
+      backgroundColor: WidgetStateProperty.all(
+          const Color(0xff000000).withValues(alpha: .8)),
       foregroundColor: WidgetStateProperty.all(const Color(0xffFFFBF8)),
       shape: WidgetStateProperty.all(
         RoundedRectangleBorder(
@@ -188,11 +188,11 @@ final ThemeData oldTheme = ThemeData.light(
   primaryColorDark: const Color(0xff161f07),
   dialogBackgroundColor: const Color(0xfff3efdf),
   dividerColor: const Color(0xff91a57d),
-  highlightColor: const Color(0xff91a57d).withOpacity(0.25),
+  highlightColor: const Color(0xff91a57d).withValues(alpha: 0.25),
   indicatorColor: const Color(0xff91a57d),
   scaffoldBackgroundColor: const Color(0xff232c13),
   canvasColor: const Color(0xfff3efdf),
-  hoverColor: const Color(0xfff3efdf).withOpacity(0.3),
+  hoverColor: const Color(0xfff3efdf).withValues(alpha: 0.3),
   disabledColor: const Color(0xff000000),
   hintColor: const Color(0xff232c13),
   focusColor: const Color(0xffE0E1E0),
@@ -202,7 +202,7 @@ final ThemeData oldTheme = ThemeData.light(
     color: Color(0xff91a57d),
   ),
   textSelectionTheme: TextSelectionThemeData(
-      selectionColor: const Color(0xffE0E1E0).withOpacity(0.3),
+      selectionColor: const Color(0xffE0E1E0).withValues(alpha: 0.3),
       selectionHandleColor: const Color(0xffE0E1E0)),
   cupertinoOverrideTheme: const CupertinoThemeData(
     primaryColor: Color(0xff53618c),
@@ -211,13 +211,13 @@ final ThemeData oldTheme = ThemeData.light(
     backgroundColor: const Color(0xff91a57d),
     dialBackgroundColor: const Color(0xfff3efdf),
     dialHandColor: const Color(0xff91a57d),
-    dialTextColor: const Color(0xff000000).withOpacity(.6),
-    entryModeIconColor: const Color(0xff000000).withOpacity(.6),
-    hourMinuteTextColor: const Color(0xff000000).withOpacity(.6),
-    dayPeriodTextColor: const Color(0xff000000).withOpacity(.6),
+    dialTextColor: const Color(0xff000000).withValues(alpha: .6),
+    entryModeIconColor: const Color(0xff000000).withValues(alpha: .6),
+    hourMinuteTextColor: const Color(0xff000000).withValues(alpha: .6),
+    dayPeriodTextColor: const Color(0xff000000).withValues(alpha: .6),
     cancelButtonStyle: ButtonStyle(
-      backgroundColor:
-          WidgetStateProperty.all(const Color(0xff000000).withOpacity(.6)),
+      backgroundColor: WidgetStateProperty.all(
+          const Color(0xff000000).withValues(alpha: .6)),
       foregroundColor: WidgetStateProperty.all(const Color(0xfff3efdf)),
       shape: WidgetStateProperty.all(
         RoundedRectangleBorder(
@@ -230,8 +230,8 @@ final ThemeData oldTheme = ThemeData.light(
       )),
     ),
     confirmButtonStyle: ButtonStyle(
-      backgroundColor:
-          WidgetStateProperty.all(const Color(0xff000000).withOpacity(.8)),
+      backgroundColor: WidgetStateProperty.all(
+          const Color(0xff000000).withValues(alpha: .8)),
       foregroundColor: WidgetStateProperty.all(const Color(0xfff3efdf)),
       shape: WidgetStateProperty.all(
         RoundedRectangleBorder(
@@ -271,18 +271,18 @@ final ThemeData darkTheme = ThemeData.dark(
   primaryColorDark: const Color(0xff010101),
   dialogBackgroundColor: const Color(0xff1E1E1E),
   dividerColor: const Color(0xff404C6E),
-  highlightColor: const Color(0xff404C6E).withOpacity(0.25),
+  highlightColor: const Color(0xff404C6E).withValues(alpha: 0.25),
   indicatorColor: const Color(0xff404C6E),
   scaffoldBackgroundColor: const Color(0xff000000),
   canvasColor: const Color(0xffF6F6EE),
-  hoverColor: const Color(0xffF6F6EE).withOpacity(0.3),
+  hoverColor: const Color(0xffF6F6EE).withValues(alpha: 0.3),
   disabledColor: const Color(0xff000000),
   hintColor: const Color(0xffffffff),
   focusColor: const Color(0xff404C6E),
   secondaryHeaderColor: const Color(0xff404C6E),
   cardColor: const Color(0xffF6F6EE),
   textSelectionTheme: TextSelectionThemeData(
-      selectionColor: const Color(0xff404C6E).withOpacity(0.3),
+      selectionColor: const Color(0xff404C6E).withValues(alpha: 0.3),
       selectionHandleColor: const Color(0xff404C6E)),
   cupertinoOverrideTheme: const CupertinoThemeData(
     primaryColor: Color(0xff404C6E),
@@ -291,14 +291,14 @@ final ThemeData darkTheme = ThemeData.dark(
     backgroundColor: const Color(0xffCDAD80),
     dialBackgroundColor: const Color(0xff1E1E1E),
     dialHandColor: const Color(0xffCDAD80),
-    dialTextColor: const Color(0xffF6F6EE).withOpacity(.6),
-    entryModeIconColor: const Color(0xffF6F6EE).withOpacity(.6),
-    hourMinuteTextColor: const Color(0xffF6F6EE).withOpacity(.6),
-    dayPeriodTextColor: const Color(0xffF6F6EE).withOpacity(.6),
+    dialTextColor: const Color(0xffF6F6EE).withValues(alpha: .6),
+    entryModeIconColor: const Color(0xffF6F6EE).withValues(alpha: .6),
+    hourMinuteTextColor: const Color(0xffF6F6EE).withValues(alpha: .6),
+    dayPeriodTextColor: const Color(0xffF6F6EE).withValues(alpha: .6),
     dayPeriodColor: const Color(0xff1E1E1E),
     cancelButtonStyle: ButtonStyle(
-      backgroundColor:
-          WidgetStateProperty.all(const Color(0xffF6F6EE).withOpacity(.6)),
+      backgroundColor: WidgetStateProperty.all(
+          const Color(0xffF6F6EE).withValues(alpha: .6)),
       foregroundColor: WidgetStateProperty.all(const Color(0xff1E1E1E)),
       shape: WidgetStateProperty.all(
         RoundedRectangleBorder(
@@ -311,8 +311,8 @@ final ThemeData darkTheme = ThemeData.dark(
       )),
     ),
     confirmButtonStyle: ButtonStyle(
-      backgroundColor:
-          WidgetStateProperty.all(const Color(0xffF6F6EE).withOpacity(.8)),
+      backgroundColor: WidgetStateProperty.all(
+          const Color(0xffF6F6EE).withValues(alpha: .8)),
       foregroundColor: WidgetStateProperty.all(const Color(0xff1E1E1E)),
       shape: WidgetStateProperty.all(
         RoundedRectangleBorder(

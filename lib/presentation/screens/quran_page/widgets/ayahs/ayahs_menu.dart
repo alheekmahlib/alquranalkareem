@@ -34,8 +34,8 @@ class AyahsMenu extends StatelessWidget {
       padding: const EdgeInsets.symmetric(vertical: 6.0, horizontal: 16.0),
       decoration: BoxDecoration(
           color: isSelected
-              ? Theme.of(context).colorScheme.surface.withOpacity(.4)
-              : Theme.of(context).colorScheme.surface.withOpacity(.15),
+              ? Theme.of(context).colorScheme.surface.withValues(alpha: .4)
+              : Theme.of(context).colorScheme.surface.withValues(alpha: .15),
           borderRadius: const BorderRadius.all(Radius.circular(4))),
       width: double.infinity,
       child: Row(

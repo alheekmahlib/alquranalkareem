@@ -1,7 +1,5 @@
 part of '../quran.dart';
 
-
-
 extension CustomSurahNameWithBannerExtension on Widget {
   Widget surahNameWidget(String num, Color color,
       {double? height, double? width}) {
@@ -69,7 +67,7 @@ extension CustomSurahNameWithBannerExtension on Widget {
                 margin: const EdgeInsets.only(top: 16.0, right: 8.0, left: 8.0),
                 padding: const EdgeInsets.symmetric(horizontal: 16.0),
                 decoration: BoxDecoration(
-                    color: Get.theme.colorScheme.surface.withOpacity(.4),
+                    color: Get.theme.colorScheme.surface.withValues(alpha: .4),
                     borderRadius: const BorderRadius.all(Radius.circular(8))),
                 width: double.infinity,
                 child: Column(
@@ -97,11 +95,13 @@ extension CustomSurahNameWithBannerExtension on Widget {
                                 ? customSvgWithColor(SvgPath.svgBesmAllah2,
                                     width: generalCtrl.ifBigScreenSize(
                                         100.0.w, 150.0.w),
-                                    color: Get.theme.cardColor.withOpacity(.8))
+                                    color: Get.theme.cardColor
+                                        .withValues(alpha: .8))
                                 : customSvgWithColor(SvgPath.svgBesmAllah,
                                     width: generalCtrl.ifBigScreenSize(
                                         100.0.w, 150.0.w),
-                                    color: Get.theme.cardColor.withOpacity(.8))
+                                    color: Get.theme.cardColor
+                                        .withValues(alpha: .8))
                             : const SizedBox.shrink(),
                     const Gap(6),
                   ],

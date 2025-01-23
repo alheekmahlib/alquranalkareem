@@ -46,7 +46,7 @@ class LastSearchWidget extends StatelessWidget {
                               color: Theme.of(context)
                                   .colorScheme
                                   .primary
-                                  .withOpacity(.15),
+                                  .withValues(alpha: .15),
                               borderRadius: BorderRadius.circular(8),
                             ),
                             child: Row(
@@ -82,7 +82,7 @@ class LastSearchWidget extends StatelessWidget {
                                           color: Theme.of(context)
                                               .colorScheme
                                               .primary
-                                              .withOpacity(.8),
+                                              .withValues(alpha: .8),
                                         ),
                                       ),
                                       Text(
@@ -94,7 +94,7 @@ class LastSearchWidget extends StatelessWidget {
                                           color: Theme.of(context)
                                               .colorScheme
                                               .primary
-                                              .withOpacity(.5),
+                                              .withValues(alpha: .5),
                                         ),
                                       ),
                                     ],

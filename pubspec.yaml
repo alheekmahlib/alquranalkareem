@@ -3,7 +3,7 @@ description: Al-Quran Al-Kareem - Al-Heekmah Library.
 
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 
-version: 4.2.2+68
+version: 4.2.5+72
 
 environment:
   sdk: '>=3.5.3 <4.0.0'
@@ -27,7 +27,7 @@ dependencies:
   flutter_sliding_box: ^1.1.5
   flutter_staggered_animations: ^1.1.1
   flutter_svg: ^2.0.16
-  flutter_timezone: ^3.0.1
+  flutter_timezone: ^4.0.0
   gap: ^3.0.1
   get: ^4.6.6
   get_it: ^8.0.2
@@ -38,7 +38,7 @@ dependencies:
   info_popup: ^4.3.2
   just_audio: ^0.9.42
 #  just_audio_background: ^0.0.1-beta.13
-  lottie: ^3.1.3
+  lottie: ^3.2.0
   mini_music_visualizer: ^1.1.4
   package_rename: ^1.7.1
   path: ^1.9.0
@@ -54,7 +54,7 @@ dependencies:
   square_percent_indicater: ^0.1.0
   url_launcher: ^6.3.1
   wakelock_plus: ^1.2.8
-  drift: ^2.22.0
+  drift: ^2.22.1
   simple_animation_progress_bar: ^1.8.2
   nominatim_geocoding: ^0.0.6
   animated_custom_dropdown: ^3.1.1
@@ -73,7 +73,7 @@ dependencies:
 
 
 # Commit this line if you want to run or build on ios / macOS
-  drift_flutter: ^0.2.2
+#  drift_flutter: ^0.2.2
 
   flutter:
     sdk: flutter

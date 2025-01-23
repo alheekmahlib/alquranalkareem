@@ -41,7 +41,7 @@ class BooksTopTitleWidget extends StatelessWidget {
           ),
           boxShadow: [
             BoxShadow(
-              color: Colors.grey.withOpacity(.3),
+              color: Colors.grey.withValues(alpha: .3),
               offset: const Offset(0, 5),
               blurRadius: 70,
               spreadRadius: 0,

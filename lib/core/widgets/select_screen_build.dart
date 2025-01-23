@@ -67,7 +67,7 @@ class SelectScreenBuild extends StatelessWidget {
                             color: Theme.of(context)
                                 .colorScheme
                                 .primary
-                                .withOpacity(.2),
+                                .withValues(alpha: .2),
                             borderRadius:
                                 const BorderRadius.all(Radius.circular(4))),
                         child: Text(
@@ -130,7 +130,7 @@ class SelectScreenBuild extends StatelessWidget {
                                                     color: Theme.of(context)
                                                         .colorScheme
                                                         .primary
-                                                        .withOpacity(.2),
+                                                        .withValues(alpha: .2),
                                                     borderRadius:
                                                         const BorderRadius.all(
                                                             Radius.circular(
@@ -222,7 +222,7 @@ class SelectScreenBuild extends StatelessWidget {
                       onClick: () => Get.off(() => ScreenTypeL()),
                       index: 1,
                       height: 40,
-                      width: size.width,
+                      width: size.width * .6,
                       child: Center(
                         child: Text('save'.tr,
                             style: TextStyle(

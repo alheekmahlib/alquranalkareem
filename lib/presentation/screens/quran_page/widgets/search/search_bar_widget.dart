@@ -35,7 +35,7 @@ class TextFieldBarWidget extends StatelessWidget {
             fontSize: 16.0,
             fontFamily: 'naskh',
             fontWeight: FontWeight.w600,
-            color: Theme.of(context).hintColor.withOpacity(.7),
+            color: Theme.of(context).hintColor.withValues(alpha: .7),
           ),
           decoration: InputDecoration(
             contentPadding: EdgeInsets.zero,
@@ -54,7 +54,8 @@ class TextFieldBarWidget extends StatelessWidget {
               fontSize: 14.0,
               fontFamily: 'kufi',
               fontWeight: FontWeight.w600,
-              color: Theme.of(context).colorScheme.surface.withOpacity(.3),
+              color:
+                  Theme.of(context).colorScheme.surface.withValues(alpha: .3),
             ),
             filled: true,
             fillColor: Theme.of(context).colorScheme.primaryContainer,
@@ -78,7 +79,7 @@ class TextFieldBarWidget extends StatelessWidget {
             labelStyle: TextStyle(
               fontSize: 14.0,
               fontFamily: 'kufi',
-              color: Theme.of(context).hintColor.withOpacity(.7),
+              color: Theme.of(context).hintColor.withValues(alpha: .7),
             ),
           ),
           onChanged: onChanged,

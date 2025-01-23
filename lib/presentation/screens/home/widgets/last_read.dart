@@ -56,7 +56,7 @@ class LastRead extends StatelessWidget {
                       color: Theme.of(context)
                           .colorScheme
                           .primary
-                          .withOpacity(.15),
+                          .withValues(alpha: .15),
                       borderRadius:
                           const BorderRadius.all(Radius.circular(8.0))),
                   child: Stack(
@@ -72,7 +72,7 @@ class LastRead extends StatelessWidget {
                         color: Theme.of(context)
                             .colorScheme
                             .surface
-                            .withOpacity(.5),
+                            .withValues(alpha: .5),
                       ),
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 8.0),
@@ -129,7 +129,7 @@ class LastRead extends StatelessWidget {
                                                 color: Theme.of(context)
                                                     .colorScheme
                                                     .surface
-                                                    .withOpacity(.6),
+                                                    .withValues(alpha: .6),
                                                 borderRadius:
                                                     const BorderRadius.all(
                                                         Radius.circular(8))),

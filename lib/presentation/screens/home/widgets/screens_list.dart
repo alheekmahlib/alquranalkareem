@@ -17,7 +17,8 @@ class ScreensList extends StatelessWidget {
       child: ContainerWithLines(
           width: 390,
           linesColor: Theme.of(context).colorScheme.primary,
-          containerColor: Theme.of(context).colorScheme.primary.withOpacity(.2),
+          containerColor:
+              Theme.of(context).colorScheme.primary.withValues(alpha: .2),
           child: Padding(
             padding: const EdgeInsets.all(8.0),
             child: Wrap(

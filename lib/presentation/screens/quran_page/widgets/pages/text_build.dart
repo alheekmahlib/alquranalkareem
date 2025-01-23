@@ -5,8 +5,6 @@ class TextBuild extends StatelessWidget {
 
   TextBuild({super.key, required this.pageIndex});
 
-  final audioCtrl = AudioController.instance;
-  final generalCtrl = GeneralController.instance;
   final quranCtrl = QuranController.instance;
 
   @override
@@ -42,11 +40,13 @@ class TextBuild extends StatelessWidget {
                                 ? customSvgWithColor(SvgPath.svgBesmAllah2,
                                     width: Get.width * .5,
                                     height: Get.height * .2,
-                                    color: Get.theme.cardColor.withOpacity(.8))
+                                    color: Get.theme.cardColor
+                                        .withValues(alpha: .8))
                                 : customSvgWithColor(SvgPath.svgBesmAllah,
                                     width: Get.width * .5,
                                     height: Get.height * .2,
-                                    color: Get.theme.cardColor.withOpacity(.8))
+                                    color: Get.theme.cardColor
+                                        .withValues(alpha: .8))
                             : const SizedBox.shrink(),
                       ),
               ],

@@ -40,9 +40,9 @@ class KhatmahBuildWidget extends StatelessWidget {
                   khatmah: khatmah,
                 ),
                 baseColor:
-                    Theme.of(context).colorScheme.primary.withOpacity(.2),
+                    Theme.of(context).colorScheme.primary.withValues(alpha: .2),
                 expandedColor:
-                    Theme.of(context).colorScheme.primary.withOpacity(.2),
+                    Theme.of(context).colorScheme.primary.withValues(alpha: .2),
                 children: <Widget>[
                   const Divider(
                     thickness: 1.0,

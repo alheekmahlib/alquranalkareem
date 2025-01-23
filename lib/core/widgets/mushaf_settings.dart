@@ -195,10 +195,10 @@ class MushafSettings extends StatelessWidget {
                             color: Get.isDarkMode
                                 ? Theme.of(context)
                                     .primaryColorDark
-                                    .withOpacity(.5)
+                                    .withValues(alpha: .5)
                                 : Theme.of(context)
                                     .dividerColor
-                                    .withOpacity(.5),
+                                    .withValues(alpha: .5),
                             borderRadius: const BorderRadius.only(
                                 topRight: Radius.circular(12),
                                 bottomRight: Radius.circular(12))),
@@ -208,10 +208,10 @@ class MushafSettings extends StatelessWidget {
                               color: Get.isDarkMode
                                   ? Theme.of(context)
                                       .primaryColorDark
-                                      .withOpacity(.7)
+                                      .withValues(alpha: .7)
                                   : Theme.of(context)
                                       .dividerColor
-                                      .withOpacity(.7),
+                                      .withValues(alpha: .7),
                               borderRadius: const BorderRadius.only(
                                   topRight: Radius.circular(12),
                                   bottomRight: Radius.circular(12))),
@@ -351,7 +351,7 @@ class MushafSettings extends StatelessWidget {
                                 color: Theme.of(context)
                                     .colorScheme
                                     .primary
-                                    .withOpacity(.1),
+                                    .withValues(alpha: .1),
                                 borderRadius:
                                     const BorderRadius.all(Radius.circular(8)),
                                 border: Border.all(
@@ -388,7 +388,7 @@ class MushafSettings extends StatelessWidget {
                                 color: Theme.of(context)
                                     .colorScheme
                                     .primary
-                                    .withOpacity(.1),
+                                    .withValues(alpha: .1),
                                 borderRadius:
                                     const BorderRadius.all(Radius.circular(8)),
                                 border: Border.all(
@@ -432,7 +432,7 @@ class MushafSettings extends StatelessWidget {
                                 color: Theme.of(context)
                                     .colorScheme
                                     .primary
-                                    .withOpacity(.1),
+                                    .withValues(alpha: .1),
                                 borderRadius:
                                     const BorderRadius.all(Radius.circular(8)),
                                 border: Border.all(
@@ -469,7 +469,7 @@ class MushafSettings extends StatelessWidget {
         padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 7.0),
         margin: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 7.0),
         decoration: BoxDecoration(
-            color: Theme.of(context).colorScheme.primary.withOpacity(.1),
+            color: Theme.of(context).colorScheme.primary.withValues(alpha: .1),
             borderRadius: const BorderRadius.all(Radius.circular(8)),
             border: Border.all(
                 width: 1, color: Theme.of(context).colorScheme.surface)),

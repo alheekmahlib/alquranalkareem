@@ -81,6 +81,7 @@ class BookmarksController extends GetxController {
               generalCtrl.state.timeNow.dateNow)
           .then((value) => Get.context!
               .showCustomErrorSnackBar('addBookmark'.tr, isDone: true));
+      log('bookmark added to page ${index + 1}');
     }
   }
 

@@ -23,7 +23,7 @@ class OptionsRow extends StatelessWidget {
         margin: const EdgeInsets.symmetric(horizontal: 8.0),
         padding: const EdgeInsets.symmetric(vertical: 3.0),
         decoration: BoxDecoration(
-            color: Theme.of(context).colorScheme.primary.withOpacity(.15),
+            color: Theme.of(context).colorScheme.primary.withValues(alpha: .15),
             borderRadius: const BorderRadius.all(Radius.circular(4))),
         width: double.infinity,
         child: Row(

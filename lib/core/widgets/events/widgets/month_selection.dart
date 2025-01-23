@@ -14,7 +14,7 @@ class MonthSelection extends StatelessWidget {
           width: Get.width * .45,
           // margin: const EdgeInsets.symmetric(horizontal: 16.0),
           decoration: BoxDecoration(
-            color: Get.theme.colorScheme.surface.withOpacity(.2),
+            color: Get.theme.colorScheme.surface.withValues(alpha: .2),
             borderRadius: const BorderRadius.all(Radius.circular(8)),
           ),
           child: Row(
@@ -83,10 +83,12 @@ class MonthSelection extends StatelessWidget {
                             const BorderRadius.all(Radius.circular(8)),
                         color: months.getLongMonthName().tr ==
                                 eventCtrl.hijriNow.getLongMonthName().tr
-                            ? Get.theme.colorScheme.surface.withOpacity(.2)
+                            ? Get.theme.colorScheme.surface
+                                .withValues(alpha: .2)
                             : eventCtrl.selectedDate.getLongMonthName().tr ==
                                     months.getLongMonthName().tr
-                                ? Get.theme.colorScheme.primary.withOpacity(.2)
+                                ? Get.theme.colorScheme.primary
+                                    .withValues(alpha: .2)
                                 : Colors.transparent,
                       ),
                       child: Text(

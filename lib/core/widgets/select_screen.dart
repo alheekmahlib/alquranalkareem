@@ -38,8 +38,10 @@ class SelectScreen extends StatelessWidget {
               child: Container(
                 padding: const EdgeInsets.symmetric(horizontal: 16.0),
                 decoration: BoxDecoration(
-                    color:
-                        Theme.of(context).colorScheme.primary.withOpacity(.2),
+                    color: Theme.of(context)
+                        .colorScheme
+                        .primary
+                        .withValues(alpha: .2),
                     borderRadius: const BorderRadius.all(Radius.circular(8))),
                 child: SizedBox(
                   height: 60,

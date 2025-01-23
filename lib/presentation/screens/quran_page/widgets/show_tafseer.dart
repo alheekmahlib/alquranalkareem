@@ -92,7 +92,7 @@ class ShowTafseer extends StatelessWidget {
                                   color: Theme.of(context)
                                       .colorScheme
                                       .surface
-                                      .withOpacity(.1),
+                                      .withValues(alpha: .1),
                                   border: Border.symmetric(
                                       horizontal: BorderSide(
                                     width: 2,

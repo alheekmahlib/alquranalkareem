@@ -22,7 +22,7 @@ class PlayBanner extends StatelessWidget {
           width: 150,
           height: 50,
           decoration: BoxDecoration(
-            color: Theme.of(context).colorScheme.surface.withOpacity(.2),
+            color: Theme.of(context).colorScheme.surface.withValues(alpha: .2),
             borderRadius: const BorderRadius.all(Radius.circular(8)),
           ),
           margin: context.customOrientation(

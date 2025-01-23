@@ -30,8 +30,8 @@ if (keystorePropertiesFile.exists()) {
 
 android {
     namespace "com.alheekmah.alquranalkareem.alquranalkareem"
-    compileSdkVersion 34
-    ndkVersion flutter.ndkVersion
+    compileSdkVersion 35
+    ndkVersion "27.0.12077973" // flutter.ndkVersion
 
     defaultConfig {
         multiDexEnabled true

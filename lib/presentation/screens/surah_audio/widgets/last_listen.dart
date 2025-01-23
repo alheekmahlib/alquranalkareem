@@ -30,7 +30,10 @@ class LastListen extends StatelessWidget {
           decoration: BoxDecoration(
               borderRadius: const BorderRadius.all(Radius.circular(8)),
               border: Border.all(
-                  color: Theme.of(context).colorScheme.primary.withOpacity(.2),
+                  color: Theme.of(context)
+                      .colorScheme
+                      .primary
+                      .withValues(alpha: .2),
                   width: 1)),
           margin: const EdgeInsets.symmetric(vertical: 8.0),
           child: Row(

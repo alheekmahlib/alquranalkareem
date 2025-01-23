@@ -97,7 +97,7 @@ class AddKhatmahWidget extends StatelessWidget {
                                         : Theme.of(context)
                                             .colorScheme
                                             .surface
-                                            .withOpacity(.3),
+                                            .withValues(alpha: .3),
                                     borderRadius: const BorderRadius.all(
                                         Radius.circular(8)),
                                   ),

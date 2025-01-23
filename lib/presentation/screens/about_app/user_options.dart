@@ -12,7 +12,7 @@ class UserOptions extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ContainerWithBorder(
-      color: Theme.of(context).colorScheme.surface.withOpacity(.15),
+      color: Theme.of(context).colorScheme.surface.withValues(alpha: .15),
       child: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Column(

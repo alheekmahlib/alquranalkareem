@@ -1135,7 +1135,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "What'sNewDetails10": "۞ Adding the Khatmah to the Quran.\n۞ Adding a feature to download all verses of a surah to work offline.\n۞ Improvements in Quran search.\n۞ Adding Tafsir library.\n۞ Adding reminder feature for reciting Azkar where you can set a specific time for recitation.\n۞ Adding notifications.\n۞ And more additions and improvements.",
+  "What'sNewDetails10": "۞ Added Islamic calendar.\n۞ Fixed the issue of copying some verses.\n۞ Performance improvements.",
   "@What'sNewDetails10": {
     "type": "text",
     "placeholders": {}

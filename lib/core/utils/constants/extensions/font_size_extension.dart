@@ -28,7 +28,7 @@ extension FontSizeExtension on Widget {
               height: height, color: color ?? Get.theme.colorScheme.surface),
         ),
       ),
-      color: Get.theme.colorScheme.primary.withOpacity(.8),
+      color: Get.theme.colorScheme.primary.withValues(alpha: .8),
       iconSize: height ?? 35.0,
       itemBuilder: (context) => [
         PopupMenuItem(

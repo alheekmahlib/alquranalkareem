@@ -89,14 +89,16 @@ class AdhkarReminderWidget extends StatelessWidget {
                       children: [
                         Container(
                           decoration: BoxDecoration(
-                            color: !(reminderCtrl
-                                        .state.customAdhkarEnabled[id] ??
-                                    false)
-                                ? Theme.of(context).canvasColor.withOpacity(.1)
-                                : Theme.of(context)
-                                    .colorScheme
-                                    .surface
-                                    .withOpacity(.15),
+                            color:
+                                !(reminderCtrl.state.customAdhkarEnabled[id] ??
+                                        false)
+                                    ? Theme.of(context)
+                                        .canvasColor
+                                        .withValues(alpha: .1)
+                                    : Theme.of(context)
+                                        .colorScheme
+                                        .surface
+                                        .withValues(alpha: .15),
                             borderRadius:
                                 const BorderRadius.all(Radius.circular(8)),
                             border: Border.all(
@@ -158,8 +160,8 @@ class AdhkarReminderWidget extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(
         color: !isEnabled.value
-            ? Theme.of(context).canvasColor.withOpacity(.1)
-            : Theme.of(context).colorScheme.surface.withOpacity(.15),
+            ? Theme.of(context).canvasColor.withValues(alpha: .1)
+            : Theme.of(context).colorScheme.surface.withValues(alpha: .15),
         borderRadius: const BorderRadius.all(Radius.circular(8)),
         border: Border.all(
           width: 1,
@@ -186,7 +188,7 @@ class AdhkarReminderWidget extends StatelessWidget {
             : const SizedBox.shrink(),
         value: isEnabled.value,
         activeColor: Theme.of(context).colorScheme.surface,
-        inactiveTrackColor: Theme.of(context).canvasColor.withOpacity(.5),
+        inactiveTrackColor: Theme.of(context).canvasColor.withValues(alpha: .5),
         onChanged: (value) {
           if (value) {
             _showTimePickerDialog(context, title, id ?? title);
@@ -326,7 +328,7 @@ class AdhkarReminderWidget extends StatelessWidget {
                       padding: const EdgeInsets.symmetric(
                           horizontal: 8.0, vertical: 4.0),
                       decoration: BoxDecoration(
-                        color: const Color(0xff000000).withOpacity(.6),
+                        color: const Color(0xff000000).withValues(alpha: .6),
                         borderRadius:
                             const BorderRadius.all(Radius.circular(6)),
                       ),
@@ -355,7 +357,7 @@ class AdhkarReminderWidget extends StatelessWidget {
                       padding: const EdgeInsets.symmetric(
                           horizontal: 8.0, vertical: 4.0),
                       decoration: BoxDecoration(
-                        color: const Color(0xff000000).withOpacity(.6),
+                        color: const Color(0xff000000).withValues(alpha: .6),
                         borderRadius:
                             const BorderRadius.all(Radius.circular(6)),
                       ),

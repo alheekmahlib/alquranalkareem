@@ -15,7 +15,7 @@ class HijriCalendarScreen extends StatelessWidget {
                   color: Get.theme.colorScheme.primaryContainer,
                   child: SlidingBox(
                     controller: eventCtrl.boxController,
-                    minHeight: context.customOrientation(350.0, 50.0),
+                    minHeight: context.customOrientation(350.0, 65.0),
                     maxHeight: Get.height * .8,
                     color: Colors.transparent,
                     style: BoxStyle.none,
@@ -61,7 +61,7 @@ class HijriCalendarScreen extends StatelessWidget {
                                           decoration: BoxDecoration(
                                               color: Get
                                                   .theme.colorScheme.primary
-                                                  .withOpacity(.2),
+                                                  .withValues(alpha: .2),
                                               borderRadius:
                                                   const BorderRadius.all(
                                                       Radius.circular(4))),
@@ -148,7 +148,7 @@ class HijriCalendarScreen extends StatelessWidget {
                                       DaysName(),
                                       const Gap(8),
                                       SizedBox(
-                                        height: 200,
+                                        height: 260,
                                         child: PageView.builder(
                                           controller: eventCtrl.pageController,
                                           onPageChanged:
@@ -210,7 +210,7 @@ class HijriCalendarScreen extends StatelessWidget {
                                                 decoration: BoxDecoration(
                                                     color: Get.theme.colorScheme
                                                         .primary
-                                                        .withOpacity(.2),
+                                                        .withValues(alpha: .2),
                                                     borderRadius:
                                                         const BorderRadius.all(
                                                             Radius.circular(
@@ -244,39 +244,43 @@ class HijriCalendarScreen extends StatelessWidget {
                         ],
                       ),
                     ),
-                    body: Container(
-                      // height: Get.height,
-                      width: Get.width,
-                      padding: const EdgeInsets.only(
-                          top: 8.0, right: 8.0, left: 8.0),
-                      margin: const EdgeInsets.symmetric(horizontal: 8.0),
-                      decoration: BoxDecoration(
-                          borderRadius: const BorderRadius.only(
-                            topLeft: Radius.circular(16),
-                            topRight: Radius.circular(16),
-                          ),
-                          border: Border.all(
-                            width: 1,
-                            color:
-                                Get.theme.colorScheme.surface.withOpacity(.4),
-                          )),
+                    body: Align(
+                      alignment: AlignmentDirectional.bottomEnd,
                       child: Container(
+                        // height: Get.height,
+                        width: context.customOrientation(
+                            Get.width, Get.width * .4),
+                        padding: const EdgeInsets.only(
+                            top: 8.0, right: 8.0, left: 8.0),
+                        margin: const EdgeInsets.symmetric(horizontal: 8.0),
                         decoration: BoxDecoration(
-                            color: Get.theme.colorScheme.primary,
                             borderRadius: const BorderRadius.only(
-                              topLeft: Radius.circular(12),
-                              topRight: Radius.circular(12),
+                              topLeft: Radius.circular(16),
+                              topRight: Radius.circular(16),
                             ),
-                            boxShadow: [
-                              BoxShadow(
-                                offset: const Offset(0, -10),
-                                blurRadius: 10,
-                                spreadRadius: 10,
-                                color: Get.theme.colorScheme.surface
-                                    .withOpacity(.2),
-                              )
-                            ]),
-                        child: AllCalculatingEventsWidget(),
+                            border: Border.all(
+                              width: 1,
+                              color: Get.theme.colorScheme.surface
+                                  .withValues(alpha: .4),
+                            )),
+                        child: Container(
+                          decoration: BoxDecoration(
+                              color: Get.theme.colorScheme.primary,
+                              borderRadius: const BorderRadius.only(
+                                topLeft: Radius.circular(12),
+                                topRight: Radius.circular(12),
+                              ),
+                              boxShadow: [
+                                BoxShadow(
+                                  offset: const Offset(0, -10),
+                                  blurRadius: 10,
+                                  spreadRadius: 10,
+                                  color: Get.theme.colorScheme.surface
+                                      .withValues(alpha: .2),
+                                )
+                              ]),
+                          child: AllCalculatingEventsWidget(),
+                        ),
                       ),
                     ),
                   ),
