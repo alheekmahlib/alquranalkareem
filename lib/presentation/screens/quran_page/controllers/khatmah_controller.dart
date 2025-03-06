@@ -193,6 +193,9 @@ class KhatmahController extends GetxController {
         daysCount: days,
         isTahzibSahabah: isTahzibSahabah.value,
         color: screenPickerColor.value);
+    nameController.clear();
+    daysController.clear();
+    isTahzibSahabah.value = false;
   }
 
   void deleteKhatmahOnTap(int id) async {

@@ -35,7 +35,7 @@ class PlayWidget extends StatelessWidget {
               quarterTurns: 2,
               child: Opacity(
                 opacity: .6,
-                child: customSvg(
+                child: customSvgWithCustomColor(
                   SvgPath.svgDecorations,
                   height: 60,
                 ),
@@ -46,7 +46,7 @@ class PlayWidget extends StatelessWidget {
             alignment: Alignment.bottomRight,
             child: Opacity(
               opacity: .6,
-              child: customSvg(
+              child: customSvgWithCustomColor(
                 SvgPath.svgDecorations,
                 height: 60,
               ),
@@ -106,7 +106,7 @@ class PlayWidget extends StatelessWidget {
                             button: true,
                             enabled: true,
                             label: 'backward'.tr,
-                            child: customSvg(
+                            child: customSvgWithColor(
                               SvgPath.svgBackward,
                               height: 20,
                             ),
@@ -131,7 +131,7 @@ class PlayWidget extends StatelessWidget {
                             button: true,
                             enabled: true,
                             label: 'rewind'.tr,
-                            child: customSvg(
+                            child: customSvgWithColor(
                               SvgPath.svgRewind,
                               height: 20,
                             ),

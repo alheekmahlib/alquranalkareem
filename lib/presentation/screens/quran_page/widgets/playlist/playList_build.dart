@@ -77,7 +77,7 @@ class PlayListBuild extends StatelessWidget {
                                     children: [
                                       Row(
                                         children: [
-                                          customSvg(
+                                          customSvgWithCustomColor(
                                             SvgPath.svgPlaylist,
                                             height: 25,
                                           ),
@@ -90,7 +90,7 @@ class PlayListBuild extends StatelessWidget {
                                             decoration: BoxDecoration(
                                                 color: Theme.of(context)
                                                     .colorScheme
-                                                    .background
+                                                    .primaryContainer
                                                     .withValues(alpha: .8),
                                                 borderRadius:
                                                     const BorderRadius.all(
@@ -101,8 +101,8 @@ class PlayListBuild extends StatelessWidget {
                                                 play.name
                                                     .replaceAll('سُورَةُ ', ''),
                                                 style: TextStyle(
-                                                  fontFamily: 'kufi',
-                                                  fontSize: 16,
+                                                  fontFamily: 'naskh',
+                                                  fontSize: 20,
                                                   color: Theme.of(context)
                                                       .hintColor,
                                                 ),

@@ -63,7 +63,7 @@ class TextFieldBarWidget extends StatelessWidget {
                 Container(
                   height: 20,
                   padding: const EdgeInsets.all(10.0),
-                  child: customSvg(
+                  child: customSvgWithCustomColor(
                     SvgPath.svgSearchIcon,
                     height: 35,
                   ),

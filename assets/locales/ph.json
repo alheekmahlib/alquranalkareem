@@ -859,8 +859,8 @@
     "type": "text",
     "placeholders": {}
   },
-  "Sha'ban": "Sha'ban",
-  "@Sha'ban": {
+  "Sha'aban": "Sha'aban",
+  "@Sha'aban": {
     "type": "text",
     "placeholders": {}
   },
@@ -1129,7 +1129,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "What'sNewDetails10": "۞ Idinagdag ang kalendaryong Islamiko.\n۞ Naayos ang isyu sa pagkopya ng ilang talata.\n۞ Mga pagpapabuti sa pagganap.",
+  "What'sNewDetails10": "۞ Idinagdag ang pagbabago sa Islamic calendar.\n۞ Mga pagpapabuti sa performance at pag-aayos ng mga bug.",
   "@What'sNewDetails10": {
     "type": "text",
     "placeholders": {}
@@ -1209,6 +1209,31 @@
   },
   "arafah": "Araw ng Arafah",
   "@arafah": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "editHijriDay": "I-edit ang Araw ng Hijri",
+  "@editHijriDay": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "defaultFontText": "Default na Font",
+  "@defaultFontText": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "downloadedFontsText": "Font ng Qur'an",
+  "@downloadedFontsText": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "fonts": "Mga Font",
+  "@fonts": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "fontsNotes": "Para sa mas magandang karanasan at perpektong hitsura ng Qur'an, mangyaring i-download ang mga font nito.",
+  "@fontsNotes": {
     "type": "text",
     "placeholders": {}
   },

@@ -177,7 +177,7 @@ class DhekrImageCreator extends StatelessWidget {
                         child: Row(
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
-                            customSvg(
+                            customSvgWithColor(
                               SvgPath.svgSplashIcon,
                               height: 40,
                             ),

@@ -74,7 +74,7 @@ class PlayListPlayButton extends StatelessWidget {
                         width: 20.0, height: 20.0);
                   } else if (playing != true) {
                     return GestureDetector(
-                      child: customSvg(
+                      child: customSvgWithCustomColor(
                         SvgPath.svgPlayArrow,
                         height: 25,
                       ),
@@ -84,7 +84,7 @@ class PlayListPlayButton extends StatelessWidget {
                     );
                   }
                   return GestureDetector(
-                    child: customSvg(
+                    child: customSvgWithCustomColor(
                       SvgPath.svgPauseArrow,
                       height: 25,
                     ),

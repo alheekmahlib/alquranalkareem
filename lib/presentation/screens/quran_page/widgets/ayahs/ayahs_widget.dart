@@ -86,7 +86,7 @@ class AyahsWidget extends StatelessWidget {
                   future: Future.delayed(Duration.zero),
                   builder: (context, snapshot) {
                     if (snapshot.connectionState == ConnectionState.done) {
-                      return quranCtrl.state.pages.isEmpty
+                      return QuranLibrary().quranCtrl.state.pages.isEmpty
                           ? const Center(
                               child: CircularProgressIndicator.adaptive())
                           : ScrollablePositionedList.builder(

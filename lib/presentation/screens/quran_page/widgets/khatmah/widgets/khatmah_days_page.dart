@@ -15,9 +15,10 @@ class KhatmahDaysPage extends StatelessWidget {
         khatmah.dayStatuses.indexWhere((status) => !status.isCompleted) + 1;
 
     return SizedBox(
-      height: Get.height,
+      // height: Get.height,
       width: Get.width,
       child: Column(
+        mainAxisSize: MainAxisSize.min,
         children: [
           if (currentDay > 0 && currentDay <= daysCount)
             ListTile(

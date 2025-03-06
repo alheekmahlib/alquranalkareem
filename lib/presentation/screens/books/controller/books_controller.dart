@@ -9,6 +9,7 @@ import 'package:get/get.dart';
 import 'package:path_provider/path_provider.dart';
 
 import '/presentation/screens/books/controller/extensions/books_storage_getters.dart';
+import '../../../../core/services/connectivity_service.dart';
 import '../../quran_page/widgets/search/search_extensions/highlight_extension.dart';
 import '../data/models/books_model.dart';
 import '../data/models/chapter_model.dart';
@@ -30,6 +31,7 @@ class BooksController extends GetxController {
       loadLastRead();
     });
     loadFromGetStorage();
+    ConnectivityService.instance.init();
   }
 
   @override
@@ -38,6 +40,7 @@ class BooksController extends GetxController {
     // state.ScrollUpDownBook.dispose();
     state.bookRLFocusNode.dispose();
     // state.bookUDFocusNode.dispose();
+    ConnectivityService.instance.onClose();
     super.onClose();
   }
 
@@ -61,34 +64,39 @@ class BooksController extends GetxController {
   }
 
   Future<void> downloadBook(int bookNumber) async {
-    try {
-      state.downloading[bookNumber] = true;
-      state.downloadProgress[bookNumber] = 0.0;
-      var response = await Dio().get(
-        'https://raw.githubusercontent.com/alheekmahlib/Tafsir_books/main/$bookNumber.json',
-        options: Options(responseType: ResponseType.stream),
-        onReceiveProgress: (received, total) {
-          if (total != -1) {
-            state.downloadProgress[bookNumber] = (received / total);
-          }
-        },
-      );
+    if (ConnectivityService.instance.noConnection.value) {
+      return Get.context!.showCustomErrorSnackBar('noInternet'.tr);
+    } else {
+      try {
+        state.downloading[bookNumber] = true;
+        state.downloadProgress[bookNumber] = 0.0;
+        var response = await Dio().get(
+          'https://raw.githubusercontent.com/alheekmahlib/Tafsir_books/main/$bookNumber.json',
+          options: Options(responseType: ResponseType.stream),
+          onReceiveProgress: (received, total) {
+            if (total != -1) {
+              state.downloadProgress[bookNumber] = (received / total);
+            }
+          },
+        );
 
-      final directory = await getApplicationDocumentsDirectory();
-      final file = File('${directory.path}/$bookNumber.json');
+        final directory = await getApplicationDocumentsDirectory();
+        final file = File('${directory.path}/$bookNumber.json');
 
-      var data = <int>[];
-      await for (var value in response.data.stream) {
-        data.addAll(value);
+        var data = <int>[];
+        await for (var value in response.data.stream) {
+          data.addAll(value);
+        }
+        await file.writeAsBytes(data);
+        state.downloaded[bookNumber] = true;
+        saveDownloadedBooks();
+      } catch (e) {
+        log('Error downloading book: $e');
+      } finally {
+        state.downloading[bookNumber] = false;
+        Get.context!
+            .showCustomErrorSnackBar('booksDownloaded'.tr, isDone: true);
       }
-      await file.writeAsBytes(data);
-      state.downloaded[bookNumber] = true;
-      saveDownloadedBooks();
-    } catch (e) {
-      log('Error downloading book: $e');
-    } finally {
-      state.downloading[bookNumber] = false;
-      Get.context!.showCustomErrorSnackBar('booksDownloaded'.tr, isDone: true);
     }
   }
 

@@ -174,8 +174,7 @@ class QuranSurahList extends StatelessWidget {
                                                       fontWeight:
                                                           FontWeight.bold,
                                                       color: Get.theme.hintColor
-                                                          .withValues(
-                                                              alpha: .7),
+                                                          .withValues(alpha: .7),
                                                     ),
                                                   ),
                                                 ],

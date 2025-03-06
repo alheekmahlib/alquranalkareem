@@ -865,8 +865,8 @@
     "type": "text",
     "placeholders": {}
   },
-  "Sha'ban": "Sha'ban",
-  "@Sha'ban": {
+  "Sha'aban": "Sha'aban",
+  "@Sha'aban": {
     "type": "text",
     "placeholders": {}
   },
@@ -1135,7 +1135,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "What'sNewDetails10": "۞ Waxaa lagu daray kalandarka Islaamka.\n۞ Waxaa la saxay dhibaatada lagu koobiyo aayadaha qaar.\n۞ Hagaajinta waxqabadka.",
+  "What'sNewDetails10": "۞ Waxaa lagu daray isbeddelka kalendarka Islaamka.\n۞ Hormarinta habka iyo xalinta qaladaha.",
   "@What'sNewDetails10": {
     "type": "text",
     "placeholders": {}
@@ -1215,6 +1215,31 @@
   },
   "arafah": "Maalinta Carafa",
   "@arafah": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "editHijriDay": "Wax ka beddel Maalinta Hijri",
+  "@editHijriDay": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "defaultFontText": "Farta asalka ah",
+  "@defaultFontText": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "downloadedFontsText": "Farta Qur'aanka",
+  "@downloadedFontsText": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "fonts": "Afaf",
+  "@fonts": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "fontsNotes": "Si aad u helo tahay dib u habboon iyo muuqasho wanaagsan ee Qur'aanka, fadlan so gelo afafka.",
+  "@fontsNotes": {
     "type": "text",
     "placeholders": {}
   },

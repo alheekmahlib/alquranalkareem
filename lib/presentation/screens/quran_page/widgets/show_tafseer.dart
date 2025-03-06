@@ -2,10 +2,8 @@ part of '../quran.dart';
 
 class ShowTafseer extends StatelessWidget {
   late final int ayahUQNumber;
-  late final int index;
 
-  ShowTafseer({Key? key, required this.ayahUQNumber, required this.index})
-      : super(key: key);
+  ShowTafseer({Key? key, required this.ayahUQNumber}) : super(key: key);
 
   final ScrollController _scrollController = ScrollController();
   final quranCtrl = QuranController.instance;
@@ -41,7 +39,7 @@ class ShowTafseer extends StatelessWidget {
                     children: [
                       context.customClose(),
                       const Gap(32),
-                      customSvg(
+                      customSvgWithCustomColor(
                         SvgPath.svgTafseer,
                         height: 30,
                       ),
@@ -129,7 +127,7 @@ class ShowTafseer extends StatelessWidget {
                                                         ayahs.ayahNumber,
                                                     ayahText: ayahs.text,
                                                     ayahTextNormal:
-                                                        ayahs.aya_text_emlaey,
+                                                        ayahs.ayaTextEmlaey,
                                                     ayahUQNumber: ayahIndex,
                                                     surahName: quranCtrl
                                                         .getSurahDataByAyahUQ(

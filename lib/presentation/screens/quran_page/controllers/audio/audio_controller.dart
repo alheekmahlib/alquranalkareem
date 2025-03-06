@@ -14,9 +14,6 @@ class AudioController extends GetxController {
   void onInit() async {
     state.isPlay.value = false;
     state.sliderValue = 0;
-    initConnectivity();
-    state.connectivitySubscription = state.connectivity.onConnectivityChanged
-        .listen(_updateConnectionStatus);
     loadQuranReader();
     await Future.wait([
       GeneralController.instance
@@ -24,6 +21,7 @@ class AudioController extends GetxController {
           .then((v) => state.cachedArtUri = v),
       getApplicationDocumentsDirectory().then((v) => state.dir = v),
     ]);
+    ConnectivityService.instance.init();
     super.onInit();
   }
 
@@ -31,7 +29,7 @@ class AudioController extends GetxController {
   void onClose() {
     state.audioPlayer.pause();
     state.audioPlayer.dispose();
-    state.connectivitySubscription.cancel();
+    ConnectivityService.instance.onClose();
     super.onClose();
   }
 
@@ -56,16 +54,18 @@ class AudioController extends GetxController {
       }
 
       if (showSnakbars && !state.snackBarShownForBatch) {
-        if (state.connectionStatus.contains(ConnectivityResult.none)) {
+        if (ConnectivityService.instance.noConnection.value) {
           Get.context!.showCustomErrorSnackBar('noInternet'.tr);
-        } else if (state.connectionStatus.contains(ConnectivityResult.mobile)) {
+        } else if (ConnectivityService.instance.connectionStatus
+            .contains(ConnectivityResult.mobile)) {
           state.snackBarShownForBatch = true; // Set the flag to true
           Get.context!.customMobileNoteSnackBar('mobileDataAyat'.tr);
         }
       }
 
       // Proceed with the download
-      if (!state.connectionStatus.contains(ConnectivityResult.none)) {
+      if (!ConnectivityService.instance.connectionStatus
+          .contains(ConnectivityResult.none)) {
         try {
           await _downloadFile(path, url, fileName);
         } catch (e) {
@@ -240,20 +240,27 @@ class AudioController extends GetxController {
       log('${'-' * 30} player is starting.. ${'-' * 30}',
           name: 'AudioController');
 
-      state.audioPlayer.currentIndexStream.listen((index) {
+      state.audioPlayer.currentIndexStream.listen((index) async {
+        if (isLastAyahInPageButNotInSurah || isLastAyahInSurahAndPage) {
+          await moveToNextPage(withScroll: true);
+        }
         if (index != null && index != 0 && index != state.selectedAyahNum) {
           log('state.currentAyahUQInPage.value: ${state.currentAyahUQInPage}');
           state.selectedAyahNum.value = index;
           state.currentAyahUQInPage.value =
               selectedSurahAyahsUniqueNumbers[state.selectedAyahNum.value];
-          quranCtrl.toggleAyahSelection(state.currentAyahUQInPage.value);
+          // quranCtrl.toggleAyahSelection(state.currentAyahUQInPage.value);
+          // quranCtrl.clearAndAddSelection(state.currentAyahUQInPage.value);
+          QuranLibrary()
+              .quranCtrl
+              .toggleAyahSelection(state.currentAyahUQInPage.value);
         }
       });
 
       state.isPlay.value = true;
       await state.audioPlayer
           .play()
-          .then((_) => state.isPlay.value = false)
+          .then((_) => state.isPlay.value = true)
           .whenComplete(() {
         state.audioPlayer.stop();
         state.isPlay.value = false;
@@ -284,14 +291,18 @@ class AudioController extends GetxController {
               .ayahUQNumber
           : state.currentAyahUQInPage.value;
     }
-    // quranCtrl.toggleAyahSelection(state.currentAyahUQInPage.value);
-    quranCtrl.clearAndAddSelection(state.currentAyahUQInPage.value);
+    // quranCtrl.clearAndAddSelection(state.currentAyahUQInPage.value);
+
+    // quranCtrl.clearAndAddSelection(state.currentAyahUQInPage.value);
     if (state.audioPlayer.playing || state.isPlay.value) {
       state.isPlay.value = false;
       await state.audioPlayer.pause();
       print('state.audioPlayer: pause');
     } else {
-      quranCtrl.clearAndAddSelection(state.currentAyahUQInPage.value);
+      QuranLibrary()
+          .quranCtrl
+          .toggleAyahSelection(state.currentAyahUQInPage.value);
+      // quranCtrl.clearAndAddSelection(state.currentAyahUQInPage.value);
       await playFile();
     }
   }
@@ -300,12 +311,13 @@ class AudioController extends GetxController {
     if (state.currentAyahUQInPage.value == 6236) {
       pausePlayer;
     } else if (isLastAyahInPageButNotInSurah || isLastAyahInSurahAndPage) {
-      await moveToNextPage();
+      await moveToNextPage(withScroll: true);
+      quranCtrl.clearAndAddSelection(state.currentAyahUQInPage.value += 1);
       await state.audioPlayer.seekToNext();
     } else {
+      quranCtrl.clearAndAddSelection(state.currentAyahUQInPage.value += 1);
       await state.audioPlayer.seekToNext();
     }
-    quranCtrl.toggleAyahSelection(state.currentAyahUQInPage.value);
   }
 
   Future<void> skipPreviousAyah() async {
@@ -313,50 +325,16 @@ class AudioController extends GetxController {
       pausePlayer;
     } else if (isFirstAyahInPageButNotInSurah) {
       moveToPreviousPage();
+      QuranLibrary()
+          .quranCtrl
+          .toggleAyahSelection(state.currentAyahUQInPage.value -= 1);
       await state.audioPlayer.seekToPrevious();
     } else {
+      QuranLibrary()
+          .quranCtrl
+          .toggleAyahSelection(state.currentAyahUQInPage.value -= 1);
       await state.audioPlayer.seekToPrevious();
     }
-    quranCtrl.toggleAyahSelection(state.currentAyahUQInPage.value);
-  }
-
-  /// -------- [ConnectivityMethods] ----------
-
-  Future<void> initConnectivity() async {
-    late dynamic result; // Can be either List<ConnectivityResult> or String
-    // Platform messages may fail, so we use a try/catch PlatformException.
-    try {
-      result = await state.connectivity.checkConnectivity();
-    } on PlatformException catch (e) {
-      log('Couldn\'t check connectivity status', error: e);
-      return;
-    }
-
-    // Handle both potential return types
-    if (result is List<ConnectivityResult>) {
-      _updateConnectionStatus(result);
-    } else if (result is String) {
-      // Handle String case (parse the string or handle error)
-      // For example, log an error message
-      log('Unexpected data type from checkConnectivity: $result');
-    } else {
-      // Handle unexpected data type (shouldn't happen)
-      log('Unknown data type from checkConnectivity: $result');
-    }
-
-    // If the widget was removed from the tree while the asynchronous platform
-    // message was in flight, we want to discard the reply rather than calling
-    // setState to update our non-existent appearance.
-    if (state.isDisposed) {
-      return Future.value(null);
-    }
-  }
-
-  Future<void> _updateConnectionStatus(List<ConnectivityResult> result) async {
-    state.connectionStatus = result;
-    update();
-    // ignore: avoid_print
-    print('Connectivity changed: ${state.connectionStatus}');
   }
 
   void didChangeAppLifecycleState(AppLifecycleState states) {

@@ -1,7 +1,4 @@
-import 'dart:async';
-
 import 'package:arabic_numbers/arabic_numbers.dart';
-import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_sliding_box/flutter_sliding_box.dart';
@@ -27,9 +24,6 @@ class SurahAudioState {
   RxDouble progress = 0.0.obs;
   RxInt surahNum = 1.obs;
   var url;
-  List<ConnectivityResult> connectionStatus = [ConnectivityResult.none];
-  final Connectivity connectivity = Connectivity();
-  late StreamSubscription<List<ConnectivityResult>> connectivitySubscription;
   late var cancelToken = CancelToken();
   TextEditingController textController = TextEditingController();
   RxInt selectedSurah = 0.obs;
@@ -51,4 +45,5 @@ class SurahAudioState {
   final box = GetStorage();
   RxInt fileSize = 0.obs;
   RxInt downloadProgress = 0.obs;
+  RxBool audioServiceInitialized = false.obs;
 }

@@ -40,9 +40,9 @@ class LanguageList extends StatelessWidget {
                 initialElevation: 0.0,
                 expandedTextColor: Theme.of(context).primaryColorDark,
                 baseColor:
-                    Theme.of(context).colorScheme.primary.withValues(alpha: .2),
+                    Theme.of(context).colorScheme.surface.withValues(alpha: .2),
                 expandedColor:
-                    Theme.of(context).colorScheme.primary.withValues(alpha: .2),
+                    Theme.of(context).colorScheme.surface.withValues(alpha: .2),
                 title: SizedBox(
                   width: 100.0,
                   child: Obx(() {

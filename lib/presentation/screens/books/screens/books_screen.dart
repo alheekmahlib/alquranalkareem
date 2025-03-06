@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '/core/utils/constants/extensions/bottom_sheet_extension.dart';
 import '/core/utils/constants/extensions/svg_extensions.dart';
 import '/core/utils/constants/svg_constants.dart';
 import '../../../../core/widgets/settings_list.dart';
@@ -31,8 +32,8 @@ class BooksScreen extends StatelessWidget {
         ),
         centerTitle: true,
         leading: GestureDetector(
-          onTap: () => Get.offAll(() => const HomeScreen(),
-              transition: Transition.upToDown),
+          onTap: () =>
+              Get.offAll(() => HomeScreen(), transition: Transition.upToDown),
           child: Stack(
             alignment: Alignment.center,
             children: [
@@ -73,11 +74,10 @@ class BooksScreen extends StatelessWidget {
                 ),
               )),
           GestureDetector(
-            onTap: () => Get.bottomSheet(
+            onTap: () => customBottomSheet(
               SettingsList(
                 isQuranSetting: false,
               ),
-              isScrollControlled: true,
             ),
             child: Stack(
               alignment: Alignment.center,
@@ -128,7 +128,7 @@ class BooksScreen extends StatelessWidget {
                       )),
                   child: Row(
                     children: [
-                      customSvg(
+                      customSvgWithCustomColor(
                         SvgPath.svgTafseer,
                         height: 40,
                       ),

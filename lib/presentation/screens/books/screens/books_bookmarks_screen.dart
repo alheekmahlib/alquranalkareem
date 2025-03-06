@@ -1,3 +1,6 @@
+import 'dart:developer';
+
+import 'package:alquranalkareem/core/utils/constants/extensions/custom_error_snackBar.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
@@ -30,7 +33,7 @@ class BookBookmarksScreen extends StatelessWidget {
                       fontWeight: FontWeight.w700,
                       fontSize: 18),
                 ),
-                customLottie(LottieConstants.assetsLottieSearch,
+                customLottieWithColor(LottieConstants.assetsLottieSearch,
                     height: 150.0, width: 150.0),
                 const Gap(64),
               ],
@@ -81,8 +84,15 @@ class BookBookmarksScreen extends StatelessWidget {
                             color: Theme.of(context).colorScheme.surface,
                           ),
                           onPressed: () {
-                            booksBookmarksCtrl.deleteBookmark(
-                                bookmark.id, bookmark.currentPage!);
+                            booksBookmarksCtrl
+                                .deleteBookmark(
+                                    bookmark.bookNumber!, bookmark.currentPage!)
+                                .then((_) => Get.context!
+                                    .showCustomErrorSnackBar(
+                                        'deletedBookmark'.tr));
+                            // booksBookmarksCtrl.deleteBookmark(
+                            //     bookmark.id, bookmark.currentPage!);
+                            log('bookmark deleted');
                           },
                         ),
                         onTap: () {

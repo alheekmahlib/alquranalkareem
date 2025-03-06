@@ -6,7 +6,7 @@ import '/presentation/screens/home/home_screen.dart';
 import '../../screens/adhkar/screens/adhkar_view.dart';
 import '../../screens/books/screens/books_screen.dart';
 import '../../screens/quran_page/quran.dart';
-import '../../screens/surah_audio/screen/audio_surah.dart';
+import '../../screens/surah_audio/audio_surah.dart';
 import 'general_state.dart';
 
 class GeneralController extends GetxController {
@@ -25,8 +25,16 @@ class GeneralController extends GetxController {
         print('Failed to enable wakelock: $e');
       }
     });
+    // WidgetsBinding.instance.addObserver(this);
+
     super.onInit();
   }
+
+  // @override
+  // void onClose() {
+  //   WidgetsBinding.instance.removeObserver(this);
+  //   super.onClose();
+  // }
 
   /// -------- [Methods] ----------
 

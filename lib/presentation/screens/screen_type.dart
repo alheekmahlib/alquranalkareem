@@ -3,8 +3,8 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 
-import '../../core/widgets/events/events.dart';
 import '../controllers/general/general_controller.dart';
+import 'calendar/events.dart';
 
 class ScreenTypeL extends StatelessWidget {
   ScreenTypeL({super.key});

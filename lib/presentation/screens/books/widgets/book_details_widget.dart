@@ -4,11 +4,10 @@ import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:read_more_less/read_more_less.dart';
 
-import '/core/utils/constants/extensions/svg_extensions.dart';
 import '/presentation/screens/books/controller/extensions/books_getters.dart';
 import '/presentation/screens/books/controller/extensions/books_ui.dart';
-import '../../../../core/utils/constants/svg_constants.dart';
 import '../controller/books_controller.dart';
+import 'book_cover_widget.dart';
 
 class BookDetails extends StatelessWidget {
   final int bookNumber;
@@ -94,31 +93,10 @@ class BookDetails extends StatelessWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Stack(
-                alignment: Alignment.center,
-                children: [
-                  Hero(
-                      tag: 'book-tag-:$bookNumber',
-                      child: customSvg(SvgPath.svgRightBook)),
-                  Transform.translate(
-                    offset: const Offset(2, 20),
-                    child: SizedBox(
-                      height: 150,
-                      width: 90,
-                      child: Text(
-                        bookName,
-                        style: TextStyle(
-                            fontSize: 20.0,
-                            fontFamily: 'kufi',
-                            fontWeight: FontWeight.bold,
-                            color: Theme.of(context).colorScheme.secondary,
-                            height: 1.5),
-                        textAlign: TextAlign.center,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
+              BookCoverWidget(
+                  isInDetails: true,
+                  bookNane: bookName,
+                  bookNumber: bookNumber),
               Align(
                 alignment: Alignment.center,
                 child: Center(

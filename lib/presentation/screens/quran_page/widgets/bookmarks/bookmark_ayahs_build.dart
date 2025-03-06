@@ -13,15 +13,6 @@ class BookmarkAyahsBuild extends StatelessWidget {
             : Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    'ayahs'.tr,
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                        color: Theme.of(context).hintColor,
-                        fontFamily: 'kufi',
-                        fontWeight: FontWeight.w700,
-                        fontSize: 18),
-                  ),
                   context.hDivider(width: MediaQuery.sizeOf(context).width),
                   Flexible(
                     child: AnimationLimiter(

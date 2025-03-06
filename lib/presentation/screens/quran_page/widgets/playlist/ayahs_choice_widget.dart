@@ -47,8 +47,8 @@ class AyahsChoiceWidget extends StatelessWidget {
                           () => Text(
                             '${quranCtrl.getCurrentSurahByPage(quranCtrl.state.currentPageNumber.value - 1).arabicName.replaceAll('سُورَةُ ', '')} | ${generalCtrl.state.arabicNumber.convert(playList.firstAyah)}',
                             style: TextStyle(
-                              fontFamily: 'kufi',
-                              fontSize: 16,
+                              fontFamily: 'naskh',
+                              fontSize: 18,
                               color: Get.isDarkMode
                                   ? Colors.white
                                   : Theme.of(context).colorScheme.primary,
@@ -110,8 +110,8 @@ class AyahsChoiceWidget extends StatelessWidget {
                         Text(
                           '${quranCtrl.getCurrentSurahByPage(quranCtrl.state.currentPageNumber.value - 1).arabicName.replaceAll('سُورَةُ ', '')} | ${generalCtrl.state.arabicNumber.convert(playList.lastAyah)}',
                           style: TextStyle(
-                            fontFamily: 'kufi',
-                            fontSize: 16,
+                            fontFamily: 'naskh',
+                            fontSize: 18,
                             color: Get.isDarkMode
                                 ? Colors.white
                                 : Theme.of(context).colorScheme.primary,

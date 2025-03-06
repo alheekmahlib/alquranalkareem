@@ -29,10 +29,12 @@ TextSpan span({
       first = TextSpan(
         text: partOne,
         style: TextStyle(
-          fontFamily: 'page${pageIndex + 1}',
+          fontFamily: QuranLibrary().currentFontsSelected == 0
+              ? 'uthmanic2'
+              : 'p${pageIndex + 2001}',
           fontSize: fontSize,
           height: 2,
-          letterSpacing: quranCtrl.state.isPages.value == 1 ? 10 : 30,
+          letterSpacing: QuranLibrary().currentFontsSelected == 0 ? 0 : 10,
           color: Get.theme.colorScheme.inversePrimary,
           backgroundColor: quranCtrl.state.isPages.value == 1
               ? Colors.transparent
@@ -49,10 +51,12 @@ TextSpan span({
       second = TextSpan(
         text: partTwo,
         style: TextStyle(
-          fontFamily: 'page${pageIndex + 1}',
+          fontFamily: QuranLibrary().currentFontsSelected == 0
+              ? 'uthmanic2'
+              : 'p${pageIndex + 2001}',
           fontSize: fontSize,
           height: 2,
-          letterSpacing: 5,
+          letterSpacing: QuranLibrary().currentFontsSelected == 0 ? 0 : 5,
           // wordSpacing: wordSpacing + 10,
           color: Get.theme.colorScheme.inversePrimary,
           backgroundColor: quranCtrl.state.isPages.value == 1
@@ -72,10 +76,12 @@ TextSpan span({
     final TextSpan initialTextSpan = TextSpan(
       text: initialPart,
       style: TextStyle(
-        fontFamily: 'page${pageIndex + 1}',
+        fontFamily: QuranLibrary().currentFontsSelected == 0
+            ? 'uthmanic2'
+            : 'p${pageIndex + 2001}',
         fontSize: fontSize,
         height: 2,
-        letterSpacing: 5,
+        letterSpacing: QuranLibrary().currentFontsSelected == 0 ? 0 : 5,
         color: Get.theme.colorScheme.inversePrimary,
         backgroundColor: quranCtrl.state.isPages.value == 1
             ? Colors.transparent
@@ -90,43 +96,46 @@ TextSpan span({
         ..onLongPressStart = onLongPressStart,
     );
 
-    var lastCharacterSpan =
-        sl<BookmarksController>().hasBookmark(surahNum, ayahNum).value
-            ? WidgetSpan(
-                child: Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 8.0, vertical: 30.0),
-                child: SvgPicture.asset(
-                  SvgPath.svgAyahBookmarked,
-                  height: 100,
-                ),
-              ))
-            : TextSpan(
-                text: lastCharacter,
-                style: TextStyle(
-                  fontFamily: 'page${pageIndex + 1}',
-                  fontSize: fontSize,
-                  height: 2,
-                  letterSpacing: 5,
-                  color: sl<BookmarksController>()
-                          .hasBookmark(surahNum, ayahNum)
-                          .value
+    var lastCharacterSpan = sl<BookmarksController>()
+            .hasBookmark(surahNum, ayahNum)
+            .value
+        ? WidgetSpan(
+            child: Padding(
+            padding: EdgeInsets.symmetric(
+                horizontal: 8.0,
+                vertical: quranCtrl.state.isPages.value == 1 ? 6 : 30.0),
+            child: SvgPicture.asset(
+              SvgPath.svgAyahBookmarked,
+              height: quranCtrl.state.isPages.value == 1 ? 25 : 100,
+            ),
+          ))
+        : TextSpan(
+            text: lastCharacter,
+            style: TextStyle(
+              fontFamily: QuranLibrary().currentFontsSelected == 0
+                  ? 'uthmanic2'
+                  : 'p${pageIndex + 2001}',
+              fontSize: fontSize,
+              height: 2,
+              letterSpacing: QuranLibrary().currentFontsSelected == 0 ? 0 : 5,
+              color:
+                  sl<BookmarksController>().hasBookmark(surahNum, ayahNum).value
                       ? Get.theme.colorScheme.inversePrimary
                       : const Color(0xff77554B),
-                  backgroundColor: quranCtrl.state.isPages.value == 1
-                      ? Colors.transparent
-                      : sl<BookmarksController>()
-                              .hasBookmark(surahNum, ayahNum)
-                              .value
-                          ? const Color(0xffCD9974).withValues(alpha: .4)
-                          : isSelected
-                              ? Get.theme.highlightColor
-                              : Colors.transparent,
-                ),
-                recognizer: LongPressGestureRecognizer(
-                    duration: const Duration(milliseconds: 500))
-                  ..onLongPressStart = onLongPressStart,
-              );
+              backgroundColor: quranCtrl.state.isPages.value == 1
+                  ? Colors.transparent
+                  : sl<BookmarksController>()
+                          .hasBookmark(surahNum, ayahNum)
+                          .value
+                      ? const Color(0xffCD9974).withValues(alpha: .4)
+                      : isSelected
+                          ? Get.theme.highlightColor
+                          : Colors.transparent,
+            ),
+            recognizer: LongPressGestureRecognizer(
+                duration: const Duration(milliseconds: 500))
+              ..onLongPressStart = onLongPressStart,
+          );
 
     return TextSpan(
       children: isFirstAyah

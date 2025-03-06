@@ -77,13 +77,12 @@ class TafsirCtrl extends GetxController {
     return tafsir;
   }
 
-  Future<List<TafsirTableData>> fetchTafsirAyah(
-      int ayahUQNumber, int surahNumber) async {
+  Future<List<TafsirTableData>> fetchTafsirAyah(int ayahUQNumber) async {
     if (database.value == null) {
       throw Exception('Database not initialized');
     }
-    List<TafsirTableData> tafsir =
-        await database.value!.getTafsirByAyah(ayahUQNumber);
+    List<TafsirTableData> tafsir = await database.value!
+        .getTafsirByAyah(ayahUQNumber, tafsirTableName[radioValue.value]);
     return tafsir;
   }
 

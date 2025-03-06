@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../presentation/controllers/elevated_button_controller.dart';
 import 'elevated_layer_button.dart';
 
 class ElevatedButtonWidget extends StatelessWidget {
@@ -12,19 +13,25 @@ class ElevatedButtonWidget extends StatelessWidget {
   final void Function()? onClick;
   final int index;
   final BoxBorder? border;
-  const ElevatedButtonWidget(
-      {super.key,
-      this.height,
-      this.width,
-      required this.child,
-      this.color,
-      this.onClick,
-      required this.index,
-      this.colorShadow,
-      this.border});
+  final int? delayed;
+
+  const ElevatedButtonWidget({
+    super.key,
+    this.height,
+    this.width,
+    required this.child,
+    this.color,
+    this.onClick,
+    required this.index,
+    this.colorShadow,
+    this.border,
+    this.delayed,
+  });
 
   @override
   Widget build(BuildContext context) {
+    ElevatedButtonController.instance
+        .initElevatedButton(index, delayed: delayed);
     return ClipRRect(
       child: ElevatedLayerButton(
         index: index,
@@ -48,7 +55,6 @@ class ElevatedButtonWidget extends StatelessWidget {
                           .colorScheme
                           .surface
                           .withValues(alpha: .4),
-                  // offset: const Offset(6, 6),
                   spreadRadius: 0,
                   blurRadius: 0)
             ]),

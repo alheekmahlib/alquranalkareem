@@ -22,7 +22,7 @@ class PlayAyah extends StatelessWidget {
                 width: 20.0, height: 20.0);
           } else if (playerState != null && !playerState.playing) {
             return GestureDetector(
-              child: customSvg(
+              child: customSvgWithCustomColor(
                 SvgPath.svgPlayArrow,
                 height: 25,
               ),
@@ -36,7 +36,7 @@ class PlayAyah extends StatelessWidget {
             );
           }
           return GestureDetector(
-            child: customSvg(
+            child: customSvgWithCustomColor(
               SvgPath.svgPauseArrow,
               height: 25,
             ),

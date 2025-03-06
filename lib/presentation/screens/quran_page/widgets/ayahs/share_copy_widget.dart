@@ -42,7 +42,7 @@ class ShareCopyWidget extends StatelessWidget {
                 button: true,
                 enabled: true,
                 label: 'copy'.tr,
-                child: customSvg(
+                child: customSvgWithCustomColor(
                   SvgPath.svgCopyIcon,
                   height: 25,
                 ),

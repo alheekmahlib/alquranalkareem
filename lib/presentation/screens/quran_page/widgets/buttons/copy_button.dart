@@ -3,13 +3,13 @@ part of '../../quran.dart';
 class CopyButton extends StatelessWidget {
   final int ayahNum;
   final String surahName;
-  final String ayahTextNormal;
+  final String ayahText;
   final Function? cancel;
   const CopyButton(
       {super.key,
       required this.ayahNum,
       required this.surahName,
-      required this.ayahTextNormal,
+      required this.ayahText,
       this.cancel});
 
   @override
@@ -19,7 +19,7 @@ class CopyButton extends StatelessWidget {
         button: true,
         enabled: true,
         label: 'Copy Ayah',
-        child: customSvg(
+        child: customSvgWithCustomColor(
           SvgPath.svgCopyIcon,
           height: 20,
         ),
@@ -27,7 +27,7 @@ class CopyButton extends StatelessWidget {
       onTap: () async {
         await Clipboard.setData(ClipboardData(
                 text:
-                    '﴿${ayahTextNormal}﴾ [$surahName-${sl<GeneralController>().state.arabicNumber.convert(ayahNum)}]'))
+                    '﴿${ayahText}﴾ [$surahName-${sl<GeneralController>().state.arabicNumber.convert(ayahNum)}]'))
             .then((value) => context.showCustomErrorSnackBar('copyAyah'.tr));
         cancel!();
         sl<QuranController>().state.selectedAyahIndexes.clear();

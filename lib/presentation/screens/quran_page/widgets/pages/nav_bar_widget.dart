@@ -43,7 +43,7 @@ class NavBarWidget extends StatelessWidget {
                           border: Border.all(
                               width: 1,
                               color: Theme.of(context).colorScheme.surface)),
-                      child: customSvg(
+                      child: customSvgWithCustomColor(
                         SvgPath.svgListIcon,
                         height: 25,
                         width: 25,
@@ -78,7 +78,7 @@ class NavBarWidget extends StatelessWidget {
                           border: Border.all(
                               width: 1,
                               color: Theme.of(context).colorScheme.surface)),
-                      child: customSvg(
+                      child: customSvgWithCustomColor(
                         SvgPath.svgBookmarkList,
                         height: 25,
                         width: 25,

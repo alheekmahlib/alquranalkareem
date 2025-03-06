@@ -6,23 +6,27 @@ class PlayListSaveWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final playList = PlayListController.instance;
-    return GestureDetector(
-        onTap: () {
+    return Align(
+      alignment: Alignment.center,
+      child: ElevatedButtonWidget(
+        onClick: () {
           playList.saveList();
           playList.reset();
           playList.saveCard.currentState?.expand();
+          log('playList saved');
         },
-        child: ElevatedButtonWidget(
-          index: 1,
-          height: 35,
-          child: Text(
-            'save'.tr,
-            style: TextStyle(
-              color: Theme.of(context).canvasColor,
-              fontSize: 14,
-              fontFamily: 'kufi',
-            ),
+        index: 0,
+        height: 35,
+        width: Get.width * .6,
+        child: Text(
+          'save'.tr,
+          style: TextStyle(
+            color: Theme.of(context).canvasColor,
+            fontSize: 14,
+            fontFamily: 'kufi',
           ),
-        ));
+        ),
+      ),
+    );
   }
 }

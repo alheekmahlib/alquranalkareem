@@ -13,15 +13,6 @@ class BookmarkPagesBuild extends StatelessWidget {
             : Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    'pages'.tr,
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                        color: Theme.of(context).hintColor,
-                        fontFamily: 'kufi',
-                        fontWeight: FontWeight.w700,
-                        fontSize: 18),
-                  ),
                   context.hDivider(width: MediaQuery.sizeOf(context).width),
                   Flexible(
                     child: AnimationLimiter(
@@ -131,7 +122,7 @@ class BookmarkPagesBuild extends StatelessWidget {
                                                                     .inversePrimary,
                                                                 fontSize: 16,
                                                                 fontFamily:
-                                                                    'kufi',
+                                                                    'naskh',
                                                                 fontWeight:
                                                                     FontWeight
                                                                         .w500),

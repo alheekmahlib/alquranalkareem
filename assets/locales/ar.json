@@ -859,8 +859,8 @@
     "type": "text",
     "placeholders": {}
   },
-  "Sha'ban": "شعبان",
-  "@Sha'ban": {
+  "Sha'aban": "شعبان",
+  "@Sha'aban": {
     "type": "text",
     "placeholders": {}
   },
@@ -1129,7 +1129,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "What'sNewDetails10": "۞ إضافة التقويم الإسلامي.\n۞ إصلاح مشكلة نسخ بعض الآيات.\n۞ تحسين في الأداء.",
+  "What'sNewDetails10": "۞ إضافة تعديل التقويم الإسلامي.\n۞ تحسينات في الأداء وإصلاحات الأخطاء.",
   "@What'sNewDetails10": {
     "type": "text",
     "placeholders": {}
@@ -1207,6 +1207,31 @@
   },
   "arafah": "يوم عرفه",
   "@arafah": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "editHijriDay": "تعديل الأيام",
+  "@editHijriDay": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "fonts": "الخطوط",
+  "@fonts": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "fontsNotes": "للحصول على تجربة أفضل ومظهر مثالي للمصحف، يرجى تحميل الخطوط الخاصة به.",
+  "@fontsNotes": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "defaultFontText": "الخط الافتراضي",
+  "@defaultFontText": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "downloadedFontsText": "خط المصحف",
+  "@downloadedFontsText": {
     "type": "text",
     "placeholders": {}
   },

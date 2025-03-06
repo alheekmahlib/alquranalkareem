@@ -865,8 +865,8 @@
     "type": "text",
     "placeholders": {}
   },
-  "Sha'ban": "Sha'ban",
-  "@Sha'ban": {
+  "Sha'aban": "Sha'aban",
+  "@Sha'aban": {
     "type": "text",
     "placeholders": {}
   },
@@ -1135,7 +1135,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "What'sNewDetails10": "۞ Added Islamic calendar.\n۞ Fixed the issue of copying some verses.\n۞ Performance improvements.",
+  "What'sNewDetails10": "۞ Added Islamic calendar modification.\n۞ Performance improvements and bug fixes.",
   "@What'sNewDetails10": {
     "type": "text",
     "placeholders": {}
@@ -1215,6 +1215,31 @@
   },
   "arafah": "Day of Arafah",
   "@arafah": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "editHijriDay": "Edit Hijri Day",
+  "@editHijriDay": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "defaultFontText": "Default Font",
+  "@defaultFontText": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "downloadedFontsText": "Quran Font",
+  "@downloadedFontsText": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "fonts": "Fonts",
+  "@fonts": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "fontsNotes": "For a better experience and optimal Quran appearance, please download its fonts.",
+  "@fontsNotes": {
     "type": "text",
     "placeholders": {}
   },

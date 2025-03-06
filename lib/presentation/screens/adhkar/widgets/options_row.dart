@@ -31,7 +31,7 @@ class OptionsRow extends StatelessWidget {
           children: [
             Expanded(
               flex: 2,
-              child: customSvg(
+              child: customSvgWithColor(
                 SvgPath.svgSliderIc2,
                 height: 25,
               ),
@@ -60,7 +60,7 @@ class OptionsRow extends StatelessWidget {
                       button: true,
                       enabled: true,
                       label: 'copy'.tr,
-                      child: customSvg(
+                      child: customSvgWithColor(
                         SvgPath.svgCopyIcon,
                         height: 20,
                       ),

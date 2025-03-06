@@ -865,8 +865,8 @@
     "type": "text",
     "placeholders": {}
   },
-  "Sha'ban": "شعبان",
-  "@Sha'ban": {
+  "Sha'aban": "شعبان",
+  "@Sha'aban": {
     "type": "text",
     "placeholders": {}
   },
@@ -1135,7 +1135,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "What'sNewDetails10": "۞ اسلامی کیلنڈر شامل کیا گیا ہے۔\n۞ کچھ آیات کی نقل کے مسئلے کو ٹھیک کیا گیا۔\n۞ کارکردگی میں بہتری۔",
+  "What'sNewDetails10": "۞ اسلامی کیلنڈر میں ترمیم شامل کی گئی۔\n۞ کارکردگی میں بہتری اور بگز کی اصلاحات۔",
   "@What'sNewDetails10": {
     "type": "text",
     "placeholders": {}
@@ -1215,6 +1215,31 @@
   },
   "arafah": "یوم عرفہ",
   "@arafah": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "editHijriDay": "ہجری دن میں ترمیم کریں",
+  "@editHijriDay": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "defaultFontText": "پہلے سے طے شدہ فونٹ",
+  "@defaultFontText": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "downloadedFontsText": "قرآن کا فونٹ",
+  "@downloadedFontsText": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "fonts": "فونٹس",
+  "@fonts": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "fontsNotes": "بہتر تجربہ اور قرآن کی مثالی شکل کے لئے، براہ کرم اس کے فونٹ ڈاؤنلوڈ کریں۔",
+  "@fontsNotes": {
     "type": "text",
     "placeholders": {}
   },

@@ -1,3 +1,4 @@
+import 'package:alquranalkareem/presentation/screens/home/widgets/hijri_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
@@ -8,7 +9,6 @@ import '../../../core/widgets/tab_bar_widget.dart';
 import '../../controllers/theme_controller.dart';
 import 'widgets/ayah_tafsir_widget.dart';
 import 'widgets/daily_zeker.dart';
-import 'widgets/hijri_date.dart';
 import 'widgets/last_read.dart';
 import 'widgets/screens_list.dart';
 
@@ -37,7 +37,7 @@ class HomeScreen extends StatelessWidget {
                       ListView(
                         padding: EdgeInsets.zero,
                         children: [
-                          HijriDate(),
+                          HijriWidget(),
                           const Gap(16),
                           const ScreensList(),
                           const Gap(8),
@@ -54,12 +54,18 @@ class HomeScreen extends StatelessWidget {
                           const Gap(8),
                           Row(
                             children: [
-                              Expanded(flex: 4, child: HijriDate()),
+                              Expanded(
+                                  flex: 4,
+                                  child: Column(
+                                    children: [
+                                      HijriWidget(),
+                                      const Gap(8),
+                                      LastRead(),
+                                    ],
+                                  )),
                               const Expanded(flex: 4, child: ScreensList()),
                             ],
                           ),
-                          const Gap(8),
-                          LastRead(),
                           AyahTafsirWidget(),
                           const Gap(16),
                           DailyZeker(),

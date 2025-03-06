@@ -7,6 +7,7 @@ import '/core/widgets/select_screen_build.dart';
 import '/presentation/controllers/theme_controller.dart';
 import '../../presentation/controllers/general/general_controller.dart';
 import '../../presentation/screens/about_app/about_app.dart';
+import '../../presentation/screens/calendar/widgets/calender_settings.dart';
 import '../../presentation/screens/ourApp/screen/ourApps_screen.dart';
 import '../../presentation/screens/quran_page/quran.dart';
 import '../utils/constants/extensions/extensions.dart';
@@ -18,9 +19,11 @@ import 'theme_change.dart';
 
 class SettingsList extends StatelessWidget {
   final bool? isQuranSetting;
+  final bool? isCalendarSetting;
+  SettingsList({Key? key, this.isQuranSetting, this.isCalendarSetting = false})
+      : super(key: key);
   final generalCtrl = GeneralController.instance;
   final quranCtrl = QuranController.instance;
-  SettingsList({super.key, this.isQuranSetting});
 
   @override
   Widget build(BuildContext context) {
@@ -38,7 +41,7 @@ class SettingsList extends StatelessWidget {
             )),
         child: SafeArea(
           child: Padding(
-            padding: const EdgeInsets.all(16.0),
+            padding: const EdgeInsets.all(8.0),
             child: Obx(() => generalCtrl.state.showSelectScreenPage.value
                 ? const SelectScreenBuild(
                     isButtonBack: true,
@@ -46,22 +49,25 @@ class SettingsList extends StatelessWidget {
                   )
                 : Column(
                     children: [
-                      Row(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          context.customClose(),
-                          const Gap(8),
-                          context.vDivider(height: 20),
-                          const Gap(8),
-                          Text(
-                            'setting'.tr,
-                            style: TextStyle(
-                                color: Theme.of(context).hintColor,
-                                fontFamily: 'kufi',
-                                fontWeight: FontWeight.bold,
-                                fontSize: 20),
-                          ),
-                        ],
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            context.customClose(),
+                            const Gap(8),
+                            context.vDivider(height: 20),
+                            const Gap(8),
+                            Text(
+                              'setting'.tr,
+                              style: TextStyle(
+                                  color: Theme.of(context).hintColor,
+                                  fontFamily: 'kufi',
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 20),
+                            ),
+                          ],
+                        ),
                       ),
                       const Gap(8),
                       Flexible(
@@ -74,6 +80,10 @@ class SettingsList extends StatelessWidget {
                                 : const SizedBox.shrink(),
                             isQuranSetting!
                                 ? MushafSettings()
+                                : const SizedBox.shrink(),
+                            const Gap(24),
+                            isCalendarSetting!
+                                ? const CalenderSettings()
                                 : const SizedBox.shrink(),
                             const Gap(24),
                             const ThemeChange(),
@@ -99,7 +109,7 @@ class SettingsList extends StatelessWidget {
                                     decoration: BoxDecoration(
                                         color: Theme.of(context)
                                             .colorScheme
-                                            .primary
+                                            .surface
                                             .withValues(alpha: .2),
                                         borderRadius: const BorderRadius.all(
                                             Radius.circular(8))),
@@ -155,7 +165,7 @@ class SettingsList extends StatelessWidget {
                                     decoration: BoxDecoration(
                                         color: Theme.of(context)
                                             .colorScheme
-                                            .primary
+                                            .surface
                                             .withValues(alpha: .2),
                                         borderRadius: const BorderRadius.all(
                                             Radius.circular(8))),
@@ -166,7 +176,7 @@ class SettingsList extends StatelessWidget {
                                           children: [
                                             Expanded(
                                               flex: 2,
-                                              child: customSvg(
+                                              child: customSvgWithCustomColor(
                                                 SvgPath.svgSplashIcon,
                                                 height: 35,
                                               ),

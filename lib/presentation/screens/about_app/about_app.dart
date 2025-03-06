@@ -19,7 +19,7 @@ class AboutApp extends StatelessWidget {
       backgroundColor: Theme.of(context).colorScheme.primaryContainer,
       appBar: AppBar(
         centerTitle: true,
-        title: customSvg(
+        title: customSvgWithColor(
           SvgPath.svgSplashIcon,
           height: 50,
         ),
@@ -46,7 +46,7 @@ class AboutApp extends StatelessWidget {
               ListView(
                 children: [
                   const Gap(32),
-                  customSvg(
+                  customSvgWithColor(
                     SvgPath.svgSplashIconS,
                     height: 200,
                   ),
@@ -60,7 +60,7 @@ class AboutApp extends StatelessWidget {
                 children: [
                   Expanded(
                     flex: 4,
-                    child: customSvg(
+                    child: customSvgWithColor(
                       SvgPath.svgSplashIconS,
                       height: 200,
                     ),

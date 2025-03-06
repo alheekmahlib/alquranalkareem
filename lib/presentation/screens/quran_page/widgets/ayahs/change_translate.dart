@@ -87,8 +87,29 @@ class ChangeTranslate extends StatelessWidget {
                             opacity: translateCtrl.transValue.value == index
                                 ? 1
                                 : .4,
-                            child: customSvg(
-                              SvgPath.svgTafseerBook,
+                            child: Stack(
+                              alignment: Alignment.center,
+                              children: [
+                                customSvgWithColor(SvgPath.svgBooks),
+                                customSvgWithCustomColor(SvgPath.svgLeftBook),
+                                Container(
+                                  height: 60.h,
+                                  width: 50.0,
+                                  alignment: Alignment.center,
+                                  child: Text(
+                                    translateName[index],
+                                    style: TextStyle(
+                                      fontSize: 8.0,
+                                      fontFamily: 'kufi',
+                                      fontWeight: FontWeight.bold,
+                                      color: Theme.of(context).canvasColor,
+                                      height: 1.5,
+                                    ),
+                                    maxLines: 3,
+                                    textAlign: TextAlign.center,
+                                  ),
+                                ),
+                              ],
                             ),
                           )),
                     ),

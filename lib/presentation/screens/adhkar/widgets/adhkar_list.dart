@@ -113,7 +113,7 @@ class AdhkarList extends StatelessWidget {
                                     children: [
                                       Expanded(
                                         flex: 2,
-                                        child: customSvg(
+                                        child: customSvgWithColor(
                                           SvgPath.svgSliderIc2,
                                           height: 30,
                                         ),
@@ -220,7 +220,7 @@ class AdhkarList extends StatelessWidget {
                                     children: [
                                       Expanded(
                                         flex: 2,
-                                        child: customSvg(
+                                        child: customSvgWithColor(
                                           SvgPath.svgSliderIc2,
                                           height: 30,
                                         ),

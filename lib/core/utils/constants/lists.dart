@@ -6,7 +6,7 @@ import '../../../presentation/screens/adhkar/screens/adhkar_view.dart';
 import '../../../presentation/screens/alwaqf_screen/alwaqf_screen.dart';
 import '../../../presentation/screens/books/screens/books_screen.dart';
 import '../../../presentation/screens/quran_page/quran.dart';
-import '../../../presentation/screens/surah_audio/screen/audio_surah.dart';
+import '../../../presentation/screens/surah_audio/audio_surah.dart';
 import 'url_constants.dart';
 
 List<String> translateName = <String>[
@@ -367,7 +367,7 @@ const List ayahReaderInfo = [
 
 List<Map<String, dynamic>> whatsNewList = [
   {
-    'index': 11,
+    'index': 12,
     'title': "",
     'details': "What'sNewDetails10",
     'imagePath': '',

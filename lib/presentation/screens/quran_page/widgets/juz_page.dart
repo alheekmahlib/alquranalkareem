@@ -43,7 +43,7 @@ class QuranJuz extends StatelessWidget {
                     child: GetX<QuranController>(
                       builder: (quranCtrl) {
                         return Container(
-                            height: 62,
+                            height: 66,
                             decoration: BoxDecoration(
                                 color: (index % 2 == 0
                                     ? Theme.of(context)

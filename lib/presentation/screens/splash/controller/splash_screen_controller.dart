@@ -31,13 +31,11 @@ class SplashScreenController extends GetxController {
   /// -------- [Methods] ----------
 
   Future<void> _loadInitialData() async {
-    await Future.wait([
-      TranslateDataController.instance.loadTranslateValue(),
-      SettingsController.instance.loadLang(),
-      GeneralController.instance.getLastPageAndFontSize(),
-      QuranController.instance.loadSwitchValue(),
-      QuranController.instance.getLastPage(),
-    ]);
+    TranslateDataController.instance.loadTranslateValue();
+    SettingsController.instance.loadLang();
+    GeneralController.instance.getLastPageAndFontSize();
+    QuranController.instance.loadSwitchValue();
+    QuranController.instance.getLastPage();
     GeneralController.instance.updateGreeting();
     AudioController.instance.loadQuranReader();
     GeneralController.instance.state.screenSelectedValue.value =

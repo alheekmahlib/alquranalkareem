@@ -11,7 +11,7 @@ extension TafsirUi on TafsirCtrl {
   }
 
   void showTafsirOnTap(int surahNum, int ayahNum, String ayahText,
-      int pageIndex, String ayahTextN, int ayahUQNum, int index) {
+      int pageIndex, String ayahTextN, int ayahUQNum) {
     final quranCtrl = QuranController.instance;
     ayahUQNumber.value = ayahUQNum;
     quranCtrl.state.currentPageNumber.value = pageIndex;
@@ -19,7 +19,6 @@ extension TafsirUi on TafsirCtrl {
     Get.bottomSheet(
       ShowTafseer(
         ayahUQNumber: ayahUQNum,
-        index: index,
       ),
       isScrollControlled: true,
       enterBottomSheetDuration: const Duration(milliseconds: 400),

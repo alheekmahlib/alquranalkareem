@@ -859,8 +859,8 @@
     "type": "text",
     "placeholders": {}
   },
-  "Sha'ban": "Sya'ban",
-  "@Sha'ban": {
+  "Sha'aban": "Sya'ban",
+  "@Sha'aban": {
     "type": "text",
     "placeholders": {}
   },
@@ -1129,7 +1129,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "What'sNewDetails10": "۞ Ditambahkan kalender Islam.\n۞ Memperbaiki masalah penyalinan beberapa ayat.\n۞ Peningkatan kinerja.",
+  "What'sNewDetails10": "۞ Penambahan modifikasi kalender Islam.\n۞ Peningkatan kinerja dan perbaikan bug.",
   "@What'sNewDetails10": {
     "type": "text",
     "placeholders": {}
@@ -1209,6 +1209,31 @@
   },
   "arafah": "Hari Arafah",
   "@arafah": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "editHijriDay": "Ubah Hari Hijriah",
+  "@editHijriDay": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "defaultFontText": "Font default",
+  "@defaultFontText": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "downloadedFontsText": "Font Al-Quran",
+  "@downloadedFontsText": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "fonts": "Font",
+  "@fonts": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "fontsNotes": "Untuk pengalaman yang lebih baik dan tampilan Al-Quran yang optimal, silakan unduh font-nya.",
+  "@fontsNotes": {
     "type": "text",
     "placeholders": {}
   },

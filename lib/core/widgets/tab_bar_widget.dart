@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '/core/utils/constants/extensions/bottom_sheet_extension.dart';
 import '/core/utils/constants/extensions/svg_extensions.dart';
 import '/core/utils/constants/svg_constants.dart';
 import '/presentation/screens/home/home_screen.dart';
 import '../../presentation/controllers/general/general_controller.dart';
 import '../../presentation/screens/quran_page/quran.dart';
+import '../services/services_locator.dart';
 import 'local_notification/notification_screen.dart';
 import 'local_notification/widgets/notification_icon_widget.dart';
 import 'settings_list.dart';
@@ -16,13 +18,17 @@ class TabBarWidget extends StatelessWidget {
   final Widget? centerChild;
   final bool? isQuranSetting;
   final bool isNotification;
+  final bool? isCalendarSetting;
+  final void Function()? settingOnTap;
   const TabBarWidget(
       {super.key,
       required this.isFirstChild,
       required this.isCenterChild,
       this.centerChild,
       this.isQuranSetting,
-      required this.isNotification});
+      required this.isNotification,
+      this.settingOnTap,
+      this.isCalendarSetting = false});
 
   @override
   Widget build(BuildContext context) {
@@ -47,7 +53,9 @@ class TabBarWidget extends StatelessWidget {
                         onTap: () {
                           Get.offAll(() => const HomeScreen(),
                               transition: Transition.upToDown);
-                          QuranController.instance.state.selectedAyahIndexes
+                          sl<QuranController>()
+                              .state
+                              .selectedAyahIndexes
                               .clear();
                         },
                         child: Stack(
@@ -77,8 +85,8 @@ class TabBarWidget extends StatelessWidget {
                       )
                     : isNotification
                         ? GestureDetector(
-                            onTap: () => Get.bottomSheet(NotificationsScreen(),
-                                isScrollControlled: true),
+                            onTap: () =>
+                                customBottomSheet(NotificationsScreen()),
                             child: const NotificationIconWidget(
                               isCurve: true,
                               iconHeight: 25,
@@ -94,15 +102,14 @@ class TabBarWidget extends StatelessWidget {
               Expanded(
                 flex: 2,
                 child: GestureDetector(
-                  onTap: () {
-                    Get.bottomSheet(
-                      SettingsList(
-                        isQuranSetting: isQuranSetting,
-                      ),
-                      isScrollControlled: true,
-                    );
-                    generalCtrl.state.showSelectScreenPage.value = false;
-                  },
+                  onTap: settingOnTap ??
+                      () {
+                        customBottomSheet(SettingsList(
+                          isQuranSetting: isQuranSetting,
+                          isCalendarSetting: isCalendarSetting,
+                        ));
+                        generalCtrl.state.showSelectScreenPage.value = false;
+                      },
                   child: Stack(
                     alignment: Alignment.center,
                     children: [

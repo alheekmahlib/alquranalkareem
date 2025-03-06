@@ -40,7 +40,7 @@ class ShareAyahOptions extends StatelessWidget {
         button: true,
         enabled: true,
         label: 'share'.tr,
-        child: customSvg(
+        child: customSvgWithColor(
           SvgPath.svgShareIcon,
           height: 20,
         ),

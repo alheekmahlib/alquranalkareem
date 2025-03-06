@@ -24,7 +24,7 @@ class PlayButton extends StatelessWidget {
         button: true,
         enabled: true,
         label: singleAyahOnly ? 'Play Ayah' : 'Play Surah',
-        child: customSvg(
+        child: customSvgWithCustomColor(
           singleAyahOnly ? SvgPath.svgPlayArrow : SvgPath.svgPlayAll,
           height: 20,
         ),

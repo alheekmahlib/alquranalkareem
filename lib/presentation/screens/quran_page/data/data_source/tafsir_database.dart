@@ -36,21 +36,30 @@ class TafsirDatabase extends _$TafsirDatabase {
     }).toList();
   }
 
-  Future<List<TafsirTableData>> getTafsirByAyah(int ayahUQNumber) async {
-    final results = await customSelect(
-      'SELECT * FROM ${TafsirCtrl.instance.selectedTableName.value} WHERE \"index\" = ?',
-      variables: [Variable.withInt(ayahUQNumber)],
-    ).get();
+  Future<List<TafsirTableData>> getTafsirByAyah(
+      int ayahUQNumber, String selectedTableName) async {
+    try {
+      final results = await customSelect(
+        'SELECT * FROM $selectedTableName WHERE [index] = ?',
+        variables: [Variable.withInt(ayahUQNumber)],
+      ).get();
 
-    return results.map((row) {
-      return TafsirTableData(
-        id: row.read<int>('index'),
-        surahNum: row.read<int>('sura'),
-        ayahNum: row.read<int>('aya'),
-        tafsirText: row.read<String>('text'),
-        pageNum: row.read<int>('PageNum'),
-      );
-    }).toList();
+      log('Query results: $results');
+
+      return results.map((row) {
+        log('Row: $row');
+        return TafsirTableData(
+          id: row.read<int>('index'),
+          surahNum: row.read<int>('sura'),
+          ayahNum: row.read<int>('aya'),
+          tafsirText: row.read<String>('text'),
+          pageNum: row.read<int>('PageNum'),
+        );
+      }).toList();
+    } catch (e) {
+      log('Error: $e');
+      rethrow;
+    }
   }
 }
 

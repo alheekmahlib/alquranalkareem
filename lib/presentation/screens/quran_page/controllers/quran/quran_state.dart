@@ -2,9 +2,9 @@ part of '../../quran.dart';
 
 class QuranState {
   /// -------- [Variables] ----------
-  List<Surah> surahs = [];
-  List<List<Ayah>> pages = [];
-  List<Ayah> allAyahs = [];
+  List<SurahFontsModel> surahs = [];
+  List<List<AyahFontsModel>> pages = [];
+  List<AyahFontsModel> allAyahs = [];
 
   /// Page Controller
   PageController quranPageController = PageController();
@@ -36,8 +36,6 @@ class QuranState {
   RxInt selectMushafSettingsPage = 0.obs;
   RxDouble ayahsWidgetHeight = 0.0.obs;
   RxInt currentListPage = 1.obs;
-  RxDouble scaleFactor = 1.0.obs;
-  RxDouble baseScaleFactor = 1.0.obs;
   final box = GetStorage();
   int? lastDisplayedHizbQuarter;
   Map<int, int> pageToHizbQuarterMap = {};
@@ -51,4 +49,6 @@ class QuranState {
 
   RxBool isScrolling = false.obs;
   bool isQuranLoaded = false;
+  RxInt selectedAyahNumber = 0.obs;
+  RxInt selectedSurahNumber = 0.obs;
 }

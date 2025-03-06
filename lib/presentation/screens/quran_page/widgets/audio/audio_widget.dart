@@ -47,7 +47,7 @@ class AudioWidget extends StatelessWidget {
                             button: true,
                             enabled: true,
                             label: 'Playlist',
-                            child: customSvg(
+                            child: customSvgWithCustomColor(
                               SvgPath.svgPlaylist,
                               height: 25,
                             ),
@@ -91,7 +91,7 @@ class AudioWidget extends StatelessWidget {
                                         button: true,
                                         enabled: true,
                                         label: 'Playlist',
-                                        child: customSvg(
+                                        child: customSvgWithCustomColor(
                                           SvgPath.svgPlaylist,
                                           height: 25,
                                         ),

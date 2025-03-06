@@ -865,8 +865,8 @@
     "type": "text",
     "placeholders": {}
   },
-  "Sha'ban": "শাবান",
-  "@Sha'ban": {
+  "Sha'aban": "শাবান",
+  "@Sha'aban": {
     "type": "text",
     "placeholders": {}
   },
@@ -1135,7 +1135,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "What'sNewDetails10": "۞ ইসলামিক ক্যালেন্ডার যোগ করা হয়েছে।\n۞ কিছু আয়াত কপি করার সমস্যার সমাধান।\n۞ কর্মক্ষমতা উন্নয়ন।",
+  "What'sNewDetails10": "۞ ইসলামিক ক্যালেন্ডার সংশোধন যোগ করা হয়েছে।\n۞ কর্মদক্ষতা উন্নতি এবং বাগ ফিক্স করা হয়েছে।",
   "@What'sNewDetails10": {
     "type": "text",
     "placeholders": {}
@@ -1215,6 +1215,31 @@
   },
   "arafah": "আরাফাত দিবস",
   "@arafah": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "editHijriDay": "হিজরি দিন সংশোধন",
+  "@editHijriDay": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "defaultFontText": "ডিফল্ট ফন্ট",
+  "@defaultFontText": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "downloadedFontsText": "কুরআন ফন্ট",
+  "@downloadedFontsText": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "fonts": "ফন্টসমূহ",
+  "@fonts": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "fontsNotes": "একটি ভালো অভিজ্ঞতা এবং কুরআনের আদর্শ চেহারার জন্য, অনুগ্রহ করে এর জন্য ফন্ট ডাউনলোড করুন।",
+  "@fontsNotes": {
     "type": "text",
     "placeholders": {}
   },
