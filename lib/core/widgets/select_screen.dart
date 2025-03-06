@@ -40,7 +40,7 @@ class SelectScreen extends StatelessWidget {
                 decoration: BoxDecoration(
                     color: Theme.of(context)
                         .colorScheme
-                        .primary
+                        .surface
                         .withValues(alpha: .2),
                     borderRadius: const BorderRadius.all(Radius.circular(8))),
                 child: SizedBox(

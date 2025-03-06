@@ -129,9 +129,11 @@ class QuranSearch extends StatelessWidget {
                                         .withValues(alpha: .1)),
                                 child: ListTile(
                                   onTap: () {
-                                    quranCtrl.clearAndAddSelection(search.id);
                                     quranCtrl
                                         .changeSurahListOnTap(search.pageNum!);
+                                    QuranLibrary()
+                                        .quranCtrl
+                                        .toggleAyahSelection(search.id);
                                     Get.back();
                                   },
                                   title: Padding(

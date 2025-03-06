@@ -52,7 +52,7 @@ class QuranDatabase extends _$QuranDatabase {
 
   Future<List<QuranTableData>> searchSurah(String searchText) async {
     final results = await customSelect(
-      'SELECT * FROM Quran WHERE SoraNameSearch LIKE ? OR SoraName_En LIKE ? OR PageNum = ? OR SoraNum = ?',
+      'SELECT * FROM Quran WHERE SoraNameSearch LIKE ? OR SoraName_En LIKE ? OR PageNum LIKE ? OR SoraNum LIKE ?',
       variables: [
         Variable.withString('%$searchText%'), // SearchText
         Variable.withString(searchText), // PageNum

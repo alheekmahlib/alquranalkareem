@@ -59,15 +59,15 @@ class AddKhatmahWidget extends StatelessWidget {
                                   'duration'.tr,
                                   style: const TextStyle(
                                     color: Colors.black,
-                                    fontSize: 16,
-                                    fontFamily: 'naskh',
+                                    fontSize: 12,
+                                    fontFamily: 'kufi',
                                   ),
                                 ),
 
                                 items: List.generate(100, (index) => index + 1),
                                 listItemBuilder: (context, index, select, _) =>
                                     Text(
-                                  '${index}',
+                                  '${index + 1}',
                                   style: const TextStyle(
                                     color: Colors.black,
                                     fontSize: 16,
@@ -109,8 +109,8 @@ class AddKhatmahWidget extends StatelessWidget {
                                         color: Theme.of(context)
                                             .colorScheme
                                             .inversePrimary,
-                                        fontSize: 16,
-                                        fontFamily: 'naskh',
+                                        fontSize: 14,
+                                        fontFamily: 'kufi',
                                       ),
                                     ),
                                   ),
@@ -129,7 +129,7 @@ class AddKhatmahWidget extends StatelessWidget {
                   quarterTurns: 3,
                   child: ElevatedButtonWidget(
                     onClick: () => khatmahCtrl.addKhatmahOnTap(),
-                    index: 1,
+                    index: 0,
                     height: 40,
                     width: 110,
                     color: Theme.of(context).colorScheme.surface,
@@ -139,9 +139,9 @@ class AddKhatmahWidget extends StatelessWidget {
                         'addKhatmah'.tr,
                         style: const TextStyle(
                           color: Colors.black,
-                          fontSize: 20,
-                          fontFamily: 'naskh',
-                          height: .5,
+                          fontSize: 14,
+                          fontFamily: 'kufi',
+                          height: 1.5,
                         ),
                         textAlign: TextAlign.center,
                       ),
@@ -168,8 +168,11 @@ class AddKhatmahWidget extends StatelessWidget {
                       // Update the khatmahCtrl.screenPickerColor.value using the callback.
                       onColorChanged: (Color color) =>
                           khatmahCtrl.screenPickerColor.value = color.value,
+                      pickerTypeLabels: {
+                        ColorPickerType.accent: 'accent'.tr,
+                        ColorPickerType.primary: 'primary'.tr
+                      },
                       width: 44,
-                      height: 44,
                       borderRadius: 22,
                       heading: Text(
                         'choiceColor'.tr,
@@ -181,9 +184,9 @@ class AddKhatmahWidget extends StatelessWidget {
                         ),
                         textAlign: TextAlign.center,
                       ),
-                      subheading: context.hDivider(
-                          width: Get.width,
-                          color: Theme.of(context).colorScheme.primary),
+                      // subheading: context.hDivider(
+                      //     width: Get.width,
+                      //     color: Theme.of(context).colorScheme.primary),
                     ),
                   ),
                 ),
@@ -203,8 +206,8 @@ class AddKhatmahWidget extends StatelessWidget {
                     'choiceColor'.tr,
                     style: const TextStyle(
                       color: Colors.black,
-                      fontSize: 18,
-                      fontFamily: 'naskh',
+                      fontSize: 14,
+                      fontFamily: 'kufi',
                     ),
                   ),
                   const Spacer(),

@@ -25,29 +25,29 @@ class AddBookmarkButton extends StatelessWidget {
             button: true,
             enabled: true,
             label: 'Add Bookmark',
-            child:
-                sl<BookmarksController>().hasBookmark(surahNum, ayahUQNum).value
-                    ? customSvg(
-                        SvgPath.svgBookmarkIcon2,
-                        height: 20,
-                      )
-                    : customSvg(
-                        SvgPath.svgBookmarkIcon,
-                        height: 20,
-                      ),
+            child: customSvgWithCustomColor(
+              BookmarksController.instance
+                      .hasBookmark(surahNum, ayahUQNum)
+                      .value
+                  ? SvgPath.svgBookmarkIcon2
+                  : SvgPath.svgBookmarkIcon,
+              height: 20,
+            ),
           )),
       onTap: () async {
-        if (sl<BookmarksController>().hasBookmark(surahNum, ayahUQNum).value) {
-          sl<BookmarksController>().deleteBookmarksText(ayahUQNum);
+        if (BookmarksController.instance
+            .hasBookmark(surahNum, ayahUQNum)
+            .value) {
+          BookmarksController.instance.deleteBookmarksText(ayahUQNum);
         } else {
-          sl<BookmarksController>()
+          BookmarksController.instance
               .addBookmarkText(surahName, surahNum, pageIndex + 1, ayahNum,
                   ayahUQNum, sl<GeneralController>().state.timeNow.dateNow)
               .then((value) => context.showCustomErrorSnackBar('addBookmark'.tr,
                   isDone: true));
         }
         sl<AudioController>().clearSelection();
-        cancel!();
+        quranCtrl.state.isPages.value == 1 ? null : cancel!();
       },
     );
   }

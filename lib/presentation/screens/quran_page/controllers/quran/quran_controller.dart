@@ -7,12 +7,9 @@ class QuranController extends GetxController {
 
   QuranState state = QuranState();
 
-  final generalCtrl = GeneralController.instance;
-  final themeCtrl = ThemeController.instance;
-
   @override
   void onInit() async {
-    await loadQuran();
+    await QuranLibrary().init().then((_) => loadQuran());
     state.itemPositionsListener.itemPositions.addListener(_updatePageNumber);
     state.itemPositionsListener.itemPositions
         .addListener(currentListPageNumber);
@@ -38,26 +35,9 @@ class QuranController extends GetxController {
   /// -------- [Methods] ----------
 
   Future<void> loadQuran() async {
-    if (state.surahs.isEmpty) {
-      String jsonString =
-          await rootBundle.loadString('assets/json/quranV2.json');
-      Map<String, dynamic> jsonResponse = jsonDecode(jsonString);
-      List<dynamic> surahsJson = jsonResponse['data']['surahs'];
-      state.surahs = surahsJson.map((s) => Surah.fromJson(s)).toList();
-
-      for (final surah in state.surahs) {
-        state.allAyahs.addAll(surah.ayahs);
-        // log('Added ${surah.arabicName} ayahs');
-        update();
-      }
-      List.generate(604, (pageIndex) {
-        state.pages.add(state.allAyahs
-            .where((ayah) => ayah.page == pageIndex + 1)
-            .toList());
-      });
-      state.isQuranLoaded = true;
-      // log('Pages Length: ${state.pages.length}', name: 'Quran Controller');
-    }
+    state.surahs = QuranLibrary().quranCtrl.state.surahs;
+    state.allAyahs = QuranLibrary().quranCtrl.state.allAyahs;
+    state.pages = QuranLibrary().quranCtrl.state.pages;
   }
 
   void currentListPageNumber() {
@@ -90,11 +70,11 @@ class QuranController extends GetxController {
     } else {}
   }
 
-  Future<void> loadSwitchValue() async {
-    state.isPages.value = await state.box.read(SWITCH_VALUE) ?? 0;
+  void loadSwitchValue() {
+    state.isPages.value = state.box.read(SWITCH_VALUE) ?? 0;
   }
 
-  Future<void> getLastPage() async {
+  void getLastPage() {
     try {
       state.currentPageNumber.value = state.box.read(MSTART_PAGE) ?? 1;
       state.lastReadSurahNumber.value = state.box.read(MLAST_URAH) ?? 1;

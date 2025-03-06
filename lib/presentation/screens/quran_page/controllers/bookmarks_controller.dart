@@ -6,7 +6,7 @@ class BookmarksController extends GetxController {
           ? Get.find<BookmarksController>()
           : Get.put<BookmarksController>(BookmarksController());
   final RxList<Bookmark> bookmarksList = <Bookmark>[].obs;
-  final RxList<BookmarksAyah> bookmarkTextList = <BookmarksAyah>[].obs;
+  final List<BookmarksAyah> bookmarkTextList = RxList<BookmarksAyah>();
   late int lastBook;
   final quranCtrl = QuranController.instance;
   final generalCtrl = GeneralController.instance;
@@ -44,6 +44,7 @@ class BookmarksController extends GetxController {
   Future<void> getBookmarks() async {
     final bookmarks = await DbBookmarkHelper.queryB();
     bookmarksList.assignAll(bookmarks);
+    quranCtrl.update(['clearSelection']);
   }
 
   Future<bool> deleteBookmarks(int pageNum) async {
@@ -79,9 +80,9 @@ class BookmarksController extends GetxController {
     } else {
       addBookmarks(index + 1, quranCtrl.getCurrentSurahByPage(index).arabicName,
               generalCtrl.state.timeNow.dateNow)
-          .then((value) => Get.context!
+          .then((_) => Get.context!
               .showCustomErrorSnackBar('addBookmark'.tr, isDone: true));
-      log('bookmark added to page ${index + 1}');
+      log('page number: $index', name: 'BookmarksController');
     }
   }
 
@@ -90,7 +91,8 @@ class BookmarksController extends GetxController {
   Future<void> getBookmarksText() async {
     final List<BookmarksAyah> bookmarksText = await DbBookmarkHelper.queryT();
     bookmarkTextList.assignAll(bookmarksText); // تحديث القائمة
-    sl<QuranController>().update(['bookmarked']);
+    quranCtrl.update(['bookmarked']);
+    quranCtrl.update(['clearSelection']);
   }
 
   Future<bool> deleteBookmarksText(int ayahUQNum) async {
@@ -115,13 +117,27 @@ class BookmarksController extends GetxController {
     await getBookmarksText();
   }
 
-  RxBool hasBookmark(int surahNum, int ayahNum) {
+  RxBool hasBookmark(int surahNum, int ayahUQNum) {
     return (bookmarkTextList.firstWhereOrNull(((element) =>
                 element.surahNumber == surahNum &&
-                element.ayahUQNumber == ayahNum)) !=
+                element.ayahUQNumber == ayahUQNum)) !=
             null)
         ? true.obs
         : false.obs;
+  }
+
+  RxList<int> hasBookmark2(int pageIndex) {
+    final ayahsLength =
+        quranCtrl.getCurrentPageAyahsSeparatedForBasmalah(pageIndex);
+
+    final flattenedAyahs = ayahsLength.expand((ayahList) => ayahList).toList();
+
+    return flattenedAyahs
+        .where((ayah) => bookmarkTextList
+            .any((element) => element.ayahUQNumber == ayah.ayahUQNumber))
+        .map((ayah) => ayah.ayahUQNumber)
+        .toList()
+        .obs;
   }
 
   Future<void> addBookmarkText(

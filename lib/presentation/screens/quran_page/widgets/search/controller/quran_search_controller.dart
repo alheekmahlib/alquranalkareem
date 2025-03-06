@@ -21,7 +21,7 @@ class QuranSearchController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    fetchAyahs();
+    // fetchAyahs();
     loadSearchHistory();
   }
 
@@ -36,8 +36,10 @@ class QuranSearchController extends GetxController {
     _setLoading(true);
 
     try {
-      final List<QuranTableData>? values =
-          await AyaRepository.searchAyahs(text);
+      final List<QuranTableData>? values = await AyaRepository.searchAyahs(
+          text.convertArabicToEnglishNumbers(text));
+      // final _ayahs =
+      //     QuranLibrary().search(text.convertArabicToEnglishNumbers(text));
       if (values!.isNotEmpty) {
         state.ayahList.assignAll(values);
         _setLoading(false);
@@ -57,6 +59,8 @@ class QuranSearchController extends GetxController {
     try {
       final List<QuranTableData>? values = await AyaRepository.getAyahsBySurah(
           text.convertArabicToEnglishNumbers(text));
+      // final values =
+      //     QuranLibrary().surahSearch(text.convertArabicToEnglishNumbers(text));
       if (values != null && values.isNotEmpty) {
         // Use a map to track unique Surahs
         var uniqueSurahs = <int, QuranTableData>{};
@@ -81,26 +85,26 @@ class QuranSearchController extends GetxController {
     state.isLoading.value = value;
   }
 
-  void fetchAyahs() {
-    if (state.isLoading.isTrue || !state.hasMore) return;
-
-    state.isLoading.value = true;
-    final offset = (state.currentPage - 1) * state.itemsPerPage;
-
-    AyaRepository.fetchAyahsByPage(offset, state.itemsPerPage).then((newAyahs) {
-      if (newAyahs.length < state.itemsPerPage) {
-        state.hasMore = false; // No more items to add
-      }
-
-      state.ayahList.addAll(newAyahs);
-      state.surahList.addAll(newAyahs);
-      state.currentPage++;
-      state.isLoading.value = false;
-    }).catchError((error) {
-      state.errorMessage.value = error.toString();
-      state.isLoading.value = false;
-    });
-  }
+  // void fetchAyahs() {
+  //   if (state.isLoading.isTrue || !state.hasMore) return;
+  //
+  //   state.isLoading.value = true;
+  //   final offset = (state.currentPage - 1) * state.itemsPerPage;
+  //
+  //   AyaRepository.fetchAyahsByPage(offset, state.itemsPerPage).then((newAyahs) {
+  //     if (newAyahs.length < state.itemsPerPage) {
+  //       state.hasMore = false; // No more items to add
+  //     }
+  //
+  //     state.ayahList.addAll(newAyahs);
+  //     state.surahList.addAll(newAyahs);
+  //     state.currentPage++;
+  //     state.isLoading.value = false;
+  //   }).catchError((error) {
+  //     state.errorMessage.value = error.toString();
+  //     state.isLoading.value = false;
+  //   });
+  // }
 
   void loadSearchHistory() {
     var historyData = state.box.read(SEARCH_HISTORY);

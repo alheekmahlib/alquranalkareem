@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 final ThemeData blueTheme = ThemeData.light(
-  useMaterial3: true,
+  useMaterial3: false,
 ).copyWith(
   colorScheme: const ColorScheme(
     brightness: Brightness.light,
@@ -85,49 +85,49 @@ final ThemeData blueTheme = ThemeData.light(
 );
 
 final ThemeData brownTheme = ThemeData(
-  useMaterial3: true,
+  useMaterial3: false,
   colorScheme: const ColorScheme(
     brightness: Brightness.light,
-    primary: Color(0xff77554B),
-    onPrimary: Color(0xff77554B),
+    primary: Color(0xff583623),
+    onPrimary: Color(0xff583623),
     secondary: Color(0xffffffff),
-    onSecondary: Color(0xffFFEEDC),
-    error: Color(0xffCD9974),
-    onError: Color(0xffCD9974),
-    surface: Color(0xffCD9974),
-    onSurface: Color(0xffCD9974),
+    onSecondary: Color(0xff854621),
+    error: Color(0xffcf8e55),
+    onError: Color(0xffcf8e55),
+    surface: Color(0xffcf8e55),
+    onSurface: Color(0xffcf8e55),
     inversePrimary: Color(0xff000000),
-    inverseSurface: Color(0xffCD9974),
-    primaryContainer: Color(0xffFFFBF8),
-    onPrimaryContainer: Color(0xffFFFBF8),
+    inverseSurface: Color(0xffcf8e55),
+    primaryContainer: Color(0xffFDF7F4),
+    onPrimaryContainer: Color(0xffFDF7F4),
     onInverseSurface: Color(0xff000000),
-    surfaceContainer: Color(0xffFFFBF8),
+    surfaceContainer: Color(0xffFDF7F4),
   ),
-  primaryColor: const Color(0xff77554B),
-  primaryColorLight: const Color(0xffFFEEDC),
-  primaryColorDark: const Color(0xff77554B),
-  dialogBackgroundColor: const Color(0xffFFFBF8),
-  dividerColor: const Color(0xffFFEEDC),
-  highlightColor: const Color(0xffCD9974).withValues(alpha: 0.25),
-  indicatorColor: const Color(0xffFFEEDC),
-  scaffoldBackgroundColor: const Color(0xff77554B),
+  primaryColor: const Color(0xff583623),
+  primaryColorLight: const Color(0xff854621),
+  primaryColorDark: const Color(0xff583623),
+  dialogBackgroundColor: const Color(0xffFDF7F4),
+  dividerColor: const Color(0xff854621),
+  highlightColor: const Color(0xffcf8e55).withValues(alpha: 0.25),
+  indicatorColor: const Color(0xff854621),
+  scaffoldBackgroundColor: const Color(0xff583623),
   canvasColor: const Color(0xffF2E5D5),
   hoverColor: const Color(0xffF2E5D5).withValues(alpha: 0.3),
   disabledColor: const Color(0xff000000),
   hintColor: const Color(0xff000000),
-  focusColor: const Color(0xff77554B),
-  secondaryHeaderColor: const Color(0xff77554B),
-  cardColor: const Color(0xff77554B),
+  focusColor: const Color(0xff583623),
+  secondaryHeaderColor: const Color(0xff583623),
+  cardColor: const Color(0xff583623),
   textSelectionTheme: TextSelectionThemeData(
-      selectionColor: const Color(0xffCD9974).withValues(alpha: 0.3),
-      selectionHandleColor: const Color(0xffCD9974)),
+      selectionColor: const Color(0xffcf8e55).withValues(alpha: 0.3),
+      selectionHandleColor: const Color(0xffcf8e55)),
   cupertinoOverrideTheme: const CupertinoThemeData(
-    primaryColor: Color(0xffCD9974),
+    primaryColor: Color(0xffcf8e55),
   ),
   timePickerTheme: TimePickerThemeData(
-    backgroundColor: const Color(0xffCD9974),
-    dialBackgroundColor: const Color(0xffFFFBF8),
-    dialHandColor: const Color(0xffCD9974),
+    backgroundColor: const Color(0xffcf8e55),
+    dialBackgroundColor: const Color(0xffFDF7F4),
+    dialHandColor: const Color(0xffcf8e55),
     dialTextColor: const Color(0xff000000).withValues(alpha: .6),
     entryModeIconColor: const Color(0xff000000).withValues(alpha: .6),
     hourMinuteTextColor: const Color(0xff000000).withValues(alpha: .6),
@@ -135,7 +135,7 @@ final ThemeData brownTheme = ThemeData(
     cancelButtonStyle: ButtonStyle(
       backgroundColor: WidgetStateProperty.all(
           const Color(0xff000000).withValues(alpha: .6)),
-      foregroundColor: WidgetStateProperty.all(const Color(0xffFFFBF8)),
+      foregroundColor: WidgetStateProperty.all(const Color(0xffFDF7F4)),
       shape: WidgetStateProperty.all(
         RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(8.0),
@@ -149,7 +149,7 @@ final ThemeData brownTheme = ThemeData(
     confirmButtonStyle: ButtonStyle(
       backgroundColor: WidgetStateProperty.all(
           const Color(0xff000000).withValues(alpha: .8)),
-      foregroundColor: WidgetStateProperty.all(const Color(0xffFFFBF8)),
+      foregroundColor: WidgetStateProperty.all(const Color(0xffFDF7F4)),
       shape: WidgetStateProperty.all(
         RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(8.0),
@@ -164,7 +164,7 @@ final ThemeData brownTheme = ThemeData(
 );
 
 final ThemeData oldTheme = ThemeData.light(
-  useMaterial3: true,
+  useMaterial3: false,
 ).copyWith(
   colorScheme: const ColorScheme(
     brightness: Brightness.light,
@@ -247,7 +247,7 @@ final ThemeData oldTheme = ThemeData.light(
 );
 
 final ThemeData darkTheme = ThemeData.dark(
-  useMaterial3: true,
+  useMaterial3: false,
 ).copyWith(
   colorScheme: const ColorScheme(
     brightness: Brightness.light,

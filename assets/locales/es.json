@@ -865,8 +865,8 @@
     "type": "text",
     "placeholders": {}
   },
-  "Sha'ban": "Sha'ban",
-  "@Sha'ban": {
+  "Sha'aban": "Sha'aban",
+  "@Sha'aban": {
     "type": "text",
     "placeholders": {}
   },
@@ -1135,7 +1135,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "What'sNewDetails10": "۞ Se añadió el calendario islámico.\n۞ Se solucionó el problema de copiar algunos versículos.\n۞ Mejoras en el rendimiento.",
+  "What'sNewDetails10": "۞ Añadida modificación del calendario islámico.\n۞ Mejoras de rendimiento y correcciones de errores.",
   "@What'sNewDetails10": {
     "type": "text",
     "placeholders": {}
@@ -1215,6 +1215,31 @@
   },
   "arafah": "Día de Arafah",
   "@arafah": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "editHijriDay": "Editar día Hijri",
+  "@editHijriDay": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "defaultFontText": "Fuente predeterminada",
+  "@defaultFontText": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "downloadedFontsText": "Fuente del Corán",
+  "@downloadedFontsText": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "fonts": "Fuentes",
+  "@fonts": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "fontsNotes": "Para una mejor experiencia y una apariencia óptima del Corán, por favor descarga sus fuentes.",
+  "@fontsNotes": {
     "type": "text",
     "placeholders": {}
   },

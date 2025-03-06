@@ -28,7 +28,7 @@ class SearchBarWidget extends StatelessWidget {
                     fontFamily: 'kufi',
                     fontSize: 15),
               ),
-              customSvg(
+              customSvgWithCustomColor(
                 SvgPath.svgSearchIcon,
                 height: 20,
               ),

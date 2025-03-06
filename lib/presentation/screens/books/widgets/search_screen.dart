@@ -1,9 +1,9 @@
+import 'package:alquranalkareem/core/utils/constants/extensions/svg_extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 
 import '/core/utils/constants/extensions/extensions.dart';
-import '/core/utils/constants/extensions/svg_extensions.dart';
 import '/presentation/screens/books/controller/extensions/books_ui.dart';
 import '/presentation/screens/quran_page/widgets/search/search_extensions/highlight_extension.dart';
 import '../../../../core/utils/constants/lottie.dart';
@@ -15,7 +15,7 @@ import '../controller/books_controller.dart';
 class SearchScreen extends StatelessWidget {
   final void Function(String)? onSubmitted;
   final bool? isInBook;
-  SearchScreen({super.key, this.onSubmitted, this.isInBook});
+  SearchScreen({super.key, this.onSubmitted, this.isInBook = false});
 
   final booksCtrl = BooksController.instance;
 
@@ -205,7 +205,7 @@ class SearchScreen extends StatelessWidget {
                         ? Column(
                             children: [
                               const Gap(64),
-                              customSvg(
+                              customSvgWithCustomColor(
                                 SvgPath.svgTafseer,
                                 height: 50,
                               ),

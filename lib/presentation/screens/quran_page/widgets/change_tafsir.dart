@@ -108,8 +108,31 @@ class ChangeTafsir extends StatelessWidget {
                                     color: Theme.of(context).cardColor,
                                     width: 2)),
                             child: Opacity(
-                              child: SvgPicture.asset(
-                                'assets/svg/tafseer_book.svg',
+                              child: Stack(
+                                alignment: Alignment.center,
+                                children: [
+                                  customSvgWithCustomColor(SvgPath.svgBooks),
+                                  customSvgWithCustomColor(index > 4
+                                      ? SvgPath.svgLeftBook
+                                      : SvgPath.svgRightBook),
+                                  Container(
+                                    height: 60.h,
+                                    width: 30.0,
+                                    alignment: Alignment.center,
+                                    child: Text(
+                                      tafsirName[index]['name'],
+                                      style: TextStyle(
+                                        fontSize: 7.0,
+                                        fontFamily: 'kufi',
+                                        fontWeight: FontWeight.bold,
+                                        color: Theme.of(context).canvasColor,
+                                        height: 1.5,
+                                      ),
+                                      maxLines: 3,
+                                      textAlign: TextAlign.center,
+                                    ),
+                                  ),
+                                ],
                               ),
                               opacity:
                                   tafsirCtrl.radioValue.value == index ? 1 : .4,

@@ -35,4 +35,9 @@ Future<void> initializeApp() async {
     await BGServices().registerTask();
   }
   FlutterNativeSplash.remove();
+  // try {
+  //   await WakelockPlus.enable();
+  // } catch (e) {
+  //   print('Failed to enable wakelock: $e');
+  // }
 }

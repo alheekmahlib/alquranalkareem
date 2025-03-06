@@ -16,6 +16,17 @@ extension SvgExtensionWithColor on Widget {
 }
 
 extension SvgExtension on Widget {
+  Widget customSvgWithCustomColor(String path,
+      {double? height, double? width}) {
+    return SvgPicture.asset(
+      path,
+      width: width,
+      height: height,
+      colorFilter:
+          ColorFilter.mode(Get.theme.colorScheme.surface, BlendMode.modulate),
+    );
+  }
+
   Widget customSvg(String path, {double? height, double? width}) {
     return SvgPicture.asset(
       path,

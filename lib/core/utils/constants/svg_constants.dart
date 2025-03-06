@@ -810,4 +810,8 @@ class SvgPath {
   /// Assets for svgTheme3
   /// assets/svg/theme3.svg
   static const String svgTheme3 = "assets/svg/theme3.svg";
+
+  /// Assets for svgBookBack
+  /// assets/svg/book_back.svg
+  static const String svgBookBack = "assets/svg/book_back.svg";
 }

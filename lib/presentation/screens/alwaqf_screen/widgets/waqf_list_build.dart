@@ -57,7 +57,7 @@ class WaqfListBuild extends StatelessWidget {
                             )),
                       ),
                       Center(
-                        child: customSvg(
+                        child: customSvgWithColor(
                           SvgPath.svgSplashIcon,
                           height: 60,
                         ),
@@ -84,7 +84,7 @@ class WaqfListBuild extends StatelessWidget {
                       Center(
                         child: Padding(
                           padding: const EdgeInsets.symmetric(vertical: 8.0),
-                          child: customSvg(
+                          child: customSvgWithColor(
                             SvgPath.svgSpaceLine,
                             height: 30,
                             width: MediaQuery.of(context).size.width / 1 / 4,

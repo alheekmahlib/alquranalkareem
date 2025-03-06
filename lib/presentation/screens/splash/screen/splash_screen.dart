@@ -25,7 +25,7 @@ class SplashScreen extends StatelessWidget {
                   padding: const EdgeInsets.only(top: 48.0),
                   child: Opacity(
                     opacity: .4,
-                    child: customSvg(
+                    child: customSvgWithColor(
                       SvgPath.svgSplashIconHalfS,
                       height: MediaQuery.sizeOf(context).width * .4,
                     ),
@@ -58,6 +58,12 @@ class SplashScreen extends StatelessWidget {
                     width: Get.width,
                     color: context.theme.colorScheme.primary,
                   )),
+              Align(
+                alignment: Alignment.topRight,
+                child: Padding(
+                    padding: const EdgeInsets.only(top: 56.0),
+                    child: s.ramadhanOrEidGreeting()),
+              ),
               Obx(() => AnimatedContainer(
                     alignment: Alignment.center,
                     duration: const Duration(milliseconds: 350),
@@ -98,13 +104,6 @@ class SplashScreen extends StatelessWidget {
                       ],
                     ),
                   )),
-              Align(
-                alignment: Alignment.topRight,
-                child: Padding(
-                    padding: const EdgeInsets.only(top: 56.0),
-                    child: SplashScreenController.instance
-                        .ramadhanOrEidGreeting()),
-              ),
               GetX<SplashScreenController>(
                 builder: (s) => AnimatedOpacity(
                   opacity: s.state.containerAnimate.value ? 1 : 0,

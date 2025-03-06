@@ -31,7 +31,7 @@ class CollapsedPlayWidget extends StatelessWidget {
               alignment: Alignment.bottomRight,
               child: Opacity(
                 opacity: .6,
-                child: customSvg(
+                child: customSvgWithCustomColor(
                   SvgPath.svgDecorations,
                   height: 60,
                 ),
@@ -43,7 +43,7 @@ class CollapsedPlayWidget extends StatelessWidget {
                 quarterTurns: 2,
                 child: Opacity(
                   opacity: .6,
-                  child: customSvg(
+                  child: customSvgWithCustomColor(
                     SvgPath.svgDecorations,
                     height: 60,
                   ),

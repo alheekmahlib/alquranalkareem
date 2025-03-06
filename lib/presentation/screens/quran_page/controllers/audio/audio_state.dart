@@ -14,9 +14,6 @@ class AudioState {
   String? readerValue;
   RxString readerName = 'عبد الباسط عبد الصمد'.obs;
   String? pageAyahNumber;
-  List<ConnectivityResult> connectionStatus = [ConnectivityResult.none];
-  final Connectivity connectivity = Connectivity();
-  late StreamSubscription<List<ConnectivityResult>> connectivitySubscription;
   late Directory dir;
   late Uri cachedArtUri;
   late var cancelToken = CancelToken();

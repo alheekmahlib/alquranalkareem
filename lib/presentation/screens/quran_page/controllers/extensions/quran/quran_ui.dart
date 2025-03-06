@@ -2,21 +2,6 @@ part of '../../../quran.dart';
 
 extension QuranUi on QuranController {
   /// -------- [onTap] --------
-  dynamic textScale(dynamic widget1, dynamic widget2) {
-    if (state.scaleFactor.value <= 1.3) {
-      return widget1;
-    } else {
-      return widget2;
-    }
-  }
-
-  void updateTextScale(ScaleUpdateDetails details) {
-    double newScaleFactor = state.baseScaleFactor.value * details.scale;
-    if (newScaleFactor < 1.0) {
-      newScaleFactor = 1.0;
-    }
-    state.scaleFactor.value = newScaleFactor;
-  }
 
   void switchMode(int newMode) {
     state.isPages.value = newMode;
@@ -47,8 +32,6 @@ extension QuranUi on QuranController {
     } else {
       state.quranPageController.jumpToPage(
         page - 1,
-        // duration: const Duration(milliseconds: 500),
-        // curve: Curves.easeIn,
       );
     }
     GlobalKeyManager().drawerKey.currentState!.closeSlider();
@@ -57,21 +40,22 @@ extension QuranUi on QuranController {
   void toggleAyahSelection(int index) {
     if (state.selectedAyahIndexes.contains(index)) {
       state.selectedAyahIndexes.remove(index);
-      update(['bookmarked']);
+      update(['clearSelection']);
     } else {
       state.selectedAyahIndexes.clear();
       state.selectedAyahIndexes.add(index);
       state.selectedAyahIndexes.refresh();
-      update(['bookmarked']);
+      update(['clearSelection']);
     }
     state.selectedAyahIndexes.refresh();
-    update(['bookmarked']);
+    update(['clearSelection']);
   }
 
   void clearAndAddSelection(int index) {
     state.selectedAyahIndexes.clear();
     state.selectedAyahIndexes.add(index);
     state.selectedAyahIndexes.refresh();
+    update(['clearSelection']);
   }
 
   void showControl() {

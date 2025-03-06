@@ -2,12 +2,11 @@ import 'dart:async';
 import 'dart:developer';
 import 'dart:io';
 
+import 'package:alquranalkareem/core/utils/constants/extensions/custom_error_snackBar.dart';
 import 'package:alquranalkareem/presentation/controllers/general/extensions/general_getters.dart';
 import 'package:audio_service/audio_service.dart';
-import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:dio/dio.dart' as d;
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:path/path.dart';
@@ -16,6 +15,7 @@ import 'package:path_provider/path_provider.dart';
 import '/presentation/screens/surah_audio/controller/extensions/surah_audio_getters.dart';
 import '/presentation/screens/surah_audio/controller/extensions/surah_audio_storage_getters.dart';
 import '/presentation/screens/surah_audio/controller/extensions/surah_audio_ui.dart';
+import '../../../../core/services/connectivity_service.dart';
 import '../../../../core/utils/constants/shared_preferences_constants.dart';
 import '../../../../core/widgets/seek_bar.dart';
 import '../../../controllers/general/general_controller.dart';
@@ -49,29 +49,45 @@ class SurahAudioController extends GetxController {
           .getCachedArtUri()
           .then((v) => AudioController.instance.state.cachedArtUri = v),
     ]);
+    state.audioServiceInitialized.value =
+        state.box.read(AUDIO_SERVICE_INITIALIZED) ?? false;
     if (Platform.isIOS || Platform.isAndroid) {
-      await QuranController.instance.loadQuran().then((_) => AudioService.init(
+      if (!state.audioServiceInitialized.value) {
+        if (!quranCtrl.state.isQuranLoaded) {
+          await QuranController.instance.loadQuran().then((_) async {
+            await AudioService.init(
+              builder: () => AudioPlayerHandler.instance,
+              config: const AudioServiceConfig(
+                androidNotificationChannelId: 'com.alheekmah.alheekmahLibrary',
+                androidNotificationChannelName: 'Audio playback',
+                androidNotificationOngoing: true,
+              ),
+            );
+            state.box.write(AUDIO_SERVICE_INITIALIZED, true);
+          });
+        } else {
+          await AudioService.init(
             builder: () => AudioPlayerHandler.instance,
             config: const AudioServiceConfig(
-              androidNotificationChannelId:
-                  'com.alheekmah.alquranalkareem.alquranalkareem',
+              androidNotificationChannelId: 'com.alheekmah.alheekmahLibrary',
               androidNotificationChannelName: 'Audio playback',
               androidNotificationOngoing: true,
             ),
-          ));
+          );
+          state.box.write(AUDIO_SERVICE_INITIALIZED, true);
+        }
+      }
     }
-    state.connectivitySubscription = state.connectivity.onConnectivityChanged
-        .listen(_updateConnectionStatus);
-    initConnectivity();
     Future.delayed(const Duration(milliseconds: 700))
         .then((_) => jumpToSurah(state.surahNum.value - 1));
+    ConnectivityService.instance.init();
   }
 
   @override
   void onClose() {
     state.audioPlayer.dispose();
     // state.surahListController!.dispose();
-    state.connectivitySubscription.cancel();
+    ConnectivityService.instance.onClose();
     state.audioPlayer.pause();
     state.boxController.dispose();
     super.onClose();
@@ -127,8 +143,8 @@ class SurahAudioController extends GetxController {
     String filePath = await localFilePath;
     File file = File(filePath);
     log("File Path: $filePath");
-    state.isPlaying.value = true;
     if (await file.exists()) {
+      state.isPlaying.value = true;
       log("File exists. Playing...");
 
       await state.audioPlayer.setAudioSource(AudioSource.file(
@@ -137,20 +153,25 @@ class SurahAudioController extends GetxController {
       ));
       state.audioPlayer.play();
     } else {
-      log("File doesn't exist. Downloading...");
-      log("state.sorahReaderNameValue: ${state.surahReaderNameValue.value}");
-      log("Downloading from URL: $urlFilePath");
-      if (await downloadFile(filePath, urlFilePath)) {
-        _addFileAudioSourceToPlayList(filePath);
-        onDownloadSuccess(
-            int.parse(state.surahNum.value.toString().padLeft(3, "0")));
-        log("File successfully downloaded and saved to $filePath");
-        await state.audioPlayer
-            .setAudioSource(AudioSource.file(
-              filePath,
-              tag: await mediaItem,
-            ))
-            .then((_) => state.audioPlayer.play());
+      if (ConnectivityService.instance.noConnection.value) {
+        Get.context!.showCustomErrorSnackBar('noInternet'.tr);
+      } else {
+        state.isPlaying.value = true;
+        log("File doesn't exist. Downloading...");
+        log("state.sorahReaderNameValue: ${state.surahReaderNameValue.value}");
+        log("Downloading from URL: $urlFilePath");
+        if (await downloadFile(filePath, urlFilePath)) {
+          _addFileAudioSourceToPlayList(filePath);
+          onDownloadSuccess(
+              int.parse(state.surahNum.value.toString().padLeft(3, "0")));
+          log("File successfully downloaded and saved to $filePath");
+          await state.audioPlayer
+              .setAudioSource(AudioSource.file(
+                filePath,
+                tag: await mediaItem,
+              ))
+              .then((_) => state.audioPlayer.play());
+        }
       }
     }
     state.audioPlayer.playerStateStream.listen((playerState) async {
@@ -308,35 +329,5 @@ class SurahAudioController extends GetxController {
       state.audioPlayer.pause();
     }
     //log(message)('state = $state');
-  }
-
-  /// -------- [ConnectivityMethods] ----------
-
-  // Platform messages are asynchronous, so we initialize in an async method.
-  Future<void> initConnectivity() async {
-    late List<ConnectivityResult> result;
-    // Platform messages may fail, so we use a try/catch PlatformException.
-    try {
-      result = await state.connectivity.checkConnectivity();
-    } on PlatformException catch (e) {
-      log('Couldn\'t check connectivity status', error: e);
-      return;
-    }
-
-    // If the widget was removed from the tree while the asynchronous platform
-    // message was in flight, we want to discard the reply rather than calling
-    // setState to update our non-existent appearance.
-    if (state.isDisposed) {
-      return Future.value(null);
-    }
-
-    return _updateConnectionStatus(result);
-  }
-
-  Future<void> _updateConnectionStatus(List<ConnectivityResult> result) async {
-    state.connectionStatus = result;
-    update();
-    // ignore: avoid_log(message)
-    log('Connectivity changed: ${state.connectionStatus}');
   }
 }

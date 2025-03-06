@@ -3,176 +3,44 @@ part of '../../../quran.dart';
 extension QuranGetters on QuranController {
   /// -------- [Getter] ----------
 
-  List<int> get downThePageIndex => [
-        75,
-        206,
-        330,
-        340,
-        348,
-        365,
-        375,
-        413,
-        416,
-        444,
-        451,
-        497,
-        505,
-        524,
-        547,
-        554,
-        556,
-        583
-      ];
-  List<int> get topOfThePageIndex => [
-        76,
-        207,
-        331,
-        341,
-        349,
-        366,
-        376,
-        414,
-        417,
-        435,
-        445,
-        452,
-        498,
-        506,
-        525,
-        548,
-        554,
-        555,
-        557,
-        583,
-        584
-      ];
-
-  List<List<Ayah>> getCurrentPageAyahsSeparatedForBasmalah(int pageIndex) =>
-      state.pages[pageIndex]
+  List<List<AyahFontsModel>> getCurrentPageAyahsSeparatedForBasmalah(
+          int pageIndex) =>
+      QuranLibrary()
+          .quranCtrl
+          .state
+          .pages[pageIndex]
           .splitBetween((f, s) => f.ayahNumber > s.ayahNumber)
           .toList();
 
-  List<Ayah> getPageAyahsByIndex(int pageIndex) => state.pages[pageIndex];
+  List<AyahFontsModel> getPageAyahsByIndex(int pageIndex) =>
+      QuranLibrary().quranCtrl.state.pages[pageIndex];
 
   /// will return the surah number of the first ayahs..
   /// even if the page contains another surah..
   /// if you wanna get the last's ayah's surah information
   /// you can use [ayahs.last].
-  int getSurahNumberFromPage(int pageNumber) => state.surahs
+  int getSurahNumberFromPage(int pageNumber) => QuranLibrary()
+      .quranCtrl
+      .state
+      .surahs
       .firstWhere(
           (s) => s.ayahs.firstWhereOrNull((a) => a.page == pageNumber) != null)
       .surahNumber;
 
-  List<Surah> getSurahsByPage(int pageNumber) {
-    List<Ayah> pageAyahs = getPageAyahsByIndex(pageNumber);
-    List<Surah> surahsOnPage = [];
-    for (Ayah ayah in pageAyahs) {
-      Surah surah = state.surahs.firstWhere((s) => s.ayahs.contains(ayah),
-          orElse: () => Surah(
-              surahNumber: -1,
-              arabicName: 'Unknown',
-              englishName: 'Unknown',
-              revelationType: 'Unknown',
-              surahNames: 'Unknown',
-              surahNamesFromBook: 'Unknown',
-              surahInfo: 'Unknown',
-              surahInfoFromBook: 'Unknown',
-              ayahs: []));
-      if (!surahsOnPage.any((s) => s.surahNumber == surah.surahNumber) &&
-          surah.surahNumber != -1) {
-        surahsOnPage.add(surah);
-      }
-    }
-    return surahsOnPage;
-  }
+  SurahFontsModel getCurrentSurahByPage(int pageNumber) =>
+      QuranLibrary().getCurrentSurahDataByPageNumber(pageNumber: pageNumber);
 
-  Surah getCurrentSurahByPage(int pageNumber) => state.surahs.firstWhere(
-      (s) => s.ayahs.contains(getPageAyahsByIndex(pageNumber).first));
+  SurahFontsModel getSurahDataByAyah(AyahFontsModel ayah) =>
+      QuranLibrary().getCurrentSurahDataByAyah(ayah: ayah);
 
-  Surah getSurahDataByAyah(Ayah ayah) =>
-      state.surahs.firstWhere((s) => s.ayahs.contains(ayah));
+  SurahFontsModel getSurahDataByAyahUQ(int ayah) => QuranLibrary()
+      .getCurrentSurahDataByAyahUniqueNumber(ayahUniqueNumber: ayah);
 
-  Surah getSurahDataByAyahUQ(int ayah) => state.surahs
-      .firstWhere((s) => s.ayahs.any((a) => a.ayahUQNumber == ayah));
+  AyahFontsModel getJuzByPage(int page) =>
+      QuranLibrary().getJuzByPageNumber(pageNumber: page);
 
-  Ayah getJuzByPage(int page) =>
-      state.allAyahs.firstWhere((a) => a.page == page + 1);
-
-  String getHizbQuarterDisplayByPage(int pageNumber) {
-    final List<Ayah> currentPageAyahs =
-        state.allAyahs.where((ayah) => ayah.page == pageNumber).toList();
-    if (currentPageAyahs.isEmpty) return "";
-
-    // Find the highest Hizb quarter on the current page
-    int? currentMaxHizbQuarter =
-        currentPageAyahs.map((ayah) => ayah.hizbQuarter).reduce(math.max);
-
-    // Store/update the highest Hizb quarter for this page
-    state.pageToHizbQuarterMap[pageNumber] = currentMaxHizbQuarter;
-
-    // For displaying the Hizb quarter, check if this is a new Hizb quarter different from the previous page's Hizb quarter
-    // For the first page, there is no "previous page" to compare, so display its Hizb quarter
-    if (pageNumber == 1 ||
-        state.pageToHizbQuarterMap[pageNumber - 1] != currentMaxHizbQuarter) {
-      int hizbNumber = ((currentMaxHizbQuarter - 1) ~/ 4) + 1;
-      int quarterPosition = (currentMaxHizbQuarter - 1) % 4;
-
-      switch (quarterPosition) {
-        case 0:
-          return "الحزب ${'$hizbNumber'.convertNumbers()}";
-        case 1:
-          return "١/٤ الحزب ${'$hizbNumber'.convertNumbers()}";
-        case 2:
-          return "١/٢ الحزب ${'$hizbNumber'.convertNumbers()}";
-        case 3:
-          return "٣/٤ الحزب ${'$hizbNumber'.convertNumbers()}";
-        default:
-          return "";
-      }
-    }
-
-    // If the page's Hizb quarter is the same as the previous page, do not display it again
-    return "";
-  }
-
-  bool getSajdaInfoForPage(List<Ayah> pageAyahs) {
-    for (var ayah in pageAyahs) {
-      if (ayah.sajda != false && ayah.sajda is Map) {
-        var sajdaDetails = ayah.sajda;
-        if (sajdaDetails['recommended'] == true ||
-            sajdaDetails['obligatory'] == true) {
-          return state.isSajda.value = true;
-        }
-      }
-    }
-    // No sajda found on this page
-    return state.isSajda.value = false;
-  }
-
-  List<Ayah> get currentPageAyahs =>
+  List<AyahFontsModel> get currentPageAyahs =>
       state.pages[state.currentPageNumber.value - 1];
-
-  Ayah? getAyahWithSajdaInPage(int pageIndex) =>
-      state.pages[pageIndex].firstWhereOrNull((ayah) {
-        if (ayah.sajda != false) {
-          if (ayah.sajda is Map) {
-            var sajdaDetails = ayah.sajda;
-            if (sajdaDetails['recommended'] == true ||
-                sajdaDetails['obligatory'] == true) {
-              return state.isSajda.value = true;
-            }
-          } else {
-            return ayah.sajda == true;
-          }
-        }
-        return state.isSajda.value = false;
-      });
-
-  RxBool getCurrentSurahNumber(int surahNum) =>
-      getCurrentSurahByPage(state.currentPageNumber.value).surahNumber - 1 ==
-              surahNum
-          ? true.obs
-          : false.obs;
 
   RxBool getCurrentJuzNumber(int juzNum) =>
       getJuzByPage(state.currentPageNumber.value).juz - 1 == juzNum

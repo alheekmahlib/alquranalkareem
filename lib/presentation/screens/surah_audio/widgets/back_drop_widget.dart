@@ -30,7 +30,7 @@ class BackDropWidget extends StatelessWidget {
                       alignment: Alignment.center,
                       child: Padding(
                           padding: const EdgeInsets.only(top: 104.0),
-                          child: customLottie(
+                          child: customLottieWithColor(
                               LottieConstants.assetsLottieQuranAuIc,
                               height: 120,
                               isRepeat: false))),

@@ -23,7 +23,7 @@ class OurApps extends StatelessWidget {
       backgroundColor: Theme.of(context).colorScheme.primaryContainer,
       appBar: AppBar(
         centerTitle: true,
-        title: customSvg(
+        title: customSvgWithColor(
           SvgPath.svgSplashIcon,
           height: 50,
         ),
@@ -47,7 +47,7 @@ class OurApps extends StatelessWidget {
           Column(
             children: [
               Gap(16.h),
-              customSvg(
+              customSvgWithColor(
                 SvgPath.svgSplashIconS,
                 height: 160.h,
               ),
@@ -74,7 +74,7 @@ class OurApps extends StatelessWidget {
                 flex: 4,
                 child: Column(
                   children: [
-                    customSvg(
+                    customSvgWithColor(
                       SvgPath.svgSplashIconS,
                       height: 150,
                     ),

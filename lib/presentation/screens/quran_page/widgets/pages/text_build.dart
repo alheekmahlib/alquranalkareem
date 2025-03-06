@@ -5,158 +5,127 @@ class TextBuild extends StatelessWidget {
 
   TextBuild({super.key, required this.pageIndex});
 
+  final audioCtrl = AudioController.instance;
   final quranCtrl = QuranController.instance;
+  final bookmarkCtrl = BookmarksController.instance;
 
   @override
   Widget build(BuildContext context) {
-    return FittedBox(
-      fit: BoxFit.fitWidth,
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: List.generate(
-            quranCtrl.getCurrentPageAyahsSeparatedForBasmalah(pageIndex).length,
-            (i) {
-          final ayahs =
-              quranCtrl.getCurrentPageAyahsSeparatedForBasmalah(pageIndex)[i];
-          return Column(children: [
-            Column(
-              children: [
-                surahBannerFirstPlace(pageIndex, i),
-                quranCtrl.getSurahDataByAyah(ayahs.first).surahNumber == 9 ||
-                        quranCtrl.getSurahDataByAyah(ayahs.first).surahNumber ==
-                            1
-                    ? const SizedBox.shrink()
-                    : Padding(
-                        padding: const EdgeInsets.only(bottom: 8.0),
-                        child: ayahs.first.ayahNumber == 1
-                            ? (quranCtrl
-                                            .getSurahDataByAyah(ayahs.first)
-                                            .surahNumber ==
-                                        95 ||
-                                    quranCtrl
-                                            .getSurahDataByAyah(ayahs.first)
-                                            .surahNumber ==
-                                        97)
-                                ? customSvgWithColor(SvgPath.svgBesmAllah2,
-                                    width: Get.width * .5,
-                                    height: Get.height * .2,
-                                    color: Get.theme.cardColor
-                                        .withValues(alpha: .8))
-                                : customSvgWithColor(SvgPath.svgBesmAllah,
-                                    width: Get.width * .5,
-                                    height: Get.height * .2,
-                                    color: Get.theme.cardColor
-                                        .withValues(alpha: .8))
-                            : const SizedBox.shrink(),
-                      ),
-              ],
-            ),
-            GetBuilder<QuranController>(
-              id: 'bookmarked',
-              builder: (quranCtrl) => FittedBox(
-                fit: BoxFit.fitWidth,
-                child: RichText(
-                  textDirection: TextDirection.rtl,
-                  textAlign: TextAlign.center,
-                  text: TextSpan(
-                    style: TextStyle(
-                      fontFamily: 'page${pageIndex + 1}',
-                      fontSize: 100,
-                      height: 1.7,
-                      letterSpacing: 2,
-                      color: Theme.of(context).colorScheme.inversePrimary,
-                      shadows: [
-                        Shadow(
-                          blurRadius: 0.5,
-                          color: quranCtrl.state.isBold.value == 0
-                              ? Colors.black
-                              : Colors.transparent,
-                          offset: const Offset(0.5, 0.5),
-                        ),
-                      ],
-                    ),
-                    children: List.generate(ayahs.length, (ayahIndex) {
-                      quranCtrl.state.isSelected = quranCtrl
-                          .state.selectedAyahIndexes
-                          .contains(ayahs[ayahIndex].ayahUQNumber);
-                      if (ayahIndex == 0) {
-                        return span(
-                            isFirstAyah: true,
-                            text:
-                                "${ayahs[ayahIndex].code_v2[0]}${ayahs[ayahIndex].code_v2.substring(1)}",
-                            pageIndex: pageIndex,
-                            isSelected: quranCtrl.state.isSelected,
-                            fontSize: 100,
-                            surahNum: quranCtrl
-                                .getSurahDataByAyahUQ(
-                                    ayahs[ayahIndex].ayahUQNumber)
-                                .surahNumber,
-                            ayahNum: ayahs[ayahIndex].ayahUQNumber,
-                            onLongPressStart: (LongPressStartDetails details) {
-                              quranCtrl.toggleAyahSelection(
-                                  ayahs[ayahIndex].ayahUQNumber);
-                              context.showAyahMenu(
-                                  quranCtrl
-                                      .getSurahDataByAyahUQ(
-                                          ayahs[ayahIndex].ayahUQNumber)
-                                      .surahNumber,
-                                  ayahs[ayahIndex].ayahNumber,
-                                  ayahs[ayahIndex].code_v2,
-                                  pageIndex,
-                                  ayahs[ayahIndex].text,
-                                  ayahs[ayahIndex].ayahUQNumber,
-                                  quranCtrl
-                                      .getSurahDataByAyahUQ(
-                                          ayahs[ayahIndex].ayahUQNumber)
-                                      .arabicName,
-                                  // quranCtrl.state.surahs
-                                  //     .firstWhere((s) =>
-                                  //         s.ayahs.contains(ayahs[ayahIndex]))
-                                  //     .arabicName,
-                                  ayahIndex,
-                                  details: details);
-                            });
-                      }
-                      return span(
-                          isFirstAyah: false,
-                          text: ayahs[ayahIndex].code_v2,
-                          pageIndex: pageIndex,
-                          isSelected: quranCtrl.state.isSelected,
-                          fontSize: 100,
-                          surahNum: quranCtrl
-                              .getSurahDataByAyahUQ(
-                                  ayahs[ayahIndex].ayahUQNumber)
-                              .surahNumber,
-                          ayahNum: ayahs[ayahIndex].ayahUQNumber,
-                          onLongPressStart: (LongPressStartDetails details) {
-                            quranCtrl.toggleAyahSelection(
-                                ayahs[ayahIndex].ayahUQNumber);
-                            context.showAyahMenu(
-                                quranCtrl
-                                    .getSurahDataByAyahUQ(
-                                        ayahs[ayahIndex].ayahUQNumber)
-                                    .surahNumber,
-                                ayahs[ayahIndex].ayahNumber,
-                                ayahs[ayahIndex].code_v2,
-                                pageIndex,
-                                ayahs[ayahIndex].text,
-                                ayahs[ayahIndex].ayahUQNumber,
-                                quranCtrl
-                                    .getSurahDataByAyahUQ(
-                                        ayahs[ayahIndex].ayahUQNumber)
-                                    .arabicName,
-                                ayahIndex,
-                                details: details);
-                          });
-                    }),
-                  ),
-                ),
-              ),
-            ),
-            surahBannerLastPlace(pageIndex, i),
-          ]);
-        }),
+    return Center(
+        child: GetBuilder<QuranController>(
+      id: 'clearSelection',
+      builder: (quranCtrl) => QuranLibraryScreen(
+        withPageView: false,
+        pageIndex: pageIndex,
+        useDefaultAppBar: false,
+        isDark: false,
+        languageCode: Get.locale!.languageCode,
+        bookmarkList: BookmarksController.instance.bookmarkTextList,
+        juzName: 'juz'.tr,
+        sajdaName: 'sajda'.tr,
+        backgroundColor: Colors.transparent,
+        textColor: Get.theme.colorScheme.inversePrimary,
+        ayahSelectedBackgroundColor: Get.theme.highlightColor,
+        bookmarksColor: const Color(0xffCD9974).withValues(alpha: .4),
+        isFontsLocal: true,
+        fontsName: 'page${pageIndex + 1}',
+        ayahBookmarked: BookmarksController.instance.hasBookmark2(pageIndex),
+        bannerStyle: BannerStyle(
+          isImage: false,
+          bannerSvgPath: quranCtrl.surahBannerPath,
+        ),
+        basmalaStyle: BasmalaStyle(
+          basmalaColor: Get.theme.cardColor.withValues(alpha: .8),
+        ),
+        topTitleChild: GestureDetector(
+          onTap: () => bookmarkCtrl.addPageBookmarkOnTap(pageIndex),
+          child: bookmarkIcon(
+              height: context.customOrientation(30.h, 55.h),
+              pageNum: pageIndex + 1),
+        ),
+        surahInfoStyle: SurahInfoStyle(
+          ayahCount: 'aya_count'.tr,
+          backgroundColor: Get.theme.colorScheme.primaryContainer,
+          closeIconColor: Get.theme.colorScheme.inversePrimary,
+          firstTabText: 'surahNames'.tr,
+          secondTabText: 'aboutSurah'.tr,
+          indicatorColor: Get.theme.colorScheme.surface,
+          primaryColor: Get.theme.colorScheme.surface.withValues(alpha: .2),
+          surahNameColor: Get.theme.colorScheme.primary,
+          surahNumberColor: Get.theme.hintColor,
+          textColor: Get.theme.colorScheme.inversePrimary,
+          titleColor: Get.theme.hintColor,
+        ),
+        surahNameStyle: SurahNameStyle(
+          surahNameColor: Get.theme.hintColor,
+          surahNameHeight: 35,
+        ),
+        onPagePress: () => audioCtrl.clearSelection(),
+        onFontsAyahLongPress: (details, ayah) {
+          context.showAyahMenu(
+            surahNum: QuranLibrary()
+                .getCurrentSurahDataByAyahUniqueNumber(
+                    ayahUniqueNumber: ayah.ayahUQNumber)
+                .surahNumber,
+            ayahNum: ayah.ayahNumber,
+            ayahText: ayah.text,
+            pageIndex: pageIndex,
+            ayahTextNormal: ayah.ayaTextEmlaey,
+            ayahUQNum: ayah.ayahUQNumber,
+            surahName: QuranLibrary()
+                .getCurrentSurahDataByAyahUniqueNumber(
+                    ayahUniqueNumber: ayah.ayahUQNumber)
+                .arabicName,
+            details: details,
+          );
+          log('ayahUQNumber: ${ayah.ayahUQNumber}');
+          quranCtrl.toggleAyahSelection(ayah.ayahUQNumber);
+        },
+        onDefaultAyahLongPress: (details, ayah) {
+          String ayahText = QuranLibrary()
+              .quranCtrl
+              .staticPages[ayah.page - 1]
+              .ayahs
+              .firstWhere(
+                  (element) => element.ayahUQNumber == ayah.ayahUQNumber)
+              .text
+              .replaceAll('\n', ' ');
+          context.showAyahMenu(
+            surahNum: ayah.surahNumber,
+            ayahNum: ayah.ayahNumber,
+            ayahText: ayahText,
+            pageIndex: pageIndex,
+            ayahTextNormal: ayah.ayaTextEmlaey,
+            ayahUQNum: ayah.ayahUQNumber,
+            surahName: ayah.arabicName,
+            details: details,
+          );
+          log('ayah.ayaTextEmlaey: ${ayah.ayaTextEmlaey.replaceAll('\n', ' ')}');
+          // quranCtrl.toggleAyahSelection(ayah.ayahUQNumber);
+        },
       ),
-    );
+    ));
+  }
+
+  Widget bookmarkIcon({double? height, double? width, int? pageNum}) {
+    return GetBuilder<QuranController>(
+        id: 'pageBookmarked',
+        builder: (bookmarkCtrl) {
+          return Semantics(
+            button: true,
+            enabled: true,
+            label: 'Add Bookmark',
+            child: customSvg(
+              BookmarksController.instance
+                      .hasPageBookmark(
+                          pageNum ?? quranCtrl.state.currentPageNumber.value)
+                      .value
+                  ? SvgPath.svgBookmarked
+                  : Get.context!.bookmarkPageIconPath(),
+              width: width,
+              height: height,
+            ),
+          );
+        });
   }
 }

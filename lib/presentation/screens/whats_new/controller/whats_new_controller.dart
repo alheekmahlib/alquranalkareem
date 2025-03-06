@@ -7,6 +7,7 @@ class WhatsNewController extends GetxController {
           : Get.put<WhatsNewController>(WhatsNewController());
 
   WhatsNewState state = WhatsNewState();
+
   @override
   Future<void> onInit() async {
     navigationPage();

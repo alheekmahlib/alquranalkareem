@@ -17,9 +17,10 @@ class QuranHome extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     GlobalKeyManager().resetDrawerKey();
+    // QuranLibrary().quranCtrl.state.fontsSelected2.value = 1;
     return PopScope(
       canPop: false,
-      onPopInvoked: (bool didPop) {
+      onPopInvokedWithResult: (bool didPop, _) {
         if (didPop) {
           return;
         }
@@ -32,11 +33,10 @@ class QuranHome extends StatelessWidget {
         body: SafeArea(
           child: SliderDrawer(
             key: GlobalKeyManager().drawerKey,
-            splashColor: Theme.of(context).colorScheme.primaryContainer,
+            backgroundColor: Theme.of(context).colorScheme.primaryContainer,
             slideDirection: alignmentLayout(
-                SlideDirection.RIGHT_TO_LEFT, SlideDirection.LEFT_TO_RIGHT),
+                SlideDirection.rightToLeft, SlideDirection.leftToRight),
             sliderOpenSize: 300.0,
-            isCupertino: true,
             isDraggable: true,
             appBar: const SizedBox.shrink(),
             slider: SurahJuzList(),

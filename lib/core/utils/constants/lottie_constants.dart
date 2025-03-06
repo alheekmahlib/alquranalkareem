@@ -85,4 +85,17 @@ class LottieConstants {
   /// Assets for assetsLottieNoInternet
   /// assets/lottie/noInternet.json
   static const String assetsLottieNoInternet = "assets/lottie/noInternet.json";
+
+  /// Assets for assetsLottieLocation
+  /// assets/lottie/location.json
+  static const String assetsLottieLocation = "assets/lottie/location.json";
+
+  /// Assets for assetsLottieActivateNotification
+  /// assets/lottie/activate_notification.json
+  static const String assetsLottieActivateNotification =
+      "assets/lottie/activate_notification.json";
+
+  /// Assets for assetsLottieCloud2
+  /// assets/lottie/cloud2.json
+  static const String assetsLottieClouds2 = "assets/lottie/clouds2.json";
 }

@@ -9,7 +9,7 @@ class LogoAndTitle extends StatelessWidget {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        customSvg(
+        customSvgWithCustomColor(
           SvgPath.svgSplashIcon,
           height: 100,
           width: 100,
@@ -25,7 +25,7 @@ class LogoAndTitle extends StatelessWidget {
                 'وَرَتِّلِ ٱلۡقُرۡءَانَ تَرۡتِيلًا',
                 style: TextStyle(
                     fontFamily: 'uthmanic2',
-                    color: Theme.of(context).colorScheme.primaryContainer,
+                    color: Theme.of(context).canvasColor,
                     fontSize: 22),
               ),
             );
