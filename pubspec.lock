@@ -1082,7 +1082,7 @@ packages:
     description:
       path: "."
       ref: dev
-      resolved-ref: d1aa5f4a8d141a9406fbf7952d6750cb90d8fb91
+      resolved-ref: "78a7e929c20e80d8ca6449cb4d086f5b4a3b3f03"
       url: "https://github.com/alheekmahlib/quran_library.git"
     source: git
     version: "0.1.3"

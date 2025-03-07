@@ -49,7 +49,10 @@ extension QuranGetters on QuranController {
 
   PageController get pageController {
     return state.quranPageController = PageController(
-        viewportFraction: Responsive.isDesktop(Get.context!) ? 1 / 2 : 1,
+        viewportFraction:
+            (Responsive.isDesktop(Get.context!) && Get.context!.isLandscape)
+                ? 1 / 2
+                : 1,
         initialPage: state.currentPageNumber.value - 1,
         keepPage: true);
   }

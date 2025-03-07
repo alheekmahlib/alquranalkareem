@@ -32,15 +32,17 @@ class TextBuild extends StatelessWidget {
         ayahBookmarked: BookmarksController.instance.hasBookmark2(pageIndex),
         bannerStyle: BannerStyle(
           isImage: false,
+          bannerSvgHeight: context.customOrientation(50.h, 70.h),
           bannerSvgPath: quranCtrl.surahBannerPath,
         ),
         basmalaStyle: BasmalaStyle(
           basmalaColor: Get.theme.cardColor.withValues(alpha: .8),
+          basmalaHeight: context.customOrientation(50.h, 70.h),
         ),
         topTitleChild: GestureDetector(
           onTap: () => bookmarkCtrl.addPageBookmarkOnTap(pageIndex),
           child: bookmarkIcon(
-              height: context.customOrientation(30.h, 55.h),
+              height: context.customOrientation(30.h, 40.h),
               pageNum: pageIndex + 1),
         ),
         surahInfoStyle: SurahInfoStyle(
@@ -58,7 +60,7 @@ class TextBuild extends StatelessWidget {
         ),
         surahNameStyle: SurahNameStyle(
           surahNameColor: Get.theme.hintColor,
-          surahNameHeight: 35,
+          surahNameHeight: context.customOrientation(45.h, 70.h),
         ),
         onPagePress: () => audioCtrl.clearSelection(),
         onFontsAyahLongPress: (details, ayah) {
