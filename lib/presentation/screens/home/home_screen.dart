@@ -37,7 +37,7 @@ class HomeScreen extends StatelessWidget {
                       ListView(
                         padding: EdgeInsets.zero,
                         children: [
-                          HijriWidget(),
+                          Center(child: HijriWidget()),
                           const Gap(16),
                           const ScreensList(),
                           const Gap(8),

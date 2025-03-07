@@ -1,12 +1,11 @@
 import 'dart:convert';
 
 import 'package:get/get.dart';
+import 'package:quran_library/quran.dart';
 
 import '/presentation/screens/quran_page/widgets/search/search_extensions/convert_arabic_to_english_numbers_extension.dart';
 import '../../../../../../core/utils/constants/shared_preferences_constants.dart';
 import '../../../../../../core/widgets/time_now.dart';
-import '../../../data/data_source/quran_database.dart';
-import '../../../data/repository/aya_repository.dart';
 import '../data/models/search_item.dart';
 import 'search_state.dart';
 
@@ -36,11 +35,11 @@ class QuranSearchController extends GetxController {
     _setLoading(true);
 
     try {
-      final List<QuranTableData>? values = await AyaRepository.searchAyahs(
-          text.convertArabicToEnglishNumbers(text));
-      // final _ayahs =
-      //     QuranLibrary().search(text.convertArabicToEnglishNumbers(text));
-      if (values!.isNotEmpty) {
+      // final List<QuranTableData>? values = await AyaRepository.searchAyahs(
+      //     text.convertArabicToEnglishNumbers(text));
+      final values =
+          QuranLibrary().search(text.convertArabicToEnglishNumbers(text));
+      if (values.isNotEmpty) {
         state.ayahList.assignAll(values);
         _setLoading(false);
       } else {
@@ -53,20 +52,19 @@ class QuranSearchController extends GetxController {
     }
   }
 
-  void surahSearch(String text) async {
+  void surahSearchMethod(String text) async {
     state.surahList.clear();
     _setLoading(true);
     try {
-      final List<QuranTableData>? values = await AyaRepository.getAyahsBySurah(
-          text.convertArabicToEnglishNumbers(text));
-      // final values =
-      //     QuranLibrary().surahSearch(text.convertArabicToEnglishNumbers(text));
-      if (values != null && values.isNotEmpty) {
+      // final List<QuranTableData>? values = await AyaRepository.getAyahsBySurah(
+      //     text.convertArabicToEnglishNumbers(text));
+      final values = QuranLibrary().surahSearch(text);
+      if (values.isNotEmpty) {
         // Use a map to track unique Surahs
-        var uniqueSurahs = <int, QuranTableData>{};
+        var uniqueSurahs = <int, AyahModel>{};
         for (var aya in values) {
-          if (!uniqueSurahs.containsKey(aya.surahNum)) {
-            uniqueSurahs[aya.surahNum] = aya;
+          if (!uniqueSurahs.containsKey(aya.surahNumber)) {
+            uniqueSurahs[aya.surahNumber] = aya;
           }
         }
         state.surahList.assignAll(uniqueSurahs.values);
@@ -135,7 +133,7 @@ class QuranSearchController extends GetxController {
     SearchItem newItem = SearchItem(query, timeNow.dateNow);
     state.searchHistory.removeWhere((item) => item.query == query);
     state.searchHistory.insert(0, newItem);
-    surahSearch(query);
+    surahSearchMethod(query);
     search(query);
     state.box.write(SEARCH_HISTORY,
         state.searchHistory.map((item) => jsonEncode(item.toMap())).toList());

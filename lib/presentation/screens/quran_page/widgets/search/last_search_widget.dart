@@ -37,7 +37,7 @@ class LastSearchWidget extends StatelessWidget {
                           onTap: () {
                             searchCtrl.state.searchTextEditing.text =
                                 item.query;
-                            searchCtrl.surahSearch(item.query);
+                            searchCtrl.surahSearchMethod(item.query);
                             searchCtrl.search(item.query);
                           },
                           child: Container(
