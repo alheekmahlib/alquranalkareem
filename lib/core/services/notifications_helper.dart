@@ -60,8 +60,8 @@ class NotifyHelper {
     });
   }
 
-  static void initAwesomeNotifications() {
-    AwesomeNotifications().initialize(
+  static Future<void> initAwesomeNotifications() async {
+    await AwesomeNotifications().initialize(
       'resource://drawable/ic_launcher',
       [
         NotificationChannel(

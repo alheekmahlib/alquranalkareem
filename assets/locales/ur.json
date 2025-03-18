@@ -1243,6 +1243,11 @@
     "type": "text",
     "placeholders": {}
   },
+  "calenderSettings": "کیلنڈر کی ترتیبات",
+  "@calenderSettings": {
+    "type": "text",
+    "placeholders": {}
+  },
   "islamicCalendar": "اِسلامی کیلنڈر",
   "hijriCalendar": "ہجری کیلنڈر",
   "calendar": "کیلنڈر",

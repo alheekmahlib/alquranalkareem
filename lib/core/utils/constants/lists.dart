@@ -239,7 +239,7 @@ const List surahReaderInfo = [
   },
 ];
 
-List tafsirName = [
+List tafsirNameList = [
   {'name': '${'tafIbnkatheerN'.tr}', 'bookName': '${'tafIbnkatheerD'.tr}'},
   {
     'name': '${'tafBaghawyN'.tr}',

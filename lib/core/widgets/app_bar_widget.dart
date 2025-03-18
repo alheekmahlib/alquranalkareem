@@ -73,7 +73,7 @@ class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
             )),
       ),
       actions: [
-        isFontSize ? fontSizeDropDown() : const SizedBox.shrink(),
+        isFontSize ? fontSizeDropDownWidget() : const SizedBox.shrink(),
         searchButton,
       ],
       bottom: bottom,

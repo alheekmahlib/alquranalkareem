@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '/core/utils/constants/extensions/svg_extensions.dart';
-import '../../../../core/services/services_locator.dart';
 import '../../../../core/utils/constants/extensions/extensions.dart';
 import '../../../../core/utils/constants/svg_constants.dart';
 import '../controller/surah_audio_controller.dart';
@@ -66,7 +65,7 @@ class CollapsedPlayWidget extends StatelessWidget {
                   ),
                   Obx(
                     () => surahNameWidget(
-                      sl<SurahAudioController>().state.surahNum.toString(),
+                      SurahAudioController.instance.state.surahNum.toString(),
                       Get.theme.colorScheme.primary,
                       height: 50,
                       width: 100,

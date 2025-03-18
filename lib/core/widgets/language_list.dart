@@ -63,8 +63,8 @@ class LanguageList extends StatelessWidget {
                   ),
                   OverflowBar(
                       alignment: MainAxisAlignment.spaceAround,
-                      spacing: 42.0,
-                      overflowSpacing: 90.0,
+                      spacing: 32.0,
+                      overflowSpacing: 0.0,
                       children:
                           List.generate(AppConstants.languages.length, (index) {
                         final lang = AppConstants.languages[index];

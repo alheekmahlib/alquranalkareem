@@ -52,7 +52,7 @@ extension CustomSurahNameWithBannerExtension on Widget {
 
   Widget surahAyahBannerWidget(String number) {
     return bannerAyahWithSurahName(
-        customSvgWithCustomColor(quranCtrl.surahBannerPath,
+        customSvg(quranCtrl.surahBannerPath,
             width: Get.width * .35, height: Get.height * .19),
         number);
   }

@@ -31,7 +31,7 @@ extension RotatedAndAlignmentExtension on Widget {
   }
 
   alignmentLayoutWPassLang(String language, var rtl, var ltr) {
-    if ('lang'.tr.isRtlLanguageWPassLang(language)) {
+    if (language.isRtlLanguageWPassLang(language)) {
       return rtl;
     } else {
       return ltr;

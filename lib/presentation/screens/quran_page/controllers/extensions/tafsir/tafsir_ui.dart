@@ -10,12 +10,18 @@ extension TafsirUi on TafsirCtrl {
             (value) => Get.context!.showCustomErrorSnackBar('copyTafseer'.tr));
   }
 
-  void showTafsirOnTap(int surahNum, int ayahNum, String ayahText,
-      int pageIndex, String ayahTextN, int ayahUQNum) {
+  Future<void> showTafsirOnTap(int surahNum, int ayahNum, String ayahText,
+      int pageIndex, String ayahTextN, int ayahUQNum) async {
     final quranCtrl = QuranController.instance;
     ayahUQNumber.value = ayahUQNum;
     quranCtrl.state.currentPageNumber.value = pageIndex;
     quranCtrl.state.selectedAyahIndexes.clear();
+    if (!QuranLibrary().isTafsir) {
+      await QuranLibrary().fetchTranslation();
+    } else {
+      await QuranLibrary()
+          .closeAndInitializeDatabase(pageNumber: pageIndex + 1);
+    }
     Get.bottomSheet(
       ShowTafseer(
         ayahUQNumber: ayahUQNum,

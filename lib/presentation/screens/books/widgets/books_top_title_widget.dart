@@ -107,7 +107,7 @@ class BooksTopTitleWidget extends StatelessWidget {
               ),
               Transform.translate(
                   offset: const Offset(0, 5),
-                  child: fontSizeDropDown(
+                  child: fontSizeDropDownWidget(
                     height: 30.0,
                     color: Theme.of(context).colorScheme.primary,
                   )),

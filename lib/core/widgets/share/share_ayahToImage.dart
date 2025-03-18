@@ -103,7 +103,7 @@ class VerseImageCreator extends StatelessWidget {
                     Stack(
                       alignment: Alignment.center,
                       children: [
-                        customSvgWithColor(SvgPath.svgSurahBanner1),
+                        customSvg(SvgPath.svgSurahBanner1),
                         surahNameWidget(
                             height: 25,
                             '$surahNumber',

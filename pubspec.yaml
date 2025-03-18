@@ -3,7 +3,7 @@ description: Al-Quran Al-Kareem - Al-Heekmah Library.
 
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 
-version: 4.2.8+75
+version: 4.3.4+81
 
 environment:
   sdk: '>=3.0.6 <4.0.0'
@@ -20,7 +20,6 @@ dependencies:
   dio: ^5.8.0+1
   easy_image_viewer: ^1.5.1
   expansion_tile_card: ^3.0.0
-#  cached_network_image: ^3.4.1
   flutter_cache_manager: ^3.4.1
   flutter_screenutil: ^5.9.3
   flutter_slider_drawer: ^3.0.2
@@ -37,7 +36,6 @@ dependencies:
   html: ^0.15.4
   info_popup: ^4.3.2
   just_audio: ^0.9.46
-#  just_audio_background: ^0.0.1-beta.13
   lottie: ^3.3.1
   mini_music_visualizer: ^1.1.4
   package_rename: ^1.9.0
@@ -71,11 +69,10 @@ dependencies:
   audio_service: ^0.18.17
   get_storage: 2.1.1
   flutter_native_splash: any
-  # collection: 1.19.1
   hijri_calendar: ^1.0.7+7
   flutter_rounded_progress_bar: ^0.3.2
   flutter_launcher_icons: ^0.14.3
-  home_widget: ^0.7.0
+  # home_widget: ^0.7.0
   quran_library:
     git:
       # ref: 8eb1d906d52598568d0d5d9f55f3e1a3484b7f9d
@@ -84,7 +81,7 @@ dependencies:
 
 
 # Commit this line if you want to run or build on ios / macOS
-  # drift_flutter: ^0.2.4
+  drift_flutter: ^0.2.4
 
   flutter:
     sdk: flutter
@@ -158,15 +155,10 @@ flutter:
     - assets/svg/hijri/
     - assets/svg/alwaqf/
     - assets/json/
-    - assets/json/translate/
     - assets/lottie/
     - assets/locales/
-    - assets/baghawyV2.db
-    - assets/ibnkatheerV2.sqlite
-    - assets/qurtubiV2.db
-    - assets/tabariV2.db
-    - assets/saadiV3.db
     - assets/app_icon.png
+    - assets/app_icon_mac.png
     - assets/json/azkar.json
 
   fonts:

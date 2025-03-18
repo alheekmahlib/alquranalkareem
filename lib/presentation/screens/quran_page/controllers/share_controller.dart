@@ -39,25 +39,26 @@ class ShareController extends GetxController {
 
   Future<void> shareButtonOnTap(BuildContext context, int selectedIndex,
       int verseUQNumber, int surahNumber, int verseNumber) async {
-    sl<TranslateDataController>().shareTransValue.value == selectedIndex;
+    sl<TafsirAndTranslateController>().shareTransValue.value == selectedIndex;
     box.write(SHARE_TRANSLATE_VALUE, selectedIndex);
     box.write(CURRENT_TRANSLATE, shareTranslateName[selectedIndex]);
     currentTranslate.value = shareTranslateName[selectedIndex];
-    sl<TranslateDataController>().shareTranslateHandleRadioValue(selectedIndex);
+    sl<TafsirAndTranslateController>()
+        .shareTranslateHandleRadioValue(selectedIndex);
     if (isTafseer.value) {
       // await sl<TafsirController>()
       //     .fetchTafsirPage(sl<QuranController>().state.currentPageNumber.value);
       // sl<TafsirController>().ayahsTafseer(verseUQNumber, surahNumber);
     } else {
-      sl<TranslateDataController>().fetchTranslate();
+      // sl<TranslateDataController>().fetchTranslate();
     }
-    sl<TranslateDataController>().update();
+    sl<TafsirAndTranslateController>().update();
     Get.back();
   }
 
   void fetchTafseerSaadi(int surahNum, int ayahNum, int ayahUQNum) {
     if (isTafseer.value &&
-        sl<TranslateDataController>().shareTransValue.value == 8) {
+        sl<TafsirAndTranslateController>().shareTransValue.value == 8) {
       // sl<TafsirController>().dBName =
       //     sl<TafsirController>().saadiClient?.database;
       // sl<TafsirController>().selectedDBName = MufaserName.saadi.name;

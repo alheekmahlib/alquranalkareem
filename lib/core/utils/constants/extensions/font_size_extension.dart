@@ -14,7 +14,7 @@ import '../../../services/services_locator.dart';
 import '../shared_preferences_constants.dart';
 
 extension FontSizeExtension on Widget {
-  Widget fontSizeDropDown({double? height, Color? color}) {
+  Widget fontSizeDropDownWidget({double? height, Color? color}) {
     final box = GetStorage();
     return PopupMenuButton(
       position: PopupMenuPosition.under,

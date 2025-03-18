@@ -5,12 +5,10 @@ import '/core/utils/constants/extensions/svg_extensions.dart';
 import '../../../presentation/screens/quran_page/quran.dart';
 import '../../services/services_locator.dart';
 import '../../utils/constants/extensions/extensions.dart';
-import '../../utils/constants/lists.dart';
 import '../../utils/constants/lottie.dart';
 import '../../utils/constants/lottie_constants.dart';
 import '../../utils/constants/svg_constants.dart';
 import 'share_ayahToImage.dart';
-import 'share_tafseerToImage.dart';
 
 class ShareAyahOptions extends StatelessWidget {
   final int ayahNumber;
@@ -198,167 +196,167 @@ class ShareAyahOptions extends StatelessWidget {
                                   ),
                                 ],
                               ),
-                              Column(
-                                children: [
-                                  Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                        horizontal: 16.0),
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Expanded(
-                                          flex: 6,
-                                          child: Text(
-                                            'shareImageWTrans'.tr,
-                                            style: TextStyle(
-                                                color: Get.theme.hintColor,
-                                                fontSize: 16,
-                                                fontFamily: 'kufi'),
-                                          ),
-                                        ),
-                                        Expanded(
-                                          flex: 5,
-                                          child: PopupMenuButton(
-                                            position: PopupMenuPosition.under,
-                                            color: Get.theme.colorScheme
-                                                .primaryContainer,
-                                            child: Container(
-                                              // width: 140,
-                                              padding:
-                                                  const EdgeInsets.all(8.0),
-                                              decoration: BoxDecoration(
-                                                color: Get.theme.dividerColor
-                                                    .withValues(alpha: .4),
-                                                borderRadius:
-                                                    const BorderRadius.all(
-                                                        Radius.circular(8)),
-                                              ),
-                                              child: Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment
-                                                        .spaceBetween,
-                                                children: [
-                                                  SizedBox(
-                                                    width: 100,
-                                                    child: FittedBox(
-                                                      fit: BoxFit.scaleDown,
-                                                      child: Obx(
-                                                        () => Text(
-                                                          shareToImage
-                                                              .currentTranslate
-                                                              .value,
-                                                          style: TextStyle(
-                                                            fontFamily: 'kufi',
-                                                            fontSize: 14,
-                                                            color: Get.theme
-                                                                .hintColor,
-                                                          ),
-                                                        ),
-                                                      ),
-                                                    ),
-                                                  ),
-                                                  Icon(
-                                                    Icons
-                                                        .keyboard_arrow_down_rounded,
-                                                    size: 20,
-                                                    color: Get.theme.colorScheme
-                                                        .primary,
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                            itemBuilder: (context) =>
-                                                shareTranslateName.map(
-                                              (e) {
-                                                int selectedIndex = 0;
-                                                shareTranslateName
-                                                    .asMap()
-                                                    .forEach((index, item) {
-                                                  if (item == e) {
-                                                    selectedIndex = index;
-                                                  }
-                                                });
-                                                return PopupMenuItem<Widget>(
-                                                  value: Text(
-                                                    e,
-                                                  ),
-                                                  child: Obx(
-                                                    () => GestureDetector(
-                                                      child: SizedBox(
-                                                        width:
-                                                            MediaQuery.sizeOf(
-                                                                    context)
-                                                                .width,
-                                                        child: Text(
-                                                          e,
-                                                          style: TextStyle(
-                                                            fontFamily: 'kufi',
-                                                            fontSize: 18,
-                                                            color: sl<TranslateDataController>()
-                                                                        .shareTransValue
-                                                                        .value ==
-                                                                    selectedIndex
-                                                                ? Theme.of(
-                                                                        context)
-                                                                    .hintColor
-                                                                : Theme.of(
-                                                                        context)
-                                                                    .colorScheme
-                                                                    .surface,
-                                                          ),
-                                                        ),
-                                                      ),
-                                                      onTap: () {
-                                                        shareToImage
-                                                            .shareButtonOnTap(
-                                                                context,
-                                                                selectedIndex,
-                                                                ayahUQNumber,
-                                                                surahNumber,
-                                                                ayahNumber);
-                                                      },
-                                                    ),
-                                                  ),
-                                                );
-                                              },
-                                            ).toList(),
-                                          ),
-                                        )
-                                      ],
-                                    ),
-                                  ),
-                                  GestureDetector(
-                                    child: Container(
-                                      padding: const EdgeInsets.symmetric(
-                                          horizontal: 8.0, vertical: 8.0),
-                                      margin: const EdgeInsets.only(
-                                          top: 4.0,
-                                          bottom: 16.0,
-                                          right: 16.0,
-                                          left: 16.0),
-                                      decoration: BoxDecoration(
-                                          color: Get.theme.colorScheme.primary
-                                              .withValues(alpha: .15),
-                                          borderRadius: const BorderRadius.all(
-                                              Radius.circular(4))),
-                                      child: TafseerImageCreator(
-                                        verseNumber: ayahNumber,
-                                        verseUQNumber: ayahUQNumber,
-                                        surahNumber: surahNumber,
-                                        verseText: ayahTextNormal,
-                                      ),
-                                    ),
-                                    onTap: () async {
-                                      await shareToImage
-                                          .createAndShowTafseerImage();
-                                      shareToImage
-                                          .shareVerseWithTranslate(context);
-                                      Navigator.pop(context);
-                                    },
-                                  ),
-                                ],
-                              ),
+                              // Column(
+                              //   children: [
+                              //     Padding(
+                              //       padding: const EdgeInsets.symmetric(
+                              //           horizontal: 16.0),
+                              //       child: Row(
+                              //         mainAxisAlignment:
+                              //             MainAxisAlignment.spaceBetween,
+                              //         children: [
+                              //           Expanded(
+                              //             flex: 6,
+                              //             child: Text(
+                              //               'shareImageWTrans'.tr,
+                              //               style: TextStyle(
+                              //                   color: Get.theme.hintColor,
+                              //                   fontSize: 16,
+                              //                   fontFamily: 'kufi'),
+                              //             ),
+                              //           ),
+                              //           Expanded(
+                              //             flex: 5,
+                              //             child: PopupMenuButton(
+                              //               position: PopupMenuPosition.under,
+                              //               color: Get.theme.colorScheme
+                              //                   .primaryContainer,
+                              //               child: Container(
+                              //                 // width: 140,
+                              //                 padding:
+                              //                     const EdgeInsets.all(8.0),
+                              //                 decoration: BoxDecoration(
+                              //                   color: Get.theme.dividerColor
+                              //                       .withValues(alpha: .4),
+                              //                   borderRadius:
+                              //                       const BorderRadius.all(
+                              //                           Radius.circular(8)),
+                              //                 ),
+                              //                 child: Row(
+                              //                   mainAxisAlignment:
+                              //                       MainAxisAlignment
+                              //                           .spaceBetween,
+                              //                   children: [
+                              //                     SizedBox(
+                              //                       width: 100,
+                              //                       child: FittedBox(
+                              //                         fit: BoxFit.scaleDown,
+                              //                         child: Obx(
+                              //                           () => Text(
+                              //                             shareToImage
+                              //                                 .currentTranslate
+                              //                                 .value,
+                              //                             style: TextStyle(
+                              //                               fontFamily: 'kufi',
+                              //                               fontSize: 14,
+                              //                               color: Get.theme
+                              //                                   .hintColor,
+                              //                             ),
+                              //                           ),
+                              //                         ),
+                              //                       ),
+                              //                     ),
+                              //                     Icon(
+                              //                       Icons
+                              //                           .keyboard_arrow_down_rounded,
+                              //                       size: 20,
+                              //                       color: Get.theme.colorScheme
+                              //                           .primary,
+                              //                     ),
+                              //                   ],
+                              //                 ),
+                              //               ),
+                              //               itemBuilder: (context) =>
+                              //                   shareTranslateName.map(
+                              //                 (e) {
+                              //                   int selectedIndex = 0;
+                              //                   shareTranslateName
+                              //                       .asMap()
+                              //                       .forEach((index, item) {
+                              //                     if (item == e) {
+                              //                       selectedIndex = index;
+                              //                     }
+                              //                   });
+                              //                   return PopupMenuItem<Widget>(
+                              //                     value: Text(
+                              //                       e,
+                              //                     ),
+                              //                     child: Obx(
+                              //                       () => GestureDetector(
+                              //                         child: SizedBox(
+                              //                           width:
+                              //                               MediaQuery.sizeOf(
+                              //                                       context)
+                              //                                   .width,
+                              //                           child: Text(
+                              //                             e,
+                              //                             style: TextStyle(
+                              //                               fontFamily: 'kufi',
+                              //                               fontSize: 18,
+                              //                               color: sl<TafsirAndTranslateController>()
+                              //                                           .shareTransValue
+                              //                                           .value ==
+                              //                                       selectedIndex
+                              //                                   ? Theme.of(
+                              //                                           context)
+                              //                                       .hintColor
+                              //                                   : Theme.of(
+                              //                                           context)
+                              //                                       .colorScheme
+                              //                                       .surface,
+                              //                             ),
+                              //                           ),
+                              //                         ),
+                              //                         onTap: () {
+                              //                           shareToImage
+                              //                               .shareButtonOnTap(
+                              //                                   context,
+                              //                                   selectedIndex,
+                              //                                   ayahUQNumber,
+                              //                                   surahNumber,
+                              //                                   ayahNumber);
+                              //                         },
+                              //                       ),
+                              //                     ),
+                              //                   );
+                              //                 },
+                              //               ).toList(),
+                              //             ),
+                              //           )
+                              //         ],
+                              //       ),
+                              //     ),
+                              //     // GestureDetector(
+                              //     //   child: Container(
+                              //     //     padding: const EdgeInsets.symmetric(
+                              //     //         horizontal: 8.0, vertical: 8.0),
+                              //     //     margin: const EdgeInsets.only(
+                              //     //         top: 4.0,
+                              //     //         bottom: 16.0,
+                              //     //         right: 16.0,
+                              //     //         left: 16.0),
+                              //     //     decoration: BoxDecoration(
+                              //     //         color: Get.theme.colorScheme.primary
+                              //     //             .withValues(alpha: .15),
+                              //     //         borderRadius: const BorderRadius.all(
+                              //     //             Radius.circular(4))),
+                              //     //     child: TafseerImageCreator(
+                              //     //       verseNumber: ayahNumber,
+                              //     //       verseUQNumber: ayahUQNumber,
+                              //     //       surahNumber: surahNumber,
+                              //     //       verseText: ayahTextNormal,
+                              //     //     ),
+                              //     //   ),
+                              //     //   onTap: () async {
+                              //     //     await shareToImage
+                              //     //         .createAndShowTafseerImage();
+                              //     //     shareToImage
+                              //     //         .shareVerseWithTranslate(context);
+                              //     //     Navigator.pop(context);
+                              //     //   },
+                              //     // ),
+                              //   ],
+                              // ),
                             ],
                           ),
                         ],

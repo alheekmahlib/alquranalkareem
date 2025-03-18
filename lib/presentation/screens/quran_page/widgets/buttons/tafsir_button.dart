@@ -32,8 +32,8 @@ class TafsirButton extends StatelessWidget {
         ),
       ),
       onTap: () async {
-        await TafsirCtrl.instance.fetchData(pageIndex + 1);
-        sl<TafsirCtrl>().showTafsirOnTap(
+        // await TafsirCtrl.instance.fetchData(pageIndex + 1);
+        TafsirCtrl.instance.showTafsirOnTap(
             surahNum, ayahNum, ayahText, pageIndex, ayahTextNormal, ayahUQNum);
         quranCtrl.state.isPages.value == 1 ? null : cancel!();
       },

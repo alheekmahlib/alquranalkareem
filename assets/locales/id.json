@@ -1237,6 +1237,11 @@
     "type": "text",
     "placeholders": {}
   },
+  "calenderSettings": "Pengaturan Kalender",
+  "@calenderSettings": {
+    "type": "text",
+    "placeholders": {}
+  },
   "islamicCalendar": "Kalender Islam",
   "hijriCalendar": "Kalender Hijriah",
   "calendar": "Kalender",

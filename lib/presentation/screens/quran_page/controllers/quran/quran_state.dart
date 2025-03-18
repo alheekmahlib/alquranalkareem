@@ -51,4 +51,5 @@ class QuranState {
   bool isQuranLoaded = false;
   RxInt selectedAyahNumber = 0.obs;
   RxInt selectedSurahNumber = 0.obs;
+  var qPackage = QuranLibrary();
 }

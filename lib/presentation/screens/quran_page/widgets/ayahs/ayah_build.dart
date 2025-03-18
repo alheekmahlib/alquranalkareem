@@ -8,8 +8,9 @@ class AyahsBuild extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    sl<TranslateDataController>().loadTranslateValue();
-    QuranLibrary().getFontsPrepareMethod(pageIndex: pageIndex);
+    sl<TafsirAndTranslateController>().loadTranslateValue();
+    QuranLibrary()
+        .getFontsPrepareMethod(pageIndex: pageIndex, isFontsLocal: true);
     return ListView.builder(
         // primary: false,
         shrinkWrap: true,
@@ -36,6 +37,9 @@ class AyahsBuild extends StatelessWidget {
             children: List.generate(ayahs.length, (ayahIndex) {
           quranCtrl.state.isSelected = quranCtrl.state.selectedAyahIndexes
               .contains(ayahs[ayahIndex].ayahUQNumber);
+          QuranLibrary().fetchTafsir(pageNumber: ayahs[ayahIndex].page);
+          QuranLibrary()
+              .getTafsirOfAyah(ayahUniqNumber: ayahs[ayahIndex].ayahUQNumber);
           return MeasureSizeWidget(
             onChange: (size) {
               quranCtrl.state.ayahsWidgetHeight.value = size.height;
@@ -89,6 +93,7 @@ class AyahsBuild extends StatelessWidget {
                                         isFirstAyah: true,
                                         text:
                                             "${ayahs[ayahIndex].text[0].replaceAll('\n', '')}${ayahs[ayahIndex].text.substring(1).replaceAll('\n', '')}",
+                                        fontFamily: 'uthmanic2',
                                         pageIndex: pageIndex,
                                         isSelected: quranCtrl.state.isSelected,
                                         fontSize: sl<GeneralController>()
@@ -106,6 +111,7 @@ class AyahsBuild extends StatelessWidget {
                                         text: ayahs[ayahIndex]
                                             .text
                                             .replaceAll('\n', ''),
+                                        fontFamily: 'uthmanic2',
                                         pageIndex: pageIndex,
                                         isSelected: quranCtrl.state.isSelected,
                                         fontSize: sl<GeneralController>()
@@ -126,6 +132,7 @@ class AyahsBuild extends StatelessWidget {
                     TranslateBuild(
                       ayahs: ayahs,
                       ayahIndex: ayahIndex,
+                      pageIndex: pageIndex,
                     ),
                   ],
                 ),
@@ -183,8 +190,9 @@ class AyahsBuild extends StatelessWidget {
                   children: [
                     const Gap(16),
                     AyahsMenu(
-                      surahNum: quranCtrl
-                          .getSurahDataByAyahUQ(ayahs[ayahIndex].ayahUQNumber)
+                      surahNum: QuranLibrary()
+                          .getCurrentSurahDataByAyahUniqueNumber(
+                              ayahUniqueNumber: ayahs[ayahIndex].ayahUQNumber)
                           .surahNumber,
                       ayahNum: ayahs[ayahIndex].ayahNumber,
                       ayahText: ayahs[ayahIndex].codeV2,
@@ -206,10 +214,7 @@ class AyahsBuild extends StatelessWidget {
                           textAlign: TextAlign.center,
                           text: TextSpan(
                               style: TextStyle(
-                                fontFamily:
-                                    QuranLibrary().currentFontsSelected == 0
-                                        ? 'uthmanic'
-                                        : 'p${pageIndex + 2001}',
+                                fontFamily: 'page${pageIndex + 1}',
                                 fontSize: sl<GeneralController>()
                                     .state
                                     .fontSizeArabic
@@ -225,6 +230,7 @@ class AyahsBuild extends StatelessWidget {
                                         isFirstAyah: true,
                                         text:
                                             "${ayahs[ayahIndex].codeV2[0].replaceAll('\n', '')}${ayahs[ayahIndex].codeV2.substring(1).replaceAll('\n', '')}",
+                                        fontFamily: 'page${pageIndex + 1}',
                                         pageIndex: pageIndex,
                                         isSelected: quranCtrl.state.isSelected,
                                         fontSize: sl<GeneralController>()
@@ -242,6 +248,7 @@ class AyahsBuild extends StatelessWidget {
                                         text: ayahs[ayahIndex]
                                             .codeV2
                                             .replaceAll('\n', ''),
+                                        fontFamily: 'page${pageIndex + 1}',
                                         pageIndex: pageIndex,
                                         isSelected: quranCtrl.state.isSelected,
                                         fontSize: sl<GeneralController>()
@@ -262,6 +269,7 @@ class AyahsBuild extends StatelessWidget {
                     TranslateBuild(
                       ayahs: ayahs,
                       ayahIndex: ayahIndex,
+                      pageIndex: pageIndex,
                     ),
                   ],
                 ),
