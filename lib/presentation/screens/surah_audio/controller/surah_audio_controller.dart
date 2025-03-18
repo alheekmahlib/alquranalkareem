@@ -51,29 +51,15 @@ class SurahAudioController extends GetxController {
     ]);
     state.audioServiceInitialized.value =
         state.box.read(AUDIO_SERVICE_INITIALIZED) ?? false;
-    if (Platform.isIOS || Platform.isAndroid) {
+    if (Platform.isIOS || Platform.isAndroid || Platform.isMacOS) {
       if (!state.audioServiceInitialized.value) {
         if (!quranCtrl.state.isQuranLoaded) {
           await QuranController.instance.loadQuran().then((_) async {
-            await AudioService.init(
-              builder: () => AudioPlayerHandler.instance,
-              config: const AudioServiceConfig(
-                androidNotificationChannelId: 'com.alheekmah.alheekmahLibrary',
-                androidNotificationChannelName: 'Audio playback',
-                androidNotificationOngoing: true,
-              ),
-            );
+            await initAudioService();
             state.box.write(AUDIO_SERVICE_INITIALIZED, true);
           });
         } else {
-          await AudioService.init(
-            builder: () => AudioPlayerHandler.instance,
-            config: const AudioServiceConfig(
-              androidNotificationChannelId: 'com.alheekmah.alheekmahLibrary',
-              androidNotificationChannelName: 'Audio playback',
-              androidNotificationOngoing: true,
-            ),
-          );
+          await initAudioService();
           state.box.write(AUDIO_SERVICE_INITIALIZED, true);
         }
       }
@@ -81,6 +67,13 @@ class SurahAudioController extends GetxController {
     Future.delayed(const Duration(milliseconds: 700))
         .then((_) => jumpToSurah(state.surahNum.value - 1));
     ConnectivityService.instance.init();
+
+    // Listen to player state changes to play the next Surah automatically
+    state.audioPlayer.playerStateStream.listen((playerState) async {
+      if (playerState.processingState == ProcessingState.completed) {
+        await playNextSurah();
+      }
+    });
   }
 
   @override
@@ -135,6 +128,17 @@ class SurahAudioController extends GetxController {
         tag: await mediaItem,
       )
     });
+  }
+
+  Future<void> initAudioService() async {
+    await AudioService.init(
+      builder: () => AudioPlayerHandler.instance,
+      config: const AudioServiceConfig(
+        androidNotificationChannelId: 'com.alheekmah.alheekmahLibrary',
+        androidNotificationChannelName: 'Audio playback',
+        androidNotificationOngoing: true,
+      ),
+    );
   }
 
   /// -------- [DownloadingMethods] ----------

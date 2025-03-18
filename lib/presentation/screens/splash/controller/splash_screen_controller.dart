@@ -31,7 +31,7 @@ class SplashScreenController extends GetxController {
   /// -------- [Methods] ----------
 
   Future<void> _loadInitialData() async {
-    TranslateDataController.instance.loadTranslateValue();
+    TafsirAndTranslateController.instance.loadTranslateValue();
     SettingsController.instance.loadLang();
     GeneralController.instance.getLastPageAndFontSize();
     QuranController.instance.loadSwitchValue();

@@ -66,8 +66,8 @@ class ServicesLocator {
     sl.registerLazySingleton<SurahAudioController>(() =>
         Get.put<SurahAudioController>(SurahAudioController(), permanent: true));
 
-    sl.registerLazySingleton<TranslateDataController>(() =>
-        Get.put<TranslateDataController>(TranslateDataController(),
+    sl.registerLazySingleton<TafsirAndTranslateController>(() =>
+        Get.put<TafsirAndTranslateController>(TafsirAndTranslateController(),
             permanent: true));
 
     sl.registerLazySingleton<BookmarksController>(() =>
@@ -112,8 +112,8 @@ class ServicesLocator {
         Get.put<LocalNotificationsController>(LocalNotificationsController(),
             permanent: true));
 
-    sl.registerLazySingleton<TafsirCtrl>(
-        () => Get.put<TafsirCtrl>(TafsirCtrl(), permanent: true));
+    // sl.registerLazySingleton<TafsirCtrl>(
+    //     () => Get.put<TafsirCtrl>(TafsirCtrl(), permanent: true));
     // NotifyHelper().initializeNotification();
     // sl<NotificationsController>().initializeLocalNotifications();
 

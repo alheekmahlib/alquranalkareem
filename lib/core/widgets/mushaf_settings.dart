@@ -1,11 +1,8 @@
-import 'dart:developer';
-
 import 'package:flex_color_picker/flex_color_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:quran_library/quran.dart';
 
 import '/core/utils/constants/extensions/extensions.dart';
 import '/core/utils/constants/lists.dart';
@@ -106,9 +103,9 @@ class MushafSettings extends StatelessWidget {
                 const Gap(8),
                 _page(context),
                 const Gap(8),
-                context.hDivider(width: MediaQuery.sizeOf(context).width),
-                const Gap(8),
-                _fontsBuild(context),
+                // context.hDivider(width: MediaQuery.sizeOf(context).width),
+                // const Gap(8),
+                // _fontsBuild(context),
                 // QuranLibrary().getFontsDownloadWidget(context,
                 //     languageCode: Get.locale!.languageCode,
                 //     isFontsLocal: true,
@@ -128,7 +125,7 @@ class MushafSettings extends StatelessWidget {
                 //           Get.theme.colorScheme.surface,
                 //       dividerColor: Get.theme.colorScheme.surface,
                 //     )),
-                const Gap(8),
+                // const Gap(8),
                 context.hDivider(width: MediaQuery.sizeOf(context).width),
                 const Gap(8),
                 Column(
@@ -535,81 +532,81 @@ class MushafSettings extends StatelessWidget {
     );
   }
 
-  Widget _fontsBuild(BuildContext context) {
-    List<String> titleList = [
-      'defaultFontText',
-      'downloadedFontsText',
-    ];
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 16.0, horizontal: 16.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Text(
-            'fonts'.tr,
-            style: TextStyle(
-              fontSize: 16.0,
-              fontWeight: FontWeight.bold,
-              fontFamily: 'kufi',
-              color: Get.theme.colorScheme.inversePrimary,
-            ),
-            textAlign: TextAlign.start,
-          ),
-          const Gap(8.0),
-          context.horizontalDivider(
-            width: Get.width,
-            color: Get.theme.colorScheme.surface,
-          ),
-          const Gap(8.0),
-          Column(
-            mainAxisSize: MainAxisSize.min,
-            children: List.generate(
-              titleList.length,
-              (i) => Container(
-                margin: const EdgeInsets.symmetric(vertical: 2.0),
-                decoration: BoxDecoration(
-                  border: Border.all(
-                    color: Get.theme.colorScheme.surface.withValues(alpha: .2),
-                    width: 1.0,
-                  ),
-                  borderRadius: BorderRadius.circular(8.0),
-                ),
-                child: Container(
-                  height: 50,
-                  margin: const EdgeInsets.symmetric(vertical: 4.0),
-                  color:
-                      QuranLibrary().quranCtrl.state.fontsSelected2.value == i
-                          ? Get.theme.colorScheme.surface.withValues(alpha: .05)
-                          : null,
-                  child: CheckboxListTile(
-                    value:
-                        (QuranLibrary().quranCtrl.state.fontsSelected2.value ==
-                                i)
-                            ? true
-                            : false,
-                    activeColor: Get.theme.colorScheme.surface,
-                    title: Text(
-                      titleList[i].tr,
-                      style: TextStyle(
-                        fontSize: 16,
-                        fontFamily: 'naskh',
-                        color: Get.theme.colorScheme.inversePrimary,
-                      ),
-                    ),
-                    onChanged: (_) {
-                      QuranLibrary().quranCtrl.state.fontsSelected2.value = i;
-                      GetStorage().write('fontsSelected2', i);
-                      log('fontsSelected: $i');
-                      Get.forceAppUpdate();
-                    },
-                  ),
-                ),
-              ),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
+  // Widget _fontsBuild(BuildContext context) {
+  //   List<String> titleList = [
+  //     'defaultFontText',
+  //     'downloadedFontsText',
+  //   ];
+  //   return Padding(
+  //     padding: const EdgeInsets.symmetric(vertical: 16.0, horizontal: 16.0),
+  //     child: Column(
+  //       crossAxisAlignment: CrossAxisAlignment.start,
+  //       mainAxisSize: MainAxisSize.min,
+  //       children: [
+  //         Text(
+  //           'fonts'.tr,
+  //           style: TextStyle(
+  //             fontSize: 16.0,
+  //             fontWeight: FontWeight.bold,
+  //             fontFamily: 'kufi',
+  //             color: Get.theme.colorScheme.inversePrimary,
+  //           ),
+  //           textAlign: TextAlign.start,
+  //         ),
+  //         const Gap(8.0),
+  //         context.horizontalDivider(
+  //           width: Get.width,
+  //           color: Get.theme.colorScheme.surface,
+  //         ),
+  //         const Gap(8.0),
+  //         Column(
+  //           mainAxisSize: MainAxisSize.min,
+  //           children: List.generate(
+  //             titleList.length,
+  //             (i) => Container(
+  //               margin: const EdgeInsets.symmetric(vertical: 2.0),
+  //               decoration: BoxDecoration(
+  //                 border: Border.all(
+  //                   color: Get.theme.colorScheme.surface.withValues(alpha: .2),
+  //                   width: 1.0,
+  //                 ),
+  //                 borderRadius: BorderRadius.circular(8.0),
+  //               ),
+  //               child: Container(
+  //                 height: 50,
+  //                 margin: const EdgeInsets.symmetric(vertical: 4.0),
+  //                 color:
+  //                     QuranLibrary().quranCtrl.state.fontsSelected2.value == i
+  //                         ? Get.theme.colorScheme.surface.withValues(alpha: .05)
+  //                         : null,
+  //                 child: CheckboxListTile(
+  //                   value:
+  //                       (QuranLibrary().quranCtrl.state.fontsSelected2.value ==
+  //                               i)
+  //                           ? true
+  //                           : false,
+  //                   activeColor: Get.theme.colorScheme.surface,
+  //                   title: Text(
+  //                     titleList[i].tr,
+  //                     style: TextStyle(
+  //                       fontSize: 16,
+  //                       fontFamily: 'naskh',
+  //                       color: Get.theme.colorScheme.inversePrimary,
+  //                     ),
+  //                   ),
+  //                   onChanged: (_) {
+  //                     QuranLibrary().quranCtrl.state.fontsSelected2.value = i;
+  //                     GetStorage().write('fontsSelected2', i);
+  //                     log('fontsSelected: $i');
+  //                     Get.forceAppUpdate();
+  //                   },
+  //                 ),
+  //               ),
+  //             ),
+  //           ),
+  //         ),
+  //       ],
+  //     ),
+  //   );
+  // }
 }

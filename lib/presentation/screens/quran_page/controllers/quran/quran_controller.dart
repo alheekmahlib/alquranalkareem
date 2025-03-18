@@ -17,6 +17,14 @@ class QuranController extends GetxController {
     state.isPageMode.value = state.box.read(PAGE_MODE) ?? false;
     state.backgroundPickerColor.value =
         state.box.read(BACKGROUND_PICKER_COLOR) ?? 0xfffaf7f3;
+    await QuranLibrary().initTafsir();
+    await QuranLibrary().fetchTafsir(pageNumber: state.currentPageNumber.value);
+    await QuranLibrary().fetchTranslation();
+    Future.delayed(const Duration(seconds: 10), () {
+      state.box.read(TAFSEER_VAL) != null
+          ? QuranLibrary().tafsirDownload(state.box.read(TAFSEER_VAL))
+          : null;
+    });
     super.onInit();
   }
 
@@ -33,6 +41,13 @@ class QuranController extends GetxController {
   }
 
   /// -------- [Methods] ----------
+
+  Future<void> updateTafsir(int pageIndex) async {
+    if (state.currentPageNumber.value != pageIndex) {
+      await QuranLibrary().fetchTafsir(pageNumber: pageIndex);
+      TafsirCtrl.instance.update(['change_tafsir']);
+    }
+  }
 
   Future<void> loadQuran() async {
     state.surahs = QuranLibrary().quranCtrl.state.surahs;

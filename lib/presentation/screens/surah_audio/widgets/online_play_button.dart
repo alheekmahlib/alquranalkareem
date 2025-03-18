@@ -108,7 +108,10 @@ class OnlinePlayButton extends StatelessWidget {
                         button: true,
                         enabled: true,
                         label: 'replaySurah'.tr,
-                        child: const Icon(Icons.replay)),
+                        child: Icon(
+                          Icons.replay,
+                          color: Get.theme.colorScheme.surface,
+                        )),
                     iconSize: 24.0,
                     color: Theme.of(context).canvasColor,
                     onPressed: () => surahAudioCtrl.state.audioPlayer.seek(

@@ -20,12 +20,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart'
-    show
-        Clipboard,
-        ClipboardData,
-        LogicalKeyboardKey,
-        Uint8List,
-        rootBundle;
+    show Clipboard, ClipboardData, LogicalKeyboardKey, Uint8List;
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_slider_drawer/flutter_slider_drawer.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
@@ -37,9 +32,10 @@ import 'package:intl/intl.dart' as intl;
 import 'package:just_audio/just_audio.dart';
 import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:quran_library/quran.dart';
 import 'package:quran_library/quran_library.dart';
 import 'package:rate_my_app/rate_my_app.dart';
-import 'package:read_more_less/read_more_less.dart';
+import 'package:read_more_less/read_more_less.dart' as readMore;
 import 'package:rxdart/rxdart.dart' as R;
 import 'package:screenshot/screenshot.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
@@ -72,15 +68,13 @@ import '../../../core/utils/helpers/responsive.dart';
 import '../../../core/widgets/delete_widget.dart';
 import '../../../core/widgets/elevated_button_widget.dart';
 import '../../../core/widgets/measure_size_widget.dart';
+import '../../../core/widgets/read_more_less/read_more_less.dart';
 import '../../../core/widgets/share/share_ayah_options.dart';
 import '../../../core/widgets/tab_bar_widget.dart';
 import '../../../database/bookmark_db/bookmark_database.dart';
 import '../../../database/bookmark_db/db_bookmark_helper.dart';
 import '../../controllers/settings_controller.dart';
 import '../../controllers/theme_controller.dart';
-import 'data/data_source/quran_database.dart';
-import 'data/data_source/tafsir_database.dart';
-import 'data/model/tafsir.dart';
 import 'widgets/khatmah/data/data_source/khatmah_database.dart';
 import 'widgets/playlist/data/models/playList_model.dart';
 import 'widgets/search/controller/quran_search_controller.dart';
@@ -99,7 +93,6 @@ part 'controllers/playList_controller.dart';
 part 'controllers/quran/quran_controller.dart';
 part 'controllers/quran/quran_state.dart';
 part 'controllers/share_controller.dart';
-part 'controllers/tafsir_ctrl.dart';
 part 'controllers/translate_controller.dart';
 part 'extensions/bookmark_page_icon_path.dart';
 part 'extensions/surah_name_with_banner.dart';
@@ -113,7 +106,6 @@ part 'widgets/audio/skip_previous.dart';
 part 'widgets/ayahs/ayah_build.dart';
 part 'widgets/ayahs/ayahs_menu.dart';
 part 'widgets/ayahs/ayahs_widget.dart';
-part 'widgets/ayahs/change_translate.dart';
 part 'widgets/ayahs/share_copy_widget.dart';
 part 'widgets/ayahs/translate_build.dart';
 part 'widgets/bookmarks/bookmark_ayahs_build.dart';
@@ -124,7 +116,6 @@ part 'widgets/buttons/add_bookmark_button.dart';
 part 'widgets/buttons/copy_button.dart';
 part 'widgets/buttons/play_button.dart';
 part 'widgets/buttons/tafsir_button.dart';
-part 'widgets/change_tafsir.dart';
 part 'widgets/juz_page.dart';
 part 'widgets/khatmah/screen/khatmahs_screen.dart';
 part 'widgets/khatmah/widgets/add_khatmah_widget.dart';

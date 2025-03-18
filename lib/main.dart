@@ -28,9 +28,9 @@ Future<void> main() async {
 Future<void> initializeApp() async {
   Future.delayed(const Duration(seconds: 0));
   await GetStorage.init();
+  await NotifyHelper.initAwesomeNotifications();
   await ServicesLocator().init();
   tz.initializeTimeZones();
-  NotifyHelper.initAwesomeNotifications();
   if (Platform.isIOS || Platform.isAndroid) {
     await BGServices().registerTask();
   }

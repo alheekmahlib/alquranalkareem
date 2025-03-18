@@ -2,6 +2,7 @@ part of '../../quran.dart';
 
 TextSpan span({
   required String text,
+  required String fontFamily,
   required int pageIndex,
   required bool isSelected,
   double? fontSize,
@@ -29,9 +30,7 @@ TextSpan span({
       first = TextSpan(
         text: partOne,
         style: TextStyle(
-          fontFamily: QuranLibrary().currentFontsSelected == 0
-              ? 'uthmanic2'
-              : 'p${pageIndex + 2001}',
+          fontFamily: fontFamily,
           fontSize: fontSize,
           height: 2,
           letterSpacing: QuranLibrary().currentFontsSelected == 0 ? 0 : 10,
@@ -51,9 +50,7 @@ TextSpan span({
       second = TextSpan(
         text: partTwo,
         style: TextStyle(
-          fontFamily: QuranLibrary().currentFontsSelected == 0
-              ? 'uthmanic2'
-              : 'p${pageIndex + 2001}',
+          fontFamily: fontFamily,
           fontSize: fontSize,
           height: 2,
           letterSpacing: QuranLibrary().currentFontsSelected == 0 ? 0 : 5,
@@ -76,9 +73,7 @@ TextSpan span({
     final TextSpan initialTextSpan = TextSpan(
       text: initialPart,
       style: TextStyle(
-        fontFamily: QuranLibrary().currentFontsSelected == 0
-            ? 'uthmanic2'
-            : 'p${pageIndex + 2001}',
+        fontFamily: fontFamily,
         fontSize: fontSize,
         height: 2,
         letterSpacing: QuranLibrary().currentFontsSelected == 0 ? 0 : 5,
@@ -112,9 +107,7 @@ TextSpan span({
         : TextSpan(
             text: lastCharacter,
             style: TextStyle(
-              fontFamily: QuranLibrary().currentFontsSelected == 0
-                  ? 'uthmanic2'
-                  : 'p${pageIndex + 2001}',
+              fontFamily: fontFamily,
               fontSize: fontSize,
               height: 2,
               letterSpacing: QuranLibrary().currentFontsSelected == 0 ? 0 : 5,

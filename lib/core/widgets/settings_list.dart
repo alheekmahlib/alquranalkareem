@@ -81,7 +81,9 @@ class SettingsList extends StatelessWidget {
                             isQuranSetting!
                                 ? MushafSettings()
                                 : const SizedBox.shrink(),
-                            const Gap(24),
+                            isCalendarSetting!
+                                ? const Gap(24)
+                                : const SizedBox.shrink(),
                             isCalendarSetting!
                                 ? const CalenderSettings()
                                 : const SizedBox.shrink(),

@@ -6,11 +6,8 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:quran_library/quran_library.dart';
 
-import '../../core/utils/constants/lists.dart';
 import '../../core/utils/constants/shared_preferences_constants.dart';
 import '../screens/calendar/events.dart';
-import '../screens/quran_page/data/data_source/tafsir_database.dart';
-import '../screens/quran_page/data/model/tafsir.dart';
 import '../screens/quran_page/quran.dart';
 
 class DailyAyahController extends GetxController {
@@ -25,6 +22,12 @@ class DailyAyahController extends GetxController {
   List<TafsirTableData>? currentAyahTafseer;
   RxInt radioValue = 0.obs;
   final box = GetStorage();
+
+  @override
+  Future<void> onInit() async {
+    super.onInit();
+    await QuranLibrary().initTafsir();
+  }
 
   bool get _hasAyahSettedForThisDay {
     final settedDate = box.read(SETTED_DATE_FOR_AYAH);
@@ -55,46 +58,62 @@ class DailyAyahController extends GetxController {
   Future<AyahFontsModel> _getAyahForThisDay(
       [String? ayahOfTheDayIdAndAyahId,
       String? tafsirOfTheDayRadioValue]) async {
+    // box.remove(TAFSIR_OF_THE_DAY_RADIO_VALUE);
+    // box.remove(TAFSIR_OF_THE_DAY_AND_TAFSIR_NUMBER);
+    // box.remove(AYAH_OF_THE_DAY_AND_AYAH_NUMBER);
+    // box.remove(SETTED_DATE_FOR_AYAH);
     log("ayahOfTheDayIdAndAyahId: ${ayahOfTheDayIdAndAyahId == null ? "null" : "NOT NULL"}");
     if (ayahOfTheDayIdAndAyahId != null) {
       log("before trying to get ayah", name: 'BEFORE');
       final cachedAyah =
           quranCtrl.state.allAyahs[int.parse(ayahOfTheDayIdAndAyahId) - 1];
 
-      currentAyahTafseer = await TafsirDatabase(
-              tafsirDBName[int.parse(tafsirOfTheDayRadioValue!)])
-          .getTafsirByAyah(cachedAyah.ayahUQNumber,
-              tafsirTableName[int.parse(tafsirOfTheDayRadioValue)]);
-      selectedTafsir = currentAyahTafseer!.firstWhere(
-        (a) => a.id == cachedAyah.ayahUQNumber,
-        orElse: () => const TafsirTableData(
-            id: 0, tafsirText: '', ayahNum: 0, pageNum: 0, surahNum: 0),
-      );
+      await QuranLibrary()
+          .closeAndInitializeDatabase(pageNumber: cachedAyah.page);
+      await QuranLibrary().fetchTafsir(pageNumber: cachedAyah.page);
+
+      selectedTafsir = QuranLibrary().tafsirList.firstWhere(
+            (a) => a.id == cachedAyah.ayahUQNumber,
+            orElse: () => const TafsirTableData(
+                id: 0, tafsirText: '', ayahNum: 0, pageNum: 0, surahNum: 0),
+          );
       log("date: ${EventController.instance.hijriNow.fullDate()}",
           name: 'CAHECH AYAH');
       return cachedAyah;
     }
     final random = math.Random().nextInt(quranCtrl.state.allAyahs.length);
-    final tafsirRandom = math.Random().nextInt(tafsirNameRandom.length);
+    final filteredList = TafsirCtrl.instance.tafsirDownloadIndexList
+        .where((index) => index < 4)
+        .toList();
+
+    final tafsirRandom =
+        filteredList[math.Random().nextInt(filteredList.length)];
+    print("الرقم العشوائي المختار: $tafsirRandom"); // مثال: 0 أو 3
+
     box.write(TAFSIR_OF_THE_DAY_RADIO_VALUE, '$tafsirRandom');
     radioValue.value = tafsirRandom;
     log('allAyahs length: ${quranCtrl.state.allAyahs.length}');
     AyahFontsModel? ayah = quranCtrl.state.allAyahs
         .firstWhereOrNull((a) => a.ayahUQNumber == random);
-    currentAyahTafseer = await TafsirDatabase(tafsirDBName[tafsirRandom])
-        .getTafsirByAyah(ayah!.ayahUQNumber, tafsirTableName[tafsirRandom]);
-    selectedTafsir = currentAyahTafseer!.firstWhere(
-      (a) => a.id == ayah!.ayahUQNumber,
-      orElse: () => const TafsirTableData(
-          id: 0, tafsirText: '', ayahNum: 0, pageNum: 0, surahNum: 0),
-    );
+    await QuranLibrary().closeAndInitializeDatabase(pageNumber: ayah!.page);
+    await QuranLibrary().fetchTafsir(pageNumber: ayah.page);
+    selectedTafsir = QuranLibrary().tafsirList.firstWhere(
+          (a) => a.id == random,
+          orElse: () => const TafsirTableData(
+              id: 0,
+              tafsirText: 'حدث خطأ أثناء عرض التفسير',
+              ayahNum: 0,
+              pageNum: 0,
+              surahNum: 0),
+        );
     log('allAyahs length: ${quranCtrl.state.allAyahs.length} 2222');
     while (ayah == null && selectedTafsir == null) {
       log('allAyahs length: ${quranCtrl.state.allAyahs.length} ',
           name: 'while');
       ayah = quranCtrl.state.allAyahs
           .firstWhereOrNull((a) => a.ayahUQNumber == random);
-      selectedTafsir = currentAyahTafseer!
+      selectedTafsir = QuranLibrary()
+          .tafsirList
           .firstWhereOrNull((t) => t.id == ayah!.ayahUQNumber);
       log('ayah is null  ' * 5);
     }

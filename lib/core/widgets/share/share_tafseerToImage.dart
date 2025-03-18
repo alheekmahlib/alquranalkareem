@@ -3,12 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
+import 'package:quran_library/quran.dart';
 import 'package:screenshot/screenshot.dart';
 
 import '/core/utils/constants/extensions/alignment_rotated_extension.dart';
 import '/core/utils/constants/extensions/svg_extensions.dart';
 import '../../../presentation/screens/quran_page/quran.dart';
-import '../../services/services_locator.dart';
 import '../../utils/constants/extensions/extensions.dart';
 import '../../utils/constants/svg_constants.dart';
 
@@ -59,7 +59,8 @@ class TafseerImageCreator extends StatelessWidget {
   }) {
     final tafseerToImage = ShareController.instance;
 
-    return GetBuilder<TranslateDataController>(builder: (translateController) {
+    return GetBuilder<TafsirAndTranslateController>(
+        builder: (translateController) {
       return Directionality(
         textDirection: TextDirection.rtl,
         child: Container(
@@ -190,8 +191,9 @@ class TafseerImageCreator extends StatelessWidget {
                                     //       )
                                     //     :
                                     TextSpan(
-                                      text: sl<TranslateDataController>()
-                                          .data[verseUQNumber - 1]['text'],
+                                      text: QuranLibrary()
+                                          .translationList[verseUQNumber - 1]
+                                          .text,
                                       style: const TextStyle(
                                         fontSize: 13,
                                         fontFamily: 'naskh',
