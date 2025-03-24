@@ -16,11 +16,13 @@ class SurahAudioList extends StatelessWidget {
   SurahAudioList({super.key});
 
   final QuranController quranCtrl = QuranController.instance;
-  final SurahAudioController surahAudioCtrl = SurahAudioController.instance;
+  final surahAudioCtrl = SurahAudioController.instance;
 
   @override
   Widget build(BuildContext context) {
-    surahAudioCtrl.state.surahListController = ItemScrollController();
+    // إزالة إعادة التهيئة هنا
+    // surahAudioCtrl.state.surahListController = ItemScrollController();
+
     return Container(
       margin: const EdgeInsets.only(
           bottom: 50.0, right: 32.0, left: 32.0, top: 16.0),
@@ -31,10 +33,11 @@ class SurahAudioList extends StatelessWidget {
               width: 1, color: Theme.of(context).colorScheme.primary)),
       child: ScrollablePositionedList.builder(
           physics: const AlwaysScrollableScrollPhysics(),
-          addAutomaticKeepAlives: false,
+          addAutomaticKeepAlives: true,
           itemCount: quranCtrl.state.surahs.length,
           itemScrollController: surahAudioCtrl.state.surahListController,
-          // initialScrollIndex: surahAudioCtrl.state.surahNum.value - 1,
+          // initialScrollIndex:
+          //     surahAudioCtrl.state.surahNum.value - 1, // تعيين الفهرس الأولي
           scrollDirection: Axis.vertical,
           padding: EdgeInsets.zero,
           itemBuilder: (_, index) {

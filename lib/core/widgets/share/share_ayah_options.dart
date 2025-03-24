@@ -133,7 +133,7 @@ class ShareAyahOptions extends StatelessWidget {
                             ),
                             onTap: () {
                               shareToImage.shareText(
-                                  ayahTextNormal, surahName, ayahNumber);
+                                  ayahText, surahName, ayahNumber);
                               Navigator.pop(context);
                             },
                           ),
@@ -183,7 +183,7 @@ class ShareAyahOptions extends StatelessWidget {
                                       child: VerseImageCreator(
                                           verseNumber: ayahNumber,
                                           surahNumber: surahNumber,
-                                          verseText: ayahTextNormal),
+                                          verseText: ayahText),
                                     ),
                                     onTap: () async {
                                       await sl<ShareController>()

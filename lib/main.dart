@@ -11,6 +11,7 @@ import '/core/services/languages/dependency_inj.dart' as dep;
 import 'core/services/background_services.dart';
 import 'core/services/notifications_helper.dart';
 import 'core/services/services_locator.dart';
+import 'core/utils/constants/shared_preferences_constants.dart';
 import 'myApp.dart';
 
 Future<void> main() async {
@@ -35,6 +36,7 @@ Future<void> initializeApp() async {
     await BGServices().registerTask();
   }
   FlutterNativeSplash.remove();
+  GetStorage().write(AUDIO_SERVICE_INITIALIZED, false);
   // try {
   //   await WakelockPlus.enable();
   // } catch (e) {
