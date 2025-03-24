@@ -6,7 +6,6 @@ import 'package:alquranalkareem/core/utils/constants/extensions/custom_error_sna
 import 'package:alquranalkareem/presentation/controllers/general/extensions/general_getters.dart';
 import 'package:audio_service/audio_service.dart';
 import 'package:dio/dio.dart' as d;
-import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:path/path.dart';
@@ -27,13 +26,15 @@ class SurahAudioController extends GetxController {
   static SurahAudioController get instance =>
       Get.isRegistered<SurahAudioController>()
           ? Get.find<SurahAudioController>()
-          : Get.put<SurahAudioController>(SurahAudioController());
+          : Get.put<SurahAudioController>(SurahAudioController(),
+              permanent: true);
 
   SurahAudioState state = SurahAudioState();
 
   @override
   Future<void> onInit() async {
     super.onInit();
+
     initializeSurahDownloadStatus();
     await _addDownloadedSurahToPlaylist();
     loadLastSurahAndPosition();
@@ -62,6 +63,10 @@ class SurahAudioController extends GetxController {
           await initAudioService();
           state.box.write(AUDIO_SERVICE_INITIALIZED, true);
         }
+      } else {
+        await QuranController.instance.loadQuran();
+        log("Audio service already initialized",
+            name: 'surah_audio_controller');
       }
     }
     Future.delayed(const Duration(milliseconds: 700))
@@ -81,7 +86,7 @@ class SurahAudioController extends GetxController {
     state.audioPlayer.dispose();
     // state.surahListController!.dispose();
     ConnectivityService.instance.onClose();
-    state.audioPlayer.pause();
+    // state.audioPlayer.pause();
     state.boxController.dispose();
     super.onClose();
   }
@@ -328,10 +333,10 @@ class SurahAudioController extends GetxController {
     });
   }
 
-  void didChangeAppLifecycleState(AppLifecycleState states) {
-    if (states == AppLifecycleState.paused) {
-      state.audioPlayer.pause();
-    }
-    //log(message)('state = $state');
-  }
+  // void didChangeAppLifecycleState(AppLifecycleState states) {
+  //   if (states == AppLifecycleState.paused) {
+  //     state.audioPlayer.pause();
+  //   }
+  //   //log(message)('state = $state');
+  // }
 }

@@ -27,7 +27,7 @@ class SurahAudioState {
   late var cancelToken = CancelToken();
   TextEditingController textController = TextEditingController();
   RxInt selectedSurah = 0.obs;
-  late ItemScrollController surahListController = ItemScrollController();
+  final ItemScrollController surahListController = ItemScrollController();
   RxString surahReaderValue = "https://download.quranicaudio.com/quran/".obs;
   RxString surahReaderNameValue = "abdul_basit_murattal/".obs;
   final bool isDisposed = false;
