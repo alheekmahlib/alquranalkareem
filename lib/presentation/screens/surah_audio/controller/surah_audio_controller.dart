@@ -1,8 +1,6 @@
-import 'dart:async';
-import 'dart:developer';
-import 'dart:io';
+import 'dart:developer' show log;
+import 'dart:io' show File, Directory, HttpHeaders, Platform;
 
-import 'package:alquranalkareem/core/utils/constants/extensions/custom_error_snackBar.dart';
 import 'package:alquranalkareem/presentation/controllers/general/extensions/general_getters.dart';
 import 'package:audio_service/audio_service.dart';
 import 'package:dio/dio.dart' as d;
@@ -11,12 +9,13 @@ import 'package:just_audio/just_audio.dart';
 import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
 
+import '/core/services/connectivity_service.dart';
+import '/core/utils/constants/extensions/custom_error_snackBar.dart';
+import '/core/utils/constants/shared_preferences_constants.dart';
+import '/core/widgets/seek_bar.dart';
 import '/presentation/screens/surah_audio/controller/extensions/surah_audio_getters.dart';
 import '/presentation/screens/surah_audio/controller/extensions/surah_audio_storage_getters.dart';
 import '/presentation/screens/surah_audio/controller/extensions/surah_audio_ui.dart';
-import '../../../../core/services/connectivity_service.dart';
-import '../../../../core/utils/constants/shared_preferences_constants.dart';
-import '../../../../core/widgets/seek_bar.dart';
 import '../../../controllers/general/general_controller.dart';
 import '../../quran_page/quran.dart';
 import 'audio_player_handler.dart';
@@ -139,9 +138,11 @@ class SurahAudioController extends GetxController {
     await AudioService.init(
       builder: () => AudioPlayerHandler.instance,
       config: const AudioServiceConfig(
-        androidNotificationChannelId: 'com.alheekmah.alheekmahLibrary',
+        androidNotificationChannelId:
+            'com.alheekmah.alquranalkareem.alquranalkareem.audio',
         androidNotificationChannelName: 'Audio playback',
         androidNotificationOngoing: true,
+        androidStopForegroundOnPause: true,
       ),
     );
   }

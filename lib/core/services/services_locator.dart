@@ -1,5 +1,4 @@
-import 'dart:async';
-import 'dart:io';
+import 'dart:io' show Platform;
 import 'dart:ui' show Size;
 
 import 'package:desktop_window/desktop_window.dart';
@@ -9,18 +8,18 @@ import 'package:get_it/get_it.dart';
 import 'package:timezone/data/latest.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
 
+import '/presentation/controllers/daily_ayah_controller.dart';
+import '/presentation/controllers/general/general_controller.dart';
 import '/presentation/controllers/settings_controller.dart';
-import '../../presentation/controllers/daily_ayah_controller.dart';
-import '../../presentation/controllers/general/general_controller.dart';
-import '../../presentation/controllers/theme_controller.dart';
-import '../../presentation/screens/adhkar/controller/adhkar_controller.dart';
-import '../../presentation/screens/books/controller/books_controller.dart';
-import '../../presentation/screens/ourApp/controller/ourApps_controller.dart';
-import '../../presentation/screens/quran_page/quran.dart';
-import '../../presentation/screens/quran_page/widgets/search/controller/quran_search_controller.dart';
-import '../../presentation/screens/splash/splash.dart';
-import '../../presentation/screens/surah_audio/controller/surah_audio_controller.dart';
-import '../../presentation/screens/whats_new/whats_new.dart';
+import '/presentation/controllers/theme_controller.dart';
+import '/presentation/screens/adhkar/controller/adhkar_controller.dart';
+import '/presentation/screens/books/controller/books_controller.dart';
+import '/presentation/screens/ourApp/controller/ourApps_controller.dart';
+import '/presentation/screens/quran_page/quran.dart';
+import '/presentation/screens/quran_page/widgets/search/controller/quran_search_controller.dart';
+import '/presentation/screens/splash/splash.dart';
+import '/presentation/screens/surah_audio/controller/surah_audio_controller.dart';
+import '/presentation/screens/whats_new/whats_new.dart';
 import '../utils/helpers/ui_helper.dart';
 import '../widgets/local_notification/controller/local_notifications_controller.dart';
 
@@ -39,13 +38,6 @@ class ServicesLocator {
 
   Future<void> init() async {
     await Future.wait([
-      // JustAudioBackground.init(
-      //   androidNotificationChannelId:
-      //       'com.alheekmah.alquranalkareem.channel.audio',
-      //   androidNotificationChannelName: 'Audio playback',
-      //   androidNotificationOngoing: true,
-      // ),
-
       // _initPrefs(), // moved to notificationsCtrl
       _windowSize(),
     ]);
