@@ -64,7 +64,7 @@ dependencies:
   awesome_notifications: ^0.10.0
   awesome_notifications_core: ^0.10.0
   timezone: ^0.10.0
-  just_audio_windows: ^0.2.2
+  just_s_windows: ^0.2.2
   intl: ^0.19.0
   audio_service: ^0.18.17
   get_storage: 2.1.1

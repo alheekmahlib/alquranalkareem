@@ -1,4 +1,4 @@
-import 'dart:developer';
+import 'dart:developer' show log;
 
 import 'package:audio_service/audio_service.dart';
 import 'package:just_audio/just_audio.dart';
