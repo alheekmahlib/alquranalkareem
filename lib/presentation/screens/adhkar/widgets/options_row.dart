@@ -31,7 +31,7 @@ class OptionsRow extends StatelessWidget {
           children: [
             Expanded(
               flex: 2,
-              child: customSvgWithColor(
+              child: customSvgWithCustomColor(
                 SvgPath.svgSliderIc2,
                 height: 25,
               ),
@@ -60,7 +60,7 @@ class OptionsRow extends StatelessWidget {
                       button: true,
                       enabled: true,
                       label: 'copy'.tr,
-                      child: customSvgWithColor(
+                      child: customSvgWithCustomColor(
                         SvgPath.svgCopyIcon,
                         height: 20,
                       ),
@@ -85,11 +85,11 @@ class OptionsRow extends StatelessWidget {
                           child: azkarCtrl
                                   .hasBookmark(zekr.category, zekr.zekr)
                                   .value
-                              ? customSvg(
+                              ? customSvgWithCustomColor(
                                   SvgPath.svgBookmarkIcon2,
                                   height: 23,
                                 )
-                              : customSvg(
+                              : customSvgWithCustomColor(
                                   SvgPath.svgBookmarkIcon,
                                   height: 20,
                                 ),

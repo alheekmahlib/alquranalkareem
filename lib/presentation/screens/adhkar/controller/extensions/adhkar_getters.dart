@@ -2,17 +2,18 @@ import 'dart:developer';
 import 'dart:math' as math;
 
 import 'package:get/get.dart';
-import 'package:hijri/hijri_calendar.dart';
 
 import '../../../../../core/utils/constants/shared_preferences_constants.dart';
 import '../../../../../database/bookmark_db/bookmark_database.dart';
+import '../../../calendar/events.dart';
 import '../adhkar_controller.dart';
 
 extension AdhkarGetters on AzkarController {
   /// -------- [Getters] ----------
   bool get hasZekerSettedForThisDay {
     final settedDate = state.box.read(SETTED_DATE_FOR_ZEKER);
-    return (settedDate != null && settedDate == HijriCalendar.now().fullDate());
+    return (settedDate != null &&
+        settedDate == EventController.instance.hijriNow.fullDate());
   }
 
   Future<AdhkarData> getDailyDhekr() async {
@@ -33,7 +34,8 @@ extension AdhkarGetters on AzkarController {
       log("before trying to get ziker", name: 'BEFORE');
       final cachedZeker =
           state.allAdhkar[int.parse(zekerOfTheDayIdAndZekerId) - 1];
-      log("date: ${HijriCalendar.now().fullDate()}", name: 'CAHECH HADITH');
+      log("date: ${EventController.instance.hijriNow.fullDate()}",
+          name: 'CAHECH HADITH');
       return cachedZeker;
     }
     final random = math.Random().nextInt(state.allAdhkar.length);
@@ -48,7 +50,8 @@ extension AdhkarGetters on AzkarController {
     log('before listing');
     state.box
       ..write(ZEKER_OF_THE_DAY_AND_ID, '${zeker.id}')
-      ..write(SETTED_DATE_FOR_ZEKER, HijriCalendar.now().fullDate());
+      ..write(
+          SETTED_DATE_FOR_ZEKER, EventController.instance.hijriNow.fullDate());
     return zeker;
   }
 }

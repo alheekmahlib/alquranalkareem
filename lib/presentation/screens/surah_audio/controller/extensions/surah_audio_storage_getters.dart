@@ -1,5 +1,5 @@
+import '../../../../../core/utils/constants/api_constants.dart';
 import '../../../../../core/utils/constants/shared_preferences_constants.dart';
-import '../../../../../core/utils/constants/url_constants.dart';
 import '../surah_audio_controller.dart';
 
 extension SurahAudioStorageGetters on SurahAudioController {
@@ -35,7 +35,7 @@ extension SurahAudioStorageGetters on SurahAudioController {
 
   void loadSurahReader() {
     state.surahReaderValue.value =
-        state.box.read(SURAH_AUDIO_PLAYER_SOUND) ?? UrlConstants.ayahs3rdSource;
+        state.box.read(SURAH_AUDIO_PLAYER_SOUND) ?? ApiConstants.surahUrl1;
     state.surahReaderNameValue.value =
         state.box.read(SURAH_AUDIO_PLAYER_NAME) ?? 'abdul_basit_murattal/';
     state.surahReaderIndex.value = state.box.read(SURAH_READER_INDEX) ?? 0;

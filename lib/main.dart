@@ -29,7 +29,7 @@ Future<void> main() async {
 Future<void> initializeApp() async {
   Future.delayed(const Duration(seconds: 0));
   await GetStorage.init();
-  await NotifyHelper.initAwesomeNotifications();
+  NotifyHelper.initAwesomeNotifications();
   await ServicesLocator().init();
   tz.initializeTimeZones();
   if (Platform.isIOS || Platform.isAndroid) {

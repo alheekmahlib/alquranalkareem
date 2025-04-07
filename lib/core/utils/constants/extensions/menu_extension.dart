@@ -102,6 +102,7 @@ extension ContextMenuExtension on BuildContext {
                   ayahTextNormal: ayahTextNormal,
                   ayahText: ayahText,
                   surahName: 'surahName',
+                  pageNumber: pageIndex,
                 ),
               ],
             ),

@@ -34,12 +34,8 @@ class NotificationIconWidget extends StatelessWidget {
               border: Border.all(
                   width: 1, color: Theme.of(context).colorScheme.surface)),
           child: GetX<LocalNotificationsController>(builder: (notiCtrl) {
-            int unreadCount = notiCtrl.postsList
-                .where((n) => n.appName == 'quran' && !n.opened)
-                .length;
-
             return badges.Badge(
-              showBadge: unreadCount > 0,
+              showBadge: notiCtrl.unreadCount > 0,
               position: badges.BadgePosition.bottomEnd(bottom: -22, end: -20),
               badgeStyle: badges.BadgeStyle(
                 shape: badges.BadgeShape.square,
@@ -53,7 +49,7 @@ class NotificationIconWidget extends StatelessWidget {
                 elevation: 0,
               ),
               badgeContent: Text(
-                unreadCount.toString().convertNumbers(),
+                notiCtrl.unreadCount.toString().convertNumbers(),
                 style: TextStyle(
                     fontFamily: 'naskh',
                     fontSize: 22,

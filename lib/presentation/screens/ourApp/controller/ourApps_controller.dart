@@ -1,12 +1,13 @@
 import 'dart:convert';
+import 'dart:developer';
 
-import 'package:alquranalkareem/core/utils/constants/string_constants.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:http/http.dart' as http;
 import 'package:url_launcher/url_launcher.dart';
 
+import '../../../../core/services/api_client.dart';
+import '../../../../core/utils/constants/api_constants.dart';
 import '../data/models/ourApp_model.dart';
 
 class OurAppsController extends GetxController {
@@ -16,18 +17,27 @@ class OurAppsController extends GetxController {
 
   Future<List<OurAppInfo>> fetchApps() async {
     try {
-      final response = await http.get(Uri.parse(StringConstants.ourAppsUrl));
+      final response = await ApiClient().request(
+        endpoint: ApiConstants.ourAppsUrl,
+        method: HttpMethod.get,
+      );
 
-      if (response.statusCode == 200) {
-        List<dynamic> jsonData = jsonDecode(response.body);
+      if (response.isRight) {
+        // إذا كانت الاستجابة صحيحة، قم بتحليل البيانات
+        // If the response is successful, parse the data
+        List<dynamic> jsonData = jsonDecode(response.right as String);
         return jsonData.map((data) => OurAppInfo.fromJson(data)).toList();
       } else {
-        print('Failed to load data: ${response.statusCode}');
-        print('Response body: ${response.body}');
+        // إذا كانت الاستجابة خاطئة، قم بتسجيل الخطأ
+        // If the response is an error, log the error
+        log('Failed to load data: ${response.left.message}',
+            name: 'OurAppsController');
         throw Exception('Failed to load data');
       }
     } catch (e) {
-      print('Error occurred: $e');
+      // تسجيل أي استثناء يحدث
+      // Log any exception that occurs
+      log('Error occurred: $e', name: 'OurAppsController');
       throw Exception('Failed to load data');
     }
   }

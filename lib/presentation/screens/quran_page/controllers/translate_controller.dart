@@ -17,60 +17,6 @@ class TafsirAndTranslateController extends GetxController {
   RxInt tafsirRadioValue = QuranLibrary().tafsirSelected.obs;
   final box = GetStorage();
 
-  // Future<void> fetchTranslate() async {
-  //   isLoading.value = true;
-  //   String jsonString = await rootBundle
-  //       .loadString("assets/json/translate/${trans.value}.json");
-  //   Map<String, dynamic> showData = json.decode(jsonString);
-  //   // List<dynamic> sura = showData[surahNumber];
-  //   data.value = showData['translations'];
-  //   isLoading.value = false; // Set isLoading to false and update the data
-  //   print('trans.value ${trans.value}');
-  // }
-
-  // translateHandleRadioValueChanged(int translateVal) async {
-  //   transValue.value = translateVal;
-  //   switch (transValue.value) {
-  //     case 1:
-  //       sl<ShareController>().isTafseer.value = false;
-  //       trans.value = 'en';
-  //       box.write(TRANS, 'en');
-  //     case 2:
-  //       sl<ShareController>().isTafseer.value = false;
-  //       trans.value = 'es';
-  //       box.write(TRANS, 'es');
-  //     case 3:
-  //       sl<ShareController>().isTafseer.value = false;
-  //       trans.value = 'be';
-  //       box.write(TRANS, 'be');
-  //     case 4:
-  //       sl<ShareController>().isTafseer.value = false;
-  //       trans.value = 'urdu';
-  //       box.write(TRANS, 'urdu');
-  //     case 5:
-  //       sl<ShareController>().isTafseer.value = false;
-  //       trans.value = 'so';
-  //       box.write(TRANS, 'so');
-  //     case 6:
-  //       sl<ShareController>().isTafseer.value = false;
-  //       trans.value = 'in';
-  //       box.write(TRANS, 'in');
-  //     case 7:
-  //       sl<ShareController>().isTafseer.value = false;
-  //       trans.value = 'ku';
-  //       box.write(TRANS, 'ku');
-  //     case 8:
-  //       sl<ShareController>().isTafseer.value = false;
-  //       trans.value = 'tr';
-  //       box.write(TRANS, 'tr');
-  //     case 9:
-  //       sl<ShareController>().isTafseer.value = true;
-  //       box.write(IS_TAFSEER, true);
-  //     default:
-  //       trans.value = 'en';
-  //   }
-  // }
-
   shareTranslateHandleRadioValue(int translateVal) async {
     shareTransValue.value = translateVal;
     switch (shareTransValue.value) {
@@ -134,12 +80,4 @@ class TafsirAndTranslateController extends GetxController {
     // fetchTranslate();
     super.onInit();
   }
-
-  // void changeTranslateOnTap(int index) {
-  //   transValue.value == index;
-  //   box.write(TRANSLATE_VALUE, index);
-  //   // translateHandleRadioValueChanged(index);
-  //   // fetchTranslate();
-  //   Get.back();
-  // }
 }

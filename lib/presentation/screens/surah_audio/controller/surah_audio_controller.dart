@@ -36,7 +36,7 @@ class SurahAudioController extends GetxController {
 
     initializeSurahDownloadStatus();
     await _addDownloadedSurahToPlaylist();
-    loadLastSurahAndPosition();
+    await loadLastSurahAndPosition();
     loadSurahReader();
     state.surahsPlayList = List.generate(114, (i) {
       state.surahNum.value = i + 1;

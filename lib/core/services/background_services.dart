@@ -17,11 +17,11 @@ void backgroundFetchHeadlessTask(HeadlessTask task) async {
   if (isTimeout) {
     // This task has exceeded its allowed running-time.
     // You must stop what you're doing and immediately .finish(taskId)
-    log("[BackgroundFetch] Headless task timed-out: $taskId");
+    log("Headless task timed-out: $taskId", name: 'Background service');
     BackgroundFetch.finish(taskId);
     return;
   }
-  log('[BackgroundFetch] Headless event received.');
+  log('Headless event received.', name: 'Background service');
   // Do your work here...
   await _fetchDataAndScheduleNotifications();
   BackgroundFetch.finish(taskId);
@@ -30,9 +30,9 @@ void backgroundFetchHeadlessTask(HeadlessTask task) async {
 class BGServices {
   Future<void> registerTask() async {
     // Register the headless task for Android
-    if (Platform.isAndroid) {
-      await BackgroundFetch.registerHeadlessTask(backgroundFetchHeadlessTask);
-    }
+    // if (Platform.isAndroid) {
+    await BackgroundFetch.registerHeadlessTask(backgroundFetchHeadlessTask);
+    // }
 
     // Configure and start BackgroundFetch
     await BackgroundFetch.configure(
@@ -50,10 +50,9 @@ class BGServices {
       _onFetch,
       _onTimeOut,
     ).then((int status) {
-      log("[BackgroundFetch] configure success: $status",
-          name: 'BackgroundFetch');
+      log("configure success: $status", name: 'Background service');
     }).catchError((e) {
-      log("[BackgroundFetch] configure ERROR: $e", name: 'Background service');
+      log("configure ERROR: $e", name: 'Background service');
     });
 
     // Start BackgroundFetch
@@ -64,11 +63,12 @@ class BGServices {
       log('Error Accourd on Background Service $e', name: 'Background service');
     });
 
+    // مهمة كل 20 دقيقة
     try {
       await BackgroundFetch.scheduleTask(
         TaskConfig(
           taskId: "com.transistorsoft.fetchNotifications",
-          delay: 24 * 60 * 60 * 1000,
+          delay: 20 * 60 * 1000, // 20 minutes
           stopOnTerminate: false,
           enableHeadless: true, // Enable headless task execution
           requiresBatteryNotLow: false,
@@ -86,17 +86,62 @@ class BGServices {
         log("Task Scheduling Error: $e", name: 'Background service');
       }
     }
+
+    // مهمة كل 24 ساعة
+    // try {
+    //   await BackgroundFetch.scheduleTask(
+    //     TaskConfig(
+    //       taskId: "com.transistorsoft.fetchEvery24Hours",
+    //       delay: 24 * 60 * 60 * 1000, // 24 ساعة بالميلي ثانية
+    //       stopOnTerminate: false,
+    //       enableHeadless: true,
+    //       requiresBatteryNotLow: false,
+    //       requiresCharging: false,
+    //       requiresStorageNotLow: false,
+    //       requiresDeviceIdle: false,
+    //       periodic: true,
+    //       requiredNetworkType: NetworkType.ANY,
+    //     ),
+    //   );
+    // } catch (e) {
+    //   log("Error scheduling 24-hour task: $e", name: 'Background service');
+    // }
   }
 }
 
 Future<void> _onFetch(String taskId) async {
-  // This is the fetch-event callback for both platforms
   log("Event received $taskId", name: 'Background service');
 
-  // Perform your background task here...
-  await _fetchDataAndScheduleNotifications();
+  final now = DateTime.now();
+  final storage = GetStorage();
+
+  if (taskId == "com.transistorsoft.fetchNotifications") {
+    // تنفيذ المهمة التي تعمل كل 20 دقيقة
+    await _handle20MinuteTask();
+
+    // التحقق مما إذا مرت 24 ساعة منذ آخر تشغيل
+    final lastRun = storage.read('last_daily_task_run') as String?;
+    final lastRunDate = lastRun != null ? DateTime.parse(lastRun) : null;
+
+    if (lastRunDate == null || now.difference(lastRunDate).inHours >= 24) {
+      // تنفيذ المهمة اليومية
+      await _handleDailyTask();
+      storage.write('last_daily_task_run', now.toIso8601String());
+    }
+  }
+
   // Signal completion of your task
   BackgroundFetch.finish(taskId);
+}
+
+Future<void> _handle20MinuteTask() async {
+  log("Executing 20-minute task", name: 'Background service');
+  await _fetchDataAndScheduleNotifications();
+}
+
+Future<void> _handleDailyTask() async {
+  log("Executing daily task", name: 'Background service');
+  await _fetchDataAndScheduleNotifications();
 }
 
 Future<void>? _onTimeOut(String taskId) async {
@@ -108,13 +153,6 @@ Future<void>? _onTimeOut(String taskId) async {
 Future<void> _fetchDataAndScheduleNotifications() async {
   log('=' * 30, name: 'Background service');
   await GetStorage.init();
-  LocalNotificationsController.instance.fetchAndScheduleNotifications();
-  // NotifyHelper().scheduledNotification(
-  //   DateTime.now().hashCode,
-  //   'Background service',
-  //   "Fetch Data And Schedule Notifications",
-  // );
+  await LocalNotificationsController.instance.fetchNewNotifications();
   log('after 20 seconds ${'+' * 20}', name: 'Background service');
-  Future.delayed(const Duration(seconds: 20)).then(
-      (_) => log('after 20 seconds ${'+' * 20}', name: 'Background service'));
 }

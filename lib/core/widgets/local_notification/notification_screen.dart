@@ -57,7 +57,8 @@ class NotificationsScreen extends StatelessWidget {
                         child: Column(
                           children: [
                             const Gap(64),
-                            customSvg(SvgPath.svgNotifications, width: 80),
+                            customSvgWithCustomColor(SvgPath.svgNotifications,
+                                width: 80),
                             const Gap(32),
                             Text(
                               'noNotifications'.tr,

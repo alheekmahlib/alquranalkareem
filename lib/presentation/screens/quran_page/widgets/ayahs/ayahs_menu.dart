@@ -168,6 +168,7 @@ class AyahsMenu extends StatelessWidget {
                               ayahTextNormal: ayahTextNormal,
                               ayahText: ayahTextNormal,
                               surahName: 'surahName',
+                              pageNumber: pageIndex,
                             ),
                             const Gap(6),
                             context.vDivider(height: 18.0),

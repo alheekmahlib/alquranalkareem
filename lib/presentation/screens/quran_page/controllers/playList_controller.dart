@@ -63,7 +63,7 @@ class PlayListController extends GetxController {
             .padLeft(3, '0');
         String fileName = ayahReaderInfo[audioCtrl.state.readerIndex.value]
                     ['url'] ==
-                UrlConstants.ayahs1stSource
+                ApiConstants.ayahs1stSource
             ? "${i.toString().padLeft(3, "0")}.mp3"
             : "$surahNum${i.toString().padLeft(3, "0")}.mp3";
         String localFilePath =
@@ -91,7 +91,7 @@ class PlayListController extends GetxController {
 
   String generateUrl(int ayahNumber, String readerName) {
     if (ayahReaderInfo[audioCtrl.state.readerIndex.value]['url'] ==
-        UrlConstants.ayahs1stSource) {
+        ApiConstants.ayahs1stSource) {
       log('${ayahReaderInfo[audioCtrl.state.readerIndex.value]['url']}${audioCtrl.reader}/${ayahNumber}.mp3');
       return '${ayahReaderInfo[audioCtrl.state.readerIndex.value]['url']}${audioCtrl.reader}/${ayahNumber}.mp3';
     } else {
@@ -134,7 +134,7 @@ class PlayListController extends GetxController {
           quranCtrl.state.allAyahs[i - 1].ayahNumber.toString().padLeft(3, '0');
       String fileName = ayahReaderInfo[audioCtrl.state.readerIndex.value]
                   ['url'] ==
-              UrlConstants.ayahs1stSource
+              ApiConstants.ayahs1stSource
           ? "${i.toString().padLeft(3, "0")}.mp3"
           : "$surahNum$currentAyahNumber.mp3";
       String localFilePath =

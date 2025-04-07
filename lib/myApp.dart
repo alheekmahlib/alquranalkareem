@@ -26,7 +26,7 @@ class MyApp extends StatelessWidget {
     sl<ThemeController>().checkTheme();
     final localizationCtrl = Get.find<LocalizationController>();
     LocalNotificationsController.instance;
-    NotifyHelper().requestPermissions();
+    NotifyHelper().requistPermissions();
     return ScreenUtilInit(
         designSize: const Size(360, 690),
         minTextAdapt: true,

@@ -7,7 +7,7 @@ import '../../../presentation/screens/alwaqf_screen/alwaqf_screen.dart';
 import '../../../presentation/screens/books/screens/books_screen.dart';
 import '../../../presentation/screens/quran_page/quran.dart';
 import '../../../presentation/screens/surah_audio/audio_surah.dart';
-import 'url_constants.dart';
+import 'api_constants.dart';
 
 List<String> translateName = <String>[
   'nothing',
@@ -143,99 +143,105 @@ const List themeList = [
 const List surahReaderInfo = [
   {
     'name': 'reader1',
-    'readerD': '${UrlConstants.ayahs3rdSource}',
+    'readerD': '${ApiConstants.surahUrl1}',
     'readerN': 'abdul_basit_murattal/',
     'readerI': 'basit'
   },
   {
     'name': 'reader2',
-    'readerD': '${UrlConstants.ayahs3rdSource}',
+    'readerD': '${ApiConstants.surahUrl1}',
     'readerN': 'muhammad_siddeeq_al-minshaawee/',
     'readerI': 'minshawy'
   },
   {
     'name': 'reader3',
-    'readerD': '${UrlConstants.ayahs3rdSource}',
+    'readerD': '${ApiConstants.surahUrl1}',
     'readerN': 'mahmood_khaleel_al-husaree_iza3a/',
     'readerI': 'husary'
   },
   {
     'name': 'reader4',
-    'readerD': '${UrlConstants.ayahs3rdSource}',
+    'readerD': '${ApiConstants.surahUrl1}',
     'readerN': 'ahmed_ibn_3ali_al-3ajamy/',
     'readerI': 'ajamy'
   },
   {
     'name': 'reader5',
-    'readerD': '${UrlConstants.ayahs3rdSource}',
+    'readerD': '${ApiConstants.surahUrl1}',
     'readerN': 'maher_almu3aiqly/year1440/',
     'readerI': 'muaiqly'
   },
   {
     'name': 'reader6',
-    'readerD': '${UrlConstants.ayahs3rdSource}',
+    'readerD': '${ApiConstants.surahUrl1}',
     'readerN': 'sa3ood_al-shuraym/',
     'readerI': 'saood'
   },
   {
     'name': 'reader7',
-    'readerD': '${UrlConstants.ayahs3rdSource}',
+    'readerD': '${ApiConstants.surahUrl1}',
     'readerN': 'sa3d_al-ghaamidi/complete/',
     'readerI': 'Ghamadi'
   },
   {
     'name': 'reader8',
-    'readerD': '${UrlConstants.ayahs3rdSource}',
+    'readerD': '${ApiConstants.surahUrl1}',
     'readerN': 'mustafa_al3azzawi/',
     'readerI': 'mustafa'
   },
   {
     'name': 'reader9',
-    'readerD': '${UrlConstants.ayahs3rdSource}',
+    'readerD': '${ApiConstants.surahUrl1}',
     'readerN': 'nasser_bin_ali_alqatami/',
     'readerI': 'nasser'
   },
   {
     'name': 'reader10',
-    'readerD': '${UrlConstants.ayahs4thSource}',
+    'readerD': '${ApiConstants.surahUrl2}',
     'readerN': 'peshawa/Rewayat-Hafs-A-n-Assem/',
     'readerI': 'qader'
   },
   {
     'name': 'reader11',
-    'readerD': '${UrlConstants.surahUrl3}',
+    'readerD': '${ApiConstants.surahUrl3}',
     'readerN': 'taher/',
     'readerI': 'taher'
   },
   {
     'name': 'reader12',
-    'readerD': '${UrlConstants.surahUrl4}',
+    'readerD': '${ApiConstants.surahUrl4}',
     'readerN': 'aloosi/',
     'readerI': 'aloosi'
   },
   {
     'name': 'reader13',
-    'readerD': '${UrlConstants.surahUrl4}',
+    'readerD': '${ApiConstants.surahUrl4}',
     'readerN': 'wdee3/',
     'readerI': 'wdee3'
   },
   {
     'name': 'reader14',
-    'readerD': '${UrlConstants.ayahs3rdSource}',
+    'readerD': '${ApiConstants.surahUrl1}',
     'readerN': 'yasser_ad-dussary/',
     'readerI': 'yasser_ad-dussary'
   },
   {
     'name': 'reader15',
-    'readerD': '${UrlConstants.ayahs3rdSource}',
+    'readerD': '${ApiConstants.surahUrl1}',
     'readerN': 'abdullaah_3awwaad_al-juhaynee/',
     'readerI': 'Juhaynee'
   },
   {
     'name': 'reader16',
-    'readerD': '${UrlConstants.ayahs3rdSource}',
+    'readerD': '${ApiConstants.surahUrl1}',
     'readerN': 'fares/',
     'readerI': 'Fares'
+  },
+  {
+    'name': 'reader17',
+    'readerD': '${ApiConstants.surahUrl1}',
+    'readerN': 'muhammad_ayyoob_hq/',
+    'readerI': 'ayyoob'
   },
 ];
 
@@ -319,49 +325,55 @@ const List ayahReaderInfo = [
     'name': 'reader1',
     'readerD': 'Abdul_Basit_Murattal_192kbps',
     'readerI': 'basit',
-    'url': '${UrlConstants.ayahs2ndSource}'
+    'url': ApiConstants.ayahs2ndSource
   },
   {
     'name': 'reader2',
     'readerD': 'Minshawy_Murattal_128kbps',
     'readerI': 'minshawy',
-    'url': '${UrlConstants.ayahs2ndSource}'
+    'url': ApiConstants.ayahs2ndSource
   },
   {
     'name': 'reader3',
     'readerD': 'Husary_128kbps',
     'readerI': 'husary',
-    'url': '${UrlConstants.ayahs2ndSource}'
+    'url': ApiConstants.ayahs2ndSource
   },
   {
     'name': 'reader4',
     'readerD': '128/ar.ahmedajamy',
     'readerI': 'ajamy',
-    'url': '${UrlConstants.ayahs1stSource}'
+    'url': ApiConstants.ayahs1stSource
   },
   {
     'name': 'reader5',
     'readerD': 'MaherAlMuaiqly128kbps',
     'readerI': 'muaiqly',
-    'url': '${UrlConstants.ayahs2ndSource}'
+    'url': ApiConstants.ayahs2ndSource
   },
   {
     'name': 'reader6',
     'readerD': 'Saood_ash-Shuraym_128kbps',
     'readerI': 'saood',
-    'url': '${UrlConstants.ayahs2ndSource}'
+    'url': ApiConstants.ayahs2ndSource
   },
   {
     'name': 'reader15',
     'readerD': 'Abdullaah_3awwaad_Al-Juhaynee_128kbps',
     'readerI': 'Juhaynee',
-    'url': '${UrlConstants.ayahs2ndSource}'
+    'url': ApiConstants.ayahs2ndSource
   },
   {
     'name': 'reader16',
     'readerD': 'Fares_Abbad_64kbps',
     'readerI': 'Fares',
-    'url': '${UrlConstants.ayahs2ndSource}'
+    'url': ApiConstants.ayahs2ndSource
+  },
+  {
+    'name': 'reader17',
+    'readerD': '128/ar.muhammadayyoub',
+    'readerI': 'ayyoob',
+    'url': ApiConstants.ayahs1stSource
   },
 ];
 
