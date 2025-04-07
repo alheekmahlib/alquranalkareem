@@ -3,24 +3,41 @@ description: Al-Quran Al-Kareem - Al-Heekmah Library.
 
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 
-version: 4.3.8+85
+version: 4.4.0+87
 
 environment:
   sdk: '>=3.0.6 <4.0.0'
 
 dependencies:
   anim_search_bar: ^2.0.3
+  animated_custom_dropdown: ^3.1.1
+  animated_toggle_switch: ^0.8.4
   animations: ^2.0.11
   another_xlider: ^3.0.2
   arabic_numbers: ^1.0.0
+  audio_service: ^0.18.17
+  awesome_notifications: ^0.10.0
+  awesome_notifications_core: ^0.10.0
+  background_fetch: ^1.3.7
+  badges: ^3.1.2
   bot_toast: ^4.1.3
   connectivity_plus: ^6.1.3
   cupertino_icons: ^1.0.8
   desktop_window: ^0.4.2
   dio: ^5.8.0+1
+  drift: ^2.25.1
   easy_image_viewer: ^1.5.1
+  either_dart: ^1.0.0
   expansion_tile_card: ^3.0.0
+  flex_color_picker: ^3.7.0
+  flutter:
+    sdk: flutter
   flutter_cache_manager: ^3.4.1
+  flutter_launcher_icons: ^0.14.3
+  flutter_localizations:
+    sdk: flutter
+  flutter_native_splash: any
+  flutter_rounded_progress_bar: ^0.3.2
   flutter_screenutil: ^5.9.3
   flutter_slider_drawer: ^3.0.2
   flutter_sliding_box: ^1.1.5
@@ -30,17 +47,26 @@ dependencies:
   gap: ^3.0.1
   get: ^4.7.2
   get_it: ^8.0.3
+  get_storage: 2.1.1
   glob: ^2.1.3
   group_button: ^5.3.4
   hijri: ^3.0.0
+  hijri_calendar: ^1.0.7+7
   html: ^0.15.4
   info_popup: ^4.3.2
+  intl: ^0.19.0
   just_audio: ^0.9.46
+  just_audio_windows: ^0.2.2
   lottie: ^3.3.1
   mini_music_visualizer: ^1.1.4
+  nominatim_geocoding: ^0.0.6
   package_rename: ^1.9.0
   path: ^1.9.0
   path_provider: ^2.1.5
+  quran_library:
+    git:
+      ref: dev
+      url: https://github.com/alheekmahlib/quran_library.git
   rate_my_app: ^2.3.1
   read_more_less: ^1.0.1
   responsive_builder: ^0.7.1
@@ -48,49 +74,22 @@ dependencies:
   screenshot: ^3.0.0
   scrollable_positioned_list: ^0.3.8
   share_plus: ^10.1.4
+  shimmer: ^3.0.0
+  simple_animation_progress_bar: ^1.8.2
   smooth_page_indicator: ^1.2.1
   square_percent_indicater: ^0.1.0
+  timezone: ^0.10.0
   url_launcher: ^6.3.1
   wakelock_plus: ^1.2.10
-  drift: ^2.25.1
-  simple_animation_progress_bar: ^1.8.2
-  nominatim_geocoding: ^0.0.6
-  animated_custom_dropdown: ^3.1.1
-  flex_color_picker: ^3.7.0
-  shimmer: ^3.0.0
-  animated_toggle_switch: ^0.8.4
-  badges: ^3.1.2
-  background_fetch: ^1.3.7
-  awesome_notifications: ^0.10.0
-  awesome_notifications_core: ^0.10.0
-  timezone: ^0.10.0
-  just_s_windows: ^0.2.2
-  intl: ^0.19.0
-  audio_service: ^0.18.17
-  get_storage: 2.1.1
-  flutter_native_splash: any
-  hijri_calendar: ^1.0.7+7
-  flutter_rounded_progress_bar: ^0.3.2
-  flutter_launcher_icons: ^0.14.3
-  # home_widget: ^0.7.0
-  quran_library:
-    git:
-      # ref: 8eb1d906d52598568d0d5d9f55f3e1a3484b7f9d
-      ref: dev
-      url: https://github.com/alheekmahlib/quran_library.git
+
+  # Commit this line if you want to run or build on ios / macOS
+  drift_flutter: ^0.2.4 
 
 
-# Commit this line if you want to run or build on ios / macOS
-  drift_flutter: ^0.2.4
-
-  flutter:
-    sdk: flutter
-  flutter_localizations:
-    sdk: flutter
 
 dev_dependencies:
-  drift_dev: ^2.25.2
   build_runner: ^2.4.15
+  drift_dev: ^2.25.2
   flutter_test:
     sdk: flutter
 
@@ -130,7 +129,6 @@ package_rename_config:
   #   macos:
   #     generate: true
   #     image_path: "assets/app_icon.png"
-
   flutter_lints: ^5.0.0
 
 flutter_assets:
@@ -139,7 +137,7 @@ flutter_assets:
   output_path: lib/core/utils/constants/
   # filename: lottie_constants.dart
   filename: svg_constants.dart
-  field_prefix:
+  field_prefix: null
   class_name: SvgPath
 
 flutter:

@@ -2,7 +2,6 @@ import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
 
-import 'package:alquranalkareem/core/utils/constants/extensions/custom_error_snackBar.dart';
 import 'package:drift/drift.dart' as drift;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -10,9 +9,12 @@ import 'package:get/get.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:share_plus/share_plus.dart';
 
-import '../../../../core/utils/constants/url_constants.dart';
+import '/core/utils/constants/extensions/custom_error_snackBar.dart';
+import '../../../../core/utils/constants/api_constants.dart';
 import '../../../../database/bookmark_db/bookmark_database.dart';
 import '../../../../database/bookmark_db/db_bookmark_helper.dart';
+import '../screens/adhkar_item.dart';
+import '../screens/adhkar_view.dart';
 import 'adhkar_state.dart';
 
 class AzkarController extends GetxController {
@@ -187,7 +189,7 @@ class AzkarController extends GetxController {
         '$reference\n'
         'التكرار: $count\n'
         '$description\n\n'
-        '${'appName'.tr}\n${UrlConstants.downloadAppUrl}',
+        '${'appName'.tr}\n${ApiConstants.downloadAppUrl}',
         subject: '${'appName'.tr}\n$category');
   }
 
@@ -208,6 +210,17 @@ class AzkarController extends GetxController {
       final imagePath = await File('${directory.path}/zekr_image.png').create();
       await imagePath.writeAsBytes(state.dhekrToImageBytes!);
       await Share.shareXFiles([XFile((imagePath.path))], text: 'appName'.tr);
+    }
+  }
+
+  void onAdhkarNotificationsReceived(String receivedActionBody) {
+    if (state.categories
+        .contains(receivedActionBody.replaceAll('تذكير ', ''))) {
+      final categoryIndex =
+          state.categories.indexOf(receivedActionBody.replaceAll('تذكير ', ''));
+      filterByCategory(state.categories[categoryIndex]);
+      Get.to(() => const AdhkarView(), transition: Transition.downToUp);
+      Get.to(() => const AdhkarItem(), transition: Transition.leftToRight);
     }
   }
 }

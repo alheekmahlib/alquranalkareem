@@ -54,7 +54,7 @@ import '/presentation/controllers/general/extensions/general_ui.dart';
 import '/presentation/controllers/general/general_controller.dart';
 import '/presentation/screens/quran_page/widgets/search/search_extensions/highlight_extension.dart';
 import '../../../../../../core/utils/constants/lists.dart';
-import '../../../../../../core/utils/constants/url_constants.dart';
+import '../../../core/utils/constants/api_constants.dart';
 import '../../../../../../core/widgets/seek_bar.dart';
 import '../../../core/services/connectivity_service.dart';
 import '../../../core/services/notifications_manager.dart';

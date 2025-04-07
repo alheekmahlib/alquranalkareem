@@ -1,10 +1,14 @@
-import 'package:alquranalkareem/core/utils/constants/extensions/svg_extensions.dart';
+import 'dart:developer';
+
+import 'package:alquranalkareem/core/utils/constants/extensions/alignment_rotated_extension.dart';
+import 'package:alquranalkareem/core/utils/constants/extensions/bottom_sheet_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 
 import '/core/utils/constants/extensions/extensions.dart';
+import '/core/utils/constants/extensions/svg_extensions.dart';
 import '../../../../core/utils/constants/lottie.dart';
 import '../../../../core/utils/constants/lottie_constants.dart';
 import '../../../../core/utils/constants/svg_constants.dart';
@@ -28,15 +32,14 @@ class AdhkarList extends StatelessWidget {
                 Align(
                   alignment: AlignmentDirectional.centerStart,
                   child: GestureDetector(
-                    onTap: () => Get.bottomSheet(AdhkarReminderWidget(),
-                        isScrollControlled: true),
+                    onTap: () => customBottomSheet(AdhkarReminderWidget()),
                     child: Stack(
                       alignment: Alignment.center,
                       children: [
                         Transform.translate(
                           offset: const Offset(0, -2),
                           child: RotatedBox(
-                            quarterTurns: 1,
+                            quarterTurns: alignmentLayout(1, 3),
                             child: customSvgWithColor(SvgPath.svgButtonCurve,
                                 height: 45.0,
                                 width: 45.0,
@@ -63,7 +66,7 @@ class AdhkarList extends StatelessWidget {
                     ),
                   ),
                 ),
-                customLottie(LottieConstants.assetsLottieAzkar,
+                customLottieWithColor(LottieConstants.assetsLottieAzkar,
                     height: 120, isRepeat: false),
               ],
             ),
@@ -97,6 +100,7 @@ class AdhkarList extends StatelessWidget {
                                       azkarCtrl.state.categories[index]);
                                   Get.to(() => const AdhkarItem(),
                                       transition: Transition.leftToRight);
+                                  log('filterByCategory: $index');
                                 },
                                 child: Container(
                                   margin: const EdgeInsets.only(top: 5.0),
@@ -113,7 +117,7 @@ class AdhkarList extends StatelessWidget {
                                     children: [
                                       Expanded(
                                         flex: 2,
-                                        child: customSvgWithColor(
+                                        child: customSvgWithCustomColor(
                                           SvgPath.svgSliderIc2,
                                           height: 30,
                                         ),
@@ -220,7 +224,7 @@ class AdhkarList extends StatelessWidget {
                                     children: [
                                       Expanded(
                                         flex: 2,
-                                        child: customSvgWithColor(
+                                        child: customSvgWithCustomColor(
                                           SvgPath.svgSliderIc2,
                                           height: 30,
                                         ),
@@ -288,15 +292,14 @@ class AdhkarList extends StatelessWidget {
                   Align(
                     alignment: AlignmentDirectional.centerEnd,
                     child: GestureDetector(
-                      onTap: () => Get.bottomSheet(AdhkarReminderWidget(),
-                          isScrollControlled: true),
+                      onTap: () => customBottomSheet(AdhkarReminderWidget()),
                       child: Stack(
                         alignment: Alignment.center,
                         children: [
                           Transform.translate(
                             offset: const Offset(0, -2),
                             child: RotatedBox(
-                              quarterTurns: 3,
+                              quarterTurns: alignmentLayout(1, 3),
                               child: customSvgWithColor(SvgPath.svgButtonCurve,
                                   height: 45.0,
                                   width: 45.0,

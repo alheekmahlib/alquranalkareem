@@ -37,21 +37,19 @@ class ShareController extends GetxController {
     }
   }
 
-  Future<void> shareButtonOnTap(BuildContext context, int selectedIndex,
-      int verseUQNumber, int surahNumber, int verseNumber) async {
+  Future<void> shareButtonOnTap(
+      BuildContext context,
+      int selectedIndex,
+      int verseUQNumber,
+      int surahNumber,
+      int verseNumber,
+      int pageNumber) async {
     sl<TafsirAndTranslateController>().shareTransValue.value == selectedIndex;
     box.write(SHARE_TRANSLATE_VALUE, selectedIndex);
     box.write(CURRENT_TRANSLATE, shareTranslateName[selectedIndex]);
     currentTranslate.value = shareTranslateName[selectedIndex];
-    sl<TafsirAndTranslateController>()
-        .shareTranslateHandleRadioValue(selectedIndex);
-    if (isTafseer.value) {
-      // await sl<TafsirController>()
-      //     .fetchTafsirPage(sl<QuranController>().state.currentPageNumber.value);
-      // sl<TafsirController>().ayahsTafseer(verseUQNumber, surahNumber);
-    } else {
-      // sl<TranslateDataController>().fetchTranslate();
-    }
+    QuranLibrary().changeTafsirSwitch(selectedIndex, pageNumber: pageNumber);
+    await QuranLibrary().fetchTranslation();
     sl<TafsirAndTranslateController>().update();
     Get.back();
   }

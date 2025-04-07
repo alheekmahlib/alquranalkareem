@@ -48,6 +48,7 @@
         <meta-data
             android:name="flutterEmbedding"
             android:value="2" />
+            
         <receiver android:exported="false" android:name="com.dexterous.flutterlocalnotifications.ScheduledNotificationReceiver" />
         <receiver android:exported="false" android:name="com.dexterous.flutterlocalnotifications.ScheduledNotificationBootReceiver">
             <intent-filter>
@@ -57,6 +58,7 @@
                 <action android:name="com.htc.intent.action.QUICKBOOT_POWERON"/>
             </intent-filter>
         </receiver>
+
         <!-- Background Fetch -->
         <receiver android:name="com.transistorsoft.flutter.backgroundfetch.HeadlessBroadcastReceiver" android:exported="true">
             <intent-filter>
@@ -68,7 +70,7 @@
         <!-- Background Fetch -->
 
 
-        <!-- ADD THIS for just_audio_background -->
+        <!-- ADD THIS for audioservice -->
         <service
             android:name="com.ryanheise.audioservice.AudioService"
             android:foregroundServiceType="mediaPlayback"
@@ -87,7 +89,7 @@
                 <action android:name="android.intent.action.MEDIA_BUTTON" />
             </intent-filter>
         </receiver>
-        <!-- end just_audio_background -->
+        <!-- end audioservice -->
 
     </application>
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
@@ -97,7 +99,8 @@
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
+    <!-- إزالة إذن FOREGROUND_SERVICE -->
+    <!-- <uses-permission android:name="android.permission.FOREGROUND_SERVICE"/> -->
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE_MEDIA_PLAYBACK"/>
     <!-- Background Fetch -->
 <!--    <uses-permission android:minSdkVersion="34" android:name="android.permission.USE_EXACT_ALARM" />-->

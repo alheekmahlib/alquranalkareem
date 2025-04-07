@@ -94,7 +94,7 @@ extension AudioGetters on AudioController {
 
   String get currentAyahFileName {
     if (ayahReaderInfo[state.readerIndex.value]['url'] ==
-        UrlConstants.ayahs1stSource) {
+        ApiConstants.ayahs1stSource) {
       return '$reader/${state.currentAyahUQInPage.value}.mp3';
     } else {
       final surahNum = quranCtrl
@@ -123,7 +123,7 @@ extension AudioGetters on AudioController {
     return List.generate(
         selectedSurah.ayahs.length,
         (i) => ayahReaderInfo[state.readerIndex.value]['url'] ==
-                UrlConstants.ayahs1stSource
+                ApiConstants.ayahs1stSource
             ? '$reader/${selectedSurah.ayahs[i].ayahUQNumber}.mp3'
             : '$reader/${selectedSurah.surahNumber.toString().padLeft(3, "0")}${selectedSurah.ayahs[i].ayahNumber.toString().padLeft(3, "0")}.mp3');
   }
@@ -136,9 +136,9 @@ extension AudioGetters on AudioController {
 
   String get ayahDownloadSource =>
       ayahReaderInfo[state.readerIndex.value]['url'] ==
-              UrlConstants.ayahs1stSource
-          ? UrlConstants.ayahs1stSource
-          : UrlConstants.ayahs2ndSource;
+              ApiConstants.ayahs1stSource
+          ? ApiConstants.ayahs1stSource
+          : ApiConstants.ayahs2ndSource;
 
   String get currentAyahUrl => '$ayahDownloadSource$currentAyahFileName';
 

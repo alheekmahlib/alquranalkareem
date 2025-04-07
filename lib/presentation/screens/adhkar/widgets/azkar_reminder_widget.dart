@@ -13,7 +13,8 @@ class AdhkarReminderWidget extends StatelessWidget {
   final reminderCtrl = ReminderController.instance;
 
   AdhkarReminderWidget() {
-    NotifyHelper.initAwesomeNotifications();
+    // NotifyHelper.initFlutterLocalNotifications();
+    // NotifyHelper.initAwesomeNotifications();
   }
 
   @override
@@ -214,10 +215,20 @@ class AdhkarReminderWidget extends StatelessWidget {
     if (pickedTime != null) {
       int hour = pickedTime.hour;
       int minute = pickedTime.minute;
-      print('Picked time: $hour:$minute');
+      print('Picked time: $pickedTime');
 
-      NotifyHelper().scheduledNotification(id.hashCode, title,
-          "تذكير ${title.toLowerCase()}", DateTime(hour, minute));
+      // Convert TimeOfDay to DateTime
+      DateTime now = DateTime.now();
+      DateTime scheduleDateTime =
+          DateTime(now.year, now.month, now.day, hour, minute);
+
+      NotifyHelper().scheduledNotification(
+          reminderId: id.hashCode,
+          title: 'reminders'.tr,
+          summary: title,
+          body: "تذكير ${title.toLowerCase()}",
+          isRepeats: true,
+          time: scheduleDateTime);
       reminderCtrl.toggleAdhkarEnabled(id, true);
       // Ensure the switch is set to true in the UI
       if (title == "أذكار الصباح") {

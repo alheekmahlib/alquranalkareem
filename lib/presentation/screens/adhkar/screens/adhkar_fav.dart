@@ -10,7 +10,7 @@ import '../widgets/options_row.dart';
 import '../widgets/text_widget.dart';
 
 class AdhkarFav extends StatelessWidget {
-  const AdhkarFav({super.key});
+  const AdhkarFav({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -23,8 +23,10 @@ class AdhkarFav extends StatelessWidget {
           Expanded(
             child: Obx(() {
               if (azkarCtrl.state.adhkarList.isEmpty) {
-                return customLottie(LottieConstants.assetsLottieOpenBook,
-                    height: 250.0, width: 250.0);
+                return customLottieWithColor(
+                    LottieConstants.assetsLottieOpenBook,
+                    height: 250.0,
+                    width: 250.0);
               } else {
                 return AnimationLimiter(
                   child: Align(

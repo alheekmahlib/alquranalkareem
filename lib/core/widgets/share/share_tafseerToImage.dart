@@ -191,9 +191,13 @@ class TafseerImageCreator extends StatelessWidget {
                                     //       )
                                     //     :
                                     TextSpan(
-                                      text: QuranLibrary()
-                                          .translationList[verseUQNumber - 1]
-                                          .text,
+                                      text:
+                                          QuranLibrary().translationList.isEmpty
+                                              ? ''
+                                              : QuranLibrary()
+                                                  .translationList[
+                                                      verseUQNumber - 1]
+                                                  .text,
                                       style: const TextStyle(
                                         fontSize: 13,
                                         fontFamily: 'naskh',

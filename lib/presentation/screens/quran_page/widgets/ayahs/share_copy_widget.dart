@@ -9,6 +9,7 @@ class ShareCopyWidget extends StatelessWidget {
   final String surahName;
   final String tafsirName;
   final String tafsir;
+  final int pageIndex;
   const ShareCopyWidget(
       {super.key,
       required this.ayahNumber,
@@ -18,7 +19,8 @@ class ShareCopyWidget extends StatelessWidget {
       required this.ayahText,
       required this.surahName,
       required this.tafsir,
-      required this.tafsirName});
+      required this.tafsirName,
+      required this.pageIndex});
 
   @override
   Widget build(BuildContext context) {
@@ -58,6 +60,7 @@ class ShareCopyWidget extends StatelessWidget {
               ayahTextNormal: ayahTextNormal,
               ayahText: ayahText,
               surahName: surahName,
+              pageNumber: pageIndex,
             ),
           ],
         ),

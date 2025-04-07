@@ -8,7 +8,7 @@ import '../widgets/options_row.dart';
 import '../widgets/text_widget.dart';
 
 class AdhkarItem extends StatelessWidget {
-  const AdhkarItem({super.key});
+  const AdhkarItem({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

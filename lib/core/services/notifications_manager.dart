@@ -27,10 +27,12 @@ class NotificationManager {
     log('notificationId: $notificationId', name: 'NotificationManager');
     NotifyHelper()
         .scheduledNotification(
-          notificationId,
-          'reminders'.tr,
-          body,
-          DateTime.now().add(const Duration(days: 1)),
+          reminderId: notificationId,
+          title: 'reminders'.tr,
+          summary: bookName,
+          body: body,
+          isRepeats: false,
+          time: DateTime.now().add(const Duration(days: 1)),
         )
         .then((_) => log('$notificationId\n${'reminders'.tr}\n$body',
             name: 'NotificationManager'));
@@ -77,44 +79,54 @@ class NotificationManager {
 
   void sendDailyHadith(String hadith) {
     NotifyHelper().scheduledNotification(
-      DateTime.now().millisecond + 1,
-      'حديث اليوم',
-      hadith,
-      DateTime.now().add(const Duration(hours: 8)),
+      reminderId: DateTime.now().millisecond + 1,
+      title: 'reminders'.tr,
+      summary: 'حديث اليوم',
+      body: hadith,
+      isRepeats: false,
+      time: DateTime.now().add(const Duration(hours: 8)),
     );
   }
 
   void scheduleLessFrequentNotifications() {
     NotifyHelper().scheduledNotification(
-      DateTime.now().millisecond + 1,
-      'أكمل القراءة!',
-      'لا تنسَ مواصلة قراءة الكتاب الذي توقفت عنده.',
-      DateTime.now().add(const Duration(days: 2)),
+      reminderId: DateTime.now().millisecond + 1,
+      title: 'reminders'.tr,
+      summary: 'أكمل القراءة!',
+      body: 'لا تنسَ مواصلة قراءة الكتاب الذي توقفت عنده.',
+      isRepeats: false,
+      time: DateTime.now().add(const Duration(days: 2)),
     );
   }
 
   void scheduleMoreFrequentNotifications() {
     NotifyHelper().scheduledNotification(
-      DateTime.now().millisecond + 1,
-      'أكمل القراءة!',
-      'تذكيرك اليومي بمتابعة قراءة الكتاب.',
-      DateTime.now().add(const Duration(days: 1)),
+      reminderId: DateTime.now().millisecond + 1,
+      title: 'reminders'.tr,
+      summary: 'أكمل القراءة!',
+      body: 'تذكيرك اليومي بمتابعة قراءة الكتاب.',
+      isRepeats: false,
+      time: DateTime.now().add(const Duration(days: 1)),
     );
 
     NotifyHelper().scheduledNotification(
-      DateTime.now().millisecond + 2,
-      'حديث اليوم',
-      'لا تفوت حديث اليوم! تابع القراءة.',
-      DateTime.now().add(const Duration(days: 1)),
+      reminderId: DateTime.now().millisecond + 2,
+      title: 'reminders'.tr,
+      summary: 'حديث اليوم',
+      body: 'لا تفوت حديث اليوم! تابع القراءة.',
+      isRepeats: false,
+      time: DateTime.now().add(const Duration(days: 1)),
     );
   }
 
   void sendInactiveUserReminder() {
     NotifyHelper().scheduledNotification(
-      DateTime.now().millisecond + 2,
-      'مرحبًا، لقد مرت فترة منذ آخر دخولك!',
-      'لا تنسَ مواصلة التعلم والقراءة.',
-      DateTime.now().add(const Duration(days: 7)),
+      reminderId: DateTime.now().millisecond + 2,
+      title: 'reminders'.tr,
+      summary: 'مرحبًا، لقد مرت فترة منذ آخر دخولك!',
+      body: 'لا تنسَ مواصلة التعلم والقراءة.',
+      isRepeats: false,
+      time: DateTime.now().add(const Duration(days: 7)),
     );
   }
 }

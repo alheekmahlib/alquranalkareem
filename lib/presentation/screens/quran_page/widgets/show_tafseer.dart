@@ -65,7 +65,8 @@ class ShowTafseer extends StatelessWidget {
                   ),
                 ],
               ),
-              _pageViewWidget(context, pageAyahs, selectedAyahIndexInFullPage)
+              _pageViewWidget(context, pageAyahs, selectedAyahIndexInFullPage,
+                  quranCtrl.state.currentPageNumber.value),
             ],
           ),
         ),
@@ -74,12 +75,13 @@ class ShowTafseer extends StatelessWidget {
   }
 
   Widget _copyShareWidget(BuildContext context, AyahFontsModel ayahs,
-      int ayahIndex, int index, TafsirTableData tafsir) {
+      int ayahIndex, int index, TafsirTableData tafsir, int pageIndex) {
     return ShareCopyWidget(
       ayahNumber: ayahs.ayahNumber,
       ayahText: ayahs.text,
       ayahTextNormal: ayahs.ayaTextEmlaey,
       ayahUQNumber: ayahIndex,
+      pageIndex: pageIndex,
       surahName: quranCtrl.getSurahDataByAyahUQ(ayahIndex).arabicName,
       surahNumber: quranCtrl.getSurahDataByAyahUQ(ayahIndex).surahNumber,
       tafsirName: quranCtrl.state.qPackage
@@ -114,7 +116,7 @@ class ShowTafseer extends StatelessWidget {
   }
 
   Widget _pageViewWidget(BuildContext context, List<AyahFontsModel> pageAyahs,
-      int selectedAyahIndexInFullPage) {
+      int selectedAyahIndexInFullPage, int pageIndex) {
     return Flexible(
       flex: 4,
       child: Obx(() {
@@ -172,8 +174,8 @@ class ShowTafseer extends StatelessWidget {
                                 ),
                                 textAlign: TextAlign.justify,
                               ),
-                              _copyShareWidget(
-                                  context, ayahs, ayahIndex, index, tafsir),
+                              _copyShareWidget(context, ayahs, ayahIndex, index,
+                                  tafsir, pageIndex),
                               Text.rich(
                                 TextSpan(
                                   children: <InlineSpan>[
