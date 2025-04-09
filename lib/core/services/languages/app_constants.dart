@@ -24,6 +24,12 @@ class AppConstants {
       appLang: 'Idioma de la aplicación',
     ),
     LanguageModel(
+      languageName: 'Türkçe',
+      countryCode: '',
+      languageCode: 'tr',
+      appLang: 'Uygulama Dili',
+    ),
+    LanguageModel(
       languageName: 'বাংলা',
       countryCode: '',
       languageCode: 'bn',
@@ -52,6 +58,18 @@ class AppConstants {
       countryCode: '',
       languageCode: 'ph',
       appLang: 'Wika ng Aplikasyon',
+    ),
+    LanguageModel(
+      languageName: 'كرمنجي',
+      countryCode: '',
+      languageCode: 'ku',
+      appLang: 'زمانی ئەپ',
+    ),
+    LanguageModel(
+      languageName: 'русский',
+      countryCode: '',
+      languageCode: 'ru',
+      appLang: 'язык приложения',
     ),
   ];
 }

@@ -1,7 +1,6 @@
 import 'dart:developer' show log;
 import 'dart:io' show File, Directory, HttpHeaders, Platform;
 
-import 'package:alquranalkareem/presentation/controllers/general/extensions/general_getters.dart';
 import 'package:audio_service/audio_service.dart';
 import 'package:dio/dio.dart' as d;
 import 'package:get/get.dart';
@@ -16,6 +15,7 @@ import '/core/widgets/seek_bar.dart';
 import '/presentation/screens/surah_audio/controller/extensions/surah_audio_getters.dart';
 import '/presentation/screens/surah_audio/controller/extensions/surah_audio_storage_getters.dart';
 import '/presentation/screens/surah_audio/controller/extensions/surah_audio_ui.dart';
+import '../../../controllers/general/extensions/general_getters.dart';
 import '../../../controllers/general/general_controller.dart';
 import '../../quran_page/quran.dart';
 import 'audio_player_handler.dart';

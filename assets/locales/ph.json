@@ -369,6 +369,26 @@
     "type": "text",
     "placeholders": {}
   },
+  "reader17": "Mohammad Ayoub",
+  "@reader17": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "reader18": "Maher Al-Muaiqly - may Tajweed",
+  "@reader18": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "reader19": "Ahmad Al-Nufais - may Tajweed",
+  "@reader19": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "reader20": "Yasser Al-Dosari - may Tajweed",
+  "@reader20": {
+    "type": "text",
+    "placeholders": {}
+  },
   "alheekmahlib": "Aklatan ng Karunungan",
   "@alheekmahlib": {
     "type": "text",

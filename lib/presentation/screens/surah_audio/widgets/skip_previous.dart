@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:just_audio/just_audio.dart';
 
-import '../../../../core/services/services_locator.dart';
+import '/core/services/services_locator.dart';
 import '../controller/surah_audio_controller.dart';
 
 class SkipToPrevious extends StatelessWidget {

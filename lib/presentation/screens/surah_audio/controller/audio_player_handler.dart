@@ -3,7 +3,7 @@ import 'dart:developer' show log;
 import 'package:audio_service/audio_service.dart';
 import 'package:just_audio/just_audio.dart';
 
-import '/presentation/screens/surah_audio/controller/extensions/surah_audio_getters.dart';
+import 'extensions/surah_audio_getters.dart';
 import 'surah_audio_controller.dart';
 
 class AudioPlayerHandler extends BaseAudioHandler
