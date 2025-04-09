@@ -1,0 +1,1277 @@
+{
+    "appName": "Священный Коран - Библиотека Мудрости",
+    "@appName": {
+        "description": "appName",
+        "type": "text",
+        "placeholders": {}
+    },
+    "search_hint": "Поиск по аятам Корана",
+    "@search_hint": {
+        "description": "search_hint",
+        "type": "text",
+        "placeholders": {}
+    },
+    "menu": "Меню",
+    "@menu": {
+        "description": "menu",
+        "type": "text",
+        "placeholders": {}
+    },
+    "notes": "Заметки",
+    "@notes": {
+        "description": "notes",
+        "type": "text",
+        "placeholders": {}
+    },
+    "note_title": "Заголовок",
+    "@note_title": {
+        "description": "note_title",
+        "type": "text",
+        "placeholders": {}
+    },
+    "add_new_note": "Добавить новую заметку",
+    "@add_new_note": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "note_details": "Детали заметки",
+    "@note_details": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "bookmarks": "Сохранённые закладки",
+    "@bookmarks": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "bookmark_title": "Название закладки",
+    "@bookmark_title": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "add_new_bookmark": "Добавить закладку",
+    "@add_new_bookmark": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "save": "Сохранить",
+    "@save": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "edit": "Редактировать",
+    "@edit": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "azkar": "Зикр",
+    "@azkar": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "qibla": "Направление Киблы",
+    "@qibla": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "salat": "Время намаза",
+    "@salat": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "aya_count": "Количество аятов",
+    "@aya_count": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "quran_sorah": "Суры",
+    "@quran_sorah": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "about_us": "О приложении",
+    "@about_us": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "stop_title": "Остановка - Священный Коран - Библиотека Мудрости",
+    "@stop_title": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "about_app": "Приложение «Священный Коран - Библиотека Мудрости» предлагает широкий спектр функций для улучшения чтения и изучения Корана, включая:",
+    "@about_app": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "about_app2": "Основные особенности:",
+    "@about_app2": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "about_app3": "۞ Современный интерфейс: Удобный и интуитивно понятный дизайн.\n۞ Текст из издания Королевского комплекса: Гарантирует точность.\n۞ Интерактивное чтение: Возможность слушать и изучать Коран.\n۞ Гибкие режимы: Чтение как бумажной книги или отдельных аятов.\n۞ Поиск по тексту: Быстрый поиск аятов и переход к страницам.\n۞ Закладки: Сохранение важных мест.\n۞ Аудио: Прослушивание аятов от известных чтецов.\n۞ Тафсир и переводы: Доступ к толкованиям.\n۞ Навигация по сурам: Легкий переход между сурами.\n۞ Темы: Поддержка темного режима и других цветовых схем.\n۞ Офлайн-доступ: Скачивание сур для прослушивания без интернета.",
+    "@about_app3": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "email": "Связаться с нами",
+    "@email": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "select_player": "Выбор чтеца",
+    "@select_player": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "delete": "Удалить",
+    "@delete": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "page": "Страница",
+    "@page": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "search_word": "Поиск аята",
+    "@search_word": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "search_description": "Введите слово из аята для поиска.",
+    "@search_description": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "fontSize": "Размер шрифта",
+    "@fontSize": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "waqfName": "Метки остановок",
+    "@waqfName": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "onboardTitle1": "Простой интерфейс",
+    "@onboardTitle1": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "onboardDesc1": "- Поиск аятов.\n- Смена языка.\n- Прослушивание страниц.\n- Смена чтеца.",
+    "@onboardDesc1": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "onboardTitle2": "Тафсир",
+    "@onboardTitle2": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "onboardDesc2": "Тафсир доступен при прокрутке вверх.",
+    "@onboardDesc2": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "onboardTitle3": "Действия по нажатию",
+    "@onboardTitle3": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "onboardDesc3": "1. Двойное нажатие: увеличение.\n2. Долгое нажатие: сохранение.\n3. Одно нажатие: меню.",
+    "@onboardDesc3": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "green": "Зелёная тема",
+    "@green": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "brown": "Коричневая тема",
+    "@brown": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "dark": "Тёмная тема",
+    "@dark": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "azkarfav": "Избранный зикр",
+    "@azkarfav": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "themeTitle": "Выбор темы",
+    "@themeTitle": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "sorah": "Сура",
+    "@sorah": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "part": "Джуз",
+    "@part": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "langChange": "Сменить язык",
+    "@langChange": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "tafChange": "Выбор тафсира",
+    "@tafChange": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "tafIbnkatheerN": "Тафсир Ибн Касира",
+    "@tafIbnkatheerN": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "tafBaghawyN": "Тафсир Аль-Багави",
+    "@tafBaghawyN": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "tafQurtubiN": "Тафсир Аль-Куртуби",
+    "@tafQurtubiN": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "tafSaadiN": "Тафсир Ас-Саади",
+    "@tafSaadiN": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "tafTabariN": "Тафсир Ат-Табари",
+    "@tafTabariN": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "tafIbnkatheerD": "Тафсир Аль-Куран Аль-Азым",
+    "@tafIbnkatheerD": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "tafBaghawyD": "Маалим Ат-Танзиль",
+    "@tafBaghawyD": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "tafQurtubiD": "Аль-Джами Ли Ахкам Аль-Куран",
+    "@tafQurtubiD": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "tafSaadiD": "Тайсир Аль-Карим Ар-Рахман",
+    "@tafSaadiD": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "tafTabariD": "Джами Аль-Баян Фи Тафсир Аль-Куран",
+    "@tafTabariD": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "appLang": "Язык приложения",
+    "@appLang": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "setting": "Настройки",
+    "@setting": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "reader1": "Абдуль-Басит",
+    "@reader1": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "reader2": "Мухаммад Аль-Миншави",
+    "@reader2": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "reader3": "Махмуд Аль-Хусри",
+    "@reader3": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "reader4": "Ахмад Аль-Аджми",
+    "@reader4": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "reader5": "Махир Аль-Муайкили",
+    "@reader5": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "reader6": "Сауд Аш-Шурайм",
+    "@reader6": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "reader7": "Саад Аль-Гамиди",
+    "@reader7": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "reader8": "Мустафа Аль-Иззави",
+    "@reader8": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "reader9": "Насир Аль-Катами",
+    "@reader9": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "reader10": "Кадир Аль-Курди",
+    "@reader10": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "reader11": "Ширзад Тахир",
+    "@reader11": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "reader12": "Абдуррахман Аль-Ауси",
+    "@reader12": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "reader13": "Вади Аль-Йамани",
+    "@reader13": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "reader14": "Ясир Ад-Дусари",
+    "@reader14": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "reader15": "Абдулла Аль-Джухани",
+    "@reader15": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "reader16": "Фарис Аббад",
+    "@reader16": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "reader17": "Мухаммад Аюб",
+    "@reader17": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "reader18": "Махир Аль-Муайкили (Муджаввид)",
+    "@reader18": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "reader19": "Ахмад Ан-Нафис (Муджаввид)",
+    "@reader19": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "reader20": "Ясир Ад-Дусари (Муджаввид)",
+    "@reader20": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "alheekmahlib": "Библиотека Мудрости",
+    "@alheekmahlib": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "backTo": "Вернуться к",
+    "@backTo": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "next": "Далее",
+    "@next": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "start": "Начать",
+    "@start": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "quranPages": "Коран (страницы)",
+    "@quranPages": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "quranText": "Коран (аяты)",
+    "@quranText": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "tafseer": "Тафсир",
+    "@tafseer": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "allJuz": "Джузы",
+    "@allJuz": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "copyAzkarText": "Зикр скопирован",
+    "@copyAzkarText": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "addBookmark": "Закладка добавлена",
+    "@addBookmark": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "deletedBookmark": "Закладка удалена!",
+    "@deletedBookmark": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "deletedReminder": "Напоминание удалено!",
+    "@deletedReminder": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "fillAllFields": "Заполните все поля!",
+    "@fillAllFields": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "version": "Версия",
+    "@version": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "share": "Поделиться",
+    "@share": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "facebook": "Мы в Facebook",
+    "@facebook": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "addZekrBookmark": "Зикр добавлен в избранное",
+    "@addZekrBookmark": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "deletedZekrBookmark": "Зикр удалён из избранного!",
+    "@deletedZekrBookmark": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "pageNo": "Номер страницы",
+    "@pageNo": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "lastRead": "Последнее чтение",
+    "@lastRead": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "copyAyah": "Аят скопирован",
+    "@copyAyah": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "copyTafseer": "Тафсир скопирован",
+    "@copyTafseer": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "online": "Онлайн",
+    "@online": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "download": "Скачать",
+    "@download": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "noInternet": "Нет интернета!",
+    "@noInternet": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "mobileDataAyat": "Используется мобильный интернет для загрузки аятов!",
+    "@mobileDataAyat": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "mobileDataSurahs": "Используется мобильный интернет для загрузки сур!",
+    "@mobileDataSurahs": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "mobileDataListen": "Используется мобильный интернет для прослушивания!",
+    "@mobileDataListen": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "choiceAyah": "Сначала выберите аят!",
+    "@choiceAyah": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "stopSigns": "Знаки остановки",
+    "@stopSigns": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "aboutApp": "О приложении",
+    "@aboutApp": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "readMore": "Подробнее",
+    "@readMore": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "readLess": "Свернуть",
+    "@readLess": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "ok": "OK",
+    "@ok": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "cancel": "Отмена",
+    "@cancel": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "searchToSurah": "Поиск суры",
+    "@searchToSurah": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "addReminder": "Добавить напоминание",
+    "@addReminder": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "lastListen": "Последнее прослушивание",
+    "@lastListen": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "hizb": "Хизб",
+    "@hizb": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "shareText": "Текст",
+    "@shareText": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "shareImage": "Изображение",
+    "@shareImage": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "shareImageWTrans": "Изображение с переводом",
+    "@shareImageWTrans": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "shareTrans": "Примечание: шаринг тафсира в виде изображения поддерживает только тафсир Ас-Саади.",
+    "@shareTrans": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "translation": "Перевод",
+    "@translation": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "search": "Поиск",
+    "@search": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "surahsList": "Список сур",
+    "@surahsList": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "bookmarksList": "Список закладок",
+    "@bookmarksList": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "copy": "Копировать",
+    "@copy": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "shareTafseer": "Поделиться",
+    "@shareTafseer": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "addToBookmark": "Добавить в закладки",
+    "@addToBookmark": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "repeatSurah": "Повторить суру",
+    "@repeatSurah": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "pauseSurah": "Пауза",
+    "@pauseSurah": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "replaySurah": "Повторить",
+    "@replaySurah": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "skipToPrevious": "Предыдущая сура",
+    "@skipToPrevious": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "deletedPlayList": "Плейлист удалён",
+    "@deletedPlayList": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "createPlayList": "Создать плейлист",
+    "@createPlayList": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "playList": "Плейлисты",
+    "@playList": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "playListName": "Название плейлиста",
+    "@playListName": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "from": "От",
+    "@from": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "to": "До",
+    "@to": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "quran": "Священный Коран",
+    "@quran": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "quranAudio": "Прослушивание Корана",
+    "@quranAudio": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "startScreen": "Стартовый экран",
+    "@startScreen": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "selectScreen": "Выбрать стартовый экран",
+    "@selectScreen": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "dailyZeker": "Зикр дня",
+    "@dailyZeker": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "lang": "Русский",
+    "@lang": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "juz": "Джуз",
+    "@juz": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "sajda": "Суджуд",
+    "@sajda": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "pages": "Страницы",
+    "@pages": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "ayahs": "Аяты",
+    "@ayahs": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "eidGreetingContent": "Да примет Аллах наш пост и благие дела.",
+    "@eidGreetingContent": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "eidGreetingContent2": "С каждым годом ближе к Аллаху.",
+    "@eidGreetingContent2": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "eidGreetingTitle": "С праздником Ид!",
+    "@eidGreetingTitle": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "ramadhanMubarak": "Рамадан Мубарак!",
+    "@ramadhanMubarak": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "home": "Главная",
+    "@home": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "skip": "Пропустить",
+    "@skip": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "What's New": "Что нового",
+    "@What's New": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "ourApps": "Наши приложения",
+    "@ourApps": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "choseQuran": "Выбор режима чтения",
+    "@choseQuran": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "blueMode": "Синий",
+    "@blueMode": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "brownMode": "Коричневый",
+    "@brownMode": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "oldMode": "Классический",
+    "@oldMode": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "darkMode": "Тёмный",
+    "@darkMode": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "Sunday": "Воскресенье",
+    "@Sunday": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "Monday": "Понедельник",
+    "@Monday": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "Tuesday": "Вторник",
+    "@Tuesday": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "Wednesday": "Среда",
+    "@Wednesday": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "Thursday": "Четверг",
+    "@Thursday": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "Friday": "Пятница",
+    "@Friday": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "Saturday": "Суббота",
+    "@Saturday": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "RemainsUntilTheEndOf": "До конца",
+    "@RemainsUntilTheEndOf": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "Muharram": "Мухаррам",
+    "@Muharram": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "Safar": "Сафар",
+    "@Safar": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "Rabi' Al-Awwal": "Раби аль-авваль",
+    "@Rabi' Al-Awwal": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "Rabi' Al-Thani": "Раби ас-сани",
+    "@Rabi' Al-Thani": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "Jumada Al-Awwal": "Джумада аль-уля",
+    "@Jumada Al-Awwal": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "Jumada Al-Thani": "Джумада ас-сани",
+    "@Jumada Al-Thani": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "Rajab": "Раджаб",
+    "@Rajab": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "Sha'aban": "Шаабан",
+    "@Sha'aban": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "Ramadan": "Рамадан",
+    "@Ramadan": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "Shawwal": "Шавваль",
+    "@Shawwal": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "Dhu Al-Qi'dah": "Зуль-Каада",
+    "@Dhu Al-Qi'dah": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "Dhu Al-Hijjah": "Зуль-Хиджа",
+    "@Dhu Al-Hijjah": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "Day": "День",
+    "@Day": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "Days": "Дней",
+    "@Days": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "hijriNote": "Примечание: Даты могут незначительно отличаться из-за лунного календаря. Мы корректируем календарь при подтверждении наблюдения луны.",
+    "@hijriNote": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "AH": "г.х.",
+    "@AH": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "Fajr": "Фаджр",
+    "@Fajr": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "Dhuhr": "Зухр",
+    "@Dhuhr": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "Asr": "Аср",
+    "@Asr": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "Maghrib": "Магриб",
+    "@Maghrib": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "Isha": "Иша",
+    "@Isha": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "Last Third": "Последняя треть",
+    "@Last Third": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "Middle of the Night": "Середина ночи",
+    "@Middle of the Night": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "Sunrise": "Восход",
+    "@Sunrise": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "tafsirLibrary": "Библиотека тафсиров",
+    "@tafsirLibrary": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "allBooks": "Все книги",
+    "@allBooks": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "myLibrary": "Моя библиотека",
+    "@myLibrary": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "bookmark": "Закладки",
+    "@bookmark": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "chapterBook": "Разделы книги",
+    "@chapterBook": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "aboutBook": "О книге",
+    "@aboutBook": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "khatmah": "Хатма",
+    "@khatmah": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "createKhatmah": "Создать хатму",
+    "@createKhatmah": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "khatmahName": "Название хатмы",
+    "@khatmahName": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "addKhatmah": "Добавить хатму",
+    "@addKhatmah": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "duration": "Продолжительность",
+    "@duration": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "divisionBySahabah": "Деление по сподвижникам",
+    "@divisionBySahabah": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "choiceColor": "Выбор цвета",
+    "@choiceColor": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "searchInBooks": "Поиск в книгах",
+    "@searchInBooks": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "hasPassed": "Прошло",
+    "@hasPassed": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "downloading": "Загрузка...",
+    "@downloading": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "startHijriYear": "Начало года Хиджры",
+    "@startHijriYear": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "reminderToFastTasoo'a": "Напоминание о посте Тасуа",
+    "@reminderToFastTasoo'a": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "reminderToFastAshura": "Напоминание о посте Ашура",
+    "@reminderToFastAshura": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "ramadhan": "Рамадан",
+    "@ramadhan": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "nightOfQadir": "Напоминание о Ночи Предопределения",
+    "@nightOfQadir": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "EidAl-Fitr": "Ид аль-Фитр",
+    "@EidAl-Fitr": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "sexShawwal": "Напоминание о посте шести дней Шавваля",
+    "@sexShawwal": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "arafahReminder": "Напоминание о посте дня Арафа",
+    "@arafahReminder": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "tenDaysOfDhul-Hijjah": "Десять дней Зуль-Хиджа",
+    "@tenDaysOfDhul-Hijjah": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "EidAl-Adha": "Ид аль-Адха",
+    "@EidAl-Adha": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "choiceBackgroundColor": "Выбор цвета фона",
+    "@choiceBackgroundColor": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "reset": "Сброс",
+    "@reset": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "Medinan": "Мединская",
+    "@Medinan": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "Meccan": "Мекканская",
+    "@Meccan": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "surahNames": "Названия сур",
+    "@surahNames": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "aboutSurah": "О суре",
+    "@aboutSurah": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "notification": "Уведомления",
+    "@notification": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "noNotifications": "Нет уведомлений",
+    "@noNotifications": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "reminders": "Напоминания",
+    "@reminders": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "customReminder": "Кастомное напоминание",
+    "@customReminder": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "addMore": "Добавить ещё",
+    "@addMore": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "What'sNewDetails10": "۞ Обновление исламского календаря.\n۞ Улучшения производительности и исправления.",
+    "@What'sNewDetails10": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "chooseDhekr": "Выбор зикра",
+    "@chooseDhekr": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "selectTime": "Выбрать время",
+    "@selectTime": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "downloadBookFirst": "Сначала скачайте книгу.",
+    "@downloadBookFirst": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "lastDayOf": "Последний день месяца",
+    "@lastDayOf": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "booksDownloaded": "Книга загружена.",
+    "@booksDownloaded": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "booksDeleted": "Книга удалена.",
+    "@booksDeleted": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "noBooksDownloaded": "Нет загруженных книг.",
+    "@noBooksDownloaded": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "notifyQuranBody": "Вы остановились на странице @currentPageNumber. Продолжить?",
+    "@notifyQuranBody": {
+        "type": "text",
+        "placeholders": {
+            "currentPageNumber": {}
+        }
+    },
+    "notifyAdhkarBody": "Не забудьте прочитать @adhkarType",
+    "@notifyAdhkarBody": {
+        "type": "text",
+        "placeholders": {
+            "adhkarType": {}
+        }
+    },
+    "notifyBooksBody": "Не забудьте продолжить чтение книги @bookName",
+    "@notifyBooksBody": {
+        "type": "text",
+        "placeholders": {
+            "bookName": {}
+        }
+    },
+    "notifyListenBody": "Не забудьте продолжить прослушивание сур",
+    "@notifyListenBody": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "lastSearch": "Последний поиск",
+    "@lastSearch": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "ashura": "Ашура",
+    "@ashura": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "arafah": "Арафа",
+    "@arafah": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "editHijriDay": "Редактировать дни",
+    "@editHijriDay": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "fonts": "Шрифты",
+    "@fonts": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "fontsNotes": "Для лучшего отображения Корана загрузите специальные шрифты.",
+    "@fontsNotes": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "defaultFontText": "Стандартный шрифт",
+    "@defaultFontText": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "downloadedFontsText": "Шрифт Корана",
+    "@downloadedFontsText": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "calenderSettings": "Настройки календаря",
+    "@calenderSettings": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "islamicCalendar": "Исламский календарь",
+    "hijriCalendar": "Хиджрийский календарь",
+    "calendar": "Календарь",
+    "events": "События",
+    "year": "Год",
+    "month": "Месяц",
+    "hijri": "Хиджра",
+    "Sun": "Вс",
+    "Mon": "Пн",
+    "Tue": "Вт",
+    "Wed": "Ср",
+    "Thu": "Чт",
+    "Fri": "Пт",
+    "Sat": "Сб"
+}

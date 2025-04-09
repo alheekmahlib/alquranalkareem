@@ -19,6 +19,7 @@ List<String> translateName = <String>[
   'bahasa Indonesia',
   'کوردی',
   'Türkçe',
+  'Filipino',
 ];
 
 List<String> shareTranslateName = <String>[
@@ -30,6 +31,7 @@ List<String> shareTranslateName = <String>[
   'bahasa Indonesia',
   'کوردی',
   'Türkçe',
+  'Filipino',
   // 'تفسير السعدي'
 ];
 
@@ -43,6 +45,7 @@ const List<String> semanticsTranslateName = <String>[
   'Indonesian',
   'kurdish',
   'turkish',
+  'filipino',
 ];
 
 const List<String> waqfMarks = <String>[
@@ -243,6 +246,24 @@ const List surahReaderInfo = [
     'readerN': 'muhammad_ayyoob_hq/',
     'readerI': 'ayyoob'
   },
+  {
+    'name': 'reader18',
+    'readerD': '${ApiConstants.surahUrl3}',
+    'readerN': 'maher/',
+    'readerI': 'maher'
+  },
+  {
+    'name': 'reader19',
+    'readerD': '${ApiConstants.surahUrl2}',
+    'readerN': 'nufais/Rewayat-Hafs-A-n-Assem/',
+    'readerI': 'nufais'
+  },
+  {
+    'name': 'reader20',
+    'readerD': '${ApiConstants.surahUrl5}',
+    'readerN': 'yasser/',
+    'readerI': 'yasser'
+  },
 ];
 
 List tafsirNameList = [
@@ -374,6 +395,18 @@ const List ayahReaderInfo = [
     'readerD': '128/ar.muhammadayyoub',
     'readerI': 'ayyoob',
     'url': ApiConstants.ayahs1stSource
+  },
+  {
+    'name': 'reader18',
+    'readerD': 'MaherAlMuaiqly128kbps',
+    'readerI': 'maher',
+    'url': ApiConstants.ayahs2ndSource,
+  },
+  {
+    'name': 'reader20',
+    'readerD': 'Yasser_Ad-Dussary_128kbps',
+    'readerN': 'yasser',
+    'url': ApiConstants.ayahs2ndSource
   },
 ];
 

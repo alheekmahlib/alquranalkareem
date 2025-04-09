@@ -370,6 +370,26 @@
     "type": "text",
     "placeholders": {}
   },
+  "reader17": "محمد ایوب",
+  "@reader17": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "reader18": "ماہر المعیقلی - مجود",
+  "@reader18": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "reader19": "احمد النفیس - مجود",
+  "@reader19": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "reader20": "یاسر الدوسری - مجود",
+  "@reader20": {
+    "type": "text",
+    "placeholders": {}
+  },
   "alheekmahlib": "الحکمہ لائبریری",
   "@alheekmahlib": {
     "type": "text",

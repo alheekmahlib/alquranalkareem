@@ -8,7 +8,6 @@ list(APPEND FLUTTER_PLUGIN_LIST
   desktop_window
   flutter_timezone
   simple_animation_progress_bar
-  sqlite3_flutter_libs
   url_launcher_linux
 )
 

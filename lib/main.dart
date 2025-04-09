@@ -1,7 +1,6 @@
-import 'dart:async';
-import 'dart:io';
+import 'dart:io' show Platform;
 
-import 'package:drift/drift.dart';
+import 'package:drift/drift.dart' show driftRuntimeOptions;
 import 'package:flutter/material.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:get_storage/get_storage.dart';

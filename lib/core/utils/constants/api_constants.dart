@@ -5,6 +5,7 @@ class ApiConstants {
   static const surahUrl2 = "https://server16.mp3quran.net/";
   static const surahUrl3 = "https://server12.mp3quran.net/";
   static const surahUrl4 = "https://server6.mp3quran.net/";
+  static const surahUrl5 = "https://server11.mp3quran.net/";
   static const downloadAppUrl = "https://alheekmahlib.com/#/download/app/0";
 
   static const baseUrl = "https://github.com/";

@@ -1,4 +1,4 @@
-import 'dart:io';
+import 'dart:io' show Directory;
 
 import 'package:audio_service/audio_service.dart';
 import 'package:get/get.dart';
@@ -6,8 +6,8 @@ import 'package:just_audio/just_audio.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:rxdart/rxdart.dart' as R;
 
-import '../../../../../core/utils/constants/lists.dart';
-import '../../../../../core/widgets/seek_bar.dart';
+import '/core/utils/constants/lists.dart';
+import '/core/widgets/seek_bar.dart';
 import '../../../quran_page/quran.dart';
 import '../audio_player_handler.dart';
 import '../surah_audio_controller.dart';

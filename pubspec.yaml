@@ -83,7 +83,7 @@ dependencies:
   wakelock_plus: ^1.2.10
 
   # Commit this line if you want to run or build on ios / macOS
-  drift_flutter: ^0.2.4 
+  # drift_flutter: ^0.2.4 
 
 
 

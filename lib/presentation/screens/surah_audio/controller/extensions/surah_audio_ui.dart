@@ -1,15 +1,15 @@
-import 'dart:developer' as developer;
+import 'dart:developer' show log;
 
-import 'package:alquranalkareem/presentation/screens/quran_page/widgets/search/search_extensions/convert_arabic_to_english_numbers_extension.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:get/get.dart';
 import 'package:just_audio/just_audio.dart';
 
-import '/presentation/screens/quran_page/widgets/search/search_extensions/highlight_extension.dart';
+import '/core/utils/constants/lists.dart';
+import '/core/utils/constants/shared_preferences_constants.dart';
 import '/presentation/screens/surah_audio/controller/extensions/surah_audio_getters.dart';
-import '../../../../../core/utils/constants/lists.dart';
-import '../../../../../core/utils/constants/shared_preferences_constants.dart';
 import '../../../quran_page/quran.dart';
+import '../../../quran_page/widgets/search/search_extensions/convert_arabic_to_english_numbers_extension.dart';
+import '../../../quran_page/widgets/search/search_extensions/highlight_extension.dart';
 import '../surah_audio_controller.dart';
 
 extension SurahAudioUi on SurahAudioController {
@@ -56,7 +56,7 @@ extension SurahAudioUi on SurahAudioController {
           .contains(searchInput));
     }
 
-    developer.log('surahNumber: $index');
+    log('surahNumber: $index');
     if (index != -1 && state.surahListController != false) {
       jumpToSurah(index);
       state.selectedSurah.value = index;

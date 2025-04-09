@@ -370,6 +370,26 @@
     "type": "text",
     "placeholders": {}
   },
+  "reader17": "মোহাম্মদ আয়ুব",
+  "@reader17": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "reader18": "মাহের আল-মুয়াইকলি - মুজাওয়াদ",
+  "@reader18": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "reader19": "আহমাদ আল-নুফাইস - মুজাওয়াদ",
+  "@reader19": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "reader20": "ইয়াসির আল-দোসারি - মুজাওয়াদ",
+  "@reader20": {
+    "type": "text",
+    "placeholders": {}
+  },
   "alheekmahlib": "আলহেকমাহ লাইব্রেরী",
   "@alheekmahlib": {
     "type": "text",

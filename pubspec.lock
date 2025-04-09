@@ -409,14 +409,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.26.0"
-  drift_flutter:
-    dependency: "direct main"
-    description:
-      name: drift_flutter
-      sha256: "0cadbf3b8733409a6cf61d18ba2e94e149df81df7de26f48ae0695b48fd71922"
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.2.4"
   easy_image_viewer:
     dependency: "direct main"
     description:
@@ -1339,14 +1331,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.7.4"
-  sqlite3_flutter_libs:
-    dependency: transitive
-    description:
-      name: sqlite3_flutter_libs
-      sha256: "1a96b59227828d9eb1463191d684b37a27d66ee5ed7597fcf42eee6452c88a14"
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.5.32"
   sqlparser:
     dependency: transitive
     description:

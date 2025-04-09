@@ -1,100 +1,100 @@
 {
-  "appName": "القرآن الكريم - مكتبة الحكمة",
+  "appName": "Kur'an-ı Kerim - Hikmet Kütüphanesi",
   "@appName": {
     "description": "appName",
     "type": "text",
     "placeholders": {}
   },
-  "search_hint": "البحث في آيات القرآن الكريم",
+  "search_hint": "Kur'an ayetlerinde ara",
   "@search_hint": {
     "description": "search_hint",
     "type": "text",
     "placeholders": {}
   },
-  "menu": "القائمة",
+  "menu": "Menü",
   "@menu": {
     "description": "menu",
     "type": "text",
     "placeholders": {}
   },
-  "notes": "الملاحظات",
+  "notes": "Notlar",
   "@notes": {
     "description": "notes",
     "type": "text",
     "placeholders": {}
   },
-  "note_title": "العنوان",
+  "note_title": "Başlık",
   "@note_title": {
     "description": "note_title",
     "type": "text",
     "placeholders": {}
   },
-  "add_new_note": "اضافة ملاحظة جديدة",
+  "add_new_note": "Yeni not ekle",
   "@add_new_note": {
     "type": "text",
     "placeholders": {}
   },
-  "note_details": "تفاصيل الملاحظة",
+  "note_details": "Notun ayrıntıları",
   "@note_details": {
     "type": "text",
     "placeholders": {}
   },
-  "bookmarks": "الفواصل المحفوظة",
+  "bookmarks": "Yer imleri",
   "@bookmarks": {
     "type": "text",
     "placeholders": {}
   },
-  "bookmark_title": "إسم الفاصلة",
+  "bookmark_title": "Yer imi adı",
   "@bookmark_title": {
     "type": "text",
     "placeholders": {}
   },
-  "add_new_bookmark": "إضافة فاصلة",
+  "add_new_bookmark": "Yer imi ekle",
   "@add_new_bookmark": {
     "type": "text",
     "placeholders": {}
   },
-  "save": "حفظ",
+  "save": "Kaydet",
   "@save": {
     "type": "text",
     "placeholders": {}
   },
-  "edit": "تعديل",
+  "edit": "Düzenle",
   "@edit": {
     "type": "text",
     "placeholders": {}
   },
-  "azkar": "الأذكار",
+  "azkar": "Zikirler",
   "@azkar": {
     "type": "text",
     "placeholders": {}
   },
-  "qibla": "إتجاه القبلة",
+  "qibla": "Kıble yönü",
   "@qibla": {
     "type": "text",
     "placeholders": {}
   },
-  "salat": "أوقات الصلاة",
+  "salat": "Namaz vakitleri",
   "@salat": {
     "type": "text",
     "placeholders": {}
   },
-  "aya_count": "عدد الآيات",
+  "aya_count": "Ayet sayısı",
   "@aya_count": {
     "type": "text",
     "placeholders": {}
   },
-  "quran_sorah": "السور",
+  "quran_sorah": "Sureler",
   "@quran_sorah": {
     "type": "text",
     "placeholders": {}
   },
-  "about_us": "عن التطبيق",
+  "about_us": "Uygulama hakkında",
   "@about_us": {
     "type": "text",
     "placeholders": {}
   },
-  "stop_title": "وقف القرآن الكريم - مكتبة الحكمة",
+  "stop_title": "Kur'an Vakfı - Hikmet Kütüphanesi",
   "@stop_title": {
     "type": "text",
     "placeholders": {}
@@ -114,27 +114,27 @@
     "type": "text",
     "placeholders": {}
   },
-  "email": "تواصل معنا",
+  "email": "Bizimle iletişime geçin",
   "@email": {
     "type": "text",
     "placeholders": {}
   },
-  "select_player": "إختر القارئ",
+  "select_player": "Okuyucuyu seç",
   "@select_player": {
     "type": "text",
     "placeholders": {}
   },
-  "delete": "حذف",
+  "delete": "Sil",
   "@delete": {
     "type": "text",
     "placeholders": {}
   },
-  "page": "صفحة",
+  "page": "Sayfa",
   "@page": {
     "type": "text",
     "placeholders": {}
   },
-  "search_word": "ابحث عن آية",
+  "search_word": "Bir ayet ara",
   "@search_word": {
     "type": "text",
     "placeholders": {}
@@ -144,17 +144,17 @@
     "type": "text",
     "placeholders": {}
   },
-  "fontSize": "تغيير حجم الخط",
+  "fontSize": "Yazı boyutunu değiştir",
   "@fontSize": {
     "type": "text",
     "placeholders": {}
   },
-  "waqfName": "علامات الوقف",
+  "waqfName": "Durak işaretleri",
   "@waqfName": {
     "type": "text",
     "placeholders": {}
   },
-  "onboardTitle1": "واجهة سهلة",
+  "onboardTitle1": "Kullanımı kolay arayüz",
   "@onboardTitle1": {
     "type": "text",
     "placeholders": {}
@@ -164,7 +164,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "onboardTitle2": "إظهار التفسير",
+  "onboardTitle2": "Tefsiri göster",
   "@onboardTitle2": {
     "type": "text",
     "placeholders": {}
@@ -174,7 +174,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "onboardTitle3": "خيارات النقر",
+  "onboardTitle3": "Dokunma seçenekleri",
   "@onboardTitle3": {
     "type": "text",
     "placeholders": {}
@@ -184,72 +184,72 @@
     "type": "text",
     "placeholders": {}
   },
-  "green": "المظهر الأخظر",
+  "green": "Yeşil tema",
   "@green": {
     "type": "text",
     "placeholders": {}
   },
-  "brown": "المظهر البني",
+  "brown": "Kahverengi tema",
   "@brown": {
     "type": "text",
     "placeholders": {}
   },
-  "dark": "المظهر الداكن",
+  "dark": "Karanlık tema",
   "@dark": {
     "type": "text",
     "placeholders": {}
   },
-  "azkarfav": "الأذكار المفضلة",
+  "azkarfav": "Favori zikirler",
   "@azkarfav": {
     "type": "text",
     "placeholders": {}
   },
-  "themeTitle": "أختر المظهر",
+  "themeTitle": "Temayı seç",
   "@themeTitle": {
     "type": "text",
     "placeholders": {}
   },
-  "sorah": "سورة",
+  "sorah": "Sure",
   "@sorah": {
     "type": "text",
     "placeholders": {}
   },
-  "part": "جزء",
+  "part": "Cüz",
   "@part": {
     "type": "text",
     "placeholders": {}
   },
-  "langChange": "تغيير اللغة",
+  "langChange": "Dili değiştir",
   "@langChange": {
     "type": "text",
     "placeholders": {}
   },
-  "tafChange": "إختر التفسير",
+  "tafChange": "Tefsiri seç",
   "@tafChange": {
     "type": "text",
     "placeholders": {}
   },
-  "tafIbnkatheerN": "تفسير ابن كثير",
+  "tafIbnkatheerN": "İbn Kesir Tefsiri",
   "@tafIbnkatheerN": {
     "type": "text",
     "placeholders": {}
   },
-  "tafBaghawyN": "تفسير البغوي",
+  "tafBaghawyN": "Begavi Tefsiri",
   "@tafBaghawyN": {
     "type": "text",
     "placeholders": {}
   },
-  "tafQurtubiN": "تفسير القرطبي",
+  "tafQurtubiN": "Kurtubi Tefsiri",
   "@tafQurtubiN": {
     "type": "text",
     "placeholders": {}
   },
-  "tafSaadiN": "تفسير السعدي",
+  "tafSaadiN": "Sa'di Tefsiri",
   "@tafSaadiN": {
     "type": "text",
     "placeholders": {}
   },
-  "tafTabariN": "تفسير الطبري",
+  "tafTabariN": "Taberi Tefsiri",
   "@tafTabariN": {
     "type": "text",
     "placeholders": {}
@@ -284,7 +284,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "setting": "الإعدادات",
+  "setting": "Ayarlar",
   "@setting": {
     "type": "text",
     "placeholders": {}
@@ -369,22 +369,22 @@
     "type": "text",
     "placeholders": {}
   },
-  "reader17": "محمد أيوب",
+  "reader17": "Muhammed Ayub",
   "@reader17": {
     "type": "text",
     "placeholders": {}
   },
-  "reader18": "ماهر المعيقلي - مُجود",
+  "reader18": "Maher Al-Muayqili - Tecvidli",
   "@reader18": {
     "type": "text",
     "placeholders": {}
   },
-  "reader19": "أحمد النفيس - مُجود",
+  "reader19": "Ahmed Al-Nufais - Tecvidli",
   "@reader19": {
     "type": "text",
     "placeholders": {}
   },
-  "reader20": "ياسر الدوسري - مُجود",
+  "reader20": "Yasir ed-Doosari - Tecvidli",
   "@reader20": {
     "type": "text",
     "placeholders": {}
@@ -534,12 +534,12 @@
     "type": "text",
     "placeholders": {}
   },
-  "stopSigns": "علامات الوقف",
+  "stopSigns": "Durak işaretleri",
   "@stopSigns": {
     "type": "text",
     "placeholders": {}
   },
-  "aboutApp": "عن التطبيق",
+  "aboutApp": "Uygulama hakkında",
   "@aboutApp": {
     "type": "text",
     "placeholders": {}
@@ -554,12 +554,12 @@
     "type": "text",
     "placeholders": {}
   },
-  "ok": "موافق",
+  "ok": "Tamam",
   "@ok": {
     "type": "text",
     "placeholders": {}
   },
-  "cancel": "إلغاء",
+  "cancel": "İptal",
   "@cancel": {
     "type": "text",
     "placeholders": {}
@@ -624,37 +624,37 @@
     "type": "text",
     "placeholders": {}
   },
-  "copy": "نسخ",
+  "copy": "Kopyala",
   "@copy": {
     "type": "text",
     "placeholders": {}
   },
-  "shareTafseer": "مشاركة",
+  "shareTafseer": "Paylaş",
   "@shareTafseer": {
     "type": "text",
     "placeholders": {}
   },
-  "addToBookmark": "إضافة إلى الفاصلة",
+  "addToBookmark": "Yer imine ekle",
   "@addToBookmark": {
     "type": "text",
     "placeholders": {}
   },
-  "repeatSurah": "تكرار السورة",
+  "repeatSurah": "Sureyi tekrar et",
   "@repeatSurah": {
     "type": "text",
     "placeholders": {}
   },
-  "pauseSurah": "إيقاف السورة",
+  "pauseSurah": "Sureyi durdur",
   "@pauseSurah": {
     "type": "text",
     "placeholders": {}
   },
-  "replaySurah": "إعادة السورة",
+  "replaySurah": "Sureyi tekrar oynat",
   "@replaySurah": {
     "type": "text",
     "placeholders": {}
   },
-  "skipToPrevious": "السورة السابقة",
+  "skipToPrevious": "Önceki sure",
   "@skipToPrevious": {
     "type": "text",
     "placeholders": {}
@@ -689,52 +689,52 @@
     "type": "text",
     "placeholders": {}
   },
-  "quran": "القرآن الكريم",
+  "quran": "Kur'an-ı Kerim",
   "@quran": {
     "type": "text",
     "placeholders": {}
   },
-  "quranAudio": "الإستماع للقرآن",
+  "quranAudio": "Kur'an'ı dinle",
   "@quranAudio": {
     "type": "text",
     "placeholders": {}
   },
-  "startScreen": "شاشة البداية",
+  "startScreen": "Başlangıç ekranı",
   "@startScreen": {
     "type": "text",
     "placeholders": {}
   },
-  "selectScreen": "أختر شاشة البداية",
+  "selectScreen": "Başlangıç ekranını seç",
   "@selectScreen": {
     "type": "text",
     "placeholders": {}
   },
-  "dailyZeker": "دعاء اليوم",
+  "dailyZeker": "Günün duası",
   "@dailyZeker": {
     "type": "text",
     "placeholders": {}
   },
-  "lang": "العربية",
+  "lang": "Arapça",
   "@lang": {
     "type": "text",
     "placeholders": {}
   },
-  "juz": "الجزء",
+  "juz": "Cüz",
   "@juz": {
     "type": "text",
     "placeholders": {}
   },
-  "sajda": "سجدة",
+  "sajda": "Secde",
   "@sajda": {
     "type": "text",
     "placeholders": {}
   },
-  "pages": "صفحات",
+  "pages": "Sayfalar",
   "@pages": {
     "type": "text",
     "placeholders": {}
   },
-  "ayahs": "آيات",
+  "ayahs": "Ayetler",
   "@ayahs": {
     "type": "text",
     "placeholders": {}
