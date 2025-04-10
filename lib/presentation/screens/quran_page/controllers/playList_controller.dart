@@ -2,9 +2,8 @@ part of '../quran.dart';
 
 class PlayListController extends GetxController {
   static PlayListController get instance =>
-      Get.isRegistered<PlayListController>()
-          ? Get.find<PlayListController>()
-          : Get.put<PlayListController>(PlayListController());
+      GetInstance().putOrFind(() => PlayListController());
+
   final AudioPlayer playlistAudioPlayer = AudioPlayer();
   final RxList<AudioSource> ayahsPlayList = <AudioSource>[].obs;
   RxList<PlayListModel> playLists = RxList<PlayListModel>();

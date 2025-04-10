@@ -12,9 +12,8 @@ import '../screens/quran_page/quran.dart';
 
 class DailyAyahController extends GetxController {
   static DailyAyahController get instance =>
-      Get.isRegistered<DailyAyahController>()
-          ? Get.find<DailyAyahController>()
-          : Get.put<DailyAyahController>(DailyAyahController());
+      GetInstance().putOrFind(() => DailyAyahController());
+
   final ScrollController scrollController = ScrollController();
   final quranCtrl = QuranController.instance;
   AyahFontsModel? ayahOfTheDay;

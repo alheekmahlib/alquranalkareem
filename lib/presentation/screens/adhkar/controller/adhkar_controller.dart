@@ -18,9 +18,8 @@ import '../screens/adhkar_view.dart';
 import 'adhkar_state.dart';
 
 class AzkarController extends GetxController {
-  static AzkarController get instance => Get.isRegistered<AzkarController>()
-      ? Get.find<AzkarController>()
-      : Get.put<AzkarController>(AzkarController());
+  static AzkarController get instance =>
+      GetInstance().putOrFind(() => AzkarController());
 
   AdhkarState state = AdhkarState();
 

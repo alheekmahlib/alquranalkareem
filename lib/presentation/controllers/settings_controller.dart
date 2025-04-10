@@ -1,29 +1,74 @@
+import 'dart:developer';
 import 'dart:ui' show Locale;
 
+import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 
+import '../../core/services/languages/app_constants.dart';
+
 class SettingsController extends GetxController {
   static SettingsController get instance =>
-      Get.isRegistered<SettingsController>()
-          ? Get.find<SettingsController>()
-          : Get.put<SettingsController>(SettingsController());
+      GetInstance().putOrFind(() => SettingsController());
   Locale? initialLang;
-  RxString languageName = 'العربية'.obs;
+  RxString languageName = ''.obs;
   RxString languageFont = 'naskh'.obs;
   // RxString languageFont2 = 'kufi'.obs;
   RxBool settingsSelected = false.obs;
   final box = GetStorage();
 
+  void getLanguageName() {
+    // Get the language name from the box.
+    // الحصول على اسم اللغة من الصندوق.
+    int langIndex = AppConstants.languages.indexWhere((l) =>
+        l.languageCode == PlatformDispatcher.instance.locale.languageCode);
+    String? langName = box.read("langName");
+    if (langName != null) {
+      languageName.value = langName;
+    } else {
+      languageName.value = AppConstants.languages[langIndex].languageName;
+    }
+  }
+
   void setLocale(Locale value) {
     initialLang = value;
+
+    // Update the app's locale.
+    // تحديث لغة التطبيق.
+    Get.updateLocale(value);
+
+    // Log the language change for debugging.
+    // تسجيل تغيير اللغة للتصحيح.
+    log('Language changed to: ${value.languageCode}',
+        name: 'SettingsController');
+
     update();
   }
 
-  Future<void> loadLang() async {
-    String? langCode = await box.read("lang");
-    String? langName = await box.read("langName") ?? 'العربية';
-    String? langFont = await box.read("languageFont") ?? 'naskh';
+  void changeLanguage(Locale locale, String languageName) {
+    // تغيير لغة التطبيق
+    initialLang = locale;
+    this.languageName.value = languageName;
+
+    // تحديث لغة التطبيق في التخزين
+    box.write("lang", locale.languageCode);
+    box.write("langName", languageName);
+
+    // تحديث لغة التطبيق في GetX
+    Get.updateLocale(locale);
+
+    // تسجيل العملية للتصحيح
+    log('Language changed to: ${locale.languageCode}',
+        name: 'SettingsController');
+
+    update();
+  }
+
+  void loadLang() {
+    getLanguageName();
+    String? langCode = box.read("lang");
+    // String? langName = box.read("langName") ?? '';
+    String? langFont = box.read("languageFont") ?? 'naskh';
     // String? langFont2 =
     //     await box.read("languageFont2");
 
@@ -37,7 +82,7 @@ class SettingsController extends GetxController {
           langCode, ''); // Make sure langCode is not null or invalid here
     }
 
-    languageName.value = langName;
+    // languageName.value = langName;
     languageFont.value = langFont;
     // languageFont2.value = langFont2;
 

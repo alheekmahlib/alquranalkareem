@@ -16,8 +16,10 @@ class LocalizationController extends GetxController implements GetxService {
     loadCurrentLanguage();
   }
 
-  Locale _locale = Locale(AppConstants.languages[1].languageCode,
-      AppConstants.languages[1].countryCode);
+  Locale _locale = PlatformDispatcher.instance.locale.languageCode != null
+      ? Locale(PlatformDispatcher.instance.locale.languageCode)
+      : Locale(AppConstants.languages[1].languageCode,
+          AppConstants.languages[1].countryCode);
 
   int _selectedIndex = 0;
   int get selectedIndex => _selectedIndex;
@@ -26,27 +28,50 @@ class LocalizationController extends GetxController implements GetxService {
   List<LanguageModel> get languages => _languages;
 
   void loadCurrentLanguage() {
-    _locale = Locale(
-        box.read(AppConstants.LANGUAGE_CODE) ??
-            AppConstants.languages[1].languageCode,
-        box.read(AppConstants.COUNTRY_CODE) ??
-            AppConstants.languages[1].countryCode);
+    // قراءة لغة التطبيق المحفوظة من التخزين
+    final savedLanguageCode = box.read(AppConstants.LANGUAGE_CODE);
+    final savedCountryCode = box.read(AppConstants.COUNTRY_CODE);
 
+    if (savedLanguageCode != null) {
+      // إذا كانت هناك لغة محفوظة، يتم استخدامها
+      _locale = Locale(savedLanguageCode, savedCountryCode);
+    } else {
+      // إذا لم تكن هناك لغة محفوظة، يتم استخدام لغة الهاتف أو اللغة الافتراضية
+      setDefaultLanguage();
+    }
+
+    // تحديث قائمة اللغات واللغة المختارة
     for (int index = 0; index < AppConstants.languages.length; index++) {
       if (AppConstants.languages[index].languageCode == _locale.languageCode) {
         _selectedIndex = index;
         break;
       }
     }
-    _languages = [];
-    _languages.addAll(AppConstants.languages);
+    _languages = AppConstants.languages;
+    update();
+  }
+
+  void setDefaultLanguage() {
+    // تحديد لغة الجهاز باستخدام PlatformDispatcher
+    final deviceLocale = PlatformDispatcher.instance.locale;
+    // التحقق إذا كانت لغة الجهاز مدعومة
+    final supportedLanguage = AppConstants.languages.firstWhere(
+      (lang) => lang.languageCode == deviceLocale.languageCode,
+      orElse: () => AppConstants.languages[1], // اللغة الافتراضية (العربية)
+    );
+    // تعيين اللغة الافتراضية
+    _locale =
+        Locale(supportedLanguage.languageCode, supportedLanguage.countryCode);
+    saveLanguage(_locale);
+    _selectedIndex = AppConstants.languages.indexOf(supportedLanguage);
     update();
   }
 
   void setLanguage(Locale locale) {
-    Get.updateLocale(locale);
+    // تعيين اللغة التي اختارها المستخدم
     _locale = locale;
-    saveLanguage(_locale);
+    saveLanguage(locale);
+    Get.updateLocale(locale);
     update();
   }
 
@@ -56,8 +81,9 @@ class LocalizationController extends GetxController implements GetxService {
   }
 
   void saveLanguage(Locale locale) async {
+    // حفظ اللغة المختارة في التخزين
     box.write(AppConstants.LANGUAGE_CODE, locale.languageCode);
-    box.write(AppConstants.COUNTRY_CODE, locale.countryCode!);
+    box.write(AppConstants.COUNTRY_CODE, locale.countryCode ?? '');
   }
 
   Future<void> changeLangOnTap(int index) async {

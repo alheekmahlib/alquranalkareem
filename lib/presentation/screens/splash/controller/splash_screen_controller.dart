@@ -2,9 +2,7 @@ part of '../splash.dart';
 
 class SplashScreenController extends GetxController {
   static SplashScreenController get instance =>
-      Get.isRegistered<SplashScreenController>()
-          ? Get.find<SplashScreenController>()
-          : Get.put<SplashScreenController>(SplashScreenController());
+      GetInstance().putOrFind(() => SplashScreenController());
 
   SplashState state = SplashState();
 

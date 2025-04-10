@@ -2,9 +2,7 @@ part of '../quran.dart';
 
 class BookmarksController extends GetxController {
   static BookmarksController get instance =>
-      Get.isRegistered<BookmarksController>()
-          ? Get.find<BookmarksController>()
-          : Get.put<BookmarksController>(BookmarksController());
+      GetInstance().putOrFind(() => BookmarksController());
   final RxList<Bookmark> bookmarksList = <Bookmark>[].obs;
   final List<BookmarksAyah> bookmarkTextList = RxList<BookmarksAyah>();
   late int lastBook;

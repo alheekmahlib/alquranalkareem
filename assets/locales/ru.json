@@ -1149,10 +1149,10 @@
         "type": "text",
         "placeholders": {}
     },
-    "What'sNewDetails10": "۞ Обновление исламского календаря.\n۞ Улучшения производительности и исправления.",
+    "What'sNewDetails10": "۞ Приложение теперь поддерживает курдский, турецкий и русский языки.\n۞ Добавлено больше чтецов.",
     "@What'sNewDetails10": {
-        "type": "text",
-        "placeholders": {}
+      "type": "text",
+      "placeholders": {}
     },
     "chooseDhekr": "Выбор зикра",
     "@chooseDhekr": {

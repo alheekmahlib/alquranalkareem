@@ -1,3 +1,4 @@
+import 'package:alquranalkareem/core/utils/constants/extensions/alignment_rotated_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -67,9 +68,12 @@ class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
         },
         child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16.0),
-            child: Image.asset(
-              'assets/icons/arrow_back.png',
-              color: Theme.of(context).colorScheme.surface,
+            child: Transform.flip(
+              flipX: alignmentLayout(false, true),
+              child: Image.asset(
+                'assets/icons/arrow_back.png',
+                color: Theme.of(context).colorScheme.surface,
+              ),
             )),
       ),
       actions: [

@@ -1,9 +1,8 @@
 part of '../events.dart';
 
 class EventController extends GetxController {
-  static EventController get instance => Get.isRegistered<EventController>()
-      ? Get.find<EventController>()
-      : Get.put<EventController>(EventController());
+  static EventController get instance =>
+      GetInstance().putOrFind(() => EventController());
 
   final box = GetStorage();
   late HijriCalendarConfig hijriNow;

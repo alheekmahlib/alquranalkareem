@@ -2,9 +2,7 @@ part of '../whats_new.dart';
 
 class WhatsNewController extends GetxController {
   static WhatsNewController get instance =>
-      Get.isRegistered<WhatsNewController>()
-          ? Get.find<WhatsNewController>()
-          : Get.put<WhatsNewController>(WhatsNewController());
+      GetInstance().putOrFind(() => WhatsNewController());
 
   WhatsNewState state = WhatsNewState();
 
@@ -44,4 +42,13 @@ class WhatsNewController extends GetxController {
       await saveLastShownIndex(newFeatures.last['index']);
     }
   }
+
+  List<Map<String, dynamic>> whatsNewList = [
+    {
+      'index': 13,
+      'title': "",
+      'details': "What'sNewDetails10",
+      'imagePath': '',
+    },
+  ];
 }

@@ -11,9 +11,8 @@ import '../../../../core/utils/constants/api_constants.dart';
 import '../data/models/ourApp_model.dart';
 
 class OurAppsController extends GetxController {
-  static OurAppsController get instance => Get.isRegistered<OurAppsController>()
-      ? Get.find<OurAppsController>()
-      : Get.put<OurAppsController>(OurAppsController());
+  static OurAppsController get instance =>
+      GetInstance().putOrFind(() => OurAppsController());
 
   Future<List<OurAppInfo>> fetchApps() async {
     try {

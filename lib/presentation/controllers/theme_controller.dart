@@ -8,9 +8,8 @@ import '../../core/utils/helpers/app_themes.dart';
 enum AppTheme { blue, brown, old, dark }
 
 class ThemeController extends GetxController {
-  static ThemeController get instance => Get.isRegistered<ThemeController>()
-      ? Get.find<ThemeController>()
-      : Get.put<ThemeController>(ThemeController());
+  static ThemeController get instance =>
+      GetInstance().putOrFind(() => ThemeController());
   AppTheme? initialTheme;
   ThemeData? initialThemeData;
   Rx<AppTheme> _currentTheme = AppTheme.blue.obs;

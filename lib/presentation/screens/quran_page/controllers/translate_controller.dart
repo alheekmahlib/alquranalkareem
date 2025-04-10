@@ -2,10 +2,7 @@ part of '../quran.dart';
 
 class TafsirAndTranslateController extends GetxController {
   static TafsirAndTranslateController get instance =>
-      Get.isRegistered<TafsirAndTranslateController>()
-          ? Get.find<TafsirAndTranslateController>()
-          : Get.put<TafsirAndTranslateController>(
-              TafsirAndTranslateController());
+      GetInstance().putOrFind(() => TafsirAndTranslateController());
   // var data = [].obs;
   // var isLoading = false.obs;
   var trans = 'en'.obs;

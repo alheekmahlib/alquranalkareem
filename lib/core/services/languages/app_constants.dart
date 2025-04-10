@@ -69,7 +69,7 @@ class AppConstants {
       languageName: 'русский',
       countryCode: '',
       languageCode: 'ru',
-      appLang: 'язык приложения',
+      appLang: 'Язык приложения',
     ),
   ];
 }

@@ -1,9 +1,8 @@
 part of '../../quran.dart';
 
 class AudioController extends GetxController {
-  static AudioController get instance => Get.isRegistered<AudioController>()
-      ? Get.find<AudioController>()
-      : Get.put<AudioController>(AudioController());
+  static AudioController get instance =>
+      GetInstance().putOrFind(() => AudioController());
 
   AudioState state = AudioState();
 

@@ -10,9 +10,8 @@ import '../../screens/surah_audio/audio_surah.dart';
 import 'general_state.dart';
 
 class GeneralController extends GetxController {
-  static GeneralController get instance => Get.isRegistered<GeneralController>()
-      ? Get.find<GeneralController>()
-      : Get.put<GeneralController>(GeneralController());
+  static GeneralController get instance =>
+      GetInstance().putOrFind(() => GeneralController());
 
   GeneralState state = GeneralState();
 

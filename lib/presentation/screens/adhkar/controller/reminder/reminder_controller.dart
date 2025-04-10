@@ -6,9 +6,7 @@ import '../adhkar_state.dart';
 
 class ReminderController extends GetxController {
   static ReminderController get instance =>
-      Get.isRegistered<ReminderController>()
-          ? Get.find<ReminderController>()
-          : Get.put<ReminderController>(ReminderController());
+      GetInstance().putOrFind(() => ReminderController());
 
   AdhkarState state = AdhkarState();
   final box = GetStorage();
