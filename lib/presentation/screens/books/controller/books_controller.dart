@@ -18,9 +18,8 @@ import '../data/models/part_model.dart';
 import 'books_state.dart';
 
 class BooksController extends GetxController {
-  static BooksController get instance => Get.isRegistered<BooksController>()
-      ? Get.find<BooksController>()
-      : Get.put(BooksController());
+  static BooksController get instance =>
+      GetInstance().putOrFind(() => BooksController());
 
   BooksState state = BooksState();
 

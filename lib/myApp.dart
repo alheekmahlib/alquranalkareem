@@ -1,4 +1,5 @@
 import 'package:bot_toast/bot_toast.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -25,17 +26,18 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     sl<ThemeController>().checkTheme();
     final localizationCtrl = Get.find<LocalizationController>();
+    localizationCtrl
+        .loadCurrentLanguage(); // تحميل اللغة المحفوظة أو الافتراضية
     LocalNotificationsController.instance;
     NotifyHelper().requistPermissions();
+
     return ScreenUtilInit(
         designSize: const Size(360, 690),
         minTextAdapt: true,
         splitScreenMode: true,
-        // Use builder only if you need to use library outside ScreenUtilInit context
         builder: (_, child) {
           return GetBuilder<ThemeController>(
             builder: (themeCtrl) => GetMaterialApp(
-              // navigatorKey: sl<GeneralController>().navigatorNotificationKey,
               debugShowCheckedModeBanner: false,
               title: 'Al Quran Al Kareem',
               localizationsDelegates: const [
@@ -45,21 +47,36 @@ class MyApp extends StatelessWidget {
               ],
               locale: localizationCtrl.locale,
               translations: Messages(languages: languages),
-              fallbackLocale: Locale(AppConstants.languages[1].languageCode,
-                  AppConstants.languages[1].countryCode),
+              fallbackLocale: Locale(
+                PlatformDispatcher.instance.locale.languageCode ??
+                    AppConstants.languages[1].languageCode,
+                PlatformDispatcher.instance.locale.countryCode ??
+                    AppConstants.languages[1].countryCode,
+              ),
               theme: themeCtrl.currentThemeData,
-              // theme: brownTheme,
               builder: BotToastInit(),
               navigatorObservers: [BotToastNavigatorObserver()],
               home: Directionality(
-                textDirection: TextDirection.rtl,
+                // تحديد اتجاه النصوص بناءً على اللغة المختارة
+                textDirection: _getTextDirection(localizationCtrl.locale),
                 child: SplashScreen(),
-                // child: WillPopScope(
-                //     onWillPop: () async => false, child: SplashScreen()),
-                // child: const HomePage(),
               ),
             ),
           );
         });
+  }
+
+  // دالة لتحديد اتجاه النصوص بناءً على اللغة
+  // Function to determine text direction based on the selected language.
+  TextDirection _getTextDirection(Locale locale) {
+    const rtlLanguages = [
+      'ar',
+      'ur',
+      'ku',
+      'fa'
+    ]; // قائمة اللغات من اليمين لليسار
+    return rtlLanguages.contains(locale.languageCode)
+        ? TextDirection.rtl
+        : TextDirection.ltr;
   }
 }

@@ -279,7 +279,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "appLang": "لغة التطبيق",
+  "appLang": "Uygulama Dili",
   "@appLang": {
     "type": "text",
     "placeholders": {}
@@ -1149,7 +1149,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "What'sNewDetails10": "۞ إضافة تعديل التقويم الإسلامي.\n۞ تحسينات في الأداء وإصلاحات الأخطاء.",
+  "What'sNewDetails10": "۞ Uygulama Kürtçe, Türkçe ve Rusça dillerini desteklemeye başladı.\n۞ Daha fazla okuyucu eklendi.",
   "@What'sNewDetails10": {
     "type": "text",
     "placeholders": {}

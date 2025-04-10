@@ -1,9 +1,9 @@
 part of '../quran.dart';
 
 class ShareController extends GetxController {
-  static ShareController get instance => Get.isRegistered<ShareController>()
-      ? Get.find<ShareController>()
-      : Get.put<ShareController>(ShareController());
+  static ShareController get instance =>
+      GetInstance().putOrFind(() => ShareController());
+
   final ScreenshotController ayahScreenController = ScreenshotController();
   final ScreenshotController tafseerScreenController = ScreenshotController();
   Uint8List? ayahToImageBytes;

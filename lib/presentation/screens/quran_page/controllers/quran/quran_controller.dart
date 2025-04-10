@@ -1,9 +1,8 @@
 part of '../../quran.dart';
 
 class QuranController extends GetxController {
-  static QuranController get instance => Get.isRegistered<QuranController>()
-      ? Get.find<QuranController>()
-      : Get.put<QuranController>(QuranController());
+  static QuranController get instance =>
+      GetInstance().putOrFind(() => QuranController());
 
   QuranState state = QuranState();
 

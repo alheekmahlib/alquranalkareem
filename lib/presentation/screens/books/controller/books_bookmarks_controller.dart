@@ -8,9 +8,7 @@ import 'books_controller.dart';
 
 class BooksBookmarksController extends GetxController {
   static BooksBookmarksController get instance =>
-      Get.isRegistered<BooksBookmarksController>()
-          ? Get.find<BooksBookmarksController>()
-          : Get.put(BooksBookmarksController());
+      GetInstance().putOrFind(() => BooksBookmarksController());
   final booksCtrl = BooksController.instance;
 
   /// -------[BooksBookmarks]--------

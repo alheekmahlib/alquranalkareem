@@ -48,22 +48,6 @@ const List<String> semanticsTranslateName = <String>[
   'filipino',
 ];
 
-const List<String> waqfMarks = <String>[
-  'assets/svg/alwaqf/01.svg',
-  'assets/svg/alwaqf/02.svg',
-  'assets/svg/alwaqf/03.svg',
-  'assets/svg/alwaqf/04.svg',
-  'assets/svg/alwaqf/05.svg',
-];
-
-const List<String> waqfExplain = <String>[
-  'عَلَامَة الوَقْفِ اللَّازم نَحوُ : {إِنَّمَا يَسْتَجِيبُ الَّذِينَ يَسْمَعُونَ ۘ وَالْمَوْتَىٰ يَبْعَثُهُمُ اللَّهُ}.',
-  'عَلَامَة الوَقْفِ الجَائِزِ مَعَ كَوْنِ الوَقْفِ أَوْلَى نَحِوُ : {قُل رَّبِّي أَعْلَمُ بِعِدَّتِهِم مَّا يَعْلَمُهُمْ إِلَّا قَلِيلٌ ۗ فَلَا تُمَارِ فِيهِمْ}.',
-  'عَلَامَة الوَقْفِ الجَائِزِ جَوَازًا مُسْتَوِيَ الطَّرَفَيْن نَحوُ : {نَّحْنُ نَقُصُّ عَلَيْكَ نَبَأَهُم بِالْحَقِّ ۚ إِنَّهُمْ فِتْيَةٌ آمَنُوا بِرَبِّهِمْ}.',
-  'عَلَامَة الوَقْفِ الجَائِزِ مَعَ كَوْنِ الوَصْل أَوْلَى نَحِوُ : {وَإِن يَمْسَسْكَ اللَّهُ بِضُرٍّ فَلَا كَاشِفَ لَهُ إِلَّا هُوَ ۖ وَإِن يَمْسَسْكَ بِخَيْرٍ فَهُوَ عَلَىٰ كُلِّ شَيْءٍ قَدِيرٌ}.',
-  'عَلَامَةُ تَعَانُق الوَقْفِ بِحَيْثُ إِِذَا وَقِفَ عَلى أَحَدِ المَوْضِعَيْن لَا يَصِحُّ الوَقفُ عَلى الآخَرِ نَحِوُ : {ذَٰلِكَ الْكِتَابُ لَا رَيْبَ ۛ فِيهِ ۛ هُدًى لِّلْمُتَّقِينَ}.',
-];
-
 final List screensList = [
   {
     'name': 'home',
@@ -262,7 +246,7 @@ const List surahReaderInfo = [
     'name': 'reader20',
     'readerD': '${ApiConstants.surahUrl5}',
     'readerN': 'yasser/',
-    'readerI': 'yasser'
+    'readerI': 'yasser_ad-dussary'
   },
 ];
 
@@ -405,17 +389,8 @@ const List ayahReaderInfo = [
   {
     'name': 'reader20',
     'readerD': 'Yasser_Ad-Dussary_128kbps',
-    'readerN': 'yasser',
+    'readerI': 'yasser_ad-dussary',
     'url': ApiConstants.ayahs2ndSource
-  },
-];
-
-List<Map<String, dynamic>> whatsNewList = [
-  {
-    'index': 12,
-    'title': "",
-    'details': "What'sNewDetails10",
-    'imagePath': '',
   },
 ];
 

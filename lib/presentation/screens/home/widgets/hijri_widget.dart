@@ -1,6 +1,3 @@
-import 'package:alquranalkareem/core/utils/constants/extensions/alignment_rotated_extension.dart';
-import 'package:alquranalkareem/core/utils/constants/extensions/convert_number_extension.dart';
-import 'package:alquranalkareem/core/utils/constants/extensions/extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rounded_progress_bar/flutter_rounded_progress_bar.dart';
 import 'package:flutter_rounded_progress_bar/rounded_progress_bar_style.dart';
@@ -8,6 +5,9 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 
+import '/core/utils/constants/extensions/alignment_rotated_extension.dart';
+import '/core/utils/constants/extensions/convert_number_extension.dart';
+import '/core/utils/constants/extensions/extensions.dart';
 import '../../../../core/widgets/elevated_button_widget.dart';
 import '../../../controllers/general/general_controller.dart';
 import '../../calendar/events.dart';
@@ -171,7 +171,8 @@ class HijriWidget extends StatelessWidget {
                                     child: FittedBox(
                                       fit: BoxFit.scaleDown,
                                       child: Text(
-                                        '${'${eventCtrl.daysArabicConvert((eventCtrl.getLengthOfMonth - eventCtrl.hijriNow.hDay), (eventCtrl.getLengthOfMonth - eventCtrl.hijriNow.hDay).toString())}'}',
+                                        '${'${eventCtrl.daysArabicConvert((eventCtrl.getLengthOfMonth - eventCtrl.hijriNow.hDay), (eventCtrl.getLengthOfMonth - eventCtrl.hijriNow.hDay).toString())}'}'
+                                            .convertNumbers(),
                                         style: TextStyle(
                                           fontSize: 14.0,
                                           fontFamily: 'kufi',

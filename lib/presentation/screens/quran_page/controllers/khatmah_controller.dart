@@ -1,9 +1,8 @@
 part of '../quran.dart';
 
 class KhatmahController extends GetxController {
-  static KhatmahController get instance => Get.isRegistered<KhatmahController>()
-      ? Get.find<KhatmahController>()
-      : Get.put(KhatmahController());
+  static KhatmahController get instance =>
+      GetInstance().putOrFind(() => KhatmahController());
 
   /// -------- [Variables] ----------
   final db = KhatmahDatabase();

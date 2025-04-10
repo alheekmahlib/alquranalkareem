@@ -2,9 +2,7 @@ import 'package:get/get.dart';
 
 class ElevatedButtonController extends GetxController {
   static ElevatedButtonController get instance =>
-      Get.isRegistered<ElevatedButtonController>()
-          ? Get.find<ElevatedButtonController>()
-          : Get.put<ElevatedButtonController>(ElevatedButtonController());
+      GetInstance().putOrFind(() => ElevatedButtonController());
 
   RxBool buttonPressed = false.obs;
   RxBool animationCompleted = true.obs;
