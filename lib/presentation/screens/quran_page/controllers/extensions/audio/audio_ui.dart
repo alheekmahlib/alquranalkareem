@@ -38,11 +38,12 @@ extension AudioUi on AudioController {
   }
 
   void clearSelection() {
-    if (state.audioPlayer.playing) {
+    if (state.audioPlayer.playing || state.isPlay.value) {
       quranCtrl.showControl();
-    } else if (quranCtrl.state.selectedAyahIndexes.isNotEmpty) {
-      quranCtrl.state.selectedAyahIndexes.clear();
-      quranCtrl.state.selectedAyahIndexes.refresh();
+    } else if (QuranLibrary()
+        .quranCtrl
+        .selectedAyahsByUnequeNumber
+        .isNotEmpty) {
       QuranLibrary().quranCtrl.clearSelection();
       quranCtrl.update(['clearSelection']);
     } else {

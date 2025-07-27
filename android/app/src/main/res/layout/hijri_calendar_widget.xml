@@ -1,0 +1,348 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Professional Islamic Hijri Calendar Widget with RTL Support - Widget احترافي للتقويم الهجري مع دعم RTL -->
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/widget_background"
+    android:padding="12dp"
+    android:layoutDirection="rtl"
+    android:textDirection="rtl">
+
+    <!-- Header Section - القسم العلوي -->
+    <!-- Islamic Icon and Month Name (Top Right in RTL) -->
+    <LinearLayout
+        android:id="@+id/header_right"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:layout_margin="8dp"
+        android:layoutDirection="rtl">
+        
+        <!-- Month Name -->
+        <TextView
+            android:id="@+id/hijri_month"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="ذو الحجة"
+            android:textSize="16sp"
+            android:textColor="#FFFFFF"
+            android:textStyle="bold"
+            android:layout_marginEnd="6dp"
+            android:textDirection="rtl" />
+        
+        <!-- Islamic Crescent Icon -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="☪"
+            android:textSize="20sp"
+            android:textColor="#D4AF85" />
+    </LinearLayout>
+
+    <!-- Current Hijri Date (Top Left in RTL) -->
+    <LinearLayout
+        android:id="@+id/header_left"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:layout_margin="8dp">
+        
+        <!-- Day Name -->
+        <TextView
+            android:id="@+id/hijri_day_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="الأربعاء"
+            android:textSize="14sp"
+            android:textColor="#FFFFFF"
+            android:textStyle="bold"
+            android:layout_marginBottom="2dp"
+            android:textDirection="rtl"
+            android:gravity="center" />
+        
+        <!-- Date -->
+        <TextView
+            android:id="@+id/hijri_date_display"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="٨ - ١٤٤٦"
+            android:textSize="12sp"
+            android:textColor="#D4AF85"
+            android:textDirection="rtl"
+            android:gravity="center" />
+    </LinearLayout>
+
+    <!-- Main Content Card - البطاقة الرئيسية -->
+    <LinearLayout
+        android:id="@+id/main_content_card"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:background="@drawable/main_card_background"
+        android:padding="16dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:elevation="4dp"
+        android:layoutDirection="rtl">
+
+        <!-- Left side: Days count (appears on right in RTL) -->
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:layout_marginEnd="12dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="يوم "
+                android:textSize="16sp"
+                android:textColor="#2D3748"
+                android:textStyle="bold"
+                android:textDirection="rtl" />
+
+            <TextView
+                android:id="@+id/remaining_days"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="٢٠"
+                android:textSize="28sp"
+                android:textColor="#D69E2E"
+                android:textStyle="bold"
+                android:textDirection="rtl" />
+
+        </LinearLayout>
+
+        <!-- Right side: Arabic text (appears on left in RTL) -->
+        <TextView
+            android:id="@+id/remaining_text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="تبقى على إنتهاء ذو الحجة"
+            android:textSize="14sp"
+            android:textColor="#2D3748"
+            android:textStyle="bold"
+            android:gravity="start"
+            android:textDirection="rtl" />
+
+    </LinearLayout>
+
+    <!-- Footer Section - القسم السفلي -->
+    <!-- Hijri Year (Bottom Right in RTL) -->
+    <TextView
+        android:id="@+id/hijri_year"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:text="١٤٤٦ هـ"
+        android:textSize="14sp"
+        android:textColor="#D4AF85"
+        android:textStyle="bold"
+        android:layout_margin="8dp"
+        android:textDirection="rtl" />
+
+    <!-- Islamic Decoration (Bottom Left in RTL) -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:text="✦"
+        android:textSize="16sp"
+        android:textColor="#D4AF85"
+        android:layout_margin="8dp" />
+
+</RelativeLayout>
+            android:orientation="vertical"
+            android:gravity="center">
+            
+            <!-- Day Name -->
+            <TextView
+                android:id="@+id/hijri_day_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="الأربعاء"
+                android:textSize="14sp"
+                android:textColor="#D4AF85"
+                android:fontFamily="@font/kufi"
+                android:gravity="center" />
+            
+            <!-- Hijri Date -->
+            <TextView
+                android:id="@+id/hijri_date_display"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="٨ / ١٤٤٦"
+                android:textSize="16sp"
+                android:textColor="#FFFFFF"
+                android:fontFamily="@font/kufi"
+                android:textStyle="bold"
+                android:gravity="center" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <!-- Main Content Card - البطاقة الرئيسية -->
+    <LinearLayout
+        android:id="@+id/main_content_card"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:background="@drawable/main_card_background"
+        android:padding="20dp"
+        android:elevation="6dp">
+
+        <!-- Main Title Text -->
+        <TextView
+            android:id="@+id/remaining_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="متبقي من الشهر"
+            android:textSize="16sp"
+            android:textColor="#2D3748"
+            android:fontFamily="@font/kufi"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:layout_marginBottom="8dp" />
+
+        <!-- Days Counter with Decorative Elements -->
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:layout_marginBottom="8dp">
+
+            <!-- Decorative Element -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="◦"
+                android:textSize="20sp"
+                android:textColor="#D69E2E"
+                android:layout_marginEnd="8dp" />
+
+            <!-- Days Count -->
+            <TextView
+                android:id="@+id/hijri_day"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="٢٢"
+                android:textSize="48sp"
+                android:textColor="#D69E2E"
+                android:fontFamily="@font/kufi"
+                android:textStyle="bold"
+                android:shadowColor="#000000"
+                android:shadowDx="2"
+                android:shadowDy="2"
+                android:shadowRadius="4" />
+
+            <!-- Days Label -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=" يوماً"
+                android:textSize="18sp"
+                android:textColor="#2D3748"
+                android:fontFamily="@font/kufi"
+                android:textStyle="bold"
+                android:layout_marginStart="4dp" />
+
+            <!-- Decorative Element -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="◦"
+                android:textSize="20sp"
+                android:textColor="#D69E2E"
+                android:layout_marginStart="8dp" />
+
+        </LinearLayout>
+
+        <!-- Progress Indicator -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:layout_marginTop="4dp">
+
+            <!-- Progress Bar Background -->
+            <View
+                android:layout_width="120dp"
+                android:layout_height="4dp"
+                android:background="#E2E8F0"
+                android:layout_marginEnd="8dp" />
+
+            <!-- Progress Indicator Text -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="◈"
+                android:textSize="12sp"
+                android:textColor="#D69E2E" />
+
+            <!-- Progress Bar Background -->
+            <View
+                android:layout_width="120dp"
+                android:layout_height="4dp"
+                android:background="#E2E8F0"
+                android:layout_marginStart="8dp" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <!-- Footer Section - القسم السفلي -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:layout_marginTop="12dp">
+
+        <!-- Left: Hijri Year -->
+        <TextView
+            android:id="@+id/hijri_year"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="١٤٤٦ هـ"
+            android:textSize="14sp"
+            android:textColor="#D4AF85"
+            android:fontFamily="@font/kufi"
+            android:textStyle="bold"
+            android:gravity="start" />
+
+        <!-- Right: Islamic Greeting -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="بارك الله في أيامكم"
+            android:textSize="12sp"
+            android:textColor="#D4AF85"
+            android:fontFamily="@font/kufi"
+            android:gravity="end" />
+
+    </LinearLayout>
+
+    <!-- Hidden Progress Bar for Data Binding -->
+    <ProgressBar
+        android:id="@+id/month_progress_bar"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:visibility="gone" />
+
+</LinearLayout>

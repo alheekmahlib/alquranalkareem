@@ -20,21 +20,14 @@ class AddBookmarkButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      child: Obx(() => Semantics(
-            button: true,
-            enabled: true,
-            label: 'Add Bookmark',
-            child: customSvgWithCustomColor(
-              BookmarksController.instance
-                      .hasBookmark(surahNum, ayahUQNum)
-                      .value
-                  ? SvgPath.svgBookmarkIcon2
-                  : SvgPath.svgBookmarkIcon,
-              height: 20,
-            ),
-          )),
-      onTap: () async {
+    return CustomButton(
+      width: 23,
+      svgPath:
+          BookmarksController.instance.hasBookmark(surahNum, ayahUQNum).value
+              ? SvgPath.svgBookmarkIcon2
+              : SvgPath.svgBookmarkIcon,
+      svgColor: context.theme.canvasColor,
+      onPressed: () async {
         if (BookmarksController.instance
             .hasBookmark(surahNum, ayahUQNum)
             .value) {

@@ -24,7 +24,7 @@ class ShareCopyWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final tafsirCtrl = TafsirCtrl.instance;
+    final tafsirCtrl = QuranController.instance;
     return Center(
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 6.0),

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- زخرفة إسلامية للتصميم - Islamic decoration for design -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="oval">
+    
+    <!-- تدرج ذهبي دائري -->
+    <gradient
+        android:startColor="#D4AF85"
+        android:endColor="#B8860B"
+        android:type="radial"
+        android:gradientRadius="50dp" />
+    
+    <!-- حدود ذهبية -->
+    <stroke
+        android:width="1dp"
+        android:color="#CD853F" />
+        
+</shape>

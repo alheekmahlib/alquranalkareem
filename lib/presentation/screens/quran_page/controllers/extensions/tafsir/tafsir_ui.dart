@@ -1,6 +1,6 @@
 part of '../../../quran.dart';
 
-extension TafsirUi on TafsirCtrl {
+extension TafsirUi on QuranController {
   /// -------- [onTap] --------
   Future<void> copyTafsirOnTap(
       String tafsirName, String tafsir, String ayahTextNormal) async {
@@ -10,12 +10,17 @@ extension TafsirUi on TafsirCtrl {
             (value) => Get.context!.showCustomErrorSnackBar('copyTafseer'.tr));
   }
 
-  Future<void> showTafsirOnTap(int surahNum, int ayahNum, String ayahText,
-      int pageIndex, String ayahTextN, int ayahUQNum) async {
-    final quranCtrl = QuranController.instance;
-    ayahUQNumber.value = ayahUQNum;
-    quranCtrl.state.currentPageNumber.value = pageIndex;
-    quranCtrl.state.selectedAyahIndexes.clear();
+  Future<void> showTafsirOnTap(
+      {required int surahNum,
+      required int ayahNum,
+      required String ayahText,
+      required int pageIndex,
+      required String ayahTextN,
+      required int ayahUQNum}) async {
+    // final quranCtrl = QuranController.instance;
+    // ayahUQNumber.value = ayahUQNum;
+    state.currentPageNumber.value = pageIndex;
+    state.selectedAyahIndexes.clear();
     if (!QuranLibrary().isTafsir) {
       await QuranLibrary().fetchTranslation();
     } else {

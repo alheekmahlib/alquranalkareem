@@ -2,9 +2,9 @@ part of '../../quran.dart';
 
 class QuranState {
   /// -------- [Variables] ----------
-  List<SurahFontsModel> surahs = [];
-  List<List<AyahFontsModel>> pages = [];
-  List<AyahFontsModel> allAyahs = [];
+  List<SurahModel> surahs = [];
+  List<List<AyahModel>> pages = [];
+  List<AyahModel> allAyahs = [];
 
   /// Page Controller
   PageController quranPageController = PageController();

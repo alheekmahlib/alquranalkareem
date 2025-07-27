@@ -31,32 +31,32 @@ class AudioWidget extends StatelessWidget {
                   height: 50,
                   width: generalCtrl.screenWidth(
                       MediaQuery.sizeOf(context).width * .64, 290),
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                  child: const Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 16.0),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        const Center(child: PlayAyah()),
-                        const Center(
+                        Center(child: PlayAyah()),
+                        Center(
                           child: ChangeReader(),
                         ),
-                        Center(
-                            child: GestureDetector(
-                          child: Semantics(
-                            button: true,
-                            enabled: true,
-                            label: 'Playlist',
-                            child: customSvgWithCustomColor(
-                              SvgPath.svgPlaylist,
-                              height: 25,
-                            ),
-                          ),
-                          onTap: () {
-                            Get.bottomSheet(AyahsPlayListWidget(),
-                                isScrollControlled: true);
-                          },
-                        )),
+                        // Center(
+                        //     child: GestureDetector(
+                        //   child: Semantics(
+                        //     button: true,
+                        //     enabled: true,
+                        //     label: 'Playlist',
+                        //     child: customSvgWithCustomColor(
+                        //       SvgPath.svgPlaylist,
+                        //       height: 25,
+                        //     ),
+                        //   ),
+                        //   onTap: () {
+                        //     Get.bottomSheet(AyahsPlayListWidget(),
+                        //         isScrollControlled: true);
+                        //   },
+                        // )),
                       ],
                     ),
                   ),
@@ -86,21 +86,21 @@ class AudioWidget extends StatelessWidget {
                                           .state.isPlayExpanded.value = false,
                                     ),
                                     const ChangeReader(),
-                                    GestureDetector(
-                                      child: Semantics(
-                                        button: true,
-                                        enabled: true,
-                                        label: 'Playlist',
-                                        child: customSvgWithCustomColor(
-                                          SvgPath.svgPlaylist,
-                                          height: 25,
-                                        ),
-                                      ),
-                                      onTap: () {
-                                        Get.bottomSheet(AyahsPlayListWidget(),
-                                            isScrollControlled: true);
-                                      },
-                                    ),
+                                    // GestureDetector(
+                                    //   child: Semantics(
+                                    //     button: true,
+                                    //     enabled: true,
+                                    //     label: 'Playlist',
+                                    //     child: customSvgWithCustomColor(
+                                    //       SvgPath.svgPlaylist,
+                                    //       height: 25,
+                                    //     ),
+                                    //   ),
+                                    //   onTap: () {
+                                    //     Get.bottomSheet(AyahsPlayListWidget(),
+                                    //         isScrollControlled: true);
+                                    //   },
+                                    // ),
                                   ],
                                 ),
                               ),

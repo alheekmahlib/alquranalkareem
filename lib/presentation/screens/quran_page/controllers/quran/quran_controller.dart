@@ -8,6 +8,7 @@ class QuranController extends GetxController {
 
   @override
   void onInit() async {
+    QuranLibrary().setFontsSelected = 1;
     await QuranLibrary().init().then((_) => loadQuran());
     state.itemPositionsListener.itemPositions.addListener(_updatePageNumber);
     state.itemPositionsListener.itemPositions
@@ -17,9 +18,12 @@ class QuranController extends GetxController {
     state.backgroundPickerColor.value =
         state.box.read(BACKGROUND_PICKER_COLOR) ?? 0xfffaf7f3;
     await QuranLibrary().initTafsir();
-    await QuranLibrary().fetchTafsir(pageNumber: state.currentPageNumber.value);
-    await QuranLibrary().fetchTranslation();
+    // await QuranLibrary().fetchTafsir(pageNumber: state.currentPageNumber.value);
+    // await QuranLibrary().fetchTranslation();
     Future.delayed(const Duration(seconds: 10), () {
+      // TafsirCtrl.instance.tafsirDownloadIndexList.contains(0)
+      //     ? null
+      //     : QuranLibrary().tafsirDownload(0);
       state.box.read(TAFSEER_VAL) != null
           ? QuranLibrary().tafsirDownload(state.box.read(TAFSEER_VAL))
           : null;

@@ -8,6 +8,7 @@ import 'package:timezone/data/latest.dart' as tz;
 
 import '/core/services/languages/dependency_inj.dart' as dep;
 import 'core/services/background_services.dart';
+import 'core/services/home_widget_service.dart';
 import 'core/services/notifications_helper.dart';
 import 'core/services/services_locator.dart';
 import 'core/utils/constants/shared_preferences_constants.dart';
@@ -31,6 +32,10 @@ Future<void> initializeApp() async {
   NotifyHelper.initAwesomeNotifications();
   await ServicesLocator().init();
   tz.initializeTimeZones();
+
+  // تهيئة Home Widgets - Initialize Home Widgets
+  await HomeWidgetService.instance.initializeHomeWidgets();
+
   if (Platform.isIOS || Platform.isAndroid) {
     await BGServices().registerTask();
   }

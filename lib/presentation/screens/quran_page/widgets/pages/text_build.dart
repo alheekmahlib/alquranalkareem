@@ -63,8 +63,10 @@ class TextBuild extends StatelessWidget {
           surahNameColor: Get.theme.hintColor,
           surahNameHeight: 120.h,
         ),
-        onPagePress: () => audioCtrl.clearSelection(),
-        onFontsAyahLongPress: (details, ayah) {
+        onPagePress: () {
+          audioCtrl.clearSelection();
+        },
+        onAyahLongPress: (details, ayah) {
           context.showAyahMenu(
             surahNum: QuranLibrary()
                 .getCurrentSurahDataByAyahUniqueNumber(
@@ -83,28 +85,6 @@ class TextBuild extends StatelessWidget {
           );
           log('ayahUQNumber: ${ayah.ayahUQNumber}');
           quranCtrl.toggleAyahSelection(ayah.ayahUQNumber);
-        },
-        onDefaultAyahLongPress: (details, ayah) {
-          String ayahText = QuranLibrary()
-              .quranCtrl
-              .staticPages[ayah.page - 1]
-              .ayahs
-              .firstWhere(
-                  (element) => element.ayahUQNumber == ayah.ayahUQNumber)
-              .text
-              .replaceAll('\n', ' ');
-          context.showAyahMenu(
-            surahNum: ayah.surahNumber,
-            ayahNum: ayah.ayahNumber,
-            ayahText: ayahText,
-            pageIndex: pageIndex,
-            ayahTextNormal: ayah.ayaTextEmlaey,
-            ayahUQNum: ayah.ayahUQNumber,
-            surahName: ayah.arabicName,
-            details: details,
-          );
-          log('ayah.ayaTextEmlaey: ${ayah.ayaTextEmlaey.replaceAll('\n', ' ')}');
-          // quranCtrl.toggleAyahSelection(ayah.ayahUQNumber);
         },
       ),
     ));

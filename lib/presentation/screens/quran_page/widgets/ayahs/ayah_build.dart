@@ -195,7 +195,7 @@ class AyahsBuild extends StatelessWidget {
                               ayahUniqueNumber: ayahs[ayahIndex].ayahUQNumber)
                           .surahNumber,
                       ayahNum: ayahs[ayahIndex].ayahNumber,
-                      ayahText: ayahs[ayahIndex].codeV2,
+                      ayahText: ayahs[ayahIndex].codeV2!,
                       pageIndex: pageIndex,
                       ayahTextNormal: ayahs[ayahIndex].text,
                       ayahUQNum: ayahs[ayahIndex].ayahUQNumber,
@@ -229,7 +229,7 @@ class AyahsBuild extends StatelessWidget {
                                     ? span(
                                         isFirstAyah: true,
                                         text:
-                                            "${ayahs[ayahIndex].codeV2[0].replaceAll('\n', '')}${ayahs[ayahIndex].codeV2.substring(1).replaceAll('\n', '')}",
+                                            "${ayahs[ayahIndex].codeV2![0].replaceAll('\n', '')}${ayahs[ayahIndex].codeV2!.substring(1).replaceAll('\n', '')}",
                                         fontFamily: 'page${pageIndex + 1}',
                                         pageIndex: pageIndex,
                                         isSelected: quranCtrl.state.isSelected,
@@ -246,7 +246,7 @@ class AyahsBuild extends StatelessWidget {
                                     : span(
                                         isFirstAyah: false,
                                         text: ayahs[ayahIndex]
-                                            .codeV2
+                                            .codeV2!
                                             .replaceAll('\n', ''),
                                         fontFamily: 'page${pageIndex + 1}',
                                         pageIndex: pageIndex,

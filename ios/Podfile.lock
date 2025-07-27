@@ -9,7 +9,7 @@ PODS:
     - IosAwnCore (~> 0.10.0)
   - awesome_notifications_core (0.0.1):
     - Flutter
-  - background_fetch (1.3.7):
+  - background_fetch (1.3.8):
     - Flutter
   - connectivity_plus (0.0.1):
     - Flutter
@@ -17,6 +17,8 @@ PODS:
   - flutter_native_splash (2.4.3):
     - Flutter
   - flutter_timezone (0.0.1):
+    - Flutter
+  - home_widget (0.0.1):
     - Flutter
   - IosAwnCore (0.10.0)
   - just_audio (0.0.1):
@@ -55,6 +57,7 @@ DEPENDENCIES:
   - Flutter (from `Flutter`)
   - flutter_native_splash (from `.symlinks/plugins/flutter_native_splash/ios`)
   - flutter_timezone (from `.symlinks/plugins/flutter_timezone/ios`)
+  - home_widget (from `.symlinks/plugins/home_widget/ios`)
   - just_audio (from `.symlinks/plugins/just_audio/darwin`)
   - package_info_plus (from `.symlinks/plugins/package_info_plus/ios`)
   - path_provider_foundation (from `.symlinks/plugins/path_provider_foundation/darwin`)
@@ -89,6 +92,8 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/flutter_native_splash/ios"
   flutter_timezone:
     :path: ".symlinks/plugins/flutter_timezone/ios"
+  home_widget:
+    :path: ".symlinks/plugins/home_widget/ios"
   just_audio:
     :path: ".symlinks/plugins/just_audio/darwin"
   package_info_plus:
@@ -115,11 +120,12 @@ SPEC CHECKSUMS:
   audio_session: 19e9480dbdd4e5f6c4543826b2e8b0e4ab6145fe
   awesome_notifications: dd5518ff1c80be03d4f1c40f04da9d9cc2a37af5
   awesome_notifications_core: d02eed89738fa362d56cbd372850e9adcd2c6bef
-  background_fetch: 39f11371c0dce04b001c4bfd5e782bcccb0a85e2
+  background_fetch: 1b98fa3f267413f98d997b82b94698e2574e1c1c
   connectivity_plus: 2a701ffec2c0ae28a48cf7540e279787e77c447d
   Flutter: e0871f40cf51350855a761d2e70bf5af5b9b5de7
   flutter_native_splash: f71420956eb811e6d310720fee915f1d42852e7a
   flutter_timezone: ac3da59ac941ff1c98a2e1f0293420e020120282
+  home_widget: 0434835a4c9a75704264feff6be17ea40e0f0d57
   IosAwnCore: 653786a911089012092ce831f2945cd339855a89
   just_audio: a42c63806f16995daf5b219ae1d679deb76e6a79
   package_info_plus: c0502532a26c7662a62a356cebe2692ec5fe4ec4
@@ -130,7 +136,7 @@ SPEC CHECKSUMS:
   simple_animation_progress_bar: 3f818acdbd78de0a8c48ddd7fdc88e1998a7b33f
   sqflite_darwin: 5a7236e3b501866c1c9befc6771dfd73ffb8702d
   url_launcher_ios: 5334b05cef931de560670eeae103fd3e431ac3fe
-  wakelock_plus: 373cfe59b235a6dd5837d0fb88791d2f13a90d56
+  wakelock_plus: 76957ab028e12bfa4e66813c99e46637f367fc7e
 
 PODFILE CHECKSUM: d4c1a5030a8cbce3d2276496379558613c182943
 

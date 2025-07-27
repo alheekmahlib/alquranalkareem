@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/services.dart';
 
-import '../../../../models/waqf_model.dart';
+import '../models/waqf_model.dart';
 
 // Service to load Waqf data from JSON file.
 // خدمة لتحميل بيانات الوقف من ملف JSON.

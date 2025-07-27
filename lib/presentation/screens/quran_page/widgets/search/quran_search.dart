@@ -97,12 +97,12 @@ class QuranSearch extends StatelessWidget {
                 itemCount: searchCtrl.state.surahList.length,
                 scrollDirection: Axis.horizontal,
                 itemBuilder: (context, index) {
-                  AyahModel search = searchCtrl.state.surahList[index];
+                  SurahModel search = searchCtrl.state.surahList[index];
                   return Directionality(
                     textDirection: TextDirection.rtl,
                     child: GestureDetector(
                       onTap: () {
-                        quranCtrl.changeSurahListOnTap(search.page);
+                        quranCtrl.changeSurahListOnTap(search.startPage!);
                         Get.back();
                       },
                       child: Container(

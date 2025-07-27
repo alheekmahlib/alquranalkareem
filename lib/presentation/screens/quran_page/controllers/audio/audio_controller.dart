@@ -250,9 +250,7 @@ class AudioController extends GetxController {
               selectedSurahAyahsUniqueNumbers[state.selectedAyahNum.value];
           // quranCtrl.toggleAyahSelection(state.currentAyahUQInPage.value);
           // quranCtrl.clearAndAddSelection(state.currentAyahUQInPage.value);
-          QuranLibrary()
-              .quranCtrl
-              .toggleAyahSelection(state.currentAyahUQInPage.value);
+          // quranCtrl.toggleAyahSelection(state.currentAyahUQInPage.value);
         }
       });
 
@@ -298,9 +296,7 @@ class AudioController extends GetxController {
       await state.audioPlayer.pause();
       print('state.audioPlayer: pause');
     } else {
-      QuranLibrary()
-          .quranCtrl
-          .toggleAyahSelection(state.currentAyahUQInPage.value);
+      // quranCtrl.toggleAyahSelection(state.currentAyahUQInPage.value);
       // quranCtrl.clearAndAddSelection(state.currentAyahUQInPage.value);
       await playFile();
     }
@@ -324,14 +320,10 @@ class AudioController extends GetxController {
       pausePlayer;
     } else if (isFirstAyahInPageButNotInSurah) {
       moveToPreviousPage();
-      QuranLibrary()
-          .quranCtrl
-          .toggleAyahSelection(state.currentAyahUQInPage.value -= 1);
+      quranCtrl.clearAndAddSelection(state.currentAyahUQInPage.value -= 1);
       await state.audioPlayer.seekToPrevious();
     } else {
-      QuranLibrary()
-          .quranCtrl
-          .toggleAyahSelection(state.currentAyahUQInPage.value -= 1);
+      quranCtrl.toggleAyahSelection(state.currentAyahUQInPage.value -= 1);
       await state.audioPlayer.seekToPrevious();
     }
   }

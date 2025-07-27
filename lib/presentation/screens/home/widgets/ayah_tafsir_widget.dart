@@ -18,7 +18,7 @@ class AyahTafsirWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Directionality(
       textDirection: TextDirection.rtl,
-      child: FutureBuilder<AyahFontsModel>(
+      child: FutureBuilder<AyahModel>(
           future: dailyCtrl.getDailyAyah(),
           builder: (context, snapshot) => snapshot.data != null
               ? Container(

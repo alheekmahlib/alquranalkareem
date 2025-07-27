@@ -17,7 +17,6 @@ class QuranHome extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     GlobalKeyManager().resetDrawerKey();
-    QuranLibrary().setFontsSelected = 1;
     return PopScope(
       canPop: false,
       onPopInvokedWithResult: (bool didPop, _) {

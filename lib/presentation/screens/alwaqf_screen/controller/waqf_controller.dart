@@ -2,7 +2,7 @@ import 'dart:developer';
 
 import 'package:get/get.dart';
 
-import '../../../../models/waqf_model.dart';
+import '../models/waqf_model.dart';
 import '../services/waqf_service.dart';
 
 // Controller to manage Waqf data and logic.
