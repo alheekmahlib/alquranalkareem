@@ -3,7 +3,7 @@ part of '../../../quran.dart';
 extension QuranGetters on QuranController {
   /// -------- [Getter] ----------
 
-  List<List<AyahFontsModel>> getCurrentPageAyahsSeparatedForBasmalah(
+  List<List<AyahModel>> getCurrentPageAyahsSeparatedForBasmalah(
           int pageIndex) =>
       QuranLibrary()
           .quranCtrl
@@ -12,7 +12,7 @@ extension QuranGetters on QuranController {
           .splitBetween((f, s) => f.ayahNumber > s.ayahNumber)
           .toList();
 
-  List<AyahFontsModel> getPageAyahsByIndex(int pageIndex) =>
+  List<AyahModel> getPageAyahsByIndex(int pageIndex) =>
       QuranLibrary().quranCtrl.state.pages[pageIndex];
 
   /// will return the surah number of the first ayahs..
@@ -27,19 +27,19 @@ extension QuranGetters on QuranController {
           (s) => s.ayahs.firstWhereOrNull((a) => a.page == pageNumber) != null)
       .surahNumber;
 
-  SurahFontsModel getCurrentSurahByPage(int pageNumber) =>
+  SurahModel getCurrentSurahByPage(int pageNumber) =>
       QuranLibrary().getCurrentSurahDataByPageNumber(pageNumber: pageNumber);
 
-  SurahFontsModel getSurahDataByAyah(AyahFontsModel ayah) =>
+  SurahModel getSurahDataByAyah(AyahModel ayah) =>
       QuranLibrary().getCurrentSurahDataByAyah(ayah: ayah);
 
-  SurahFontsModel getSurahDataByAyahUQ(int ayah) => QuranLibrary()
+  SurahModel getSurahDataByAyahUQ(int ayah) => QuranLibrary()
       .getCurrentSurahDataByAyahUniqueNumber(ayahUniqueNumber: ayah);
 
-  AyahFontsModel getJuzByPage(int page) =>
+  AyahModel getJuzByPage(int page) =>
       QuranLibrary().getJuzByPageNumber(pageNumber: page);
 
-  List<AyahFontsModel> get currentPageAyahs =>
+  List<AyahModel> get currentPageAyahs =>
       state.pages[state.currentPageNumber.value - 1];
 
   RxBool getCurrentJuzNumber(int juzNum) =>

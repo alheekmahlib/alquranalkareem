@@ -73,7 +73,7 @@ extension QuranUi on QuranController {
   }
 
   Future<void> pageChanged(int index) async {
-    state.currentPageNumber.value = index + 1;
+    state.currentPageNumber.value = index;
     sl<PlayListController>().reset();
     sl<GeneralController>().state.isShowControl.value = false;
     sl<AudioController>().state.pageAyahNumber = '0';

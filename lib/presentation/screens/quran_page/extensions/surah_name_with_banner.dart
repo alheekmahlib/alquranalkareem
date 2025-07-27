@@ -63,7 +63,7 @@ extension CustomSurahNameWithBannerExtension on Widget {
         .getCurrentPageAyahsSeparatedForBasmalah(pageIndex)[i];
     return ayahs.first.ayahNumber == 1
         ? GestureDetector(
-            onTap: () => QuranLibrary().getSurahInfoDialog(
+            onTap: () => QuranLibrary().getSurahInfoBottomSheet(
                 context: Get.context!,
                 surahNumber: QuranLibrary()
                     .getCurrentSurahDataByPageNumber(pageNumber: pageIndex)

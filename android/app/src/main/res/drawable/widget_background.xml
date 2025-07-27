@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- خلفية Widget إسلامية احترافية - Professional Islamic Widget Background -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    
+    <!-- تدرج لوني إسلامي من الأزرق العميق إلى البنفسجي الداكن -->
+    <!-- Islamic gradient from deep blue to dark purple -->
+    <gradient
+        android:angle="135"
+        android:startColor="#1A365D"
+        android:centerColor="#2A4A6B"
+        android:endColor="#2D3748"
+        android:type="linear" />
+    
+    <!-- زوايا مدورة للمظهر العصري -->
+    <corners android:radius="16dp" />
+    
+    <!-- حدود ذهبية رفيعة للأناقة -->
+    <stroke
+        android:width="2dp"
+        android:color="#D4AF85" />
+        
+</shape>

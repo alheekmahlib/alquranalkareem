@@ -90,18 +90,27 @@ class QuranSurahList extends StatelessWidget {
                                                               BlendMode.srcIn),
                                                     ),
                                                   )),
-                                              Transform.translate(
-                                                offset: const Offset(0, 1),
-                                                child: Text(
-                                                  '${'${surah.surahNumber}'.convertNumbers()}',
-                                                  style: TextStyle(
-                                                      color: Theme.of(context)
-                                                          .hintColor,
-                                                      fontFamily: "kufi",
-                                                      fontSize: 14,
-                                                      fontWeight:
-                                                          FontWeight.bold,
-                                                      height: 2),
+                                              FittedBox(
+                                                fit: BoxFit.scaleDown,
+                                                child: Padding(
+                                                  padding: const EdgeInsets
+                                                      .symmetric(
+                                                      horizontal: 10.0),
+                                                  child: Transform.translate(
+                                                    offset: const Offset(0, 1),
+                                                    child: Text(
+                                                      '${'${surah.surahNumber}'.convertNumbers()}',
+                                                      style: TextStyle(
+                                                          color:
+                                                              Theme.of(context)
+                                                                  .hintColor,
+                                                          fontFamily: "kufi",
+                                                          fontSize: 14,
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                          height: 2),
+                                                    ),
+                                                  ),
                                                 ),
                                               ),
                                             ],
@@ -174,7 +183,8 @@ class QuranSurahList extends StatelessWidget {
                                                       fontWeight:
                                                           FontWeight.bold,
                                                       color: Get.theme.hintColor
-                                                          .withValues(alpha: .7),
+                                                          .withValues(
+                                                              alpha: .7),
                                                     ),
                                                   ),
                                                 ],

@@ -61,10 +61,10 @@ class QuranSearchController extends GetxController {
       final values = QuranLibrary().surahSearch(text);
       if (values.isNotEmpty) {
         // Use a map to track unique Surahs
-        var uniqueSurahs = <int, AyahModel>{};
+        var uniqueSurahs = <int, SurahModel>{};
         for (var aya in values) {
           if (!uniqueSurahs.containsKey(aya.surahNumber)) {
-            uniqueSurahs[aya.surahNumber] = aya;
+            uniqueSurahs[aya.surahNumber!] = aya;
           }
         }
         state.surahList.assignAll(uniqueSurahs.values);

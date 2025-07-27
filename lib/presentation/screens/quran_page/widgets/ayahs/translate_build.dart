@@ -1,7 +1,7 @@
 part of '../../quran.dart';
 
 class TranslateBuild extends StatelessWidget {
-  final List<AyahFontsModel> ayahs;
+  final List<AyahModel> ayahs;
   final int ayahIndex;
   final int pageIndex;
 

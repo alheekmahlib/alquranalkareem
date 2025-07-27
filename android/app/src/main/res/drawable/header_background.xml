@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- خلفية شريط الرأس - Header bar background -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    
+    <!-- تدرج شفاف للرأس -->
+    <gradient
+        android:angle="90"
+        android:startColor="#40FFFFFF"
+        android:endColor="#10FFFFFF"
+        android:type="linear" />
+    
+    <!-- زوايا مدورة للجزء العلوي فقط -->
+    <corners 
+        android:topLeftRadius="12dp"
+        android:topRightRadius="12dp"
+        android:bottomLeftRadius="0dp"
+        android:bottomRightRadius="0dp" />
+        
+</shape>

@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:quran_library/quran.dart';
 
-import '/core/utils/constants/extensions/svg_extensions.dart';
 import '../../../presentation/screens/quran_page/quran.dart';
 import '../../services/services_locator.dart';
 import '../../utils/constants/extensions/extensions.dart';
 import '../../utils/constants/lottie.dart';
 import '../../utils/constants/lottie_constants.dart';
 import '../../utils/constants/svg_constants.dart';
+import '../custom_button.dart';
 import 'share_ayahToImage.dart';
 
 class ShareAyahOptions extends StatelessWidget {
@@ -36,17 +36,13 @@ class ShareAyahOptions extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      child: Semantics(
-        button: true,
-        enabled: true,
-        label: 'share'.tr,
-        child: customSvgWithColor(
-          SvgPath.svgShareIcon,
-          height: 20,
-        ),
-      ),
-      onTap: () async {
+    return CustomButton(
+      height: 25,
+      width: 30,
+      iconSize: 30,
+      svgPath: SvgPath.svgShareIcon,
+      svgColor: context.theme.canvasColor,
+      onPressed: () async {
         await QuranLibrary().fetchTranslation();
         shareToImage.fetchTafseerSaadi(surahNumber, ayahNumber, ayahUQNumber);
         Get.bottomSheet(

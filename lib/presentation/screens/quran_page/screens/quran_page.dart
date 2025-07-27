@@ -49,43 +49,45 @@ class QuranPages extends StatelessWidget {
   }
 
   Widget _pageModeWidget(BuildContext context, int pageIndex) {
-    return Responsive.isMobile(context) || Responsive.isMobileLarge(context)
-        ? Center(
+    return
+        // Responsive.isMobile(context) || Responsive.isMobileLarge(context)
+        //     ?
+        Center(
             child: pageIndex.isEven
                 ? RightPage(
                     child: TextBuild(pageIndex: pageIndex),
                   )
                 : LeftPage(
                     child: TextBuild(pageIndex: pageIndex),
-                  ))
-        : Center(
-            child: pageIndex.isEven
-                ? RightPage(
-                    child: Focus(
-                      focusNode: quranCtrl.state.quranPageUDFocusNode,
-                      onKeyEvent: (node, event) =>
-                          quranCtrl.controlUDByKeyboard(node, event),
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 32.0,
-                        ),
-                        child: TextBuild(pageIndex: pageIndex),
-                      ),
-                    ),
-                  )
-                : LeftPage(
-                    child: Focus(
-                      focusNode: quranCtrl.state.quranPageUDFocusNode,
-                      onKeyEvent: (node, event) =>
-                          quranCtrl.controlUDByKeyboard(node, event),
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 32.0,
-                        ),
-                        child: TextBuild(pageIndex: pageIndex),
-                      ),
-                    ),
                   ));
+    // : Center(
+    //     child: pageIndex.isEven
+    //         ? RightPage(
+    //             child: Focus(
+    //               focusNode: quranCtrl.state.quranPageUDFocusNode,
+    //               onKeyEvent: (node, event) =>
+    //                   quranCtrl.controlUDByKeyboard(node, event),
+    //               child: Padding(
+    //                 padding: const EdgeInsets.symmetric(
+    //                   horizontal: 32.0,
+    //                 ),
+    //                 child: TextBuild(pageIndex: pageIndex),
+    //               ),
+    //             ),
+    //           )
+    //         : LeftPage(
+    //             child: Focus(
+    //               focusNode: quranCtrl.state.quranPageUDFocusNode,
+    //               onKeyEvent: (node, event) =>
+    //                   quranCtrl.controlUDByKeyboard(node, event),
+    //               child: Padding(
+    //                 padding: const EdgeInsets.symmetric(
+    //                   horizontal: 32.0,
+    //                 ),
+    //                 child: TextBuild(pageIndex: pageIndex),
+    //               ),
+    //             ),
+    //           ));
   }
 
   Widget _regularModeWidget(BuildContext context, int pageIndex) {

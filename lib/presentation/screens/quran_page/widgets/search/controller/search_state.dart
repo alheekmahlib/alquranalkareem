@@ -14,7 +14,7 @@ class SearchState {
   GetStorage box = GetStorage();
   var isLoading = false.obs;
   var ayahList = <AyahModel>[].obs;
-  var surahList = <AyahModel>[].obs;
+  var surahList = <SurahModel>[].obs;
   var errorMessage = ''.obs;
   int currentPage = 1;
   int itemsPerPage = 5;

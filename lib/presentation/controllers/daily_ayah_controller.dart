@@ -16,7 +16,7 @@ class DailyAyahController extends GetxController {
 
   final ScrollController scrollController = ScrollController();
   final quranCtrl = QuranController.instance;
-  AyahFontsModel? ayahOfTheDay;
+  AyahModel? ayahOfTheDay;
   TafsirTableData? selectedTafsir;
   List<TafsirTableData>? currentAyahTafseer;
   RxInt radioValue = 0.obs;
@@ -36,7 +36,7 @@ class DailyAyahController extends GetxController {
 
   String get tafsirRadioValue => box.read(TAFSIR_OF_THE_DAY_RADIO_VALUE) ?? '0';
 
-  Future<AyahFontsModel> getDailyAyah() async {
+  Future<AyahModel> getDailyAyah() async {
     print('missing daily Ayah');
     if (ayahOfTheDay != null) return ayahOfTheDay!;
     final String? tafsirOfTheDayRadioValue =
@@ -54,7 +54,7 @@ class DailyAyahController extends GetxController {
     );
   }
 
-  Future<AyahFontsModel> _getAyahForThisDay(
+  Future<AyahModel> _getAyahForThisDay(
       [String? ayahOfTheDayIdAndAyahId,
       String? tafsirOfTheDayRadioValue]) async {
     // box.remove(TAFSIR_OF_THE_DAY_RADIO_VALUE);
@@ -92,7 +92,7 @@ class DailyAyahController extends GetxController {
     box.write(TAFSIR_OF_THE_DAY_RADIO_VALUE, '$tafsirRandom');
     radioValue.value = tafsirRandom;
     log('allAyahs length: ${quranCtrl.state.allAyahs.length}');
-    AyahFontsModel? ayah = quranCtrl.state.allAyahs
+    AyahModel? ayah = quranCtrl.state.allAyahs
         .firstWhereOrNull((a) => a.ayahUQNumber == random);
     await QuranLibrary().closeAndInitializeDatabase(pageNumber: ayah!.page);
     await QuranLibrary().fetchTafsir(pageNumber: ayah.page);

@@ -14,17 +14,11 @@ class CopyButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      child: Semantics(
-        button: true,
-        enabled: true,
-        label: 'Copy Ayah',
-        child: customSvgWithCustomColor(
-          SvgPath.svgCopyIcon,
-          height: 20,
-        ),
-      ),
-      onTap: () async {
+    return CustomButton(
+      width: 30,
+      svgPath: SvgPath.svgCopyIcon,
+      svgColor: context.theme.canvasColor,
+      onPressed: () async {
         await Clipboard.setData(ClipboardData(
                 text:
                     '﴿${ayahText}﴾ [$surahName-${sl<GeneralController>().state.arabicNumber.convert(ayahNum)}]'))

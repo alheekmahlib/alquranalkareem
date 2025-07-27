@@ -48,15 +48,8 @@ class ShowTafseer extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      QuranLibrary().changeTafsirPopupMenu(
-                        pageNumber: quranCtrl.state.currentPageNumber.value + 1,
-                        TafsirStyle(
-                            linesColor: Get.theme.colorScheme.primary,
-                            selectedTafsirColor: Get.theme.colorScheme.surface,
-                            unSelectedTafsirColor:
-                                Get.theme.colorScheme.inversePrimary,
-                            translateName: 'translation'.tr),
-                      ),
+                      ChangeTafsir(
+                          pageNumber: quranCtrl.state.currentPageNumber.value),
                       context.vDivider(height: 20.0),
                       Transform.translate(
                           offset: const Offset(0, 5),
@@ -74,8 +67,8 @@ class ShowTafseer extends StatelessWidget {
     );
   }
 
-  Widget _copyShareWidget(BuildContext context, AyahFontsModel ayahs,
-      int ayahIndex, int index, TafsirTableData tafsir, int pageIndex) {
+  Widget _copyShareWidget(BuildContext context, AyahModel ayahs, int ayahIndex,
+      int index, TafsirTableData tafsir, int pageIndex) {
     return ShareCopyWidget(
       ayahNumber: ayahs.ayahNumber,
       ayahText: ayahs.text,
@@ -84,8 +77,9 @@ class ShowTafseer extends StatelessWidget {
       pageIndex: pageIndex,
       surahName: quranCtrl.getSurahDataByAyahUQ(ayahIndex).arabicName,
       surahNumber: quranCtrl.getSurahDataByAyahUQ(ayahIndex).surahNumber,
-      tafsirName: quranCtrl.state.qPackage
-          .tafsirAndTraslationCollection[tafsirCtrl.radioValue.value].name,
+      tafsirName: QuranLibrary()
+          .tafsirAndTraslationCollection[tafsirCtrl.radioValue.value]
+          .name,
       tafsir: QuranLibrary().isTafsir
           ? tafsir.tafsirText
           : QuranLibrary().translationList.isEmpty
@@ -115,7 +109,7 @@ class ShowTafseer extends StatelessWidget {
           );
   }
 
-  Widget _pageViewWidget(BuildContext context, List<AyahFontsModel> pageAyahs,
+  Widget _pageViewWidget(BuildContext context, List<AyahModel> pageAyahs,
       int selectedAyahIndexInFullPage, int pageIndex) {
     return Flexible(
       flex: 4,
@@ -162,17 +156,20 @@ class ShowTafseer extends StatelessWidget {
                       controller: _scrollController,
                       child: Obx(() => Column(
                             children: [
-                              Text(
-                                '﴿${ayahs.text}﴾',
-                                style: TextStyle(
-                                  fontFamily: 'uthmanic2',
-                                  fontSize: 24,
-                                  height: 1.9,
-                                  color: Theme.of(context)
-                                      .colorScheme
-                                      .inversePrimary,
+                              Directionality(
+                                textDirection: TextDirection.rtl,
+                                child: Text(
+                                  '﴿${ayahs.text}﴾',
+                                  style: TextStyle(
+                                    fontFamily: 'uthmanic2',
+                                    fontSize: 24,
+                                    height: 1.9,
+                                    color: Theme.of(context)
+                                        .colorScheme
+                                        .inversePrimary,
+                                  ),
+                                  textAlign: TextAlign.justify,
                                 ),
-                                textAlign: TextAlign.justify,
                               ),
                               _copyShareWidget(context, ayahs, ayahIndex, index,
                                   tafsir, pageIndex),

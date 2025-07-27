@@ -21,20 +21,31 @@ class TafsirButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      child: Semantics(
-        button: true,
-        enabled: true,
-        label: 'Show Tafseer',
-        child: customSvgWithCustomColor(
-          SvgPath.svgTafsirIcon,
-          height: 20,
-        ),
-      ),
-      onTap: () async {
-        // await TafsirCtrl.instance.fetchData(pageIndex + 1);
-        TafsirCtrl.instance.showTafsirOnTap(
-            surahNum, ayahNum, ayahText, pageIndex, ayahTextNormal, ayahUQNum);
+    return CustomButton(
+      width: 30,
+      svgPath: SvgPath.svgTafsirIcon,
+      svgColor: context.theme.canvasColor,
+      onPressed: () async {
+        // await QuranLibrary().initTafsir();
+        // await QuranLibrary().fetchTafsir(pageNumber: pageIndex);
+        await QuranController.instance.showTafsirOnTap(
+          surahNum: surahNum - 1,
+          ayahNum: ayahNum,
+          ayahText: ayahText,
+          pageIndex: pageIndex,
+          ayahTextN: ayahTextNormal,
+          ayahUQNum: ayahUQNum,
+        );
+        // await QuranLibrary().showTafsir(
+        //   context: context,
+        //   surahNum: surahNum,
+        //   ayahNum: ayahNum,
+        //   ayahText: ayahText,
+        //   pageIndex: pageIndex,
+        //   ayahTextN: ayahTextNormal,
+        //   ayahUQNum: ayahUQNum,
+        //   ayahNumber: ayahNum,
+        // );
         quranCtrl.state.isPages.value == 1 ? null : cancel!();
       },
     );

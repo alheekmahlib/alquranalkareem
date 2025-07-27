@@ -19,17 +19,11 @@ class PlayButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      child: Semantics(
-        button: true,
-        enabled: true,
-        label: singleAyahOnly ? 'Play Ayah' : 'Play Surah',
-        child: customSvgWithCustomColor(
-          singleAyahOnly ? SvgPath.svgPlayArrow : SvgPath.svgPlayAll,
-          height: 20,
-        ),
-      ),
-      onTap: () {
+    return CustomButton(
+      width: 30,
+      svgPath: singleAyahOnly ? SvgPath.svgPlayArrow : SvgPath.svgPlayAll,
+      svgColor: context.theme.canvasColor,
+      onPressed: () {
         AudioController.instance.startPlayingToggle();
         QuranController.instance.state.isPlayExpanded.value = true;
         AudioController.instance.state.isDirectPlaying.value = false;
