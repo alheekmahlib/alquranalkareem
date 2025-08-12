@@ -49,7 +49,9 @@ class ShowTafseer extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       ChangeTafsir(
-                          pageNumber: quranCtrl.state.currentPageNumber.value),
+                        isInPageMode: true,
+                        pageNumber: quranCtrl.state.currentPageNumber.value,
+                      ),
                       context.vDivider(height: 20.0),
                       Transform.translate(
                           offset: const Offset(0, 5),

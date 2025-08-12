@@ -24,7 +24,7 @@ extension QuranUi on QuranController {
   }
 
   void changeSurahListOnTap(int page) {
-    state.currentPageNumber.value = page - 1;
+    state.currentPageNumber.value = page;
     if (state.isPages == 1) {
       state.itemScrollController.jumpTo(
         index: page - 1,
@@ -72,7 +72,7 @@ extension QuranUi on QuranController {
     update(['ayahs_menu']);
   }
 
-  Future<void> pageChanged(int index) async {
+  void pageChanged(int index) {
     state.currentPageNumber.value = index;
     sl<PlayListController>().reset();
     sl<GeneralController>().state.isShowControl.value = false;
@@ -80,7 +80,7 @@ extension QuranUi on QuranController {
     sl<BookmarksController>().getBookmarks();
     state.lastReadSurahNumber.value =
         sl<QuranController>().getSurahNumberFromPage(index + 1);
-    state.box.write(MSTART_PAGE, index + 1);
+    state.box.write(MSTART_PAGE, index);
     state.box.write(MLAST_URAH, state.lastReadSurahNumber.value);
   }
 
