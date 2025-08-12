@@ -141,10 +141,10 @@ class AudioController extends GetxController {
   Future<void> moveToNextPage({bool withScroll = true}) async {
     if (withScroll) {
       await quranCtrl.state.quranPageController.animateToPage(
-          (quranCtrl.state.currentPageNumber.value),
+          (quranCtrl.state.currentPageNumber.value + 1),
           duration: const Duration(milliseconds: 600),
           curve: Curves.easeInOut);
-      log('Going To Next Page at: ${quranCtrl.state.currentPageNumber.value} ');
+      log('Going To Next Page at: ${quranCtrl.state.currentPageNumber.value + 1} ');
     }
   }
 
@@ -204,7 +204,7 @@ class AudioController extends GetxController {
 
         print('تحميل سورة ${selectedSurahAyahsFileNames} تم بنجاح.');
       } catch (e) {
-        log('Error in playFile: $e', name: 'AudioController');
+        log('Error in playFile1: $e', name: 'AudioController');
       }
     } else {
       state.downloading.value = false;
@@ -219,6 +219,9 @@ class AudioController extends GetxController {
           path,
           tag: mediaItemForCurrentAyah,
         ));
+
+        state.isPlay.value = true;
+        await state.audioPlayer.play();
       } else {
         await state.audioPlayer.setAudioSource(
           ConcatenatingAudioSource(
@@ -234,34 +237,51 @@ class AudioController extends GetxController {
               ? currentAyahInPage
               : state.selectedAyahNum.value,
         );
+
+        // Add listener for tracking ayah changes (for UI updates only)
+        state.audioPlayer.currentIndexStream.listen((index) async {
+          if (index != null && index != 0 && index != state.selectedAyahNum) {
+            log('state.currentAyahUQInPage.value: ${state.currentAyahUQInPage}');
+            state.selectedAyahNum.value = index;
+            state.currentAyahUQInPage.value =
+                selectedSurahAyahsUniqueNumbers[state.selectedAyahNum.value];
+            QuranLibrary().quranCtrl.clearSelection();
+            QuranLibrary()
+                .quranCtrl
+                .toggleAyahSelection(state.currentAyahUQInPage.value);
+          }
+        });
+
+        // Listen to position and duration to detect when ayah actually finishes
+        state.audioPlayer.positionStream.listen((position) async {
+          final duration = state.audioPlayer.duration;
+          final currentIndex = state.audioPlayer.currentIndex;
+
+          if (duration != null && position.inMilliseconds > 0) {
+            // Check if current ayah is almost finished (within 200ms of completion)
+            final remainingTime =
+                duration.inMilliseconds - position.inMilliseconds;
+
+            if (remainingTime <= 200 && remainingTime > 0) {
+              // Check if this is the last ayah in page and we need to move to next page
+              if ((isLastAyahInPageButNotInSurah || isLastAyahInSurahAndPage) &&
+                  !state.playSingleAyahOnly &&
+                  currentIndex != null) {
+                // Add small delay to ensure ayah completes
+                await Future.delayed(
+                    Duration(milliseconds: remainingTime + 50));
+                await moveToNextPage(withScroll: true);
+              }
+            }
+          }
+        });
+
+        state.isPlay.value = true;
+        await state.audioPlayer.play();
       }
 
-      log('${'-' * 30} player is starting.. ${'-' * 30}',
+      log('${'-' * 30} player started successfully ${'-' * 30}',
           name: 'AudioController');
-
-      state.audioPlayer.currentIndexStream.listen((index) async {
-        if (isLastAyahInPageButNotInSurah || isLastAyahInSurahAndPage) {
-          await moveToNextPage(withScroll: true);
-        }
-        if (index != null && index != 0 && index != state.selectedAyahNum) {
-          log('state.currentAyahUQInPage.value: ${state.currentAyahUQInPage}');
-          state.selectedAyahNum.value = index;
-          state.currentAyahUQInPage.value =
-              selectedSurahAyahsUniqueNumbers[state.selectedAyahNum.value];
-          // quranCtrl.toggleAyahSelection(state.currentAyahUQInPage.value);
-          // quranCtrl.clearAndAddSelection(state.currentAyahUQInPage.value);
-          // quranCtrl.toggleAyahSelection(state.currentAyahUQInPage.value);
-        }
-      });
-
-      state.isPlay.value = true;
-      await state.audioPlayer
-          .play()
-          .then((_) => state.isPlay.value = true)
-          .whenComplete(() {
-        state.audioPlayer.stop();
-        state.isPlay.value = false;
-      });
     } catch (e) {
       state.isPlay.value = false;
       state.audioPlayer.stop();

@@ -27,8 +27,8 @@ extension QuranGetters on QuranController {
           (s) => s.ayahs.firstWhereOrNull((a) => a.page == pageNumber) != null)
       .surahNumber;
 
-  SurahModel getCurrentSurahByPage(int pageNumber) =>
-      QuranLibrary().getCurrentSurahDataByPageNumber(pageNumber: pageNumber);
+  SurahModel getCurrentSurahByPage(int pageNumber) => QuranLibrary()
+      .getCurrentSurahDataByPageNumber(pageNumber: pageNumber + 1);
 
   SurahModel getSurahDataByAyah(AyahModel ayah) =>
       QuranLibrary().getCurrentSurahDataByAyah(ayah: ayah);
@@ -53,7 +53,7 @@ extension QuranGetters on QuranController {
             (Responsive.isDesktop(Get.context!) && Get.context!.isLandscape)
                 ? 1 / 2
                 : 1,
-        initialPage: state.currentPageNumber.value - 1,
+        initialPage: state.box.read(MSTART_PAGE) ?? 0,
         keepPage: true);
   }
 

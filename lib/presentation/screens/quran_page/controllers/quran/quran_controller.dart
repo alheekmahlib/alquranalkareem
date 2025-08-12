@@ -20,14 +20,14 @@ class QuranController extends GetxController {
     await QuranLibrary().initTafsir();
     // await QuranLibrary().fetchTafsir(pageNumber: state.currentPageNumber.value);
     // await QuranLibrary().fetchTranslation();
-    Future.delayed(const Duration(seconds: 10), () {
-      // TafsirCtrl.instance.tafsirDownloadIndexList.contains(0)
-      //     ? null
-      //     : QuranLibrary().tafsirDownload(0);
-      state.box.read(TAFSEER_VAL) != null
-          ? QuranLibrary().tafsirDownload(state.box.read(TAFSEER_VAL))
-          : null;
-    });
+    // Future.delayed(const Duration(seconds: 10), () {
+    //   // TafsirCtrl.instance.tafsirDownloadIndexList.contains(0)
+    //   //     ? null
+    //   //     : QuranLibrary().tafsirDownload(0);
+    //   state.box.read(TAFSEER_VAL) != null
+    //       ? QuranLibrary().tafsirDownload(state.box.read(TAFSEER_VAL))
+    //       : null;
+    // });
     super.onInit();
   }
 

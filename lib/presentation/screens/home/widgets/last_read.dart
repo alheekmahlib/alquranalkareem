@@ -24,8 +24,8 @@ class LastRead extends StatelessWidget {
     return GestureDetector(
       onTap: () {
         Get.to(() => QuranHome(), transition: Transition.downToUp)!.then(
-            (value) => quranCtrl.changeSurahListOnTap(
-                quranCtrl.state.currentPageNumber.value + 1));
+            (value) => quranCtrl
+                .changeSurahListOnTap(quranCtrl.state.currentPageNumber.value));
       },
       child: Container(
         height: 125,

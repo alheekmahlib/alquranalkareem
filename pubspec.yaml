@@ -3,7 +3,7 @@ description: Al-Quran Al-Kareem - Al-Heekmah Library.
 
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 
-version: 4.4.4+91
+version: 4.4.5+92
 
 environment:
   sdk: '>=3.6.0 <4.0.0'
@@ -29,7 +29,7 @@ dependencies:
   drift: ^2.25.1
 
 # remove this line if you wish to build for iOS or macOS
-  # drift_flutter: ^0.2.4
+  drift_flutter: ^0.2.4
   easy_image_viewer: ^1.5.1
   either_dart: ^1.0.0
   expansion_tile_card: ^3.0.0
