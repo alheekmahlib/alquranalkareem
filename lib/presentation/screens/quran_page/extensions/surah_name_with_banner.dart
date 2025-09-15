@@ -53,13 +53,12 @@ extension CustomSurahNameWithBannerExtension on Widget {
   Widget surahAyahBannerWidget(String number) {
     return bannerAyahWithSurahName(
         customSvg(quranCtrl.surahBannerPath,
-            width: Get.width * .35, height: Get.height * .19),
+            width: Get.width * .45, height: Get.height * .3),
         number);
   }
 
   Widget surahAyahBannerFirstPlace(int pageIndex, int i) {
-    final ayahs = QuranLibrary()
-        .quranCtrl
+    final ayahs = QuranLibrary.quranCtrl
         .getCurrentPageAyahsSeparatedForBasmalah(pageIndex)[i];
     return ayahs.first.ayahNumber == 1
         ? GestureDetector(

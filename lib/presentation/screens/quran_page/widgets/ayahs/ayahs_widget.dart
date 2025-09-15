@@ -82,7 +82,7 @@ class AyahsWidget extends StatelessWidget {
           Flexible(
             child: GestureDetector(
               onTap: () => audioCtrl.clearSelection(),
-              child: QuranLibrary().quranCtrl.state.pages.isEmpty
+              child: QuranLibrary.quranCtrl.state.pages.isEmpty
                   ? const Center(child: CircularProgressIndicator.adaptive())
                   : ScrollablePositionedList.builder(
                       initialScrollIndex:

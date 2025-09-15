@@ -11,7 +11,7 @@ class TafsirAndTranslateController extends GetxController {
   var expandedMap = <int, bool>{}.obs;
   RxList<TafsirTableData> tafsirList = QuranLibrary().tafsirList.obs;
   // RxBool isTafsir = QuranLibrary().isTafsir.obs;
-  RxInt tafsirRadioValue = QuranLibrary().tafsirSelected.obs;
+  RxInt tafsirRadioValue = QuranLibrary().selectedTafsirIndex.obs;
   final box = GetStorage();
 
   shareTranslateHandleRadioValue(int translateVal) async {
