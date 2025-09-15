@@ -579,6 +579,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.1.5"
+  flutter_sliding_panel:
+    dependency: transitive
+    description:
+      name: flutter_sliding_panel
+      sha256: "2bb06ac71954b8304092485a0e6fdd03eafb4bb0d2b915ce98e61a62fc8a580d"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.0.5"
   flutter_staggered_animations:
     dependency: "direct main"
     description:
@@ -733,6 +741,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "4.1.2"
+  iconsax_flutter:
+    dependency: transitive
+    description:
+      name: iconsax_flutter
+      sha256: d14b4cec8586025ac15276bdd40f6eea308cb85748135965bb6255f14beb2564
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.1"
   image:
     dependency: transitive
     description:
@@ -785,18 +801,18 @@ packages:
     dependency: "direct main"
     description:
       name: just_audio
-      sha256: f978d5b4ccea08f267dae0232ec5405c1b05d3f3cd63f82097ea46c015d5c09e
+      sha256: "9694e4734f515f2a052493d1d7e0d6de219ee0427c7c29492e246ff32a219908"
       url: "https://pub.dev"
     source: hosted
-    version: "0.9.46"
+    version: "0.10.5"
   just_audio_platform_interface:
     dependency: transitive
     description:
       name: just_audio_platform_interface
-      sha256: "4cd94536af0219fa306205a58e78d67e02b0555283c1c094ee41e402a14a5c4a"
+      sha256: "2532c8d6702528824445921c5ff10548b518b13f808c2e34c2fd54793b999a6a"
       url: "https://pub.dev"
     source: hosted
-    version: "4.5.0"
+    version: "4.6.0"
   just_audio_web:
     dependency: transitive
     description:
@@ -1029,6 +1045,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.3.0"
+  pausable_timer:
+    dependency: transitive
+    description:
+      name: pausable_timer
+      sha256: "6ef1a95441ec3439de6fb63f39a011b67e693198e7dae14e20675c3c00e86074"
+      url: "https://pub.dev"
+    source: hosted
+    version: "3.1.0+3"
   petitparser:
     dependency: transitive
     description:
@@ -1097,10 +1121,10 @@ packages:
     dependency: "direct main"
     description:
       name: quran_library
-      sha256: "522e21e047a8c23cb05ddd13fbfb44808bb71fd24cd383fb86d705a722339461"
+      sha256: bc6b22139df7816dd43b00d5facf1d9c156dbd24897a0b91642693c4d6120732
       url: "https://pub.dev"
     source: hosted
-    version: "1.3.2"
+    version: "2.0.13+1"
   rate_my_app:
     dependency: "direct main"
     description:
@@ -1442,6 +1466,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.0.2"
+  toastification:
+    dependency: transitive
+    description:
+      name: toastification
+      sha256: "69db2bff425b484007409650d8bcd5ed1ce2e9666293ece74dcd917dacf23112"
+      url: "https://pub.dev"
+    source: hosted
+    version: "3.0.3"
   typed_data:
     dependency: transitive
     description:

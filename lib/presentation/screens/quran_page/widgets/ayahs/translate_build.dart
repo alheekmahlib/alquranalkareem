@@ -29,7 +29,6 @@ class TranslateBuild extends StatelessWidget {
             alignment: Alignment.centerLeft,
             child: QuranLibrary().changeTafsirPopupMenu(
               TafsirStyle(
-                  linesColor: Get.theme.colorScheme.primary,
                   selectedTafsirColor: Get.theme.colorScheme.surface,
                   unSelectedTafsirColor: Get.theme.colorScheme.inversePrimary,
                   translateName: 'translation'.tr),

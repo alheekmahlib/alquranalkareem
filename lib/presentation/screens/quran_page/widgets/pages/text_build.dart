@@ -15,6 +15,7 @@ class TextBuild extends StatelessWidget {
         child: GetBuilder<QuranController>(
       id: 'clearSelection',
       builder: (quranCtrl) => QuranLibraryScreen(
+        parentContext: context,
         withPageView: false,
         pageIndex: pageIndex,
         useDefaultAppBar: false,
@@ -61,7 +62,7 @@ class TextBuild extends StatelessWidget {
         ),
         surahNameStyle: SurahNameStyle(
           surahNameColor: Get.theme.hintColor,
-          surahNameHeight: 120.h,
+          surahNameSize: 120.sp,
         ),
         onPagePress: () {
           audioCtrl.clearSelection();

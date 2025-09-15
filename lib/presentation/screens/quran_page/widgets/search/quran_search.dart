@@ -12,7 +12,7 @@ class QuranSearch extends StatelessWidget {
       height: Get.height,
       width: Get.width,
       child: SafeArea(
-        child: context.currentOrientation(
+        child: context.customOrientation(
             Column(
               children: <Widget>[
                 const Gap(16),
@@ -166,8 +166,7 @@ class QuranSearch extends StatelessWidget {
                         child: ListTile(
                           onTap: () {
                             quranCtrl.changeSurahListOnTap(search.page);
-                            QuranLibrary()
-                                .quranCtrl
+                            QuranLibrary.quranCtrl
                                 .toggleAyahSelection(search.ayahUQNumber);
                             Get.back();
                           },

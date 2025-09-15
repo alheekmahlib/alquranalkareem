@@ -15,8 +15,7 @@ class AyahsBuild extends StatelessWidget {
         // primary: false,
         shrinkWrap: true,
         controller: quranCtrl.state.ayahsScrollController,
-        itemCount: QuranLibrary()
-            .quranCtrl
+        itemCount: QuranLibrary.quranCtrl
             .getCurrentPageAyahsSeparatedForBasmalah(pageIndex)
             .length,
         itemBuilder: (context, i) {
@@ -27,8 +26,7 @@ class AyahsBuild extends StatelessWidget {
   }
 
   Widget _regularAyahsBuild(BuildContext context, int pageIndex, int i) {
-    final ayahs = QuranLibrary()
-        .quranCtrl
+    final ayahs = QuranLibrary.quranCtrl
         .getCurrentPageAyahsSeparatedForBasmalah(pageIndex)[i];
     return Column(children: [
       surahAyahBannerFirstPlace(pageIndex, i),

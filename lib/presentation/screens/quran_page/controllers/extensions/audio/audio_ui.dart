@@ -40,11 +40,8 @@ extension AudioUi on AudioController {
   void clearSelection() {
     if (state.audioPlayer.playing || state.isPlay.value) {
       quranCtrl.showControl();
-    } else if (QuranLibrary()
-        .quranCtrl
-        .selectedAyahsByUnequeNumber
-        .isNotEmpty) {
-      QuranLibrary().quranCtrl.clearSelection();
+    } else if (QuranLibrary.quranCtrl.selectedAyahsByUnequeNumber.isNotEmpty) {
+      QuranLibrary.quranCtrl.clearSelection();
       quranCtrl.update(['clearSelection']);
     } else {
       quranCtrl.showControl();

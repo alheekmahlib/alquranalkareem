@@ -5,24 +5,19 @@ extension QuranGetters on QuranController {
 
   List<List<AyahModel>> getCurrentPageAyahsSeparatedForBasmalah(
           int pageIndex) =>
-      QuranLibrary()
-          .quranCtrl
-          .state
-          .pages[pageIndex]
+      QuranLibrary.quranCtrl.state.pages[pageIndex]
           .splitBetween((f, s) => f.ayahNumber > s.ayahNumber)
           .toList();
 
   List<AyahModel> getPageAyahsByIndex(int pageIndex) =>
-      QuranLibrary().quranCtrl.state.pages[pageIndex];
+      QuranLibrary.quranCtrl.state.pages[pageIndex];
 
   /// will return the surah number of the first ayahs..
   /// even if the page contains another surah..
   /// if you wanna get the last's ayah's surah information
   /// you can use [ayahs.last].
-  int getSurahNumberFromPage(int pageNumber) => QuranLibrary()
-      .quranCtrl
-      .state
-      .surahs
+  int getSurahNumberFromPage(int pageNumber) => QuranLibrary
+      .quranCtrl.state.surahs
       .firstWhere(
           (s) => s.ayahs.firstWhereOrNull((a) => a.page == pageNumber) != null)
       .surahNumber;
@@ -59,8 +54,7 @@ extension QuranGetters on QuranController {
 
   ScrollController get surahController {
     final suraNumber =
-        getCurrentSurahByPage(state.currentPageNumber.value - 1).surahNumber -
-            1;
+        getCurrentSurahByPage(state.currentPageNumber.value).surahNumber - 1;
     if (state.surahController == null) {
       state.surahController = ScrollController(
         initialScrollOffset: state.surahItemHeight * suraNumber,

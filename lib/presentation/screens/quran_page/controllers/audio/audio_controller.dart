@@ -245,9 +245,8 @@ class AudioController extends GetxController {
             state.selectedAyahNum.value = index;
             state.currentAyahUQInPage.value =
                 selectedSurahAyahsUniqueNumbers[state.selectedAyahNum.value];
-            QuranLibrary().quranCtrl.clearSelection();
-            QuranLibrary()
-                .quranCtrl
+            QuranLibrary.quranCtrl.clearSelection();
+            QuranLibrary.quranCtrl
                 .toggleAyahSelection(state.currentAyahUQInPage.value);
           }
         });

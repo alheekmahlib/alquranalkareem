@@ -25,7 +25,6 @@ class DailyAyahController extends GetxController {
   @override
   Future<void> onInit() async {
     super.onInit();
-    await QuranLibrary().initTafsir();
   }
 
   bool get _hasAyahSettedForThisDay {
@@ -67,8 +66,7 @@ class DailyAyahController extends GetxController {
       final cachedAyah =
           quranCtrl.state.allAyahs[int.parse(ayahOfTheDayIdAndAyahId) - 1];
 
-      await QuranLibrary()
-          .closeAndInitializeDatabase(pageNumber: cachedAyah.page);
+      await QuranLibrary().closeAndInitializeDatabase();
       await QuranLibrary().fetchTafsir(pageNumber: cachedAyah.page);
 
       selectedTafsir = QuranLibrary().tafsirList.firstWhere(
@@ -94,8 +92,8 @@ class DailyAyahController extends GetxController {
     log('allAyahs length: ${quranCtrl.state.allAyahs.length}');
     AyahModel? ayah = quranCtrl.state.allAyahs
         .firstWhereOrNull((a) => a.ayahUQNumber == random);
-    await QuranLibrary().closeAndInitializeDatabase(pageNumber: ayah!.page);
-    await QuranLibrary().fetchTafsir(pageNumber: ayah.page);
+    await QuranLibrary().closeAndInitializeDatabase();
+    await QuranLibrary().fetchTafsir(pageNumber: ayah!.page);
     selectedTafsir = QuranLibrary().tafsirList.firstWhere(
           (a) => a.id == random,
           orElse: () => const TafsirTableData(
