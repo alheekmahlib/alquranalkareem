@@ -10,6 +10,7 @@ TextSpan span({
   required int ayahNum,
   LongPressStartDetailsFunction? onLongPressStart,
   required bool isFirstAyah,
+  double? letterSpacing,
 }) {
   if (text.isNotEmpty) {
     final String partOne = text.length < 3 ? text[0] : text[0] + text[1];
@@ -33,7 +34,8 @@ TextSpan span({
           fontFamily: fontFamily,
           fontSize: fontSize,
           height: 2,
-          letterSpacing: QuranLibrary().currentFontsSelected == 0 ? 0 : 10,
+          letterSpacing: letterSpacing ??
+              (QuranLibrary().currentFontsSelected == 0 ? 0 : 10),
           color: Get.theme.colorScheme.inversePrimary,
           backgroundColor: quranCtrl.state.isPages.value == 1
               ? Colors.transparent
@@ -53,7 +55,8 @@ TextSpan span({
           fontFamily: fontFamily,
           fontSize: fontSize,
           height: 2,
-          letterSpacing: QuranLibrary().currentFontsSelected == 0 ? 0 : 5,
+          letterSpacing: letterSpacing ??
+              (QuranLibrary().currentFontsSelected == 0 ? 0 : 5),
           // wordSpacing: wordSpacing + 10,
           color: Get.theme.colorScheme.inversePrimary,
           backgroundColor: quranCtrl.state.isPages.value == 1
@@ -76,7 +79,8 @@ TextSpan span({
         fontFamily: fontFamily,
         fontSize: fontSize,
         height: 2,
-        letterSpacing: QuranLibrary().currentFontsSelected == 0 ? 0 : 5,
+        letterSpacing:
+            letterSpacing ?? (QuranLibrary().currentFontsSelected == 0 ? 0 : 5),
         color: Get.theme.colorScheme.inversePrimary,
         backgroundColor: quranCtrl.state.isPages.value == 1
             ? Colors.transparent
@@ -91,106 +95,26 @@ TextSpan span({
         ..onLongPressStart = onLongPressStart,
     );
 
-    var lastCharacterSpan = sl<BookmarksController>()
-            .hasBookmark(surahNum, ayahNum)
-            .value
-        ? WidgetSpan(
-            child: Padding(
-            padding: EdgeInsets.symmetric(
-                horizontal: 8.0,
-                vertical: quranCtrl.state.isPages.value == 1 ? 6 : 30.0),
-            child: SvgPicture.asset(
-              SvgPath.svgAyahBookmarked,
-              height: quranCtrl.state.isPages.value == 1 ? 25 : 100,
-            ),
-          ))
-        : TextSpan(
-            text: lastCharacter,
-            style: TextStyle(
-              fontFamily: fontFamily,
-              fontSize: fontSize,
-              height: 2,
-              letterSpacing: QuranLibrary().currentFontsSelected == 0 ? 0 : 5,
-              color:
-                  sl<BookmarksController>().hasBookmark(surahNum, ayahNum).value
-                      ? Get.theme.colorScheme.inversePrimary
-                      : const Color(0xff77554B),
-              backgroundColor: quranCtrl.state.isPages.value == 1
-                  ? Colors.transparent
-                  : sl<BookmarksController>()
-                          .hasBookmark(surahNum, ayahNum)
-                          .value
-                      ? const Color(0xffCD9974).withValues(alpha: .4)
-                      : isSelected
-                          ? Get.theme.highlightColor
-                          : Colors.transparent,
-            ),
-            recognizer: LongPressGestureRecognizer(
-                duration: const Duration(milliseconds: 500))
-              ..onLongPressStart = onLongPressStart,
-          );
-
-    return TextSpan(
-      children: isFirstAyah
-          ? [first!, second!, lastCharacterSpan]
-          : [initialTextSpan, lastCharacterSpan],
-      recognizer: LongPressGestureRecognizer(
-          duration: const Duration(milliseconds: 500))
-        ..onLongPressStart = onLongPressStart,
-    );
-  } else {
-    return const TextSpan(text: '');
-  }
-}
-
-TextSpan customSpan({
-  required String text,
-  required String ayahNumber,
-  required int pageIndex,
-  required bool isSelected,
-  double? fontSize,
-  required int surahNum,
-  required int ayahNum,
-  LongPressStartDetailsFunction? onLongPressStart,
-}) {
-  if (text.isNotEmpty) {
-    return TextSpan(
-      children: [
-        TextSpan(
-          text: text,
-          style: TextStyle(
-            fontFamily: 'uthmanic2',
-            fontSize: fontSize,
-            height: 2,
-            color: Get.theme.colorScheme.inversePrimary,
-            backgroundColor: quranCtrl.state.isPages.value == 1
-                ? Colors.transparent
-                : sl<BookmarksController>().hasBookmark(surahNum, ayahNum).value
-                    ? const Color(0xffCD9974).withValues(alpha: .4)
-                    : isSelected
-                        ? Get.theme.highlightColor
-                        : Colors.transparent,
-          ),
-          recognizer: LongPressGestureRecognizer(
-              duration: const Duration(milliseconds: 500))
-            ..onLongPressStart = onLongPressStart,
-        ),
+    var lastCharacterSpan =
         sl<BookmarksController>().hasBookmark(surahNum, ayahNum).value
             ? WidgetSpan(
                 child: Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 8.0, vertical: 15.0),
+                padding: EdgeInsets.symmetric(
+                    horizontal: 8.0,
+                    vertical: quranCtrl.state.isPages.value == 1 ? 6 : 30.0),
                 child: SvgPicture.asset(
                   SvgPath.svgAyahBookmarked,
-                  height: 35,
+                  height: quranCtrl.state.isPages.value == 1 ? 25 : 100,
                 ),
               ))
             : TextSpan(
-                text: ayahNumber.toString(),
+                text: lastCharacter,
                 style: TextStyle(
-                  fontFamily: 'uthmanic2',
+                  fontFamily: fontFamily,
                   fontSize: fontSize,
                   height: 2,
+                  letterSpacing: letterSpacing ??
+                      (QuranLibrary().currentFontsSelected == 0 ? 0 : 5),
                   color: sl<BookmarksController>()
                           .hasBookmark(surahNum, ayahNum)
                           .value
@@ -209,8 +133,12 @@ TextSpan customSpan({
                 recognizer: LongPressGestureRecognizer(
                     duration: const Duration(milliseconds: 500))
                   ..onLongPressStart = onLongPressStart,
-              ),
-      ],
+              );
+
+    return TextSpan(
+      children: isFirstAyah
+          ? [first!, second!, lastCharacterSpan]
+          : [initialTextSpan, lastCharacterSpan],
       recognizer: LongPressGestureRecognizer(
           duration: const Duration(milliseconds: 500))
         ..onLongPressStart = onLongPressStart,

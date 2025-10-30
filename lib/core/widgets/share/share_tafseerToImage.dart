@@ -27,6 +27,14 @@ class TafseerImageCreator extends StatelessWidget {
     required this.verseText,
   });
 
+  // إرجاع نص الترجمة بأمان وفقًا للرقم العالمي للآية
+  String _safeTranslationText(int verseUQNumber) {
+    final list = QuranLibrary().translationList;
+    final idx = verseUQNumber - 1;
+    if (idx < 0 || idx >= list.length) return '';
+    return list[idx].text;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -191,13 +199,7 @@ class TafseerImageCreator extends StatelessWidget {
                                     //       )
                                     //     :
                                     TextSpan(
-                                      text:
-                                          QuranLibrary().translationList.isEmpty
-                                              ? ''
-                                              : QuranLibrary()
-                                                  .translationList[
-                                                      verseUQNumber - 1]
-                                                  .text,
+                                      text: _safeTranslationText(verseUQNumber),
                                       style: const TextStyle(
                                         fontSize: 13,
                                         fontFamily: 'naskh',

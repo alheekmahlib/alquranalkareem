@@ -1,0 +1,36 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"label": "Flutter build macOS unsigned",
+			"type": "shell",
+			"command": "flutter",
+			"args": [
+				"build",
+				"macos",
+				"--release",
+				"--no-codesign"
+			],
+			"isBackground": false,
+			"problemMatcher": [
+				"$flutter-stylish"
+			],
+			"group": "build"
+		},
+		{
+			"label": "Flutter build macOS release",
+			"type": "shell",
+			"command": "flutter",
+			"args": [
+				"build",
+				"macos",
+				"--release"
+			],
+			"isBackground": false,
+			"problemMatcher": [
+				"$flutter-stylish"
+			],
+			"group": "build"
+		}
+	]
+}

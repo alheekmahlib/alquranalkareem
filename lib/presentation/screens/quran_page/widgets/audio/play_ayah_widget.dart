@@ -18,14 +18,14 @@ class PlayAyah extends StatelessWidget {
               processingState == ProcessingState.buffering ||
               (audioCtrl.state.downloading.value &&
                   audioCtrl.state.progress.value == 0)) {
-            return customLottie(LottieConstants.assetsLottiePlayButton,
-                width: 20.0, height: 20.0);
+            return customLottie(
+              LottieConstants.assetsLottiePlayButton,
+              width: 20.0,
+              height: 20.0,
+            );
           } else if (playerState != null && !playerState.playing) {
             return GestureDetector(
-              child: customSvgWithCustomColor(
-                SvgPath.svgPlayArrow,
-                height: 25,
-              ),
+              child: customSvgWithCustomColor(SvgPath.svgPlayArrow, height: 25),
               onTap: () async {
                 QuranController.instance.state.selectedAyahIndexes.isNotEmpty
                     ? audioCtrl.state.isDirectPlaying.value = false
@@ -36,10 +36,7 @@ class PlayAyah extends StatelessWidget {
             );
           }
           return GestureDetector(
-            child: customSvgWithCustomColor(
-              SvgPath.svgPauseArrow,
-              height: 25,
-            ),
+            child: customSvgWithCustomColor(SvgPath.svgPauseArrow, height: 25),
             onTap: () {
               QuranController.instance.state.isPlayExpanded.value = true;
               audioCtrl.playAyah();

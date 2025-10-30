@@ -8,13 +8,14 @@ class PlayButton extends StatelessWidget {
 
   /// just play the selected ayah.
   final bool singleAyahOnly;
-  PlayButton(
-      {super.key,
-      required this.surahNum,
-      required this.ayahNum,
-      required this.ayahUQNum,
-      this.singleAyahOnly = false,
-      this.cancel});
+  PlayButton({
+    super.key,
+    required this.surahNum,
+    required this.ayahNum,
+    required this.ayahUQNum,
+    this.singleAyahOnly = false,
+    this.cancel,
+  });
   final generalCtrl = GeneralController.instance;
 
   @override
@@ -28,8 +29,12 @@ class PlayButton extends StatelessWidget {
         QuranController.instance.state.isPlayExpanded.value = true;
         AudioController.instance.state.isDirectPlaying.value = false;
         debugPrint('SurahNum: $surahNum');
-        AudioController.instance
-            .playAyahOnTap(surahNum, ayahNum, ayahUQNum, singleAyahOnly);
+        AudioController.instance.playAyahOnTap(
+          surahNum,
+          ayahNum,
+          ayahUQNum,
+          singleAyahOnly,
+        );
         if (cancel != null) {
           cancel!();
         }

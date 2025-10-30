@@ -38,10 +38,12 @@ class DailyAyahController extends GetxController {
   Future<AyahModel> getDailyAyah() async {
     print('missing daily Ayah');
     if (ayahOfTheDay != null) return ayahOfTheDay!;
-    final String? tafsirOfTheDayRadioValue =
-        box.read(TAFSIR_OF_THE_DAY_RADIO_VALUE);
-    final String? ayahOfTheDayIdAndId =
-        box.read(AYAH_OF_THE_DAY_AND_AYAH_NUMBER);
+    final String? tafsirOfTheDayRadioValue = box.read(
+      TAFSIR_OF_THE_DAY_RADIO_VALUE,
+    );
+    final String? ayahOfTheDayIdAndId = box.read(
+      AYAH_OF_THE_DAY_AND_AYAH_NUMBER,
+    );
     // ayahOfTheDay = await _getAyahForThisDay(
     //   _hasAyahSettedForThisDay ? ayahOfTheDayIdAndId : null,
     //   _hasAyahSettedForThisDay ? tafsirOfTheDayRadioValue : null,
@@ -53,29 +55,38 @@ class DailyAyahController extends GetxController {
     );
   }
 
-  Future<AyahModel> _getAyahForThisDay(
-      [String? ayahOfTheDayIdAndAyahId,
-      String? tafsirOfTheDayRadioValue]) async {
+  Future<AyahModel> _getAyahForThisDay([
+    String? ayahOfTheDayIdAndAyahId,
+    String? tafsirOfTheDayRadioValue,
+  ]) async {
     // box.remove(TAFSIR_OF_THE_DAY_RADIO_VALUE);
     // box.remove(TAFSIR_OF_THE_DAY_AND_TAFSIR_NUMBER);
     // box.remove(AYAH_OF_THE_DAY_AND_AYAH_NUMBER);
     // box.remove(SETTED_DATE_FOR_AYAH);
-    log("ayahOfTheDayIdAndAyahId: ${ayahOfTheDayIdAndAyahId == null ? "null" : "NOT NULL"}");
+    log(
+      "ayahOfTheDayIdAndAyahId: ${ayahOfTheDayIdAndAyahId == null ? "null" : "NOT NULL"}",
+    );
     if (ayahOfTheDayIdAndAyahId != null) {
       log("before trying to get ayah", name: 'BEFORE');
       final cachedAyah =
           quranCtrl.state.allAyahs[int.parse(ayahOfTheDayIdAndAyahId) - 1];
 
-      await QuranLibrary().closeAndInitializeDatabase();
-      await QuranLibrary().fetchTafsir(pageNumber: cachedAyah.page);
+      await TafsirCtrl.instance.fetchData(cachedAyah.page);
 
       selectedTafsir = QuranLibrary().tafsirList.firstWhere(
-            (a) => a.id == cachedAyah.ayahUQNumber,
-            orElse: () => const TafsirTableData(
-                id: 0, tafsirText: '', ayahNum: 0, pageNum: 0, surahNum: 0),
-          );
-      log("date: ${EventController.instance.hijriNow.fullDate()}",
-          name: 'CAHECH AYAH');
+        (a) => a.id == cachedAyah.ayahUQNumber,
+        orElse: () => const TafsirTableData(
+          id: 0,
+          tafsirText: '',
+          ayahNum: 0,
+          pageNum: 0,
+          surahNum: 0,
+        ),
+      );
+      log(
+        "date: ${EventController.instance.hijriNow.fullDate()}",
+        name: 'CAHECH AYAH',
+      );
       return cachedAyah;
     }
     final random = math.Random().nextInt(quranCtrl.state.allAyahs.length);
@@ -90,28 +101,33 @@ class DailyAyahController extends GetxController {
     box.write(TAFSIR_OF_THE_DAY_RADIO_VALUE, '$tafsirRandom');
     radioValue.value = tafsirRandom;
     log('allAyahs length: ${quranCtrl.state.allAyahs.length}');
-    AyahModel? ayah = quranCtrl.state.allAyahs
-        .firstWhereOrNull((a) => a.ayahUQNumber == random);
-    await QuranLibrary().closeAndInitializeDatabase();
-    await QuranLibrary().fetchTafsir(pageNumber: ayah!.page);
-    selectedTafsir = QuranLibrary().tafsirList.firstWhere(
-          (a) => a.id == random,
-          orElse: () => const TafsirTableData(
-              id: 0,
-              tafsirText: 'حدث خطأ أثناء عرض التفسير',
-              ayahNum: 0,
-              pageNum: 0,
-              surahNum: 0),
-        );
+    AyahModel? ayah = quranCtrl.state.allAyahs.firstWhereOrNull(
+      (a) => a.ayahUQNumber == random,
+    );
+    await TafsirCtrl.instance.fetchData(ayah!.page);
+    // await TafsirCtrl.instance.fetchTranslate();
+    selectedTafsir = TafsirCtrl.instance.tafseerList.firstWhere(
+      (a) => a.id == random,
+      orElse: () => const TafsirTableData(
+        id: 0,
+        tafsirText: 'حدث خطأ أثناء عرض التفسير',
+        ayahNum: 0,
+        pageNum: 0,
+        surahNum: 0,
+      ),
+    );
     log('allAyahs length: ${quranCtrl.state.allAyahs.length} 2222');
     while (ayah == null && selectedTafsir == null) {
-      log('allAyahs length: ${quranCtrl.state.allAyahs.length} ',
-          name: 'while');
-      ayah = quranCtrl.state.allAyahs
-          .firstWhereOrNull((a) => a.ayahUQNumber == random);
-      selectedTafsir = QuranLibrary()
-          .tafsirList
-          .firstWhereOrNull((t) => t.id == ayah!.ayahUQNumber);
+      log(
+        'allAyahs length: ${quranCtrl.state.allAyahs.length} ',
+        name: 'while',
+      );
+      ayah = quranCtrl.state.allAyahs.firstWhereOrNull(
+        (a) => a.ayahUQNumber == random,
+      );
+      selectedTafsir = QuranLibrary().tafsirList.firstWhereOrNull(
+        (t) => t.id == ayah!.ayahUQNumber,
+      );
       log('ayah is null  ' * 5);
     }
     log('before listing');
@@ -120,7 +136,9 @@ class DailyAyahController extends GetxController {
       ..write(TAFSIR_OF_THE_DAY_AND_TAFSIR_NUMBER, '${selectedTafsir!.id}')
       ..write(TAFSIR_OF_THE_DAY_RADIO_VALUE, '${radioValue.value}')
       ..write(
-          SETTED_DATE_FOR_AYAH, EventController.instance.hijriNow.fullDate());
+        SETTED_DATE_FOR_AYAH,
+        EventController.instance.hijriNow.fullDate(),
+      );
     return ayah;
   }
 }

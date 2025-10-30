@@ -26,13 +26,9 @@ extension QuranUi on QuranController {
   void changeSurahListOnTap(int page) {
     state.currentPageNumber.value = page;
     if (state.isPages == 1) {
-      state.itemScrollController.jumpTo(
-        index: page - 1,
-      );
+      state.itemScrollController.jumpTo(index: page - 1);
     } else {
-      state.quranPageController.jumpToPage(
-        page - 1,
-      );
+      state.quranPageController.jumpToPage(page - 1);
     }
     GlobalKeyManager().drawerKey.currentState!.closeSlider();
   }
@@ -74,14 +70,16 @@ extension QuranUi on QuranController {
 
   void pageChanged(int index) {
     state.currentPageNumber.value = index;
-    sl<PlayListController>().reset();
-    sl<GeneralController>().state.isShowControl.value = false;
-    sl<AudioController>().state.pageAyahNumber = '0';
-    sl<BookmarksController>().getBookmarks();
-    state.lastReadSurahNumber.value =
-        sl<QuranController>().getSurahNumberFromPage(index + 1);
-    state.box.write(MSTART_PAGE, index);
-    state.box.write(MLAST_URAH, state.lastReadSurahNumber.value);
+    // sl<PlayListController>().reset();
+    GeneralController.instance.state.isShowControl.value = false;
+    AudioController.instance.state.pageAyahNumber = '0';
+
+    SchedulerBinding.instance.scheduleTask(() {
+      state.lastReadSurahNumber.value = getSurahNumberFromPage(index + 1);
+      state.box
+        ..write(MSTART_PAGE, index)
+        ..write(MLAST_URAH, state.lastReadSurahNumber.value);
+    }, Priority.idle);
   }
 
   void pageModeOnTap(bool value) {

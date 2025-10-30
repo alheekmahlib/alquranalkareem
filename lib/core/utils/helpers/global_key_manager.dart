@@ -17,6 +17,8 @@ class GlobalKeyManager {
   }
 
   void resetDrawerKey() {
+    // SchedulerBinding.instance.scheduleTask(() {
     _drawerKey = GlobalKey<SliderDrawerState>();
+    // }, Priority.idle);
   }
 }

@@ -14,19 +14,19 @@ class AdhkarItem extends StatelessWidget {
   Widget build(BuildContext context) {
     final azkarCtrl = AzkarController.instance;
     azkarCtrl.getAdhkar();
-    return Directionality(
-      textDirection: TextDirection.rtl,
-      child: Scaffold(
-        backgroundColor: Theme.of(context).colorScheme.primaryContainer,
-        appBar: AppBarWidget(
-          isTitled: true,
-          title: azkarCtrl.state.filteredDhekrList.first.category,
-          isFontSize: true,
-          searchButton: const SizedBox.shrink(),
-          isNotifi: true,
-          isBooks: false,
-        ),
-        body: SafeArea(
+    return Scaffold(
+      backgroundColor: Theme.of(context).colorScheme.primaryContainer,
+      appBar: AppBarWidget(
+        isTitled: true,
+        title: azkarCtrl.state.filteredDhekrList.first.category,
+        isFontSize: true,
+        searchButton: const SizedBox.shrink(),
+        isNotifi: true,
+        isBooks: false,
+      ),
+      body: SafeArea(
+        child: Directionality(
+          textDirection: TextDirection.rtl,
           child: Padding(
             padding: context.customOrientation(const EdgeInsets.all(0),
                 const EdgeInsets.symmetric(horizontal: 64.0)),

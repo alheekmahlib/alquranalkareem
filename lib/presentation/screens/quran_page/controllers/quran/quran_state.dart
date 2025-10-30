@@ -24,7 +24,6 @@ class QuranState {
   RxBool isPlayExpanded = false.obs;
   RxBool isSajda = false.obs;
   RxInt isPages = 0.obs;
-  RxInt isBold = 0.obs;
   RxBool isMoreOptions = false.obs;
   ItemScrollController itemScrollController = ItemScrollController();
   final ItemScrollController ayahsItemScrollController = ItemScrollController();

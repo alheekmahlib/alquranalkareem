@@ -60,11 +60,11 @@ class TafsirButton extends StatelessWidget {
             textTitleColor: context.theme.colorScheme.surface,
             horizontalMargin: 16.0,
             tafsirBackgroundColor: Get.theme.colorScheme.primaryContainer,
-            tafsirNameWidget: customSvgWithCustomColor(
-              SvgPath.svgTafseerWhite,
-              color: Get.theme.canvasColor,
-              height: 30,
-            ),
+            // tafsirNameWidget: customSvgWithCustomColor(
+            //   SvgPath.svgTafseerWhite,
+            //   color: Get.theme.canvasColor,
+            //   height: 25,
+            // ),
             footnotesName: 'footnotes'.tr,
             tafsirName: 'tafseer'.tr,
             translateName: 'translation'.tr,
