@@ -10,7 +10,6 @@
 #include <awesome_notifications_core/awesome_notifications_core_plugin.h>
 #include <desktop_window/desktop_window_plugin.h>
 #include <flutter_timezone/flutter_timezone_plugin.h>
-#include <simple_animation_progress_bar/simple_animation_progress_bar_plugin.h>
 #include <sqlite3_flutter_libs/sqlite3_flutter_libs_plugin.h>
 #include <url_launcher_linux/url_launcher_plugin.h>
 
@@ -27,9 +26,6 @@ void fl_register_plugins(FlPluginRegistry* registry) {
   g_autoptr(FlPluginRegistrar) flutter_timezone_registrar =
       fl_plugin_registry_get_registrar_for_plugin(registry, "FlutterTimezonePlugin");
   flutter_timezone_plugin_register_with_registrar(flutter_timezone_registrar);
-  g_autoptr(FlPluginRegistrar) simple_animation_progress_bar_registrar =
-      fl_plugin_registry_get_registrar_for_plugin(registry, "SimpleAnimationProgressBarPlugin");
-  simple_animation_progress_bar_plugin_register_with_registrar(simple_animation_progress_bar_registrar);
   g_autoptr(FlPluginRegistrar) sqlite3_flutter_libs_registrar =
       fl_plugin_registry_get_registrar_for_plugin(registry, "Sqlite3FlutterLibsPlugin");
   sqlite3_flutter_libs_plugin_register_with_registrar(sqlite3_flutter_libs_registrar);

@@ -30,7 +30,7 @@ if (keystorePropertiesFile.exists()) {
 
 android {
     namespace "com.alheekmah.alquranalkareem.alquranalkareem"
-    compileSdkVersion 35
+    compileSdkVersion 36
     ndkVersion "27.0.12077973" // flutter.ndkVersion
 
     defaultConfig {
@@ -39,12 +39,17 @@ android {
 
     compileOptions {
         coreLibraryDesugaringEnabled true
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
     }
 
     kotlinOptions {
-        jvmTarget = '1.8'
+        jvmTarget = '17' // JavaVersion.VERSION_17
+    }
+
+    // Ensure Kotlin uses JDK 17 toolchain
+    kotlin {
+        jvmToolchain(17)
     }
 
     sourceSets {
@@ -57,7 +62,7 @@ android {
         // You can update the following values to match your application needs.
         // For more information, see: https://docs.flutter.dev/deployment/android#reviewing-the-gradle-build-configuration.
         minSdkVersion 24
-        targetSdkVersion 35
+        targetSdkVersion 36
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
         multiDexEnabled true

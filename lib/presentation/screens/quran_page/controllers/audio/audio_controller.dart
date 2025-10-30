@@ -15,9 +15,9 @@ class AudioController extends GetxController {
     state.sliderValue = 0;
     loadQuranReader();
     await Future.wait([
-      GeneralController.instance
-          .getCachedArtUri()
-          .then((v) => state.cachedArtUri = v),
+      GeneralController.instance.getCachedArtUri().then(
+        (v) => state.cachedArtUri = v,
+      ),
       getApplicationDocumentsDirectory().then((v) => state.dir = v),
     ]);
     ConnectivityService.instance.init();
@@ -34,8 +34,12 @@ class AudioController extends GetxController {
 
   /// -------- [DownloadsMethods] ----------
 
-  Future<String> _downloadFileIfNotExist(String url, String fileName,
-      {bool showSnakbars = true, bool setDownloadingStatus = true}) async {
+  Future<String> _downloadFileIfNotExist(
+    String url,
+    String fileName, {
+    bool showSnakbars = true,
+    bool setDownloadingStatus = true,
+  }) async {
     String path = join(state.dir.path, fileName);
     var file = File(path);
     bool exists = await file.exists();
@@ -55,16 +59,18 @@ class AudioController extends GetxController {
       if (showSnakbars && !state.snackBarShownForBatch) {
         if (ConnectivityService.instance.noConnection.value) {
           Get.context!.showCustomErrorSnackBar('noInternet'.tr);
-        } else if (ConnectivityService.instance.connectionStatus
-            .contains(ConnectivityResult.mobile)) {
+        } else if (ConnectivityService.instance.connectionStatus.contains(
+          ConnectivityResult.mobile,
+        )) {
           state.snackBarShownForBatch = true; // Set the flag to true
           Get.context!.customMobileNoteSnackBar('mobileDataAyat'.tr);
         }
       }
 
       // Proceed with the download
-      if (!ConnectivityService.instance.connectionStatus
-          .contains(ConnectivityResult.none)) {
+      if (!ConnectivityService.instance.connectionStatus.contains(
+        ConnectivityResult.none,
+      )) {
         try {
           await _downloadFile(path, url, fileName);
         } catch (e) {
@@ -91,23 +97,27 @@ class AudioController extends GetxController {
       var incrementalProgress = 0.0;
       const incrementalStep = 0.1;
 
-      await dio.download(url, path, onReceiveProgress: (rec, total) {
-        if (total <= 0) {
-          // Update the progress value incrementally
-          incrementalProgress += incrementalStep;
-          if (incrementalProgress >= 1) {
-            incrementalProgress = 0; // Reset if it reaches 1
+      await dio.download(
+        url,
+        path,
+        onReceiveProgress: (rec, total) {
+          if (total <= 0) {
+            // Update the progress value incrementally
+            incrementalProgress += incrementalStep;
+            if (incrementalProgress >= 1) {
+              incrementalProgress = 0; // Reset if it reaches 1
+            }
+            // Update your UI based on incrementalProgress here
+            // For example, update a progress bar's value or animate an indicator
+          } else {
+            // Handle determinate progress as before
+            double progressValue = (rec / total).toDouble().clamp(0.0, 1.0);
+            state.progress.value = progressValue;
+            update(['audio_seekBar_id']);
+            log('ayah downloading progress: $progressValue');
           }
-          // Update your UI based on incrementalProgress here
-          // For example, update a progress bar's value or animate an indicator
-        } else {
-          // Handle determinate progress as before
-          double progressValue = (rec / total).toDouble().clamp(0.0, 1.0);
-          state.progress.value = progressValue;
-          update(['audio_seekBar_id']);
-          log('ayah downloading progress: $progressValue');
-        }
-      });
+        },
+      );
     } catch (e) {
       if (e is DioException && e.type == DioExceptionType.cancel) {
         print('Download canceled');
@@ -141,19 +151,23 @@ class AudioController extends GetxController {
   Future<void> moveToNextPage({bool withScroll = true}) async {
     if (withScroll) {
       await quranCtrl.state.quranPageController.animateToPage(
-          (quranCtrl.state.currentPageNumber.value + 1),
-          duration: const Duration(milliseconds: 600),
-          curve: Curves.easeInOut);
-      log('Going To Next Page at: ${quranCtrl.state.currentPageNumber.value + 1} ');
+        (quranCtrl.state.currentPageNumber.value + 1),
+        duration: const Duration(milliseconds: 600),
+        curve: Curves.easeInOut,
+      );
+      log(
+        'Going To Next Page at: ${quranCtrl.state.currentPageNumber.value + 1} ',
+      );
     }
   }
 
   void moveToPreviousPage({bool withScroll = true}) {
     if (withScroll) {
       quranCtrl.state.quranPageController.animateToPage(
-          (quranCtrl.state.currentPageNumber.value - 2),
-          duration: const Duration(milliseconds: 600),
-          curve: Curves.easeInOut);
+        (quranCtrl.state.currentPageNumber.value - 2),
+        duration: const Duration(milliseconds: 600),
+        curve: Curves.easeInOut,
+      );
     }
   }
 
@@ -172,25 +186,31 @@ class AudioController extends GetxController {
       try {
         if (state.playSingleAyahOnly) {
           final path =
-              await _downloadFileIfNotExist(currentAyahUrl, currentAyahFileName)
-                  .then((_) {
-            state.downloading.value = false;
-            state.onDownloading.value = false;
-          });
-          futures = state.audioPlayer.setAudioSource(AudioSource.file(
-            path,
-            tag: mediaItemForCurrentAyah,
-          ));
+              await _downloadFileIfNotExist(
+                currentAyahUrl,
+                currentAyahFileName,
+              ).then((_) {
+                state.downloading.value = false;
+                state.onDownloading.value = false;
+              });
+          futures = state.audioPlayer.setAudioSource(
+            AudioSource.file(path, tag: mediaItemForCurrentAyah),
+          );
         } else {
           state.snackBarShownForBatch = false;
           futures = List.generate(
             ayahsFilesNames.length,
-            (i) => _downloadFileIfNotExist(ayahsUrls[i], ayahsFilesNames[i],
-                    setDownloadingStatus: false)
-                .whenComplete(() {
-              log('${state.tmpDownloadedAyahsCount.value} => download completed at ${DateTime.now().millisecond}');
-              state.tmpDownloadedAyahsCount.value++;
-            }),
+            (i) =>
+                _downloadFileIfNotExist(
+                  ayahsUrls[i],
+                  ayahsFilesNames[i],
+                  setDownloadingStatus: false,
+                ).whenComplete(() {
+                  log(
+                    '${state.tmpDownloadedAyahsCount.value} => download completed at ${DateTime.now().millisecond}',
+                  );
+                  state.tmpDownloadedAyahsCount.value++;
+                }),
           );
         }
 
@@ -213,12 +233,13 @@ class AudioController extends GetxController {
 
     try {
       if (state.playSingleAyahOnly) {
-        final path =
-            await _downloadFileIfNotExist(currentAyahUrl, currentAyahFileName);
-        await state.audioPlayer.setAudioSource(AudioSource.file(
-          path,
-          tag: mediaItemForCurrentAyah,
-        ));
+        final path = await _downloadFileIfNotExist(
+          currentAyahUrl,
+          currentAyahFileName,
+        );
+        await state.audioPlayer.setAudioSource(
+          AudioSource.file(path, tag: mediaItemForCurrentAyah),
+        );
 
         state.isPlay.value = true;
         await state.audioPlayer.play();
@@ -241,13 +262,16 @@ class AudioController extends GetxController {
         // Add listener for tracking ayah changes (for UI updates only)
         state.audioPlayer.currentIndexStream.listen((index) async {
           if (index != null && index != 0 && index != state.selectedAyahNum) {
-            log('state.currentAyahUQInPage.value: ${state.currentAyahUQInPage}');
+            log(
+              'state.currentAyahUQInPage.value: ${state.currentAyahUQInPage}',
+            );
             state.selectedAyahNum.value = index;
             state.currentAyahUQInPage.value =
                 selectedSurahAyahsUniqueNumbers[state.selectedAyahNum.value];
             QuranLibrary.quranCtrl.clearSelection();
-            QuranLibrary.quranCtrl
-                .toggleAyahSelection(state.currentAyahUQInPage.value);
+            QuranLibrary.quranCtrl.toggleAyahSelection(
+              state.currentAyahUQInPage.value,
+            );
           }
         });
 
@@ -268,7 +292,8 @@ class AudioController extends GetxController {
                   currentIndex != null) {
                 // Add small delay to ensure ayah completes
                 await Future.delayed(
-                    Duration(milliseconds: remainingTime + 50));
+                  Duration(milliseconds: remainingTime + 50),
+                );
                 await moveToNextPage(withScroll: true);
               }
             }
@@ -279,8 +304,10 @@ class AudioController extends GetxController {
         await state.audioPlayer.play();
       }
 
-      log('${'-' * 30} player started successfully ${'-' * 30}',
-          name: 'AudioController');
+      log(
+        '${'-' * 30} player started successfully ${'-' * 30}',
+        name: 'AudioController',
+      );
     } catch (e) {
       state.isPlay.value = false;
       state.audioPlayer.stop();
@@ -292,19 +319,28 @@ class AudioController extends GetxController {
     if (quranCtrl.state.isPages.value == 1) {
       state.currentAyahUQInPage.value = state.currentAyahUQInPage.value == 1
           ? quranCtrl.state.allAyahs
-              .firstWhere((ayah) =>
-                  ayah.page ==
-                  quranCtrl.state.itemPositionsListener.itemPositions.value.last
-                          .index +
-                      1)
-              .ayahUQNumber
+                .firstWhere(
+                  (ayah) =>
+                      ayah.page ==
+                      quranCtrl
+                              .state
+                              .itemPositionsListener
+                              .itemPositions
+                              .value
+                              .last
+                              .index +
+                          1,
+                )
+                .ayahUQNumber
           : state.currentAyahUQInPage.value;
     } else {
       state.currentAyahUQInPage.value = state.currentAyahUQInPage.value == 1
           ? quranCtrl.state.allAyahs
-              .firstWhere((ayah) =>
-                  ayah.page == quranCtrl.state.currentPageNumber.value)
-              .ayahUQNumber
+                .firstWhere(
+                  (ayah) =>
+                      ayah.page == quranCtrl.state.currentPageNumber.value,
+                )
+                .ayahUQNumber
           : state.currentAyahUQInPage.value;
     }
     // quranCtrl.clearAndAddSelection(state.currentAyahUQInPage.value);
@@ -326,11 +362,11 @@ class AudioController extends GetxController {
       pausePlayer;
     } else if (isLastAyahInPageButNotInSurah || isLastAyahInSurahAndPage) {
       await moveToNextPage(withScroll: true);
-      quranCtrl.clearAndAddSelection(state.currentAyahUQInPage.value += 1);
       await state.audioPlayer.seekToNext();
+      quranCtrl.clearAndAddSelection(state.currentAyahUQInPage.value += 1);
     } else {
-      quranCtrl.clearAndAddSelection(state.currentAyahUQInPage.value += 1);
       await state.audioPlayer.seekToNext();
+      quranCtrl.clearAndAddSelection(state.currentAyahUQInPage.value += 1);
     }
   }
 
@@ -339,11 +375,11 @@ class AudioController extends GetxController {
       pausePlayer;
     } else if (isFirstAyahInPageButNotInSurah) {
       moveToPreviousPage();
+      await state.audioPlayer.seekToPrevious();
       quranCtrl.clearAndAddSelection(state.currentAyahUQInPage.value -= 1);
-      await state.audioPlayer.seekToPrevious();
     } else {
-      quranCtrl.toggleAyahSelection(state.currentAyahUQInPage.value -= 1);
       await state.audioPlayer.seekToPrevious();
+      quranCtrl.clearAndAddSelection(state.currentAyahUQInPage.value -= 1);
     }
   }
 

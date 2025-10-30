@@ -136,8 +136,16 @@ class ServicesLocator {
     // Workmanager().initialize(sl<NotificationController>().callbackDispatcher);
     // sl<NotificationController>().registerBackgroundTask();
 
-    final String timeZoneName = await FlutterTimezone.getLocalTimezone();
-    tz.initializeTimeZones();
-    tz.setLocalLocation(tz.getLocation(timeZoneName));
+    try {
+      final TimezoneInfo timezone = await FlutterTimezone.getLocalTimezone();
+      final String timeZoneName = timezone.identifier;
+      tz.initializeTimeZones();
+      tz.setLocalLocation(tz.getLocation(timeZoneName));
+    } catch (_) {
+      // Fallback gracefully if plugin not available or throws
+      tz.initializeTimeZones();
+      // tz.local uses platform default when available
+      // No explicit setLocalLocation to avoid crashing on unsupported platforms
+    }
   }
 }

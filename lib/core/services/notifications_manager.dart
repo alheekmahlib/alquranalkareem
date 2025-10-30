@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:flutter/scheduler.dart';
 import 'package:get/get.dart';
 
 import 'notifications_helper.dart';
@@ -11,15 +12,21 @@ class NotificationManager {
   int interactedNotifications = 0;
 
   Future<void> updateBookProgress(
-      String bookName, String body, int lastPage) async {
+    String bookName,
+    String body,
+    int lastPage,
+  ) async {
     booksReadingProgress[bookName] = lastPage;
 
     if (scheduledNotifications.containsKey(bookName)) {
-      await NotifyHelper()
-          .cancelNotification(scheduledNotifications[bookName]!);
+      await NotifyHelper().cancelNotification(
+        scheduledNotifications[bookName]!,
+      );
     }
 
-    scheduleReadingReminder(bookName, body);
+    SchedulerBinding.instance.scheduleTask(() {
+      scheduleReadingReminder(bookName, body);
+    }, Priority.idle);
   }
 
   void scheduleReadingReminder(String bookName, String body) {
@@ -34,14 +41,20 @@ class NotificationManager {
           isRepeats: false,
           time: DateTime.now().add(const Duration(days: 1)),
         )
-        .then((_) => log('$notificationId\n${'reminders'.tr}\n$body',
-            name: 'NotificationManager'));
+        .then(
+          (_) => log(
+            '$notificationId\n${'reminders'.tr}\n$body',
+            name: 'NotificationManager',
+          ),
+        );
 
     // حفظ معرف الإشعار لإلغائه لاحقًا إذا لزم الأمر
     scheduledNotifications[bookName] = notificationId;
 
-    log('Schedule Reading Reminder for $notificationId',
-        name: 'NotificationManager');
+    log(
+      'Schedule Reading Reminder for $notificationId',
+      name: 'NotificationManager',
+    );
   }
 
   void displayReadingProgress() {

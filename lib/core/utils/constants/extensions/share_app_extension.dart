@@ -19,7 +19,7 @@ extension ShareAppExtension on void {
     await Share.shareXFiles(
       [XFile((file.path))],
       text:
-          'تطبيق "القرآن الكريم - مكتبة الحكمة" التطبيق الأمثل لقراءة القرآن.\n\nللتحميل:\nalheekmahlib.com/#/download/app/0',
+          'تطبيق "القرآن الكريم - مكتبة الحكمة" التطبيق الأمثل لقراءة القرآن.\n\nللتحميل:\nhttps://alheekmahlib.github.io/alheekmahlib/#/download/quran',
       sharePositionOrigin: box!.localToGlobal(Offset.zero) & box.size,
     );
   }

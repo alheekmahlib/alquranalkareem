@@ -14,6 +14,20 @@ class TafsirAndTranslateController extends GetxController {
   RxInt tafsirRadioValue = QuranLibrary().selectedTafsirIndex.obs;
   final box = GetStorage();
 
+  TafsirTableData getAyahTranslation(int ayahUQNumber) {
+    final tafsir = QuranLibrary().tafsirList.firstWhere(
+          (element) => element.id == ayahUQNumber,
+          orElse: () => const TafsirTableData(
+            id: 0,
+            tafsirText: '',
+            ayahNum: 0,
+            pageNum: 0,
+            surahNum: 0,
+          ),
+        );
+    return tafsir;
+  }
+
   shareTranslateHandleRadioValue(int translateVal) async {
     shareTransValue.value = translateVal;
     switch (shareTransValue.value) {

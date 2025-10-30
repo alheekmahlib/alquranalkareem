@@ -34,7 +34,9 @@ class QuranHome extends StatelessWidget {
             key: GlobalKeyManager().drawerKey,
             backgroundColor: Theme.of(context).colorScheme.primaryContainer,
             slideDirection: alignmentLayout(
-                SlideDirection.rightToLeft, SlideDirection.leftToRight),
+              SlideDirection.rightToLeft,
+              SlideDirection.leftToRight,
+            ),
             sliderOpenSize: 300.0,
             isDraggable: true,
             appBar: const SizedBox.shrink(),
@@ -47,43 +49,55 @@ class QuranHome extends StatelessWidget {
                 alignment: Alignment.center,
                 children: <Widget>[
                   Directionality(
-                      textDirection: TextDirection.rtl,
-                      child: Center(
-                        child: ScreenSwitch(),
-                      )),
-                  Obx(() => generalCtrl.state.isShowControl.value
-                      ? TabBarWidget(
-                          isFirstChild: true,
-                          isCenterChild: true,
-                          isQuranSetting: true,
-                          isNotification: false,
-                          centerChild: Padding(
-                            padding: const EdgeInsets.only(top: 15.0),
-                            child: OpenContainerWrapper(
-                              transitionType: QuranSearchController
-                                  .instance.state.transitionType,
-                              closedBuilder:
-                                  (BuildContext _, VoidCallback openContainer) {
-                                return SearchBarWidget(
-                                    openContainer: openContainer);
-                              },
+                    textDirection: TextDirection.rtl,
+                    child: Center(child: ScreenSwitch()),
+                  ),
+                  Obx(
+                    () => generalCtrl.state.isShowControl.value
+                        ? TabBarWidget(
+                            isFirstChild: true,
+                            isCenterChild: true,
+                            isQuranSetting: true,
+                            isNotification: false,
+                            centerChild: Padding(
+                              padding: const EdgeInsets.only(top: 15.0),
+                              child: OpenContainerWrapper(
+                                transitionType: QuranSearchController
+                                    .instance
+                                    .state
+                                    .transitionType,
+                                closedBuilder:
+                                    (
+                                      BuildContext _,
+                                      VoidCallback openContainer,
+                                    ) {
+                                      return SearchBarWidget(
+                                        openContainer: openContainer,
+                                      );
+                                    },
+                              ),
                             ),
-                          ),
-                        )
-                      : const SizedBox.shrink()),
-                  Obx(() => audioCtrl.state.isStartPlaying.value ||
-                          generalCtrl.state.isShowControl.value
-                      ? Align(
-                          alignment: Alignment.bottomCenter,
-                          child: AudioWidget(),
-                        )
-                      : const SizedBox.shrink()),
-                  Obx(() => generalCtrl.state.isShowControl.value
-                      ? Align(
-                          alignment: Alignment.bottomCenter,
-                          child: NavBarWidget(),
-                        )
-                      : const SizedBox.shrink()),
+                          )
+                        : const SizedBox.shrink(),
+                  ),
+                  Obx(
+                    () =>
+                        audioCtrl.state.isStartPlaying.value ||
+                            generalCtrl.state.isShowControl.value
+                        ? Align(
+                            alignment: Alignment.bottomCenter,
+                            child: AudioWidget(),
+                          )
+                        : const SizedBox.shrink(),
+                  ),
+                  Obx(
+                    () => generalCtrl.state.isShowControl.value
+                        ? Align(
+                            alignment: Alignment.bottomCenter,
+                            child: NavBarWidget(),
+                          )
+                        : const SizedBox.shrink(),
+                  ),
                 ],
               ),
             ),

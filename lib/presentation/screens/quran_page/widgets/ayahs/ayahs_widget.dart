@@ -84,83 +84,49 @@ class AyahsWidget extends StatelessWidget {
               onTap: () => audioCtrl.clearSelection(),
               child: QuranLibrary.quranCtrl.state.pages.isEmpty
                   ? const Center(child: CircularProgressIndicator.adaptive())
-                  : ScrollablePositionedList.builder(
-                      initialScrollIndex:
-                          quranCtrl.state.currentPageNumber.value - 1,
-                      itemScrollController:
-                          quranCtrl.state.itemScrollController,
-                      itemPositionsListener:
-                          quranCtrl.state.itemPositionsListener,
-                      scrollOffsetController:
-                          quranCtrl.state.scrollOffsetController,
-                      itemCount: quranCtrl.state.pages.length,
-                      physics: const BouncingScrollPhysics(),
-                      itemBuilder: (context, pageIndex) {
-                        quranCtrl.state.currentPageNumber.value = pageIndex;
-                        return Container(
-                          margin: const EdgeInsets.symmetric(
-                              horizontal: 16.0, vertical: 4.0),
-                          decoration: BoxDecoration(
-                              borderRadius:
-                                  const BorderRadius.all(Radius.circular(8)),
-                              border: Border.all(
-                                width: 1,
-                                color: Theme.of(context)
-                                    .colorScheme
-                                    .primary
-                                    .withValues(alpha: .5),
-                              )),
-                          child: AyahsBuild(
-                            pageIndex: pageIndex,
-                          ),
-                        );
+                  : FutureBuilder<void>(
+                      future: Future.delayed(Duration.zero),
+                      builder: (context, snapshot) {
+                        if (snapshot.connectionState == ConnectionState.done) {
+                          return ScrollablePositionedList.builder(
+                            initialScrollIndex:
+                                quranCtrl.state.currentPageNumber.value - 1,
+                            itemScrollController:
+                                quranCtrl.state.itemScrollController,
+                            itemPositionsListener:
+                                quranCtrl.state.itemPositionsListener,
+                            scrollOffsetController:
+                                quranCtrl.state.scrollOffsetController,
+                            itemCount: quranCtrl.state.pages.length,
+                            physics: const BouncingScrollPhysics(),
+                            itemBuilder: (context, pageIndex) {
+                              // ملاحظة: استدعاء جلب الترجمة داخل itemBuilder مكلف.
+                              // يفضل تحريكه إلى نقطة تحميل مناسبة لاحقًا.
+                              QuranLibrary().fetchTranslation();
+                              return Container(
+                                margin: const EdgeInsets.symmetric(
+                                    horizontal: 16.0, vertical: 4.0),
+                                decoration: BoxDecoration(
+                                    borderRadius: const BorderRadius.all(
+                                        Radius.circular(8)),
+                                    border: Border.all(
+                                      width: 1,
+                                      color: Theme.of(context)
+                                          .colorScheme
+                                          .primary
+                                          .withValues(alpha: .5),
+                                    )),
+                                child: AyahsBuild(
+                                  pageIndex: pageIndex,
+                                ),
+                              );
+                            },
+                          );
+                        }
+                        return const Center(
+                            child: CircularProgressIndicator.adaptive());
                       },
                     ),
-              // child: FutureBuilder<void>(
-              //     future: Future.delayed(Duration.zero),
-              //     builder: (context, snapshot) {
-              //       if (snapshot.connectionState == ConnectionState.done) {
-              //         return QuranLibrary().quranCtrl.state.pages.isEmpty
-              //             ? const Center(
-              //                 child: CircularProgressIndicator.adaptive())
-              //             : ScrollablePositionedList.builder(
-              //                 initialScrollIndex:
-              //                     quranCtrl.state.currentPageNumber.value - 1,
-              //                 itemScrollController:
-              //                     quranCtrl.state.itemScrollController,
-              //                 itemPositionsListener:
-              //                     quranCtrl.state.itemPositionsListener,
-              //                 scrollOffsetController:
-              //                     quranCtrl.state.scrollOffsetController,
-              //                 itemCount: quranCtrl.state.pages.length,
-              //                 physics: const BouncingScrollPhysics(),
-              //                 itemBuilder: (context, pageIndex) {
-              //                   quranCtrl.state.currentPageNumber.value =
-              //                       pageIndex;
-              //                   return Container(
-              //                     margin: const EdgeInsets.symmetric(
-              //                         horizontal: 16.0, vertical: 4.0),
-              //                     decoration: BoxDecoration(
-              //                         borderRadius: const BorderRadius.all(
-              //                             Radius.circular(8)),
-              //                         border: Border.all(
-              //                           width: 1,
-              //                           color: Theme.of(context)
-              //                               .colorScheme
-              //                               .primary
-              //                               .withValues(alpha: .5),
-              //                         )),
-              //                     child: AyahsBuild(
-              //                       pageIndex: pageIndex,
-              //                     ),
-              //                   );
-              //                 },
-              //               );
-              //       } else {
-              //         return const Center(
-              //             child: CircularProgressIndicator.adaptive());
-              //       }
-              //     }),
             ),
           ),
         ],

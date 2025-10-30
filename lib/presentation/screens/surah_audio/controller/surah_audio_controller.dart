@@ -1,5 +1,5 @@
 import 'dart:developer' show log;
-import 'dart:io' show File, Directory, HttpHeaders, Platform;
+import 'dart:io' show File, Directory, HttpHeaders;
 
 import 'package:audio_service/audio_service.dart';
 import 'package:dio/dio.dart' as d;
@@ -24,9 +24,8 @@ import 'surah_audio_state.dart';
 class SurahAudioController extends GetxController {
   static SurahAudioController get instance =>
       Get.isRegistered<SurahAudioController>()
-          ? Get.find<SurahAudioController>()
-          : Get.put<SurahAudioController>(SurahAudioController(),
-              permanent: true);
+      ? Get.find<SurahAudioController>()
+      : Get.put<SurahAudioController>(SurahAudioController(), permanent: true);
 
   SurahAudioState state = SurahAudioState();
 
@@ -40,36 +39,35 @@ class SurahAudioController extends GetxController {
     loadSurahReader();
     state.surahsPlayList = List.generate(114, (i) {
       state.surahNum.value = i + 1;
-      return AudioSource.uri(
-        Uri.parse(urlFilePath),
-      );
+      return AudioSource.uri(Uri.parse(urlFilePath));
     });
     Future.wait([
-      GeneralController.instance
-          .getCachedArtUri()
-          .then((v) => AudioController.instance.state.cachedArtUri = v),
+      GeneralController.instance.getCachedArtUri().then(
+        (v) => AudioController.instance.state.cachedArtUri = v,
+      ),
     ]);
-    state.audioServiceInitialized.value =
-        state.box.read(AUDIO_SERVICE_INITIALIZED) ?? false;
-    if (Platform.isIOS || Platform.isAndroid || Platform.isMacOS) {
-      if (!state.audioServiceInitialized.value) {
-        if (!quranCtrl.state.isQuranLoaded) {
-          await QuranController.instance.loadQuran().then((_) async {
-            await initAudioService();
-            state.box.write(AUDIO_SERVICE_INITIALIZED, true);
-          });
-        } else {
-          await initAudioService();
-          state.box.write(AUDIO_SERVICE_INITIALIZED, true);
-        }
-      } else {
-        await QuranController.instance.loadQuran();
-        log("Audio service already initialized",
-            name: 'surah_audio_controller');
-      }
-    }
-    Future.delayed(const Duration(milliseconds: 700))
-        .then((_) => jumpToSurah(state.surahNum.value - 1));
+    // state.audioServiceInitialized.value =
+    //     state.box.read(AUDIO_SERVICE_INITIALIZED) ?? false;
+    // if (Platform.isIOS || Platform.isAndroid || Platform.isMacOS) {
+    //   if (!state.audioServiceInitialized.value) {
+    //     if (!quranCtrl.state.isQuranLoaded) {
+    //       await QuranController.instance.loadQuran().then((_) async {
+    //         await initAudioService();
+    //         state.box.write(AUDIO_SERVICE_INITIALIZED, true);
+    //       });
+    //     } else {
+    //       await initAudioService();
+    //       state.box.write(AUDIO_SERVICE_INITIALIZED, true);
+    //     }
+    //   } else {
+    //     await QuranController.instance.loadQuran();
+    //     log("Audio service already initialized",
+    //         name: 'surah_audio_controller');
+    //   }
+    // }
+    Future.delayed(
+      const Duration(milliseconds: 700),
+    ).then((_) => jumpToSurah(state.surahNum.value - 1));
     ConnectivityService.instance.init();
 
     // Listen to player state changes to play the next Surah automatically
@@ -127,10 +125,7 @@ class SurahAudioController extends GetxController {
 
   Future<void> _addFileAudioSourceToPlayList(String filePath) async {
     state.downloadSurahsPlayList.add({
-      state.surahNum.value: AudioSource.file(
-        filePath,
-        tag: await mediaItem,
-      )
+      state.surahNum.value: AudioSource.file(filePath, tag: await mediaItem),
     });
   }
 
@@ -157,10 +152,9 @@ class SurahAudioController extends GetxController {
       state.isPlaying.value = true;
       log("File exists. Playing...");
 
-      await state.audioPlayer.setAudioSource(AudioSource.file(
-        filePath,
-        tag: await mediaItem,
-      ));
+      await state.audioPlayer.setAudioSource(
+        AudioSource.file(filePath, tag: await mediaItem),
+      );
       state.audioPlayer.play();
     } else {
       if (ConnectivityService.instance.noConnection.value) {
@@ -173,13 +167,11 @@ class SurahAudioController extends GetxController {
         if (await downloadFile(filePath, urlFilePath)) {
           _addFileAudioSourceToPlayList(filePath);
           onDownloadSuccess(
-              int.parse(state.surahNum.value.toString().padLeft(3, "0")));
+            int.parse(state.surahNum.value.toString().padLeft(3, "0")),
+          );
           log("File successfully downloaded and saved to $filePath");
           await state.audioPlayer
-              .setAudioSource(AudioSource.file(
-                filePath,
-                tag: await mediaItem,
-              ))
+              .setAudioSource(AudioSource.file(filePath, tag: await mediaItem))
               .then((_) => state.audioPlayer.play());
         }
       }
@@ -200,9 +192,10 @@ class SurahAudioController extends GetxController {
       d.Response response = await dio.head(url);
       int? contentLength =
           response.headers.value(HttpHeaders.contentLengthHeader) != null
-              ? int.tryParse(
-                  response.headers.value(HttpHeaders.contentLengthHeader)!)
-              : null;
+          ? int.tryParse(
+              response.headers.value(HttpHeaders.contentLengthHeader)!,
+            )
+          : null;
 
       if (contentLength != null) {
         state.fileSize.value = contentLength;
@@ -217,14 +210,19 @@ class SurahAudioController extends GetxController {
       state.progress.value = 0;
       update(['seekBar_id']);
 
-      await dio.download(url, path, onReceiveProgress: (rec, total) {
-        state.progressString.value = ((rec / total) * 100).toStringAsFixed(0);
-        state.progress.value = (rec / total).toDouble();
-        // log(message)(state.progressString.value);
+      await dio.download(
+        url,
+        path,
+        onReceiveProgress: (rec, total) {
+          state.progressString.value = ((rec / total) * 100).toStringAsFixed(0);
+          state.progress.value = (rec / total).toDouble();
+          // log(message)(state.progressString.value);
 
-        state.downloadProgress.value = rec;
-        update(['seekBar_id']);
-      }, cancelToken: state.cancelToken);
+          state.downloadProgress.value = rec;
+          update(['seekBar_id']);
+        },
+        cancelToken: state.cancelToken,
+      );
 
       state.onDownloading.value = false;
       state.progressString.value = "100";
@@ -308,10 +306,7 @@ class SurahAudioController extends GetxController {
       if (await file.exists()) {
         // log(message)("File Path: $file");
         state.downloadSurahsPlayList.add({
-          i: AudioSource.file(
-            filePath,
-            tag: await mediaItem,
-          )
+          i: AudioSource.file(filePath, tag: await mediaItem),
         });
       } else {
         // log(message)("iiiiiiiiii $i");

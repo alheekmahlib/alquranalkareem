@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:quran_library/quran.dart';
 
 import '/core/utils/constants/extensions/extensions.dart';
 import '/core/utils/constants/lists.dart';
@@ -133,8 +134,11 @@ class MushafSettings extends StatelessWidget {
                       2,
                       (index) => Obx(() => GestureDetector(
                             onTap: () {
-                              quranCtrl.state.isBold.value = index;
-                              GetStorage().write(IS_BOLD, index);
+                              QuranCtrl.instance.state.isBold.value =
+                                  index.isEven ? true : false;
+                              GetStorage().write(IS_BOLD,
+                                  QuranCtrl.instance.state.isBold.value);
+                              quranCtrl.update(['clearSelection']);
                             },
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
@@ -153,10 +157,12 @@ class MushafSettings extends StatelessWidget {
                                     color:
                                         Theme.of(context).colorScheme.primary,
                                   ),
-                                  child: quranCtrl.state.isBold.value == index
-                                      ? const Icon(Icons.done,
-                                          size: 14, color: Colors.white)
-                                      : null,
+                                  child:
+                                      QuranCtrl.instance.state.isBold.value ==
+                                              index.isEven
+                                          ? const Icon(Icons.done,
+                                              size: 14, color: Colors.white)
+                                          : null,
                                 ),
                                 const Gap(6),
                                 Text(
@@ -165,7 +171,7 @@ class MushafSettings extends StatelessWidget {
                                     fontFamily: 'uthmanic2',
                                     fontSize: 18,
                                     height: 1.9,
-                                    fontWeight: index == 0
+                                    fontWeight: index.isEven
                                         ? FontWeight.bold
                                         : FontWeight.normal,
                                     color: Theme.of(context)
