@@ -6,10 +6,8 @@ import 'package:get_storage/get_storage.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 import '/core/utils/constants/extensions/extensions.dart';
-import '/presentation/controllers/general/extensions/general_getters.dart';
 import '/presentation/controllers/general/general_controller.dart';
 import '../../../../../core/utils/constants/shared_preferences_constants.dart';
-import '../../../../core/utils/constants/lists.dart';
 import '../../../core/widgets/elevated_button_widget.dart';
 import '../../../core/widgets/select_screen_build.dart';
 import '../screen_type.dart';

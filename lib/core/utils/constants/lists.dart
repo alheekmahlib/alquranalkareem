@@ -54,54 +54,48 @@ final List screensList = [
     'svgUrl': 'assets/svg/splash_icon_w.svg',
     'imagePath': 'assets/images/home.png',
     'route': () => const HomeScreen(),
-    'width': 240.0
+    'width': 240.0,
   },
   {
     'name': 'quran',
     'svgUrl': 'assets/svg/splash_icon_w.svg',
     'imagePath': 'assets/images/pages.png',
     'route': () => QuranHome(),
-    'width': 240.0
+    'width': 240.0,
   },
   {
     'name': '',
     'svgUrl': 'assets/svg/alwaqf.svg',
     'imagePath': 'assets/images/audio.png',
     'route': () => AlwaqfScreen(),
-    'width': 70.0
+    'width': 70.0,
   },
   {
     'name': 'azkar',
     'svgUrl': 'assets/svg/azkar.svg',
     'imagePath': 'assets/images/athkar.png',
     'route': () => const AdhkarView(),
-    'width': 70.0
+    'width': 70.0,
   },
   {
     'name': 'quranAudio',
     'svgUrl': 'assets/svg/quran_au_ic.svg',
     'imagePath': 'assets/images/audio.png',
-    'route': () => const AudioScreen(),
-    'width': 240.0
+    'route': () => AudioScreen(),
+    'width': 240.0,
   },
   {
     'name': 'tafsirLibrary',
     'svgUrl': 'assets/svg/tafseer_white.svg',
     'imagePath': 'assets/images/tafsir_books.jpg',
     'route': () => BooksScreen(),
-    'width': 326.0
+    'width': 326.0,
   },
 ];
 
 const List mushafSettingsList = [
-  {
-    'name': 'pages',
-    'imageUrl': 'assets/images/pages.png',
-  },
-  {
-    'name': 'ayahs',
-    'imageUrl': 'assets/images/ayahs.png',
-  },
+  {'name': 'pages', 'imageUrl': 'assets/images/pages.png'},
+  {'name': 'ayahs', 'imageUrl': 'assets/images/ayahs.png'},
 ];
 
 const List themeList = [
@@ -115,16 +109,12 @@ const List themeList = [
     'title': 'brownMode',
     'svgUrl': 'assets/svg/theme1.svg',
   },
-  {
-    'name': AppTheme.old,
-    'title': 'oldMode',
-    'svgUrl': 'assets/svg/theme3.svg',
-  },
+  {'name': AppTheme.old, 'title': 'oldMode', 'svgUrl': 'assets/svg/theme3.svg'},
   {
     'name': AppTheme.dark,
     'title': 'darkMode',
     'svgUrl': 'assets/svg/theme2.svg',
-  }
+  },
 ];
 
 const List surahReaderInfo = [
@@ -132,197 +122,146 @@ const List surahReaderInfo = [
     'name': 'reader1',
     'readerD': '${ApiConstants.surahUrl1}',
     'readerN': 'abdul_basit_murattal/',
-    'readerI': 'basit'
+    'readerI': 'basit',
   },
   {
     'name': 'reader2',
     'readerD': '${ApiConstants.surahUrl1}',
     'readerN': 'muhammad_siddeeq_al-minshaawee/',
-    'readerI': 'minshawy'
+    'readerI': 'minshawy',
   },
   {
     'name': 'reader3',
     'readerD': '${ApiConstants.surahUrl1}',
     'readerN': 'mahmood_khaleel_al-husaree_iza3a/',
-    'readerI': 'husary'
+    'readerI': 'husary',
   },
   {
     'name': 'reader4',
     'readerD': '${ApiConstants.surahUrl1}',
     'readerN': 'ahmed_ibn_3ali_al-3ajamy/',
-    'readerI': 'ajamy'
+    'readerI': 'ajamy',
   },
   {
     'name': 'reader5',
     'readerD': '${ApiConstants.surahUrl1}',
     'readerN': 'maher_almu3aiqly/year1440/',
-    'readerI': 'muaiqly'
+    'readerI': 'muaiqly',
   },
   {
     'name': 'reader6',
     'readerD': '${ApiConstants.surahUrl1}',
     'readerN': 'sa3ood_al-shuraym/',
-    'readerI': 'saood'
+    'readerI': 'saood',
   },
   {
     'name': 'reader7',
     'readerD': '${ApiConstants.surahUrl1}',
     'readerN': 'sa3d_al-ghaamidi/complete/',
-    'readerI': 'Ghamadi'
+    'readerI': 'Ghamadi',
   },
   {
     'name': 'reader8',
     'readerD': '${ApiConstants.surahUrl1}',
     'readerN': 'mustafa_al3azzawi/',
-    'readerI': 'mustafa'
+    'readerI': 'mustafa',
   },
   {
     'name': 'reader9',
     'readerD': '${ApiConstants.surahUrl1}',
     'readerN': 'nasser_bin_ali_alqatami/',
-    'readerI': 'nasser'
+    'readerI': 'nasser',
   },
   {
     'name': 'reader10',
     'readerD': '${ApiConstants.surahUrl2}',
     'readerN': 'peshawa/Rewayat-Hafs-A-n-Assem/',
-    'readerI': 'qader'
+    'readerI': 'qader',
   },
   {
     'name': 'reader11',
     'readerD': '${ApiConstants.surahUrl3}',
     'readerN': 'taher/',
-    'readerI': 'taher'
+    'readerI': 'taher',
   },
   {
     'name': 'reader12',
     'readerD': '${ApiConstants.surahUrl4}',
     'readerN': 'aloosi/',
-    'readerI': 'aloosi'
+    'readerI': 'aloosi',
   },
   {
     'name': 'reader13',
     'readerD': '${ApiConstants.surahUrl4}',
     'readerN': 'wdee3/',
-    'readerI': 'wdee3'
+    'readerI': 'wdee3',
   },
   {
     'name': 'reader14',
     'readerD': '${ApiConstants.surahUrl1}',
     'readerN': 'yasser_ad-dussary/',
-    'readerI': 'yasser_ad-dussary'
+    'readerI': 'yasser_ad-dussary',
   },
   {
     'name': 'reader15',
     'readerD': '${ApiConstants.surahUrl1}',
     'readerN': 'abdullaah_3awwaad_al-juhaynee/',
-    'readerI': 'Juhaynee'
+    'readerI': 'Juhaynee',
   },
   {
     'name': 'reader16',
     'readerD': '${ApiConstants.surahUrl1}',
     'readerN': 'fares/',
-    'readerI': 'Fares'
+    'readerI': 'Fares',
   },
   {
     'name': 'reader17',
     'readerD': '${ApiConstants.surahUrl1}',
     'readerN': 'muhammad_ayyoob_hq/',
-    'readerI': 'ayyoob'
+    'readerI': 'ayyoob',
   },
   {
     'name': 'reader18',
     'readerD': '${ApiConstants.surahUrl3}',
     'readerN': 'maher/',
-    'readerI': 'maher'
+    'readerI': 'maher',
   },
   {
     'name': 'reader19',
     'readerD': '${ApiConstants.surahUrl2}',
     'readerN': 'nufais/Rewayat-Hafs-A-n-Assem/',
-    'readerI': 'nufais'
+    'readerI': 'nufais',
   },
   {
     'name': 'reader20',
     'readerD': '${ApiConstants.surahUrl5}',
     'readerN': 'yasser/',
-    'readerI': 'yasser_ad-dussary'
+    'readerI': 'yasser_ad-dussary',
   },
 ];
 
 List tafsirNameList = [
   {'name': '${'tafIbnkatheerN'.tr}', 'bookName': '${'tafIbnkatheerD'.tr}'},
-  {
-    'name': '${'tafBaghawyN'.tr}',
-    'bookName': '${'tafBaghawyD'.tr}',
-  },
-  {
-    'name': '${'tafQurtubiN'.tr}',
-    'bookName': '${'tafQurtubiD'.tr}',
-  },
-  {
-    'name': '${'tafSaadiN'.tr}',
-    'bookName': '${'tafSaadiD'.tr}',
-  },
-  {
-    'name': '${'tafTabariN'.tr}',
-    'bookName': '${'tafTabariD'.tr}',
-  },
-  {
-    'name': 'English',
-    'bookName': '',
-  },
-  {
-    'name': 'Español',
-    'bookName': '',
-  },
-  {
-    'name': 'বাংলা',
-    'bookName': '',
-  },
-  {
-    'name': 'اردو',
-    'bookName': '',
-  },
-  {
-    'name': 'Soomaali',
-    'bookName': '',
-  },
-  {
-    'name': 'bahasa Indonesia',
-    'bookName': '',
-  },
-  {
-    'name': 'کوردی',
-    'bookName': '',
-  },
-  {
-    'name': 'Türkçe',
-    'bookName': '',
-  },
+  {'name': '${'tafBaghawyN'.tr}', 'bookName': '${'tafBaghawyD'.tr}'},
+  {'name': '${'tafQurtubiN'.tr}', 'bookName': '${'tafQurtubiD'.tr}'},
+  {'name': '${'tafSaadiN'.tr}', 'bookName': '${'tafSaadiD'.tr}'},
+  {'name': '${'tafTabariN'.tr}', 'bookName': '${'tafTabariD'.tr}'},
+  {'name': 'English', 'bookName': ''},
+  {'name': 'Español', 'bookName': ''},
+  {'name': 'বাংলা', 'bookName': ''},
+  {'name': 'اردو', 'bookName': ''},
+  {'name': 'Soomaali', 'bookName': ''},
+  {'name': 'bahasa Indonesia', 'bookName': ''},
+  {'name': 'کوردی', 'bookName': ''},
+  {'name': 'Türkçe', 'bookName': ''},
 ];
 
 const List tafsirNameRandom = [
-  {
-    'name': '${'tafIbnkatheerN'}',
-    'bookName': '${'tafIbnkatheerD'}',
-  },
-  {
-    'name': '${'tafBaghawyN'}',
-    'bookName': '${'tafBaghawyD'}',
-  },
-  {
-    'name': '${'tafQurtubiN'}',
-    'bookName': '${'tafQurtubiD'}',
-  },
-  {
-    'name': '${'tafSaadiN'}',
-    'bookName': '${'tafSaadiD'}',
-  },
-  {
-    'name': '${'tafTabariN'}',
-    'bookName': '${'tafTabariD'}',
-  }
+  {'name': '${'tafIbnkatheerN'}', 'bookName': '${'tafIbnkatheerD'}'},
+  {'name': '${'tafBaghawyN'}', 'bookName': '${'tafBaghawyD'}'},
+  {'name': '${'tafQurtubiN'}', 'bookName': '${'tafQurtubiD'}'},
+  {'name': '${'tafSaadiN'}', 'bookName': '${'tafSaadiD'}'},
+  {'name': '${'tafTabariN'}', 'bookName': '${'tafTabariD'}'},
 ];
 
 const List ayahReaderInfo = [
@@ -330,55 +269,55 @@ const List ayahReaderInfo = [
     'name': 'reader1',
     'readerD': 'Abdul_Basit_Murattal_192kbps',
     'readerI': 'basit',
-    'url': ApiConstants.ayahs2ndSource
+    'url': ApiConstants.ayahs2ndSource,
   },
   {
     'name': 'reader2',
     'readerD': 'Minshawy_Murattal_128kbps',
     'readerI': 'minshawy',
-    'url': ApiConstants.ayahs2ndSource
+    'url': ApiConstants.ayahs2ndSource,
   },
   {
     'name': 'reader3',
     'readerD': 'Husary_128kbps',
     'readerI': 'husary',
-    'url': ApiConstants.ayahs2ndSource
+    'url': ApiConstants.ayahs2ndSource,
   },
   {
     'name': 'reader4',
     'readerD': '128/ar.ahmedajamy',
     'readerI': 'ajamy',
-    'url': ApiConstants.ayahs1stSource
+    'url': ApiConstants.ayahs1stSource,
   },
   {
     'name': 'reader5',
     'readerD': 'MaherAlMuaiqly128kbps',
     'readerI': 'muaiqly',
-    'url': ApiConstants.ayahs2ndSource
+    'url': ApiConstants.ayahs2ndSource,
   },
   {
     'name': 'reader6',
     'readerD': 'Saood_ash-Shuraym_128kbps',
     'readerI': 'saood',
-    'url': ApiConstants.ayahs2ndSource
+    'url': ApiConstants.ayahs2ndSource,
   },
   {
     'name': 'reader15',
     'readerD': 'Abdullaah_3awwaad_Al-Juhaynee_128kbps',
     'readerI': 'Juhaynee',
-    'url': ApiConstants.ayahs2ndSource
+    'url': ApiConstants.ayahs2ndSource,
   },
   {
     'name': 'reader16',
     'readerD': 'Fares_Abbad_64kbps',
     'readerI': 'Fares',
-    'url': ApiConstants.ayahs2ndSource
+    'url': ApiConstants.ayahs2ndSource,
   },
   {
     'name': 'reader17',
     'readerD': '128/ar.muhammadayyoub',
     'readerI': 'ayyoob',
-    'url': ApiConstants.ayahs1stSource
+    'url': ApiConstants.ayahs1stSource,
   },
   {
     'name': 'reader18',
@@ -390,7 +329,7 @@ const List ayahReaderInfo = [
     'name': 'reader20',
     'readerD': 'Yasser_Ad-Dussary_128kbps',
     'readerI': 'yasser_ad-dussary',
-    'url': ApiConstants.ayahs2ndSource
+    'url': ApiConstants.ayahs2ndSource,
   },
 ];
 
@@ -410,26 +349,10 @@ const List monthHadithsList = [
     'bookName':
         'الراوي : عبدالله بن هشام | المحدث : ابن حجر العسقلاني | المصدر : الإصابة في تمييز الصحابة | الصفحة أو الرقم : 2/378 | خلاصة حكم المحدث : موقوف على شرط الصحيح ',
   },
-  {
-    'hadithPart1': '',
-    'hadithPart2': '',
-    'bookName': '',
-  },
-  {
-    'hadithPart1': '',
-    'hadithPart2': '',
-    'bookName': '',
-  },
-  {
-    'hadithPart1': '',
-    'hadithPart2': '',
-    'bookName': '',
-  },
-  {
-    'hadithPart1': '',
-    'hadithPart2': '',
-    'bookName': '',
-  },
+  {'hadithPart1': '', 'hadithPart2': '', 'bookName': ''},
+  {'hadithPart1': '', 'hadithPart2': '', 'bookName': ''},
+  {'hadithPart1': '', 'hadithPart2': '', 'bookName': ''},
+  {'hadithPart1': '', 'hadithPart2': '', 'bookName': ''},
   {
     'hadithPart1': '',
     'hadithPart2':

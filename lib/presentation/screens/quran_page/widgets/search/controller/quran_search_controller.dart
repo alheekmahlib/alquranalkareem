@@ -12,8 +12,8 @@ import 'search_state.dart';
 class QuranSearchController extends GetxController {
   static QuranSearchController get instance =>
       Get.isRegistered<QuranSearchController>()
-          ? Get.find<QuranSearchController>()
-          : Get.put<QuranSearchController>(QuranSearchController());
+      ? Get.find<QuranSearchController>()
+      : Get.put<QuranSearchController>(QuranSearchController());
 
   final SearchState state = SearchState();
 
@@ -37,8 +37,9 @@ class QuranSearchController extends GetxController {
     try {
       // final List<QuranTableData>? values = await AyaRepository.searchAyahs(
       //     text.convertArabicToEnglishNumbers(text));
-      final values =
-          QuranLibrary().search(text.convertArabicToEnglishNumbers(text));
+      final values = QuranLibrary().search(
+        text.convertArabicToEnglishNumbers(text),
+      );
       if (values.isNotEmpty) {
         state.ayahList.assignAll(values);
         _setLoading(false);
@@ -64,7 +65,7 @@ class QuranSearchController extends GetxController {
         var uniqueSurahs = <int, SurahModel>{};
         for (var aya in values) {
           if (!uniqueSurahs.containsKey(aya.surahNumber)) {
-            uniqueSurahs[aya.surahNumber!] = aya;
+            uniqueSurahs[aya.surahNumber] = aya;
           }
         }
         state.surahList.assignAll(uniqueSurahs.values);
@@ -120,8 +121,9 @@ class QuranSearchController extends GetxController {
           })
           .where((item) => item != null)
           .toList();
-      state.searchHistory.value =
-          rawHistory.map((item) => SearchItem.fromMap(item!)).toList();
+      state.searchHistory.value = rawHistory
+          .map((item) => SearchItem.fromMap(item!))
+          .toList();
     } else {
       state.searchHistory.value = [];
     }
@@ -135,13 +137,17 @@ class QuranSearchController extends GetxController {
     state.searchHistory.insert(0, newItem);
     surahSearchMethod(query);
     search(query);
-    state.box.write(SEARCH_HISTORY,
-        state.searchHistory.map((item) => jsonEncode(item.toMap())).toList());
+    state.box.write(
+      SEARCH_HISTORY,
+      state.searchHistory.map((item) => jsonEncode(item.toMap())).toList(),
+    );
   }
 
   void removeSearchItem(SearchItem item) {
     state.searchHistory.remove(item);
-    state.box.write(SEARCH_HISTORY,
-        state.searchHistory.map((item) => jsonEncode(item.toMap())).toList());
+    state.box.write(
+      SEARCH_HISTORY,
+      state.searchHistory.map((item) => jsonEncode(item.toMap())).toList(),
+    );
   }
 }

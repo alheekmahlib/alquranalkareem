@@ -41,22 +41,29 @@ class MonthSelection extends StatelessWidget {
               Expanded(
                 flex: 6,
                 child: Center(
-                  child: CustomDropdown<HijriCalendarConfig>(
+                  child: CustomDropdown<HijriDate>(
                     excludeSelected: false,
                     decoration: CustomDropdownDecoration(
-                      closedFillColor:
-                          Theme.of(context).colorScheme.primaryContainer,
-                      expandedFillColor:
-                          Theme.of(context).colorScheme.primaryContainer,
-                      closedBorderRadius:
-                          const BorderRadius.all(Radius.circular(8)),
+                      closedFillColor: Theme.of(
+                        context,
+                      ).colorScheme.primaryContainer,
+                      expandedFillColor: Theme.of(
+                        context,
+                      ).colorScheme.primaryContainer,
+                      closedBorderRadius: const BorderRadius.all(
+                        Radius.circular(8),
+                      ),
                     ),
                     closedHeaderPadding: const EdgeInsets.symmetric(
-                        vertical: 4.0, horizontal: 8.0),
-                    itemsListPadding:
-                        const EdgeInsets.symmetric(horizontal: 4.0),
-                    listItemPadding:
-                        const EdgeInsets.symmetric(horizontal: 8.0),
+                      vertical: 4.0,
+                      horizontal: 8.0,
+                    ),
+                    itemsListPadding: const EdgeInsets.symmetric(
+                      horizontal: 4.0,
+                    ),
+                    listItemPadding: const EdgeInsets.symmetric(
+                      horizontal: 8.0,
+                    ),
                     hintBuilder: (context, _, select) => FittedBox(
                       fit: BoxFit.scaleDown,
                       child: Text(
@@ -70,7 +77,7 @@ class MonthSelection extends StatelessWidget {
                     ),
                     maxlines: 1,
                     items: List.generate(12, (index) {
-                      var hijri = HijriCalendarConfig();
+                      var hijri = HijriDate();
                       hijri.hYear = eventCtrl.selectedDate.hYear;
                       hijri.hMonth = index + 1;
                       hijri.hDay = 1;
@@ -78,19 +85,25 @@ class MonthSelection extends StatelessWidget {
                     }),
                     listItemBuilder: (context, months, select, _) => Container(
                       padding: const EdgeInsets.symmetric(
-                          horizontal: 4.0, vertical: 4.0),
+                        horizontal: 4.0,
+                        vertical: 4.0,
+                      ),
                       decoration: BoxDecoration(
-                        borderRadius:
-                            const BorderRadius.all(Radius.circular(8)),
-                        color: months.getLongMonthName().tr ==
+                        borderRadius: const BorderRadius.all(
+                          Radius.circular(8),
+                        ),
+                        color:
+                            months.getLongMonthName().tr ==
                                 eventCtrl.hijriNow.getLongMonthName().tr
-                            ? Get.theme.colorScheme.surface
-                                .withValues(alpha: .2)
+                            ? Get.theme.colorScheme.surface.withValues(
+                                alpha: .2,
+                              )
                             : eventCtrl.selectedDate.getLongMonthName().tr ==
-                                    months.getLongMonthName().tr
-                                ? Get.theme.colorScheme.primary
-                                    .withValues(alpha: .2)
-                                : Colors.transparent,
+                                  months.getLongMonthName().tr
+                            ? Get.theme.colorScheme.primary.withValues(
+                                alpha: .2,
+                              )
+                            : Colors.transparent,
                       ),
                       child: SizedBox(
                         width: 80,

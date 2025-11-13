@@ -45,16 +45,18 @@ class AzkarController extends GetxController {
     state.filteredDhekrList.assignAll(dhekrs);
 
     // Extract unique categories
-    state.categories
-        .assignAll(state.allAdhkar.map((e) => e.category).toSet().toList());
+    state.categories.assignAll(
+      state.allAdhkar.map((e) => e.category).toSet().toList(),
+    );
   }
 
   void filterByCategory(String category) {
     if (category.isEmpty) {
       state.filteredDhekrList.assignAll(state.allAdhkar);
     } else {
-      var filteredList =
-          state.allAdhkar.where((zekr) => zekr.category == category).toList();
+      var filteredList = state.allAdhkar
+          .where((zekr) => zekr.category == category)
+          .toList();
       state.filteredDhekrList.assignAll(filteredList);
     }
   }
@@ -63,8 +65,9 @@ class AzkarController extends GetxController {
     if (category.isEmpty) {
       state.filteredFavDhekrList.assignAll(state.adhkarList);
     } else {
-      var filteredList =
-          state.adhkarList.where((zekr) => zekr.category == category).toList();
+      var filteredList = state.adhkarList
+          .where((zekr) => zekr.category == category)
+          .toList();
       state.filteredFavDhekrList.assignAll(filteredList);
     }
   }
@@ -112,7 +115,8 @@ class AzkarController extends GetxController {
 
   RxBool hasBookmark(String category, String zekr) {
     return (state.adhkarList.firstWhereOrNull(
-                (a) => a.category == category && a.zekr == zekr) !=
+              (a) => a.category == category && a.zekr == zekr,
+            ) !=
             null)
         ? true.obs
         : false.obs;
@@ -131,13 +135,15 @@ class AzkarController extends GetxController {
       if (preText.isNotEmpty) {
         spans.add(TextSpan(text: preText));
       }
-      spans.add(TextSpan(
-        text: matchedText,
-        style: TextStyle(
-          color: Get.theme.colorScheme.inversePrimary,
-          fontFamily: 'uthmanic2',
+      spans.add(
+        TextSpan(
+          text: matchedText,
+          style: TextStyle(
+            color: Get.theme.colorScheme.inversePrimary,
+            fontFamily: 'uthmanic2',
+          ),
         ),
-      ));
+      );
 
       lastMatchEnd = match.end;
     }
@@ -162,13 +168,15 @@ class AzkarController extends GetxController {
       if (preText.isNotEmpty) {
         spans.add(TextSpan(text: preText));
       }
-      spans.add(TextSpan(
-        text: matchedText,
-        style: const TextStyle(
-          color: Color(0xff161f07),
-          fontFamily: 'uthmanic2',
+      spans.add(
+        TextSpan(
+          text: matchedText,
+          style: const TextStyle(
+            color: Color(0xff161f07),
+            fontFamily: 'uthmanic2',
+          ),
         ),
-      ));
+      );
 
       lastMatchEnd = match.end;
     }
@@ -180,22 +188,32 @@ class AzkarController extends GetxController {
     return spans;
   }
 
-  shareText(String zekrText, String category, String reference,
-      String description, String count) {
-    Share.share(
-        '$category\n'
-        '$zekrText'
-        '$reference\n'
-        'التكرار: $count\n'
-        '$description\n\n'
-        '${'appName'.tr}\n${ApiConstants.downloadAppUrl}',
-        subject: '${'appName'.tr}\n$category');
+  Future<void> shareText(
+    String zekrText,
+    String category,
+    String reference,
+    String description,
+    String count,
+  ) async {
+    final params = ShareParams(
+      text:
+          '$category\n'
+          '$zekrText'
+          '$reference\n'
+          'التكرار: $count\n'
+          '$description\n\n'
+          '${'appName'.tr}\n${ApiConstants.downloadAppUrl}',
+      subject: '${'appName'.tr}\n$category',
+    );
+
+    await SharePlus.instance.share(params);
   }
 
   Future<void> createAndShowZekrImage() async {
     try {
-      final Uint8List? imageBytes =
-          await state.dhekrScreenController.capture(pixelRatio: 7);
+      final Uint8List? imageBytes = await state.dhekrScreenController.capture(
+        pixelRatio: 7,
+      );
       state.dhekrToImageBytes = imageBytes;
       update();
     } catch (e) {
@@ -208,15 +226,22 @@ class AzkarController extends GetxController {
       final directory = await getTemporaryDirectory();
       final imagePath = await File('${directory.path}/zekr_image.png').create();
       await imagePath.writeAsBytes(state.dhekrToImageBytes!);
-      await Share.shareXFiles([XFile((imagePath.path))], text: 'appName'.tr);
+      final params = ShareParams(
+        files: [XFile((imagePath.path))],
+        subject: 'appName'.tr,
+      );
+
+      await SharePlus.instance.share(params);
     }
   }
 
   void onAdhkarNotificationsReceived(String receivedActionBody) {
-    if (state.categories
-        .contains(receivedActionBody.replaceAll('تذكير ', ''))) {
-      final categoryIndex =
-          state.categories.indexOf(receivedActionBody.replaceAll('تذكير ', ''));
+    if (state.categories.contains(
+      receivedActionBody.replaceAll('تذكير ', ''),
+    )) {
+      final categoryIndex = state.categories.indexOf(
+        receivedActionBody.replaceAll('تذكير ', ''),
+      );
       filterByCategory(state.categories[categoryIndex]);
       Get.to(() => const AdhkarView(), transition: Transition.downToUp);
       Get.to(() => const AdhkarItem(), transition: Transition.leftToRight);

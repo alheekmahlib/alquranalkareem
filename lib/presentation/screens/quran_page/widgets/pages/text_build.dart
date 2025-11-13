@@ -8,6 +8,7 @@ class TextBuild extends StatelessWidget {
   final audioCtrl = AudioController.instance;
   final quranCtrl = QuranController.instance;
   final bookmarkCtrl = BookmarksController.instance;
+  final themeCtrl = ThemeController.instance;
 
   @override
   Widget build(BuildContext context) {
@@ -16,16 +17,14 @@ class TextBuild extends StatelessWidget {
         id: 'clearSelection',
         builder: (quranCtrl) => QuranLibraryScreen(
           parentContext: context,
-          withPageView: false,
-          pageIndex: pageIndex,
-          useDefaultAppBar: false,
           isDark: false,
-          isShowAudioSlider: false,
-          languageCode: Get.locale!.languageCode,
-          bookmarkList: BookmarksController.instance.bookmarkTextList,
-          juzName: 'juz'.tr,
-          sajdaName: 'sajda'.tr,
           isFontsLocal: true,
+          withPageView: false,
+          useDefaultAppBar: false,
+          isShowAudioSlider: false,
+          pageIndex: pageIndex,
+          appLanguageCode: Get.locale!.languageCode,
+          bookmarkList: BookmarksController.instance.bookmarkTextList,
           fontsName: 'page${pageIndex + 1}',
           backgroundColor: Colors.transparent,
           textColor: Get.theme.colorScheme.inversePrimary,
@@ -33,21 +32,27 @@ class TextBuild extends StatelessWidget {
           bookmarksColor: const Color(0xffCD9974).withValues(alpha: .4),
           ayahBookmarked: BookmarksController.instance.hasBookmark2(pageIndex),
           ayahIconColor: Get.theme.colorScheme.inverseSurface,
-          bannerStyle: BannerStyle(
-            isImage: false,
-            bannerSvgHeight: context.customOrientation(190.h, 150.h),
-            bannerSvgPath: quranCtrl.surahBannerPath,
-          ),
+          topBottomQuranStyle:
+              TopBottomQuranStyle.defaults(
+                isDark: themeCtrl.isDarkMode,
+                context: context,
+              ).copyWith(
+                juzName: 'juz'.tr,
+                sajdaName: 'sajda'.tr,
+                topTitleChild: GestureDetector(
+                  onTap: () => bookmarkCtrl.addPageBookmarkOnTap(pageIndex),
+                  child: _BookmarkIcon(
+                    height: context.customOrientation(30.h, 40.h),
+                    pageNum: pageIndex + 1,
+                  ),
+                ),
+              ),
           basmalaStyle: BasmalaStyle(
-            basmalaColor: Get.theme.cardColor.withValues(alpha: .8),
-            basmalaHeight: context.customOrientation(170.h, 150.h),
-          ),
-          topTitleChild: GestureDetector(
-            onTap: () => bookmarkCtrl.addPageBookmarkOnTap(pageIndex),
-            child: _BookmarkIcon(
-              height: context.customOrientation(30.h, 40.h),
-              pageNum: pageIndex + 1,
+            basmalaColor: Get.theme.colorScheme.inversePrimary.withValues(
+              alpha: .8,
             ),
+            basmalaFontSize: context.customOrientation(90.h, 150.h),
+            verticalPadding: 0.0,
           ),
           surahInfoStyle: SurahInfoStyle(
             ayahCount: 'aya_count'.tr,
@@ -61,10 +66,6 @@ class TextBuild extends StatelessWidget {
             surahNumberColor: Get.theme.hintColor,
             textColor: Get.theme.colorScheme.inversePrimary,
             titleColor: Get.theme.hintColor,
-          ),
-          surahNameStyle: SurahNameStyle(
-            surahNameColor: Get.theme.hintColor,
-            surahNameSize: context.customOrientation(170.sp, 60.sp),
           ),
           onPagePress: () {
             audioCtrl.clearSelection();
@@ -91,6 +92,44 @@ class TextBuild extends StatelessWidget {
             log('ayahUQNumber: ${ayah.ayahUQNumber}');
             quranCtrl.toggleAyahSelection(ayah.ayahUQNumber);
           },
+          tafsirStyle:
+              TafsirStyle.defaults(
+                isDark: themeCtrl.isDarkMode,
+                context: context,
+              ).copyWith(
+                backgroundColor: Get.theme.colorScheme.primary,
+                textColor: Get.theme.colorScheme.inversePrimary,
+                backgroundTitleColor: Get.theme.colorScheme.surface.withValues(
+                  alpha: .5,
+                ),
+                fontSizeWidget: fontSizeDropDownWidget(),
+                fontSize: generalCtrl.state.fontSizeArabic.value,
+                currentTafsirColor: Get.theme.colorScheme.surface,
+                selectedTafsirBorderColor: Get.theme.colorScheme.surface,
+                selectedTafsirColor: Get.theme.colorScheme.surface,
+                unSelectedTafsirColor: Get.theme.canvasColor.withValues(
+                  alpha: .8,
+                ),
+                selectedTafsirTextColor: Get.theme.colorScheme.surface,
+                unSelectedTafsirTextColor: Get.theme.canvasColor.withValues(
+                  alpha: .8,
+                ),
+                unSelectedTafsirBorderColor: Colors.transparent,
+                dividerColor: Get.theme.colorScheme.surface.withValues(
+                  alpha: .5,
+                ),
+                textTitleColor: context.theme.canvasColor,
+                horizontalMargin: 16.0,
+                tafsirBackgroundColor: Get.theme.colorScheme.primaryContainer,
+                tafsirNameWidget: customSvgWithCustomColor(
+                  SvgPath.svgTafseerWhite,
+                  color: Get.theme.canvasColor,
+                  height: 25,
+                ),
+                footnotesName: 'footnotes'.tr,
+                tafsirName: 'tafseer'.tr,
+                translateName: 'translation'.tr,
+              ),
         ),
       ),
     );

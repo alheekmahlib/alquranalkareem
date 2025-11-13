@@ -92,20 +92,22 @@ class AdhkarReminderWidget extends StatelessWidget {
                           decoration: BoxDecoration(
                             color:
                                 !(reminderCtrl.state.customAdhkarEnabled[id] ??
-                                        false)
-                                    ? Theme.of(context)
-                                        .canvasColor
-                                        .withValues(alpha: .1)
-                                    : Theme.of(context)
-                                        .colorScheme
-                                        .surface
-                                        .withValues(alpha: .15),
-                            borderRadius:
-                                const BorderRadius.all(Radius.circular(8)),
+                                    false)
+                                ? Theme.of(
+                                    context,
+                                  ).canvasColor.withValues(alpha: .1)
+                                : Theme.of(
+                                    context,
+                                  ).colorScheme.surface.withValues(alpha: .15),
+                            borderRadius: const BorderRadius.all(
+                              Radius.circular(8),
+                            ),
                             border: Border.all(
                               width: 1,
-                              color: !(reminderCtrl
-                                          .state.customAdhkarEnabled[id] ??
+                              color:
+                                  !(reminderCtrl
+                                          .state
+                                          .customAdhkarEnabled[id] ??
                                       false)
                                   ? Colors.transparent
                                   : Theme.of(context).colorScheme.surface,
@@ -114,8 +116,10 @@ class AdhkarReminderWidget extends StatelessWidget {
                           child: _buildSwitchListTile(
                             context,
                             reminder,
-                            RxBool(reminderCtrl.state.customAdhkarEnabled[id] ??
-                                false),
+                            RxBool(
+                              reminderCtrl.state.customAdhkarEnabled[id] ??
+                                  false,
+                            ),
                             true,
                             id,
                           ),
@@ -130,11 +134,14 @@ class AdhkarReminderWidget extends StatelessWidget {
                       width: Get.width,
                       alignment: Alignment.center,
                       padding: const EdgeInsets.symmetric(
-                          horizontal: 8.0, vertical: 6.0),
+                        horizontal: 8.0,
+                        vertical: 6.0,
+                      ),
                       decoration: BoxDecoration(
                         color: Theme.of(context).colorScheme.surface,
-                        borderRadius:
-                            const BorderRadius.all(Radius.circular(6)),
+                        borderRadius: const BorderRadius.all(
+                          Radius.circular(6),
+                        ),
                       ),
                       child: Text(
                         'addMore'.tr,
@@ -156,8 +163,12 @@ class AdhkarReminderWidget extends StatelessWidget {
   }
 
   Widget _buildSwitchListTile(
-      BuildContext context, String title, RxBool isEnabled, bool isDelete,
-      [String? id]) {
+    BuildContext context,
+    String title,
+    RxBool isEnabled,
+    bool isDelete, [
+    String? id,
+  ]) {
     return Container(
       decoration: BoxDecoration(
         color: !isEnabled.value
@@ -182,13 +193,16 @@ class AdhkarReminderWidget extends StatelessWidget {
         ),
         secondary: isDelete
             ? IconButton(
-                icon: Icon(Icons.delete,
-                    size: 24, color: Theme.of(context).canvasColor),
+                icon: Icon(
+                  Icons.delete,
+                  size: 24,
+                  color: Theme.of(context).canvasColor,
+                ),
                 onPressed: () => reminderCtrl.removeCustomAdhkar(id ?? title),
               )
             : const SizedBox.shrink(),
         value: isEnabled.value,
-        activeColor: Theme.of(context).colorScheme.surface,
+        activeThumbColor: Theme.of(context).colorScheme.surface,
         inactiveTrackColor: Theme.of(context).canvasColor.withValues(alpha: .5),
         onChanged: (value) {
           if (value) {
@@ -202,15 +216,19 @@ class AdhkarReminderWidget extends StatelessWidget {
   }
 
   void _showTimePickerDialog(
-      BuildContext context, String title, String id) async {
+    BuildContext context,
+    String title,
+    String id,
+  ) async {
     print('Opening time picker for: $title');
 
     TimeOfDay? pickedTime = await showTimePicker(
-        context: context,
-        initialTime: TimeOfDay.now(),
-        confirmText: 'ok'.tr,
-        cancelText: 'cancel'.tr,
-        helpText: 'selectTime'.tr);
+      context: context,
+      initialTime: TimeOfDay.now(),
+      confirmText: 'ok'.tr,
+      cancelText: 'cancel'.tr,
+      helpText: 'selectTime'.tr,
+    );
 
     if (pickedTime != null) {
       int hour = pickedTime.hour;
@@ -219,16 +237,22 @@ class AdhkarReminderWidget extends StatelessWidget {
 
       // Convert TimeOfDay to DateTime
       DateTime now = DateTime.now();
-      DateTime scheduleDateTime =
-          DateTime(now.year, now.month, now.day, hour, minute);
+      DateTime scheduleDateTime = DateTime(
+        now.year,
+        now.month,
+        now.day,
+        hour,
+        minute,
+      );
 
       NotifyHelper().scheduledNotification(
-          reminderId: id.hashCode,
-          title: 'reminders'.tr,
-          summary: title,
-          body: "تذكير ${title.toLowerCase()}",
-          isRepeats: true,
-          time: scheduleDateTime);
+        reminderId: id.hashCode,
+        title: 'reminders'.tr,
+        summary: title,
+        body: "تذكير ${title.toLowerCase()}",
+        isRepeats: true,
+        time: scheduleDateTime,
+      );
       reminderCtrl.toggleAdhkarEnabled(id, true);
       // Ensure the switch is set to true in the UI
       if (title == "أذكار الصباح") {
@@ -285,8 +309,9 @@ class AdhkarReminderWidget extends StatelessWidget {
               const Gap(16),
               Obx(() {
                 if (adhkarCtrl.state.selectedCategory.value == null ||
-                    !adhkarCtrl.state.categories
-                        .contains(adhkarCtrl.state.selectedCategory.value)) {
+                    !adhkarCtrl.state.categories.contains(
+                      adhkarCtrl.state.selectedCategory.value,
+                    )) {
                   adhkarCtrl.state.selectedCategory.value =
                       adhkarCtrl.state.categories.first;
                 }
@@ -297,11 +322,14 @@ class AdhkarReminderWidget extends StatelessWidget {
                     decoration: CustomDropdownDecoration(
                       closedFillColor: Theme.of(context).canvasColor,
                       expandedFillColor: Theme.of(context).canvasColor,
-                      closedBorderRadius:
-                          const BorderRadius.all(Radius.circular(8)),
+                      closedBorderRadius: const BorderRadius.all(
+                        Radius.circular(8),
+                      ),
                     ),
                     closedHeaderPadding: const EdgeInsets.symmetric(
-                        vertical: 7.0, horizontal: 8.0),
+                      vertical: 7.0,
+                      horizontal: 8.0,
+                    ),
                     hintBuilder: (context, _, select) => Text(
                       adhkarCtrl.state.selectedCategory.value!,
                       style: const TextStyle(
@@ -310,8 +338,10 @@ class AdhkarReminderWidget extends StatelessWidget {
                         fontFamily: 'naskh',
                       ),
                     ),
-                    items: List.generate(adhkarCtrl.state.categories.length,
-                        (index) => adhkarCtrl.state.categories[index]),
+                    items: List.generate(
+                      adhkarCtrl.state.categories.length,
+                      (index) => adhkarCtrl.state.categories[index],
+                    ),
                     listItemBuilder: (context, category, select, _) => Text(
                       '$category',
                       style: const TextStyle(
@@ -337,11 +367,14 @@ class AdhkarReminderWidget extends StatelessWidget {
                     },
                     child: Container(
                       padding: const EdgeInsets.symmetric(
-                          horizontal: 8.0, vertical: 4.0),
+                        horizontal: 8.0,
+                        vertical: 4.0,
+                      ),
                       decoration: BoxDecoration(
                         color: const Color(0xff000000).withValues(alpha: .6),
-                        borderRadius:
-                            const BorderRadius.all(Radius.circular(6)),
+                        borderRadius: const BorderRadius.all(
+                          Radius.circular(6),
+                        ),
                       ),
                       child: Text(
                         'cancel'.tr,
@@ -361,16 +394,22 @@ class AdhkarReminderWidget extends StatelessWidget {
                       print('Selected category: $selectedCategory');
                       Get.back();
                       reminderCtrl.addCustomAdhkar(selectedCategory);
-                      _showTimePickerDialog(context, selectedCategory,
-                          '$selectedCategory${DateTime.now().millisecondsSinceEpoch}');
+                      _showTimePickerDialog(
+                        context,
+                        selectedCategory,
+                        '$selectedCategory${DateTime.now().millisecondsSinceEpoch}',
+                      );
                     },
                     child: Container(
                       padding: const EdgeInsets.symmetric(
-                          horizontal: 8.0, vertical: 4.0),
+                        horizontal: 8.0,
+                        vertical: 4.0,
+                      ),
                       decoration: BoxDecoration(
                         color: const Color(0xff000000).withValues(alpha: .6),
-                        borderRadius:
-                            const BorderRadius.all(Radius.circular(6)),
+                        borderRadius: const BorderRadius.all(
+                          Radius.circular(6),
+                        ),
                       ),
                       child: Text(
                         'ok'.tr,

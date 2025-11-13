@@ -5,39 +5,33 @@ class EventController extends GetxController {
       GetInstance().putOrFind(() => EventController());
 
   final box = GetStorage();
-  late HijriCalendarConfig hijriNow;
+  late HijriDate hijriNow;
   var now = DateTime.now();
   List<int> noHadithInMonth = <int>[2, 3, 4, 5];
   List<int> notReminderIndex = <int>[1, 2, 3, 5, 6, 7, 8, 9, 10, 12];
   var events = <Event>[].obs;
-  late HijriCalendarConfig selectedDate;
+  late HijriDate selectedDate;
   late PageController pageController;
-  late List<HijriCalendarConfig> months;
+  late List<HijriDate> months;
   int? startYear;
   int? endYear;
   RxInt adjustHijriDays = 0.obs;
   BoxController boxController = BoxController();
-  Rx<HijriCalendarConfig> calenderMonth = HijriCalendarConfig.now().obs;
+  Rx<HijriDate> calenderMonth = HijriDate.now().obs;
 
   @override
   void onInit() {
     super.onInit();
     adjustHijriDays.value = box.read('adjustHijriDays') ?? 0;
-    selectedDate = HijriCalendarConfig.now();
+    selectedDate = HijriDate.now();
     initializeMonths();
-    pageController = PageController(
-      initialPage: selectedDate.hMonth - 1,
-    );
+    pageController = PageController(initialPage: selectedDate.hMonth - 1);
     loadJson().then((_) => ramadhanOrEidGreeting());
   }
 
   void initializeMonths() {
     months = List.generate(12, (index) {
-      var hijri = HijriCalendarConfig.fromHijri(
-        selectedDate.hYear,
-        index + 1,
-        1,
-      );
+      var hijri = HijriDate.fromHijri(selectedDate.hYear, index + 1, 1);
       // Ensure lengthOfMonth is initialized
       // حساب بداية اليوم (أول يوم في الشهر)
       hijri.wkDay = calculateFirstDayOfMonth(index + 1, selectedDate.hYear);
@@ -46,14 +40,16 @@ class EventController extends GetxController {
       return hijri;
     });
 
-    var currentHijri = HijriCalendarConfig.now();
+    var currentHijri = HijriDate.now();
     var adjustedDay = currentHijri.hDay + adjustHijriDays.value;
     var adjustedMonth = currentHijri.hMonth;
     var adjustedYear = currentHijri.hYear;
 
     // Ensure days do not exceed the month length
-    var daysInMonth =
-        currentHijri.getDaysInMonth(currentHijri.hYear, currentHijri.hMonth);
+    var daysInMonth = currentHijri.getDaysInMonth(
+      currentHijri.hYear,
+      currentHijri.hMonth,
+    );
     if (adjustedDay > daysInMonth) {
       adjustedDay -= daysInMonth;
       adjustedMonth++;
@@ -63,8 +59,7 @@ class EventController extends GetxController {
       }
     }
 
-    hijriNow =
-        HijriCalendarConfig.fromHijri(adjustedYear, adjustedMonth, adjustedDay);
+    hijriNow = HijriDate.fromHijri(adjustedYear, adjustedMonth, adjustedDay);
     hijriNow.lengthOfMonth =
         hijriNow.getDaysInMonth(hijriNow.hYear, hijriNow.hMonth) - 1;
 
@@ -77,11 +72,13 @@ class EventController extends GetxController {
     var previousMonth = hMonth - 1 == 0 ? 12 : hMonth - 1;
     var previousYear = hMonth - 1 == 0 ? hYear - 1 : hYear;
 
-    var lastDayOfPreviousMonth =
-        HijriCalendarConfig().getDaysInMonth(previousYear, previousMonth);
+    var lastDayOfPreviousMonth = HijriDate().getDaysInMonth(
+      previousYear,
+      previousMonth,
+    );
 
     // اليوم الذي ينتهي به الشهر السابق
-    var lastDayWeekday = HijriCalendarConfig.fromHijri(
+    var lastDayWeekday = HijriDate.fromHijri(
       previousYear,
       previousMonth,
       lastDayOfPreviousMonth,
@@ -99,7 +96,7 @@ class EventController extends GetxController {
     }
   }
 
-  int getDaysInMonth(HijriCalendarConfig hijri, int hYear, int hMonth) {
+  int getDaysInMonth(HijriDate hijri, int hYear, int hMonth) {
     if (hijriNow.hMonth == 6) {
       return hijri.getDaysInMonth(hYear, hMonth) - 1;
     } else {
@@ -119,7 +116,7 @@ class EventController extends GetxController {
     return false.obs;
   }
 
-  RxBool isCurrentDay(HijriCalendarConfig month, int dayOffset) =>
+  RxBool isCurrentDay(HijriDate month, int dayOffset) =>
       (month.hYear == hijriNow.hYear &&
               month.hMonth == hijriNow.hMonth &&
               dayOffset == hijriNow.hDay)
@@ -183,8 +180,13 @@ class EventController extends GetxController {
     }
   }
 
-  Widget getArtWidget(Widget lottieWidget, Widget svgWidget, Widget titleWidget,
-      int day, int month) {
+  Widget getArtWidget(
+    Widget lottieWidget,
+    Widget svgWidget,
+    Widget titleWidget,
+    int day,
+    int month,
+  ) {
     for (Event event in events) {
       if (event.month == month && event.day.contains(day)) {
         if (event.isLottie) {
@@ -202,8 +204,9 @@ class EventController extends GetxController {
   }
 
   Future<void> loadJson() async {
-    final String response =
-        await rootBundle.loadString('assets/json/religious_event.json');
+    final String response = await rootBundle.loadString(
+      'assets/json/religious_event.json',
+    );
     final data = await json.decode(response);
     DataModel dataModel = DataModel.fromJson(data);
     events.value = dataModel.data;
@@ -220,16 +223,18 @@ class EventController extends GetxController {
         String bookInfo = event.hadith.map((h) => h.bookInfo).join("\n\n");
 
         await Future.delayed(const Duration(seconds: 2));
-        customBottomSheet(ReminderEventBottomSheet(
-          lottieFile: event.lottiePath,
-          title: event.title.tr,
-          hadith: hadithText,
-          bookInfo: bookInfo,
-          titleString: titleString(event.id, event.month),
-          svgPath: event.svgPath,
-          day: hijriNow.hDay,
-          month: event.month,
-        ));
+        customBottomSheet(
+          ReminderEventBottomSheet(
+            lottieFile: event.lottiePath,
+            title: event.title.tr,
+            hadith: hadithText,
+            bookInfo: bookInfo,
+            titleString: titleString(event.id, event.month),
+            svgPath: event.svgPath,
+            day: hijriNow.hDay,
+            month: event.month,
+          ),
+        );
         box.write(event.title, false);
       }
       bool notSameDay = event.day.contains(hijriNow.hDay);
@@ -242,7 +247,7 @@ class EventController extends GetxController {
   }
 
   int calculate(int year, int month, int day) {
-    HijriCalendarConfig hijriCalendar = HijriCalendarConfig();
+    HijriDate hijriCalendar = HijriDate();
     DateTime start = DateTime.now().add(Duration(days: adjustHijriDays.value));
     DateTime end = hijriCalendar.hijriToGregorian(year, month, day);
     if (!start.isAfter(end)) {
@@ -285,13 +290,13 @@ class EventController extends GetxController {
       'Wednesday',
       'Thursday',
       'Friday',
-      'Saturday'
+      'Saturday',
     ];
     return weekdays[index].tr;
   }
 
   void onMonthChanged(int month) {
-    selectedDate = HijriCalendarConfig()
+    selectedDate = HijriDate()
       ..hYear = selectedDate.hYear
       ..hMonth = month + 1
       ..hDay = selectedDate.hDay;
@@ -299,7 +304,7 @@ class EventController extends GetxController {
   }
 
   void onYearChanged(int year) {
-    selectedDate = HijriCalendarConfig()
+    selectedDate = HijriDate()
       ..hYear = year
       ..hMonth = selectedDate.hMonth
       ..hDay = selectedDate.hDay;
@@ -344,8 +349,8 @@ class EventController extends GetxController {
   }
 
   void resetDate() {
-    selectedDate = HijriCalendarConfig()
-      ..hYear = HijriCalendarConfig.now().hYear
+    selectedDate = HijriDate()
+      ..hYear = HijriDate.now().hYear
       ..hMonth = selectedDate.hMonth
       ..hDay = selectedDate.hDay;
     initializeMonths();

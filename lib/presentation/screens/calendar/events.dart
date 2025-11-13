@@ -9,7 +9,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:hijri_calendar/hijri_calendar.dart';
+import 'package:hijri_date/hijri_date.dart';
 
 import '/core/utils/constants/extensions/bottom_sheet_extension.dart';
 import '/core/utils/constants/extensions/convert_number_extension.dart';

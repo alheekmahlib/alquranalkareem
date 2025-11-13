@@ -65,8 +65,6 @@ class ThemeController extends GetxController {
       case AppTheme.dark:
         newThemeData = darkTheme;
         break;
-      default:
-        newThemeData = blueTheme;
     }
 
     Get.changeTheme(newThemeData);
@@ -86,8 +84,6 @@ class ThemeController extends GetxController {
         return oldTheme;
       case AppTheme.dark:
         return darkTheme;
-      default:
-        return blueTheme;
     }
   }
 

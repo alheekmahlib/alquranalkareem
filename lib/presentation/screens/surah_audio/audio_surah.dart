@@ -9,12 +9,11 @@ import 'widgets/collapsed_play_widget.dart';
 import 'widgets/play_widget.dart';
 
 class AudioScreen extends StatelessWidget {
-  const AudioScreen({super.key});
+  AudioScreen({super.key});
+  final surahCtrl = SurahAudioController.instance;
 
   @override
   Widget build(BuildContext context) {
-    final surahCtrl = SurahAudioController.instance;
-    surahCtrl.loadSurahReader();
     surahCtrl.loadLastSurahListen;
     final size = MediaQuery.sizeOf(context);
     return Scaffold(

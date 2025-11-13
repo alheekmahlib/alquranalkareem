@@ -29,29 +29,31 @@ class OnlinePlayButton extends StatelessWidget {
                     builder: (context, snapshot) {
                       final loopMode = snapshot.data ?? LoopMode.off;
                       List<Widget> icons = [
-                        Icon(Icons.repeat,
-                            color: Theme.of(context)
-                                .colorScheme
-                                .primary
-                                .withValues(alpha: .4)),
-                        Icon(Icons.repeat,
-                            color: Theme.of(context).colorScheme.primary),
+                        Icon(
+                          Icons.repeat,
+                          color: Theme.of(
+                            context,
+                          ).colorScheme.primary.withValues(alpha: .4),
+                        ),
+                        Icon(
+                          Icons.repeat,
+                          color: Theme.of(context).colorScheme.primary,
+                        ),
                       ];
-                      const cycleModes = [
-                        LoopMode.off,
-                        LoopMode.all,
-                      ];
+                      const cycleModes = [LoopMode.off, LoopMode.all];
                       final index = cycleModes.indexOf(loopMode);
                       return IconButton(
                         icon: Semantics(
-                            button: true,
-                            enabled: true,
-                            label: 'repeatSurah'.tr,
-                            child: icons[index]),
+                          button: true,
+                          enabled: true,
+                          label: 'repeatSurah'.tr,
+                          child: icons[index],
+                        ),
                         onPressed: () {
                           surahAudioCtrl.state.audioPlayer.setLoopMode(
-                              cycleModes[(cycleModes.indexOf(loopMode) + 1) %
-                                  cycleModes.length]);
+                            cycleModes[(cycleModes.indexOf(loopMode) + 1) %
+                                cycleModes.length],
+                          );
                         },
                       );
                     },
@@ -66,8 +68,11 @@ class OnlinePlayButton extends StatelessWidget {
                 final playerState = snapshot.data;
                 final processingState = playerState?.processingState;
                 if (processingState == ProcessingState.buffering) {
-                  return customLottie(LottieConstants.assetsLottiePlayButton,
-                      width: 20.0, height: 20.0);
+                  return customLottie(
+                    LottieConstants.assetsLottiePlayButton,
+                    width: 20.0,
+                    height: 20.0,
+                  );
                 } else if (playerState != null && !playerState.playing) {
                   return GestureDetector(
                     child: customSvgWithCustomColor(
@@ -76,14 +81,17 @@ class OnlinePlayButton extends StatelessWidget {
                     ),
                     onTap: () async {
                       NotificationManager().updateBookProgress(
-                          'quranAudio'.tr,
-                          'notifyListenBody'.tr,
-                          surahAudioCtrl.state.surahNum.value);
+                        'quranAudio'.tr,
+                        'notifyListenBody'.tr,
+                        surahAudioCtrl.state.surahNum.value,
+                      );
                       surahAudioCtrl.cancelDownload();
                       surahAudioCtrl.state.isPlaying.value = true;
                       surahAudioCtrl.state.boxController.openBox();
                       // await surahAudioCtrl.state.audioPlayer.pause();
-                      surahAudioCtrl.state.surahDownloadStatus
+                      surahAudioCtrl
+                                  .state
+                                  .surahDownloadStatus
                                   .value[surahAudioCtrl.state.surahNum.value] ??
                               false
                           ? await surahAudioCtrl.startDownload()
@@ -105,19 +113,24 @@ class OnlinePlayButton extends StatelessWidget {
                 } else {
                   return IconButton(
                     icon: Semantics(
-                        button: true,
-                        enabled: true,
-                        label: 'replaySurah'.tr,
-                        child: Icon(
-                          Icons.replay,
-                          color: Get.theme.colorScheme.surface,
-                        )),
+                      button: true,
+                      enabled: true,
+                      label: 'replaySurah'.tr,
+                      child: Icon(
+                        Icons.replay,
+                        color: Get.theme.colorScheme.surface,
+                      ),
+                    ),
                     iconSize: 24.0,
                     color: Theme.of(context).canvasColor,
                     onPressed: () => surahAudioCtrl.state.audioPlayer.seek(
-                        Duration.zero,
-                        index: surahAudioCtrl
-                            .state.audioPlayer.effectiveIndices!.first),
+                      Duration.zero,
+                      index: surahAudioCtrl
+                          .state
+                          .audioPlayer
+                          .effectiveIndices
+                          .first,
+                    ),
                   );
                 }
               },

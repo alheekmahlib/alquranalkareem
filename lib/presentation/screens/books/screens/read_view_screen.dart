@@ -41,8 +41,9 @@ class PagesPage extends StatelessWidget {
         textDirection: TextDirection.rtl,
         child: SafeArea(
           child: FutureBuilder<List<PageContent>>(
-            future: Future.delayed(const Duration(milliseconds: 600))
-                .then((_) => booksCtrl.getPages(bookNumber)),
+            future: Future.delayed(
+              const Duration(milliseconds: 600),
+            ).then((_) => booksCtrl.getPages(bookNumber)),
             builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
                 return const ShimmerEffectBuild();
@@ -93,40 +94,48 @@ class PagesPage extends StatelessWidget {
                                           child: Column(
                                             children: [
                                               Text.rich(
-                                                TextSpan(children: <InlineSpan>[
-                                                  TextSpan(
-                                                    children: booksCtrl.state
-                                                            .isTashkil.value
-                                                        ? page.content
-                                                            .buildTextSpans()
-                                                        : page.content
-                                                            .removeDiacritics(
-                                                                page.content)
-                                                            .buildTextSpans(),
-                                                    style: TextStyle(
-                                                      color: Get
-                                                          .theme
-                                                          .colorScheme
-                                                          .inversePrimary,
-                                                      height: 1.5,
-                                                      fontSize: generalCtrl
-                                                          .state
-                                                          .fontSizeArabic
-                                                          .value,
+                                                TextSpan(
+                                                  children: <InlineSpan>[
+                                                    TextSpan(
+                                                      children:
+                                                          booksCtrl
+                                                              .state
+                                                              .isTashkil
+                                                              .value
+                                                          ? page.content
+                                                                .buildTextSpans()
+                                                          : page.content
+                                                                .removeDiacritics(
+                                                                  page.content,
+                                                                )
+                                                                .buildTextSpans(),
+                                                      style: TextStyle(
+                                                        color: Get
+                                                            .theme
+                                                            .colorScheme
+                                                            .inversePrimary,
+                                                        height: 1.5,
+                                                        fontSize: generalCtrl
+                                                            .state
+                                                            .fontSizeArabic
+                                                            .value,
+                                                      ),
                                                     ),
-                                                  ),
-                                                ]),
+                                                  ],
+                                                ),
                                                 textDirection:
                                                     TextDirection.rtl,
                                                 textAlign: TextAlign.justify,
                                               ),
                                               context.hDivider(
-                                                  width: Get.width),
+                                                width: Get.width,
+                                              ),
                                               ...page.footnotes.map((footnote) {
                                                 return Padding(
                                                   padding:
                                                       const EdgeInsets.only(
-                                                          top: 8.0),
+                                                        top: 8.0,
+                                                      ),
                                                   child: Text(
                                                     footnote,
                                                     style: TextStyle(
@@ -135,9 +144,11 @@ class PagesPage extends StatelessWidget {
                                                           .colorScheme
                                                           .inversePrimary
                                                           .withValues(
-                                                              alpha: .5),
+                                                            alpha: .5,
+                                                          ),
                                                       height: 1.5,
-                                                      fontSize: generalCtrl
+                                                      fontSize:
+                                                          generalCtrl
                                                               .state
                                                               .fontSizeArabic
                                                               .value -
@@ -163,34 +174,35 @@ class PagesPage extends StatelessWidget {
                             alignment: AlignmentDirectional.bottomEnd,
                             child: Container(
                               padding: const EdgeInsets.all(6.0),
-                              margin:
-                                  const EdgeInsets.symmetric(horizontal: 16.0),
+                              margin: const EdgeInsets.symmetric(
+                                horizontal: 16.0,
+                              ),
                               decoration: BoxDecoration(
-                                  color: Theme.of(context)
-                                      .colorScheme
-                                      .primaryContainer,
-                                  borderRadius: const BorderRadius.all(
-                                    Radius.circular(8),
-                                  ),
-                                  border: Border.all(
-                                    width: 1,
-                                    color:
-                                        Theme.of(context).colorScheme.surface,
-                                  )),
+                                color: Theme.of(
+                                  context,
+                                ).colorScheme.primaryContainer,
+                                borderRadius: const BorderRadius.all(
+                                  Radius.circular(8),
+                                ),
+                                border: Border.all(
+                                  width: 1,
+                                  color: Theme.of(context).colorScheme.surface,
+                                ),
+                              ),
                               child: Text(
                                 page.pageNumber.toString().convertNumbers(),
                                 style: TextStyle(
                                   fontSize: 16,
-                                  height: .5,
+                                  height: 1,
                                   // fontFamily: 'kufi',
-                                  color: Theme.of(context)
-                                      .colorScheme
-                                      .inversePrimary,
+                                  color: Theme.of(
+                                    context,
+                                  ).colorScheme.inversePrimary,
                                 ),
                                 textAlign: TextAlign.center,
                               ),
                             ),
-                          )
+                          ),
                         ],
                       );
                     },

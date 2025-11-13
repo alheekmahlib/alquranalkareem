@@ -3,7 +3,7 @@ description: Al-Quran Al-Kareem - Al-Heekmah Library.
 
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 
-version: 4.4.10+97
+version: 4.4.12+99
 
 environment:
   sdk: '>=3.9.2 <4.0.0'
@@ -18,7 +18,7 @@ dependencies:
   audio_service: ^0.18.18
   awesome_notifications: ^0.10.1
   awesome_notifications_core: ^0.10.1
-  background_fetch: ^1.4.0
+  background_fetch: ^1.5.0
   badges: ^3.1.2
   bot_toast: ^4.1.3
   connectivity_plus: ^7.0.0
@@ -31,7 +31,7 @@ dependencies:
   easy_image_viewer: ^1.5.1
   either_dart: ^1.0.0
   expansion_tile_card: ^3.0.0
-  flex_color_picker: ^3.7.1
+  flex_color_picker: ^3.7.2
   flutter:
     sdk: flutter
   flutter_cache_manager: ^3.4.1
@@ -44,17 +44,17 @@ dependencies:
   flutter_slider_drawer: ^3.0.2
   flutter_sliding_box: ^1.1.5
   flutter_staggered_animations: ^1.1.1
-  flutter_svg: ^2.2.1
+  flutter_svg: ^2.2.2
   flutter_timezone: ^5.0.1
   gap: ^3.0.1
   get: ^4.7.2
-  get_it: ^8.2.0
+  get_it: ^9.0.5
   home_widget: ^0.8.1
   get_storage: 2.1.1
   glob: ^2.1.3
   group_button: ^5.3.4
-  hijri: ^3.0.0
-  hijri_calendar: ^1.0.7+7
+  hijri_date: ^1.0.0
+  # hijri_calendar: ^1.0.7+7
   html: ^0.15.6
   info_popup: ^4.3.2
   intl: ^0.20.2
@@ -65,10 +65,10 @@ dependencies:
   package_rename: ^1.10.0
   path: ^1.9.1
   path_provider: ^2.1.5
-  quran_library: ^2.2.3+1
-    # git:
-    #   ref: main
-    #   url: https://github.com/alheekmahlib/quran_library.git
+  quran_library: # ^2.2.3+1
+    git:
+      ref: main
+      url: https://github.com/alheekmahlib/quran_library.git
   rate_my_app: ^2.3.2
   read_more_less: ^1.0.1
   responsive_builder: ^0.7.1

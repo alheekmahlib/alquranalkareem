@@ -16,10 +16,7 @@ class LocalizationController extends GetxController implements GetxService {
     loadCurrentLanguage();
   }
 
-  Locale _locale = PlatformDispatcher.instance.locale.languageCode != null
-      ? Locale(PlatformDispatcher.instance.locale.languageCode)
-      : Locale(AppConstants.languages[1].languageCode,
-          AppConstants.languages[1].countryCode);
+  Locale _locale = Locale(PlatformDispatcher.instance.locale.languageCode);
 
   int _selectedIndex = 0;
   int get selectedIndex => _selectedIndex;
@@ -60,8 +57,10 @@ class LocalizationController extends GetxController implements GetxService {
       orElse: () => AppConstants.languages[1], // اللغة الافتراضية (العربية)
     );
     // تعيين اللغة الافتراضية
-    _locale =
-        Locale(supportedLanguage.languageCode, supportedLanguage.countryCode);
+    _locale = Locale(
+      supportedLanguage.languageCode,
+      supportedLanguage.countryCode,
+    );
     saveLanguage(_locale);
     _selectedIndex = AppConstants.languages.indexOf(supportedLanguage);
     update();

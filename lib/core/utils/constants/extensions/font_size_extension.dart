@@ -6,11 +6,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:quran_library/quran_library.dart';
 
 import '/core/utils/constants/extensions/svg_extensions.dart';
 import '/core/utils/constants/svg_constants.dart';
-import '../../../../presentation/controllers/general/general_controller.dart';
-import '../../../services/services_locator.dart';
 import '../shared_preferences_constants.dart';
 
 extension FontSizeExtension on Widget {
@@ -24,8 +23,11 @@ extension FontSizeExtension on Widget {
         label: 'Change Font Size',
         child: Transform.translate(
           offset: const Offset(0, -5),
-          child: customSvgWithColor(SvgPath.svgFontSize,
-              height: height, color: color ?? Get.theme.colorScheme.surface),
+          child: customSvgWithColor(
+            SvgPath.svgFontSize,
+            height: height,
+            color: color ?? Get.theme.colorScheme.surface,
+          ),
         ),
       ),
       color: Get.theme.colorScheme.primary.withValues(alpha: .8),
@@ -37,7 +39,7 @@ extension FontSizeExtension on Widget {
               height: 30,
               width: MediaQuery.sizeOf(context).width,
               child: FlutterSlider(
-                values: [sl<GeneralController>().state.fontSizeArabic.value],
+                values: [TafsirCtrl.instance.fontSizeArabic.value],
                 max: 50,
                 min: 20,
                 rtl: true,
@@ -49,21 +51,23 @@ extension FontSizeExtension on Widget {
                     color: Get.theme.colorScheme.surface,
                   ),
                   activeTrackBar: BoxDecoration(
-                      borderRadius: BorderRadius.circular(4),
-                      color: Get.theme.colorScheme.primaryContainer),
+                    borderRadius: BorderRadius.circular(4),
+                    color: Get.theme.colorScheme.primaryContainer,
+                  ),
                 ),
                 handlerAnimation: const FlutterSliderHandlerAnimation(
-                    curve: Curves.elasticOut,
-                    reverseCurve: null,
-                    duration: Duration(milliseconds: 700),
-                    scale: 1.4),
+                  curve: Curves.elasticOut,
+                  reverseCurve: null,
+                  duration: Duration(milliseconds: 700),
+                  scale: 1.4,
+                ),
                 onDragging: (handlerIndex, lowerValue, upperValue) async {
                   lowerValue = lowerValue;
                   upperValue = upperValue;
-                  sl<GeneralController>().state.fontSizeArabic.value =
-                      lowerValue;
+                  TafsirCtrl.instance.fontSizeArabic.value = lowerValue;
 
                   box.write(FONT_SIZE, lowerValue);
+                  TafsirCtrl.instance.update(['actualTafsirContent']);
                 },
                 handler: FlutterSliderHandler(
                   decoration: const BoxDecoration(),
