@@ -9,8 +9,9 @@ PODS:
     - IosAwnCore (~> 0.10.0)
   - awesome_notifications_core (0.0.1):
     - Flutter
-  - background_fetch (1.4.0):
+  - background_fetch (1.5.0):
     - Flutter
+    - TSBackgroundFetch (~> 4.0)
   - connectivity_plus (0.0.1):
     - Flutter
   - Flutter (1.0.0)
@@ -65,6 +66,7 @@ PODS:
     - sqlite3/perf-threadsafe
     - sqlite3/rtree
     - sqlite3/session
+  - TSBackgroundFetch (4.0.5)
   - url_launcher_ios (0.0.1):
     - Flutter
   - wakelock_plus (0.0.1):
@@ -96,6 +98,7 @@ SPEC REPOS:
   trunk:
     - IosAwnCore
     - sqlite3
+    - TSBackgroundFetch
 
 EXTERNAL SOURCES:
   audio_service:
@@ -144,7 +147,7 @@ SPEC CHECKSUMS:
   audio_session: 9bb7f6c970f21241b19f5a3658097ae459681ba0
   awesome_notifications: 0f432b28098d193920b11a44cfa9d2d9313a3888
   awesome_notifications_core: 429c28df8746780a474de177e5acde33af87da63
-  background_fetch: 81d0f20490f0126a1c29709e458f47a69e80f44e
+  background_fetch: 7457cb2c7be3086b37d87207866f30bed2f9fb58
   connectivity_plus: cb623214f4e1f6ef8fe7403d580fdad517d2f7dd
   Flutter: cabc95a1d2626b1b06e7179b784ebcf0c0cde467
   flutter_native_splash: c32d145d68aeda5502d5f543ee38c192065986cf
@@ -160,6 +163,7 @@ SPEC CHECKSUMS:
   sqflite_darwin: 20b2a3a3b70e43edae938624ce550a3cbf66a3d0
   sqlite3: 73513155ec6979715d3904ef53a8d68892d4032b
   sqlite3_flutter_libs: 83f8e9f5b6554077f1d93119fe20ebaa5f3a9ef1
+  TSBackgroundFetch: e91020924db32f27d0a43df7dec6f73f10743571
   url_launcher_ios: 7a95fa5b60cc718a708b8f2966718e93db0cef1b
   wakelock_plus: e29112ab3ef0b318e58cfa5c32326458be66b556
 

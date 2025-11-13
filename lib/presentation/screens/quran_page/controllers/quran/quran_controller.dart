@@ -8,8 +8,9 @@ class QuranController extends GetxController {
 
   @override
   void onInit() async {
-    QuranLibrary().setFontsSelected = 1;
-    await QuranLibrary.init().then((_) => loadQuran());
+    // QuranLibrary.quranCtrl.state.fontsSelected.value = 1;
+    // QuranLibrary.quranCtrl.state.loadedFontPages.;
+    loadQuran();
     state.itemPositionsListener.itemPositions.addListener(_updatePageNumber);
     state.itemPositionsListener.itemPositions.addListener(
       currentListPageNumber,
@@ -52,7 +53,7 @@ class QuranController extends GetxController {
     }
   }
 
-  Future<void> loadQuran() async {
+  void loadQuran() {
     state.surahs = QuranLibrary.quranCtrl.state.surahs;
     state.allAyahs = QuranLibrary.quranCtrl.state.allAyahs;
     state.pages = QuranLibrary.quranCtrl.state.pages;

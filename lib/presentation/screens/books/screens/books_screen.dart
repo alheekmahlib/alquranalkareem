@@ -32,69 +32,82 @@ class BooksScreen extends StatelessWidget {
         ),
         centerTitle: true,
         leading: GestureDetector(
-          onTap: () =>
-              Get.offAll(() => HomeScreen(), transition: Transition.upToDown),
+          onTap: () => Get.offAll(
+            () => const HomeScreen(),
+            transition: Transition.upToDown,
+          ),
           child: Stack(
             alignment: Alignment.center,
             children: [
               Container(
-                  padding: const EdgeInsets.all(4),
-                  decoration: BoxDecoration(
-                      borderRadius: const BorderRadius.all(Radius.circular(4)),
-                      border: Border.all(
-                          width: 1,
-                          color: Theme.of(context).colorScheme.surface)),
-                  child: customSvgWithColor(SvgPath.svgHome,
-                      height: 25.0,
-                      width: 25.0,
-                      color: Get.theme.colorScheme.secondary)),
+                padding: const EdgeInsets.all(4),
+                decoration: BoxDecoration(
+                  borderRadius: const BorderRadius.all(Radius.circular(4)),
+                  border: Border.all(
+                    width: 1,
+                    color: Theme.of(context).colorScheme.surface,
+                  ),
+                ),
+                child: customSvgWithColor(
+                  SvgPath.svgHome,
+                  height: 25.0,
+                  width: 25.0,
+                  color: Get.theme.colorScheme.secondary,
+                ),
+              ),
             ],
           ),
         ),
         actions: [
           GestureDetector(
-              onTap: () => Get.bottomSheet(
-                  SearchScreen(
-                      onSubmitted: (value) => booksCtrl
-                          .searchBooks(booksCtrl.state.searchController.text)),
-                  isScrollControlled: true),
-              child: Container(
-                padding: const EdgeInsets.all(4),
-                margin: const EdgeInsets.all(10),
-                decoration: BoxDecoration(
-                    borderRadius: const BorderRadius.all(Radius.circular(4)),
-                    border: Border.all(
-                        width: 1,
-                        color: Theme.of(context).colorScheme.surface)),
-                child: customSvgWithColor(
-                  SvgPath.svgSearchIcon,
-                  color: Theme.of(context).canvasColor,
-                  height: 25.0,
-                  width: 25.0,
+            onTap: () => Get.bottomSheet(
+              SearchScreen(
+                onSubmitted: (value) => booksCtrl.searchBooks(
+                  booksCtrl.state.searchController.text,
                 ),
-              )),
-          GestureDetector(
-            onTap: () => customBottomSheet(
-              SettingsList(
-                isQuranSetting: false,
+              ),
+              isScrollControlled: true,
+            ),
+            child: Container(
+              padding: const EdgeInsets.all(4),
+              margin: const EdgeInsets.all(10),
+              decoration: BoxDecoration(
+                borderRadius: const BorderRadius.all(Radius.circular(4)),
+                border: Border.all(
+                  width: 1,
+                  color: Theme.of(context).colorScheme.surface,
+                ),
+              ),
+              child: customSvgWithColor(
+                SvgPath.svgSearchIcon,
+                color: Theme.of(context).canvasColor,
+                height: 25.0,
+                width: 25.0,
               ),
             ),
+          ),
+          GestureDetector(
+            onTap: () => customBottomSheet(SettingsList(isQuranSetting: false)),
             child: Stack(
               alignment: Alignment.center,
               children: [
                 Container(
-                    padding: const EdgeInsets.all(4),
-                    margin: const EdgeInsets.all(10),
-                    decoration: BoxDecoration(
-                        borderRadius:
-                            const BorderRadius.all(Radius.circular(4)),
-                        border: Border.all(
-                            width: 1,
-                            color: Theme.of(context).colorScheme.surface)),
-                    child: customSvgWithColor(SvgPath.svgOptions,
-                        height: 25.0,
-                        width: 25.0,
-                        color: Get.theme.colorScheme.secondary)),
+                  padding: const EdgeInsets.all(4),
+                  margin: const EdgeInsets.all(10),
+                  decoration: BoxDecoration(
+                    borderRadius: const BorderRadius.all(Radius.circular(4)),
+                    border: Border.all(
+                      width: 1,
+                      color: Theme.of(context).colorScheme.surface,
+                    ),
+                  ),
+                  child: customSvgWithColor(
+                    SvgPath.svgOptions,
+                    height: 25.0,
+                    width: 25.0,
+                    color: Get.theme.colorScheme.secondary,
+                  ),
+                ),
               ],
             ),
           ),
@@ -107,31 +120,31 @@ class BooksScreen extends StatelessWidget {
             height: Get.height,
             width: Get.width,
             decoration: BoxDecoration(
-                color: Theme.of(context).colorScheme.primaryContainer,
-                borderRadius: const BorderRadius.only(
-                  topRight: Radius.circular(8),
-                  topLeft: Radius.circular(8),
-                )),
+              color: Theme.of(context).colorScheme.primaryContainer,
+              borderRadius: const BorderRadius.only(
+                topRight: Radius.circular(8),
+                topLeft: Radius.circular(8),
+              ),
+            ),
             child: Column(
               children: [
                 Container(
                   padding: const EdgeInsets.symmetric(
-                      horizontal: 8.0, vertical: 4.0),
+                    horizontal: 8.0,
+                    vertical: 4.0,
+                  ),
                   decoration: BoxDecoration(
-                      color: Theme.of(context)
-                          .colorScheme
-                          .primary
-                          .withValues(alpha: .1),
-                      borderRadius: const BorderRadius.only(
-                        topRight: Radius.circular(8),
-                        topLeft: Radius.circular(8),
-                      )),
+                    color: Theme.of(
+                      context,
+                    ).colorScheme.primary.withValues(alpha: .1),
+                    borderRadius: const BorderRadius.only(
+                      topRight: Radius.circular(8),
+                      topLeft: Radius.circular(8),
+                    ),
+                  ),
                   child: Row(
                     children: [
-                      customSvgWithCustomColor(
-                        SvgPath.svgTafseer,
-                        height: 40,
-                      ),
+                      customSvgWithCustomColor(SvgPath.svgTafseer, height: 40),
                       BooksTapBarWidget(),
                     ],
                   ),

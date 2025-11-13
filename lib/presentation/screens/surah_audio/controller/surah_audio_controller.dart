@@ -34,37 +34,18 @@ class SurahAudioController extends GetxController {
     super.onInit();
 
     initializeSurahDownloadStatus();
-    await _addDownloadedSurahToPlaylist();
-    await loadLastSurahAndPosition();
     loadSurahReader();
     state.surahsPlayList = List.generate(114, (i) {
       state.surahNum.value = i + 1;
       return AudioSource.uri(Uri.parse(urlFilePath));
     });
     Future.wait([
+      loadLastSurahAndPosition(),
+      _addDownloadedSurahToPlaylist(),
       GeneralController.instance.getCachedArtUri().then(
         (v) => AudioController.instance.state.cachedArtUri = v,
       ),
     ]);
-    // state.audioServiceInitialized.value =
-    //     state.box.read(AUDIO_SERVICE_INITIALIZED) ?? false;
-    // if (Platform.isIOS || Platform.isAndroid || Platform.isMacOS) {
-    //   if (!state.audioServiceInitialized.value) {
-    //     if (!quranCtrl.state.isQuranLoaded) {
-    //       await QuranController.instance.loadQuran().then((_) async {
-    //         await initAudioService();
-    //         state.box.write(AUDIO_SERVICE_INITIALIZED, true);
-    //       });
-    //     } else {
-    //       await initAudioService();
-    //       state.box.write(AUDIO_SERVICE_INITIALIZED, true);
-    //     }
-    //   } else {
-    //     await QuranController.instance.loadQuran();
-    //     log("Audio service already initialized",
-    //         name: 'surah_audio_controller');
-    //   }
-    // }
     Future.delayed(
       const Duration(milliseconds: 700),
     ).then((_) => jumpToSurah(state.surahNum.value - 1));

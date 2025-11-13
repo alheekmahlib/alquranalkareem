@@ -4,6 +4,7 @@ import 'package:drift/drift.dart' show driftRuntimeOptions;
 import 'package:flutter/material.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:quran_library/quran_library.dart';
 import 'package:timezone/data/latest.dart' as tz;
 
 import '/core/services/languages/dependency_inj.dart' as dep;
@@ -21,14 +22,14 @@ Future<void> main() async {
   Map<String, Map<String, String>> languages = await dep.init();
   await initializeApp();
   driftRuntimeOptions.dontWarnAboutMultipleDatabases = true;
-  runApp(MyApp(
-    languages: languages,
-  ));
+  runApp(MyApp(languages: languages));
 }
 
 Future<void> initializeApp() async {
   Future.delayed(const Duration(seconds: 0));
   await GetStorage.init();
+  QuranLibrary().setFontsSelected = 1;
+  await QuranLibrary.init();
   NotifyHelper.initAwesomeNotifications();
   await ServicesLocator().init();
   tz.initializeTimeZones();

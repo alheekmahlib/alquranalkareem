@@ -3,26 +3,37 @@ import 'package:get/get.dart';
 
 import '../../../../core/utils/constants/shared_preferences_constants.dart';
 import '../../../../core/utils/constants/string_constants.dart';
+import '../../../screens/calendar/events.dart';
 import '../general_controller.dart';
 
 extension GeneralGetters on GeneralController {
   /// -------- [Getters] ----------
 
-  List get eidDaysList =>
-      ['1-10', '2-10', '3-10', '10-12', '11-12', '12-12', '13-12'];
+  List get eidDaysList => [
+    '1-10',
+    '2-10',
+    '3-10',
+    '10-12',
+    '11-12',
+    '12-12',
+    '13-12',
+  ];
 
-  String get eidGreetingContent => state.today.hMonth == 10
+  String get eidGreetingContent =>
+      EventController.instance.hijriNow.hMonth == 10
       ? 'eidGreetingContent'.tr
       : 'eidGreetingContent2'.tr;
 
   bool get eidDays {
-    String todayString = '${state.today.hDay}-${state.today.hMonth}';
+    String todayString =
+        '${EventController.instance.hijriNow.hDay}-${EventController.instance.hijriNow.hMonth}';
     return eidDaysList.contains(todayString);
   }
 
   Future<Uri> getCachedArtUri() async {
-    final file =
-        await DefaultCacheManager().getSingleFile(StringConstants.appsIcon1024);
+    final file = await DefaultCacheManager().getSingleFile(
+      StringConstants.appsIcon1024,
+    );
     return await file.exists()
         ? file.uri
         : Uri.parse(StringConstants.appsIcon1024);

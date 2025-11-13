@@ -4,7 +4,7 @@ class SplashState {
   /// -------- [Variables] ----------
   final generalCtrl = GeneralController.instance;
   RxBool animate = false.obs;
-  var today = HijriCalendar.now();
+  var today = HijriDate.now();
   final box = GetStorage();
   RxBool containerAnimate = false.obs;
   RxDouble containerHeight = 230.0.h.obs;

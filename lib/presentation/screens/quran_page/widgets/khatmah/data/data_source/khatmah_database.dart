@@ -13,9 +13,10 @@ class Khatmahs extends Table {
   IntColumn get currentPage => integer().nullable()();
   IntColumn get startAyahNumber => integer().nullable()();
   IntColumn get endAyahNumber => integer().nullable()();
-  BoolColumn get isCompleted => boolean().withDefault(Constant(false))();
-  IntColumn get daysCount => integer().withDefault(Constant(30))();
-  BoolColumn get isTahzibSahabah => boolean().withDefault(Constant(false))();
+  BoolColumn get isCompleted => boolean().withDefault(const Constant(false))();
+  IntColumn get daysCount => integer().withDefault(const Constant(30))();
+  BoolColumn get isTahzibSahabah =>
+      boolean().withDefault(const Constant(false))();
   IntColumn get color => integer().nullable()();
   IntColumn get startPage => integer().nullable()();
   IntColumn get endPage => integer().nullable()();
@@ -23,10 +24,11 @@ class Khatmahs extends Table {
 
 class KhatmahDays extends Table {
   IntColumn get id => integer().autoIncrement()();
-  IntColumn get khatmahId => integer()
-      .customConstraint('REFERENCES khatmahs(id) ON DELETE CASCADE NOT NULL')();
+  IntColumn get khatmahId => integer().customConstraint(
+    'REFERENCES khatmahs(id) ON DELETE CASCADE NOT NULL',
+  )();
   IntColumn get day => integer()();
-  BoolColumn get isCompleted => boolean().withDefault(Constant(false))();
+  BoolColumn get isCompleted => boolean().withDefault(const Constant(false))();
   IntColumn get startPage => integer().nullable()(); // إضافة حقل startPage
   IntColumn get endPage => integer().nullable()(); // إضافة حقل endPage
 }
@@ -44,30 +46,30 @@ class KhatmahDatabase extends _$KhatmahDatabase {
 
   @override
   MigrationStrategy get migration => MigrationStrategy(
-        onCreate: (Migrator m) async {
-          await m.createAll();
-        },
-        onUpgrade: (Migrator m, int from, int to) async {
-          if (from < 2) {
-            await m.createTable(khatmahDays);
-          }
-          if (from < 3) {
-            await m.addColumn(khatmahs, khatmahs.color);
-          }
-          if (from < 5) {
-            await m.addColumn(khatmahDays, khatmahDays.startPage);
-            await m.addColumn(khatmahDays, khatmahDays.endPage);
-          }
-        },
-        beforeOpen: (details) async {
-          await customStatement('PRAGMA foreign_keys = ON');
-        },
-      );
+    onCreate: (Migrator m) async {
+      await m.createAll();
+    },
+    onUpgrade: (Migrator m, int from, int to) async {
+      if (from < 2) {
+        await m.createTable(khatmahDays);
+      }
+      if (from < 3) {
+        await m.addColumn(khatmahs, khatmahs.color);
+      }
+      if (from < 5) {
+        await m.addColumn(khatmahDays, khatmahDays.startPage);
+        await m.addColumn(khatmahDays, khatmahDays.endPage);
+      }
+    },
+    beforeOpen: (details) async {
+      await customStatement('PRAGMA foreign_keys = ON');
+    },
+  );
 
   Future<List<Khatmah>> getAllKhatmas() => select(khatmahs).get();
-  Future<List<KhatmahDay>> getDaysForKhatmah(int khatmahId) =>
-      (select(khatmahDays)..where((tbl) => tbl.khatmahId.equals(khatmahId)))
-          .get();
+  Future<List<KhatmahDay>> getDaysForKhatmah(int khatmahId) => (select(
+    khatmahDays,
+  )..where((tbl) => tbl.khatmahId.equals(khatmahId))).get();
 
   Future insertKhatma(Insertable<Khatmah> khatma) =>
       into(khatmahs).insert(khatma);
@@ -86,8 +88,9 @@ class KhatmahDatabase extends _$KhatmahDatabase {
   }
 
   Future<void> deleteKhatmahDaysByKhatmahId(int khatmahId) async {
-    await (delete(khatmahDays)..where((t) => t.khatmahId.equals(khatmahId)))
-        .go();
+    await (delete(
+      khatmahDays,
+    )..where((t) => t.khatmahId.equals(khatmahId))).go();
   }
 }
 

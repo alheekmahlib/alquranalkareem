@@ -17,8 +17,9 @@ class ShareController extends GetxController {
 
   Future<void> createAndShowVerseImage() async {
     try {
-      final Uint8List? imageBytes =
-          await ayahScreenController.capture(pixelRatio: 7);
+      final Uint8List? imageBytes = await ayahScreenController.capture(
+        pixelRatio: 7,
+      );
       ayahToImageBytes = imageBytes;
       update();
     } catch (e) {
@@ -28,8 +29,9 @@ class ShareController extends GetxController {
 
   Future<void> createAndShowTafseerImage() async {
     try {
-      final Uint8List? imageBytes =
-          await tafseerScreenController.capture(pixelRatio: 7);
+      final Uint8List? imageBytes = await tafseerScreenController.capture(
+        pixelRatio: 7,
+      );
       tafseerToImageBytes = imageBytes;
       update();
     } catch (e) {
@@ -38,12 +40,13 @@ class ShareController extends GetxController {
   }
 
   Future<void> shareButtonOnTap(
-      BuildContext context,
-      int selectedIndex,
-      int verseUQNumber,
-      int surahNumber,
-      int verseNumber,
-      int pageNumber) async {
+    BuildContext context,
+    int selectedIndex,
+    int verseUQNumber,
+    int surahNumber,
+    int verseNumber,
+    int pageNumber,
+  ) async {
     sl<TafsirAndTranslateController>().shareTransValue.value == selectedIndex;
     box.write(SHARE_TRANSLATE_VALUE, selectedIndex);
     box.write(CURRENT_TRANSLATE, shareTranslateName[selectedIndex]);
@@ -66,23 +69,33 @@ class ShareController extends GetxController {
     }
   }
 
-  shareText(String verseText, surahName, int verseNumber) {
+  Future<void> shareText(String verseText, surahName, int verseNumber) async {
     Get.back();
-    Share.share(
-        '﴿$verseText﴾ '
-        '[$surahName-'
-        '$verseNumber]',
-        subject: '$surahName');
+    final params = ShareParams(
+      text:
+          '﴿$verseText﴾ '
+          '[$surahName-'
+          '$verseNumber]',
+      subject: '$surahName',
+    );
+
+    await SharePlus.instance.share(params);
   }
 
   Future<void> shareVerseWithTranslate(BuildContext context) async {
     Get.back();
     if (tafseerToImageBytes != null) {
       final directory = await getTemporaryDirectory();
-      final imagePath =
-          await File('${directory.path}/verse_tafseer_image.png').create();
+      final imagePath = await File(
+        '${directory.path}/verse_tafseer_image.png',
+      ).create();
       await imagePath.writeAsBytes(tafseerToImageBytes!);
-      await Share.shareXFiles([XFile((imagePath.path))], text: 'appName'.tr);
+      final params = ShareParams(
+        files: [XFile((imagePath.path))],
+        subject: 'appName'.tr,
+      );
+
+      await SharePlus.instance.share(params);
     }
   }
 
@@ -91,6 +104,11 @@ class ShareController extends GetxController {
     final directory = await getTemporaryDirectory();
     final imagePath = await File('${directory.path}/verse_image.png').create();
     await imagePath.writeAsBytes(ayahToImageBytes!);
-    await Share.shareXFiles([XFile((imagePath.path))], text: 'appName'.tr);
+    final params = ShareParams(
+      files: [XFile((imagePath.path))],
+      subject: 'appName'.tr,
+    );
+
+    await SharePlus.instance.share(params);
   }
 }

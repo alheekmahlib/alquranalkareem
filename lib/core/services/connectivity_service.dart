@@ -8,7 +8,6 @@ import 'package:flutter_svg/svg.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 
-import '/core/utils/constants/extensions/custom_error_snackBar.dart';
 import '/core/utils/constants/svg_constants.dart';
 
 /// Usage Example
@@ -24,15 +23,16 @@ import '/core/utils/constants/svg_constants.dart';
 class ConnectivityService extends GetxService {
   static ConnectivityService get instance =>
       Get.isRegistered<ConnectivityService>()
-          ? Get.find<ConnectivityService>()
-          : Get.put(ConnectivityService());
+      ? Get.find<ConnectivityService>()
+      : Get.put(ConnectivityService());
 
   /// -------- [ConnectivityService] ----------
 
   /// -------- [Variables] ----------
 
-  final RxList<ConnectivityResult> _connectionStatus =
-      [ConnectivityResult.none].obs;
+  final RxList<ConnectivityResult> _connectionStatus = [
+    ConnectivityResult.none,
+  ].obs;
   final Connectivity _connectivity = Connectivity();
   late StreamSubscription<List<ConnectivityResult>> _connectivitySubscription;
 
@@ -59,8 +59,9 @@ class ConnectivityService extends GetxService {
   /// Example: ConnectivityService.instance.init();
   ///
   Future<ConnectivityService> init() async {
-    _connectivitySubscription =
-        _connectivity.onConnectivityChanged.listen(_updateConnectionStatus);
+    _connectivitySubscription = _connectivity.onConnectivityChanged.listen(
+      _updateConnectionStatus,
+    );
     await _initConnectivity();
     return this;
   }
@@ -81,13 +82,13 @@ class ConnectivityService extends GetxService {
     // _showConnectivityStatusSnackBar(result);
   }
 
-  void _showConnectivityStatusSnackBar(List<ConnectivityResult> result) {
-    if (result.contains(ConnectivityResult.none)) {
-      Get.context?.showCustomErrorSnackBar('noInternet'.tr);
-    } else if (result.contains(ConnectivityResult.mobile)) {
-      Get.context?.showCustomErrorSnackBar('mobileDataAyat'.tr);
-    }
-  }
+  // void _showConnectivityStatusSnackBar(List<ConnectivityResult> result) {
+  //   if (result.contains(ConnectivityResult.none)) {
+  //     Get.context?.showCustomErrorSnackBar('noInternet'.tr);
+  //   } else if (result.contains(ConnectivityResult.mobile)) {
+  //     Get.context?.showCustomErrorSnackBar('mobileDataAyat'.tr);
+  //   }
+  // }
 
   /// -------- [Dispose] ----------
 
@@ -100,19 +101,19 @@ class ConnectivityService extends GetxService {
   /// -------- [No Internet Widget] ----------
 
   Widget get noInternetWidget => Column(
-        children: [
-          const Gap(60),
-          SvgPicture.asset(SvgPath.svgAlert, height: 120) ?? const SizedBox(),
-          const Gap(16),
-          Text(
-            'noInternet'.tr,
-            style: TextStyle(
-              color: Get.theme.colorScheme.surface,
-              fontFamily: 'kufi',
-              fontWeight: FontWeight.bold,
-            ),
-            textAlign: TextAlign.center,
-          ),
-        ],
-      );
+    children: [
+      const Gap(60),
+      SvgPicture.asset(SvgPath.svgAlert, height: 120),
+      const Gap(16),
+      Text(
+        'noInternet'.tr,
+        style: TextStyle(
+          color: Get.theme.colorScheme.surface,
+          fontFamily: 'kufi',
+          fontWeight: FontWeight.bold,
+        ),
+        textAlign: TextAlign.center,
+      ),
+    ],
+  );
 }

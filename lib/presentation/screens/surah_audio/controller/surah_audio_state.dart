@@ -7,7 +7,6 @@ import 'package:get/get_rx/get_rx.dart';
 import 'package:get/get_rx/src/rx_types/rx_types.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:just_audio/just_audio.dart';
-import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 
 import '../../../../core/widgets/seek_bar.dart';
 
@@ -27,7 +26,7 @@ class SurahAudioState {
   late var cancelToken = CancelToken();
   TextEditingController textController = TextEditingController();
   RxInt selectedSurah = 0.obs;
-  final ItemScrollController surahListController = ItemScrollController();
+  final ScrollController surahListController = ScrollController();
   RxString surahReaderValue = "https://download.quranicaudio.com/quran/".obs;
   RxString surahReaderNameValue = "abdul_basit_murattal/".obs;
   final bool isDisposed = false;

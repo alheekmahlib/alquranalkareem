@@ -15,14 +15,12 @@ import '../surah_audio_controller.dart';
 extension SurahAudioUi on SurahAudioController {
   Future<void> changeAudioSource() async {
     state.surahDownloadStatus.value[state.surahNum.value] ?? false
-        ? await state.audioPlayer.setAudioSource(AudioSource.file(
-            await localFilePath,
-            tag: await mediaItem,
-          ))
-        : await state.audioPlayer.setAudioSource(AudioSource.uri(
-            Uri.parse(urlFilePath),
-            tag: await mediaItem,
-          ));
+        ? await state.audioPlayer.setAudioSource(
+            AudioSource.file(await localFilePath, tag: await mediaItem),
+          )
+        : await state.audioPlayer.setAudioSource(
+            AudioSource.uri(Uri.parse(urlFilePath), tag: await mediaItem),
+          );
     print('URL: $urlFilePath');
   }
 
@@ -30,8 +28,10 @@ extension SurahAudioUi on SurahAudioController {
     initializeSurahDownloadStatus();
     state.surahReaderValue.value = surahReaderInfo[index]['readerD'];
     state.surahReaderNameValue.value = surahReaderInfo[index]['readerN'];
-    state.box
-        .write(SURAH_AUDIO_PLAYER_SOUND, surahReaderInfo[index]['readerD']);
+    state.box.write(
+      SURAH_AUDIO_PLAYER_SOUND,
+      surahReaderInfo[index]['readerD'],
+    );
     state.box.write(SURAH_AUDIO_PLAYER_NAME, surahReaderInfo[index]['readerN']);
     state.box.write(SURAH_READER_INDEX, index);
     state.surahReaderIndex.value = index;
@@ -46,14 +46,18 @@ extension SurahAudioUi on SurahAudioController {
     if (int.tryParse(searchInput.convertArabicToEnglishNumbers(searchInput)) !=
         null) {
       // إذا كان الإدخال رقمًا، ابحث باستخدام رقم السورة
-      index = surahList.indexWhere((surah) =>
-          surah.surahNumber ==
-          int.parse(searchInput.convertArabicToEnglishNumbers(searchInput)));
+      index = surahList.indexWhere(
+        (surah) =>
+            surah.surahNumber ==
+            int.parse(searchInput.convertArabicToEnglishNumbers(searchInput)),
+      );
     } else {
       // إذا كان الإدخال نصًا، ابحث باستخدام اسم السورة
-      index = surahList.indexWhere((surah) => surah.arabicName
-          .removeDiacritics(surah.arabicName)
-          .contains(searchInput));
+      index = surahList.indexWhere(
+        (surah) => surah.arabicName
+            .removeDiacritics(surah.arabicName)
+            .contains(searchInput),
+      );
     }
 
     log('surahNumber: $index');
@@ -68,8 +72,9 @@ extension SurahAudioUi on SurahAudioController {
     // state.surahListController = ItemScrollController();
     SchedulerBinding.instance.addPostFrameCallback((_) {
       // if (state.surahListController.isAttached) {
-      Future.delayed(const Duration(milliseconds: 700))
-          .then((_) => state.surahListController.jumpTo(index: index));
+      Future.delayed(
+        const Duration(milliseconds: 700),
+      ).then((_) => state.surahListController.jumpTo((index * 80).toDouble()));
       // } else {
       //   developer
       //       .log('Error: surahListController is not attached. Retrying...');

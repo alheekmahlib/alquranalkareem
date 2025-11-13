@@ -3,12 +3,13 @@ part of '../events.dart';
 class CalendarBuild extends StatelessWidget {
   final int firstDayWeekday;
   final int daysInMonth;
-  final HijriCalendarConfig month;
-  CalendarBuild(
-      {super.key,
-      required this.firstDayWeekday,
-      required this.daysInMonth,
-      required this.month});
+  final HijriDate month;
+  CalendarBuild({
+    super.key,
+    required this.firstDayWeekday,
+    required this.daysInMonth,
+    required this.month,
+  });
 
   final eventCtrl = EventController.instance;
 
@@ -52,12 +53,13 @@ class CalendarBuild extends StatelessWidget {
                 style: TextStyle(
                   fontFamily: 'kufi',
                   fontSize: 16,
-                  height: 2,
+                  height: 1.7,
                   color: isCurrentDay
                       ? Theme.of(context).colorScheme.primaryContainer
                       : Theme.of(context).textTheme.bodyLarge!.color,
-                  fontWeight:
-                      isCurrentDay ? FontWeight.bold : FontWeight.normal,
+                  fontWeight: isCurrentDay
+                      ? FontWeight.bold
+                      : FontWeight.normal,
                 ),
               ),
             ),

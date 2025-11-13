@@ -41,8 +41,9 @@ class GeneralController extends GetxController {
   updateGreeting() {
     final now = DateTime.now();
     final isMorning = now.hour < 12;
-    state.greeting.value =
-        isMorning ? 'صبحكم الله بالخير' : 'مساكم الله بالخير';
+    state.greeting.value = isMorning
+        ? 'صبحكم الله بالخير'
+        : 'مساكم الله بالخير';
   }
 
   scrollToAyah(int ayahNumber) {
@@ -63,7 +64,7 @@ class GeneralController extends GetxController {
       case 3:
         return const AdhkarView();
       case 4:
-        return const AudioScreen();
+        return AudioScreen();
       case 5:
         return BooksScreen();
       default:
