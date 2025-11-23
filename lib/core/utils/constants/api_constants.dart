@@ -9,9 +9,14 @@ class ApiConstants {
   static const downloadAppUrl =
       "https://alheekmahlib.github.io/alheekmahlib/#/download/quran";
 
-  static const baseUrl = "https://github.com/";
+  // ملاحظة: للوصول المباشر للملفات الخام في GitHub نستخدم raw.githubusercontent.com لتفادي صفحات HTML البطيئة.
+  static const baseUrl = "https://raw.githubusercontent.com/";
   static const String notificationsUrl =
-      'alheekmahlib/thegarlanded/blob/master/noti.json?raw=true';
+      'alheekmahlib/thegarlanded/master/noti.json';
   static const String ourAppsUrl =
-      'alheekmahlib/thegarlanded/blob/master/ourApps.json?raw=true';
+      'alheekmahlib/thegarlanded/master/ourApps.json';
+  static const String appUrl =
+      'https://alheekmahlib.github.io/alheekmahlib/#/download/quran';
+  static const String quranShareUrl =
+      'https://alheekmahlib.github.io/alheekmahlib/#/quran?page=';
 }

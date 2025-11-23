@@ -71,22 +71,15 @@ class TextBuild extends StatelessWidget {
             audioCtrl.clearSelection();
           },
           onAyahLongPress: (details, ayah) {
+            final surah = QuranLibrary().getCurrentSurahDataByAyah(ayah: ayah);
             context.showAyahMenu(
-              surahNum: QuranLibrary()
-                  .getCurrentSurahDataByAyahUniqueNumber(
-                    ayahUniqueNumber: ayah.ayahUQNumber,
-                  )
-                  .surahNumber,
+              surahNum: surah.surahNumber,
               ayahNum: ayah.ayahNumber,
               ayahText: ayah.text,
               pageIndex: pageIndex,
               ayahTextNormal: ayah.ayaTextEmlaey,
               ayahUQNum: ayah.ayahUQNumber,
-              surahName: QuranLibrary()
-                  .getCurrentSurahDataByAyahUniqueNumber(
-                    ayahUniqueNumber: ayah.ayahUQNumber,
-                  )
-                  .arabicName,
+              surahName: surah.arabicName,
               details: details,
             );
             log('ayahUQNumber: ${ayah.ayahUQNumber}');

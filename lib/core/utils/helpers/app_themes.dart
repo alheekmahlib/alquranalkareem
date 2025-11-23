@@ -1,9 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-final ThemeData blueTheme = ThemeData.light(
-  useMaterial3: false,
-).copyWith(
+final ThemeData blueTheme = ThemeData.light(useMaterial3: false).copyWith(
   colorScheme: const ColorScheme(
     brightness: Brightness.light,
     primary: Color(0xff404C6E),
@@ -24,10 +22,8 @@ final ThemeData blueTheme = ThemeData.light(
   primaryColor: const Color(0xff404C6E),
   primaryColorLight: const Color(0xff53618c),
   primaryColorDark: const Color(0xff404C6E),
-  dialogBackgroundColor: const Color(0xffFFFFFF),
   dividerColor: const Color(0xffCDAD80),
   highlightColor: const Color(0xffCDAD80).withValues(alpha: 0.25),
-  indicatorColor: const Color(0xffCDAD80),
   scaffoldBackgroundColor: const Color(0xff404C6E),
   canvasColor: const Color(0xffFFFFFF),
   hoverColor: const Color(0xffFFFFFF).withValues(alpha: 0.3),
@@ -36,12 +32,11 @@ final ThemeData blueTheme = ThemeData.light(
   focusColor: const Color(0xffE0E1E0),
   secondaryHeaderColor: const Color(0xff53618c),
   cardColor: const Color(0xff404C6E),
-  dividerTheme: const DividerThemeData(
-    color: Color(0xffCDAD80),
-  ),
+  dividerTheme: const DividerThemeData(color: Color(0xffCDAD80)),
   textSelectionTheme: TextSelectionThemeData(
-      selectionColor: const Color(0xffE0E1E0).withValues(alpha: 0.3),
-      selectionHandleColor: const Color(0xffE0E1E0)),
+    selectionColor: const Color(0xffE0E1E0).withValues(alpha: 0.3),
+    selectionHandleColor: const Color(0xffE0E1E0),
+  ),
   cupertinoOverrideTheme: const CupertinoThemeData(
     primaryColor: Color(0xff53618c),
   ),
@@ -55,31 +50,27 @@ final ThemeData blueTheme = ThemeData.light(
     dayPeriodTextColor: const Color(0xff000000).withValues(alpha: .6),
     cancelButtonStyle: ButtonStyle(
       backgroundColor: WidgetStateProperty.all(
-          const Color(0xff000000).withValues(alpha: .6)),
+        const Color(0xff000000).withValues(alpha: .6),
+      ),
       foregroundColor: WidgetStateProperty.all(const Color(0xffFFFFFF)),
       shape: WidgetStateProperty.all(
-        RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(8.0),
-        ),
+        RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0)),
       ),
-      textStyle: WidgetStateProperty.all(const TextStyle(
-        fontFamily: 'kufi',
-        fontSize: 16,
-      )),
+      textStyle: WidgetStateProperty.all(
+        const TextStyle(fontFamily: 'kufi', fontSize: 16),
+      ),
     ),
     confirmButtonStyle: ButtonStyle(
       backgroundColor: WidgetStateProperty.all(
-          const Color(0xff000000).withValues(alpha: .8)),
+        const Color(0xff000000).withValues(alpha: .8),
+      ),
       foregroundColor: WidgetStateProperty.all(const Color(0xffFFFFFF)),
       shape: WidgetStateProperty.all(
-        RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(8.0),
-        ),
+        RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0)),
       ),
-      textStyle: WidgetStateProperty.all(const TextStyle(
-        fontFamily: 'kufi',
-        fontSize: 16,
-      )),
+      textStyle: WidgetStateProperty.all(
+        const TextStyle(fontFamily: 'kufi', fontSize: 16),
+      ),
     ),
   ),
 );
@@ -106,10 +97,8 @@ final ThemeData brownTheme = ThemeData(
   primaryColor: const Color(0xff583623),
   primaryColorLight: const Color(0xff854621),
   primaryColorDark: const Color(0xff583623),
-  dialogBackgroundColor: const Color(0xffFDF7F4),
   dividerColor: const Color(0xff854621),
   highlightColor: const Color(0xffcf8e55).withValues(alpha: 0.25),
-  indicatorColor: const Color(0xff854621),
   scaffoldBackgroundColor: const Color(0xff583623),
   canvasColor: const Color(0xffF2E5D5),
   hoverColor: const Color(0xffF2E5D5).withValues(alpha: 0.3),
@@ -119,8 +108,9 @@ final ThemeData brownTheme = ThemeData(
   secondaryHeaderColor: const Color(0xff583623),
   cardColor: const Color(0xff583623),
   textSelectionTheme: TextSelectionThemeData(
-      selectionColor: const Color(0xffcf8e55).withValues(alpha: 0.3),
-      selectionHandleColor: const Color(0xffcf8e55)),
+    selectionColor: const Color(0xffcf8e55).withValues(alpha: 0.3),
+    selectionHandleColor: const Color(0xffcf8e55),
+  ),
   cupertinoOverrideTheme: const CupertinoThemeData(
     primaryColor: Color(0xffcf8e55),
   ),
@@ -134,38 +124,32 @@ final ThemeData brownTheme = ThemeData(
     dayPeriodTextColor: const Color(0xff000000).withValues(alpha: .6),
     cancelButtonStyle: ButtonStyle(
       backgroundColor: WidgetStateProperty.all(
-          const Color(0xff000000).withValues(alpha: .6)),
+        const Color(0xff000000).withValues(alpha: .6),
+      ),
       foregroundColor: WidgetStateProperty.all(const Color(0xffFDF7F4)),
       shape: WidgetStateProperty.all(
-        RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(8.0),
-        ),
+        RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0)),
       ),
-      textStyle: WidgetStateProperty.all(const TextStyle(
-        fontFamily: 'kufi',
-        fontSize: 16,
-      )),
+      textStyle: WidgetStateProperty.all(
+        const TextStyle(fontFamily: 'kufi', fontSize: 16),
+      ),
     ),
     confirmButtonStyle: ButtonStyle(
       backgroundColor: WidgetStateProperty.all(
-          const Color(0xff000000).withValues(alpha: .8)),
+        const Color(0xff000000).withValues(alpha: .8),
+      ),
       foregroundColor: WidgetStateProperty.all(const Color(0xffFDF7F4)),
       shape: WidgetStateProperty.all(
-        RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(8.0),
-        ),
+        RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0)),
       ),
-      textStyle: WidgetStateProperty.all(const TextStyle(
-        fontFamily: 'kufi',
-        fontSize: 16,
-      )),
+      textStyle: WidgetStateProperty.all(
+        const TextStyle(fontFamily: 'kufi', fontSize: 16),
+      ),
     ),
   ),
 );
 
-final ThemeData oldTheme = ThemeData.light(
-  useMaterial3: false,
-).copyWith(
+final ThemeData oldTheme = ThemeData.light(useMaterial3: false).copyWith(
   colorScheme: const ColorScheme(
     brightness: Brightness.light,
     primary: Color(0xff232c13),
@@ -186,10 +170,8 @@ final ThemeData oldTheme = ThemeData.light(
   primaryColor: const Color(0xff232c13),
   primaryColorLight: const Color(0xff53618c),
   primaryColorDark: const Color(0xff161f07),
-  dialogBackgroundColor: const Color(0xfff3efdf),
   dividerColor: const Color(0xff91a57d),
   highlightColor: const Color(0xff91a57d).withValues(alpha: 0.25),
-  indicatorColor: const Color(0xff91a57d),
   scaffoldBackgroundColor: const Color(0xff232c13),
   canvasColor: const Color(0xfff3efdf),
   hoverColor: const Color(0xfff3efdf).withValues(alpha: 0.3),
@@ -198,12 +180,11 @@ final ThemeData oldTheme = ThemeData.light(
   focusColor: const Color(0xffE0E1E0),
   secondaryHeaderColor: const Color(0xff53618c),
   cardColor: const Color(0xff232c13),
-  dividerTheme: const DividerThemeData(
-    color: Color(0xff91a57d),
-  ),
+  dividerTheme: const DividerThemeData(color: Color(0xff91a57d)),
   textSelectionTheme: TextSelectionThemeData(
-      selectionColor: const Color(0xffE0E1E0).withValues(alpha: 0.3),
-      selectionHandleColor: const Color(0xffE0E1E0)),
+    selectionColor: const Color(0xffE0E1E0).withValues(alpha: 0.3),
+    selectionHandleColor: const Color(0xffE0E1E0),
+  ),
   cupertinoOverrideTheme: const CupertinoThemeData(
     primaryColor: Color(0xff53618c),
   ),
@@ -217,38 +198,32 @@ final ThemeData oldTheme = ThemeData.light(
     dayPeriodTextColor: const Color(0xff000000).withValues(alpha: .6),
     cancelButtonStyle: ButtonStyle(
       backgroundColor: WidgetStateProperty.all(
-          const Color(0xff000000).withValues(alpha: .6)),
+        const Color(0xff000000).withValues(alpha: .6),
+      ),
       foregroundColor: WidgetStateProperty.all(const Color(0xfff3efdf)),
       shape: WidgetStateProperty.all(
-        RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(8.0),
-        ),
+        RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0)),
       ),
-      textStyle: WidgetStateProperty.all(const TextStyle(
-        fontFamily: 'kufi',
-        fontSize: 16,
-      )),
+      textStyle: WidgetStateProperty.all(
+        const TextStyle(fontFamily: 'kufi', fontSize: 16),
+      ),
     ),
     confirmButtonStyle: ButtonStyle(
       backgroundColor: WidgetStateProperty.all(
-          const Color(0xff000000).withValues(alpha: .8)),
+        const Color(0xff000000).withValues(alpha: .8),
+      ),
       foregroundColor: WidgetStateProperty.all(const Color(0xfff3efdf)),
       shape: WidgetStateProperty.all(
-        RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(8.0),
-        ),
+        RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0)),
       ),
-      textStyle: WidgetStateProperty.all(const TextStyle(
-        fontFamily: 'kufi',
-        fontSize: 16,
-      )),
+      textStyle: WidgetStateProperty.all(
+        const TextStyle(fontFamily: 'kufi', fontSize: 16),
+      ),
     ),
   ),
 );
 
-final ThemeData darkTheme = ThemeData.dark(
-  useMaterial3: false,
-).copyWith(
+final ThemeData darkTheme = ThemeData.dark(useMaterial3: false).copyWith(
   colorScheme: const ColorScheme(
     brightness: Brightness.light,
     primary: Color(0xff404C6E),
@@ -269,10 +244,8 @@ final ThemeData darkTheme = ThemeData.dark(
   primaryColor: const Color(0xff1E1E1E),
   primaryColorLight: const Color(0xff373737),
   primaryColorDark: const Color(0xff010101),
-  dialogBackgroundColor: const Color(0xff1E1E1E),
   dividerColor: const Color(0xff404C6E),
   highlightColor: const Color(0xff404C6E).withValues(alpha: 0.25),
-  indicatorColor: const Color(0xff404C6E),
   scaffoldBackgroundColor: const Color(0xff000000),
   canvasColor: const Color(0xffF6F6EE),
   hoverColor: const Color(0xffF6F6EE).withValues(alpha: 0.3),
@@ -282,8 +255,9 @@ final ThemeData darkTheme = ThemeData.dark(
   secondaryHeaderColor: const Color(0xff404C6E),
   cardColor: const Color(0xffF6F6EE),
   textSelectionTheme: TextSelectionThemeData(
-      selectionColor: const Color(0xff404C6E).withValues(alpha: 0.3),
-      selectionHandleColor: const Color(0xff404C6E)),
+    selectionColor: const Color(0xff404C6E).withValues(alpha: 0.3),
+    selectionHandleColor: const Color(0xff404C6E),
+  ),
   cupertinoOverrideTheme: const CupertinoThemeData(
     primaryColor: Color(0xff404C6E),
   ),
@@ -298,31 +272,27 @@ final ThemeData darkTheme = ThemeData.dark(
     dayPeriodColor: const Color(0xff1E1E1E),
     cancelButtonStyle: ButtonStyle(
       backgroundColor: WidgetStateProperty.all(
-          const Color(0xffF6F6EE).withValues(alpha: .6)),
+        const Color(0xffF6F6EE).withValues(alpha: .6),
+      ),
       foregroundColor: WidgetStateProperty.all(const Color(0xff1E1E1E)),
       shape: WidgetStateProperty.all(
-        RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(8.0),
-        ),
+        RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0)),
       ),
-      textStyle: WidgetStateProperty.all(const TextStyle(
-        fontFamily: 'kufi',
-        fontSize: 16,
-      )),
+      textStyle: WidgetStateProperty.all(
+        const TextStyle(fontFamily: 'kufi', fontSize: 16),
+      ),
     ),
     confirmButtonStyle: ButtonStyle(
       backgroundColor: WidgetStateProperty.all(
-          const Color(0xffF6F6EE).withValues(alpha: .8)),
+        const Color(0xffF6F6EE).withValues(alpha: .8),
+      ),
       foregroundColor: WidgetStateProperty.all(const Color(0xff1E1E1E)),
       shape: WidgetStateProperty.all(
-        RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(8.0),
-        ),
+        RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0)),
       ),
-      textStyle: WidgetStateProperty.all(const TextStyle(
-        fontFamily: 'kufi',
-        fontSize: 16,
-      )),
+      textStyle: WidgetStateProperty.all(
+        const TextStyle(fontFamily: 'kufi', fontSize: 16),
+      ),
     ),
   ),
 );

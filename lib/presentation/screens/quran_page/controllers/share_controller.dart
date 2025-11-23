@@ -69,13 +69,21 @@ class ShareController extends GetxController {
     }
   }
 
-  Future<void> shareText(String verseText, surahName, int verseNumber) async {
+  Future<void> shareText(
+    String verseText,
+    surahName,
+    int verseNumber,
+    int pageNumber,
+    int ayahUQNumber,
+  ) async {
     Get.back();
     final params = ShareParams(
       text:
           '﴿$verseText﴾ '
           '[$surahName-'
-          '$verseNumber]',
+          '$verseNumber]\n\n'
+          '${'appName'.tr}\n'
+          '${ApiConstants.quranShareUrl}$pageNumber&ayah=$ayahUQNumber',
       subject: '$surahName',
     );
 
@@ -99,13 +107,26 @@ class ShareController extends GetxController {
     }
   }
 
-  Future<void> shareVerse(BuildContext context) async {
+  Future<void> shareVerse(
+    BuildContext context,
+    String verseText,
+    String surahName,
+    int verseNumber,
+    int pageNumber,
+    int ayahUQNumber,
+  ) async {
     Get.back();
     final directory = await getTemporaryDirectory();
     final imagePath = await File('${directory.path}/verse_image.png').create();
     await imagePath.writeAsBytes(ayahToImageBytes!);
     final params = ShareParams(
       files: [XFile((imagePath.path))],
+      text:
+          '﴿$verseText﴾ '
+          '[$surahName-'
+          '$verseNumber]\n\n'
+          '${'appName'.tr}\n'
+          '${ApiConstants.quranShareUrl}$pageNumber&ayah=$ayahUQNumber',
       subject: 'appName'.tr,
     );
 

@@ -6,6 +6,8 @@ import 'package:get/get.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:share_plus/share_plus.dart';
 
+import '../api_constants.dart';
+
 extension ShareAppExtension on void {
   Future<void> shareApp() async {
     final box = Get.context!.findRenderObject() as RenderBox?;
@@ -19,7 +21,7 @@ extension ShareAppExtension on void {
     file.writeAsBytesSync(list);
     final params = ShareParams(
       text:
-          'تطبيق "القرآن الكريم - مكتبة الحكمة" التطبيق الأمثل لقراءة القرآن.\n\nللتحميل:\nhttps://alheekmahlib.github.io/alheekmahlib/#/download/quran',
+          'تطبيق "القرآن الكريم - مكتبة الحكمة" التطبيق الأمثل لقراءة القرآن.\n\nللتحميل:\n${ApiConstants.appUrl}',
       files: [XFile((file.path))],
       sharePositionOrigin: box!.localToGlobal(Offset.zero) & box.size,
     );
