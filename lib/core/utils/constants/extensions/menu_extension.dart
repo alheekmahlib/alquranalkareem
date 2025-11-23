@@ -9,15 +9,16 @@ import '../../../../presentation/screens/quran_page/quran.dart';
 import 'extensions.dart';
 
 extension ContextMenuExtension on BuildContext {
-  void showAyahMenu(
-      {required int surahNum,
-      required int ayahNum,
-      required String ayahText,
-      required int pageIndex,
-      required String ayahTextNormal,
-      required int ayahUQNum,
-      required String surahName,
-      dynamic details}) {
+  void showAyahMenu({
+    required int surahNum,
+    required int ayahNum,
+    required String ayahText,
+    required int pageIndex,
+    required String ayahTextNormal,
+    required int ayahUQNum,
+    required String surahName,
+    dynamic details,
+  }) {
     BotToast.showAttachedWidget(
       target: details.globalPosition,
       verticalOffset: 30.0,
@@ -33,15 +34,20 @@ extension ContextMenuExtension on BuildContext {
         ),
         child: Container(
           decoration: BoxDecoration(
-              color:
-                  Get.theme.colorScheme.primaryContainer.withValues(alpha: .95),
-              borderRadius: const BorderRadius.all(Radius.circular(8)),
-              border: Border.all(
-                  width: 2,
-                  color: Get.theme.colorScheme.primary.withValues(alpha: .5))),
+            color: Get.theme.colorScheme.primaryContainer.withValues(
+              alpha: .95,
+            ),
+            borderRadius: const BorderRadius.all(Radius.circular(8)),
+            border: Border.all(
+              width: 2,
+              color: Get.theme.colorScheme.primary.withValues(alpha: .5),
+            ),
+          ),
           child: Padding(
-            padding:
-                const EdgeInsets.symmetric(horizontal: 10.0, vertical: 6.0),
+            padding: const EdgeInsets.symmetric(
+              horizontal: 10.0,
+              vertical: 6.0,
+            ),
             child: Row(
               mainAxisSize: MainAxisSize.min,
               children: [
@@ -101,7 +107,7 @@ extension ContextMenuExtension on BuildContext {
                   surahNumber: surahNum,
                   ayahTextNormal: ayahTextNormal,
                   ayahText: ayahText,
-                  surahName: 'surahName',
+                  surahName: surahName,
                   pageNumber: pageIndex,
                 ),
               ],

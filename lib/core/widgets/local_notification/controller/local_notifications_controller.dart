@@ -13,8 +13,8 @@ import '../data/model/post_model.dart';
 class LocalNotificationsController extends GetxController {
   static LocalNotificationsController get instance =>
       Get.isRegistered<LocalNotificationsController>()
-          ? Get.find<LocalNotificationsController>()
-          : Get.put(LocalNotificationsController());
+      ? Get.find<LocalNotificationsController>()
+      : Get.put(LocalNotificationsController());
 
   RxList<PostModel> postsList = <PostModel>[].obs;
   final box = GetStorage();
@@ -36,13 +36,40 @@ class LocalNotificationsController extends GetxController {
       final response = await ApiClient().request(
         endpoint: ApiConstants.notificationsUrl,
         method: HttpMethod.get,
+        // زيادة المهلة عند استدعاء قد يعود ببيانات فارغة أو بطيئة
+        connectTimeoutOverride: const Duration(seconds: 10),
+        receiveTimeoutOverride: const Duration(seconds: 10),
       );
 
       if (response.isRight) {
-        // فك ترميز JSON الخام إلى كائن Dart
-        List<dynamic> jsonData = jsonDecode(response.right as String);
-        List<PostModel> jsonResponse =
-            jsonData.map((item) => PostModel.fromJson(item)).toList();
+        final raw = response.right;
+        List<dynamic> jsonData = [];
+        try {
+          if (raw == null) {
+            jsonData = [];
+          } else if (raw is List) {
+            jsonData = raw;
+          } else if (raw is String) {
+            final trimmed = raw.trim();
+            if (trimmed.isEmpty) {
+              jsonData = [];
+            } else {
+              jsonData = jsonDecode(trimmed) as List<dynamic>;
+            }
+          } else {
+            // حالة غير متوقعة؛ نسجلها ونعتبرها قائمة فارغة
+            log('Unexpected data type: ${raw.runtimeType}');
+            jsonData = [];
+          }
+        } catch (e) {
+          log('JSON parse error: $e');
+          jsonData = [];
+        }
+
+        List<PostModel> jsonResponse = jsonData
+            .whereType<Map<String, dynamic>>()
+            .map((item) => PostModel.fromJson(item))
+            .toList();
         postsList.value = jsonResponse;
         log('Posts loaded: ${postsList.length}');
 
@@ -82,8 +109,9 @@ class LocalNotificationsController extends GetxController {
   }
 
   void markNotificationAsRead(int postId) {
-    int index =
-        postsList.indexWhere((notification) => notification.id == postId);
+    int index = postsList.indexWhere(
+      (notification) => notification.id == postId,
+    );
     if (index != -1) {
       postsList[index].opened = true;
       postsList.refresh();

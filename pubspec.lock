@@ -45,10 +45,10 @@ packages:
     dependency: "direct main"
     description:
       name: animations
-      sha256: a8031b276f0a7986ac907195f10ca7cd04ecf2a8a566bd6dbe03018a9b02b427
+      sha256: "18938cefd7dcc04e1ecac0db78973761a01e4bc2d6bfae0cfa596bfeac9e96ab"
       url: "https://pub.dev"
     source: hosted
-    version: "2.1.0"
+    version: "2.1.1"
   another_xlider:
     dependency: "direct main"
     description:
@@ -65,6 +65,15 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.0.3"
+  arabic_justified_text:
+    dependency: transitive
+    description:
+      path: "."
+      ref: main
+      resolved-ref: "5e4065847f05b1887ccf2408fa9b2b38f8855afd"
+      url: "https://github.com/AhmedAlboishe/arabic_justified_text.git"
+    source: git
+    version: "0.0.6"
   arabic_numbers:
     dependency: "direct main"
     description:
@@ -543,10 +552,10 @@ packages:
     dependency: transitive
     description:
       name: flutter_scale_kit
-      sha256: b4e698ca5f7cb85a838358d7be8f212271781d48ed956c490e0b100cdd0cd1c6
+      sha256: "5e23d4a5e468774673643fb66ebb381f84f5d95a36d5ef4d078dd8cb4e0bf4b4"
       url: "https://pub.dev"
     source: hosted
-    version: "1.1.10"
+    version: "1.5.2"
   flutter_screenutil:
     dependency: "direct main"
     description:
@@ -591,10 +600,10 @@ packages:
     dependency: "direct main"
     description:
       name: flutter_svg
-      sha256: "055de8921be7b8e8b98a233c7a5ef84b3a6fcc32f46f1ebf5b9bb3576d108355"
+      sha256: "87fbd7c534435b6c5d9d98b01e1fd527812b82e68ddd8bd35fc45ed0fa8f0a95"
       url: "https://pub.dev"
     source: hosted
-    version: "2.2.2"
+    version: "2.2.3"
   flutter_test:
     dependency: "direct dev"
     description: flutter
@@ -881,10 +890,10 @@ packages:
     dependency: transitive
     description:
       name: media_kit
-      sha256: "52a8e989babc431db0aa242f32a4a08e55f60662477ea09759a105d7cd6410da"
+      sha256: dfd5ab85d49a1806b1314a0b81f3d14da48f0db0a657336b2d77c5f17db28944
       url: "https://pub.dev"
     source: hosted
-    version: "1.2.1"
+    version: "1.2.2"
   media_kit_libs_windows_audio:
     dependency: transitive
     description:
@@ -897,10 +906,10 @@ packages:
     dependency: transitive
     description:
       name: meta
-      sha256: e3641ec5d63ebf0d9b41bd43201a66e3fc79a65db5f61fc181f04cd27aab950c
+      sha256: "23f08335362185a5ea2ad3a4e597f1375e78bce8a040df5c600c8d3552ef2394"
       url: "https://pub.dev"
     source: hosted
-    version: "1.16.0"
+    version: "1.17.0"
   mime:
     dependency: transitive
     description:
@@ -1098,10 +1107,10 @@ packages:
     description:
       path: "."
       ref: main
-      resolved-ref: "48aca784c26bbac582881f5f11b91ba17d4de729"
+      resolved-ref: d9299f0db9a3d2b80df92a0f274bfc1e0198df84
       url: "https://github.com/alheekmahlib/quran_library.git"
     source: git
-    version: "2.2.5"
+    version: "2.3.2"
   rate_my_app:
     dependency: "direct main"
     description:
@@ -1423,10 +1432,10 @@ packages:
     dependency: transitive
     description:
       name: test_api
-      sha256: "522f00f556e73044315fa4585ec3270f1808a4b186c936e612cab0b565ff1e00"
+      sha256: ab2726c1a94d3176a45960b6234466ec367179b87dd74f1611adb1f3b5fb9d55
       url: "https://pub.dev"
     source: hosted
-    version: "0.7.6"
+    version: "0.7.7"
   timezone:
     dependency: "direct main"
     description:

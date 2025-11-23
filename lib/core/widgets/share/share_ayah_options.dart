@@ -1,12 +1,10 @@
+import 'package:alquranalkareem/core/utils/constants/extensions/bottom_sheet_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:quran_library/quran.dart';
 
 import '../../../presentation/screens/quran_page/quran.dart';
 import '../../services/services_locator.dart';
 import '../../utils/constants/extensions/extensions.dart';
-import '../../utils/constants/lottie.dart';
-import '../../utils/constants/lottie_constants.dart';
 import '../../utils/constants/svg_constants.dart';
 import '../custom_button.dart';
 import 'share_ayahToImage.dart';
@@ -43,69 +41,65 @@ class ShareAyahOptions extends StatelessWidget {
       svgPath: SvgPath.svgShareIcon,
       svgColor: context.theme.canvasColor,
       onPressed: () async {
-        await QuranLibrary().fetchTranslation();
-        shareToImage.fetchTafseerSaadi(surahNumber, ayahNumber, ayahUQNumber);
-        Get.bottomSheet(
-            Container(
-              height: MediaQuery.sizeOf(context).height * .9,
-              alignment: Alignment.center,
-              padding: const EdgeInsets.all(16.0),
-              decoration: BoxDecoration(
-                  color: Get.theme.colorScheme.primaryContainer,
-                  borderRadius: const BorderRadius.only(
-                    topLeft: Radius.circular(8),
-                    topRight: Radius.circular(8),
-                  )),
-              child: SafeArea(
-                child: Stack(
-                  children: [
-                    Align(
-                      alignment: Alignment.topRight,
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: context.customClose(),
-                      ),
-                    ),
-                    Align(
-                      alignment: Alignment.topCenter,
-                      child: customLottie(LottieConstants.assetsLottieShare,
-                          width: 120.0),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(top: 70.0),
-                      child: ListView(
-                        physics: const ClampingScrollPhysics(),
-                        children: [
-                          _ayahText(context),
-                          context.hDivider(
-                              color: Get.theme.colorScheme.primary),
-                          _ayahToImage(context),
-                          // _imageWithTranslation(context),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
+        // await QuranLibrary().fetchTranslation();
+        // shareToImage.fetchTafseerSaadi(surahNumber, ayahNumber, ayahUQNumber);
+        customBottomSheet(
+          Container(
+            // height: MediaQuery.sizeOf(context).height * .9,
+            // alignment: Alignment.center,
+            // padding: const EdgeInsets.all(8.0),
+            decoration: BoxDecoration(
+              color: Get.theme.colorScheme.primaryContainer,
+              borderRadius: const BorderRadius.only(
+                topLeft: Radius.circular(8),
+                topRight: Radius.circular(8),
               ),
             ),
-            isScrollControlled: true);
+            child: SafeArea(
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Align(
+                    alignment: Alignment.topRight,
+                    child: Padding(
+                      padding: const EdgeInsets.all(16.0),
+                      child: context.customClose(),
+                    ),
+                  ),
+                  Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      _ayahText(context),
+                      context.hDivider(color: Get.theme.colorScheme.primary),
+                      _ayahToImage(context),
+                      // _imageWithTranslation(context),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+          ),
+        );
       },
     );
   }
 
   Widget _ayahText(BuildContext context) {
     return Column(
+      mainAxisSize: MainAxisSize.min,
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16.0),
           child: Text(
             'shareText'.tr,
             style: TextStyle(
-                color: Get.isDarkMode
-                    ? Get.theme.colorScheme.primary
-                    : Get.theme.colorScheme.primary,
-                fontSize: 16,
-                fontFamily: 'kufi'),
+              color: Get.isDarkMode
+                  ? Get.theme.colorScheme.primary
+                  : Get.theme.colorScheme.primary,
+              fontSize: 16,
+              fontFamily: 'kufi',
+            ),
           ),
         ),
         GestureDetector(
@@ -114,10 +108,15 @@ class ShareAyahOptions extends StatelessWidget {
             width: MediaQuery.sizeOf(context).width,
             padding: const EdgeInsets.all(16.0),
             margin: const EdgeInsets.only(
-                top: 4.0, bottom: 16.0, right: 16.0, left: 16.0),
+              top: 4.0,
+              bottom: 16.0,
+              right: 16.0,
+              left: 16.0,
+            ),
             decoration: BoxDecoration(
-                color: Get.theme.colorScheme.primary.withValues(alpha: .15),
-                borderRadius: const BorderRadius.all(Radius.circular(4))),
+              color: Get.theme.colorScheme.primary.withValues(alpha: .15),
+              borderRadius: const BorderRadius.all(Radius.circular(4)),
+            ),
             child: Row(
               mainAxisSize: MainAxisSize.min,
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -135,9 +134,10 @@ class ShareAyahOptions extends StatelessWidget {
                   child: Text(
                     "﴿ $ayahText ﴾",
                     style: TextStyle(
-                        color: Get.theme.hintColor,
-                        fontSize: 16,
-                        fontFamily: 'uthmanic2'),
+                      color: Get.theme.hintColor,
+                      fontSize: 16,
+                      fontFamily: 'uthmanic2',
+                    ),
                     textDirection: TextDirection.rtl,
                   ),
                 ),
@@ -145,8 +145,14 @@ class ShareAyahOptions extends StatelessWidget {
             ),
           ),
           onTap: () {
-            shareToImage.shareText(ayahText, surahName, ayahNumber);
-            Navigator.pop(context);
+            shareToImage.shareText(
+              ayahText,
+              surahName,
+              ayahNumber,
+              pageNumber + 1,
+              ayahUQNumber,
+            );
+            Get.back();
           },
         ),
       ],
@@ -155,6 +161,7 @@ class ShareAyahOptions extends StatelessWidget {
 
   Widget _ayahToImage(BuildContext context) {
     return Column(
+      mainAxisSize: MainAxisSize.min,
       children: [
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
@@ -164,9 +171,10 @@ class ShareAyahOptions extends StatelessWidget {
               Text(
                 'shareImage'.tr,
                 style: TextStyle(
-                    color: Get.theme.hintColor,
-                    fontSize: 16,
-                    fontFamily: 'kufi'),
+                  color: Get.theme.hintColor,
+                  fontSize: 16,
+                  fontFamily: 'kufi',
+                ),
               ),
             ],
           ),
@@ -176,26 +184,39 @@ class ShareAyahOptions extends StatelessWidget {
             // width: MediaQuery.sizeOf(context).width * .4,
             padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 8.0),
             margin: const EdgeInsets.only(
-                top: 4.0, bottom: 16.0, right: 16.0, left: 16.0),
+              top: 4.0,
+              bottom: 16.0,
+              right: 16.0,
+              left: 16.0,
+            ),
             decoration: BoxDecoration(
-                color: Get.theme.colorScheme.primary.withValues(alpha: .15),
-                borderRadius: const BorderRadius.all(Radius.circular(4))),
+              color: Get.theme.colorScheme.primary.withValues(alpha: .15),
+              borderRadius: const BorderRadius.all(Radius.circular(4)),
+            ),
             // child: Image.memory(
             //   imageData2,
             //   // height: 150,
             //   // width: 150,
             // ),
             child: VerseImageCreator(
-                verseNumber: ayahNumber,
-                surahNumber: surahNumber,
-                verseText: ayahText),
+              verseNumber: ayahNumber,
+              surahNumber: surahNumber,
+              verseText: ayahText,
+            ),
           ),
           onTap: () async {
             await sl<ShareController>().createAndShowVerseImage();
-            shareToImage.shareVerse(context);
+            shareToImage.shareVerse(
+              context,
+              ayahText,
+              surahName,
+              ayahNumber,
+              pageNumber + 1,
+              ayahUQNumber,
+            );
             // shareVerse(
             //     context, verseNumber, surahNumber, verseText);
-            Navigator.pop(context);
+            Get.back();
           },
         ),
       ],
