@@ -44,7 +44,7 @@ class PlayWidget extends StatelessWidget {
               padding: const EdgeInsets.all(16.0),
               child: context.customArrowDown(
                 isBorder: true,
-                close: () => surahCtrl.surahState.boxController.closeBox(),
+                close: () => surahCtrl.surahState.isPlayExpanded.value = false,
               ),
             ),
           ),
