@@ -4,7 +4,6 @@ import 'package:anim_search_bar/anim_search_bar.dart';
 import 'package:arabic_numbers/arabic_numbers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
-import 'package:flutter_sliding_box/flutter_sliding_box.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';

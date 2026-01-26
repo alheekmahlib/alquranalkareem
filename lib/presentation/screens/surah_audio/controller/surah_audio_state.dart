@@ -20,5 +20,4 @@ class SurahAudioState {
   RxBool isPlayExpanded = false.obs;
 
   TextEditingController textController = TextEditingController();
-  final BoxController boxController = BoxController();
 }
