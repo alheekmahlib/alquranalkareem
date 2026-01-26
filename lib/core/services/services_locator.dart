@@ -18,7 +18,6 @@ import '/presentation/screens/ourApp/controller/ourApps_controller.dart';
 import '/presentation/screens/quran_page/quran.dart';
 import '/presentation/screens/quran_page/widgets/search/controller/quran_search_controller.dart';
 import '/presentation/screens/splash/splash.dart';
-import '/presentation/screens/surah_audio/controller/surah_audio_controller.dart';
 import '/presentation/screens/whats_new/whats_new.dart';
 import '../utils/helpers/ui_helper.dart';
 import '../widgets/local_notification/controller/local_notifications_controller.dart';
@@ -44,65 +43,90 @@ class ServicesLocator {
 
     // Controllers
     sl.registerLazySingleton<ThemeController>(
-        () => Get.put<ThemeController>(ThemeController(), permanent: true));
+      () => Get.put<ThemeController>(ThemeController(), permanent: true),
+    );
 
     sl.registerLazySingleton<GeneralController>(
-        () => Get.put<GeneralController>(GeneralController(), permanent: true));
+      () => Get.put<GeneralController>(GeneralController(), permanent: true),
+    );
 
     sl.registerLazySingleton<AudioController>(
-        () => Get.put<AudioController>(AudioController(), permanent: true));
+      () => Get.put<AudioController>(AudioController(), permanent: true),
+    );
 
     sl.registerSingleton<QuranController>(
-        Get.put<QuranController>(QuranController(), permanent: true));
+      Get.put<QuranController>(QuranController(), permanent: true),
+    );
 
-    sl.registerLazySingleton<SurahAudioController>(() =>
-        Get.put<SurahAudioController>(SurahAudioController(), permanent: true));
+    sl.registerLazySingleton<TafsirAndTranslateController>(
+      () => Get.put<TafsirAndTranslateController>(
+        TafsirAndTranslateController(),
+        permanent: true,
+      ),
+    );
 
-    sl.registerLazySingleton<TafsirAndTranslateController>(() =>
-        Get.put<TafsirAndTranslateController>(TafsirAndTranslateController(),
-            permanent: true));
+    sl.registerLazySingleton<BookmarksController>(
+      () =>
+          Get.put<BookmarksController>(BookmarksController(), permanent: true),
+    );
 
-    sl.registerLazySingleton<BookmarksController>(() =>
-        Get.put<BookmarksController>(BookmarksController(), permanent: true));
+    sl.registerLazySingleton<QuranSearchController>(
+      () => Get.put<QuranSearchController>(
+        QuranSearchController(),
+        permanent: true,
+      ),
+    );
 
-    sl.registerLazySingleton<QuranSearchController>(() =>
-        Get.put<QuranSearchController>(QuranSearchController(),
-            permanent: true));
-
-    sl.registerLazySingleton<SettingsController>(() =>
-        Get.put<SettingsController>(SettingsController(), permanent: true));
+    sl.registerLazySingleton<SettingsController>(
+      () => Get.put<SettingsController>(SettingsController(), permanent: true),
+    );
 
     sl.registerSingleton<AzkarController>(
-        Get.put<AzkarController>(AzkarController(), permanent: true));
+      Get.put<AzkarController>(AzkarController(), permanent: true),
+    );
 
     sl.registerLazySingleton<ShareController>(
-        () => Get.put<ShareController>(ShareController(), permanent: true));
+      () => Get.put<ShareController>(ShareController(), permanent: true),
+    );
 
-    sl.registerLazySingleton<PlayListController>(() =>
-        Get.put<PlayListController>(PlayListController(), permanent: true));
+    sl.registerLazySingleton<PlayListController>(
+      () => Get.put<PlayListController>(PlayListController(), permanent: true),
+    );
 
-    sl.registerLazySingleton<SplashScreenController>(() =>
-        Get.put<SplashScreenController>(SplashScreenController(),
-            permanent: true));
+    sl.registerLazySingleton<SplashScreenController>(
+      () => Get.put<SplashScreenController>(
+        SplashScreenController(),
+        permanent: true,
+      ),
+    );
 
     sl.registerLazySingleton<OurAppsController>(
-        () => Get.put<OurAppsController>(OurAppsController(), permanent: true));
+      () => Get.put<OurAppsController>(OurAppsController(), permanent: true),
+    );
 
     sl.registerLazySingleton<KhatmahController>(
-        () => Get.put<KhatmahController>(KhatmahController(), permanent: true));
+      () => Get.put<KhatmahController>(KhatmahController(), permanent: true),
+    );
 
-    sl.registerLazySingleton<DailyAyahController>(() =>
-        Get.put<DailyAyahController>(DailyAyahController(), permanent: true));
+    sl.registerLazySingleton<DailyAyahController>(
+      () =>
+          Get.put<DailyAyahController>(DailyAyahController(), permanent: true),
+    );
 
     sl.registerLazySingleton<BooksController>(
-        () => Get.put<BooksController>(BooksController(), permanent: true));
+      () => Get.put<BooksController>(BooksController(), permanent: true),
+    );
 
-    sl.registerLazySingleton<WhatsNewController>(() =>
-        Get.put<WhatsNewController>(WhatsNewController(), permanent: true));
+    sl.registerLazySingleton<WhatsNewController>(
+      () => Get.put<WhatsNewController>(WhatsNewController(), permanent: true),
+    );
 
-    sl.registerLazySingleton<LocalNotificationsController>(() =>
-        Get.put<LocalNotificationsController>(LocalNotificationsController(),
-            permanent: true));
+    sl.registerLazySingleton<LocalNotificationsController>(
+      () => Get.put<LocalNotificationsController>(
+        LocalNotificationsController(),
+        permanent: true,
+      ),
+    );
 
     // sl.registerLazySingleton<TafsirCtrl>(
     //     () => Get.put<TafsirCtrl>(TafsirCtrl(), permanent: true));

@@ -1,13 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:just_audio/just_audio.dart';
-
-import '/core/utils/constants/extensions/svg_extensions.dart';
-import '../../../../core/services/notifications_manager.dart';
-import '../../../../core/utils/constants/lottie.dart';
-import '../../../../core/utils/constants/lottie_constants.dart';
-import '../../../../core/utils/constants/svg_constants.dart';
-import '../controller/surah_audio_controller.dart';
+part of '../surah_audio.dart';
 
 class OnlinePlayButton extends StatelessWidget {
   final bool isRepeat;
@@ -15,7 +6,7 @@ class OnlinePlayButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final surahAudioCtrl = SurahAudioController.instance;
+    final surahAudioCtrl = AudioCtrl.instance;
     return SizedBox(
       height: 120,
       child: Stack(
@@ -83,19 +74,13 @@ class OnlinePlayButton extends StatelessWidget {
                       NotificationManager().updateBookProgress(
                         'quranAudio'.tr,
                         'notifyListenBody'.tr,
-                        surahAudioCtrl.state.surahNum.value,
+                        surahAudioCtrl.state.currentAudioListSurahNum.value,
                       );
-                      surahAudioCtrl.cancelDownload();
-                      surahAudioCtrl.state.isPlaying.value = true;
-                      surahAudioCtrl.state.boxController.openBox();
-                      // await surahAudioCtrl.state.audioPlayer.pause();
-                      surahAudioCtrl
-                                  .state
-                                  .surahDownloadStatus
-                                  .value[surahAudioCtrl.state.surahNum.value] ??
-                              false
-                          ? await surahAudioCtrl.startDownload()
-                          : await surahAudioCtrl.state.audioPlayer.play();
+                      surahAudioCtrl.playSurah(
+                        context: context,
+                        surahNumber:
+                            surahAudioCtrl.state.currentAudioListSurahNum.value,
+                      );
                     },
                   );
                 } else if (processingState != ProcessingState.completed ||

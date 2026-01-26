@@ -6,7 +6,7 @@ import '../../../presentation/screens/adhkar/screens/adhkar_view.dart';
 import '../../../presentation/screens/alwaqf_screen/alwaqf_screen.dart';
 import '../../../presentation/screens/books/screens/books_screen.dart';
 import '../../../presentation/screens/quran_page/quran.dart';
-import '../../../presentation/screens/surah_audio/audio_surah.dart';
+import '../../../presentation/screens/surah_audio/surah_audio.dart';
 import 'api_constants.dart';
 
 List<String> translateName = <String>[
@@ -81,7 +81,7 @@ final List screensList = [
     'name': 'quranAudio',
     'svgUrl': 'assets/svg/quran_au_ic.svg',
     'imagePath': 'assets/images/audio.png',
-    'route': () => AudioScreen(),
+    'route': () => const AudioScreen(),
     'width': 240.0,
   },
   {

@@ -105,7 +105,7 @@ class PagesPage extends StatelessWidget {
                                                           ? page.content
                                                                 .buildTextSpans()
                                                           : page.content
-                                                                .removeDiacritics(
+                                                                .removeDiacriticsQuran(
                                                                   page.content,
                                                                 )
                                                                 .buildTextSpans(),

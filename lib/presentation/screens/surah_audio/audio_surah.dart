@@ -1,43 +1,116 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_sliding_box/flutter_sliding_box.dart';
-
-import '/core/utils/constants/extensions/extensions.dart';
-import '/presentation/screens/surah_audio/controller/extensions/surah_audio_storage_getters.dart';
-import 'controller/surah_audio_controller.dart';
-import 'widgets/back_drop_widget.dart';
-import 'widgets/collapsed_play_widget.dart';
-import 'widgets/play_widget.dart';
+part of 'surah_audio.dart';
 
 class AudioScreen extends StatelessWidget {
-  AudioScreen({super.key});
-  final surahCtrl = SurahAudioController.instance;
+  const AudioScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    surahCtrl.loadLastSurahListen;
-    final size = MediaQuery.sizeOf(context);
-    return Scaffold(
-      backgroundColor: Theme.of(context).colorScheme.primary,
-      body: SafeArea(
-        child: SlidingBox(
-          controller: surahCtrl.state.boxController,
-          minHeight: 80,
-          maxHeight: 290,
-          color: Theme.of(context).colorScheme.primaryContainer,
-          borderRadius: const BorderRadius.all(Radius.circular(8)),
-          animationCurve: Curves.easeInOut,
-          animationDuration: const Duration(milliseconds: 250),
-          draggableIconVisible: false,
-          collapsed: true,
-          backdrop: Backdrop(
-            fading: false,
-            overlay: false,
-            color: Theme.of(context).colorScheme.primaryContainer,
-            body: const BackDropWidget(),
+    final surahCtrl = AudioCtrl.instance;
+    // surahCtrl.loadSurahReader();
+    // surahCtrl.loadLastSurahListen;
+    return PopScope(
+      canPop: false,
+      onPopInvokedWithResult: (bool didPop, _) {
+        if (didPop) {
+          return;
+        }
+        surahCtrl.state.audioPlayer.stop();
+        Navigator.pop(context);
+      },
+      child: Scaffold(
+        backgroundColor: context.theme.colorScheme.primaryContainer,
+        body: SafeArea(
+          child: Container(
+            color: context.theme.colorScheme.primaryContainer,
+            child: Stack(
+              children: [
+                const BackDropWidget(),
+                Align(
+                  alignment: Alignment.bottomCenter,
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      GestureDetector(
+                        // عند السحب للأعلى يفتح السلايدر، وعند السحب للأسفل يغلق
+                        // On vertical drag: up opens, down closes
+                        onVerticalDragUpdate: (details) {
+                          if (details.primaryDelta != null) {
+                            if (details.primaryDelta! < -8) {
+                              // سحب للأعلى: فتح السلايدر
+                              // Drag up: open
+                              Future.delayed(
+                                const Duration(milliseconds: 10),
+                                () =>
+                                    surahCtrl.surahState.isPlayExpanded.value =
+                                        true,
+                              );
+                            } else if (details.primaryDelta! > 8) {
+                              // سحب للأسفل: إغلاق السلايدر
+                              // Drag down: close
+
+                              surahCtrl.surahState.isPlayExpanded.value = false;
+                            }
+                          }
+                        },
+                        child: Container(
+                          width: context.customOrientation(
+                            Get.width,
+                            Get.width * .5,
+                          ),
+                          margin: const EdgeInsets.only(
+                            left: 16,
+                            right: 16,
+                            top: 16,
+                          ),
+                          decoration: BoxDecoration(
+                            color: context.theme.colorScheme.primary,
+                            borderRadius: const BorderRadius.all(
+                              Radius.circular(8),
+                            ),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.black.withValues(alpha: .2),
+                                spreadRadius: 1,
+                                blurRadius: 5,
+                                offset: const Offset(
+                                  0,
+                                  -5,
+                                ), // changes position of shadow
+                              ),
+                            ],
+                          ),
+                          child: Obx(
+                            () => AnimatedSize(
+                              duration: const Duration(milliseconds: 300),
+                              alignment: AlignmentGeometry.bottomCenter,
+                              child: AnimatedCrossFade(
+                                // مطابقة مدة الأنيميشن مع السلايدر لتجنب overflow
+                                // Match animation duration with slider to avoid overflow
+                                duration: const Duration(milliseconds: 200),
+                                reverseDuration: const Duration(
+                                  milliseconds: 200,
+                                ),
+                                secondCurve: Curves.linear,
+                                firstChild: const SizedBox(
+                                  height: 100,
+                                  child: CollapsedPlayWidget(),
+                                ),
+                                secondChild: PlayWidget(),
+                                crossFadeState:
+                                    surahCtrl.surahState.isPlayExpanded.value
+                                    ? CrossFadeState.showSecond
+                                    : CrossFadeState.showFirst,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
           ),
-          width: context.customOrientation(size.width, size.width * 0.5),
-          collapsedBody: const CollapsedPlayWidget(),
-          body: PlayWidget(),
         ),
       ),
     );
