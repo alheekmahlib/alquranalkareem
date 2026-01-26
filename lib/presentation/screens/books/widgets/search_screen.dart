@@ -24,11 +24,12 @@ class SearchScreen extends StatelessWidget {
     return Container(
       height: Get.height * .9,
       decoration: BoxDecoration(
-          color: Theme.of(context).colorScheme.primary,
-          borderRadius: const BorderRadius.only(
-            topRight: Radius.circular(8),
-            topLeft: Radius.circular(8),
-          )),
+        color: Theme.of(context).colorScheme.primary,
+        borderRadius: const BorderRadius.only(
+          topRight: Radius.circular(8),
+          topLeft: Radius.circular(8),
+        ),
+      ),
       child: Column(
         children: [
           const Gap(16),
@@ -61,8 +62,10 @@ class SearchScreen extends StatelessWidget {
           Expanded(
             child: Container(
               width: Get.width,
-              margin:
-                  const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+              margin: const EdgeInsets.symmetric(
+                horizontal: 16.0,
+                vertical: 8.0,
+              ),
               decoration: BoxDecoration(
                 color: Theme.of(context).colorScheme.primaryContainer,
                 borderRadius: const BorderRadius.all(Radius.circular(8)),
@@ -70,11 +73,14 @@ class SearchScreen extends StatelessWidget {
               child: Obx(() {
                 if (booksCtrl.state.isLoading.value) {
                   return const Center(
-                      child: CircularProgressIndicator.adaptive());
+                    child: CircularProgressIndicator.adaptive(),
+                  );
                 }
                 final downloadedBooks = booksCtrl.state.booksList
-                    .where((book) =>
-                        booksCtrl.state.downloaded[book.bookNumber] == true)
+                    .where(
+                      (book) =>
+                          booksCtrl.state.downloaded[book.bookNumber] == true,
+                    )
                     .toList();
                 if (booksCtrl.state.searchResults.isNotEmpty) {
                   return ListView.builder(
@@ -88,32 +94,46 @@ class SearchScreen extends StatelessWidget {
                               Get.back();
                               isInBook!
                                   ? booksCtrl.moveToPage(
-                                      result.title, result.bookNumber)
+                                      result.title,
+                                      result.bookNumber,
+                                    )
                                   : await booksCtrl.moveToBookPage(
-                                      result.title, result.bookNumber);
+                                      result.title,
+                                      result.bookNumber,
+                                    );
                             },
                             child: Container(
                               margin: const EdgeInsets.symmetric(
-                                  horizontal: 16.0, vertical: 8.0),
+                                horizontal: 16.0,
+                                vertical: 8.0,
+                              ),
                               decoration: BoxDecoration(
-                                color: Theme.of(context)
-                                    .colorScheme
-                                    .primary
-                                    .withValues(alpha: .1),
-                                borderRadius:
-                                    const BorderRadius.all(Radius.circular(8)),
+                                color: Theme.of(
+                                  context,
+                                ).colorScheme.primary.withValues(alpha: .1),
+                                borderRadius: const BorderRadius.all(
+                                  Radius.circular(8),
+                                ),
                               ),
                               child: Column(
                                 children: [
                                   Padding(
                                     padding: const EdgeInsets.symmetric(
-                                        vertical: 8.0, horizontal: 16.0),
+                                      vertical: 8.0,
+                                      horizontal: 16.0,
+                                    ),
                                     child: Text.rich(
                                       TextSpan(
                                         children: result.content
-                                            .removeDiacritics(result.content)
-                                            .highlightLine(booksCtrl
-                                                .state.searchController.text),
+                                            .removeDiacriticsQuran(
+                                              result.content,
+                                            )
+                                            .highlightLine(
+                                              booksCtrl
+                                                  .state
+                                                  .searchController
+                                                  .text,
+                                            ),
                                         style: TextStyle(
                                           fontFamily: "naskh",
                                           fontWeight: FontWeight.normal,
@@ -131,17 +151,20 @@ class SearchScreen extends StatelessWidget {
                                         flex: 4,
                                         child: Container(
                                           padding: const EdgeInsets.symmetric(
-                                              horizontal: 4.0, vertical: 2.0),
+                                            horizontal: 4.0,
+                                            vertical: 2.0,
+                                          ),
                                           decoration: BoxDecoration(
-                                            color: Theme.of(context)
-                                                .colorScheme
-                                                .primary,
+                                            color: Theme.of(
+                                              context,
+                                            ).colorScheme.primary,
                                             borderRadius:
-                                                const BorderRadiusDirectional
-                                                    .only(
-                                              topStart: Radius.circular(8),
-                                              bottomStart: Radius.circular(8),
-                                            ),
+                                                const BorderRadiusDirectional.only(
+                                                  topStart: Radius.circular(8),
+                                                  bottomStart: Radius.circular(
+                                                    8,
+                                                  ),
+                                                ),
                                           ),
                                           child: Text(
                                             result.bookTitle,
@@ -149,8 +172,9 @@ class SearchScreen extends StatelessWidget {
                                               fontFamily: "kufi",
                                               fontWeight: FontWeight.normal,
                                               fontSize: 14,
-                                              color:
-                                                  Theme.of(context).canvasColor,
+                                              color: Theme.of(
+                                                context,
+                                              ).canvasColor,
                                             ),
                                             maxLines: 1,
                                             overflow: TextOverflow.ellipsis,
@@ -162,17 +186,18 @@ class SearchScreen extends StatelessWidget {
                                         flex: 4,
                                         child: Container(
                                           padding: const EdgeInsets.symmetric(
-                                              horizontal: 4.0, vertical: 2.0),
+                                            horizontal: 4.0,
+                                            vertical: 2.0,
+                                          ),
                                           decoration: BoxDecoration(
-                                            color: Theme.of(context)
-                                                .colorScheme
-                                                .primary,
+                                            color: Theme.of(
+                                              context,
+                                            ).colorScheme.primary,
                                             borderRadius:
-                                                const BorderRadiusDirectional
-                                                    .only(
-                                              topEnd: Radius.circular(8),
-                                              bottomEnd: Radius.circular(8),
-                                            ),
+                                                const BorderRadiusDirectional.only(
+                                                  topEnd: Radius.circular(8),
+                                                  bottomEnd: Radius.circular(8),
+                                                ),
                                           ),
                                           child: Text(
                                             result.title,
@@ -180,8 +205,9 @@ class SearchScreen extends StatelessWidget {
                                               fontFamily: "kufi",
                                               fontWeight: FontWeight.normal,
                                               fontSize: 14,
-                                              color:
-                                                  Theme.of(context).canvasColor,
+                                              color: Theme.of(
+                                                context,
+                                              ).canvasColor,
                                             ),
                                             maxLines: 1,
                                             overflow: TextOverflow.ellipsis,
@@ -194,7 +220,7 @@ class SearchScreen extends StatelessWidget {
                               ),
                             ),
                           ),
-                          context.hDivider(width: Get.width)
+                          context.hDivider(width: Get.width),
                         ],
                       );
                     },
@@ -214,17 +240,20 @@ class SearchScreen extends StatelessWidget {
                                 'noBooksDownloaded'.tr,
                                 textAlign: TextAlign.center,
                                 style: TextStyle(
-                                    color:
-                                        Theme.of(context).colorScheme.surface,
-                                    fontFamily: 'kufi',
-                                    fontWeight: FontWeight.w700,
-                                    fontSize: 18),
+                                  color: Theme.of(context).colorScheme.surface,
+                                  fontFamily: 'kufi',
+                                  fontWeight: FontWeight.w700,
+                                  fontSize: 18,
+                                ),
                               ),
                               const Gap(64),
                             ],
                           )
-                        : customLottie(LottieConstants.assetsLottieNotFound,
-                            height: 200.0, width: 200.0),
+                        : customLottie(
+                            LottieConstants.assetsLottieNotFound,
+                            height: 200.0,
+                            width: 200.0,
+                          ),
                   );
                 }
               }),

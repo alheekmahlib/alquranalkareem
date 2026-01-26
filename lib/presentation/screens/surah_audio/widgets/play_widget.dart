@@ -1,27 +1,13 @@
-import 'package:alquranalkareem/presentation/screens/quran_page/quran.dart'
-    as quran;
-import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-
-import '/core/utils/constants/extensions/extensions.dart';
-import '/core/utils/constants/extensions/svg_extensions.dart';
-import '../../../../core/utils/constants/svg_constants.dart';
-import '../controller/surah_audio_controller.dart';
-import 'change_reader.dart';
-import 'download_play_button.dart';
-import 'online_play_button.dart';
-import 'skip_next.dart';
-import 'skip_previous.dart';
-import 'surah_seek_bar.dart';
+part of '../surah_audio.dart';
 
 class PlayWidget extends StatelessWidget {
   PlayWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final surahCtrl = SurahAudioController.instance;
+    final surahCtrl = AudioCtrl.instance;
     return Container(
-      height: 297,
+      height: 305,
       width: context.customOrientation(Get.width, Get.width * .5),
       decoration: BoxDecoration(
         color: Theme.of(context).colorScheme.primaryContainer,
@@ -57,8 +43,9 @@ class PlayWidget extends StatelessWidget {
             child: Padding(
               padding: const EdgeInsets.all(16.0),
               child: context.customArrowDown(
-                  isBorder: true,
-                  close: () => surahCtrl.state.boxController.closeBox()),
+                isBorder: true,
+                close: () => surahCtrl.surahState.boxController.closeBox(),
+              ),
             ),
           ),
           Column(
@@ -70,14 +57,15 @@ class PlayWidget extends StatelessWidget {
                     Opacity(
                       opacity: .1,
                       child: surahNameWidget(
-                        surahCtrl.state.surahNum.value.toString(),
+                        surahCtrl.state.currentAudioListSurahNum.value
+                            .toString(),
                         Get.theme.colorScheme.primary,
                         height: 90,
                         width: 150,
                       ),
                     ),
                     surahNameWidget(
-                      surahCtrl.state.surahNum.value.toString(),
+                      surahCtrl.state.currentAudioListSurahNum.value.toString(),
                       Get.theme.colorScheme.primary,
                       height: 70,
                       width: 150,
@@ -85,20 +73,16 @@ class PlayWidget extends StatelessWidget {
                   ],
                 ),
               ),
-              const ChangeSurahReader(),
+              SurahChangeSurahReader(
+                style: surahCtrl.surahAudioStyle,
+                isDark: ThemeController.instance.isDarkMode,
+              ),
               const SurahSeekBar(),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 32.0),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
-                    Obx(
-                      () => surahCtrl.state.surahDownloadStatus
-                                  .value[surahCtrl.state.surahNum.value] ??
-                              false
-                          ? const SizedBox.shrink()
-                          : const DownloadPlayButton(),
-                    ),
                     Row(
                       children: [
                         IconButton(
@@ -112,20 +96,27 @@ class PlayWidget extends StatelessWidget {
                             ),
                           ),
                           onPressed: () {
-                            surahCtrl.state.audioPlayer.seek(Duration(
-                                seconds: surahCtrl
-                                    .state.seekNextSeconds.value -= 5));
+                            surahCtrl.state.audioPlayer.seek(
+                              Duration(
+                                seconds:
+                                    surahCtrl.state.seekNextSeconds.value -= 5,
+                              ),
+                            );
                           },
                         ),
-                        const SkipToPrevious(),
+                        SurahSkipToNext(
+                          style: surahCtrl.surahAudioStyle,
+                          languageCode: Get.locale!.languageCode,
+                        ),
                       ],
                     ),
-                    const OnlinePlayButton(
-                      isRepeat: true,
-                    ),
+                    const OnlinePlayButton(isRepeat: true),
                     Row(
                       children: [
-                        const SkipToNext(),
+                        SurahSkipToPrevious(
+                          style: surahCtrl.surahAudioStyle,
+                          languageCode: Get.locale!.languageCode,
+                        ),
                         IconButton(
                           icon: Semantics(
                             button: true,
@@ -137,9 +128,11 @@ class PlayWidget extends StatelessWidget {
                             ),
                           ),
                           onPressed: () => surahCtrl.state.audioPlayer.seek(
-                              Duration(
-                                  seconds: surahCtrl
-                                      .state.seekNextSeconds.value += 5)),
+                            Duration(
+                              seconds: surahCtrl.state.seekNextSeconds.value +=
+                                  5,
+                            ),
+                          ),
                         ),
                       ],
                     ),

@@ -1,0 +1,40 @@
+import 'dart:developer';
+
+import 'package:anim_search_bar/anim_search_bar.dart';
+import 'package:arabic_numbers/arabic_numbers.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
+import 'package:flutter_sliding_box/flutter_sliding_box.dart';
+import 'package:gap/gap.dart';
+import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
+import 'package:mini_music_visualizer/mini_music_visualizer.dart';
+import 'package:quran_library/quran_library.dart';
+import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
+
+import '/presentation/controllers/theme_controller.dart';
+import '../../../core/services/notifications_manager.dart';
+import '../../../core/utils/constants/extensions/convert_number_extension.dart';
+import '../../../core/utils/constants/extensions/extensions.dart';
+import '../../../core/utils/constants/extensions/svg_extensions.dart';
+import '../../../core/utils/constants/lottie.dart';
+import '../../../core/utils/constants/lottie_constants.dart';
+import '../../../core/utils/constants/svg_constants.dart';
+import '../../../core/widgets/seek_bar.dart';
+import '../../../core/widgets/tab_bar_widget.dart';
+import '../quran_page/quran.dart';
+import '../quran_page/widgets/search/search_extensions/convert_arabic_to_english_numbers_extension.dart';
+import '../quran_page/widgets/search/search_extensions/highlight_extension.dart';
+
+part '../surah_audio/audio_surah.dart';
+part '../surah_audio/controller/surah_audio_helper.dart';
+part '../surah_audio/controller/surah_audio_state.dart';
+part '../surah_audio/widgets/back_drop_widget.dart';
+part '../surah_audio/widgets/collapsed_play_widget.dart';
+part '../surah_audio/widgets/last_listen.dart';
+part '../surah_audio/widgets/online_play_button.dart';
+part '../surah_audio/widgets/play_banner.dart';
+part '../surah_audio/widgets/play_widget.dart';
+part '../surah_audio/widgets/surah_audio_list.dart';
+part '../surah_audio/widgets/surah_search.dart';
+part '../surah_audio/widgets/surah_seek_bar.dart';

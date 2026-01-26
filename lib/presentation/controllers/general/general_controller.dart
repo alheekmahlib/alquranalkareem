@@ -6,7 +6,7 @@ import '/presentation/screens/home/home_screen.dart';
 import '../../screens/adhkar/screens/adhkar_view.dart';
 import '../../screens/books/screens/books_screen.dart';
 import '../../screens/quran_page/quran.dart';
-import '../../screens/surah_audio/audio_surah.dart';
+import '../../screens/surah_audio/surah_audio.dart';
 import 'general_state.dart';
 
 class GeneralController extends GetxController {
@@ -64,7 +64,7 @@ class GeneralController extends GetxController {
       case 3:
         return const AdhkarView();
       case 4:
-        return AudioScreen();
+        return const AudioScreen();
       case 5:
         return BooksScreen();
       default:

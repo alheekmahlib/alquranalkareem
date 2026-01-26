@@ -1,20 +1,14 @@
-import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-
-import '/presentation/screens/surah_audio/controller/extensions/surah_audio_getters.dart';
-import '/presentation/screens/surah_audio/controller/extensions/surah_audio_storage_getters.dart';
-import '../../../../core/widgets/seek_bar.dart';
-import '../controller/surah_audio_controller.dart';
+part of '../surah_audio.dart';
 
 class SurahSeekBar extends StatelessWidget {
   const SurahSeekBar({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return GetBuilder<SurahAudioController>(
-      id: 'seekBar_id',
-      builder: (c) => c.state.onDownloading.value
-          ? GetX<SurahAudioController>(
+    return GetBuilder<AudioCtrl>(
+      id: 'surahDownloadManager_id',
+      builder: (c) => c.state.isDownloading.value
+          ? GetX<AudioCtrl>(
               builder: (c) {
                 return SliderWidget.downloading(
                   currentPosition: c.state.downloadProgress.value.toInt(),
@@ -23,24 +17,24 @@ class SurahSeekBar extends StatelessWidget {
                 );
               },
             )
-          : StreamBuilder<PositionData>(
+          : StreamBuilder<PackagePositionData>(
               stream: c.positionDataStream,
               builder: (context, snapshot) {
                 if (snapshot.hasData && snapshot.data != null) {
                   c.state.positionData?.value = snapshot.data!;
-                  final positionData = snapshot.data;
+                  final positionData = snapshot.data!;
 
                   return SliderWidget.player(
                     horizontalPadding: 32.0,
-                    duration: positionData!.duration,
+                    duration: positionData.duration,
                     position: c.state.lastTime != null
                         ? Duration(seconds: c.state.lastPosition.value.toInt())
                         : positionData.position,
                     // bufferedPosition: positionData.bufferedPosition,
                     onChangeEnd: (newPosition) {
-                      c.updateControllerValues(positionData);
                       c.state.audioPlayer.seek(newPosition);
-                      c.saveLastSurahListen();
+                      // c.saveLastSurahListen(
+                      //     c.state.currentAudioListSurahNum.value);
                       c.state.seekNextSeconds.value =
                           positionData.position.inSeconds;
                     },

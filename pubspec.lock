@@ -68,12 +68,11 @@ packages:
   arabic_justified_text:
     dependency: transitive
     description:
-      path: "."
-      ref: main
-      resolved-ref: "5e4065847f05b1887ccf2408fa9b2b38f8855afd"
-      url: "https://github.com/AhmedAlboishe/arabic_justified_text.git"
-    source: git
-    version: "0.0.6"
+      name: arabic_justified_text
+      sha256: "0a0516fe91ec3cbdebd0afc701ea280fe9bc8c51ab0b8a41b614688aed98e995"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.2"
   arabic_numbers:
     dependency: "direct main"
     description:
@@ -580,14 +579,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.1.5"
-  flutter_sliding_panel:
-    dependency: transitive
-    description:
-      name: flutter_sliding_panel
-      sha256: "2bb06ac71954b8304092485a0e6fdd03eafb4bb0d2b915ce98e61a62fc8a580d"
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.0.5"
   flutter_staggered_animations:
     dependency: "direct main"
     description:
@@ -634,10 +625,10 @@ packages:
     dependency: "direct main"
     description:
       name: get
-      sha256: c79eeb4339f1f3deffd9ec912f8a923834bec55f7b49c9e882b8fef2c139d425
+      sha256: "5ed34a7925b85336e15d472cc4cfe7d9ebf4ab8e8b9f688585bf6b50f4c3d79a"
       url: "https://pub.dev"
     source: hosted
-    version: "4.7.2"
+    version: "4.7.3"
   get_it:
     dependency: "direct main"
     description:
@@ -1105,12 +1096,11 @@ packages:
   quran_library:
     dependency: "direct main"
     description:
-      path: "."
-      ref: main
-      resolved-ref: d9299f0db9a3d2b80df92a0f274bfc1e0198df84
-      url: "https://github.com/alheekmahlib/quran_library.git"
-    source: git
-    version: "2.3.2"
+      name: quran_library
+      sha256: "3022aeb7ab8fbd5ddf364292c8fb1b273d69e9ac67d047b2d3cef2cd89a86538"
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.3.5"
   rate_my_app:
     dependency: "direct main"
     description:

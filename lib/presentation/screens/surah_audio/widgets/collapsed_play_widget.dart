@@ -1,15 +1,4 @@
-import 'package:alquranalkareem/presentation/screens/quran_page/quran.dart'
-    as quran;
-import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-
-import '/core/utils/constants/extensions/svg_extensions.dart';
-import '../../../../core/utils/constants/extensions/extensions.dart';
-import '../../../../core/utils/constants/svg_constants.dart';
-import '../controller/surah_audio_controller.dart';
-import 'online_play_button.dart';
-import 'skip_next.dart';
-import 'skip_previous.dart';
+part of '../surah_audio.dart';
 
 class CollapsedPlayWidget extends StatelessWidget {
   const CollapsedPlayWidget({super.key});
@@ -22,7 +11,7 @@ class CollapsedPlayWidget extends StatelessWidget {
       child: Container(
         width: context.customOrientation(width, width * .5),
         decoration: BoxDecoration(
-          color: Theme.of(context).colorScheme.primary.withValues(alpha: .15),
+          color: Theme.of(context).colorScheme.primaryContainer,
         ),
         child: Stack(
           children: [
@@ -54,18 +43,23 @@ class CollapsedPlayWidget extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  const Row(
+                  Row(
                     children: [
-                      SkipToPrevious(),
-                      OnlinePlayButton(
-                        isRepeat: false,
+                      SurahSkipToNext(
+                        style: AudioCtrl.instance.surahAudioStyle,
+                        languageCode: Get.locale!.languageCode,
                       ),
-                      SkipToNext(),
+                      const OnlinePlayButton(isRepeat: false),
+                      SurahSkipToPrevious(
+                        style: AudioCtrl.instance.surahAudioStyle,
+                        languageCode: Get.locale!.languageCode,
+                      ),
                     ],
                   ),
                   Obx(
                     () => surahNameWidget(
-                      SurahAudioController.instance.state.surahNum.toString(),
+                      AudioCtrl.instance.state.currentAudioListSurahNum
+                          .toString(),
                       Get.theme.colorScheme.primary,
                       height: 50,
                       width: 100,

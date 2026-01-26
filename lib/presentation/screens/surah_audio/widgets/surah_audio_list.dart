@@ -1,21 +1,10 @@
-import 'package:alquranalkareem/core/utils/constants/extensions/convert_number_extension.dart';
-import 'package:alquranalkareem/presentation/screens/surah_audio/controller/extensions/surah_audio_storage_getters.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
-import 'package:gap/gap.dart';
-import 'package:get/get.dart';
-import 'package:mini_music_visualizer/mini_music_visualizer.dart';
-
-import '/core/utils/constants/extensions/extensions.dart';
-import '/presentation/screens/surah_audio/controller/extensions/surah_audio_ui.dart';
-import '../../quran_page/quran.dart';
-import '../controller/surah_audio_controller.dart';
+part of '../surah_audio.dart';
 
 class SurahAudioList extends StatelessWidget {
   SurahAudioList({super.key});
 
   final QuranController quranCtrl = QuranController.instance;
-  final surahAudioCtrl = SurahAudioController.instance;
+  final surahAudioCtrl = AudioCtrl.instance;
 
   @override
   Widget build(BuildContext context) {
@@ -24,12 +13,12 @@ class SurahAudioList extends StatelessWidget {
 
     return Container(
       margin: const EdgeInsets.only(
-        bottom: 50.0,
-        right: 32.0,
-        left: 32.0,
+        bottom: 110.0,
+        right: 16.0,
+        left: 16.0,
         top: 16.0,
       ),
-      padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+      padding: const EdgeInsets.all(8.0),
       decoration: BoxDecoration(
         borderRadius: const BorderRadius.all(Radius.circular(8)),
         border: Border.all(
@@ -48,7 +37,6 @@ class SurahAudioList extends StatelessWidget {
         padding: EdgeInsets.zero,
         itemBuilder: (_, index) {
           final surah = quranCtrl.state.surahs[index];
-          int surahNumber = index + 1;
 
           return Obx(
             () => Column(
@@ -57,7 +45,7 @@ class SurahAudioList extends StatelessWidget {
                   child: Container(
                     height: 70,
                     decoration: BoxDecoration(
-                      color: surahAudioCtrl.state.selectedSurah == index
+                      color: surahAudioCtrl.isSelectedSurahIndex(index).value
                           ? Theme.of(
                               context,
                             ).colorScheme.primary.withValues(alpha: .15)
@@ -71,18 +59,16 @@ class SurahAudioList extends StatelessWidget {
                           Expanded(
                             flex: 2,
                             child: Align(
-                              alignment: Alignment.centerRight,
+                              alignment: AlignmentDirectional.centerStart,
                               child: Stack(
                                 alignment: Alignment.center,
                                 children: [
                                   SizedBox(
                                     height: 50,
                                     width: 50,
-                                    child: SvgPicture.asset(
-                                      'assets/svg/sora_num.svg',
-                                      colorFilter: ColorFilter.mode(
-                                        Theme.of(context).colorScheme.primary,
-                                        BlendMode.srcIn,
+                                    child: RepaintBoundary(
+                                      child: customSvgWithCustomColor(
+                                        'assets/svg/sora_num.svg',
                                       ),
                                     ),
                                   ),
@@ -111,13 +97,15 @@ class SurahAudioList extends StatelessWidget {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                SvgPicture.asset(
-                                  'assets/svg/surah_name/00${index + 1}.svg',
-                                  colorFilter: ColorFilter.mode(
-                                    Theme.of(context).hintColor,
-                                    BlendMode.srcIn,
+                                RepaintBoundary(
+                                  child: customSvgWithColor(
+                                    'assets/svg/surah_name/00${index + 1}.svg',
+                                    width: 100,
+                                    color: context
+                                        .theme
+                                        .colorScheme
+                                        .inversePrimary,
                                   ),
-                                  width: 100,
                                 ),
                                 Padding(
                                   padding: const EdgeInsets.only(right: 8.0),
@@ -136,8 +124,9 @@ class SurahAudioList extends StatelessWidget {
                               ],
                             ),
                           ),
-                          if (index + 1 ==
-                                  surahAudioCtrl.state.surahNum.value &&
+                          if (surahAudioCtrl
+                                  .isSelectedSurahIndex(index)
+                                  .value &&
                               surahAudioCtrl.state.isPlaying.value)
                             MiniMusicVisualizer(
                               color: Theme.of(context).colorScheme.surface,
@@ -146,33 +135,23 @@ class SurahAudioList extends StatelessWidget {
                               animate: true,
                             ),
                           const Gap(8.0),
-                          Obx(
-                            () =>
-                                surahAudioCtrl
-                                        .state
-                                        .surahDownloadStatus
-                                        .value[surahNumber] ??
-                                    false
-                                ? const SizedBox.shrink()
-                                : Icon(
-                                    Icons.cloud_download_outlined,
-                                    color: Theme.of(
-                                      context,
-                                    ).colorScheme.surface,
-                                  ),
+                          SurahDownloadPlayButton(
+                            surahNumber: index + 1,
+                            style: SurahAudioStyle.defaults(
+                              isDark: themeCtrl.isDarkMode,
+                              context: context,
+                            ),
                           ),
                         ],
                       ),
                     ),
                   ),
-                  onTap: () {
+                  onTap: () async {
                     print('Surah tapped with index: $index');
-                    surahAudioCtrl.state.selectedSurah.value = index;
-                    surahAudioCtrl.state.surahNum.value = index + 1;
-                    surahAudioCtrl.changeAudioSource();
-                    surahAudioCtrl.saveLastSurahListen();
-                    print(
-                      'Updated sorahNum.value to: ${surahAudioCtrl.state.surahNum.value}',
+                    await surahAudioCtrl.selectSurahFromList(
+                      context,
+                      index,
+                      autoPlay: true,
                     );
                   },
                 ),

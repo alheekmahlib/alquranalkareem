@@ -48,11 +48,13 @@ class BooksController extends GetxController {
   Future<void> fetchBooks() async {
     try {
       state.isLoading(true);
-      String jsonString =
-          await rootBundle.loadString('assets/json/collections.json');
+      String jsonString = await rootBundle.loadString(
+        'assets/json/collections.json',
+      );
       var booksJson = json.decode(jsonString) as List;
-      state.booksList.value =
-          booksJson.map((book) => Book.fromJson(book)).toList();
+      state.booksList.value = booksJson
+          .map((book) => Book.fromJson(book))
+          .toList();
       log('Books loaded: ${state.booksList.length}');
       loadDownloadedBooks();
     } catch (e) {
@@ -93,8 +95,10 @@ class BooksController extends GetxController {
         log('Error downloading book: $e');
       } finally {
         state.downloading[bookNumber] = false;
-        Get.context!
-            .showCustomErrorSnackBar('booksDownloaded'.tr, isDone: true);
+        Get.context!.showCustomErrorSnackBar(
+          'booksDownloaded'.tr,
+          isDone: true,
+        );
       }
     }
   }
@@ -128,9 +132,13 @@ class BooksController extends GetxController {
           if (pages != null) {
             for (var page in pages) {
               var pageContent = PageContent.fromJson(
-                  page as Map<String, dynamic>, bookJson['title']);
+                page as Map<String, dynamic>,
+                bookJson['title'],
+              );
               if (pageContent.title == chapterName) {
-                log('Chapter found: ${pageContent.title}, Page: ${pageContent.pageNumber}');
+                log(
+                  'Chapter found: ${pageContent.title}, Page: ${pageContent.pageNumber}',
+                );
                 return pageContent.pageNumber - 1;
               }
             }
@@ -152,11 +160,16 @@ class BooksController extends GetxController {
         String jsonString = await file.readAsString();
         var bookJson = json.decode(jsonString);
         var parts = bookJson['parts'] as List<dynamic>;
-        var pages =
-            parts.expand((part) => part['pages'] as List<dynamic>).toList();
+        var pages = parts
+            .expand((part) => part['pages'] as List<dynamic>)
+            .toList();
         return pages
-            .map((page) => PageContent.fromJson(
-                page as Map<String, dynamic>, bookJson['title']))
+            .map(
+              (page) => PageContent.fromJson(
+                page as Map<String, dynamic>,
+                bookJson['title'],
+              ),
+            )
             .toList();
       } else {
         return [];
@@ -175,7 +188,7 @@ class BooksController extends GetxController {
 
     log('Starting search for: $query');
 
-    String queryWithoutDiacritics = query.removeDiacritics(query);
+    String queryWithoutDiacritics = query.removeDiacriticsQuran(query);
     List<String> queryWords = queryWithoutDiacritics.split(' ');
 
     // إذا كان bookNumber موجودًا، ابحث في هذا الكتاب فقط، وإلا ابحث في جميع الكتب
@@ -191,18 +204,26 @@ class BooksController extends GetxController {
     for (var book in booksToSearch) {
       final pages = await getPages(book.bookNumber);
       for (var page in pages) {
-        String contentWithoutDiacritics =
-            page.content.removeDiacritics(page.content);
-        String titleWithoutDiacritics = page.title.removeDiacritics(page.title);
+        String contentWithoutDiacritics = page.content.removeDiacriticsQuran(
+          page.content,
+        );
+        String titleWithoutDiacritics = page.title.removeDiacriticsQuran(
+          page.title,
+        );
 
-        if (queryWords.every((word) =>
-            contentWithoutDiacritics.contains(word) ||
-            titleWithoutDiacritics.contains(word))) {
-          log('Match found in book ${book.bookName}, page title: ${page.title}');
+        if (queryWords.every(
+          (word) =>
+              contentWithoutDiacritics.contains(word) ||
+              titleWithoutDiacritics.contains(word),
+        )) {
+          log(
+            'Match found in book ${book.bookName}, page title: ${page.title}',
+          );
 
           List<String> words = contentWithoutDiacritics.split(' ');
-          int queryIndex =
-              words.indexWhere((word) => word.contains(queryWords[0]));
+          int queryIndex = words.indexWhere(
+            (word) => word.contains(queryWords[0]),
+          );
 
           if (queryIndex != -1) {
             int start = (queryIndex - 5).clamp(0, words.length);

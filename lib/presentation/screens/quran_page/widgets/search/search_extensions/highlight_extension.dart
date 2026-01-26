@@ -5,12 +5,14 @@ extension HighlightExtension on String {
     List<TextSpan> spans = [];
     int start = 0;
 
-    String lineWithoutDiacritics = removeDiacritics(this);
-    String searchTermWithoutDiacritics = removeDiacritics(searchTerm);
+    String lineWithoutDiacritics = removeDiacriticsQuran(this);
+    String searchTermWithoutDiacritics = removeDiacriticsQuran(searchTerm);
 
     while (start < lineWithoutDiacritics.length) {
-      final startIndex =
-          lineWithoutDiacritics.indexOf(searchTermWithoutDiacritics, start);
+      final startIndex = lineWithoutDiacritics.indexOf(
+        searchTermWithoutDiacritics,
+        start,
+      );
       if (startIndex == -1) {
         spans.add(TextSpan(text: this.substring(start)));
         break;
@@ -23,18 +25,22 @@ extension HighlightExtension on String {
       int endIndex = startIndex + searchTermWithoutDiacritics.length;
       endIndex = endIndex <= this.length ? endIndex : this.length;
 
-      spans.add(TextSpan(
-        text: this.substring(startIndex, endIndex),
-        style: const TextStyle(
-            color: Color(0xffa24308), fontWeight: FontWeight.bold),
-      ));
+      spans.add(
+        TextSpan(
+          text: this.substring(startIndex, endIndex),
+          style: const TextStyle(
+            color: Color(0xffa24308),
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+      );
 
       start = endIndex;
     }
     return spans;
   }
 
-  String removeDiacritics(String input) {
+  String removeDiacriticsQuran(String input) {
     final diacriticsMap = {
       'أ': 'ا',
       'إ': 'ا',

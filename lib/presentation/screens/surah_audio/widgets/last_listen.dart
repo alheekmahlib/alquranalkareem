@@ -1,15 +1,9 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
-import 'package:get/get.dart';
-
-import '/presentation/screens/surah_audio/controller/extensions/surah_audio_getters.dart';
-import '/presentation/screens/surah_audio/controller/extensions/surah_audio_ui.dart';
-import '../controller/surah_audio_controller.dart';
+part of '../surah_audio.dart';
 
 class LastListen extends StatelessWidget {
   LastListen({super.key});
 
-  final surahAudioCtrl = SurahAudioController.instance;
+  final surahAudioCtrl = AudioCtrl.instance;
 
   @override
   Widget build(BuildContext context) {
@@ -19,22 +13,28 @@ class LastListen extends StatelessWidget {
       label: 'lastListen'.tr,
       child: GestureDetector(
         onTap: () {
-          surahAudioCtrl
-              .lastAudioSource()
-              .then((_) => surahAudioCtrl.state.audioPlayer.play());
-          surahAudioCtrl.jumpToSurah((surahAudioCtrl.state.surahNum.value - 1));
-          surahAudioCtrl.state.boxController.openBox();
+          surahAudioCtrl.state.isPlayingSurahsMode = true;
+          surahAudioCtrl.enableSurahAutoNextListener();
+          surahAudioCtrl.enableSurahPositionSaving();
+          surahAudioCtrl.loadLastSurahAndPosition();
+          surahAudioCtrl.state.audioPlayer.play();
+          surahAudioCtrl.state.isSheetOpen.value = true;
+          // surahAudioCtrl.state.boxController.openBox();
+          surahAudioCtrl.jumpToSurah(
+            (surahAudioCtrl.state.selectedSurahIndex.value),
+          );
         },
         child: Container(
           width: 280.0,
           decoration: BoxDecoration(
-              borderRadius: const BorderRadius.all(Radius.circular(8)),
-              border: Border.all(
-                  color: Theme.of(context)
-                      .colorScheme
-                      .primary
-                      .withValues(alpha: .2),
-                  width: 1)),
+            borderRadius: const BorderRadius.all(Radius.circular(8)),
+            border: Border.all(
+              color: Theme.of(
+                context,
+              ).colorScheme.primary.withValues(alpha: .2),
+              width: 1,
+            ),
+          ),
           margin: const EdgeInsets.symmetric(vertical: 8.0),
           child: Row(
             children: <Widget>[
@@ -64,23 +64,25 @@ class LastListen extends StatelessWidget {
                     Container(
                       width: MediaQuery.sizeOf(context).width,
                       padding: const EdgeInsets.symmetric(
-                          horizontal: 6.0, vertical: 4.0),
+                        horizontal: 6.0,
+                        vertical: 4.0,
+                      ),
                       decoration: BoxDecoration(
-                          color: Theme.of(context).colorScheme.primary,
-                          borderRadius:
-                              const BorderRadius.all(Radius.circular(8))),
+                        color: Theme.of(context).colorScheme.primary,
+                        borderRadius: const BorderRadius.all(
+                          Radius.circular(8),
+                        ),
+                      ),
                       child: Obx(
-                        () => SvgPicture.asset(
-                          'assets/svg/surah_name/00${surahAudioCtrl.state.surahNum.value}.svg',
+                        () => customSvgWithColor(
+                          'assets/svg/surah_name/00${surahAudioCtrl.state.selectedSurahIndex.value + 1}.svg',
                           width: 110,
-                          colorFilter: ColorFilter.mode(
-                              Theme.of(context).colorScheme.secondary,
-                              BlendMode.srcIn),
+                          color: Theme.of(context).colorScheme.secondary,
                         ),
                       ),
                     ),
                     if (context.mounted)
-                      GetX<SurahAudioController>(
+                      GetX<AudioCtrl>(
                         builder: (surahAudioController) => Text(
                           '${surahAudioCtrl.formatDuration(Duration(seconds: surahAudioCtrl.state.lastPosition.value))}',
                           style: TextStyle(
