@@ -1149,7 +1149,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "What'sNewDetails10": "۞ Menambahkan dukungan untuk bahasa Kurdi, Turki, dan Rusia di aplikasi.\n۞ Menambahkan lebih banyak pembaca.",
+  "What'sNewDetails10": "۞ Memperbaiki masalah unduhan surah.\n۞ Perbaikan umum pada performa dan stabilitas aplikasi.",
   "@What'sNewDetails10": {
     "type": "text",
     "placeholders": {}
@@ -1275,5 +1275,6 @@
   "Wed": "Rab",
   "Thu": "Kam",
   "Fri": "Jum",
-  "Sat": "Sab"
+  "Sat": "Sab",
+  "manager_ayah_downloads": "Kelola Unduhan Ayat"
 }

@@ -5,12 +5,13 @@ class CalculatingDateEventsWidget extends StatelessWidget {
   final int year;
   final int month;
   final int day;
-  CalculatingDateEventsWidget(
-      {super.key,
-      required this.month,
-      required this.day,
-      required this.name,
-      required this.year});
+  CalculatingDateEventsWidget({
+    super.key,
+    required this.month,
+    required this.day,
+    required this.name,
+    required this.year,
+  });
 
   final countdownCtrl = EventController.instance;
 
@@ -26,26 +27,28 @@ class CalculatingDateEventsWidget extends StatelessWidget {
           width: 380,
           padding: const EdgeInsets.all(4),
           decoration: BoxDecoration(
-              borderRadius: const BorderRadius.all(Radius.circular(8.0)),
-              border: Border.all(
-                width: 1,
-                color: Theme.of(context).canvasColor.withValues(alpha: .5),
-              )),
+            borderRadius: const BorderRadius.all(Radius.circular(8.0)),
+            border: Border.all(
+              width: 1,
+              color: Theme.of(context).canvasColor.withValues(alpha: .5),
+            ),
+          ),
           child: Stack(
             alignment: Alignment.centerRight,
             children: [
               LinearProgressIndicator(
                 minHeight: 50,
                 borderRadius: const BorderRadius.all(Radius.circular(4)),
-                value: (1.0 - (daysRemaining / 355))
-                    .clamp(0.0, 1.0), //(daysRemaining / 1000).toDouble(),
+                value: (1.0 - (daysRemaining / 355)).clamp(
+                  0.0,
+                  1.0,
+                ), //(daysRemaining / 1000).toDouble(),
                 backgroundColor: Theme.of(context).canvasColor,
                 color: daysRemaining == 0
                     ? Theme.of(context).colorScheme.surface
-                    : Theme.of(context)
-                        .colorScheme
-                        .surface
-                        .withValues(alpha: .7),
+                    : Theme.of(
+                        context,
+                      ).colorScheme.surface.withValues(alpha: .7),
               ),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 8.0),
@@ -62,8 +65,9 @@ class CalculatingDateEventsWidget extends StatelessWidget {
                           style: TextStyle(
                             fontSize: 18.0,
                             fontFamily: 'kufi',
-                            color:
-                                Theme.of(context).colorScheme.onInverseSurface,
+                            color: Theme.of(
+                              context,
+                            ).colorScheme.onInverseSurface,
                           ),
                           textAlign: TextAlign.center,
                         ),
@@ -76,13 +80,13 @@ class CalculatingDateEventsWidget extends StatelessWidget {
                             child: FittedBox(
                               fit: BoxFit.scaleDown,
                               child: Text(
-                                '${countdownCtrl.daysArabicConvert(daysRemaining, daysRemaining.toString().convertNumbers())}',
+                                '${countdownCtrl.daysArabicConvert(daysRemaining, daysRemaining.toString().convertNumbersToCurrentLang())}',
                                 style: TextStyle(
                                   fontSize: 16.0,
                                   fontFamily: 'kufi',
-                                  color: Theme.of(context)
-                                      .colorScheme
-                                      .onInverseSurface,
+                                  color: Theme.of(
+                                    context,
+                                  ).colorScheme.onInverseSurface,
                                 ),
                                 textAlign: TextAlign.center,
                               ),

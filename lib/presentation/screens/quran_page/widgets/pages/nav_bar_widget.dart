@@ -28,25 +28,31 @@ class NavBarWidget extends StatelessWidget {
                   children: [
                     RotatedBox(
                       quarterTurns: 30,
-                      child: customSvgWithColor(SvgPath.svgButtonCurve,
-                          height: 45.0,
-                          width: 45.0,
-                          color: Get.theme.colorScheme.primary),
+                      child: customSvgWithColor(
+                        SvgPath.svgButtonCurve,
+                        height: 45.0,
+                        width: 45.0,
+                        color: Get.theme.colorScheme.primary,
+                      ),
                     ),
                     Container(
                       padding: const EdgeInsets.all(4),
                       margin: const EdgeInsets.only(bottom: 5),
                       decoration: BoxDecoration(
-                          color: Theme.of(context).colorScheme.primaryContainer,
-                          borderRadius:
-                              const BorderRadius.all(Radius.circular(4)),
-                          border: Border.all(
-                              width: 1,
-                              color: Theme.of(context).colorScheme.surface)),
-                      child: customSvgWithCustomColor(
+                        color: Theme.of(context).colorScheme.primaryContainer,
+                        borderRadius: const BorderRadius.all(
+                          Radius.circular(4),
+                        ),
+                        border: Border.all(
+                          width: 1,
+                          color: Theme.of(context).colorScheme.surface,
+                        ),
+                      ),
+                      child: customSvgWithColor(
                         SvgPath.svgListIcon,
                         height: 25,
                         width: 25,
+                        color: context.theme.hintColor,
                       ),
                     ),
                   ],
@@ -63,25 +69,31 @@ class NavBarWidget extends StatelessWidget {
                   children: [
                     RotatedBox(
                       quarterTurns: 30,
-                      child: customSvgWithColor(SvgPath.svgButtonCurve,
-                          height: 45.0,
-                          width: 45.0,
-                          color: Get.theme.colorScheme.primary),
+                      child: customSvgWithColor(
+                        SvgPath.svgButtonCurve,
+                        height: 45.0,
+                        width: 45.0,
+                        color: Get.theme.colorScheme.primary,
+                      ),
                     ),
                     Container(
                       padding: const EdgeInsets.all(4),
                       margin: const EdgeInsets.only(bottom: 5),
                       decoration: BoxDecoration(
-                          color: Theme.of(context).colorScheme.primaryContainer,
-                          borderRadius:
-                              const BorderRadius.all(Radius.circular(4)),
-                          border: Border.all(
-                              width: 1,
-                              color: Theme.of(context).colorScheme.surface)),
-                      child: customSvgWithCustomColor(
+                        color: Theme.of(context).colorScheme.primaryContainer,
+                        borderRadius: const BorderRadius.all(
+                          Radius.circular(4),
+                        ),
+                        border: Border.all(
+                          width: 1,
+                          color: Theme.of(context).colorScheme.surface,
+                        ),
+                      ),
+                      child: customSvgWithColor(
                         SvgPath.svgBookmarkList,
                         height: 25,
                         width: 25,
+                        color: context.theme.hintColor,
                       ),
                     ),
                   ],

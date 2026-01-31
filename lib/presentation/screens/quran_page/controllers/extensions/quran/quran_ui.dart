@@ -55,8 +55,8 @@ extension QuranUi on QuranController {
   }
 
   void showControl() {
-    generalCtrl.state.isShowControl.value =
-        !generalCtrl.state.isShowControl.value;
+    GeneralController.instance.state.isShowControl.value =
+        !GeneralController.instance.state.isShowControl.value;
   }
 
   void toggleMenu(String verseKey) {
@@ -72,7 +72,7 @@ extension QuranUi on QuranController {
     state.currentPageNumber.value = index;
     // sl<PlayListController>().reset();
     GeneralController.instance.state.isShowControl.value = false;
-    AudioController.instance.state.pageAyahNumber = '0';
+    // AudioCtrl.instance.state.pageAyahNumber = '0';
 
     SchedulerBinding.instance.scheduleTask(() {
       state.lastReadSurahNumber.value = getSurahNumberFromPage(index + 1);
@@ -123,6 +123,20 @@ extension QuranUi on QuranController {
       return KeyEventResult.handled;
     }
     return KeyEventResult.ignored;
+  }
+
+  void clearSelection() {
+    if (AudioCtrl.instance.state.audioPlayer.playing) {
+      showControl();
+    } else if (QuranLibrary.quranCtrl.selectedAyahsByUnequeNumber.isNotEmpty) {
+      QuranLibrary.quranCtrl.selectedAyahsByUnequeNumber.clear();
+      QuranLibrary.quranCtrl.selectedAyahsByUnequeNumber.refresh();
+      QuranLibrary.quranCtrl.clearSelection();
+      update(['clearSelection']);
+    } else {
+      showControl();
+    }
+    // GlobalKeyManager().drawerKey.currentState!.closeSlider();
   }
 
   // void scrollSlowly(BuildContext context, double duration) async {

@@ -5,7 +5,7 @@ class TextBuild extends StatelessWidget {
 
   TextBuild({super.key, required this.pageIndex});
 
-  final audioCtrl = AudioController.instance;
+  final audioCtrl = AudioCtrl.instance;
   final quranCtrl = QuranController.instance;
   final bookmarkCtrl = BookmarksController.instance;
   final themeCtrl = ThemeController.instance;
@@ -17,7 +17,7 @@ class TextBuild extends StatelessWidget {
         id: 'clearSelection',
         builder: (quranCtrl) => QuranLibraryScreen(
           parentContext: context,
-          isDark: false,
+          isDark: themeCtrl.isDarkMode,
           isFontsLocal: true,
           withPageView: false,
           useDefaultAppBar: false,
@@ -68,7 +68,7 @@ class TextBuild extends StatelessWidget {
             titleColor: Get.theme.hintColor,
           ),
           onPagePress: () {
-            audioCtrl.clearSelection();
+            QuranController.instance.clearSelection();
           },
           onAyahLongPress: (details, ayah) {
             final surah = QuranLibrary().getCurrentSurahDataByAyah(ayah: ayah);
@@ -96,7 +96,7 @@ class TextBuild extends StatelessWidget {
                   alpha: .5,
                 ),
                 fontSizeWidget: fontSizeDropDownWidget(),
-                fontSize: generalCtrl.state.fontSizeArabic.value,
+                fontSize: GeneralController.instance.state.fontSizeArabic.value,
                 currentTafsirColor: Get.theme.colorScheme.surface,
                 selectedTafsirBorderColor: Get.theme.colorScheme.surface,
                 selectedTafsirColor: Get.theme.colorScheme.surface,
@@ -146,7 +146,12 @@ class _BookmarkIcon extends StatelessWidget {
           child: customSvg(
             BookmarksController.instance
                     .hasPageBookmark(
-                      pageNum ?? quranCtrl.state.currentPageNumber.value,
+                      pageNum ??
+                          QuranController
+                              .instance
+                              .state
+                              .currentPageNumber
+                              .value,
                     )
                     .value
                 ? SvgPath.svgBookmarked

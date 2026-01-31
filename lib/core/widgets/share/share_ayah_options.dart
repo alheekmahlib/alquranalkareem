@@ -38,8 +38,9 @@ class ShareAyahOptions extends StatelessWidget {
       height: 25,
       width: 30,
       iconSize: 30,
+      isCustomSvgColor: true,
       svgPath: SvgPath.svgShareIcon,
-      svgColor: context.theme.canvasColor,
+      svgColor: context.theme.hintColor,
       onPressed: () async {
         // await QuranLibrary().fetchTranslation();
         // shareToImage.fetchTafseerSaadi(surahNumber, ayahNumber, ayahUQNumber);

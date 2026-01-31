@@ -16,6 +16,7 @@ class CalendarBuild extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GridView.builder(
+      shrinkWrap: true,
       padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 2.0),
       physics: const ClampingScrollPhysics(),
       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
@@ -49,7 +50,7 @@ class CalendarBuild extends StatelessWidget {
             ),
             child: Center(
               child: Text(
-                dayOffset.toString().convertNumbers(),
+                dayOffset.toString().convertNumbersToCurrentLang(),
                 style: TextStyle(
                   fontFamily: 'kufi',
                   fontSize: 16,

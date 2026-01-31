@@ -20,8 +20,11 @@ class WhatsNewController extends GetxController {
       if (state.newFeatures.isNotEmpty) {
         SplashScreenController.instance.state.customWidget.value = 1;
       } else {
-        Get.offAll(() => ScreenTypeL(),
-            transition: Transition.fadeIn, curve: Curves.easeIn);
+        Get.offAll(
+          () => ScreenTypeL(),
+          transition: Transition.fadeIn,
+          curve: Curves.easeIn,
+        );
       }
     });
   }
@@ -45,7 +48,7 @@ class WhatsNewController extends GetxController {
 
   List<Map<String, dynamic>> whatsNewList = [
     {
-      'index': 13,
+      'index': 14,
       'title': "",
       'details': "What'sNewDetails10",
       'imagePath': '',

@@ -8,7 +8,6 @@ list(APPEND FLUTTER_PLUGIN_LIST
   connectivity_plus
   desktop_window
   flutter_timezone
-  just_audio_windows
   media_kit_libs_windows_audio
   share_plus
   sqlite3_flutter_libs

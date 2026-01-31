@@ -1155,7 +1155,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "What'sNewDetails10": "۞ App-ka wuxuu u horseeday taageerada luqadaha Kurdish, Turkish, iyo Russian.\n۞ Waxaa lagu daray akhristayaal dheeraad ah.",
+  "What'sNewDetails10": "۞ Waxaa la saxay dhibaatada soo dejinta suuradaha.\n۞ Hagaajin guud oo ku saabsan waxqabadka iyo xasilloonida app-ka.",
   "@What'sNewDetails10": {
     "type": "text",
     "placeholders": {}
@@ -1281,5 +1281,6 @@
   "Wed": "Arb",
   "Thu": "Kms",
   "Fri": "Jmc",
-  "Sat": "Sbt"
+  "Sat": "Sbt",
+  "manager_ayah_downloads": "Maamusha Soo Dejinta Aayaadaha"
 }

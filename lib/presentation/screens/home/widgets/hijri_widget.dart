@@ -50,18 +50,21 @@ class HijriWidget extends StatelessWidget {
                         width: 45,
                         alignment: Alignment.center,
                         decoration: BoxDecoration(
-                            color: Theme.of(context).colorScheme.surface,
-                            borderRadius: alignmentLayout(
-                                const BorderRadius.only(
-                                  topRight: Radius.circular(8),
-                                  bottomLeft: Radius.circular(8),
-                                ),
-                                const BorderRadius.only(
-                                  topLeft: Radius.circular(8),
-                                  bottomRight: Radius.circular(8),
-                                ))),
+                          color: Theme.of(context).colorScheme.surface,
+                          borderRadius: alignmentLayout(
+                            const BorderRadius.only(
+                              topRight: Radius.circular(8),
+                              bottomLeft: Radius.circular(8),
+                            ),
+                            const BorderRadius.only(
+                              topLeft: Radius.circular(8),
+                              bottomRight: Radius.circular(8),
+                            ),
+                          ),
+                        ),
                         child: Text(
-                          '${eventCtrl.hijriNow.hDay}'.convertNumbers(),
+                          '${eventCtrl.hijriNow.hDay}'
+                              .convertNumbersToCurrentLang(),
                           style: TextStyle(
                             fontSize: 26.0,
                             fontFamily: 'kufi',
@@ -86,7 +89,7 @@ class HijriWidget extends StatelessWidget {
                             textAlign: TextAlign.center,
                           ),
                           Text(
-                            '${'${eventCtrl.hijriNow.hYear}'.convertNumbers()} هـ',
+                            '${'${eventCtrl.hijriNow.hYear}'.convertNumbersToCurrentLang()} هـ',
                             style: TextStyle(
                               fontSize: 18.0,
                               fontFamily: 'kufi',
@@ -100,10 +103,13 @@ class HijriWidget extends StatelessWidget {
                   ),
                   const Spacer(),
                   SvgPicture.asset(
-                      'assets/svg/hijri/${eventCtrl.hijriNow.hMonth}.svg',
-                      width: 120,
-                      colorFilter: ColorFilter.mode(
-                          Theme.of(context).canvasColor, BlendMode.srcIn)),
+                    'assets/svg/hijri/${eventCtrl.hijriNow.hMonth}.svg',
+                    width: 120,
+                    colorFilter: ColorFilter.mode(
+                      Theme.of(context).canvasColor,
+                      BlendMode.srcIn,
+                    ),
+                  ),
                   const Gap(32),
                 ],
               ),
@@ -120,15 +126,15 @@ class HijriWidget extends StatelessWidget {
                         widthShadow: 5,
                         backgroundProgress: Theme.of(context).canvasColor,
                         colorProgress: Theme.of(context).colorScheme.surface,
-                        colorProgressDark: Theme.of(context)
-                            .colorScheme
-                            .surface
-                            .withValues(alpha: .5),
+                        colorProgressDark: Theme.of(
+                          context,
+                        ).colorScheme.surface.withValues(alpha: .5),
                         colorBorder: Colors.transparent,
                         colorBackgroundIcon: Colors.transparent,
                       ),
                       borderRadius: const BorderRadius.all(Radius.circular(8)),
-                      percent: ((eventCtrl.hijriNow.hDay /
+                      percent:
+                          ((eventCtrl.hijriNow.hDay /
                               eventCtrl.getLengthOfMonth) *
                           100),
                     ),
@@ -158,8 +164,9 @@ class HijriWidget extends StatelessWidget {
                                         style: TextStyle(
                                           fontSize: 14.0,
                                           fontFamily: 'kufi',
-                                          color:
-                                              Theme.of(context).disabledColor,
+                                          color: Theme.of(
+                                            context,
+                                          ).disabledColor,
                                         ),
                                         textAlign: TextAlign.center,
                                       ),
@@ -172,12 +179,13 @@ class HijriWidget extends StatelessWidget {
                                       fit: BoxFit.scaleDown,
                                       child: Text(
                                         '${'${eventCtrl.daysArabicConvert((eventCtrl.getLengthOfMonth - eventCtrl.hijriNow.hDay), (eventCtrl.getLengthOfMonth - eventCtrl.hijriNow.hDay).toString())}'}'
-                                            .convertNumbers(),
+                                            .convertNumbersToCurrentLang(),
                                         style: TextStyle(
                                           fontSize: 14.0,
                                           fontFamily: 'kufi',
-                                          color:
-                                              Theme.of(context).disabledColor,
+                                          color: Theme.of(
+                                            context,
+                                          ).disabledColor,
                                         ),
                                         textAlign: TextAlign.center,
                                       ),
@@ -186,7 +194,7 @@ class HijriWidget extends StatelessWidget {
                                 ],
                               ),
                       ),
-                    )
+                    ),
                   ],
                 ),
               ),

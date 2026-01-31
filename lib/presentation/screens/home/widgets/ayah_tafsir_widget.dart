@@ -1,4 +1,5 @@
 import 'package:alquranalkareem/core/utils/constants/extensions/text_span_extension.dart';
+import 'package:alquranalkareem/presentation/controllers/general/general_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:quran_library/quran.dart';
@@ -37,7 +38,7 @@ class AyahTafsirWidget extends StatelessWidget {
                 child: Column(
                   children: [
                     Text(
-                      '﴿${snapshot.data?.text ?? ''} ${generalCtrl.state.arabicNumber.convert(snapshot.data?.ayahNumber)}﴾',
+                      '﴿${snapshot.data?.text ?? ''} ${GeneralController.instance.state.arabicNumber.convert(snapshot.data?.ayahNumber)}﴾',
                       style: TextStyle(
                         fontFamily: 'uthmanic2',
                         fontSize: 24,
@@ -52,7 +53,7 @@ class AyahTafsirWidget extends StatelessWidget {
                           flex: 4,
                           child: surahNameWidget(
                             height: 40,
-                            quranCtrl
+                            QuranController.instance
                                 .getSurahDataByAyahUQ(
                                   snapshot.data!.ayahUQNumber,
                                 )
@@ -104,7 +105,11 @@ class AyahTafsirWidget extends StatelessWidget {
                             text: dailyCtrl.selectedTafsir!.tafsirText
                                 .buildTextSpans(),
                             textStyle: TextStyle(
-                              fontSize: generalCtrl.state.fontSizeArabic.value,
+                              fontSize: GeneralController
+                                  .instance
+                                  .state
+                                  .fontSizeArabic
+                                  .value,
                               color: Theme.of(
                                 context,
                               ).colorScheme.inversePrimary,

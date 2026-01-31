@@ -2,10 +2,11 @@ part of '../../quran.dart';
 
 class SkipToNext extends StatelessWidget {
   SkipToNext({super.key});
-  final audioCtrl = AudioController.instance;
+  final audioCtrl = AudioCtrl.instance;
 
   @override
   Widget build(BuildContext context) {
+    final isRTL = Get.locale?.languageCode == 'ar';
     return StreamBuilder<SequenceState?>(
       stream: audioCtrl.state.audioPlayer.sequenceStateStream,
       builder: (context, snapshot) => GestureDetector(
@@ -20,7 +21,15 @@ class SkipToNext extends StatelessWidget {
           ),
         ),
         onTap: () async {
-          await audioCtrl.skipNextAyah();
+          isRTL
+              ? await audioCtrl.skipNextAyah(
+                  context,
+                  audioCtrl.currentAyah.ayahUQNumber,
+                )
+              : await audioCtrl.skipPreviousAyah(
+                  context,
+                  audioCtrl.currentAyah.ayahUQNumber,
+                );
         },
       ),
     );

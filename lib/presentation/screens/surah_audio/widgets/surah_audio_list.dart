@@ -77,7 +77,7 @@ class SurahAudioList extends StatelessWidget {
                                     child: Text(
                                       surah.surahNumber
                                           .toString()
-                                          .convertNumbers(),
+                                          .convertNumbersToCurrentLang(),
                                       style: TextStyle(
                                         color: Theme.of(context).hintColor,
                                         fontFamily: "kufi",

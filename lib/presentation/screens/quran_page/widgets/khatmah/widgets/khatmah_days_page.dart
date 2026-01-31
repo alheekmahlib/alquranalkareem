@@ -23,7 +23,7 @@ class KhatmahDaysPage extends StatelessWidget {
           if (currentDay > 0 && currentDay <= daysCount)
             ListTile(
               title: Text(
-                'الورد: $currentDay'.convertNumbers(),
+                'الورد: $currentDay'.convertNumbersToCurrentLang(),
                 style: TextStyle(
                   color: Theme.of(context).colorScheme.inversePrimary,
                   fontSize: 18,
@@ -37,7 +37,7 @@ class KhatmahDaysPage extends StatelessWidget {
               ),
               subtitle: Text(
                 '${'pages'.tr.replaceAll('صفحات', 'الصفحات')}: ${khatmah.dayStatuses[currentDay - 1].startPage} - ${khatmah.dayStatuses[currentDay - 1].endPage}'
-                    .convertNumbers(),
+                    .convertNumbersToCurrentLang(),
                 style: TextStyle(
                   color: Theme.of(context).colorScheme.surface,
                   fontSize: 14,
@@ -67,7 +67,7 @@ class KhatmahDaysPage extends StatelessWidget {
                   ),
                   subtitle: Text(
                     '${'pages'.tr.replaceAll('صفحات', 'الصفحات')}: $startPage - $endPage'
-                        .convertNumbers(),
+                        .convertNumbersToCurrentLang(),
                     style: TextStyle(
                       color: Theme.of(context).colorScheme.inversePrimary,
                       fontSize: 14,
@@ -80,7 +80,10 @@ class KhatmahDaysPage extends StatelessWidget {
                     onChanged: (bool? value) {
                       dayStatus.isCompleted = value ?? false;
                       khatmahCtrl.updateKhatmahDayStatus(
-                          khatmah.id, index + 1, value ?? false);
+                        khatmah.id,
+                        index + 1,
+                        value ?? false,
+                      );
                       (context as Element).markNeedsBuild();
                     },
                   ),

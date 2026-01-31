@@ -23,8 +23,9 @@ class TafsirButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return CustomButton(
       width: 30,
+      isCustomSvgColor: true,
       svgPath: SvgPath.svgTafsirIcon,
-      svgColor: context.theme.canvasColor,
+      svgColor: context.theme.hintColor,
       onPressed: () async {
         // await QuranLibrary().initTafsir();
         // await QuranLibrary().fetchTafsir(pageNumber: pageIndex);
@@ -38,6 +39,7 @@ class TafsirButton extends StatelessWidget {
           pageIndex: pageIndex,
           ayahUQNum: ayahUQNum,
           ayahNumber: ayahNum,
+          isDark: ThemeController.instance.isDarkMode,
           externalTafsirStyle:
               TafsirStyle.defaults(
                 context: context,
@@ -80,9 +82,10 @@ class TafsirButton extends StatelessWidget {
                 heightOfBottomSheet: Responsive.isDesktop(context)
                     ? Get.height * .9
                     : context.customOrientation(Get.height * .9, Get.height),
+                downloadIconColor: Get.theme.canvasColor,
               ),
         );
-        quranCtrl.state.isPages.value == 1 ? null : cancel!();
+        QuranController.instance.state.isPages.value == 1 ? null : cancel!();
       },
     );
   }

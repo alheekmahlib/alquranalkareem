@@ -1,12 +1,10 @@
 part of '../../quran.dart';
 
 class AyahsWidget extends StatelessWidget {
-  AyahsWidget({
-    super.key,
-  });
+  AyahsWidget({super.key});
 
   final quranCtrl = QuranController.instance;
-  final audioCtrl = AudioController.instance;
+  final audioCtrl = AudioCtrl.instance;
   final generalCtrl = GeneralController.instance;
 
   @override
@@ -26,33 +24,39 @@ class AyahsWidget extends StatelessWidget {
               children: [
                 Container(
                   padding: const EdgeInsets.symmetric(
-                      horizontal: 8.0, vertical: 2.0),
+                    horizontal: 8.0,
+                    vertical: 2.0,
+                  ),
                   decoration: BoxDecoration(
-                      color: Theme.of(context)
-                          .colorScheme
-                          .surface
-                          .withValues(alpha: .1),
-                      borderRadius:
-                          const BorderRadius.all(Radius.circular(8.0))),
+                    color: Theme.of(
+                      context,
+                    ).colorScheme.surface.withValues(alpha: .1),
+                    borderRadius: const BorderRadius.all(Radius.circular(8.0)),
+                  ),
                   child: Row(
                     children: [
-                      Obx(() => Text(
-                            quranCtrl
-                                .getCurrentSurahByPage(
-                                    quranCtrl.state.currentListPage.value)
-                                .arabicName,
-                            style: TextStyle(
-                                fontSize: context.customOrientation(18.0, 22.0),
-                                fontFamily: 'naskh',
-                                color: Theme.of(context).hintColor),
-                          )),
                       Obx(
                         () => Text(
-                          ' | ${'juz'.tr}: ${quranCtrl.state.pages[quranCtrl.state.currentListPage.value + 1].first.juz.toString().convertNumbers()}',
+                          quranCtrl
+                              .getCurrentSurahByPage(
+                                quranCtrl.state.currentListPage.value,
+                              )
+                              .arabicName,
                           style: TextStyle(
-                              fontSize: context.customOrientation(18.0, 22.0),
-                              fontFamily: 'naskh',
-                              color: Theme.of(context).hintColor),
+                            fontSize: context.customOrientation(18.0, 22.0),
+                            fontFamily: 'naskh',
+                            color: Theme.of(context).hintColor,
+                          ),
+                        ),
+                      ),
+                      Obx(
+                        () => Text(
+                          ' | ${'juz'.tr}: ${quranCtrl.state.pages[quranCtrl.state.currentListPage.value + 1].first.juz.toString().convertNumbersToCurrentLang()}',
+                          style: TextStyle(
+                            fontSize: context.customOrientation(18.0, 22.0),
+                            fontFamily: 'naskh',
+                            color: Theme.of(context).hintColor,
+                          ),
                         ),
                       ),
                     ],
@@ -71,17 +75,17 @@ class AyahsWidget extends StatelessWidget {
                 //       : 'التمرير'),
                 // ),
                 fontSizeDropDownWidget(
-                    height: 25.0,
-                    color: Theme.of(context)
-                        .colorScheme
-                        .surface
-                        .withValues(alpha: .7)),
+                  height: 25.0,
+                  color: Theme.of(
+                    context,
+                  ).colorScheme.surface.withValues(alpha: .7),
+                ),
               ],
             ),
           ),
           Flexible(
             child: GestureDetector(
-              onTap: () => audioCtrl.clearSelection(),
+              onTap: () => quranCtrl.clearSelection(),
               child: QuranLibrary.quranCtrl.state.pages.isEmpty
                   ? const Center(child: CircularProgressIndicator.adaptive())
                   : FutureBuilder<void>(
@@ -105,26 +109,28 @@ class AyahsWidget extends StatelessWidget {
                               QuranLibrary().fetchTranslation();
                               return Container(
                                 margin: const EdgeInsets.symmetric(
-                                    horizontal: 16.0, vertical: 4.0),
-                                decoration: BoxDecoration(
-                                    borderRadius: const BorderRadius.all(
-                                        Radius.circular(8)),
-                                    border: Border.all(
-                                      width: 1,
-                                      color: Theme.of(context)
-                                          .colorScheme
-                                          .primary
-                                          .withValues(alpha: .5),
-                                    )),
-                                child: AyahsBuild(
-                                  pageIndex: pageIndex,
+                                  horizontal: 16.0,
+                                  vertical: 4.0,
                                 ),
+                                decoration: BoxDecoration(
+                                  borderRadius: const BorderRadius.all(
+                                    Radius.circular(8),
+                                  ),
+                                  border: Border.all(
+                                    width: 1,
+                                    color: Theme.of(
+                                      context,
+                                    ).colorScheme.primary.withValues(alpha: .5),
+                                  ),
+                                ),
+                                child: AyahsBuild(pageIndex: pageIndex),
                               );
                             },
                           );
                         }
                         return const Center(
-                            child: CircularProgressIndicator.adaptive());
+                          child: CircularProgressIndicator.adaptive(),
+                        );
                       },
                     ),
             ),

@@ -1149,7 +1149,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "What'sNewDetails10": "۞ Idinagdag ang suporta para sa Kurdish, Turkish, at Russian na mga wika sa app.\n۞ Nagdagdag ng karagdagang mga mambabasa.",
+  "What'sNewDetails10": "۞ Naayos ang problema sa pag-download ng mga surah.\n۞ Pangkalahatang pagpapabuti sa performance at katatagan ng app.",
   "@What'sNewDetails10": {
     "type": "text",
     "placeholders": {}
@@ -1275,5 +1275,6 @@
   "Wed": "Miy",
   "Thu": "Huw",
   "Fri": "Biy",
-  "Sat": "Sab"
+  "Sat": "Sab",
+  "manager_ayah_downloads": "Pamahalaan ang mga Download ng Ayah"
 }

@@ -1,8 +1,9 @@
 part of '../events.dart';
 
 class EventController extends GetxController {
-  static EventController get instance =>
-      GetInstance().putOrFind(() => EventController());
+  static EventController get instance => Get.isRegistered<EventController>()
+      ? Get.find<EventController>()
+      : Get.put<EventController>(EventController());
 
   final box = GetStorage();
   late HijriDate hijriNow;
@@ -26,7 +27,10 @@ class EventController extends GetxController {
     selectedDate = HijriDate.now();
     initializeMonths();
     pageController = PageController(initialPage: selectedDate.hMonth - 1);
-    loadJson().then((_) => ramadhanOrEidGreeting());
+    Future.delayed(const Duration(seconds: 20), () async {
+      await loadJson();
+      await ramadhanOrEidGreeting();
+    });
   }
 
   void initializeMonths() {
@@ -60,8 +64,10 @@ class EventController extends GetxController {
     }
 
     hijriNow = HijriDate.fromHijri(adjustedYear, adjustedMonth, adjustedDay);
-    hijriNow.lengthOfMonth =
-        hijriNow.getDaysInMonth(hijriNow.hYear, hijriNow.hMonth) - 1;
+    hijriNow.lengthOfMonth = hijriNow.getDaysInMonth(
+      hijriNow.hYear,
+      hijriNow.hMonth,
+    );
 
     startYear = hijriNow.hYear - 3;
     endYear = hijriNow.hYear + 3;
@@ -89,19 +95,11 @@ class EventController extends GetxController {
   }
 
   int get getLengthOfMonth {
-    if (hijriNow.hMonth == 6) {
-      return hijriNow.lengthOfMonth - 1;
-    } else {
-      return hijriNow.lengthOfMonth;
-    }
+    return hijriNow.lengthOfMonth;
   }
 
   int getDaysInMonth(HijriDate hijri, int hYear, int hMonth) {
-    if (hijriNow.hMonth == 6) {
-      return hijri.getDaysInMonth(hYear, hMonth) - 1;
-    } else {
-      return hijri.getDaysInMonth(hYear, hMonth);
-    }
+    return hijri.getDaysInMonth(hYear, hMonth);
   }
 
   bool get isNewHadith =>
@@ -143,17 +141,17 @@ class EventController extends GetxController {
 
   Color getDayColor(bool isCurrentDay, List<int> months, int days) {
     if (isCurrentDay) {
-      return Get.theme.colorScheme.surface;
+      return Get.context!.theme.colorScheme.surface;
     }
 
     final reminder = getIsReminder(months, days);
 
     if (!isEvent(months, days).value) {
-      return Colors.transparent;
+      return Get.context!.theme.colorScheme.primary.withValues(alpha: .1);
     } else if (reminder != null && reminder.isReminder) {
-      return Get.theme.colorScheme.surface.withValues(alpha: 0.2);
+      return Get.context!.theme.colorScheme.surface.withValues(alpha: .15);
     } else if (reminder != null && !reminder.isReminder) {
-      return Get.theme.colorScheme.primary.withValues(alpha: 0.2);
+      return Get.context!.theme.colorScheme.primary.withValues(alpha: .4);
     } else {
       return Colors.transparent;
     }
@@ -162,21 +160,21 @@ class EventController extends GetxController {
   String titleString(int id, int month) {
     switch (id) {
       case 1:
-        return '${hijriNow.hYear}'.convertNumbers();
+        return '${hijriNow.hYear}'.convertNumbersToCurrentLang();
       case 2:
-        return '${'9'.convertNumbers()}, ${months[month - 1].getLongMonthName().tr}';
+        return '${'9'.convertNumbersToCurrentLang()}, ${months[month - 1].getLongMonthName().tr}';
       case 3:
-        return '${'10'.convertNumbers()}, ${months[month - 1].getLongMonthName().tr}';
+        return '${'10'.convertNumbersToCurrentLang()}, ${months[month - 1].getLongMonthName().tr}';
       case 4:
-        return '${'10'.convertNumbers()}, ${months[month - 1].getLongMonthName().tr}';
+        return '${'10'.convertNumbersToCurrentLang()}, ${months[month - 1].getLongMonthName().tr}';
       case 8:
-        return '${'6'.convertNumbers()}, ${months[month - 1].getLongMonthName().tr}';
+        return '${'6'.convertNumbersToCurrentLang()}, ${months[month - 1].getLongMonthName().tr}';
       case 9:
-        return '${'9'.convertNumbers()}, ${months[month - 1].getLongMonthName().tr}';
+        return '${'9'.convertNumbersToCurrentLang()}, ${months[month - 1].getLongMonthName().tr}';
       case 10:
-        return '${'9'.convertNumbers()}, ${months[month - 1].getLongMonthName().tr}';
+        return '${'9'.convertNumbersToCurrentLang()}, ${months[month - 1].getLongMonthName().tr}';
       default:
-        return '${hijriNow.hYear}'.convertNumbers();
+        return '${hijriNow.hYear}'.convertNumbersToCurrentLang();
     }
   }
 
@@ -238,33 +236,44 @@ class EventController extends GetxController {
         box.write(event.title, false);
       }
       bool notSameDay = event.day.contains(hijriNow.hDay);
-      if ((event.month == (hijriNow.hMonth + 1) &&
-              hijriNow.hDay == !event.day.contains(hijriNow.hDay)) &&
-          !notSameDay) {
+      if (event.month == hijriNow.hMonth + 1 && !notSameDay) {
         box.remove(event.title);
       }
     }
   }
 
   int calculate(int year, int month, int day) {
+    // حساب الأيام المتبقية للمناسبة مع إعادة التعيين للسنة القادمة - Calculate remaining days for the event with reset to next year
     HijriDate hijriCalendar = HijriDate();
     DateTime start = DateTime.now().add(Duration(days: adjustHijriDays.value));
     DateTime end = hijriCalendar.hijriToGregorian(year, month, day);
+
     if (!start.isAfter(end)) {
-      // this if the end date is aftar the start date will do this logic
+      // إذا كان تاريخ المناسبة لم يحن بعد - If the event date hasn't arrived yet
       return DateTimeRange(start: start, end: end).duration.inDays;
     } else {
-      // this if the end date is before the start date will do the else logic
-      // end = end.copyWith(year: end.year + 1); // uncomment this if you want to make it calucate the next year occasion
-      // return DateTimeRange(start: end, end: start).duration.inDays; // you can make this like مضى X ايام
-      return 0;
+      // إذا مضى على المناسبة أكثر من 4 أيام، احسب الموعد للسنة القادمة - If more than 4 days have passed since the event, calculate for next year
+      int daysPassed = DateTimeRange(start: end, end: start).duration.inDays;
+
+      if (daysPassed > 4) {
+        // احسب المناسبة للسنة الهجرية القادمة - Calculate the event for the next Hijri year
+        DateTime nextYearEnd = hijriCalendar.hijriToGregorian(
+          year + 1,
+          month,
+          day,
+        );
+        return DateTimeRange(start: start, end: nextYearEnd).duration.inDays;
+      } else {
+        // إذا مضى 4 أيام أو أقل، أظهر أن المناسبة قد مضت - If 4 days or less have passed, show that the event has passed
+        return 0;
+      }
     }
   }
 
   String daysArabicConvert(int day, String dayNumber) {
     const List<int> daysList = [3, 4, 5, 6, 7, 8, 9, 10];
     if (day == 1) {
-      return '${'Day'.tr}';
+      return 'Day'.tr;
     } else if (day == 2) {
       return 'twoDays'.tr;
     } else if (daysList.contains(day)) {
@@ -282,7 +291,7 @@ class EventController extends GetxController {
     super.onClose();
   }
 
-  String getWeekdayName(int index) {
+  String getWeekdayShortName(int index) {
     final weekdays = [
       'Sunday',
       'Monday',
@@ -354,5 +363,35 @@ class EventController extends GetxController {
       ..hMonth = selectedDate.hMonth
       ..hDay = selectedDate.hDay;
     initializeMonths();
+  }
+
+  // حساب السنة المناسبة للمناسبة (الحالية أو القادمة) - Calculate appropriate year for the event (current or next)
+  int getEventYear(int month, int day) {
+    HijriDate hijriCalendar = HijriDate();
+    DateTime start = DateTime.now().add(Duration(days: adjustHijriDays.value));
+    DateTime currentYearEnd = hijriCalendar.hijriToGregorian(
+      hijriNow.hYear,
+      month,
+      day,
+    );
+
+    if (!start.isAfter(currentYearEnd)) {
+      // إذا كان تاريخ المناسبة لم يحن بعد في السنة الحالية - If the event date hasn't arrived yet in current year
+      return hijriNow.hYear;
+    } else {
+      // إذا مضى على المناسبة، تحقق من عدد الأيام - If the event has passed, check number of days
+      int daysPassed = DateTimeRange(
+        start: currentYearEnd,
+        end: start,
+      ).duration.inDays;
+
+      if (daysPassed > 4) {
+        // إذا مضى أكثر من 4 أيام، استخدم السنة القادمة - If more than 4 days have passed, use next year
+        return hijriNow.hYear + 1;
+      } else {
+        // إذا مضى 4 أيام أو أقل، استخدم السنة الحالية - If 4 days or less have passed, use current year
+        return hijriNow.hYear;
+      }
+    }
   }
 }

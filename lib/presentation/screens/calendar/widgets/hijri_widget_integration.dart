@@ -43,8 +43,9 @@ class HijriWidgetIntegration extends StatelessWidget {
           Container(
             padding: const EdgeInsets.all(12.0),
             decoration: BoxDecoration(
-              color:
-                  Get.theme.colorScheme.primaryContainer.withValues(alpha: 0.3),
+              color: Get.theme.colorScheme.primaryContainer.withValues(
+                alpha: 0.3,
+              ),
               borderRadius: BorderRadius.circular(8),
             ),
             child: Column(
@@ -61,15 +62,27 @@ class HijriWidgetIntegration extends StatelessWidget {
                 ),
                 const Gap(8),
                 _buildInfoRow(
-                    'اليوم', '${eventCtrl.hijriNow.hDay}'.convertNumbers()),
-                _buildInfoRow('اسم اليوم',
-                    eventCtrl.getWeekdayName(eventCtrl.hijriNow.weekDay() - 1)),
+                  'اليوم',
+                  '${eventCtrl.hijriNow.hDay}'.convertNumbersToCurrentLang(),
+                ),
                 _buildInfoRow(
-                    'الشهر', eventCtrl.hijriNow.getLongMonthName().tr),
+                  'اسم اليوم',
+                  eventCtrl.getWeekdayShortName(
+                    eventCtrl.hijriNow.weekDay() - 1,
+                  ),
+                ),
                 _buildInfoRow(
-                    'السنة', '${eventCtrl.hijriNow.hYear}'.convertNumbers()),
-                _buildInfoRow('تقدم الشهر',
-                    '${((eventCtrl.hijriNow.hDay / eventCtrl.getLengthOfMonth) * 100).round()}%'),
+                  'الشهر',
+                  eventCtrl.hijriNow.getLongMonthName().tr,
+                ),
+                _buildInfoRow(
+                  'السنة',
+                  '${eventCtrl.hijriNow.hYear}'.convertNumbersToCurrentLang(),
+                ),
+                _buildInfoRow(
+                  'تقدم الشهر',
+                  '${((eventCtrl.hijriNow.hDay / eventCtrl.getLengthOfMonth) * 100).round()}%',
+                ),
               ],
             ),
           ),
@@ -152,10 +165,7 @@ class HijriWidgetIntegration extends StatelessWidget {
       AlertDialog(
         title: const Text(
           'إرشادات استخدام Widget التقويم الهجري',
-          style: TextStyle(
-            fontFamily: 'kufi',
-            fontSize: 16.0,
-          ),
+          style: TextStyle(fontFamily: 'kufi', fontSize: 16.0),
         ),
         content: SingleChildScrollView(
           child: Column(
@@ -174,15 +184,18 @@ class HijriWidgetIntegration extends StatelessWidget {
               _buildInstructionStep('1', 'اضغط مطولاً على الشاشة الرئيسية'),
               _buildInstructionStep('2', 'اختر "Widgets" أو "الأدوات"'),
               _buildInstructionStep(
-                  '3', 'ابحث عن "القرآن الكريم" أو "التقويم الهجري"'),
+                '3',
+                'ابحث عن "القرآن الكريم" أو "التقويم الهجري"',
+              ),
               _buildInstructionStep('4', 'اسحب الـ Widget إلى المكان المرغوب'),
               _buildInstructionStep('5', 'سيتم تحديث البيانات تلقائياً كل يوم'),
               const Gap(8),
               Container(
                 padding: const EdgeInsets.all(8.0),
                 decoration: BoxDecoration(
-                  color: Get.theme.colorScheme.primaryContainer
-                      .withValues(alpha: 0.3),
+                  color: Get.theme.colorScheme.primaryContainer.withValues(
+                    alpha: 0.3,
+                  ),
                   borderRadius: BorderRadius.circular(6),
                 ),
                 child: const Text(
@@ -198,10 +211,7 @@ class HijriWidgetIntegration extends StatelessWidget {
           ),
         ),
         actions: [
-          TextButton(
-            onPressed: () => Get.back(),
-            child: const Text('حسناً'),
-          ),
+          TextButton(onPressed: () => Get.back(), child: const Text('حسناً')),
         ],
       ),
     );
@@ -236,10 +246,7 @@ class HijriWidgetIntegration extends StatelessWidget {
           Expanded(
             child: Text(
               instruction,
-              style: const TextStyle(
-                fontFamily: 'kufi',
-                fontSize: 13.0,
-              ),
+              style: const TextStyle(fontFamily: 'kufi', fontSize: 13.0),
             ),
           ),
         ],

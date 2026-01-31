@@ -1,7 +1,7 @@
 import 'package:get/get.dart';
 
 extension ConvertNumberExtension on String {
-  String convertNumbers() {
+  String convertNumbersToCurrentLang() {
     Map<String, Map<String, String>> numberSets = {
       'ar': {
         // Arabic

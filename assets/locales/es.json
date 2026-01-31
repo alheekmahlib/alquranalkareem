@@ -1155,7 +1155,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "What'sNewDetails10": "۞ Añadido soporte para los idiomas kurdo, turco y ruso en la aplicación.\n۞ Se agregaron más lectores.",
+  "What'sNewDetails10": "۞ Se solucionó el problema de descarga de suras.\n۞ Mejoras generales en el rendimiento y estabilidad de la aplicación.",
   "@What'sNewDetails10": {
     "type": "text",
     "placeholders": {}
@@ -1281,5 +1281,6 @@
   "Wed": "Mié",
   "Thu": "Jue",
   "Fri": "Vie",
-  "Sat": "Sáb"
+  "Sat": "Sáb",
+  "manager_ayah_downloads": "Gestionar Descargas de Ayah"
 }

@@ -1155,7 +1155,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "What'sNewDetails10": "۞ Added support for Kurdish, Turkish, and Russian languages in the app.\n۞ Added more readers.",
+  "What'sNewDetails10": "۞ Fixed surah download issue.\n۞ General improvements in app performance and stability.",
   "@What'sNewDetails10": {
     "type": "text",
     "placeholders": {}
@@ -1281,5 +1281,6 @@
   "Wed": "Wed",
   "Thu": "Thu",
   "Fri": "Fri",
-  "Sat": "Sat"
+  "Sat": "Sat",
+  "manager_ayah_downloads": "Manage Ayah Downloads"
 }
