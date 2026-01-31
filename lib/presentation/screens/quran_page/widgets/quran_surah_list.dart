@@ -103,7 +103,7 @@ class QuranSurahList extends StatelessWidget {
                                               child: Transform.translate(
                                                 offset: const Offset(0, 1),
                                                 child: Text(
-                                                  '${'${surah.surahNumber}'.convertNumbers()}',
+                                                  '${'${surah.surahNumber}'.convertNumbersToCurrentLang()}',
                                                   style: TextStyle(
                                                     color: Theme.of(
                                                       context,
@@ -184,7 +184,7 @@ class QuranSurahList extends StatelessWidget {
                                                 ),
                                               ),
                                               Text(
-                                                '${'${surah.ayahs.last.ayahNumber}'.convertNumbers()}',
+                                                '${'${surah.ayahs.last.ayahNumber}'.convertNumbersToCurrentLang()}',
                                                 style: TextStyle(
                                                   fontFamily: "kufi",
                                                   fontSize: 13,

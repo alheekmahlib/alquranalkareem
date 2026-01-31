@@ -190,7 +190,9 @@ class PagesPage extends StatelessWidget {
                                 ),
                               ),
                               child: Text(
-                                page.pageNumber.toString().convertNumbers(),
+                                page.pageNumber
+                                    .toString()
+                                    .convertNumbersToCurrentLang(),
                                 style: TextStyle(
                                   fontSize: 16,
                                   height: 1,

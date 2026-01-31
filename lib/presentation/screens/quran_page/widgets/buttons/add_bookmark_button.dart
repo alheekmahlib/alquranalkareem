@@ -22,11 +22,12 @@ class AddBookmarkButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return CustomButton(
       width: 23,
+      isCustomSvgColor: true,
       svgPath:
           BookmarksController.instance.hasBookmark(surahNum, ayahUQNum).value
-              ? SvgPath.svgBookmarkIcon2
-              : SvgPath.svgBookmarkIcon,
-      svgColor: context.theme.canvasColor,
+          ? SvgPath.svgBookmarkIcon2
+          : SvgPath.svgBookmarkIcon,
+      svgColor: context.theme.hintColor,
       onPressed: () async {
         if (BookmarksController.instance
             .hasBookmark(surahNum, ayahUQNum)
@@ -34,13 +35,23 @@ class AddBookmarkButton extends StatelessWidget {
           BookmarksController.instance.deleteBookmarksText(ayahUQNum);
         } else {
           BookmarksController.instance
-              .addBookmarkText(surahName, surahNum, pageIndex + 1, ayahNum,
-                  ayahUQNum, sl<GeneralController>().state.timeNow.dateNow)
-              .then((value) => context.showCustomErrorSnackBar('addBookmark'.tr,
-                  isDone: true));
+              .addBookmarkText(
+                surahName,
+                surahNum,
+                pageIndex + 1,
+                ayahNum,
+                ayahUQNum,
+                sl<GeneralController>().state.timeNow.dateNow,
+              )
+              .then(
+                (value) => context.showCustomErrorSnackBar(
+                  'addBookmark'.tr,
+                  isDone: true,
+                ),
+              );
         }
-        sl<AudioController>().clearSelection();
-        quranCtrl.state.isPages.value == 1 ? null : cancel!();
+        QuranController.instance.clearSelection();
+        QuranController.instance.state.isPages.value == 1 ? null : cancel!();
       },
     );
   }

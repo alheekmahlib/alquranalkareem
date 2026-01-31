@@ -37,15 +37,20 @@ class YearSelection extends StatelessWidget {
               child: CustomDropdown<int>(
                 excludeSelected: false,
                 decoration: CustomDropdownDecoration(
-                  closedFillColor:
-                      Theme.of(context).colorScheme.primaryContainer,
-                  expandedFillColor:
-                      Theme.of(context).colorScheme.primaryContainer,
-                  closedBorderRadius:
-                      const BorderRadius.all(Radius.circular(8)),
+                  closedFillColor: Theme.of(
+                    context,
+                  ).colorScheme.primaryContainer,
+                  expandedFillColor: Theme.of(
+                    context,
+                  ).colorScheme.primaryContainer,
+                  closedBorderRadius: const BorderRadius.all(
+                    Radius.circular(8),
+                  ),
                 ),
-                closedHeaderPadding:
-                    const EdgeInsets.symmetric(vertical: 4.0, horizontal: 8.0),
+                closedHeaderPadding: const EdgeInsets.symmetric(
+                  vertical: 4.0,
+                  horizontal: 8.0,
+                ),
                 itemsListPadding: const EdgeInsets.symmetric(horizontal: 4.0),
                 listItemPadding: const EdgeInsets.symmetric(horizontal: 8.0),
                 // hintText: 'المدة',
@@ -53,7 +58,7 @@ class YearSelection extends StatelessWidget {
                   fit: BoxFit.scaleDown,
                   child: Text(
                     '${eventCtrl.selectedDate.hYear} ${'AH'.tr}'
-                        .convertNumbers(),
+                        .convertNumbersToCurrentLang(),
                     style: TextStyle(
                       color: Get.theme.colorScheme.inversePrimary,
                       fontSize: 14,
@@ -68,20 +73,21 @@ class YearSelection extends StatelessWidget {
                 ),
                 listItemBuilder: (context, index, select, _) => Container(
                   padding: const EdgeInsets.symmetric(
-                      horizontal: 4.0, vertical: 4.0),
+                    horizontal: 4.0,
+                    vertical: 4.0,
+                  ),
                   decoration: BoxDecoration(
                     borderRadius: const BorderRadius.all(Radius.circular(8)),
                     color: eventCtrl.hijriNow.hYear == index
                         ? Get.theme.colorScheme.primary.withValues(alpha: .2)
                         : select
-                            ? Get.theme.colorScheme.surface
-                                .withValues(alpha: .2)
-                            : Colors.transparent,
+                        ? Get.theme.colorScheme.surface.withValues(alpha: .2)
+                        : Colors.transparent,
                   ),
                   child: FittedBox(
                     fit: BoxFit.scaleDown,
                     child: Text(
-                      '${index} ${'AH'.tr}'.convertNumbers(),
+                      '${index} ${'AH'.tr}'.convertNumbersToCurrentLang(),
                       style: TextStyle(
                         color: Get.theme.colorScheme.inversePrimary,
                         fontSize: 18,

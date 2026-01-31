@@ -17,6 +17,8 @@ class ApiConstants {
       'alheekmahlib/thegarlanded/master/ourApps.json';
   static const String appUrl =
       'https://alheekmahlib.github.io/alheekmahlib/#/download/quran';
+  static const String downloadAppsUrl =
+      'https://alheekmahlib.github.io/alheekmahlib/#/download/';
   static const String quranShareUrl =
       'https://alheekmahlib.github.io/alheekmahlib/#/quran?page=';
 }

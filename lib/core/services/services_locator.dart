@@ -50,10 +50,6 @@ class ServicesLocator {
       () => Get.put<GeneralController>(GeneralController(), permanent: true),
     );
 
-    sl.registerLazySingleton<AudioController>(
-      () => Get.put<AudioController>(AudioController(), permanent: true),
-    );
-
     sl.registerSingleton<QuranController>(
       Get.put<QuranController>(QuranController(), permanent: true),
     );

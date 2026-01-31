@@ -17,8 +17,9 @@ class BookBookmarksScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Obx(() {
-      var groupedBookmarks =
-          booksBookmarksCtrl.groupByBookName(booksBookmarksCtrl.bookmarks);
+      var groupedBookmarks = booksBookmarksCtrl.groupByBookName(
+        booksBookmarksCtrl.bookmarks,
+      );
 
       return booksBookmarksCtrl.bookmarks.isEmpty
           ? Column(
@@ -28,13 +29,17 @@ class BookBookmarksScreen extends StatelessWidget {
                   'bookmarks'.tr,
                   textAlign: TextAlign.center,
                   style: TextStyle(
-                      color: Theme.of(context).colorScheme.surface,
-                      fontFamily: 'kufi',
-                      fontWeight: FontWeight.w700,
-                      fontSize: 18),
+                    color: Theme.of(context).colorScheme.surface,
+                    fontFamily: 'kufi',
+                    fontWeight: FontWeight.w700,
+                    fontSize: 18,
+                  ),
                 ),
-                customLottieWithColor(LottieConstants.assetsLottieSearch,
-                    height: 150.0, width: 150.0),
+                customLottieWithColor(
+                  LottieConstants.assetsLottieSearch,
+                  height: 150.0,
+                  width: 150.0,
+                ),
                 const Gap(64),
               ],
             )
@@ -55,22 +60,21 @@ class BookBookmarksScreen extends StatelessWidget {
                         color: Theme.of(context).colorScheme.inversePrimary,
                       ),
                     ),
-                    collapsedIconColor:
-                        Theme.of(context).colorScheme.inversePrimary,
+                    collapsedIconColor: Theme.of(
+                      context,
+                    ).colorScheme.inversePrimary,
                     iconColor: Theme.of(context).colorScheme.inversePrimary,
-                    backgroundColor: Theme.of(context)
-                        .colorScheme
-                        .primary
-                        .withValues(alpha: .1),
-                    collapsedBackgroundColor: Theme.of(context)
-                        .colorScheme
-                        .primary
-                        .withValues(alpha: .1),
+                    backgroundColor: Theme.of(
+                      context,
+                    ).colorScheme.primary.withValues(alpha: .1),
+                    collapsedBackgroundColor: Theme.of(
+                      context,
+                    ).colorScheme.primary.withValues(alpha: .1),
                     children: bookmarks.map((bookmark) {
                       return ListTile(
                         title: Text(
                           '${'page'.tr}: ${bookmark.currentPage}'
-                              .convertNumbers(),
+                              .convertNumbersToCurrentLang(),
                           style: TextStyle(
                             fontSize: 16.0,
                             fontFamily: 'kufi',
@@ -86,19 +90,24 @@ class BookBookmarksScreen extends StatelessWidget {
                           onPressed: () {
                             booksBookmarksCtrl
                                 .deleteBookmark(
-                                    bookmark.bookNumber!, bookmark.currentPage!)
-                                .then((_) => Get.context!
-                                    .showCustomErrorSnackBar(
-                                        'deletedBookmark'.tr));
+                                  bookmark.bookNumber!,
+                                  bookmark.currentPage!,
+                                )
+                                .then(
+                                  (_) => Get.context!.showCustomErrorSnackBar(
+                                    'deletedBookmark'.tr,
+                                  ),
+                                );
                             // booksBookmarksCtrl.deleteBookmark(
                             //     bookmark.id, bookmark.currentPage!);
                             log('bookmark deleted');
                           },
                         ),
                         onTap: () {
-                          Get.to(() => PagesPage(
-                                bookNumber: bookmark.bookNumber ?? 0,
-                              ));
+                          Get.to(
+                            () =>
+                                PagesPage(bookNumber: bookmark.bookNumber ?? 0),
+                          );
                         },
                       );
                     }).toList(),

@@ -3,7 +3,7 @@ part of '../quran.dart';
 class QuranHome extends StatelessWidget {
   QuranHome({Key? key}) : super(key: key);
 
-  final audioCtrl = AudioController.instance;
+  final audioCtrl = AudioCtrl.instance;
   final generalCtrl = GeneralController.instance;
   final bookmarkCtrl = BookmarksController.instance;
   final quranCtrl = QuranController.instance;
@@ -82,7 +82,7 @@ class QuranHome extends StatelessWidget {
                   ),
                   Obx(
                     () =>
-                        audioCtrl.state.isStartPlaying.value ||
+                        audioCtrl.state.isPlaying.value ||
                             generalCtrl.state.isShowControl.value
                         ? Align(
                             alignment: Alignment.bottomCenter,

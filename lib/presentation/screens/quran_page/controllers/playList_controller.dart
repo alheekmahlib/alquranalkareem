@@ -24,18 +24,19 @@ class PlayListController extends GetxController {
   final box = GetStorage();
 
   // Assuming these are your dependency injection methods to get controllers
-  final audioCtrl = AudioController.instance;
+  final audioCtrl = AudioCtrl.instance;
   final GlobalKey<ExpansionTileCardState> saveCard = GlobalKey();
   final quranCtrl = QuranController.instance;
   final generalCtrl = GeneralController.instance;
 
   Stream<PositionData> get positionDataStream =>
       R.Rx.combineLatest3<Duration, Duration, Duration?, PositionData>(
-          playlistAudioPlayer.positionStream,
-          playlistAudioPlayer.bufferedPositionStream,
-          playlistAudioPlayer.durationStream,
-          (position, bufferedPosition, duration) => PositionData(
-              position, bufferedPosition, duration ?? Duration.zero));
+        playlistAudioPlayer.positionStream,
+        playlistAudioPlayer.bufferedPositionStream,
+        playlistAudioPlayer.durationStream,
+        (position, bufferedPosition, duration) =>
+            PositionData(position, bufferedPosition, duration ?? Duration.zero),
+      );
 
   // This method now takes a local file path instead of generating a URL
   AudioSource createAudioSource(String filePath) {
@@ -60,16 +61,18 @@ class PlayListController extends GetxController {
             .surahNumber
             .toString()
             .padLeft(3, '0');
-        String fileName = ayahReaderInfo[audioCtrl.state.readerIndex.value]
-                    ['url'] ==
+        String fileName =
+            ayahReaderInfo[audioCtrl.state.ayahReaderIndex.value]['url'] ==
                 ApiConstants.ayahs1stSource
             ? "${i.toString().padLeft(3, "0")}.mp3"
             : "$surahNum${i.toString().padLeft(3, "0")}.mp3";
         String localFilePath =
-            await getLocalPath() + "${audioCtrl.state.readerValue!}/$fileName";
+            await getLocalPath() + "${audioCtrl.ayahReaderValue}/$fileName";
 
         bool downloadResult = await downloadFile(
-            generateUrl(i, audioCtrl.state.readerValue!), fileName);
+          generateUrl(i, audioCtrl.ayahReaderValue),
+          fileName,
+        );
         log('downloadResult: $downloadResult');
         if (downloadResult) {
           AudioSource source = createAudioSource(localFilePath);
@@ -81,18 +84,21 @@ class PlayListController extends GetxController {
 
       ayahsPlayList.assignAll(generatedList);
 
-      await playlistAudioPlayer
-          .setAudioSource(ConcatenatingAudioSource(children: ayahsPlayList));
+      await playlistAudioPlayer.setAudioSource(
+        ConcatenatingAudioSource(children: ayahsPlayList),
+      );
     } else {
       print("Error: startNum is greater than endNum.");
     }
   }
 
   String generateUrl(int ayahNumber, String readerName) {
-    if (ayahReaderInfo[audioCtrl.state.readerIndex.value]['url'] ==
+    if (ayahReaderInfo[audioCtrl.state.ayahReaderIndex.value]['url'] ==
         ApiConstants.ayahs1stSource) {
-      log('${ayahReaderInfo[audioCtrl.state.readerIndex.value]['url']}${audioCtrl.reader}/${ayahNumber}.mp3');
-      return '${ayahReaderInfo[audioCtrl.state.readerIndex.value]['url']}${audioCtrl.reader}/${ayahNumber}.mp3';
+      log(
+        '${ayahReaderInfo[audioCtrl.state.ayahReaderIndex.value]['url']}${audioCtrl.ayahReaderValue}/${ayahNumber}.mp3',
+      );
+      return '${ayahReaderInfo[audioCtrl.state.ayahReaderIndex.value]['url']}${audioCtrl.ayahReaderValue}/${ayahNumber}.mp3';
     } else {
       final surahNum = quranCtrl
           .getSurahDataByAyah(quranCtrl.state.allAyahs[ayahNumber])
@@ -100,21 +106,26 @@ class PlayListController extends GetxController {
           .toString()
           .padLeft(3, '0');
       final currentAyahNumber = quranCtrl
-          .state.allAyahs[ayahNumber - 1].ayahNumber
+          .state
+          .allAyahs[ayahNumber - 1]
+          .ayahNumber
           .toString()
           .padLeft(3, '0');
-      log('${ayahReaderInfo[audioCtrl.state.readerIndex.value]['url']}${audioCtrl.reader}/${surahNum.toString().padLeft(3, "0")}$currentAyahNumber.mp3');
-      return '${ayahReaderInfo[audioCtrl.state.readerIndex.value]['url']}${audioCtrl.reader}/${surahNum.toString().padLeft(3, "0")}$currentAyahNumber.mp3';
+      log(
+        '${ayahReaderInfo[audioCtrl.state.ayahReaderIndex.value]['url']}${audioCtrl.ayahReaderValue}/${surahNum.toString().padLeft(3, "0")}$currentAyahNumber.mp3',
+      );
+      return '${ayahReaderInfo[audioCtrl.state.ayahReaderIndex.value]['url']}${audioCtrl.ayahReaderValue}/${surahNum.toString().padLeft(3, "0")}$currentAyahNumber.mp3';
     }
   }
 
   Future<bool> choiceFromPlayList(
-      int startNumber,
-      int endNumber,
-      int startUQNumber,
-      int endUQNumber,
-      int surahNumber,
-      String readerName) async {
+    int startNumber,
+    int endNumber,
+    int startUQNumber,
+    int endUQNumber,
+    int surahNumber,
+    String readerName,
+  ) async {
     startNum.value = startNumber;
     endNum.value = endNumber;
     startUQNum.value = startUQNumber;
@@ -129,17 +140,20 @@ class PlayListController extends GetxController {
           .surahNumber
           .toString()
           .padLeft(3, '0');
-      final currentAyahNumber =
-          quranCtrl.state.allAyahs[i - 1].ayahNumber.toString().padLeft(3, '0');
-      String fileName = ayahReaderInfo[audioCtrl.state.readerIndex.value]
-                  ['url'] ==
+      final currentAyahNumber = quranCtrl.state.allAyahs[i - 1].ayahNumber
+          .toString()
+          .padLeft(3, '0');
+      String fileName =
+          ayahReaderInfo[audioCtrl.state.ayahReaderIndex.value]['url'] ==
               ApiConstants.ayahs1stSource
           ? "${i.toString().padLeft(3, "0")}.mp3"
           : "$surahNum$currentAyahNumber.mp3";
       String localFilePath =
-          "$localDirectoryPath/${audioCtrl.state.readerValue!}/$fileName";
+          "$localDirectoryPath/${audioCtrl.ayahReaderValue}/$fileName";
       bool downloadResult = await downloadFile(
-          generateUrl(i, audioCtrl.state.readerValue!), fileName);
+        generateUrl(i, audioCtrl.ayahReaderValue),
+        fileName,
+      );
 
       if (downloadResult) {
         AudioSource source = createAudioSource(localFilePath);
@@ -150,15 +164,16 @@ class PlayListController extends GetxController {
     }
 
     ayahsPlayList.assignAll(playlistSources);
-    await playlistAudioPlayer
-        .setAudioSource(ConcatenatingAudioSource(children: playlistSources));
+    await playlistAudioPlayer.setAudioSource(
+      ConcatenatingAudioSource(children: playlistSources),
+    );
 
     return true;
   }
 
   Future<bool> downloadFile(String url, String fileName) async {
     String localFilePath =
-        await getLocalPath() + "${audioCtrl.state.readerValue!}/$fileName";
+        await getLocalPath() + "${audioCtrl.ayahReaderValue}/$fileName";
     final file = File(localFilePath);
 
     // Check if the file already exists and return true immediately if it does
@@ -175,11 +190,16 @@ class PlayListController extends GetxController {
       onDownloading.value = true;
       progressString.value = "0";
       progress.value = 0;
-      await dio.download(url, localFilePath, onReceiveProgress: (rec, total) {
-        progressString.value = ((rec / total) * 100).toStringAsFixed(0);
-        progress.value = (rec / total).toDouble();
-        print(progressString.value);
-      }, cancelToken: cancelToken);
+      await dio.download(
+        url,
+        localFilePath,
+        onReceiveProgress: (rec, total) {
+          progressString.value = ((rec / total) * 100).toStringAsFixed(0);
+          progress.value = (rec / total).toDouble();
+          print(progressString.value);
+        },
+        cancelToken: cancelToken,
+      );
       downloading.value = false;
       onDownloading.value = false;
       progressString.value = "100";
@@ -202,30 +222,30 @@ class PlayListController extends GetxController {
 
   int? get firstAyah => startNum.value == 1
       ? quranCtrl
-          .getPageAyahsByIndex(quranCtrl.state.currentPageNumber.value - 1)
-          .first
-          .ayahNumber
+            .getPageAyahsByIndex(quranCtrl.state.currentPageNumber.value - 1)
+            .first
+            .ayahNumber
       : startNum.value;
 
   int? get lastAyah => endNum.value == 1
       ? quranCtrl
-          .getPageAyahsByIndex(quranCtrl.state.currentPageNumber.value - 1)
-          .last
-          .ayahNumber
+            .getPageAyahsByIndex(quranCtrl.state.currentPageNumber.value - 1)
+            .last
+            .ayahNumber
       : endNum.value;
 
   int? get firstAyahUQ => startUQNum.value == 1
       ? quranCtrl
-          .getPageAyahsByIndex(quranCtrl.state.currentPageNumber.value - 1)
-          .first
-          .ayahUQNumber
+            .getPageAyahsByIndex(quranCtrl.state.currentPageNumber.value - 1)
+            .first
+            .ayahUQNumber
       : startUQNum.value;
 
   int? get lastAyahUQ => endUQNum.value == 1
       ? quranCtrl
-          .getPageAyahsByIndex(quranCtrl.state.currentPageNumber.value - 1)
-          .last
-          .ayahUQNumber
+            .getPageAyahsByIndex(quranCtrl.state.currentPageNumber.value - 1)
+            .last
+            .ayahUQNumber
       : endUQNum.value;
 
   void reset() {
@@ -245,29 +265,34 @@ class PlayListController extends GetxController {
   }
 
   Future<void> addPlayList() async {
-    playLists.add(PlayListModel(
+    playLists.add(
+      PlayListModel(
         id: playLists.length,
         startNum: firstAyah!,
         endNum: lastAyah!,
         startUQNum: firstAyahUQ!,
         endUQNum: lastAyahUQ!,
-        surahNum: quranCtrl
-            .getSurahNumberFromPage(quranCtrl.state.currentPageNumber.value),
+        surahNum: quranCtrl.getSurahNumberFromPage(
+          quranCtrl.state.currentPageNumber.value,
+        ),
         surahName: quranCtrl
             .getCurrentSurahByPage(quranCtrl.state.currentPageNumber.value - 1)
             .arabicName,
-        readerName: audioCtrl.state.readerValue!,
+        readerName: audioCtrl.ayahReaderValue,
         name: quranCtrl
             .getCurrentSurahByPage(quranCtrl.state.currentPageNumber.value - 1)
-            .arabicName));
+            .arabicName,
+      ),
+    );
     PlayListStorage.savePlayList(playLists);
     print('playLists: ${playLists.length.toString()}');
   }
 
   deletePlayList(BuildContext context, int index) async {
     // Delete the reminder
-    await PlayListStorage.deletePlayList(index)
-        .then((value) => context.showCustomErrorSnackBar('deletedPlayList'.tr));
+    await PlayListStorage.deletePlayList(
+      index,
+    ).then((value) => context.showCustomErrorSnackBar('deletedPlayList'.tr));
 
     // Update the playList list
     playLists.removeAt(index);
@@ -309,8 +334,9 @@ class PlayListStorage {
 
   static Future<void> savePlayList(List<PlayListModel> playLists) async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
-    List<String> playListJson =
-        playLists.map((r) => jsonEncode(r.toJson())).toList();
+    List<String> playListJson = playLists
+        .map((r) => jsonEncode(r.toJson()))
+        .toList();
     await prefs.setStringList(_storageKey, playListJson);
   }
 

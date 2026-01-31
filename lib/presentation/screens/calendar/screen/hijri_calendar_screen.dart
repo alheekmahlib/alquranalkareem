@@ -69,7 +69,7 @@ class HijriCalendarScreen extends StatelessWidget {
                                     ),
                                     child: Text(
                                       '${eventsCtrl.hijriNow.hYear}'
-                                          .convertNumbers(),
+                                          .convertNumbersToCurrentLang(),
                                       style: TextStyle(
                                         fontSize: 34.0,
                                         fontFamily: 'kufi',
@@ -150,7 +150,7 @@ class HijriCalendarScreen extends StatelessWidget {
                                   DaysName(),
                                   const Gap(8),
                                   SizedBox(
-                                    height: 200,
+                                    height: 260,
                                     child: PageView.builder(
                                       controller: eventCtrl.pageController,
                                       onPageChanged: eventCtrl.onMonthChanged,
@@ -224,7 +224,7 @@ class HijriCalendarScreen extends StatelessWidget {
                                           ),
                                           child: Text(
                                             '${eventsCtrl.hijriNow.hYear}'
-                                                .convertNumbers(),
+                                                .convertNumbersToCurrentLang(),
                                             style: TextStyle(
                                               fontSize: 34.0,
                                               fontFamily: 'kufi',

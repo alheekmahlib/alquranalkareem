@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:get/get.dart';
 
 import '/core/utils/constants/lottie_constants.dart';
 import '../../../../../core/utils/constants/extensions/extensions.dart';
@@ -35,47 +36,55 @@ class OurAppsBuild extends StatelessWidget {
                 return InkWell(
                   child: Container(
                     decoration: BoxDecoration(
-                        color: Theme.of(context).colorScheme.primaryContainer,
-                        borderRadius:
-                            const BorderRadius.all(Radius.circular(8))),
+                      color: Theme.of(context).colorScheme.primaryContainer,
+                      borderRadius: const BorderRadius.all(Radius.circular(8)),
+                    ),
                     padding: const EdgeInsets.all(8.0),
                     margin: const EdgeInsets.symmetric(horizontal: 16.0),
                     child: Row(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        SvgPicture.network(
-                          apps[index].appLogo,
-                          height: 45,
-                          width: 45,
+                        Expanded(
+                          flex: 2,
+                          child: SvgPicture.network(
+                            apps[index].appLogo,
+                            height: 45,
+                            width: 45,
+                            colorFilter: index == 4
+                                ? ColorFilter.mode(
+                                    context.theme.colorScheme.onSurface,
+                                    BlendMode.modulate,
+                                  )
+                                : null,
+                          ),
                         ),
                         context.vDivider(height: 40.0),
                         Expanded(
+                          flex: 7,
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
                                 apps[index].appTitle,
                                 style: TextStyle(
-                                    color:
-                                        Theme.of(context).colorScheme.primary,
-                                    fontSize: 13,
-                                    fontFamily: 'kufi',
-                                    fontWeight: FontWeight.bold),
+                                  color: Theme.of(context).colorScheme.primary,
+                                  fontSize: 13,
+                                  fontFamily: 'kufi',
+                                  fontWeight: FontWeight.bold,
+                                ),
                               ),
-                              SizedBox(
-                                height: 8.0.h,
-                              ),
+                              SizedBox(height: 8.0.h),
                               Text(
                                 apps[index].body,
                                 style: TextStyle(
-                                    color: Theme.of(context)
-                                        .colorScheme
-                                        .surface
-                                        .withValues(alpha: .7),
-                                    fontSize: 11,
-                                    fontFamily: 'kufi',
-                                    fontWeight: FontWeight.bold),
+                                  color: Theme.of(
+                                    context,
+                                  ).colorScheme.surface.withValues(alpha: .7),
+                                  fontSize: 11,
+                                  fontFamily: 'kufi',
+                                  fontWeight: FontWeight.bold,
+                                ),
                               ),
                             ],
                           ),
@@ -91,11 +100,17 @@ class OurAppsBuild extends StatelessWidget {
             ),
           );
         } else if (snapshot.hasError) {
-          return customLottie(LottieConstants.assetsLottieNoInternet,
-              width: 150.0, height: 150.0);
+          return customLottie(
+            LottieConstants.assetsLottieNoInternet,
+            width: 150.0,
+            height: 150.0,
+          );
         }
-        return customLottie(LottieConstants.assetsLottieSplashLoading,
-            width: 200.0, height: 200.0);
+        return customLottie(
+          LottieConstants.assetsLottieSplashLoading,
+          width: 200.0,
+          height: 200.0,
+        );
       },
     );
   }

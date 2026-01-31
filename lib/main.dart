@@ -2,6 +2,7 @@ import 'dart:io' show Platform;
 
 import 'package:drift/drift.dart' show driftRuntimeOptions;
 import 'package:flutter/material.dart';
+import 'package:flutter_app_info/flutter_app_info.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:quran_library/quran_library.dart';
@@ -22,7 +23,12 @@ Future<void> main() async {
   Map<String, Map<String, String>> languages = await dep.init();
   await initializeApp();
   driftRuntimeOptions.dontWarnAboutMultipleDatabases = true;
-  runApp(MyApp(languages: languages));
+  runApp(
+    AppInfo(
+      data: await AppInfoData.get(),
+      child: MyApp(languages: languages),
+    ),
+  );
 }
 
 Future<void> initializeApp() async {

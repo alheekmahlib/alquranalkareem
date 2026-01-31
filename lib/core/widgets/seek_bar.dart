@@ -115,10 +115,12 @@ class _SliderWidgetState extends State<SliderWidget> {
 
   @override
   Widget build(BuildContext context) {
-    _sliderValue = (widget.position?.inMilliseconds.toDouble() ??
-            widget.currentPosition!)
-        .clamp(0.0,
-            widget.duration?.inMilliseconds.toDouble() ?? widget.filesCount!);
+    _sliderValue =
+        (widget.position?.inMilliseconds.toDouble() ?? widget.currentPosition!)
+            .clamp(
+              0.0,
+              widget.duration?.inMilliseconds.toDouble() ?? widget.filesCount!,
+            );
 
     return Directionality(
       textDirection: TextDirection.rtl,
@@ -128,9 +130,11 @@ class _SliderWidgetState extends State<SliderWidget> {
             padding: EdgeInsets.symmetric(horizontal: widget.horizontalPadding),
             child: SliderTheme(
               data: SliderTheme.of(context).copyWith(
-                activeTrackColor: widget.activeTrackColor ??
+                activeTrackColor:
+                    widget.activeTrackColor ??
                     Theme.of(context).colorScheme.primary,
-                inactiveTrackColor: widget.inactiveTrackColor ??
+                inactiveTrackColor:
+                    widget.inactiveTrackColor ??
                     Theme.of(context).colorScheme.surface,
                 thumbShape: CustomSliderThumbRect(
                   thumbRadius: 20,
@@ -138,12 +142,14 @@ class _SliderWidgetState extends State<SliderWidget> {
                   min: widget.min,
                   max: widget.max,
                 ),
-                overlayShape:
-                    const RoundSliderOverlayShape(overlayRadius: 10.0),
+                overlayShape: const RoundSliderOverlayShape(
+                  overlayRadius: 10.0,
+                ),
               ),
               child: Slider(
                 min: 0.0,
-                max: widget.duration?.inMilliseconds.toDouble() ??
+                max:
+                    widget.duration?.inMilliseconds.toDouble() ??
                     widget.filesCount!,
                 value: _sliderValue,
                 onChanged: (value) {
@@ -167,12 +173,12 @@ class _SliderWidgetState extends State<SliderWidget> {
             child: widget.filesCount != null
                 ? Container(
                     padding: const EdgeInsets.symmetric(
-                        horizontal: 8.0, vertical: 2.0),
+                      horizontal: 8.0,
+                      vertical: 2.0,
+                    ),
                     decoration: BoxDecoration(
                       color: Theme.of(context).colorScheme.primary,
-                      borderRadius: const BorderRadius.all(
-                        Radius.circular(4),
-                      ),
+                      borderRadius: const BorderRadius.all(Radius.circular(4)),
                     ),
                     child: Text(
                       'downloading'.tr,
@@ -189,7 +195,9 @@ class _SliderWidgetState extends State<SliderWidget> {
                     children: [
                       Container(
                         padding: const EdgeInsets.symmetric(
-                            horizontal: 8.0, vertical: 2.0),
+                          horizontal: 8.0,
+                          vertical: 2.0,
+                        ),
                         decoration: BoxDecoration(
                           color: Theme.of(context).colorScheme.primary,
                           borderRadius: const BorderRadius.only(
@@ -198,13 +206,14 @@ class _SliderWidgetState extends State<SliderWidget> {
                           ),
                         ),
                         child: Text(
-                          (RegExp(r'((^0*[1-9]\d*:)?\d{2}:\d{2})\.\d+$')
-                                      .firstMatch("$remaining")
-                                      ?.group(1) ??
+                          (RegExp(
+                                    r'((^0*[1-9]\d*:)?\d{2}:\d{2})\.\d+$',
+                                  ).firstMatch("$remaining")?.group(1) ??
                                   '$remaining')
-                              .convertNumbers(),
+                              .convertNumbersToCurrentLang(),
                           style: TextStyle(
-                            color: widget.textColor ??
+                            color:
+                                widget.textColor ??
                                 Theme.of(context).canvasColor,
                             fontSize: 16,
                             fontFamily: 'kufi',
@@ -213,7 +222,9 @@ class _SliderWidgetState extends State<SliderWidget> {
                       ),
                       Container(
                         padding: const EdgeInsets.symmetric(
-                            horizontal: 8.0, vertical: 2.0),
+                          horizontal: 8.0,
+                          vertical: 2.0,
+                        ),
                         decoration: BoxDecoration(
                           color: Theme.of(context).colorScheme.primary,
                           borderRadius: const BorderRadius.only(
@@ -222,13 +233,14 @@ class _SliderWidgetState extends State<SliderWidget> {
                           ),
                         ),
                         child: Text(
-                          (RegExp(r'((^0*[1-9]\d*:)?\d{2}:\d{2})\.\d+$')
-                                      .firstMatch("$total")
-                                      ?.group(1) ??
+                          (RegExp(
+                                    r'((^0*[1-9]\d*:)?\d{2}:\d{2})\.\d+$',
+                                  ).firstMatch("$total")?.group(1) ??
                                   '$total')
-                              .convertNumbers(),
+                              .convertNumbersToCurrentLang(),
                           style: TextStyle(
-                            color: widget.textColor ??
+                            color:
+                                widget.textColor ??
                                 Theme.of(context).canvasColor,
                             fontSize: 16,
                             fontFamily: 'kufi',

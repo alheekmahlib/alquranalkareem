@@ -24,7 +24,7 @@ class DaysName extends StatelessWidget {
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 4.0),
                 child: Text(
-                  eventCtrl.getWeekdayName(index).tr,
+                  eventCtrl.getWeekdayShortName(index).tr,
                   style: TextStyle(
                     fontFamily: 'kufi',
                     fontSize: 16,

@@ -1,6 +1,7 @@
 class OurAppInfo {
   final int id;
   final String appTitle;
+  final String appName;
   final String body;
   final String appLogo;
   final String appBanner;
@@ -18,6 +19,7 @@ class OurAppInfo {
   OurAppInfo({
     required this.id,
     required this.appTitle,
+    required this.appName,
     required this.body,
     required this.appLogo,
     required this.appBanner,
@@ -37,6 +39,7 @@ class OurAppInfo {
     return OurAppInfo(
       id: json['id'],
       appTitle: json['appTitle'],
+      appName: json['appName'],
       body: json['body'],
       appLogo: json['appLogo'],
       appBanner: json['appBanner'],

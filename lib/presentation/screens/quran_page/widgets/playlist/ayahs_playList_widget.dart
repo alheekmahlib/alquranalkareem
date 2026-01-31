@@ -15,11 +15,12 @@ class AyahsPlayListWidget extends StatelessWidget {
         height: size.height * .94,
         width: context.customOrientation(size.width, size.width * .5),
         decoration: BoxDecoration(
-            color: Theme.of(context).colorScheme.primaryContainer,
-            borderRadius: const BorderRadius.only(
-              topLeft: Radius.circular(8),
-              topRight: Radius.circular(8),
-            )),
+          color: Theme.of(context).colorScheme.primaryContainer,
+          borderRadius: const BorderRadius.only(
+            topLeft: Radius.circular(8),
+            topRight: Radius.circular(8),
+          ),
+        ),
         padding: const EdgeInsets.all(16.0),
         child: SafeArea(
           child: Column(
@@ -27,10 +28,12 @@ class AyahsPlayListWidget extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  context.customClose(close: () {
-                    playList.isSelect.value = false;
-                    Get.back();
-                  }),
+                  context.customClose(
+                    close: () {
+                      playList.isSelect.value = false;
+                      Get.back();
+                    },
+                  ),
                   Text(
                     'createPlayList'.tr,
                     style: TextStyle(
@@ -47,16 +50,21 @@ class AyahsPlayListWidget extends StatelessWidget {
                 decoration: BoxDecoration(
                   borderRadius: const BorderRadius.all(Radius.circular(8)),
                   border: Border.all(
-                      width: 1,
-                      color: Theme.of(context)
-                          .colorScheme
-                          .primary
-                          .withValues(alpha: .15)),
+                    width: 1,
+                    color: Theme.of(
+                      context,
+                    ).colorScheme.primary.withValues(alpha: .15),
+                  ),
                 ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const ChangeReader(),
+                    AyahChangeReader(
+                      downloadManagerStyle:
+                          AudioCtrl.instance.ayahDownloadManagerStyle,
+                      style: AudioCtrl.instance.ayahAudioStyle,
+                      isDark: themeCtrl.isDarkMode,
+                    ),
                     const Gap(16),
                     AyahsChoiceWidget(),
                     const Gap(16),
@@ -66,9 +74,11 @@ class AyahsPlayListWidget extends StatelessWidget {
               ),
               const Gap(16),
               PlayListBuild(),
-              Obx(() => playList.isSelect.value
-                  ? const PlayListPlayWidget()
-                  : const SizedBox.shrink()),
+              Obx(
+                () => playList.isSelect.value
+                    ? const PlayListPlayWidget()
+                    : const SizedBox.shrink(),
+              ),
             ],
           ),
         ),

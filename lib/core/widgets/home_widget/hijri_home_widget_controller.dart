@@ -14,8 +14,8 @@ class HijriHomeWidgetController extends GetxController {
   // Create instance with GetX pattern
   static HijriHomeWidgetController get instance =>
       Get.isRegistered<HijriHomeWidgetController>()
-          ? Get.find<HijriHomeWidgetController>()
-          : Get.put(HijriHomeWidgetController());
+      ? Get.find<HijriHomeWidgetController>()
+      : Get.put(HijriHomeWidgetController());
 
   final eventCtrl = EventController.instance;
 
@@ -45,11 +45,15 @@ class HijriHomeWidgetController extends GetxController {
       // Update widget data on initialization
       await updateHijriWidgetData();
 
-      log('تم تهيئة Home Widget بنجاح - Home Widget initialized successfully',
-          name: 'HijriHomeWidgetController');
+      log(
+        'تم تهيئة Home Widget بنجاح - Home Widget initialized successfully',
+        name: 'HijriHomeWidgetController',
+      );
     } catch (e) {
-      log('خطأ في تهيئة Home Widget - Error initializing Home Widget: $e',
-          name: 'HijriHomeWidgetController');
+      log(
+        'خطأ في تهيئة Home Widget - Error initializing Home Widget: $e',
+        name: 'HijriHomeWidgetController',
+      );
     }
   }
 
@@ -71,7 +75,7 @@ class HijriHomeWidgetController extends GetxController {
           'الأربعاء',
           'الخميس',
           'الجمعة',
-          'السبت'
+          'السبت',
         ];
 
         // أسماء الشهور الهجرية
@@ -88,7 +92,7 @@ class HijriHomeWidgetController extends GetxController {
           'رمضان',
           'شوال',
           'ذو القعدة',
-          'ذو الحجة'
+          'ذو الحجة',
         ];
 
         // حساب الأيام المتبقية في الشهر بدلاً من اليوم الحالي
@@ -100,27 +104,41 @@ class HijriHomeWidgetController extends GetxController {
         // حفظ البيانات في الـ widget
         // Save data to widget
         await HomeWidget.saveWidgetData<String>(
-            'hijri_day', '${hijriDate.hDay}'.convertNumbers());
+          'hijri_day',
+          '${hijriDate.hDay}'.convertNumbersToCurrentLang(),
+        );
 
         await HomeWidget.saveWidgetData<String>(
-            'hijri_day_name', dayNames[hijriDate.weekDay() - 1]);
+          'hijri_day_name',
+          dayNames[hijriDate.weekDay() - 1],
+        );
 
         await HomeWidget.saveWidgetData<String>(
-            'hijri_month', monthNames[hijriDate.hMonth - 1]);
+          'hijri_month',
+          monthNames[hijriDate.hMonth - 1],
+        );
 
         await HomeWidget.saveWidgetData<String>(
-            'hijri_year', '${hijriDate.hYear}'.convertNumbers());
+          'hijri_year',
+          '${hijriDate.hYear}'.convertNumbersToCurrentLang(),
+        );
 
         await HomeWidget.saveWidgetData<String>(
-            'hijri_month_number', '${hijriDate.hMonth}');
+          'hijri_month_number',
+          '${hijriDate.hMonth}',
+        );
 
         await HomeWidget.saveWidgetData<String>(
-            'length_of_month', '$monthLength');
+          'length_of_month',
+          '$monthLength',
+        );
 
         // حفظ الأيام المتبقية للعرض في الويدجت
         // Save remaining days for widget display
         await HomeWidget.saveWidgetData<String>(
-            'remaining_days', '$remainingDays'.convertNumbers());
+          'remaining_days',
+          '$remainingDays'.convertNumbersToCurrentLang(),
+        );
 
         // حساب نسبة تقدم الشهر
         // Calculate month progress percentage
@@ -129,16 +147,18 @@ class HijriHomeWidgetController extends GetxController {
 
         // تحديث الـ widget
         // Update widget
-        await HomeWidget.updateWidget(
-          androidName: androidWidgetName,
-        );
+        await HomeWidget.updateWidget(androidName: androidWidgetName);
 
-        log('تم تحديث بيانات التقويم الهجري بنجاح - Hijri calendar data updated successfully',
-            name: 'HijriHomeWidgetController');
+        log(
+          'تم تحديث بيانات التقويم الهجري بنجاح - Hijri calendar data updated successfully',
+          name: 'HijriHomeWidgetController',
+        );
       }
     } catch (e) {
-      log('خطأ في تحديث بيانات التقويم الهجري - Error updating Hijri calendar data: $e',
-          name: 'HijriHomeWidgetController');
+      log(
+        'خطأ في تحديث بيانات التقويم الهجري - Error updating Hijri calendar data: $e',
+        name: 'HijriHomeWidgetController',
+      );
     }
   }
 
@@ -146,8 +166,10 @@ class HijriHomeWidgetController extends GetxController {
   /// Handle widget click events
   void onWidgetClicked(Uri? uri) {
     if (uri != null) {
-      log('تم النقر على Widget: $uri - Widget clicked: $uri',
-          name: 'HijriHomeWidgetController');
+      log(
+        'تم النقر على Widget: $uri - Widget clicked: $uri',
+        name: 'HijriHomeWidgetController',
+      );
 
       // الانتقال إلى شاشة التقويم عند النقر
       // Navigate to calendar screen on click

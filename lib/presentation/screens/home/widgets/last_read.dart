@@ -24,12 +24,14 @@ class LastRead extends StatelessWidget {
     return GestureDetector(
       onTap: () {
         Get.to(() => QuranHome(), transition: Transition.downToUp)!.then(
-            (value) => quranCtrl
-                .changeSurahListOnTap(quranCtrl.state.currentPageNumber.value));
+          (value) => quranCtrl.changeSurahListOnTap(
+            quranCtrl.state.currentPageNumber.value,
+          ),
+        );
       },
       child: Container(
         height: 125,
-        width: 380,
+        width: Get.width,
         padding: const EdgeInsets.symmetric(horizontal: 32.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -51,28 +53,27 @@ class LastRead extends StatelessWidget {
                 borderRadius: const BorderRadius.all(Radius.circular(8.0)),
                 child: Container(
                   height: 70,
-                  width: 380,
+                  width: Get.width,
                   decoration: BoxDecoration(
-                      color: Theme.of(context)
-                          .colorScheme
-                          .primary
-                          .withValues(alpha: .15),
-                      borderRadius:
-                          const BorderRadius.all(Radius.circular(8.0))),
+                    color: Theme.of(
+                      context,
+                    ).colorScheme.primary.withValues(alpha: .15),
+                    borderRadius: const BorderRadius.all(Radius.circular(8.0)),
+                  ),
                   child: Stack(
                     alignment: Alignment.centerRight,
                     children: [
                       LinearProgressIndicator(
                         minHeight: 70,
-                        borderRadius:
-                            const BorderRadius.all(Radius.circular(8.0)),
+                        borderRadius: const BorderRadius.all(
+                          Radius.circular(8.0),
+                        ),
                         value: (quranCtrl.state.currentPageNumber.value / 604)
                             .clamp(0.0, 1.0),
                         backgroundColor: Colors.transparent,
-                        color: Theme.of(context)
-                            .colorScheme
-                            .surface
-                            .withValues(alpha: .5),
+                        color: Theme.of(
+                          context,
+                        ).colorScheme.surface.withValues(alpha: .5),
                       ),
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 8.0),
@@ -85,8 +86,9 @@ class LastRead extends StatelessWidget {
                                   'assets/svg/surah_name/00${quranCtrl.state.lastReadSurahNumber.value}.svg',
                                   height: 60,
                                   colorFilter: ColorFilter.mode(
-                                      Theme.of(context).cardColor,
-                                      BlendMode.srcIn),
+                                    Theme.of(context).cardColor,
+                                    BlendMode.srcIn,
+                                  ),
                                 ),
                               ),
                               context.vDivider(height: 30),
@@ -101,14 +103,14 @@ class LastRead extends StatelessWidget {
                                       child: FittedBox(
                                         fit: BoxFit.scaleDown,
                                         child: Text(
-                                          '${'pageNo'.tr}: ${quranCtrl.state.currentPageNumber.value.toString().convertNumbers()}',
+                                          '${'pageNo'.tr}: ${quranCtrl.state.currentPageNumber.value.toString().convertNumbersToCurrentLang()}',
                                           style: TextStyle(
-                                              fontSize: 18.0,
-                                              fontFamily: 'naskh',
-                                              fontWeight: FontWeight.w500,
-                                              color:
-                                                  Theme.of(context).hintColor,
-                                              height: 1.5),
+                                            fontSize: 18.0,
+                                            fontFamily: 'naskh',
+                                            fontWeight: FontWeight.w500,
+                                            color: Theme.of(context).hintColor,
+                                            height: 1.5,
+                                          ),
                                           maxLines: 1,
                                           overflow: TextOverflow.ellipsis,
                                           textAlign: TextAlign.center,
@@ -126,30 +128,37 @@ class LastRead extends StatelessWidget {
                                             height: 30,
                                             width: 30,
                                             decoration: BoxDecoration(
-                                                color: Theme.of(context)
-                                                    .colorScheme
-                                                    .surface
-                                                    .withValues(alpha: .6),
-                                                borderRadius:
-                                                    const BorderRadius.all(
-                                                        Radius.circular(8))),
+                                              color: Theme.of(context)
+                                                  .colorScheme
+                                                  .surface
+                                                  .withValues(alpha: .6),
+                                              borderRadius:
+                                                  const BorderRadius.all(
+                                                    Radius.circular(8),
+                                                  ),
+                                            ),
                                           ),
                                           alignmentLayout(
-                                              RotatedBox(
-                                                  quarterTurns: 15,
-                                                  child: customLottie(
-                                                      LottieConstants
-                                                          .assetsLottieArrow,
-                                                      height: 50.0)),
-                                              RotatedBox(
-                                                  quarterTurns: 25,
-                                                  child: customLottie(
-                                                      LottieConstants
-                                                          .assetsLottieArrow,
-                                                      height: 50.0))),
+                                            RotatedBox(
+                                              quarterTurns: 15,
+                                              child: customLottie(
+                                                LottieConstants
+                                                    .assetsLottieArrow,
+                                                height: 50.0,
+                                              ),
+                                            ),
+                                            RotatedBox(
+                                              quarterTurns: 25,
+                                              child: customLottie(
+                                                LottieConstants
+                                                    .assetsLottieArrow,
+                                                height: 50.0,
+                                              ),
+                                            ),
+                                          ),
                                         ],
                                       ),
-                                    )
+                                    ),
                                   ],
                                 ),
                               ),

@@ -34,10 +34,11 @@ class UserOptions extends StatelessWidget {
                   Text(
                     'share'.tr,
                     style: TextStyle(
-                        color: Theme.of(context).hintColor,
-                        fontFamily: 'kufi',
-                        fontStyle: FontStyle.italic,
-                        fontSize: 14),
+                      color: Theme.of(context).hintColor,
+                      fontFamily: 'kufi',
+                      fontStyle: FontStyle.italic,
+                      fontSize: 14,
+                    ),
                   ),
                 ],
               ),
@@ -45,10 +46,7 @@ class UserOptions extends StatelessWidget {
             ),
             const Divider(),
             InkWell(
-              onTap: () => contactUs(
-                  subject: 'تطبيق القرآن الكريم - مكتبة الحكمة',
-                  stringText:
-                      'يرجى كتابة أي ملاحظة أو إستفسار\n| جزاكم الله خيرًا |'),
+              onTap: () => contactUs(context: context),
               child: Row(
                 children: [
                   Icon(
@@ -65,10 +63,11 @@ class UserOptions extends StatelessWidget {
                   Text(
                     'email'.tr,
                     style: TextStyle(
-                        color: Theme.of(context).hintColor,
-                        fontFamily: 'kufi',
-                        fontStyle: FontStyle.italic,
-                        fontSize: 14),
+                      color: Theme.of(context).hintColor,
+                      fontFamily: 'kufi',
+                      fontStyle: FontStyle.italic,
+                      fontSize: 14,
+                    ),
                   ),
                 ],
               ),
@@ -92,10 +91,11 @@ class UserOptions extends StatelessWidget {
                   Text(
                     'facebook'.tr,
                     style: TextStyle(
-                        color: Theme.of(context).hintColor,
-                        fontFamily: 'kufi',
-                        fontStyle: FontStyle.italic,
-                        fontSize: 14),
+                      color: Theme.of(context).hintColor,
+                      fontFamily: 'kufi',
+                      fontStyle: FontStyle.italic,
+                      fontSize: 14,
+                    ),
                   ),
                 ],
               ),

@@ -29,7 +29,7 @@ class QuranJuz extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 8.0),
                   child: Text(
-                    '${'juz'.tr} ${(index + 1).toString().convertNumbers()}',
+                    '${'juz'.tr} ${(index + 1).toString().convertNumbersToCurrentLang()}',
                     style: TextStyle(
                       color: Theme.of(context).hintColor,
                       fontFamily: "kufi",
@@ -99,7 +99,7 @@ class QuranJuz extends StatelessWidget {
                                           Transform.translate(
                                             offset: const Offset(0, 1),
                                             child: Text(
-                                              '${(index + 1).toString().convertNumbers()}',
+                                              '${(index + 1).toString().convertNumbersToCurrentLang()}',
                                               style: TextStyle(
                                                 color: Theme.of(
                                                   context,
@@ -140,7 +140,7 @@ class QuranJuz extends StatelessWidget {
                                             right: 8.0,
                                           ),
                                           child: Text(
-                                            '${quranCtrl.getCurrentSurahByPage(juz.page).arabicName} ${quranCtrl.getCurrentSurahByPage(juz.page).surahNumber.toString().convertNumbers()} - ${'page'.tr} ${juz.page.toString().convertNumbers()}',
+                                            '${quranCtrl.getCurrentSurahByPage(juz.page).arabicName} ${quranCtrl.getCurrentSurahByPage(juz.page).surahNumber.toString().convertNumbersToCurrentLang()} - ${'page'.tr} ${juz.page.toString().convertNumbersToCurrentLang()}',
                                             style: TextStyle(
                                               fontFamily: "naskh",
                                               fontWeight: FontWeight.w600,

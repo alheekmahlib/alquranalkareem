@@ -1,51 +1,90 @@
 part of '../../../quran.dart';
 
-extension AudioUi on AudioController {
-  /// -------- [OnTap] ----------
-  void startPlayingToggle() {
-    state.isStartPlaying.value = true;
-    Future.delayed(const Duration(seconds: 3), () {
-      state.isStartPlaying.value = false;
-    });
-  }
+extension AudioUi on AudioCtrl {
+  /// -------- [Getters] ----------
 
-  void playAyahOnTap(int surahNum, int ayahNum, int ayahUQNum,
-      [bool singleAyahOnly = false]) {
-    state.selectedAyahNum.value = ayahNum - 1;
-    state.currentSurahNumInPage.value = surahNum;
-    state.currentAyahUQInPage.value = ayahUQNum;
-    state.playSingleAyahOnly = singleAyahOnly;
-    log('s: ${quranCtrl.state.surahs[state.currentSurahNumInPage.value - 1].arabicName} | state.currentAyahUQInPage: ${state.currentAyahUQInPage.value}',
-        name: 'AudioController_playAyahOnTap');
-    playAyah();
-  }
+  AyahDownloadManagerStyle get ayahDownloadManagerStyle =>
+      AyahDownloadManagerStyle.defaults(
+        isDark: ThemeController.instance.isDarkMode,
+        context: Get.context!,
+      ).copyWith(
+        avatarDownloadedColor: Get.theme.colorScheme.surface,
+        avatarUndownloadedColor: Get.theme.colorScheme.surface.withValues(
+          alpha: .5,
+        ),
+        backgroundColor: Get.theme.colorScheme.primary,
+        downloadForeground: Get.theme.colorScheme.surface,
+        downloadBackground: Get.theme.colorScheme.surface,
+        handleColor: Get.theme.hintColor,
+        progressBackgroundColor: Get.theme.colorScheme.surface.withValues(
+          alpha: .2,
+        ),
+        surahSubtitleStyle: TextStyle(
+          color: Get.theme.canvasColor,
+          fontFamily: 'kufi',
+          fontWeight: FontWeight.bold,
+          fontSize: 12,
+        ),
+        surahTitleStyle: TextStyle(
+          color: Get.theme.canvasColor,
+          fontFamily: 'surahName',
+          fontSize: 32,
+          package: 'quran_library',
+        ),
+        progressColor: Get.theme.colorScheme.surface,
+        headerIcon: Column(
+          children: [
+            Container(
+              width: 70,
+              height: 4,
+              decoration: BoxDecoration(
+                color: Theme.of(Get.context!).canvasColor,
+                borderRadius: BorderRadius.circular(8),
+              ),
+            ),
+            const Gap(8),
+            Get.context!.hDivider(
+              color: Theme.of(Get.context!).colorScheme.secondaryContainer,
+              height: 1,
+              width: 70,
+            ),
+            Text(
+              'manager_ayah_downloads'.tr,
+              style: TextStyle(
+                color: Theme.of(Get.context!).canvasColor,
+                fontFamily: 'kufi',
+                fontWeight: FontWeight.bold,
+                fontSize: 20,
+              ),
+            ),
+            const Gap(8),
+          ],
+        ),
+      );
 
-  Future<void> changeReadersOnTap(int index) async {
-    // state.audioPlayer.stop();
-    // state.isPlay.value = false;
-    state.readerName.value = ayahReaderInfo[index]['name'];
-    state.readerValue = ayahReaderInfo[index]['readerD'];
-    state.readerIndex.value = index;
-    state.box.write(AUDIO_PLAYER_SOUND, ayahReaderInfo[index]['readerD']);
-    state.box.write(READER_NAME, ayahReaderInfo[index]['name']);
-    state.box.write(READER_INDEX, index);
-    // state.isPlay.value = true;
-    state.isDirectPlaying.value = false;
-    Get.back();
-    state.isPlay.value
-        ? await playFile().then((_) => state.audioPlayer.play())
-        : state.audioPlayer.stop();
-  }
-
-  void clearSelection() {
-    if (state.audioPlayer.playing || state.isPlay.value) {
-      quranCtrl.showControl();
-    } else if (QuranLibrary.quranCtrl.selectedAyahsByUnequeNumber.isNotEmpty) {
-      QuranLibrary.quranCtrl.clearSelection();
-      quranCtrl.update(['clearSelection']);
-    } else {
-      quranCtrl.showControl();
-    }
-    GlobalKeyManager().drawerKey.currentState!.closeSlider();
-  }
+  AyahAudioStyle get ayahAudioStyle =>
+      AyahAudioStyle.defaults(
+        isDark: ThemeController.instance.isDarkMode,
+        context: Get.context!,
+      ).copyWith(
+        playIconColor: Get.theme.colorScheme.onPrimary,
+        backgroundColor: Get.theme.colorScheme.primary,
+        dialogBackgroundColor: Get.theme.primaryColor,
+        dialogReaderTextColor: Get.theme.canvasColor,
+        textColor: Get.theme.colorScheme.surface,
+        readerNameInItemColor: Get.theme.canvasColor,
+        dialogSelectedReaderColor: Get.theme.colorScheme.surface,
+        dialogUnSelectedReaderColor: Colors.transparent,
+        dialogHeaderTitleColor: Get.theme.canvasColor,
+        dialogHeaderBackgroundGradient: LinearGradient(
+          colors: [
+            Get.theme.colorScheme.surface.withValues(alpha: .5),
+            Colors.transparent,
+          ],
+        ),
+        tabIndicatorColor: Get.theme.colorScheme.surface,
+        dialogCloseIconColor: Get.theme.canvasColor,
+        tabLabelColor: Get.theme.canvasColor,
+        tabUnselectedLabelColor: Get.theme.canvasColor.withValues(alpha: .5),
+      );
 }

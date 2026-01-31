@@ -10,19 +10,23 @@ class SplashScreenController extends GetxController {
   void onInit() {
     _loadInitialData();
     startTime();
-    Future.delayed(const Duration(milliseconds: 600))
-        .then((_) => state.containerAnimate.value = true);
+    Future.delayed(
+      const Duration(milliseconds: 600),
+    ).then((_) => state.containerAnimate.value = true);
     Future.delayed(const Duration(seconds: 3)).then((_) {
       state.containerHeight.value = Get.height;
       state.containerHHeight.value = Get.height;
       state.customWidget.value = 0;
     });
-    Future.delayed(const Duration(milliseconds: 2800))
-        .then((_) => state.smallContainerHeight.value = Get.height);
-    Future.delayed(const Duration(milliseconds: 2900))
-        .then((_) => state.secondSmallContainerHeight.value = Get.height);
-    Future.delayed(const Duration(milliseconds: 2950))
-        .then((_) => state.thirdSmallContainerHeight.value = Get.height);
+    Future.delayed(
+      const Duration(milliseconds: 2800),
+    ).then((_) => state.smallContainerHeight.value = Get.height);
+    Future.delayed(
+      const Duration(milliseconds: 2900),
+    ).then((_) => state.secondSmallContainerHeight.value = Get.height);
+    Future.delayed(
+      const Duration(milliseconds: 2950),
+    ).then((_) => state.thirdSmallContainerHeight.value = Get.height);
     super.onInit();
   }
 
@@ -35,7 +39,6 @@ class SplashScreenController extends GetxController {
     QuranController.instance.loadSwitchValue();
     QuranController.instance.getLastPage();
     GeneralController.instance.updateGreeting();
-    AudioController.instance.loadQuranReader();
     GeneralController.instance.state.screenSelectedValue.value =
         state.box.read(SCREEN_SELECTED_VALUE) ?? 0;
   }

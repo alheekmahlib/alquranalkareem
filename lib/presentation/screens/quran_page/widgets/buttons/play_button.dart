@@ -22,18 +22,22 @@ class PlayButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return CustomButton(
       width: 30,
+      isCustomSvgColor: true,
       svgPath: singleAyahOnly ? SvgPath.svgPlayArrow : SvgPath.svgPlayAll,
-      svgColor: context.theme.canvasColor,
-      onPressed: () {
-        AudioController.instance.startPlayingToggle();
+      svgColor: context.theme.hintColor,
+      onPressed: () async {
+        // AudioCtrl.instance.startPlayingToggle();
         QuranController.instance.state.isPlayExpanded.value = true;
-        AudioController.instance.state.isDirectPlaying.value = false;
+        AudioCtrl.instance.state.isDirectPlaying.value = false;
         debugPrint('SurahNum: $surahNum');
-        AudioController.instance.playAyahOnTap(
-          surahNum,
-          ayahNum,
-          ayahUQNum,
-          singleAyahOnly,
+
+        await QuranLibrary().playAyah(
+          context: Get.context!,
+          currentAyahUniqueNumber: ayahUQNum,
+          ayahAudioStyle: AudioCtrl.instance.ayahAudioStyle,
+          ayahDownloadManagerStyle: AudioCtrl.instance.ayahDownloadManagerStyle,
+          playSingleAyah: singleAyahOnly,
+          isDarkMode: ThemeController.instance.isDarkMode,
         );
         if (cancel != null) {
           cancel!();

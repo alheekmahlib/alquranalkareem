@@ -2,7 +2,6 @@ part of '../quran.dart';
 
 class QuranPages extends StatelessWidget {
   QuranPages({Key? key}) : super(key: key);
-  final audioCtrl = AudioController.instance;
   final quranCtrl = QuranController.instance;
   final bookmarkCtrl = BookmarksController.instance;
 
@@ -16,7 +15,7 @@ class QuranPages extends StatelessWidget {
       quranCtrl.state.currentPageNumber.value,
     );
     return GestureDetector(
-      onTap: () => audioCtrl.clearSelection(),
+      onTap: () => quranCtrl.clearSelection(),
       child: Container(
         height: MediaQuery.sizeOf(context).height,
         child: Focus(

@@ -5,7 +5,7 @@ class PlayAyah extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final audioCtrl = AudioController.instance;
+    final audioCtrl = AudioCtrl.instance;
     return SizedBox(
       width: 28,
       height: 28,
@@ -16,7 +16,7 @@ class PlayAyah extends StatelessWidget {
           final processingState = playerState?.processingState;
           if (processingState == ProcessingState.loading ||
               processingState == ProcessingState.buffering ||
-              (audioCtrl.state.downloading.value &&
+              (audioCtrl.state.isDownloading.value &&
                   audioCtrl.state.progress.value == 0)) {
             return customLottie(
               LottieConstants.assetsLottiePlayButton,
@@ -31,7 +31,11 @@ class PlayAyah extends StatelessWidget {
                     ? audioCtrl.state.isDirectPlaying.value = false
                     : audioCtrl.state.isDirectPlaying.value = true;
                 QuranController.instance.state.isPlayExpanded.value = true;
-                audioCtrl.playAyah();
+                audioCtrl.playAyah(
+                  context,
+                  audioCtrl.currentAyah.ayahUQNumber,
+                  playSingleAyah: true,
+                );
               },
             );
           }
@@ -39,7 +43,7 @@ class PlayAyah extends StatelessWidget {
             child: customSvgWithCustomColor(SvgPath.svgPauseArrow, height: 25),
             onTap: () {
               QuranController.instance.state.isPlayExpanded.value = true;
-              audioCtrl.playAyah();
+              audioCtrl.pausePlayer();
             },
           );
         },
