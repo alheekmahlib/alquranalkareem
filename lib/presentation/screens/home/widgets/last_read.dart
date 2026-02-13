@@ -23,11 +23,15 @@ class LastRead extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Get.to(() => QuranHome(), transition: Transition.downToUp)!.then(
-          (value) => quranCtrl.changeSurahListOnTap(
+        Get.to(() => QuranHome(), transition: Transition.downToUp);
+        // !.then(
+        //   (value) =>
+        Future.delayed(const Duration(milliseconds: 300), () {
+          quranCtrl.changeSurahListOnTap(
             quranCtrl.state.currentPageNumber.value,
-          ),
-        );
+            // ),
+          );
+        });
       },
       child: Container(
         height: 125,
@@ -103,7 +107,7 @@ class LastRead extends StatelessWidget {
                                       child: FittedBox(
                                         fit: BoxFit.scaleDown,
                                         child: Text(
-                                          '${'pageNo'.tr}: ${quranCtrl.state.currentPageNumber.value.toString().convertNumbersToCurrentLang()}',
+                                          '${'pageNo'.tr}: ${(quranCtrl.state.currentPageNumber.value + 1).toString().convertNumbersToCurrentLang()}',
                                           style: TextStyle(
                                             fontSize: 18.0,
                                             fontFamily: 'naskh',

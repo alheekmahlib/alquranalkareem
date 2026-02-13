@@ -15,28 +15,31 @@ class PlayListPlayButton extends StatelessWidget {
             builder: (context, snapshot) {
               final loopMode = snapshot.data ?? LoopMode.off;
               List<Widget> icons = [
-                Icon(Icons.repeat,
-                    color: Theme.of(context)
-                        .colorScheme
-                        .surface
-                        .withValues(alpha: .4)),
-                Icon(Icons.repeat,
-                    color: Theme.of(context).colorScheme.surface),
+                Icon(
+                  Icons.repeat,
+                  color: Theme.of(
+                    context,
+                  ).colorScheme.surface.withValues(alpha: .4),
+                ),
+                Icon(
+                  Icons.repeat,
+                  color: Theme.of(context).colorScheme.surface,
+                ),
               ];
-              const cycleModes = [
-                LoopMode.off,
-                LoopMode.all,
-              ];
+              const cycleModes = [LoopMode.off, LoopMode.all];
               final index = cycleModes.indexOf(loopMode);
               return IconButton(
                 icon: Semantics(
-                    button: true,
-                    enabled: true,
-                    label: 'repeatSurah'.tr,
-                    child: icons[index]),
+                  button: true,
+                  enabled: true,
+                  label: 'repeatSurah'.tr,
+                  child: icons[index],
+                ),
                 onPressed: () {
-                  playList.playlistAudioPlayer.setLoopMode(cycleModes[
-                      (cycleModes.indexOf(loopMode) + 1) % cycleModes.length]);
+                  playList.playlistAudioPlayer.setLoopMode(
+                    cycleModes[(cycleModes.indexOf(loopMode) + 1) %
+                        cycleModes.length],
+                  );
                 },
               );
             },
@@ -70,8 +73,11 @@ class PlayListPlayButton extends StatelessWidget {
                   final playing = playerState?.playing;
                   if (processingState == ProcessingState.loading ||
                       processingState == ProcessingState.buffering) {
-                    return customLottie(LottieConstants.assetsLottiePlayButton,
-                        width: 20.0, height: 20.0);
+                    return customLottie(
+                      LottieConstants.assetsLottiePlayButton,
+                      width: 20.0,
+                      height: 20.0,
+                    );
                   } else if (playing != true) {
                     return GestureDetector(
                       child: customSvgWithCustomColor(

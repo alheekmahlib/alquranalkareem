@@ -3,7 +3,7 @@ description: Al-Quran Al-Kareem - Al-Heekmah Library.
 
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 
-version: 4.5.2+102
+version: 4.5.3+103
 
 environment:
   sdk: '>=3.9.2 <4.0.0'
@@ -61,6 +61,9 @@ dependencies:
   path: ^1.9.1
   path_provider: ^2.1.5
   quran_library: ^2.3.5
+    # git:
+    #   ref: main
+    #   url: https://github.com/alheekmahlib/quran_library.git
   rate_my_app: ^2.3.2
   read_more_less: ^1.0.1
   responsive_builder: ^0.7.1
@@ -182,3020 +185,3020 @@ flutter:
 
     - family: page1
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4001_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4001_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4001_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4001_X-Regular.ttf
 
     - family: page2
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4002_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4002_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4002_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4002_X-Regular.ttf
 
     - family: page3
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4003_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4003_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4003_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4003_X-Regular.ttf
 
     - family: page4
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4004_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4004_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4004_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4004_X-Regular.ttf
 
     - family: page5
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4005_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4005_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4005_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4005_X-Regular.ttf
 
     - family: page6
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4006_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4006_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4006_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4006_X-Regular.ttf
 
     - family: page7
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4007_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4007_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4007_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4007_X-Regular.ttf
 
     - family: page8
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4008_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4008_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4008_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4008_X-Regular.ttf
 
     - family: page9
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4009_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4009_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4009_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4009_X-Regular.ttf
 
     - family: page10
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4010_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4010_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4010_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4010_X-Regular.ttf
 
     - family: page11
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4011_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4011_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4011_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4011_X-Regular.ttf
 
     - family: page12
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4012_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4012_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4012_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4012_X-Regular.ttf
 
     - family: page13
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4013_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4013_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4013_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4013_X-Regular.ttf
 
     - family: page14
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4014_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4014_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4014_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4014_X-Regular.ttf
 
     - family: page15
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4015_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4015_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4015_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4015_X-Regular.ttf
 
     - family: page16
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4016_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4016_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4016_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4016_X-Regular.ttf
 
     - family: page17
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4017_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4017_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4017_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4017_X-Regular.ttf
 
     - family: page18
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4018_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4018_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4018_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4018_X-Regular.ttf
 
     - family: page19
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4019_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4019_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4019_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4019_X-Regular.ttf
 
     - family: page20
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4020_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4020_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4020_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4020_X-Regular.ttf
 
     - family: page21
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4021_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4021_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4021_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4021_X-Regular.ttf
 
     - family: page22
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4022_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4022_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4022_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4022_X-Regular.ttf
 
     - family: page23
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4023_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4023_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4023_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4023_X-Regular.ttf
 
     - family: page24
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4024_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4024_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4024_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4024_X-Regular.ttf
 
     - family: page25
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4025_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4025_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4025_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4025_X-Regular.ttf
 
     - family: page26
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4026_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4026_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4026_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4026_X-Regular.ttf
 
     - family: page27
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4027_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4027_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4027_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4027_X-Regular.ttf
 
     - family: page28
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4028_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4028_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4028_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4028_X-Regular.ttf
 
     - family: page29
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4029_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4029_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4029_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4029_X-Regular.ttf
 
     - family: page30
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4030_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4030_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4030_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4030_X-Regular.ttf
 
     - family: page31
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4031_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4031_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4031_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4031_X-Regular.ttf
 
     - family: page32
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4032_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4032_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4032_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4032_X-Regular.ttf
 
     - family: page33
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4033_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4033_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4033_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4033_X-Regular.ttf
 
     - family: page34
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4034_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4034_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4034_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4034_X-Regular.ttf
 
     - family: page35
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4035_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4035_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4035_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4035_X-Regular.ttf
 
     - family: page36
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4036_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4036_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4036_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4036_X-Regular.ttf
 
     - family: page37
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4037_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4037_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4037_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4037_X-Regular.ttf
 
     - family: page38
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4038_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4038_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4038_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4038_X-Regular.ttf
 
     - family: page39
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4039_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4039_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4039_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4039_X-Regular.ttf
 
     - family: page40
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4040_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4040_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4040_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4040_X-Regular.ttf
 
     - family: page41
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4041_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4041_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4041_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4041_X-Regular.ttf
 
     - family: page42
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4042_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4042_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4042_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4042_X-Regular.ttf
 
     - family: page43
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4043_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4043_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4043_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4043_X-Regular.ttf
 
     - family: page44
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4044_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4044_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4044_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4044_X-Regular.ttf
 
     - family: page45
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4045_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4045_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4045_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4045_X-Regular.ttf
 
     - family: page46
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4046_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4046_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4046_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4046_X-Regular.ttf
 
     - family: page47
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4047_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4047_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4047_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4047_X-Regular.ttf
 
     - family: page48
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4048_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4048_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4048_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4048_X-Regular.ttf
 
     - family: page49
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4049_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4049_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4049_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4049_X-Regular.ttf
 
     - family: page50
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4050_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4050_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4050_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4050_X-Regular.ttf
 
     - family: page51
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4051_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4051_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4051_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4051_X-Regular.ttf
 
     - family: page52
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4052_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4052_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4052_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4052_X-Regular.ttf
 
     - family: page53
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4053_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4053_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4053_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4053_X-Regular.ttf
 
     - family: page54
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4054_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4054_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4054_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4054_X-Regular.ttf
 
     - family: page55
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4055_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4055_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4055_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4055_X-Regular.ttf
 
     - family: page56
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4056_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4056_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4056_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4056_X-Regular.ttf
 
     - family: page57
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4057_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4057_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4057_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4057_X-Regular.ttf
 
     - family: page58
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4058_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4058_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4058_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4058_X-Regular.ttf
 
     - family: page59
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4059_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4059_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4059_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4059_X-Regular.ttf
 
     - family: page60
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4060_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4060_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4060_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4060_X-Regular.ttf
 
     - family: page61
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4061_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4061_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4061_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4061_X-Regular.ttf
 
     - family: page62
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4062_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4062_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4062_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4062_X-Regular.ttf
 
     - family: page63
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4063_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4063_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4063_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4063_X-Regular.ttf
 
     - family: page64
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4064_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4064_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4064_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4064_X-Regular.ttf
 
     - family: page65
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4065_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4065_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4065_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4065_X-Regular.ttf
 
     - family: page66
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4066_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4066_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4066_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4066_X-Regular.ttf
 
     - family: page67
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4067_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4067_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4067_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4067_X-Regular.ttf
 
     - family: page68
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4068_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4068_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4068_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4068_X-Regular.ttf
 
     - family: page69
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4069_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4069_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4069_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4069_X-Regular.ttf
 
     - family: page70
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4070_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4070_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4070_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4070_X-Regular.ttf
 
     - family: page71
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4071_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4071_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4071_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4071_X-Regular.ttf
 
     - family: page72
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4072_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4072_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4072_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4072_X-Regular.ttf
 
     - family: page73
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4073_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4073_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4073_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4073_X-Regular.ttf
 
     - family: page74
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4074_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4074_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4074_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4074_X-Regular.ttf
 
     - family: page75
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4075_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4075_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4075_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4075_X-Regular.ttf
 
     - family: page76
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4076_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4076_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4076_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4076_X-Regular.ttf
 
     - family: page77
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4077_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4077_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4077_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4077_X-Regular.ttf
 
     - family: page78
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4078_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4078_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4078_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4078_X-Regular.ttf
 
     - family: page79
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4079_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4079_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4079_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4079_X-Regular.ttf
 
     - family: page80
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4080_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4080_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4080_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4080_X-Regular.ttf
 
     - family: page81
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4081_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4081_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4081_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4081_X-Regular.ttf
 
     - family: page82
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4082_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4082_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4082_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4082_X-Regular.ttf
 
     - family: page83
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4083_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4083_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4083_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4083_X-Regular.ttf
 
     - family: page84
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4084_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4084_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4084_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4084_X-Regular.ttf
 
     - family: page85
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4085_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4085_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4085_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4085_X-Regular.ttf
 
     - family: page86
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4086_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4086_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4086_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4086_X-Regular.ttf
 
     - family: page87
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4087_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4087_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4087_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4087_X-Regular.ttf
 
     - family: page88
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4088_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4088_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4088_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4088_X-Regular.ttf
 
     - family: page89
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4089_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4089_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4089_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4089_X-Regular.ttf
 
     - family: page90
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4090_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4090_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4090_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4090_X-Regular.ttf
 
     - family: page91
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4091_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4091_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4091_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4091_X-Regular.ttf
 
     - family: page92
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4092_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4092_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4092_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4092_X-Regular.ttf
 
     - family: page93
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4093_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4093_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4093_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4093_X-Regular.ttf
 
     - family: page94
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4094_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4094_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4094_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4094_X-Regular.ttf
 
     - family: page95
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4095_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4095_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4095_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4095_X-Regular.ttf
 
     - family: page96
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4096_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4096_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4096_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4096_X-Regular.ttf
 
     - family: page97
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4097_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4097_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4097_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4097_X-Regular.ttf
 
     - family: page98
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4098_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4098_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4098_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4098_X-Regular.ttf
 
     - family: page99
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4099_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4099_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4099_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4099_X-Regular.ttf
 
     - family: page100
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4100_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4100_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4100_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4100_X-Regular.ttf
 
     - family: page101
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4101_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4101_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4101_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4101_X-Regular.ttf
 
     - family: page102
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4102_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4102_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4102_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4102_X-Regular.ttf
 
     - family: page103
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4103_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4103_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4103_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4103_X-Regular.ttf
 
     - family: page104
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4104_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4104_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4104_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4104_X-Regular.ttf
 
     - family: page105
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4105_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4105_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4105_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4105_X-Regular.ttf
 
     - family: page106
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4106_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4106_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4106_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4106_X-Regular.ttf
 
     - family: page107
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4107_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4107_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4107_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4107_X-Regular.ttf
 
     - family: page108
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4108_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4108_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4108_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4108_X-Regular.ttf
 
     - family: page109
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4109_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4109_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4109_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4109_X-Regular.ttf
 
     - family: page110
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4110_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4110_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4110_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4110_X-Regular.ttf
 
     - family: page111
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4111_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4111_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4111_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4111_X-Regular.ttf
 
     - family: page112
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4112_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4112_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4112_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4112_X-Regular.ttf
 
     - family: page113
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4113_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4113_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4113_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4113_X-Regular.ttf
 
     - family: page114
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4114_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4114_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4114_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4114_X-Regular.ttf
 
     - family: page115
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4115_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4115_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4115_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4115_X-Regular.ttf
 
     - family: page116
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4116_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4116_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4116_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4116_X-Regular.ttf
 
     - family: page117
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4117_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4117_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4117_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4117_X-Regular.ttf
 
     - family: page118
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4118_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4118_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4118_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4118_X-Regular.ttf
 
     - family: page119
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4119_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4119_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4119_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4119_X-Regular.ttf
 
     - family: page120
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4120_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4120_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4120_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4120_X-Regular.ttf
 
     - family: page121
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4121_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4121_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4121_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4121_X-Regular.ttf
 
     - family: page122
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4122_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4122_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4122_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4122_X-Regular.ttf
 
     - family: page123
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4123_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4123_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4123_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4123_X-Regular.ttf
 
     - family: page124
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4124_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4124_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4124_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4124_X-Regular.ttf
 
     - family: page125
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4125_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4125_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4125_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4125_X-Regular.ttf
 
     - family: page126
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4126_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4126_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4126_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4126_X-Regular.ttf
 
     - family: page127
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4127_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4127_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4127_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4127_X-Regular.ttf
 
     - family: page128
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4128_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4128_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4128_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4128_X-Regular.ttf
 
     - family: page129
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4129_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4129_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4129_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4129_X-Regular.ttf
 
     - family: page130
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4130_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4130_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4130_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4130_X-Regular.ttf
 
     - family: page131
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4131_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4131_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4131_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4131_X-Regular.ttf
 
     - family: page132
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4132_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4132_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4132_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4132_X-Regular.ttf
 
     - family: page133
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4133_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4133_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4133_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4133_X-Regular.ttf
 
     - family: page134
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4134_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4134_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4134_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4134_X-Regular.ttf
 
     - family: page135
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4135_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4135_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4135_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4135_X-Regular.ttf
 
     - family: page136
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4136_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4136_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4136_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4136_X-Regular.ttf
 
     - family: page137
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4137_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4137_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4137_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4137_X-Regular.ttf
 
     - family: page138
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4138_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4138_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4138_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4138_X-Regular.ttf
 
     - family: page139
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4139_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4139_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4139_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4139_X-Regular.ttf
 
     - family: page140
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4140_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4140_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4140_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4140_X-Regular.ttf
 
     - family: page141
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4141_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4141_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4141_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4141_X-Regular.ttf
 
     - family: page142
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4142_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4142_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4142_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4142_X-Regular.ttf
 
     - family: page143
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4143_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4143_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4143_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4143_X-Regular.ttf
 
     - family: page144
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4144_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4144_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4144_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4144_X-Regular.ttf
 
     - family: page145
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4145_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4145_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4145_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4145_X-Regular.ttf
 
     - family: page146
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4146_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4146_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4146_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4146_X-Regular.ttf
 
     - family: page147
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4147_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4147_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4147_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4147_X-Regular.ttf
 
     - family: page148
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4148_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4148_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4148_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4148_X-Regular.ttf
 
     - family: page149
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4149_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4149_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4149_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4149_X-Regular.ttf
 
     - family: page150
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4150_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4150_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4150_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4150_X-Regular.ttf
 
     - family: page151
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4151_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4151_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4151_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4151_X-Regular.ttf
 
     - family: page152
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4152_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4152_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4152_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4152_X-Regular.ttf
 
     - family: page153
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4153_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4153_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4153_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4153_X-Regular.ttf
 
     - family: page154
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4154_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4154_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4154_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4154_X-Regular.ttf
 
     - family: page155
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4155_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4155_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4155_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4155_X-Regular.ttf
 
     - family: page156
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4156_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4156_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4156_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4156_X-Regular.ttf
 
     - family: page157
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4157_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4157_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4157_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4157_X-Regular.ttf
 
     - family: page158
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4158_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4158_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4158_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4158_X-Regular.ttf
 
     - family: page159
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4159_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4159_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4159_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4159_X-Regular.ttf
 
     - family: page160
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4160_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4160_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4160_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4160_X-Regular.ttf
 
     - family: page161
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4161_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4161_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4161_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4161_X-Regular.ttf
 
     - family: page162
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4162_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4162_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4162_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4162_X-Regular.ttf
 
     - family: page163
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4163_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4163_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4163_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4163_X-Regular.ttf
 
     - family: page164
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4164_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4164_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4164_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4164_X-Regular.ttf
 
     - family: page165
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4165_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4165_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4165_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4165_X-Regular.ttf
 
     - family: page166
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4166_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4166_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4166_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4166_X-Regular.ttf
 
     - family: page167
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4167_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4167_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4167_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4167_X-Regular.ttf
 
     - family: page168
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4168_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4168_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4168_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4168_X-Regular.ttf
 
     - family: page169
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4169_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4169_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4169_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4169_X-Regular.ttf
 
     - family: page170
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4170_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4170_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4170_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4170_X-Regular.ttf
 
     - family: page171
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4171_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4171_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4171_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4171_X-Regular.ttf
 
     - family: page172
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4172_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4172_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4172_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4172_X-Regular.ttf
 
     - family: page173
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4173_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4173_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4173_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4173_X-Regular.ttf
 
     - family: page174
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4174_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4174_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4174_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4174_X-Regular.ttf
 
     - family: page175
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4175_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4175_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4175_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4175_X-Regular.ttf
 
     - family: page176
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4176_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4176_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4176_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4176_X-Regular.ttf
 
     - family: page177
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4177_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4177_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4177_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4177_X-Regular.ttf
 
     - family: page178
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4178_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4178_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4178_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4178_X-Regular.ttf
 
     - family: page179
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4179_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4179_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4179_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4179_X-Regular.ttf
 
     - family: page180
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4180_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4180_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4180_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4180_X-Regular.ttf
 
     - family: page181
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4181_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4181_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4181_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4181_X-Regular.ttf
 
     - family: page182
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4182_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4182_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4182_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4182_X-Regular.ttf
 
     - family: page183
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4183_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4183_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4183_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4183_X-Regular.ttf
 
     - family: page184
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4184_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4184_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4184_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4184_X-Regular.ttf
 
     - family: page185
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4185_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4185_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4185_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4185_X-Regular.ttf
 
     - family: page186
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4186_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4186_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4186_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4186_X-Regular.ttf
 
     - family: page187
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4187_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4187_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4187_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4187_X-Regular.ttf
 
     - family: page188
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4188_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4188_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4188_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4188_X-Regular.ttf
 
     - family: page189
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4189_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4189_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4189_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4189_X-Regular.ttf
 
     - family: page190
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4190_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4190_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4190_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4190_X-Regular.ttf
 
     - family: page191
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4191_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4191_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4191_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4191_X-Regular.ttf
 
     - family: page192
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4192_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4192_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4192_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4192_X-Regular.ttf
 
     - family: page193
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4193_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4193_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4193_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4193_X-Regular.ttf
 
     - family: page194
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4194_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4194_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4194_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4194_X-Regular.ttf
 
     - family: page195
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4195_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4195_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4195_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4195_X-Regular.ttf
 
     - family: page196
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4196_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4196_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4196_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4196_X-Regular.ttf
 
     - family: page197
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4197_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4197_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4197_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4197_X-Regular.ttf
 
     - family: page198
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4198_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4198_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4198_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4198_X-Regular.ttf
 
     - family: page199
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4199_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4199_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4199_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4199_X-Regular.ttf
 
     - family: page200
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4200_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4200_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4200_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4200_X-Regular.ttf
 
     - family: page201
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4201_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4201_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4201_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4201_X-Regular.ttf
 
     - family: page202
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4202_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4202_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4202_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4202_X-Regular.ttf
 
     - family: page203
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4203_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4203_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4203_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4203_X-Regular.ttf
 
     - family: page204
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4204_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4204_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4204_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4204_X-Regular.ttf
 
     - family: page205
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4205_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4205_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4205_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4205_X-Regular.ttf
 
     - family: page206
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4206_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4206_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4206_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4206_X-Regular.ttf
 
     - family: page207
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4207_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4207_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4207_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4207_X-Regular.ttf
 
     - family: page208
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4208_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4208_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4208_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4208_X-Regular.ttf
 
     - family: page209
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4209_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4209_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4209_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4209_X-Regular.ttf
 
     - family: page210
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4210_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4210_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4210_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4210_X-Regular.ttf
 
     - family: page211
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4211_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4211_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4211_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4211_X-Regular.ttf
 
     - family: page212
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4212_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4212_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4212_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4212_X-Regular.ttf
 
     - family: page213
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4213_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4213_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4213_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4213_X-Regular.ttf
 
     - family: page214
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4214_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4214_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4214_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4214_X-Regular.ttf
 
     - family: page215
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4215_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4215_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4215_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4215_X-Regular.ttf
 
     - family: page216
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4216_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4216_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4216_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4216_X-Regular.ttf
 
     - family: page217
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4217_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4217_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4217_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4217_X-Regular.ttf
 
     - family: page218
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4218_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4218_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4218_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4218_X-Regular.ttf
 
     - family: page219
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4219_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4219_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4219_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4219_X-Regular.ttf
 
     - family: page220
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4220_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4220_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4220_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4220_X-Regular.ttf
 
     - family: page221
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4221_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4221_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4221_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4221_X-Regular.ttf
 
     - family: page222
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4222_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4222_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4222_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4222_X-Regular.ttf
 
     - family: page223
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4223_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4223_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4223_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4223_X-Regular.ttf
 
     - family: page224
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4224_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4224_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4224_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4224_X-Regular.ttf
 
     - family: page225
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4225_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4225_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4225_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4225_X-Regular.ttf
 
     - family: page226
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4226_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4226_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4226_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4226_X-Regular.ttf
 
     - family: page227
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4227_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4227_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4227_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4227_X-Regular.ttf
 
     - family: page228
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4228_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4228_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4228_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4228_X-Regular.ttf
 
     - family: page229
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4229_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4229_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4229_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4229_X-Regular.ttf
 
     - family: page230
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4230_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4230_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4230_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4230_X-Regular.ttf
 
     - family: page231
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4231_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4231_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4231_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4231_X-Regular.ttf
 
     - family: page232
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4232_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4232_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4232_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4232_X-Regular.ttf
 
     - family: page233
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4233_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4233_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4233_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4233_X-Regular.ttf
 
     - family: page234
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4234_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4234_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4234_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4234_X-Regular.ttf
 
     - family: page235
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4235_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4235_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4235_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4235_X-Regular.ttf
 
     - family: page236
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4236_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4236_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4236_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4236_X-Regular.ttf
 
     - family: page237
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4237_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4237_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4237_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4237_X-Regular.ttf
 
     - family: page238
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4238_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4238_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4238_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4238_X-Regular.ttf
 
     - family: page239
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4239_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4239_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4239_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4239_X-Regular.ttf
 
     - family: page240
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4240_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4240_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4240_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4240_X-Regular.ttf
 
     - family: page241
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4241_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4241_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4241_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4241_X-Regular.ttf
 
     - family: page242
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4242_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4242_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4242_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4242_X-Regular.ttf
 
     - family: page243
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4243_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4243_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4243_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4243_X-Regular.ttf
 
     - family: page244
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4244_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4244_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4244_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4244_X-Regular.ttf
 
     - family: page245
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4245_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4245_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4245_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4245_X-Regular.ttf
 
     - family: page246
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4246_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4246_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4246_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4246_X-Regular.ttf
 
     - family: page247
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4247_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4247_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4247_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4247_X-Regular.ttf
 
     - family: page248
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4248_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4248_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4248_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4248_X-Regular.ttf
 
     - family: page249
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4249_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4249_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4249_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4249_X-Regular.ttf
 
     - family: page250
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4250_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4250_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4250_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4250_X-Regular.ttf
 
     - family: page251
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4251_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4251_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4251_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4251_X-Regular.ttf
 
     - family: page252
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4252_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4252_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4252_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4252_X-Regular.ttf
 
     - family: page253
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4253_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4253_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4253_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4253_X-Regular.ttf
 
     - family: page254
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4254_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4254_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4254_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4254_X-Regular.ttf
 
     - family: page255
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4255_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4255_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4255_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4255_X-Regular.ttf
 
     - family: page256
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4256_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4256_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4256_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4256_X-Regular.ttf
 
     - family: page257
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4257_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4257_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4257_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4257_X-Regular.ttf
 
     - family: page258
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4258_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4258_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4258_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4258_X-Regular.ttf
 
     - family: page259
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4259_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4259_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4259_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4259_X-Regular.ttf
 
     - family: page260
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4260_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4260_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4260_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4260_X-Regular.ttf
 
     - family: page261
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4261_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4261_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4261_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4261_X-Regular.ttf
 
     - family: page262
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4262_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4262_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4262_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4262_X-Regular.ttf
 
     - family: page263
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4263_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4263_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4263_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4263_X-Regular.ttf
 
     - family: page264
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4264_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4264_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4264_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4264_X-Regular.ttf
 
     - family: page265
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4265_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4265_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4265_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4265_X-Regular.ttf
 
     - family: page266
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4266_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4266_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4266_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4266_X-Regular.ttf
 
     - family: page267
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4267_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4267_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4267_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4267_X-Regular.ttf
 
     - family: page268
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4268_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4268_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4268_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4268_X-Regular.ttf
 
     - family: page269
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4269_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4269_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4269_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4269_X-Regular.ttf
 
     - family: page270
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4270_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4270_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4270_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4270_X-Regular.ttf
 
     - family: page271
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4271_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4271_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4271_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4271_X-Regular.ttf
 
     - family: page272
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4272_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4272_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4272_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4272_X-Regular.ttf
 
     - family: page273
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4273_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4273_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4273_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4273_X-Regular.ttf
 
     - family: page274
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4274_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4274_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4274_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4274_X-Regular.ttf
 
     - family: page275
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4275_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4275_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4275_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4275_X-Regular.ttf
 
     - family: page276
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4276_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4276_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4276_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4276_X-Regular.ttf
 
     - family: page277
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4277_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4277_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4277_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4277_X-Regular.ttf
 
     - family: page278
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4278_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4278_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4278_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4278_X-Regular.ttf
 
     - family: page279
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4279_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4279_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4279_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4279_X-Regular.ttf
 
     - family: page280
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4280_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4280_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4280_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4280_X-Regular.ttf
 
     - family: page281
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4281_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4281_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4281_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4281_X-Regular.ttf
 
     - family: page282
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4282_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4282_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4282_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4282_X-Regular.ttf
 
     - family: page283
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4283_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4283_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4283_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4283_X-Regular.ttf
 
     - family: page284
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4284_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4284_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4284_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4284_X-Regular.ttf
 
     - family: page285
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4285_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4285_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4285_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4285_X-Regular.ttf
 
     - family: page286
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4286_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4286_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4286_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4286_X-Regular.ttf
 
     - family: page287
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4287_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4287_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4287_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4287_X-Regular.ttf
 
     - family: page288
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4288_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4288_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4288_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4288_X-Regular.ttf
 
     - family: page289
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4289_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4289_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4289_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4289_X-Regular.ttf
 
     - family: page290
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4290_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4290_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4290_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4290_X-Regular.ttf
 
     - family: page291
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4291_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4291_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4291_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4291_X-Regular.ttf
 
     - family: page292
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4292_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4292_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4292_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4292_X-Regular.ttf
 
     - family: page293
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4293_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4293_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4293_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4293_X-Regular.ttf
 
     - family: page294
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4294_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4294_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4294_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4294_X-Regular.ttf
 
     - family: page295
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4295_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4295_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4295_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4295_X-Regular.ttf
 
     - family: page296
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4296_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4296_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4296_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4296_X-Regular.ttf
 
     - family: page297
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4297_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4297_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4297_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4297_X-Regular.ttf
 
     - family: page298
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4298_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4298_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4298_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4298_X-Regular.ttf
 
     - family: page299
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4299_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4299_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4299_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4299_X-Regular.ttf
 
     - family: page300
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4300_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4300_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4300_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4300_X-Regular.ttf
 
     - family: page301
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4301_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4301_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4301_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4301_X-Regular.ttf
 
     - family: page302
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4302_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4302_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4302_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4302_X-Regular.ttf
 
     - family: page303
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4303_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4303_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4303_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4303_X-Regular.ttf
 
     - family: page304
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4304_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4304_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4304_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4304_X-Regular.ttf
 
     - family: page305
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4305_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4305_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4305_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4305_X-Regular.ttf
 
     - family: page306
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4306_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4306_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4306_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4306_X-Regular.ttf
 
     - family: page307
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4307_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4307_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4307_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4307_X-Regular.ttf
 
     - family: page308
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4308_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4308_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4308_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4308_X-Regular.ttf
 
     - family: page309
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4309_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4309_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4309_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4309_X-Regular.ttf
 
     - family: page310
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4310_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4310_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4310_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4310_X-Regular.ttf
 
     - family: page311
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4311_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4311_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4311_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4311_X-Regular.ttf
 
     - family: page312
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4312_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4312_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4312_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4312_X-Regular.ttf
 
     - family: page313
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4313_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4313_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4313_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4313_X-Regular.ttf
 
     - family: page314
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4314_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4314_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4314_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4314_X-Regular.ttf
 
     - family: page315
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4315_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4315_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4315_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4315_X-Regular.ttf
 
     - family: page316
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4316_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4316_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4316_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4316_X-Regular.ttf
 
     - family: page317
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4317_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4317_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4317_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4317_X-Regular.ttf
 
     - family: page318
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4318_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4318_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4318_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4318_X-Regular.ttf
 
     - family: page319
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4319_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4319_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4319_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4319_X-Regular.ttf
 
     - family: page320
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4320_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4320_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4320_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4320_X-Regular.ttf
 
     - family: page321
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4321_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4321_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4321_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4321_X-Regular.ttf
 
     - family: page322
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4322_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4322_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4322_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4322_X-Regular.ttf
 
     - family: page323
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4323_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4323_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4323_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4323_X-Regular.ttf
 
     - family: page324
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4324_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4324_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4324_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4324_X-Regular.ttf
 
     - family: page325
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4325_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4325_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4325_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4325_X-Regular.ttf
 
     - family: page326
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4326_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4326_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4326_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4326_X-Regular.ttf
 
     - family: page327
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4327_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4327_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4327_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4327_X-Regular.ttf
 
     - family: page328
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4328_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4328_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4328_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4328_X-Regular.ttf
 
     - family: page329
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4329_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4329_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4329_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4329_X-Regular.ttf
 
     - family: page330
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4330_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4330_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4330_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4330_X-Regular.ttf
 
     - family: page331
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4331_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4331_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4331_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4331_X-Regular.ttf
 
     - family: page332
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4332_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4332_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4332_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4332_X-Regular.ttf
 
     - family: page333
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4333_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4333_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4333_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4333_X-Regular.ttf
 
     - family: page334
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4334_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4334_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4334_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4334_X-Regular.ttf
 
     - family: page335
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4335_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4335_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4335_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4335_X-Regular.ttf
 
     - family: page336
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4336_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4336_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4336_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4336_X-Regular.ttf
 
     - family: page337
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4337_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4337_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4337_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4337_X-Regular.ttf
 
     - family: page338
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4338_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4338_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4338_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4338_X-Regular.ttf
 
     - family: page339
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4339_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4339_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4339_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4339_X-Regular.ttf
 
     - family: page340
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4340_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4340_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4340_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4340_X-Regular.ttf
 
     - family: page341
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4341_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4341_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4341_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4341_X-Regular.ttf
 
     - family: page342
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4342_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4342_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4342_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4342_X-Regular.ttf
 
     - family: page343
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4343_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4343_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4343_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4343_X-Regular.ttf
 
     - family: page344
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4344_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4344_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4344_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4344_X-Regular.ttf
 
     - family: page345
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4345_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4345_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4345_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4345_X-Regular.ttf
 
     - family: page346
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4346_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4346_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4346_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4346_X-Regular.ttf
 
     - family: page347
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4347_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4347_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4347_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4347_X-Regular.ttf
 
     - family: page348
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4348_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4348_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4348_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4348_X-Regular.ttf
 
     - family: page349
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4349_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4349_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4349_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4349_X-Regular.ttf
 
     - family: page350
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4350_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4350_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4350_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4350_X-Regular.ttf
 
     - family: page351
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4351_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4351_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4351_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4351_X-Regular.ttf
 
     - family: page352
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4352_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4352_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4352_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4352_X-Regular.ttf
 
     - family: page353
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4353_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4353_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4353_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4353_X-Regular.ttf
 
     - family: page354
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4354_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4354_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4354_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4354_X-Regular.ttf
 
     - family: page355
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4355_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4355_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4355_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4355_X-Regular.ttf
 
     - family: page356
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4356_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4356_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4356_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4356_X-Regular.ttf
 
     - family: page357
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4357_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4357_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4357_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4357_X-Regular.ttf
 
     - family: page358
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4358_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4358_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4358_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4358_X-Regular.ttf
 
     - family: page359
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4359_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4359_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4359_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4359_X-Regular.ttf
 
     - family: page360
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4360_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4360_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4360_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4360_X-Regular.ttf
 
     - family: page361
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4361_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4361_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4361_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4361_X-Regular.ttf
 
     - family: page362
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4362_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4362_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4362_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4362_X-Regular.ttf
 
     - family: page363
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4363_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4363_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4363_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4363_X-Regular.ttf
 
     - family: page364
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4364_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4364_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4364_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4364_X-Regular.ttf
 
     - family: page365
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4365_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4365_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4365_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4365_X-Regular.ttf
 
     - family: page366
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4366_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4366_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4366_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4366_X-Regular.ttf
 
     - family: page367
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4367_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4367_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4367_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4367_X-Regular.ttf
 
     - family: page368
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4368_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4368_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4368_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4368_X-Regular.ttf
 
     - family: page369
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4369_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4369_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4369_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4369_X-Regular.ttf
 
     - family: page370
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4370_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4370_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4370_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4370_X-Regular.ttf
 
     - family: page371
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4371_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4371_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4371_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4371_X-Regular.ttf
 
     - family: page372
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4372_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4372_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4372_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4372_X-Regular.ttf
 
     - family: page373
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4373_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4373_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4373_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4373_X-Regular.ttf
 
     - family: page374
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4374_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4374_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4374_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4374_X-Regular.ttf
 
     - family: page375
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4375_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4375_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4375_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4375_X-Regular.ttf
 
     - family: page376
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4376_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4376_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4376_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4376_X-Regular.ttf
 
     - family: page377
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4377_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4377_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4377_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4377_X-Regular.ttf
 
     - family: page378
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4378_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4378_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4378_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4378_X-Regular.ttf
 
     - family: page379
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4379_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4379_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4379_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4379_X-Regular.ttf
 
     - family: page380
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4380_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4380_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4380_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4380_X-Regular.ttf
 
     - family: page381
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4381_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4381_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4381_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4381_X-Regular.ttf
 
     - family: page382
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4382_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4382_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4382_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4382_X-Regular.ttf
 
     - family: page383
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4383_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4383_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4383_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4383_X-Regular.ttf
 
     - family: page384
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4384_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4384_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4384_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4384_X-Regular.ttf
 
     - family: page385
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4385_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4385_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4385_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4385_X-Regular.ttf
 
     - family: page386
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4386_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4386_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4386_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4386_X-Regular.ttf
 
     - family: page387
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4387_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4387_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4387_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4387_X-Regular.ttf
 
     - family: page388
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4388_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4388_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4388_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4388_X-Regular.ttf
 
     - family: page389
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4389_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4389_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4389_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4389_X-Regular.ttf
 
     - family: page390
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4390_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4390_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4390_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4390_X-Regular.ttf
 
     - family: page391
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4391_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4391_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4391_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4391_X-Regular.ttf
 
     - family: page392
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4392_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4392_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4392_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4392_X-Regular.ttf
 
     - family: page393
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4393_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4393_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4393_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4393_X-Regular.ttf
 
     - family: page394
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4394_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4394_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4394_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4394_X-Regular.ttf
 
     - family: page395
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4395_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4395_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4395_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4395_X-Regular.ttf
 
     - family: page396
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4396_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4396_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4396_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4396_X-Regular.ttf
 
     - family: page397
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4397_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4397_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4397_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4397_X-Regular.ttf
 
     - family: page398
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4398_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4398_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4398_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4398_X-Regular.ttf
 
     - family: page399
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4399_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4399_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4399_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4399_X-Regular.ttf
 
     - family: page400
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4400_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4400_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4400_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4400_X-Regular.ttf
 
     - family: page401
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4401_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4401_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4401_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4401_X-Regular.ttf
 
     - family: page402
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4402_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4402_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4402_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4402_X-Regular.ttf
 
     - family: page403
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4403_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4403_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4403_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4403_X-Regular.ttf
 
     - family: page404
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4404_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4404_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4404_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4404_X-Regular.ttf
 
     - family: page405
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4405_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4405_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4405_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4405_X-Regular.ttf
 
     - family: page406
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4406_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4406_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4406_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4406_X-Regular.ttf
 
     - family: page407
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4407_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4407_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4407_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4407_X-Regular.ttf
 
     - family: page408
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4408_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4408_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4408_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4408_X-Regular.ttf
 
     - family: page409
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4409_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4409_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4409_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4409_X-Regular.ttf
 
     - family: page410
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4410_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4410_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4410_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4410_X-Regular.ttf
 
     - family: page411
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4411_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4411_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4411_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4411_X-Regular.ttf
 
     - family: page412
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4412_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4412_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4412_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4412_X-Regular.ttf
 
     - family: page413
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4413_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4413_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4413_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4413_X-Regular.ttf
 
     - family: page414
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4414_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4414_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4414_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4414_X-Regular.ttf
 
     - family: page415
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4415_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4415_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4415_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4415_X-Regular.ttf
 
     - family: page416
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4416_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4416_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4416_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4416_X-Regular.ttf
 
     - family: page417
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4417_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4417_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4417_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4417_X-Regular.ttf
 
     - family: page418
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4418_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4418_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4418_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4418_X-Regular.ttf
 
     - family: page419
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4419_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4419_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4419_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4419_X-Regular.ttf
 
     - family: page420
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4420_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4420_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4420_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4420_X-Regular.ttf
 
     - family: page421
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4421_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4421_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4421_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4421_X-Regular.ttf
 
     - family: page422
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4422_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4422_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4422_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4422_X-Regular.ttf
 
     - family: page423
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4423_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4423_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4423_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4423_X-Regular.ttf
 
     - family: page424
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4424_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4424_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4424_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4424_X-Regular.ttf
 
     - family: page425
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4425_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4425_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4425_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4425_X-Regular.ttf
 
     - family: page426
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4426_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4426_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4426_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4426_X-Regular.ttf
 
     - family: page427
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4427_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4427_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4427_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4427_X-Regular.ttf
 
     - family: page428
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4428_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4428_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4428_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4428_X-Regular.ttf
 
     - family: page429
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4429_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4429_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4429_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4429_X-Regular.ttf
 
     - family: page430
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4430_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4430_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4430_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4430_X-Regular.ttf
 
     - family: page431
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4431_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4431_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4431_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4431_X-Regular.ttf
 
     - family: page432
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4432_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4432_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4432_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4432_X-Regular.ttf
 
     - family: page433
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4433_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4433_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4433_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4433_X-Regular.ttf
 
     - family: page434
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4434_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4434_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4434_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4434_X-Regular.ttf
 
     - family: page435
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4435_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4435_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4435_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4435_X-Regular.ttf
 
     - family: page436
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4436_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4436_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4436_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4436_X-Regular.ttf
 
     - family: page437
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4437_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4437_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4437_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4437_X-Regular.ttf
 
     - family: page438
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4438_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4438_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4438_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4438_X-Regular.ttf
 
     - family: page439
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4439_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4439_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4439_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4439_X-Regular.ttf
 
     - family: page440
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4440_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4440_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4440_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4440_X-Regular.ttf
 
     - family: page441
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4441_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4441_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4441_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4441_X-Regular.ttf
 
     - family: page442
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4442_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4442_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4442_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4442_X-Regular.ttf
 
     - family: page443
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4443_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4443_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4443_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4443_X-Regular.ttf
 
     - family: page444
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4444_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4444_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4444_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4444_X-Regular.ttf
 
     - family: page445
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4445_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4445_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4445_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4445_X-Regular.ttf
 
     - family: page446
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4446_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4446_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4446_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4446_X-Regular.ttf
 
     - family: page447
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4447_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4447_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4447_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4447_X-Regular.ttf
 
     - family: page448
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4448_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4448_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4448_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4448_X-Regular.ttf
 
     - family: page449
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4449_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4449_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4449_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4449_X-Regular.ttf
 
     - family: page450
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4450_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4450_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4450_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4450_X-Regular.ttf
 
     - family: page451
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4451_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4451_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4451_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4451_X-Regular.ttf
 
     - family: page452
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4452_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4452_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4452_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4452_X-Regular.ttf
 
     - family: page453
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4453_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4453_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4453_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4453_X-Regular.ttf
 
     - family: page454
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4454_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4454_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4454_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4454_X-Regular.ttf
 
     - family: page455
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4455_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4455_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4455_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4455_X-Regular.ttf
 
     - family: page456
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4456_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4456_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4456_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4456_X-Regular.ttf
 
     - family: page457
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4457_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4457_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4457_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4457_X-Regular.ttf
 
     - family: page458
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4458_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4458_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4458_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4458_X-Regular.ttf
 
     - family: page459
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4459_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4459_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4459_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4459_X-Regular.ttf
 
     - family: page460
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4460_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4460_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4460_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4460_X-Regular.ttf
 
     - family: page461
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4461_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4461_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4461_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4461_X-Regular.ttf
 
     - family: page462
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4462_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4462_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4462_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4462_X-Regular.ttf
 
     - family: page463
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4463_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4463_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4463_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4463_X-Regular.ttf
 
     - family: page464
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4464_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4464_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4464_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4464_X-Regular.ttf
 
     - family: page465
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4465_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4465_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4465_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4465_X-Regular.ttf
 
     - family: page466
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4466_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4466_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4466_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4466_X-Regular.ttf
 
     - family: page467
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4467_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4467_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4467_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4467_X-Regular.ttf
 
     - family: page468
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4468_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4468_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4468_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4468_X-Regular.ttf
 
     - family: page469
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4469_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4469_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4469_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4469_X-Regular.ttf
 
     - family: page470
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4470_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4470_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4470_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4470_X-Regular.ttf
 
     - family: page471
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4471_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4471_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4471_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4471_X-Regular.ttf
 
     - family: page472
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4472_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4472_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4472_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4472_X-Regular.ttf
 
     - family: page473
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4473_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4473_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4473_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4473_X-Regular.ttf
 
     - family: page474
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4474_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4474_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4474_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4474_X-Regular.ttf
 
     - family: page475
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4475_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4475_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4475_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4475_X-Regular.ttf
 
     - family: page476
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4476_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4476_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4476_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4476_X-Regular.ttf
 
     - family: page477
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4477_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4477_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4477_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4477_X-Regular.ttf
 
     - family: page478
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4478_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4478_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4478_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4478_X-Regular.ttf
 
     - family: page479
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4479_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4479_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4479_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4479_X-Regular.ttf
 
     - family: page480
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4480_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4480_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4480_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4480_X-Regular.ttf
 
     - family: page481
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4481_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4481_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4481_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4481_X-Regular.ttf
 
     - family: page482
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4482_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4482_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4482_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4482_X-Regular.ttf
 
     - family: page483
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4483_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4483_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4483_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4483_X-Regular.ttf
 
     - family: page484
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4484_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4484_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4484_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4484_X-Regular.ttf
 
     - family: page485
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4485_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4485_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4485_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4485_X-Regular.ttf
 
     - family: page486
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4486_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4486_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4486_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4486_X-Regular.ttf
 
     - family: page487
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4487_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4487_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4487_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4487_X-Regular.ttf
 
     - family: page488
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4488_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4488_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4488_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4488_X-Regular.ttf
 
     - family: page489
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4489_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4489_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4489_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4489_X-Regular.ttf
 
     - family: page490
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4490_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4490_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4490_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4490_X-Regular.ttf
 
     - family: page491
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4491_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4491_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4491_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4491_X-Regular.ttf
 
     - family: page492
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4492_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4492_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4492_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4492_X-Regular.ttf
 
     - family: page493
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4493_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4493_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4493_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4493_X-Regular.ttf
 
     - family: page494
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4494_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4494_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4494_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4494_X-Regular.ttf
 
     - family: page495
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4495_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4495_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4495_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4495_X-Regular.ttf
 
     - family: page496
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4496_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4496_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4496_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4496_X-Regular.ttf
 
     - family: page497
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4497_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4497_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4497_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4497_X-Regular.ttf
 
     - family: page498
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4498_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4498_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4498_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4498_X-Regular.ttf
 
     - family: page499
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4499_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4499_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4499_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4499_X-Regular.ttf
 
     - family: page500
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4500_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4500_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4500_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4500_X-Regular.ttf
 
     - family: page501
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4501_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4501_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4501_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4501_X-Regular.ttf
 
     - family: page502
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4502_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4502_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4502_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4502_X-Regular.ttf
 
     - family: page503
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4503_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4503_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4503_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4503_X-Regular.ttf
 
     - family: page504
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4504_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4504_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4504_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4504_X-Regular.ttf
 
     - family: page505
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4505_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4505_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4505_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4505_X-Regular.ttf
 
     - family: page506
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4506_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4506_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4506_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4506_X-Regular.ttf
 
     - family: page507
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4507_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4507_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4507_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4507_X-Regular.ttf
 
     - family: page508
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4508_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4508_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4508_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4508_X-Regular.ttf
 
     - family: page509
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4509_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4509_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4509_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4509_X-Regular.ttf
 
     - family: page510
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4510_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4510_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4510_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4510_X-Regular.ttf
 
     - family: page511
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4511_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4511_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4511_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4511_X-Regular.ttf
 
     - family: page512
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4512_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4512_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4512_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4512_X-Regular.ttf
 
     - family: page513
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4513_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4513_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4513_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4513_X-Regular.ttf
 
     - family: page514
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4514_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4514_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4514_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4514_X-Regular.ttf
 
     - family: page515
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4515_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4515_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4515_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4515_X-Regular.ttf
 
     - family: page516
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4516_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4516_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4516_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4516_X-Regular.ttf
 
     - family: page517
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4517_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4517_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4517_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4517_X-Regular.ttf
 
     - family: page518
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4518_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4518_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4518_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4518_X-Regular.ttf
 
     - family: page519
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4519_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4519_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4519_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4519_X-Regular.ttf
 
     - family: page520
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4520_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4520_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4520_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4520_X-Regular.ttf
 
     - family: page521
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4521_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4521_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4521_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4521_X-Regular.ttf
 
     - family: page522
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4522_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4522_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4522_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4522_X-Regular.ttf
 
     - family: page523
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4523_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4523_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4523_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4523_X-Regular.ttf
 
     - family: page524
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4524_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4524_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4524_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4524_X-Regular.ttf
 
     - family: page525
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4525_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4525_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4525_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4525_X-Regular.ttf
 
     - family: page526
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4526_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4526_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4526_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4526_X-Regular.ttf
 
     - family: page527
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4527_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4527_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4527_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4527_X-Regular.ttf
 
     - family: page528
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4528_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4528_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4528_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4528_X-Regular.ttf
 
     - family: page529
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4529_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4529_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4529_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4529_X-Regular.ttf
 
     - family: page530
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4530_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4530_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4530_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4530_X-Regular.ttf
 
     - family: page531
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4531_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4531_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4531_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4531_X-Regular.ttf
 
     - family: page532
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4532_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4532_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4532_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4532_X-Regular.ttf
 
     - family: page533
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4533_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4533_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4533_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4533_X-Regular.ttf
 
     - family: page534
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4534_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4534_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4534_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4534_X-Regular.ttf
 
     - family: page535
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4535_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4535_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4535_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4535_X-Regular.ttf
 
     - family: page536
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4536_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4536_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4536_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4536_X-Regular.ttf
 
     - family: page537
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4537_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4537_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4537_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4537_X-Regular.ttf
 
     - family: page538
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4538_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4538_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4538_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4538_X-Regular.ttf
 
     - family: page539
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4539_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4539_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4539_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4539_X-Regular.ttf
 
     - family: page540
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4540_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4540_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4540_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4540_X-Regular.ttf
 
     - family: page541
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4541_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4541_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4541_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4541_X-Regular.ttf
 
     - family: page542
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4542_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4542_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4542_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4542_X-Regular.ttf
 
     - family: page543
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4543_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4543_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4543_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4543_X-Regular.ttf
 
     - family: page544
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4544_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4544_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4544_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4544_X-Regular.ttf
 
     - family: page545
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4545_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4545_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4545_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4545_X-Regular.ttf
 
     - family: page546
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4546_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4546_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4546_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4546_X-Regular.ttf
 
     - family: page547
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4547_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4547_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4547_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4547_X-Regular.ttf
 
     - family: page548
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4548_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4548_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4548_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4548_X-Regular.ttf
 
     - family: page549
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4549_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4549_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4549_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4549_X-Regular.ttf
 
     - family: page550
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4550_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4550_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4550_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4550_X-Regular.ttf
 
     - family: page551
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4551_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4551_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4551_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4551_X-Regular.ttf
 
     - family: page552
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4552_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4552_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4552_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4552_X-Regular.ttf
 
     - family: page553
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4553_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4553_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4553_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4553_X-Regular.ttf
 
     - family: page554
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4554_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4554_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4554_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4554_X-Regular.ttf
 
     - family: page555
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4555_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4555_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4555_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4555_X-Regular.ttf
 
     - family: page556
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4556_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4556_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4556_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4556_X-Regular.ttf
 
     - family: page557
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4557_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4557_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4557_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4557_X-Regular.ttf
 
     - family: page558
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4558_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4558_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4558_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4558_X-Regular.ttf
 
     - family: page559
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4559_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4559_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4559_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4559_X-Regular.ttf
 
     - family: page560
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4560_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4560_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4560_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4560_X-Regular.ttf
 
     - family: page561
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4561_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4561_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4561_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4561_X-Regular.ttf
 
     - family: page562
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4562_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4562_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4562_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4562_X-Regular.ttf
 
     - family: page563
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4563_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4563_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4563_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4563_X-Regular.ttf
 
     - family: page564
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4564_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4564_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4564_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4564_X-Regular.ttf
 
     - family: page565
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4565_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4565_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4565_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4565_X-Regular.ttf
 
     - family: page566
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4566_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4566_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4566_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4566_X-Regular.ttf
 
     - family: page567
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4567_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4567_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4567_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4567_X-Regular.ttf
 
     - family: page568
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4568_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4568_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4568_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4568_X-Regular.ttf
 
     - family: page569
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4569_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4569_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4569_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4569_X-Regular.ttf
 
     - family: page570
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4570_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4570_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4570_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4570_X-Regular.ttf
 
     - family: page571
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4571_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4571_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4571_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4571_X-Regular.ttf
 
     - family: page572
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4572_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4572_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4572_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4572_X-Regular.ttf
 
     - family: page573
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4573_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4573_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4573_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4573_X-Regular.ttf
 
     - family: page574
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4574_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4574_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4574_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4574_X-Regular.ttf
 
     - family: page575
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4575_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4575_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4575_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4575_X-Regular.ttf
 
     - family: page576
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4576_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4576_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4576_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4576_X-Regular.ttf
 
     - family: page577
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4577_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4577_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4577_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4577_X-Regular.ttf
 
     - family: page578
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4578_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4578_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4578_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4578_X-Regular.ttf
 
     - family: page579
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4579_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4579_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4579_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4579_X-Regular.ttf
 
     - family: page580
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4580_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4580_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4580_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4580_X-Regular.ttf
 
     - family: page581
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4581_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4581_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4581_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4581_X-Regular.ttf
 
     - family: page582
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4582_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4582_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4582_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4582_X-Regular.ttf
 
     - family: page583
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4583_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4583_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4583_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4583_X-Regular.ttf
 
     - family: page584
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4584_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4584_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4584_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4584_X-Regular.ttf
 
     - family: page585
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4585_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4585_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4585_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4585_X-Regular.ttf
 
     - family: page586
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4586_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4586_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4586_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4586_X-Regular.ttf
 
     - family: page587
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4587_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4587_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4587_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4587_X-Regular.ttf
 
     - family: page588
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4588_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4588_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4588_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4588_X-Regular.ttf
 
     - family: page589
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4589_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4589_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4589_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4589_X-Regular.ttf
 
     - family: page590
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4590_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4590_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4590_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4590_X-Regular.ttf
 
     - family: page591
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4591_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4591_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4591_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4591_X-Regular.ttf
 
     - family: page592
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4592_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4592_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4592_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4592_X-Regular.ttf
 
     - family: page593
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4593_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4593_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4593_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4593_X-Regular.ttf
 
     - family: page594
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4594_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4594_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4594_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4594_X-Regular.ttf
 
     - family: page595
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4595_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4595_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4595_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4595_X-Regular.ttf
 
     - family: page596
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4596_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4596_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4596_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4596_X-Regular.ttf
 
     - family: page597
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4597_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4597_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4597_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4597_X-Regular.ttf
 
     - family: page598
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4598_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4598_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4598_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4598_X-Regular.ttf
 
     - family: page599
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4599_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4599_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4599_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4599_X-Regular.ttf
 
     - family: page600
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4600_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4600_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4600_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4600_X-Regular.ttf
 
     - family: page601
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4601_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4601_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4601_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4601_X-Regular.ttf
 
     - family: page602
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4602_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4602_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4602_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4602_X-Regular.ttf
 
     - family: page603
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4603_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4603_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4603_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4603_X-Regular.ttf
 
     - family: page604
       fonts:
-        - asset: assets/fonts/quran_fonts/QCF4604_X-Regular.woff
-        # - asset: assets/fonts/qcf4_ttf/QCF4604_X-Regular.ttf
+        # - asset: assets/fonts/quran_fonts/QCF4604_X-Regular.woff
+        - asset: assets/fonts/qcf4_ttf/QCF4604_X-Regular.ttf

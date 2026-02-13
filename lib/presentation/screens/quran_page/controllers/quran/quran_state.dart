@@ -7,12 +7,12 @@ class QuranState {
   List<AyahModel> allAyahs = [];
 
   /// Page Controller
-  PageController quranPageController = PageController();
+  // PageController quranPageController = PageController();
   final FocusNode quranPageRLFocusNode = FocusNode();
   final FocusNode quranPageUDFocusNode = FocusNode();
   ScrollController ScrollUpDownQuranPage = ScrollController();
 
-  RxInt currentPageNumber = 1.obs;
+  RxInt currentPageNumber = 0.obs;
   RxInt lastReadSurahNumber = 1.obs;
   var selectedAyahIndexes = <int>[].obs;
   bool isSelected = false;

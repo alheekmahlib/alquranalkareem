@@ -31,8 +31,11 @@ extension BooksUi on BooksController {
       int initialPage = await getChapterStartPage(bookNumber, chapterName);
       state.currentPageNumber.value = initialPage;
       log('Initial page for chapter $chapterName: $initialPage');
-      state.bookPageController.animateToPage(initialPage,
-          duration: const Duration(milliseconds: 400), curve: Curves.easeInOut);
+      state.bookPageController.animateToPage(
+        initialPage,
+        duration: const Duration(milliseconds: 400),
+        curve: Curves.easeInOut,
+      );
     } else {
       Get.context!.showCustomErrorSnackBar('downloadBookFirst'.tr);
     }

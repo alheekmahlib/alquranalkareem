@@ -13,6 +13,7 @@ import 'package:drift/drift.dart' as drift;
 import 'package:expansion_tile_card/expansion_tile_card.dart';
 import 'package:flex_color_picker/flex_color_picker.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';

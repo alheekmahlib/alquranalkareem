@@ -37,7 +37,7 @@ class QuranController extends GetxController {
     state.itemPositionsListener.itemPositions.removeListener(
       currentListPageNumber,
     );
-    state.quranPageController.dispose();
+    // QuranCtrl.instance.quranPagesController.dispose();
     state.ScrollUpDownQuranPage.dispose();
     state.quranPageRLFocusNode.dispose();
     state.quranPageUDFocusNode.dispose();

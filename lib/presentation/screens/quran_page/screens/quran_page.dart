@@ -14,7 +14,7 @@ class QuranPages extends StatelessWidget {
       }),
       quranCtrl.state.currentPageNumber.value,
     );
-    return GestureDetector(
+    return InkWell(
       onTap: () => quranCtrl.clearSelection(),
       child: Container(
         height: MediaQuery.sizeOf(context).height,
@@ -23,7 +23,7 @@ class QuranPages extends StatelessWidget {
           onKeyEvent: (node, event) =>
               quranCtrl.controlRLByKeyboard(node, event),
           child: PageView.builder(
-            controller: quranCtrl.pageController,
+            controller: quranCtrl.getPageController(context),
             itemCount: 604,
             padEnds: false,
             scrollDirection: Axis.horizontal,

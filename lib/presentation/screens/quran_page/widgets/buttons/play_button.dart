@@ -27,6 +27,7 @@ class PlayButton extends StatelessWidget {
       svgColor: context.theme.hintColor,
       onPressed: () async {
         // AudioCtrl.instance.startPlayingToggle();
+        GeneralController.instance.showAudioWidgetFor();
         QuranController.instance.state.isPlayExpanded.value = true;
         AudioCtrl.instance.state.isDirectPlaying.value = false;
         debugPrint('SurahNum: $surahNum');

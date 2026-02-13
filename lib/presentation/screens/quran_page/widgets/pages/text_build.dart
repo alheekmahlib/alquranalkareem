@@ -22,6 +22,7 @@ class TextBuild extends StatelessWidget {
           withPageView: false,
           useDefaultAppBar: false,
           isShowAudioSlider: false,
+          // isShowTabBar: true,
           pageIndex: pageIndex,
           appLanguageCode: Get.locale!.languageCode,
           bookmarkList: BookmarksController.instance.bookmarkTextList,
@@ -39,6 +40,7 @@ class TextBuild extends StatelessWidget {
               ).copyWith(
                 juzName: 'juz'.tr,
                 sajdaName: 'sajda'.tr,
+                hizbName: 'hizb'.tr,
                 topTitleChild: GestureDetector(
                   onTap: () => bookmarkCtrl.addPageBookmarkOnTap(pageIndex),
                   child: _BookmarkIcon(
@@ -47,13 +49,6 @@ class TextBuild extends StatelessWidget {
                   ),
                 ),
               ),
-          basmalaStyle: BasmalaStyle(
-            basmalaColor: Get.theme.colorScheme.inversePrimary.withValues(
-              alpha: .8,
-            ),
-            basmalaFontSize: context.customOrientation(90.h, 150.h),
-            verticalPadding: 0.0,
-          ),
           surahInfoStyle: SurahInfoStyle(
             ayahCount: 'aya_count'.tr,
             backgroundColor: Get.theme.colorScheme.primaryContainer,
@@ -67,9 +62,7 @@ class TextBuild extends StatelessWidget {
             textColor: Get.theme.colorScheme.inversePrimary,
             titleColor: Get.theme.hintColor,
           ),
-          onPagePress: () {
-            QuranController.instance.clearSelection();
-          },
+          onPagePress: () => quranCtrl.clearSelection(),
           onAyahLongPress: (details, ayah) {
             final surah = QuranLibrary().getCurrentSurahDataByAyah(ayah: ayah);
             context.showAyahMenu(
@@ -83,7 +76,7 @@ class TextBuild extends StatelessWidget {
               details: details,
             );
             log('ayahUQNumber: ${ayah.ayahUQNumber}');
-            quranCtrl.toggleAyahSelection(ayah.ayahUQNumber);
+            // quranCtrl.toggleAyahSelection(ayah.ayahUQNumber);
           },
           tafsirStyle:
               TafsirStyle.defaults(
@@ -91,7 +84,7 @@ class TextBuild extends StatelessWidget {
                 context: context,
               ).copyWith(
                 backgroundColor: Get.theme.colorScheme.primary,
-                textColor: Get.theme.colorScheme.inversePrimary,
+                textColor: Get.theme.canvasColor,
                 backgroundTitleColor: Get.theme.colorScheme.surface.withValues(
                   alpha: .5,
                 ),
@@ -119,9 +112,20 @@ class TextBuild extends StatelessWidget {
                   color: Get.theme.canvasColor,
                   height: 25,
                 ),
+                dialogCloseIconColor: context.theme.canvasColor,
+                dialogHeaderBackgroundGradient: LinearGradient(
+                  colors: [
+                    Get.theme.colorScheme.surface,
+                    Get.theme.colorScheme.surface.withValues(alpha: .7),
+                  ],
+                  begin: AlignmentDirectional.topStart,
+                  end: AlignmentDirectional.bottomEnd,
+                ),
+                dialogHeaderTitleColor: context.theme.canvasColor,
                 footnotesName: 'footnotes'.tr,
                 tafsirName: 'tafseer'.tr,
                 translateName: 'translation'.tr,
+                dialogHeaderTitle: 'chapterTafsir'.tr,
               ),
         ),
       ),

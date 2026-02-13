@@ -27,6 +27,7 @@ class PlayAyah extends StatelessWidget {
             return GestureDetector(
               child: customSvgWithCustomColor(SvgPath.svgPlayArrow, height: 25),
               onTap: () async {
+                GeneralController.instance.showAudioWidgetFor();
                 QuranController.instance.state.selectedAyahIndexes.isNotEmpty
                     ? audioCtrl.state.isDirectPlaying.value = false
                     : audioCtrl.state.isDirectPlaying.value = true;
