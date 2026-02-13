@@ -40,7 +40,7 @@ class QuranSurahList extends StatelessWidget {
                   children: [
                     GestureDetector(
                       onTap: () => quranCtrl.changeSurahListOnTap(
-                        surah.ayahs.first.page,
+                        surah.ayahs.first.page - 1,
                       ),
                       child: GetBuilder<QuranController>(
                         builder: (quranCtrl) {

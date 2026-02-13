@@ -28,7 +28,7 @@ extension QuranUi on QuranController {
     if (state.isPages == 1) {
       state.itemScrollController.jumpTo(index: page - 1);
     } else {
-      state.quranPageController.jumpToPage(page - 1);
+      QuranLibrary.quranCtrl.quranPagesController.jumpToPage(page);
     }
     GlobalKeyManager().drawerKey.currentState!.closeSlider();
   }
@@ -91,13 +91,13 @@ extension QuranUi on QuranController {
 
   KeyEventResult controlRLByKeyboard(FocusNode node, KeyEvent event) {
     if (event.logicalKey == LogicalKeyboardKey.arrowLeft) {
-      state.quranPageController.nextPage(
+      QuranLibrary.quranCtrl.quranPagesController.nextPage(
         duration: const Duration(milliseconds: 600),
         curve: Curves.easeInOut,
       );
       return KeyEventResult.handled;
     } else if (event.logicalKey == LogicalKeyboardKey.arrowRight) {
-      state.quranPageController.previousPage(
+      QuranLibrary.quranCtrl.quranPagesController.previousPage(
         duration: const Duration(milliseconds: 600),
         curve: Curves.easeInOut,
       );
@@ -128,6 +128,7 @@ extension QuranUi on QuranController {
   void clearSelection() {
     if (AudioCtrl.instance.state.audioPlayer.playing) {
       showControl();
+      GeneralController.instance.update(['showControl']);
     } else if (QuranLibrary.quranCtrl.selectedAyahsByUnequeNumber.isNotEmpty) {
       QuranLibrary.quranCtrl.selectedAyahsByUnequeNumber.clear();
       QuranLibrary.quranCtrl.selectedAyahsByUnequeNumber.refresh();
@@ -135,6 +136,7 @@ extension QuranUi on QuranController {
       update(['clearSelection']);
     } else {
       showControl();
+      GeneralController.instance.update(['showControl']);
     }
     // GlobalKeyManager().drawerKey.currentState!.closeSlider();
   }

@@ -14,6 +14,7 @@ class GeneralState {
 
   RxDouble fontSizeArabic = 20.0.obs;
   RxBool isShowControl = true.obs;
+  RxBool showAudioWidgetTemporarily = false.obs;
   RxString greeting = ''.obs;
   TimeNow timeNow = TimeNow();
   final ScrollController ayahListController = ScrollController();

@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:wakelock_plus/wakelock_plus.dart';
@@ -15,6 +17,8 @@ class GeneralController extends GetxController {
 
   GeneralState state = GeneralState();
 
+  Timer? _audioWidgetTimer;
+
   @override
   void onInit() async {
     Future.delayed(const Duration(seconds: 1)).then((_) async {
@@ -27,6 +31,13 @@ class GeneralController extends GetxController {
     // WidgetsBinding.instance.addObserver(this);
 
     super.onInit();
+  }
+
+  @override
+  void onClose() {
+    _audioWidgetTimer?.cancel();
+    _audioWidgetTimer = null;
+    super.onClose();
   }
 
   // @override
@@ -70,5 +81,13 @@ class GeneralController extends GetxController {
       default:
         return const HomeScreen();
     }
+  }
+
+  void showAudioWidgetFor([Duration duration = const Duration(seconds: 2)]) {
+    state.showAudioWidgetTemporarily.value = true;
+    _audioWidgetTimer?.cancel();
+    _audioWidgetTimer = Timer(duration, () {
+      state.showAudioWidgetTemporarily.value = false;
+    });
   }
 }

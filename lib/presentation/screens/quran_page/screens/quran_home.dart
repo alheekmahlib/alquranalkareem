@@ -52,49 +52,52 @@ class QuranHome extends StatelessWidget {
                     textDirection: TextDirection.rtl,
                     child: Center(child: ScreenSwitch()),
                   ),
-                  Obx(
-                    () => generalCtrl.state.isShowControl.value
-                        ? TabBarWidget(
-                            isFirstChild: true,
-                            isCenterChild: true,
-                            isQuranSetting: true,
-                            isNotification: false,
-                            centerChild: Padding(
-                              padding: const EdgeInsets.only(top: 15.0),
-                              child: OpenContainerWrapper(
-                                transitionType: QuranSearchController
-                                    .instance
-                                    .state
-                                    .transitionType,
-                                closedBuilder:
-                                    (
-                                      BuildContext _,
-                                      VoidCallback openContainer,
-                                    ) {
-                                      return SearchBarWidget(
-                                        openContainer: openContainer,
-                                      );
-                                    },
+                  GetBuilder<GeneralController>(
+                    id: 'showControl',
+                    builder: (generalCtrl) =>
+                        generalCtrl.state.isShowControl.value
+                        ? Stack(
+                            children: [
+                              TabBarWidget(
+                                isFirstChild: true,
+                                isCenterChild: true,
+                                isQuranSetting: true,
+                                isNotification: false,
+                                centerChild: Padding(
+                                  padding: const EdgeInsets.only(top: 15.0),
+                                  child: OpenContainerWrapper(
+                                    transitionType: QuranSearchController
+                                        .instance
+                                        .state
+                                        .transitionType,
+                                    closedBuilder:
+                                        (
+                                          BuildContext _,
+                                          VoidCallback openContainer,
+                                        ) {
+                                          return SearchBarWidget(
+                                            openContainer: openContainer,
+                                          );
+                                        },
+                                  ),
+                                ),
                               ),
-                            ),
+
+                              Align(
+                                alignment: Alignment.bottomCenter,
+                                child: NavBarWidget(),
+                              ),
+                            ],
                           )
                         : const SizedBox.shrink(),
                   ),
                   Obx(
                     () =>
-                        audioCtrl.state.isPlaying.value ||
-                            generalCtrl.state.isShowControl.value
+                        generalCtrl.state.isShowControl.value ||
+                            generalCtrl.state.showAudioWidgetTemporarily.value
                         ? Align(
                             alignment: Alignment.bottomCenter,
                             child: AudioWidget(),
-                          )
-                        : const SizedBox.shrink(),
-                  ),
-                  Obx(
-                    () => generalCtrl.state.isShowControl.value
-                        ? Align(
-                            alignment: Alignment.bottomCenter,
-                            child: NavBarWidget(),
                           )
                         : const SizedBox.shrink(),
                   ),

@@ -4,10 +4,10 @@ extension QuranGetters on QuranController {
   /// -------- [Getter] ----------
 
   List<List<AyahModel>> getCurrentPageAyahsSeparatedForBasmalah(
-          int pageIndex) =>
-      QuranLibrary.quranCtrl.state.pages[pageIndex]
-          .splitBetween((f, s) => f.ayahNumber > s.ayahNumber)
-          .toList();
+    int pageIndex,
+  ) => QuranLibrary.quranCtrl.state.pages[pageIndex]
+      .splitBetween((f, s) => f.ayahNumber > s.ayahNumber)
+      .toList();
 
   List<AyahModel> getPageAyahsByIndex(int pageIndex) =>
       QuranLibrary.quranCtrl.state.pages[pageIndex];
@@ -17,9 +17,12 @@ extension QuranGetters on QuranController {
   /// if you wanna get the last's ayah's surah information
   /// you can use [ayahs.last].
   int getSurahNumberFromPage(int pageNumber) => QuranLibrary
-      .quranCtrl.state.surahs
+      .quranCtrl
+      .state
+      .surahs
       .firstWhere(
-          (s) => s.ayahs.firstWhereOrNull((a) => a.page == pageNumber) != null)
+        (s) => s.ayahs.firstWhereOrNull((a) => a.page == pageNumber) != null,
+      )
       .surahNumber;
 
   SurahModel getCurrentSurahByPage(int pageNumber) => QuranLibrary()
@@ -39,18 +42,79 @@ extension QuranGetters on QuranController {
 
   RxBool getCurrentJuzNumber(int juzNum) =>
       getJuzByPage(state.currentPageNumber.value).juz - 1 == juzNum
-          ? true.obs
-          : false.obs;
+      ? true.obs
+      : false.obs;
 
-  PageController get pageController {
-    return state.quranPageController = PageController(
-        viewportFraction:
-            (Responsive.isDesktop(Get.context!) && Get.context!.isLandscape)
-                ? 1 / 2
-                : 1,
-        initialPage: state.box.read(MSTART_PAGE) ?? 0,
-        keepPage: true);
+  PageController getPageController(BuildContext context) {
+    final Orientation orientation = MediaQuery.of(context).orientation;
+
+    // احسب قيمة الـ viewportFraction الهدف بناءً على حجم/اتجاه الشاشة
+    // استخدم GetPlatform.isDesktop للتحقق من المنصة (macOS, Windows, Linux)
+    // مع التأكد من أن الشاشة عريضة بما يكفي لعرض صفحتين
+    final bool isWideDesktop =
+        Responsive.isDesktop(context) && orientation == Orientation.landscape;
+    double targetFraction = isWideDesktop ? 0.5 : 1.0;
+
+    log(
+      'getPageController: isDesktop=${GetPlatform.isDesktop}, isWideDesktop=$isWideDesktop, '
+      'targetFraction=$targetFraction',
+      name: 'QuranCtrl',
+    );
+
+    // إذا لم يكن لدينا عملاء (أول إنشاء) أو تغيّرت القيمة، أعد إنشاء المتحكم
+    final bool needsNewController =
+        !QuranLibrary.quranCtrl.quranPagesController.hasClients ||
+        (QuranLibrary.quranCtrl.quranPagesController.viewportFraction !=
+            targetFraction);
+
+    if (needsNewController) {
+      // حافظ على الفهرس الحالي للصفحة
+      // استخدم الصفحة من الـ controller إذا كان له clients،
+      // وإلا استخدم state.currentPageNumber أو القيمة المحفوظة في التخزين
+      int currentIndex;
+      if (QuranLibrary.quranCtrl.quranPagesController.hasClients) {
+        final double? p = QuranLibrary.quranCtrl.quranPagesController.page;
+        currentIndex = (p != null)
+            ? p.round()
+            : state.currentPageNumber.value - 1;
+      } else {
+        // إذا لم يكن هناك clients، استخدم القيمة المحفوظة مباشرة
+        final savedPage = state.box.read(MSTART_PAGE) ?? 1;
+        currentIndex = savedPage;
+      }
+      currentIndex = currentIndex.clamp(0, 603);
+
+      final oldController = QuranLibrary.quranCtrl.quranPagesController;
+      QuranLibrary.quranCtrl.quranPagesController = PageController(
+        initialPage: currentIndex,
+        keepPage: kIsWeb || GetPlatform.isDesktop,
+        viewportFraction: targetFraction,
+      );
+
+      // تخلّص من المتحكم القديم بعد الإطار لتجنّب تعارضات التثبيت
+      if (oldController != QuranLibrary.quranCtrl.quranPagesController) {
+        WidgetsBinding.instance.addPostFrameCallback((_) {
+          try {
+            oldController.dispose();
+          } catch (_) {
+            // تجاهل أي أخطاء تصريف إن كان قد صُرّف سابقًا
+          }
+        });
+      }
+    }
+    return QuranLibrary.quranCtrl.quranPagesController;
   }
+
+  // PageController get pageController {
+  //   return state.quranPageController = PageController(
+  //     viewportFraction:
+  //         (Responsive.isDesktop(Get.context!) && Get.context!.isLandscape)
+  //         ? 1 / 2
+  //         : 1,
+  //     initialPage: state.box.read(MSTART_PAGE) ?? 0,
+  //     keepPage: true,
+  //   );
+  // }
 
   ScrollController get surahController {
     final suraNumber =
@@ -66,7 +130,8 @@ extension QuranGetters on QuranController {
   ScrollController get juzController {
     if (state.juzListController == null) {
       state.juzListController = ScrollController(
-        initialScrollOffset: state.surahItemHeight *
+        initialScrollOffset:
+            state.surahItemHeight *
             getJuzByPage(state.currentPageNumber.value).juz,
       );
     }
@@ -76,8 +141,8 @@ extension QuranGetters on QuranController {
   Color get backgroundColor => state.backgroundPickerColor.value == 0xfffaf7f3
       ? Get.theme.colorScheme.surfaceContainer
       : ThemeController.instance.isDarkMode
-          ? Get.theme.colorScheme.surfaceContainer
-          : Color(state.backgroundPickerColor.value);
+      ? Get.theme.colorScheme.surfaceContainer
+      : Color(state.backgroundPickerColor.value);
 
   String get surahBannerPath {
     if (themeCtrl.isBlueMode) {

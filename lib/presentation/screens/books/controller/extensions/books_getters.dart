@@ -8,7 +8,9 @@ extension BooksGetters on BooksController {
 
   PageController get pageController {
     return state.bookPageController = PageController(
-        initialPage: state.currentPageNumber.value, keepPage: true);
+      initialPage: state.currentPageNumber.value,
+      keepPage: true,
+    );
   }
 
   bool isBookDownloaded(int bookNumber) =>
@@ -16,6 +18,6 @@ extension BooksGetters on BooksController {
 
   RxBool collapsedHeight(int bookNumber) =>
       BooksController.instance.getParts(bookNumber).length < 4
-          ? true.obs
-          : false.obs;
+      ? true.obs
+      : false.obs;
 }

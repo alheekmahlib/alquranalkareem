@@ -3,11 +3,13 @@ part of '../../../quran.dart';
 extension TafsirUi on QuranController {
   /// -------- [onTap] --------
   Future<void> copyTafsirOnTap(
-      String tafsirName, String tafsir, String ayahTextNormal) async {
+    String tafsirName,
+    String tafsir,
+    String ayahTextNormal,
+  ) async {
     await Clipboard.setData(
-            ClipboardData(text: '﴿$ayahTextNormal﴾\n\n$tafsirName\n$tafsir'))
-        .then(
-            (value) => Get.context!.showCustomErrorSnackBar('copyTafseer'.tr));
+      ClipboardData(text: '﴿$ayahTextNormal﴾\n\n$tafsirName\n$tafsir'),
+    ).then((value) => Get.context!.showCustomErrorSnackBar('copyTafseer'.tr));
   }
 
   // Future<void> showTafsirOnTap(

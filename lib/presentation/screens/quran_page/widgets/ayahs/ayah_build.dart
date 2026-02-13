@@ -58,7 +58,7 @@ class AyahsBuild extends StatelessWidget {
                               )
                               .surahNumber,
                           ayahNum: ayahs[ayahIndex].ayahNumber,
-                          ayahText: ayahs[ayahIndex].codeV2!,
+                          ayahText: ayahs[ayahIndex].text,
                           pageIndex: pageIndex,
                           ayahTextNormal: ayahs[ayahIndex].text,
                           ayahUQNum: ayahs[ayahIndex].ayahUQNumber,
