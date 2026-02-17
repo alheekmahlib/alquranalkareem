@@ -16,7 +16,7 @@ extension TafsirUi on QuranController {
   //     {required int pageIndex, required int ayahUQNum}) async {
   //   // final quranCtrl = QuranController.instance;
   //   // ayahUQNumber.value = ayahUQNum;
-  //   state.currentPageNumber.value = pageIndex;
+  //   QuranCtrl.instance.state.currentPageNumber.value = pageIndex;
   //   state.selectedAyahIndexes.clear();
   //   if (!QuranLibrary().isTafsir) {
   //     await QuranLibrary().fetchTranslation();

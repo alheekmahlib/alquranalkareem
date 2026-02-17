@@ -94,7 +94,12 @@ class AyahsWidget extends StatelessWidget {
                         if (snapshot.connectionState == ConnectionState.done) {
                           return ScrollablePositionedList.builder(
                             initialScrollIndex:
-                                quranCtrl.state.currentPageNumber.value - 1,
+                                QuranCtrl
+                                    .instance
+                                    .state
+                                    .currentPageNumber
+                                    .value -
+                                1,
                             itemScrollController:
                                 quranCtrl.state.itemScrollController,
                             itemPositionsListener:

@@ -22,6 +22,7 @@ class TextBuild extends StatelessWidget {
           withPageView: false,
           useDefaultAppBar: false,
           isShowAudioSlider: false,
+          showAyahBookmarkedIcon: false,
           // isShowTabBar: true,
           pageIndex: pageIndex,
           appLanguageCode: Get.locale!.languageCode,
@@ -140,7 +141,7 @@ class _BookmarkIcon extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GetBuilder<QuranController>(
+    return GetBuilder<QuranCtrl>(
       id: 'pageBookmarked',
       builder: (bookmarkCtrl) {
         return Semantics(
@@ -151,11 +152,7 @@ class _BookmarkIcon extends StatelessWidget {
             BookmarksController.instance
                     .hasPageBookmark(
                       pageNum ??
-                          QuranController
-                              .instance
-                              .state
-                              .currentPageNumber
-                              .value,
+                          QuranCtrl.instance.state.currentPageNumber.value,
                     )
                     .value
                 ? SvgPath.svgBookmarked

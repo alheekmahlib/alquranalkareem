@@ -13,22 +13,24 @@ extension QuranUi on QuranController {
       Future.delayed(const Duration(milliseconds: 600)).then((_) {
         if (state.itemScrollController.isAttached) {
           state.itemScrollController.jumpTo(
-            index: state.currentPageNumber.value - 1,
+            index: QuranCtrl.instance.state.currentPageNumber.value - 1,
           );
         }
       });
     } else {
-      state.currentPageNumber.value =
+      QuranCtrl.instance.state.currentPageNumber.value =
           state.itemPositionsListener.itemPositions.value.last.index + 1;
     }
   }
 
   void changeSurahListOnTap(int page) {
-    state.currentPageNumber.value = page;
+    state._quranRepository.saveLastPage(page);
+    // QuranController.instance.state.box.write(MSTART_PAGE, page);
+    QuranCtrl.instance.state.currentPageNumber.value = page;
     if (state.isPages == 1) {
       state.itemScrollController.jumpTo(index: page - 1);
     } else {
-      QuranLibrary.quranCtrl.quranPagesController.jumpToPage(page);
+      QuranLibrary.quranCtrl.quranPagesController.jumpToPage(page - 1);
     }
     GlobalKeyManager().drawerKey.currentState!.closeSlider();
   }
@@ -69,15 +71,16 @@ extension QuranUi on QuranController {
   }
 
   void pageChanged(int index) {
-    state.currentPageNumber.value = index;
+    QuranCtrl.instance.state.currentPageNumber.value = index;
     // sl<PlayListController>().reset();
     GeneralController.instance.state.isShowControl.value = false;
     // AudioCtrl.instance.state.pageAyahNumber = '0';
 
     SchedulerBinding.instance.scheduleTask(() {
       state.lastReadSurahNumber.value = getSurahNumberFromPage(index + 1);
+      state._quranRepository.saveLastPage(index);
       state.box
-        ..write(MSTART_PAGE, index)
+        // ..write(MSTART_PAGE, index)
         ..write(MLAST_URAH, state.lastReadSurahNumber.value);
     }, Priority.idle);
   }

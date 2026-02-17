@@ -1,6 +1,6 @@
 // ignore_for_file: constant_identifier_names
 
-const String MSTART_PAGE = 'mstart_page';
+const String MSTART_PAGE = 'last_page';
 const String MLAST_URAH = 'mLast_sorah';
 const String FONT_SIZE = 'font_size';
 const String AUDIO_PLAYER_SOUND = 'audio_player_sound';

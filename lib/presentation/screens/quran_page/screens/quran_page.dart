@@ -10,9 +10,10 @@ class QuranPages extends StatelessWidget {
     NotificationManager().updateBookProgress(
       'quran'.tr,
       'notifyQuranBody'.trParams({
-        'currentPageNumber': '${quranCtrl.state.currentPageNumber.value}',
+        'currentPageNumber':
+            '${QuranCtrl.instance.state.currentPageNumber.value}',
       }),
-      quranCtrl.state.currentPageNumber.value,
+      QuranCtrl.instance.state.currentPageNumber.value,
     );
     return InkWell(
       onTap: () => quranCtrl.clearSelection(),

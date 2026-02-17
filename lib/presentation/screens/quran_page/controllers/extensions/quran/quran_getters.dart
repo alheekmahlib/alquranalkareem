@@ -38,10 +38,11 @@ extension QuranGetters on QuranController {
       QuranLibrary().getJuzByPageNumber(pageNumber: page);
 
   List<AyahModel> get currentPageAyahs =>
-      state.pages[state.currentPageNumber.value - 1];
+      state.pages[QuranCtrl.instance.state.currentPageNumber.value - 1];
 
   RxBool getCurrentJuzNumber(int juzNum) =>
-      getJuzByPage(state.currentPageNumber.value).juz - 1 == juzNum
+      getJuzByPage(QuranCtrl.instance.state.currentPageNumber.value).juz - 1 ==
+          juzNum
       ? true.obs
       : false.obs;
 
@@ -61,26 +62,18 @@ extension QuranGetters on QuranController {
       name: 'QuranCtrl',
     );
 
-    // إذا لم يكن لدينا عملاء (أول إنشاء) أو تغيّرت القيمة، أعد إنشاء المتحكم
+    // أعد إنشاء المتحكم فقط إذا تغيّرت قيمة viewportFraction فعلياً
+    // لا تعتمد على hasClients لأنه قد يكون false مؤقتاً أثناء إعادة بناء الـ widget
     final bool needsNewController =
-        !QuranLibrary.quranCtrl.quranPagesController.hasClients ||
-        (QuranLibrary.quranCtrl.quranPagesController.viewportFraction !=
-            targetFraction);
+        QuranLibrary.quranCtrl.quranPagesController.viewportFraction !=
+        targetFraction;
 
     if (needsNewController) {
-      // حافظ على الفهرس الحالي للصفحة
-      // استخدم الصفحة من الـ controller إذا كان له clients،
-      // وإلا استخدم state.currentPageNumber أو القيمة المحفوظة في التخزين
-      int currentIndex;
-      if (QuranLibrary.quranCtrl.quranPagesController.hasClients) {
-        final double? p = QuranLibrary.quranCtrl.quranPagesController.page;
-        currentIndex = (p != null)
-            ? p.round()
-            : state.currentPageNumber.value - 1;
-      } else {
-        // إذا لم يكن هناك clients، استخدم القيمة المحفوظة مباشرة
-        final savedPage = state.box.read(MSTART_PAGE) ?? 1;
-        currentIndex = savedPage;
+      // استخدم الصفحة الحالية من الـ state (الأكثر دقة ولحظية)
+      int currentIndex = QuranCtrl.instance.state.currentPageNumber.value;
+      // إن لم تُهيَّأ بعد، استخدم القيمة المحفوظة في التخزين
+      if (currentIndex <= 0) {
+        currentIndex = state._quranRepository.getLastPage() ?? 0;
       }
       currentIndex = currentIndex.clamp(0, 603);
 
@@ -118,7 +111,10 @@ extension QuranGetters on QuranController {
 
   ScrollController get surahController {
     final suraNumber =
-        getCurrentSurahByPage(state.currentPageNumber.value).surahNumber - 1;
+        getCurrentSurahByPage(
+          QuranCtrl.instance.state.currentPageNumber.value,
+        ).surahNumber -
+        1;
     if (state.surahController == null) {
       state.surahController = ScrollController(
         initialScrollOffset: state.surahItemHeight * suraNumber,
@@ -132,7 +128,7 @@ extension QuranGetters on QuranController {
       state.juzListController = ScrollController(
         initialScrollOffset:
             state.surahItemHeight *
-            getJuzByPage(state.currentPageNumber.value).juz,
+            getJuzByPage(QuranCtrl.instance.state.currentPageNumber.value).juz,
       );
     }
     return state.juzListController!;
