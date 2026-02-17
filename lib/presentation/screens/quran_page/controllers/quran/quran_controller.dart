@@ -18,7 +18,7 @@ class QuranController extends GetxController {
     state.isPageMode.value = state.box.read(PAGE_MODE) ?? false;
     state.backgroundPickerColor.value =
         state.box.read(BACKGROUND_PICKER_COLOR) ?? 0xfffaf7f3;
-    // await QuranLibrary().fetchTafsir(pageNumber: state.currentPageNumber.value);
+    // await QuranLibrary().fetchTafsir(pageNumber: QuranCtrl.instance.state.currentPageNumber.value);
     // await QuranLibrary().fetchTranslation();
     // Future.delayed(const Duration(seconds: 10), () {
     //   // TafsirCtrl.instance.tafsirDownloadIndexList.contains(0)
@@ -47,7 +47,7 @@ class QuranController extends GetxController {
   /// -------- [Methods] ----------
 
   Future<void> updateTafsir(int pageIndex) async {
-    if (state.currentPageNumber.value != pageIndex) {
+    if (QuranCtrl.instance.state.currentPageNumber.value != pageIndex) {
       await QuranLibrary().fetchTafsir(pageNumber: pageIndex);
       TafsirCtrl.instance.update(['change_tafsir']);
     }
@@ -79,8 +79,8 @@ class QuranController extends GetxController {
           state.currentListPage.value = firstItemIndex;
         }
         final pageOneBased = firstItemIndex + 1;
-        if (state.currentPageNumber.value != pageOneBased) {
-          state.currentPageNumber.value = pageOneBased;
+        if (QuranCtrl.instance.state.currentPageNumber.value != pageOneBased) {
+          QuranCtrl.instance.state.currentPageNumber.value = pageOneBased;
         }
       });
     }
@@ -103,8 +103,8 @@ class QuranController extends GetxController {
       // جدولة التحديث بعد الإطار لتجنّب setState أثناء البناء
       WidgetsBinding.instance.addPostFrameCallback((_) {
         final pageOneBased = firstItemIndex + 1;
-        if (state.currentPageNumber.value != pageOneBased) {
-          state.currentPageNumber.value = pageOneBased;
+        if (QuranCtrl.instance.state.currentPageNumber.value != pageOneBased) {
+          QuranCtrl.instance.state.currentPageNumber.value = pageOneBased;
         }
         state.box.write(MSTART_PAGE, pageOneBased);
       });
@@ -117,7 +117,8 @@ class QuranController extends GetxController {
 
   void getLastPage() {
     try {
-      state.currentPageNumber.value = state.box.read(MSTART_PAGE) ?? 1;
+      QuranCtrl.instance.state.currentPageNumber.value =
+          state.box.read(MSTART_PAGE) ?? 1;
       state.lastReadSurahNumber.value = state.box.read(MLAST_URAH) ?? 1;
     } catch (e) {
       print('Failed to load last page: $e');

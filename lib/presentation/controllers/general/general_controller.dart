@@ -88,6 +88,8 @@ class GeneralController extends GetxController {
     _audioWidgetTimer?.cancel();
     _audioWidgetTimer = Timer(duration, () {
       state.showAudioWidgetTemporarily.value = false;
+      update(['showControl']);
     });
+    update(['showControl']);
   }
 }
