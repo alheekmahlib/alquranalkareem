@@ -2,6 +2,7 @@ import 'dart:io' show Platform;
 import 'dart:ui' show Size;
 
 import 'package:desktop_window/desktop_window.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter_timezone/flutter_timezone.dart';
 import 'package:get/get.dart';
 import 'package:get_it/get_it.dart';
@@ -31,7 +32,7 @@ class ServicesLocator {
   // });
 
   Future _windowSize() async {
-    if (Platform.isMacOS || Platform.isWindows || Platform.isLinux)
+    if (!kIsWeb && (Platform.isMacOS || Platform.isWindows || Platform.isLinux))
       await DesktopWindow.setWindowSize(const Size(900, 840));
   }
 
@@ -129,7 +130,8 @@ class ServicesLocator {
     // NotifyHelper().initializeNotification();
     // sl<NotificationsController>().initializeLocalNotifications();
 
-    if (Platform.isIOS || Platform.isAndroid || Platform.isFuchsia) {
+    if (!kIsWeb &&
+        (Platform.isIOS || Platform.isAndroid || Platform.isFuchsia)) {
       UiHelper.rateMyApp.init();
       // Future.delayed(const Duration(seconds: 7)).then((_) => {
       //       AudioService.init(

@@ -1,9 +1,5 @@
-import 'dart:io';
-
+import 'package:alquranalkareem/database/bookmark_db/connection/connection.dart';
 import 'package:drift/drift.dart';
-import 'package:drift/native.dart';
-import 'package:path/path.dart' as p;
-import 'package:path_provider/path_provider.dart';
 
 part 'khatmah_database.g.dart';
 
@@ -35,7 +31,7 @@ class KhatmahDays extends Table {
 
 @DriftDatabase(tables: [Khatmahs, KhatmahDays])
 class KhatmahDatabase extends _$KhatmahDatabase {
-  KhatmahDatabase._internal() : super(_openConnection());
+  KhatmahDatabase._internal() : super(openConnection('khatmah.sqlite'));
 
   static final KhatmahDatabase _instance = KhatmahDatabase._internal();
 
@@ -92,12 +88,4 @@ class KhatmahDatabase extends _$KhatmahDatabase {
       khatmahDays,
     )..where((t) => t.khatmahId.equals(khatmahId))).go();
   }
-}
-
-LazyDatabase _openConnection() {
-  return LazyDatabase(() async {
-    final dbFolder = await getApplicationDocumentsDirectory();
-    final file = File(p.join(dbFolder.path, 'khatmah.sqlite'));
-    return NativeDatabase(file);
-  });
 }

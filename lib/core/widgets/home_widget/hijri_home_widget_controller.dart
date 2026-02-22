@@ -1,6 +1,7 @@
 import 'dart:developer';
 import 'dart:io';
 
+import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 import 'package:home_widget/home_widget.dart';
 
@@ -32,6 +33,7 @@ class HijriHomeWidgetController extends GetxController {
   /// تهيئة home widget
   /// Initialize home widget
   Future<void> initializeHomeWidget() async {
+    if (kIsWeb) return;
     try {
       // تعيين group ID للمشاركة بين التطبيق والـ widget
       // Set group ID for sharing between app and widget
@@ -60,6 +62,7 @@ class HijriHomeWidgetController extends GetxController {
   /// تحديث بيانات التقويم الهجري في الـ widget
   /// Update Hijri calendar data in widget
   Future<void> updateHijriWidgetData() async {
+    if (kIsWeb) return;
     try {
       if (Platform.isAndroid) {
         // الحصول على التاريخ الهجري الحالي

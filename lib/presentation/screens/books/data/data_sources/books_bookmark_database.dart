@@ -1,9 +1,6 @@
-import 'dart:io';
-
 import 'package:drift/drift.dart';
-import 'package:drift/native.dart';
-import 'package:path/path.dart' as p;
-import 'package:path_provider/path_provider.dart';
+
+import 'package:alquranalkareem/database/bookmark_db/connection/connection.dart';
 
 part 'books_bookmark_database.g.dart';
 
@@ -16,7 +13,8 @@ class BooksBookmark extends Table {
 
 @DriftDatabase(tables: [BooksBookmark])
 class BooksBookmarkDatabase extends _$BooksBookmarkDatabase {
-  BooksBookmarkDatabase._internal() : super(_openConnection());
+  BooksBookmarkDatabase._internal()
+    : super(openConnection('books_bookmark.sqlite'));
 
   static final BooksBookmarkDatabase _instance =
       BooksBookmarkDatabase._internal();
@@ -28,14 +26,14 @@ class BooksBookmarkDatabase extends _$BooksBookmarkDatabase {
 
   @override
   MigrationStrategy get migration => MigrationStrategy(
-        onCreate: (Migrator m) async {
-          await m.createAll();
-        },
-        onUpgrade: (Migrator m, int from, int to) async {},
-        beforeOpen: (details) async {
-          await customStatement('PRAGMA foreign_keys = ON');
-        },
-      );
+    onCreate: (Migrator m) async {
+      await m.createAll();
+    },
+    onUpgrade: (Migrator m, int from, int to) async {},
+    beforeOpen: (details) async {
+      await customStatement('PRAGMA foreign_keys = ON');
+    },
+  );
 
   Future<List<BooksBookmarkData>> getAllBookmarks() =>
       select(booksBookmark).get();
@@ -55,12 +53,4 @@ class BooksBookmarkDatabase extends _$BooksBookmarkDatabase {
           ..where((tt) => tt.currentPage.equals(currentPage)))
         .go();
   }
-}
-
-LazyDatabase _openConnection() {
-  return LazyDatabase(() async {
-    final dbFolder = await getApplicationDocumentsDirectory();
-    final file = File(p.join(dbFolder.path, 'books_bookmark.sqlite'));
-    return NativeDatabase(file);
-  });
 }

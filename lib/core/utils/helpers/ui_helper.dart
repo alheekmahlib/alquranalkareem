@@ -1,5 +1,6 @@
 import 'dart:io' show Platform;
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:rate_my_app/rate_my_app.dart';
 
@@ -45,13 +46,14 @@ class UiHelper {
 
           return true; // Return false if you want to cancel the click event.
         },
-        ignoreNativeDialog: Platform.isAndroid,
+        ignoreNativeDialog: !kIsWeb && Platform.isAndroid,
         // Set to false if you want to show the Apple's native app rating dialog on iOS or Google's native app rating dialog (depends on the current Platform).
         dialogStyle: const DialogStyle(),
-        // Custom dialog styles.
 
-        onDismissed: () => rateMyApp.callEvent(RateMyAppEventType
-            .laterButtonPressed), // Called when the user dismissed the dialog (either by taping outside or by pressing the "back" button).
+        // Custom dialog styles.
+        onDismissed: () => rateMyApp.callEvent(
+          RateMyAppEventType.laterButtonPressed,
+        ), // Called when the user dismissed the dialog (either by taping outside or by pressing the "back" button).
         // contentBuilder: (context, defaultContent) => content, // This one allows you to change the default dialog content.
         // actionsBuilder: (context) => [], // This one allows you to use your own buttons.
       );

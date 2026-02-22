@@ -24,7 +24,7 @@ dependencies:
   desktop_window: ^0.4.2
   dio: ^5.9.1
   drift: ^2.30.1
-  drift_flutter: ^0.2.8
+
   easy_image_viewer: ^1.5.1
   either_dart: ^1.0.0
   expansion_tile_card: ^3.0.0

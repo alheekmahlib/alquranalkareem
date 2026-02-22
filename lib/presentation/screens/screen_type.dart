@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 
@@ -14,7 +15,8 @@ class ScreenTypeL extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     eventsCtrl.ramadhanOrEidGreeting();
-    if (Platform.isIOS || Platform.isAndroid || Platform.isFuchsia) {
+    if (!kIsWeb &&
+        (Platform.isIOS || Platform.isAndroid || Platform.isFuchsia)) {
       // UiHelper.showRateDialog(context);
     }
     return ScreenTypeLayout.builder(
@@ -24,8 +26,11 @@ class ScreenTypeL extends StatelessWidget {
       desktop: (BuildContext context) {
         return generalCtrl.screenSelect();
       },
-      breakpoints:
-          const ScreenBreakpoints(desktop: 650, tablet: 450, watch: 300),
+      breakpoints: const ScreenBreakpoints(
+        desktop: 650,
+        tablet: 450,
+        watch: 300,
+      ),
     );
   }
 }

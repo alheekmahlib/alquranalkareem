@@ -1,6 +1,7 @@
 import 'dart:io' show Platform;
 
 import 'package:drift/drift.dart' show driftRuntimeOptions;
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app_info/flutter_app_info.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
@@ -43,7 +44,7 @@ Future<void> initializeApp() async {
   // تهيئة Home Widgets - Initialize Home Widgets
   await HomeWidgetService.instance.initializeHomeWidgets();
 
-  if (Platform.isIOS || Platform.isAndroid) {
+  if (!kIsWeb && (Platform.isIOS || Platform.isAndroid)) {
     await BGServices().registerTask();
   }
   FlutterNativeSplash.remove();
