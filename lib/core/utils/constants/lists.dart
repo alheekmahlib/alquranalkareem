@@ -93,11 +93,6 @@ final List screensList = [
   },
 ];
 
-const List mushafSettingsList = [
-  {'name': 'pages', 'imageUrl': 'assets/images/pages.png'},
-  {'name': 'ayahs', 'imageUrl': 'assets/images/ayahs.png'},
-];
-
 const List themeList = [
   {
     'name': AppTheme.blue,
@@ -109,7 +104,11 @@ const List themeList = [
     'title': 'brownMode',
     'svgUrl': 'assets/svg/theme1.svg',
   },
-  {'name': AppTheme.old, 'title': 'oldMode', 'svgUrl': 'assets/svg/theme3.svg'},
+  {
+    'name': AppTheme.green,
+    'title': 'greenMode',
+    'svgUrl': 'assets/svg/theme3.svg',
+  },
   {
     'name': AppTheme.dark,
     'title': 'darkMode',

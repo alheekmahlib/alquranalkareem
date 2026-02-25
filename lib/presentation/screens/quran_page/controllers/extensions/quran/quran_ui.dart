@@ -32,7 +32,6 @@ extension QuranUi on QuranController {
     } else {
       QuranLibrary.quranCtrl.quranPagesController.jumpToPage(page - 1);
     }
-    GlobalKeyManager().drawerKey.currentState!.closeSlider();
   }
 
   void toggleAyahSelection(int index) {
@@ -57,8 +56,8 @@ extension QuranUi on QuranController {
   }
 
   void showControl() {
-    GeneralController.instance.state.isShowControl.value =
-        !GeneralController.instance.state.isShowControl.value;
+    GeneralController.instance.state.isShowControl.toggle();
+    QuranCtrl.instance.isShowControl.toggle();
   }
 
   void toggleMenu(String verseKey) {
@@ -86,8 +85,6 @@ extension QuranUi on QuranController {
   }
 
   void pageModeOnTap(bool value) {
-    state.isPageMode.value = value;
-    state.box.write(PAGE_MODE, value);
     update();
     Get.back();
   }
@@ -131,7 +128,7 @@ extension QuranUi on QuranController {
   void clearSelection() {
     if (AudioCtrl.instance.state.audioPlayer.playing) {
       showControl();
-      GeneralController.instance.update(['showControl']);
+      // GeneralController.instance.update(['showControl']);
     } else if (QuranLibrary.quranCtrl.selectedAyahsByUnequeNumber.isNotEmpty) {
       QuranLibrary.quranCtrl.selectedAyahsByUnequeNumber.clear();
       QuranLibrary.quranCtrl.selectedAyahsByUnequeNumber.refresh();
@@ -139,9 +136,36 @@ extension QuranUi on QuranController {
       update(['clearSelection']);
     } else {
       showControl();
-      GeneralController.instance.update(['showControl']);
+      // GeneralController.instance.update(['showControl']);
     }
     // GlobalKeyManager().drawerKey.currentState!.closeSlider();
+  }
+
+  void showControlToggle() {
+    if (AudioCtrl.instance.state.isPlaying.value) {
+      showControl();
+      update([
+        'isShowControl',
+        'selection_page_${QuranCtrl.instance.state.currentPageNumber.value}',
+      ]);
+    } else if (QuranCtrl.instance.selectedAyahsByUnequeNumber.isNotEmpty) {
+      clearSelection();
+    } else {
+      clearSelection();
+      showControl();
+      update([
+        'isShowControl',
+        'selection_page_${QuranCtrl.instance.state.currentPageNumber.value}',
+      ]);
+    }
+  }
+
+  bool getTopBarType(TopBarType type) {
+    return state.topBarType.value == type.name;
+  }
+
+  set setTopBarType(TopBarType type) {
+    state.topBarType.value = type.name;
   }
 
   // void scrollSlowly(BuildContext context, double duration) async {

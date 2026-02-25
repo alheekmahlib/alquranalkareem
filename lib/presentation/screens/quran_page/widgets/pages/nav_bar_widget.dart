@@ -7,107 +7,170 @@ class NavBarWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        Transform.translate(
-          offset: const Offset(0, 2),
-          child: Row(
-            // mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.end,
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              GestureDetector(
-                onTap: () {
-                  if (GlobalKeyManager().drawerKey.currentState != null) {
-                    GlobalKeyManager().drawerKey.currentState!.toggle();
-                  }
-                },
-                child: Stack(
-                  alignment: Alignment.center,
-                  children: [
-                    RotatedBox(
-                      quarterTurns: 30,
-                      child: customSvgWithColor(
-                        SvgPath.svgButtonCurve,
-                        height: 45.0,
-                        width: 45.0,
-                        color: Get.theme.colorScheme.primary,
-                      ),
+    return GestureDetector(
+      onVerticalDragUpdate: (details) {
+        if (details.primaryDelta != null) {
+          if (details.primaryDelta! < -8) {
+            Future.delayed(const Duration(milliseconds: 10), () {
+              quranCtrl.state.isPlayExpanded.value = true;
+              quranCtrl.state.navBarController.animateTo(155);
+            });
+          } else if (details.primaryDelta! > 8) {
+            quranCtrl.state.isPlayExpanded.value = false;
+            quranCtrl.state.navBarController.animateTo(50);
+          }
+        }
+      },
+      child: LayoutBuilder(
+        builder: (context, constraints) {
+          return FlexibleSheet(
+            maxHeight: 155, // constraints.maxHeight - 150,
+            minHeight: 0,
+            initialHeight: 0,
+            direction: SheetDirection.bottomToTop,
+            snapBehavior: SheetSnapBehavior.snapToEdge,
+            controller: quranCtrl.state.navBarController,
+            onStateChanged: (state) => log('isOpen: $state'),
+            handleBuilder: (currentHeight) {
+              final isExpanded = currentHeight == 155;
+              return Column(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  Container(
+                    height: 8,
+                    width: Get.width,
+                    margin: const EdgeInsets.symmetric(horizontal: 62.0),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(8),
+                      color: Theme.of(context).colorScheme.primary,
                     ),
-                    Container(
-                      padding: const EdgeInsets.all(4),
-                      margin: const EdgeInsets.only(bottom: 5),
-                      decoration: BoxDecoration(
-                        color: Theme.of(context).colorScheme.primaryContainer,
-                        borderRadius: const BorderRadius.all(
-                          Radius.circular(4),
-                        ),
-                        border: Border.all(
-                          width: 1,
-                          color: Theme.of(context).colorScheme.surface,
-                        ),
-                      ),
-                      child: customSvgWithColor(
-                        SvgPath.svgListIcon,
-                        height: 25,
-                        width: 25,
-                        color: context.theme.hintColor,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              // PagesIndicator(),
-              GestureDetector(
-                onTap: () {
-                  customBottomSheet(const KhatmahBookmarksScreen());
-                  generalCtrl.state.showSelectScreenPage.value = false;
-                },
-                child: Stack(
-                  alignment: Alignment.center,
-                  children: [
-                    RotatedBox(
-                      quarterTurns: 30,
-                      child: customSvgWithColor(
-                        SvgPath.svgButtonCurve,
-                        height: 45.0,
-                        width: 45.0,
-                        color: Get.theme.colorScheme.primary,
-                      ),
-                    ),
-                    Container(
-                      padding: const EdgeInsets.all(4),
-                      margin: const EdgeInsets.only(bottom: 5),
-                      decoration: BoxDecoration(
-                        color: Theme.of(context).colorScheme.primaryContainer,
-                        borderRadius: const BorderRadius.all(
-                          Radius.circular(4),
-                        ),
-                        border: Border.all(
-                          width: 1,
-                          color: Theme.of(context).colorScheme.surface,
+                  ),
+                  Stack(
+                    alignment: Alignment.bottomCenter,
+                    children: [
+                      Align(
+                        alignment: Alignment.bottomLeft,
+                        child: Container(
+                          height: 62,
+                          width: 62,
+                          decoration: BoxDecoration(
+                            borderRadius: const BorderRadius.only(
+                              topLeft: Radius.circular(8),
+                              topRight: Radius.circular(8),
+                            ),
+                            color: Theme.of(context).colorScheme.primary,
+                          ),
                         ),
                       ),
-                      child: customSvgWithColor(
-                        SvgPath.svgBookmarkList,
-                        height: 25,
-                        width: 25,
-                        color: context.theme.hintColor,
+                      Align(
+                        alignment: Alignment.bottomRight,
+                        child: Container(
+                          height: 62,
+                          width: 62,
+                          decoration: BoxDecoration(
+                            borderRadius: const BorderRadius.only(
+                              topRight: Radius.circular(8),
+                              topLeft: Radius.circular(8),
+                            ),
+                            color: Theme.of(context).colorScheme.primary,
+                          ),
+                        ),
                       ),
-                    ),
-                  ],
-                ),
-              ),
-            ],
-          ),
-        ),
-        Container(
-          height: 15,
-          width: MediaQuery.sizeOf(context).width,
-          color: Theme.of(context).colorScheme.primary,
-        ),
-      ],
+                      Container(
+                        height: 53,
+                        width: Get.width,
+                        margin: const EdgeInsets.symmetric(horizontal: 8.0),
+                        decoration: BoxDecoration(
+                          borderRadius: const BorderRadius.all(
+                            Radius.circular(8),
+                          ),
+                          color: Theme.of(context).colorScheme.primaryContainer,
+                        ),
+                        child: Row(
+                          children: [
+                            Expanded(
+                              flex: 2,
+                              child: GestureDetector(
+                                onTap: () {
+                                  if (isExpanded) {
+                                    quranCtrl.state.navBarController.animateTo(
+                                      0,
+                                    );
+                                  } else {
+                                    quranCtrl.state.navBarController.animateTo(
+                                      155,
+                                    );
+                                  }
+                                },
+                                child: Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                    vertical: 8.0,
+                                  ),
+                                  child: customSvgWithColor(
+                                    isExpanded
+                                        ? SvgPath.svgHomeClose
+                                        : SvgPath.svgHomeSurahList,
+                                    height: 35,
+                                    width: 35,
+                                    color: context.theme.hintColor,
+                                  ),
+                                ),
+                              ),
+                            ),
+                            Flexible(
+                              flex: 12,
+                              child: GetBuilder<GeneralController>(
+                                id: 'showControl',
+                                builder: (generalCtrl) =>
+                                    generalCtrl.state.isShowControl.value ||
+                                        generalCtrl
+                                            .state
+                                            .showAudioWidgetTemporarily
+                                            .value
+                                    ? AudioWidget()
+                                    : const SizedBox.shrink(),
+                              ),
+                            ),
+                            Expanded(
+                              flex: 2,
+                              child: GestureDetector(
+                                onTap: () {
+                                  customBottomSheet(
+                                    const KhatmahBookmarksScreen(),
+                                  );
+                                },
+                                child: Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                    vertical: 8.0,
+                                  ),
+                                  child: customSvgWithColor(
+                                    isExpanded
+                                        ? SvgPath.svgHomeClose
+                                        : SvgPath.svgHomeBookmarkList,
+                                    height: 35,
+                                    width: 35,
+                                    color: context.theme.hintColor,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              );
+            },
+            childBuilder: (c) => Container(
+              height: Get.height,
+              width: Get.width,
+              color: Theme.of(context).colorScheme.primaryContainer,
+              child: const Center(child: Text('data')),
+            ),
+          );
+        },
+      ),
     );
   }
 }

@@ -20,7 +20,6 @@ class GeneralState {
   final ScrollController ayahListController = ScrollController();
   double ayahItemWidth = 30.0;
   ArabicNumbers arabicNumber = ArabicNumbers();
-  RxBool showSelectScreenPage = false.obs;
   RxInt screenSelectedValue = 0.obs;
   var now = DateTime.now();
 

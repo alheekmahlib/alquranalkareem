@@ -1,10 +1,13 @@
+import 'package:alquranalkareem/core/widgets/container_button.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 
-import '/presentation/controllers/general/extensions/general_ui.dart';
 import '../../presentation/controllers/general/general_controller.dart';
 import '../utils/constants/lists.dart';
+import '../utils/constants/shared_preferences_constants.dart';
+import '../utils/helpers/app_text_styles.dart';
 
 class SelectScreen extends StatelessWidget {
   const SelectScreen({super.key});
@@ -15,63 +18,39 @@ class SelectScreen extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16.0),
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            'startScreen'.tr,
-            style: TextStyle(
-                color: Theme.of(context).hintColor,
-                fontFamily: 'kufi',
-                fontStyle: FontStyle.italic,
-                fontWeight: FontWeight.bold,
-                fontSize: 16),
-          ),
+          Text('startScreen'.tr, style: AppTextStyles.titleMedium()),
           const Gap(4),
-          Container(
-            padding: const EdgeInsets.all(4.0),
-            decoration: BoxDecoration(
-                border: Border.all(
-                    color: Theme.of(context).colorScheme.surface, width: 1),
-                borderRadius: const BorderRadius.all(Radius.circular(8))),
-            child: GestureDetector(
-              onTap: () => generalCtrl.selectScreenToggleView(),
-              child: Container(
-                padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                decoration: BoxDecoration(
-                    color: Theme.of(context)
-                        .colorScheme
-                        .surface
-                        .withValues(alpha: .2),
-                    borderRadius: const BorderRadius.all(Radius.circular(8))),
-                child: SizedBox(
-                  height: 60,
-                  child: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Expanded(
-                        flex: 9,
-                        child: Text(
-                          '${screensList[generalCtrl.state.screenSelectedValue.value]['name']}'
-                              .tr,
-                          style: TextStyle(
-                            fontFamily: 'kufi',
-                            fontSize: 18,
-                            color: Theme.of(context).hintColor,
-                          ),
-                        ),
+          Divider(
+            thickness: 1.0,
+            height: 1.0,
+            endIndent: 32.0,
+            indent: 32.0,
+            color: Theme.of(context).primaryColorLight.withValues(alpha: .5),
+          ),
+          Wrap(
+            children: List.generate(
+              screensList.length,
+              (index) => index == 2
+                  ? const SizedBox.shrink()
+                  : Obx(
+                      () => ContainerButton(
+                        onPressed: () {
+                          generalCtrl.state.screenSelectedValue.value = index;
+                          GetStorage().write(SCREEN_SELECTED_VALUE, index);
+                          GetStorage().write(IS_SCREEN_SELECTED_VALUE, true);
+                        },
+                        value:
+                            (generalCtrl.state.screenSelectedValue.value ==
+                                    index)
+                                .obs,
+                        horizontalPadding: 8.0,
+                        verticalPadding: 8.0,
+                        horizontalMargin: 4.0,
+                        verticalMargin: 4.0,
+                        title: '${screensList[index]['name']}'.tr,
                       ),
-                      Expanded(
-                        flex: 1,
-                        child: Icon(
-                          Icons.arrow_forward_ios_outlined,
-                          size: 20,
-                          color: Theme.of(context).hintColor,
-                        ),
-                      )
-                    ],
-                  ),
-                ),
-              ),
+                    ),
             ),
           ),
         ],

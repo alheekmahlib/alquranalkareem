@@ -7,6 +7,7 @@ class QuranHome extends StatelessWidget {
   final generalCtrl = GeneralController.instance;
   final bookmarkCtrl = BookmarksController.instance;
   final quranCtrl = QuranController.instance;
+  final searchCtrl = QuranSearchController.instance;
 
   // bool hasUnopenedNotifications() {
   //   return sl<NotificationsController>()
@@ -29,80 +30,72 @@ class QuranHome extends StatelessWidget {
         resizeToAvoidBottomInset: true,
         backgroundColor: Theme.of(context).colorScheme.primary,
         body: SafeArea(
-          child: SliderDrawer(
-            key: GlobalKeyManager().drawerKey,
-            backgroundColor: Theme.of(context).colorScheme.primaryContainer,
-            slideDirection: alignmentLayout(
-              SlideDirection.rightToLeft,
-              SlideDirection.leftToRight,
+          child: Container(
+            decoration: BoxDecoration(
+              color: Theme.of(context).primaryColorDark,
             ),
-            sliderOpenSize: 300.0,
-            isDraggable: true,
-            appBar: const SizedBox.shrink(),
-            slider: SurahJuzList(),
-            child: Container(
-              decoration: BoxDecoration(
-                color: Theme.of(context).primaryColorDark,
-              ),
-              child: Stack(
-                alignment: Alignment.center,
-                children: <Widget>[
-                  Directionality(
-                    textDirection: TextDirection.rtl,
-                    child: Center(child: ScreenSwitch()),
-                  ),
-                  GetBuilder<GeneralController>(
-                    id: 'showControl',
-                    builder: (generalCtrl) =>
-                        generalCtrl.state.isShowControl.value
-                        ? Stack(
-                            children: [
-                              TabBarWidget(
-                                isFirstChild: true,
-                                isCenterChild: true,
-                                isQuranSetting: true,
-                                isNotification: false,
-                                centerChild: Padding(
-                                  padding: const EdgeInsets.only(top: 15.0),
-                                  child: OpenContainerWrapper(
-                                    transitionType: QuranSearchController
-                                        .instance
-                                        .state
-                                        .transitionType,
-                                    closedBuilder:
-                                        (
-                                          BuildContext _,
-                                          VoidCallback openContainer,
-                                        ) {
-                                          return SearchBarWidget(
-                                            openContainer: openContainer,
-                                          );
-                                        },
-                                  ),
-                                ),
+            child: Stack(
+              alignment: Alignment.center,
+              children: <Widget>[
+                Directionality(
+                  textDirection: TextDirection.rtl,
+                  child: Center(child: ScreenSwitch()),
+                ),
+                GetBuilder<GeneralController>(
+                  id: 'showControl',
+                  builder: (generalCtrl) =>
+                      generalCtrl.state.isShowControl.value
+                      ? Stack(
+                          children: [
+                            TopBarWidget(
+                              isHomeChild: true,
+                              isCenterChild: true,
+                              isQuranSetting: true,
+                              isNotification: false,
+                              centerChild: TextFieldBarWidget(
+                                controller: searchCtrl.state.searchTextEditing,
+                                horizontalPadding: 0.0,
+                                onPressed: () {
+                                  searchCtrl.state.searchTextEditing.clear();
+                                  searchCtrl.state.ayahList.clear();
+                                  searchCtrl.state.surahList.clear();
+                                  quranCtrl.setTopBarType = TopBarType.search;
+                                  quranCtrl.state.searchController.open();
+                                },
+                                onChanged: (query) {
+                                  if (searchCtrl
+                                          .state
+                                          .searchTextEditing
+                                          .text
+                                          .isNotEmpty ||
+                                      query.trim().isNotEmpty) {
+                                    searchCtrl.surahSearchMethod(query);
+                                    searchCtrl.search(query);
+                                  } else {
+                                    searchCtrl.state.searchTextEditing.clear();
+                                    searchCtrl.state.ayahList.clear();
+                                    searchCtrl.state.surahList.clear();
+                                  }
+                                },
+                                onSubmitted: (query) {
+                                  if (query.length <= 0 ||
+                                      query.trim().isNotEmpty) {
+                                    searchCtrl.addSearchItem(query);
+                                  }
+                                  // await sl<QuranSearchControllers>().addSearchItem(query);
+                                  // searchCtrl.textSearchController.clear();
+                                },
                               ),
-
-                              Align(
-                                alignment: Alignment.bottomCenter,
-                                child: NavBarWidget(),
-                              ),
-                            ],
-                          )
-                        : const SizedBox.shrink(),
-                  ),
-                  GetBuilder<GeneralController>(
-                    id: 'showControl',
-                    builder: (generalCtrl) =>
-                        generalCtrl.state.isShowControl.value ||
-                            generalCtrl.state.showAudioWidgetTemporarily.value
-                        ? Align(
-                            alignment: Alignment.bottomCenter,
-                            child: AudioWidget(),
-                          )
-                        : const SizedBox.shrink(),
-                  ),
-                ],
-              ),
+                            ),
+                            Align(
+                              alignment: Alignment.bottomCenter,
+                              child: NavBarWidget(),
+                            ),
+                          ],
+                        )
+                      : const SizedBox.shrink(),
+                ),
+              ],
             ),
           ),
         ),

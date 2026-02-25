@@ -31,8 +31,8 @@ class HijriCalendarScreen extends StatelessWidget {
                 overlay: false,
                 body: Column(
                   children: [
-                    const TabBarWidget(
-                      isFirstChild: true,
+                    TopBarWidget(
+                      isHomeChild: true,
                       isCenterChild: false,
                       isQuranSetting: false,
                       isNotification: false,

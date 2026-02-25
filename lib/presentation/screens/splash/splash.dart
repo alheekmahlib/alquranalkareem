@@ -13,7 +13,6 @@ import '../../../../core/utils/constants/lottie.dart';
 import '../../../../core/utils/constants/shared_preferences_constants.dart';
 import '../../../core/utils/constants/lottie_constants.dart';
 import '../../../core/utils/constants/svg_constants.dart';
-import '../../../core/widgets/container_with_border.dart';
 import '../../controllers/general/general_controller.dart';
 import '../../controllers/settings_controller.dart';
 import '../quran_page/quran.dart';

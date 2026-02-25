@@ -8,7 +8,7 @@ extension BookmarkPageIconPath on BuildContext {
       return 'assets/svg/bookmark.svg';
     } else if (themeCtrl.isBrownMode) {
       return 'assets/svg/bookmark2.svg';
-    } else if (themeCtrl.isOldMode) {
+    } else if (themeCtrl.isGreenMode) {
       return 'assets/svg/bookmark3.svg';
     } else {
       return 'assets/svg/bookmark.svg';

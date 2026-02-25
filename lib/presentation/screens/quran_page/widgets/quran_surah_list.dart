@@ -7,7 +7,7 @@ class QuranSurahList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CupertinoScrollbar(
-      controller: quranCtrl.surahController,
+      // controller: quranCtrl.surahController,
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 8.0),
         decoration: BoxDecoration(

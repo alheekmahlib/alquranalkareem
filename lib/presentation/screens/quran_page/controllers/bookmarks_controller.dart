@@ -134,23 +134,11 @@ class BookmarksController extends GetxController {
         : false.obs;
   }
 
-  RxList<int> hasBookmark2(int pageIndex) {
-    final ayahsLength = quranCtrl.getCurrentPageAyahsSeparatedForBasmalah(
-      pageIndex,
-    );
-
-    final flattenedAyahs = ayahsLength.expand((ayahList) => ayahList).toList();
-
-    return flattenedAyahs
-        .where(
-          (ayah) => bookmarkTextList.any(
-            (element) => element.ayahUQNumber == ayah.ayahUQNumber,
-          ),
-        )
-        .map((ayah) => ayah.ayahUQNumber)
-        .toList()
-        .obs;
-  }
+  // RxBool hasBookmark2(int ayahUQNumber) {
+  //   return bookmarkTextList
+  //       .firstWhere((a) => a.ayahUQNumber == ayahUQNumber)
+  //       .obs;
+  // }
 
   Future<void> addBookmarkText(
     String surahName,

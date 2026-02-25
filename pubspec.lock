@@ -497,6 +497,23 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "4.0.1"
+  flexible_sheet:
+    dependency: "direct main"
+    description:
+      path: "."
+      ref: main
+      resolved-ref: fe17c41b7d12e03f0fec711c906a6e4e9d6315a1
+      url: "https://github.com/alheekmahlib/flexible_sheet.git"
+    source: git
+    version: "1.0.0"
+  floating_menu_expendable:
+    dependency: "direct main"
+    description:
+      name: floating_menu_expendable
+      sha256: "7d293ac61eb0584b580142166407143d7fc132f01b27df2e723f073dc9b3b369"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.0"
   flutter:
     dependency: "direct main"
     description: flutter
@@ -1077,6 +1094,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "6.0.3"
+  preload_page_view:
+    dependency: transitive
+    description:
+      name: preload_page_view
+      sha256: "488a10c158c5c2e9ba9d77e5dbc09b1e49e37a20df2301e5ba02992eac802b7a"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.2.0"
   provider:
     dependency: transitive
     description:
@@ -1104,11 +1129,12 @@ packages:
   quran_library:
     dependency: "direct main"
     description:
-      name: quran_library
-      sha256: "3022aeb7ab8fbd5ddf364292c8fb1b273d69e9ac67d047b2d3cef2cd89a86538"
-      url: "https://pub.dev"
-    source: hosted
-    version: "2.3.5"
+      path: "."
+      ref: dev
+      resolved-ref: c41397e1d076c2d64e9aad83d1896bb2c71ad377
+      url: "https://github.com/alheekmahlib/quran_library.git"
+    source: git
+    version: "3.1.0"
   rate_my_app:
     dependency: "direct main"
     description:
@@ -1683,5 +1709,5 @@ packages:
     source: hosted
     version: "3.1.3"
 sdks:
-  dart: ">=3.10.0 <4.0.0"
+  dart: ">=3.10.4 <4.0.0"
   flutter: ">=3.38.0"

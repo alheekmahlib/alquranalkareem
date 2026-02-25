@@ -15,7 +15,6 @@ class QuranController extends GetxController {
     state.itemPositionsListener.itemPositions.addListener(
       currentListPageNumber,
     );
-    state.isPageMode.value = state.box.read(PAGE_MODE) ?? false;
     state.backgroundPickerColor.value =
         state.box.read(BACKGROUND_PICKER_COLOR) ?? 0xfffaf7f3;
     // await QuranLibrary().fetchTafsir(pageNumber: QuranCtrl.instance.state.currentPageNumber.value);

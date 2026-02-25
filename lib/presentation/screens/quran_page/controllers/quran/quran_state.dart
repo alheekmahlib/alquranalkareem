@@ -42,7 +42,6 @@ class QuranState {
   double surahItemHeight = 90.0;
   ScrollController? surahController;
   ScrollController? juzListController;
-  RxBool isPageMode = false.obs;
   RxInt backgroundPickerColor = 0xfffaf7f3.obs;
   RxInt temporaryBackgroundColor = 0xfffaf7f3.obs;
 
@@ -52,4 +51,11 @@ class QuranState {
   RxInt selectedSurahNumber = 0.obs;
   var qPackage = QuranLibrary();
   final QuranRepository _quranRepository = QuranRepository();
+
+  /// -------- [New Variables] ----------
+  final searchController = FlexibleSheetController();
+  final navBarController = FlexibleSheetController();
+  RxString topBarType = 'none'.obs;
+  ExpansibleController languageController = ExpansibleController();
+  RxBool isLanguageExpanded = false.obs;
 }
