@@ -1,9 +1,7 @@
 part of '../../quran.dart';
 
 class TextBuild extends StatelessWidget {
-  final int pageIndex;
-
-  TextBuild({super.key, required this.pageIndex});
+  TextBuild({super.key});
 
   final audioCtrl = AudioCtrl.instance;
   final quranCtrl = QuranController.instance;
@@ -12,28 +10,37 @@ class TextBuild extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final bookmarkTextList = BookmarksController.instance.bookmarkTextList;
+    bool isAyahBookmarked(AyahModel ayah) =>
+        BookmarksController.instance.hasBookmark(
+              ayah.surahNumber!,
+              ayah.ayahUQNumber,
+            ) ==
+            true
+        ? true
+        : false;
     return Center(
       child: GetBuilder<QuranController>(
         id: 'clearSelection',
         builder: (quranCtrl) => QuranLibraryScreen(
           parentContext: context,
           isDark: themeCtrl.isDarkMode,
-          isFontsLocal: true,
-          withPageView: false,
+          isShowTabBar: true,
+          withPageView: true,
+          isFontsLocal: false,
           useDefaultAppBar: false,
           isShowAudioSlider: false,
-          showAyahBookmarkedIcon: false,
-          // isShowTabBar: true,
-          pageIndex: pageIndex,
-          appLanguageCode: Get.locale!.languageCode,
-          bookmarkList: BookmarksController.instance.bookmarkTextList,
-          fontsName: 'page${pageIndex + 1}',
+          enableWordSelection: false,
+          showAyahBookmarkedIcon: true,
+          bookmarkList: bookmarkTextList,
           backgroundColor: Colors.transparent,
+          appLanguageCode: Get.locale!.languageCode,
+          onPagePress: () => quranCtrl.clearSelection(),
           textColor: Get.theme.colorScheme.inversePrimary,
+          ayahIconColor: Get.theme.colorScheme.inverseSurface,
           ayahSelectedBackgroundColor: Get.theme.highlightColor,
           bookmarksColor: const Color(0xffCD9974).withValues(alpha: .4),
-          ayahBookmarked: BookmarksController.instance.hasBookmark2(pageIndex),
-          ayahIconColor: Get.theme.colorScheme.inverseSurface,
+          isAyahBookmarked: (ayah) => isAyahBookmarked(ayah),
           topBottomQuranStyle:
               TopBottomQuranStyle.defaults(
                 isDark: themeCtrl.isDarkMode,
@@ -42,7 +49,7 @@ class TextBuild extends StatelessWidget {
                 juzName: 'juz'.tr,
                 sajdaName: 'sajda'.tr,
                 hizbName: 'hizb'.tr,
-                topTitleChild: GestureDetector(
+                customChildBuilder: (context, pageIndex) => GestureDetector(
                   onTap: () => bookmarkCtrl.addPageBookmarkOnTap(pageIndex),
                   child: _BookmarkIcon(
                     height: context.customOrientation(30.h, 40.h),
@@ -63,14 +70,13 @@ class TextBuild extends StatelessWidget {
             textColor: Get.theme.colorScheme.inversePrimary,
             titleColor: Get.theme.hintColor,
           ),
-          onPagePress: () => quranCtrl.clearSelection(),
           onAyahLongPress: (details, ayah) {
             final surah = QuranLibrary().getCurrentSurahDataByAyah(ayah: ayah);
             context.showAyahMenu(
               surahNum: surah.surahNumber,
               ayahNum: ayah.ayahNumber,
               ayahText: ayah.text,
-              pageIndex: pageIndex,
+              pageIndex: ayah.page,
               ayahTextNormal: ayah.ayaTextEmlaey,
               ayahUQNum: ayah.ayahUQNumber,
               surahName: surah.arabicName,
@@ -141,26 +147,22 @@ class _BookmarkIcon extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GetBuilder<QuranCtrl>(
-      id: 'pageBookmarked',
-      builder: (bookmarkCtrl) {
-        return Semantics(
-          button: true,
-          enabled: true,
-          label: 'Add Bookmark',
-          child: customSvg(
-            BookmarksController.instance
-                    .hasPageBookmark(
-                      pageNum ??
-                          QuranCtrl.instance.state.currentPageNumber.value,
-                    )
-                    .value
-                ? SvgPath.svgBookmarked
-                : Get.context!.bookmarkPageIconPath(),
-            height: height,
-          ),
-        );
-      },
-    );
+    return Obx(() {
+      return Semantics(
+        button: true,
+        enabled: true,
+        label: 'Add Bookmark',
+        child: customSvg(
+          BookmarksController.instance
+                  .hasPageBookmark(
+                    pageNum ?? QuranCtrl.instance.state.currentPageNumber.value,
+                  )
+                  .value
+              ? SvgPath.svgBookmarked
+              : Get.context!.bookmarkPageIconPath(),
+          height: height,
+        ),
+      );
+    });
   }
 }

@@ -29,8 +29,8 @@ class BackDropWidget extends StatelessWidget {
                   child: Stack(
                     alignment: Alignment.topCenter,
                     children: [
-                      TabBarWidget(
-                        isFirstChild: true,
+                      TopBarWidget(
+                        isHomeChild: true,
                         isCenterChild: true,
                         isQuranSetting: false,
                         isNotification: false,
@@ -91,8 +91,8 @@ class BackDropWidget extends StatelessWidget {
                   child: Stack(
                     alignment: Alignment.topCenter,
                     children: [
-                      TabBarWidget(
-                        isFirstChild: true,
+                      TopBarWidget(
+                        isHomeChild: true,
                         isCenterChild: true,
                         isQuranSetting: false,
                         isNotification: false,

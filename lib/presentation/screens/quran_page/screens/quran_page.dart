@@ -15,89 +15,23 @@ class QuranPages extends StatelessWidget {
       }),
       QuranCtrl.instance.state.currentPageNumber.value,
     );
-    return InkWell(
-      onTap: () => quranCtrl.clearSelection(),
-      child: Container(
-        height: MediaQuery.sizeOf(context).height,
-        child: Focus(
-          focusNode: quranCtrl.state.quranPageRLFocusNode,
-          onKeyEvent: (node, event) =>
-              quranCtrl.controlRLByKeyboard(node, event),
-          child: PageView.builder(
-            controller: quranCtrl.getPageController(context),
-            itemCount: 604,
-            padEnds: false,
-            scrollDirection: Axis.horizontal,
-            physics: const ClampingScrollPhysics(),
-            onPageChanged: quranCtrl.pageChanged,
-            itemBuilder: (_, index) {
-              // sl<TranslateDataController>().fetchTranslate();
-              return !quranCtrl.state.isPageMode.value
-                  ? _regularModeWidget(context, index)
-                  : _pageModeWidget(context, index);
-            },
-          ),
-        ),
-      ),
+    return Container(
+      height: MediaQuery.sizeOf(context).height,
+      child: _regularModeWidget(context),
     );
   }
 
-  Widget _pageModeWidget(BuildContext context, int pageIndex) {
-    return
-    // Responsive.isMobile(context) || Responsive.isMobileLarge(context)
-    //     ?
-    Center(
-      child: pageIndex.isEven
-          ? RightPage(child: TextBuild(pageIndex: pageIndex))
-          : LeftPage(child: TextBuild(pageIndex: pageIndex)),
-    );
-    // : Center(
-    //     child: pageIndex.isEven
-    //         ? RightPage(
-    //             child: Focus(
-    //               focusNode: quranCtrl.state.quranPageUDFocusNode,
-    //               onKeyEvent: (node, event) =>
-    //                   quranCtrl.controlUDByKeyboard(node, event),
-    //               child: Padding(
-    //                 padding: const EdgeInsets.symmetric(
-    //                   horizontal: 32.0,
-    //                 ),
-    //                 child: TextBuild(pageIndex: pageIndex),
-    //               ),
-    //             ),
-    //           )
-    //         : LeftPage(
-    //             child: Focus(
-    //               focusNode: quranCtrl.state.quranPageUDFocusNode,
-    //               onKeyEvent: (node, event) =>
-    //                   quranCtrl.controlUDByKeyboard(node, event),
-    //               child: Padding(
-    //                 padding: const EdgeInsets.symmetric(
-    //                   horizontal: 32.0,
-    //                 ),
-    //                 child: TextBuild(pageIndex: pageIndex),
-    //               ),
-    //             ),
-    //           ));
-  }
-
-  Widget _regularModeWidget(BuildContext context, int pageIndex) {
+  Widget _regularModeWidget(BuildContext context) {
     final size = MediaQuery.sizeOf(context);
     return
     // Responsive.isMobile(context) || Responsive.isMobileLarge(context)
     //     ?
     Center(
-      child: pageIndex.isEven
-          ? Container(
-              height: size.height,
-              color: quranCtrl.backgroundColor,
-              child: TextBuild(pageIndex: pageIndex),
-            )
-          : Container(
-              height: size.height,
-              color: quranCtrl.backgroundColor,
-              child: TextBuild(pageIndex: pageIndex),
-            ),
+      child: Container(
+        height: size.height,
+        color: quranCtrl.backgroundColor,
+        child: TextBuild(),
+      ),
     );
     // : Center(
     //     child: pageIndex.isEven

@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-final ThemeData blueTheme = ThemeData.light(useMaterial3: false).copyWith(
+final ThemeData blueTheme = ThemeData.light(useMaterial3: true).copyWith(
   colorScheme: const ColorScheme(
     brightness: Brightness.light,
     primary: Color(0xff404C6E),
@@ -13,14 +13,14 @@ final ThemeData blueTheme = ThemeData.light(useMaterial3: false).copyWith(
     surface: Color(0xffCDAD80),
     onSurface: Color(0xffE0E1E0),
     inversePrimary: Color(0xff000000),
-    inverseSurface: Color(0xffCD9974),
+    inverseSurface: Color(0xffBC6C25),
     primaryContainer: Color(0xffFFFFFF),
-    onPrimaryContainer: Color(0xfff3efdf),
+    onPrimaryContainer: Color(0xffFEFAE0),
     onInverseSurface: Color(0xff000000),
     surfaceContainer: Color(0xfffaf7f3),
   ),
   primaryColor: const Color(0xff404C6E),
-  primaryColorLight: const Color(0xff53618c),
+  primaryColorLight: const Color(0xffCDAD80),
   primaryColorDark: const Color(0xff404C6E),
   dividerColor: const Color(0xffCDAD80),
   highlightColor: const Color(0xffCDAD80).withValues(alpha: 0.25),
@@ -30,7 +30,7 @@ final ThemeData blueTheme = ThemeData.light(useMaterial3: false).copyWith(
   disabledColor: const Color(0Xff000000),
   hintColor: const Color(0xff404C6E),
   focusColor: const Color(0xffE0E1E0),
-  secondaryHeaderColor: const Color(0xff53618c),
+  secondaryHeaderColor: const Color(0xffCDAD80),
   cardColor: const Color(0xff404C6E),
   dividerTheme: const DividerThemeData(color: Color(0xffCDAD80)),
   textSelectionTheme: TextSelectionThemeData(
@@ -57,7 +57,7 @@ final ThemeData blueTheme = ThemeData.light(useMaterial3: false).copyWith(
         RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0)),
       ),
       textStyle: WidgetStateProperty.all(
-        const TextStyle(fontFamily: 'kufi', fontSize: 16),
+        const TextStyle(fontFamily: 'playpen', fontSize: 16),
       ),
     ),
     confirmButtonStyle: ButtonStyle(
@@ -69,14 +69,14 @@ final ThemeData blueTheme = ThemeData.light(useMaterial3: false).copyWith(
         RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0)),
       ),
       textStyle: WidgetStateProperty.all(
-        const TextStyle(fontFamily: 'kufi', fontSize: 16),
+        const TextStyle(fontFamily: 'playpen', fontSize: 16),
       ),
     ),
   ),
 );
 
 final ThemeData brownTheme = ThemeData(
-  useMaterial3: false,
+  useMaterial3: true,
   colorScheme: const ColorScheme(
     brightness: Brightness.light,
     primary: Color(0xff583623),
@@ -95,7 +95,7 @@ final ThemeData brownTheme = ThemeData(
     surfaceContainer: Color(0xffFDF7F4),
   ),
   primaryColor: const Color(0xff583623),
-  primaryColorLight: const Color(0xff854621),
+  primaryColorLight: const Color(0xffcf8e55),
   primaryColorDark: const Color(0xff583623),
   dividerColor: const Color(0xff854621),
   highlightColor: const Color(0xffcf8e55).withValues(alpha: 0.25),
@@ -131,7 +131,7 @@ final ThemeData brownTheme = ThemeData(
         RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0)),
       ),
       textStyle: WidgetStateProperty.all(
-        const TextStyle(fontFamily: 'kufi', fontSize: 16),
+        const TextStyle(fontFamily: 'playpen', fontSize: 16),
       ),
     ),
     confirmButtonStyle: ButtonStyle(
@@ -143,44 +143,44 @@ final ThemeData brownTheme = ThemeData(
         RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0)),
       ),
       textStyle: WidgetStateProperty.all(
-        const TextStyle(fontFamily: 'kufi', fontSize: 16),
+        const TextStyle(fontFamily: 'playpen', fontSize: 16),
       ),
     ),
   ),
 );
 
-final ThemeData oldTheme = ThemeData.light(useMaterial3: false).copyWith(
+final ThemeData greenTheme = ThemeData.light(useMaterial3: true).copyWith(
   colorScheme: const ColorScheme(
     brightness: Brightness.light,
-    primary: Color(0xff232c13),
-    onPrimary: Color(0xff161f07),
-    secondary: Color(0xfff3efdf),
-    onSecondary: Color(0xff91a57d),
+    primary: Color(0xff283618),
+    onPrimary: Color(0xff606C38),
+    secondary: Color(0xffFEFAE0),
+    onSecondary: Color(0xffDDA15E),
     error: Color(0xffE0E1E0),
     onError: Color(0xffE0E1E0),
-    surface: Color(0xff91a57d),
+    surface: Color(0xffDDA15E),
     onSurface: Color(0xffE0E1E0),
     inversePrimary: Color(0xff000000),
-    inverseSurface: Color(0xffCD9974),
-    primaryContainer: Color(0xfff3efdf),
-    onPrimaryContainer: Color(0xfff3efdf),
+    inverseSurface: Color(0xffBC6C25),
+    primaryContainer: Color(0xffFEFAE0),
+    onPrimaryContainer: Color(0xffFEFAE0),
     onInverseSurface: Color(0xff000000),
-    surfaceContainer: Color(0xfff3efdf),
+    surfaceContainer: Color(0xffFEFAE0),
   ),
-  primaryColor: const Color(0xff232c13),
-  primaryColorLight: const Color(0xff53618c),
-  primaryColorDark: const Color(0xff161f07),
-  dividerColor: const Color(0xff91a57d),
-  highlightColor: const Color(0xff91a57d).withValues(alpha: 0.25),
-  scaffoldBackgroundColor: const Color(0xff232c13),
-  canvasColor: const Color(0xfff3efdf),
-  hoverColor: const Color(0xfff3efdf).withValues(alpha: 0.3),
+  primaryColor: const Color(0xff283618),
+  primaryColorLight: const Color(0xff606C38),
+  primaryColorDark: const Color(0xffDDA15E),
+  dividerColor: const Color(0xffDDA15E),
+  highlightColor: const Color(0xffDDA15E).withValues(alpha: 0.25),
+  scaffoldBackgroundColor: const Color(0xff283618),
+  canvasColor: const Color(0xffFEFAE0),
+  hoverColor: const Color(0xffFEFAE0).withValues(alpha: 0.3),
   disabledColor: const Color(0xff000000),
-  hintColor: const Color(0xff232c13),
+  hintColor: const Color(0xff283618),
   focusColor: const Color(0xffE0E1E0),
   secondaryHeaderColor: const Color(0xff53618c),
-  cardColor: const Color(0xff232c13),
-  dividerTheme: const DividerThemeData(color: Color(0xff91a57d)),
+  cardColor: const Color(0xff283618),
+  dividerTheme: const DividerThemeData(color: Color(0xffDDA15E)),
   textSelectionTheme: TextSelectionThemeData(
     selectionColor: const Color(0xffE0E1E0).withValues(alpha: 0.3),
     selectionHandleColor: const Color(0xffE0E1E0),
@@ -189,9 +189,9 @@ final ThemeData oldTheme = ThemeData.light(useMaterial3: false).copyWith(
     primaryColor: Color(0xff53618c),
   ),
   timePickerTheme: TimePickerThemeData(
-    backgroundColor: const Color(0xff91a57d),
-    dialBackgroundColor: const Color(0xfff3efdf),
-    dialHandColor: const Color(0xff91a57d),
+    backgroundColor: const Color(0xffDDA15E),
+    dialBackgroundColor: const Color(0xffFEFAE0),
+    dialHandColor: const Color(0xffDDA15E),
     dialTextColor: const Color(0xff000000).withValues(alpha: .6),
     entryModeIconColor: const Color(0xff000000).withValues(alpha: .6),
     hourMinuteTextColor: const Color(0xff000000).withValues(alpha: .6),
@@ -200,66 +200,66 @@ final ThemeData oldTheme = ThemeData.light(useMaterial3: false).copyWith(
       backgroundColor: WidgetStateProperty.all(
         const Color(0xff000000).withValues(alpha: .6),
       ),
-      foregroundColor: WidgetStateProperty.all(const Color(0xfff3efdf)),
+      foregroundColor: WidgetStateProperty.all(const Color(0xffFEFAE0)),
       shape: WidgetStateProperty.all(
         RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0)),
       ),
       textStyle: WidgetStateProperty.all(
-        const TextStyle(fontFamily: 'kufi', fontSize: 16),
+        const TextStyle(fontFamily: 'playpen', fontSize: 16),
       ),
     ),
     confirmButtonStyle: ButtonStyle(
       backgroundColor: WidgetStateProperty.all(
         const Color(0xff000000).withValues(alpha: .8),
       ),
-      foregroundColor: WidgetStateProperty.all(const Color(0xfff3efdf)),
+      foregroundColor: WidgetStateProperty.all(const Color(0xffFEFAE0)),
       shape: WidgetStateProperty.all(
         RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0)),
       ),
       textStyle: WidgetStateProperty.all(
-        const TextStyle(fontFamily: 'kufi', fontSize: 16),
+        const TextStyle(fontFamily: 'playpen', fontSize: 16),
       ),
     ),
   ),
 );
 
-final ThemeData darkTheme = ThemeData.dark(useMaterial3: false).copyWith(
+final ThemeData darkTheme = ThemeData.dark(useMaterial3: true).copyWith(
   colorScheme: const ColorScheme(
     brightness: Brightness.light,
-    primary: Color(0xff404C6E),
+    primary: Color(0xff606C38),
     onPrimary: Color(0xff000000),
     secondary: Color(0xffffffff),
-    onSecondary: Color(0xff373737),
-    error: Color(0xff404C6E),
-    onError: Color(0xff404C6E),
+    onSecondary: Color(0xffDDA15E),
+    error: Color(0xff606C38),
+    onError: Color(0xff606C38),
     surface: Color(0xffCDAD80),
-    onSurface: Color(0xff404C6E),
+    onSurface: Color(0xff606C38),
     inversePrimary: Color(0xffffffff),
-    inverseSurface: Color(0xffCD9974),
+    inverseSurface: Color(0xffBC6C25),
     primaryContainer: Color(0xff1E1E1E),
     onPrimaryContainer: Color(0xff1E1E1E),
     onInverseSurface: Color(0xff000000),
     surfaceContainer: Color(0xff1E1E1E),
   ),
   primaryColor: const Color(0xff1E1E1E),
-  primaryColorLight: const Color(0xff373737),
+  primaryColorLight: const Color(0xff606C38),
   primaryColorDark: const Color(0xff010101),
-  dividerColor: const Color(0xff404C6E),
-  highlightColor: const Color(0xff404C6E).withValues(alpha: 0.25),
+  dividerColor: const Color(0xff606C38),
+  highlightColor: const Color(0xff606C38).withValues(alpha: 0.25),
   scaffoldBackgroundColor: const Color(0xff000000),
   canvasColor: const Color(0xffF6F6EE),
   hoverColor: const Color(0xffF6F6EE).withValues(alpha: 0.3),
   disabledColor: const Color(0xff000000),
   hintColor: const Color(0xffffffff),
-  focusColor: const Color(0xff404C6E),
-  secondaryHeaderColor: const Color(0xff404C6E),
+  focusColor: const Color(0xff606C38),
+  secondaryHeaderColor: const Color(0xff606C38),
   cardColor: const Color(0xffF6F6EE),
   textSelectionTheme: TextSelectionThemeData(
-    selectionColor: const Color(0xff404C6E).withValues(alpha: 0.3),
-    selectionHandleColor: const Color(0xff404C6E),
+    selectionColor: const Color(0xff606C38).withValues(alpha: 0.3),
+    selectionHandleColor: const Color(0xff606C38),
   ),
   cupertinoOverrideTheme: const CupertinoThemeData(
-    primaryColor: Color(0xff404C6E),
+    primaryColor: Color(0xff606C38),
   ),
   timePickerTheme: TimePickerThemeData(
     backgroundColor: const Color(0xffCDAD80),
@@ -279,7 +279,7 @@ final ThemeData darkTheme = ThemeData.dark(useMaterial3: false).copyWith(
         RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0)),
       ),
       textStyle: WidgetStateProperty.all(
-        const TextStyle(fontFamily: 'kufi', fontSize: 16),
+        const TextStyle(fontFamily: 'playpen', fontSize: 16),
       ),
     ),
     confirmButtonStyle: ButtonStyle(
@@ -291,7 +291,7 @@ final ThemeData darkTheme = ThemeData.dark(useMaterial3: false).copyWith(
         RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0)),
       ),
       textStyle: WidgetStateProperty.all(
-        const TextStyle(fontFamily: 'kufi', fontSize: 16),
+        const TextStyle(fontFamily: 'playpen', fontSize: 16),
       ),
     ),
   ),

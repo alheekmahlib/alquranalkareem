@@ -46,58 +46,6 @@ extension QuranGetters on QuranController {
       ? true.obs
       : false.obs;
 
-  PageController getPageController(BuildContext context) {
-    final Orientation orientation = MediaQuery.of(context).orientation;
-
-    // احسب قيمة الـ viewportFraction الهدف بناءً على حجم/اتجاه الشاشة
-    // استخدم GetPlatform.isDesktop للتحقق من المنصة (macOS, Windows, Linux)
-    // مع التأكد من أن الشاشة عريضة بما يكفي لعرض صفحتين
-    final bool isWideDesktop =
-        Responsive.isDesktop(context) && orientation == Orientation.landscape;
-    double targetFraction = isWideDesktop ? 0.5 : 1.0;
-
-    log(
-      'getPageController: isDesktop=${GetPlatform.isDesktop}, isWideDesktop=$isWideDesktop, '
-      'targetFraction=$targetFraction',
-      name: 'QuranCtrl',
-    );
-
-    // أعد إنشاء المتحكم فقط إذا تغيّرت قيمة viewportFraction فعلياً
-    // لا تعتمد على hasClients لأنه قد يكون false مؤقتاً أثناء إعادة بناء الـ widget
-    final bool needsNewController =
-        QuranLibrary.quranCtrl.quranPagesController.viewportFraction !=
-        targetFraction;
-
-    if (needsNewController) {
-      // استخدم الصفحة الحالية من الـ state (الأكثر دقة ولحظية)
-      int currentIndex = QuranCtrl.instance.state.currentPageNumber.value;
-      // إن لم تُهيَّأ بعد، استخدم القيمة المحفوظة في التخزين
-      if (currentIndex <= 0) {
-        currentIndex = state._quranRepository.getLastPage() ?? 0;
-      }
-      currentIndex = currentIndex.clamp(0, 603);
-
-      final oldController = QuranLibrary.quranCtrl.quranPagesController;
-      QuranLibrary.quranCtrl.quranPagesController = PageController(
-        initialPage: currentIndex,
-        keepPage: kIsWeb || GetPlatform.isDesktop,
-        viewportFraction: targetFraction,
-      );
-
-      // تخلّص من المتحكم القديم بعد الإطار لتجنّب تعارضات التثبيت
-      if (oldController != QuranLibrary.quranCtrl.quranPagesController) {
-        WidgetsBinding.instance.addPostFrameCallback((_) {
-          try {
-            oldController.dispose();
-          } catch (_) {
-            // تجاهل أي أخطاء تصريف إن كان قد صُرّف سابقًا
-          }
-        });
-      }
-    }
-    return QuranLibrary.quranCtrl.quranPagesController;
-  }
-
   // PageController get pageController {
   //   return state.quranPageController = PageController(
   //     viewportFraction:
@@ -145,7 +93,7 @@ extension QuranGetters on QuranController {
       return SvgPath.svgSurahBanner1;
     } else if (themeCtrl.isBrownMode) {
       return SvgPath.svgSurahBanner2;
-    } else if (themeCtrl.isOldMode) {
+    } else if (themeCtrl.isGreenMode) {
       return SvgPath.svgSurahBanner4;
     } else {
       return SvgPath.svgSurahBanner3;

@@ -1,10 +1,12 @@
-import 'package:alquranalkareem/core/utils/constants/extensions/svg_extensions.dart';
+import 'package:alquranalkareem/core/widgets/container_button.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 
 import '../../presentation/controllers/theme_controller.dart';
 import '../utils/constants/lists.dart';
+import '../utils/constants/svg_constants.dart';
+import '../utils/helpers/app_text_styles.dart';
 
 class ThemeChange extends StatelessWidget {
   const ThemeChange({super.key});
@@ -15,114 +17,57 @@ class ThemeChange extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16.0),
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            'themeTitle'.tr,
-            style: TextStyle(
-                color: Theme.of(context).hintColor,
-                fontFamily: 'kufi',
-                fontStyle: FontStyle.italic,
-                fontWeight: FontWeight.bold,
-                fontSize: 16),
-          ),
+          Text('themeTitle'.tr, style: AppTextStyles.titleMedium()),
           const Gap(4),
-          Container(
+          Divider(
+            thickness: 1.0,
+            height: 1.0,
+            endIndent: 32.0,
+            indent: 32.0,
+            color: Theme.of(context).primaryColorLight.withValues(alpha: .5),
+          ),
+          const Gap(2),
+          SizedBox(
             width: Get.width,
-            padding: const EdgeInsets.all(4.0),
-            decoration: BoxDecoration(
-                border: Border.all(
-                    color: Theme.of(context).colorScheme.surface, width: 1),
-                borderRadius: const BorderRadius.all(Radius.circular(8))),
             child: Wrap(
               alignment: WrapAlignment.center,
               children: List.generate(
-                  themeList.length,
-                  (index) => Container(
-                        decoration: BoxDecoration(
-                            border: Border.all(
-                                color: Theme.of(context).colorScheme.surface,
-                                width: 1),
-                            borderRadius:
-                                const BorderRadius.all(Radius.circular(8))),
-                        padding: const EdgeInsets.all(4.0),
-                        margin: const EdgeInsets.all(4.0),
-                        child: Obx(() => AnimatedOpacity(
-                              opacity: themeList[index]['name'] ==
-                                      themeCtrl.currentTheme
-                                  ? 1
-                                  : .5,
-                              duration: const Duration(milliseconds: 300),
-                              child: GestureDetector(
-                                onTap: () {
-                                  themeCtrl.setTheme(themeList[index]['name']);
-                                  Get.forceAppUpdate().then((_) {
-                                    Get.back();
-                                  });
-                                },
-                                child: Row(
-                                  mainAxisSize: MainAxisSize.min,
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  children: [
-                                    FittedBox(
-                                      fit: BoxFit.scaleDown,
-                                      child: RotatedBox(
-                                        quarterTurns: 1,
-                                        child: Text(
-                                          '${themeList[index]['title']}'.tr,
-                                          style: TextStyle(
-                                              color:
-                                                  Theme.of(context).hintColor,
-                                              fontFamily: 'kufi',
-                                              fontStyle: FontStyle.italic,
-                                              fontWeight: FontWeight.bold,
-                                              fontSize: 10),
-                                        ),
-                                      ),
-                                    ),
-                                    const Gap(4),
-                                    Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        customSvg(
-                                          themeList[index]['svgUrl'],
-                                          height: 75,
-                                        ),
-                                        const Gap(6),
-                                        Container(
-                                          height: 20,
-                                          width: 20,
-                                          decoration: BoxDecoration(
-                                            borderRadius:
-                                                const BorderRadius.all(
-                                                    Radius.circular(20.0)),
-                                            border: Border.all(
-                                                color: Theme.of(context)
-                                                    .colorScheme
-                                                    .surface,
-                                                width: 2),
-                                            color: Theme.of(context)
-                                                .colorScheme
-                                                .primary,
-                                          ),
-                                          child: themeList[index]['name'] ==
-                                                  themeCtrl.currentTheme
-                                              ? const Icon(Icons.done,
-                                                  size: 14, color: Colors.white)
-                                              : null,
-                                        ),
-                                      ],
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            )),
-                      )),
+                themeList.length,
+                (index) => ContainerButton(
+                  onPressed: () {
+                    themeCtrl.setTheme(themeList[index]['name']);
+                    Get.forceAppUpdate().then((_) {
+                      Get.back();
+                    });
+                  },
+                  horizontalMargin: 4.0,
+                  verticalMargin: 4.0,
+                  value: (AppTheme.values[index] == themeCtrl.currentTheme).obs,
+                  svgPath: SvgPath.svgSplashIconW,
+                  backgroundColor: getBackgroundColorByTheme(
+                    AppTheme.values[index],
+                  ),
+                  svgHeight: 75,
+                ),
+              ),
             ),
           ),
         ],
       ),
     );
+  }
+
+  Color getBackgroundColorByTheme(AppTheme theme) {
+    switch (theme) {
+      case AppTheme.blue:
+        return const Color(0xff404C6E);
+      case AppTheme.dark:
+        return const Color(0xff1E1E1E);
+      case AppTheme.brown:
+        return const Color(0xff583623);
+      case AppTheme.green:
+        return const Color(0xff606C38);
+    }
   }
 }

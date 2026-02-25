@@ -4,14 +4,13 @@ import 'package:get/get.dart';
 import '/core/utils/constants/extensions/contact_us_extension.dart';
 import '/core/utils/constants/extensions/launch_alheekmah_url_extension.dart';
 import '/core/utils/constants/extensions/share_app_extension.dart';
-import '../../../core/widgets/container_with_border.dart';
 
 class UserOptions extends StatelessWidget {
   const UserOptions({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return ContainerWithBorder(
+    return Container(
       color: Theme.of(context).colorScheme.surface.withValues(alpha: .15),
       child: Padding(
         padding: const EdgeInsets.all(8.0),

@@ -62,6 +62,10 @@ class SvgPath {
   /// assets/svg/besmAllah2.svg
   static const String svgBesmAllah2 = "assets/svg/besmAllah2.svg";
 
+  /// Assets for svgBookBack
+  /// assets/svg/book_back.svg
+  static const String svgBookBack = "assets/svg/book_back.svg";
+
   /// Assets for svgBookmark
   /// assets/svg/bookmark.svg
   static const String svgBookmark = "assets/svg/bookmark.svg";
@@ -177,6 +181,34 @@ class SvgPath {
   /// Assets for svgHome
   /// assets/svg/home.svg
   static const String svgHome = "assets/svg/home.svg";
+
+  /// Assets for svgHomeArrowDown
+  /// assets/svg/home/arrow_down.svg
+  static const String svgHomeArrowDown = "assets/svg/home/arrow_down.svg";
+
+  /// Assets for svgHomeBookmarkList
+  /// assets/svg/home/bookmark_list.svg
+  static const String svgHomeBookmarkList = "assets/svg/home/bookmark_list.svg";
+
+  /// Assets for svgHomeClose
+  /// assets/svg/home/close.svg
+  static const String svgHomeClose = "assets/svg/home/close.svg";
+
+  /// Assets for svgHomeHome
+  /// assets/svg/home/home.svg
+  static const String svgHomeHome = "assets/svg/home/home.svg";
+
+  /// Assets for svgHomeSearch
+  /// assets/svg/home/search.svg
+  static const String svgHomeSearch = "assets/svg/home/search.svg";
+
+  /// Assets for svgHomeSetting
+  /// assets/svg/home/setting.svg
+  static const String svgHomeSetting = "assets/svg/home/setting.svg";
+
+  /// Assets for svgHomeSurahList
+  /// assets/svg/home/surah_list.svg
+  static const String svgHomeSurahList = "assets/svg/home/surah_list.svg";
 
   /// Assets for svgLeftBook
   /// assets/svg/left_book.svg
@@ -810,8 +842,4 @@ class SvgPath {
   /// Assets for svgTheme3
   /// assets/svg/theme3.svg
   static const String svgTheme3 = "assets/svg/theme3.svg";
-
-  /// Assets for svgBookBack
-  /// assets/svg/book_back.svg
-  static const String svgBookBack = "assets/svg/book_back.svg";
 }

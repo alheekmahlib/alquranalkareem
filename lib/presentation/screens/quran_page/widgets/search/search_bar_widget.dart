@@ -8,26 +8,28 @@ class TextFieldBarWidget extends StatelessWidget {
   final void Function(String)? onChanged;
   final void Function(String)? onSubmitted;
   final double? horizontalPadding;
-  TextFieldBarWidget(
-      {super.key,
-      this.controller,
-      this.hintText,
-      this.prefixIcon,
-      this.onPressed,
-      this.onChanged,
-      this.onSubmitted,
-      this.horizontalPadding});
+  TextFieldBarWidget({
+    super.key,
+    this.controller,
+    this.hintText,
+    this.prefixIcon,
+    this.onPressed,
+    this.onChanged,
+    this.onSubmitted,
+    this.horizontalPadding,
+  });
 
   @override
   Widget build(BuildContext context) {
     return Container(
       width: MediaQuery.sizeOf(context).width,
       margin: EdgeInsets.symmetric(
-          vertical: 8.0, horizontal: horizontalPadding ?? 32.0),
+        vertical: 8.0,
+        horizontal: horizontalPadding ?? 32.0,
+      ),
       child: SizedBox(
-        height: 50,
-        width: context.customOrientation(MediaQuery.sizeOf(context).width * .7,
-            MediaQuery.sizeOf(context).width * .5),
+        height: 40,
+        width: Get.width,
         child: TextField(
           controller: controller,
           maxLines: 1,
@@ -35,31 +37,41 @@ class TextFieldBarWidget extends StatelessWidget {
             fontSize: 16.0,
             fontFamily: 'naskh',
             fontWeight: FontWeight.w600,
-            color: Theme.of(context).hintColor.withValues(alpha: .7),
+            color: context.theme.hintColor.withValues(alpha: .7),
           ),
           decoration: InputDecoration(
             contentPadding: EdgeInsets.zero,
             hintText: hintText ?? 'search_word'.tr,
             enabledBorder: OutlineInputBorder(
               borderSide: BorderSide(
-                  color: Theme.of(context).colorScheme.primary, width: 1),
+                color: Theme.of(
+                  context,
+                ).colorScheme.surface.withValues(alpha: 0.5),
+                width: 1,
+              ),
               borderRadius: BorderRadius.circular(8.0),
             ),
             border: OutlineInputBorder(
               borderSide: BorderSide(
-                  color: Theme.of(context).colorScheme.primary, width: 1),
+                color: Theme.of(
+                  context,
+                ).colorScheme.surface.withValues(alpha: 0.5),
+                width: 1,
+              ),
               borderRadius: BorderRadius.circular(8.0),
             ),
             hintStyle: TextStyle(
               fontSize: 14.0,
               fontFamily: 'kufi',
               fontWeight: FontWeight.w600,
-              color:
-                  Theme.of(context).colorScheme.surface.withValues(alpha: .3),
+              color: context.theme.colorScheme.surface.withValues(alpha: .3),
             ),
             filled: true,
-            fillColor: Theme.of(context).colorScheme.primaryContainer,
-            prefixIcon: prefixIcon ??
+            fillColor: context.theme.colorScheme.secondary.withValues(
+              alpha: 0.5,
+            ),
+            prefixIcon:
+                prefixIcon ??
                 Container(
                   height: 20,
                   padding: const EdgeInsets.all(10.0),
@@ -69,21 +81,19 @@ class TextFieldBarWidget extends StatelessWidget {
                   ),
                 ),
             suffixIcon: IconButton(
-              icon: Icon(
-                Icons.close,
-                color: Theme.of(context).hintColor,
-              ),
+              icon: Icon(Icons.close, color: context.theme.hintColor),
               onPressed: onPressed,
             ),
             labelText: hintText ?? 'search_word'.tr,
             labelStyle: TextStyle(
               fontSize: 14.0,
               fontFamily: 'kufi',
-              color: Theme.of(context).hintColor.withValues(alpha: .7),
+              color: context.theme.hintColor.withValues(alpha: .7),
             ),
           ),
           onChanged: onChanged,
           onSubmitted: onSubmitted,
+          onTap: onPressed,
           onTapOutside: (event) {
             FocusManager.instance.primaryFocus?.unfocus();
           },

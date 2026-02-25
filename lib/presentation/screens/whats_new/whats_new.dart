@@ -9,7 +9,6 @@ import '/core/utils/constants/extensions/extensions.dart';
 import '/presentation/controllers/general/general_controller.dart';
 import '../../../../../core/utils/constants/shared_preferences_constants.dart';
 import '../../../core/widgets/elevated_button_widget.dart';
-import '../../../core/widgets/select_screen_build.dart';
 import '../screen_type.dart';
 import '../splash/splash.dart';
 

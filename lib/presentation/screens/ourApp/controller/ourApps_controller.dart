@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:developer' show log;
 
+import 'package:floating_menu_expendable/floating_menu_expendable.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -12,6 +13,9 @@ import '../data/models/ourApp_model.dart';
 class OurAppsController extends GetxController {
   static OurAppsController get instance =>
       GetInstance().putOrFind(() => OurAppsController());
+
+  FloatingMenuAnchoredOverlayController controller =
+      FloatingMenuAnchoredOverlayController();
 
   // جلب بيانات التطبيقات باستخدام ApiClient
   // Fetch apps data using ApiClient
@@ -60,11 +64,7 @@ class OurAppsController extends GetxController {
 
   // إطلاق رابط التطبيق حسب النظام الأساسي
   // Launch app URL based on platform
-  Future<void> launchURL(
-    BuildContext context,
-    int index,
-    OurAppInfo ourAppInfo,
-  ) async {
+  Future<void> launchURL(BuildContext context, OurAppInfo ourAppInfo) async {
     if (await canLaunchUrl(
       Uri.parse('${ApiConstants.downloadAppsUrl}${ourAppInfo.appName}'),
     )) {
