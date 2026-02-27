@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 
+import '../../../core/services/expansion_tile_manager.dart';
 import '../../../core/widgets/time_now.dart';
 
 class GeneralState {
@@ -24,4 +25,6 @@ class GeneralState {
   var now = DateTime.now();
 
   final ItemScrollController waqfScrollController = ItemScrollController();
+
+  final expansionManager = ExpansionTileManager();
 }

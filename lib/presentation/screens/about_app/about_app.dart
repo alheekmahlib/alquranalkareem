@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 
-import '/core/utils/constants/extensions/alignment_rotated_extension.dart';
 import '/core/utils/constants/extensions/svg_extensions.dart';
 import '../../../core/utils/constants/extensions/extensions.dart';
 import '../../../core/utils/constants/svg_constants.dart';
+import '../../../core/widgets/app_bar_widget.dart';
 import 'about_app_text.dart';
 import 'user_options.dart';
 
@@ -17,67 +17,55 @@ class AboutApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.primaryContainer,
-      appBar: AppBar(
-        centerTitle: true,
-        title: customSvgWithColor(
+      appBar: AppBarWidget(
+        isBooks: false,
+        isTitled: false,
+        isNotifi: false,
+        isFontSize: false,
+        searchButton: const SizedBox.shrink(),
+        centerChild: customSvgWithCustomColor(
           SvgPath.svgSplashIcon,
           height: 50,
         ),
-        backgroundColor: Theme.of(context).colorScheme.primaryContainer,
-        systemOverlayStyle: SystemUiOverlayStyle.dark,
-        elevation: 0,
-        leading: GestureDetector(
-            onTap: () {
-              Get.back();
-            },
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16.0),
-              child: Image.asset(
-                'assets/icons/arrow_back.png',
-                color: Theme.of(context).colorScheme.primary,
-              ),
-            ).rotatedRtlLayout()),
-        leadingWidth: 56,
       ),
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16.0),
           child: context.customOrientation(
-              ListView(
-                children: [
-                  const Gap(32),
-                  customSvgWithColor(
-                    SvgPath.svgSplashIconS,
-                    height: 200,
+            ListView(
+              children: [
+                const Gap(32),
+                customSvgWithCustomColor(
+                  SvgPath.svgSplashIconW,
+                  height: 160.h,
+                  color: context.theme.primaryColorLight,
+                ),
+                const Gap(32),
+                const AboutAppText(),
+                const Gap(16),
+                const UserOptions(),
+              ],
+            ),
+            Row(
+              children: [
+                Expanded(
+                  flex: 4,
+                  child: customSvgWithCustomColor(
+                    SvgPath.svgSplashIconW,
+                    height: 160.h,
+                    color: context.theme.primaryColorLight,
                   ),
-                  const Gap(32),
-                  const AboutAppText(),
-                  const Gap(16),
-                  const UserOptions(),
-                ],
-              ),
-              Row(
-                children: [
-                  Expanded(
-                    flex: 4,
-                    child: customSvgWithColor(
-                      SvgPath.svgSplashIconS,
-                      height: 200,
-                    ),
+                ),
+                const Gap(32),
+                Expanded(
+                  flex: 4,
+                  child: ListView(
+                    children: const [AboutAppText(), Gap(16), UserOptions()],
                   ),
-                  const Gap(32),
-                  Expanded(
-                    flex: 4,
-                    child: ListView(
-                      children: const [
-                        AboutAppText(),
-                        Gap(16),
-                        UserOptions(),
-                      ],
-                    ),
-                  )
-                ],
-              )),
+                ),
+              ],
+            ),
+          ),
         ),
       ),
     );

@@ -29,6 +29,7 @@ class ContainerButton extends StatelessWidget {
   final double? horizontalPadding;
   final double? verticalPadding;
   final MainAxisAlignment? mainAxisAlignment;
+  final bool? isButton;
   const ContainerButton({
     super.key,
     this.onPressed,
@@ -52,6 +53,7 @@ class ContainerButton extends StatelessWidget {
     this.horizontalPadding = 4.0,
     this.verticalPadding = 4.0,
     this.mainAxisAlignment = MainAxisAlignment.start,
+    this.isButton = false,
   });
 
   @override
@@ -116,6 +118,19 @@ class ContainerButton extends StatelessWidget {
                     width: svgWidth ?? 24,
                     svgPath ?? SvgPath.svgAlert,
                   ),
+                if (isButton ?? false) const Gap(8),
+                if (isButton ?? false)
+                  Container(
+                    // height: 10,
+                    width: 8,
+                    decoration: BoxDecoration(
+                      color: Theme.of(context).colorScheme.inverseSurface,
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(borderRadius ?? 8),
+                      ),
+                    ),
+                  ),
+                if (isButton ?? false) const Gap(8),
                 if (title != null)
                   Text(
                     title!,

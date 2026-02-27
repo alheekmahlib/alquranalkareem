@@ -61,7 +61,7 @@ extension SurahAudioHelper on AudioCtrl {
       return;
     }
 
-    final surahList = QuranCtrl.instance.state.surahs;
+    final surahList = QuranCtrl.instance.surahs;
 
     int index = -1;
 

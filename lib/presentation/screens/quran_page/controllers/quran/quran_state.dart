@@ -39,7 +39,8 @@ class QuranState {
   int? lastDisplayedHizbQuarter;
   Map<int, int> pageToHizbQuarterMap = {};
 
-  double surahItemHeight = 90.0;
+  double surahItemHeight = 80.0;
+  double juzItemHeight = 145.0;
   ScrollController? surahController;
   ScrollController? juzListController;
   RxInt backgroundPickerColor = 0xfffaf7f3.obs;
@@ -56,6 +57,7 @@ class QuranState {
   final searchController = FlexibleSheetController();
   final navBarController = FlexibleSheetController();
   RxString topBarType = 'none'.obs;
+  RxString navBarType = 'none'.obs;
   ExpansibleController languageController = ExpansibleController();
   RxBool isLanguageExpanded = false.obs;
 }

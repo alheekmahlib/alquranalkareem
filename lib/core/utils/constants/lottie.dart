@@ -25,7 +25,7 @@ Widget customLottieWithColor(
 }) {
   return ColorFiltered(
     colorFilter: ColorFilter.mode(
-      color ?? Get.theme.colorScheme.secondary,
+      color ?? Get.theme.primaryColorDark.withValues(alpha: 0.7),
       BlendMode.modulate,
     ),
     child: Lottie.asset(

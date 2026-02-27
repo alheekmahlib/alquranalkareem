@@ -1,8 +1,8 @@
-import 'package:alquranalkareem/core/widgets/container_button.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 
+import '/core/widgets/container_button.dart';
 import '../../presentation/controllers/theme_controller.dart';
 import '../utils/constants/lists.dart';
 import '../utils/constants/svg_constants.dart';

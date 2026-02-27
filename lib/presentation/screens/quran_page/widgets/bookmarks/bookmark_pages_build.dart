@@ -10,162 +10,205 @@ class BookmarkPagesBuild extends StatelessWidget {
       id: 'pageBookmarked',
       builder: (bookmarkCtrl) => bookmarkCtrl.bookmarksList.isEmpty
           ? const SizedBox.shrink()
-          : Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                context.hDivider(width: MediaQuery.sizeOf(context).width),
-                Flexible(
-                  child: AnimationLimiter(
-                    child: Align(
-                      alignment: Alignment.topCenter,
-                      child: Container(
-                        decoration: BoxDecoration(
-                          color: Theme.of(
-                            context,
-                          ).colorScheme.surface.withValues(alpha: .1),
-                          borderRadius: const BorderRadius.all(
-                            Radius.circular(8),
-                          ),
-                        ),
-                        child: ListView.builder(
-                          shrinkWrap: true,
-                          primary: false,
-                          itemCount: bookmarkCtrl.bookmarksList.length,
-                          itemBuilder: (BuildContext context, int index) {
-                            var bookmark = bookmarkCtrl.bookmarksList[index];
-                            return AnimationConfiguration.staggeredList(
-                              position: index,
-                              duration: const Duration(milliseconds: 450),
-                              child: SlideAnimation(
-                                verticalOffset: 50.0,
-                                child: FadeInAnimation(
-                                  child: Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                      horizontal: 16.0,
-                                      vertical: 8.0,
-                                    ),
-                                    child: Dismissible(
-                                      background: const DeleteWidget(),
-                                      key: ValueKey<int>(bookmark.pageNum),
-                                      onDismissed:
-                                          (DismissDirection direction) {
-                                            bookmarkCtrl.deleteBookmarks(
-                                              bookmark.pageNum,
-                                            );
-                                          },
-                                      child: GestureDetector(
-                                        onTap: () {
-                                          quranCtrl.changeSurahListOnTap(
-                                            bookmark.pageNum,
-                                          );
-                                          Get.back();
-                                        },
-                                        child: Container(
-                                          width: MediaQuery.sizeOf(
-                                            context,
-                                          ).width,
-                                          decoration: BoxDecoration(
-                                            color: Theme.of(context)
-                                                .colorScheme
-                                                .surface
-                                                .withValues(alpha: .2),
-                                            borderRadius:
-                                                const BorderRadius.all(
-                                                  Radius.circular(8),
-                                                ),
+          : AnimationLimiter(
+              child: ListView.builder(
+                padding: EdgeInsets.zero,
+                physics: const AlwaysScrollableScrollPhysics(),
+                itemCount: bookmarkCtrl.bookmarksList.length,
+                itemBuilder: (BuildContext context, int index) {
+                  final bookmark = bookmarkCtrl.bookmarksList[index];
+                  final surah = quranCtrl.getCurrentSurahByPage(
+                    bookmark.pageNum,
+                  );
+                  return AnimationConfiguration.staggeredList(
+                    position: index,
+                    duration: const Duration(milliseconds: 450),
+                    child: SlideAnimation(
+                      verticalOffset: 50.0,
+                      child: FadeInAnimation(
+                        child: Dismissible(
+                          background: const DeleteWidget(),
+                          key: ValueKey<int>(bookmark.pageNum),
+                          onDismissed: (DismissDirection direction) {
+                            bookmarkCtrl.deleteBookmarks(bookmark.pageNum);
+                          },
+                          child: Container(
+                            height: 73,
+                            width: Get.width,
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 12.0,
+                              vertical: 8.0,
+                            ),
+                            margin: const EdgeInsets.symmetric(vertical: 4.0),
+                            decoration: BoxDecoration(
+                              color: context.theme.primaryColorLight.withValues(
+                                alpha: 0.1,
+                              ),
+                              borderRadius: BorderRadius.circular(8),
+                            ),
+                            child: InkWell(
+                              onTap: () {
+                                quranCtrl.changeSurahListOnTap(
+                                  bookmark.pageNum,
+                                );
+                                Get.back();
+                              },
+                              child: Row(
+                                children: [
+                                  /// أيقونة البوكمارك مع رقم الصفحة
+                                  Stack(
+                                    alignment: Alignment.center,
+                                    children: [
+                                      Icon(
+                                        Icons.bookmark_rounded,
+                                        color: const Color(
+                                          0xfff5410a,
+                                        ).withValues(alpha: .7),
+                                        size: 50,
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.only(
+                                          bottom: 4.0,
+                                        ),
+                                        child: Text(
+                                          '${bookmark.pageNum}'
+                                              .convertNumbersToCurrentLang(),
+                                          style: TextStyle(
+                                            color: Theme.of(
+                                              context,
+                                            ).canvasColor,
+                                            fontFamily: 'kufi',
+                                            fontWeight: FontWeight.w700,
+                                            fontSize: 11,
                                           ),
-                                          child: Padding(
-                                            padding: const EdgeInsets.all(8.0),
-                                            child: Column(
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  const Gap(12),
+
+                                  /// اسم السورة
+                                  Expanded(
+                                    flex: 5,
+                                    child: Container(
+                                      padding: const EdgeInsets.symmetric(
+                                        horizontal: 12.0,
+                                      ),
+                                      decoration: BoxDecoration(
+                                        color: Theme.of(
+                                          context,
+                                        ).colorScheme.primaryContainer,
+                                        borderRadius: BorderRadius.circular(8),
+                                      ),
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.center,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          RepaintBoundary(
+                                            child: customSvgWithColor(
+                                              'assets/svg/surah_name/00${surah.surahNumber}.svg',
+                                              color: Theme.of(
+                                                context,
+                                              ).hintColor,
+                                              width: 90,
+                                            ),
+                                          ),
+                                          Text(
+                                            surah.englishName,
+                                            style: AppTextStyles.titleSmall(
+                                              color: context
+                                                  .theme
+                                                  .primaryColorDark,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                  const Gap(12),
+
+                                  /// الصفحة والتاريخ
+                                  Expanded(
+                                    flex: 3,
+                                    child: FittedBox(
+                                      fit: BoxFit.scaleDown,
+                                      child: Column(
+                                        children: [
+                                          Container(
+                                            padding: const EdgeInsets.symmetric(
+                                              horizontal: 12.0,
+                                              vertical: 6.0,
+                                            ),
+                                            decoration: BoxDecoration(
+                                              color: Theme.of(
+                                                context,
+                                              ).colorScheme.primaryContainer,
+                                              borderRadius:
+                                                  BorderRadius.circular(8),
+                                            ),
+                                            child: Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
                                               children: [
-                                                Row(
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment
-                                                          .spaceBetween,
-                                                  children: [
-                                                    Expanded(
-                                                      flex: 2,
-                                                      child: Stack(
-                                                        alignment:
-                                                            Alignment.center,
-                                                        children: <Widget>[
-                                                          const Icon(
-                                                            Icons.bookmark,
-                                                            color: Color(
-                                                              0x99f5410a,
-                                                            ),
-                                                            size: 50,
-                                                          ),
-                                                          Text(
-                                                            '${bookmark.pageNum.toString().convertNumbersToCurrentLang()}',
-                                                            textAlign: TextAlign
-                                                                .center,
-                                                            style: TextStyle(
-                                                              color: Theme.of(
-                                                                context,
-                                                              ).canvasColor,
-                                                              fontFamily:
-                                                                  'kufi',
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .w700,
-                                                              fontSize: 12,
-                                                            ),
-                                                          ),
-                                                        ],
+                                                Text(
+                                                  '${'page'.tr}:',
+                                                  style:
+                                                      AppTextStyles.titleSmall(
+                                                        color: context
+                                                            .theme
+                                                            .primaryColorDark,
                                                       ),
-                                                    ),
-                                                    Expanded(
-                                                      flex: 5,
-                                                      child: Text(
-                                                        '${bookmark.sorahName}',
-                                                        style: TextStyle(
-                                                          color: Theme.of(context)
-                                                              .colorScheme
-                                                              .inversePrimary,
-                                                          fontSize: 16,
-                                                          fontFamily: 'naskh',
-                                                          fontWeight:
-                                                              FontWeight.w500,
-                                                        ),
-                                                      ),
-                                                    ),
-                                                    Expanded(
-                                                      flex: 3,
-                                                      child: Text(
-                                                        "${bookmark.lastRead.toString().convertNumbersToCurrentLang()}",
-                                                        style: TextStyle(
-                                                          color: Theme.of(
-                                                            context,
-                                                          ).colorScheme.surface,
-                                                          fontSize: 12,
-                                                          fontFamily: 'kufi',
-                                                          fontWeight:
-                                                              FontWeight.w400,
-                                                        ),
-                                                      ),
-                                                    ),
-                                                  ],
+                                                ),
+                                                const Gap(4),
+                                                Text(
+                                                  '${bookmark.pageNum}'
+                                                      .convertNumbersToCurrentLang(),
+                                                  style:
+                                                      AppTextStyles.titleSmall(),
                                                 ),
                                               ],
                                             ),
                                           ),
-                                        ),
+                                          const Gap(6),
+                                          Container(
+                                            padding: const EdgeInsets.symmetric(
+                                              horizontal: 12.0,
+                                              vertical: 6.0,
+                                            ),
+                                            decoration: BoxDecoration(
+                                              color: Theme.of(
+                                                context,
+                                              ).colorScheme.primaryContainer,
+                                              borderRadius:
+                                                  BorderRadius.circular(8),
+                                            ),
+                                            child: Text(
+                                              bookmark.lastRead
+                                                  .toString()
+                                                  .convertNumbersToCurrentLang(),
+                                              style: AppTextStyles.titleSmall(
+                                                color: context
+                                                    .theme
+                                                    .primaryColorDark,
+                                              ),
+                                            ),
+                                          ),
+                                        ],
                                       ),
                                     ),
                                   ),
-                                ),
+                                ],
                               ),
-                            );
-                          },
+                            ),
+                          ),
                         ),
                       ),
                     ),
-                  ),
-                ),
-              ],
+                  );
+                },
+              ),
             ),
     );
   }

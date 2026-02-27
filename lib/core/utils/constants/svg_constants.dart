@@ -182,6 +182,10 @@ class SvgPath {
   /// assets/svg/home.svg
   static const String svgHome = "assets/svg/home.svg";
 
+  /// Assets for svgHomeArrowBack
+  /// assets/svg/home/arrow_back.svg
+  static const String svgHomeArrowBack = "assets/svg/home/arrow_back.svg";
+
   /// Assets for svgHomeArrowDown
   /// assets/svg/home/arrow_down.svg
   static const String svgHomeArrowDown = "assets/svg/home/arrow_down.svg";
@@ -194,9 +198,22 @@ class SvgPath {
   /// assets/svg/home/close.svg
   static const String svgHomeClose = "assets/svg/home/close.svg";
 
+  /// Assets for svgHomeEmail
+  /// assets/svg/home/email.svg
+  static const String svgHomeEmail = "assets/svg/home/email.svg";
+
+  /// Assets for svgHomeFacebook
+  /// assets/svg/home/facebook.svg
+  static const String svgHomeFacebook = "assets/svg/home/facebook.svg";
+
   /// Assets for svgHomeHome
   /// assets/svg/home/home.svg
   static const String svgHomeHome = "assets/svg/home/home.svg";
+
+  /// Assets for svgHomeNotifications
+  /// assets/svg/home/notifications.svg
+  static const String svgHomeNotifications =
+      "assets/svg/home/notifications.svg";
 
   /// Assets for svgHomeSearch
   /// assets/svg/home/search.svg
@@ -205,6 +222,10 @@ class SvgPath {
   /// Assets for svgHomeSetting
   /// assets/svg/home/setting.svg
   static const String svgHomeSetting = "assets/svg/home/setting.svg";
+
+  /// Assets for svgHomeShare
+  /// assets/svg/home/share.svg
+  static const String svgHomeShare = "assets/svg/home/share.svg";
 
   /// Assets for svgHomeSurahList
   /// assets/svg/home/surah_list.svg
@@ -265,6 +286,11 @@ class SvgPath {
   /// Assets for svgQuranIcS
   /// assets/svg/quran_ic_s.svg
   static const String svgQuranIcS = "assets/svg/quran_ic_s.svg";
+
+  /// Assets for svgQuranSurahNumberZakhrafa
+  /// assets/svg/quran/surah_number_zakhrafa.svg
+  static const String svgQuranSurahNumberZakhrafa =
+      "assets/svg/quran/surah_number_zakhrafa.svg";
 
   /// Assets for svgRewind
   /// assets/svg/rewind.svg
