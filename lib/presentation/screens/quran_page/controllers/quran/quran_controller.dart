@@ -53,7 +53,7 @@ class QuranController extends GetxController {
   }
 
   void loadQuran() {
-    state.surahs = QuranLibrary.quranCtrl.state.surahs;
+    state.surahs = QuranLibrary.quranCtrl.surahs;
     state.allAyahs = QuranLibrary.quranCtrl.state.allAyahs;
     state.pages = QuranLibrary.quranCtrl.state.pages;
   }

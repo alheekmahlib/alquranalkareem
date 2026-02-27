@@ -56,11 +56,13 @@ class QuranHome extends StatelessWidget {
                                 controller: searchCtrl.state.searchTextEditing,
                                 horizontalPadding: 0.0,
                                 onPressed: () {
+                                  quranCtrl.setTopBarType = TopBarType.search;
+                                  quranCtrl.state.searchController.open();
+                                },
+                                onButtonPressed: () {
                                   searchCtrl.state.searchTextEditing.clear();
                                   searchCtrl.state.ayahList.clear();
                                   searchCtrl.state.surahList.clear();
-                                  quranCtrl.setTopBarType = TopBarType.search;
-                                  quranCtrl.state.searchController.open();
                                 },
                                 onChanged: (query) {
                                   if (searchCtrl

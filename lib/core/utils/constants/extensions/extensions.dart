@@ -1,9 +1,10 @@
 import 'dart:io';
 
-import 'package:alquranalkareem/core/utils/constants/svg_constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+
+import '/core/utils/constants/svg_constants.dart';
 
 extension ContextExtensions on BuildContext {
   dynamic customOrientation(var n1, var n2) {
@@ -42,7 +43,8 @@ extension ContextExtensions on BuildContext {
           height: height ?? 30,
           width: width ?? 30,
         ),
-        onTap: close ??
+        onTap:
+            close ??
             () {
               Get.back();
             },
@@ -50,8 +52,12 @@ extension ContextExtensions on BuildContext {
     );
   }
 
-  Widget customArrowDown(
-      {var close, double? height, double? width, bool? isBorder}) {
+  Widget customArrowDown({
+    var close,
+    double? height,
+    double? width,
+    bool? isBorder,
+  }) {
     return Semantics(
       button: true,
       label: 'Close',
@@ -66,13 +72,13 @@ extension ContextExtensions on BuildContext {
                   border: Border.all(
                     color: Theme.of(this).colorScheme.primary,
                     width: 1,
-                  ))
+                  ),
+                )
               : null,
-          child: SvgPicture.asset(
-            SvgPath.svgArrowDown,
-          ),
+          child: SvgPicture.asset(SvgPath.svgArrowDown),
         ),
-        onTap: close ??
+        onTap:
+            close ??
             () {
               Get.back();
             },
@@ -91,7 +97,8 @@ extension ContextExtensions on BuildContext {
           width: 30,
           colorFilter: const ColorFilter.mode(Colors.white, BlendMode.srcIn),
         ),
-        onTap: close ??
+        onTap:
+            close ??
             () {
               Get.back();
             },

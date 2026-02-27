@@ -55,10 +55,7 @@ class AudioWidget extends StatelessWidget {
             builder: (c) {
               return SizedBox(
                 height: 155,
-                width: generalCtrl.screenWidth(
-                  MediaQuery.sizeOf(context).width * .64,
-                  290,
-                ),
+                width: Get.width,
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [

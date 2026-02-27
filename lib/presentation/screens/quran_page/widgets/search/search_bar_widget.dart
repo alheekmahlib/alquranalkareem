@@ -5,6 +5,7 @@ class TextFieldBarWidget extends StatelessWidget {
   final String? hintText;
   final Widget? prefixIcon;
   final void Function()? onPressed;
+  final void Function()? onButtonPressed;
   final void Function(String)? onChanged;
   final void Function(String)? onSubmitted;
   final double? horizontalPadding;
@@ -17,6 +18,7 @@ class TextFieldBarWidget extends StatelessWidget {
     this.onChanged,
     this.onSubmitted,
     this.horizontalPadding,
+    this.onButtonPressed,
   });
 
   @override
@@ -43,21 +45,22 @@ class TextFieldBarWidget extends StatelessWidget {
             contentPadding: EdgeInsets.zero,
             hintText: hintText ?? 'search_word'.tr,
             enabledBorder: OutlineInputBorder(
+              borderSide: const BorderSide(color: Colors.transparent, width: 1),
+              borderRadius: BorderRadius.circular(8.0),
+            ),
+            disabledBorder: OutlineInputBorder(
+              borderSide: const BorderSide(color: Colors.transparent, width: 1),
+              borderRadius: BorderRadius.circular(8.0),
+            ),
+            focusedBorder: OutlineInputBorder(
               borderSide: BorderSide(
-                color: Theme.of(
-                  context,
-                ).colorScheme.surface.withValues(alpha: 0.5),
+                color: context.theme.primaryColorLight,
                 width: 1,
               ),
               borderRadius: BorderRadius.circular(8.0),
             ),
             border: OutlineInputBorder(
-              borderSide: BorderSide(
-                color: Theme.of(
-                  context,
-                ).colorScheme.surface.withValues(alpha: 0.5),
-                width: 1,
-              ),
+              borderSide: const BorderSide(color: Colors.transparent, width: 1),
               borderRadius: BorderRadius.circular(8.0),
             ),
             hintStyle: TextStyle(
@@ -67,9 +70,7 @@ class TextFieldBarWidget extends StatelessWidget {
               color: context.theme.colorScheme.surface.withValues(alpha: .3),
             ),
             filled: true,
-            fillColor: context.theme.colorScheme.secondary.withValues(
-              alpha: 0.5,
-            ),
+            fillColor: context.theme.primaryColorDark.withValues(alpha: 0.3),
             prefixIcon:
                 prefixIcon ??
                 Container(
@@ -82,7 +83,7 @@ class TextFieldBarWidget extends StatelessWidget {
                 ),
             suffixIcon: IconButton(
               icon: Icon(Icons.close, color: context.theme.hintColor),
-              onPressed: onPressed,
+              onPressed: onButtonPressed,
             ),
             labelText: hintText ?? 'search_word'.tr,
             labelStyle: TextStyle(

@@ -71,7 +71,7 @@ class QuranSearch extends StatelessWidget {
                         vertical: 10.0,
                       ),
                       decoration: BoxDecoration(
-                        color: Theme.of(context).colorScheme.primary,
+                        color: Theme.of(context).primaryColorLight,
                         borderRadius: const BorderRadius.all(
                           Radius.circular(8),
                         ),
@@ -89,7 +89,7 @@ class QuranSearch extends StatelessWidget {
           ),
         );
       } else {
-        return customLottie(
+        return customLottieWithColor(
           LottieConstants.assetsLottieNotFound,
           height: 200.0,
           width: 200.0,
@@ -109,6 +109,9 @@ class QuranSearch extends StatelessWidget {
               LottieConstants.assetsLottieSearch,
               width: 200.0,
               height: 200.0,
+              color: Theme.of(
+                context,
+              ).colorScheme.onSecondary.withValues(alpha: 0.7),
             );
           } else if (searchCtrl.state.ayahList.isNotEmpty) {
             return ListView.builder(
@@ -170,7 +173,7 @@ class QuranSearch extends StatelessWidget {
                                   Expanded(
                                     child: Container(
                                       decoration: BoxDecoration(
-                                        color: Get.theme.colorScheme.primary
+                                        color: Get.theme.primaryColorLight
                                             .withValues(alpha: .7),
                                         borderRadius: const BorderRadius.only(
                                           topRight: Radius.circular(4),
@@ -223,7 +226,7 @@ class QuranSearch extends StatelessWidget {
               },
             );
           } else {
-            return customLottie(
+            return customLottieWithColor(
               LottieConstants.assetsLottieNotFound,
               height: 200.0,
               width: 200.0,

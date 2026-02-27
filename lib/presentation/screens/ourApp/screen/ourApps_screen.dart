@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 
-import '/core/utils/constants/extensions/alignment_rotated_extension.dart';
 import '/core/utils/constants/extensions/svg_extensions.dart';
 import '../../../../core/utils/constants/extensions/extensions.dart';
 import '../../../../core/utils/constants/svg_constants.dart';
+import '../../../../core/widgets/app_bar_widget.dart';
 import '../controller/ourApps_controller.dart';
 import '../data/models/ourApp_model.dart';
 import 'widgets/app_card_widget.dart';
@@ -20,25 +19,16 @@ class OurApps extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.primaryContainer,
-      appBar: AppBar(
-        centerTitle: true,
-        title: customSvgWithColor(SvgPath.svgSplashIcon, height: 50),
-        backgroundColor: Theme.of(context).colorScheme.primaryContainer,
-        systemOverlayStyle: SystemUiOverlayStyle.dark,
-        elevation: 0,
-        leading: GestureDetector(
-          onTap: () {
-            Get.back();
-          },
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16.0),
-            child: Image.asset(
-              'assets/icons/arrow_back.png',
-              color: Theme.of(context).colorScheme.primary,
-            ),
-          ).rotatedRtlLayout(),
+      appBar: AppBarWidget(
+        isBooks: false,
+        isTitled: false,
+        isNotifi: false,
+        isFontSize: false,
+        searchButton: const SizedBox.shrink(),
+        centerChild: customSvgWithCustomColor(
+          SvgPath.svgSplashIcon,
+          height: 50,
         ),
-        leadingWidth: 56,
       ),
       body: context.customOrientation(
         ListView(
@@ -52,7 +42,6 @@ class OurApps extends StatelessWidget {
             Gap(16.h),
             _appsBuild(),
 
-            const Spacer(),
             Padding(
               padding: const EdgeInsets.only(bottom: 32.0),
               child: customSvgWithColor(
@@ -69,7 +58,11 @@ class OurApps extends StatelessWidget {
               flex: 4,
               child: Column(
                 children: [
-                  customSvgWithColor(SvgPath.svgSplashIconS, height: 150),
+                  customSvgWithCustomColor(
+                    SvgPath.svgSplashIconW,
+                    height: 160.h,
+                    color: context.theme.primaryColorLight,
+                  ),
                   const Spacer(),
                   Padding(
                     padding: context.customOrientation(

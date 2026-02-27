@@ -57,8 +57,10 @@ class NotificationsScreen extends StatelessWidget {
                         child: Column(
                           children: [
                             const Gap(64),
-                            customSvgWithCustomColor(SvgPath.svgNotifications,
-                                width: 80),
+                            customSvgWithCustomColor(
+                              SvgPath.svgNotifications,
+                              width: 80,
+                            ),
                             const Gap(32),
                             Text(
                               'noNotifications'.tr,
@@ -76,19 +78,15 @@ class NotificationsScreen extends StatelessWidget {
                         children: [
                           const Align(
                             alignment: Alignment.center,
-                            child: NotificationIconWidget(
-                              isCurve: false,
-                              iconHeight: 60,
-                              padding: 8.0,
-                            ),
+                            child: NotificationIconWidget(iconHeight: 60),
                           ),
                           const Gap(16),
                           Flexible(
                             child: ListView.builder(
                               itemCount: notiCtrl.postsList.length,
                               itemBuilder: (context, index) {
-                                var reversedList =
-                                    notiCtrl.postsList.reversed.toList();
+                                var reversedList = notiCtrl.postsList.reversed
+                                    .toList();
                                 var noti = reversedList[index];
                                 return noti.appName == 'quran'
                                     ? ExpansionTileCard(
@@ -106,28 +104,31 @@ class NotificationsScreen extends StatelessWidget {
                                             .markNotificationAsRead(noti.id),
                                         title: Container(
                                           padding: const EdgeInsets.symmetric(
-                                              horizontal: 16.0, vertical: 8.0),
+                                            horizontal: 16.0,
+                                            vertical: 8.0,
+                                          ),
                                           margin: const EdgeInsets.symmetric(
-                                              vertical: 4.0),
+                                            vertical: 4.0,
+                                          ),
                                           decoration: BoxDecoration(
                                             color: noti.opened
-                                                ? Theme.of(context)
-                                                    .canvasColor
-                                                    .withValues(alpha: .1)
+                                                ? Theme.of(context).canvasColor
+                                                      .withValues(alpha: .1)
                                                 : Theme.of(context)
-                                                    .colorScheme
-                                                    .surface
-                                                    .withValues(alpha: .15),
+                                                      .colorScheme
+                                                      .surface
+                                                      .withValues(alpha: .15),
                                             borderRadius:
                                                 const BorderRadius.all(
-                                                    Radius.circular(8)),
+                                                  Radius.circular(8),
+                                                ),
                                             border: Border.all(
                                               width: 1,
                                               color: noti.opened
                                                   ? Colors.transparent
-                                                  : Theme.of(context)
-                                                      .colorScheme
-                                                      .surface,
+                                                  : Theme.of(
+                                                      context,
+                                                    ).colorScheme.surface,
                                             ),
                                           ),
                                           child: Row(
@@ -137,8 +138,9 @@ class NotificationsScreen extends StatelessWidget {
                                               Text(
                                                 noti.title,
                                                 style: TextStyle(
-                                                  color: Theme.of(context)
-                                                      .canvasColor,
+                                                  color: Theme.of(
+                                                    context,
+                                                  ).canvasColor,
                                                   fontFamily: 'kufi',
                                                   fontWeight: FontWeight.bold,
                                                   fontSize: 18,
@@ -148,11 +150,12 @@ class NotificationsScreen extends StatelessWidget {
                                                 SvgPath.svgNotifications,
                                                 height: 25,
                                                 color: noti.opened
-                                                    ? Theme.of(context)
-                                                        .canvasColor
-                                                    : Theme.of(context)
-                                                        .colorScheme
-                                                        .surface,
+                                                    ? Theme.of(
+                                                        context,
+                                                      ).canvasColor
+                                                    : Theme.of(
+                                                        context,
+                                                      ).colorScheme.surface,
                                               ),
                                             ],
                                           ),
@@ -161,8 +164,9 @@ class NotificationsScreen extends StatelessWidget {
                                           Text(
                                             noti.title,
                                             style: TextStyle(
-                                              color:
-                                                  Theme.of(context).canvasColor,
+                                              color: Theme.of(
+                                                context,
+                                              ).canvasColor,
                                               fontFamily: 'kufi',
                                               fontWeight: FontWeight.bold,
                                               fontSize: GeneralController
@@ -177,11 +181,13 @@ class NotificationsScreen extends StatelessWidget {
                                           Text(
                                             noti.body,
                                             style: TextStyle(
-                                              color:
-                                                  Theme.of(context).canvasColor,
+                                              color: Theme.of(
+                                                context,
+                                              ).canvasColor,
                                               fontFamily: 'kufi',
                                               fontWeight: FontWeight.bold,
-                                              fontSize: GeneralController
+                                              fontSize:
+                                                  GeneralController
                                                       .instance
                                                       .state
                                                       .fontSizeArabic
@@ -193,64 +199,72 @@ class NotificationsScreen extends StatelessWidget {
                                           noti.isLottie &&
                                                   noti.lottie.isNotEmpty
                                               ? Container(
-                                                  padding: const EdgeInsets
-                                                      .symmetric(
-                                                      horizontal: 16.0,
-                                                      vertical: 8.0),
+                                                  padding:
+                                                      const EdgeInsets.symmetric(
+                                                        horizontal: 16.0,
+                                                        vertical: 8.0,
+                                                      ),
                                                   decoration: BoxDecoration(
                                                     color: Theme.of(context)
                                                         .canvasColor
                                                         .withValues(alpha: .15),
                                                     borderRadius:
                                                         const BorderRadius.all(
-                                                            Radius.circular(8)),
+                                                          Radius.circular(8),
+                                                        ),
                                                     border: Border.all(
                                                       width: 1,
-                                                      color: Theme.of(context)
-                                                          .colorScheme
-                                                          .surface,
+                                                      color: Theme.of(
+                                                        context,
+                                                      ).colorScheme.surface,
                                                     ),
                                                   ),
                                                   child: Lottie.network(
                                                     noti.lottie,
                                                     width: Get.width * .5,
-                                                    errorBuilder: (context,
-                                                            error,
-                                                            stackTrace) =>
-                                                        const CircularProgressIndicator
-                                                            .adaptive(),
+                                                    errorBuilder:
+                                                        (
+                                                          context,
+                                                          error,
+                                                          stackTrace,
+                                                        ) =>
+                                                            const CircularProgressIndicator.adaptive(),
                                                   ),
                                                 )
                                               : const SizedBox.shrink(),
                                           const Gap(32),
                                           noti.isImage && noti.image.isNotEmpty
                                               ? Container(
-                                                  padding: const EdgeInsets
-                                                      .symmetric(
-                                                      horizontal: 16.0,
-                                                      vertical: 8.0),
+                                                  padding:
+                                                      const EdgeInsets.symmetric(
+                                                        horizontal: 16.0,
+                                                        vertical: 8.0,
+                                                      ),
                                                   decoration: BoxDecoration(
                                                     color: Theme.of(context)
                                                         .canvasColor
                                                         .withValues(alpha: .15),
                                                     borderRadius:
                                                         const BorderRadius.all(
-                                                            Radius.circular(8)),
+                                                          Radius.circular(8),
+                                                        ),
                                                     border: Border.all(
                                                       width: 1,
-                                                      color: Theme.of(context)
-                                                          .colorScheme
-                                                          .surface,
+                                                      color: Theme.of(
+                                                        context,
+                                                      ).colorScheme.surface,
                                                     ),
                                                   ),
                                                   child: Image.network(
                                                     noti.image,
                                                     width: Get.width * .5,
-                                                    errorBuilder: (context,
-                                                            error,
-                                                            stackTrace) =>
-                                                        const CircularProgressIndicator
-                                                            .adaptive(),
+                                                    errorBuilder:
+                                                        (
+                                                          context,
+                                                          error,
+                                                          stackTrace,
+                                                        ) =>
+                                                            const CircularProgressIndicator.adaptive(),
                                                   ),
                                                 )
                                               : const SizedBox.shrink(),
@@ -262,11 +276,11 @@ class NotificationsScreen extends StatelessWidget {
                                     : const SizedBox.shrink();
                               },
                             ),
-                          )
+                          ),
                         ],
                       ),
               ),
-            )
+            ),
           ],
         ),
       ),

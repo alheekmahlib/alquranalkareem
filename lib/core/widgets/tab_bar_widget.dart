@@ -5,11 +5,12 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '/core/utils/constants/extensions/bottom_sheet_extension.dart';
-import '/core/utils/constants/extensions/svg_extensions.dart';
 import '/core/utils/constants/svg_constants.dart';
 import '/presentation/screens/home/home_screen.dart';
 import '../../presentation/screens/quran_page/quran.dart';
 import '../services/services_locator.dart';
+import '../utils/constants/extensions/extensions.dart';
+import 'container_button.dart';
 import 'local_notification/notification_screen.dart';
 import 'local_notification/widgets/notification_icon_widget.dart';
 import 'settings_list.dart';
@@ -42,9 +43,17 @@ class TopBarWidget extends StatelessWidget {
     return LayoutBuilder(
       builder: (context, constraints) {
         return FlexibleSheet(
-          maxHeight: constraints.maxHeight - 150,
+          maxHeight: context.customOrientation(
+            constraints.maxHeight - 150,
+            constraints.maxHeight - 70,
+          ),
           minHeight: 0,
           initialHeight: 0,
+          alignment: context.customOrientation(
+            Alignment.topCenter,
+            Alignment.topLeft,
+          ),
+          width: context.customOrientation(Get.width, Get.width * 0.5),
           direction: SheetDirection.topToBottom,
           snapBehavior: SheetSnapBehavior.snapToEdge,
           controller: quranCtrl.state.searchController,
@@ -100,8 +109,8 @@ class TopBarWidget extends StatelessWidget {
                           Expanded(
                             flex: 2,
                             child: isHomeChild
-                                ? GestureDetector(
-                                    onTap: () {
+                                ? ContainerButton(
+                                    onPressed: () {
                                       Get.offAll(
                                         () => const HomeScreen(),
                                         transition: Transition.upToDown,
@@ -111,27 +120,26 @@ class TopBarWidget extends StatelessWidget {
                                           .selectedAyahIndexes
                                           .clear();
                                     },
-                                    child: Padding(
-                                      padding: const EdgeInsets.symmetric(
-                                        vertical: 8.0,
-                                      ),
-                                      child: customSvgWithColor(
-                                        SvgPath.svgHomeHome,
-                                        height: 35.0,
-                                        width: 35.0,
-                                        color: Get.theme.colorScheme.primary,
-                                      ),
-                                    ),
+                                    svgHeight: 35,
+                                    svgWidth: 35,
+                                    horizontalMargin: 4.0,
+                                    verticalMargin: 5.0,
+                                    backgroundColor: Colors.transparent,
+                                    svgColor: context.theme.colorScheme.primary,
+                                    svgWithColorPath: SvgPath.svgHomeHome,
                                   )
                                 : isNotification
-                                ? GestureDetector(
-                                    onTap: () => customBottomSheet(
+                                ? ContainerButton(
+                                    onPressed: () => customBottomSheet(
                                       NotificationsScreen(),
                                     ),
+                                    svgHeight: 35,
+                                    svgWidth: 35,
+                                    horizontalMargin: 6.0,
+                                    verticalMargin: 8.0,
+                                    backgroundColor: Colors.transparent,
                                     child: const NotificationIconWidget(
-                                      isCurve: true,
-                                      iconHeight: 25,
-                                      padding: 4.0,
+                                      iconHeight: 30,
                                     ),
                                   )
                                 : const SizedBox.shrink(),
@@ -144,8 +152,8 @@ class TopBarWidget extends StatelessWidget {
                           ),
                           Expanded(
                             flex: 2,
-                            child: GestureDetector(
-                              onTap:
+                            child: ContainerButton(
+                              onPressed:
                                   settingOnTap ??
                                   () {
                                     quranCtrl.setTopBarType =
@@ -158,19 +166,15 @@ class TopBarWidget extends StatelessWidget {
                                     //   ),
                                     // );
                                   },
-                              child: Padding(
-                                padding: const EdgeInsets.symmetric(
-                                  vertical: 8.0,
-                                ),
-                                child: customSvgWithColor(
-                                  isExpanded
-                                      ? SvgPath.svgHomeClose
-                                      : SvgPath.svgHomeSetting,
-                                  height: 35.0,
-                                  width: 35.0,
-                                  color: Get.theme.colorScheme.primary,
-                                ),
-                              ),
+                              svgHeight: 35,
+                              svgWidth: 35,
+                              horizontalMargin: 4.0,
+                              verticalMargin: 5.0,
+                              backgroundColor: Colors.transparent,
+                              svgColor: context.theme.colorScheme.primary,
+                              svgWithColorPath: isExpanded
+                                  ? SvgPath.svgHomeClose
+                                  : SvgPath.svgHomeSetting,
                             ),
                           ),
                         ],

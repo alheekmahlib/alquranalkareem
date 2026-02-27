@@ -10,222 +10,204 @@ class BookmarkAyahsBuild extends StatelessWidget {
       id: 'bookmarked',
       builder: (bookmarkCtrl) => bookmarkCtrl.bookmarkTextList.isEmpty
           ? const SizedBox.shrink()
-          : Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                context.hDivider(width: MediaQuery.sizeOf(context).width),
-                Flexible(
-                  child: AnimationLimiter(
-                    child: Align(
-                      alignment: Alignment.topCenter,
-                      child: Container(
-                        decoration: BoxDecoration(
-                          color: Theme.of(
-                            context,
-                          ).colorScheme.surface.withValues(alpha: .1),
-                          borderRadius: const BorderRadius.all(
-                            Radius.circular(8),
-                          ),
-                        ),
-                        child: ListView.builder(
-                          shrinkWrap: true,
-                          primary: false,
-                          itemCount: bookmarkCtrl.bookmarkTextList.length,
-                          itemBuilder: (BuildContext context, int index) {
-                            var bookmark = bookmarkCtrl.bookmarkTextList[index];
-                            final ayah = sl<QuranController>().state.allAyahs
-                                .firstWhere(
-                                  (a) =>
-                                      a.ayahUQNumber == bookmark.ayahUQNumber,
+          : AnimationLimiter(
+              child: ListView.builder(
+                padding: EdgeInsets.zero,
+                physics: const AlwaysScrollableScrollPhysics(),
+                itemCount: bookmarkCtrl.bookmarkTextList.length,
+                itemBuilder: (BuildContext context, int index) {
+                  final bookmark = bookmarkCtrl.bookmarkTextList[index];
+                  final ayah = sl<QuranController>().state.allAyahs.firstWhere(
+                    (a) => a.ayahUQNumber == bookmark.ayahUQNumber,
+                  );
+                  return AnimationConfiguration.staggeredList(
+                    position: index,
+                    duration: const Duration(milliseconds: 450),
+                    child: SlideAnimation(
+                      verticalOffset: 50.0,
+                      child: FadeInAnimation(
+                        child: Dismissible(
+                          background: const DeleteWidget(),
+                          key: ValueKey<int>(bookmark.ayahUQNumber),
+                          onDismissed: (DismissDirection direction) {
+                            bookmarkCtrl.deleteBookmarksText(
+                              bookmark.ayahUQNumber,
+                            );
+                          },
+                          child: Container(
+                            width: Get.width,
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 12.0,
+                              vertical: 8.0,
+                            ),
+                            margin: const EdgeInsets.symmetric(vertical: 4.0),
+                            decoration: BoxDecoration(
+                              color: context.theme.primaryColorLight.withValues(
+                                alpha: 0.1,
+                              ),
+                              borderRadius: BorderRadius.circular(8),
+                            ),
+                            child: InkWell(
+                              onTap: () {
+                                quranCtrl.changeSurahListOnTap(
+                                  bookmark.pageNumber,
                                 );
-                            return AnimationConfiguration.staggeredList(
-                              position: index,
-                              duration: const Duration(milliseconds: 450),
-                              child: SlideAnimation(
-                                verticalOffset: 50.0,
-                                child: FadeInAnimation(
-                                  child: Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                      horizontal: 16.0,
-                                      vertical: 8.0,
-                                    ),
-                                    child: Dismissible(
-                                      background: const DeleteWidget(),
-                                      key: ValueKey<int>(bookmark.ayahUQNumber),
-                                      onDismissed:
-                                          (DismissDirection direction) {
-                                            bookmarkCtrl.deleteBookmarksText(
-                                              bookmark.ayahUQNumber,
-                                            );
-                                          },
-                                      child: GestureDetector(
-                                        onTap: () {
-                                          quranCtrl.changeSurahListOnTap(
-                                            bookmark.pageNumber,
-                                          );
-
-                                          Get.back();
-                                        },
-                                        child: Container(
-                                          width: MediaQuery.sizeOf(
-                                            context,
-                                          ).width,
-                                          decoration: BoxDecoration(
-                                            color: Theme.of(context)
-                                                .colorScheme
-                                                .surface
-                                                .withValues(alpha: .2),
-                                            borderRadius:
-                                                const BorderRadius.all(
-                                                  Radius.circular(8),
-                                                ),
+                                Get.back();
+                              },
+                              child: Column(
+                                children: [
+                                  Row(
+                                    children: [
+                                      /// أيقونة البوكمارك مع رقم الآية
+                                      Stack(
+                                        alignment: Alignment.center,
+                                        children: [
+                                          Icon(
+                                            Icons.bookmark_rounded,
+                                            color: const Color(
+                                              0xfff5410a,
+                                            ).withValues(alpha: .7),
+                                            size: 50,
                                           ),
-                                          child: Directionality(
-                                            textDirection: TextDirection.rtl,
-                                            child: ShaderMask(
-                                              shaderCallback: (Rect bounds) {
-                                                return const LinearGradient(
-                                                  begin: Alignment.centerLeft,
-                                                  end: Alignment.centerRight,
-                                                  colors: [
-                                                    Colors.transparent,
-                                                    Colors.black,
-                                                  ],
-                                                  stops: [0.0, 0.2],
-                                                ).createShader(bounds);
-                                              },
-                                              blendMode: BlendMode.dstIn,
-                                              child: Padding(
-                                                padding:
-                                                    const EdgeInsets.symmetric(
-                                                      vertical: 8.0,
-                                                    ),
-                                                child: Column(
-                                                  crossAxisAlignment:
-                                                      CrossAxisAlignment.start,
-                                                  children: [
-                                                    Row(
-                                                      mainAxisAlignment:
-                                                          MainAxisAlignment
-                                                              .spaceBetween,
-                                                      children: [
-                                                        Expanded(
-                                                          flex: 2,
-                                                          child: Stack(
-                                                            alignment: Alignment
-                                                                .center,
-                                                            children: <Widget>[
-                                                              const Icon(
-                                                                Icons.bookmark,
-                                                                color: Color(
-                                                                  0x99f5410a,
-                                                                ),
-                                                                size: 50,
-                                                              ),
-                                                              Text(
-                                                                '${bookmark.ayahNumber.toString().convertNumbersToCurrentLang()}',
-                                                                textAlign:
-                                                                    TextAlign
-                                                                        .center,
-                                                                style: TextStyle(
-                                                                  color: Theme.of(
-                                                                    context,
-                                                                  ).canvasColor,
-                                                                  fontFamily:
-                                                                      'kufi',
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .w700,
-                                                                  fontSize: 12,
-                                                                ),
-                                                              ),
-                                                            ],
-                                                          ),
-                                                        ),
-                                                        Expanded(
-                                                          flex: 8,
-                                                          child: Column(
-                                                            crossAxisAlignment:
-                                                                CrossAxisAlignment
-                                                                    .start,
-                                                            children: [
-                                                              Text(
-                                                                '${ayah.text}',
-                                                                style: TextStyle(
-                                                                  color: Theme.of(
-                                                                    context,
-                                                                  ).colorScheme.inversePrimary,
-                                                                  fontSize: 18,
-                                                                  fontFamily:
-                                                                      'uthmanic2',
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .w500,
-                                                                ),
-                                                                maxLines: 1,
-                                                              ),
-                                                              Row(
-                                                                children: [
-                                                                  Text(
-                                                                    "${bookmark.surahName} - ${'page'.tr}: ${bookmark.pageNumber.toString().convertNumbersToCurrentLang()}",
-                                                                    style: TextStyle(
-                                                                      color: Get
-                                                                          .theme
-                                                                          .colorScheme
-                                                                          .surface,
-                                                                      fontSize:
-                                                                          12,
-                                                                      fontFamily:
-                                                                          'kufi',
-                                                                      fontWeight:
-                                                                          FontWeight
-                                                                              .w400,
-                                                                    ),
-                                                                  ),
-                                                                  const Spacer(),
-                                                                  Text(
-                                                                    "${bookmark.lastRead.toString().convertNumbersToCurrentLang()}",
-                                                                    style: TextStyle(
-                                                                      color: Get
-                                                                          .theme
-                                                                          .colorScheme
-                                                                          .surface,
-                                                                      fontSize:
-                                                                          12,
-                                                                      fontFamily:
-                                                                          'kufi',
-                                                                      fontWeight:
-                                                                          FontWeight
-                                                                              .w400,
-                                                                    ),
-                                                                  ),
-                                                                  const Gap(16),
-                                                                ],
-                                                              ),
-                                                            ],
-                                                          ),
-                                                        ),
-                                                      ],
-                                                    ),
-                                                  ],
-                                                ),
+                                          Padding(
+                                            padding: const EdgeInsets.only(
+                                              bottom: 4.0,
+                                            ),
+                                            child: Text(
+                                              '${bookmark.ayahNumber}'
+                                                  .convertNumbersToCurrentLang(),
+                                              style: TextStyle(
+                                                color: Theme.of(
+                                                  context,
+                                                ).canvasColor,
+                                                fontFamily: 'kufi',
+                                                fontWeight: FontWeight.w700,
+                                                fontSize: 11,
                                               ),
                                             ),
                                           ),
+                                        ],
+                                      ),
+                                      const Gap(12),
+
+                                      /// نص الآية واسم السورة
+                                      Expanded(
+                                        child: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Directionality(
+                                              textDirection: TextDirection.rtl,
+                                              child: Text(
+                                                '${ayah.text}',
+                                                style: TextStyle(
+                                                  color: Theme.of(
+                                                    context,
+                                                  ).hintColor,
+                                                  fontSize: 18,
+                                                  fontFamily: 'uthmanic2',
+                                                  fontWeight: FontWeight.w500,
+                                                  height: 1.8,
+                                                ),
+                                                maxLines: 1,
+                                                overflow: TextOverflow.ellipsis,
+                                              ),
+                                            ),
+                                            const Gap(4),
+                                            Row(
+                                              children: [
+                                                Container(
+                                                  padding:
+                                                      const EdgeInsets.symmetric(
+                                                        horizontal: 8.0,
+                                                        vertical: 4.0,
+                                                      ),
+                                                  decoration: BoxDecoration(
+                                                    color: Theme.of(context)
+                                                        .colorScheme
+                                                        .primaryContainer,
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                          8,
+                                                        ),
+                                                  ),
+                                                  child: Text(
+                                                    bookmark.surahName,
+                                                    style:
+                                                        AppTextStyles.titleSmall(
+                                                          color: context
+                                                              .theme
+                                                              .primaryColorDark,
+                                                        ),
+                                                  ),
+                                                ),
+                                                const Gap(8),
+                                                Container(
+                                                  padding:
+                                                      const EdgeInsets.symmetric(
+                                                        horizontal: 8.0,
+                                                        vertical: 4.0,
+                                                      ),
+                                                  decoration: BoxDecoration(
+                                                    color: Theme.of(context)
+                                                        .colorScheme
+                                                        .primaryContainer,
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                          8,
+                                                        ),
+                                                  ),
+                                                  child: Row(
+                                                    mainAxisSize:
+                                                        MainAxisSize.min,
+                                                    children: [
+                                                      Text(
+                                                        '${'page'.tr}:',
+                                                        style: AppTextStyles.titleSmall(
+                                                          color: context
+                                                              .theme
+                                                              .primaryColorDark,
+                                                        ),
+                                                      ),
+                                                      const Gap(4),
+                                                      Text(
+                                                        '${bookmark.pageNumber}'
+                                                            .convertNumbersToCurrentLang(),
+                                                        style:
+                                                            AppTextStyles.titleSmall(),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ),
+                                                const Spacer(),
+                                                Text(
+                                                  bookmark.lastRead
+                                                      .toString()
+                                                      .convertNumbersToCurrentLang(),
+                                                  style:
+                                                      AppTextStyles.titleSmall(
+                                                        color: context
+                                                            .theme
+                                                            .primaryColorDark,
+                                                      ),
+                                                ),
+                                              ],
+                                            ),
+                                          ],
                                         ),
                                       ),
-                                    ),
+                                    ],
                                   ),
-                                ),
+                                ],
                               ),
-                            );
-                          },
+                            ),
+                          ),
                         ),
                       ),
                     ),
-                  ),
-                ),
-              ],
+                  );
+                },
+              ),
             ),
     );
   }

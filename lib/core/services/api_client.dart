@@ -37,6 +37,7 @@ class ApiClient {
     Duration? connectTimeoutOverride,
     Duration? receiveTimeoutOverride,
     int retryCount = 0,
+    bool printData = false,
   }) async {
     final originalConnectTimeout = _dio.options.connectTimeout;
     final originalReceiveTimeout = _dio.options.receiveTimeout;
@@ -74,8 +75,9 @@ class ApiClient {
         log('404 for $endpoint -> empty list returned', name: 'ApiClient');
         return const Right([]);
       }
-
-      log('Response received: ${response.data}', name: 'ApiClient');
+      if (printData) {
+        log('Response received: ${response.data}', name: 'ApiClient');
+      }
       return Right(response.data);
     } on DioException catch (e) {
       log('DioException occurred: ${e.message}', name: 'ApiClient');

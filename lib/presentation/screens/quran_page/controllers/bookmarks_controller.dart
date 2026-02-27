@@ -30,7 +30,6 @@ class BookmarksController extends GetxController {
         ),
       );
       getBookmarks();
-      sl<QuranController>().update(['pageBookmarked']);
       print('bookmark number: $bookmark');
     } catch (e, stacktrace) {
       // طباعة تفاصيل الخطأ مع الاستثناء والمكدس الكامل
@@ -42,6 +41,8 @@ class BookmarksController extends GetxController {
   Future<void> getBookmarks() async {
     final bookmarks = await DbBookmarkHelper.queryB();
     bookmarksList.assignAll(bookmarks);
+    update(['bookmarked']);
+    quranCtrl.update(['pageBookmarked']);
     quranCtrl.update(['clearSelection']);
   }
 
@@ -96,6 +97,7 @@ class BookmarksController extends GetxController {
   Future<void> getBookmarksText() async {
     final List<BookmarksAyah> bookmarksText = await DbBookmarkHelper.queryT();
     bookmarkTextList.assignAll(bookmarksText); // تحديث القائمة
+    update(['ayah_bookmarked']);
     quranCtrl.update(['bookmarked']);
     quranCtrl.update(['clearSelection']);
   }

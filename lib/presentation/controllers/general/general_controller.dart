@@ -37,6 +37,7 @@ class GeneralController extends GetxController {
   void onClose() {
     _audioWidgetTimer?.cancel();
     _audioWidgetTimer = null;
+    state.expansionManager.dispose();
     super.onClose();
   }
 

@@ -16,10 +16,7 @@ extension QuranGetters on QuranController {
   /// even if the page contains another surah..
   /// if you wanna get the last's ayah's surah information
   /// you can use [ayahs.last].
-  int getSurahNumberFromPage(int pageNumber) => QuranLibrary
-      .quranCtrl
-      .state
-      .surahs
+  int getSurahNumberFromPage(int pageNumber) => QuranLibrary.quranCtrl.surahs
       .firstWhere(
         (s) => s.ayahs.firstWhereOrNull((a) => a.page == pageNumber) != null,
       )
@@ -57,12 +54,19 @@ extension QuranGetters on QuranController {
   //   );
   // }
 
+  /// فهرس السورة الحالية (0-based) بناءً على الصفحة المعروضة
+  int get currentSurahIndex {
+    try {
+      final currentPage = QuranCtrl.instance.state.currentPageNumber.value;
+      final surahNumber = getCurrentSurahByPage(currentPage - 1).surahNumber;
+      return (surahNumber - 1).clamp(0, 113);
+    } catch (_) {
+      return 0;
+    }
+  }
+
   ScrollController get surahController {
-    final suraNumber =
-        getCurrentSurahByPage(
-          QuranCtrl.instance.state.currentPageNumber.value,
-        ).surahNumber -
-        1;
+    final suraNumber = currentSurahIndex;
     if (state.surahController == null) {
       state.surahController = ScrollController(
         initialScrollOffset: state.surahItemHeight * suraNumber,
@@ -71,15 +75,56 @@ extension QuranGetters on QuranController {
     return state.surahController!;
   }
 
+  /// تمرير قائمة السور إلى السورة الحالية
+  void scrollToCurrentSurah() {
+    final ctrl = surahController;
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (ctrl.hasClients) {
+        final max = ctrl.position.maxScrollExtent;
+        final desired =
+            (currentSurahIndex * state.surahItemHeight) -
+            (state.surahItemHeight * 1.5);
+        final target = desired.clamp(0.0, max);
+        ctrl.animateTo(
+          target,
+          duration: const Duration(milliseconds: 300),
+          curve: Curves.easeOut,
+        );
+      }
+    });
+  }
+
+  /// فهرس الجزء الحالي (0-based)
+  int get currentJuzIndex =>
+      getJuzByPage(QuranCtrl.instance.state.currentPageNumber.value).juz - 1;
+
   ScrollController get juzController {
     if (state.juzListController == null) {
+      final juzIdx = currentJuzIndex.clamp(0, 29);
       state.juzListController = ScrollController(
-        initialScrollOffset:
-            state.surahItemHeight *
-            getJuzByPage(QuranCtrl.instance.state.currentPageNumber.value).juz,
+        initialScrollOffset: state.juzItemHeight * juzIdx,
       );
     }
     return state.juzListController!;
+  }
+
+  /// تمرير قائمة الأجزاء إلى الجزء الحالي
+  void scrollToCurrentJuz() {
+    final ctrl = juzController;
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (ctrl.hasClients) {
+        final max = ctrl.position.maxScrollExtent;
+        final juzIdx = currentJuzIndex.clamp(0, 29);
+        final desired =
+            (juzIdx * state.juzItemHeight) - (state.juzItemHeight * 1.0);
+        final target = desired.clamp(0.0, max);
+        ctrl.animateTo(
+          target,
+          duration: const Duration(milliseconds: 300),
+          curve: Curves.easeOut,
+        );
+      }
+    });
   }
 
   Color get backgroundColor => state.backgroundPickerColor.value == 0xfffaf7f3

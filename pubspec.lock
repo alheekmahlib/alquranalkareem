@@ -502,7 +502,7 @@ packages:
     description:
       path: "."
       ref: main
-      resolved-ref: fe17c41b7d12e03f0fec711c906a6e4e9d6315a1
+      resolved-ref: "3d9b80040b6118fd5aa022925e4a22eb6c1909c2"
       url: "https://github.com/alheekmahlib/flexible_sheet.git"
     source: git
     version: "1.0.0"
@@ -1131,7 +1131,7 @@ packages:
     description:
       path: "."
       ref: dev
-      resolved-ref: c41397e1d076c2d64e9aad83d1896bb2c71ad377
+      resolved-ref: c3e2fa599896c684518e6976fb64ca7c60e6990b
       url: "https://github.com/alheekmahlib/quran_library.git"
     source: git
     version: "3.1.0"

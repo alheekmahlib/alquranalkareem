@@ -56,6 +56,14 @@ extension QuranUi on QuranController {
   }
 
   void showControl() {
+    if (state.searchController.isHandleVisible ||
+        state.navBarController.isHandleVisible) {
+      state.searchController.hideHandle();
+      state.navBarController.hideHandle();
+    } else {
+      state.searchController.showHandle();
+      state.navBarController.showHandle();
+    }
     GeneralController.instance.state.isShowControl.toggle();
     QuranCtrl.instance.isShowControl.toggle();
   }
@@ -166,6 +174,14 @@ extension QuranUi on QuranController {
 
   set setTopBarType(TopBarType type) {
     state.topBarType.value = type.name;
+  }
+
+  bool getNavBarType(NavBarType type) {
+    return state.navBarType.value == type.name;
+  }
+
+  set setNavBarType(NavBarType type) {
+    state.navBarType.value = type.name;
   }
 
   // void scrollSlowly(BuildContext context, double duration) async {
