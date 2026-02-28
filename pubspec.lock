@@ -1131,10 +1131,10 @@ packages:
     description:
       path: "."
       ref: dev
-      resolved-ref: c3e2fa599896c684518e6976fb64ca7c60e6990b
+      resolved-ref: "1e75a680c2dcea3103ea6bcde7c16e177a889b52"
       url: "https://github.com/alheekmahlib/quran_library.git"
     source: git
-    version: "3.1.0"
+    version: "3.1.1"
   rate_my_app:
     dependency: "direct main"
     description:

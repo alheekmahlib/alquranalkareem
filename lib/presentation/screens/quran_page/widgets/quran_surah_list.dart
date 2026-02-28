@@ -39,10 +39,8 @@ class QuranSurahList extends StatelessWidget {
                 borderRadius: BorderRadius.circular(8),
               ),
               child: InkWell(
-                onTap: () {
-                  quranCtrl.changeSurahListOnTap(surah.ayahs.first.page);
-                  quranCtrl.state.navBarController.close();
-                },
+                onTap: () =>
+                    quranCtrl.changeSurahListOnTap(surah.ayahs.first.page),
                 child: GetBuilder<QuranController>(
                   builder: (quranCtrl) {
                     return Row(

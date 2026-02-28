@@ -38,6 +38,49 @@ class SvgPath {
   /// assets/svg/arrow_down.svg
   static const String svgArrowDown = "assets/svg/arrow_down.svg";
 
+  /// Assets for svgAudioBackward
+  /// assets/svg/audio/backward.svg
+  static const String svgAudioBackward = "assets/svg/audio/backward.svg";
+
+  /// Assets for svgAudioDownload
+  /// assets/svg/audio/download.svg
+  static const String svgAudioDownload = "assets/svg/audio/download.svg";
+
+  /// Assets for svgAudioFullAudioScreen
+  /// assets/svg/audio/full_audio_screen.svg
+  static const String svgAudioFullAudioScreen =
+      "assets/svg/audio/full_audio_screen.svg";
+
+  /// Assets for svgAudioNextIcon
+  /// assets/svg/audio/next_icon.svg
+  static const String svgAudioNextIcon = "assets/svg/audio/next_icon.svg";
+
+  /// Assets for svgAudioPauseArrow
+  /// assets/svg/audio/pause_arrow.svg
+  static const String svgAudioPauseArrow = "assets/svg/audio/pause_arrow.svg";
+
+  /// Assets for svgAudioPlayAllWord
+  /// assets/svg/audio/play_all_word.svg
+  static const String svgAudioPlayAllWord =
+      "assets/svg/audio/play_all_word.svg";
+
+  /// Assets for svgAudioPlayArrow
+  /// assets/svg/audio/playArrow.svg
+  static const String svgAudioPlayArrow = "assets/svg/audio/playArrow.svg";
+
+  /// Assets for svgAudioPlayWord
+  /// assets/svg/audio/play_word.svg
+  static const String svgAudioPlayWord = "assets/svg/audio/play_word.svg";
+
+  /// Assets for svgAudioPreviousIcon
+  /// assets/svg/audio/previous_icon.svg
+  static const String svgAudioPreviousIcon =
+      "assets/svg/audio/previous_icon.svg";
+
+  /// Assets for svgAudioRewind
+  /// assets/svg/audio/rewind.svg
+  static const String svgAudioRewind = "assets/svg/audio/rewind.svg";
+
   /// Assets for svgAyahBookmarked
   /// assets/svg/ayah_bookmarked.svg
   static const String svgAyahBookmarked = "assets/svg/ayah_bookmarked.svg";
@@ -206,6 +249,10 @@ class SvgPath {
   /// assets/svg/home/facebook.svg
   static const String svgHomeFacebook = "assets/svg/home/facebook.svg";
 
+  /// Assets for svgHomeFontSize
+  /// assets/svg/home/font_size.svg
+  static const String svgHomeFontSize = "assets/svg/home/font_size.svg";
+
   /// Assets for svgHomeHome
   /// assets/svg/home/home.svg
   static const String svgHomeHome = "assets/svg/home/home.svg";
@@ -283,14 +330,34 @@ class SvgPath {
   /// assets/svg/quran_au_ic.svg
   static const String svgQuranAuIc = "assets/svg/quran_au_ic.svg";
 
+  /// Assets for svgQuranBookmark
+  /// assets/svg/quran/bookmark.svg
+  static const String svgQuranBookmark = "assets/svg/quran/bookmark.svg";
+
+  /// Assets for svgQuranCopy
+  /// assets/svg/quran/copy.svg
+  static const String svgQuranCopy = "assets/svg/quran/copy.svg";
+
   /// Assets for svgQuranIcS
   /// assets/svg/quran_ic_s.svg
   static const String svgQuranIcS = "assets/svg/quran_ic_s.svg";
+
+  /// Assets for svgQuranMutshabhat
+  /// assets/svg/quran/mutshabhat.svg
+  static const String svgQuranMutshabhat = "assets/svg/quran/mutshabhat.svg";
+
+  /// Assets for svgQuranPlayAll
+  /// assets/svg/quran/play_all.svg
+  static const String svgQuranPlayAll = "assets/svg/quran/play_all.svg";
 
   /// Assets for svgQuranSurahNumberZakhrafa
   /// assets/svg/quran/surah_number_zakhrafa.svg
   static const String svgQuranSurahNumberZakhrafa =
       "assets/svg/quran/surah_number_zakhrafa.svg";
+
+  /// Assets for svgQuranTafsir
+  /// assets/svg/quran/tafsir.svg
+  static const String svgQuranTafsir = "assets/svg/quran/tafsir.svg";
 
   /// Assets for svgRewind
   /// assets/svg/rewind.svg

@@ -32,6 +32,13 @@ extension QuranUi on QuranController {
     } else {
       QuranLibrary.quranCtrl.quranPagesController.jumpToPage(page - 1);
     }
+    if (state.navBarController.isOpen) {
+      state.navBarController.close();
+      setNavBarType = NavBarType.none;
+    } else if (state.searchController.isOpen) {
+      state.searchController.close();
+      setTopBarType = TopBarType.none;
+    }
   }
 
   void toggleAyahSelection(int index) {
@@ -176,8 +183,8 @@ extension QuranUi on QuranController {
     state.topBarType.value = type.name;
   }
 
-  bool getNavBarType(NavBarType type) {
-    return state.navBarType.value == type.name;
+  RxBool getNavBarType(NavBarType type) {
+    return (state.navBarType.value == type.name).obs;
   }
 
   set setNavBarType(NavBarType type) {

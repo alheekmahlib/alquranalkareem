@@ -50,7 +50,7 @@ class BookmarkAyahsBuild extends StatelessWidget {
                             child: InkWell(
                               onTap: () {
                                 quranCtrl.changeSurahListOnTap(
-                                  bookmark.pageNumber,
+                                  bookmark.pageNumber - 1,
                                 );
                                 Get.back();
                               },
@@ -171,7 +171,7 @@ class BookmarkAyahsBuild extends StatelessWidget {
                                                       ),
                                                       const Gap(4),
                                                       Text(
-                                                        '${bookmark.pageNumber}'
+                                                        '${bookmark.pageNumber - 1}'
                                                             .convertNumbersToCurrentLang(),
                                                         style:
                                                             AppTextStyles.titleSmall(),
