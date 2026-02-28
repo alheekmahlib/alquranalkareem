@@ -16,20 +16,21 @@ extension AudioUi on AudioCtrl {
         downloadForeground: Get.theme.colorScheme.surface,
         downloadBackground: Get.theme.colorScheme.surface,
         handleColor: Get.theme.hintColor,
+        itemVerticalPadding: 2.0,
         progressBackgroundColor: Get.theme.colorScheme.surface.withValues(
           alpha: .2,
         ),
-        surahSubtitleStyle: TextStyle(
+        surahSubtitleStyle: AppTextStyles.titleSmall(
           color: Get.theme.canvasColor,
-          fontFamily: 'kufi',
-          fontWeight: FontWeight.bold,
-          fontSize: 12,
         ),
         surahTitleStyle: TextStyle(
           color: Get.theme.canvasColor,
-          fontFamily: 'surahName',
-          fontSize: 32,
-          package: 'quran_library',
+          fontFamily: "surahName",
+          fontSize: 30,
+          height: 1.2,
+          fontFamilyFallback: const ["surahName"],
+          inherit: false,
+          package: "quran_library",
         ),
         progressColor: Get.theme.colorScheme.surface,
         headerIcon: Column(
@@ -67,15 +68,29 @@ extension AudioUi on AudioCtrl {
         isDark: ThemeController.instance.isDarkMode,
         context: Get.context!,
       ).copyWith(
-        playIconColor: Get.theme.colorScheme.onPrimary,
+        playIconColor: Get.theme.colorScheme.surface,
         backgroundColor: Get.theme.colorScheme.primary,
         dialogBackgroundColor: Get.theme.primaryColor,
         dialogReaderTextColor: Get.theme.canvasColor,
-        textColor: Get.theme.colorScheme.surface,
+        textColor: Get.theme.colorScheme.inversePrimary,
         readerNameInItemColor: Get.theme.canvasColor,
         dialogSelectedReaderColor: Get.theme.colorScheme.surface,
         dialogUnSelectedReaderColor: Colors.transparent,
         dialogHeaderTitleColor: Get.theme.canvasColor,
+        currentReaderColor: Get.theme.hintColor,
+        currentReaderTextStyle: AppTextStyles.titleMedium(
+          color: Get.theme.hintColor,
+          fontWeight: FontWeight.w500,
+          height: 1.2,
+        ),
+        tabLabelStyle: AppTextStyles.titleMedium(),
+        headerDialogTitleStyle: AppTextStyles.titleLarge(
+          color: Get.theme.canvasColor,
+          height: 1,
+        ),
+        readerDialogTitleStyle: AppTextStyles.titleMedium(
+          color: Get.theme.canvasColor,
+        ),
         dialogHeaderBackgroundGradient: LinearGradient(
           colors: [
             Get.theme.colorScheme.surface.withValues(alpha: .5),

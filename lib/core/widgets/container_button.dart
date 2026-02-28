@@ -106,7 +106,7 @@ class ContainerButton extends StatelessWidget {
                   ),
                 if (value?.value ?? false) const Gap(8),
                 if (svgWithColorPath != null)
-                  customSvgWithCustomColor(
+                  customSvgWithColor(
                     height: svgHeight ?? 24,
                     width: svgWidth ?? 24,
                     svgWithColorPath ?? SvgPath.svgAlert,

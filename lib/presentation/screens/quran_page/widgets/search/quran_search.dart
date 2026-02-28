@@ -140,7 +140,6 @@ class QuranSearch extends StatelessWidget {
                               QuranLibrary.quranCtrl.toggleAyahSelection(
                                 search.ayahUQNumber,
                               );
-                              quranCtrl.state.searchController.close();
                             },
                             title: Padding(
                               padding: const EdgeInsets.all(8.0),

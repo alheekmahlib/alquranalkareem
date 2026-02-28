@@ -52,30 +52,40 @@ extension ContextExtensions on BuildContext {
     );
   }
 
-  Widget customArrowDown({
-    var close,
-    double? height,
-    double? width,
-    bool? isBorder,
-  }) {
+  Widget customArrowDown({var close, double? height, double? width}) {
     return Semantics(
       button: true,
       label: 'Close',
       child: GestureDetector(
         child: Container(
-          height: height ?? 35,
-          width: width ?? 35,
-          padding: const EdgeInsets.all(6.0),
-          decoration: isBorder!
-              ? BoxDecoration(
-                  borderRadius: const BorderRadius.all(Radius.circular(8)),
-                  border: Border.all(
-                    color: Theme.of(this).colorScheme.primary,
-                    width: 1,
-                  ),
-                )
-              : null,
-          child: SvgPicture.asset(SvgPath.svgArrowDown),
+          height: height ?? 20,
+          width: width ?? 83,
+          padding: const EdgeInsets.symmetric(horizontal: 6.0),
+          decoration: BoxDecoration(
+            color: Get.theme.colorScheme.primary,
+            borderRadius: const BorderRadius.all(Radius.circular(8)),
+          ),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Container(
+                height: 8,
+                width: 8,
+                decoration: BoxDecoration(
+                  color: Get.theme.colorScheme.secondary,
+                  shape: BoxShape.circle,
+                ),
+              ),
+              Container(
+                height: 8,
+                width: 8,
+                decoration: BoxDecoration(
+                  color: Get.theme.colorScheme.secondary,
+                  shape: BoxShape.circle,
+                ),
+              ),
+            ],
+          ),
         ),
         onTap:
             close ??

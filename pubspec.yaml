@@ -150,6 +150,7 @@ flutter:
     - assets/svg/alwaqf/
     - assets/svg/home/
     - assets/svg/quran/
+    - assets/svg/audio/
     - assets/json/
     - assets/lottie/
     - assets/locales/

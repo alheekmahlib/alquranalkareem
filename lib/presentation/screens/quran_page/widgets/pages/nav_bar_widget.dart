@@ -13,7 +13,7 @@ class NavBarWidget extends StatelessWidget {
       onVerticalDragUpdate: (details) {
         if (details.primaryDelta != null) {
           if (details.primaryDelta! < -8 &&
-              quranCtrl.getNavBarType(NavBarType.none)) {
+              quranCtrl.getNavBarType(NavBarType.none).value) {
             Future.delayed(const Duration(milliseconds: 10), () {
               quranCtrl.state.isPlayExpanded.value = true;
             });
@@ -95,11 +95,12 @@ class NavBarWidget extends StatelessWidget {
                           ),
                         ),
                         AnimatedSize(
+                          alignment: Alignment.bottomCenter,
                           duration: const Duration(milliseconds: 200),
                           child: Obx(
                             () => Container(
                               height: quranCtrl.state.isPlayExpanded.value
-                                  ? 155
+                                  ? 170
                                   : 53,
                               width: Get.width,
                               margin: const EdgeInsets.symmetric(
@@ -121,23 +122,31 @@ class NavBarWidget extends StatelessWidget {
                                     flex: 2,
                                     child: ContainerButton(
                                       onPressed: () {
-                                        quranCtrl.setNavBarType =
-                                            NavBarType.surahList;
+                                        isExpanded
+                                            ? quranCtrl.setNavBarType =
+                                                  NavBarType.none
+                                            : quranCtrl.setNavBarType =
+                                                  NavBarType.surahList;
                                         quranCtrl.state.navBarController
                                             .toggle();
+                                        quranCtrl.state.isPlayExpanded.value =
+                                            false;
                                       },
                                       svgHeight: 35,
                                       svgWidth: 35,
                                       horizontalMargin: 4.0,
                                       verticalMargin: 5.0,
-                                      svgColor:
-                                          context.theme.colorScheme.primary,
+                                      svgColor: Theme.of(
+                                        context,
+                                      ).colorScheme.primary,
                                       backgroundColor: Colors.transparent,
                                       svgWithColorPath:
                                           isExpanded &&
-                                              quranCtrl.getNavBarType(
-                                                NavBarType.surahList,
-                                              )
+                                              quranCtrl
+                                                  .getNavBarType(
+                                                    NavBarType.surahList,
+                                                  )
+                                                  .value
                                           ? SvgPath.svgHomeClose
                                           : SvgPath.svgHomeSurahList,
                                     ),
@@ -163,10 +172,15 @@ class NavBarWidget extends StatelessWidget {
                                     flex: 2,
                                     child: ContainerButton(
                                       onPressed: () {
-                                        quranCtrl.setNavBarType =
-                                            NavBarType.bookmarkList;
+                                        isExpanded
+                                            ? quranCtrl.setNavBarType =
+                                                  NavBarType.none
+                                            : quranCtrl.setNavBarType =
+                                                  NavBarType.bookmarkList;
                                         quranCtrl.state.navBarController
                                             .toggle();
+                                        quranCtrl.state.isPlayExpanded.value =
+                                            false;
                                       },
                                       svgHeight: 35,
                                       svgWidth: 35,
@@ -177,9 +191,11 @@ class NavBarWidget extends StatelessWidget {
                                           context.theme.colorScheme.primary,
                                       svgWithColorPath:
                                           isExpanded &&
-                                              quranCtrl.getNavBarType(
-                                                NavBarType.bookmarkList,
-                                              )
+                                              quranCtrl
+                                                  .getNavBarType(
+                                                    NavBarType.bookmarkList,
+                                                  )
+                                                  .value
                                           ? SvgPath.svgHomeClose
                                           : SvgPath.svgHomeBookmarkList,
                                     ),
@@ -196,7 +212,7 @@ class NavBarWidget extends StatelessWidget {
               );
             },
             childBuilder: (currentHeight) {
-              if (quranCtrl.getNavBarType(NavBarType.surahList)) {
+              if (quranCtrl.getNavBarType(NavBarType.surahList).value) {
                 return Material(
                   elevation: 8,
                   color: Colors.transparent,

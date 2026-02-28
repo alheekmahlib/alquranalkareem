@@ -1,3 +1,4 @@
+import 'package:alquranalkareem/core/utils/helpers/app_text_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -182,11 +183,9 @@ class _SliderWidgetState extends State<SliderWidget> {
                     ),
                     child: Text(
                       'downloading'.tr,
-                      style: TextStyle(
+                      style: AppTextStyles.titleMedium(
                         color:
                             widget.textColor ?? Theme.of(context).canvasColor,
-                        fontSize: 16,
-                        fontFamily: 'kufi',
                       ),
                     ),
                   )
@@ -200,9 +199,8 @@ class _SliderWidgetState extends State<SliderWidget> {
                         ),
                         decoration: BoxDecoration(
                           color: Theme.of(context).colorScheme.primary,
-                          borderRadius: const BorderRadius.only(
-                            topLeft: Radius.circular(4),
-                            bottomLeft: Radius.circular(4),
+                          borderRadius: const BorderRadius.all(
+                            Radius.circular(4),
                           ),
                         ),
                         child: Text(
@@ -211,12 +209,10 @@ class _SliderWidgetState extends State<SliderWidget> {
                                   ).firstMatch("$remaining")?.group(1) ??
                                   '$remaining')
                               .convertNumbersToCurrentLang(),
-                          style: TextStyle(
+                          style: AppTextStyles.titleMedium(
                             color:
                                 widget.textColor ??
                                 Theme.of(context).canvasColor,
-                            fontSize: 16,
-                            fontFamily: 'kufi',
                           ),
                         ),
                       ),
@@ -227,9 +223,8 @@ class _SliderWidgetState extends State<SliderWidget> {
                         ),
                         decoration: BoxDecoration(
                           color: Theme.of(context).colorScheme.primary,
-                          borderRadius: const BorderRadius.only(
-                            topRight: Radius.circular(4),
-                            bottomRight: Radius.circular(4),
+                          borderRadius: const BorderRadius.all(
+                            Radius.circular(4),
                           ),
                         ),
                         child: Text(
@@ -238,12 +233,10 @@ class _SliderWidgetState extends State<SliderWidget> {
                                   ).firstMatch("$total")?.group(1) ??
                                   '$total')
                               .convertNumbersToCurrentLang(),
-                          style: TextStyle(
+                          style: AppTextStyles.titleMedium(
                             color:
                                 widget.textColor ??
                                 Theme.of(context).canvasColor,
-                            fontSize: 16,
-                            fontFamily: 'kufi',
                           ),
                         ),
                       ),

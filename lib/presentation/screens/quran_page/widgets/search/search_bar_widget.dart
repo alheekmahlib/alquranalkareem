@@ -35,10 +35,7 @@ class TextFieldBarWidget extends StatelessWidget {
         child: TextField(
           controller: controller,
           maxLines: 1,
-          style: TextStyle(
-            fontSize: 16.0,
-            fontFamily: 'naskh',
-            fontWeight: FontWeight.w600,
+          style: AppTextStyles.heading3(
             color: context.theme.hintColor.withValues(alpha: .7),
           ),
           decoration: InputDecoration(
@@ -63,10 +60,7 @@ class TextFieldBarWidget extends StatelessWidget {
               borderSide: const BorderSide(color: Colors.transparent, width: 1),
               borderRadius: BorderRadius.circular(8.0),
             ),
-            hintStyle: TextStyle(
-              fontSize: 14.0,
-              fontFamily: 'kufi',
-              fontWeight: FontWeight.w600,
+            hintStyle: AppTextStyles.titleSmall(
               color: context.theme.colorScheme.surface.withValues(alpha: .3),
             ),
             filled: true,
@@ -76,19 +70,14 @@ class TextFieldBarWidget extends StatelessWidget {
                 Container(
                   height: 20,
                   padding: const EdgeInsets.all(10.0),
-                  child: customSvgWithCustomColor(
-                    SvgPath.svgSearchIcon,
-                    height: 35,
-                  ),
+                  child: customSvgWithColor(SvgPath.svgHomeSearch, height: 35),
                 ),
             suffixIcon: IconButton(
-              icon: Icon(Icons.close, color: context.theme.hintColor),
+              icon: Icon(Icons.close, color: context.theme.colorScheme.primary),
               onPressed: onButtonPressed,
             ),
             labelText: hintText ?? 'search_word'.tr,
-            labelStyle: TextStyle(
-              fontSize: 14.0,
-              fontFamily: 'kufi',
+            labelStyle: AppTextStyles.titleSmall(
               color: context.theme.hintColor.withValues(alpha: .7),
             ),
           ),

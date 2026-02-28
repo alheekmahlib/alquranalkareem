@@ -9,18 +9,14 @@ class SkipToNext extends StatelessWidget {
     final isRTL = Get.locale?.languageCode == 'ar';
     return StreamBuilder<SequenceState?>(
       stream: audioCtrl.state.audioPlayer.sequenceStateStream,
-      builder: (context, snapshot) => GestureDetector(
-        child: Semantics(
-          button: true,
-          enabled: true,
-          label: 'next'.tr,
-          child: Icon(
-            Icons.skip_previous,
-            color: Theme.of(context).colorScheme.primary,
-            size: 30,
-          ),
-        ),
-        onTap: () async {
+      builder: (context, snapshot) => CustomButton(
+        svgPath: SvgPath.svgAudioPreviousIcon,
+        height: 40,
+        width: 40,
+        iconSize: 25,
+        isCustomSvgColor: true,
+        svgColor: context.theme.colorScheme.primary,
+        onPressed: () async {
           isRTL
               ? await audioCtrl.skipNextAyah(
                   context,

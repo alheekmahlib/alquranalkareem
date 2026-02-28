@@ -111,6 +111,7 @@ class TopBarWidget extends StatelessWidget {
                             child: isHomeChild
                                 ? ContainerButton(
                                     onPressed: () {
+                                      quranCtrl.setTopBarType = TopBarType.none;
                                       Get.offAll(
                                         () => const HomeScreen(),
                                         transition: Transition.upToDown,
@@ -159,12 +160,8 @@ class TopBarWidget extends StatelessWidget {
                                     quranCtrl.setTopBarType =
                                         TopBarType.settings;
                                     quranCtrl.state.searchController.toggle();
-                                    // customBottomSheet(
-                                    //   SettingsList(
-                                    //     isQuranSetting: isQuranSetting,
-                                    //     isCalendarSetting: isCalendarSetting,
-                                    //   ),
-                                    // );
+                                    quranCtrl.state.isPlayExpanded.value =
+                                        false;
                                   },
                               svgHeight: 35,
                               svgWidth: 35,

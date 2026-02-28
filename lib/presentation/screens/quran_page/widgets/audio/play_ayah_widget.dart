@@ -7,8 +7,8 @@ class PlayAyah extends StatelessWidget {
   Widget build(BuildContext context) {
     final audioCtrl = AudioCtrl.instance;
     return SizedBox(
-      width: 28,
-      height: 28,
+      width: 40,
+      height: 40,
       child: StreamBuilder<PlayerState>(
         stream: audioCtrl.state.audioPlayer.playerStateStream,
         builder: (context, snapshot) {
@@ -24,25 +24,33 @@ class PlayAyah extends StatelessWidget {
               height: 20.0,
             );
           } else if (playerState != null && !playerState.playing) {
-            return GestureDetector(
-              child: customSvgWithCustomColor(SvgPath.svgPlayArrow, height: 25),
-              onTap: () async {
+            return CustomButton(
+              svgPath: SvgPath.svgAudioPlayArrow,
+              height: 40,
+              width: 40,
+              iconSize: 38,
+              svgColor: context.theme.colorScheme.surface,
+              onPressed: () async {
                 GeneralController.instance.showAudioWidgetFor();
                 QuranController.instance.state.selectedAyahIndexes.isNotEmpty
                     ? audioCtrl.state.isDirectPlaying.value = false
                     : audioCtrl.state.isDirectPlaying.value = true;
                 QuranController.instance.state.isPlayExpanded.value = true;
-                audioCtrl.playAyah(
-                  context,
-                  audioCtrl.currentAyah.ayahUQNumber,
+                QuranLibrary().playAyah(
+                  context: context,
+                  currentAyahUniqueNumber: audioCtrl.currentAyah.ayahUQNumber,
                   playSingleAyah: true,
                 );
               },
             );
           }
-          return GestureDetector(
-            child: customSvgWithCustomColor(SvgPath.svgPauseArrow, height: 25),
-            onTap: () {
+          return CustomButton(
+            svgPath: SvgPath.svgAudioPauseArrow,
+            height: 40,
+            width: 40,
+            iconSize: 38,
+            svgColor: context.theme.colorScheme.surface,
+            onPressed: () {
               QuranController.instance.state.isPlayExpanded.value = true;
               audioCtrl.pausePlayer();
             },
