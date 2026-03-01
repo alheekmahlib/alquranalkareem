@@ -1,7 +1,6 @@
 import 'package:get/get.dart';
 
 import '/presentation/screens/home/home_screen.dart';
-import '../../../presentation/controllers/theme_controller.dart';
 import '../../../presentation/screens/adhkar/screens/adhkar_view.dart';
 import '../../../presentation/screens/alwaqf_screen/alwaqf_screen.dart';
 import '../../../presentation/screens/books/screens/books_screen.dart';
@@ -90,29 +89,6 @@ final List screensList = [
     'imagePath': 'assets/images/tafsir_books.jpg',
     'route': () => BooksScreen(),
     'width': 326.0,
-  },
-];
-
-const List themeList = [
-  {
-    'name': AppTheme.blue,
-    'title': 'blueMode',
-    'svgUrl': 'assets/svg/theme0.svg',
-  },
-  {
-    'name': AppTheme.brown,
-    'title': 'brownMode',
-    'svgUrl': 'assets/svg/theme1.svg',
-  },
-  {
-    'name': AppTheme.green,
-    'title': 'greenMode',
-    'svgUrl': 'assets/svg/theme3.svg',
-  },
-  {
-    'name': AppTheme.dark,
-    'title': 'darkMode',
-    'svgUrl': 'assets/svg/theme2.svg',
   },
 ];
 

@@ -1274,5 +1274,17 @@
     "Thu": "Чт",
     "Fri": "Пт",
     "Sat": "Сб",
-    "manager_ayah_downloads": "Управление загрузкой аятов"
+    "manager_ayah_downloads": "Управление загрузкой аятов",
+    "load_error": "Не удалось загрузить данные для этого слова.",
+    "no_data": "Нет данных для этого слова.",
+    "recitations": "Чтения",
+    "tasreef": "Спряжение",
+    "eerab": "И'раб",
+  "unavailableDataTemplate": "Данные @kind не загружены на этом устройстве",
+  "@unavailableDataTemplate": {
+    "type": "text",
+    "placeholders": {
+      "kind": {}
+    }
+  }
 }

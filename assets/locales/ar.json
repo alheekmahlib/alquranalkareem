@@ -1274,5 +1274,17 @@
   "Thu": "الخميس",
   "Fri": "الجمعة",
   "Sat": "السبت",
-  "manager_ayah_downloads": "إدارة تحميل الآيات"
+  "manager_ayah_downloads": "إدارة تحميل الآيات",
+  "load_error": "تعذّر تحميل بيانات هذه الكلمة.",
+  "no_data": "لا توجد بيانات لهذه الكلمة.",
+  "recitations": "القراءات",
+  "tasreef": "التصريف",
+  "eerab": "الإعراب",
+  "unavailableDataTemplate": "بيانات @kind غير محمّلة على الجهاز",
+  "@unavailableDataTemplate": {
+    "type": "text",
+    "placeholders": {
+      "kind": {}
+    }
+  }
 }

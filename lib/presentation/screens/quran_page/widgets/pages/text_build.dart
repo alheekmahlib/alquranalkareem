@@ -72,15 +72,11 @@ class TextBuild extends StatelessWidget {
           ),
           onAyahLongPress: (details, ayah) {
             final surah = QuranLibrary().getCurrentSurahDataByAyah(ayah: ayah);
-            context.showAyahMenu(
-              surahNum: surah.surahNumber,
-              ayahNum: ayah.ayahNumber,
-              ayahText: ayah.text,
-              pageIndex: ayah.page,
-              ayahTextNormal: ayah.ayaTextEmlaey,
-              ayahUQNum: ayah.ayahUQNumber,
-              surahName: surah.arabicName,
-              details: details,
+            AyahMenuHelper.show(
+              context,
+              surah: surah,
+              ayah: ayah,
+              pageIndex: ayah.page - 1,
             );
             log('ayahUQNumber: ${ayah.ayahUQNumber}');
             // quranCtrl.toggleAyahSelection(ayah.ayahUQNumber);

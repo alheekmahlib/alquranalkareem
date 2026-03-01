@@ -144,4 +144,69 @@ extension QuranGetters on QuranController {
       return SvgPath.svgSurahBanner3;
     }
   }
+
+  WordInfoBottomSheetStyle get wordInfoStyle =>
+      WordInfoBottomSheetStyle.defaults(
+        isDark: ThemeController.instance.isDarkMode,
+        context: Get.context!,
+      ).copyWith(
+        backgroundColor: Colors.transparent,
+        innerBorderColor: Colors.transparent,
+        innerShadowColor: Colors.transparent,
+        tafsirBackgroundColor: Colors.transparent,
+        contentPadding: EdgeInsets.zero,
+        horizontalMargin: 0.0,
+        dividerHeight: 0.0,
+        verticalMargin: 0.0,
+        textBackgroundColor: Colors.transparent,
+        downloadText: 'download'.tr,
+        downloadingText: 'downloading'.tr,
+        loadErrorText: 'load_error'.tr,
+        noDataText: 'no_data'.tr,
+        unavailableDataTemplate: 'unavailableDataTemplate'.trParams({
+          'kind': '${WordInfoCtrl.instance.selectedKind.value.name}'.tr,
+        }),
+        tabRecitationsText: 'recitations'.tr,
+        tabTasreefText: 'tasreef'.tr,
+        tabEerabText: 'eerab'.tr,
+        withTitle: false,
+        withWordText: false,
+        withWordAudioButton: false,
+        handleWidget: const SizedBox.shrink(),
+        tabIndicatorColor: Get.theme.colorScheme.surface.withValues(alpha: .5),
+        tabIndicatorPadding: const EdgeInsets.symmetric(horizontal: 0.0),
+        innerContainerPadding: const EdgeInsets.all(8.0),
+        padding: const EdgeInsets.symmetric(horizontal: 0.0),
+        tabBackgroundColor: Colors.transparent,
+        tabLabelStyle: AppTextStyles.titleSmall(),
+        innerContainerBoxShadow: const [],
+        tabBarHeight: 40.0,
+        innerBorderWidth: .1,
+        borderRadius: 8.0,
+        tabIndicatorRadius: 8.0,
+        innerContainerBorderRadius: 8.0,
+        downloadButtonWidget: (context, kind) {
+          final ctrl = WordInfoCtrl.instance;
+          final isDownloading =
+              ctrl.isDownloading.value && ctrl.downloadingKind.value == kind;
+          return ContainerButton(
+            onPressed: () async {
+              isDownloading ? null : await ctrl.downloadKind(kind);
+            },
+            height: 40.0,
+            width: 250.0,
+            isTitleCentered: true,
+            title: isDownloading ? 'downloading'.tr : 'download'.tr,
+            horizontalPadding: 16.0,
+            verticalPadding: 2.0,
+            backgroundColor: Get.theme.colorScheme.surface,
+            progressColor: Get.theme.colorScheme.primary.withValues(alpha: .2),
+            isDownloading: isDownloading,
+            downloadProgress: ctrl.downloadProgress.value.toStringAsFixed(0),
+            isPreparingDownload:
+                ctrl.isPreparingDownload.value &&
+                ctrl.downloadingKind.value == kind,
+          );
+        },
+      );
 }

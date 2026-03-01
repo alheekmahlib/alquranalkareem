@@ -1,31 +1,25 @@
 part of '../../quran.dart';
 
 class TafsirButton extends StatelessWidget {
-  final int surahNum;
-  final int ayahNum;
-  final String ayahText;
+  final AyahModel ayah;
   final int pageIndex;
-  final String ayahTextNormal;
-  final int ayahUQNum;
   final Function? cancel;
   const TafsirButton({
     super.key,
-    required this.surahNum,
-    required this.ayahNum,
-    required this.ayahText,
+    required this.ayah,
     required this.pageIndex,
-    required this.ayahTextNormal,
-    required this.ayahUQNum,
     this.cancel,
   });
 
   @override
   Widget build(BuildContext context) {
     return CustomButton(
-      width: 30,
+      height: 40,
+      width: 35,
+      iconSize: 35,
       isCustomSvgColor: true,
-      svgPath: SvgPath.svgTafsirIcon,
-      svgColor: context.theme.hintColor,
+      svgPath: SvgPath.svgQuranTafsir,
+      svgColor: context.theme.canvasColor,
       onPressed: () async {
         // await QuranLibrary().initTafsir();
         // await QuranLibrary().fetchTafsir(pageNumber: pageIndex);
@@ -35,10 +29,10 @@ class TafsirButton extends StatelessWidget {
         // );
         await QuranLibrary().showTafsirOnTap(
           context: Get.context!,
-          ayahNum: ayahNum,
+          ayahNum: ayah.ayahNumber,
           pageIndex: pageIndex,
-          ayahUQNum: ayahUQNum,
-          ayahNumber: ayahNum,
+          ayahUQNum: ayah.ayahUQNumber,
+          ayahNumber: ayah.ayahNumber,
           isDark: ThemeController.instance.isDarkMode,
           externalTafsirStyle:
               TafsirStyle.defaults(
@@ -85,7 +79,6 @@ class TafsirButton extends StatelessWidget {
                 downloadIconColor: Get.theme.canvasColor,
               ),
         );
-        QuranController.instance.state.isPages.value == 1 ? null : cancel!();
       },
     );
   }

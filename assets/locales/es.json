@@ -1282,5 +1282,17 @@
   "Thu": "Jue",
   "Fri": "Vie",
   "Sat": "Sáb",
-  "manager_ayah_downloads": "Gestionar Descargas de Ayah"
+  "manager_ayah_downloads": "Gestionar Descargas de Ayah",
+  "load_error": "No se pudieron cargar los datos de esta palabra.",
+  "no_data": "No hay datos para esta palabra.",
+  "recitations": "Recitaciones",
+  "tasreef": "Conjugación",
+  "eerab": "I'rab",
+  "unavailableDataTemplate": "Los datos de @kind no están descargados en el dispositivo",
+  "@unavailableDataTemplate": {
+    "type": "text",
+    "placeholders": {
+      "kind": {}
+    }
+  }
 }

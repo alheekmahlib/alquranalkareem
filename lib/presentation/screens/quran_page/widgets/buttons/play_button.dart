@@ -1,18 +1,16 @@
 part of '../../quran.dart';
 
 class PlayButton extends StatelessWidget {
-  final int surahNum;
-  final int ayahNum;
-  final int ayahUQNum;
+  final SurahModel surah;
+  final AyahModel ayah;
   final VoidCallback? cancel;
 
   /// just play the selected ayah.
   final bool singleAyahOnly;
   PlayButton({
     super.key,
-    required this.surahNum,
-    required this.ayahNum,
-    required this.ayahUQNum,
+    required this.surah,
+    required this.ayah,
     this.singleAyahOnly = false,
     this.cancel,
   });
@@ -21,20 +19,24 @@ class PlayButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CustomButton(
-      width: 30,
+      height: 40,
+      width: 35,
+      iconSize: 35,
       isCustomSvgColor: true,
-      svgPath: singleAyahOnly ? SvgPath.svgPlayArrow : SvgPath.svgPlayAll,
-      svgColor: context.theme.hintColor,
+      svgPath: singleAyahOnly
+          ? SvgPath.svgAudioPlayArrow
+          : SvgPath.svgQuranPlayAll,
+      svgColor: context.theme.canvasColor,
       onPressed: () async {
         // AudioCtrl.instance.startPlayingToggle();
         GeneralController.instance.showAudioWidgetFor();
         QuranController.instance.state.isPlayExpanded.value = true;
         AudioCtrl.instance.state.isDirectPlaying.value = false;
-        debugPrint('SurahNum: $surahNum');
+        debugPrint('SurahNum: ${surah.surahNumber}');
 
         await QuranLibrary().playAyah(
           context: Get.context!,
-          currentAyahUniqueNumber: ayahUQNum,
+          currentAyahUniqueNumber: ayah.ayahUQNumber,
           ayahAudioStyle: AudioCtrl.instance.ayahAudioStyle,
           ayahDownloadManagerStyle: AudioCtrl.instance.ayahDownloadManagerStyle,
           playSingleAyah: singleAyahOnly,

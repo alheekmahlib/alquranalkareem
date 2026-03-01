@@ -1276,5 +1276,17 @@
   "Thu": "Kam",
   "Fri": "Jum",
   "Sat": "Sab",
-  "manager_ayah_downloads": "Kelola Unduhan Ayat"
+  "manager_ayah_downloads": "Kelola Unduhan Ayat",
+  "load_error": "Gagal memuat data untuk kata ini.",
+  "no_data": "Tidak ada data untuk kata ini.",
+  "recitations": "Qiraat",
+  "tasreef": "Konjugasi",
+  "eerab": "I'rab",
+  "unavailableDataTemplate": "Data @kind belum diunduh di perangkat ini",
+  "@unavailableDataTemplate": {
+    "type": "text",
+    "placeholders": {
+      "kind": {}
+    }
+  }
 }

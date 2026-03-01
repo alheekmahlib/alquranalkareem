@@ -1282,5 +1282,17 @@
   "Thu": "Kms",
   "Fri": "Jmc",
   "Sat": "Sbt",
-  "manager_ayah_downloads": "Maamusha Soo Dejinta Aayaadaha"
+  "manager_ayah_downloads": "Maamusha Soo Dejinta Aayaadaha",
+  "load_error": "Lama soo dejin karin xogta eraygan.",
+  "no_data": "Xog kuma jirto eraygan.",
+  "recitations": "Qira'aad",
+  "tasreef": "Tasreef",
+  "eerab": "I'raab",
+  "unavailableDataTemplate": "Xogta @kind kama soo degan qalabkan",
+  "@unavailableDataTemplate": {
+    "type": "text",
+    "placeholders": {
+      "kind": {}
+    }
+  }
 }

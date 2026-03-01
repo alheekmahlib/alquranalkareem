@@ -35,6 +35,7 @@ Future<void> initializeApp() async {
   Future.delayed(const Duration(seconds: 0));
   await GetStorage.init();
   await QuranLibrary.init();
+  QuranLibrary.initWordAudio();
   NotifyHelper.initAwesomeNotifications();
   await ServicesLocator().init();
   tz.initializeTimeZones();
