@@ -15,10 +15,11 @@ class ChaptersPage extends StatelessWidget {
   final String bookName;
   final String aboutBook;
 
-  ChaptersPage(
-      {required this.bookNumber,
-      required this.bookName,
-      required this.aboutBook});
+  ChaptersPage({
+    required this.bookNumber,
+    required this.bookName,
+    required this.aboutBook,
+  });
 
   final booksCtrl = BooksController.instance;
 
@@ -31,39 +32,43 @@ class ChaptersPage extends StatelessWidget {
         title: 'tafsirLibrary'.tr,
         isFontSize: false,
         searchButton: IconButton(
-            onPressed: () => Get.bottomSheet(
-                SearchScreen(
-                  onSubmitted: (v) => booksCtrl.searchBooks(
-                      booksCtrl.state.searchController.text,
-                      bookNumber: bookNumber),
-                ),
-                isScrollControlled: true),
-            icon: customSvgWithColor(SvgPath.svgSearchIcon,
-                color: Theme.of(context).colorScheme.surface)),
+          onPressed: () => Get.bottomSheet(
+            SearchScreen(
+              onSubmitted: (v) => booksCtrl.searchBooks(
+                booksCtrl.state.searchController.text,
+                bookNumber: bookNumber,
+              ),
+            ),
+            isScrollControlled: true,
+          ),
+          icon: customSvgWithColor(
+            SvgPath.svgSearchIcon,
+            color: Theme.of(context).colorScheme.surface,
+          ),
+        ),
         isNotifi: false,
         isBooks: false,
       ),
       body: SafeArea(
-          child: ListView(
-        children: [
-          const Gap(8),
-          BookDetails(
-            bookNumber: bookNumber,
-            bookName: bookName,
-            aboutBook: aboutBook,
-          ),
-          const Gap(16),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 24.0),
-            child: SingleChildScrollView(
-              child: BooksChapterBuild(
-                bookNumber: bookNumber,
+        child: ListView(
+          children: [
+            const Gap(8),
+            BookDetails(
+              bookNumber: bookNumber,
+              bookName: bookName,
+              aboutBook: aboutBook,
+            ),
+            const Gap(16),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 24.0),
+              child: SingleChildScrollView(
+                child: BooksChapterBuild(bookNumber: bookNumber),
               ),
             ),
-          ),
-          const Gap(16),
-        ],
-      )),
+            const Gap(16),
+          ],
+        ),
+      ),
     );
   }
 }

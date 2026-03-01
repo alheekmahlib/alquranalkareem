@@ -74,7 +74,7 @@ class TafseerImageCreator extends StatelessWidget {
         child: Container(
           width: 960.0,
           decoration: const BoxDecoration(
-            color: const Color(0xff404C6E),
+            color: const Color(0xff254D32),
           ),
           child: Column(
             children: [
@@ -128,7 +128,7 @@ class TafseerImageCreator extends StatelessWidget {
                           surahNameWidget(
                               height: 25,
                               '$surahNumber',
-                              const Color(0xff404C6E)),
+                              const Color(0xff254D32)),
                         ],
                       ),
                       const Gap(16),
@@ -179,7 +179,7 @@ class TafseerImageCreator extends StatelessWidget {
                               Container(
                                 padding: const EdgeInsets.all(8.0),
                                 decoration: BoxDecoration(
-                                    color: const Color(0xff404C6E)
+                                    color: const Color(0xff254D32)
                                         .withValues(alpha: .15),
                                     borderRadius: const BorderRadius.all(
                                         Radius.circular(8))),

@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -20,125 +22,127 @@ class TabBarWidget extends StatelessWidget {
   final bool isNotification;
   final bool? isCalendarSetting;
   final void Function()? settingOnTap;
-  const TabBarWidget(
-      {super.key,
-      required this.isFirstChild,
-      required this.isCenterChild,
-      this.centerChild,
-      this.isQuranSetting,
-      required this.isNotification,
-      this.settingOnTap,
-      this.isCalendarSetting = false});
+  const TabBarWidget({
+    super.key,
+    required this.isFirstChild,
+    required this.isCenterChild,
+    this.centerChild,
+    this.isQuranSetting,
+    required this.isNotification,
+    this.settingOnTap,
+    this.isCalendarSetting = false,
+  });
 
   @override
   Widget build(BuildContext context) {
     final generalCtrl = GeneralController.instance;
-    return Column(
-      children: [
-        Container(
-          height: 15,
-          width: MediaQuery.sizeOf(context).width,
-          color: Theme.of(context).colorScheme.primary,
+    return Container(
+      child: ClipRRect(
+        borderRadius: const BorderRadius.only(
+          bottomLeft: Radius.circular(12),
+          bottomRight: Radius.circular(12),
         ),
-        Transform.translate(
-          offset: const Offset(0, -2),
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Expanded(
-                flex: 2,
-                child: isFirstChild
-                    ? GestureDetector(
-                        onTap: () {
-                          Get.offAll(() => const HomeScreen(),
-                              transition: Transition.upToDown);
-                          sl<QuranController>()
-                              .state
-                              .selectedAyahIndexes
-                              .clear();
-                        },
-                        child: Stack(
-                          alignment: Alignment.center,
-                          children: [
-                            customSvgWithColor(SvgPath.svgButtonCurve,
-                                height: 45.0,
-                                width: 45.0,
-                                color: Get.theme.colorScheme.primary),
-                            Container(
-                                padding: const EdgeInsets.all(4),
-                                margin: const EdgeInsets.only(bottom: 5),
-                                decoration: BoxDecoration(
-                                    borderRadius: const BorderRadius.all(
-                                        Radius.circular(4)),
-                                    border: Border.all(
-                                        width: 1,
-                                        color: Theme.of(context)
-                                            .colorScheme
-                                            .surface)),
-                                child: customSvgWithColor(SvgPath.svgHome,
-                                    height: 25.0,
-                                    width: 25.0,
-                                    color: Get.theme.colorScheme.secondary)),
-                          ],
-                        ),
-                      )
-                    : isNotification
-                        ? GestureDetector(
-                            onTap: () =>
-                                customBottomSheet(NotificationsScreen()),
-                            child: const NotificationIconWidget(
-                              isCurve: true,
-                              iconHeight: 25,
-                              padding: 4.0,
-                            ),
-                          )
-                        : const SizedBox.shrink(),
+        child: BackdropFilter(
+          filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
+          child: Container(
+            height: 56,
+            padding: const EdgeInsets.symmetric(horizontal: 8.0),
+            decoration: BoxDecoration(
+              color: Theme.of(context).colorScheme.primary,
+              borderRadius: const BorderRadius.only(
+                bottomLeft: Radius.circular(12),
+                bottomRight: Radius.circular(12),
               ),
-              Expanded(
-                  flex: 7,
-                  child:
-                      isCenterChild ? centerChild! : const SizedBox.shrink()),
-              Expanded(
-                flex: 2,
-                child: GestureDetector(
-                  onTap: settingOnTap ??
+              boxShadow: [
+                BoxShadow(
+                  color: Theme.of(
+                    context,
+                  ).colorScheme.primary.withValues(alpha: 0.2),
+                  blurRadius: 12,
+                  offset: const Offset(0, 4),
+                ),
+              ],
+            ),
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                // Left button
+                _buildPillButton(
+                  context,
+                  isFirstChild
+                      ? () {
+                          Get.offAll(() => const HomeScreen());
+                          sl<QuranController>().state.selectedAyahIndexes
+                              .clear();
+                        }
+                      : isNotification
+                      ? () => customBottomSheet(NotificationsScreen())
+                      : null,
+                  isFirstChild
+                      ? customSvgWithColor(
+                          SvgPath.svgHome,
+                          height: 22.0,
+                          width: 22.0,
+                          color: Get.theme.colorScheme.secondary,
+                        )
+                      : isNotification
+                      ? const NotificationIconWidget(
+                          isCurve: false,
+                          iconHeight: 22,
+                          padding: 0.0,
+                        )
+                      : const SizedBox(width: 40),
+                ),
+                // Center child
+                Expanded(
+                  child: isCenterChild ? centerChild! : const SizedBox.shrink(),
+                ),
+                // Right button (settings)
+                _buildPillButton(
+                  context,
+                  settingOnTap ??
                       () {
-                        customBottomSheet(SettingsList(
-                          isQuranSetting: isQuranSetting,
-                          isCalendarSetting: isCalendarSetting,
-                        ));
+                        customBottomSheet(
+                          SettingsList(
+                            isQuranSetting: isQuranSetting,
+                            isCalendarSetting: isCalendarSetting,
+                          ),
+                        );
                         generalCtrl.state.showSelectScreenPage.value = false;
                       },
-                  child: Stack(
-                    alignment: Alignment.center,
-                    children: [
-                      customSvgWithColor(SvgPath.svgButtonCurve,
-                          height: 45.0,
-                          width: 45.0,
-                          color: Get.theme.colorScheme.primary),
-                      Container(
-                          padding: const EdgeInsets.all(4),
-                          margin: const EdgeInsets.only(bottom: 5),
-                          decoration: BoxDecoration(
-                              borderRadius:
-                                  const BorderRadius.all(Radius.circular(4)),
-                              border: Border.all(
-                                  width: 1,
-                                  color:
-                                      Theme.of(context).colorScheme.surface)),
-                          child: customSvgWithColor(SvgPath.svgOptions,
-                              height: 25.0,
-                              width: 25.0,
-                              color: Get.theme.colorScheme.secondary)),
-                    ],
+                  customSvgWithColor(
+                    SvgPath.svgOptions,
+                    height: 22.0,
+                    width: 22.0,
+                    color: Get.theme.colorScheme.secondary,
                   ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
-        )
-      ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildPillButton(
+    BuildContext context,
+    VoidCallback? onTap,
+    Widget child,
+  ) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        height: 40,
+        width: 40,
+        alignment: Alignment.center,
+        decoration: BoxDecoration(
+          color: Theme.of(context).colorScheme.surface.withValues(alpha: 0.2),
+          borderRadius: const BorderRadius.all(Radius.circular(14)),
+        ),
+        child: child,
+      ),
     );
   }
 }

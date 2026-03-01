@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -40,80 +38,70 @@ class ElevatedLayerButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Opacity(
-        opacity: _disabled ? 0.5 : 1,
-        child: GetBuilder<ElevatedButtonController>(
-          id: 'buttonIndex_$index',
-          builder: (elevatedCtrl) => GestureDetector(
-            onTap: () {
-              onClick!();
-              log('Button $index clicked', name: 'ElevatedLayerButton');
-              if (!_disabled) {
-                elevatedCtrl.buttonPressed.value = true;
-                elevatedCtrl.animationCompleted.value = false;
-                // elevatedCtrl.isClicked.value = true;
+      opacity: _disabled ? 0.5 : 1,
+      child: GetBuilder<ElevatedButtonController>(
+        id: 'buttonIndex_$index',
+        builder: (elevatedCtrl) => GestureDetector(
+          onTap: () {
+            onClick!();
+            if (!_disabled) {
+              elevatedCtrl.buttonPressed.value = true;
+              elevatedCtrl.animationCompleted.value = false;
+              elevatedCtrl.update(['buttonIndex_$index']);
+            }
+          },
+          child: AnimatedScale(
+            scale: _enabled
+                ? (elevatedCtrl.buttonPressed.value ? 0.96 : 1.0)
+                : 1.0,
+            duration: animationDuration ?? const Duration(milliseconds: 200),
+            curve: Curves.easeOutBack,
+            onEnd: () {
+              if (!elevatedCtrl.animationCompleted.value) {
+                elevatedCtrl.animationCompleted.value = true;
+                elevatedCtrl.buttonPressed.value = false;
                 elevatedCtrl.update(['buttonIndex_$index']);
               }
             },
-            child: SizedBox(
-              height: buttonHeight,
-              width: buttonWidth,
-              child: Stack(
-                alignment: Alignment.bottomRight,
-                children: [
-                  Positioned(
-                    bottom: 0,
-                    right: 0,
-                    child: Container(
-                      width: (buttonWidth ?? 100) - 10,
-                      height: (buttonHeight ?? 40) - 10,
-                      decoration: baseDecoration?.copyWith(
-                            borderRadius: borderRadius,
-                          ) ??
-                          BoxDecoration(
-                            color: Colors.black,
-                            border: Border.all(color: Colors.black),
-                          ),
-                    ),
+            child: Container(
+              width: (buttonWidth ?? 100),
+              height: (buttonHeight ?? 100),
+              alignment: Alignment.center,
+              decoration:
+                  topDecoration?.copyWith(
+                    borderRadius:
+                        borderRadius ??
+                        const BorderRadius.all(Radius.circular(16)),
+                    boxShadow: [
+                      BoxShadow(
+                        color: (topDecoration?.color ?? Colors.black)
+                            .withValues(alpha: 0.25),
+                        blurRadius: elevatedCtrl.buttonPressed.value ? 4 : 10,
+                        offset: Offset(
+                          0,
+                          elevatedCtrl.buttonPressed.value ? 2 : 5,
+                        ),
+                      ),
+                    ],
+                  ) ??
+                  BoxDecoration(
+                    color: Theme.of(context).colorScheme.primary,
+                    borderRadius: const BorderRadius.all(Radius.circular(16)),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Theme.of(
+                          context,
+                        ).colorScheme.primary.withValues(alpha: 0.3),
+                        blurRadius: 10,
+                        offset: const Offset(0, 5),
+                      ),
+                    ],
                   ),
-                  AnimatedPositioned(
-                    bottom: _enabled
-                        ? (elevatedCtrl.buttonPressed.value ? 0 : 4)
-                        : 4,
-                    right: _enabled
-                        ? (elevatedCtrl.buttonPressed.value ? 0 : 4)
-                        : 4,
-                    duration:
-                        animationDuration ?? const Duration(milliseconds: 300),
-                    curve: animationCurve ?? Curves.ease,
-                    onEnd: () {
-                      if (!elevatedCtrl.animationCompleted.value) {
-                        elevatedCtrl.animationCompleted.value = true;
-                        elevatedCtrl.buttonPressed.value = false;
-                        // if (elevatedCtrl.isClicked.value) {
-                        //   onClick!();
-                        //   elevatedCtrl.isClicked.value = false;
-                        // }
-                        elevatedCtrl.update(['buttonIndex_$index']);
-                      }
-                    },
-                    child: Container(
-                      width: (buttonWidth ?? 100) - 10,
-                      height: (buttonHeight ?? 100) - 10,
-                      alignment: Alignment.center,
-                      decoration: topDecoration?.copyWith(
-                            borderRadius: borderRadius,
-                          ) ??
-                          BoxDecoration(
-                            color: Colors.black,
-                            border: Border.all(color: Colors.black),
-                          ),
-                      child: topLayerChild,
-                    ),
-                  ),
-                ],
-              ),
+              child: topLayerChild,
             ),
           ),
-        ));
+        ),
+      ),
+    );
   }
 }

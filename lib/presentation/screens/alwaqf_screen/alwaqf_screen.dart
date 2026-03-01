@@ -11,33 +11,31 @@ class AlwaqfScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Theme.of(context).colorScheme.primaryContainer,
-        appBar: const AppBarWidget(
-          isTitled: false,
-          title: '',
-          isFontSize: true,
-          searchButton: const SizedBox.shrink(),
-          isNotifi: false,
-          isBooks: false,
-        ),
-        body: SafeArea(
-          child: Directionality(
-            textDirection: TextDirection.rtl,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Expanded(
-                  flex: context.customOrientation(1, 2),
-                  child: GroupButtonsWidget(),
-                ),
-                context.hDivider(color: Theme.of(context).colorScheme.primary),
-                Expanded(
-                  flex: 9,
-                  child: WaqfListBuild(),
-                ),
-              ],
-            ),
+      backgroundColor: Theme.of(context).colorScheme.primaryContainer,
+      appBar: const AppBarWidget(
+        isTitled: false,
+        title: '',
+        isFontSize: true,
+        searchButton: const SizedBox.shrink(),
+        isNotifi: false,
+        isBooks: false,
+      ),
+      body: SafeArea(
+        child: Directionality(
+          textDirection: TextDirection.rtl,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Expanded(
+                flex: context.customOrientation(1, 2),
+                child: GroupButtonsWidget(),
+              ),
+              context.hDivider(color: Theme.of(context).colorScheme.primary),
+              Expanded(flex: 9, child: WaqfListBuild()),
+            ],
           ),
-        ));
+        ),
+      ),
+    );
   }
 }

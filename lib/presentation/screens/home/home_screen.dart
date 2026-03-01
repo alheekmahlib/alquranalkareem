@@ -17,44 +17,57 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GetBuilder<ThemeController>(builder: (_) {
-      return ScreenUtilInit(
+    return GetBuilder<ThemeController>(
+      builder: (_) {
+        return ScreenUtilInit(
           child: Scaffold(
-        backgroundColor: Theme.of(context).colorScheme.primary,
-        body: SafeArea(
-          child: Container(
-            color: Theme.of(context).colorScheme.primaryContainer,
-            child: Column(
-              children: [
-                const TabBarWidget(
-                  isFirstChild: false,
-                  isCenterChild: false,
-                  isQuranSetting: false,
-                  isNotification: true,
+            backgroundColor: Theme.of(context).colorScheme.primary,
+            body: SafeArea(
+              child: Container(
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                    begin: Alignment.topCenter,
+                    end: Alignment.bottomCenter,
+                    colors: [
+                      Theme.of(context).colorScheme.primaryContainer,
+                      Theme.of(
+                        context,
+                      ).colorScheme.primaryContainer.withValues(alpha: 0.95),
+                    ],
+                  ),
                 ),
-                Flexible(
-                  child: context.customOrientation(
-                      ListView(
-                        padding: EdgeInsets.zero,
-                        children: [
-                          Center(child: HijriWidget()),
-                          const Gap(16),
-                          const ScreensList(),
-                          const Gap(8),
-                          LastRead(),
-                          AyahTafsirWidget(),
-                          const Gap(16),
-                          DailyZeker(),
-                          const Gap(16),
-                        ],
-                      ),
-                      ListView(
-                        padding: EdgeInsets.zero,
-                        children: [
-                          const Gap(8),
-                          Row(
-                            children: [
-                              Expanded(
+                child: Column(
+                  children: [
+                    const TabBarWidget(
+                      isFirstChild: false,
+                      isCenterChild: false,
+                      isQuranSetting: false,
+                      isNotification: true,
+                    ),
+                    Flexible(
+                      child: context.customOrientation(
+                        ListView(
+                          padding: EdgeInsets.zero,
+                          children: [
+                            const Gap(16),
+                            Center(child: HijriWidget()),
+                            const Gap(16),
+                            const ScreensList(),
+                            const Gap(8),
+                            LastRead(),
+                            AyahTafsirWidget(),
+                            const Gap(16),
+                            DailyZeker(),
+                            const Gap(16),
+                          ],
+                        ),
+                        ListView(
+                          padding: EdgeInsets.zero,
+                          children: [
+                            const Gap(8),
+                            Row(
+                              children: [
+                                Expanded(
                                   flex: 4,
                                   child: Column(
                                     children: [
@@ -62,22 +75,26 @@ class HomeScreen extends StatelessWidget {
                                       const Gap(8),
                                       LastRead(),
                                     ],
-                                  )),
-                              const Expanded(flex: 4, child: ScreensList()),
-                            ],
-                          ),
-                          AyahTafsirWidget(),
-                          const Gap(16),
-                          DailyZeker(),
-                          const Gap(16),
-                        ],
-                      )),
+                                  ),
+                                ),
+                                const Expanded(flex: 4, child: ScreensList()),
+                              ],
+                            ),
+                            AyahTafsirWidget(),
+                            const Gap(16),
+                            DailyZeker(),
+                            const Gap(16),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
-              ],
+              ),
             ),
           ),
-        ),
-      ));
-    });
+        );
+      },
+    );
   }
 }

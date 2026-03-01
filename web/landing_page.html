@@ -1,0 +1,642 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>القرآن الكريم بالأمازيغية - أول تطبيق قرآني باللغة القبائلية</title>
+    <meta name="description" content="اكتشف أول تطبيق للقرآن الكريم باللغة الأمازيغية (القبائلية). ترجمة موثوقة، تفسيرات، بحث متقدم، واستماع للتلاوات والترجمة. متوفر على الويب، Play Store و App Store.">
+    <meta name="keywords" content="القرآن, الأمازيغية, القبائلية, التمازيغت, Kabyle, Coran, Islam, تفسير, ترجمة, تطبيق ويب, فلاتر">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts: Cairo for Arabic -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800&family=Noto+Sans+Tifinagh&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Tailwind Config -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Cairo', 'sans-serif'],
+                        tifinagh: ['Noto Sans Tifinagh', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            light: '#3A7D44',
+                            dark: '#254D32',
+                            accent: '#69B578',
+                            surface: '#f8faf9',
+                            card: '#ffffff',
+                        }
+                    },
+                    animation: {
+                        'float': 'float 6s ease-in-out infinite',
+                        'fade-in': 'fadeIn 0.8s ease-out forwards',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-15px)' },
+                        },
+                        fadeIn: {
+                            '0%': { opacity: '0', transform: 'translateY(20px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #3A7D44;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #254D32;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Text Gradient */
+        .text-gradient {
+            background: linear-gradient(135deg, #3A7D44 0%, #69B578 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Pattern Background */
+        .pattern-bg {
+            background-image: radial-gradient(#3A7D44 0.5px, transparent 0.5px);
+            background-size: 20px 20px;
+            opacity: 0.03;
+        }
+
+        /* Card Hover */
+        .feature-card {
+            transition: all 0.3s ease;
+        }
+        .feature-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px -15px rgba(58, 125, 68, 0.15);
+        }
+
+        /* Browser Mockup */
+        .browser-mockup {
+            background: linear-gradient(to bottom, #e5e7eb 0%, #d1d5db 100%);
+            border-radius: 12px 12px 0 0;
+            padding: 12px;
+        }
+        
+        .browser-content {
+            background: white;
+            border-radius: 0 0 8px 8px;
+            min-height: 300px;
+        }
+    </style>
+</head>
+<body class="bg-brand-surface text-gray-800 font-sans antialiased overflow-x-hidden">
+
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 transition-all duration-300 bg-white/80 backdrop-blur-md border-b border-gray-100" id="navbar">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <!-- Logo -->
+                <div class="flex-shrink-0 flex items-center gap-2 cursor-pointer" onclick="window.scrollTo(0,0)">
+                    <div class="w-10 h-10 bg-gradient-to-br from-brand-light to-brand-dark rounded-xl flex items-center justify-center text-white shadow-lg">
+                        <i class="fa-solid fa-book-open"></i>
+                    </div>
+                    <span class="font-bold text-lg text-gray-900">القرآن <span class="text-brand-light">الأمازيغي</span></span>
+                </div>
+
+                <!-- Desktop Menu -->
+                <div class="hidden md:flex items-center gap-6">
+                    <a href="#about" class="text-gray-600 hover:text-brand-light font-medium transition text-sm">عن التطبيق</a>
+                    <a href="#features" class="text-gray-600 hover:text-brand-light font-medium transition text-sm">المميزات</a>
+                    <a href="#web" class="text-gray-600 hover:text-brand-light font-medium transition text-sm">النسخة الويبية</a>
+                    <a href="#download" class="px-5 py-2 bg-brand-light text-white rounded-lg font-medium hover:bg-brand-dark transition text-sm">
+                        تحميل التطبيق
+                    </a>
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <div class="md:hidden flex items-center">
+                    <button id="mobile-menu-btn" class="text-gray-600 hover:text-brand-dark focus:outline-none">
+                        <i class="fa-solid fa-bars text-xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white border-t border-gray-100 absolute w-full shadow-lg">
+            <div class="px-4 py-3 space-y-2">
+                <a href="#about" class="block px-3 py-2 rounded-lg text-gray-700 hover:text-brand-light hover:bg-gray-50">عن التطبيق</a>
+                <a href="#features" class="block px-3 py-2 rounded-lg text-gray-700 hover:text-brand-light hover:bg-gray-50">المميزات</a>
+                <a href="#web" class="block px-3 py-2 rounded-lg text-gray-700 hover:text-brand-light hover:bg-gray-50">النسخة الويبية</a>
+                <a href="#download" class="block px-3 py-2 rounded-lg bg-brand-light text-white text-center">تحميل التطبيق</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="relative pt-24 pb-16 lg:pt-32 lg:pb-24 overflow-hidden">
+        <!-- Background Pattern -->
+        <div class="absolute inset-0 pattern-bg"></div>
+        <div class="absolute top-20 left-10 w-72 h-72 bg-brand-light/10 rounded-full blur-3xl"></div>
+        <div class="absolute bottom-20 right-10 w-96 h-96 bg-brand-accent/10 rounded-full blur-3xl"></div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                
+                <!-- Text Content -->
+                <div class="text-center lg:text-right space-y-6 animate-fade-in">
+                    <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-brand-light/10 text-brand-dark text-sm font-semibold border border-brand-light/20">
+                        <span class="w-2 h-2 rounded-full bg-brand-light animate-pulse"></span>
+                        أول تطبيق قرآني باللغة القبائلية
+                    </div>
+                    
+                    <h1 class="text-4xl lg:text-5xl font-bold leading-tight text-gray-900">
+                        اكتشف القرآن الكريم<br>
+                        <span class="text-gradient">باللغة الأمازيغية</span>
+                    </h1>
+                    
+                    <p class="text-lg text-gray-600 leading-relaxed max-w-xl mx-auto lg:mx-0">
+                        حمّل تطبيق "القرآن الكريم بالأمازيغية" - أول تطبيق للقرآن الكريم باللغة الأمازيغية (القبائلية) على متجر Play Store و App Store!
+                    </p>
+
+                    <!-- Download Buttons in Hero -->
+                    <div class="flex flex-col sm:flex-row gap-3 justify-center lg:justify-start pt-2">
+                        <a href="#" class="flex items-center justify-center gap-3 bg-gray-900 text-white px-6 py-3 rounded-xl hover:bg-gray-800 transition shadow-lg">
+                            <i class="fa-brands fa-apple text-2xl"></i>
+                            <div class="text-right">
+                                <div class="text-[10px] opacity-80">حمله من</div>
+                                <div class="text-sm font-bold leading-tight">App Store</div>
+                            </div>
+                        </a>
+                        <a href="#" class="flex items-center justify-center gap-3 bg-brand-light text-white px-6 py-3 rounded-xl hover:bg-brand-dark transition shadow-lg shadow-brand-light/30">
+                            <i class="fa-brands fa-google-play text-2xl"></i>
+                            <div class="text-right">
+                                <div class="text-[10px] opacity-80">حمله من</div>
+                                <div class="text-sm font-bold leading-tight">Google Play</div>
+                            </div>
+                        </a>
+                    </div>
+
+                    <!-- Web Version Link -->
+                    <div class="flex items-center justify-center lg:justify-start gap-2 pt-2">
+                        <span class="text-gray-500 text-sm">أو استخدمه مباشرة:</span>
+                        <a href="#web" class="text-brand-light font-semibold text-sm hover:underline flex items-center gap-1">
+                            النسخة الويبية <i class="fa-solid fa-arrow-left text-xs"></i>
+                        </a>
+                    </div>
+
+                    <div class="flex items-center justify-center lg:justify-start gap-4 text-xs text-gray-500 pt-2">
+                        <span class="flex items-center gap-1"><i class="fa-solid fa-check text-brand-light"></i> مجاني 100%</span>
+                        <span class="flex items-center gap-1"><i class="fa-solid fa-check text-brand-light"></i> بدون إعلانات</span>
+                        <span class="flex items-center gap-1"><i class="fa-solid fa-check text-brand-light"></i> ثلاث لغات</span>
+                    </div>
+                </div>
+
+                <!-- Phone Mockup -->
+                <div class="relative flex items-center justify-center">
+                    <div class="absolute w-80 h-80 bg-brand-light/20 rounded-full blur-3xl"></div>
+                    
+                    <div class="relative z-10 animate-float">
+                        <div class="w-[260px] h-[540px] bg-gray-900 rounded-[2.5rem] border-[6px] border-gray-800 shadow-2xl overflow-hidden">
+                            <!-- Screen -->
+                            <div class="w-full h-full bg-white relative">
+                                <!-- Header -->
+                                <div class="h-14 bg-brand-light flex items-center justify-between px-4 pt-2">
+                                    <i class="fa-solid fa-bars text-white/80 text-sm"></i>
+                                    <span class="text-white font-bold text-sm">الفاتحة</span>
+                                    <i class="fa-solid fa-magnifying-glass text-white/80 text-sm"></i>
+                                </div>
+                                
+                                <!-- Content -->
+                                <div class="p-4 space-y-4">
+                                    <!-- Arabic Text -->
+                                    <div class="bg-gray-50 p-4 rounded-xl text-center">
+                                        <p class="text-brand-dark font-serif text-lg leading-loose" dir="rtl">
+                                            بِسْمِ ٱللَّهِ ٱلرَّحْمَٰنِ ٱلرَّحِيمِ
+                                        </p>
+                                    </div>
+                                    
+                                    <!-- Kabyle Translation -->
+                                    <div class="bg-brand-light/10 p-4 rounded-xl border-r-4 border-brand-light">
+                                        <p class="text-xs text-brand-dark font-bold mb-1">الترجمة القبائلية</p>
+                                        <p class="text-sm text-gray-700 font-tifinagh leading-relaxed">
+                                            Sellek n Rebbi, Ameɣlal, Amaḥbab.
+                                        </p>
+                                    </div>
+
+                                    <!-- Player -->
+                                    <div class="bg-gray-900 p-3 rounded-xl flex items-center gap-3">
+                                        <div class="w-10 h-10 rounded-full bg-brand-light flex items-center justify-center text-white">
+                                            <i class="fa-solid fa-play text-xs"></i>
+                                        </div>
+                                        <div class="flex-1">
+                                            <div class="h-1 bg-gray-700 rounded-full">
+                                                <div class="h-full w-1/3 bg-brand-light rounded-full"></div>
+                                            </div>
+                                        </div>
+                                        <span class="text-gray-400 text-xs">02:14</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About / Description Section -->
+    <section id="about" class="py-16 bg-white">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h2 class="text-3xl font-bold text-gray-900 mb-6">استكشف القرآن بطريقة جديدة</h2>
+            <p class="text-gray-600 leading-relaxed text-lg mb-8">
+                التطبيق يقدم تجربة فريدة للتعامل مع كتاب الله، حيث يجمع بين الأصالة العربية والهوية الأمازيغية. 
+                صمم خصيصاً ليكون صدقة جارية لكل من يشاركه، مع إمكانية التنقل بين الوضع الفاتح والداكن 
+                ودعم ثلاث لغات لضمان أفضل تجربة للمستخدم.
+            </p>
+            
+            <!-- Feature Pills -->
+            <div class="flex flex-wrap justify-center gap-3">
+                <span class="px-4 py-2 bg-brand-light/10 text-brand-dark rounded-full text-sm font-medium border border-brand-light/20">
+                    <i class="fa-solid fa-language ml-1"></i> ترجمة قبائلية موثوقة
+                </span>
+                <span class="px-4 py-2 bg-brand-light/10 text-brand-dark rounded-full text-sm font-medium border border-brand-light/20">
+                    <i class="fa-solid fa-book-open ml-1"></i> تفسيرات من خبراء
+                </span>
+                <span class="px-4 py-2 bg-brand-light/10 text-brand-dark rounded-full text-sm font-medium border border-brand-light/20">
+                    <i class="fa-solid fa-magnifying-glass ml-1"></i> بحث متقدم
+                </span>
+                <span class="px-4 py-2 bg-brand-light/10 text-brand-dark rounded-full text-sm font-medium border border-brand-light/20">
+                    <i class="fa-solid fa-headphones ml-1"></i> استماع للتلاوات
+                </span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Grid -->
+    <section id="features" class="py-20 bg-brand-surface">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-gray-900 mb-4">مميزات التطبيق</h2>
+                <p class="text-gray-600">كل ما تحتاجه للتعمق في فهم كتاب الله</p>
+            </div>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Feature 1 -->
+                <div class="feature-card bg-white p-6 rounded-2xl border border-gray-100">
+                    <div class="w-12 h-12 bg-brand-light/10 rounded-xl flex items-center justify-center text-brand-light text-xl mb-4">
+                        <i class="fa-solid fa-language"></i>
+                    </div>
+                    <h3 class="font-bold text-gray-900 mb-2">ترجمة موثوقة بالأمازيغية</h3>
+                    <p class="text-gray-600 text-sm leading-relaxed">
+                        ترجمة دقيقة للغاية باللغة الأمازيغية (القبائلية) تساعدك على فهم معاني القرآن الكريم بعمق أكبر.
+                    </p>
+                </div>
+
+                <!-- Feature 2 -->
+                <div class="feature-card bg-white p-6 rounded-2xl border border-gray-100">
+                    <div class="w-12 h-12 bg-brand-light/10 rounded-xl flex items-center justify-center text-brand-light text-xl mb-4">
+                        <i class="fa-solid fa-book-open-reader"></i>
+                    </div>
+                    <h3 class="font-bold text-gray-900 mb-2">تفسيرات من خبراء</h3>
+                    <p class="text-gray-600 text-sm leading-relaxed">
+                        تفسيرات (تفسير) موثقة من علماء متخصصين لضمان فهم مستنير وصحيح لآيات القرآن الكريم.
+                    </p>
+                </div>
+
+                <!-- Feature 3 -->
+                <div class="feature-card bg-white p-6 rounded-2xl border border-gray-100">
+                    <div class="w-12 h-12 bg-brand-light/10 rounded-xl flex items-center justify-center text-brand-light text-xl mb-4">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                    </div>
+                    <h3 class="font-bold text-gray-900 mb-2">بحث متقدم</h3>
+                    <p class="text-gray-600 text-sm leading-relaxed">
+                        وصول سريع إلى أي آية أو سورة أو كلمة في القرآن الكريم من خلال محرك بحث ذكي ومتقدم.
+                    </p>
+                </div>
+
+                <!-- Feature 4 -->
+                <div class="feature-card bg-white p-6 rounded-2xl border border-gray-100">
+                    <div class="w-12 h-12 bg-brand-light/10 rounded-xl flex items-center justify-center text-brand-light text-xl mb-4">
+                        <i class="fa-solid fa-headphones"></i>
+                    </div>
+                    <h3 class="font-bold text-gray-900 mb-2">استماع للتلاوات</h3>
+                    <p class="text-gray-600 text-sm leading-relaxed">
+                        استمع إلى تلاوة القرآن الكريم بصوت قارئك المفضل، مع إمكانية التنقل بين القراء بسهولة.
+                    </p>
+                </div>
+
+                <!-- Feature 5 -->
+                <div class="feature-card bg-white p-6 rounded-2xl border border-gray-100">
+                    <div class="w-12 h-12 bg-brand-light/10 rounded-xl flex items-center justify-center text-brand-light text-xl mb-4">
+                        <i class="fa-solid fa-volume-high"></i>
+                    </div>
+                    <h3 class="font-bold text-gray-900 mb-2">الاستماع للترجمة</h3>
+                    <p class="text-gray-600 text-sm leading-relaxed">
+                        ميزة فريدة تتيح لك الاستماع إلى الترجمة الأمازيغية صوتياً، مما يساعد على الفهم والحفظ.
+                    </p>
+                </div>
+
+                <!-- Feature 6 -->
+                <div class="feature-card bg-white p-6 rounded-2xl border border-gray-100">
+                    <div class="w-12 h-12 bg-brand-light/10 rounded-xl flex items-center justify-center text-brand-light text-xl mb-4">
+                        <i class="fa-solid fa-bookmark"></i>
+                    </div>
+                    <h3 class="font-bold text-gray-900 mb-2">المفضلات والعلامات</h3>
+                    <p class="text-gray-600 text-sm leading-relaxed">
+                        إدارة المفضلات والعلامات المرجعية لتجربة قراءة مخصصة تناسب احتياجاتك اليومية.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Additional Info -->
+            <div class="mt-12 bg-gradient-to-r from-brand-light/5 to-brand-accent/5 rounded-2xl p-6 border border-brand-light/10">
+                <div class="flex items-start gap-4">
+                    <div class="w-10 h-10 bg-brand-light/10 rounded-lg flex items-center justify-center text-brand-light flex-shrink-0">
+                        <i class="fa-solid fa-circle-info"></i>
+                    </div>
+                    <div>
+                        <h4 class="font-bold text-gray-900 mb-1">التطبيق ما زال في مرحلة التحديث</h4>
+                        <p class="text-gray-600 text-sm leading-relaxed">
+                            فإذا واجهت أي مشكلة، لا تتردد في الإبلاغ عنها. ملاحظاتكم تهمنا لتحسين التطبيق! 
+                            متوفر بـ <strong>ثلاث لغات</strong> وبخياري <strong>الوضع الفاتح/الداكن</strong> لضمان راحتكم.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Web Version Section -->
+    <section id="web" class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid lg:grid-cols-2 gap-12 items-center">
+                <!-- Content -->
+                <div>
+                    <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-50 text-blue-600 text-sm font-semibold mb-6">
+                        <i class="fa-solid fa-globe"></i>
+                        يعمل على جميع الأجهزة
+                    </div>
+                    
+                    <h2 class="text-3xl lg:text-4xl font-bold text-gray-900 mb-6">
+                        جرب النسخة الويبية<br>
+                        <span class="text-brand-light">بدون تحميل</span>
+                    </h2>
+                    
+                    <p class="text-gray-600 leading-relaxed mb-6">
+                        تم بناء التطبيق باستخدام إطار عمل <strong>Flutter</strong>، مما يتيح لك استخدام النسخة الويبية 
+                        مباشرة في المتصفح بنفس سرعة وسلاسة تطبيق الموبايل. لا حاجة لتحميل أو تثبيت!
+                    </p>
+
+                    <div class="space-y-4 mb-8">
+                        <div class="flex items-center gap-3">
+                            <div class="w-8 h-8 rounded-lg bg-brand-light/10 flex items-center justify-center text-brand-light">
+                                <i class="fa-solid fa-bolt text-sm"></i>
+                            </div>
+                            <span class="text-gray-700">تحميل فوري وسرعة عالية</span>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <div class="w-8 h-8 rounded-lg bg-brand-light/10 flex items-center justify-center text-brand-light">
+                                <i class="fa-solid fa-laptop text-sm"></i>
+                            </div>
+                            <span class="text-gray-700">يعمل على الكمبيوتر والتابلت والموبايل</span>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <div class="w-8 h-8 rounded-lg bg-brand-light/10 flex items-center justify-center text-brand-light">
+                                <i class="fa-solid fa-rotate text-sm"></i>
+                            </div>
+                            <span class="text-gray-700">مزامنة تلقائية مع تطبيق الموبايل</span>
+                        </div>
+                    </div>
+
+                    <div class="flex flex-col sm:flex-row gap-3">
+                        <a href="#" class="flex items-center justify-center gap-2 bg-brand-light text-white px-6 py-3 rounded-xl hover:bg-brand-dark transition shadow-lg shadow-brand-light/30">
+                            <i class="fa-solid fa-play"></i>
+                            تشغيل النسخة الويبية
+                        </a>
+                        <button onclick="alert('يمكنك إضافة التطبيق إلى الشاشة الرئيسية للوصول السريع!')" class="flex items-center justify-center gap-2 bg-gray-100 text-gray-700 px-6 py-3 rounded-xl hover:bg-gray-200 transition">
+                            <i class="fa-solid fa-plus-circle"></i>
+                            إضافة للشاشة الرئيسية
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Browser Mockup -->
+                <div class="relative">
+                    <div class="absolute -inset-4 bg-gradient-to-r from-brand-light/20 to-blue-500/20 rounded-3xl blur-2xl"></div>
+                    
+                    <div class="relative bg-white rounded-xl shadow-2xl overflow-hidden border border-gray-200">
+                        <!-- Browser Chrome -->
+                        <div class="browser-mockup flex items-center gap-2">
+                            <div class="flex gap-1.5">
+                                <div class="w-3 h-3 rounded-full bg-red-400"></div>
+                                <div class="w-3 h-3 rounded-full bg-yellow-400"></div>
+                                <div class="w-3 h-3 rounded-full bg-green-400"></div>
+                            </div>
+                            <div class="flex-1 mx-4">
+                                <div class="bg-white/50 rounded-md px-3 py-1.5 text-xs text-gray-600 flex items-center gap-2">
+                                    <i class="fa-solid fa-lock text-green-600 text-[10px]"></i>
+                                    quran-amazigh.web.app
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Browser Content -->
+                        <div class="browser-content p-4">
+                            <!-- App Interface Mock -->
+                            <div class="bg-gray-50 rounded-lg p-4 h-64 overflow-hidden">
+                                <!-- Web App Header -->
+                                <div class="flex items-center justify-between mb-4 pb-3 border-b border-gray-200">
+                                    <div class="flex items-center gap-2">
+                                        <div class="w-8 h-8 bg-brand-light rounded-lg flex items-center justify-center text-white text-xs">
+                                            <i class="fa-solid fa-book-open"></i>
+                                        </div>
+                                        <span class="font-bold text-gray-800 text-sm">القرآن الأمازيغي</span>
+                                    </div>
+                                    <div class="flex gap-2">
+                                        <div class="w-6 h-6 rounded bg-gray-200"></div>
+                                        <div class="w-6 h-6 rounded bg-gray-200"></div>
+                                    </div>
+                                </div>
+                                
+                                <!-- Web App Content -->
+                                <div class="space-y-3">
+                                    <div class="flex gap-3">
+                                        <div class="flex-1 bg-white p-3 rounded-lg shadow-sm">
+                                            <div class="text-xs text-gray-500 mb-1">السورة الحالية</div>
+                                            <div class="font-bold text-brand-dark">الفاتحة</div>
+                                        </div>
+                                        <div class="flex-1 bg-white p-3 rounded-lg shadow-sm">
+                                            <div class="text-xs text-gray-500 mb-1">القارئ</div>
+                                            <div class="font-bold text-gray-700">عبد الباسط</div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="bg-white p-4 rounded-lg shadow-sm text-center">
+                                        <p class="text-lg text-brand-dark font-serif leading-loose mb-2" dir="rtl">
+                                            ٱلْحَمْدُ لِلَّهِ رَبِّ ٱلْعَٰلَمِينَ
+                                        </p>
+                                        <p class="text-sm text-gray-600 font-tifinagh">
+                                            Asebḥi i Rebbi, Mass n wemdan.
+                                        </p>
+                                    </div>
+
+                                    <div class="flex justify-center gap-4 pt-2">
+                                        <div class="w-10 h-10 rounded-full bg-brand-light flex items-center justify-center text-white">
+                                            <i class="fa-solid fa-play text-xs"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Floating Badge -->
+                    <div class="absolute -bottom-4 -right-4 bg-white p-3 rounded-xl shadow-lg border border-gray-100">
+                        <div class="flex items-center gap-2">
+                            <div class="w-8 h-8 bg-green-100 rounded-lg flex items-center justify-center text-green-600">
+                                <i class="fa-solid fa-check"></i>
+                            </div>
+                            <div>
+                                <div class="text-xs text-gray-500">مدعوم بتقنية</div>
+                                <div class="font-bold text-gray-800 text-sm">Flutter Web</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Call to Action -->
+    <section id="download" class="py-20 bg-brand-surface">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <div class="bg-gradient-to-br from-brand-dark to-brand-light rounded-3xl p-8 md:p-12 text-white relative overflow-hidden">
+                <!-- Decorative -->
+                <div class="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full -mr-20 -mt-20 blur-3xl"></div>
+                <div class="absolute bottom-0 left-0 w-48 h-48 bg-black/20 rounded-full -ml-10 -mb-10 blur-2xl"></div>
+                
+                <div class="relative z-10">
+                    <h2 class="text-3xl font-bold mb-4">حمّل التطبيق الآن</h2>
+                    <p class="text-white/90 mb-8 max-w-lg mx-auto leading-relaxed">
+                        قم بتحميله الآن أو شاركه مع الآخرين، فقد يكون <strong>صدقة جارية</strong> لك. 
+                        ولا تنسَ تقييم التطبيق لمساعدتنا على تحسينه أكثر!
+                    </p>
+
+                    <div class="flex flex-col sm:flex-row justify-center gap-4">
+                        <a href="#" class="flex items-center justify-center gap-3 bg-white text-gray-900 px-8 py-4 rounded-xl hover:bg-gray-100 transition shadow-xl">
+                            <i class="fa-brands fa-apple text-3xl"></i>
+                            <div class="text-right">
+                                <div class="text-xs font-semibold text-gray-500">حمله من</div>
+                                <div class="text-lg font-bold leading-none">App Store</div>
+                            </div>
+                        </a>
+                        <a href="#" class="flex items-center justify-center gap-3 bg-gray-900 text-white px-8 py-4 rounded-xl hover:bg-gray-800 transition shadow-xl border border-white/20">
+                            <i class="fa-brands fa-google-play text-3xl"></i>
+                            <div class="text-right">
+                                <div class="text-xs font-semibold text-gray-400">حمله من</div>
+                                <div class="text-lg font-bold leading-none">Google Play</div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-white border-t border-gray-200 pt-12 pb-8">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row justify-between items-center gap-6">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 bg-brand-light rounded-xl flex items-center justify-center text-white">
+                        <i class="fa-solid fa-book-open"></i>
+                    </div>
+                    <div>
+                        <div class="font-bold text-gray-900">القرآن الأمازيغي</div>
+                        <div class="text-xs text-gray-500">أول تطبيق قرآني باللغة القبائلية</div>
+                    </div>
+                </div>
+                
+                <div class="flex items-center gap-6 text-gray-500 text-sm">
+                    <a href="#" class="hover:text-brand-light transition">عن التطبيق</a>
+                    <a href="#" class="hover:text-brand-light transition">الخصوصية</a>
+                    <a href="#" class="hover:text-brand-light transition">اتصل بنا</a>
+                </div>
+
+                <div class="flex gap-3">
+                    <a href="#" class="w-10 h-10 rounded-lg bg-gray-50 border border-gray-200 flex items-center justify-center text-gray-600 hover:text-brand-light hover:border-brand-light transition">
+                        <i class="fa-brands fa-twitter"></i>
+                    </a>
+                    <a href="#" class="w-10 h-10 rounded-lg bg-gray-50 border border-gray-200 flex items-center justify-center text-gray-600 hover:text-brand-light hover:border-brand-light transition">
+                        <i class="fa-brands fa-facebook"></i>
+                    </a>
+                    <a href="#" class="w-10 h-10 rounded-lg bg-gray-50 border border-gray-200 flex items-center justify-center text-gray-600 hover:text-brand-light hover:border-brand-light transition">
+                        <i class="fa-brands fa-instagram"></i>
+                    </a>
+                </div>
+            </div>
+            
+            <div class="mt-8 pt-8 border-t border-gray-200 text-center text-gray-400 text-sm">
+                <p>&copy; 2024 القرآن الأمازيغي. جميع الحقوق محفوظة.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+        // Mobile Menu Toggle
+        const btn = document.getElementById('mobile-menu-btn');
+        const menu = document.getElementById('mobile-menu');
+
+        btn.addEventListener('click', () => {
+            menu.classList.toggle('hidden');
+        });
+
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!btn.contains(e.target) && !menu.contains(e.target)) {
+                menu.classList.add('hidden');
+            }
+        });
+
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                    menu.classList.add('hidden');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

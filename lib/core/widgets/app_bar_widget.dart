@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:alquranalkareem/core/utils/constants/extensions/alignment_rotated_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -30,62 +32,77 @@ class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context) {
-    return AppBar(
-      backgroundColor: color ?? Theme.of(context).colorScheme.primaryContainer,
-      elevation: 0,
-      title: isTitled
-          ? Container(
-              padding:
-                  const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
-              decoration: BoxDecoration(
-                  borderRadius: const BorderRadius.all(Radius.circular(4)),
-                  border: Border.all(
-                      color: Theme.of(context).colorScheme.surface, width: 1)),
-              child: Text(
-                title,
-                style: TextStyle(
-                  color: Get.isDarkMode
-                      ? Colors.white
-                      : Theme.of(context).hintColor,
-                  fontSize: context.customOrientation(12.0, 16.0),
-                  fontFamily: 'kufi',
+    return ClipRRect(
+      child: BackdropFilter(
+        filter: ImageFilter.blur(sigmaX: 12, sigmaY: 12),
+        child: AppBar(
+          backgroundColor:
+              (color ?? Theme.of(context).colorScheme.primaryContainer)
+                  .withValues(alpha: 0.85),
+          elevation: 0,
+          title: isTitled
+              ? Container(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 12.0,
+                    vertical: 6.0,
+                  ),
+                  decoration: BoxDecoration(
+                    color: Theme.of(
+                      context,
+                    ).colorScheme.surface.withValues(alpha: 0.15),
+                    borderRadius: const BorderRadius.all(Radius.circular(16)),
+                  ),
+                  child: Text(
+                    title,
+                    style: TextStyle(
+                      color: Get.isDarkMode
+                          ? Colors.white
+                          : Theme.of(context).hintColor,
+                      fontSize: context.customOrientation(12.0, 16.0),
+                      fontFamily: 'kufi',
+                      letterSpacing: 0.5,
+                    ),
+                  ),
+                )
+              : const SizedBox.shrink(),
+          centerTitle: true,
+          leading: GestureDetector(
+            onTap: () {
+              isNotifi
+                  ? NotificationManager().updateBookProgress(
+                      title,
+                      isBooks
+                          ? 'notifyBooksBody'.trParams({'bookName': '$title'})
+                          : 'notifyAdhkarBody'.trParams({
+                              'adhkarType': '$title',
+                            }),
+                      0,
+                    )
+                  : null;
+              Get.back();
+            },
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16.0),
+              child: Transform.flip(
+                flipX: alignmentLayout(false, true),
+                child: Image.asset(
+                  'assets/icons/arrow_back.png',
+                  color: Theme.of(context).colorScheme.surface,
                 ),
               ),
-            )
-          : const SizedBox.shrink(),
-      centerTitle: true,
-      leading: GestureDetector(
-        onTap: () {
-          isNotifi
-              ? NotificationManager().updateBookProgress(
-                  title,
-                  isBooks
-                      ? 'notifyBooksBody'.trParams({'bookName': '$title'})
-                      : 'notifyAdhkarBody'.trParams({'adhkarType': '$title'}),
-                  0)
-              : null;
-          Get.back();
-        },
-        child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16.0),
-            child: Transform.flip(
-              flipX: alignmentLayout(false, true),
-              child: Image.asset(
-                'assets/icons/arrow_back.png',
-                color: Theme.of(context).colorScheme.surface,
-              ),
-            )),
+            ),
+          ),
+          actions: [
+            isFontSize ? fontSizeDropDownWidget() : const SizedBox.shrink(),
+            searchButton,
+          ],
+          bottom: bottom,
+        ),
       ),
-      actions: [
-        isFontSize ? fontSizeDropDownWidget() : const SizedBox.shrink(),
-        searchButton,
-      ],
-      bottom: bottom,
     );
   }
 
   @override
-  Size get preferredSize => Size.fromHeight(
-        kToolbarHeight + (bottom?.preferredSize.height ?? 0.0),
-      );
+  Size get preferredSize =>
+      Size.fromHeight(kToolbarHeight + (bottom?.preferredSize.height ?? 0.0));
 }

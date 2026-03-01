@@ -23,13 +23,10 @@ class LastRead extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Get.to(() => QuranHome(), transition: Transition.downToUp);
-        // !.then(
-        //   (value) =>
+        Get.to(() => QuranHome());
         Future.delayed(const Duration(milliseconds: 300), () {
           quranCtrl.changeSurahListOnTap(
             quranCtrl.state.currentPageNumber.value,
-            // ),
           );
         });
       },
@@ -53,125 +50,141 @@ class LastRead extends StatelessWidget {
             ),
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 8.0),
-              child: ClipRRect(
-                borderRadius: const BorderRadius.all(Radius.circular(8.0)),
-                child: Container(
-                  height: 70,
-                  width: Get.width,
-                  decoration: BoxDecoration(
-                    color: Theme.of(
-                      context,
-                    ).colorScheme.primary.withValues(alpha: .15),
-                    borderRadius: const BorderRadius.all(Radius.circular(8.0)),
+              child: Container(
+                height: 70,
+                width: Get.width,
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                    begin: Alignment.centerLeft,
+                    end: Alignment.centerRight,
+                    colors: [
+                      Theme.of(
+                        context,
+                      ).colorScheme.primary.withValues(alpha: .12),
+                      Theme.of(
+                        context,
+                      ).colorScheme.primary.withValues(alpha: .06),
+                    ],
                   ),
-                  child: Stack(
-                    alignment: Alignment.centerRight,
-                    children: [
-                      LinearProgressIndicator(
+                  borderRadius: const BorderRadius.all(Radius.circular(16.0)),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withValues(alpha: 0.04),
+                      blurRadius: 8,
+                      offset: const Offset(0, 2),
+                    ),
+                  ],
+                ),
+                child: Stack(
+                  alignment: Alignment.centerRight,
+                  children: [
+                    ClipRRect(
+                      borderRadius: const BorderRadius.all(
+                        Radius.circular(16.0),
+                      ),
+                      child: LinearProgressIndicator(
                         minHeight: 70,
                         borderRadius: const BorderRadius.all(
-                          Radius.circular(8.0),
+                          Radius.circular(16.0),
                         ),
                         value: (quranCtrl.state.currentPageNumber.value / 604)
                             .clamp(0.0, 1.0),
                         backgroundColor: Colors.transparent,
                         color: Theme.of(
                           context,
-                        ).colorScheme.surface.withValues(alpha: .5),
+                        ).colorScheme.surface.withValues(alpha: .35),
                       ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                        child: Obx(() {
-                          return Row(
-                            children: [
-                              Expanded(
-                                flex: 4,
-                                child: SvgPicture.asset(
-                                  'assets/svg/surah_name/00${quranCtrl.state.lastReadSurahNumber.value}.svg',
-                                  height: 60,
-                                  colorFilter: ColorFilter.mode(
-                                    Theme.of(context).cardColor,
-                                    BlendMode.srcIn,
-                                  ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 12.0),
+                      child: Obx(() {
+                        return Row(
+                          children: [
+                            Expanded(
+                              flex: 4,
+                              child: SvgPicture.asset(
+                                'assets/svg/surah_name/00${quranCtrl.state.lastReadSurahNumber.value}.svg',
+                                height: 55,
+                                colorFilter: ColorFilter.mode(
+                                  Theme.of(context).cardColor,
+                                  BlendMode.srcIn,
                                 ),
                               ),
-                              context.vDivider(height: 30),
-                              Expanded(
-                                flex: 7,
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Expanded(
-                                      flex: 6,
-                                      child: FittedBox(
-                                        fit: BoxFit.scaleDown,
-                                        child: Text(
-                                          '${'pageNo'.tr}: ${(quranCtrl.state.currentPageNumber.value + 1).toString().convertNumbersToCurrentLang()}',
-                                          style: TextStyle(
-                                            fontSize: 18.0,
-                                            fontFamily: 'naskh',
-                                            fontWeight: FontWeight.w500,
-                                            color: Theme.of(context).hintColor,
-                                            height: 1.5,
-                                          ),
-                                          maxLines: 1,
-                                          overflow: TextOverflow.ellipsis,
-                                          textAlign: TextAlign.center,
-                                          textDirection: TextDirection.rtl,
+                            ),
+                            context.vDivider(height: 30),
+                            Expanded(
+                              flex: 7,
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Expanded(
+                                    flex: 6,
+                                    child: FittedBox(
+                                      fit: BoxFit.scaleDown,
+                                      child: Text(
+                                        '${'pageNo'.tr}: ${(quranCtrl.state.currentPageNumber.value + 1).toString().convertNumbersToCurrentLang()}',
+                                        style: TextStyle(
+                                          fontSize: 18.0,
+                                          fontFamily: 'naskh',
+                                          fontWeight: FontWeight.w500,
+                                          color: Theme.of(context).hintColor,
+                                          height: 1.5,
                                         ),
+                                        maxLines: 1,
+                                        overflow: TextOverflow.ellipsis,
+                                        textAlign: TextAlign.center,
+                                        textDirection: TextDirection.rtl,
                                       ),
                                     ),
-                                    const Gap(8),
-                                    Expanded(
-                                      flex: 2,
-                                      child: Stack(
-                                        alignment: Alignment.center,
-                                        children: [
-                                          Container(
-                                            height: 30,
-                                            width: 30,
-                                            decoration: BoxDecoration(
-                                              color: Theme.of(context)
-                                                  .colorScheme
-                                                  .surface
-                                                  .withValues(alpha: .6),
-                                              borderRadius:
-                                                  const BorderRadius.all(
-                                                    Radius.circular(8),
-                                                  ),
+                                  ),
+                                  const Gap(8),
+                                  Expanded(
+                                    flex: 2,
+                                    child: Stack(
+                                      alignment: Alignment.center,
+                                      children: [
+                                        Container(
+                                          height: 32,
+                                          width: 32,
+                                          decoration: BoxDecoration(
+                                            color: Theme.of(context)
+                                                .colorScheme
+                                                .surface
+                                                .withValues(alpha: .4),
+                                            borderRadius:
+                                                const BorderRadius.all(
+                                                  Radius.circular(12),
+                                                ),
+                                          ),
+                                        ),
+                                        alignmentLayout(
+                                          RotatedBox(
+                                            quarterTurns: 15,
+                                            child: customLottie(
+                                              LottieConstants.assetsLottieArrow,
+                                              height: 50.0,
                                             ),
                                           ),
-                                          alignmentLayout(
-                                            RotatedBox(
-                                              quarterTurns: 15,
-                                              child: customLottie(
-                                                LottieConstants
-                                                    .assetsLottieArrow,
-                                                height: 50.0,
-                                              ),
-                                            ),
-                                            RotatedBox(
-                                              quarterTurns: 25,
-                                              child: customLottie(
-                                                LottieConstants
-                                                    .assetsLottieArrow,
-                                                height: 50.0,
-                                              ),
+                                          RotatedBox(
+                                            quarterTurns: 25,
+                                            child: customLottie(
+                                              LottieConstants.assetsLottieArrow,
+                                              height: 50.0,
                                             ),
                                           ),
-                                        ],
-                                      ),
+                                        ),
+                                      ],
                                     ),
-                                  ],
-                                ),
+                                  ),
+                                ],
                               ),
-                            ],
-                          );
-                        }),
-                      ),
-                    ],
-                  ),
+                            ),
+                          ],
+                        );
+                      }),
+                    ),
+                  ],
                 ),
               ),
             ),

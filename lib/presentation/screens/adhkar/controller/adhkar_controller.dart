@@ -243,8 +243,8 @@ class AzkarController extends GetxController {
         receivedActionBody.replaceAll('تذكير ', ''),
       );
       filterByCategory(state.categories[categoryIndex]);
-      Get.to(() => const AdhkarView(), transition: Transition.downToUp);
-      Get.to(() => const AdhkarItem(), transition: Transition.leftToRight);
+      Get.to(() => const AdhkarView());
+      Get.to(() => const AdhkarItem());
     }
   }
 }

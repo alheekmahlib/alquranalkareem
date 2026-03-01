@@ -26,17 +26,55 @@ class AyahTafsirWidget extends StatelessWidget {
                 width: Get.width,
                 padding: const EdgeInsets.symmetric(
                   horizontal: 16.0,
-                  vertical: 8.0,
+                  vertical: 12.0,
                 ),
                 margin: const EdgeInsets.symmetric(horizontal: 32.0),
                 decoration: BoxDecoration(
-                  color: Theme.of(
-                    context,
-                  ).colorScheme.primary.withValues(alpha: .1),
-                  borderRadius: const BorderRadius.all(Radius.circular(8)),
+                  gradient: LinearGradient(
+                    begin: Alignment.topLeft,
+                    end: Alignment.bottomRight,
+                    colors: [
+                      Theme.of(
+                        context,
+                      ).colorScheme.primary.withValues(alpha: .08),
+                      Theme.of(
+                        context,
+                      ).colorScheme.primary.withValues(alpha: .04),
+                    ],
+                  ),
+                  borderRadius: const BorderRadius.all(Radius.circular(16)),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withValues(alpha: 0.03),
+                      blurRadius: 8,
+                      offset: const Offset(0, 2),
+                    ),
+                  ],
                 ),
                 child: Column(
                   children: [
+                    // Decorative top accent
+                    Container(
+                      width: 60,
+                      height: 3,
+                      margin: const EdgeInsets.only(bottom: 12),
+                      decoration: BoxDecoration(
+                        gradient: LinearGradient(
+                          colors: [
+                            Theme.of(
+                              context,
+                            ).colorScheme.surface.withValues(alpha: 0.0),
+                            Theme.of(context).colorScheme.surface,
+                            Theme.of(
+                              context,
+                            ).colorScheme.surface.withValues(alpha: 0.0),
+                          ],
+                        ),
+                        borderRadius: const BorderRadius.all(
+                          Radius.circular(2),
+                        ),
+                      ),
+                    ),
                     Text(
                       '﴿${snapshot.data?.text ?? ''} ${GeneralController.instance.state.arabicNumber.convert(snapshot.data?.ayahNumber)}﴾',
                       style: TextStyle(
@@ -47,6 +85,7 @@ class AyahTafsirWidget extends StatelessWidget {
                       ),
                       textAlign: TextAlign.justify,
                     ),
+                    const SizedBox(height: 8),
                     Row(
                       children: [
                         Expanded(
@@ -71,15 +110,22 @@ class AyahTafsirWidget extends StatelessWidget {
                           child: Container(
                             alignment: Alignment.center,
                             padding: const EdgeInsets.symmetric(
-                              horizontal: 6.0,
+                              horizontal: 8.0,
                               vertical: 4.0,
                             ),
                             decoration: BoxDecoration(
-                              color: Theme.of(
-                                context,
-                              ).colorScheme.surface.withValues(alpha: .4),
+                              gradient: LinearGradient(
+                                colors: [
+                                  Theme.of(
+                                    context,
+                                  ).colorScheme.surface.withValues(alpha: .3),
+                                  Theme.of(
+                                    context,
+                                  ).colorScheme.surface.withValues(alpha: .15),
+                                ],
+                              ),
                               borderRadius: const BorderRadius.all(
-                                Radius.circular(6),
+                                Radius.circular(12),
                               ),
                             ),
                             child: FittedBox(

@@ -35,6 +35,7 @@ class MyApp extends StatelessWidget {
       builder: (_, child) {
         return GetBuilder<ThemeController>(
           builder: (themeCtrl) => GetMaterialApp(
+            defaultTransition: Transition.fade,
             debugShowCheckedModeBanner: false,
             title: 'Al Quran Al Kareem',
             localizationsDelegates: const [

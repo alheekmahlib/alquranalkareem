@@ -5,7 +5,6 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 
-import '/core/utils/constants/extensions/alignment_rotated_extension.dart';
 import '/core/utils/constants/extensions/convert_number_extension.dart';
 import '/core/utils/constants/extensions/extensions.dart';
 import '../../../../core/widgets/elevated_button_widget.dart';
@@ -23,17 +22,21 @@ class HijriWidget extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 28.0),
       child: ElevatedButtonWidget(
-        onClick: () => Get.to(
-          () => HijriCalendarScreen(),
-          transition: Transition.downToUp,
-        ),
+        onClick: () => Get.to(() => HijriCalendarScreen()),
         index: 0,
-        height: 140,
+        height: 120,
         width: context.customOrientation(Get.width * .87, Get.width * .4),
         child: Container(
           decoration: BoxDecoration(
-            color: Theme.of(context).colorScheme.primary,
-            borderRadius: BorderRadius.circular(8),
+            gradient: LinearGradient(
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+              colors: [
+                Theme.of(context).colorScheme.primary,
+                Theme.of(context).colorScheme.primary.withValues(alpha: 0.85),
+              ],
+            ),
+            borderRadius: BorderRadius.circular(16),
           ),
           child: Column(
             children: [
@@ -45,35 +48,48 @@ class HijriWidget extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
+                      // Circular day badge
                       Container(
-                        height: 70,
-                        width: 45,
+                        height: 56,
+                        width: 56,
                         alignment: Alignment.center,
                         decoration: BoxDecoration(
-                          color: Theme.of(context).colorScheme.surface,
-                          borderRadius: alignmentLayout(
-                            const BorderRadius.only(
-                              topRight: Radius.circular(8),
-                              bottomLeft: Radius.circular(8),
-                            ),
-                            const BorderRadius.only(
-                              topLeft: Radius.circular(8),
-                              bottomRight: Radius.circular(8),
-                            ),
+                          gradient: LinearGradient(
+                            begin: Alignment.topLeft,
+                            end: Alignment.bottomRight,
+                            colors: [
+                              Theme.of(context).colorScheme.surface,
+                              Theme.of(
+                                context,
+                              ).colorScheme.surface.withValues(alpha: 0.8),
+                            ],
                           ),
+                          borderRadius: const BorderRadius.all(
+                            Radius.circular(16),
+                          ),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Theme.of(
+                                context,
+                              ).colorScheme.surface.withValues(alpha: 0.3),
+                              blurRadius: 8,
+                              offset: const Offset(0, 3),
+                            ),
+                          ],
                         ),
                         child: Text(
                           '${eventCtrl.hijriNow.hDay}'
                               .convertNumbersToCurrentLang(),
                           style: TextStyle(
-                            fontSize: 26.0,
+                            fontSize: 24.0,
                             fontFamily: 'kufi',
+                            fontWeight: FontWeight.bold,
                             color: Theme.of(context).canvasColor,
                           ),
                           textAlign: TextAlign.center,
                         ),
                       ),
-                      const Gap(8),
+                      const Gap(10),
                       Column(
                         mainAxisSize: MainAxisSize.min,
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -82,7 +98,7 @@ class HijriWidget extends StatelessWidget {
                           Text(
                             eventCtrl.hijriNow.getDayName().tr,
                             style: TextStyle(
-                              fontSize: 22.0,
+                              fontSize: 20.0,
                               fontFamily: 'kufi',
                               color: Theme.of(context).canvasColor,
                             ),
@@ -91,9 +107,11 @@ class HijriWidget extends StatelessWidget {
                           Text(
                             '${'${eventCtrl.hijriNow.hYear}'.convertNumbersToCurrentLang()} هـ',
                             style: TextStyle(
-                              fontSize: 18.0,
+                              fontSize: 16.0,
                               fontFamily: 'kufi',
-                              color: Theme.of(context).canvasColor,
+                              color: Theme.of(
+                                context,
+                              ).canvasColor.withValues(alpha: 0.7),
                             ),
                             textAlign: TextAlign.center,
                           ),
@@ -104,13 +122,13 @@ class HijriWidget extends StatelessWidget {
                   const Spacer(),
                   SvgPicture.asset(
                     'assets/svg/hijri/${eventCtrl.hijriNow.hMonth}.svg',
-                    width: 120,
+                    width: 110,
                     colorFilter: ColorFilter.mode(
-                      Theme.of(context).canvasColor,
+                      Theme.of(context).canvasColor.withValues(alpha: 0.9),
                       BlendMode.srcIn,
                     ),
                   ),
-                  const Gap(32),
+                  const Gap(24),
                 ],
               ),
               const Gap(8),
@@ -119,24 +137,31 @@ class HijriWidget extends StatelessWidget {
                 child: Stack(
                   alignment: Alignment.center,
                   children: [
-                    RoundedProgressBar(
-                      height: 40,
-                      style: RoundedProgressBarStyle(
-                        borderWidth: 0,
-                        widthShadow: 5,
-                        backgroundProgress: Theme.of(context).canvasColor,
-                        colorProgress: Theme.of(context).colorScheme.surface,
-                        colorProgressDark: Theme.of(
-                          context,
-                        ).colorScheme.surface.withValues(alpha: .5),
-                        colorBorder: Colors.transparent,
-                        colorBackgroundIcon: Colors.transparent,
+                    ClipRRect(
+                      borderRadius: const BorderRadius.all(Radius.circular(12)),
+                      child: RoundedProgressBar(
+                        height: 36,
+                        style: RoundedProgressBarStyle(
+                          borderWidth: 0,
+                          widthShadow: 0,
+                          backgroundProgress: Theme.of(
+                            context,
+                          ).canvasColor.withValues(alpha: 0.2),
+                          colorProgress: Theme.of(context).colorScheme.surface,
+                          colorProgressDark: Theme.of(
+                            context,
+                          ).colorScheme.surface.withValues(alpha: .5),
+                          colorBorder: Colors.transparent,
+                          colorBackgroundIcon: Colors.transparent,
+                        ),
+                        borderRadius: const BorderRadius.all(
+                          Radius.circular(12),
+                        ),
+                        percent:
+                            ((eventCtrl.hijriNow.hDay /
+                                eventCtrl.getLengthOfMonth) *
+                            100),
                       ),
-                      borderRadius: const BorderRadius.all(Radius.circular(8)),
-                      percent:
-                          ((eventCtrl.hijriNow.hDay /
-                              eventCtrl.getLengthOfMonth) *
-                          100),
                     ),
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 8.0),
@@ -145,7 +170,7 @@ class HijriWidget extends StatelessWidget {
                             ? Text(
                                 '${'lastDayOf'.tr} ${'${eventCtrl.hijriNow.getLongMonthName()}'.tr}',
                                 style: TextStyle(
-                                  fontSize: 14.0,
+                                  fontSize: 13.0,
                                   fontFamily: 'kufi',
                                   color: Theme.of(context).disabledColor,
                                 ),
@@ -162,7 +187,7 @@ class HijriWidget extends StatelessWidget {
                                       child: Text(
                                         '${'RemainsUntilTheEndOf'.tr} ${'${eventCtrl.hijriNow.getLongMonthName()}'.tr}',
                                         style: TextStyle(
-                                          fontSize: 14.0,
+                                          fontSize: 13.0,
                                           fontFamily: 'kufi',
                                           color: Theme.of(
                                             context,
@@ -181,7 +206,7 @@ class HijriWidget extends StatelessWidget {
                                         '${'${eventCtrl.daysArabicConvert((eventCtrl.getLengthOfMonth - eventCtrl.hijriNow.hDay), (eventCtrl.getLengthOfMonth - eventCtrl.hijriNow.hDay).toString())}'}'
                                             .convertNumbersToCurrentLang(),
                                         style: TextStyle(
-                                          fontSize: 14.0,
+                                          fontSize: 13.0,
                                           fontFamily: 'kufi',
                                           color: Theme.of(
                                             context,

@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'dart:developer' show log;
 import 'dart:developer';
 import 'dart:io' show Directory, File;
+import 'dart:ui';
 
 import 'package:animated_custom_dropdown/custom_dropdown.dart';
 import 'package:animations/animations.dart';
@@ -107,6 +108,8 @@ part 'widgets/buttons/add_bookmark_button.dart';
 part 'widgets/buttons/copy_button.dart';
 part 'widgets/buttons/play_button.dart';
 part 'widgets/buttons/tafsir_button.dart';
+part 'widgets/buttons/berber_translate_button.dart';
+part 'widgets/berber_translate_sheet.dart';
 part 'widgets/juz_page.dart';
 part 'widgets/khatmah/screen/khatmahs_screen.dart';
 part 'widgets/khatmah/widgets/add_khatmah_widget.dart';

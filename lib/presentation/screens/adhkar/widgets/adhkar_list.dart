@@ -127,10 +127,7 @@ class ListBuild extends StatelessWidget {
                         azkarCtrl.filterByCategory(
                           azkarCtrl.state.categories[index],
                         );
-                        Get.to(
-                          () => const AdhkarItem(),
-                          transition: Transition.leftToRight,
-                        );
+                        Get.to(() => const AdhkarItem());
                         log('filterByCategory: $index');
                       },
                       child: Container(

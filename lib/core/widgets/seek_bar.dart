@@ -15,7 +15,6 @@ class PositionData {
 class SliderWidget extends StatefulWidget {
   final Duration? duration;
   final Duration? position;
-  // final Duration bufferedPosition;
   final ValueChanged<Duration>? onChanged;
   final ValueChanged<Duration>? onChangeEnd;
   final Color? activeTrackColor;
@@ -84,7 +83,6 @@ class SliderWidget extends StatefulWidget {
     this.filesCount,
     this.duration,
     this.position,
-    // required this.bufferedPosition,
     this.onChanged,
     this.onChangeEnd,
     this.activeTrackColor,
@@ -135,7 +133,11 @@ class _SliderWidgetState extends State<SliderWidget> {
                     Theme.of(context).colorScheme.primary,
                 inactiveTrackColor:
                     widget.inactiveTrackColor ??
-                    Theme.of(context).colorScheme.surface,
+                    Theme.of(
+                      context,
+                    ).colorScheme.surface.withValues(alpha: 0.3),
+                trackHeight: 6.0,
+                trackShape: const RoundedRectSliderTrackShape(),
                 thumbShape: CustomSliderThumbRect(
                   thumbRadius: 20,
                   thumbHeight: 15.0,
@@ -143,8 +145,11 @@ class _SliderWidgetState extends State<SliderWidget> {
                   max: widget.max,
                 ),
                 overlayShape: const RoundSliderOverlayShape(
-                  overlayRadius: 10.0,
+                  overlayRadius: 14.0,
                 ),
+                overlayColor: Theme.of(
+                  context,
+                ).colorScheme.primary.withValues(alpha: 0.15),
               ),
               child: Slider(
                 min: 0.0,
@@ -169,85 +174,92 @@ class _SliderWidgetState extends State<SliderWidget> {
             ),
           ),
           Transform.translate(
-            offset: const Offset(0, -8),
+            offset: const Offset(0, -6),
             child: widget.filesCount != null
                 ? Container(
                     padding: const EdgeInsets.symmetric(
-                      horizontal: 8.0,
-                      vertical: 2.0,
+                      horizontal: 12.0,
+                      vertical: 4.0,
                     ),
                     decoration: BoxDecoration(
                       color: Theme.of(context).colorScheme.primary,
-                      borderRadius: const BorderRadius.all(Radius.circular(4)),
+                      borderRadius: const BorderRadius.all(Radius.circular(12)),
                     ),
                     child: Text(
                       'downloading'.tr,
                       style: TextStyle(
                         color:
                             widget.textColor ?? Theme.of(context).canvasColor,
-                        fontSize: 16,
+                        fontSize: 14,
                         fontFamily: 'kufi',
                       ),
                     ),
                   )
-                : Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Container(
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 8.0,
-                          vertical: 2.0,
-                        ),
-                        decoration: BoxDecoration(
-                          color: Theme.of(context).colorScheme.primary,
-                          borderRadius: const BorderRadius.only(
-                            topLeft: Radius.circular(4),
-                            bottomLeft: Radius.circular(4),
+                : Padding(
+                    padding: EdgeInsets.symmetric(
+                      horizontal: widget.horizontalPadding,
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Container(
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 10.0,
+                            vertical: 4.0,
+                          ),
+                          decoration: BoxDecoration(
+                            color: Theme.of(
+                              context,
+                            ).colorScheme.primary.withValues(alpha: 0.85),
+                            borderRadius: const BorderRadius.all(
+                              Radius.circular(12),
+                            ),
+                          ),
+                          child: Text(
+                            (RegExp(
+                                      r'((^0*[1-9]\d*:)?\d{2}:\d{2})\.\d+$',
+                                    ).firstMatch("$remaining")?.group(1) ??
+                                    '$remaining')
+                                .convertNumbersToCurrentLang(),
+                            style: TextStyle(
+                              color:
+                                  widget.textColor ??
+                                  Theme.of(context).canvasColor,
+                              fontSize: 14,
+                              fontFamily: 'kufi',
+                            ),
                           ),
                         ),
-                        child: Text(
-                          (RegExp(
-                                    r'((^0*[1-9]\d*:)?\d{2}:\d{2})\.\d+$',
-                                  ).firstMatch("$remaining")?.group(1) ??
-                                  '$remaining')
-                              .convertNumbersToCurrentLang(),
-                          style: TextStyle(
-                            color:
-                                widget.textColor ??
-                                Theme.of(context).canvasColor,
-                            fontSize: 16,
-                            fontFamily: 'kufi',
+                        Container(
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 10.0,
+                            vertical: 4.0,
+                          ),
+                          decoration: BoxDecoration(
+                            color: Theme.of(
+                              context,
+                            ).colorScheme.primary.withValues(alpha: 0.85),
+                            borderRadius: const BorderRadius.all(
+                              Radius.circular(12),
+                            ),
+                          ),
+                          child: Text(
+                            (RegExp(
+                                      r'((^0*[1-9]\d*:)?\d{2}:\d{2})\.\d+$',
+                                    ).firstMatch("$total")?.group(1) ??
+                                    '$total')
+                                .convertNumbersToCurrentLang(),
+                            style: TextStyle(
+                              color:
+                                  widget.textColor ??
+                                  Theme.of(context).canvasColor,
+                              fontSize: 14,
+                              fontFamily: 'kufi',
+                            ),
                           ),
                         ),
-                      ),
-                      Container(
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 8.0,
-                          vertical: 2.0,
-                        ),
-                        decoration: BoxDecoration(
-                          color: Theme.of(context).colorScheme.primary,
-                          borderRadius: const BorderRadius.only(
-                            topRight: Radius.circular(4),
-                            bottomRight: Radius.circular(4),
-                          ),
-                        ),
-                        child: Text(
-                          (RegExp(
-                                    r'((^0*[1-9]\d*:)?\d{2}:\d{2})\.\d+$',
-                                  ).firstMatch("$total")?.group(1) ??
-                                  '$total')
-                              .convertNumbersToCurrentLang(),
-                          style: TextStyle(
-                            color:
-                                widget.textColor ??
-                                Theme.of(context).canvasColor,
-                            fontSize: 16,
-                            fontFamily: 'kufi',
-                          ),
-                        ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
           ),
         ],

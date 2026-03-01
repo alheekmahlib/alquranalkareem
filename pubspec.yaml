@@ -60,7 +60,7 @@ dependencies:
   package_rename: ^1.10.1
   path: ^1.9.1
   path_provider: ^2.1.5
-  quran_library: ^2.3.5
+  quran_library: ^2.2.6
     # git:
     #   ref: main
     #   url: https://github.com/alheekmahlib/quran_library.git
@@ -85,14 +85,14 @@ dev_dependencies:
     sdk: flutter
 
 flutter_native_splash:
-  color: "#404C6E"
+  color: "#254D32"
   color_dark: "#2d2d2d"
   image: assets/splash_icon512.png
   image_dark: assets/splash_icon512.png
 
   android_12:
     image: assets/splash_icon512.png
-    icon_background_color: "#404C6E"
+    icon_background_color: "#254D32"
     image_dark: assets/splash_icon512.png
     icon_background_color_dark: "#2d2d2d"
 

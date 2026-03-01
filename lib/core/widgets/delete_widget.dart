@@ -7,11 +7,15 @@ class DeleteWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      // height: 55,
       width: Get.width,
-      decoration: const BoxDecoration(
-          color: Colors.red,
-          borderRadius: BorderRadius.all(Radius.circular(8))),
+      decoration: BoxDecoration(
+        gradient: const LinearGradient(
+          begin: Alignment.centerLeft,
+          end: Alignment.centerRight,
+          colors: [Color(0xffE53935), Color(0xffC62828)],
+        ),
+        borderRadius: const BorderRadius.all(Radius.circular(16)),
+      ),
       padding: const EdgeInsets.symmetric(horizontal: 16.0),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -20,30 +24,38 @@ class DeleteWidget extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               const Icon(
-                Icons.close_outlined,
+                Icons.delete_outline_rounded,
                 color: Colors.white,
-                size: 18,
+                size: 20,
               ),
               Text(
                 'delete'.tr,
                 style: const TextStyle(
-                    color: Colors.white, fontSize: 14, fontFamily: 'kufi'),
-              )
+                  color: Colors.white,
+                  fontSize: 14,
+                  fontFamily: 'kufi',
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
             ],
           ),
           Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               const Icon(
-                Icons.close_outlined,
+                Icons.delete_outline_rounded,
                 color: Colors.white,
-                size: 18,
+                size: 20,
               ),
               Text(
                 'delete'.tr,
                 style: const TextStyle(
-                    color: Colors.white, fontSize: 14, fontFamily: 'kufi'),
-              )
+                  color: Colors.white,
+                  fontSize: 14,
+                  fontFamily: 'kufi',
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
             ],
           ),
         ],

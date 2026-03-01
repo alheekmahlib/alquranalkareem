@@ -13,12 +13,13 @@ class BookCoverWidget extends StatelessWidget {
   final int? bookNumber;
   final String? bookNane;
   final bool isInDetails;
-  const BookCoverWidget(
-      {super.key,
-      this.book,
-      this.isInDetails = false,
-      this.bookNumber,
-      this.bookNane});
+  const BookCoverWidget({
+    super.key,
+    this.book,
+    this.isInDetails = false,
+    this.bookNumber,
+    this.bookNane,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -32,10 +33,9 @@ class BookCoverWidget extends StatelessWidget {
                 width: context.definePlatform(95.w, 85.0),
                 padding: const EdgeInsets.symmetric(horizontal: 8.0),
                 decoration: BoxDecoration(
-                  color: Theme.of(context)
-                      .colorScheme
-                      .primary
-                      .withValues(alpha: .1),
+                  color: Theme.of(
+                    context,
+                  ).colorScheme.primary.withValues(alpha: .1),
                   borderRadius: const BorderRadius.all(Radius.circular(8)),
                 ),
                 child: _heroWidget(context),
@@ -49,7 +49,6 @@ class BookCoverWidget extends StatelessWidget {
                           bookName: book!.bookName,
                           aboutBook: book!.aboutBook,
                         ),
-                        transition: Transition.downToUp,
                       );
                     },
             ),
@@ -73,8 +72,9 @@ class BookCoverWidget extends StatelessWidget {
               child: Text(
                 isInDetails ? bookNane! : book!.bookName,
                 style: TextStyle(
-                  fontSize:
-                      isInDetails ? 20 : context.definePlatform(12.0.sp, 12.0),
+                  fontSize: isInDetails
+                      ? 20
+                      : context.definePlatform(12.0.sp, 12.0),
                   fontFamily: 'kufi',
                   fontWeight: FontWeight.bold,
                   color: Theme.of(context).canvasColor,

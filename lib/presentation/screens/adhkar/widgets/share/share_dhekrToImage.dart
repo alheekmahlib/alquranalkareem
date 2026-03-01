@@ -62,35 +62,35 @@ class DhekrImageCreator extends StatelessWidget {
       textDirection: TextDirection.rtl,
       child: Container(
         width: 960.0,
-        decoration: const BoxDecoration(
-          color: const Color(0xff404C6E),
-        ),
+        decoration: const BoxDecoration(color: const Color(0xff254D32)),
         child: Column(
           children: [
             Row(
               children: [
                 Expanded(
-                    flex: 4,
-                    child: context.hDivider(
-                        width: MediaQuery.sizeOf(context).width)),
-                Expanded(
-                  flex: 2,
-                  child: SvgPicture.asset(
-                    'assets/svg/azkar.svg',
-                    height: 65,
+                  flex: 4,
+                  child: context.hDivider(
+                    width: MediaQuery.sizeOf(context).width,
                   ),
                 ),
                 Expanded(
-                    flex: 4,
-                    child: context.hDivider(
-                        width: MediaQuery.sizeOf(context).width)),
+                  flex: 2,
+                  child: SvgPicture.asset('assets/svg/azkar.svg', height: 65),
+                ),
+                Expanded(
+                  flex: 4,
+                  child: context.hDivider(
+                    width: MediaQuery.sizeOf(context).width,
+                  ),
+                ),
               ],
             ),
             Container(
               margin: const EdgeInsets.all(8.0),
               decoration: const BoxDecoration(
-                  color: Color(0xffffffff),
-                  borderRadius: BorderRadius.all(Radius.circular(8))),
+                color: Color(0xffffffff),
+                borderRadius: BorderRadius.all(Radius.circular(8)),
+              ),
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16.0),
                 child: Column(
@@ -106,7 +106,9 @@ class DhekrImageCreator extends StatelessWidget {
                       ),
                     ),
                     context.hDivider(
-                        width: MediaQuery.sizeOf(context).width, height: 1),
+                      width: MediaQuery.sizeOf(context).width,
+                      height: 1,
+                    ),
                     const Gap(16),
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 16.0),
@@ -134,11 +136,14 @@ class DhekrImageCreator extends StatelessWidget {
                       alignment: Alignment.centerLeft,
                       child: Container(
                         padding: const EdgeInsets.symmetric(
-                            horizontal: 4.0, vertical: 2.0),
+                          horizontal: 4.0,
+                          vertical: 2.0,
+                        ),
                         decoration: BoxDecoration(
-                          color: const Color(0xff404C6E).withValues(alpha: .05),
-                          borderRadius:
-                              const BorderRadius.all(Radius.circular(4)),
+                          color: const Color(0xff254D32).withValues(alpha: .05),
+                          borderRadius: const BorderRadius.all(
+                            Radius.circular(4),
+                          ),
                         ),
                         child: Text(
                           reference,
@@ -152,14 +157,19 @@ class DhekrImageCreator extends StatelessWidget {
                       ),
                     ),
                     context.hDivider(
-                        width: MediaQuery.sizeOf(context).width, height: 1),
+                      width: MediaQuery.sizeOf(context).width,
+                      height: 1,
+                    ),
                     Container(
                       padding: const EdgeInsets.symmetric(
-                          horizontal: 4.0, vertical: 2.0),
+                        horizontal: 4.0,
+                        vertical: 2.0,
+                      ),
                       decoration: BoxDecoration(
-                        color: const Color(0xff404C6E).withValues(alpha: .05),
-                        borderRadius:
-                            const BorderRadius.all(Radius.circular(4)),
+                        color: const Color(0xff254D32).withValues(alpha: .05),
+                        borderRadius: const BorderRadius.all(
+                          Radius.circular(4),
+                        ),
                       ),
                       child: Text(
                         description,
@@ -173,25 +183,23 @@ class DhekrImageCreator extends StatelessWidget {
                     ),
                     const Gap(16),
                     Align(
-                        alignment: Alignment.centerRight,
-                        child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            customSvgWithColor(
-                              SvgPath.svgSplashIcon,
-                              height: 40,
+                      alignment: Alignment.centerRight,
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          customSvgWithColor(SvgPath.svgSplashIcon, height: 40),
+                          context.vDivider(),
+                          const Text(
+                            'القـرآن الكريــــم\nمكتبة الحكمة',
+                            style: TextStyle(
+                              fontSize: 10,
+                              fontFamily: 'kufi',
+                              color: Color(0xff161f07),
                             ),
-                            context.vDivider(),
-                            const Text(
-                              'القـرآن الكريــــم\nمكتبة الحكمة',
-                              style: TextStyle(
-                                fontSize: 10,
-                                fontFamily: 'kufi',
-                                color: Color(0xff161f07),
-                              ),
-                            )
-                          ],
-                        ))
+                          ),
+                        ],
+                      ),
+                    ),
                   ],
                 ),
               ),

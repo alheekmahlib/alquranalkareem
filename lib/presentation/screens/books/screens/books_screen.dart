@@ -32,10 +32,7 @@ class BooksScreen extends StatelessWidget {
         ),
         centerTitle: true,
         leading: GestureDetector(
-          onTap: () => Get.offAll(
-            () => const HomeScreen(),
-            transition: Transition.upToDown,
-          ),
+          onTap: () => Get.offAll(() => const HomeScreen()),
           child: Stack(
             alignment: Alignment.center,
             children: [

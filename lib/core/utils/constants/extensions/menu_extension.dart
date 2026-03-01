@@ -51,7 +51,7 @@ extension ContextMenuExtension on BuildContext {
             child: Row(
               mainAxisSize: MainAxisSize.min,
               children: [
-                TafsirButton(
+                BerberTranslateButton(
                   surahNum: surahNum,
                   ayahNum: ayahNum,
                   ayahText: ayahText,
@@ -62,14 +62,25 @@ extension ContextMenuExtension on BuildContext {
                 ),
                 const Gap(6),
                 this.vDivider(height: 18.0),
-                PlayButton(
+                TafsirButton(
                   surahNum: surahNum,
                   ayahNum: ayahNum,
+                  ayahText: ayahText,
+                  pageIndex: pageIndex,
+                  ayahTextNormal: ayahTextNormal,
                   ayahUQNum: ayahUQNum,
-                  singleAyahOnly: true,
                   cancel: cancel,
                 ),
                 const Gap(6),
+                // this.vDivider(height: 18.0),
+                // PlayButton(
+                //   surahNum: surahNum,
+                //   ayahNum: ayahNum,
+                //   ayahUQNum: ayahUQNum,
+                //   singleAyahOnly: true,
+                //   cancel: cancel,
+                // ),
+                // const Gap(6),
                 this.vDivider(height: 18.0),
                 // full surah playButton
                 PlayButton(
@@ -92,15 +103,15 @@ extension ContextMenuExtension on BuildContext {
                 const Gap(6),
                 this.vDivider(height: 18.0),
                 const Gap(6),
-                CopyButton(
-                  ayahNum: ayahNum,
-                  surahName: surahName,
-                  ayahText: ayahText,
-                  cancel: cancel,
-                ),
-                const Gap(6),
-                this.vDivider(height: 18.0),
-                const Gap(6),
+                // CopyButton(
+                //   ayahNum: ayahNum,
+                //   surahName: surahName,
+                //   ayahText: ayahText,
+                //   cancel: cancel,
+                // ),
+                // const Gap(6),
+                // this.vDivider(height: 18.0),
+                // const Gap(6),
                 ShareAyahOptions(
                   ayahNumber: ayahNum,
                   ayahUQNumber: ayahUQNum,

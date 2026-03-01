@@ -7,12 +7,13 @@ class ContainerWithLines extends StatelessWidget {
   final Color? linesColor;
   final Color? containerColor;
   final double? width;
-  const ContainerWithLines(
-      {super.key,
-      required this.child,
-      this.linesColor,
-      this.containerColor,
-      this.width});
+  const ContainerWithLines({
+    super.key,
+    required this.child,
+    this.linesColor,
+    this.containerColor,
+    this.width,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -22,23 +23,31 @@ class ContainerWithLines extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           context.hDivider(
-              width: width ?? MediaQuery.sizeOf(context).width,
-              color: linesColor),
+            width: width ?? MediaQuery.sizeOf(context).width,
+            color: linesColor,
+          ),
           Container(
             width: width ?? MediaQuery.sizeOf(context).width,
             margin: const EdgeInsets.symmetric(horizontal: 16.0),
             decoration: BoxDecoration(
-              color: containerColor ??
+              color:
+                  containerColor ??
                   Theme.of(context).colorScheme.primaryContainer,
-              borderRadius: const BorderRadius.all(
-                Radius.circular(4),
-              ),
+              borderRadius: const BorderRadius.all(Radius.circular(16)),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.black.withValues(alpha: 0.04),
+                  blurRadius: 8,
+                  offset: const Offset(0, 2),
+                ),
+              ],
             ),
             child: child,
           ),
           context.hDivider(
-              width: width ?? MediaQuery.sizeOf(context).width,
-              color: linesColor),
+            width: width ?? MediaQuery.sizeOf(context).width,
+            color: linesColor,
+          ),
         ],
       ),
     );

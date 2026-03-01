@@ -30,35 +30,32 @@ class ElevatedButtonWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    ElevatedButtonController.instance
-        .initElevatedButton(index, delayed: delayed);
-    return ClipRRect(
-      child: ElevatedLayerButton(
-        index: index,
-        onClick: onClick,
-        buttonHeight: height ?? 65,
-        buttonWidth: width ?? Get.width,
-        animationDuration: const Duration(milliseconds: 200),
-        animationCurve: Curves.ease,
-        topDecoration: BoxDecoration(
-          color: color ?? Theme.of(context).colorScheme.primary,
-          borderRadius: const BorderRadius.all(Radius.circular(8)),
-          border: border,
+    ElevatedButtonController.instance.initElevatedButton(
+      index,
+      delayed: delayed,
+    );
+    return ElevatedLayerButton(
+      index: index,
+      onClick: onClick,
+      buttonHeight: height ?? 65,
+      buttonWidth: width ?? Get.width,
+      animationDuration: const Duration(milliseconds: 200),
+      animationCurve: Curves.easeOutBack,
+      topDecoration: BoxDecoration(
+        gradient: LinearGradient(
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+          colors: [
+            (color ?? Theme.of(context).colorScheme.primary),
+            (color ?? Theme.of(context).colorScheme.primary).withValues(
+              alpha: 0.85,
+            ),
+          ],
         ),
-        topLayerChild: child,
-        baseDecoration: BoxDecoration(
-            borderRadius: const BorderRadius.all(Radius.circular(8)),
-            boxShadow: [
-              BoxShadow(
-                  color: colorShadow ??
-                      Theme.of(context)
-                          .colorScheme
-                          .surface
-                          .withValues(alpha: .4),
-                  spreadRadius: 0,
-                  blurRadius: 0)
-            ]),
+        borderRadius: const BorderRadius.all(Radius.circular(16)),
+        border: border,
       ),
+      topLayerChild: child,
     );
   }
 }

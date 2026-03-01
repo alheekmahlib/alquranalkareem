@@ -7,107 +7,89 @@ class NavBarWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        Transform.translate(
-          offset: const Offset(0, 2),
-          child: Row(
-            // mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.end,
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              GestureDetector(
-                onTap: () {
-                  if (GlobalKeyManager().drawerKey.currentState != null) {
-                    GlobalKeyManager().drawerKey.currentState!.toggle();
-                  }
-                },
-                child: Stack(
-                  alignment: Alignment.center,
-                  children: [
-                    RotatedBox(
-                      quarterTurns: 30,
-                      child: customSvgWithColor(
-                        SvgPath.svgButtonCurve,
-                        height: 45.0,
-                        width: 45.0,
-                        color: Get.theme.colorScheme.primary,
-                      ),
-                    ),
-                    Container(
-                      padding: const EdgeInsets.all(4),
-                      margin: const EdgeInsets.only(bottom: 5),
-                      decoration: BoxDecoration(
-                        color: Theme.of(context).colorScheme.primaryContainer,
-                        borderRadius: const BorderRadius.all(
-                          Radius.circular(4),
-                        ),
-                        border: Border.all(
-                          width: 1,
-                          color: Theme.of(context).colorScheme.surface,
-                        ),
-                      ),
-                      child: customSvgWithColor(
-                        SvgPath.svgListIcon,
-                        height: 25,
-                        width: 25,
-                        color: context.theme.hintColor,
-                      ),
-                    ),
-                  ],
-                ),
+    return Container(
+      child: ClipRRect(
+        borderRadius: const BorderRadius.only(
+          topLeft: Radius.circular(12),
+          topRight: Radius.circular(12),
+        ),
+        child: BackdropFilter(
+          filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
+          child: Container(
+            height: 56,
+            padding: const EdgeInsets.symmetric(horizontal: 16.0),
+            decoration: BoxDecoration(
+              color: Theme.of(context).colorScheme.primary,
+              borderRadius: const BorderRadius.only(
+                topLeft: Radius.circular(12),
+                topRight: Radius.circular(12),
               ),
-              // PagesIndicator(),
-              GestureDetector(
-                onTap: () {
-                  customBottomSheet(const KhatmahBookmarksScreen());
-                  generalCtrl.state.showSelectScreenPage.value = false;
-                },
-                child: Stack(
-                  alignment: Alignment.center,
-                  children: [
-                    RotatedBox(
-                      quarterTurns: 30,
-                      child: customSvgWithColor(
-                        SvgPath.svgButtonCurve,
-                        height: 45.0,
-                        width: 45.0,
-                        color: Get.theme.colorScheme.primary,
-                      ),
-                    ),
-                    Container(
-                      padding: const EdgeInsets.all(4),
-                      margin: const EdgeInsets.only(bottom: 5),
-                      decoration: BoxDecoration(
-                        color: Theme.of(context).colorScheme.primaryContainer,
-                        borderRadius: const BorderRadius.all(
-                          Radius.circular(4),
-                        ),
-                        border: Border.all(
-                          width: 1,
-                          color: Theme.of(context).colorScheme.surface,
-                        ),
-                      ),
-                      child: customSvgWithColor(
-                        SvgPath.svgBookmarkList,
-                        height: 25,
-                        width: 25,
-                        color: context.theme.hintColor,
-                      ),
-                    ),
-                  ],
+              boxShadow: [
+                BoxShadow(
+                  color: Theme.of(
+                    context,
+                  ).colorScheme.primary.withValues(alpha: 0.2),
+                  blurRadius: 12,
+                  offset: const Offset(0, 4),
                 ),
-              ),
-            ],
+              ],
+            ),
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                _buildPillButton(
+                  context,
+                  () {
+                    if (GlobalKeyManager().drawerKey.currentState != null) {
+                      GlobalKeyManager().drawerKey.currentState!.toggle();
+                    }
+                  },
+                  customSvgWithColor(
+                    SvgPath.svgListIcon,
+                    height: 22.0,
+                    width: 22.0,
+                    color: Get.theme.colorScheme.secondary,
+                  ),
+                ),
+                _buildPillButton(
+                  context,
+                  () {
+                    customBottomSheet(const KhatmahBookmarksScreen());
+                    generalCtrl.state.showSelectScreenPage.value = false;
+                  },
+                  customSvgWithColor(
+                    SvgPath.svgBookmarkList,
+                    height: 22.0,
+                    width: 22.0,
+                    color: Get.theme.colorScheme.secondary,
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
-        Container(
-          height: 15,
-          width: MediaQuery.sizeOf(context).width,
-          color: Theme.of(context).colorScheme.primary,
+      ),
+    );
+  }
+
+  Widget _buildPillButton(
+    BuildContext context,
+    VoidCallback? onTap,
+    Widget child,
+  ) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        height: 40,
+        width: 40,
+        alignment: Alignment.center,
+        decoration: BoxDecoration(
+          color: Theme.of(context).colorScheme.surface.withValues(alpha: 0.2),
+          borderRadius: const BorderRadius.all(Radius.circular(14)),
         ),
-      ],
+        child: child,
+      ),
     );
   }
 }
