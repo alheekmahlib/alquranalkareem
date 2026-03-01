@@ -30,6 +30,12 @@ class ContainerButton extends StatelessWidget {
   final double? verticalPadding;
   final MainAxisAlignment? mainAxisAlignment;
   final bool? isButton;
+  final bool? isDownloading;
+  final bool? isPreparingDownload;
+  final String? downloadProgress;
+  final Color? progressBackgroundColor;
+  final Color? progressColor;
+  final bool? isTitleCentered;
   const ContainerButton({
     super.key,
     this.onPressed,
@@ -54,6 +60,12 @@ class ContainerButton extends StatelessWidget {
     this.verticalPadding = 4.0,
     this.mainAxisAlignment = MainAxisAlignment.start,
     this.isButton = false,
+    this.isDownloading = false,
+    this.downloadProgress,
+    this.isPreparingDownload = false,
+    this.progressBackgroundColor,
+    this.isTitleCentered = false,
+    this.progressColor,
   });
 
   @override
@@ -64,93 +76,158 @@ class ContainerButton extends StatelessWidget {
         child: AnimatedSize(
           duration: const Duration(milliseconds: 300),
           curve: Curves.easeInOut,
-          child: Container(
-            height: height ?? null,
-            width: width ?? null,
-            padding: EdgeInsets.symmetric(
-              horizontal: horizontalPadding ?? 4.0,
-              vertical: verticalPadding ?? 4.0,
-            ),
-            margin: EdgeInsets.symmetric(
-              horizontal: horizontalMargin ?? 0.0,
-              vertical: verticalMargin ?? 0.0,
-            ),
-            decoration: BoxDecoration(
-              color:
-                  backgroundColor ??
-                  Theme.of(context).primaryColorLight.withValues(
-                    alpha: value?.value ?? false ? 0.5 : 0.2,
-                  ),
-              borderRadius: BorderRadius.all(
-                Radius.circular(borderRadius ?? 8),
-              ),
-            ),
-            child: Row(
-              mainAxisSize: MainAxisSize.min,
-              mainAxisAlignment: mainAxisAlignment ?? MainAxisAlignment.start,
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(borderRadius ?? 8),
+            child: Stack(
+              alignment: Alignment.center,
               children: [
-                if (value?.value ?? false)
-                  Container(
-                    // height: 10,
-                    width: 8,
-                    margin: const EdgeInsets.symmetric(vertical: 4.0),
-                    decoration: BoxDecoration(
-                      color: value?.value ?? false
-                          ? selectedColor ??
-                                Theme.of(context).colorScheme.inverseSurface
-                          : Colors.transparent,
-                      borderRadius: BorderRadius.all(
-                        Radius.circular(borderRadius ?? 8),
+                Container(
+                  height: height ?? null,
+                  width: width ?? null,
+                  alignment: isTitleCentered == true ? Alignment.center : null,
+                  padding: EdgeInsets.symmetric(
+                    horizontal: horizontalPadding ?? 4.0,
+                    vertical: verticalPadding ?? 4.0,
+                  ),
+                  margin: EdgeInsets.symmetric(
+                    horizontal: horizontalMargin ?? 0.0,
+                    vertical: verticalMargin ?? 0.0,
+                  ),
+                  decoration: BoxDecoration(
+                    color:
+                        backgroundColor ??
+                        Theme.of(context).primaryColorLight.withValues(
+                          alpha: value?.value ?? false ? 0.5 : 0.2,
+                        ),
+                    borderRadius: BorderRadius.all(
+                      Radius.circular(borderRadius ?? 8),
+                    ),
+                  ),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    mainAxisAlignment:
+                        mainAxisAlignment ??
+                        (isTitleCentered ?? false
+                            ? MainAxisAlignment.center
+                            : MainAxisAlignment.start),
+                    children: [
+                      if (value?.value ?? false)
+                        Container(
+                          // height: 10,
+                          width: 8,
+                          margin: const EdgeInsets.symmetric(vertical: 4.0),
+                          decoration: BoxDecoration(
+                            color: value?.value ?? false
+                                ? selectedColor ??
+                                      Theme.of(
+                                        context,
+                                      ).colorScheme.inverseSurface
+                                : Colors.transparent,
+                            borderRadius: BorderRadius.all(
+                              Radius.circular(borderRadius ?? 8),
+                            ),
+                          ),
+                        ),
+                      if (value?.value ?? false) const Gap(8),
+                      if (svgWithColorPath != null)
+                        customSvgWithColor(
+                          height: svgHeight ?? 24,
+                          width: svgWidth ?? 24,
+                          svgWithColorPath ?? SvgPath.svgAlert,
+                          color:
+                              svgColor ?? Theme.of(context).colorScheme.surface,
+                        ),
+                      if (svgPath != null)
+                        customSvg(
+                          height: svgHeight ?? 24,
+                          width: svgWidth ?? 24,
+                          svgPath ?? SvgPath.svgAlert,
+                        ),
+                      if (isButton ?? false) const Gap(8),
+                      if (isButton ?? false)
+                        Container(
+                          // height: 10,
+                          width: 8,
+                          decoration: BoxDecoration(
+                            color: Theme.of(context).colorScheme.inverseSurface,
+                            borderRadius: BorderRadius.all(
+                              Radius.circular(borderRadius ?? 8),
+                            ),
+                          ),
+                        ),
+                      if (isButton ?? false) const Gap(8),
+                      if (title != null)
+                        Text(
+                          title!,
+                          style: AppTextStyles.titleMedium(
+                            color:
+                                titleColor ??
+                                Theme.of(context).colorScheme.inversePrimary,
+                          ),
+                        ),
+                      if (isDownloading ?? false) ...[
+                        const Gap(12),
+                        Text(
+                          '${downloadProgress ?? '0'}%',
+                          style: AppTextStyles.titleMedium(
+                            color:
+                                titleColor ??
+                                Theme.of(context).colorScheme.inversePrimary,
+                          ),
+                        ),
+                      ],
+                      if (isPreparingDownload ?? false) ...[
+                        const Gap(12),
+                        SizedBox(
+                          height: 16,
+                          width: 16,
+                          child: CircularProgressIndicator(
+                            strokeWidth: 2.0,
+                            valueColor: AlwaysStoppedAnimation<Color>(
+                              titleColor ??
+                                  Theme.of(context).colorScheme.inversePrimary,
+                            ),
+                          ),
+                        ),
+                      ],
+                      if (child != null) child!,
+                      if (withArrow ?? false) const Spacer(),
+                      if (withArrow ?? false)
+                        RotatedBox(
+                          quarterTurns: alignmentLayout(1, 3),
+                          child: customSvgWithColor(
+                            SvgPath.svgHomeArrowDown,
+                            color: context.theme.primaryColorDark,
+                            height: 18,
+                          ),
+                        ),
+                    ],
+                  ),
+                ),
+
+                if (isDownloading ?? false) ...[
+                  SizedBox(
+                    height: height ?? null,
+                    width: width ?? null,
+                    child: LinearProgressIndicator(
+                      minHeight: height ?? null,
+                      backgroundColor:
+                          progressBackgroundColor ??
+                          Theme.of(
+                            context,
+                          ).primaryColorLight.withValues(alpha: .2),
+                      value: (isDownloading ?? false)
+                          ? (int.parse(downloadProgress ?? '0') / 100).clamp(
+                              0.0,
+                              1.0,
+                            )
+                          : null,
+                      valueColor: AlwaysStoppedAnimation<Color>(
+                        progressColor ?? Theme.of(context).colorScheme.primary,
                       ),
                     ),
                   ),
-                if (value?.value ?? false) const Gap(8),
-                if (svgWithColorPath != null)
-                  customSvgWithColor(
-                    height: svgHeight ?? 24,
-                    width: svgWidth ?? 24,
-                    svgWithColorPath ?? SvgPath.svgAlert,
-                    color: svgColor ?? Theme.of(context).colorScheme.surface,
-                  ),
-                if (svgPath != null)
-                  customSvg(
-                    height: svgHeight ?? 24,
-                    width: svgWidth ?? 24,
-                    svgPath ?? SvgPath.svgAlert,
-                  ),
-                if (isButton ?? false) const Gap(8),
-                if (isButton ?? false)
-                  Container(
-                    // height: 10,
-                    width: 8,
-                    decoration: BoxDecoration(
-                      color: Theme.of(context).colorScheme.inverseSurface,
-                      borderRadius: BorderRadius.all(
-                        Radius.circular(borderRadius ?? 8),
-                      ),
-                    ),
-                  ),
-                if (isButton ?? false) const Gap(8),
-                if (title != null)
-                  Text(
-                    title!,
-                    style: AppTextStyles.titleMedium(
-                      color:
-                          titleColor ??
-                          Theme.of(context).colorScheme.inversePrimary,
-                    ),
-                  ),
-                if (child != null) child!,
-                if (withArrow ?? false) const Spacer(),
-                if (withArrow ?? false)
-                  RotatedBox(
-                    quarterTurns: alignmentLayout(1, 3),
-                    child: customSvgWithColor(
-                      SvgPath.svgHomeArrowDown,
-                      color: context.theme.primaryColorDark,
-                      height: 18,
-                    ),
-                  ),
+                ],
               ],
             ),
           ),

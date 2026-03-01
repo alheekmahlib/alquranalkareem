@@ -35,6 +35,10 @@ class AyahsBuild extends StatelessWidget {
         Obx(() {
           return Column(
             children: List.generate(ayahs.length, (ayahIndex) {
+              final surah = QuranLibrary()
+                  .getCurrentSurahDataByAyahUniqueNumber(
+                    ayahUniqueNumber: ayahs[ayahIndex].ayahUQNumber,
+                  );
               quranCtrl.state.isSelected = quranCtrl.state.selectedAyahIndexes
                   .contains(ayahs[ayahIndex].ayahUQNumber);
               return MeasureSizeWidget(
@@ -52,16 +56,9 @@ class AyahsBuild extends StatelessWidget {
                       children: [
                         const Gap(16),
                         AyahsMenu(
-                          surahNum: QuranLibrary()
-                              .getCurrentSurahDataByAyahUniqueNumber(
-                                ayahUniqueNumber: ayahs[ayahIndex].ayahUQNumber,
-                              )
-                              .surahNumber,
-                          ayahNum: ayahs[ayahIndex].ayahNumber,
-                          ayahText: ayahs[ayahIndex].text,
+                          surah: surah,
+                          ayah: ayahs[ayahIndex],
                           pageIndex: pageIndex,
-                          ayahTextNormal: ayahs[ayahIndex].text,
-                          ayahUQNum: ayahs[ayahIndex].ayahUQNumber,
                           surahName: quranCtrl.state.surahs
                               .firstWhere(
                                 (s) => s.ayahs.contains(ayahs[ayahIndex]),

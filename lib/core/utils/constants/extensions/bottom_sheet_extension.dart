@@ -1,12 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 
 import '/core/utils/constants/extensions/extensions.dart';
 
 extension BottomSheetExtension on void {
-  void customBottomSheet(Widget child) {
+  void customBottomSheet(
+    Widget child, {
+    Color? backgroundColor,
+    double? rightPadding,
+    double? leftPadding,
+    Widget? handleChild,
+  }) {
     showModalBottomSheet(
       context: Get.context!,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
       backgroundColor: Colors.transparent,
       isScrollControlled: true,
       useSafeArea: true,
@@ -16,20 +24,48 @@ extension BottomSheetExtension on void {
       constraints: BoxConstraints(
         maxWidth: Get.context!.customOrientation(Get.width, Get.width * .5),
       ),
-      builder: (context) => Container(
-        padding: const EdgeInsets.only(top: 8.0, right: 8.0, left: 8.0),
-        margin: const EdgeInsets.symmetric(horizontal: 8.0),
-        decoration: BoxDecoration(
-          borderRadius: const BorderRadius.only(
-            topLeft: Radius.circular(16),
-            topRight: Radius.circular(16),
-          ),
-          border: Border.all(
-            width: 1,
-            color: Get.theme.colorScheme.surface.withValues(alpha: .4),
-          ),
+      builder: (context) => Padding(
+        padding: EdgeInsets.only(
+          right: rightPadding ?? 8.0,
+          left: leftPadding ?? 8.0,
         ),
-        child: child,
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            if (handleChild != null) handleChild,
+            Container(
+              height: 8,
+              width: Get.width,
+              margin: const EdgeInsets.symmetric(horizontal: 62.0),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(8),
+                color: Theme.of(context).colorScheme.primary,
+              ),
+            ),
+            const Gap(8.0),
+            Container(
+              width: Get.width,
+              decoration: BoxDecoration(
+                borderRadius: const BorderRadius.only(
+                  topLeft: Radius.circular(8),
+                  topRight: Radius.circular(8),
+                ),
+                color:
+                    backgroundColor ??
+                    Theme.of(context).colorScheme.primaryContainer,
+              ),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  const Gap(8.0),
+                  context.customArrowDown(),
+                  const Gap(8.0),
+                  child,
+                ],
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

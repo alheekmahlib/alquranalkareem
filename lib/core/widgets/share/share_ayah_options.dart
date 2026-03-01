@@ -1,6 +1,7 @@
 import 'package:alquranalkareem/core/utils/constants/extensions/bottom_sheet_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:quran_library/quran.dart';
 
 import '../../../presentation/screens/quran_page/quran.dart';
 import '../../services/services_locator.dart';
@@ -10,23 +11,13 @@ import '../custom_button.dart';
 import 'share_ayahToImage.dart';
 
 class ShareAyahOptions extends StatelessWidget {
-  final int ayahNumber;
-  final int ayahUQNumber;
-  final int surahNumber;
-  final String ayahText;
-  final String surahName;
-  final String ayahTextNormal;
-  final Function? cancel;
+  final AyahModel ayah;
+  final SurahModel surah;
   final int pageNumber;
   ShareAyahOptions({
     super.key,
-    required this.ayahNumber,
-    required this.ayahUQNumber,
-    required this.surahNumber,
-    required this.ayahText,
-    required this.surahName,
-    required this.ayahTextNormal,
-    this.cancel,
+    required this.ayah,
+    required this.surah,
     required this.pageNumber,
   });
 
@@ -35,12 +26,12 @@ class ShareAyahOptions extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CustomButton(
-      height: 25,
-      width: 30,
-      iconSize: 30,
+      height: 40,
+      width: 35,
+      iconSize: 35,
       isCustomSvgColor: true,
-      svgPath: SvgPath.svgShareIcon,
-      svgColor: context.theme.hintColor,
+      svgPath: SvgPath.svgHomeShare,
+      svgColor: context.theme.canvasColor,
       onPressed: () async {
         // await QuranLibrary().fetchTranslation();
         // shareToImage.fetchTafseerSaadi(surahNumber, ayahNumber, ayahUQNumber);
@@ -133,7 +124,7 @@ class ShareAyahOptions extends StatelessWidget {
                 Expanded(
                   flex: 8,
                   child: Text(
-                    "﴿ $ayahText ﴾",
+                    "﴿ ${ayah.text} ﴾",
                     style: TextStyle(
                       color: Get.theme.hintColor,
                       fontSize: 16,
@@ -147,11 +138,11 @@ class ShareAyahOptions extends StatelessWidget {
           ),
           onTap: () {
             shareToImage.shareText(
-              ayahText,
-              surahName,
-              ayahNumber,
+              ayah.text,
+              surah.arabicName,
+              ayah.ayahNumber,
               pageNumber + 1,
-              ayahUQNumber,
+              ayah.ayahUQNumber,
             );
             Get.back();
           },
@@ -200,20 +191,20 @@ class ShareAyahOptions extends StatelessWidget {
             //   // width: 150,
             // ),
             child: VerseImageCreator(
-              verseNumber: ayahNumber,
-              surahNumber: surahNumber,
-              verseText: ayahText,
+              verseNumber: ayah.ayahNumber,
+              surahNumber: surah.surahNumber,
+              verseText: ayah.text,
             ),
           ),
           onTap: () async {
             await sl<ShareController>().createAndShowVerseImage();
             shareToImage.shareVerse(
               context,
-              ayahText,
-              surahName,
-              ayahNumber,
+              ayah.text,
+              surah.arabicName,
+              ayah.ayahNumber,
               pageNumber + 1,
-              ayahUQNumber,
+              ayah.ayahUQNumber,
             );
             // shareVerse(
             //     context, verseNumber, surahNumber, verseText);

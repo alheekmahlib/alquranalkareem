@@ -1,46 +1,46 @@
 part of '../../quran.dart';
 
 class AddBookmarkButton extends StatelessWidget {
-  final int surahNum;
-  final int ayahNum;
-  final int ayahUQNum;
+  final SurahModel surah;
+  final AyahModel ayah;
   final int pageIndex;
-  final String surahName;
   final Function? cancel;
 
   const AddBookmarkButton({
     super.key,
-    required this.surahNum,
-    required this.ayahNum,
-    required this.ayahUQNum,
+    required this.surah,
+    required this.ayah,
     required this.pageIndex,
-    required this.surahName,
     this.cancel,
   });
 
   @override
   Widget build(BuildContext context) {
     return CustomButton(
-      width: 23,
+      height: 40,
+      width: 35,
+      iconSize: 35,
       isCustomSvgColor: true,
-      svgPath:
-          BookmarksController.instance.hasBookmark(surahNum, ayahUQNum).value
-          ? SvgPath.svgBookmarkIcon2
-          : SvgPath.svgBookmarkIcon,
-      svgColor: context.theme.hintColor,
+      svgPath: SvgPath.svgQuranBookmark,
+      svgColor:
+          BookmarksController.instance
+              .hasBookmark(surah.surahNumber, ayah.ayahUQNumber)
+              .value
+          ? context.theme.colorScheme.surface
+          : context.theme.canvasColor,
       onPressed: () async {
         if (BookmarksController.instance
-            .hasBookmark(surahNum, ayahUQNum)
+            .hasBookmark(surah.surahNumber, ayah.ayahUQNumber)
             .value) {
-          BookmarksController.instance.deleteBookmarksText(ayahUQNum);
+          BookmarksController.instance.deleteBookmarksText(ayah.ayahUQNumber);
         } else {
           BookmarksController.instance
               .addBookmarkText(
-                surahName,
-                surahNum,
+                surah.arabicName,
+                surah.surahNumber,
                 pageIndex + 1,
-                ayahNum,
-                ayahUQNum,
+                ayah.ayahNumber,
+                ayah.ayahUQNumber,
                 sl<GeneralController>().state.timeNow.dateNow,
               )
               .then(

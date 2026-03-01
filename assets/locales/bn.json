@@ -1282,5 +1282,17 @@
   "Thu": "বৃহঃ",
   "Fri": "শুক্র",
   "Sat": "শনি",
-  "manager_ayah_downloads": "আয়াত ডাউনলোড পরিচালনা"
+  "manager_ayah_downloads": "আয়াত ডাউনলোড পরিচালনা",
+  "load_error": "এই শব্দটির তথ্য লোড করা যায়নি।",
+  "no_data": "এই শব্দটির জন্য কোনো তথ্য নেই।",
+  "recitations": "কিরাআত",
+  "tasreef": "তাসরীফ",
+  "eerab": "ই'রাব",
+  "unavailableDataTemplate": "@kind এর তথ্য এই ডিভাইসে ডাউনলোড করা নেই",
+  "@unavailableDataTemplate": {
+    "type": "text",
+    "placeholders": {
+      "kind": {}
+    }
+  }
 }

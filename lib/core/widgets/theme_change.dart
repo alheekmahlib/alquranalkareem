@@ -4,7 +4,6 @@ import 'package:get/get.dart';
 
 import '/core/widgets/container_button.dart';
 import '../../presentation/controllers/theme_controller.dart';
-import '../utils/constants/lists.dart';
 import '../utils/constants/svg_constants.dart';
 import '../utils/helpers/app_text_styles.dart';
 
@@ -33,13 +32,11 @@ class ThemeChange extends StatelessWidget {
             child: Wrap(
               alignment: WrapAlignment.center,
               children: List.generate(
-                themeList.length,
+                AppTheme.values.length,
                 (index) => ContainerButton(
                   onPressed: () {
-                    themeCtrl.setTheme(themeList[index]['name']);
-                    Get.forceAppUpdate().then((_) {
-                      Get.back();
-                    });
+                    themeCtrl.setTheme(AppTheme.values[index]);
+                    Get.forceAppUpdate();
                   },
                   horizontalMargin: 4.0,
                   verticalMargin: 4.0,

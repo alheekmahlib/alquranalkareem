@@ -1276,5 +1276,17 @@
   "Thu": "Huw",
   "Fri": "Biy",
   "Sat": "Sab",
-  "manager_ayah_downloads": "Pamahalaan ang mga Download ng Ayah"
+  "manager_ayah_downloads": "Pamahalaan ang mga Download ng Ayah",
+  "load_error": "Hindi ma-load ang datos para sa salitang ito.",
+  "no_data": "Walang datos para sa salitang ito.",
+  "recitations": "Mga Pagbigkas",
+  "tasreef": "Pagbabanghay",
+  "eerab": "I'rab",
+  "unavailableDataTemplate": "Hindi pa na-download sa device na ito ang datos ng @kind",
+  "@unavailableDataTemplate": {
+    "type": "text",
+    "placeholders": {
+      "kind": {}
+    }
+  }
 }

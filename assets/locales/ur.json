@@ -1282,5 +1282,17 @@
   "Thu": "جمعرات",
   "Fri": "جمعہ",
   "Sat": "ہفتہ",
-  "manager_ayah_downloads": "آیات ڈاؤن لوڈ کا انتظام"
+  "manager_ayah_downloads": "آیات ڈاؤن لوڈ کا انتظام",
+  "load_error": "اس لفظ کا ڈیٹا لوڈ نہیں ہو سکا۔",
+  "no_data": "اس لفظ کے لیے کوئی ڈیٹا موجود نہیں۔",
+  "recitations": "قراءات",
+  "tasreef": "تصریف",
+  "eerab": "اعراب",
+  "unavailableDataTemplate": "@kind کا ڈیٹا اس ڈیوائس پر ڈاؤن لوڈ نہیں ہے",
+  "@unavailableDataTemplate": {
+    "type": "text",
+    "placeholders": {
+      "kind": {}
+    }
+  }
 }

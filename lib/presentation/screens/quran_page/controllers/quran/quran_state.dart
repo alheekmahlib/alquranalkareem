@@ -60,4 +60,9 @@ class QuranState {
   RxString navBarType = 'none'.obs;
   ExpansibleController languageController = ExpansibleController();
   RxBool isLanguageExpanded = false.obs;
+  Rx<WordRef> ref = const WordRef(
+    ayahNumber: 1,
+    surahNumber: 1,
+    wordNumber: 1,
+  ).obs;
 }

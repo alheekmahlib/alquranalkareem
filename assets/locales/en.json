@@ -1282,5 +1282,17 @@
   "Thu": "Thu",
   "Fri": "Fri",
   "Sat": "Sat",
-  "manager_ayah_downloads": "Manage Ayah Downloads"
+  "manager_ayah_downloads": "Manage Ayah Downloads",
+  "load_error": "Failed to load data for this word.",
+  "no_data": "No data available for this word.", 
+  "recitations": "Recitations",
+  "tasreef": "Conjugation",
+  "eerab": "I'rab",
+  "unavailableDataTemplate": "@kind data is not downloaded on this device",
+  "@unavailableDataTemplate": {
+    "type": "text",
+    "placeholders": {
+      "kind": {}
+    }
+  }
 }

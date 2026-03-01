@@ -1274,5 +1274,17 @@
   "Thu": "پێنجشەممە",
   "Fri": "هەینی",
   "Sat": "شەممە",
-  "manager_ayah_downloads": "بەڕێوبردنی داگرتنی ئایەتەکان"
+  "manager_ayah_downloads": "بەڕێوبردنی داگرتنی ئایەتەکان",
+  "load_error": "نەتوانرا زانیارییەکانی ئەم وشەیە باربکرێت.",
+  "no_data": "هیچ زانیاریێک بۆ ئەم وشەیە نییە.",
+  "recitations": "قیرائەت",
+  "tasreef": "تەصریف",
+  "eerab": "ئێعراب",
+  "unavailableDataTemplate": "زانیاریی @kind لەم ئامێرەدا داگرتوو نییە",
+  "@unavailableDataTemplate": {
+    "type": "text",
+    "placeholders": {
+      "kind": {}
+    }
+  }
 }
