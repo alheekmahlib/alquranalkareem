@@ -1,3 +1,4 @@
+import 'package:alquranalkareem/core/utils/constants/extensions/extensions.dart';
 import 'package:alquranalkareem/core/widgets/container_button.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
@@ -28,14 +29,17 @@ class AyahMenuHelper {
     wordCtrl.setSelectedKind(initialKind);
     BottomSheetExtension(null).customBottomSheet(
       backgroundColor: Get.theme.colorScheme.primaryContainer,
-      handleChild: Text(
-        '${'${ayah.ayahNumber}'.convertEnglishNumbersToArabic(ayah.ayahNumber.toString())}\u202F\u202F',
-        style: const TextStyle(
-          fontFamily: 'ayahNumber',
-          fontSize: 60,
-          height: 1.5,
-          package: 'quran_library',
+      handleChild: context.customOrientation(
+        Text(
+          '${'${ayah.ayahNumber}'.convertEnglishNumbersToArabic(ayah.ayahNumber.toString())}\u202F\u202F',
+          style: const TextStyle(
+            fontFamily: 'ayahNumber',
+            fontSize: 60,
+            height: 1.5,
+            package: 'quran_library',
+          ),
         ),
+        const SizedBox.shrink(),
       ),
       Column(
         children: [
@@ -68,75 +72,6 @@ class AyahMenuHelper {
                 defaults: quranCtrl.wordInfoStyle,
               ),
             ),
-            // child: GetBuilder<WordInfoCtrl>(
-            //   id: 'word_info_kind',
-            //   builder: (_) {
-            //     return DefaultTabController(
-            //       length: tabs.length,
-            //       initialIndex: initialKind.index,
-            //       child: Column(
-            //         mainAxisSize: MainAxisSize.min,
-            //         children: [
-            //           Container(
-            //             margin: const EdgeInsets.symmetric(horizontal: 8),
-            //             decoration: BoxDecoration(
-            //               color: (Theme.of(
-            //                 context,
-            //               ).colorScheme.primary).withValues(alpha: 0.1),
-            //               borderRadius: BorderRadius.circular(16),
-            //             ),
-            //             child: TabBar(
-            //               onTap: (index) {
-            //                 wordCtrl.setSelectedKind(
-            //                   WordInfoKind.values[index],
-            //                 );
-            //               },
-            //               labelStyle: AppTextStyles.titleMedium(),
-            //               indicator: BoxDecoration(
-            //                 color: (Theme.of(
-            //                   context,
-            //                 ).colorScheme.primary).withValues(alpha: 0.2),
-            //                 borderRadius: BorderRadius.circular(10),
-            //               ),
-            //               indicatorPadding: const EdgeInsets.all(4),
-            //               tabs: tabs,
-            //             ),
-            //           ),
-            //           Flexible(
-            //             child: TabBarView(
-            //               children: [
-            //                 WordInfoKindTab(
-            //                   kind: WordInfoKind.recitations,
-            //                   kindLabelAr: 'القراءات',
-            //                   ref: quranCtrl.state.ref.value,
-            //                   ctrl: wordCtrl,
-            //                   isDark: isDark,
-            //                   style: quranCtrl.wordInfoStyle,
-            //                 ),
-            //                 WordInfoKindTab(
-            //                   kind: WordInfoKind.tasreef,
-            //                   kindLabelAr: 'التصريف',
-            //                   ref: quranCtrl.state.ref.value,
-            //                   ctrl: wordCtrl,
-            //                   isDark: isDark,
-            //                   style: quranCtrl.wordInfoStyle,
-            //                 ),
-            //                 WordInfoKindTab(
-            //                   kind: WordInfoKind.eerab,
-            //                   kindLabelAr: 'الإعراب',
-            //                   ref: quranCtrl.state.ref.value,
-            //                   ctrl: wordCtrl,
-            //                   isDark: isDark,
-            //                   style: quranCtrl.wordInfoStyle,
-            //                 ),
-            //               ],
-            //             ),
-            //           ),
-            //         ],
-            //       ),
-            //     );
-            //   },
-            // ),
           ),
           const Gap(8),
           _buttonsBuild(ayah, pageIndex, surah),
@@ -155,6 +90,11 @@ class AyahMenuHelper {
   ) {
     final svc = WordAudioService.instance;
     final searchCtrl = QuranSearchController.instance;
+    quranCtrl.state.ref.value = WordRef(
+      surahNumber: surah.surahNumber,
+      ayahNumber: ayah.ayahNumber,
+      wordNumber: 1,
+    );
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
@@ -335,12 +275,17 @@ class AyahMenuHelper {
         mainAxisSize: MainAxisSize.min,
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          TafsirButton(ayah: ayah, pageIndex: pageIndex),
+          TafsirButton(ayah: ayah, pageIndex: pageIndex, withBack: true),
           const Gap(12),
-          PlayButton(ayah: ayah, surah: surah, singleAyahOnly: true),
+          PlayButton(
+            ayah: ayah,
+            surah: surah,
+            singleAyahOnly: true,
+            withBack: true,
+          ),
           const Gap(12),
           // full surah playButton
-          PlayButton(surah: surah, ayah: ayah),
+          PlayButton(surah: surah, ayah: ayah, withBack: true),
           const Gap(12),
           AddBookmarkButton(surah: surah, ayah: ayah, pageIndex: pageIndex),
           const Gap(12),

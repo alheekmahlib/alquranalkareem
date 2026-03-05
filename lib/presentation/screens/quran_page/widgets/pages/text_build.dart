@@ -25,7 +25,7 @@ class TextBuild extends StatelessWidget {
         builder: (quranCtrl) => QuranLibraryScreen(
           parentContext: context,
           isDark: themeCtrl.isDarkMode,
-          isShowTabBar: true,
+          isShowTabBar: false,
           withPageView: true,
           isFontsLocal: false,
           useDefaultAppBar: false,
@@ -81,55 +81,8 @@ class TextBuild extends StatelessWidget {
             log('ayahUQNumber: ${ayah.ayahUQNumber}');
             // quranCtrl.toggleAyahSelection(ayah.ayahUQNumber);
           },
-          tafsirStyle:
-              TafsirStyle.defaults(
-                isDark: themeCtrl.isDarkMode,
-                context: context,
-              ).copyWith(
-                backgroundColor: Get.theme.colorScheme.primary,
-                textColor: Get.theme.canvasColor,
-                backgroundTitleColor: Get.theme.colorScheme.surface.withValues(
-                  alpha: .5,
-                ),
-                fontSizeWidget: fontSizeDropDownWidget(),
-                fontSize: GeneralController.instance.state.fontSizeArabic.value,
-                currentTafsirColor: Get.theme.colorScheme.surface,
-                selectedTafsirBorderColor: Get.theme.colorScheme.surface,
-                selectedTafsirColor: Get.theme.colorScheme.surface,
-                unSelectedTafsirColor: Get.theme.canvasColor.withValues(
-                  alpha: .8,
-                ),
-                selectedTafsirTextColor: Get.theme.colorScheme.surface,
-                unSelectedTafsirTextColor: Get.theme.canvasColor.withValues(
-                  alpha: .8,
-                ),
-                unSelectedTafsirBorderColor: Colors.transparent,
-                dividerColor: Get.theme.colorScheme.surface.withValues(
-                  alpha: .5,
-                ),
-                textTitleColor: context.theme.canvasColor,
-                horizontalMargin: 16.0,
-                tafsirBackgroundColor: Get.theme.colorScheme.primaryContainer,
-                tafsirNameWidget: customSvgWithCustomColor(
-                  SvgPath.svgTafseerWhite,
-                  color: Get.theme.canvasColor,
-                  height: 25,
-                ),
-                dialogCloseIconColor: context.theme.canvasColor,
-                dialogHeaderBackgroundGradient: LinearGradient(
-                  colors: [
-                    Get.theme.colorScheme.surface,
-                    Get.theme.colorScheme.surface.withValues(alpha: .7),
-                  ],
-                  begin: AlignmentDirectional.topStart,
-                  end: AlignmentDirectional.bottomEnd,
-                ),
-                dialogHeaderTitleColor: context.theme.canvasColor,
-                footnotesName: 'footnotes'.tr,
-                tafsirName: 'tafseer'.tr,
-                translateName: 'translation'.tr,
-                dialogHeaderTitle: 'chapterTafsir'.tr,
-              ),
+          tafsirStyle: quranCtrl.tafsirStyle,
+          ayahTafsirInlineStyle: quranCtrl.ayahTafsirInlineStyle,
         ),
       ),
     );
@@ -144,18 +97,20 @@ class _BookmarkIcon extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Obx(() {
+      final isBookmarked = BookmarksController.instance
+          .hasPageBookmark(
+            pageNum ?? QuranCtrl.instance.state.currentPageNumber.value,
+          )
+          .value;
       return Semantics(
         button: true,
         enabled: true,
         label: 'Add Bookmark',
-        child: customSvg(
-          BookmarksController.instance
-                  .hasPageBookmark(
-                    pageNum ?? QuranCtrl.instance.state.currentPageNumber.value,
-                  )
-                  .value
-              ? SvgPath.svgBookmarked
-              : Get.context!.bookmarkPageIconPath(),
+        child: customSvgWithCustomColor(
+          SvgPath.svgQuranBookmarkIcon,
+          color: isBookmarked
+              ? Get.theme.colorScheme.surface
+              : Get.theme.colorScheme.primary,
           height: height,
         ),
       );

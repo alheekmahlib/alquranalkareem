@@ -1,25 +1,21 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:gap/gap.dart';
+import 'package:get/get.dart';
+import 'package:quran_library/quran.dart';
 import 'package:screenshot/screenshot.dart';
 
 import '/core/utils/constants/extensions/svg_extensions.dart';
 import '../../../presentation/screens/quran_page/quran.dart';
 import '../../utils/constants/extensions/extensions.dart';
 import '../../utils/constants/svg_constants.dart';
+import '../../utils/helpers/app_text_styles.dart';
 
 class VerseImageCreator extends StatelessWidget {
-  final int verseNumber;
-  final int surahNumber;
-  final String verseText;
+  final AyahModel ayah;
+  final SurahModel surah;
 
   final ayahToImage = ShareController.instance;
-  VerseImageCreator({
-    super.key,
-    required this.verseNumber,
-    required this.surahNumber,
-    required this.verseText,
-  });
+  VerseImageCreator({super.key, required this.ayah, required this.surah});
 
   @override
   Widget build(BuildContext context) {
@@ -29,9 +25,8 @@ class VerseImageCreator extends StatelessWidget {
           controller: ayahToImage.ayahScreenController,
           child: buildVerseImageWidget(
             context: context,
-            verseNumber: verseNumber,
-            surahNumber: surahNumber,
-            verseText: verseText,
+            ayah: ayah,
+            surah: surah,
           ),
         ),
         // if (ayahToImage.ayahToImageBytes != null)
@@ -45,69 +40,40 @@ class VerseImageCreator extends StatelessWidget {
 
   Widget buildVerseImageWidget({
     required BuildContext context,
-    required int verseNumber,
-    required int surahNumber,
-    required String verseText,
+    required AyahModel ayah,
+    required SurahModel surah,
   }) {
     return Directionality(
       textDirection: TextDirection.rtl,
       child: Container(
         width: 960.0,
-        decoration: const BoxDecoration(
-          color: const Color(0xff404C6E),
-        ),
+        decoration: BoxDecoration(color: context.theme.colorScheme.primary),
         child: Column(
           children: [
             const Gap(8),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 8.0),
-              child: Row(
-                children: [
-                  Expanded(
-                    flex: 4,
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        SvgPicture.asset(
-                          'assets/svg/splash_icon_w.svg',
-                          height: 40,
-                        ),
-                        context.vDivider(),
-                        const Text(
-                          'القـرآن الكريــــم\nمكتبة الحكمة',
-                          style: TextStyle(
-                            fontSize: 10,
-                            fontFamily: 'kufi',
-                            color: Color(0xffffffff),
-                          ),
-                        )
-                      ],
-                    ),
-                  ),
-                  Expanded(
-                      flex: 4,
-                      child: context.hDivider(
-                          width: MediaQuery.sizeOf(context).width)),
-                ],
-              ),
-            ),
             Container(
-              margin: const EdgeInsets.all(8.0),
-              decoration: const BoxDecoration(
-                  color: Color(0xffffffff),
-                  borderRadius: BorderRadius.all(Radius.circular(8))),
+              margin: const EdgeInsets.symmetric(horizontal: 8.0),
+              decoration: BoxDecoration(
+                color: context.theme.colorScheme.primaryContainer,
+                borderRadius: const BorderRadius.all(Radius.circular(8)),
+              ),
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16.0),
                 child: Column(
                   children: [
+                    const Gap(8),
                     Stack(
                       alignment: Alignment.center,
                       children: [
-                        customSvg(SvgPath.svgSurahBanner1),
+                        customSvgWithColor(
+                          SvgPath.svgQuranSurahBanner,
+                          color: context.theme.colorScheme.primary,
+                        ),
                         surahNameWidget(
-                            height: 25,
-                            '$surahNumber',
-                            const Color(0xff404C6E)),
+                          height: 30,
+                          '${surah.surahNumber}',
+                          context.theme.colorScheme.inversePrimary,
+                        ),
                       ],
                     ),
                     const Gap(16),
@@ -115,29 +81,43 @@ class VerseImageCreator extends StatelessWidget {
                       padding: const EdgeInsets.symmetric(horizontal: 16.0),
                       child: SizedBox(
                         width: 928.0,
-                        child: RichText(
-                          textAlign: TextAlign.justify,
-                          text: TextSpan(
-                            children: [
-                              TextSpan(
-                                text:
-                                    '﴿ $verseText ${ayahToImage.arabicNumber.convert(verseNumber)} ﴾',
-                                style: const TextStyle(
-                                  fontSize: 16,
-                                  fontFamily: 'uthmanic2',
-                                  color: Color(0xff161f07),
-                                ),
-                              ),
-                            ],
-                          ),
+                        child: GetSingleAyah(
+                          surahNumber: surah.surahNumber,
+                          ayahNumber: ayah.ayahNumber,
+                          fontSize: 22,
+                          textColor: context.theme.colorScheme.inversePrimary,
+                          enabledTajweed:
+                              QuranCtrl.instance.state.isTajweedEnabled.value,
+                          textAlign: TextAlign.center,
                         ),
                       ),
                     ),
-                    const Gap(8),
+                    const Gap(4),
                   ],
                 ),
               ),
             ),
+            const Gap(4),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 8.0),
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  customSvg(SvgPath.svgSplashIconW, height: 30),
+                  context.vDivider(),
+                  Text(
+                    'القرآن الكريـم - مكتبة الحكمة',
+                    style: AppTextStyles.titleSmall(
+                      fontSize: 10,
+                      color: context.theme.canvasColor,
+                    ),
+                    textAlign: TextAlign.justify,
+                  ),
+                ],
+              ),
+            ),
+            const Gap(4),
           ],
         ),
       ),

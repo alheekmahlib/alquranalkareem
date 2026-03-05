@@ -1,5 +1,7 @@
 part of '../../../quran.dart';
 
+final themeCtrl = ThemeController.instance;
+
 extension QuranGetters on QuranController {
   /// -------- [Getter] ----------
 
@@ -209,4 +211,137 @@ extension QuranGetters on QuranController {
           );
         },
       );
+
+  DisplayModeBarStyle get displayModeBarStyle =>
+      DisplayModeBarStyle.defaults(
+        isDark: themeCtrl.isDarkMode,
+        context: Get.context!,
+      ).copyWith(
+        backgroundColor: Get.theme.colorScheme.primaryContainer,
+        selectedIconColor: Get.theme.canvasColor,
+        unselectedIconColor: Get.theme.primaryColorLight,
+        borderRadius: 16.0,
+        position: Alignment.centerRight,
+        padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 8),
+      );
+
+  AyahTafsirInlineStyle get ayahTafsirInlineStyle =>
+      AyahTafsirInlineStyle.defaults(
+        isDark: themeCtrl.isDarkMode,
+        context: Get.context!,
+      ).copyWith(
+        backgroundColor: Get.theme.colorScheme.primaryContainer,
+        tafsirBackgroundColor: Get.theme.colorScheme.surface.withValues(
+          alpha: .2,
+        ),
+        ayahTextColor: Get.theme.colorScheme.inversePrimary,
+        fontSizeWidget: const SizedBox().fontSizeDropDownWidget(),
+        ayahFontSize: TafsirCtrl.instance.fontSizeArabic.value,
+        tafsirFontSize: TafsirCtrl.instance.fontSizeArabic.value,
+        dividerColor: Get.theme.colorScheme.surface.withValues(alpha: .5),
+        optionsBarWidget: (ayah, surah, pageIndex) =>
+            AyahsMenu(ayah: ayah, surah: surah, pageIndex: pageIndex),
+      );
+
+  TafsirStyle get tafsirStyle {
+    final tajweedCtrl = TajweedAyaCtrl.instance;
+    final isDownloading = tajweedCtrl.isDownloading.value;
+    return TafsirStyle.defaults(
+      context: Get.context!,
+      isDark: ThemeController.instance.isDarkMode,
+    ).copyWith(
+      handleWidget: const SizedBox.shrink(),
+      backgroundColor: Get.theme.colorScheme.primary,
+      textColor: Get.theme.colorScheme.inversePrimary,
+      backgroundTitleColor: Get.theme.colorScheme.surface.withValues(alpha: .5),
+      fontSizeWidget: const SizedBox().fontSizeDropDownWidget(),
+      // fontSize: generalCtrl.state.fontSizeArabic.value,
+      currentTafsirColor: Get.theme.colorScheme.surface,
+      selectedTafsirBorderColor: Get.theme.colorScheme.surface,
+      selectedTafsirColor: Get.theme.colorScheme.surface,
+      unSelectedTafsirColor: Get.theme.canvasColor.withValues(alpha: .8),
+      selectedTafsirTextColor: Get.theme.colorScheme.surface,
+      unSelectedTafsirTextColor: Get.theme.canvasColor.withValues(alpha: .8),
+      unSelectedTafsirBorderColor: Colors.transparent,
+      dividerColor: Get.theme.colorScheme.surface.withValues(alpha: .5),
+      textTitleColor: Get.theme.canvasColor,
+      horizontalMargin: 6.0,
+      tafsirBackgroundColor: Get.theme.colorScheme.primaryContainer,
+      fontSize: TafsirCtrl.instance.fontSizeArabic.value,
+      tafsirNameWidget: const SizedBox().customSvgWithCustomColor(
+        SvgPath.svgTafseerWhite,
+        color: Get.theme.canvasColor,
+        height: 25,
+      ),
+      footnotesName: 'footnotes'.tr,
+      tafsirName: 'tafseer'.tr,
+      translateName: 'translation'.tr,
+      widthOfBottomSheet: 500,
+      heightOfBottomSheet: Get.height * .9,
+      downloadIconColor: Get.theme.canvasColor,
+      tabBarLabelStyle: AppTextStyles.titleMedium(
+        fontSize: 18,
+        color: Get.theme.colorScheme.surface,
+      ),
+      changeTafsirDialogWidth: 350.0,
+      dialogCloseIconColor: Get.theme.canvasColor,
+      dialogHeaderBackgroundGradient: LinearGradient(
+        colors: [
+          Get.theme.colorScheme.surface,
+          Get.theme.colorScheme.surface.withValues(alpha: .2),
+        ],
+        begin: AlignmentDirectional.centerEnd,
+        end: AlignmentDirectional.centerStart,
+      ),
+      dialogHeaderTitleColor: Get.theme.canvasColor,
+      dialogHeaderTitle: 'changeTafsir'.tr,
+      currentTafsirTextStyle: AppTextStyles.titleMedium(
+        fontSize: 16,
+        color: Get.theme.colorScheme.surface,
+      ),
+      tabBarUnselectedLabelStyle: AppTextStyles.titleMedium(
+        fontSize: 16,
+        color: Get.theme.canvasColor.withValues(alpha: .6),
+      ),
+      dialogHeaderTitleTextStyle: AppTextStyles.titleMedium(
+        color: Get.theme.canvasColor,
+      ),
+      dialogTypeTextStyle: AppTextStyles.titleSmall(
+        color: Get.theme.canvasColor,
+      ),
+      tafsirTextTextStyle: AppTextStyles.titleSmall(
+        color: Get.theme.canvasColor,
+      ),
+      tajweedUnavailableText:
+          'tajweedUnavailableText'.tr, // بيانات أحكام التجويد غير محمّلة.
+      tajweedSurahNumberErrorText:
+          'tajweedSurahNumberErrorText'.tr, // تعذّر تحديد رقم السورة
+      tajweedLoadErrorText:
+          'tajweedLoadErrorText'.tr, // تعذّر تحميل بيانات أحكام التجويد
+      tajweedNoDataText:
+          'tajweedNoDataText'.tr, // لا توجد بيانات تجويد لهذه الآية.
+      tajweedStatusTextStyle: AppTextStyles.titleSmall(),
+      tafsirIsEmptyNote: 'noTafsirForThisAyah'.tr, // لا يوجد تفسير لهذه الآية
+      tajweedDownloadButtonWidget: ContainerButton(
+        onPressed: () async {
+          isDownloading ? null : await tajweedCtrl.download();
+        },
+        height: 40.0,
+        width: 250.0,
+        isTitleCentered: true,
+        title: isDownloading ? 'downloading'.tr : 'download'.tr,
+        horizontalPadding: 16.0,
+        verticalPadding: 2.0,
+        backgroundColor: Get.theme.colorScheme.surface,
+        progressColor: Get.theme.colorScheme.primary.withValues(alpha: .2),
+        isDownloading: isDownloading,
+        downloadProgress: tajweedCtrl.downloadProgress.value.toStringAsFixed(0),
+        isPreparingDownload:
+            isDownloading || tajweedCtrl.isPreparingDownload.value,
+      ),
+      tajweedMarkedTextStyle: AppTextStyles.titleMedium(
+        color: Get.theme.colorScheme.primary,
+      ),
+    );
+  }
 }

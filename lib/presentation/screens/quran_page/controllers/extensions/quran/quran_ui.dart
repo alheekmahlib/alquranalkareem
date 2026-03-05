@@ -72,6 +72,7 @@ extension QuranUi on QuranController {
       state.navBarController.showHandle();
     }
     GeneralController.instance.state.isShowControl.toggle();
+    GeneralController.instance.update(['showControl']);
     QuranCtrl.instance.isShowControl.toggle();
   }
 

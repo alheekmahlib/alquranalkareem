@@ -58,7 +58,7 @@ packages:
     source: hosted
     version: "2.0.3"
   arabic_justified_text:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: arabic_justified_text
       sha256: "0a0516fe91ec3cbdebd0afc701ea280fe9bc8c51ab0b8a41b614688aed98e995"
@@ -502,7 +502,7 @@ packages:
     description:
       path: "."
       ref: main
-      resolved-ref: "3d9b80040b6118fd5aa022925e4a22eb6c1909c2"
+      resolved-ref: "929a899b7904a520401497d5dec0cc8ca3a8a68f"
       url: "https://github.com/alheekmahlib/flexible_sheet.git"
     source: git
     version: "1.0.0"
@@ -1131,10 +1131,10 @@ packages:
     description:
       path: "."
       ref: dev
-      resolved-ref: "1751bf46f7084cccbf61b6e6a54e24d128f21fdf"
+      resolved-ref: "2e312a47413f7095c7520ca747ac1c21416b11fe"
       url: "https://github.com/alheekmahlib/quran_library.git"
     source: git
-    version: "3.1.1"
+    version: "3.2.0"
   rate_my_app:
     dependency: "direct main"
     description:

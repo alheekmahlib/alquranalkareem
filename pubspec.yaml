@@ -13,6 +13,7 @@ dependencies:
   animated_custom_dropdown: ^3.1.1
   animations: ^2.1.1
   another_xlider: ^3.0.2
+  arabic_justified_text: ^1.0.2
   arabic_numbers: ^1.0.0
   awesome_notifications: ^0.10.1
   awesome_notifications_core: ^0.10.1

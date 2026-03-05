@@ -334,6 +334,11 @@ class SvgPath {
   /// assets/svg/quran/bookmark.svg
   static const String svgQuranBookmark = "assets/svg/quran/bookmark.svg";
 
+  /// Assets for svgQuranBookmarkIcon
+  /// assets/svg/quran/bookmark_icon.svg
+  static const String svgQuranBookmarkIcon =
+      "assets/svg/quran/bookmark_icon.svg";
+
   /// Assets for svgQuranCopy
   /// assets/svg/quran/copy.svg
   static const String svgQuranCopy = "assets/svg/quran/copy.svg";
@@ -349,6 +354,10 @@ class SvgPath {
   /// Assets for svgQuranPlayAll
   /// assets/svg/quran/play_all.svg
   static const String svgQuranPlayAll = "assets/svg/quran/play_all.svg";
+
+  /// Assets for svgQuranSurahBanner
+  /// assets/svg/quran/surah_banner.svg
+  static const String svgQuranSurahBanner = "assets/svg/quran/surah_banner.svg";
 
   /// Assets for svgQuranSurahNumberZakhrafa
   /// assets/svg/quran/surah_number_zakhrafa.svg

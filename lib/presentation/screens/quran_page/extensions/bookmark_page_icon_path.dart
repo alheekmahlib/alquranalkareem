@@ -1,17 +1,17 @@
-part of '../quran.dart';
+// part of '../quran.dart';
 
-final themeCtrl = ThemeController.instance;
+// final themeCtrl = ThemeController.instance;
 
-extension BookmarkPageIconPath on BuildContext {
-  String bookmarkPageIconPath() {
-    if (themeCtrl.isBlueMode) {
-      return 'assets/svg/bookmark.svg';
-    } else if (themeCtrl.isBrownMode) {
-      return 'assets/svg/bookmark2.svg';
-    } else if (themeCtrl.isGreenMode) {
-      return 'assets/svg/bookmark3.svg';
-    } else {
-      return 'assets/svg/bookmark.svg';
-    }
-  }
-}
+// extension BookmarkPageIconPath on BuildContext {
+//   String bookmarkPageIconPath() {
+//     if (themeCtrl.isBlueMode) {
+//       return 'assets/svg/bookmark.svg';
+//     } else if (themeCtrl.isBrownMode) {
+//       return 'assets/svg/bookmark2.svg';
+//     } else if (themeCtrl.isGreenMode) {
+//       return 'assets/svg/bookmark3.svg';
+//     } else {
+//       return 'assets/svg/bookmark.svg';
+//     }
+//   }
+// }

@@ -51,7 +51,7 @@ class TopBarWidget extends StatelessWidget {
           initialHeight: 0,
           alignment: context.customOrientation(
             Alignment.topCenter,
-            Alignment.topLeft,
+            AlignmentDirectional.topEnd,
           ),
           width: context.customOrientation(Get.width, Get.width * 0.5),
           direction: SheetDirection.topToBottom,

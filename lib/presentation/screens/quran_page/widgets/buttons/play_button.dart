@@ -3,16 +3,18 @@ part of '../../quran.dart';
 class PlayButton extends StatelessWidget {
   final SurahModel surah;
   final AyahModel ayah;
-  final VoidCallback? cancel;
+  final Color? iconColor;
 
   /// just play the selected ayah.
   final bool singleAyahOnly;
+  final bool withBack;
   PlayButton({
     super.key,
     required this.surah,
     required this.ayah,
     this.singleAyahOnly = false,
-    this.cancel,
+    this.iconColor,
+    this.withBack = false,
   });
   final generalCtrl = GeneralController.instance;
 
@@ -26,8 +28,11 @@ class PlayButton extends StatelessWidget {
       svgPath: singleAyahOnly
           ? SvgPath.svgAudioPlayArrow
           : SvgPath.svgQuranPlayAll,
-      svgColor: context.theme.canvasColor,
+      svgColor: iconColor ?? context.theme.canvasColor,
       onPressed: () async {
+        if (withBack) {
+          Get.back();
+        }
         // AudioCtrl.instance.startPlayingToggle();
         GeneralController.instance.showAudioWidgetFor();
         QuranController.instance.state.isPlayExpanded.value = true;
@@ -42,9 +47,6 @@ class PlayButton extends StatelessWidget {
           playSingleAyah: singleAyahOnly,
           isDarkMode: ThemeController.instance.isDarkMode,
         );
-        if (cancel != null) {
-          cancel!();
-        }
       },
     );
   }

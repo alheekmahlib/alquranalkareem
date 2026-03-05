@@ -15,20 +15,16 @@ class QuranPages extends StatelessWidget {
       }),
       QuranCtrl.instance.state.currentPageNumber.value,
     );
-    return Container(
-      height: MediaQuery.sizeOf(context).height,
-      child: _regularModeWidget(context),
-    );
+    return Container(height: Get.height, child: _regularModeWidget(context));
   }
 
   Widget _regularModeWidget(BuildContext context) {
-    final size = MediaQuery.sizeOf(context);
     return
     // Responsive.isMobile(context) || Responsive.isMobileLarge(context)
     //     ?
     Center(
       child: Container(
-        height: size.height,
+        height: Get.height,
         color: quranCtrl.backgroundColor,
         child: TextBuild(),
       ),
