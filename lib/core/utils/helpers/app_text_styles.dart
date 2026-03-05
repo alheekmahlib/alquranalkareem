@@ -132,7 +132,7 @@ class AppTextStyles {
       fontWeight: fontWeight ?? FontWeight.w400,
       color: color ?? Get.theme.colorScheme.inversePrimary,
       letterSpacing: letterSpacing,
-      height: height ?? 1.2,
+      height: height ?? 1.5,
       decoration: decoration,
       fontFamily: 'playpen',
     );

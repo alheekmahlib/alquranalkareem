@@ -113,7 +113,7 @@ class BookmarksController extends GetxController {
         // تأكد من إزالة العلامة المرجعية من القائمة المحلية
         bookmarkTextList.remove(bookmarkToDelete);
         Get.context!.showCustomErrorSnackBar('deletedBookmark'.tr);
-        sl<QuranController>().update(['bookmarked']);
+        getBookmarksText();
         return true;
       }
     }
@@ -162,7 +162,6 @@ class BookmarksController extends GetxController {
         ),
       );
       getBookmarksText();
-      sl<QuranController>().update(['bookmarked']);
       print('bookmark number: $bookmark');
     } catch (e, stacktrace) {
       // طباعة تفاصيل الخطأ مع الاستثناء والمكدس الكامل

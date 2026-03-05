@@ -5,6 +5,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 
 import '/core/utils/constants/svg_constants.dart';
+import '../../../widgets/container_button.dart';
 
 extension ContextExtensions on BuildContext {
   dynamic customOrientation(var n1, var n2) {
@@ -37,13 +38,15 @@ extension ContextExtensions on BuildContext {
     return Semantics(
       button: true,
       label: 'Close',
-      child: GestureDetector(
-        child: SvgPicture.asset(
-          SvgPath.svgClose,
-          height: height ?? 30,
-          width: width ?? 30,
-        ),
-        onTap:
+      child: ContainerButton(
+        svgHeight: height ?? 35,
+        svgWidth: width ?? 35,
+        horizontalMargin: 4.0,
+        verticalMargin: 5.0,
+        svgWithColorPath: SvgPath.svgHomeClose,
+        backgroundColor: Colors.transparent,
+        svgColor: Get.theme.primaryColorLight,
+        onPressed:
             close ??
             () {
               Get.back();
@@ -52,7 +55,13 @@ extension ContextExtensions on BuildContext {
     );
   }
 
-  Widget customArrowDown({var close, double? height, double? width}) {
+  Widget customArrowDown({
+    var close,
+    double? height,
+    double? width,
+    Color? backgroundColor,
+    Color? dotsColor,
+  }) {
     return Semantics(
       button: true,
       label: 'Close',
@@ -62,7 +71,7 @@ extension ContextExtensions on BuildContext {
           width: width ?? 83,
           padding: const EdgeInsets.symmetric(horizontal: 6.0),
           decoration: BoxDecoration(
-            color: Get.theme.colorScheme.primary,
+            color: backgroundColor ?? Get.theme.colorScheme.primary,
             borderRadius: const BorderRadius.all(Radius.circular(8)),
           ),
           child: Row(
@@ -72,7 +81,7 @@ extension ContextExtensions on BuildContext {
                 height: 8,
                 width: 8,
                 decoration: BoxDecoration(
-                  color: Get.theme.colorScheme.secondary,
+                  color: dotsColor ?? Get.theme.colorScheme.secondary,
                   shape: BoxShape.circle,
                 ),
               ),
@@ -80,7 +89,7 @@ extension ContextExtensions on BuildContext {
                 height: 8,
                 width: 8,
                 decoration: BoxDecoration(
-                  color: Get.theme.colorScheme.secondary,
+                  color: dotsColor ?? Get.theme.colorScheme.secondary,
                   shape: BoxShape.circle,
                 ),
               ),

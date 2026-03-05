@@ -33,7 +33,7 @@ class NavBarWidget extends StatelessWidget {
             initialHeight: 0,
             alignment: context.customOrientation(
               Alignment.bottomCenter,
-              Alignment.bottomRight,
+              AlignmentDirectional.bottomStart,
             ),
             width: context.customOrientation(Get.width, Get.width * 0.5),
             isDraggable: false,

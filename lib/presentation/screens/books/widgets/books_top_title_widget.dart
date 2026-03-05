@@ -1,6 +1,4 @@
-import 'package:alquranalkareem/presentation/screens/quran_page/quran.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 
@@ -20,11 +18,12 @@ class BooksTopTitleWidget extends StatelessWidget {
   final PageContent page;
   final booksCtrl = BooksController.instance;
 
-  BooksTopTitleWidget(
-      {super.key,
-      required this.bookNumber,
-      required this.index,
-      required this.page});
+  BooksTopTitleWidget({
+    super.key,
+    required this.bookNumber,
+    required this.index,
+    required this.page,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -34,19 +33,20 @@ class BooksTopTitleWidget extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 16.0),
       margin: const EdgeInsets.symmetric(horizontal: 16.0),
       decoration: BoxDecoration(
-          color: Theme.of(context).colorScheme.primaryContainer,
-          borderRadius: const BorderRadius.only(
-            bottomLeft: Radius.circular(8),
-            bottomRight: Radius.circular(8),
+        color: Theme.of(context).colorScheme.primaryContainer,
+        borderRadius: const BorderRadius.only(
+          bottomLeft: Radius.circular(8),
+          bottomRight: Radius.circular(8),
+        ),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.grey.withValues(alpha: .3),
+            offset: const Offset(0, 5),
+            blurRadius: 70,
+            spreadRadius: 0,
           ),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.grey.withValues(alpha: .3),
-              offset: const Offset(0, 5),
-              blurRadius: 70,
-              spreadRadius: 0,
-            )
-          ]),
+        ],
+      ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
@@ -70,14 +70,13 @@ class BooksTopTitleWidget extends StatelessWidget {
                   height: 30,
                   width: 30,
                   decoration: BoxDecoration(
-                      color: Theme.of(context).colorScheme.primaryContainer,
-                      borderRadius: const BorderRadius.all(
-                        Radius.circular(8),
-                      ),
-                      border: Border.all(
-                        width: 1,
-                        color: Theme.of(context).colorScheme.surface,
-                      )),
+                    color: Theme.of(context).colorScheme.primaryContainer,
+                    borderRadius: const BorderRadius.all(Radius.circular(8)),
+                    border: Border.all(
+                      width: 1,
+                      color: Theme.of(context).colorScheme.surface,
+                    ),
+                  ),
                   child: customSvgWithColor(
                     SvgPath.svgTashkil,
                     height: 30.0,
@@ -96,28 +95,31 @@ class BooksTopTitleWidget extends StatelessWidget {
                 height: 30,
                 width: 30,
                 decoration: BoxDecoration(
-                    color: Theme.of(context).colorScheme.primaryContainer,
-                    borderRadius: const BorderRadius.all(
-                      Radius.circular(8),
-                    ),
-                    border: Border.all(
-                      width: 1,
-                      color: Theme.of(context).colorScheme.surface,
-                    )),
+                  color: Theme.of(context).colorScheme.primaryContainer,
+                  borderRadius: const BorderRadius.all(Radius.circular(8)),
+                  border: Border.all(
+                    width: 1,
+                    color: Theme.of(context).colorScheme.surface,
+                  ),
+                ),
               ),
               Transform.translate(
-                  offset: const Offset(0, 5),
-                  child: fontSizeDropDownWidget(
-                    height: 30.0,
-                    color: Theme.of(context).colorScheme.primary,
-                  )),
+                offset: const Offset(0, 5),
+                child: fontSizeDropDownWidget(
+                  height: 30.0,
+                  color: Theme.of(context).colorScheme.primary,
+                ),
+              ),
             ],
           ),
           GetX<BooksBookmarksController>(
             builder: (booksBookmarksCtrl) {
               return GestureDetector(
                 onTap: () => booksBookmarksCtrl.addBookmarkOnTap(
-                    bookNumber, index, page),
+                  bookNumber,
+                  index,
+                  page,
+                ),
                 child: Stack(
                   alignment: Alignment.center,
                   children: [
@@ -125,21 +127,27 @@ class BooksTopTitleWidget extends StatelessWidget {
                       height: 30,
                       width: 30,
                       decoration: BoxDecoration(
-                          color: Theme.of(context).colorScheme.primaryContainer,
-                          borderRadius: const BorderRadius.all(
-                            Radius.circular(8),
-                          ),
-                          border: Border.all(
-                            width: 1,
-                            color: Theme.of(context).colorScheme.surface,
-                          )),
+                        color: Theme.of(context).colorScheme.primaryContainer,
+                        borderRadius: const BorderRadius.all(
+                          Radius.circular(8),
+                        ),
+                        border: Border.all(
+                          width: 1,
+                          color: Theme.of(context).colorScheme.surface,
+                        ),
+                      ),
                     ),
-                    SvgPicture.asset(
-                        height: 20,
-                        booksBookmarksCtrl.isPageBookmarked(
-                                bookNumber, page.pageNumber)
-                            ? 'assets/svg/bookmarked.svg'
-                            : Get.context!.bookmarkPageIconPath()),
+                    customSvgWithCustomColor(
+                      SvgPath.svgQuranBookmarkIcon,
+                      color:
+                          booksBookmarksCtrl.isPageBookmarked(
+                            bookNumber,
+                            page.pageNumber,
+                          )
+                          ? Get.theme.colorScheme.surface
+                          : Get.theme.colorScheme.primary,
+                      height: 20,
+                    ),
                   ],
                 ),
               );
@@ -148,8 +156,38 @@ class BooksTopTitleWidget extends StatelessWidget {
           const Gap(11),
           GestureDetector(
             onTap: () => Get.bottomSheet(
-              SettingsList(
-                isQuranSetting: false,
+              SettingsList(isQuranSetting: false),
+              isScrollControlled: true,
+            ),
+            child: Container(
+              height: 30,
+              width: 30,
+              padding: const EdgeInsets.all(4),
+              decoration: BoxDecoration(
+                color: Theme.of(context).colorScheme.primaryContainer,
+                borderRadius: const BorderRadius.all(Radius.circular(8)),
+                border: Border.all(
+                  width: 1,
+                  color: Theme.of(context).colorScheme.surface,
+                ),
+              ),
+              child: customSvgWithColor(
+                SvgPath.svgOptions,
+                height: 20.0,
+                width: 20.0,
+                color: Get.theme.colorScheme.primary,
+              ),
+            ),
+          ),
+          const Gap(11),
+          GestureDetector(
+            onTap: () => Get.bottomSheet(
+              SearchScreen(
+                onSubmitted: (v) => booksCtrl.searchBooks(
+                  booksCtrl.state.searchController.text,
+                  bookNumber: bookNumber,
+                ),
+                isInBook: true,
               ),
               isScrollControlled: true,
             ),
@@ -158,47 +196,19 @@ class BooksTopTitleWidget extends StatelessWidget {
               width: 30,
               padding: const EdgeInsets.all(4),
               decoration: BoxDecoration(
-                  color: Theme.of(context).colorScheme.primaryContainer,
-                  borderRadius: const BorderRadius.all(
-                    Radius.circular(8),
-                  ),
-                  border: Border.all(
-                    width: 1,
-                    color: Theme.of(context).colorScheme.surface,
-                  )),
-              child: customSvgWithColor(SvgPath.svgOptions,
-                  height: 20.0,
-                  width: 20.0,
-                  color: Get.theme.colorScheme.primary),
-            ),
-          ),
-          const Gap(11),
-          GestureDetector(
-            onTap: () => Get.bottomSheet(
-                SearchScreen(
-                  onSubmitted: (v) => booksCtrl.searchBooks(
-                      booksCtrl.state.searchController.text,
-                      bookNumber: bookNumber),
-                  isInBook: true,
+                color: Theme.of(context).colorScheme.primaryContainer,
+                borderRadius: const BorderRadius.all(Radius.circular(8)),
+                border: Border.all(
+                  width: 1,
+                  color: Theme.of(context).colorScheme.surface,
                 ),
-                isScrollControlled: true),
-            child: Container(
-              height: 30,
-              width: 30,
-              padding: const EdgeInsets.all(4),
-              decoration: BoxDecoration(
-                  color: Theme.of(context).colorScheme.primaryContainer,
-                  borderRadius: const BorderRadius.all(
-                    Radius.circular(8),
-                  ),
-                  border: Border.all(
-                    width: 1,
-                    color: Theme.of(context).colorScheme.surface,
-                  )),
-              child: customSvgWithColor(SvgPath.svgSearchIcon,
-                  height: 20.0,
-                  width: 20.0,
-                  color: Get.theme.colorScheme.primary),
+              ),
+              child: customSvgWithColor(
+                SvgPath.svgSearchIcon,
+                height: 20.0,
+                width: 20.0,
+                color: Get.theme.colorScheme.primary,
+              ),
             ),
           ),
         ],

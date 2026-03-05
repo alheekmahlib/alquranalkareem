@@ -79,7 +79,7 @@ class ContainerButton extends StatelessWidget {
           child: ClipRRect(
             borderRadius: BorderRadius.circular(borderRadius ?? 8),
             child: Stack(
-              alignment: Alignment.center,
+              alignment: Alignment.bottomCenter,
               children: [
                 Container(
                   height: height ?? null,
@@ -207,15 +207,13 @@ class ContainerButton extends StatelessWidget {
 
                 if (isDownloading ?? false) ...[
                   SizedBox(
-                    height: height ?? null,
+                    height: 8,
                     width: width ?? null,
                     child: LinearProgressIndicator(
-                      minHeight: height ?? null,
+                      minHeight: 8,
                       backgroundColor:
                           progressBackgroundColor ??
-                          Theme.of(
-                            context,
-                          ).primaryColorLight.withValues(alpha: .2),
+                          Theme.of(context).primaryColorLight,
                       value: (isDownloading ?? false)
                           ? (int.parse(downloadProgress ?? '0') / 100).clamp(
                               0.0,

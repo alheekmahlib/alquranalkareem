@@ -11,6 +11,8 @@ extension BottomSheetExtension on void {
     double? rightPadding,
     double? leftPadding,
     Widget? handleChild,
+    Color? handleBackgroundColor,
+    Color? handleDotsColor,
   }) {
     showModalBottomSheet(
       context: Get.context!,
@@ -58,7 +60,10 @@ extension BottomSheetExtension on void {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   const Gap(8.0),
-                  context.customArrowDown(),
+                  context.customArrowDown(
+                    backgroundColor: handleBackgroundColor,
+                    dotsColor: handleDotsColor,
+                  ),
                   const Gap(8.0),
                   child,
                 ],

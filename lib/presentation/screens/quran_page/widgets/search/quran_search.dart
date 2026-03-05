@@ -13,29 +13,12 @@ class QuranSearch extends StatelessWidget {
       width: Get.width,
       color: context.theme.colorScheme.primaryContainer,
       child: SafeArea(
-        child: context.customOrientation(
-          Column(
-            children: <Widget>[
-              const Gap(16),
-              _surahsBuild(context),
-              _ayahsBuild(context),
-            ],
-          ),
-          Row(
-            children: <Widget>[
-              Expanded(
-                flex: 4,
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [const Gap(16), _surahsBuild(context)],
-                ),
-              ),
-              Expanded(
-                flex: 4,
-                child: Column(children: [const Gap(16), _ayahsBuild(context)]),
-              ),
-            ],
-          ),
+        child: Column(
+          children: <Widget>[
+            const Gap(16),
+            _surahsBuild(context),
+            _ayahsBuild(context),
+          ],
         ),
       ),
     );

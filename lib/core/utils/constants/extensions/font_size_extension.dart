@@ -24,7 +24,7 @@ extension FontSizeExtension on Widget {
         child: Transform.translate(
           offset: const Offset(0, -5),
           child: customSvgWithColor(
-            SvgPath.svgFontSize,
+            SvgPath.svgHomeFontSize,
             height: height,
             color: color ?? Get.theme.colorScheme.surface,
           ),
@@ -67,7 +67,7 @@ extension FontSizeExtension on Widget {
                   TafsirCtrl.instance.fontSizeArabic.value = lowerValue;
 
                   box.write(FONT_SIZE, lowerValue);
-                  TafsirCtrl.instance.update(['actualTafsirContent']);
+                  TafsirCtrl.instance.update(['change_font_size']);
                 },
                 handler: FlutterSliderHandler(
                   decoration: const BoxDecoration(),

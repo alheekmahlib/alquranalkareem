@@ -34,17 +34,6 @@ class MushafSettings extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 4.0),
             child: Column(
               children: [
-                pageModeWidget(context),
-                const Gap(8),
-                Divider(
-                  thickness: 1.0,
-                  height: 1.0,
-                  endIndent: 32.0,
-                  indent: 32.0,
-                  color: Theme.of(
-                    context,
-                  ).primaryColorLight.withValues(alpha: .5),
-                ),
                 const Gap(8),
                 withTajweedWidget(context),
                 const Gap(8),
@@ -84,56 +73,6 @@ class MushafSettings extends StatelessWidget {
       ),
       // selectedColor: context.theme.colorScheme.primaryContainer,
       title: 'tajweed'.tr,
-    );
-  }
-
-  Widget pageModeWidget(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-      children: List.generate(
-        2,
-        (i) => Obx(
-          () => ContainerButton(
-            onPressed: () => quranCtrl.switchMode(i),
-            borderRadius: 8,
-            value: (quranCtrl.state.selectMushafSettingsPage.value == i)
-                .obs, // quranCtrl.state.box.read(SWITCH_VALUE),
-            backgroundColor: context.theme.primaryColorLight.withValues(
-              alpha: .4,
-            ),
-            // selectedColor: context.theme.colorScheme.primaryContainer,
-            child: Container(
-              height: 100,
-              width: 65,
-              padding: const EdgeInsets.symmetric(
-                horizontal: 2.0,
-                vertical: 2.0,
-              ),
-              decoration: BoxDecoration(
-                color: context.theme.colorScheme.primaryContainer,
-                borderRadius: const BorderRadius.all(Radius.circular(4)),
-              ),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: List.generate(
-                  i == 1 ? 5 : 15,
-                  (index) => Container(
-                    height: i == 1 ? 6 : 3,
-                    width: Get.width,
-                    margin: EdgeInsets.symmetric(vertical: i == 1 ? 6 : 1.5),
-                    decoration: BoxDecoration(
-                      color: context.theme.colorScheme.primary.withValues(
-                        alpha: .5,
-                      ),
-                      borderRadius: const BorderRadius.all(Radius.circular(2)),
-                    ),
-                  ),
-                ),
-              ),
-            ),
-          ),
-        ),
-      ),
     );
   }
 

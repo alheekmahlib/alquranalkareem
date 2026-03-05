@@ -98,6 +98,7 @@ class QuranSurahList extends StatelessWidget {
                                 Text(
                                   surah.englishName,
                                   style: AppTextStyles.titleSmall(
+                                    height: .9,
                                     color: context.theme.primaryColorDark,
                                   ),
                                 ),

@@ -1,4 +1,5 @@
 import 'package:alquranalkareem/core/utils/constants/extensions/bottom_sheet_extension.dart';
+import 'package:alquranalkareem/core/widgets/container_button.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:quran_library/quran.dart';
@@ -14,11 +15,15 @@ class ShareAyahOptions extends StatelessWidget {
   final AyahModel ayah;
   final SurahModel surah;
   final int pageNumber;
+  final Color? iconColor;
+  final bool? withBack;
   ShareAyahOptions({
     super.key,
     required this.ayah,
     required this.surah,
     required this.pageNumber,
+    this.iconColor,
+    this.withBack = true,
   });
 
   final shareToImage = ShareController.instance;
@@ -31,18 +36,21 @@ class ShareAyahOptions extends StatelessWidget {
       iconSize: 35,
       isCustomSvgColor: true,
       svgPath: SvgPath.svgHomeShare,
-      svgColor: context.theme.canvasColor,
+      svgColor: iconColor ?? context.theme.canvasColor,
       onPressed: () async {
+        if (withBack == true) {
+          Get.back();
+        }
         // await QuranLibrary().fetchTranslation();
         // shareToImage.fetchTafseerSaadi(surahNumber, ayahNumber, ayahUQNumber);
         customBottomSheet(
+          backgroundColor: Get.theme.colorScheme.primaryContainer,
           Container(
             // height: MediaQuery.sizeOf(context).height * .9,
             // alignment: Alignment.center,
             // padding: const EdgeInsets.all(8.0),
-            decoration: BoxDecoration(
-              color: Get.theme.colorScheme.primaryContainer,
-              borderRadius: const BorderRadius.only(
+            decoration: const BoxDecoration(
+              borderRadius: BorderRadius.only(
                 topLeft: Radius.circular(8),
                 topRight: Radius.circular(8),
               ),
@@ -51,13 +59,6 @@ class ShareAyahOptions extends StatelessWidget {
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  Align(
-                    alignment: Alignment.topRight,
-                    child: Padding(
-                      padding: const EdgeInsets.all(16.0),
-                      child: context.customClose(),
-                    ),
-                  ),
                   Column(
                     mainAxisSize: MainAxisSize.min,
                     children: [
@@ -94,49 +95,30 @@ class ShareAyahOptions extends StatelessWidget {
             ),
           ),
         ),
-        GestureDetector(
-          child: Container(
-            // height: 60,
-            width: MediaQuery.sizeOf(context).width,
-            padding: const EdgeInsets.all(16.0),
-            margin: const EdgeInsets.only(
-              top: 4.0,
-              bottom: 16.0,
-              right: 16.0,
-              left: 16.0,
-            ),
-            decoration: BoxDecoration(
-              color: Get.theme.colorScheme.primary.withValues(alpha: .15),
-              borderRadius: const BorderRadius.all(Radius.circular(4)),
-            ),
-            child: Row(
-              mainAxisSize: MainAxisSize.min,
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Expanded(
-                  flex: 2,
-                  child: Icon(
-                    Icons.text_fields,
-                    color: Get.theme.colorScheme.surface,
-                    size: 24,
-                  ),
-                ),
-                Expanded(
-                  flex: 8,
-                  child: Text(
-                    "﴿ ${ayah.text} ﴾",
-                    style: TextStyle(
-                      color: Get.theme.hintColor,
-                      fontSize: 16,
-                      fontFamily: 'uthmanic2',
-                    ),
-                    textDirection: TextDirection.rtl,
-                  ),
-                ),
-              ],
+        ContainerButton(
+          height: 90,
+          width: Get.width,
+          isButton: true,
+          withArrow: true,
+          horizontalMargin: 16.0,
+          verticalPadding: 8.0,
+          backgroundColor: context.theme.colorScheme.primary.withValues(
+            alpha: .15,
+          ),
+          child: SizedBox(
+            width: 300,
+            child: Text(
+              "﴿ ${ayah.text} ﴾",
+              style: TextStyle(
+                color: Get.theme.hintColor,
+                fontSize: 18,
+                fontFamily: 'uthmanic2',
+              ),
+              overflow: TextOverflow.fade,
+              textDirection: TextDirection.rtl,
             ),
           ),
-          onTap: () {
+          onPressed: () {
             shareToImage.shareText(
               ayah.text,
               surah.arabicName,
@@ -154,21 +136,17 @@ class ShareAyahOptions extends StatelessWidget {
   Widget _ayahToImage(BuildContext context) {
     return Column(
       mainAxisSize: MainAxisSize.min,
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                'shareImage'.tr,
-                style: TextStyle(
-                  color: Get.theme.hintColor,
-                  fontSize: 16,
-                  fontFamily: 'kufi',
-                ),
-              ),
-            ],
+          padding: const EdgeInsets.symmetric(horizontal: 16.0),
+          child: Text(
+            'shareImage'.tr,
+            style: TextStyle(
+              color: Get.theme.hintColor,
+              fontSize: 16,
+              fontFamily: 'kufi',
+            ),
           ),
         ),
         GestureDetector(
@@ -190,11 +168,7 @@ class ShareAyahOptions extends StatelessWidget {
             //   // height: 150,
             //   // width: 150,
             // ),
-            child: VerseImageCreator(
-              verseNumber: ayah.ayahNumber,
-              surahNumber: surah.surahNumber,
-              verseText: ayah.text,
-            ),
+            child: VerseImageCreator(ayah: ayah, surah: surah),
           ),
           onTap: () async {
             await sl<ShareController>().createAndShowVerseImage();
