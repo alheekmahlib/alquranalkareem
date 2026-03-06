@@ -76,7 +76,7 @@ class GeneralController extends GetxController {
       case 3:
         return const AdhkarView();
       case 4:
-        return const AudioScreen();
+        return AudioScreen();
       case 5:
         return BooksScreen();
       default:

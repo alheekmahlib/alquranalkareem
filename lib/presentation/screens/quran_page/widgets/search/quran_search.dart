@@ -11,6 +11,7 @@ class QuranSearch extends StatelessWidget {
     return Container(
       height: Get.height,
       width: Get.width,
+      margin: const EdgeInsets.symmetric(horizontal: 8.0),
       color: context.theme.colorScheme.primaryContainer,
       child: SafeArea(
         child: Column(

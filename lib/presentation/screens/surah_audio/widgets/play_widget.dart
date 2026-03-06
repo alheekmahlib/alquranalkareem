@@ -6,137 +6,100 @@ class PlayWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final surahCtrl = AudioCtrl.instance;
-    return Container(
-      height: 305,
+    return SizedBox(
+      height: 210,
       width: context.customOrientation(Get.width, Get.width * .5),
-      decoration: BoxDecoration(
-        color: Theme.of(context).colorScheme.primaryContainer,
-      ),
       child: Stack(
         alignment: Alignment.center,
         children: [
-          Align(
-            alignment: Alignment.topLeft,
-            child: RotatedBox(
-              quarterTurns: 2,
-              child: Opacity(
-                opacity: .6,
-                child: customSvgWithCustomColor(
-                  SvgPath.svgDecorations,
-                  height: 60,
-                ),
-              ),
-            ),
-          ),
-          Align(
-            alignment: Alignment.bottomRight,
-            child: Opacity(
-              opacity: .6,
-              child: customSvgWithCustomColor(
-                SvgPath.svgDecorations,
-                height: 60,
-              ),
-            ),
-          ),
-          Align(
-            alignment: Alignment.topRight,
-            child: Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: context.customArrowDown(
-                close: () => surahCtrl.surahState.isPlayExpanded.value = false,
+          Obx(
+            () => Opacity(
+              opacity: .1,
+              child: surahNameWidget(
+                surahCtrl.state.currentAudioListSurahNum.value.toString(),
+                Get.theme.colorScheme.primary,
+                height: 90,
+                width: 150,
               ),
             ),
           ),
           Column(
             children: [
-              Obx(
-                () => Stack(
-                  alignment: Alignment.center,
-                  children: [
-                    Opacity(
-                      opacity: .1,
-                      child: surahNameWidget(
-                        surahCtrl.state.currentAudioListSurahNum.value
-                            .toString(),
-                        Get.theme.colorScheme.primary,
-                        height: 90,
-                        width: 150,
-                      ),
-                    ),
-                    surahNameWidget(
-                      surahCtrl.state.currentAudioListSurahNum.value.toString(),
-                      Get.theme.colorScheme.primary,
-                      height: 70,
-                      width: 150,
-                    ),
-                  ],
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: context.customArrowDown(
+                  close: () =>
+                      surahCtrl.surahState.isPlayExpanded.value = false,
                 ),
               ),
+              const Gap(8),
               SurahChangeSurahReader(
                 style: surahCtrl.surahAudioStyle,
                 isDark: ThemeController.instance.isDarkMode,
               ),
               const SurahSeekBar(),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 32.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    Row(
+              Stack(
+                alignment: Alignment.center,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 32.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
-                        IconButton(
-                          icon: Semantics(
-                            button: true,
-                            enabled: true,
-                            label: 'backward'.tr,
-                            child: customSvgWithColor(
-                              SvgPath.svgBackward,
-                              height: 20,
-                            ),
-                          ),
-                          onPressed: () {
-                            surahCtrl.state.audioPlayer.seek(
-                              Duration(
-                                seconds:
-                                    surahCtrl.state.seekNextSeconds.value -= 5,
+                        Row(
+                          children: [
+                            IconButton(
+                              icon: Semantics(
+                                button: true,
+                                enabled: true,
+                                label: 'backward'.tr,
+                                child: customSvgWithColor(
+                                  SvgPath.svgBackward,
+                                  height: 30,
+                                ),
                               ),
-                            );
-                          },
+                              onPressed: () {
+                                surahCtrl.state.audioPlayer.seek(
+                                  Duration(
+                                    seconds:
+                                        surahCtrl.state.seekNextSeconds.value -=
+                                            5,
+                                  ),
+                                );
+                              },
+                            ),
+                            SurahSkipToNext(),
+                          ],
                         ),
-                        SurahSkipToNext(
-                          style: surahCtrl.surahAudioStyle,
-                          languageCode: Get.locale!.languageCode,
+                        const OnlinePlayButton(isRepeat: true),
+                        Row(
+                          children: [
+                            SurahSkipToPrevious(),
+                            IconButton(
+                              icon: Semantics(
+                                button: true,
+                                enabled: true,
+                                label: 'rewind'.tr,
+                                child: customSvgWithColor(
+                                  SvgPath.svgRewind,
+                                  height: 30,
+                                ),
+                              ),
+                              onPressed: () => surahCtrl.state.audioPlayer.seek(
+                                Duration(
+                                  seconds:
+                                      surahCtrl.state.seekNextSeconds.value +=
+                                          5,
+                                ),
+                              ),
+                            ),
+                          ],
                         ),
                       ],
                     ),
-                    const OnlinePlayButton(isRepeat: true),
-                    Row(
-                      children: [
-                        SurahSkipToPrevious(
-                          style: surahCtrl.surahAudioStyle,
-                          languageCode: Get.locale!.languageCode,
-                        ),
-                        IconButton(
-                          icon: Semantics(
-                            button: true,
-                            enabled: true,
-                            label: 'rewind'.tr,
-                            child: customSvgWithColor(
-                              SvgPath.svgRewind,
-                              height: 20,
-                            ),
-                          ),
-                          onPressed: () => surahCtrl.state.audioPlayer.seek(
-                            Duration(
-                              seconds: surahCtrl.state.seekNextSeconds.value +=
-                                  5,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
+                  ),
+                  RepeatWidget(),
+                ],
               ),
             ],
           ),

@@ -18,7 +18,7 @@ class AyahsMenu extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.symmetric(horizontal: 8.0),
+      margin: const EdgeInsets.only(left: 8.0, right: 8.0, bottom: 8.0),
       padding: const EdgeInsets.symmetric(vertical: 6.0, horizontal: 16.0),
       decoration: BoxDecoration(
         color: Theme.of(context).colorScheme.surface.withValues(alpha: .15),

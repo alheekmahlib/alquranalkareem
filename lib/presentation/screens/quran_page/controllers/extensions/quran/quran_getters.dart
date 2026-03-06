@@ -259,7 +259,7 @@ extension QuranGetters on QuranController {
       currentTafsirColor: Get.theme.colorScheme.surface,
       selectedTafsirBorderColor: Get.theme.colorScheme.surface,
       selectedTafsirColor: Get.theme.colorScheme.surface,
-      unSelectedTafsirColor: Get.theme.canvasColor.withValues(alpha: .8),
+      unSelectedTafsirColor: Get.theme.primaryColorLight.withValues(alpha: .8),
       selectedTafsirTextColor: Get.theme.colorScheme.surface,
       unSelectedTafsirTextColor: Get.theme.canvasColor.withValues(alpha: .8),
       unSelectedTafsirBorderColor: Colors.transparent,
@@ -281,37 +281,31 @@ extension QuranGetters on QuranController {
       downloadIconColor: Get.theme.canvasColor,
       tabBarLabelStyle: AppTextStyles.titleMedium(
         fontSize: 18,
-        color: Get.theme.colorScheme.surface,
+        color: Get.theme.canvasColor,
       ),
       changeTafsirDialogWidth: 350.0,
-      dialogCloseIconColor: Get.theme.canvasColor,
+      dialogCloseIconColor: Get.theme.colorScheme.inversePrimary,
       dialogHeaderBackgroundGradient: LinearGradient(
         colors: [
-          Get.theme.colorScheme.surface,
-          Get.theme.colorScheme.surface.withValues(alpha: .2),
+          Get.theme.colorScheme.surface.withValues(alpha: .5),
+          Get.theme.colorScheme.primaryContainer,
         ],
         begin: AlignmentDirectional.centerEnd,
         end: AlignmentDirectional.centerStart,
       ),
-      dialogHeaderTitleColor: Get.theme.canvasColor,
+      dialogHeaderTitleColor: Get.theme.colorScheme.inversePrimary,
       dialogHeaderTitle: 'changeTafsir'.tr,
       currentTafsirTextStyle: AppTextStyles.titleMedium(
-        fontSize: 16,
-        color: Get.theme.colorScheme.surface,
+        fontSize: 18,
+        color: Get.theme.canvasColor,
       ),
       tabBarUnselectedLabelStyle: AppTextStyles.titleMedium(
         fontSize: 16,
         color: Get.theme.canvasColor.withValues(alpha: .6),
       ),
-      dialogHeaderTitleTextStyle: AppTextStyles.titleMedium(
-        color: Get.theme.canvasColor,
-      ),
-      dialogTypeTextStyle: AppTextStyles.titleSmall(
-        color: Get.theme.canvasColor,
-      ),
-      tafsirTextTextStyle: AppTextStyles.titleSmall(
-        color: Get.theme.canvasColor,
-      ),
+      dialogHeaderTitleTextStyle: AppTextStyles.titleMedium(),
+      dialogTypeTextStyle: AppTextStyles.titleMedium(),
+      tafsirTextTextStyle: AppTextStyles.titleMedium(fontSize: 17),
       tajweedUnavailableText:
           'tajweedUnavailableText'.tr, // بيانات أحكام التجويد غير محمّلة.
       tajweedSurahNumberErrorText:
@@ -339,8 +333,24 @@ extension QuranGetters on QuranController {
         isPreparingDownload:
             isDownloading || tajweedCtrl.isPreparingDownload.value,
       ),
-      tajweedMarkedTextStyle: AppTextStyles.titleMedium(
+      tajweedMarkedTextStyle: AppTextStyles.titleMedium(),
+      tafsirDropdownWidget: const SizedBox().customSvgWithColor(
+        SvgPath.svgHomeArrowDown,
+        color: Get.theme.primaryColorDark,
+        height: 10,
+      ),
+      dialogBackgroundColor: Get.theme.colorScheme.primaryContainer,
+      downloadTafsirIconWidget: const SizedBox().customSvgWithColor(
+        height: 25,
+        width: 25,
+        SvgPath.svgAudioDownload,
         color: Get.theme.colorScheme.primary,
+      ),
+      removeTafsirIconWidget: const SizedBox().customSvgWithColor(
+        height: 25,
+        width: 25,
+        SvgPath.svgHomeRemove,
+        color: Get.theme.colorScheme.error,
       ),
     );
   }

@@ -80,7 +80,7 @@ final List screensList = [
     'name': 'quranAudio',
     'svgUrl': 'assets/svg/quran_au_ic.svg',
     'imagePath': 'assets/images/audio.png',
-    'route': () => const AudioScreen(),
+    'route': () => AudioScreen(),
     'width': 240.0,
   },
   {
