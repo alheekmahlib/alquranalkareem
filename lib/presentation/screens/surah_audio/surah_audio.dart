@@ -1,6 +1,8 @@
 import 'dart:developer';
 
-import 'package:anim_search_bar/anim_search_bar.dart';
+import 'package:alquranalkareem/core/utils/helpers/app_text_styles.dart';
+import 'package:alquranalkareem/core/widgets/custom_button.dart';
+import 'package:alquranalkareem/core/widgets/custom_download_button.dart';
 import 'package:arabic_numbers/arabic_numbers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
@@ -13,6 +15,7 @@ import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 
 import '/presentation/controllers/theme_controller.dart';
 import '../../../core/services/notifications_manager.dart';
+import '../../../core/utils/constants/extensions/alignment_rotated_extension.dart';
 import '../../../core/utils/constants/extensions/convert_number_extension.dart';
 import '../../../core/utils/constants/extensions/extensions.dart';
 import '../../../core/utils/constants/extensions/svg_extensions.dart';
@@ -34,6 +37,9 @@ part '../surah_audio/widgets/last_listen.dart';
 part '../surah_audio/widgets/online_play_button.dart';
 part '../surah_audio/widgets/play_banner.dart';
 part '../surah_audio/widgets/play_widget.dart';
+part '../surah_audio/widgets/repeat_widget.dart';
 part '../surah_audio/widgets/surah_audio_list.dart';
-part '../surah_audio/widgets/surah_search.dart';
+part '../surah_audio/widgets/surah_download_button.dart';
 part '../surah_audio/widgets/surah_seek_bar.dart';
+part '../surah_audio/widgets/surah_skip_next.dart';
+part '../surah_audio/widgets/surah_skip_previous.dart';

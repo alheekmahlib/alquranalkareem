@@ -25,6 +25,7 @@ class TopBarWidget extends StatelessWidget {
   final bool isNotification;
   final bool? isCalendarSetting;
   final void Function()? settingOnTap;
+  final bool? isDraggable;
   TopBarWidget({
     super.key,
     required this.isHomeChild,
@@ -34,6 +35,7 @@ class TopBarWidget extends StatelessWidget {
     required this.isNotification,
     this.settingOnTap,
     this.isCalendarSetting = false,
+    this.isDraggable = true,
   });
 
   final quranCtrl = QuranController.instance;
@@ -49,6 +51,7 @@ class TopBarWidget extends StatelessWidget {
           ),
           minHeight: 0,
           initialHeight: 0,
+          isDraggable: isDraggable ?? true,
           alignment: context.customOrientation(
             Alignment.topCenter,
             AlignmentDirectional.topEnd,
@@ -60,144 +63,160 @@ class TopBarWidget extends StatelessWidget {
           onStateChanged: (state) => log('isOpen: $state'),
           handleBuilder: (currentHeight) {
             final isExpanded = currentHeight >= 155;
-            return Column(
-              children: [
-                Stack(
-                  children: [
-                    Align(
-                      alignment: Alignment.topLeft,
-                      child: Container(
-                        height: 62,
-                        width: 62,
-                        decoration: BoxDecoration(
-                          borderRadius: const BorderRadius.only(
-                            bottomRight: Radius.circular(8),
-                            bottomLeft: Radius.circular(8),
-                          ),
-                          color: Theme.of(context).colorScheme.primary,
-                        ),
-                      ),
-                    ),
-                    Align(
-                      alignment: Alignment.topRight,
-                      child: Container(
-                        height: 62,
-                        width: 62,
-                        decoration: BoxDecoration(
-                          borderRadius: const BorderRadius.only(
-                            bottomRight: Radius.circular(8),
-                            bottomLeft: Radius.circular(8),
-                          ),
-                          color: Theme.of(context).colorScheme.primary,
-                        ),
-                      ),
-                    ),
-                    Container(
-                      height: 53,
-                      width: Get.width,
-                      margin: const EdgeInsets.symmetric(horizontal: 8.0),
-                      decoration: BoxDecoration(
-                        borderRadius: const BorderRadius.all(
-                          Radius.circular(8),
-                        ),
-                        color: Theme.of(context).colorScheme.primaryContainer,
-                      ),
-                      child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Expanded(
-                            flex: 2,
-                            child: isHomeChild
-                                ? ContainerButton(
-                                    onPressed: () {
-                                      quranCtrl.setTopBarType = TopBarType.none;
-                                      Get.offAll(
-                                        () => const HomeScreen(),
-                                        transition: Transition.upToDown,
-                                      );
-                                      sl<QuranController>()
-                                          .state
-                                          .selectedAyahIndexes
-                                          .clear();
-                                    },
-                                    svgHeight: 35,
-                                    svgWidth: 35,
-                                    horizontalMargin: 4.0,
-                                    verticalMargin: 5.0,
-                                    backgroundColor: Colors.transparent,
-                                    svgColor: context.theme.colorScheme.primary,
-                                    svgWithColorPath: SvgPath.svgHomeHome,
-                                  )
-                                : isNotification
-                                ? ContainerButton(
-                                    onPressed: () => customBottomSheet(
-                                      NotificationsScreen(),
-                                    ),
-                                    svgHeight: 35,
-                                    svgWidth: 35,
-                                    horizontalMargin: 6.0,
-                                    verticalMargin: 8.0,
-                                    backgroundColor: Colors.transparent,
-                                    child: const NotificationIconWidget(
-                                      iconHeight: 30,
-                                    ),
-                                  )
-                                : const SizedBox.shrink(),
-                          ),
-                          Expanded(
-                            flex: 12,
-                            child: isCenterChild
-                                ? centerChild!
-                                : const SizedBox.shrink(),
-                          ),
-                          Expanded(
-                            flex: 2,
-                            child: ContainerButton(
-                              onPressed:
-                                  settingOnTap ??
-                                  () {
-                                    quranCtrl.setTopBarType =
-                                        TopBarType.settings;
-                                    quranCtrl.state.searchController.toggle();
-                                    quranCtrl.state.isPlayExpanded.value =
-                                        false;
-                                  },
-                              svgHeight: 35,
-                              svgWidth: 35,
-                              horizontalMargin: 4.0,
-                              verticalMargin: 5.0,
-                              backgroundColor: Colors.transparent,
-                              svgColor: context.theme.colorScheme.primary,
-                              svgWithColorPath: isExpanded
-                                  ? SvgPath.svgHomeClose
-                                  : SvgPath.svgHomeSetting,
+            return Material(
+              elevation: 8,
+              color: Colors.transparent,
+              child: Column(
+                children: [
+                  Stack(
+                    children: [
+                      Align(
+                        alignment: Alignment.topLeft,
+                        child: Container(
+                          height: 62,
+                          width: 62,
+                          decoration: BoxDecoration(
+                            borderRadius: const BorderRadius.only(
+                              bottomRight: Radius.circular(8),
+                              bottomLeft: Radius.circular(8),
                             ),
+                            color: Theme.of(context).colorScheme.primary,
                           ),
-                        ],
+                        ),
                       ),
-                    ),
-                  ],
-                ),
-                Container(
-                  height: 8,
-                  width: Get.width,
-                  margin: const EdgeInsets.symmetric(horizontal: 62.0),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(8),
-                    color: Theme.of(context).colorScheme.primary,
+                      Align(
+                        alignment: Alignment.topRight,
+                        child: Container(
+                          height: 62,
+                          width: 62,
+                          decoration: BoxDecoration(
+                            borderRadius: const BorderRadius.only(
+                              bottomRight: Radius.circular(8),
+                              bottomLeft: Radius.circular(8),
+                            ),
+                            color: Theme.of(context).colorScheme.primary,
+                          ),
+                        ),
+                      ),
+                      Container(
+                        height: 53,
+                        width: Get.width,
+                        margin: const EdgeInsets.symmetric(horizontal: 8.0),
+                        decoration: BoxDecoration(
+                          borderRadius: const BorderRadius.only(
+                            bottomLeft: Radius.circular(8),
+                            bottomRight: Radius.circular(8),
+                          ),
+                          color: Theme.of(context).colorScheme.primaryContainer,
+                        ),
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Expanded(
+                              flex: 2,
+                              child: isHomeChild
+                                  ? ContainerButton(
+                                      onPressed: () {
+                                        quranCtrl.setTopBarType =
+                                            TopBarType.none;
+                                        Get.offAll(
+                                          () => const HomeScreen(),
+                                          transition: Transition.upToDown,
+                                        );
+                                        sl<QuranController>()
+                                            .state
+                                            .selectedAyahIndexes
+                                            .clear();
+                                      },
+                                      svgHeight: 35,
+                                      svgWidth: 35,
+                                      horizontalMargin: 4.0,
+                                      verticalMargin: 5.0,
+                                      backgroundColor: Colors.transparent,
+                                      svgColor:
+                                          context.theme.colorScheme.primary,
+                                      svgWithColorPath: SvgPath.svgHomeHome,
+                                    )
+                                  : isNotification
+                                  ? ContainerButton(
+                                      onPressed: () => customBottomSheet(
+                                        NotificationsScreen(),
+                                      ),
+                                      svgHeight: 35,
+                                      svgWidth: 35,
+                                      horizontalMargin: 6.0,
+                                      verticalMargin: 8.0,
+                                      backgroundColor: Colors.transparent,
+                                      child: const NotificationIconWidget(
+                                        iconHeight: 30,
+                                      ),
+                                    )
+                                  : const SizedBox.shrink(),
+                            ),
+                            if (centerChild != null)
+                              Expanded(
+                                flex: 12,
+                                child: isCenterChild
+                                    ? centerChild!
+                                    : const SizedBox.shrink(),
+                              ),
+                            Expanded(
+                              flex: 2,
+                              child: ContainerButton(
+                                onPressed:
+                                    settingOnTap ??
+                                    () {
+                                      quranCtrl.setTopBarType =
+                                          TopBarType.settings;
+                                      quranCtrl.state.searchController.toggle();
+                                      quranCtrl.state.isPlayExpanded.value =
+                                          false;
+                                    },
+                                svgHeight: 35,
+                                svgWidth: 35,
+                                horizontalMargin: 4.0,
+                                verticalMargin: 5.0,
+                                backgroundColor: Colors.transparent,
+                                svgColor: context.theme.colorScheme.primary,
+                                svgWithColorPath: isExpanded
+                                    ? SvgPath.svgHomeClose
+                                    : SvgPath.svgHomeSetting,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
                   ),
-                ),
-              ],
+                  Container(
+                    height: 8,
+                    width: Get.width,
+                    margin: const EdgeInsets.symmetric(horizontal: 62.0),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(8),
+                      color: Theme.of(context).colorScheme.primary,
+                    ),
+                  ),
+                ],
+              ),
             );
           },
           childBuilder: (currentHeight) {
             if (quranCtrl.getTopBarType(TopBarType.search)) {
-              return QuranSearch();
+              return Material(
+                elevation: 8,
+                color: Colors.transparent,
+                child: QuranSearch(),
+              );
             } else {
-              return SettingsList(
-                isQuranSetting: isQuranSetting,
-                isCalendarSetting: isCalendarSetting,
+              return Material(
+                elevation: 8,
+                color: Colors.transparent,
+                child: SettingsList(
+                  isQuranSetting: isQuranSetting,
+                  isCalendarSetting: isCalendarSetting,
+                ),
               );
             }
           },

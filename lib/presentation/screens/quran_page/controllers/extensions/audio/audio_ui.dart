@@ -20,11 +20,9 @@ extension AudioUi on AudioCtrl {
         progressBackgroundColor: Get.theme.colorScheme.surface.withValues(
           alpha: .2,
         ),
-        surahSubtitleStyle: AppTextStyles.titleSmall(
-          color: Get.theme.canvasColor,
-        ),
+        surahSubtitleStyle: AppTextStyles.titleSmall(),
         surahTitleStyle: TextStyle(
-          color: Get.theme.canvasColor,
+          color: Get.theme.colorScheme.inversePrimary,
           fontFamily: "surahName",
           fontSize: 30,
           height: 1.2,
@@ -51,12 +49,7 @@ extension AudioUi on AudioCtrl {
             ),
             Text(
               'manager_ayah_downloads'.tr,
-              style: TextStyle(
-                color: Theme.of(Get.context!).canvasColor,
-                fontFamily: 'kufi',
-                fontWeight: FontWeight.bold,
-                fontSize: 20,
-              ),
+              style: AppTextStyles.titleMedium(),
             ),
             const Gap(8),
           ],
@@ -70,13 +63,13 @@ extension AudioUi on AudioCtrl {
       ).copyWith(
         playIconColor: Get.theme.colorScheme.surface,
         backgroundColor: Get.theme.colorScheme.primary,
-        dialogBackgroundColor: Get.theme.primaryColor,
-        dialogReaderTextColor: Get.theme.canvasColor,
+        dialogBackgroundColor: Get.theme.colorScheme.primaryContainer,
+        dialogReaderTextColor: Get.theme.colorScheme.inversePrimary,
         textColor: Get.theme.colorScheme.inversePrimary,
-        readerNameInItemColor: Get.theme.canvasColor,
+        readerNameInItemColor: Get.theme.colorScheme.inversePrimary,
         dialogSelectedReaderColor: Get.theme.colorScheme.surface,
         dialogUnSelectedReaderColor: Colors.transparent,
-        dialogHeaderTitleColor: Get.theme.canvasColor,
+        dialogHeaderTitleColor: Get.theme.colorScheme.inversePrimary,
         currentReaderColor: Get.theme.hintColor,
         currentReaderTextStyle: AppTextStyles.titleMedium(
           color: Get.theme.hintColor,
@@ -84,22 +77,23 @@ extension AudioUi on AudioCtrl {
           height: 1.2,
         ),
         tabLabelStyle: AppTextStyles.titleMedium(),
-        headerDialogTitleStyle: AppTextStyles.titleLarge(
-          color: Get.theme.canvasColor,
-          height: 1,
-        ),
-        readerDialogTitleStyle: AppTextStyles.titleMedium(
-          color: Get.theme.canvasColor,
-        ),
+        headerDialogTitleStyle: AppTextStyles.titleLarge(height: 1),
+        readerDialogTitleStyle: AppTextStyles.titleMedium(),
         dialogHeaderBackgroundGradient: LinearGradient(
           colors: [
             Get.theme.colorScheme.surface.withValues(alpha: .5),
-            Colors.transparent,
+            Get.theme.colorScheme.primaryContainer,
           ],
         ),
         tabIndicatorColor: Get.theme.colorScheme.surface,
-        dialogCloseIconColor: Get.theme.canvasColor,
-        tabLabelColor: Get.theme.canvasColor,
-        tabUnselectedLabelColor: Get.theme.canvasColor.withValues(alpha: .5),
+        dialogCloseIconColor: Get.theme.colorScheme.inversePrimary,
+        tabLabelColor: Get.theme.colorScheme.inversePrimary,
+        tabUnselectedLabelColor: Get.theme.colorScheme.inversePrimary
+            .withValues(alpha: .5),
+        readerDropdownWidget: const SizedBox().customSvgWithColor(
+          SvgPath.svgHomeArrowDown,
+          color: Get.theme.primaryColorDark,
+          height: 10,
+        ),
       );
 }

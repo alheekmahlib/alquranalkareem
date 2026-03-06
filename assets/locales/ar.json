@@ -564,7 +564,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "searchToSurah": "إبحث عن السورة",
+  "searchToSurah": "ابحث عن السورة",
   "@searchToSurah": {
     "type": "text",
     "placeholders": {}

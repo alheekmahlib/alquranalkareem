@@ -29,6 +29,7 @@ class PlayAyah extends StatelessWidget {
               height: 40,
               width: 40,
               iconSize: 38,
+              isCustomSvgColor: true,
               svgColor: context.theme.colorScheme.surface,
               onPressed: () async {
                 GeneralController.instance.showAudioWidgetFor();
@@ -49,6 +50,7 @@ class PlayAyah extends StatelessWidget {
             height: 40,
             width: 40,
             iconSize: 38,
+            isCustomSvgColor: true,
             svgColor: context.theme.colorScheme.surface,
             onPressed: () {
               QuranController.instance.state.isPlayExpanded.value = true;

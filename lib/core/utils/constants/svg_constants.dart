@@ -51,6 +51,10 @@ class SvgPath {
   static const String svgAudioFullAudioScreen =
       "assets/svg/audio/full_audio_screen.svg";
 
+  /// Assets for svgAudioLoop
+  /// assets/svg/audio/loop.svg
+  static const String svgAudioLoop = "assets/svg/audio/loop.svg";
+
   /// Assets for svgAudioNextIcon
   /// assets/svg/audio/next_icon.svg
   static const String svgAudioNextIcon = "assets/svg/audio/next_icon.svg";
@@ -261,6 +265,10 @@ class SvgPath {
   /// assets/svg/home/notifications.svg
   static const String svgHomeNotifications =
       "assets/svg/home/notifications.svg";
+
+  /// Assets for svgHomeRemove
+  /// assets/svg/home/remove.svg
+  static const String svgHomeRemove = "assets/svg/home/remove.svg";
 
   /// Assets for svgHomeSearch
   /// assets/svg/home/search.svg

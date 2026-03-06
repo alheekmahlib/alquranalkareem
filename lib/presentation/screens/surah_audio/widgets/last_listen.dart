@@ -7,97 +7,141 @@ class LastListen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Semantics(
-      button: true,
-      enabled: true,
-      label: 'lastListen'.tr,
-      child: GestureDetector(
-        onTap: () {
-          surahAudioCtrl.state.isPlayingSurahsMode = true;
-          surahAudioCtrl.enableSurahAutoNextListener();
-          surahAudioCtrl.enableSurahPositionSaving();
-          surahAudioCtrl.loadLastSurahAndPosition();
-          surahAudioCtrl.state.audioPlayer.play();
-          surahAudioCtrl.state.isSheetOpen.value = true;
-          // surahAudioCtrl.state.boxController.openBox();
-          surahAudioCtrl.jumpToSurah(
-            (surahAudioCtrl.state.selectedSurahIndex.value),
-          );
-        },
-        child: Container(
-          width: 280.0,
-          decoration: BoxDecoration(
-            borderRadius: const BorderRadius.all(Radius.circular(8)),
-            border: Border.all(
-              color: Theme.of(
-                context,
-              ).colorScheme.primary.withValues(alpha: .2),
-              width: 1,
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 14.0, vertical: 8.0),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Container(
+            width: 8,
+            height: 95,
+            decoration: BoxDecoration(
+              color: context.theme.primaryColorLight,
+              borderRadius: BorderRadius.circular(8),
             ),
           ),
-          margin: const EdgeInsets.symmetric(vertical: 8.0),
-          child: Row(
-            children: <Widget>[
-              Expanded(
-                flex: 3,
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: FittedBox(
-                    fit: BoxFit.scaleDown,
-                    child: Text(
-                      'lastListen'.tr.replaceAll(' ', '\n'),
-                      style: TextStyle(
-                        fontFamily: 'kufi',
-                        fontSize: 18,
-                        color: Theme.of(context).colorScheme.primary,
-                      ),
-                      textAlign: TextAlign.center,
+          const Gap(8),
+          Expanded(
+            child: Semantics(
+              button: true,
+              enabled: true,
+              label: 'lastListen'.tr,
+              child: GestureDetector(
+                onTap: () {
+                  surahAudioCtrl.state.isPlayingSurahsMode = true;
+                  surahAudioCtrl.enableSurahAutoNextListener();
+                  surahAudioCtrl.enableSurahPositionSaving();
+                  surahAudioCtrl.loadLastSurahAndPosition();
+                  surahAudioCtrl.state.audioPlayer.play();
+                  surahAudioCtrl.state.isSheetOpen.value = true;
+                  // surahAudioCtrl.state.boxController.openBox();
+                  surahAudioCtrl.jumpToSurah(
+                    (surahAudioCtrl.state.selectedSurahIndex.value),
+                  );
+                },
+                child: Container(
+                  height: 95,
+                  width: Get.width,
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 12.0,
+                    vertical: 8.0,
+                  ),
+                  decoration: BoxDecoration(
+                    color: context.theme.primaryColorLight.withValues(
+                      alpha: .2,
                     ),
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: Column(
+                          children: [
+                            Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                Expanded(
+                                  child: Container(
+                                    height: 45,
+                                    alignment: Alignment.center,
+                                    padding: const EdgeInsets.symmetric(
+                                      horizontal: 6.0,
+                                      vertical: 4.0,
+                                    ),
+                                    decoration: BoxDecoration(
+                                      color: context
+                                          .theme
+                                          .colorScheme
+                                          .primaryContainer,
+                                      borderRadius: BorderRadius.circular(8),
+                                    ),
+                                    child: FittedBox(
+                                      fit: BoxFit.scaleDown,
+                                      child: Text(
+                                        'lastListen'.tr,
+                                        style: AppTextStyles.titleMedium(),
+                                        textAlign: TextAlign.center,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                const Gap(8),
+                                Expanded(
+                                  child: Container(
+                                    height: 45,
+                                    alignment: Alignment.center,
+                                    padding: const EdgeInsets.symmetric(
+                                      horizontal: 6.0,
+                                      vertical: 4.0,
+                                    ),
+                                    decoration: BoxDecoration(
+                                      color: context
+                                          .theme
+                                          .colorScheme
+                                          .primaryContainer,
+                                      borderRadius: BorderRadius.circular(8),
+                                    ),
+                                    child: Obx(
+                                      () => customSvgWithColor(
+                                        'assets/svg/surah_name/00${surahAudioCtrl.state.selectedSurahIndex.value + 1}.svg',
+                                        width: 110,
+                                        color: context
+                                            .theme
+                                            .colorScheme
+                                            .inversePrimary,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                            const Gap(8),
+                            if (context.mounted)
+                              GetX<AudioCtrl>(
+                                builder: (surahAudioController) => Text(
+                                  '${surahAudioCtrl.formatDuration(Duration(seconds: surahAudioCtrl.state.lastPosition.value))}',
+                                  style: AppTextStyles.titleMedium(),
+                                ),
+                              ),
+                          ],
+                        ),
+                      ),
+                      const Gap(16),
+                      RotatedBox(
+                        quarterTurns: alignmentLayout(1, 3),
+                        child: customSvgWithColor(
+                          SvgPath.svgHomeArrowDown,
+                          color: context.theme.primaryColorDark,
+                          height: 18,
+                        ),
+                      ),
+                    ],
                   ),
                 ),
               ),
-              Expanded(
-                flex: 7,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    Container(
-                      width: MediaQuery.sizeOf(context).width,
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 6.0,
-                        vertical: 4.0,
-                      ),
-                      decoration: BoxDecoration(
-                        color: Theme.of(context).colorScheme.primary,
-                        borderRadius: const BorderRadius.all(
-                          Radius.circular(8),
-                        ),
-                      ),
-                      child: Obx(
-                        () => customSvgWithColor(
-                          'assets/svg/surah_name/00${surahAudioCtrl.state.selectedSurahIndex.value + 1}.svg',
-                          width: 110,
-                          color: Theme.of(context).colorScheme.secondary,
-                        ),
-                      ),
-                    ),
-                    if (context.mounted)
-                      GetX<AudioCtrl>(
-                        builder: (surahAudioController) => Text(
-                          '${surahAudioCtrl.formatDuration(Duration(seconds: surahAudioCtrl.state.lastPosition.value))}',
-                          style: TextStyle(
-                            fontFamily: 'kufi',
-                            fontSize: 16,
-                            color: Theme.of(context).hintColor,
-                          ),
-                        ),
-                      ),
-                  ],
-                ),
-              ),
-            ],
+            ),
           ),
-        ),
+        ],
       ),
     );
   }

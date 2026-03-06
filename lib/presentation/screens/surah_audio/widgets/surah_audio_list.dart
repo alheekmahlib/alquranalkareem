@@ -135,7 +135,7 @@ class SurahAudioList extends StatelessWidget {
                               animate: true,
                             ),
                           const Gap(8.0),
-                          SurahDownloadPlayButton(
+                          SurahDownloadButton(
                             surahNumber: index + 1,
                             style: SurahAudioStyle.defaults(
                               isDark: themeCtrl.isDarkMode,

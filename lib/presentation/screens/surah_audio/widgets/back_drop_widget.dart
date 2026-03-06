@@ -1,75 +1,102 @@
 part of '../surah_audio.dart';
 
 class BackDropWidget extends StatelessWidget {
-  const BackDropWidget({super.key});
+  BackDropWidget({super.key});
+
+  // final surahCtrl = AudioCtrl.instance;
 
   @override
   Widget build(BuildContext context) {
     return context.customOrientation(
       Column(
         children: [
+          const Gap(80),
           SizedBox(
-            height: 250,
+            height: 150,
             child: Stack(
               alignment: Alignment.center,
               children: [
                 Align(
                   alignment: Alignment.center,
-                  child: Padding(
-                    padding: const EdgeInsets.only(top: 104.0),
-                    child: customLottieWithColor(
-                      LottieConstants.assetsLottieQuranAuIc,
-                      height: 120,
-                      isRepeat: false,
-                    ),
+                  child: customLottieWithColor(
+                    LottieConstants.assetsLottieQuranAuIc,
+                    height: 120,
+                    isRepeat: false,
                   ),
                 ),
                 Align(
-                  alignment: Alignment.topCenter,
-                  child: Stack(
-                    alignment: Alignment.topCenter,
-                    children: [
-                      TopBarWidget(
-                        isHomeChild: true,
-                        isCenterChild: true,
-                        isQuranSetting: false,
-                        isNotification: false,
-                        centerChild: LastListen(),
-                      ),
-                    ],
-                  ),
-                ),
-                Align(
-                  alignment: Alignment.topRight,
-                  child: Padding(
-                    padding: const EdgeInsets.only(top: 140.0),
-                    child: Stack(
-                      children: [
-                        const Align(
-                          alignment: Alignment.topRight,
-                          child: SurahSearch(),
-                        ),
-                        Obx(
-                          () => AudioCtrl.instance.state.isPlaying.value == true
-                              ? const Align(
-                                  alignment: Alignment.topLeft,
-                                  child: PlayBanner(),
-                                )
-                              : const SizedBox.shrink(),
-                        ),
-                      ],
-                    ),
+                  alignment: AlignmentDirectional.centerStart,
+                  child: Obx(
+                    () => AudioCtrl.instance.state.isPlaying.value == true
+                        ? const PlayBanner()
+                        : const SizedBox.shrink(),
                   ),
                 ),
               ],
             ),
           ),
-          Flexible(child: SurahAudioList()),
+          LastListen(),
+          const Gap(4),
+          Container(
+            height: 8,
+            width: Get.width,
+            margin: const EdgeInsets.symmetric(horizontal: 62.0),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(8),
+              color: Theme.of(context).primaryColorLight,
+            ),
+          ),
+          Flexible(
+            child: QuranSurahList(
+              marginBottom: 110.0,
+              onTap: (index) async {
+                print('Surah tapped with index: $index');
+                await AudioCtrl.instance.selectSurahFromList(
+                  context,
+                  index,
+                  autoPlay: true,
+                );
+              },
+              leadingChild: (context, index) => SurahDownloadButton(
+                surahNumber: index + 1,
+                style: SurahAudioStyle.defaults(
+                  isDark: themeCtrl.isDarkMode,
+                  context: context,
+                ),
+              ),
+              isSelected: (i) =>
+                  AudioCtrl.instance.isSelectedSurahIndex(i).value,
+              controller: AudioCtrl.instance.state.surahListController,
+            ),
+          ),
         ],
       ),
       Row(
         children: [
-          Expanded(flex: 4, child: SurahAudioList()),
+          Expanded(
+            flex: 4,
+            child: QuranSurahList(
+              marginBottom: 110.0,
+              onTap: (index) async {
+                print('Surah tapped with index: $index');
+                await AudioCtrl.instance.selectSurahFromList(
+                  context,
+                  index,
+                  autoPlay: true,
+                );
+              },
+              leadingChild: (context, index) => SurahDownloadButton(
+                surahNumber: index + 1,
+                style: SurahAudioStyle.defaults(
+                  isDark: themeCtrl.isDarkMode,
+                  context: context,
+                ),
+              ),
+              isSelected: (i) =>
+                  AudioCtrl.instance.isSelectedSurahIndex(i).value,
+              controller: AudioCtrl.instance.state.surahListController,
+            ),
+          ),
           Expanded(
             flex: 4,
             child: Stack(
@@ -77,53 +104,24 @@ class BackDropWidget extends StatelessWidget {
               children: [
                 Align(
                   alignment: Alignment.center,
-                  child: Padding(
-                    padding: const EdgeInsets.only(top: 104.0),
-                    child: customLottie(
-                      LottieConstants.assetsLottieQuranAuIc,
-                      height: 120,
-                      isRepeat: false,
-                    ),
-                  ),
-                ),
-                Align(
-                  alignment: Alignment.topCenter,
-                  child: Stack(
-                    alignment: Alignment.topCenter,
+                  child: Column(
                     children: [
-                      TopBarWidget(
-                        isHomeChild: true,
-                        isCenterChild: true,
-                        isQuranSetting: false,
-                        isNotification: false,
-                        centerChild: LastListen(),
+                      const Gap(80),
+                      LastListen(),
+                      customLottieWithColor(
+                        LottieConstants.assetsLottieQuranAuIc,
+                        height: 120,
+                        isRepeat: false,
                       ),
                     ],
                   ),
                 ),
                 Align(
-                  alignment: Alignment.topRight,
-                  child: Padding(
-                    padding: const EdgeInsets.only(top: 140.0),
-                    child: Row(
-                      children: [
-                        Column(
-                          children: [
-                            const SurahSearch(),
-                            Obx(
-                              () =>
-                                  AudioCtrl.instance.state.isPlaying.value ==
-                                      true
-                                  ? const Align(
-                                      alignment: Alignment.topLeft,
-                                      child: PlayBanner(),
-                                    )
-                                  : const SizedBox.shrink(),
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
+                  alignment: AlignmentDirectional.centerStart,
+                  child: Obx(
+                    () => AudioCtrl.instance.state.isPlaying.value == true
+                        ? const PlayBanner()
+                        : const SizedBox.shrink(),
                   ),
                 ),
               ],

@@ -32,6 +32,7 @@ class SettingsList extends StatelessWidget {
         return Container(
           height: size.height,
           width: size.width,
+          margin: const EdgeInsets.symmetric(horizontal: 8.0),
           decoration: BoxDecoration(
             color: Theme.of(context).colorScheme.primaryContainer,
             borderRadius: const BorderRadius.only(

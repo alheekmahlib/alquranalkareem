@@ -118,6 +118,8 @@ class AyahMenuHelper {
                     surahNumber: surah.surahNumber,
                     ayahNumber: ayah.ayahNumber,
                     enableWordSelection: true,
+                    enabledTajweed:
+                        QuranCtrl.instance.state.isTajweedEnabled.value,
                     onWordTap: (ref) {
                       quranCtrl.state.ref.value = ref;
                       print(

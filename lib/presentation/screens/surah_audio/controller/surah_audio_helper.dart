@@ -19,11 +19,11 @@ extension SurahAudioHelper on AudioCtrl {
         dialogWidth: Get.context!.customOrientation(Get.width, Get.width * .5),
         audioSliderBackgroundColor: Get.context!.theme.canvasColor,
         backgroundColor: Get.context!.theme.colorScheme.primaryContainer,
-        dialogBackgroundColor: Get.context!.theme.colorScheme.primary,
+        dialogBackgroundColor: Get.context!.theme.colorScheme.primaryContainer,
         textColor: Get.context!.theme.colorScheme.inversePrimary,
-        dialogCloseIconColor: Get.context!.theme.canvasColor,
-        dialogHeaderTitleColor: Get.context!.theme.canvasColor,
-        dialogReaderTextColor: Get.context!.theme.canvasColor,
+        dialogCloseIconColor: Get.context!.theme.colorScheme.inversePrimary,
+        dialogHeaderTitleColor: Get.context!.theme.colorScheme.inversePrimary,
+        dialogReaderTextColor: Get.context!.theme.colorScheme.inversePrimary,
         dialogSelectedReaderColor: Get.context!.theme.colorScheme.surface,
         dialogUnSelectedReaderColor: Get
             .context!
@@ -46,8 +46,16 @@ extension SurahAudioHelper on AudioCtrl {
         dialogHeaderBackgroundGradient: LinearGradient(
           colors: [
             Get.context!.theme.colorScheme.surface.withValues(alpha: 0.5),
-            Colors.transparent,
+            Get.context!.theme.colorScheme.primaryContainer,
           ],
+        ),
+        dialogHeaderTitleTextStyle: AppTextStyles.titleMedium(),
+        dialogReaderItemTextStyle: AppTextStyles.titleMedium(fontSize: 18),
+        readerNameTextStyle: AppTextStyles.titleMedium(),
+        readerDropdownWidget: const SizedBox().customSvgWithColor(
+          SvgPath.svgHomeArrowDown,
+          color: Get.theme.primaryColorDark,
+          height: 10,
         ),
       );
 
