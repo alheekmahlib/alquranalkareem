@@ -595,6 +595,11 @@
     "type": "text",
     "placeholders": {}
   },
+  "shareAudio": "آڈیو کے طور پر",
+  "@shareAudio": {
+    "type": "text",
+    "placeholders": {}
+  },
   "shareImageWTrans": "اضافی مواد کے ساتھ تصویر کے طور پر",
   "@shareImageWTrans": {
     "type": "text",

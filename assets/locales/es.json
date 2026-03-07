@@ -595,6 +595,11 @@
     "type": "text",
     "placeholders": {}
   },
+  "shareAudio": "Como audio",
+  "@shareAudio": {
+    "type": "text",
+    "placeholders": {}
+  },
   "shareImageWTrans": "Como una imagen",
   "@shareImageWTrans": {
     "type": "text",

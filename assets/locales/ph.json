@@ -594,6 +594,11 @@
     "type": "text",
     "placeholders": {}
   },
+  "shareAudio": "Bilang Audio",
+  "@shareAudio": {
+    "type": "text",
+    "placeholders": {}
+  },
   "shareImageWTrans": "Bilang Larawan na may Karagdagang Nilalaman",
   "@shareImageWTrans": {
     "type": "text",

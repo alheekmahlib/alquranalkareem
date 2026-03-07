@@ -594,6 +594,11 @@
     "type": "text",
     "placeholders": {}
   },
+  "shareAudio": "Sebagai Audio",
+  "@shareAudio": {
+    "type": "text",
+    "placeholders": {}
+  },
   "shareImageWTrans": "Sebagai Gambar dengan Konten Tambahan",
   "@shareImageWTrans": {
     "type": "text",

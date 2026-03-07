@@ -132,4 +132,46 @@ class ShareController extends GetxController {
 
     await SharePlus.instance.share(params);
   }
+
+  Future<void> shareAudio({
+    required String surahName,
+    required String verseText,
+    required int surahNumber,
+    required int ayahNumber,
+    required int pageNumber,
+    required int ayahUQNumber,
+  }) async {
+    final audioService = sl<AyahAudioShareService>();
+    try {
+      final file = await audioService.getAyahAudioFile(
+        surahNumber: surahNumber,
+        ayahNumber: ayahNumber,
+        ayahUQNumber: ayahUQNumber,
+      );
+      if (file == null) return;
+
+      final directory = await getTemporaryDirectory();
+      final fileName =
+          '${surahName}_${'ayah'.tr}_${arabicNumber.convert(ayahNumber)}.mp3';
+      final shareFile = await file.copy('${directory.path}/$fileName');
+
+      Get.back();
+      final shareText =
+          '﴿$verseText﴾ '
+          '[$surahName-'
+          '$ayahNumber]\n\n'
+          '${'appName'.tr}\n'
+          '${ApiConstants.quranShareUrl}$pageNumber&ayah=$ayahUQNumber';
+      final params = ShareParams(
+        files: [XFile(shareFile.path, mimeType: 'audio/mpeg')],
+        text: shareText,
+        subject: '$surahName - ${'ayah'.tr} $ayahNumber',
+      );
+
+      await SharePlus.instance.share(params);
+    } on DioException {
+      Get.back();
+      Get.context!.showCustomErrorSnackBar('noInternet'.tr);
+    }
+  }
 }

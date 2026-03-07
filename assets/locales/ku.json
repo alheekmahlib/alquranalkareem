@@ -594,6 +594,11 @@
     "type": "text",
     "placeholders": {}
   },
+  "shareAudio": "وەک دەنگ",
+  "@shareAudio": {
+    "type": "text",
+    "placeholders": {}
+  },
   "shareImageWTrans": "وەک وێنە لەگەڵ ناوەڕۆکی زیادە",
   "@shareImageWTrans": {
     "type": "text",
