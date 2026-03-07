@@ -22,6 +22,7 @@ Widget customLottieWithColor(
   double? height,
   bool? isRepeat,
   Color? color,
+  BoxFit? boxFit,
 }) {
   return ColorFiltered(
     colorFilter: ColorFilter.mode(
@@ -33,6 +34,7 @@ Widget customLottieWithColor(
       width: width,
       height: height,
       repeat: isRepeat ?? true,
+      fit: boxFit,
       // delegates: LottieDelegates(
       //   values: [
       //     ValueDelegate.color(

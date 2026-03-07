@@ -131,7 +131,7 @@ class LastListen extends StatelessWidget {
                         quarterTurns: alignmentLayout(1, 3),
                         child: customSvgWithColor(
                           SvgPath.svgHomeArrowDown,
-                          color: context.theme.primaryColorDark,
+                          color: context.theme.colorScheme.surface,
                           height: 18,
                         ),
                       ),

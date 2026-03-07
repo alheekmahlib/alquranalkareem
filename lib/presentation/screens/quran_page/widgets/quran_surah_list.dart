@@ -85,10 +85,14 @@ class QuranSurahList extends StatelessWidget {
                                   alignment: Alignment.center,
                                   children: [
                                     RepaintBoundary(
-                                      child: customSvg(
+                                      child: customSvgWithColor(
                                         height: 64,
                                         width: 64,
                                         SvgPath.svgQuranSurahNumberZakhrafa,
+                                        color: context
+                                            .theme
+                                            .colorScheme
+                                            .primaryContainer,
                                       ),
                                     ),
                                     FittedBox(
@@ -136,8 +140,10 @@ class QuranSurahList extends StatelessWidget {
                                           surah.englishName,
                                           style: AppTextStyles.titleSmall(
                                             height: .9,
-                                            color:
-                                                context.theme.primaryColorDark,
+                                            color: context
+                                                .theme
+                                                .colorScheme
+                                                .surface,
                                           ),
                                         ),
                                       ],
@@ -178,7 +184,8 @@ class QuranSurahList extends StatelessWidget {
                                                         AppTextStyles.titleSmall(
                                                           color: context
                                                               .theme
-                                                              .primaryColorDark,
+                                                              .colorScheme
+                                                              .surface,
                                                         ),
                                                   ),
                                                   const Gap(4),
@@ -217,7 +224,8 @@ class QuranSurahList extends StatelessWidget {
                                                         AppTextStyles.titleSmall(
                                                           color: context
                                                               .theme
-                                                              .primaryColorDark,
+                                                              .colorScheme
+                                                              .surface,
                                                         ),
                                                   ),
                                                   const Gap(4),

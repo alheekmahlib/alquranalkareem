@@ -1,7 +1,8 @@
 part of '../surah_audio.dart';
 
 class RepeatWidget extends StatelessWidget {
-  RepeatWidget({super.key});
+  final Color? iconColor;
+  RepeatWidget({super.key, this.iconColor});
 
   final surahAudioCtrl = AudioCtrl.instance;
 
@@ -16,8 +17,10 @@ class RepeatWidget extends StatelessWidget {
           builder: (context, snapshot) {
             final loopMode = snapshot.data ?? LoopMode.off;
             List<Color> iconsColor = [
-              context.theme.primaryColorLight.withValues(alpha: .5),
-              context.theme.primaryColorLight,
+              (iconColor ?? context.theme.primaryColorLight).withValues(
+                alpha: .5,
+              ),
+              iconColor ?? context.theme.primaryColorLight,
             ];
             const cycleModes = [LoopMode.off, LoopMode.all];
             final index = cycleModes.indexOf(loopMode);
@@ -28,7 +31,9 @@ class RepeatWidget extends StatelessWidget {
               iconSize: 38,
               horizontalPadding: 8.0,
               isCustomSvgColor: true,
-              svgColor: context.theme.canvasColor,
+              svgColor: iconColor != null
+                  ? context.theme.colorScheme.primary
+                  : context.theme.canvasColor,
               backgroundColor: iconsColor[index],
               onPressed: () {
                 surahAudioCtrl.state.audioPlayer.setLoopMode(

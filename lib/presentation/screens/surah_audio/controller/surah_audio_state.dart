@@ -20,4 +20,24 @@ class SurahAudioState {
   RxBool isPlayExpanded = false.obs;
 
   TextEditingController textController = TextEditingController();
+
+  // -------- [Segment Tracking] ----------
+
+  /// رقم الآية الحالية المحدّدة من segments
+  Rx<int?> currentSegmentAyahNumber = Rx<int?>(null);
+
+  /// رقم الكلمة الحالية المحدّدة من segments
+  Rx<int?> currentSegmentWordIndex = Rx<int?>(null);
+
+  /// رقم السورة الحالية المحدّدة من segments
+  Rx<int?> currentSegmentSurahNumber = Rx<int?>(null);
+
+  /// حالة تحميل ملف segments
+  RxBool isSegmentsLoading = false.obs;
+
+  /// هل القارئ الحالي يدعم segments
+  RxBool isSegmentsAvailable = false.obs;
+
+  /// اشتراك تتبع الموضع للـ segments
+  StreamSubscription<Duration>? segmentPositionSubscription;
 }

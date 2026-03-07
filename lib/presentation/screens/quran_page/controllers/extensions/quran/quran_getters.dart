@@ -336,7 +336,7 @@ extension QuranGetters on QuranController {
       tajweedMarkedTextStyle: AppTextStyles.titleMedium(),
       tafsirDropdownWidget: const SizedBox().customSvgWithColor(
         SvgPath.svgHomeArrowDown,
-        color: Get.theme.primaryColorDark,
+        color: Get.theme.colorScheme.surface,
         height: 10,
       ),
       dialogBackgroundColor: Get.theme.colorScheme.primaryContainer,

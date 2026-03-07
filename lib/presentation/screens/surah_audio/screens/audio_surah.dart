@@ -1,4 +1,4 @@
-part of 'surah_audio.dart';
+part of '../surah_audio.dart';
 
 class AudioScreen extends StatelessWidget {
   AudioScreen({super.key});

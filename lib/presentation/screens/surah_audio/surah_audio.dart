@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:developer';
 
 import 'package:alquranalkareem/core/utils/helpers/app_text_styles.dart';
@@ -8,6 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
+import 'package:get/get_connect/http/src/utils/utils.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:mini_music_visualizer/mini_music_visualizer.dart';
 import 'package:quran_library/quran_library.dart';
@@ -27,9 +29,12 @@ import '../../../core/widgets/tab_bar_widget.dart';
 import '../quran_page/quran.dart';
 import '../quran_page/widgets/search/search_extensions/convert_arabic_to_english_numbers_extension.dart';
 import '../quran_page/widgets/search/search_extensions/highlight_extension.dart';
+import 'data/models/ayah_segment_model.dart';
+import 'data/repositories/segment_repository.dart';
 
-part '../surah_audio/audio_surah.dart';
+part '../surah_audio/controller/audio_surah_with_ayahs_controller.dart';
 part '../surah_audio/controller/surah_audio_helper.dart';
+part '../surah_audio/controller/surah_audio_segment_helper.dart';
 part '../surah_audio/controller/surah_audio_state.dart';
 part '../surah_audio/widgets/back_drop_widget.dart';
 part '../surah_audio/widgets/collapsed_play_widget.dart';
@@ -43,3 +48,5 @@ part '../surah_audio/widgets/surah_download_button.dart';
 part '../surah_audio/widgets/surah_seek_bar.dart';
 part '../surah_audio/widgets/surah_skip_next.dart';
 part '../surah_audio/widgets/surah_skip_previous.dart';
+part 'screens/audio_surah.dart';
+part 'screens/audio_surah_with_ayahs.dart';
