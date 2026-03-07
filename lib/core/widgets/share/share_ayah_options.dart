@@ -1,14 +1,17 @@
 import 'package:alquranalkareem/core/utils/constants/extensions/bottom_sheet_extension.dart';
 import 'package:alquranalkareem/core/widgets/container_button.dart';
 import 'package:flutter/material.dart';
+import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:quran_library/quran.dart';
 
 import '../../../presentation/screens/quran_page/quran.dart';
+import '../../services/ayah_audio_share_service.dart';
 import '../../services/services_locator.dart';
 import '../../utils/constants/extensions/extensions.dart';
 import '../../utils/constants/svg_constants.dart';
 import '../custom_button.dart';
+import '../title_widget.dart';
 import 'share_ayahToImage.dart';
 
 class ShareAyahOptions extends StatelessWidget {
@@ -56,19 +59,22 @@ class ShareAyahOptions extends StatelessWidget {
               ),
             ),
             child: SafeArea(
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      _ayahText(context),
-                      context.hDivider(color: Get.theme.colorScheme.primary),
-                      _ayahToImage(context),
-                      // _imageWithTranslation(context),
-                    ],
-                  ),
-                ],
+              child: SingleChildScrollView(
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    _ayahText(context),
+                    const Gap(4),
+                    context.hDivider(color: Get.theme.colorScheme.primary),
+                    const Gap(4),
+                    _ayahAudio(context),
+                    const Gap(4),
+                    context.hDivider(color: Get.theme.colorScheme.primary),
+                    const Gap(4),
+                    _ayahToImage(context),
+                    // _imageWithTranslation(context),
+                  ],
+                ),
               ),
             ),
           ),
@@ -82,19 +88,7 @@ class ShareAyahOptions extends StatelessWidget {
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16.0),
-          child: Text(
-            'shareText'.tr,
-            style: TextStyle(
-              color: Get.isDarkMode
-                  ? Get.theme.colorScheme.primary
-                  : Get.theme.colorScheme.primary,
-              fontSize: 16,
-              fontFamily: 'kufi',
-            ),
-          ),
-        ),
+        const TitleWidget(title: 'shareText'),
         ContainerButton(
           height: 90,
           width: Get.width,
@@ -138,17 +132,7 @@ class ShareAyahOptions extends StatelessWidget {
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16.0),
-          child: Text(
-            'shareImage'.tr,
-            style: TextStyle(
-              color: Get.theme.hintColor,
-              fontSize: 16,
-              fontFamily: 'kufi',
-            ),
-          ),
-        ),
+        const TitleWidget(title: 'shareImage'),
         GestureDetector(
           child: Container(
             // width: MediaQuery.sizeOf(context).width * .4,
@@ -321,4 +305,45 @@ class ShareAyahOptions extends StatelessWidget {
   //     ],
   //   );
   // }
+
+  Widget _ayahAudio(BuildContext context) {
+    final audioService = sl<AyahAudioShareService>();
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        const TitleWidget(title: 'shareAudio'),
+        Obx(
+          () => ContainerButton(
+            height: 90,
+            width: Get.width,
+            isButton: true,
+            withArrow: true,
+            horizontalMargin: 16.0,
+            verticalPadding: 8.0,
+            isDownloading: audioService.isDownloading.value,
+            downloadProgress: audioService.downloadProgress.value,
+            backgroundColor: Get.theme.colorScheme.primary.withValues(
+              alpha: .15,
+            ),
+            svgWithColorPath: SvgPath.svgAudioDownload,
+            svgColor: Get.theme.hintColor,
+            title: audioService.currentReaderName,
+            onPressed: audioService.isDownloading.value
+                ? null
+                : () async {
+                    await shareToImage.shareAudio(
+                      surahName: surah.arabicName,
+                      verseText: ayah.text,
+                      surahNumber: surah.surahNumber,
+                      ayahNumber: ayah.ayahNumber,
+                      pageNumber: pageNumber + 1,
+                      ayahUQNumber: ayah.ayahUQNumber,
+                    );
+                  },
+          ),
+        ),
+      ],
+    );
+  }
 }

@@ -21,6 +21,7 @@ import '/presentation/screens/splash/splash.dart';
 import '/presentation/screens/whats_new/whats_new.dart';
 import '../utils/helpers/ui_helper.dart';
 import '../widgets/local_notification/controller/local_notifications_controller.dart';
+import 'ayah_audio_share_service.dart';
 
 final sl = GetIt.instance;
 
@@ -83,6 +84,13 @@ class ServicesLocator {
 
     sl.registerLazySingleton<ShareController>(
       () => Get.put<ShareController>(ShareController(), permanent: true),
+    );
+
+    sl.registerLazySingleton<AyahAudioShareService>(
+      () => Get.put<AyahAudioShareService>(
+        AyahAudioShareService(),
+        permanent: true,
+      ),
     );
 
     sl.registerLazySingleton<PlayListController>(

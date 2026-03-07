@@ -85,6 +85,7 @@ class VerseImageCreator extends StatelessWidget {
                           surahNumber: surah.surahNumber,
                           ayahNumber: ayah.ayahNumber,
                           fontSize: 22,
+                          isDark: themeCtrl.isDarkMode,
                           textColor: context.theme.colorScheme.inversePrimary,
                           enabledTajweed:
                               QuranCtrl.instance.state.isTajweedEnabled.value,

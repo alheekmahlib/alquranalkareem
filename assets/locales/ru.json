@@ -594,6 +594,11 @@
         "type": "text",
         "placeholders": {}
     },
+    "shareAudio": "Аудио",
+    "@shareAudio": {
+        "type": "text",
+        "placeholders": {}
+    },
     "shareImageWTrans": "Изображение с переводом",
     "@shareImageWTrans": {
         "type": "text",

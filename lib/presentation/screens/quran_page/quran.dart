@@ -47,6 +47,7 @@ import '/presentation/controllers/general/general_controller.dart';
 import '/presentation/screens/quran_page/widgets/search/search_extensions/highlight_extension.dart';
 import '../../../../../../core/utils/constants/lists.dart';
 import '../../../../../../core/widgets/seek_bar.dart';
+import '../../../core/services/ayah_audio_share_service.dart';
 import '../../../core/services/notifications_manager.dart';
 import '../../../core/services/services_locator.dart';
 import '../../../core/utils/constants/api_constants.dart';
