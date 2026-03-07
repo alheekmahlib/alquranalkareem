@@ -54,7 +54,7 @@ extension SurahAudioHelper on AudioCtrl {
         readerNameTextStyle: AppTextStyles.titleMedium(),
         readerDropdownWidget: const SizedBox().customSvgWithColor(
           SvgPath.svgHomeArrowDown,
-          color: Get.theme.primaryColorDark,
+          color: Get.theme.colorScheme.surface,
           height: 10,
         ),
       );

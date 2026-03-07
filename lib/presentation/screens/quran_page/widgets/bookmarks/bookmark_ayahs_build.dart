@@ -67,7 +67,7 @@ class BookmarkAyahsBuild extends StatelessWidget {
                                             color: const Color(
                                               0xfff5410a,
                                             ).withValues(alpha: .7),
-                                            size: 50,
+                                            size: 60,
                                           ),
                                           Padding(
                                             padding: const EdgeInsets.only(
@@ -76,13 +76,9 @@ class BookmarkAyahsBuild extends StatelessWidget {
                                             child: Text(
                                               '${bookmark.ayahNumber}'
                                                   .convertNumbersToCurrentLang(),
-                                              style: TextStyle(
-                                                color: Theme.of(
-                                                  context,
-                                                ).canvasColor,
-                                                fontFamily: 'kufi',
-                                                fontWeight: FontWeight.w700,
-                                                fontSize: 11,
+                                              style: AppTextStyles.titleMedium(
+                                                color:
+                                                    context.theme.canvasColor,
                                               ),
                                             ),
                                           ),
@@ -137,7 +133,8 @@ class BookmarkAyahsBuild extends StatelessWidget {
                                                         AppTextStyles.titleSmall(
                                                           color: context
                                                               .theme
-                                                              .primaryColorDark,
+                                                              .colorScheme
+                                                              .surface,
                                                         ),
                                                   ),
                                                 ),
@@ -163,11 +160,13 @@ class BookmarkAyahsBuild extends StatelessWidget {
                                                     children: [
                                                       Text(
                                                         '${'page'.tr}:',
-                                                        style: AppTextStyles.titleSmall(
-                                                          color: context
-                                                              .theme
-                                                              .primaryColorDark,
-                                                        ),
+                                                        style:
+                                                            AppTextStyles.titleSmall(
+                                                              color: context
+                                                                  .theme
+                                                                  .colorScheme
+                                                                  .surface,
+                                                            ),
                                                       ),
                                                       const Gap(4),
                                                       Text(
@@ -188,7 +187,8 @@ class BookmarkAyahsBuild extends StatelessWidget {
                                                       AppTextStyles.titleSmall(
                                                         color: context
                                                             .theme
-                                                            .primaryColorDark,
+                                                            .colorScheme
+                                                            .surface,
                                                       ),
                                                 ),
                                               ],

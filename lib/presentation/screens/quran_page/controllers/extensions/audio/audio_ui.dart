@@ -92,7 +92,7 @@ extension AudioUi on AudioCtrl {
             .withValues(alpha: .5),
         readerDropdownWidget: const SizedBox().customSvgWithColor(
           SvgPath.svgHomeArrowDown,
-          color: Get.theme.primaryColorDark,
+          color: Get.theme.colorScheme.surface,
           height: 10,
         ),
       );

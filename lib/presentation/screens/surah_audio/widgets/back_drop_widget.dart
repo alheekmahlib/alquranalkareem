@@ -22,6 +22,7 @@ class BackDropWidget extends StatelessWidget {
                     LottieConstants.assetsLottieQuranAuIc,
                     height: 120,
                     isRepeat: false,
+                    color: context.theme.colorScheme.surface,
                   ),
                 ),
                 Align(
@@ -30,6 +31,39 @@ class BackDropWidget extends StatelessWidget {
                     () => AudioCtrl.instance.state.isPlaying.value == true
                         ? const PlayBanner()
                         : const SizedBox.shrink(),
+                  ),
+                ),
+                Align(
+                  alignment: AlignmentDirectional.centerEnd,
+                  child: Container(
+                    height: 45,
+                    width: 100,
+                    alignment: AlignmentDirectional.centerStart,
+                    padding: const EdgeInsets.all(4),
+                    decoration: BoxDecoration(
+                      color: context.theme.primaryColorLight.withValues(
+                        alpha: .2,
+                      ),
+                      borderRadius: const BorderRadiusDirectional.only(
+                        topStart: Radius.circular(8),
+                        bottomStart: Radius.circular(8),
+                      ),
+                    ),
+                    child: CustomButton(
+                      onPressed: () => Get.to(
+                        () => const AudioSurahWithAyahs(),
+                        transition: Transition.fadeIn,
+                        binding: BindingsBuilder(() {
+                          Get.put(AudioSurahWithAyahsController());
+                        }),
+                      ),
+                      height: 40,
+                      width: 35,
+                      isCustomSvgColor: true,
+                      svgPath: SvgPath.svgAudioFullAudioScreen,
+                      svgColor: context.theme.colorScheme.primary,
+                      backgroundColor: context.theme.canvasColor,
+                    ),
                   ),
                 ),
               ],

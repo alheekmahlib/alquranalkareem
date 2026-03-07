@@ -32,6 +32,8 @@ class SliderWidget extends StatefulWidget {
   final double horizontalPadding;
   final double? currentPosition;
   final double? filesCount;
+  final Color? timeBackgroundColor;
+  final Color? thumbColor;
 
   factory SliderWidget.downloading({
     required int currentPosition,
@@ -60,6 +62,8 @@ class SliderWidget extends StatefulWidget {
     int max = 10,
     int min = 0,
     bool fullWidth = false,
+    Color? timeBackgroundColor,
+    Color? thumbColor,
   }) {
     return SliderWidget(
       position: position,
@@ -77,6 +81,8 @@ class SliderWidget extends StatefulWidget {
       max: max,
       min: min,
       fullWidth: fullWidth,
+      timeBackgroundColor: timeBackgroundColor,
+      thumbColor: thumbColor,
     );
   }
 
@@ -99,6 +105,8 @@ class SliderWidget extends StatefulWidget {
     this.min = 0,
     this.fullWidth = false,
     required this.horizontalPadding,
+    this.timeBackgroundColor,
+    this.thumbColor,
   });
 
   @override
@@ -142,6 +150,7 @@ class _SliderWidgetState extends State<SliderWidget> {
                   thumbHeight: 15.0,
                   min: widget.min,
                   max: widget.max,
+                  thumbColor: widget.thumbColor,
                 ),
                 overlayShape: const RoundSliderOverlayShape(
                   overlayRadius: 10.0,
@@ -198,7 +207,9 @@ class _SliderWidgetState extends State<SliderWidget> {
                           vertical: 2.0,
                         ),
                         decoration: BoxDecoration(
-                          color: Theme.of(context).colorScheme.primary,
+                          color:
+                              widget.timeBackgroundColor ??
+                              Theme.of(context).colorScheme.primary,
                           borderRadius: const BorderRadius.all(
                             Radius.circular(4),
                           ),
@@ -222,7 +233,9 @@ class _SliderWidgetState extends State<SliderWidget> {
                           vertical: 2.0,
                         ),
                         decoration: BoxDecoration(
-                          color: Theme.of(context).colorScheme.primary,
+                          color:
+                              widget.timeBackgroundColor ??
+                              Theme.of(context).colorScheme.primary,
                           borderRadius: const BorderRadius.all(
                             Radius.circular(4),
                           ),

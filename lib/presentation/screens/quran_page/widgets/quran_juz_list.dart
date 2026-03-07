@@ -62,10 +62,12 @@ class QuranJuzList extends StatelessWidget {
                           alignment: Alignment.center,
                           children: [
                             RepaintBoundary(
-                              child: customSvg(
+                              child: customSvgWithColor(
                                 height: 64,
                                 width: 64,
                                 SvgPath.svgQuranSurahNumberZakhrafa,
+                                color:
+                                    context.theme.colorScheme.primaryContainer,
                               ),
                             ),
                             FittedBox(
@@ -115,7 +117,7 @@ class QuranJuzList extends StatelessWidget {
                                 Text(
                                   surah.arabicName,
                                   style: AppTextStyles.titleSmall(
-                                    color: context.theme.primaryColorDark,
+                                    color: context.theme.colorScheme.surface,
                                   ),
                                 ),
                               ],
@@ -146,7 +148,7 @@ class QuranJuzList extends StatelessWidget {
                                   Text(
                                     '${'page'.tr}:',
                                     style: AppTextStyles.titleSmall(
-                                      color: context.theme.primaryColorDark,
+                                      color: context.theme.colorScheme.surface,
                                     ),
                                   ),
                                   const Gap(4),

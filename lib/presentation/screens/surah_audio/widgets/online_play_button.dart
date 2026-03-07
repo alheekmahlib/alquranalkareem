@@ -1,8 +1,9 @@
 part of '../surah_audio.dart';
 
 class OnlinePlayButton extends StatelessWidget {
+  final Color? iconColor;
   final bool isRepeat;
-  const OnlinePlayButton({super.key, required this.isRepeat});
+  const OnlinePlayButton({super.key, required this.isRepeat, this.iconColor});
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +29,7 @@ class OnlinePlayButton extends StatelessWidget {
               iconSize: 38,
               horizontalPadding: 10.0,
               isCustomSvgColor: true,
-              backgroundColor: context.theme.colorScheme.primary,
+              backgroundColor: iconColor ?? context.theme.colorScheme.primary,
               svgColor: context.theme.colorScheme.surface,
               onPressed: () async {
                 NotificationManager().updateBookProgress(
@@ -52,7 +53,7 @@ class OnlinePlayButton extends StatelessWidget {
               iconSize: 38,
               horizontalPadding: 10.0,
               isCustomSvgColor: true,
-              backgroundColor: context.theme.colorScheme.primary,
+              backgroundColor: iconColor ?? context.theme.colorScheme.primary,
               svgColor: context.theme.colorScheme.surface,
               onPressed: () {
                 surahAudioCtrl.state.isPlaying.value = false;
@@ -65,7 +66,10 @@ class OnlinePlayButton extends StatelessWidget {
                 button: true,
                 enabled: true,
                 label: 'replaySurah'.tr,
-                child: Icon(Icons.replay, color: Get.theme.colorScheme.surface),
+                child: Icon(
+                  Icons.replay,
+                  color: iconColor ?? Get.theme.colorScheme.surface,
+                ),
               ),
               iconSize: 24.0,
               color: Theme.of(context).canvasColor,

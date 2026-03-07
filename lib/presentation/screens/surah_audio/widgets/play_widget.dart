@@ -1,13 +1,21 @@
 part of '../surah_audio.dart';
 
 class PlayWidget extends StatelessWidget {
-  PlayWidget({super.key});
+  final Color? iconColor;
+  final Color? backgroundColor;
+  final bool? isFullScreen;
+  PlayWidget({
+    super.key,
+    this.iconColor,
+    this.backgroundColor,
+    this.isFullScreen = false,
+  });
 
   @override
   Widget build(BuildContext context) {
     final surahCtrl = AudioCtrl.instance;
     return SizedBox(
-      height: 210,
+      height: isFullScreen == true ? 180 : 210,
       width: context.customOrientation(Get.width, Get.width * .5),
       child: Stack(
         alignment: Alignment.center,
@@ -17,7 +25,7 @@ class PlayWidget extends StatelessWidget {
               opacity: .1,
               child: surahNameWidget(
                 surahCtrl.state.currentAudioListSurahNum.value.toString(),
-                Get.theme.colorScheme.primary,
+                iconColor ?? Get.theme.colorScheme.primary,
                 height: 90,
                 width: 150,
               ),
@@ -25,19 +33,25 @@ class PlayWidget extends StatelessWidget {
           ),
           Column(
             children: [
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: context.customArrowDown(
-                  close: () =>
-                      surahCtrl.surahState.isPlayExpanded.value = false,
+              if (isFullScreen == false) ...[
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: context.customArrowDown(
+                    close: () =>
+                        surahCtrl.surahState.isPlayExpanded.value = false,
+                  ),
                 ),
+                const Gap(8),
+                SurahChangeSurahReader(
+                  style: surahCtrl.surahAudioStyle,
+                  isDark: ThemeController.instance.isDarkMode,
+                ),
+              ],
+              SurahSeekBar(
+                customColor: backgroundColor,
+                activeTrackColor: iconColor,
+                thumbColor: iconColor,
               ),
-              const Gap(8),
-              SurahChangeSurahReader(
-                style: surahCtrl.surahAudioStyle,
-                isDark: ThemeController.instance.isDarkMode,
-              ),
-              const SurahSeekBar(),
               Stack(
                 alignment: Alignment.center,
                 children: [
@@ -56,6 +70,9 @@ class PlayWidget extends StatelessWidget {
                                 child: customSvgWithColor(
                                   SvgPath.svgBackward,
                                   height: 30,
+                                  color:
+                                      iconColor ??
+                                      Get.theme.colorScheme.primary,
                                 ),
                               ),
                               onPressed: () {
@@ -68,13 +85,13 @@ class PlayWidget extends StatelessWidget {
                                 );
                               },
                             ),
-                            SurahSkipToNext(),
+                            SurahSkipToNext(iconColor: iconColor),
                           ],
                         ),
-                        const OnlinePlayButton(isRepeat: true),
+                        OnlinePlayButton(isRepeat: true, iconColor: iconColor),
                         Row(
                           children: [
-                            SurahSkipToPrevious(),
+                            SurahSkipToPrevious(iconColor: iconColor),
                             IconButton(
                               icon: Semantics(
                                 button: true,
@@ -83,6 +100,9 @@ class PlayWidget extends StatelessWidget {
                                 child: customSvgWithColor(
                                   SvgPath.svgRewind,
                                   height: 30,
+                                  color:
+                                      iconColor ??
+                                      Get.theme.colorScheme.primary,
                                 ),
                               ),
                               onPressed: () => surahCtrl.state.audioPlayer.seek(
@@ -98,7 +118,7 @@ class PlayWidget extends StatelessWidget {
                       ],
                     ),
                   ),
-                  RepeatWidget(),
+                  RepeatWidget(iconColor: backgroundColor),
                 ],
               ),
             ],

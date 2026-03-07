@@ -1,10 +1,10 @@
-import 'package:alquranalkareem/core/utils/constants/extensions/extensions.dart';
-import 'package:alquranalkareem/core/widgets/container_button.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:quran_library/quran.dart';
 
+import '/core/utils/constants/extensions/extensions.dart';
+import '/core/widgets/container_button.dart';
 import '/core/widgets/share/share_ayah_options.dart';
 import '/presentation/controllers/theme_controller.dart';
 import '../../../../../core/utils/constants/extensions/bottom_sheet_extension.dart';
@@ -118,6 +118,7 @@ class AyahMenuHelper {
                     surahNumber: surah.surahNumber,
                     ayahNumber: ayah.ayahNumber,
                     enableWordSelection: true,
+                    isDark: isDark,
                     enabledTajweed:
                         QuranCtrl.instance.state.isTajweedEnabled.value,
                     onWordTap: (ref) {

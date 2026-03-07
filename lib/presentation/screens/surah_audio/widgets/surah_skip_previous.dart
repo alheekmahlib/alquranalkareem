@@ -1,7 +1,8 @@
 part of '../surah_audio.dart';
 
 class SurahSkipToPrevious extends StatelessWidget {
-  SurahSkipToPrevious({super.key});
+  final Color? iconColor;
+  SurahSkipToPrevious({super.key, this.iconColor});
   final audioCtrl = AudioCtrl.instance;
 
   @override
@@ -21,7 +22,7 @@ class SurahSkipToPrevious extends StatelessWidget {
           width: 40,
           iconSize: isPlayExpanded ? 40 : 30,
           isCustomSvgColor: true,
-          svgColor: context.theme.colorScheme.primary,
+          svgColor: iconColor ?? context.theme.colorScheme.primary,
           onPressed: () async =>
               // languageCode != 'ar'
               //     ? await AudioCtrl.instance.playNextSurah()

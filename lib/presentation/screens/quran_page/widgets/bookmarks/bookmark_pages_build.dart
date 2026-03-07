@@ -64,7 +64,7 @@ class BookmarkPagesBuild extends StatelessWidget {
                                         color: const Color(
                                           0xfff5410a,
                                         ).withValues(alpha: .7),
-                                        size: 50,
+                                        size: 60,
                                       ),
                                       Padding(
                                         padding: const EdgeInsets.only(
@@ -73,13 +73,8 @@ class BookmarkPagesBuild extends StatelessWidget {
                                         child: Text(
                                           '${bookmark.pageNum}'
                                               .convertNumbersToCurrentLang(),
-                                          style: TextStyle(
-                                            color: Theme.of(
-                                              context,
-                                            ).canvasColor,
-                                            fontFamily: 'kufi',
-                                            fontWeight: FontWeight.w700,
-                                            fontSize: 11,
+                                          style: AppTextStyles.titleMedium(
+                                            color: context.theme.canvasColor,
                                           ),
                                         ),
                                       ),
@@ -120,7 +115,9 @@ class BookmarkPagesBuild extends StatelessWidget {
                                             style: AppTextStyles.titleSmall(
                                               color: context
                                                   .theme
-                                                  .primaryColorDark,
+                                                  .colorScheme
+                                                  .surface,
+                                              height: 1.2,
                                             ),
                                           ),
                                         ],
@@ -158,7 +155,8 @@ class BookmarkPagesBuild extends StatelessWidget {
                                                       AppTextStyles.titleSmall(
                                                         color: context
                                                             .theme
-                                                            .primaryColorDark,
+                                                            .colorScheme
+                                                            .surface,
                                                       ),
                                                 ),
                                                 const Gap(4),
@@ -191,7 +189,8 @@ class BookmarkPagesBuild extends StatelessWidget {
                                               style: AppTextStyles.titleSmall(
                                                 color: context
                                                     .theme
-                                                    .primaryColorDark,
+                                                    .colorScheme
+                                                    .surface,
                                               ),
                                             ),
                                           ),
