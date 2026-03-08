@@ -1,7 +1,9 @@
+import 'package:alquranalkareem/core/utils/helpers/app_text_styles.dart';
+import 'package:alquranalkareem/core/widgets/title_widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:gap/gap.dart';
+import 'package:get/get.dart';
 import 'package:screenshot/screenshot.dart';
 
 import '/core/utils/constants/extensions/extensions.dart';
@@ -62,54 +64,34 @@ class DhekrImageCreator extends StatelessWidget {
       textDirection: TextDirection.rtl,
       child: Container(
         width: 960.0,
-        decoration: const BoxDecoration(
-          color: const Color(0xff404C6E),
-        ),
+        decoration: BoxDecoration(color: context.theme.colorScheme.primary),
         child: Column(
           children: [
-            Row(
-              children: [
-                Expanded(
-                    flex: 4,
-                    child: context.hDivider(
-                        width: MediaQuery.sizeOf(context).width)),
-                Expanded(
-                  flex: 2,
-                  child: SvgPicture.asset(
-                    'assets/svg/azkar.svg',
-                    height: 65,
-                  ),
-                ),
-                Expanded(
-                    flex: 4,
-                    child: context.hDivider(
-                        width: MediaQuery.sizeOf(context).width)),
-              ],
-            ),
+            const Gap(8),
             Container(
-              margin: const EdgeInsets.all(8.0),
-              decoration: const BoxDecoration(
-                  color: Color(0xffffffff),
-                  borderRadius: BorderRadius.all(Radius.circular(8))),
+              margin: const EdgeInsets.symmetric(horizontal: 8.0),
+              decoration: BoxDecoration(
+                color: context.theme.colorScheme.primaryContainer,
+                borderRadius: const BorderRadius.all(Radius.circular(8)),
+              ),
               child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                padding: const EdgeInsets.symmetric(horizontal: 0.0),
                 child: Column(
                   children: [
-                    const Gap(16),
+                    const Gap(8),
                     Text(
                       category,
-                      style: const TextStyle(
-                        fontSize: 13,
-                        fontFamily: 'kufi',
-                        fontWeight: FontWeight.bold,
-                        color: Color(0xffCDAD80),
+                      style: AppTextStyles.titleLarge(
+                        color: context.theme.colorScheme.surface,
                       ),
                     ),
                     context.hDivider(
-                        width: MediaQuery.sizeOf(context).width, height: 1),
-                    const Gap(16),
+                      width: MediaQuery.sizeOf(context).width,
+                      height: 1,
+                    ),
+                    const Gap(8),
                     Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                      padding: const EdgeInsets.symmetric(horizontal: 24.0),
                       child: SizedBox(
                         width: 928.0,
                         child: RichText(
@@ -119,7 +101,7 @@ class DhekrImageCreator extends StatelessWidget {
                               TextSpan(
                                 children: zekrToImage.shareTextSpans(zekrText),
                                 style: const TextStyle(
-                                  fontSize: 17,
+                                  fontSize: 19,
                                   fontFamily: 'naskh',
                                   color: Color(0xff161f07),
                                 ),
@@ -131,71 +113,49 @@ class DhekrImageCreator extends StatelessWidget {
                     ),
                     const Gap(4),
                     Align(
-                      alignment: Alignment.centerLeft,
-                      child: Container(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 4.0, vertical: 2.0),
-                        decoration: BoxDecoration(
-                          color: const Color(0xff404C6E).withValues(alpha: .05),
-                          borderRadius:
-                              const BorderRadius.all(Radius.circular(4)),
-                        ),
-                        child: Text(
-                          reference,
-                          style: const TextStyle(
-                            fontSize: 10,
-                            fontFamily: 'kufi',
-                            fontWeight: FontWeight.bold,
-                            color: Color(0xffCDAD80),
-                          ),
+                      alignment: Alignment.centerRight,
+                      child: TitleWidget(
+                        title: reference,
+                        textStyle: AppTextStyles.titleSmall(
+                          fontSize: 12,
+                          color: context.theme.colorScheme.surface,
                         ),
                       ),
                     ),
                     context.hDivider(
-                        width: MediaQuery.sizeOf(context).width, height: 1),
-                    Container(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 4.0, vertical: 2.0),
-                      decoration: BoxDecoration(
-                        color: const Color(0xff404C6E).withValues(alpha: .05),
-                        borderRadius:
-                            const BorderRadius.all(Radius.circular(4)),
-                      ),
-                      child: Text(
-                        description,
-                        style: const TextStyle(
-                          fontSize: 10,
-                          fontFamily: 'kufi',
-                          fontWeight: FontWeight.bold,
-                          color: Color(0xffCDAD80),
-                        ),
+                      width: MediaQuery.sizeOf(context).width,
+                      height: 1,
+                    ),
+                    TitleWidget(
+                      title: description,
+                      textStyle: AppTextStyles.titleSmall(
+                        fontSize: 12,
+                        color: context.theme.colorScheme.surface,
                       ),
                     ),
-                    const Gap(16),
-                    Align(
-                        alignment: Alignment.centerRight,
-                        child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            customSvgWithColor(
-                              SvgPath.svgSplashIcon,
-                              height: 40,
-                            ),
-                            context.vDivider(),
-                            const Text(
-                              'القـرآن الكريــــم\nمكتبة الحكمة',
-                              style: TextStyle(
-                                fontSize: 10,
-                                fontFamily: 'kufi',
-                                color: Color(0xff161f07),
-                              ),
-                            )
-                          ],
-                        ))
+                    const Gap(4),
                   ],
                 ),
               ),
             ),
+            const Gap(4),
+            Row(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                customSvg(SvgPath.svgSplashIconW, height: 30),
+                context.vDivider(),
+                Text(
+                  'القرآن الكريـم - مكتبة الحكمة',
+                  style: AppTextStyles.titleSmall(
+                    fontSize: 10,
+                    color: context.theme.canvasColor,
+                  ),
+                  textAlign: TextAlign.justify,
+                ),
+              ],
+            ),
+            const Gap(4),
           ],
         ),
       ),

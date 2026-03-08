@@ -1,10 +1,10 @@
-import 'package:alquranalkareem/core/utils/constants/extensions/bottom_sheet_extension.dart';
-import 'package:alquranalkareem/core/widgets/container_button.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:quran_library/quran.dart';
 
+import '/core/utils/constants/extensions/bottom_sheet_extension.dart';
+import '/core/widgets/container_button.dart';
 import '../../../presentation/screens/quran_page/quran.dart';
 import '../../services/ayah_audio_share_service.dart';
 import '../../services/services_locator.dart';
@@ -135,7 +135,6 @@ class ShareAyahOptions extends StatelessWidget {
         const TitleWidget(title: 'shareImage'),
         GestureDetector(
           child: Container(
-            // width: MediaQuery.sizeOf(context).width * .4,
             padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 8.0),
             margin: const EdgeInsets.only(
               top: 4.0,
@@ -147,11 +146,6 @@ class ShareAyahOptions extends StatelessWidget {
               color: Get.theme.colorScheme.primary.withValues(alpha: .15),
               borderRadius: const BorderRadius.all(Radius.circular(4)),
             ),
-            // child: Image.memory(
-            //   imageData2,
-            //   // height: 150,
-            //   // width: 150,
-            // ),
             child: VerseImageCreator(ayah: ayah, surah: surah),
           ),
           onTap: () async {

@@ -1,7 +1,10 @@
+import 'package:alquranalkareem/core/utils/helpers/app_text_styles.dart';
+import 'package:alquranalkareem/core/widgets/custom_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
+import 'package:hijri_date/convert_number_extension.dart';
 
 import '/core/utils/constants/extensions/custom_error_snackBar.dart';
 import '/core/utils/constants/extensions/svg_extensions.dart';
@@ -20,23 +23,25 @@ class OptionsRow extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetBuilder<AzkarController>(
       builder: (azkarCtrl) {
-        return Container(
-          margin: const EdgeInsets.symmetric(horizontal: 8.0),
-          padding: const EdgeInsets.symmetric(vertical: 3.0),
-          decoration: BoxDecoration(
-            color: Theme.of(context).colorScheme.primary.withValues(alpha: .15),
-            borderRadius: const BorderRadius.all(Radius.circular(4)),
-          ),
-          width: double.infinity,
+        return Padding(
+          padding: const EdgeInsetsDirectional.fromSTEB(8.0, 0.0, 0.0, 0.0),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Expanded(
-                flex: 2,
-                child: customSvgWithCustomColor(
-                  SvgPath.svgSliderIc2,
-                  height: 25,
+              Container(
+                height: 35,
+                width: 8,
+                margin: const EdgeInsets.symmetric(vertical: 4.0),
+                decoration: BoxDecoration(
+                  color: Theme.of(context).primaryColorLight,
+                  borderRadius: const BorderRadius.all(Radius.circular(8)),
                 ),
+              ),
+              const Gap(8.0),
+              customSvgWithCustomColor(
+                SvgPath.svgSliderIc2,
+                height: 25,
+                color: context.theme.primaryColorLight,
               ),
               Expanded(
                 flex: 6,
@@ -50,8 +55,14 @@ class OptionsRow extends StatelessWidget {
                       description: zekr.description,
                       count: zekr.count,
                     ),
-                    GestureDetector(
-                      onTap: () async {
+                    CustomButton(
+                      height: 35,
+                      width: 35,
+                      iconSize: 25,
+                      isCustomSvgColor: true,
+                      svgColor: context.theme.primaryColorLight,
+                      svgPath: SvgPath.svgQuranCopy,
+                      onPressed: () async {
                         await Clipboard.setData(
                           ClipboardData(
                             text:
@@ -63,20 +74,21 @@ class OptionsRow extends StatelessWidget {
                           ),
                         );
                       },
-                      child: Semantics(
-                        button: true,
-                        enabled: true,
-                        label: 'copy'.tr,
-                        child: customSvgWithColor(
-                          SvgPath.svgCopyIcon,
-                          height: 20,
-                          color: Theme.of(context).hintColor,
-                        ),
-                      ),
                     ),
                     Obx(
-                      () => GestureDetector(
-                        onTap: () async {
+                      () => CustomButton(
+                        height: 35,
+                        width: 35,
+                        iconSize: 25,
+                        isCustomSvgColor: true,
+                        svgColor:
+                            azkarCtrl
+                                .hasBookmark(zekr.category, zekr.zekr)
+                                .value
+                            ? context.theme.primaryColorDark
+                            : context.theme.primaryColorLight,
+                        svgPath: SvgPath.svgQuranBookmark,
+                        onPressed: () async {
                           azkarCtrl.hasBookmark(zekr.category, zekr.zekr).value
                               ? azkarCtrl.deleteAdhkar(zekr)
                               : await azkarCtrl.addAdhkar(
@@ -90,32 +102,13 @@ class OptionsRow extends StatelessWidget {
                                   ),
                                 );
                         },
-                        child: Semantics(
-                          button: true,
-                          enabled: true,
-                          label: 'addToBookmark'.tr,
-                          child:
-                              azkarCtrl
-                                  .hasBookmark(zekr.category, zekr.zekr)
-                                  .value
-                              ? customSvgWithColor(
-                                  SvgPath.svgBookmarkIcon2,
-                                  height: 23,
-                                  color: Theme.of(context).hintColor,
-                                )
-                              : customSvgWithColor(
-                                  SvgPath.svgBookmarkIcon,
-                                  height: 20,
-                                  color: Theme.of(context).hintColor,
-                                ),
-                        ),
                       ),
                     ),
                   ],
                 ),
               ),
               Expanded(
-                flex: 2,
+                flex: 1,
                 child: Container(
                   padding: const EdgeInsets.symmetric(
                     horizontal: 8,
@@ -126,24 +119,25 @@ class OptionsRow extends StatelessWidget {
                       topRight: Radius.circular(8),
                       bottomRight: Radius.circular(8),
                     ),
-                    color: Theme.of(context).colorScheme.primary,
+                    color: Theme.of(context).primaryColorDark,
                   ),
                   child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
-                        zekr.count,
-                        style: TextStyle(
+                        zekr.count.convertNumbers(
+                          Get.locale?.languageCode ?? 'ar',
+                        ),
+                        style: AppTextStyles.titleSmall(
+                          height: .9,
                           color: Theme.of(context).canvasColor,
-                          fontSize: 14,
-                          fontFamily: 'kufi',
-                          fontStyle: FontStyle.italic,
                         ),
                       ),
                       const Gap(5),
-                      Icon(
-                        Icons.repeat,
+                      customSvgWithColor(
+                        height: 20,
+                        SvgPath.svgAudioLoop,
                         color: Theme.of(context).canvasColor,
-                        size: 20,
                       ),
                     ],
                   ),

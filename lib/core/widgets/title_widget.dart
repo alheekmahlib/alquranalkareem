@@ -8,11 +8,13 @@ class TitleWidget extends StatelessWidget {
   final String title;
   final Color? titleColor;
   final Color? containerColor;
+  final TextStyle? textStyle;
   const TitleWidget({
     super.key,
     required this.title,
     this.titleColor,
     this.containerColor,
+    this.textStyle,
   });
 
   @override
@@ -28,17 +30,22 @@ class TitleWidget extends StatelessWidget {
               width: 8,
               margin: const EdgeInsets.symmetric(vertical: 4.0),
               decoration: BoxDecoration(
-                color:
-                    containerColor ??
-                    Theme.of(context).colorScheme.inverseSurface,
+                color: containerColor ?? Theme.of(context).primaryColorLight,
                 borderRadius: const BorderRadius.all(Radius.circular(8)),
               ),
             ),
             const Gap(8.0),
-            Text(
-              title.tr,
-              style: AppTextStyles.titleMedium(
-                color: titleColor ?? Get.theme.hintColor,
+            Flexible(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(vertical: 6.0),
+                child: Text(
+                  title.tr,
+                  style:
+                      textStyle ??
+                      AppTextStyles.titleMedium(
+                        color: titleColor ?? Get.theme.hintColor,
+                      ),
+                ),
               ),
             ),
           ],

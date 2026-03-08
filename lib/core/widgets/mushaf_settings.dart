@@ -72,7 +72,7 @@ class MushafSettings extends StatelessWidget {
         alpha: quran.isTajweedEnabled.value ? .4 : .2,
       ),
       // selectedColor: context.theme.colorScheme.primaryContainer,
-      title: 'tajweed'.tr,
+      title: 'tajweed',
     );
   }
 
@@ -143,7 +143,7 @@ class MushafSettings extends StatelessWidget {
                                 Get.back();
                               },
                               height: 35,
-                              title: 'reset'.tr,
+                              title: 'reset',
                               mainAxisAlignment: MainAxisAlignment.center,
                             ),
                           ),
@@ -153,7 +153,7 @@ class MushafSettings extends StatelessWidget {
                             child: ContainerButton(
                               onPressed: () => Get.back(),
                               height: 35,
-                              title: 'cancel'.tr,
+                              title: 'cancel',
                               mainAxisAlignment: MainAxisAlignment.center,
                             ),
                           ),
@@ -175,7 +175,7 @@ class MushafSettings extends StatelessWidget {
                                 Get.back();
                               },
                               height: 35,
-                              title: 'ok'.tr,
+                              title: 'ok',
                               mainAxisAlignment: MainAxisAlignment.center,
                             ),
                           ),
@@ -194,7 +194,7 @@ class MushafSettings extends StatelessWidget {
         borderRadius: 8,
         selectedColor: Color(quranCtrl.state.backgroundPickerColor.value),
         backgroundColor: context.theme.primaryColorLight.withValues(alpha: .4),
-        title: 'choiceBackgroundColor'.tr,
+        title: 'choiceBackgroundColor',
       ),
     );
   }

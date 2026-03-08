@@ -36,6 +36,7 @@ class ContainerButton extends StatelessWidget {
   final Color? progressBackgroundColor;
   final Color? progressColor;
   final bool? isTitleCentered;
+  final double? selectedValueMargin;
   const ContainerButton({
     super.key,
     this.onPressed,
@@ -66,6 +67,7 @@ class ContainerButton extends StatelessWidget {
     this.progressBackgroundColor,
     this.isTitleCentered = false,
     this.progressColor,
+    this.selectedValueMargin = 4.0,
   });
 
   @override
@@ -118,7 +120,9 @@ class ContainerButton extends StatelessWidget {
                           Container(
                             // height: 10,
                             width: 8,
-                            margin: const EdgeInsets.symmetric(vertical: 4.0),
+                            margin: EdgeInsets.symmetric(
+                              vertical: selectedValueMargin ?? 4.0,
+                            ),
                             decoration: BoxDecoration(
                               color: value?.value ?? false
                                   ? selectedColor ??
@@ -162,9 +166,23 @@ class ContainerButton extends StatelessWidget {
                             ),
                           ),
                         if (isButton ?? false) const Gap(8),
-                        if (title != null)
+                        if (title != null && (withArrow ?? false))
+                          Expanded(
+                            flex: 9,
+                            child: Text(
+                              title!.tr,
+                              style: AppTextStyles.titleMedium(
+                                color:
+                                    titleColor ??
+                                    Theme.of(
+                                      context,
+                                    ).colorScheme.inversePrimary,
+                              ),
+                            ),
+                          )
+                        else if (title != null)
                           Text(
-                            title!,
+                            title!.tr,
                             style: AppTextStyles.titleMedium(
                               color:
                                   titleColor ??
@@ -201,12 +219,15 @@ class ContainerButton extends StatelessWidget {
                         if (child != null) child!,
                         if (withArrow ?? false) const Spacer(),
                         if (withArrow ?? false)
-                          RotatedBox(
-                            quarterTurns: alignmentLayout(1, 3),
-                            child: customSvgWithColor(
-                              SvgPath.svgHomeArrowDown,
-                              color: context.theme.colorScheme.surface,
-                              height: 18,
+                          Expanded(
+                            flex: 1,
+                            child: RotatedBox(
+                              quarterTurns: alignmentLayout(1, 3),
+                              child: customSvgWithColor(
+                                SvgPath.svgHomeArrowDown,
+                                color: context.theme.colorScheme.surface,
+                                height: 18,
+                              ),
                             ),
                           ),
                       ],
