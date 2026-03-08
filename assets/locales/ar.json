@@ -154,6 +154,11 @@
     "type": "text",
     "placeholders": {}
   },
+  "tajweedRules": "أحكام التجويد",
+  "@tajweedRules": {
+    "type": "text",
+    "placeholders": {}
+  },
   "onboardTitle1": "واجهة سهلة",
   "@onboardTitle1": {
     "type": "text",
@@ -1291,5 +1296,6 @@
     "placeholders": {
       "kind": {}
     }
-  }
+  },
+  "mushafOrthographicMarks": "ضبط المصحف"
 }

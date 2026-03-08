@@ -155,6 +155,11 @@
     "type": "text",
     "placeholders": {}
   },
+  "tajweedRules": "تجوید کے قواعد",
+  "@tajweedRules": {
+    "type": "text",
+    "placeholders": {}
+  },
   "onboardTitle1": "Easy interface",
   "@onboardTitle1": {
     "type": "text",
@@ -1299,5 +1304,6 @@
     "placeholders": {
       "kind": {}
     }
-  }
+  },
+  "mushafOrthographicMarks": "مصحف کی حرکات"
 }

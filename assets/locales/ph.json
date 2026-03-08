@@ -154,6 +154,11 @@
     "type": "text",
     "placeholders": {}
   },
+  "tajweedRules": "Mga Patakaran ng Tajweed",
+  "@tajweedRules": {
+    "type": "text",
+    "placeholders": {}
+  },
   "onboardTitle1": "Madaling Interface",
   "@onboardTitle1": {
     "type": "text",
@@ -1293,5 +1298,6 @@
     "placeholders": {
       "kind": {}
     }
-  }
+  },
+  "mushafOrthographicMarks": "Mga Diakritiko ng Mushaf"
 }
