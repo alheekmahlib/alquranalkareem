@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 
@@ -41,6 +42,7 @@ class OurApps extends StatelessWidget {
             ),
             Gap(16.h),
             _appsBuild(),
+            Gap(16.h),
 
             Padding(
               padding: const EdgeInsets.only(bottom: 32.0),
@@ -98,13 +100,6 @@ class OurApps extends StatelessWidget {
         } else if (w >= 700) {
           crossAxisCount = 2;
         }
-        // اختر نسبة أبعاد تمنح ارتفاعًا أكبر على الشاشات الصغيرة لمنع overflow
-        double aspect;
-        if (crossAxisCount == 2) {
-          aspect = 1;
-        } else {
-          aspect = 4 / 3.2; // المناسب للشاشات العريضة
-        }
         return FutureBuilder<List<OurAppInfo>>(
           future: OurAppsController.instance.fetchApps(),
           builder: (context, snapshot) {
@@ -134,16 +129,13 @@ class OurApps extends StatelessWidget {
                 ),
               );
             }
-            return GridView.builder(
+            return MasonryGridView.count(
               physics: const NeverScrollableScrollPhysics(),
               shrinkWrap: true,
               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: crossAxisCount,
-                mainAxisSpacing: 12,
-                crossAxisSpacing: 12,
-                childAspectRatio: aspect,
-              ),
+              crossAxisCount: crossAxisCount,
+              mainAxisSpacing: 12,
+              crossAxisSpacing: 12,
               itemCount: apps.length,
               itemBuilder: (context, index) {
                 final app = apps[index];
