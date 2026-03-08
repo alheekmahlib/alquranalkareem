@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import 'app_text_styles.dart';
+
 final ThemeData blueTheme = ThemeData.light(useMaterial3: true).copyWith(
   colorScheme: const ColorScheme(
     brightness: Brightness.light,
@@ -48,6 +50,10 @@ final ThemeData blueTheme = ThemeData.light(useMaterial3: true).copyWith(
     entryModeIconColor: const Color(0xff000000).withValues(alpha: .6),
     hourMinuteTextColor: const Color(0xff000000).withValues(alpha: .6),
     dayPeriodTextColor: const Color(0xff000000).withValues(alpha: .6),
+    dayPeriodTextStyle: AppTextStyles.titleMedium(),
+    dialTextStyle: AppTextStyles.titleMedium(),
+    helpTextStyle: AppTextStyles.titleMedium(color: const Color(0xffFEFAE0)),
+    hourMinuteTextStyle: AppTextStyles.titleLarge(),
     cancelButtonStyle: ButtonStyle(
       backgroundColor: WidgetStateProperty.all(
         const Color(0xff000000).withValues(alpha: .6),
@@ -56,9 +62,7 @@ final ThemeData blueTheme = ThemeData.light(useMaterial3: true).copyWith(
       shape: WidgetStateProperty.all(
         RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0)),
       ),
-      textStyle: WidgetStateProperty.all(
-        const TextStyle(fontFamily: 'playpen', fontSize: 16),
-      ),
+      textStyle: WidgetStateProperty.all(AppTextStyles.titleMedium()),
     ),
     confirmButtonStyle: ButtonStyle(
       backgroundColor: WidgetStateProperty.all(
@@ -68,9 +72,7 @@ final ThemeData blueTheme = ThemeData.light(useMaterial3: true).copyWith(
       shape: WidgetStateProperty.all(
         RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0)),
       ),
-      textStyle: WidgetStateProperty.all(
-        const TextStyle(fontFamily: 'playpen', fontSize: 16),
-      ),
+      textStyle: WidgetStateProperty.all(AppTextStyles.titleMedium()),
     ),
   ),
 );
@@ -122,6 +124,10 @@ final ThemeData brownTheme = ThemeData(
     entryModeIconColor: const Color(0xff000000).withValues(alpha: .6),
     hourMinuteTextColor: const Color(0xff000000).withValues(alpha: .6),
     dayPeriodTextColor: const Color(0xff000000).withValues(alpha: .6),
+    dayPeriodTextStyle: AppTextStyles.titleMedium(),
+    dialTextStyle: AppTextStyles.titleMedium(),
+    helpTextStyle: AppTextStyles.titleMedium(color: const Color(0xffFEFAE0)),
+    hourMinuteTextStyle: AppTextStyles.titleLarge(),
     cancelButtonStyle: ButtonStyle(
       backgroundColor: WidgetStateProperty.all(
         const Color(0xff000000).withValues(alpha: .6),
@@ -130,9 +136,7 @@ final ThemeData brownTheme = ThemeData(
       shape: WidgetStateProperty.all(
         RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0)),
       ),
-      textStyle: WidgetStateProperty.all(
-        const TextStyle(fontFamily: 'playpen', fontSize: 16),
-      ),
+      textStyle: WidgetStateProperty.all(AppTextStyles.titleMedium()),
     ),
     confirmButtonStyle: ButtonStyle(
       backgroundColor: WidgetStateProperty.all(
@@ -142,9 +146,7 @@ final ThemeData brownTheme = ThemeData(
       shape: WidgetStateProperty.all(
         RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0)),
       ),
-      textStyle: WidgetStateProperty.all(
-        const TextStyle(fontFamily: 'playpen', fontSize: 16),
-      ),
+      textStyle: WidgetStateProperty.all(AppTextStyles.titleMedium()),
     ),
   ),
 );
@@ -189,13 +191,17 @@ final ThemeData greenTheme = ThemeData.light(useMaterial3: true).copyWith(
     primaryColor: Color(0xff53618c),
   ),
   timePickerTheme: TimePickerThemeData(
-    backgroundColor: const Color(0xffDDA15E),
+    backgroundColor: const Color(0xff606C38),
     dialBackgroundColor: const Color(0xffFEFAE0),
-    dialHandColor: const Color(0xffDDA15E),
+    dialHandColor: const Color(0xff606C38),
     dialTextColor: const Color(0xff000000).withValues(alpha: .6),
     entryModeIconColor: const Color(0xff000000).withValues(alpha: .6),
     hourMinuteTextColor: const Color(0xff000000).withValues(alpha: .6),
     dayPeriodTextColor: const Color(0xff000000).withValues(alpha: .6),
+    dayPeriodTextStyle: AppTextStyles.titleMedium(),
+    dialTextStyle: AppTextStyles.titleMedium(),
+    helpTextStyle: AppTextStyles.titleMedium(color: const Color(0xffFEFAE0)),
+    hourMinuteTextStyle: AppTextStyles.titleLarge(),
     cancelButtonStyle: ButtonStyle(
       backgroundColor: WidgetStateProperty.all(
         const Color(0xff000000).withValues(alpha: .6),
@@ -204,9 +210,7 @@ final ThemeData greenTheme = ThemeData.light(useMaterial3: true).copyWith(
       shape: WidgetStateProperty.all(
         RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0)),
       ),
-      textStyle: WidgetStateProperty.all(
-        const TextStyle(fontFamily: 'playpen', fontSize: 16),
-      ),
+      textStyle: WidgetStateProperty.all(AppTextStyles.titleMedium()),
     ),
     confirmButtonStyle: ButtonStyle(
       backgroundColor: WidgetStateProperty.all(
@@ -216,9 +220,7 @@ final ThemeData greenTheme = ThemeData.light(useMaterial3: true).copyWith(
       shape: WidgetStateProperty.all(
         RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0)),
       ),
-      textStyle: WidgetStateProperty.all(
-        const TextStyle(fontFamily: 'playpen', fontSize: 16),
-      ),
+      textStyle: WidgetStateProperty.all(AppTextStyles.titleMedium()),
     ),
   ),
 );
@@ -270,6 +272,10 @@ final ThemeData darkTheme = ThemeData.dark(useMaterial3: true).copyWith(
     hourMinuteTextColor: const Color(0xffF6F6EE).withValues(alpha: .6),
     dayPeriodTextColor: const Color(0xffF6F6EE).withValues(alpha: .6),
     dayPeriodColor: const Color(0xff1E1E1E),
+    dayPeriodTextStyle: AppTextStyles.titleMedium(),
+    dialTextStyle: AppTextStyles.titleMedium(),
+    helpTextStyle: AppTextStyles.titleMedium(color: const Color(0xffFEFAE0)),
+    hourMinuteTextStyle: AppTextStyles.titleLarge(),
     cancelButtonStyle: ButtonStyle(
       backgroundColor: WidgetStateProperty.all(
         const Color(0xffF6F6EE).withValues(alpha: .6),
@@ -278,9 +284,7 @@ final ThemeData darkTheme = ThemeData.dark(useMaterial3: true).copyWith(
       shape: WidgetStateProperty.all(
         RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0)),
       ),
-      textStyle: WidgetStateProperty.all(
-        const TextStyle(fontFamily: 'playpen', fontSize: 16),
-      ),
+      textStyle: WidgetStateProperty.all(AppTextStyles.titleMedium()),
     ),
     confirmButtonStyle: ButtonStyle(
       backgroundColor: WidgetStateProperty.all(
@@ -290,9 +294,7 @@ final ThemeData darkTheme = ThemeData.dark(useMaterial3: true).copyWith(
       shape: WidgetStateProperty.all(
         RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0)),
       ),
-      textStyle: WidgetStateProperty.all(
-        const TextStyle(fontFamily: 'playpen', fontSize: 16),
-      ),
+      textStyle: WidgetStateProperty.all(AppTextStyles.titleMedium()),
     ),
   ),
 );

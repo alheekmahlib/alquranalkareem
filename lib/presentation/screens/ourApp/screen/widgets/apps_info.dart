@@ -89,7 +89,7 @@ class AppsInfo extends StatelessWidget {
   }) {
     return ContainerButton(
       onPressed: () => appInfo.launchURL(context, apps),
-      title: 'download'.tr,
+      title: 'download',
       horizontalPadding: 16.0,
       verticalMargin: 8.0,
       backgroundColor: context.theme.primaryColorLight.withValues(alpha: .4),

@@ -1,4 +1,5 @@
 import 'package:alquranalkareem/core/widgets/container_button.dart';
+import 'package:alquranalkareem/core/widgets/title_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
@@ -40,85 +41,71 @@ class SettingsList extends StatelessWidget {
               topRight: Radius.circular(8),
             ),
           ),
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: ListView(
-              children: [
-                const Gap(16),
-                Row(
-                  children: [
-                    Container(
-                      height: 40,
-                      width: 8,
-                      decoration: BoxDecoration(
-                        color: context.theme.primaryColorLight,
-                        borderRadius: const BorderRadius.all(
-                          Radius.circular(8),
+          child: ListView(
+            children: [
+              const Gap(16),
+              TitleWidget(
+                title: 'setting',
+                textStyle: AppTextStyles.titleLarge(),
+                containerColor: context.theme.primaryColorLight,
+              ),
+              const Gap(16),
+              LanguageList(),
+              isQuranSetting! ? const Gap(24) : const SizedBox.shrink(),
+              isQuranSetting! ? MushafSettings() : const SizedBox.shrink(),
+              isCalendarSetting! ? const Gap(24) : const SizedBox.shrink(),
+              isCalendarSetting!
+                  ? const CalenderSettings()
+                  : const SizedBox.shrink(),
+              const Gap(24),
+              const ThemeChange(),
+              const Gap(24),
+              const SelectScreen(),
+              const Gap(24),
+              Divider(
+                thickness: 1.0,
+                height: 1.0,
+                endIndent: 32.0,
+                indent: 32.0,
+                color: Theme.of(
+                  context,
+                ).primaryColorLight.withValues(alpha: .5),
+              ),
+              const Gap(4),
+              Column(
+                children: [
+                  ContainerButton(
+                    onPressed: () => Get.to(
+                      () => const OurApps(),
+                      transition: Transition.downToUp,
+                    ),
+                    withArrow: true,
+                    width: double.infinity,
+                    title: 'ourApps',
+                    horizontalPadding: 8.0,
+                    verticalPadding: 12.0,
+                    horizontalMargin: 16.0,
+                  ),
+                  const Gap(8),
+                  Column(
+                    children: [
+                      ContainerButton(
+                        onPressed: () => Get.to(
+                          () => const AboutApp(),
+                          transition: Transition.downToUp,
                         ),
+                        withArrow: true,
+                        width: double.infinity,
+                        title: 'aboutApp',
+                        horizontalPadding: 8.0,
+                        verticalPadding: 12.0,
+                        horizontalMargin: 16.0,
                       ),
-                    ),
-                    const Gap(8),
-                    Text('setting'.tr, style: AppTextStyles.titleLarge()),
-                  ],
-                ),
-                const Gap(16),
-                LanguageList(),
-                isQuranSetting! ? const Gap(24) : const SizedBox.shrink(),
-                isQuranSetting! ? MushafSettings() : const SizedBox.shrink(),
-                isCalendarSetting! ? const Gap(24) : const SizedBox.shrink(),
-                isCalendarSetting!
-                    ? const CalenderSettings()
-                    : const SizedBox.shrink(),
-                const Gap(24),
-                const ThemeChange(),
-                const Gap(24),
-                const SelectScreen(),
-                const Gap(24),
-                Divider(
-                  thickness: 1.0,
-                  height: 1.0,
-                  endIndent: 32.0,
-                  indent: 32.0,
-                  color: Theme.of(
-                    context,
-                  ).primaryColorLight.withValues(alpha: .5),
-                ),
-                const Gap(4),
-                Column(
-                  children: [
-                    ContainerButton(
-                      onPressed: () => Get.to(
-                        () => const OurApps(),
-                        transition: Transition.downToUp,
-                      ),
-                      withArrow: true,
-                      width: double.infinity,
-                      title: 'ourApps'.tr,
-                      horizontalPadding: 8.0,
-                      verticalPadding: 12.0,
-                      horizontalMargin: 16.0,
-                    ),
-                    const Gap(8),
-                    Column(
-                      children: [
-                        ContainerButton(
-                          onPressed: () => Get.to(
-                            () => const AboutApp(),
-                            transition: Transition.downToUp,
-                          ),
-                          withArrow: true,
-                          width: double.infinity,
-                          title: 'aboutApp'.tr,
-                          horizontalPadding: 8.0,
-                          verticalPadding: 12.0,
-                          horizontalMargin: 16.0,
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-              ],
-            ),
+                    ],
+                  ),
+                ],
+              ),
+            ],
           ),
         );
       },

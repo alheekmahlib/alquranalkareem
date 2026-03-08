@@ -1,10 +1,10 @@
 import 'package:alquranalkareem/core/utils/constants/extensions/alignment_rotated_extension.dart';
+import 'package:alquranalkareem/core/widgets/title_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '/core/utils/constants/extensions/font_size_extension.dart';
 import '../services/notifications_manager.dart';
-import '../utils/constants/extensions/extensions.dart';
 import '../utils/constants/extensions/svg_extensions.dart';
 import '../utils/constants/svg_constants.dart';
 
@@ -39,31 +39,7 @@ class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
       elevation: 0,
       title:
           centerChild ??
-          (isTitled
-              ? Container(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 8.0,
-                    vertical: 4.0,
-                  ),
-                  decoration: BoxDecoration(
-                    borderRadius: const BorderRadius.all(Radius.circular(4)),
-                    border: Border.all(
-                      color: Theme.of(context).colorScheme.surface,
-                      width: 1,
-                    ),
-                  ),
-                  child: Text(
-                    title!,
-                    style: TextStyle(
-                      color: Get.isDarkMode
-                          ? Colors.white
-                          : Theme.of(context).hintColor,
-                      fontSize: context.customOrientation(12.0, 16.0),
-                      fontFamily: 'kufi',
-                    ),
-                  ),
-                )
-              : const SizedBox.shrink()),
+          (isTitled ? TitleWidget(title: title!) : const SizedBox.shrink()),
       centerTitle: true,
       leading: GestureDetector(
         onTap: () {

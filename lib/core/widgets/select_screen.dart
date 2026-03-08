@@ -48,7 +48,7 @@ class SelectScreen extends StatelessWidget {
                         verticalPadding: 8.0,
                         horizontalMargin: 4.0,
                         verticalMargin: 4.0,
-                        title: '${screensList[index]['name']}'.tr,
+                        title: '${screensList[index]['name']}',
                       ),
                     ),
             ),
