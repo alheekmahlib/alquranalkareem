@@ -120,7 +120,7 @@ class LastListen extends StatelessWidget {
                               GetX<AudioCtrl>(
                                 builder: (surahAudioController) => Text(
                                   '${surahAudioCtrl.formatDuration(Duration(seconds: surahAudioCtrl.state.lastPosition.value))}',
-                                  style: AppTextStyles.titleMedium(),
+                                  style: AppTextStyles.titleMedium(height: 1.2),
                                 ),
                               ),
                           ],
