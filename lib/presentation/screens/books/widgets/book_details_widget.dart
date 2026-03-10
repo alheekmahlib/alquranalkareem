@@ -172,11 +172,9 @@ class BookDetails extends StatelessWidget {
                       borderWidth: 0,
                       widthShadow: 5,
                       backgroundProgress: context.theme.colorScheme.surface,
-                      colorProgress:
-                          context.theme.colorScheme.secondaryContainer,
-                      colorProgressDark: context.theme.canvasColor.withValues(
-                        alpha: 0.5,
-                      ),
+                      colorProgress: context.theme.colorScheme.primary,
+                      colorProgressDark: context.theme.primaryColorLight
+                          .withValues(alpha: 0.5),
                       colorBorder: context.theme.colorScheme.surface.withValues(
                         alpha: 0.1,
                       ),

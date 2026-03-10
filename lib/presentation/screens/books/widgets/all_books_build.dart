@@ -61,13 +61,13 @@ class AllBooksBuild extends StatelessWidget {
                         const Gap(64),
                         customSvgWithCustomColor(
                           isDownloadedBooks!
-                              ? SvgPath.svgBooksMyLibraryIcon
+                              ? SvgPath.svgBooksMyLibrary
                               : isHadithsBooks!
-                              ? SvgPath.svgBooksHadithIcon
+                              ? SvgPath.svgBooksHadith
                               : isTafsirBooks!
-                              ? SvgPath.svgBooksTafsirIcon
-                              : SvgPath.svgBooksAllBooksIcon,
-                          height: 50,
+                              ? SvgPath.svgBooksTafsir
+                              : SvgPath.svgBooksAllBooks,
+                          height: 70,
                         ),
                         const Gap(16),
                         Text(
