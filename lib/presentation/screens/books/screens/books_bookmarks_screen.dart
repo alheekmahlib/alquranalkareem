@@ -21,17 +21,13 @@ class BookBookmarksScreen extends StatelessWidget {
                   Text(
                     'bookmarks'.tr,
                     textAlign: TextAlign.center,
-                    style: TextStyle(
-                      color: context.theme.canvasColor,
-                      fontFamily: 'kufi',
-                      fontWeight: FontWeight.w700,
-                      fontSize: 18,
-                    ),
+                    style: AppTextStyles.titleLarge(),
                   ),
                   customLottieWithColor(
                     LottieConstants.assetsLottieSearch,
                     height: 150.0,
                     width: 150.0,
+                    color: context.theme.colorScheme.surface,
                   ),
                   const Gap(64),
                 ],
@@ -40,7 +36,11 @@ class BookBookmarksScreen extends StatelessWidget {
           : Column(
               children: [
                 const Gap(32),
-                customSvg(SvgPath.svgBooksBookmarkIcon, width: 200.0),
+                customSvgWithCustomColor(
+                  SvgPath.svgBooksBookmarks,
+                  width: 200.0,
+                  color: context.theme.colorScheme.surface,
+                ),
                 const Gap(32),
                 Flexible(
                   child: ListView.builder(
@@ -54,70 +54,49 @@ class BookBookmarksScreen extends StatelessWidget {
                           vertical: 4.0,
                           horizontal: 16.0,
                         ),
-                        child: ExpansionTile(
-                          title: Row(
+                        child: ExpansionTileWidget(
+                          getxCtrl: booksBookmarksCtrl,
+                          manager:
+                              GeneralController.instance.state.expansionManager,
+                          name: 'language_expansion_tile',
+                          backgroundColor: context.theme.primaryColorLight
+                              .withValues(alpha: .2),
+                          titleChild: Row(
                             children: [
                               customSvgWithColor(
                                 SvgPath.svgBooksOpenBook,
                                 width: 24.0,
                                 height: 24.0,
-                                color: context.theme.canvasColor,
+                                color: context.theme.colorScheme.inversePrimary,
                               ),
                               const Gap(24.0),
                               Expanded(
                                 child: Text(
                                   bookName,
-                                  style: TextStyle(
-                                    fontSize: 16.0,
-                                    fontFamily: 'kufi',
-                                    color: context.theme.canvasColor,
-                                  ),
+                                  style: AppTextStyles.titleMedium(),
                                   maxLines: 1,
                                   overflow: TextOverflow.ellipsis,
                                 ),
                               ),
                             ],
                           ),
-                          collapsedIconColor: context.theme.canvasColor,
-                          iconColor: context.theme.canvasColor,
-                          backgroundColor: context.theme.canvasColor.withValues(
-                            alpha: .1,
-                          ),
-                          collapsedBackgroundColor: context.theme.canvasColor
-                              .withValues(alpha: .1),
-                          collapsedShape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(8.0),
-                          ),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(8.0),
-                          ),
-                          children: bookmarks.map((bookmark) {
-                            return Container(
-                              margin: const EdgeInsets.symmetric(
-                                vertical: 4.0,
-                                horizontal: 16.0,
-                              ),
-                              decoration: BoxDecoration(
-                                color: context.theme.canvasColor.withValues(
-                                  alpha: .1,
-                                ),
-                                borderRadius: BorderRadius.circular(8.0),
-                              ),
-                              child: ListTile(
+                          child: Column(
+                            children: bookmarks.map((bookmark) {
+                              return ListTile(
                                 title: Text(
                                   '${'page'.tr}: ${bookmark.currentPage}'
                                       .convertNumbersToCurrentLang(),
-                                  style: TextStyle(
-                                    fontSize: 16.0,
-                                    fontFamily: 'kufi',
-                                    color: context.theme.canvasColor,
-                                  ),
+                                  style: AppTextStyles.titleMedium(),
                                 ),
                                 trailing: CustomButton(
                                   width: 40,
-                                  backgroundColor: Colors.transparent,
+                                  backgroundColor: context
+                                      .theme
+                                      .primaryColorLight
+                                      .withValues(alpha: .1),
                                   isCustomSvgColor: true,
                                   svgPath: SvgPath.svgHomeRemove,
+                                  svgColor: context.theme.colorScheme.surface,
                                   iconSize: 25,
                                   onPressed: () {
                                     booksBookmarksCtrl
@@ -141,9 +120,9 @@ class BookBookmarksScreen extends StatelessWidget {
                                       bookmark.currentPage! - 1,
                                       bookmark.bookNumber ?? 0,
                                     ),
-                              ),
-                            );
-                          }).toList(),
+                              );
+                            }).toList(),
+                          ),
                         ),
                       );
                     },

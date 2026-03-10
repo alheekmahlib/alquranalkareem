@@ -3,6 +3,7 @@ import 'dart:developer' show log;
 import 'dart:io' show File, Directory;
 
 import 'package:alquranalkareem/core/utils/helpers/app_text_styles.dart';
+import 'package:alquranalkareem/core/widgets/expansion_tile_widget.dart';
 import 'package:alquranalkareem/core/widgets/title_widget.dart';
 import 'package:animated_custom_dropdown/custom_dropdown.dart';
 import 'package:animated_search_bar/animated_search_bar.dart';
