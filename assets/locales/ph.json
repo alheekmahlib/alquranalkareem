@@ -424,8 +424,8 @@
     "type": "text",
     "placeholders": {}
   },
-  "tafseer": "Tafsir",
-  "@tafseer": {
+  "tafsir": "Tafsir",
+  "@tafsir": {
     "type": "text",
     "placeholders": {}
   },
@@ -1299,5 +1299,18 @@
       "kind": {}
     }
   },
-  "mushafOrthographicMarks": "Mga Diakritiko ng Mushaf"
+  "mushafOrthographicMarks": "Mga Diakritiko ng Mushaf",
+  "bookRemovedFromLastRead": "Inalis ang aklat sa Huling Binasa",
+  "hadiths": "Mga Hadith",
+  "sixthBooks": "Anim na Aklat",
+  "ninthBooks": "Siyam na Aklat",
+  "noHadithBooks": "Walang na-download na mga aklat ng Hadith sa device na ito.",
+  "noTafsirBooks": "Walang na-download na mga aklat ng Tafsir sa device na ito.",
+  "noBooks": "Walang mga aklat.",
+  "bookJuz": "Mga Bahagi ng Aklat",
+  "downloadBookFirstToSeeTheContents": "Paki-download muna ang aklat para makita ang nilalaman",
+  "chapter": "Kabanata",
+  "goToStartOfJuz": "Pumunta sa simula ng bahagi",
+  "noBooksReadedYet": "Wala ka pang nababasang anumang aklat.",
+  "noBooksFoundForSearch": "Walang nahanap na mga libro."
 }

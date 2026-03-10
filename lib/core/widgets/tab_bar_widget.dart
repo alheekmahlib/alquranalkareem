@@ -26,6 +26,8 @@ class TopBarWidget extends StatelessWidget {
   final bool? isCalendarSetting;
   final void Function()? settingOnTap;
   final bool? isDraggable;
+  final Widget? bodyChild;
+  final bool? isBackButton;
   TopBarWidget({
     super.key,
     required this.isHomeChild,
@@ -36,6 +38,8 @@ class TopBarWidget extends StatelessWidget {
     this.settingOnTap,
     this.isCalendarSetting = false,
     this.isDraggable = true,
+    this.bodyChild,
+    this.isBackButton = false,
   });
 
   final quranCtrl = QuranController.instance;
@@ -59,7 +63,7 @@ class TopBarWidget extends StatelessWidget {
           width: context.customOrientation(Get.width, Get.width * 0.5),
           direction: SheetDirection.topToBottom,
           snapBehavior: SheetSnapBehavior.snapToEdge,
-          controller: quranCtrl.state.searchController,
+          controller: quranCtrl.state.tabBarController,
           onStateChanged: (state) => log('isOpen: $state'),
           handleBuilder: (currentHeight) {
             final isExpanded = currentHeight >= 155;
@@ -118,6 +122,12 @@ class TopBarWidget extends StatelessWidget {
                               child: isHomeChild
                                   ? ContainerButton(
                                       onPressed: () {
+                                        if (isBackButton ?? false) {
+                                          quranCtrl.setTopBarType =
+                                              TopBarType.none;
+                                          Get.back();
+                                          return;
+                                        }
                                         quranCtrl.setTopBarType =
                                             TopBarType.none;
                                         Get.offAll(
@@ -136,7 +146,9 @@ class TopBarWidget extends StatelessWidget {
                                       backgroundColor: Colors.transparent,
                                       svgColor:
                                           context.theme.colorScheme.primary,
-                                      svgWithColorPath: SvgPath.svgHomeHome,
+                                      svgWithColorPath: isBackButton ?? false
+                                          ? SvgPath.svgHomeArrowBack
+                                          : SvgPath.svgHomeHome,
                                     )
                                   : isNotification
                                   ? ContainerButton(
@@ -169,7 +181,7 @@ class TopBarWidget extends StatelessWidget {
                                     () {
                                       quranCtrl.setTopBarType =
                                           TopBarType.settings;
-                                      quranCtrl.state.searchController.toggle();
+                                      quranCtrl.state.tabBarController.toggle();
                                       quranCtrl.state.isPlayExpanded.value =
                                           false;
                                     },
@@ -207,7 +219,7 @@ class TopBarWidget extends StatelessWidget {
               return Material(
                 elevation: 8,
                 color: Colors.transparent,
-                child: QuranSearch(),
+                child: bodyChild ?? QuranSearch(),
               );
             } else {
               return Material(

@@ -54,7 +54,7 @@ class QuranState {
   final QuranRepository _quranRepository = QuranRepository();
 
   /// -------- [New Variables] ----------
-  final searchController = FlexibleSheetController();
+  final tabBarController = FlexibleSheetController();
   final navBarController = FlexibleSheetController();
   RxString topBarType = 'none'.obs;
   RxString navBarType = 'none'.obs;

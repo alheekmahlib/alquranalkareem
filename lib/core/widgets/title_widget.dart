@@ -9,18 +9,20 @@ class TitleWidget extends StatelessWidget {
   final Color? titleColor;
   final Color? containerColor;
   final TextStyle? textStyle;
+  final double? horizontalPadding;
   const TitleWidget({
     super.key,
     required this.title,
     this.titleColor,
     this.containerColor,
     this.textStyle,
+    this.horizontalPadding,
   });
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16.0),
+      padding: EdgeInsets.symmetric(horizontal: horizontalPadding ?? 16.0),
       child: IntrinsicHeight(
         child: Row(
           mainAxisSize: MainAxisSize.min,

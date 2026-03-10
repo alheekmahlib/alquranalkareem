@@ -275,7 +275,7 @@ extension QuranGetters on QuranController {
         height: 25,
       ),
       footnotesName: 'footnotes'.tr,
-      tafsirName: 'tafseer'.tr,
+      tafsirName: 'tafsir'.tr,
       translateName: 'translation'.tr,
       widthOfBottomSheet: 500,
       heightOfBottomSheet: Get.height * .9,

@@ -425,8 +425,8 @@
     "type": "text",
     "placeholders": {}
   },
-  "tafseer": "আল তাফসীর",
-  "@tafseer": {
+  "tafsir": "আল তাফসীর",
+  "@tafsir": {
     "type": "text",
     "placeholders": {}
   },
@@ -1305,5 +1305,18 @@
       "kind": {}
     }
   },
-  "mushafOrthographicMarks": "মুসহাফের হারাকাত"
+  "mushafOrthographicMarks": "মুসহাফের হারাকাত",
+  "bookRemovedFromLastRead": "শেষ পঠিত থেকে বইটি সরানো হয়েছে",
+  "hadiths": "হাদিস",
+  "sixthBooks": "ছয়টি বই",
+  "ninthBooks": "নয়টি বই",
+  "noHadithBooks": "এই ডিভাইসে কোনো হাদিসের বই ডাউনলোড করা নেই।",
+  "noTafsirBooks": "এই ডিভাইসে কোনো তাফসিরের বই ডাউনলোড করা নেই।",
+  "noBooks": "কোনো বই নেই।",
+  "bookJuz": "বইয়ের অংশসমূহ",
+  "downloadBookFirstToSeeTheContents": "বিষয়বস্তু দেখতে প্রথমে বইটি ডাউনলোড করুন",
+  "chapter": "অধ্যায়",
+  "goToStartOfJuz": "অংশের শুরুতে যান",
+  "noBooksReadedYet": "আপনি এখনও কোনো বই পড়েননি।",
+  "noBooksFoundForSearch": "অনুসন্ধানের জন্য কোনো বই পাওয়া যায়নি।"
 }

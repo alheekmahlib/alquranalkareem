@@ -1,10 +1,4 @@
-import 'package:alquranalkareem/core/utils/constants/extensions/custom_error_snackBar.dart';
-import 'package:drift/drift.dart' as drift;
-import 'package:get/get.dart';
-
-import '../data/data_sources/books_bookmark_database.dart';
-import '../data/models/page_model.dart';
-import 'books_controller.dart';
+part of '../books.dart';
 
 class BooksBookmarksController extends GetxController {
   static BooksBookmarksController get instance =>
@@ -78,9 +72,9 @@ class BooksBookmarksController extends GetxController {
   }
 
   /// --------[OnTap]---------
-  void addBookmarkOnTap(int bookNumber, int index, PageContent page) {
-    if (isPageBookmarked(bookNumber, page.pageNumber)) {
-      deleteBookmark(bookNumber, page.pageNumber).then(
+  void addBookmarkOnTap(int bookNumber, int index) {
+    if (isPageBookmarked(bookNumber, index + 1)) {
+      deleteBookmark(bookNumber, index + 1).then(
           (_) => Get.context!.showCustomErrorSnackBar('deletedBookmark'.tr));
     } else {
       addBookmark(booksCtrl.state.booksList[bookNumber - 1].bookName,

@@ -1,3 +1,4 @@
+import 'package:alquranalkareem/core/utils/helpers/app_text_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get_utils/get_utils.dart';
@@ -22,24 +23,25 @@ class CustomButton extends StatelessWidget {
   final bool? isCustomSvgColor;
   final double? horizontalPadding;
   final double? verticalPadding;
-  const CustomButton(
-      {super.key,
-      this.svgPath,
-      required this.onPressed,
-      this.width,
-      this.height,
-      this.backgroundColor,
-      this.shadowColor,
-      this.svgColor,
-      this.icon,
-      this.iconSize,
-      this.title,
-      this.titleColor,
-      this.borderColor,
-      this.iconWidget,
-      this.isCustomSvgColor = false,
-      this.horizontalPadding,
-      this.verticalPadding});
+  const CustomButton({
+    super.key,
+    this.svgPath,
+    required this.onPressed,
+    this.width,
+    this.height,
+    this.backgroundColor,
+    this.shadowColor,
+    this.svgColor,
+    this.icon,
+    this.iconSize,
+    this.title,
+    this.titleColor,
+    this.borderColor,
+    this.iconWidget,
+    this.isCustomSvgColor = false,
+    this.horizontalPadding,
+    this.verticalPadding,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -51,8 +53,9 @@ class CustomButton extends StatelessWidget {
           backgroundColor: backgroundColor ?? Colors.transparent,
           shadowColor: shadowColor ?? Colors.transparent,
           padding: EdgeInsets.symmetric(
-              horizontal: horizontalPadding ?? 4.0,
-              vertical: verticalPadding ?? 4.0),
+            horizontal: horizontalPadding ?? 4.0,
+            vertical: verticalPadding ?? 4.0,
+          ),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(8.0),
             side: BorderSide(
@@ -70,54 +73,61 @@ class CustomButton extends StatelessWidget {
                   title != null
                       ? Text(
                           title!.tr,
-                          style: TextStyle(
-                              color: titleColor ??
-                                  context.theme.colorScheme.secondaryContainer,
-                              fontFamily: 'kufi',
-                              height: 1.5,
-                              fontStyle: FontStyle.italic,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 16),
+                          style: AppTextStyles.titleMedium(
+                            color:
+                                titleColor ??
+                                context.theme.colorScheme.secondaryContainer,
+                            height: 1.4,
+                          ),
                           textAlign: TextAlign.center,
                         )
                       : const SizedBox.shrink(),
                   title != null ? const Gap(16) : const SizedBox.shrink(),
                   svgPath != null
                       ? isCustomSvgColor!
-                          ? customSvgWithColor(
-                              svgPath ?? SvgPath.svgPlayAll,
-                              width: iconSize ?? 25,
-                              color: svgColor ??
-                                  context.theme.colorScheme.secondaryContainer,
-                            )
-                          : customSvgWithCustomColor(
-                              svgPath ?? SvgPath.svgPlayAll,
-                              width: iconSize ?? 25,
-                              color:
-                                  svgColor ?? context.theme.primaryColorLight,
-                            )
-                      : Icon(icon ?? Icons.cloud_download_outlined,
+                            ? customSvgWithColor(
+                                svgPath ?? SvgPath.svgPlayAll,
+                                width: iconSize ?? 25,
+                                color:
+                                    svgColor ??
+                                    context
+                                        .theme
+                                        .colorScheme
+                                        .secondaryContainer,
+                              )
+                            : customSvgWithCustomColor(
+                                svgPath ?? SvgPath.svgPlayAll,
+                                width: iconSize ?? 25,
+                                color:
+                                    svgColor ?? context.theme.primaryColorLight,
+                              )
+                      : Icon(
+                          icon ?? Icons.cloud_download_outlined,
                           size: iconSize ?? 25,
-                          color: svgColor ?? context.theme.primaryColorLight),
+                          color: svgColor ?? context.theme.primaryColorLight,
+                        ),
                 ],
               )
             : svgPath != null
-                ? isCustomSvgColor!
-                    ? customSvgWithColor(
-                        svgPath ?? SvgPath.svgPlayAll,
-                        width: iconSize ?? 25,
-                        color: svgColor ??
-                            context.theme.colorScheme.secondaryContainer,
-                      )
-                    : customSvgWithCustomColor(
-                        svgPath ?? SvgPath.svgPlayAll,
-                        width: iconSize ?? 25,
-                        color: svgColor ?? context.theme.primaryColorLight,
-                      )
-                : iconWidget ??
-                    Icon(icon ?? Icons.cloud_download_outlined,
-                        size: iconSize ?? 25,
-                        color: svgColor ?? context.theme.primaryColorLight),
+            ? isCustomSvgColor!
+                  ? customSvgWithColor(
+                      svgPath ?? SvgPath.svgPlayAll,
+                      width: iconSize ?? 25,
+                      color:
+                          svgColor ??
+                          context.theme.colorScheme.secondaryContainer,
+                    )
+                  : customSvgWithCustomColor(
+                      svgPath ?? SvgPath.svgPlayAll,
+                      width: iconSize ?? 25,
+                      color: svgColor ?? context.theme.primaryColorLight,
+                    )
+            : iconWidget ??
+                  Icon(
+                    icon ?? Icons.cloud_download_outlined,
+                    size: iconSize ?? 25,
+                    color: svgColor ?? context.theme.primaryColorLight,
+                  ),
       ),
     );
   }

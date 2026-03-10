@@ -424,8 +424,8 @@
         "type": "text",
         "placeholders": {}
     },
-    "tafseer": "Тафсир",
-    "@tafseer": {
+    "tafsir": "Тафсир",
+    "@tafsir": {
         "type": "text",
         "placeholders": {}
     },
@@ -1297,5 +1297,18 @@
       "kind": {}
     }
     },
-    "mushafOrthographicMarks": "Огласовки мусхафа"
+    "mushafOrthographicMarks": "Огласовки мусхафа",
+    "bookRemovedFromLastRead": "Книга удалена из последнего чтения",
+    "hadiths": "Хадисы",
+    "sixthBooks": "Шесть книг",
+    "ninthBooks": "Девять книг",
+    "noHadithBooks": "На этом устройстве не загружены книги хадисов.",
+    "noTafsirBooks": "На этом устройстве не загружены книги тафсира.",
+    "noBooks": "Нет книг.",
+    "bookJuz": "Части книги",
+    "downloadBookFirstToSeeTheContents": "Пожалуйста, сначала загрузите книгу, чтобы увидеть содержание",
+    "chapter": "Глава",
+    "goToStartOfJuz": "Перейти к началу части",
+    "noBooksReadedYet": "Вы ещё не прочитали ни одной книги.",
+    "noBooksFoundForSearch": "Книги не найдены."
 }

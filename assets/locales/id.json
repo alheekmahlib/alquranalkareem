@@ -424,8 +424,8 @@
     "type": "text",
     "placeholders": {}
   },
-  "tafseer": "Tafsir",
-  "@tafseer": {
+  "tafsir": "Tafsir",
+  "@tafsir": {
     "type": "text",
     "placeholders": {}
   },
@@ -1299,5 +1299,18 @@
       "kind": {}
     }
   },
-  "mushafOrthographicMarks": "Harakat Mushaf"
+  "mushafOrthographicMarks": "Harakat Mushaf",
+  "bookRemovedFromLastRead": "Buku dihapus dari Terakhir Dibaca",
+  "hadiths": "Hadis",
+  "sixthBooks": "Enam Kitab",
+  "ninthBooks": "Sembilan Kitab",
+  "noHadithBooks": "Tidak ada buku hadis yang diunduh di perangkat ini.",
+  "noTafsirBooks": "Tidak ada buku tafsir yang diunduh di perangkat ini.",
+  "noBooks": "Tidak ada buku.",
+  "bookJuz": "Bagian Buku",
+  "downloadBookFirstToSeeTheContents": "Silakan unduh buku terlebih dahulu untuk melihat isinya",
+  "chapter": "Bab",
+  "goToStartOfJuz": "Pergi ke awal bagian",
+  "noBooksReadedYet": "Anda belum membaca buku apa pun.",
+  "noBooksFoundForSearch": "Tidak ditemukan buku."
 }

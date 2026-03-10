@@ -1,10 +1,10 @@
-import 'dart:developer';
+part of '../../books.dart';
 
-import '../../../../../core/utils/constants/shared_preferences_constants.dart';
-import '../books_controller.dart';
-
+/// Extension لإدارة التخزين المحلي للكتب
+/// Books local storage management extension
 extension BooksStorageGetters on BooksController {
-  /// -------- [Getters] --------
+  // ============ Last Read Management ============
+
   void saveLastRead(
       int pageNumber, String bookName, int bookNumber, int totalPages) {
     state.lastReadPage[bookNumber] = pageNumber;
@@ -16,52 +16,55 @@ extension BooksStorageGetters on BooksController {
     });
   }
 
+  void removeFromLastRead(int bookNumber) {
+    state.lastReadPage.remove(bookNumber);
+    state.bookTotalPages.remove(bookNumber);
+    state.box.remove('lastRead_$bookNumber');
+    log('Book $bookNumber removed from last read', name: 'BooksStorageGetters');
+  }
+
   void loadLastRead() {
-    if (state.booksList.isNotEmpty) {
-      state.booksList.forEach((book) {
-        var lastRead = state.box.read('lastRead_${book.bookNumber}');
-        if (lastRead != null) {
-          state.lastReadPage[book.bookNumber] = lastRead['pageNumber'];
-          log('state.lastReadPage[book.bookNumber]: ${state.lastReadPage[book.bookNumber]}');
-          state.bookTotalPages[book.bookNumber] = lastRead['totalPages'];
-          log('state.bookTotalPages[book.bookNumber]: ${state.bookTotalPages[book.bookNumber]}');
-        }
-      });
-    } else {
-      log('state.booksList is empty.');
+    for (var book in state.booksList) {
+      final lastRead = state.box.read('lastRead_${book.bookNumber}');
+      if (lastRead != null) {
+        state.lastReadPage[book.bookNumber] = lastRead['pageNumber'];
+        state.bookTotalPages[book.bookNumber] = lastRead['totalPages'];
+      }
     }
   }
+
+  // ============ Settings ============
 
   void loadFromGetStorage() {
     state.isTashkil.value = state.box.read(IS_TASHKIL) ?? true;
   }
 
+  // ============ Downloaded Books ============
+
   void saveDownloadedBooks() {
-    List<String> downloadedBooks = state.downloaded.entries
-        .where((entry) => entry.value)
-        .map((entry) => entry.key.toString())
+    final downloadedBooks = state.downloaded.entries
+        .where((e) => e.value)
+        .map((e) => e.key.toString())
         .toList();
-    log('Saving downloaded books: $downloadedBooks');
     state.box.write(DOWNLOADED_BOOKS, downloadedBooks);
+    log('Saved downloaded books: $downloadedBooks',
+        name: 'BooksStorageGetters');
   }
 
   Future<void> loadDownloadedBooks() async {
     try {
-      List<dynamic>? downloadedBooks = state.box.read(DOWNLOADED_BOOKS);
-      log('Loaded downloaded books: $downloadedBooks');
-      if (downloadedBooks != null) {
-        downloadedBooks.forEach((bookNumber) {
-          if (bookNumber is String) {
-            state.downloaded[int.parse(bookNumber)] = true;
-          } else {
-            log('Invalid book number format: $bookNumber');
-          }
-        });
-      } else {
-        log('No downloaded books found or data is in incorrect format.');
+      final downloadedBooks = state.box.read<List>(DOWNLOADED_BOOKS);
+      if (downloadedBooks == null) return;
+
+      for (var bookNumber in downloadedBooks) {
+        if (bookNumber is String) {
+          state.downloaded[int.parse(bookNumber)] = true;
+        }
       }
+      log('Loaded ${downloadedBooks.length} downloaded books',
+          name: 'BooksStorageGetters');
     } catch (e) {
-      log('Error loading downloaded books: $e');
+      log('Error loading downloaded books: $e', name: 'BooksStorageGetters');
     }
   }
 }

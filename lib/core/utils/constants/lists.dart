@@ -1,9 +1,9 @@
 import 'package:get/get.dart';
 
 import '/presentation/screens/home/home_screen.dart';
+import '/presentation/screens/mushaf_orthographic/alwaqf_screen.dart';
 import '../../../presentation/screens/adhkar/screens/adhkar_view.dart';
-import '../../../presentation/screens/books/screens/books_screen.dart';
-import '../../../presentation/screens/mushaf_orthographic/mushaf_orthographic.dart';
+import '../../../presentation/screens/books/books.dart';
 import '../../../presentation/screens/quran_page/quran.dart';
 import '../../../presentation/screens/surah_audio/surah_audio.dart';
 import 'api_constants.dart';

@@ -425,8 +425,8 @@
     "type": "text",
     "placeholders": {}
   },
-  "tafseer": "التفسیر",
-  "@tafseer": {
+  "tafsir": "التفسیر",
+  "@tafsir": {
     "type": "text",
     "placeholders": {}
   },
@@ -1305,5 +1305,18 @@
       "kind": {}
     }
   },
-  "mushafOrthographicMarks": "مصحف کی حرکات"
+  "mushafOrthographicMarks": "مصحف کی حرکات",
+  "bookRemovedFromLastRead": "کتاب آخری پڑھی گئی فہرست سے ہٹا دی گئی",
+  "hadiths": "احادیث",
+  "sixthBooks": "چھ کتب",
+  "ninthBooks": "نو کتب",
+  "noHadithBooks": "اس ڈیوائس پر کوئی حدیث کی کتابیں ڈاؤن لوڈ نہیں ہیں۔",
+  "noTafsirBooks": "اس ڈیوائس پر کوئی تفسیر کی کتابیں ڈاؤن لوڈ نہیں ہیں۔",
+  "noBooks": "کوئی کتاب نہیں۔",
+  "bookJuz": "کتاب کے حصے",
+  "downloadBookFirstToSeeTheContents": "مواد دیکھنے کے لیے پہلے کتاب ڈاؤن لوڈ کریں",
+  "chapter": "باب",
+  "goToStartOfJuz": "حصے کے آغاز پر جائیں",
+  "noBooksReadedYet": "آپ نے ابھی تک کوئی کتاب نہیں پڑھی۔",
+  "noBooksFoundForSearch": "تلاش کے لیے کوئی کتاب نہیں ملی۔"
 }

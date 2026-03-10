@@ -425,8 +425,8 @@
     "type": "text",
     "placeholders": {}
   },
-  "tafseer": "Al Tafseer",
-  "@tafseer": {
+  "tafsir": "Al tafsir",
+  "@tafsir": {
     "type": "text",
     "placeholders": {}
   },
@@ -1305,5 +1305,18 @@
       "kind": {}
     }
   },
-  "mushafOrthographicMarks": "Mushaf Diacritics"
+  "mushafOrthographicMarks": "Mushaf Diacritics",
+  "bookRemovedFromLastRead": "Book removed from Last Read",
+  "hadiths": "Hadiths",
+  "sixthBooks": "The Six Books",
+  "ninthBooks": "The Nine Books",
+  "noHadithBooks": "No Hadith books are downloaded on this device.",
+  "noTafsirBooks": "No Tafsir books are downloaded on this device.",
+  "noBooks": "No books.",
+  "bookJuz": "Book Parts",
+  "downloadBookFirstToSeeTheContents": "Please download the book first to view the contents",
+  "chapter": "Chapter",
+  "goToStartOfJuz": "Go to the start of the part",
+  "noBooksReadedYet": "You haven't read any book yet.",
+  "noBooksFoundForSearch": "No books found."
 }

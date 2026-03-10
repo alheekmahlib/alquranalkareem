@@ -425,8 +425,8 @@
     "type": "text",
     "placeholders": {}
   },
-  "tafseer": "Al Tafseer",
-  "@tafseer": {
+  "tafsir": "Al tafsir",
+  "@tafsir": {
     "type": "text",
     "placeholders": {}
   },
@@ -1305,5 +1305,18 @@
       "kind": {}
     }
   },
-  "mushafOrthographicMarks": "Diacríticos del Mushaf"
+  "mushafOrthographicMarks": "Diacríticos del Mushaf",
+  "bookRemovedFromLastRead": "El libro se eliminó de Última lectura",
+  "hadiths": "Hadices",
+  "sixthBooks": "Los seis libros",
+  "ninthBooks": "Los nueve libros",
+  "noHadithBooks": "No hay libros de hadices descargados en este dispositivo.",
+  "noTafsirBooks": "No hay libros de tafsir descargados en este dispositivo.",
+  "noBooks": "No hay libros.",
+  "bookJuz": "Partes del libro",
+  "downloadBookFirstToSeeTheContents": "Descarga el libro primero para ver el contenido",
+  "chapter": "Capítulo",
+  "goToStartOfJuz": "Ir al inicio de la parte",
+  "noBooksReadedYet": "Aún no has leído ningún libro.",
+  "noBooksFoundForSearch": "No se encontraron libros."
 }

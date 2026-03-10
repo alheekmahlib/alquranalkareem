@@ -10,6 +10,7 @@ import '../utils/helpers/app_text_styles.dart';
 class ExpansionTileWidget<T extends GetxController> extends StatelessWidget {
   final Widget child;
   final String? title;
+  final String? subtitle;
   final String name;
   final ExpansionTileManager manager;
   final T getxCtrl;
@@ -22,6 +23,7 @@ class ExpansionTileWidget<T extends GetxController> extends StatelessWidget {
     required this.manager,
     required this.child,
     this.title,
+    this.subtitle,
     required this.getxCtrl,
     this.titleChild,
     this.backgroundColor,
@@ -64,6 +66,15 @@ class ExpansionTileWidget<T extends GetxController> extends StatelessWidget {
               height: 18,
             ),
           ),
+          subtitle: subtitle != null
+              ? Text(
+                  subtitle!,
+                  style: AppTextStyles.bodySmall(
+                    fontSize: 12.0,
+                    color: context.theme.primaryColorDark.withValues(alpha: .7),
+                  ),
+                )
+              : null,
           title:
               titleChild ??
               SizedBox(
