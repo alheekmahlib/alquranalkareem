@@ -424,8 +424,8 @@
     "type": "text",
     "placeholders": {}
   },
-  "tafseer": "تەفسیر",
-  "@tafseer": {
+  "tafsir": "تەفسیر",
+  "@tafsir": {
     "type": "text",
     "placeholders": {}
   },
@@ -1297,5 +1297,18 @@
       "kind": {}
     }
   },
-  "mushafOrthographicMarks": "ضبطی موصحەف"
+  "mushafOrthographicMarks": "ضبطی موصحەف",
+  "bookRemovedFromLastRead": "کتێب لە خوێندنەوەی دوایین لابرا",
+  "hadiths": "حەدیثەکان",
+  "sixthBooks": "کتێبە شەشەکان",
+  "ninthBooks": "کتێبە نۆکان",
+  "noHadithBooks": "هیچ کتێبی حەدیث لەم ئامێرەدا داگرتوو نییە.",
+  "noTafsirBooks": "هیچ کتێبی تەفسیر لەم ئامێرەدا داگرتوو نییە.",
+  "noBooks": "هیچ کتێبێک نییە.",
+  "bookJuz": "بەشەکانی کتێب",
+  "downloadBookFirstToSeeTheContents": "تکایە سەرەتا کتێبەکە دابگرە بۆ بینینی ناوەڕۆک",
+  "chapter": "باب",
+  "goToStartOfJuz": "چوون بۆ سەرەتای بەش",
+  "noBooksReadedYet": "هێشتا هیچ کتێبێکت نەخوێندووە.",
+  "noBooksFoundForSearch": "Di lêgerînê de tu pirtûk nehat dîtin."
 }

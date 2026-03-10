@@ -1,9 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:get_storage/get_storage.dart';
-
-import '../data/models/books_model.dart';
-import '../data/models/page_model.dart';
+part of '../books.dart';
 
 class BooksState {
   /// -------- [Variables] ----------
@@ -24,4 +19,19 @@ class BooksState {
   var lastReadPage = <int, int>{}.obs;
   Map<int, int> bookTotalPages = {};
   RxBool isTashkil = true.obs;
+  var collapsedHeightMap = <int, RxBool>{}.obs;
+  RxInt backgroundPickerColor = 0xfffaf7f3.obs;
+  RxInt temporaryBackgroundColor = 0xfffaf7f3.obs;
+
+  // كاش لحفظ جدول المحتويات - Cache for table of contents
+  Map<int, List<TocItem>> tocCache = {};
+  RxBool isSearch = false.obs;
+  RxString searchQuery = ''.obs; // نص البحث - Search query text
+  late Directory dir;
+
+  // ===== Pagination للكتب =====
+  final Map<String, int> booksPaginationCounts = {};
+  final Map<String, bool> booksIsLoadingMore = {};
+  final Map<String, ScrollController> booksScrollControllers = {};
+  static const int booksItemsPerPage = 20;
 }

@@ -425,8 +425,8 @@
     "type": "text",
     "placeholders": {}
   },
-  "tafseer": "Al Tafsiir",
-  "@tafseer": {
+  "tafsir": "Al Tafsiir",
+  "@tafsir": {
     "type": "text",
     "placeholders": {}
   },
@@ -1305,5 +1305,18 @@
       "kind": {}
     }
   },
-  "mushafOrthographicMarks": "Calaamadaha Musxaf"
+  "mushafOrthographicMarks": "Calaamadaha Musxaf",
+  "bookRemovedFromLastRead": "Buugga waa laga saaray akhrintii u dambaysay",
+  "hadiths": "Axadiis",
+  "sixthBooks": "Lixda Buug",
+  "ninthBooks": "Sagaalka Buug",
+  "noHadithBooks": "Ma jiraan buugaag axaadiis ah oo ku soo degay qalabkan.",
+  "noTafsirBooks": "Ma jiraan buugaag tafsiir ah oo ku soo degay qalabkan.",
+  "noBooks": "Buug ma jiro.",
+  "bookJuz": "Qaybaha Buugga",
+  "downloadBookFirstToSeeTheContents": "Fadlan marka hore soo dejiso buugga si aad u aragto nuxurka",
+  "chapter": "Cutub",
+  "goToStartOfJuz": "Tag bilowga qaybta",
+  "noBooksReadedYet": "Weli ma aadan akhrin wax buug ah.",
+  "noBooksFoundForSearch": "Lama helin wax buug ah."
 }

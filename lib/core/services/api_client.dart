@@ -24,6 +24,11 @@ class ApiClient {
           baseUrl: ApiConstants.baseUrl, // يمكنك تحديد baseUrl هنا
           connectTimeout: const Duration(seconds: 5),
           receiveTimeout: const Duration(seconds: 5),
+          validateStatus: (status) {
+            // السماح بمعالجة جميع الأكواد بما في ذلك 404
+            // Allow handling all status codes including 404
+            return status != null && status < 500;
+          },
         ),
       );
 
@@ -33,89 +38,76 @@ class ApiClient {
     Map<String, dynamic>? queryParameters,
     Map<String, dynamic>? data,
     Map<String, String>? headers,
+    Options? options,
+    bool? printResponse = false,
+    void Function(int, int)? onReceiveProgress,
     String? token,
-    Duration? connectTimeoutOverride,
-    Duration? receiveTimeoutOverride,
-    int retryCount = 0,
-    bool printData = false,
   }) async {
-    final originalConnectTimeout = _dio.options.connectTimeout;
-    final originalReceiveTimeout = _dio.options.receiveTimeout;
     try {
       final Map<String, String> finalHeaders = headers ?? {};
       if (token != null) {
         finalHeaders['Authorization'] = 'Bearer $token';
       }
 
-      if (connectTimeoutOverride != null || receiveTimeoutOverride != null) {
-        _dio.options = _dio.options.copyWith(
-          connectTimeout: connectTimeoutOverride ?? originalConnectTimeout,
-          receiveTimeout: receiveTimeoutOverride ?? originalReceiveTimeout,
-        );
-      }
-
-      log(
-        'Requesting $method $endpoint (retry=$retryCount)',
-        name: 'ApiClient',
-      );
+      log('Requesting $method $endpoint', name: 'ApiClient');
       final Response response = await _dio.request(
         endpoint,
-        options: Options(
-          method: method.name.toUpperCase(),
-          headers: finalHeaders,
-          sendTimeout: connectTimeoutOverride,
-          receiveTimeout: receiveTimeoutOverride,
-        ),
+        options:
+            options ??
+            Options(method: method.name.toUpperCase(), headers: finalHeaders),
         queryParameters: queryParameters,
         data: data,
+        onReceiveProgress: onReceiveProgress,
       );
 
-      // 404 => نعيد قائمة فارغة بدلاً من فشل (ملف JSON غير موجود أو فارغ على GitHub)
-      if (response.statusCode == 404) {
-        log('404 for $endpoint -> empty list returned', name: 'ApiClient');
-        return const Right([]);
-      }
-      if (printData) {
+      if (printResponse!) {
         log('Response received: ${response.data}', name: 'ApiClient');
       }
       return Right(response.data);
     } on DioException catch (e) {
-      log('DioException occurred: ${e.message}', name: 'ApiClient');
-      final type = e.type;
-      final isTimeout =
-          type == DioExceptionType.connectionTimeout ||
-          type == DioExceptionType.receiveTimeout;
-      if (isTimeout) {
-        log(
-          'Timeout details: connect=${_dio.options.connectTimeout} receive=${_dio.options.receiveTimeout}',
-          name: 'ApiClient',
-        );
-        if (retryCount == 0) {
-          log('Retrying with extended timeouts...', name: 'ApiClient');
-          return request(
-            endpoint: endpoint,
-            method: method,
-            queryParameters: queryParameters,
-            data: data,
-            headers: headers,
-            token: token,
-            connectTimeoutOverride: const Duration(seconds: 12),
-            receiveTimeoutOverride: const Duration(seconds: 12),
-            retryCount: 1,
-          );
-        }
-      }
+      // تسجيل الأخطاء المتعلقة بـ Dio
+      // Log Dio-related errors
+      log(
+        'DioException occurred: ${e.message}, Status Code: ${e.response?.statusCode}',
+        name: 'ApiClient',
+      );
       return Left(ErrorHandler.handle(e).failure);
     } catch (e) {
+      // تسجيل أي استثناء عام
+      // Log any general exception
       log('Unexpected error: $e', name: 'ApiClient');
       return Left(DataSource.DEFAULT.getFailure());
-    } finally {
-      if (connectTimeoutOverride != null || receiveTimeoutOverride != null) {
-        _dio.options = _dio.options.copyWith(
-          connectTimeout: originalConnectTimeout,
-          receiveTimeout: originalReceiveTimeout,
-        );
-      }
+    }
+  }
+
+  /// تحميل ملف من رابط خارجي مع تتبع التقدم
+  /// Download file from external URL with progress tracking
+  Future<Either<Failure, dynamic>> downloadFile({
+    required String url,
+    void Function(int received, int total)? onProgress,
+    Duration? timeout,
+  }) async {
+    try {
+      log('Downloading from: $url', name: 'ApiClient');
+
+      final response = await Dio().get(
+        url,
+        options: Options(receiveTimeout: timeout ?? const Duration(minutes: 5)),
+        onReceiveProgress: (received, total) {
+          if (total != -1) {
+            onProgress?.call(received, total);
+          }
+        },
+      );
+
+      log('Download completed', name: 'ApiClient');
+      return Right(response.data);
+    } on DioException catch (e) {
+      log('Download failed: ${e.message}', name: 'ApiClient');
+      return Left(ErrorHandler.handle(e).failure);
+    } catch (e) {
+      log('Download error: $e', name: 'ApiClient');
+      return Left(DataSource.DEFAULT.getFailure());
     }
   }
 }

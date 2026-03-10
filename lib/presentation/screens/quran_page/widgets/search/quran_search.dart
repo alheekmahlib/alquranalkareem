@@ -46,7 +46,7 @@ class QuranSearch extends StatelessWidget {
                   child: GestureDetector(
                     onTap: () {
                       quranCtrl.changeSurahListOnTap(search.ayahs.first.page);
-                      quranCtrl.state.searchController.close();
+                      quranCtrl.state.tabBarController.close();
                     },
                     child: Container(
                       padding: const EdgeInsets.symmetric(horizontal: 4.0),

@@ -424,8 +424,8 @@
     "type": "text",
     "placeholders": {}
   },
-  "tafseer": "التفسير",
-  "@tafseer": {
+  "tafsir": "التفسير",
+  "@tafsir": {
     "type": "text",
     "placeholders": {}
   },
@@ -1297,5 +1297,18 @@
       "kind": {}
     }
   },
-  "mushafOrthographicMarks": "Mushaf Hareke İşaretleri"
+  "mushafOrthographicMarks": "Mushaf Hareke İşaretleri",
+  "bookRemovedFromLastRead": "Kitap Son Okunanlardan kaldırıldı",
+  "hadiths": "Hadisler",
+  "sixthBooks": "Altı Kitap",
+  "ninthBooks": "Dokuz Kitap",
+  "noHadithBooks": "Bu cihazda indirilmiş hadis kitabı yok.",
+  "noTafsirBooks": "Bu cihazda indirilmiş tefsir kitabı yok.",
+  "noBooks": "Kitap yok.",
+  "bookJuz": "Kitabın Bölümleri",
+  "downloadBookFirstToSeeTheContents": "İçeriği görmek için önce kitabı indirin",
+  "chapter": "Bölüm",
+  "goToStartOfJuz": "Bölümün başına git",
+  "noBooksReadedYet": "Henüz hiç kitap okumadınız.",
+  "noBooksFoundForSearch": "Arama için kitap bulunamadı."
 }

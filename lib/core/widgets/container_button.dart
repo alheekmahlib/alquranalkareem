@@ -20,7 +20,9 @@ class ContainerButton extends StatelessWidget {
   final double? svgHeight;
   final double? svgWidth;
   final String? title;
+  final String? subtitle;
   final Color? titleColor;
+  final Color? subtitleColor;
   final RxBool? value;
   final Widget? child;
   final double? horizontalMargin;
@@ -51,7 +53,9 @@ class ContainerButton extends StatelessWidget {
     this.svgHeight,
     this.svgWidth,
     this.title,
+    this.subtitle,
     this.titleColor,
+    this.subtitleColor,
     this.value,
     this.child,
     this.horizontalMargin = 0.0,
@@ -169,15 +173,32 @@ class ContainerButton extends StatelessWidget {
                         if (title != null && (withArrow ?? false))
                           Expanded(
                             flex: 9,
-                            child: Text(
-                              title!.tr,
-                              style: AppTextStyles.titleMedium(
-                                color:
-                                    titleColor ??
-                                    Theme.of(
-                                      context,
-                                    ).colorScheme.inversePrimary,
-                              ),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  title!.tr,
+                                  style: AppTextStyles.titleMedium(
+                                    color:
+                                        titleColor ??
+                                        Theme.of(
+                                          context,
+                                        ).colorScheme.inversePrimary,
+                                  ),
+                                ),
+                                if (subtitle != null)
+                                  Text(
+                                    subtitle!.tr,
+                                    style: AppTextStyles.titleSmall(
+                                      color:
+                                          subtitleColor ??
+                                          Theme.of(
+                                            context,
+                                          ).colorScheme.inversePrimary,
+                                    ),
+                                  ),
+                              ],
                             ),
                           )
                         else if (title != null)

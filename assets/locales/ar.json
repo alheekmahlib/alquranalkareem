@@ -424,8 +424,8 @@
     "type": "text",
     "placeholders": {}
   },
-  "tafseer": "التفسير",
-  "@tafseer": {
+  "tafsir": "التفسير",
+  "@tafsir": {
     "type": "text",
     "placeholders": {}
   },
@@ -1297,5 +1297,18 @@
       "kind": {}
     }
   },
-  "mushafOrthographicMarks": "ضبط المصحف"
+  "mushafOrthographicMarks": "ضبط المصحف",
+  "bookRemovedFromLastRead": "تم حذف الكتاب من آخر قراءة",
+  "hadiths": "الأحاديث",
+  "sixthBooks": "الكتب الستة",
+  "ninthBooks": "الكتب التسعة",
+  "noHadithBooks": "لا توجد كتب أحاديث محمّلة على الجهاز.",
+  "noTafsirBooks": "لا توجد كتب تفسير محمّلة على الجهاز.",
+  "noBooks": "لا توجد كتب.",
+  "bookJuz": "أجزاء الكتاب",
+  "downloadBookFirstToSeeTheContents": "يرجى تحميل الكتاب أولًا لرؤية المحتويات",
+  "chapter": "الفصل",
+  "goToStartOfJuz": "الذهاب إلى بداية الجزء",
+  "noBooksReadedYet": "لم تقرأ أي كتاب بعد.",
+  "noBooksFoundForSearch": "لم يتم العثور على أي كتب."
 }

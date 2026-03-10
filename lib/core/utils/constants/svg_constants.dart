@@ -34,6 +34,11 @@ class SvgPath {
   /// assets/svg/alwaqf/05.svg
   static const String svgAlwaqf05 = "assets/svg/alwaqf/05.svg";
 
+  /// Assets for svgAlwaqfMushafOrthographic
+  /// assets/svg/alwaqf/mushaf_orthographic.svg
+  static const String svgAlwaqfMushafOrthographic =
+      "assets/svg/alwaqf/mushaf_orthographic.svg";
+
   /// Assets for svgArrowDown
   /// assets/svg/arrow_down.svg
   static const String svgArrowDown = "assets/svg/arrow_down.svg";
@@ -41,6 +46,14 @@ class SvgPath {
   /// Assets for svgAthkarAlarm
   /// assets/svg/athkar/alarm.svg
   static const String svgAthkarAlarm = "assets/svg/athkar/alarm.svg";
+
+  /// Assets for svgAthkarAthkar
+  /// assets/svg/athkar/athkar.svg
+  static const String svgAthkarAthkar = "assets/svg/athkar/athkar.svg";
+
+  /// Assets for svgAudioAudioQuran
+  /// assets/svg/audio/audio_quran.svg
+  static const String svgAudioAudioQuran = "assets/svg/audio/audio_quran.svg";
 
   /// Assets for svgAudioBackward
   /// assets/svg/audio/backward.svg
@@ -152,6 +165,68 @@ class SvgPath {
   /// Assets for svgBooks
   /// assets/svg/books.svg
   static const String svgBooks = "assets/svg/books.svg";
+
+  /// Assets for svgBooksAllBooks
+  /// assets/svg/books/all_books.svg
+  static const String svgBooksAllBooks = "assets/svg/books/all_books.svg";
+
+  /// Assets for svgBooksAllBooksIcon
+  /// assets/svg/books/all_books_icon.svg
+  static const String svgBooksAllBooksIcon =
+      "assets/svg/books/all_books_icon.svg";
+
+  /// Assets for svgBooksBackgroundIcon
+  /// assets/svg/books/background_icon.svg
+  static const String svgBooksBackgroundIcon =
+      "assets/svg/books/background_icon.svg";
+
+  /// Assets for svgBooksBookmarkIcon
+  /// assets/svg/books/bookmark_icon.svg
+  static const String svgBooksBookmarkIcon =
+      "assets/svg/books/bookmark_icon.svg";
+
+  /// Assets for svgBooksBookmarks
+  /// assets/svg/books/bookmarks.svg
+  static const String svgBooksBookmarks = "assets/svg/books/bookmarks.svg";
+
+  /// Assets for svgBooksHadith
+  /// assets/svg/books/hadith.svg
+  static const String svgBooksHadith = "assets/svg/books/hadith.svg";
+
+  /// Assets for svgBooksHadithIcon
+  /// assets/svg/books/hadith_icon.svg
+  static const String svgBooksHadithIcon = "assets/svg/books/hadith_icon.svg";
+
+  /// Assets for svgBooksIslamicLibrary
+  /// assets/svg/books/islamic_library.svg
+  static const String svgBooksIslamicLibrary =
+      "assets/svg/books/islamic_library.svg";
+
+  /// Assets for svgBooksIslamicLibraryIcon
+  /// assets/svg/books/islamic_library_icon.svg
+  static const String svgBooksIslamicLibraryIcon =
+      "assets/svg/books/islamic_library_icon.svg";
+
+  /// Assets for svgBooksMyLibrary
+  /// assets/svg/books/my_library.svg
+  static const String svgBooksMyLibrary = "assets/svg/books/my_library.svg";
+
+  /// Assets for svgBooksMyLibraryIcon
+  /// assets/svg/books/my_library_icon.svg
+  static const String svgBooksMyLibraryIcon =
+      "assets/svg/books/my_library_icon.svg";
+
+  /// Assets for svgBooksOpenBook
+  /// assets/svg/books/open_book.svg
+  static const String svgBooksOpenBook = "assets/svg/books/open_book.svg";
+
+  /// Assets for svgBooksTafsir
+  /// assets/svg/books/tafsir.svg
+  static const String svgBooksTafsir = "assets/svg/books/tafsir.svg";
+
+  /// Assets for svgBooksTafsirIcon
+  /// assets/svg/books/tafsir_icon.svg
+  static const String svgBooksTafsirIcon = "assets/svg/books/tafsir_icon.svg";
 
   /// Assets for svgButtonCurve
   /// assets/svg/button_curve.svg
@@ -269,6 +344,10 @@ class SvgPath {
   /// assets/svg/home/notifications.svg
   static const String svgHomeNotifications =
       "assets/svg/home/notifications.svg";
+
+  /// Assets for svgHomeQuranLogo
+  /// assets/svg/home/quran_logo.svg
+  static const String svgHomeQuranLogo = "assets/svg/home/quran_logo.svg";
 
   /// Assets for svgHomeRemove
   /// assets/svg/home/remove.svg

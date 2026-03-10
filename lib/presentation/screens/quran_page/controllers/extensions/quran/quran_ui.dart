@@ -35,8 +35,8 @@ extension QuranUi on QuranController {
     if (state.navBarController.isOpen) {
       state.navBarController.close();
       setNavBarType = NavBarType.none;
-    } else if (state.searchController.isOpen) {
-      state.searchController.close();
+    } else if (state.tabBarController.isOpen) {
+      state.tabBarController.close();
       setTopBarType = TopBarType.none;
     }
   }
@@ -63,12 +63,12 @@ extension QuranUi on QuranController {
   }
 
   void showControl() {
-    if (state.searchController.isHandleVisible ||
+    if (state.tabBarController.isHandleVisible ||
         state.navBarController.isHandleVisible) {
-      state.searchController.hideHandle();
+      state.tabBarController.hideHandle();
       state.navBarController.hideHandle();
     } else {
-      state.searchController.showHandle();
+      state.tabBarController.showHandle();
       state.navBarController.showHandle();
     }
     GeneralController.instance.state.isShowControl.toggle();

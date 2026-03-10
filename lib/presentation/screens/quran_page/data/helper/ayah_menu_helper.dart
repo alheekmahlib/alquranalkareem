@@ -226,7 +226,7 @@ class AyahMenuHelper {
                               searchCtrl.search(selectedSearchWord);
                               searchCtrl.surahSearchMethod(selectedSearchWord);
                               quranCtrl.setTopBarType = TopBarType.search;
-                              quranCtrl.state.searchController.toggle();
+                              quranCtrl.state.tabBarController.toggle();
                             },
                           ),
                         ),

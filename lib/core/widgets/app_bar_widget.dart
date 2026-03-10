@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '/core/utils/constants/extensions/font_size_extension.dart';
-import '../services/notifications_manager.dart';
 import '../utils/constants/extensions/svg_extensions.dart';
 import '../utils/constants/svg_constants.dart';
 
@@ -43,15 +42,15 @@ class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
       centerTitle: true,
       leading: GestureDetector(
         onTap: () {
-          isNotifi
-              ? NotificationManager().updateBookProgress(
-                  title!,
-                  isBooks
-                      ? 'notifyBooksBody'.trParams({'bookName': '$title'})
-                      : 'notifyAdhkarBody'.trParams({'adhkarType': '$title'}),
-                  0,
-                )
-              : null;
+          // isNotifi
+          //     ? NotificationManager().updateBookProgress(
+          //         title!,
+          //         isBooks
+          //             ? 'notifyBooksBody'.trParams({'bookName': '$title'})
+          //             : 'notifyAdhkarBody'.trParams({'adhkarType': '$title'}),
+          //         0,
+          //       )
+          //     : null;
           Get.back();
         },
         child: Padding(
