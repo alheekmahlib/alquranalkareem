@@ -1,7 +1,6 @@
 name: alquranalkareem
 description: Al-Quran Al-Kareem - Al-Heekmah Library.
 
-publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 
 version: 5.0.0+0
 
