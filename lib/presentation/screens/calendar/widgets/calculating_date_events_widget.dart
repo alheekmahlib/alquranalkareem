@@ -19,57 +19,55 @@ class CalculatingDateEventsWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     int daysRemaining = countdownCtrl.calculate(year, month, day);
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 32.0),
+      padding: const EdgeInsets.symmetric(vertical: 3.0, horizontal: 32.0),
       child: Opacity(
         opacity: daysRemaining == 0 ? .5 : 1,
         child: Container(
-          height: 50,
+          height: 40,
           width: 380,
           padding: const EdgeInsets.all(4),
           decoration: BoxDecoration(
+            color: context.theme.primaryColorLight.withValues(alpha: .1),
             borderRadius: const BorderRadius.all(Radius.circular(8.0)),
-            border: Border.all(
-              width: 1,
-              color: Theme.of(context).canvasColor.withValues(alpha: .5),
-            ),
           ),
           child: Stack(
-            alignment: Alignment.centerRight,
+            alignment: Alignment.center,
             children: [
-              LinearProgressIndicator(
-                minHeight: 50,
-                borderRadius: const BorderRadius.all(Radius.circular(4)),
-                value: (1.0 - (daysRemaining / 355)).clamp(
-                  0.0,
-                  1.0,
-                ), //(daysRemaining / 1000).toDouble(),
-                backgroundColor: Theme.of(context).canvasColor,
-                color: daysRemaining == 0
-                    ? Theme.of(context).colorScheme.surface
-                    : Theme.of(
-                        context,
-                      ).colorScheme.surface.withValues(alpha: .7),
+              RoundedProgressBar(
+                height: 30,
+                style: RoundedProgressBarStyle(
+                  borderWidth: 0,
+                  widthShadow: 5,
+                  backgroundProgress:
+                      context.theme.colorScheme.primaryContainer,
+                  colorProgress: context.theme.colorScheme.surface,
+                  colorProgressDark: context.theme.colorScheme.surface
+                      .withValues(alpha: .5),
+                  colorBorder: context.theme.colorScheme.primaryContainer,
+                  colorBackgroundIcon: Colors.transparent,
+                ),
+                borderRadius: const BorderRadius.all(Radius.circular(8)),
+                percent: (1.0 - (daysRemaining / 355)) * 100,
               ),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 8.0),
                 child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Expanded(
                       flex: 7,
                       child: FittedBox(
                         fit: BoxFit.scaleDown,
-                        child: Text(
-                          daysRemaining == 0
-                              ? '$name: ${'hasPassed'.tr}'
-                              : name,
-                          style: TextStyle(
-                            fontSize: 18.0,
-                            fontFamily: 'kufi',
-                            color: Theme.of(
-                              context,
-                            ).colorScheme.onInverseSurface,
+                        child: Align(
+                          alignment: AlignmentDirectional.centerStart,
+                          child: Text(
+                            daysRemaining == 0
+                                ? '$name: ${'hasPassed'.tr}'
+                                : name,
+                            style: AppTextStyles.titleMedium().copyWith(
+                              fontSize: 16.0,
+                            ),
                           ),
-                          textAlign: TextAlign.center,
                         ),
                       ),
                     ),
@@ -79,16 +77,14 @@ class CalculatingDateEventsWidget extends StatelessWidget {
                             flex: 3,
                             child: FittedBox(
                               fit: BoxFit.scaleDown,
-                              child: Text(
-                                '${countdownCtrl.daysArabicConvert(daysRemaining, daysRemaining.toString().convertNumbersToCurrentLang())}',
-                                style: TextStyle(
-                                  fontSize: 16.0,
-                                  fontFamily: 'kufi',
-                                  color: Theme.of(
-                                    context,
-                                  ).colorScheme.onInverseSurface,
+                              child: Align(
+                                alignment: AlignmentDirectional.centerEnd,
+                                child: Text(
+                                  '${countdownCtrl.daysArabicConvert(daysRemaining, daysRemaining.toString().convertNumbersToCurrentLang())}',
+                                  style: AppTextStyles.titleMedium().copyWith(
+                                    fontSize: 16.0,
+                                  ),
                                 ),
-                                textAlign: TextAlign.center,
                               ),
                             ),
                           ),

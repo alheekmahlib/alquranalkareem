@@ -62,7 +62,6 @@ class QuranHome extends StatelessWidget {
                             QuranOrTenRecitationsTabBar(),
                             TopBarWidget(
                               isHomeChild: true,
-                              isCenterChild: true,
                               isQuranSetting: true,
                               isNotification: false,
                               centerChild: TextFieldBarWidget(

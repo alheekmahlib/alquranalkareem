@@ -22,7 +22,6 @@ class AdhkarView extends StatelessWidget {
                 const TabBarViewWidget(),
                 TopBarWidget(
                   isHomeChild: true,
-                  isCenterChild: true,
                   isQuranSetting: false,
                   isNotification: false,
                   centerChild: Container(

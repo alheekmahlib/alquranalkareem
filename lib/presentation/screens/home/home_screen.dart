@@ -1,10 +1,10 @@
-import 'package:alquranalkareem/presentation/screens/home/widgets/hijri_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 
 import '/core/utils/constants/extensions/extensions.dart';
+import '/presentation/screens/home/widgets/hijri_widget.dart';
 import '../../../core/widgets/tab_bar_widget.dart';
 import '../../controllers/theme_controller.dart';
 import 'widgets/ayah_tafsir_widget.dart';
@@ -29,7 +29,6 @@ class HomeScreen extends StatelessWidget {
                   children: [
                     TopBarWidget(
                       isHomeChild: false,
-                      isCenterChild: false,
                       isQuranSetting: false,
                       isNotification: true,
                     ),

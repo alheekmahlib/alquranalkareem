@@ -19,7 +19,6 @@ enum TopBarType { none, search, settings }
 
 class TopBarWidget extends StatelessWidget {
   final bool isHomeChild;
-  final bool isCenterChild;
   final Widget? centerChild;
   final bool? isQuranSetting;
   final bool isNotification;
@@ -28,10 +27,10 @@ class TopBarWidget extends StatelessWidget {
   final bool? isDraggable;
   final Widget? bodyChild;
   final bool? isBackButton;
+  final Color? squareColor;
   TopBarWidget({
     super.key,
     required this.isHomeChild,
-    required this.isCenterChild,
     this.centerChild,
     this.isQuranSetting,
     required this.isNotification,
@@ -40,6 +39,7 @@ class TopBarWidget extends StatelessWidget {
     this.isDraggable = true,
     this.bodyChild,
     this.isBackButton = false,
+    this.squareColor,
   });
 
   final quranCtrl = QuranController.instance;
@@ -84,7 +84,9 @@ class TopBarWidget extends StatelessWidget {
                               bottomRight: Radius.circular(8),
                               bottomLeft: Radius.circular(8),
                             ),
-                            color: Theme.of(context).colorScheme.primary,
+                            color:
+                                squareColor ??
+                                Theme.of(context).colorScheme.primary,
                           ),
                         ),
                       ),
@@ -98,7 +100,9 @@ class TopBarWidget extends StatelessWidget {
                               bottomRight: Radius.circular(8),
                               bottomLeft: Radius.circular(8),
                             ),
-                            color: Theme.of(context).colorScheme.primary,
+                            color:
+                                squareColor ??
+                                Theme.of(context).colorScheme.primary,
                           ),
                         ),
                       ),
@@ -166,13 +170,12 @@ class TopBarWidget extends StatelessWidget {
                                     )
                                   : const SizedBox.shrink(),
                             ),
-                            if (centerChild != null)
-                              Expanded(
-                                flex: 12,
-                                child: isCenterChild
-                                    ? centerChild!
-                                    : const SizedBox.shrink(),
-                              ),
+                            Expanded(
+                              flex: 12,
+                              child: centerChild != null
+                                  ? centerChild!
+                                  : SizedBox(width: Get.width),
+                            ),
                             Expanded(
                               flex: 2,
                               child: ContainerButton(
@@ -207,7 +210,8 @@ class TopBarWidget extends StatelessWidget {
                     margin: const EdgeInsets.symmetric(horizontal: 62.0),
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(8),
-                      color: Theme.of(context).colorScheme.primary,
+                      color:
+                          squareColor ?? Theme.of(context).colorScheme.primary,
                     ),
                   ),
                 ],

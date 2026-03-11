@@ -1286,12 +1286,40 @@
   "month": "مہینہ",
   "hijri": "ہجری",
   "Sun": "اتوار",
+  "@Sun": {
+    "type": "text",
+    "placeholders": {}
+  },
   "Mon": "پیر",
+  "@Mon": {
+    "type": "text",
+    "placeholders": {}
+  },
   "Tue": "منگل",
+  "@Tue": {
+    "type": "text",
+    "placeholders": {}
+  },
   "Wed": "بدھ",
+  "@Wed": {
+    "type": "text",
+    "placeholders": {}
+  },
   "Thu": "جمعرات",
+  "@Thu": {
+    "type": "text",
+    "placeholders": {}
+  },
   "Fri": "جمعہ",
+  "@Fri": {
+    "type": "text",
+    "placeholders": {}
+  },
   "Sat": "ہفتہ",
+  "@Sat": {
+    "type": "text",
+    "placeholders": {}
+  },
   "manager_ayah_downloads": "آیات ڈاؤن لوڈ کا انتظام",
   "load_error": "اس لفظ کا ڈیٹا لوڈ نہیں ہو سکا۔",
   "no_data": "اس لفظ کے لیے کوئی ڈیٹا موجود نہیں۔",

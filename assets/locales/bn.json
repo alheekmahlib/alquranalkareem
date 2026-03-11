@@ -1286,12 +1286,40 @@
   "month": "মাস",
   "hijri": "হিজরি",
   "Sun": "রবি",
+  "@Sun": {
+    "type": "text",
+    "placeholders": {}
+  },
   "Mon": "সোম",
+  "@Mon": {
+    "type": "text",
+    "placeholders": {}
+  },
   "Tue": "মঙ্গল",
+  "@Tue": {
+    "type": "text",
+    "placeholders": {}
+  },
   "Wed": "বুধ",
-  "Thu": "বৃহঃ",
+  "@Wed": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Thu": "বৃহস্পতি",
+  "@Thu": {
+    "type": "text",
+    "placeholders": {}
+  },
   "Fri": "শুক্র",
+  "@Fri": {
+    "type": "text",
+    "placeholders": {}
+  },
   "Sat": "শনি",
+  "@Sat": {
+    "type": "text",
+    "placeholders": {}
+  },
   "manager_ayah_downloads": "আয়াত ডাউনলোড পরিচালনা",
   "load_error": "এই শব্দটির তথ্য লোড করা যায়নি।",
   "no_data": "এই শব্দটির জন্য কোনো তথ্য নেই।",

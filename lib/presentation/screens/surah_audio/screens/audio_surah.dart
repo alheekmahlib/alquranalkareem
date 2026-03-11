@@ -141,7 +141,6 @@ class AudioScreen extends StatelessWidget {
                 ),
                 TopBarWidget(
                   isHomeChild: true,
-                  isCenterChild: true,
                   isQuranSetting: false,
                   isNotification: false,
                   isDraggable: false,

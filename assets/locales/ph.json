@@ -1280,12 +1280,40 @@
   "month": "Buwan",
   "hijri": "Hijri",
   "Sun": "Lin",
+  "@Sun": {
+    "type": "text",
+    "placeholders": {}
+  },
   "Mon": "Lun",
+  "@Mon": {
+    "type": "text",
+    "placeholders": {}
+  },
   "Tue": "Mar",
+  "@Tue": {
+    "type": "text",
+    "placeholders": {}
+  },
   "Wed": "Miy",
+  "@Wed": {
+    "type": "text",
+    "placeholders": {}
+  },
   "Thu": "Huw",
+  "@Thu": {
+    "type": "text",
+    "placeholders": {}
+  },
   "Fri": "Biy",
+  "@Fri": {
+    "type": "text",
+    "placeholders": {}
+  },
   "Sat": "Sab",
+  "@Sat": {
+    "type": "text",
+    "placeholders": {}
+  },
   "manager_ayah_downloads": "Pamahalaan ang mga Download ng Ayah",
   "load_error": "Hindi ma-load ang datos para sa salitang ito.",
   "no_data": "Walang datos para sa salitang ito.",

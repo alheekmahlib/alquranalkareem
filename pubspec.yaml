@@ -57,7 +57,10 @@ dependencies:
   get_it: ^9.2.0
   get_storage: 2.1.1
   glob: ^2.1.3
-  hijri_date: ^1.0.0
+  hijri_date: #^1.0.1
+    git:
+      ref: dev
+      url: https://github.com/alheekmahlib/hijri_date.git
   home_widget: ^0.9.0
   html: ^0.15.6
   info_popup: ^4.3.2
