@@ -1277,13 +1277,41 @@
   "year": "سنة",
   "month": "شهر",
   "hijri": "هجري",
-  "Sun": "الأحد",
-  "Mon": "الإثنين",
-  "Tue": "الثلاثاء",
-  "Wed": "الأربعاء",
-  "Thu": "الخميس",
-  "Fri": "الجمعة",
-  "Sat": "السبت",
+  "Sun": "Paz",
+  "@Sun": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Mon": "Pzt",
+  "@Mon": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Tue": "Sal",
+  "@Tue": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Wed": "Çar",
+  "@Wed": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Thu": "Per",
+  "@Thu": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Fri": "Cum",
+  "@Fri": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Sat": "Cmt",
+  "@Sat": {
+    "type": "text",
+    "placeholders": {}
+  },
   "manager_ayah_downloads": "Ayet İndirmelerini Yönet",
   "load_error": "Bu kelimeye ait veriler yüklenemedi.",
   "no_data": "Bu kelime için veri yok.",

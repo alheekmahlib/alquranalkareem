@@ -713,11 +713,12 @@ packages:
   hijri_date:
     dependency: "direct main"
     description:
-      name: hijri_date
-      sha256: f58b61ec167dd67622e7a2970e3c37903a45a844cb1e65c09d52775460887a9f
-      url: "https://pub.dev"
-    source: hosted
-    version: "1.0.0"
+      path: "."
+      ref: dev
+      resolved-ref: "5c7315e30d468d344082d18134732d19e16d7256"
+      url: "https://github.com/alheekmahlib/hijri_date.git"
+    source: git
+    version: "1.0.2"
   home_widget:
     dependency: "direct main"
     description:

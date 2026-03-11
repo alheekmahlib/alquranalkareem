@@ -1,207 +1,338 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_rounded_progress_bar/flutter_rounded_progress_bar.dart';
 import 'package:flutter_rounded_progress_bar/rounded_progress_bar_style.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
+import 'package:hijri_date/hijri.dart';
 
-import '/core/utils/constants/extensions/alignment_rotated_extension.dart';
 import '/core/utils/constants/extensions/convert_number_extension.dart';
-import '/core/utils/constants/extensions/extensions.dart';
-import '../../../../core/widgets/elevated_button_widget.dart';
+import '/core/utils/helpers/app_text_styles.dart';
+import '../../../../core/utils/constants/extensions/svg_extensions.dart';
 import '../../../controllers/general/general_controller.dart';
 import '../../calendar/events.dart';
 
 class HijriWidget extends StatelessWidget {
-  HijriWidget({super.key});
+  final bool? isInCalendar;
+  HijriWidget({super.key, this.isInCalendar = false});
 
   final generalCtrl = GeneralController.instance;
   final eventCtrl = EventController.instance;
 
   @override
   Widget build(BuildContext context) {
+    final isInCalendar = this.isInCalendar == true;
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 28.0),
-      child: ElevatedButtonWidget(
-        onClick: () => Get.to(
-          () => HijriCalendarScreen(),
-          transition: Transition.downToUp,
-        ),
-        index: 0,
-        height: 140,
-        width: context.customOrientation(Get.width * .87, Get.width * .4),
-        child: Container(
-          decoration: BoxDecoration(
-            color: Theme.of(context).colorScheme.primary,
-            borderRadius: BorderRadius.circular(8),
-          ),
-          child: Column(
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                crossAxisAlignment: CrossAxisAlignment.center,
+      padding: EdgeInsets.symmetric(horizontal: isInCalendar ? 8.0 : 16.0),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          IntrinsicHeight(
+            child: InkWell(
+              onTap: isInCalendar
+                  ? null
+                  : () => Get.to(
+                      () => HijriCalendarScreen(),
+                      transition: Transition.downToUp,
+                    ),
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
                 children: [
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Container(
-                        height: 70,
-                        width: 45,
-                        alignment: Alignment.center,
-                        decoration: BoxDecoration(
-                          color: Theme.of(context).colorScheme.surface,
-                          borderRadius: alignmentLayout(
-                            const BorderRadius.only(
-                              topRight: Radius.circular(8),
-                              bottomLeft: Radius.circular(8),
-                            ),
-                            const BorderRadius.only(
-                              topLeft: Radius.circular(8),
-                              bottomRight: Radius.circular(8),
-                            ),
-                          ),
+                  Container(
+                    width: 8,
+                    decoration: BoxDecoration(
+                      color: context.theme.primaryColorLight,
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                  ),
+                  const Gap(8),
+                  Expanded(
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: context.theme.primaryColorLight.withValues(
+                          alpha: .2,
                         ),
-                        child: Text(
-                          '${eventCtrl.hijriNow.hDay}'
-                              .convertNumbersToCurrentLang(),
-                          style: TextStyle(
-                            fontSize: 26.0,
-                            fontFamily: 'kufi',
-                            color: Theme.of(context).canvasColor,
-                          ),
-                          textAlign: TextAlign.center,
-                        ),
+                        borderRadius: BorderRadius.circular(8),
                       ),
-                      const Gap(8),
-                      Column(
-                        mainAxisSize: MainAxisSize.min,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment: MainAxisAlignment.center,
+                      child: Stack(
+                        alignment: Alignment.topCenter,
                         children: [
-                          Text(
-                            eventCtrl.hijriNow.getDayName().tr,
-                            style: TextStyle(
-                              fontSize: 22.0,
-                              fontFamily: 'kufi',
-                              color: Theme.of(context).canvasColor,
+                          Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 16.0),
+                            child: Text(
+                              eventCtrl.hijriNow.getDayName().tr,
+                              style: AppTextStyles.titleLarge().copyWith(
+                                fontSize: 40,
+                                color: context.theme.primaryColorLight
+                                    .withValues(alpha: isInCalendar ? .9 : .3),
+                              ),
+                              textAlign: TextAlign.center,
                             ),
-                            textAlign: TextAlign.center,
                           ),
-                          Text(
-                            '${'${eventCtrl.hijriNow.hYear}'.convertNumbersToCurrentLang()} هـ',
-                            style: TextStyle(
-                              fontSize: 18.0,
-                              fontFamily: 'kufi',
-                              color: Theme.of(context).canvasColor,
-                            ),
-                            textAlign: TextAlign.center,
+                          Column(
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    _hijriWidget(context, isInCalendar),
+                                    const Spacer(),
+                                    _gregorianWidget(context, isInCalendar),
+                                  ],
+                                ),
+                              ),
+                              _progressBarWidget(context),
+                              const Gap(8),
+                            ],
                           ),
                         ],
                       ),
-                    ],
-                  ),
-                  const Spacer(),
-                  SvgPicture.asset(
-                    'assets/svg/hijri/${eventCtrl.hijriNow.hMonth}.svg',
-                    width: 120,
-                    colorFilter: ColorFilter.mode(
-                      Theme.of(context).canvasColor,
-                      BlendMode.srcIn,
                     ),
                   ),
-                  const Gap(32),
                 ],
               ),
-              const Gap(8),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                child: Stack(
-                  alignment: Alignment.center,
-                  children: [
-                    RoundedProgressBar(
-                      height: 40,
-                      style: RoundedProgressBarStyle(
-                        borderWidth: 0,
-                        widthShadow: 5,
-                        backgroundProgress: Theme.of(context).canvasColor,
-                        colorProgress: Theme.of(context).colorScheme.surface,
-                        colorProgressDark: Theme.of(
-                          context,
-                        ).colorScheme.surface.withValues(alpha: .5),
-                        colorBorder: Colors.transparent,
-                        colorBackgroundIcon: Colors.transparent,
-                      ),
-                      borderRadius: const BorderRadius.all(Radius.circular(8)),
-                      percent:
-                          ((eventCtrl.hijriNow.hDay /
-                              eventCtrl.getLengthOfMonth) *
-                          100),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                      child: Center(
-                        child: eventCtrl.isLastDayOfMonth
-                            ? Text(
-                                '${'lastDayOf'.tr} ${'${eventCtrl.hijriNow.getLongMonthName()}'.tr}',
-                                style: TextStyle(
-                                  fontSize: 14.0,
-                                  fontFamily: 'kufi',
-                                  color: Theme.of(context).disabledColor,
-                                ),
-                                textAlign: TextAlign.center,
-                              )
-                            : Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Expanded(
-                                    flex: 7,
-                                    child: FittedBox(
-                                      fit: BoxFit.scaleDown,
-                                      child: Text(
-                                        '${'RemainsUntilTheEndOf'.tr} ${'${eventCtrl.hijriNow.getLongMonthName()}'.tr}',
-                                        style: TextStyle(
-                                          fontSize: 14.0,
-                                          fontFamily: 'kufi',
-                                          color: Theme.of(
-                                            context,
-                                          ).disabledColor,
-                                        ),
-                                        textAlign: TextAlign.center,
-                                      ),
-                                    ),
-                                  ),
-                                  const Gap(16),
-                                  Expanded(
-                                    flex: 3,
-                                    child: FittedBox(
-                                      fit: BoxFit.scaleDown,
-                                      child: Text(
-                                        '${'${eventCtrl.daysArabicConvert((eventCtrl.getLengthOfMonth - eventCtrl.hijriNow.hDay), (eventCtrl.getLengthOfMonth - eventCtrl.hijriNow.hDay).toString())}'}'
-                                            .convertNumbersToCurrentLang(),
-                                        style: TextStyle(
-                                          fontSize: 14.0,
-                                          fontFamily: 'kufi',
-                                          color: Theme.of(
-                                            context,
-                                          ).disabledColor,
-                                        ),
-                                        textAlign: TextAlign.center,
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              const Gap(8),
-            ],
+            ),
           ),
+          if (isInCalendar) ...[
+            const Gap(8),
+            GetBuilder<EventController>(
+              builder: (eventCtrl) => HorizontalWeekCalendar(
+                useHijriDates: true,
+                showTopNavbar: false,
+                translateNumbers: true,
+                showNavigationButtons: false,
+                showGregorianUnderHijri: true,
+                weekStartFrom: WeekStartFrom.friday,
+                initialDate: eventCtrl.now,
+                minDate: eventCtrl.now.subtract(const Duration(days: 7)),
+                maxDate: eventCtrl.now.add(const Duration(days: 7)),
+                hijriMinDate: eventCtrl.hijriMin,
+                hijriMaxDate: eventCtrl.hijriMax,
+                hijriInitialDate: eventCtrl.hijriNow,
+                itemBorderColor: Colors.transparent,
+                disabledBackgroundColor: Colors.transparent,
+                inactiveBackgroundColor: Colors.transparent,
+                activeBackgroundColor: context.theme.colorScheme.surface
+                    .withValues(alpha: .5),
+                dayNameTextStyle: AppTextStyles.titleMedium().copyWith(
+                  height: .9,
+                  fontSize: 18,
+                  color: context.theme.canvasColor,
+                ),
+                dayTextStyle: AppTextStyles.titleMedium().copyWith(
+                  height: 1.1,
+                  color: context.theme.canvasColor.withValues(alpha: .2),
+                ),
+                gregorianDayTextStyle: AppTextStyles.titleMedium().copyWith(
+                  height: 1.1,
+                  color: context.theme.canvasColor.withValues(alpha: .2),
+                ),
+                languageCode: Get.locale?.languageCode ?? 'ar',
+                customDayNames: [
+                  'Sun'.tr,
+                  'Mon'.tr,
+                  'Tue'.tr,
+                  'Wed'.tr,
+                  'Thu'.tr,
+                  'Fri'.tr,
+                  'Sat'.tr,
+                ],
+              ),
+            ),
+          ],
+        ],
+      ),
+    );
+  }
+
+  Padding _progressBarWidget(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 8.0),
+      child: Container(
+        height: 40,
+        padding: const EdgeInsets.all(4.0),
+        decoration: BoxDecoration(
+          color: context.theme.colorScheme.primaryContainer,
+          borderRadius: const BorderRadius.all(Radius.circular(8)),
         ),
+        child: Stack(
+          alignment: Alignment.center,
+          children: [
+            RoundedProgressBar(
+              height: 30,
+              style: RoundedProgressBarStyle(
+                borderWidth: 0,
+                widthShadow: 5,
+                backgroundProgress: context.theme.colorScheme.primaryContainer,
+                colorProgress: context.theme.colorScheme.surface,
+                colorProgressDark: context.theme.colorScheme.surface.withValues(
+                  alpha: .5,
+                ),
+                colorBorder: context.theme.colorScheme.primaryContainer,
+                colorBackgroundIcon: Colors.transparent,
+              ),
+              borderRadius: const BorderRadius.all(Radius.circular(8)),
+              percent:
+                  ((eventCtrl.hijriNow.hDay / eventCtrl.getLengthOfMonth) *
+                  100),
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 8.0),
+              child: Center(
+                child: eventCtrl.isLastDayOfMonth
+                    ? Text(
+                        '${'lastDayOf'.tr} ${'${eventCtrl.hijriNow.getLongMonthName()}'.tr}',
+                        style: AppTextStyles.titleMedium(fontSize: 16.0),
+                        textAlign: TextAlign.center,
+                      )
+                    : Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Expanded(
+                            flex: 7,
+                            child: Align(
+                              alignment: AlignmentDirectional.centerStart,
+                              child: FittedBox(
+                                fit: BoxFit.scaleDown,
+                                child: Text(
+                                  '${'RemainsUntilTheEndOf'.tr} ${'${eventCtrl.hijriNow.getLongMonthName()}'.tr}',
+                                  style: AppTextStyles.titleMedium(
+                                    fontSize: 16.0,
+                                  ),
+                                  textAlign: TextAlign.start,
+                                ),
+                              ),
+                            ),
+                          ),
+                          const Gap(16),
+                          Expanded(
+                            flex: 3,
+                            child: Align(
+                              alignment: AlignmentDirectional.centerEnd,
+                              child: FittedBox(
+                                fit: BoxFit.scaleDown,
+                                child: Text(
+                                  '${'${eventCtrl.daysArabicConvert((eventCtrl.getLengthOfMonth - eventCtrl.hijriNow.hDay), (eventCtrl.getLengthOfMonth - eventCtrl.hijriNow.hDay).toString())}'}'
+                                      .convertNumbersToCurrentLang(),
+                                  style: AppTextStyles.titleMedium(
+                                    fontSize: 16.0,
+                                  ),
+                                  textAlign: TextAlign.end,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Container _hijriWidget(BuildContext context, bool isInCalendar) {
+    return Container(
+      height: 90,
+      width: 120,
+      margin: const EdgeInsets.symmetric(horizontal: 8.0),
+      child: Stack(
+        children: [
+          Align(
+            alignment: Alignment.center,
+            child: customSvgWithColor(
+              'assets/svg/hijri/${eventCtrl.hijriNow.hMonth}.svg',
+              width: 120,
+              color: isInCalendar
+                  ? context.theme.canvasColor
+                  : Theme.of(context).colorScheme.inversePrimary,
+            ),
+          ),
+          Align(
+            alignment: Alignment.topRight,
+            child: Text(
+              '${eventCtrl.hijriNow.hDay}'.convertNumbersToCurrentLang(),
+              style: AppTextStyles.titleMedium().copyWith(
+                fontSize: 24.0,
+                fontWeight: FontWeight.bold,
+                color: isInCalendar
+                    ? context.theme.canvasColor
+                    : Theme.of(context).colorScheme.inversePrimary,
+              ),
+              textAlign: TextAlign.center,
+            ),
+          ),
+          Align(
+            alignment: Alignment.bottomLeft,
+            child: Text(
+              '${'${eventCtrl.hijriNow.hYear}'.convertNumbersToCurrentLang()} هـ',
+              style: AppTextStyles.titleMedium().copyWith(
+                fontSize: 18.0,
+                fontWeight: FontWeight.bold,
+                color: isInCalendar
+                    ? context.theme.canvasColor
+                    : Theme.of(context).colorScheme.inversePrimary,
+              ),
+              textAlign: TextAlign.center,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Container _gregorianWidget(BuildContext context, bool isInCalendar) {
+    return Container(
+      height: 90,
+      width: 100,
+      margin: const EdgeInsets.symmetric(horizontal: 8.0),
+      child: Stack(
+        children: [
+          Align(
+            alignment: Alignment.center,
+            child: Text(
+              '${eventCtrl.dateFormat}'.convertNumbersToCurrentLang(),
+              style: AppTextStyles.titleLarge().copyWith(
+                fontSize: 34,
+                color: isInCalendar
+                    ? context.theme.canvasColor
+                    : Theme.of(context).colorScheme.inversePrimary,
+              ),
+              textAlign: TextAlign.center,
+            ),
+          ),
+          Align(
+            alignment: Alignment.topRight,
+            child: Text(
+              '${eventCtrl.now.day}'.convertNumbersToCurrentLang(),
+              style: AppTextStyles.titleMedium().copyWith(
+                fontSize: 24.0,
+                fontWeight: FontWeight.bold,
+                color: isInCalendar
+                    ? context.theme.canvasColor
+                    : Theme.of(context).colorScheme.inversePrimary,
+              ),
+              textAlign: TextAlign.center,
+            ),
+          ),
+          Align(
+            alignment: Alignment.bottomLeft,
+            child: Text(
+              '${'${eventCtrl.now.year}'.convertNumbersToCurrentLang()} م',
+              style: AppTextStyles.titleMedium().copyWith(
+                fontSize: 18.0,
+                fontWeight: FontWeight.bold,
+                color: isInCalendar
+                    ? context.theme.canvasColor
+                    : Theme.of(context).colorScheme.inversePrimary,
+              ),
+              textAlign: TextAlign.center,
+            ),
+          ),
+        ],
       ),
     );
   }

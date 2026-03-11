@@ -36,7 +36,6 @@ class BooksScreen extends StatelessWidget {
               ),
               TopBarWidget(
                 isHomeChild: true,
-                isCenterChild: true,
                 isQuranSetting: false,
                 isNotification: false,
                 bodyChild: SearchBuild(),

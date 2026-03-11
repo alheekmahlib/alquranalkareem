@@ -1286,12 +1286,40 @@
   "month": "Mes",
   "hijri": "Hijri",
   "Sun": "Dom",
+  "@Sun": {
+    "type": "text",
+    "placeholders": {}
+  },
   "Mon": "Lun",
+  "@Mon": {
+    "type": "text",
+    "placeholders": {}
+  },
   "Tue": "Mar",
+  "@Tue": {
+    "type": "text",
+    "placeholders": {}
+  },
   "Wed": "Mié",
+  "@Wed": {
+    "type": "text",
+    "placeholders": {}
+  },
   "Thu": "Jue",
+  "@Thu": {
+    "type": "text",
+    "placeholders": {}
+  },
   "Fri": "Vie",
+  "@Fri": {
+    "type": "text",
+    "placeholders": {}
+  },
   "Sat": "Sáb",
+  "@Sat": {
+    "type": "text",
+    "placeholders": {}
+  },
   "manager_ayah_downloads": "Gestionar Descargas de Ayah",
   "load_error": "No se pudieron cargar los datos de esta palabra.",
   "no_data": "No hay datos para esta palabra.",

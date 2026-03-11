@@ -1280,12 +1280,40 @@
   "month": "Bulan",
   "hijri": "Hijriah",
   "Sun": "Min",
+  "@Sun": {
+    "type": "text",
+    "placeholders": {}
+  },
   "Mon": "Sen",
+  "@Mon": {
+    "type": "text",
+    "placeholders": {}
+  },
   "Tue": "Sel",
+  "@Tue": {
+    "type": "text",
+    "placeholders": {}
+  },
   "Wed": "Rab",
+  "@Wed": {
+    "type": "text",
+    "placeholders": {}
+  },
   "Thu": "Kam",
+  "@Thu": {
+    "type": "text",
+    "placeholders": {}
+  },
   "Fri": "Jum",
+  "@Fri": {
+    "type": "text",
+    "placeholders": {}
+  },
   "Sat": "Sab",
+  "@Sat": {
+    "type": "text",
+    "placeholders": {}
+  },
   "manager_ayah_downloads": "Kelola Unduhan Ayat",
   "load_error": "Gagal memuat data untuk kata ini.",
   "no_data": "Tidak ada data untuk kata ini.",

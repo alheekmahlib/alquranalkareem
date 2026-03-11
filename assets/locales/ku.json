@@ -1277,13 +1277,41 @@
   "year": "ساڵ",
   "month": "مانگ",
   "hijri": "هجري",
-  "Sun": "یەکشەممە",
-  "Mon": "دووشەممە",
-  "Tue": "سێشەممە",
-  "Wed": "چوارشەممە",
-  "Thu": "پێنجشەممە",
+  "Sun": "یەک",
+  "@Sun": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Mon": "دوو",
+  "@Mon": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Tue": "سێ",
+  "@Tue": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Wed": "چوار",
+  "@Wed": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Thu": "پێنج",
+  "@Thu": {
+    "type": "text",
+    "placeholders": {}
+  },
   "Fri": "هەینی",
-  "Sat": "شەممە",
+  "@Fri": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Sat": "شەمە",
+  "@Sat": {
+    "type": "text",
+    "placeholders": {}
+  },
   "manager_ayah_downloads": "بەڕێوبردنی داگرتنی ئایەتەکان",
   "load_error": "نەتوانرا زانیارییەکانی ئەم وشەیە باربکرێت.",
   "no_data": "هیچ زانیاریێک بۆ ئەم وشەیە نییە.",

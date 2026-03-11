@@ -97,7 +97,6 @@ class ReadViewScreen extends StatelessWidget {
         ),
         TopBarWidget(
           isHomeChild: true,
-          isCenterChild: true,
           isQuranSetting: false,
           isNotification: false,
           isBackButton: true,

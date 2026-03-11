@@ -17,8 +17,15 @@ class EventController extends GetxController {
   int? startYear;
   int? endYear;
   RxInt adjustHijriDays = 0.obs;
-  BoxController boxController = BoxController();
+  Rx<BoxController> boxController = BoxController().obs;
   Rx<HijriDate> calenderMonth = HijriDate.now().obs;
+
+  String get dateFormat => DateFormat('MMM').format(now);
+
+  HijriDate get hijriMin =>
+      HijriDate.fromHijri(hijriNow.hYear, hijriNow.hMonth, hijriNow.hDay - 7);
+  HijriDate get hijriMax =>
+      HijriDate.fromHijri(hijriNow.hYear, hijriNow.hMonth, hijriNow.hDay + 7);
 
   @override
   void onInit() {
@@ -26,7 +33,10 @@ class EventController extends GetxController {
     adjustHijriDays.value = box.read('adjustHijriDays') ?? 0;
     selectedDate = HijriDate.now();
     initializeMonths();
-    pageController = PageController(initialPage: selectedDate.hMonth - 1);
+    pageController = PageController(
+      initialPage: selectedDate.hMonth - 1,
+      viewportFraction: .38,
+    );
     Future.delayed(const Duration(seconds: 20), () async {
       await loadJson();
       await ramadhanOrEidGreeting();
@@ -292,15 +302,7 @@ class EventController extends GetxController {
   }
 
   String getWeekdayShortName(int index) {
-    final weekdays = [
-      'Sunday',
-      'Monday',
-      'Tuesday',
-      'Wednesday',
-      'Thursday',
-      'Friday',
-      'Saturday',
-    ];
+    final weekdays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
     return weekdays[index].tr;
   }
 

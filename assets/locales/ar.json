@@ -1277,13 +1277,41 @@
   "year": "سنة",
   "month": "شهر",
   "hijri": "هجري",
-  "Sun": "الأحد",
-  "Mon": "الإثنين",
-  "Tue": "الثلاثاء",
-  "Wed": "الأربعاء",
-  "Thu": "الخميس",
-  "Fri": "الجمعة",
-  "Sat": "السبت",
+  "Sun": "أح",
+  "@Sun": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Mon": "إث",
+  "@Mon": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Tue": "ثل",
+  "@Tue": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Wed": "أر",
+  "@Wed": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Thu": "خم",
+  "@Thu": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Fri": "جم",
+  "@Fri": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Sat": "سب",
+  "@Sat": {
+    "type": "text",
+    "placeholders": {}
+  },
   "manager_ayah_downloads": "إدارة تحميل الآيات",
   "load_error": "تعذّر تحميل بيانات هذه الكلمة.",
   "no_data": "لا توجد بيانات لهذه الكلمة.",
