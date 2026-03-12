@@ -8,7 +8,6 @@
 
 #include <awesome_notifications/awesome_notifications_plugin.h>
 #include <awesome_notifications_core/awesome_notifications_core_plugin.h>
-#include <desktop_window/desktop_window_plugin.h>
 #include <flutter_timezone/flutter_timezone_plugin.h>
 #include <sqlite3_flutter_libs/sqlite3_flutter_libs_plugin.h>
 #include <url_launcher_linux/url_launcher_plugin.h>
@@ -20,9 +19,6 @@ void fl_register_plugins(FlPluginRegistry* registry) {
   g_autoptr(FlPluginRegistrar) awesome_notifications_core_registrar =
       fl_plugin_registry_get_registrar_for_plugin(registry, "AwesomeNotificationsCorePlugin");
   awesome_notifications_core_plugin_register_with_registrar(awesome_notifications_core_registrar);
-  g_autoptr(FlPluginRegistrar) desktop_window_registrar =
-      fl_plugin_registry_get_registrar_for_plugin(registry, "DesktopWindowPlugin");
-  desktop_window_plugin_register_with_registrar(desktop_window_registrar);
   g_autoptr(FlPluginRegistrar) flutter_timezone_registrar =
       fl_plugin_registry_get_registrar_for_plugin(registry, "FlutterTimezonePlugin");
   flutter_timezone_plugin_register_with_registrar(flutter_timezone_registrar);

@@ -141,19 +141,29 @@ class ContainerButton extends StatelessWidget {
                           ),
                         if (value?.value ?? false) const Gap(8),
                         if (svgWithColorPath != null)
-                          customSvgWithColor(
-                            height: svgHeight ?? 24,
-                            width: svgWidth ?? 24,
-                            svgWithColorPath ?? SvgPath.svgAlert,
-                            color:
-                                svgColor ??
-                                Theme.of(context).colorScheme.surface,
+                          Flexible(
+                            child: FittedBox(
+                              fit: BoxFit.scaleDown,
+                              child: customSvgWithColor(
+                                height: svgHeight ?? 24,
+                                width: svgWidth ?? 24,
+                                svgWithColorPath ?? SvgPath.svgAlert,
+                                color:
+                                    svgColor ??
+                                    Theme.of(context).colorScheme.surface,
+                              ),
+                            ),
                           ),
                         if (svgPath != null)
-                          customSvg(
-                            height: svgHeight ?? 24,
-                            width: svgWidth ?? 24,
-                            svgPath ?? SvgPath.svgAlert,
+                          Flexible(
+                            child: FittedBox(
+                              fit: BoxFit.scaleDown,
+                              child: customSvg(
+                                height: svgHeight ?? 24,
+                                width: svgWidth ?? 24,
+                                svgPath ?? SvgPath.svgAlert,
+                              ),
+                            ),
                           ),
                         if (isButton ?? false) const Gap(8),
                         if (isButton ?? false)

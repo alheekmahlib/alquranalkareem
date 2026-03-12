@@ -37,7 +37,7 @@ extension BottomSheetExtension on void {
             if (handleChild != null) handleChild,
             Container(
               height: 8,
-              width: Get.width,
+              width: 350,
               margin: const EdgeInsets.symmetric(horizontal: 62.0),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(8),

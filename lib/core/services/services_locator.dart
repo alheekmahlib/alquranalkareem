@@ -1,7 +1,5 @@
 import 'dart:io' show Platform;
-import 'dart:ui' show Size;
 
-import 'package:desktop_window/desktop_window.dart';
 import 'package:flutter_timezone/flutter_timezone.dart';
 import 'package:get/get.dart';
 import 'package:get_it/get_it.dart';
@@ -31,17 +29,7 @@ class ServicesLocator {
   //   sl.registerSingleton<SharedPreferences>(v);
   // });
 
-  Future _windowSize() async {
-    if (Platform.isMacOS || Platform.isWindows || Platform.isLinux)
-      await DesktopWindow.setWindowSize(const Size(900, 840));
-  }
-
   Future<void> init() async {
-    await Future.wait([
-      // _initPrefs(), // moved to notificationsCtrl
-      _windowSize(),
-    ]);
-
     // Controllers
     sl.registerLazySingleton<ThemeController>(
       () => Get.put<ThemeController>(ThemeController(), permanent: true),

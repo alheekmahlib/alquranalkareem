@@ -361,14 +361,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.7.11"
-  desktop_window:
-    dependency: "direct main"
-    description:
-      name: desktop_window
-      sha256: d0590e75a0a8f91245b439fb7f2bf0ebb62d9cd9fdc7aa0622a5d50615c46845
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.4.2"
   device_info_plus:
     dependency: transitive
     description:
@@ -612,14 +604,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.0.2"
-  flutter_sliding_box:
-    dependency: "direct main"
-    description:
-      name: flutter_sliding_box
-      sha256: "93d3e42c5128813c53b890a84c1f221ac44c90a38394f00b2acff408df30d7cb"
-      url: "https://pub.dev"
-    source: hosted
-    version: "1.1.5"
   flutter_staggered_animations:
     dependency: "direct main"
     description:
@@ -640,10 +624,10 @@ packages:
     dependency: "direct main"
     description:
       name: flutter_svg
-      sha256: "87fbd7c534435b6c5d9d98b01e1fd527812b82e68ddd8bd35fc45ed0fa8f0a95"
+      sha256: "1ded017b39c8e15c8948ea855070a5ff8ff8b3d5e83f3446e02d6bb12add7ad9"
       url: "https://pub.dev"
     source: hosted
-    version: "2.2.3"
+    version: "2.2.4"
   flutter_test:
     dependency: "direct dev"
     description: flutter
@@ -713,12 +697,11 @@ packages:
   hijri_date:
     dependency: "direct main"
     description:
-      path: "."
-      ref: dev
-      resolved-ref: "5c7315e30d468d344082d18134732d19e16d7256"
-      url: "https://github.com/alheekmahlib/hijri_date.git"
-    source: git
-    version: "1.0.2"
+      name: hijri_date
+      sha256: "2c68fa35a01f0763db501fab2ae659dd5c8156f56492ccf3970eb92c6300aaef"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.1.0"
   home_widget:
     dependency: "direct main"
     description:
@@ -951,6 +934,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.1.4"
+  navigator_resizable:
+    dependency: transitive
+    description:
+      name: navigator_resizable
+      sha256: "6df8fcf5ef4267dd8b1cda35b220427a4f4864c659519125a40365c8d3027697"
+      url: "https://pub.dev"
+    source: hosted
+    version: "3.0.1"
   nested:
     dependency: transitive
     description:
@@ -1317,6 +1308,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.0.1"
+  smooth_sheets:
+    dependency: "direct main"
+    description:
+      name: smooth_sheets
+      sha256: fe1c9e4f1cd20c841cc2155cb125da74c004baf7bcfdf0bef4f87a7183d0907b
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.17.0"
   source_gen:
     dependency: transitive
     description:

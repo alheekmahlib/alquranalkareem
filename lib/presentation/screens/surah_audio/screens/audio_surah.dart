@@ -57,7 +57,7 @@ class AudioScreen extends StatelessWidget {
                           children: [
                             Container(
                               height: 8,
-                              width: Get.width,
+                              width: 350,
                               margin: const EdgeInsets.symmetric(
                                 horizontal: 62.0,
                               ),
