@@ -19,7 +19,7 @@ class CalculatingDateEventsWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     int daysRemaining = countdownCtrl.calculate(year, month, day);
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 3.0, horizontal: 32.0),
+      padding: const EdgeInsets.symmetric(vertical: 3.0, horizontal: 16.0),
       child: Opacity(
         opacity: daysRemaining == 0 ? .5 : 1,
         child: Container(

@@ -7,6 +7,7 @@ import 'package:hijri_date/hijri.dart';
 
 import '/core/utils/constants/extensions/convert_number_extension.dart';
 import '/core/utils/helpers/app_text_styles.dart';
+import '../../../../core/utils/constants/extensions/extensions.dart';
 import '../../../../core/utils/constants/extensions/svg_extensions.dart';
 import '../../../controllers/general/general_controller.dart';
 import '../../calendar/events.dart';
@@ -21,128 +22,142 @@ class HijriWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final isInCalendar = this.isInCalendar == true;
-    return Padding(
-      padding: EdgeInsets.symmetric(horizontal: isInCalendar ? 8.0 : 16.0),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          IntrinsicHeight(
-            child: InkWell(
-              onTap: isInCalendar
-                  ? null
-                  : () => Get.to(
-                      () => HijriCalendarScreen(),
-                      transition: Transition.downToUp,
-                    ),
-              child: Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Container(
-                    width: 8,
-                    decoration: BoxDecoration(
-                      color: context.theme.primaryColorLight,
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                  ),
-                  const Gap(8),
-                  Expanded(
-                    child: Container(
-                      decoration: BoxDecoration(
-                        color: context.theme.primaryColorLight.withValues(
-                          alpha: .2,
+    return Align(
+      alignment: context.customOrientation(
+        Alignment.center,
+        AlignmentDirectional.centerEnd,
+      ),
+      child: SizedBox(
+        width: context.customOrientation(Get.width, Get.width * .5),
+        child: Padding(
+          padding: EdgeInsets.symmetric(horizontal: isInCalendar ? 8.0 : 16.0),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              IntrinsicHeight(
+                child: InkWell(
+                  onTap: isInCalendar
+                      ? null
+                      : () => Get.to(
+                          () => HijriCalendarScreen(),
+                          transition: Transition.downToUp,
                         ),
-                        borderRadius: BorderRadius.circular(8),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Container(
+                        width: 8,
+                        decoration: BoxDecoration(
+                          color: context.theme.primaryColorLight,
+                          borderRadius: BorderRadius.circular(8),
+                        ),
                       ),
-                      child: Stack(
-                        alignment: Alignment.topCenter,
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.symmetric(vertical: 16.0),
-                            child: Text(
-                              eventCtrl.hijriNow.getDayName().tr,
-                              style: AppTextStyles.titleLarge().copyWith(
-                                fontSize: 40,
-                                color: context.theme.primaryColorLight
-                                    .withValues(alpha: isInCalendar ? .9 : .3),
-                              ),
-                              textAlign: TextAlign.center,
+                      const Gap(8),
+                      Expanded(
+                        child: Container(
+                          decoration: BoxDecoration(
+                            color: context.theme.primaryColorLight.withValues(
+                              alpha: .2,
                             ),
+                            borderRadius: BorderRadius.circular(8),
                           ),
-                          Column(
+                          child: Stack(
+                            alignment: Alignment.topCenter,
                             children: [
                               Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: [
-                                    _hijriWidget(context, isInCalendar),
-                                    const Spacer(),
-                                    _gregorianWidget(context, isInCalendar),
-                                  ],
+                                padding: const EdgeInsets.symmetric(
+                                  vertical: 16.0,
+                                ),
+                                child: Text(
+                                  eventCtrl.hijriNow.getDayName().tr,
+                                  style: AppTextStyles.titleLarge().copyWith(
+                                    fontSize: 40,
+                                    color: context.theme.primaryColorLight
+                                        .withValues(
+                                          alpha: isInCalendar ? .9 : .3,
+                                        ),
+                                  ),
+                                  textAlign: TextAlign.center,
                                 ),
                               ),
-                              _progressBarWidget(context),
-                              const Gap(8),
+                              Column(
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                      children: [
+                                        _hijriWidget(context, isInCalendar),
+                                        const Spacer(),
+                                        _gregorianWidget(context, isInCalendar),
+                                      ],
+                                    ),
+                                  ),
+                                  _progressBarWidget(context),
+                                  const Gap(8),
+                                ],
+                              ),
                             ],
                           ),
-                        ],
+                        ),
                       ),
-                    ),
+                    ],
                   ),
-                ],
+                ),
               ),
-            ),
+              if (isInCalendar) ...[
+                const Gap(8),
+                GetBuilder<EventController>(
+                  builder: (eventCtrl) => HorizontalWeekCalendar(
+                    useHijriDates: true,
+                    showTopNavbar: false,
+                    translateNumbers: true,
+                    showNavigationButtons: false,
+                    showGregorianUnderHijri: true,
+                    weekStartFrom: WeekStartFrom.friday,
+                    initialDate: eventCtrl.now,
+                    minDate: eventCtrl.now.subtract(const Duration(days: 7)),
+                    maxDate: eventCtrl.now.add(const Duration(days: 7)),
+                    hijriMinDate: eventCtrl.hijriMin,
+                    hijriMaxDate: eventCtrl.hijriMax,
+                    hijriInitialDate: eventCtrl.hijriNow,
+                    itemBorderColor: Colors.transparent,
+                    disabledBackgroundColor: Colors.transparent,
+                    inactiveBackgroundColor: Colors.transparent,
+                    activeBackgroundColor: context.theme.colorScheme.surface
+                        .withValues(alpha: .5),
+                    dayNameTextStyle: AppTextStyles.titleMedium().copyWith(
+                      height: .9,
+                      fontSize: 18,
+                      color: context.theme.canvasColor,
+                    ),
+                    dayTextStyle: AppTextStyles.titleMedium().copyWith(
+                      height: 1.1,
+                      color: context.theme.canvasColor.withValues(alpha: .2),
+                    ),
+                    gregorianDayTextStyle: AppTextStyles.titleMedium().copyWith(
+                      height: 1.1,
+                      color: context.theme.canvasColor.withValues(alpha: .2),
+                    ),
+                    languageCode: Get.locale?.languageCode ?? 'ar',
+                    customDayNames: [
+                      'Sun'.tr,
+                      'Mon'.tr,
+                      'Tue'.tr,
+                      'Wed'.tr,
+                      'Thu'.tr,
+                      'Fri'.tr,
+                      'Sat'.tr,
+                    ],
+                  ),
+                ),
+              ],
+            ],
           ),
-          if (isInCalendar) ...[
-            const Gap(8),
-            GetBuilder<EventController>(
-              builder: (eventCtrl) => HorizontalWeekCalendar(
-                useHijriDates: true,
-                showTopNavbar: false,
-                translateNumbers: true,
-                showNavigationButtons: false,
-                showGregorianUnderHijri: true,
-                weekStartFrom: WeekStartFrom.friday,
-                initialDate: eventCtrl.now,
-                minDate: eventCtrl.now.subtract(const Duration(days: 7)),
-                maxDate: eventCtrl.now.add(const Duration(days: 7)),
-                hijriMinDate: eventCtrl.hijriMin,
-                hijriMaxDate: eventCtrl.hijriMax,
-                hijriInitialDate: eventCtrl.hijriNow,
-                itemBorderColor: Colors.transparent,
-                disabledBackgroundColor: Colors.transparent,
-                inactiveBackgroundColor: Colors.transparent,
-                activeBackgroundColor: context.theme.colorScheme.surface
-                    .withValues(alpha: .5),
-                dayNameTextStyle: AppTextStyles.titleMedium().copyWith(
-                  height: .9,
-                  fontSize: 18,
-                  color: context.theme.canvasColor,
-                ),
-                dayTextStyle: AppTextStyles.titleMedium().copyWith(
-                  height: 1.1,
-                  color: context.theme.canvasColor.withValues(alpha: .2),
-                ),
-                gregorianDayTextStyle: AppTextStyles.titleMedium().copyWith(
-                  height: 1.1,
-                  color: context.theme.canvasColor.withValues(alpha: .2),
-                ),
-                languageCode: Get.locale?.languageCode ?? 'ar',
-                customDayNames: [
-                  'Sun'.tr,
-                  'Mon'.tr,
-                  'Tue'.tr,
-                  'Wed'.tr,
-                  'Thu'.tr,
-                  'Fri'.tr,
-                  'Sat'.tr,
-                ],
-              ),
-            ),
-          ],
-        ],
+        ),
       ),
     );
   }

@@ -1,6 +1,7 @@
 name: alquranalkareem
 description: Al-Quran Al-Kareem - Al-Heekmah Library.
 
+publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 
 version: 5.0.0+0
 
@@ -22,7 +23,6 @@ dependencies:
   bot_toast: ^4.1.3
   connectivity_plus: ^7.0.0
   cupertino_icons: ^1.0.8
-  desktop_window: ^0.4.2
   dio: ^5.9.1
   drift: ^2.30.1
   drift_flutter: ^0.2.8
@@ -46,7 +46,7 @@ dependencies:
   flutter_rounded_progress_bar: ^0.3.2
   flutter_screenutil: ^5.9.3
   flutter_slider_drawer: ^3.0.2
-  flutter_sliding_box: ^1.1.5
+  # flutter_sliding_box: ^1.1.5
   flutter_staggered_animations: ^1.1.1
   flutter_staggered_grid_view: ^0.7.0
   flutter_svg: ^2.2.3
@@ -56,10 +56,7 @@ dependencies:
   get_it: ^9.2.0
   get_storage: 2.1.1
   glob: ^2.1.3
-  hijri_date: #^1.0.1
-    git:
-      ref: dev
-      url: https://github.com/alheekmahlib/hijri_date.git
+  hijri_date: ^1.1.0
   home_widget: ^0.9.0
   html: ^0.15.6
   info_popup: ^4.3.2
@@ -82,6 +79,7 @@ dependencies:
   share_plus: ^12.0.1
   shimmer: ^3.0.0
   smooth_page_indicator: ^2.0.1
+  smooth_sheets: ^0.17.0
   square_percent_indicater: ^0.1.0
   timezone: ^0.11.0
   url_launcher: ^6.3.2

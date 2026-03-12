@@ -155,17 +155,20 @@ class TopBarWidget extends StatelessWidget {
                                           : SvgPath.svgHomeHome,
                                     )
                                   : isNotification
-                                  ? ContainerButton(
-                                      onPressed: () => customBottomSheet(
-                                        NotificationsScreen(),
-                                      ),
-                                      svgHeight: 35,
-                                      svgWidth: 35,
-                                      horizontalMargin: 6.0,
-                                      verticalMargin: 8.0,
-                                      backgroundColor: Colors.transparent,
-                                      child: const NotificationIconWidget(
-                                        iconHeight: 30,
+                                  ? FittedBox(
+                                      fit: BoxFit.scaleDown,
+                                      child: ContainerButton(
+                                        onPressed: () => customBottomSheet(
+                                          NotificationsScreen(),
+                                        ),
+                                        svgHeight: 35,
+                                        svgWidth: 35,
+                                        horizontalMargin: 6.0,
+                                        verticalMargin: 8.0,
+                                        backgroundColor: Colors.transparent,
+                                        child: const NotificationIconWidget(
+                                          iconHeight: 30,
+                                        ),
                                       ),
                                     )
                                   : const SizedBox.shrink(),
@@ -206,7 +209,7 @@ class TopBarWidget extends StatelessWidget {
                   ),
                   Container(
                     height: 8,
-                    width: Get.width,
+                    width: 350,
                     margin: const EdgeInsets.symmetric(horizontal: 62.0),
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(8),
