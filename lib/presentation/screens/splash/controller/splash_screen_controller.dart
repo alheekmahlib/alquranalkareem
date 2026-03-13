@@ -52,9 +52,17 @@ class SplashScreenController extends GetxController {
 
   Widget ramadhanOrEidGreeting() {
     if (state.today.hMonth == 9) {
-      return ramadanOrEid('ramadan_white', height: 100.0);
+      return ramadanOrEid(
+        'ramadan_white',
+        height: 100.0,
+        color: Get.theme.primaryColorLight,
+      );
     } else if (state.generalCtrl.eidDays) {
-      return ramadanOrEid('eid_white', height: 100.0);
+      return ramadanOrEid(
+        'eid_white',
+        height: 100.0,
+        color: Get.theme.primaryColorLight,
+      );
     } else {
       return const SizedBox.shrink();
     }

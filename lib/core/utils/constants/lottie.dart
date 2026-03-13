@@ -47,6 +47,21 @@ Widget customLottieWithColor(
   );
 }
 
-Widget ramadanOrEid(String name, {double? width, double? height}) {
-  return Lottie.asset('assets/lottie/$name.json', width: width, height: height);
+Widget ramadanOrEid(
+  String name, {
+  double? width,
+  double? height,
+  Color? color,
+}) {
+  return ColorFiltered(
+    colorFilter: ColorFilter.mode(
+      color ?? Get.theme.primaryColorDark,
+      BlendMode.modulate,
+    ),
+    child: Lottie.asset(
+      'assets/lottie/$name.json',
+      width: width,
+      height: height,
+    ),
+  );
 }

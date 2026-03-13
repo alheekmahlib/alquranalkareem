@@ -52,7 +52,11 @@ class ReminderEventBottomSheet extends StatelessWidget {
 
   Widget headerWidget(BuildContext context) {
     return eventCtrl.getArtWidget(
-      ramadanOrEid(lottieFile, width: 200),
+      ramadanOrEid(
+        lottieFile,
+        width: 200,
+        color: Theme.of(context).primaryColorLight,
+      ),
       customSvgWithColor(
         svgPath,
         color: Theme.of(context).primaryColorLight,

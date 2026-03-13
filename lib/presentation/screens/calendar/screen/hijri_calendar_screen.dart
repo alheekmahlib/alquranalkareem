@@ -17,7 +17,10 @@ class HijriCalendarScreen extends StatelessWidget {
             children: [
               context.customOrientation(
                 const SizedBox.shrink(),
-                _pageViewBuild(eventCtrl),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                  child: _pageViewBuild(eventCtrl),
+                ),
               ),
               ValueListenableBuilder(
                 valueListenable: eventCtrl.controller,
