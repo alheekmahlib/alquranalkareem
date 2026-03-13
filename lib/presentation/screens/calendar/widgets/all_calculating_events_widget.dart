@@ -28,7 +28,10 @@ class AllCalculatingEventsWidget extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16.0),
           child: SizedBox(
-            height: context.customOrientation(Get.height * .6, Get.height * .9),
+            height: context.customOrientation(
+              Get.height * .57,
+              Get.height * .9,
+            ),
             child: ListView(
               children: [
                 Text.rich(

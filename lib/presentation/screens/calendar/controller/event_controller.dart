@@ -23,10 +23,8 @@ class EventController extends GetxController with WidgetsBindingObserver {
 
   String get dateFormat => DateFormat('MMM').format(now);
 
-  HijriDate get hijriMin =>
-      HijriDate.fromHijri(hijriNow.hYear, hijriNow.hMonth, hijriNow.hDay - 7);
-  HijriDate get hijriMax =>
-      HijriDate.fromHijri(hijriNow.hYear, hijriNow.hMonth, hijriNow.hDay + 7);
+  HijriDate get hijriMin => hijriNow.subtractDays(7);
+  HijriDate get hijriMax => hijriNow.addDays(7);
 
   @override
   Future<void> onInit() async {
