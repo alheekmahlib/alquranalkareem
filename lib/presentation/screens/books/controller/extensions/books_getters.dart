@@ -2,36 +2,42 @@ part of '../../books.dart';
 
 extension BooksGetters on BooksController {
   List<int> get sixthBooksNumbers => [
-        216,
-        217,
-        218,
-        219,
-        220,
-        213,
-        214,
-        205,
-        206,
-        207,
-        211,
-        212,
-        208,
-        209,
-        210,
-      ];
+    216,
+    217,
+    218,
+    219,
+    220,
+    213,
+    214,
+    205,
+    206,
+    207,
+    211,
+    212,
+    208,
+    209,
+    210,
+  ];
 
-  List<int> get ninthBooksNumbers => [
-        80,
-        81,
-        82,
-        83,
-        254,
-        258,
-        259,
-      ];
+  List<int> get ninthBooksNumbers => [80, 81, 82, 83, 254, 258, 259];
 
   PageController get pageController {
     return state.bookPageController = PageController(
-        initialPage: state.currentPageNumber.value, keepPage: true);
+      initialPage: state.currentPageNumber.value,
+      keepPage: true,
+    );
+  }
+
+  /// إنشاء PageController مع حد آمن لرقم الصفحة
+  /// Create PageController with safe bounds for initial page
+  PageController getSafePageController(int totalPages, {int? initialPage}) {
+    final page = initialPage ?? state.currentPageNumber.value;
+    final safePage = page.clamp(0, totalPages > 0 ? totalPages - 1 : 0);
+    state.currentPageNumber.value = safePage;
+    return state.bookPageController = PageController(
+      initialPage: safePage,
+      keepPage: true,
+    );
   }
 
   // البحث عن كتاب بالرقم - Find book by number
@@ -233,8 +239,10 @@ extension BooksGetters on BooksController {
         chapterName = toc.first.text;
       }
 
-      log('Chapter found for page $pageNumber: $chapterName',
-          name: 'BooksGetters');
+      log(
+        'Chapter found for page $pageNumber: $chapterName',
+        name: 'BooksGetters',
+      );
       return chapterName;
     } catch (e) {
       log('Error in getChapterNameByPage: $e', name: 'BooksGetters');
@@ -255,8 +263,10 @@ extension BooksGetters on BooksController {
         cachedToc = state.tocCache[bookNumber];
 
         if (cachedToc == null || cachedToc.isEmpty) {
-          log('No TOC data available for book $bookNumber',
-              name: 'BooksGetters');
+          log(
+            'No TOC data available for book $bookNumber',
+            name: 'BooksGetters',
+          );
           return null;
         }
       }
@@ -294,8 +304,10 @@ extension BooksGetters on BooksController {
         chapterName = toc.first.text;
       }
 
-      log('Chapter for book $bookNumber, page $pageNumber: $chapterName',
-          name: 'BooksGetters');
+      log(
+        'Chapter for book $bookNumber, page $pageNumber: $chapterName',
+        name: 'BooksGetters',
+      );
       return chapterName;
     } catch (e) {
       log('Error in getCurrentChapterByPage: $e', name: 'BooksGetters');
@@ -308,8 +320,10 @@ extension BooksGetters on BooksController {
     try {
       // هذه دالة بسيطة تحاول تحميل البيانات الأساسية - Simple function to try loading basic data
       // يمكن تحسينها لاحقاً لتحميل البيانات الفعلية - Can be improved later to load actual data
-      log('Attempting to load TOC for book $bookNumber synchronously',
-          name: 'BooksGetters');
+      log(
+        'Attempting to load TOC for book $bookNumber synchronously',
+        name: 'BooksGetters',
+      );
 
       // يمكن إضافة منطق تحميل البيانات هنا إذا لزم الأمر
       // Can add data loading logic here if needed
@@ -321,6 +335,6 @@ extension BooksGetters on BooksController {
   Color get backgroundColor => state.backgroundPickerColor.value == 0xfffaf7f3
       ? Theme.of(Get.context!).colorScheme.surfaceContainer
       : ThemeController.instance.isDarkMode
-          ? Theme.of(Get.context!).colorScheme.surfaceContainer
-          : Color(state.backgroundPickerColor.value);
+      ? Theme.of(Get.context!).colorScheme.surfaceContainer
+      : Color(state.backgroundPickerColor.value);
 }

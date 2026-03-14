@@ -4,9 +4,8 @@ import 'package:get/get.dart';
 
 import '../../../../core/utils/constants/extensions/bottom_sheet_extension.dart';
 import '../../../../core/utils/constants/extensions/extensions.dart';
-import '../../../../core/utils/constants/lottie.dart';
-import '../../../../core/utils/constants/lottie_constants.dart';
 import '../../../../core/utils/constants/svg_constants.dart';
+import '../../../../core/widgets/animated_drawing_widget.dart';
 import '../../../../core/widgets/custom_button.dart';
 import '../screens/adhkar_fav.dart';
 import 'adhkar_list.dart';
@@ -34,8 +33,11 @@ class TabBarViewWidget extends StatelessWidget {
         children: [
           Expanded(child: LogoWidget()),
           Expanded(
-            child: TabBarView(
-              children: <Widget>[AdhkarList(), const AdhkarFav()],
+            child: Padding(
+              padding: const EdgeInsets.only(top: 80.0),
+              child: TabBarView(
+                children: <Widget>[AdhkarList(), const AdhkarFav()],
+              ),
             ),
           ),
         ],
@@ -53,17 +55,17 @@ class LogoWidget extends StatelessWidget {
       alignment: Alignment.center,
       children: [
         Align(
-          alignment: AlignmentDirectional.centerEnd,
+          alignment: AlignmentDirectional.centerStart,
           child: Container(
             height: 45,
             width: 100,
-            alignment: AlignmentDirectional.centerStart,
+            alignment: AlignmentDirectional.centerEnd,
             padding: const EdgeInsets.all(4),
             decoration: BoxDecoration(
               color: context.theme.primaryColorLight.withValues(alpha: .2),
               borderRadius: const BorderRadiusDirectional.only(
-                topStart: Radius.circular(8),
-                bottomStart: Radius.circular(8),
+                topEnd: Radius.circular(8),
+                bottomEnd: Radius.circular(8),
               ),
             ),
             child: CustomButton(
@@ -77,11 +79,12 @@ class LogoWidget extends StatelessWidget {
             ),
           ),
         ),
-        customLottieWithColor(
-          LottieConstants.assetsLottieAzkar,
-          height: 120,
-          isRepeat: false,
-          color: context.theme.colorScheme.surface,
+        AnimatedDrawingWidget(
+          opacity: 1,
+          svgPath: SvgPath.svgAthkarAthkar,
+          width: 130,
+          height: 90,
+          customColor: context.theme.colorScheme.surface,
         ),
       ],
     );

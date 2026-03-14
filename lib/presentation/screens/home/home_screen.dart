@@ -1,16 +1,15 @@
+import 'package:alquranalkareem/core/utils/constants/extensions/extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 
-import '/core/utils/constants/extensions/extensions.dart';
 import '/presentation/screens/home/widgets/hijri_widget.dart';
 import '../../../core/widgets/tab_bar_widget.dart';
 import '../../controllers/theme_controller.dart';
-import 'widgets/ayah_tafsir_widget.dart';
+import 'widgets/books_section.dart';
 import 'widgets/daily_zeker.dart';
-import 'widgets/last_read.dart';
-import 'widgets/screens_list.dart';
+import 'widgets/quran_section.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -25,55 +24,55 @@ class HomeScreen extends StatelessWidget {
             body: SafeArea(
               child: Container(
                 color: Theme.of(context).colorScheme.primaryContainer,
-                child: Column(
+                child: Stack(
                   children: [
-                    TopBarWidget(
-                      isHomeChild: false,
-                      isQuranSetting: false,
-                      isNotification: true,
-                    ),
-                    Flexible(
-                      child: context.customOrientation(
-                        ListView(
-                          padding: EdgeInsets.zero,
+                    context.customOrientation(
+                      ListView(
+                        padding: const EdgeInsets.only(top: 80),
+                        children: [
+                          HijriWidget(),
+                          const Gap(16),
+                          QuranSection(),
+                          const Gap(16),
+                          DailyZeker(),
+                          const Gap(16),
+                          const BooksSection(),
+                          const Gap(16),
+                        ],
+                      ),
+                      SingleChildScrollView(
+                        padding: const EdgeInsets.only(top: 80),
+                        child: Column(
                           children: [
-                            Center(child: HijriWidget()),
-                            const Gap(16),
-                            const ScreensList(),
-                            const Gap(8),
-                            LastRead(),
-                            AyahTafsirWidget(),
-                            const Gap(16),
-                            DailyZeker(),
-                            const Gap(16),
-                          ],
-                        ),
-                        ListView(
-                          padding: EdgeInsets.zero,
-                          children: [
-                            const Gap(8),
                             Row(
+                              mainAxisSize: MainAxisSize.min,
+                              crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Expanded(
-                                  flex: 4,
                                   child: Column(
                                     children: [
                                       HijriWidget(),
                                       const Gap(8),
-                                      LastRead(),
+                                      DailyZeker(),
                                     ],
                                   ),
                                 ),
-                                const Expanded(flex: 4, child: ScreensList()),
+                                Expanded(
+                                  child: Column(children: [QuranSection()]),
+                                ),
                               ],
                             ),
-                            AyahTafsirWidget(),
                             const Gap(16),
-                            DailyZeker(),
+                            const BooksSection(),
                             const Gap(16),
                           ],
                         ),
                       ),
+                    ),
+                    TopBarWidget(
+                      isHomeChild: false,
+                      isQuranSetting: false,
+                      isNotification: true,
                     ),
                   ],
                 ),

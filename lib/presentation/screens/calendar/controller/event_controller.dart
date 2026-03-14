@@ -301,17 +301,19 @@ class EventController extends GetxController with WidgetsBindingObserver {
   void didChangeMetrics() {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       if (!Get.isRegistered<EventController>()) return;
-      final orientation = MediaQuery.orientationOf(Get.context!);
-      if (orientation != _lastOrientation) {
-        _lastOrientation = orientation;
-        final currentPage =
-            pageController.page?.round() ?? (selectedDate.hMonth - 1);
-        pageController.dispose();
-        pageController = PageController(
-          initialPage: currentPage,
-          viewportFraction: orientation == Orientation.portrait ? 0.38 : 1,
-        );
-        update();
+      if (pageController.hasClients) {
+        final orientation = MediaQuery.orientationOf(Get.context!);
+        if (orientation != _lastOrientation) {
+          _lastOrientation = orientation;
+          final currentPage =
+              pageController.page?.round() ?? (selectedDate.hMonth - 1);
+          pageController.dispose();
+          pageController = PageController(
+            initialPage: currentPage,
+            viewportFraction: orientation == Orientation.portrait ? 0.38 : 1,
+          );
+          update();
+        }
       }
     });
   }

@@ -55,6 +55,16 @@ class SvgPath {
   /// assets/svg/audio/audio_quran.svg
   static const String svgAudioAudioQuran = "assets/svg/audio/audio_quran.svg";
 
+  /// Assets for svgAudioAudioQuranStroke
+  /// assets/svg/audio/audio_quran_stroke.svg
+  static const String svgAudioAudioQuranStroke =
+      "assets/svg/audio/audio_quran_stroke.svg";
+
+  /// Assets for svgAudioAudioQuranWithStroke
+  /// assets/svg/audio/audio_quran_with_stroke.svg
+  static const String svgAudioAudioQuranWithStroke =
+      "assets/svg/audio/audio_quran_with_stroke.svg";
+
   /// Assets for svgAudioBackward
   /// assets/svg/audio/backward.svg
   static const String svgAudioBackward = "assets/svg/audio/backward.svg";

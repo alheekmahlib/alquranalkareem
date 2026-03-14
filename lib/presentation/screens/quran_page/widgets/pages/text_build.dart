@@ -41,6 +41,8 @@ class TextBuild extends StatelessWidget {
           ayahSelectedBackgroundColor: Get.theme.highlightColor,
           bookmarksColor: const Color(0xffCD9974).withValues(alpha: .4),
           isAyahBookmarked: (ayah) => isAyahBookmarked(ayah),
+          onSurahBannerPress: (surah) =>
+              surahInfoBottomSheet(context, surah.number - 1),
           topBottomQuranStyle:
               TopBottomQuranStyle.defaults(
                 isDark: themeCtrl.isDarkMode,
@@ -57,19 +59,6 @@ class TextBuild extends StatelessWidget {
                   ),
                 ),
               ),
-          surahInfoStyle: SurahInfoStyle(
-            ayahCount: 'aya_count'.tr,
-            backgroundColor: Get.theme.colorScheme.primaryContainer,
-            closeIconColor: Get.theme.colorScheme.inversePrimary,
-            firstTabText: 'surahNames'.tr,
-            secondTabText: 'aboutSurah'.tr,
-            indicatorColor: Get.theme.colorScheme.surface,
-            primaryColor: Get.theme.colorScheme.surface.withValues(alpha: .2),
-            surahNameColor: Get.theme.colorScheme.primary,
-            surahNumberColor: Get.theme.hintColor,
-            textColor: Get.theme.colorScheme.inversePrimary,
-            titleColor: Get.theme.hintColor,
-          ),
           onAyahLongPress: (details, ayah) {
             final surah = QuranLibrary().getCurrentSurahDataByAyah(ayah: ayah);
             AyahMenuHelper.show(

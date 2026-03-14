@@ -65,4 +65,6 @@ class QuranState {
     surahNumber: 1,
     wordNumber: 1,
   ).obs;
+  FloatingMenuExpendableController floatingController =
+      FloatingMenuExpendableController();
 }

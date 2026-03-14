@@ -28,6 +28,7 @@ class BooksState {
   RxBool isSearch = false.obs;
   RxString searchQuery = ''.obs; // نص البحث - Search query text
   late Directory dir;
+  final Completer<void> dirInitialized = Completer<void>();
 
   // ===== Pagination للكتب =====
   final Map<String, int> booksPaginationCounts = {};

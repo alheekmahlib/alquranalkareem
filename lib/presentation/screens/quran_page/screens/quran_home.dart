@@ -41,13 +41,6 @@ class QuranHome extends StatelessWidget {
                   textDirection: TextDirection.rtl,
                   child: Center(child: QuranPages()),
                 ),
-                // GetBuilder<GeneralController>(
-                //   id: 'showControl',
-                //   builder: (generalCtrl) =>
-                //       generalCtrl.state.isShowControl.value
-                //       ? const QuranOrTenRecitationsTabBar()
-                //       : const SizedBox.shrink(),
-                // ),
                 GetBuilder<GeneralController>(
                   id: 'showControl',
                   builder: (generalCtrl) =>
@@ -60,6 +53,7 @@ class QuranHome extends StatelessWidget {
                               style: quranCtrl.displayModeBarStyle,
                             ),
                             QuranOrTenRecitationsTabBar(),
+                            TajweedMenuWidget(),
                             TopBarWidget(
                               isHomeChild: true,
                               isQuranSetting: true,

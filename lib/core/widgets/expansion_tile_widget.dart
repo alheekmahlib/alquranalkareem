@@ -16,6 +16,7 @@ class ExpansionTileWidget<T extends GetxController> extends StatelessWidget {
   final T getxCtrl;
   final Widget? titleChild;
   final Color? backgroundColor;
+  final Function(bool)? onExpansionChanged;
 
   const ExpansionTileWidget({
     super.key,
@@ -27,6 +28,7 @@ class ExpansionTileWidget<T extends GetxController> extends StatelessWidget {
     required this.getxCtrl,
     this.titleChild,
     this.backgroundColor,
+    this.onExpansionChanged,
   });
 
   @override
@@ -55,6 +57,9 @@ class ExpansionTileWidget<T extends GetxController> extends StatelessWidget {
             borderRadius: BorderRadius.circular(8.0),
           ),
           onExpansionChanged: (expanded) {
+            if (onExpansionChanged != null) {
+              onExpansionChanged!(expanded);
+            }
             manager.getExpandedState(name).value = expanded;
             getxCtrl.update(['expansion_tile_$name']);
           },

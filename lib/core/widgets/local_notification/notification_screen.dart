@@ -1,4 +1,4 @@
-import 'package:expansion_tile_card/expansion_tile_card.dart';
+import 'package:alquranalkareem/core/widgets/expansion_tile_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
@@ -6,6 +6,8 @@ import 'package:lottie/lottie.dart';
 
 import '/core/utils/constants/extensions/extensions.dart';
 import '/core/utils/constants/extensions/svg_extensions.dart';
+import '/core/utils/helpers/app_text_styles.dart';
+import '/core/widgets/title_widget.dart';
 import '../../../presentation/controllers/general/general_controller.dart';
 import '../../utils/constants/svg_constants.dart';
 import 'controller/local_notifications_controller.dart';
@@ -17,272 +19,182 @@ class NotificationsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: Get.height * .8,
-      padding: const EdgeInsets.all(16.0),
-      decoration: BoxDecoration(
-        color: Theme.of(context).colorScheme.primary,
-        borderRadius: const BorderRadius.only(
-          topRight: Radius.circular(8),
-          topLeft: Radius.circular(8),
-        ),
-      ),
-      child: SafeArea(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                context.customWhiteClose(height: 30),
-                const Gap(8),
-                context.vDivider(height: 20),
-                const Gap(8),
-                Text(
-                  'notification'.tr,
-                  style: TextStyle(
-                    color: Theme.of(context).canvasColor,
-                    fontFamily: 'kufi',
-                    fontWeight: FontWeight.bold,
-                    fontSize: 20,
-                  ),
-                ),
-              ],
-            ),
-            const Gap(32),
-            Flexible(
-              child: GetBuilder<LocalNotificationsController>(
-                builder: (notiCtrl) => notiCtrl.postsList.isEmpty
-                    ? Center(
-                        child: Column(
-                          children: [
-                            const Gap(64),
-                            customSvgWithCustomColor(
-                              SvgPath.svgNotifications,
-                              width: 80,
-                            ),
-                            const Gap(32),
-                            Text(
-                              'noNotifications'.tr,
-                              style: TextStyle(
-                                color: Theme.of(context).canvasColor,
-                                fontFamily: 'kufi',
-                                fontWeight: FontWeight.bold,
-                                fontSize: 22,
-                              ),
-                            ),
-                          ],
-                        ),
-                      )
-                    : Column(
+    return SizedBox(
+      height: Get.height * .7,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const TitleWidget(title: 'notification'),
+          const Gap(32),
+          Expanded(
+            child: GetBuilder<LocalNotificationsController>(
+              builder: (notiCtrl) => notiCtrl.postsList.isEmpty
+                  ? Center(
+                      child: Column(
                         children: [
-                          const Align(
-                            alignment: Alignment.center,
-                            child: NotificationIconWidget(iconHeight: 60),
+                          const Gap(64),
+                          customSvgWithCustomColor(
+                            SvgPath.svgNotifications,
+                            width: 80,
                           ),
-                          const Gap(16),
-                          Flexible(
-                            child: ListView.builder(
-                              itemCount: notiCtrl.postsList.length,
-                              itemBuilder: (context, index) {
-                                var reversedList = notiCtrl.postsList.reversed
-                                    .toList();
-                                var noti = reversedList[index];
-                                return noti.appName == 'quran'
-                                    ? ExpansionTileCard(
-                                        elevation: 0.0,
-                                        initialElevation: 0.0,
-                                        baseColor: Theme.of(context)
-                                            .colorScheme
-                                            .primary
-                                            .withValues(alpha: .2),
-                                        expandedColor: Theme.of(context)
-                                            .colorScheme
-                                            .primary
-                                            .withValues(alpha: .2),
-                                        onExpansionChanged: (_) => notiCtrl
-                                            .markNotificationAsRead(noti.id),
-                                        title: Container(
-                                          padding: const EdgeInsets.symmetric(
-                                            horizontal: 16.0,
-                                            vertical: 8.0,
-                                          ),
-                                          margin: const EdgeInsets.symmetric(
-                                            vertical: 4.0,
-                                          ),
-                                          decoration: BoxDecoration(
-                                            color: noti.opened
-                                                ? Theme.of(context).canvasColor
-                                                      .withValues(alpha: .1)
-                                                : Theme.of(context)
-                                                      .colorScheme
-                                                      .surface
-                                                      .withValues(alpha: .15),
-                                            borderRadius:
-                                                const BorderRadius.all(
-                                                  Radius.circular(8),
-                                                ),
-                                            border: Border.all(
-                                              width: 1,
-                                              color: noti.opened
-                                                  ? Colors.transparent
-                                                  : Theme.of(
-                                                      context,
-                                                    ).colorScheme.surface,
-                                            ),
-                                          ),
-                                          child: Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceBetween,
-                                            children: [
-                                              Text(
-                                                noti.title,
-                                                style: TextStyle(
-                                                  color: Theme.of(
-                                                    context,
-                                                  ).canvasColor,
-                                                  fontFamily: 'kufi',
-                                                  fontWeight: FontWeight.bold,
-                                                  fontSize: 18,
-                                                ),
-                                              ),
-                                              customSvgWithColor(
-                                                SvgPath.svgNotifications,
-                                                height: 25,
-                                                color: noti.opened
-                                                    ? Theme.of(
-                                                        context,
-                                                      ).canvasColor
-                                                    : Theme.of(
-                                                        context,
-                                                      ).colorScheme.surface,
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                        children: <Widget>[
-                                          Text(
-                                            noti.title,
-                                            style: TextStyle(
-                                              color: Theme.of(
-                                                context,
-                                              ).canvasColor,
-                                              fontFamily: 'kufi',
-                                              fontWeight: FontWeight.bold,
-                                              fontSize: GeneralController
-                                                  .instance
-                                                  .state
-                                                  .fontSizeArabic
-                                                  .value,
-                                            ),
-                                          ),
-                                          context.hDivider(width: Get.width),
-                                          const Gap(16),
-                                          Text(
-                                            noti.body,
-                                            style: TextStyle(
-                                              color: Theme.of(
-                                                context,
-                                              ).canvasColor,
-                                              fontFamily: 'kufi',
-                                              fontWeight: FontWeight.bold,
-                                              fontSize:
-                                                  GeneralController
-                                                      .instance
-                                                      .state
-                                                      .fontSizeArabic
-                                                      .value -
-                                                  2,
-                                            ),
-                                          ),
-                                          const Gap(32),
-                                          noti.isLottie &&
-                                                  noti.lottie.isNotEmpty
-                                              ? Container(
-                                                  padding:
-                                                      const EdgeInsets.symmetric(
-                                                        horizontal: 16.0,
-                                                        vertical: 8.0,
-                                                      ),
-                                                  decoration: BoxDecoration(
-                                                    color: Theme.of(context)
-                                                        .canvasColor
-                                                        .withValues(alpha: .15),
-                                                    borderRadius:
-                                                        const BorderRadius.all(
-                                                          Radius.circular(8),
-                                                        ),
-                                                    border: Border.all(
-                                                      width: 1,
-                                                      color: Theme.of(
-                                                        context,
-                                                      ).colorScheme.surface,
-                                                    ),
-                                                  ),
-                                                  child: Lottie.network(
-                                                    noti.lottie,
-                                                    width: Get.width * .5,
-                                                    errorBuilder:
-                                                        (
-                                                          context,
-                                                          error,
-                                                          stackTrace,
-                                                        ) =>
-                                                            const CircularProgressIndicator.adaptive(),
-                                                  ),
-                                                )
-                                              : const SizedBox.shrink(),
-                                          const Gap(32),
-                                          noti.isImage && noti.image.isNotEmpty
-                                              ? Container(
-                                                  padding:
-                                                      const EdgeInsets.symmetric(
-                                                        horizontal: 16.0,
-                                                        vertical: 8.0,
-                                                      ),
-                                                  decoration: BoxDecoration(
-                                                    color: Theme.of(context)
-                                                        .canvasColor
-                                                        .withValues(alpha: .15),
-                                                    borderRadius:
-                                                        const BorderRadius.all(
-                                                          Radius.circular(8),
-                                                        ),
-                                                    border: Border.all(
-                                                      width: 1,
-                                                      color: Theme.of(
-                                                        context,
-                                                      ).colorScheme.surface,
-                                                    ),
-                                                  ),
-                                                  child: Image.network(
-                                                    noti.image,
-                                                    width: Get.width * .5,
-                                                    errorBuilder:
-                                                        (
-                                                          context,
-                                                          error,
-                                                          stackTrace,
-                                                        ) =>
-                                                            const CircularProgressIndicator.adaptive(),
-                                                  ),
-                                                )
-                                              : const SizedBox.shrink(),
-                                          const Gap(8),
-                                          context.hDivider(width: Get.width),
-                                          const Gap(16),
-                                        ],
-                                      )
-                                    : const SizedBox.shrink();
-                              },
-                            ),
+                          const Gap(32),
+                          Text(
+                            'noNotifications'.tr,
+                            style: AppTextStyles.titleMedium(),
                           ),
                         ],
                       ),
-              ),
+                    )
+                  : Column(
+                      children: [
+                        const Align(
+                          alignment: Alignment.center,
+                          child: NotificationIconWidget(
+                            iconHeight: 60,
+                            inScreen: true,
+                          ),
+                        ),
+                        const Gap(16),
+                        Flexible(
+                          child: ListView.builder(
+                            itemCount: notiCtrl.postsList.length,
+                            itemBuilder: (context, index) {
+                              var reversedList = notiCtrl.postsList.reversed
+                                  .toList();
+                              var noti = reversedList[index];
+                              return noti.appName == 'quran'
+                                  ? Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                        horizontal: 8.0,
+                                        vertical: 2.0,
+                                      ),
+                                      child: ExpansionTileWidget(
+                                        name:
+                                            noti.appName +
+                                            ' - ' +
+                                            noti.id.toString(),
+                                        title: noti.title,
+                                        getxCtrl: notiCtrl,
+                                        manager: GeneralController
+                                            .instance
+                                            .state
+                                            .expansionManager,
+                                        backgroundColor: noti.opened
+                                            ? context.theme.primaryColorLight
+                                                  .withValues(alpha: .1)
+                                            : context.theme.primaryColorLight
+                                                  .withValues(alpha: .3),
+                                        onExpansionChanged: (_) => notiCtrl
+                                            .markNotificationAsRead(noti.id),
+                                        child: Column(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Text(
+                                              noti.title,
+                                              style:
+                                                  AppTextStyles.titleMedium(),
+                                            ),
+                                            context.hDivider(width: Get.width),
+                                            const Gap(16),
+                                            Text(
+                                              noti.body,
+                                              style: AppTextStyles.titleSmall(),
+                                            ),
+                                            const Gap(32),
+                                            noti.isLottie &&
+                                                    noti.lottie.isNotEmpty
+                                                ? Container(
+                                                    padding:
+                                                        const EdgeInsets.symmetric(
+                                                          horizontal: 16.0,
+                                                          vertical: 8.0,
+                                                        ),
+                                                    decoration: BoxDecoration(
+                                                      color: Theme.of(context)
+                                                          .canvasColor
+                                                          .withValues(
+                                                            alpha: .15,
+                                                          ),
+                                                      borderRadius:
+                                                          const BorderRadius.all(
+                                                            Radius.circular(8),
+                                                          ),
+                                                      border: Border.all(
+                                                        width: 1,
+                                                        color: Theme.of(
+                                                          context,
+                                                        ).colorScheme.surface,
+                                                      ),
+                                                    ),
+                                                    child: Lottie.network(
+                                                      noti.lottie,
+                                                      width: Get.width * .5,
+                                                      errorBuilder:
+                                                          (
+                                                            context,
+                                                            error,
+                                                            stackTrace,
+                                                          ) =>
+                                                              const CircularProgressIndicator.adaptive(),
+                                                    ),
+                                                  )
+                                                : const SizedBox.shrink(),
+                                            const Gap(32),
+                                            noti.isImage &&
+                                                    noti.image.isNotEmpty
+                                                ? Container(
+                                                    padding:
+                                                        const EdgeInsets.symmetric(
+                                                          horizontal: 16.0,
+                                                          vertical: 8.0,
+                                                        ),
+                                                    decoration: BoxDecoration(
+                                                      color: Theme.of(context)
+                                                          .canvasColor
+                                                          .withValues(
+                                                            alpha: .15,
+                                                          ),
+                                                      borderRadius:
+                                                          const BorderRadius.all(
+                                                            Radius.circular(8),
+                                                          ),
+                                                      border: Border.all(
+                                                        width: 1,
+                                                        color: Theme.of(
+                                                          context,
+                                                        ).colorScheme.surface,
+                                                      ),
+                                                    ),
+                                                    child: Image.network(
+                                                      noti.image,
+                                                      width: Get.width * .5,
+                                                      errorBuilder:
+                                                          (
+                                                            context,
+                                                            error,
+                                                            stackTrace,
+                                                          ) =>
+                                                              const CircularProgressIndicator.adaptive(),
+                                                    ),
+                                                  )
+                                                : const SizedBox.shrink(),
+                                            const Gap(8),
+                                            context.hDivider(width: Get.width),
+                                            const Gap(16),
+                                          ],
+                                        ),
+                                      ),
+                                    )
+                                  : const SizedBox.shrink();
+                            },
+                          ),
+                        ),
+                      ],
+                    ),
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

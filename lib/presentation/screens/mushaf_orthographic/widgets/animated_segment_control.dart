@@ -21,8 +21,7 @@ class AnimatedSegmentControl extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     return Container(
-      margin: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
-      padding: const EdgeInsets.all(4),
+      margin: const EdgeInsets.symmetric(horizontal: 24, vertical: 8),
       decoration: BoxDecoration(
         color: theme.colorScheme.surface.withValues(alpha: .15),
         borderRadius: BorderRadius.circular(14),
@@ -46,26 +45,17 @@ class AnimatedSegmentControl extends StatelessWidget {
                   ),
                   child: Container(
                     width: segmentWidth,
-                    height: 44,
+                    height: 35,
                     decoration: BoxDecoration(
                       color: theme.primaryColorLight,
                       borderRadius: BorderRadius.circular(11),
-                      boxShadow: [
-                        BoxShadow(
-                          color: theme.colorScheme.primary.withValues(
-                            alpha: .3,
-                          ),
-                          blurRadius: 8,
-                          offset: const Offset(0, 2),
-                        ),
-                      ],
                     ),
                   ),
                 ),
               ),
               // Labels row
               SizedBox(
-                height: 44,
+                height: 35,
                 child: Row(
                   children: List.generate(labels.length, (index) {
                     final isSelected = index == selectedIndex;
