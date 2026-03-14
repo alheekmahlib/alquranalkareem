@@ -72,7 +72,7 @@ class VerseImageCreator extends StatelessWidget {
                         ),
                         context.vDivider(),
                         const Text(
-                          'القـرآن الكريــــم\nمكتبة الحكمة',
+                          'القـرآن الكريــــم\nأمازيغية',
                           style: TextStyle(
                             fontSize: 10,
                             fontFamily: 'kufi',

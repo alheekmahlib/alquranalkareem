@@ -190,7 +190,7 @@ class DhekrImageCreator extends StatelessWidget {
                           customSvgWithColor(SvgPath.svgSplashIcon, height: 40),
                           context.vDivider(),
                           const Text(
-                            'القـرآن الكريــــم\nمكتبة الحكمة',
+                            'القـرآن الكريــــم\nأمازيغية',
                             style: TextStyle(
                               fontSize: 10,
                               fontFamily: 'kufi',

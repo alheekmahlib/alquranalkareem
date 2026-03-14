@@ -1,11 +1,11 @@
 {
-    "name": "القرآن الكريم - مكتبة الحكمة",
-    "short_name": "القرآن الكريم - مكتبة الحكمة",
+    "name": "القرآن الكريم بالأمازيغية",
+    "short_name": "القرآن الكريم بالأمازيغية",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",
     "theme_color": "#0175C2",
-    "description": "Al-Quran Al-Kareem - Al-Heekmah Library.",
+    "description": "حمّل تطبيق القرآن الكريم بالأمازيغية - أول تطبيق للقرآن الكريم باللغة الأمازيغية (القبائلية) على متجر Play Store و App Store!",
     "orientation": "portrait-primary",
     "prefer_related_applications": false,
     "icons": [

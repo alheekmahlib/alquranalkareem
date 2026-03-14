@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>القرآن الكريم بالأمازيغية - أول تطبيق قرآني باللغة القبائلية</title>
-    <meta name="description" content="اكتشف أول تطبيق للقرآن الكريم باللغة الأمازيغية (القبائلية). ترجمة موثوقة، تفسيرات، بحث متقدم، واستماع للتلاوات والترجمة. متوفر على الويب، Play Store و App Store.">
+    <title>القرآن الكريم بالأمازيغية - أول تطبيق قرآني باللغة الأمازيغية</title>
+    <meta name="description" content="أول تطبيق للقرآن الكريم باللغة الأمازيغية (القبائلية). ترجمة موثوقة، تفسيرات، بحث متقدم، واستماع للتلاوات والترجمة. متوفر على الويب، Play Store و App Store.">
     <meta name="keywords" content="القرآن, الأمازيغية, القبائلية, التمازيغت, Kabyle, Coran, Islam, تفسير, ترجمة, تطبيق ويب, فلاتر">
     
     <!-- Tailwind CSS -->
@@ -120,8 +120,8 @@
             <div class="flex justify-between items-center h-16">
                 <!-- Logo -->
                 <div class="flex-shrink-0 flex items-center gap-2 cursor-pointer" onclick="window.scrollTo(0,0)">
-                    <div class="w-10 h-10 bg-gradient-to-br from-brand-light to-brand-dark rounded-xl flex items-center justify-center text-white shadow-lg">
-                        <i class="fa-solid fa-book-open"></i>
+                    <div class="w-10 h-10 bg-gradient-to-br from-brand-light to-brand-dark rounded-xl flex items-center justify-center text-white shadow-lg overflow-hidden">
+                        <img src="icons/Icon-192.png" alt="Quran Amazigh Logo" class="w-full h-full object-cover">
                     </div>
                     <span class="font-bold text-lg text-gray-900">القرآن <span class="text-brand-light">الأمازيغي</span></span>
                 </div>
@@ -170,11 +170,11 @@
                 <div class="text-center lg:text-right space-y-6 animate-fade-in">
                     <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-brand-light/10 text-brand-dark text-sm font-semibold border border-brand-light/20">
                         <span class="w-2 h-2 rounded-full bg-brand-light animate-pulse"></span>
-                        أول تطبيق قرآني باللغة القبائلية
+                        أول تطبيق قرآني باللغة الأمازيغية
                     </div>
                     
                     <h1 class="text-4xl lg:text-5xl font-bold leading-tight text-gray-900">
-                        اكتشف القرآن الكريم<br>
+                        القرآن الكريم<br>
                         <span class="text-gradient">باللغة الأمازيغية</span>
                     </h1>
                     
@@ -191,7 +191,7 @@
                                 <div class="text-sm font-bold leading-tight">App Store</div>
                             </div>
                         </a>
-                        <a href="#" class="flex items-center justify-center gap-3 bg-brand-light text-white px-6 py-3 rounded-xl hover:bg-brand-dark transition shadow-lg shadow-brand-light/30">
+                        <a href="https://apkpure.net/holy-quran-tamazight/com.quran.tamazight" target="_blank" rel="noopener noreferrer" class="flex items-center justify-center gap-3 bg-brand-light text-white px-6 py-3 rounded-xl hover:bg-brand-dark transition shadow-lg shadow-brand-light/30">
                             <i class="fa-brands fa-google-play text-2xl"></i>
                             <div class="text-right">
                                 <div class="text-[10px] opacity-80">حمله من</div>
@@ -433,11 +433,11 @@
                     </div>
 
                     <div class="flex flex-col sm:flex-row gap-3">
-                        <a href="#" class="flex items-center justify-center gap-2 bg-brand-light text-white px-6 py-3 rounded-xl hover:bg-brand-dark transition shadow-lg shadow-brand-light/30">
+                        <a href="https://holy-quran-tamazight.web.app/" target="_blank" rel="noopener noreferrer" class="flex items-center justify-center gap-2 bg-brand-light text-white px-6 py-3 rounded-xl hover:bg-brand-dark transition shadow-lg shadow-brand-light/30">
                             <i class="fa-solid fa-play"></i>
                             تشغيل النسخة الويبية
                         </a>
-                        <button onclick="alert('يمكنك إضافة التطبيق إلى الشاشة الرئيسية للوصول السريع!')" class="flex items-center justify-center gap-2 bg-gray-100 text-gray-700 px-6 py-3 rounded-xl hover:bg-gray-200 transition">
+                        <button id="install-button" class="flex items-center justify-center gap-2 bg-gray-100 text-gray-700 px-6 py-3 rounded-xl hover:bg-gray-200 transition">
                             <i class="fa-solid fa-plus-circle"></i>
                             إضافة للشاشة الرئيسية
                         </button>
@@ -471,8 +471,8 @@
                                 <!-- Web App Header -->
                                 <div class="flex items-center justify-between mb-4 pb-3 border-b border-gray-200">
                                     <div class="flex items-center gap-2">
-                                        <div class="w-8 h-8 bg-brand-light rounded-lg flex items-center justify-center text-white text-xs">
-                                            <i class="fa-solid fa-book-open"></i>
+                                        <div class="w-8 h-8 bg-brand-light rounded-lg flex items-center justify-center text-white text-xs overflow-hidden">
+                                            <img src="icons/Icon-192.png" alt="Mockup Logo" class="w-full h-full object-cover">
                                         </div>
                                         <span class="font-bold text-gray-800 text-sm">القرآن الأمازيغي</span>
                                     </div>
@@ -554,7 +554,7 @@
                                 <div class="text-lg font-bold leading-none">App Store</div>
                             </div>
                         </a>
-                        <a href="#" class="flex items-center justify-center gap-3 bg-gray-900 text-white px-8 py-4 rounded-xl hover:bg-gray-800 transition shadow-xl border border-white/20">
+                        <a href="https://apkpure.net/holy-quran-tamazight/com.quran.tamazight" target="_blank" rel="noopener noreferrer" class="flex items-center justify-center gap-3 bg-gray-900 text-white px-8 py-4 rounded-xl hover:bg-gray-800 transition shadow-xl border border-white/20">
                             <i class="fa-brands fa-google-play text-3xl"></i>
                             <div class="text-right">
                                 <div class="text-xs font-semibold text-gray-400">حمله من</div>
@@ -572,12 +572,12 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex flex-col md:flex-row justify-between items-center gap-6">
                 <div class="flex items-center gap-3">
-                    <div class="w-10 h-10 bg-brand-light rounded-xl flex items-center justify-center text-white">
-                        <i class="fa-solid fa-book-open"></i>
+                    <div class="w-10 h-10 bg-brand-light rounded-xl flex items-center justify-center text-white overflow-hidden">
+                        <img src="icons/Icon-192.png" alt="Quran Amazigh Logo" class="w-full h-full object-cover">
                     </div>
                     <div>
                         <div class="font-bold text-gray-900">القرآن الأمازيغي</div>
-                        <div class="text-xs text-gray-500">أول تطبيق قرآني باللغة القبائلية</div>
+                        <div class="text-xs text-gray-500">أول تطبيق قرآني باللغة الأمازيغية</div>
                     </div>
                 </div>
                 
@@ -636,6 +636,37 @@
                     menu.classList.add('hidden');
                 }
             });
+        });
+        
+        // --- PWA Installation Logic ---
+        let deferredPrompt;
+        const installButton = document.getElementById('install-button');
+
+        // Listen for the beforeinstallprompt event triggered by the browser
+        window.addEventListener('beforeinstallprompt', (e) => {
+            // Prevent the mini-infobar from appearing on mobile naturally if desired
+            e.preventDefault();
+            // Stash the event so it can be triggered later.
+            deferredPrompt = e;
+        });
+
+        // Add to Home Screen Button Click Logic
+        installButton.addEventListener('click', async () => {
+            if (deferredPrompt) {
+                // Show the browser's install prompt
+                deferredPrompt.prompt();
+                
+                // Wait for the user to respond to the prompt
+                const { outcome } = await deferredPrompt.userChoice;
+                console.log(`User response to the install prompt: ${outcome}`);
+                
+                // We've used the prompt, and can't use it again, throw it away
+                deferredPrompt = null;
+            } else {
+                // Fallback for browsers that don't support beforeinstallprompt (like Safari on iOS)
+                // or if the app is already installed
+                alert('لإضافة التطبيق إلى الشاشة الرئيسية:\n\nفي أجهزة الآيفون (Safari): اضغط على زر المشاركة أواختر "Add to Home Screen"\n\nفي أجهزة الأندرويد (Chrome): اضغط على القائمة (ثلاث نقاط) واختر "إضافة إلى الشاشة الرئيسية"');
+            }
         });
     </script>
 </body>

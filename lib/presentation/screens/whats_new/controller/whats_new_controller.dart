@@ -42,12 +42,13 @@ class WhatsNewController extends GetxController {
     }
   }
 
-  List<Map<String, dynamic>> whatsNewList = [
-    {
-      'index': 14,
-      'title': "",
-      'details': "What'sNewDetails10",
-      'imagePath': '',
-    },
-  ];
+  //  List<Map<String, dynamic>> whatsNewList = [
+  //   {
+  //     'index': 14,
+  //     'title': "",
+  //     'details': "What'sNewDetails10",
+  //     'imagePath': '',
+  //   },
+  // ];
+  List<Map<String, dynamic>> whatsNewList = [];
 }

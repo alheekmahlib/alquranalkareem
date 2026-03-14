@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
@@ -72,25 +74,31 @@ extension ContextMenuExtension on BuildContext {
                   cancel: cancel,
                 ),
                 const Gap(6),
-                // this.vDivider(height: 18.0),
-                // PlayButton(
-                //   surahNum: surahNum,
-                //   ayahNum: ayahNum,
-                //   ayahUQNum: ayahUQNum,
-                //   singleAyahOnly: true,
-                //   cancel: cancel,
-                // ),
-                // const Gap(6),
                 this.vDivider(height: 18.0),
-                // full surah playButton
-                PlayButton(
-                  surahNum: surahNum,
-                  ayahNum: ayahNum,
-                  ayahUQNum: ayahUQNum,
-                  cancel: cancel,
-                ),
-                const Gap(2),
-                this.vDivider(height: 18.0),
+                if (GetPlatform.isAndroid ||
+                    GetPlatform.isIOS ||
+                    GetPlatform.isMacOS) ...[
+                  // full surah playButton
+                  PlayButton(
+                    surahNum: surahNum,
+                    ayahNum: ayahNum,
+                    ayahUQNum: ayahUQNum,
+                    singleAyahOnly: true,
+                    cancel: cancel,
+                  ),
+                  const Gap(2),
+                  this.vDivider(height: 18.0),
+                ] else ...[
+                  // single ayah playButton for web/desktop
+                  PlayButton(
+                    surahNum: surahNum,
+                    ayahNum: ayahNum,
+                    ayahUQNum: ayahUQNum,
+                    cancel: cancel,
+                  ),
+                  const Gap(6),
+                  this.vDivider(height: 18.0),
+                ],
                 const Gap(6),
                 AddBookmarkButton(
                   surahNum: surahNum,

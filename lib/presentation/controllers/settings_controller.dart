@@ -12,7 +12,7 @@ class SettingsController extends GetxController {
       GetInstance().putOrFind(() => SettingsController());
   Locale? initialLang;
   RxString languageName = ''.obs;
-  RxString languageFont = 'naskh'.obs;
+  RxString languageFont = 'droid_kufi'.obs;
   // RxString languageFont2 = 'kufi'.obs;
   RxBool settingsSelected = false.obs;
   final box = GetStorage();
@@ -68,7 +68,7 @@ class SettingsController extends GetxController {
     getLanguageName();
     String? langCode = box.read("lang");
     // String? langName = box.read("langName") ?? '';
-    String? langFont = box.read("languageFont") ?? 'naskh';
+    String? langFont = box.read("languageFont") ?? 'droid_kufi';
     // String? langFont2 =
     //     await box.read("languageFont2");
 

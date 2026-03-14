@@ -60,3 +60,5 @@ app.*.map.json
 /assets/QuranData.sqlite
 *.db
 /assets/pages/
+/assets/translate_kabyle_image_hafs
+/assets/translate_kabyle_voix_hafs

@@ -2,7 +2,7 @@
   <img src="https://github.com/alheekmahlib/alquranalkareem/assets/53709203/d60f9a69-a37b-48bf-b8d9-881662f097bc" width="75" height="75" align=”middle”/>
 </p>
 
-<h1><p align="center"> القرآن الكريم - مكتبة الحكمة </p></h1>
+<h1><p align="center"> القرآن الكريم بالأمازيغية </p></h1>
 
 
 <p align="center">

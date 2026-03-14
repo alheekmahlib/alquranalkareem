@@ -111,7 +111,7 @@ class TranslateBuild extends StatelessWidget {
                           readLessText: 'readLess'.tr,
                           buttonTextStyle: TextStyle(
                             fontSize: 12,
-                            fontFamily: 'kufi',
+                            fontFamily: 'droid_kufi',
                             color: Theme.of(context).hintColor,
                           ),
                           iconColor: Theme.of(context).hintColor,
@@ -152,7 +152,7 @@ class TranslateBuild extends StatelessWidget {
                           readLessText: 'readLess'.tr,
                           buttonTextStyle: TextStyle(
                             fontSize: 12,
-                            fontFamily: 'kufi',
+                            fontFamily: 'droid_kufi',
                             color: Theme.of(context).hintColor,
                           ),
                           iconColor: Theme.of(context).hintColor,

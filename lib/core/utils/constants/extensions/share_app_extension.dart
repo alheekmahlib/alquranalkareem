@@ -21,7 +21,7 @@ extension ShareAppExtension on void {
     file.writeAsBytesSync(list);
     final params = ShareParams(
       text:
-          'تطبيق "القرآن الكريم - مكتبة الحكمة" التطبيق الأمثل لقراءة القرآن.\n\nللتحميل:\n${ApiConstants.appUrl}',
+          'تطبيق "القرآن الكريم بالأمازيغية" التطبيق الأمثل لقراءة القرآن.\n\nللتحميل:\n${ApiConstants.appUrl}',
       files: [XFile((file.path))],
       sharePositionOrigin: box!.localToGlobal(Offset.zero) & box.size,
     );

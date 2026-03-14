@@ -399,8 +399,23 @@
     "type": "text",
     "placeholders": {}
   },
-  "next": "Selanjutnya",
+  "next": "Berikutnya",
   "@next": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "previous": "Sebelumnya",
+  "@previous": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "next_ayah": "Ayat Berikutnya",
+  "@next_ayah": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "prev_ayah": "Ayat Sebelumnya",
+  "@prev_ayah": {
     "type": "text",
     "placeholders": {}
   },
@@ -1276,5 +1291,6 @@
   "Thu": "Kam",
   "Fri": "Jum",
   "Sat": "Sab",
-  "manager_ayah_downloads": "Kelola Unduhan Ayat"
+  "manager_ayah_downloads": "Kelola Unduhan Ayat",
+  "amazigh": "Amazigh"
 }

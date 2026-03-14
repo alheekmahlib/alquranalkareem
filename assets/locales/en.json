@@ -405,6 +405,21 @@
     "type": "text",
     "placeholders": {}
   },
+  "previous": "Previous",
+  "@previous": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "next_ayah": "Next Ayah",
+  "@next_ayah": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "prev_ayah": "Previous Ayah",
+  "@prev_ayah": {
+    "type": "text",
+    "placeholders": {}
+  },
   "start": "Start",
   "@start": {
     "type": "text",
@@ -1282,5 +1297,6 @@
   "Thu": "Thu",
   "Fri": "Fri",
   "Sat": "Sat",
-  "manager_ayah_downloads": "Manage Ayah Downloads"
+  "manager_ayah_downloads": "Manage Ayah Downloads",
+  "amazigh": "Amazigh"
 }

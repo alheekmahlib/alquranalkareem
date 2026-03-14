@@ -400,8 +400,23 @@
     "type": "text",
     "placeholders": {}
   },
-  "next": "Próxima",
+  "next": "Siguiente",
   "@next": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "previous": "Anterior",
+  "@previous": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "next_ayah": "Siguiente verso",
+  "@next_ayah": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "prev_ayah": "Verso anterior",
+  "@prev_ayah": {
     "type": "text",
     "placeholders": {}
   },
@@ -1282,5 +1297,6 @@
   "Thu": "Jue",
   "Fri": "Vie",
   "Sat": "Sáb",
-  "manager_ayah_downloads": "Gestionar Descargas de Ayah"
+  "manager_ayah_downloads": "Gestionar Descargas de Ayah",
+  "amazigh": "Amazig"
 }

@@ -25,9 +25,15 @@ class BerberTranslateButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CustomButton(
-      width: 30,
-      icon: Icons.translate,
-      iconSize: 20,
+      width: 90,
+      iconWidget: Text(
+        'ⵣ ' + 'amazigh'.tr,
+        style: TextStyle(
+          fontSize: 12,
+          color: context.theme.hintColor,
+          fontWeight: FontWeight.bold,
+        ),
+      ),
       svgColor: context.theme.hintColor,
       onPressed: () {
         showModalBottomSheet(

@@ -20,6 +20,7 @@ class QuranPages extends StatelessWidget {
         height: MediaQuery.sizeOf(context).height,
         child: Focus(
           focusNode: quranCtrl.state.quranPageRLFocusNode,
+          autofocus: true,
           onKeyEvent: (node, event) =>
               quranCtrl.controlRLByKeyboard(node, event),
           child: PageView.builder(

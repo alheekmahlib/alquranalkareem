@@ -89,6 +89,56 @@ class QuranHome extends StatelessWidget {
                                 alignment: Alignment.bottomCenter,
                                 child: NavBarWidget(),
                               ),
+                              Align(
+                                alignment: Alignment.centerLeft,
+                                child: Padding(
+                                  padding: const EdgeInsets.only(left: 8.0),
+                                  child: IconButton(
+                                    icon: const Icon(
+                                      Icons.arrow_back_ios_new_rounded,
+                                      size: 32,
+                                    ),
+                                    color: Theme.of(context).colorScheme.primary,
+                                    style: IconButton.styleFrom(
+                                        backgroundColor: Theme.of(context)
+                                            .colorScheme
+                                            .primaryContainer
+                                            .withValues(alpha: 0.8)),
+                                    onPressed: () => QuranLibrary
+                                        .quranCtrl.quranPagesController
+                                        .nextPage(
+                                      duration:
+                                          const Duration(milliseconds: 600),
+                                      curve: Curves.easeInOut,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              Align(
+                                alignment: Alignment.centerRight,
+                                child: Padding(
+                                  padding: const EdgeInsets.only(right: 8.0),
+                                  child: IconButton(
+                                    icon: const Icon(
+                                      Icons.arrow_forward_ios_rounded,
+                                      size: 32,
+                                    ),
+                                    color: Theme.of(context).colorScheme.primary,
+                                    style: IconButton.styleFrom(
+                                        backgroundColor: Theme.of(context)
+                                            .colorScheme
+                                            .primaryContainer
+                                            .withValues(alpha: 0.8)),
+                                    onPressed: () => QuranLibrary
+                                        .quranCtrl.quranPagesController
+                                        .previousPage(
+                                      duration:
+                                          const Duration(milliseconds: 600),
+                                      curve: Curves.easeInOut,
+                                    ),
+                                  ),
+                                ),
+                              ),
                             ],
                           )
                         : const SizedBox.shrink(),

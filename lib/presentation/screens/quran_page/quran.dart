@@ -7,6 +7,10 @@ import 'dart:ui';
 
 import 'package:animated_custom_dropdown/custom_dropdown.dart';
 import 'package:animations/animations.dart';
+import 'package:another_xlider/another_xlider.dart';
+import 'package:another_xlider/models/handler.dart';
+import 'package:another_xlider/models/handler_animation.dart';
+import 'package:another_xlider/models/trackbar.dart';
 import 'package:arabic_numbers/arabic_numbers.dart';
 import 'package:bot_toast/bot_toast.dart';
 import 'package:dio/dio.dart';
@@ -19,7 +23,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart'
-    show Clipboard, ClipboardData, LogicalKeyboardKey, Uint8List;
+    show Clipboard, ClipboardData, LogicalKeyboardKey, Uint8List, rootBundle;
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_slider_drawer/flutter_slider_drawer.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';

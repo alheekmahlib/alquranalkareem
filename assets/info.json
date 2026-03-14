@@ -1,0 +1,800 @@
+[
+    {
+        "sura_no": 1,
+        "sura_name_en": "Al-Fatiha",
+        "sura_name_ar": "الفاتحة",
+        "sura_name_berber": "اَلْحَمْدُ",
+        "place": "Meccan"
+    },
+    {
+        "sura_no": 2,
+        "sura_name_en": "Al-Baqara",
+        "sura_name_ar": "البقرة",
+        "sura_name_berber": "ثَفُنَاسْثْ",
+        "place": "Medinan"
+    },
+    {
+        "sura_no": 3,
+        "sura_name_en": "Aal-E-Imran",
+        "sura_name_ar": "آل عمران",
+        "sura_name_berber": "آثْ عَمْرَانْ",
+        "place": "Medinan"
+    },
+    {
+        "sura_no": 4,
+        "sura_name_en": "An-Nisa",
+        "sura_name_ar": "النساء",
+        "sura_name_berber": "ثِلَاوِينْ",
+        "place": "Medinan"
+    },
+    {
+        "sura_no": 5,
+        "sura_name_en": "Al-Ma'ida",
+        "sura_name_ar": "المائدة",
+        "sura_name_berber": "الْمَايْذَه",
+        "place": "Medinan"
+    },
+    {
+        "sura_no": 6,
+        "sura_name_en": "Al-An'am",
+        "sura_name_ar": "الأنعام",
+        "sura_name_berber": "الْمَاشْيَه",
+        "place": "Meccan"
+    },
+    {
+        "sura_no": 7,
+        "sura_name_en": "Al-A'raf",
+        "sura_name_ar": "الأعراف",
+        "sura_name_berber": "الأعْرَافْ",
+        "place": "Meccan"
+    },
+    {
+        "sura_no": 8,
+        "sura_name_en": "Al-Anfal",
+        "sura_name_ar": "الأنفال",
+        "sura_name_berber": "الْغَنَايَمْ",
+        "place": "Medinan"
+    },
+    {
+        "sura_no": 9,
+        "sura_name_en": "At-Tawba",
+        "sura_name_ar": "التوبة",
+        "sura_name_berber": "التسُّوپَه",
+        "place": "Medinan"
+    },
+    {
+        "sura_no": 10,
+        "sura_name_en": "Yunus",
+        "sura_name_ar": "يونس",
+        "sura_name_berber": "يُونَسْ",
+        "place": "Meccan"
+    },
+    {
+        "sura_no": 11,
+        "sura_name_en": "Hud",
+        "sura_name_ar": "هود",
+        "sura_name_berber": "هُودْ",
+        "place": "Meccan"
+    },
+    {
+        "sura_no": 12,
+        "sura_name_en": "Yusuf",
+        "sura_name_ar": "يوسف",
+        "sura_name_berber": "يُوسَفْ",
+        "place": "Meccan"
+    },
+    {
+        "sura_no": 13,
+        "sura_name_en": "Ar-Ra'd",
+        "sura_name_ar": "الرعد",
+        "sura_name_berber": "اَرْعُوذْ",
+        "place": "Medinan"
+    },
+    {
+        "sura_no": 14,
+        "sura_name_en": "Ibrahim",
+        "sura_name_ar": "إبراهيم",
+        "sura_name_berber": "يَپْرَاهِيمْ",
+        "place": "Meccan"
+    },
+    {
+        "sura_no": 15,
+        "sura_name_en": "Al-Hijr",
+        "sura_name_ar": "الحجر",
+        "sura_name_berber": "الْحِجْرْ",
+        "place": "Meccan"
+    },
+    {
+        "sura_no": 16,
+        "sura_name_en": "An-Nahl",
+        "sura_name_ar": "النحل",
+        "sura_name_berber": "ثِزِزْوَا",
+        "place": "Meccan"
+    },
+    {
+        "sura_no": 17,
+        "sura_name_en": "Al-Isra’",
+        "sura_name_ar": "الإسراء",
+        "sura_name_berber": "ثِكَْلِي اَڤِّيظْ",
+        "place": "Meccan"
+    },
+    {
+        "sura_no": 18,
+        "sura_name_en": "Al-Kahf",
+        "sura_name_ar": "الكهف",
+        "sura_name_berber": "الْغَارْ",
+        "place": "Meccan"
+    },
+    {
+        "sura_no": 19,
+        "sura_name_en": "Maryam",
+        "sura_name_ar": "مريم",
+        "sura_name_berber": "مَرْيَمَ",
+        "place": "Meccan"
+    },
+    {
+        "sura_no": 20,
+        "sura_name_en": "Ta-Ha",
+        "sura_name_ar": "طه",
+        "sura_name_berber": "طَهَ",
+        "place": "Meccan"
+    },
+    {
+        "sura_no": 21,
+        "sura_name_en": "Al-Anbiya’",
+        "sura_name_ar": "الأنبياء",
+        "sura_name_berber": "الاَنْبِيَا",
+        "place": "Meccan"
+    },
+    {
+        "sura_no": 22,
+        "sura_name_en": "Al-Haj",
+        "sura_name_ar": "الحج",
+        "sura_name_berber": "الْحِيجْ",
+        "place": "Medinan"
+    },
+    {
+        "sura_no": 23,
+        "sura_name_en": "Al-Mu’minun",
+        "sura_name_ar": "المؤمنون",
+        "sura_name_berber": "الْمُومْنِينْ",
+        "place": "Meccan"
+    },
+    {
+        "sura_no": 24,
+        "sura_name_en": "An-Nur",
+        "sura_name_ar": "النور",
+        "sura_name_berber": "ثَفَاثْ",
+        "place": "Medinan"
+    },
+    {
+        "sura_no": 25,
+        "sura_name_en": "Al-Furqan",
+        "sura_name_ar": "الفرقان",
+        "sura_name_berber": "الْفُرْقَانْ",
+        "place": "Meccan"
+    },
+    {
+        "sura_no": 26,
+        "sura_name_en": "Ash-Shu’ara’",
+        "sura_name_ar": "الشعراء",
+        "sura_name_berber": "وِذيَسَّفْرَاوَنْ",
+        "place": "Meccan"
+    },
+    {
+        "sura_no": 27,
+        "sura_name_en": "An-Naml",
+        "sura_name_ar": "النمل",
+        "sura_name_berber": "اَوَطُّوفْ",
+        "place": "Meccan"
+    },
+    {
+        "sura_no": 28,
+        "sura_name_en": "Al-Qasas",
+        "sura_name_ar": "القصص",
+        "sura_name_berber": "حَكُّو اَتْمُشُوهَا",
+        "place": "Meccan"
+    },
+    {
+        "sura_no": 29,
+        "sura_name_en": "Al-Ankabut",
+        "sura_name_ar": "العنكبوت",
+        "sura_name_berber": "ثِسِّيسْثْ",
+        "place": "Meccan"
+    },
+    {
+        "sura_no": 30,
+        "sura_name_en": "Ar-Rum",
+        "sura_name_ar": "الروم",
+        "sura_name_berber": "الرُّومَانْ",
+        "place": "Meccan"
+    },
+    {
+        "sura_no": 31,
+        "sura_name_en": "Luqman",
+        "sura_name_ar": "لقمان",
+        "sura_name_berber": "لُقْمَانْ",
+        "place": "Meccan"
+    },
+    {
+        "sura_no": 32,
+        "sura_name_en": "As-Sajdah",
+        "sura_name_ar": "السجدة",
+        "sura_name_berber": "السَّجْدَه",
+        "place": "Meccan"
+    },
+    {
+        "sura_no": 33,
+        "sura_name_en": "Al-Ahzab",
+        "sura_name_ar": "الأحزاب",
+        "sura_name_berber": "وِذْ دِمْشُدَّنْ",
+        "place": "Medinan"
+    },
+    {
+        "sura_no": 34,
+        "sura_name_en": "Saba’",
+        "sura_name_ar": "سبأ",
+        "sura_name_berber": "سَبَأْ",
+        "place": "Meccan"
+    },
+    {
+        "sura_no": 35,
+        "sura_name_en": "Al-Fatir",
+        "sura_name_ar": "فاطر",
+        "sura_name_berber": "اَخَلاَّقْ",
+        "place": "Meccan"
+    },
+    {
+        "sura_no": 36,
+        "sura_name_en": "Ya-Sin",
+        "sura_name_ar": "يس",
+        "sura_name_berber": "يَاسِينْ",
+        "place": "Meccan"
+    },
+    {
+        "sura_no": 37,
+        "sura_name_en": "As-Saffah",
+        "sura_name_ar": "الصافات",
+        "sura_name_berber": "وِيذْ يُقمَنْ اَلصَّفْ",
+        "place": "Meccan"
+    },
+    {
+        "sura_no": 38,
+        "sura_name_en": "Sad",
+        "sura_name_ar": "ص",
+        "sura_name_berber": "صَادْ",
+        "place": "Meccan"
+    },
+    {
+        "sura_no": 39,
+        "sura_name_en": "Az-Zumar",
+        "sura_name_ar": "الزمر",
+        "sura_name_berber": "ثِرَبُّعَا",
+        "place": "Meccan"
+    },
+    {
+        "sura_no": 40,
+        "sura_name_en": "Ghafar",
+        "sura_name_ar": "غافر",
+        "sura_name_berber": "وِينْ يَتسْسَمِّحَنْ",
+        "place": "Meccan"
+    },
+    {
+        "sura_no": 41,
+        "sura_name_en": "Fusilat",
+        "sura_name_ar": "فصلت",
+        "sura_name_berber": "اَتسْوَفَصْلَتْ",
+        "place": "Meccan"
+    },
+    {
+        "sura_no": 42,
+        "sura_name_en": "Ash-Shura",
+        "sura_name_ar": "الشورى",
+        "sura_name_berber": "اَمْشَاوَرْ",
+        "place": "Meccan"
+    },
+    {
+        "sura_no": 43,
+        "sura_name_en": "Az-Zukhruf",
+        "sura_name_ar": "الزخرف",
+        "sura_name_berber": "اَزَوَّقْ",
+        "place": "Meccan"
+    },
+    {
+        "sura_no": 44,
+        "sura_name_en": "Ad-Dukhan",
+        "sura_name_ar": "الدخان",
+        "sura_name_berber": "اَلدُّخَانْ",
+        "place": "Meccan"
+    },
+    {
+        "sura_no": 45,
+        "sura_name_en": "Al-Jathiyah",
+        "sura_name_ar": "الجاثية",
+        "sura_name_berber": "ثِينْ اِپَرْكََنْ",
+        "place": "Meccan"
+    },
+    {
+        "sura_no": 46,
+        "sura_name_en": "Al-Ahqaf",
+        "sura_name_ar": "الأحقاف",
+        "sura_name_berber": "اِذُرَارْ نَرْمَلْ",
+        "place": "Meccan"
+    },
+    {
+        "sura_no": 47,
+        "sura_name_en": "Muhammad",
+        "sura_name_ar": "محمد",
+        "sura_name_berber": "مُحَمَّذْ ﷺ",
+        "place": "Medinan"
+    },
+    {
+        "sura_no": 48,
+        "sura_name_en": "Al-Fat’h",
+        "sura_name_ar": "الفتح",
+        "sura_name_berber": "ثُولْيَا",
+        "place": "Medinan"
+    },
+    {
+        "sura_no": 49,
+        "sura_name_en": "Al-Hujurat",
+        "sura_name_ar": "الحجرات",
+        "sura_name_berber": "ثِخَّامِينْ",
+        "place": "Medinan"
+    },
+    {
+        "sura_no": 50,
+        "sura_name_en": "Qaf",
+        "sura_name_ar": "ق",
+        "sura_name_berber": "قَافْ",
+        "place": "Meccan"
+    },
+    {
+        "sura_no": 51,
+        "sura_name_en": "Adz-Dzariyah",
+        "sura_name_ar": "الذاريات",
+        "sura_name_berber": "وِذْ دِسْكَرَايَنْ اَغُبَّارْ",
+        "place": "Meccan"
+    },
+    {
+        "sura_no": 52,
+        "sura_name_en": "At-Tur",
+        "sura_name_ar": "الطور",
+        "sura_name_berber": "الطُّورْ",
+        "place": "Meccan"
+    },
+    {
+        "sura_no": 53,
+        "sura_name_en": "An-Najm",
+        "sura_name_ar": "النجم",
+        "sura_name_berber": "اِثْرِي",
+        "place": "Meccan"
+    },
+    {
+        "sura_no": 54,
+        "sura_name_en": "Al-Qamar",
+        "sura_name_ar": "القمر",
+        "sura_name_berber": "اَڤُورْ اَتْزِرِي",
+        "place": "Meccan"
+    },
+    {
+        "sura_no": 55,
+        "sura_name_en": "Ar-Rahman",
+        "sura_name_ar": "الرحمن",
+        "sura_name_berber": "اَحْنِينْ",
+        "place": "Medinan"
+    },
+    {
+        "sura_no": 56,
+        "sura_name_en": "Al-Waqi’ah",
+        "sura_name_ar": "الواقعة",
+        "sura_name_berber": "اَلْوِعْقَه",
+        "place": "Meccan"
+    },
+    {
+        "sura_no": 57,
+        "sura_name_en": "Al-Hadid",
+        "sura_name_ar": "الحديد",
+        "sura_name_berber": "اُزَّالْ",
+        "place": "Medinan"
+    },
+    {
+        "sura_no": 58,
+        "sura_name_en": "Al-Mujadilah",
+        "sura_name_ar": "المجادلة",
+        "sura_name_berber": "لَمْجَادْلَه",
+        "place": "Medinan"
+    },
+    {
+        "sura_no": 59,
+        "sura_name_en": "Al-Hashr",
+        "sura_name_ar": "الحشر",
+        "sura_name_berber": "اَجْمَاعْ",
+        "place": "Medinan"
+    },
+    {
+        "sura_no": 60,
+        "sura_name_en": "Al-Mumtahanah",
+        "sura_name_ar": "الممتحنة",
+        "sura_name_berber": "ثِينْ يَتسْوَپَحْثَنْ",
+        "place": "Medinan"
+    },
+    {
+        "sura_no": 61,
+        "sura_name_en": "As-Saf",
+        "sura_name_ar": "الصف",
+        "sura_name_berber": "اَلصَّفْ",
+        "place": "Medinan"
+    },
+    {
+        "sura_no": 62,
+        "sura_name_en": "Al-Jum’ah",
+        "sura_name_ar": "الجمعة",
+        "sura_name_berber": "اَلْجُمُعَه",
+        "place": "Medinan"
+    },
+    {
+        "sura_no": 63,
+        "sura_name_en": "Al-Munafiqun",
+        "sura_name_ar": "المنافقون",
+        "sura_name_berber": "اَلْمُنَافِقُونْ",
+        "place": "Medinan"
+    },
+    {
+        "sura_no": 64,
+        "sura_name_en": "At-Taghabun",
+        "sura_name_ar": "التغابن",
+        "sura_name_berber": "لَغْيينَه",
+        "place": "Medinan"
+    },
+    {
+        "sura_no": 65,
+        "sura_name_en": "At-Talaq",
+        "sura_name_ar": "الطلاق",
+        "sura_name_berber": "پَرُّو",
+        "place": "Medinan"
+    },
+    {
+        "sura_no": 66,
+        "sura_name_en": "At-Tahrim",
+        "sura_name_ar": "التحريم",
+        "sura_name_berber": "اَحَرَّمْ",
+        "place": "Medinan"
+    },
+    {
+        "sura_no": 67,
+        "sura_name_en": "Al-Mulk",
+        "sura_name_ar": "الملك",
+        "sura_name_berber": "لَحْكُمْ",
+        "place": "Meccan"
+    },
+    {
+        "sura_no": 68,
+        "sura_name_en": "Al-Qalam",
+        "sura_name_ar": "القلم",
+        "sura_name_berber": "لَقْلاَمْ",
+        "place": "Meccan"
+    },
+    {
+        "sura_no": 69,
+        "sura_name_en": "Al-Haqqah",
+        "sura_name_ar": "الحاقة",
+        "sura_name_berber": "الْقِيَامَه",
+        "place": "Meccan"
+    },
+    {
+        "sura_no": 70,
+        "sura_name_en": "Al-Ma’arij",
+        "sura_name_ar": "المعارج",
+        "sura_name_berber": "اِپَرْذَانْ اُعَرَّاجْ",
+        "place": "Meccan"
+    },
+    {
+        "sura_no": 71,
+        "sura_name_en": "Nuh",
+        "sura_name_ar": "نوح",
+        "sura_name_berber": "نُوحْ",
+        "place": "Meccan"
+    },
+    {
+        "sura_no": 72,
+        "sura_name_en": "Al-Jinn",
+        "sura_name_ar": "الجن",
+        "sura_name_berber": "لَجْنُونْ",
+        "place": "Meccan"
+    },
+    {
+        "sura_no": 73,
+        "sura_name_en": "Al-Muzammil",
+        "sura_name_ar": "المزمل",
+        "sura_name_berber": "وِينْ يَذْلَنْ",
+        "place": "Meccan"
+    },
+    {
+        "sura_no": 74,
+        "sura_name_en": "Al-Mudaththir",
+        "sura_name_ar": "المدثر",
+        "sura_name_berber": "وِينْ يَ",
+        "place": "Meccan"
+    },
+    {
+        "sura_no": 75,
+        "sura_name_en": "Al-Qiyamah",
+        "sura_name_ar": "القيامة",
+        "sura_name_berber": "اَلْقِيَامَه",
+        "place": "Meccan"
+    },
+    {
+        "sura_no": 76,
+        "sura_name_en": "Al-Insan",
+        "sura_name_ar": "الإنسان",
+        "sura_name_berber": "اَمْذَانْ",
+        "place": "Medinan"
+    },
+    {
+        "sura_no": 77,
+        "sura_name_en": "Al-Mursalat",
+        "sura_name_ar": "المرسلات",
+        "sura_name_berber": "ثِذْ دِتسْوَشَڤْعَنْ",
+        "place": "Meccan"
+    },
+    {
+        "sura_no": 78,
+        "sura_name_en": "An-Naba’",
+        "sura_name_ar": "النبأ",
+        "sura_name_berber": "لُخْپَارْ",
+        "place": "Meccan"
+    },
+    {
+        "sura_no": 79,
+        "sura_name_en": "An-Nazi’at",
+        "sura_name_ar": "النازعات",
+        "sura_name_berber": "الْمَلاَيَكْ اِدِثَكْسَنْ الاَرْوَاحْ",
+        "place": "Meccan"
+    },
+    {
+        "sura_no": 80,
+        "sura_name_en": "‘Abasa",
+        "sura_name_ar": "عبس",
+        "sura_name_berber": "يَكَْرَسْ ثَوَنْزَاسْ",
+        "place": "Meccan"
+    },
+    {
+        "sura_no": 81,
+        "sura_name_en": "At-Takwir",
+        "sura_name_ar": "التكوير",
+        "sura_name_berber": "اَسُكَْارْ",
+        "place": "Meccan"
+    },
+    {
+        "sura_no": 82,
+        "sura_name_en": "Al-Infitar",
+        "sura_name_ar": "الإنفطار",
+        "sura_name_berber": "اَشَقَّقْ",
+        "place": "Meccan"
+    },
+    {
+        "sura_no": 83,
+        "sura_name_en": "Al-Mutaffifin",
+        "sura_name_ar": "المطففين",
+        "sura_name_berber": "وِذْ يَسَّنْغَصَنْ الْمِيزَانْ",
+        "place": "Meccan"
+    },
+    {
+        "sura_no": 84,
+        "sura_name_en": "Al-Inshiqaq",
+        "sura_name_ar": "الإنشقاق",
+        "sura_name_berber": "اَشَقَّقْ",
+        "place": "Meccan"
+    },
+    {
+        "sura_no": 85,
+        "sura_name_en": "Al-Buruj",
+        "sura_name_ar": "البروج",
+        "sura_name_berber": "لَمْنَازَلْ اَڤَّثْرَانْ",
+        "place": "Meccan"
+    },
+    {
+        "sura_no": 86,
+        "sura_name_en": "At-Tariq",
+        "sura_name_ar": "الطارق",
+        "sura_name_berber": "وِينْ دِتسَّاسَنْ ذَڤِّظْ",
+        "place": "Meccan"
+    },
+    {
+        "sura_no": 87,
+        "sura_name_en": "Al-A’la",
+        "sura_name_ar": "الأعلى",
+        "sura_name_berber": "اَعْلَيَانْ اَطَاسْ",
+        "place": "Meccan"
+    },
+    {
+        "sura_no": 88,
+        "sura_name_en": "Al-Ghashiyah",
+        "sura_name_ar": "الغاشية",
+        "sura_name_berber": "ثِنْ يَتسْغُمُّونْ",
+        "place": "Meccan"
+    },
+    {
+        "sura_no": 89,
+        "sura_name_en": "Al-Fajr",
+        "sura_name_ar": "الفجر",
+        "sura_name_berber": "لَفْجرْ",
+        "place": "Meccan"
+    },
+    {
+        "sura_no": 90,
+        "sura_name_en": "Al-Balad",
+        "sura_name_ar": "البلد",
+        "sura_name_berber": "ثَمُورْثْ",
+        "place": "Meccan"
+    },
+    {
+        "sura_no": 91,
+        "sura_name_en": "Ash-Shams",
+        "sura_name_ar": "الشمس",
+        "sura_name_berber": "اِطِيجْ",
+        "place": "Meccan"
+    },
+    {
+        "sura_no": 92,
+        "sura_name_en": "Al-Layl",
+        "sura_name_ar": "الليل",
+        "sura_name_berber": "اِظْ",
+        "place": "Meccan"
+    },
+    {
+        "sura_no": 93,
+        "sura_name_en": "Adh-Dhuha",
+        "sura_name_ar": "الضحى",
+        "sura_name_berber": "اَطْحَى",
+        "place": "Meccan"
+    },
+    {
+        "sura_no": 94,
+        "sura_name_en": "Al-Inshirah",
+        "sura_name_ar": "الشرح",
+        "sura_name_berber": "اَلَمْ نَشْرَحْ",
+        "place": "Meccan"
+    },
+    {
+        "sura_no": 95,
+        "sura_name_en": "At-Tin",
+        "sura_name_ar": "التين",
+        "sura_name_berber": "ثَزَارْثْ",
+        "place": "Meccan"
+    },
+    {
+        "sura_no": 96,
+        "sura_name_en": "Al-‘Alaq",
+        "sura_name_ar": "العلق",
+        "sura_name_berber": "إذُغْرَانْ",
+        "place": "Meccan"
+    },
+    {
+        "sura_no": 97,
+        "sura_name_en": "Al-Qadar",
+        "sura_name_ar": "القدر",
+        "sura_name_berber": "لَقْدَرْ",
+        "place": "Meccan"
+    },
+    {
+        "sura_no": 98,
+        "sura_name_en": "Al-Bayinah",
+        "sura_name_ar": "البينة",
+        "sura_name_berber": "لَبْيَانْ",
+        "place": "Medinan"
+    },
+    {
+        "sura_no": 99,
+        "sura_name_en": "Az-Zalzalah",
+        "sura_name_ar": "الزلزلة",
+        "sura_name_berber": "اَزْلاَزْ",
+        "place": "Medinan"
+    },
+    {
+        "sura_no": 100,
+        "sura_name_en": "Al-‘Adiyah",
+        "sura_name_ar": "العاديات",
+        "sura_name_berber": "اَلْخِيلْ يَتسْرَپَعَنْ",
+        "place": "Meccan"
+    },
+    {
+        "sura_no": 101,
+        "sura_name_en": "Al-Qari’ah",
+        "sura_name_ar": "القارعة",
+        "sura_name_berber": "الْقِيَامَه",
+        "place": "Meccan"
+    },
+    {
+        "sura_no": 102,
+        "sura_name_en": "At-Takathur",
+        "sura_name_ar": "التكاثر",
+        "sura_name_berber": "وَرَيَسْعُونْ اَطَاسْ",
+        "place": "Meccan"
+    },
+    {
+        "sura_no": 103,
+        "sura_name_en": "Al-‘Asr",
+        "sura_name_ar": "العصر",
+        "sura_name_berber": "اَلْوَقثْ",
+        "place": "Meccan"
+    },
+    {
+        "sura_no": 104,
+        "sura_name_en": "Al-Humazah",
+        "sura_name_ar": "الهمزة",
+        "sura_name_berber": "اَجَدَّعْ",
+        "place": "Meccan"
+    },
+    {
+        "sura_no": 105,
+        "sura_name_en": "Al-Fil",
+        "sura_name_ar": "الفيل",
+        "sura_name_berber": "اَلْفِيلْ",
+        "place": "Meccan"
+    },
+    {
+        "sura_no": 106,
+        "sura_name_en": "Quraish",
+        "sura_name_ar": "قريش",
+        "sura_name_berber": "قُرَيْشْ",
+        "place": "Meccan"
+    },
+    {
+        "sura_no": 107,
+        "sura_name_en": "Al-Ma’un",
+        "sura_name_ar": "الماعون",
+        "sura_name_berber": "ثَغَوْسَا",
+        "place": "Meccan"
+    },
+    {
+        "sura_no": 108,
+        "sura_name_en": "Al-Kauthar",
+        "sura_name_ar": "الكوثر",
+        "sura_name_berber": "الكَوْثَرْ",
+        "place": "Meccan"
+    },
+    {
+        "sura_no": 109,
+        "sura_name_en": "Al-Kafirun",
+        "sura_name_ar": "الكافرون",
+        "sura_name_berber": "وِذْ اِكَُفْرَنْ",
+        "place": "Meccan"
+    },
+    {
+        "sura_no": 110,
+        "sura_name_en": "An-Nasr",
+        "sura_name_ar": "النصر",
+        "sura_name_berber": "اَنْصَرْ",
+        "place": "Medinan"
+    },
+    {
+        "sura_no": 111,
+        "sura_name_en": "Al-Masad",
+        "sura_name_ar": "المسد",
+        "sura_name_berber": "الْمَسَدْ",
+        "place": "Meccan"
+    },
+    {
+        "sura_no": 112,
+        "sura_name_en": "Al-Ikhlas",
+        "sura_name_ar": "الإخلاص",
+        "sura_name_berber": "قُلْ هُوَ اَللهُ",
+        "place": "Meccan"
+    },
+    {
+        "sura_no": 113,
+        "sura_name_en": "Al-Falaq",
+        "sura_name_ar": "الفلق",
+        "sura_name_berber": "اَصْپَحْ",
+        "place": "Meccan"
+    },
+    {
+        "sura_no": 114,
+        "sura_name_en": "An-Nas",
+        "sura_name_ar": "الناس",
+        "sura_name_berber": "مَدَّنْ",
+        "place": "Meccan"
+    }
+]
