@@ -22,9 +22,13 @@ class BooksLastRead extends StatelessWidget {
       var lastReadBooks = bookCtrl.state.booksList.where((book) {
         return bookCtrl.state.lastReadPage.containsKey(book.bookNumber);
       }).toList();
-      return SizedBox(
+      return Container(
         height: 110,
         width: Get.width,
+        decoration: BoxDecoration(
+          color: backgroundColor ?? Colors.transparent,
+          borderRadius: const BorderRadius.all(Radius.circular(8)),
+        ),
         child: Padding(
           padding: const EdgeInsets.all(8.0),
           child: Row(
@@ -75,19 +79,6 @@ class BooksLastRead extends StatelessWidget {
                               children: [
                                 GestureDetector(
                                   onTap: () async {
-                                    bookCtrl.state.currentPageNumber.value =
-                                        currentPage - 1;
-                                    bookCtrl.getTocs(book.bookNumber).then((
-                                      tocs,
-                                    ) {
-                                      ChaptersController.instance
-                                        ..currentChapterItem = tocs.firstOrNull
-                                        ..chapters = tocs
-                                        ..currentChapterName =
-                                            tocs.firstOrNull?.text;
-
-                                      return tocs;
-                                    });
                                     await bookCtrl.moveToBookPageByNumber(
                                       currentPage - 1,
                                       book.bookNumber,

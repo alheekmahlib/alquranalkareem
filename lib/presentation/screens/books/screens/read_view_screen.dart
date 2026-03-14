@@ -2,11 +2,12 @@ part of '../books.dart';
 
 class ReadViewScreen extends StatelessWidget {
   final int bookNumber;
+  final int initialPage;
   final booksCtrl = BooksController.instance;
   final booksBookmarksCtrl = BooksBookmarksController.instance;
   final generalCtrl = GeneralController.instance;
 
-  ReadViewScreen({super.key, required this.bookNumber});
+  ReadViewScreen({super.key, required this.bookNumber, this.initialPage = 0});
 
   @override
   Widget build(BuildContext context) {
@@ -74,7 +75,10 @@ class ReadViewScreen extends StatelessWidget {
             onKeyEvent: (node, event) =>
                 booksCtrl.controlRLByKeyboard(node, event),
             child: PageView.builder(
-              controller: booksCtrl.pageController,
+              controller: booksCtrl.getSafePageController(
+                pages.length,
+                initialPage: initialPage,
+              ),
               itemCount: pages.length,
               onPageChanged: (i) {
                 booksCtrl.state.currentPageNumber.value = i;

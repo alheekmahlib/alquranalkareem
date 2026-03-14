@@ -12,17 +12,18 @@ class BackDropWidget extends StatelessWidget {
         children: [
           const Gap(80),
           SizedBox(
-            height: 150,
+            height: 200,
             child: Stack(
               alignment: Alignment.center,
               children: [
                 Align(
                   alignment: Alignment.center,
-                  child: customLottieWithColor(
-                    LottieConstants.assetsLottieQuranAuIc,
-                    height: 120,
-                    isRepeat: false,
-                    color: context.theme.colorScheme.surface,
+                  child: AnimatedDrawingWidget(
+                    opacity: 1,
+                    svgPath: SvgPath.svgAudioAudioQuran,
+                    width: 130,
+                    height: 90,
+                    customColor: context.theme.colorScheme.surface,
                   ),
                 ),
                 Align(
@@ -142,10 +143,15 @@ class BackDropWidget extends StatelessWidget {
                     children: [
                       const Gap(80),
                       LastListen(),
-                      customLottieWithColor(
-                        LottieConstants.assetsLottieQuranAuIc,
-                        height: 120,
-                        isRepeat: false,
+                      Align(
+                        alignment: Alignment.center,
+                        child: AnimatedDrawingWidget(
+                          opacity: 1,
+                          svgPath: SvgPath.svgAudioAudioQuran,
+                          width: 150,
+                          height: 100,
+                          customColor: context.theme.colorScheme.surface,
+                        ),
                       ),
                     ],
                   ),
@@ -156,6 +162,39 @@ class BackDropWidget extends StatelessWidget {
                     () => AudioCtrl.instance.state.isPlaying.value == true
                         ? const PlayBanner()
                         : const SizedBox.shrink(),
+                  ),
+                ),
+                Align(
+                  alignment: AlignmentDirectional.centerEnd,
+                  child: Container(
+                    height: 45,
+                    width: 100,
+                    alignment: AlignmentDirectional.centerStart,
+                    padding: const EdgeInsets.all(4),
+                    decoration: BoxDecoration(
+                      color: context.theme.primaryColorLight.withValues(
+                        alpha: .2,
+                      ),
+                      borderRadius: const BorderRadiusDirectional.only(
+                        topStart: Radius.circular(8),
+                        bottomStart: Radius.circular(8),
+                      ),
+                    ),
+                    child: CustomButton(
+                      onPressed: () => Get.to(
+                        () => const AudioSurahWithAyahs(),
+                        transition: Transition.fadeIn,
+                        binding: BindingsBuilder(() {
+                          Get.put(AudioSurahWithAyahsController());
+                        }),
+                      ),
+                      height: 40,
+                      width: 35,
+                      isCustomSvgColor: true,
+                      svgPath: SvgPath.svgAudioFullAudioScreen,
+                      svgColor: context.theme.colorScheme.primary,
+                      backgroundColor: context.theme.canvasColor,
+                    ),
                   ),
                 ),
               ],

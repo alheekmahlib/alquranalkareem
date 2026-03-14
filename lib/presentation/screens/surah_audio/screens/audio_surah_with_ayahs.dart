@@ -23,121 +23,284 @@ class AudioSurahWithAyahs extends GetView<AudioSurahWithAyahsController> {
             children: [
               Opacity(
                 opacity: 0.1,
-                child: customSvgWithCustomColor(
-                  SvgPath.svgQuranAuIc,
-                  height: 400,
-                  width: Get.width,
-                  color: context.theme.canvasColor,
+                child: Align(
+                  alignment: Alignment.center,
+                  child: AnimatedDrawingWidget(
+                    opacity: 1,
+                    svgPath: SvgPath.svgAudioAudioQuran,
+                    width: 250,
+                    height: 200,
+                    customColor: context.theme.colorScheme.surface,
+                  ),
                 ),
               ),
-              Column(
-                children: [
-                  Container(
-                    height: 100,
-                    width: 45,
-                    alignment: AlignmentDirectional.bottomCenter,
-                    padding: const EdgeInsets.all(4),
-                    decoration: BoxDecoration(
-                      color: context.theme.primaryColorLight.withValues(
-                        alpha: .2,
+              context.customOrientation(
+                Column(
+                  children: [
+                    Container(
+                      height: 100,
+                      width: 45,
+                      alignment: AlignmentDirectional.bottomCenter,
+                      padding: const EdgeInsets.all(4),
+                      decoration: BoxDecoration(
+                        color: context.theme.primaryColorLight.withValues(
+                          alpha: .2,
+                        ),
+                        borderRadius: const BorderRadiusDirectional.only(
+                          bottomEnd: Radius.circular(8),
+                          bottomStart: Radius.circular(8),
+                        ),
                       ),
-                      borderRadius: const BorderRadiusDirectional.only(
-                        bottomEnd: Radius.circular(8),
-                        bottomStart: Radius.circular(8),
+                      child: CustomButton(
+                        onPressed: () => Get.back(),
+                        height: 35,
+                        width: 40,
+                        isCustomSvgColor: true,
+                        svgPath: SvgPath.svgHomeClose,
+                        svgColor: context.theme.colorScheme.primary,
+                        backgroundColor: context.theme.canvasColor,
                       ),
                     ),
-                    child: CustomButton(
-                      onPressed: () => Get.back(),
-                      height: 35,
-                      width: 40,
-                      isCustomSvgColor: true,
-                      svgPath: SvgPath.svgHomeClose,
-                      svgColor: context.theme.colorScheme.primary,
-                      backgroundColor: context.theme.canvasColor,
+                    const Spacer(),
+                    Container(
+                      height: 8,
+                      width: Get.width,
+                      margin: const EdgeInsets.symmetric(horizontal: 62.0),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(8),
+                        color: Theme.of(context).primaryColorLight,
+                      ),
                     ),
-                  ),
-                  const Spacer(),
-                  Container(
-                    height: 8,
-                    width: Get.width,
-                    margin: const EdgeInsets.symmetric(horizontal: 62.0),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(8),
-                      color: Theme.of(context).primaryColorLight,
-                    ),
-                  ),
-                  const Gap(8.0),
-                  Obx(() {
-                    final isAvailable =
-                        controller.segState.isSegmentsAvailable.value;
-                    final surahNum =
-                        controller.segState.currentSegmentSurahNumber.value ??
-                        surahCtrl.state.currentAudioListSurahNum.value;
+                    const Gap(8.0),
+                    Obx(() {
+                      final isAvailable =
+                          controller.segState.isSegmentsAvailable.value;
+                      final surahNum =
+                          controller.segState.currentSegmentSurahNumber.value ??
+                          surahCtrl.state.currentAudioListSurahNum.value;
 
-                    if (isAvailable) {
-                      return _buildAyahTracker(context, surahCtrl, surahNum);
-                    } else {
-                      return _buildSurahInfoCard(context, surahCtrl, surahNum);
-                    }
-                  }),
-                  const Gap(8.0),
-                  Container(
-                    height: 8,
-                    width: Get.width,
-                    margin: const EdgeInsets.symmetric(horizontal: 62.0),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(8),
-                      color: Theme.of(context).primaryColorLight,
+                      if (isAvailable) {
+                        return _buildAyahTracker(context, surahCtrl, surahNum);
+                      } else {
+                        return _buildSurahInfoCard(
+                          context,
+                          surahCtrl,
+                          surahNum,
+                        );
+                      }
+                    }),
+                    const Gap(8.0),
+                    Container(
+                      height: 8,
+                      width: Get.width,
+                      margin: const EdgeInsets.symmetric(horizontal: 62.0),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(8),
+                        color: Theme.of(context).primaryColorLight,
+                      ),
                     ),
-                  ),
-                  const Spacer(),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      GetBuilder<AudioCtrl>(
-                        id: 'change_surah_reader',
-                        builder: (surahAudioCtrl) => Text(
-                          ReadersConstants
-                              .activeSurahReaders[surahAudioCtrl
-                                  .state
-                                  .surahReaderIndex
-                                  .value]
-                              .name
-                              .tr,
-                          style: AppTextStyles.titleMedium().copyWith(
-                            color: context.theme.colorScheme.surface,
-                            fontSize: 22,
+                    const Spacer(),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        GetBuilder<AudioCtrl>(
+                          id: 'change_surah_reader',
+                          builder: (surahAudioCtrl) => Text(
+                            ReadersConstants
+                                .activeSurahReaders[surahAudioCtrl
+                                    .state
+                                    .surahReaderIndex
+                                    .value]
+                                .name
+                                .tr,
+                            style: AppTextStyles.titleMedium().copyWith(
+                              color: context.theme.colorScheme.surface,
+                              fontSize: 22,
+                            ),
                           ),
                         ),
-                      ),
-                      Container(
-                        height: 30,
-                        width: 4,
-                        margin: const EdgeInsets.symmetric(horizontal: 12.0),
-                        decoration: BoxDecoration(
-                          color: context.theme.colorScheme.surface.withValues(
-                            alpha: .8,
+                        Container(
+                          height: 30,
+                          width: 4,
+                          margin: const EdgeInsets.symmetric(horizontal: 12.0),
+                          decoration: BoxDecoration(
+                            color: context.theme.colorScheme.surface.withValues(
+                              alpha: .8,
+                            ),
+                            borderRadius: BorderRadius.circular(4),
                           ),
-                          borderRadius: BorderRadius.circular(4),
+                        ),
+                        Obx(
+                          () => surahNameWidget(
+                            surahCtrl.state.currentAudioListSurahNum.value
+                                .toString(),
+                            context.theme.colorScheme.surface,
+                            height: 50,
+                            width: 80,
+                          ),
+                        ),
+                      ],
+                    ),
+                    PlayWidget(
+                      iconColor: context.theme.canvasColor,
+                      backgroundColor: context.theme.primaryColorLight,
+                      isFullScreen: true,
+                    ),
+                  ],
+                ),
+                Stack(
+                  alignment: AlignmentDirectional.topStart,
+                  children: [
+                    Container(
+                      height: 45,
+                      width: 100,
+                      alignment: AlignmentDirectional.centerEnd,
+                      padding: const EdgeInsets.all(4),
+                      decoration: BoxDecoration(
+                        color: context.theme.primaryColorLight.withValues(
+                          alpha: .2,
+                        ),
+                        borderRadius: const BorderRadiusDirectional.only(
+                          topEnd: Radius.circular(8),
+                          bottomEnd: Radius.circular(8),
                         ),
                       ),
-                      Obx(
-                        () => surahNameWidget(
-                          surahCtrl.state.currentAudioListSurahNum.value
-                              .toString(),
-                          context.theme.colorScheme.surface,
-                          height: 50,
-                          width: 80,
-                        ),
+                      child: CustomButton(
+                        onPressed: () => Get.back(),
+                        height: 35,
+                        width: 40,
+                        isCustomSvgColor: true,
+                        svgPath: SvgPath.svgHomeClose,
+                        svgColor: context.theme.colorScheme.primary,
+                        backgroundColor: context.theme.canvasColor,
                       ),
-                    ],
-                  ),
-                  PlayWidget(
-                    iconColor: context.theme.canvasColor,
-                    backgroundColor: context.theme.primaryColorLight,
-                    isFullScreen: true,
-                  ),
-                ],
+                    ),
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      children: [
+                        Expanded(
+                          child: PlayWidget(
+                            iconColor: context.theme.canvasColor,
+                            backgroundColor: context.theme.primaryColorLight,
+                            isFullScreen: true,
+                          ),
+                        ),
+                        Expanded(
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              const Spacer(),
+                              Container(
+                                height: 8,
+                                width: Get.width,
+                                margin: const EdgeInsets.symmetric(
+                                  horizontal: 62.0,
+                                ),
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(8),
+                                  color: Theme.of(context).primaryColorLight,
+                                ),
+                              ),
+                              const Gap(8.0),
+                              Obx(() {
+                                final isAvailable = controller
+                                    .segState
+                                    .isSegmentsAvailable
+                                    .value;
+                                final surahNum =
+                                    controller
+                                        .segState
+                                        .currentSegmentSurahNumber
+                                        .value ??
+                                    surahCtrl
+                                        .state
+                                        .currentAudioListSurahNum
+                                        .value;
+
+                                if (isAvailable) {
+                                  return _buildAyahTracker(
+                                    context,
+                                    surahCtrl,
+                                    surahNum,
+                                  );
+                                } else {
+                                  return _buildSurahInfoCard(
+                                    context,
+                                    surahCtrl,
+                                    surahNum,
+                                  );
+                                }
+                              }),
+                              const Gap(8.0),
+                              Container(
+                                height: 8,
+                                width: Get.width,
+                                margin: const EdgeInsets.symmetric(
+                                  horizontal: 62.0,
+                                ),
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(8),
+                                  color: Theme.of(context).primaryColorLight,
+                                ),
+                              ),
+                              const Spacer(),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  GetBuilder<AudioCtrl>(
+                                    id: 'change_surah_reader',
+                                    builder: (surahAudioCtrl) => Text(
+                                      ReadersConstants
+                                          .activeSurahReaders[surahAudioCtrl
+                                              .state
+                                              .surahReaderIndex
+                                              .value]
+                                          .name
+                                          .tr,
+                                      style: AppTextStyles.titleMedium()
+                                          .copyWith(
+                                            color: context
+                                                .theme
+                                                .colorScheme
+                                                .surface,
+                                            fontSize: 22,
+                                          ),
+                                    ),
+                                  ),
+                                  Container(
+                                    height: 30,
+                                    width: 4,
+                                    margin: const EdgeInsets.symmetric(
+                                      horizontal: 12.0,
+                                    ),
+                                    decoration: BoxDecoration(
+                                      color: context.theme.colorScheme.surface
+                                          .withValues(alpha: .8),
+                                      borderRadius: BorderRadius.circular(4),
+                                    ),
+                                  ),
+                                  Obx(
+                                    () => surahNameWidget(
+                                      surahCtrl
+                                          .state
+                                          .currentAudioListSurahNum
+                                          .value
+                                          .toString(),
+                                      context.theme.colorScheme.surface,
+                                      height: 50,
+                                      width: 80,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              const Gap(8.0),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
               ),
             ],
           ),

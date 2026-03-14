@@ -29,86 +29,90 @@ class BooksTopTitleWidget extends StatelessWidget {
   }
 
   Widget fontSizeSliderWidget(BuildContext context) {
-    return SizedBox(
-      height: 35,
-      width: Get.width * .5,
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Expanded(
-            child: Container(
-              height: 35,
-              // width: Get.width * .4,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(8.0),
-                border: Border.all(
-                  color: context.theme.primaryColorLight.withValues(alpha: .2),
-                  width: 1,
+    return Expanded(
+      child: SizedBox(
+        height: 35,
+        width: Get.width,
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Expanded(
+              child: Container(
+                height: 35,
+                // width: Get.width * .4,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(8.0),
+                  border: Border.all(
+                    color: context.theme.primaryColorLight.withValues(
+                      alpha: .2,
+                    ),
+                    width: 1,
+                  ),
                 ),
-              ),
-              child: Obx(
-                () => FlutterSlider(
-                  values: [
-                    GeneralController.instance.state.fontSizeArabic.value,
-                  ],
-                  max: 50,
-                  min: 20,
-                  rtl: true,
-                  trackBar: FlutterSliderTrackBar(
-                    inactiveTrackBarHeight: 5,
-                    activeTrackBarHeight: 5,
-                    inactiveTrackBar: BoxDecoration(
-                      borderRadius: BorderRadius.circular(8),
-                      color: context.theme.colorScheme.surface,
+                child: Obx(
+                  () => FlutterSlider(
+                    values: [
+                      GeneralController.instance.state.fontSizeArabic.value,
+                    ],
+                    max: 50,
+                    min: 20,
+                    rtl: true,
+                    trackBar: FlutterSliderTrackBar(
+                      inactiveTrackBarHeight: 5,
+                      activeTrackBarHeight: 5,
+                      inactiveTrackBar: BoxDecoration(
+                        borderRadius: BorderRadius.circular(8),
+                        color: context.theme.colorScheme.surface,
+                      ),
+                      activeTrackBar: BoxDecoration(
+                        borderRadius: BorderRadius.circular(4),
+                        color: context.theme.colorScheme.primary,
+                      ),
                     ),
-                    activeTrackBar: BoxDecoration(
-                      borderRadius: BorderRadius.circular(4),
-                      color: context.theme.colorScheme.primary,
+                    handlerAnimation: const FlutterSliderHandlerAnimation(
+                      curve: Curves.elasticOut,
+                      reverseCurve: null,
+                      duration: Duration(milliseconds: 700),
+                      scale: 1.4,
                     ),
-                  ),
-                  handlerAnimation: const FlutterSliderHandlerAnimation(
-                    curve: Curves.elasticOut,
-                    reverseCurve: null,
-                    duration: Duration(milliseconds: 700),
-                    scale: 1.4,
-                  ),
-                  onDragging: (handlerIndex, lowerValue, upperValue) async {
-                    lowerValue = lowerValue;
-                    upperValue = upperValue;
-                    GeneralController.instance.state.fontSizeArabic.value =
-                        lowerValue;
+                    onDragging: (handlerIndex, lowerValue, upperValue) async {
+                      lowerValue = lowerValue;
+                      upperValue = upperValue;
+                      GeneralController.instance.state.fontSizeArabic.value =
+                          lowerValue;
 
-                    GeneralController.instance.state.box.write(
-                      FONT_SIZE,
-                      lowerValue,
-                    );
-                  },
-                  handler: FlutterSliderHandler(
-                    decoration: const BoxDecoration(),
-                    child: Material(
-                      type: MaterialType.circle,
-                      color: Colors.transparent,
-                      elevation: 3,
-                      child: customSvg('assets/svg/slider_ic.svg'),
+                      GeneralController.instance.state.box.write(
+                        FONT_SIZE,
+                        lowerValue,
+                      );
+                    },
+                    handler: FlutterSliderHandler(
+                      decoration: const BoxDecoration(),
+                      child: Material(
+                        type: MaterialType.circle,
+                        color: Colors.transparent,
+                        elevation: 3,
+                        child: customSvg('assets/svg/slider_ic.svg'),
+                      ),
                     ),
                   ),
                 ),
               ),
             ),
-          ),
-          const Gap(8),
-          Semantics(
-            button: true,
-            enabled: true,
-            label: 'Change Font Size',
-            child: customSvgWithColor(
-              SvgPath.svgFontSize,
-              height: 25.0,
-              width: 25.0,
-              color: context.theme.primaryColorLight,
+            const Gap(8),
+            Semantics(
+              button: true,
+              enabled: true,
+              label: 'Change Font Size',
+              child: customSvgWithColor(
+                SvgPath.svgFontSize,
+                height: 25.0,
+                width: 25.0,
+                color: context.theme.primaryColorLight,
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

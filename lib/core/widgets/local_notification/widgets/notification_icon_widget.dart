@@ -5,11 +5,17 @@ import 'package:get/get.dart';
 import '/core/utils/constants/extensions/convert_number_extension.dart';
 import '/core/utils/constants/extensions/svg_extensions.dart';
 import '../../../utils/constants/svg_constants.dart';
+import '../../../utils/helpers/app_text_styles.dart';
 import '../controller/local_notifications_controller.dart';
 
 class NotificationIconWidget extends StatelessWidget {
   final double iconHeight;
-  const NotificationIconWidget({super.key, required this.iconHeight});
+  final bool? inScreen;
+  const NotificationIconWidget({
+    super.key,
+    required this.iconHeight,
+    this.inScreen,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -20,31 +26,28 @@ class NotificationIconWidget extends StatelessWidget {
           builder: (notiCtrl) {
             return badges.Badge(
               showBadge: notiCtrl.unreadCount > 0,
-              position: badges.BadgePosition.bottomEnd(bottom: -22, end: -20),
-              badgeStyle: badges.BadgeStyle(
+              position: badges.BadgePosition.center(),
+              badgeStyle: const badges.BadgeStyle(
                 shape: badges.BadgeShape.square,
-                badgeColor: Theme.of(context).colorScheme.primaryContainer,
-                borderSide: BorderSide(
-                  width: 1,
-                  color: Theme.of(context).colorScheme.surface,
-                ),
-                padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                borderRadius: BorderRadius.circular(4),
+                badgeColor: Colors.transparent,
+                padding: EdgeInsets.symmetric(horizontal: 8.0),
                 elevation: 0,
               ),
               badgeContent: Text(
                 notiCtrl.unreadCount.toString().convertNumbersToCurrentLang(),
-                style: TextStyle(
-                  fontFamily: 'naskh',
-                  fontSize: 22,
+                style: AppTextStyles.titleSmall(
+                  height: inScreen == true ? 2.3 : 2.3,
+                  fontSize: inScreen == true ? 28 : 14,
+                  color: context.theme.canvasColor,
                   fontWeight: FontWeight.bold,
-                  height: 1.2,
-                  color: Theme.of(context).colorScheme.primary,
                 ),
               ),
               child: customSvgWithColor(
                 SvgPath.svgHomeNotifications,
                 height: iconHeight,
+                color: notiCtrl.unreadCount > 0
+                    ? context.theme.colorScheme.surface
+                    : context.theme.colorScheme.primary,
               ),
             );
           },

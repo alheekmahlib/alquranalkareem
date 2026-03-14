@@ -7,6 +7,7 @@ import 'package:get/get.dart';
 import '/core/utils/constants/extensions/svg_extensions.dart';
 import '../../../../core/utils/constants/extensions/extensions.dart';
 import '../../../../core/utils/constants/svg_constants.dart';
+import '../../../../core/widgets/animated_drawing_widget.dart';
 import '../../../../core/widgets/app_bar_widget.dart';
 import '../controller/ourApps_controller.dart';
 import '../data/models/ourApp_model.dart';
@@ -27,18 +28,21 @@ class OurApps extends StatelessWidget {
         isFontSize: false,
         searchButton: const SizedBox.shrink(),
         centerChild: customSvgWithCustomColor(
-          SvgPath.svgSplashIcon,
-          height: 50,
+          SvgPath.svgHomeQuranLogo,
+          height: 35,
+          color: context.theme.primaryColorLight,
         ),
       ),
       body: context.customOrientation(
         ListView(
           children: [
             Gap(16.h),
-            customSvgWithCustomColor(
-              SvgPath.svgSplashIconW,
-              height: 160.h,
-              color: context.theme.primaryColorLight,
+            AnimatedDrawingWidget(
+              opacity: 1,
+              svgPath: SvgPath.svgHomeQuranLogo,
+              width: 130,
+              height: 110,
+              customColor: context.theme.colorScheme.surface,
             ),
             Gap(16.h),
             _appsBuild(),
@@ -60,10 +64,12 @@ class OurApps extends StatelessWidget {
               flex: 4,
               child: Column(
                 children: [
-                  customSvgWithCustomColor(
-                    SvgPath.svgSplashIconW,
-                    height: 160.h,
-                    color: context.theme.primaryColorLight,
+                  AnimatedDrawingWidget(
+                    opacity: 1,
+                    svgPath: SvgPath.svgHomeQuranLogo,
+                    width: 130,
+                    height: 110,
+                    customColor: context.theme.colorScheme.surface,
                   ),
                   const Spacer(),
                   Padding(

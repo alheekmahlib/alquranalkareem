@@ -57,7 +57,7 @@ class NavBarWidget extends StatelessWidget {
             handleBuilder: (currentHeight) {
               final isExpanded = currentHeight >= 155;
               return Material(
-                elevation: 8,
+                elevation: 20,
                 color: Colors.transparent,
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.end,
@@ -232,13 +232,13 @@ class NavBarWidget extends StatelessWidget {
             childBuilder: (currentHeight) {
               if (quranCtrl.getNavBarType(NavBarType.surahList).value) {
                 return Material(
-                  elevation: 8,
+                  elevation: 20,
                   color: Colors.transparent,
                   child: bodyChild ?? SurahJuzList(),
                 );
               } else {
                 return const Material(
-                  elevation: 8,
+                  elevation: 20,
                   color: Colors.transparent,
                   child: KhatmahBookmarksScreen(),
                 );

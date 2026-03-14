@@ -24,7 +24,10 @@ class BooksController extends GetxController {
   void _initializeController() {
     fetchBooks().then((_) => loadLastRead());
     loadFromGetStorage();
-    getApplicationDocumentsDirectory().then((dir) => state.dir = dir);
+    getApplicationDocumentsDirectory().then((dir) {
+      state.dir = dir;
+      if (!state.dirInitialized.isCompleted) state.dirInitialized.complete();
+    });
     _setupSearchListener();
   }
 
@@ -204,6 +207,7 @@ class BooksController extends GetxController {
     bool tryAssets = false,
   }) async {
     try {
+      await state.dirInitialized.future;
       String jsonString;
 
       if (tryAssets) {

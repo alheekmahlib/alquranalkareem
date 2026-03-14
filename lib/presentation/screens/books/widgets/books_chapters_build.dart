@@ -309,7 +309,9 @@ class BooksChapterBuild extends StatelessWidget {
       verticalMargin: 2.0,
       horizontalMargin: 8.0,
       title: item.text,
-      subtitle: item.page > 0 ? '${'page'.tr} ${item.page}' : '',
+      subtitle: item.page > 0
+          ? '${'page'.tr} ${item.page}'.convertNumbersToCurrentLang()
+          : '',
       backgroundColor: context.theme.primaryColorLight.withValues(alpha: .1),
       svgColor: Theme.of(context).colorScheme.secondaryContainer,
     );
@@ -329,7 +331,9 @@ class BooksChapterBuild extends StatelessWidget {
       verticalMargin: 2.0,
       horizontalMargin: 8.0,
       title: item.text,
-      subtitle: item.page > 0 ? '${'page'.tr} ${item.page}' : '',
+      subtitle: item.page > 0
+          ? '${'page'.tr} ${item.page}'.convertNumbersToCurrentLang()
+          : '',
       backgroundColor: context.theme.primaryColorLight.withValues(alpha: .1),
       svgColor: Theme.of(context).colorScheme.secondaryContainer,
     );

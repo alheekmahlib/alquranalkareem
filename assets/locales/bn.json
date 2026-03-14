@@ -1346,5 +1346,7 @@
   "chapter": "অধ্যায়",
   "goToStartOfJuz": "অংশের শুরুতে যান",
   "noBooksReadedYet": "আপনি এখনও কোনো বই পড়েননি।",
-  "noBooksFoundForSearch": "অনুসন্ধানের জন্য কোনো বই পাওয়া যায়নি।"
+  "noBooksFoundForSearch": "অনুসন্ধানের জন্য কোনো বই পাওয়া যায়নি।",
+  "islamicLibrary": "ইসলামিক লাইব্রেরি",
+  "tajweed": "তাজবিদসহ"
 }

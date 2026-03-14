@@ -1338,5 +1338,7 @@
   "chapter": "الفصل",
   "goToStartOfJuz": "الذهاب إلى بداية الجزء",
   "noBooksReadedYet": "لم تقرأ أي كتاب بعد.",
-  "noBooksFoundForSearch": "لم يتم العثور على أي كتب."
+  "noBooksFoundForSearch": "لم يتم العثور على أي كتب.",
+  "islamicLibrary": "المكتبة الإسلامية",
+  "tajweed": "مع التجويد"
 }

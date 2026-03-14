@@ -12,7 +12,7 @@ extension BooksUi on BooksController {
 
     state.currentPageNumber.value = chapterPage;
     Get.to(
-      () => ReadViewScreen(bookNumber: bookNumber),
+      () => ReadViewScreen(bookNumber: bookNumber, initialPage: chapterPage),
       transition: Transition.fade,
     );
   }
@@ -47,16 +47,19 @@ extension BooksUi on BooksController {
     }
 
     state.currentPageNumber.value = pageNumber;
-    await ChaptersController.instance.loadChapters(
-      chapterName,
-      bookNumber,
-      pageNumber: pageNumber,
-      loadChapters: true,
-    );
-    Get.to(
-      () => ReadViewScreen(bookNumber: bookNumber),
-      transition: Transition.fade,
-    );
+    await ChaptersController.instance
+        .loadChapters(
+          chapterName,
+          bookNumber,
+          pageNumber: pageNumber,
+          loadChapters: true,
+        )
+        .then(
+          (_) => Get.to(
+            () => ReadViewScreen(bookNumber: bookNumber, initialPage: pageNumber),
+            transition: Transition.fade,
+          ),
+        );
   }
 
   Future<void> moveToPageByNumber(int pageNumber, int bookNumber) async {

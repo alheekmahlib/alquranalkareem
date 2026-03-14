@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../core/utils/constants/svg_constants.dart';
-import '../../../core/widgets/app_bar_widget.dart';
 import 'controller/waqf_tajweed_screen_controller.dart';
 import 'widgets/animated_segment_control.dart';
 import 'widgets/group_buttons_widget.dart';
@@ -16,54 +15,45 @@ class AlwaqfScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Theme.of(context).colorScheme.primaryContainer,
-      appBar: AppBarWidget(
-        isTitled: true,
-        title: 'mushafOrthographicMarks'.tr,
-        isFontSize: true,
-        searchButton: const SizedBox.shrink(),
-        isNotifi: false,
-        isBooks: false,
+    return Container(
+      margin: const EdgeInsets.only(bottom: 8, left: 8, right: 8),
+      decoration: BoxDecoration(
+        color: Theme.of(context).colorScheme.primaryContainer,
+        borderRadius: BorderRadius.circular(8),
       ),
-      body: SafeArea(
-        child: Directionality(
-          textDirection: TextDirection.rtl,
-          child: Column(
-            children: [
-              // Animated segment control
-              Obx(
-                () => AnimatedSegmentControl(
-                  labels: ['stopSigns'.tr, 'tajweedRules'.tr],
-                  svgIcons: const [SvgPath.svgAlwaqf, SvgPath.svgQuranIcS],
-                  selectedIndex: screenCtrl.selectedTab.value,
-                  onChanged: screenCtrl.switchTab,
-                ),
-              ),
-
-              // Group buttons (visible only in Waqf tab)
-              Obx(
-                () => AnimatedSize(
-                  duration: const Duration(milliseconds: 250),
-                  curve: Curves.easeInOut,
-                  child: screenCtrl.selectedTab.value == 0
-                      ? GroupButtonsWidget()
-                      : const SizedBox.shrink(),
-                ),
-              ),
-
-              // Content area
-              Expanded(
-                child: Obx(
-                  () => IndexedStack(
-                    index: screenCtrl.selectedTab.value,
-                    children: [WaqfListBuild(), const TajweedRulesListWidget()],
-                  ),
-                ),
-              ),
-            ],
+      child: Column(
+        children: [
+          // Animated segment control
+          Obx(
+            () => AnimatedSegmentControl(
+              labels: ['stopSigns'.tr, 'tajweedRules'.tr],
+              svgIcons: const [SvgPath.svgAlwaqf, SvgPath.svgQuranIcS],
+              selectedIndex: screenCtrl.selectedTab.value,
+              onChanged: screenCtrl.switchTab,
+            ),
           ),
-        ),
+
+          // Group buttons (visible only in Waqf tab)
+          Obx(
+            () => AnimatedSize(
+              duration: const Duration(milliseconds: 250),
+              curve: Curves.easeInOut,
+              child: screenCtrl.selectedTab.value == 0
+                  ? GroupButtonsWidget()
+                  : const SizedBox.shrink(),
+            ),
+          ),
+
+          // Content area
+          Expanded(
+            child: Obx(
+              () => IndexedStack(
+                index: screenCtrl.selectedTab.value,
+                children: [WaqfListBuild(), const TajweedRulesListWidget()],
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }

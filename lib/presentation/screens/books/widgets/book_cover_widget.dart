@@ -24,7 +24,7 @@ class BookCoverWidget extends StatelessWidget {
         child: isInDetails
             ? Container(
                 height: context.customOrientation(190.h, 230.h),
-                width: context.customOrientation(140.w, 90.w),
+                width: context.customOrientation(140.w, 170.w),
                 decoration: BoxDecoration(
                   color: context.theme.colorScheme.primary,
                   borderRadius: const BorderRadius.all(Radius.circular(8)),
@@ -46,7 +46,7 @@ class BookCoverWidget extends StatelessWidget {
                       },
                 child: Container(
                   height: context.customOrientation(130.h, 230.h),
-                  width: context.customOrientation(95.w, 90.w),
+                  width: context.customOrientation(95.w, 160.w),
                   decoration: BoxDecoration(
                     color: context.theme.colorScheme.primary,
                     borderRadius: const BorderRadius.all(Radius.circular(8)),
@@ -63,9 +63,9 @@ class BookCoverWidget extends StatelessWidget {
       alignment: Alignment.center,
       children: [
         Align(
-          alignment: Alignment.bottomCenter,
+          alignment: Alignment.bottomLeft,
           child: Padding(
-            padding: const EdgeInsets.symmetric(vertical: 8.0),
+            padding: const EdgeInsets.all(8.0),
             child: customSvg(
               SvgPath.svgHomeQuranLogo,
               height: isInDetails ? 25 : context.customOrientation(20.h, 35.h),
@@ -107,13 +107,15 @@ class BookCoverWidget extends StatelessWidget {
                   context.customOrientation(120.h, 150.h),
                   180.h,
                 ),
-          width: isInDetails ? 110 : context.definePlatform(70.w, 50.0.w),
+          width: isInDetails
+              ? context.customOrientation(110.h, 140.h)
+              : context.definePlatform(70.w, 120.0.w),
           alignment: Alignment.center,
           child: Text(
             _getBookNameBeforeSymbol(book!.bookName),
             style: AppTextStyles.titleMedium(
               fontSize: isInDetails
-                  ? 22
+                  ? 24
                   : context.definePlatform(
                       context.customOrientation(16.0.sp, 8.0.sp),
                       22.0,

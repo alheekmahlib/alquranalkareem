@@ -1338,5 +1338,7 @@
   "chapter": "Bölüm",
   "goToStartOfJuz": "Bölümün başına git",
   "noBooksReadedYet": "Henüz hiç kitap okumadınız.",
-  "noBooksFoundForSearch": "Arama için kitap bulunamadı."
+  "noBooksFoundForSearch": "Arama için kitap bulunamadı.",
+  "islamicLibrary": "İslami Kütüphane",
+  "tajweed": "Tecvidli"
 }
