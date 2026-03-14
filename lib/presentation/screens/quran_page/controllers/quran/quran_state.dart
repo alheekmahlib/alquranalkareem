@@ -12,7 +12,7 @@ class QuranState {
   final FocusNode quranPageUDFocusNode = FocusNode();
   ScrollController ScrollUpDownQuranPage = ScrollController();
 
-  RxInt currentPageNumber = 0.obs;
+  // RxInt currentPageNumber = 0.obs;
   RxInt lastReadSurahNumber = 1.obs;
   var selectedAyahIndexes = <int>[].obs;
   bool isSelected = false;
@@ -51,4 +51,5 @@ class QuranState {
   RxInt selectedAyahNumber = 0.obs;
   RxInt selectedSurahNumber = 0.obs;
   var qPackage = QuranLibrary();
+  final QuranRepository _quranRepository = QuranRepository();
 }

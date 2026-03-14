@@ -222,28 +222,36 @@ class PlayListController extends GetxController {
 
   int? get firstAyah => startNum.value == 1
       ? quranCtrl
-            .getPageAyahsByIndex(quranCtrl.state.currentPageNumber.value - 1)
+            .getPageAyahsByIndex(
+              QuranCtrl.instance.state.currentPageNumber.value - 1,
+            )
             .first
             .ayahNumber
       : startNum.value;
 
   int? get lastAyah => endNum.value == 1
       ? quranCtrl
-            .getPageAyahsByIndex(quranCtrl.state.currentPageNumber.value - 1)
+            .getPageAyahsByIndex(
+              QuranCtrl.instance.state.currentPageNumber.value - 1,
+            )
             .last
             .ayahNumber
       : endNum.value;
 
   int? get firstAyahUQ => startUQNum.value == 1
       ? quranCtrl
-            .getPageAyahsByIndex(quranCtrl.state.currentPageNumber.value - 1)
+            .getPageAyahsByIndex(
+              QuranCtrl.instance.state.currentPageNumber.value - 1,
+            )
             .first
             .ayahUQNumber
       : startUQNum.value;
 
   int? get lastAyahUQ => endUQNum.value == 1
       ? quranCtrl
-            .getPageAyahsByIndex(quranCtrl.state.currentPageNumber.value - 1)
+            .getPageAyahsByIndex(
+              QuranCtrl.instance.state.currentPageNumber.value - 1,
+            )
             .last
             .ayahUQNumber
       : endUQNum.value;
@@ -273,14 +281,18 @@ class PlayListController extends GetxController {
         startUQNum: firstAyahUQ!,
         endUQNum: lastAyahUQ!,
         surahNum: quranCtrl.getSurahNumberFromPage(
-          quranCtrl.state.currentPageNumber.value,
+          QuranCtrl.instance.state.currentPageNumber.value,
         ),
         surahName: quranCtrl
-            .getCurrentSurahByPage(quranCtrl.state.currentPageNumber.value - 1)
+            .getCurrentSurahByPage(
+              QuranCtrl.instance.state.currentPageNumber.value - 1,
+            )
             .arabicName,
         readerName: audioCtrl.ayahReaderValue,
         name: quranCtrl
-            .getCurrentSurahByPage(quranCtrl.state.currentPageNumber.value - 1)
+            .getCurrentSurahByPage(
+              QuranCtrl.instance.state.currentPageNumber.value - 1,
+            )
             .arabicName,
       ),
     );

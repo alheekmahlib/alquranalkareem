@@ -8,6 +8,7 @@ import '/core/utils/constants/extensions/convert_number_extension.dart';
 import '/core/utils/constants/extensions/extensions.dart';
 import '/core/utils/constants/lottie.dart';
 import '/core/utils/constants/lottie_constants.dart';
+import '../../../../core/utils/constants/shared_preferences_constants.dart';
 import '../../../controllers/general/general_controller.dart';
 import '../../calendar/events.dart';
 import '../../quran_page/quran.dart';
@@ -21,12 +22,14 @@ class LastRead extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final lastReadPage = quranCtrl.state.box.read(MSTART_PAGE) ?? 1;
     return GestureDetector(
       onTap: () {
         Get.to(() => QuranHome());
         Future.delayed(const Duration(milliseconds: 300), () {
           quranCtrl.changeSurahListOnTap(
-            quranCtrl.state.currentPageNumber.value,
+            lastReadPage + 1,
+            // ),
           );
         });
       },
@@ -87,24 +90,21 @@ class LastRead extends StatelessWidget {
                         borderRadius: const BorderRadius.all(
                           Radius.circular(16.0),
                         ),
-                        value: (quranCtrl.state.currentPageNumber.value / 604)
-                            .clamp(0.0, 1.0),
+                        value: (lastReadPage / 604).clamp(0.0, 1.0),
                         backgroundColor: Colors.transparent,
                         color: Theme.of(
                           context,
                         ).colorScheme.surface.withValues(alpha: .35),
                       ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 12.0),
-                      child: Obx(() {
-                        return Row(
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                        child: Row(
                           children: [
                             Expanded(
                               flex: 4,
                               child: SvgPicture.asset(
                                 'assets/svg/surah_name/00${quranCtrl.state.lastReadSurahNumber.value}.svg',
-                                height: 55,
+                                height: 60,
                                 colorFilter: ColorFilter.mode(
                                   Theme.of(context).cardColor,
                                   BlendMode.srcIn,
@@ -123,7 +123,7 @@ class LastRead extends StatelessWidget {
                                     child: FittedBox(
                                       fit: BoxFit.scaleDown,
                                       child: Text(
-                                        '${'pageNo'.tr}: ${(quranCtrl.state.currentPageNumber.value + 1).toString().convertNumbersToCurrentLang()}',
+                                        '${'pageNo'.tr}: ${(lastReadPage + 1).toString().convertNumbersToCurrentLang()}',
                                         style: TextStyle(
                                           fontSize: 18.0,
                                           fontFamily: 'naskh',
@@ -145,16 +145,16 @@ class LastRead extends StatelessWidget {
                                       alignment: Alignment.center,
                                       children: [
                                         Container(
-                                          height: 32,
-                                          width: 32,
+                                          height: 30,
+                                          width: 30,
                                           decoration: BoxDecoration(
                                             color: Theme.of(context)
                                                 .colorScheme
                                                 .surface
-                                                .withValues(alpha: .4),
+                                                .withValues(alpha: .6),
                                             borderRadius:
                                                 const BorderRadius.all(
-                                                  Radius.circular(12),
+                                                  Radius.circular(8),
                                                 ),
                                           ),
                                         ),
@@ -181,10 +181,10 @@ class LastRead extends StatelessWidget {
                               ),
                             ),
                           ],
-                        );
-                      }),
-                    ),
-                  ],
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ),

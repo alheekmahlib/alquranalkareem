@@ -16,7 +16,6 @@ class QuranHome extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    GlobalKeyManager().resetDrawerKey();
     return PopScope(
       canPop: false,
       onPopInvokedWithResult: (bool didPop, _) {
@@ -143,8 +142,9 @@ class QuranHome extends StatelessWidget {
                           )
                         : const SizedBox.shrink(),
                   ),
-                  Obx(
-                    () =>
+                  GetBuilder<GeneralController>(
+                    id: 'showControl',
+                    builder: (generalCtrl) =>
                         generalCtrl.state.isShowControl.value ||
                             generalCtrl.state.showAudioWidgetTemporarily.value
                         ? Align(
