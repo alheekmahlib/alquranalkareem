@@ -9,7 +9,6 @@ import 'package:alquranalkareem/core/widgets/container_button.dart';
 import 'package:animated_custom_dropdown/custom_dropdown.dart';
 import 'package:arabic_justified_text/arabic_justified_text.dart';
 import 'package:arabic_numbers/arabic_numbers.dart';
-import 'package:bot_toast/bot_toast.dart';
 import 'package:dio/dio.dart';
 import 'package:drift/drift.dart' as drift;
 import 'package:expansion_tile_card/expansion_tile_card.dart';

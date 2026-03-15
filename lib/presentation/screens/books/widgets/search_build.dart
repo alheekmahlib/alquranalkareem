@@ -8,7 +8,7 @@ class SearchBuild extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: Get.height,
+      height: Get.height * 0.8,
       width: Get.width,
       margin: const EdgeInsets.symmetric(horizontal: 8.0),
       color: context.theme.colorScheme.primaryContainer,

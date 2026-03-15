@@ -9,13 +9,12 @@ class SearchScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: Get.height * 0.9,
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          const Gap(16),
-          TextFieldBarWidget(
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        const Gap(16),
+        Flexible(
+          child: TextFieldBarWidget(
             controller: booksCtrl.state.searchController,
             hintText: 'searchInBooks'.tr,
             horizontalPadding: 32.0,
@@ -30,9 +29,9 @@ class SearchScreen extends StatelessWidget {
               }
             },
           ),
-          SearchBuild(),
-        ],
-      ),
+        ),
+        SearchBuild(),
+      ],
     );
   }
 }

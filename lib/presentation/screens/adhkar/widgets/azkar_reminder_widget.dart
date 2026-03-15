@@ -1,10 +1,10 @@
-import 'package:alquranalkareem/core/widgets/container_button.dart';
 import 'package:animated_custom_dropdown/custom_dropdown.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 
 import '/core/utils/constants/extensions/extensions.dart';
+import '/core/widgets/container_button.dart';
 import '../../../../core/services/notifications_helper.dart';
 import '../../../../core/utils/helpers/app_text_styles.dart';
 import '../../../../core/widgets/custom_switch_widget.dart';

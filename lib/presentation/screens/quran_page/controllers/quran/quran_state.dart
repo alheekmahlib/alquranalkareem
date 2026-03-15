@@ -19,7 +19,6 @@ class QuranState {
   final ScrollController scrollIndicatorController = ScrollController();
   final ScrollController ayahsScrollController = ScrollController();
   RxInt selectedIndicatorIndex = 0.obs;
-  PreferDirection preferDirection = PreferDirection.topCenter;
   RxDouble textWidgetPosition = (-240.0).obs;
   RxBool isPlayExpanded = false.obs;
   RxBool isSajda = false.obs;
