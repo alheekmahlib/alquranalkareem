@@ -13,7 +13,7 @@ class GeneralState {
       GlobalKey<NavigatorState>();
   final box = GetStorage();
 
-  RxDouble fontSizeArabic = 20.0.obs;
+  RxDouble fontSizeArabic = 22.0.obs;
   RxBool isShowControl = true.obs;
   RxBool showAudioWidgetTemporarily = false.obs;
   RxString greeting = ''.obs;

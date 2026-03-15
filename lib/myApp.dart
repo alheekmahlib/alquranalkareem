@@ -54,16 +54,15 @@ class MyApp extends StatelessWidget {
             // دمج BotToast مع تقييد مقياس النص ليبقى 1.0 بغض النظر عن إعدادات الجهاز
             builder: (context, child) {
               final mq = MediaQuery.of(context);
-              return MediaQuery(
-                data: mq.copyWith(textScaler: fixedScaler),
-                child: child!,
+              return Directionality(
+                textDirection: _getTextDirection(localizationCtrl.locale),
+                child: MediaQuery(
+                  data: mq.copyWith(textScaler: fixedScaler),
+                  child: child!,
+                ),
               );
             },
-            home: Directionality(
-              // تحديد اتجاه النصوص بناءً على اللغة المختارة
-              textDirection: _getTextDirection(localizationCtrl.locale),
-              child: SplashScreen(),
-            ),
+            home: SplashScreen(),
           ),
         );
       },

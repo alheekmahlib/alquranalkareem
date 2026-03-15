@@ -69,10 +69,10 @@ dependencies:
   package_rename: ^1.10.1
   path: ^1.9.1
   path_provider: ^2.1.5
-  quran_library:
-    git:
-      ref: dev
-      url: https://github.com/alheekmahlib/quran_library.git
+  quran_library: ^3.2.0
+    # git:
+    #   ref: dev
+    #   url: https://github.com/alheekmahlib/quran_library.git
   rate_my_app: ^2.3.2
   read_more_less: ^1.0.1
   responsive_builder: ^0.7.1

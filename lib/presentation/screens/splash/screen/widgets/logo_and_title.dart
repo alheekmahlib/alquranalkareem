@@ -5,34 +5,31 @@ class LogoAndTitle extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final splashCtrl = SplashScreenController.instance;
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        customSvgWithCustomColor(
-          SvgPath.svgSplashIcon,
-          height: 100,
-          width: 100,
+        Stack(
+          alignment: Alignment.center,
+          children: [
+            // customSvgWithColor(
+            //   height: 200,
+            //   width: 200,
+            //   SvgPath.svgQuranSurahNumberZakhrafa,
+            //   color: Get.theme.colorScheme.surface,
+            // ),
+            // customSvgWithColor(
+            //   height: 175,
+            //   width: 175,
+            //   SvgPath.svgQuranSurahNumberZakhrafa,
+            //   color: Get.theme.colorScheme.primaryContainer,
+            // ),
+            AnimatedDrawingWidget(
+              customColor: Get.theme.canvasColor,
+              width: 110,
+              height: 90,
+            ),
+          ],
         ),
-        const Gap(16),
-        Container(
-          color: Theme.of(context).colorScheme.primary,
-          child: Obx(() {
-            return AnimatedOpacity(
-              duration: const Duration(seconds: 1),
-              opacity: splashCtrl.state.animate.value ? 1 : 0,
-              child: Text(
-                'وَرَتِّلِ ٱلۡقُرۡءَانَ تَرۡتِيلًا',
-                style: TextStyle(
-                  fontFamily: 'uthmanic2',
-                  color: Theme.of(context).canvasColor,
-                  fontSize: 22,
-                ),
-              ),
-            );
-          }),
-        ),
-        const Gap(16),
       ],
     );
   }

@@ -8,114 +8,181 @@ class SplashScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Theme.of(context).primaryColor,
+      backgroundColor: context.theme.colorScheme.primary,
       body: SafeArea(
         child: Directionality(
           textDirection: TextDirection.rtl,
-          child: Stack(
-            alignment: Alignment.center,
-            children: [
-              const Align(
-                alignment: Alignment.bottomCenter,
-                child: AlheekmahAndLoading(),
-              ),
-              Align(
-                alignment: Alignment.topLeft,
-                child: Padding(
-                  padding: const EdgeInsets.only(top: 48.0),
-                  child: Opacity(
-                    opacity: .4,
-                    child: customSvgWithColor(
-                      SvgPath.svgSplashIconHalfS,
-                      height: MediaQuery.sizeOf(context).width * .4,
-                    ),
+          child: context.customOrientation(
+            Stack(
+              alignment: Alignment.center,
+              children: [
+                _bottomContainer(context),
+                GetX<SplashScreenController>(
+                  builder: (s) => s.state.customWidgetIndex.value == 0
+                      ? const Align(
+                          alignment: Alignment.bottomCenter,
+                          child: AlheekmahAndLoading(),
+                        )
+                      : const SizedBox.shrink(),
+                ),
+                Align(
+                  alignment: Alignment.center,
+                  child: Stack(
+                    alignment: Alignment.center,
+                    children: [
+                      AnimatedDrawingWidget(
+                        opacity: .02,
+                        width: Get.width,
+                        height: Get.width * .8,
+                        customColor: context.theme.canvasColor,
+                      ),
+                    ],
                   ),
                 ),
-              ),
-              Obx(() => AnimatedContainer(
-                    alignment: Alignment.bottomCenter,
-                    duration: const Duration(milliseconds: 350),
-                    curve: Curves.easeInOutCirc,
-                    height: s.state.smallContainerHeight.value,
-                    width: Get.width,
-                    color:
-                        context.theme.colorScheme.surface.withValues(alpha: .5),
-                  )),
-              Obx(() => AnimatedContainer(
-                    alignment: Alignment.bottomCenter,
-                    duration: const Duration(milliseconds: 350),
-                    curve: Curves.easeInOutCirc,
-                    height: s.state.secondSmallContainerHeight.value,
-                    width: Get.width,
-                    color:
-                        context.theme.colorScheme.surface.withValues(alpha: .7),
-                  )),
-              Obx(() => AnimatedContainer(
-                    alignment: Alignment.bottomCenter,
-                    duration: const Duration(milliseconds: 350),
-                    curve: Curves.easeInOutCirc,
-                    height: s.state.thirdSmallContainerHeight.value,
-                    width: Get.width,
-                    color: context.theme.colorScheme.primary,
-                  )),
-              Align(
-                alignment: Alignment.topRight,
-                child: Padding(
-                    padding: const EdgeInsets.only(top: 56.0),
-                    child: s.ramadhanOrEidGreeting()),
-              ),
-              Obx(() => AnimatedContainer(
-                    alignment: Alignment.center,
-                    duration: const Duration(milliseconds: 350),
-                    curve: Curves.easeInOutCirc,
-                    height: s.state.containerAnimate.value
-                        ? context.customOrientation(
-                            s.state.containerHeight.value,
-                            s.state.containerHHeight.value)
-                        : 0,
-                    width: Get.width,
-                    color: context.theme.colorScheme.primaryContainer,
-                    child: Stack(
-                      alignment: Alignment.center,
-                      children: [
-                        Container(
-                          height: Get.height,
-                          width: Get.width,
-                          color: context.theme.colorScheme.primaryContainer,
-                        ),
-                        Align(
-                          alignment: Alignment.bottomCenter,
-                          child: Container(
-                            height: 10,
-                            width: MediaQuery.sizeOf(context).width,
-                            margin: const EdgeInsets.only(bottom: 8.0),
-                            color: context.theme.colorScheme.primary,
-                          ),
-                        ),
-                        Align(
-                          alignment: Alignment.topCenter,
-                          child: Container(
-                            height: 10,
-                            width: MediaQuery.sizeOf(context).width,
-                            margin: const EdgeInsets.only(top: 8.0),
-                            color: context.theme.colorScheme.primary,
-                          ),
-                        ),
-                      ],
-                    ),
-                  )),
-              GetX<SplashScreenController>(
-                builder: (s) => AnimatedOpacity(
-                  opacity: s.state.containerAnimate.value ? 1 : 0,
-                  duration: const Duration(milliseconds: 350),
-                  curve: Curves.easeInOutCirc,
-                  child: s.customWidget,
+                Align(
+                  alignment: Alignment.center,
+                  child: GetX<SplashScreenController>(
+                    builder: (s) => s.customWidget,
+                  ),
                 ),
+                _animatedContainer(context),
+              ],
+            ),
+            Center(
+              child: Stack(
+                alignment: Alignment.center,
+                children: [
+                  _bottomContainer(context),
+                  Row(
+                    children: [
+                      Expanded(
+                        flex: 4,
+                        child: Stack(
+                          alignment: Alignment.center,
+                          children: [
+                            AnimatedDrawingWidget(
+                              opacity: .02,
+                              width: Get.width,
+                              height: Get.width * .7,
+                            ),
+                          ],
+                        ),
+                      ),
+                      GetX<SplashScreenController>(
+                        builder: (s) => s.state.customWidgetIndex.value == 0
+                            ? const Expanded(
+                                flex: 4,
+                                child: AlheekmahAndLoading(),
+                              )
+                            : const SizedBox.shrink(),
+                      ),
+                    ],
+                  ),
+                  Align(
+                    alignment: Alignment.center,
+                    child: GetX<SplashScreenController>(
+                      builder: (s) => s.customWidget,
+                    ),
+                  ),
+                  _animatedContainer(context),
+                ],
               ),
-            ],
+            ),
           ),
         ),
       ),
+    );
+  }
+
+  Widget _animatedContainer(BuildContext context) {
+    return Stack(
+      children: [
+        Align(
+          alignment: Alignment.bottomCenter,
+          child: Obx(
+            () => AnimatedContainer(
+              alignment: Alignment.bottomCenter,
+              duration: const Duration(milliseconds: 350),
+              curve: Curves.easeInOutCirc,
+              height: s.state.firstContainerHeight.value,
+              width: Get.width,
+              color: context.theme.colorScheme.surface.withValues(alpha: .5),
+            ),
+          ),
+        ),
+        Align(
+          alignment: Alignment.topCenter,
+          child: Obx(
+            () => AnimatedContainer(
+              alignment: Alignment.bottomCenter,
+              duration: const Duration(milliseconds: 350),
+              curve: Curves.easeInOutCirc,
+              height: s.state.firstContainerHeight.value,
+              width: Get.width,
+              color: context.theme.colorScheme.surface.withValues(alpha: .5),
+            ),
+          ),
+        ),
+        Align(
+          alignment: Alignment.bottomCenter,
+          child: Obx(
+            () => AnimatedContainer(
+              alignment: Alignment.bottomCenter,
+              duration: const Duration(milliseconds: 350),
+              curve: Curves.easeInOutCirc,
+              height: s.state.secondContainerHeight.value,
+              width: Get.width,
+              color: context.theme.colorScheme.primaryContainer,
+            ),
+          ),
+        ),
+        Align(
+          alignment: Alignment.topCenter,
+          child: Obx(
+            () => AnimatedContainer(
+              alignment: Alignment.topCenter,
+              duration: const Duration(milliseconds: 350),
+              curve: Curves.easeInOutCirc,
+              height: s.state.secondContainerHeight.value,
+              width: Get.width,
+              color: context.theme.colorScheme.primaryContainer,
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _bottomContainer(BuildContext context) {
+    return Stack(
+      children: [
+        Align(
+          alignment: Alignment.bottomCenter,
+          child: Obx(
+            () => AnimatedContainer(
+              alignment: Alignment.bottomCenter,
+              duration: const Duration(milliseconds: 350),
+              curve: Curves.easeInOutCirc,
+              height: s.state.halfSecondContainerHeight.value,
+              width: Get.width,
+              color: context.theme.colorScheme.surface.withValues(alpha: .7),
+            ),
+          ),
+        ),
+        Align(
+          alignment: Alignment.bottomCenter,
+          child: Obx(
+            () => AnimatedContainer(
+              alignment: Alignment.bottomCenter,
+              duration: const Duration(milliseconds: 350),
+              curve: Curves.easeInOutCirc,
+              height: s.state.halfFirstContainerHeight.value,
+              width: Get.width,
+              color: context.theme.colorScheme.primaryContainer,
+            ),
+          ),
+        ),
+      ],
     );
   }
 }

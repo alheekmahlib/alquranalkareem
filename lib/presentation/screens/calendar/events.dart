@@ -18,6 +18,7 @@ import '/core/utils/constants/extensions/convert_number_extension.dart';
 import '/core/utils/constants/extensions/extensions.dart';
 import '/core/utils/constants/extensions/svg_extensions.dart';
 import '/core/utils/constants/extensions/text_span_extension.dart';
+import '../../../core/services/languages/localization_controller.dart';
 import '../../../core/utils/constants/lists.dart';
 import '../../../core/utils/constants/lottie.dart';
 import '../../../core/widgets/custom_sheet_widget.dart';

@@ -1312,5 +1312,7 @@
     "noBooksReadedYet": "Вы ещё не прочитали ни одной книги.",
     "noBooksFoundForSearch": "Книги не найдены.",
     "islamicLibrary": "Исламская библиотека",
-    "tajweed": "С таджвидом"
+    "tajweed": "С таджвидом",
+    "useEnglishNumbers": "Использовать английские цифры",
+    "changeTafsir": "Сменить тафсир"
 }

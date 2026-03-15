@@ -12,7 +12,7 @@ class BooksSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.symmetric(horizontal: 8.0),
+      margin: const EdgeInsets.symmetric(horizontal: 16.0),
       decoration: BoxDecoration(
         gradient: LinearGradient(
           colors: [
@@ -25,7 +25,7 @@ class BooksSection extends StatelessWidget {
           end: Alignment.bottomCenter,
           stops: const [0.0, 0.4, 0.8, 1.0],
         ),
-        borderRadius: BorderRadius.circular(8),
+        borderRadius: BorderRadius.circular(12),
       ),
       child: Column(
         children: [

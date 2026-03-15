@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:gap/gap.dart';
 import 'package:get/get.dart';
-import 'package:quran_library/quran.dart';
+import 'package:quran_library/quran_library.dart';
 
 import '/core/utils/constants/extensions/extensions.dart';
 import '/core/utils/constants/extensions/text_span_extension.dart';
 import '/core/utils/helpers/app_text_styles.dart';
-import '/presentation/controllers/general/general_controller.dart';
 import '../../../../core/utils/constants/extensions/svg_extensions.dart';
 import '../../../../core/utils/constants/lists.dart';
 import '../../../../core/utils/constants/svg_constants.dart';
@@ -46,8 +46,8 @@ class AyahTafsirWidget extends StatelessWidget {
                 ),
                 // color: context.theme.primaryColorLight.withValues(alpha: .1),
                 borderRadius: const BorderRadius.only(
-                  bottomLeft: Radius.circular(8),
-                  bottomRight: Radius.circular(8),
+                  bottomLeft: Radius.circular(12),
+                  bottomRight: Radius.circular(12),
                 ),
               ),
               child: Column(
@@ -106,47 +106,53 @@ class AyahTafsirWidget extends StatelessWidget {
                       ),
                     ],
                   ),
+                  const Gap(8),
                   snapshot.connectionState == ConnectionState.done
-                      ? ReadMoreLess(
-                          text: dailyCtrl.selectedTafsir!.tafsirText
-                              .buildTextSpans(),
-                          textStyle: TextStyle(
-                            fontFamily: 'naskh',
-                            fontSize: GeneralController
-                                .instance
-                                .state
-                                .fontSizeArabic
-                                .value,
-                            color: Theme.of(context).colorScheme.inversePrimary,
-                            overflow: TextOverflow.fade,
-                          ),
-                          textAlign: TextAlign.justify,
-                          animationDuration: const Duration(milliseconds: 300),
-                          maxLines: 1,
-                          collapsedHeight: 30,
-                          readMoreText: 'readMore'.tr,
-                          readLessText: 'readLess'.tr,
-                          iconExpanded: Transform.flip(
-                            flipY: true,
-                            child: customSvgWithColor(
-                              SvgPath.svgHomeArrowDown,
-                              color: context.theme.primaryColorDark,
-                              height: 10,
+                      ? Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                          child: ReadMoreLess(
+                            text: dailyCtrl.selectedTafsir!.tafsirText
+                                .buildTextSpans(),
+                            textStyle: TextStyle(
+                              fontFamily: 'naskh',
+                              fontSize:
+                                  TafsirCtrl.instance.fontSizeArabic.value,
+                              color: Theme.of(
+                                context,
+                              ).colorScheme.inversePrimary,
+                              overflow: TextOverflow.fade,
                             ),
-                          ),
-                          iconCollapsed: Transform.flip(
-                            flipY: false,
-                            child: customSvgWithColor(
-                              SvgPath.svgHomeArrowDown,
-                              color: context.theme.primaryColorDark,
-                              height: 10,
+                            textAlign: TextAlign.justify,
+                            animationDuration: const Duration(
+                              milliseconds: 300,
                             ),
+                            maxLines: 1,
+                            collapsedHeight: 30,
+                            readMoreText: 'readMore'.tr,
+                            readLessText: 'readLess'.tr,
+                            iconExpanded: Transform.flip(
+                              flipY: true,
+                              child: customSvgWithColor(
+                                SvgPath.svgHomeArrowDown,
+                                color: context.theme.primaryColorDark,
+                                height: 10,
+                              ),
+                            ),
+                            iconCollapsed: Transform.flip(
+                              flipY: false,
+                              child: customSvgWithColor(
+                                SvgPath.svgHomeArrowDown,
+                                color: context.theme.primaryColorDark,
+                                height: 10,
+                              ),
+                            ),
+                            buttonTextStyle: AppTextStyles.titleSmall()
+                                .copyWith(
+                                  fontWeight: FontWeight.bold,
+                                  color: Theme.of(context).colorScheme.surface,
+                                ),
+                            iconColor: Theme.of(context).colorScheme.surface,
                           ),
-                          buttonTextStyle: AppTextStyles.titleSmall().copyWith(
-                            fontWeight: FontWeight.bold,
-                            color: Theme.of(context).colorScheme.surface,
-                          ),
-                          iconColor: Theme.of(context).colorScheme.surface,
                         )
                       : const Center(
                           child: CircularProgressIndicator.adaptive(),

@@ -1,9 +1,9 @@
-import 'package:alquranalkareem/core/utils/constants/svg_constants.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:quran_library/quran.dart';
 
+import '/core/utils/constants/svg_constants.dart';
 import '../../../../core/utils/constants/extensions/convert_number_extension.dart';
 import '../../../../core/utils/constants/extensions/svg_extensions.dart';
 import '../../../../core/utils/constants/shared_preferences_constants.dart';
