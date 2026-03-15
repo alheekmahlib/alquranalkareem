@@ -1,14 +1,15 @@
-import 'package:alquranalkareem/presentation/controllers/general/general_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 
+import '/presentation/controllers/general/general_controller.dart';
 import '../../presentation/controllers/settings_controller.dart';
 import '../../presentation/screens/quran_page/quran.dart';
 import '../services/languages/app_constants.dart';
 import '../services/languages/localization_controller.dart';
 import '../utils/helpers/app_text_styles.dart';
 import 'container_button.dart';
+import 'custom_switch_widget.dart';
 import 'expansion_tile_widget.dart';
 
 class LanguageList extends StatelessWidget {
@@ -68,6 +69,18 @@ class LanguageList extends StatelessWidget {
                     );
                   }),
                 ),
+              ),
+            ),
+            Obx(
+              () => CustomSwitchListTile(
+                title: 'englishNumbers'.tr,
+                contentMargin: const EdgeInsets.symmetric(horizontal: 4.0),
+                value:
+                    GeneralController.instance.state.isUseEnglishNumbers.value,
+                onChanged: (_) {
+                  GeneralController.instance.state.isUseEnglishNumbers.toggle();
+                  Get.forceAppUpdate();
+                },
               ),
             ),
           ],

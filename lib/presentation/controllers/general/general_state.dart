@@ -27,4 +27,5 @@ class GeneralState {
   final ItemScrollController waqfScrollController = ItemScrollController();
 
   final expansionManager = ExpansionTileManager();
+  RxBool isUseEnglishNumbers = false.obs;
 }

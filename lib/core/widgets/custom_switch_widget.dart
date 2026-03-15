@@ -71,6 +71,7 @@ class CustomSwitchListTile extends StatelessWidget {
   final Color? activeColor;
   final Color? inactiveTrackColor;
   final EdgeInsetsGeometry? contentPadding;
+  final EdgeInsetsGeometry? contentMargin;
 
   const CustomSwitchListTile({
     Key? key,
@@ -82,6 +83,7 @@ class CustomSwitchListTile extends StatelessWidget {
     this.activeColor,
     this.inactiveTrackColor,
     this.contentPadding,
+    this.contentMargin,
   }) : super(key: key);
 
   @override
@@ -90,6 +92,7 @@ class CustomSwitchListTile extends StatelessWidget {
       padding:
           contentPadding ??
           const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
+      margin: contentMargin ?? EdgeInsets.zero,
       decoration: BoxDecoration(
         color: value
             ? Theme.of(context).primaryColorLight.withValues(alpha: .1)

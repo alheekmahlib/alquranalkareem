@@ -19,11 +19,15 @@ dependencies:
   awesome_notifications: ^0.10.1
   awesome_notifications_core: ^0.10.1
   background_fetch: ^1.5.0
-  badges: ^3.1.2
-  bot_toast: ^4.1.3
+  badges: ^3.1.2 
   connectivity_plus: ^7.0.0
   cupertino_icons: ^1.0.8
+  delightful_toast: ^1.1.0
   dio: ^5.9.1
+  drawing_animation:
+    git:
+      ref: master
+      url: https://github.com/alheekmahlib/drawing_animation.git
   drift: ^2.30.1
   drift_flutter: ^0.2.8
   easy_image_viewer: ^1.5.1
@@ -46,7 +50,6 @@ dependencies:
   flutter_rounded_progress_bar: ^0.3.2
   flutter_screenutil: ^5.9.3
   flutter_slider_drawer: ^3.0.2
-  # flutter_sliding_box: ^1.1.5
   flutter_staggered_animations: ^1.1.1
   flutter_staggered_grid_view: ^0.7.0
   flutter_svg: ^2.2.3
@@ -84,10 +87,6 @@ dependencies:
   timezone: ^0.11.0
   url_launcher: ^6.3.2
   wakelock_plus: ^1.3.0
-  drawing_animation:
-    git:
-      ref: master
-      url: https://github.com/alheekmahlib/drawing_animation.git 
 
 dev_dependencies:
   build_runner: ^2.4.15
