@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 
+import '../utils/constants/extensions/alignment_rotated_extension.dart';
 import '../utils/constants/extensions/svg_extensions.dart';
 
 class ButtomWithLine extends StatelessWidget {
@@ -21,7 +22,9 @@ class ButtomWithLine extends StatelessWidget {
       onTap: onTap,
       child: IntrinsicHeight(
         child: Row(
-          textDirection: isRtl ? TextDirection.rtl : TextDirection.ltr,
+          textDirection: isRtl
+              ? alignmentLayout(TextDirection.rtl, TextDirection.ltr)
+              : alignmentLayout(TextDirection.ltr, TextDirection.rtl),
           children: [
             Container(
               width: 8,

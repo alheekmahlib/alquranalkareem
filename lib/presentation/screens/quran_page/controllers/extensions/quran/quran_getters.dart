@@ -242,6 +242,7 @@ extension QuranGetters on QuranController {
         dividerColor: Get.theme.colorScheme.surface.withValues(alpha: .5),
         optionsBarWidget: (ayah, surah, pageIndex) =>
             AyahsMenu(ayah: ayah, surah: surah, pageIndex: pageIndex),
+        tafsirTextColor: Get.theme.colorScheme.surface,
       );
 
   TafsirStyle get tafsirStyle {
@@ -298,7 +299,7 @@ extension QuranGetters on QuranController {
       dialogHeaderTitle: 'changeTafsir'.tr,
       currentTafsirTextStyle: AppTextStyles.titleMedium(
         fontSize: 18,
-        color: Get.theme.canvasColor,
+        color: Get.theme.colorScheme.surface,
       ),
       tabBarUnselectedLabelStyle: AppTextStyles.titleMedium(
         fontSize: 16,

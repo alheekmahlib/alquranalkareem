@@ -1,15 +1,17 @@
-import 'package:alquranalkareem/core/widgets/container_button.dart';
-import 'package:alquranalkareem/core/widgets/title_widget.dart';
+import 'package:alquranalkareem/core/utils/constants/svg_constants.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 
+import '/core/widgets/container_button.dart';
+import '/core/widgets/title_widget.dart';
 import '/presentation/controllers/theme_controller.dart';
 import '../../presentation/controllers/general/general_controller.dart';
 import '../../presentation/screens/about_app/about_app.dart';
 import '../../presentation/screens/calendar/widgets/calender_settings.dart';
 import '../../presentation/screens/ourApp/screen/our_apps_screen.dart';
 import '../../presentation/screens/quran_page/quran.dart';
+import '../utils/constants/extensions/svg_extensions.dart';
 import '../utils/helpers/app_text_styles.dart';
 import 'language_list.dart';
 import 'mushaf_settings.dart';
@@ -19,8 +21,13 @@ import 'theme_change.dart';
 class SettingsList extends StatelessWidget {
   final bool? isQuranSetting;
   final bool? isCalendarSetting;
-  SettingsList({Key? key, this.isQuranSetting, this.isCalendarSetting = false})
-    : super(key: key);
+  final bool? isStartScreen;
+  SettingsList({
+    Key? key,
+    this.isQuranSetting,
+    this.isCalendarSetting = false,
+    this.isStartScreen = false,
+  }) : super(key: key);
   final generalCtrl = GeneralController.instance;
   final quranCtrl = QuranController.instance;
 
@@ -72,39 +79,46 @@ class SettingsList extends StatelessWidget {
                 ).primaryColorLight.withValues(alpha: .5),
               ),
               const Gap(4),
-              Column(
-                children: [
-                  ContainerButton(
-                    onPressed: () => Get.to(
-                      () => const OurApps(),
-                      transition: Transition.downToUp,
-                    ),
-                    withArrow: true,
-                    width: double.infinity,
-                    title: 'ourApps',
-                    horizontalPadding: 8.0,
-                    verticalPadding: 12.0,
-                    horizontalMargin: 16.0,
-                  ),
-                  const Gap(8),
-                  Column(
-                    children: [
-                      ContainerButton(
-                        onPressed: () => Get.to(
-                          () => const AboutApp(),
-                          transition: Transition.downToUp,
+              !isStartScreen!
+                  ? Column(
+                      children: [
+                        ContainerButton(
+                          onPressed: () => Get.to(
+                            () => const OurApps(),
+                            transition: Transition.downToUp,
+                          ),
+                          withArrow: true,
+                          width: double.infinity,
+                          title: 'ourApps',
+                          horizontalPadding: 8.0,
+                          verticalPadding: 12.0,
+                          horizontalMargin: 16.0,
                         ),
-                        withArrow: true,
-                        width: double.infinity,
-                        title: 'aboutApp',
-                        horizontalPadding: 8.0,
-                        verticalPadding: 12.0,
-                        horizontalMargin: 16.0,
-                      ),
-                    ],
-                  ),
-                ],
-              ),
+                        const Gap(8),
+                        ContainerButton(
+                          onPressed: () => Get.to(
+                            () => const AboutApp(),
+                            transition: Transition.downToUp,
+                          ),
+                          withArrow: true,
+                          width: double.infinity,
+                          title: 'aboutApp',
+                          horizontalPadding: 8.0,
+                          verticalPadding: 12.0,
+                          horizontalMargin: 16.0,
+                        ),
+                      ],
+                    )
+                  : Column(
+                      children: [
+                        const Gap(32.0),
+                        customSvgWithCustomColor(
+                          SvgPath.svgHomeQuranLogo,
+                          height: 140,
+                          color: context.theme.primaryColorLight,
+                        ),
+                      ],
+                    ),
             ],
           ),
         );

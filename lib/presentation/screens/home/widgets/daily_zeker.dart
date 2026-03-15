@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 
-import '/core/utils/constants/extensions/extensions.dart';
 import '/presentation/screens/adhkar/controller/extensions/adhkar_getters.dart';
 import '../../../../core/utils/constants/svg_constants.dart';
 import '../../../../core/widgets/buttom_with_line.dart';
@@ -19,7 +18,7 @@ class DailyZeker extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: Get.width,
-      margin: const EdgeInsets.symmetric(horizontal: 8.0),
+      margin: const EdgeInsets.symmetric(horizontal: 16.0),
       decoration: BoxDecoration(
         gradient: LinearGradient(
           colors: [
@@ -32,7 +31,7 @@ class DailyZeker extends StatelessWidget {
           end: Alignment.bottomCenter,
           stops: const [0.0, 0.4, 0.8, 1.0],
         ),
-        borderRadius: const BorderRadius.all(Radius.circular(8)),
+        borderRadius: BorderRadius.circular(12),
       ),
       child: FutureBuilder<AdhkarData>(
         future: azkarCtrl.getDailyDhekr(),
@@ -97,10 +96,6 @@ class DailyZeker extends StatelessWidget {
                         ],
                       ),
                     ),
-                    context.hDivider(
-                      width: Get.width,
-                      color: context.theme.colorScheme.surface,
-                    ),
                     Container(
                       width: MediaQuery.sizeOf(context).width,
                       margin: const EdgeInsets.symmetric(
@@ -115,10 +110,6 @@ class DailyZeker extends StatelessWidget {
                         textAlign: TextAlign.justify,
                         textDirection: TextDirection.rtl,
                       ),
-                    ),
-                    context.hDivider(
-                      width: Get.width,
-                      color: context.theme.colorScheme.surface,
                     ),
                   ],
                 )

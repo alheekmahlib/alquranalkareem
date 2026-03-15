@@ -1348,5 +1348,7 @@
   "noBooksReadedYet": "You haven't read any book yet.",
   "noBooksFoundForSearch": "No books found.",
   "islamicLibrary": "Islamic Library",
-  "tajweed": "With Tajweed"
+  "tajweed": "With Tajweed",
+  "useEnglishNumbers": "Use English numbers",
+  "changeTafsir": "Change Tafsir"
 }

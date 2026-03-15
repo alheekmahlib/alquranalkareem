@@ -142,7 +142,7 @@ class HijriWidget extends StatelessWidget {
                       height: 1.1,
                       color: context.theme.canvasColor.withValues(alpha: .2),
                     ),
-                    languageCode: Get.locale?.languageCode ?? 'ar',
+                    languageCode: eventCtrl.languageCode,
                     customDayNames: [
                       'Sun'.tr,
                       'Mon'.tr,

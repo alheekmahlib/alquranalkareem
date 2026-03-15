@@ -1342,5 +1342,7 @@
   "noBooksReadedYet": "Anda belum membaca buku apa pun.",
   "noBooksFoundForSearch": "Tidak ditemukan buku.",
   "islamicLibrary": "Perpustakaan Islam",
-  "tajweed": "Dengan tajwid"
+  "tajweed": "Dengan tajwid",
+  "useEnglishNumbers": "Gunakan angka Inggris",
+  "changeTafsir": "Ganti tafsir"
 }

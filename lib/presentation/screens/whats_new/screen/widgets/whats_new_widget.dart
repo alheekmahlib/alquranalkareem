@@ -11,14 +11,14 @@ class WhatsNewWidget extends StatelessWidget {
       alignment: Alignment.center,
       padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
       decoration: BoxDecoration(
-          color: Theme.of(context).colorScheme.surface.withValues(alpha: .3),
-          borderRadius: const BorderRadius.all(Radius.circular(8))),
+          color: context.theme.colorScheme.surface.withValues(alpha: .3),
+          borderRadius: const BorderRadius.all(Radius.circular(16))),
       child: Text(
         "What's New".tr,
         style: TextStyle(
-          color: Theme.of(context).colorScheme.inversePrimary,
-          fontSize: 14.0.sp,
-          fontFamily: 'kufi',
+          color: context.theme.canvasColor,
+          fontSize: 14.0,
+          fontFamily: 'cairo',
         ),
       ),
     );

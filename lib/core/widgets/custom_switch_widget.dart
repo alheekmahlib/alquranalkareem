@@ -28,9 +28,20 @@ class CustomSwitch extends StatelessWidget {
     final trackColor = value
         ? (activeColor ?? context.theme.primaryColorLight)
         : (inactiveTrackColor ?? context.theme.colorScheme.primaryContainer);
+    const thumbPadding = 3.0;
+    final thumbWidth = 40.0;
+    final maxOffset = width - thumbWidth - (thumbPadding * 2);
 
     return GestureDetector(
       onTap: () => onChanged?.call(!value),
+      onHorizontalDragEnd: (details) {
+        if (details.primaryVelocity == null) return;
+        if (details.primaryVelocity! > 0 && !value) {
+          onChanged?.call(true);
+        } else if (details.primaryVelocity! < 0 && value) {
+          onChanged?.call(false);
+        }
+      },
       child: AnimatedContainer(
         duration: const Duration(milliseconds: 200),
         curve: Curves.easeInOut,
@@ -40,22 +51,31 @@ class CustomSwitch extends StatelessWidget {
           borderRadius: BorderRadius.circular(10),
           color: trackColor,
         ),
-        padding: const EdgeInsets.all(3),
-        alignment: value ? Alignment.centerRight : Alignment.centerLeft,
-        child: Container(
-          width: 40,
-          height: 30,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(8),
-            color: thumbColor ?? context.theme.colorScheme.surface,
-            boxShadow: [
-              BoxShadow(
-                color: Colors.black.withValues(alpha: .15),
-                blurRadius: 4,
-                offset: const Offset(0, 2),
+        padding: const EdgeInsets.all(thumbPadding),
+        child: Stack(
+          children: [
+            AnimatedPositioned(
+              duration: const Duration(milliseconds: 200),
+              curve: Curves.easeInOut,
+              left: value ? maxOffset : 0,
+              top: 0,
+              bottom: 0,
+              child: Container(
+                width: thumbWidth,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(8),
+                  color: thumbColor ?? context.theme.colorScheme.surface,
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withValues(alpha: .15),
+                      blurRadius: 4,
+                      offset: const Offset(0, 2),
+                    ),
+                  ],
+                ),
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );

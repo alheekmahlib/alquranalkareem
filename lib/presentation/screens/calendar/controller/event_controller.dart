@@ -25,6 +25,11 @@ class EventController extends GetxController with WidgetsBindingObserver {
 
   HijriDate get hijriMin => hijriNow.subtractDays(7);
   HijriDate get hijriMax => hijriNow.addDays(7);
+  String get languageCode =>
+      Get.locale?.languageCode == 'ar' &&
+          GeneralController.instance.state.isUseEnglishNumbers.value
+      ? 'en'
+      : Get.locale?.languageCode ?? 'ar';
 
   @override
   Future<void> onInit() async {
@@ -34,7 +39,10 @@ class EventController extends GetxController with WidgetsBindingObserver {
     adjustHijriDays.value = box.read('adjustHijriDays') ?? 0;
     selectedDate = HijriDate.now();
     initializeMonths();
-    _lastOrientation = MediaQuery.orientationOf(Get.context!);
+    final context = Get.context;
+    if (context != null) {
+      _lastOrientation = MediaQuery.orientationOf(context);
+    }
     pageController = PageController(
       initialPage: selectedDate.hMonth - 1,
       viewportFraction: _lastOrientation == Orientation.portrait ? 0.38 : 1,

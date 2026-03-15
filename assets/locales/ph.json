@@ -1342,5 +1342,7 @@
   "noBooksReadedYet": "Wala ka pang nababasang anumang aklat.",
   "noBooksFoundForSearch": "Walang nahanap na mga libro.",
   "islamicLibrary": "Aklatang Islamiko",
-  "tajweed": "May Tajweed"
+  "tajweed": "May Tajweed",
+  "useEnglishNumbers": "Gumamit ng mga numerong Ingles",
+  "changeTafsir": "Palitan ang Tafsir"
 }

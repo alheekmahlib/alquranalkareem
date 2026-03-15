@@ -1340,5 +1340,7 @@
   "noBooksReadedYet": "Henüz hiç kitap okumadınız.",
   "noBooksFoundForSearch": "Arama için kitap bulunamadı.",
   "islamicLibrary": "İslami Kütüphane",
-  "tajweed": "Tecvidli"
+  "tajweed": "Tecvidli",
+  "useEnglishNumbers": "İngiliz rakamlarını kullan",
+  "changeTafsir": "Tefsiri değiştir"
 }

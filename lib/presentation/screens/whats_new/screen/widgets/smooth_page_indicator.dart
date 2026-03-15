@@ -8,6 +8,9 @@ class SmoothPageIndicatorWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    if (newFeatures.isEmpty) {
+      return const SizedBox.shrink();
+    }
     return SmoothPageIndicator(
       controller: controller,
       count: newFeatures.length,
@@ -15,8 +18,8 @@ class SmoothPageIndicatorWidget extends StatelessWidget {
         dotHeight: 10,
         dotWidth: 13,
         paintStyle: PaintingStyle.fill,
-        dotColor: Theme.of(context).colorScheme.surface,
-        activeDotColor: Theme.of(context).colorScheme.primary,
+        dotColor: context.theme.colorScheme.surface,
+        activeDotColor: context.theme.colorScheme.primary,
         // strokeWidth: 5,
       ),
     );

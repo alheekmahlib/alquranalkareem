@@ -409,7 +409,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "start": "أبدأ",
+  "start": "ابدأ",
   "@start": {
     "type": "text",
     "placeholders": {}
@@ -1340,5 +1340,7 @@
   "noBooksReadedYet": "لم تقرأ أي كتاب بعد.",
   "noBooksFoundForSearch": "لم يتم العثور على أي كتب.",
   "islamicLibrary": "المكتبة الإسلامية",
-  "tajweed": "مع التجويد"
+  "tajweed": "مع التجويد",
+  "useEnglishNumbers": "استخدام الأرقام الإنجليزية",
+  "changeTafsir": "تغيير التفسير"
 }

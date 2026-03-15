@@ -5,29 +5,18 @@ class WhatsNewController extends GetxController {
       GetInstance().putOrFind(() => WhatsNewController());
 
   WhatsNewState state = WhatsNewState();
-
   @override
   Future<void> onInit() async {
-    navigationPage();
-    state.newFeatures = await getNewFeatures();
     super.onInit();
+    state.newFeatures = await getNewFeatures();
   }
+
+  bool get hasNewFeatures =>
+      state.newFeatures.isNotEmpty ||
+      (state.box.read(LAST_SHOWN_UPDATE_INDEX) ?? 0) <
+          whatsNewList.last['index'];
 
   /// -------- [Methods] ----------
-
-  void navigationPage() {
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      if (state.newFeatures.isNotEmpty) {
-        SplashScreenController.instance.state.customWidget.value = 1;
-      } else {
-        Get.offAll(
-          () => ScreenTypeL(),
-          transition: Transition.fadeIn,
-          curve: Curves.easeIn,
-        );
-      }
-    });
-  }
 
   Future<List<Map<String, dynamic>>> getNewFeatures() async {
     int lastShownIndex = await getLastShownIndex();
@@ -47,11 +36,6 @@ class WhatsNewController extends GetxController {
   }
 
   List<Map<String, dynamic>> whatsNewList = [
-    {
-      'index': 14,
-      'title': "",
-      'details': "What'sNewDetails10",
-      'imagePath': '',
-    },
+    {'index': 5, 'title': '', 'details': "What'sNewDetails10", 'imagePath': ''},
   ];
 }
