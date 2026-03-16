@@ -1,3 +1,4 @@
+import 'package:alquranalkareem/core/utils/helpers/app_text_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
@@ -8,9 +9,14 @@ import '/core/widgets/container_button.dart';
 import '/core/widgets/share/share_ayah_options.dart';
 import '/presentation/controllers/theme_controller.dart';
 import '../../../../../core/utils/constants/extensions/bottom_sheet_extension.dart';
+import '../../../../../core/utils/constants/extensions/convert_number_extension.dart';
 import '../../../../../core/utils/constants/svg_constants.dart';
+import '../../../../../core/widgets/custom_button.dart';
 import '../../../../../core/widgets/tab_bar_widget.dart';
+import '../../controllers/mutashabihat_controller.dart';
 import '../../quran.dart';
+import '../../widgets/mutashabihat/mutashabihat_browse_sheet.dart';
+import '../../widgets/mutashabihat/mutashabihat_dialog.dart';
 import '../../widgets/search/controller/quran_search_controller.dart';
 
 class AyahMenuHelper {
@@ -295,6 +301,57 @@ class AyahMenuHelper {
           CopyButton(ayah: ayah, surah: surah),
           const Gap(15),
           ShareAyahOptions(ayah: ayah, surah: surah, pageNumber: pageIndex),
+          const Gap(15),
+          // Mutashabihat button - shows similar verses
+          Builder(
+            builder: (context) {
+              final count = MutashabihatController.instance
+                  .getPhrasesCountForVerse(surah.surahNumber, ayah.ayahNumber);
+              return Stack(
+                clipBehavior: Clip.none,
+                children: [
+                  CustomButton(
+                    height: 40,
+                    width: 35,
+                    iconSize: 35,
+                    isCustomSvgColor: true,
+                    svgPath: SvgPath.svgQuranMutashabihat,
+                    svgColor: Get.theme.canvasColor,
+                    onPressed: () {
+                      if (Get.context != null && count > 0) {
+                        MutashabihatDialog.show(
+                          context: Get.context!,
+                          surahNumber: surah.surahNumber,
+                          ayahNumber: ayah.ayahNumber,
+                        );
+                      } else {
+                        MutashabihatBrowseSheet.show(context);
+                      }
+                    },
+                  ),
+                  if (count > 0)
+                    PositionedDirectional(
+                      top: -4,
+                      end: -4,
+                      child: Container(
+                        padding: const EdgeInsets.all(4),
+                        decoration: BoxDecoration(
+                          color: Get.theme.colorScheme.surface,
+                          shape: BoxShape.circle,
+                        ),
+                        child: Text(
+                          '$count'.convertNumbersToCurrentLang(),
+                          style: AppTextStyles.titleSmall().copyWith(
+                            fontSize: 12,
+                            color: Get.theme.colorScheme.primaryContainer,
+                          ),
+                        ),
+                      ),
+                    ),
+                ],
+              );
+            },
+          ),
         ],
       ),
     );

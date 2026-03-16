@@ -1342,5 +1342,13 @@
   "islamicLibrary": "المكتبة الإسلامية",
   "tajweed": "مع التجويد",
   "useEnglishNumbers": "استخدام الأرقام الإنجليزية",
-  "changeTafsir": "تغيير التفسير"
+  "changeTafsir": "تغيير التفسير",
+  "mutashabihat": "المتشابهات",
+  "no_mutashabihat": "لا توجد عبارات متشابهة لهذه الآية",
+  "browse_mutashabihat": "تصفّح المتشابهات",
+  "mutashabihat_in": "المتشابهات في",
+  "repeated": "التكرار",
+  "times": "مرات",
+  "surahs": "سور",
+  "ayah": "آية"
 }

@@ -1342,5 +1342,13 @@
   "islamicLibrary": "İslami Kütüphane",
   "tajweed": "Tecvidli",
   "useEnglishNumbers": "İngiliz rakamlarını kullan",
-  "changeTafsir": "Tefsiri değiştir"
+  "changeTafsir": "Tefsiri değiştir",
+  "mutashabihat": "Benzer ayetler",
+  "no_mutashabihat": "Bu ayet için benzer ifade bulunamadı",
+  "browse_mutashabihat": "Benzerleri görüntüle",
+  "mutashabihat_in": "Şurada benzer ayetler:",
+  "repeated": "Tekrar",
+  "times": "kez",
+  "surahs": "Sureler",
+  "ayah": "Ayet"
 }

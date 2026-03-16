@@ -1350,5 +1350,13 @@
   "islamicLibrary": "اسلامی لائبریری",
   "tajweed": "تجوید کے ساتھ",
   "useEnglishNumbers": "انگریزی اعداد استعمال کریں",
-  "changeTafsir": "تفسیر تبدیل کریں"
+  "changeTafsir": "تفسیر تبدیل کریں",
+  "mutashabihat": "مشابہ آیات",
+  "no_mutashabihat": "اس آیت کے لیے کوئی مشابہ عبارت موجود نہیں",
+  "browse_mutashabihat": "مشابہات دیکھیں",
+  "mutashabihat_in": "میں مشابہات",
+  "repeated": "تکرار",
+  "times": "مرتبہ",
+  "surahs": "سور",
+  "ayah": "آیت"
 }

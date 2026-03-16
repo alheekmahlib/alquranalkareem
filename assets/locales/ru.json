@@ -1314,5 +1314,13 @@
     "islamicLibrary": "Исламская библиотека",
     "tajweed": "С таджвидом",
     "useEnglishNumbers": "Использовать английские цифры",
-    "changeTafsir": "Сменить тафсир"
+    "changeTafsir": "Сменить тафсир",
+    "mutashabihat": "Похожие аяты",
+    "no_mutashabihat": "Нет похожих выражений для этого аята",
+    "browse_mutashabihat": "Просмотреть похожие аяты",
+    "mutashabihat_in": "Похожие аяты в",
+    "repeated": "Повторение",
+    "times": "раз",
+    "surahs": "Суры",
+    "ayah": "Аят"
 }

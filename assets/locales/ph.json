@@ -1344,5 +1344,13 @@
   "islamicLibrary": "Aklatang Islamiko",
   "tajweed": "May Tajweed",
   "useEnglishNumbers": "Gumamit ng mga numerong Ingles",
-  "changeTafsir": "Palitan ang Tafsir"
+  "changeTafsir": "Palitan ang Tafsir",
+  "mutashabihat": "Magkakatulad na mga talata",
+  "no_mutashabihat": "Walang magkakatulad na parirala para sa ayah na ito",
+  "browse_mutashabihat": "I-browse ang magkakatulad",
+  "mutashabihat_in": "Magkakatulad sa",
+  "repeated": "Pag-uulit",
+  "times": "beses",
+  "surahs": "Mga Surah",
+  "ayah": "Ayah"
 }

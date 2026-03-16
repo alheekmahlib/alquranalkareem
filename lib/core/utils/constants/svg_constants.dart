@@ -448,6 +448,11 @@ class SvgPath {
   /// assets/svg/quran_ic_s.svg
   static const String svgQuranIcS = "assets/svg/quran_ic_s.svg";
 
+  /// Assets for svgQuranMutashabihat
+  /// assets/svg/quran/mutashabihat.svg
+  static const String svgQuranMutashabihat =
+      "assets/svg/quran/mutashabihat.svg";
+
   /// Assets for svgQuranMutshabhat
   /// assets/svg/quran/mutshabhat.svg
   static const String svgQuranMutshabhat = "assets/svg/quran/mutshabhat.svg";
