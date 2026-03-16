@@ -138,7 +138,7 @@ class MutashabihatBrowseSheet {
                                 return ContainerButton(
                                   onPressed: () {
                                     Get.back();
-                                    MutashabihatDialog.show(
+                                    MutashabihatBottomSheet.show(
                                       context: Get.context!,
                                       surahNumber: surahNumber,
                                       ayahNumber: ayahNum,

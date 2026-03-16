@@ -319,7 +319,7 @@ class AyahMenuHelper {
                     svgColor: Get.theme.canvasColor,
                     onPressed: () {
                       if (Get.context != null && count > 0) {
-                        MutashabihatDialog.show(
+                        MutashabihatBottomSheet.show(
                           context: Get.context!,
                           surahNumber: surah.surahNumber,
                           ayahNumber: ayah.ayahNumber,
