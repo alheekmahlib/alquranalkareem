@@ -1350,5 +1350,13 @@
   "islamicLibrary": "Islamic Library",
   "tajweed": "With Tajweed",
   "useEnglishNumbers": "Use English numbers",
-  "changeTafsir": "Change Tafsir"
+  "changeTafsir": "Change Tafsir",
+  "mutashabihat": "Similar verses",
+  "no_mutashabihat": "No similar phrases found for this ayah",
+  "browse_mutashabihat": "Browse similar verses",
+  "mutashabihat_in": "Similar verses in",
+  "repeated": "Repetition",
+  "times": "times",
+  "surahs": "Surahs",
+  "ayah": "Ayah"
 }

@@ -1350,5 +1350,13 @@
   "islamicLibrary": "ইসলামিক লাইব্রেরি",
   "tajweed": "তাজবিদসহ",
   "useEnglishNumbers": "ইংরেজি সংখ্যা ব্যবহার করুন",
-  "changeTafsir": "তাফসির পরিবর্তন করুন"
+  "changeTafsir": "তাফসির পরিবর্তন করুন",
+  "mutashabihat": "সদৃশ আয়াতসমূহ",
+  "no_mutashabihat": "এই আয়াতের জন্য কোনো সদৃশ বাক্যাংশ নেই",
+  "browse_mutashabihat": "সদৃশ আয়াতসমূহ দেখুন",
+  "mutashabihat_in": "এ সদৃশ আয়াতসমূহ",
+  "repeated": "পুনরাবৃত্তি",
+  "times": "বার",
+  "surahs": "সূরা",
+  "ayah": "আয়াত"
 }

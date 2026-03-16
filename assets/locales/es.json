@@ -1350,5 +1350,13 @@
   "islamicLibrary": "Biblioteca islámica",
   "tajweed": "Con tajwid",
   "useEnglishNumbers": "Usar números en inglés",
-  "changeTafsir": "Cambiar tafsir"
+  "changeTafsir": "Cambiar tafsir",
+  "mutashabihat": "Versículos similares",
+  "no_mutashabihat": "No hay frases similares para esta aleya",
+  "browse_mutashabihat": "Explorar versículos similares",
+  "mutashabihat_in": "Versículos similares en",
+  "repeated": "Repetición",
+  "times": "veces",
+  "surahs": "Suras",
+  "ayah": "Aleya"
 }

@@ -1342,5 +1342,13 @@
   "islamicLibrary": "کتێبخانەی ئیسلامی",
   "tajweed": "لەگەڵ تەجوید",
   "useEnglishNumbers": "بەکارهێنانی ژمارەکانی ئینگلیزی",
-  "changeTafsir": "گۆڕینی تەفسیر"
+  "changeTafsir": "گۆڕینی تەفسیر",
+  "mutashabihat": "ئایەتە هاوشێوەکان",
+  "no_mutashabihat": "هیچ دەستەواژەیەکی هاوشێوە بۆ ئەم ئایەتە نییە",
+  "browse_mutashabihat": "گەڕان بەدوای هاوشێوەکان",
+  "mutashabihat_in": "هاوشێوەکان لە",
+  "repeated": "دووبارەبوونەوە",
+  "times": "جار",
+  "surahs": "سورەکان",
+  "ayah": "ئایەت"
 }

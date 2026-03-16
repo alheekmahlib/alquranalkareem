@@ -1344,5 +1344,13 @@
   "islamicLibrary": "Perpustakaan Islam",
   "tajweed": "Dengan tajwid",
   "useEnglishNumbers": "Gunakan angka Inggris",
-  "changeTafsir": "Ganti tafsir"
+  "changeTafsir": "Ganti tafsir",
+  "mutashabihat": "Ayat serupa",
+  "no_mutashabihat": "Tidak ada frasa serupa untuk ayat ini",
+  "browse_mutashabihat": "Telusuri ayat serupa",
+  "mutashabihat_in": "Ayat serupa di",
+  "repeated": "Pengulangan",
+  "times": "kali",
+  "surahs": "Surah",
+  "ayah": "Ayat"
 }

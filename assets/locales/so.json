@@ -1322,5 +1322,13 @@
   "islamicLibrary": "Maktabadda Islaamka",
   "tajweed": "Iyadoo Tajweed ah",
   "useEnglishNumbers": "Isticmaal lambarro Ingiriisi",
-  "changeTafsir": "Beddel tafsiir"
+  "changeTafsir": "Beddel tafsiir",
+  "mutashabihat": "Aayaad la mid ah",
+  "no_mutashabihat": "Ma jiraan weedho la mid ah aayaddan",
+  "browse_mutashabihat": "Baadh aayaadka la midka ah",
+  "mutashabihat_in": "Aayaadka la midka ah ee",
+  "repeated": "Ku-celcelin",
+  "times": "jeer",
+  "surahs": "Suuro",
+  "ayah": "Aayad"
 }
