@@ -20,11 +20,11 @@ import '../../data/models/mutashabihat_model.dart';
 import '../../quran.dart';
 
 /// Dialog widget for displaying mutashabihat (similar) phrases
-class MutashabihatDialog extends StatelessWidget {
+class MutashabihatBottomSheet extends StatelessWidget {
   final int surahNumber;
   final int ayahNumber;
 
-  const MutashabihatDialog({
+  const MutashabihatBottomSheet({
     super.key,
     required this.surahNumber,
     required this.ayahNumber,
@@ -48,8 +48,10 @@ class MutashabihatDialog extends StatelessWidget {
         // maxHeight: Get.height * 0.85,
         maxWidth: context.customOrientation(Get.width, Get.width * .5),
       ),
-      builder: (context) =>
-          MutashabihatDialog(surahNumber: surahNumber, ayahNumber: ayahNumber),
+      builder: (context) => MutashabihatBottomSheet(
+        surahNumber: surahNumber,
+        ayahNumber: ayahNumber,
+      ),
     );
   }
 
