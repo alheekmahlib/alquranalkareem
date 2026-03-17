@@ -55,7 +55,7 @@ class BookmarksController extends GetxController {
       await DbBookmarkHelper.deleteBookmark(bookmarkToDelete);
       // تأكد من إزالة العلامة المرجعية من القائمة المحلية
       bookmarksList.remove(bookmarkToDelete);
-      Get.context!.showCustomErrorSnackBar('deletedBookmark'.tr);
+      Get.context!.showCustomErrorSnackBar('deletedBookmark'.tr, isDone: false);
       sl<QuranController>().update(['pageBookmarked']);
       return true;
     }
@@ -112,7 +112,10 @@ class BookmarksController extends GetxController {
       if (result > 0) {
         // تأكد من إزالة العلامة المرجعية من القائمة المحلية
         bookmarkTextList.remove(bookmarkToDelete);
-        Get.context!.showCustomErrorSnackBar('deletedBookmark'.tr);
+        Get.context!.showCustomErrorSnackBar(
+          'deletedBookmark'.tr,
+          isDone: false,
+        );
         getBookmarksText();
         return true;
       }

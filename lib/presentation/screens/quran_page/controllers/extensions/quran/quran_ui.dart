@@ -3,35 +3,11 @@ part of '../../../quran.dart';
 extension QuranUi on QuranController {
   /// -------- [onTap] --------
 
-  void switchMode(int newMode) {
-    state.isPages.value = newMode;
-    state.selectMushafSettingsPage.value = newMode;
-    state.box.write(SWITCH_VALUE, newMode);
-    Get.back();
-    update();
-    if (newMode == 1) {
-      Future.delayed(const Duration(milliseconds: 600)).then((_) {
-        if (state.itemScrollController.isAttached) {
-          state.itemScrollController.jumpTo(
-            index: QuranCtrl.instance.state.currentPageNumber.value - 1,
-          );
-        }
-      });
-    } else {
-      QuranCtrl.instance.state.currentPageNumber.value =
-          state.itemPositionsListener.itemPositions.value.last.index + 1;
-    }
-  }
-
   void changeSurahListOnTap(int page) {
     state._quranRepository.saveLastPage(page);
     // QuranController.instance.state.box.write(MSTART_PAGE, page);
     QuranCtrl.instance.state.currentPageNumber.value = page;
-    if (state.isPages == 1) {
-      state.itemScrollController.jumpTo(index: page - 1);
-    } else {
-      QuranLibrary.quranCtrl.quranPagesController.jumpToPage(page - 1);
-    }
+    QuranLibrary.quranCtrl.quranPagesController.jumpToPage(page - 1);
     if (state.navBarController.isOpen) {
       state.navBarController.close();
       setNavBarType = NavBarType.none;

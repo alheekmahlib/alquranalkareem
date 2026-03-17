@@ -152,7 +152,7 @@ class BooksLastRead extends StatelessWidget {
                                         // إظهار رسالة تأكيد الحذف - Show delete confirmation message
                                         Get.context!.showCustomErrorSnackBar(
                                           'bookRemovedFromLastRead'.tr,
-                                          isDone: true,
+                                          isDone: false,
                                         );
                                       },
                                       width: 25,

@@ -17,7 +17,6 @@ import 'package:flexible_sheet/flexible_sheet.dart';
 import 'package:floating_menu_expendable/floating_menu_expendable.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart'
@@ -108,7 +107,6 @@ part 'widgets/khatmah/widgets/add_khatmah_widget.dart';
 part 'widgets/khatmah/widgets/khatmah_build_widget.dart';
 part 'widgets/khatmah/widgets/khatmah_days_page.dart';
 part 'widgets/khatmah/widgets/khatmah_name_widget.dart';
-part 'widgets/pages/custom_span.dart';
 part 'widgets/pages/left_page.dart';
 part 'widgets/pages/nav_bar_widget.dart';
 part 'widgets/pages/quran_or_ten_recitations_tab_bar.dart';

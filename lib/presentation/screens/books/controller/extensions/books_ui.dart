@@ -7,7 +7,10 @@ extension BooksUi on BooksController {
 
   Future<void> moveToBookPage(int chapterPage, int bookNumber) async {
     if (!isBookDownloaded(bookNumber)) {
-      return Get.context!.showCustomErrorSnackBar('downloadBookFirst'.tr);
+      return Get.context!.showCustomErrorSnackBar(
+        'downloadBookFirst'.tr,
+        isDone: false,
+      );
     }
 
     state.currentPageNumber.value = chapterPage;
@@ -43,7 +46,10 @@ extension BooksUi on BooksController {
     String chapterName = '',
   }) async {
     if (!isBookDownloaded(bookNumber)) {
-      return Get.context!.showCustomErrorSnackBar('downloadBookFirst'.tr);
+      return Get.context!.showCustomErrorSnackBar(
+        'downloadBookFirst'.tr,
+        isDone: false,
+      );
     }
 
     state.currentPageNumber.value = pageNumber;
@@ -56,7 +62,8 @@ extension BooksUi on BooksController {
         )
         .then(
           (_) => Get.to(
-            () => ReadViewScreen(bookNumber: bookNumber, initialPage: pageNumber),
+            () =>
+                ReadViewScreen(bookNumber: bookNumber, initialPage: pageNumber),
             transition: Transition.fade,
           ),
         );
@@ -64,7 +71,10 @@ extension BooksUi on BooksController {
 
   Future<void> moveToPageByNumber(int pageNumber, int bookNumber) async {
     if (!isBookDownloaded(bookNumber)) {
-      return Get.context!.showCustomErrorSnackBar('downloadBookFirst'.tr);
+      return Get.context!.showCustomErrorSnackBar(
+        'downloadBookFirst'.tr,
+        isDone: false,
+      );
     }
 
     state.currentPageNumber.value = pageNumber;
@@ -101,7 +111,7 @@ extension BooksUi on BooksController {
       state.bookTotalPages.remove(bookNumber);
 
       update(['downloadedBooks']);
-      Get.context!.showCustomErrorSnackBar('booksDeleted'.tr);
+      Get.context!.showCustomErrorSnackBar('booksDeleted'.tr, isDone: false);
       log('Book $bookNumber deleted successfully', name: 'BooksUi');
     } catch (e) {
       log('Error deleting book: $e', name: 'BooksUi');

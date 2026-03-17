@@ -400,7 +400,10 @@ class _PhraseExpansionCard extends StatelessWidget {
                 CustomButton(
                   onPressed: () {
                     controller.copyPhraseToClipboard(phraseResult, phraseText);
-                    context.showCustomErrorSnackBar('copyAyah'.tr);
+                    context.showCustomErrorSnackBar(
+                      'copyAyah'.tr,
+                      isDone: true,
+                    );
                   },
                   height: 30,
                   width: 40,

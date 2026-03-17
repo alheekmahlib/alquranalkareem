@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:wakelock_plus/wakelock_plus.dart';
 
 import '/presentation/screens/home/home_screen.dart';
+import '../../../core/utils/constants/shared_preferences_constants.dart';
 import '../../screens/adhkar/screens/adhkar_view.dart';
 import '../../screens/books/books.dart';
 import '../../screens/quran_page/quran.dart';
@@ -28,6 +29,8 @@ class GeneralController extends GetxController {
         print('Failed to enable wakelock: $e');
       }
     });
+    state.screenSelectedValue.value =
+        state.box.read(SCREEN_SELECTED_VALUE) ?? 0;
     // WidgetsBinding.instance.addObserver(this);
 
     super.onInit();

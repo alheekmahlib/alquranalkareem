@@ -171,7 +171,7 @@ class ShareController extends GetxController {
       await SharePlus.instance.share(params);
     } on DioException {
       Get.back();
-      Get.context!.showCustomErrorSnackBar('noInternet'.tr);
+      Get.context!.showCustomErrorSnackBar('noInternet'.tr, isDone: false);
     }
   }
 }

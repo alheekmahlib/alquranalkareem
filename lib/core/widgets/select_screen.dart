@@ -1,9 +1,9 @@
-import 'package:alquranalkareem/core/widgets/container_button.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 
+import '/core/widgets/container_button.dart';
 import '../../presentation/controllers/general/general_controller.dart';
 import '../utils/constants/lists.dart';
 import '../utils/constants/shared_preferences_constants.dart';
@@ -38,7 +38,6 @@ class SelectScreen extends StatelessWidget {
                         onPressed: () {
                           generalCtrl.state.screenSelectedValue.value = index;
                           GetStorage().write(SCREEN_SELECTED_VALUE, index);
-                          GetStorage().write(IS_SCREEN_SELECTED_VALUE, true);
                         },
                         value:
                             (generalCtrl.state.screenSelectedValue.value ==

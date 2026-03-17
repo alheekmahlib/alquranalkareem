@@ -30,7 +30,10 @@ class CopyButton extends StatelessWidget {
                 '${'appName'.tr}\n'
                 '${ApiConstants.quranShareUrl}${QuranCtrl.instance.state.currentPageNumber.value}&ayah=${ayah.ayahUQNumber}',
           ),
-        ).then((value) => context.showCustomErrorSnackBar('copyAyah'.tr));
+        ).then(
+          (value) =>
+              context.showCustomErrorSnackBar('copyAyah'.tr, isDone: true),
+        );
         sl<QuranController>().state.selectedAyahIndexes.clear();
       },
     );

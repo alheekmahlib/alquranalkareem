@@ -10,10 +10,13 @@ class SplashScreenController extends GetxController {
   Future<void> onInit() async {
     super.onInit();
     _loadInitialData();
-    halfOpenSlider(duration: 1, height: 200);
+    halfOpenSlider(duration: 1, height: 120);
     Future.delayed(
       const Duration(milliseconds: 4300),
     ).then((_) => hasNewFeatures());
+    Future.delayed(
+      const Duration(milliseconds: 6300),
+    ).then((_) => EventController.instance.ramadhanOrEidGreeting());
   }
 
   @override
@@ -77,7 +80,10 @@ class SplashScreenController extends GetxController {
       toggleSlider(duration: 0);
       Future.delayed(
         const Duration(milliseconds: 900),
-        () => Get.offAll(const HomeScreen(), transition: Transition.fadeIn),
+        () => Get.offAll(
+          GeneralController.instance.screenSelect(),
+          transition: Transition.fadeIn,
+        ),
       );
     }
   }
@@ -89,7 +95,10 @@ class SplashScreenController extends GetxController {
       state.customWidgetIndex.value = 2;
     } else {
       toggleSlider(duration: 0);
-      Get.offAll(const HomeScreen(), transition: Transition.fadeIn);
+      Get.offAll(
+        GeneralController.instance.screenSelect(),
+        transition: Transition.fadeIn,
+      );
     }
   }
 

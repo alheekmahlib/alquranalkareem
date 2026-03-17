@@ -11,9 +11,11 @@ class BooksBookmarksController extends GetxController {
   final RxList<BooksBookmarkData> bookmarks = <BooksBookmarkData>[].obs;
 
   bool isPageBookmarked(int bookNumber, int pageNum) {
-    return bookmarks.firstWhereOrNull((bookmark) =>
-            bookmark.bookNumber == bookNumber &&
-            bookmark.currentPage == pageNum) !=
+    return bookmarks.firstWhereOrNull(
+          (bookmark) =>
+              bookmark.bookNumber == bookNumber &&
+              bookmark.currentPage == pageNum,
+        ) !=
         null;
   }
 
@@ -24,7 +26,8 @@ class BooksBookmarksController extends GetxController {
   }
 
   Map<String, List<BooksBookmarkData>> groupByBookName(
-      List<BooksBookmarkData> bookmarks) {
+    List<BooksBookmarkData> bookmarks,
+  ) {
     var grouped = <String, List<BooksBookmarkData>>{};
 
     for (var bookmark in bookmarks) {
@@ -44,7 +47,10 @@ class BooksBookmarksController extends GetxController {
   }
 
   Future<void> addBookmark(
-      String bookName, int bookNumber, int currentPage) async {
+    String bookName,
+    int bookNumber,
+    int currentPage,
+  ) async {
     final bookmark = BooksBookmarkCompanion(
       bookName: drift.Value(bookName),
       bookNumber: drift.Value(bookNumber),
@@ -55,7 +61,11 @@ class BooksBookmarksController extends GetxController {
   }
 
   Future<void> updateBookmark(
-      int id, String bookName, int bookNumber, int currentPage) async {
+    int id,
+    String bookName,
+    int bookNumber,
+    int currentPage,
+  ) async {
     final bookmark = BooksBookmarkCompanion(
       id: drift.Value(id),
       bookName: drift.Value(bookName),
@@ -75,12 +85,22 @@ class BooksBookmarksController extends GetxController {
   void addBookmarkOnTap(int bookNumber, int index) {
     if (isPageBookmarked(bookNumber, index + 1)) {
       deleteBookmark(bookNumber, index + 1).then(
-          (_) => Get.context!.showCustomErrorSnackBar('deletedBookmark'.tr));
+        (_) => Get.context!.showCustomErrorSnackBar(
+          'deletedBookmark'.tr,
+          isDone: false,
+        ),
+      );
     } else {
-      addBookmark(booksCtrl.state.booksList[bookNumber - 1].bookName,
-              bookNumber, index + 1)
-          .then((_) => Get.context!
-              .showCustomErrorSnackBar('addBookmark'.tr, isDone: true));
+      addBookmark(
+        booksCtrl.state.booksList[bookNumber - 1].bookName,
+        bookNumber,
+        index + 1,
+      ).then(
+        (_) => Get.context!.showCustomErrorSnackBar(
+          'addBookmark'.tr,
+          isDone: true,
+        ),
+      );
     }
   }
 }

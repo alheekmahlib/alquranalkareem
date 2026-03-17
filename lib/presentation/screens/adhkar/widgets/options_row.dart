@@ -71,6 +71,7 @@ class OptionsRow extends StatelessWidget {
                         ).then(
                           (value) => context.showCustomErrorSnackBar(
                             'copyAzkarText'.tr,
+                            isDone: true,
                           ),
                         );
                       },

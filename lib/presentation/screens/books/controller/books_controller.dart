@@ -68,7 +68,10 @@ class BooksController extends GetxController {
 
   Future<void> downloadBook(int bookNumber) async {
     if (!InternetConnectionController.instance.isConnected) {
-      return Get.context!.showCustomErrorSnackBar('noInternet'.tr);
+      return Get.context!.showCustomErrorSnackBar(
+        'noInternet'.tr,
+        isDone: true,
+      );
     }
 
     try {
@@ -90,7 +93,10 @@ class BooksController extends GetxController {
             'Error downloading book: ${failure.message}',
             name: 'BooksController',
           );
-          Get.context!.showCustomErrorSnackBar('downloadError'.tr);
+          Get.context!.showCustomErrorSnackBar(
+            'downloadError'.tr,
+            isDone: false,
+          );
         },
         (data) async {
           await _saveBookToFile(bookNumber, data);
@@ -105,7 +111,7 @@ class BooksController extends GetxController {
       );
     } catch (e) {
       log('Error downloading book: $e', name: 'BooksController');
-      Get.context!.showCustomErrorSnackBar('downloadError'.tr);
+      Get.context!.showCustomErrorSnackBar('downloadError'.tr, isDone: false);
     } finally {
       state.downloading[bookNumber] = false;
     }
@@ -323,7 +329,7 @@ class BooksController extends GetxController {
         error: e,
         stackTrace: stackTrace,
       );
-      Get.context?.showCustomErrorSnackBar('حدث خطأ أثناء البحث');
+      Get.context?.showCustomErrorSnackBar('searchError'.tr, isDone: false);
     } finally {
       state.isLoading.value = false;
     }
