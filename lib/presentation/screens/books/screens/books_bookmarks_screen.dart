@@ -108,6 +108,7 @@ class BookBookmarksScreen extends StatelessWidget {
                                           (_) => Get.context!
                                               .showCustomErrorSnackBar(
                                                 'deletedBookmark'.tr,
+                                                isDone: false,
                                               ),
                                         );
                                     // booksBookmarksCtrl.deleteBookmark(

@@ -80,6 +80,7 @@ class ContainerButton extends StatelessWidget {
       onTap: onPressed,
       child: IntrinsicHeight(
         child: AnimatedSize(
+          alignment: AlignmentDirectional.centerStart,
           duration: const Duration(milliseconds: 300),
           curve: Curves.easeInOut,
           child: Padding(

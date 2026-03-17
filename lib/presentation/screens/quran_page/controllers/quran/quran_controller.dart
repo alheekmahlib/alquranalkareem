@@ -110,10 +110,6 @@ class QuranController extends GetxController {
     } else {}
   }
 
-  void loadSwitchValue() {
-    state.isPages.value = state.box.read(SWITCH_VALUE) ?? 0;
-  }
-
   void getLastPage() {
     try {
       QuranCtrl.instance.state.currentPageNumber.value =

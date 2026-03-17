@@ -22,7 +22,6 @@ class QuranState {
   RxDouble textWidgetPosition = (-240.0).obs;
   RxBool isPlayExpanded = false.obs;
   RxBool isSajda = false.obs;
-  RxInt isPages = 0.obs;
   RxBool isMoreOptions = false.obs;
   ItemScrollController itemScrollController = ItemScrollController();
   final ItemScrollController ayahsItemScrollController = ItemScrollController();

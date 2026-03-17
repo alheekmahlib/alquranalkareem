@@ -302,9 +302,10 @@ class PlayListController extends GetxController {
 
   deletePlayList(BuildContext context, int index) async {
     // Delete the reminder
-    await PlayListStorage.deletePlayList(
-      index,
-    ).then((value) => context.showCustomErrorSnackBar('deletedPlayList'.tr));
+    await PlayListStorage.deletePlayList(index).then(
+      (value) =>
+          context.showCustomErrorSnackBar('deletedPlayList'.tr, isDone: false),
+    );
 
     // Update the playList list
     playLists.removeAt(index);
