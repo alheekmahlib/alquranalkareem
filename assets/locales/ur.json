@@ -700,6 +700,51 @@
     "type": "text",
     "placeholders": {}
   },
+  "surah": "سورۃ",
+  "@surah": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "chooseSurah": "سورۃ منتخب کریں",
+  "@chooseSurah": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "segments": "حصے",
+  "@segments": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "addSegment": "حصہ شامل کریں",
+  "@addSegment": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "repeatCount": "دہرانے کی تعداد",
+  "@repeatCount": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "sleepTimer": "نیند ٹائمر",
+  "@sleepTimer": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "hour": "گھنٹہ",
+  "@hour": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "minutes": "منٹ",
+  "@minutes": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "of": "میں سے",
+  "@of": {
+    "type": "text",
+    "placeholders": {}
+  },
   "quran": "مقدس قرآن",
   "@quran": {
     "type": "text",

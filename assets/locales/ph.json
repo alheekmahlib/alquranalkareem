@@ -699,6 +699,51 @@
     "type": "text",
     "placeholders": {}
   },
+  "surah": "Surah",
+  "@surah": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "chooseSurah": "Pumili ng Surah",
+  "@chooseSurah": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "segments": "Mga Bahagi",
+  "@segments": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "addSegment": "Magdagdag ng Bahagi",
+  "@addSegment": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "repeatCount": "Bilang ng Pag-uulit",
+  "@repeatCount": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "sleepTimer": "Timer ng Pagtulog",
+  "@sleepTimer": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "hour": "Oras",
+  "@hour": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "minutes": "Minuto",
+  "@minutes": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "of": "ng",
+  "@of": {
+    "type": "text",
+    "placeholders": {}
+  },
   "quran": "Ang Qur'an",
   "@quran": {
     "type": "text",

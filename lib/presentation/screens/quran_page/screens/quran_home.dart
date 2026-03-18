@@ -52,7 +52,7 @@ class QuranHome extends StatelessWidget {
                               languageCode: Get.locale!.languageCode,
                               style: quranCtrl.displayModeBarStyle,
                             ),
-                            QuranOrTenRecitationsTabBar(),
+                            QuranTopBar(),
                             TajweedMenuWidget(),
                             TopBarWidget(
                               isHomeChild: true,

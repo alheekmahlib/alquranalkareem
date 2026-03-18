@@ -45,9 +45,11 @@ class CustomButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final effectiveIconSize = iconSize ?? 25;
+    final defaultSize = effectiveIconSize + (horizontalPadding ?? 4.0) * 2;
     return SizedBox(
-      height: height ?? 30,
-      width: width ?? 30,
+      height: height ?? defaultSize,
+      width: width ?? defaultSize,
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
           backgroundColor: backgroundColor ?? Colors.transparent,
@@ -85,21 +87,32 @@ class CustomButton extends StatelessWidget {
                   title != null ? const Gap(16) : const SizedBox.shrink(),
                   svgPath != null
                       ? isCustomSvgColor!
-                            ? customSvgWithColor(
-                                svgPath ?? SvgPath.svgPlayAll,
+                            ? SizedBox(
+                                height: iconSize ?? 25,
                                 width: iconSize ?? 25,
-                                color:
-                                    svgColor ??
-                                    context
-                                        .theme
-                                        .colorScheme
-                                        .secondaryContainer,
+                                child: customSvgWithColor(
+                                  svgPath ?? SvgPath.svgPlayAll,
+                                  height: iconSize ?? 25,
+                                  width: iconSize ?? 25,
+                                  color:
+                                      svgColor ??
+                                      context
+                                          .theme
+                                          .colorScheme
+                                          .secondaryContainer,
+                                ),
                               )
-                            : customSvgWithCustomColor(
-                                svgPath ?? SvgPath.svgPlayAll,
+                            : SizedBox(
+                                height: iconSize ?? 25,
                                 width: iconSize ?? 25,
-                                color:
-                                    svgColor ?? context.theme.primaryColorLight,
+                                child: customSvgWithCustomColor(
+                                  svgPath ?? SvgPath.svgPlayAll,
+                                  height: iconSize ?? 25,
+                                  width: iconSize ?? 25,
+                                  color:
+                                      svgColor ??
+                                      context.theme.primaryColorLight,
+                                ),
                               )
                       : Icon(
                           icon ?? Icons.cloud_download_outlined,
@@ -110,17 +123,27 @@ class CustomButton extends StatelessWidget {
               )
             : svgPath != null
             ? isCustomSvgColor!
-                  ? customSvgWithColor(
-                      svgPath ?? SvgPath.svgPlayAll,
+                  ? SizedBox(
+                      height: iconSize ?? 25,
                       width: iconSize ?? 25,
-                      color:
-                          svgColor ??
-                          context.theme.colorScheme.secondaryContainer,
+                      child: customSvgWithColor(
+                        svgPath ?? SvgPath.svgPlayAll,
+                        width: iconSize ?? 25,
+                        height: iconSize ?? 25,
+                        color:
+                            svgColor ??
+                            context.theme.colorScheme.secondaryContainer,
+                      ),
                     )
-                  : customSvgWithCustomColor(
-                      svgPath ?? SvgPath.svgPlayAll,
+                  : SizedBox(
+                      height: iconSize ?? 25,
                       width: iconSize ?? 25,
-                      color: svgColor ?? context.theme.primaryColorLight,
+                      child: customSvgWithCustomColor(
+                        svgPath ?? SvgPath.svgPlayAll,
+                        width: iconSize ?? 25,
+                        height: iconSize ?? 25,
+                        color: svgColor ?? context.theme.primaryColorLight,
+                      ),
                     )
             : iconWidget ??
                   Icon(

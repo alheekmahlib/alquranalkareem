@@ -19,14 +19,14 @@ class GroupButtonsWidget extends StatelessWidget {
       final items = waqfCtrl.waqfList;
       if (items.isEmpty) return const SizedBox.shrink();
 
-      return Container(
+      return Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: List.generate(items.length, (index) {
             final isSelected = _selectedIndex.value == index;
             return Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 6),
+              padding: const EdgeInsets.symmetric(horizontal: 4.0),
               child: GestureDetector(
                 onTap: () {
                   _selectedIndex.value = index;
@@ -38,8 +38,8 @@ class GroupButtonsWidget extends StatelessWidget {
                 child: AnimatedContainer(
                   duration: const Duration(milliseconds: 200),
                   curve: Curves.easeInOut,
-                  height: 52,
-                  width: 52,
+                  height: 45,
+                  width: 45,
                   decoration: BoxDecoration(
                     color: isSelected
                         ? theme.colorScheme.primary

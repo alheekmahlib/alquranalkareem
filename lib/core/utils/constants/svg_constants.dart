@@ -103,6 +103,10 @@ class SvgPath {
   /// assets/svg/audio/play_word.svg
   static const String svgAudioPlayWord = "assets/svg/audio/play_word.svg";
 
+  /// Assets for svgAudioPlaylist
+  /// assets/svg/audio/playlist.svg
+  static const String svgAudioPlaylist = "assets/svg/audio/playlist.svg";
+
   /// Assets for svgAudioPreviousIcon
   /// assets/svg/audio/previous_icon.svg
   static const String svgAudioPreviousIcon =

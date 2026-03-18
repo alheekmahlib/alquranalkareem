@@ -4,31 +4,71 @@ class PlayListController extends GetxController {
   static PlayListController get instance =>
       GetInstance().putOrFind(() => PlayListController());
 
+  // ━━━━━━━━━━━━━━ المتحكمات ━━━━━━━━━━━━━━
+  final audioCtrl = AudioCtrl.instance;
+  final quranCtrl = QuranController.instance;
+  final generalCtrl = GeneralController.instance;
+
+  // ━━━━━━━━━━━━━━ الصوت ━━━━━━━━━━━━━━
   final AudioPlayer playlistAudioPlayer = AudioPlayer();
   final RxList<AudioSource> ayahsPlayList = <AudioSource>[].obs;
+
+  /// خريطة ربط index الصوت مع ayahUQNumber (لتتبع الآية الحالية)
+  final RxList<int> audioIndexToAyahUQ = <int>[].obs;
+
+  // ━━━━━━━━━━━━━━ القوائم المحفوظة ━━━━━━━━━━━━━━
   RxList<PlayListModel> playLists = RxList<PlayListModel>();
+  final GlobalKey<ExpansionTileCardState> saveCard = GlobalKey();
+
+  // ━━━━━━━━━━━━━━ اختيار السورة والآيات ━━━━━━━━━━━━━━
+  RxInt fromSurahIndex = 0.obs;
+  RxInt toSurahIndex = 0.obs;
+  RxInt startAyah = 1.obs;
+  RxInt endAyah = 1.obs;
+  RxInt startAyahUQ = 1.obs;
+  RxInt endAyahUQ = 1.obs;
   final ScrollController scrollController = ScrollController();
-  RxInt ayahPlayListNumber = 1.obs;
-  RxInt startNum = 1.obs;
-  RxInt endNum = 1.obs;
-  RxInt startUQNum = 1.obs;
-  RxInt endUQNum = 1.obs;
-  RxInt surahNum = 1.obs;
+  final ScrollController surahScrollController = ScrollController();
   double ayahItemHeight = 80.0;
+
+  // ━━━━━━━━━━━━━━ التحميل ━━━━━━━━━━━━━━
   RxBool downloading = false.obs;
   RxBool onDownloading = false.obs;
   RxString progressString = "0".obs;
   RxDouble progress = 0.0.obs;
-  late var cancelToken = CancelToken();
-  RxBool isSelect = false.obs;
+  late CancelToken cancelToken = CancelToken();
+  // RxBool isSelect = false.obs;
+
+  // ━━━━━━━━━━━━━━ تقدم تحميل النطاق ━━━━━━━━━━━━━━
+  RxBool isBatchDownloading = false.obs;
+  RxInt batchTotal = 0.obs;
+  RxInt batchCompleted = 0.obs;
+
+  // ━━━━━━━━━━━━━━ وضع التكرار ━━━━━━━━━━━━━━
+  RxInt repeatCount = 0.obs; // 0 = بلا حد
+  RxInt currentRepeat = 0.obs;
+
+  // ━━━━━━━━━━━━━━ مؤقت النوم ━━━━━━━━━━━━━━
+  Rx<Duration?> sleepTimerDuration = Rx<Duration?>(null);
+  Rx<Duration> sleepTimerRemaining = Duration.zero.obs;
+  Timer? _sleepTimer;
+
+  // ━━━━━━━━━━━━━━ تتبع الآية الحالية ━━━━━━━━━━━━━━
+  RxInt currentPlayingAyahUQ = 0.obs;
+  RxInt currentPlayingIndex = 0.obs;
+  StreamSubscription<int?>? _indexSubscription;
+
+  // ━━━━━━━━━━━━━━ مؤشر التقدم الكلي ━━━━━━━━━━━━━━
+  RxInt totalPlaylistAyahs = 0.obs;
+  RxInt completedAyahs = 0.obs;
+
+  // ━━━━━━━━━━━━━━ الاستماع المتتابع ━━━━━━━━━━━━━━
+  RxBool autoPlayNext = true.obs;
+  StreamSubscription<PlayerState>? _autoNextSubscription;
+
   final box = GetStorage();
 
-  // Assuming these are your dependency injection methods to get controllers
-  final audioCtrl = AudioCtrl.instance;
-  final GlobalKey<ExpansionTileCardState> saveCard = GlobalKey();
-  final quranCtrl = QuranController.instance;
-  final generalCtrl = GeneralController.instance;
-
+  // ━━━━━━━━━━━━━━ Streams ━━━━━━━━━━━━━━
   Stream<PositionData> get positionDataStream =>
       R.Rx.combineLatest3<Duration, Duration, Duration?, PositionData>(
         playlistAudioPlayer.positionStream,
@@ -38,151 +78,117 @@ class PlayListController extends GetxController {
             PositionData(position, bufferedPosition, duration ?? Duration.zero),
       );
 
-  // This method now takes a local file path instead of generating a URL
-  AudioSource createAudioSource(String filePath) {
-    // Ensure that you return an AudioSource and not a Future
-    return AudioSource.uri(Uri.file(filePath));
+  // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  //  آيات السورة المختارة
+  // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  List get fromSurahAyahs => quranCtrl.state.surahs[fromSurahIndex.value].ayahs;
+
+  List get toSurahAyahs => quranCtrl.state.surahs[toSurahIndex.value].ayahs;
+
+  String get fromSurahName =>
+      quranCtrl.state.surahs[fromSurahIndex.value].arabicName;
+
+  String get toSurahName =>
+      quranCtrl.state.surahs[toSurahIndex.value].arabicName;
+
+  int get fromSurahNumber => fromSurahIndex.value + 1;
+  int get toSurahNumber => toSurahIndex.value + 1;
+
+  /// اختيار سورة البداية
+  void selectFromSurah(int index) {
+    fromSurahIndex.value = index;
+    final ayahs = quranCtrl.state.surahs[index].ayahs;
+    startAyah.value = ayahs.first.ayahNumber;
+    startAyahUQ.value = ayahs.first.ayahUQNumber;
+    // إذا كانت سورة النهاية قبل سورة البداية، نحدّثها
+    if (toSurahIndex.value < index) {
+      selectToSurah(index);
+    }
   }
 
+  /// اختيار سورة النهاية
+  void selectToSurah(int index) {
+    toSurahIndex.value = index;
+    final ayahs = quranCtrl.state.surahs[index].ayahs;
+    endAyah.value = ayahs.last.ayahNumber;
+    endAyahUQ.value = ayahs.last.ayahUQNumber;
+    // إذا كانت سورة البداية بعد سورة النهاية، نحدّثها
+    if (fromSurahIndex.value > index) {
+      selectFromSurah(index);
+    }
+  }
+
+  void setStartAyah(int ayahNumber, int ayahUQNumber) {
+    startAyah.value = ayahNumber;
+    startAyahUQ.value = ayahUQNumber;
+  }
+
+  void setEndAyah(int ayahNumber, int ayahUQNumber) {
+    endAyah.value = ayahNumber;
+    endAyahUQ.value = ayahUQNumber;
+  }
+
+  // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  //  التحقق من صلاحية النطاق
+  // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  bool get isRangeValid => startAyahUQ.value <= endAyahUQ.value;
+
+  // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  //  تحميل وتشغيل
+  // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
   Future<String> getLocalPath() async {
-    final directory =
-        await getApplicationDocumentsDirectory(); // For iOS and Android
-    // Use getExternalStorageDirectory() for Android to save files in external storage.
+    final directory = await getApplicationDocumentsDirectory();
     return directory.path;
   }
 
-  Future<void> loadPlaylist() async {
-    if (firstAyahUQ! <= lastAyahUQ!) {
-      List<AudioSource> generatedList = [];
-
-      for (int i = firstAyahUQ!; i <= lastAyahUQ!; i++) {
-        final surahNum = quranCtrl
-            .getSurahDataByAyah(quranCtrl.state.allAyahs[i])
-            .surahNumber
-            .toString()
-            .padLeft(3, '0');
-        String fileName =
-            ayahReaderInfo[audioCtrl.state.ayahReaderIndex.value]['url'] ==
-                ApiConstants.ayahs1stSource
-            ? "${i.toString().padLeft(3, "0")}.mp3"
-            : "$surahNum${i.toString().padLeft(3, "0")}.mp3";
-        String localFilePath =
-            await getLocalPath() + "${audioCtrl.ayahReaderValue}/$fileName";
-
-        bool downloadResult = await downloadFile(
-          generateUrl(i, audioCtrl.ayahReaderValue),
-          fileName,
-        );
-        log('downloadResult: $downloadResult');
-        if (downloadResult) {
-          AudioSource source = createAudioSource(localFilePath);
-          generatedList.add(source);
-        } else {
-          print("Error downloading file: $fileName");
-        }
-      }
-
-      ayahsPlayList.assignAll(generatedList);
-
-      await playlistAudioPlayer.setAudioSource(
-        ConcatenatingAudioSource(children: ayahsPlayList),
-      );
-    } else {
-      print("Error: startNum is greater than endNum.");
-    }
+  AudioSource createAudioSource(String filePath) {
+    return AudioSource.uri(Uri.file(filePath));
   }
 
-  String generateUrl(int ayahNumber, String readerName) {
-    if (ayahReaderInfo[audioCtrl.state.ayahReaderIndex.value]['url'] ==
-        ApiConstants.ayahs1stSource) {
-      log(
-        '${ayahReaderInfo[audioCtrl.state.ayahReaderIndex.value]['url']}${audioCtrl.ayahReaderValue}/${ayahNumber}.mp3',
-      );
-      return '${ayahReaderInfo[audioCtrl.state.ayahReaderIndex.value]['url']}${audioCtrl.ayahReaderValue}/${ayahNumber}.mp3';
+  String generateUrl(int ayahUQNumber) {
+    final readerUrl =
+        ayahReaderInfo[audioCtrl.state.ayahReaderIndex.value]['url'];
+    final readerName = audioCtrl.ayahReaderValue;
+
+    if (readerUrl == ApiConstants.ayahs1stSource) {
+      return '$readerUrl$readerName/$ayahUQNumber.mp3';
     } else {
+      final ayah = quranCtrl.state.allAyahs[ayahUQNumber - 1];
       final surahNum = quranCtrl
-          .getSurahDataByAyah(quranCtrl.state.allAyahs[ayahNumber])
+          .getSurahDataByAyah(ayah)
           .surahNumber
           .toString()
           .padLeft(3, '0');
-      final currentAyahNumber = quranCtrl
-          .state
-          .allAyahs[ayahNumber - 1]
-          .ayahNumber
-          .toString()
-          .padLeft(3, '0');
-      log(
-        '${ayahReaderInfo[audioCtrl.state.ayahReaderIndex.value]['url']}${audioCtrl.ayahReaderValue}/${surahNum.toString().padLeft(3, "0")}$currentAyahNumber.mp3',
-      );
-      return '${ayahReaderInfo[audioCtrl.state.ayahReaderIndex.value]['url']}${audioCtrl.ayahReaderValue}/${surahNum.toString().padLeft(3, "0")}$currentAyahNumber.mp3';
+      final ayahNum = ayah.ayahNumber.toString().padLeft(3, '0');
+      return '$readerUrl$readerName/$surahNum$ayahNum.mp3';
     }
   }
 
-  Future<bool> choiceFromPlayList(
-    int startNumber,
-    int endNumber,
-    int startUQNumber,
-    int endUQNumber,
-    int surahNumber,
-    String readerName,
-  ) async {
-    startNum.value = startNumber;
-    endNum.value = endNumber;
-    startUQNum.value = startUQNumber;
-    endUQNum.value = endUQNumber;
-    surahNum.value = surahNumber;
-    List<AudioSource> playlistSources = [];
-
-    String localDirectoryPath = await getLocalPath();
-    for (int i = startUQNumber; i <= endUQNumber; i++) {
+  String _getFileName(int ayahUQNumber) {
+    final readerUrl =
+        ayahReaderInfo[audioCtrl.state.ayahReaderIndex.value]['url'];
+    if (readerUrl == ApiConstants.ayahs1stSource) {
+      return '${ayahUQNumber.toString().padLeft(3, "0")}.mp3';
+    } else {
+      final ayah = quranCtrl.state.allAyahs[ayahUQNumber - 1];
       final surahNum = quranCtrl
-          .getSurahDataByAyah(quranCtrl.state.allAyahs[i])
+          .getSurahDataByAyah(ayah)
           .surahNumber
           .toString()
           .padLeft(3, '0');
-      final currentAyahNumber = quranCtrl.state.allAyahs[i - 1].ayahNumber
-          .toString()
-          .padLeft(3, '0');
-      String fileName =
-          ayahReaderInfo[audioCtrl.state.ayahReaderIndex.value]['url'] ==
-              ApiConstants.ayahs1stSource
-          ? "${i.toString().padLeft(3, "0")}.mp3"
-          : "$surahNum$currentAyahNumber.mp3";
-      String localFilePath =
-          "$localDirectoryPath/${audioCtrl.ayahReaderValue}/$fileName";
-      bool downloadResult = await downloadFile(
-        generateUrl(i, audioCtrl.ayahReaderValue),
-        fileName,
-      );
-
-      if (downloadResult) {
-        AudioSource source = createAudioSource(localFilePath);
-        playlistSources.add(source);
-      } else {
-        return false;
-      }
+      final ayahNum = ayah.ayahNumber.toString().padLeft(3, '0');
+      return '$surahNum$ayahNum.mp3';
     }
-
-    ayahsPlayList.assignAll(playlistSources);
-    await playlistAudioPlayer.setAudioSource(
-      ConcatenatingAudioSource(children: playlistSources),
-    );
-
-    return true;
   }
 
+  /// تحميل ملف صوتي مع التحقق من وجوده مسبقاً
   Future<bool> downloadFile(String url, String fileName) async {
-    String localFilePath =
-        await getLocalPath() + "${audioCtrl.ayahReaderValue}/$fileName";
+    final localPath = await getLocalPath();
+    final localFilePath = '$localPath/${audioCtrl.ayahReaderValue}/$fileName';
     final file = File(localFilePath);
 
-    // Check if the file already exists and return true immediately if it does
-    if (await file.exists()) {
-      print('File already downloaded: $localFilePath');
-      return true;
-    }
+    if (await file.exists()) return true;
 
-    Dio dio = Dio();
     cancelToken = CancelToken();
     try {
       await Directory(dirname(localFilePath)).create(recursive: true);
@@ -190,155 +196,324 @@ class PlayListController extends GetxController {
       onDownloading.value = true;
       progressString.value = "0";
       progress.value = 0;
-      await dio.download(
+      await Dio().download(
         url,
         localFilePath,
         onReceiveProgress: (rec, total) {
-          progressString.value = ((rec / total) * 100).toStringAsFixed(0);
-          progress.value = (rec / total).toDouble();
-          print(progressString.value);
+          if (total > 0) {
+            progressString.value = ((rec / total) * 100).toStringAsFixed(0);
+            progress.value = (rec / total).toDouble();
+          }
         },
         cancelToken: cancelToken,
       );
       downloading.value = false;
       onDownloading.value = false;
       progressString.value = "100";
-      print("Download completed");
       return true;
     } catch (e) {
       downloading.value = false;
       onDownloading.value = false;
       progressString.value = "0";
-      print('Error during download: $e');
+      log('Error during download: $e');
       return false;
     }
   }
 
+  /// بناء قائمة الصوت من نطاق آيات مستمر وتشغيلها
+  Future<bool> buildAndPlayRange(int fromAyahUQ, int toAyahUQ) async {
+    if (fromAyahUQ < 1 || toAyahUQ < 1 || fromAyahUQ > toAyahUQ) return false;
+    final List<AudioSource> sources = [];
+    final List<int> indexMap = [];
+    final localPath = await getLocalPath();
+
+    final total = toAyahUQ - fromAyahUQ + 1;
+    batchTotal.value = total;
+    batchCompleted.value = 0;
+    isBatchDownloading.value = true;
+
+    for (int uq = fromAyahUQ; uq <= toAyahUQ; uq++) {
+      final fileName = _getFileName(uq);
+      final filePath = '$localPath/${audioCtrl.ayahReaderValue}/$fileName';
+      final url = generateUrl(uq);
+
+      final success = await downloadFile(url, fileName);
+      if (success) {
+        sources.add(createAudioSource(filePath));
+        indexMap.add(uq);
+      } else {
+        isBatchDownloading.value = false;
+        return false;
+      }
+      batchCompleted.value = sources.length;
+    }
+
+    isBatchDownloading.value = false;
+
+    ayahsPlayList.assignAll(sources);
+    audioIndexToAyahUQ.assignAll(indexMap);
+    totalPlaylistAyahs.value = sources.length;
+    completedAyahs.value = 0;
+
+    await playlistAudioPlayer.setAudioSources(sources);
+
+    _startTrackingCurrentAyah();
+    return true;
+  }
+
+  /// تشغيل playlist محفوظة
+  Future<void> playFromSavedPlayList(PlayListModel playlist) async {
+    currentRepeat.value = 0;
+    await buildAndPlayRange(playlist.fromAyahUQ, playlist.toAyahUQ);
+  }
+
+  // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  //  حفظ / تحميل / حذف
+  // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
   void saveList() {
-    loadPlaylist();
-    PlayListStorage.savePlayList(playLists);
-    addPlayList();
-  }
-
-  int? get firstAyah => startNum.value == 1
-      ? quranCtrl
-            .getPageAyahsByIndex(
-              QuranCtrl.instance.state.currentPageNumber.value - 1,
-            )
-            .first
-            .ayahNumber
-      : startNum.value;
-
-  int? get lastAyah => endNum.value == 1
-      ? quranCtrl
-            .getPageAyahsByIndex(
-              QuranCtrl.instance.state.currentPageNumber.value - 1,
-            )
-            .last
-            .ayahNumber
-      : endNum.value;
-
-  int? get firstAyahUQ => startUQNum.value == 1
-      ? quranCtrl
-            .getPageAyahsByIndex(
-              QuranCtrl.instance.state.currentPageNumber.value - 1,
-            )
-            .first
-            .ayahUQNumber
-      : startUQNum.value;
-
-  int? get lastAyahUQ => endUQNum.value == 1
-      ? quranCtrl
-            .getPageAyahsByIndex(
-              QuranCtrl.instance.state.currentPageNumber.value - 1,
-            )
-            .last
-            .ayahUQNumber
-      : endUQNum.value;
-
-  void reset() {
-    startNum.value = 1;
-    endNum.value = 1;
-  }
-
-  @override
-  void onClose() {
-    playlistAudioPlayer.dispose();
-    super.onClose();
-  }
-
-  void loadSavedPlayList() async {
-    List<PlayListModel> loadedPlayList = await PlayListStorage.loadPlayList();
-    playLists.value = RxList<PlayListModel>(loadedPlayList);
-  }
-
-  Future<void> addPlayList() async {
+    if (!isRangeValid) return;
+    final fromName = fromSurahName.replaceAll('سُورَةُ ', '');
+    final toName = toSurahName.replaceAll('سُورَةُ ', '');
+    final name = fromSurahNumber == toSurahNumber
+        ? fromName
+        : '$fromName - $toName';
     playLists.add(
       PlayListModel(
         id: playLists.length,
-        startNum: firstAyah!,
-        endNum: lastAyah!,
-        startUQNum: firstAyahUQ!,
-        endUQNum: lastAyahUQ!,
-        surahNum: quranCtrl.getSurahNumberFromPage(
-          QuranCtrl.instance.state.currentPageNumber.value,
-        ),
-        surahName: quranCtrl
-            .getCurrentSurahByPage(
-              QuranCtrl.instance.state.currentPageNumber.value - 1,
-            )
-            .arabicName,
+        name: name,
         readerName: audioCtrl.ayahReaderValue,
-        name: quranCtrl
-            .getCurrentSurahByPage(
-              QuranCtrl.instance.state.currentPageNumber.value - 1,
-            )
-            .arabicName,
+        fromSurahNumber: fromSurahNumber,
+        fromSurahName: fromSurahName,
+        fromAyah: startAyah.value,
+        fromAyahUQ: startAyahUQ.value,
+        toSurahNumber: toSurahNumber,
+        toSurahName: toSurahName,
+        toAyah: endAyah.value,
+        toAyahUQ: endAyahUQ.value,
+        createdAt: DateTime.now().toIso8601String(),
       ),
     );
     PlayListStorage.savePlayList(playLists);
-    print('playLists: ${playLists.length.toString()}');
+    saveCard.currentState?.expand();
   }
 
-  deletePlayList(BuildContext context, int index) async {
-    // Delete the reminder
+  void loadSavedPlayList() async {
+    final loaded = await PlayListStorage.loadPlayList();
+    playLists.value = RxList<PlayListModel>(loaded);
+  }
+
+  Future<void> deletePlayList(BuildContext context, int index) async {
     await PlayListStorage.deletePlayList(index).then(
       (value) =>
           context.showCustomErrorSnackBar('deletedPlayList'.tr, isDone: false),
     );
-
-    // Update the playList list
     playLists.removeAt(index);
-
-    // Update the reminder IDs
     for (int i = index; i < playLists.length; i++) {
       playLists[i].id = i;
     }
-
-    // Save the updated playList list
     PlayListStorage.savePlayList(playLists);
   }
 
-  scrollToAyah(int ayahNumber) {
-    if (scrollController.hasClients) {
-      double position = (ayahNumber - 1) * ayahItemHeight;
-      scrollController.jumpTo(position);
-    } else {
-      print("Controller not attached to any scroll views.");
+  // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  //  تتبع الآية الحالية (Segment Tracking)
+  // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  void _startTrackingCurrentAyah() {
+    _indexSubscription?.cancel();
+    _indexSubscription = playlistAudioPlayer.currentIndexStream.listen((index) {
+      if (index != null && index < audioIndexToAyahUQ.length) {
+        currentPlayingIndex.value = index;
+        currentPlayingAyahUQ.value = audioIndexToAyahUQ[index];
+        completedAyahs.value = index;
+      }
+    });
+
+    _autoNextSubscription?.cancel();
+    _autoNextSubscription = playlistAudioPlayer.playerStateStream.listen((
+      state,
+    ) {
+      if (state.processingState == ProcessingState.completed) {
+        _onPlaylistCompleted();
+      }
+    });
+  }
+
+  void _onPlaylistCompleted() {
+    if (repeatCount.value > 0) {
+      currentRepeat.value++;
+      if (currentRepeat.value >= repeatCount.value) {
+        // وصلنا للعدد المطلوب — إيقاف
+        currentRepeat.value = 0;
+        playlistAudioPlayer.stop();
+        return;
+      }
+    }
+    // تكرار بلا حد أو لم نصل للعدد بعد
+    if (playlistAudioPlayer.loopMode == LoopMode.all) {
+      playlistAudioPlayer.seek(Duration.zero, index: 0);
+      playlistAudioPlayer.play();
     }
   }
 
-  ayahPosition(bool startNum) {
-    if (startNum) {
-      WidgetsBinding.instance.addPostFrameCallback((_) {
-        scrollToAyah(firstAyah!);
-      });
+  // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  //  وضع التكرار (Loop Mode)
+  // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  void cycleLoopMode() {
+    const modes = [LoopMode.off, LoopMode.all];
+    final current = modes.indexOf(playlistAudioPlayer.loopMode);
+    final next = modes[(current + 1) % modes.length];
+    playlistAudioPlayer.setLoopMode(next);
+    update(['playlist_loop_mode']);
+  }
+
+  void setRepeatCount(int count) {
+    repeatCount.value = count;
+    currentRepeat.value = 0;
+  }
+
+  // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  //  مؤقت النوم (Sleep Timer)
+  // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  void startSleepTimer(Duration duration) {
+    cancelSleepTimer();
+    sleepTimerDuration.value = duration;
+    sleepTimerRemaining.value = duration;
+    _sleepTimer = Timer.periodic(const Duration(seconds: 1), (_) {
+      final remaining = sleepTimerRemaining.value - const Duration(seconds: 1);
+      if (remaining <= Duration.zero) {
+        _onSleepTimerEnd();
+      } else {
+        sleepTimerRemaining.value = remaining;
+      }
+    });
+  }
+
+  void cancelSleepTimer() {
+    _sleepTimer?.cancel();
+    _sleepTimer = null;
+    sleepTimerDuration.value = null;
+    sleepTimerRemaining.value = Duration.zero;
+  }
+
+  void _onSleepTimerEnd() {
+    cancelSleepTimer();
+    playlistAudioPlayer.pause();
+  }
+
+  // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  //  تصدير / استيراد Playlist
+  // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  /// مشاركة القائمة كملف صوتي واحد MP3
+  Future<void> exportPlaylist(PlayListModel playlist) async {
+    final localPath = await getLocalPath();
+
+    // تحميل الملفات إن لم تكن موجودة
+    final total = playlist.toAyahUQ - playlist.fromAyahUQ + 1;
+    batchTotal.value = total;
+    batchCompleted.value = 0;
+    isBatchDownloading.value = true;
+
+    final List<String> filePaths = [];
+    for (int uq = playlist.fromAyahUQ; uq <= playlist.toAyahUQ; uq++) {
+      final fileName = _getFileName(uq);
+      final filePath = '$localPath/${audioCtrl.ayahReaderValue}/$fileName';
+
+      if (!await File(filePath).exists()) {
+        final url = generateUrl(uq);
+        final success = await downloadFile(url, fileName);
+        if (!success) {
+          isBatchDownloading.value = false;
+          return;
+        }
+      }
+      filePaths.add(filePath);
+      batchCompleted.value = filePaths.length;
     }
-    if (!startNum) {
-      WidgetsBinding.instance.addPostFrameCallback((_) {
-        scrollToAyah(lastAyah!);
-      });
+
+    // دمج الملفات في ملف واحد
+    final directory = await getTemporaryDirectory();
+    final mergedFileName =
+        '${playlist.displayName.replaceAll(RegExp(r'[^\w\s\u0600-\u06FF]'), '')}_${DateTime.now().millisecondsSinceEpoch}.mp3';
+    final mergedFile = File('${directory.path}/$mergedFileName');
+    final sink = mergedFile.openWrite();
+    for (final path in filePaths) {
+      final bytes = await File(path).readAsBytes();
+      sink.add(bytes);
     }
+    await sink.flush();
+    await sink.close();
+
+    isBatchDownloading.value = false;
+
+    final params = ShareParams(
+      files: [XFile(mergedFile.path, mimeType: 'audio/mpeg')],
+      text: '${'playList'.tr}: ${playlist.displayName}',
+    );
+    await SharePlus.instance.share(params);
+  }
+
+  Future<bool> importPlaylist(String jsonString) async {
+    try {
+      final json = jsonDecode(jsonString) as Map<String, dynamic>;
+      final playlist = PlayListModel.fromJson(json);
+      playlist.id = playLists.length;
+      playLists.add(playlist);
+      PlayListStorage.savePlayList(playLists);
+      return true;
+    } catch (e) {
+      log('Error importing playlist: $e');
+      return false;
+    }
+  }
+
+  // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  //  مساعدات UI
+  // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  void scrollToAyah(int ayahNumber) {
+    if (scrollController.hasClients) {
+      double position = (ayahNumber - 1) * ayahItemHeight;
+      scrollController.jumpTo(position);
+    }
+  }
+
+  void ayahPosition(bool isStart) {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      scrollToAyah(isStart ? startAyah.value : endAyah.value);
+    });
+  }
+
+  String formatDuration(Duration d) {
+    final minutes = d.inMinutes.remainder(60).toString().padLeft(2, '0');
+    final seconds = d.inSeconds.remainder(60).toString().padLeft(2, '0');
+    if (d.inHours > 0) {
+      return '${d.inHours}:$minutes:$seconds';
+    }
+    return '$minutes:$seconds';
+  }
+
+  // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  //  Lifecycle
+  // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  @override
+  void onInit() {
+    super.onInit();
+    // تهيئة القيم الافتراضية من أول سورة
+    final firstSurah = quranCtrl.state.surahs.first.ayahs;
+    final lastSurah = quranCtrl.state.surahs.first.ayahs;
+    startAyahUQ.value = firstSurah.first.ayahUQNumber;
+    endAyahUQ.value = lastSurah.last.ayahUQNumber;
+    startAyah.value = firstSurah.first.ayahNumber;
+    endAyah.value = lastSurah.last.ayahNumber;
+  }
+
+  @override
+  void onClose() {
+    _indexSubscription?.cancel();
+    _autoNextSubscription?.cancel();
+    _sleepTimer?.cancel();
+    playlistAudioPlayer.dispose();
+    scrollController.dispose();
+    surahScrollController.dispose();
+    super.onClose();
   }
 }
 
@@ -347,20 +522,17 @@ class PlayListStorage {
 
   static Future<void> savePlayList(List<PlayListModel> playLists) async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
-    List<String> playListJson = playLists
-        .map((r) => jsonEncode(r.toJson()))
-        .toList();
+    final playListJson = playLists.map((r) => jsonEncode(r.toJson())).toList();
     await prefs.setStringList(_storageKey, playListJson);
   }
 
   static Future<List<PlayListModel>> loadPlayList() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
-    List<String> playListsJson =
+    final playListsJson =
         prefs.getStringList(_storageKey)?.cast<String>() ?? [];
-    List<PlayListModel> playLists = playListsJson
+    return playListsJson
         .map((r) => PlayListModel.fromJson(jsonDecode(r)))
         .toList();
-    return playLists;
   }
 
   static Future<void> deletePlayList(int id) async {

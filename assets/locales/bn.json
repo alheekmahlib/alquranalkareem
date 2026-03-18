@@ -700,6 +700,51 @@
     "type": "text",
     "placeholders": {}
   },
+  "surah": "সূরা",
+  "@surah": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "chooseSurah": "সূরা নির্বাচন করুন",
+  "@chooseSurah": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "segments": "অংশ",
+  "@segments": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "addSegment": "অংশ যোগ করুন",
+  "@addSegment": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "repeatCount": "পুনরাবৃত্তি সংখ্যা",
+  "@repeatCount": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "sleepTimer": "ঘুমের টাইমার",
+  "@sleepTimer": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "hour": "ঘণ্টা",
+  "@hour": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "minutes": "মিনিট",
+  "@minutes": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "of": "এর",
+  "@of": {
+    "type": "text",
+    "placeholders": {}
+  },
   "quran": "পবিত্র কোরআন",
   "@quran": {
     "type": "text",

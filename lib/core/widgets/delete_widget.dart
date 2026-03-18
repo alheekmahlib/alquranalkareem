@@ -1,5 +1,9 @@
+import 'package:alquranalkareem/core/utils/constants/svg_constants.dart';
+import 'package:alquranalkareem/core/utils/helpers/app_text_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+
+import '../utils/constants/extensions/svg_extensions.dart';
 
 class DeleteWidget extends StatelessWidget {
   const DeleteWidget({super.key});
@@ -7,11 +11,11 @@ class DeleteWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      // height: 55,
       width: Get.width,
       decoration: const BoxDecoration(
-          color: Colors.red,
-          borderRadius: BorderRadius.all(Radius.circular(8))),
+        color: Colors.red,
+        borderRadius: BorderRadius.all(Radius.circular(8)),
+      ),
       padding: const EdgeInsets.symmetric(horizontal: 16.0),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -19,31 +23,29 @@ class DeleteWidget extends StatelessWidget {
           Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              const Icon(
-                Icons.close_outlined,
+              customSvgWithColor(
+                height: 18,
+                SvgPath.svgHomeRemove,
                 color: Colors.white,
-                size: 18,
               ),
               Text(
                 'delete'.tr,
-                style: const TextStyle(
-                    color: Colors.white, fontSize: 14, fontFamily: 'kufi'),
-              )
+                style: AppTextStyles.titleMedium(color: Colors.white),
+              ),
             ],
           ),
           Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              const Icon(
-                Icons.close_outlined,
+              customSvgWithColor(
+                height: 18,
+                SvgPath.svgHomeRemove,
                 color: Colors.white,
-                size: 18,
               ),
               Text(
                 'delete'.tr,
-                style: const TextStyle(
-                    color: Colors.white, fontSize: 14, fontFamily: 'kufi'),
-              )
+                style: AppTextStyles.titleMedium(color: Colors.white),
+              ),
             ],
           ),
         ],
