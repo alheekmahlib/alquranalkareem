@@ -16,7 +16,6 @@ import '../../../core/widgets/animated_drawing_widget.dart';
 import '../../controllers/general/general_controller.dart';
 import '../../controllers/settings_controller.dart';
 import '../calendar/events.dart';
-import '../home/home_screen.dart';
 import '../whats_new/whats_new.dart';
 
 part 'controller/splash_screen_controller.dart';

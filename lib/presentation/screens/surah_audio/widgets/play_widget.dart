@@ -88,7 +88,7 @@ class PlayWidget extends StatelessWidget {
                             SurahSkipToNext(iconColor: iconColor),
                           ],
                         ),
-                        OnlinePlayButton(isRepeat: true, iconColor: iconColor),
+                        OnlinePlayButton(iconColor: iconColor),
                         Row(
                           children: [
                             SurahSkipToPrevious(iconColor: iconColor),

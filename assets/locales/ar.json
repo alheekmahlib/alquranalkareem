@@ -699,6 +699,51 @@
     "type": "text",
     "placeholders": {}
   },
+  "surah": "سورة",
+  "@surah": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "chooseSurah": "اختر السورة",
+  "@chooseSurah": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "segments": "مقاطع",
+  "@segments": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "addSegment": "إضافة مقطع",
+  "@addSegment": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "repeatCount": "عدد التكرار",
+  "@repeatCount": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "sleepTimer": "مؤقت النوم",
+  "@sleepTimer": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "hour": "ساعة",
+  "@hour": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "minutes": "دقيقة",
+  "@minutes": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "of": "من",
+  "@of": {
+    "type": "text",
+    "placeholders": {}
+  },
   "quran": "القرآن الكريم",
   "@quran": {
     "type": "text",

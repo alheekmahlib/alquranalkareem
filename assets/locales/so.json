@@ -700,6 +700,51 @@
     "type": "text",
     "placeholders": {}
   },
+  "surah": "Suuro",
+  "@surah": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "chooseSurah": "Dooro Suurada",
+  "@chooseSurah": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "segments": "Qaybaha",
+  "@segments": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "addSegment": "Ku dar Qayb",
+  "@addSegment": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "repeatCount": "Tirada Ku celinta",
+  "@repeatCount": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "sleepTimer": "Taymerka Hurdada",
+  "@sleepTimer": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "hour": "Saac",
+  "@hour": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "minutes": "Daqiiqo",
+  "@minutes": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "of": "ka mid ah",
+  "@of": {
+    "type": "text",
+    "placeholders": {}
+  },
   "quran": "Quraanka Kariimka ah",
   "@quran": {
     "type": "text",

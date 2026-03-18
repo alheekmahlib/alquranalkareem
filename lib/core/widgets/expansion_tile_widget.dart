@@ -67,7 +67,7 @@ class ExpansionTileWidget<T extends GetxController> extends StatelessWidget {
             flipY: isExpanded,
             child: customSvgWithColor(
               SvgPath.svgHomeArrowDown,
-              color: context.theme.primaryColorDark,
+              color: context.theme.colorScheme.surface,
               height: 18,
             ),
           ),

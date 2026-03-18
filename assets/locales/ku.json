@@ -699,6 +699,51 @@
     "type": "text",
     "placeholders": {}
   },
+  "surah": "سورە",
+  "@surah": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "chooseSurah": "سورە هەڵبژێرە",
+  "@chooseSurah": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "segments": "بەشەکان",
+  "@segments": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "addSegment": "بەش زیادبکە",
+  "@addSegment": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "repeatCount": "ژمارەی دووبارەکردنەوە",
+  "@repeatCount": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "sleepTimer": "کاتی خەوتن",
+  "@sleepTimer": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "hour": "کاتژمێر",
+  "@hour": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "minutes": "خولەک",
+  "@minutes": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "of": "لە",
+  "@of": {
+    "type": "text",
+    "placeholders": {}
+  },
   "quran": "قورئانی پیرۆز",
   "@quran": {
     "type": "text",

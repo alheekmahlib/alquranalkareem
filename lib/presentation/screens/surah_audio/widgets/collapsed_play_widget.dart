@@ -31,7 +31,7 @@ class CollapsedPlayWidget extends StatelessWidget {
                     children: [
                       SurahSkipToNext(),
                       const Gap(4),
-                      const OnlinePlayButton(isRepeat: false),
+                      const OnlinePlayButton(),
                       const Gap(4),
                       SurahSkipToPrevious(),
                     ],

@@ -6,27 +6,27 @@ class PlayListSaveWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final playList = PlayListController.instance;
-    return Align(
-      alignment: Alignment.center,
-      child: ElevatedButtonWidget(
-        onClick: () {
-          playList.saveList();
-          playList.reset();
-          playList.saveCard.currentState?.expand();
-          log('playList saved');
-        },
-        index: 0,
-        height: 35,
-        width: Get.width * .6,
-        child: Text(
-          'save'.tr,
-          style: TextStyle(
-            color: Theme.of(context).canvasColor,
-            fontSize: 14,
-            fontFamily: 'kufi',
-          ),
+    return Obx(() {
+      // نراقب القيم لإعادة البناء عند تغيّرها
+      playList.startAyahUQ.value;
+      playList.endAyahUQ.value;
+      final valid = playList.isRangeValid;
+      return Align(
+        alignment: Alignment.center,
+        child: ContainerButton(
+          onPressed: valid
+              ? () {
+                  playList.saveList();
+                  log('playList saved');
+                }
+              : null,
+          height: 35,
+          width: Get.width * .5,
+          title: 'save',
+          isTitleCentered: true,
+          backgroundColor: context.theme.colorScheme.surface,
         ),
-      ),
-    );
+      );
+    });
   }
 }

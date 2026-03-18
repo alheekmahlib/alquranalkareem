@@ -151,9 +151,8 @@ class NavBarWidget extends StatelessWidget {
                                           svgWidth: 35,
                                           horizontalMargin: 4.0,
                                           verticalMargin: 5.0,
-                                          svgColor: Theme.of(
-                                            context,
-                                          ).colorScheme.primary,
+                                          svgColor:
+                                              context.theme.colorScheme.primary,
                                           backgroundColor: Colors.transparent,
                                           svgWithColorPath:
                                               isExpanded &&

@@ -49,7 +49,7 @@ class PlayAyah extends StatelessWidget {
             svgPath: SvgPath.svgAudioPauseArrow,
             height: 40,
             width: 40,
-            iconSize: 38,
+            iconSize: 28,
             isCustomSvgColor: true,
             svgColor: context.theme.colorScheme.surface,
             onPressed: () {

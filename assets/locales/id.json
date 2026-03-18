@@ -699,6 +699,51 @@
     "type": "text",
     "placeholders": {}
   },
+  "surah": "Surah",
+  "@surah": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "chooseSurah": "Pilih Surah",
+  "@chooseSurah": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "segments": "Segmen",
+  "@segments": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "addSegment": "Tambah Segmen",
+  "@addSegment": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "repeatCount": "Jumlah Pengulangan",
+  "@repeatCount": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "sleepTimer": "Timer Tidur",
+  "@sleepTimer": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "hour": "Jam",
+  "@hour": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "minutes": "Menit",
+  "@minutes": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "of": "dari",
+  "@of": {
+    "type": "text",
+    "placeholders": {}
+  },
   "quran": "Al-Qur'an",
   "@quran": {
     "type": "text",

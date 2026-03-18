@@ -699,6 +699,51 @@
     "type": "text",
     "placeholders": {}
   },
+  "surah": "Sure",
+  "@surah": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "chooseSurah": "Sure Seçin",
+  "@chooseSurah": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "segments": "Bölümler",
+  "@segments": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "addSegment": "Bölüm Ekle",
+  "@addSegment": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "repeatCount": "Tekrar Sayısı",
+  "@repeatCount": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "sleepTimer": "Uyku Zamanlayıcısı",
+  "@sleepTimer": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "hour": "Saat",
+  "@hour": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "minutes": "Dakika",
+  "@minutes": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "of": "den",
+  "@of": {
+    "type": "text",
+    "placeholders": {}
+  },
   "quran": "Kur'an-ı Kerim",
   "@quran": {
     "type": "text",

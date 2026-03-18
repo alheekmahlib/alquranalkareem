@@ -699,6 +699,51 @@
         "type": "text",
         "placeholders": {}
     },
+    "surah": "Сура",
+    "@surah": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "chooseSurah": "Выберите суру",
+    "@chooseSurah": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "segments": "Сегменты",
+    "@segments": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "addSegment": "Добавить сегмент",
+    "@addSegment": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "repeatCount": "Количество повторов",
+    "@repeatCount": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "sleepTimer": "Таймер сна",
+    "@sleepTimer": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "hour": "Час",
+    "@hour": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "minutes": "Минут",
+    "@minutes": {
+        "type": "text",
+        "placeholders": {}
+    },
+    "of": "из",
+    "@of": {
+        "type": "text",
+        "placeholders": {}
+    },
     "quran": "Священный Коран",
     "@quran": {
         "type": "text",

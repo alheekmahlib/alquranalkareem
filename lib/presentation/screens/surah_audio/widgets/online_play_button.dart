@@ -2,8 +2,7 @@ part of '../surah_audio.dart';
 
 class OnlinePlayButton extends StatelessWidget {
   final Color? iconColor;
-  final bool isRepeat;
-  const OnlinePlayButton({super.key, required this.isRepeat, this.iconColor});
+  const OnlinePlayButton({super.key, this.iconColor});
 
   @override
   Widget build(BuildContext context) {
@@ -50,8 +49,9 @@ class OnlinePlayButton extends StatelessWidget {
               svgPath: SvgPath.svgAudioPauseArrow,
               height: 50,
               width: 50,
-              iconSize: 38,
+              iconSize: 28,
               horizontalPadding: 10.0,
+              verticalPadding: 10.0,
               isCustomSvgColor: true,
               backgroundColor: iconColor ?? context.theme.colorScheme.primary,
               svgColor: context.theme.colorScheme.surface,

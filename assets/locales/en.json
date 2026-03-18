@@ -700,6 +700,51 @@
     "type": "text",
     "placeholders": {}
   },
+  "surah": "Surah",
+  "@surah": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "chooseSurah": "Choose Surah",
+  "@chooseSurah": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "segments": "Segments",
+  "@segments": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "addSegment": "Add Segment",
+  "@addSegment": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "repeatCount": "Repeat Count",
+  "@repeatCount": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "sleepTimer": "Sleep Timer",
+  "@sleepTimer": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "hour": "Hour",
+  "@hour": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "minutes": "Minutes",
+  "@minutes": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "of": "of",
+  "@of": {
+    "type": "text",
+    "placeholders": {}
+  },
   "quran": "The Holy Quran",
   "@quran": {
     "type": "text",
