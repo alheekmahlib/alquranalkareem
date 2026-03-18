@@ -57,7 +57,7 @@ class QuranOrTenRecitationsTabBar extends StatelessWidget {
             unselectedLabelColor: context.theme.colorScheme.surface.withValues(
               alpha: 0.8,
             ),
-            indicatorPadding: const EdgeInsets.all(4),
+            indicatorPadding: const EdgeInsets.symmetric(vertical: 4),
             labelStyle: AppTextStyles.titleSmall(),
             tabs: [
               Tab(text: 'quran'.tr),

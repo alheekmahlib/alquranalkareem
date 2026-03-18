@@ -1,5 +1,3 @@
-import 'package:alquranalkareem/core/utils/helpers/app_text_styles.dart';
-import 'package:alquranalkareem/core/widgets/title_widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
@@ -8,6 +6,8 @@ import 'package:screenshot/screenshot.dart';
 
 import '/core/utils/constants/extensions/extensions.dart';
 import '/core/utils/constants/extensions/svg_extensions.dart';
+import '/core/utils/helpers/app_text_styles.dart';
+import '/core/widgets/title_widget.dart';
 import '../../../../../core/utils/constants/svg_constants.dart';
 import '../../controller/adhkar_controller.dart';
 
@@ -143,7 +143,7 @@ class DhekrImageCreator extends StatelessWidget {
               mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                customSvg(SvgPath.svgSplashIconW, height: 30),
+                customSvg(SvgPath.svgHomeQuranLogo, height: 30),
                 context.vDivider(),
                 Text(
                   'القرآن الكريـم - مكتبة الحكمة',

@@ -1403,5 +1403,11 @@
   "repeated": "Repetition",
   "times": "times",
   "surahs": "Surahs",
-  "ayah": "Ayah"
+  "ayah": "Ayah",
+  "tajweedUnavailableText": "Tajweed rules data is not downloaded.",
+  "tajweedSurahNumberErrorText": "Failed to determine the surah number",
+  "tajweedLoadErrorText": "Failed to load Tajweed rules data",
+  "tajweedNoDataText": "No Tajweed data available for this ayah.",
+  "twoDays": "Two days",
+  "searchInBook": "Search in the book"
 }

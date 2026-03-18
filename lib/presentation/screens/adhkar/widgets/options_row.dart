@@ -44,7 +44,7 @@ class OptionsRow extends StatelessWidget {
                 color: context.theme.primaryColorLight,
               ),
               Expanded(
-                flex: 6,
+                flex: 5,
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
@@ -108,8 +108,7 @@ class OptionsRow extends StatelessWidget {
                   ],
                 ),
               ),
-              Expanded(
-                flex: 1,
+              Flexible(
                 child: Container(
                   padding: const EdgeInsets.symmetric(
                     horizontal: 8,

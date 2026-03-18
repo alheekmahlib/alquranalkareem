@@ -60,6 +60,7 @@ class AyahTafsirWidget extends StatelessWidget {
                     textAlign: TextAlign.center,
                     enabledTajweed:
                         QuranCtrl.instance.state.isTajweedEnabled.value,
+                    isDark: themeCtrl.isDarkMode,
                   ),
                   Row(
                     children: [
@@ -134,7 +135,7 @@ class AyahTafsirWidget extends StatelessWidget {
                               flipY: true,
                               child: customSvgWithColor(
                                 SvgPath.svgHomeArrowDown,
-                                color: context.theme.primaryColorDark,
+                                color: context.theme.colorScheme.surface,
                                 height: 10,
                               ),
                             ),
@@ -142,7 +143,7 @@ class AyahTafsirWidget extends StatelessWidget {
                               flipY: false,
                               child: customSvgWithColor(
                                 SvgPath.svgHomeArrowDown,
-                                color: context.theme.primaryColorDark,
+                                color: context.theme.colorScheme.surface,
                                 height: 10,
                               ),
                             ),

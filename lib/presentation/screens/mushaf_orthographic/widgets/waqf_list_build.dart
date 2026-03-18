@@ -52,7 +52,7 @@ class WaqfListBuild extends StatelessWidget {
                   customSvgWithColor(waqf.image, height: 60, width: 60),
                   const Gap(4),
                   customSvgWithCustomColor(
-                    SvgPath.svgSplashIcon,
+                    SvgPath.svgHomeQuranLogo,
                     height: 50,
                     width: 50,
                     color: theme.colorScheme.surface,
@@ -80,12 +80,12 @@ class WaqfListBuild extends StatelessWidget {
                       textAlign: TextAlign.justify,
                     );
                   }),
-                  const Gap(8),
-                  customSvgWithColor(
-                    SvgPath.svgSpaceLine,
-                    height: 25,
-                    width: MediaQuery.sizeOf(context).width / 4,
-                  ),
+                  // const Gap(8),
+                  // customSvgWithColor(
+                  //   SvgPath.svgSpaceLine,
+                  //   height: 25,
+                  //   width: MediaQuery.sizeOf(context).width / 4,
+                  // ),
                   const Gap(12),
                 ],
               ),

@@ -104,33 +104,31 @@ class SearchBuild extends StatelessWidget {
             },
           );
         } else {
-          return !(Get.currentRoute == '/ReadViewScreen')
-              ? Center(
-                  child: downloadedBooks.isEmpty
-                      ? Column(
-                          children: [
-                            const Gap(64),
-                            customSvgWithCustomColor(
-                              SvgPath.svgBooksIslamicLibraryIcon,
-                              height: 100,
-                            ),
-                            const Gap(16),
-                            Text(
-                              'noBooksDownloaded'.tr,
-                              textAlign: TextAlign.center,
-                              style: AppTextStyles.titleMedium(),
-                            ),
-                            const Gap(64),
-                          ],
-                        )
-                      : customLottieWithColor(
-                          LottieConstants.assetsLottieNotFound,
-                          height: 200.0,
-                          width: 200.0,
-                          color: context.theme.colorScheme.surface,
-                        ),
-                )
-              : const SizedBox.shrink();
+          return Center(
+            child: downloadedBooks.isEmpty
+                ? Column(
+                    children: [
+                      const Gap(64),
+                      customSvgWithCustomColor(
+                        SvgPath.svgBooksIslamicLibraryIcon,
+                        height: 100,
+                      ),
+                      const Gap(16),
+                      Text(
+                        'noBooksDownloaded'.tr,
+                        textAlign: TextAlign.center,
+                        style: AppTextStyles.titleMedium(),
+                      ),
+                      const Gap(64),
+                    ],
+                  )
+                : customLottieWithColor(
+                    LottieConstants.assetsLottieSearch,
+                    height: 200.0,
+                    width: 200.0,
+                    color: context.theme.colorScheme.surface,
+                  ),
+          );
         }
       }),
     );

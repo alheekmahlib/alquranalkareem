@@ -10,7 +10,7 @@ class AddKhatmahWidget extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(12.0),
       decoration: BoxDecoration(
-        color: context.theme.primaryColorLight.withValues(alpha: 0.15),
+        color: context.theme.primaryColorLight.withValues(alpha: 0.1),
         borderRadius: BorderRadius.circular(12),
       ),
       child: Column(
@@ -31,7 +31,6 @@ class AddKhatmahWidget extends StatelessWidget {
           Row(
             children: [
               Expanded(
-                flex: 4,
                 child: Obx(
                   () => CustomDropdown<int>(
                     enabled: !khatmahCtrl.isTahzibSahabah.value,
@@ -64,28 +63,25 @@ class AddKhatmahWidget extends StatelessWidget {
                 ),
               ),
               const Gap(8),
-              Expanded(
-                flex: 5,
-                child: Obx(
-                  () => ContainerButton(
-                    onPressed: () => khatmahCtrl.isTahzibSahabahOnTap(),
-                    height: 38,
-                    horizontalPadding: 8.0,
-                    verticalPadding: 7.0,
-                    value: khatmahCtrl.isTahzibSahabah,
-                    backgroundColor: khatmahCtrl.isTahzibSahabah.value
-                        ? Theme.of(
-                            context,
-                          ).primaryColorLight.withValues(alpha: .5)
-                        : Theme.of(
-                            context,
-                          ).primaryColorLight.withValues(alpha: .3),
-                    child: FittedBox(
-                      fit: BoxFit.scaleDown,
-                      child: Text(
-                        'divisionBySahabah'.tr,
-                        style: AppTextStyles.titleSmall(),
-                      ),
+              Obx(
+                () => ContainerButton(
+                  onPressed: () => khatmahCtrl.isTahzibSahabahOnTap(),
+                  height: 38,
+                  horizontalPadding: 8.0,
+                  verticalPadding: 7.0,
+                  value: khatmahCtrl.isTahzibSahabah,
+                  backgroundColor: khatmahCtrl.isTahzibSahabah.value
+                      ? Theme.of(
+                          context,
+                        ).primaryColorLight.withValues(alpha: .5)
+                      : Theme.of(
+                          context,
+                        ).primaryColorLight.withValues(alpha: .3),
+                  child: FittedBox(
+                    fit: BoxFit.scaleDown,
+                    child: Text(
+                      'divisionBySahabah'.tr,
+                      style: AppTextStyles.titleSmall(),
                     ),
                   ),
                 ),
@@ -139,24 +135,30 @@ class AddKhatmahWidget extends StatelessWidget {
                     );
                   },
                   height: 40,
-                  withArrow: true,
+                  // withArrow: true,
                   horizontalPadding: 12.0,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Obx(
-                        () => Container(
-                          height: 24,
-                          width: 24,
-                          decoration: BoxDecoration(
-                            color: Color(khatmahCtrl.screenPickerColor.value),
-                            borderRadius: BorderRadius.circular(6),
+                  child: Expanded(
+                    child: Row(
+                      mainAxisSize: MainAxisSize.max,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Obx(
+                          () => Container(
+                            height: 24,
+                            width: 24,
+                            decoration: BoxDecoration(
+                              color: Color(khatmahCtrl.screenPickerColor.value),
+                              borderRadius: BorderRadius.circular(6),
+                            ),
                           ),
                         ),
-                      ),
-                      const Gap(8),
-                      Text('choiceColor'.tr, style: AppTextStyles.titleSmall()),
-                    ],
+                        const Gap(8),
+                        Text(
+                          'choiceColor'.tr,
+                          style: AppTextStyles.titleSmall(),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ),

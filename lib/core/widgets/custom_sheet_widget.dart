@@ -66,7 +66,7 @@ class CustomSheetWidget extends StatelessWidget {
                         padding ?? const EdgeInsets.symmetric(horizontal: 8.0),
                     margin: const EdgeInsets.symmetric(horizontal: 8.0),
                     decoration: BoxDecoration(
-                      color: Theme.of(context).colorScheme.secondaryContainer,
+                      color: Theme.of(context).colorScheme.primaryContainer,
                       borderRadius: const BorderRadius.only(
                         topLeft: Radius.circular(12),
                         topRight: Radius.circular(12),

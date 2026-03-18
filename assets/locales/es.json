@@ -1403,5 +1403,11 @@
   "repeated": "Repetición",
   "times": "veces",
   "surahs": "Suras",
-  "ayah": "Aleya"
+  "ayah": "Aleya",
+  "tajweedUnavailableText": "No se han descargado los datos de las reglas de taywīd.",
+  "tajweedSurahNumberErrorText": "No se pudo determinar el número de la sura",
+  "tajweedLoadErrorText": "No se pudieron cargar los datos de las reglas de taywīd",
+  "tajweedNoDataText": "No hay datos de taywīd para esta aleya.",
+  "twoDays": "Dos días",
+  "searchInBook": "Buscar en el libro"
 }

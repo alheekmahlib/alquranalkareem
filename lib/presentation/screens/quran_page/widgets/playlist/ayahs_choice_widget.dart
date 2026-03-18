@@ -104,9 +104,7 @@ class AyahsChoiceWidget extends StatelessWidget {
               child: Text(
                 surahName,
                 style: AppTextStyles.titleMedium().copyWith(
-                  color: Get.isDarkMode
-                      ? Colors.white
-                      : Theme.of(context).colorScheme.primary,
+                  color: Theme.of(context).primaryColorLight,
                 ),
                 overflow: TextOverflow.ellipsis,
               ),
@@ -147,9 +145,7 @@ class AyahsChoiceWidget extends StatelessWidget {
             Text(
               generalCtrl.state.arabicNumber.convert(value),
               style: AppTextStyles.titleMedium().copyWith(
-                color: Get.isDarkMode
-                    ? Colors.white
-                    : Theme.of(context).colorScheme.primary,
+                color: Theme.of(context).primaryColorLight,
               ),
             ),
             customSvgWithColor(

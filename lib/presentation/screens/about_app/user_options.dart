@@ -1,5 +1,6 @@
 import 'package:alquranalkareem/core/utils/constants/svg_constants.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import '/core/utils/constants/extensions/contact_us_extension.dart';
 import '/core/utils/constants/extensions/launch_alheekmah_url_extension.dart';
@@ -25,10 +26,11 @@ class UserOptions extends StatelessWidget {
             isButton: true,
             width: double.infinity,
             title: 'share',
-            svgPath: SvgPath.svgHomeShare,
             horizontalPadding: 8.0,
             verticalPadding: 12.0,
             horizontalMargin: 8.0,
+            svgWithColorPath: SvgPath.svgHomeShare,
+            svgColor: context.theme.colorScheme.primary,
           ),
           const Divider(),
           ContainerButton(
@@ -37,10 +39,11 @@ class UserOptions extends StatelessWidget {
             isButton: true,
             width: double.infinity,
             title: 'email',
-            svgPath: SvgPath.svgHomeEmail,
             horizontalPadding: 8.0,
             verticalPadding: 12.0,
             horizontalMargin: 8.0,
+            svgWithColorPath: SvgPath.svgHomeEmail,
+            svgColor: context.theme.colorScheme.primary,
           ),
           const Divider(),
           ContainerButton(
@@ -49,10 +52,11 @@ class UserOptions extends StatelessWidget {
             isButton: true,
             width: double.infinity,
             title: 'facebook',
-            svgPath: SvgPath.svgHomeFacebook,
             horizontalPadding: 8.0,
             verticalPadding: 12.0,
             horizontalMargin: 8.0,
+            svgWithColorPath: SvgPath.svgHomeFacebook,
+            svgColor: context.theme.colorScheme.primary,
           ),
         ],
       ),

@@ -1,8 +1,8 @@
-import 'package:alquranalkareem/core/utils/helpers/app_text_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 
+import '/core/utils/helpers/app_text_styles.dart';
 import '/presentation/screens/adhkar/controller/extensions/adhkar_getters.dart';
 import '../../../../core/utils/constants/svg_constants.dart';
 import '../../../../core/widgets/buttom_with_line.dart';
@@ -64,10 +64,13 @@ class DailyZeker extends StatelessWidget {
                                           .withValues(alpha: .4),
                                       borderRadius: BorderRadius.circular(8),
                                     ),
-                                    child: Text(
-                                      'dailyZeker'.tr,
-                                      style: AppTextStyles.titleMedium(),
-                                      textAlign: TextAlign.center,
+                                    child: FittedBox(
+                                      fit: BoxFit.scaleDown,
+                                      child: Text(
+                                        'dailyZeker'.tr,
+                                        style: AppTextStyles.titleMedium(),
+                                        textAlign: TextAlign.center,
+                                      ),
                                     ),
                                   ),
                                   const Gap(4),

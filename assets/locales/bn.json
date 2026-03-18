@@ -1403,5 +1403,11 @@
   "repeated": "পুনরাবৃত্তি",
   "times": "বার",
   "surahs": "সূরা",
-  "ayah": "আয়াত"
+  "ayah": "আয়াত",
+  "tajweedUnavailableText": "তাজবিদের নিয়মের ডেটা ডাউনলোড করা হয়নি।",
+  "tajweedSurahNumberErrorText": "সুরার নম্বর নির্ধারণ করা যায়নি",
+  "tajweedLoadErrorText": "তাজবিদের নিয়মের ডেটা লোড করা যায়নি",
+  "tajweedNoDataText": "এই আয়াতের জন্য তাজবিদের কোনো ডেটা নেই।",
+  "twoDays": "দুই দিন",
+  "searchInBook": "বইয়ের মধ্যে খুঁজুন"
 }

@@ -106,7 +106,7 @@ class ReadViewScreen extends StatelessWidget {
           isBackButton: true,
           bodyChild: SearchBuild(),
           centerChild: TextFieldBarWidget(
-            hintText: 'searchInBooks'.tr,
+            hintText: 'searchInBook'.tr,
             controller: booksCtrl.state.searchController,
             horizontalPadding: 0.0,
             onPressed: () {
@@ -117,8 +117,10 @@ class ReadViewScreen extends StatelessWidget {
               booksCtrl.state.searchResults.clear();
               booksCtrl.state.searchController.clear();
             },
-            onChanged: (query) => booksCtrl.searchBooks(query),
-            onSubmitted: (query) => booksCtrl.searchBooks(query),
+            onChanged: (query) =>
+                booksCtrl.searchBooks(query, bookNumber: bookNumber),
+            onSubmitted: (query) =>
+                booksCtrl.searchBooks(query, bookNumber: bookNumber),
           ),
         ),
       ],

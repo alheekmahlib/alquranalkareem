@@ -20,6 +20,7 @@ class ContainerButton extends StatelessWidget {
   final double? svgHeight;
   final double? svgWidth;
   final String? title;
+  final TextStyle? titleStyle;
   final String? subtitle;
   final Color? titleColor;
   final Color? subtitleColor;
@@ -53,6 +54,7 @@ class ContainerButton extends StatelessWidget {
     this.svgHeight,
     this.svgWidth,
     this.title,
+    this.titleStyle,
     this.subtitle,
     this.titleColor,
     this.subtitleColor,
@@ -190,13 +192,15 @@ class ContainerButton extends StatelessWidget {
                               children: [
                                 Text(
                                   title!.tr,
-                                  style: AppTextStyles.titleMedium(
-                                    color:
-                                        titleColor ??
-                                        Theme.of(
-                                          context,
-                                        ).colorScheme.inversePrimary,
-                                  ),
+                                  style:
+                                      titleStyle ??
+                                      AppTextStyles.titleMedium(
+                                        color:
+                                            titleColor ??
+                                            Theme.of(
+                                              context,
+                                            ).colorScheme.inversePrimary,
+                                      ),
                                 ),
                                 if (subtitle != null)
                                   Text(
@@ -215,11 +219,15 @@ class ContainerButton extends StatelessWidget {
                         else if (title != null)
                           Text(
                             title!.tr,
-                            style: AppTextStyles.titleMedium(
-                              color:
-                                  titleColor ??
-                                  Theme.of(context).colorScheme.inversePrimary,
-                            ),
+                            style:
+                                titleStyle ??
+                                AppTextStyles.titleMedium(
+                                  color:
+                                      titleColor ??
+                                      Theme.of(
+                                        context,
+                                      ).colorScheme.inversePrimary,
+                                ),
                           ),
                         if (isDownloading ?? false) ...[
                           const Gap(12),

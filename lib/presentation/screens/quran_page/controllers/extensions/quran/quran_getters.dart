@@ -243,6 +243,12 @@ extension QuranGetters on QuranController {
         optionsBarWidget: (ayah, surah, pageIndex) =>
             AyahsMenu(ayah: ayah, surah: surah, pageIndex: pageIndex),
         tafsirTextColor: Get.theme.colorScheme.surface,
+        readMoreTextStyle: AppTextStyles.titleSmall(
+          color: Get.theme.colorScheme.surface,
+        ),
+        readMoreText: 'readMore'.tr,
+        readLessText: 'readLess'.tr,
+        readMoreButtonColor: Get.theme.colorScheme.surface,
       );
 
   TafsirStyle get tafsirStyle {

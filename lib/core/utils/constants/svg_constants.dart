@@ -10,10 +10,6 @@ class SvgPath {
   /// assets/svg/alheekmah_logo.svg
   static const String svgAlheekmahLogo = "assets/svg/alheekmah_logo.svg";
 
-  /// Assets for svgAlwaqf
-  /// assets/svg/alwaqf.svg
-  static const String svgAlwaqf = "assets/svg/alwaqf.svg";
-
   /// Assets for svgAlwaqf01
   /// assets/svg/alwaqf/01.svg
   static const String svgAlwaqf01 = "assets/svg/alwaqf/01.svg";
@@ -38,10 +34,6 @@ class SvgPath {
   /// assets/svg/alwaqf/mushaf_orthographic.svg
   static const String svgAlwaqfMushafOrthographic =
       "assets/svg/alwaqf/mushaf_orthographic.svg";
-
-  /// Assets for svgArrowDown
-  /// assets/svg/arrow_down.svg
-  static const String svgArrowDown = "assets/svg/arrow_down.svg";
 
   /// Assets for svgAthkarAlarm
   /// assets/svg/athkar/alarm.svg
@@ -120,29 +112,9 @@ class SvgPath {
   /// assets/svg/ayah_bookmarked.svg
   static const String svgAyahBookmarked = "assets/svg/ayah_bookmarked.svg";
 
-  /// Assets for svgAzkar
-  /// assets/svg/azkar.svg
-  static const String svgAzkar = "assets/svg/azkar.svg";
-
-  /// Assets for svgAzkarB
-  /// assets/svg/azkar_b.svg
-  static const String svgAzkarB = "assets/svg/azkar_b.svg";
-
   /// Assets for svgBackward
   /// assets/svg/backward.svg
   static const String svgBackward = "assets/svg/backward.svg";
-
-  /// Assets for svgBesmAllah
-  /// assets/svg/besmAllah.svg
-  static const String svgBesmAllah = "assets/svg/besmAllah.svg";
-
-  /// Assets for svgBesmAllah2
-  /// assets/svg/besmAllah2.svg
-  static const String svgBesmAllah2 = "assets/svg/besmAllah2.svg";
-
-  /// Assets for svgBookBack
-  /// assets/svg/book_back.svg
-  static const String svgBookBack = "assets/svg/book_back.svg";
 
   /// Assets for svgBookmark
   /// assets/svg/bookmark.svg
@@ -156,29 +128,9 @@ class SvgPath {
   /// assets/svg/bookmark3.svg
   static const String svgBookmark3 = "assets/svg/bookmark3.svg";
 
-  /// Assets for svgBookmarkIc
-  /// assets/svg/bookmark_ic.svg
-  static const String svgBookmarkIc = "assets/svg/bookmark_ic.svg";
-
-  /// Assets for svgBookmarkIcon
-  /// assets/svg/bookmark_icon.svg
-  static const String svgBookmarkIcon = "assets/svg/bookmark_icon.svg";
-
-  /// Assets for svgBookmarkIcon2
-  /// assets/svg/bookmark_icon2.svg
-  static const String svgBookmarkIcon2 = "assets/svg/bookmark_icon2.svg";
-
-  /// Assets for svgBookmarkList
-  /// assets/svg/bookmark_list.svg
-  static const String svgBookmarkList = "assets/svg/bookmark_list.svg";
-
   /// Assets for svgBookmarked
   /// assets/svg/bookmarked.svg
   static const String svgBookmarked = "assets/svg/bookmarked.svg";
-
-  /// Assets for svgBooks
-  /// assets/svg/books.svg
-  static const String svgBooks = "assets/svg/books.svg";
 
   /// Assets for svgBooksAllBooks
   /// assets/svg/books/all_books.svg
@@ -242,21 +194,9 @@ class SvgPath {
   /// assets/svg/books/tafsir_icon.svg
   static const String svgBooksTafsirIcon = "assets/svg/books/tafsir_icon.svg";
 
-  /// Assets for svgButtonCurve
-  /// assets/svg/button_curve.svg
-  static const String svgButtonCurve = "assets/svg/button_curve.svg";
-
   /// Assets for svgCheckMark
   /// assets/svg/check_mark.svg
   static const String svgCheckMark = "assets/svg/check_mark.svg";
-
-  /// Assets for svgClose
-  /// assets/svg/close.svg
-  static const String svgClose = "assets/svg/close.svg";
-
-  /// Assets for svgCopyIcon
-  /// assets/svg/copy_icon.svg
-  static const String svgCopyIcon = "assets/svg/copy_icon.svg";
 
   /// Assets for svgDecorations
   /// assets/svg/decorations.svg
@@ -383,18 +323,6 @@ class SvgPath {
   /// assets/svg/home/surah_list.svg
   static const String svgHomeSurahList = "assets/svg/home/surah_list.svg";
 
-  /// Assets for svgLeftBook
-  /// assets/svg/left_book.svg
-  static const String svgLeftBook = "assets/svg/left_book.svg";
-
-  /// Assets for svgListIcon
-  /// assets/svg/list_icon.svg
-  static const String svgListIcon = "assets/svg/list_icon.svg";
-
-  /// Assets for svgMenuCurve
-  /// assets/svg/menu_curve.svg
-  static const String svgMenuCurve = "assets/svg/menu_curve.svg";
-
   /// Assets for svgNightOfQadir
   /// assets/svg/nightOfQadir.svg
   static const String svgNightOfQadir = "assets/svg/nightOfQadir.svg";
@@ -402,38 +330,6 @@ class SvgPath {
   /// Assets for svgNotifications
   /// assets/svg/notifications.svg
   static const String svgNotifications = "assets/svg/notifications.svg";
-
-  /// Assets for svgOptions
-  /// assets/svg/options.svg
-  static const String svgOptions = "assets/svg/options.svg";
-
-  /// Assets for svgPauseArrow
-  /// assets/svg/pause_arrow.svg
-  static const String svgPauseArrow = "assets/svg/pause_arrow.svg";
-
-  /// Assets for svgPlayAll
-  /// assets/svg/play_all.svg
-  static const String svgPlayAll = "assets/svg/play_all.svg";
-
-  /// Assets for svgPlayArrow
-  /// assets/svg/play-arrow.svg
-  static const String svgPlayArrow = "assets/svg/play-arrow.svg";
-
-  /// Assets for svgPlayAyahNum
-  /// assets/svg/play_ayah_num.svg
-  static const String svgPlayAyahNum = "assets/svg/play_ayah_num.svg";
-
-  /// Assets for svgPlayPage
-  /// assets/svg/play_page.svg
-  static const String svgPlayPage = "assets/svg/play_page.svg";
-
-  /// Assets for svgPlaylist
-  /// assets/svg/playlist.svg
-  static const String svgPlaylist = "assets/svg/playlist.svg";
-
-  /// Assets for svgQuranAuIc
-  /// assets/svg/quran_au_ic.svg
-  static const String svgQuranAuIc = "assets/svg/quran_au_ic.svg";
 
   /// Assets for svgQuranBookmark
   /// assets/svg/quran/bookmark.svg
@@ -448,9 +344,9 @@ class SvgPath {
   /// assets/svg/quran/copy.svg
   static const String svgQuranCopy = "assets/svg/quran/copy.svg";
 
-  /// Assets for svgQuranIcS
-  /// assets/svg/quran_ic_s.svg
-  static const String svgQuranIcS = "assets/svg/quran_ic_s.svg";
+  /// Assets for svgQuranKhatmah
+  /// assets/svg/quran/khatmah.svg
+  static const String svgQuranKhatmah = "assets/svg/quran/khatmah.svg";
 
   /// Assets for svgQuranMutashabihat
   /// assets/svg/quran/mutashabihat.svg
@@ -482,10 +378,6 @@ class SvgPath {
   /// assets/svg/rewind.svg
   static const String svgRewind = "assets/svg/rewind.svg";
 
-  /// Assets for svgRightBook
-  /// assets/svg/right_book.svg
-  static const String svgRightBook = "assets/svg/right_book.svg";
-
   /// Assets for svgSajdaIcon
   /// assets/svg/sajda_icon.svg
   static const String svgSajdaIcon = "assets/svg/sajda_icon.svg";
@@ -493,14 +385,6 @@ class SvgPath {
   /// Assets for svgSearchIcon
   /// assets/svg/search_icon.svg
   static const String svgSearchIcon = "assets/svg/search_icon.svg";
-
-  /// Assets for svgShare
-  /// assets/svg/share.svg
-  static const String svgShare = "assets/svg/share.svg";
-
-  /// Assets for svgShareIcon
-  /// assets/svg/share_icon.svg
-  static const String svgShareIcon = "assets/svg/share_icon.svg";
 
   /// Assets for svgSliderIc
   /// assets/svg/slider_ic.svg
@@ -513,26 +397,6 @@ class SvgPath {
   /// Assets for svgSoraNum
   /// assets/svg/sora_num.svg
   static const String svgSoraNum = "assets/svg/sora_num.svg";
-
-  /// Assets for svgSpaceLine
-  /// assets/svg/space_line.svg
-  static const String svgSpaceLine = "assets/svg/space_line.svg";
-
-  /// Assets for svgSplashIcon
-  /// assets/svg/splash_icon.svg
-  static const String svgSplashIcon = "assets/svg/splash_icon.svg";
-
-  /// Assets for svgSplashIconHalfS
-  /// assets/svg/splash_icon_half_s.svg
-  static const String svgSplashIconHalfS = "assets/svg/splash_icon_half_s.svg";
-
-  /// Assets for svgSplashIconS
-  /// assets/svg/splash_icon_s.svg
-  static const String svgSplashIconS = "assets/svg/splash_icon_s.svg";
-
-  /// Assets for svgSplashIconW
-  /// assets/svg/splash_icon_w.svg
-  static const String svgSplashIconW = "assets/svg/splash_icon_w.svg";
 
   /// Assets for svgSurahBanner1
   /// assets/svg/surah_banner1.svg
@@ -1018,17 +882,9 @@ class SvgPath {
   /// assets/svg/tafseer.svg
   static const String svgTafseer = "assets/svg/tafseer.svg";
 
-  /// Assets for svgTafseerBook
-  /// assets/svg/tafseer_book.svg
-  static const String svgTafseerBook = "assets/svg/tafseer_book.svg";
-
   /// Assets for svgTafseerWhite
   /// assets/svg/tafseer_white.svg
   static const String svgTafseerWhite = "assets/svg/tafseer_white.svg";
-
-  /// Assets for svgTafsirIcon
-  /// assets/svg/tafsir_icon.svg
-  static const String svgTafsirIcon = "assets/svg/tafsir_icon.svg";
 
   /// Assets for svgTashkil
   /// assets/svg/tashkil.svg
@@ -1038,20 +894,4 @@ class SvgPath {
   /// assets/svg/tenDaysOfDhul-Hijjah.svg
   static const String svgTenDaysOfDhulHijjah =
       "assets/svg/tenDaysOfDhul-Hijjah.svg";
-
-  /// Assets for svgTheme0
-  /// assets/svg/theme0.svg
-  static const String svgTheme0 = "assets/svg/theme0.svg";
-
-  /// Assets for svgTheme1
-  /// assets/svg/theme1.svg
-  static const String svgTheme1 = "assets/svg/theme1.svg";
-
-  /// Assets for svgTheme2
-  /// assets/svg/theme2.svg
-  static const String svgTheme2 = "assets/svg/theme2.svg";
-
-  /// Assets for svgTheme3
-  /// assets/svg/theme3.svg
-  static const String svgTheme3 = "assets/svg/theme3.svg";
 }

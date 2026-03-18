@@ -8,6 +8,8 @@ class BookmarksList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      width: Get.width,
+      margin: const EdgeInsets.symmetric(horizontal: 8.0),
       padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 8.0),
       decoration: BoxDecoration(
         color: Theme.of(context).colorScheme.primaryContainer,

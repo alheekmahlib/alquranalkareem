@@ -1395,5 +1395,11 @@
   "repeated": "دووبارەبوونەوە",
   "times": "جار",
   "surahs": "سورەکان",
-  "ayah": "ئایەت"
+  "ayah": "ئایەت",
+  "tajweedUnavailableText": "زانیاریی ئەحکامی تەجوید لەم ئامێرەدا داگرتوو نییە.",
+  "tajweedSurahNumberErrorText": "نەتوانرا ژمارەی سورە دیاری بکرێت",
+  "tajweedLoadErrorText": "نەتوانرا زانیاریی ئەحکامی تەجوید باربکرێت",
+  "tajweedNoDataText": "هیچ زانیاریی تەجوید بۆ ئەم ئایەتە نییە.",
+  "twoDays": "دو ڕۆژ",
+  "searchInBook": "گەڕان لە کتێب"
 }

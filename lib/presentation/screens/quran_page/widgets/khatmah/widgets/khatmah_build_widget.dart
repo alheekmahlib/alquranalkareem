@@ -9,7 +9,22 @@ class KhatmahBuildWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Obx(() {
       if (khatmahCtrl.khatmas.isEmpty) {
-        return const SizedBox.shrink();
+        return Center(
+          child: Column(
+            children: [
+              Gap(64.h),
+              AnimatedDrawingWidget(
+                svgPath: SvgPath.svgQuranKhatmah,
+                height: 50,
+                width: 140,
+                opacity: 1,
+                paintMode: PaintMode.fillOnly,
+                customColor: context.theme.colorScheme.surface,
+              ),
+              const Gap(32),
+            ],
+          ),
+        );
       }
       return ListView.builder(
         shrinkWrap: true,
