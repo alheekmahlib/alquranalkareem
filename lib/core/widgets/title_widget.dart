@@ -28,7 +28,6 @@ class TitleWidget extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             Container(
-              // height: 10,
               width: 8,
               margin: const EdgeInsets.symmetric(vertical: 4.0),
               decoration: BoxDecoration(

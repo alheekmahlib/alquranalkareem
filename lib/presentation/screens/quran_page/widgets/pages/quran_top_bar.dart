@@ -35,7 +35,7 @@ class QuranTopBar extends StatelessWidget {
                     child: Row(
                       children: [
                         Expanded(
-                          flex: 3,
+                          flex: 4,
                           child: Row(
                             children: [
                               CustomButton(
@@ -52,10 +52,25 @@ class QuranTopBar extends StatelessWidget {
                                   AyahsPlayListWidget(),
                                 ),
                               ),
+                              const Gap(4),
+                              CustomButton(
+                                height: 35,
+                                width: 60,
+                                iconSize: 40,
+                                isCustomSvgColor: true,
+                                svgPath: SvgPath.svgQuranKhatmah,
+                                svgColor: Get.theme.canvasColor,
+                                backgroundColor: Get.theme.colorScheme.primary,
+                                onPressed: () => customBottomSheet(
+                                  backgroundColor:
+                                      Get.theme.colorScheme.primaryContainer,
+                                  KhatmasScreen(),
+                                ),
+                              ),
                             ],
                           ),
                         ),
-                        Expanded(flex: 5, child: QuranOrTenRecitationsTabBar()),
+                        Expanded(flex: 7, child: QuranOrTenRecitationsTabBar()),
                       ],
                     ),
                   ),

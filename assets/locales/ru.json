@@ -1367,5 +1367,11 @@
     "repeated": "Повторение",
     "times": "раз",
     "surahs": "Суры",
-    "ayah": "Аят"
+    "ayah": "Аят",
+    "tajweedUnavailableText": "Данные правил таджвида не загружены.",
+    "tajweedSurahNumberErrorText": "Не удалось определить номер суры",
+    "tajweedLoadErrorText": "Не удалось загрузить данные правил таджвида",
+    "tajweedNoDataText": "Для этого аята нет данных таджвида.",
+    "twoDays": "Два дня",
+    "searchInBook": "Поиск в книге"
 }

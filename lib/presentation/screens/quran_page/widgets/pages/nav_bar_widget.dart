@@ -236,10 +236,10 @@ class NavBarWidget extends StatelessWidget {
                   child: bodyChild ?? SurahJuzList(),
                 );
               } else {
-                return const Material(
+                return Material(
                   elevation: 20,
                   color: Colors.transparent,
-                  child: KhatmahBookmarksScreen(),
+                  child: BookmarksList(),
                 );
               }
             },

@@ -1395,5 +1395,11 @@
   "repeated": "Tekrar",
   "times": "kez",
   "surahs": "Sureler",
-  "ayah": "Ayet"
+  "ayah": "Ayet",
+  "tajweedUnavailableText": "Tecvid kuralları verileri indirilmedi.",
+  "tajweedSurahNumberErrorText": "Sure numarası belirlenemedi",
+  "tajweedLoadErrorText": "Tecvid kuralları verileri yüklenemedi",
+  "tajweedNoDataText": "Bu ayet için tecvid verisi yok.",
+  "twoDays": "İki gün",
+  "searchInBook": "Kitapta ara"
 }

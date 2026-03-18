@@ -91,7 +91,7 @@ class CustomButton extends StatelessWidget {
                                 height: iconSize ?? 25,
                                 width: iconSize ?? 25,
                                 child: customSvgWithColor(
-                                  svgPath ?? SvgPath.svgPlayAll,
+                                  svgPath ?? SvgPath.svgAlert,
                                   height: iconSize ?? 25,
                                   width: iconSize ?? 25,
                                   color:
@@ -106,7 +106,7 @@ class CustomButton extends StatelessWidget {
                                 height: iconSize ?? 25,
                                 width: iconSize ?? 25,
                                 child: customSvgWithCustomColor(
-                                  svgPath ?? SvgPath.svgPlayAll,
+                                  svgPath ?? SvgPath.svgAlert,
                                   height: iconSize ?? 25,
                                   width: iconSize ?? 25,
                                   color:
@@ -127,7 +127,7 @@ class CustomButton extends StatelessWidget {
                       height: iconSize ?? 25,
                       width: iconSize ?? 25,
                       child: customSvgWithColor(
-                        svgPath ?? SvgPath.svgPlayAll,
+                        svgPath ?? SvgPath.svgAlert,
                         width: iconSize ?? 25,
                         height: iconSize ?? 25,
                         color:
@@ -139,7 +139,7 @@ class CustomButton extends StatelessWidget {
                       height: iconSize ?? 25,
                       width: iconSize ?? 25,
                       child: customSvgWithCustomColor(
-                        svgPath ?? SvgPath.svgPlayAll,
+                        svgPath ?? SvgPath.svgAlert,
                         width: iconSize ?? 25,
                         height: iconSize ?? 25,
                         color: svgColor ?? context.theme.primaryColorLight,

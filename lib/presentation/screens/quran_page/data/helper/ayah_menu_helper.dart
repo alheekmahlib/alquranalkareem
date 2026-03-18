@@ -280,79 +280,85 @@ class AyahMenuHelper {
           topRight: Radius.circular(8),
         ),
       ),
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          TafsirButton(ayah: ayah, pageIndex: pageIndex, withBack: true),
-          const Gap(12),
-          PlayButton(
-            ayah: ayah,
-            surah: surah,
-            singleAyahOnly: true,
-            withBack: true,
-          ),
-          const Gap(12),
-          // full surah playButton
-          PlayButton(surah: surah, ayah: ayah, withBack: true),
-          const Gap(12),
-          AddBookmarkButton(surah: surah, ayah: ayah, pageIndex: pageIndex),
-          const Gap(12),
-          CopyButton(ayah: ayah, surah: surah),
-          const Gap(15),
-          ShareAyahOptions(ayah: ayah, surah: surah, pageNumber: pageIndex),
-          const Gap(15),
-          // Mutashabihat button - shows similar verses
-          Builder(
-            builder: (context) {
-              final count = MutashabihatController.instance
-                  .getPhrasesCountForVerse(surah.surahNumber, ayah.ayahNumber);
-              return Stack(
-                clipBehavior: Clip.none,
-                children: [
-                  CustomButton(
-                    height: 40,
-                    width: 35,
-                    iconSize: 35,
-                    isCustomSvgColor: true,
-                    svgPath: SvgPath.svgQuranMutashabihat,
-                    svgColor: Get.theme.canvasColor,
-                    onPressed: () {
-                      if (Get.context != null && count > 0) {
-                        MutashabihatBottomSheet.show(
-                          context: Get.context!,
-                          surahNumber: surah.surahNumber,
-                          ayahNumber: ayah.ayahNumber,
-                        );
-                      } else {
-                        MutashabihatBrowseSheet.show(context);
-                      }
-                    },
-                  ),
-                  if (count > 0)
-                    PositionedDirectional(
-                      top: -4,
-                      end: -4,
-                      child: Container(
-                        padding: const EdgeInsets.all(4),
-                        decoration: BoxDecoration(
-                          color: Get.theme.colorScheme.surface,
-                          shape: BoxShape.circle,
-                        ),
-                        child: Text(
-                          '$count'.convertNumbersToCurrentLang(),
-                          style: AppTextStyles.titleSmall().copyWith(
-                            fontSize: 12,
-                            color: Get.theme.colorScheme.primaryContainer,
+      child: FittedBox(
+        fit: BoxFit.scaleDown,
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            TafsirButton(ayah: ayah, pageIndex: pageIndex, withBack: true),
+            const Gap(12),
+            PlayButton(
+              ayah: ayah,
+              surah: surah,
+              singleAyahOnly: true,
+              withBack: true,
+            ),
+            const Gap(12),
+            // full surah playButton
+            PlayButton(surah: surah, ayah: ayah, withBack: true),
+            const Gap(12),
+            AddBookmarkButton(surah: surah, ayah: ayah, pageIndex: pageIndex),
+            const Gap(12),
+            CopyButton(ayah: ayah, surah: surah),
+            const Gap(15),
+            ShareAyahOptions(ayah: ayah, surah: surah, pageNumber: pageIndex),
+            const Gap(15),
+            // Mutashabihat button - shows similar verses
+            Builder(
+              builder: (context) {
+                final count = MutashabihatController.instance
+                    .getPhrasesCountForVerse(
+                      surah.surahNumber,
+                      ayah.ayahNumber,
+                    );
+                return Stack(
+                  clipBehavior: Clip.none,
+                  children: [
+                    CustomButton(
+                      height: 40,
+                      width: 35,
+                      iconSize: 35,
+                      isCustomSvgColor: true,
+                      svgPath: SvgPath.svgQuranMutashabihat,
+                      svgColor: Get.theme.canvasColor,
+                      onPressed: () {
+                        if (Get.context != null && count > 0) {
+                          MutashabihatBottomSheet.show(
+                            context: Get.context!,
+                            surahNumber: surah.surahNumber,
+                            ayahNumber: ayah.ayahNumber,
+                          );
+                        } else {
+                          MutashabihatBrowseSheet.show(context);
+                        }
+                      },
+                    ),
+                    if (count > 0)
+                      PositionedDirectional(
+                        top: -4,
+                        end: -4,
+                        child: Container(
+                          padding: const EdgeInsets.all(4),
+                          decoration: BoxDecoration(
+                            color: Get.theme.colorScheme.surface,
+                            shape: BoxShape.circle,
+                          ),
+                          child: Text(
+                            '$count'.convertNumbersToCurrentLang(),
+                            style: AppTextStyles.titleSmall().copyWith(
+                              fontSize: 12,
+                              color: Get.theme.colorScheme.primaryContainer,
+                            ),
                           ),
                         ),
                       ),
-                    ),
-                ],
-              );
-            },
-          ),
-        ],
+                  ],
+                );
+              },
+            ),
+          ],
+        ),
       ),
     );
   }

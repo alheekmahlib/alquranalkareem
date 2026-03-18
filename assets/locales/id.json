@@ -1397,5 +1397,11 @@
   "repeated": "Pengulangan",
   "times": "kali",
   "surahs": "Surah",
-  "ayah": "Ayat"
+  "ayah": "Ayat",
+  "tajweedUnavailableText": "Data aturan tajwid belum diunduh.",
+  "tajweedSurahNumberErrorText": "Gagal menentukan nomor surah",
+  "tajweedLoadErrorText": "Gagal memuat data aturan tajwid",
+  "tajweedNoDataText": "Tidak ada data tajwid untuk ayat ini.",
+  "twoDays": "Dua hari",
+  "searchInBook": "Cari di buku"
 }

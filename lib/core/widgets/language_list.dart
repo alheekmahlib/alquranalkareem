@@ -91,6 +91,14 @@ class LanguageList extends StatelessWidget {
                         onChanged: (_) {
                           GeneralController.instance.state.isUseEnglishNumbers
                               .toggle();
+                          GeneralController.instance.state.box.write(
+                            'isUseEnglishNumbers',
+                            GeneralController
+                                .instance
+                                .state
+                                .isUseEnglishNumbers
+                                .value,
+                          );
                           Get.forceAppUpdate();
                         },
                       ),

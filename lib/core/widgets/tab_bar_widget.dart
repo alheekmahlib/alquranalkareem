@@ -159,7 +159,7 @@ class TopBarWidget extends StatelessWidget {
                                       svgHeight: 35,
                                       svgWidth: 35,
                                       horizontalMargin: 6.0,
-                                      verticalMargin: 8.0,
+                                      verticalMargin: 12.0,
                                       backgroundColor: Colors.transparent,
                                       child: const NotificationIconWidget(
                                         iconHeight: 30,
@@ -189,7 +189,7 @@ class TopBarWidget extends StatelessWidget {
                               svgHeight: 35,
                               svgWidth: 35,
                               horizontalMargin: 4.0,
-                              verticalMargin: 5.0,
+                              verticalMargin: 4.0,
                               backgroundColor: Colors.transparent,
                               svgColor: context.theme.colorScheme.primary,
                               svgWithColorPath: isExpanded

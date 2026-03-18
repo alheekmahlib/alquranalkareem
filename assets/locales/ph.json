@@ -1397,5 +1397,11 @@
   "repeated": "Pag-uulit",
   "times": "beses",
   "surahs": "Mga Surah",
-  "ayah": "Ayah"
+  "ayah": "Ayah",
+  "tajweedUnavailableText": "Hindi pa na-download ang data ng mga tuntunin ng tajweed.",
+  "tajweedSurahNumberErrorText": "Hindi matukoy ang numero ng surah",
+  "tajweedLoadErrorText": "Hindi ma-load ang data ng mga tuntunin ng tajweed",
+  "tajweedNoDataText": "Walang data ng tajweed para sa ayah na ito.",
+  "twoDays": "Dalawang araw",
+  "searchInBook": "Maghanap sa aklat"
 }

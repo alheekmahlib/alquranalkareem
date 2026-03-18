@@ -31,6 +31,8 @@ class GeneralController extends GetxController {
     });
     state.screenSelectedValue.value =
         state.box.read(SCREEN_SELECTED_VALUE) ?? 0;
+    state.isUseEnglishNumbers.value =
+        state.box.read('isUseEnglishNumbers') ?? false;
     // WidgetsBinding.instance.addObserver(this);
 
     super.onInit();

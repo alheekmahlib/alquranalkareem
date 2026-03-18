@@ -1403,5 +1403,11 @@
   "repeated": "تکرار",
   "times": "مرتبہ",
   "surahs": "سور",
-  "ayah": "آیت"
+  "ayah": "آیت",
+  "tajweedUnavailableText": "تجوید کے قواعد کا ڈیٹا ڈاؤن لوڈ نہیں ہوا۔",
+  "tajweedSurahNumberErrorText": "سورہ نمبر معلوم نہیں ہو سکا",
+  "tajweedLoadErrorText": "تجوید کے قواعد کا ڈیٹا لوڈ نہیں ہو سکا",
+  "tajweedNoDataText": "اس آیت کے لیے تجوید کا ڈیٹا موجود نہیں۔",
+  "twoDays": "دو دن",
+  "searchInBook": "کتاب میں تلاش کریں"
 }

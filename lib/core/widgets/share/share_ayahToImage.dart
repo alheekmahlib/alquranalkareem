@@ -105,7 +105,7 @@ class VerseImageCreator extends StatelessWidget {
                 mainAxisSize: MainAxisSize.min,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  customSvg(SvgPath.svgSplashIconW, height: 30),
+                  customSvg(SvgPath.svgHomeQuranLogo, height: 30),
                   context.vDivider(),
                   Text(
                     'القرآن الكريـم - مكتبة الحكمة',

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../../core/utils/constants/svg_constants.dart';
 import 'controller/waqf_tajweed_screen_controller.dart';
 import 'widgets/animated_segment_control.dart';
 import 'widgets/group_buttons_widget.dart';
@@ -27,7 +26,7 @@ class AlwaqfScreen extends StatelessWidget {
           Obx(
             () => AnimatedSegmentControl(
               labels: ['stopSigns'.tr, 'tajweedRules'.tr],
-              svgIcons: const [SvgPath.svgAlwaqf, SvgPath.svgQuranIcS],
+              // svgIcons: const [SvgPath.svgAlwaqf, SvgPath.svgQuranIcS],
               selectedIndex: screenCtrl.selectedTab.value,
               onChanged: screenCtrl.switchTab,
             ),

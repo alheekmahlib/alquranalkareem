@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 
 import '../../../../core/utils/constants/svg_constants.dart';
@@ -37,24 +38,30 @@ class BooksSection extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Container(
-                  alignment: Alignment.center,
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 32.0,
-                    vertical: 4.0,
-                  ),
-                  decoration: BoxDecoration(
-                    color: context.theme.colorScheme.surface.withValues(
-                      alpha: .4,
+                Expanded(
+                  child: Container(
+                    alignment: Alignment.center,
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 32.0,
+                      vertical: 4.0,
                     ),
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                  child: Text(
-                    'islamicLibrary'.tr,
-                    style: AppTextStyles.titleMedium(),
-                    textAlign: TextAlign.center,
+                    decoration: BoxDecoration(
+                      color: context.theme.colorScheme.surface.withValues(
+                        alpha: .4,
+                      ),
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    child: FittedBox(
+                      fit: BoxFit.scaleDown,
+                      child: Text(
+                        'islamicLibrary'.tr,
+                        style: AppTextStyles.titleMedium(),
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
                   ),
                 ),
+                const Gap(16),
                 ButtomWithLine(
                   isRtl: false,
                   svgPath: SvgPath.svgBooksIslamicLibrary,

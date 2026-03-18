@@ -1396,5 +1396,11 @@
   "times": "مرات",
   "surahs": "سور",
   "ayah": "آية",
-  "searchError": "حدث خطأ أثناء البحث"
+  "searchError": "حدث خطأ أثناء البحث",
+  "tajweedUnavailableText": "بيانات أحكام التجويد غير محمّلة.",
+  "tajweedSurahNumberErrorText": "تعذّر تحديد رقم السورة",
+  "tajweedLoadErrorText": "تعذّر تحميل بيانات أحكام التجويد",
+  "tajweedNoDataText": "لا توجد بيانات تجويد لهذه الآية.",
+  "twoDays": "يومان",
+  "searchInBook": "بحث في الكتاب"
 }

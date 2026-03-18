@@ -93,9 +93,7 @@ class QuranSearch extends StatelessWidget {
               LottieConstants.assetsLottieSearch,
               width: 200.0,
               height: 200.0,
-              color: Theme.of(
-                context,
-              ).colorScheme.onSecondary.withValues(alpha: 0.7),
+              color: context.theme.colorScheme.surface,
             );
           } else if (searchCtrl.state.ayahList.isNotEmpty) {
             return ListView.builder(
