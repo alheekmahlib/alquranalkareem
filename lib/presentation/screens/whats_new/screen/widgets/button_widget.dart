@@ -39,9 +39,7 @@ class ButtonWidget extends StatelessWidget {
             width: Get.width * .5,
             horizontalMargin: 0,
             isTitleCentered: true,
-            backgroundColor: context.theme.primaryColorLight.withValues(
-              alpha: .5,
-            ),
+            backgroundColor: context.theme.colorScheme.surface,
             // icon:
             //     whatsNewCtrl.state.currentPageIndex.value ==
             //         newFeatures.length - 1

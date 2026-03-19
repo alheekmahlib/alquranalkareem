@@ -15,9 +15,9 @@ class KhatmasScreen extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            TitleWidget(title: 'khatmah'.tr, horizontalPadding: 8.0),
+            TitleWidget(title: 'khatmah'.tr),
             Padding(
-              padding: const EdgeInsets.all(8.0),
+              padding: const EdgeInsets.all(16.0),
               child: Column(
                 children: [
                   AddKhatmahWidget(),

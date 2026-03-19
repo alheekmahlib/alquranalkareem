@@ -749,7 +749,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "quranAudio": "Kur'an'ı dinle",
+  "quranAudio": "Sesli Mushaf",
   "@quranAudio": {
     "type": "text",
     "placeholders": {}
@@ -1204,7 +1204,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "What'sNewDetails10": "۞ Sure indirme sorunu düzeltildi.\n۞ Uygulamanın performans ve kararlılığında genel iyileştirmeler.",
+  "What'sNewDetails10": "۞ Yeni ve kullanımı kolay arayüz.\n۞ Tecvid eklendi.\n۞ Tecvid kuralları eklendi.\n۞ On kıraat eklendi.\n۞ Kelime için tasrif ve i'rab eklendi.\n۞ Kelimeyi dinleme eklendi.\n۞ Benzer ayetler eklendi.\n۞ Mevcut ayeti göstererek sure dinleme özelliği eklendi.\n۞ İslami kütüphane (Hadis ve Tefsir) eklendi.\n۞ Tüm yıllık takvimi gösterme seçeneğiyle yeni takvim arayüzü.",
   "@What'sNewDetails10": {
     "type": "text",
     "placeholders": {}

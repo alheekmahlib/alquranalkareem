@@ -750,7 +750,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "quranAudio": "Listening to Quran",
+  "quranAudio": "Audio Mushaf",
   "@quranAudio": {
     "type": "text",
     "placeholders": {}
@@ -1210,7 +1210,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "What'sNewDetails10": "۞ Fixed surah download issue.\n۞ General improvements in app performance and stability.",
+  "What'sNewDetails10": "۞ New, easy-to-use interface.\n۞ Added Tajweed.\n۞ Added Tajweed rules.\n۞ Added the Ten Qira'at.\n۞ Added conjugation and i'rab for words.\n۞ Added word audio playback.\n۞ Added similar verses.\n۞ Added surah listening with current ayah display.\n۞ Added the Islamic library (Hadith and Tafsir).\n۞ New calendar view with full-year calendar option.",
   "@What'sNewDetails10": {
     "type": "text",
     "placeholders": {}

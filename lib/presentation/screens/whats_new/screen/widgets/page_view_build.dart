@@ -48,7 +48,9 @@ class PageViewBuild extends StatelessWidget {
                           ),
                           child: Text(
                             '${newFeatures[index]['title']}'.tr,
-                            style: AppTextStyles.titleLarge(),
+                            style: AppTextStyles.titleLarge(
+                              color: context.theme.canvasColor,
+                            ),
                           ),
                         ),
                   newFeatures[index]['title'] == ''
@@ -97,7 +99,9 @@ class PageViewBuild extends StatelessWidget {
                           ),
                           child: Text(
                             '${newFeatures[index]['details']}'.tr,
-                            style: AppTextStyles.titleMedium(),
+                            style: AppTextStyles.titleMedium(
+                              color: context.theme.canvasColor,
+                            ),
                           ),
                         ),
                 ],

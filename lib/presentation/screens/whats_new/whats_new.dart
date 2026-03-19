@@ -19,4 +19,3 @@ part 'screen/whats_new_screen.dart';
 part 'screen/widgets/button_widget.dart';
 part 'screen/widgets/page_view_build.dart';
 part 'screen/widgets/smooth_page_indicator.dart';
-part 'screen/widgets/whats_new_widget.dart';

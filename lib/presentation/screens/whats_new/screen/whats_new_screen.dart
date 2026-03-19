@@ -21,7 +21,12 @@ class WhatsNewScreen extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 GestureDetector(
-                  child: Text('skip'.tr, style: AppTextStyles.titleMedium()),
+                  child: Text(
+                    'skip'.tr,
+                    style: AppTextStyles.titleMedium(
+                      color: context.theme.canvasColor.withValues(alpha: .5),
+                    ),
+                  ),
                   onTap: () {
                     Get.offAll(
                       const HomeScreen(),
@@ -40,7 +45,10 @@ class WhatsNewScreen extends StatelessWidget {
           const Gap(16),
           TitleWidget(
             title: "What's New".tr,
-            textStyle: AppTextStyles.titleLarge(),
+            containerColor: context.theme.colorScheme.surface,
+            textStyle: AppTextStyles.titleLarge(
+              color: context.theme.canvasColor,
+            ),
           ),
           PageViewBuild(controller: controller, newFeatures: newFeatures),
           ButtonWidget(controller: controller, newFeatures: newFeatures),

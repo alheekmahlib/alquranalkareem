@@ -750,7 +750,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "quranAudio": "Escuchar el Corán",
+  "quranAudio": "Mushaf en audio",
   "@quranAudio": {
     "type": "text",
     "placeholders": {}
@@ -1210,7 +1210,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "What'sNewDetails10": "۞ Se solucionó el problema de descarga de suras.\n۞ Mejoras generales en el rendimiento y estabilidad de la aplicación.",
+  "What'sNewDetails10": "۞ Interfaz nueva y fácil de usar.\n۞ Se añadió el tajwīd.\n۞ Se añadieron las reglas de tajwīd.\n۞ Se añadieron las diez lecturas (qirā’āt).\n۞ Se añadió la conjugación y el i‘rāb de las palabras.\n۞ Se añadió la escucha de la palabra.\n۞ Se añadieron los versículos similares.\n۞ Se añadió la escucha de suras mostrando el versículo actual.\n۞ Se añadió la biblioteca islámica (hadices y tafsir).\n۞ Nueva interfaz del calendario con opción de mostrar el calendario anual completo.",
   "@What'sNewDetails10": {
     "type": "text",
     "placeholders": {}
