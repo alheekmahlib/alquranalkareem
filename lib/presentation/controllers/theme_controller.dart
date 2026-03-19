@@ -12,7 +12,7 @@ class ThemeController extends GetxController {
       GetInstance().putOrFind(() => ThemeController());
   AppTheme? initialTheme;
   ThemeData? initialThemeData;
-  Rx<AppTheme> _currentTheme = AppTheme.blue.obs;
+  Rx<AppTheme> _currentTheme = AppTheme.green.obs;
   final box = GetStorage();
 
   @override
@@ -37,15 +37,15 @@ class ThemeController extends GetxController {
         initialThemeData = darkTheme;
         break;
       default:
-        initialThemeData = blueTheme;
+        initialThemeData = greenTheme;
     }
   }
 
   Future<AppTheme> loadThemePreference() async {
-    String themeString = box.read(SET_THEME) ?? AppTheme.blue.toString();
+    String themeString = box.read(SET_THEME) ?? AppTheme.green.toString();
     return initialTheme = AppTheme.values.firstWhere(
       (e) => e.toString() == themeString,
-      orElse: () => AppTheme.blue,
+      orElse: () => AppTheme.green,
     );
   }
 

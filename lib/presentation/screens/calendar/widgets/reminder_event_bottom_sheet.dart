@@ -26,16 +26,16 @@ class ReminderEventBottomSheet extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 16.0, horizontal: 16.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          const TitleWidget(title: 'events'),
-          const Gap(8),
-          SizedBox(
-            height: Get.height * .6,
-            child: SingleChildScrollView(
+    return SingleChildScrollView(
+      primary: false,
+      child: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 16.0, horizontal: 16.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const TitleWidget(title: 'events'),
+            const Gap(8),
+            SingleChildScrollView(
               child: Column(
                 children: [
                   headerWidget(context),
@@ -44,8 +44,8 @@ class ReminderEventBottomSheet extends StatelessWidget {
                 ],
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
@@ -103,28 +103,37 @@ class ReminderEventBottomSheet extends StatelessWidget {
             textAlign: TextAlign.center,
           ),
         ),
-        Container(
-          padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
-          margin: const EdgeInsets.symmetric(horizontal: 16.0),
-          child: ListView(
-            shrinkWrap: true,
-            physics: const ClampingScrollPhysics(),
-            children: [
-              const Gap(8),
-              RichText(
-                text: TextSpan(
-                  children: [
-                    TextSpan(
-                      children: hadith.buildTextSpans(),
-                      style: AppTextStyles.bodyLarge(),
-                    ),
-                    WidgetSpan(child: context.hDivider(width: Get.width)),
-                    TextSpan(text: bookInfo, style: AppTextStyles.titleSmall()),
-                  ],
+        Directionality(
+          textDirection: TextDirection.rtl,
+          child: Container(
+            padding: const EdgeInsets.symmetric(
+              vertical: 8.0,
+              horizontal: 16.0,
+            ),
+            margin: const EdgeInsets.symmetric(horizontal: 16.0),
+            child: ListView(
+              shrinkWrap: true,
+              physics: const ClampingScrollPhysics(),
+              children: [
+                const Gap(8),
+                RichText(
+                  text: TextSpan(
+                    children: [
+                      TextSpan(
+                        children: hadith.buildTextSpans(),
+                        style: AppTextStyles.bodyLarge(),
+                      ),
+                      WidgetSpan(child: context.hDivider(width: Get.width)),
+                      TextSpan(
+                        text: bookInfo,
+                        style: AppTextStyles.titleSmall(),
+                      ),
+                    ],
+                  ),
+                  textAlign: TextAlign.justify,
                 ),
-                textAlign: TextAlign.justify,
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ],

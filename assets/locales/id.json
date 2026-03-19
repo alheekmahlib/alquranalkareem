@@ -749,7 +749,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "quranAudio": "Mendengarkan Al-Qur'an",
+  "quranAudio": "Mushaf audio",
   "@quranAudio": {
     "type": "text",
     "placeholders": {}
@@ -1204,7 +1204,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "What'sNewDetails10": "۞ Memperbaiki masalah unduhan surah.\n۞ Perbaikan umum pada performa dan stabilitas aplikasi.",
+  "What'sNewDetails10": "۞ Antarmuka baru yang mudah digunakan.\n۞ Menambahkan tajwid.\n۞ Menambahkan aturan tajwid.\n۞ Menambahkan sepuluh qira'at.\n۞ Menambahkan konjugasi dan i'rab untuk kata.\n۞ Menambahkan audio untuk kata.\n۞ Menambahkan ayat-ayat serupa.\n۞ Menambahkan fitur mendengarkan surah dengan menampilkan ayat saat ini.\n۞ Menambahkan perpustakaan Islam (Hadits dan Tafsir).\n۞ Tampilan kalender baru dengan opsi menampilkan kalender tahunan lengkap.",
   "@What'sNewDetails10": {
     "type": "text",
     "placeholders": {}

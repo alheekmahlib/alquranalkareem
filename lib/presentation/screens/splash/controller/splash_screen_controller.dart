@@ -71,7 +71,7 @@ class SplashScreenController extends GetxController {
       );
     } else if (WhatsNewController.instance.hasNewFeatures) {
       toggleSlider(duration: 0);
-      halfOpenSlider(duration: 0, height: Get.height);
+      // halfOpenSlider(duration: 0, height: Get.height);
       Future.delayed(
         const Duration(milliseconds: 600),
         () => state.customWidgetIndex.value = 2,

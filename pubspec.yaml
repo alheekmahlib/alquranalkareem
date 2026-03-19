@@ -94,15 +94,15 @@ dev_dependencies:
     sdk: flutter
 
 flutter_native_splash:
-  color: "#404C6E"
+  color: "#283618"
   color_dark: "#2d2d2d"
-  image: assets/splash_icon512.png
-  image_dark: assets/splash_icon512.png
+  image: assets/quran_logo512.png
+  image_dark: assets/quran_logo512.png
 
   android_12:
-    image: assets/splash_icon512.png
-    icon_background_color: "#404C6E"
-    image_dark: assets/splash_icon512.png
+    image: assets/quran_logo512.png
+    icon_background_color: "#283618"
+    image_dark: assets/quran_logo512.png
     icon_background_color_dark: "#2d2d2d"
 
 package_rename_config:
@@ -160,8 +160,6 @@ flutter:
     - assets/json/
     - assets/lottie/
     - assets/locales/
-    - assets/app_icon.png
-    - assets/app_icon_mac.png
     - assets/json/azkar.json
 
   fonts:
