@@ -40,13 +40,16 @@ class TafsirButton extends StatelessWidget {
               backgroundColor: context.theme.colorScheme.primary,
               handleBackgroundColor: context.theme.canvasColor,
               handleDotsColor: context.theme.colorScheme.primary,
-              ShowTafseer(
-                context: context,
-                ayahUQNumber: ayah.ayahUQNumber,
-                ayahNumber: ayah.ayahNumber,
-                pageIndex: pageIndex,
-                isDark: ThemeController.instance.isDarkMode,
-                tafsirStyle: quranCtrl.tafsirStyle,
+              SizedBox(
+                height: Get.height * .85,
+                child: ShowTafseer(
+                  context: context,
+                  ayahUQNumber: ayah.ayahUQNumber,
+                  ayahNumber: ayah.ayahNumber,
+                  pageIndex: pageIndex,
+                  isDark: ThemeController.instance.isDarkMode,
+                  tafsirStyle: quranCtrl.tafsirStyle,
+                ),
               ),
             );
           },

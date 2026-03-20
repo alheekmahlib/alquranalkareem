@@ -1,8 +1,9 @@
-import 'package:alquranalkareem/core/utils/constants/svg_constants.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 
+import '/core/utils/constants/svg_constants.dart';
 import '/core/widgets/container_button.dart';
 import '/core/widgets/title_widget.dart';
 import '/presentation/controllers/theme_controller.dart';
@@ -111,12 +112,13 @@ class SettingsList extends StatelessWidget {
                     )
                   : Column(
                       children: [
-                        const Gap(32.0),
+                        Gap(16.0.h),
                         customSvgWithCustomColor(
                           SvgPath.svgHomeQuranLogo,
                           height: 140,
                           color: context.theme.primaryColorLight,
                         ),
+                        const Gap(32.0),
                       ],
                     ),
             ],

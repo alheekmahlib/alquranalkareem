@@ -67,47 +67,41 @@ class AllCalculatingEventsWidget extends StatelessWidget {
                 const Gap(8.0),
                 context.hDivider(width: Get.width),
                 const Gap(8.0),
-                Column(
-                  children: [
-                    Obx(() {
-                      if (eventsCtrl.events.isEmpty) {
-                        return const Center(
-                          child: CircularProgressIndicator.adaptive(),
-                        );
-                      } else {
-                        return ListView.builder(
-                          shrinkWrap: true,
-                          primary: false,
-                          itemCount: eventsCtrl.events.length,
-                          itemBuilder: (context, i) =>
-                              !eventsCtrl.notReminderIndex.contains(
-                                eventsCtrl.events[i].id,
-                              )
-                              ? const SizedBox.shrink()
-                              : CalculatingDateEventsWidget(
-                                  name: eventsCtrl.events[i].title.tr,
-                                  year: eventsCtrl.hijriNow.hYear,
-                                  month: eventsCtrl.events[i].month,
-                                  day: eventsCtrl.events[i].day.first,
-                                ),
-                        );
-                      }
-                    }),
-                    context.hDivider(width: Get.width),
-                    const Gap(16.0),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                      child: Text(
-                        'hijriNote'.tr,
-                        style: AppTextStyles.titleMedium().copyWith(
-                          fontSize: 14.0,
-                        ),
-                        textAlign: TextAlign.justify,
-                      ),
-                    ),
-                    const Gap(16.0),
-                  ],
+                Obx(() {
+                  if (eventsCtrl.events.isEmpty) {
+                    return const Center(
+                      child: CircularProgressIndicator.adaptive(),
+                    );
+                  } else {
+                    return ListView.builder(
+                      shrinkWrap: true,
+                      primary: false,
+                      itemCount: eventsCtrl.events.length,
+                      itemBuilder: (context, i) =>
+                          !eventsCtrl.notReminderIndex.contains(
+                            eventsCtrl.events[i].id,
+                          )
+                          ? const SizedBox.shrink()
+                          : CalculatingDateEventsWidget(
+                              name: eventsCtrl.events[i].title.tr,
+                              year: eventsCtrl.hijriNow.hYear,
+                              month: eventsCtrl.events[i].month,
+                              day: eventsCtrl.events[i].day.first,
+                            ),
+                    );
+                  }
+                }),
+                context.hDivider(width: Get.width),
+                const Gap(16.0),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                  child: Text(
+                    'hijriNote'.tr,
+                    style: AppTextStyles.titleMedium().copyWith(fontSize: 14.0),
+                    textAlign: TextAlign.justify,
+                  ),
                 ),
+                Gap(120.0.h),
               ],
             ),
           ),
