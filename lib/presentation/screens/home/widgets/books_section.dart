@@ -39,24 +39,26 @@ class BooksSection extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Expanded(
-                  child: Container(
-                    alignment: Alignment.center,
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 32.0,
-                      vertical: 4.0,
-                    ),
-                    decoration: BoxDecoration(
-                      color: context.theme.colorScheme.surface.withValues(
-                        alpha: .4,
+                  child: Align(
+                    alignment: AlignmentDirectional.centerStart,
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 32.0,
+                        vertical: 4.0,
                       ),
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                    child: FittedBox(
-                      fit: BoxFit.scaleDown,
-                      child: Text(
-                        'islamicLibrary'.tr,
-                        style: AppTextStyles.titleMedium(),
-                        textAlign: TextAlign.center,
+                      decoration: BoxDecoration(
+                        color: context.theme.colorScheme.surface.withValues(
+                          alpha: .4,
+                        ),
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      child: FittedBox(
+                        fit: BoxFit.scaleDown,
+                        child: Text(
+                          'islamicLibrary'.tr,
+                          style: AppTextStyles.titleMedium(),
+                          textAlign: TextAlign.center,
+                        ),
                       ),
                     ),
                   ),

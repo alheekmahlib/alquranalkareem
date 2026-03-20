@@ -56,7 +56,7 @@ class AyahTafsirWidget extends StatelessWidget {
                     surahNumber: snapshot.data!.surahNumber!,
                     ayahNumber: snapshot.data!.ayahNumber,
                     enableWordSelection: false,
-                    fontSize: 28,
+                    fontSize: 22,
                     textAlign: TextAlign.center,
                     enabledTajweed:
                         QuranCtrl.instance.state.isTajweedEnabled.value,

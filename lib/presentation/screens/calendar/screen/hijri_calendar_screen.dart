@@ -22,40 +22,20 @@ class HijriCalendarScreen extends StatelessWidget {
                   child: _pageViewBuild(eventCtrl),
                 ),
               ),
-              ValueListenableBuilder(
-                valueListenable: eventCtrl.controller,
-                builder: (context, offset, child) {
-                  final isSheetOpen =
-                      offset != null && offset > Get.height * .5;
-                  return Column(
-                    children: [
-                      if (isSheetOpen) ...[
-                        const Gap(80),
-                        context.customOrientation(
-                          HijriWidget(isInCalendar: true),
-                          const SizedBox.shrink(),
-                        ),
-                      ],
-                      if (!isSheetOpen) ...[
-                        const Gap(16.0),
-                        context.customOrientation(
-                          _pageViewBuild(eventCtrl),
-                          const SizedBox.shrink(),
-                        ),
-                      ],
-                    ],
-                  );
-                },
-              ),
               context.customOrientation(
-                CustomSheetWidget(
-                  controller: eventCtrl.controller,
-                  minSheetOffset: 0.2,
-                  maxSheetOffset: 0.65,
-                  child: AllCalculatingEventsWidget(),
+                Stack(
+                  children: [
+                    _valueListenableBuilderWidget(eventCtrl),
+                    CustomSheetWidget(
+                      controller: eventCtrl.controller,
+                      minSheetOffset: 0.2,
+                      maxSheetOffset: 0.65,
+                      child: AllCalculatingEventsWidget(),
+                    ),
+                  ],
                 ),
                 Align(
-                  alignment: Alignment.centerRight,
+                  alignment: AlignmentDirectional.centerStart,
                   child: Container(
                     height: Get.height,
                     width: Get.width * .5,
@@ -81,11 +61,40 @@ class HijriCalendarScreen extends StatelessWidget {
     );
   }
 
+  ValueListenableBuilder<double?> _valueListenableBuilderWidget(
+    EventController eventCtrl,
+  ) {
+    return ValueListenableBuilder(
+      valueListenable: eventCtrl.controller,
+      builder: (context, offset, child) {
+        final isSheetOpen = offset != null && offset > Get.height * .3;
+        return Column(
+          children: [
+            if (isSheetOpen) ...[
+              const Gap(80),
+              context.customOrientation(
+                HijriWidget(isInCalendar: true),
+                const SizedBox.shrink(),
+              ),
+            ],
+            if (!isSheetOpen) ...[
+              const Gap(16.0),
+              context.customOrientation(
+                _pageViewBuild(eventCtrl),
+                const SizedBox.shrink(),
+              ),
+            ],
+          ],
+        );
+      },
+    );
+  }
+
   Widget _pageViewBuild(EventController eventCtrl) {
     return Align(
       alignment: Get.context!.customOrientation(
         Alignment.center,
-        Alignment.centerLeft,
+        AlignmentDirectional.centerEnd,
       ),
       child: SizedBox(
         height: Get.height * .8,

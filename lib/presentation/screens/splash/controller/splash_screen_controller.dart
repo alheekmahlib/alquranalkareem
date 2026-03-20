@@ -17,6 +17,7 @@ class SplashScreenController extends GetxController {
     Future.delayed(
       const Duration(milliseconds: 6300),
     ).then((_) => EventController.instance.ramadhanOrEidGreeting());
+    QuranLibrary().setFontsSelected = 0;
   }
 
   @override
@@ -81,7 +82,7 @@ class SplashScreenController extends GetxController {
       Future.delayed(
         const Duration(milliseconds: 900),
         () => Get.offAll(
-          GeneralController.instance.screenSelect(),
+          () => GeneralController.instance.screenSelect(),
           transition: Transition.fadeIn,
         ),
       );
@@ -96,7 +97,7 @@ class SplashScreenController extends GetxController {
     } else {
       toggleSlider(duration: 0);
       Get.offAll(
-        GeneralController.instance.screenSelect(),
+        () => GeneralController.instance.screenSelect(),
         transition: Transition.fadeIn,
       );
     }
@@ -135,6 +136,7 @@ class SplashScreenController extends GetxController {
             verticalMargin: 8.0,
             isTitleCentered: true,
             title: 'start',
+            backgroundColor: Get.theme.colorScheme.surface,
           ),
         ),
       ],

@@ -92,7 +92,8 @@ class LastListen extends StatelessWidget {
                             if (context.mounted)
                               GetX<AudioCtrl>(
                                 builder: (surahAudioController) => Text(
-                                  '${surahAudioCtrl.formatDuration(Duration(seconds: surahAudioCtrl.state.lastPosition.value))}',
+                                  '${surahAudioCtrl.formatDuration(Duration(seconds: surahAudioCtrl.state.lastPosition.value))}'
+                                      .convertNumbersToCurrentLang(),
                                   style: AppTextStyles.titleMedium(
                                     height: 1.2,
                                     fontSize: 16,

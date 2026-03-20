@@ -12,7 +12,7 @@ class AyahsPlayListWidget extends StatelessWidget {
     final size = MediaQuery.sizeOf(context);
     return SingleChildScrollView(
       child: Container(
-        height: size.height * .89,
+        height: size.height * .85,
         width: context.customOrientation(size.width, size.width * .5),
         decoration: BoxDecoration(
           color: Theme.of(context).colorScheme.primaryContainer,
