@@ -1,4 +1,4 @@
-import 'chapter_model.dart';
+part of '../../books.dart';
 
 class Part {
   final String partNumber;

@@ -110,7 +110,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "about_app3": "۞ A new and user-friendly interface: The application has been designed with a modern and intuitive user interface that makes it easy for users to navigate and access different features.\n۞ Adoption of the King Fahd Complex edition: The application uses the edition of the King Fahd Complex for the printing of the Holy Quran, known for its reliability and perfection, ensuring the accuracy and integrity of the text.\n۞ Interactive and integrated reading: The application provides the possibility of interactive reading with the electronic Quran text, in addition to listening to recitations, and studying and memorizing the Holy Quran easily.\n۞ Flexible reading: Users can read the Quran as if they were reading a paper copy or choose the single verse mode for greater focus.\n۞ Textual search feature: The application contains an instant search feature in the verses of the Quran, with the ability to go directly to the desired page or surah.\n۞ Adding bookmark badges: This feature allows saving pages or verses for easy reference at any time.\n۞ Listening to verses: The application provides the possibility to listen to each verse by a number of famous reciters.\n۞ Interpretation and translation of verses: Users can access the interpretation or translation of each verse, and switch between interpretations as desired.\n۞ Easy navigation between surahs: The application facilitates smooth and quick navigation between surahs.\n۞ Reading stop signs: This feature helps to understand the appropriate places to stop while reading.\n۞ Fortress of the Muslim Dhikr: It is possible to read the complete Fortress of the Muslim Dhikr and navigate between sections easily, with the possibility of adding Dhikr to favorites.\n۞ Changing color styles: The application supports changing color styles, including the dark mode, to improve the reading experience.\n۞ Listening and downloading: It is possible to listen to the surahs or download them for later listening without the need for the internet.\n\nThese features make the \"Holy Quran - Hikma Library\" app a comprehensive tool for anyone wishing to read, learn, and contemplate the Holy Quran in an easy and effective way.",
+  "about_app3": "۞ A modern, easy-to-use interface: A contemporary, intuitive design that makes it easy to navigate and access all features, with a new calendar view and the ability to browse the full yearly calendar.\n۞ Adopting the King Fahd Complex edition: The app relies on the King Fahd Complex Mushaf edition, known for its accuracy and reliability.\n۞ Interactive, comprehensive reading: A flexible reading experience in either Mushaf-page mode or single-ayah mode, with full interaction with the text.\n۞ Advanced listening: Listen to ayahs and surahs with voices of selected reciters, with the feature of showing the current ayahs during playback, plus the ability to listen to each word separately to enhance learning.\n۞ Fast search and navigation: Instant search within Qur'an verses with direct jump to the desired surah or page, and smooth navigation between surahs.\n۞ Tafsir and Islamic library: Access a collection of tafsir and translations, in addition to an integrated Islamic library that includes Hadith and tafsir books.\n۞ Tajweed and its rules: Clear display of tajweed and its rules, with the addition of the Ten Qira'at to broaden understanding of recitation methods.\n۞ Advanced linguistic analysis: Display morphology (tasreef) and i'rab for each word, helping deeper understanding of linguistic meanings in the Qur'an.\n۞ Similar verses: A dedicated feature to display similar verses to make memorization and review easier.\n۞ Reading and memorization management: Add bookmarks for ayahs and pages to return to them anytime.\n۞ Reading stop signs: Clarify waqf signs to help users read correctly.\n۞ Hisn Al-Muslim adhkar: A complete section for reading adhkar with favorites and quick navigation between sections.\n۞ Display customization: Support changing color styles, including dark mode, for a comfortable reading experience.\n۞ Downloading and offline use: Download surahs and listen later without an internet connection.\n\nThese features make the \"Holy Quran - Hikma Library\" app an integrated platform combining reading, listening, tafsir, and learning, offering a rich and easy-to-use spiritual and educational experience.",
   "@about_app3": {
     "type": "text",
     "placeholders": {}
@@ -152,6 +152,11 @@
   },
   "waqfName": "Stop Signs",
   "@waqfName": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "tajweedRules": "Tajweed Rules",
+  "@tajweedRules": {
     "type": "text",
     "placeholders": {}
   },
@@ -420,8 +425,8 @@
     "type": "text",
     "placeholders": {}
   },
-  "tafseer": "Al Tafseer",
-  "@tafseer": {
+  "tafsir": "Al tafsir",
+  "@tafsir": {
     "type": "text",
     "placeholders": {}
   },
@@ -595,6 +600,11 @@
     "type": "text",
     "placeholders": {}
   },
+  "shareAudio": "As audio",
+  "@shareAudio": {
+    "type": "text",
+    "placeholders": {}
+  },
   "shareImageWTrans": "As an image with additional content",
   "@shareImageWTrans": {
     "type": "text",
@@ -690,12 +700,57 @@
     "type": "text",
     "placeholders": {}
   },
+  "surah": "Surah",
+  "@surah": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "chooseSurah": "Choose Surah",
+  "@chooseSurah": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "segments": "Segments",
+  "@segments": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "addSegment": "Add Segment",
+  "@addSegment": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "repeatCount": "Repeat Count",
+  "@repeatCount": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "sleepTimer": "Sleep Timer",
+  "@sleepTimer": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "hour": "Hour",
+  "@hour": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "minutes": "Minutes",
+  "@minutes": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "of": "of",
+  "@of": {
+    "type": "text",
+    "placeholders": {}
+  },
   "quran": "The Holy Quran",
   "@quran": {
     "type": "text",
     "placeholders": {}
   },
-  "quranAudio": "Listening to Quran",
+  "quranAudio": "Audio Mushaf",
   "@quranAudio": {
     "type": "text",
     "placeholders": {}
@@ -1155,7 +1210,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "What'sNewDetails10": "۞ Fixed surah download issue.\n۞ General improvements in app performance and stability.",
+  "What'sNewDetails10": "۞ New, easy-to-use interface.\n۞ Added Tajweed.\n۞ Added Tajweed rules.\n۞ Added the Ten Qira'at.\n۞ Added conjugation and i'rab for words.\n۞ Added word audio playback.\n۞ Added similar verses.\n۞ Added surah listening with current ayah display.\n۞ Added the Islamic library (Hadith and Tafsir).\n۞ New calendar view with full-year calendar option.",
   "@What'sNewDetails10": {
     "type": "text",
     "placeholders": {}
@@ -1276,11 +1331,83 @@
   "month": "Month",
   "hijri": "Hijri",
   "Sun": "Sun",
+  "@Sun": {
+    "type": "text",
+    "placeholders": {}
+  },
   "Mon": "Mon",
+  "@Mon": {
+    "type": "text",
+    "placeholders": {}
+  },
   "Tue": "Tue",
+  "@Tue": {
+    "type": "text",
+    "placeholders": {}
+  },
   "Wed": "Wed",
+  "@Wed": {
+    "type": "text",
+    "placeholders": {}
+  },
   "Thu": "Thu",
+  "@Thu": {
+    "type": "text",
+    "placeholders": {}
+  },
   "Fri": "Fri",
+  "@Fri": {
+    "type": "text",
+    "placeholders": {}
+  },
   "Sat": "Sat",
-  "manager_ayah_downloads": "Manage Ayah Downloads"
+  "@Sat": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "manager_ayah_downloads": "Manage Ayah Downloads",
+  "load_error": "Failed to load data for this word.",
+  "no_data": "No data available for this word.", 
+  "recitations": "Recitations",
+  "tasreef": "Conjugation",
+  "eerab": "I'rab",
+  "unavailableDataTemplate": "@kind data is not downloaded on this device",
+  "@unavailableDataTemplate": {
+    "type": "text",
+    "placeholders": {
+      "kind": {}
+    }
+  },
+  "mushafOrthographicMarks": "Mushaf Diacritics",
+  "bookRemovedFromLastRead": "Book removed from Last Read",
+  "hadiths": "Hadiths",
+  "sixthBooks": "The Six Books",
+  "ninthBooks": "The Nine Books",
+  "noHadithBooks": "No Hadith books are downloaded on this device.",
+  "noTafsirBooks": "No Tafsir books are downloaded on this device.",
+  "noBooks": "No books.",
+  "bookJuz": "Book Parts",
+  "downloadBookFirstToSeeTheContents": "Please download the book first to view the contents",
+  "chapter": "Chapter",
+  "goToStartOfJuz": "Go to the start of the part",
+  "noBooksReadedYet": "You haven't read any book yet.",
+  "noBooksFoundForSearch": "No books found.",
+  "islamicLibrary": "Islamic Library",
+  "tajweed": "With Tajweed",
+  "useEnglishNumbers": "Use English numbers",
+  "changeTafsir": "Change Tafsir",
+  "mutashabihat": "Similar verses",
+  "no_mutashabihat": "No similar phrases found for this ayah",
+  "browse_mutashabihat": "Browse similar verses",
+  "mutashabihat_in": "Similar verses in",
+  "repeated": "Repetition",
+  "times": "times",
+  "surahs": "Surahs",
+  "ayah": "Ayah",
+  "tajweedUnavailableText": "Tajweed rules data is not downloaded.",
+  "tajweedSurahNumberErrorText": "Failed to determine the surah number",
+  "tajweedLoadErrorText": "Failed to load Tajweed rules data",
+  "tajweedNoDataText": "No Tajweed data available for this ayah.",
+  "twoDays": "Two days",
+  "searchInBook": "Search in the book"
 }

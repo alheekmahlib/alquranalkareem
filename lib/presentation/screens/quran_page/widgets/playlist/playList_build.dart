@@ -8,155 +8,104 @@ class PlayListBuild extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(8.0),
-      decoration: BoxDecoration(
-        borderRadius: const BorderRadius.all(Radius.circular(8)),
-        border: Border.all(
-          width: 1,
-          color: Theme.of(context).colorScheme.primary.withValues(alpha: .15),
-        ),
-      ),
-      child: ExpansionTileCard(
-        key: playList.saveCard,
-        elevation: 0.0,
-        initialElevation: 0.0,
-        title: SizedBox(
-          width: 100.0,
-          child: Text(
-            'playList'.tr,
-            style: TextStyle(
-              color: Theme.of(context).hintColor,
-              fontSize: 16,
-              fontFamily: 'kufi',
-            ),
-          ),
-        ),
-        baseColor: Theme.of(context).colorScheme.primary.withValues(alpha: .1),
-        expandedColor: Colors.transparent,
-        children: [
-          SizedBox(
-            height: MediaQuery.sizeOf(context).height * .25,
-            child: ListView(
-              children: [
-                Obx(
-                  () => Column(
-                    children: List<Widget>.generate(playList.playLists.length, (
-                      int index,
-                    ) {
-                      final play = playList.playLists[index];
-                      GlobalKey textFieldKey = GlobalKey();
-                      playListTextFieldKeys.add(textFieldKey);
-                      return GestureDetector(
-                        child: Container(
-                          height: 55,
-                          width: MediaQuery.sizeOf(context).width,
-                          decoration: BoxDecoration(
-                            color: Theme.of(
-                              context,
-                            ).colorScheme.primary.withValues(alpha: .15),
-                            borderRadius: const BorderRadius.all(
-                              Radius.circular(4),
-                            ),
-                          ),
-                          // padding: const EdgeInsets.all(8.0),
-                          margin: const EdgeInsets.all(8.0),
-                          child: Dismissible(
-                            background: const DeleteWidget(),
-                            key: UniqueKey(),
-                            onDismissed: (DismissDirection direction) async {
-                              await playList.deletePlayList(context, index);
-                            },
-                            child: Padding(
-                              padding: const EdgeInsets.symmetric(
-                                horizontal: 8.0,
-                              ),
-                              child: Center(
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Row(
-                                      children: [
-                                        customSvgWithCustomColor(
-                                          SvgPath.svgPlaylist,
-                                          height: 25,
-                                        ),
-                                        const Gap(8),
-                                        Container(
-                                          width: 120,
-                                          padding: const EdgeInsets.symmetric(
-                                            horizontal: 16.0,
-                                            vertical: 4.0,
-                                          ),
-                                          decoration: BoxDecoration(
-                                            color: Theme.of(context)
-                                                .colorScheme
-                                                .primaryContainer
-                                                .withValues(alpha: .8),
-                                            borderRadius:
-                                                const BorderRadius.all(
-                                                  Radius.circular(4),
-                                                ),
-                                          ),
-                                          child: Transform.translate(
-                                            offset: const Offset(0, 2),
-                                            child: Text(
-                                              play.name.replaceAll(
-                                                'سُورَةُ ',
-                                                '',
-                                              ),
-                                              style: TextStyle(
-                                                fontFamily: 'naskh',
-                                                fontSize: 20,
-                                                color: Theme.of(
-                                                  context,
-                                                ).hintColor,
-                                              ),
-                                              maxLines: 2,
-                                            ),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                    Row(
-                                      children: [
-                                        Text(
-                                          '${play.startNum.toString().convertNumbersToCurrentLang()}-${play.endNum.toString().convertNumbersToCurrentLang()}',
-                                          style: TextStyle(
-                                            fontFamily: 'kufi',
-                                            fontSize: 18,
-                                            color: Theme.of(context).hintColor,
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ],
+    return ExpansionTileWidget(
+      key: playList.saveCard,
+      title: 'playList'.tr,
+      getxCtrl: playList,
+      manager: GeneralController.instance.state.expansionManager,
+      name: 'playList_tile',
+      child: SizedBox(
+        height: Get.height * .25,
+        child: Obx(
+          () => ListView(
+            children: List<Widget>.generate(playList.playLists.length, (
+              int index,
+            ) {
+              final play = playList.playLists[index];
+              GlobalKey textFieldKey = GlobalKey();
+              playListTextFieldKeys.add(textFieldKey);
+              return Stack(
+                alignment: AlignmentDirectional.centerEnd,
+                children: [
+                  ContainerButton(
+                    onPressed: () => playList.playFromSavedPlayList(play),
+                    value: true.obs,
+                    width: double.infinity,
+                    verticalMargin: 4.0,
+                    backgroundColor: context.theme.primaryColorLight.withValues(
+                      alpha: .2,
+                    ),
+                    child: Dismissible(
+                      background: const DeleteWidget(),
+                      key: UniqueKey(),
+                      onDismissed: (DismissDirection direction) async {
+                        await playList.deletePlayList(context, index);
+                      },
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              const Gap(8),
+                              Container(
+                                padding: const EdgeInsets.symmetric(
+                                  horizontal: 12.0,
+                                  vertical: 4.0,
+                                ),
+                                decoration: BoxDecoration(
+                                  color: Theme.of(context)
+                                      .colorScheme
+                                      .primaryContainer
+                                      .withValues(alpha: .8),
+                                  borderRadius: const BorderRadius.all(
+                                    Radius.circular(4),
+                                  ),
+                                ),
+                                child: Text(
+                                  play.displayName,
+                                  style: AppTextStyles.titleMedium(),
+                                  maxLines: 1,
+                                  overflow: TextOverflow.ellipsis,
                                 ),
                               ),
-                            ),
+                              Row(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  // تفاصيل النطاق
+                                  Text(
+                                    '${play.fromSurahName.replaceAll('سُورَةُ ', '')} (${generalCtrl.state.arabicNumber.convert(play.fromAyah)}) \u2190 ${play.toSurahName.replaceAll('سُورَةُ ', '')} (${generalCtrl.state.arabicNumber.convert(play.toAyah)})',
+                                    style: AppTextStyles.titleSmall(),
+                                  ),
+                                  const Gap(8),
+                                  Text(
+                                    '${generalCtrl.state.arabicNumber.convert(play.totalAyahs)} ${'ayah'.tr}',
+                                    style: AppTextStyles.titleSmall(),
+                                  ),
+                                ],
+                              ),
+                            ],
                           ),
-                        ),
-                        onTap: () {
-                          playList.isSelect.value = true;
-                          playList.choiceFromPlayList(
-                            play.startNum,
-                            play.endNum,
-                            play.startUQNum,
-                            play.endUQNum,
-                            play.surahNum,
-                            audioCtrl.ayahReaderValue,
-                          );
-                          playList.loadPlaylist();
-                        },
-                      );
-                    }),
+                        ],
+                      ),
+                    ),
                   ),
-                ),
-              ],
-            ),
+                  // زر التصدير
+                  CustomButton(
+                    height: 30,
+                    width: 30,
+                    iconSize: 25,
+                    isCustomSvgColor: true,
+                    svgPath: SvgPath.svgHomeShare,
+                    svgColor: Get.theme.colorScheme.primary,
+                    onPressed: () => playList.exportPlaylist(play),
+                  ),
+                ],
+              );
+            }),
           ),
-        ],
+        ),
       ),
     );
   }

@@ -5,8 +5,9 @@ import 'package:get/get.dart';
 import 'package:wakelock_plus/wakelock_plus.dart';
 
 import '/presentation/screens/home/home_screen.dart';
+import '../../../core/utils/constants/shared_preferences_constants.dart';
 import '../../screens/adhkar/screens/adhkar_view.dart';
-import '../../screens/books/screens/books_screen.dart';
+import '../../screens/books/books.dart';
 import '../../screens/quran_page/quran.dart';
 import '../../screens/surah_audio/surah_audio.dart';
 import 'general_state.dart';
@@ -28,6 +29,10 @@ class GeneralController extends GetxController {
         print('Failed to enable wakelock: $e');
       }
     });
+    state.screenSelectedValue.value =
+        state.box.read(SCREEN_SELECTED_VALUE) ?? 0;
+    state.isUseEnglishNumbers.value =
+        state.box.read('isUseEnglishNumbers') ?? false;
     // WidgetsBinding.instance.addObserver(this);
 
     super.onInit();
@@ -37,6 +42,7 @@ class GeneralController extends GetxController {
   void onClose() {
     _audioWidgetTimer?.cancel();
     _audioWidgetTimer = null;
+    state.expansionManager.dispose();
     super.onClose();
   }
 
@@ -75,7 +81,7 @@ class GeneralController extends GetxController {
       case 3:
         return const AdhkarView();
       case 4:
-        return const AudioScreen();
+        return AudioScreen();
       case 5:
         return BooksScreen();
       default:

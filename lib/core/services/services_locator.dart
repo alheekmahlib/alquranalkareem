@@ -1,7 +1,5 @@
 import 'dart:io' show Platform;
-import 'dart:ui' show Size;
 
-import 'package:desktop_window/desktop_window.dart';
 import 'package:flutter_timezone/flutter_timezone.dart';
 import 'package:get/get.dart';
 import 'package:get_it/get_it.dart';
@@ -13,14 +11,15 @@ import '/presentation/controllers/general/general_controller.dart';
 import '/presentation/controllers/settings_controller.dart';
 import '/presentation/controllers/theme_controller.dart';
 import '/presentation/screens/adhkar/controller/adhkar_controller.dart';
-import '/presentation/screens/books/controller/books_controller.dart';
 import '/presentation/screens/ourApp/controller/ourApps_controller.dart';
 import '/presentation/screens/quran_page/quran.dart';
 import '/presentation/screens/quran_page/widgets/search/controller/quran_search_controller.dart';
 import '/presentation/screens/splash/splash.dart';
 import '/presentation/screens/whats_new/whats_new.dart';
+import '../../presentation/screens/books/books.dart';
 import '../utils/helpers/ui_helper.dart';
 import '../widgets/local_notification/controller/local_notifications_controller.dart';
+import 'ayah_audio_share_service.dart';
 
 final sl = GetIt.instance;
 
@@ -30,17 +29,7 @@ class ServicesLocator {
   //   sl.registerSingleton<SharedPreferences>(v);
   // });
 
-  Future _windowSize() async {
-    if (Platform.isMacOS || Platform.isWindows || Platform.isLinux)
-      await DesktopWindow.setWindowSize(const Size(900, 840));
-  }
-
   Future<void> init() async {
-    await Future.wait([
-      // _initPrefs(), // moved to notificationsCtrl
-      _windowSize(),
-    ]);
-
     // Controllers
     sl.registerLazySingleton<ThemeController>(
       () => Get.put<ThemeController>(ThemeController(), permanent: true),
@@ -83,6 +72,13 @@ class ServicesLocator {
 
     sl.registerLazySingleton<ShareController>(
       () => Get.put<ShareController>(ShareController(), permanent: true),
+    );
+
+    sl.registerLazySingleton<AyahAudioShareService>(
+      () => Get.put<AyahAudioShareService>(
+        AyahAudioShareService(),
+        permanent: true,
+      ),
     );
 
     sl.registerLazySingleton<PlayListController>(

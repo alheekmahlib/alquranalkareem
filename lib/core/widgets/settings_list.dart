@@ -1,17 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 
-import '/core/utils/constants/extensions/svg_extensions.dart';
-import '/core/widgets/select_screen_build.dart';
+import '/core/utils/constants/svg_constants.dart';
+import '/core/widgets/container_button.dart';
+import '/core/widgets/title_widget.dart';
 import '/presentation/controllers/theme_controller.dart';
 import '../../presentation/controllers/general/general_controller.dart';
 import '../../presentation/screens/about_app/about_app.dart';
 import '../../presentation/screens/calendar/widgets/calender_settings.dart';
-import '../../presentation/screens/ourApp/screen/ourApps_screen.dart';
+import '../../presentation/screens/ourApp/screen/our_apps_screen.dart';
 import '../../presentation/screens/quran_page/quran.dart';
-import '../utils/constants/extensions/extensions.dart';
-import '../utils/constants/svg_constants.dart';
+import '../utils/constants/extensions/svg_extensions.dart';
+import '../utils/helpers/app_text_styles.dart';
 import 'language_list.dart';
 import 'mushaf_settings.dart';
 import 'select_screen.dart';
@@ -20,8 +22,13 @@ import 'theme_change.dart';
 class SettingsList extends StatelessWidget {
   final bool? isQuranSetting;
   final bool? isCalendarSetting;
-  SettingsList({Key? key, this.isQuranSetting, this.isCalendarSetting = false})
-      : super(key: key);
+  final bool? isStartScreen;
+  SettingsList({
+    Key? key,
+    this.isQuranSetting,
+    this.isCalendarSetting = false,
+    this.isStartScreen = false,
+  }) : super(key: key);
   final generalCtrl = GeneralController.instance;
   final quranCtrl = QuranController.instance;
 
@@ -29,204 +36,95 @@ class SettingsList extends StatelessWidget {
   Widget build(BuildContext context) {
     final size = MediaQuery.sizeOf(context);
 
-    return GetBuilder<ThemeController>(builder: (_) {
-      return Container(
-        height: size.height * .9,
-        width: size.width,
-        decoration: BoxDecoration(
+    return GetBuilder<ThemeController>(
+      builder: (_) {
+        return Container(
+          height: size.height,
+          width: size.width,
+          margin: const EdgeInsets.symmetric(horizontal: 8.0),
+          decoration: BoxDecoration(
             color: Theme.of(context).colorScheme.primaryContainer,
             borderRadius: const BorderRadius.only(
               topLeft: Radius.circular(8),
               topRight: Radius.circular(8),
-            )),
-        child: SafeArea(
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Obx(() => generalCtrl.state.showSelectScreenPage.value
-                ? const SelectScreenBuild(
-                    isButtonBack: true,
-                    isButton: false,
-                  )
-                : Column(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            context.customClose(),
-                            const Gap(8),
-                            context.vDivider(height: 20),
-                            const Gap(8),
-                            Text(
-                              'setting'.tr,
-                              style: TextStyle(
-                                  color: Theme.of(context).hintColor,
-                                  fontFamily: 'kufi',
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 20),
-                            ),
-                          ],
-                        ),
-                      ),
-                      const Gap(8),
-                      Flexible(
-                        child: ListView(
-                          children: [
-                            const Gap(32),
-                            const LanguageList(),
-                            isQuranSetting!
-                                ? const Gap(24)
-                                : const SizedBox.shrink(),
-                            isQuranSetting!
-                                ? MushafSettings()
-                                : const SizedBox.shrink(),
-                            isCalendarSetting!
-                                ? const Gap(24)
-                                : const SizedBox.shrink(),
-                            isCalendarSetting!
-                                ? const CalenderSettings()
-                                : const SizedBox.shrink(),
-                            const Gap(24),
-                            const ThemeChange(),
-                            const Gap(24),
-                            const SelectScreen(),
-                            const Gap(24),
-                            Container(
-                              margin:
-                                  const EdgeInsets.symmetric(horizontal: 16.0),
-                              padding: const EdgeInsets.all(4.0),
-                              decoration: BoxDecoration(
-                                  border: Border.all(
-                                      color:
-                                          Theme.of(context).colorScheme.surface,
-                                      width: 1),
-                                  borderRadius: const BorderRadius.all(
-                                      Radius.circular(8))),
-                              child: Column(
-                                children: [
-                                  Container(
-                                    padding: const EdgeInsets.symmetric(
-                                        horizontal: 16.0),
-                                    decoration: BoxDecoration(
-                                        color: Theme.of(context)
-                                            .colorScheme
-                                            .surface
-                                            .withValues(alpha: .2),
-                                        borderRadius: const BorderRadius.all(
-                                            Radius.circular(8))),
-                                    child: InkWell(
-                                      child: SizedBox(
-                                        height: 45,
-                                        child: Row(
-                                          children: [
-                                            Expanded(
-                                                flex: 2,
-                                                child: customSvgWithColor(
-                                                    SvgPath.svgAlheekmahLogo,
-                                                    width: 60.0,
-                                                    color: Get.theme.colorScheme
-                                                        .primary)),
-                                            context.vDivider(height: 20.0),
-                                            Expanded(
-                                              flex: 8,
-                                              child: Text(
-                                                'ourApps'.tr,
-                                                style: TextStyle(
-                                                  fontFamily: 'kufi',
-                                                  fontSize: 16,
-                                                  color: Theme.of(context)
-                                                      .hintColor,
-                                                ),
-                                              ),
-                                            ),
-                                            const Spacer(),
-                                            Expanded(
-                                              flex: 1,
-                                              child: Icon(
-                                                Icons
-                                                    .arrow_forward_ios_outlined,
-                                                color:
-                                                    Theme.of(context).hintColor,
-                                                size: 18,
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                      onTap: () {
-                                        Get.to(() => const OurApps(),
-                                            transition: Transition.downToUp);
-                                      },
-                                    ),
-                                  ),
-                                  const Gap(8),
-                                  Container(
-                                    padding: const EdgeInsets.symmetric(
-                                        horizontal: 16.0),
-                                    decoration: BoxDecoration(
-                                        color: Theme.of(context)
-                                            .colorScheme
-                                            .surface
-                                            .withValues(alpha: .2),
-                                        borderRadius: const BorderRadius.all(
-                                            Radius.circular(8))),
-                                    child: InkWell(
-                                      child: SizedBox(
-                                        height: 45,
-                                        child: Row(
-                                          children: [
-                                            Expanded(
-                                              flex: 2,
-                                              child: customSvgWithCustomColor(
-                                                SvgPath.svgSplashIcon,
-                                                height: 35,
-                                              ),
-                                            ),
-                                            context.vDivider(height: 20.0),
-                                            Expanded(
-                                              flex: 8,
-                                              child: Text(
-                                                'aboutApp'.tr,
-                                                style: TextStyle(
-                                                  fontFamily: 'kufi',
-                                                  fontSize: 16,
-                                                  color: Theme.of(context)
-                                                      .hintColor,
-                                                ),
-                                              ),
-                                            ),
-                                            const Spacer(),
-                                            Expanded(
-                                              flex: 1,
-                                              child: Icon(
-                                                Icons
-                                                    .arrow_forward_ios_outlined,
-                                                color:
-                                                    Theme.of(context).hintColor,
-                                                size: 18,
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                      onTap: () {
-                                        Get.to(() => const AboutApp(),
-                                            transition: Transition.downToUp);
-                                      },
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
-                  )),
+            ),
           ),
-        ),
-      );
-    });
+          child: ListView(
+            children: [
+              const Gap(16),
+              TitleWidget(
+                title: 'setting',
+                textStyle: AppTextStyles.titleLarge(),
+                containerColor: context.theme.primaryColorLight,
+              ),
+              const Gap(16),
+              LanguageList(),
+              isQuranSetting! ? const Gap(24) : const SizedBox.shrink(),
+              isQuranSetting! ? MushafSettings() : const SizedBox.shrink(),
+              isCalendarSetting! ? const Gap(24) : const SizedBox.shrink(),
+              isCalendarSetting!
+                  ? const CalenderSettings()
+                  : const SizedBox.shrink(),
+              const Gap(24),
+              const ThemeChange(),
+              const Gap(24),
+              const SelectScreen(),
+              const Gap(24),
+              Divider(
+                thickness: 1.0,
+                height: 1.0,
+                endIndent: 32.0,
+                indent: 32.0,
+                color: Theme.of(
+                  context,
+                ).primaryColorLight.withValues(alpha: .5),
+              ),
+              const Gap(4),
+              !isStartScreen!
+                  ? Column(
+                      children: [
+                        ContainerButton(
+                          onPressed: () => Get.to(
+                            () => const OurApps(),
+                            transition: Transition.downToUp,
+                          ),
+                          withArrow: true,
+                          width: double.infinity,
+                          title: 'ourApps',
+                          horizontalPadding: 8.0,
+                          verticalPadding: 12.0,
+                          horizontalMargin: 16.0,
+                        ),
+                        const Gap(8),
+                        ContainerButton(
+                          onPressed: () => Get.to(
+                            () => const AboutApp(),
+                            transition: Transition.downToUp,
+                          ),
+                          withArrow: true,
+                          width: double.infinity,
+                          title: 'aboutApp',
+                          horizontalPadding: 8.0,
+                          verticalPadding: 12.0,
+                          horizontalMargin: 16.0,
+                        ),
+                      ],
+                    )
+                  : Column(
+                      children: [
+                        Gap(16.0.h),
+                        customSvgWithCustomColor(
+                          SvgPath.svgHomeQuranLogo,
+                          height: 140,
+                          color: context.theme.primaryColorLight,
+                        ),
+                        const Gap(32.0),
+                      ],
+                    ),
+            ],
+          ),
+        );
+      },
+    );
   }
 }

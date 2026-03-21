@@ -24,6 +24,8 @@ class LocalizationController extends GetxController implements GetxService {
   Locale get locale => _locale;
   List<LanguageModel> get languages => _languages;
 
+  bool get isArabic => _locale.languageCode == 'ar';
+
   void loadCurrentLanguage() {
     // قراءة لغة التطبيق المحفوظة من التخزين
     final savedLanguageCode = box.read(AppConstants.LANGUAGE_CODE);

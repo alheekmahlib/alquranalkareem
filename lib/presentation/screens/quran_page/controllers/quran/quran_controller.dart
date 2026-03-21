@@ -15,7 +15,6 @@ class QuranController extends GetxController {
     state.itemPositionsListener.itemPositions.addListener(
       currentListPageNumber,
     );
-    state.isPageMode.value = state.box.read(PAGE_MODE) ?? false;
     state.backgroundPickerColor.value =
         state.box.read(BACKGROUND_PICKER_COLOR) ?? 0xfffaf7f3;
     // await QuranLibrary().fetchTafsir(pageNumber: QuranCtrl.instance.state.currentPageNumber.value);
@@ -54,7 +53,7 @@ class QuranController extends GetxController {
   }
 
   void loadQuran() {
-    state.surahs = QuranLibrary.quranCtrl.state.surahs;
+    state.surahs = QuranLibrary.quranCtrl.surahs;
     state.allAyahs = QuranLibrary.quranCtrl.state.allAyahs;
     state.pages = QuranLibrary.quranCtrl.state.pages;
   }
@@ -109,10 +108,6 @@ class QuranController extends GetxController {
         state.box.write(MSTART_PAGE, pageOneBased);
       });
     } else {}
-  }
-
-  void loadSwitchValue() {
-    state.isPages.value = state.box.read(SWITCH_VALUE) ?? 0;
   }
 
   void getLastPage() {

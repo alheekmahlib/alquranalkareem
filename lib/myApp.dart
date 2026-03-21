@@ -1,4 +1,3 @@
-import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -54,20 +53,16 @@ class MyApp extends StatelessWidget {
             theme: themeCtrl.currentThemeData,
             // دمج BotToast مع تقييد مقياس النص ليبقى 1.0 بغض النظر عن إعدادات الجهاز
             builder: (context, child) {
-              final botToastBuilder = BotToastInit();
-              final botWrappedChild = botToastBuilder(context, child);
               final mq = MediaQuery.of(context);
-              return MediaQuery(
-                data: mq.copyWith(textScaler: fixedScaler),
-                child: botWrappedChild,
+              return Directionality(
+                textDirection: _getTextDirection(localizationCtrl.locale),
+                child: MediaQuery(
+                  data: mq.copyWith(textScaler: fixedScaler),
+                  child: child!,
+                ),
               );
             },
-            navigatorObservers: [BotToastNavigatorObserver()],
-            home: Directionality(
-              // تحديد اتجاه النصوص بناءً على اللغة المختارة
-              textDirection: _getTextDirection(localizationCtrl.locale),
-              child: SplashScreen(),
-            ),
+            home: SplashScreen(),
           ),
         );
       },

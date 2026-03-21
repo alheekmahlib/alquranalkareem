@@ -97,8 +97,16 @@ class AzkarController extends GetxController {
   }
 
   void deleteAdhkar(AdhkarData dhekr) async {
-    await DbBookmarkHelper.deleteAdhkar(dhekr.category, dhekr.zekr);
-    getAdhkar(); // تحديث القائمة بعد الحذف
+    await DbBookmarkHelper.deleteAdhkar(dhekr.category, dhekr.zekr).then((
+      value,
+    ) {
+      Get.context!.showCustomErrorSnackBar(
+        'deletedZekrBookmark'.tr,
+        isDone: false,
+      );
+      getAdhkar();
+      return value;
+    });
   }
 
   void updateAdhkar(AdhkarData adhkar) async {

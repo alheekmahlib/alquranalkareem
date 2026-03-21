@@ -1,57 +1,61 @@
 part of '../../quran.dart';
 
 class AddBookmarkButton extends StatelessWidget {
-  final int surahNum;
-  final int ayahNum;
-  final int ayahUQNum;
+  final SurahModel surah;
+  final AyahModel ayah;
   final int pageIndex;
-  final String surahName;
-  final Function? cancel;
+  final Color? iconColor;
 
   const AddBookmarkButton({
     super.key,
-    required this.surahNum,
-    required this.ayahNum,
-    required this.ayahUQNum,
+    required this.surah,
+    required this.ayah,
     required this.pageIndex,
-    required this.surahName,
-    this.cancel,
+    this.iconColor,
   });
 
   @override
   Widget build(BuildContext context) {
-    return CustomButton(
-      width: 23,
-      isCustomSvgColor: true,
-      svgPath:
-          BookmarksController.instance.hasBookmark(surahNum, ayahUQNum).value
-          ? SvgPath.svgBookmarkIcon2
-          : SvgPath.svgBookmarkIcon,
-      svgColor: context.theme.hintColor,
-      onPressed: () async {
-        if (BookmarksController.instance
-            .hasBookmark(surahNum, ayahUQNum)
-            .value) {
-          BookmarksController.instance.deleteBookmarksText(ayahUQNum);
-        } else {
-          BookmarksController.instance
-              .addBookmarkText(
-                surahName,
-                surahNum,
-                pageIndex + 1,
-                ayahNum,
-                ayahUQNum,
-                sl<GeneralController>().state.timeNow.dateNow,
-              )
-              .then(
-                (value) => context.showCustomErrorSnackBar(
-                  'addBookmark'.tr,
-                  isDone: true,
-                ),
-              );
-        }
-        QuranController.instance.clearSelection();
-        QuranController.instance.state.isPages.value == 1 ? null : cancel!();
+    return GetBuilder<BookmarksController>(
+      id: 'ayah_bookmarked',
+      builder: (bookmarksCtrl) {
+        return CustomButton(
+          height: 40,
+          width: 35,
+          iconSize: 40,
+          isCustomSvgColor: true,
+          svgPath: SvgPath.svgQuranBookmark,
+          svgColor:
+              bookmarksCtrl
+                  .hasBookmark(surah.surahNumber, ayah.ayahUQNumber)
+                  .value
+              ? context.theme.colorScheme.surface
+              : iconColor ?? context.theme.canvasColor,
+          onPressed: () async {
+            if (bookmarksCtrl
+                .hasBookmark(surah.surahNumber, ayah.ayahUQNumber)
+                .value) {
+              bookmarksCtrl.deleteBookmarksText(ayah.ayahUQNumber);
+            } else {
+              bookmarksCtrl
+                  .addBookmarkText(
+                    surah.arabicName,
+                    surah.surahNumber,
+                    pageIndex + 1,
+                    ayah.ayahNumber,
+                    ayah.ayahUQNumber,
+                    sl<GeneralController>().state.timeNow.dateNow,
+                  )
+                  .then(
+                    (value) => context.showCustomErrorSnackBar(
+                      'addBookmark'.tr,
+                      isDone: true,
+                    ),
+                  );
+            }
+            QuranController.instance.clearSelection();
+          },
+        );
       },
     );
   }

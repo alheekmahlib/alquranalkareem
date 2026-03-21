@@ -1,135 +1,111 @@
-import 'package:expansion_tile_card/expansion_tile_card.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 
+import '/presentation/controllers/general/general_controller.dart';
 import '../../presentation/controllers/settings_controller.dart';
+import '../../presentation/screens/quran_page/quran.dart';
 import '../services/languages/app_constants.dart';
 import '../services/languages/localization_controller.dart';
-import '../services/services_locator.dart';
+import '../utils/helpers/app_text_styles.dart';
+import 'container_button.dart';
+import 'custom_switch_widget.dart';
+import 'expansion_tile_widget.dart';
 
 class LanguageList extends StatelessWidget {
-  const LanguageList({super.key});
+  LanguageList({super.key});
+
+  final quranCtrl = QuranController.instance;
 
   @override
   Widget build(BuildContext context) {
     return GetBuilder<LocalizationController>(
       builder: (localizationController) => Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              'langChange'.tr,
-              style: TextStyle(
-                  color: Theme.of(context).hintColor,
-                  fontFamily: 'kufi',
-                  fontStyle: FontStyle.italic,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 16),
-            ),
-            const Gap(4),
-            Container(
-              padding: const EdgeInsets.all(4.0),
-              decoration: BoxDecoration(
-                  border: Border.all(
-                      color: Theme.of(context).colorScheme.surface, width: 1),
-                  borderRadius: const BorderRadius.all(Radius.circular(8))),
-              child: ExpansionTileCard(
-                elevation: 0.0,
-                initialElevation: 0.0,
-                expandedTextColor: Theme.of(context).primaryColorDark,
-                baseColor:
-                    Theme.of(context).colorScheme.surface.withValues(alpha: .2),
-                expandedColor:
-                    Theme.of(context).colorScheme.surface.withValues(alpha: .2),
-                title: SizedBox(
-                  width: 100.0,
-                  child: Obx(() {
-                    return Text(
-                      sl<SettingsController>().languageName.value,
-                      style: TextStyle(
-                        fontFamily: 'kufi',
-                        fontSize: 18,
-                        color: Theme.of(context).hintColor,
-                      ),
-                    );
-                  }),
-                ),
-                children: <Widget>[
-                  const Divider(
-                    thickness: 1.0,
-                    height: 1.0,
-                  ),
-                  OverflowBar(
-                      alignment: MainAxisAlignment.spaceAround,
-                      spacing: 32.0,
-                      overflowSpacing: 0.0,
-                      children:
-                          List.generate(AppConstants.languages.length, (index) {
-                        final lang = AppConstants.languages[index];
-                        return InkWell(
-                          child: Container(
-                            constraints:
-                                BoxConstraints(maxWidth: Get.width * 0.8),
-                            child: Row(
-                              children: [
-                                Container(
-                                  height: 30,
-                                  width: 30,
-                                  margin: const EdgeInsets.symmetric(
-                                      vertical: 4.0, horizontal: 16.0),
-                                  decoration: BoxDecoration(
-                                    borderRadius: const BorderRadius.all(
-                                        Radius.circular(20.0)),
-                                    border: Border.all(
-                                        color: 'appLang'.tr == lang.appLang
-                                            ? Theme.of(context)
-                                                .colorScheme
-                                                .surface
-                                            : Theme.of(context)
-                                                .colorScheme
-                                                .primaryContainer
-                                                .withValues(alpha: .5),
-                                        width: 3),
-                                    color:
-                                        Theme.of(context).colorScheme.primary,
-                                  ),
-                                  child: 'appLang'.tr == lang.appLang
-                                      ? Icon(Icons.done,
-                                          size: 14,
-                                          color: Theme.of(context)
-                                              .colorScheme
-                                              .surface)
-                                      : null,
-                                ),
-                                Text(
-                                  lang.languageName,
-                                  style: TextStyle(
-                                    color: 'appLang'.tr == lang.appLang
-                                        ? Theme.of(context).colorScheme.surface
-                                        : Theme.of(context)
-                                            .hintColor
-                                            .withValues(alpha: .5),
-                                    fontSize: 18,
-                                    fontWeight: 'appLang'.tr == lang.appLang
-                                        ? FontWeight.bold
-                                        : FontWeight.normal,
-                                    fontFamily: 'noto',
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                          onTap: () async {
-                            localizationController.changeLangOnTap(index);
-                          },
-                        );
-                      })),
-                ],
+        child: AnimatedSize(
+          curve: Curves.easeInOut,
+          alignment: Alignment.topCenter,
+          duration: const Duration(milliseconds: 300),
+          child: Column(
+            children: [
+              Text('langChange'.tr, style: AppTextStyles.titleMedium()),
+              const Gap(4),
+              Divider(
+                thickness: 1.0,
+                height: 1.0,
+                endIndent: 32.0,
+                indent: 32.0,
+                color: Theme.of(
+                  context,
+                ).primaryColorLight.withValues(alpha: .5),
               ),
-            ),
-          ],
+              Padding(
+                padding: const EdgeInsets.all(4.0),
+                child: ExpansionTileWidget(
+                  getxCtrl: quranCtrl,
+                  manager: GeneralController.instance.state.expansionManager,
+                  name: 'language_expansion_tile',
+                  title: SettingsController.instance.languageName.value,
+                  child: OverflowBar(
+                    alignment: MainAxisAlignment.spaceAround,
+                    spacing: 32.0,
+                    overflowSpacing: 0.0,
+                    children: List.generate(AppConstants.languages.length, (
+                      index,
+                    ) {
+                      final lang = AppConstants.languages[index];
+                      return ContainerButton(
+                        onPressed: () async =>
+                            await localizationController.changeLangOnTap(index),
+                        width: Get.width,
+                        value: 'appLang'.tr == lang.appLang
+                            ? true.obs
+                            : false.obs,
+                        title: lang.languageName,
+                        titleColor: 'appLang'.tr == lang.appLang
+                            ? Theme.of(context).colorScheme.inverseSurface
+                            : Theme.of(context).colorScheme.inversePrimary
+                                  .withValues(alpha: .5),
+                        backgroundColor: 'appLang'.tr == lang.appLang
+                            ? Theme.of(
+                                context,
+                              ).primaryColorLight.withValues(alpha: .2)
+                            : Colors.transparent,
+                      );
+                    }),
+                  ),
+                ),
+              ),
+              localizationController.isArabic
+                  ? Obx(
+                      () => CustomSwitchListTile(
+                        title: 'useEnglishNumbers'.tr,
+                        contentMargin: const EdgeInsets.symmetric(
+                          horizontal: 4.0,
+                        ),
+                        value: GeneralController
+                            .instance
+                            .state
+                            .isUseEnglishNumbers
+                            .value,
+                        onChanged: (_) {
+                          GeneralController.instance.state.isUseEnglishNumbers
+                              .toggle();
+                          GeneralController.instance.state.box.write(
+                            'isUseEnglishNumbers',
+                            GeneralController
+                                .instance
+                                .state
+                                .isUseEnglishNumbers
+                                .value,
+                          );
+                          Get.forceAppUpdate();
+                        },
+                      ),
+                    )
+                  : const SizedBox.shrink(),
+            ],
+          ),
         ),
       ),
     );

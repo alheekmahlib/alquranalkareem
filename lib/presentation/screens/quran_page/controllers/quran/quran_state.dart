@@ -19,11 +19,9 @@ class QuranState {
   final ScrollController scrollIndicatorController = ScrollController();
   final ScrollController ayahsScrollController = ScrollController();
   RxInt selectedIndicatorIndex = 0.obs;
-  PreferDirection preferDirection = PreferDirection.topCenter;
   RxDouble textWidgetPosition = (-240.0).obs;
   RxBool isPlayExpanded = false.obs;
   RxBool isSajda = false.obs;
-  RxInt isPages = 0.obs;
   RxBool isMoreOptions = false.obs;
   ItemScrollController itemScrollController = ItemScrollController();
   final ItemScrollController ayahsItemScrollController = ItemScrollController();
@@ -39,10 +37,10 @@ class QuranState {
   int? lastDisplayedHizbQuarter;
   Map<int, int> pageToHizbQuarterMap = {};
 
-  double surahItemHeight = 90.0;
+  double surahItemHeight = 80.0;
+  double juzItemHeight = 145.0;
   ScrollController? surahController;
   ScrollController? juzListController;
-  RxBool isPageMode = false.obs;
   RxInt backgroundPickerColor = 0xfffaf7f3.obs;
   RxInt temporaryBackgroundColor = 0xfffaf7f3.obs;
 
@@ -52,4 +50,19 @@ class QuranState {
   RxInt selectedSurahNumber = 0.obs;
   var qPackage = QuranLibrary();
   final QuranRepository _quranRepository = QuranRepository();
+
+  /// -------- [New Variables] ----------
+  final tabBarController = FlexibleSheetController();
+  final navBarController = FlexibleSheetController();
+  RxString topBarType = 'none'.obs;
+  RxString navBarType = 'none'.obs;
+  ExpansibleController languageController = ExpansibleController();
+  RxBool isLanguageExpanded = false.obs;
+  Rx<WordRef> ref = const WordRef(
+    ayahNumber: 1,
+    surahNumber: 1,
+    wordNumber: 1,
+  ).obs;
+  FloatingMenuExpendableController floatingController =
+      FloatingMenuExpendableController();
 }

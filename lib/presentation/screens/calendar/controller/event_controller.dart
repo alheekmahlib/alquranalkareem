@@ -1,6 +1,6 @@
 part of '../events.dart';
 
-class EventController extends GetxController {
+class EventController extends GetxController with WidgetsBindingObserver {
   static EventController get instance => Get.isRegistered<EventController>()
       ? Get.find<EventController>()
       : Get.put<EventController>(EventController());
@@ -17,18 +17,38 @@ class EventController extends GetxController {
   int? startYear;
   int? endYear;
   RxInt adjustHijriDays = 0.obs;
-  BoxController boxController = BoxController();
   Rx<HijriDate> calenderMonth = HijriDate.now().obs;
+  late final SheetController controller;
+  Orientation _lastOrientation = Orientation.portrait;
+
+  String get dateFormat => DateFormat('MMM').format(now);
+
+  HijriDate get hijriMin => hijriNow.subtractDays(7);
+  HijriDate get hijriMax => hijriNow.addDays(7);
+  String get languageCode =>
+      Get.locale?.languageCode == 'ar' &&
+          GeneralController.instance.state.isUseEnglishNumbers.value
+      ? 'en'
+      : Get.locale?.languageCode ?? 'ar';
 
   @override
-  void onInit() {
+  Future<void> onInit() async {
     super.onInit();
+    controller = SheetController();
+    WidgetsBinding.instance.addObserver(this);
     adjustHijriDays.value = box.read('adjustHijriDays') ?? 0;
     selectedDate = HijriDate.now();
     initializeMonths();
-    pageController = PageController(initialPage: selectedDate.hMonth - 1);
+    final context = Get.context;
+    if (context != null) {
+      _lastOrientation = MediaQuery.orientationOf(context);
+    }
+    pageController = PageController(
+      initialPage: selectedDate.hMonth - 1,
+      viewportFraction: _lastOrientation == Orientation.portrait ? 0.38 : 1,
+    );
+    await loadJson();
     Future.delayed(const Duration(seconds: 20), () async {
-      await loadJson();
       await ramadhanOrEidGreeting();
     });
   }
@@ -286,21 +306,36 @@ class EventController extends GetxController {
   bool get isLastDayOfMonth => hijriNow.hDay == getLengthOfMonth ? true : false;
 
   @override
+  void didChangeMetrics() {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (!Get.isRegistered<EventController>()) return;
+      if (pageController.hasClients) {
+        final orientation = MediaQuery.orientationOf(Get.context!);
+        if (orientation != _lastOrientation) {
+          _lastOrientation = orientation;
+          final currentPage =
+              pageController.page?.round() ?? (selectedDate.hMonth - 1);
+          pageController.dispose();
+          pageController = PageController(
+            initialPage: currentPage,
+            viewportFraction: orientation == Orientation.portrait ? 0.38 : 1,
+          );
+          update();
+        }
+      }
+    });
+  }
+
+  @override
   void onClose() {
-    pageController.dispose();
+    WidgetsBinding.instance.removeObserver(this);
     super.onClose();
+    pageController.dispose();
+    controller.dispose();
   }
 
   String getWeekdayShortName(int index) {
-    final weekdays = [
-      'Sunday',
-      'Monday',
-      'Tuesday',
-      'Wednesday',
-      'Thursday',
-      'Friday',
-      'Saturday',
-    ];
+    final weekdays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
     return weekdays[index].tr;
   }
 

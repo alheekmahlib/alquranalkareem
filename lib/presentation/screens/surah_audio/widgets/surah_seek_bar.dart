@@ -1,7 +1,15 @@
 part of '../surah_audio.dart';
 
 class SurahSeekBar extends StatelessWidget {
-  const SurahSeekBar({super.key});
+  final Color? customColor;
+  final Color? activeTrackColor;
+  final Color? thumbColor;
+  const SurahSeekBar({
+    super.key,
+    this.customColor,
+    this.activeTrackColor,
+    this.thumbColor,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -38,9 +46,14 @@ class SurahSeekBar extends StatelessWidget {
                       c.state.seekNextSeconds.value =
                           positionData.position.inSeconds;
                     },
-                    activeTrackColor: Theme.of(context).colorScheme.primary,
+                    activeTrackColor:
+                        activeTrackColor ??
+                        Theme.of(context).colorScheme.primary,
                     textColor: Theme.of(context).canvasColor,
+                    timeBackgroundColor: customColor,
                     timeShow: true,
+                    thumbColor:
+                        thumbColor ?? Theme.of(context).colorScheme.primary,
                   );
                 }
                 return const SizedBox.shrink();

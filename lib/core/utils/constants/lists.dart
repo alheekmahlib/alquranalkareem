@@ -1,10 +1,9 @@
 import 'package:get/get.dart';
 
 import '/presentation/screens/home/home_screen.dart';
-import '../../../presentation/controllers/theme_controller.dart';
+import '/presentation/screens/mushaf_orthographic/alwaqf_screen.dart';
 import '../../../presentation/screens/adhkar/screens/adhkar_view.dart';
-import '../../../presentation/screens/alwaqf_screen/alwaqf_screen.dart';
-import '../../../presentation/screens/books/screens/books_screen.dart';
+import '../../../presentation/screens/books/books.dart';
 import '../../../presentation/screens/quran_page/quran.dart';
 import '../../../presentation/screens/surah_audio/surah_audio.dart';
 import 'api_constants.dart';
@@ -81,7 +80,7 @@ final List screensList = [
     'name': 'quranAudio',
     'svgUrl': 'assets/svg/quran_au_ic.svg',
     'imagePath': 'assets/images/audio.png',
-    'route': () => const AudioScreen(),
+    'route': () => AudioScreen(),
     'width': 240.0,
   },
   {
@@ -90,30 +89,6 @@ final List screensList = [
     'imagePath': 'assets/images/tafsir_books.jpg',
     'route': () => BooksScreen(),
     'width': 326.0,
-  },
-];
-
-const List mushafSettingsList = [
-  {'name': 'pages', 'imageUrl': 'assets/images/pages.png'},
-  {'name': 'ayahs', 'imageUrl': 'assets/images/ayahs.png'},
-];
-
-const List themeList = [
-  {
-    'name': AppTheme.blue,
-    'title': 'blueMode',
-    'svgUrl': 'assets/svg/theme0.svg',
-  },
-  {
-    'name': AppTheme.brown,
-    'title': 'brownMode',
-    'svgUrl': 'assets/svg/theme1.svg',
-  },
-  {'name': AppTheme.old, 'title': 'oldMode', 'svgUrl': 'assets/svg/theme3.svg'},
-  {
-    'name': AppTheme.dark,
-    'title': 'darkMode',
-    'svgUrl': 'assets/svg/theme2.svg',
   },
 ];
 

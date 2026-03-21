@@ -36,9 +36,6 @@ class LocalNotificationsController extends GetxController {
       final response = await ApiClient().request(
         endpoint: ApiConstants.notificationsUrl,
         method: HttpMethod.get,
-        // زيادة المهلة عند استدعاء قد يعود ببيانات فارغة أو بطيئة
-        connectTimeoutOverride: const Duration(seconds: 10),
-        receiveTimeoutOverride: const Duration(seconds: 10),
       );
 
       if (response.isRight) {
