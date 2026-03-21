@@ -40,6 +40,7 @@ class TextBuild extends StatelessWidget {
           ayahIconColor: Get.theme.colorScheme.inverseSurface,
           ayahSelectedBackgroundColor: Get.theme.highlightColor,
           bookmarksColor: const Color(0xffCD9974).withValues(alpha: .4),
+          appIconPathForPlayAudioInBackground: 'assets/quran_logo.png',
           isAyahBookmarked: (ayah) => isAyahBookmarked(ayah),
           onSurahBannerPress: (surah) =>
               surahInfoBottomSheet(context, surah.number - 1),
