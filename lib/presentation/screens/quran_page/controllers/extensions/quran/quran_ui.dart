@@ -3,36 +3,18 @@ part of '../../../quran.dart';
 extension QuranUi on QuranController {
   /// -------- [onTap] --------
 
-  void switchMode(int newMode) {
-    state.isPages.value = newMode;
-    state.selectMushafSettingsPage.value = newMode;
-    state.box.write(SWITCH_VALUE, newMode);
-    Get.back();
-    update();
-    if (newMode == 1) {
-      Future.delayed(const Duration(milliseconds: 600)).then((_) {
-        if (state.itemScrollController.isAttached) {
-          state.itemScrollController.jumpTo(
-            index: QuranCtrl.instance.state.currentPageNumber.value - 1,
-          );
-        }
-      });
-    } else {
-      QuranCtrl.instance.state.currentPageNumber.value =
-          state.itemPositionsListener.itemPositions.value.last.index + 1;
-    }
-  }
-
   void changeSurahListOnTap(int page) {
     state._quranRepository.saveLastPage(page);
     // QuranController.instance.state.box.write(MSTART_PAGE, page);
     QuranCtrl.instance.state.currentPageNumber.value = page;
-    if (state.isPages == 1) {
-      state.itemScrollController.jumpTo(index: page - 1);
-    } else {
-      QuranLibrary.quranCtrl.quranPagesController.jumpToPage(page - 1);
+    QuranLibrary.quranCtrl.quranPagesController.jumpToPage(page - 1);
+    if (state.navBarController.isOpen) {
+      state.navBarController.close();
+      setNavBarType = NavBarType.none;
+    } else if (state.tabBarController.isOpen) {
+      state.tabBarController.close();
+      setTopBarType = TopBarType.none;
     }
-    GlobalKeyManager().drawerKey.currentState!.closeSlider();
   }
 
   void toggleAyahSelection(int index) {
@@ -57,8 +39,17 @@ extension QuranUi on QuranController {
   }
 
   void showControl() {
-    GeneralController.instance.state.isShowControl.value =
-        !GeneralController.instance.state.isShowControl.value;
+    if (state.tabBarController.isHandleVisible ||
+        state.navBarController.isHandleVisible) {
+      state.tabBarController.hideHandle();
+      state.navBarController.hideHandle();
+    } else {
+      state.tabBarController.showHandle();
+      state.navBarController.showHandle();
+    }
+    GeneralController.instance.state.isShowControl.toggle();
+    GeneralController.instance.update(['showControl']);
+    QuranCtrl.instance.isShowControl.toggle();
   }
 
   void toggleMenu(String verseKey) {
@@ -86,8 +77,6 @@ extension QuranUi on QuranController {
   }
 
   void pageModeOnTap(bool value) {
-    state.isPageMode.value = value;
-    state.box.write(PAGE_MODE, value);
     update();
     Get.back();
   }
@@ -131,7 +120,7 @@ extension QuranUi on QuranController {
   void clearSelection() {
     if (AudioCtrl.instance.state.audioPlayer.playing) {
       showControl();
-      GeneralController.instance.update(['showControl']);
+      // GeneralController.instance.update(['showControl']);
     } else if (QuranLibrary.quranCtrl.selectedAyahsByUnequeNumber.isNotEmpty) {
       QuranLibrary.quranCtrl.selectedAyahsByUnequeNumber.clear();
       QuranLibrary.quranCtrl.selectedAyahsByUnequeNumber.refresh();
@@ -139,9 +128,44 @@ extension QuranUi on QuranController {
       update(['clearSelection']);
     } else {
       showControl();
-      GeneralController.instance.update(['showControl']);
+      // GeneralController.instance.update(['showControl']);
     }
     // GlobalKeyManager().drawerKey.currentState!.closeSlider();
+  }
+
+  void showControlToggle() {
+    if (AudioCtrl.instance.state.isPlaying.value) {
+      showControl();
+      update([
+        'isShowControl',
+        'selection_page_${QuranCtrl.instance.state.currentPageNumber.value}',
+      ]);
+    } else if (QuranCtrl.instance.selectedAyahsByUnequeNumber.isNotEmpty) {
+      clearSelection();
+    } else {
+      clearSelection();
+      showControl();
+      update([
+        'isShowControl',
+        'selection_page_${QuranCtrl.instance.state.currentPageNumber.value}',
+      ]);
+    }
+  }
+
+  bool getTopBarType(TopBarType type) {
+    return state.topBarType.value == type.name;
+  }
+
+  set setTopBarType(TopBarType type) {
+    state.topBarType.value = type.name;
+  }
+
+  RxBool getNavBarType(NavBarType type) {
+    return (state.navBarType.value == type.name).obs;
+  }
+
+  set setNavBarType(NavBarType type) {
+    state.navBarType.value = type.name;
   }
 
   // void scrollSlowly(BuildContext context, double duration) async {

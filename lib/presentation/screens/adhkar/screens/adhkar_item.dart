@@ -28,29 +28,24 @@ class AdhkarItem extends StatelessWidget {
         child: Directionality(
           textDirection: TextDirection.rtl,
           child: Padding(
-            padding: context.customOrientation(const EdgeInsets.all(0),
-                const EdgeInsets.symmetric(horizontal: 64.0)),
+            padding: context.customOrientation(
+              const EdgeInsets.all(0),
+              const EdgeInsets.symmetric(horizontal: 64.0),
+            ),
             child: ListView.builder(
-                itemCount: azkarCtrl.state.filteredDhekrList.length,
-                itemBuilder: (context, index) {
-                  var zekr = azkarCtrl.state.filteredDhekrList[index];
-                  return Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        const Gap(32),
-                        OptionsRow(
-                          zekr: zekr,
-                          azkarFav: false,
-                        ),
-                        TextWidget(
-                          zekr: zekr,
-                        ),
-                      ],
-                    ),
-                  );
-                }),
+              itemCount: azkarCtrl.state.filteredDhekrList.length,
+              itemBuilder: (context, index) {
+                var zekr = azkarCtrl.state.filteredDhekrList[index];
+                return Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Gap(32),
+                    OptionsRow(zekr: zekr, azkarFav: false),
+                    TextWidget(zekr: zekr),
+                  ],
+                );
+              },
+            ),
           ),
         ),
       ),

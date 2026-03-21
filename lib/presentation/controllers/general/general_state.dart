@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 
+import '../../../core/services/expansion_tile_manager.dart';
 import '../../../core/widgets/time_now.dart';
 
 class GeneralState {
@@ -12,7 +13,7 @@ class GeneralState {
       GlobalKey<NavigatorState>();
   final box = GetStorage();
 
-  RxDouble fontSizeArabic = 20.0.obs;
+  RxDouble fontSizeArabic = 22.0.obs;
   RxBool isShowControl = true.obs;
   RxBool showAudioWidgetTemporarily = false.obs;
   RxString greeting = ''.obs;
@@ -20,9 +21,11 @@ class GeneralState {
   final ScrollController ayahListController = ScrollController();
   double ayahItemWidth = 30.0;
   ArabicNumbers arabicNumber = ArabicNumbers();
-  RxBool showSelectScreenPage = false.obs;
   RxInt screenSelectedValue = 0.obs;
   var now = DateTime.now();
 
   final ItemScrollController waqfScrollController = ItemScrollController();
+
+  final expansionManager = ExpansionTileManager();
+  RxBool isUseEnglishNumbers = false.obs;
 }

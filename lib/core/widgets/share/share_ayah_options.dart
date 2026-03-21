@@ -1,33 +1,32 @@
-import 'package:alquranalkareem/core/utils/constants/extensions/bottom_sheet_extension.dart';
 import 'package:flutter/material.dart';
+import 'package:gap/gap.dart';
 import 'package:get/get.dart';
+import 'package:quran_library/quran.dart';
 
+import '/core/utils/constants/extensions/bottom_sheet_extension.dart';
+import '/core/widgets/container_button.dart';
 import '../../../presentation/screens/quran_page/quran.dart';
+import '../../services/ayah_audio_share_service.dart';
 import '../../services/services_locator.dart';
 import '../../utils/constants/extensions/extensions.dart';
 import '../../utils/constants/svg_constants.dart';
 import '../custom_button.dart';
+import '../title_widget.dart';
 import 'share_ayahToImage.dart';
 
 class ShareAyahOptions extends StatelessWidget {
-  final int ayahNumber;
-  final int ayahUQNumber;
-  final int surahNumber;
-  final String ayahText;
-  final String surahName;
-  final String ayahTextNormal;
-  final Function? cancel;
+  final AyahModel ayah;
+  final SurahModel surah;
   final int pageNumber;
+  final Color? iconColor;
+  final bool? withBack;
   ShareAyahOptions({
     super.key,
-    required this.ayahNumber,
-    required this.ayahUQNumber,
-    required this.surahNumber,
-    required this.ayahText,
-    required this.surahName,
-    required this.ayahTextNormal,
-    this.cancel,
+    required this.ayah,
+    required this.surah,
     required this.pageNumber,
+    this.iconColor,
+    this.withBack = true,
   });
 
   final shareToImage = ShareController.instance;
@@ -35,48 +34,47 @@ class ShareAyahOptions extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CustomButton(
-      height: 25,
-      width: 30,
-      iconSize: 30,
+      height: 40,
+      width: 35,
+      iconSize: 35,
       isCustomSvgColor: true,
-      svgPath: SvgPath.svgShareIcon,
-      svgColor: context.theme.hintColor,
+      svgPath: SvgPath.svgHomeShare,
+      svgColor: iconColor ?? context.theme.canvasColor,
       onPressed: () async {
+        if (withBack == true) {
+          Get.back();
+        }
         // await QuranLibrary().fetchTranslation();
         // shareToImage.fetchTafseerSaadi(surahNumber, ayahNumber, ayahUQNumber);
         customBottomSheet(
+          backgroundColor: Get.theme.colorScheme.primaryContainer,
           Container(
             // height: MediaQuery.sizeOf(context).height * .9,
             // alignment: Alignment.center,
             // padding: const EdgeInsets.all(8.0),
-            decoration: BoxDecoration(
-              color: Get.theme.colorScheme.primaryContainer,
-              borderRadius: const BorderRadius.only(
+            decoration: const BoxDecoration(
+              borderRadius: BorderRadius.only(
                 topLeft: Radius.circular(8),
                 topRight: Radius.circular(8),
               ),
             ),
             child: SafeArea(
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Align(
-                    alignment: Alignment.topRight,
-                    child: Padding(
-                      padding: const EdgeInsets.all(16.0),
-                      child: context.customClose(),
-                    ),
-                  ),
-                  Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      _ayahText(context),
-                      context.hDivider(color: Get.theme.colorScheme.primary),
-                      _ayahToImage(context),
-                      // _imageWithTranslation(context),
-                    ],
-                  ),
-                ],
+              child: SingleChildScrollView(
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    _ayahText(context),
+                    const Gap(4),
+                    context.hDivider(color: Get.theme.colorScheme.primary),
+                    const Gap(4),
+                    _ayahAudio(context),
+                    const Gap(4),
+                    context.hDivider(color: Get.theme.colorScheme.primary),
+                    const Gap(4),
+                    _ayahToImage(context),
+                    // _imageWithTranslation(context),
+                  ],
+                ),
               ),
             ),
           ),
@@ -90,68 +88,37 @@ class ShareAyahOptions extends StatelessWidget {
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16.0),
-          child: Text(
-            'shareText'.tr,
-            style: TextStyle(
-              color: Get.isDarkMode
-                  ? Get.theme.colorScheme.primary
-                  : Get.theme.colorScheme.primary,
-              fontSize: 16,
-              fontFamily: 'kufi',
+        const TitleWidget(title: 'shareText'),
+        ContainerButton(
+          height: 90,
+          width: Get.width,
+          isButton: true,
+          withArrow: true,
+          horizontalMargin: 16.0,
+          verticalPadding: 8.0,
+          backgroundColor: context.theme.colorScheme.primary.withValues(
+            alpha: .15,
+          ),
+          child: SizedBox(
+            width: 300,
+            child: Text(
+              "﴿ ${ayah.text} ﴾",
+              style: TextStyle(
+                color: Get.theme.hintColor,
+                fontSize: 18,
+                fontFamily: 'uthmanic2',
+              ),
+              overflow: TextOverflow.fade,
+              textDirection: TextDirection.rtl,
             ),
           ),
-        ),
-        GestureDetector(
-          child: Container(
-            // height: 60,
-            width: MediaQuery.sizeOf(context).width,
-            padding: const EdgeInsets.all(16.0),
-            margin: const EdgeInsets.only(
-              top: 4.0,
-              bottom: 16.0,
-              right: 16.0,
-              left: 16.0,
-            ),
-            decoration: BoxDecoration(
-              color: Get.theme.colorScheme.primary.withValues(alpha: .15),
-              borderRadius: const BorderRadius.all(Radius.circular(4)),
-            ),
-            child: Row(
-              mainAxisSize: MainAxisSize.min,
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Expanded(
-                  flex: 2,
-                  child: Icon(
-                    Icons.text_fields,
-                    color: Get.theme.colorScheme.surface,
-                    size: 24,
-                  ),
-                ),
-                Expanded(
-                  flex: 8,
-                  child: Text(
-                    "﴿ $ayahText ﴾",
-                    style: TextStyle(
-                      color: Get.theme.hintColor,
-                      fontSize: 16,
-                      fontFamily: 'uthmanic2',
-                    ),
-                    textDirection: TextDirection.rtl,
-                  ),
-                ),
-              ],
-            ),
-          ),
-          onTap: () {
+          onPressed: () {
             shareToImage.shareText(
-              ayahText,
-              surahName,
-              ayahNumber,
+              ayah.text,
+              surah.arabicName,
+              ayah.ayahNumber,
               pageNumber + 1,
-              ayahUQNumber,
+              ayah.ayahUQNumber,
             );
             Get.back();
           },
@@ -163,26 +130,11 @@ class ShareAyahOptions extends StatelessWidget {
   Widget _ayahToImage(BuildContext context) {
     return Column(
       mainAxisSize: MainAxisSize.min,
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                'shareImage'.tr,
-                style: TextStyle(
-                  color: Get.theme.hintColor,
-                  fontSize: 16,
-                  fontFamily: 'kufi',
-                ),
-              ),
-            ],
-          ),
-        ),
+        const TitleWidget(title: 'shareImage'),
         GestureDetector(
           child: Container(
-            // width: MediaQuery.sizeOf(context).width * .4,
             padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 8.0),
             margin: const EdgeInsets.only(
               top: 4.0,
@@ -194,26 +146,17 @@ class ShareAyahOptions extends StatelessWidget {
               color: Get.theme.colorScheme.primary.withValues(alpha: .15),
               borderRadius: const BorderRadius.all(Radius.circular(4)),
             ),
-            // child: Image.memory(
-            //   imageData2,
-            //   // height: 150,
-            //   // width: 150,
-            // ),
-            child: VerseImageCreator(
-              verseNumber: ayahNumber,
-              surahNumber: surahNumber,
-              verseText: ayahText,
-            ),
+            child: VerseImageCreator(ayah: ayah, surah: surah),
           ),
           onTap: () async {
             await sl<ShareController>().createAndShowVerseImage();
             shareToImage.shareVerse(
               context,
-              ayahText,
-              surahName,
-              ayahNumber,
+              ayah.text,
+              surah.arabicName,
+              ayah.ayahNumber,
               pageNumber + 1,
-              ayahUQNumber,
+              ayah.ayahUQNumber,
             );
             // shareVerse(
             //     context, verseNumber, surahNumber, verseText);
@@ -356,4 +299,45 @@ class ShareAyahOptions extends StatelessWidget {
   //     ],
   //   );
   // }
+
+  Widget _ayahAudio(BuildContext context) {
+    final audioService = sl<AyahAudioShareService>();
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        const TitleWidget(title: 'shareAudio'),
+        Obx(
+          () => ContainerButton(
+            height: 90,
+            width: Get.width,
+            isButton: true,
+            withArrow: true,
+            horizontalMargin: 16.0,
+            verticalPadding: 8.0,
+            isDownloading: audioService.isDownloading.value,
+            downloadProgress: audioService.downloadProgress.value,
+            backgroundColor: Get.theme.colorScheme.primary.withValues(
+              alpha: .15,
+            ),
+            svgWithColorPath: SvgPath.svgAudioDownload,
+            svgColor: Get.theme.hintColor,
+            title: audioService.currentReaderName,
+            onPressed: audioService.isDownloading.value
+                ? null
+                : () async {
+                    await shareToImage.shareAudio(
+                      surahName: surah.arabicName,
+                      verseText: ayah.text,
+                      surahNumber: surah.surahNumber,
+                      ayahNumber: ayah.ayahNumber,
+                      pageNumber: pageNumber + 1,
+                      ayahUQNumber: ayah.ayahUQNumber,
+                    );
+                  },
+          ),
+        ),
+      ],
+    );
+  }
 }

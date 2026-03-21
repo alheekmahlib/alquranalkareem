@@ -2,7 +2,7 @@ part of '../whats_new.dart';
 
 class WhatsNewScreen extends StatelessWidget {
   final List<Map<String, dynamic>> newFeatures;
-  WhatsNewScreen({Key? key, required this.newFeatures}) : super(key: key);
+  WhatsNewScreen({super.key, required this.newFeatures});
 
   final controller = PageController(viewportFraction: 1, keepPage: true);
   final whatsNewCtrl = WhatsNewController.instance;
@@ -11,51 +11,48 @@ class WhatsNewScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 32.0),
-      child: Obx(
-        () => generalCtrl.state.showSelectScreenPage.value
-            ? const SelectScreenBuild(
-                isButtonBack: false,
-                isButton: true,
-              )
-            : Column(
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      GestureDetector(
-                        child: Text(
-                          'skip'.tr,
-                          style: TextStyle(
-                            color: Theme.of(context).colorScheme.surface,
-                            fontSize: 12.0.sp,
-                            fontFamily: 'kufi',
-                          ),
-                        ),
-                        onTap: () {
-                          Get.off(() => ScreenTypeL());
-                          whatsNewCtrl
-                              .saveLastShownIndex(newFeatures.last['index']);
-                        },
-                      ),
-                      SmoothPageIndicatorWidget(
-                        controller: controller,
-                        newFeatures: newFeatures,
-                      ),
-                    ],
+      padding: const EdgeInsets.symmetric(vertical: 32.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                GestureDetector(
+                  child: Text(
+                    'skip'.tr,
+                    style: AppTextStyles.titleMedium(
+                      color: context.theme.canvasColor.withValues(alpha: .5),
+                    ),
                   ),
-                  const Gap(16),
-                  const WhatsNewWidget(),
-                  PageViewBuild(
-                    controller: controller,
-                    newFeatures: newFeatures,
-                  ),
-                  ButtonWidget(
-                    controller: controller,
-                    newFeatures: newFeatures,
-                  ),
-                ],
-              ),
+                  onTap: () {
+                    Get.offAll(
+                      const HomeScreen(),
+                      transition: Transition.fadeIn,
+                    );
+                    whatsNewCtrl.saveLastShownIndex(newFeatures.last['index']);
+                  },
+                ),
+                SmoothPageIndicatorWidget(
+                  controller: controller,
+                  newFeatures: newFeatures,
+                ),
+              ],
+            ),
+          ),
+          const Gap(16),
+          TitleWidget(
+            title: "What's New".tr,
+            containerColor: context.theme.colorScheme.surface,
+            textStyle: AppTextStyles.titleLarge(
+              color: context.theme.canvasColor,
+            ),
+          ),
+          PageViewBuild(controller: controller, newFeatures: newFeatures),
+          ButtonWidget(controller: controller, newFeatures: newFeatures),
+        ],
       ),
     );
   }

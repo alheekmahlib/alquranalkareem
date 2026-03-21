@@ -18,5 +18,11 @@
         "titleBar.inactiveBackground": "#1857a499",
         "titleBar.inactiveForeground": "#e7e7e799"
     },
-    "peacock.color": "#1857a4"
+    "peacock.color": "#1857a4",
+    "chat.tools.terminal.autoApprove": {
+        "/^python3 -c 'import json,glob; paths=sorted\\(glob\\.glob\\(\"assets/locales/\\*\\.json\"\\)\\); req=\\[\"mutashabihat\",\"no_mutashabihat\",\"browse_mutashabihat\",\"mutashabihat_in\",\"repeated\",\"times\",\"surahs\",\"ayah\"\\]; missing=\\[\\]\nfor p in paths:\n  d=json\\.load\\(open\\(p,encoding=\"utf-8\"\\)\\)\n  for k in req:\n    if k not in d:\n      missing\\.append\\(\\(p,k\\)\\)\nprint\\(\"OK\" if not missing else \"MISSING\", \"count=\", len\\(paths\\)\\);\n\\[print\\(p,\"missing\",k\\) for p,k in missing\\[:20\\]\\]'\n$/": {
+            "approve": true,
+            "matchCommandLine": true
+        }
+    }
 }

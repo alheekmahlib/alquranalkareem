@@ -6,11 +6,9 @@ list(APPEND FLUTTER_PLUGIN_LIST
   awesome_notifications
   awesome_notifications_core
   connectivity_plus
-  desktop_window
   flutter_timezone
   media_kit_libs_windows_audio
   share_plus
-  sqlite3_flutter_libs
   url_launcher_windows
 )
 

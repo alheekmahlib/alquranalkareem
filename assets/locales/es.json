@@ -110,7 +110,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "about_app3": "۞ Una interfaz nueva y fácil de usar: La aplicación está diseñada con una interfaz de usuario moderna e intuitiva que facilita a los usuarios navegar y acceder a diferentes características.\n۞ Adopción de la edición del Complejo Rey Fahd: La aplicación utiliza la edición del Complejo Rey Fahd para la impresión del Sagrado Corán, conocida por su fiabilidad y perfección, asegurando la precisión e integridad del texto.\n۞ Lectura interactiva y completa: La aplicación ofrece la posibilidad de lectura interactiva con el texto electrónico del Corán, además de escuchar recitaciones, y estudiar y memorizar el Sagrado Corán fácilmente.\n۞ Lectura flexible: Los usuarios pueden leer el Corán como si estuvieran leyendo un mushaf de papel o elegir el modo de verso único para mayor enfoque.\n۞ Característica de búsqueda de texto: La aplicación contiene una característica de búsqueda instantánea en los versículos del Corán, con la posibilidad de moverse directamente a la página o sura deseada.\n۞ Añadir insignias de marcadores: Esta característica permite guardar páginas o versículos para referencia fácil en cualquier momento.\n۞ Escuchar versículos: La aplicación proporciona la posibilidad de escuchar cada versículo recitado por una serie de recitadores famosos.\n۞ Interpretación y traducción de versículos: Los usuarios pueden acceder a la interpretación o traducción de cada versículo, y cambiar entre interpretaciones según lo deseado.\n۞ Navegación fácil entre suras: La aplicación permite una navegación suave y rápida entre suras.\n۞ Lectura de marcas de parada: Esta característica ayuda a entender los lugares apropiados de parada durante la lectura.\n۞ Athkar de la Fortaleza del Musulmán: Es posible leer el Athkar completo de la Fortaleza del Musulmán y navegar entre secciones fácilmente, con la posibilidad de añadir Athkar a favoritos.\n۞ Cambiar estilos de color: La aplicación admite cambiar estilos de color, incluido el modo oscuro, para mejorar la experiencia de lectura.\n۞ Escuchar y descargar: Es posible escuchar las suras o descargarlas para escucharlas más tarde sin necesidad de internet.\n\nEstas características hacen de la aplicación \"El Sagrado Corán - Biblioteca Al-Hikma\" una herramienta integral para cualquiera que desee leer, aprender y contemplar el Sagrado Corán de manera fácil y efectiva.",
+  "about_app3": "۞ Una interfaz moderna y fácil de usar: Un diseño actual e intuitivo que facilita la navegación y el acceso a todas las funciones, con una nueva pantalla para el calendario y la posibilidad de explorar el calendario anual completo.\n۞ Adopción de la edición del Complejo Rey Fahd: La app se basa en la edición del Complejo Rey Fahd para la impresión del Mushaf, conocida por su precisión y fiabilidad.\n۞ Lectura interactiva e integral: Ofrece una experiencia de lectura flexible, ya sea en modo mushaf (páginas) o en modo de aleya única, con interacción completa con el texto.\n۞ Escucha avanzada: Posibilidad de escuchar aleyas y suras con las voces de recitadores destacados, con la función de mostrar las aleyas actuales durante la reproducción, además de poder escuchar cada palabra por separado para mejorar el aprendizaje.\n۞ Búsqueda y navegación rápida: Búsqueda instantánea dentro de las aleyas del Corán con salto directo a la sura o página deseada, y navegación fluida entre suras.\n۞ Tafsir y biblioteca islámica: Acceso a una colección de tafsir y traducciones, además de una biblioteca islámica integrada que incluye libros de hadices y tafsir.\n۞ Tajwid y sus reglas: Soporte para mostrar el tajwid y sus normas con claridad, con la adición de las diez lecturas (Qira'at) para ampliar la comprensión de las formas de recitación.\n۞ Análisis lingüístico avanzado: Muestra el tasrif y el i'rab de cada palabra, ayudando a comprender más profundamente los significados lingüísticos del Corán.\n۞ Aleyas similares: Función dedicada para mostrar aleyas similares y facilitar la memorización y el repaso.\n۞ Gestión de lectura y memorización: Posibilidad de añadir marcadores a aleyas y páginas para volver a ellas en cualquier momento.\n۞ Lectura de signos de parada: Aclara los signos de waqf para ayudar a una lectura correcta.\n۞ Adhkar de Hisn al-Muslim: Sección completa para leer adhkar, con favoritos y navegación rápida entre secciones.\n۞ Personalización de la pantalla: Soporte para cambiar estilos de color, incluido el modo oscuro, para una lectura cómoda.\n۞ Descarga y uso sin internet: Posibilidad de descargar suras y escucharlas más tarde sin conexión.\n\nEstas características hacen de la aplicación \"El Sagrado Corán - Biblioteca Al-Hikma\" una plataforma integral que combina lectura, escucha, tafsir y aprendizaje, ofreciendo una experiencia espiritual y educativa rica y fácil de usar.",
   "@about_app3": {
     "type": "text",
     "placeholders": {}
@@ -152,6 +152,11 @@
   },
   "waqfName": "Señales de alto",
   "@waqfName": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "tajweedRules": "Reglas de Tajweed",
+  "@tajweedRules": {
     "type": "text",
     "placeholders": {}
   },
@@ -420,8 +425,8 @@
     "type": "text",
     "placeholders": {}
   },
-  "tafseer": "Al Tafseer",
-  "@tafseer": {
+  "tafsir": "Al tafsir",
+  "@tafsir": {
     "type": "text",
     "placeholders": {}
   },
@@ -595,6 +600,11 @@
     "type": "text",
     "placeholders": {}
   },
+  "shareAudio": "Como audio",
+  "@shareAudio": {
+    "type": "text",
+    "placeholders": {}
+  },
   "shareImageWTrans": "Como una imagen",
   "@shareImageWTrans": {
     "type": "text",
@@ -690,12 +700,57 @@
     "type": "text",
     "placeholders": {}
   },
+  "surah": "Sura",
+  "@surah": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "chooseSurah": "Elegir Sura",
+  "@chooseSurah": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "segments": "Segmentos",
+  "@segments": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "addSegment": "Añadir Segmento",
+  "@addSegment": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "repeatCount": "Número de repeticiones",
+  "@repeatCount": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "sleepTimer": "Temporizador de sueño",
+  "@sleepTimer": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "hour": "Hora",
+  "@hour": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "minutes": "Minutos",
+  "@minutes": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "of": "de",
+  "@of": {
+    "type": "text",
+    "placeholders": {}
+  },
   "quran": "El Sagrado Corán",
   "@quran": {
     "type": "text",
     "placeholders": {}
   },
-  "quranAudio": "Escuchar el Corán",
+  "quranAudio": "Mushaf en audio",
   "@quranAudio": {
     "type": "text",
     "placeholders": {}
@@ -1155,7 +1210,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "What'sNewDetails10": "۞ Se solucionó el problema de descarga de suras.\n۞ Mejoras generales en el rendimiento y estabilidad de la aplicación.",
+  "What'sNewDetails10": "۞ Interfaz nueva y fácil de usar.\n۞ Se añadió el tajwīd.\n۞ Se añadieron las reglas de tajwīd.\n۞ Se añadieron las diez lecturas (qirā’āt).\n۞ Se añadió la conjugación y el i‘rāb de las palabras.\n۞ Se añadió la escucha de la palabra.\n۞ Se añadieron los versículos similares.\n۞ Se añadió la escucha de suras mostrando el versículo actual.\n۞ Se añadió la biblioteca islámica (hadices y tafsir).\n۞ Nueva interfaz del calendario con opción de mostrar el calendario anual completo.",
   "@What'sNewDetails10": {
     "type": "text",
     "placeholders": {}
@@ -1276,11 +1331,83 @@
   "month": "Mes",
   "hijri": "Hijri",
   "Sun": "Dom",
+  "@Sun": {
+    "type": "text",
+    "placeholders": {}
+  },
   "Mon": "Lun",
+  "@Mon": {
+    "type": "text",
+    "placeholders": {}
+  },
   "Tue": "Mar",
+  "@Tue": {
+    "type": "text",
+    "placeholders": {}
+  },
   "Wed": "Mié",
+  "@Wed": {
+    "type": "text",
+    "placeholders": {}
+  },
   "Thu": "Jue",
+  "@Thu": {
+    "type": "text",
+    "placeholders": {}
+  },
   "Fri": "Vie",
+  "@Fri": {
+    "type": "text",
+    "placeholders": {}
+  },
   "Sat": "Sáb",
-  "manager_ayah_downloads": "Gestionar Descargas de Ayah"
+  "@Sat": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "manager_ayah_downloads": "Gestionar Descargas de Ayah",
+  "load_error": "No se pudieron cargar los datos de esta palabra.",
+  "no_data": "No hay datos para esta palabra.",
+  "recitations": "Recitaciones",
+  "tasreef": "Conjugación",
+  "eerab": "I'rab",
+  "unavailableDataTemplate": "Los datos de @kind no están descargados en el dispositivo",
+  "@unavailableDataTemplate": {
+    "type": "text",
+    "placeholders": {
+      "kind": {}
+    }
+  },
+  "mushafOrthographicMarks": "Diacríticos del Mushaf",
+  "bookRemovedFromLastRead": "El libro se eliminó de Última lectura",
+  "hadiths": "Hadices",
+  "sixthBooks": "Los seis libros",
+  "ninthBooks": "Los nueve libros",
+  "noHadithBooks": "No hay libros de hadices descargados en este dispositivo.",
+  "noTafsirBooks": "No hay libros de tafsir descargados en este dispositivo.",
+  "noBooks": "No hay libros.",
+  "bookJuz": "Partes del libro",
+  "downloadBookFirstToSeeTheContents": "Descarga el libro primero para ver el contenido",
+  "chapter": "Capítulo",
+  "goToStartOfJuz": "Ir al inicio de la parte",
+  "noBooksReadedYet": "Aún no has leído ningún libro.",
+  "noBooksFoundForSearch": "No se encontraron libros.",
+  "islamicLibrary": "Biblioteca islámica",
+  "tajweed": "Con tajwid",
+  "useEnglishNumbers": "Usar números en inglés",
+  "changeTafsir": "Cambiar tafsir",
+  "mutashabihat": "Versículos similares",
+  "no_mutashabihat": "No hay frases similares para esta aleya",
+  "browse_mutashabihat": "Explorar versículos similares",
+  "mutashabihat_in": "Versículos similares en",
+  "repeated": "Repetición",
+  "times": "veces",
+  "surahs": "Suras",
+  "ayah": "Aleya",
+  "tajweedUnavailableText": "No se han descargado los datos de las reglas de taywīd.",
+  "tajweedSurahNumberErrorText": "No se pudo determinar el número de la sura",
+  "tajweedLoadErrorText": "No se pudieron cargar los datos de las reglas de taywīd",
+  "tajweedNoDataText": "No hay datos de taywīd para esta aleya.",
+  "twoDays": "Dos días",
+  "searchInBook": "Buscar en el libro"
 }

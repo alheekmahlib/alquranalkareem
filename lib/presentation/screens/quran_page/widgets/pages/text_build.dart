@@ -1,9 +1,7 @@
 part of '../../quran.dart';
 
 class TextBuild extends StatelessWidget {
-  final int pageIndex;
-
-  TextBuild({super.key, required this.pageIndex});
+  TextBuild({super.key});
 
   final audioCtrl = AudioCtrl.instance;
   final quranCtrl = QuranController.instance;
@@ -12,28 +10,40 @@ class TextBuild extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final bookmarkTextList = BookmarksController.instance.bookmarkTextList;
+    bool isAyahBookmarked(AyahModel ayah) =>
+        BookmarksController.instance.hasBookmark(
+              ayah.surahNumber!,
+              ayah.ayahUQNumber,
+            ) ==
+            true
+        ? true
+        : false;
     return Center(
       child: GetBuilder<QuranController>(
         id: 'clearSelection',
         builder: (quranCtrl) => QuranLibraryScreen(
           parentContext: context,
           isDark: themeCtrl.isDarkMode,
-          isFontsLocal: true,
-          withPageView: false,
+          isShowTabBar: false,
+          withPageView: true,
+          isFontsLocal: false,
           useDefaultAppBar: false,
           isShowAudioSlider: false,
-          showAyahBookmarkedIcon: false,
-          // isShowTabBar: true,
-          pageIndex: pageIndex,
-          appLanguageCode: Get.locale!.languageCode,
-          bookmarkList: BookmarksController.instance.bookmarkTextList,
-          fontsName: 'page${pageIndex + 1}',
+          enableWordSelection: false,
+          showAyahBookmarkedIcon: true,
+          bookmarkList: bookmarkTextList,
           backgroundColor: Colors.transparent,
+          appLanguageCode: Get.locale!.languageCode,
+          onPagePress: () => quranCtrl.clearSelection(),
           textColor: Get.theme.colorScheme.inversePrimary,
+          ayahIconColor: Get.theme.colorScheme.inverseSurface,
           ayahSelectedBackgroundColor: Get.theme.highlightColor,
           bookmarksColor: const Color(0xffCD9974).withValues(alpha: .4),
-          ayahBookmarked: BookmarksController.instance.hasBookmark2(pageIndex),
-          ayahIconColor: Get.theme.colorScheme.inverseSurface,
+          appIconPathForPlayAudioInBackground: 'assets/quran_logo.png',
+          isAyahBookmarked: (ayah) => isAyahBookmarked(ayah),
+          onSurahBannerPress: (surah) =>
+              surahInfoBottomSheet(context, surah.number - 1),
           topBottomQuranStyle:
               TopBottomQuranStyle.defaults(
                 isDark: themeCtrl.isDarkMode,
@@ -42,7 +52,7 @@ class TextBuild extends StatelessWidget {
                 juzName: 'juz'.tr,
                 sajdaName: 'sajda'.tr,
                 hizbName: 'hizb'.tr,
-                topTitleChild: GestureDetector(
+                customChildBuilder: (context, pageIndex) => GestureDetector(
                   onTap: () => bookmarkCtrl.addPageBookmarkOnTap(pageIndex),
                   child: _BookmarkIcon(
                     height: context.customOrientation(30.h, 40.h),
@@ -50,84 +60,19 @@ class TextBuild extends StatelessWidget {
                   ),
                 ),
               ),
-          surahInfoStyle: SurahInfoStyle(
-            ayahCount: 'aya_count'.tr,
-            backgroundColor: Get.theme.colorScheme.primaryContainer,
-            closeIconColor: Get.theme.colorScheme.inversePrimary,
-            firstTabText: 'surahNames'.tr,
-            secondTabText: 'aboutSurah'.tr,
-            indicatorColor: Get.theme.colorScheme.surface,
-            primaryColor: Get.theme.colorScheme.surface.withValues(alpha: .2),
-            surahNameColor: Get.theme.colorScheme.primary,
-            surahNumberColor: Get.theme.hintColor,
-            textColor: Get.theme.colorScheme.inversePrimary,
-            titleColor: Get.theme.hintColor,
-          ),
-          onPagePress: () => quranCtrl.clearSelection(),
           onAyahLongPress: (details, ayah) {
             final surah = QuranLibrary().getCurrentSurahDataByAyah(ayah: ayah);
-            context.showAyahMenu(
-              surahNum: surah.surahNumber,
-              ayahNum: ayah.ayahNumber,
-              ayahText: ayah.text,
-              pageIndex: pageIndex,
-              ayahTextNormal: ayah.ayaTextEmlaey,
-              ayahUQNum: ayah.ayahUQNumber,
-              surahName: surah.arabicName,
-              details: details,
+            AyahMenuHelper.show(
+              context,
+              surah: surah,
+              ayah: ayah,
+              pageIndex: ayah.page - 1,
             );
             log('ayahUQNumber: ${ayah.ayahUQNumber}');
             // quranCtrl.toggleAyahSelection(ayah.ayahUQNumber);
           },
-          tafsirStyle:
-              TafsirStyle.defaults(
-                isDark: themeCtrl.isDarkMode,
-                context: context,
-              ).copyWith(
-                backgroundColor: Get.theme.colorScheme.primary,
-                textColor: Get.theme.canvasColor,
-                backgroundTitleColor: Get.theme.colorScheme.surface.withValues(
-                  alpha: .5,
-                ),
-                fontSizeWidget: fontSizeDropDownWidget(),
-                fontSize: GeneralController.instance.state.fontSizeArabic.value,
-                currentTafsirColor: Get.theme.colorScheme.surface,
-                selectedTafsirBorderColor: Get.theme.colorScheme.surface,
-                selectedTafsirColor: Get.theme.colorScheme.surface,
-                unSelectedTafsirColor: Get.theme.canvasColor.withValues(
-                  alpha: .8,
-                ),
-                selectedTafsirTextColor: Get.theme.colorScheme.surface,
-                unSelectedTafsirTextColor: Get.theme.canvasColor.withValues(
-                  alpha: .8,
-                ),
-                unSelectedTafsirBorderColor: Colors.transparent,
-                dividerColor: Get.theme.colorScheme.surface.withValues(
-                  alpha: .5,
-                ),
-                textTitleColor: context.theme.canvasColor,
-                horizontalMargin: 16.0,
-                tafsirBackgroundColor: Get.theme.colorScheme.primaryContainer,
-                tafsirNameWidget: customSvgWithCustomColor(
-                  SvgPath.svgTafseerWhite,
-                  color: Get.theme.canvasColor,
-                  height: 25,
-                ),
-                dialogCloseIconColor: context.theme.canvasColor,
-                dialogHeaderBackgroundGradient: LinearGradient(
-                  colors: [
-                    Get.theme.colorScheme.surface,
-                    Get.theme.colorScheme.surface.withValues(alpha: .7),
-                  ],
-                  begin: AlignmentDirectional.topStart,
-                  end: AlignmentDirectional.bottomEnd,
-                ),
-                dialogHeaderTitleColor: context.theme.canvasColor,
-                footnotesName: 'footnotes'.tr,
-                tafsirName: 'tafseer'.tr,
-                translateName: 'translation'.tr,
-                dialogHeaderTitle: 'chapterTafsir'.tr,
-              ),
+          tafsirStyle: quranCtrl.tafsirStyle,
+          ayahTafsirInlineStyle: quranCtrl.ayahTafsirInlineStyle,
         ),
       ),
     );
@@ -141,26 +86,24 @@ class _BookmarkIcon extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GetBuilder<QuranCtrl>(
-      id: 'pageBookmarked',
-      builder: (bookmarkCtrl) {
-        return Semantics(
-          button: true,
-          enabled: true,
-          label: 'Add Bookmark',
-          child: customSvg(
-            BookmarksController.instance
-                    .hasPageBookmark(
-                      pageNum ??
-                          QuranCtrl.instance.state.currentPageNumber.value,
-                    )
-                    .value
-                ? SvgPath.svgBookmarked
-                : Get.context!.bookmarkPageIconPath(),
-            height: height,
-          ),
-        );
-      },
-    );
+    return Obx(() {
+      final isBookmarked = BookmarksController.instance
+          .hasPageBookmark(
+            pageNum ?? QuranCtrl.instance.state.currentPageNumber.value,
+          )
+          .value;
+      return Semantics(
+        button: true,
+        enabled: true,
+        label: 'Add Bookmark',
+        child: customSvgWithCustomColor(
+          SvgPath.svgQuranBookmarkIcon,
+          color: isBookmarked
+              ? Get.theme.colorScheme.surface
+              : Get.theme.colorScheme.primary,
+          height: height,
+        ),
+      );
+    });
   }
 }

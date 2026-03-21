@@ -9,7 +9,10 @@ extension TafsirUi on QuranController {
   ) async {
     await Clipboard.setData(
       ClipboardData(text: '﴿$ayahTextNormal﴾\n\n$tafsirName\n$tafsir'),
-    ).then((value) => Get.context!.showCustomErrorSnackBar('copyTafseer'.tr));
+    ).then(
+      (value) =>
+          Get.context!.showCustomErrorSnackBar('copyTafseer'.tr, isDone: true),
+    );
   }
 
   // Future<void> showTafsirOnTap(

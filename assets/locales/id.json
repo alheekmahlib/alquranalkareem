@@ -109,7 +109,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "about_app3": "۞ Antarmuka baru dan mudah digunakan: Aplikasi ini dirancang dengan antarmuka modern dan intuitif yang memudahkan pengguna untuk bernavigasi dan mengakses fitur-fitur.\n۞ Menggunakan Edisi King Fahd: Aplikasi ini menggunakan edisi King Fahd yang terkenal dengan keandalannya dan ketepatannya, menjamin keakuratan teks.\n۞ Membaca interaktif: Aplikasi ini memungkinkan membaca interaktif, mendengarkan bacaan, dan mempelajari serta menghafal Al-Qur'an dengan mudah.\n۞ Membaca fleksibel: Pengguna dapat membaca Al-Qur'an seperti mushaf cetak atau menggunakan mode satu ayat untuk fokus yang lebih.\n۞ Fitur pencarian teks: Aplikasi ini memiliki pencarian langsung pada ayat-ayat Al-Qur'an dengan opsi langsung menuju halaman atau surah yang dicari.\n۞ Menambah penanda halaman: Fitur ini memungkinkan menyimpan halaman atau ayat untuk akses mudah kapan saja.\n۞ Mendengarkan ayat: Aplikasi ini memungkinkan mendengarkan ayat-ayat dari berbagai qari terkenal.\n۞ Tafsir dan terjemahan: Pengguna dapat mengakses tafsir atau terjemahan setiap ayat dan berganti antara tafsir sesuai keinginan.\n۞ Navigasi mudah antar surah: Aplikasi ini memungkinkan navigasi antar surah dengan cepat dan mudah.\n۞ Membaca tanda waqaf: Fitur ini membantu memahami tempat-tempat berhenti saat membaca.\n۞ Dzikir: Pengguna dapat membaca Dzikir lengkap dan menambah dzikir ke favorit.\n۞ Mengubah tema warna: Aplikasi ini mendukung perubahan tema warna, termasuk mode gelap untuk kenyamanan membaca.\n۞ Mendengarkan dan mengunduh: Pengguna dapat mendengarkan atau mengunduh surah untuk didengarkan nanti tanpa internet.\n\nFitur-fitur ini menjadikan aplikasi \"Al-Qur'an Al-Karim - Perpustakaan Hikmah\" alat yang komprehensif bagi siapa saja yang ingin membaca, belajar, dan memahami Al-Qur'an dengan cara yang mudah dan efektif.",
+  "about_app3": "۞ Antarmuka modern dan mudah digunakan: Desain yang modern dan intuitif memudahkan navigasi dan akses ke semua fitur, dengan tampilan kalender baru serta kemampuan menelusuri kalender tahunan secara lengkap.\n۞ Mengadopsi cetakan Kompleks Raja Fahd: Aplikasi ini menggunakan cetakan Kompleks Raja Fahd untuk Mushaf, yang dikenal akurat dan tepercaya.\n۞ Membaca interaktif dan menyeluruh: Pengalaman membaca yang fleksibel, baik mode mushaf (halaman) maupun mode satu ayat, dengan interaksi penuh dengan teks.\n۞ Mendengarkan tingkat lanjut: Mendengarkan ayat dan surah dari para qari pilihan, dengan fitur menampilkan ayat yang sedang diputar, serta kemampuan mendengarkan tiap kata secara terpisah untuk meningkatkan pembelajaran.\n۞ Pencarian dan navigasi cepat: Pencarian instan di ayat-ayat Al-Qur'an dengan kemampuan langsung menuju surah atau halaman yang diinginkan, dan navigasi mulus antar surah.\n۞ Tafsir dan perpustakaan Islam: Akses berbagai tafsir dan terjemahan, serta perpustakaan Islam terintegrasi yang mencakup kitab hadits dan tafsir.\n۞ Tajwid dan kaidahnya: Dukungan tampilan tajwid dan kaidahnya dengan jelas, serta penambahan Qira'at 'Asyr (sepuluh qira'at) untuk memperluas pemahaman cara membaca.\n۞ Analisis bahasa tingkat lanjut: Menampilkan tashrif dan i'rab untuk setiap kata sehingga membantu pemahaman makna bahasa dalam Al-Qur'an.\n۞ Ayat-ayat serupa: Fitur khusus untuk menampilkan ayat-ayat yang serupa agar memudahkan hafalan dan murajaah.\n۞ Manajemen membaca dan hafalan: Menambahkan penanda (bookmark) untuk ayat dan halaman agar mudah kembali kapan saja.\n۞ Membaca tanda waqf: Menjelaskan tanda-tanda waqf untuk membantu membaca dengan benar.\n۞ Dzikir Hisnul Muslim: Bagian lengkap untuk membaca dzikir dengan fitur favorit dan navigasi cepat antar bagian.\n۞ Kustomisasi tampilan: Mendukung perubahan tema warna, termasuk mode gelap, untuk pengalaman membaca yang nyaman.\n۞ Unduh dan penggunaan offline: Mengunduh surah dan mendengarkannya nanti tanpa koneksi internet.\n\nFitur-fitur ini menjadikan aplikasi \"Al-Qur'an Al-Karim - Perpustakaan Hikmah\" sebagai platform terpadu yang menggabungkan membaca, mendengarkan, tafsir, dan pembelajaran, sehingga menghadirkan pengalaman spiritual dan edukatif yang kaya serta mudah digunakan.",
   "@about_app3": {
     "type": "text",
     "placeholders": {}
@@ -151,6 +151,11 @@
   },
   "waqfName": "Tanda Waqf",
   "@waqfName": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "tajweedRules": "Hukum Tajwid",
+  "@tajweedRules": {
     "type": "text",
     "placeholders": {}
   },
@@ -419,8 +424,8 @@
     "type": "text",
     "placeholders": {}
   },
-  "tafseer": "Tafsir",
-  "@tafseer": {
+  "tafsir": "Tafsir",
+  "@tafsir": {
     "type": "text",
     "placeholders": {}
   },
@@ -594,6 +599,11 @@
     "type": "text",
     "placeholders": {}
   },
+  "shareAudio": "Sebagai Audio",
+  "@shareAudio": {
+    "type": "text",
+    "placeholders": {}
+  },
   "shareImageWTrans": "Sebagai Gambar dengan Konten Tambahan",
   "@shareImageWTrans": {
     "type": "text",
@@ -689,12 +699,57 @@
     "type": "text",
     "placeholders": {}
   },
+  "surah": "Surah",
+  "@surah": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "chooseSurah": "Pilih Surah",
+  "@chooseSurah": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "segments": "Segmen",
+  "@segments": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "addSegment": "Tambah Segmen",
+  "@addSegment": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "repeatCount": "Jumlah Pengulangan",
+  "@repeatCount": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "sleepTimer": "Timer Tidur",
+  "@sleepTimer": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "hour": "Jam",
+  "@hour": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "minutes": "Menit",
+  "@minutes": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "of": "dari",
+  "@of": {
+    "type": "text",
+    "placeholders": {}
+  },
   "quran": "Al-Qur'an",
   "@quran": {
     "type": "text",
     "placeholders": {}
   },
-  "quranAudio": "Mendengarkan Al-Qur'an",
+  "quranAudio": "Mushaf audio",
   "@quranAudio": {
     "type": "text",
     "placeholders": {}
@@ -1149,7 +1204,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "What'sNewDetails10": "۞ Memperbaiki masalah unduhan surah.\n۞ Perbaikan umum pada performa dan stabilitas aplikasi.",
+  "What'sNewDetails10": "۞ Antarmuka baru yang mudah digunakan.\n۞ Menambahkan tajwid.\n۞ Menambahkan aturan tajwid.\n۞ Menambahkan sepuluh qira'at.\n۞ Menambahkan konjugasi dan i'rab untuk kata.\n۞ Menambahkan audio untuk kata.\n۞ Menambahkan ayat-ayat serupa.\n۞ Menambahkan fitur mendengarkan surah dengan menampilkan ayat saat ini.\n۞ Menambahkan perpustakaan Islam (Hadits dan Tafsir).\n۞ Tampilan kalender baru dengan opsi menampilkan kalender tahunan lengkap.",
   "@What'sNewDetails10": {
     "type": "text",
     "placeholders": {}
@@ -1270,11 +1325,83 @@
   "month": "Bulan",
   "hijri": "Hijriah",
   "Sun": "Min",
+  "@Sun": {
+    "type": "text",
+    "placeholders": {}
+  },
   "Mon": "Sen",
+  "@Mon": {
+    "type": "text",
+    "placeholders": {}
+  },
   "Tue": "Sel",
+  "@Tue": {
+    "type": "text",
+    "placeholders": {}
+  },
   "Wed": "Rab",
+  "@Wed": {
+    "type": "text",
+    "placeholders": {}
+  },
   "Thu": "Kam",
+  "@Thu": {
+    "type": "text",
+    "placeholders": {}
+  },
   "Fri": "Jum",
+  "@Fri": {
+    "type": "text",
+    "placeholders": {}
+  },
   "Sat": "Sab",
-  "manager_ayah_downloads": "Kelola Unduhan Ayat"
+  "@Sat": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "manager_ayah_downloads": "Kelola Unduhan Ayat",
+  "load_error": "Gagal memuat data untuk kata ini.",
+  "no_data": "Tidak ada data untuk kata ini.",
+  "recitations": "Qiraat",
+  "tasreef": "Konjugasi",
+  "eerab": "I'rab",
+  "unavailableDataTemplate": "Data @kind belum diunduh di perangkat ini",
+  "@unavailableDataTemplate": {
+    "type": "text",
+    "placeholders": {
+      "kind": {}
+    }
+  },
+  "mushafOrthographicMarks": "Harakat Mushaf",
+  "bookRemovedFromLastRead": "Buku dihapus dari Terakhir Dibaca",
+  "hadiths": "Hadis",
+  "sixthBooks": "Enam Kitab",
+  "ninthBooks": "Sembilan Kitab",
+  "noHadithBooks": "Tidak ada buku hadis yang diunduh di perangkat ini.",
+  "noTafsirBooks": "Tidak ada buku tafsir yang diunduh di perangkat ini.",
+  "noBooks": "Tidak ada buku.",
+  "bookJuz": "Bagian Buku",
+  "downloadBookFirstToSeeTheContents": "Silakan unduh buku terlebih dahulu untuk melihat isinya",
+  "chapter": "Bab",
+  "goToStartOfJuz": "Pergi ke awal bagian",
+  "noBooksReadedYet": "Anda belum membaca buku apa pun.",
+  "noBooksFoundForSearch": "Tidak ditemukan buku.",
+  "islamicLibrary": "Perpustakaan Islam",
+  "tajweed": "Dengan tajwid",
+  "useEnglishNumbers": "Gunakan angka Inggris",
+  "changeTafsir": "Ganti tafsir",
+  "mutashabihat": "Ayat serupa",
+  "no_mutashabihat": "Tidak ada frasa serupa untuk ayat ini",
+  "browse_mutashabihat": "Telusuri ayat serupa",
+  "mutashabihat_in": "Ayat serupa di",
+  "repeated": "Pengulangan",
+  "times": "kali",
+  "surahs": "Surah",
+  "ayah": "Ayat",
+  "tajweedUnavailableText": "Data aturan tajwid belum diunduh.",
+  "tajweedSurahNumberErrorText": "Gagal menentukan nomor surah",
+  "tajweedLoadErrorText": "Gagal memuat data aturan tajwid",
+  "tajweedNoDataText": "Tidak ada data tajwid untuk ayat ini.",
+  "twoDays": "Dua hari",
+  "searchInBook": "Cari di buku"
 }
